@@ -1,5 +1,5 @@
 name "uim"
-description "Event driven web and concurrency framework"
+description "UIM framework for building web applications"
 homepage "https://www.sicherheitsschmiede.de/"
 license "Apache-2.0"
 copyright "Copyright © 2015-2024, Ozan Nurettin Süel"

@@ -1,10 +1,13 @@
 module uim.uim_base;
 
-public import uim.core;
-public import uim.oop;
+public {
+    import std.functional;
+    import std.conv;
+    import std.datetime;
+    import std.exception;
+}
 
-// make some useful D standard library functions available
-public import std.functional;
-public import std.conv;
-public import std.datetime;
-public import std.exception;
+public {
+    import uim.core;
+    import uim.oop;
+}

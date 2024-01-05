@@ -1,0 +1,17 @@
+name "uim"
+description "Event driven web and concurrency framework"
+homepage "https://www.sicherheitsschmiede.de/"
+license "Apache-2.0"
+copyright "Copyright © 2015-2024, Ozan Nurettin Süel"
+authors "Ozan Nurettin Süel"
+
+dependency ":core" version="*"
+dependency ":oop" version="*"
+
+targetName "uim"
+targetType "library"
+
+sourceFiles "source/uim/uim_all.d" "source/uim/uim_base.d"
+
+subPackage "core"
+subPackage "oop"

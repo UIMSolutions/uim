@@ -1,0 +1,59 @@
+/***********************************************************************************
+*	Copyright: ©2015-2023 Ozan Nurettin Süel (sicherheitsschmiede)                   *
+*	License  : Licensed under Apache 2 [https://apache.org/licenses/LICENSE-2.0.txt] *
+*	Author   : Ozan Nurettin Süel (Sicherheitsschmiede)										           * 
+***********************************************************************************/
+module uim.oop.patterns.behavioral.strategies;
+
+import uim.oop;
+@safe:
+
+/// Create an interface.
+interface IStrategy {
+  int doOperation(int num1, int num2);
+}
+
+/// Create concrete classes implementing the same interface.
+class OperationAdd : IStrategy{
+  override int doOperation(int num1, int num2) {
+    return num1 + num2;
+  }
+}
+
+class OperationSubstract : IStrategy{
+  override int doOperation(int num1, int num2) {
+    return num1 - num2;
+  }
+}
+
+class OperationMultiply : IStrategy{
+  override int doOperation(int num1, int num2) {
+    return num1 * num2;
+  }
+}
+
+/// Create Context Class.
+class Context {
+  private IStrategy _strategy;
+
+  this(IStrategy strategy) {
+    _strategy = strategy;
+  }
+
+  int executeStrategy(int num1, int num2) {
+    return _strategy.doOperation(num1, num2);
+  }
+}
+
+/// Use the Context to see change in behaviour when it changes its Strategy.
+version(test_uim_oop) { unittest {
+    Context context = new Context(new OperationAdd());		
+    writeln("10 + 5 = ", context.executeStrategy(10, 5));
+
+    context = new Context(new OperationSubstract());		
+    writeln("10 - 5 = ", context.executeStrategy(10, 5));
+
+    context = new Context(new OperationMultiply());		
+    writeln("10 * 5 = ", context.executeStrategy(10, 5));
+  }
+}

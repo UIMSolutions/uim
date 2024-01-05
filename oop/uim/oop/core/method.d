@@ -1,0 +1,31 @@
+﻿/***********************************************************************************
+*	Copyright: ©2015-2023 Ozan Nurettin Süel (sicherheitsschmiede)                   *
+*	License  : Licensed under Apache 2 [https://apache.org/licenses/LICENSE-2.0.txt] *
+*	Author   : Ozan Nurettin Süel (Sicherheitsschmiede)										           * 
+***********************************************************************************/
+module uim.oop.core.method;
+
+import uim.oop;
+@safe:
+
+template OOPMETHOD(string name, string datatype = "") {
+	const char[] OOPMETHOD = `
+	@OOP_METHOD("`~name~`", "`~datatype~`") string _`~name~`;
+	@property string `~name~`() { return _`~name~`; }`;
+}
+class DMethod : DOOPElement { 
+	mixin(ThisElement!()); 
+
+/* 	@safe 
+  override Json toJson(string[] showFields = null, string[] hifeFields = null) {    
+    auto result = super.toJson(showFields, hideFields);
+		result["name"] = _name;
+		return result;
+	}
+ */}
+mixin(ShortCutElement!("Method", "DMethod")); 
+
+version(test_uim_oop) { unittest {
+		/// TODO
+	}}
+

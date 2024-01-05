@@ -1,0 +1,129 @@
+/**
+Source Wikipedia [EN]:
+In computer programming, the specification pattern is a particular software design pattern, whereby business rules can be recombined by chaining 
+the business rules together using boolean logic. The pattern is frequently used in the context of domain-driven design.
+
+A specification pattern outlines a business rule that is combinable with other business rules. In this pattern, a unit of business logic inherits 
+its functionality from the abstract aggregate Composite Specification class. The Composite Specification class has one function called IsSatisfiedBy 
+that returns a boolean value. After instantiation, the specification is "chained" with other specifications, making new specifications easily maintainable, 
+yet highly customizable business logic. Furthermore, upon instantiation the business logic may, through method invocation or inversion of control, have its state altered in order to become a delegate of other classes such as a persistence repository.
+
+As a consequence of performing runtime composition of high-level business/domain logic, the Specification pattern is a convenient tool for converting 
+ad-hoc user search criteria into low level logic to be processed by repositories.
+
+Since a specification is an encapsulation of logic in a reusable form it is very simple to thoroughly unit test, and when used in this context also 
+an implementation of the humble object pattern.
+**/
+/***********************************************************************************
+*	Copyright: ©2015-2023 Ozan Nurettin Süel (sicherheitsschmiede)                   *
+*	License  : Licensed under Apache 2 [https://apache.org/licenses/LICENSE-2.0.txt] *
+*	Author   : Ozan Nurettin Süel (Sicherheitsschmiede)										           * 
+***********************************************************************************/
+module uim.oop.patterns.architecturals.specifications;
+
+import uim.oop;
+@safe:
+
+interface ISpecification {
+  bool IsSatisfiedBy(Object candidate);
+  ISpecification And(ISpecification other);
+  ISpecification AndNot(ISpecification other);
+  ISpecification Or(ISpecification other);
+  ISpecification OrNot(ISpecification other);
+  ISpecification Not();
+}
+
+abstract class CompositeSpecification : ISpecification {
+  abstract bool IsSatisfiedBy(Object candidate);
+
+  ISpecification And(ISpecification other) {
+    return new AndSpecification(this, other);
+  }
+
+  ISpecification AndNot(ISpecification other) 
+  {
+    return new AndNotSpecification(this, other);
+  }
+
+  ISpecification Or(ISpecification other) 
+  {
+    return new OrSpecification(this, other);
+  }
+
+  ISpecification OrNot(ISpecification other) 
+  {
+    return new OrNotSpecification(this, other);
+  }
+
+  ISpecification Not() {
+    return new NotSpecification(this);
+  }
+}
+
+class AndSpecification : CompositeSpecification {
+  private ISpecification leftCondition;
+  private ISpecification rightCondition;
+
+  this(ISpecification left, ISpecification right) {
+    leftCondition = left;
+    rightCondition = right;
+  }
+
+  override bool IsSatisfiedBy(Object candidate) {
+    return leftCondition.IsSatisfiedBy(candidate) && rightCondition.IsSatisfiedBy(candidate);
+  }
+}
+
+class AndNotSpecification : CompositeSpecification {
+  private ISpecification leftCondition;
+  private ISpecification rightCondition;
+
+  this(ISpecification left, ISpecification right) {
+    leftCondition = left;
+    rightCondition = right;
+  }
+
+  override bool IsSatisfiedBy(Object candidate) {
+    return leftCondition.IsSatisfiedBy(candidate) && rightCondition.IsSatisfiedBy(candidate) != true;
+  }
+}
+
+class OrSpecification : CompositeSpecification {
+  private ISpecification leftCondition;
+  private ISpecification rightCondition;
+
+  this(ISpecification left, ISpecification right) {
+    leftCondition = left;
+    rightCondition = right;
+  }
+
+  override bool IsSatisfiedBy(Object candidate) {
+    return leftCondition.IsSatisfiedBy(candidate) || rightCondition.IsSatisfiedBy(candidate);
+  }
+}
+
+class OrNotSpecification : CompositeSpecification {
+  private ISpecification leftCondition;
+  private ISpecification rightCondition;
+
+  this(ISpecification left, ISpecification right) {
+    leftCondition = left;
+    rightCondition = right;
+  }
+
+  override bool IsSatisfiedBy(Object candidate) {
+    return leftCondition.IsSatisfiedBy(candidate) || rightCondition.IsSatisfiedBy(candidate) != true;
+  }
+}
+
+class NotSpecification : CompositeSpecification {
+  private ISpecification Wrapped;
+
+  this(ISpecification x) {
+    Wrapped = x;
+  }
+
+  override bool IsSatisfiedBy(Object candidate) {
+    return !Wrapped.IsSatisfiedBy(candidate);
+  }
+}

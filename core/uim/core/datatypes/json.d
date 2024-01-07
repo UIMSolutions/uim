@@ -743,3 +743,26 @@ unittest {
   assert(maxVersionNumber(json3, json3, json2) == 3);
   assert(maxVersionNumber([json3, json3, json2]) == 3);
 }
+
+Json toArray(Json data) {
+  Json result = Json.emptyArray;
+  result ~= data;
+  return result;
+}
+
+unittest {
+  auto json1 = parseJsonString(`{"versionNumber":1}`);
+  // TODO create test
+}
+
+Json update(Json origin, Json additional) {
+  if (origin.type != additional.type) { return origin; } // no update
+
+  if (!origin.isObject) { return additional; }  
+
+  Json updated = origin;
+  additional.byKeyValue
+    .each!(kv => updated[kv.key] = kv.value);
+
+  return updated;
+}

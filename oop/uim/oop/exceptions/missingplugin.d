@@ -9,7 +9,7 @@ import uim.oop;
 @safe:
 
 // Exception raised when a plugin could not be found
-class DMissingPluginException : DException {
+class DMissingPluginException : UimException {
 	mixin(ExceptionThis!("MissingPluginException"));
 
 	override void initialize(Json configSettings = Json(null)) {

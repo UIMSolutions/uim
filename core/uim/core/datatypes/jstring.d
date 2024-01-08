@@ -24,3 +24,11 @@ Json[string] update(Json[string] origin, Json[string] additional) {
 
   return updated;
 }
+
+Json[string] copy(Json[string] origin) {
+  Json[string] result;
+  origin.byKeyValue
+    .each!(kv => result[kv.key] = kv.value);
+
+  return result;
+}

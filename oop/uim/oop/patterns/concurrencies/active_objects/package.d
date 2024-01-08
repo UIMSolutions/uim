@@ -52,7 +52,7 @@ class MyActiveObject {
                         while (true) {
                             dispatchQueue.take().run();
                         }
-                    } catch (InterruptedException e) {   
+                    } catch (InterrupteUimException e) {   
                         // okay, just terminate the dispatcher
                     }
                 }
@@ -60,7 +60,7 @@ class MyActiveObject {
         ).start();
     }
 
-    void doSomething() throws InterruptedException {
+    void doSomething() throws InterrupteUimException {
         dispatchQueue.put(new Runnable() {
                 @Override
                 public void run() { 
@@ -70,7 +70,7 @@ class MyActiveObject {
         );
     }
 
-    void doSomethingElse() throws InterruptedException {
+    void doSomethingElse() throws InterrupteUimException {
         dispatchQueue.put(new Runnable() {
                 @Override
                 public void run() { 
@@ -93,12 +93,12 @@ public class MyClass {
     private final ForkJoinPool fj = new ForkJoinPool(1, ForkJoinPool.defaultForkJoinWorkerThreadFactory, null, true);
     
     // implementation of active object method
-    public void doSomething() throws InterruptedException {
+    public void doSomething() throws InterrupteUimException {
         fj.execute(() -> { val = 1.0; });
     }
  
     // implementation of active object method
-    public void doSomethingElse() throws InterruptedException {
+    public void doSomethingElse() throws InterrupteUimException {
         fj.execute(() -> { val = 2.0; });
     }
 }

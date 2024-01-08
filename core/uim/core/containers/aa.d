@@ -400,7 +400,7 @@ V[K] setValues(K, V)(V[K] target, V[K] someValues) {
   return result;
 }
 
-V[K] update(V[K] origin, V[K] additional) {
+V[K] update(K, V)(V[K] origin, V[K] additional) {
   V[K] updated = origin.dup;
   additional.byKeyValue
     .each!(kv => updated[kv.key] = kv.value);

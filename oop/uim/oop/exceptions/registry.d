@@ -3,17 +3,17 @@ module uim.oop.exceptions.registry;
 import uim.oop;
 
 @safe:
-class DExceptionRegistry : DRegistry!DException{
+class UimExceptionRegistry : DRegistry!UimException{
   this() {}
 
-  static DExceptionRegistry registry; 
+  static UimExceptionRegistry registry; 
 }
 auto ExceptionRegistry() { // Singleton
-  if (!DExceptionRegistry.registry) {
-    DExceptionRegistry.registry = new DExceptionRegistry; 
+  if (!UimExceptionRegistry.registry) {
+    UimExceptionRegistry.registry = new UimExceptionRegistry; 
   }
   return 
-    DExceptionRegistry.registry;
+    UimExceptionRegistry.registry;
 }
 
 version(test_uim_mvc) { unittest {

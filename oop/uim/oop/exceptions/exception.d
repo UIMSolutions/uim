@@ -8,7 +8,7 @@ module uim.oop.exceptions.exception;
 import uim.oop;
 
 @safe:
-class DException : IException {
+class UimException : IException {
   this() { }
   this(string aMessage) { this().message(aMessage); }
   this(string[] someAttributes) { this().attributes(someAttributes); }
@@ -65,7 +65,7 @@ class DException : IException {
  *
  * @method int getCode() Gets the Exception code.
  */
-//class DException : IException /* : RuntimeException */ {
+//class UimException : IException /* : RuntimeException */ {
     /**
      * Array of attributes that are passed in from the constructor, and
      * made available in the view when a development error is displayed.

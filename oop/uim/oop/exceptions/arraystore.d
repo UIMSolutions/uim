@@ -9,7 +9,7 @@ import uim.oop;
 @safe:
 
 // Thrown to indicate that an attempt has been made to store the wrong type of object into an array of objects.
-class DArrayStoreException : DException {  
+class DArrayStoreException : UimException {  
 	mixin(ExceptionThis!("ArrayStoreException"));
 }
 mixin(ExceptionCalls!("ArrayStoreException"));

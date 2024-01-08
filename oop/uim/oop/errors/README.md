@@ -12,7 +12,7 @@ Error configuration is done in the application.  By default, an ErrorHandler is 
 
   log - bool - If true, exceptions and their stack traces are logged to Cake\Log\Log.
 
-  skipLog - Array - An array of exception class names that should not be logged.  This is useful for removing NotFoundExceptions or other common but uninteresting log messages.
+  skipLog - Array - An array of exception class names that should not be logged.  This is useful for removing NotFounUimExceptions or other common but uninteresting log messages.
 
   extraFatalErrorMemory – int – Set the number of megabytes to increase the memory limit when a fatal error occurs.  This gives scope for full logging or error handling.
 

@@ -24,9 +24,9 @@ class DAggregation : DOOPElement {
 		_isDefault = newDefaultAgg; 
 	}
 
-	mixin(PropertyDefinition!("string", "_datatype", "datatype"));
-	mixin(PropertyDefinition!("bool", "_isMultiple", "isMultiple"));
-	mixin(PropertyDefinition!("bool", "_isDefault", "isDefault"));
+	mixin(TProperty!("string", "datatype"));
+	mixin(TProperty!("bool", "isMultiple"));
+	mixin(TProperty!("bool", "isDefault"));
 }
 mixin(ShortCutElement!("Aggregation", "DAggregation")); 
 

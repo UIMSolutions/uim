@@ -16,9 +16,9 @@ template OOPASSOCIATION(string name, string datatype, bool isMultiple = false) {
 
 class DAssociation : DOOPElement {
 	mixin(ThisElement!()); 
-	mixin(PropertyDefinition!("string", "_datatype", "datatype"));
-	mixin(PropertyDefinition!("bool", "_isMultiple", "isMultiple"));
-	mixin(PropertyDefinition!("bool", "_isDefault", "isDefault"));
+	mixin(TProperty!("string", "datatype"));
+	mixin(TProperty!("bool", "isMultiple"));
+	mixin(TProperty!("bool", "isDefault"));
 
 	this(string aName, string aDataType, bool isMultiple = false, bool isDefault = false) { 
 		super(aName); 

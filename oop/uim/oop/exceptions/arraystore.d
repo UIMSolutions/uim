@@ -6,6 +6,7 @@
 module uim.oop.exceptions.arraystore;
 
 import uim.oop;
+
 @safe:
 
 // Thrown to indicate that an attempt has been made to store the wrong type of object into an array of objects.

@@ -20,8 +20,9 @@ class DInteger : DDatatype {
 
   O add(this O)(int opValue) { _value += opValue; return cast(O)this; }
   version(test_uim_oop) { unittest {
-      assert(Integer(2).add(2) == 4);
-      assert(Integer(2).add(2).add(2) == 6);
+    auto value = new DInteger;
+    assert(value.add(2) == 2);
+    assert(value.add(2).add(2) == 4);
   }}
 
   O add(this O)(DInteger opValue) { _value += opValue.value; return cast(O)this; }

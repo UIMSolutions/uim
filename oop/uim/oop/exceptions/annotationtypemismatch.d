@@ -13,3 +13,7 @@ class DAnnotationTypeMismatchException : UimException {
 	mixin(ExceptionThis!("AnnotationTypeMismatchException"));
 }
 mixin(ExceptionCalls!("AnnotationTypeMismatchException"));
+
+unittest {
+	auto exception = AnnotationTypeMismatchException;
+}

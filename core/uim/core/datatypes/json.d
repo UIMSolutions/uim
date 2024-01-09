@@ -801,11 +801,13 @@ Json update(Json origin, STRINGAA additional) {
 }
 
 unittest {
+  Json json = Json.emptyObject;
+  json["a"] = "hallo";
   assert(json["a"].get!string == "hallo");
   json = json.update(["a": "world"]);
   assert(json["a"].get!string == "world");
 
-  Json json = Json.emptyArray;
+  json = Json.emptyArray;
   json ~= Json("hallo");
   json ~= Json(42);
   json ~= Json(true);

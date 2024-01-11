@@ -1,5 +1,5 @@
 ﻿/***********************************************************************************
-*	Copyright: ©2015-2023 Ozan Nurettin Süel (sicherheitsschmiede)                   *
+*	Copyright: ©2015-2024 Ozan Nurettin Süel (sicherheitsschmiede)                   *
 *	License  : Licensed under Apache 2 [https://apache.org/licenses/LICENSE-2.0.txt] *
 *	Author   : Ozan Nurettin Süel (Sicherheitsschmiede)										           * 
 ***********************************************************************************/
@@ -13,6 +13,7 @@ template OOPMETHOD(string name, string datatype = "") {
 	@OOP_METHOD("`~name~`", "`~datatype~`") string _`~name~`;
 	@property string `~name~`() { return _`~name~`; }`;
 }
+
 class DMethod : DOOPElement { 
 	mixin(ThisElement!()); 
 
@@ -22,7 +23,11 @@ class DMethod : DOOPElement {
 		result["name"] = _name;
 		return result;
 	}
- */}
+ */
+
+override string toString() {
+return super. toString;
+}}
 mixin(ShortCutElement!("Method", "DMethod")); 
 
 version(test_uim_oop) { unittest {

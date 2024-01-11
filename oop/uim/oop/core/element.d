@@ -10,7 +10,8 @@ import uim.oop;
 
 class DOOPElement {
 	this() {}
-	this(string newName) { this.name = newName; }
+	this(string newName) { this();
+this.name = newName; }
 
 	string namespace() { return "uim.oop"; }
 	string classname() { return "Element"; }
@@ -23,16 +24,16 @@ class DOOPElement {
 		Bson result = Bson.emptyObject;
 
 		return result;
-	}
+	}*/
 	Json toJson() {
 		auto result = Json.emptyObject;
-//		result["namespace"] = namespace;
-//		result["classname"] = namespace;
-//		result["namespace"] = namespace;
-//		result["namespace"] = namespace;
+result["namespace"] = namespace;	
+result["classname"] = classname;
+		result["fullname"] = fullname;
+		result["namespace"] = fullpath;
 		return result;
 	}
- */
+ 
 	override string toString() {
 		return `{"name":"%s"}`.format(_name);
 	}
@@ -40,12 +41,13 @@ class DOOPElement {
 auto OOPElement() { return new DOOPElement; }
 auto OOPElement(string aName) { return new DOOPElement(aName); }
 
-version(test_uim_oop) { unittest {
-		assert(OOPElement.namespace == "uim.oop");
-		assert(OOPElement.classname == "Element");
-		assert(OOPElement.fullname == "uim.oop.Element");
-		assert(OOPElement.fullpath == "uim/oop/Element");
+unittest {
+auto element = new DOOPElement;
+		assert(element.namespace == "uim.oop");
+		assert(element.classname == "Element");
+		assert(element.fullname == "uim.oop.Element");
+		assert(element.fullpath == "uim/oop/Element");
 
 		assert(OOPElement("test").name == "test");
 		assert(OOPElement("test").name("test2").name == "test2");
-}}
+}

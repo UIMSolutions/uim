@@ -347,4 +347,5 @@ string lastElement(string text, string separator = "/") {
 unittest {
 	assert("a/b/c".lastElement == "c");
 	assert("a.b.c".lastElement(".") == "c");
+
 }

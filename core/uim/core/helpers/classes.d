@@ -11,7 +11,7 @@ string baseName(ClassInfo classinfo) {
         return qualName;
     }
 
-    return qualName[($ - 4) .. $];
+    return qualName[($ - dotIndex) .. $];
 }
 
 string getClassname(Object instance) {
@@ -23,9 +23,23 @@ string getClassname(Object instance) {
 }
 
 unittest {
-    class Test {}
+    class Test {
+        string className;
+        this() {
+            className = this.getClassname;
+        }
+
+        string cName() { return this.getClassname; }
+    }
     auto test = new Test;
 
     assert(test.getClassname == "Test");
     assert(test.stringof == "test");
+
+    class Test1 : Test {}
+    class Test2 : Test1 {}
+
+    assert((new Test1).getClassname == "Test1");
+    assert((new Test2).getClassname == "Test2");
+    writeln((new Test2).classinfo);
 }

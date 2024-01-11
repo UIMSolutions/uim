@@ -5,11 +5,10 @@
 ***********************************************************************************/
 module uim.oop.containers.maps.string;
 
-@safe:
-import std.conv;
 import uim.oop;
 
-class DMapString : MapTempl!(string, string) {
+@safe:
+class MapString : MapTempl!(string, string) {
 	this() { super(); }
 	this(STRINGAA values) { this(); _items = values; }
 
@@ -67,8 +66,8 @@ class DMapString : MapTempl!(string, string) {
 			.join(";");
 	}
 }
-auto MapString() { return new DMapString(); }
-auto MapString(STRINGAA values) { return new DMapString(values); }
+auto MapString() { return new MapString(); }
+auto MapString(STRINGAA values) { return new MapString(values); }
 
 version(test_uim_oop) { unittest {
 	assert(MapString.items == null); 

@@ -3,10 +3,10 @@
 *	License  : Licensed under Apache 2 [https://apache.org/licenses/LICENSE-2.0.txt] *
 *	Author   : Ozan Nurettin Süel (Sicherheitsschmiede)										           * 
 ***********************************************************************************/
-module uim.oop.containers.maps.concurrentskiplist;
+module uim.oop.containers.maps.weak;
 
 import uim.oop;
 @safe:
 
-class ConcurrentSkipListMap : Map {
+class WeakHashMap : Map {
 }

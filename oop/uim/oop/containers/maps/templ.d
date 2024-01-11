@@ -8,7 +8,7 @@ module uim.oop.containers.maps.templ;
 import uim.oop;
 
 @safe:
-class MapTempl(K, V): DMap {
+class MapTempl(K, V): Map {
 	V[K] _items;
 
 	this() { super(); }

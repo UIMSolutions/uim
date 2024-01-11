@@ -8,7 +8,7 @@ module uim.oop.containers.maps.map;
 import uim.oop;
 @safe:
 
-class DMap : Obj, IMap {
+class Map : Obj, IMap {
 	this() {}
 
 	bool isEmpty() { return true; }

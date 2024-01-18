@@ -8,7 +8,7 @@ module uim.oop.containers.maps.string;
 import uim.oop;
 
 @safe:
-class MapString : MapTempl!(string, string) {
+class DMapString : MapTempl!(string, string) {
 	this() { super(); }
 	this(STRINGAA values) { this(); _items = values; }
 
@@ -32,8 +32,8 @@ class MapString : MapTempl!(string, string) {
 		add(values);
 		return cast(O)this;
 	}
-	@safe override void opIndexAssign(V, K)(V value, K key) { _items[key] = to!V(value); }
-	@safe override void opIndexAssign(string value, string key) { _items[key] = value; }
+	void opIndexAssign(V, K)(V value, K key) { _items[key] = to!V(value); } // INFO: a function template is not virtual so cannot be marked `override`
+	override void opIndexAssign(string value, string key) { _items[key] = value; }
 
 	override string toHTML() {
 		if (isEmpty) { return ""; }
@@ -66,8 +66,8 @@ class MapString : MapTempl!(string, string) {
 			.join(";");
 	}
 }
-auto MapString() { return new MapString(); }
-auto MapString(STRINGAA values) { return new MapString(values); }
+auto MapString() { return new DMapString(); }
+auto MapString(STRINGAA values) { return new DMapString(values); }
 
 version(test_uim_oop) { unittest {
 	assert(MapString.items == null); 

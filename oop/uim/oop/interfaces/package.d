@@ -16,6 +16,7 @@ public {
 	import uim.oop.interfaces.error;
 	import uim.oop.interfaces.exception;
 	import uim.oop.interfaces.iterable;
+	import uim.oop.interfaces.map;
 	import uim.oop.interfaces.runnable;
 	import uim.oop.interfaces.stringable;
 }

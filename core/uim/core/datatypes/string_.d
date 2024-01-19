@@ -53,11 +53,11 @@ bool endsWith(string str, string txt) {
 	return (lastIndexOf(str, txt) == str.length - 1);
 }
 
-	unittest {
-		assert("ABC".endsWith("C"));
-		assert(!"".endsWith("C"));
-		assert(!"ABC".endsWith(""));
-	}
+unittest {
+	assert("ABC".endsWith("C"));
+	assert(!"".endsWith("C"));
+	assert(!"ABC".endsWith(""));
+}
 
 // #region has
 
@@ -316,15 +316,17 @@ unittest {
 }
 
 string firstElement(string text, string separator = "/") {
-	if (text.isEmpty) { return text; }
+	if (text.isEmpty) {
+		return text;
+	}
 
 	auto firstIndex = text.countUntil(separator);
 
-    if (firstIndex < 0) {
-        return text;
-    }
+	if (firstIndex < 0) {
+		return text;
+	}
 
-    return text[0..firstIndex];
+	return text[0 .. firstIndex];
 }
 
 unittest {
@@ -333,15 +335,17 @@ unittest {
 }
 
 string lastElement(string text, string separator = "/") {
-	if (text.isEmpty) { return text; }
+	if (text.isEmpty) {
+		return text;
+	}
 
 	auto lastIndex = text.retro.countUntil(separator);
 
-    if (lastIndex < 0) {
-        return text;
-    }
+	if (lastIndex < 0) {
+		return text;
+	}
 
-    return text[($ - lastIndex) .. $];
+	return text[($ - lastIndex) .. $];
 }
 
 unittest {

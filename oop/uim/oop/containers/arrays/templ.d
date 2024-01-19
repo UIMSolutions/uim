@@ -88,11 +88,12 @@ class DArrayTempl(T) : DArrayObj {
 	O uniquing(this O)() {
 		T[T] buffer;
 		T[] result;
-		foreach(item; items) { 
-			if (item in buffer) continue;
-			result ~= item;
-			buffer[item] = item;
-		}
+		items
+			.filter!(item => !buffer.has(item)) // not existing
+			.each!((item) {
+				result ~= item;
+				buffer[item] = item;
+			});
 		_items = result;
 		return cast(O)this;
 	}

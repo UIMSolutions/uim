@@ -139,8 +139,8 @@ version (test_uim_core) {
   unittest {
     assert(["a": "1", "b": "2"].filterByValues("1") == ["a": "1"]);
     assert(["a": "1", "b": "2"].filterByValues("0").empty);
-    assert(["a": "1", "b": "2", "c":"3"].filterByValues("1", "2") == ["a": "1"]);
-    assert(["a": "1", "b": "2", "c":"3"].filterByValues("0").empty);
+    assert(["a": "1", "b": "2", "c": "3"].filterByValues("1", "2") == ["a": "1"]);
+    assert(["a": "1", "b": "2", "c": "3"].filterByValues("0").empty);
   }
 }
 // #endregion filter

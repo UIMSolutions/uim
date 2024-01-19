@@ -7,6 +7,7 @@ module uim.oop.keypairs.keypair;
 
 import uim.oop;
 
+@safe:
 class DOPKeypair {
 	this() {
 	}

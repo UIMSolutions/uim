@@ -1,5 +1,5 @@
 ﻿/***********************************************************************************************
-*	Copyright: © 2017- 2024 Ozan Nurettin Süel (sicherheitsschmiede)
+*	Copyright: © 2015 - 2024 Ozan Nurettin Süel (sicherheitsschmiede)
 *	License: Subject to the terms of the MIT license, as written in the included LICENSE.txt file.
 *	Authors: Before 2022 Ozan Nurettin Süel (sicherheitsschmiede) Team / Since 2022 - Ozan Nurettin Süel (sicherheitsschmiede) 
 *	Documentation [DE]: https://www.sicherheitsschmiede.de/docus/uim-core/containers/aa

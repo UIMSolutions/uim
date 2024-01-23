@@ -11,6 +11,8 @@ import uim.filesystems;
 interface IFile : IFilesystemEntry {
 	// #region Properties
 		// Sets or returns the attributes of a specified file.
+		bool isFile();
+
 		size_t attributes();
 		void attributes(size_t newAttributes);
 

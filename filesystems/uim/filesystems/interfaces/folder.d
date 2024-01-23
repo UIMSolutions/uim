@@ -30,6 +30,7 @@ interface IFolder : IFilesystemEntry, IFolderManager, IFileManager, ILinkManager
 
   // Returns True if a folder is the root folder and False if not.
   bool isRootFolder();
+  bool isFolder();
 
   // Returns the type of a specified folder. */
   string type(); 

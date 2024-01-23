@@ -144,18 +144,18 @@ class DMemoryFilesystem : DFilesystem {
   }
 
   // #region Folders
-    IFolder[] folders() {
+    override IFolder[] folders() {
       return _entries.byKeyValue
-        .filter!(kv => isFolder(kv.value))
+        .filter!(kv => kv.value.isFolder)
         .map!(kv => cast(IFolder)kv.value)
         .array;
     }
   // #endregion Folders
 
   // #region Files
-    IFile[] files() {
+    override IFile[] files() {
       return _entries.byKeyValue
-        .filter!(kv => isFile(kv.value))
+        .filter!(kv => kv.value.isFile)
         .map!(kv => cast(IFile)kv.value)
         .array;
     }
@@ -164,7 +164,7 @@ class DMemoryFilesystem : DFilesystem {
   // #region Links
     ILink[] links() {
       return _entries.byKeyValue
-        .filter!(kv => isLink(kv.value))
+        .filter!(kv => kv.value.isLink)
         .map!(kv => cast(ILink)kv.value)
         .array;
     }

@@ -9,6 +9,7 @@ import uim.filesystems;
 @safe:
 
 interface ILink : IFilesystemEntry{
+  bool isLink();
   bool isFileLink();
   bool isFolderLink();
 }

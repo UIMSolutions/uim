@@ -6,50 +6,90 @@
 module uim.oop.containers.arrays.templ;
 
 import uim.oop;
+
 @safe:
 import std.algorithm;
 
 class DArrayTempl(T) : DArrayObj {
-	this() { super(); } 
-	this(bool sortedMode, bool uniqueMode) { super(sortedMode, uniqueMode); }
-	this(T[] values) { super(); this.items = values; }
-	this(T[] values...) { super(); this.items = values; }
-	this(bool sortedMode, bool uniqueMode, T[] values) { this(sortedMode, uniqueMode); this.items = values; }
+	this() {
+		super();
+	}
+
+	this(bool sortedMode, bool uniqueMode) {
+		super(sortedMode, uniqueMode);
+	}
+
+	this(T[] values) {
+		super();
+		this.items = values;
+	}
+
+	this(T[] values...) {
+		super();
+		this.items = values;
+	}
+
+	this(bool sortedMode, bool uniqueMode, T[] values) {
+		this(sortedMode, uniqueMode);
+		this.items = values;
+	}
 
 	T[] _items;
-	@property T[] items() { return _items; }
-	@property O items(this O)(T[] newItems) { 
-		_items = newItems.dup; 		
-		if (sorted) this.sorting;
-		if (uniqued) this.uniquing;
-		return cast(O)this;
-	}
-	O opCall(this O)(T[] newItems) { 
-		newItems.each!(item => add(item)); 		
-		return cast(O)this;
-	}
-	O opCall(this O)(T[] newItems...) { 
-		newItems.each!(item => add(item)); 		
-		return cast(O)this;
+	@property T[] items() {
+		return _items;
 	}
 
-	override size_t length() { return _items.length; }
-
-	bool has(T value) { 
-		foreach(item; this.items) if (item == value) { return true; }
-		return false; 
+	@property O items(this O)(T[] newItems) {
+		_items = newItems.dup;
+		if (sorted)
+			this.sorting;
+		if (uniqued)
+			this.uniquing;
+		return cast(O) this;
 	}
+
+	O opCall(this O)(T[] newItems) {
+		newItems.each!(item => add(item));
+		return cast(O) this;
+	}
+
+	O opCall(this O)(T[] newItems...) {
+		newItems.each!(item => add(item));
+		return cast(O) this;
+	}
+
+	override size_t length() {
+		return _items.length;
+	}
+
+	bool has(T value) {
+		return this.items.any!(item => item == value);
+	}
+
+	unittest {
+		auto arrayObj = new DArrayTempl(string)();
+		arrayObj.items(["a", "b", "c"]);
+
+		assert(arrayObj.has("a"));
+		assert(!arrayObj.has("x"));
+	}
+
 	bool hasAll(T[] values) {
-		if (values) { 
-			foreach(value; values) if (!this.has(value)) { 
-      return false; 
-    }
-			return true; 
+		if (values) {
+			foreach (value; values)
+				if (!this.has(value)) {
+					return false;
+				}
+			return true;
 		}
 		return true;
 	}
+
 	bool hasAny(T[] values) {
-		foreach(value; values) if (this.has(value)) { return true; }
+		foreach (value; values)
+			if (this.has(value)) {
+				return true;
+			}
 		return false;
 	}
 
@@ -64,80 +104,88 @@ class DArrayTempl(T) : DArrayObj {
 			_items[left] = _items[right];
 			_items[right] = item;
 		}
-		return cast(O)this;
+		return cast(O) this;
 	}
+
 	O sorting(this O)(bool asc = true) { // a < b
 		if (asc) {
-			for(size_t i = 0; i < _items.length; i++) {
-				for(size_t j = 0; j < _items.length-i; j++) {
-					if (i == j) continue;
-					if (_items[i] < _items[j]) change(i, j);
+			for (size_t i = 0; i < _items.length; i++) {
+				for (size_t j = 0; j < _items.length - i; j++) {
+					if (i == j)
+						continue;
+					if (_items[i] < _items[j])
+						change(i, j);
+				}
+			}
+		} else {
+			for (size_t i = 0; i < _items.length; i++) {
+				for (size_t j = 0; j < _items.length - i; j++) {
+					if (i == j)
+						continue;
+					if (_items[i] > _items[j])
+						swap(_items[i], _items[j]);
 				}
 			}
 		}
-		else {
-			for(size_t i = 0; i < _items.length; i++) {
-				for(size_t j = 0; j < _items.length-i; j++) {
-					if (i == j) continue;
-					if (_items[i] > _items[j]) change(i, j);
-				}
-			}
-		}
-		return cast(O)this;
+		return cast(O) this;
 	}
+
 	O uniquing(this O)() {
 		T[T] buffer;
 		T[] result;
 		items
-			.filter!(item => !buffer.has(item)) // not existing
-			.each!((item) {
-				result ~= item;
-				buffer[item] = item;
-			});
+			.filter!(item => !buffer.hasKey(item)) // not existing
+			.each!((item) { result ~= item; buffer[item] = item; });
 		_items = result;
-		return cast(O)this;
+		return cast(O) this;
 	}
 
 	O add(this O)(T[] values...) {
-		foreach(value; values) {
-			if (uniqued && has(value)) continue;
-			
+		foreach (value; values) {
+			if (uniqued && has(value))
+				continue;
+
 			_items ~= value;
-			if (sorted) this.sorting;
-			return cast(O)this;
+			if (sorted)
+				this.sorting;
+			return cast(O) this;
 		}
-		return cast(O)this;
+		return cast(O) this;
 	}
 
 	O remove(this O)(T[] values...) {
 		values.each!(value => removeValue(value));
-		
-		return cast(O)this;
+
+		return cast(O) this;
 	}
 
 	O removeValue(this O)(T value) {
 		_items = _items
-				.filter!(item => value != item)
-				.array;
-	
-			_items = result;
+			.filter!(item => value != item)
+			.array;
 
-		return cast(O)this;
+		_items = result;
+
+		return cast(O) this;
 	}
 
 	O clear(this O)() {
 		_items = null;
-		return cast(O)this;
+		return cast(O) this;
 	}
 
-	O toggle(this O)(T value)	 {
-		if (has(value)) this.remove(value); else this.add(value); 
-		return cast(O)this;
+	O toggle(this O)(T value) {
+		if (has(value))
+			this.remove(value);
+		else
+			this.add(value);
+		return cast(O) this;
 	}
+
 	O toggle(this O)(T[] values) {
 		values.unique.each!(value => this.toggle(value));
-		
-		return cast(O)this;
+
+		return cast(O) this;
 	}
 
 	O dup(this O)() {
@@ -152,8 +200,9 @@ class DArrayTempl(T) : DArrayObj {
 		return "%s".format(_items);
 	}
 }
-version(test_uim_oop) { unittest {
-	/// TODO
-}}
 
-
+version (test_uim_oop) {
+	unittest {
+		/// TODO
+	}
+}

@@ -248,6 +248,14 @@ bool exist(T)(in T[] values, in T[] checkValues...) {
   return hasAllValues(values, checkValues);
 }
 
+bool has(T)(in T[] source, in T[] values...) {
+  return hasAllValues(source, values.dup);
+}
+
+bool has(T)(in T[] source, in T[] values) {
+  return hasAllValues(source, values);
+}
+
 // #region hasValues & hasValue
 bool hasAllValues(T)(in T[] source, in T[] values...) {
   return hasAllValues(source, values.dup);

@@ -38,16 +38,16 @@ class DRegistry(T) {
   /// Get entry by index
   T opIndex(string path) {
     return _entries.get(path, _nullValue); }
-    version(test_uim_oop) { unittest {
+    unittest {
       // TODO 
-      }}
+      }
   
   /// Det entry by index
   void opIndexAssign(T newEntry, string path) {
     register(path, newEntry); }
-    version(test_uim_oop) { unittest {
+    unittest {
       // TODO 
-      }}
+      }
   
   /// Add new entry
   O register(this O)(T[] newEntries...) {

@@ -134,28 +134,29 @@ class DArrayTempl(T) : DArrayObj {
 		T[T] buffer;
 		T[] result;
 		items
-			.filter!(item => !buffer.hasKey(item)) // not existing
+			.filter!(item => !buffer.hasKey(item)) // filter only not existing items
 			.each!((item) { result ~= item; buffer[item] = item; });
 		_items = result;
 		return cast(O) this;
 	}
 
 	O add(this O)(T[] values...) {
-		foreach (value; values) {
-			if (uniqued && has(value))
-				continue;
+		values.each!(value => addValue(value));
+		return cast(O) this;
+	}
 
-			_items ~= value;
-			if (sorted)
-				this.sorting;
-			return cast(O) this;
-		}
+	O addValue(this O)(T value) {
+		if (uniqued && has(value))
+			continue;
+
+		_items ~= value;
+		if (sorted)
+			this.sorting;
 		return cast(O) this;
 	}
 
 	O remove(this O)(T[] values...) {
 		values.each!(value => removeValue(value));
-
 		return cast(O) this;
 	}
 

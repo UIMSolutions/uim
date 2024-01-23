@@ -7,6 +7,7 @@ authors "Ozan Nurettin Süel"
 
 dependency ":core" version="*"
 dependency ":oop" version="*"
+dependency ":filesystems" version="*"
 dependency ":css" version="*"
 
 targetName "uim"
@@ -16,4 +17,5 @@ sourceFiles "source/uim/uim_all.d" "source/uim/uim_base.d"
 
 subPackage "core"
 subPackage "oop"
+subPackage "filesystems"
 subPackage "css"

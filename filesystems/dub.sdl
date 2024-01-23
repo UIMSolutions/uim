@@ -1,4 +1,4 @@
-name "oop"
+name "filesystems"
 description "OOP library"
 dependency "arsd-official" version="~>11.2.3"
 dependency "colored" version="~>0.0.31"
@@ -7,9 +7,10 @@ dependency "mir-algorithm" version="~>3.21.0"
 dependency "vibe-d" version="~>0.9.7"
 
 dependency "uim:core" path="../"
+dependency "uim:oop" path="../"
 targetType "library"
 
 sourcePaths "."
 importPaths "."
 
-targetName "uim-oop"
+targetName "uim-filesystems"

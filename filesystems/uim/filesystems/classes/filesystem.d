@@ -1,3 +1,4 @@
+
 /***********************************************************************************
 *	Copyright: ©2015 - 2024 Ozan Nurettin Süel (sicherheitsschmiede)                   *
 *	License  : Licensed under Apache 2 [https://apache.org/licenses/LICENSE-2.0.txt] *
@@ -20,6 +21,9 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
 
   bool initialize(IConfigData[string] configData = null) { // Hook
     pathSeparator("/");
+
+
+	  return true;
   }
 
   // #region Properties

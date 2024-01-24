@@ -21,6 +21,7 @@ class DMemoryFilesystem : DFilesystem {
     super.initialize(configData);
 
 		pathSeparator("/");
+	  return true;
   }
 
   protected IFilesystemEntry[string] _entries;

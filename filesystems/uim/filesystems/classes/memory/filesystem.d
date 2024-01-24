@@ -17,7 +17,7 @@ unittest {
 class DMemoryFilesystem : DFilesystem {
   mixin(FilesystemThis!("MemoryFilesystem"));
 
-  override void initialize(Json configSettings = Json(null)) {
+  override bool initialize(IConfigData[string] configData = null) {
     super.initialize(configSettings);
 
 		pathSeparator("/");

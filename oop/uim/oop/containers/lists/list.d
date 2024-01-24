@@ -22,7 +22,7 @@ class DList(T) : DContainer!T, IList  {
     this().addAll(newItems.dup);
   }
 
-  override void initialize(Json configSettings = Json(null)) {
+  override bool initialize(IConfigData[string] configData = null) {
     super.initialize(configSettings);
   }
 

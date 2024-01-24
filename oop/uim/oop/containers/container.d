@@ -13,7 +13,7 @@ abstract class DContainer(T) {
     initialize;
   }
 
-  void initialize(Json configSettings = Json(null)) {}
+  bool initialize(IConfigData[string] configData = null) {}
 
   // Ensures that this container contains the specified element.
   abstract bool add(T addItem); 

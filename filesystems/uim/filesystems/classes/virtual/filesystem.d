@@ -17,7 +17,7 @@ unittest {
 class DVirtualFilesystem : DFilesystem {
   mixin(FilesystemThis!("VirtualFilesystem"));
 
-  override void initialize(Json configSettings = Json(null)) { // Hook
+  override bool initialize(IConfigData[string] configData = null) { // Hook
 		super.initialize(configSettings);
     _rootFolder = VirtualFolder(this);
   }

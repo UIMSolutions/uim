@@ -17,7 +17,7 @@ unittest {
 class DWindowsFilesystem : DFilesystem {
   mixin(FilesystemThis!("WindowsFilesystem"));
 
-  override void initialize(Json configSettings = Json(null)) {
+  override bool initialize(IConfigData[string] configData = null) {
     super.initialize(configSettings);
 
 		pathSeparator("\\");

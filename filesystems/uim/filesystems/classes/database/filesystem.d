@@ -17,7 +17,7 @@ unittest {
 class DDatabaseFilesystem : DFilesystem {
   mixin(FilesystemThis!("DatabaseFilesystem"));
 
-  override void initialize(Json configSettings = Json(null)) {
+  override bool initialize(IConfigData[string] configData = null) {
     super.initialize(configSettings);
 
 		pathSeparator("/");

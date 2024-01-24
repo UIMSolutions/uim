@@ -26,7 +26,7 @@ class DFilesystemEntry : IFilesystemEntry  {
 
 	this(IFilesystem aFilesystem, string[] aPath, string aName) { this(aFilesystem, aPath); this.name(aName); };
 
-  void initialize(Json configSettings = Json(null)) { // Hook
+  bool initialize(IConfigData[string] configData = null) { // Hook
   }
 
 	// Owning Filesystem

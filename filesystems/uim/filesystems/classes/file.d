@@ -17,7 +17,7 @@ unittest {
 class DFile : DFilesystemEntry, IFile {
 	mixin(FileThis!("File"));
 
-  override void initialize(Json configSettings = Json(null)) { // Hook
+  override bool initialize(IConfigData[string] configData = null) { // Hook
     super.initialize(configSettings);
   }
 

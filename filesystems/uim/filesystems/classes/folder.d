@@ -17,7 +17,7 @@ unittest {
 class DFolder : DFilesystemEntry, IFolder, IFolderManager, IFileManager, ILinkManager {
   mixin(FolderThis!("Folder"));
 
-  override void initialize(Json configSettings = Json(null)) { // Hook
+  override bool initialize(IConfigData[string] configData = null) { // Hook
     super.initialize(configSettings);
   }
 

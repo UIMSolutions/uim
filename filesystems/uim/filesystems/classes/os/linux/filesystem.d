@@ -11,7 +11,7 @@ import uim.filesystems;
 class DLinuxFilesystem : DFilesystem {
   mixin(FilesystemThis!("LinuxFilesystem"));
 
-	override void initialize(Json configSettings = Json(null)) {
+	override bool initialize(IConfigData[string] configData = null) {
     super.initialize(configSettings);
 
 		pathSeparator("/");

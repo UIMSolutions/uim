@@ -18,7 +18,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
   this() { initialize; }
   this(string aRootPath) { this(); this.rootPath(aRootPath); }
 
-  void initialize(Json configSettings = Json(null)) { // Hook
+  bool initialize(IConfigData[string] configData = null) { // Hook
     pathSeparator("/");
   }
 

@@ -19,6 +19,7 @@ class DFolder : DFilesystemEntry, IFolder, IFolderManager, IFileManager, ILinkMa
 
   override bool initialize(IConfigData[string] configData = null) { // Hook
     super.initialize(configData);
+	  return true;
   }
 
   protected string _pathSeparator;

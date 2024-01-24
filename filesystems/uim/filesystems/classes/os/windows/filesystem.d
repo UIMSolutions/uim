@@ -18,7 +18,7 @@ class DWindowsFilesystem : DFilesystem {
   mixin(FilesystemThis!("WindowsFilesystem"));
 
   override bool initialize(IConfigData[string] configData = null) {
-    super.initialize(configSettings);
+    super.initialize(configData);
 
 		pathSeparator("\\");
   }

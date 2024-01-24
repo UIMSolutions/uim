@@ -13,10 +13,12 @@ class DMissingPluginException : UimException {
 	mixin(ExceptionThis!("MissingPluginException"));
 
 	override bool initialize(IConfigData[string] configData = null) {
-		super.initialize(configSettings);
+		if (!super.initialize(configData)) { return false; }
 		
 		this
 			.messageTemplate("Plugin %s could not be found.");
+
+		return true;
 	}
 }
 mixin(ExceptionCalls!("MissingPluginException"));

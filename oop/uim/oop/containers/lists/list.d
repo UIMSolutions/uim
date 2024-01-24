@@ -23,7 +23,7 @@ class DList(T) : DContainer!T, IList  {
   }
 
   override bool initialize(IConfigData[string] configData = null) {
-    super.initialize(configSettings);
+    super.initialize(configData);
   }
 
   // #region add

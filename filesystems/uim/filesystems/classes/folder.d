@@ -18,7 +18,7 @@ class DFolder : DFilesystemEntry, IFolder, IFolderManager, IFileManager, ILinkMa
   mixin(FolderThis!("Folder"));
 
   override bool initialize(IConfigData[string] configData = null) { // Hook
-    super.initialize(configSettings);
+    super.initialize(configData);
   }
 
   protected string _pathSeparator;

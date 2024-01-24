@@ -19,6 +19,7 @@ class UimException : IException {
       .message("");
       
     messageTemplate("default", "");
+    return true;
   }
 
   // Exception message

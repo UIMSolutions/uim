@@ -18,7 +18,7 @@ class DFile : DFilesystemEntry, IFile {
 	mixin(FileThis!("File"));
 
   override bool initialize(IConfigData[string] configData = null) { // Hook
-    super.initialize(configSettings);
+    super.initialize(configData);
   }
 
 	// #region inherited properties

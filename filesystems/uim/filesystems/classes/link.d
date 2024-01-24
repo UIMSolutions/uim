@@ -18,7 +18,7 @@ class DLink : DFilesystemEntry, ILink {
   mixin(FolderThis!("Link"));
 
   override bool initialize(IConfigData[string] configData = null) { // Hook
-    super.initialize(configSettings);
+    super.initialize(configData);
   }
 
 	override bool isLink() {

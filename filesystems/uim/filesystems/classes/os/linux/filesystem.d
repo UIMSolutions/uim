@@ -12,7 +12,7 @@ class DLinuxFilesystem : DFilesystem {
   mixin(FilesystemThis!("LinuxFilesystem"));
 
 	override bool initialize(IConfigData[string] configData = null) {
-    super.initialize(configSettings);
+    super.initialize(configData);
 
 		pathSeparator("/");
   }

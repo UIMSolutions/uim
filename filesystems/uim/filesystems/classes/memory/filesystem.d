@@ -18,7 +18,7 @@ class DMemoryFilesystem : DFilesystem {
   mixin(FilesystemThis!("MemoryFilesystem"));
 
   override bool initialize(IConfigData[string] configData = null) {
-    super.initialize(configSettings);
+    super.initialize(configData);
 
 		pathSeparator("/");
   }

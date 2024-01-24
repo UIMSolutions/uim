@@ -15,6 +15,7 @@ class DLinuxFilesystem : DFilesystem {
     super.initialize(configData);
 
 		pathSeparator("/");
+		return true;
   }
 
 	override size_t availableDiskSpace() {

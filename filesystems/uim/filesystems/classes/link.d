@@ -19,6 +19,7 @@ class DLink : DFilesystemEntry, ILink {
 
   override bool initialize(IConfigData[string] configData = null) { // Hook
     super.initialize(configData);
+	  return true;
   }
 
 	override bool isLink() {

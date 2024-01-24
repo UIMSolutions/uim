@@ -9,6 +9,6 @@ import uim.oop;
 
 @safe:
 interface ICloneable {
-  O clone(this O)();
-  O clone(this O)(Json data);
+  ICloneable clone();
+  ICloneable clone(Json data);
 }

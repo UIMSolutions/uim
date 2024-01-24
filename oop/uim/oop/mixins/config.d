@@ -8,7 +8,7 @@ module uim.oop.mixins.config;
 import uim.oop;
 
 @safe:
-template configForInterface() {
+mixin template ConfigForInterface() {
   Json[string] config();
   void config(Json[string] newConfig);
 
@@ -17,7 +17,7 @@ template configForInterface() {
 }
 // TODO enhance interface
 
-template configForClass() {
+template ConfigForClass() {
   protected Json[string] _configData;
 
   Json[string] config() {
@@ -33,8 +33,8 @@ template configForClass() {
       .each!(kv => configData(kv.key, kv.value));
   }
 
-  bool hasConfigKey(string key) {
-    return _configData.has(key);
+  bool hasConfigData(string key) {
+    return _configData.hasKey(key);
   }
 
   Json configData(string key) {

@@ -29,6 +29,7 @@ public import uim.oop.obj;
 // public import uim.oop.collections;	
 public {
   import uim.oop.complex;
+  import uim.oop.configurations;
   import uim.oop.containers;
   import uim.oop.core;
   import uim.oop.datatypes;

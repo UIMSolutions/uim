@@ -12,12 +12,17 @@ class Configuration : ConfigData, IConfiguration {
     this() {}
     this(string name) { this(); this.name(name); }
 
+    // Name of configuration
+    protected string _name;
+
+    // Get name of configuration
     string name() {
         return _name;
     }
 
+    // Set name of configuration
     IConfiguration name(string newName) {
         _name = newName;
-        return IConfiguration;
+        return this;
     }
 }

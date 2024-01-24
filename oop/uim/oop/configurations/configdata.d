@@ -15,6 +15,7 @@ class ConfigData : IConfigData {
 
 	protected IConfigData[string] _configData;
 
+    // Compare with other configData
 	bool isEqual(IConfigData data) {
 		if (data is null) {
 			return false;
@@ -29,20 +30,47 @@ class ConfigData : IConfigData {
 		return true;
 	}
 
+	// Get all keys
 	string[] keys() {
 		return _configData.keys;
 	}
 
+	// Get all values
 	IConfigData[] values() {
 		return _configData.values;
 	}
 
+	// Check if has all paths
+	bool hasPaths(string[] paths) {
+		return paths.all!(path => hasPath(path));
+	}
+
+	// Check if has path
+	bool hasPath(string path) {
+		auto pathItems = path.split("/");
+		if (pathItems.length == 0) { return false; }
+		if (pathItems.length == 1) { return hasKey(pathItems[0]); }
+
+		if (auto data = data(pathItems[0])) { return hasPath(pathItems[1..$].join("/")); }
+		return false;
+	}
+
+	// Check if has all keys
+	bool hasKeys(string[] keys, bool deepSearch = false) {
+		return keys.all!(key => hasKey(key, deepSearch));
+	}
+
+	// Check if has key
 	bool hasKey(string key, bool deepSearch = false) {
 		if (!deepSearch) {
 			return _configData.hasKey(key);
 		}
 
 		return _configData.values.any!(data => data.hasKey(key, deepSearch));
+	}
+
+	bool hasData(IConfigData[] searchData, bool deepSearch = false) {
+		return searchData.all!(data => hasData(data, deepSearch));
 	}
 
 	bool hasData(IConfigData searchData, bool deepSearch = false) {

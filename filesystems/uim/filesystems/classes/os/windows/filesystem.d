@@ -21,6 +21,8 @@ class DWindowsFilesystem : DFilesystem {
     super.initialize(configData);
 
 		pathSeparator("\\");
+
+	  return true;
   }
 }
 mixin(FilesystemCalls!("WindowsFilesystem"));

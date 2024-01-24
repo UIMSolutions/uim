@@ -19,6 +19,7 @@ class DFile : DFilesystemEntry, IFile {
 
   override bool initialize(IConfigData[string] configData = null) { // Hook
     super.initialize(configData);
+	  return true;
   }
 
 	// #region inherited properties

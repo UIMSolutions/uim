@@ -22,15 +22,8 @@ class UimException : IException {
     return true;
   }
 
-  // Exception message
   mixin(OProperty!("string", "name"));
-
-  // Exception message
-  mixin(OProperty!("string", "className"));
-  
   mixin(OProperty!("string", "registerPath"));
-
-  // Exception message
   mixin(OProperty!("string", "message"));
 
   // #region messageTemplate

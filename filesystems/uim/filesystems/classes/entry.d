@@ -56,7 +56,6 @@ class DFilesystemEntry : IFilesystemEntry {
 	}
 
 	mixin(TProperty!("IFilesystem", "filesystem"));
-	mixin(OProperty!("string", "className"));
 
 	// Get name of entry
 	mixin(TProperty!("string", "name"));
@@ -146,7 +145,7 @@ class DFilesystemEntry : IFilesystemEntry {
 	// #endregion isLink
 
 	override string toString() {
-		return className ~ ": " ~ name;
+		return this.className ~ ": " ~ name;
 	}
 
 	string debugInfo() {
@@ -155,7 +154,7 @@ ClassName:    %s
 Name: 		    %s
 relPath: %s
 absolutePath: %s
------`.format(className, name, "relPath", "absolutePath");
+-----`.format(this.className, name, "relPath", "absolutePath");
 	}
 }
 

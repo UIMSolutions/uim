@@ -46,15 +46,9 @@ class DFilesystemEntry : IFilesystemEntry {
 		this.name(aName);
 	};
 
-<<<<<<< HEAD
 	bool initialize(IConfigData[string] configData = null) { // Hook
 		return true;
 	}
-=======
-  bool initialize(IConfigData[string] configData = null) { // Hook
-	  return true;
-  }
->>>>>>> f210d7c985be4a20f13ac58e362e6f515df8af1a
 
 	// Owning Filesystem
 	bool hasFilesystem() {

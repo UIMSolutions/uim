@@ -12,9 +12,12 @@ class DLinuxFilesystem : DFilesystem {
   mixin(FilesystemThis!("LinuxFilesystem"));
 
 	override bool initialize(IConfigData[string] configData = null) {
-    super.initialize(configData);
+		if (!super.initialize(configData)) {
+			return false;
+		}
 
 		pathSeparator("/");
+		return true;
   }
 
 	override size_t availableDiskSpace() {

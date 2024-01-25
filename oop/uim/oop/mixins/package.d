@@ -8,6 +8,8 @@ module uim.oop.mixins;
 import uim.oop;
 
 public {
+	import uim.oop.mixins.config;
+	import uim.oop.mixins.configdata;
 	import uim.oop.mixins.exception;
 	import uim.oop.mixins.properties;
 	import uim.oop.mixins.valuemap;

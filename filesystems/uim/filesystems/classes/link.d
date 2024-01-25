@@ -7,29 +7,32 @@ module uim.filesystems.classes.link;
 
 import uim.filesystems;
 
-unittest { 
-  version(testUimFilesystems) { 
-    debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); 
-  }
+unittest {
+	version (testUimFilesystems) {
+		debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
+	}
 }
 
 @safe:
 class DLink : DFilesystemEntry, ILink {
-  mixin(FolderThis!("Link"));
+	mixin(FolderThis!("Link"));
 
-  override bool initialize(IConfigData[string] configData = null) { // Hook
-    super.initialize(configData);
-  }
+	override bool initialize(IConfigData[string] configData = null) { // Hook
+		if (!super.initialize(configData)) {
+			return false;
+		}
+		return true;
+	}
 
 	override bool isLink() {
 		return exists;
 	}
 
-  bool isFileLink() {
+	bool isFileLink() {
 		return false;
 	}
 
-  bool isFolderLink() {
+	bool isFolderLink() {
 		return false;
 	}
 
@@ -38,9 +41,10 @@ class DLink : DFilesystemEntry, ILink {
 	}
 
 	override string toString() {
-    return className~": "~name;
-  }
+		return className ~ ": " ~ name;
+	}
 }
+
 mixin(FolderCalls!("Link"));
 
 unittest {

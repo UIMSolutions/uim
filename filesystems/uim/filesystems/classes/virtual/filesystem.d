@@ -18,8 +18,11 @@ class DVirtualFilesystem : DFilesystem {
   mixin(FilesystemThis!("VirtualFilesystem"));
 
   override bool initialize(IConfigData[string] configData = null) { // Hook
-		super.initialize(configData);
+		if (!super.initialize(configData)) {
+			return false;
+		}
     _rootFolder = VirtualFolder(this);
+		return true;
   }
 }
 mixin(FilesystemCalls!("VirtualFilesystem"));

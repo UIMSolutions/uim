@@ -18,9 +18,10 @@ class DDatabaseFilesystem : DFilesystem {
   mixin(FilesystemThis!("DatabaseFilesystem"));
 
   override bool initialize(IConfigData[string] configData = null) {
-    super.initialize(configData);
+    if (!super.initialize(configData)) { return false; }
 
 		pathSeparator("/");
+    return true;
   }
 }
 mixin(FilesystemCalls!("DatabaseFilesystem"));

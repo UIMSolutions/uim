@@ -10,16 +10,22 @@ import uim.oop;
 @safe:
 
 class DIntegerConfigData : DConfigData {
-	mixin(ConfigDataThis!());
+  mixin(ConfigDataThis!());
 
-	this(int newValue) {
-        _value = newValue;
-    }
+  this(int newValue) {
+    _value = newValue;
+  }
 
-    protected int _value;
-    
-    override string toString() {
-        return to!string(_value);
-    }
+  protected int _value;
+
+  override string toString() {
+    return to!string(_value);
+  }
 }
+
 mixin(ConfigDataCalls!("IntegerConfigData"));
+
+unittest {
+  auto data = IntegerConfigData(100);
+  writeln(data.className);
+}

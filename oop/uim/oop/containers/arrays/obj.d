@@ -11,8 +11,6 @@ import uim.oop;
 class DArrayObj : Obj {
 	Obj[] _objs;
 
-	override string classname() { return "Array"; }
-
 	mixin(BoolProperty!"sorted");
 	mixin(BoolProperty!"uniqued");
 

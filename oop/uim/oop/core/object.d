@@ -22,8 +22,7 @@ class Obj {
 	mixin(PropertyDefinition!("DAssociation[string]", "_associations", "associations")); 
 
 	string namespace() { return "uim.oop"; }
-	string classname() { return "Obj"; }
-	string fullname()  { return namespace~"."~classname; }
+	string fullname()  { return namespace~"."~this.className; }
 	string fullpath()  { return fullname.replace(".", "/"); }
 
 	O add(this O)(PropertyObj aProperty) {

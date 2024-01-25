@@ -1,7 +1,7 @@
 module uim.core.helpers.classes;
 
 import uim.core;
-
+@safe:
 string baseName(ClassInfo classinfo) {
     string qualName = classinfo.name;
 
@@ -14,7 +14,7 @@ string baseName(ClassInfo classinfo) {
     return qualName[($ - dotIndex) .. $];
 }
 
-string getClassname(Object instance) {
+string className(Object instance) {
     if (instance is null) {
         return "null";
     }
@@ -26,20 +26,20 @@ unittest {
     class Test {
         string className;
         this() {
-            className = this.getClassname;
+            className = this.className;
         }
 
-        string cName() { return this.getClassname; }
+        string cName() { return this.className; }
     }
     auto test = new Test;
 
-    assert(test.getClassname == "Test");
+    assert(test.className == "Test");
     assert(test.stringof == "test");
 
     class Test1 : Test {}
     class Test2 : Test1 {}
 
-    assert((new Test1).getClassname == "Test1");
-    assert((new Test2).getClassname == "Test2");
+    assert((new Test1).className == "Test1");
+    assert((new Test2).className == "Test2");
     writeln((new Test2).classinfo);
 }

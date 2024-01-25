@@ -25,7 +25,6 @@ interface IFilesystemEntry {
   void parentFolder(IFolder aFolder);
 
   // Name of class
-  string className();
 
   // Returns the size of a specified folder.
   size_t size();

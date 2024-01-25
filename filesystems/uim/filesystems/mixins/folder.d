@@ -10,7 +10,7 @@ import uim.filesystems;
 @safe:
 string folderThis(string aName) {
   return `
-this() { super(); this.className("`~aName~`"); }
+this() { super(); this.name("`~aName~`"); }
 
 this(IFilesystem aFilesystem) { this(); this.filesystem(aFilesystem); };
 this(string[] aPath) { this(); this.path(aPath); };

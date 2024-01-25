@@ -12,7 +12,7 @@ string exceptionThis(string instanceName, string className = null) {
   auto clName = (className ? className : instanceName);
 
   return "
-this() { super(); this.name(\""~instanceName~"\").className(\""~clName~"\"); }
+this() { super(); this.name(\""~instanceName~"\"); }
 this(string aMessage) { this().message(aMessage); }
 this(string[] someAttributes) { this().attributes(someAttributes); }
 this(string aMessage, string[] someAttributes) { this(aMessage).attributes(someAttributes); }

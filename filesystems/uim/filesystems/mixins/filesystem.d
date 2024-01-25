@@ -7,7 +7,7 @@ module uim.filesystems.mixins.filesystem;
 
 string filesystemThis(string aName) {
   return `
-this() { super(); this.className("`~aName~`"); }
+this() { super(); this.name("`~aName~`"); }
 
 this(string aName) { this(); this.name(aName); };
   `;

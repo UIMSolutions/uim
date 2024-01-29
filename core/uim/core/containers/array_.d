@@ -294,18 +294,11 @@ bool hasAnyValues(T)(in T[] source, in T[] values...) {
 }
 
 bool hasAnyValues(T)(in T[] source, in T[] values) {
-  // IN Check
   if (source.isEmpty || values.isEmpty) {
     return false;
   }
 
-  // BODY
-  foreach (myValue; values) {
-    if (hasValue(source, myValue)) {
-      return true;
-    }
-  }
-  return false;
+  return values.any!(value => source.hasValue(value));
 }
 ///
 unittest {

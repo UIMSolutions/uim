@@ -41,9 +41,7 @@ unittest {
 
 /// get values of an associative array - currently not working für objects
 V[] getValues(K, V)(V[K] aa, bool sorted = NOTSORTED) {
-  V[] results;
-  foreach (k, v; aa)
-    results ~= v;
+  V[] results = aa.values.map!(v => v);
   if (sorted)
     return results.sort.array;
   return results;

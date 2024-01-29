@@ -17,7 +17,7 @@ unittest {
 class DMemoryFilesystem : DFilesystem {
   mixin(FilesystemThis!("MemoryFilesystem"));
 
-  override bool initialize(IConfigData[string] configData = null) {
+  override bool initialize(IData[string] configData = null) {
 		if (!super.initialize(configData)) {
 			return false;
 		}

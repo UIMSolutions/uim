@@ -89,8 +89,9 @@ version (test_uim_core) {
 /// Copies rightValues to leftValues   
 V[K] copyFrom(V, K)(V[K] leftValues, V[K] rightValues) { // right will overright left
   V[K] results = leftValues.dup;
-  foreach (k, v; rightValues)
-    results[k] = v;
+  rightValues.byKeyValue
+    .each!(kv => results[kv.key] = kv.value);
+    
   return results;
 }
 

@@ -24,7 +24,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
     this.rootPath(aRootPath);
   }
 
-  bool initialize(IConfigData[string] configData = null) { // Hook
+  bool initialize(IData[string] configData = null) { // Hook
     pathSeparator("/");
 
     return true;

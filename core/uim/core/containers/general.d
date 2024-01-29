@@ -38,20 +38,15 @@ bool isSet(V)(V[] values, size_t[] index) {
 }
 
 bool isSet(V, K)(V[K] values, K[] keys...) {
-  return isSet(values, keys);
+  return isSet(values, keys.dup);
 }
 
-bool isSet(V, K)(V[K] values, K[] keys...) {
+bool isSet(V, K)(V[K] values, K[] keys) {
   if (keys.length == 0) { 
       return false; 
     }
 
-  foreach (k; keys) {
-    if (k !in values) { 
-      return false; 
-    }
-  }
-  return true;
+  keys.all!(key => key in values);
 }
 
 bool isSet(Json values, string key) { // TODO string -> string[]

@@ -17,7 +17,7 @@ unittest {
 class DFile : DFilesystemEntry, IFile {
 	mixin(FileThis!("File"));
 
-	override bool initialize(IConfigData[string] configData = null) { // Hook
+	override bool initialize(IData[string] configData = null) { // Hook
 		if (!super.initialize(configData)) {
 			return false;
 		}

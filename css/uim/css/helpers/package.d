@@ -4,32 +4,54 @@ import uim.css;
 
 string toCSS(string[string] values, bool sorted = false) {
   string results;
-  if (sorted) foreach(key; values.keys.sort) results ~= "%s:%s;".format(key, values[key]);
-  else foreach(key, value; values) results ~= "%s:%s;".format(key, value);
+  if (sorted)
+    foreach (key; values.keys.sort)
+      results ~= "%s:%s;".format(key, values[key]);
+  else
+    foreach (key, value; values)
+      results ~= "%s:%s;".format(key, value);
   return results;
 }
-version(test_uim_css) { unittest {
-  assert(toCSS(["a":"b"]) == `a:b;`);
-  assert(toCSS(["a":"b"], true) == `a:b;`);
 
-  assert(toCSS(["a":"b", "c":"d"]) == `c:d;a:b;`);
-  assert(toCSS(["a":"b", "c":"d"], true) == `a:b;c:d;`);
-}}
+version (test_uim_css) {
+  unittest {
+    assert(toCSS(["a": "b"]) == `a:b;`);
+    assert(toCSS(["a": "b"], true) == `a:b;`);
 
-string toCSS(string selector, string[string] values, bool sorted = false) {
-  string results;
-  if (sorted) foreach(key; values.keys.sort) results ~= "%s:%s;".format(key, values[key]);
-  else foreach(key, value; values) results ~= "%s:%s;".format(key, value);
-  return "%s{%s}".format(selector, toCSS(values, sorted));
+    assert(toCSS(["a": "b", "c": "d"]) == `c:d;a:b;`);
+    assert(toCSS(["a": "b", "c": "d"], true) == `a:b;c:d;`);
+  }
 }
-version(test_uim_css) { unittest {}}
 
-string toCSS(string[string][string] values, bool sorted = false) {
-  string results;
-  if (sorted) foreach(key; values.keys.sort) results ~= toCSS(key, values[key]);
-  else foreach(key, value; values) results ~= toCSS(key, value);
-  return results;
+
+
+string toCSS(string[string][string] values, bool shouldSort = false) {
+  string[] keys = shouldSort ? values.keys.sort.array : values.keys;
+
+  return keys.map!(key => toCSS(key, values[key])).join;
 }
-version(test_uim_css) { unittest {}}
 
-string cssBlock(string content) { return "{"~content~"}"; }
+string toCSS(string selector, string[string] values, bool shouldSort = false) {
+  string[] keys = shouldSort ? values.keys.sort.array : values.keys;
+
+  string[] results = keys.map!(key => "%s:%s;".format(key, values[key])).array;
+  return "%s{%s}".format(selector, results);
+}
+
+version (test_uim_css) {
+  unittest {
+  }
+}
+version (test_uim_css) {
+  unittest {
+  }
+}
+
+string cssBlock(string content) {
+  return "{" ~ content ~ "}";
+}
+///
+unittest {
+  assert(cssBlock("test") == "{test}");
+  assert(cssBlock("test") != "[test]");
+}

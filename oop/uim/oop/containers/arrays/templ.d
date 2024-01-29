@@ -75,14 +75,9 @@ class DArrayTempl(T) : DArrayObj {
 	}
 
 	bool hasAll(T[] values) {
-		if (values) {
-			foreach (value; values)
-				if (!this.has(value)) {
-					return false;
-				}
-			return true;
-		}
-		return true;
+		if (values.isEmpty) { return true; }
+
+		return values.all!(value => this.has(value));
 	}
 
 	bool hasAny(T[] values) {

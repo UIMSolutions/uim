@@ -186,18 +186,19 @@ version (test_uim_core) {
 // sub(T)(T[] lhs, T[] rhs, bool multiple = false)
 T[] sub(T)(T[] lhs, T[] rhs, bool multiple = false) {
   auto result = lhs.dup;
-  foreach (v; rhs)
-    lhs = lhs.sub(v, multiple);
-  return lhs;
+  rhs.each!(value => result = result.sub(value, multiple));
+  return result;
 }
-
-version (test_uim_core) {
-  unittest {
-    assert([1, 2, 3].sub([2]) == [1, 3]);
-    assert([1, 2, 3, 2].sub([2], true) == [1, 3]);
-    assert([1, 2, 3, 2].sub([2, 3], true) == [1]);
-    assert([1, 2, 3, 2, 3].sub([2, 3], true) == [1]);
-  }
+/// 
+unittest {
+  assert([1, 2, 3].sub([2]) == [1, 3]);
+  assert([1, 2, 3, 2].sub([2], true) == [
+      1, 3
+    ]);
+  assert([1, 2, 3, 2].sub([2, 3], true) == [1]);
+  assert([1, 2, 3, 2, 3].sub([
+        2, 3
+      ], true) == [1]);
 }
 
 // filters(T)(T[] lhs, T[] rhs, bool multiple = false)
@@ -209,20 +210,22 @@ version (test_uim_core) {
   unittest {
     assert([1, 2, 3].filters(2) == [2]);
     assert([1, 2, 3].filters() == []);
-    assert([1, 2, 3].filters(1, 2) == [1, 2]);
+    assert([
+        1, 2, 3
+      ].filters(1, 2) == [1, 2]);
   }
 }
 
 T[] filters(T)(T[] baseArray, T[] filterValues) {
   T[] results = baseArray.filter!(item => filterValues.has(item)).array;
-
   return results;
 }
 
 version (test_uim_core) {
   unittest {
     assert([1, 2, 3].filters([2]) == [2]);
-    assert([1, 2, 3].filters([]) == []);
+    assert([1, 2, 3].filters([]) == [
+      ]);
   }
 }
 
@@ -239,8 +242,9 @@ OUT[] castTo(OUT, IN)(IN[] values) {
 unittest {
   auto values = [1, 2, 3, 4];
   change(values[2], values[3]);
-  assert(values == [1, 2, 4, 3]);
-
+  assert(values == [
+      1, 2, 4, 3
+    ]);
   assert([1, 2, 3, 4].change(1, 3) == [1, 4, 3, 2]);
 }
 
@@ -278,14 +282,21 @@ bool hasAllValues(T)(in T[] source, in T[] values) {
 ///
 unittest {
   assert([1, 2, 3, 4].hasAllValues(1));
-  assert(![1, 2, 3, 4].hasAllValues(5));
+  assert(![
+      1, 2, 3, 4
+    ].hasAllValues(5));
   assert([1, 2, 3, 4].hasAllValues(1, 2));
   assert(![1, 2, 3, 4].hasAllValues(5, 1));
-
-  assert([1, 2, 3, 4].hasAllValues([1]));
-  assert(![1, 2, 3, 4].hasAllValues([5]));
+  assert([
+      1, 2, 3, 4
+    ].hasAllValues([1]));
+  assert(![1, 2, 3, 4].hasAllValues([
+        5
+      ]));
   assert([1, 2, 3, 4].hasAllValues([1, 2]));
-  assert(![1, 2, 3, 4].hasAllValues([5, 1]));
+  assert(![
+      1, 2, 3, 4
+    ].hasAllValues([5, 1]));
 }
 
 // similar to has
@@ -303,15 +314,26 @@ bool hasAnyValues(T)(in T[] source, in T[] values) {
 ///
 unittest {
   assert([1, 2, 3, 4].hasAnyValues(1));
-  assert(![1, 2, 3, 4].hasAnyValues(5));
+  assert(![
+      1, 2, 3, 4
+    ].hasAnyValues(5));
   assert([1, 2, 3, 4].hasAnyValues(1, 2, 6));
   assert(![1, 2, 3, 4].hasAnyValues(5, 6));
-
-  assert([1, 2, 3, 4].hasAnyValues([1]));
-  assert(![1, 2, 3, 4].hasAnyValues([5]));
-  assert([1, 2, 3, 4].hasAnyValues([1, 2]));
-  assert([1, 2, 3, 4].hasAnyValues([1, 2, 5]));
-  assert(![1, 2, 3, 4].hasAnyValues([5, 6]));
+  assert([
+      1, 2, 3, 4
+    ].hasAnyValues([1]));
+  assert(![
+      1, 2, 3, 4
+    ].hasAnyValues([5]));
+  assert([
+      1, 2, 3, 4
+    ].hasAnyValues([1, 2]));
+  assert([
+      1, 2, 3, 4
+    ].hasAnyValues([1, 2, 5]));
+  assert(![
+      1, 2, 3, 4
+    ].hasAnyValues([5, 6]));
 }
 
 bool hasValue(T)(in T[] source, in T aValue) {
@@ -348,9 +370,13 @@ size_t[] indexes(T)(T[] values, T value) {
 }
 ///
 unittest {
-  assert([1, 2, 3, 4].indexes(1) == [0]);
+  assert([1, 2, 3, 4].indexes(1) == [
+      0
+    ]);
   assert([1, 2, 3, 4].indexes(0) == null);
-  assert([1, 2, 3, 4, 1].indexes(1) == [0, 4]);
+  assert([1, 2, 3, 4, 1].indexes(1) == [
+      0, 4
+    ]);
 }
 
 size_t[][T] indexes(T)(T[] values, T[] keys) {
@@ -362,8 +388,15 @@ size_t[][T] indexes(T)(T[] values, T[] keys) {
 
 version (test_uim_core) {
   unittest {
-    assert([1, 2, 3, 4].indexes([1]) == [1: [0UL]]);
-    assert([1, 2, 3, 4, 1].indexes([1]) == [1: [0UL, 4UL]]);
+    assert([1, 2, 3, 4].indexes(
+        [1]) == [
+        1: [0UL]
+      ]);
+    assert([
+        1, 2, 3, 4, 1
+      ].indexes([1]) == [
+        1: [0UL, 4UL]
+      ]);
   }
 }
 
@@ -391,7 +424,14 @@ T shiftFirst(T)(ref T[] values) {
 }
 ///
 unittest {
-  string[] anArray = ["x", "y", "z"];
-  assert(anArray.shiftFirst == "x");
-  assert(anArray == ["y", "z"]);
+  string[] anArray = [
+    "x", "y",
+    "z"
+  ];
+  assert(
+    anArray.shiftFirst == "x");
+  assert(anArray == [
+      "y",
+      "z"
+    ]);
 }

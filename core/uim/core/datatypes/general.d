@@ -98,26 +98,22 @@ V[K] concatPrefixInValues(V, K)(V[K] leftValues, V preValue) { // right will ove
   return results;
 }
 
-version (test_uim_core) {
-  unittest {
-    assert(["a": "b"].concatPrefixInValues("abc") == ["a": "abcb"]);
-    assert(["a": [1, 2, 3]].concatPrefixInValues([0]) == ["a": [0, 1, 2, 3]]);
-  }
+unittest {
+  assert(["a": "b"].concatPrefixInValues("abc") == ["a": "abcb"]);
+  assert(["a": [1, 2, 3]].concatPrefixInValues([0]) == ["a": [0, 1, 2, 3]]);
 }
 
 /// Concat rightValues to leftValues   
 V[K] concatPostfixInValues(V, K)(V[K] leftValues, V postValue) { // right will overright left
   V[K] results;
-  foreach (k, v; leftValues)
-    results[k] = v ~ postValue;
+  leftValues.byKeyValue
+    .each!(kv => results[kv.key] = kv.value ~ postValue);
   return results;
 }
-
-version (test_uim_core) {
-  unittest {
-    assert(["a": "b"].concatPostfixInValues("abc") == ["a": "babc"]);
-    assert(["a": [1, 2, 3]].concatPostfixInValues([4]) == ["a": [1, 2, 3, 4]]);
-  }
+///
+unittest {
+  assert(["a": "b"].concatPostfixInValues("abc") == ["a": "babc"]);
+  assert(["a": [1, 2, 3]].concatPostfixInValues([4]) == ["a": [1, 2, 3, 4]]);
 }
 
 /// Concat rightValues to leftValues   

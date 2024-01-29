@@ -97,7 +97,7 @@ unittest {
 bool equalAny(T)(T[] values, T aValue) {
   return (values.filter!(value => value == aValue).array.length > 0);
 }
-
+///
 unittest {
   assert([1, 1, 1].equalAny(1));
   assert(![1, 2, 1].equalAny(3));
@@ -106,12 +106,11 @@ unittest {
 
 // all values in array are not equal to value
 bool nallEqual(T)(T aValue, T[] values) {
-  foreach (v; values)
-    if (aValue != v)
-      continue;
-    else
-      return false;
-  return true;
+  return values.all!(value => aValue != value);
+}
+/// 
+unittest {
+  assert(1.nallEqual([2, 3]));
 }
 
 // all values in array are greater then value
@@ -119,7 +118,7 @@ bool allGreaterThen(T)(T[] values, T aValue) if (isNumeric!T) {
   return values
     .filter!(value => !(value > aValue)).array.length == 0;
 }
-
+/// 
 unittest {
   assert([2, 3, 4].allGreaterThen(1));
   assert(![1, 2, 1].allGreaterThen(1));
@@ -137,14 +136,13 @@ unittest {
 }
 
 // all values in array are greater equal value
-bool allGreaterEqual(T)(T value, T[] values) if (isNumeric!T) {
-  foreach (v; values)
-    if (value >= v)
-      continue;
-    else
-      return false;
-  return true;
+bool allGreaterEqual(T)(T checkValue, T[] values) if (isNumeric!T) {
+  return values.all!(value => checkValue >= value);
 }
+unittest {
+  assert(3.allGreaterEqual([1, 2, 3]));
+}
+
 // all values in array are less then value
 bool allLowerThen(T)(T value, T[] values) if (isNumeric!T) {
   foreach (v; values)

@@ -198,15 +198,12 @@ bool hasAllKeys(T, S)(T[S] base, S[] keys...) {
 }
 
 bool hasAllKeys(T, S)(T[S] base, S[] keys) {
-  bool result;
-
-  foreach (key; keys) {
-    if (!base.hasKey(key)) {
-      return false;
-    }
-  }
-
-  return true;
+  return keys.all!(key => base.hasKey(key));
+}
+///
+unittest {
+  assert(["a": 1, "b": 2, "c": 3].hasAllKeys["a", "b", "c"]);
+  assert(!["a": 1, "b": 2, "c": 3].hasAllKeys["x", "b", "c"]);
 }
 
 bool hasAnyKeys(T, S)(T[S] base, S[] keys...) {

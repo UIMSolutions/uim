@@ -17,10 +17,10 @@ interface ILinkManager {
 
   ILink[] links(string aPath);
   ILink[] links(string[] aPath);
-  
+
   // Returns a Link object for a specified path.
-  ILink link(string aPath); 
-  ILink link(string[] aPath); 
+  ILink link(string aPath);
+  ILink link(string[] aPath);
 
   bool existsLink(string aPath);
   bool existsLink(string[] aPath);
@@ -37,13 +37,11 @@ interface ILinkManager {
 
   // Checks if a specified link exists.
   final bool linksExists(ILink[] someLinks) {
-    if (someLinks.isEmpty) { return false; }
-
-    foreach(myLink; someLinks) {
-      if (!myLink.exists) { return false; }
+    if (someLinks.isEmpty) {
+      return false;
     }
 
-    return true;
+    return someLinks.all!(link => link.exists);
   }
 
   // Deletes specified link.
@@ -51,10 +49,10 @@ interface ILinkManager {
   bool removeLinks(string[] aPath);
 
   // Deletes specified link.
-  ILink createLink(string aPath); 
-  ILink createLink(string[] aPath); 
-  
+  ILink createLink(string aPath);
+  ILink createLink(string[] aPath);
+
   // Deletes specified link.
-  bool removeLink(string aPath); 
-  bool removeLink(string[] aPath); 
+  bool removeLink(string aPath);
+  bool removeLink(string[] aPath);
 }

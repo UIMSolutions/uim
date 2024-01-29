@@ -101,11 +101,11 @@ class Coke : ColdDrink {
   }
 
   void showItems() {
-    foreach (item; items) {
+    items.each!((item) { 
         std.stdio.write("Item : ", item.name());
         std.stdio.write(", Packing : ", item.packing().pack());
         writeln(", Price : ", item.price());
-    }		
+    });		
   }	
 }
 

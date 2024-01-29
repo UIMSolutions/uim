@@ -90,9 +90,10 @@ STRINGAA filterByKeys(STRINGAA entries, string[] keys...) {
 
 STRINGAA filterByKeys(STRINGAA entries, string[] keys) {
   STRINGAA results;
-  foreach (k; keys)
-    if (k in entries)
-      results[k] = entries[k];
+  keys
+    .filter!(key => key in entries)
+    .each!(key => results[key] = entries[key]);
+    
   return results;
 }
 

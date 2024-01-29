@@ -64,19 +64,21 @@ unittest {
 bool hasValues(string[] bases, string[] values...) {
 	return hasValues(bases, values.dup);
 }
-
-bool hasValues(string[] bases, string[] values) {
-	foreach (base; bases)
-		if (base.hasValues(values)) {
-			return true;
-		}
-	return false;
-}
-
+///
 unittest {
 	assert(["One Two Three"].hasValues("One"));
 	assert(["One Two Three", "Eight Seven Six"].hasValues("Five", "Four", "Six"));
 	assert(!["One Two Three"].hasValues("Five", "Four"));
+}
+
+bool hasValues(string[] bases, string[] values) {
+	return bases.all!(base => base.hasValues(values));
+}
+///
+unittest {
+	assert(["One Two Three"].hasValues(["One"]));
+	assert(["One Two Three", "Eight Seven Six"].hasValues(["Five", "Four", "Six"]));
+	assert(!["One Two Three"].hasValues(["Five", "Four"]));
 }
 
 bool hasValues(string base, string[] values...) {

@@ -21,14 +21,12 @@ T fuzzy(T)(T value, T minLimit, T maxLimit, T minFactor = 0, T maxFactor = 1)
   return to!T(minFactor + (maxFactor - minFactor) * (value - minLimit) / (maxLimit - minLimit));
 }
 
-version (test_uim_core) {
-  unittest {
-    /* 	assert(fuzzy(0, 0, 1) == 0);
+unittest {
+  /* 	assert(fuzzy(0, 0, 1) == 0);
 	assert(fuzzy(1, 0, 1) == 1);
 	assert(fuzzy(0, 1, 2) == 1);
 	assert(fuzzy(2, 0, 1) == 1);
 	assert(fuzzy(0.5, 0.0, 1.0) == 0.5); */
-  }
 }
 
 string toString(T)(T value, size_t length = 0, string fillTxt = "0")
@@ -46,12 +44,10 @@ string toString(T)(T value, size_t length = 0, string fillTxt = "0")
   return result;
 }
 
-version (test_uim_core) {
-  unittest {
-    // TODO
-    // writeln((1.01).toString);
-    //   assert((1.0).toString == "1.0");
-    //   assert((1.0).toString == "1.0");
-    //   assert((1.0).toString(10, "X") == "XXXXXXX1.0");
-  }
+unittest {
+  // TODO
+  // writeln((1.01).toString);
+  //   assert((1.0).toString == "1.0");
+  //   assert((1.0).toString == "1.0");
+  //   assert((1.0).toString(10, "X") == "XXXXXXX1.0");
 }

@@ -14,13 +14,11 @@ size_t indexIn(T)(T value, T[] values) {
   return -1;
 }
 
-version (test_uim_core) {
-  unittest {
-    assert(2.indexIn([1, 2, 3, 4]) == 1);
-    assert(20.indexIn([1, 2, 3, 4]) == -1);
-    assert((2.1).indexIn([1.5, 2.1, 3.3, 4.6]) == 1);
-    assert((20.1).indexIn([1.5, 2.1, 3.3, 4.6]) == -1);
-  }
+unittest {
+  assert(2.indexIn([1, 2, 3, 4]) == 1);
+  assert(20.indexIn([1, 2, 3, 4]) == -1);
+  assert((2.1).indexIn([1.5, 2.1, 3.3, 4.6]) == 1);
+  assert((20.1).indexIn([1.5, 2.1, 3.3, 4.6]) == -1);
 }
 
 bool isIn(T)(T value, T[] values) {
@@ -31,13 +29,11 @@ bool isIn(T)(T value, T[] values) {
   return false;
 }
 
-version (test_uim_core) {
-  unittest {
-    assert(2.isIn([1, 2, 3, 4]));
-    assert(!20.isIn([1, 2, 3, 4]));
-    assert((2.1).isIn([1.5, 2.1, 3.3, 4.6]));
-    assert(!(20.1).isIn([1.5, 2.1, 3.3, 4.6]));
-  }
+unittest {
+  assert(2.isIn([1, 2, 3, 4]));
+  assert(!20.isIn([1, 2, 3, 4]));
+  assert((2.1).isIn([1.5, 2.1, 3.3, 4.6]));
+  assert(!(20.1).isIn([1.5, 2.1, 3.3, 4.6]));
 }
 
 bool has(T)(T[] values, T value) if (!isSomeString!T) {
@@ -48,11 +44,9 @@ bool has(T)(T[] values, T value) if (!isSomeString!T) {
   return false;
 }
 
-version (test_uim_core) {
-  unittest {
-    assert([1, 2, 3, 4].has(2));
-    assert(![1, 2, 3, 4].has(20));
-  }
+unittest {
+  assert([1, 2, 3, 4].has(2));
+  assert(![1, 2, 3, 4].has(20));
 }
 
 size_t[] indexIn(T)(T[] checkValues, T[] values) {
@@ -62,11 +56,9 @@ size_t[] indexIn(T)(T[] checkValues, T[] values) {
   return results;
 }
 
-version (test_uim_core) {
-  unittest {
-    assert([2, 3].indexIn([1, 2, 3, 4]) == [1, 2]);
-    assert([20].indexIn([1, 2, 3, 4]) == [-1]);
-  }
+unittest {
+  assert([2, 3].indexIn([1, 2, 3, 4]) == [1, 2]);
+  assert([20].indexIn([1, 2, 3, 4]) == [-1]);
 }
 
 size_t[] positionsIn(T)(T value, T[] values) {
@@ -77,13 +69,11 @@ size_t[] positionsIn(T)(T value, T[] values) {
   return results;
 }
 
-version (test_uim_core) {
-  unittest {
-    assert(2.positionsIn([1, 2, 3, 2]) == [1, 3]);
-    assert(20.positionsIn([1, 2, 3, 4]) == []);
-    assert((2.1).positionsIn([1.5, 2.1, 3.3, 2.1]) == [1, 3]);
-    assert((20.1).positionsIn([1.5, 2.1, 3.3, 4.6]) == []);
-  }
+unittest {
+  assert(2.positionsIn([1, 2, 3, 2]) == [1, 3]);
+  assert(20.positionsIn([1, 2, 3, 4]) == []);
+  assert((2.1).positionsIn([1.5, 2.1, 3.3, 2.1]) == [1, 3]);
+  assert((20.1).positionsIn([1.5, 2.1, 3.3, 4.6]) == []);
 }
 
 /// Copies rightValues to leftValues   
@@ -91,14 +81,13 @@ V[K] copyFrom(V, K)(V[K] leftValues, V[K] rightValues) { // right will overright
   V[K] results = leftValues.dup;
   rightValues.byKeyValue
     .each!(kv => results[kv.key] = kv.value);
-    
+
   return results;
 }
 
-version (test_uim_core) {
-  unittest {
-    assert(["a": "b"].copyFrom(["c": "d"]) == ["a": "b", "c": "d"]);
-  }
+///
+unittest {
+  assert(["a": "b"].copyFrom(["c": "d"]) == ["a": "b", "c": "d"]);
 }
 
 /// Concat rightValues to leftValues   

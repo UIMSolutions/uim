@@ -192,12 +192,9 @@ version (test_uim_core) {
   }
 }
 
-bool hasAnyValue(Json aJson, Json[] values, bool deepSearch = false) {
-  foreach (value; values)
-    if (hasValue(aJson, value, deepSearch)) {
-      return true;
-    }
-  return false;
+// Search if jsonData has any of the values
+bool hasAnyValue(Json jsonData, Json[] values, bool deepSearch = false) {
+  values.any!(value => hasValue(jsonData, value, deepSearch));
 }
 ///
 version (test_uim_core) {
@@ -208,10 +205,10 @@ version (test_uim_core) {
   }
 }
 
-/// Searching for value in Json
-bool hasValue(Json aJson, Json value, bool deepSearch = false) {
-  if (aJson.isObject) {
-    foreach (kv; aJson.byKeyValue) {
+// Search if jsonData has value
+bool hasValue(Json jsonData, Json value, bool deepSearch = false) {
+  if (jsonData.isObject) {
+    foreach (kv; jsonData.byKeyValue) {
       if (kv.value == value) {
         return true;
       }

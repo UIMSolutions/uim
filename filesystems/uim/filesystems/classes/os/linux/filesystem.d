@@ -11,7 +11,7 @@ import uim.filesystems;
 class DLinuxFilesystem : DFilesystem {
   mixin(FilesystemThis!("LinuxFilesystem"));
 
-	override bool initialize(IConfigData[string] configData = null) {
+	override bool initialize(IData[string] configData = null) {
 		if (!super.initialize(configData)) {
 			return false;
 		}

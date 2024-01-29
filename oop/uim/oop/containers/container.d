@@ -13,7 +13,7 @@ abstract class DContainer(T) {
     initialize;
   }
 
-  bool initialize(IConfigData[string] configData = null) {}
+  bool initialize(IData[string] configData = null) {}
 
   // Ensures that this container contains the specified element.
   abstract bool add(T addItem); 

@@ -3,11 +3,11 @@ module uim.oop.interfaces.configdata;
 import uim.oop;
 
 @safe:
-interface IConfigData {
+interface IData {
     string[] keys();
-    IConfigData[] values();
+    IData[] values();
 
-	bool isEqual(IConfigData data);
+	bool isEqual(IData data);
 
     bool hasPaths(string[] paths);
     bool hasPath(string path);
@@ -15,16 +15,16 @@ interface IConfigData {
     bool hasKeys(string[] keys, bool deepSearch = false);
     bool hasKey(string key, bool deepSearch = false);
 
-    bool hasData(IConfigData[] data, bool deepSearch = false);
-    bool hasData(IConfigData data, bool deepSearch = false);
+    bool hasData(IData[] data, bool deepSearch = false);
+    bool hasData(IData data, bool deepSearch = false);
 
-	IConfigData get(string key, IConfigData defaultData);
+	IData get(string key, IData defaultData);
     
-    IConfigData data(string key);
-    IConfigData opIndex(string key);
+    IData data(string key);
+    IData opIndex(string key);
 
-    IConfigData data(string key, IConfigData data);
-    IConfigData opAssignIndex(IConfigData data, string key);
+    IData data(string key, IData data);
+    IData opAssignIndex(IData data, string key);
 
     string toString();
 }

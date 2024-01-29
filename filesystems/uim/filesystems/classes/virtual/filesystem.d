@@ -17,7 +17,7 @@ unittest {
 class DVirtualFilesystem : DFilesystem {
   mixin(FilesystemThis!("VirtualFilesystem"));
 
-  override bool initialize(IConfigData[string] configData = null) { // Hook
+  override bool initialize(IData[string] configData = null) { // Hook
 		if (!super.initialize(configData)) {
 			return false;
 		}

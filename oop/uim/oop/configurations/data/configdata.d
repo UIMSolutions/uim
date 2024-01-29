@@ -9,14 +9,14 @@ import uim.oop;
 
 @safe:
 
-class DConfigData : IConfigData {
+class DConfigData : IData {
 	this() {
 	}
 
-	protected IConfigData[string] _configData;
+	protected IData[string] _configData;
 
     // Compare with other configData
-	bool isEqual(IConfigData data) {
+	bool isEqual(IData data) {
 		if (data is null) {
 			return false;
 		}
@@ -36,7 +36,7 @@ class DConfigData : IConfigData {
 	}
 
 	// Get all values
-	IConfigData[] values() {
+	IData[] values() {
 		return _configData.values;
 	}
 
@@ -69,11 +69,11 @@ class DConfigData : IConfigData {
 		return _configData.values.any!(data => data.hasKey(key, deepSearch));
 	}
 
-	bool hasData(IConfigData[] searchData, bool deepSearch = false) {
+	bool hasData(IData[] searchData, bool deepSearch = false) {
 		return searchData.all!(data => hasData(data, deepSearch));
 	}
 
-	bool hasData(IConfigData searchData, bool deepSearch = false) {
+	bool hasData(IData searchData, bool deepSearch = false) {
 		if (searchData is null) {
 			return false;
 		}
@@ -83,27 +83,27 @@ class DConfigData : IConfigData {
 			: _configData.values.any!(value => value.isEqual(searchData));
 	}
 
-	IConfigData get(string key, IConfigData defaultData) {
+	IData get(string key, IData defaultData) {
 		return hasKey(key)
 			? _configData[key] 
 			: defaultData;
 	}
 
-	IConfigData data(string key) {
+	IData data(string key) {
 		return hasKey(key)
 			? _configData[key] : null;
 	}
 
-	IConfigData opIndex(string key) {
+	IData opIndex(string key) {
 		return data(key);
 	}
 
-	IConfigData data(string key, IConfigData data) {
+	IData data(string key, IData data) {
 		_configData[key] = data;
 		return this;
 	}
 
-	IConfigData opAssignIndex(IConfigData data, string key) {
+	IData opAssignIndex(IData data, string key) {
 		_configData[key] = data;
 		return this;
 	}

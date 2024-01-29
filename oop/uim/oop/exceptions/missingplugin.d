@@ -12,7 +12,7 @@ import uim.oop;
 class DMissingPluginException : UimException {
 	mixin(ExceptionThis!("MissingPluginException"));
 
-	override bool initialize(IConfigData[string] configData = null) {
+	override bool initialize(IData[string] configData = null) {
 		if (!super.initialize(configData)) { return false; }
 		
 		this

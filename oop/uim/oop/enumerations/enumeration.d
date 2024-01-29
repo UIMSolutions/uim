@@ -12,7 +12,7 @@ class DEnumeration(K, V) : IEnumeration {
   this() {
   }
   
-  bool initialize(IConfigData[string] configData = null) {}
+  bool initialize(IData[string] configData = null) {}
                   
   private K[] _keys;
   private V[] _values;

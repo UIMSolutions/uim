@@ -6,6 +6,7 @@
 module uim.oop.patterns.behaviorals.commands.version2;
 
 import uim.oop;
+
 @safe:
 
 class MoveFileCommand {
@@ -14,21 +15,26 @@ private:
   string destination;
   void action(string source, string destination) {
     writefln("renaming %s to %s", source, destination);
-    rename(source, destination); }
+    rename(source, destination);
+  }
 
 public:
   this(string source, string destination) {
     this.source = source;
-    this.destination = destination; }
+    this.destination = destination;
+  }
 
   void execute() {
-    this.action(source, destination); }
+    this.action(source, destination);
+  }
 
   void undo() {
-    this.action(this.destination, this.source); }
+    this.action(this.destination, this.source);
+  }
 }
 
-   version(test_uim_oop) { unittest {
+version (test_uim_oop) {
+  unittest {
     MoveFileCommand[] commandStack;
     auto firstCommand = new MoveFileCommand("foo.txt", "bar.txt");
     auto secondCommand = new MoveFileCommand("bar.txt", "baz.txt");
@@ -36,10 +42,11 @@ public:
     commandStack ~= secondCommand;
     assert(exists("foo.txt") == false);
     auto file = File("foo.txt", "w");
-    foreach(command; commandStack) {
-        command.execute(); }
+    commandStack
+      .each!(command => command.execute());
     reverse(commandStack);
     commandStack.each!(command => command.undo());
-    
+
     std.file.remove("foo.txt");
-}}
+  }
+}

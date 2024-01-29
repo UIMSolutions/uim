@@ -82,9 +82,15 @@ class CriteriaFemale : ICriteria {
 }
 
 void printPersons(Person[] persons) {
-  foreach (person; persons) {
-    writeln("Person : [ Name : ", person.name, ", Gender : ", person.gender, ", Marital Status : ", person.maritalStatus, " ]");
-  }
+  persons
+    .each!(person => 
+      writeln(
+        "Person : [ Name : ", person.name, 
+        ", Gender : ", person.gender, 
+        ", Marital Status : ", person.maritalStatus, 
+        " ]"
+      )
+    );
 } 
 
 bool hasPerson(Person[] persons, Person person) {

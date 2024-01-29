@@ -3,14 +3,9 @@ module uim.css.helpers;
 import uim.css;
 
 string toCSS(string[string] values, bool sorted = false) {
-  string results;
-  if (sorted)
-    foreach (key; values.keys.sort)
-      results ~= "%s:%s;".format(key, values[key]);
-  else
-    foreach (key, value; values)
-      results ~= "%s:%s;".format(key, value);
-  return results;
+  string[] keys = sorted ? values.keys.sort.array : values.keys;
+
+  return keys.map!(key => "%s:%s;".format(key, values[key])).join;
 }
 
 version (test_uim_css) {

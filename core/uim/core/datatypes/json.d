@@ -194,7 +194,7 @@ version (test_uim_core) {
 
 // Search if jsonData has any of the values
 bool hasAnyValue(Json jsonData, Json[] values, bool deepSearch = false) {
-  values.any!(value => hasValue(jsonData, value, deepSearch));
+  return values.any!(value => hasValue(jsonData, value, deepSearch));
 }
 ///
 version (test_uim_core) {
@@ -222,9 +222,9 @@ bool hasValue(Json jsonData, Json value, bool deepSearch = false) {
   }
 
   if (deepSearch) {
-    if (aJson.isArray) {
-      for (size_t i = 0; i < aJson.length; i++) {
-        const result = aJson[i].hasValue(value, deepSearch);
+    if (jsonData.isArray) {
+      for (size_t i = 0; i < jsonData.length; i++) {
+        const result = jsonData[i].hasValue(value, deepSearch);
         if (result) {
           return true;
         }

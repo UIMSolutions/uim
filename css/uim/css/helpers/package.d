@@ -8,17 +8,13 @@ string toCSS(string[string] values, bool sorted = false) {
   return keys.map!(key => "%s:%s;".format(key, values[key])).join;
 }
 
-version (test_uim_css) {
-  unittest {
-    assert(toCSS(["a": "b"]) == `a:b;`);
-    assert(toCSS(["a": "b"], true) == `a:b;`);
+unittest {
+  assert(toCSS(["a": "b"]) == `a:b;`);
+  assert(toCSS(["a": "b"], true) == `a:b;`);
 
-    assert(toCSS(["a": "b", "c": "d"]) == `c:d;a:b;`);
-    assert(toCSS(["a": "b", "c": "d"], true) == `a:b;c:d;`);
-  }
+  assert(toCSS(["a": "b", "c": "d"]) == `c:d;a:b;`);
+  assert(toCSS(["a": "b", "c": "d"], true) == `a:b;c:d;`);
 }
-
-
 
 string toCSS(string[string][string] values, bool shouldSort = false) {
   string[] keys = shouldSort ? values.keys.sort.array : values.keys;

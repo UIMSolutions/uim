@@ -73,12 +73,11 @@ auto positions(T)(in T[] baseArray...) {
   return results;
 }
 
-version (test_uim_core) {
+///
   unittest {
     assert(positions(1) == [1: [0UL]]);
     assert(positions(1, 1) == [1: [0UL, 1UL]]);
     assert(positions(1, 2) == [1: [0UL], 2: [1UL]]);
-  }
 }
 
 /// Creates a associative array with all positions of a value in an array
@@ -94,13 +93,11 @@ size_t[][T] positions(T)(in T[] baseArray, in T[] validValues = null) {
   return results;
 }
 
-version (test_uim_core) {
   unittest {
     assert(positions([1]) == [1: [0UL]]);
     assert(positions([1, 1]) == [1: [0UL, 1UL]]);
     assert(positions([1, 2]) == [1: [0UL], 2: [1UL]]);
     assert(positions([1, 2], [1]) == [1: [0UL]]);
-  }
 }
 
 /// adding items into array
@@ -248,6 +245,8 @@ unittest {
   assert([1, 2, 3, 4].change(1, 3) == [1, 4, 3, 2]);
 }
 
+// #region Searching
+
 bool exist(T)(in T[] values, in T[] checkValues...) {
   return hasAllValues(values, checkValues);
 }
@@ -361,6 +360,16 @@ unittest {
   assert([1, 2, 3, 4].index(0) == -1);
 }
 
+bool isIn(T)(T value, T[] values) {
+  return values.any!(v => v == value);
+}
+/// 
+unittest {
+  assert(1.isIn([1, 2, 3, 4]));
+  assert(!10.isIn[1, 2, 3, 4]);
+}
+
+
 size_t[] indexes(T)(T[] values, T value) {
   size_t[] results;
   foreach (count, key; values)
@@ -399,6 +408,7 @@ version (test_uim_core) {
       ]);
   }
 }
+// #endregion Searching
 
 bool isEmpty(T)(T[] someValues) {
   return (someValues.length == 0);

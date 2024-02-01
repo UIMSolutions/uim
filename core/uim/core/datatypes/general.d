@@ -117,10 +117,11 @@ unittest {
 }
 
 /// Concat rightValues to leftValues   
-V[K] concatPrefixInKeys(V, K)(V[K] leftValues, V preValue) { // right will overright left
-  V[K] results;
-  foreach (k, v; leftValues)
-    results[preValue ~ k] = v;
+V[string] concatPrefixInKeys(V)(V[string] leftValues, string preValue) { // right will overright left
+  V[string] results;
+  leftValues.byKeyValue
+    .each!(kv => results[preValue ~ kv.key] = kv.value);
+
   return results;
 }
 

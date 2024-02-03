@@ -1,4 +1,4 @@
-module oop.uim.oop.interfaces.container;
+module uim.oop.interfaces.container;
 
 import uim.oop;
 
@@ -13,7 +13,7 @@ import uim.oop;
  * The methods defined in this interface use the conventions provided
  * by league/container as that is the library that UIM uses.
  */
-interface IContainer : IDefinitionContainer {
+interface IContainer { // TODO: IDefinitionContainer {
     // @param \Psr\Container\IContainer container The container instance to use as delegation
-    IPsrContainer delegate(IPsrContainer container);
+    // TODO IPsrContainer delegate(IPsrContainer container);
 }

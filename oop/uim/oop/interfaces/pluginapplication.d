@@ -1,4 +1,4 @@
-module oop.uim.oop.interfaces.pluginapplication;
+module uim.oop.interfaces.pluginapplication;
 
 import uim.oop;
 
@@ -20,8 +20,8 @@ interface IPluginApplication : IEventDispatcher {
      * instance of `UIM\Core\BasePlugin` will be used. This generated class will have
      * all plugin hooks enabled.
      */
-    auto addPlugin(string pluginName, IData[string] configData = null);
-    auto addPlugin(IPlugin plugin, IData[string] configData = null);
+    void addPlugin(string pluginName, IData[string] configData = null);
+    void addPlugin(IPlugin plugin, IData[string] configData = null);
 
     // Run bootstrap logic for loaded plugins.
     void pluginBootstrap();

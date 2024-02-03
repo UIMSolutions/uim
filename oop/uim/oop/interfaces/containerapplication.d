@@ -1,4 +1,4 @@
-module oop.uim.oop.interfaces.containerapplication;
+module uim.oop.interfaces.containerapplication;
 
 import uim.oop;
 

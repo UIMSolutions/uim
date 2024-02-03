@@ -1,4 +1,4 @@
-module oop.uim.oop.interfaces.httpapplication;
+module uim.oop.interfaces.httpapplication;
 
 import uim.oop;
 

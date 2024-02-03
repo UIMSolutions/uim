@@ -1,4 +1,4 @@
-module oop.uim.oop.interfaces.consoleapplication;
+module uim.oop.interfaces.consoleapplication;
 
 import uim.oop;
 

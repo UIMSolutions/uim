@@ -1,4 +1,4 @@
-module oop.uim.oop.interfaces.retrystrategy;
+module uim.oop.interfaces.retrystrategy;
 
 import uim.oop;
 

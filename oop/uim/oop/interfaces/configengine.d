@@ -1,4 +1,4 @@
-module oop.uim.oop.interfaces.configengine;
+module uim.oop.interfaces.configengine;
 
 import uim.oop;
 

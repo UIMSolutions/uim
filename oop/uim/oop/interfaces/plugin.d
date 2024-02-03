@@ -1,4 +1,4 @@
-module oop.uim.oop.interfaces.plugin;
+module uim.oop.interfaces.plugin;
 
 import uim.oop;
 
@@ -15,14 +15,10 @@ interface IPlugin {
     // Get the filesystem path to this plugin
     string getPath();
 
-    /**
-     * Get the filesystem path to configuration for this plugin
-     */
+    // Get the filesystem path to configuration for this plugin
     string getConfigPath();
 
-    /**
-     * Get the filesystem path to configuration for this plugin
-     */
+    // Get the filesystem path to configuration for this plugin
     string getClassPath();
 
     // Get the filesystem path to templates for this plugin
@@ -44,11 +40,7 @@ interface IPlugin {
     // Add console commands for the plugin.
     CommandCollection console(CommandCollection commandsToUpdate);
 
-    /**U
-     * Add middleware for the plugin.
-     * Params:
-     * \UIM\Http\MiddlewareQueue middlewareQueue The middleware queue to update.
-     */
+    // Add middleware for the plugin.
     MiddlewareQueue middleware(MiddlewareQueue middlewareQueue);
 
     /**
@@ -56,36 +48,18 @@ interface IPlugin {
      *
      * The default implementation of this method will include the `config/routes.d` in the plugin if it exists. You
      * can override this method to replace that behavior.
-     * Params:
-     * \UIM\Routing\RouteBuilder routes The route builder to update.
      */
     void routes(RouteBuilder routes);
 
-    /**
-     * Register plugin services to the application`s container
-     * Params:
-     * \UIM\Core\IContainer container Container instance.
-     */
+    // Register plugin services to the application`s container
     void services(IContainer container);
 
-    /**
-     * Disables the named hook
-     * Params:
-     * string ahook The hook to disable
-     */
-    auto disable(string hookName);
+    // Disables the named hook
+    void disable(string hookName);
 
-    /**
-     * Enables the named hook
-     * Params:
-     * string ahook The hook to disable
-     */
-    auto enable(string hookName);
+    // Enables the named hook
+    void enable(string hookName);
 
-    /**
-     * Check if the named hook is enabled
-     * Params:
-     * string ahook The hook to check
-     */
+    // Check if the named hook is enabled
     bool isEnabled(string hookName);
 }

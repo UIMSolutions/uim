@@ -11,6 +11,7 @@ import uim.oop;
 interface IError {
   int code();
 
+  void message(string message);
   string message();
 
   string file();

@@ -379,9 +379,7 @@ size_t[] indexes(T)(T[] values, T value) {
 }
 ///
 unittest {
-  assert([1, 2, 3, 4].indexes(1) == [
-      0
-    ]);
+  assert([1, 2, 3, 4].indexes(1) == [0]);
   assert([1, 2, 3, 4].indexes(0) == null);
   assert([1, 2, 3, 4, 1].indexes(1) == [
       0, 4

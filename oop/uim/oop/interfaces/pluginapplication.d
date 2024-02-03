@@ -1,4 +1,4 @@
-module uim.cake.core;
+module oop.uim.oop.interfaces.pluginapplication;
 
 import uim.cake;
 

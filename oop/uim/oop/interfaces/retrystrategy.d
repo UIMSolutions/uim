@@ -1,4 +1,4 @@
-module uim.cake.core\Retry;
+module oop.uim.oop.interfaces.retrystrategy;
 
 import uim.cake;
 

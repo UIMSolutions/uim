@@ -31,6 +31,7 @@ public {
   import uim.oop.complex;
   import uim.oop.configurations;
   import uim.oop.containers;
+  import uim.oop.containers.maps;
   import uim.oop.core;
   import uim.oop.datatypes;
   import uim.oop.enumerations;
@@ -40,10 +41,12 @@ public {
   import uim.oop.interfaces;
   import uim.oop.generals;	
   import uim.oop.keypairs;	
-  import uim.oop.containers.maps;
+  import uim.oop.lang;	
   import uim.oop.mixins;
   import uim.oop.patterns;
+  import uim.oop.plugins;
   import uim.oop.properties;
   import uim.oop.registries;
   import uim.oop.simple;
+  import uim.oop.tools;
 }

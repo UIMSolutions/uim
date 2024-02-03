@@ -10,5 +10,5 @@ interface IHttpApplication : IRequestHandler {
     void bootstrap();
 
     // Define the HTTP middleware layers for an application.
-    MiddlewareQueue middleware(MiddlewareQueue middlewareQueue);
+    // TODO MiddlewareQueue middleware(MiddlewareQueue middlewareQueue);
 }

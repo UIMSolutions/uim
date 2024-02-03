@@ -12,7 +12,7 @@ import uim.oop;
  *
  * @extends \UIM\Event\IEventDispatcher<\UIM\Http\BaseApplication>
  */
-interface IPluginApplication : IEventDispatcher {
+interface IPluginApplication /* : IEventDispatcher */ { // TODO
     /**
      * Add a plugin to the loaded plugin set.
      *
@@ -27,11 +27,11 @@ interface IPluginApplication : IEventDispatcher {
     void pluginBootstrap();
 
     // Run routes hooks for loaded plugins
-    RouteBuilder pluginRoutes(RouteBuilder routes);
+    // TODO RouteBuilder pluginRoutes(RouteBuilder routes);
 
     // Run middleware hooks for plugins
-    MiddlewareQueue pluginMiddleware(MiddlewareQueue middlewareQueue);
+    // TODO MiddlewareQueue pluginMiddleware(MiddlewareQueue middlewareQueue);
 
     // Run console hooks for plugins
-    CommandCollection pluginConsole(CommandCollection someCommands);
+    // TODO CommandCollection pluginConsole(CommandCollection someCommands);
 }

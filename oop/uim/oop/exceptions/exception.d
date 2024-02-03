@@ -81,15 +81,15 @@ class UimException : IException {
      *
      * @param array|string myMessage Either the string of the error message, or an array of attributes
      *   that are made available in the view, and sprintf()"d into Exception::_messageTemplate
-     * @param int|null $code The error code
-     * @param \Throwable|null $previous the previous exception.
+     * @param int|null code The error code
+     * @param \Throwable|null previous the previous exception.
      */
-    /* this(myMessage = "", Nullable!int $code = null, ?Throwable $previous = null) {
+    /* this(myMessage = "", Nullable!int code = null, ?Throwable previous = null) {
       if (is_array(myMessage)) {
         _attributes = myMessage;
         myMessage = vsprintf(_messageTemplate, myMessage);
       }
-      super.this(myMessage, $code ?? _defaultCode, $previous);
+      super.this(myMessage, code ?? _defaultCode, previous);
     } */
 
     // Get the passed in attributes
@@ -102,15 +102,15 @@ class UimException : IException {
      *
      * See also {@link uim.cake.Http\Response::withHeader()}
      *
-     * @param array|string|null $header A single header string or an associative
+     * @param array|string|null header A single header string or an associative
      *   array of "header name":"header value"
      * @param string|null myValue The header value.
      * @return array|null
      * @deprecated 4.2.0 Use `HttpException::setHeaders()` instead. Response headers
      *   should be set for HttpException only.
      * /
-    function responseHeader($header = null, myValue = null): ?array {
-      if ($header.isNull) {
+    function responseHeader(header = null, myValue = null): ?array {
+      if (header.isNull) {
           return _responseHeaders;
       }
 
@@ -119,9 +119,9 @@ class UimException : IException {
           "If your exceptions extend Exception, they must now extend HttpException~ " ~
           "You should only set HTTP headers on HttpException instances via the `setHeaders()` method."
       );
-      if (is_array($header)) {
-          return _responseHeaders = $header;
+      if (is_array(header)) {
+          return _responseHeaders = header;
       }
 
-      return _responseHeaders = [$header: myValue];
+      return _responseHeaders = [header: myValue];
     } */

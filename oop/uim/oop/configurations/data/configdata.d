@@ -47,8 +47,8 @@ class DConfigData : IData {
 
 	// Check if has path
 	bool hasPath(string path) {
-		auto pathItems = path.split("/");
-		if (pathItems.length == 0) { return false; }
+		string[] pathItems = path.split("/");
+		if (pathItems.isEmpty) { return false; }
 		if (pathItems.length == 1) { return hasKey(pathItems[0]); }
 
 		if (auto data = data(pathItems[0])) { return hasPath(pathItems[1..$].join("/")); }

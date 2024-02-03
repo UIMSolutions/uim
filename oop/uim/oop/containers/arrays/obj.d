@@ -6,6 +6,7 @@
 module uim.oop.containers.arrays.obj;
 
 import uim.oop;
+
 @safe:
 
 class DArrayObj : Obj {
@@ -14,40 +15,44 @@ class DArrayObj : Obj {
 	mixin(BoolProperty!"sorted");
 	mixin(BoolProperty!"uniqued");
 
-	this() { super(); }
-	this(bool sortedMode, bool uniqueMode) { 
-		this(); 
-		this.sorted = sortedMode; 
-		this.uniqued = uniqueMode; 
+	this() {
+		super();
 	}
 
-	size_t length() { 
-		return 0; 
-	}
-	
-	bool isEmpty() { 
-		return (this.length == 0); 
+	this(bool sortedMode, bool uniqueMode) {
+		this();
+		this.sorted = sortedMode;
+		this.uniqued = uniqueMode;
 	}
 
-	O clear(this O)() { 
-		return cast(O)this; 
+	size_t length() {
+		return 0;
+	}
+
+	bool isEmpty() {
+		return (this.length == 0);
+	}
+
+	O clear(this O)() {
+		return cast(O) this;
 	}
 
 	O sorting(this O)() {
-		return cast(O)this;
+		return cast(O) this;
 	}
-	
+
 	O uniquing(this O)() {
-		foreach(i, oi; _objs[0..$-1]) {
-			if (oi)	{
-				foreach(j, oj; _objs[i+1..$]) {
-					if (oj && oi == oj) _objs[j] = null;
+		foreach (i, oi; _objs[0 .. -1]) {
+			if (oi) {
+				foreach (j, oj; _objs[i + 1 .. $]) {
+					if (oj && oi == oj)
+						_objs[j] = null;
 				}
-			}  
-		}  
+			}
+		}
 		_objs = _objs.filter!(obj => !obj.isNull).array;
 
-		return cast(O)this;
+		return cast(O) this;
 	}
 
 	O dup(this O)() {
@@ -56,16 +61,30 @@ class DArrayObj : Obj {
 		result.uniqueMode = uniqued;
 		return result;
 	}
-	override size_t toHash() nothrow { return super.toHash; }
-	override string toString() { return super.toString; }
-}
-auto ArrayObj() { return new DArrayObj(); }
-auto ArrayObj(bool sortedMode, bool uniqueMode) { return new DArrayObj(sortedMode, uniqueMode); }
 
-version(test_uim_oop) { unittest {
+	override size_t toHash() nothrow {
+		return super.toHash;
+	}
+
+	override string toString() {
+		return super.toString;
+	}
+}
+
+auto ArrayObj() {
+	return new DArrayObj();
+}
+
+auto ArrayObj(bool sortedMode, bool uniqueMode) {
+	return new DArrayObj(sortedMode, uniqueMode);
+}
+
+version (test_uim_oop) {
+	unittest {
 		assert(ArrayObj.empty);
 		assert(ArrayObj(true, true).sorted);
 		assert(!ArrayObj(false, true).sorted);
 		assert(ArrayObj(true, true).uniqued);
 		assert(!ArrayObj(true, false).uniqued);
-}}
+	}
+}

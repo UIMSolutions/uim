@@ -13,12 +13,12 @@ interface IConfigEngine {
      * These sources can either be static resources like files, or dynamic ones like
      * a database, or other datasource.
      */
-    array read(string key);
+    // TODO array read(string key);
 
     /**
      * Dumps the configure data into the storage key/file of the given `aKey`.
      * Params:
      * @param array data The data to dump.
      */
-    bool dump(string key, array data);
+    // TODO bool dump(string key, array data);
 }

@@ -6,9 +6,6 @@ import uim.oop;
 
 // Plugin Interface
 interface IPlugin {
-    // List of valid hooks.
-    const string[] VALID_HOOKS = ["bootstrap", "console", "middleware", "routes", "services"];
-
     // Get the name of this plugin.
     string name();
 
@@ -38,10 +35,10 @@ interface IPlugin {
     void bootstrap(IPluginApplication app);
 
     // Add console commands for the plugin.
-    CommandCollection console(CommandCollection commandsToUpdate);
+    // TODO CommandCollection console(CommandCollection commandsToUpdate);
 
     // Add middleware for the plugin.
-    MiddlewareQueue middleware(MiddlewareQueue middlewareQueue);
+    // TODOMiddlewareQueue middleware(MiddlewareQueue middlewareQueue);
 
     /**
      * Add routes for the plugin.
@@ -49,7 +46,7 @@ interface IPlugin {
      * The default implementation of this method will include the `config/routes.d` in the plugin if it exists. You
      * can override this method to replace that behavior.
      */
-    void routes(RouteBuilder routes);
+    // TODO void routes(RouteBuilder routes);
 
     // Register plugin services to the application`s container
     void services(IContainer container);

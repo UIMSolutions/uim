@@ -14,5 +14,5 @@ interface IConsoleApplication {
     void bootstrap();
 
     // Define the console commands for an application.
-    CommandCollection console(CommandCollection addCollection);
+    // TODO CommandCollection console(CommandCollection addCollection);
 }

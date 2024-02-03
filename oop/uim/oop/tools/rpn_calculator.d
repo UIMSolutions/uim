@@ -19,7 +19,7 @@ class RPNCalculator {
       switch (tok) {
         foreach (op; TypeTuple!("+", "-", "*", "/", "^")) {
           case op:
-            mixin("stack[$ - 2]" ~ (op == "^" ? "^^" : op) ~ "=stack[$ - 1];");
+            mixin("stack[ - 2]" ~ (op == "^" ? "^^" : op) ~ "=stack[ - 1];");
             stack.length--;
             break;
         }

@@ -1,6 +1,6 @@
-module uim.cake.core;
+module uim.oop.plugins.plugin;
 
-import uim.cake;
+import uim.oop;
 
 @safe:
 
@@ -9,21 +9,26 @@ import uim.cake;
  * It also can retrieve plugin paths and load their bootstrap and routes files.
  */
 class Plugin {
-  	override bool initialize(IConfigData[string] configData = null) {
-		if (!super.initialize(configData)) { return false; }
-		
+    this() {
+        initialize;
+    }
+
+  	bool initialize(IData[string] configData = null) {
 		return true;
 	}
+
+    // List of valid hooks.
+    const string[] VALID_HOOKS = ["bootstrap", "console", "middleware", "routes", "services"];
 
     // Holds a list of all loaded plugins and their configuration
     protected static PluginCollection plugins = null;
 
     // Returns the filesystem path for a plugin
-    static string path(string pluginName) {
-        auto plugin = getCollection().get(pluginName);
+    /* static string path(string pluginName) {
+        auto plugin = getCollection().get(pluginName, null);
 
         return plugin.getPath();
-    }
+    } 
 
     // Returns the filesystem path for plugin`s folder containing class files.
     static string classPath(string pluginName) { // pluginName in CamelCase format
@@ -38,8 +43,11 @@ class Plugin {
 
         return plugin.getConfigPath();
     }
+    */ 
 
     // Returns the filesystem path for plugin`s folder containing template files.
+    // TODO 
+    /* 
     static string templatePath(string pluginName) {
         auto plugin = getCollection().get(pluginName);
 
@@ -60,7 +68,7 @@ class Plugin {
                 .sort;
 
         return names;
-    }
+    } */
     
     /**
      * Get the shared plugin collection.
@@ -69,6 +77,7 @@ class Plugin {
      * runtime as plugins should be set during Application startup.
      */
     static PluginCollection getCollection() {
-        return plugins ??= new PluginCollection();
+        plugins = new PluginCollection();
+        return plugins;
     }
 }

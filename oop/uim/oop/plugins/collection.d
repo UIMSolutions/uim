@@ -1,6 +1,6 @@
-module oop.uim.oop.plugins.collection;
+module uim.oop.plugins.collection;
 
-import uim.cake;
+import uim.oop;
 
 @safe:
 
@@ -20,9 +20,9 @@ import uim.cake;
  *
  * @template-implements \Iterator<string, \UIM\Core\IPlugin>
  */
-class PluginCollection : Iterator, Countable {
+class PluginCollection /* : Iterator, Countable */ { // TODO
     // Plugin list
-    protected IPlugin[] _plugins;
+    protected IPlugin[string] _plugins;
 
     // Names of plugins
     protected string[] _names;
@@ -31,7 +31,7 @@ class PluginCollection : Iterator, Countable {
     protected int[] _positions;
 
     // Loop depth
-    protected int loopDepth = - 1;
+    protected int _loopDepth = - 1;
 
     /**
      * Constructor
@@ -39,14 +39,14 @@ class PluginCollection : Iterator, Countable {
      * plugins = The map of plugins to add to the collection.
      */
     this(IPlugin[] plugins = null) {
-        plugins.each!(plugin => this.add(plugin));
-        this.loadConfig();
+        plugins.each!(plugin => add(plugin));
+        // TODO _loadConfig();
     }
 
     /**
      * Add plugins from config array.
      * Params:
-     * IConfigData[string] configData Configuration array. For e.g.:
+     * IData[string] configData Configuration array. For e.g.:
      *  ```
      *  [
      *      'Company/TestPluginThree",
@@ -56,30 +56,31 @@ class PluginCollection : Iterator, Countable {
      *  ]
      *  ```
      */
-    void addFromConfig(IConfigData[string] configData = null) {
-        auto debug = Configure.read("debug");
+     // TODO 
+    /* void addFromConfig(IData[string] configData = null) {
+        auto debugData = Configure.read("debug");
         auto cli = UIM_SAPI == "cli";
 
-        foreach ($name : options; Hash.normalize(configData)) {
-            auto options = (array)$options;
-            auto onlyDebug = options["onlyDebug"] ?  ? false;
-            auto onlyCli = options["onlyCli"] ?  ? false;
-            auto optional = options.get("optional"], false);
+        foreach (name, options; Hash.normalize(configData)) {
+            IData[string] optionData = options.dup;
+            IData onlyDebug = optionData.get("onlyDebug", null);
+            IData onlyCli = optionData.get("onlyCli", null);
+            IData optional = optionData.get("optional", null);
 
-            if (($onlyDebug && !$debug) || ($onlyCli && !$cli)) {
+            if ((onlyDebug && !debugData) || (onlyCli && !cli)) {
                 continue;
             }
 
             try {
-                auto plugin = this.create($name, options);
-                this.add($plugin);
+                auto plugin = _create(name, options);
+                _add(plugin);
             } catch (MissingPluginException anException) {
-                if (!$optional) {
+                if (!optional) {
                     throw anException;
                 }
             }
         }
-    }
+    } */
 
     /**
      * Load the path information stored in vendor/UIM-plugins.d
@@ -88,24 +89,26 @@ class PluginCollection : Iterator, Countable {
      * to locate plugins on the filesystem as applications can use `extra.plugin-paths`
      * in their composer.json file to move plugin outside of vendor/
      */
-    protected void loadConfig() {
+    // TODO
+/*    protected void loadConfig() {
         if (Configure.check("plugins")) {
             return;
         }
-        vendorFile = dirname(__DIR__, 2) ~ DIRECTORY_SEPARATOR ~ "UIM-plugins.d";
-        if (!isFile($vendorFile)) {
+        
+        auto vendorFile = dirname(__DIR__, 2) ~ DIRECTORY_SEPARATOR ~ "UIM-plugins.d";
+        if (!isFile(vendorFile)) {
             vendorFile = dirname(__DIR__, 4) ~ DIRECTORY_SEPARATOR ~ "UIM-plugins.d";
-            if (!isFile($vendorFile)) {
-            Configure:
-                 : write(["plugins": []]);
+            if (!isFile(vendorFile)) {
+            Configure.write(["plugins": []]);
 
                 return;
             }
         }
-        configData = require$vendorFile;
+        
+        auto configData = requirevendorFile;
         Configure.write(configData);
     }
-
+*/
     /**
      * Locate a plugin path by looking at configuration data.
      *
@@ -118,54 +121,57 @@ class PluginCollection : Iterator, Countable {
         // Ensure plugin config is loaded each time. This is necessary primarily
         // for testing because the Configure.clear() call in TestCase.tearDown()
         // wipes out all configuration including plugin paths config.
-        this.loadConfig();
+        // TODO _loadConfig();
 
-        somePath = Configure.read("plugins." ~ pluginName);
+        // TODO
+        /* auto somePath = Configure.read("plugins." ~ pluginName);
         if (somePath) {
             return somePath;
-        }
-        pluginPath = pluginName.replace("/", DIRECTORY_SEPARATOR);
-        somePaths = App.path("plugins");
-        foreach (somePaths assomePath) {
-            if (isDir(somePath ~ pluginPath)) {
-                return somePath ~ pluginPath ~ DIRECTORY_SEPARATOR;
+        } 
+        
+        auto pluginPath = pluginName.replace("/", DIRECTORY_SEPARATOR);
+        auto somePaths = App.path("plugins");
+        foreach (path; somePaths) {
+            if (isDir(path ~ pluginPath)) {
+                return path ~ pluginPath ~ DIRECTORY_SEPARATOR;
             }
         }
         throw new MissingPluginException(["plugin": pluginName]);
+
+        */
+        return null; // TODO 
     }
 
     /**
      * Add a plugin to the collection
      *
      * Plugins will be keyed by their names.
-     * Params:
-     * \UIM\Core\IPlugin plugin The plugin to load.
      */
     void add(IPlugin plugin) {
-        if (plugin.isNull) { return; }
+        if (plugin is null) { return; }
 
-        auto pluginName = plugin.name;
-        this.plugins[pluginName] = plugin;
-        this.names = array_keys(this.plugins);
+        string pluginName = plugin.name;
+        _plugins[pluginName] = plugin;
+        _names = _plugins.keys;
     }
 
     // Remove a plugin from the collection if it exists.
     void remove(string pluginName) {
-        unset(this.plugins[pluginName]);
-        this.names = array_keys(this.plugins);
+        _plugins.remove(pluginName);
+        _names = _plugins.keys;
     }
 
     // Remove all plugins from the collection
     void clear() {
-        this.plugins = [];
-        this.names = [];
-        this.positions = [];
-        this.loopDepth = -1;
+        _plugins = null;
+        _names = null;
+        _positions = null;
+        _loopDepth = -1;
     }
     
     // Check whether the named plugin exists in the collection.
     bool has(string pluginName) {
-        return isSet(this.plugins[pluginName]);
+        return _plugins.isSet(pluginName);
     }
     
     /**
@@ -174,21 +180,23 @@ class PluginCollection : Iterator, Countable {
      * If a plugin isn`t already loaded it will be autoloaded on first access
      * and that plugins loaded this way may miss some hook methods.
      */
-    IPlugin get(string pluginName) {
-        if (this.has($name)) { return this.plugins[$name]; }
+    // TODO
+    /* IPlugin get(string pluginName) {
+        if (_has(pluginName)) { return _plugins[pluginName]; }
 
-        plugin = this.create($name);
-        this.add($plugin);
+        IPlugin plugin = _create(pluginName);
+        _add(plugin);
 
         return plugin;
-    }
+    } */ 
     
     /**
      * Create a plugin instance from a name/classname and configuration.
      * Params:
      * configData - Configuration options for the plugin.
      */
-    IPlugin create(string pluginName, IConfigData[string] configData = null) {
+    // TODO
+    /* IPlugin create(string pluginName, IData[string] configData = null) {
         if (pluginName.isEmpty) {
             throw new UimException("Cannot create a plugin with empty name");
         }
@@ -205,62 +213,62 @@ class PluginCollection : Iterator, Countable {
         // Check for [Vendor/]Foo/Plugin class
         if (!class_exists(className)) {
             pos = strpos(pluginName, "/");
-            if ($pos == false) {
+            if (pos == false) {
                  className = namespace ~ "\\" ~ pluginName ~ "Plugin";
             } else {
                  className = namespace ~ "\\" ~ substr(pluginName, pos + 1) ~ "Plugin";
             }
             // Check for [Vendor/]Foo/FooPlugin
             if (!class_exists(className)) {
-                 className = BasePlugin. class;
-                if (configData("path").isEmpty)) {
-                    configData("path", this.findPath(pluginName));
+                string className = BasePlugin.classname;
+                if (configData("path").isEmpty) {
+                    configData("path", _findPath(pluginName));
                 }
             }
         }
-        /** @var class-string<\UIM\Core\IPlugin>  className */
         return new className(configData);
     }
-    
+    */
+
     /**
      * Implementation of Countable.
      *
      * Get the number of plugins in the collection.
      */
     size_t count() {
-        return count(this.plugins);
+        return _plugins.length;
     }
 
     // Part of Iterator Interface
     void next() {
-        this.positions[this.loopDepth]++;
+        _positions[_loopDepth]++;
     }
 
     // Part of Iterator Interface
     string key() {
-        return this.names[this.positions[this.loopDepth]];
+        return _names[_positions[_loopDepth]];
     }
 
     // Part of Iterator Interface
     IPlugin current() {
-        auto position = this.positions[this.loopDepth];
-        auto pluginName = this.names[$position];
+        auto position = _positions[_loopDepth];
+        auto pluginName = _names[position];
 
-        return this.plugins[pluginName];
+        return _plugins[pluginName];
     }
     
     // Part of Iterator Interface
     void rewind() {
-        this.positions ~= 0;
-        this.loopDepth += 1;
+        _positions ~= 0;
+        _loopDepth += 1;
     }
 
     // Part of Iterator Interface
     bool valid() {
-        auto result = isSet(this.names[this.positions[this.loopDepth]]);
+        auto result = _names.isSet(_positions[_loopDepth]);
         if (!result) {
-            array_pop(this.positions);
-            this.loopDepth -= 1;
+            // TODO array_pop(_positions);
+            _loopDepth -= 1;
         }
         return result;
     }
@@ -270,14 +278,15 @@ class PluginCollection : Iterator, Countable {
      * Params:
      * string ahook The hook to filter plugins by
      */
-    Generator<\UIM\Core\IPlugin> with (string myhook) {
-        if (!in_array($hook, IPlugin:
+     // TODO
+/*    Generator<\UIM\Core\IPlugin> with (string myhook) {
+        if (!in_array(hook, IPlugin:
                  : VALID_HOOKS, true)) {
             throw new InvalidArgumentException(
-                "The `%s` hook is not a known plugin hook.".format($hook));
+                "The `%s` hook is not a known plugin hook.".format(hook));
         }
         this
-            .filter!(plugin => plugin.isEnabled($hook))
+            .filter!(plugin => plugin.isEnabled(hook))
             .each!(pligin => yield plugin);
-    }
+    }*/
 }

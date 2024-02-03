@@ -19,8 +19,8 @@ class DMementoHistory {
     DMementoState lastState;
     
     if (!_states.isEmpty) {
-      lastState = _states[$-1];
-      _states = _states[0..$-1];
+      lastState = _states[-1];
+      _states = _states[0..-1];
     } 
 
     return lastState;

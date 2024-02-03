@@ -30,7 +30,7 @@ bool isSet(V)(V[] values, size_t[] index) {
     }
 
   foreach (i; index) {
-    if (index >= values.length) { 
+    if (i >= values.length) { 
       return false; 
     }
   }
@@ -46,7 +46,7 @@ bool isSet(V, K)(V[K] values, K[] keys) {
       return false; 
     }
 
-  keys.all!(key => key in values);
+  return keys.all!(key => key in values);
 }
 
 bool isSet(Json values, string key) { // TODO string -> string[]

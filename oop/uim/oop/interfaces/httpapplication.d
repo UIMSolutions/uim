@@ -1,6 +1,6 @@
 module oop.uim.oop.interfaces.httpapplication;
 
-import uim.cake;
+import uim.oop;
 
 @safe:
 

@@ -1,6 +1,6 @@
 module oop.uim.oop.interfaces.consoleapplication;
 
-import uim.cake;
+import uim.oop;
 
 @safe:
 

@@ -1,6 +1,6 @@
 module oop.uim.oop.interfaces.plugin;
 
-import uim.cake;
+import uim.oop;
 
 @safe:
 

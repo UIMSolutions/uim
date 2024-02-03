@@ -1,6 +1,6 @@
-module oop.uim.oop.interfaces.configengineinterface;
+module oop.uim.oop.interfaces.configengine;
 
-import uim.cake;
+import uim.oop;
 
 @safe:
 

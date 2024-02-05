@@ -213,11 +213,10 @@ class PluginCollection /* : Iterator, Countable */ { // TODO
         // Check for [Vendor/]Foo/Plugin class
         if (!class_exists(className)) {
             pos = strpos(pluginName, "/");
-            if (pos == false) {
-                 className = namespace ~ "\\" ~ pluginName ~ "Plugin";
-            } else {
-                 className = namespace ~ "\\" ~ substr(pluginName, pos + 1) ~ "Plugin";
-            }
+            className = pos == false 
+                ? namespace ~ "\\" ~ pluginName ~ "Plugin"
+                : namespace ~ "\\" ~ substr(pluginName, pos + 1) ~ "Plugin";
+
             // Check for [Vendor/]Foo/FooPlugin
             if (!class_exists(className)) {
                 string className = BasePlugin.classname;

@@ -1,1 +1,1 @@
-module uim.oop.datatypes.registry;
+module uim.oop.datatypes.registry;x^^

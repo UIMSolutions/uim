@@ -30,16 +30,14 @@ unittest {
 }
 
 string toString(T)(T value, size_t length = 0, string fillTxt = "0")
-    if (isFloatingPoint!T) {
+//    if (isFloatingPoint!T) {
   string result = fill(length, fillTxt);
 
   import std.conv;
 
   string convert = to!string(value);
-  if (convert.length < length) {
-    result = result[0 .. $ - convert.length] ~ convert;
-  } else
-    result = convert;
+  result = convert.length < length
+    ? result[0 .. $ - convert.length] ~ convert : convert;
 
   return result;
 }

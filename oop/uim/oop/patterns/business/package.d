@@ -28,13 +28,10 @@ class JMSService : IBusinessService {
 /// Create Business Lookup Service.
 class BusinessLookUp {
   IBusinessService getBusinessService(string serviceType) {
-  
-    if(serviceType.toLower == "EJB".toLower) {
-      return new EJBService();
-    }
-    else {
-      return new JMSService();
-    }
+
+    return serviceType.toLower == "EJB".toLower
+      ? new EJBService()
+      : new JMSService();
   }
 }
 

@@ -3,13 +3,10 @@
 *	License  : Licensed under Apache 2 [https://apache.org/licenses/LICENSE-2.0.txt] *
 *	Author   : Ozan Nurettin Süel (Sicherheitsschmiede)										           * 
 ***********************************************************************************/
-module uim.oop.datatypes.datatype;
+module uim.oop.datatypes.data;
 
 import uim.oop;
 
-interface IDatatype {
-}
-
-abstract class DDatatype {
+abstract class DData : IData {
   this(){}
 }

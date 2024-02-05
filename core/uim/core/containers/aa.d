@@ -59,24 +59,22 @@ version (test_uim_core) {
 }
 
 // Add Items from array
-T[S] add(T, S)(T[S] baseItems, T[S] addItems) {
-  T[S] results = baseItems.dup;
-  foreach (k, v; addItems)
-    results[k] = v;
+T[S] add(T, S)(T[S] origin, T[S] newValues, bool shouldOverwrite = false) {
+  T[S] results = origin.dup;
+  newValues.byKeyValue
+    .each!(kv => results[kv.key] = shouldOverwrite ? kv.value : results[kv.key]);
   return results;
 }
-
-version (test_uim_core) {
-  unittest {
-    assert([1: "b", 2: "d"].add([3: "f"]) == [1: "b", 2: "d", 3: "f"]);
-    assert(["a": "b", "c": "d"].add(["e": "f"]) == [
-        "a": "b",
-        "c": "d",
-        "e": "f"
-      ]);
-    assert(["a": "b", "c": "d"].add(["e": "f"])
-        .add(["g": "h"]) == ["a": "b", "c": "d", "e": "f", "g": "h"]);
-  }
+///
+unittest {
+  assert([1: "b", 2: "d"].add([3: "f"]) == [1: "b", 2: "d", 3: "f"]);
+  assert(["a": "b", "c": "d"].add(["e": "f"]) == [
+      "a": "b",
+      "c": "d",
+      "e": "f"
+    ]);
+  assert(["a": "b", "c": "d"].add(["e": "f"])
+      .add(["g": "h"]) == ["a": "b", "c": "d", "e": "f", "g": "h"]);
 }
 
 /// remove subItems from baseItems if key and value of item are equal
@@ -87,24 +85,20 @@ T[S] sub(T, S)(T[S] baseItems, T[S] subItems) {
       results.remove(k);
   return results;
 }
-
-version (test_uim_core) {
-  unittest {
-    assert([1: "4", 2: "5", 3: "6"].sub([1: "5", 2: "5", 3: "6"]) == [
-        1: "4"
-      ]);
-  }
+///
+unittest {
+  assert([1: "4", 2: "5", 3: "6"].sub([1: "5", 2: "5", 3: "6"]) == [
+      1: "4"
+    ]);
 }
 
 /// remove subItems from baseItems if key exists
 T[S] removeByKeys(T, S)(T[S] baseItems, S[] subItems...) {
   return removeByKeys(baseItems, subItems);
 }
-
-version (test_uim_core) {
-  unittest {
-    assert([1: "4", 2: "5", 3: "6"].removeByKeys(2, 3) == [1: "4"]);
-  }
+///
+unittest {
+  assert([1: "4", 2: "5", 3: "6"].removeByKeys(2, 3) == [1: "4"]);
 }
 
 /// remove subItems from baseItems if key exists
@@ -114,11 +108,9 @@ T[S] removeByKeys(T, S)(T[S] baseItems, S[] subItems) {
     results.remove(key);
   return results;
 }
-
-version (test_uim_core) {
-  unittest {
-    assert([1: "4", 2: "5", 3: "6"].removeByKeys([2, 3]) == [1: "4"]);
-  }
+///
+unittest {
+  assert([1: "4", 2: "5", 3: "6"].removeByKeys([2, 3]) == [1: "4"]);
 }
 
 /// remove subItems from baseItems if key exists
@@ -128,14 +120,12 @@ T[S] removeByKeys(T, S)(T[S] baseItems, T[S] subItems) {
     .each!(kv => results.remove(kv.key));
   return results;
 }
-
-version (test_uim_core) {
+///
   unittest {
     assert([1: "4", 2: "5", 3: "6"].removeByKeys([2: "x", 3: "y"]) == [
         1: "4"
       ]);
   }
-}
 
 /// remove subItems from baseItems if value exists
 T[S] removeByValues(T, S)(T[S] baseItems, T[S] subItems) {

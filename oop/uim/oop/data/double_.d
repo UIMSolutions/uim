@@ -7,6 +7,6 @@ module uim.oop.data.double_;
 
 import uim.oop;
 
-class DDouble : DDatatype {
+class DDouble : DData {
   this() { super(); }
 }

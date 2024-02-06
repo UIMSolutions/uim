@@ -13,6 +13,7 @@ public {
 	import uim.oop.interfaces.collection;
 	import uim.oop.interfaces.comparable;
 	import uim.oop.interfaces.configengine;
+	import uim.oop.interfaces.configurable;
 	import uim.oop.interfaces.configuration;
 	import uim.oop.interfaces.consoleapplication;
 	import uim.oop.interfaces.container;

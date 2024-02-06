@@ -7,6 +7,6 @@ module uim.oop.data.datetime_;
 
 import uim.oop;
 
-class DDateTime : DDatatype {
+class DDateTime : DData {
   this() { super(); }
 }

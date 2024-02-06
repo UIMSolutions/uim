@@ -1,4 +1,4 @@
-module oop.uim.oop.interfaces.data;
+module uim.oop.interfaces.data;
 
 import uim.oop;
 

@@ -6,10 +6,11 @@
 module uim.oop.patterns.business;
 
 import uim.oop;
+
 @safe:
 
 interface IBusinessService {
-   void doProcessing();
+  void doProcessing();
 }
 
 /// Create concrete Service classes.
@@ -29,26 +30,28 @@ class JMSService : IBusinessService {
 class BusinessLookUp {
   IBusinessService getBusinessService(string serviceType) {
 
-    return serviceType.toLower == "EJB".toLower
-      ? new EJBService()
-      : new JMSService();
+    // TODO an error?
+/*    return serviceType.toLower == "EJB".toLower
+      ? new EJBService() : new JMSService();
+*/
+    return null;
   }
 }
 
 /// Create Business Delegate.
 class BusinessDelegate {
-   private BusinessLookUp lookupService = new BusinessLookUp();
-   private IBusinessService businessService;
-   private string _serviceType;
+  private BusinessLookUp lookupService = new BusinessLookUp();
+  private IBusinessService businessService;
+  private string _serviceType;
 
-   void setServiceType(string serviceType) {
-      _serviceType = serviceType;
-   }
+  void setServiceType(string serviceType) {
+    _serviceType = serviceType;
+  }
 
-   void doTask() {
-      businessService = lookupService.getBusinessService(_serviceType);
-      businessService.doProcessing();		
-   }
+  void doTask() {
+    businessService = lookupService.getBusinessService(_serviceType);
+    businessService.doProcessing();
+  }
 }
 
 /// Create Client.
@@ -56,23 +59,24 @@ class Client {
   BusinessDelegate _businessService;
 
   this(BusinessDelegate newBusinessService) {
-    _businessService  = newBusinessService;
+    _businessService = newBusinessService;
   }
 
-  void doTask() {		
+  void doTask() {
     _businessService.doTask();
   }
 }
 
 /// Use BusinessDelegate and Client classes to demonstrate Business Delegate pattern.
-version(test_uim_oop) { unittest {
-  BusinessDelegate businessDelegate = new BusinessDelegate();
-  businessDelegate.setServiceType("EJB");
+version (test_uim_oop) {
+  unittest {
+    BusinessDelegate businessDelegate = new BusinessDelegate();
+    businessDelegate.setServiceType("EJB");
 
-  Client client = new Client(businessDelegate);
-  client.doTask();
+    Client client = new Client(businessDelegate);
+    client.doTask();
 
-  businessDelegate.setServiceType("JMS");
-  client.doTask();
+    businessDelegate.setServiceType("JMS");
+    client.doTask();
   }
 }

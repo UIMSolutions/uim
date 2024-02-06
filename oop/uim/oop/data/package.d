@@ -3,14 +3,15 @@
 *	License  : Licensed under Apache 2 [https://apache.org/licenses/LICENSE-2.0.txt] *
 *	Author   : Ozan Nurettin Süel (Sicherheitsschmiede)										           * 
 ***********************************************************************************/
-module uim.oop.datatypes;
+module uim.oop.data;
 
 import uim.oop;
 
 public {
-  import uim.oop.datatypes.datatype;
-  import uim.oop.datatypes.datetime_;
-  import uim.oop.datatypes.double_;
-  import uim.oop.datatypes.integer;
-  import uim.oop.datatypes.string;
+  import uim.oop.data.data;
+  import uim.oop.data.datetime_;
+  import uim.oop.data.double_;
+  import uim.oop.data.integer;
+  import uim.oop.data.registry;
+  import uim.oop.data.string;
 }

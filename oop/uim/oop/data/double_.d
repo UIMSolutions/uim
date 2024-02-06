@@ -3,10 +3,10 @@
 *	License  : Licensed under Apache 2 [https://apache.org/licenses/LICENSE-2.0.txt] *
 *	Author   : Ozan Nurettin Süel (Sicherheitsschmiede)										           * 
 ***********************************************************************************/
-module uim.oop.datatypes.data;
+module uim.oop.data.double_;
 
 import uim.oop;
 
-abstract class DData : IData {
-  this(){}
+class DDouble : DDatatype {
+  this() { super(); }
 }

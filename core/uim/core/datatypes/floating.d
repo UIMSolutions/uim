@@ -29,7 +29,7 @@ unittest {
 	assert(fuzzy(0.5, 0.0, 1.0) == 0.5); */
 }
 
-string toString(T)(T value, size_t length = 0, string fillTxt = "0")
+string toString(T)(T value, size_t length = 0, string fillTxt = "0") {
 //    if (isFloatingPoint!T) {
   string result = fill(length, fillTxt);
 

@@ -9,8 +9,8 @@ import uim.oop;
 
 @safe:
 
-class DStringConfigData : DConfigData {
-	mixin(ConfigDataThis!());
+class DStringData : DData {
+	mixin(DataThis!());
     this(string newValue) {
         _value = newValue;
     }
@@ -21,5 +21,5 @@ class DStringConfigData : DConfigData {
         return _value;
     }
 }
-mixin(ConfigDataCalls!("StringConfigData"));
-auto StringConfigData(string newValue) { return new DStringConfigData(newValue); }
+mixin(DataCalls!("StringData"));
+auto StringData(string newValue) { return new DStringData(newValue); }

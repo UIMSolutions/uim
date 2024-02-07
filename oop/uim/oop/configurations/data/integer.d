@@ -9,8 +9,8 @@ import uim.oop;
 
 @safe:
 
-class DIntegerConfigData : DConfigData {
-  mixin(ConfigDataThis!());
+class DIntegerData : DData {
+  mixin(DataThis!());
 
   this(int newValue) {
     _value = newValue;
@@ -23,9 +23,9 @@ class DIntegerConfigData : DConfigData {
   }
 }
 
-mixin(ConfigDataCalls!("IntegerConfigData"));
+mixin(DataCalls!("IntegerData"));
 
 unittest {
-  auto data = IntegerConfigData(100);
+  auto data = IntegerData(100);
   writeln(data.className);
 }

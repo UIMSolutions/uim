@@ -14,7 +14,7 @@ class UimException : IException {
   this(string[] someAttributes) { this().attributes(someAttributes); }
   this(string aMessage, string[] someAttributes) { this().message(aMessage).attributes(someAttributes); }
 
-  bool initialize(IData[string] configData = null) {
+  bool initialize(IData[string] Data = null) {
     this
       .message("");
       

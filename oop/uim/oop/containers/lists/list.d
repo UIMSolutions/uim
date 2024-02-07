@@ -22,8 +22,8 @@ class DList(T) : DContainer!T, IList  {
     this().addAll(newItems.dup);
   }
 
-  override bool initialize(IData[string] configData = null) {
-    super.initialize(configData);
+  override bool initialize(IData[string] Data = null) {
+    super.initialize(Data);
   }
 
   // #region add

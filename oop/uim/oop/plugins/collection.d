@@ -46,7 +46,7 @@ class PluginCollection /* : Iterator, Countable */ { // TODO
     /**
      * Add plugins from config array.
      * Params:
-     * IData[string] configData Configuration array. For e.g.:
+     * IData[string] Data Configuration array. For e.g.:
      *  ```
      *  [
      *      'Company/TestPluginThree",
@@ -57,11 +57,11 @@ class PluginCollection /* : Iterator, Countable */ { // TODO
      *  ```
      */
      // TODO 
-    /* void addFromConfig(IData[string] configData = null) {
+    /* void addFromConfig(IData[string] Data = null) {
         auto debugData = Configure.read("debug");
         auto cli = UIM_SAPI == "cli";
 
-        foreach (name, options; Hash.normalize(configData)) {
+        foreach (name, options; Hash.normalize(Data)) {
             IData[string] optionData = options.dup;
             IData onlyDebug = optionData.get("onlyDebug", null);
             IData onlyCli = optionData.get("onlyCli", null);
@@ -105,8 +105,8 @@ class PluginCollection /* : Iterator, Countable */ { // TODO
             }
         }
         
-        auto configData = requirevendorFile;
-        Configure.write(configData);
+        auto Data = requirevendorFile;
+        Configure.write(Data);
     }
 */
     /**
@@ -193,10 +193,10 @@ class PluginCollection /* : Iterator, Countable */ { // TODO
     /**
      * Create a plugin instance from a name/classname and configuration.
      * Params:
-     * configData - Configuration options for the plugin.
+     * Data - Configuration options for the plugin.
      */
     // TODO
-    /* IPlugin create(string pluginName, IData[string] configData = null) {
+    /* IPlugin create(string pluginName, IData[string] Data = null) {
         if (pluginName.isEmpty) {
             throw new UimException("Cannot create a plugin with empty name");
         }
@@ -204,9 +204,9 @@ class PluginCollection /* : Iterator, Countable */ { // TODO
             if (!class_exists(pluginName)) {
                 throw new InvalidArgumentException("Class `%s` does not exist.".format(pluginName));
             }
-            return new pluginName(configData);
+            return new pluginName(Data);
         }
-        configData += ["name": pluginName];
+        Data += ["name": pluginName];
         
         string namespace = pluginName.replace("/", "\\");
         string className = namespace ~ "\\" ~ "Plugin";
@@ -220,12 +220,12 @@ class PluginCollection /* : Iterator, Countable */ { // TODO
             // Check for [Vendor/]Foo/FooPlugin
             if (!class_exists(className)) {
                 string className = BasePlugin.classname;
-                if (configData("path").isEmpty) {
-                    configData("path", _findPath(pluginName));
+                if (Data("path").isEmpty) {
+                    Data("path", _findPath(pluginName));
                 }
             }
         }
-        return new className(configData);
+        return new className(Data);
     }
     */
 

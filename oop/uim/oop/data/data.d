@@ -6,6 +6,7 @@
 module uim.oop.data.data;
 
 import uim.oop;
+@safe:
 
 class DData : IData {
   this() {
@@ -26,7 +27,13 @@ class DData : IData {
     // Compare with other Data
   bool isEqual(IData[string] checkData) {
     return hasKeys(checkData.keys) 
-      ? checkData.keys.all!(key => get(key).isEqual(checkData[key]))
+      ? checkData.keys.all!(key => hasKey(key) && get(key).isEqual(checkData[key]))
+      : false;
+  }
+
+  bool isEqual(IData checkData) {
+    return hasKeys(checkData.keys) 
+      ? checkData.keys.all!(key => hasKey(key) && get(key).isEqual(checkData[key]))
       : false;
   }
 
@@ -54,18 +61,18 @@ class DData : IData {
   bool hasKey(string checkKey, bool deepSearch = false) {
     if (checkKey in _data) return true;
     return deepSearch
-      ? keys.any!(key => data(key).checkKey(key))
+      ? keys.any!(key => data(key).hasKey(checkKey))
       : false;
   }
 
   bool hasData(IData[string] checkData, bool deepSearch = false) {
-    return checkData.keys.all!(keys => hasData(checkData[key], deepSearch));
+    return checkData.keys.all!(key => hasData(checkData[key], deepSearch));
   }
   bool hasData(IData[] checkData, bool deepSearch = false) {
     return checkData.all!(data => hasData(data, deepSearch));
   }
   bool hasData(IData checkData, bool deepSearch = false) {
-    return keys.any!(key => data(key) == checkData)
+    return keys.any!(key => data(key).isEqual(checkData))
       ? true
       : (deepSearch
         ? keys.any!(key => data(key).hasData(checkData, deepSearch))
@@ -84,11 +91,11 @@ class DData : IData {
     return data(key);
   }
 
-  void data(string key, IData data) {
-    return _data[key] = data;
+  void data(string key, IData newData) {
+    _data[key] = newData;
   }
-  void opAssignIndex(IData data, string key) {
-    data(key, data);
+  void opAssignIndex(IData newData, string key) {
+    data(key, newData);
   }
 
   override string toString() {

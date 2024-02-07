@@ -6,11 +6,11 @@ import uim.oop;
 
 class StringData : DData {
     this() {
-        initialize;
+        // initialize;
     }
     this(string newValue) {
         _value = newValue;
     }
 
-    protected string _newValue;
+    protected string _value;
 }

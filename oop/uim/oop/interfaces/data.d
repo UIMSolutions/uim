@@ -7,14 +7,16 @@ interface IData {
     string[] keys();
     IData[] values();
 
+    bool isEqual(IData[string] checkData);
 	bool isEqual(IData data);
 
-    bool hasPaths(string[] paths);
-    bool hasPath(string path);
+    bool hasPaths(string[] paths, string separator = "/");
+    bool hasPath(string path, string separator = "/");
 
     bool hasKeys(string[] keys, bool deepSearch = false);
     bool hasKey(string key, bool deepSearch = false);
 
+    bool hasData(IData[string] checkData, bool deepSearch = false); 
     bool hasData(IData[] data, bool deepSearch = false);
     bool hasData(IData data, bool deepSearch = false);
 
@@ -27,5 +29,5 @@ interface IData {
     void opAssignIndex(IData data, string key);
 
     string toString();
-    Json toJson();
+    Json toJson(string[] selectedKeys = null);
 }

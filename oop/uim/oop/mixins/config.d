@@ -12,13 +12,13 @@ mixin template ConfigForInterface() {
   Json[string] config();
   void config(Json[string] newConfig);
 
-  Json configData(string key);
-  void configData(string key, Json newData);
+  Json Data(string key);
+  void Data(string key, Json newData);
 }
 // TODO enhance interface
 
 template ConfigForClass() {
-  protected Json[string] _configData;
+  protected Json[string] _Data;
 
   Json[string] config() {
     return _config.clone;
@@ -30,21 +30,21 @@ template ConfigForClass() {
 
   void updateConfig(Json[string] updateData) {
     updateData.byKeyValue
-      .each!(kv => configData(kv.key, kv.value));
+      .each!(kv => Data(kv.key, kv.value));
   }
 
-  bool hasConfigData(string key) {
-    return _configData.hasKey(key);
+  bool hasData(string key) {
+    return _Data.hasKey(key);
   }
 
-  Json configData(string key) {
-    if (_configData.has(key))
-      return _configData[key].clone;
+  Json Data(string key) {
+    if (_Data.has(key))
+      return _Data[key].clone;
     return Json(null);
   }
 
-  void configData(string key, Json newData) {
-    _configData[key] = newData.clone;
+  void Data(string key, Json newData) {
+    _Data[key] = newData.clone;
   }
 
   Json[string] removeConfigKeys(string[] keys...) {
@@ -58,8 +58,8 @@ template ConfigForClass() {
   }
 
   Json removeConfigKey(string key) {
-    auto data = configData(key);
-    _configData.remove(key);
+    auto data = Data(key);
+    _Data.remove(key);
     return data;
   }
 }

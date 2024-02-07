@@ -10,7 +10,7 @@ import uim.oop;
 public {
 	import uim.oop.mixins.config;
 	import uim.oop.mixins.configurable;
-	import uim.oop.mixins.configdata;
+	import uim.oop.mixins.data;
 	import uim.oop.mixins.configuration;
 	import uim.oop.mixins.exception;
 	import uim.oop.mixins.properties;

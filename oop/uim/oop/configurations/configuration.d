@@ -8,7 +8,7 @@ module uim.oop.configurations.configuration;
 import uim.oop;
 @safe:
 
-class Configuration : DData, IConfiguration {
+class Configuration : IConfiguration {
     this() {}
     this(string name) { this(); this.name(name); }
 
@@ -29,6 +29,6 @@ class Configuration : DData, IConfiguration {
 
 unittest{
     IConfiguration config = new Configuration;
-    config["test"] = StringData("stringdata");
-    config.data("data", StringData("string-data"));
+    // config["test"] = StringData("stringdata");
+    // config.data("data", StringData("string-data"));
 }

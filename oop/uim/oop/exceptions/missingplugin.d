@@ -12,8 +12,8 @@ import uim.oop;
 class DMissingPluginException : UimException {
 	mixin(ExceptionThis!("MissingPluginException"));
 
-	override bool initialize(IData[string] configData = null) {
-		if (!super.initialize(configData)) { return false; }
+	override bool initialize(IData[string] Data = null) {
+		if (!super.initialize(Data)) { return false; }
 		
 		this
 			.messageTemplate("Plugin %s could not be found.");

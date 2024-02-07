@@ -13,7 +13,7 @@ class Plugin {
         initialize;
     }
 
-  	bool initialize(IData[string] configData = null) {
+  	bool initialize(IData[string] Data = null) {
 		return true;
 	}
 

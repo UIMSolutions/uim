@@ -23,8 +23,9 @@ interface IData {
     IData data(string key);
     IData opIndex(string key);
 
-    IData data(string key, IData data);
-    IData opAssignIndex(IData data, string key);
+    void data(string key, IData data);
+    void opAssignIndex(IData data, string key);
 
     string toString();
+    Json toJson();
 }

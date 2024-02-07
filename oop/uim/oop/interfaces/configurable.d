@@ -14,4 +14,10 @@ interface IConfigurable {
     IConfiguration configuration();
     // Sets configuration
     void configuration(IConfiguration newConfiguration);
+
+    void setConfiguration(IData[string] newData); 
+
+    void setConfiguration(string key, IData newData); 
+
+    IData getConfiguration(string key); 
 }

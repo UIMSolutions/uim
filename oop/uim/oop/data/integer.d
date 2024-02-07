@@ -7,6 +7,7 @@ module uim.oop.data.integer;
 
 import uim.oop;
 
+@safe:
 /// Integer class wraps a value of the primitive type int in an object. 
 class DInteger : DData {
   this() { super(); }

@@ -14,4 +14,5 @@ public {
   import uim.oop.data.integer;
   import uim.oop.data.registry;
   import uim.oop.data.string;
+  import uim.oop.data.stringdata;
 }

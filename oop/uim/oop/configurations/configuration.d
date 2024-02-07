@@ -26,3 +26,9 @@ class Configuration : DConfigData, IConfiguration {
         return this;
     }
 }
+
+unittest{
+    IConfiguration config = new Configuration;
+    config["test"] = StringData("stringdata");
+    config.data("data", StringData("string-data"));
+}

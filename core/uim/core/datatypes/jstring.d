@@ -4,8 +4,8 @@ import uim.core;
 
 @safe:
 
-Json[string] merge(Json[string] baseData, Json secondData, bool shouldOverwrite = false) {
-  Json[string] result;
+IData[string] merge(IData[string] baseData, Json secondData, bool shouldOverwrite = false) {
+  IData[string] result;
 
   baseData.byKeyValue
     .each!(kv => result[kv.key] = kv.value);
@@ -17,16 +17,16 @@ Json[string] merge(Json[string] baseData, Json secondData, bool shouldOverwrite 
   return result;
 }
 
-Json[string] update(Json[string] origin, Json[string] additional) {
-  Json[string] updated = origin.dup;
+IData[string] update(IData[string] origin, IData[string] additional) {
+  IData[string] updated = origin.dup;
   additional.byKeyValue
     .each!(kv => updated[kv.key] = kv.value);
 
   return updated;
 }
 
-Json[string] copy(Json[string] origin) {
-  Json[string] result;
+IData[string] copy(IData[string] origin) {
+  IData[string] result;
   origin.byKeyValue
     .each!(kv => result[kv.key] = kv.value);
 

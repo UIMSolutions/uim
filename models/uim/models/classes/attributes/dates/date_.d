@@ -13,12 +13,14 @@ class DDateAttribute : DAttribute {
 
   // Initialization hook method.  // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
     // means.measurement.date
 
-    name("date")
-      .dataFormats(["date"])
-      .registerPath("date");
+    name("date");
+    dataFormats(["date"]);
+    registerPath("date");
 
     return true;
   }
@@ -26,9 +28,11 @@ class DDateAttribute : DAttribute {
   /* override IData createData() {
     return DateValue(this); } */
 }
+
 mixin(AttributeCalls!("DateAttribute"));
 
-version(test_uim_models) { unittest {  
+version (test_uim_models) {
+  unittest {
     // TODO tests
   }
 }

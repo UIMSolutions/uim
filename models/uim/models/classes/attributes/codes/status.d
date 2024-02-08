@@ -13,24 +13,27 @@ class DStatusCodeAttribute : DIntegerStringAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("statusCode")
-      .display("Status Reason")
-      .lookups([
-        0: "Active",  
+    name("statusCode");
+    display("Status Reason");
+    lookups([
+        0: "Active",
         1: "Inactive"
-      ])
-      .isNullable(true)
-      .registerPath("statuscode");
+      ]);
+    isNullable(true);
+    registerPath("statuscode");
 
     return true;
   }
 }
+
 mixin(AttributeCalls!("StatusCodeAttribute"));
 
-version(test_uim_models) { unittest {  
+version (test_uim_models) {
+  unittest {
     // TODO tests
   }
 }

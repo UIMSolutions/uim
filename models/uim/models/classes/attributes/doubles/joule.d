@@ -28,9 +28,10 @@ class DJouleAttribute : DDoubleAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("joule")
-      .registerPath("joule");
+    name("joule"); 
+    registerPath("joule");
+
+    return true;
   }
 }
 mixin(AttributeCalls!("JouleAttribute"));

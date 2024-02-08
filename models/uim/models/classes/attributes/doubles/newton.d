@@ -26,16 +26,21 @@ class DNewtonAttribute : DDoubleAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("newton")
-      .registerPath("newton");
+    name("newton");
+    registerPath("newton");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("NewtonAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     // TODO
   }
 }

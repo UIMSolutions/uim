@@ -6,6 +6,7 @@
 module uim.models.classes.attributes.decimals.fixed;
 
 import uim.models;
+
 @safe:
 
 // The 64 bit fixed (4) scale numbers used by PBI
@@ -14,16 +15,21 @@ class DFixedDecimalAttribute : DDecimalAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    
-      name("fixedDecimal");
-      registerPath("fixedDecimal");
+    name("fixedDecimal");
+    registerPath("fixedDecimal");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!"FixedDecimalAttribute");
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DFixedDecimalAttribute);
     testAttribute(FixedDecimalAttribute);
   }

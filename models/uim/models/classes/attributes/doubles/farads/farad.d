@@ -27,15 +27,21 @@ class DFaradAttribute : DDoubleAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    namename("farad")
-      .registerPath("farad");
-  }  
+    name("farad");
+    registerPath("farad");
+
+    return true;
+  }
 }
+
 mixin(AttributeCalls!("FaradAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     // TODO
   }
 }

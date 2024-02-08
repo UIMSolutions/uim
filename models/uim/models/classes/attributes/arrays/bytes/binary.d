@@ -23,8 +23,7 @@ class DBinaryAttribute : DAttribute {
     is.dataFormat.byte
     is.dataFormat.array */
 
-    addDataFormats
-    (["array"]);
+    addDataFormats(["array"]);
     name("binary");
     registerPath("binary");
 

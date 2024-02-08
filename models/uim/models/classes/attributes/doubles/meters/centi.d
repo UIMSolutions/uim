@@ -25,9 +25,10 @@ class DCentimeterAttribute : DMeterAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("centimeter")
-      .registerPath("centimeter");
+    name("centimeter");
+    registerPath("centimeter");
+
+    return true;
   }
 }
 mixin(AttributeCalls!("CentimeterAttribute"));

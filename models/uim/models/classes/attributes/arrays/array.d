@@ -13,17 +13,22 @@ class DArrayAttribute : DAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    
-      this.name("arrayAttribute");
-      this.addDataFormats(["array"]);
-      this.registerPath("arrayAttribute");
+    name("arrayAttribute");
+    addDataFormats(["array"]);
+    registerPath("arrayAttribute");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!"ArrayAttribute");
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DArrayAttribute);
     testAttribute(ArrayAttribute);
   }

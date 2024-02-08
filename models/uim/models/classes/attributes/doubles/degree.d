@@ -6,6 +6,7 @@
 module uim.models.classes.attributes.doubles.degree;
 
 import uim.models;
+
 @safe:
 
 /* 
@@ -18,16 +19,21 @@ class DDegreeAttribute : DDoubleAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    
-      name("degree");
-      registerPath("degree");
+    name("degree");
+    registerPath("degree");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("DegreeAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     // TODO
   }
 }

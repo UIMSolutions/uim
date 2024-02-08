@@ -6,6 +6,7 @@
 module uim.models.classes.attributes.doubles.meters.milli;
 
 import uim.models;
+
 @safe:
 
 /* Unit of measure for length in 10E-3 meters
@@ -28,16 +29,21 @@ class DMillimeterAttribute : DMeterAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("millimeter")
-      .registerPath("millimeter");
+    name("millimeter");
+    registerPath("millimeter");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("MillimeterAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     // TODO
   }
 }

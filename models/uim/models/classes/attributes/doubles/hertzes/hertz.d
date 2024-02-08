@@ -27,22 +27,27 @@ class DHertzAttribute : DDoubleAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-/* is.dataFormat.floatingPoint
+    /* is.dataFormat.floatingPoint
 is.dataFormat.big
 means.measurement.dimension.frequency
 means.measurement.units.si.hertz
 has.measurement.fundamentalComponent.second */
 
-    this
-      .name("hertz")
-      .registerPath("hertz");
+    name("hertz");
+    registerPath("hertz");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("HertzAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     // TODO
   }
 }

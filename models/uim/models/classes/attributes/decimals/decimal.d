@@ -13,17 +13,22 @@ class DDecimalAttribute : DAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    
-      dataFormats(["numeric.shaped"]);
-      name("decimal");
-      registerPath("decimal");
+    dataFormats(["numeric.shaped"]);
+    name("decimal");
+    registerPath("decimal");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!"DecimalAttribute");
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DDecimalAttribute);
     testAttribute(DecimalAttribute);
   }

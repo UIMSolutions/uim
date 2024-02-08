@@ -13,16 +13,21 @@ class DPercentageAttribute : DDoubleAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("percentage")
-      .registerPath("percentage");
+    name("percentage");
+    registerPath("percentage");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("PercentageAttribute"));
 
-version(test_uim_models) { unittest {  
+version (test_uim_models) {
+  unittest {
     // TODO tests
   }
 }

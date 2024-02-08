@@ -16,8 +16,8 @@ class DUUIDAttribute : DAttribute {
     if (!super.initialize(configData)) { return false; }
 
     name("uuid")
-      .dataFormats(["uuid"])
-      .registerPath("uuid");
+      .dataFormats(["uuid"]);
+registerPath("uuid");
   }
 
   /* override IData createData() {

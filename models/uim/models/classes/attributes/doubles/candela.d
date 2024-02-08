@@ -11,21 +11,27 @@ class DCandelaAttribute : DDoubleAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-/* is.dataFormat.floatingPoint
+    /* is.dataFormat.floatingPoint
 is.dataFormat.big
 means.measurement.dimension.luminousIntensity
 means.measurement.units.si.candela
 has.measurement.fundamentalComponent.candela */
 
     name("candela");
-      .registerPath("candela");
+    registerPath("candela");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("CandelaAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     // TODO
   }
 }

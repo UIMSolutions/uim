@@ -6,6 +6,7 @@
 module uim.models.classes.attributes.codes.currency;
 
 import uim.models;
+
 @safe:
 
 // is.dataFormat.character
@@ -18,16 +19,22 @@ class DCurrencyCodeAttribute : DStringStringAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("currencyCode")
-      .registerPath("currencyCode");
+    name("currencyCode");
+    registerPath("currencyCode");
+
+    return true;
+
   }
 }
+
 mixin(AttributeCalls!("CurrencyCodeAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     // TODO
   }
 }

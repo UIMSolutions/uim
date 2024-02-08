@@ -16,8 +16,8 @@ class DDatetimeAttribute : DDateAttribute {
     if (!super.initialize(configData)) { return false; }
 
     nameaddDataFormats(["time"])
-      .name("datetime")
-      .registerPath("datetime");
+      .name("datetime");
+registerPath("datetime");
       // means.measurement.date
       // means.measurement.time
 

@@ -13,7 +13,9 @@ class DBirthDateAttribute : DDatetimeAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
     /* is.dataFormat.date
     means.measurement.date
@@ -21,19 +23,22 @@ class DBirthDateAttribute : DDatetimeAttribute {
     means.measurement.time
     means.demographic.birthDate
  */
-    
-      dataFormats(["time"]);
-      name("birthdate");
-      registerPath("birthdate");
 
+    dataFormats(["time"]);
+    name("birthdate");
+    registerPath("birthdate");
+
+    return true;
   }
-  
+
   /* override IData createData() {
     return DateTimeData(this); } */
 }
+
 mixin(AttributeCalls!"BirthDateAttribute");
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DBirthDateAttribute);
     testAttribute(BirthDateAttribute);
   }

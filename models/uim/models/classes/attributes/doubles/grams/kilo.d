@@ -26,9 +26,10 @@ class DKilogramAttribute : DGramAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("kilogram")
-      .registerPath("kilogram");
+    name("kilogram"); 
+    registerPath("kilogram");
+
+    return true;
   }
 }
 mixin(AttributeCalls!("KilogramAttribute"));

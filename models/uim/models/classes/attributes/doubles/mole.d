@@ -24,16 +24,21 @@ class DMoleAttribute : DDoubleAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("mole")
-      .registerPath("mole");
+    name("mole");
+    registerPath("mole");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("MoleAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     // TODO
   }
 }

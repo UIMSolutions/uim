@@ -28,7 +28,7 @@ class DPascalAttribute : DDoubleAttribute {
   mixin(AttributeThis!("PascalAttribute"));
 
   // Initialization hook method.
-  override void initialize(IData[string] configSettings = null) {
+  override bool initialize(IData[string] configSettings = null) {
     super.initialize(configSettings);
 
     this

@@ -24,7 +24,7 @@ class DKilogramAttribute : DGramAttribute {
   mixin(AttributeThis!("KilogramAttribute"));
 
   // Initialization hook method.
-  override void initialize(IData[string] configSettings = null) {
+  override bool initialize(IData[string] configSettings = null) {
     super.initialize(configSettings);
 
     this

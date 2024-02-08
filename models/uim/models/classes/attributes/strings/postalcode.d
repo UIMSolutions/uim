@@ -18,7 +18,7 @@ class DPostalCodeAttribute : DStringAttribute {
   mixin(AttributeThis!("PostalCodeAttribute"));
 
   // Initialization hook method.
-  override void initialize(Json configSettings = Json(null)) {
+  override void initialize(IData[string] configSettings = null) {
     super.initialize(configSettings);
 
     this

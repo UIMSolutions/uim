@@ -11,7 +11,7 @@ import uim.models;
 /* class DMapValue {
   this() { initialize; }
 
-  void initialize(Json configSettings = Json(null)) {}
+  void initialize(IData[string] configSettings = null) {}
 
   mixin(OProperty!("DData[string]", "items"));
 

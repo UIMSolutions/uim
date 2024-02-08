@@ -8,8 +8,8 @@ module uim.models.classes.values.arrays.array_;
 import uim.models;
 
 @safe:
-class DArrayValue : DData {
-  mixin(ValueThis!("ArrayValue"));  
+class DArrayData: DData {
+  mixin(DataThis!("ArrayValue"));  
   this(DData[] values) {
     this();
     _items = values.dup;
@@ -18,7 +18,7 @@ class DArrayValue : DData {
   DData[] _items;
 
   // Initialization hook method.
-  override void initialize(Json configSettings = Json(null)) {
+  override void initialize(IData[string] configSettings = null) {
     super.initialize(configSettings);
 
     this

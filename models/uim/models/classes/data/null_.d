@@ -8,11 +8,11 @@ module uim.models.classes.values.null_;
 import uim.models;
 
 @safe:
-class DNullValue : DData {
-  mixin(ValueThis!("NullValue"));  
+class DNullData: DData {
+  mixin(DataThis!("NullValue"));  
 
   // Initialization hook method.
-  override void initialize(Json configSettings = Json(null)) {
+  override void initialize(IData[string] configSettings = null) {
     super.initialize(configSettings);
 
     this

@@ -31,8 +31,8 @@ public {
 	import uim.models.classes.values.object_;
 }
 
-template ValueThis(string name, string datatype = null) { // Name for future releases
-  const char[] ValueThis = `  
+template DataThis(string name, string datatype = null) { // Name for future releases
+  const char[] DataThis = `  
     this() { super(); }
     this(DAttribute theAttribute) { this().attribute(theAttribute); }
     this(string theValue) { this().value(theValue); }

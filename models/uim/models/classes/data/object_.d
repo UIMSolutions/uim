@@ -8,8 +8,8 @@ module uim.models.classes.values.object_;
 import uim.models;
 
 @safe:
-class DJsonObjectValue : DData {
-  mixin(ValueThis!("JsonObjectValue"));  
+class DJsonObjectData: DData {
+  mixin(DataThis!("JsonObjectValue"));  
 
   mixin(OProperty!("Json", "value"));
 
@@ -19,7 +19,7 @@ class DJsonObjectValue : DData {
   }
 
   // Initialization hook method.
-  override void initialize(Json configSettings = Json(null)) {
+  override void initialize(IData[string] configSettings = null) {
     super.initialize(configSettings);
 
     _value = Json.emptyObject;

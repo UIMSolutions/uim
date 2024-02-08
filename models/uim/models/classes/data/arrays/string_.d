@@ -9,13 +9,13 @@ import uim.models;
 
 @safe:
 class DStringArrayValue : DArrayValue {
-  mixin(ValueThis!("StringArrayValue", "string[]"));  
+  mixin(DataThis!("StringArrayValue", "string[]"));  
   this(DStringArrayValue arrayValue) {
     this().add(arrayValue.values);
   }
 
   // Initialization hook method.
-  override void initialize(Json configSettings = Json(null)) {
+  override void initialize(IData[string] configSettings = null) {
     super.initialize(configSettings);
 
     this

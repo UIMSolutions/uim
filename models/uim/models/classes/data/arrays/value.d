@@ -9,10 +9,10 @@ import uim.models;
 
 @safe:
 class DDataArrayValue : DArrayValue {
-  mixin(ValueThis!("ValueArrayValue", "DData[]"));  
+  mixin(DataThis!("ValueArrayValue", "DData[]"));  
 
   // Initialization hook method.
-  override void initialize(Json configSettings = Json(null)) {
+  override void initialize(IData[string] configSettings = null) {
     super.initialize(configSettings);
 
     this

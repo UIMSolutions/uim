@@ -9,8 +9,8 @@ import uim.models;
 @safe:
 import std.datetime.date;
 
-class DDateValue : DData {
-  mixin(ValueThis!("DateValue", "Date"));  
+class DDateData: DData {
+  mixin(DataThis!("DateValue", "Date"));  
 
   protected Date _value;  
   alias value = DData.value;
@@ -22,7 +22,7 @@ class DDateValue : DData {
     return _value; 
   }
   // Initialization hook method.
-  override void initialize(Json configSettings = Json(null)) {
+  override void initialize(IData[string] configSettings = null) {
     super.initialize(configSettings);
 
     this

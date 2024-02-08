@@ -12,8 +12,8 @@ class DElementAttribute : DAttribute {
   mixin(AttributeThis!("ElementAttribute"));
 
   // Initialization hook method.
-  override bool initialize(IData[string] configSettings = null) {
-    super.initialize(configSettings);
+  override bool initialize(IData[string] configData = null) {
+    super.initialize(configData);
   }
 
   override DData createValue() {

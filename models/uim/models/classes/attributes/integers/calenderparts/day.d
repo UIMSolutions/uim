@@ -13,8 +13,8 @@ means.calendar.day */
 class DDayPartAttribute : DIntegerCalendarPart {
   mixin(AttributeThis!("DayPartAttribute"));
 
-override bool initialize(IData[string] configSettings = null) {
-    super.initialize(configSettings);
+override bool initialize(IData[string] configData = null) {
+    super.initialize(configData);
 
     this
       .name("daypart")

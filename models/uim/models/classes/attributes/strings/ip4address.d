@@ -22,8 +22,8 @@ class DIP4AddressAttribute : DStringAttribute {
   mixin(AttributeThis!("IP4AddressAttribute"));
 
   // Initialization hook method.
-  override bool initialize(IData[string] configSettings = null) {
-    super.initialize(configSettings);
+  override bool initialize(IData[string] configData = null) {
+    super.initialize(configData);
 
     this
       .name("ip4address")

@@ -12,8 +12,8 @@ class DCultureTagAttribute : DStringAttribute {
   mixin(AttributeThis!("CultureTagAttribute"));
 
   // Initialization hook method.
-  override bool initialize(IData[string] configSettings = null) {
-    super.initialize(configSettings);
+  override bool initialize(IData[string] configData = null) {
+    super.initialize(configData);
 
     /* means.reference.language.tag
     means.reference.culture.tag */

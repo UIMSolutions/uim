@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DElementData : DData {
-  mixin(DataThis!("ElementValue", "DElement"));    
+  mixin(DataThis!("ElementData", "DElement"));    
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
@@ -30,7 +30,7 @@ class DElementData : DData {
   }
   version(test_uim_models) { unittest {    
     auto Element = SystemUser; // some kind of Element
-    assert(ElementValue.value(Element).value.id == Element.id);
+    assert(ElementData.value(Element).value.id == Element.id);
   }}
 
   override void set(string newValue) {
@@ -55,7 +55,7 @@ class DElementData : DData {
   }
 
   alias opEquals = DData.opEquals;
-  bool opEquals(DElementValue otherValue) {
+  bool opEquals(DElementData otherValue) {
     string left = value.toString;
     string right = otherValue.value.toString;
     return (left == right);
@@ -74,11 +74,8 @@ class DElementData : DData {
     return 1;
   }  */
 
-  override IData copy() {
-    return ElementValue(attribute, toJson);
-  }
-  override IData dup() {
-    return copy;
+  override IData clone() {
+    return ElementData(attribute, toJson);
   }
 
   override Json toJson() { 
@@ -86,7 +83,7 @@ class DElementData : DData {
     return this.value.toJson; 
   }
 
-  // ElementValue converts to a JsonSTtring
+  // ElementData converts to a JsonSTtring
   override string toString() { 
     if (isNull) return null; 
     return this.value.toString; 
@@ -96,8 +93,8 @@ class DElementData : DData {
     /// TODO this.value(newValue);
   }
 }
-mixin(ValueCalls!("ElementValue"));  
+mixin(ValueCalls!("ElementData"));  
 
 version(test_uim_models) { unittest {  
-  assert(ElementValue);
+  assert(ElementData);
 }}

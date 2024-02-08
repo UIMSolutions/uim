@@ -57,11 +57,8 @@ class DSystimeData : DData {
     }
   }
 
-  override IData copy() {
+  override IData clone() {
     return SysTimeData(attribute, toJson);
-  }
-  override IData dup() {
-    return copy;
   }
 
   override Json toJson() { 

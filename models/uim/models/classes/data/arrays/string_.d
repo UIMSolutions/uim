@@ -64,11 +64,8 @@ class DStringArrayData : DArrayData {
     // return this;
   }
 
-  override IData copy() {
+  override IData clone() {
     return StringArrayData(attribute, toJson);
-  }
-  override IData dup() {
-    return copy;
   }
 
   override Json toJson() {

@@ -8,19 +8,16 @@ module uim.models.classes.data.datetimes.timestamp;
 import uim.models;
 
 @safe:
-class DTimestampValue : DLongValue {
-  mixin(DataThis!("TimestampValue", "long"));  
+class DTimestampData : DLongData {
+  mixin(DataThis!("TimestampData", "long"));  
 
-  override IData copy() {
-    return TimestampValue(attribute, toJson);
-  }
-  override IData dup() {
-    return copy;
+  override IData clone() {
+    return TimestampData(attribute, toJson);
   }
 
-  alias opEquals = DLongValue.opEquals;
+  alias opEquals = DLongData.opEquals;
 }
-mixin(ValueCalls!("TimestampValue", "long"));  
+mixin(ValueCalls!("TimestampData", "long"));  
 
 version(test_uim_models) { unittest {    
     // TODO

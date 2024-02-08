@@ -23,7 +23,7 @@ class DTimestampAttribute : DLongAttribute {
     return true;
   }
   /* override IData createData() {
-    return TimestampValue(this); } */
+    return TimestampData(this); } */
 }
 mixin(AttributeCalls!"TimestampAttribute");
 

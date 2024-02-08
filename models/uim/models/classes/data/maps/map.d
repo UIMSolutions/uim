@@ -112,11 +112,8 @@ class DMapValue(K) : DData, IMap {
     return false;
   }
 
-  override IData copy() {
+  override IData clone() {
     return NullValue; // MapValue!K(attribute, toJson);
-  }
-  override IData dup() {
-    return copy;
   }
 
   override Json toJson() {

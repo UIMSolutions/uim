@@ -75,11 +75,8 @@ class DStringData : DData {
     return cast(O)this;
   }
 
-  override IData copy() {
+  override IData clone() {
     return StringData(attribute, toJson);
-  }
-  override IData dup() {
-    return copy;
   }
 
   version(test_uim_models) { unittest {    

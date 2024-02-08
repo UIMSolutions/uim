@@ -108,10 +108,7 @@ class DBooleanData : DData {
     assert(valueD < valueC);
   }
   
-  override IData copy() {
-    return BooleanData(attribute, toJson);
-  }
-  override IData dup() {
+  override IData clone() {
     return BooleanData(attribute, toJson);
   }
   

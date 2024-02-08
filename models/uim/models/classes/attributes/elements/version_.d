@@ -12,7 +12,7 @@ class DVersionElementAttribute : DAttribute {
   mixin(AttributeThis!("VersionElementAttribute"));
 
  /*  override IData createData() {
-    return ElementValue(this)
+    return ElementData(this)
       .value(
         Version        
       );

@@ -226,8 +226,8 @@ class DElement : IElement {
       if (keys.length == 1) { return values[key]; }
 
       DData myValue = values[keys[0]];
-      if (auto myElementValue = cast(DElementValue)myValue) {
-        myValue = myElementValue.value.valueOfKey(keys[1..$].join("."));
+      if (auto myElementData = cast(DElementData)myValue) {
+        myValue = myElementData.value.valueOfKey(keys[1..$].join("."));
       }
       return myValue;
     }
@@ -240,7 +240,7 @@ class DElement : IElement {
     element2.addValues(["level2": StringAttribute]);
     element2["level2"] = "valueLevel2";
 
-    autvoid value2 = new DElementValue;
+    autvoid value2 = new DElementData;
     value2.set(element2);
 
     auto element1 = new DElement;
@@ -259,8 +259,8 @@ class DElement : IElement {
 
   // Set long value
   void opIndexAssign(long value, string key) {
-    if (auto myValue = cast(DLongValue)valueOfKey(key)) { 
-      // values[key] exists and value of DLongValue
+    if (auto myValue = cast(DLongData)valueOfKey(key)) { 
+      // values[key] exists and value of DLongData
       myValue.value = value;
     }     
   } 
@@ -275,8 +275,8 @@ class DElement : IElement {
 
   // Set field(key) if type Entity
   void opIndexAssign(DElement value, string key) {
-    if (auto myValue = cast(DElementValue)valueOfKey(key)) { 
-      // values[key] exists and value of DElementValue
+    if (auto myValue = cast(DElementData)valueOfKey(key)) { 
+      // values[key] exists and value of DElementData
       myValue.value = value;
     }   
   }

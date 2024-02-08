@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DLongData : DData {
-  mixin(DataThis!("LongValue", "long"));  
+  mixin(DataThis!("LongData", "long"));  
 
   protected long _value;  
   alias value = DData.value;
@@ -60,16 +60,16 @@ class DLongData : DData {
     return (this == to!long(equalValue));
   }
   unittest {
-    auto longValue = new DLongValue(100);
-    auto longValue100 = new DLongValue(100);
-    auto longValue10 = new DLongValue(10);
+    auto LongData = new DLongData(100);
+    auto LongData100 = new DLongData(100);
+    auto LongData10 = new DLongData(10);
 
-    assert(longValue == 100);
-    assert(longValue != 10);
-    assert(longValue == longValue100);
-    assert(longValue != longValue10);
-    assert(longValue == "100");
-    assert(longValue != "10");
+    assert(LongData == 100);
+    assert(LongData != 10);
+    assert(LongData == LongData100);
+    assert(LongData != LongData10);
+    assert(LongData == "100");
+    assert(LongData != "10");
   }
 
   alias opCmp = Object.opCmp;
@@ -81,7 +81,7 @@ class DLongData : DData {
   }
   ///
   unittest {
-    autvoid value = new DLongValue(100_000);
+    autvoid value = new DLongData(100_000);
     assert(value > 100);
     assert(value >= 100);
     assert(value >= 100_000);
@@ -91,20 +91,20 @@ class DLongData : DData {
     assert(value <= 100_000);    
   }
 
-  // Compares with DLongValue
-  int opCmp(DLongValue aValue) {
+  // Compares with DLongData
+  int opCmp(DLongData aValue) {
     return opCmp(aValue.value);
   }
   ///
   unittest {
-    autvoid value = new DLongValue(100_000);
-    assert(value > new DLongValue(100));
-    assert(value >= new DLongValue(100));
-    assert(value >= new DLongValue(100_000));
-    assert(value == new DLongValue(100_000));
-    assert(value < new DLongValue(200_000));    
-    assert(value <= new DLongValue(200_000));    
-    assert(value <= new DLongValue(100_000));    
+    autvoid value = new DLongData(100_000);
+    assert(value > new DLongData(100));
+    assert(value >= new DLongData(100));
+    assert(value >= new DLongData(100_000));
+    assert(value == new DLongData(100_000));
+    assert(value < new DLongData(200_000));    
+    assert(value <= new DLongData(200_000));    
+    assert(value <= new DLongData(100_000));    
   }
 
   long opCall() {
@@ -115,16 +115,13 @@ class DLongData : DData {
     _value = newValue;
     return cast(O)this; }
   version(test_uim_models) { unittest {    
-      autvoid value = LongValue;
+      autvoid value = LongData;
       value(100);
     }
   }  
 
-  override IData copy() {
-    return LongValue(attribute, toJson);
-  }
-  override IData dup() {
-    return copy;
+  override IData clone() {
+    return LongData(attribute, toJson);
   }
 
   long toLong() { 
@@ -139,23 +136,23 @@ class DLongData : DData {
     if (isNull) return "0"; 
     return to!string(_value); }
 }
-mixin(ValueCalls!("LongValue", "long"));  
+mixin(ValueCalls!("LongData", "long"));  
 
 version(test_uim_models) { unittest {    
-    assert(LongValue.value("100").toLong == 100);
-    assert(LongValue.value(Json(100)).toLong == 100);
-    assert(LongValue.value("200").toLong != 100);
-    assert(LongValue.value(Json(200)).toLong != 100);
+    assert(LongData.value("100").toLong == 100);
+    assert(LongData.value(Json(100)).toLong == 100);
+    assert(LongData.value("200").toLong != 100);
+    assert(LongData.value(Json(200)).toLong != 100);
 
-    assert(LongValue.value("100").toString == "100");
-    assert(LongValue.value(Json(100)).toString == "100");
-    assert(LongValue.value("200").toString != "100");
-    assert(LongValue.value(Json(200)).toString != "100");
+    assert(LongData.value("100").toString == "100");
+    assert(LongData.value(Json(100)).toString == "100");
+    assert(LongData.value("200").toString != "100");
+    assert(LongData.value(Json(200)).toString != "100");
 
-    assert(LongValue.value("100").toJson == Json(100));
-    assert(LongValue.value(Json(100)).toJson == Json(100));
-    assert(LongValue.value("200").toJson != Json(100));
-    assert(LongValue.value(Json(200)).toJson != Json(100));
+    assert(LongData.value("100").toJson == Json(100));
+    assert(LongData.value(Json(100)).toJson == Json(100));
+    assert(LongData.value("200").toJson != Json(100));
+    assert(LongData.value(Json(200)).toJson != Json(100));
 }} 
 
 /*
@@ -220,7 +217,7 @@ int
 intValue()
 Returns the value of this Long as an int after a narrowing primitive conversion.
 long
-longValue()
+LongData()
 Returns the value of this Long as a long value.
 static long
 lowestOneBit(long i)

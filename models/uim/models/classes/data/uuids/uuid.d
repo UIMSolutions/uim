@@ -86,13 +86,10 @@ class DUUIDData : DData {
     assert(value == id);
   }
 
-  override IData copy() {
+  override IData clone() {
     return UUIDData(value);
   }
-  override IData dup() {
-    return UUIDData(value);
-  }
-
+  
   override Json toJson() { 
     if (isNull) return Json(null); 
     return Json(this.value.toString); 

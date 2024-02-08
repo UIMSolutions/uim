@@ -12,7 +12,7 @@ class DOwnerElementAttribute : DAttribute {
   mixin(AttributeThis!("OwnerElementAttribute"));
 
   override IData createData() {
-    return ElementValue(this)
+    return ElementData(this)
       .value(
         Element
           .name("owner")

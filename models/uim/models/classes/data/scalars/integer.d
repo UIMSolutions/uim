@@ -104,11 +104,7 @@ class DIntegerData : DData {
     _value += opValue.value;
   }
 
-  override IData copy() {
-    return IntegerData(attribute, toJson);
-  }
-
-  override IData dup() {
+  override IData clone() {
     return IntegerData(attribute, toJson);
   }
 
@@ -328,7 +324,7 @@ int
 intValue()
 Returns the value of this Integer as an int.
 long
-longValue()
+LongData()
 Returns the value of this Integer as a long after a widening primitive conversion.
 static int
 lowestOneBit(int i)

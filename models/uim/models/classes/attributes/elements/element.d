@@ -19,7 +19,7 @@ class DElementAttribute : DAttribute {
   }
 
   /* override IData createData() {
-    return ElementValue(this); } */
+    return ElementData(this); } */
 }
 mixin(AttributeCalls!"ElementAttribute");
 

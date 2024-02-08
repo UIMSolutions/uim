@@ -19,11 +19,7 @@ class DNullData : DData {
       .isNull(true);
   }
 
-  override IData copy() {
-    return NullValue;
-  }
-
-  override IData dup() {
+  override IData clone() {
     return NullValue;
   }
 

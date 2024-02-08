@@ -27,11 +27,8 @@ class DJsonData : DData {
       .isObject(true);
   }
 
-  override IData copy() {
+  override IData clone() {
     return JsonData(attribute, toJson);
-  }
-  override IData dup() {
-    return copy;
   }
   
   override Json toJson() {

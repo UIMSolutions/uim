@@ -58,11 +58,8 @@ class DTimeData : DData {
   alias opEquals = Object.opEquals;
   alias opEquals = DData.opEquals;
 
-  override IData copy() {
+  override IData clone() {
     return TimeData(attribute, toJson);
-  }
-  override IData dup() {
-    return copy;
   }
 
   alias opEquals = Object.opEquals;

@@ -35,11 +35,8 @@ class DDataArrayData : DArrayData {
   alias opEquals = Object.opEquals;
   alias opEquals = DData.opEquals;
 
-  override IData copy() {
+  override IData clone() {
     return ValueArrayData(attribute, toJson);
-  }
-  override IData dup() {
-    return copy;
   }
 }
 mixin(ValueCalls!("ValueArrayData", "DData[]"));  

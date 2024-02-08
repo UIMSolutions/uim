@@ -520,8 +520,8 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
             if (auto entityValue = cast(DEntityValue)subValue) {
               return entityValue.value[keys[1..$].join(".")];
             }
-            if (auto elementValue = cast(DElementValue)subValue) {
-              return elementValue.value[keys[1..$].join(".")];
+            if (auto ElementData = cast(DElementData)subValue) {
+              return ElementData.value[keys[1..$].join(".")];
             }
           }
         }
@@ -570,8 +570,8 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
               if (auto entityValue = cast(DEntityValue)subValue) {
                 entityValue.value[keys[1..$].join(".")] = value;
               }
-              if (auto elementValue = cast(DElementValue)subValue) {
-                elementValue.value[keys[1..$].join(".")] = value;
+              if (auto ElementData = cast(DElementData)subValue) {
+                ElementData.value[keys[1..$].join(".")] = value;
               }
             }
           }
@@ -903,8 +903,8 @@ unittest {
   // writeln(entityValue.value["name"]);
   assert(entityValue.value["name"] == "newEntityName");
 
-  auto elementValue = ElementValue; */
-  /* elementValue.name("TestElement");
+  auto ElementData = ElementData; */
+  /* ElementData.name("TestElement");
   entity.values["element"] = entityValue;
 
   assert(entity["element.name"] == "TestElement");
@@ -913,8 +913,8 @@ unittest {
   entity["element.name"] = "newElementName";
   assert(entity["element.name"] == "newElementName");
 
-  elementValue = cast(DElementValue)entity.values["element"];
-  assert(elementValue.value["name"] == "newElementName");  */
+  ElementData = cast(DElementData)entity.values["element"];
+  assert(ElementData.value["name"] == "newElementName");  */
 
 
 /*

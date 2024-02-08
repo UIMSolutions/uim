@@ -12,7 +12,7 @@ import uim.models;
   mixin(AttributeThis!("OwnerAttribute"));
 
   // Initialization hook method.
-  override void initialize(Json configSettings = Json(null)) {
+  override void initialize(IData[string] configSettings = null) {
     super.initialize(configSettings);
 
     this

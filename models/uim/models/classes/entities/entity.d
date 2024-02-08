@@ -320,7 +320,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     assert((cast(DIntegerValue)entity.values["int"]).value == 10);
 
     entity.adDData(new DCityNameAttribute);  
-    assert((cast(DStringValue)entity.values["cityName"]));
+    assert((cast(DStringData)entity.values["cityName"]));
   }
 
   // Display of entity 
@@ -512,7 +512,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       case "versionBy": return to!string(this.versionBy); */
       case "versionDescription": return this.versionDescription;
       default:
-        //if (key in attributes) { return attributes[key].stringValue; }
+        //if (key in attributes) { return attributes[key].StringData; }
         if (auto value = values[key]) { return value.toString; }
         auto keys = key.split(".");
         if (keys.length > 1) {
@@ -638,7 +638,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     switch(key) {
       default:
         /* if (key in attributes) {
-          debug writeln("key %s in attributes %s".format(key, attributes[key].stringValue));
+          debug writeln("key %s in attributes %s".format(key, attributes[key].StringData));
           if (auto att = cast(DEntityAttribute)attributes[key]) att.value(value); 
         }  */
         break;
@@ -957,7 +957,7 @@ registerPath": return this.registerPath;
       case "versionBy": return to!string(this.versionBy);
       case "versionDescription": return this.versionDescription;
       default:
-        //if (key in attributes) { return attributes[key].stringValue; }
+        //if (key in attributes) { return attributes[key].StringData; }
         if (values.hasValue(key)) { return values[key].toString; }
         return null;
     }      

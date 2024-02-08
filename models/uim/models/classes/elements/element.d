@@ -23,13 +23,13 @@ class DElement : IElement {
 
   void initialize(IData[string] configData = null) {
     this  
-      .values(StringValueMap);
+      .values(StringDataMap);
 
     this  
       .requestPrefix("element_");
   }
 
-  mixin(OProperty!("DStringValueMap", "values"));
+  mixin(OProperty!("DStringDataMap", "values"));
   mixin ValueMapWrapper;
 
   mixin(OProperty!("bool", "isStatic"));

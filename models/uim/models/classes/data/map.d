@@ -41,7 +41,7 @@ import uim.models;
   }
 
   void opIndexAssign(string newValue, string key) {
-    _items[key] = StringValue(newValue);
+    _items[key] = StringData(newValue);
   }
 
   void opIndexAssign(UUID newValue, string key) {

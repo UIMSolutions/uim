@@ -35,7 +35,7 @@ class DArrayData: DData {
   }
   /// 
   unittest {
-    writeln(ArrayValue.add(StringValue("1x"), StringValue("2x")).values.map!(v => v.toString).array);
+    writeln(ArrayValue.add(StringData("1x"), StringData("2x")).values.map!(v => v.toString).array);
   }
   
   alias opEquals = DData.opEquals;

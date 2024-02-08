@@ -8,12 +8,12 @@ module uim.models.classes.data.maps.string;
 import uim.models;
 
 @safe:
-class DStringValueMap : DData, IMap {
-  mixin(DataThis!("StringValueMap"));
+class DStringDataMap : DData, IMap {
+  mixin(DataThis!("StringDataMap"));
 
   protected DData[string] _items;
 
-  DStringValueMap opIndexAssign(DData value, string key) {
+  DStringDataMap opIndexAssign(DData value, string key) {
     if (containsKey(key)) {
       _items[key] = value; 
     } else {
@@ -22,7 +22,7 @@ class DStringValueMap : DData, IMap {
     return this;
   }
 
-  DStringValueMap opIndexAssign(bool value, string key) {
+  DStringDataMap opIndexAssign(bool value, string key) {
     if (containsKey(key)) {
       _items[key].value(value ? "true" : "false"); 
     } else {
@@ -31,7 +31,7 @@ class DStringValueMap : DData, IMap {
     return this;
   }
 
-  DStringValueMap opIndexAssign(int value, string key) {
+  DStringDataMap opIndexAssign(int value, string key) {
     if (containsKey(key)) {
       _items[key].value(to!string(value)); 
     } else {
@@ -40,7 +40,7 @@ class DStringValueMap : DData, IMap {
     return this;
   }
 
-  DStringValueMap opIndexAssign(double value, string key) {
+  DStringDataMap opIndexAssign(double value, string key) {
     if (containsKey(key)) {
       _items[key].value(to!string(value)); 
     } else {
@@ -49,16 +49,16 @@ class DStringValueMap : DData, IMap {
     return this;
   }
 
-  DStringValueMap opIndexAssign(string value, string key) {    
+  DStringDataMap opIndexAssign(string value, string key) {    
      if (containsKey(key)) {
       _items[key].value(value); 
     } else {
-     _items[key] = new DStringValue(value); }
+     _items[key] = new DStringData(value); }
     
     return this;
   }
 
-  DStringValueMap opIndexAssign(UUID value, string key) {
+  DStringDataMap opIndexAssign(UUID value, string key) {
     if (containsKey(key)) {
       _items[key].value(value.toString); 
     } else {
@@ -67,7 +67,7 @@ class DStringValueMap : DData, IMap {
     return this;
   }
 
-  DStringValueMap opIndexAssign(DData[] values, string key) {
+  DStringDataMap opIndexAssign(DData[] values, string key) {
     if (containsKey(key)) {
       _items[key] = new DArrayValue(values); 
     } else {
@@ -113,7 +113,7 @@ class DStringValueMap : DData, IMap {
   }
 
   override DData copy() {
-    return NullValue; // StringValueMap(attribute, toJson);
+    return NullValue; // StringDataMap(attribute, toJson);
   }
   override DData dup() {
     return copy;
@@ -139,15 +139,15 @@ class DStringValueMap : DData, IMap {
     return "["~results.join(",") ~"]";
   }
 }
-auto StringValueMap()() { return new DStringValueMap; }
+auto StringDataMap()() { return new DStringDataMap; }
 
 ///
 unittest {  
-  auto stringMap = StringValueMap();
-  stringMap["key1"] = StringValue("value1");
+  auto stringMap = StringDataMap();
+  stringMap["key1"] = StringData("value1");
 
   assert(stringMap["key1"].toString == "value1");
-  assert(cast(DStringValue)stringMap["key1"]);
+  assert(cast(DStringData)stringMap["key1"]);
   assert(!cast(DBooleanValue)stringMap["key1"]);
 
   stringMap["key2"] = "value2";
@@ -162,7 +162,7 @@ unittest {
   stringMap["key5"] = 100.1;
   assert(stringMap["key5"].toString == "100.1");
 
-  stringMap["key6"] = [StringValue("v1"), StringValue("v2")];
+  stringMap["key6"] = [StringData("v1"), StringData("v2")];
 
   assert(stringMap.toJson.toString == `{"key1":"value1","key6":null,"key2":"value2","key3":true,"key5":100.1,"key4":100}`); 
 }

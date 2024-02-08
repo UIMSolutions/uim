@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DStringData: DData {
-  mixin(DataThis!("StringValue"));  
+  mixin(DataThis!("StringData"));  
     // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
     super.initialize(configData);
@@ -35,8 +35,8 @@ class DStringData: DData {
   }
   ///
   unittest {    
-    assert(StringValue.value("test").value == "test");
-    assert(StringValue.value("test").value("test2").value == "test2");
+    assert(StringData.value("test").value == "test");
+    assert(StringData.value("test").value("test2").value == "test2");
   } 
 
   // Set with Json value
@@ -65,7 +65,7 @@ class DStringData: DData {
     }
   }
 
-  O value(this O)(DStringValue newValue) {
+  O value(this O)(DStringData newValue) {
     if (newValue) {
       this
         .isNullable(newValue.isNullable)
@@ -76,22 +76,22 @@ class DStringData: DData {
   }
 
   override DData copy() {
-    return StringValue(attribute, toJson);
+    return StringData(attribute, toJson);
   }
   override DData dup() {
     return copy;
   }
 
   version(test_uim_models) { unittest {    
-    assert(StringValue("test").value == "test");
+    assert(StringData("test").value == "test");
 
-    assert(StringValue.value("test") == "test");
-    assert(StringValue.value("test") < "xxxx");
-    assert(StringValue.value("test") <= "xxxx");
-    assert(StringValue.value("test") <= "test");
-    assert(StringValue.value("test") > "aaaa");
-    assert(StringValue.value("test") >= "aaaa");
-    assert(StringValue.value("test") >= "test");    
+    assert(StringData.value("test") == "test");
+    assert(StringData.value("test") < "xxxx");
+    assert(StringData.value("test") <= "xxxx");
+    assert(StringData.value("test") <= "test");
+    assert(StringData.value("test") > "aaaa");
+    assert(StringData.value("test") >= "aaaa");
+    assert(StringData.value("test") >= "test");    
   }}
 
   string opCall() { return _value; } 
@@ -101,14 +101,14 @@ class DStringData: DData {
   O opCall(this O)(Json newValue) { 
     if (newValue.type = Json.Type.string) _value = newValue.get!string;
     return cast(O)this; }
-  O opCall(this O)(DStringValue newValue) {
+  O opCall(this O)(DStringData newValue) {
     this.value(newValue);
     return cast(O)this; }
 
   ///
   unittest { 
-    auto a = StringValue("aValue");
-    auto b = StringValue("bValue");
+    auto a = StringData("aValue");
+    auto b = StringData("bValue");
     assert(a(b) == "bValue");
   }
 
@@ -134,58 +134,58 @@ class DStringData: DData {
     this.value(newValue);
   }  
 }
-mixin(ValueCalls!("StringValue"));  
+mixin(ValueCalls!("StringData"));  
 
 version(test_uim_models) { unittest {    
-  assert(StringValue("test") == "test");
-  assert(StringValue("test") < "xxxx");
-  assert(StringValue("test") <= "xxxx");
-  assert(StringValue("test") <= "test");
-  assert(StringValue("test") > "aaaa");
-  assert(StringValue("test") >= "aaaa");
-  assert(StringValue("test") >= "test");
+  assert(StringData("test") == "test");
+  assert(StringData("test") < "xxxx");
+  assert(StringData("test") <= "xxxx");
+  assert(StringData("test") <= "test");
+  assert(StringData("test") > "aaaa");
+  assert(StringData("test") >= "aaaa");
+  assert(StringData("test") >= "test");
 
-  assert(StringValue()("test") == "test");
-  assert(StringValue()("test") < "xxxx");
-  assert(StringValue()("test") <= "xxxx");
-  assert(StringValue()("test") <= "test");
-  assert(StringValue()("test") > "aaaa");
-  assert(StringValue()("test") >= "aaaa");
-  assert(StringValue()("test") >= "test");   
+  assert(StringData()("test") == "test");
+  assert(StringData()("test") < "xxxx");
+  assert(StringData()("test") <= "xxxx");
+  assert(StringData()("test") <= "test");
+  assert(StringData()("test") > "aaaa");
+  assert(StringData()("test") >= "aaaa");
+  assert(StringData()("test") >= "test");   
 
-  assert(StringValue("test").value == "test");
-  assert(StringValue("test2").value != "test");
+  assert(StringData("test").value == "test");
+  assert(StringData("test2").value != "test");
 
-  assert(StringValue(Json("test")).value == "test");
-  assert(StringValue(Json("test2")).value != "test");
+  assert(StringData(Json("test")).value == "test");
+  assert(StringData(Json("test2")).value != "test");
 
-  assert(StringValue.value("test").value == "test");
-  assert(StringValue.value("test2").value != "test");
+  assert(StringData.value("test").value == "test");
+  assert(StringData.value("test2").value != "test");
 
-  assert(StringValue.value(Json("test")).value == "test");
-  assert(StringValue.value(Json("test2")).value != "test");
+  assert(StringData.value(Json("test")).value == "test");
+  assert(StringData.value(Json("test2")).value != "test");
 
-  assert(StringValue("test").toString == "test");
-  assert(StringValue("test2").toString != "test");
+  assert(StringData("test").toString == "test");
+  assert(StringData("test2").toString != "test");
 
-  assert(StringValue(Json("test")).toString == "test");
-  assert(StringValue(Json("test2")).toString != "test");
+  assert(StringData(Json("test")).toString == "test");
+  assert(StringData(Json("test2")).toString != "test");
 
-  assert(StringValue.value("test").toString == "test");
-  assert(StringValue.value("test2").toString != "test");
+  assert(StringData.value("test").toString == "test");
+  assert(StringData.value("test2").toString != "test");
 
-  assert(StringValue.value(Json("test")).toString == "test");
-  assert(StringValue.value(Json("test2")).toString != "test");
+  assert(StringData.value(Json("test")).toString == "test");
+  assert(StringData.value(Json("test2")).toString != "test");
 
-  assert(StringValue("test").toJson == Json("test"));
-  assert(StringValue("test2").toJson != Json("test"));
+  assert(StringData("test").toJson == Json("test"));
+  assert(StringData("test2").toJson != Json("test"));
 
-  assert(StringValue(Json("test")).toJson == Json("test"));
-  assert(StringValue(Json("test2")).toJson != Json("test"));
+  assert(StringData(Json("test")).toJson == Json("test"));
+  assert(StringData(Json("test2")).toJson != Json("test"));
 
-  assert(StringValue.value("test").toJson == Json("test"));
-  assert(StringValue.value("test2").toJson != Json("test"));
+  assert(StringData.value("test").toJson == Json("test"));
+  assert(StringData.value("test2").toJson != Json("test"));
 
-  assert(StringValue.value(Json("test")).toJson == Json("test"));
-  assert(StringValue.value(Json("test2")).toJson != Json("test"));
+  assert(StringData.value(Json("test")).toJson == Json("test"));
+  assert(StringData.value(Json("test2")).toJson != Json("test"));
 }} 

@@ -27,7 +27,7 @@ auto valueSetter(string name, string datatype, string valueClass, string path) {
     }`;
 } 
 
-string valueProperty(string datatype, string name, string path = null, string valueClass = "DStringValue") {
+string valueProperty(string datatype, string name, string path = null, string valueClass = "DStringData") {
   auto newPath = (path ? path : name);
   return
     // Getter
@@ -38,12 +38,12 @@ string valueProperty(string datatype, string name, string path = null, string va
     (datatype != "string" ? valueSetter(name, "string", valueClass, newPath) : "");
 } 
 
-template ValueProperty(string datatype, string name, string path = null, string valueClass = "DStringValue") {
+template ValueProperty(string datatype, string name, string path = null, string valueClass = "DStringData") {
   const char[] ValueProperty = valueProperty(datatype, name, path, valueClass);
 } 
 
-template StringValueProperty(string name, string path = null) {
-  const char[] StringValueProperty = valueProperty("string", name, path, "DStringValue");
+template StringDataProperty(string name, string path = null) {
+  const char[] StringDataProperty = valueProperty("string", name, path, "DStringData");
 } 
 
 template BooleanValueProperty(string name, string path = null) {

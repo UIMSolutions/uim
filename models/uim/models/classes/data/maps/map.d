@@ -53,7 +53,7 @@ class DMapValue(K) : DData, IMap {
      if (containsKey(key)) {
       _items[key].value(value); 
     } else {
-     _items[key] = new DStringValue(value); }
+     _items[key] = new DStringData(value); }
     
     return this;
   }
@@ -144,10 +144,10 @@ auto MapValue(K)() { return new DMapValue!K(); }
 ///
 unittest {  
   auto stringMap = MapValue!string();
-  stringMap["key1"] = StringValue("value1");
+  stringMap["key1"] = StringData("value1");
 
   assert(stringMap["key1"].toString == "value1");
-  assert(cast(DStringValue)stringMap["key1"]);
+  assert(cast(DStringData)stringMap["key1"]);
   assert(!cast(DBooleanValue)stringMap["key1"]);
 
   stringMap["key2"] = "value2";
@@ -162,7 +162,7 @@ unittest {
   stringMap["key5"] = 100.1;
   assert(stringMap["key5"].toString == "100.1");
 
-  stringMap["key6"] = [StringValue("v1"), StringValue("v2")];
+  stringMap["key6"] = [StringData("v1"), StringData("v2")];
 
   assert(stringMap.toJson.toString == `{"key1":"value1","key6":null,"key2":"value2","key3":true,"key5":100.1,"key4":100}`); 
 }

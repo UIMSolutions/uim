@@ -23,7 +23,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     if (aJson != Json(null)) this.fromJson(aJson); }
 
   // Initialize entity 
-  override void initialize(Json configSettings = Json(null)) {
+  override void initialize(IData[string] configSettings = null) {
     super.initialize(configSettings);
 
     this

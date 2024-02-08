@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DTimestampValue : DLongValue {
-  mixin(ValueThis!("TimestampValue", "long"));  
+  mixin(DataThis!("TimestampValue", "long"));  
 
   override DData copy() {
     return TimestampValue(attribute, toJson);

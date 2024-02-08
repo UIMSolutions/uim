@@ -8,8 +8,8 @@ module uim.models.classes.values.datetimes.time_;
 import uim.models;
 
 @safe:
-class DTimeValue : DData {
-  mixin(ValueThis!("TimeValue", "TimeOfDay"));  
+class DTimeData: DData {
+  mixin(DataThis!("TimeValue", "TimeOfDay"));  
 
   protected TimeOfDay _value;  
   alias value = DData.value;
@@ -21,7 +21,7 @@ class DTimeValue : DData {
     return _value; 
   }
   // Initialization hook method.
-  override void initialize(Json configSettings = Json(null)) {
+  override void initialize(IData[string] configSettings = null) {
     super.initialize(configSettings);
 
     this

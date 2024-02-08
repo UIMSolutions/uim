@@ -8,11 +8,11 @@ module uim.models.classes.values.elements.element;
 import uim.models;
 
 @safe:
-class DElementValue : DData {
-  mixin(ValueThis!("ElementValue", "DElement"));    
+class DElementData: DData {
+  mixin(DataThis!("ElementValue", "DElement"));    
 
   // Initialization hook method.
-  override void initialize(Json configSettings = Json(null)) {
+  override void initialize(IData[string] configSettings = null) {
     super.initialize(configSettings);
 
     this

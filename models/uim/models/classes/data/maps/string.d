@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DStringValueMap : DData, IMap {
-  mixin(ValueThis!("StringValueMap"));
+  mixin(DataThis!("StringValueMap"));
 
   protected DData[string] _items;
 

@@ -8,8 +8,8 @@ module uim.models.classes.values.scalars.long_;
 import uim.models;
 
 @safe:
-class DLongValue : DData {
-  mixin(ValueThis!("LongValue", "long"));  
+class DLongData: DData {
+  mixin(DataThis!("LongValue", "long"));  
 
   protected long _value;  
   alias value = DData.value;
@@ -20,7 +20,7 @@ class DLongValue : DData {
   long value() {
     return _value; 
   }  // Initialization hook method.
-  override void initialize(Json configSettings = Json(null)) {
+  override void initialize(IData[string] configSettings = null) {
     super.initialize(configSettings);
 
     this

@@ -12,16 +12,16 @@ string modelThis(string name) {
   return `
     this() { super("`~name~`"); this.className("`~name~`"); }
     this(Json configSettings) { super("`~name~`", configSettings); }
-    this(IModelManager aManager, Json configSettings = Json(null)) { this(configSettings).application(aManager); }
+    this(IModelManager aManager, IData[string] configSettings = null) { this(configSettings).application(aManager); }
 
-    this(string aName, Json configSettings = Json(null)) { this(configSettings).name(aName); }
-    this(STRINGAA someParameters, Json configSettings = Json(null)) { this(configSettings).parameters(someParameters); }
+    this(string aName, IData[string] configSettings = null) { this(configSettings).name(aName); }
+    this(STRINGAA someParameters, IData[string] configSettings = null) { this(configSettings).parameters(someParameters); }
 
-    this(IModelManager aManager, string aName, Json configSettings = Json(null)) { this(aManager, configSettings).name(aName); }
-    this(IModelManager aManager, STRINGAA someParameters, Json configSettings = Json(null)) { this(aManager, configSettings).parameters(someParameters); }
+    this(IModelManager aManager, string aName, IData[string] configSettings = null) { this(aManager, configSettings).name(aName); }
+    this(IModelManager aManager, STRINGAA someParameters, IData[string] configSettings = null) { this(aManager, configSettings).parameters(someParameters); }
 
-    this(string aName, STRINGAA someParameters, Json configSettings = Json(null)) { this(name, configSettings).parameters(someParameters); }
-    this(IModelManager aManager, string aName, STRINGAA someParameters, Json configSettings = Json(null)) { this(aManager, name, configSettings).parameters(someParameters); }
+    this(string aName, STRINGAA someParameters, IData[string] configSettings = null) { this(name, configSettings).parameters(someParameters); }
+    this(IModelManager aManager, string aName, STRINGAA someParameters, IData[string] configSettings = null) { this(aManager, name, configSettings).parameters(someParameters); }
   `;
 }
 

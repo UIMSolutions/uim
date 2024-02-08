@@ -8,11 +8,11 @@ module uim.models.classes.values.scalars.boolean;
 import uim.models;
 
 @safe:
-class DBooleanValue : DData {
-  mixin(ValueThis!("BooleanValue", "bool"));  
+class DBooleanData: DData {
+  mixin(DataThis!("BooleanValue", "bool"));  
 
   // Initialization hook method.
-  override void initialize(Json configSettings = Json(null)) {
+  override void initialize(IData[string] configSettings = null) {
     super.initialize(configSettings);
 
     this

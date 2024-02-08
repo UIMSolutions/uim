@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DLookupValue(K, V) : DData {
-  mixin(ValueThis!("LookupValue"));
+  mixin(DataThis!("LookupValue"));
 
   V[K] _items;
 

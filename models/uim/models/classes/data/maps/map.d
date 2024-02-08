@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DMapValue(K) : DData, IMap {
-  mixin(ValueThis!("MapValue"));
+  mixin(DataThis!("MapValue"));
 
   protected DData[K] _items;
 

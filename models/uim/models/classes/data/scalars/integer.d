@@ -8,8 +8,8 @@ module uim.models.classes.values.scalars.integer;
 import uim.models;
 
 @safe:
-class DIntegerValue : DData {
-  mixin(ValueThis!("IntegerValue", "int"));  
+class DIntegerData: DData {
+  mixin(DataThis!("IntegerValue", "int"));  
 
   protected int _value;  
   alias value = DData.value;
@@ -21,7 +21,7 @@ class DIntegerValue : DData {
     return _value; 
   }
   // Initialization hook method.
-  override void initialize(Json configSettings = Json(null)) {
+  override void initialize(IData[string] configSettings = null) {
     super.initialize(configSettings);
 
     this

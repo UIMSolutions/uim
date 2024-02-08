@@ -8,11 +8,11 @@ module uim.models.classes.values.scalars.double_;
 import uim.models;
 
 @safe:
-class DDoubleValue : DData {
-  mixin(ValueThis!("DoubleValue", "double"));  
+class DDoubleData: DData {
+  mixin(DataThis!("DoubleValue", "double"));  
 
   // Initialization hook method.
-  override void initialize(Json configSettings = Json(null)) {
+  override void initialize(IData[string] configSettings = null) {
     super.initialize(configSettings);
 
     this

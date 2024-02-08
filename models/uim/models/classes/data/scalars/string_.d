@@ -8,10 +8,10 @@ module uim.models.classes.values.scalars.string_;
 import uim.models;
 
 @safe:
-class DStringValue : DData {
-  mixin(ValueThis!("StringValue"));  
+class DStringData: DData {
+  mixin(DataThis!("StringValue"));  
     // Initialization hook method.
-  override void initialize(Json configSettings = Json(null)) {
+  override void initialize(IData[string] configSettings = null) {
     super.initialize(configSettings);
 
     this

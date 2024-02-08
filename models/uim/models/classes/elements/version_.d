@@ -8,21 +8,28 @@ module uim.models.classes.elements.version_;
 import uim.models;
 
 @safe:
-class DVersion: DElement {
+class DVersion : DElement {
   // static namespace = moduleName!DVersion;
 
   // Constructors
-  this() { super(); }
+  this() {
+    super();
+  }
 
-  this(string myName) { 
-    super(myName); }
+  this(string myName) {
+    super(myName);
+  }
 
-  this(Json aJson) { 
-    this();    
-    if (aJson != Json(null)) this.fromJson(aJson); }
+  this(Json aJson) {
+    this();
+    if (aJson != Json(null))
+      this.fromJson(aJson);
+  }
 
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
     this
       .addValues([
@@ -37,10 +44,10 @@ class DVersion: DElement {
     return true;
   }
 
-  mixin(LongValueProperty!("number"));
+  mixin(LongDataProperty!("number"));
 
   ///	Date and time when the entity was versioned.	
-  mixin(TimeStampValueProperty!("on"));
+  mixin(TimeStampDataProperty!("on"));
   /// 
   unittest {
     auto timestamp = toTimestamp(now);
@@ -67,9 +74,9 @@ class DVersion: DElement {
     id = randomUUID;
     assert(element.by(id).by == id);
     assert(element.by != randomUUID);
-  } 
+  }
 
-  mixin(ValueProperty!("string", "description"));
+  mixin(DataProperty!("string", "description"));
   /// 
   unittest {
     auto element = new DVersion;
@@ -81,7 +88,7 @@ class DVersion: DElement {
     assert(element.description != "noDescription");
   }
 
-  mixin(ValueProperty!("string", "display"));
+  mixin(DataProperty!("string", "display"));
   /// 
   unittest {
     auto element = new DVersion;
@@ -93,7 +100,7 @@ class DVersion: DElement {
     assert(element.display != "noDisplay");
   }
 
-  mixin(ValueProperty!("string", "mode")); 
+  mixin(DataProperty!("string", "mode"));
   /// 
   unittest {
     auto element = new DVersion;
@@ -105,16 +112,28 @@ class DVersion: DElement {
     assert(element.mode != "noMode");
   }
 
-  override DElement create() { return new DVersion; }
+  override DElement create() {
+    return new DVersion;
+  }
 }
-auto Version() { return new DVersion; }
-auto Version(string name) { return new DVersion(name); }
-auto Version(Json json) { return new DVersion(json); }
 
-version(test_uim_models) { unittest {
-  assert(Version);
-  assert(Version.name("test").name == "test");
-  assert(Version.name("testName").name == "testname");
+auto Version() {
+  return new DVersion;
+}
 
-}}
+auto Version(string name) {
+  return new DVersion(name);
+}
 
+auto Version(Json json) {
+  return new DVersion(json);
+}
+
+version (test_uim_models) {
+  unittest {
+    assert(Version);
+    assert(Version.name("test").name == "test");
+    assert(Version.name("testName").name == "testname");
+
+  }
+}

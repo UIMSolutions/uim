@@ -60,7 +60,7 @@ template ValueCalls(string name, string datatype = null) {
     : "");
 }
 
-/* template ValueProperty(string name) {
+/* template DataProperty!(string name) {
   const char[] EntityCalls = `
     auto `~name~`() { return this.values[`~name~`]; } 
     O `~name~`(this O)(string newValue) { this.values[`~name~`].value(newValue); return cast(O)this; } 

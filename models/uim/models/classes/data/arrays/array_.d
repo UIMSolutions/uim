@@ -23,6 +23,8 @@ class DArrayData : DData {
 
     this
       .isArray(true);
+
+    return true;
   }
 
   DArrayData add(IData[] values...) { 

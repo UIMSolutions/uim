@@ -21,12 +21,14 @@ class DElement : IElement {
     this();    
     if (aJson != Json(null)) this.fromJson(aJson); }
 
-  void initialize(IData[string] configData = null) {
+  bool initialize(IData[string] configData = null) {
     this  
       .values(StringDataMap);
 
     this  
       .requestPrefix("element_");
+
+    return true;
   }
 
   mixin(TProperty!("DStringDataMap", "values"));

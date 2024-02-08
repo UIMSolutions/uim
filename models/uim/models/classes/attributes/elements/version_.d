@@ -11,12 +11,12 @@ import uim.models;
 class DVersionElementAttribute : DAttribute {
   mixin(AttributeThis!("VersionElementAttribute"));
 
-  override IData createData() {
+ /*  override IData createData() {
     return ElementValue(this)
       .value(
         Version        
       );
-  }
+  } */
 }
 mixin(AttributeCalls!"VersionElementAttribute");
 

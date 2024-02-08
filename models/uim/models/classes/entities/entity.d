@@ -54,7 +54,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
   mixin(TProperty!("DEntityCollection", "collection"));
   mixin(TProperty!("string", "routingPath")); // required for routing
 
-  mixin(ValueProperty!("string", "description"));  
+  mixin(DataProperty!("string", "description"));  
   /// 
   unittest {
     auto entity = new DEntity;
@@ -67,7 +67,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     assert(entity.description != "noDescription");  
   }
 
-  mixin(ValueProperty!("string", "pool"));
+  mixin(DataProperty!("string", "pool"));
   /// 
   unittest {     
     auto entity = new DEntity;
@@ -79,10 +79,10 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     assert(entity.pool != "noPool"); 
   }
 
-  mixin(LongValueProperty!("versionNumber", "version.number"));
+  mixin(LongDataProperty!("versionNumber", "version.number"));
 
 ///	Date and time when the entity was versioned.	
-  mixin(TimeStampValueProperty!("versionOn", "version.on"));
+  mixin(TimeStampDataProperty!("versionOn", "version.on"));
   /// 
   unittest {
     auto timestamp = toTimestamp(now);
@@ -113,7 +113,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     assert(entity.versionBy != randomUUID);
   } 
 
-  mixin(ValueProperty!("string", "versionDescription", "version.description")); 
+  mixin(DataProperty!("string", "versionDescription", "version.description")); 
   /// 
   unittest {
     auto entity = new DEntity;
@@ -129,7 +129,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     assert(entity.versionDescription != "noVersionDescription");
   }
   
-  mixin(ValueProperty!("string", "versionDisplay", "version.display"));
+  mixin(DataProperty!("string", "versionDisplay", "version.display"));
   /// 
   unittest {
     auto entity = new DEntity;
@@ -141,7 +141,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     assert(entity.versionDisplay != "noVersionDisplay");
   }
 
-  mixin(ValueProperty!("string", "versionMode", "version.mode"));  
+  mixin(DataProperty!("string", "versionMode", "version.mode"));  
    /// 
   unittest {
     auto entity = new DEntity;

@@ -3,29 +3,27 @@
 *	License  : Licensed under Apache 2 [https://apache.org/licenses/LICENSE-2.0.txt] *
 *	Author   : Ozan Nurettin Süel (Sicherheitsschmiede)										           * 
 ***********************************************************************************/
-module uim.oop.data.json;
+module uim.oop.data.ulong_;
 
 import uim.oop;
 
-class DJsonData : DData {
+class DUlongData : DData {
   this() { super(); }
-  this(Json newValue) { this().value(newValue); }
+  this(ulong newValue) { this().value(newValue); }
 
-  mixin(TProperty!("Json", "value"));
+  mixin(TProperty!("ulong", "value"));
   unittest {
-    json myValue = true;
-    assert(JsonData(myValue).value == myValue);
+    ulong myValue = 42L;
+    assert(UlongData(myValue).value == myValue);
 
-    auto data = new DJsonData;
+    auto data = new DUlongData;
     data.value(myValue);
     assert(data.value == myValue);
 
-    data = JsonData(false);
+    data = new DUlongData;
     data.value = myValue;
     assert(data.value == myValue);
  }
-
- 
 }
-auto JsonData() { return new DJsonData; }
-auto JsonData(Json newValue) { return new DJsonData(newValue); }
+auto UlongData() { return new DUlongData; }
+auto UlongData(ulong newValue) { return new DUlongData(newValue); }

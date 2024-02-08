@@ -17,9 +17,11 @@ class DStringBooleanAttribute : DLookupAttribute {
     return LookupValue!(string, bool)(this).isNullable(isNullable);
   }
 }
+
 mixin(AttributeCalls!("StringBooleanAttribute"));
 
-version(test_uim_models) { unittest {  
+version (test_uim_models) {
+  unittest {
     // TODO tests
   }
 }

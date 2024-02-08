@@ -33,6 +33,8 @@ class DVersion: DElement {
         "number": LongAttribute,
         "on": TimestampAttribute
       ]);
+
+    return true;
   }
 
   mixin(LongValueProperty!("number"));

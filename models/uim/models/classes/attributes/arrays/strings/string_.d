@@ -13,7 +13,9 @@ class DStringArrayAttribute : DAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
     this
       .name("StringArrayAttribute")
@@ -23,12 +25,15 @@ class DStringArrayAttribute : DAttribute {
     return true;
   }
 
-  override IData createValue() {
-    return StringArrayValue(this); }
+  /* override IData createValue() {
+    return StringArrayValue(this);
+  } */
 }
+
 mixin(AttributeCalls!"StringArrayAttribute");
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DStringArrayAttribute);
     testAttribute(StringArrayAttribute);
   }

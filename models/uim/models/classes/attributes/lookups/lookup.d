@@ -24,8 +24,9 @@ class DLookupAttribute : DAttribute {
     return true;
   }
 
-/*   override IData createValue() {
-    return LookupValue(this); } */
+  /* override IData createValue() {
+    return LookupData(this); 
+  } */
 }
 mixin(AttributeCalls!("LookupAttribute"));
 

@@ -24,6 +24,8 @@ is.dataFormat.boolean */
       .name("boolean")
       .dataFormats(["boolean"])
       .registerPath("boolean");
+
+    return true;
   }
 
   override IData createValue() {

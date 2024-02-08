@@ -14,10 +14,12 @@ class DElementAttribute : DAttribute {
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
+
+    return true;
   }
 
-  override IData createValue() {
-    return ElementValue(this); }
+  /* override IData createValue() {
+    return ElementValue(this); } */
 }
 mixin(AttributeCalls!"ElementAttribute");
 

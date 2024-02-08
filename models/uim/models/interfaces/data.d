@@ -1,6 +1,6 @@
-module uim.oop.interfaces.data;
+module uim.models.interfaces.data;
 
-import uim.oop;
+import uim.models;
 
 @safe:
 interface IData {
@@ -8,17 +8,38 @@ interface IData {
     IData[] values();
 
     // is data empty  
-    bool isEmpty(string key);
+    // TODO bool isEmpty(string key);
 
-    bool isNull(string key);
-    bool isBool();
     bool isNumeric();
     bool isString();
+    IAttribute attribute();
 
+    bool isBoolean();
+    bool isInteger();
+    bool isDouble();
+    bool isLong();
+    bool isTime();
+    bool isDate();
+    bool isDatetime();
+    bool isTimestamp();
+
+    bool isScalar();
+    bool isArray();
+    bool isObject();
+    bool isEntity();
+    bool isUUID();
+
+    bool isNullable();
+    bool isNull();
+    bool isReadOnly();
+
+    bool hasKeys(string[])
+    Json toJson();
+    string toString();
     size_t length();
 
     bool isEqual(IData[string] checkData);
-	bool isEqual(IData data);
+    bool isEqual(IData data);
 
     bool hasPaths(string[] paths, string separator = "/");
     bool hasPath(string path, string separator = "/");
@@ -26,12 +47,12 @@ interface IData {
     bool hasKeys(string[] keys, bool deepSearch = false);
     bool hasKey(string key, bool deepSearch = false);
 
-    bool hasData(IData[string] checkData, bool deepSearch = false); 
+    bool hasData(IData[string] checkData, bool deepSearch = false);
     bool hasData(IData[] data, bool deepSearch = false);
     bool hasData(IData data, bool deepSearch = false);
 
-	IData get(string key, IData defaultData);
-    
+    IData get(string key, IData defaultData);
+
     IData data(string key);
     IData opIndex(string key);
 

@@ -22,7 +22,7 @@ class DList(T) : DContainer!T, IList  {
     this().addAll(newItems.dup);
   }
 
-  override bool initialize(IData[string] Data = null) {
+  override bool initialize(Json Data = null) {
     super.initialize(Data);
   }
 

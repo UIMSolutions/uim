@@ -12,4 +12,5 @@ public {
     import uim.oop;
     import uim.css;
     import uim.filesystems;
+    import uim.models;
 }

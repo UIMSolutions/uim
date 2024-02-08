@@ -10,7 +10,7 @@ class UimException : Exception {
      * Array of attributes that are passed in from the constructor, and
      * made available in the view when a development error is displayed.
      */
-    protected IData[string] _attributes;
+    protected Json _attributes;
 
     // Template string that has attributes sprintf()'ed into it.
     protected string _messageTemplate = "";
@@ -27,7 +27,7 @@ class UimException : Exception {
      * @param int statusCode The error code
      * @param \Throwable|null previous the previous exception.
      */
-    this(IData[string] messageAttributes, int statusCode = 0, UimException previousException = null) {
+    this(Json messageAttributes, int statusCode = 0, UimException previousException = null) {
         _attributes = messageAttributes;
         string errorMessage = _messageTemplate.format(message);
         this(errorMessage, statusCode, previousException);
@@ -39,7 +39,7 @@ class UimException : Exception {
     }
 
     // Get the passed in attributes
-    IData[string] attributes() {
+    Json attributes() {
         return _attributes;
     }
 }

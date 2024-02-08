@@ -9,8 +9,8 @@ import uim.oop;
 
 @safe:
 mixin template ConfigForInterface() {
-  IData[string] config();
-  void config(IData[string] newConfig);
+  Json config();
+  void config(Json newConfig);
 
   Json Data(string key);
   void Data(string key, Json newData);
@@ -18,17 +18,17 @@ mixin template ConfigForInterface() {
 // TODO enhance interface
 
 template ConfigForClass() {
-  protected IData[string] _Data;
+  protected Json _Data;
 
-  IData[string] config() {
+  Json config() {
     return _config.clone;
   }
 
-  void config(IData[string] newData) {
+  void config(Json newData) {
     _config = newConfig.newData;
   }
 
-  void updateConfig(IData[string] updateData) {
+  void updateConfig(Json updateData) {
     updateData.byKeyValue
       .each!(kv => Data(kv.key, kv.value));
   }
@@ -47,12 +47,12 @@ template ConfigForClass() {
     _Data[key] = newData.clone;
   }
 
-  IData[string] removeConfigKeys(string[] keys...) {
+  Json removeConfigKeys(string[] keys...) {
     return removeConfigKeys(keys.dup);
   }
 
-  IData[string] removeConfigKeys(string[] keys) {
-    IData[string] data;
+  Json removeConfigKeys(string[] keys) {
+    Json data;
     keys.each!(key => data[key] = removeConfigKey(key));
     return data;
   }

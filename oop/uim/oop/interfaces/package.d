@@ -18,7 +18,6 @@ public {
 	import uim.oop.interfaces.consoleapplication;
 	import uim.oop.interfaces.container;
 	import uim.oop.interfaces.containerapplication;
-	import uim.oop.interfaces.data;
 	import uim.oop.interfaces.enumeration;
 	import uim.oop.interfaces.error;
 	import uim.oop.interfaces.exception;

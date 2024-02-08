@@ -13,7 +13,7 @@ mixin template TConfigurable() {
         _configuration = newConfiguration;
     }
 
-    void setConfiguration(IData[string] newData) {
+    void setConfiguration(Json newData) {
         newData.byKeyValue
             .each!(kv => _configuration.data(kv.key, kv.value));
     }

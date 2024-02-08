@@ -20,8 +20,8 @@ interface IPluginApplication /* : IEventDispatcher */ { // TODO
      * instance of `UIM\Core\BasePlugin` will be used. This generated class will have
      * all plugin hooks enabled.
      */
-    void addPlugin(string pluginName, IData[string] Data = null);
-    void addPlugin(IPlugin plugin, IData[string] Data = null);
+    void addPlugin(string pluginName, Json Data = null);
+    void addPlugin(IPlugin plugin, Json Data = null);
 
     // Run bootstrap logic for loaded plugins.
     void pluginBootstrap();

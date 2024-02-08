@@ -46,7 +46,7 @@ class PluginCollection /* : Iterator, Countable */ { // TODO
     /**
      * Add plugins from config array.
      * Params:
-     * IData[string] Data Configuration array. For e.g.:
+     * Json Data Configuration array. For e.g.:
      *  ```
      *  [
      *      'Company/TestPluginThree",
@@ -57,12 +57,12 @@ class PluginCollection /* : Iterator, Countable */ { // TODO
      *  ```
      */
      // TODO 
-    /* void addFromConfig(IData[string] Data = null) {
+    /* void addFromConfig(Json Data = null) {
         auto debugData = Configure.read("debug");
         auto cli = UIM_SAPI == "cli";
 
         foreach (name, options; Hash.normalize(Data)) {
-            IData[string] optionData = options.dup;
+            Json optionData = options.dup;
             IData onlyDebug = optionData.get("onlyDebug", null);
             IData onlyCli = optionData.get("onlyCli", null);
             IData optional = optionData.get("optional", null);
@@ -196,7 +196,7 @@ class PluginCollection /* : Iterator, Countable */ { // TODO
      * Data - Configuration options for the plugin.
      */
     // TODO
-    /* IPlugin create(string pluginName, IData[string] Data = null) {
+    /* IPlugin create(string pluginName, Json Data = null) {
         if (pluginName.isEmpty) {
             throw new UimException("Cannot create a plugin with empty name");
         }

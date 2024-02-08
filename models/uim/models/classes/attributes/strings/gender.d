@@ -6,6 +6,7 @@
 module uim.models.classes.attributes.strings.gender;
 
 import uim.models;
+
 @safe:
 
 /* is.dataFormat.character
@@ -17,13 +18,17 @@ class DGenderAttribute : DStringAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("gender")
-      .registerPath("gender");
+    name("gender");
+    registerPath("gender");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("GenderAttribute"));
 
 ///

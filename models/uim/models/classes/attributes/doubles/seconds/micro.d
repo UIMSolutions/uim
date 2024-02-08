@@ -25,16 +25,21 @@ class DMicroSecondAttribute : DSecondAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("microsecond")
-      .registerPath("microsecond");
+    name("microsecond");
+    registerPath("microsecond");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("MicroSecondAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     // TODO
   }
 }

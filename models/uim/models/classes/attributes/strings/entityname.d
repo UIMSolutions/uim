@@ -6,6 +6,7 @@
 module uim.models.classes.attributes.strings.entityname;
 
 import uim.models;
+
 @safe:
 
 /* Type for trait parameters that take entity names as values
@@ -19,13 +20,17 @@ class DEntityNameAttribute : DStringAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("entityname")
-      .registerPath("entityName");
+    name("entityname");
+    registerPath("entityName");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("EntityNameAttribute"));
 
 ///

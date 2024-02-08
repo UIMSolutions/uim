@@ -13,23 +13,27 @@ class DDatetimeAttribute : DDateAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    nameaddDataFormats(["time"])
-      .name("datetime");
-registerPath("datetime");
-      // means.measurement.date
-      // means.measurement.time
+    addDataFormats(["time"]);
+    name("datetime");
+    registerPath("datetime");
+    // means.measurement.date
+    // means.measurement.time
 
     return true;
   }
-  
+
   /* override IData createData() {
     return DateTimeData(this); } */
 }
+
 mixin(AttributeCalls!"DatetimeAttribute");
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DDatetimeAttribute);
     testAttribute(DatetimeAttribute);
   }

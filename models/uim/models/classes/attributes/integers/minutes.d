@@ -21,10 +21,10 @@ class DMinutesAttribute : DIntegerAttribute {
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
+    name("minutes");
+    registerPath("minutes");
 
-    this
-      .name("minutes")
-      .registerPath("minutes");
+    return true;
   }    
 }
 mixin(AttributeCalls!("MinutesAttribute"));

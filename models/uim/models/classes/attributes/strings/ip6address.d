@@ -25,9 +25,11 @@ class DIP6AddressAttribute : DStringAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("ip6address")
-      .registerPath("ip6address");
+    name("ip6address");
+    registerPath("ip6address");
+
+      return true;
+
   }
 }
 mixin(AttributeCalls!("IP6AddressAttribute"));

@@ -6,6 +6,7 @@
 module uim.models.classes.attributes.strings.languagetags.languagetag;
 
 import uim.models;
+
 @safe:
 
 // means.reference.language.tag
@@ -14,16 +15,22 @@ class DLanguageTagAttribute : DStringAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("languageTag")
-      .registerPath("languagetag");
+    name("languageTag");
+    registerPath("languagetag");
+
+    return true;
+
   }
 }
+
 mixin(AttributeCalls!("LanguageTagAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     // TODO
   }
 }

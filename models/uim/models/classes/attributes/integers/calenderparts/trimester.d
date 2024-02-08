@@ -19,16 +19,21 @@ class DTrimesterAttribute : DIntegerCalendarPart {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("trimester")
-      .registerPath("trimester");
+    name("trimester");
+    registerPath("trimester");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("TrimesterAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DTrimesterAttribute);
     testAttribute(TrimesterAttribute);
   }

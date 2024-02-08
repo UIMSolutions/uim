@@ -27,9 +27,10 @@ class DSecondAttribute : DDoubleAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("second")
-      .registerPath("second");
+    name("second");
+    registerPath("second");
+
+    return true;
   }
 }
 mixin(AttributeCalls!("SecondAttribute"));

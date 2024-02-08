@@ -196,7 +196,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     return cast(O)result;
   }
 
-  O[] versions() {
+  /* TODO [] versions() {
     O[] results;
 
     if (model) {
@@ -206,7 +206,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     }
 
     return result;
-  }
+  }*/
 
 /*
   void attribute(string name, string type) {

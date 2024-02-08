@@ -33,9 +33,10 @@ means.attributeName
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("attributeName")
-      .registerPath("attributeName");
+    name("attributeName");
+      registerPath("attributeName");
+
+      return true;
   }
 }
 mixin(AttributeCalls!("AttributeNameAttribute"));

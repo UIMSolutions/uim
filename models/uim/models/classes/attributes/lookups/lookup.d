@@ -16,10 +16,9 @@ class DLookupAttribute : DAttribute {
     if (!super.initialize(configData)) { return false; } 
     // means.measurement.lookup
 
-    this
-      .name("lookup")
-      .dataFormats(["lookup"])
-      .registerPath("lookup");
+    name("lookup");
+    dataFormats(["lookup"]);
+    registerPath("lookup");
 
     return true;
   }

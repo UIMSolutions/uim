@@ -13,16 +13,21 @@ class DDisplayOrderAttribute : DIntegerAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("displayOrder")
-      .registerPath("displayOrder");    
+    name("displayOrder");
+    registerPath("displayOrder");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("DisplayOrderAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DDisplayOrderAttribute);
     testAttribute(DisplayOrderAttribute);
   }

@@ -19,16 +19,21 @@ class DWeekAttribute : DIntegerCalendarPart {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("week")
-      .registerPath("week");
+    name("week");
+    registerPath("week");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("WeekAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DWeekAttribute);
     testAttribute(WeekAttribute);
   }

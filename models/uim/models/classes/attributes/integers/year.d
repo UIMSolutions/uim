@@ -23,16 +23,21 @@ class DYearAttribute : DIntegerAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("year")
-      .registerPath("year");
-  }    
+    name("year");
+    registerPath("year");
+
+    return true;
+  }
 }
+
 mixin(AttributeCalls!("YearAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DYearAttribute);
     testAttribute(YearAttribute);
   }

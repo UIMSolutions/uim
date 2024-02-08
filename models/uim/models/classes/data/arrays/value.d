@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DDataArrayData : DArrayData {
-  mixin(DataThis!("ValueArrayData", "DData[]"));  
+  mixin(DataThis!("ValueArrayData", "IData[]"));  
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
@@ -18,16 +18,16 @@ class DDataArrayData : DArrayData {
     nameisString(true);
   }
 
-  protected DData[] _value;
+  protected IData[] _value;
   alias value = DData.value;
-  void set(DData[] newValue) {
+  void set(IData[] newValue) {
     _value = newValue;
   }
-  void value(DData[] newValue) {
+  void value(IData[] newValue) {
     this.set(newValue);
      
   }
-  DData[] value() {
+  IData[] value() {
     return _value; 
   }
 
@@ -38,4 +38,4 @@ class DDataArrayData : DArrayData {
     return ValueArrayData(attribute, toJson);
   }
 }
-mixin(ValueCalls!("ValueArrayData", "DData[]"));  
+mixin(ValueCalls!("ValueArrayData", "IData[]"));  

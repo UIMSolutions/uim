@@ -11,9 +11,12 @@ import uim.models;
 class DJsonData : DData {
   mixin(DataThis!("JsonData"));  
 
-  mixin(TProperty!("Json", "value"));
+  protected Json _value;
+  override void value(Json newValue) {
+    _value = newValue;
+  }
 
-  void value(string newValue) {
+  override void value(string newValue) {
     this.value(parseJsonString(newValue));
     
   }

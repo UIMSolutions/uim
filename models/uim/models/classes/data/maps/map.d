@@ -8,12 +8,12 @@ module uim.models.classes.data.maps.map;
 import uim.models;
 
 @safe:
-class DMapValue(K) : DData, IMap {
+class DMapData(K) : DData, IMap {
   mixin(DataThis!("MapValue"));
 
   protected DData[K] _items;
 
-  DMapValue opIndexAssign(DData value, K key) {
+  DMapData opIndexAssign(DData value, K key) {
     if (containsKey(key)) {
       _items[key] = value; 
     } else {
@@ -22,7 +22,7 @@ class DMapValue(K) : DData, IMap {
     return this;
   }
 
-  DMapValue opIndexAssign(bool value, K key) {
+  DMapData opIndexAssign(bool value, K key) {
     if (containsKey(key)) {
       _items[key].value(value ? "true" : "false"); 
     } else {
@@ -31,7 +31,7 @@ class DMapValue(K) : DData, IMap {
     return this;
   }
 
-  DMapValue opIndexAssign(int value, K key) {
+  DMapData opIndexAssign(int value, K key) {
     if (containsKey(key)) {
       _items[key].value(to!string(value)); 
     } else {
@@ -40,7 +40,7 @@ class DMapValue(K) : DData, IMap {
     return this;
   }
 
-  DMapValue opIndexAssign(double value, K key) {
+  DMapData opIndexAssign(double value, K key) {
     if (containsKey(key)) {
       _items[key].value(to!string(value)); 
     } else {
@@ -49,7 +49,7 @@ class DMapValue(K) : DData, IMap {
     return this;
   }
 
-  DMapValue opIndexAssign(string value, K key) {    
+  DMapData opIndexAssign(string value, K key) {    
      if (containsKey(key)) {
       _items[key].value(value); 
     } else {
@@ -58,7 +58,7 @@ class DMapValue(K) : DData, IMap {
     return this;
   }
 
-  DMapValue opIndexAssign(UUID value, K key) {
+  DMapData opIndexAssign(UUID value, K key) {
     if (containsKey(key)) {
       _items[key].value(value.toString); 
     } else {
@@ -67,7 +67,7 @@ class DMapValue(K) : DData, IMap {
     return this;
   }
 
-  DMapValue opIndexAssign(DData[] values, K key) {
+  DMapData opIndexAssign(IData[] values, K key) {
     if (containsKey(key)) {
       _items[key] = new DArrayData(values); 
     } else {
@@ -76,7 +76,7 @@ class DMapValue(K) : DData, IMap {
     return this;
   }
 
-  DData opIndex(K key) {
+  override IData opIndex(K key) {
     return _items.get(key, null);
   }
 
@@ -100,7 +100,7 @@ class DMapValue(K) : DData, IMap {
     return false;
   }
 
-  DData[] values() {
+  override IData[] values() {
     return _items.values;
   }
 
@@ -136,7 +136,7 @@ class DMapValue(K) : DData, IMap {
     return "["~results.join(",") ~"]";
   }
 }
-auto MapValue(K)() { return new DMapValue!K(); }
+auto MapValue(K)() { return new DMapData!K(); }
 
 ///
 unittest {  

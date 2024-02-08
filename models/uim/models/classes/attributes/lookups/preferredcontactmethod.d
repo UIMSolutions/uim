@@ -16,10 +16,11 @@ class DPreferredContactMethodAttribute : DAttribute {
     if (!super.initialize(configData)) { return false; }
     // means.measurement.preferredcontactmethod
 
-    this
-      .name("preferredcontactmethod")
-      .dataFormats(["preferredcontactmethod"])
-      .registerPath("preferredcontactmethod");
+    name("preferredcontactmethod");
+    dataFormats(["preferredcontactmethod"]);
+    registerPath("preferredcontactmethod");
+
+    return true;
   }
 
 /*   override IData createData() {

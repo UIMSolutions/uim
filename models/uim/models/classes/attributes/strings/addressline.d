@@ -6,6 +6,7 @@
 module uim.models.classes.attributes.strings.addressline;
 
 import uim.models;
+
 @safe:
 /** 
  * is.dataFormat.character
@@ -18,17 +19,22 @@ class DAddressLineAttribute : DStringAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
     // means.location.address
-    this
-      .name("addressLine")
-      .registerPath("addressline");
+    name("addressLine");
+    registerPath("addressline");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!"AddressLineAttribute");
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DAddressLineAttribute);
     testAttribute(AddressLineAttribute);
   }

@@ -8,7 +8,7 @@ module uim.models.classes.data.map;
 import uim.models;
 @safe:
 
-/* class DMapValue {
+/* class DMapData {
   this() { initialize; }
 
   void initialize(IData[string] configData = null) {}
@@ -19,9 +19,9 @@ import uim.models;
 
   bool hasValue(string key) { return key in _items ? true : false; }
   string[] keys() { return _items.keys; }
-  DData[] values() { return _items.values; }
+  IData[] values() { return _items.values; }
 
-  DData opIndex(string name) { return _items.get(name, NullValue); }
+  IData opIndex(string name) { return _items.get(name, NullValue); }
 
   // Set value, if key exists
   void opIndexAssign(bool newValue, string key) {
@@ -72,8 +72,8 @@ import uim.models;
     return obj;
   }
   
-  DMapValue copy() {
-    DMapValue MapValue = MapValue;
+  DMapData copy() {
+    DMapData MapValue = MapValue;
 
     foreach(key, value; _items) {
       MapValue[key] = value.copy;
@@ -82,7 +82,7 @@ import uim.models;
     return MapValue;
   }
 }
-auto MapValue() { return new DMapValue; }
+auto MapValue() { return new DMapData; }
 
 version(test_uim_models) { unittest {
   auto map = MapValue;

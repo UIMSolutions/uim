@@ -25,15 +25,21 @@ class DKilogramAttribute : DGramAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
     name("kilogram");
-registerPath("kilogram");
+    registerPath("kilogram");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("KilogramAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     // TODO
   }
 }

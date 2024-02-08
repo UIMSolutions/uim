@@ -6,6 +6,7 @@
 module uim.models.classes.attributes.strings.county;
 
 import uim.models;
+
 @safe:
 
 // means.location.county
@@ -14,13 +15,17 @@ class DCountyAttribute : DStringAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("county")
-      .registerPath("county");
+    name("county");
+    registerPath("county");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("CountyAttribute"));
 
 ///
@@ -30,9 +35,9 @@ unittest {
   assert(attribute.registerPath == "county");
 
   DAttribute generalAttribute = attribute;
-  assert(cast(DStringAttribute)generalAttribute);
-  assert(!cast(DIntegerAttribute)generalAttribute);
+  assert(cast(DStringAttribute) generalAttribute);
+  assert(!cast(DIntegerAttribute) generalAttribute);
 
   DData value = attribute.createValue();
-  assert(cast(DStringData)value);
+  assert(cast(DStringData) value);
 }

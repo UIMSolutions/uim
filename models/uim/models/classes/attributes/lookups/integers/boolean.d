@@ -11,37 +11,47 @@ import uim.models;
 class DIntegerBooleanAttribute : DLookupAttribute {
   mixin(AttributeThis!("IntegerBooleanAttribute"));
 
-  mixin(TProperty!("bool[int]", "lookups"));  
-  void addLookup(int key, string value) {
-    _lookups[key] = value;
-    
+  mixin(TProperty!("bool[int]", "lookups"));
+  void addLookup(int key, string newValue) {
+    _lookups[key] = newValue;
+
   }
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
     // means.measurement.lookup
+    name("lookup");
+    dataFormats(["lookup", "integer", "string"]);
+    registerPath("lookup");
 
-    this
-      .name("lookup")
-      .dataFormats(["lookup", "integer", "string"])
-      .registerPath("lookup");
+    return true;
+
   }
 
   bool hasLookupKey(int key) {
-    return (key in _lookups ? true : false); 
+    return (key in _lookups ? true : false);
   }
+
   bool hasLookupValue(bool lookupValue) {
-    foreach(k, v; _lookups) { if (v == lookupValue) { return true; } }
-    return false; 
-  }  
+    foreach (k, v; _lookups) {
+      if (v == lookupValue) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   /* override IData createData() {
     return LookupValue!(int, bool)(this).isNullable(isNullable); }  */
 }
+
 mixin(AttributeCalls!("IntegerBooleanAttribute"));
 
-version(test_uim_models) { unittest {  
+version (test_uim_models) {
+  unittest {
     // TODO tests
   }
 }

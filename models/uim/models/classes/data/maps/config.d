@@ -8,7 +8,7 @@ module uim.models.classes.data.maps.config;
 import uim.models;
 
 @safe:
-class DxConfigurationValue : DMapValue!string {
+class DxConfigurationValue : DMapData!string {
   // Constructors
   this() { initialize; }
 }

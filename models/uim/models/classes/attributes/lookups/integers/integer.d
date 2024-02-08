@@ -12,8 +12,8 @@ class DIntegerIntegerAttribute : DLookupAttribute {
   mixin(AttributeThis!("IntegerIntegerAttribute"));
 
   mixin(TProperty!("int[int]", "lookups"));  
-  void addLookup(int key, string value) {
-    _lookups[key] = value;
+  void addLookup(int key, string newValue) {
+    _lookups[key] = newValue;
     
   }
 
@@ -22,10 +22,11 @@ class DIntegerIntegerAttribute : DLookupAttribute {
     if (!super.initialize(configData)) { return false; }
     // means.measurement.lookup
 
-    this
-      .name("lookup")
-      .dataFormats(["lookup", "integer", "string"])
-      .registerPath("lookup");
+    name("lookup");
+    dataFormats(["lookup", "integer", "string"]);
+    registerPath("lookup");
+
+    return true;
   }
 
   bool hasLookupKey(int key) {

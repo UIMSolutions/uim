@@ -6,9 +6,10 @@
 module uim.models.classes.attributes.integers.day;
 
 import uim.models;
+
 @safe:
 
-  /* Unit of measure for time in 'one earth rotation' interval
+/* Unit of measure for time in 'one earth rotation' interval
   is.dataFormat.integer
   means.measurement.dimension.time
   means.measurement.duration.days
@@ -17,16 +18,21 @@ class DDayAttribute : DIntegerAttribute {
   mixin(AttributeThis!("DayAttribute"));
 
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("day")
-      .registerPath("day");    
+    name("day");
+    registerPath("day");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("DayAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DDayAttribute);
     testAttribute(DayAttribute);
   }

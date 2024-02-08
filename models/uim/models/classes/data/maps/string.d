@@ -13,7 +13,7 @@ class DStringDataMap : DData, IMap {
 
   protected DData[string] _items;
 
-  DStringDataMap opIndexAssign(DData value, string key) {
+  IData opIndexAssign(DData value, string key) {
     if (containsKey(key)) {
       _items[key] = value; 
     } else {
@@ -22,7 +22,7 @@ class DStringDataMap : DData, IMap {
     return this;
   }
 
-  DStringDataMap opIndexAssign(bool value, string key) {
+  IData opIndexAssign(bool value, string key) {
     if (containsKey(key)) {
       _items[key].value(value ? "true" : "false"); 
     } else {
@@ -31,7 +31,7 @@ class DStringDataMap : DData, IMap {
     return this;
   }
 
-  DStringDataMap opIndexAssign(int value, string key) {
+  IData opIndexAssign(int value, string key) {
     if (containsKey(key)) {
       _items[key].value(to!string(value)); 
     } else {
@@ -40,7 +40,7 @@ class DStringDataMap : DData, IMap {
     return this;
   }
 
-  DStringDataMap opIndexAssign(double value, string key) {
+  IData opIndexAssign(double value, string key) {
     if (containsKey(key)) {
       _items[key].value(to!string(value)); 
     } else {
@@ -49,7 +49,7 @@ class DStringDataMap : DData, IMap {
     return this;
   }
 
-  DStringDataMap opIndexAssign(string value, string key) {    
+  IData opIndexAssign(string value, string key) {    
      if (containsKey(key)) {
       _items[key].value(value); 
     } else {
@@ -58,7 +58,7 @@ class DStringDataMap : DData, IMap {
     return this;
   }
 
-  DStringDataMap opIndexAssign(UUID value, string key) {
+  IData opIndexAssign(UUID value, string key) {
     if (containsKey(key)) {
       _items[key].value(value.toString); 
     } else {
@@ -67,16 +67,15 @@ class DStringDataMap : DData, IMap {
     return this;
   }
 
-  DStringDataMap opIndexAssign(DData[] values, string key) {
-    if (containsKey(key)) {
-      _items[key] = new DArrayData(values); 
-    } else {
-      _items[key] = new DArrayData(values); }
+  IData opIndexAssign(IData[] values, string key) {
+    _items[key] = containsKey(key)
+      ? new DArrayData(values)
+      : new DArrayData(values);
 
     return this;
   }
 
-  DData opIndex(string key) {
+  override IData opIndex(string key) {
     return _items.get(key, null);
   }
 
@@ -84,7 +83,7 @@ class DStringDataMap : DData, IMap {
     return (_items.length == 0);    
   }
 
- override  size_t length() {
+ override size_t length() {
     return _items.length;    
   }
 
@@ -100,12 +99,12 @@ class DStringDataMap : DData, IMap {
     return false;
   }
 
-  DData[] values() {
+  override IData[] values() {
     return _items.values;
   }
 
   /// containsValue - Returns true if this map maps one or more keys to the specified value.
-  bool containsValue(DData value) {
+  bool containsValue(IData value) {
     foreach(v; values) {
       if (v == value) { return true; }
     }

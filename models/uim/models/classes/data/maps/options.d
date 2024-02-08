@@ -8,7 +8,7 @@ module uim.models.classes.data.maps.options;
 import uim.models;
 
 @safe:
-class DOptions : DMapValue!string {
+class DOptions : DMapData!string {
   // Constructors
   this() { initialize; }
 

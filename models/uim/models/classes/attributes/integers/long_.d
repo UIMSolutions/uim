@@ -15,10 +15,11 @@ class DLongAttribute : DAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .addDataFormats(["long"])
-      .name("long")
-      .registerPath("long");
+    addDataFormats(["long"]);
+    name("long");
+    registerPath("long");
+
+    return true;
   }    
 }
 mixin(AttributeCalls!("LongAttribute"));

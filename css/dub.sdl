@@ -2,7 +2,7 @@ name "css"
 description "D-Library for working with CSS"
 homepage "https://www.sicherheitsschmiede.de/"
 license "Apache-2.0"
-copyright "Copyright © 2015 - 2024, Ozan Nurettin Süel"
+copyright "Copyright © 2015-2024, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
 dependency "arsd-official" version="~>11.2.3"

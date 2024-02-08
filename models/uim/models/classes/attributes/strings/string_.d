@@ -22,7 +22,7 @@ class DStringAttribute : DCharAttribute {
       .isString(true) 
       .registerPath("string");
   }
-  override DValue createValue() {
+  override DData createValue() {
     return StringValue(this)
       .maxLength(this.maxLength); }
 }
@@ -37,6 +37,6 @@ unittest {
   DAttribute generalAttribute = attribute;
   assert(!cast(DIntegerAttribute)generalAttribute);
 
-  DValue value = attribute.createValue();
+  DData value = attribute.createValue();
   assert(cast(DStringValue)value);
 }

@@ -90,7 +90,7 @@ class DAttribute : /* DEntity,  */IAttribute {
 /*   auto createAttribute() {
     return createAttribute(_name); } */
 
-  DValue createValue() {
+  DData createValue() {
     return NullValue; }
 
   /* // Create a new attribute based on this attribute an a giving name 

@@ -21,7 +21,7 @@ class DTagsAttribute : DStringArrayAttribute {
       .registerPath("TagsAttribute");
   }
 
-  override DValue createValue() {
+  override DData createValue() {
     return TagArrayValue(this); }
 }
 mixin(AttributeCalls!"TagsAttribute");

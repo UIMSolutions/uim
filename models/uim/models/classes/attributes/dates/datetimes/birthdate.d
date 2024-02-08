@@ -27,7 +27,7 @@ class DBirthDateAttribute : DDatetimeAttribute {
       .registerPath("birthdate");
 
   }
-  override DValue createValue() {
+  override DData createValue() {
     return DatetimeValue(this); }
 }
 mixin(AttributeCalls!"BirthDateAttribute");

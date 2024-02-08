@@ -21,7 +21,7 @@ class DStringArrayAttribute : DAttribute {
       .registerPath("StringArrayAttribute");
   }
 
-  override DValue createValue() {
+  override DData createValue() {
     return StringArrayValue(this); }
 }
 mixin(AttributeCalls!"StringArrayAttribute");

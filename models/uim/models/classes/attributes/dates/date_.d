@@ -22,7 +22,7 @@ class DDateAttribute : DAttribute {
       .registerPath("date");
   }
 
-  override DValue createValue() {
+  override DData createValue() {
     return DateValue(this); }
 }
 mixin(AttributeCalls!("DateAttribute"));

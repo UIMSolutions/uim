@@ -16,7 +16,7 @@ class DElementAttribute : DAttribute {
     super.initialize(configSettings);
   }
 
-  override DValue createValue() {
+  override DData createValue() {
     return ElementValue(this); }
 }
 mixin(AttributeCalls!"ElementAttribute");

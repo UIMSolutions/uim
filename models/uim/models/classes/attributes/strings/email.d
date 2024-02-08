@@ -13,8 +13,8 @@ class DEmailAttribute : DStringAttribute {
   mixin(AttributeThis!("EmailAttribute"));
 
   // Initialization hook method.
-  override bool initialize(IData[string] configSettings = null) {
-    super.initialize(configSettings);
+  override bool initialize(IData[string] configData = null) {
+    super.initialize(configData);
 
     this
       .name("email")

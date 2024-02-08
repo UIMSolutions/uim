@@ -137,7 +137,7 @@ class DElement : IElement {
   }
 
   // Set data 
-  void opIndexAssign(DValue newValue, string key) {
+  void opIndexAssign(DData newValue, string key) {
     if (!isStatic) { // can add new values and change datatypes
       values[key] = newValue;  
     } else { // Not dynamic
@@ -179,7 +179,7 @@ class DElement : IElement {
   ///
   unittest {
     auto element = new DElement;
-    element.addValues(["test":StringAttribute]);
+    element.adDDatas(["test":StringAttribute]);
     element["test"] = "something";
     assert(element["test"] == "something");
     assert(element["test"] != "a thing");
@@ -209,13 +209,13 @@ class DElement : IElement {
   ///
   unittest {
     auto element = new DElement;
-    element.addValues(["test":StringAttribute]);
+    element.adDDatas(["test":StringAttribute]);
     element["test"] = "something";
     assert(element["test"] == "something");
     assert(element["test"] != "a thing");
   } 
 
-  DValue valueOfKey(string key) {
+  DData valueOfKey(string key) {
     if (auto myValue = values[key]) {
       return myValue;
     }
@@ -223,7 +223,7 @@ class DElement : IElement {
     if (auto keys = key.split(".")) {
       if (keys.length == 1) { return values[key]; }
 
-      DValue myValue = values[keys[0]];
+      DData myValue = values[keys[0]];
       if (auto myElementValue = cast(DElementValue)myValue) {
         myValue = myElementValue.value.valueOfKey(keys[1..].join("."));
       }
@@ -235,7 +235,7 @@ class DElement : IElement {
   ///
   unittest{
     auto element2 = new DElement;
-    element2.addValues(["level2": StringAttribute]);
+    element2.adDDatas(["level2": StringAttribute]);
     element2["level2"] = "valueLevel2";
 
     auto value2 = new DElementValue;
@@ -249,8 +249,8 @@ class DElement : IElement {
 
   // Set UUID value
   void opIndexAssign(UUID value, string key) {
-    if (auto myValue = cast(DUUIDValue)valueOfKey(key)) { 
-      // values[key] exists and value of DUUIDValue
+    if (auto myValue = cast(DUUIDData)valueOfKey(key)) { 
+      // values[key] exists and value of DUUIDData
       myValue.value = value;
     }
   }

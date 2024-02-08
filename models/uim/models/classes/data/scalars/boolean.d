@@ -8,7 +8,7 @@ module uim.models.classes.values.scalars.boolean;
 import uim.models;
 
 @safe:
-class DBooleanValue : DValue {
+class DBooleanValue : DData {
   mixin(ValueThis!("BooleanValue", "bool"));  
 
   // Initialization hook method.
@@ -27,7 +27,7 @@ class DBooleanValue : DValue {
   O opCall(this O)(bool newValue) { this.value(newValue); return cast(O)this; }
 
   protected bool _value;
-  alias value = DValue.value;
+  alias value = DData.value;
   O value(this O)(bool newValue) {
     this.set(newValue);
     return cast(O)this; 
@@ -54,7 +54,7 @@ class DBooleanValue : DValue {
     }
   }
 
-  alias opEquals = DValue.opEquals;
+  alias opEquals = DData.opEquals;
   bool opEquals(bool otherValue) {
     return (_value == otherValue);
   }
@@ -96,10 +96,10 @@ class DBooleanValue : DValue {
     assert(valueD < valueC);
   }
   
-  override DValue copy() {
+  override DData copy() {
     return BooleanValue(attribute, toJson);
   }
-  override DValue dup() {
+  override DData dup() {
     return BooleanValue(attribute, toJson);
   }
   

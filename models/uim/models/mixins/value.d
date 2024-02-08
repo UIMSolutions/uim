@@ -50,19 +50,19 @@ template BooleanValueProperty(string name, string path = null) {
   const char[] BooleanValueProperty = valueProperty("bool", name, path, "DBooleanValue");
 } 
 
-template UUIDValueProperty(string name, string path = null) {
+template UUIDDataProperty(string name, string path = null) {
   const char[] newPath = (path ? path : name);
-  const char[] UUIDValueProperty = `
+  const char[] UUIDDataProperty = `
     @property UUID `~name~`() {
-      if (auto myValue = cast(DUUIDValue)valueOfKey("`~(path ? path : name)~`")) {
+      if (auto myValue = cast(DUUIDData)valueOfKey("`~(path ? path : name)~`")) {
         return myValue.value;
       }
       return UUID();       
     }`~
     // Setter
-    valueSetter(name, "UUID", "DUUIDValue", path)~
-    valueSetter(name, "Json", "DUUIDValue", path)~
-    valueSetter(name, "string", "DUUIDValue", path);
+    valueSetter(name, "UUID", "DUUIDData", path)~
+    valueSetter(name, "Json", "DUUIDData", path)~
+    valueSetter(name, "string", "DUUIDData", path);
 } 
 
 template TimeStampValueProperty(string name, string path = null) {

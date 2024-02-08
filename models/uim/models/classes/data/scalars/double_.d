@@ -8,7 +8,7 @@ module uim.models.classes.values.scalars.double_;
 import uim.models;
 
 @safe:
-class DDoubleValue : DValue {
+class DDoubleValue : DData {
   mixin(ValueThis!("DoubleValue", "double"));  
 
   // Initialization hook method.
@@ -20,7 +20,7 @@ class DDoubleValue : DValue {
   }
 
   protected double _value;  
-  alias value = DValue.value;
+  alias value = DData.value;
   O value(this O)(double newValue) {
     this.set(newValue);
     return cast(O)this; 
@@ -55,7 +55,7 @@ class DDoubleValue : DValue {
   }
 
   alias opEquals = Object.opEquals;
-  alias opEquals = DValue.opEquals;
+  alias opEquals = DData.opEquals;
   bool opEquals(double aValue) {
     return (_value == aValue);
   }
@@ -73,10 +73,10 @@ class DDoubleValue : DValue {
     }
   }  
 
-  override DValue copy() {
+  override DData copy() {
     return DoubleValue(attribute, toJson);
   }
-  override DValue dup() {
+  override DData dup() {
     return DoubleValue(attribute, toJson);
   }
 

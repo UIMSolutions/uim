@@ -27,7 +27,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     super.initialize(configSettings);
 
     this
-      .addValues([
+      .adDDatas([
         "description": StringAttribute,
         "pool": StringAttribute,
         "version": VersionElementAttribute              
@@ -98,7 +98,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
   }
 
   // Who created version
-  mixin(UUIDValueProperty!("versionBy", "version.by"));
+  mixin(UUIDDataProperty!("versionBy", "version.by"));
   /// 
   unittest {
     auto id = randomUUID;
@@ -282,8 +282,8 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
 
   void opDispatch(string name, UUID value)(UUID aValue){
     if (auto myValue = this.values[name]) {
-      if (auto myUUIDValue = cast(DUUIDValue)myValue) {
-        myUUIDValue.value(aValue);
+      if (auto myUUIDData = cast(DUUIDData)myValue) {
+        myUUIDData.value(aValue);
       }
     }
     else { writeln("Unknown value in "~this.className); }
@@ -296,7 +296,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     newAttributes.byKey.each!(key => this.values[key] = newAttributes[key].createValue);
     return cast(O)this;
   }
-  O addAttributes(this O)(DValue[string] newValues) {
+  O addAttributes(this O)(DData[string] newValues) {
     this.values.add(newValues);
     return cast(O)this;
   }
@@ -306,7 +306,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     return cast(O)this;
   }
 
-  O addAttribute(this O)(string key, DValue aValue) {
+  O addAttribute(this O)(string key, DData aValue) {
     this.values[key] = aValue; 
     return cast(O)this;
   } */
@@ -314,12 +314,12 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
   unittest {
     auto entity = new DEntity;
 
-    entity.addValue("int", new DIntegerValue(10));
+    entity.adDData("int", new DIntegerValue(10));
     assert(cast(DIntegerValue)entity.values["int"]);
     assert(entity["int"] == "10");
     assert((cast(DIntegerValue)entity.values["int"]).value == 10);
 
-    entity.addValue(new DCityNameAttribute);  
+    entity.adDData(new DCityNameAttribute);  
     assert((cast(DStringValue)entity.values["cityName"]));
   }
 

@@ -25,7 +25,7 @@ class DVersion: DElement {
     super.initialize(configSettings);
 
     this
-      .addValues([
+      .adDDatas([
         "description": StringAttribute,
         "by": UUIDAttribute,
         "display": StringAttribute,
@@ -53,7 +53,7 @@ class DVersion: DElement {
   }
 
   // Who created version
-  mixin(UUIDValueProperty!("by"));
+  mixin(UUIDDataProperty!("by"));
   /// 
   unittest {
     auto id = randomUUID;

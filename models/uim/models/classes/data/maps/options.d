@@ -12,7 +12,7 @@ class DOptions : DMapValue!string {
   // Constructors
   this() { initialize; }
 
-	alias opEquals = DValue.opEquals;
+	alias opEquals = DData.opEquals;
 }
 auto Options() { return new DOptions; }
 

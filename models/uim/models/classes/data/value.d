@@ -13,7 +13,7 @@ class DData : IData {
   this(DAttribute theAttribute) { this().attribute(theAttribute); }
 
   // Hook
-  void initialize(IData[string] configSettings = null) {}
+  void initialize(IData[string] configData = null) {}
 
   // #region properties
     mixin(OProperty!("DAttribute", "attribute"));

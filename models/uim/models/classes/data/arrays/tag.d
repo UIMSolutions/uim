@@ -12,8 +12,8 @@ class DTagArrayValue : DStringArrayValue {
   mixin(DataThis!("TagArrayValue", "string[]"));  
 
   // Initialization hook method.
-  override bool initialize(IData[string] configSettings = null) {
-    super.initialize(configSettings);
+  override bool initialize(IData[string] configData = null) {
+    super.initialize(configData);
 
     this
       .shouldTrim(true)

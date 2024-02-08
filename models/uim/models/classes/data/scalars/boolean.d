@@ -12,7 +12,7 @@ class DBooleanData: DData {
   mixin(DataThis!("BooleanValue", "bool"));  
 
   // Initialization hook method.
-  override void initialize(IData[string] configSettings = null) {
+  override bool initialize(IData[string] configSettings = null) {
     super.initialize(configSettings);
 
     this

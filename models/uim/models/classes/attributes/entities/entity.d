@@ -22,7 +22,7 @@ import uim.models;
   }
 
   override IData createData() {
-    return EntityValue(this); }
+    return EntityData(this); }
 }
 mixin(AttributeCalls!"EntityAttribute");
 

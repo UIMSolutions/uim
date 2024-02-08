@@ -11,9 +11,11 @@ import uim.models;
 class DStringDataMap : DData, IMap {
   mixin(DataThis!("StringDataMap"));
 
-  protected DData[string] _items;
+  protected IData[string] _items;
 
-  IData opIndexAssign(DData value, string key) {
+  // Todo
+  /*
+  void opIndexAssign(DData value, string key) {
     if (containsKey(key)) {
       _items[key] = value; 
     } else {
@@ -22,58 +24,52 @@ class DStringDataMap : DData, IMap {
     return this;
   }
 
-  IData opIndexAssign(bool value, string key) {
+  void opIndexAssign(bool value, string key) {
     if (containsKey(key)) {
       _items[key].value(value ? "true" : "false"); 
     } else {
-    _items[key] = new DBooleanValue(value); }
+    _items[key] = new DBooleanData(value); }
 
-    return this;
   }
 
-  IData opIndexAssign(int value, string key) {
+  void opIndexAssign(int value, string key) {
     if (containsKey(key)) {
       _items[key].value(to!string(value)); 
     } else {
-    _items[key] = new DIntegerValue(value); }
+    _items[key] = new DIntegerData(value); }
 
-    return this;
   }
 
-  IData opIndexAssign(double value, string key) {
+  void opIndexAssign(double value, string key) {
     if (containsKey(key)) {
       _items[key].value(to!string(value)); 
     } else {
-    _items[key] = new DDoubleValue(value); }
+    _items[key] = new DDoubleData(value); }
     
-    return this;
   }
 
-  IData opIndexAssign(string value, string key) {    
+  void opIndexAssign(string value, string key) {    
      if (containsKey(key)) {
       _items[key].value(value); 
     } else {
      _items[key] = new DStringData(value); }
     
-    return this;
   }
 
-  IData opIndexAssign(UUID value, string key) {
+  void opIndexAssign(UUID value, string key) {
     if (containsKey(key)) {
       _items[key].value(value.toString); 
     } else {
       _items[key] = new DUUIDData(value); }
 
-    return this;
   }
 
-  IData opIndexAssign(IData[] values, string key) {
+  void opIndexAssign(IData[] values, string key) {
     _items[key] = containsKey(key)
       ? new DArrayData(values)
       : new DArrayData(values);
 
-    return this;
-  }
+  } */
 
   override IData opIndex(string key) {
     return _items.get(key, null);
@@ -105,14 +101,15 @@ class DStringDataMap : DData, IMap {
 
   /// containsValue - Returns true if this map maps one or more keys to the specified value.
   bool containsValue(IData value) {
-    foreach(v; values) {
+    // todo
+    /* foreach(v; values) {
       if (v == value) { return true; }
-    }
+    } */
     return false;
   }
 
   override IData clone() {
-    return NullValue; // StringDataMap(attribute, toJson);
+    return NullData; // StringDataMap(attribute, toJson);
   }
 
   override Json toJson() {
@@ -144,7 +141,7 @@ unittest {
 
   assert(stringMap["key1"].toString == "value1");
   assert(cast(DStringData)stringMap["key1"]);
-  assert(!cast(DBooleanValue)stringMap["key1"]);
+  assert(!cast(DBooleanData)stringMap["key1"]);
 
   stringMap["key2"] = "value2";
   assert(stringMap["key2"].toString == "value2");

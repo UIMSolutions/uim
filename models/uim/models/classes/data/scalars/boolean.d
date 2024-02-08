@@ -9,13 +9,17 @@ import uim.models;
 
 @safe:
 class DBooleanData : DData {
-  mixin(DataThis!("BooleanData", "bool"));  
+  mixin(DataThis!("BooleanData", "bool"));
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    nameisBoolean(true);
+    isBoolean(true);
+
+    return true;
   }
 
   @property int get() {
@@ -33,35 +37,38 @@ class DBooleanData : DData {
     data = BoolData(false);
     data.value = myValue;
     assert(data.value == myValue);
- }
+  }
 
-  void opCall(bool newValue) { this.value(newValue);  }
+  void opCall(bool newValue) {
+    this.value(newValue);
+  }
 
   protected bool _value;
   alias value = DData.value;
   void value(bool newValue) {
     this.set(newValue);
-     
+
   }
+
   bool value() {
-    return _value; 
+    return _value;
   }
 
   void set(bool newValue) {
     _value = newValue;
   }
+
   override void set(string newValue) {
-    _value = (newValue.toLower == "true") || (newValue.toLower == "on") || (newValue.toLower == "1"); 
+    _value = (newValue.toLower == "true") || (newValue.toLower == "on") || (newValue.toLower == "1");
   }
+
   override void set(Json newValue) {
-    if (newValue.isEmpty) { 
-      this
-        .value(false) 
-        .isNull(isNullable ? true : false); }
-    else {
-      this
-        .value(newValue.get!bool)
-        .isNull(false);
+    if (newValue.isEmpty) {
+      value(false);
+      isNull(isNullable ? true : false);
+    } else {
+      value(newValue.get!bool);
+      isNull(false);
     }
   }
 
@@ -69,20 +76,23 @@ class DBooleanData : DData {
   bool opEquals(bool otherValue) {
     return (_value == otherValue);
   }
+
   override bool opEquals(string otherValue) {
     return (_value ? otherValue.toLower == "true" : otherValue.toLower == "false");
   }
 
   alias opCmp = Object.opCmp;
   int opCmp(bool aValue) {
-    if (_value < aValue) return -1;
-    if (_value == aValue) return 0;
+    if (_value < aValue)
+      return -1;
+    if (_value == aValue)
+      return 0;
     return 1;
   }
   ///
   unittest {
-    autvoid valueA = new DBooleanData(true);
-    autvoid valueB = new DBooleanData(false);
+    auto valueA = new DBooleanData(true);
+    auto valueB = new DBooleanData(false);
     assert(valueA > false);
     assert(valueB < true);
   }
@@ -96,35 +106,42 @@ class DBooleanData : DData {
 
   ///
   unittest {
-    autvoid valueA = new DBooleanData(true);
-    autvoid valueB = new DBooleanData(false);
+    auto valueA = new DBooleanData(true);
+    auto valueB = new DBooleanData(false);
     assert(valueA > valueB);
     assert(valueB < valueA);
 
-    autvoid valueC = (new DBooleanData).value(true);
-    autvoid valueD = (new DBooleanData).value(false);
+    auto valueC = (new DBooleanData).value(true);
+    auto valueD = (new DBooleanData).value(false);
     assert(valueC > valueD);
     assert(valueD < valueC);
   }
-  
+
   override IData clone() {
     return BooleanData(attribute, toJson);
   }
-  
-  bool toBool() { 
-    return _value; }
 
-  override Json toJson() { 
-    if (this.isNull) return Json(null); 
-    return Json(this.value); }
+  bool toBool() {
+    return _value;
+  }
 
-  override string toString() { 
-    if (isNull) return null; 
-    return to!string(this.value); }
+  override Json toJson() {
+    if (this.isNull)
+      return Json(null);
+    return Json(this.value);
+  }
+
+  override string toString() {
+    if (isNull)
+      return null;
+    return to!string(this.value);
+  }
 }
-mixin(DataCalls!("BooleanData", "bool"));  
 
-version(test_uim_models) { unittest {    
+mixin(DataCalls!("BooleanData", "bool"));
+
+version (test_uim_models) {
+  unittest {
     assert(BooleanData(true) == true);
     assert(BooleanData(false) != true);
     assert(BooleanData.value(true) == true);
@@ -159,8 +176,8 @@ version(test_uim_models) { unittest {
     booleanData.value(false);
     assert(!booleanData.fromString(booleanData.toString).value);
     assert(!booleanData.fromJson(booleanData.toJson).value);
-}}
-
+  }
+}
 
 /* boolean
 

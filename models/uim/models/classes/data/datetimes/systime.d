@@ -9,48 +9,51 @@ import uim.models;
 
 @safe:
 class DSystimeData : DData {
-  mixin(DataThis!("SysTimeData", "SysTime"));  
+  mixin(DataThis!("SysTimeData", "SysTime"));
 
-  protected SysTime _value;  
+  protected SysTime _value;
   alias value = DData.value;
   void value(SysTime newValue) {
     this.set(newValue);
-     
+
   }
+
   SysTime value() {
-    return _value; 
+    return _value;
   }
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    nameisTimestamp(true);
+    isTimestamp(true);
+
+    return true;
   }
 
   // Hooks for setting 
   protected void set(SysTime newValue) {
-    _value = newValue; 
-  }  
+    _value = newValue;
+  }
 
   override protected void set(string newValue) {
-    if (newValue is null) { 
-      this
-        .isNull(isNullable ? true : false) 
-        .value(SysTime()); }
-    else {
-      this
-        .isNull(false);
-        // .value(fromISOExtString(newValue)); 
+    if (newValue is null) {
+      isNull(isNullable ? true : false);
+      value(SysTime());
+    } else {
+      isNull(false);
+      // .value(fromISOExtString(newValue)); 
     }
 
     alias opEquals = DData.opEquals;
-  }  
+  }
 
   override protected void set(Json newValue) {
-    if (newValue.isEmpty) { 
-      _value = SysTime(); 
-      this.isNull(isNullable ? true : false); }
-    else {
+    if (newValue.isEmpty) {
+      _value = SysTime();
+      this.isNull(isNullable ? true : false);
+    } else {
       // _value = newValue.get!string.fromISOExtString;
       this.isNull(false);
     }
@@ -60,16 +63,23 @@ class DSystimeData : DData {
     return SysTimeData(attribute, toJson);
   }
 
-  override Json toJson() { 
-    if (isNull) return Json(null); 
-    return Json(this.value.toISOExtString); }
+  override Json toJson() {
+    if (isNull)
+      return Json(null);
+    return Json(this.value.toISOExtString);
+  }
 
-  override string toString() { 
-    if (isNull) return null; 
-    return this.value.toISOExtString; }
+  override string toString() {
+    if (isNull)
+      return null;
+    return this.value.toISOExtString;
+  }
 }
-mixin(DataCalls!("SysTimeData", "SysTime"));  
 
-version(test_uim_models) { unittest {    
+mixin(DataCalls!("SysTimeData", "SysTime"));
+
+version (test_uim_models) {
+  unittest {
     // TODO
-}} 
+  }
+}

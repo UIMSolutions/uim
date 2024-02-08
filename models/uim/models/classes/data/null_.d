@@ -9,17 +9,19 @@ import uim.models;
 
 @safe:
 class DNullData : DData {
-  mixin(DataThis!("NullValue"));
+  mixin(DataThis!("NullData"));
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    nameisNull(true);
+    isNull(true);
+
+    return true;
   }
 
   override IData clone() {
-    return NullValue;
+    return NullData;
   }
 
   override Json toJson() {
@@ -31,4 +33,4 @@ class DNullData : DData {
   }
 }
 
-mixin(DataCalls!("NullValue"));
+mixin(DataCalls!("NullData"));

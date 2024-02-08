@@ -9,14 +9,16 @@ import uim.models;
 
 @safe:
 class DEntityData : DData {
-  mixin(DataThis!("EntityValue", "DEntity"));  
+  mixin(DataThis!("EntityData", "DEntity"));  
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    nameisNull(false)
-      .isEntity(true);
+    isNull(false);
+      isEntity(true);
+
+      return true;
   }
 
   protected DEntity _value;
@@ -31,7 +33,7 @@ class DEntityData : DData {
   version(test_uim_eDEntityntities) {
     unittest {    
       auto entity = SystemUser; // some kind of entity
-      assert(EntityValue.value(entity).value.id == entity.id);
+      assert(EntityData.value(entity).value.id == entity.id);
   }}
 
   protected void set(DEntity newValue) {
@@ -64,7 +66,7 @@ class DEntityData : DData {
   alias opEquals = DData.opEquals;
 
   override IData clone() {
-    return EntityValue(attribute, toJson);
+    return EntityData(attribute, toJson);
   }
 
   override Json toJson() { 
@@ -72,7 +74,7 @@ class DEntityData : DData {
     return this.value.toJson; 
   }
 
-  // EntityValue converts to a JsonSTtring
+  // EntityData converts to a JsonSTtring
   override string toString() { 
     if (isNull) return null; 
     return toJson.toString; 
@@ -82,7 +84,7 @@ class DEntityData : DData {
     /// TODO this.value(newValue);
   }
 }
-mixin(DataCalls!("EntityValue", "DEntity"));  
+mixin(DataCalls!("EntityData", "DEntity"));  
 
 version(test_uim_models) { unittest {  
 }}

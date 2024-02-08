@@ -24,7 +24,9 @@ class DTimeData : DData {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    nameisTime(true);
+    isTime(true);
+
+    return true;
   }
 
   // Hooks for setting 
@@ -34,12 +36,10 @@ class DTimeData : DData {
 
   override protected void set(string newValue) {
     if (newValue is null) { 
-      this
-        .isNull(isNullable ? true : false) 
-        .value(TimeOfDay()); }
+        isNull(isNullable ? true : false);
+        value(TimeOfDay()); }
     else {
-      this
-        .isNull(false);
+        isNull(false);
         // .value(fromISOExtString(newValue)); 
     }
   }  

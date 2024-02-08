@@ -9,23 +9,29 @@ import uim.models;
 
 @safe:
 class DDoubleData : DData {
-  mixin(DataThis!("DoubleValue", "double"));  
+  mixin(DataThis!("DoubleData", "double"));
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    nameisDouble(true);
+    isDouble(true);
+
+    return true;
   }
 
-  protected double _value;  
+  protected double _value;
   alias value = DData.value;
   void value(double newValue) {
     this.set(newValue);
   }
+
   double value() {
-    return _value; 
+    return _value;
   }
+
   unittest {
     double myValue = 42.0;
     assert(DoubleData(myValue).value == myValue);
@@ -37,27 +43,27 @@ class DDoubleData : DData {
     data = new DDoubleData;
     data.value = myValue;
     assert(data.value == myValue);
- }
+  }
   // Hooks for setting 
   protected void set(double newValue) {
-    _value = newValue; 
-  }  
+    _value = newValue;
+  }
 
   override protected void set(string newValue) {
-    if (newValue is null) { 
-      this.isNull(isNullable ? true : false); 
-      _value = 0; }
-    else {
-      this.isNull(false);
-      _value = to!double(newValue); 
+    if (newValue is null) {
+      isNull(isNullable ? true : false);
+      _value = 0;
+    } else {
+      isNull(false);
+      _value = to!double(newValue);
     }
-  }  
+  }
 
   override protected void set(Json newValue) {
-    if (newValue.isEmpty) { 
-      _value = 0; 
-      this.isNull(isNullable ? true : false); }
-    else {
+    if (newValue.isEmpty) {
+      _value = 0;
+      this.isNull(isNullable ? true : false);
+    } else {
       _value = newValue.get!double;
       this.isNull(false);
     }
@@ -70,56 +76,67 @@ class DDoubleData : DData {
   }
 
   double opCall() {
-    return _value; 
+    return _value;
   }
 
-  void opCall(double newValue) { 
+  void opCall(double newValue) {
     _value = newValue;
-     }
-  version(test_uim_models) { unittest {    
-      autvoid value = DoubleValue;
+  }
+
+  version (test_uim_models) {
+    unittest {
+      void value = DoubleData;
       value(100);
     }
-  }  
-
-  override IData clone() {
-    return DoubleValue(attribute, toJson);
   }
 
-  double toDouble() { 
-    if (isNull) return 0; 
-    return _value; }
+  override IData clone() {
+    return DoubleData(attribute, toJson);
+  }
 
-  override Json toJson() { 
-    if (isNull) return Json(null); 
-    return Json(_value); }
+  double toDouble() {
+    if (isNull)
+      return 0;
+    return _value;
+  }
 
-  override string toString() { 
-    if (isNull) return "0"; 
-    return to!string(_value); }
+  override Json toJson() {
+    if (isNull)
+      return Json(null);
+    return Json(_value);
+  }
+
+  override string toString() {
+    if (isNull)
+      return "0";
+    return to!string(_value);
+  }
 }
-mixin(DataCalls!("DoubleValue", "double"));  
 
-version(test_uim_models) { unittest {    
-  assert(DoubleValue.value("100").toDouble == 100);
-  assert(DoubleValue.value(Json(100)).toDouble == 100);
-  assert(DoubleValue.value("200").toDouble != 100);
-  assert(DoubleValue.value(Json(200)).toDouble != 100);
+mixin(DataCalls!("DoubleData", "double"));
 
-  assert(DoubleValue.value("100").toString == "100");
-  assert(DoubleValue.value(Json(100)).toString == "100");
-  assert(DoubleValue.value("200").toString != "100");
-  assert(DoubleValue.value(Json(200)).toString != "100");
+version (test_uim_models) {
+  unittest {
+    assert(DoubleData.value("100").toDouble == 100);
+    assert(DoubleData.value(Json(100)).toDouble == 100);
+    assert(DoubleData.value("200").toDouble != 100);
+    assert(DoubleData.value(Json(200)).toDouble != 100);
 
-  assert(DoubleValue.value("100").toJson == Json(100));
-  assert(DoubleValue.value(Json(100)).toJson == Json(100));
-  assert(DoubleValue.value("200").toJson != Json(100));
-  assert(DoubleValue.value(Json(200)).toJson != Json(100));
-}} 
+    assert(DoubleData.value("100").toString == "100");
+    assert(DoubleData.value(Json(100)).toString == "100");
+    assert(DoubleData.value("200").toString != "100");
+    assert(DoubleData.value(Json(200)).toString != "100");
+
+    assert(DoubleData.value("100").toJson == Json(100));
+    assert(DoubleData.value(Json(100)).toJson == Json(100));
+    assert(DoubleData.value("200").toJson != Json(100));
+    assert(DoubleData.value(Json(200)).toJson != Json(100));
+  }
+}
 
 ///
 unittest {
-  auto boolValue = new DBooleanValue(true);
+  auto boolValue = new DBooleanData(true);
   assert(boolValue == true);
   assert(boolValue != false);
 }

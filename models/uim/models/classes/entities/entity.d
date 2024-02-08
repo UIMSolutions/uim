@@ -294,7 +294,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     newAttributes.byKey.each!(key => this.values[key] = newAttributes[key].createValue);
     
   }
-  void addAttributes(DData[string] newValues) {
+  void addAttributes(IData[string] newValues) {
     this.values.add(newValues);
     
   }
@@ -304,7 +304,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     
   }
 
-  void addAttribute(string key, DData aValue) {
+  void addAttribute(string key, IData aValue) {
     this.values[key] = aValue; 
     
   } */
@@ -312,12 +312,12 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
   unittest {
     auto entity = new DEntity;
 
-    entity.adDData("int", new DIntegerValue(10));
-    assert(cast(DIntegerValue)entity.values["int"]);
+    entity.addData("int", new DIntegerData(10));
+    assert(cast(DIntegerData)entity.values["int"]);
     assert(entity["int"] == "10");
-    assert((cast(DIntegerValue)entity.values["int"]).value == 10);
+    assert((cast(DIntegerData)entity.values["int"]).value == 10);
 
-    entity.adDData(new DCityNameAttribute);  
+    entity.addData(new DCityNameAttribute);  
     assert((cast(DStringData)entity.values["cityName"]));
   }
 
@@ -469,7 +469,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
 
     foreach(fName; fieldNames) {
       auto requestKey = "entity_"~fName;
-      if (auto boolValue = cast(DBooleanValue)values[fName]) {
+      if (auto boolValue = cast(DBooleanData)values[fName]) {
         boolValue.value(requestKey in requestValues ? true : false);
       }
       else {
@@ -511,11 +511,11 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       case "versionDescription": return this.versionDescription;
       default:
         //if (key in attributes) { return attributes[key].StringData; }
-        if (autvoid value = values[key]) { return value.toString; }
+        if (void value = values[key]) { return value.toString; }
         auto keys = key.split(".");
         if (keys.length > 1) {
           if (auto subValue = values[keys[0]]) {
-            if (auto entityValue = cast(DEntityValue)subValue) {
+            if (auto entityValue = cast(DEntityData)subValue) {
               return entityValue.value[keys[1..$].join(".")];
             }
             if (auto ElementData = cast(DElementData)subValue) {
@@ -565,7 +565,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
           auto keys = key.split(".");
           if (keys.length > 1) {
             if (auto subValue = values[keys[0]]) {
-              if (auto entityValue = cast(DEntityValue)subValue) {
+              if (auto entityValue = cast(DEntityData)subValue) {
                 entityValue.value[keys[1..$].join(".")] = value;
               }
               if (auto ElementData = cast(DElementData)subValue) {
@@ -887,7 +887,7 @@ unittest {
   assert(Entity.name("entity").name == "entity");
   
   auto entity = Entity;
-  auto entityValue = EntityValue;
+  auto entityValue = EntityData;
   entityValue.value = Entity.name("TestEntity");
   entity.values["entity"] = entityValue;
 
@@ -897,7 +897,7 @@ unittest {
   entity["entity.name"] = "newEntityName";
   assert(entity["entity.name"] == "newEntityName");
 
-  entityValue = cast(DEntityValue)entity.values["entity"];
+  entityValue = cast(DEntityData)entity.values["entity"];
   // writeln(entityValue.value["name"]);
   assert(entityValue.value["name"] == "newEntityName");
 

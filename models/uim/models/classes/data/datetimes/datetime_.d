@@ -9,47 +9,51 @@ import uim.models;
 
 @safe:
 class DDatetimeData : DData {
-  mixin(DataThis!("DateTimeData", "DateTime"));  
+  mixin(DataThis!("DateTimeData", "DateTime"));
 
-  protected DateTime _value;  
+  protected DateTime _value;
   alias value = DData.value;
   void value(DateTime newValue) {
     this.set(newValue);
-     
+
   }
+
   DateTime value() {
-    return _value; 
+    return _value;
   }
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    nameisDatetime(true);
+    isDatetime(true);
+
+    return true;
   }
 
   // Hooks for setting 
   protected void set(DateTime newValue) {
-    _value = newValue; 
-  }  
+    _value = newValue;
+  }
 
   override protected void set(string newValue) {
-    if (newValue is null) { 
-      this.isNull(isNullable ? true : false); 
-      this.value(DateTime()); }
-    else {
+    if (newValue is null) {
+      this.isNull(isNullable ? true : false);
+      this.value(DateTime());
+    } else {
       this.isNull(false);
-      this.value(DateTime.fromISOExtString(newValue)); 
+      this.value(DateTime.fromISOExtString(newValue));
     }
-  }  
+  }
 
   override protected void set(Json newValue) {
-    if (newValue.isEmpty) { 
-      _value = DateTime(); 
-      this.isNull(isNullable ? true : false); }
-    else {
-      this
-        .value(newValue.get!string)
-        .isNull(false);
+    if (newValue.isEmpty) {
+      _value = DateTime();
+      isNull(isNullable ? true : false);
+    } else {
+      value(newValue.get!string);
+      isNull(false);
     }
   }
 
@@ -57,29 +61,34 @@ class DDatetimeData : DData {
     return DateTimeData(attribute, toJson);
   }
 
-  override Json toJson() { 
-    if (isNull) return Json(null); 
-    return Json(this.value.toISOExtString); }
+  override Json toJson() {
+    if (isNull)
+      return Json(null);
+    return Json(this.value.toISOExtString);
+  }
 
-  override string toString() { 
-    if (isNull) return null; 
-    return this.value.toISOExtString; }
+  override string toString() {
+    if (isNull)
+      return null;
+    return this.value.toISOExtString;
+  }
 }
-mixin(DataCalls!("DateTimeData", "DateTime"));  
 
-version(test_uim_models) { unittest {    
-    assert(DateTimeData.value("100").toDatetime == 100);
-    assert(DateTimeData.value(Json(100)).toDatetime == 100);
-    assert(DateTimeData.value("200").toDatetime != 100);
-    assert(DateTimeData.value(Json(200)).toDatetime != 100);
+mixin(DataCalls!("DateTimeData", "DateTime"));
 
-    assert(DateTimeData.value("100").toString == "100");
-    assert(DateTimeData.value(Json(100)).toString == "100");
-    assert(DateTimeData.value("200").toString != "100");
-    assert(DateTimeData.value(Json(200)).toString != "100");
+unittest {
+  assert(DateTimeData.value("100").toDatetime == 100);
+  assert(DateTimeData.value(Json(100)).toDatetime == 100);
+  assert(DateTimeData.value("200").toDatetime != 100);
+  assert(DateTimeData.value(Json(200)).toDatetime != 100);
 
-    assert(DateTimeData.value("100").toJson == Json(100));
-    assert(DateTimeData.value(Json(100)).toJson == Json(100));
-    assert(DateTimeData.value("200").toJson != Json(100));
-    assert(DateTimeData.value(Json(200)).toJson != Json(100));
-}} 
+  assert(DateTimeData.value("100").toString == "100");
+  assert(DateTimeData.value(Json(100)).toString == "100");
+  assert(DateTimeData.value("200").toString != "100");
+  assert(DateTimeData.value(Json(200)).toString != "100");
+
+  assert(DateTimeData.value("100").toJson == Json(100));
+  assert(DateTimeData.value(Json(100)).toJson == Json(100));
+  assert(DateTimeData.value("200").toJson != Json(100));
+  assert(DateTimeData.value(Json(200)).toJson != Json(100));
+}

@@ -13,8 +13,7 @@ class DIntegerIntegerAttribute : DLookupAttribute {
 
   mixin(TProperty!("int[int]", "lookups"));  
   void addLookup(int key, string newValue) {
-    _lookups[key] = newValue;
-    
+    _lookups[key] = to!int(newValue);
   }
 
   // Initialization hook method.

@@ -23,7 +23,9 @@ class DLongData : DData {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    nameisLong(true);
+    isLong(true);
+
+    return true;
   }
 
   // Hooks for setting 
@@ -33,10 +35,10 @@ class DLongData : DData {
 
   override protected void set(string newValue) {
     if (newValue is null) { 
-      this.isNull(isNullable ? true : false); 
+      isNull(isNullable ? true : false); 
       _value = 0; }
     else {
-      this.isNull(false);
+      isNull(false);
       _value = to!long(newValue); 
     }
   }  
@@ -80,7 +82,7 @@ class DLongData : DData {
   }
   ///
   unittest {
-    autvoid value = new DLongData(100_000);
+    void value = new DLongData(100_000);
     assert(value > 100);
     assert(value >= 100);
     assert(value >= 100_000);
@@ -96,7 +98,7 @@ class DLongData : DData {
   }
   ///
   unittest {
-    autvoid value = new DLongData(100_000);
+    void value = new DLongData(100_000);
     assert(value > new DLongData(100));
     assert(value >= new DLongData(100));
     assert(value >= new DLongData(100_000));
@@ -114,7 +116,7 @@ class DLongData : DData {
     _value = newValue;
      }
   version(test_uim_models) { unittest {    
-      autvoid value = LongData;
+      void value = LongData;
       value(100);
     }
   }  
@@ -183,7 +185,7 @@ static long
 divideUnsigned(long dividend, long divisor)
 Returns the unsigned quotient of dividing the first argument by the second where each argument and the result is interpreted as an unsigned value.
 double
-doubleValue()
+DoubleData()
 Returns the value of this Long as a double after a widening primitive conversion.
 boolean
 equals(Object obj)

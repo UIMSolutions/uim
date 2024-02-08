@@ -131,7 +131,7 @@ class DElement : IElement {
       case "requestPrefix": return requestPrefix;
       case "registerPath": return registerPath;
       default:
-        if (autvoid value = valueOfKey(key)) { 
+        if (void value = valueOfKey(key)) { 
           return value.toString;
         } break;      
     }
@@ -150,7 +150,7 @@ class DElement : IElement {
   }
   ///
   unittest {
-    autvoid value = (new DStringAttribute).createValue;
+    void value = (new DStringAttribute).createValue;
     value.set("aValue");
     assert(value.toString == "aValue");
 
@@ -240,7 +240,7 @@ class DElement : IElement {
     element2.addValues(["level2": StringAttribute]);
     element2["level2"] = "valueLevel2";
 
-    autvoid value2 = new DElementData;
+    void value2 = new DElementData;
     value2.set(element2);
 
     auto element1 = new DElement;
@@ -267,8 +267,8 @@ class DElement : IElement {
 
   // Set bool value
   void opIndexAssign(bool value, string key) {
-    if (auto myValue = cast(DBooleanValue)valueOfKey(key)) { 
-      // values[key] exists and value of DBooleanValue
+    if (auto myValue = cast(DBooleanData)valueOfKey(key)) { 
+      // values[key] exists and value of DBooleanData
       myValue.value = value;
     }    
   }

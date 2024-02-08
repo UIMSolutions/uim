@@ -11,69 +11,76 @@ import uim.models;
 class DMapData(K) : DData, IMap {
   mixin(DataThis!("MapValue"));
 
-  protected DData[K] _items;
+  protected IData[K] _items;
 
   DMapData opIndexAssign(DData value, K key) {
     if (containsKey(key)) {
-      _items[key] = value; 
+      _items[key] = value;
     } else {
-      _items[key] = value; }
+      _items[key] = value;
+    }
 
     return this;
   }
 
-  DMapData opIndexAssign(bool value, K key) {
+  void opIndexAssign(bool value, K key) {
+    // TODO
+    /* if (containsKey(key)) {
+      _items[key].value(value ? "true" : "false");
+    } else {
+      _items[key] = new DBooleanData(value);
+    } */ 
+  }
+
+  void opIndexAssign(int value, K key) {
+    // TODO
+    /* if (containsKey(key)) {
+      _items[key].value(to!string(value));
+    } else {
+      _items[key] = new DIntegerData(value);
+    } */
+  }
+
+  void opIndexAssign(double value, K key) {
+    // TODO
+    /*
     if (containsKey(key)) {
-      _items[key].value(value ? "true" : "false"); 
+      _items[key].value(to!string(value));
     } else {
-    _items[key] = new DBooleanValue(value); }
-
-    return this;
+      _items[key] = new DDoubleData(value);
+    }*/
   }
 
-  DMapData opIndexAssign(int value, K key) {
+  void opIndexAssign(string value, K key) {
+    // TODO
+    /*
     if (containsKey(key)) {
-      _items[key].value(to!string(value)); 
+      _items[key].value(value);
     } else {
-    _items[key] = new DIntegerValue(value); }
-
-    return this;
+      _items[key] = new DStringData(value);
+    } */
   }
 
-  DMapData opIndexAssign(double value, K key) {
+  void opIndexAssign(UUID value, K key) {
+    // TODO
+
+    /*
     if (containsKey(key)) {
-      _items[key].value(to!string(value)); 
+      _items[key].value(value.toString);
     } else {
-    _items[key] = new DDoubleValue(value); }
-    
-    return this;
+      _items[key] = new DUUIDData(value);
+    } */
   }
 
-  DMapData opIndexAssign(string value, K key) {    
-     if (containsKey(key)) {
-      _items[key].value(value); 
-    } else {
-     _items[key] = new DStringData(value); }
-    
-    return this;
-  }
+  void opIndexAssign(IData[] values, K key) {
+    // TODO
+    /*
 
-  DMapData opIndexAssign(UUID value, K key) {
     if (containsKey(key)) {
-      _items[key].value(value.toString); 
+      _items[key] = new DArrayData(values);
     } else {
-      _items[key] = new DUUIDData(value); }
-
-    return this;
-  }
-
-  DMapData opIndexAssign(IData[] values, K key) {
-    if (containsKey(key)) {
-      _items[key] = new DArrayData(values); 
-    } else {
-      _items[key] = new DArrayData(values); }
-
-    return this;
+      _items[key] = new DArrayData(values);
+    } */
   }
 
   override IData opIndex(K key) {
@@ -81,11 +88,11 @@ class DMapData(K) : DData, IMap {
   }
 
   bool isEmpty() {
-    return (_items.length == 0);    
+    return (_items.length == 0);
   }
 
   override size_t length() {
-    return _items.length;    
+    return _items.length;
   }
 
   K[] _keys() {
@@ -94,8 +101,10 @@ class DMapData(K) : DData, IMap {
 
   // containsKey - Returns true if this map contains a mapping for the specified key.
   bool containsKey(K key) {
-    foreach(k; keys) {
-      if (k == key) { return true; }
+    foreach (k; keys) {
+      if (k == key) {
+        return true;
+      }
     }
     return false;
   }
@@ -105,21 +114,25 @@ class DMapData(K) : DData, IMap {
   }
 
   /// containsValue - Returns true if this map maps one or more keys to the specified value.
-  bool containsValue(DData value) {
-    foreach(v; values) {
-      if (v == value) { return true; }
-    }
+  bool containsValue(IData value) {
+    // TODO
+    /*
+    foreach (v; values) {
+      if (v == value) {
+        return true;
+      }
+    }*/
     return false;
   }
 
   override IData clone() {
-    return NullValue; // MapValue!K(attribute, toJson);
+    return NullData; // MapValue!K(attribute, toJson);
   }
 
   override Json toJson() {
     Json results = Json.emptyObject;
 
-    foreach(key, value; _items) {
+    foreach (key, value; _items) {
       results[key] = value.toJson;
     }
 
@@ -129,23 +142,26 @@ class DMapData(K) : DData, IMap {
   override string toString() {
     string[] results;
 
-    foreach(key, value; _items) {
+    foreach (key, value; _items) {
       results ~= "%s:%s".format(key, value);
     }
 
-    return "["~results.join(",") ~"]";
+    return "[" ~ results.join(",") ~ "]";
   }
 }
-auto MapValue(K)() { return new DMapData!K(); }
+
+auto MapValue(K)() {
+  return new DMapData!K();
+}
 
 ///
-unittest {  
+unittest {
   auto stringMap = MapValue!string();
   stringMap["key1"] = StringData("value1");
 
   assert(stringMap["key1"].toString == "value1");
-  assert(cast(DStringData)stringMap["key1"]);
-  assert(!cast(DBooleanValue)stringMap["key1"]);
+  assert(cast(DStringData) stringMap["key1"]);
+  assert(!cast(DBooleanData) stringMap["key1"]);
 
   stringMap["key2"] = "value2";
   assert(stringMap["key2"].toString == "value2");
@@ -161,5 +177,5 @@ unittest {
 
   stringMap["key6"] = [StringData("v1"), StringData("v2")];
 
-  assert(stringMap.toJson.toString == `{"key1":"value1","key6":null,"key2":"value2","key3":true,"key5":100.1,"key4":100}`); 
+  assert(stringMap.toJson.toString == `{"key1":"value1","key6":null,"key2":"value2","key3":true,"key5":100.1,"key4":100}`);
 }

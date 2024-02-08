@@ -168,17 +168,15 @@ class DData : IData {
 
   void opCall(DAttribute newAttribute) {
     this.attribute(newAttribute);
-    return cast(O) this;
   }
 
   void opCall(Json newData) {
-    this.fromJson(newData);
-    return cast(O) this;
+    fromJson(newData);
   }
 
   void opCall(DAttribute newAttribute, Json newData) {
-    this.attribute(newAttribute).fromJson(newData);
-    return cast(O) this;
+    attribute(newAttribute);
+    fromJson(newData);
   }
 
   IData clone() {
@@ -193,13 +191,16 @@ class DData : IData {
     return null;
   }
 
+  void fromJson(Json newValue) {
+  }
+
   void fromString(string newValue) {
   }
 }
 
 version (test_uim_models) {
   unittest {
-    autvoid value = new DData;
+    void value = new DData;
     assert(!value.isNull);
     assert(!value.isString);
     assert(!value.isInteger);

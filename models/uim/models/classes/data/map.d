@@ -13,7 +13,7 @@ import uim.models;
 
   void initialize(IData[string] configData = null) {}
 
-  mixin(TProperty!("DData[string]", "items"));
+  mixin(TProperty!("IData[string]", "items"));
 
   string[] names() { return items.keys; }
 
@@ -21,11 +21,11 @@ import uim.models;
   string[] keys() { return _items.keys; }
   IData[] values() { return _items.values; }
 
-  IData opIndex(string name) { return _items.get(name, NullValue); }
+  IData opIndex(string name) { return _items.get(name, NullData); }
 
   // Set value, if key exists
   void opIndexAssign(bool newValue, string key) {
-    _items[key] = BooleanValue(newValue);
+    _items[key] = BooleanData(newValue);
   }
 
 /*   void opIndexAssign(Json newValue, string key) {
@@ -48,17 +48,17 @@ import uim.models;
     _items[key] = UUIDData(newValue);
   }
 
-  void addValues(DData[string] newValues) {
-    newValues.byKey.each!(key => adDData(key, newValues[key]));
+  void addValues(IData[string] newValues) {
+    newValues.byKey.each!(key => addData(key, newValues[key]));
     
   }
 
   void addValues(DAttribute[string] attributes) {
-    attributes.byKey.each!(key => adDData(key, attributes[key].createValue));
+    attributes.byKey.each!(key => addData(key, attributes[key].createValue));
     
   }
 
-  void adDData(string fieldName, DData newValue) {
+  void addData(string fieldName, IData newValue) {
     _items[fieldName] = newValue;
     
   }

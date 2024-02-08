@@ -17,6 +17,7 @@ unittest {
 bool isNull(IEntity anEntity) {
   return (anEntity is null ? true : false);
 }
+
 unittest {
   IEntity entity;
   assert(entity.isNull); 

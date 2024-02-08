@@ -86,16 +86,12 @@ class DAttribute : /* DEntity,  */IAttribute {
     _attribute = myAttclass;     
      } */
 
-  version(test_uim_models) { unittest {    /// TODO
-    }
-  }
-
   // Create a new attribute based on this attribute - using attribute name 
 /*   auto createAttribute() {
     return createAttribute(_name); } */
 
-  DData createValue() {
-    return NullValue; }
+  IData createValue() {
+    return NullData; }
 
   /* // Create a new attribute based on this attribute an a giving name 
   auto createAttribute(string aName) {

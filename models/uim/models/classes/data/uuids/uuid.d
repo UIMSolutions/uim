@@ -81,7 +81,7 @@ class DUUIDData : DData {
   ///
   unittest {
     auto id = randomUUID;
-    autvoid value = new DUUIDData(id);
+    void value = new DUUIDData(id);
     assert(value == id);
   }
 

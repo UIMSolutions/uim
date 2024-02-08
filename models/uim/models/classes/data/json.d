@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DJsonData : DData {
-  mixin(DataThis!("JsonData"));  
+  mixin(DataThis!("JsonData"));
 
   protected Json _value;
   override void value(Json newValue) {
@@ -18,32 +18,40 @@ class DJsonData : DData {
 
   override void value(string newValue) {
     this.value(parseJsonString(newValue));
-    
+
   }
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
     _value = Json.emptyObject;
-    nameisObject(true);
+    isObject(true);
+
+    return true;
   }
 
   override IData clone() {
     return JsonData(attribute, toJson);
   }
-  
-  override Json toJson() {
-    if (isNull) return Json(null);
-    return _value; }
 
-  override string toString() { 
-    if (isNull) return null; 
+  override Json toJson() {
+    if (isNull)
+      return Json(null);
+    return _value;
+  }
+
+  override string toString() {
+    if (isNull)
+      return null;
     return _value.toString;
   }
 
-  override void fromString(string newValue) { 
+  override void fromString(string newValue) {
     this.value(newValue);
   }
 }
-mixin(DataCalls!("JsonData"));  
+
+mixin(DataCalls!("JsonData"));

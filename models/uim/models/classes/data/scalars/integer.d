@@ -22,9 +22,13 @@ class DIntegerData : DData {
   }
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    nameisInteger(true);
+    isInteger(true);
+
+    return true;
   }
 
   // Hooks for setting 
@@ -81,11 +85,10 @@ class DIntegerData : DData {
 
   void opCall(int newValue) {
     _value = newValue;
-    return cast(O) this;
   }
 
   unittest {
-    autvoid value = IntegerData;
+    void value = IntegerData;
     value(100);
   }
 
@@ -107,9 +110,8 @@ class DIntegerData : DData {
     return IntegerData(attribute, toJson);
   }
 
-void sub(int opValue) {
+  void sub(int opValue) {
     _value -= opValue;
-    return cast(O) this;
   }
 
   unittest {
@@ -119,7 +121,6 @@ void sub(int opValue) {
 
   void sub(DIntegerData opValue) {
     _value -= opValue.value;
-    return cast(O) this;
   }
 
   unittest {
@@ -128,7 +129,6 @@ void sub(int opValue) {
 
   void mul(int opValue) {
     _value *= opValue;
-    return cast(O) this;
   }
 
   unittest {
@@ -137,7 +137,6 @@ void sub(int opValue) {
 
   void mul(DIntegerData opValue) {
     _value *= opValue.value;
-    return cast(O) this;
   }
   ///
   unittest {
@@ -146,7 +145,6 @@ void sub(int opValue) {
 
   void div(int opValue) {
     _value /= opValue;
-    return cast(O) this;
   }
 
   unittest {
@@ -155,7 +153,6 @@ void sub(int opValue) {
 
   void div(DIntegerData opValue) {
     _value /= opValue.value;
-    return cast(O) this;
   }
 
   unittest {
@@ -207,11 +204,11 @@ void sub(int opValue) {
   /* bool opEquals(int check) {
     return _value == check;
   } */
-  override bool isEqual(IData checkData) { 
-    if (auto data = cast(DIntegerData)checkData) {
-      return _value == data.value; 
+  override bool isEqual(IData checkData) {
+    if (auto data = cast(DIntegerData) checkData) {
+      return _value == data.value;
     }
-    return false; 
+    return false;
   }
 
   unittest {
@@ -220,6 +217,7 @@ void sub(int opValue) {
     assert((IntegerData(2) * IntegerData(2)) == 4);
     assert((IntegerData(2) / IntegerData(2)) == 1);
   }
+
   long toLong() {
     if (isNull)
       return 0;
@@ -228,8 +226,7 @@ void sub(int opValue) {
 
   override Json toJson() {
     return isNull
-      ? Json(null)
-      : Json(_value);
+      ? Json(null) : Json(_value);
   }
 
   override string toString() {
@@ -290,7 +287,7 @@ static int
 divideUnsigned(int dividend, int divisor)
 Returns the unsigned quotient of dividing the first argument by the second where each argument and the result is interpreted as an unsigned value.
 double
-doubleValue()
+DoubleData()
 Returns the value of this Integer as a double after a widening primitive conversion.
 boolean
 equals(Object obj)

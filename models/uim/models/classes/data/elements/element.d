@@ -9,32 +9,40 @@ import uim.models;
 
 @safe:
 class DElementData : DData {
-  mixin(DataThis!("ElementData", "DElement"));    
+  mixin(DataThis!("ElementData", "DElement"));
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    nameisNull(false);
+    isNull(false);
+
+    return true;
   }
 
   protected DElement _value;
   alias value = DData.value;
   void value(DElement newValue) {
     _value = newValue;
-     
+
   }
+
   DElement value() {
-    return _value; 
+    return _value;
   }
-  version(test_uim_models) { unittest {    
-    auto Element = SystemUser; // some kind of Element
-    assert(ElementData.value(Element).value.id == Element.id);
-  }}
+
+  version (test_uim_models) {
+    unittest {
+      auto Element = SystemUser; // some kind of Element
+      assert(ElementData.value(Element).value.id == Element.id);
+    }
+  }
 
   override void set(string newValue) {
     /// TODO
-  }  
+  }
 
   override void set(Json newValue) {
     /// TODO
@@ -45,11 +53,11 @@ class DElementData : DData {
       this.isNull(false);
       _value = newValue;
       return;
-    } 
+    }
 
     if (isNullable) {
       this.isNull(true);
-      _value = null;      
+      _value = null;
     }
   }
 
@@ -68,7 +76,7 @@ class DElementData : DData {
     return (value.toString == otherValue);
   }
 
-/*   int opCmp(DElement otherValue) {
+  /*   int opCmp(DElement otherValue) {
     /// TODO
     return 1;
   }  */
@@ -77,23 +85,28 @@ class DElementData : DData {
     return ElementData(attribute, toJson);
   }
 
-  override Json toJson() { 
-    if (isNull) return Json(null); 
-    return this.value.toJson; 
+  override Json toJson() {
+    if (isNull)
+      return Json(null);
+    return this.value.toJson;
   }
 
   // ElementData converts to a JsonSTtring
-  override string toString() { 
-    if (isNull) return null; 
-    return this.value.toString; 
+  override string toString() {
+    if (isNull)
+      return null;
+    return this.value.toString;
   }
 
-  override void fromString(string newValue) { 
+  override void fromString(string newValue) {
     /// TODO this.value(newValue);
   }
 }
-mixin(DataCalls!("ElementData"));  
 
-version(test_uim_models) { unittest {  
-  assert(ElementData);
-}}
+mixin(DataCalls!("ElementData"));
+
+version (test_uim_models) {
+  unittest {
+    assert(ElementData);
+  }
+}

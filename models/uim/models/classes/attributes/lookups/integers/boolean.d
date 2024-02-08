@@ -13,7 +13,7 @@ class DIntegerBooleanAttribute : DLookupAttribute {
 
   mixin(TProperty!("bool[int]", "lookups"));
   void addLookup(int key, string newValue) {
-    _lookups[key] = newValue;
+    _lookups[key] = to!bool(newValue);
 
   }
 

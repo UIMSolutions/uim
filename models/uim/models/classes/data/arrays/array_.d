@@ -89,6 +89,6 @@ auto ArrayData(IData[] values) { return new DArrayData(values); }
 
 ///
 unittest {
-  autvoid value = new DArrayData;
+  void value = new DArrayData;
   assert(value.isArray);
 }

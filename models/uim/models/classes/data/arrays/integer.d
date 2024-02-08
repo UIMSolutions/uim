@@ -16,6 +16,8 @@ class DIntegerArrayData : DArrayData {
     if (!super.initialize(configData)) { return false; }
 
     isInteger(true);
+
+    return true;
   }
 
   protected int[] _value;

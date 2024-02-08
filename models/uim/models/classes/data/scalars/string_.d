@@ -67,12 +67,10 @@ class DStringData : DData {
 
   void value(DStringData newValue) {
     if (newValue) {
-      this
-        .isNullable(newValue.isNullable)
-        .isNull(newValue.isNull)
-        .value(newValue.value);
+      isNullable(newValue.isNullable);
+      isNull(newValue.isNull);
+      value(newValue.value);
     }
-
   }
 
   override IData clone() {

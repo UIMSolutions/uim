@@ -12,8 +12,8 @@ class DCurrencyAttribute : DDecimalAttribute {
   mixin(AttributeThis!("CurrencyAttribute"));
 
   // Initialization hook method.
-  override bool initialize(IData[string] configSettings = null) {
-    super.initialize(configSettings);
+  override bool initialize(IData[string] configData = null) {
+    super.initialize(configData);
 
     /* is.dataFormat.numeric.shaped
     means.measurement.currency */

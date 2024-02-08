@@ -12,8 +12,8 @@ class DBaseCurrencyAttribute : DCurrencyAttribute {
   mixin(AttributeThis!("BaseCurrencyAttribute"));
 
   // Initialization hook method.
-  override bool initialize(IData[string] configSettings = null) {
-    super.initialize(configSettings);
+  override bool initialize(IData[string] configData = null) {
+    super.initialize(configData);
 
     /* 
 Value is expressed in the base currency units for the system

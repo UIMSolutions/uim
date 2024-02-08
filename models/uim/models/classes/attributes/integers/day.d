@@ -16,7 +16,7 @@ import uim.models;
 class DDayAttribute : DIntegerAttribute {
   mixin(AttributeThis!("DayAttribute"));
 
-  override void initialize(IData[string] configSettings = null) {
+  override bool initialize(IData[string] configSettings = null) {
     super.initialize(configSettings);
 
     this

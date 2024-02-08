@@ -13,7 +13,9 @@ class DBaseCurrencyAttribute : DCurrencyAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    super.initialize(configData);
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
     /* 
 Value is expressed in the base currency units for the system
@@ -28,12 +30,14 @@ means.measurement.currency
     this
       .name("baseCurrency")
       .registerPath("baseCurrency");
+    return true;
   }
-}
-mixin(AttributeCalls!"BaseCurrencyAttribute");
 
-version(test_uim_models) { unittest {
-    testAttribute(new DBaseCurrencyAttribute);
-    testAttribute(BaseCurrencyAttribute);
+  mixin(AttributeCalls!"BaseCurrencyAttribute");
+
+  version (test_uim_models) {
+    unittest {
+      testAttribute(new DBaseCurrencyAttribute);
+      testAttribute(BaseCurrencyAttribute);
+    }
   }
-}

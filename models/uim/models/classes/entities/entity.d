@@ -24,7 +24,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
 
   // Initialize entity 
   override bool initialize(IData[string] configData = null) {
-    super.initialize(configData);
+    if (!super.initialize(configData)) { return false: }
 
     this
       .adDDatas([
@@ -518,10 +518,10 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
         if (keys.length > 1) {
           if (auto subValue = values[keys[0]]) {
             if (auto entityValue = cast(DEntityValue)subValue) {
-              return entityValue.value[keys[1..].join(".")];
+              return entityValue.value[keys[1..$].join(".")];
             }
             if (auto elementValue = cast(DElementValue)subValue) {
-              return elementValue.value[keys[1..].join(".")];
+              return elementValue.value[keys[1..$].join(".")];
             }
           }
         }
@@ -568,10 +568,10 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
           if (keys.length > 1) {
             if (auto subValue = values[keys[0]]) {
               if (auto entityValue = cast(DEntityValue)subValue) {
-                entityValue.value[keys[1..].join(".")] = value;
+                entityValue.value[keys[1..$].join(".")] = value;
               }
               if (auto elementValue = cast(DElementValue)subValue) {
-                elementValue.value[keys[1..].join(".")] = value;
+                elementValue.value[keys[1..$].join(".")] = value;
               }
             }
           }

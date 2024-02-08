@@ -13,7 +13,7 @@ class DAttribute : /* DEntity,  */IAttribute {
 
   // Initialization hook method.
   /* override  */void initialize(IData[string] configData = null) { 
-    /* super.initialize(configData); */ }
+    /* if (!super.initialize(configData)) { return false: } */ }
 
 	// Data type of the attribute. 
   mixin(OProperty!("string[]", "dataFormats")); 

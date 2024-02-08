@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module models.uim.models.classes.data.json;
+module uim.models.classes.data.json;
 
 import uim.models;
 
@@ -20,7 +20,7 @@ class DJsonData : DData {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    super.initialize(configData);
+    if (!super.initialize(configData)) { return false: }
 
     _value = Json.emptyObject;
     this

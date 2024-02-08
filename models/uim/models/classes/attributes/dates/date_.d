@@ -13,7 +13,7 @@ class DDateAttribute : DAttribute {
 
   // Initialization hook method.  // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    super.initialize(configData);
+    if (!super.initialize(configData)) { return false: }
     // means.measurement.date
 
     this

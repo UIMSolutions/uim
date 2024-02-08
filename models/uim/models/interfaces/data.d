@@ -33,7 +33,7 @@ interface IData {
     bool isNull();
     bool isReadOnly();
 
-    bool hasKeys(string[])
+    bool hasKeys(string[]);
     Json toJson();
     string toString();
     size_t length();

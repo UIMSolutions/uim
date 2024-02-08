@@ -13,7 +13,7 @@ class DBooleanData : DData {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    super.initialize(configData);
+    if (!super.initialize(configData)) { return false: }
 
     this
       .isBoolean(true);
@@ -35,7 +35,7 @@ class DBooleanData : DData {
     data.value = myValue;
     assert(data.value == myValue);
  }
- 
+
   O opCall(this O)(bool newValue) { this.value(newValue); return cast(O)this; }
 
   protected bool _value;

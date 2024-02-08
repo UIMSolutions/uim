@@ -225,7 +225,7 @@ class DElement : IElement {
 
       DData myValue = values[keys[0]];
       if (auto myElementValue = cast(DElementValue)myValue) {
-        myValue = myElementValue.value.valueOfKey(keys[1..].join("."));
+        myValue = myElementValue.value.valueOfKey(keys[1..$].join("."));
       }
       return myValue;
     }

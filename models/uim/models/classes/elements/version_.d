@@ -22,7 +22,7 @@ class DVersion: DElement {
     if (aJson != Json(null)) this.fromJson(aJson); }
 
   override bool initialize(IData[string] configData = null) {
-    super.initialize(configData);
+    if (!super.initialize(configData)) { return false: }
 
     this
       .adDDatas([

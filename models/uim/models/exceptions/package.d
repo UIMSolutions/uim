@@ -1,1 +1,1 @@
-mod
+module uim.models.exceptions;

@@ -17,7 +17,7 @@ class DDayAttribute : DIntegerAttribute {
   mixin(AttributeThis!("DayAttribute"));
 
   override bool initialize(IData[string] configData = null) {
-    super.initialize(configData);
+    if (!super.initialize(configData)) { return false: }
 
     this
       .name("day")

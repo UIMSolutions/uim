@@ -15,7 +15,7 @@ public {
 public { // Required uim libraries 
   import uim.core;
   import uim.oop;
-  import uim.entitybase;
+  // import uim.entitybase;
 }
 
 public { // uim.models packages

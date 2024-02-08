@@ -13,10 +13,11 @@ class DCurrencyAttribute : DDecimalAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    super.initialize(configData);
+    if (!super.initialize(configData)) { return false: }
 
     /* is.dataFormat.numeric.shaped
     means.measurement.currency */
+    return true;
   }
 }
 mixin(AttributeCalls!"CurrencyAttribute");

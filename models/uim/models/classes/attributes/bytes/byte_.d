@@ -13,7 +13,7 @@ class DByteAttribute : DAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    super.initialize(configData);
+    if (!super.initialize(configData)) { return false: }
 
     this
       .addDataFormats(["byte"])

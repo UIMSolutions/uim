@@ -124,7 +124,7 @@ class DBooleanData : DData {
   bool toBool() {
     return _value;
   }
-
+alias toJson = DData.toJson;
   override Json toJson() {
     if (this.isNull)
       return Json(null);

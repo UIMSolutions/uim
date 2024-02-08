@@ -111,7 +111,7 @@ class DStringDataMap : DData, IMap {
   override IData clone() {
     return NullData; // StringDataMap(attribute, toJson);
   }
-
+alias toJson = DData.toJson;
   override Json toJson() {
     Json results = Json.emptyObject;
 

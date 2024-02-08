@@ -128,7 +128,7 @@ class DLongData : DData {
   long toLong() { 
     if (isNull) return 0; 
     return _value; }
-
+alias toJson = DData.toJson;
   override Json toJson() { 
     if (isNull) return Json(null); 
     return Json(_value); }

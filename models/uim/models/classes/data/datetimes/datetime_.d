@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DDatetimeData : DData {
-  mixin(DataThis!("DateTimeData", "DateTime"));
+  mixin(DataThis!("DatetimeData", "DateTime"));
 
   protected DateTime _value;
   alias value = DData.value;
@@ -58,9 +58,10 @@ class DDatetimeData : DData {
   }
 
   override IData clone() {
-    return DateTimeData(attribute, toJson);
+    return DatetimeData(attribute, toJson);
   }
 
+  alias toJson = DData.toJson;
   override Json toJson() {
     if (isNull)
       return Json(null);
@@ -74,21 +75,21 @@ class DDatetimeData : DData {
   }
 }
 
-mixin(DataCalls!("DateTimeData", "DateTime"));
+mixin(DataCalls!("DatetimeData", "DateTime"));
 
 unittest {
-  assert(DateTimeData.value("100").toDatetime == 100);
-  assert(DateTimeData.value(Json(100)).toDatetime == 100);
-  assert(DateTimeData.value("200").toDatetime != 100);
-  assert(DateTimeData.value(Json(200)).toDatetime != 100);
+  assert(DatetimeData.value("100").toDatetime == 100);
+  assert(DatetimeData.value(Json(100)).toDatetime == 100);
+  assert(DatetimeData.value("200").toDatetime != 100);
+  assert(DatetimeData.value(Json(200)).toDatetime != 100);
 
-  assert(DateTimeData.value("100").toString == "100");
-  assert(DateTimeData.value(Json(100)).toString == "100");
-  assert(DateTimeData.value("200").toString != "100");
-  assert(DateTimeData.value(Json(200)).toString != "100");
+  assert(DatetimeData.value("100").toString == "100");
+  assert(DatetimeData.value(Json(100)).toString == "100");
+  assert(DatetimeData.value("200").toString != "100");
+  assert(DatetimeData.value(Json(200)).toString != "100");
 
-  assert(DateTimeData.value("100").toJson == Json(100));
-  assert(DateTimeData.value(Json(100)).toJson == Json(100));
-  assert(DateTimeData.value("200").toJson != Json(100));
-  assert(DateTimeData.value(Json(200)).toJson != Json(100));
+  assert(DatetimeData.value("100").toJson == Json(100));
+  assert(DatetimeData.value(Json(100)).toJson == Json(100));
+  assert(DatetimeData.value("200").toJson != Json(100));
+  assert(DatetimeData.value(Json(200)).toJson != Json(100));
 }

@@ -61,6 +61,7 @@ class DArrayData : DData {
       _values = null;
   }
 
+alias hasKey = DData.hasKey;
   bool hasKey(string checkKey) {
     return false;
   }

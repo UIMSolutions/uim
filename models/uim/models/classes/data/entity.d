@@ -68,7 +68,7 @@ class DEntityData : DData {
   override IData clone() {
     return EntityData(attribute, toJson);
   }
-
+alias toJson = DData.toJson;
   override Json toJson() { 
     if (isNull) return Json(null); 
     return this.value.toJson; 

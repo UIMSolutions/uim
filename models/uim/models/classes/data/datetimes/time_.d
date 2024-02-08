@@ -63,6 +63,7 @@ class DTimeData : DData {
 
   alias opEquals = Object.opEquals;
 
+alias toJson = DData.toJson;
   override Json toJson() { 
     if (isNull) return Json(null); 
     return Json(this.value.toISOExtString); }

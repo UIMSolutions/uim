@@ -223,7 +223,7 @@ class DIntegerData : DData {
       return 0;
     return to!long(_value);
   }
-
+alias toJson = DData.toJson;
   override Json toJson() {
     return isNull
       ? Json(null) : Json(_value);

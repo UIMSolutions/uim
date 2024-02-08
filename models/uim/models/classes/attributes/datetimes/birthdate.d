@@ -32,7 +32,7 @@ class DBirthDateAttribute : DDatetimeAttribute {
   }
 
   /* override IData createData() {
-    return DateTimeData(this); } */
+    return DatetimeData(this); } */
 }
 
 mixin(AttributeCalls!"BirthDateAttribute");

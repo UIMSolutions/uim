@@ -12,5 +12,5 @@ public {
 
 // subs
 public { 
-	import uim.models.classes.attributes.uuids.entityids;
+	import uim.models.classes.attributes.uuids.entities;
 }

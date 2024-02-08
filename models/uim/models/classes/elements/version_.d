@@ -31,14 +31,14 @@ class DVersion : DElement {
       return false;
     }
 
-    nameaddValues([
+    /* addValues([
         "description": StringAttribute,
         "by": UUIDAttribute,
         "display": StringAttribute,
         "mode": StringAttribute,
         "number": LongAttribute,
         "on": TimestampAttribute
-      ]);
+      ]); */
 
     return true;
   }

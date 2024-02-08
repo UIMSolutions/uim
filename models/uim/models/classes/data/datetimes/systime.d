@@ -8,8 +8,9 @@ module uim.models.classes.data.datetimes.systime;
 import uim.models;
 
 @safe:
+
 class DSystimeData : DData {
-  mixin(DataThis!("SysTimeData", "SysTime"));
+  mixin(DataThis!("SystimeData", "SysTime"));
 
   protected SysTime _value;
   alias value = DData.value;
@@ -60,9 +61,9 @@ class DSystimeData : DData {
   }
 
   override IData clone() {
-    return SysTimeData(attribute, toJson);
+    return SystimeData(attribute, toJson);
   }
-
+alias toJson = DData.toJson;
   override Json toJson() {
     if (isNull)
       return Json(null);
@@ -76,10 +77,10 @@ class DSystimeData : DData {
   }
 }
 
-mixin(DataCalls!("SysTimeData", "SysTime"));
+mixin(DataCalls!("SystimeData", "SysTime"));
 
 version (test_uim_models) {
   unittest {
     // TODO
   }
-}
+} 

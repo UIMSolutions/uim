@@ -84,7 +84,7 @@ class DElementData : DData {
   override IData clone() {
     return ElementData(attribute, toJson);
   }
-
+alias toJson = DData.toJson;
   override Json toJson() {
     if (isNull)
       return Json(null);

@@ -69,7 +69,7 @@ class DStringArrayData : DArrayData {
   override IData clone() {
     return StringArrayData(attribute, toJson);
   }
-
+alias toJson = DData.toJson;
   override Json toJson() {
     auto result = Json.emptyArray;
     _values.each!(v => result ~= Json(v));

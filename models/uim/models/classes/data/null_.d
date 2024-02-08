@@ -23,7 +23,7 @@ class DNullData : DData {
   override IData clone() {
     return NullData;
   }
-
+alias toJson = DData.toJson;
   override Json toJson() {
     return Json(null);
   }

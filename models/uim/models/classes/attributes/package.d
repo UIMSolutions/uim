@@ -30,6 +30,7 @@ public {
 	import uim.models.classes.attributes.elements;
 	import uim.models.classes.attributes.entities;
 	import uim.models.classes.attributes.integers;
+	import uim.models.classes.attributes.strings;
 	import uim.models.classes.attributes.ulongs;
 	import uim.models.classes.attributes.uuids;
 }

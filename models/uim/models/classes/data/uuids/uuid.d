@@ -9,33 +9,43 @@ import uim.models;
 
 @safe:
 class DUUIDData : DData {
-  mixin(DataThis!("UUIDData", "UUID"));  
+  mixin(DataThis!("UUIDData", "UUID"));
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    nameisUUID(true);
+    isUUID(true);
+
+    return true;
   }
 
-  protected UUID _value;  
-  alias value = DData.value;
-  UUID value() {
-    return _value; 
+  protected UUID _value;
+  @property UUID value() {
+    return _value;
   }
-  void value(UUID newValue) {
-    this.set(newValue);
-     
+
+  @property void value(UUID newValue) {
+    set(newValue);
+  }
+
+  @property override void value(Json newValue) {
+    set(newValue);
+  }
+
+  @property override void value(string newValue) {
+    set(newValue);
   }
 
   override void set(Json newValue) {
     if (newValue.isEmpty) {
-      if (!isNullable) return;
+      if (!isNullable)
+        return;
 
-      this
-        .isNull(true)
-        .value(UUID());
-      return;
+      isNull(true);
+      value(UUID());
     }
 
     if (newValue.type != Json.Type.string) {
@@ -45,30 +55,27 @@ class DUUIDData : DData {
 
   override void set(string newValue) {
     if (newValue is null) {
-      if (!isNullable) return;
+      if (!isNullable)
+        return;
 
-      this
-        .isNull(true)
-        .value(UUID());
-      return;
+      isNull(true);
+      value(UUID());
     }
 
     if (newValue.isUUID) {
-      this
-        .isNull(false)
-        .value(UUID(newValue));
+      isNull(false);
+      value(UUID(newValue));
     }
   }
 
   void set(UUID newValue) {
     if (newValue == UUID()) {
-      if (!isNullable) return;
+      if (!isNullable)
+        return;
 
-      this
-        .isNull(true)
-        .value(UUID());
-      return;
-    }    
+      isNull(true);
+      value(UUID());
+    }
 
     this.isNull(false);
     _value = newValue;
@@ -89,42 +96,48 @@ class DUUIDData : DData {
     return UUIDData(value);
   }
 
-  override Json toJson() { 
-    if (isNull) return Json(null); 
-    return Json(this.value.toString); 
+  alias toJson = DData.toJson;
+  override Json toJson() {
+    if (isNull)
+      return Json(null);
+    return Json(this.value.toString);
   }
 
-  override string toString() { 
-    if (isNull) return UUID().toString; 
-    return this.value.toString; 
+  override string toString() {
+    if (isNull)
+      return UUID().toString;
+    return this.value.toString;
   }
 
-  override void fromString(string newValue) { 
+  override void fromString(string newValue) {
     this.value(newValue);
   }
 }
-mixin(DataCalls!("UUIDData", "UUID"));  
 
-version(test_uim_models) { unittest {  
-  auto uuid = randomUUID;
-  assert(UUIDData(uuid).value == uuid);
-  assert(UUIDData(randomUUID).value != uuid);
+mixin(DataCalls!("UUIDData", "UUID"));
 
-  assert(UUIDData.value(uuid).value == uuid);
-  assert(UUIDData.value(randomUUID).value != uuid);
+version (test_uim_models) {
+  unittest {
+    auto uuid = randomUUID;
+    assert(UUIDData(uuid).value == uuid);
+    assert(UUIDData(randomUUID).value != uuid);
 
-  assert(UUIDData.value(uuid.toString).value == uuid);
-  assert(UUIDData.value(randomUUID.toString).value != uuid);
+    assert(UUIDData.value(uuid).value == uuid);
+    assert(UUIDData.value(randomUUID).value != uuid);
 
-  assert(UUIDData.value(Json(uuid.toString)).value == uuid);
-  assert(UUIDData.value(Json(randomUUID.toString)).value != uuid);
+    assert(UUIDData.value(uuid.toString).value == uuid);
+    assert(UUIDData.value(randomUUID.toString).value != uuid);
 
-  assert(UUIDData(uuid).toString == uuid.toString);
-  assert(UUIDData(randomUUID).toString != uuid.toString);
+    assert(UUIDData.value(Json(uuid.toString)).value == uuid);
+    assert(UUIDData.value(Json(randomUUID.toString)).value != uuid);
 
-  assert(UUIDData(uuid).toJson == Json(uuid.toString));
-  assert(UUIDData(randomUUID).toJson != Json(uuid.toString));
-}}
+    assert(UUIDData(uuid).toString == uuid.toString);
+    assert(UUIDData(randomUUID).toString != uuid.toString);
+
+    assert(UUIDData(uuid).toJson == Json(uuid.toString));
+    assert(UUIDData(randomUUID).toJson != Json(uuid.toString));
+  }
+}
 
 ///
 unittest {

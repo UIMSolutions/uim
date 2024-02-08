@@ -16,7 +16,9 @@ class DStringData : DData {
       return false;
     }
 
-    nameisString(true);
+    isString(true);
+
+    return true;
   }
 
   mixin(TProperty!("size_t", "maxLength"));
@@ -30,9 +32,8 @@ class DStringData : DData {
     }
   }
   /// Set with string value
-  override void value(string newValue) {
+  @property override void value(string newValue) {
     set(newValue);
-
   }
   ///
   unittest {
@@ -41,9 +42,9 @@ class DStringData : DData {
   }
 
   // Set with Json value
-  override void value(Json newValue) {
+  @property override void value(Json newValue) {
     set(newValue);
-  }
+  } 
 
   // Hooks for setting 
   override protected void set(string newValue) {
@@ -65,13 +66,13 @@ class DStringData : DData {
     }
   }
 
-  void value(DStringData newValue) {
+  @property void value(DStringData newValue) {
     if (newValue) {
       isNullable(newValue.isNullable);
       isNull(newValue.isNull);
       value(newValue.value);
     }
-  }
+  } 
 
   override IData clone() {
     return StringData(attribute, toJson);
@@ -100,7 +101,7 @@ class DStringData : DData {
   }
 
   override void opCall(Json newValue) {
-    if (newValue.type = Json.Type.string)
+    if (newValue.type == Json.Type.string)
       _value = newValue.get!string;
   }
 
@@ -127,7 +128,7 @@ class DStringData : DData {
       return 0;
     return 1;
   }
-
+alias toJson = DData.toJson;
   override Json toJson() {
     if (isNull)
       return Json(null);

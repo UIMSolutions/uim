@@ -55,7 +55,7 @@ class DDateData : DData {
   override IData clone() {
     return DateData(attribute, toJson);
   }
-
+alias toJson = DData.toJson;
   override Json toJson() {
     if (isNull)
       return Json(null);

@@ -32,8 +32,8 @@ class DOOPEntities {
   }
 
   void sort(string sortBy, string sortDir = "") {
-    if (this.sortBy) {
-      if (this.sortDir.toLower == "up") {
+    if (sortBy) {
+      if (sortDir.toLower == "up") {
         _items = _items
           .sort!((a, b) => a[sortBy]< b[sortBy]).array;
       }
@@ -46,9 +46,9 @@ class DOOPEntities {
   }
 
   void filter(string filterBy, string filterValue) {
-    if (this.filterBy && this.filterValue) {
+    if (filterBy && filterValue) {
       _items = _items
-        .filter!(entity => entity[filterBy].indexOf(this.filterValue) == 0).array;
+        .filter!(entity => entity[filterBy].indexOf(filterValue) == 0).array;
     }
     
   }

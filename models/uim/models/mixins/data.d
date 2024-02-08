@@ -7,9 +7,9 @@ string dataGetter(string name, string datatype, string dataClass, string path) {
   string newPath = (path ? path : name);
   return `
     @property `~datatype~` `~name~`() {
-      if (auto myData = cast(`~dataClass~`)dataOfKey("`~newPath~`")) {
-        return myData.data;
-      }
+      // if (auto myData = cast(`~dataClass~`)dataOfKey("`~newPath~`")) {
+      //   return myData.data;
+      // }
       
       return null;       
     }`;
@@ -19,10 +19,10 @@ string dataSetter(string name, string datatype, string dataClass, string path) {
   string newPath = (path ? path : name);
   return `
     @property void `~name~`(`~datatype~` newData) { 
-      if (auto myData = cast(`~dataClass~`)dataOfKey("`~newPath~`")) {
-        myData.data(newData);
-        
-      }
+      // if (auto myData = cast(`~dataClass~`)dataOfKey("`~newPath~`")) {
+      //   myData.data(newData);
+      //   
+      // }
       
     }`;
 } 
@@ -54,9 +54,9 @@ template UUIDDataProperty(string name, string path = null) {
   const char[] newPath = (path ? path : name);
   const char[] UUIDDataProperty = `
     @property UUID `~name~`() {
-      if (auto myData = cast(DUUIDData)dataOfKey("`~(path ? path : name)~`")) {
-        return myData.data;
-      }
+      // if (auto myData = cast(DUUIDData)dataOfKey("`~(path ? path : name)~`")) {
+      //   return myData.data;
+      // }
       return UUID();       
     }`~
     // Setter
@@ -68,9 +68,9 @@ template UUIDDataProperty(string name, string path = null) {
 template TimeStampDataProperty(string name, string path = null) {
   const char[] TimeStampDataProperty = `
     @property long `~name~`() {
-      if (auto myData = cast(DTimestampData)dataOfKey("`~(path ? path : name)~`")) {
-        return myData.data;
-      }
+      // if (auto myData = cast(DTimestampData)dataOfKey("`~(path ? path : name)~`")) {
+      //   return myData.data;
+      // }
       return 0;       
     }`~
     // Setter
@@ -82,9 +82,9 @@ template TimeStampDataProperty(string name, string path = null) {
 template LongDataProperty(string name, string path = null) {
   const char[] LongDataProperty = `
     @property long `~name~`() {
-      if (auto myData = cast(DLongData)dataOfKey("`~(path ? path : name)~`")) {
-        return myData.data;
-      }
+      // if (auto myData = cast(DLongData)dataOfKey("`~(path ? path : name)~`")) {
+      //   return myData.data;
+      // }
       return 0;       
     }`~
     // Setter

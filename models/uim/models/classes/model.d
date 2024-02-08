@@ -3,21 +3,52 @@ module uim.models.classes.model;
 import uim.models;
 
 @safe:
-class DModel : IModel { 
-  this() { this.name("Model").className("Model"); }
-  this(Json configData) { this().initialize(configData); }
-  this(IModelManager aManager, IData[string] configData = null) { this().manager(aManager).initialize(configData); }
+class DModel : IModel {
+  this() {
+    this.name("Model");
+    className("Model");
+  }
 
-  this(string aName, IData[string] configData = null) { this(configData).name(aName); }
-  this(STRINGAA someParameters, IData[string] configData = null) { this(configData).parameters(someParameters); }
+  this(IData[string]  configData) {
+    this(); initialize(configData);
+  }
 
-  this(IModelManager aManager, string aName, IData[string] configData = null) { this(aManager, configData).name(aName); }
-  this(IModelManager aManager, STRINGAA someParameters, IData[string] configData = null) { this(aManager, configData).parameters(someParameters); }
+  this(IModelManager aManager, IData[string] configData = null) {
+    this(configData); manager(aManager);
+  }
 
-  this(string aName, STRINGAA someParameters, IData[string] configData = null) { this(name, configData).parameters(someParameters); }
-  this(IModelManager aManager, string aName, STRINGAA someParameters, IData[string] configData = null) { this(aManager, name, configData).parameters(someParameters); }
+  this(string aName, IData[string] configData = null) {
+    this(configData).name(aName);
+  }
 
-  void initialize(IData[string] configData = null) {}
+  this(STRINGAA someParameters, IData[string] configData = null) {
+    this(configData);
+    parameters(someParameters);
+  }
+
+  this(IModelManager aManager, string aName, IData[string] configData = null) {
+    this(aManager, configData);
+    name(aName);
+  }
+
+  this(IModelManager aManager, STRINGAA someParameters, IData[string] configData = null) {
+    this(aManager, configData);
+    parameters(someParameters);
+  }
+
+  this(string aName, STRINGAA someParameters, IData[string] configData = null) {
+    this(name, configData);
+    parameters(someParameters);
+  }
+
+  this(IModelManager aManager, string aName, STRINGAA someParameters, IData[string] configData = null) {
+    this(aManager, name, configData);
+    parameters(someParameters);
+  }
+
+  bool initialize(IData[string] configData = null) {
+    return true;
+  }
 
   mixin(TProperty!("string", "name"));
   mixin(TProperty!("string", "className"));
@@ -29,7 +60,7 @@ class DModel : IModel {
     * Default config
     * These are merged with user-provided config when the component is used.
     */
-  mixin(TProperty!("Json", "defaultConfig"));
+  mixin(TProperty!("IData[string]", "defaultConfig"));
 
   // Configuration of mvcobject
   mixin(TProperty!("Json", "config"));
@@ -37,15 +68,19 @@ class DModel : IModel {
   DModel create() {
     return Model;
   }
+
   DModel copy() {
     auto result = create;
     // result.fromJson(this.toJson);
     return result;
-  }  
+  }
 }
+
 mixin(ModelCalls!("Model", "DModel"));
 
-version(test_uim_models) { unittest { 
-  assert(Model);
-  assert(Model.name == "Model");
-}} 
+version (test_uim_models) {
+  unittest {
+    assert(Model);
+    assert(Model.name == "Model");
+  }
+}

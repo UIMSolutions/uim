@@ -37,7 +37,7 @@ class DJsonData : DData {
     return JsonData(attribute, toJson);
   }
 
-  override Json toJson() {
+alias toJson = DData.toJson;  override Json toJson() {
     if (isNull)
       return Json(null);
     return _value;

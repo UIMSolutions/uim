@@ -128,7 +128,7 @@ class DMapData(K) : DData, IMap {
   override IData clone() {
     return NullData; // MapValue!K(attribute, toJson);
   }
-
+alias toJson = DData.toJson;
   override Json toJson() {
     Json results = Json.emptyObject;
 

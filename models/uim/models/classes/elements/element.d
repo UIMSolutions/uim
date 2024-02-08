@@ -21,7 +21,7 @@ class DElement : IElement {
     this();    
     if (aJson != Json(null)) this.fromJson(aJson); }
 
-  void initialize(IData[string] configSettings = null) {
+  void initialize(IData[string] configData = null) {
     this  
       .values(StringValueMap);
 

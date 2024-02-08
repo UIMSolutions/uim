@@ -11,17 +11,17 @@ import uim.models;
 string modelThis(string name) {
   return `
     this() { super("`~name~`"); this.className("`~name~`"); }
-    this(Json configSettings) { super("`~name~`", configSettings); }
-    this(IModelManager aManager, IData[string] configSettings = null) { this(configSettings).application(aManager); }
+    this(Json configData) { super("`~name~`", configData); }
+    this(IModelManager aManager, IData[string] configData = null) { this(configData).application(aManager); }
 
-    this(string aName, IData[string] configSettings = null) { this(configSettings).name(aName); }
-    this(STRINGAA someParameters, IData[string] configSettings = null) { this(configSettings).parameters(someParameters); }
+    this(string aName, IData[string] configData = null) { this(configData).name(aName); }
+    this(STRINGAA someParameters, IData[string] configData = null) { this(configData).parameters(someParameters); }
 
-    this(IModelManager aManager, string aName, IData[string] configSettings = null) { this(aManager, configSettings).name(aName); }
-    this(IModelManager aManager, STRINGAA someParameters, IData[string] configSettings = null) { this(aManager, configSettings).parameters(someParameters); }
+    this(IModelManager aManager, string aName, IData[string] configData = null) { this(aManager, configData).name(aName); }
+    this(IModelManager aManager, STRINGAA someParameters, IData[string] configData = null) { this(aManager, configData).parameters(someParameters); }
 
-    this(string aName, STRINGAA someParameters, IData[string] configSettings = null) { this(name, configSettings).parameters(someParameters); }
-    this(IModelManager aManager, string aName, STRINGAA someParameters, IData[string] configSettings = null) { this(aManager, name, configSettings).parameters(someParameters); }
+    this(string aName, STRINGAA someParameters, IData[string] configData = null) { this(name, configData).parameters(someParameters); }
+    this(IModelManager aManager, string aName, STRINGAA someParameters, IData[string] configData = null) { this(aManager, name, configData).parameters(someParameters); }
   `;
 }
 

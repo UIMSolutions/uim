@@ -21,8 +21,8 @@ class DVersion: DElement {
     this();    
     if (aJson != Json(null)) this.fromJson(aJson); }
 
-  override bool initialize(IData[string] configSettings = null) {
-    super.initialize(configSettings);
+  override bool initialize(IData[string] configData = null) {
+    super.initialize(configData);
 
     this
       .adDDatas([

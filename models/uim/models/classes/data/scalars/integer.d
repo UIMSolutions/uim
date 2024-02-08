@@ -21,8 +21,8 @@ class DIntegerData: DData {
     return _value; 
   }
   // Initialization hook method.
-  override bool initialize(IData[string] configSettings = null) {
-    super.initialize(configSettings);
+  override bool initialize(IData[string] configData = null) {
+    super.initialize(configData);
 
     this
       .isInteger(true);

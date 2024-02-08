@@ -20,9 +20,9 @@ class DDegreeAttribute : DDoubleAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("degree")
-      .registerPath("degree");
+    
+      name("degree");
+      registerPath("degree");
   }
 }
 mixin(AttributeCalls!("DegreeAttribute"));

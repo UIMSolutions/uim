@@ -15,8 +15,7 @@ class DDatetimeAttribute : DDateAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .addDataFormats(["time"])
+    nameaddDataFormats(["time"])
       .name("datetime")
       .registerPath("datetime");
       // means.measurement.date

@@ -15,8 +15,7 @@ class DUUIDData : DData {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .isUUID(true);
+    nameisUUID(true);
   }
 
   protected UUID _value;  

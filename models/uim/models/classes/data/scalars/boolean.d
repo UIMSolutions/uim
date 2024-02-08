@@ -15,8 +15,7 @@ class DBooleanData : DData {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .isBoolean(true);
+    nameisBoolean(true);
   }
 
   @property int get() {

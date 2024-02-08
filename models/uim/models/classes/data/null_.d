@@ -15,8 +15,7 @@ class DNullData : DData {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .isNull(true);
+    nameisNull(true);
   }
 
   override IData clone() {

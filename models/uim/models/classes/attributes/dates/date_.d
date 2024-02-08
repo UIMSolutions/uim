@@ -16,8 +16,7 @@ class DDateAttribute : DAttribute {
     if (!super.initialize(configData)) { return false; }
     // means.measurement.date
 
-    this
-      .name("date")
+    name("date")
       .dataFormats(["date"])
       .registerPath("date");
 

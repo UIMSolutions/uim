@@ -28,6 +28,8 @@ means.content.binary.image */
     addDataFormats(["array"]);
     name("image");
     registerPath("image");
+
+    return true;
   }
 }
 

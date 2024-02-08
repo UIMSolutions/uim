@@ -24,6 +24,7 @@ class DAttribute : /* DEntity,  */IAttribute {
     foreach(df; dataFormats) if (df == dataFormatName) { return true; }
     return false;
   }
+  
   void addDataFormats(this O)(string[] newDataFormats) {
     foreach(df; newDataFormats) {
       if (!hasDataFormat(df)) _dataFormats ~= df;

@@ -25,8 +25,7 @@ class DDateData : DData {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .isDate(true);
+    nameisDate(true);
   }
 
   void set(Date newValue) {

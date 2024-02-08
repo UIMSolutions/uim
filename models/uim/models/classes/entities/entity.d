@@ -26,15 +26,13 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .addValues([
+    nameaddValues([
         "description": StringAttribute,
         "pool": StringAttribute,
         "version": VersionElementAttribute              
       ]);
 
-    this
-      .className("Entity")
+    nameclassName("Entity")
       .id(randomUUID)
       .etag(toTimestamp(now))
       .name(this.id.toString)     

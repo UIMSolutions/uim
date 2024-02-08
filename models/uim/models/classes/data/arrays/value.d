@@ -15,8 +15,7 @@ class DDataArrayData : DArrayData {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .isString(true);
+    nameisString(true);
   }
 
   protected DData[] _value;

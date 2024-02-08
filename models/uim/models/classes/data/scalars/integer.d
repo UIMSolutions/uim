@@ -24,8 +24,7 @@ class DIntegerData : DData {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .isInteger(true);
+    nameisInteger(true);
   }
 
   // Hooks for setting 

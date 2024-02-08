@@ -19,8 +19,7 @@ means.measurement.dimension.luminousIntensity
 means.measurement.units.si.candela
 has.measurement.fundamentalComponent.candela */
 
-    this
-      .name("candela")
+    name("candela");
       .registerPath("candela");
   }
 }

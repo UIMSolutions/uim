@@ -15,8 +15,7 @@ class DEntityData : DData {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .isNull(false)
+    nameisNull(false)
       .isEntity(true);
   }
 

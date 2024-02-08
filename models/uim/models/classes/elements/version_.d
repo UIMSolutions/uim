@@ -31,8 +31,7 @@ class DVersion : DElement {
       return false;
     }
 
-    this
-      .addValues([
+    nameaddValues([
         "description": StringAttribute,
         "by": UUIDAttribute,
         "display": StringAttribute,

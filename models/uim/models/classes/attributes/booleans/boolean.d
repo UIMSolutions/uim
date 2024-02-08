@@ -11,19 +11,20 @@ import uim.models;
 class DBooleanAttribute : DAttribute {
   mixin(AttributeThis!("BooleanAttribute"));
 
-/* Inheritance
+  /* Inheritance
 any <- boolean
 Traits
 is.dataFormat.boolean */
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("boolean")
-      .dataFormats(["boolean"])
-      .registerPath("boolean");
+    name("boolean");
+    dataFormats(["boolean"]);
+    registerPath("boolean");
 
     return true;
   }
@@ -31,9 +32,11 @@ is.dataFormat.boolean */
   /* override IData createData() {
     return BooleanValue(this); } */
 }
+
 mixin(AttributeCalls!"BooleanAttribute");
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DBooleanAttribute);
     testAttribute(BooleanAttribute);
   }

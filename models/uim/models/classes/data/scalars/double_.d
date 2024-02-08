@@ -15,8 +15,7 @@ class DDoubleData : DData {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .isDouble(true);
+    nameisDouble(true);
   }
 
   protected double _value;  

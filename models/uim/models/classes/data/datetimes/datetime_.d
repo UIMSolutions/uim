@@ -24,8 +24,7 @@ class DDatetimeData : DData {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .isDatetime(true);
+    nameisDatetime(true);
   }
 
   // Hooks for setting 

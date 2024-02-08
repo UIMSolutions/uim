@@ -23,8 +23,7 @@ class DJsonData : DData {
     if (!super.initialize(configData)) { return false; }
 
     _value = Json.emptyObject;
-    this
-      .isObject(true);
+    nameisObject(true);
   }
 
   override IData clone() {

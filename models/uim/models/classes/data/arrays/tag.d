@@ -15,8 +15,7 @@ class DTagArrayData : DStringArrayData {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .shouldTrim(true)
+    nameshouldTrim(true)
       .separator("#");
   }
 

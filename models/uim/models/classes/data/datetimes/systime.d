@@ -24,8 +24,7 @@ class DSystimeData : DData {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .isTimestamp(true);
+    nameisTimestamp(true);
   }
 
   // Hooks for setting 

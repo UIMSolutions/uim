@@ -15,10 +15,9 @@ class DTagsAttribute : DStringArrayAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("TagsAttribute")
-      .dataFormats(["string", "array"])
-      .registerPath("TagsAttribute");
+    name("TagsAttribute");
+      dataFormats(["string", "array"]);
+      registerPath("TagsAttribute");
 
     return true;
   }

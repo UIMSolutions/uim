@@ -13,25 +13,28 @@ class DBinaryAttribute : DAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
-
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
     /* Inheritance
     any <- byte <- binary
     Traits
     is.dataFormat.byte
     is.dataFormat.array */
-    this
-      .addDataFormats(["array"])
-      .name("binary")
-      .registerPath("binary");
+
+    addDataFormats(["array"]);
+    name("binary");
+    registerPath("binary");
 
     return true;
   }
 }
+
 mixin(AttributeCalls!("BinaryAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DBinaryAttribute);
     testAttribute(BinaryAttribute);
   }

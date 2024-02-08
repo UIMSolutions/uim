@@ -17,10 +17,9 @@ class DStringArrayAttribute : DAttribute {
       return false;
     }
 
-    this
-      .name("StringArrayAttribute")
-      .dataFormats(["string", "array"])
-      .registerPath("StringArrayAttribute");
+    name("StringArrayAttribute");
+    dataFormats(["string", "array"]);
+    registerPath("StringArrayAttribute");
 
     return true;
   }

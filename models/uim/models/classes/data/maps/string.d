@@ -84,11 +84,11 @@ class DStringDataMap : DData, IMap {
     return (_items.length == 0);    
   }
 
-  size_t length() {
+ override  size_t length() {
     return _items.length;    
   }
 
-  string[] keys() {
+  override string[] keys() {
     return _items.keys;
   }
 

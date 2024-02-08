@@ -21,10 +21,10 @@ class DBirthDateAttribute : DDatetimeAttribute {
     means.measurement.time
     means.demographic.birthDate
  */
-    this
-      .dataFormats(["time"])
-      .name("birthdate")
-      .registerPath("birthdate");
+    
+      dataFormats(["time"]);
+      name("birthdate");
+      registerPath("birthdate");
 
   }
   

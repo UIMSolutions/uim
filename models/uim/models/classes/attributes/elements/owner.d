@@ -11,7 +11,7 @@ import uim.models;
 class DOwnerElementAttribute : DAttribute {
   mixin(AttributeThis!("OwnerElementAttribute"));
 
-  override IData createData() {
+  /* override IData createData() {
     return ElementData(this)
       .value(
         Element
@@ -21,7 +21,7 @@ class DOwnerElementAttribute : DAttribute {
             "idType": StringAttribute, // The type of owner, either User or Team."
           ])
       );
-  }
+  } */ 
 }
 mixin(AttributeCalls!"OwnerElementAttribute");
 

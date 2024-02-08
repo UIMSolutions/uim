@@ -20,9 +20,9 @@ class DTagArrayData : DStringArrayData {
       .separator("#");
   }
 
-  size_t length() {
+  /* size_t length() {
     return _values.length;
-  }
+  } */
 
   alias opEquals = DData.opEquals;
 

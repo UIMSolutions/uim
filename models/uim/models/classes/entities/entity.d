@@ -51,7 +51,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       .versionBy(this.createdBy);
   }
 
-  mixin(TProperty!("DEntityCollection", "collection"));
+  // TODO mixin(TProperty!("DEntityCollection", "collection"));
   mixin(TProperty!("string", "routingPath")); // required for routing
 
   mixin(DataProperty!("string", "description"));  

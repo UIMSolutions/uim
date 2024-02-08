@@ -15,13 +15,15 @@ class DDatetimeOffsetAttribute : DDatetimeAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .addDataFormats(["timeOffset"])
-      .name("datetimeOffset")
-      .registerPath("datetimeOffset");
+    
+      addDataFormats(["timeOffset"]);
+      name("datetimeOffset");
+      registerPath("datetimeOffset");
         /* means.measurement.date
         means.measurement.time
         is.dataFormat.timeOffset */
+        
+      return true; 
   }
 }
 mixin(AttributeCalls!"DatetimeOffsetAttribute");

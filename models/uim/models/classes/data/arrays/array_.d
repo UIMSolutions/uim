@@ -54,7 +54,7 @@ class DArrayData : DData {
     return ArrayData(attribute, toJson);
   }
 
-  size_t length() {
+  override size_t length() {
     return _values.length;
   }
 

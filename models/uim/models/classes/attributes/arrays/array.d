@@ -15,10 +15,10 @@ class DArrayAttribute : DAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("arrayAttribute")
-      .addDataFormats(["array"])
-      .registerPath("arrayAttribute");
+    
+      this.name("arrayAttribute");
+      this.addDataFormats(["array"]);
+      this.registerPath("arrayAttribute");
   }
 }
 mixin(AttributeCalls!"ArrayAttribute");

@@ -205,9 +205,9 @@ O sub(this O)(int opValue) {
     assert((IntegerData(2) / IntegerData(2)) == 1);
   }
 
-  bool opEquals(int check) {
+  /* bool opEquals(int check) {
     return _value == check;
-  }
+  } */
   override bool isEqual(IData checkData) { 
     if (auto data = cast(DIntegerData)checkData) {
       return _value == data.value; 

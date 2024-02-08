@@ -19,19 +19,22 @@ class DImageAttribute : DBinaryAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
     /* 
 means.content.binary.image */
-    this
-      .addDataFormats(["array"])
-      .name("image")
-      .registerPath("image");
+    addDataFormats(["array"]);
+    name("image");
+    registerPath("image");
   }
 }
+
 mixin(AttributeCalls!("ImageAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DImageAttribute);
     testAttribute(ImageAttribute);
   }

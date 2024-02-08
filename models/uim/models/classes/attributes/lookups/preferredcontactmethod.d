@@ -22,7 +22,7 @@ class DPreferredContactMethodAttribute : DAttribute {
       .registerPath("preferredcontactmethod");
   }
 
-/*   override IData createValue() {
+/*   override IData createData() {
     return PreferredContactMethoDData(this); } */
 }
 mixin(AttributeCalls!("PreferredContactMethodAttribute"));

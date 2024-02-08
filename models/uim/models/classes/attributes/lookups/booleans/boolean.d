@@ -13,7 +13,7 @@ class DBooleanBooleanAttribute : DLookupAttribute {
 
   mixin(TProperty!("bool[bool]", "lookups"));
 
-  /* override IData createValue() {
+  /* override IData createData() {
     return LookupValue!(bool, bool)(this).isNullable(isNullable);
   } */
 }

@@ -25,7 +25,7 @@ class DStringArrayAttribute : DAttribute {
     return true;
   }
 
-  /* override IData createValue() {
+  /* override IData createData() {
     return StringArrayValue(this);
   } */
 }

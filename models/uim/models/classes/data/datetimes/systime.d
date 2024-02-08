@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DSystimeData : DData {
-  mixin(DataThis!("SystimeValue", "SysTime"));  
+  mixin(DataThis!("SysTimeData", "SysTime"));  
 
   protected SysTime _value;  
   alias value = DData.value;
@@ -58,7 +58,7 @@ class DSystimeData : DData {
   }
 
   override IData copy() {
-    return SystimeValue(attribute, toJson);
+    return SysTimeData(attribute, toJson);
   }
   override IData dup() {
     return copy;
@@ -72,7 +72,7 @@ class DSystimeData : DData {
     if (isNull) return null; 
     return this.value.toISOExtString; }
 }
-mixin(ValueCalls!("SystimeValue", "SysTime"));  
+mixin(ValueCalls!("SysTimeData", "SysTime"));  
 
 version(test_uim_models) { unittest {    
     // TODO

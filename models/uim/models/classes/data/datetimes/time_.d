@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DTimeData : DData {
-  mixin(DataThis!("TimeValue", "TimeOfDay"));  
+  mixin(DataThis!("TimeData", "TimeOfDay"));  
 
   protected TimeOfDay _value;  
   alias value = DData.value;
@@ -59,7 +59,7 @@ class DTimeData : DData {
   alias opEquals = DData.opEquals;
 
   override IData copy() {
-    return TimeValue(attribute, toJson);
+    return TimeData(attribute, toJson);
   }
   override IData dup() {
     return copy;
@@ -75,21 +75,21 @@ class DTimeData : DData {
     if (isNull) return null; 
     return this.value.toISOExtString; }
 }
-mixin(ValueCalls!("TimeValue", "TimeOfDay"));  
+mixin(ValueCalls!("TimeData", "TimeOfDay"));  
 
 version(test_uim_models) { unittest {    
-    assert(TimeValue.value("100").toTime == 100);
-    assert(TimeValue.value(Json(100)).toTime == 100);
-    assert(TimeValue.value("200").toTime != 100);
-    assert(TimeValue.value(Json(200)).toTime != 100);
+    assert(TimeData.value("100").toTime == 100);
+    assert(TimeData.value(Json(100)).toTime == 100);
+    assert(TimeData.value("200").toTime != 100);
+    assert(TimeData.value(Json(200)).toTime != 100);
 
-    assert(TimeValue.value("100").toString == "100");
-    assert(TimeValue.value(Json(100)).toString == "100");
-    assert(TimeValue.value("200").toString != "100");
-    assert(TimeValue.value(Json(200)).toString != "100");
+    assert(TimeData.value("100").toString == "100");
+    assert(TimeData.value(Json(100)).toString == "100");
+    assert(TimeData.value("200").toString != "100");
+    assert(TimeData.value(Json(200)).toString != "100");
 
-    assert(TimeValue.value("100").toJson == Json(100));
-    assert(TimeValue.value(Json(100)).toJson == Json(100));
-    assert(TimeValue.value("200").toJson != Json(100));
-    assert(TimeValue.value(Json(200)).toJson != Json(100));
+    assert(TimeData.value("100").toJson == Json(100));
+    assert(TimeData.value(Json(100)).toJson == Json(100));
+    assert(TimeData.value("200").toJson != Json(100));
+    assert(TimeData.value(Json(200)).toJson != Json(100));
 }} 

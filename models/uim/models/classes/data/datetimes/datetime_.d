@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DDatetimeData : DData {
-  mixin(DataThis!("DatetimeValue", "DateTime"));  
+  mixin(DataThis!("DateTimeData", "DateTime"));  
 
   protected DateTime _value;  
   alias value = DData.value;
@@ -55,7 +55,7 @@ class DDatetimeData : DData {
   }
 
   override IData copy() {
-    return DatetimeValue(attribute, toJson);
+    return DateTimeData(attribute, toJson);
   }
   override IData dup() {
     return copy;
@@ -69,21 +69,21 @@ class DDatetimeData : DData {
     if (isNull) return null; 
     return this.value.toISOExtString; }
 }
-mixin(ValueCalls!("DatetimeValue", "DateTime"));  
+mixin(ValueCalls!("DateTimeData", "DateTime"));  
 
 version(test_uim_models) { unittest {    
-    assert(DatetimeValue.value("100").toDatetime == 100);
-    assert(DatetimeValue.value(Json(100)).toDatetime == 100);
-    assert(DatetimeValue.value("200").toDatetime != 100);
-    assert(DatetimeValue.value(Json(200)).toDatetime != 100);
+    assert(DateTimeData.value("100").toDatetime == 100);
+    assert(DateTimeData.value(Json(100)).toDatetime == 100);
+    assert(DateTimeData.value("200").toDatetime != 100);
+    assert(DateTimeData.value(Json(200)).toDatetime != 100);
 
-    assert(DatetimeValue.value("100").toString == "100");
-    assert(DatetimeValue.value(Json(100)).toString == "100");
-    assert(DatetimeValue.value("200").toString != "100");
-    assert(DatetimeValue.value(Json(200)).toString != "100");
+    assert(DateTimeData.value("100").toString == "100");
+    assert(DateTimeData.value(Json(100)).toString == "100");
+    assert(DateTimeData.value("200").toString != "100");
+    assert(DateTimeData.value(Json(200)).toString != "100");
 
-    assert(DatetimeValue.value("100").toJson == Json(100));
-    assert(DatetimeValue.value(Json(100)).toJson == Json(100));
-    assert(DatetimeValue.value("200").toJson != Json(100));
-    assert(DatetimeValue.value(Json(200)).toJson != Json(100));
+    assert(DateTimeData.value("100").toJson == Json(100));
+    assert(DateTimeData.value(Json(100)).toJson == Json(100));
+    assert(DateTimeData.value("200").toJson != Json(100));
+    assert(DateTimeData.value(Json(200)).toJson != Json(100));
 }} 

@@ -30,7 +30,7 @@ class DElement : IElement {
   }
 
   mixin(TProperty!("DStringDataMap", "values"));
-  mixin ValueMapWrapper;
+  // mixin ValueMapWrapper;
 
   mixin(TProperty!("bool", "isStatic"));
 

@@ -24,8 +24,8 @@ class DDatetimeAttribute : DDateAttribute {
 
     return true;
   }
-  override IData createValue() {
-    return DatetimeValue(this); }
+  override IData createData() {
+    return DateTimeData(this); }
 }
 mixin(AttributeCalls!"DatetimeAttribute");
 

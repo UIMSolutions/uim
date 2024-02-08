@@ -27,10 +27,10 @@ class DStringAttribute : DCharAttribute {
     return true;
   }
 
-  override IData createValue() {
+  /* override IData createData() {
     return StringData(this)
       .maxLength(this.maxLength);
-  }
+  } */
 }
 
 mixin(AttributeCalls!"StringAttribute");

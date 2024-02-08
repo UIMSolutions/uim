@@ -23,8 +23,8 @@ class DTagsAttribute : DStringArrayAttribute {
     return true;
   }
 
-  override IData createValue() {
-    return TagArrayValue(this); }
+  /* override IData createData() {
+    return TagArrayValue(this); } */
 }
 mixin(AttributeCalls!"TagsAttribute");
 

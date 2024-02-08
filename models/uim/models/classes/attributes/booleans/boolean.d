@@ -28,8 +28,8 @@ is.dataFormat.boolean */
     return true;
   }
 
-  override IData createValue() {
-    return BooleanValue(this); }
+  /* override IData createData() {
+    return BooleanValue(this); } */
 }
 mixin(AttributeCalls!"BooleanAttribute");
 

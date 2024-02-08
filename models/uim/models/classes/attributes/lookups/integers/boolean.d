@@ -11,7 +11,7 @@ import uim.models;
 class DIntegerBooleanAttribute : DLookupAttribute {
   mixin(AttributeThis!("IntegerBooleanAttribute"));
 
-  mixin(OProperty!("bool[int]", "lookups"));  
+  mixin(TProperty!("bool[int]", "lookups"));  
   O addLookup(this O)(int key, string value) {
     _lookups[key] = value;
     return cast(O)this;

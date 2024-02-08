@@ -19,7 +19,7 @@ class DAttribute : /* DEntity,  */IAttribute {
 }
 
 	// Data type of the attribute. 
-  mixin(OProperty!("string[]", "dataFormats")); 
+  mixin(TProperty!("string[]", "dataFormats")); 
   bool hasDataFormat(string dataFormatName) {
     foreach(df; dataFormats) if (df == dataFormatName) { return true; }
     return false;
@@ -31,47 +31,47 @@ class DAttribute : /* DEntity,  */IAttribute {
     return cast(O)this;
   }
 
-  mixin(OProperty!("UUID", "id"));  
-  mixin(OProperty!("string", "name"));  
-  mixin(OProperty!("string", "display"));  
-  mixin(OProperty!("string", "registerPath"));  
-  mixin(OProperty!("bool", "isNullable"));
-  mixin(OProperty!("STRINGAA", "descriptions"));
-  mixin(OProperty!("string", "valueType")); // Select the data type of the property.")); // 
-  mixin(OProperty!("string", "keyType")); // Select the data type of the property.")); // 
-  mixin(OProperty!("string", "dataType_display")); // ")); // 
-  mixin(OProperty!("long", "defaultValueLong")); // Shows the default value of the property for a whole number data type.")); // 
-  mixin(OProperty!("string", "defaultValueString")); // Shows the default value of the property for a string data type.")); // 
-  //mixin(OProperty!("string", "defaultValueDecimal")); // Shows the default value of the property for a decimal data type.")); // 
-  mixin(OProperty!("string", "baseDynamicPropertyId")); // Shows the property in the product family that this property is being inherited from.")); // 
-  mixin(OProperty!("string", "overwrittenDynamicPropertyId")); // Shows the related overwritten property.")); // 
-  mixin(OProperty!("string", "rootDynamicPropertyId")); // Shows the root property that this property is derived from.")); // 
-  /* mixin(OProperty!("string", "minValueDecimal")); // Shows the minimum allowed value of the property for a decimal data type.")); // 
-  mixin(OProperty!("string", "maxValueDecimal")); // Shows the maximum allowed value of the property for a decimal data type.")); //  */
-  mixin(OProperty!("uint", "precision")); // Shows the allowed precision of the property for a whole number data type.")); // 
-  mixin(OProperty!("string", "stateCode")); // Shows the state of the property.")); // 
-  mixin(OProperty!("string", "stateCode_display")); // ")); // 
-  mixin(OProperty!("string", "statusCode")); // Shows whether the property is active or inactive.")); // 
-  mixin(OProperty!("string", "statusCode_display")); // ")); // 
-  mixin(OProperty!("string", "regardingObjectId")); // Choose the product that the property is associated with.")); // 
-  mixin(OProperty!("double", "defaultValueDouble")); // Shows the default value of the property for a double data type.")); // 
-  mixin(OProperty!("double", "minValueDouble")); // Shows the minimum allowed value of the property for a double data type.")); // 
-  mixin(OProperty!("double", "maxValueDouble")); // Shows the maximum allowed value of the property for a double data type.")); // 
-  mixin(OProperty!("long", "minValueLong")); // Shows the minimum allowed value of the property for a whole number data type.")); // 
-  mixin(OProperty!("long", "maxValueLong")); // Shows the maximum allowed value of the property for a whole number data type.")); // 
-  mixin(OProperty!("bool", "isArray")); 
-  mixin(OProperty!("bool", "isDouble")); 
-  mixin(OProperty!("bool", "isString")); 
-  mixin(OProperty!("bool", "isJson")); 
-  mixin(OProperty!("bool", "isXML")); 
-  mixin(OProperty!("bool", "isAssociativeArray")); 
-  mixin(OProperty!("bool", "isReadOnly")); // Defines whether the attribute is read-only or if it can be edited.")); // 
-  mixin(OProperty!("bool", "isHidden")); // Defines whether the attribute is hidden or shown.")); // 
-  mixin(OProperty!("bool", "isRequired")); // Defines whether the attribute is mandatory.")); // 
-  mixin(OProperty!("uint", "maxLengthString")); // Shows the maximum allowed length of the property for a string data type.")); // 
-  mixin(OProperty!("string", "defaultValueOptionSet")); // Shows the default value of the property.
+  mixin(TProperty!("UUID", "id"));  
+  mixin(TProperty!("string", "name"));  
+  mixin(TProperty!("string", "display"));  
+  mixin(TProperty!("string", "registerPath"));  
+  mixin(TProperty!("bool", "isNullable"));
+  mixin(TProperty!("STRINGAA", "descriptions"));
+  mixin(TProperty!("string", "valueType")); // Select the data type of the property.")); // 
+  mixin(TProperty!("string", "keyType")); // Select the data type of the property.")); // 
+  mixin(TProperty!("string", "dataType_display")); // ")); // 
+  mixin(TProperty!("long", "defaultValueLong")); // Shows the default value of the property for a whole number data type.")); // 
+  mixin(TProperty!("string", "defaultValueString")); // Shows the default value of the property for a string data type.")); // 
+  //mixin(TProperty!("string", "defaultValueDecimal")); // Shows the default value of the property for a decimal data type.")); // 
+  mixin(TProperty!("string", "baseDynamicPropertyId")); // Shows the property in the product family that this property is being inherited from.")); // 
+  mixin(TProperty!("string", "overwrittenDynamicPropertyId")); // Shows the related overwritten property.")); // 
+  mixin(TProperty!("string", "rootDynamicPropertyId")); // Shows the root property that this property is derived from.")); // 
+  /* mixin(TProperty!("string", "minValueDecimal")); // Shows the minimum allowed value of the property for a decimal data type.")); // 
+  mixin(TProperty!("string", "maxValueDecimal")); // Shows the maximum allowed value of the property for a decimal data type.")); //  */
+  mixin(TProperty!("uint", "precision")); // Shows the allowed precision of the property for a whole number data type.")); // 
+  mixin(TProperty!("string", "stateCode")); // Shows the state of the property.")); // 
+  mixin(TProperty!("string", "stateCode_display")); // ")); // 
+  mixin(TProperty!("string", "statusCode")); // Shows whether the property is active or inactive.")); // 
+  mixin(TProperty!("string", "statusCode_display")); // ")); // 
+  mixin(TProperty!("string", "regardingObjectId")); // Choose the product that the property is associated with.")); // 
+  mixin(TProperty!("double", "defaultValueDouble")); // Shows the default value of the property for a double data type.")); // 
+  mixin(TProperty!("double", "minValueDouble")); // Shows the minimum allowed value of the property for a double data type.")); // 
+  mixin(TProperty!("double", "maxValueDouble")); // Shows the maximum allowed value of the property for a double data type.")); // 
+  mixin(TProperty!("long", "minValueLong")); // Shows the minimum allowed value of the property for a whole number data type.")); // 
+  mixin(TProperty!("long", "maxValueLong")); // Shows the maximum allowed value of the property for a whole number data type.")); // 
+  mixin(TProperty!("bool", "isArray")); 
+  mixin(TProperty!("bool", "isDouble")); 
+  mixin(TProperty!("bool", "isString")); 
+  mixin(TProperty!("bool", "isJson")); 
+  mixin(TProperty!("bool", "isXML")); 
+  mixin(TProperty!("bool", "isAssociativeArray")); 
+  mixin(TProperty!("bool", "isReadOnly")); // Defines whether the attribute is read-only or if it can be edited.")); // 
+  mixin(TProperty!("bool", "isHidden")); // Defines whether the attribute is hidden or shown.")); // 
+  mixin(TProperty!("bool", "isRequired")); // Defines whether the attribute is mandatory.")); // 
+  mixin(TProperty!("uint", "maxLengthString")); // Shows the maximum allowed length of the property for a string data type.")); // 
+  mixin(TProperty!("string", "defaultValueOptionSet")); // Shows the default value of the property.
 
-  mixin(OProperty!("UUID", "attribute")); // Super attribute.
+  mixin(TProperty!("UUID", "attribute")); // Super attribute.
 
  /*  O attribute(this O)(UUID myId, size_t myMajor = 0, size_t myMinor = 0) { 
     _attribute = Attribute.id(myId).versionMajor(myMajor).versionMinor(myMinor);

@@ -51,8 +51,8 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       .versionBy(this.createdBy);
   }
 
-  mixin(OProperty!("DEntityCollection", "collection"));
-  mixin(OProperty!("string", "routingPath")); // required for routing
+  mixin(TProperty!("DEntityCollection", "collection"));
+  mixin(TProperty!("string", "routingPath")); // required for routing
 
   mixin(ValueProperty!("string", "description"));  
   /// 
@@ -166,21 +166,21 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     return (id == checkEntity.id);
   }
 
-  mixin(OProperty!("UUID", "id"));
+  mixin(TProperty!("UUID", "id"));
   O id(this O)(string newValue) {
     if (newValue.isUUID) this.id(UUID(newValue));
     return cast(O)this;
   }
 
-  mixin(OProperty!("long", "etag"));
+  mixin(TProperty!("long", "etag"));
   O etag(this O)(string newValue) { 
     this.etag(to!long(newValue)); 
     return cast(O)this; }
 
-  // mixin(OProperty!("DEntityCollection", "collection"));
-  mixin(OProperty!("string", "siteName"));
-  // mixin(OProperty!("DOOPModel", "model"));
-  mixin(OProperty!("Json", "config"));
+  // mixin(TProperty!("DEntityCollection", "collection"));
+  mixin(TProperty!("string", "siteName"));
+  // mixin(TProperty!("DOOPModel", "model"));
+  mixin(TProperty!("Json", "config"));
 
 /// Versioning
   
@@ -250,7 +250,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     _attributes[name] = newAttribute;  
     return cast(O)this; }
   // Every entity has a unique id as a primary key
-  mixin(OProperty!("UUID", "id"));
+  mixin(TProperty!("UUID", "id"));
   O id(this O)(string anUuid) { this.id(UUID(anUuid)); return cast(O)this; }
   version(test_uim_models) {
     unittest {
@@ -324,10 +324,10 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
   }
 
   // Display of entity 
-  mixin(OProperty!("string", "display"));
+  mixin(TProperty!("string", "display"));
 
   /// Date and time when the entity was created.
-  mixin(OProperty!("long", "createdOn"));
+  mixin(TProperty!("long", "createdOn"));
   O createdOn(this O)(SysTime aTime) {
     this.createdOn(toTimestamp(aTime));
     return cast(O)this;
@@ -345,14 +345,14 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
   }
 
   ///   createdBy	Unique identifier of the user who created the entity.	
-  mixin(OProperty!("UUID", "createdBy"));
+  mixin(TProperty!("UUID", "createdBy"));
   O createdBy(this O)(string anUuid) { 
     if (anUuid.isUUID) this.createdBy(UUID(anUuid)); 
     else _createdBy = NULLUUID;
     return cast(O)this; }
 
   ///	Date and time when the entity was modified.	
-  mixin(OProperty!("long", "modifiedOn"));
+  mixin(TProperty!("long", "modifiedOn"));
   O modifiedOn(this O)(SysTime aTime) {
     this.modifiedOn(toTimestamp(aTime));
     return cast(O)this;
@@ -363,14 +363,14 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
   }
 
   ///	Unique identifier of the user who modified the entity.
-  mixin(OProperty!("UUID", "modifiedBy"));
+  mixin(TProperty!("UUID", "modifiedBy"));
   O modifiedBy(this O)(string anUuid) { 
     if (anUuid.isUUID) this.modifiedBy(UUID(anUuid)); 
     else _modifiedBy = NULLUUID;
     return cast(O)this; }
 
   /// Date and time when the entity was created.
-  mixin(OProperty!("long", "lastAccessedOn"));
+  mixin(TProperty!("long", "lastAccessedOn"));
   O lastAccessedOn(this O)(SysTime aTime) {
     this.lastAccessedOn(toTimestamp(aTime));
     return cast(O)this;
@@ -388,31 +388,31 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
   }
 
   ///   lastAccessBy	Unique identifier of the user who accessed the entity.	
-  mixin(OProperty!("UUID", "lastAccessBy"));
+  mixin(TProperty!("UUID", "lastAccessBy"));
   O lastAccessBy(this O)(string anUuid) { 
     if (anUuid.isUUID) this.lastAccessBy(UUID(anUuid)); 
     else _lastAccessBy = NULLUUID;
     return cast(O)this; }
 
   ///	Entity has only one version. Version handling starts with EntityVersion	
-  mixin(OProperty!("bool", "hasVersions"));
+  mixin(TProperty!("bool", "hasVersions"));
   O hasVersions(this O)(string newValue) {
     this.hasVersions(newValue == "true");
     return cast(O)this;
   }
   ///	entity has only one language. Language handling starts with EntityLanguage	
-  mixin(OProperty!("bool", "hasLanguages"));
+  mixin(TProperty!("bool", "hasLanguages"));
   O hasLanguages(this O)(string newValue) {
     this.hasLanguages(newValue == "true");
     return cast(O)this; }
 
   ///	Date and time when the entity is locked.	
-  mixin(OProperty!("bool", "isLocked"));
+  mixin(TProperty!("bool", "isLocked"));
   O isLocked(this O)(string newValue) {
     this.isLocked(newValue == "true");
     return cast(O)this; }
   ///	Date and time when the entity was locked.	
-  mixin(OProperty!("long", "lockedOn"));
+  mixin(TProperty!("long", "lockedOn"));
   O lockedOn(this O)(SysTime aTime) {
     this.lockedOn(toTimestamp(aTime));
     return cast(O)this; }
@@ -421,19 +421,19 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     return cast(O)this; }
 
   ///	Unique identifier of the user who modified the entity.
-  mixin(OProperty!("UUID", "lockedBy"));
+  mixin(TProperty!("UUID", "lockedBy"));
   O lockedBy(this O)(string anUuid) { 
     this.lockedBy(UUID(anUuid)); 
     return cast(O)this; }
 
   ///	Date and time when the entity is deleted.	
-  mixin(OProperty!("bool", "isDeleted"));
+  mixin(TProperty!("bool", "isDeleted"));
   O isDeleted(this O)(string newValue) {
     this.isDeleted(newValue == "true");
     return cast(O)this; }
   
   ///	Date and time when the entity was locked.	
-  mixin(OProperty!("long", "deletedOn"));
+  mixin(TProperty!("long", "deletedOn"));
   O deletedOn(this O)(SysTime aTime) {
     this.deletedOn(toTimestamp(aTime));
     return cast(O)this; }
@@ -442,7 +442,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     return cast(O)this; }
 
   ///	Unique identifier of the user who deleted the entity.
-  mixin(OProperty!("UUID", "deletedBy"));
+  mixin(TProperty!("UUID", "deletedBy"));
   O deletedBy(this O)(string anUuid) { 
     this.deletedBy(UUID(anUuid)); 
     return cast(O)this; }

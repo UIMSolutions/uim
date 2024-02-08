@@ -29,12 +29,12 @@ class DElement : IElement {
       .requestPrefix("element_");
   }
 
-  mixin(OProperty!("DStringDataMap", "values"));
+  mixin(TProperty!("DStringDataMap", "values"));
   mixin ValueMapWrapper;
 
-  mixin(OProperty!("bool", "isStatic"));
+  mixin(TProperty!("bool", "isStatic"));
 
-  mixin(OProperty!("string", "className"));
+  mixin(TProperty!("string", "className"));
   /// 
   unittest {
     auto element = new DElement;
@@ -46,7 +46,7 @@ class DElement : IElement {
     assert(element.className != "noClassName");
   }
 
-  mixin(OProperty!("string", "registerPath"));
+  mixin(TProperty!("string", "registerPath"));
   /// 
   unittest {
     auto element = new DElement;
@@ -58,7 +58,7 @@ class DElement : IElement {
     assert(element.registerPath != "noRegisterPath");
   }
 
-  mixin(OProperty!("string", "requestPrefix")); 
+  mixin(TProperty!("string", "requestPrefix")); 
   /// 
   unittest {
     auto element = new DElement;
@@ -82,13 +82,13 @@ class DElement : IElement {
     }
   }
 
-  mixin(OProperty!("STRINGAA", "parameters"));
+  mixin(TProperty!("STRINGAA", "parameters"));
 
 /*   // Display of entity 
-  mixin(OProperty!("string", "display"));
+  mixin(TProperty!("string", "display"));
 
   //	Description about the entity and more
-  mixin(OProperty!("string", "description")); */
+  mixin(TProperty!("string", "description")); */
     
   STRINGAA selector(STRINGAA parameters) {
     STRINGAA results;

@@ -16,26 +16,26 @@ class DData : IData {
   void initialize(IData[string] configData = null) {}
 
   // #region properties
-    mixin(OProperty!("DAttribute", "attribute"));
+    mixin(TProperty!("DAttribute", "attribute"));
 
-    mixin(OProperty!("bool", "isBoolean"));
-    mixin(OProperty!("bool", "isInteger"));
-    mixin(OProperty!("bool", "isDouble"));
-    mixin(OProperty!("bool", "isLong"));
-    mixin(OProperty!("bool", "isTime"));
-    mixin(OProperty!("bool", "isDate"));
-    mixin(OProperty!("bool", "isDatetime"));
-    mixin(OProperty!("bool", "isTimestamp"));
-    mixin(OProperty!("bool", "isString"));
+    mixin(TProperty!("bool", "isBoolean"));
+    mixin(TProperty!("bool", "isInteger"));
+    mixin(TProperty!("bool", "isDouble"));
+    mixin(TProperty!("bool", "isLong"));
+    mixin(TProperty!("bool", "isTime"));
+    mixin(TProperty!("bool", "isDate"));
+    mixin(TProperty!("bool", "isDatetime"));
+    mixin(TProperty!("bool", "isTimestamp"));
+    mixin(TProperty!("bool", "isString"));
 
-    mixin(OProperty!("bool", "isScalar"));
-    mixin(OProperty!("bool", "isArray"));
-    mixin(OProperty!("bool", "isObject"));
-    mixin(OProperty!("bool", "isEntity"));
-    mixin(OProperty!("bool", "isUUID"));
+    mixin(TProperty!("bool", "isScalar"));
+    mixin(TProperty!("bool", "isArray"));
+    mixin(TProperty!("bool", "isObject"));
+    mixin(TProperty!("bool", "isEntity"));
+    mixin(TProperty!("bool", "isUUID"));
     
-    mixin(OProperty!("bool", "isReadOnly"));
-    mixin(OProperty!("bool", "isNullable"));
+    mixin(TProperty!("bool", "isReadOnly"));
+    mixin(TProperty!("bool", "isNullable"));
     // #region isNull
       private bool _isNull;
       bool isNull() {

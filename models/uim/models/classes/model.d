@@ -19,20 +19,20 @@ class DModel : IModel {
 
   void initialize(IData[string] configData = null) {}
 
-  mixin(OProperty!("string", "name"));
-  mixin(OProperty!("string", "className"));
-  mixin(OProperty!("string", "registerPath"));
-  mixin(OProperty!("IModelManager", "manager"));
-  mixin(OProperty!("STRINGAA", "parameters"));
+  mixin(TProperty!("string", "name"));
+  mixin(TProperty!("string", "className"));
+  mixin(TProperty!("string", "registerPath"));
+  mixin(TProperty!("IModelManager", "manager"));
+  mixin(TProperty!("STRINGAA", "parameters"));
 
   /**
     * Default config
     * These are merged with user-provided config when the component is used.
     */
-  mixin(OProperty!("Json", "defaultConfig"));
+  mixin(TProperty!("Json", "defaultConfig"));
 
   // Configuration of mvcobject
-  mixin(OProperty!("Json", "config"));
+  mixin(TProperty!("Json", "config"));
 
   DModel create() {
     return Model;

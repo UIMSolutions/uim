@@ -18,7 +18,7 @@ class DStringData : DData {
       .isString(true);
   }
 
-  mixin(OProperty!("size_t", "maxLength"));
+  mixin(TProperty!("size_t", "maxLength"));
 
   protected string _value;
   @property string value(){

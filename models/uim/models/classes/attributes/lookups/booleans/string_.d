@@ -11,7 +11,7 @@ import uim.models;
 class DBooleanStringAttribute : DAttribute {
   mixin(AttributeThis!("BooleanStringAttribute"));
 
-  mixin(OProperty!("string[bool]", "lookups"));
+  mixin(TProperty!("string[bool]", "lookups"));
 
   /* override IData createValue() {
     return LookupValue!(bool, string)(this).isNullable(isNullable);

@@ -13,7 +13,7 @@ import uim.models;
 
   void initialize(IData[string] configData = null) {}
 
-  mixin(OProperty!("DData[string]", "items"));
+  mixin(TProperty!("DData[string]", "items"));
 
   string[] names() { return items.keys; }
 

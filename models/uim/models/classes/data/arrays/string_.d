@@ -23,8 +23,8 @@ class DStringArrayValue : DArrayValue {
       .separator(",");
   }
 
-  mixin(OProperty!("string", "separator"));
-  mixin(OProperty!("bool", "shouldTrim"));
+  mixin(TProperty!("string", "separator"));
+  mixin(TProperty!("bool", "shouldTrim"));
 
   protected string[] _values;
   alias value = DData.value;

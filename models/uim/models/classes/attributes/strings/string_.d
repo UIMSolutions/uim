@@ -11,7 +11,7 @@ import uim.models;
 class DStringAttribute : DCharAttribute {
   mixin(AttributeThis!"StringAttribute");
 
-  mixin(OProperty!("size_t", "maxLength"));
+  mixin(TProperty!("size_t", "maxLength"));
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {

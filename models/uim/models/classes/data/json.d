@@ -3,13 +3,13 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.models.classes.data.object_;
+module models.uim.models.classes.data.json;
 
 import uim.models;
 
 @safe:
-class DJsonObjectData : DData {
-  mixin(DataThis!("JsonObjectValue"));  
+class DJsonData : DData {
+  mixin(DataThis!("JsonData"));  
 
   mixin(OProperty!("Json", "value"));
 
@@ -28,7 +28,7 @@ class DJsonObjectData : DData {
   }
 
   override IData copy() {
-    return JsonObjectValue(attribute, toJson);
+    return JsonData(attribute, toJson);
   }
   override IData dup() {
     return copy;
@@ -47,4 +47,4 @@ class DJsonObjectData : DData {
     this.value(newValue);
   }
 }
-mixin(ValueCalls!("JsonObjectValue"));  
+mixin(ValueCalls!("JsonData"));  

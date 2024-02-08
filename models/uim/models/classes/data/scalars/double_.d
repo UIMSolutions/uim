@@ -23,12 +23,22 @@ class DDoubleData : DData {
   alias value = DData.value;
   void value(this O)(double newValue) {
     this.set(newValue);
-    return cast(O)this; 
   }
   double value() {
     return _value; 
   }
+  unittest {
+    double myValue = 42.0;
+    assert(DoubleData(myValue).value == myValue);
 
+    auto data = new DDoubleData;
+    data.value(myValue);
+    assert(data.value == myValue);
+
+    data = new DDoubleData;
+    data.value = myValue;
+    assert(data.value == myValue);
+ }
   // Hooks for setting 
   protected void set(double newValue) {
     _value = newValue; 

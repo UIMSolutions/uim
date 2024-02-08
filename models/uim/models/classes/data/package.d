@@ -28,7 +28,7 @@ public {
 public { 
 	import uim.models.classes.data.entity;
 	import uim.models.classes.data.null_;
-	import uim.models.classes.data.object_;
+	import uim.models.classes.data.json;
 }
 
 template DataThis(string name, string datatype = null) { // Name for future releases

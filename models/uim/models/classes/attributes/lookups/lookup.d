@@ -22,7 +22,7 @@ class DLookupAttribute : DAttribute {
       .registerPath("lookup");
   }
 
-/*   override DData createValue() {
+/*   override IData createValue() {
     return LookupValue(this); } */
 }
 mixin(AttributeCalls!("LookupAttribute"));

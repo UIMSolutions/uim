@@ -57,10 +57,10 @@ class DSystimeData: DData {
     }
   }
 
-  override DData copy() {
+  override IData copy() {
     return SystimeValue(attribute, toJson);
   }
-  override DData dup() {
+  override IData dup() {
     return copy;
   }
 

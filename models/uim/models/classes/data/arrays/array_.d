@@ -10,12 +10,12 @@ import uim.models;
 @safe:
 class DArrayData: DData {
   mixin(DataThis!("ArrayValue"));  
-  this(DData[] values) {
+  this(IData[] values) {
     this();
     _items = values.dup;
   }
 
-  DData[] _items;
+  IData[] _items;
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
@@ -25,11 +25,11 @@ class DArrayData: DData {
       .isArray(true);
   }
 
-  DArrayValue add(DData[] values...) { 
+  DArrayValue add(IData[] values...) { 
     this.add(values.dup); 
     return this; }
 
-  DArrayValue add(DData[] values) {
+  DArrayValue add(IData[] values) {
     _items ~= values.dup; 
     return this;
   }
@@ -38,14 +38,14 @@ class DArrayData: DData {
     writeln(ArrayValue.add(StringData("1x"), StringData("2x")).values.map!(v => v.toString).array);
   }
   
-  alias opEquals = DData.opEquals;
+  alias opEquals = IData.opEquals;
 
-  DData[] values() { return _items; }
+  IData[] values() { return _items; }
 
-  override DData copy() {
+  override IData copy() {
     return ArrayValue(attribute, toJson);
   }
-  override DData dup() {
+  override IData dup() {
     return copy;
   }
 
@@ -54,7 +54,7 @@ class DArrayData: DData {
   }
 }
 mixin(ValueCalls!("ArrayValue")); 
-auto ArrayValue(DData[] values) { return new DArrayValue(values); } 
+auto ArrayValue(IData[] values) { return new DArrayValue(values); } 
 
 ///
 unittest {

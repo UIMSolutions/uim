@@ -64,10 +64,10 @@ class DEntityData: DData {
 
   alias opEquals = DData.opEquals;
 
-  override DData copy() {
+  override IData copy() {
     return EntityValue(attribute, toJson);
   }
-  override DData dup() {
+  override IData dup() {
     return copy;
   }
 

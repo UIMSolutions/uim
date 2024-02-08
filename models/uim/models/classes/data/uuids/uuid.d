@@ -86,10 +86,10 @@ class DUUIDData : DData {
     assert(value == id);
   }
 
-  override DData copy() {
+  override IData copy() {
     return UUIDData(value);
   }
-  override DData dup() {
+  override IData dup() {
     return UUIDData(value);
   }
 

@@ -73,10 +73,10 @@ class DDoubleData: DData {
     }
   }  
 
-  override DData copy() {
+  override IData copy() {
     return DoubleValue(attribute, toJson);
   }
-  override DData dup() {
+  override IData dup() {
     return DoubleValue(attribute, toJson);
   }
 

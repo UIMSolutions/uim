@@ -120,10 +120,10 @@ class DLongData: DData {
     }
   }  
 
-  override DData copy() {
+  override IData copy() {
     return LongValue(attribute, toJson);
   }
-  override DData dup() {
+  override IData dup() {
     return copy;
   }
 

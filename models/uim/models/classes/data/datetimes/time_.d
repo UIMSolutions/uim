@@ -58,10 +58,10 @@ class DTimeData: DData {
   alias opEquals = Object.opEquals;
   alias opEquals = DData.opEquals;
 
-  override DData copy() {
+  override IData copy() {
     return TimeValue(attribute, toJson);
   }
-  override DData dup() {
+  override IData dup() {
     return copy;
   }
 

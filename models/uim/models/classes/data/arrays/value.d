@@ -35,10 +35,10 @@ class DDataArrayValue : DArrayValue {
   alias opEquals = Object.opEquals;
   alias opEquals = DData.opEquals;
 
-  override DData copy() {
+  override IData copy() {
     return ValueArrayValue(attribute, toJson);
   }
-  override DData dup() {
+  override IData dup() {
     return copy;
   }
 }

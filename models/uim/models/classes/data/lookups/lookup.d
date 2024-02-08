@@ -33,10 +33,10 @@ class DLookupValue(K, V) : DData {
   alias opEquals = Object.opEquals;
   alias opEquals = DData.opEquals;
 
-  override DData copy() {
+  override IData copy() {
     return LookupValue!(K, V)(attribute, toJson);
   }
-  override DData dup() {
+  override IData dup() {
     return copy;
   }
 }

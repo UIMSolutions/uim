@@ -26,10 +26,10 @@ class DTagArrayValue : DStringArrayValue {
 
   alias opEquals = DData.opEquals;
 
-  override DData copy() {
+  override IData copy() {
     return TagArrayValue(attribute, toJson);
   }
-  override DData dup() {
+  override IData dup() {
     return copy;
   }
   

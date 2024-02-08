@@ -75,10 +75,10 @@ class DStringData: DData {
     return cast(O)this;
   }
 
-  override DData copy() {
+  override IData copy() {
     return StringData(attribute, toJson);
   }
-  override DData dup() {
+  override IData dup() {
     return copy;
   }
 

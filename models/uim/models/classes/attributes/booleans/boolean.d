@@ -26,7 +26,7 @@ is.dataFormat.boolean */
       .registerPath("boolean");
   }
 
-  override DData createValue() {
+  override IData createValue() {
     return BooleanValue(this); }
 }
 mixin(AttributeCalls!"BooleanAttribute");

@@ -34,10 +34,10 @@ class DIntegerArrayValue : DArrayValue {
 
   alias opEquals = DData.opEquals;
   
-  override DData copy() {
+  override IData copy() {
     return IntegerArrayValue(attribute, toJson);
   }
-  override DData dup() {
+  override IData dup() {
     return copy;
   }
 }

@@ -22,7 +22,7 @@ class DStringAttribute : DCharAttribute {
       .isString(true) 
       .registerPath("string");
   }
-  override DData createValue() {
+  override IData createValue() {
     return StringData(this)
       .maxLength(this.maxLength); }
 }

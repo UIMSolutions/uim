@@ -87,10 +87,10 @@ class DIntegerData: DData {
     }
   }  
 
-  override DData copy() {
+  override IData copy() {
     return IntegerValue(attribute, toJson);
   }
-  override DData dup() {
+  override IData dup() {
     return IntegerValue(attribute, toJson);
   }
 

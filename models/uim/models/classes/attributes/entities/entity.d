@@ -21,7 +21,7 @@ import uim.models;
     // means.measurement.time
   }
 
-  override DData createValue() {
+  override IData createValue() {
     return EntityValue(this); }
 }
 mixin(AttributeCalls!"EntityAttribute");

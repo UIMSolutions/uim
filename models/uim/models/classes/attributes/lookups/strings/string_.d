@@ -13,7 +13,7 @@ class DStringStringAttribute : DLookupAttribute {
   
   mixin(OProperty!("STRINGAA", "lookups"));
 
-  override DData createValue() {
+  override IData createValue() {
     return LookupValue!(string, string).isNullable(isNullable);
   }
 }

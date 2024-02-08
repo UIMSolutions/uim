@@ -13,7 +13,7 @@ class DBooleanStringAttribute : DAttribute {
 
   mixin(OProperty!("string[bool]", "lookups"));
 
-  override DData createValue() {
+  override IData createValue() {
     return LookupValue!(bool, string)(this).isNullable(isNullable);
   }
 }

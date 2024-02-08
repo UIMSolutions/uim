@@ -22,7 +22,7 @@ class DTimeAttribute : DAttribute {
       // means.measurement.date
       // means.measurement.time
   }
-  override DData createValue() {
+  override IData createValue() {
     return TimeValue(this); }
 }
 mixin(AttributeCalls!"TimeAttribute");

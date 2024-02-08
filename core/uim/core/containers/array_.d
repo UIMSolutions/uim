@@ -426,7 +426,7 @@ T shiftFirst(T)(ref T[] values) {
   auto value = values[0];
 
   values = values.length > 1
-    ? values[1 .. ] : null;
+    ? values[1 .. $] : null;
 
   return value;
 }

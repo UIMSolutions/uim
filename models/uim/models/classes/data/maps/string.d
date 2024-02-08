@@ -112,10 +112,10 @@ class DStringDataMap : DData, IMap {
     return false;
   }
 
-  override DData copy() {
+  override IData copy() {
     return NullValue; // StringDataMap(attribute, toJson);
   }
-  override DData dup() {
+  override IData dup() {
     return copy;
   }
 

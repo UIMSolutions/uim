@@ -64,10 +64,10 @@ class DStringArrayValue : DArrayValue {
     // return this;
   }
 
-  override DData copy() {
+  override IData copy() {
     return StringArrayValue(attribute, toJson);
   }
-  override DData dup() {
+  override IData dup() {
     return copy;
   }
 

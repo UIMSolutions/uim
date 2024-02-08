@@ -74,10 +74,10 @@ class DElementData: DData {
     return 1;
   }  */
 
-  override DData copy() {
+  override IData copy() {
     return ElementValue(attribute, toJson);
   }
-  override DData dup() {
+  override IData dup() {
     return copy;
   }
 

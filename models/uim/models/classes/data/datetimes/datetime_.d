@@ -54,10 +54,10 @@ class DDatetimeData: DData {
     }
   }
 
-  override DData copy() {
+  override IData copy() {
     return DatetimeValue(attribute, toJson);
   }
-  override DData dup() {
+  override IData dup() {
     return copy;
   }
 

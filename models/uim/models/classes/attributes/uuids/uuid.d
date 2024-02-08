@@ -21,7 +21,7 @@ class DUUIDAttribute : DAttribute {
       .registerPath("uuid");
   }
 
-  override DData createValue() {
+  override IData createValue() {
     return UUIDData(this); }
 }
 mixin(AttributeCalls!("UUIDAttribute"));

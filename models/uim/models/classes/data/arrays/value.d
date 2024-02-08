@@ -8,8 +8,8 @@ module uim.models.classes.values.arrays.value;
 import uim.models;
 
 @safe:
-class DValueArrayValue : DArrayValue {
-  mixin(ValueThis!("ValueArrayValue", "DValue[]"));  
+class DDataArrayValue : DArrayValue {
+  mixin(ValueThis!("ValueArrayValue", "DData[]"));  
 
   // Initialization hook method.
   override void initialize(Json configSettings = Json(null)) {
@@ -19,27 +19,27 @@ class DValueArrayValue : DArrayValue {
       .isString(true);
   }
 
-  protected DValue[] _value;
-  alias value = DValue.value;
-  void set(DValue[] newValue) {
+  protected DData[] _value;
+  alias value = DData.value;
+  void set(DData[] newValue) {
     _value = newValue;
   }
-  O value(this O)(DValue[] newValue) {
+  O value(this O)(DData[] newValue) {
     this.set(newValue);
     return cast(O)this; 
   }
-  DValue[] value() {
+  DData[] value() {
     return _value; 
   }
 
   alias opEquals = Object.opEquals;
-  alias opEquals = DValue.opEquals;
+  alias opEquals = DData.opEquals;
 
-  override DValue copy() {
+  override DData copy() {
     return ValueArrayValue(attribute, toJson);
   }
-  override DValue dup() {
+  override DData dup() {
     return copy;
   }
 }
-mixin(ValueCalls!("ValueArrayValue", "DValue[]"));  
+mixin(ValueCalls!("ValueArrayValue", "DData[]"));  

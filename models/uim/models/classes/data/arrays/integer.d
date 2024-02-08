@@ -20,7 +20,7 @@ class DIntegerArrayValue : DArrayValue {
   }
 
   protected int[] _value;
-  alias value = DValue.value;
+  alias value = DData.value;
   void set(int[] newValue) {
     _value = newValue;
   }
@@ -32,12 +32,12 @@ class DIntegerArrayValue : DArrayValue {
     return _value; 
   }
 
-  alias opEquals = DValue.opEquals;
+  alias opEquals = DData.opEquals;
   
-  override DValue copy() {
+  override DData copy() {
     return IntegerArrayValue(attribute, toJson);
   }
-  override DValue dup() {
+  override DData dup() {
     return copy;
   }
 }

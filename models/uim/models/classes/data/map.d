@@ -13,15 +13,15 @@ import uim.models;
 
   void initialize(Json configSettings = Json(null)) {}
 
-  mixin(OProperty!("DValue[string]", "items"));
+  mixin(OProperty!("DData[string]", "items"));
 
   string[] names() { return items.keys; }
 
   bool hasValue(string key) { return key in _items ? true : false; }
   string[] keys() { return _items.keys; }
-  DValue[] values() { return _items.values; }
+  DData[] values() { return _items.values; }
 
-  DValue opIndex(string name) { return _items.get(name, NullValue); }
+  DData opIndex(string name) { return _items.get(name, NullValue); }
 
   // Set value, if key exists
   void opIndexAssign(bool newValue, string key) {
@@ -32,7 +32,7 @@ import uim.models;
     _items[key] = JsonValue(newValue);
   } * /
 
-  void opIndexAssign(DValue newValue, string key) {
+  void opIndexAssign(DData newValue, string key) {
     _items[key] = newValue;
   }
 
@@ -45,20 +45,20 @@ import uim.models;
   }
 
   void opIndexAssign(UUID newValue, string key) {
-    _items[key] = UUIDValue(newValue);
+    _items[key] = UUIDData(newValue);
   }
 
-  O addValues(this O)(DValue[string] newValues) {
-    newValues.byKey.each!(key => addValue(key, newValues[key]));
+  O adDDatas(this O)(DData[string] newValues) {
+    newValues.byKey.each!(key => adDData(key, newValues[key]));
     return cast(O)this;
   }
 
-  O addValues(this O)(DAttribute[string] attributes) {
-    attributes.byKey.each!(key => addValue(key, attributes[key].createValue));
+  O adDDatas(this O)(DAttribute[string] attributes) {
+    attributes.byKey.each!(key => adDData(key, attributes[key].createValue));
     return cast(O)this;
   }
 
-  O addValue(this O)(string fieldName, DValue newValue) {
+  O adDData(this O)(string fieldName, DData newValue) {
     _items[fieldName] = newValue;
     return cast(O)this;
   }

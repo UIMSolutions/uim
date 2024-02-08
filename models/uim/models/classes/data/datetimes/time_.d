@@ -8,11 +8,11 @@ module uim.models.classes.values.datetimes.time_;
 import uim.models;
 
 @safe:
-class DTimeValue : DValue {
+class DTimeValue : DData {
   mixin(ValueThis!("TimeValue", "TimeOfDay"));  
 
   protected TimeOfDay _value;  
-  alias value = DValue.value;
+  alias value = DData.value;
   O value(this O)(TimeOfDay newValue) {
     this.set(newValue);
     return cast(O)this; 
@@ -56,12 +56,12 @@ class DTimeValue : DValue {
   }
 
   alias opEquals = Object.opEquals;
-  alias opEquals = DValue.opEquals;
+  alias opEquals = DData.opEquals;
 
-  override DValue copy() {
+  override DData copy() {
     return TimeValue(attribute, toJson);
   }
-  override DValue dup() {
+  override DData dup() {
     return copy;
   }
 

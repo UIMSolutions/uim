@@ -8,7 +8,7 @@ module uim.models.classes.values.value;
 import uim.models;
 
 @safe:
-class DValue : IData {
+class DData : IData {
   this() { initialize; }
   this(DAttribute theAttribute) { this().attribute(theAttribute); }
 
@@ -70,7 +70,7 @@ class DValue : IData {
   bool opEquals(string equalValue) {
     return (toString == equalValue);
   }
-  bool opEquals(DValue equalValue) {
+  bool opEquals(DData equalValue) {
     return (toString == equalValue.toString);
   }
   bool opEquals(UUID equalValue) {
@@ -90,8 +90,8 @@ class DValue : IData {
     return cast(O)this;
   }
 
-  abstract DValue copy(); 
-  abstract DValue dup(); 
+  abstract DData copy(); 
+  abstract DData dup(); 
 
   Json toJson() {
     return Json(null); }
@@ -104,7 +104,7 @@ class DValue : IData {
 }
 
 version(test_uim_models) { unittest {   
-    auto value = new DValue;
+    auto value = new DData;
     assert(!value.isNull);
     assert(!value.isString);
     assert(!value.isInteger);

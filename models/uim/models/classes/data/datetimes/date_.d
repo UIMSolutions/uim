@@ -9,11 +9,11 @@ import uim.models;
 @safe:
 import std.datetime.date;
 
-class DDateValue : DValue {
+class DDateValue : DData {
   mixin(ValueThis!("DateValue", "Date"));  
 
   protected Date _value;  
-  alias value = DValue.value;
+  alias value = DData.value;
   O value(this O)(Date newValue) {
     this.set(newValue);
     return cast(O)this; 
@@ -47,10 +47,10 @@ class DDateValue : DValue {
     }
   }
 
-  override DValue copy() {
+  override DData copy() {
     return DateValue(attribute, toJson);
   }
-  override DValue dup() {
+  override DData dup() {
     return copy;
   }
 

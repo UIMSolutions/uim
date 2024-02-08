@@ -27,7 +27,7 @@ class DStringArrayValue : DArrayValue {
   mixin(OProperty!("bool", "shouldTrim"));
 
   protected string[] _values;
-  alias value = DValue.value;
+  alias value = DData.value;
   void set(string[] newValues) {
     _values = newValues.filter!(v => v.length > 0).array;
   }
@@ -64,10 +64,10 @@ class DStringArrayValue : DArrayValue {
     // return this;
   }
 
-  override DValue copy() {
+  override DData copy() {
     return StringArrayValue(attribute, toJson);
   }
-  override DValue dup() {
+  override DData dup() {
     return copy;
   }
 

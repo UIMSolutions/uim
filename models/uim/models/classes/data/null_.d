@@ -8,7 +8,7 @@ module uim.models.classes.values.null_;
 import uim.models;
 
 @safe:
-class DNullValue : DValue {
+class DNullValue : DData {
   mixin(ValueThis!("NullValue"));  
 
   // Initialization hook method.
@@ -19,10 +19,10 @@ class DNullValue : DValue {
       .isNull(true);
   }
 
-  override DValue copy() {
+  override DData copy() {
     return NullValue;
   }
-  override DValue dup() {
+  override DData dup() {
     return NullValue;
   }
   

@@ -24,12 +24,12 @@ class DTagArrayValue : DStringArrayValue {
     return _values.length;
   }
 
-  alias opEquals = DValue.opEquals;
+  alias opEquals = DData.opEquals;
 
-  override DValue copy() {
+  override DData copy() {
     return TagArrayValue(attribute, toJson);
   }
-  override DValue dup() {
+  override DData dup() {
     return copy;
   }
   

@@ -11,10 +11,10 @@ import uim.models;
 class DTimestampValue : DLongValue {
   mixin(ValueThis!("TimestampValue", "long"));  
 
-  override DValue copy() {
+  override DData copy() {
     return TimestampValue(attribute, toJson);
   }
-  override DValue dup() {
+  override DData dup() {
     return copy;
   }
 

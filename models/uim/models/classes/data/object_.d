@@ -8,7 +8,7 @@ module uim.models.classes.values.object_;
 import uim.models;
 
 @safe:
-class DJsonObjectValue : DValue {
+class DJsonObjectValue : DData {
   mixin(ValueThis!("JsonObjectValue"));  
 
   mixin(OProperty!("Json", "value"));
@@ -27,10 +27,10 @@ class DJsonObjectValue : DValue {
       .isObject(true);
   }
 
-  override DValue copy() {
+  override DData copy() {
     return JsonObjectValue(attribute, toJson);
   }
-  override DValue dup() {
+  override DData dup() {
     return copy;
   }
   

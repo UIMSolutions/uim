@@ -8,7 +8,7 @@ module uim.models.classes.values.elements.element;
 import uim.models;
 
 @safe:
-class DElementValue : DValue {
+class DElementValue : DData {
   mixin(ValueThis!("ElementValue", "DElement"));    
 
   // Initialization hook method.
@@ -20,7 +20,7 @@ class DElementValue : DValue {
   }
 
   protected DElement _value;
-  alias value = DValue.value;
+  alias value = DData.value;
   O value(this O)(DElement newValue) {
     _value = newValue;
     return cast(O)this; 
@@ -54,7 +54,7 @@ class DElementValue : DValue {
     }
   }
 
-  alias opEquals = DValue.opEquals;
+  alias opEquals = DData.opEquals;
   bool opEquals(DElementValue otherValue) {
     string left = value.toString;
     string right = otherValue.value.toString;
@@ -74,10 +74,10 @@ class DElementValue : DValue {
     return 1;
   }  */
 
-  override DValue copy() {
+  override DData copy() {
     return ElementValue(attribute, toJson);
   }
-  override DValue dup() {
+  override DData dup() {
     return copy;
   }
 

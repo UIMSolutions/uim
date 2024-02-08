@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.models.classes.data.value;
+module uim.models.classes.data.data;
 
 import uim.models;
 
@@ -92,8 +92,9 @@ class DData : IData {
     return cast(O)this;
   }
 
-  abstract DData copy(); 
-  abstract DData dup(); 
+  IData clone() {
+    return null;
+  }
 
   Json toJson() {
     return Json(null); }

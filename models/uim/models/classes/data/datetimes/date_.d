@@ -47,11 +47,8 @@ class DDateData : DData {
     }
   }
 
-  override IData copy() {
+  override IData clone() {
     return DateValue(attribute, toJson);
-  }
-  override IData dup() {
-    return copy;
   }
 
   override Json toJson() { 

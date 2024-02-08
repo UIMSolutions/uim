@@ -40,7 +40,7 @@ class DArrayData : DData {
     writeln(ArrayData.add(StringData("1x"), StringData("2x")).values.map!(v => v.toString).array);
   }
   
-  alias opEquals = IData.opEquals;
+  // TODO alias opEquals = IData.opEquals;
 
   protected IData[] _values;
   override IData[] values() {
@@ -50,11 +50,8 @@ class DArrayData : DData {
     _values = newValues;
   }
 
-  override IData copy() {
+  override IData clone() {
     return ArrayData(attribute, toJson);
-  }
-  override IData dup() {
-    return copy;
   }
 
   size_t length() {

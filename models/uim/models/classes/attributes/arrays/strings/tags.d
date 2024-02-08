@@ -24,7 +24,7 @@ class DTagsAttribute : DStringArrayAttribute {
   }
 
   /* override IData createData() {
-    return TagArrayValue(this); } */
+    return TagArrayData(this); } */
 }
 mixin(AttributeCalls!"TagsAttribute");
 

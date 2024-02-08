@@ -8,8 +8,8 @@ module uim.models.classes.data.arrays.value;
 import uim.models;
 
 @safe:
-class DDataArrayValue : DArrayValue {
-  mixin(DataThis!("ValueArrayValue", "DData[]"));  
+class DDataArrayData : DArrayData {
+  mixin(DataThis!("ValueArrayData", "DData[]"));  
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
@@ -36,10 +36,10 @@ class DDataArrayValue : DArrayValue {
   alias opEquals = DData.opEquals;
 
   override IData copy() {
-    return ValueArrayValue(attribute, toJson);
+    return ValueArrayData(attribute, toJson);
   }
   override IData dup() {
     return copy;
   }
 }
-mixin(ValueCalls!("ValueArrayValue", "DData[]"));  
+mixin(ValueCalls!("ValueArrayData", "DData[]"));  

@@ -69,9 +69,9 @@ class DStringDataMap : DData, IMap {
 
   DStringDataMap opIndexAssign(DData[] values, string key) {
     if (containsKey(key)) {
-      _items[key] = new DArrayValue(values); 
+      _items[key] = new DArrayData(values); 
     } else {
-      _items[key] = new DArrayValue(values); }
+      _items[key] = new DArrayData(values); }
 
     return this;
   }

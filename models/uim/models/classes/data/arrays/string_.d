@@ -8,10 +8,10 @@ module uim.models.classes.data.arrays.string_;
 import uim.models;
 
 @safe:
-class DStringArrayValue : DArrayValue {
-  mixin(DataThis!("StringArrayValue", "string[]"));  
-  this(DStringArrayValue arrayValue) {
-    this().add(arrayValue.values);
+class DStringArrayData : DArrayData {
+  mixin(DataThis!("StringArrayData", "string[]"));  
+  this(DStringArrayData ArrayData) {
+    this().add(ArrayData.values);
   }
 
   // Initialization hook method.
@@ -65,7 +65,7 @@ class DStringArrayValue : DArrayValue {
   }
 
   override IData copy() {
-    return StringArrayValue(attribute, toJson);
+    return StringArrayData(attribute, toJson);
   }
   override IData dup() {
     return copy;
@@ -80,10 +80,10 @@ class DStringArrayValue : DArrayValue {
     return this.value.join(",");
   }
 }
-mixin(ValueCalls!("StringArrayValue", "string[]"));  
+mixin(ValueCalls!("StringArrayData", "string[]"));  
 
 version(test_uim_models) { unittest {
-    auto attribute = StringArrayValue(["a", "b", "c"]);
+    auto attribute = StringArrayData(["a", "b", "c"]);
     assert(attribute.value.length == 3);
     assert(attribute.value[0] == "a");
     assert(attribute.value[1] == "b");

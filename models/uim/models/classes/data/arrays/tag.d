@@ -8,8 +8,8 @@ module uim.models.classes.data.arrays.tag;
 import uim.models;
 
 @safe:
-class DTagArrayValue : DStringArrayValue {
-  mixin(DataThis!("TagArrayValue", "string[]"));  
+class DTagArrayData : DStringArrayData {
+  mixin(DataThis!("TagArrayData", "string[]"));  
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
@@ -27,7 +27,7 @@ class DTagArrayValue : DStringArrayValue {
   alias opEquals = DData.opEquals;
 
   override IData copy() {
-    return TagArrayValue(attribute, toJson);
+    return TagArrayData(attribute, toJson);
   }
   override IData dup() {
     return copy;
@@ -38,10 +38,10 @@ class DTagArrayValue : DStringArrayValue {
     return null; 
   }
 }
-mixin(ValueCalls!("TagArrayValue"));  
+mixin(ValueCalls!("TagArrayData"));  
 
 version(test_uim_models) { unittest {
-    auto attribute = TagArrayValue(["a", "b", "c"]);
+    auto attribute = TagArrayData(["a", "b", "c"]);
     assert(attribute.value.length == 3);
     assert(attribute.value[0] == "a");
     assert(attribute.value[1] == "b");

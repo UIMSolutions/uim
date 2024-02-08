@@ -34,11 +34,8 @@ class DIntegerArrayData : DArrayData {
 
   alias opEquals = DData.opEquals;
   
-  override IData copy() {
+  override IData clone() {
     return IntegerArrayData(attribute, toJson);
-  }
-  override IData dup() {
-    return copy;
   }
 }
 mixin(ValueCalls!("IntegerArrayData"));  

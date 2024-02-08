@@ -54,13 +54,10 @@ class DDatetimeData : DData {
     }
   }
 
-  override IData copy() {
+  override IData clone() {
     return DateTimeData(attribute, toJson);
   }
-  override IData dup() {
-    return copy;
-  }
-
+  
   override Json toJson() { 
     if (isNull) return Json(null); 
     return Json(this.value.toISOExtString); }

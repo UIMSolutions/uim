@@ -3,13 +3,13 @@
 *	License  : Licensed under Apache 2 [https://apache.org/licenses/LICENSE-2.0.txt] *
 *	Author   : Ozan Nurettin Süel (Sicherheitsschmiede)										           * 
 ***********************************************************************************/
-module oop.uim.oop.data.json;
+module uim.oop.data.json;
 
 import uim.oop;
 
 class DJsonData : DData {
   this() { super(); }
-  this(json newValue) { this().value(newValue); }
+  this(Json newValue) { this().value(newValue); }
 
   mixin(TProperty!("Json", "value"));
   unittest {
@@ -26,4 +26,4 @@ class DJsonData : DData {
  }
 }
 auto JsonData() { return new DJsonData; }
-auto JsonData(json newValue) { return new DJsonData(newValue); }
+auto JsonData(Json newValue) { return new DJsonData(newValue); }

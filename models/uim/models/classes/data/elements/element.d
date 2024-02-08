@@ -21,7 +21,7 @@ class DElementData : DData {
 
   protected DElement _value;
   alias value = DData.value;
-  O value(this O)(DElement newValue) {
+  void value(this O)(DElement newValue) {
     _value = newValue;
     return cast(O)this; 
   }

@@ -13,7 +13,7 @@ class DLongData : DData {
 
   protected long _value;  
   alias value = DData.value;
-  O value(this O)(long newValue) {
+  void value(this O)(long newValue) {
     this.set(newValue);
     return cast(O)this; 
   }
@@ -81,7 +81,7 @@ class DLongData : DData {
   }
   ///
   unittest {
-    auto value = new DLongValue(100_000);
+    autvoid value = new DLongValue(100_000);
     assert(value > 100);
     assert(value >= 100);
     assert(value >= 100_000);
@@ -97,7 +97,7 @@ class DLongData : DData {
   }
   ///
   unittest {
-    auto value = new DLongValue(100_000);
+    autvoid value = new DLongValue(100_000);
     assert(value > new DLongValue(100));
     assert(value >= new DLongValue(100));
     assert(value >= new DLongValue(100_000));
@@ -115,7 +115,7 @@ class DLongData : DData {
     _value = newValue;
     return cast(O)this; }
   version(test_uim_models) { unittest {    
-      auto value = LongValue;
+      autvoid value = LongValue;
       value(100);
     }
   }  

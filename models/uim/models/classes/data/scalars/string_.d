@@ -29,7 +29,7 @@ class DStringData : DData {
     }
   }
   /// Set with string value
-  O value(this O)(string newValue) {
+  void value(this O)(string newValue) {
     set(newValue);
     return cast(O)this;
   }
@@ -40,7 +40,7 @@ class DStringData : DData {
   } 
 
   // Set with Json value
-  O value(this O)(Json newValue) {
+  void value(this O)(Json newValue) {
     set(newValue);
     return cast(O)this;
   }
@@ -65,7 +65,7 @@ class DStringData : DData {
     }
   }
 
-  O value(this O)(DStringData newValue) {
+  void value(this O)(DStringData newValue) {
     if (newValue) {
       this
         .isNullable(newValue.isNullable)

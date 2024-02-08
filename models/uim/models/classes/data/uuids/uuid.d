@@ -24,7 +24,7 @@ class DUUIDData : DData {
   UUID value() {
     return _value; 
   }
-  O value(this O)(UUID newValue) {
+  void value(this O)(UUID newValue) {
     this.set(newValue);
     return cast(O)this; 
   }
@@ -82,7 +82,7 @@ class DUUIDData : DData {
   ///
   unittest {
     auto id = randomUUID;
-    auto value = new DUUIDData(id);
+    autvoid value = new DUUIDData(id);
     assert(value == id);
   }
 

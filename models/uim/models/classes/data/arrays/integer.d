@@ -8,8 +8,8 @@ module uim.models.classes.data.arrays.integer;
 import uim.models;
 
 @safe:
-class DIntegerArrayValue : DArrayValue {
-  mixin(DataThis!("IntegerArrayValue", "int[]"));  
+class DIntegerArrayData : DArrayData {
+  mixin(DataThis!("IntegerArrayData", "int[]"));  
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
@@ -24,7 +24,7 @@ class DIntegerArrayValue : DArrayValue {
   void set(int[] newValue) {
     _value = newValue;
   }
-  O value(this O)(int[] newValue) {
+  void value(this O)(int[] newValue) {
     this.set(newValue);
     return cast(O)this; 
   }
@@ -35,10 +35,10 @@ class DIntegerArrayValue : DArrayValue {
   alias opEquals = DData.opEquals;
   
   override IData copy() {
-    return IntegerArrayValue(attribute, toJson);
+    return IntegerArrayData(attribute, toJson);
   }
   override IData dup() {
     return copy;
   }
 }
-mixin(ValueCalls!("IntegerArrayValue"));  
+mixin(ValueCalls!("IntegerArrayData"));  

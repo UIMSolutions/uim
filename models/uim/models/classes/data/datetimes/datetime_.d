@@ -13,7 +13,7 @@ class DDatetimeData : DData {
 
   protected DateTime _value;  
   alias value = DData.value;
-  O value(this O)(DateTime newValue) {
+  void value(this O)(DateTime newValue) {
     this.set(newValue);
     return cast(O)this; 
   }

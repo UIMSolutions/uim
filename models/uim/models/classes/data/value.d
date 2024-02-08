@@ -56,12 +56,12 @@ class DData : IData {
   }
 
 
-  O value(this O)(string newValue) {
+  void value(this O)(string newValue) {
     this.set(newValue);
     return cast(O)this;
   }
 
-  O value(this O)(Json newValue) {
+  void value(this O)(Json newValue) {
     this.set(newValue);
     return cast(O)this;
   }
@@ -104,7 +104,7 @@ class DData : IData {
 }
 
 version(test_uim_models) { unittest {   
-    auto value = new DData;
+    autvoid value = new DData;
     assert(!value.isNull);
     assert(!value.isString);
     assert(!value.isInteger);

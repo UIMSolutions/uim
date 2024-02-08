@@ -31,7 +31,7 @@ class DStringArrayValue : DArrayValue {
   void set(string[] newValues) {
     _values = newValues.filter!(v => v.length > 0).array;
   }
-  O value(this O)(string[] newValue) {
+  void value(this O)(string[] newValue) {
     this.set(newValue);
     return cast(O)this; 
   }

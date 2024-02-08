@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DArrayData : DData {
-  mixin(DataThis!("ArrayValue"));  
+  mixin(DataThis!("ArrayData"));  
   this(IData[] values) {
     this();
     _items = values.dup;
@@ -25,39 +25,72 @@ class DArrayData : DData {
       .isArray(true);
   }
 
-  DArrayValue add(IData[] values...) { 
+  DArrayData add(IData[] values...) { 
     this.add(values.dup); 
     return this; }
 
-  DArrayValue add(IData[] values) {
+  DArrayData add(IData[] values) {
     _items ~= values.dup; 
     return this;
   }
   /// 
   unittest {
-    writeln(ArrayValue.add(StringData("1x"), StringData("2x")).values.map!(v => v.toString).array);
+    writeln(ArrayData.add(StringData("1x"), StringData("2x")).values.map!(v => v.toString).array);
   }
   
   alias opEquals = IData.opEquals;
 
-  IData[] values() { return _items; }
+  protected IData[] _values;
+  override IData[] values() {
+    return _values;
+  }
+  void values(IData[] newValues) {
+    _values = newValues;
+  }
 
   override IData copy() {
-    return ArrayValue(attribute, toJson);
+    return ArrayData(attribute, toJson);
   }
   override IData dup() {
     return copy;
+  }
+
+  size_t length() {
+    return _values.length;
+  }
+
+  void clear() {
+      _values = null;
+  }
+
+  bool hasKey(string checkKey) {
+    return false;
+  }
+    ///
+  unittest {
+    assert(!hasKey("abc"));
+  }
+
+  void opOpAssign(string op: "~")(IData value) {
+    _values ~= value;
+  }
+  /// 
+  unittest {
+    auto data = new DArrayData;
+    assert(data.length == 0);
+    data ~= StringData;
+    assert(data.length == 1);
   }
 
   override string toString() {
     return "["~_items.map!(item => item.toString).join(",")~"]";
   }
 }
-mixin(ValueCalls!("ArrayValue")); 
-auto ArrayValue(IData[] values) { return new DArrayValue(values); } 
+mixin(ValueCalls!("ArrayData")); 
+auto ArrayData(IData[] values) { return new DArrayData(values); } 
 
 ///
 unittest {
-  auto value = new DArrayValue;
+  autvoid value = new DArrayData;
   assert(value.isArray);
 }

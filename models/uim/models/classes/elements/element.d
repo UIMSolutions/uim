@@ -129,7 +129,7 @@ class DElement : IElement {
       case "requestPrefix": return requestPrefix;
       case "registerPath": return registerPath;
       default:
-        if (auto value = valueOfKey(key)) { 
+        if (autvoid value = valueOfKey(key)) { 
           return value.toString;
         } break;      
     }
@@ -148,7 +148,7 @@ class DElement : IElement {
   }
   ///
   unittest {
-    auto value = (new DStringAttribute).createValue;
+    autvoid value = (new DStringAttribute).createValue;
     value.set("aValue");
     assert(value.toString == "aValue");
 
@@ -238,7 +238,7 @@ class DElement : IElement {
     element2.adDDatas(["level2": StringAttribute]);
     element2["level2"] = "valueLevel2";
 
-    auto value2 = new DElementValue;
+    autvoid value2 = new DElementValue;
     value2.set(element2);
 
     auto element1 = new DElement;

@@ -28,7 +28,7 @@ class DBooleanData : DData {
 
   protected bool _value;
   alias value = DData.value;
-  O value(this O)(bool newValue) {
+  void value(this O)(bool newValue) {
     this.set(newValue);
     return cast(O)this; 
   }
@@ -70,8 +70,8 @@ class DBooleanData : DData {
   }
   ///
   unittest {
-    auto valueA = new DBooleanValue(true);
-    auto valueB = new DBooleanValue(false);
+    autvoid valueA = new DBooleanValue(true);
+    autvoid valueB = new DBooleanValue(false);
     assert(valueA > false);
     assert(valueB < true);
   }
@@ -85,13 +85,13 @@ class DBooleanData : DData {
 
   ///
   unittest {
-    auto valueA = new DBooleanValue(true);
-    auto valueB = new DBooleanValue(false);
+    autvoid valueA = new DBooleanValue(true);
+    autvoid valueB = new DBooleanValue(false);
     assert(valueA > valueB);
     assert(valueB < valueA);
 
-    auto valueC = (new DBooleanValue).value(true);
-    auto valueD = (new DBooleanValue).value(false);
+    autvoid valueC = (new DBooleanValue).value(true);
+    autvoid valueD = (new DBooleanValue).value(false);
     assert(valueC > valueD);
     assert(valueD < valueC);
   }

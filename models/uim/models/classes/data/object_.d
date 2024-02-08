@@ -13,7 +13,7 @@ class DJsonObjectData : DData {
 
   mixin(OProperty!("Json", "value"));
 
-  O value(this O)(string newValue) {
+  void value(this O)(string newValue) {
     this.value(parseJsonString(newValue));
     return cast(O)this;
   }

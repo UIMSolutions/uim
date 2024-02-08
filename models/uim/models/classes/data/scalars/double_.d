@@ -21,7 +21,7 @@ class DDoubleData : DData {
 
   protected double _value;  
   alias value = DData.value;
-  O value(this O)(double newValue) {
+  void value(this O)(double newValue) {
     this.set(newValue);
     return cast(O)this; 
   }
@@ -68,7 +68,7 @@ class DDoubleData : DData {
     _value = newValue;
     return cast(O)this; }
   version(test_uim_models) { unittest {    
-      auto value = DoubleValue;
+      autvoid value = DoubleValue;
       value(100);
     }
   }  

@@ -513,7 +513,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       case "versionDescription": return this.versionDescription;
       default:
         //if (key in attributes) { return attributes[key].StringData; }
-        if (auto value = values[key]) { return value.toString; }
+        if (autvoid value = values[key]) { return value.toString; }
         auto keys = key.split(".");
         if (keys.length > 1) {
           if (auto subValue = values[keys[0]]) {

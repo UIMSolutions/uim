@@ -9,16 +9,16 @@ import uim.models;
 
 @safe:
 class DIntegerData : DData {
-  mixin(DataThis!("IntegerValue", "int"));  
+  mixin(DataThis!("IntegerData", "int"));
 
-  protected int _value;  
+  protected int _value;
   alias value = DData.value;
-  O value(this O)(int newValue) {
+  void value(this O)(int newValue) {
     this.set(newValue);
-    return cast(O)this; 
   }
+
   int value() {
-    return _value; 
+    return _value;
   }
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
@@ -30,41 +30,43 @@ class DIntegerData : DData {
 
   // Hooks for setting 
   protected void set(int newValue) {
-    _value = newValue; 
-  }  
+    _value = newValue;
+  }
 
   override protected void set(string newValue) {
-    if (newValue is null) { 
-      this.isNull(isNullable ? true : false); 
-      _value = 0; }
-    else {
+    if (newValue is null) {
+      this.isNull(isNullable ? true : false);
+      _value = 0;
+    } else {
       this.isNull(false);
-      _value = to!int(newValue); 
+      _value = to!int(newValue);
     }
-  }  
+  }
 
   override protected void set(Json newValue) {
-    if (newValue.isEmpty) { 
-      _value = 0; 
-      this.isNull(isNullable ? true : false); }
-    else {
+    if (newValue.isEmpty) {
+      _value = 0;
+      this.isNull(isNullable ? true : false);
+    } else {
       _value = newValue.get!int;
       this.isNull(false);
     }
   }
 
   alias opEquals = DData.opEquals;
-  /* override */ bool opEquals(int equalValue) {
+  /* override */
+  bool opEquals(int equalValue) {
     return (_value == equalValue);
   }
+
   override bool opEquals(string equalValue) {
     return (_value == to!int(equalValue));
   }
   ///
   unittest {
-    auto intValue = new DIntegerValue(100);
-    auto intValue100 = new DIntegerValue(100);
-    auto intValue10 = new DIntegerValue(10);
+    auto intValue = new DIntegerData(100);
+    auto intValue100 = new DIntegerData(100);
+    auto intValue10 = new DIntegerData(10);
 
     assert(intValue == 100);
     assert(intValue != 10);
@@ -75,55 +77,193 @@ class DIntegerData : DData {
   }
 
   int opCall() {
-    return _value; 
+    return _value;
   }
 
-  O opCall(this O)(int newValue) { 
+  O opCall(this O)(int newValue) {
     _value = newValue;
-    return cast(O)this; }
-  version(test_uim_models) { unittest {    
-      auto value = IntegerValue;
-      value(100);
-    }
-  }  
+    return cast(O) this;
+  }
+
+  unittest {
+    autvoid value = IntegerData;
+    value(100);
+  }
+
+  void add(this O)(int opValue) {
+    _value += opValue;
+  }
+
+  unittest {
+    auto value = new DIntegerData;
+    assert(value.add(2) == 2);
+    assert(value.add(2).add(2) == 4);
+  }
+
+  void add(this O)(DIntegerData opValue) {
+    _value += opValue.value;
+  }
 
   override IData copy() {
-    return IntegerValue(attribute, toJson);
+    return IntegerData(attribute, toJson);
   }
+
   override IData dup() {
-    return IntegerValue(attribute, toJson);
+    return IntegerData(attribute, toJson);
   }
 
-  int toLong() { 
-    if (isNull) return 0; 
-    return _value; }
+O sub(this O)(int opValue) {
+    _value -= opValue;
+    return cast(O) this;
+  }
 
-  override Json toJson() { 
-    if (isNull) return Json(null); 
-    return Json(_value); }
+  unittest {
+    assert(IntegerData(2).sub(2) == 0);
+    assert(IntegerData(2).sub(2).sub(2) == -2);
+  }
 
-  override string toString() { 
-    if (isNull) return "null"; 
-    return to!string(_value); }
+  O sub(this O)(DIntegerData opValue) {
+    _value -= opValue.value;
+    return cast(O) this;
+  }
+
+  unittest {
+    assert(IntegerData(2).sub(IntegerData(2)) == 0);
+  }
+
+  O mul(this O)(int opValue) {
+    _value *= opValue;
+    return cast(O) this;
+  }
+
+  unittest {
+    assert(IntegerData(2).mul(2) == 4);
+  }
+
+  O mul(this O)(DIntegerData opValue) {
+    _value *= opValue.value;
+    return cast(O) this;
+  }
+  ///
+  unittest {
+    assert(IntegerData(2).mul(IntegerData(2)) == 4);
+  }
+
+  O div(this O)(int opValue) {
+    _value /= opValue;
+    return cast(O) this;
+  }
+
+  unittest {
+    assert(IntegerData(2).div(2) == 1);
+  }
+
+  O div(this O)(DIntegerData opValue) {
+    _value /= opValue.value;
+    return cast(O) this;
+  }
+
+  unittest {
+    assert(IntegerData(2).div(IntegerData(2)) == 1);
+  }
+
+  DIntegerData opBinary(string op)(int opValue) {
+    auto result = IntegerData(_value);
+    static if (op == "+")
+      return result.add(opValue);
+    else static if (op == "-")
+      return result.sub(opValue);
+    else static if (op == "*")
+      return result.mul(opValue);
+    else static if (op == "/")
+      return result.div(opValue);
+    else
+      static assert(0, "Operator " ~ op ~ " not implemented");
+  }
+
+  unittest {
+    assert((IntegerData(2) + 2) == 4);
+    assert((IntegerData(2) - 2) == 0);
+    assert((IntegerData(2) * 2) == 4);
+    assert((IntegerData(2) / 2) == 1);
+  }
+
+  DIntegerData opBinary(string op)(DIntegerData opValue) {
+    auto result = IntegerData(_value);
+    static if (op == "+")
+      return result.add(opValue);
+    else static if (op == "-")
+      return result.sub(opValue);
+    else static if (op == "*")
+      return result.mul(opValue);
+    else static if (op == "/")
+      return result.div(opValue);
+    else
+      static assert(0, "Operator " ~ op ~ " not implemented");
+  }
+
+  unittest {
+    assert((IntegerData(2) + IntegerData(2)) == 4);
+    assert((IntegerData(2) - IntegerData(2)) == 0);
+    assert((IntegerData(2) * IntegerData(2)) == 4);
+    assert((IntegerData(2) / IntegerData(2)) == 1);
+  }
+
+  bool opEquals(int check) {
+    return _value == check;
+  }
+  override bool isEqual(IData checkData) { 
+    if (auto data = cast(DIntegerData)checkData) {
+      return _value == data.value; 
+    }
+    return false; 
+  }
+
+  unittest {
+    assert((IntegerData(2) + IntegerData(2)) == 4);
+    assert((IntegerData(2) - IntegerData(2)) == 0);
+    assert((IntegerData(2) * IntegerData(2)) == 4);
+    assert((IntegerData(2) / IntegerData(2)) == 1);
+  }
+  long toLong() {
+    if (isNull)
+      return 0;
+    return to!long(_value);
+  }
+
+  override Json toJson() {
+    return isNull
+      ? Json(null)
+      : Json(_value);
+  }
+
+  override string toString() {
+    if (isNull)
+      return "null";
+    return to!string(_value);
+  }
 }
-mixin(ValueCalls!("IntegerValue", "int"));  
 
-version(test_uim_models) { unittest {    
-    assert(IntegerValue.value("100").toLong == 100);
-    assert(IntegerValue.value(Json(100)).toLong == 100);
-    assert(IntegerValue.value("200").toLong != 100);
-    assert(IntegerValue.value(Json(200)).toLong != 100);
+mixin(ValueCalls!("IntegerData", "int"));
 
-    assert(IntegerValue.value("100").toString == "100");
-    assert(IntegerValue.value(Json(100)).toString == "100");
-    assert(IntegerValue.value("200").toString != "100");
-    assert(IntegerValue.value(Json(200)).toString != "100");
+version (test_uim_models) {
+  unittest {
+    assert(IntegerData.value("100").toLong == 100);
+    assert(IntegerData.value(Json(100)).toLong == 100);
+    assert(IntegerData.value("200").toLong != 100);
+    assert(IntegerData.value(Json(200)).toLong != 100);
 
-    assert(IntegerValue.value("100").toJson == Json(100));
-    assert(IntegerValue.value(Json(100)).toJson == Json(100));
-    assert(IntegerValue.value("200").toJson != Json(100));
-    assert(IntegerValue.value(Json(200)).toJson != Json(100));
-}} 
+    assert(IntegerData.value("100").toString == "100");
+    assert(IntegerData.value(Json(100)).toString == "100");
+    assert(IntegerData.value("200").toString != "100");
+    assert(IntegerData.value(Json(200)).toString != "100");
+
+    assert(IntegerData.value("100").toJson == Json(100));
+    assert(IntegerData.value(Json(100)).toJson == Json(100));
+    assert(IntegerData.value("200").toJson != Json(100));
+    assert(IntegerData.value(Json(200)).toJson != Json(100));
+  }
+}
 
 /*
 

@@ -3,7 +3,7 @@ module uim.models.mixins.value;
 import uim.models;
 @safe:
 
-auto valueGetter(string name, string datatype, string valueClass, string path) {
+autvoid valueGetter(string name, string datatype, string valueClass, string path) {
   string newPath = (path ? path : name);
   return `
     @property `~datatype~` `~name~`() {
@@ -15,7 +15,7 @@ auto valueGetter(string name, string datatype, string valueClass, string path) {
     }`;
 }
 
-auto valueSetter(string name, string datatype, string valueClass, string path) {
+autvoid valueSetter(string name, string datatype, string valueClass, string path) {
   string newPath = (path ? path : name);
   return `
     @property O `~name~`(this O)(`~datatype~` newValue) { 

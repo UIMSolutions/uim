@@ -2,7 +2,7 @@ module uim.oop.mixins.valuemap;
 
 import uim.oop;
 @safe:
-
+/* 
 template ValueMapWrapper() {
   bool containsValue(string key) {
     if (this.values) { // has values
@@ -61,5 +61,5 @@ template ValueMapWrapper() {
     DValue[string] results;
     valueKeys.each!(ḱey => results[key] = this.values[key]);
     return results;
-  } */
-}
+  } * /
+}*/

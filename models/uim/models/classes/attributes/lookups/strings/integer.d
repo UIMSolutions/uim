@@ -13,9 +13,9 @@ class DStringIntegerAttribute : DLookupAttribute {
 
   mixin(OProperty!("int[string]", "lookups"));
 
-  override IData createValue() {
+  /* override IData createValue() {
     return LookupValue!(string, int).isNullable(isNullable);
-  }
+  } */
 }
 mixin(AttributeCalls!("StringIntegerAttribute"));
 

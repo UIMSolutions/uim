@@ -27,7 +27,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     if (!super.initialize(configData)) { return false; }
 
     this
-      .adDDatas([
+      .addValues([
         "description": StringAttribute,
         "pool": StringAttribute,
         "version": VersionElementAttribute              

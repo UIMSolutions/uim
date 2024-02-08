@@ -16,7 +16,7 @@ class DOwnerElementAttribute : DAttribute {
       .value(
         Element
           .name("owner")
-          .adDDatas([
+          .addValues([
             "id": UUIDAttribute, // Owner Id"]),
             "idType": StringAttribute, // The type of owner, either User or Team."
           ])

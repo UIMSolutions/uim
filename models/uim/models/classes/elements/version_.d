@@ -25,7 +25,7 @@ class DVersion: DElement {
     if (!super.initialize(configData)) { return false; }
 
     this
-      .adDDatas([
+      .addValues([
         "description": StringAttribute,
         "by": UUIDAttribute,
         "display": StringAttribute,

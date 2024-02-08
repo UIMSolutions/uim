@@ -13,9 +13,9 @@ class DBooleanIntegerAttribute : DLookupAttribute {
 
   mixin(OProperty!("int[bool]", "lookups"));
 
-  override IData createValue() {
+  /* override IData createValue() {
     return LookupValue!(bool, int)(this).isNullable(isNullable);
-  }
+  } */
 }
 mixin(AttributeCalls!("BooleanIntegerAttribute"));
 

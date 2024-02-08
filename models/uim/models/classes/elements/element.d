@@ -179,7 +179,7 @@ class DElement : IElement {
   ///
   unittest {
     auto element = new DElement;
-    element.adDDatas(["test":StringAttribute]);
+    element.addValues(["test":StringAttribute]);
     element["test"] = "something";
     assert(element["test"] == "something");
     assert(element["test"] != "a thing");
@@ -209,7 +209,7 @@ class DElement : IElement {
   ///
   unittest {
     auto element = new DElement;
-    element.adDDatas(["test":StringAttribute]);
+    element.addValues(["test":StringAttribute]);
     element["test"] = "something";
     assert(element["test"] == "something");
     assert(element["test"] != "a thing");
@@ -235,7 +235,7 @@ class DElement : IElement {
   ///
   unittest{
     auto element2 = new DElement;
-    element2.adDDatas(["level2": StringAttribute]);
+    element2.addValues(["level2": StringAttribute]);
     element2["level2"] = "valueLevel2";
 
     autvoid value2 = new DElementValue;

@@ -36,8 +36,8 @@ class DIntegerIntegerAttribute : DLookupAttribute {
     return false; 
   }  
 
-  override IData createValue() {
-    return LookupValue!(int, int)(this).isNullable(isNullable); }  
+  /* override IData createValue() {
+    return LookupValue!(int, int)(this).isNullable(isNullable); }  */
 }
 mixin(AttributeCalls!("IntegerIntegerAttribute"));
 

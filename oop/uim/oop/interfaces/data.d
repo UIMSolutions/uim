@@ -7,6 +7,16 @@ interface IData {
     string[] keys();
     IData[] values();
 
+    // is data empty  
+    bool isEmpty(string key);
+
+    bool isNull(string key);
+    bool isBool();
+    bool isNumeric();
+    bool isString();
+
+    size_t length();
+
     bool isEqual(IData[string] checkData);
 	bool isEqual(IData data);
 

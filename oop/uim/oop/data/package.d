@@ -13,6 +13,7 @@ public {
   import uim.oop.data.integer;
   import uim.oop.data.json;
   import uim.oop.data.long_;
+  import uim.oop.data.obj;
   import uim.oop.data.registry;
   import uim.oop.data.string_;
   // import uim.oop.data.stringdata;

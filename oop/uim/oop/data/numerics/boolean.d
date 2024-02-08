@@ -3,7 +3,7 @@
 *	License  : Licensed under Apache 2 [https://apache.org/licenses/LICENSE-2.0.txt] *
 *	Author   : Ozan Nurettin Süel (Sicherheitsschmiede)										           * 
 ***********************************************************************************/
-module uim.oop.data.boolean;
+module oop.uim.oop.data.scalars.boolean;
 
 import uim.oop;
 

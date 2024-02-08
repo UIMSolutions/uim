@@ -3,7 +3,7 @@
 *	License  : Licensed under Apache 2 [https://apache.org/licenses/LICENSE-2.0.txt] *
 *	Author   : Ozan Nurettin Süel (Sicherheitsschmiede)										           * 
 ***********************************************************************************/
-module uim.oop.data.data;
+module uim.oop.data.obj;
 
 import uim.oop;
 @safe:
@@ -24,16 +24,6 @@ class DData : IData {
     return _data.values;
   }
 
-    bool isEmpty(string key) {
-      return true;
-    }
-
-    bool isNull(string key);
-    bool isBool() {}
-    bool isNumeric();
-    bool isString();
-
-    size_t length();
     // Compare with other Data
   bool isEqual(IData[string] checkData) {
     return hasKeys(checkData.keys) 

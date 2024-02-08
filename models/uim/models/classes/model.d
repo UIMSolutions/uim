@@ -5,19 +5,19 @@ import uim.models;
 @safe:
 class DModel : IModel { 
   this() { this.name("Model").className("Model"); }
-  this(Json configSettings) { this().initialize(configSettings); }
-  this(IModelManager aManager, IData[string] configSettings = null) { this().manager(aManager).initialize(configSettings); }
+  this(Json configData) { this().initialize(configData); }
+  this(IModelManager aManager, IData[string] configData = null) { this().manager(aManager).initialize(configData); }
 
-  this(string aName, IData[string] configSettings = null) { this(configSettings).name(aName); }
-  this(STRINGAA someParameters, IData[string] configSettings = null) { this(configSettings).parameters(someParameters); }
+  this(string aName, IData[string] configData = null) { this(configData).name(aName); }
+  this(STRINGAA someParameters, IData[string] configData = null) { this(configData).parameters(someParameters); }
 
-  this(IModelManager aManager, string aName, IData[string] configSettings = null) { this(aManager, configSettings).name(aName); }
-  this(IModelManager aManager, STRINGAA someParameters, IData[string] configSettings = null) { this(aManager, configSettings).parameters(someParameters); }
+  this(IModelManager aManager, string aName, IData[string] configData = null) { this(aManager, configData).name(aName); }
+  this(IModelManager aManager, STRINGAA someParameters, IData[string] configData = null) { this(aManager, configData).parameters(someParameters); }
 
-  this(string aName, STRINGAA someParameters, IData[string] configSettings = null) { this(name, configSettings).parameters(someParameters); }
-  this(IModelManager aManager, string aName, STRINGAA someParameters, IData[string] configSettings = null) { this(aManager, name, configSettings).parameters(someParameters); }
+  this(string aName, STRINGAA someParameters, IData[string] configData = null) { this(name, configData).parameters(someParameters); }
+  this(IModelManager aManager, string aName, STRINGAA someParameters, IData[string] configData = null) { this(aManager, name, configData).parameters(someParameters); }
 
-  void initialize(IData[string] configSettings = null) {}
+  void initialize(IData[string] configData = null) {}
 
   mixin(OProperty!("string", "name"));
   mixin(OProperty!("string", "className"));

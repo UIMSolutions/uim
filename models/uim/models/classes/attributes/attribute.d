@@ -12,8 +12,8 @@ class DAttribute : /* DEntity,  */IAttribute {
   mixin(AttributeThis!("Attribute"));
 
   // Initialization hook method.
-  /* override  */void initialize(IData[string] configSettings = null) { 
-    /* super.initialize(configSettings); */ }
+  /* override  */void initialize(IData[string] configData = null) { 
+    /* super.initialize(configData); */ }
 
 	// Data type of the attribute. 
   mixin(OProperty!("string[]", "dataFormats")); 

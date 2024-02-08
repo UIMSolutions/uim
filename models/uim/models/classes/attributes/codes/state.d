@@ -15,15 +15,17 @@ class DStateCodeAttribute : DIntegerStringAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("stateCode")
-      .display("Status Reason")
-      .lookups([
+    
+      name("stateCode");
+      display("Status Reason");
+      lookups([
         0: "Active",  
         1: "Inactive"
-      ])
-      .isNullable(true)
-      .registerPath("statecode");
+      ]);
+      isNullable(true);
+      registerPath("statecode");
+
+    return true;
   }
 }
 mixin(AttributeCalls!("StateCodeAttribute"));

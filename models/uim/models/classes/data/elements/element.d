@@ -23,7 +23,7 @@ class DElementData : DData {
   alias value = DData.value;
   void value(this O)(DElement newValue) {
     _value = newValue;
-    return cast(O)this; 
+     
   }
   DElement value() {
     return _value; 

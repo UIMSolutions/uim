@@ -24,11 +24,11 @@ class DAttribute : /* DEntity,  */IAttribute {
     foreach(df; dataFormats) if (df == dataFormatName) { return true; }
     return false;
   }
-  O addDataFormats(this O)(string[] newDataFormats) {
+  void addDataFormats(this O)(string[] newDataFormats) {
     foreach(df; newDataFormats) {
       if (!hasDataFormat(df)) _dataFormats ~= df;
     }
-    return cast(O)this;
+    
   }
 
   mixin(TProperty!("UUID", "id"));  
@@ -73,17 +73,17 @@ class DAttribute : /* DEntity,  */IAttribute {
 
   mixin(TProperty!("UUID", "attribute")); // Super attribute.
 
- /*  O attribute(this O)(UUID myId, size_t myMajor = 0, size_t myMinor = 0) { 
+ /*  void attribute(this O)(UUID myId, size_t myMajor = 0, size_t myMinor = 0) { 
     _attribute = Attribute.id(myId).versionMajor(myMajor).versionMinor(myMinor);
-    return cast(O)this; }
+     }
 
-  O attribute(this O)(string myName, size_t myMajor = 0, size_t myMinor = 0) { 
+  void attribute(this O)(string myName, size_t myMajor = 0, size_t myMinor = 0) { 
     _attribute = Attribute.name(myName).versionMajor(myMajor).versionMinor(myMinor);
-    return cast(O)this; }
+     }
 
-  O attribute(this O)(DAttribute myAttclass) { 
+  void attribute(this O)(DAttribute myAttclass) { 
     _attribute = myAttclass;     
-    return cast(O)this; } */
+     } */
 
   version(test_uim_models) { unittest {    /// TODO
     }

@@ -15,7 +15,7 @@ class DTimeData : DData {
   alias value = DData.value;
   void value(this O)(TimeOfDay newValue) {
     this.set(newValue);
-    return cast(O)this; 
+     
   }
   TimeOfDay value() {
     return _value; 

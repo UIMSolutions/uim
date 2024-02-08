@@ -15,7 +15,7 @@ class DSystimeData : DData {
   alias value = DData.value;
   void value(this O)(SysTime newValue) {
     this.set(newValue);
-    return cast(O)this; 
+     
   }
   SysTime value() {
     return _value; 

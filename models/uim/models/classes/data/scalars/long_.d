@@ -15,7 +15,7 @@ class DLongData : DData {
   alias value = DData.value;
   void value(this O)(long newValue) {
     this.set(newValue);
-    return cast(O)this; 
+     
   }
   long value() {
     return _value; 
@@ -111,9 +111,9 @@ class DLongData : DData {
     return _value; 
   }
 
-  O opCall(this O)(long newValue) { 
+  void opCall(this O)(long newValue) { 
     _value = newValue;
-    return cast(O)this; }
+     }
   version(test_uim_models) { unittest {    
       autvoid value = LongData;
       value(100);

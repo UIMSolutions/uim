@@ -167,15 +167,15 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
   }
 
   mixin(TProperty!("UUID", "id"));
-  O id(this O)(string newValue) {
+  void id(this O)(string newValue) {
     if (newValue.isUUID) this.id(UUID(newValue));
-    return cast(O)this;
+    
   }
 
   mixin(TProperty!("long", "etag"));
-  O etag(this O)(string newValue) { 
+  void etag(this O)(string newValue) { 
     this.etag(to!long(newValue)); 
-    return cast(O)this; }
+     }
 
   // mixin(TProperty!("DEntityCollection", "collection"));
   mixin(TProperty!("string", "siteName"));
@@ -185,7 +185,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
 /// Versioning
   
 
-  O createVersion(this O)(string display = "", string description = "") {
+  void createVersion(this O)(string display = "", string description = "") {
     this.hasVersions = true;
 
     UUID user;
@@ -211,7 +211,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
   }
 
 /*
-  O attribute(this O)(string name, string type) {
+  void attribute(this O)(string name, string type) {
     if (type.strip.indexOf("{") == 0) {
       Json json = parseJsonString(type);
       this.attribute(name, json);
@@ -229,9 +229,9 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
         default:
           _attributes[name] = OOPStringAttribute; break;  
       }}
-    return cast(O)this;
+    
   }
-  O attribute(this O)(string name, Json json) {
+  void attribute(this O)(string name, Json json) {
     switch(json["datatype"].get!string.toLower) {
         case "bool": _attributes[name] = OOPAttributeBool.config(json); break;
         case "long": _attributes[name] = OOPLongAttribute.config(json); break;
@@ -244,14 +244,14 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       default:
         _attributes[name] = OOPStringAttribute.config(json); break;  
     }
-    return cast(O)this;
+    
   }
-  O attribute(this O)(string name, DOOPAttribute newAttribute) {
+  void attribute(this O)(string name, DOOPAttribute newAttribute) {
     _attributes[name] = newAttribute;  
-    return cast(O)this; }
+     }
   // Every entity has a unique id as a primary key
   mixin(TProperty!("UUID", "id"));
-  O id(this O)(string anUuid) { this.id(UUID(anUuid)); return cast(O)this; }
+  void id(this O)(string anUuid) { this.id(UUID(anUuid));  }
   version(test_uim_models) {
     unittest {
       auto id1 = randomUUID;
@@ -261,13 +261,13 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     }
   } */
 
-  /* O opDispatch(string name, this O)(string aValue){
+  /* void opDispatch(string name, this O)(string aValue){
     if (auto myValue = this.values[name]) {
       myValue.value(aValue);
     }
     else { writeln("Unknown value in "~this.className); }
 
-    return cast(O)this;
+    
   } */
 
 /*   string opDispatch(string name)(){
@@ -288,27 +288,27 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     }
     else { writeln("Unknown value in "~this.className); }
   }
-/*   O addAttributes(this O)(DAttribute[] newAttributes) {
+/*   void addAttributes(this O)(DAttribute[] newAttributes) {
     newAttributes.each!(newAttribute => addAttribute(newAttribute));
-    return cast(O)this;
+    
   }
-  O addAttributes(this O)(DAttribute[string] newAttributes) {
+  void addAttributes(this O)(DAttribute[string] newAttributes) {
     newAttributes.byKey.each!(key => this.values[key] = newAttributes[key].createValue);
-    return cast(O)this;
+    
   }
-  O addAttributes(this O)(DData[string] newValues) {
+  void addAttributes(this O)(DData[string] newValues) {
     this.values.add(newValues);
-    return cast(O)this;
+    
   }
 
-  O addAttribute(this O)(DAttribute newAttribute) {
+  void addAttribute(this O)(DAttribute newAttribute) {
     if (newAttribute) { this.values[newAttribute.name] = newAttribute.createValue; }
-    return cast(O)this;
+    
   }
 
-  O addAttribute(this O)(string key, DData aValue) {
+  void addAttribute(this O)(string key, DData aValue) {
     this.values[key] = aValue; 
-    return cast(O)this;
+    
   } */
   /// 
   unittest {
@@ -328,13 +328,13 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
 
   /// Date and time when the entity was created.
   mixin(TProperty!("long", "createdOn"));
-  O createdOn(this O)(SysTime aTime) {
+  void createdOn(this O)(SysTime aTime) {
     this.createdOn(toTimestamp(aTime));
-    return cast(O)this;
+    
   }
-  O createdOn(this O)(string aTime) {
+  void createdOn(this O)(string aTime) {
     this.createdOn(to!long(aTime));
-    return cast(O)this;
+    
   }
   version(test_uim_models) {
     unittest {
@@ -346,38 +346,38 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
 
   ///   createdBy	Unique identifier of the user who created the entity.	
   mixin(TProperty!("UUID", "createdBy"));
-  O createdBy(this O)(string anUuid) { 
+  void createdBy(this O)(string anUuid) { 
     if (anUuid.isUUID) this.createdBy(UUID(anUuid)); 
     else _createdBy = NULLUUID;
-    return cast(O)this; }
+     }
 
   ///	Date and time when the entity was modified.	
   mixin(TProperty!("long", "modifiedOn"));
-  O modifiedOn(this O)(SysTime aTime) {
+  void modifiedOn(this O)(SysTime aTime) {
     this.modifiedOn(toTimestamp(aTime));
-    return cast(O)this;
+    
   }
-  O modifiedOn(this O)(string aTime) {
+  void modifiedOn(this O)(string aTime) {
     this.modifiedOn(to!long(aTime));
-    return cast(O)this;
+    
   }
 
   ///	Unique identifier of the user who modified the entity.
   mixin(TProperty!("UUID", "modifiedBy"));
-  O modifiedBy(this O)(string anUuid) { 
+  void modifiedBy(this O)(string anUuid) { 
     if (anUuid.isUUID) this.modifiedBy(UUID(anUuid)); 
     else _modifiedBy = NULLUUID;
-    return cast(O)this; }
+     }
 
   /// Date and time when the entity was created.
   mixin(TProperty!("long", "lastAccessedOn"));
-  O lastAccessedOn(this O)(SysTime aTime) {
+  void lastAccessedOn(this O)(SysTime aTime) {
     this.lastAccessedOn(toTimestamp(aTime));
-    return cast(O)this;
+    
   }
-  O lastAccessedOn(this O)(string aTime) {
+  void lastAccessedOn(this O)(string aTime) {
     this.lastAccessedOn(to!long(aTime));
-    return cast(O)this;
+    
   }
   version(test_uim_models) {
     unittest {
@@ -389,63 +389,63 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
 
   ///   lastAccessBy	Unique identifier of the user who accessed the entity.	
   mixin(TProperty!("UUID", "lastAccessBy"));
-  O lastAccessBy(this O)(string anUuid) { 
+  void lastAccessBy(this O)(string anUuid) { 
     if (anUuid.isUUID) this.lastAccessBy(UUID(anUuid)); 
     else _lastAccessBy = NULLUUID;
-    return cast(O)this; }
+     }
 
   ///	Entity has only one version. Version handling starts with EntityVersion	
   mixin(TProperty!("bool", "hasVersions"));
-  O hasVersions(this O)(string newValue) {
+  void hasVersions(this O)(string newValue) {
     this.hasVersions(newValue == "true");
-    return cast(O)this;
+    
   }
   ///	entity has only one language. Language handling starts with EntityLanguage	
   mixin(TProperty!("bool", "hasLanguages"));
-  O hasLanguages(this O)(string newValue) {
+  void hasLanguages(this O)(string newValue) {
     this.hasLanguages(newValue == "true");
-    return cast(O)this; }
+     }
 
   ///	Date and time when the entity is locked.	
   mixin(TProperty!("bool", "isLocked"));
-  O isLocked(this O)(string newValue) {
+  void isLocked(this O)(string newValue) {
     this.isLocked(newValue == "true");
-    return cast(O)this; }
+     }
   ///	Date and time when the entity was locked.	
   mixin(TProperty!("long", "lockedOn"));
-  O lockedOn(this O)(SysTime aTime) {
+  void lockedOn(this O)(SysTime aTime) {
     this.lockedOn(toTimestamp(aTime));
-    return cast(O)this; }
-  O lockedOn(this O)(string aTime) {
+     }
+  void lockedOn(this O)(string aTime) {
     this.lockedOn(to!long(aTime));
-    return cast(O)this; }
+     }
 
   ///	Unique identifier of the user who modified the entity.
   mixin(TProperty!("UUID", "lockedBy"));
-  O lockedBy(this O)(string anUuid) { 
+  void lockedBy(this O)(string anUuid) { 
     this.lockedBy(UUID(anUuid)); 
-    return cast(O)this; }
+     }
 
   ///	Date and time when the entity is deleted.	
   mixin(TProperty!("bool", "isDeleted"));
-  O isDeleted(this O)(string newValue) {
+  void isDeleted(this O)(string newValue) {
     this.isDeleted(newValue == "true");
-    return cast(O)this; }
+     }
   
   ///	Date and time when the entity was locked.	
   mixin(TProperty!("long", "deletedOn"));
-  O deletedOn(this O)(SysTime aTime) {
+  void deletedOn(this O)(SysTime aTime) {
     this.deletedOn(toTimestamp(aTime));
-    return cast(O)this; }
-  O deletedOn(this O)(string aTime) {
+     }
+  void deletedOn(this O)(string aTime) {
     this.deletedOn(to!long(aTime));
-    return cast(O)this; }
+     }
 
   ///	Unique identifier of the user who deleted the entity.
   mixin(TProperty!("UUID", "deletedBy"));
-  O deletedBy(this O)(string anUuid) { 
+  void deletedBy(this O)(string anUuid) { 
     this.deletedBy(UUID(anUuid)); 
-    return cast(O)this; }
+     }
  
   override STRINGAA selector(STRINGAA parameters) {
     STRINGAA results;

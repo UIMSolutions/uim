@@ -15,10 +15,10 @@ class DTimestampAttribute : DLongAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .dataFormats(["timestamp"])
-      .name("timestamp")
-      .registerPath("timestamp");
+    
+      dataFormats(["timestamp"]);
+      name("timestamp");
+      registerPath("timestamp");
 
     return true;
   }

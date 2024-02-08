@@ -52,7 +52,7 @@ class DData : IData {
     return false;
   }
 
-  O isNull(this O)(bool newNull) {
+  void isNull(this O)(bool newNull) {
     if (isNullable)
       _isNull = newNull;
     return cast(O) this;
@@ -169,17 +169,17 @@ class DData : IData {
     return Json(null);
   }
 
-  O opCall(this O)(DAttribute newAttribute) {
+  void opCall(this O)(DAttribute newAttribute) {
     this.attribute(newAttribute);
     return cast(O) this;
   }
 
-  O opCall(this O)(Json newData) {
+  void opCall(this O)(Json newData) {
     this.fromJson(newData);
     return cast(O) this;
   }
 
-  O opCall(this O)(DAttribute newAttribute, Json newData) {
+  void opCall(this O)(DAttribute newAttribute, Json newData) {
     this.attribute(newAttribute).fromJson(newData);
     return cast(O) this;
   }

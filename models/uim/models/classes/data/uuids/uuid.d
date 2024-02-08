@@ -26,7 +26,7 @@ class DUUIDData : DData {
   }
   void value(this O)(UUID newValue) {
     this.set(newValue);
-    return cast(O)this; 
+     
   }
 
   override void set(Json newValue) {
@@ -89,7 +89,7 @@ class DUUIDData : DData {
   override IData clone() {
     return UUIDData(value);
   }
-  
+
   override Json toJson() { 
     if (isNull) return Json(null); 
     return Json(this.value.toString); 

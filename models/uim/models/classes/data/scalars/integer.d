@@ -80,7 +80,7 @@ class DIntegerData : DData {
     return _value;
   }
 
-  O opCall(this O)(int newValue) {
+  void opCall(this O)(int newValue) {
     _value = newValue;
     return cast(O) this;
   }
@@ -108,7 +108,7 @@ class DIntegerData : DData {
     return IntegerData(attribute, toJson);
   }
 
-O sub(this O)(int opValue) {
+void sub(this O)(int opValue) {
     _value -= opValue;
     return cast(O) this;
   }
@@ -118,7 +118,7 @@ O sub(this O)(int opValue) {
     assert(IntegerData(2).sub(2).sub(2) == -2);
   }
 
-  O sub(this O)(DIntegerData opValue) {
+  void sub(this O)(DIntegerData opValue) {
     _value -= opValue.value;
     return cast(O) this;
   }
@@ -127,7 +127,7 @@ O sub(this O)(int opValue) {
     assert(IntegerData(2).sub(IntegerData(2)) == 0);
   }
 
-  O mul(this O)(int opValue) {
+  void mul(this O)(int opValue) {
     _value *= opValue;
     return cast(O) this;
   }
@@ -136,7 +136,7 @@ O sub(this O)(int opValue) {
     assert(IntegerData(2).mul(2) == 4);
   }
 
-  O mul(this O)(DIntegerData opValue) {
+  void mul(this O)(DIntegerData opValue) {
     _value *= opValue.value;
     return cast(O) this;
   }
@@ -145,7 +145,7 @@ O sub(this O)(int opValue) {
     assert(IntegerData(2).mul(IntegerData(2)) == 4);
   }
 
-  O div(this O)(int opValue) {
+  void div(this O)(int opValue) {
     _value /= opValue;
     return cast(O) this;
   }
@@ -154,7 +154,7 @@ O sub(this O)(int opValue) {
     assert(IntegerData(2).div(2) == 1);
   }
 
-  O div(this O)(DIntegerData opValue) {
+  void div(this O)(DIntegerData opValue) {
     _value /= opValue.value;
     return cast(O) this;
   }

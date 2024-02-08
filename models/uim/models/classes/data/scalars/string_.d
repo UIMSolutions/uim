@@ -31,7 +31,7 @@ class DStringData : DData {
   /// Set with string value
   void value(this O)(string newValue) {
     set(newValue);
-    return cast(O)this;
+    
   }
   ///
   unittest {    
@@ -42,7 +42,7 @@ class DStringData : DData {
   // Set with Json value
   void value(this O)(Json newValue) {
     set(newValue);
-    return cast(O)this;
+    
   }
 
   // Hooks for setting 
@@ -72,7 +72,7 @@ class DStringData : DData {
         .isNull(newValue.isNull)
         .value(newValue.value);
     }
-    return cast(O)this;
+    
   }
 
   override IData clone() {
@@ -92,15 +92,15 @@ class DStringData : DData {
   }}
 
   string opCall() { return _value; } 
-  O opCall(this O)(string newValue) { 
+  void opCall(this O)(string newValue) { 
     _value = newValue;
-    return cast(O)this; }
-  O opCall(this O)(Json newValue) { 
+     }
+  void opCall(this O)(Json newValue) { 
     if (newValue.type = Json.Type.string) _value = newValue.get!string;
-    return cast(O)this; }
-  O opCall(this O)(DStringData newValue) {
+     }
+  void opCall(this O)(DStringData newValue) {
     this.value(newValue);
-    return cast(O)this; }
+     }
 
   ///
   unittest { 

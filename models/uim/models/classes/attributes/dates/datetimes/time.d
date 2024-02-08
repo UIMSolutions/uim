@@ -15,12 +15,14 @@ class DTimeAttribute : DAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .dataFormats(["time"])
-      .name("time")
-      .registerPath("time");
+    
+      dataFormats(["time"]);
+      name("time");
+      registerPath("time");
       // means.measurement.date
       // means.measurement.time
+
+    return true;
   }
   
   /* override IData createData() {

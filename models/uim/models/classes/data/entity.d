@@ -24,7 +24,7 @@ class DEntityData : DData {
   alias value = DData.value;
   void value(this O)(DEntity newValue) {
     _value = newValue;
-    return cast(O)this; 
+     
   }
   DEntity value() {
     return _value; 
@@ -67,7 +67,7 @@ class DEntityData : DData {
   override IData clone() {
     return EntityValue(attribute, toJson);
   }
-  
+
   override Json toJson() { 
     if (isNull) return Json(null); 
     return this.value.toJson; 

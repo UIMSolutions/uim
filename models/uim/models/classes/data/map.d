@@ -48,19 +48,19 @@ import uim.models;
     _items[key] = UUIDData(newValue);
   }
 
-  O addValues(this O)(DData[string] newValues) {
+  void addValues(this O)(DData[string] newValues) {
     newValues.byKey.each!(key => adDData(key, newValues[key]));
-    return cast(O)this;
+    
   }
 
-  O addValues(this O)(DAttribute[string] attributes) {
+  void addValues(this O)(DAttribute[string] attributes) {
     attributes.byKey.each!(key => adDData(key, attributes[key].createValue));
-    return cast(O)this;
+    
   }
 
-  O adDData(this O)(string fieldName, DData newValue) {
+  void adDData(this O)(string fieldName, DData newValue) {
     _items[fieldName] = newValue;
-    return cast(O)this;
+    
   }
 
   Json toJson() {

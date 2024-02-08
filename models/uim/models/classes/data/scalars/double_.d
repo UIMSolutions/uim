@@ -74,9 +74,9 @@ class DDoubleData : DData {
     return _value; 
   }
 
-  O opCall(this O)(double newValue) { 
+  void opCall(this O)(double newValue) { 
     _value = newValue;
-    return cast(O)this; }
+     }
   version(test_uim_models) { unittest {    
       autvoid value = DoubleValue;
       value(100);

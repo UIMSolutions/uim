@@ -15,7 +15,7 @@ class DJsonData : DData {
 
   void value(this O)(string newValue) {
     this.value(parseJsonString(newValue));
-    return cast(O)this;
+    
   }
 
   // Initialization hook method.

@@ -15,7 +15,7 @@ class DDatetimeData : DData {
   alias value = DData.value;
   void value(this O)(DateTime newValue) {
     this.set(newValue);
-    return cast(O)this; 
+     
   }
   DateTime value() {
     return _value; 
@@ -57,7 +57,7 @@ class DDatetimeData : DData {
   override IData clone() {
     return DateTimeData(attribute, toJson);
   }
-  
+
   override Json toJson() { 
     if (isNull) return Json(null); 
     return Json(this.value.toISOExtString); }

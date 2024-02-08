@@ -33,7 +33,7 @@ class DStringArrayData : DArrayData {
   }
   void value(this O)(string[] newValue) {
     this.set(newValue);
-    return cast(O)this; 
+     
   }
   string[] value() {
     return _values; 

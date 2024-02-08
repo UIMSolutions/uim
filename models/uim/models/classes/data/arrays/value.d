@@ -26,7 +26,7 @@ class DDataArrayData : DArrayData {
   }
   void value(this O)(DData[] newValue) {
     this.set(newValue);
-    return cast(O)this; 
+     
   }
   DData[] value() {
     return _value; 

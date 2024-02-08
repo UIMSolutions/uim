@@ -13,12 +13,14 @@ class DTagsAttribute : DStringArrayAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false: }
+    if (!super.initialize(configData)) { return false; }
 
     this
       .name("TagsAttribute")
       .dataFormats(["string", "array"])
       .registerPath("TagsAttribute");
+
+    return true;
   }
 
   override IData createValue() {

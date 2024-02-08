@@ -13,7 +13,7 @@ class DBinaryAttribute : DAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false: }
+    if (!super.initialize(configData)) { return false; }
 
 
     /* Inheritance
@@ -25,6 +25,8 @@ class DBinaryAttribute : DAttribute {
       .addDataFormats(["array"])
       .name("binary")
       .registerPath("binary");
+
+    return true;
   }
 }
 mixin(AttributeCalls!("BinaryAttribute"));

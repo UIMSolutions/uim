@@ -30,6 +30,7 @@ means.measurement.currency
     this
       .name("baseCurrency")
       .registerPath("baseCurrency");
+      
     return true;
   }
 

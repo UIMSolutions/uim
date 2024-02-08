@@ -27,7 +27,7 @@ class DHertzAttribute : DDoubleAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false: }
+    if (!super.initialize(configData)) { return false; }
 
 /* is.dataFormat.floatingPoint
 is.dataFormat.big

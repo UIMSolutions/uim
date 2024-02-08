@@ -15,7 +15,7 @@ class DIntegerArrayData : DArrayData {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    nameisInteger(true);
+    isInteger(true);
   }
 
   protected int[] _value;

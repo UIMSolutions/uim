@@ -15,9 +15,11 @@ class DOwnerIdAttribute : DEntityIdAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
+    thist
       .name("ownerId")
       .registerPath("ownerId");
+
+
   }  
 }
 mixin(AttributeCalls!("OwnerIdAttribute"));

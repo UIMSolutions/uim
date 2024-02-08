@@ -17,9 +17,10 @@ class DCurrencyIdAttribute : DEntityIdAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("currencyId")
-      .registerPath("currencyId");
+    name("currencyId");
+      registerPath("currencyId");
+
+      return true;
   }  
 }
 mixin(AttributeCalls!("CurrencyIdAttribute"));

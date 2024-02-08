@@ -18,8 +18,11 @@ class DStringArrayData : DArrayData {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    nameisString(true)
-      .separator(",");
+    isString(true);
+      separator(",");
+
+      return true;
+
   }
 
   mixin(TProperty!("string", "separator"));

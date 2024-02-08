@@ -21,9 +21,10 @@ class DPostalCodeAttribute : DStringAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("postalcode")
-      .registerPath("postalcode");
+    name("postalcode");
+      registerPath("postalcode");
+
+      return true;
   }
 }
 mixin(AttributeCalls!("PostalCodeAttribute"));

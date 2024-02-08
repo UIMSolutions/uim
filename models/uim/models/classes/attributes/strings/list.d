@@ -6,6 +6,7 @@
 module uim.models.classes.attributes.strings.list;
 
 import uim.models;
+
 @safe:
 
 // A CSV contained within one string value
@@ -15,13 +16,17 @@ class DListAttribute : DStringAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("list")
-      .registerPath("list");
+    name("list");
+    registerPath("list");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("ListAttribute"));
 
 ///
@@ -31,9 +36,9 @@ unittest {
   assert(attribute.registerPath == "list");
 
   DAttribute generalAttribute = attribute;
-  assert(cast(DStringAttribute)generalAttribute);
-  assert(!cast(DIntegerAttribute)generalAttribute);
+  assert(cast(DStringAttribute) generalAttribute);
+  assert(!cast(DIntegerAttribute) generalAttribute);
 
   DData value = attribute.createValue();
-  assert(cast(DStringData)value);
+  assert(cast(DStringData) value);
 }

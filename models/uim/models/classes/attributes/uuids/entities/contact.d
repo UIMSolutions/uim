@@ -13,13 +13,18 @@ class DContactIdAttribute : DEntityIdAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("contactId")
-      .registerPath("contactId");
-  }  
+    name("contactId");
+    registerPath("contactId");
+
+    return true;
+
+  }
 }
+
 mixin(AttributeCalls!("ContactIdAttribute"));
 
 ///
@@ -29,10 +34,10 @@ unittest {
   assert(attribute.registerPath == "contactId");
 
   DAttribute generalAttribute = attribute;
-  assert(cast(DEntityIdAttribute)generalAttribute);
-  assert(cast(DUUIDAttribute)generalAttribute);
-  assert(!cast(DIntegerAttribute)generalAttribute);
+  assert(cast(DEntityIdAttribute) generalAttribute);
+  assert(cast(DUUIDAttribute) generalAttribute);
+  assert(!cast(DIntegerAttribute) generalAttribute);
 
   DData value = attribute.createValue();
-  assert(cast(DUUIDData)value);
+  assert(cast(DUUIDData) value);
 }

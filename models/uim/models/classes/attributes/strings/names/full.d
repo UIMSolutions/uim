@@ -18,16 +18,21 @@ class DFullNameAttribute : DStringAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("fullName")
-      .registerPath("fullName");
+    name("fullName");
+    registerPath("fullName");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("FullNameAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     // TODO
   }
 }

@@ -23,7 +23,6 @@ class DLanguageTagAttribute : DStringAttribute {
     registerPath("languagetag");
 
     return true;
-
   }
 }
 

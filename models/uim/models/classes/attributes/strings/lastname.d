@@ -6,6 +6,7 @@
 module uim.models.classes.attributes.strings.lastname;
 
 import uim.models;
+
 @safe:
 
 // means.identity.person.lastName
@@ -14,13 +15,17 @@ class DLastNameAttribute : DStringAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("lastname")
-      .registerPath("lastname");
+    name("lastname");
+    registerPath("lastname");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("LastNameAttribute"));
 
 ///
@@ -30,9 +35,9 @@ unittest {
   assert(attribute.registerPath == "lastname");
 
   DAttribute generalAttribute = attribute;
-  assert(cast(DStringAttribute)generalAttribute);
-  assert(!cast(DIntegerAttribute)generalAttribute);
+  assert(cast(DStringAttribute) generalAttribute);
+  assert(!cast(DIntegerAttribute) generalAttribute);
 
   DData value = attribute.createValue();
-  assert(cast(DStringData)value);
+  assert(cast(DStringData) value);
 }

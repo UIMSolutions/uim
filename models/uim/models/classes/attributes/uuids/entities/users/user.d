@@ -27,9 +27,10 @@ class DUserIdAttribute : DEntityIdAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("userId")
-      .registerPath("userId");
+    name("userId");
+     registerPath("userId");
+
+      return true;
   }  
 }
 mixin(AttributeCalls!("UserIdAttribute"));

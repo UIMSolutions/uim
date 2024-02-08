@@ -13,13 +13,17 @@ class DSLAInvokedIdAttribute : DEntityIdAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("slainvokedid")
-      .registerPath("slaInvokedId");
-  }  
+    name("slainvokedid");
+    registerPath("slaInvokedId");
+
+    return true;
+  }
 }
+
 mixin(AttributeCalls!("SLAInvokedIdAttribute"));
 
 ///
@@ -29,11 +33,11 @@ unittest {
   assert(attribute.registerPath == "slaInvokedId");
 
   DAttribute generalAttribute = attribute;
-  assert(cast(DSLAInvokedIdAttribute)generalAttribute);
-  assert(cast(DEntityIdAttribute)generalAttribute);
-  assert(cast(DUUIDAttribute)generalAttribute);
-  assert(!cast(DIntegerAttribute)generalAttribute);
+  assert(cast(DSLAInvokedIdAttribute) generalAttribute);
+  assert(cast(DEntityIdAttribute) generalAttribute);
+  assert(cast(DUUIDAttribute) generalAttribute);
+  assert(!cast(DIntegerAttribute) generalAttribute);
 
   DData value = attribute.createValue();
-  assert(cast(DUUIDData)value);
+  assert(cast(DUUIDData) value);
 }

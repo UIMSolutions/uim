@@ -19,10 +19,9 @@ class DStringAttribute : DCharAttribute {
       return false;
     }
 
-    this
-      .name("string")
-      .isString(true)
-      .registerPath("string");
+    name("string");
+    isString(true);
+    registerPath("string");
 
     return true;
   }

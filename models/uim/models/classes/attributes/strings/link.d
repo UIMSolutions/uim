@@ -13,13 +13,17 @@ class DLinkAttribute : DStringAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("link")
-      .registerPath("link");
+    name("link");
+    registerPath("link");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("LinkAttribute"));
 
 ///
@@ -29,9 +33,9 @@ unittest {
   assert(attribute.registerPath == "link");
 
   DAttribute generalAttribute = attribute;
-  assert(cast(DStringAttribute)generalAttribute);
-  assert(!cast(DIntegerAttribute)generalAttribute);
+  assert(cast(DStringAttribute) generalAttribute);
+  assert(!cast(DIntegerAttribute) generalAttribute);
 
   DData value = attribute.createValue();
-  assert(cast(DStringData)value);
+  assert(cast(DStringData) value);
 }

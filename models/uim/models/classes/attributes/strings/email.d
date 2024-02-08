@@ -6,6 +6,7 @@
 module uim.models.classes.attributes.strings.email;
 
 import uim.models;
+
 @safe:
 
 // means.identity.person.email
@@ -14,13 +15,17 @@ class DEmailAttribute : DStringAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("email")
-      .registerPath("email");
+    name("email");
+    registerPath("email");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("EmailAttribute"));
 
 ///
@@ -30,9 +35,9 @@ unittest {
   assert(attribute.registerPath == "email");
 
   DAttribute generalAttribute = attribute;
-  assert(cast(DStringAttribute)generalAttribute);
-  assert(!cast(DIntegerAttribute)generalAttribute);
+  assert(cast(DStringAttribute) generalAttribute);
+  assert(!cast(DIntegerAttribute) generalAttribute);
 
   DData value = attribute.createValue();
-  assert(cast(DStringData)value);
+  assert(cast(DStringData) value);
 }

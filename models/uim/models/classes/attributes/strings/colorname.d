@@ -6,6 +6,7 @@
 module uim.models.classes.attributes.strings.colorname;
 
 import uim.models;
+
 @safe:
 
 // means.measurement.color
@@ -14,13 +15,17 @@ class DColorNameAttribute : DStringAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("colorName")
-      .registerPath("colorName");
+    name("colorName");
+    registerPath("colorName");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("ColorNameAttribute"));
 
 ///
@@ -30,9 +35,9 @@ unittest {
   assert(attribute.registerPath == "colorName");
 
   DAttribute generalAttribute = attribute;
-  assert(cast(DStringAttribute)generalAttribute);
-  assert(!cast(DIntegerAttribute)generalAttribute);
+  assert(cast(DStringAttribute) generalAttribute);
+  assert(!cast(DIntegerAttribute) generalAttribute);
 
   DData value = attribute.createValue();
-  assert(cast(DStringData)value);
+  assert(cast(DStringData) value);
 }

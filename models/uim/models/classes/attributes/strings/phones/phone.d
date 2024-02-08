@@ -22,9 +22,10 @@ class DPhoneAttribute : DStringAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("phone")
-      .registerPath("phone");
+      name("phone");
+      registerPath("phone");
+
+      return true;
   }
 }
 mixin(AttributeCalls!("PhoneAttribute"));

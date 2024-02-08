@@ -20,16 +20,22 @@ class DFaxAttribute : DStringAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("fax")
-      .registerPath("fax");
+    name("fax");
+    registerPath("fax");
+
+    return true;
+
   }
 }
+
 mixin(AttributeCalls!("FaxAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     // TODO
   }
 }

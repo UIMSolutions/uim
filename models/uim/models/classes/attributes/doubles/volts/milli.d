@@ -26,16 +26,21 @@ class DMilliVoltAttribute : DVoltAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("millivolt")
-      .registerPath("millivolt");
+    name("millivolt");
+    registerPath("millivolt");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("MilliVoltAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     // TODO
   }
 }

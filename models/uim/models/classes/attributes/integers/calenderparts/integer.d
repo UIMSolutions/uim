@@ -11,20 +11,25 @@ import uim.models;
 class DIntegerCalendarPart : DIntegerAttribute {
   mixin(AttributeThis!"IntegerCalendarPart");
 
-/* means.calendar
+  /* means.calendar
 means.calendar.day
- */  // Initialization hook method.
+ */ // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("integerCalendarPart")
-      .registerPath("integerCalendarPart");
-  }    
+    name("integerCalendarPart");
+    registerPath("integerCalendarPart");
+
+    return true;
+  }
 }
+
 mixin(AttributeCalls!"IntegerCalendarPart");
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DIntegerCalendarPart);
     testAttribute(IntegerCalendarPart);
   }

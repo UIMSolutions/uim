@@ -11,7 +11,6 @@ is.dataFormat.integer
 means.calendar
 means.calendar.quarter */
 
-
 import uim.models;
 
 @safe:
@@ -21,16 +20,21 @@ class DQuarterAttribute : DIntegerCalendarPart {
   // Initialization hook method.
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("quarter")
-      .registerPath("quarter");
+    name("quarter");
+    registerPath("quarter");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("QuarterAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DQuarterAttribute);
     testAttribute(QuarterAttribute);
   }

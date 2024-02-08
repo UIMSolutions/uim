@@ -17,9 +17,10 @@ class DAgeAttribute : DIntegerAttribute {
 
     //means.demographic.age
     //means.measurement.age
-    this
-      .name("age")
-      .registerPath("age");    
+      name("age");
+      registerPath("age");    
+
+    return true;
   }
 }
 mixin(AttributeCalls!"AgeAttribute");

@@ -21,9 +21,11 @@ class DTendayAttribute : DIntegerCalendarPart {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("tenday")
-      .registerPath("tenday");
+    name("tenday");
+    registerPath("tenday");
+
+    return true;
+
   }
 }
 mixin(AttributeCalls!("TendayAttribute"));

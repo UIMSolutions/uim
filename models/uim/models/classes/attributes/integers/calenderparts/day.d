@@ -6,6 +6,7 @@
 module uim.models.classes.attributes.integers.calenderparts.day;
 
 import uim.models;
+
 @safe:
 
 /* means.calendar
@@ -13,17 +14,22 @@ means.calendar.day */
 class DDayPartAttribute : DIntegerCalendarPart {
   mixin(AttributeThis!("DayPartAttribute"));
 
-override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+  override bool initialize(IData[string] configData = null) {
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("daypart")
-      .registerPath("daypart");
-  }   
+    name("daypart");
+    registerPath("daypart");
+
+    return true;
+  }
 }
+
 mixin(AttributeCalls!("DayPartAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DDayPartAttribute);
     testAttribute(DayPartAttribute);
   }

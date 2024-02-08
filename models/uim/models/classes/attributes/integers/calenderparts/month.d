@@ -12,6 +12,7 @@ means.calendar
 means.calendar.month */
 
 import uim.models;
+
 @safe:
 
 /* means.calendar
@@ -21,16 +22,22 @@ class DMonthpartAttribute : DIntegerCalendarPart {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("monthpart")
-      .registerPath("monthpart");
+    name("monthpart");
+    registerPath("monthpart");
+
+    return true;
+
   }
 }
+
 mixin(AttributeCalls!("MonthpartAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DMonthpartAttribute);
     testAttribute(MonthpartAttribute);
   }

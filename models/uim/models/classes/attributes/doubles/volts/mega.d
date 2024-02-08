@@ -23,16 +23,21 @@ class DMegaVoltAttribute : DVoltAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("megavolt")
-      .registerPath("megavolt");
+    name("megavolt");
+    registerPath("megavolt");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("MegaVoltAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     // TODO
   }
 }

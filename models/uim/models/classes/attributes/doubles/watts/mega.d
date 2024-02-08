@@ -32,9 +32,10 @@ class DMegaWattAttribute : DWattAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("megawatt")
-      .registerPath("megawatt");
+    name("megawatt");
+    registerPath("megawatt");
+
+    return true;
   }
 }
 mixin(AttributeCalls!("MegaWattAttribute"));

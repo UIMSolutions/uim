@@ -27,16 +27,21 @@ class DVoltAttribute : DDoubleAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("volt")
-      .registerPath("volt");
+    name("volt");
+    registerPath("volt");
+    
+    return true;
   }
 }
+
 mixin(AttributeCalls!("VoltAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     // TODO
   }
 }

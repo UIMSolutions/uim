@@ -50,6 +50,6 @@ unittest {
   assert(cast(DStringAttribute)generalAttribute);
   assert(!cast(DIntegerAttribute)generalAttribute);
 
-  DValue value = attribute.createValue();
+  DData value = attribute.createValue();
   assert(cast(DStringValue)value);
 }

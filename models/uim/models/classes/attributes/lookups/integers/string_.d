@@ -36,7 +36,7 @@ class DIntegerStringAttribute : DLookupAttribute {
     return false; 
   }  
 
-  override DValue createValue() {
+  override DData createValue() {
     return LookupValue!(int, string)(this).isNullable(isNullable); }  
 }
 mixin(AttributeCalls!("IntegerStringAttribute"));

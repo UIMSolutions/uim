@@ -36,7 +36,7 @@ class DIntegerBooleanAttribute : DLookupAttribute {
     return false; 
   }  
 
-  override DValue createValue() {
+  override DData createValue() {
     return LookupValue!(int, bool)(this).isNullable(isNullable); }  
 }
 mixin(AttributeCalls!("IntegerBooleanAttribute"));

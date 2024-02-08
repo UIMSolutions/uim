@@ -16,9 +16,9 @@ class DFixedDecimalAttribute : DDecimalAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("fixedDecimal")
-      .registerPath("fixedDecimal");
+    
+      name("fixedDecimal");
+      registerPath("fixedDecimal");
   }
 }
 mixin(AttributeCalls!"FixedDecimalAttribute");

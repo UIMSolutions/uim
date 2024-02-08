@@ -1,6 +1,7 @@
 module uim.models.classes.attributes.doubles.coulomb;
 
 import uim.models;
+
 @safe:
 
 // Unit of measure for electric charge or amount of electricity in coulombs
@@ -14,16 +15,21 @@ class DCoulombAttribute : DDoubleAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("coulomb")
-      .registerPath("coulomb");
+    name("coulomb");
+    registerPath("coulomb");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("CoulombAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     // TODO
   }
 }

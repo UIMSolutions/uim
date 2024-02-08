@@ -27,9 +27,9 @@ is.dataFormat.numeric.shaped
 means.measurement.currency
 means.measurement.currency
     */
-    this
-      .name("baseCurrency")
-      .registerPath("baseCurrency");
+    
+      name("baseCurrency");
+      registerPath("baseCurrency");
 
     return true;
   }

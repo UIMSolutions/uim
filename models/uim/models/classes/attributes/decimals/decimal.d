@@ -15,10 +15,10 @@ class DDecimalAttribute : DAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .dataFormats(["numeric.shaped"])
-      .name("decimal")
-      .registerPath("decimal");
+    
+      dataFormats(["numeric.shaped"]);
+      name("decimal");
+      registerPath("decimal");
   }
 }
 mixin(AttributeCalls!"DecimalAttribute");

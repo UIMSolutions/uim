@@ -13,17 +13,22 @@ class DCharAttribute : DAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .dataFormats(["character", "big"])
-      .name("char")
-      .registerPath("char");
+    dataFormats(["character", "big"]);
+    name("char");
+    registerPath("char");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!"CharAttribute");
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DCharAttribute);
     testAttribute(CharAttribute);
   }

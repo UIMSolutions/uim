@@ -13,23 +13,28 @@ class DCustomerSizeCodeAttribute : DIntegerStringAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("customerSizeCode")
-      .display("Customer Size")
-      .lookups([
-        0: "0-100 (small)",  
+    name("customerSizeCode");
+    display("Customer Size");
+    lookups([
+        0: "0-100 (small)",
         1: "100-1000 (middle)",
         2: "1000-10000 (large)"
-      ])
-      .isNullable(true)
-      .registerPath("customerSizeCode");
+      ]);
+    isNullable(true);
+    registerPath("customerSizeCode");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("CustomerSizeCodeAttribute"));
 
-version(test_uim_models) { unittest {  
+version (test_uim_models) {
+  unittest {
     // TODO tests
   }
 }

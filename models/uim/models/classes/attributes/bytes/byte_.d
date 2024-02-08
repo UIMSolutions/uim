@@ -13,17 +13,22 @@ class DByteAttribute : DAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .addDataFormats(["byte"])
-      .name("byte")
-      .registerPath("byte");
+    addDataFormats(["byte"]);
+    name("byte");
+    registerPath("byte");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("ByteAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DByteAttribute);
     testAttribute(ByteAttribute);
   }

@@ -13,7 +13,7 @@ class DTimeData : DData {
 
   protected TimeOfDay _value;  
   alias value = DData.value;
-  void value(this O)(TimeOfDay newValue) {
+  void value(TimeOfDay newValue) {
     this.set(newValue);
      
   }

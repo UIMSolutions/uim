@@ -23,7 +23,7 @@ class DIntegerArrayData : DArrayData {
   void set(int[] newValue) {
     _value = newValue;
   }
-  void value(this O)(int[] newValue) {
+  void value(int[] newValue) {
     this.set(newValue);
      
   }

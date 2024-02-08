@@ -165,13 +165,13 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
   }
 
   mixin(TProperty!("UUID", "id"));
-  void id(this O)(string newValue) {
+  void id(string newValue) {
     if (newValue.isUUID) this.id(UUID(newValue));
     
   }
 
   mixin(TProperty!("long", "etag"));
-  void etag(this O)(string newValue) { 
+  void etag(string newValue) { 
     this.etag(to!long(newValue)); 
      }
 
@@ -183,7 +183,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
 /// Versioning
   
 
-  void createVersion(this O)(string display = "", string description = "") {
+  void createVersion(string display = "", string description = "") {
     this.hasVersions = true;
 
     UUID user;
@@ -196,7 +196,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     return cast(O)result;
   }
 
-  O[] versions(this O)() {
+  O[] versions() {
     O[] results;
 
     if (model) {
@@ -209,7 +209,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
   }
 
 /*
-  void attribute(this O)(string name, string type) {
+  void attribute(string name, string type) {
     if (type.strip.indexOf("{") == 0) {
       Json json = parseJsonString(type);
       this.attribute(name, json);
@@ -229,7 +229,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       }}
     
   }
-  void attribute(this O)(string name, Json json) {
+  void attribute(string name, Json json) {
     switch(json["datatype"].get!string.toLower) {
         case "bool": _attributes[name] = OOPAttributeBool.config(json); break;
         case "long": _attributes[name] = OOPLongAttribute.config(json); break;
@@ -244,12 +244,12 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     }
     
   }
-  void attribute(this O)(string name, DOOPAttribute newAttribute) {
+  void attribute(string name, DOOPAttribute newAttribute) {
     _attributes[name] = newAttribute;  
      }
   // Every entity has a unique id as a primary key
   mixin(TProperty!("UUID", "id"));
-  void id(this O)(string anUuid) { this.id(UUID(anUuid));  }
+  void id(string anUuid) { this.id(UUID(anUuid));  }
   version(test_uim_models) {
     unittest {
       auto id1 = randomUUID;
@@ -286,25 +286,25 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     }
     else { writeln("Unknown value in "~this.className); }
   }
-/*   void addAttributes(this O)(DAttribute[] newAttributes) {
+/*   void addAttributes(DAttribute[] newAttributes) {
     newAttributes.each!(newAttribute => addAttribute(newAttribute));
     
   }
-  void addAttributes(this O)(DAttribute[string] newAttributes) {
+  void addAttributes(DAttribute[string] newAttributes) {
     newAttributes.byKey.each!(key => this.values[key] = newAttributes[key].createValue);
     
   }
-  void addAttributes(this O)(DData[string] newValues) {
+  void addAttributes(DData[string] newValues) {
     this.values.add(newValues);
     
   }
 
-  void addAttribute(this O)(DAttribute newAttribute) {
+  void addAttribute(DAttribute newAttribute) {
     if (newAttribute) { this.values[newAttribute.name] = newAttribute.createValue; }
     
   }
 
-  void addAttribute(this O)(string key, DData aValue) {
+  void addAttribute(string key, DData aValue) {
     this.values[key] = aValue; 
     
   } */
@@ -326,11 +326,11 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
 
   /// Date and time when the entity was created.
   mixin(TProperty!("long", "createdOn"));
-  void createdOn(this O)(SysTime aTime) {
+  void createdOn(SysTime aTime) {
     this.createdOn(toTimestamp(aTime));
     
   }
-  void createdOn(this O)(string aTime) {
+  void createdOn(string aTime) {
     this.createdOn(to!long(aTime));
     
   }
@@ -344,36 +344,36 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
 
   ///   createdBy	Unique identifier of the user who created the entity.	
   mixin(TProperty!("UUID", "createdBy"));
-  void createdBy(this O)(string anUuid) { 
+  void createdBy(string anUuid) { 
     if (anUuid.isUUID) this.createdBy(UUID(anUuid)); 
     else _createdBy = NULLUUID;
      }
 
   ///	Date and time when the entity was modified.	
   mixin(TProperty!("long", "modifiedOn"));
-  void modifiedOn(this O)(SysTime aTime) {
+  void modifiedOn(SysTime aTime) {
     this.modifiedOn(toTimestamp(aTime));
     
   }
-  void modifiedOn(this O)(string aTime) {
+  void modifiedOn(string aTime) {
     this.modifiedOn(to!long(aTime));
     
   }
 
   ///	Unique identifier of the user who modified the entity.
   mixin(TProperty!("UUID", "modifiedBy"));
-  void modifiedBy(this O)(string anUuid) { 
+  void modifiedBy(string anUuid) { 
     if (anUuid.isUUID) this.modifiedBy(UUID(anUuid)); 
     else _modifiedBy = NULLUUID;
      }
 
   /// Date and time when the entity was created.
   mixin(TProperty!("long", "lastAccessedOn"));
-  void lastAccessedOn(this O)(SysTime aTime) {
+  void lastAccessedOn(SysTime aTime) {
     this.lastAccessedOn(toTimestamp(aTime));
     
   }
-  void lastAccessedOn(this O)(string aTime) {
+  void lastAccessedOn(string aTime) {
     this.lastAccessedOn(to!long(aTime));
     
   }
@@ -387,61 +387,61 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
 
   ///   lastAccessBy	Unique identifier of the user who accessed the entity.	
   mixin(TProperty!("UUID", "lastAccessBy"));
-  void lastAccessBy(this O)(string anUuid) { 
+  void lastAccessBy(string anUuid) { 
     if (anUuid.isUUID) this.lastAccessBy(UUID(anUuid)); 
     else _lastAccessBy = NULLUUID;
      }
 
   ///	Entity has only one version. Version handling starts with EntityVersion	
   mixin(TProperty!("bool", "hasVersions"));
-  void hasVersions(this O)(string newValue) {
+  void hasVersions(string newValue) {
     this.hasVersions(newValue == "true");
     
   }
   ///	entity has only one language. Language handling starts with EntityLanguage	
   mixin(TProperty!("bool", "hasLanguages"));
-  void hasLanguages(this O)(string newValue) {
+  void hasLanguages(string newValue) {
     this.hasLanguages(newValue == "true");
      }
 
   ///	Date and time when the entity is locked.	
   mixin(TProperty!("bool", "isLocked"));
-  void isLocked(this O)(string newValue) {
+  void isLocked(string newValue) {
     this.isLocked(newValue == "true");
      }
   ///	Date and time when the entity was locked.	
   mixin(TProperty!("long", "lockedOn"));
-  void lockedOn(this O)(SysTime aTime) {
+  void lockedOn(SysTime aTime) {
     this.lockedOn(toTimestamp(aTime));
      }
-  void lockedOn(this O)(string aTime) {
+  void lockedOn(string aTime) {
     this.lockedOn(to!long(aTime));
      }
 
   ///	Unique identifier of the user who modified the entity.
   mixin(TProperty!("UUID", "lockedBy"));
-  void lockedBy(this O)(string anUuid) { 
+  void lockedBy(string anUuid) { 
     this.lockedBy(UUID(anUuid)); 
      }
 
   ///	Date and time when the entity is deleted.	
   mixin(TProperty!("bool", "isDeleted"));
-  void isDeleted(this O)(string newValue) {
+  void isDeleted(string newValue) {
     this.isDeleted(newValue == "true");
      }
   
   ///	Date and time when the entity was locked.	
   mixin(TProperty!("long", "deletedOn"));
-  void deletedOn(this O)(SysTime aTime) {
+  void deletedOn(SysTime aTime) {
     this.deletedOn(toTimestamp(aTime));
      }
-  void deletedOn(this O)(string aTime) {
+  void deletedOn(string aTime) {
     this.deletedOn(to!long(aTime));
      }
 
   ///	Unique identifier of the user who deleted the entity.
   mixin(TProperty!("UUID", "deletedBy"));
-  void deletedBy(this O)(string anUuid) { 
+  void deletedBy(string anUuid) { 
     this.deletedBy(UUID(anUuid)); 
      }
  

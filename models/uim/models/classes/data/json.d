@@ -13,7 +13,7 @@ class DJsonData : DData {
 
   mixin(TProperty!("Json", "value"));
 
-  void value(this O)(string newValue) {
+  void value(string newValue) {
     this.value(parseJsonString(newValue));
     
   }

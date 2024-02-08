@@ -21,7 +21,7 @@ class DEntityData : DData {
 
   protected DEntity _value;
   alias value = DData.value;
-  void value(this O)(DEntity newValue) {
+  void value(DEntity newValue) {
     _value = newValue;
      
   }

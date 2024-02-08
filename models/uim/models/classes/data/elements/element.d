@@ -20,7 +20,7 @@ class DElementData : DData {
 
   protected DElement _value;
   alias value = DData.value;
-  void value(this O)(DElement newValue) {
+  void value(DElement newValue) {
     _value = newValue;
      
   }

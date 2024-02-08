@@ -28,7 +28,7 @@ class DStringData : DData {
     }
   }
   /// Set with string value
-  void value(this O)(string newValue) {
+  void value(string newValue) {
     set(newValue);
     
   }
@@ -39,7 +39,7 @@ class DStringData : DData {
   } 
 
   // Set with Json value
-  void value(this O)(Json newValue) {
+  void value(Json newValue) {
     set(newValue);
     
   }
@@ -64,7 +64,7 @@ class DStringData : DData {
     }
   }
 
-  void value(this O)(DStringData newValue) {
+  void value(DStringData newValue) {
     if (newValue) {
       this
         .isNullable(newValue.isNullable)
@@ -91,13 +91,13 @@ class DStringData : DData {
   }}
 
   string opCall() { return _value; } 
-  void opCall(this O)(string newValue) { 
+  void opCall(string newValue) { 
     _value = newValue;
      }
-  void opCall(this O)(Json newValue) { 
+  void opCall(Json newValue) { 
     if (newValue.type = Json.Type.string) _value = newValue.get!string;
      }
-  void opCall(this O)(DStringData newValue) {
+  void opCall(DStringData newValue) {
     this.value(newValue);
      }
 

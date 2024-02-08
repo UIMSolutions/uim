@@ -76,7 +76,7 @@ class DMapValue(K) : DData, IMap {
     return this;
   }
 
-  DData opIndex(this O)(K key) {
+  DData opIndex(K key) {
     return _items.get(key, null);
   }
 

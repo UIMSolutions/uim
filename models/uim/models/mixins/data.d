@@ -18,7 +18,7 @@ string dataGetter(string name, string datatype, string dataClass, string path) {
 string dataSetter(string name, string datatype, string dataClass, string path) {
   string newPath = (path ? path : name);
   return `
-    @property void `~name~`(this O)(`~datatype~` newData) { 
+    @property void `~name~`(`~datatype~` newData) { 
       if (auto myData = cast(`~dataClass~`)dataOfKey("`~newPath~`")) {
         myData.data(newData);
         

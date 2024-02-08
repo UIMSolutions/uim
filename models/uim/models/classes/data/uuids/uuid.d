@@ -23,7 +23,7 @@ class DUUIDData : DData {
   UUID value() {
     return _value; 
   }
-  void value(this O)(UUID newValue) {
+  void value(UUID newValue) {
     this.set(newValue);
      
   }

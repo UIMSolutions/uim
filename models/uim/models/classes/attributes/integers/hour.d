@@ -19,16 +19,22 @@ class DHourAttribute : DIntegerAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("hour")
-      .registerPath("hour");
-  }    
+    name("hour");
+    registerPath("hour");
+
+    return true;
+
+  }
 }
+
 mixin(AttributeCalls!("HourAttribute"));
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DHourAttribute);
     testAttribute(HourAttribute);
   }

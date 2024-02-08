@@ -28,9 +28,11 @@ class DWattAttribute : DDoubleAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("watt")
-      .registerPath("watt");
+    name("watt");
+      registerPath("watt");
+
+    return true;
+
   }
 }
 mixin(AttributeCalls!("WattAttribute"));

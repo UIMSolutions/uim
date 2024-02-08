@@ -23,7 +23,7 @@ class DDataArrayData : DArrayData {
   void set(DData[] newValue) {
     _value = newValue;
   }
-  void value(this O)(DData[] newValue) {
+  void value(DData[] newValue) {
     this.set(newValue);
      
   }

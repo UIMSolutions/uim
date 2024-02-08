@@ -74,7 +74,7 @@ class DElement : IElement {
 
   // Every element can have a name like an identifier. 
   string _name;
-  void name(this O)(string  newName) { _name = newName.strip.replace(" ", "_");  }
+  void name(string  newName) { _name = newName.strip.replace(" ", "_");  }
   string name() { return _name; }
   version(test_uim_models) {
     unittest {

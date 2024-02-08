@@ -35,11 +35,11 @@ class DBooleanData : DData {
     assert(data.value == myValue);
  }
 
-  void opCall(this O)(bool newValue) { this.value(newValue);  }
+  void opCall(bool newValue) { this.value(newValue);  }
 
   protected bool _value;
   alias value = DData.value;
-  void value(this O)(bool newValue) {
+  void value(bool newValue) {
     this.set(newValue);
      
   }

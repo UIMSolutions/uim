@@ -13,7 +13,7 @@ class DLongData : DData {
 
   protected long _value;  
   alias value = DData.value;
-  void value(this O)(long newValue) {
+  void value(long newValue) {
     this.set(newValue);
      
   }
@@ -110,7 +110,7 @@ class DLongData : DData {
     return _value; 
   }
 
-  void opCall(this O)(long newValue) { 
+  void opCall(long newValue) { 
     _value = newValue;
      }
   version(test_uim_models) { unittest {    

@@ -13,7 +13,7 @@ class DSystimeData : DData {
 
   protected SysTime _value;  
   alias value = DData.value;
-  void value(this O)(SysTime newValue) {
+  void value(SysTime newValue) {
     this.set(newValue);
      
   }

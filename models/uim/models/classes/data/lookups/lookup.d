@@ -18,7 +18,7 @@ class DLookupValue(K, V) : DData {
     return this;
   }
 
-  V opIndex(this O)(K key) {
+  V opIndex(K key) {
     return _items.get(key, null);
   }
 

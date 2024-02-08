@@ -20,7 +20,7 @@ class DDoubleData : DData {
 
   protected double _value;  
   alias value = DData.value;
-  void value(this O)(double newValue) {
+  void value(double newValue) {
     this.set(newValue);
   }
   double value() {
@@ -73,7 +73,7 @@ class DDoubleData : DData {
     return _value; 
   }
 
-  void opCall(this O)(double newValue) { 
+  void opCall(double newValue) { 
     _value = newValue;
      }
   version(test_uim_models) { unittest {    

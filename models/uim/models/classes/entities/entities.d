@@ -17,12 +17,12 @@ class DOOPEntities {
     return _items.dup;
   }
 
-  void add(this O)(DEntity[] newEntities) {
+  void add(DEntity[] newEntities) {
     _items ~= newEntities.dup;
     
   }
 
-  void set(this O)(DEntity[] newEntities) {
+  void set(DEntity[] newEntities) {
     _items = newEntities.dup;
     
   }
@@ -31,7 +31,7 @@ class DOOPEntities {
     return (_items.length > 0);
   }
 
-  void sort(this O)(string sortBy, string sortDir = "") {
+  void sort(string sortBy, string sortDir = "") {
     if (this.sortBy) {
       if (this.sortDir.toLower == "up") {
         _items = _items
@@ -45,7 +45,7 @@ class DOOPEntities {
     
   }
 
-  void filter(this O)(string filterBy, string filterValue) {
+  void filter(string filterBy, string filterValue) {
     if (this.filterBy && this.filterValue) {
       _items = _items
         .filter!(entity => entity[filterBy].indexOf(this.filterValue) == 0).array;
@@ -53,7 +53,7 @@ class DOOPEntities {
     
   }
 
-  void opCall(this O)(DEntity[] newEntities) {
+  void opCall(DEntity[] newEntities) {
     this.set(newEntities);
     
   }

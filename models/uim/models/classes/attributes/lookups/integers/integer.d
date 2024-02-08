@@ -12,7 +12,7 @@ class DIntegerIntegerAttribute : DLookupAttribute {
   mixin(AttributeThis!("IntegerIntegerAttribute"));
 
   mixin(TProperty!("int[int]", "lookups"));  
-  void addLookup(this O)(int key, string value) {
+  void addLookup(int key, string value) {
     _lookups[key] = value;
     
   }

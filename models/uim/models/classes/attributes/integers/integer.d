@@ -15,10 +15,12 @@ class DIntegerAttribute : DAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .addDataFormats(["integer"])
-      .name("integer")
-      .registerPath("integer");
+    addDataFormats(["integer"]);
+    name("integer");
+    registerPath("integer");
+
+    return true;
+
   }    
 }
 mixin(AttributeCalls!"IntegerAttribute");

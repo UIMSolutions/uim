@@ -14,7 +14,7 @@ class DDateData : DData {
 
   protected Date _value;  
   alias value = DData.value;
-  void value(this O)(Date newValue) {
+  void value(Date newValue) {
     this.set(newValue);
      
   }

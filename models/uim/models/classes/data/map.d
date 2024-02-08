@@ -48,17 +48,17 @@ import uim.models;
     _items[key] = UUIDData(newValue);
   }
 
-  void addValues(this O)(DData[string] newValues) {
+  void addValues(DData[string] newValues) {
     newValues.byKey.each!(key => adDData(key, newValues[key]));
     
   }
 
-  void addValues(this O)(DAttribute[string] attributes) {
+  void addValues(DAttribute[string] attributes) {
     attributes.byKey.each!(key => adDData(key, attributes[key].createValue));
     
   }
 
-  void adDData(this O)(string fieldName, DData newValue) {
+  void adDData(string fieldName, DData newValue) {
     _items[fieldName] = newValue;
     
   }

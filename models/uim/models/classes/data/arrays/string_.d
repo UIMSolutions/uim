@@ -30,7 +30,7 @@ class DStringArrayData : DArrayData {
   void set(string[] newValues) {
     _values = newValues.filter!(v => v.length > 0).array;
   }
-  void value(this O)(string[] newValue) {
+  void value(string[] newValue) {
     this.set(newValue);
      
   }

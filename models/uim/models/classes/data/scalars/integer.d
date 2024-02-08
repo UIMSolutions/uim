@@ -13,7 +13,7 @@ class DIntegerData : DData {
 
   protected int _value;
   alias value = DData.value;
-  void value(this O)(int newValue) {
+  void value(int newValue) {
     this.set(newValue);
   }
 
@@ -79,7 +79,7 @@ class DIntegerData : DData {
     return _value;
   }
 
-  void opCall(this O)(int newValue) {
+  void opCall(int newValue) {
     _value = newValue;
     return cast(O) this;
   }
@@ -89,7 +89,7 @@ class DIntegerData : DData {
     value(100);
   }
 
-  void add(this O)(int opValue) {
+  void add(int opValue) {
     _value += opValue;
   }
 
@@ -99,7 +99,7 @@ class DIntegerData : DData {
     assert(value.add(2).add(2) == 4);
   }
 
-  void add(this O)(DIntegerData opValue) {
+  void add(DIntegerData opValue) {
     _value += opValue.value;
   }
 
@@ -107,7 +107,7 @@ class DIntegerData : DData {
     return IntegerData(attribute, toJson);
   }
 
-void sub(this O)(int opValue) {
+void sub(int opValue) {
     _value -= opValue;
     return cast(O) this;
   }
@@ -117,7 +117,7 @@ void sub(this O)(int opValue) {
     assert(IntegerData(2).sub(2).sub(2) == -2);
   }
 
-  void sub(this O)(DIntegerData opValue) {
+  void sub(DIntegerData opValue) {
     _value -= opValue.value;
     return cast(O) this;
   }
@@ -126,7 +126,7 @@ void sub(this O)(int opValue) {
     assert(IntegerData(2).sub(IntegerData(2)) == 0);
   }
 
-  void mul(this O)(int opValue) {
+  void mul(int opValue) {
     _value *= opValue;
     return cast(O) this;
   }
@@ -135,7 +135,7 @@ void sub(this O)(int opValue) {
     assert(IntegerData(2).mul(2) == 4);
   }
 
-  void mul(this O)(DIntegerData opValue) {
+  void mul(DIntegerData opValue) {
     _value *= opValue.value;
     return cast(O) this;
   }
@@ -144,7 +144,7 @@ void sub(this O)(int opValue) {
     assert(IntegerData(2).mul(IntegerData(2)) == 4);
   }
 
-  void div(this O)(int opValue) {
+  void div(int opValue) {
     _value /= opValue;
     return cast(O) this;
   }
@@ -153,7 +153,7 @@ void sub(this O)(int opValue) {
     assert(IntegerData(2).div(2) == 1);
   }
 
-  void div(this O)(DIntegerData opValue) {
+  void div(DIntegerData opValue) {
     _value /= opValue.value;
     return cast(O) this;
   }

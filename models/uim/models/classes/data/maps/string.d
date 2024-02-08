@@ -76,7 +76,7 @@ class DStringDataMap : DData, IMap {
     return this;
   }
 
-  DData opIndex(this O)(string key) {
+  DData opIndex(string key) {
     return _items.get(key, null);
   }
 

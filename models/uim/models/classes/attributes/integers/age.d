@@ -13,19 +13,23 @@ class DAgeAttribute : DIntegerAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
     //means.demographic.age
     //means.measurement.age
-      name("age");
-      registerPath("age");    
+    name("age");
+    registerPath("age");
 
     return true;
   }
 }
+
 mixin(AttributeCalls!"AgeAttribute");
 
-version(test_uim_models) { unittest {
+version (test_uim_models) {
+  unittest {
     testAttribute(new DAgeAttribute);
     testAttribute(AgeAttribute);
   }

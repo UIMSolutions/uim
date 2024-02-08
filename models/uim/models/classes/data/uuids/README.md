@@ -1,1 +1,1 @@
-# Package 📦 uim.models.classes.values.uuids
+# Package 📦 uim.models.classes.data.uuids

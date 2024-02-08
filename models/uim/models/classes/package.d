@@ -13,5 +13,5 @@ public { // Packages
   import uim.models.classes.errors;
   import uim.models.classes.exceptions;
   import uim.models.classes.usecases;
-  import uim.models.classes.values;
+  import uim.models.classes.data;
 }

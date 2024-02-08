@@ -8,14 +8,16 @@ module uim.models.classes.data.arrays.value;
 import uim.models;
 
 @safe:
-class DDataArrayData : DArrayData {
-  mixin(DataThis!("ValueArrayData", "IData[]"));  
+class DArrayDataData : DArrayData {
+  mixin(DataThis!("ArrayData", "IData[]"));  
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    nameisString(true);
+   isString(true);
+
+   return true;
   }
 
   protected IData[] _value;
@@ -35,7 +37,7 @@ class DDataArrayData : DArrayData {
   alias opEquals = DData.opEquals;
 
   override IData clone() {
-    return ValueArrayData(attribute, toJson);
+    return ArrayData(attribute, toJson);
   }
 }
-mixin(ValueCalls!("ValueArrayData", "IData[]"));  
+mixin(DataCalls!("ArrayData", "IData[]"));  

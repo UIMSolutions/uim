@@ -25,9 +25,11 @@ class DIP4AddressAttribute : DStringAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("ip4address")
-      .registerPath("ip4address");
+    name("ip4address");
+    registerPath("ip4address");
+
+   return true;
+
   }
 }
 mixin(AttributeCalls!("IP4AddressAttribute"));

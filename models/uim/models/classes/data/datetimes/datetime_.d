@@ -65,7 +65,7 @@ class DDatetimeData : DData {
     if (isNull) return null; 
     return this.value.toISOExtString; }
 }
-mixin(ValueCalls!("DateTimeData", "DateTime"));  
+mixin(DataCalls!("DateTimeData", "DateTime"));  
 
 version(test_uim_models) { unittest {    
     assert(DateTimeData.value("100").toDatetime == 100);

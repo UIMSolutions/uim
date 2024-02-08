@@ -15,8 +15,10 @@ class DTagArrayData : DStringArrayData {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    nameshouldTrim(true)
-      .separator("#");
+    shouldTrim(true);
+    separator("#");
+
+    return true;
   }
 
   /* size_t length() {
@@ -34,7 +36,7 @@ class DTagArrayData : DStringArrayData {
     return null; 
   }
 }
-mixin(ValueCalls!("TagArrayData"));  
+mixin(DataCalls!("TagArrayData"));  
 
 version(test_uim_models) { unittest {
     auto attribute = TagArrayData(["a", "b", "c"]);

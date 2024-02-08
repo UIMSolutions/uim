@@ -13,13 +13,18 @@ class DFileIdAttribute : DEntityIdAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-    this
-      .name("fileId")
-      .registerPath("fileId");
-  }  
+    name("fileId");
+    registerPath("fileId");
+
+    return true;
+
+  }
 }
+
 mixin(AttributeCalls!("FileIdAttribute"));
 
 ///
@@ -29,10 +34,10 @@ unittest {
   assert(attribute.registerPath == "fileId");
 
   DAttribute generalAttribute = attribute;
-  assert(cast(DEntityIdAttribute)generalAttribute);
-  assert(cast(DUUIDAttribute)generalAttribute);
-  assert(!cast(DIntegerAttribute)generalAttribute);
+  assert(cast(DEntityIdAttribute) generalAttribute);
+  assert(cast(DUUIDAttribute) generalAttribute);
+  assert(!cast(DIntegerAttribute) generalAttribute);
 
   DData value = attribute.createValue();
-  assert(cast(DUUIDData)value);
+  assert(cast(DUUIDData) value);
 }

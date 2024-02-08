@@ -122,7 +122,7 @@ class DBooleanData : DData {
     if (isNull) return null; 
     return to!string(this.value); }
 }
-mixin(ValueCalls!("BooleanData", "bool"));  
+mixin(DataCalls!("BooleanData", "bool"));  
 
 version(test_uim_models) { unittest {    
     assert(BooleanData(true) == true);

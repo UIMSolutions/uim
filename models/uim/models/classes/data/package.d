@@ -45,8 +45,8 @@ template DataThis(string name, string datatype = null) { // Name for future rele
       : "");
 }
 
-template ValueCalls(string name, string datatype = null) {
-  const char[] ValueCalls = `  
+template DataCalls(string name, string datatype = null) {
+  const char[] DataCalls = `  
     auto `~name~`() { return new D`~name~`; }
     auto `~name~`(DAttribute theAttribute) { return new D`~name~`(theAttribute); }
     auto `~name~`(string theValue) { return new D`~name~`(theValue); }

@@ -147,7 +147,7 @@ class DStringData : DData {
   }
 }
 
-mixin(ValueCalls!("StringData"));
+mixin(DataCalls!("StringData"));
 
 version (test_uim_models) {
   unittest {

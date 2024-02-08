@@ -16,9 +16,10 @@ class DCompanyNameAttribute : DStringAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("companyName")
-      .registerPath("companyName");
+    name("companyName");
+    registerPath("companyName");
+
+   return true;
   }
 }
 mixin(AttributeCalls!("CompanyNameAttribute"));

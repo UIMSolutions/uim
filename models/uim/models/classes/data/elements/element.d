@@ -92,7 +92,7 @@ class DElementData : DData {
     /// TODO this.value(newValue);
   }
 }
-mixin(ValueCalls!("ElementData"));  
+mixin(DataCalls!("ElementData"));  
 
 version(test_uim_models) { unittest {  
   assert(ElementData);

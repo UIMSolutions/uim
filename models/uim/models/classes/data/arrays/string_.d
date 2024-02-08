@@ -79,7 +79,7 @@ class DStringArrayData : DArrayData {
     return this.value.join(",");
   }
 }
-mixin(ValueCalls!("StringArrayData", "string[]"));  
+mixin(DataCalls!("StringArrayData", "string[]"));  
 
 version(test_uim_models) { unittest {
     auto attribute = StringArrayData(["a", "b", "c"]);

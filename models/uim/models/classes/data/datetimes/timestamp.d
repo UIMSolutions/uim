@@ -17,7 +17,7 @@ class DTimestampData : DLongData {
 
   alias opEquals = DLongData.opEquals;
 }
-mixin(ValueCalls!("TimestampData", "long"));  
+mixin(DataCalls!("TimestampData", "long"));  
 
 version(test_uim_models) { unittest {    
     // TODO

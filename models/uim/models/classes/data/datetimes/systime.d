@@ -68,7 +68,7 @@ class DSystimeData : DData {
     if (isNull) return null; 
     return this.value.toISOExtString; }
 }
-mixin(ValueCalls!("SysTimeData", "SysTime"));  
+mixin(DataCalls!("SysTimeData", "SysTime"));  
 
 version(test_uim_models) { unittest {    
     // TODO

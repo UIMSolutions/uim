@@ -10,7 +10,7 @@ import uim.models;
 import std.datetime.date;
 
 class DDateData : DData {
-  mixin(DataThis!("DateValue", "Date"));  
+  mixin(DataThis!("DateData", "Date"));  
 
   protected Date _value;  
   alias value = DData.value;
@@ -47,7 +47,7 @@ class DDateData : DData {
   }
 
   override IData clone() {
-    return DateValue(attribute, toJson);
+    return DateData(attribute, toJson);
   }
 
   override Json toJson() { 
@@ -59,21 +59,21 @@ class DDateData : DData {
     if (isNull) return null; 
     return this.value.toISOExtString; }
 }
-mixin(ValueCalls!("DateValue", "Date"));  
+mixin(DataCalls!("DateData", "Date"));  
 
 version(test_uim_models) { unittest {    
-    assert(DateValue.value("100").toDate == 100);
-    assert(DateValue.value(Json(100)).toDate == 100);
-    assert(DateValue.value("200").toDate != 100);
-    assert(DateValue.value(Json(200)).toDate != 100);
+    assert(DateData.value("100").toDate == 100);
+    assert(DateData.value(Json(100)).toDate == 100);
+    assert(DateData.value("200").toDate != 100);
+    assert(DateData.value(Json(200)).toDate != 100);
 
-    assert(DateValue.value("100").toString == "100");
-    assert(DateValue.value(Json(100)).toString == "100");
-    assert(DateValue.value("200").toString != "100");
-    assert(DateValue.value(Json(200)).toString != "100");
+    assert(DateData.value("100").toString == "100");
+    assert(DateData.value(Json(100)).toString == "100");
+    assert(DateData.value("200").toString != "100");
+    assert(DateData.value(Json(200)).toString != "100");
 
-    assert(DateValue.value("100").toJson == Json(100));
-    assert(DateValue.value(Json(100)).toJson == Json(100));
-    assert(DateValue.value("200").toJson != Json(100));
-    assert(DateValue.value(Json(200)).toJson != Json(100));
+    assert(DateData.value("100").toJson == Json(100));
+    assert(DateData.value(Json(100)).toJson == Json(100));
+    assert(DateData.value("200").toJson != Json(100));
+    assert(DateData.value(Json(200)).toJson != Json(100));
 }} 

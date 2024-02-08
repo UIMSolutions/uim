@@ -6,6 +6,7 @@
 module uim.models.classes.attributes.strings.filename;
 
 import uim.models;
+
 @safe:
 
 // A string value representing the name of a file.
@@ -14,17 +15,21 @@ class DFileNameAttribute : DStringAttribute {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-/* is.dataFormat.character
+    /* is.dataFormat.character
 is.dataFormat.big
 is.dataFormat.array
 means.fileName */
-    this
-      .name("filename")
-      .registerPath("fileName");
+    name("filename");
+    registerPath("fileName");
+
+    return true;
   }
 }
+
 mixin(AttributeCalls!("FileNameAttribute"));
 
 ///

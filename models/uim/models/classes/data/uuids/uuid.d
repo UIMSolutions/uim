@@ -103,7 +103,7 @@ class DUUIDData : DData {
     this.value(newValue);
   }
 }
-mixin(ValueCalls!("UUIDData", "UUID"));  
+mixin(DataCalls!("UUIDData", "UUID"));  
 
 version(test_uim_models) { unittest {  
   auto uuid = randomUUID;

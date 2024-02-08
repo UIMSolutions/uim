@@ -82,7 +82,7 @@ class DEntityData : DData {
     /// TODO this.value(newValue);
   }
 }
-mixin(ValueCalls!("EntityValue", "DEntity"));  
+mixin(DataCalls!("EntityValue", "DEntity"));  
 
 version(test_uim_models) { unittest {  
 }}

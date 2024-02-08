@@ -239,7 +239,7 @@ void sub(int opValue) {
   }
 }
 
-mixin(ValueCalls!("IntegerData", "int"));
+mixin(DataCalls!("IntegerData", "int"));
 
 version (test_uim_models) {
   unittest {

@@ -71,7 +71,7 @@ class DTimeData : DData {
     if (isNull) return null; 
     return this.value.toISOExtString; }
 }
-mixin(ValueCalls!("TimeData", "TimeOfDay"));  
+mixin(DataCalls!("TimeData", "TimeOfDay"));  
 
 version(test_uim_models) { unittest {    
     assert(TimeData.value("100").toTime == 100);

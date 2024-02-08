@@ -15,9 +15,11 @@ class DSlaIdAttribute : DEntityIdAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("slaId")
-      .registerPath("slaId");
+    name("slaId");
+    registerPath("slaId");
+
+   return true;
+
   }  
 }
 mixin(AttributeCalls!("SlaIdAttribute"));

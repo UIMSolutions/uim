@@ -31,4 +31,4 @@ class DNullData : DData {
   }
 }
 
-mixin(ValueCalls!("NullValue"));
+mixin(DataCalls!("NullValue"));

@@ -46,4 +46,4 @@ class DJsonData : DData {
     this.value(newValue);
   }
 }
-mixin(ValueCalls!("JsonData"));  
+mixin(DataCalls!("JsonData"));  

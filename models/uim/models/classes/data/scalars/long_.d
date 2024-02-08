@@ -135,7 +135,7 @@ class DLongData : DData {
     if (isNull) return "0"; 
     return to!string(_value); }
 }
-mixin(ValueCalls!("LongData", "long"));  
+mixin(DataCalls!("LongData", "long"));  
 
 version(test_uim_models) { unittest {    
     assert(LongData.value("100").toLong == 100);

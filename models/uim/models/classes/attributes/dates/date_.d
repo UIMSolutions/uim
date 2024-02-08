@@ -26,7 +26,7 @@ class DDateAttribute : DAttribute {
   }
 
   /* override IData createData() {
-    return DateValue(this); } */
+    return DateData(this); } */
 }
 
 mixin(AttributeCalls!("DateAttribute"));

@@ -55,7 +55,6 @@ class DData : IData {
   void isNull(bool newNull) {
     if (isNullable)
       _isNull = newNull;
-    return cast(O) this;
   }
   // #endregion isNull
   // #endregion properties 
@@ -70,12 +69,10 @@ class DData : IData {
 
   void value(string newValue) {
     this.set(newValue);
-    return cast(O) this;
   }
 
   void value(Json newValue) {
     this.set(newValue);
-    return cast(O) this;
   }
 
   alias opEquals = Object.opEquals;

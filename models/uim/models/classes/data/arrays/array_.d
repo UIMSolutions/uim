@@ -21,7 +21,7 @@ class DArrayData : DData {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    nameisArray(true);
+    isArray(true);
 
     return true;
   }
@@ -84,7 +84,7 @@ class DArrayData : DData {
     return "["~_items.map!(item => item.toString).join(",")~"]";
   }
 }
-mixin(ValueCalls!("ArrayData")); 
+mixin(DataCalls!("ArrayData")); 
 auto ArrayData(IData[] values) { return new DArrayData(values); } 
 
 ///

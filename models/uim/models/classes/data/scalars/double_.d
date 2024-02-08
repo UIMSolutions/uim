@@ -98,7 +98,7 @@ class DDoubleData : DData {
     if (isNull) return "0"; 
     return to!string(_value); }
 }
-mixin(ValueCalls!("DoubleValue", "double"));  
+mixin(DataCalls!("DoubleValue", "double"));  
 
 version(test_uim_models) { unittest {    
   assert(DoubleValue.value("100").toDouble == 100);

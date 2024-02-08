@@ -37,4 +37,4 @@ class DIntegerArrayData : DArrayData {
     return IntegerArrayData(attribute, toJson);
   }
 }
-mixin(ValueCalls!("IntegerArrayData"));  
+mixin(DataCalls!("IntegerArrayData"));  

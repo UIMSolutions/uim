@@ -16,9 +16,10 @@ class DCityNameAttribute : DStringAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("cityName")
-      .registerPath("cityName");
+    name("cityName");
+    registerPath("cityName");
+
+   return true;
   }
 }
 mixin(AttributeCalls!("CityNameAttribute"));

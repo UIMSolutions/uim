@@ -15,9 +15,11 @@ class DUrlAttribute : DStringAttribute {
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
-    this
-      .name("url")
-      .registerPath("url");
+    name("url");
+      registerPath("url");
+
+   return true;
+
   }
 }
 mixin(AttributeCalls!("UrlAttribute"));

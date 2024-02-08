@@ -8,7 +8,7 @@ module uim.models.classes.data.scalars.integer;
 import uim.models;
 
 @safe:
-class DIntegerData: DData {
+class DIntegerData : DData {
   mixin(DataThis!("IntegerValue", "int"));  
 
   protected int _value;  

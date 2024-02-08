@@ -8,7 +8,7 @@ module uim.models.classes.data.object_;
 import uim.models;
 
 @safe:
-class DJsonObjectData: DData {
+class DJsonObjectData : DData {
   mixin(DataThis!("JsonObjectValue"));  
 
   mixin(OProperty!("Json", "value"));

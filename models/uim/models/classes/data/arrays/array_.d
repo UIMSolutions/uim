@@ -8,7 +8,7 @@ module uim.models.classes.data.arrays.array_;
 import uim.models;
 
 @safe:
-class DArrayData: DData {
+class DArrayData : DData {
   mixin(DataThis!("ArrayValue"));  
   this(IData[] values) {
     this();

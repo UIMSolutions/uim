@@ -8,7 +8,7 @@ module uim.models.classes.data.datetimes.time_;
 import uim.models;
 
 @safe:
-class DTimeData: DData {
+class DTimeData : DData {
   mixin(DataThis!("TimeValue", "TimeOfDay"));  
 
   protected TimeOfDay _value;  

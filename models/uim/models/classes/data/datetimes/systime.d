@@ -8,7 +8,7 @@ module uim.models.classes.data.datetimes.systime;
 import uim.models;
 
 @safe:
-class DSystimeData: DData {
+class DSystimeData : DData {
   mixin(DataThis!("SystimeValue", "SysTime"));  
 
   protected SysTime _value;  

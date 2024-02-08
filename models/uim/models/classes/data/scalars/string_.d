@@ -8,7 +8,7 @@ module uim.models.classes.data.scalars.string_;
 import uim.models;
 
 @safe:
-class DStringData: DData {
+class DStringData : DData {
   mixin(DataThis!("StringData"));  
     // Initialization hook method.
   override bool initialize(IData[string] configData = null) {

@@ -8,7 +8,7 @@ module uim.models.classes.data.elements.element;
 import uim.models;
 
 @safe:
-class DElementData: DData {
+class DElementData : DData {
   mixin(DataThis!("ElementValue", "DElement"));    
 
   // Initialization hook method.

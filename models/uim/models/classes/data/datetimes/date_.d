@@ -9,7 +9,7 @@ import uim.models;
 @safe:
 import std.datetime.date;
 
-class DDateData: DData {
+class DDateData : DData {
   mixin(DataThis!("DateValue", "Date"));  
 
   protected Date _value;  

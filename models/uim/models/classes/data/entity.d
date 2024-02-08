@@ -8,7 +8,7 @@ module uim.models.classes.data.entity;
 import uim.models;
 
 @safe:
-class DEntityData: DData {
+class DEntityData : DData {
   mixin(DataThis!("EntityValue", "DEntity"));  
 
   // Initialization hook method.

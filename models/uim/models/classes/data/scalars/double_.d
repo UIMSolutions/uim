@@ -8,7 +8,7 @@ module uim.models.classes.data.scalars.double_;
 import uim.models;
 
 @safe:
-class DDoubleData: DData {
+class DDoubleData : DData {
   mixin(DataThis!("DoubleValue", "double"));  
 
   // Initialization hook method.

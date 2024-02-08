@@ -8,7 +8,7 @@ module uim.models.classes.data.null_;
 import uim.models;
 
 @safe:
-class DNullData: DData {
+class DNullData : DData {
   mixin(DataThis!("NullValue"));  
 
   // Initialization hook method.

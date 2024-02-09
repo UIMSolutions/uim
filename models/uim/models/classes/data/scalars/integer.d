@@ -31,11 +31,7 @@ class DIntegerData : DData {
     return true;
   }
 
-  // Hooks for setting 
-  void set(int newValue) {
-    _value = newValue;
-  }
-
+  // Set(..)
   mixin DataSetTemplate!(0, int);
 
   alias opEquals = DData.opEquals;

@@ -28,11 +28,7 @@ class DLongData : DData {
     return true;
   }
 
-  // Hooks for setting 
-  void set(long newValue) {
-    _value = newValue; 
-  }  
-
+  // Set(..)
   mixin DataSetTemplate!(0, long);
 
   alias opEquals = DData.opEquals;

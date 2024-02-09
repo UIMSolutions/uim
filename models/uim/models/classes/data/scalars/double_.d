@@ -44,12 +44,14 @@ class DDoubleData : DData {
     data.value = myValue;
     assert(data.value == myValue);
   }
-  // Hooks for setting 
-  void set(double newValue) {
-    _value = newValue;
-  }
 
+  // Set(..)
   mixin DataSetTemplate!(0.0, double);
+  unittest {
+    auto data = DoubleData(0.0);
+    data.set(1.1);
+    writeln(data);
+  }
 
   alias opEquals = Object.opEquals;
   alias opEquals = DData.opEquals;
@@ -87,22 +89,22 @@ class DDoubleData : DData {
 
 mixin(DataCalls!("DoubleData", "double"));
 
-  unittest {
-    assert(DoubleData.value("100").toDouble == 100);
-    assert(DoubleData.value(Json(100)).toDouble == 100);
-    assert(DoubleData.value("200").toDouble != 100);
-    assert(DoubleData.value(Json(200)).toDouble != 100);
+unittest {
+  assert(DoubleData.value("100").toDouble == 100);
+  assert(DoubleData.value(Json(100)).toDouble == 100);
+  assert(DoubleData.value("200").toDouble != 100);
+  assert(DoubleData.value(Json(200)).toDouble != 100);
 
-    assert(DoubleData.value("100").toString == "100");
-    assert(DoubleData.value(Json(100)).toString == "100");
-    assert(DoubleData.value("200").toString != "100");
-    assert(DoubleData.value(Json(200)).toString != "100");
+  assert(DoubleData.value("100").toString == "100");
+  assert(DoubleData.value(Json(100)).toString == "100");
+  assert(DoubleData.value("200").toString != "100");
+  assert(DoubleData.value(Json(200)).toString != "100");
 
-    assert(DoubleData.value("100").toJson == Json(100));
-    assert(DoubleData.value(Json(100)).toJson == Json(100));
-    assert(DoubleData.value("200").toJson != Json(100));
-    assert(DoubleData.value(Json(200)).toJson != Json(100));
-  }
+  assert(DoubleData.value("100").toJson == Json(100));
+  assert(DoubleData.value(Json(100)).toJson == Json(100));
+  assert(DoubleData.value("200").toJson != Json(100));
+  assert(DoubleData.value(Json(200)).toJson != Json(100));
+}
 
 ///
 unittest {

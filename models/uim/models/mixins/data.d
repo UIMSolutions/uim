@@ -34,7 +34,7 @@ string dataSetter(string name, string datatype, string dataClass, string path) {
 
 string dataProperty(string datatype, string name, string path = null, string dataClass = "DStringData") {
   auto newPath = (path ? path : name);
-  return // Getter
+  return  // Getter
   dataGetter(name, datatype, dataClass, newPath) ~
      // Setter
     dataSetter(name, datatype, dataClass, newPath) ~
@@ -122,21 +122,25 @@ mixin template DataConvert() {
 }
 
 mixin template DataSetTemplate(alias defaultValue, alias dataType) {
-    override void set(string newValue) {
-    if (newValue is null) { 
-      isNull(isNullable ? true : false); 
-      _value = defaultValue; }
-    else {
+  void set(dataType newValue) {
+    _value = newValue;
+  }
+
+  override void set(string newValue) {
+    if (newValue is null) {
+      isNull(isNullable ? true : false);
+      _value = defaultValue;
+    } else {
       isNull(false);
-      _value = to!dataType(newValue); 
+      _value = to!dataType(newValue);
     }
-  }  
+  }
 
   override void set(Json newValue) {
-    if (newValue.isEmpty) { 
-      _value = defaultValue; 
-      this.isNull(isNullable ? true : false); }
-    else {
+    if (newValue.isEmpty) {
+      _value = defaultValue;
+      this.isNull(isNullable ? true : false);
+    } else {
       _value = newValue.get!dataType;
       this.isNull(false);
     }

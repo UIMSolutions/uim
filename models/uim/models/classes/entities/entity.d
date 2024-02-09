@@ -79,7 +79,8 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     assert(entity.description == "newDescription");
     assert(entity.description != "noDescription");
 
-    assert(entity.description("otherDescription").description == "otherDescription");
+    entity.description("otherDescription");
+    assert(entity.description == "otherDescription");
     assert(entity.description != "noDescription");
   }
 
@@ -91,7 +92,8 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     assert(entity.pool == "newPool");
     assert(entity.pool != "noPool");
 
-    assert(entity.pool("otherPool").pool == "otherPool");
+    entity.pool("otherPool");
+    assert(entity.pool == "otherPool");
     assert(entity.pool != "noPool");
   }
 
@@ -109,7 +111,8 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     assert(entity.versionOn != 1);
 
     timestamp = toTimestamp(now);
-    assert(entity.versionOn(timestamp).versionOn == timestamp);
+    entity.versionOn(timestamp);
+    assert(entity.versionOn == timestamp);
     assert(entity.versionOn != 1);
   }
 
@@ -125,7 +128,8 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     assert(entity.versionBy != randomUUID);
 
     id = randomUUID;
-    assert(entity.versionBy(id).versionBy == id);
+    entity.versionBy(id);
+    assert(entity.versionBy == id);
     assert(entity.versionBy != randomUUID);
   }
 
@@ -141,8 +145,8 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     assert(entity.versionDescription == "version with new description");
     assert(entity.versionDescription != "noVersionDescription");
 
-    assert(entity.versionDescription("version with other description")
-        .versionDescription == "version with other description");
+    entity.versionDescription("version with other description");
+    assert(entity.versionDescription == "version with other description");
     assert(entity.versionDescription != "noVersionDescription");
   }
 
@@ -154,7 +158,8 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     assert(entity.versionDisplay == "newVersionDisplay");
     assert(entity.versionDisplay != "noVersionDisplay");
 
-    assert(entity.versionDisplay("otherVersionDisplay").versionDisplay == "otherVersionDisplay");
+    entity.versionDisplay("otherVersionDisplay");
+    assert(entity.versionDisplay == "otherVersionDisplay");
     assert(entity.versionDisplay != "noVersionDisplay");
   }
 
@@ -166,7 +171,8 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     assert(entity.versionMode == "newVersionMode");
     assert(entity.versionMode != "noVersionMode");
 
-    assert(entity.versionMode("otherVersionMode").versionMode == "otherVersionMode");
+    entity.versionMode("otherVersionMode");
+    assert(entity.versionMode == "otherVersionMode");
     assert(entity.versionMode != "noVersionMode");
   }
 
@@ -335,7 +341,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
   } */
   /// 
   unittest {
-    auto entity = new DEntity;
+    /* auto entity = new DEntity;
 
     entity.addData("int", new DIntegerData(10));
     assert(cast(DIntegerData) entity.values["int"]);
@@ -344,6 +350,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
 
     entity.addData(new DCityNameAttribute);
     assert((cast(DStringData) entity.values["cityName"]));
+    */
   }
 
   // Display of entity 

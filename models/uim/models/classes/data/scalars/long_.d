@@ -60,7 +60,7 @@ class DLongData : DData {
   }
   ///
   unittest {
-    void value = new DLongData(100_000);
+    auto value = new DLongData(100_000);
     assert(value > 100);
     assert(value >= 100);
     assert(value >= 100_000);
@@ -76,7 +76,7 @@ class DLongData : DData {
   }
   ///
   unittest {
-    void value = new DLongData(100_000);
+    auto value = new DLongData(100_000);
     assert(value > new DLongData(100));
     assert(value >= new DLongData(100));
     assert(value >= new DLongData(100_000));

@@ -103,18 +103,17 @@ class DBoolData : DData {
     }
     return -1;
   }
-
   ///
   unittest {
-    auto valueA = new DBoolData(true);
-    auto valueB = new DBoolData(false);
-    assert(valueA > valueB);
-    assert(valueB < valueA);
+    auto dataA = new DBoolData(true);
+    auto dataB = new DBoolData(false);
+    assert(dataA > dataB);
+    assert(dataB < dataA);
 
-    auto valueC = (new DBoolData).value(true);
-    auto valueD = (new DBoolData).value(false);
-    assert(valueC > valueD);
-    assert(valueD < valueC);
+    dataA = BoolData(true);
+    dataB = BoolData(false);
+    assert(dataA > dataB);
+    assert(dataB < dataA);
   }
 
   override IData clone() {

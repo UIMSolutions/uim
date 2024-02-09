@@ -76,11 +76,11 @@ class DStringDataMap : DData, IMap {
   }
 
   bool isEmpty() {
-    return (_items.length == 0);    
+    return (_items.length == 0);
   }
 
- override size_t length() {
-    return _items.length;    
+  override size_t length() {
+    return _items.length;
   }
 
   override string[] keys() {
@@ -89,8 +89,10 @@ class DStringDataMap : DData, IMap {
 
   // containsKey - Returns true if this map contains a mapping for the specified key.
   bool containsKey(string key) {
-    foreach(k; keys) {
-      if (k == key) { return true; }
+    foreach (k; keys) {
+      if (k == key) {
+        return true;
+      }
     }
     return false;
   }
@@ -111,11 +113,12 @@ class DStringDataMap : DData, IMap {
   override IData clone() {
     return NullData; // StringDataMap(attribute, toJson);
   }
-alias toJson = DData.toJson;
+
+  alias toJson = DData.toJson;
   override Json toJson() {
     Json results = Json.emptyObject;
 
-    foreach(key, value; _items) {
+    foreach (key, value; _items) {
       results[key] = value.toJson;
     }
 
@@ -125,23 +128,26 @@ alias toJson = DData.toJson;
   override string toString() {
     string[] results;
 
-    foreach(key, value; _items) {
+    foreach (key, value; _items) {
       results ~= "%s:%s".format(key, value);
     }
 
-    return "["~results.join(",") ~"]";
+    return "[" ~ results.join(",") ~ "]";
   }
 }
-auto StringDataMap()() { return new DStringDataMap; }
+
+auto StringDataMap()() {
+  return new DStringDataMap;
+}
 
 ///
-unittest {  
+unittest {
   auto stringMap = StringDataMap();
   stringMap["key1"] = StringData("value1");
 
   assert(stringMap["key1"].toString == "value1");
-  assert(cast(DStringData)stringMap["key1"]);
-  assert(!cast(DBoolData)stringMap["key1"]);
+  assert(cast(DStringData) stringMap["key1"]);
+  assert(!cast(DBoolData) stringMap["key1"]);
 
   stringMap["key2"] = "value2";
   assert(stringMap["key2"].toString == "value2");
@@ -157,5 +163,5 @@ unittest {
 
   stringMap["key6"] = [StringData("v1"), StringData("v2")];
 
-  assert(stringMap.toJson.toString == `{"key1":"value1","key6":null,"key2":"value2","key3":true,"key5":100.1,"key4":100}`); 
+  assert(stringMap.toJson.toString == `{"key1":"value1","key6":null,"key2":"value2","key3":true,"key5":100.1,"key4":100}`);
 }

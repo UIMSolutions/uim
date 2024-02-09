@@ -66,7 +66,7 @@ class DIntegerData : DData {
   }
 
   unittest {
-    void value = IntegerData;
+    auto value = IntegerData;
     value(100);
   }
 
@@ -75,9 +75,11 @@ class DIntegerData : DData {
   }
 
   unittest {
-    auto value = new DIntegerData;
-    assert(value.add(2) == 2);
-    assert(value.add(2).add(2) == 4);
+    auto value = IntegerData(0);
+    value.add(2);
+    assert(value == 2);
+    value.add(2);
+    assert(value == 4);
   }
 
   void add(DIntegerData opValue) {
@@ -93,8 +95,14 @@ class DIntegerData : DData {
   }
 
   unittest {
-    assert(IntegerData(2).sub(2) == 0);
-    assert(IntegerData(2).sub(2).sub(2) == -2);
+    auto data = IntegerData(2);
+    data.sub(2);
+    assert(data == 0);
+
+    data = IntegerData(2);
+    data.sub(2);
+    data.sub(2);
+    assert(data == -2);
   }
 
   void sub(DIntegerData opValue) {
@@ -102,7 +110,10 @@ class DIntegerData : DData {
   }
 
   unittest {
-    assert(IntegerData(2).sub(IntegerData(2)) == 0);
+    auto data1 = IntegerData(2);
+    auto data2 = IntegerData(2);
+    data1.sub(data2);
+    assert(data1 == 0);
   }
 
   void mul(int opValue) {
@@ -110,7 +121,9 @@ class DIntegerData : DData {
   }
 
   unittest {
-    assert(IntegerData(2).mul(2) == 4);
+    auto data = IntegerData(2);
+    data.mul(2);
+    assert(data == 4);
   }
 
   void mul(DIntegerData opValue) {
@@ -118,7 +131,10 @@ class DIntegerData : DData {
   }
   ///
   unittest {
-    assert(IntegerData(2).mul(IntegerData(2)) == 4);
+    auto data1 = IntegerData(2);
+    auto data2 = IntegerData(2);
+    data1.mul(data2);
+    assert(data1 == 4);
   }
 
   void div(int opValue) {
@@ -126,7 +142,9 @@ class DIntegerData : DData {
   }
 
   unittest {
-    assert(IntegerData(2).div(2) == 1);
+    auto data = IntegerData(2);
+    data.div(2);
+    assert(data == 1);
   }
 
   void div(DIntegerData opValue) {
@@ -134,23 +152,28 @@ class DIntegerData : DData {
   }
 
   unittest {
-    assert(IntegerData(2).div(IntegerData(2)) == 1);
+    auto data1 = IntegerData(2);
+    auto data2 = IntegerData(2);
+    data1.div(data2);
+    assert(data1 == 1);
   }
 
   DIntegerData opBinary(string op)(int opValue) {
     auto result = IntegerData(_value);
     static if (op == "+")
-      return result.add(opValue);
+      add(opValue);
     else static if (op == "-")
-      return result.sub(opValue);
+      sub(opValue);
     else static if (op == "*")
-      return result.mul(opValue);
+      mul(opValue);
     else static if (op == "/")
-      return result.div(opValue);
+      div(opValue);
     else
       static assert(0, "Operator " ~ op ~ " not implemented");
-  }
 
+    return result;
+  }
+  ///
   unittest {
     assert((IntegerData(2) + 2) == 4);
     assert((IntegerData(2) - 2) == 0);
@@ -161,15 +184,17 @@ class DIntegerData : DData {
   DIntegerData opBinary(string op)(DIntegerData opValue) {
     auto result = IntegerData(_value);
     static if (op == "+")
-      return result.add(opValue);
+      add(opValue);
     else static if (op == "-")
-      return result.sub(opValue);
+      sub(opValue);
     else static if (op == "*")
-      return result.mul(opValue);
+      mul(opValue);
     else static if (op == "/")
-      return result.div(opValue);
+      div(opValue);
     else
       static assert(0, "Operator " ~ op ~ " not implemented");
+
+    return result;
   }
 
   unittest {

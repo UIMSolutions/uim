@@ -37,14 +37,17 @@ class DStringData : DData {
   }
   ///
   unittest {
-    assert(StringData.value("test").value == "test");
-    assert(StringData.value("test").value("test2").value == "test2");
+    auto data = StringData;
+    data.value("test");
+    assert(data.value == "test");
+    data.value("test2");
+    assert(data.value == "test2");
   }
 
   // Set with Json value
   @property override void value(Json newValue) {
     set(newValue);
-  } 
+  }
 
   // Hooks for setting 
   override void set(string newValue) {
@@ -72,7 +75,7 @@ class DStringData : DData {
       isNull(newValue.isNull);
       value(newValue.value);
     }
-  } 
+  }
 
   override IData clone() {
     return StringData(attribute, toJson);
@@ -113,7 +116,8 @@ class DStringData : DData {
   unittest {
     auto a = StringData("aValue");
     auto b = StringData("bValue");
-    assert(a(b) == "bValue");
+    a(b);
+    assert(a == "bValue");
   }
 
   alias opEquals = DData.opEquals;
@@ -128,7 +132,8 @@ class DStringData : DData {
       return 0;
     return 1;
   }
-alias toJson = DData.toJson;
+
+  alias toJson = DData.toJson;
   override Json toJson() {
     if (isNull)
       return Json(null);

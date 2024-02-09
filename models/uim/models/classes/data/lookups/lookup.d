@@ -26,18 +26,15 @@ class DLookupValue(K, V) : DData {
     return (_items.length == 0);    
   }
 
-  size_t length() {
+  override size_t length() {
     return _items.length;    
   }
 
   alias opEquals = Object.opEquals;
   alias opEquals = DData.opEquals;
 
-  override IData copy() {
+  override IData clone() {
     return LookupValue!(K, V)(attribute, toJson);
-  }
-  override IData dup() {
-    return copy;
   }
 }
 auto LookupValue(K, V)() { return new DLookupValue!(K, V); }

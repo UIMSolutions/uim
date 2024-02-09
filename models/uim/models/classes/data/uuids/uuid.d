@@ -88,7 +88,7 @@ class DUUIDData : DData {
   ///
   unittest {
     auto id = randomUUID;
-    void value = new DUUIDData(id);
+    auto value = new DUUIDData(id);
     assert(value == id);
   }
 
@@ -100,13 +100,13 @@ class DUUIDData : DData {
   override Json toJson() {
     if (isNull)
       return Json(null);
-    return Json(this.value.toString);
+    return Json(toString);
   }
 
   override string toString() {
     if (isNull)
       return UUID().toString;
-    return this.value.toString;
+    return value.toString;
   }
 
   override void fromString(string newValue) {

@@ -19,6 +19,8 @@ auto Configuration(Json json) { return new DConfiguration(json); } */
 ///
 unittest {
   auto element = new DConfigurationElement;
-  assert(element.name("test").name == "test");
-  assert(element.name("testName").name == "testName");
+  element.name("test");
+  assert(element.name == "test");
+  element.name("testName");
+  assert(element.name == "testName");
 }

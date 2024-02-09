@@ -56,7 +56,9 @@ class DVersion : DElement {
     assert(element.on != 1);
 
     timestamp = toTimestamp(now);
-    assert(element.on(timestamp).on == timestamp);
+
+    element.on(timestamp);
+    assert(element.on == timestamp);
     assert(element.on != 1);
   }
 
@@ -71,7 +73,8 @@ class DVersion : DElement {
     assert(element.by != randomUUID);
 
     id = randomUUID;
-    assert(element.by(id).by == id);
+    element.by(id);
+    assert(element.by == id);
     assert(element.by != randomUUID);
   }
 
@@ -83,7 +86,8 @@ class DVersion : DElement {
     assert(element.description == "newDescription");
     assert(element.description != "noDescription");
 
-    assert(element.description("otherDescription").description == "otherDescription");
+    element.description("otherDescription");
+    assert(element.description == "otherDescription");
     assert(element.description != "noDescription");
   }
 
@@ -95,7 +99,8 @@ class DVersion : DElement {
     assert(element.display == "newDisplay");
     assert(element.display != "noDisplay");
 
-    assert(element.display("otherDisplay").display == "otherDisplay");
+    element.display("otherDisplay");
+    assert(element.display == "otherDisplay");
     assert(element.display != "noDisplay");
   }
 
@@ -107,7 +112,8 @@ class DVersion : DElement {
     assert(element.mode == "newMode");
     assert(element.mode != "noMode");
 
-    assert(element.mode("otherMode").mode == "otherMode");
+    element.mode("otherMode");
+    assert(element.mode == "otherMode");
     assert(element.mode != "noMode");
   }
 
@@ -131,8 +137,11 @@ auto Version(Json json) {
 version (test_uim_models) {
   unittest {
     assert(Version);
-    assert(Version.name("test").name == "test");
-    assert(Version.name("testName").name == "testname");
-
+    
+    auto vers = Version;
+    vers.name("test");
+    assert(vers.name == "test");
+    vers.name("testName");
+    assert(vers.name == "testname");
   }
 }

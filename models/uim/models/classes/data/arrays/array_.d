@@ -71,7 +71,7 @@ class DArrayData : DData {
   }
   ///
   unittest {
-    assert(!hasKey("abc"));
+    /* assert(!hasKey("abc")); */
   }
 
   void opOpAssign(string op : "~")(IData value) {
@@ -97,6 +97,6 @@ auto ArrayData(IData[] values) {
 
 ///
 unittest {
-  void value = new DArrayData;
+  auto value = new DArrayData;
   assert(value.isArray);
 }

@@ -90,20 +90,20 @@ class DDoubleData : DData {
 mixin(DataCalls!("DoubleData", "double"));
 
 unittest {
-  assert(DoubleData.value("100").toDouble == 100);
-  assert(DoubleData.value(Json(100)).toDouble == 100);
-  assert(DoubleData.value("200").toDouble != 100);
-  assert(DoubleData.value(Json(200)).toDouble != 100);
+  assert(DoubleData("100").toDouble == 100);
+  assert(DoubleData(Json(100)).toDouble == 100);
+  assert(DoubleData("200").toDouble != 100);
+  assert(DoubleData(Json(200)).toDouble != 100);
 
-  assert(DoubleData.value("100").toString == "100");
-  assert(DoubleData.value(Json(100)).toString == "100");
-  assert(DoubleData.value("200").toString != "100");
-  assert(DoubleData.value(Json(200)).toString != "100");
+  assert(DoubleData("100").toString == "100");
+  assert(DoubleData(Json(100)).toString == "100");
+  assert(DoubleData("200").toString != "100");
+  assert(DoubleData(Json(200)).toString != "100");
 
-  assert(DoubleData.value("100").toJson == Json(100));
-  assert(DoubleData.value(Json(100)).toJson == Json(100));
-  assert(DoubleData.value("200").toJson != Json(100));
-  assert(DoubleData.value(Json(200)).toJson != Json(100));
+  assert(DoubleData("100").toJson == Json(100));
+  assert(DoubleData(Json(100)).toJson == Json(100));
+  assert(DoubleData("200").toJson != Json(100));
+  assert(DoubleData(Json(200)).toJson != Json(100));
 }
 
 ///

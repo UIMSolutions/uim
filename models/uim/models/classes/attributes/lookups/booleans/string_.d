@@ -14,7 +14,7 @@ class DBooleanStringAttribute : DAttribute {
   mixin(TProperty!("string[bool]", "lookups"));
 
   /* override IData createData() {
-    return LookupValue!(bool, string)(this).isNullable(isNullable);
+    return LookupData!(bool, string)(this).isNullable(isNullable);
   } */
 }
 mixin(AttributeCalls!("BooleanStringAttribute"));

@@ -14,7 +14,7 @@ class DStringBooleanAttribute : DLookupAttribute {
   mixin(TProperty!("bool[string]", "lookups"));
 
   /* override IData createData() {
-    return LookupValue!(string, bool)(this).isNullable(isNullable);
+    return LookupData!(string, bool)(this).isNullable(isNullable);
   } */
 }
 

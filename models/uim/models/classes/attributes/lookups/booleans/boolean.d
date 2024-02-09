@@ -14,7 +14,7 @@ class DBooleanBooleanAttribute : DLookupAttribute {
   mixin(TProperty!("bool[bool]", "lookups"));
 
   /* override IData createData() {
-    return LookupValue!(bool, bool)(this).isNullable(isNullable);
+    return LookupData!(bool, bool)(this).isNullable(isNullable);
   } */
 }
 mixin(AttributeCalls!("BooleanBooleanAttribute"));
@@ -29,5 +29,5 @@ unittest {
   lookupAttribute.isNullable(true);
   assert(lookupAttribute.isNullable);
 
-  auto lookupValue = lookupAttribute.createValue;
+  auto LookupData = lookupAttribute.createValue;
 }

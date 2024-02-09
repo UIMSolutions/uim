@@ -8,12 +8,12 @@ module uim.models.classes.data.lookups.lookup;
 import uim.models;
 
 @safe:
-class DLookupValue(K, V) : DData {
-  mixin(DataThis!("LookupValue"));
+class DLookupData(K, V) : DData {
+  mixin(DataThis!("LookupData"));
 
   V[K] _items;
 
-  DLookupValue opIndexAssign(V value, K key) {
+  DLookupData opIndexAssign(V value, K key) {
     _items[key] = value;
     return this;
   }
@@ -34,19 +34,19 @@ class DLookupValue(K, V) : DData {
   alias opEquals = DData.opEquals;
 
   override IData clone() {
-    return LookupValue!(K, V)(attribute, toJson);
+    return LookupData!(K, V)(attribute, toJson);
   }
 }
-auto LookupValue(K, V)() { return new DLookupValue!(K, V); }
-auto LookupValue(K, V)(DAttribute theAttribute) { return new DLookupValue!(K, V)(theAttribute); }
-auto LookupValue(K, V)(string theValue) { return new DLookupValue!(K, V)(theValue); }
-auto LookupValue(K, V)(Json theValue) { return new DLookupValue!(K, V)(theValue); }
-auto LookupValue(K, V)(DAttribute theAttribute, string theValue) { return new DLookupValue!(K, V)(theAttribute, theValue); }
-auto LookupValue(K, V)(DAttribute theAttribute, Json theValue) { return new DLookupValue!(K, V)(theAttribute, theValue); }
+auto LookupData(K, V)() { return new DLookupData!(K, V); }
+auto LookupData(K, V)(DAttribute theAttribute) { return new DLookupData!(K, V)(theAttribute); }
+auto LookupData(K, V)(string theValue) { return new DLookupData!(K, V)(theValue); }
+auto LookupData(K, V)(Json theValue) { return new DLookupData!(K, V)(theValue); }
+auto LookupData(K, V)(DAttribute theAttribute, string theValue) { return new DLookupData!(K, V)(theAttribute, theValue); }
+auto LookupData(K, V)(DAttribute theAttribute, Json theValue) { return new DLookupData!(K, V)(theAttribute, theValue); }
 
 ///
 unittest {  
-  auto stringAALookup = LookupValue!(string, string)();
+  auto stringAALookup = LookupData!(string, string)();
   stringAALookup["key1"] = "value1";
 
   assert(stringAALookup["key1"] == "value1");

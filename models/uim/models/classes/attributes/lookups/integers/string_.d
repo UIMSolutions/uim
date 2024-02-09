@@ -35,9 +35,9 @@ class DIntegerStringAttribute : DLookupAttribute {
     return (key in _lookups ? true : false);
   }
 
-  bool hasLookupValue(string lookupValue) {
+  bool hasLookupData(string LookupData) {
     foreach (k, v; _lookups) {
-      if (v == lookupValue) {
+      if (v == LookupData) {
         return true;
       }
     }
@@ -45,7 +45,7 @@ class DIntegerStringAttribute : DLookupAttribute {
   }
 
   /* override IData createData() {
-    return LookupValue!(int, string)(this).isNullable(isNullable); }  */
+    return LookupData!(int, string)(this).isNullable(isNullable); }  */
 }
 
 mixin(AttributeCalls!("IntegerStringAttribute"));

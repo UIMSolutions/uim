@@ -14,7 +14,7 @@ class DStringStringAttribute : DLookupAttribute {
   mixin(TProperty!("STRINGAA", "lookups"));
 
   /* override IData createData() {
-    return LookupValue!(string, string).isNullable(isNullable);
+    return LookupData!(string, string).isNullable(isNullable);
   } */
 }
 mixin(AttributeCalls!("StringStringAttribute"));

@@ -31,13 +31,13 @@ class DIntegerIntegerAttribute : DLookupAttribute {
   bool hasLookupKey(int key) {
     return (key in _lookups ? true : false); 
   }
-  bool hasLookupValue(int lookupValue) {
-    foreach(k, v; _lookups) { if (v == lookupValue) { return true; } }
+  bool hasLookupData(int LookupData) {
+    foreach(k, v; _lookups) { if (v == LookupData) { return true; } }
     return false; 
   }  
 
   /* override IData createData() {
-    return LookupValue!(int, int)(this).isNullable(isNullable); }  */
+    return LookupData!(int, int)(this).isNullable(isNullable); }  */
 }
 mixin(AttributeCalls!("IntegerIntegerAttribute"));
 

@@ -35,9 +35,9 @@ class DIntegerBooleanAttribute : DLookupAttribute {
     return (key in _lookups ? true : false);
   }
 
-  bool hasLookupValue(bool lookupValue) {
+  bool hasLookupData(bool LookupData) {
     foreach (k, v; _lookups) {
-      if (v == lookupValue) {
+      if (v == LookupData) {
         return true;
       }
     }
@@ -45,7 +45,7 @@ class DIntegerBooleanAttribute : DLookupAttribute {
   }
 
   /* override IData createData() {
-    return LookupValue!(int, bool)(this).isNullable(isNullable); }  */
+    return LookupData!(int, bool)(this).isNullable(isNullable); }  */
 }
 
 mixin(AttributeCalls!("IntegerBooleanAttribute"));

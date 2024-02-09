@@ -36,6 +36,6 @@ unittest {
   DAttribute generalAttribute = attribute;
   assert(!cast(DIntegerAttribute)generalAttribute);
 
-  DData value = attribute.createValue();
+  // IData value = attribute.createValue();
   assert(cast(DUUIDData)value);
 }

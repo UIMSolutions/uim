@@ -29,7 +29,7 @@ class DLongData : DData {
   }
 
   // Hooks for setting 
-  protected void set(long newValue) {
+  void set(long newValue) {
     _value = newValue; 
   }  
 

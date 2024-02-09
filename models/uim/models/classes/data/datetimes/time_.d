@@ -30,11 +30,11 @@ class DTimeData : DData {
   }
 
   // Hooks for setting 
-  protected void set(TimeOfDay newValue) {
+  void set(TimeOfDay newValue) {
     _value = newValue; 
   }  
 
-  override protected void set(string newValue) {
+  override void set(string newValue) {
     if (newValue is null) { 
         isNull(isNullable ? true : false);
         value(TimeOfDay()); }
@@ -44,7 +44,7 @@ class DTimeData : DData {
     }
   }  
 
-  override protected void set(Json newValue) {
+  override void set(Json newValue) {
     if (newValue.isEmpty) { 
       _value = TimeOfDay(); 
       this.isNull(isNullable ? true : false); }

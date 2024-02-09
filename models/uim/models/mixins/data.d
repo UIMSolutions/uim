@@ -122,7 +122,7 @@ mixin template DataConvert() {
 }
 
 mixin template DataSetTemplate(alias defaultValue, alias dataType) {
-    override protected void set(string newValue) {
+    override void set(string newValue) {
     if (newValue is null) { 
       isNull(isNullable ? true : false); 
       _value = defaultValue; }
@@ -132,7 +132,7 @@ mixin template DataSetTemplate(alias defaultValue, alias dataType) {
     }
   }  
 
-  override protected void set(Json newValue) {
+  override void set(Json newValue) {
     if (newValue.isEmpty) { 
       _value = defaultValue; 
       this.isNull(isNullable ? true : false); }

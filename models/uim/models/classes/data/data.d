@@ -59,7 +59,7 @@ class DData : IData {
   // #endregion isNull
   // #endregion properties 
 
-  protected void set(Json newValue) {
+  void set(Json newValue) {
     // TODO
   }
 

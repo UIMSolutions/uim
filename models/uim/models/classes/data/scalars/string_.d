@@ -47,7 +47,7 @@ class DStringData : DData {
   } 
 
   // Hooks for setting 
-  override protected void set(string newValue) {
+  override void set(string newValue) {
     if (newValue is null) {
       this.isNull(isNullable ? true : false);
     } else {
@@ -56,7 +56,7 @@ class DStringData : DData {
     _value = newValue;
   }
 
-  override protected void set(Json newValue) {
+  override void set(Json newValue) {
     if (newValue.isEmpty) {
       _value = null;
       this.isNull(isNullable ? true : false);

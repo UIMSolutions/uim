@@ -32,7 +32,7 @@ class DIntegerData : DData {
   }
 
   // Hooks for setting 
-  protected void set(int newValue) {
+  void set(int newValue) {
     _value = newValue;
   }
 

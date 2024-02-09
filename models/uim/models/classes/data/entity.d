@@ -36,7 +36,7 @@ class DEntityData : DData {
       assert(EntityData.value(entity).value.id == entity.id);
   }}
 
-  protected void set(DEntity newValue) {
+  void set(DEntity newValue) {
     if (newValue is null) { 
       this.isNull(isNullable ? true : false); 
       _value = null; }
@@ -46,11 +46,11 @@ class DEntityData : DData {
     }
   }  
 
-  override protected void set(string newValue) {
+  override void set(string newValue) {
     /// TODO
   }  
 
-  override protected void set(Json newValue) {
+  override void set(Json newValue) {
     /// TODO
   }
 

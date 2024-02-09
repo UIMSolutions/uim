@@ -45,7 +45,7 @@ class DDoubleData : DData {
     assert(data.value == myValue);
   }
   // Hooks for setting 
-  protected void set(double newValue) {
+  void set(double newValue) {
     _value = newValue;
   }
 

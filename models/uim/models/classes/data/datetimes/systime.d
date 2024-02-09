@@ -34,11 +34,11 @@ class DSystimeData : DData {
   }
 
   // Hooks for setting 
-  protected void set(SysTime newValue) {
+  void set(SysTime newValue) {
     _value = newValue;
   }
 
-  override protected void set(string newValue) {
+  override void set(string newValue) {
     if (newValue is null) {
       isNull(isNullable ? true : false);
       value(SysTime());
@@ -50,7 +50,7 @@ class DSystimeData : DData {
     alias opEquals = DData.opEquals;
   }
 
-  override protected void set(Json newValue) {
+  override void set(Json newValue) {
     if (newValue.isEmpty) {
       _value = SysTime();
       this.isNull(isNullable ? true : false);

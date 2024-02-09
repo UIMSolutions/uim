@@ -33,5 +33,5 @@ unittest {
   assert(!cast(DIntegerAttribute)generalAttribute);
 
   // IData value = attribute.createValue();
-  assert(cast(DUUIDData)value);
+  // assert(cast(DUUIDData)value);
 }

@@ -48,5 +48,5 @@ unittest {
   assert(!cast(DIntegerAttribute) generalAttribute);
 
   // IData value = attribute.createValue();
-  assert(cast(DStringData) value);
+  // assert(cast(DStringData) value);
 }

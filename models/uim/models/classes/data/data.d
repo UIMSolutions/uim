@@ -23,57 +23,60 @@ class DData : IData {
   }
 
   // #region properties
-  mixin(TProperty!("DAttribute", "attribute"));
+    mixin(TProperty!("DAttribute", "attribute"));
 
-  mixin(TProperty!("bool", "isBoolean"));
-  mixin(TProperty!("bool", "isInteger"));
-  mixin(TProperty!("bool", "isDouble"));
-  mixin(TProperty!("bool", "isLong"));
-  mixin(TProperty!("bool", "isTime"));
-  mixin(TProperty!("bool", "isDate"));
-  mixin(TProperty!("bool", "isDatetime"));
-  mixin(TProperty!("bool", "isTimestamp"));
-  mixin(TProperty!("bool", "isString"));
+    mixin(TProperty!("bool", "isBoolean"));
+    mixin(TProperty!("bool", "isInteger"));
+    mixin(TProperty!("bool", "isDouble"));
+    mixin(TProperty!("bool", "isLong"));
+    mixin(TProperty!("bool", "isTime"));
+    mixin(TProperty!("bool", "isDate"));
+    mixin(TProperty!("bool", "isDatetime"));
+    mixin(TProperty!("bool", "isTimestamp"));
+    mixin(TProperty!("bool", "isString"));
+    mixin(TProperty!("bool", "isNumeric"));
 
-  mixin(TProperty!("bool", "isScalar"));
-  mixin(TProperty!("bool", "isArray"));
-  mixin(TProperty!("bool", "isObject"));
-  mixin(TProperty!("bool", "isEntity"));
-  mixin(TProperty!("bool", "isUUID"));
+    mixin(TProperty!("bool", "isScalar"));
+    mixin(TProperty!("bool", "isArray"));
+    mixin(TProperty!("bool", "isObject"));
+    mixin(TProperty!("bool", "isEntity"));
+    mixin(TProperty!("bool", "isUUID"));
 
-  mixin(TProperty!("bool", "isReadOnly"));
-  mixin(TProperty!("bool", "isNullable"));
+    mixin(TProperty!("bool", "isReadOnly"));
+    mixin(TProperty!("bool", "isNullable"));
 
-  // #region isNull
-  private bool _isNull;
-  bool isNull() {
-    if (isNullable)
-      return isNull;
-    return false;
-  }
+    // #region isNull
+      private bool _isNull;
+      bool isNull() {
+        if (isNullable)
+          return isNull;
+        return false;
+      }
 
-  void isNull(bool newNull) {
-    if (isNullable)
-      _isNull = newNull;
-  }
-  // #endregion isNull
+      void isNull(bool newNull) {
+        if (isNullable)
+          _isNull = newNull;
+      }
+    // #endregion isNull
   // #endregion properties 
 
-  void set(Json newValue) {
-    // TODO
-  }
+  // #region set
+    void set(Json newValue) {
+      // TODO
+    }
 
-  void set(string newValue) {
-    // TODO
-  }
+    void set(string newValue) {
+      // TODO
+    }
 
-  void value(string newValue) {
-    this.set(newValue);
-  }
+    void opCall(Json newData) {
+      set(newData);
+    }
 
-  void value(Json newValue) {
-    this.set(newValue);
-  }
+    void opCall(string newData) {
+      set(string);
+    }
+  // #endregion set
 
   // #region opEquals
     alias opEquals = Object.opEquals;
@@ -136,9 +139,17 @@ class DData : IData {
 
   // #region data
     // #region data()
+      void data(string key, IData data) {
+      }
+
       IData[] data(string[] keys) {
         return null;
       }
+
+      IData data(string key) {
+        return null;
+      }
+
       IData data(string key) {
         return null;
       }
@@ -164,16 +175,10 @@ class DData : IData {
     return null;
   }
 
-  IData data(string key) {
-    return null;
-  }
-
   IData opIndex(string key) {
     return null;
   }
 
-  void data(string key, IData data) {
-  }
 
   void opAssignIndex(IData data, string key) {
   }
@@ -182,13 +187,6 @@ class DData : IData {
     return Json(null);
   }
 
-  void opCall(DAttribute newAttribute) {
-    this.attribute(newAttribute);
-  }
-
-  void opCall(Json newData) {
-    fromJson(newData);
-  }
 
   void opCall(DAttribute newAttribute, Json newData) {
     attribute(newAttribute);

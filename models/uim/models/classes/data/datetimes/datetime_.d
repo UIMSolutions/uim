@@ -12,15 +12,6 @@ class DDatetimeData : DData {
   mixin(DataThis!("DatetimeData", "DateTime"));
 
   protected DateTime _value;
-  alias value = DData.value;
-  void value(DateTime newValue) {
-    this.set(newValue);
-
-  }
-
-  DateTime value() {
-    return _value;
-  }
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) {
@@ -40,19 +31,19 @@ class DDatetimeData : DData {
   override void set(string newValue) {
     if (newValue is null) {
       this.isNull(isNullable ? true : false);
-      this.value(DateTime());
+      set(DateTime());
     } else {
       this.isNull(false);
-      this.value(DateTime.fromISOExtString(newValue));
+      set(DateTime.fromISOExtString(newValue));
     }
   }
 
   override void set(Json newValue) {
     if (newValue.isEmpty) {
-      _value = DateTime();
+      set(DateTime());
       isNull(isNullable ? true : false);
     } else {
-      value(newValue.get!string);
+      set(newValue.get!string);
       isNull(false);
     }
   }

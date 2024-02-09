@@ -14,22 +14,39 @@ class DScalarData : DData {
     super();
   }
 
+  // Initialization hook method.
+  override bool initialize(IData[string] configData = null) {
+    if (!super.initialize(configData)) {
+      return false;
+    }
+
+    isScalar(true);
+
+    return true;
+  }
+
   override bool hasPath(string path, string separator = "/") {
     return false;
   }
 
-  override string[] keys() {
-    return null;
-  }
+  // #region key/keys
+    override string[] keys() {
+      return null;
+    }
 
-  alias hasKeys = DData.hasKeys;
-  override bool hasKeys(string[] keys, bool deepSearch = false) {
-    return false;
-  }
+    alias hasKeys = DData.hasKeys;
+    override bool hasKeys(string[] keys, bool deepSearch = false) {
+      return false;
+    }
 
-  override bool hasKey(string key, bool deepSearch = false) {
-    return false;
-  }
+    override bool hasKey(string key, bool deepSearch = false) {
+      return false;
+    }
+
+    override bool hasKeys(string[]) {
+      return false;
+    }
+  // #endregion key/keys
 
   // #region data
     // #region data()
@@ -65,31 +82,22 @@ class DScalarData : DData {
 
   // #region opEquals
     alias opEquals = Object.opEquals;
-    bool opEquals(string equalValue) {
+    override bool opEquals(string equalValue) {
       return (toString == equalValue);
     }
 
-    bool opEquals(IData equalValue) {
+    override bool opEquals(IData equalValue) {
       return (toString == equalValue.toString);
     }
   // #endregion opEquals
 
-  IData[] values() {
+  override IData[] values() {
     return null;
   }
 
-  bool isNumeric() {
-    return false;
+  override ulong length() {
+    return isNull ? 0 : 1;
   }
-
-  bool hasKeys(string[]) {
-    return false;
-  }
-
-  ulong length() {
-    return 0;
-  }
-
 }
 
 auto ScalarData() {

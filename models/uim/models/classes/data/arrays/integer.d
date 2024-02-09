@@ -21,16 +21,8 @@ class DIntegerArrayData : DArrayData {
   }
 
   protected int[] _value;
-  alias value = DData.value;
   void set(int[] newValue) {
     _value = newValue;
-  }
-  void value(int[] newValue) {
-    set(newValue);
-     
-  }
-  int[] value() {
-    return _value; 
   }
 
   alias opEquals = DData.opEquals;

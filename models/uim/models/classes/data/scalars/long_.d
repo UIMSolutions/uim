@@ -28,9 +28,6 @@ class DLongData : DScalarData {
     return true;
   }
 
-  // Set(..)
-  mixin DataSetTemplate!(0, long);
-
   alias opEquals = DData.opEquals;
   bool opEquals(long equalValue) {
     return (_value == equalValue);
@@ -107,7 +104,8 @@ class DLongData : DScalarData {
     if (isNull) return 0; 
     return _value; }
 
-  mixin DataConvert;
+  mixin DataSetTemplate!(0, long);
+  mixin DataConvertTemplate;
 }
 mixin(DataCalls!("LongData", "long"));  
 

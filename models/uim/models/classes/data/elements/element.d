@@ -23,15 +23,6 @@ class DElementData : DData {
   }
 
   protected DElement _value;
-  alias value = DData.value;
-  void value(DElement newValue) {
-    _value = newValue;
-
-  }
-
-  DElement value() {
-    return _value;
-  }
 
   version (test_uim_models) {
     unittest {

@@ -29,16 +29,8 @@ class DStringArrayData : DArrayData {
   mixin(TProperty!("bool", "shouldTrim"));
 
   protected string[] _values;
-  alias value = DData.value;
   void set(string[] newValues) {
     _values = newValues.filter!(v => v.length > 0).array;
-  }
-  void value(string[] newValue) {
-    this.set(newValue);
-     
-  }
-  string[] value() {
-    return _values; 
   }
 
   override void set(string newValue) {

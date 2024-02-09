@@ -106,7 +106,7 @@ template LongDataProperty(string name, string path = null) {
     dataSetter(name, "string", "DLongData", path);
 }
 
-mixin template DataConvert() {
+mixin template DataConvertTemplate() {
   alias toJson = DData.toJson;
   override Json toJson() {
     if (isNull)
@@ -122,6 +122,18 @@ mixin template DataConvert() {
 }
 
 mixin template DataSetTemplate(alias defaultValue, alias dataType) {
+  override void opCall(dataType newValue) {
+    set(newValue);
+  }
+
+  override void opCall(string newValue) {
+    set(newValue);
+  }
+
+  override void opCall(Json newValue) {
+    set(newValue);
+  }
+
   void set(dataType newValue) {
     _value = newValue;
   }
@@ -132,7 +144,7 @@ mixin template DataSetTemplate(alias defaultValue, alias dataType) {
       _value = defaultValue;
     } else {
       isNull(false);
-      _value = to!dataType(newValue);
+      set(to!dataType(newValue));
     }
   }
 
@@ -141,7 +153,7 @@ mixin template DataSetTemplate(alias defaultValue, alias dataType) {
       _value = defaultValue;
       this.isNull(isNullable ? true : false);
     } else {
-      _value = newValue.get!dataType;
+      set(newValue.get!dataType);
       this.isNull(false);
     }
   }

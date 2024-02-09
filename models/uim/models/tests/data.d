@@ -7,7 +7,16 @@ bool testDataSetGet(IData testData) {
     assert(testData !is null, "testDataSetGet: testdata is null");
     
     testData.set("0");
-    assert(testData.toString == "1", "testDataSetGet: testdata string set get not work");
+    assert(testData.toString == "1", "testDataSetGet: testdata 'set string - get string' not work");
+
+    testData.set(Json(0));
+    assert(testData.toString == "1", "testDataSetGet: testdata 'set json - get string' not work");
+
+    testData.set(Json(0));
+    assert(testData.toJson == Json(0), "testDataSetGet: testdata 'set json - get json' not work");
+
+    testData.set("0");
+    assert(testData.toJson == Json(0), "testDataSetGet: testdata 'set string - get json' not work");
 
     return true;
 }

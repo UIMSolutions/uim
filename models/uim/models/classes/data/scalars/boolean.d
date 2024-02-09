@@ -8,7 +8,7 @@ module uim.models.classes.data.scalars.boolean;
 import uim.models;
 
 @safe:
-class DBoolData : DData {
+class DBoolData : DScalarData {
   mixin(DataThis!("BoolData", "bool"));
 
   // Initialization hook method.

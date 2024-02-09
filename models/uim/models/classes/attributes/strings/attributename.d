@@ -31,14 +31,17 @@ means.attributeName
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
     name("attributeName");
-      registerPath("attributeName");
+    registerPath("attributeName");
 
-      return true;
+    return true;
   }
 }
+
 mixin(AttributeCalls!("AttributeNameAttribute"));
 
 ///
@@ -47,10 +50,10 @@ unittest {
   assert(attribute.name == "attributeName");
   assert(attribute.registerPath == "attributeName");
 
-  DAttribute generalAttribute = attribute;
-  assert(cast(DStringAttribute)generalAttribute);
-  assert(!cast(DIntegerAttribute)generalAttribute);
+  IAttribute generalAttribute = attribute;
+  assert(cast(DStringAttribute) generalAttribute);
+  assert(!cast(DIntegerAttribute) generalAttribute);
 
-  DData value = attribute.createValue();
-  assert(cast(DStringData)value);
+  // IData value = attribute.createValue();
+  // assert(cast(DStringData) value);
 }

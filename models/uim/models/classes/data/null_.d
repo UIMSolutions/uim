@@ -13,7 +13,9 @@ class DNullData : DData {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
     isNull(true);
 
@@ -23,7 +25,8 @@ class DNullData : DData {
   override IData clone() {
     return NullData;
   }
-alias toJson = DData.toJson;
+
+  alias toJson = DData.toJson;
   override Json toJson() {
     return Json(null);
   }

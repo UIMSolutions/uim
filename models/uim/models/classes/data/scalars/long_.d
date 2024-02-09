@@ -8,7 +8,7 @@ module uim.models.classes.data.scalars.long_;
 import uim.models;
 
 @safe:
-class DLongData : DData {
+class DLongData : DScalarData {
   mixin(DataThis!("LongData", "long"));  
 
   protected long _value;  

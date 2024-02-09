@@ -32,6 +32,7 @@ class DLookupData(K, V) : DData {
 
   alias opEquals = Object.opEquals;
   alias opEquals = DData.opEquals;
+  alias opIndex = DData.opIndex;
 
   override IData clone() {
     return LookupData!(K, V)(attribute, toJson);

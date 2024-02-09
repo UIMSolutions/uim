@@ -75,18 +75,20 @@ class DData : IData {
     this.set(newValue);
   }
 
-  alias opEquals = Object.opEquals;
-  bool opEquals(string equalValue) {
-    return (toString == equalValue);
-  }
+  // #region opEquals
+    alias opEquals = Object.opEquals;
+    bool opEquals(string equalValue) {
+      return (toString == equalValue);
+    }
 
-  bool opEquals(DData equalValue) {
-    return (toString == equalValue.toString);
-  }
+    bool opEquals(IData equalValue) {
+      return (toString == equalValue.toString);
+    }
 
-  bool opEquals(UUID equalValue) {
-    return false;
-  }
+    bool opEquals(UUID equalValue) {
+      return false;
+    }
+  // #endregion opEquals
 
   string[] keys() {
     return null;
@@ -132,17 +134,31 @@ class DData : IData {
     return false;
   }
 
-  bool hasData(IData[string] checkData, bool deepSearch = false) {
-    return false;
-  }
+  // #region data
+    // #region data()
+      IData[] data(string[] keys) {
+        return null;
+      }
+      IData data(string key) {
+        return null;
+      }
+    // #endregion data()
 
-  bool hasData(IData[] data, bool deepSearch = false) {
-    return false;
-  }
+    // #region hasData()
+      bool hasData(IData[string] checkData, bool deepSearch = false) {
+        return false;
+      }
 
-  bool hasData(IData data, bool deepSearch = false) {
-    return false;
-  }
+      bool hasData(IData[] data, bool deepSearch = false) {
+        return false;
+      }
+
+      bool hasData(IData data, bool deepSearch = false) {
+        return false;
+      }
+    // #endregion hasData()
+  // #endregion data
+
 
   IData get(string key, IData defaultData) {
     return null;

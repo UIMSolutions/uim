@@ -9,52 +9,57 @@ import uim.models;
 
 @safe:
 class DEntityData : DData {
-  mixin(DataThis!("EntityData", "DEntity"));  
+  mixin(DataThis!("EntityData", "DEntity"));
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
     isNull(false);
-      isEntity(true);
+    isEntity(true);
 
-      return true;
+    return true;
   }
 
   protected DEntity _value;
   alias value = DData.value;
   void value(DEntity newValue) {
     _value = newValue;
-     
+
   }
+
   DEntity value() {
-    return _value; 
+    return _value;
   }
-  version(test_uim_eDEntityntities) {
-    unittest {    
+
+  version (test_uim_eDEntityntities) {
+    unittest {
       auto entity = SystemUser; // some kind of entity
       assert(EntityData.value(entity).value.id == entity.id);
-  }}
-
-  void set(DEntity newValue) {
-    if (newValue is null) { 
-      this.isNull(isNullable ? true : false); 
-      _value = null; }
-    else {
-      this.isNull(false);
-      _value = newValue; 
     }
-  }  
-
-  override void set(string newValue) {
-    /// TODO
-  }  
-
-  override void set(Json newValue) {
-    /// TODO
   }
 
-/*   bool opEquals(DEntity otherValue) {
+  void set(DEntity newValue) {
+    if (newValue is null) {
+      this.isNull(isNullable ? true : false);
+      _value = null;
+    } else {
+      this.isNull(false);
+      _value = newValue;
+    }
+  }
+
+  override void set(string newValue) {
+    // TODO
+  }
+
+  override void set(Json newValue) {
+    // TODO
+  }
+
+  /*   bool opEquals(DEntity otherValue) {
     return (this.value.id == otherValue.id);
   }
 
@@ -68,23 +73,29 @@ class DEntityData : DData {
   override IData clone() {
     return EntityData(attribute, toJson);
   }
-alias toJson = DData.toJson;
-  override Json toJson() { 
-    if (isNull) return Json(null); 
-    return this.value.toJson; 
+
+  alias toJson = DData.toJson;
+  override Json toJson() {
+    if (isNull)
+      return Json(null);
+    return this.value.toJson;
   }
 
   // EntityData converts to a JsonSTtring
-  override string toString() { 
-    if (isNull) return null; 
-    return toJson.toString; 
+  override string toString() {
+    if (isNull)
+      return null;
+    return toJson.toString;
   }
 
-  override void fromString(string newValue) { 
-    /// TODO this.value(newValue);
+  override void fromString(string newValue) {
+    // TODO this.value(newValue);
   }
 }
-mixin(DataCalls!("EntityData", "DEntity"));  
 
-version(test_uim_models) { unittest {  
-}}
+mixin(DataCalls!("EntityData", "DEntity"));
+
+version (test_uim_models) {
+  unittest {
+  }
+}

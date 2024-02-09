@@ -59,6 +59,9 @@ interface IData {
     void data(string key, IData data);
     void opAssignIndex(IData data, string key);
 
+    void set(string newValue);
+    void set(Json newValue);
+
     string toString();
     Json toJson(string[] selectedKeys = null);
 }

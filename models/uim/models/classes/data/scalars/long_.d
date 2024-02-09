@@ -33,25 +33,7 @@ class DLongData : DData {
     _value = newValue; 
   }  
 
-  override protected void set(string newValue) {
-    if (newValue is null) { 
-      isNull(isNullable ? true : false); 
-      _value = 0; }
-    else {
-      isNull(false);
-      _value = to!long(newValue); 
-    }
-  }  
-
-  override protected void set(Json newValue) {
-    if (newValue.isEmpty) { 
-      _value = 0; 
-      this.isNull(isNullable ? true : false); }
-    else {
-      _value = newValue.get!long;
-      this.isNull(false);
-    }
-  }
+  mixin DataSetTemplate!(0, long);
 
   alias opEquals = DData.opEquals;
   bool opEquals(long equalValue) {
@@ -128,14 +110,8 @@ class DLongData : DData {
   long toLong() { 
     if (isNull) return 0; 
     return _value; }
-alias toJson = DData.toJson;
-  override Json toJson() { 
-    if (isNull) return Json(null); 
-    return Json(_value); }
 
-  override string toString() { 
-    if (isNull) return "0"; 
-    return to!string(_value); }
+  mixin DataConvert;
 }
 mixin(DataCalls!("LongData", "long"));  
 
@@ -313,3 +289,7 @@ Returns a Long object holding the value of the specified String.
 static Long
 valueOf(String s, int radix)
 */
+
+unittest {
+  testDataSetGet(LongData);
+}

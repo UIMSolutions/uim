@@ -124,18 +124,8 @@ class DBooleanData : DData {
   bool toBool() {
     return _value;
   }
-alias toJson = DData.toJson;
-  override Json toJson() {
-    if (this.isNull)
-      return Json(null);
-    return Json(this.value);
-  }
 
-  override string toString() {
-    if (isNull)
-      return null;
-    return to!string(this.value);
-  }
+  mixin DataConvert;
 }
 
 mixin(DataCalls!("BooleanData", "bool"));

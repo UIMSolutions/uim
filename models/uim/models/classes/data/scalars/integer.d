@@ -36,25 +36,7 @@ class DIntegerData : DData {
     _value = newValue;
   }
 
-  override protected void set(string newValue) {
-    if (newValue is null) {
-      this.isNull(isNullable ? true : false);
-      _value = 0;
-    } else {
-      this.isNull(false);
-      _value = to!int(newValue);
-    }
-  }
-
-  override protected void set(Json newValue) {
-    if (newValue.isEmpty) {
-      _value = 0;
-      this.isNull(isNullable ? true : false);
-    } else {
-      _value = newValue.get!int;
-      this.isNull(false);
-    }
-  }
+  mixin DataSetTemplate!(0, int);
 
   alias opEquals = DData.opEquals;
   /* override */
@@ -223,17 +205,8 @@ class DIntegerData : DData {
       return 0;
     return to!long(_value);
   }
-alias toJson = DData.toJson;
-  override Json toJson() {
-    return isNull
-      ? Json(null) : Json(_value);
-  }
 
-  override string toString() {
-    if (isNull)
-      return "null";
-    return to!string(_value);
-  }
+  mixin DataConvert;
 }
 
 mixin(DataCalls!("IntegerData", "int"));

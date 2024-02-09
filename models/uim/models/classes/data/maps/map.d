@@ -28,7 +28,7 @@ class DMapData(K) : DData, IMap {
     /* if (containsKey(key)) {
       _items[key].value(value ? "true" : "false");
     } else {
-      _items[key] = new DBooleanData(value);
+      _items[key] = new DBoolData(value);
     } */ 
   }
 
@@ -161,7 +161,7 @@ unittest {
 
   assert(stringMap["key1"].toString == "value1");
   assert(cast(DStringData) stringMap["key1"]);
-  assert(!cast(DBooleanData) stringMap["key1"]);
+  assert(!cast(DBoolData) stringMap["key1"]);
 
   stringMap["key2"] = "value2";
   assert(stringMap["key2"].toString == "value2");

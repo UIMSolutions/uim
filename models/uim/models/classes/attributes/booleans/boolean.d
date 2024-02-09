@@ -30,7 +30,7 @@ is.dataFormat.boolean */
   }
 
   /* override IData createData() {
-    return BooleanData(this); } */
+    return BoolData(this); } */
 }
 
 mixin(AttributeCalls!"BooleanAttribute");

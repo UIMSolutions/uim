@@ -108,7 +108,7 @@ unittest {
 
 ///
 unittest {
-  auto boolValue = new DBooleanData(true);
+  auto boolValue = new DBoolData(true);
   assert(boolValue == true);
   assert(boolValue != false);
 }

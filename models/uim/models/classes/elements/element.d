@@ -299,8 +299,8 @@ class DElement : IElement {
 
   // Set bool value
   void opIndexAssign(bool value, string key) {
-    if (auto myValue = cast(DBooleanData) valueOfKey(key)) {
-      // values[key] exists and value of DBooleanData
+    if (auto myValue = cast(DBoolData) valueOfKey(key)) {
+      // values[key] exists and value of DBoolData
       myValue.value = value;
     }
   }

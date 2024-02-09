@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DArrayData : DData {
-  mixin(DataThis!("ArrayData"));  
+  mixin(DataThis!("ArrayData"));
   this(IData[] values) {
     this();
     _items = values.dup;
@@ -19,32 +19,36 @@ class DArrayData : DData {
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
     isArray(true);
 
     return true;
   }
 
-  DArrayData add(IData[] values...) { 
-    this.add(values.dup); 
-    return this; }
+  DArrayData add(IData[] values...) {
+    this.add(values.dup);
+    return this;
+  }
 
   DArrayData add(IData[] values) {
-    _items ~= values.dup; 
+    _items ~= values.dup;
     return this;
   }
   /// 
   unittest {
     writeln(ArrayData.add(StringData("1x"), StringData("2x")).values.map!(v => v.toString).array);
   }
-  
+
   // TODO alias opEquals = IData.opEquals;
 
   protected IData[] _values;
   override IData[] values() {
     return _values;
   }
+
   void values(IData[] newValues) {
     _values = newValues;
   }
@@ -58,19 +62,19 @@ class DArrayData : DData {
   }
 
   void clear() {
-      _values = null;
+    _values = null;
   }
 
-alias hasKey = DData.hasKey;
+  alias hasKey = DData.hasKey;
   bool hasKey(string checkKey) {
     return false;
   }
-    ///
+  ///
   unittest {
     assert(!hasKey("abc"));
   }
 
-  void opOpAssign(string op: "~")(IData value) {
+  void opOpAssign(string op : "~")(IData value) {
     _values ~= value;
   }
   /// 
@@ -82,11 +86,14 @@ alias hasKey = DData.hasKey;
   }
 
   override string toString() {
-    return "["~_items.map!(item => item.toString).join(",")~"]";
+    return "[" ~ _items.map!(item => item.toString).join(",") ~ "]";
   }
 }
-mixin(DataCalls!("ArrayData")); 
-auto ArrayData(IData[] values) { return new DArrayData(values); } 
+
+mixin(DataCalls!("ArrayData"));
+auto ArrayData(IData[] values) {
+  return new DArrayData(values);
+}
 
 ///
 unittest {

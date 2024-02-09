@@ -8,8 +8,8 @@ module uim.models.classes.data.scalars.boolean;
 import uim.models;
 
 @safe:
-class DBooleanData : DData {
-  mixin(DataThis!("BooleanData", "bool"));
+class DBoolData : DData {
+  mixin(DataThis!("BoolData", "bool"));
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
@@ -91,13 +91,13 @@ class DBooleanData : DData {
   }
   ///
   unittest {
-    auto valueA = new DBooleanData(true);
-    auto valueB = new DBooleanData(false);
+    auto valueA = new DBoolData(true);
+    auto valueB = new DBoolData(false);
     assert(valueA > false);
     assert(valueB < true);
   }
 
-  int opCmp(DBooleanData aValue) {
+  int opCmp(DBoolData aValue) {
     if (aValue) {
       return opCmp(aValue.value);
     }
@@ -106,19 +106,19 @@ class DBooleanData : DData {
 
   ///
   unittest {
-    auto valueA = new DBooleanData(true);
-    auto valueB = new DBooleanData(false);
+    auto valueA = new DBoolData(true);
+    auto valueB = new DBoolData(false);
     assert(valueA > valueB);
     assert(valueB < valueA);
 
-    auto valueC = (new DBooleanData).value(true);
-    auto valueD = (new DBooleanData).value(false);
+    auto valueC = (new DBoolData).value(true);
+    auto valueD = (new DBoolData).value(false);
     assert(valueC > valueD);
     assert(valueD < valueC);
   }
 
   override IData clone() {
-    return BooleanData(attribute, toJson);
+    return BoolData(attribute, toJson);
   }
 
   bool toBool() {
@@ -128,44 +128,44 @@ class DBooleanData : DData {
   mixin DataConvert;
 }
 
-mixin(DataCalls!("BooleanData", "bool"));
+mixin(DataCalls!("BoolData", "bool"));
 
 version (test_uim_models) {
   unittest {
-    assert(BooleanData(true) == true);
-    assert(BooleanData(false) != true);
-    assert(BooleanData.value(true) == true);
-    assert(BooleanData.value(Json(true)) == true);
-    assert(BooleanData.value(false) != true);
-    assert(BooleanData.value(Json(false)) != true);
+    assert(BoolData(true) == true);
+    assert(BoolData(false) != true);
+    assert(BoolData.value(true) == true);
+    assert(BoolData.value(Json(true)) == true);
+    assert(BoolData.value(false) != true);
+    assert(BoolData.value(Json(false)) != true);
 
-    auto booleanData = BooleanData;
+    auto BoolData = BoolData;
 
-    booleanData.value("true");
-    assert(booleanData.value);
+    BoolData.value("true");
+    assert(BoolData.value);
 
-    booleanData.value("false");
-    assert(!booleanData.value);
+    BoolData.value("false");
+    assert(!BoolData.value);
 
-    booleanData.value("on");
-    assert(booleanData.value);
+    BoolData.value("on");
+    assert(BoolData.value);
 
-    booleanData.value("off");
-    assert(!booleanData.value);
+    BoolData.value("off");
+    assert(!BoolData.value);
 
-    booleanData.value("1");
-    assert(booleanData.value);
+    BoolData.value("1");
+    assert(BoolData.value);
 
-    booleanData.value("0");
-    assert(!booleanData.value);
+    BoolData.value("0");
+    assert(!BoolData.value);
 
-    booleanData.value(true);
-    assert(booleanData.fromString(booleanData.toString).value);
-    assert(booleanData.fromJson(booleanData.toJson).value);
+    BoolData.value(true);
+    assert(BoolData.fromString(BoolData.toString).value);
+    assert(BoolData.fromJson(BoolData.toJson).value);
 
-    booleanData.value(false);
-    assert(!booleanData.fromString(booleanData.toString).value);
-    assert(!booleanData.fromJson(booleanData.toJson).value);
+    BoolData.value(false);
+    assert(!BoolData.fromString(BoolData.toString).value);
+    assert(!BoolData.fromJson(BoolData.toJson).value);
   }
 }
 

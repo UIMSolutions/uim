@@ -12,14 +12,6 @@ class DJsonData : DData {
   mixin(DataThis!("JsonData"));
 
   protected Json _value;
-  override void value(Json newValue) {
-    _value = newValue;
-  }
-
-  override void value(string newValue) {
-    this.value(parseJsonString(newValue));
-
-  }
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
@@ -27,7 +19,8 @@ class DJsonData : DData {
       return false;
     }
 
-    _value = Json.emptyObject;
+    set(Json.emptyObject);
+    //     this.value(parseJsonString(newValue));
     isObject(true);
 
     return true;
@@ -37,7 +30,8 @@ class DJsonData : DData {
     return JsonData(attribute, toJson);
   }
 
-alias toJson = DData.toJson;  override Json toJson() {
+  alias toJson = DData.toJson;
+  override Json toJson() {
     if (isNull)
       return Json(null);
     return _value;
@@ -47,10 +41,6 @@ alias toJson = DData.toJson;  override Json toJson() {
     if (isNull)
       return null;
     return _value.toString;
-  }
-
-  override void fromString(string newValue) {
-    this.value(newValue);
   }
 }
 

@@ -23,20 +23,16 @@ class DDoubleData : DData {
   }
 
   protected double _value;
-  alias value = DData.value;
-  void value(double newValue) {
-    this.set(newValue);
-  }
-
   double get() {
     return _value;
   }
-
+  ///
   unittest {
     double myValue = 42.0;
-    assert(DoubleData(myValue).value == myValue);
+    auto data = DoubleData(myValue);
+    assert(data.value == myValue);
 
-    auto data = new DDoubleData;
+    data = new DDoubleData;
     data.value(myValue);
     assert(data.value == myValue);
 
@@ -84,7 +80,7 @@ class DDoubleData : DData {
     return _value;
   }
 
-  mixin DataConvert;
+  mixin DataConvertTemplate;
 }
 
 mixin(DataCalls!("DoubleData", "double"));

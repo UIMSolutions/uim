@@ -24,12 +24,6 @@ class DEntityData : DData {
   }
 
   protected DEntity _value;
-  alias value = DData.value;
-  void value(DEntity newValue) {
-    _value = newValue;
-
-  }
-
   DEntity get() {
     return _value;
   }
@@ -37,11 +31,12 @@ class DEntityData : DData {
   version (test_uim_eDEntityntities) {
     unittest {
       auto entity = SystemUser; // some kind of entity
-      assert(EntityData.value(entity).value.id == entity.id);
+      entity.set(entity);
+      assert(entity.get.id == entity.id);
     }
   }
 
-  void set(DEntity newValue) {
+/*   void set(DEntity newValue) {
     if (newValue is null) {
       this.isNull(isNullable ? true : false);
       _value = null;
@@ -49,15 +44,7 @@ class DEntityData : DData {
       this.isNull(false);
       _value = newValue;
     }
-  }
-
-  override void set(string newValue) {
-    // TODO
-  }
-
-  override void set(Json newValue) {
-    // TODO
-  }
+  } */
 
   /*   bool opEquals(DEntity otherValue) {
     return (this.value.id == otherValue.id);
@@ -88,9 +75,6 @@ class DEntityData : DData {
     return toJson.toString;
   }
 
-  override void fromString(string newValue) {
-    // TODO this.value(newValue);
-  }
 }
 
 mixin(DataCalls!("EntityData", "DEntity"));

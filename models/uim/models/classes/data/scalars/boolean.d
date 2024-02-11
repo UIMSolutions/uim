@@ -22,8 +22,9 @@ class DBoolData : DData {
     return true;
   }
 
-  @property int get() {
-    return value;
+  protected bool _value;
+  bool get() {
+    return _value;
   }
   // alias get this;
   unittest {
@@ -39,14 +40,6 @@ class DBoolData : DData {
     assert(data.value == myValue);
   }
 
-  void opCall(bool newValue) {
-    this.value(newValue);
-  }
-
-  protected bool _value;
-  bool get() {
-    return _value;
-  }
   void set(bool newValue) {
     _value = newValue;
   }
@@ -117,7 +110,7 @@ class DBoolData : DData {
     return _value;
   }
 
-  mixin DataConvert;
+  mixin DataConvertTemplate;
 }
 
 mixin(DataCalls!("BoolData", "bool"));

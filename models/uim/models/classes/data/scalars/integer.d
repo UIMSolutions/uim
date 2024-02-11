@@ -218,7 +218,7 @@ class DIntegerData : DData {
     return to!long(_value);
   }
 
-  mixin DataConvert;
+  mixin DataConvertTemplate;
 }
 
 mixin(DataCalls!("IntegerData", "int"));

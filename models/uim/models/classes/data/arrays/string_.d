@@ -38,17 +38,17 @@ class DStringArrayData : DArrayData {
     if (shouldTrim) {
       myValues = myValues.map!(a => a.strip).array;
     } 
-    this.value(myValues);
+    set(myValues);
   }
 
   override void set(Json newValue) {
-    if (newValue.isEmpty) this.value(cast(string[])null);
+    if (newValue.isEmpty) set(cast(string[])null);
     switch(newValue.type) {
       case Json.Type.string: 
-        /* return  */this.value(newValue.get!string); 
+        set(newValue.get!string); 
         break;
       case Json.Type.array: 
-        /* return  */this.value(newValue.get!(Json[]).map!(a => a.get!string).array);
+        set(newValue.get!(Json[]).map!(a => a.get!string).array);
         break; 
       //case Json.Type.object: 
         /* return  this.fromJson(newValue); */

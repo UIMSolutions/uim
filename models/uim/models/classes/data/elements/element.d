@@ -89,9 +89,6 @@ alias toJson = DData.toJson;
     return this.value.toString;
   }
 
-  override void fromString(string newValue) {
-    /// TODO this.value(newValue);
-  }
 }
 
 mixin(DataCalls!("ElementData"));

@@ -101,10 +101,6 @@ class DData : IData {
     return null;
   }
 
-  bool isNumeric() {
-    return false;
-  }
-
   bool hasKeys(string[]) {
     return false;
   }
@@ -142,11 +138,7 @@ class DData : IData {
       void data(string key, IData data) {
       }
 
-      IData[] data(string[] keys) {
-        return null;
-      }
-
-      IData data(string key) {
+      IData[string] data(string[] keys) {
         return null;
       }
 

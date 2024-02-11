@@ -6,9 +6,9 @@
 module uim.models.classes.attributes.entities.users;
 
 public { 
-	import uim.models.classes.attributes.entities.users.user;
+	/* import uim.models.classes.attributes.entities.users.user;
 	import uim.models.classes.attributes.entities.users.owner;
 	import uim.models.classes.attributes.entities.users.createdonbehalfby;
 	import uim.models.classes.attributes.entities.users.modifiedonbehalfby;
-	import uim.models.classes.attributes.entities.users.team;
+	import uim.models.classes.attributes.entities.users.team; */
 }

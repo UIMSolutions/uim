@@ -15,6 +15,19 @@ class DTimestampData : DLongData {
     return TimestampData(attribute, toJson);
   }
 
+/*
+  // #region Getter & Setter
+    protected long _value;
+    long get() {
+      return _value;
+    }
+    void set(long newValue) {
+      _value = newValue;
+    }
+    mixin DataGetSetTemplate!(0, long);
+  // #endregion Getter & Setter
+  */
+  
   alias opEquals = DLongData.opEquals;
 }
 mixin(DataCalls!("TimestampData", "long"));  

@@ -13,7 +13,6 @@ import std.datetime.date;
 class DDateData : DData {
   mixin(DataThis!("DateData", "Date"));
 
-  protected Date _value;
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) {
@@ -25,26 +24,16 @@ class DDateData : DData {
     return true;
   }
 
-  void set(Date newValue) {
-    _value = newValue;
-  }
-  Date get() {
-    return _value;
-  }
-
-  override void set(string newValue) {
-    _value = Date.fromISOExtString(newValue);
-  }
-
-  override void set(Json newValue) {
-    if (newValue.isEmpty) {
-      set(Date());
-      isNull(isNullable ? true : false);
-    } else {
-      set(newValue.get!string);
-      isNull(false);
+  // #region Getter & Setter
+    protected Date _value;  
+    Date get() {
+      return _value;
     }
-  }
+    void set(Date newValue) {
+      _value = newValue;
+    }
+    mixin DataGetSetTemplate!(Date(), Date);
+  // #endregion Getter & Setter
 
   override IData clone() {
     return DateData(attribute, toJson);

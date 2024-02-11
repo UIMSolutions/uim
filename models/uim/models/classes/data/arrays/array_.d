@@ -39,7 +39,7 @@ class DArrayData : DData {
   }
   /// 
   unittest {
-    writeln(ArrayData.add(StringData("1x"), StringData("2x")).values.map!(v => v.toString).array);
+    // writeln(ArrayData.add(StringData("1x"), StringData("2x")).get.map!(v => v.toString).array);
   }
 
   // TODO alias opEquals = IData.opEquals;
@@ -54,7 +54,7 @@ class DArrayData : DData {
   }
 
   override IData clone() {
-    return ArrayData(attribute, toJson);
+    return ArrayData; // (attribute, toJson);
   }
 
   override size_t length() {

@@ -20,7 +20,17 @@ class DLongData : DScalarData {
     return true;
   }
 
-  mixin DataGetSetTemplate!(0, long);
+  // #region Getter & Setter
+    protected long _value;
+    long get() {
+      return _value;
+    }
+    void set(long newValue) {
+      _value = newValue;
+    }
+    mixin DataGetSetTemplate!(0, long);
+  // #endregion Getter & Setter
+
   mixin DataConvertTemplate;
 
   alias opEquals = DData.opEquals;
@@ -78,13 +88,6 @@ class DLongData : DScalarData {
     assert(value <= new DLongData(100_000));    
   }
 
-  long opCall() {
-    return _value; 
-  }
-
-  void opCall(long newValue) { 
-    _value = newValue;
-     }
   version(test_uim_models) { unittest {    
       void value = LongData;
       value(100);

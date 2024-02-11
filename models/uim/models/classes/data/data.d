@@ -74,7 +74,7 @@ class DData : IData {
     }
 
     void opCall(string newData) {
-      set(string);
+      set(newData);
     }
   // #endregion set
 

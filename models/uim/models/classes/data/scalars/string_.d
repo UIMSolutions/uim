@@ -24,16 +24,12 @@ class DStringData : DData {
   mixin(TProperty!("size_t", "maxLength"));
 
   protected string _value;
-  @property string value() {
+  @property string get() {
     if (maxLength > 0 && _value.length > maxLength) {
       return _value[0 .. maxLength];
     } else {
       return _value;
     }
-  }
-  /// Set with string value
-  @property override void value(string newValue) {
-    set(newValue);
   }
   ///
   unittest {
@@ -42,11 +38,6 @@ class DStringData : DData {
     assert(data.value == "test");
     data.value("test2");
     assert(data.value == "test2");
-  }
-
-  // Set with Json value
-  @property override void value(Json newValue) {
-    set(newValue);
   }
 
   // Hooks for setting 
@@ -73,7 +64,7 @@ class DStringData : DData {
     if (newValue) {
       isNullable(newValue.isNullable);
       isNull(newValue.isNull);
-      value(newValue.value);
+      set(newValue.value);
     }
   }
 
@@ -107,7 +98,7 @@ class DStringData : DData {
   }
 
   void opCall(DStringData newValue) {
-    this.value(newValue);
+    set(newValue);
   }
 
   ///
@@ -142,10 +133,6 @@ class DStringData : DData {
     if (isNull)
       return null;
     return _value;
-  }
-
-  override void fromString(string newValue) {
-    this.value(newValue);
   }
 }
 

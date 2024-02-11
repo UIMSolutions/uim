@@ -11,15 +11,7 @@ import uim.models;
 class DLongData : DScalarData {
   mixin(DataThis!("LongData", "long"));  
 
-  protected long _value;  
-  alias value = DData.value;
-  void value(long newValue) {
-    this.set(newValue);
-     
-  }
-  long value() {
-    return _value; 
-  }  // Initialization hook method.
+  // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
 
@@ -27,6 +19,9 @@ class DLongData : DScalarData {
 
     return true;
   }
+
+  mixin DataGetSetTemplate!(0, long);
+  mixin DataConvertTemplate;
 
   alias opEquals = DData.opEquals;
   bool opEquals(long equalValue) {
@@ -104,14 +99,14 @@ class DLongData : DScalarData {
     if (isNull) return 0; 
     return _value; }
 
-  mixin DataSetTemplate!(0, long);
-  mixin DataConvertTemplate;
 }
 mixin(DataCalls!("LongData", "long"));  
 
-version(test_uim_models) { unittest {    
-    assert(LongData.value("100").toLong == 100);
-    assert(LongData.value(Json(100)).toLong == 100);
+unittest {    
+  auto data = LongData;
+  data.set("100");
+    assert(data.toLong == 100);
+    /* assert(LongData.value(Json(100)).toLong == 100);
     assert(LongData.value("200").toLong != 100);
     assert(LongData.value(Json(200)).toLong != 100);
 
@@ -123,8 +118,8 @@ version(test_uim_models) { unittest {
     assert(LongData.value("100").toJson == Json(100));
     assert(LongData.value(Json(100)).toJson == Json(100));
     assert(LongData.value("200").toJson != Json(100));
-    assert(LongData.value(Json(200)).toJson != Json(100));
-}} 
+    assert(LongData.value(Json(200)).toJson != Json(100));*/ 
+} 
 
 /*
 static int

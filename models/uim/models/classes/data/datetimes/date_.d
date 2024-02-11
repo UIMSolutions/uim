@@ -14,15 +14,6 @@ class DDateData : DData {
   mixin(DataThis!("DateData", "Date"));
 
   protected Date _value;
-  alias value = DData.value;
-  void value(Date newValue) {
-    this.set(newValue);
-
-  }
-
-  Date value() {
-    return _value;
-  }
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) {
@@ -36,6 +27,9 @@ class DDateData : DData {
 
   void set(Date newValue) {
     _value = newValue;
+  }
+  Date get() {
+    return _value;
   }
 
   override void set(string newValue) {

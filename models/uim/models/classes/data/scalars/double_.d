@@ -28,7 +28,7 @@ class DDoubleData : DData {
     this.set(newValue);
   }
 
-  double value() {
+  double get() {
     return _value;
   }
 
@@ -46,7 +46,7 @@ class DDoubleData : DData {
   }
 
   // Set(..)
-  mixin DataSetTemplate!(0.0, double);
+  mixin DataGetSetTemplate!(0.0, double);
   unittest {
     auto data = DoubleData(0.0);
     data.set(1.1);

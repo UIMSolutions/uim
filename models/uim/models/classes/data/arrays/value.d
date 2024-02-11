@@ -23,17 +23,11 @@ class DArrayDataData : DArrayData {
   }
 
   protected IData[] _value;
-  alias value = DData.value;
   void set(IData[] newValue) {
     _value = newValue;
   }
 
-  void value(IData[] newValue) {
-    this.set(newValue);
-
-  }
-
-  IData[] value() {
+  IData[] get() {
     return _value;
   }
 

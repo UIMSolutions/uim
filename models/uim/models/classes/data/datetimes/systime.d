@@ -13,13 +13,8 @@ class DSystimeData : DData {
   mixin(DataThis!("SystimeData", "SysTime"));
 
   protected SysTime _value;
-  alias value = DData.value;
-  void value(SysTime newValue) {
-    this.set(newValue);
 
-  }
-
-  SysTime value() {
+  SysTime get() {
     return _value;
   }
   // Initialization hook method.
@@ -52,10 +47,10 @@ class DSystimeData : DData {
 
   override void set(Json newValue) {
     if (newValue.isEmpty) {
-      _value = SysTime();
+      set(SysTime());
       this.isNull(isNullable ? true : false);
     } else {
-      // _value = newValue.get!string.fromISOExtString;
+      set(newValue.get!string.fromISOExtString);
       this.isNull(false);
     }
   }

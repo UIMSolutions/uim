@@ -30,7 +30,7 @@ class DEntityData : DData {
 
   }
 
-  DEntity value() {
+  DEntity get() {
     return _value;
   }
 

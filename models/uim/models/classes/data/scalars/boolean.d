@@ -8,7 +8,7 @@ module uim.models.classes.data.scalars.boolean;
 import uim.models;
 
 @safe:
-class DBoolData : DScalarData {
+class DBoolData : DData {
   mixin(DataThis!("BoolData", "bool"));
 
   // Initialization hook method.
@@ -44,16 +44,9 @@ class DBoolData : DScalarData {
   }
 
   protected bool _value;
-  alias value = DData.value;
-  void value(bool newValue) {
-    this.set(newValue);
-
-  }
-
-  bool value() {
+  bool get() {
     return _value;
   }
-
   void set(bool newValue) {
     _value = newValue;
   }

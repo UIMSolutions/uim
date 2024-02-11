@@ -121,8 +121,14 @@ mixin template DataConvertTemplate() {
   }
 }
 
-mixin template DataSetTemplate(alias defaultValue, alias dataType) {
-  override void opCall(dataType newValue) {
+mixin template DataGetSetTemplate(alias defaultValue, alias dataType) {
+  protected dataType _value;
+  
+  dataType get() {
+    return _value;
+  }
+
+  void opCall(dataType newValue) {
     set(newValue);
   }
 

@@ -11,7 +11,6 @@ import uim.models;
 class DDatetimeData : DData {
   mixin(DataThis!("DatetimeData", "DateTime"));
 
-  protected DateTime _value;
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) {
@@ -23,6 +22,11 @@ class DDatetimeData : DData {
     return true;
   }
 
+  protected DateTime _value;
+  DateTime get() {
+    return _value;
+  }
+  
   // Hooks for setting 
   void set(DateTime newValue) {
     _value = newValue;

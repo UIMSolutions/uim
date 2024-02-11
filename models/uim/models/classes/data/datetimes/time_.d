@@ -12,12 +12,7 @@ class DTimeData : DData {
   mixin(DataThis!("TimeData", "TimeOfDay"));  
 
   protected TimeOfDay _value;  
-  alias value = DData.value;
-  void value(TimeOfDay newValue) {
-    this.set(newValue);
-     
-  }
-  TimeOfDay value() {
+  TimeOfDay get() {
     return _value; 
   }
   // Initialization hook method.
@@ -37,10 +32,10 @@ class DTimeData : DData {
   override void set(string newValue) {
     if (newValue is null) { 
         isNull(isNullable ? true : false);
-        value(TimeOfDay()); }
+        set(TimeOfDay()); }
     else {
         isNull(false);
-        // .value(fromISOExtString(newValue)); 
+        set(fromISOExtString(newValue)); 
     }
   }  
 
@@ -49,7 +44,7 @@ class DTimeData : DData {
       _value = TimeOfDay(); 
       this.isNull(isNullable ? true : false); }
     else {
-      // _value = newValue.get!string.fromISOExtString;
+      set(newValue.get!string.fromISOExtString);
       this.isNull(false);
     }
   }

@@ -11,15 +11,6 @@ import uim.models;
 class DIntegerData : DData {
   mixin(DataThis!("IntegerData", "int"));
 
-  protected int _value;
-  alias value = DData.value;
-  void value(int newValue) {
-    this.set(newValue);
-  }
-
-  int value() {
-    return _value;
-  }
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) {
@@ -31,8 +22,8 @@ class DIntegerData : DData {
     return true;
   }
 
-  // Set(..)
-  mixin DataSetTemplate!(0, int);
+  // GetSet(..)
+  mixin DataGetSetTemplate!(0, int);
 
   alias opEquals = DData.opEquals;
   /* override */

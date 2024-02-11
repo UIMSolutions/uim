@@ -226,19 +226,19 @@ mixin(DataCalls!("IntegerData", "int"));
 version (test_uim_models) {
   unittest {
     assert(IntegerData.set("100").toLong == 100);
-    assert(IntegerData.value(Json(100)).toLong == 100);
+    assert(IntegerData.set(Json(100)).toLong == 100);
     assert(IntegerData.set("200").toLong != 100);
-    assert(IntegerData.value(Json(200)).toLong != 100);
+    assert(IntegerData.set(Json(200)).toLong != 100);
 
     assert(IntegerData.set("100").toString == "100");
-    assert(IntegerData.value(Json(100)).toString == "100");
+    assert(IntegerData.set(Json(100)).toString == "100");
     assert(IntegerData.set("200").toString != "100");
-    assert(IntegerData.value(Json(200)).toString != "100");
+    assert(IntegerData.set(Json(200)).toString != "100");
 
     assert(IntegerData.set("100").toJson == Json(100));
-    assert(IntegerData.value(Json(100)).toJson == Json(100));
+    assert(IntegerData.set(Json(100)).toJson == Json(100));
     assert(IntegerData.set("200").toJson != Json(100));
-    assert(IntegerData.value(Json(200)).toJson != Json(100));
+    assert(IntegerData.set(Json(200)).toJson != Json(100));
   }
 }
 

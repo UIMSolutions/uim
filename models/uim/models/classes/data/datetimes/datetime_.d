@@ -76,18 +76,18 @@ unittest {
   // TODO
   /*
   assert(DatetimeData.set("100").toDatetime == 100);
-  assert(DatetimeData.value(Json(100)).toDatetime == 100);
+  assert(DatetimeData.set(Json(100)).toDatetime == 100);
   assert(DatetimeData.set("200").toDatetime != 100);
-  assert(DatetimeData.value(Json(200)).toDatetime != 100);
+  assert(DatetimeData.set(Json(200)).toDatetime != 100);
 
   assert(DatetimeData.set("100").toString == "100");
-  assert(DatetimeData.value(Json(100)).toString == "100");
+  assert(DatetimeData.set(Json(100)).toString == "100");
   assert(DatetimeData.set("200").toString != "100");
-  assert(DatetimeData.value(Json(200)).toString != "100");
+  assert(DatetimeData.set(Json(200)).toString != "100");
 
   assert(DatetimeData.set("100").toJson == Json(100));
-  assert(DatetimeData.value(Json(100)).toJson == Json(100));
+  assert(DatetimeData.set(Json(100)).toJson == Json(100));
   assert(DatetimeData.set("200").toJson != Json(100));
-  assert(DatetimeData.value(Json(200)).toJson != Json(100));
+  assert(DatetimeData.set(Json(200)).toJson != Json(100));
   */
 }

@@ -34,9 +34,9 @@ class DStringData : DData {
   ///
   unittest {
     auto data = StringData;
-    data.value("test");
+    data.set("test");
     assert(data.value == "test");
-    data.value("test2");
+    data.set("test2");
     assert(data.value == "test2");
   }
 
@@ -152,11 +152,11 @@ unittest {
   assert(StringData(Json("test")).value == "test");
   assert(StringData(Json("test2")).value != "test");
 
-  assert(StringData.value("test").value == "test");
-  assert(StringData.value("test2").value != "test");
+  assert(StringData.set("test").value == "test");
+  assert(StringData.set("test2").value != "test");
 
-  assert(StringData.value(Json("test")).value == "test");
-  assert(StringData.value(Json("test2")).value != "test");
+  assert(StringData.set(Json("test")).value == "test");
+  assert(StringData.set(Json("test2")).value != "test");
 
   assert(StringData("test").toString == "test");
   assert(StringData("test2").toString != "test");
@@ -164,11 +164,11 @@ unittest {
   assert(StringData(Json("test")).toString == "test");
   assert(StringData(Json("test2")).toString != "test");
 
-  assert(StringData.value("test").toString == "test");
-  assert(StringData.value("test2").toString != "test");
+  assert(StringData.set("test").toString == "test");
+  assert(StringData.set("test2").toString != "test");
 
-  assert(StringData.value(Json("test")).toString == "test");
-  assert(StringData.value(Json("test2")).toString != "test");
+  assert(StringData.set(Json("test")).toString == "test");
+  assert(StringData.set(Json("test2")).toString != "test");
 
   assert(StringData("test").toJson == Json("test"));
   assert(StringData("test2").toJson != Json("test"));
@@ -176,9 +176,9 @@ unittest {
   assert(StringData(Json("test")).toJson == Json("test"));
   assert(StringData(Json("test2")).toJson != Json("test"));
 
-  assert(StringData.value("test").toJson == Json("test"));
-  assert(StringData.value("test2").toJson != Json("test"));
+  assert(StringData.set("test").toJson == Json("test"));
+  assert(StringData.set("test2").toJson != Json("test"));
 
-  assert(StringData.value(Json("test")).toJson == Json("test"));
-  assert(StringData.value(Json("test2")).toJson != Json("test"));
+  assert(StringData.set(Json("test")).toJson == Json("test"));
+  assert(StringData.set(Json("test2")).toJson != Json("test"));
 }

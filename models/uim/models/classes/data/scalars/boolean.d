@@ -120,9 +120,9 @@ version (test_uim_models) {
     assert(BoolData(true) == true);
     assert(BoolData(false) != true);
     /* assert(BoolData.value(true) == true);
-    assert(BoolData.value(Json(true)) == true);
+    assert(BoolData.set(Json(true)) == true);
     assert(BoolData.value(false) != true);
-    assert(BoolData.value(Json(false)) != true); */
+    assert(BoolData.set(Json(false)) != true); */
 
     auto BoolData = BoolData;
 

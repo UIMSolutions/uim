@@ -106,19 +106,19 @@ unittest {
   auto data = LongData;
   data.set("100");
     assert(data.toLong == 100);
-    /* assert(LongData.value(Json(100)).toLong == 100);
-    assert(LongData.value("200").toLong != 100);
-    assert(LongData.value(Json(200)).toLong != 100);
+    /* assert(LongData.set(Json(100)).toLong == 100);
+    assert(LongData.set("200").toLong != 100);
+    assert(LongData.set(Json(200)).toLong != 100);
 
-    assert(LongData.value("100").toString == "100");
-    assert(LongData.value(Json(100)).toString == "100");
-    assert(LongData.value("200").toString != "100");
-    assert(LongData.value(Json(200)).toString != "100");
+    assert(LongData.set("100").toString == "100");
+    assert(LongData.set(Json(100)).toString == "100");
+    assert(LongData.set("200").toString != "100");
+    assert(LongData.set(Json(200)).toString != "100");
 
-    assert(LongData.value("100").toJson == Json(100));
-    assert(LongData.value(Json(100)).toJson == Json(100));
-    assert(LongData.value("200").toJson != Json(100));
-    assert(LongData.value(Json(200)).toJson != Json(100));*/ 
+    assert(LongData.set("100").toJson == Json(100));
+    assert(LongData.set(Json(100)).toJson == Json(100));
+    assert(LongData.set("200").toJson != Json(100));
+    assert(LongData.set(Json(200)).toJson != Json(100));*/ 
 } 
 
 /*

@@ -63,7 +63,7 @@ template DataCalls(string name, string datatype = null) {
 /* template DataProperty!(string name) {
   const char[] EntityCalls = `
     auto `~name~`() { return this.values[`~name~`]; } 
-    void `~name~`(string newValue) { this.values[`~name~`].value(newValue);  } 
-    void `~name~`(Json newValue) { this.values[`~name~`].value(newValue);   } 
+    void `~name~`(string newValue) { this.values[`~name~`].set(newValue);  } 
+    void `~name~`(Json newValue) { this.values[`~name~`].set(newValue);   } 
   `;
 } */

@@ -69,17 +69,17 @@ mixin(DataCalls!("DateData", "Date"));
   unittest {
     /* 
     assert(DateData.set("100").toDate == 100);
-    assert(DateData.value(Json(100)).toDate == 100);
+    assert(DateData.set(Json(100)).toDate == 100);
     assert(DateData.set("200").toDate != 100);
-    assert(DateData.value(Json(200)).toDate != 100);
+    assert(DateData.set(Json(200)).toDate != 100);
 
     assert(DateData.set("100").toString == "100");
-    assert(DateData.value(Json(100)).toString == "100");
+    assert(DateData.set(Json(100)).toString == "100");
     assert(DateData.set("200").toString != "100");
-    assert(DateData.value(Json(200)).toString != "100");
+    assert(DateData.set(Json(200)).toString != "100");
 
     assert(DateData.set("100").toJson == Json(100));
-    assert(DateData.value(Json(100)).toJson == Json(100));
+    assert(DateData.set(Json(100)).toJson == Json(100));
     assert(DateData.set("200").toJson != Json(100));
-    assert(DateData.value(Json(200)).toJson != Json(100)); */
+    assert(DateData.set(Json(200)).toJson != Json(100)); */
 }

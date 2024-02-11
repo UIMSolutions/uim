@@ -111,13 +111,13 @@ mixin template DataConvertTemplate() {
   override Json toJson() {
     if (isNull)
       return Json(null);
-    return Json(value);
+    return Json(get);
   }
 
   override string toString() {
     if (isNull)
       return null;
-    return to!string(value);
+    return to!string(get);
   }
 }
 
@@ -132,14 +132,6 @@ mixin template DataGetSetTemplate(alias defaultValue, alias dataType) {
     set(newValue);
   }
 
-  override void opCall(string newValue) {
-    set(newValue);
-  }
-
-  override void opCall(Json newValue) {
-    set(newValue);
-  }
-
   void set(dataType newValue) {
     _value = newValue;
   }
@@ -147,7 +139,7 @@ mixin template DataGetSetTemplate(alias defaultValue, alias dataType) {
   override void set(string newValue) {
     if (newValue is null) {
       isNull(isNullable ? true : false);
-      _value = defaultValue;
+      set(defaultValue);
     } else {
       isNull(false);
       set(to!dataType(newValue));
@@ -156,11 +148,11 @@ mixin template DataGetSetTemplate(alias defaultValue, alias dataType) {
 
   override void set(Json newValue) {
     if (newValue.isEmpty) {
-      _value = defaultValue;
-      this.isNull(isNullable ? true : false);
+      set(defaultValue);
+      isNull(isNullable ? true : false);
     } else {
       set(newValue.get!dataType);
-      this.isNull(false);
+      isNull(false);
     }
   }
 }

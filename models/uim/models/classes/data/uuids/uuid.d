@@ -114,8 +114,8 @@ version (test_uim_models) {
     assert(UUIDData._value = UUID.toString).value == uuid);
     assert(UUIDData.value(randomUUID.toString).value != uuid);
 
-    assert(UUIDData.value(Json(uuid.toString)).value == uuid);
-    assert(UUIDData.value(Json(randomUUID.toString)).value != uuid);
+    assert(UUIDData.set(Json(uuid.toString)).value == uuid);
+    assert(UUIDData.set(Json(randomUUID.toString)).value != uuid);
 
     assert(UUIDData(uuid).toString == uuid.toString);
     assert(UUIDData(randomUUID).toString != uuid.toString);

@@ -72,18 +72,18 @@ mixin(DataCalls!("TimeData", "TimeOfDay"));
 unittest {   
   /*  
     assert(TimeData.set("100").toTime == 100);
-    assert(TimeData.value(Json(100)).toTime == 100);
+    assert(TimeData.set(Json(100)).toTime == 100);
     assert(TimeData.set("200").toTime != 100);
-    assert(TimeData.value(Json(200)).toTime != 100);
+    assert(TimeData.set(Json(200)).toTime != 100);
 
     assert(TimeData.set("100").toString == "100");
-    assert(TimeData.value(Json(100)).toString == "100");
+    assert(TimeData.set(Json(100)).toString == "100");
     assert(TimeData.set("200").toString != "100");
-    assert(TimeData.value(Json(200)).toString != "100");
+    assert(TimeData.set(Json(200)).toString != "100");
 
     assert(TimeData.set("100").toJson == Json(100));
-    assert(TimeData.value(Json(100)).toJson == Json(100));
+    assert(TimeData.set(Json(100)).toJson == Json(100));
     assert(TimeData.set("200").toJson != Json(100));
-    assert(TimeData.value(Json(200)).toJson != Json(100));
+    assert(TimeData.set(Json(200)).toJson != Json(100));
     */
 }

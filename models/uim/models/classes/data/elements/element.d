@@ -41,13 +41,13 @@ class DElementData : DData {
 
   void set(DElement newValue) {
     if (newValue) {
-      this.isNull(false);
+      isNull(false);
       _value = newValue;
       return;
     }
 
     if (isNullable) {
-      this.isNull(true);
+      isNull(true);
       _value = null;
     }
   }

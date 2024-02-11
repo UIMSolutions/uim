@@ -65,7 +65,7 @@ class DUUIDData : DData {
       _value = UUID();
     }
 
-    this.isNull(false);
+    isNull(false);
     _value = newValue;
   }
 
@@ -95,10 +95,6 @@ class DUUIDData : DData {
     if (isNull)
       return UUID().toString;
     return value.toString;
-  }
-
-  override void fromString(string newValue) {
-    this.value(newValue);
   }
 }
 

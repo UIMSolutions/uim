@@ -53,6 +53,7 @@ interface IData {
 
     IData get(string key, IData defaultData);
 
+    IData[string] data(string[] keys);
     IData data(string key);
     IData opIndex(string key);
 

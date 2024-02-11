@@ -41,6 +41,6 @@ mixin(DataCalls!("TagArrayData"));
 version(test_uim_models) { unittest {
     auto attribute = TagArrayData(["a", "b", "c"]);
     assert(attribute.get.length == 3);
-    assert(attribute.value[0] == "a");
-    assert(attribute.value[1] == "b");
+    assert(attribute.get[0] == "a");
+    assert(attribute.get[1] == "b");
 }}

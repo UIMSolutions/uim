@@ -48,10 +48,10 @@ class DSystimeData : DData {
   override void set(Json newValue) {
     if (newValue.isEmpty) {
       set(SysTime());
-      this.isNull(isNullable ? true : false);
+      isNull(isNullable ? true : false);
     } else {
       set(newValue.get!string.fromISOExtString);
-      this.isNull(false);
+      isNull(false);
     }
   }
 

@@ -34,10 +34,10 @@ class DDatetimeData : DData {
 
   override void set(string newValue) {
     if (newValue is null) {
-      this.isNull(isNullable ? true : false);
+      isNull(isNullable ? true : false);
       set(DateTime());
     } else {
-      this.isNull(false);
+      isNull(false);
       set(DateTime.fromISOExtString(newValue));
     }
   }

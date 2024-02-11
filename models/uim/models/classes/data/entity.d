@@ -38,10 +38,10 @@ class DEntityData : DData {
 
 /*   void set(DEntity newValue) {
     if (newValue is null) {
-      this.isNull(isNullable ? true : false);
+      isNull(isNullable ? true : false);
       _value = null;
     } else {
-      this.isNull(false);
+      isNull(false);
       _value = newValue;
     }
   } */

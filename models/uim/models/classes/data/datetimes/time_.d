@@ -42,10 +42,10 @@ class DTimeData : DData {
   override void set(Json newValue) {
     if (newValue.isEmpty) { 
       _value = TimeOfDay(); 
-      this.isNull(isNullable ? true : false); }
+      isNull(isNullable ? true : false); }
     else {
       set(newValue.get!string.fromISOExtString);
-      this.isNull(false);
+      isNull(false);
     }
   }
 

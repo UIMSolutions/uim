@@ -32,8 +32,10 @@ class DTagArrayData : DStringArrayData {
   }
   
   override string toString() {
-    if (length > 0) return separator~get.join(separator);
-    return null; 
+    if (length == 0) return null; 
+    
+    return separator~
+      get.map!(d => d.toString).join(separator);
   }
 }
 mixin(DataCalls!("TagArrayData"));  

@@ -22,10 +22,24 @@ class DDoubleData : DData {
     return true;
   }
 
-  protected double _value;
-  double get() {
-    return _value;
-  }
+  // #region Getter & Setter
+    protected double _value;
+    double get() {
+      return _value;
+    }
+    void opCall(double newValue) {
+    _value = newValue;
+    }    
+    void set(double newValue) {
+      _value = newValue;
+    }
+    mixin DataGetSetTemplate!(0.0, double);
+    unittest {
+      auto data = DoubleData(0.0);
+      data.set(1.1);
+      writeln(data);
+    }
+  // #endregion Getter & Setter
   ///
   unittest {
     double myValue = 42.0;
@@ -41,13 +55,6 @@ class DDoubleData : DData {
     assert(data.get == myValue);
   }
 
-  // Set(..)
-  mixin DataGetSetTemplate!(0.0, double);
-  unittest {
-    auto data = DoubleData(0.0);
-    data.set(1.1);
-    writeln(data);
-  }
 
   alias opEquals = Object.opEquals;
   alias opEquals = DData.opEquals;
@@ -59,9 +66,7 @@ class DDoubleData : DData {
     return _value;
   }
 
-  void opCall(double newValue) {
-    _value = newValue;
-  }
+
 
   version (test_uim_models) {
     unittest {

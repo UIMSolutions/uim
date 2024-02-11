@@ -36,10 +36,10 @@ class DSystimeData : DData {
   override void set(string newValue) {
     if (newValue is null) {
       isNull(isNullable ? true : false);
-      value(SysTime());
+      set(SysTime());
     } else {
       isNull(false);
-      // .value(fromISOExtString(newValue)); 
+      // set(fromISOExtString(newValue)); 
     }
 
     alias opEquals = DData.opEquals;
@@ -58,7 +58,8 @@ class DSystimeData : DData {
   override IData clone() {
     return SystimeData(attribute, toJson);
   }
-alias toJson = DData.toJson;
+
+  alias toJson = DData.toJson;
   override Json toJson() {
     if (isNull)
       return Json(null);
@@ -74,8 +75,6 @@ alias toJson = DData.toJson;
 
 mixin(DataCalls!("SystimeData", "SysTime"));
 
-version (test_uim_models) {
-  unittest {
-    // TODO
-  }
-} 
+unittest {
+  // TODO
+}

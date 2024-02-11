@@ -45,11 +45,11 @@ class DArrayData : DData {
   // TODO alias opEquals = IData.opEquals;
 
   protected IData[] _values;
-  override IData[] values() {
+  IData[] get() {
     return _values;
   }
 
-  void values(IData[] newValues) {
+  void set(IData[] newValues) {
     _values = newValues;
   }
 

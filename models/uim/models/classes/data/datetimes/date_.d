@@ -38,10 +38,10 @@ class DDateData : DData {
 
   override void set(Json newValue) {
     if (newValue.isEmpty) {
-      value(Date());
+      set(Date());
       isNull(isNullable ? true : false);
     } else {
-      value(newValue.get!string);
+      set(newValue.get!string);
       isNull(false);
     }
   }

@@ -22,8 +22,6 @@ class DElementData : DData {
     return true;
   }
 
-  protected DElement _value;
-
   version (test_uim_models) {
     unittest {
       auto Element = SystemUser; // some kind of Element
@@ -32,40 +30,33 @@ class DElementData : DData {
     }
   }
 
-  override void set(string newValue) {
-    /// TODO
-  }
-
-  override void set(Json newValue) {
-    /// TODO
+  // #region Getter & Setter
+  protected DElement _value;
+  DElement get() {
+    return _value;
   }
 
   void set(DElement newValue) {
-    if (newValue) {
-      isNull(false);
-      _value = newValue;
-      return;
-    }
-
-    if (isNullable) {
-      isNull(true);
-      _value = null;
-    }
+    _value = newValue;
   }
+
+  mixin DataGetSetTemplate!(null, DElement);
+  // #endregion Getter & Setter
+
 
   alias opEquals = DData.opEquals;
   bool opEquals(DElementData otherValue) {
-    string left = value.toString;
+    string left = get.toString;
     string right = otherValue.get.toString;
     return (left == right);
   }
 
   bool opEquals(DElement otherValue) {
-    return (value.toString == otherValue.toString);
+    return (get.toString == otherValue.toString);
   }
 
   override bool opEquals(string otherValue) {
-    return (value.toString == otherValue);
+    return (get.toString == otherValue);
   }
 
   /*   int opCmp(DElement otherValue) {
@@ -76,7 +67,8 @@ class DElementData : DData {
   override IData clone() {
     return ElementData(attribute, toJson);
   }
-alias toJson = DData.toJson;
+
+  alias toJson = DData.toJson;
   override Json toJson() {
     if (isNull)
       return Json(null);

@@ -22,15 +22,20 @@ class DArrayDataData : DArrayData {
     return true;
   }
 
-  protected IData[] _value;
-  void set(IData[] newValue) {
-    _value = newValue;
-  }
+/*
+  // #region Getter & Setter
+    protected IData[] _value;
+    IData[] get() {
+      return _value;
+    }
+    void set(IData[] newValue) {
+      _value = newValue;
+    }
+    mixin DataGetSetTemplate!(null, IData[]);
+  // #endregion Getter & Setter 
 
-  IData[] get() {
-    return _value;
-  }
-
+  mixin DataConvertTemplate;
+*/
   alias opEquals = Object.opEquals;
   alias opEquals = DData.opEquals;
 

@@ -22,8 +22,16 @@ class DIntegerData : DData {
     return true;
   }
 
-  // GetSet(..)
-  mixin DataGetSetTemplate!(0, int);
+  // #region Getter & Setter
+    protected int _value;
+    int get() {
+      return _value;
+    }
+    void set(int newValue) {
+      _value = newValue;
+    }
+    mixin DataGetSetTemplate!(0, int);
+  // #endregion Getter & Setter
 
   alias opEquals = DData.opEquals;
   /* override */

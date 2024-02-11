@@ -31,7 +31,6 @@ class DElementData : DData {
   }
 
   // #region Getter & Setter
-  protected DElement _value;
   DElement get() {
     return _value;
   }
@@ -40,7 +39,34 @@ class DElementData : DData {
     _value = newValue;
   }
 
-  mixin DataGetSetTemplate!(null, DElement);
+  protected DElement _value;
+  DElement opCall() {
+    return get();
+  }
+
+  void opCall(DElement newValue) {
+    set(newValue);
+  }
+
+  override void set(string newValue) {
+    if (newValue is null) {
+      isNull(isNullable ? true : false);
+      // set(null);
+    } else {
+      isNull(false);
+      // set(to!DElement(newValue));
+    }
+  }
+
+  override void set(Json newValue) {
+    if (newValue.isEmpty) {
+      set(null);
+      isNull(isNullable ? true : false);
+    } else {
+      // set(newValue.get!string);
+      isNull(false);
+    }
+  }
   // #endregion Getter & Setter
 
 
@@ -65,7 +91,7 @@ class DElementData : DData {
   }  */
 
   override IData clone() {
-    return ElementData(attribute, toJson);
+    return ElementData; // TODO (attribute, toJson);
   }
 
   alias toJson = DData.toJson;

@@ -21,14 +21,13 @@ class DLongData : DScalarData {
   }
 
   // #region Getter & Setter
-    protected long _value;
     long get() {
       return _value;
     }
     void set(long newValue) {
       _value = newValue;
     }
-    mixin DataGetSetTemplate!(0, long);
+    mixin(DataGetSetTemplate!("0", "long"));
   // #endregion Getter & Setter
 
   mixin DataConvertTemplate;
@@ -95,7 +94,7 @@ class DLongData : DScalarData {
   }  
 
   override IData clone() {
-    return LongData(attribute, toJson);
+    return LongData; // TODO (attribute, toJson);
   }
 
   long toLong() { 

@@ -24,7 +24,7 @@ class DTimestampData : DLongData {
     void set(long newValue) {
       _value = newValue;
     }
-    mixin DataGetSetTemplate!(0, long);
+    mixin(DataGetSetTemplate!("0", "long"));
   // #endregion Getter & Setter
   */
   

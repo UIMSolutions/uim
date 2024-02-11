@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DEntityData : DData {
-  mixin(DataThis!("EntityData", "DEntity"));
+  mixin(DataThis!("EntityData", "IEntity"));
 
   // Initialization hook method.
   override bool initialize(IData[string] configData = null) {
@@ -23,18 +23,44 @@ class DEntityData : DData {
     return true;
   }
 
-  protected DEntity _value;
-  DEntity get() {
+  IEntity get() {
     return _value;
   }
-
-    unittest {
-      auto entity = SystemUser; // some kind of entity
-      entity.set(entity);
-      assert(entity.get.id == entity.id);
+  protected IEntity _value;
+  IEntity opCall() {
+    return get();
   }
 
-/*   void set(DEntity newValue) {
+  void opCall(IEntity newValue) {
+    set(newValue);
+  }
+
+  override void set(string newValue) {
+    if (newValue is null) {
+      isNull(isNullable ? true : false);
+      set(null);
+    } else {
+      isNull(false);
+      // set(to!IEntity(newValue));
+    }
+  }
+
+  override void set(Json newValue) {
+    if (newValue.isEmpty) {
+      set(null);
+      isNull(isNullable ? true : false);
+    } else {
+      set(newValue.get!`~jType~`);
+      isNull(false);
+    }
+  }
+    unittest {
+      /* auto entity = SystemUser; // some kind of entity
+      entity.set(entity);
+      assert(entity.get.id == entity.id);*/
+  }
+
+/*   void set(IEntity newValue) {
     if (newValue is null) {
       isNull(isNullable ? true : false);
       _value = null;
@@ -44,11 +70,11 @@ class DEntityData : DData {
     }
   } */
 
-  /*   bool opEquals(DEntity otherValue) {
+  /*   bool opEquals(IEntity otherValue) {
     return (get.id == otherValue.id);
   }
 
-  int opCmp(DEntity otherValue) {
+  int opCmp(IEntity otherValue) {
     /// TODO
     return 1;
   }  */
@@ -75,7 +101,7 @@ class DEntityData : DData {
 
 }
 
-mixin(DataCalls!("EntityData", "DEntity"));
+mixin(DataCalls!("EntityData", "IEntity"));
 
 version (test_uim_models) {
   unittest {

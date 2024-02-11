@@ -25,20 +25,50 @@ class DDateData : DData {
   }
 
   // #region Getter & Setter
-    protected Date _value;  
-    Date get() {
-      return _value;
+  Date get() {
+    return _value;
+  }
+
+  void set(Date newValue) {
+    _value = newValue;
+  }
+
+  protected Date _value;
+  Date opCall() {
+    return get();
+  }
+
+  void opCall(Date newValue) {
+    set(newValue);
+  }
+
+  override void set(string newValue) {
+    if (newValue is null) {
+      isNull(isNullable ? true : false);
+      set(Date());
+    } else {
+      isNull(false);
+      // set(to!Date(newValue));
+
     }
-    void set(Date newValue) {
-      _value = newValue;
+  }
+
+  override void set(Json newValue) {
+    if (newValue.isEmpty) {
+      set(Date());
+      isNull(isNullable ? true : false);
+    } else {
+      set(newValue.get!string);
+      isNull(false);
     }
-    mixin DataGetSetTemplate!(Date(), Date);
+  }
   // #endregion Getter & Setter
 
   override IData clone() {
     return DateData; // (attribute, toJson);
   }
-alias toJson = DData.toJson;
+
+  alias toJson = DData.toJson;
   override Json toJson() {
     if (isNull)
       return Json(null);
@@ -55,8 +85,8 @@ alias toJson = DData.toJson;
 
 mixin(DataCalls!("DateData", "Date"));
 
-  unittest {
-    /* 
+unittest {
+  /* 
     assert(DateData.set("100").toDate == 100);
     assert(DateData.set(Json(100)).toDate == 100);
     assert(DateData.set("200").toDate != 100);

@@ -35,7 +35,7 @@ class DTimeData : DData {
         set(TimeOfDay()); }
     else {
         isNull(false);
-        set(fromISOExtString(newValue)); 
+        // set(fromISOExtString(newValue)); 
     }
   }  
 
@@ -44,7 +44,7 @@ class DTimeData : DData {
       _value = TimeOfDay(); 
       isNull(isNullable ? true : false); }
     else {
-      set(newValue.get!string.fromISOExtString);
+      set(newValue.get!string);
       isNull(false);
     }
   }
@@ -53,7 +53,7 @@ class DTimeData : DData {
   alias opEquals = DData.opEquals;
 
   override IData clone() {
-    return TimeData(attribute, toJson);
+    return TimeData; // TODO (attribute, toJson);
   }
 
   alias opEquals = Object.opEquals;

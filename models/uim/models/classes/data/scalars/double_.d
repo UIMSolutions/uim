@@ -23,17 +23,13 @@ class DDoubleData : DData {
   }
 
   // #region Getter & Setter
-    protected double _value;
     double get() {
       return _value;
     }
-    void opCall(double newValue) {
-    _value = newValue;
-    }    
     void set(double newValue) {
       _value = newValue;
     }
-    mixin DataGetSetTemplate!(0.0, double);
+    mixin(DataGetSetTemplate!("0.0", "double"));
     unittest {
       auto data = DoubleData(0.0);
       data.set(1.1);
@@ -62,12 +58,6 @@ class DDoubleData : DData {
     return (_value == aValue);
   }
 
-  double opCall() {
-    return _value;
-  }
-
-
-
   version (test_uim_models) {
     unittest {
       void value = DoubleData;
@@ -76,7 +66,7 @@ class DDoubleData : DData {
   }
 
   override IData clone() {
-    return DoubleData(attribute, toJson);
+    return DoubleData; // TODO (attribute, toJson);
   }
 
   double toDouble() {

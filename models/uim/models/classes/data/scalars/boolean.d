@@ -103,7 +103,7 @@ class DBoolData : DData {
   }
 
   override IData clone() {
-    return BoolData(attribute, toJson);
+    return BoolData; // TODO (attribute, toJson);
   }
 
   bool toBool() {

@@ -23,14 +23,13 @@ class DIntegerData : DData {
   }
 
   // #region Getter & Setter
-    protected int _value;
     int get() {
       return _value;
     }
     void set(int newValue) {
       _value = newValue;
     }
-    mixin DataGetSetTemplate!(0, int);
+    mixin(DataGetSetTemplate!("0", "int"));
   // #endregion Getter & Setter
 
   alias opEquals = DData.opEquals;
@@ -56,14 +55,6 @@ class DIntegerData : DData {
     assert(intValue != "10");
   }
 
-  int opCall() {
-    return _value;
-  }
-
-  void opCall(int newValue) {
-    _value = newValue;
-  }
-
   unittest {
     auto value = IntegerData;
     value(100);
@@ -86,7 +77,7 @@ class DIntegerData : DData {
   }
 
   override IData clone() {
-    return IntegerData(attribute, toJson);
+    return IntegerData; // TODO (attribute, toJson);
   }
 
   void sub(int opValue) {

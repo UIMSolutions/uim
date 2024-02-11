@@ -31,7 +31,7 @@ class DArrayDataData : DArrayData {
     void set(IData[] newValue) {
       _value = newValue;
     }
-    mixin DataGetSetTemplate!(null, IData[]);
+    mixin(DataGetSetTemplate!("null", "IData[]"));
   // #endregion Getter & Setter 
 
   mixin DataConvertTemplate;

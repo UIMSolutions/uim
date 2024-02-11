@@ -6,10 +6,10 @@
 module uim.models.classes.attributes.doubles.grams;
 
 public { 
-	import uim.models.classes.attributes.doubles.grams.gram;
+	// import uim.models.classes..attributes.doubles.grams.gram;
 }
 
 public { 
-	import uim.models.classes.attributes.doubles.grams.kilo;
-	import uim.models.classes.attributes.doubles.grams.milli;
+	// import uim.models.classes..attributes.doubles.grams.kilo;
+	// import uim.models.classes..attributes.doubles.grams.milli;
 }

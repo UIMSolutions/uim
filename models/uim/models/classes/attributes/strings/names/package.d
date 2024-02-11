@@ -6,11 +6,11 @@
 module uim.models.classes.attributes.strings.names;
 
 public { 
-	// import uim.models.classes.attributes.strings.names.name;
+	// // import uim.models.classes..attributes.strings.names.name;
 }
 
 public { 
-	/* import uim.models.classes.attributes.strings.names.first;
-	import uim.models.classes.attributes.strings.names.full;
-	import uim.models.classes.attributes.strings.names.middle; */
+	/* // import uim.models.classes..attributes.strings.names.first;
+	// import uim.models.classes..attributes.strings.names.full;
+	// import uim.models.classes..attributes.strings.names.middle; */
 }

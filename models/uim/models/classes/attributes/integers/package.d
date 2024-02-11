@@ -6,18 +6,18 @@
 module uim.models.classes.attributes.integers;
 
 public { 
-	import uim.models.classes.attributes.integers.integer;
-	import uim.models.classes.attributes.integers.calenderparts;
+	// import uim.models.classes..attributes.integers.integer;
+	// import uim.models.classes..attributes.integers.calenderparts;
 }
 
 public { 
-	import uim.models.classes.attributes.integers.age;
-	import uim.models.classes.attributes.integers.day;
-	import uim.models.classes.attributes.integers.displayorder;
-	import uim.models.classes.attributes.integers.hour;
-	import uim.models.classes.attributes.integers.long_;
-	import uim.models.classes.attributes.integers.minute;
-	import uim.models.classes.attributes.integers.minutes;
-	import uim.models.classes.attributes.integers.number;
-	import uim.models.classes.attributes.integers.year;
+	// import uim.models.classes..attributes.integers.age;
+	// import uim.models.classes..attributes.integers.day;
+	// import uim.models.classes..attributes.integers.displayorder;
+	// import uim.models.classes..attributes.integers.hour;
+	// import uim.models.classes..attributes.integers.long_;
+	// import uim.models.classes..attributes.integers.minute;
+	// import uim.models.classes..attributes.integers.minutes;
+	// import uim.models.classes..attributes.integers.number;
+	// import uim.models.classes..attributes.integers.year;
 }

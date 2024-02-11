@@ -7,10 +7,10 @@ module uim.models.classes.attributes.decimals;
 
 // main
 public { 
-	// import uim.models.classes.attributes.decimals.decimal;
+	// // import uim.models.classes..attributes.decimals.decimal;
 }
 
 // packages
 public { 
-	import uim.models.classes.attributes.decimals.currencies;
+	// import uim.models.classes..attributes.decimals.currencies;
 }

@@ -31,6 +31,9 @@ class DEntityData : DData {
     return get();
   }
 
+  void set(IEntity newValue) {
+    _value = newValue;
+  }
   void opCall(IEntity newValue) {
     set(newValue);
   }
@@ -38,7 +41,7 @@ class DEntityData : DData {
   override void set(string newValue) {
     if (newValue is null) {
       isNull(isNullable ? true : false);
-      set(null);
+      // set(null);
     } else {
       isNull(false);
       // set(to!IEntity(newValue));
@@ -47,10 +50,10 @@ class DEntityData : DData {
 
   override void set(Json newValue) {
     if (newValue.isEmpty) {
-      set(null);
+      // set(null);
       isNull(isNullable ? true : false);
     } else {
-      set(newValue.get!`~jType~`);
+      // set(newValue.get!`~jType~`);
       isNull(false);
     }
   }
@@ -89,7 +92,7 @@ class DEntityData : DData {
   override Json toJson() {
     if (isNull)
       return Json(null);
-    return value(_value.toJson);
+    return Json(_value.toJson);
   }
 
   // EntityData converts to a JsonSTtring

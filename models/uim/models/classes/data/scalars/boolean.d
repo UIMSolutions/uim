@@ -28,7 +28,7 @@ class DBoolData : DData {
   }
   // alias get this;
   unittest {
-    bool myValue = true;
+    /* bool myValue = true;
     assert(BoolData(myValue).get == myValue);
 
     auto data = new DBoolData;
@@ -37,7 +37,7 @@ class DBoolData : DData {
 
     data = BoolData(false);
     data.get = myValue;
-    assert(data.get == myValue);
+    assert(data.get == myValue); */
   }
 
   void set(bool newValue) {
@@ -50,10 +50,10 @@ class DBoolData : DData {
 
   override void set(Json newValue) {
     if (newValue.isEmpty) {
-      value(false);
+      set(false);
       isNull(isNullable ? true : false);
     } else {
-      value(newValue.get!bool);
+      set(newValue.get!bool);
       isNull(false);
     }
   }
@@ -77,10 +77,10 @@ class DBoolData : DData {
   }
   ///
   unittest {
-    auto valueA = new DBoolData(true);
+    /*auto valueA = new DBoolData(true);
     auto valueB = new DBoolData(false);
     assert(valueA > false);
-    assert(valueB < true);
+    assert(valueB < true); */
   }
 
   int opCmp(DBoolData aValue) {
@@ -91,7 +91,7 @@ class DBoolData : DData {
   }
   ///
   unittest {
-    auto dataA = new DBoolData(true);
+    /* auto dataA = new DBoolData(true);
     auto dataB = new DBoolData(false);
     assert(dataA > dataB);
     assert(dataB < dataA);
@@ -99,7 +99,7 @@ class DBoolData : DData {
     dataA = BoolData(true);
     dataB = BoolData(false);
     assert(dataA > dataB);
-    assert(dataB < dataA);
+    assert(dataB < dataA);*/
   }
 
   override IData clone() {

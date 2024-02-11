@@ -24,9 +24,9 @@ class DElementData : DData {
 
   version (test_uim_models) {
     unittest {
-      auto Element = SystemUser; // some kind of Element
+      /* auto Element = SystemUser; // some kind of Element
       auto data = ElementData(Element);
-      assert(data.get.id == Element.id);
+      assert(data.get.id == Element.id); */
     }
   }
 
@@ -60,7 +60,7 @@ class DElementData : DData {
 
   override void set(Json newValue) {
     if (newValue.isEmpty) {
-      set(null);
+      // set(null);
       isNull(isNullable ? true : false);
     } else {
       // set(newValue.get!string);

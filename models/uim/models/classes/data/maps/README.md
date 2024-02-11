@@ -1,1 +1,1 @@
-# Package 📦 uim.models.classes.value.maps
+# Package 📦 uim.models.classes.get.maps

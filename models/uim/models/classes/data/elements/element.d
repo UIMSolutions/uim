@@ -27,7 +27,7 @@ class DElementData : DData {
   version (test_uim_models) {
     unittest {
       auto Element = SystemUser; // some kind of Element
-      assert(ElementData.value(Element).value.id == Element.id);
+      assert(ElementData.value(Element).get.id == Element.id);
     }
   }
 
@@ -55,7 +55,7 @@ class DElementData : DData {
   alias opEquals = DData.opEquals;
   bool opEquals(DElementData otherValue) {
     string left = value.toString;
-    string right = otherValue.value.toString;
+    string right = otherValue.get.toString;
     return (left == right);
   }
 
@@ -79,14 +79,14 @@ alias toJson = DData.toJson;
   override Json toJson() {
     if (isNull)
       return Json(null);
-    return this.value.toJson;
+    return this.get.toJson;
   }
 
   // ElementData converts to a JsonSTtring
   override string toString() {
     if (isNull)
       return null;
-    return this.value.toString;
+    return this.get.toString;
   }
 
 }

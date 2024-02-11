@@ -48,16 +48,6 @@ class DScalarData : DData {
     }
   // #endregion key/keys
 
-  // #region data
-    // #region data()
-      override IData[] data(string[] keys) {
-        return null;
-      }
-      override IData data(string key) {
-        return null;
-      }
-    // #endregion data()
-
     // #region hasData()
       override bool hasData(IData[string] checkData, bool deepSearch = false) {
         return false;
@@ -71,14 +61,6 @@ class DScalarData : DData {
         return false;
       }
     // #endregion hasData()
-  // #endregion data
-
-  override IData get(string key, IData defaultData) {
-    return null;
-  }
-  override IData opIndex(string key) {
-    return null;
-  }
 
   // #region opEquals
     alias opEquals = Object.opEquals;

@@ -32,7 +32,7 @@ class DTagArrayData : DStringArrayData {
   }
   
   override string toString() {
-    if (length > 0) return separator~this.value.join(separator);
+    if (length > 0) return separator~this.get.join(separator);
     return null; 
   }
 }

@@ -68,14 +68,14 @@ alias toJson = DData.toJson;
     return result;
   }
   override string toString() {
-    return this.value.join(",");
+    return this.get.join(",");
   }
 }
 mixin(DataCalls!("StringArrayData", "string[]"));  
 
 version(test_uim_models) { unittest {
     auto attribute = StringArrayData(["a", "b", "c"]);
-    assert(attribute.value.length == 3);
+    assert(attribute.get.length == 3);
     assert(attribute.value[0] == "a");
     assert(attribute.value[1] == "b");
 }}

@@ -60,13 +60,13 @@ class DDatetimeData : DData {
   override Json toJson() {
     if (isNull)
       return Json(null);
-    return Json(this.value.toISOExtString);
+    return Json(this.get.toISOExtString);
   }
 
   override string toString() {
     if (isNull)
       return null;
-    return this.value.toISOExtString;
+    return this.get.toISOExtString;
   }
 }
 

@@ -85,16 +85,7 @@ class DStringData : DData {
   }
 
   string opCall() {
-    return _value;
-  }
-
-  void opCall(string newValue) {
-    _value = newValue;
-  }
-
-  override void opCall(Json newValue) {
-    if (newValue.type == Json.Type.string)
-      _value = newValue.get!string;
+    return get();
   }
 
   void opCall(DStringData newValue) {

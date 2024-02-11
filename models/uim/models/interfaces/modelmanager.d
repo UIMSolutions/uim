@@ -4,8 +4,8 @@ import uim.models;
 @safe:
 
 interface IModelManager {
-  void modelContainer(DModelContainer aContainer);
-  DModelContainer modelContainer();
+  void modelContainer(IModelContainer aContainer);
+  IModelContainer modelContainer();
 
   void models(IModel[string] someModels);
   void models(IModel[] someModels...);

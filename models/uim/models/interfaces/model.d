@@ -8,6 +8,5 @@ interface IModel {
   
   string registerPath();
 
-  DModel create();
-  DModel copy(); 
+  IModel clone(); 
 }

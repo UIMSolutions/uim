@@ -6,14 +6,14 @@
 module uim.models.classes.data.maps;
 
 public { 
-	/* import uim.models.classes.data.maps.map;
-	import uim.models.classes.data.maps.options;
-	import uim.models.classes.data.maps.config;
-	import uim.models.classes.data.maps.string; */
+	/* // import uim.models.classes.data.maps.map;
+	// import uim.models.classes.data.maps.options;
+	// import uim.models.classes.data.maps.config;
+	// import uim.models.classes.data.maps.string; */
 }
 
-/* ublic import uim.models.classes.data.maps.lookup;
-	import uim.models.classes.data.maps.customertype;
-	import uim.models.classes.data.maps.string_;
-	import uim.models.classes.data.maps.preferredcontactmethod; */
+/* ublic // import uim.models.classes.data.maps.lookup;
+	// import uim.models.classes.data.maps.customertype;
+	// import uim.models.classes.data.maps.string_;
+	// import uim.models.classes.data.maps.preferredcontactmethod; */
 

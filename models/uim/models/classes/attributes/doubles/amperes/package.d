@@ -10,6 +10,6 @@ public {
 }
 
 public { 
-	import uim.models.classes.attributes.doubles.amperes.micro;
-	import uim.models.classes.attributes.doubles.amperes.milli;
+	/* import uim.models.classes.attributes.doubles.amperes.micro;
+	import uim.models.classes.attributes.doubles.amperes.milli; */
 }

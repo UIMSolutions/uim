@@ -6,11 +6,11 @@
 module uim.models.classes.attributes.doubles.volts;
 
 public { 
-	import uim.models.classes.attributes.doubles.volts.volt;
+	/* import uim.models.classes.attributes.doubles.volts.volt;
 }
 
 public { 
 	import uim.models.classes.attributes.doubles.volts.kilo;
 	import uim.models.classes.attributes.doubles.volts.mega;
-	import uim.models.classes.attributes.doubles.volts.milli;
+	import uim.models.classes.attributes.doubles.volts.milli; */
 }

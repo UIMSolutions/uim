@@ -27,7 +27,7 @@ class DJsonData : DData {
   }
 
   override IData clone() {
-    return JsonData(attribute, toJson);
+    return JsonData; // TODO (attribute, toJson);
   }
 
   alias toJson = DData.toJson;

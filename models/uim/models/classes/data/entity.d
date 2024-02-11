@@ -56,7 +56,7 @@ class DEntityData : DData {
   alias opEquals = DData.opEquals;
 
   override IData clone() {
-    return EntityData(attribute, toJson);
+    return EntityData; // TODO (attribute, toJson);
   }
 
   alias toJson = DData.toJson;

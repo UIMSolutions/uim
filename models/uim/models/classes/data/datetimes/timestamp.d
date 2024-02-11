@@ -12,7 +12,7 @@ class DTimestampData : DLongData {
   mixin(DataThis!("TimestampData", "long"));  
 
   override IData clone() {
-    return TimestampData(attribute, toJson);
+    return TimestampData; // TODO (attribute, toJson);
   }
 
 /*

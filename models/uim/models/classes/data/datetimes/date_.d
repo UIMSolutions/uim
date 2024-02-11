@@ -36,7 +36,7 @@ class DDateData : DData {
   // #endregion Getter & Setter
 
   override IData clone() {
-    return DateData(attribute, toJson);
+    return DateData; // (attribute, toJson);
   }
 alias toJson = DData.toJson;
   override Json toJson() {

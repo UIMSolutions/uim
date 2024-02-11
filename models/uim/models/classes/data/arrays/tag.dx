@@ -28,7 +28,7 @@ class DTagArrayData : DStringArrayData {
   alias opEquals = DData.opEquals;
 
   override IData clone() {
-    return TagArrayData(attribute, toJson);
+    return TagArrayData; // TODO (attribute, toJson);
   }
   
   override string toString() {

@@ -53,7 +53,7 @@ class DDatetimeData : DData {
   }
 
   override IData clone() {
-    return DatetimeData(attribute, toJson);
+    return DatetimeData; // TODO (attribute, toJson);
   }
 
   alias toJson = DData.toJson;

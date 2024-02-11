@@ -56,7 +56,7 @@ class DSystimeData : DData {
   }
 
   override IData clone() {
-    return SystimeData(attribute, toJson);
+    return SystimeData; // TODO (attribute, toJson);
   }
 
   alias toJson = DData.toJson;

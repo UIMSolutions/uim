@@ -40,7 +40,7 @@ class DArrayDataData : DArrayData {
   alias opEquals = DData.opEquals;
 
   override IData clone() {
-    return ArrayData(attribute, toJson);
+    return ArrayData; // TODO (attribute, toJson);
   }
 }
 

@@ -34,7 +34,7 @@ class DElement : IElement {
     return true;
   }
 
-  mixin(TProperty!("DStringDataMap", "values"));
+  // mixin(TProperty!("DStringDataMap", "values"));
   // mixin ValueMapWrapper;
 
   mixin(TProperty!("bool", "isStatic"));
@@ -291,7 +291,7 @@ class DElement : IElement {
   void opIndexAssign(UUID value, string key) {
     if (auto myValue = cast(DUUIDData) valueOfKey(key)) {
       // values[key] exists and value of DUUIDData
-      myValue.value = value;
+      myValue.set(value);
     }
   }
 

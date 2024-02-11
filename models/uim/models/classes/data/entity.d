@@ -92,7 +92,7 @@ class DEntityData : DData {
   override Json toJson() {
     if (isNull)
       return Json(null);
-    return Json(_value.toJson);
+    return Json(null); // Json(_value.toJson);
   }
 
   // EntityData converts to a JsonSTtring

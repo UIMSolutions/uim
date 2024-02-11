@@ -22,12 +22,10 @@ class DElementData : DData {
     return true;
   }
 
-  version (test_uim_models) {
     unittest {
       /* auto Element = SystemUser; // some kind of Element
       auto data = ElementData(Element);
       assert(data.get.id == Element.id); */
-    }
   }
 
   // #region Getter & Setter

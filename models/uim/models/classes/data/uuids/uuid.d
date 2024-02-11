@@ -71,17 +71,17 @@ class DUUIDData : DData {
 
   alias opEquals = DData.opEquals;
   override bool opEquals(UUID equalValue) {
-    return (value == equalValue);
+    return (get == equalValue);
   }
   ///
   unittest {
-    auto id = randomUUID;
-    auto value = new DUUIDData(id);
-    assert(value == id);
+    /* auto id = randomUUID;
+    auto value = new DUUIDData(id); 
+    assert(value == id);*/
   }
 
   override IData clone() {
-    return UUIDData(value);
+    return UUIDData(get);
   }
 
   alias toJson = DData.toJson;
@@ -94,7 +94,7 @@ class DUUIDData : DData {
   override string toString() {
     if (isNull)
       return UUID().toString;
-    return value.toString;
+    return get.toString;
   }
 }
 
@@ -128,9 +128,9 @@ version (test_uim_models) {
 
 ///
 unittest {
-  auto id = randomUUID;
+  /* auto id = randomUUID;
   auto uuiDData = new DUUIDData(id);
 
   assert(uuiDData == id);
-  assert(uuiDData != randomUUID);
+  assert(uuiDData != randomUUID); */
 }

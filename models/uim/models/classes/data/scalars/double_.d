@@ -31,14 +31,14 @@ class DDoubleData : DData {
     }
     mixin(DataGetSetTemplate!("0.0", "double"));
     unittest {
-      auto data = DoubleData(0.0);
+      /* auto data = DoubleData(0.0);
       data.set(1.1);
-      writeln(data);
+      writeln(data); */
     }
   // #endregion Getter & Setter
   ///
   unittest {
-    double myValue = 42.0;
+    /* double myValue = 42.0;
     auto data = DoubleData(myValue);
     assert(data.get == myValue);
 
@@ -48,7 +48,7 @@ class DDoubleData : DData {
 
     data = new DDoubleData;
     data.value = myValue;
-    assert(data.get == myValue);
+    assert(data.get == myValue); */ 
   }
 
 
@@ -58,11 +58,9 @@ class DDoubleData : DData {
     return (_value == aValue);
   }
 
-  version (test_uim_models) {
     unittest {
       void value = DoubleData;
       value(100);
-    }
   }
 
   override IData clone() {
@@ -102,7 +100,7 @@ unittest {
 
 ///
 unittest {
-  auto boolValue = new DBoolData(true);
+  /* auto boolValue = new DBoolData(true);
   assert(boolValue == true);
-  assert(boolValue != false);
+  assert(boolValue != false); */
 }

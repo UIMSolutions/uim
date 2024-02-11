@@ -4,43 +4,48 @@ import uim.models;
 
 @safe:
 
-template DataThis(string name, string datatype = null) { // Name for future releases
-  const char[] DataThis = `  
-    this() { super(); }`;
+string dataThis(string name, string datatype = null) { // Name for future releases
+ return `  
+    this() { super(); }
+    this(string newxValue) { this(); set(newxValue); }
+    this(Json newoValue) { this(); set(newoValue); } `; 
+    // ~ datatype !is null ? ` this(` ~ datatype ~ ` newzValue) { this(); set(newzValue); }`: null;
+
+  /*      this(DAttribute theAttribute, `
+        ~ datatype ~ ` newValue) { this(theAttribute).set(newValue); }` : "");
+
     /*
     this(DAttribute theAttribute) { this().attribute(theAttribute); }
-    this(string theValue) { this().set(theValue); }
-    this(Json theValue) { this().set(theValue); }
-    this(DAttribute theAttribute, string theValue) { this(theAttribute).set(theValue); }
-    this(DAttribute theAttribute, Json theValue) { this(theAttribute).set(theValue); }`
-    ~
-    (
-      datatype ?
-        ` this(` ~ datatype ~ ` theValue) { this().set(theValue); }
-      this(DAttribute theAttribute, `
-        ~ datatype ~ ` theValue) { this(theAttribute).set(theValue); }` : "");*/
+    this(DAttribute theAttribute, string newValue) { this(theAttribute).set(newValue); }
+    this(DAttribute theAttribute, Json newValue) { this(theAttribute).set(newValue); }` */
+}
+unittest {
+  writeln(dataThis("name", "datatype"));
+}
+
+template DataThis(string name, string datatype = null) { // Name for future releases
+  const char[] DataThis = dataThis(name, datatype);
 }
 
 template DataCalls(string name, string datatype = null) {
   const char[] DataCalls = `  
-    auto `
-    ~ name ~ `() { return new D` ~ name ~ `; }`;
+    auto `~ name ~ `() { return new D` ~ name ~ `; }
+    auto `~ name ~ `(string newxValue) { return new D` ~ name ~ `(newxValue); }
+    auto `~ name ~ `(Json newoValue) { return new D` ~ name ~ `(newoValue); } `; 
+    // ~ datatype !is null ? `auto ` ~ name ~ `(` ~ datatype ~ ` newzValue) { return new D` ~ name ~ `(newzValue); }`: null;
+
     /* auto `
     ~ name ~ `(DAttribute theAttribute) { return new D` ~ name ~ `(theAttribute); }
     auto `
-    ~ name ~ `(string theValue) { return new D` ~ name ~ `(theValue); }
     auto `
-    ~ name ~ `(Json theValue) { return new D` ~ name ~ `(theValue); }
+    ~ name ~ `(DAttribute theAttribute, string newValue) { return new D` ~ name ~ `(theAttribute, newValue); }
     auto `
-    ~ name ~ `(DAttribute theAttribute, string theValue) { return new D` ~ name ~ `(theAttribute, theValue); }
-    auto `
-    ~ name ~ `(DAttribute theAttribute, Json theValue) { return new D` ~ name ~ `(theAttribute, theValue); }
+    ~ name ~ `(DAttribute theAttribute, Json newValue) { return new D` ~ name ~ `(theAttribute, newValue); }
   `
     ~
     (datatype ?
-        ` auto ` ~ name ~ `(` ~ datatype ~ ` theValue) { return new D` ~ name ~ `(theValue); }
     auto `
-        ~ name ~ `(DAttribute theAttribute, ` ~ datatype ~ ` theValue) { return new D` ~ name ~ `(theAttribute, theValue); }` : ""); */
+        ~ name ~ `(DAttribute theAttribute, ` ~ datatype ~ ` newValue) { return new D` ~ name ~ `(theAttribute, newValue); }` : ""); */
 }
 
 /* template DataProperty!(string name) {
@@ -168,32 +173,40 @@ mixin template DataConvertTemplate() {
   }
 }
 
-mixin template DataGetSetTemplate(alias defaultValue, alias dataType) {
-  dataType opCall() {
+string dataGetSetTemplate(string nullValue, string dataType, string jsonType = null) {
+  auto jType = jsonType is null ? dataType : jsonType;
+  return `
+  protected `~dataType~` _value;
+  `~dataType~` opCall() {
     return get();
   }
 
-  void opCall(dataType newValue) {
+  void opCall(`~dataType~` newValue) {
     set(newValue);
   }
 
   override void set(string newValue) {
     if (newValue is null) {
       isNull(isNullable ? true : false);
-      set(defaultValue);
+      set(`~nullValue~`);
     } else {
       isNull(false);
-      set(to!dataType(newValue));
+      set(to!`~dataType~`(newValue));
     }
   }
 
   override void set(Json newValue) {
     if (newValue.isEmpty) {
-      set(defaultValue);
+      set(`~nullValue~`);
       isNull(isNullable ? true : false);
     } else {
-      set(newValue.get!dataType);
+      set(newValue.get!`~jType~`);
       isNull(false);
     }
-  }
+  }`;
+}
+
+template DataGetSetTemplate(string nullValue, string dataType, string jsonType = null) {
+  auto jType = jsonType is null ? dataType : jsonType;
+  const char[] DataGetSetTemplate = dataGetSetTemplate(nullValue, dataType, jsonType);
 }

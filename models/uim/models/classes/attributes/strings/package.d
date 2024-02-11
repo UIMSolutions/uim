@@ -7,12 +7,12 @@ module uim.models.classes.attributes.chars.strings;
 
 // main
 public { 
-	import uim.models.classes.attributes.strings.string_;
+	// import uim.models.classes.attributes.strings.string_;
 }
 
 // subs
 public { 
-	import uim.models.classes.attributes.strings.addressline;
+	/* import uim.models.classes.attributes.strings.addressline;
 	import uim.models.classes.attributes.strings.attributename;
 	import uim.models.classes.attributes.strings.city;
 	import uim.models.classes.attributes.strings.colorname;
@@ -26,5 +26,5 @@ public {
 	import uim.models.classes.attributes.strings.link;
 	import uim.models.classes.attributes.strings.list;
 	import uim.models.classes.attributes.strings.url;
-	import uim.models.classes.attributes.strings.xml;
+	import uim.models.classes.attributes.strings.xml; */
 }

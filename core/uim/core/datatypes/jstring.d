@@ -20,7 +20,7 @@ Json[string] merge(Json[string] baseData, Json secondData, bool shouldOverwrite 
 Json[string] update(Json[string] origin, Json[string] additional) {
   Json[string] updated = origin.dup;
   additional.byKeyValue
-    .each!(kv => updated[kv.key] = kv.value);
+    .each!(kv => updated[kv.key] = kv.value());
 
   return updated;
 }

@@ -18,7 +18,7 @@ string createHtmlStartTag(string tag, bool close = false) {
 string createHtmlStartTag(string tag, STRINGAA attributes, bool close = false) {
 	if (attributes) {
 		string attValue = attributes.byKeyValue
-			.map!(kv => `%s="%s"`.format(kv.key, kv.value))
+			.map!(kv => `%s="%s"`.format(kv.key, kv.value()))
 			.join(" ");
 
 		if (close)

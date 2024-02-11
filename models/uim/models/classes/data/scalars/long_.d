@@ -81,7 +81,7 @@ class DLongData : DScalarData {
 
   // Compares with DLongData
   int opCmp(DLongData aValue) {
-    return opCmp(aValue.value);
+    return opCmp(aValue.get());
   }
   ///
   unittest {

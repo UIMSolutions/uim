@@ -85,7 +85,7 @@ class DBoolData : DData {
 
   int opCmp(DBoolData aValue) {
     if (aValue) {
-      return opCmp(aValue.value);
+      return opCmp(aValue.get());
     }
     return -1;
   }
@@ -127,30 +127,30 @@ version (test_uim_models) {
     auto BoolData = BoolData;
 
     BoolData.set("true");
-    assert(BoolData.value);
+    assert(BoolData.get());
 
     BoolData.set("false");
-    assert(!BoolData.value);
+    assert(!BoolData.get());
 
     BoolData.set("on");
-    assert(BoolData.value);
+    assert(BoolData.get());
 
     BoolData.set("off");
-    assert(!BoolData.value);
+    assert(!BoolData.get());
 
     BoolData.set("1");
-    assert(BoolData.value);
+    assert(BoolData.get());
 
     BoolData.set("0");
-    assert(!BoolData.value);
+    assert(!BoolData.get());
 
     BoolData.value(true);
-    assert(BoolData.fromString(BoolData.toString).value);
-    assert(BoolData.fromJson(BoolData.toJson).value);
+    assert(BoolData.fromString(BoolData.toString).get());
+    assert(BoolData.fromJson(BoolData.toJson).get());
 
     BoolData.value(false);
-    assert(!BoolData.fromString(BoolData.toString).value);
-    assert(!BoolData.fromJson(BoolData.toJson).value);
+    assert(!BoolData.fromString(BoolData.toString).get());
+    assert(!BoolData.fromJson(BoolData.toJson).get());
   }
 }
 

@@ -64,7 +64,7 @@ class DStringData : DData {
     if (newValue) {
       isNullable(newValue.isNullable);
       isNull(newValue.isNull);
-      set(newValue.value);
+      set(newValue.get());
     }
   } */
 

@@ -336,10 +336,10 @@ Json removeKey(Json json, string aKey) {
   }
 
   Json result = Json.emptyObject;
-  json
+   json
     .byKeyValue
     .filter!(kv => kv.key != aKey)
-    .each!(kv => result[kv.key] = kv.value);
+    .each!(kv => result[kv.key] = kv.value); 
 
   return result;
 }

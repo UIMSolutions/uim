@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DArrayData : DData {
-  mixin(DataThis!("ArrayData"));
+  mixin(DataThis!("ArrayData", "IData[]"));
   this(IData[] values) {
     this();
     _items = values.dup;
@@ -45,12 +45,35 @@ class DArrayData : DData {
   // TODO alias opEquals = IData.opEquals;
 
   protected IData[] _values;
-  IData[] get() {
-    return _values;
+  IData[] get() { return _values; }
+  void set(IData[] newValues) { _values = newValues; }
+
+  IData[] opCall() {
+    return get();
   }
 
-  void set(IData[] newValues) {
-    _values = newValues;
+  void opCall(IData[] newValue) {
+    set(newValue);
+  }
+
+  override void set(string newValue) {
+    if (newValue is null) {
+      isNull(isNullable ? true : false);
+      // set(null);
+    } else {
+      isNull(false);
+      // set(to!IData[](newValue));
+    }
+  }
+
+  override void set(Json newValue) {
+    if (newValue.isEmpty) {
+      // set(null);
+      isNull(isNullable ? true : false);
+    } else {
+      // set(newValue.get!`~jType~`);
+      isNull(false);
+    }
   }
 
   override IData clone() {

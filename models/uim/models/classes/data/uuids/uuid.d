@@ -81,7 +81,7 @@ class DUUIDData : DData {
   }
 
   override IData clone() {
-    return UUIDData(get);
+    return UUIDData(_value);
   }
 
   alias toJson = DData.toJson;
@@ -94,7 +94,7 @@ class DUUIDData : DData {
   override string toString() {
     if (isNull)
       return UUID().toString;
-    return get.toString;
+    return _value.toString;
   }
 }
 

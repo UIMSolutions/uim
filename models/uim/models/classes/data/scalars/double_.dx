@@ -59,7 +59,7 @@ class DDoubleData : DData {
   }
 
     unittest {
-      void value = DoubleData;
+      auto value = DoubleData;
       value(100);
   }
 

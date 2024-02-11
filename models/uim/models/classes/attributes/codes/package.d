@@ -6,8 +6,8 @@
 module uim.models.classes.attributes.codes;
 
 public { 
-	import uim.models.classes.attributes.codes.customersize;
+	/* import uim.models.classes.attributes.codes.customersize;
 	import uim.models.classes.attributes.codes.customersize;
 	import uim.models.classes.attributes.codes.state;
-	import uim.models.classes.attributes.codes.status;
+	import uim.models.classes.attributes.codes.status; */
 }

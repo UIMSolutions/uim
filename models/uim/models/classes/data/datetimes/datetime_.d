@@ -60,13 +60,13 @@ class DDatetimeData : DData {
   override Json toJson() {
     if (isNull)
       return Json(null);
-    return Json(this.get.toISOExtString);
+    return Json(get.toISOExtString);
   }
 
   override string toString() {
     if (isNull)
       return null;
-    return this.get.toISOExtString;
+    return get.toISOExtString;
   }
 }
 
@@ -75,19 +75,19 @@ mixin(DataCalls!("DatetimeData", "DateTime"));
 unittest {
   // TODO
   /*
-  assert(DatetimeData.value("100").toDatetime == 100);
+  assert(DatetimeData.set("100").toDatetime == 100);
   assert(DatetimeData.value(Json(100)).toDatetime == 100);
-  assert(DatetimeData.value("200").toDatetime != 100);
+  assert(DatetimeData.set("200").toDatetime != 100);
   assert(DatetimeData.value(Json(200)).toDatetime != 100);
 
-  assert(DatetimeData.value("100").toString == "100");
+  assert(DatetimeData.set("100").toString == "100");
   assert(DatetimeData.value(Json(100)).toString == "100");
-  assert(DatetimeData.value("200").toString != "100");
+  assert(DatetimeData.set("200").toString != "100");
   assert(DatetimeData.value(Json(200)).toString != "100");
 
-  assert(DatetimeData.value("100").toJson == Json(100));
+  assert(DatetimeData.set("100").toJson == Json(100));
   assert(DatetimeData.value(Json(100)).toJson == Json(100));
-  assert(DatetimeData.value("200").toJson != Json(100));
+  assert(DatetimeData.set("200").toJson != Json(100));
   assert(DatetimeData.value(Json(200)).toJson != Json(100));
   */
 }

@@ -62,13 +62,13 @@ alias toJson = DData.toJson;
   override Json toJson() {
     if (isNull)
       return Json(null);
-    return Json(this.get.toISOExtString);
+    return Json(get.toISOExtString);
   }
 
   override string toString() {
     if (isNull)
       return null;
-    return this.get.toISOExtString;
+    return get.toISOExtString;
   }
 }
 

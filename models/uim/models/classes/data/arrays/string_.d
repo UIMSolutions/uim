@@ -68,7 +68,7 @@ alias toJson = DData.toJson;
     return result;
   }
   override string toString() {
-    return this.get.join(",");
+    return get.join(",");
   }
 }
 mixin(DataCalls!("StringArrayData", "string[]"));  

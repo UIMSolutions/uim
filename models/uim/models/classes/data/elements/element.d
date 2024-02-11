@@ -79,14 +79,14 @@ alias toJson = DData.toJson;
   override Json toJson() {
     if (isNull)
       return Json(null);
-    return this.get.toJson;
+    return get.toJson;
   }
 
   // ElementData converts to a JsonSTtring
   override string toString() {
     if (isNull)
       return null;
-    return this.get.toString;
+    return get.toString;
   }
 
 }

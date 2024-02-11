@@ -47,7 +47,7 @@ class DEntityData : DData {
   } */
 
   /*   bool opEquals(DEntity otherValue) {
-    return (this.get.id == otherValue.id);
+    return (get.id == otherValue.id);
   }
 
   int opCmp(DEntity otherValue) {
@@ -65,7 +65,7 @@ class DEntityData : DData {
   override Json toJson() {
     if (isNull)
       return Json(null);
-    return this.get.toJson;
+    return .value(".toJson;
   }
 
   // EntityData converts to a JsonSTtring

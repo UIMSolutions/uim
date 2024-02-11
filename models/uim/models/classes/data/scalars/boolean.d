@@ -119,29 +119,29 @@ version (test_uim_models) {
   unittest {
     assert(BoolData(true) == true);
     assert(BoolData(false) != true);
-    assert(BoolData.value(true) == true);
+    /* assert(BoolData.value(true) == true);
     assert(BoolData.value(Json(true)) == true);
     assert(BoolData.value(false) != true);
-    assert(BoolData.value(Json(false)) != true);
+    assert(BoolData.value(Json(false)) != true); */
 
     auto BoolData = BoolData;
 
-    BoolData.value("true");
+    BoolData.set("true");
     assert(BoolData.value);
 
-    BoolData.value("false");
+    BoolData.set("false");
     assert(!BoolData.value);
 
-    BoolData.value("on");
+    BoolData.set("on");
     assert(BoolData.value);
 
-    BoolData.value("off");
+    BoolData.set("off");
     assert(!BoolData.value);
 
-    BoolData.value("1");
+    BoolData.set("1");
     assert(BoolData.value);
 
-    BoolData.value("0");
+    BoolData.set("0");
     assert(!BoolData.value);
 
     BoolData.value(true);

@@ -54,13 +54,13 @@ alias toJson = DData.toJson;
     if (isNull)
       return Json(null);
     auto json = Json.emptyObject;
-    return Json(this.get.toISOExtString);
+    return Json(get.toISOExtString);
   }
 
   override string toString() {
     if (isNull)
       return null;
-    return this.get.toISOExtString;
+    return get.toISOExtString;
   }
 }
 
@@ -68,18 +68,18 @@ mixin(DataCalls!("DateData", "Date"));
 
   unittest {
     /* 
-    assert(DateData.value("100").toDate == 100);
+    assert(DateData.set("100").toDate == 100);
     assert(DateData.value(Json(100)).toDate == 100);
-    assert(DateData.value("200").toDate != 100);
+    assert(DateData.set("200").toDate != 100);
     assert(DateData.value(Json(200)).toDate != 100);
 
-    assert(DateData.value("100").toString == "100");
+    assert(DateData.set("100").toString == "100");
     assert(DateData.value(Json(100)).toString == "100");
-    assert(DateData.value("200").toString != "100");
+    assert(DateData.set("200").toString != "100");
     assert(DateData.value(Json(200)).toString != "100");
 
-    assert(DateData.value("100").toJson == Json(100));
+    assert(DateData.set("100").toJson == Json(100));
     assert(DateData.value(Json(100)).toJson == Json(100));
-    assert(DateData.value("200").toJson != Json(100));
+    assert(DateData.set("200").toJson != Json(100));
     assert(DateData.value(Json(200)).toJson != Json(100)); */
 }

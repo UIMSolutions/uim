@@ -28,12 +28,10 @@ class DEntityData : DData {
     return _value;
   }
 
-  version (test_uim_eDEntityntities) {
     unittest {
       auto entity = SystemUser; // some kind of entity
       entity.set(entity);
       assert(entity.get.id == entity.id);
-    }
   }
 
 /*   void set(DEntity newValue) {
@@ -65,7 +63,7 @@ class DEntityData : DData {
   override Json toJson() {
     if (isNull)
       return Json(null);
-    return .value(".toJson;
+    return value(_value.toJson);
   }
 
   // EntityData converts to a JsonSTtring

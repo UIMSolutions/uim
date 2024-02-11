@@ -105,16 +105,16 @@ version (test_uim_models) {
     // TODO
     /* 
     auto uuid = randomUUID;
-    assert(UUIDData(uuid).value == uuid);
+    assert(UUIDData(uuid).get == uuid);
     assert(UUIDData(randomUUID).value != uuid);
 
-    assert(UUIDData._value = UUID).value == uuid);
+    assert(UUIDData._value = UUID).get == uuid);
     assert(UUIDData.value(randomUUID).value != uuid);
 
-    assert(UUIDData._value = UUID.toString).value == uuid);
+    assert(UUIDData._value = UUID.toString).get == uuid);
     assert(UUIDData.value(randomUUID.toString).value != uuid);
 
-    assert(UUIDData.set(Json(uuid.toString)).value == uuid);
+    assert(UUIDData.set(Json(uuid.toString)).get == uuid);
     assert(UUIDData.set(Json(randomUUID.toString)).value != uuid);
 
     assert(UUIDData(uuid).toString == uuid.toString);

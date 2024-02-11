@@ -27,7 +27,8 @@ class DElementData : DData {
   version (test_uim_models) {
     unittest {
       auto Element = SystemUser; // some kind of Element
-      assert(ElementData.value(Element).get.id == Element.id);
+      auto data = ElementData(Element);
+      assert(data.get.id == Element.id);
     }
   }
 

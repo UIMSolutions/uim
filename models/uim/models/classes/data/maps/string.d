@@ -26,7 +26,7 @@ class DStringDataMap : DData, IMap {
 
   void opIndexAssign(bool value, string key) {
     if (containsKey(key)) {
-      _items[key].value(value ? "true" : "false"); 
+      _items[key].set(value ? "true" : "false"); 
     } else {
     _items[key] = new DBoolData(value); }
 
@@ -34,7 +34,7 @@ class DStringDataMap : DData, IMap {
 
   void opIndexAssign(int value, string key) {
     if (containsKey(key)) {
-      _items[key].value(to!string(value)); 
+      _items[key].set(to!string(value)); 
     } else {
     _items[key] = new DIntegerData(value); }
 
@@ -42,7 +42,7 @@ class DStringDataMap : DData, IMap {
 
   void opIndexAssign(double value, string key) {
     if (containsKey(key)) {
-      _items[key].value(to!string(value)); 
+      _items[key].set(to!string(value)); 
     } else {
     _items[key] = new DDoubleData(value); }
     
@@ -50,7 +50,7 @@ class DStringDataMap : DData, IMap {
 
   void opIndexAssign(string value, string key) {    
      if (containsKey(key)) {
-      _items[key].value(value); 
+      _items[key].set(value); 
     } else {
      _items[key] = new DStringData(value); }
     
@@ -58,7 +58,7 @@ class DStringDataMap : DData, IMap {
 
   void opIndexAssign(UUID value, string key) {
     if (containsKey(key)) {
-      _items[key].value(value.toString); 
+      _items[key].set(value.toString); 
     } else {
       _items[key] = new DUUIDData(value); }
 

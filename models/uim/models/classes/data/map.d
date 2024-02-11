@@ -92,11 +92,11 @@ version(test_uim_models) { unittest {
   debug writeln(map.keys);
   assert("key1" in map);
   assert(map["key1"].toString == "value1");
-  assert(map["key1"].value == "value1");
+  assert(map["key1"].get == "value1");
   assert(map["key2"].toString == "true");
   assert(map["key2"].value);
   assert(map["key3"].toString == "100");
-  assert(map["key3"].value == 100);
+  assert(map["key3"].get == 100);
 }}
 
 unittest {

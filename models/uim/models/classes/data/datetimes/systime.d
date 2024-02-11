@@ -50,7 +50,7 @@ class DSystimeData : DData {
       set(SysTime());
       isNull(isNullable ? true : false);
     } else {
-      set(newValue.get!string.fromISOExtString);
+      // set(newValue.get!string.fromISOExtString);
       isNull(false);
     }
   }

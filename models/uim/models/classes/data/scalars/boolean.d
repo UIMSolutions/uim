@@ -29,15 +29,15 @@ class DBoolData : DData {
   // alias get this;
   unittest {
     bool myValue = true;
-    assert(BoolData(myValue).value == myValue);
+    assert(BoolData(myValue).get == myValue);
 
     auto data = new DBoolData;
-    data.value(myValue);
-    assert(data.value == myValue);
+    data.set(myValue);
+    assert(data.get == myValue);
 
     data = BoolData(false);
-    data.value = myValue;
-    assert(data.value == myValue);
+    data.get = myValue;
+    assert(data.get == myValue);
   }
 
   void set(bool newValue) {

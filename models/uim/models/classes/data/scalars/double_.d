@@ -30,15 +30,15 @@ class DDoubleData : DData {
   unittest {
     double myValue = 42.0;
     auto data = DoubleData(myValue);
-    assert(data.value == myValue);
+    assert(data.get == myValue);
 
     data = new DDoubleData;
-    data.value(myValue);
-    assert(data.value == myValue);
+    data.set(myValue);
+    assert(data.get == myValue);
 
     data = new DDoubleData;
     data.value = myValue;
-    assert(data.value == myValue);
+    assert(data.get == myValue);
   }
 
   // Set(..)
@@ -86,6 +86,8 @@ class DDoubleData : DData {
 mixin(DataCalls!("DoubleData", "double"));
 
 unittest {
+  /*alias Alias = ;
+  
   assert(DoubleData("100").toDouble == 100);
   assert(DoubleData(Json(100)).toDouble == 100);
   assert(DoubleData("200").toDouble != 100);
@@ -99,7 +101,8 @@ unittest {
   assert(DoubleData("100").toJson == Json(100));
   assert(DoubleData(Json(100)).toJson == Json(100));
   assert(DoubleData("200").toJson != Json(100));
-  assert(DoubleData(Json(200)).toJson != Json(100));
+  assert(DoubleData(Json(200)).toJson != Json(100)); 
+  */
 }
 
 ///

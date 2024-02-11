@@ -35,9 +35,9 @@ class DStringData : DData {
   unittest {
     auto data = StringData;
     data.set("test");
-    assert(data.value == "test");
+    assert(data.get == "test");
     data.set("test2");
-    assert(data.value == "test2");
+    assert(data.get == "test2");
   }
 
   // Hooks for setting 
@@ -146,16 +146,16 @@ unittest {
   assert(StringData()("test") >= "aaaa");
   assert(StringData()("test") >= "test");
 
-  assert(StringData("test").value == "test");
+  assert(StringData("test").get == "test");
   assert(StringData("test2").value != "test");
 
-  assert(StringData(Json("test")).value == "test");
+  assert(StringData(Json("test")).get == "test");
   assert(StringData(Json("test2")).value != "test");
 
-  assert(StringData.set("test").value == "test");
+  assert(StringData.set("test").get == "test");
   assert(StringData.set("test2").value != "test");
 
-  assert(StringData.set(Json("test")).value == "test");
+  assert(StringData.set(Json("test")).get == "test");
   assert(StringData.set(Json("test2")).value != "test");
 
   assert(StringData("test").toString == "test");

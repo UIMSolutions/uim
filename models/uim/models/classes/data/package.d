@@ -35,13 +35,13 @@ template DataThis(string name, string datatype = null) { // Name for future rele
   const char[] DataThis = `  
     this() { super(); }
     this(DAttribute theAttribute) { this().attribute(theAttribute); }
-    this(string theValue) { this().value(theValue); }
-    this(Json theValue) { this().value(theValue); }
-    this(DAttribute theAttribute, string theValue) { this(theAttribute).value(theValue); }
-    this(DAttribute theAttribute, Json theValue) { this(theAttribute).value(theValue); }`~
+    this(string theValue) { this().set(theValue); }
+    this(Json theValue) { this().set(theValue); }
+    this(DAttribute theAttribute, string theValue) { this(theAttribute).set(theValue); }
+    this(DAttribute theAttribute, Json theValue) { this(theAttribute).set(theValue); }`~
     (datatype ? 
-    ` this(`~datatype~` theValue) { this().value(theValue); }
-      this(DAttribute theAttribute, `~datatype~` theValue) { this(theAttribute).value(theValue); }`
+    ` this(`~datatype~` theValue) { this().set(theValue); }
+      this(DAttribute theAttribute, `~datatype~` theValue) { this(theAttribute).set(theValue); }`
       : "");
 }
 

@@ -6,7 +6,7 @@
 module uim.models.classes.attributes.lookups.strings;
 
 public { 
-	/* // import uim.models.classes..attributes.lookups.strings.boolean;
-	// import uim.models.classes..attributes.lookups.strings.integer;
-	// import uim.models.classes..attributes.lookups.strings.string_; */
+	/* // import uim.models.classes.attributes.lookups.strings.boolean;
+	// import uim.models.classes.attributes.lookups.strings.integer;
+	// import uim.models.classes.attributes.lookups.strings.string_; */
 }

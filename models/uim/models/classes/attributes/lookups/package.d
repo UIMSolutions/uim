@@ -6,13 +6,13 @@
 module uim.models.classes.attributes.lookups;
 
 public { 
-	// import uim.models.classes..attributes.lookups.booleans;
-	// import uim.models.classes..attributes.lookups.integers;
-	// import uim.models.classes..attributes.lookups.strings;
+	// import uim.models.classes.attributes.lookups.booleans;
+	// import uim.models.classes.attributes.lookups.integers;
+	// import uim.models.classes.attributes.lookups.strings;
 }
 
 public { 
-	// // import uim.models.classes..attributes.lookups.lookup;
-	// // import uim.models.classes..attributes.lookups.customertype;
-	// // import uim.models.classes..attributes.lookups.preferredcontactmethod;
+	// // import uim.models.classes.attributes.lookups.lookup;
+	// // import uim.models.classes.attributes.lookups.customertype;
+	// // import uim.models.classes.attributes.lookups.preferredcontactmethod;
 }

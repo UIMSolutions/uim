@@ -6,9 +6,9 @@
 module uim.models.classes.attributes.chars;
 
 public { 
-	// // import uim.models.classes..attributes.chars.char_;
+	// // import uim.models.classes.attributes.chars.char_;
 }
 
 public { 
-	// // import uim.models.classes..attributes.chars.strings;
+	// // import uim.models.classes.attributes.chars.strings;
 }

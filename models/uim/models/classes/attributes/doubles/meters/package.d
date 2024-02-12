@@ -7,12 +7,12 @@ module uim.models.classes.attributes.doubles.meters;
 
 // main
 public { 
-	// import uim.models.classes..attributes.doubles.meters.meter;
+	// import uim.models.classes.attributes.doubles.meters.meter;
 }
 
 // subs
 public { 
-	// import uim.models.classes..attributes.doubles.meters.centi;
-	// import uim.models.classes..attributes.doubles.meters.kilo;
-	// import uim.models.classes..attributes.doubles.meters.milli;
+	// import uim.models.classes.attributes.doubles.meters.centi;
+	// import uim.models.classes.attributes.doubles.meters.kilo;
+	// import uim.models.classes.attributes.doubles.meters.milli;
 }

@@ -7,8 +7,8 @@ import uim.models;
 string dataThis(string name, string datatype = null) { // Name for future releases
  return `  
     this() { super(); }
-    this(string newxValue) { this(); set(newxValue); }
-    this(Json newoValue) { this(); set(newoValue); } `; 
+    this(string newValue) { this(); set(newValue); }
+    this(Json newValue) { this(); set(newValue); } `; 
     // ~ datatype !is null ? ` this(` ~ datatype ~ ` newzValue) { this(); set(newzValue); }`: null;
 
   /*      this(DAttribute theAttribute, `
@@ -30,8 +30,8 @@ template DataThis(string name, string datatype = null) { // Name for future rele
 template DataCalls(string name, string datatype = null) {
   const char[] DataCalls = `  
     auto `~ name ~ `() { return new D` ~ name ~ `; }
-    auto `~ name ~ `(string newxValue) { return new D` ~ name ~ `(newxValue); }
-    auto `~ name ~ `(Json newoValue) { return new D` ~ name ~ `(newoValue); } `; 
+    auto `~ name ~ `(string newValue) { return new D` ~ name ~ `(newValue); }
+    auto `~ name ~ `(Json newValue) { return new D` ~ name ~ `(newValue); } `; 
     // ~ datatype !is null ? `auto ` ~ name ~ `(` ~ datatype ~ ` newzValue) { return new D` ~ name ~ `(newzValue); }`: null;
 
     /* auto `

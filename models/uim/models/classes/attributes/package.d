@@ -55,11 +55,11 @@ auto `~name~`(UUID myId, string myName) { return new D`~name~`(myId, myName); }
 `;
 }
 
-void testAttribute(DAttribute attribute) {
+void testAttribute(IAttribute attribute) {
   assert(attribute);
 }
 
-static this() {
+/* static this() {
   AttributeRegistry
     // Booleans
     .register(BooleanAttribute)
@@ -89,13 +89,13 @@ static this() {
     .register(DatetimeAttribute)
     .register(TimeAttribute);
     // Decimals
-}
+}*/ 
 
-version(test_uim_models) { unittest {
+/* version(test_uim_models) { unittest {
     writeln(AttributeRegistry["boolean"].name);
     writeln(AttributeRegistry["byte"].name);
     writeln(AttributeRegistry["binary"].name);
 
     writeln(AttributeRegistry.paths);
   }
-}
+} */

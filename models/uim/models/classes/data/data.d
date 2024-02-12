@@ -12,10 +12,18 @@ class DData : IData {
   this() {
     initialize;
   }
-
-  this(DAttribute theAttribute) {
-    this().attribute(theAttribute);
+  this(string newValue) {
+    this();
+    set(newValue);
   }
+  this(Json newValue) {
+    this();
+    set(newValue);
+  }
+
+  /* this(DAttribute theAttribute) {
+    this().attribute(theAttribute);
+  }*/
 
   // Hook
   bool initialize(IData[string] configData = null) {
@@ -23,7 +31,7 @@ class DData : IData {
   }
 
   // #region properties
-    mixin(TProperty!("DAttribute", "attribute"));
+    // mixin(TProperty!("DAttribute", "attribute"));
 
     mixin(TProperty!("bool", "isBoolean"));
     mixin(TProperty!("bool", "isInteger"));
@@ -44,6 +52,7 @@ class DData : IData {
 
     mixin(TProperty!("bool", "isReadOnly"));
     mixin(TProperty!("bool", "isNullable"));
+    mixin(TProperty!("string", "key"));
 
     // #region isNull
       private bool _isNull;
@@ -62,10 +71,12 @@ class DData : IData {
 
   // #region set
     void set(Json newValue) {
+      if (isReadOnly) { return; }
       // TODO
     }
 
     void set(string newValue) {
+      if (isReadOnly) { return; }
       // TODO
     }
 
@@ -92,6 +103,10 @@ class DData : IData {
       return false;
     }
   // #endregion opEquals
+
+  bool hasKey() {
+    return !key.isEmpty;
+  }
 
   string[] keys() {
     return null;
@@ -180,10 +195,10 @@ class DData : IData {
   }
 
 
-  void opCall(DAttribute newAttribute, Json newData) {
+  /* void opCall(DAttribute newAttribute, Json newData) {
     attribute(newAttribute);
     fromJson(newData);
-  }
+  } */
 
   IData clone() {
     return null;

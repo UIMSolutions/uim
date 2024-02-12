@@ -12,7 +12,7 @@ interface IData {
 
     bool isNumeric();
     bool isString();
-    IAttribute attribute();
+    // IAttribute attribute();
 
     bool isBoolean();
     bool isInteger();
@@ -33,7 +33,6 @@ interface IData {
     bool isNull();
     bool isReadOnly();
 
-    bool hasKeys(string[]);
     Json toJson();
     string toString();
     size_t length();
@@ -44,6 +43,8 @@ interface IData {
     bool hasPaths(string[] paths, string separator = "/");
     bool hasPath(string path, string separator = "/");
 
+    bool hasKey(); // One single key
+    bool hasKeys(string[]); // Has many keys , one or more 
     bool hasKeys(string[] keys, bool deepSearch = false);
     bool hasKey(string key, bool deepSearch = false);
 

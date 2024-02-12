@@ -52,7 +52,6 @@ class DData : IData {
 
     mixin(TProperty!("bool", "isReadOnly"));
     mixin(TProperty!("bool", "isNullable"));
-    mixin(TProperty!("string", "key"));
 
     // #region isNull
       private bool _isNull;
@@ -104,21 +103,39 @@ class DData : IData {
     }
   // #endregion opEquals
 
-  bool hasKey() {
-    return !key.isEmpty;
-  }
 
-  string[] keys() {
-    return null;
-  }
 
   IData[] values() {
     return null;
   }
 
-  bool hasKeys(string[]) {
-    return false;
-  }
+  // #region key/keys
+    mixin(TProperty!("string", "key"));
+
+    bool hasKey() {
+      return !key.isEmpty;
+    }
+
+    bool hasKeys() {
+      return !keys.isEmpty;
+    }
+
+    bool hasKeys(string[] keys, bool deepSearch = false) {
+      return false;
+    }
+
+    bool hasKey(string key, bool deepSearch = false) {
+      return false;
+    }
+
+    bool hasKeys(string[] keys) {
+      return false;
+    }
+
+    string[] keys() {
+      return null;
+    }
+  // #endregion key/keys
 
   ulong length() {
     return 0;
@@ -140,13 +157,7 @@ class DData : IData {
     return false;
   }
 
-  bool hasKeys(string[] keys, bool deepSearch = false) {
-    return false;
-  }
 
-  bool hasKey(string key, bool deepSearch = false) {
-    return false;
-  }
 
   // #region data
     // #region data()

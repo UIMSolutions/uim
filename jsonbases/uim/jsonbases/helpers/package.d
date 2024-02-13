@@ -1,10 +1,10 @@
-module uim.jsonbase.helpers;
+module uim.jsonbases.helpers;
 
 public {
-  import uim.jsonbase.helpers.filecollection;
-  import uim.jsonbase.helpers.folder;
-  import uim.jsonbase.helpers.path;
-  import uim.jsonbase.helpers.versions;
+  import uim.jsonbases.helpers.filecollection;
+  import uim.jsonbases.helpers.folder;
+  import uim.jsonbases.helpers.path;
+  import uim.jsonbases.helpers.versions;
 }
 
 

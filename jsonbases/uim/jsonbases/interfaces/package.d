@@ -1,9 +1,9 @@
-module uim.jsonbase.interfaces;
+module uim.jsonbases.interfaces;
 
 public {
-  import uim.jsonbase.interfaces.base;
-  import uim.jsonbase.interfaces.collection;
-  import uim.jsonbase.interfaces.collectionmanager;
-  import uim.jsonbase.interfaces.tenant;
-  import uim.jsonbase.interfaces.tenantmanager;
+  import uim.jsonbases.interfaces.base;
+  import uim.jsonbases.interfaces.collection;
+  import uim.jsonbases.interfaces.collectionmanager;
+  import uim.jsonbases.interfaces.tenant;
+  import uim.jsonbases.interfaces.tenantmanager;
 }

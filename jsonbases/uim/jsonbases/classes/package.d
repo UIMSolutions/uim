@@ -1,8 +1,8 @@
-module uim.jsonbase.classes;
+module uim.jsonbases.classes;
 
 public {
-  import uim.jsonbase.classes.bases;
-  import uim.jsonbase.classes.collections;
-  import uim.jsonbase.classes.security;
-  import uim.jsonbase.classes.tenants;
+  import uim.jsonbases.classes.bases;
+  import uim.jsonbases.classes.collections;
+  import uim.jsonbases.classes.security;
+  import uim.jsonbases.classes.tenants; 
 }

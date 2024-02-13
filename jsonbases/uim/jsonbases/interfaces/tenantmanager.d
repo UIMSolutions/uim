@@ -1,6 +1,6 @@
-module uim.jsonbase.interfaces.tenantmanager;
+module uim.jsonbases.interfaces.tenantmanager;
 
-import uim.jsonbase;
+import uim.jsonbases;
 
 @safe:
 interface IJsonTenantManager {

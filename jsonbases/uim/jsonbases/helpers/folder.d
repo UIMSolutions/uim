@@ -1,6 +1,6 @@
-module uim.jsonbase.helpers.folder;
+module uim.jsonbases.helpers.folder;
 
-import uim.jsonbase;
+import uim.jsonbases;
 
 unittest { 
   version(testUimJsonbase) { 

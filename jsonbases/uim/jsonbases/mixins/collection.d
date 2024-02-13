@@ -1,6 +1,6 @@
-module uim.jsonbase.mixins.collection;
+module uim.jsonbases.mixins.collection;
 
-import uim.jsonbase;
+import uim.jsonbases;
 
 @safe:
 string jsonCollectionThis(string aClassName) {

@@ -1,9 +1,9 @@
-module uim.jsonbase.classes.tenants;
+module uim.jsonbases.classes.tenants;
 
 public {
   // Base class
-  import uim.jsonbase.classes.tenants.tenant;
+  import uim.jsonbases.classes.tenants.tenant;
   // Derived classes
-  import uim.jsonbase.classes.tenants.file;
-  import uim.jsonbase.classes.tenants.memory;
+  import uim.jsonbases.classes.tenants.file;
+  import uim.jsonbases.classes.tenants.memory;
 }

@@ -1,10 +1,10 @@
-module uim.jsonbase.classes.collections;
+module uim.jsonbases.classes.collections;
 
 public {
   // Base class
-  import uim.jsonbase.classes.collections.collection;
+  import uim.jsonbases.classes.collections.collection;
   // Dericed classes
-  import uim.jsonbase.classes.collections.file;
-  import uim.jsonbase.classes.collections.memory;
-  import uim.jsonbase.classes.collections.null_;
+  import uim.jsonbases.classes.collections.file;
+  import uim.jsonbases.classes.collections.memory;
+  import uim.jsonbases.classes.collections.null_;
 }

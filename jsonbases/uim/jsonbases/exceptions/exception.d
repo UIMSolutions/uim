@@ -1,6 +1,6 @@
-module uim.jsonbase.exceptions.exception;
+module uim.jsonbases.exceptions.exception;
 
-import uim.jsonbase;
+import uim.jsonbases;
 
 @safe:
 class JSONBaseException : UimException {

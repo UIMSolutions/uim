@@ -1,6 +1,6 @@
-module uim.jsonbase.mixins.collectionmanager;
+module uim.jsonbases.mixins.collectionmanager;
 
-import uim.jsonbase;
+import uim.jsonbases;
 
 @safe:
 template JsonCollectionManagerTemplate() {

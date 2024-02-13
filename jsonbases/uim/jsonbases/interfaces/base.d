@@ -1,6 +1,6 @@
-module uim.jsonbase.interfaces.base;
+module uim.jsonbases.interfaces.base;
 
-import uim.jsonbase;
+import uim.jsonbases;
 
 @safe:
 interface IJsonBase {  

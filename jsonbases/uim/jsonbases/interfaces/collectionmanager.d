@@ -1,6 +1,6 @@
-module uim.jsonbase.interfaces.collectionmanager;
+module uim.jsonbases.interfaces.collectionmanager;
 
-import uim.jsonbase;
+import uim.jsonbases;
 
 @safe:
 interface IJsonCollectionManager {  

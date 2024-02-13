@@ -1,6 +1,6 @@
-module uim.jsonbase.helpers.versions;
+module uim.jsonbases.helpers.versions;
 
-import uim.jsonbase;
+import uim.jsonbases;
 
 version(testUimJsonbase) { 
   unittest {
@@ -101,7 +101,7 @@ version(testUimJsonbase) {
 // #endregion check
 
 
-import uim.jsonbase;
+import uim.jsonbases;
 
 @safe:
 // #endregion lastVersion()

@@ -1,7 +1,7 @@
-module uim.jsonbase.tests.collection;
+module uim.jsonbases.tests.collection;
 
 @safe:
-import uim.jsonbase;
+import uim.jsonbases;
 
 bool isNull(IJsonCollection aCollection) {
   return (aCollection is null);

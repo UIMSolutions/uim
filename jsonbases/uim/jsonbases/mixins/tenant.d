@@ -1,6 +1,6 @@
-module uim.jsonbase.mixins.tenant;
+module uim.jsonbases.mixins.tenant;
 
-import uim.jsonbase;
+import uim.jsonbases;
 
 @safe:
 string jsonTenantThis(string aName) {

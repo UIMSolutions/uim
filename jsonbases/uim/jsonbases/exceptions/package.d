@@ -1,5 +1,5 @@
-module uim.jsonbase.exceptions;
+module uim.jsonbases.exceptions;
 
 public {
-    import uim.jsonbase.exceptions.exception;
+    import uim.jsonbases.exceptions.exception;
 }

@@ -6,7 +6,7 @@
 module uim.models.classes.attributes.arrays;
 
 public { 
-	// // import uim.models.classes.attributes.arrays.array;
+	//import uim.models.classes.attributes.arrays.array;
 }
 
 public { 

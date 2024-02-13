@@ -6,9 +6,10 @@
 module uim.models.interfaces.entity;
 
 import uim.models;
+
 @safe:
 
 interface IEntity : IElement {
-	string description();  
-  string versionDescription(); 
+	string description();
+	string versionDescription();
 }

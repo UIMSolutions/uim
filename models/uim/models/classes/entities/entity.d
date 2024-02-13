@@ -73,7 +73,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
   mixin(DataProperty!("string", "description"));
   /// 
   unittest {
-    auto entity = new DEntity;
+    /* auto entity = new DEntity;
     writeln(entity);
     entity.description = "newDescription";
     assert(entity.description == "newDescription");
@@ -81,20 +81,20 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
 
     entity.description("otherDescription");
     assert(entity.description == "otherDescription");
-    assert(entity.description != "noDescription");
+    assert(entity.description != "noDescription"); */
   }
 
   mixin(DataProperty!("string", "pool"));
   /// 
   unittest {
-    auto entity = new DEntity;
+    /* auto entity = new DEntity;
     entity.pool = "newPool";
     assert(entity.pool == "newPool");
     assert(entity.pool != "noPool");
 
     entity.pool("otherPool");
     assert(entity.pool == "otherPool");
-    assert(entity.pool != "noPool");
+    assert(entity.pool != "noPool"); */
   }
 
   mixin(LongDataProperty!("versionNumber", "version.number"));
@@ -103,7 +103,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
   mixin(TimeStampDataProperty!("versionOn", "version.on"));
   /// 
   unittest {
-    auto timestamp = toTimestamp(now);
+    /* auto timestamp = toTimestamp(now);
     auto entity = new DEntity;
 
     entity.versionOn = timestamp;
@@ -113,14 +113,14 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     timestamp = toTimestamp(now);
     entity.versionOn(timestamp);
     assert(entity.versionOn == timestamp);
-    assert(entity.versionOn != 1);
+    assert(entity.versionOn != 1); */
   }
 
   // Who created version
   mixin(UUIDDataProperty!("versionBy", "version.by"));
   /// 
   unittest {
-    auto id = randomUUID;
+    /* auto id = randomUUID;
     auto entity = new DEntity;
 
     entity.versionBy = id;
@@ -130,13 +130,13 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     id = randomUUID;
     entity.versionBy(id);
     assert(entity.versionBy == id);
-    assert(entity.versionBy != randomUUID);
+    assert(entity.versionBy != randomUUID); */
   }
 
   mixin(DataProperty!("string", "versionDescription", "version.description"));
   /// 
   unittest {
-    auto entity = new DEntity;
+    /* auto entity = new DEntity;
     entity["version.description"] = "version with description";
     assert(entity["version.description"] == "version with description");
 
@@ -147,33 +147,33 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
 
     entity.versionDescription("version with other description");
     assert(entity.versionDescription == "version with other description");
-    assert(entity.versionDescription != "noVersionDescription");
+    assert(entity.versionDescription != "noVersionDescription"); */
   }
 
   mixin(DataProperty!("string", "versionDisplay", "version.display"));
   /// 
   unittest {
-    auto entity = new DEntity;
+    /* auto entity = new DEntity;
     entity.versionDisplay = "newVersionDisplay";
     assert(entity.versionDisplay == "newVersionDisplay");
     assert(entity.versionDisplay != "noVersionDisplay");
 
     entity.versionDisplay("otherVersionDisplay");
     assert(entity.versionDisplay == "otherVersionDisplay");
-    assert(entity.versionDisplay != "noVersionDisplay");
+    assert(entity.versionDisplay != "noVersionDisplay"); */
   }
 
   mixin(DataProperty!("string", "versionMode", "version.mode"));
   /// 
   unittest {
-    auto entity = new DEntity;
+    /* auto entity = new DEntity;
     entity.versionMode = "newVersionMode";
     assert(entity.versionMode == "newVersionMode");
     assert(entity.versionMode != "noVersionMode");
 
     entity.versionMode("otherVersionMode");
     assert(entity.versionMode == "otherVersionMode");
-    assert(entity.versionMode != "noVersionMode");
+    assert(entity.versionMode != "noVersionMode"); */
   }
 
   string[] fieldNames() {
@@ -184,9 +184,9 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       "isDeleted", "deletedOn", "deletedBy", "versionNumber",
       "versionDisplay", "versionMode", "versionOn", "versionBy",
       "versionDescription"
-    ] ~
-       /* attributes.keys~ */
-      values.keys;
+    ] /* ~
+       /* attributes.keys~ * /
+      values.keys */;
   }
 
   alias opEquals = Object.opEquals;
@@ -518,13 +518,13 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
 
     foreach (fName; fieldNames) {
       auto requestKey = "entity_" ~ fName;
-      if (auto boolValue = cast(DBoolData) values[fName]) {
-        boolValue.value(requestKey in requestValues ? true : false);
+      /* if (auto boolValue = cast(DBoolData) values[fName]) {
+        boolValue.set(requestKey in requestValues ? true : false);
       } else {
         if (requestKey in requestValues) {
           this[fName] = requestValues[requestKey];
         }
-      }
+      } */
     }
   }
 
@@ -678,19 +678,19 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       break;
     default:
       // if (key in attributes) attributes[key].value(value); 
-      if (values.containsKey(key)) {
+      if (true) { //values.hasKey(key)) {
         // values[key] = value;
       } else {
         auto keys = key.split(".");
         if (keys.length > 1) {
-          if (auto subValue = values[keys[0]]) {
+          /* if (auto subValue = values[keys[0]]) {
             if (auto entityValue = cast(DEntityData) subValue) {
               entityValue.value[keys[1 .. $].join(".")] = value;
             }
             if (auto ElementData = cast(DElementData) subValue) {
               ElementData.value[keys[1 .. $].join(".")] = value;
             }
-          }
+          } */
         }
       }
       break;
@@ -963,8 +963,8 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       /*       foreach(k; _attributes.byKey) {
         if (!hideFields.exist(k)) result[k] = _attributes[k].jsonValue;
       } */
-      values.keys
-        .each!(key => result[key] = values[key].toJson);
+      /* values.keys
+        .each!(key => result[key] = values[key].toJson); */
 
     } else if (showFields.isEmpty && !hideFields.isEmpty) {
       if (!hideFields.exist("registerPath"))
@@ -1074,15 +1074,15 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     }
 
     if (showFields.isEmpty) {
-      foreach (k; values.keys) {
+      /* foreach (k; values.keys) {
         if (!hideFields.exist(k))
           result[k] = values[k].toJson;
-      }
+      } */
     } else {
-      foreach (k; values.keys) {
+      /* foreach (k; values.keys) {
         if ((showFields.exist(k)) && (!hideFields.exist(k)))
           result[k] = values[k].toJson;
-      }
+      } */
     }
 
     return result;

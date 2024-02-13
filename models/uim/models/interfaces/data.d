@@ -4,7 +4,6 @@ import uim.models;
 
 @safe:
 interface IData {
-    string[] keys();
     IData[] values();
 
     // is data empty  
@@ -37,14 +36,22 @@ interface IData {
     string toString();
     size_t length();
 
+    // Check is equal
     bool isEqual(IData[string] checkData);
     bool isEqual(IData data);
+    bool isEqual(string value);
+    bool isEqual(Json value);
 
     bool hasPaths(string[] paths, string separator = "/");
     bool hasPath(string path, string separator = "/");
 
     bool hasKey(); // One single key
+    string key();
+    void key(string newKey);
+
     bool hasKeys(string[]); // Has many keys , one or more 
+    string[] keys();
+
     bool hasKeys(string[] keys, bool deepSearch = false);
     bool hasKey(string key, bool deepSearch = false);
 

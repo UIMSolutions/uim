@@ -1,6 +1,6 @@
 module uim.jsonbases.classes.bases.memory;
 
-import uim.jsonbase;
+import uim.jsonbases;
 
 unittest { 
   version(testUimJsonbase) { 

@@ -1,4 +1,4 @@
-module uim.jsonbase;
+module uim.jsonbases;
 
 mixin(ImportPhobos!());
 

@@ -1,6 +1,6 @@
 module uim.jsonbases.tests.tenant;
 
-import uim.jsonbase;
+import uim.jsonbases;
 @safe:
 
 bool testJsonTenant(IJsonTenant aTenant) {

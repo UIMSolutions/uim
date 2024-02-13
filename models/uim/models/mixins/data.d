@@ -5,11 +5,11 @@ import uim.models;
 @safe:
 
 string dataThis(string name, string datatype = null) { // Name for future releases
- return `  
+  return `  
     this() { super(); }
     this(string newValue) { this(); set(newValue); }
-    this(Json newValue) { this(); set(newValue); } `; 
-    // ~ datatype !is null ? ` this(` ~ datatype ~ ` newzValue) { this(); set(newzValue); }`: null;
+    this(Json newValue) { this(); set(newValue); } `;
+  // ~ datatype !is null ? ` this(` ~ datatype ~ ` newzValue) { this(); set(newzValue); }`: null;
 
   /*      this(DAttribute theAttribute, `
         ~ datatype ~ ` newValue) { this(theAttribute).set(newValue); }` : "");
@@ -19,6 +19,7 @@ string dataThis(string name, string datatype = null) { // Name for future releas
     this(DAttribute theAttribute, string newValue) { this(theAttribute).set(newValue); }
     this(DAttribute theAttribute, Json newValue) { this(theAttribute).set(newValue); }` */
 }
+
 unittest {
   writeln(dataThis("name", "datatype"));
 }
@@ -29,12 +30,15 @@ template DataThis(string name, string datatype = null) { // Name for future rele
 
 template DataCalls(string name, string datatype = null) {
   const char[] DataCalls = `  
-    auto `~ name ~ `() { return new D` ~ name ~ `; }
-    auto `~ name ~ `(string newValue) { return new D` ~ name ~ `(newValue); }
-    auto `~ name ~ `(Json newValue) { return new D` ~ name ~ `(newValue); } `; 
-    // ~ datatype !is null ? `auto ` ~ name ~ `(` ~ datatype ~ ` newzValue) { return new D` ~ name ~ `(newzValue); }`: null;
+    auto `
+    ~ name ~ `() { return new D` ~ name ~ `; }
+    auto `
+    ~ name ~ `(string newValue) { return new D` ~ name ~ `(newValue); }
+    auto `
+    ~ name ~ `(Json newValue) { return new D` ~ name ~ `(newValue); } `;
+  // ~ datatype !is null ? `auto ` ~ name ~ `(` ~ datatype ~ ` newzValue) { return new D` ~ name ~ `(newzValue); }`: null;
 
-    /* auto `
+  /* auto `
     ~ name ~ `(DAttribute theAttribute) { return new D` ~ name ~ `(theAttribute); }
     auto `
     auto `
@@ -176,34 +180,68 @@ mixin template DataConvertTemplate() {
 string dataGetSetTemplate(string nullValue, string dataType, string jsonType = null) {
   auto jType = jsonType is null ? dataType : jsonType;
   return `
-  protected `~dataType~` _value;
-  `~dataType~` opCall() {
+  protected `
+    ~ dataType ~ ` _value;
+  `
+    ~ dataType ~ ` opCall() {
     return get();
   }
 
-  void opCall(`~dataType~` newValue) {
+  void opCall(`
+    ~ dataType ~ ` newValue) {
     set(newValue);
   }
 
   override void set(string newValue) {
     if (newValue is null) {
       isNull(isNullable ? true : false);
-      set(`~nullValue~`);
+      set(`
+    ~ nullValue ~ `);
     } else {
       isNull(false);
-      set(to!`~dataType~`(newValue));
+      set(to!`
+    ~ dataType ~ `(newValue));
     }
   }
 
   override void set(Json newValue) {
     if (newValue.isEmpty) {
-      set(`~nullValue~`);
+      set(`
+    ~ nullValue ~ `);
       isNull(isNullable ? true : false);
     } else {
-      set(newValue.get!`~jType~`);
+      set(newValue.get!`
+    ~ jType ~ `);
       isNull(false);
     }
   }`;
+}
+
+string scalarDataOpEquals(string datatype) {
+  return `
+override bool opEquals(IData[string] checkData) {
+  return isEqual(checkData);
+}
+
+override bool opEquals(IData checkValue) {
+  return isEqual(checkValue);
+}
+
+override bool opEquals(Json checkValue) {
+  return isEqual(checkValue);
+}
+
+override bool opEquals(string checkValue) {
+  return isEqual(checkValue);
+}`~
+(datatype !is null ? `
+bool opEquals(` ~ datatype ~ ` checkValue) {
+  return isEqual(checkValue);
+}` : null);
+}
+
+template ScalarDataOpEquals(string datatype) {
+  const char[] ScalarDataOpEquals = scalarDataOpEquals(datatype);
 }
 
 template DataGetSetTemplate(string nullValue, string dataType, string jsonType = null) {

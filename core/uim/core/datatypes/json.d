@@ -37,23 +37,23 @@ unittest {
   assert(!parseJsonString(`{"a":"b"}`).isArray);
 }
 
-bool isBigInt(Json aJson) {
+bool isBigInteger(Json aJson) {
   return (aJson.type == Json.Type.bigInt);
 }
 ///
 unittest {
-  assert(parseJsonString(`1000000000000000000000`).isBigInt);
-  assert(!parseJsonString(`1`).isBigInt);
+  assert(parseJsonString(`1000000000000000000000`).isBigInteger);
+  assert(!parseJsonString(`1`).isBigInteger);
 }
 
-bool isBool(Json aJson) {
+bool isBoolean(Json aJson) {
   return (aJson.type == Json.Type.bool_);
 }
 ///
 unittest {
-  assert(parseJsonString(`true`).isBool);
-  assert(parseJsonString(`false`).isBool);
-  assert(!parseJsonString(`1`).isBool);
+  assert(parseJsonString(`true`).isBoolean);
+  assert(parseJsonString(`false`).isBoolean);
+  assert(!parseJsonString(`1`).isBoolean);
 }
 
 bool isFloat(Json aJson) {

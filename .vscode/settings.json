@@ -1,0 +1,5 @@
+{
+    "dscanner.ignoredKeys": [
+        "dscanner.suspicious.object_const"
+    ]
+}

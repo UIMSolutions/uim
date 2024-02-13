@@ -5,9 +5,12 @@
 **********************************************************************************************************/
 module uim.models.classes.elements;
 
-public { 
-	/* // import uim.models.classes.elements.configuration;
-	// import uim.models.classes.elements.element;
+public { // Main module
+	import uim.models.classes.elements.element;
+}
+
+public { // Additional modules
+	// import uim.models.classes.elements.configuration;
 	// import uim.models.classes.elements.registry;
 	// import uim.models.classes.elements.version_; */
 }

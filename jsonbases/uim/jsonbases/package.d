@@ -82,7 +82,7 @@ string filePath(string path, UUID id, size_t versionNumber, string separator = "
 }
 
 string filePath(UUID id, size_t versionNumber, string separator = "/") {
-  return dirPath(id, separator) ~ separator ~ toString(versionNumber > 0 ? versionNumber : 1) ~ ".json";
+  return dirPath(id, separator) ~ separator ~ to!string(versionNumber > 0 ? versionNumber : 1) ~ ".json";
 }
 
 string filePath(string path, Json json, string separator = "/") {

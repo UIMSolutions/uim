@@ -43,7 +43,7 @@ unittest {
   }
 
   string versionPath(UUID id, size_t versionNumber, string separator = "/") {
-    return id.toString~separator~separator~toString(versionNumber > 0 ? versionNumber : 1)~".json";
+    return id.toString~separator~separator~to!string(versionNumber > 0 ? versionNumber : 1)~".json";
   }
 
   string versionPath(string[] path, Json json, string separator = "/") {

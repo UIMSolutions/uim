@@ -1,5 +1,5 @@
-module uim.jsonbase.mixins.tenantmanager;
+module uim.jsonbases.mixins.tenantmanager;
 
-import uim.jsonbase;
+import uim.jsonbases;
 
 @safe:

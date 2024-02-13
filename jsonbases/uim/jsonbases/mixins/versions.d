@@ -1,6 +1,6 @@
-module uim.jsonbase.mixins.versions;
+module uim.jsonbases.mixins.versions;
 
-import uim.jsonbase;
+import uim.jsonbases;
 
 @safe:
 template FolderByIdAndFileByNumber() {

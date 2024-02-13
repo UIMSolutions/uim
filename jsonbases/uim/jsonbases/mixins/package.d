@@ -1,10 +1,10 @@
-module uim.jsonbase.mixins;
+module uim.jsonbases.mixins;
 
 public {
-  import uim.jsonbase.mixins.base;
-  import uim.jsonbase.mixins.collection;
-  import uim.jsonbase.mixins.collectionmanager;
-  import uim.jsonbase.mixins.tenant;
-  import uim.jsonbase.mixins.tenantmanager;
-  import uim.jsonbase.mixins.versions;
+  import uim.jsonbases.mixins.base;
+  import uim.jsonbases.mixins.collection;
+  import uim.jsonbases.mixins.collectionmanager;
+  import uim.jsonbases.mixins.tenant;
+  import uim.jsonbases.mixins.tenantmanager;
+  import uim.jsonbases.mixins.versions;
 }

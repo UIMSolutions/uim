@@ -27,10 +27,25 @@ class DAggregation : DOOPElement {
 	mixin(TProperty!("string", "datatype"));
 	mixin(TProperty!("bool", "isMultiple"));
 	mixin(TProperty!("bool", "isDefault"));
+
+    mixin CloneableTemplate;
 }
 mixin(ShortCutElement!("Aggregation", "DAggregation")); 
 
-version(test_uim_oop) { unittest {
+unittest {
 		assert(Aggregation("Werte").name == "Werte");
 		assert(Aggregation("Werte").name("Anderes").name == "Anderes");
-}}
+
+		assert(Aggregation().className == "DAggregation");
+		assert(Aggregation().create.className == "DAggregation");
+		assert(Aggregation().clone.className == "DAggregation");
+		
+		DOOPElement agg = Aggregation();
+		assert(agg.className == "DAggregation");
+		assert(agg.clone.className == "DAggregation");
+
+		ICloneable agg2 = Aggregation();
+		assert((cast(Object)agg2).className == "DAggregation");
+		assert((cast(Object)agg2).classinfo.create.className == "DAggregation");
+		assert((cast(DOOPElement)agg2).clone.className == "DAggregation");
+}

@@ -8,25 +8,34 @@ module uim.oop.enumerations.enumeration;
 import uim.oop;
 @safe:
 
-class DEnumeration(K, V) : IEnumeration {
+class DEnumeration(K, V) : IEnumeration, ICloneable {
   this() {
+    initialize;
   }
   
-  bool initialize(Json initData = null) {}
+  bool initialize(Json initData = null) {
+    return true;
+  }
                   
   private K[] _keys;
   private V[] _values;
   
   auto keyValues() {
     K[V][] results;
+    return null; 
   }   
   
-  auto value(K key) {
-    foreach(key; keys) {
+  auto value(K key) { // TODO
+    /* foreach(key; keys) {
       
-    }
-    return NullValue;
+    }*/ 
+    return null;
   } 
-  
-  
+  mixin CloneableTemplate;
+}
+unittest {
+  auto enumeration = new DEnumeration!(string, string);
+  assert(enumeration.className == "DEnumeration");
+  assert(enumeration.create.className == "DEnumeration");
+  assert(enumeration.clone.className == "DEnumeration");
 }

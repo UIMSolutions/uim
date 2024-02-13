@@ -9,7 +9,7 @@ import uim.oop;
 
 @safe:
 
-class DOOPElement {
+class DOOPElement : ICloneable {
   this() {
   }
 
@@ -37,6 +37,9 @@ class DOOPElement {
 
 		return result;
 	}*/
+
+  mixin CloneableTemplate;
+
   Json toJson() {
     auto result = Json.emptyObject;
     result["namespace"] = namespace;
@@ -62,10 +65,14 @@ auto OOPElement(string aName) {
 unittest {
   auto element = new DOOPElement;
   assert(element.namespace == "uim.oop");
-  assert(element.className == "Element");
-  assert(element.fullname == "uim.oop.Element");
-  assert(element.fullpath == "uim/oop/Element");
+  assert(element.className == "DOOPElement");
+  assert(element.fullname == "uim.oop.DOOPElement");
+  assert(element.fullpath == "uim/oop/DOOPElement");
 
   assert(OOPElement("test").name == "test");
   assert(OOPElement("test").name("test2").name == "test2");
+
+  assert(element.create.className == "DOOPElement");
+  assert(element.clone.className == "DOOPElement"); 
+  assert(element.clone(Json(null)).className == "DOOPElement"); 
 }

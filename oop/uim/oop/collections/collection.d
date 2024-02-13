@@ -5,26 +5,35 @@
 ***********************************************************************************/
 module uim.oop.collections.collection;
 
+import uim.oop;
+
+@safe:
+
 interface ICollection {
 	size_t count();
 }
 
-class DCollection(T) : ICollection {
-	this() {}
-	size_t count() { return 0; }
+class DCollection(T) : ICollection, ICloneable {
+	this() {
+	}
+
+	size_t count() {
+		return 0;
+	}
 
 	// Ensures that this collection contains the specified element (optional operation).
-	bool add(T newItem) { 
-      return false; 
-    }
+	bool add(T newItem) {
+		return false;
+	}
 
 	// Adds all of the elements in the specified collection to this collection (optional operation).
-	bool addAll(DCollection!T someItems) { 
-      return false; 
-    }
+	bool addAll(DCollection!T someItems) {
+		return false;
+	}
 
 	// Removes all of the elements from this collection (optional operation).
-	O	clear() {}
+	void clear() {
+	}
 
 	// Returns true if this collection contains the specified element.
 	bool contains(T anItem) {
@@ -32,17 +41,17 @@ class DCollection(T) : ICollection {
 	}
 
 	// Returns true if this collection contains all of the elements in the specified collection.
-	bool	containsAll(T[] someItems) {
-		if (someItems.isEmpty) { 
-      return false; 
-    }
+	bool containsAll(T[] someItems) {
+		if (someItems.isEmpty) {
+			return false;
+		}
 
-		foreach(item; someItems) {
-			if (!contains(item)) { 
-				return false; 
+		foreach (item; someItems) {
+			if (!contains(item)) {
+				return false;
 			}
 		}
-		
+
 		return true;
 	}
 
@@ -52,12 +61,12 @@ class DCollection(T) : ICollection {
 	}
 
 	// Returns the hash code value for this collection.
-	int	hashCode() { 
+	int hashCode() {
 		return this.hashCode;
 	}
 
 	// Returns true if this collection contains no elements.
-	bool	isEmpty() {
+	bool isEmpty() {
 		return true;
 	}
 
@@ -68,44 +77,49 @@ class DCollection(T) : ICollection {
 	// default Stream<E>	parallelStream()
 
 	// Removes a single instance of the specified element from this collection, if it is present (optional operation).
-	bool remove(Object o) { 
-      return false; 
-    }
+	bool remove(Object o) {
+		return false;
+	}
 
 	// Removes all of this collection's elements that are also contained in the specified collection (optional operation).
-	bool removeAll(T[] someItems) { 
-      return false; 
-    }
+	bool removeAll(T[] someItems) {
+		return false;
+	}
 
 	// Removes all of the elements of this collection that satisfy the given predicate.
 	// default bool	removeIf(Predicate<? super E> filter)
-	
+
 	// Retains only the elements in this collection that are contained in the specified collection (optional operation).
 	// bool	retainAll(Collection<?> c)
 
 	// Returns the number of elements in this collection.
-	int	size() { 
+	int size() {
 		return 0;
 	}
 
 	// Creates a Spliterator over the elements in this collection.
 	// default Spliterator<E>	spliterator()
-	
+
 	// Returns a sequential Stream with this collection as its source.
 	// default Stream<E>	stream()
-	
+
 	// Returns an array containing all of the elements in this collection.
-	T[]	toArray() {
+	T[] toArray() {
 		return null;
 	}
-	
+
 	// Returns an array containing all of the elements in this collection; the runtime type of the returned array is that of the specified array.
 	// <T> T[]	toArray(T[] a)
+
+	mixin CloneableTemplate;
 }
-// auto Collection() { return new DCollection; }
 
-version(test_uim_oop) { unittest {
-		/// TODO
-	}}
+auto Collection(T)() {
+	return new DCollection!T();
+}
 
- 
+unittest {
+	assert(Collection!string().className == "DCollection");
+	assert(Collection!string().create.className == "DCollection");
+	assert(Collection!string().clone.className == "DCollection");
+}

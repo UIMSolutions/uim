@@ -31,15 +31,27 @@ string className(Object instance) {
     return instance.classinfo.baseName;
 }
 
-unittest {
-    interface ITest{};
+class tt() {
 
-    class Test : ITest {}
+}
+
+unittest {
+    interface ITest{
+                O create(this O)();
+    };
+
+    class Test : ITest {
+                O create(this O)() {
+            return cast(O)this.classinfo.create;
+        }
+    }
     auto test = new Test;
     assert(test.className == "Test");
     assert(test.stringof == "test");
 
-    class Test1 : Test {}
+    class Test1 : Test {
+
+    }
     class Test2 : Test1 {
     }
 
@@ -53,8 +65,15 @@ unittest {
     writeln("fullClassname:", (new Test2).classFullname);
     writeln("Interfaces:", (new Test).classinfo.interfaces);
 
-    Test2 result;
+    Object result;
     Test2 function(string) fn;
-    Object x(string name) @trusted { return Object.factory(name); };
-    debug writeln(x((new Test2).className));
+    string name = "uim.core.helpers.classes.tt";
+    () @trusted { result = Object.factory(name); }();
+    debug writeln(result.className);
+    /* debug writeln(x("uim.core.helpers.classes.tt"));*/
+    debug writeln((new Test2).classinfo.create); 
+    auto cl = (new Test2).classinfo;
+    debug writeln(cl.create);
+
+    debug writeln((new Test2).create);
 }

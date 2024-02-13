@@ -6,5 +6,5 @@
 module uim.models.classes.attributes.bytes;
 
 public { 
-	// // import uim.models.classes.attributes.bytes.byte_;
+	//import uim.models.classes.attributes.bytes.byte_;
 }

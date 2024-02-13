@@ -6,7 +6,7 @@
 module uim.models.classes.attributes.strings.names;
 
 public { 
-	// // import uim.models.classes.attributes.strings.names.name;
+	//import uim.models.classes.attributes.strings.names.name;
 }
 
 public { 

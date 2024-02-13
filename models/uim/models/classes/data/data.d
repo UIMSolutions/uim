@@ -12,10 +12,12 @@ class DData : IData {
   this() {
     initialize;
   }
+
   this(string newValue) {
     this();
     set(newValue);
   }
+
   this(Json newValue) {
     this();
     set(newValue);
@@ -31,79 +33,100 @@ class DData : IData {
   }
 
   // #region properties
-    // mixin(TProperty!("DAttribute", "attribute"));
+  // mixin(TProperty!("DAttribute", "attribute"));
 
-    mixin(TProperty!("bool", "isBoolean"));
-    mixin(TProperty!("bool", "isInteger"));
-    mixin(TProperty!("bool", "isDouble"));
-    mixin(TProperty!("bool", "isLong"));
-    mixin(TProperty!("bool", "isTime"));
-    mixin(TProperty!("bool", "isDate"));
-    mixin(TProperty!("bool", "isDatetime"));
-    mixin(TProperty!("bool", "isTimestamp"));
-    mixin(TProperty!("bool", "isString"));
-    mixin(TProperty!("bool", "isNumeric"));
+  mixin(TProperty!("bool", "isBoolean"));
+  mixin(TProperty!("bool", "isInteger"));
+  mixin(TProperty!("bool", "isDouble"));
+  mixin(TProperty!("bool", "isLong"));
+  mixin(TProperty!("bool", "isTime"));
+  mixin(TProperty!("bool", "isDate"));
+  mixin(TProperty!("bool", "isDatetime"));
+  mixin(TProperty!("bool", "isTimestamp"));
+  mixin(TProperty!("bool", "isString"));
+  mixin(TProperty!("bool", "isNumeric"));
 
-    mixin(TProperty!("bool", "isScalar"));
-    mixin(TProperty!("bool", "isArray"));
-    mixin(TProperty!("bool", "isObject"));
-    mixin(TProperty!("bool", "isEntity"));
-    mixin(TProperty!("bool", "isUUID"));
+  mixin(TProperty!("bool", "isScalar"));
+  mixin(TProperty!("bool", "isArray"));
+  mixin(TProperty!("bool", "isObject"));
+  mixin(TProperty!("bool", "isEntity"));
+  mixin(TProperty!("bool", "isUUID"));
 
-    mixin(TProperty!("bool", "isReadOnly"));
-    mixin(TProperty!("bool", "isNullable"));
+  mixin(TProperty!("bool", "isReadOnly"));
+  mixin(TProperty!("bool", "isNullable"));
 
-    // #region isNull
-      private bool _isNull;
-      bool isNull() {
-        if (isNullable)
-          return isNull;
-        return false;
-      }
+  // #region isNull
+  private bool _isNull;
+  bool isNull() {
+    if (isNullable)
+      return isNull;
+    return false;
+  }
 
-      void isNull(bool newNull) {
-        if (isNullable)
-          _isNull = newNull;
-      }
-    // #endregion isNull
+  void isNull(bool newNull) {
+    if (isNullable)
+      _isNull = newNull;
+  }
+  // #endregion isNull
   // #endregion properties 
 
   // #region set
-    void set(Json newValue) {
-      if (isReadOnly) { return; }
-      // TODO
+  void set(Json newValue) {
+    if (isReadOnly) {
+      return;
     }
+    // TODO
+  }
 
-    void set(string newValue) {
-      if (isReadOnly) { return; }
-      // TODO
+  void set(string newValue) {
+    if (isReadOnly) {
+      return;
     }
+    // TODO
+  }
 
-    void opCall(Json newData) {
-      set(newData);
-    }
+  void opCall(Json newData) {
+    set(newData);
+  }
 
-    void opCall(string newData) {
-      set(newData);
-    }
+  void opCall(string newData) {
+    set(newData);
+  }
   // #endregion set
 
-  // #region opEquals
-    alias opEquals = Object.opEquals;
-    bool opEquals(string equalValue) {
-      return (toString == equalValue);
+  // #region equals
+    bool opEquals(IData[string] checkData) {
+      return isEqual(checkData);
     }
 
-    bool opEquals(IData equalValue) {
-      return (toString == equalValue.toString);
+    bool opEquals(string checkValue) {
+      return isEqual(checkValue);
     }
 
-    bool opEquals(UUID equalValue) {
+    bool opEquals(IData checkValue) {
+      return isEqual(checkValue);
+    }
+
+    bool opEquals(Json checkValue) {
+      return isEqual(checkValue);
+    }
+
+    bool isEqual(IData[string] checkData) {
       return false;
     }
-  // #endregion opEquals
 
+    bool isEqual(IData checkValue) {
+      return false;
+    }
 
+    bool isEqual(Json checkValue) {
+      return false;
+    }
+
+    bool isEqual(string checkValue) {
+      return false;
+    }
+  // #endregion equals
 
   IData[] values() {
     return null;
@@ -141,14 +164,6 @@ class DData : IData {
     return 0;
   }
 
-  bool isEqual(IData[string] checkData) {
-    return false;
-  }
-
-  bool isEqual(IData data) {
-    return false;
-  }
-
   bool hasPaths(string[] paths, string separator = "/") {
     return false;
   }
@@ -157,37 +172,39 @@ class DData : IData {
     return false;
   }
 
-
-
   // #region data
-    // #region data()
-      void data(string key, IData data) {
-      }
+  // #region data()
+  void data(string key, IData data) {
+  }
 
-      IData[string] data(string[] keys) {
-        return null;
-      }
+  // Return data of keys
+  override IData[string] data(string[] keys) {
+    IData[string] result;
+    keys
+      .filter!(key => hasKey(key))
+      .each!(key => result[key] = data(key));
+    return result;
+  }
 
-      IData data(string key) {
-        return null;
-      }
-    // #endregion data()
+  IData data(string key) {
+    return null;
+  }
+  // #endregion data()
 
-    // #region hasData()
-      bool hasData(IData[string] checkData, bool deepSearch = false) {
-        return false;
-      }
+  // #region hasData()
+  bool hasData(IData[string] checkData, bool deepSearch = false) {
+    return false;
+  }
 
-      bool hasData(IData[] data, bool deepSearch = false) {
-        return false;
-      }
+  bool hasData(IData[] data, bool deepSearch = false) {
+    return false;
+  }
 
-      bool hasData(IData data, bool deepSearch = false) {
-        return false;
-      }
-    // #endregion hasData()
+  bool hasData(IData data, bool deepSearch = false) {
+    return false;
+  }
+  // #endregion hasData()
   // #endregion data
-
 
   IData get(string key, IData defaultData) {
     return null;
@@ -197,14 +214,12 @@ class DData : IData {
     return null;
   }
 
-
   void opAssignIndex(IData data, string key) {
   }
 
   Json toJson(string[] selectedKeys = null) {
     return Json(null);
   }
-
 
   /* void opCall(DAttribute newAttribute, Json newData) {
     attribute(newAttribute);

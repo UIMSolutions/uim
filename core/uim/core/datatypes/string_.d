@@ -72,7 +72,7 @@ unittest {
 }
 
 bool hasValues(string[] bases, string[] values) {
-	return bases.all!(base => base.hasValues(values));
+	return bases.any!(base => base.hasValues(values));
 }
 ///
 unittest {

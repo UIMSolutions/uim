@@ -12,7 +12,7 @@ class DEnumeration(K, V) : IEnumeration {
   this() {
   }
   
-  bool initialize(Json Data = null) {}
+  bool initialize(Json initData = null) {}
                   
   private K[] _keys;
   private V[] _values;

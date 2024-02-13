@@ -13,7 +13,9 @@ abstract class DContainer(T) {
     initialize;
   }
 
-  bool initialize(Json Data = null) {}
+  bool initialize(Json initData = null) {
+    return true;
+  }
 
   // Ensures that this container contains the specified element.
   abstract bool add(T addItem); 

@@ -22,8 +22,9 @@ class DList(T) : DContainer!T, IList  {
     this().addAll(newItems.dup);
   }
 
-  override bool initialize(Json Data = null) {
-    super.initialize(Data);
+  override bool initialize(Json initData = null) {
+    if (!super.initialize(initData)) { return false; }
+    return true;
   }
 
   // #region add

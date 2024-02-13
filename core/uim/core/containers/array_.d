@@ -366,7 +366,7 @@ bool isIn(T)(T value, T[] values) {
 /// 
 unittest {
   assert(1.isIn([1, 2, 3, 4]));
-  assert(!10.isIn[1, 2, 3, 4]);
+  assert(!10.isIn([1, 2, 3, 4]));
 }
 
 

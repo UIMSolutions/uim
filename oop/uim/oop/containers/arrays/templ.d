@@ -67,7 +67,7 @@ class DArrayTempl(T) : DArrayObj {
 	}
 
 	unittest {
-		auto arrayObj = new DArrayTempl(string)();
+		auto arrayObj = new DArrayTempl!string();
 		arrayObj.items(["a", "b", "c"]);
 
 		assert(arrayObj.has("a"));

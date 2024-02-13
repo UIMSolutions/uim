@@ -62,7 +62,8 @@ version (test_uim_core) {
 T[S] add(T, S)(T[S] origin, T[S] newValues, bool shouldOverwrite = false) {
   T[S] results = origin.dup;
   newValues.byKeyValue
-    .each!(kv => results[kv.key] = shouldOverwrite ? kv.value : results[kv.key]);
+    .filter!(kv => shouldOverwrite || (kv.key !in results))
+    .each!(kv => results[kv.key] = kv.value);
   return results;
 }
 ///
@@ -192,8 +193,8 @@ bool hasAllKeys(T, S)(T[S] base, S[] keys) {
 }
 ///
 unittest {
-  assert(["a": 1, "b": 2, "c": 3].hasAllKeys["a", "b", "c"]);
-  assert(!["a": 1, "b": 2, "c": 3].hasAllKeys["x", "b", "c"]);
+  assert(["a": 1, "b": 2, "c": 3].hasAllKeys(["a", "b", "c"]));
+  assert(!["a": 1, "b": 2, "c": 3].hasAllKeys(["x", "b", "c"]));
 }
 
 bool hasAnyKeys(T, S)(T[S] base, S[] keys...) {

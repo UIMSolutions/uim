@@ -1,7 +1,7 @@
-module uim.jsonbase.classes.bases;
+module uim.jsonbases.classes.bases;
 
 public {
-  import uim.jsonbase.classes.bases.base;
-  import uim.jsonbase.classes.bases.file;
-  import uim.jsonbase.classes.bases.memory;
+  import uim.jsonbases.classes.bases.base;
+  import uim.jsonbases.classes.bases.file;
+  import uim.jsonbases.classes.bases.memory;
 }

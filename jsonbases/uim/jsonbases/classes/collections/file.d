@@ -1,4 +1,4 @@
-module uim.jsonbase.classes.collections.file;
+module uim.jsonbases.classes.collections.file;
 
 import uim.jsonbase;
 

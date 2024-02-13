@@ -15,12 +15,12 @@ public {
 }
 
 public  {
-  import uim.jsonbase.classes;
-  import uim.jsonbase.exceptions;
-  import uim.jsonbase.helpers;
-  import uim.jsonbase.interfaces;
-  import uim.jsonbase.mixins;
-  import uim.jsonbase.tests;
+  import uim.jsonbases.classes;
+  import uim.jsonbases.exceptions;
+  import uim.jsonbases.helpers;
+  import uim.jsonbases.interfaces;
+  import uim.jsonbases.mixins;
+  import uim.jsonbases.tests;
 }
 
 @safe:

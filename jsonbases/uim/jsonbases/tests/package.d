@@ -1,7 +1,7 @@
-module uim.jsonbase.tests;
+module uim.jsonbases.tests;
 
 public {
-  import uim.jsonbase.tests.base;
-  import uim.jsonbase.tests.collection;
-  import uim.jsonbase.tests.tenant;
+  import uim.jsonbases.tests.base;
+  import uim.jsonbases.tests.collection;
+  import uim.jsonbases.tests.tenant;
 }

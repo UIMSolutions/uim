@@ -15,4 +15,5 @@ public {
     import uim.models;
     import uim.jsonbases;
     import uim.i18n;
+    import uim.forms;
 }

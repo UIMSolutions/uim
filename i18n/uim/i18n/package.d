@@ -15,14 +15,15 @@ public {
 public { // Required uim libraries 
   import uim.core;
   import uim.oop;
-  // import uim.entitybase;
+  import uim.filesystems;
+  import uim.models;
 }
 
 public { // uim.i18n packages
   import uim.i18n.classes;
-  /* import uim.i18n.exceptions;
+  import uim.i18n.exceptions;
   import uim.i18n.interfaces;
   import uim.i18n.helpers;
   import uim.i18n.mixins;
-  import uim.i18n.tests; */
+  import uim.i18n.tests; 
 }

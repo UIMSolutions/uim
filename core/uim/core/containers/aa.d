@@ -250,27 +250,27 @@ bool hasValue(T, S)(T[S] base, S value...) {
   return false;
 }
 
-bool hasValues(T, S)(T[S] base, S[] values...) {
-  return base.hasValues(values);
-}
+// #region hasValues
+  bool hasValues(T, S)(T[S] base, S[] values...) {
+    return base.hasValues(values);
+  }
 
-bool hasValues(T, S)(T[S] base, S[] values) {
-  foreach (value; values)
-    if (!base.hasValue(value)) {
-      return false;
-    }
-  return true;
-}
-
-version (test_uim_core) {
+  bool hasValues(T, S)(T[S] base, S[] values) {
+    foreach (value; values)
+      if (!base.hasValue(value)) {
+        return false;
+      }
+    return true;
+  }
   unittest {
-    assert(["a": "b", "c": "d"].hasValue("b"));
     assert(["a": "b", "c": "d"].hasValues("b"));
     assert(["a": "b", "c": "d"].hasValues("b", "d"));
     assert(["a": "b", "c": "d"].hasValues(["b"]));
     assert(["a": "b", "c": "d"].hasValues(["b", "d"]));
   }
-}
+// #endregion hasValues
+
+
 
 pure string toJSONString(T)(T[string] values, bool sorted = NOTSORTED) {
   string result = "{" ~ values
@@ -317,6 +317,10 @@ pure bool isValue(T, S)(T[S] base, S key, T value) {
   }
   return false;
 }
+  ///
+  unittest {
+    // TODO 
+  }
 
 version (test_uim_core) {
   unittest {
@@ -340,14 +344,12 @@ pure bool isValues(T, S)(T[S] base, T[S] values) {
   }
   return true;
 }
-
-version (test_uim_core) {
+///
   unittest {
     assert(["a": 1, "b": 2].isValues(["a": 1, "b": 2]));
     assert(!["a": 1, "b": 2].isValues(["a": 1, "b": 3]));
     assert(!["a": 1, "b": 2].isValues(["a": 1, "c": 2]));
   }
-}
 
 V[K] merge(K, V)(V[K] sourceValues, V[K] mergeValues, bool overwrite = true) {
   auto result = sourceValues.dup;
@@ -365,10 +367,18 @@ V[K] merge(K, V)(V[K] sourceValues, V[K] mergeValues, bool overwrite = true) {
 
   return result;
 }
+  ///
+  unittest {
+    // TODO 
+  }
 
 bool isEmpty(V, K)(V[K] someValues) {
   return (someValues.length == 0);
 }
+  ///
+  unittest {
+    // TODO 
+  }
 
 V[K] setValues(K, V)(V[K] target, V[K] someValues) {
   // IN Check
@@ -384,11 +394,29 @@ V[K] setValues(K, V)(V[K] target, V[K] someValues) {
   // OUT
   return result;
 }
+  ///
+  unittest {
+    // TODO 
+  }
 
-V[K] update(K, V)(V[K] origin, V[K] updates) {
-  V[K] updated = origin.dup;
-  updates.byKeyValue
-    .each!(kv => updated[kv.key] = kv.value);
+// #region update
+  /// Creates a new updated array without changing the origin array
+  /// Params:
+  ///   origin = array to update
+  ///   updates = array fpr update
+  /// Returns: 
+  /// 
+  /// Params:
+  ///   updated new array
+  V[K] update(K, V)(V[K] origin, V[K] updates) {
+    V[K] updated = origin.dup;
+    updates.byKeyValue
+      .each!(kv => updated[kv.key] = kv.value);
 
-  return updated;
-}
+    return updated;
+  }
+  ///
+  unittest {
+    // TODO 
+  }
+// #endregion update

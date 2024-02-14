@@ -22,6 +22,7 @@ public { // uim libraries
 
 public { // uim.filesystem libraries
   import uim.filesystems.classes;
+  import uim.filesystems.exceptions;
   import uim.filesystems.helpers;
   import uim.filesystems.interfaces;
   import uim.filesystems.mixins;

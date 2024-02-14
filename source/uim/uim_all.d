@@ -14,4 +14,5 @@ public {
     import uim.filesystems;
     import uim.models;
     import uim.jsonbases;
+    import uim.i18n;
 }

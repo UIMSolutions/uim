@@ -3,7 +3,7 @@
   License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
   Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.models;
+module uim.i18n;
 
 mixin(ImportPhobos!());
 
@@ -18,11 +18,11 @@ public { // Required uim libraries
   // import uim.entitybase;
 }
 
-public { // uim.models packages
-  import uim.models.classes;
-  import uim.models.exceptions;
-  import uim.models.interfaces;
-  import uim.models.helpers;
-  import uim.models.mixins;
-  import uim.models.tests;
+public { // uim.i18n packages
+  import uim.i18n.classes;
+  /* import uim.i18n.exceptions;
+  import uim.i18n.interfaces;
+  import uim.i18n.helpers;
+  import uim.i18n.mixins;
+  import uim.i18n.tests; */
 }

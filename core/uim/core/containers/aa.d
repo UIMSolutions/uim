@@ -184,34 +184,53 @@ version (test_uim_core) {
   }
 }
 
-bool hasAllKeys(T, S)(T[S] base, S[] keys...) {
-  return base.hasAllKeys(keys.dup);
-}
-
-bool hasAllKeys(T, S)(T[S] base, S[] keys) {
-  return keys.all!(key => base.hasKey(key));
-}
-///
-unittest {
-  assert(["a": 1, "b": 2, "c": 3].hasAllKeys(["a", "b", "c"]));
-  assert(!["a": 1, "b": 2, "c": 3].hasAllKeys(["x", "b", "c"]));
-}
-
-bool hasAnyKeys(T, S)(T[S] base, S[] keys...) {
-  return base.hasAnyKeys(keys.dup);
-}
-
-bool hasAnyKeys(T, S)(T[S] base, S[] keys) {
-  bool result;
-
-  foreach (key; keys) {
-    if (base.hasKey(key)) {
-      return true;
-    }
+// #region hasAllKeys
+  bool hasAllKeys(T, S)(T[S] base, S[] keys...) {
+    return base.hasAllKeys(keys.dup);
   }
 
-  return false;
-}
+  bool hasAllKeys(T, S)(T[S] base, S[] keys) {
+    return keys.all!(key => base.hasKey(key));
+  }
+  ///
+  unittest {
+    assert(["a": 1, "b": 2, "c": 3].hasAllKeys(["a", "b", "c"]));
+    assert(!["a": 1, "b": 2, "c": 3].hasAllKeys(["x", "b", "c"]));
+
+    assert(["a": "b", "c": "d"].hasAllKeys("a"));
+    assert(["a": "b", "c": "d"].hasAllKeys("a", "c"));
+    assert(["a": "b", "c": "d"].hasAllKeys(["a"]));
+    assert(["a": "b", "c": "d"].hasAllKeys(["a", "c"]));
+
+    assert(!["a": "b", "c": "d"].hasAllKeys("x"));
+    assert(!["a": "b", "c": "d"].hasAllKeys("x", "c"));
+    assert(!["a": "b", "c": "d"].hasAllKeys(["x"]));
+    assert(!["a": "b", "c": "d"].hasAllKeys(["x", "c"]));
+
+  }
+// #endregion hasAllKeys
+
+// #region hasAnyKey
+  bool hasAnyKeys(T, S)(T[S] base, S[] keys...) {
+    return base.hasAnyKeys(keys.dup);
+  }
+
+  bool hasAnyKeys(T, S)(T[S] base, S[] keys) {
+    return keys.any!(key => base.hasKey(key));
+  }
+  ///
+  unittest {
+    assert(["a": "b", "c": "d"].hasAnyKeys("a"));
+    assert(["a": "b", "c": "d"].hasAnyKeys("a", "x"));
+    assert(["a": "b", "c": "d"].hasAnyKeys(["a"]));
+    assert(["a": "b", "c": "d"].hasAnyKeys(["a", "x"]));
+
+    assert(!["a": "b", "c": "d"].hasAnyKeys("x"));
+    assert(!["a": "b", "c": "d"].hasAnyKeys("x", "y"));
+    assert(!["a": "b", "c": "d"].hasAnyKeys(["x"]));
+    assert(!["a": "b", "c": "d"].hasAnyKeys(["x", "y"]));
+  }
+// #endregion hasAnyKey
 
 bool hasKey(T, S)(T[S] base, S key) {
   return (key in base)
@@ -221,26 +240,6 @@ bool hasKey(T, S)(T[S] base, S key) {
 unittest {
   assert(["a": "b", "c": "d"].hasKey("a"));
   assert(!["a": "b", "c": "d"].hasKey("x"));
-
-  assert(["a": "b", "c": "d"].hasAllKeys("a"));
-  assert(["a": "b", "c": "d"].hasAllKeys("a", "c"));
-  assert(["a": "b", "c": "d"].hasAllKeys(["a"]));
-  assert(["a": "b", "c": "d"].hasAllKeys(["a", "c"]));
-
-  assert(!["a": "b", "c": "d"].hasAllKeys("x"));
-  assert(!["a": "b", "c": "d"].hasAllKeys("x", "c"));
-  assert(!["a": "b", "c": "d"].hasAllKeys(["x"]));
-  assert(!["a": "b", "c": "d"].hasAllKeys(["x", "c"]));
-
-  assert(["a": "b", "c": "d"].hasAnyKeys("a"));
-  assert(["a": "b", "c": "d"].hasAnyKeys("a", "x"));
-  assert(["a": "b", "c": "d"].hasAnyKeys(["a"]));
-  assert(["a": "b", "c": "d"].hasAnyKeys(["a", "x"]));
-
-  assert(!["a": "b", "c": "d"].hasAnyKeys("x"));
-  assert(!["a": "b", "c": "d"].hasAnyKeys("x", "y"));
-  assert(!["a": "b", "c": "d"].hasAnyKeys(["x"]));
-  assert(!["a": "b", "c": "d"].hasAnyKeys(["x", "y"]));
 }
 
 bool hasValue(T, S)(T[S] base, S value...) {
@@ -386,9 +385,9 @@ V[K] setValues(K, V)(V[K] target, V[K] someValues) {
   return result;
 }
 
-V[K] update(K, V)(V[K] origin, V[K] additional) {
+V[K] update(K, V)(V[K] origin, V[K] updates) {
   V[K] updated = origin.dup;
-  additional.byKeyValue
+  updates.byKeyValue
     .each!(kv => updated[kv.key] = kv.value);
 
   return updated;

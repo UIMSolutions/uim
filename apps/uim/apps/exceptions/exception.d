@@ -1,12 +1,12 @@
-module apps.uim.apps.exceptions.exception;
+module uim.apps.exceptions.exception;
 
 import uim.apps;
 
 @safe:
 
-// I18n exception.
+// App exception.
 class DAppException : UimException {
-  mixin(ExceptionThis!("AppException"));
+  mixin(ExceptionThis!("App"));
 
   override bool initialize() {
     if (!super.initialize()) {
@@ -19,4 +19,4 @@ class DAppException : UimException {
     return true;
   }
 }
-mixin(ExceptionCalls!("AppException"));
+mixin(ExceptionCalls!("App"));

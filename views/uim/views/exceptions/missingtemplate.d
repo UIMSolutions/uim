@@ -5,7 +5,19 @@ import uim.views;
 @safe:
 
 // Used when a template file cannot be found.
-class MissingTemplateException : DViewException {
+class DMissingTemplateException : DViewException {
+    mixin(ExceptionThis!("MissingTemplate"));
+
+    override bool initialize() {
+    if (!super.initialize()) {
+      return false;
+    }
+
+    this
+      .messageTemplate("Error in libary uim-views");
+
+    return true;
+  }
   mixin(TProperty!("string", "templateName"));
 
   mixin(TProperty!("string", "fileName"));
@@ -15,12 +27,12 @@ class MissingTemplateException : DViewException {
 
   protected string templateType = "Template";
 
-  this(string newFileName, string[] checkedPaths = [], int code = 0, Throwable previousException = null) {
+  this(string newFileName, string[] checkedPaths = [], int errorCode = 0, Throwable previousException = null) {
     filename(newFileName);
     templateName(null);
     paths(checkedPaths);
 
-    super(this.formatMessage(), code, previousException);
+    super(this.formatMessage(), errorCode, previousException);
   }
 
   // Get the formatted exception message.

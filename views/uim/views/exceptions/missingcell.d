@@ -5,8 +5,8 @@ import uim.views;
 @safe:
 
 // Used when a cell class file cannot be found.
-class MissingCellException : DViewException {
-	mixin(ExceptionThis!("MissingCellException"));
+class DMissingCellException : DViewException {
+	mixin(ExceptionThis!("MissingCell"));
 
     override bool initialize(IData[string] configData = null) {
 		if (!super.initialize(configData)) { return false; }
@@ -17,4 +17,4 @@ class MissingCellException : DViewException {
 		return true;
 	}
 }
-mixin(ExceptionCalls!("MissingCellException"));
+mixin(ExceptionCalls!("MissingCell"));

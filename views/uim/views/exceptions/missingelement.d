@@ -5,6 +5,9 @@ import uim.views;
 @safe:
 
 // Used when an element file cannot be found.
-class MissingElementException : MissingTemplateException {
+class DMissingElementException : MissingTemplateException {
+    mixin(ExceptionThis!("MissingElement"));
+
     protected string mytype = "Element";
 }
+mixin(ExceptionCalls!("MissingElement"));

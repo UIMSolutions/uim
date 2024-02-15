@@ -6,7 +6,7 @@ import uim.filesystems;
 
 // I18n exception.
 class DFSException : UimException {
-  mixin(ExceptionThis!("FSException"));
+  mixin(ExceptionThis!("FS"));
 
   override bool initialize() {
     if (!super.initialize()) {
@@ -19,4 +19,4 @@ class DFSException : UimException {
     return true;
   }
 }
-mixin(ExceptionCalls!("FSException"));
+mixin(ExceptionCalls!("FS"));

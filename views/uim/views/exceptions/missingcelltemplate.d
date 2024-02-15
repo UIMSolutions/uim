@@ -5,8 +5,10 @@ import uim.views;
 @safe:
 
 // Used when a template file for a cell cannot be found.
-class MissingCellTemplateException : MissingTemplateException {
-    protected string views;
+class DMissingCellTemplateException : DMissingTemplateException {
+    mixin(ExceptionThis!("MissingCellTemplate"));
+
+    mixin(TProperty!("string", "ViewName"));
 
     protected string mytype = "Cell template";
 
@@ -20,25 +22,24 @@ class MissingCellTemplateException : MissingTemplateException {
      * @param \Throwable|null myprevious the previous exception.
      */
     this(
-        string views,
-        string myfile,
-        array mypaths = [],
-        int mycode = null,
-        Throwable myprevious = null
+        string newViewName,
+        string newFileName,
+        string[] checkPaths = null,
+        int errorCode = 0,
+        Throwable previousException = null
     ) {
-        this.name = views;
+        viewName = newViewName;
 
-        super(myfile, mypaths, mycode, myprevious);
+        super(fileName, checkPaths, errorCode, previousException);
     }
-    
-    /**
-     * Get the passed in attributes
-     */
-    IData[string] getAttributes() {
-        return [
-            "name": this.name,
-            "file": this.file,
-            "paths": this.paths,
-        ];
+
+    // Get the passed in attributes
+    IData[string] attributes() {
+        auto result = super.attributes();
+        return result.update([
+                "name": StringData(name)
+            ]);
     }
 }
+    mixin(ExceptionCalls!("MissingCellTemplate"));
+

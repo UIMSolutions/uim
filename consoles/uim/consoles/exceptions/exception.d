@@ -6,7 +6,7 @@ import uim.consoles;
 
 // I18n exception.
 class DControllerException : UimException {
-  mixin(ExceptionThis!("ControllerException"));
+  mixin(ExceptionThis!("Controller"));
 
   override bool initialize() {
     if (!super.initialize()) {
@@ -19,4 +19,4 @@ class DControllerException : UimException {
     return true;
   }
 }
-mixin(ExceptionCalls!("ControllerException"));
+mixin(ExceptionCalls!("Controller"));

@@ -1,2 +1,2 @@
-module uim.views.mixins;
+module uim.consoles.mixins;
 

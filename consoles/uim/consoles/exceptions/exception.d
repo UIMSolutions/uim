@@ -1,12 +1,12 @@
-module views.uim.views.exceptions.exception;
+module uim.consoles.exceptions.exception;
 
-import uim.views;
+import uim.consoles;
 
 @safe:
 
 // I18n exception.
-class DFSException : UimException {
-  mixin(ExceptionThis!("ViewException"));
+class DControllerException : UimException {
+  mixin(ExceptionThis!("ControllerException"));
 
   override bool initialize() {
     if (!super.initialize()) {
@@ -14,9 +14,9 @@ class DFSException : UimException {
     }
 
     this
-      .messageTemplate("Error in libary uim-views");
+      .messageTemplate("Error in libary uim-consoles");
 
     return true;
   }
 }
-mixin(ExceptionCalls!("ViewException"));
+mixin(ExceptionCalls!("ControllerException"));

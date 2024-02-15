@@ -14,8 +14,8 @@ string exceptionThis(string exceptionName) {
   return "
 this() { super(); this.name(\""~name~"\"); }
 this(string aMessage) { this().message(aMessage); }
-this(IData[string] newAttributes) { this().attributes(someAttributes); }
-this(string aMessage, IData[string] newAttributes) { this(aMessage).attributes(someAttributes); }
+this(IData[string] newAttributes) { this().attributes(newAttributes); }
+this(string aMessage, IData[string] newAttributes) { this(aMessage).attributes(newAttributes); }
   ";
 } 
 
@@ -29,8 +29,8 @@ string exceptionCalls(string exceptionName) {
   return "
 auto "~name~"() { return new D"~name~"();  }
 auto "~name~"(string aMessage) { return new D"~name~"(aMessage); }
-auto "~name~"(IData[string] newAttributes) { return new D"~name~"(someAttributes); }
-auto "~name~"(string aMessage, IData[string] newAttributes) { return new D"~name~"(aMessage, someAttributes); }
+auto "~name~"(IData[string] newAttributes) { return new D"~name~"(newAttributes); }
+auto "~name~"(string aMessage, IData[string] newAttributes) { return new D"~name~"(aMessage, newAttributes); }
   ";
 } 
 

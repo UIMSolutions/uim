@@ -8,9 +8,8 @@ import uim.views;
 class DViewException : UimException {
   mixin(ExceptionThis!("View"));
 
-  alias initialize = UimException.initialize;
-  bool initialize(IData[string] configData = null) {
-    if (!super.initialize()) {
+  override bool initialize(IData[string] configData = null) {
+    if (!super.initialize(configData)) {
       return false;
     }
 
@@ -18,6 +17,14 @@ class DViewException : UimException {
       .messageTemplate("Error in libary uim-views");
 
     return true;
+  }
+
+  // Get the passed in attributes
+  void attributes(IData[string] newAttributes) {
+    _attributes = newAttributes;
+  }
+  override IData[string] attributes() {
+    return super.attributes();
   }
 }
 mixin(ExceptionCalls!("View"));

@@ -11,10 +11,10 @@ import uim.oop;
 class UimException : IException {
   this() { }
   this(string aMessage) { this().message(aMessage); }
-  this(IData[string] newAttributes) { this().attributes(someAttributes); }
-  this(string aMessage, IData[string] newAttributes) { this().message(aMessage).attributes(someAttributes); }
+  this(IData[string] newAttributes) { this().attributes(newAttributes); }
+  this(string aMessage, IData[string] newAttributes) { this().message(aMessage).attributes(newAttributes); }
 
-  bool initialize() {
+  bool initialize(IData[string] configData = null) {
     this
       .message("");
       

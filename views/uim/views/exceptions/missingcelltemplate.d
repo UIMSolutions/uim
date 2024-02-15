@@ -17,7 +17,7 @@ class DMissingCellTemplateException : DMissingTemplateException {
 		return true;
 	}
 
-    mixin(TProperty!("string", "ViewName"));
+    mixin(TProperty!("string", "viewName"));
 
     this(
         string newViewName,
@@ -32,10 +32,13 @@ class DMissingCellTemplateException : DMissingTemplateException {
     }
 
     // Get the passed in attributes
+    override void attributes(IData[string] newAttributes) {
+        _attributes = newAttributes;
+    }
     override IData[string] attributes() {
         return super.attributes()
             .update([
-                "name": Json(name)
+                "name": StringData(name)
             ]);
     }
 }

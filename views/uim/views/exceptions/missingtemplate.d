@@ -45,12 +45,13 @@ class DMissingTemplateException : DViewException {
   }
 
   // Get the passed in attributes
+  override void attributes(IData[string] newAttributes) {
+    _attributes = newAttributes;
+  }
   override IData[string] attributes() {
-    Json jPaths = Json.emptyArray;
-    path.each!(path => jPaths ~= Json(path));
     return super.attributes().update([
-      "file": Json(fileName),
-      "paths": jPaths,
+      "file": StringData(fileName),
+      "paths": ArrayData(paths.map!(path => cast(IData)StringData(path)).array),
     ]);
   }
 }

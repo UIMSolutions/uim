@@ -1,2 +1,2 @@
-module uim.consoles.interfaces;
+module uim.controllers.interfaces;
 

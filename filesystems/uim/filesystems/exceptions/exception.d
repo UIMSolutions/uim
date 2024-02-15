@@ -5,13 +5,12 @@ import uim.filesystems;
 @safe:
 
 // I18n exception.
-class DFSException : UimException {
-  mixin(ExceptionThis!("FS"));
+class DFilesystemException : UimException {
+  mixin(ExceptionThis!("Filesystem"));
 
-  override bool initialize() {
-    if (!super.initialize()) {
-      return false;
-    }
+  alias initialize = UimException.initialize;
+  bool initialize(IData[string] configData = null) {
+    if (!super.initialize()) { return false; }
 
     this
       .messageTemplate("Error in libary uim-filesystems");
@@ -19,4 +18,4 @@ class DFSException : UimException {
     return true;
   }
 }
-mixin(ExceptionCalls!("FS"));
+mixin(ExceptionCalls!("Filesystem"));

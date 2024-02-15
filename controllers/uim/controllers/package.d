@@ -3,7 +3,7 @@
 *	License  : Licensed under Apache 2 [https://apache.org/licenses/LICENSE-2.0.txt] *
 *	Author   : Ozan Nurettin Süel (Sicherheitsschmiede)										           * 
 ***********************************************************************************/
-module uim.consoles;
+module uim.controllers;
 
 mixin(ImportPhobos!());
 
@@ -21,10 +21,10 @@ public { // uim libraries
 }
 
 public { // uim.filesystem libraries
-  import uim.consoles.classes;
-  import uim.consoles.exceptions;
-  import uim.consoles.helpers;
-  import uim.consoles.interfaces;
-  import uim.consoles.mixins;
-  import uim.consoles.tests;
+  import uim.controllers.classes;
+  import uim.controllers.exceptions;
+  import uim.controllers.helpers;
+  import uim.controllers.interfaces;
+  import uim.controllers.mixins;
+  import uim.controllers.tests;
 }

@@ -8,6 +8,7 @@ import uim.apps;
 class DAppException : UimException {
   mixin(ExceptionThis!("App"));
 
+  alias initialize = UimException.initialize;
   bool initialize(IData[string] configData = null) {
     if (!super.initialize()) { return false; }
 

@@ -3,3 +3,5 @@
 ## Packages
 
 ## Modules
+
+- uim.models.exceptions.exception

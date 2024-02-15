@@ -4,10 +4,11 @@ import uim.services;
 
 @safe:
 
-// I18n exception.
+// Service exception.
 class DServiceException : UimException {
   mixin(ExceptionThis!("Service"));
 
+  alias initialize = UimException.initialize;
   override bool initialize(IData[string] configData = null) {
 		if (!super.initialize()) { return false; }
 

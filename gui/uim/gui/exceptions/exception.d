@@ -8,6 +8,7 @@ import uim.gui;
 class DGuiException : UimException {
   mixin(ExceptionThis!("Gui"));
 
+  alias initialize = UimException.initialize;
   bool initialize(IData[string] configData = null) {
     if (!super.initialize()) {
       return false;

@@ -32,7 +32,7 @@ class DMissingCellTemplateException : DMissingTemplateException {
     }
 
     // Get the passed in attributes
-    override Json[string] attributes() {
+    override IData[string] attributes() {
         return super.attributes()
             .update([
                 "name": Json(name)

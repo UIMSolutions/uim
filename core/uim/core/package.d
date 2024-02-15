@@ -16,6 +16,7 @@ public {
   import uim.core.dlang;
   import uim.core.enumerations;
   import uim.core.helpers;
+  import uim.core.interfaces;
   import uim.core.io;
   import uim.core.mixins;
   import uim.core.web;

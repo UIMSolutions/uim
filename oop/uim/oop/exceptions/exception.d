@@ -11,8 +11,8 @@ import uim.oop;
 class UimException : IException {
   this() { }
   this(string aMessage) { this().message(aMessage); }
-  this(Json[string] someAttributes) { this().attributes(someAttributes); }
-  this(string aMessage, Json[string] someAttributes) { this().message(aMessage).attributes(someAttributes); }
+  this(IData[string] newAttributes) { this().attributes(someAttributes); }
+  this(string aMessage, IData[string] newAttributes) { this().message(aMessage).attributes(someAttributes); }
 
   bool initialize() {
     this
@@ -49,7 +49,7 @@ class UimException : IException {
   // #endregion messageTemplates
 
     // Exception message
-    mixin(OProperty!("Json[string]", "attributes"));
+    mixin(OProperty!("IData[string]", "attributes"));
   }
 
 /*import uim.mvc;

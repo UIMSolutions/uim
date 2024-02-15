@@ -10,7 +10,7 @@ import uim.oop;
 
 // Exception raised when a plugin could not be found
 class DMissingPluginException : UimException {
-	mixin(ExceptionThis!("MissingPluginException"));
+	mixin(ExceptionThis!("MissingPlugin"));
 
 	override bool initialize() {
 		if (!super.initialize()) { return false; }
@@ -21,4 +21,4 @@ class DMissingPluginException : UimException {
 		return true;
 	}
 }
-mixin(ExceptionCalls!("MissingPluginException"));
+mixin(ExceptionCalls!("MissingPlugin"));

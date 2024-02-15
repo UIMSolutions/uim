@@ -10,9 +10,9 @@ import uim.oop;
 
 // Thrown to indicate that a program has attempted to access an element of an annotation whose type has changed after the annotation was compiled (or serialized).
 class DAnnotationTypeMismatchException : UimException {  
-	mixin(ExceptionThis!("AnnotationTypeMismatchException"));
+	mixin(ExceptionThis!("AnnotationTypeMismatch"));
 }
-mixin(ExceptionCalls!("AnnotationTypeMismatchException"));
+mixin(ExceptionCalls!("AnnotationTypeMismatch"));
 
 unittest {
 	auto exception = AnnotationTypeMismatchException;

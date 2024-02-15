@@ -9,6 +9,6 @@ import uim.oop;
 @safe:
 
 class DArithmeticException : UimException {  
-	mixin(ExceptionThis!("ArithmeticException"));
+	mixin(ExceptionThis!("Arithmetic"));
 }
-mixin(ExceptionCalls!("ArithmeticException"));
+mixin(ExceptionCalls!("Arithmetic"));

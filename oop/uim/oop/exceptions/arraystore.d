@@ -11,6 +11,6 @@ import uim.oop;
 
 // Thrown to indicate that an attempt has been made to store the wrong type of object into an array of objects.
 class DArrayStoreException : UimException {  
-	mixin(ExceptionThis!("ArrayStoreException"));
+	mixin(ExceptionThis!("ArrayStore"));
 }
-mixin(ExceptionCalls!("ArrayStoreException"));
+mixin(ExceptionCalls!("ArrayStore"));

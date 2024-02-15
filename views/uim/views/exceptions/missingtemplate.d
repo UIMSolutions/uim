@@ -1,4 +1,4 @@
-module views.uim.views.exceptions.missingtemplate;
+module uim.views.exceptions.missingtemplate;
 
 import uim.views;
 
@@ -6,18 +6,16 @@ import uim.views;
 
 // Used when a template file cannot be found.
 class DMissingTemplateException : DViewException {
-    mixin(ExceptionThis!("MissingTemplate"));
+  mixin(ExceptionThis!("MissingTemplate"));
 
-    override bool initialize() {
-    if (!super.initialize()) {
-      return false;
-    }
+  override bool initialize(IData[string] configData = null) {
+		if (!super.initialize(configData)) { return false; }
 
-    this
-      .messageTemplate("Error in libary uim-views");
+    templateType("Template");
 
     return true;
   }
+
   mixin(TProperty!("string", "templateName"));
 
   mixin(TProperty!("string", "fileName"));
@@ -25,7 +23,7 @@ class DMissingTemplateException : DViewException {
   // The path list that template could not be found in
   mixin(TProperty!("string[]", "paths"));
 
-  protected string templateType = "Template";
+  mixin(TProperty!("string", "templateType"));
 
   this(string newFileName, string[] checkedPaths = [], int errorCode = 0, Throwable previousException = null) {
     filename(newFileName);
@@ -37,7 +35,7 @@ class DMissingTemplateException : DViewException {
 
   // Get the formatted exception message.
   string formatMessage() {
-    auto name = this.templateName ?  this.templateName : this.filename;
+    auto name = this.templateName ? this.templateName : this.filename;
     string formattedMessage = "%s file `%s` could not be found.".format(templateType, name);
     if (paths) {
       formattedMessage ~= "\n\nThe following paths were searched:\n\n";

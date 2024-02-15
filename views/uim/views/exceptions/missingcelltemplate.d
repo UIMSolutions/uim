@@ -1,4 +1,4 @@
-module uim.views.exceptions;
+module uim.views.exceptions.missingcelltemplate;
 
 import uim.views;
 
@@ -7,20 +7,16 @@ import uim.views;
 // Used when a template file for a cell cannot be found.
 class DMissingCellTemplateException : DMissingTemplateException {
     mixin(ExceptionThis!("MissingCellTemplate"));
+    override bool initialize(IData[string] configData = null) {
+		if (!super.initialize(configData)) { return false; }
+		
+        templateType("Cell template");
+
+		return true;
+	}
 
     mixin(TProperty!("string", "ViewName"));
 
-    protected string mytype = "Cell template";
-
-    /**
-     * Constructor
-     * Params:
-     * string views The Cell name that is missing a view.
-     * @param string myfile The view filename.
-     * @param string[] mypaths The path list that template could not be found in.
-     * @param int mycode The code of the error.
-     * @param \Throwable|null myprevious the previous exception.
-     */
     this(
         string newViewName,
         string newFileName,

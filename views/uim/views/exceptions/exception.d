@@ -8,7 +8,7 @@ import uim.views;
 class DViewException : UimException {
   mixin(ExceptionThis!("View"));
 
-  override bool initialize() {
+  bool initialize(IData[string] configData = null) {
     if (!super.initialize()) {
       return false;
     }

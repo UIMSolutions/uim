@@ -1,11 +1,11 @@
-module views.uim.views.exceptions.missingview;
+module uim.views.exceptions.missingview;
 
 import uim.views;
 
 @safe:
 
 // Used when a view class file cannot be found.
-class MissingViewException : DViewException {
+class DMissingViewException : DViewException {
     mixin(ExceptionThis!("MissingView"));
 
     override bool initialize(IData[string] configData = null) {

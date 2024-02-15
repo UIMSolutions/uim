@@ -5,7 +5,7 @@ import uim.views;
 @safe:
 
 // I18n exception.
-class DFSException : UimException {
+class DViewException : UimException {
   mixin(ExceptionThis!("ViewException"));
 
   override bool initialize() {

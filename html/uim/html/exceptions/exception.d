@@ -1,14 +1,14 @@
-module html.uim.html.exceptions.exception;
+module uim.html.exceptions.exception;
 
 import uim.html;
 
 @safe:
 
 // I18n exception.
-class DFSException : UimException {
-  mixin(ExceptionThis!("View"));
+class DHtmlException : UimException {
+  mixin(ExceptionThis!("Html"));
 
-  override bool initialize() {
+  bool initialize(IData[string] configData = null) {
     if (!super.initialize()) {
       return false;
     }
@@ -19,4 +19,4 @@ class DFSException : UimException {
     return true;
   }
 }
-mixin(ExceptionCalls!("View"));
+mixin(ExceptionCalls!("Html"));

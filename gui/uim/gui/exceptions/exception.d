@@ -5,10 +5,10 @@ import uim.gui;
 @safe:
 
 // I18n exception.
-class DFSException : UimException {
-  mixin(ExceptionThis!("View"));
+class DGuiException : UimException {
+  mixin(ExceptionThis!("Gui"));
 
-  override bool initialize() {
+  bool initialize(IData[string] configData = null) {
     if (!super.initialize()) {
       return false;
     }
@@ -19,4 +19,4 @@ class DFSException : UimException {
     return true;
   }
 }
-mixin(ExceptionCalls!("View"));
+mixin(ExceptionCalls!("Gui"));

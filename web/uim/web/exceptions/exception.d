@@ -4,13 +4,13 @@ import uim.web;
 
 @safe:
 
-// I18n exception.
-class DFSException : UimException {
-  mixin(ExceptionThis!("View"));
+// Web exception.
+class DWebException : UimException {
+  mixin(ExceptionThis!("Web"));
 
-  override bool initialize() {
+  override bool initialize(IData[string] configData = null) {
     if (!super.initialize()) {
-      return false;
+        return false;
     }
 
     this
@@ -19,4 +19,4 @@ class DFSException : UimException {
     return true;
   }
 }
-mixin(ExceptionCalls!("View"));
+mixin(ExceptionCalls!("Web"));

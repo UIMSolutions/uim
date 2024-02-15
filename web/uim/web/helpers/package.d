@@ -1,2 +1,2 @@
-module uim.views.helpers;
+module uim.web.helpers;
 

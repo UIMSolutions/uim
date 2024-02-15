@@ -1,5 +1,5 @@
-module uim.views.exceptions;
+module uim.logging.exceptions;
 
 public {
-  import uim.views.exceptions.exception;
+  import uim.logging.exceptions.exception;
 }

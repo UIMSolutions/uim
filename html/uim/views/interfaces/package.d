@@ -1,2 +1,2 @@
-module uim.views.interfaces;
+module uim.html.interfaces;
 

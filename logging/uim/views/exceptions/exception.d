@@ -1,6 +1,6 @@
-module views.uim.views.exceptions.exception;
+module logging.uim.logging.exceptions.exception;
 
-import uim.views;
+import uim.logging;
 
 @safe:
 
@@ -14,7 +14,7 @@ class DFSException : UimException {
     }
 
     this
-      .messageTemplate("Error in libary uim-views");
+      .messageTemplate("Error in libary uim-logging");
 
     return true;
   }

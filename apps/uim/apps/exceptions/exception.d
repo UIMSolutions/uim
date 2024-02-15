@@ -5,8 +5,8 @@ import uim.apps;
 @safe:
 
 // I18n exception.
-class DFSException : UimException {
-  mixin(ExceptionThis!("ViewException"));
+class DAppException : UimException {
+  mixin(ExceptionThis!("AppException"));
 
   override bool initialize() {
     if (!super.initialize()) {
@@ -19,4 +19,4 @@ class DFSException : UimException {
     return true;
   }
 }
-mixin(ExceptionCalls!("ViewException"));
+mixin(ExceptionCalls!("AppException"));

@@ -24,3 +24,4 @@ docs/
 *.lst
 uim-test-library.pdb
 oop/oop-test-library.pdb
+apps/dub.selections.json

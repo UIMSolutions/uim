@@ -1,4 +1,4 @@
-module uim.views.exceptions.missingelement;
+module views.uim.views.exceptions.missingelement;
 
 import uim.views;
 

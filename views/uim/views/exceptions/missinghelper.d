@@ -1,4 +1,4 @@
-module uim.views.exceptions;
+module uim.views.exceptions.missinghelper;
 
 import uim.views;
 

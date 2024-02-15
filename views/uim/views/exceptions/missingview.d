@@ -1,4 +1,4 @@
-module uim.views.exceptions;
+module views.uim.views.exceptions.missingview;
 
 import uim.views;
 
@@ -6,7 +6,7 @@ import uim.views;
 
 // Used when a view class file cannot be found.
 class MissingViewException : DViewException {
-    mixin(ExceptionThis!("MissingViewException"));
+    mixin(ExceptionThis!("MissingView"));
 
     override bool initialize(IData[string] configData = null) {
         if (!super.initialize(configData)) {
@@ -19,4 +19,4 @@ class MissingViewException : DViewException {
         return true;
     }
 }
-mixin(ExceptionCalls!("MissingViewException"));
+mixin(ExceptionCalls!("MissingView"));

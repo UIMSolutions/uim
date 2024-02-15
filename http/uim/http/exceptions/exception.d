@@ -6,7 +6,7 @@ import uim.views;
 
 // I18n exception.
 class DFSException : UimException {
-  mixin(ExceptionThis!("ViewException"));
+  mixin(ExceptionThis!("View"));
 
   override bool initialize() {
     if (!super.initialize()) {
@@ -19,4 +19,4 @@ class DFSException : UimException {
     return true;
   }
 }
-mixin(ExceptionCalls!("ViewException"));
+mixin(ExceptionCalls!("View"));

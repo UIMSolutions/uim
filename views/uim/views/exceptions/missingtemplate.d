@@ -1,4 +1,4 @@
-module uim.views.exceptions;
+module views.uim.views.exceptions.missingtemplate;
 
 import uim.views;
 

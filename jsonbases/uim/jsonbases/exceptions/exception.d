@@ -6,9 +6,8 @@ import uim.jsonbases;
 class DJsonBaseException : UimException {
   mixin(ExceptionThis!("JsonBase"));
 
-  alias initialize = UimException.initialize;
-  bool initialize(IData[string] configData = null) {
-		if (!super.initialize()) { return false; }
+  override bool initialize(IData[string] configData = null) {
+		if (!super.initialize(configData)) { return false; }
 
     this
       .messageTemplate("Error in libary uim-jsonbases");

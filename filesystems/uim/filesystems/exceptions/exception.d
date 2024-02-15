@@ -8,9 +8,8 @@ import uim.filesystems;
 class DFilesystemException : UimException {
   mixin(ExceptionThis!("Filesystem"));
 
-  alias initialize = UimException.initialize;
-  bool initialize(IData[string] configData = null) {
-    if (!super.initialize()) { return false; }
+  override bool initialize(IData[string] configData = null) {
+    if (!super.initialize(configData)) { return false; }
 
     this
       .messageTemplate("Error in libary uim-filesystems");

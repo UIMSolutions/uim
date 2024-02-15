@@ -9,7 +9,7 @@ class DControllerException : UimException {
   mixin(ExceptionThis!("Controller"));
 
   override bool initialize() {
-    if (!super.initialize()) {
+    if (!super.initialize(configData)) {
       return false;
     }
 

@@ -9,7 +9,7 @@ class DFSException : UimException {
   mixin(ExceptionThis!("View"));
 
   override bool initialize() {
-    if (!super.initialize()) {
+    if (!super.initialize(configData)) {
       return false;
     }
 

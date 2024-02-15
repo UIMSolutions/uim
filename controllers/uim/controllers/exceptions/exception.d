@@ -8,9 +8,8 @@ import uim.controllers;
 class DControllerException : UimException {
   mixin(ExceptionThis!("Controller"));
 
-  alias initialize = UimException.initialize;
-  bool initialize(IData[string] configData = null) {
-    if (!super.initialize()) { return false; }
+  override bool initialize(IData[string] configData = null) {
+    if (!super.initialize(configData)) { return false; }
 
     this
       .messageTemplate("Error in libary uim-controllers");

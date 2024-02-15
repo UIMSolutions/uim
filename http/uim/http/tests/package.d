@@ -1,2 +1,2 @@
-module uim.views.tests;
+module uim.http.tests;
 

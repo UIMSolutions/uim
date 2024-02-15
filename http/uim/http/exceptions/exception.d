@@ -1,6 +1,6 @@
-module views copy.uim.views.exceptions.exception;
+module uim.http.exceptions.exception;
 
-import uim.views;
+import uim.http;
 
 @safe:
 
@@ -14,7 +14,7 @@ class DFSException : UimException {
     }
 
     this
-      .messageTemplate("Error in libary uim-views");
+      .messageTemplate("Error in libary uim-http");
 
     return true;
   }

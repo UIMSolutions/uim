@@ -4,6 +4,7 @@ public {
     import uim.views.exceptions.exception;
 
     import uim.views.exceptions.missingcell;
+    import uim.views.exceptions.missingtemplate;
     import uim.views.exceptions.missingcelltemplate;
     import uim.views.exceptions.missingelement;
     import uim.views.exceptions.missinghelper;

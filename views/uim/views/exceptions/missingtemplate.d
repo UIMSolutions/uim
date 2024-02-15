@@ -26,29 +26,29 @@ class DMissingTemplateException : DViewException {
   mixin(TProperty!("string", "templateType"));
 
   this(string newFileName, string[] checkedPaths = [], int errorCode = 0, Throwable previousException = null) {
-    filename(newFileName);
+    fileName(newFileName);
     templateName(null);
     paths(checkedPaths);
 
-    super(this.formatMessage(), errorCode, previousException);
+    // TODO
+    // super(this.formatMessage(), errorCode, previousException);
   }
 
   // Get the formatted exception message.
   string formatMessage() {
-    auto name = this.templateName ? this.templateName : this.filename;
+    auto name = this.templateName ? templateName : fileName;
     string formattedMessage = "%s file `%s` could not be found.".format(templateType, name);
-    if (paths) {
-      formattedMessage ~= "\n\nThe following paths were searched:\n\n";
-      paths.each!(path => formattedMessage ~= "- `{mypath}{this.filename}`\n");
-    }
+    formattedMessage ~= !paths.isEmpty
+      ? "\n\nThe following paths were searched:\n\n" ~ paths.map!(path => "- `{mypath}{this.filename}`\n").join
+      : "";
     return formattedMessage;
   }
 
   // Get the passed in attributes
-  IData[string] attributes() {
-    return [
-      "file": StringData(filename),
-      "paths": ArrayData(paths),
-    ];
+  override Json[string] attributes() {
+    return super.attributes().update([
+      "file": Json(fileName),
+      "paths": Json(paths),
+    ]);
   }
 }

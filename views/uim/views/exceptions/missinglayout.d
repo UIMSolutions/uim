@@ -7,8 +7,9 @@ import uim.views;
 // Used when a layout file cannot be found.
 class DMissingLayoutException : DMissingTemplateException {
     mixin(ExceptionThis!("MissingLayout"));
-    override bool initialize() {
-        if (!super.initialize()) {
+    
+    override bool initialize(IData[string] configData = null) {
+        if (!super.initialize(configData)) {
             return false;
         }
 

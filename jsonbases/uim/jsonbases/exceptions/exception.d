@@ -7,7 +7,7 @@ class DJsonBaseException : UimException {
   mixin(ExceptionThis!("JsonBase"));
 
   alias initialize = UimException.initialize;
-  override bool initialize(IData[string] configData = null) {
+  bool initialize(IData[string] configData = null) {
 		if (!super.initialize()) { return false; }
 
     this

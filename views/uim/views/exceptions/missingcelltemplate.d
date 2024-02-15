@@ -7,6 +7,8 @@ import uim.views;
 // Used when a template file for a cell cannot be found.
 class DMissingCellTemplateException : DMissingTemplateException {
     mixin(ExceptionThis!("MissingCellTemplate"));
+    
+    alias initialize = UimException.initialize;
     override bool initialize(IData[string] configData = null) {
 		if (!super.initialize(configData)) { return false; }
 		
@@ -30,10 +32,10 @@ class DMissingCellTemplateException : DMissingTemplateException {
     }
 
     // Get the passed in attributes
-    IData[string] attributes() {
-        auto result = super.attributes();
-        return result.update([
-                "name": StringData(name)
+    override Json[string] attributes() {
+        return super.attributes()
+            .update([
+                "name": Json(name)
             ]);
     }
 }

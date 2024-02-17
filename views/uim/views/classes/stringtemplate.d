@@ -23,7 +23,7 @@ class StringTemplate {
     protected IConfiguration _defaultConfiguration;
 
     // A stack of template sets that have been stashed temporarily.
-    protected array my_configStack = [];
+    // TODO protected array my_configStack = [];
 
     // Contains the list of compiled templates
     protected string[] compiledtemplates;
@@ -150,7 +150,7 @@ class StringTemplate {
      * Params:
      * string myfile The file to load
      */
-    void load(string fileName) {
+    /* void load(string fileName) {
         if (myfile.isEmpty) {
             throw new UimException("String template filename cannot be an empty string");
         }
@@ -158,20 +158,20 @@ class StringTemplate {
         auto myloader = new PhpConfig();
         auto mytemplates = myloader.read(fileName);
         this.add(mytemplates);
-    }
+    } */
     
     // Remove the named template.
-    void remove(string templateName) {
+    /* void remove(string templateName) {
         this.setConfig(templateName, null);
         _compiled.remove(templateName);
-    }
+    } */
     
     /**
      * Format a template string with mydata
      * Params:
      * string views The template name.
      */
-    string format(string views, IData[string] insertData) {
+    /* string format(string views, IData[string] insertData) {
         if (!_compiled.isSet(views)) {
             throw new InvalidArgumentException("Cannot find template named `%s`.".format(views));
         }
@@ -191,7 +191,7 @@ class StringTemplate {
             myreplace ~= myreplacement;
         });
         return vsprintf(mytemplate, myreplace);
-    }
+    } */
     
     /**
      * Returns a space-delimited string with items of the options array. If a key

@@ -1,2 +1,2 @@
-module views.uim.views.interfaces.widget;
+module uim.views.interfaces.widget;
 

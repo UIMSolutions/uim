@@ -1,4 +1,4 @@
-module views.uim.views.mixins.view;
+module uim.views.mixins.view;
 
 import uim.views;
 

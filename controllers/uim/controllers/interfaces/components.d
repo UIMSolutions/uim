@@ -1,2 +1,2 @@
-module controllers.uim.controllers.interfaces.components;
+module uim.controllers.interfaces.components;
 

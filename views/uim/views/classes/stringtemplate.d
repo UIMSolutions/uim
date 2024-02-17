@@ -124,13 +124,13 @@ class StringTemplate {
           .each!(name => compileTemplate(name));
     }
 
-    protected void compileTemplate(string templateName) {
+    /* protected void compileTemplate(string templateName) {
       string templateValue = this.get(templateName);
             if (templateValue.isNull) {
                 throw new InvalidArgumentException("String template `%s` is not valid.".format(templateName));
             }
             assert(isString(templateValue),
-                "Template for `%s` must be of type `string`, but is `%s`".format(templateName, templateValue.stringof);
+                "Template for `%s` must be of type `string`, but is `%s`".format(templateName, templateValue);
             );
 
             templateValue = templateValue.replace("%", "%%");
@@ -139,7 +139,7 @@ class StringTemplate {
                 templateValue.replace(mymatches[0], "%s"),
                 mymatches[1],
             ];
-    }
+    } */
 
     /**
      * Load a config file containing templates.
@@ -184,7 +184,7 @@ class StringTemplate {
         
         auto myreplace = [];
         myplaceholders.each!((placeholder) {
-            auto myreplacement = mydata[placeholder] ?? null;
+            auto myreplacement = mydata.get(placeholder, null);
             if (isArray(myreplacement)) {
                 myreplacement = join("", myreplacement);
             }
@@ -218,9 +218,9 @@ class StringTemplate {
      * IData[string]|null options Array of options.
      * @param string[]|null myexclude Array of options to be excluded, the options here will not be part of the return.
      */
-    string formatAttributes(IData[string] options, array myexclude = null) {
+    /* string formatAttributes(IData[string] options, array myexclude = null) {
        string myinsertBefore = " ";
-        options = (array)options ~ ["escape": true];
+        options = options.update(["escape": BoolData(true)]);
 
         if (!isArray(myexclude)) {
             myexclude = [];
@@ -228,17 +228,14 @@ class StringTemplate {
         myexclude = ["escape": true, "idPrefix": true, "templateVars": true, "fieldName": true]
             + array_flip(myexclude);
         myescape = options["escape"];
-        myattributes = [];
 
-        foreach (options as aKey: myvalue) {
-            if (!myexclude.isSet(aKey) && myvalue != false && myvalue !isNull) {
-                myattributes ~= _formatAttribute((string)aKey, myvalue, myescape);
-            }
-        }
+        auto myattributes = = options.byKeyValue
+            .filter!(kv => !myexclude.isSet(kv.key) && kv.value != false && !kv.value.isNull)
+            .map!(kv => _formatAttribute((string)kv.key, kv.value, myescape));
         
         string result = trim(join(" ", myattributes));
         return result ? myinsertBefore ~ result : "";
-    }
+    } */
     
     /**
      * Formats an individual attribute, and returns the string value of the composed attribute.
@@ -248,6 +245,7 @@ class StringTemplate {
      * @param Json aValue The value of the attribute to create.
      * @param bool myescape Define if the value must be escaped
      */
+     /* 
     protected string _formatAttribute(string aKey, Json aValue, bool myescape = true) {
         if (isArray(myvalue)) {
             myvalue = join(" ", myvalue);
@@ -257,10 +255,10 @@ class StringTemplate {
         }
         mytruthy = [1, "1", true, "true", aKey];
         myisMinimized = isSet(_compactAttributes[aKey]);
-        if (!preg_match("/\A(\w|[.-])+\z/", aKey)) {
-            aKey = h(aKey);
-        }
-        if (myisMinimized && in_array(myvalue, mytruthy, true)) {
+        // TODO if (!preg_match("/\A(\w|[.-])+\z/", aKey)) {
+        //    aKey = h(aKey);
+        // }
+        if (myisMinimized && myvalue.has(mytruthy)) {
             return "aKey=\"aKey\"";
         }
         if (myisMinimized) {
@@ -276,7 +274,7 @@ class StringTemplate {
      * @param string[]|string|false|null mynewClass the new class or classes to add
      * @param string myuseIndex if you are inputting an array with an element other than default of "class".
      */
-    string[] addClass(
+    /* string[] addClass(
         Json myinput,
         string[]|false|null mynewClass,
         string myuseIndex = "class"
@@ -304,5 +302,5 @@ class StringTemplate {
         myclass = array_unique(chain(myclass, mynewClass));
 
         return Hash.insert(myinput, myuseIndex, myclass);
-    }
+    } */
 }

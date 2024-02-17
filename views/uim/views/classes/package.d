@@ -1,9 +1,9 @@
-module uim.forms.classes;
+module uim.views.classes;
 
 public { // Packages
-    import uim.forms.classes.widgets;
+    import uim.views.classes.widgets;
 }
 
 public { // Modules
-    import uim.forms.classes.stringtemplate;
+    import uim.views.classes.stringtemplate;
 }

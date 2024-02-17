@@ -8,7 +8,7 @@ import uim.consoles;
 class DControllerException : UimException {
   mixin(ExceptionThis!("Controller"));
 
-  override bool initialize() {
+  override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) {
       return false;
     }

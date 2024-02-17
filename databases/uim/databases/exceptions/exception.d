@@ -1,4 +1,4 @@
-module uim.databases.exceptions.exceptions;
+module databases.uim.databases.exceptions.exception;
 
 import uim.databases;
 

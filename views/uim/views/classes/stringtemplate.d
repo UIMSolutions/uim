@@ -28,11 +28,11 @@ class StringTemplate {
     // Contains the list of compiled templates
     protected string[] compiledtemplates;
 
-    this(IData[string] configData = null) {
+    /* this(IData[string] configData = null) {
         this.initialize(configData);
-    }
+    } */
 
-    bool initialize(IData[string] initData = null) {
+    /* bool initialize(IData[string] initData = null) {
        _defaultConfig = Configuration;
 
        _compactAttributes = [

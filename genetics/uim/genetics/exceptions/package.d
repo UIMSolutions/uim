@@ -1,2 +1,2 @@
-module uim.forms.exceptions;
+module uim.genetics.exceptions;
 

@@ -3,7 +3,7 @@
   License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
   Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.forms;
+module uim.containers;
 
 mixin(ImportPhobos!());
 
@@ -19,11 +19,11 @@ public { // Required uim libraries
   import uim.models;
 }
 
-public { // uim.forms packages
-  import uim.forms.classes;
-  import uim.forms.exceptions;
-  import uim.forms.interfaces;
-  import uim.forms.helpers;
-  import uim.forms.mixins;
-  import uim.forms.tests; 
+public { // uim.containers packages
+  import uim.containers.classes;
+  import uim.containers.exceptions;
+  import uim.containers.interfaces;
+  import uim.containers.helpers;
+  import uim.containers.mixins;
+  import uim.containers.tests; 
 }

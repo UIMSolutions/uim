@@ -38,10 +38,8 @@ interface ISchema {
      */
    auto addColumn(string columnName, array | string aattrs);
 
-   /**
-     * Get column data in the table.
-     */
-   IData[string] getColumn(string columnName) : ;
+   /Get column data in the table.
+   IData[string] getColumn(string columnName);
 
    // Returns true if a column exists in the schema.
    bool hasColumn(string columnName) : bool;

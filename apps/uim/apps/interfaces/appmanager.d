@@ -6,10 +6,10 @@ import uim.apps;
 interface IAppManager : IViewManager, IControllerManager {
   IEntityBase entityBase();
    
-  DAppContainer appContainer();
-  DControllerContainer controllerContainer();
-  DSessionContainer sessionContainer();
-  DViewContainer viewContainer();
+  IAppContainer appContainer();
+  IControllerContainer controllerContainer();
+  ISessionContainer sessionContainer();
+  IViewContainer viewContainer();
 
   IApp[] apps();
   string[] appNames();

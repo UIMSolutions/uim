@@ -1,4 +1,4 @@
-module uim.consoles.uim.consoles.interfaces.command;
+module uim.consoles.interfaces.command;
 
 import uim.consoles;
 

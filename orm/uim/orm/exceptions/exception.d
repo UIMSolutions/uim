@@ -1,12 +1,12 @@
-module uim.consoles.exceptions.exception;
+module uim.orm.exceptions.exception;
 
-import uim.consoles;
+import uim.orm;
 
 @safe:
 
-// I18n exception.
-class DControllerException : UimException {
-  mixin(ExceptionThis!("Controller"));
+// Base ORM exception.
+class DORMException : UimException {
+  mixin(ExceptionThis!("ORM"));
 
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) {
@@ -14,9 +14,9 @@ class DControllerException : UimException {
     }
 
     this
-      .messageTemplate("Error in libary uim-consoles");
+      .messageTemplate("Error in libary uim-orm");
 
     return true;
   }
 }
-mixin(ExceptionCalls!("Controller"));
+mixin(ExceptionCalls!("ORM"));

@@ -1,2 +1,2 @@
-module uim.forms.interfaces;
+module uim.mvc.interfaces;
 

@@ -5,14 +5,13 @@ import uim.consoles;
 @safe:
 
 // Exception raised with suggestions
-class MissingOptionException : ConsoleException {
+class DMissingOptionException : DConsoleException {
+	mixin(ExceptionThis!("MissingOption"));
   // The requested thing that was not found.
   protected string _requested = "";
 
   // The valid suggestions.
   protected string[] _suggestions;
-
-	mixin(ExceptionThis!("MissingOptionException"));
 
   this(
     string message,
@@ -69,3 +68,4 @@ class MissingOptionException : ConsoleException {
     return bestGuess;
   }
 }
+mixin(ExceptionCalls!("MissingOption"));

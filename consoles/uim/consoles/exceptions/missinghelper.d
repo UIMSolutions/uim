@@ -5,8 +5,8 @@ import uim.consoles;
 @safe:
 
 // Used when a Helper cannot be found.
-class MissingHelperException : ConsoleException {
-	mixin(ExceptionThis!("MissingHelperException"));
+class DMissingHelperException : DConsoleException {
+	mixin(ExceptionThis!("MissingHelper"));
 	
 	override void initialize(Json configSettings = Json(null)) {
 		super.initialize(configSettings);
@@ -15,3 +15,4 @@ class MissingHelperException : ConsoleException {
 			.messageTemplate("Helper class '%s' could not be found.");
 	}
 }
+mixin(ExceptionCalls!("MissingHelper"));

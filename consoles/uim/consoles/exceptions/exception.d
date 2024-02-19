@@ -1,22 +1,22 @@
-module uim.consoles.exceptions.exception;
+module uim.consoles.uim.consoles.exceptions.exception;
 
 import uim.consoles;
 
 @safe:
 
-// I18n exception.
-class DControllerException : UimException {
-  mixin(ExceptionThis!("Controller"));
+// Exception class for Console libraries. This exception will be thrown from Console library classes when they encounter an error.
+class DConsoleException : DUimException {
+	mixin(ExceptionThis!("Console"));
+    
+    protected int _defaultCode = ICommand.CODE_ERROR;
 
-  override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) {
-      return false;
+    this(
+        string message, int exceptionCode = 0, Throwable previousException = null
+    ) {
+        this();
+        _exceptionCode = exceptionCode;
+        _previousException = previousException;
+        super(message);
     }
-
-    this
-      .messageTemplate("Error in libary uim-consoles");
-
-    return true;
-  }
 }
-mixin(ExceptionCalls!("Controller"));
+mixin(ExceptionCalls!("Console"));

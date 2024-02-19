@@ -1,4 +1,4 @@
-module uim.forms.uim.forms.exceptions.exception;
+module uim.sites.uim.sites.exceptions.exception;
 
 import uim.orm;
 

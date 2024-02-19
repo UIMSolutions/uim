@@ -1,4 +1,4 @@
-# Library 📚 uim-forms
+# Library 📚 uim-events
 
 An **HTML form** is a fundamental component used to collect user input on a web page. It allows users to submit data to a server for processing.
 

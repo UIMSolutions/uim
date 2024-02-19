@@ -1,2 +1,2 @@
-module uim.forms.mixins;
+module uim.events.mixins;
 

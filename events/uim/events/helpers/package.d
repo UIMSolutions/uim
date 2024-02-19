@@ -1,2 +1,2 @@
-module uim.forms.helpers;
+module uim.events.helpers;
 

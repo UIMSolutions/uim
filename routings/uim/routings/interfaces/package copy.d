@@ -1,1 +1,1 @@
-module uim.routings.uim.forms.interfaces.package copy;
+module uim.routings.uim.routings.interfaces.package copy;

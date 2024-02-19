@@ -1,4 +1,4 @@
-module uim.routings.uim.forms.exceptions.duplicatenamedroute;
+module uim.routings.uim.routings.exceptions.duplicatenamedroute;
 
 import uim.routings;
 

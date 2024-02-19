@@ -1,2 +1,2 @@
-module uim.forms.classes;
+module uim.gui.classes;
 

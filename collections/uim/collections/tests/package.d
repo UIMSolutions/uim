@@ -1,2 +1,2 @@
-module uim.forms.tests;
+module uim.collections.tests;
 

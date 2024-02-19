@@ -1,1 +1,1 @@
-# Package 📦 uim.forms.mixins
+# Package 📦 uim.ai.mixins

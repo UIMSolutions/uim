@@ -5,7 +5,9 @@ import uim.controllers;
 @safe:
 
 // Used when a passed parameter or action parameter type declaration is missing or invalid.
-class InvalidParameterException : ControllerException {
+class DInvalidParameterException : DControllerException {
+  mixin(ExceptionThis!("InvalidParameter"));
+
   // Switches message template based on `template` key in message array.
   this(string messageKey = "default", int errorCode = 0, Throwable previousException = null) {
     super();
@@ -13,8 +15,8 @@ class InvalidParameterException : ControllerException {
   }
   // mixin(ExceptionThis!("InvalidParameterException"));
 
-  override void initialize(Json configSettings = Json(null)) {
-    super.initialize(configSettings);
+  override bool initialize(IData[string] configData = null) {
+   if (!super.initialize(configData)) { return false; }
 
     _templates = [
       "failed_coercion": "Unable to coerce `%s` to `%s` for `%s` in action `%s::%s()`.",
@@ -22,5 +24,8 @@ class InvalidParameterException : ControllerException {
       "missing_parameter": "Missing passed parameter for `%s` in action `%s::%s()`.",
       "unsupported_type": "Type declaration for `%s` in action `%s::%s()` is unsupported.",
     ];
+
+    return true;
   }
 }
+mixin(ExceptionCalls!("InvalidParameter"));

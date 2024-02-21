@@ -6,12 +6,15 @@ import uim.controllers;
 
 // Missing Action exception - used when a controller action
 // cannot be found, or when the controller`s isAction() method returns false.
-class MissingActionException : ControllerException {
-  mixin(ExceptionThis!("MissingActionException"));
+class DMissingActionException : DControllerException {
+  mixin(ExceptionThis!("MissingAction"));
 
-  override void initialize(Json configSettings = Json(null)) {
-    super.initialize(configSettings);
+  override bool initialize(IData[string] configData = null) {
+    if (!super.initialize(configData)) { return false; }
 
     messageTemplate("default", "Action `%s.%s()` could not be found, or is not accessible.");
+
+    return true;
   }
 }
+mixin(ExceptionCalls!("MissingAction"));

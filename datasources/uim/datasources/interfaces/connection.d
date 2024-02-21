@@ -6,19 +6,11 @@ import uim.datasources;
 
 // This interface defines the methods you can depend on in a connection
 interface IConnection {
-  const string ROLE_WRITE = "write";
-
-  const string ROLE_READ = "read";
-
-  /**
-     * Gets the driver instance.
-     * Params:
-     * string arole
-     */
-  object getDriver(string arole = self.ROLE_WRITE);
+  // Gets the driver instance.
+  object getDriver(string role = self.ROLE_WRITE);
 
   // Set a cacher.
-  void setCacher(ICache $cacher);
+  void setCacher(ICache cacher);
 
   // Get a cacher.
   ICache getCacher();
@@ -27,5 +19,5 @@ interface IConnection {
   string configName();
 
   //Get the configuration data used to create the connection
-  Json[string config();
+  Json[string] config();
 }

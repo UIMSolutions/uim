@@ -5,13 +5,15 @@ import uim.controllers;
 @safe:
 
 // Security exception - used when SecurityComponent detects any issue with the current request
-class SecurityException : ControllerException {
-  mixin(ExceptionThis!("SecurityException"));
+class DSecurityException : DControllerException {
+  mixin(ExceptionThis!("Security"));
 
-  override void initialize(Json configSettings = Json(null)) {
-    super.initialize(configSettings);
+  override bool initialize(IData[string] configData = null) {
+    if (!super.initialize(configData)) { return false; }
 
    _type = "secure";  
+
+   return true;
   }
 
   // Reason for request blackhole
@@ -23,3 +25,4 @@ class SecurityException : ControllerException {
     return _type;
   }
 }
+mixin(ExceptionCalls!("Security"));

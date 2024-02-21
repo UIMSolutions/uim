@@ -1,17 +1,20 @@
-module uim.controllers.uim.controllers.exceptions.authsecurity;
+module uim.controllers.exceptions.authsecurity;
 
 import uim.controllers;
 
 @safe:
 
 // Auth Security exception - used when SecurityComponent detects any issue with the current request
-class AuthSecurityException : SecurityException {
-  mixin(ExceptionThis!("SecurityException"));
+class DAuthSecurityException : DSecurityException {
+  mixin(ExceptionThis!("AuthSecurity"));
   
-  override void initialize(Json configSettings = Json(null)) {
-    super.initialize(configSettings);
+  override bool initialize(IData[string] configData = null) {
+    if (!super.initialize(configData)) { return false; }
 
     // Security Exception type
     _type = "auth";
+
+    return true;
   }
 }
+mixin(ExceptionCalls!("AuthSecurity"));

@@ -1,4 +1,4 @@
-module source.uim.consoles.exceptions.missingconsoleinput;
+module uim.consoles.exceptions.missingconsoleinput;
 
 import uim.consoles;
 

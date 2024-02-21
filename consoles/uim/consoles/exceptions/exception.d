@@ -1,4 +1,4 @@
-module uim.consoles.uim.consoles.exceptions.exception;
+module uim.consoles.exceptions.exception;
 
 import uim.consoles;
 

@@ -111,7 +111,7 @@ class StringTemplate {
      */
     void add(STRINGAA namedTemplates) {
         this.setConfig(namedTemplates);
-       _compileTemplates(array_keys(namedTemplates));
+       _compileTemplates(namedTemplates.keys);
     }
 
     // Compile templates into a more efficient printf() compatible format.

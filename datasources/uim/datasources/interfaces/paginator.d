@@ -1,4 +1,4 @@
-module uim.datasources\Paging;
+module uim.datasources.interfaces.paginator;
 
 import uim.cake;
 

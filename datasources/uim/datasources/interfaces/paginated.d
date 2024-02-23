@@ -1,4 +1,4 @@
-module uim.datasources.pagings.paginatedinterfaces;
+module uim.datasources.interfaces.paginated;
 
 import uim.datasources;
 
@@ -24,19 +24,13 @@ interface IPaginated : Countable, Traversable {
     // Get whether there`s a next page.
    bool hasNextPage();
 
-    /**
-     * Get paginated items.
-     */
-    iterable items();
+    // Get paginated items.
+    IData[string] items();
 
-    /**
-     * Get paging param.
-    */
-    Json pagingParam(string aName) ;
+    // Get paging param.
+    IData[string] pagingParam(string aName) ;
 
-    /**
-     * Get all paging params.
-     */
-    array pagingParams();
+    // Get all paging params.
+    IData[string] pagingParams();
 }
 

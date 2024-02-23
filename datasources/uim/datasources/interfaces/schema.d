@@ -1,4 +1,4 @@
-module uim.cake.datasources.interfaces.schemainterface;
+module uim.datasources.interfaces.schema;
 
 import uim.datasources;
 

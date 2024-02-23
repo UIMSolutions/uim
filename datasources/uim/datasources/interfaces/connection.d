@@ -1,4 +1,4 @@
-module uim.datasources.uim.datasources.interfaces.connection;
+module uim.datasources.interfaces.connection;
 
 import uim.datasources;
 

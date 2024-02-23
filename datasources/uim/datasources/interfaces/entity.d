@@ -1,4 +1,4 @@
-module uim.datasources;
+module uim.datasources.inerfaces.entity;
 
 import uim.datasources;
 
@@ -29,7 +29,7 @@ interface IEntity : ArrayAccess, JsonSerializable, Stringable {
      * string[] fields An array of fields to treat as virtual.
      * @param bool $merge Merge the new fields with the existing. By default false.
      */
-    auto setVirtual(array fields, bool $merge = false);
+    auto setVirtual(array fields, bool canMergeExisting = false);
 
     // Gets the virtual fields on this entity.
     string[] getVirtual();
@@ -46,13 +46,8 @@ interface IEntity : ArrayAccess, JsonSerializable, Stringable {
      */
     string[] getOriginalFields();
 
-    /**
-     * Sets the dirty status of a single field.
-     * Params:
-     * @param bool  isDirty true means the field was changed, false means
-     * it was not changed. Default true.
-     */
-    auto setDirty(string fieldName, bool  isDirty = true);
+    // Sets the dirty status of a single field.
+    auto setDirty(string fieldName, bool isDirtyMode = true);
 
     /**
      * Checks if the entity is dirty or if a single field of it is dirty.

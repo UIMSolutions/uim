@@ -1,4 +1,4 @@
-module uim.datasources;
+module uim.datasources.interfaces.resultset;
 
 import uim.datasources;
 

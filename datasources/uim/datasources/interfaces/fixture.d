@@ -6,6 +6,12 @@ import uim.datasources;
 
 // Defines the interface that testing fixtures use.
 interface IFixture {
+    // Create the fixture schema/mapping/definition
+    bool create(IConnection aConnection);
+
+    // Run after all tests executed, should remove the table/collection from the connection.
+    bool drop(IConnection aConnection);
+
     // Should insert all the records into the test database.*/
    bool insert(IConnection aConnection);
 

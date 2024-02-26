@@ -22,6 +22,5 @@ docs/
 
 # Code coverage
 *.lst
-uim-test-library.pdb
-oop/oop-test-library.pdb
+*.pdb
 apps/dub.selections.json

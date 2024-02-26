@@ -1,12 +1,12 @@
-module uim.ai.uim.ai.exceptions.exception;
+module uim.ai.exceptions.exception;
 
-import uim.orm;
+import uim.ai;
 
 @safe:
 
-// Base ORM exception.
-class DORMException : UimException {
-  mixin(ExceptionThis!("ORM"));
+// Base AI exception.
+class DAIException : UimException {
+  mixin(ExceptionThis!("AI"));
 
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) {
@@ -14,9 +14,9 @@ class DORMException : UimException {
     }
 
     this
-      .messageTemplate("Error in libary uim-orm");
+      .messageTemplate("Error in libary uim-ai");
 
     return true;
   }
 }
-mixin(ExceptionCalls!("ORM"));
+mixin(ExceptionCalls!("AI"));

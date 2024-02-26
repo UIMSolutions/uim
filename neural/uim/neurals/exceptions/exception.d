@@ -1,12 +1,11 @@
-module uim.forms.uim.forms.exceptions.exception;
+module uim.neurals.exceptions.exception;
 
-import uim.orm;
+import uim.neurals;
 
 @safe:
 
-// Base ORM exception.
-class DORMException : UimException {
-  mixin(ExceptionThis!("ORM"));
+class DNeuralsException : UimException {
+  mixin(ExceptionThis!("Neurals"));
 
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) {
@@ -14,9 +13,9 @@ class DORMException : UimException {
     }
 
     this
-      .messageTemplate("Error in libary uim-orm");
+      .messageTemplate("Error in libary uim-neurals");
 
     return true;
   }
 }
-mixin(ExceptionCalls!("ORM"));
+mixin(ExceptionCalls!("Neurals"));

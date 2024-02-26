@@ -1,6 +1,7 @@
 module uim.views.classes;
 
 public { // Packages
+    import uim.views.classes.contexts;
     import uim.views.classes.widgets;
 }
 

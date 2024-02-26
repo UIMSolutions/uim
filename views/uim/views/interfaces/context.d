@@ -1,4 +1,4 @@
-module uim.views.uim.views.interfaces.context;
+module uim.views.interfaces.context;
 
 import uim.views;
 
@@ -6,8 +6,6 @@ import uim.views;
 
 // Interface for FormHelper context implementations.
 interface IContext {
-    const string[] VALID_ATTRIBUTES = ["length", "precision", "comment", "null", "default"];
-
     // Get the fields used in the context as a primary key.
     string[] getPrimaryKey();
 
@@ -27,7 +25,7 @@ interface IContext {
      *  - `schemaDefault`: Boolean indicating whether default value from
      *    context"s schema should be used if it"s not explicitly provided.
     */
-    Json val(string fieldPath, IData[string] options  = null) ;
+    // TODO Json val(string fieldPath, IData[string] options  = null) ;
 
     /**
      * Check if a given field is "required".
@@ -49,11 +47,11 @@ interface IContext {
     string type(string fieldPath);
 
     // Get an associative array of other attributes for a field name.
-    array attributes(string fieldPath);
+    // TODO array attributes(string fieldPath);
 
     // Check whether a field has an error attached to it
     bool hasError(string fieldPath);
 
     // Get the errors for a given field
-    array error(string fieldPath);
+    // TODO array error(string fieldPath);
 }

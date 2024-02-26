@@ -109,7 +109,7 @@ class StringTemplate {
      * ]);
      * ```
      */
-    void add(STRINGAA namedTemplates) {
+    /* void add(STRINGAA namedTemplates) {
         this.setConfig(namedTemplates);
        _compileTemplates(namedTemplates.keys);
     }
@@ -139,7 +139,7 @@ class StringTemplate {
                 templateValue.replace(mymatches[0], "%s"),
                 mymatches[1],
             ];
-    } */
+    } * /
 
     /**
      * Load a config file containing templates.
@@ -158,7 +158,7 @@ class StringTemplate {
         auto myloader = new PhpConfig();
         auto mytemplates = myloader.read(fileName);
         this.add(mytemplates);
-    } */
+    } * /
     
     // Remove the named template.
     /* void remove(string templateName) {

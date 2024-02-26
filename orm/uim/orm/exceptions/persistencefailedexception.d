@@ -1,11 +1,9 @@
-module uim.orm.Exception;
+module uim.orm.exceptions;
 
 import uim.orm;
 
 @safe:
-/**
- * Used when a strict save or delete fails
- */
+// Used when a strict save or delete fails
 class PersistenceFailedException : DORMException {
     /**
      * The entity on which the persistence operation failed

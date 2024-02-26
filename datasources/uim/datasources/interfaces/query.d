@@ -96,7 +96,7 @@ interface IQuery {
      * .limit(10)
      * ```
      * Params:
-     * IData[string] $options list of query clauses to apply new parts to.
+     * IData[string] options list of query clauses to apply new parts to.
      */
     auto applyOptions(IData[string] optionData = null);
 

@@ -11,25 +11,25 @@ interface IType {
      * Casts given value from a D type to one acceptable by a database.
      * Params:
      * Json aValue Value to be converted to a database equivalent.
-     * @param \UIM\Database\Driver $driver Object from which database preferences and configuration will be extracted.
+     * @param \UIM\Database\Driver driver Object from which database preferences and configuration will be extracted.
      */
-    Json toDatabase(Json aValue, Driver $driver) ;
+    Json toDatabase(Json aValue, Driver driver) ;
 
     /**
      * Casts given value from a database type to a D equivalent.
      * Params:
      * Json aValue Value to be converted to D equivalent
-     * @param \UIM\Database\Driver $driver Object from which database preferences and configuration will be extracted
+     * @param \UIM\Database\Driver driver Object from which database preferences and configuration will be extracted
      */
-    Json ToD(Json aValue, Driver $driver);
+    Json ToD(Json aValue, Driver driver);
 
     /**
      * Get the binding type to use in a PDO statement.
      * Params:
      * Json aValue The value being bound.
-     * @param \UIM\Database\Driver $driver Object from which database preferences and configuration will be extracted.
+     * @param \UIM\Database\Driver driver Object from which database preferences and configuration will be extracted.
      */
-    int toStatement(Json aValue, Driver $driver);
+    int toStatement(Json aValue, Driver driver);
 
     /**
      * Marshals flat data into D objects.

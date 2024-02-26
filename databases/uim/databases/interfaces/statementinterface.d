@@ -83,10 +83,10 @@ interface IStatement {
      *
      * This behaves the same as `PDOStatement.fetch()`.
      * Params:
-     * string|int $mode PDO.FETCH_* constant or fetch mode name.
+     * string|int mode PDO.FETCH_* constant or fetch mode name.
      *  Valid names are 'assoc", "num' or 'obj'.
      */
-    Json fetch(string|int $mode = PDO.FETCH_NUM);
+    Json fetch(string|int mode = PDO.FETCH_NUM);
 
     /**
      * Fetches the remaining rows from a result set
@@ -94,10 +94,10 @@ interface IStatement {
      *
      * This behaves the same as `PDOStatement.fetchAll()`.
      * Params:
-     * string|int $mode PDO.FETCH_* constant or fetch mode name.
+     * string|int mode PDO.FETCH_* constant or fetch mode name.
      *  Valid names are 'assoc", "num' or 'obj'.
      */
-    array fetchAll(string|int $mode = PDO.FETCH_NUM);
+    array fetchAll(string|int mode = PDO.FETCH_NUM);
 
     /**
      * Fetches the next row from a result set using PDO.FETCH_NUM

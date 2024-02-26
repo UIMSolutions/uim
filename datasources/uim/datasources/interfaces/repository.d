@@ -154,7 +154,7 @@ interface IRepository {
      * is saved. Until the entity is saved, it will be a detached record.
      * Params:
      * array data The data to build an entity with.
-     * @param IData[string] $options A list of options for the object hydration.
+     * @param IData[string] options A list of options for the object hydration.
      */
     IEntity newEntity(array data, IData[string] optionData = null);
 
@@ -186,7 +186,7 @@ interface IRepository {
      * \UIM\Datasource\IEntity $entity the entity that will get the
      * data merged in
      * @param array data key value list of fields to be merged into the entity
-     * @param IData[string] $options A list of options for the object hydration.
+     * @param IData[string] options A list of options for the object hydration.
      */
     IEntity patchEntity(IEntity $entity, array data, IData[string] optionData = null);
 
@@ -205,7 +205,7 @@ interface IRepository {
      * iterable<\UIM\Datasource\IEntity> $entities the entities that will get the
      * data merged in
      * @param array data list of arrays to be merged into the entities
-     * @param IData[string] $options A list of options for the objects hydration.
+     * @param IData[string] options A list of options for the objects hydration.
      */
     IEntity[] patchEntities(iterable $entities, array data, IData[string] optionData = null);
 }

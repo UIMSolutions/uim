@@ -5,8 +5,8 @@ import uim.controllers;
 @safe:
 
 // Controller exception.
-class DControllerException : UimException {
-  mixin(ExceptionThis!("Controller"));
+class DControllersException : UimException {
+  mixin(ExceptionThis!("Controllers"));
 
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
@@ -17,4 +17,4 @@ class DControllerException : UimException {
     return true;
   }
 }
-mixin(ExceptionCalls!("Controller"));
+mixin(ExceptionCalls!("Controllers"));

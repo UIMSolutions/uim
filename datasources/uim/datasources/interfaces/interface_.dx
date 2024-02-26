@@ -100,8 +100,8 @@ interface IEntity : ArrayAccess, JsonSerializable
      * @param array<string, mixed>|string field the name of field to set or a list of
      * fields with their respective values
      * @param mixed value The value to set to the field or an array if the
-     * first argument is also an array, in which case will be treated as $options
-     * @param array<string, mixed> $options Options to be used for setting the field. Allowed option
+     * first argument is also an array, in which case will be treated as options
+     * @param array<string, mixed> options Options to be used for setting the field. Allowed option
      * keys are `setter` and `guard`
      * @return this
      */

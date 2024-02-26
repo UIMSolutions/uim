@@ -1,12 +1,12 @@
-module uim.containers.uim.containers.exceptions.exception;
+module uim.containers.exceptions.exception;
 
-import uim.orm;
+import uim.containers;
 
 @safe:
 
-// Base ORM exception.
-class DORMException : UimException {
-  mixin(ExceptionThis!("ORM"));
+// Base containers exception.
+class DContainersException : UimException {
+  mixin(ExceptionThis!("Containers"));
 
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) {
@@ -14,9 +14,9 @@ class DORMException : UimException {
     }
 
     this
-      .messageTemplate("Error in libary uim-orm");
+      .messageTemplate("Error in libary uim-containers");
 
     return true;
   }
 }
-mixin(ExceptionCalls!("ORM"));
+mixin(ExceptionCalls!("Containers"));

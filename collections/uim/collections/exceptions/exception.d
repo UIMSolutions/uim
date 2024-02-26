@@ -1,12 +1,12 @@
 module uim.collections.uim.collections.exceptions.exception;
 
-import uim.orm;
+import uim.collections;
 
 @safe:
 
-// Base ORM exception.
-class DORMException : UimException {
-  mixin(ExceptionThis!("ORM"));
+// Base collections exception.
+class DCollectionsException : UimException {
+  mixin(ExceptionThis!("Collections"));
 
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) {
@@ -14,9 +14,9 @@ class DORMException : UimException {
     }
 
     this
-      .messageTemplate("Error in libary uim-orm");
+      .messageTemplate("Error in libary uim-collections");
 
     return true;
   }
 }
-mixin(ExceptionCalls!("ORM"));
+mixin(ExceptionCalls!("Collections"));

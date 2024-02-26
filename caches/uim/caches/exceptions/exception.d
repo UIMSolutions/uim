@@ -1,12 +1,12 @@
-module uim.caches.uim.caches.exceptions.exception;
+module uim.caches.exceptions.exception;
 
-import uim.orm;
+import uim.caches;
 
 @safe:
 
-// Base ORM exception.
-class DORMException : UimException {
-  mixin(ExceptionThis!("ORM"));
+// Base Caches exception.
+class DCachesException : UimException {
+  mixin(ExceptionThis!("Caches"));
 
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) {
@@ -14,9 +14,9 @@ class DORMException : UimException {
     }
 
     this
-      .messageTemplate("Error in libary uim-orm");
+      .messageTemplate("Error in libary uim-caches");
 
     return true;
   }
 }
-mixin(ExceptionCalls!("ORM"));
+mixin(ExceptionCalls!("Caches"));

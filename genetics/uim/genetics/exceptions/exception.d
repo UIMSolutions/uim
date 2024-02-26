@@ -1,12 +1,11 @@
-module uim.genetics.uim.genetics.exceptions.exception;
+module uim.genetics.exceptions.exception;
 
-import uim.orm;
+import uim.Genetics;
 
 @safe:
 
-// Base ORM exception.
-class DORMException : UimException {
-  mixin(ExceptionThis!("ORM"));
+class DGeneticsException : UimException {
+  mixin(ExceptionThis!("Genetics"));
 
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) {
@@ -14,9 +13,9 @@ class DORMException : UimException {
     }
 
     this
-      .messageTemplate("Error in libary uim-orm");
+      .messageTemplate("Error in libary uim-genetics");
 
     return true;
   }
 }
-mixin(ExceptionCalls!("ORM"));
+mixin(ExceptionCalls!("Genetics"));

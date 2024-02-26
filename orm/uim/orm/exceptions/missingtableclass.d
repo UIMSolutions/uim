@@ -5,6 +5,6 @@ import uim.orm;
 @safe:
 
 // Exception raised when a Table could not be found.
-class MissingTableClassException : UIMException {
+class MissingTableClassException : DORMException {
     protected string _messageTemplate = "Table class %s could not be found.";
 }

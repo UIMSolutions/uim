@@ -10,7 +10,7 @@ import uim.orm;
 @safe:
 
 // Used when a transaction was rolled back from a callback event.
-class RolledbackTransactionException : UIMException {
+class RolledbackTransactionException : DORMException {
     protected _messageTemplate = "The afterSave event in '%s' is aborting the transaction"
         ~ " before the save process is done.";
 }

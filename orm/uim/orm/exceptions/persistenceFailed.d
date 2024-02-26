@@ -10,7 +10,7 @@ import DORMutilities.Hash;
 use Throwable;
 
 // Used when a strict save or delete fails
-class PersistenceFailedException : UIMException {
+class PersistenceFailedException : DORMException {
     /**
      * The entity on which the persistence operation failed
      *

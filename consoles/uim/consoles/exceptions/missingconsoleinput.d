@@ -10,7 +10,7 @@ class DMissingConsoleInputException : DConsoleException {
 
     // Update the exception message with the question text
     void setQuestion(string questionText) {
-        this.message ~= "\nThe question asked was: " ~ questionText;
+        // TODO this.message ~= "\nThe question asked was: " ~ questionText;
     }
 }
 mixin(ExceptionCalls!("MissingConsoleInput"));

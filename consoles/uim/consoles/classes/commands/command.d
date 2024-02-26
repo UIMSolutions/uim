@@ -1,9 +1,15 @@
 module uim.consoles.classes.commands.command;
 
-class DCommand : ICommand {
-    // Default error code
-    const int CODE_ERROR = 1;
+import uim.consoles;
 
-    // Default success code
-    const int CODE_SUCCESS = 0;
+@safe:
+
+class DCommand : ICommand {
+  // Default error code
+  static const int CODE_ERROR = 1;
+
+  // Default success code
+  static const int CODE_SUCCESS = 0;
+
+  mixin(TProperty!("string", "name"));
 }

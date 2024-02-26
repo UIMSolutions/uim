@@ -6,9 +6,10 @@ import uim.consoles;
 
 // Describe the interface between a command and the surrounding console libraries.
 interface ICommand {
-    // Set the name this command uses in the collection.
+    // Get & Set the name this command uses in the collection.
+    string name();
     void name(string commandName);
 
     // Run the command.
-    int run(IData[string] cliArguments, ConsoleIo consoleIo);
+    // TODO int run(IData[string] cliArguments, ConsoleIo consoleIo);
 }

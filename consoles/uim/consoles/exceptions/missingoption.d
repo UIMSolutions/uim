@@ -23,9 +23,9 @@ class DMissingOptionException : DConsoleException {
 
     this();
     
-    _suggestions = newSuggestions;
+    _suggestions = suggestions;
     _requested = requestedValue;
-    super(message, exceptionCode, previousException);
+    // TODO super(message, exceptionCode, previousException);
   }
 
   // Get the message with suggestions
@@ -36,13 +36,14 @@ class DMissingOptionException : DConsoleException {
       result ~= "\nDid you mean: `%s`?".format(bestGuess);
     }
 
-    string[] good;
-    _suggestions
+    string[] good; 
+    // TODO
+    /* _suggestions
       .filter!(suggestion => levenshtein(suggestion, _requested) < 8);
-      .each!(suggestion => good ~= "- " ~ suggestion);
+      .each!(suggestion => good ~= "- " ~ suggestion); */
 
     if (good) {
-      result ~= "\n\nOther valid choices:\n\n" ~ join("\n", good);
+      result ~= "\n\nOther valid choices:\n\n" ~ good.join("\n");
     }
     return result;
   }
@@ -57,14 +58,14 @@ class DMissingOptionException : DConsoleException {
     }
 
     auto bestScore = 4;
-    foreach (anItem; haystack) {
+    /* foreach (anItem; haystack) {
       auto score = levenshtein(needle, anItem);
 
       if (score < bestScore) {
         bestScore = score;
         bestGuess = anItem;
       }
-    }
+    } */ 
     return bestGuess;
   }
 }

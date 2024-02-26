@@ -157,7 +157,7 @@ version (test_uim_core) {
 	}
 }
 
-bool startsWith(string str, string txt) {
+/* bool startsWith(string str, string txt) {
 	if (str.length == 0) {
 		return false;
 	}
@@ -165,7 +165,7 @@ bool startsWith(string str, string txt) {
 		return false;
 	}
 	return (indexOf(str, txt) == 0);
-}
+} */ 
 
 version (test_uim_core) {
 	unittest {

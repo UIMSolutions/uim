@@ -5,10 +5,12 @@ import uim.consoles;
 @safe:
 
 // Exception class for Console libraries. This exception will be thrown from Console library classes when they encounter an error.
-class DConsoleException : DUimException {
+class DConsoleException : UimException {
 	mixin(ExceptionThis!("Console"));
     
-    protected int _defaultCode = ICommand.CODE_ERROR;
+    protected int _defaultCode = DCommand.CODE_ERROR;
+    protected int _exceptionCode;
+    protected Throwable _previousException;
 
     this(
         string message, int exceptionCode = 0, Throwable previousException = null
@@ -16,7 +18,7 @@ class DConsoleException : DUimException {
         this();
         _exceptionCode = exceptionCode;
         _previousException = previousException;
-        super(message);
+        // TODO super(message);
     }
 }
 mixin(ExceptionCalls!("Console"));

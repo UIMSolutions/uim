@@ -1,4 +1,4 @@
-module uim.apps.uim.apps.interfaces.viewcontainer;
+module uim.apps.interfaces.viewcontainer;
 
 import uim.apps;
 @safe:

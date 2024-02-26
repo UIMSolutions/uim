@@ -10,11 +10,14 @@ class DMissingActionException : DControllerException {
   mixin(ExceptionThis!("MissingAction"));
 
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
     messageTemplate("default", "Action `%s.%s()` could not be found, or is not accessible.");
 
     return true;
   }
 }
+
 mixin(ExceptionCalls!("MissingAction"));

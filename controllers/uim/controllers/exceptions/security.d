@@ -9,20 +9,23 @@ class DSecurityException : DControllerException {
   mixin(ExceptionThis!("Security"));
 
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
-   _type = "secure";  
+    _exceptionType = "secure";
 
-   return true;
+    return true;
   }
 
   // Reason for request blackhole
   mixin(TProperty!("string", "reason"));
 
   // Security Exception type
-  protected string _type;  
-  @property string type() {
-    return _type;
+  protected string _exceptionType;
+  @property string exceptionType() {
+    return _exceptionType;
   }
 }
+
 mixin(ExceptionCalls!("Security"));

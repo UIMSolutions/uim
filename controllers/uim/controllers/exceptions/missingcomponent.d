@@ -9,7 +9,9 @@ class DMissingComponentException : DControllerException {
   mixin(ExceptionThis!("MissingComponent"));
 
   override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
     messageTemplate("default", "Component class `%s` could not be found.");
 

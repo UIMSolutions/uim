@@ -9,14 +9,16 @@ class DInvalidParameterException : DControllerException {
   mixin(ExceptionThis!("InvalidParameter"));
 
   // Switches message template based on `template` key in message array.
-  this(string messageKey = "default", int errorCode = 0, Throwable previousException = null) {
+  /* this(string messageKey = "default", int errorCode = 0, Throwable previousException = null) {
     super();
     _templates["default"] = _templates.get(messageKey, null);
   }
   // mixin(ExceptionThis!("InvalidParameterException"));
 
   override bool initialize(IData[string] configData = null) {
-   if (!super.initialize(configData)) { return false; }
+    if (!super.initialize(configData)) {
+      return false;
+    }
 
     _templates = [
       "failed_coercion": "Unable to coerce `%s` to `%s` for `%s` in action `%s::%s()`.",
@@ -26,6 +28,7 @@ class DInvalidParameterException : DControllerException {
     ];
 
     return true;
-  }
+  } */ 
 }
+
 mixin(ExceptionCalls!("InvalidParameter"));

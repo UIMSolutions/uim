@@ -2,7 +2,7 @@
 # They are provided by a third-party and are governed by
 # separate terms of service, privacy policy, and support
 # documentation.
-name: uim-forms
+name: uim-commands
 
 on:
   push:
@@ -24,7 +24,7 @@ jobs:
 
     - name: 'Build & Test'
       run: |
-        cd ./forms/
+        cd ./commands/
         # Build the project, with its main file included, without unittests
         dub build --compiler=$DC
         # Build and run tests, as defined by `unittest` configuration

@@ -1,15 +1,23 @@
 ﻿module uim.css;
 
-import std.string;
+mixin(ImportPhobos!());
 
-public import uim.core;
-public import uim.oop;
-/* public import uim.json;
-public import uim.json; */
+// Dub
+public { 
+	import vibe.d;
+}
+
+public { // Required uim libraries 
+  import uim.core;
+  import uim.oop;
+  import uim.filesystems;
+  import uim.models;
+}
 
 // uim.css packages
 public import uim.css.classes;
 public import uim.css.helpers;
+public import uim.css.exceptions;
 
 // uim.css modules
 public import uim.css.declaration;

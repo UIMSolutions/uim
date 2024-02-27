@@ -37,7 +37,7 @@ class PersistenceFailedException : DORMException {
                 _messageTemplate = "Entity %s failure. Found the following errors (%s).";
             }
         }
-        super.this(myMessage, code, previous);
+        super(myMessage, code, previous);
     }
 
     // Get the passed in entity

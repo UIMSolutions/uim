@@ -4,11 +4,12 @@ import uim.http;
 
 @safe:
 
-class DHttpException : UimException {
-  mixin(ExceptionThis!("Http"));
+// I18n exception.
+class DFSException : UimException {
+  mixin(ExceptionThis!("View"));
 
-  override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { 
+  override bool initialize() {
+    if (!super.initialize(configData)) {
       return false;
     }
 
@@ -18,4 +19,4 @@ class DHttpException : UimException {
     return true;
   }
 }
-mixin(ExceptionCalls!("Http"));
+mixin(ExceptionCalls!("View"));

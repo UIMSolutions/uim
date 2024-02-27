@@ -5,8 +5,8 @@ import uim.filesystems;
 @safe:
 
 // I18n exception.
-class DFilesystemException : UimException {
-  mixin(ExceptionThis!("Filesystem"));
+class DFilesystemsException : UimException {
+  mixin(ExceptionThis!("Filesystems"));
 
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
@@ -17,4 +17,4 @@ class DFilesystemException : UimException {
     return true;
   }
 }
-mixin(ExceptionCalls!("Filesystem"));
+mixin(ExceptionCalls!("Filesystems"));

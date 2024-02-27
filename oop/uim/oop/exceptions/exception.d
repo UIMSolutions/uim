@@ -89,7 +89,7 @@ class UimException : IException {
         _attributes = myMessage;
         myMessage = vsprintf(_messageTemplate, myMessage);
       }
-      super.this(myMessage, code ?? _defaultCode, previous);
+      super(myMessage, code ?? _defaultCode, previous);
     } */
 
     // Get the passed in attributes

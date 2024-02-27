@@ -1,2 +1,2 @@
-module uim.logging.uim.logging.interfaces.formatter;
+module uim.logging.interfaces.formatter;
 

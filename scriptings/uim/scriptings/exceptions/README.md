@@ -1,1 +1,1 @@
-# Package 📦 uim.forms.exceptions
+# Package 📦 uim.scriptings.exceptions

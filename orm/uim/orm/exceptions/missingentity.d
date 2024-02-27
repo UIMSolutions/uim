@@ -4,6 +4,7 @@
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
 module uim.orm.exceptions.missingentity;
+
 import uim.orm;
 
 @safe:

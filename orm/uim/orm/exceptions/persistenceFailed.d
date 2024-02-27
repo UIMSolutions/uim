@@ -4,7 +4,9 @@
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
 module uim.orm.exceptions.persistencefailed;
+import uim.orm;
 
+@safe:
 // Used when a strict save or delete fails
 class DPersistenceFailedException : DORMException {
     	mixin(ExceptionThis!("PersistenceFailed"));

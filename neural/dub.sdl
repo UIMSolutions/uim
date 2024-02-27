@@ -1,4 +1,4 @@
-name "forms"
+name "neural"
 homepage "https://www.sicherheitsschmiede.de/"
 license "Apache-2.0"
 copyright "Copyright © 2015-2024, Ozan Nurettin Süel"
@@ -20,4 +20,4 @@ targetType "library"
 sourcePaths "."
 importPaths "."
 
-targetName "uim-forms"
+targetName "uim-neural"

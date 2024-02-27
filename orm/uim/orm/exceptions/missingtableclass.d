@@ -5,7 +5,7 @@ import uim.orm;
 @safe:
 
 // Exception raised when a Table could not be found.
-class MissingTableClassException : DORMException {
+class DMissingTableClassException : DORMException {
 	mixin(ExceptionThis!("MissingTableClass"));
 
 	override bool initialize(IData[string] configData = null) {

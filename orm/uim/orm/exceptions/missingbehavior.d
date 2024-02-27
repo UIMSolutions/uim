@@ -5,8 +5,8 @@
 **********************************************************************************************************/
 module uim.orm.exceptions.missingbehavior;
 
-@safe:
 import uim.orm;
+@safe:
 
 // Used when a behavior cannot be found.
 class DMissingBehaviorException : DORMException {

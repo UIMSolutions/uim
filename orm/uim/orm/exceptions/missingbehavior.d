@@ -9,6 +9,18 @@ module uim.orm.exceptions.missingbehavior;
 import uim.orm;
 
 // Used when a behavior cannot be found.
-class MissingBehaviorException : DORMException {
-    protected string _messageTemplate = "Behavior class %s could not be found.";
+class DMissingBehaviorException : DORMException {
+	mixin(ExceptionThis!("MissingBehavior"));
+
+	override bool initialize(IData[string] configData = null) {
+		if (!super.initialize(configData)) {
+			return false;
+		}
+
+		this
+			.messageTemplate("Behavior class %s could not be found.");
+
+		return true;
+	}
 }
+mixin(ExceptionCalls!("MissingBehavior"));

@@ -1,4 +1,4 @@
-module uim.orm.uim.orm.tests.behavior;
+module uim.orm.tests.behavior;
 
 import uim.orm;
 

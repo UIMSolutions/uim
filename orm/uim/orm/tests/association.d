@@ -1,4 +1,4 @@
-module uim.orm.uim.orm.tests.association;
+module uim.orm.tests.association;
 
 import uim.orm;
 

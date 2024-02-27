@@ -1,4 +1,4 @@
-module source.uim.orm.exceptions.missingtableclass;
+module uim.orm.exceptions.missingtableclass;
 
 import uim.orm;
 
@@ -6,5 +6,18 @@ import uim.orm;
 
 // Exception raised when a Table could not be found.
 class MissingTableClassException : DORMException {
-    protected string _messageTemplate = "Table class %s could not be found.";
+	mixin(ExceptionThis!("MissingTableClass"));
+
+	override bool initialize(IData[string] configData = null) {
+		if (!super.initialize(configData)) {
+			return false;
+		}
+
+		this
+			.messageTemplate("Table class %s could not be found.");
+
+		return true;
+	}
 }
+
+mixin(ExceptionCalls!("MissingTableClass"));		

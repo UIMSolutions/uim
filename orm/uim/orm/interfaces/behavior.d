@@ -1,4 +1,4 @@
-module uim.orm.uim.orm.interfaces.behavior;
+module uim.orm.interfaces.behavior;
 
 import uim.orm;
 

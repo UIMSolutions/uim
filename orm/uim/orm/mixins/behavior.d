@@ -1,4 +1,4 @@
-module uim.orm.uim.orm.mixins.behavior;
+module uim.orm.mixins.behavior;
 
 import uim.orm;
 

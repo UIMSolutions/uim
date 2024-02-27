@@ -1,0 +1,16 @@
+module uim.logging.interfaces.formatter;
+
+import uim.logging;
+
+@safe:
+
+interface ILogFormatter {
+  string name();
+  void name(string newName);
+
+  IData[string] config();
+  void config(IData[string] newConfig);
+
+  Json configuration.data(string key);
+  void configuration.data(string key, Json newData);
+}

@@ -4,3 +4,6 @@ import uim.orm;
 
 @safe:
 
+bool testBehavior(IBehavior behaviorToTest) {
+    return true;
+}

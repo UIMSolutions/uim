@@ -4,3 +4,6 @@ import uim.orm;
 
 @safe:
 
+bool testAssociation(IAssociation associationToTest) {
+    return true;
+}

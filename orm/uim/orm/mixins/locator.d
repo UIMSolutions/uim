@@ -1,9 +1,9 @@
 module orm.uim.orm.mixins.locator;
 
-module uim.logging.mixins.logger;
+module uim.logging.mixins.locator;
 
-string loggerThis(string name) {
-    auto fullname = name~"Logger";
+string locatorThis(string name) {
+    auto fullname = name~"Locator";
     return `
 this() {
     initialize(); this.name("`~fullname~`");
@@ -14,18 +14,18 @@ this(string name) {
     `;    
 }
 
-template LoggerThis(string name) {
-    const char[] LoggerThis = loggerThis(name);
+template LocatorThis(string name) {
+    const char[] LocatorThis = locatorThis(name);
 }
 
-string loggerCalls(string name) {
-    auto fullname = name~"Logger";
+string locatorCalls(string name) {
+    auto fullname = name~"Locator";
     return `
 auto `~fullname~`() { return new D`~fullname~`(); }
 auto `~fullname~`(string name) { return new D`~fullname~`(name); }
     `;    
 }
 
-template LoggerCalls(string name) {
-    const char[] LoggerThis = loggerCalls(name);
+template LocatorCalls(string name) {
+    const char[] LocatorThis = locatorCalls(name);
 }

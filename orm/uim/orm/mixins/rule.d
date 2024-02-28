@@ -1,9 +1,9 @@
 module orm.uim.orm.mixins.rule;
 
-module uim.logging.mixins.logger;
+module uim.logging.mixins.rule;
 
-string loggerThis(string name) {
-    auto fullname = name~"Logger";
+string ruleThis(string name) {
+    auto fullname = name~"Rule";
     return `
 this() {
     initialize(); this.name("`~fullname~`");
@@ -14,18 +14,18 @@ this(string name) {
     `;    
 }
 
-template LoggerThis(string name) {
-    const char[] LoggerThis = loggerThis(name);
+template RuleThis(string name) {
+    const char[] RuleThis = ruleThis(name);
 }
 
-string loggerCalls(string name) {
-    auto fullname = name~"Logger";
+string ruleCalls(string name) {
+    auto fullname = name~"Rule";
     return `
 auto `~fullname~`() { return new D`~fullname~`(); }
 auto `~fullname~`(string name) { return new D`~fullname~`(name); }
     `;    
 }
 
-template LoggerCalls(string name) {
-    const char[] LoggerThis = loggerCalls(name);
+template RuleCalls(string name) {
+    const char[] RuleThis = ruleCalls(name);
 }

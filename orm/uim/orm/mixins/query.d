@@ -1,9 +1,9 @@
 module orm.uim.orm.mixins.query;
 
-module uim.logging.mixins.logger;
+module uim.logging.mixins.query;
 
-string loggerThis(string name) {
-    auto fullname = name~"Logger";
+string queryThis(string name) {
+    auto fullname = name~"Query";
     return `
 this() {
     initialize(); this.name("`~fullname~`");
@@ -14,18 +14,18 @@ this(string name) {
     `;    
 }
 
-template LoggerThis(string name) {
-    const char[] LoggerThis = loggerThis(name);
+template QueryThis(string name) {
+    const char[] QueryThis = queryThis(name);
 }
 
-string loggerCalls(string name) {
-    auto fullname = name~"Logger";
+string queryCalls(string name) {
+    auto fullname = name~"Query";
     return `
 auto `~fullname~`() { return new D`~fullname~`(); }
 auto `~fullname~`(string name) { return new D`~fullname~`(name); }
     `;    
 }
 
-template LoggerCalls(string name) {
-    const char[] LoggerThis = loggerCalls(name);
+template QueryCalls(string name) {
+    const char[] QueryThis = queryCalls(name);
 }

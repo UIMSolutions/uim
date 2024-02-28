@@ -3,10 +3,10 @@ module uim.orm.mixins.behavior;
 import uim.orm;
 
 @safe:
-module uim.logging.mixins.logger;
+module uim.logging.mixins.behavior;
 
-string loggerThis(string name) {
-    auto fullname = name~"Logger";
+string behaviorThis(string name) {
+    auto fullname = name~"Behavior";
     return `
 this() {
     initialize(); this.name("`~fullname~`");
@@ -17,18 +17,18 @@ this(string name) {
     `;    
 }
 
-template LoggerThis(string name) {
-    const char[] LoggerThis = loggerThis(name);
+template BehaviorThis(string name) {
+    const char[] BehaviorThis = behaviorThis(name);
 }
 
-string loggerCalls(string name) {
-    auto fullname = name~"Logger";
+string behaviorCalls(string name) {
+    auto fullname = name~"Behavior";
     return `
 auto `~fullname~`() { return new D`~fullname~`(); }
 auto `~fullname~`(string name) { return new D`~fullname~`(name); }
     `;    
 }
 
-template LoggerCalls(string name) {
-    const char[] LoggerThis = loggerCalls(name);
+template BehaviorCalls(string name) {
+    const char[] BehaviorThis = behaviorCalls(name);
 }

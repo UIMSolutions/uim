@@ -5,8 +5,8 @@ import uim.http;
 @safe:
 
 // I18n exception.
-class DFSException : UimException {
-  mixin(ExceptionThis!("View"));
+class DHttpException : UimException {
+  mixin(ExceptionThis!("Http"));
 
   override bool initialize() {
     if (!super.initialize(configData)) {
@@ -19,4 +19,4 @@ class DFSException : UimException {
     return true;
   }
 }
-mixin(ExceptionCalls!("View"));
+mixin(ExceptionCalls!("Http"));

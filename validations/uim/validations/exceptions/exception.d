@@ -1,12 +1,12 @@
-module uim.validations.uim.validations.exceptions.exception;
+module uim.validations.exceptions.exception;
 
-import uim.orm;
+import uim.validations;
 
 @safe:
 
-// Base ORM exception.
-class DORMException : UimException {
-  mixin(ExceptionThis!("ORM"));
+// Base Validations exception.
+class DValidationsException : UimException {
+  mixin(ExceptionThis!("Validations"));
 
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) {
@@ -14,9 +14,9 @@ class DORMException : UimException {
     }
 
     this
-      .messageTemplate("Error in libary uim-orm");
+      .messageTemplate("Error in libary uim-validations");
 
     return true;
   }
 }
-mixin(ExceptionCalls!("ORM"));
+mixin(ExceptionCalls!("Validations"));

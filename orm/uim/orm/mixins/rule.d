@@ -1,8 +1,5 @@
-module uim.orm.mixins.behavior;
+module orm.uim.orm.mixins.rule;
 
-import uim.orm;
-
-@safe:
 module uim.logging.mixins.logger;
 
 string loggerThis(string name) {

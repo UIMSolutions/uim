@@ -4,4 +4,4 @@ import uim.orm;
 
 @safe:
 
-interface IAssociation {}
+interface IAssociation :INamed {}

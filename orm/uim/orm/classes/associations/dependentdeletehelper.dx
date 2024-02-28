@@ -1,0 +1,51 @@
+module uim.orm.Association;
+
+import uim.orm;
+
+@safe:
+
+/*
+/**
+ * Helper class for cascading deletes in associations.
+ *
+ * @internal
+ */
+class DependentDeleteHelper {
+    /**
+     * Cascade a delete to remove dependent records.
+     *
+     * This method does nothing if the association is not dependent.
+     * Params:
+     * \UIM\ORM\Association association The association callbacks are being cascaded on.
+     * @param \UIM\Datasource\IEntity entity The entity that started the cascaded delete.
+     * @param IData[string] options The options for the original delete.
+     */
+    bool cascadeDelete(Association association, IEntity entity, IData[string] options = null) {
+        if (!association.getDependent()) {
+            return true;
+        }        
+        table = association.getTarget();
+        /** @var callable aCallable */
+        aCallable = [association, "aliasField"];
+        foreignKey = array_map(aCallable, (array)association.getForeignKey());
+        bindingKey = (array)association.getBindingKey();
+        bindingValue = entity.extract(bindingKey);
+        if (in_array(null, bindingValue, true)) {
+            return true;
+        }
+        conditions = array_combine(foreignKey, bindingValue);
+
+        if (association.getCascadeCallbacks()) {
+            foreach (association.find().where(conditions).all().toList() as related) {
+                auto success = aTable.delete(related, options);
+                if (!success) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        association.deleteAll(conditions);
+
+        return true;
+    }
+}

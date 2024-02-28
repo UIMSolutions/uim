@@ -23,6 +23,7 @@ public {
 	import uim.oop.interfaces.exception;
 	import uim.oop.interfaces.iterable;
 	import uim.oop.interfaces.map;
+	import uim.oop.interfaces.named;
 	import uim.oop.interfaces.plugin;
 	import uim.oop.interfaces.pluginapplication;
 	import uim.oop.interfaces.requesthandler;

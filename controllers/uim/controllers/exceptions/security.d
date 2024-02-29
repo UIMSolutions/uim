@@ -5,7 +5,7 @@ import uim.controllers;
 @safe:
 
 // Security exception - used when SecurityComponent detects any issue with the current request
-class DSecurityException : DControllerException {
+class DSecurityException : DControllersException {
   mixin(ExceptionThis!("Security"));
 
   override bool initialize(IData[string] configData = null) {

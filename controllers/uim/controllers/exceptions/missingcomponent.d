@@ -5,7 +5,7 @@ import uim.controllers;
 @safe:
 
 // Used when a component cannot be found.
-class DMissingComponentException : DControllerException {
+class DMissingComponentException : DControllersException {
   mixin(ExceptionThis!("MissingComponent"));
 
   override bool initialize(IData[string] configData = null) {

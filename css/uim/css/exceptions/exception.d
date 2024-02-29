@@ -1,4 +1,4 @@
-module css.uim.css.exceptions.exception;
+module uim.css.exceptions.exception;
 
 import uim.css;
 

@@ -12,7 +12,7 @@ class DAuthSecurityException : DSecurityException {
     if (!super.initialize(configData)) { return false; }
 
     // Security Exception type
-    _type = "auth";
+    _exceptionType = "auth";
 
     return true;
   }

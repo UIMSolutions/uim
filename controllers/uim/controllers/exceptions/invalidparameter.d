@@ -5,7 +5,7 @@ import uim.controllers;
 @safe:
 
 // Used when a passed parameter or action parameter type declaration is missing or invalid.
-class DInvalidParameterException : DControllerException {
+class DInvalidParameterException : DControllersException {
   mixin(ExceptionThis!("InvalidParameter"));
 
   // Switches message template based on `template` key in message array.

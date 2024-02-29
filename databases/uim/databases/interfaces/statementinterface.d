@@ -1,4 +1,4 @@
-module source.uim.databases.interfaces.statement;
+module uim.databases.interfaces.statement;
 
 import uim.databases;
 

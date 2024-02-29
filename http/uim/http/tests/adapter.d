@@ -1,6 +1,6 @@
 module uim.http.tests.adapter;
 
-import uim.logging;
+import uim.http;
 
 @safe:
 

@@ -1,4 +1,4 @@
-module http.uim.http.mixins.adapter;
+module uim.http.mixins.adapter;
 
 string adapterThis(string name) {
     auto fullname = name~"Adapter";

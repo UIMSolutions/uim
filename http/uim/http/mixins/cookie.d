@@ -1,4 +1,4 @@
-module http.uim.http.mixins.cookie;
+module uim.http.mixins.cookie;
 
 string cookieThis(string name) {
     auto fullname = name~"Cookie";

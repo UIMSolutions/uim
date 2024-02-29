@@ -1,6 +1,6 @@
-module http.uim.http.tests.cookie;
+module uim.http.tests.cookie;
 
-import uim.logging;
+import uim.http;
 
 @safe:
 

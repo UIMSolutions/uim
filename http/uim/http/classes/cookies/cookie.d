@@ -27,9 +27,9 @@ class DCookie : ICookie {
 
     // Valid values for "SameSite" attribute.
     const string[] SAMESITE_VALUES = [
-        self.SAMESITE_LAX,
-        self.SAMESITE_STRICT,
-        self.SAMESITE_NONE,
+        SAMESITE_LAX,
+        SAMESITE_STRICT,
+        SAMESITE_NONE,
     ];
 
     // Get the id for a cookie
@@ -42,8 +42,63 @@ class DCookie : ICookie {
         return null; 
     }
 
+    // Get the timestamp from the expiration time
+    int getExpiresTimestamp() {
+        return 0;
+    }
+
+    // Builds the expiration value part of the header string
+    string getFormattedExpires() {
+        return null; 
+    }
+
     // Get the domain attribute.
+    
     string getDomain() {
         return null; 
+    }
+
+    // Check if the cookie is HTTP only
+    bool isHttpOnly() {
+        return false;
+    }
+
+    // Create a cookie with HTTP Only updated
+    static void withHttpOnly(bool httpOnly);
+
+    // Check if the cookie is secure
+    bool isSecure() {
+        return false;
+    }
+
+    // Create a cookie with Secure updated
+    static void withSecure(bool secure) {
+    }
+
+    /**
+     * Get the SameSite attribute.
+     */
+    // TOD SameSiteEnum getSameSite();
+
+    /**
+     * Create a cookie with an updated SameSite option.
+     * Params:
+     * \UIM\Http\Cookie\SameSiteEnum|string|null sameSite Value for to set for Samesite option.
+     */
+    // TODO static withSameSite(SameSiteEnum|string|null sameSite);
+
+    // Get cookie options
+    IData[string] getOptions() {
+        return null;
+    }
+
+    // Get cookie data as array.
+    IData[string] toArray() {
+        return null;
+    }
+
+    // Returns the cookie as header value
+    string toHeaderValue() {
+        return null;
     }
 }

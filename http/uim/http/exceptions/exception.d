@@ -8,7 +8,7 @@ import uim.http;
 class DHttpException : UimException {
   mixin(ExceptionThis!("Http"));
 
-  override bool initialize() {
+  override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) {
       return false;
     }
@@ -19,4 +19,5 @@ class DHttpException : UimException {
     return true;
   }
 }
+
 mixin(ExceptionCalls!("Http"));

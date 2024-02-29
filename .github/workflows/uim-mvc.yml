@@ -1,4 +1,4 @@
-name: uim-css
+name: uim-mvc
 
 on:
   push:
@@ -20,7 +20,7 @@ jobs:
 
     - name: 'Build & Test'
       run: |
-        cd ./css/
+        cd ./mvc/
         # Build the project, with its main file included, without unittests
         dub build --compiler=$DC
         # Build and run tests, as defined by `unittest` configuration

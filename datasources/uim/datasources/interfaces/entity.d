@@ -29,13 +29,8 @@ interface IEntity // : ArrayAccess, JsonSerializable, Stringable
      * Params:
      * string[] fields An array of fields to treat as virtual.
      * @param bool $merge Merge the new fields with the existing. By default false.
-<<<<<<< HEAD
-     * /
-    auto setVirtual(array fields, bool canMergeExisting = false);
-=======
      */
   void setVirtual(string[] fields, bool canMergeExisting = false);
->>>>>>> d27ddee9490c861ac4b6307bb34c5441377444dd
 
   // Gets the virtual fields on this entity.
   string[] getVirtual();
@@ -52,13 +47,8 @@ interface IEntity // : ArrayAccess, JsonSerializable, Stringable
      */
   string[] getOriginalFields();
 
-<<<<<<< HEAD
-    // Sets the dirty status of a single field.
-    void setDirty(string fieldName, bool isDirtyMode = true);
-=======
   // Sets the dirty status of a single field.
   void setDirty(string fieldName, bool isDirtyMode = true);
->>>>>>> d27ddee9490c861ac4b6307bb34c5441377444dd
 
   /**
      * Checks if the entity is dirty or if a single field of it is dirty.
@@ -90,11 +80,7 @@ interface IEntity // : ArrayAccess, JsonSerializable, Stringable
      * Sets error messages to the entity
      * Params:
      * array $errors The array of errors to set.
-<<<<<<< HEAD
-     */
-=======
      * /
->>>>>>> d27ddee9490c861ac4b6307bb34c5441377444dd
     void setErrors(array $errors, bool shouldOoverwrite = false);
 
     /**
@@ -113,11 +99,7 @@ interface IEntity // : ArrayAccess, JsonSerializable, Stringable
      * @param bool $set true marks the field as accessible, false will
      * mark it as protected.
      */
-<<<<<<< HEAD
-    void setAccess(string[] fieldName, bool set);
-=======
   void setAccess(string[] fieldName, bool set);
->>>>>>> d27ddee9490c861ac4b6307bb34c5441377444dd
 
   // Accessible configuration for this entity.
   bool[] getAccessible();
@@ -125,13 +107,6 @@ interface IEntity // : ArrayAccess, JsonSerializable, Stringable
   // Checks if a field is accessible
   bool isAccessible(string fieldName);
 
-<<<<<<< HEAD
-    // Sets the source alias
-    void setSource(string aliasName);
-
-    // Returns the alias of the repository from which this entity came from.
-    string getSource();
-=======
   // Sets the source alias
   void setSource(string aliasName);
 
@@ -139,7 +114,6 @@ interface IEntity // : ArrayAccess, JsonSerializable, Stringable
      * Returns the alias of the repository from which this entity came from.
      */
   string getSource();
->>>>>>> d27ddee9490c861ac4b6307bb34c5441377444dd
 
   /**
      * Returns an array with the requested original fields
@@ -147,11 +121,7 @@ interface IEntity // : ArrayAccess, JsonSerializable, Stringable
      * Params:
      * string[] fields List of fields to be returned
      * /
-<<<<<<< HEAD
     array extractOriginal(string[] fields);
-=======
-    array extractOriginal(array fields);
->>>>>>> d27ddee9490c861ac4b6307bb34c5441377444dd
 
     /**
      * Returns an array with only the original fields
@@ -159,11 +129,7 @@ interface IEntity // : ArrayAccess, JsonSerializable, Stringable
      * Params:
      * string[] fields List of fields to be returned
      * /
-<<<<<<< HEAD
     array extractOriginalChanged(string[] fields);
-=======
-    array extractOriginalChanged(array fields);
->>>>>>> d27ddee9490c861ac4b6307bb34c5441377444dd
 
     /**
      * Sets one or multiple fields to the specified value
@@ -175,11 +141,7 @@ interface IEntity // : ArrayAccess, JsonSerializable, Stringable
      * @param IData[string] options Options to be used for setting the field. Allowed option
      * keys are `setter` and `guard`
      * /
-<<<<<<< HEAD
-    auto set(string[] fieldName, Json aValue = null, IData[string] optionData = null);
-=======
     void set(string[] fieldName, Json aValue = null, IData[string] optionData = null);
->>>>>>> d27ddee9490c861ac4b6307bb34c5441377444dd
 
     /**
      * Returns the value of a field by name
@@ -222,19 +184,11 @@ interface IEntity // : ArrayAccess, JsonSerializable, Stringable
      * Params:
      * string[]|string fieldName The field to check.
      */
-<<<<<<< HEAD
-    bool has(string[] fieldName);
-
-    // Removes a field or list of fields from this entity
-    void unset(string[] fieldName...);
-    void unset(string[] fieldNames);
-=======
   bool has(string[] fieldName);
 
   // Removes a field or list of fields from this entity
   void unset(string[] fieldName...);
   void unset(string[] fieldNames);
->>>>>>> d27ddee9490c861ac4b6307bb34c5441377444dd
 
   // Get the list of visible fields.
   string[] getVisible();
@@ -244,13 +198,8 @@ interface IEntity // : ArrayAccess, JsonSerializable, Stringable
      *
      * *Note* hidden fields are not visible, and will not be output
      * by toArray().
-<<<<<<< HEAD
-     * /
-    array toArray();
-=======
      *  /
   array toArray();
->>>>>>> d27ddee9490c861ac4b6307bb34c5441377444dd
 
   /**
      * Returns an array with the requested fields
@@ -259,11 +208,7 @@ interface IEntity // : ArrayAccess, JsonSerializable, Stringable
      * string[] fields list of fields to be returned
      * @param bool $onlyDirty Return the requested field only if it is dirty
      * /
-<<<<<<< HEAD
-    array extract(array fields, bool $onlyDirty = false);
-=======
   array extract(array fields, bool$onlyDirty = false);
->>>>>>> d27ddee9490c861ac4b6307bb34c5441377444dd
 
   /**
      * Sets the entire entity as clean, which means that it will appear as
@@ -280,17 +225,8 @@ interface IEntity // : ArrayAccess, JsonSerializable, Stringable
      * Params:
      * bool $new Indicate whether this entity has been persisted.
      */
-<<<<<<< HEAD
     // TODO void setNew(bool $new);
 
     // Returns whether this entity has already been persisted.
     bool isNew();
-=======
-  void setNew(bool isNew);
-
-  /**
-     * Returns whether this entity has already been persisted.
-     */
-  bool isNew();
->>>>>>> d27ddee9490c861ac4b6307bb34c5441377444dd
 }

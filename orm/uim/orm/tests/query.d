@@ -1,4 +1,4 @@
-module orm.uim.orm.tests.query;
+module uim.orm.tests.query;
 
 import uim.orm;
 

@@ -1,2 +1,8 @@
-module orm.uim.orm.interfaces.rule;
+module uim.orm.interfaces.rule;
+
+import uim.orm;
+
+@safe:
+
+interface IRule {}
 

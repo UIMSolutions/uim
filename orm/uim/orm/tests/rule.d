@@ -1,4 +1,4 @@
-module orm.uim.orm.tests.rule;
+module uim.orm.tests.rule;
 
 import uim.orm;
 

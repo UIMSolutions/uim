@@ -1,4 +1,4 @@
-module orm.uim.orm.tests.locator;
+module uim.orm.tests.locator;
 
 import uim.orm;
 

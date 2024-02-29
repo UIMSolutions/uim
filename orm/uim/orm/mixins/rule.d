@@ -1,6 +1,4 @@
-module orm.uim.orm.mixins.rule;
-
-module uim.logging.mixins.rule;
+module uim.orm.mixins.rule;
 
 string ruleThis(string name) {
     auto fullname = name~"Rule";

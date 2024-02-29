@@ -8,6 +8,6 @@ module uim.databases.exceptions.missingextension;
 @safe:
 import uim.databases;
 
-class MissingExtensionException : DatabaseException {
-    protected _messageTemplate = "Database driver %s cannot be used due to a missing extension or unmet dependency. Requested by connection '%s'";
+class MissingExtensionException : DDatabaseException {
+    // TODO protected _messageTemplate = "Database driver %s cannot be used due to a missing extension or unmet dependency. Requested by connection '%s'";
 }

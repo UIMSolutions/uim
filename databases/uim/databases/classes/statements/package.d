@@ -1,4 +1,4 @@
-module databases.uim.databases.classes.statements;
+module uim.databases.classes.statements;
 
 public {
     import uim.databases.classes.statements.statement;

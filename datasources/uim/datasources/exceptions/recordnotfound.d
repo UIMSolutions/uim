@@ -9,8 +9,8 @@ import uim.datasources;
 
 @safe:
 // Exception raised when a particular record was not found
-class DDSORecordNotFoundException : DDatasourcesException {
-	mixin(ExceptionThis!("DSORecordNotFound"));
+class DRecordNotFoundException : DDatasourcesException {
+	mixin(ExceptionThis!("RecordNotFound"));
 
     override bool initialize(IData[string] configData = null) {
 		if (!super.initialize(configData)) { return false; }
@@ -21,4 +21,4 @@ class DDSORecordNotFoundException : DDatasourcesException {
 		return true;
 	}
 }
-mixin(ExceptionCalls!("DSORecordNotFound"));
+mixin(ExceptionCalls!("RecordNotFound"));

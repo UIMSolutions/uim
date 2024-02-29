@@ -4,8 +4,9 @@ import uim.datasources;
 
 @safe:
 
-class DConnection : IConnection {
-      const string ROLE_WRITE = "write";
+class DConnection : IConnection
+{
+  const string ROLE_WRITE = "write";
 
   const string ROLE_READ = "read";
 

@@ -16,7 +16,7 @@ interface IConnection {
   // ICache getCacher();
 
   // Get the configuration name for this connection.
-  string configName();
+  // string configName();
 
   //Get the configuration data used to create the connection
   // Json[string] config();

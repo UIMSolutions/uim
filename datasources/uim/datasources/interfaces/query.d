@@ -363,5 +363,5 @@ interface IQuery {
      * @param STRINGAA types Associative array of type names used to bind values to query
      * @param bool $overwrite whether to reset conditions with passed list or not
      */
-    auto where(Closure|string[]|null $conditions = null, array types = [], bool $overwrite = false);
+    // TODO auto where(Closure|string[]|null $conditions = null, array types = [], bool $overwrite = false);
 }

@@ -35,7 +35,7 @@ interface ISchema {
      * Params:
      * string columnName The name of the column
      * @param IData[string]|string aattrs The attributes for the column or the type name.
-     */
+     * /
    auto addColumn(string columnName, array | string aattrs);
 
    /Get column data in the table.
@@ -48,7 +48,7 @@ interface ISchema {
      * Remove a column from the table schema.
      *
      * If the column is not defined in the table, no error will be raised.
-     */
+     * /
    auto removeColumn(string columnName);
 
    // Get the column names in the table.
@@ -76,7 +76,7 @@ interface ISchema {
      * Params:
      * string acolumn The column name to get the base type from
      */
-   string baseColumnType(string acolumn) : ;
+   string baseColumnType(string acolumn);
 
    // Check whether a field isNullable. Missing columns are nullable.
    bool isNullable(string columnName);

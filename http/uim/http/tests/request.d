@@ -1,4 +1,4 @@
-module http.uim.http.tests.request;
+module uim.http.tests.request;
 
 import uim.http;
 

@@ -1,8 +1,8 @@
 module uim.http.mixins;
 
 public {
-    import uim.http.interfaces.adapter;
-    import uim.http.interfaces.cookie;
-    import uim.http.interfaces.request;
-    import uim.http.interfaces.response;
+    import uim.http.mixins.adapter;
+    import uim.http.mixins.cookie;
+    import uim.http.mixins.request;
+    import uim.http.mixins.response;
 }

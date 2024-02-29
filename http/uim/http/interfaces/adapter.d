@@ -1,6 +1,6 @@
-module uim.cake.http.interfaces.adapter;
+module uim.http.interfaces.adapter;
 
-import uim.cake;
+import uim.http;
 
 @safe:
 

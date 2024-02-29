@@ -52,21 +52,17 @@ interface ICookie {
      * string adomain Domain to set
      * @return static
      */
-    static withDomain(string adomain);
+    // TODO static withDomain(string adomain);
 
     /**
      * Get the current expiry time
      */
-    IDateTime getExpiry();
+    // TODO IDateTime getExpiry();
 
-    /**
-     * Get the timestamp from the expiration time
-     */
+    // Get the timestamp from the expiration time
     int getExpiresTimestamp() ;
 
-    /**
-     * Builds the expiration value part of the header string
-     */
+    // Builds the expiration value part of the header string
     string getFormattedExpires();
 
     /**
@@ -75,12 +71,12 @@ interface ICookie {
      * \IDateTime dateTime Date time object
      * @return static
      */
-    static withExpiry(IDateTime dateTime);
+    // TODO static withExpiry(IDateTime dateTime);
 
     /**
      * Create a new cookie that will virtually never expire.
      */
-    static withNeverExpire();
+    // TODO static withNeverExpire();
 
     /**
      * Create a new cookie that will expire/delete the cookie from the browser.
@@ -89,7 +85,7 @@ interface ICookie {
      *
      * @return static
      */
-    auto withExpired(): static;
+    // TODO auto withExpired(): static;
 
     /**
      * Check if a cookie is expired when compared to time
@@ -98,56 +94,38 @@ interface ICookie {
      * Params:
      * \IDateTime|null time The time to test against. Defaults to 'now' in UTC.
      */
-    bool isExpired(?IDateTime time = null);
+    // TOD bool isExpired(IDateTime time = null);
 
-    /**
-     * Check if the cookie is HTTP only
-     */
+    // Check if the cookie is HTTP only
     bool isHttpOnly();
 
-    /**
-     * Create a cookie with HTTP Only updated
-     * Params:
-     * bool httpOnly HTTP Only
-     */
-    static withHttpOnly(bool httpOnly);
+    // Create a cookie with HTTP Only updated
+    static void withHttpOnly(bool httpOnly);
 
-    /**
-     * Check if the cookie is secure
-     */
+    // Check if the cookie is secure
     bool isSecure();
 
-    /**
-     * Create a cookie with Secure updated
-     * Params:
-     * bool secure Secure attribute value
-     */
-    static withSecure(bool secure);
+    // Create a cookie with Secure updated
+    static void withSecure(bool secure);
 
     /**
      * Get the SameSite attribute.
      */
-    SameSiteEnum getSameSite();
+    // TOD SameSiteEnum getSameSite();
 
     /**
      * Create a cookie with an updated SameSite option.
      * Params:
      * \UIM\Http\Cookie\SameSiteEnum|string|null sameSite Value for to set for Samesite option.
      */
-    static withSameSite(SameSiteEnum|string|null sameSite);
+    // TODO static withSameSite(SameSiteEnum|string|null sameSite);
 
-    /**
-     * Get cookie options
-     */
+    // Get cookie options
     IData[string] getOptions();
 
-    /**
-     * Get cookie data as array.
-     */
+    // Get cookie data as array.
     IData[string] toArray();
 
-    /**
-     * Returns the cookie as header value
-     */
+    // Returns the cookie as header value
     string toHeaderValue();
 }

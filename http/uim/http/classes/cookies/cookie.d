@@ -32,4 +32,18 @@ class DCookie : ICookie {
         self.SAMESITE_NONE,
     ];
 
+    // Get the id for a cookie
+    string getId() {
+        return null; 
+    }
+
+    // Get the path attribute.
+    string getPath() {
+        return null; 
+    }
+
+    // Get the domain attribute.
+    string getDomain() {
+        return null; 
+    }
 }

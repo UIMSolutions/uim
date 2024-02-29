@@ -1,10 +1,23 @@
 
 module uim.http.interfaces.cookie;
 
-use IDateTime;
+import uim.http;
+
+@safe:
+
+// use IDateTime;
 // Cookie Interface
 interface ICookie {
-    // Sets the cookie name
+    // Get the id for a cookie
+    string getId();
+
+    // Get the path attribute.
+    string getPath();
+
+    // Get the domain attribute.
+    string getDomain();
+
+/*    // Sets the cookie name
     static void withName(string aName);
 
     // Gets the cookie name
@@ -13,37 +26,25 @@ interface ICookie {
     // Gets the cookie value
     string[] getValue();
 
-    / Gets the cookie value as scalar.
+    // Gets the cookie value as scalar.
     string getScalarValue();
 
     /**
      * Create a cookie with an updated value.
      * Params:
      * string[]|float|int|bool aValue Value of the cookie to set
-     */
+     * /
     static withValue(string[]|float|int|bool aValue);
 
-    /**
-     * Get the id for a cookie
-     * Cookies are unique across name, domain, path tuples.
-     */
-    string getId();
-
-    // Get the path attribute.
-    string getPath();
 
     /**
      * Create a new cookie with an updated path
      * Params:
      * string aPath Sets the path
      * @return static
-     */
+     * /
     auto withPath(string aPath): static;
 
-    /**
-     * Get the domain attribute.
-     */
-    string getDomain();
 
     /**
      * Create a cookie with an updated domain

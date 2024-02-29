@@ -1,6 +1,6 @@
 module uim.genetics.exceptions.exception;
 
-import uim.Genetics;
+import uim.genetics;
 
 @safe:
 

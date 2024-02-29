@@ -1,12 +1,12 @@
-module uim.consoles.exceptions.exception;
+module uim.languages.exceptions.exception;
 
-import uim.consoles;
+import uim.languages;
 
 @safe:
 
 // I18n exception.
-class DControllerException : UimException {
-  mixin(ExceptionThis!("Controller"));
+class DLanguagesException : UimException {
+  mixin(ExceptionThis!("Languages"));
 
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) {
@@ -14,9 +14,9 @@ class DControllerException : UimException {
     }
 
     this
-      .messageTemplate("Error in libary uim-consoles");
+      .messageTemplate("Error in libary uim-languages");
 
     return true;
   }
 }
-mixin(ExceptionCalls!("Controller"));
+mixin(ExceptionCalls!("Languages"));

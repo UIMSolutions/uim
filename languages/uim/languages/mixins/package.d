@@ -1,2 +1,2 @@
-module uim.consoles.mixins;
+module uim.languages.mixins;
 

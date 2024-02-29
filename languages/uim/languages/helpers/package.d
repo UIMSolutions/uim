@@ -1,2 +1,2 @@
-module uim.consoles.helpers;
+module uim.languages.helpers;
 

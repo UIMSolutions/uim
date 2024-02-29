@@ -22,7 +22,7 @@ interface ILocator {
     /**
      * Set a repository instance.
      *
-     * @param uim.cake.Datasource\IRepository $repository The repository to set.
+     * @param uim.Datasource\IRepository $repository The repository to set.
      */
     IRepository set(string aliasName, IRepository repository);
 

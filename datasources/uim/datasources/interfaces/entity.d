@@ -1,4 +1,4 @@
-module uim.datasources.inerfaces.entity;
+module uim.datasources.interfaces.entity;
 
 import uim.datasources;
 
@@ -11,7 +11,7 @@ import uim.datasources;
  * @property Json  anId Alias for commonly used primary key.
  * @template-extends \ArrayAccess<string, mixed>
  */
-interface IEntity : ArrayAccess, JsonSerializable, Stringable
+interface IEntity // : ArrayAccess, JsonSerializable, Stringable
 {
   /**
      * Sets hidden fields.

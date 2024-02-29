@@ -5,7 +5,7 @@ import uim.datasources;
 @safe:
 
 // This interface describes the methods for pagination instance.
-interface IPaginated : Countable, Traversable {
+interface IPaginated { // : Countable, Traversable {
     // Get current page number.
     int currentPage();
 

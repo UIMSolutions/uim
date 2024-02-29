@@ -148,7 +148,7 @@ interface IQuery {
      * ```
      * Params:
      * int aLimit number of records to be returned
-     */
+     * /
     auto limit(int aLimit);
 
     /**

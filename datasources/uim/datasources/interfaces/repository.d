@@ -38,7 +38,7 @@ interface IRepository
      * Params:
      * string atype the type of query to perform
      * @param Json ...someArguments Arguments that match up to finder-specific parameters
-     */
+     * /
     IQuery find(string atype = "all", Json...someArguments);
 
     /**

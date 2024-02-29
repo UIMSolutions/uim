@@ -1,6 +1,6 @@
 module uim.datasources.interfaces.paginator;
 
-import uim.cake;
+import uim.datasources;
 
 @safe:
 

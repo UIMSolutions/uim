@@ -1,4 +1,4 @@
-module uim.routings.uim.froutingss.exceptions.exception;
+module uim.routings.exceptions.exception;
 
 import uim.routings;
 

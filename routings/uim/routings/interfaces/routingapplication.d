@@ -1,4 +1,4 @@
-module source.uim.myname.interfaces.routingapplication;
+module uim.routings.interfaces.routingapplication;
 
 import uim.routings;
 
@@ -13,5 +13,5 @@ interface IRoutingApplication {
      * Params:
      * \UIM\Routing\RouteBuilder myroutes A route builder to add routes into.
      */
-    void routes(RouteBuilder myroutes);
+    // void routes(RouteBuilder myroutes);
 }

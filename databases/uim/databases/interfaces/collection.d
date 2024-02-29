@@ -41,7 +41,7 @@ interface ICollection {
      * @return uim.databases.Schema\ITableSchema Object with column metadata.
      * @throws uim.databases.Exception\DatabaseException when table cannot be described.
      * /
-    ITableSchema describe(string name, array options = []);
+    ITableSchema describe(string name, IData[string] options = null);
 
     */
 }

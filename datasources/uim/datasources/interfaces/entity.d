@@ -17,7 +17,7 @@ interface IEntity : ArrayAccess, JsonSerializable, Stringable {
      *
      * fieldNames - An array of fields to hide from array exports.
      * shouldMerge - Merge the new fields with the existing. By default false.
-     */
+     * /
     auto setHidden(string[] fieldNames, bool shouldMerge = false);
 
     // Gets the hidden fields.
@@ -28,7 +28,7 @@ interface IEntity : ArrayAccess, JsonSerializable, Stringable {
      * Params:
      * string[] fields An array of fields to treat as virtual.
      * @param bool $merge Merge the new fields with the existing. By default false.
-     */
+     * /
     auto setVirtual(array fields, bool canMergeExisting = false);
 
     // Gets the virtual fields on this entity.
@@ -47,7 +47,7 @@ interface IEntity : ArrayAccess, JsonSerializable, Stringable {
     string[] getOriginalFields();
 
     // Sets the dirty status of a single field.
-    auto setDirty(string fieldName, bool isDirtyMode = true);
+    void setDirty(string fieldName, bool isDirtyMode = true);
 
     /**
      * Checks if the entity is dirty or if a single field of it is dirty.
@@ -65,14 +65,14 @@ interface IEntity : ArrayAccess, JsonSerializable, Stringable {
 
     /**
      * Returns all validation errors.
-     */
+     * /
     array getErrors();
 
     /**
      * Returns validation errors of a field
      * Params:
      * string fieldName Field name to get the errors from
-     */
+     * /
     array getError(string fieldName);
 
     /**
@@ -80,7 +80,7 @@ interface IEntity : ArrayAccess, JsonSerializable, Stringable {
      * Params:
      * array $errors The array of errors to set.
      */
-    auto setErrors(array $errors, bool shouldOoverwrite = false);
+    void setErrors(array $errors, bool shouldOoverwrite = false);
 
     /**
      * Sets errors for a single field
@@ -88,7 +88,7 @@ interface IEntity : ArrayAccess, JsonSerializable, Stringable {
      * string fieldName The field to get errors for, or the array of errors to set.
      * @param string[] aerrors The errors to be set for field
      * @param bool $overwrite Whether to overwrite pre-existing errors for field
-     */
+     * /
     IEntity setErrors(string fieldName, string[] aerrors, bool overwrite = false);
 
     /**
@@ -98,7 +98,7 @@ interface IEntity : ArrayAccess, JsonSerializable, Stringable {
      * @param bool $set true marks the field as accessible, false will
      * mark it as protected.
      */
-    auto setAccess(string[] fieldName, bool set);
+    void setAccess(string[] fieldName, bool set);
 
     // Accessible configuration for this entity.
     bool[] getAccessible();
@@ -107,11 +107,9 @@ interface IEntity : ArrayAccess, JsonSerializable, Stringable {
     bool isAccessible(string fieldName);
 
     // Sets the source alias
-    auto setSource(string aliasName);
+    void setSource(string aliasName);
 
-    /**
-     * Returns the alias of the repository from which this entity came from.
-     */
+    // Returns the alias of the repository from which this entity came from.
     string getSource();
 
     /**
@@ -119,16 +117,16 @@ interface IEntity : ArrayAccess, JsonSerializable, Stringable {
      * stored in this entity, indexed by field name.
      * Params:
      * string[] fields List of fields to be returned
-     */
-    array extractOriginal(array fields);
+     * /
+    array extractOriginal(string[] fields);
 
     /**
      * Returns an array with only the original fields
      * stored in this entity, indexed by field name.
      * Params:
      * string[] fields List of fields to be returned
-     */
-    array extractOriginalChanged(array fields);
+     * /
+    array extractOriginalChanged(string[] fields);
 
     /**
      * Sets one or multiple fields to the specified value
@@ -139,14 +137,14 @@ interface IEntity : ArrayAccess, JsonSerializable, Stringable {
      * first argument is also an array, in which case will be treated as options
      * @param IData[string] options Options to be used for setting the field. Allowed option
      * keys are `setter` and `guard`
-     */
+     * /
     auto set(string[] fieldName, Json aValue = null, IData[string] optionData = null);
 
     /**
      * Returns the value of a field by name
      * Params:
      * string fieldName the name of the field to retrieve
-    */
+    * /
     Json &get(string fieldName) ;
 
     /**
@@ -170,7 +168,7 @@ interface IEntity : ArrayAccess, JsonSerializable, Stringable {
      * Params:
      * string fieldName The name of the field.
      * @param bool allowFallback whether to allow falling back to the current field value if no original exists
-    */
+    * /
     Json getOriginal(string fieldName, bool allowFallback = true);
 
     // Gets all original values of the entity.
@@ -183,11 +181,11 @@ interface IEntity : ArrayAccess, JsonSerializable, Stringable {
      * Params:
      * string[]|string fieldName The field to check.
      */
-   bool has(string[] fieldName);
+    bool has(string[] fieldName);
 
     // Removes a field or list of fields from this entity
-    auto unset(string[] fieldName...);
-    auto unset(string[] fieldNames);
+    void unset(string[] fieldName...);
+    void unset(string[] fieldNames);
 
     // Get the list of visible fields.
     string[] getVisible();
@@ -197,7 +195,7 @@ interface IEntity : ArrayAccess, JsonSerializable, Stringable {
      *
      * *Note* hidden fields are not visible, and will not be output
      * by toArray().
-     */
+     * /
     array toArray();
 
     /**
@@ -206,7 +204,7 @@ interface IEntity : ArrayAccess, JsonSerializable, Stringable {
      * Params:
      * string[] fields list of fields to be returned
      * @param bool $onlyDirty Return the requested field only if it is dirty
-     */
+     * /
     array extract(array fields, bool $onlyDirty = false);
 
     /**
@@ -224,10 +222,8 @@ interface IEntity : ArrayAccess, JsonSerializable, Stringable {
      * Params:
      * bool $new Indicate whether this entity has been persisted.
      */
-    auto setNew(bool $new);
+    // TODO void setNew(bool $new);
 
-    /**
-     * Returns whether this entity has already been persisted.
-     */
+    // Returns whether this entity has already been persisted.
     bool isNew();
 }

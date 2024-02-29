@@ -52,9 +52,9 @@ class DMissingOptionException : DConsoleException {
   protected string findClosestItem(string needle, string[] haystack) {
     auto bestGuess = null;
     foreach (haystackItem; haystack) {
-      if (haystackItem.startsWith(needle)) {
-        return haystackItem;
-      }
+      //TODO Error? if (haystackItem.startsWith(needle)) {
+      //  return haystackItem;
+      // }
     }
 
     auto bestScore = 4;

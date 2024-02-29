@@ -9,8 +9,8 @@ import uim.datasources;
 
 @safe:
 // Used when a datasource cannot be found.
-class DDSOMissingDatasourceException : DatasourceException {
-	mixin(ExceptionThis!("DSOMissingDatasourceException"));
+class DDSOMissingDatasourceException : DDatasourcesException {
+	mixin(ExceptionThis!("DSOMissingDatasource"));
 
     override bool initialize(IData[string] configData = null) {
 		if (!super.initialize(configData)) { return false; }
@@ -21,4 +21,4 @@ class DDSOMissingDatasourceException : DatasourceException {
 		return true;
 	}
 }
-mixin(ExceptionCalls!("DSOMissingDatasourceException"));
+mixin(ExceptionCalls!("DSOMissingDatasource"));

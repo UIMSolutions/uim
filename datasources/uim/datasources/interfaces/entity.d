@@ -89,7 +89,7 @@ interface IEntity : ArrayAccess, JsonSerializable, Stringable {
      * @param string[] aerrors The errors to be set for field
      * @param bool $overwrite Whether to overwrite pre-existing errors for field
      */
-    IEntity setErrors(string fieldName, string[] aerrors, bool $overwrite = false);
+    IEntity setErrors(string fieldName, string[] aerrors, bool overwrite = false);
 
     /**
      * Stores whether a field value can be changed or set in this entity.
@@ -98,7 +98,7 @@ interface IEntity : ArrayAccess, JsonSerializable, Stringable {
      * @param bool $set true marks the field as accessible, false will
      * mark it as protected.
      */
-    auto setAccess(string[] fieldName, bool $set);
+    auto setAccess(string[] fieldName, bool set);
 
     // Accessible configuration for this entity.
     bool[] getAccessible();

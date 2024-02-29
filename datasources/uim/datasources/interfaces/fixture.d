@@ -13,10 +13,10 @@ interface IFixture {
     bool drop(IConnection aConnection);
 
     // Should insert all the records into the test database.*/
-   bool insert(IConnection aConnection);
+    bool insert(IConnection aConnection);
 
     // Truncates the current fixture.
-   bool truncate(IConnection aConnectionToDB);
+    bool truncate(IConnection aConnectionToDB);
 
     // Get the connection name this fixture should be inserted into.
     string connection();

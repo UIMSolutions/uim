@@ -5,12 +5,12 @@
 **********************************************************************************************************/
 module uim.datasources.exceptions.recordnotfound;
 
-@safe:
 import uim.datasources;
 
+@safe:
 // Exception raised when a particular record was not found
-class DDSORecordNotFoundException : DatasourceException {
-	mixin(ExceptionThis!("DSORecordNotFoundException"));
+class DDSORecordNotFoundException : DDatasourcesException {
+	mixin(ExceptionThis!("DSORecordNotFound"));
 
     override bool initialize(IData[string] configData = null) {
 		if (!super.initialize(configData)) { return false; }
@@ -21,4 +21,4 @@ class DDSORecordNotFoundException : DatasourceException {
 		return true;
 	}
 }
-mixin(ExceptionCalls!("DSORecordNotFoundException"));
+mixin(ExceptionCalls!("DSORecordNotFound"));

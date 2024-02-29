@@ -9,8 +9,8 @@ import uim.datasources;
 
 @safe:
 // Exception raised when requested page number does not exist.
-class PageOutOfBoundsException : DatasourceException {
-	mixin(ExceptionThis!("DSOPageOutOfBoundsException"));
+class PageOutOfBoundsException : DDatasourcesException {
+	mixin(ExceptionThis!("DSOPageOutOfBounds"));
 
     override bool initialize(IData[string] configData = null) {
 		if (!super.initialize(configData)) { return false; }
@@ -21,4 +21,4 @@ class PageOutOfBoundsException : DatasourceException {
 		return true;
 	}
 }
-mixin(ExceptionCalls!("DDSOPageOutOfBoundsException"));
+mixin(ExceptionCalls!("DDSOPageOutOfBounds"));

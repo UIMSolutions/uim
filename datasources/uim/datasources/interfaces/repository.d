@@ -10,7 +10,7 @@ import uim.datasources;
  */
 interface IRepository {
     // Sets the repository alias.
-    auto setAlias(string tableAlias);
+    void setAlias(string tableAlias);
 
     // Returns the repository alias.
     string getAlias();

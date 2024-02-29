@@ -48,7 +48,7 @@ interface IEntity : ArrayAccess, JsonSerializable, Stringable
   string[] getOriginalFields();
 
   // Sets the dirty status of a single field.
-  auto setDirty(string fieldName, bool isDirtyMode = true);
+  void setDirty(string fieldName, bool isDirtyMode = true);
 
   /**
      * Checks if the entity is dirty or if a single field of it is dirty.
@@ -141,7 +141,7 @@ interface IEntity : ArrayAccess, JsonSerializable, Stringable
      * @param IData[string] options Options to be used for setting the field. Allowed option
      * keys are `setter` and `guard`
      * /
-    auto set(string[] fieldName, Json aValue = null, IData[string] optionData = null);
+    void set(string[] fieldName, Json aValue = null, IData[string] optionData = null);
 
     /**
      * Returns the value of a field by name
@@ -225,7 +225,7 @@ interface IEntity : ArrayAccess, JsonSerializable, Stringable
      * Params:
      * bool $new Indicate whether this entity has been persisted.
      */
-  void setNew(bool$new);
+  void setNew(bool isNew);
 
   /**
      * Returns whether this entity has already been persisted.

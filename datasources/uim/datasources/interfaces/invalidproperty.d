@@ -15,11 +15,11 @@ interface IInvalidProperty {
     IData[string] getInvalid();
 
     // Set fields as invalid and not patchable into the entity.
-    auto setFieldsInvalid(IData[string] fields, bool canOverwrite = false);
+    void setFieldsInvalid(IData[string] fields, bool canOverwrite = false);
 
     // Get a single value of an invalid field. Returns null if not set.
     Json getInvalidField(string fieldName) ;
 
     // Sets a field as invalid and not patchable into the entity.
-    auto setInvalidField(string fieldName, Json aValue);
+    void setInvalidField(string fieldName, Json aValue);
 }

@@ -10,10 +10,12 @@ import uim.databases;
 
 // Class NestedTransactionRollbackException
 class NestedTransactionRollbackException : DDatabaseException {
-  this(string message = null, int statusCode = 500, Throwable previousException = null) {
+  // TODO 
+  /* this(string message = null, int statusCode = 500, Throwable previousException = null) {
     if (message.isNull) {
       message = "Cannot commit transaction - rollback() has been already called in the nested transaction";
     }
     super(message, statusCode, previousException);
   }
+  */
 }

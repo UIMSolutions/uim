@@ -17,7 +17,7 @@ interface IDBAExpression {
      *
      * @param uim.databases.ValueBinder aBinder Parameter binder
      */
-    string sql(ValueBinder aBinder);
+    // TODO string sql(ValueBinder aBinder);
 
     /**
      * Iterates over each part of the expression recursively for every
@@ -28,5 +28,5 @@ interface IDBAExpression {
      * @param \Closure callback The callable to apply to all nodes.
      * @return this
      */
-    IDBAExpression traverse(Closure aCallback);
+    // TODO IDBAExpression traverse(Closure aCallback);
 }

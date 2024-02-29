@@ -1,4 +1,4 @@
-module uim.databases.uim.databases.interfaces.batchcasting;
+module uim.databases.interfaces.batchcasting;
 
 import uim.databases;
 
@@ -16,5 +16,5 @@ interface IBatchCasting
      * @param array values The original array of values containing the fields to be casted
      * @return array<string, mixed>
      */
-    array manyToPHP(array values, string[] fields, IDriver driver);
+    // TODO array manyToPHP(array values, string[] fields, IDriver driver);
 }

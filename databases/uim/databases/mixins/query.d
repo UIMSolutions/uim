@@ -1,14 +1,15 @@
 module databases.uim.databases.mixins.query;
 
-import uim.databases;
-
-@safe:
-
 string queryThis(string name) {
-    string fullName = name~"Query";
+    auto fullname = name~"Query";
     return `
-this() { super(); this.name("`~fullName~`"); }
-    `;
+this() {
+    initialize(); this.name("`~fullname~`");
+}
+this(string name) {
+    this(); this.name(name);
+}
+    `;    
 }
 
 template QueryThis(string name) {
@@ -16,12 +17,13 @@ template QueryThis(string name) {
 }
 
 string queryCalls(string name) {
-    string fullName = name~"Query";
+    auto fullname = name~"Query";
     return `
-auto `~fullname~`() { return new D`~fullName~`(); }
-    `;
+auto `~fullname~`() { return new D`~fullname~`(); }
+auto `~fullname~`(string name) { return new D`~fullname~`(name); }
+    `;    
 }
 
 template QueryCalls(string name) {
-    const char[] QueryCalls = queryCalls(name);
+    const char[] QueryThis = queryCalls(name);
 }

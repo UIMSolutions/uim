@@ -1,14 +1,19 @@
-module databases.uim.databases.mixins.expression;
+module uim.databases.mixins.expression;
 
 import uim.databases;
 
 @safe:
 
 string expressionThis(string name) {
-    string fullName = name~"Expression";
+    auto fullname = name~"Expression";
     return `
-this() { super(); this.name("`~fullName~`"); }
-    `;
+this() {
+    initialize(); this.name("`~fullname~`");
+}
+this(string name) {
+    this(); this.name(name);
+}
+    `;    
 }
 
 template ExpressionThis(string name) {
@@ -16,12 +21,13 @@ template ExpressionThis(string name) {
 }
 
 string expressionCalls(string name) {
-    string fullName = name~"Expression";
+    auto fullname = name~"Expression";
     return `
-auto `~fullname~`() { return new D`~fullName~`(); }
-    `;
+auto `~fullname~`() { return new D`~fullname~`(); }
+auto `~fullname~`(string name) { return new D`~fullname~`(name); }
+    `;    
 }
 
 template ExpressionCalls(string name) {
-    const char[] ExpressionCalls = expressionCalls(name);
+    const char[] ExpressionThis = expressionCalls(name);
 }

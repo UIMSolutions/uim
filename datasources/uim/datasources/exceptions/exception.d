@@ -5,8 +5,8 @@ import uim.datasources;
 @safe:
 
 // Datasource exception.
-class DDatasourceException : UimException {
-  mixin(ExceptionThis!("Datasource"));
+class DDatasourcesException : UimException {
+  mixin(ExceptionThis!("Datasources"));
 
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) { return false; }
@@ -17,4 +17,4 @@ class DDatasourceException : UimException {
     return true;
   }
 }
-mixin(ExceptionCalls!("Datasource"));
+mixin(ExceptionCalls!("Datasources"));

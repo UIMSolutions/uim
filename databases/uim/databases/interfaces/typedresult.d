@@ -1,4 +1,8 @@
-module uim.databases;
+module uim.databases.interfaces.typedresult;
+
+import uim.databases;
+
+@safe:
 /**
  * Represents an expression that is known to return a specific type
  */

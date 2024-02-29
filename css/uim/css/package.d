@@ -20,8 +20,7 @@ public import uim.css.classes;
 public import uim.css.helpers;
 public import uim.css.exceptions;
 
-// uim.css modules
-public { // Modules 
+ublic { // Modules 
 	import uim.css.declaration;
 	import uim.css.obj;
 	import uim.css.rule;

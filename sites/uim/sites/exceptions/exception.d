@@ -1,12 +1,12 @@
 module uim.sites.uim.sites.exceptions.exception;
 
-import uim.orm;
+import uim.sites;
 
 @safe:
 
-// Base ORM exception.
-class DORMException : UimException {
-  mixin(ExceptionThis!("ORM"));
+// Base Sites exception.
+class DSitesException : UimException {
+  mixin(ExceptionThis!("Sites"));
 
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) {
@@ -14,9 +14,9 @@ class DORMException : UimException {
     }
 
     this
-      .messageTemplate("Error in libary uim-orm");
+      .messageTemplate("Error in libary uim-sites");
 
     return true;
   }
 }
-mixin(ExceptionCalls!("ORM"));
+mixin(ExceptionCalls!("Sites"));

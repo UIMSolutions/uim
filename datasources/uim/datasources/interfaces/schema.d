@@ -35,7 +35,7 @@ interface ISchema {
      * Params:
      * string columnName The name of the column
      * @param IData[string]|string aattrs The attributes for the column or the type name.
-     */
+     * /
    auto addColumn(string columnName, array | string aattrs);
 
    /Get column data in the table.
@@ -48,7 +48,7 @@ interface ISchema {
      * Remove a column from the table schema.
      *
      * If the column is not defined in the table, no error will be raised.
-     */
+     * /
    auto removeColumn(string columnName);
 
    // Get the column names in the table.
@@ -67,7 +67,7 @@ interface ISchema {
      * string columnName The column to set the type of.
      * @param string atype The type to set the column to.
      */
-   auto setColumnType(string columnName, string atype);
+   void setColumnType(string columnName, string atype);
 
    /**
      * Returns the base type name for the provided column.
@@ -76,7 +76,7 @@ interface ISchema {
      * Params:
      * string acolumn The column name to get the base type from
      */
-   string baseColumnType(string acolumn) : ;
+   string baseColumnType(string acolumn);
 
    // Check whether a field isNullable. Missing columns are nullable.
    bool isNullable(string columnName);
@@ -98,7 +98,7 @@ interface ISchema {
      * Table options allow you to set platform specific table level options.
      * For example the engine type in MySQL.
      */
-   auto setOptions(IData[string] optionData);
+   void setOptions(IData[string] optionData);
 
    /**
      * Gets the options for a table.

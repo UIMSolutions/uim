@@ -13,7 +13,6 @@ dependency "vibe-d" version="~>0.9.7"
 
 dependency "uim:core" path="../"
 dependency "uim:oop" path="../"
-dependency "uim:filesystems" path="../"
 dependency "uim:models" path="../"
 targetType "library"
 

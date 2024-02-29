@@ -1,16 +1,8 @@
+module uim.routings.exceptions.missingroute;
 
-/**
+import uim.routings;
 
-
- *
- * Licensed under The MIT License
- * Redistributions of files must retain the above copyright notice.
- *
-
- * @since         3.0.0
-
- */module source.uim.myname.exceptions.missingroute;
-
+@safe: 
 
 
 /**
@@ -33,7 +25,7 @@ class MissingRouteException : UimException {
      *  that are made available in the view, and sprintf()"d into Exception._messageTemplate
      * @param int code The code of the error, is also the HTTP status code for the error. Defaults to 404.
      * @param \Throwable|null previous the previous exception.
-     */
+     * /
     this(string[] amessage, int code = 404, Throwable previousException = null) {
         if (isArray(message)) {
             if (isSet(message["message"])) {
@@ -43,5 +35,6 @@ class MissingRouteException : UimException {
             }
         }
         super(message, code, previous);
-    }
+    } 
+    */
 }

@@ -129,7 +129,7 @@ class BelongsToMany : Association {
      * Params:
      * \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string asort A find() compatible order clause
      */
-    auto setSort(IExpression|Closure|string[] asort) {
+    void setSort(IExpression|Closure|string[] asort) {
        _sort = sort;
 
         return this;
@@ -493,7 +493,7 @@ class BelongsToMany : Association {
      * string astrategy the strategy name to be used
      * @throws \InvalidArgumentException if an invalid strategy name is passed
      */
-    auto setSaveStrategy(string astrategy) {
+    void setSaveStrategy(string astrategy) {
         if (!in_array(strategy, [self.SAVE_APPEND, self.SAVE_REPLACE], true)) {
             auto message = "Invalid save strategy `%s`".format(strategy);
             throw new InvalidArgumentException(message);
@@ -777,7 +777,7 @@ class BelongsToMany : Association {
         return true;
     }
  
-    auto setConditions(Closure|array conditions) {
+    void setConditions(Closure|array conditions) {
         super.setConditions(conditions);
        _targetConditions = _junctionConditions = null;
 

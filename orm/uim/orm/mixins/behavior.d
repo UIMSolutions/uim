@@ -1,10 +1,5 @@
 module uim.orm.mixins.behavior;
 
-import uim.orm;
-
-@safe:
-module uim.logging.mixins.behavior;
-
 string behaviorThis(string name) {
     auto fullname = name~"Behavior";
     return `

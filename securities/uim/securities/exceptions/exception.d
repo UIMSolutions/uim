@@ -1,12 +1,12 @@
-module uim.securities.uim.securities.exceptions.exception;
+module uim.securities.exceptions.exception;
 
-import uim.orm;
+import uim.securities;
 
 @safe:
 
-// Base ORM exception.
-class DORMException : UimException {
-  mixin(ExceptionThis!("ORM"));
+// Base Securities exception.
+class DSecuritiesException : UimException {
+  mixin(ExceptionThis!("Securities"));
 
   override bool initialize(IData[string] configData = null) {
     if (!super.initialize(configData)) {
@@ -14,9 +14,9 @@ class DORMException : UimException {
     }
 
     this
-      .messageTemplate("Error in libary uim-orm");
+      .messageTemplate("Error in libary uim-securities");
 
     return true;
   }
 }
-mixin(ExceptionCalls!("ORM"));
+mixin(ExceptionCalls!("Securities"));

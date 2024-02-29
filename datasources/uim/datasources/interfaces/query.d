@@ -24,7 +24,7 @@ interface IQuery {
      * Params:
      * \Closure|string[]|float|int fields Fields.
      * @param bool $overwrite whether to reset fields with passed list or not
-     */
+     * /
     auto select(Closure|string[]|float|int fields, bool $overwrite = false);
 
     /**
@@ -46,7 +46,7 @@ interface IQuery {
      * Params:
      * array fields The fields to alias
      * @param string|null $defaultAlias The default alias
-     */
+     * /
     STRINGAA aliasFields(array fields, string adefaultAlias = null);
 
     /**
@@ -57,7 +57,7 @@ interface IQuery {
      *
      * ResultSetDecorator is a traversable object that : the methods found
      * on UIM\Collection\Collection.
-     */
+     * /
     IResultSet<T> all();
 
     /**
@@ -97,7 +97,7 @@ interface IQuery {
      * ```
      * Params:
      * IData[string] options list of query clauses to apply new parts to.
-     */
+     * /
     auto applyOptions(IData[string] optionData = null);
 
     /**
@@ -114,7 +114,7 @@ interface IQuery {
      * Params:
      * string afinder The finder method to use.
      * @param Json ...someArguments Arguments that match up to finder-specific parameters
-     */
+     * /
     static find(string afinder, Json ...someArguments);
 
     /**
@@ -126,7 +126,7 @@ interface IQuery {
      * ```
      * $singleUser = aQuery.select(["id", "username"]).first();
      * ```
-     */
+     * /
     Json first()  ;
 
     /**
@@ -148,7 +148,7 @@ interface IQuery {
      * ```
      * Params:
      * int aLimit number of records to be returned
-     */
+     * /
     auto limit(int aLimit);
 
     /**
@@ -167,7 +167,7 @@ interface IQuery {
      * ```
      * Params:
      * int  anOffset number of records to be skipped
-     */
+     * /
     auto offset(int anOffset);
 
     /**
@@ -217,7 +217,7 @@ interface IQuery {
      * Params:
      * \Closure|string[] afields fields to be added to the list
      * @param bool $overwrite whether to reset order with field list or not
-     */
+     * /
     auto orderBy(Closure|string[] afields, bool $overwrite = false);
 
     /**
@@ -232,7 +232,7 @@ interface IQuery {
      * int $num The page number you want.
      * @param int aLimit The number of rows you want in the page. If null
      * the current limit clause will be used.
-     */
+     * /
     void page(int $num, int aLimit = null);
 
     // Returns an array representation of the results after executing the query.
@@ -244,7 +244,7 @@ interface IQuery {
      * Params:
      * \UIM\Datasource\IRepository $repository The default repository object to use
      */
-    auto setRepository(IRepository $repository);
+    void setRepository(IRepository repository);
 
     /**
      * Returns the default repository object that will be used by this query,
@@ -363,5 +363,5 @@ interface IQuery {
      * @param STRINGAA types Associative array of type names used to bind values to query
      * @param bool $overwrite whether to reset conditions with passed list or not
      */
-    auto where(Closure|string[]|null $conditions = null, array types = [], bool $overwrite = false);
+    // TODO auto where(Closure|string[]|null $conditions = null, array types = [], bool $overwrite = false);
 }

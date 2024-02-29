@@ -1,6 +1,4 @@
-module orm.uim.orm.mixins.locator;
-
-module uim.logging.mixins.locator;
+module uim.orm.mixins.locator;
 
 string locatorThis(string name) {
     auto fullname = name~"Locator";

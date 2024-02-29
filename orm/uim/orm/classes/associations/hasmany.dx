@@ -504,7 +504,7 @@ class HasMany : Association {
      * Params:
      * \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string asort A find() compatible order clause
      */
-    auto setSort(IExpression|Closure|string[] asort) {
+    void setSort(IExpression|Closure|string[] asort) {
        _sort = sort;
 
         return this;

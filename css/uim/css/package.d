@@ -15,12 +15,13 @@ public { // Required uim libraries
 	// import uim.models;
 }
 
-// uim.css packages
-public import uim.css.classes;
-public import uim.css.helpers;
-public import uim.css.exceptions;
+public { // Packages
+	import uim.css.classes;
+ import uim.css.helpers;
+ import uim.css.exceptions;
+}
 
-ublic { // Modules 
+public { // Modules 
 	import uim.css.declaration;
 	import uim.css.obj;
 	import uim.css.rule;

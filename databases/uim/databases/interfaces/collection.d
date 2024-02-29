@@ -22,7 +22,7 @@ interface ICollection {
      * Get the list of tables available in the current connection.
      *
      * @return array<string> The list of tables in the connected database/schema.
-     */
+     * /
     array listTables(): ;
 
     /**
@@ -40,6 +40,8 @@ interface ICollection {
      * @param array<string, mixed> options The options to use, see above.
      * @return uim.databases.Schema\ITableSchema Object with column metadata.
      * @throws uim.databases.Exception\DatabaseException when table cannot be described.
-     */
-    ITableSchema describe(string name, array options = []): ;
+     * /
+    ITableSchema describe(string name, array options = []);
+
+    */
 }

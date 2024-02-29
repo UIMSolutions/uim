@@ -5,13 +5,10 @@
 **********************************************************************************************************/
 module uim.databases.interfaces.sqlgenerator;
 
-@safe:
 import uim.databases;
 
-
-/**
- * An interface used by TableSchema objects.
- */
+@safe:
+// An interface used by TableSchema objects.
 interface ISqlGenerator {
     /**
      * Generate the SQL to create the Table.
@@ -23,7 +20,7 @@ interface ISqlGenerator {
      * @return array List of SQL statements to create the table and the
      *    required indexes.
      */
-    array createSql(Connection connection);
+    //TODO array createSql(Connection connection);
 
     /**
      * Generate the SQL to drop a table.
@@ -34,7 +31,7 @@ interface ISqlGenerator {
      * @param DDBAConnection connection The connection to generate SQL for.
      * @return array SQL to drop a table.
      */
-    array dropSql(Connection connection);
+    //TODO array dropSql(Connection connection);
 
     /**
      * Generate the SQL statements to truncate a table
@@ -42,7 +39,7 @@ interface ISqlGenerator {
      * @param DDBAConnection connection The connection to generate SQL for.
      * @return array SQL to truncate a table.
      */
-    array truncateSql(Connection connection);
+    //TODO array truncateSql(Connection connection);
 
     /**
      * Generate the SQL statements to add the constraints to the table
@@ -50,7 +47,7 @@ interface ISqlGenerator {
      * @param DDBAConnection connection The connection to generate SQL for.
      * @return array SQL to add the constraints.
      */
-    array addConstraintSql(Connection connection);
+    //TODO array addConstraintSql(Connection connection);
 
     /**
      * Generate the SQL statements to drop the constraints to the table
@@ -58,9 +55,9 @@ interface ISqlGenerator {
      * @param DDBAConnection connection The connection to generate SQL for.
      * @return array SQL to drop a table.
      */
-    array dropConstraintSql(Connection connection);
+    //TODO array dropConstraintSql(Connection connection);
 }
-use uim.databases.Connection;
+/* use uim.databases.Connection;
 
 // An interface used by TableSchema objects.
 interface SqlGeneratorInterface {
@@ -73,7 +70,7 @@ interface SqlGeneratorInterface {
      * @param DDBAConnection connection The connection to generate SQL for.
      * @return array List of SQL statements to create the table and the
      *    required indexes.
-     */
+     * /
     array createSql(Connection connection);
 
     /**
@@ -84,7 +81,7 @@ interface SqlGeneratorInterface {
      *
      * @param DDBAConnection connection The connection to generate SQL for.
      * @return array SQL to drop a table.
-     */
+     * /
     array dropSql(Connection connection);
 
     /**
@@ -92,7 +89,7 @@ interface SqlGeneratorInterface {
      *
      * @param DDBAConnection connection The connection to generate SQL for.
      * @return array SQL to truncate a table.
-     */
+     * /
     array truncateSql(Connection connection);
 
     /**
@@ -100,7 +97,7 @@ interface SqlGeneratorInterface {
      *
      * @param DDBAConnection connection The connection to generate SQL for.
      * @return array SQL to add the constraints.
-     */
+     * /
     array addConstraintSql(Connection connection);
 
     /**
@@ -108,6 +105,7 @@ interface SqlGeneratorInterface {
      *
      * @param DDBAConnection connection The connection to generate SQL for.
      * @return array SQL to drop a table.
-     */
+     * /
     array dropConstraintSql(Connection connection);
-}
+    
+} */

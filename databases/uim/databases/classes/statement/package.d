@@ -1,5 +1,5 @@
-module databases.uim.databases.classes.drivers copy;
+module databases.uim.databases.classes.statements;
 
 public {
-    import uim.databases.classes.drivers.driver;
+    import uim.databases.classes.statements.statement;
 }

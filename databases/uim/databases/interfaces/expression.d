@@ -15,5 +15,5 @@ interface IExpression {
      * passing as first parameter the instance of the expression currently
      * being iterated.
      */
-    auto traverse(Closure callbackToRunNodes);
+    // TODO auto traverse(Closure callbackToRunNodes);
 }

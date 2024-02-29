@@ -4,6 +4,7 @@
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
 module uim.orm.exceptions.persistencefailed;
+
 import uim.orm;
 
 @safe:

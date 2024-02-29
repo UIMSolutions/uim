@@ -48,7 +48,7 @@ public {
     import uim.logging;
     import uim.models;
     import uim.mvc;
-    import uim.neural;
+    import uim.neurals;
     import uim.orm;
     import uim.routings;
     import uim.scriptings;

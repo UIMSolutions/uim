@@ -1,4 +1,4 @@
-module uim.databases.expressions.fieldinterfaces;
+module databases.uim.databases.interfaces.field;
 
 import uim.databases;
 
@@ -11,8 +11,8 @@ import uim.databases;
 interface IField {
     // Set field name
     void setFieldNames(IExpression fieldName);
-    void setFieldNames(IExpression|string[] fieldName);
+    void setFieldNames(string[] fieldName);
 
     // Get field names
-    IExpression|string[] getFieldNames();
+    string[] getFieldNames();
 }

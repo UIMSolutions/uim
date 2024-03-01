@@ -15,16 +15,16 @@ import uim.databases;
  */
 class IdentifierExpression : IExpression {
     this(string identifier, string Collation = null) {
-       _identifier =  anIdentifier;
+        _identifier = anIdentifier;
         _collation = collation;
     }
-    
+
     // Gets/Sets the identifier this expression represents
     mixin(TProperty!("string", "identifier"));
-    
+
     // Gets/Sets the identifier collation.
     mixin(TProperty!("string", "collation"));
- 
+
     string sql(ValueBinder aBinder) {
         string sql = _identifier;
         if (this.collation) {
@@ -32,7 +32,7 @@ class IdentifierExpression : IExpression {
         }
         return sql;
     }
- 
+
     void traverse(Closure aCallback) {
     }
 }

@@ -5,5 +5,5 @@ import uim.databases;
 @safe:
 
 interface IDriver {
-    
+    void connect();
 }

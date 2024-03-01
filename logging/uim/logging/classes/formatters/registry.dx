@@ -1,0 +1,8 @@
+module source.uim.logging.classes.formatters.registry;
+
+import uim.logging;
+
+@safe:
+
+class FormatterRegistry : DRegistry!IFormatter {
+}

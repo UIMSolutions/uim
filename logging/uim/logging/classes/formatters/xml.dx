@@ -1,0 +1,7 @@
+module uim.logging.classes.formatters.xml;
+
+import uim.logging;
+
+@safe:
+class DXMLLogFormatter : DLogFormatter {
+}

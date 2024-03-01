@@ -1,0 +1,152 @@
+module uim.views.helpers.helper;
+
+import uim.views;
+
+@safe:
+
+/**
+ * Abstract base class for all other Helpers in UIM.
+ * Provides common methods and features.
+ *
+ * ### Callback methods
+ *
+ * Helpers support a number of callback methods. These callbacks allow you to hook into
+ * the various view lifecycle events and either modify existing view content or perform
+ * other application specific logic. The events are not implemented by this base class, as
+ * implementing a callback method subscribes a helper to the related event. The callback methods
+ * are as follows:
+ *
+ * - `beforeRender(IEvent myevent, myviewFile)` - beforeRender is called before the view file is rendered.
+ * - `afterRender(IEvent myevent, myviewFile)` - afterRender is called after the view file is rendered
+ *  but before the layout has been rendered.
+ * - beforeLayout(IEvent myevent, mylayoutFile)` - beforeLayout is called before the layout is rendered.
+ * - `afterLayout(IEvent myevent, mylayoutFile)` - afterLayout is called after the layout has rendered.
+ * - `beforeRenderFile(IEvent myevent, myviewFile)` - Called before any view fragment is rendered.
+ * - `afterRenderFile(IEvent myevent, myviewFile, mycontent)` - Called after any view fragment is rendered.
+ *  If a listener returns a non-null value, the output of the rendered file will be set to that.
+ */
+class Helper : IEventListener {
+    mixin InstanceConfigTemplate;
+
+    // List of helpers used by this helper
+    protected array myhelpers = [];
+
+    // Default config for this helper.
+    protected IConfiguration _defaultConfiguration;
+
+    // Loaded helper instances.
+    protected Helper[string] myhelperInstances = [];
+
+    // The View instance this helper is attached to
+    protected View my_View;
+
+    this(View myview, IData[string] helperSettings = null) {
+       _View = myview;
+        this.setConfig(helperSettings);
+
+        if (this.helpers) {
+            this.helpers = myview.helpers().normalizeArray(this.helpers);
+        }
+        this.initialize(helperSettings);
+    }
+    
+    /**
+     * Lazy loads helpers.
+     */
+    Helper __get(string propertyName) {
+        if (isSet(this.helperInstances[propertyName])) {
+            return this.helperInstances[propertyName];
+        }
+        if (isSet(this.helpers[propertyName])) {
+            helperSettings = ["enabled": false] + this.helpers[propertyName];
+
+            return this.helperInstances[propertyName] = _View.loadHelper(propertyName, helperSettings);
+        }
+        return null;
+    }
+    
+    // Get the view instance this helper is bound to.
+    View getView() {
+        return _View;
+    }
+    
+    /**
+     * Returns a string to be used as onclick handler for confirm dialogs.
+     * Params:
+     * string myokCode Code to be executed after user chose "OK"
+     * @param string mycancelCode Code to be executed after user chose "Cancel"
+     */
+    protected string _confirm(string myokCode, string mycancelCode) {
+        return "if (confirm(this.dataset.confirmMessage)) { {myokCode} } {mycancelCode}";
+    }
+    
+    /**
+     * Adds the given class to the element options
+     * Params:
+     * IData[string] options Array options/attributes to add a class to
+     * @param string classname The class name being added.
+     * @param string aKey the key to use for class. Defaults to `"class"`.
+     */
+    IData[string] addClass(IData[string] options, string classname, string aKey = "class") {
+        if (isSet(options[aKey]) && isArray(options[aKey])) {
+            options[aKey] ~= classname;
+        } elseif (isSet(options[aKey]) && trim(options[aKey])) {
+            options[aKey] ~= " " ~ classname;
+        } else {
+            options[aKey] = classname;
+        }
+        return options;
+    }
+    
+    /**
+     * Get the View callbacks this helper is interested in.
+     *
+     * By defining one of the callback methods a helper is assumed
+     * to be interested in the related event.
+     *
+     * Override this method if you need to add non-conventional event listeners.
+     * Or if you want helpers to listen to non-standard events.
+     */
+    IData[string] implementedEvents() {
+        myeventMap = [
+            "View.beforeRenderFile": "beforeRenderFile",
+            "View.afterRenderFile": "afterRenderFile",
+            "View.beforeRender": "beforeRender",
+            "View.afterRender": "afterRender",
+            "View.beforeLayout": "beforeLayout",
+            "View.afterLayout": "afterLayout",
+        ];
+
+        auto myevents = [];
+        myeventMap.byKeyValue
+            .filter!(eventMethod => method_exists(this, eventMethod.value))
+            .each!(eventMethod => myevents[eventMethod.key] = eventMethod.value);
+
+        return myevents;
+    }
+    
+    /**
+     * Constructor hook method.
+     *
+     * Implement this method to avoid having to overwrite the constructor and call parent.
+     * Params:
+     * IData[string] helperSettings The configuration settings provided to this helper.
+     */
+<<<<<<< HEAD
+    bool initialize(Json aConfig = Json(null)) {
+       _defaultConfigData = Json .emptyObject;
+=======
+    bool initialize(IData[string] initData = null) {
+       _defaultConfig = Json .emptyObject;
+>>>>>>> 281012f1b957b2df089e0f9ff60905fca492f311
+    }
+    
+    // Returns an array that can be used to describe the internal state of this object.
+    Json __debugInfo() {
+        return [
+            "helpers": this.helpers,
+            "implementedEvents": this.implementedEvents(),
+            "_config": this.getConfig(),
+        ];
+    }
+}

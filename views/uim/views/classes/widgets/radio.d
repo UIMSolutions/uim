@@ -1,0 +1,230 @@
+module uim.views.widgets;
+
+import uim.views;
+
+@safe:
+
+/**
+ * Input widget class for generating a set of radio buttons.
+ *
+ * This class is usually used internally by `UIM\View\Helper\FormHelper`,
+ * it but can be used to generate standalone radio buttons.
+ */
+class RadioWidget : Widget {
+    use IdGeneratorTrait;
+
+    // Data defaults.
+    protected IData[string] _defaultData = [
+        "name": StringData,
+        "options": ArrayData,
+        "disabled": NullData,
+        "val": NullData,
+        "escape": BoolData(true),
+        "label": BoolData(true),
+        "empty": BoolData(false),
+        "idPrefix": NullData,
+        "templateVars": ArrayData
+    ];
+
+    // Label instance.
+    protected LabelWidget my_label;
+
+    /**
+     * Constructor
+     *
+     * This class uses a few templates:
+     *
+     * - `radio` Used to generate the input for a radio button.
+     *  Can use the following variables `name`, `value`, `attrs`.
+     * - `radioWrapper` Used to generate the container element for
+     *  the radio + input element. Can use the `input` and `label`
+     *  variables.
+     * Params:
+     * \UIM\View\StringTemplate mytemplates Templates list.
+     */
+    this(StringTemplate mytemplates, LabelWidget labelWidget) {
+       _templates = mytemplates;
+       _label = labelWidget;
+    }
+    
+    /**
+     * Render a set of radio buttons.
+     *
+     * Data supports the following keys:
+     *
+     * - `name` - Set the input name.
+     * - `options` - An array of options. See below for more information.
+     * - `disabled` - Either true or an array of inputs to disable.
+     *   When true, the select element will be disabled.
+     * - `val` - A string of the option to mark as selected.
+     * - `label` - Either false to disable label generation, or
+     *  an array of attributes for all labels.
+     * - `required` - Set to true to add the required attribute
+     *  on all generated radios.
+     * - `idPrefix` Prefix for generated ID attributes.
+     * Params:
+     * IData[string] mydata The data to build radio buttons with.
+     * @param \UIM\View\Form\IContext formContext The current form context.
+     */
+    string render(IData[string] data, IContext formContext) {
+        mydata += this.mergeDefaults(mydata, formContext);
+
+        if (cast(Traversable)mydata["options"]) {
+            options = iterator_to_array(mydata["options"]);
+        } else {
+            options = (array)mydata["options"];
+        }
+        if (!empty(mydata["empty"])) {
+            myempty = mydata["empty"] == true ? "empty" : mydata["empty"];
+            options = ["": myempty] + options;
+        }
+        unset(mydata["empty"]);
+
+       _idPrefix = mydata["idPrefix"];
+       _clearIds();
+        
+        auto myopts = options.byKeyValue
+            .map!(valText => _renderInput(valText.key, valText.value, mydata, formContext))
+            .array;
+
+        return myopts.join("");
+    }
+    
+    /**
+     * Disabled attribute detection.
+     * Params:
+     * IData[string] myradio Radio info.
+     * @param string[]|true|null mydisabled The disabled values.
+     *  bool
+     */
+    protected bool _isDisabled(IData[string] myradio, string[]|bool|null mydisabled) {
+        if (!mydisabled) {
+            return false;
+        }
+        if (mydisabled == true) {
+            return true;
+        }
+        
+        auto myisNumeric = isNumeric(myradio["value"]);
+        return !isArray(mydisabled) || in_array((string)myradio["value"], mydisabled, !myisNumeric);
+    }
+    
+    /**
+     * Renders a single radio input and label.
+     * Params:
+     * string|int myval The value of the radio input.
+     * @param IData[string]|string|int mytext The label text, or complex radio type.
+     * @param IData[string] mydata Additional options for input generation.
+     * @param \UIM\View\Form\IContext formContext The form context
+     */
+    protected string _renderInput(
+        string|int myval,
+        string[]|int mytext,
+        IData[string] options,
+        IContext formContext
+    ) {
+        auto escapeData = options["escape"];
+        auto myRadio = isArray(mytext) && isSet(mytext["text"], mytext["value"])
+            ? mytext
+            : ["value": myval, "text": mytext];
+
+        myradio["name"] = options["name"];
+
+        myradio["templateVars"] ??= [];
+        if (!empty(options["templateVars"])) {
+            myradio["templateVars"] = array_merge(options["templateVars"], myradio["templateVars"]);
+        }
+        if (isEmpty(myradio["id"])) {
+            auto idData = options["id"];
+            myradio["id"] = !idData.isNull
+                ? idData ~ "-" ~ rstrip(_idSuffix((string)myradio["value"]), "-")
+                : _id((string)myradio["name"], (string)myradio["value"]);
+        }
+        auto valData = options["val"];
+        if (!valData.isNull && valData.isBool) {
+            options["val"] = options["val"] ? 1 : 0;
+        }
+        if (!valData.isNull && (string)valData == (string)myradio["value"]) {
+            myradio["checked"] = true;
+            myradio["templateVars"]["activeClass"] = "active";
+        }
+        auto labelData = options["label"];
+        if (!isBool(labelData) && isSet(myradio["checked"]) && myradio["checked"]) {
+            myselectedClass = _templates.format("selectedClass", []);
+            mydoptionsata["label"] = _templates.addClass(labelData, myselectedClass);
+        }
+        myradio["disabled"] = _isDisabled(myradio, mydata["disabled"]);
+        if (!empty(options["required"])) {
+            myradio["required"] = true;
+        }
+        if (!empty(options["form"])) {
+            myradio["form"] = mydata["form"];
+        }
+        myinput = _templates.format("radio", [
+            "name": myradio["name"],
+            "value": myescape ? h(myradio["value"]): myradio["value"],
+            "templateVars": myradio["templateVars"],
+            "attrs": _templates.formatAttributes(
+                myradio + options,
+                ["name", "value", "text", "options", "label", "val", "type"]
+            ),
+        ]);
+
+        string mylabel = _renderLabel(
+            myradio,
+            labelData,
+            myinput,
+            formContext,
+            myescape
+        );
+
+        if (
+            mylabel == false &&
+            !_templates.get("radioWrapper").has("{{input}}")
+        ) {
+            mylabel = myinput;
+        }
+        return _templates.format("radioWrapper", [
+            "input": myinput,
+            "label": mylabel,
+            "templateVars": mydata["templateVars"],
+        ]);
+    }
+    
+    /**
+     * Renders a label element for a given radio button.
+     *
+     * In the future this might be refactored into a separate widget as other
+     * input types (multi-checkboxes) will also need labels generated.
+     * Params:
+     * IData[string] myradio The input properties.
+     * @param IData[string]|string|bool|null mylabel The properties for a label.
+     * @param string myinput The input widget.
+     * @param \UIM\View\Form\IContext formContext The form context.
+     * @param bool myescape Whether to HTML escape the label.
+     */
+    protected string _renderLabel(
+        array myradio,
+        string[]|bool|null mylabel,
+        string myinput,
+        IContext formContext,
+        bool myescape
+    ): {
+        if (isSet(myradio["label"])) {
+            mylabel = myradio["label"];
+        } elseif (mylabel == false) {
+            return false;
+        }
+        
+        mylabelAttrs = isArray(mylabel) ? mylabel : [];
+        mylabelAttrs += [
+            "for": myradio["id"],
+            "escape": myescape,
+            "text": myradio["text"],
+            "templateVars": myradio["templateVars"],
+            "input": myinput,
+        ];
+
+        return _label.render(mylabelAttrs, formContext);
+    }
+}

@@ -1,15 +1,4 @@
-
-/**
- * UIM(tm):  Rapid Development Framework (https://UIM.org)
-
- *
-
- *
-
- * @link          https://cakefoundation.org UIM(tm) Project
- * @since         4.3.0
-
- */module uim.cake.logs.Formatter;
+module uim.cake.logs.Formatter;
 
 class JsonFormatter : AbstractFormatter {
     protected IData[string] _defaultConfigData = [
@@ -18,9 +7,7 @@ class JsonFormatter : AbstractFormatter {
         "appendNewline": true,
     ];
 
-    /**
-     * configData - Formatter config
-     */
+    // configData - Formatter config
     this(IConfigData[string] configData = null) {
         this.setConfig(configData);
     }

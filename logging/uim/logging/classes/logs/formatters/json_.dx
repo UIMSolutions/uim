@@ -1,0 +1,34 @@
+
+/**
+ * UIM(tm):  Rapid Development Framework (https://UIM.org)
+
+ *
+
+ *
+
+ * @link          https://cakefoundation.org UIM(tm) Project
+ * @since         4.3.0
+
+ */module uim.cake.logs.Formatter;
+
+class JsonFormatter : AbstractFormatter {
+    protected IData[string] _defaultConfigData = [
+        "dateFormat": DATE_ATOM,
+        "flags": JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES,
+        "appendNewline": true,
+    ];
+
+    /**
+     * configData - Formatter config
+     */
+    this(IConfigData[string] configData = null) {
+        this.setConfig(configData);
+    }
+ 
+    string|int|false format(level, string amessage, array context = []) {
+        auto log = ["date": date(configuration.data("dateFormat"]), "level": (string)level, "message": message];
+        auto json = json_encode(log, JSON_THROW_ON_ERROR | configuration.data("flags"]);
+
+        return configuration.data("appendNewline"] ? json ~ "\n" : json;
+    }
+}

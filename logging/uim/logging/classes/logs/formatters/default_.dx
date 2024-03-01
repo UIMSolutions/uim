@@ -1,0 +1,34 @@
+module uim.cake.logs.Formatter;
+
+use DateTime;
+
+class DefaultFormatter : AbstractFormatter {
+  	override bool initialize(IConfigData[string] configData = null) {
+		if (!super.initialize(configData)) { return false; }
+    
+        defaultConfiguration.data([
+            "dateFormat": "Y-m-d H:i:s",
+            "includeTags": false,
+            "includeDate": true,
+        ]);
+		
+		return true;
+	}
+
+
+    this(IConfigData[string] configData = null) {
+        this.setConfig(configData);
+    }
+ 
+    string format(level, string messageToFormat, array context = []) {
+        string result = amessage;
+        result = configuration.data("includeDate"]
+            ? "%s %s: %s".format((new DateTime()).format(configuration.data("dateFormat"]), level, messageToFormat)
+            : "%s: %s".format(level, messageToFormat);
+
+        if (configuration.data("includeTags"]) {
+            result = "<%s>%s</%s>".format(level, result, level);
+        }
+        return result;
+    }
+}

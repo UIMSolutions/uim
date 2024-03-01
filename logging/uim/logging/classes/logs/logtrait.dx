@@ -1,0 +1,24 @@
+module uim.cake.Log;
+import uim.cake;
+
+@safe:
+/**
+ * A template providing an object short-cut method
+ * to logging.
+ */
+template LogTemplate {
+    /**
+     * Convenience method to write a message to Log. See Log.write()
+     * for more information on writing to logs.
+     * Params:
+     * \string amessage Log message.
+     * @param string|int level Error level.
+     * @param string[] acontext Additional log data relevant to this message.
+     */
+    bool log(string logMessage,
+        LogLevels errorLevel = LogLevels.ERROR,
+        Json logContext = Json(null)
+    ) {
+        return Log.write(errorLevel, logMessage, logContext);
+    }
+}

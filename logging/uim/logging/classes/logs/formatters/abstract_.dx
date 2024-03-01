@@ -1,0 +1,20 @@
+module uim.cake.logs.formatters.abstract_;
+
+import uim.cake;
+
+@safe:
+
+abstract class AbstractFormatter {
+    use InstanceConfigTemplate();
+
+    protected IData[string] _defaultConfigData;
+
+    this(IConfigData[string] configData = null) {
+        _defaultConfigData = Json.emptyObject;
+
+        this.setConfig(configData);
+    }
+    
+    // Formats message.
+    abstract string format(Json loggingLevel, string loggingMessage, IData[string] loggingData = null);
+}

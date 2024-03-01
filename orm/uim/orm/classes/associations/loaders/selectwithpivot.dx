@@ -53,7 +53,7 @@ class SelectWithPivotLoader : SelectLoader {
         assoc = this.junctionAssoc;
         aQueryBuilder = false;
 
-        if (!empty(options["queryBuilder"])) {
+        if (!options["queryBuilder"].isEmpty) {
             aQueryBuilder = options["queryBuilder"];
             unset(options["queryBuilder"]);
         }

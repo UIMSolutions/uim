@@ -97,7 +97,7 @@ class SqliteDriver : Driver {
         if ($chmodFile) {
             @chmod(configData["database"], configData["mask"]);
         }
-        if (!empty(configData["init"])) {
+        if (!(configData["init"].isEmpty) {
             foreach ( $command; (array)configData["init"] ) {
                 this.pdo.exec($command);
             }

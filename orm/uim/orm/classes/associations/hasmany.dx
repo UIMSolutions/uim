@@ -166,7 +166,7 @@ class HasMany : Association {
                 entities[myKey] = entity;
                 continue;
             }
-            if (!empty(options["atomic"])) {
+            if (!options["atomic"].isEmpty) {
                 original[myKey].setErrors(entity.getErrors());
                 if (cast(IInvalidProperty)entity) {
                     original[myKey].setFieldsInvalid(entity.getInvalid());

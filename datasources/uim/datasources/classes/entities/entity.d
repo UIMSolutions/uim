@@ -66,7 +66,7 @@ class Entity : IEntity, InvalidPropertyInterface {
             "source": null,
         ];
 
-        if (!empty(options["source"])) {
+        if (!(options["source"].isEmpty) {
             this.setSource(options["source"]);
         }
 
@@ -74,7 +74,7 @@ class Entity : IEntity, InvalidPropertyInterface {
             this.setNew(options["markNew"]);
         }
 
-        if (!empty($properties) && options["markClean"] && !options["useSetters"]) {
+        if (!($properties.isEmpty && options["markClean"] && !options["useSetters"]) {
             _fields = $properties;
 
             return;

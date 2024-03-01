@@ -126,7 +126,7 @@ class SelectLoader {
         if (!empty(options["sort"])) {
             fetchQuery.orderBy(options["sort"]);
         }
-        if (!empty(options["contain"])) {
+        if (!options["contain"].isEmpty) {
             fetchQuery.contain(options["contain"]);
         }
         if (!empty(options["queryBuilder"])) {

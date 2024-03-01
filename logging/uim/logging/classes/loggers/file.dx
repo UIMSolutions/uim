@@ -59,7 +59,7 @@ class FileLog : BaseLog {
         if (!isDir(_path)) {
             mkdir(_path, configuration.data("dirMask"), true);
         }
-        if (!empty(configuration.data("file"))) {
+        if (!configuration.data("file").isEmpty) {
            _file = configuration.data("file");
             if (!_file.endsWith(".log")) {
                _file ~= ".log";

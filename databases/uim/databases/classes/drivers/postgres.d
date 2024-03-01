@@ -52,7 +52,7 @@ class PostgresDriver : Driver {
     }
 
     this.pdo = this.createPdo(dsn, configData);
-    if (!empty(configData["encoding"])) {
+    if (!(configData["encoding"].isEmpty) {
         this.setEncoding(configData["encoding"]);
     }
 

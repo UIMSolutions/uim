@@ -257,7 +257,7 @@ class Number {
             locale = DEFAULT_LOCALE;
         }
         type = NumberFormatter.DECIMAL;
-        if (!empty(options["type"])) {
+        if (!options["type"].isEmpty) {
             type = (int)options["type"];
             if (options["type"] == FORMAT_CURRENCY) {
                 type = NumberFormatter.CURRENCY;

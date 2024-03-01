@@ -377,7 +377,7 @@ class BelongsToMany : Association {
             .select(array_values(conds))
             .where(options["conditions"]);
 
-        if (!empty(options["queryBuilder"])) {
+        if (!(options["queryBuilder"].isEmpty) {
             subquery = options["queryBuilder"](subquery);
         }
         subquery = _appendJunctionJoin(subquery);
@@ -582,7 +582,7 @@ class BelongsToMany : Association {
             if (!(cast(IEntity)entity)) {
                 break;
             }
-            if (!empty(options["atomic"])) {
+            if (!options["atomic"].isEmpty) {
                 entity = clone entity;
             }
             saved = aTable.save(entity, options);
@@ -593,7 +593,7 @@ class BelongsToMany : Association {
             }
             // Saving the new linked entity failed, copy errors back into the
             // original entity if applicable and abort.
-            if (!empty(options["atomic"])) {
+            if (!options["atomic"].isEmpty) {
                 original[myKey].setErrors(entity.getErrors());
             }
             return false;
@@ -1236,10 +1236,10 @@ class BelongsToMany : Association {
      * IData[string] options original list of options passed in constructor
      */
     protected void _options(IData[string] options = null) {
-        if (!empty(options["targetForeignKey"])) {
+        if (!options["targetForeignKey"].isEmpty) {
             this.setTargetForeignKey(options["targetForeignKey"]);
         }
-        if (!empty(options["joinTable"])) {
+        if (!options["joinTable"].isEmpty) {
            _junctionTableName(options["joinTable"]);
         }
         if (!empty(options["through"])) {

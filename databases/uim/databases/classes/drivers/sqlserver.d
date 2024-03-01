@@ -93,7 +93,7 @@ _baseConfig = [
         dsn ~= !configData["trustServerCertificate"].isNull ? ";TrustServerCertificate={configData["trustServerCertificate"]}" : null;
         
         this.pdo = this.createPdo(dsn, configData);
-        if (!empty(configData["init"])) {
+        if (!(configData["init"].isEmpty) {
             (array)configData["init"])
                 .each!(command => this.pdo.exec(command));
         }

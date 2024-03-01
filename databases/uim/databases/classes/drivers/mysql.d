@@ -73,7 +73,7 @@ class DMysqlDriver : DDriver {
         if (configData["timezone"] == "UTC") {
             configData["timezone"] = "+0:00";
         }
-        if (!empty(configData["timezone"])) {
+        if (!(configData["timezone"].isEmpty) {
             configData["init"] ~= "SET time_zone = '%s'".format(configData["timezone"]);
         }
         configData["flags"] += [

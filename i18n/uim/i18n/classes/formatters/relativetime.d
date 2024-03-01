@@ -1,4 +1,4 @@
-module source.uim.i18n.classes.formatters.relativetime;
+module uim.i18n.classes.formatters.relativetime;
 
 import uim.i18n;
 
@@ -16,10 +16,10 @@ class RelativeTimeFormatter : DifferenceII18NFormatter {
      * \UIM\Chronos\ChronosDate|\IDateTime first The datetime to start with.
      * @param \UIM\Chronos\ChronosDate|\IDateTime|null second The datetime to compare against.
      * @param bool absolute Removes time difference modifiers ago, after, etc.
-     */
+     * /
     string diffForHumans(
-        ChronosDate|IDateTime first,
-        ChronosDate|IDateTime|null second = null,
+        /* ChronosDate| */IDateTime first,
+        /* ChronosDate| * /IDateTime|null second = null,
         bool absolute = false
     ) {
         auto isNow = second.isNull;
@@ -83,7 +83,7 @@ class RelativeTimeFormatter : DifferenceII18NFormatter {
      * Params:
      * \UIM\I18n\DateTime|\UIM\I18n\Date time The time instance to format.
      * @param IData[string] options Array of options.
-     */
+     * /
     string timeAgoInWords(DateTime|Date time, IData[string] options = null) {
         options = _options(options, DateTime.classname);
         if (options["timezone"]) {
@@ -172,7 +172,7 @@ class RelativeTimeFormatter : DifferenceII18NFormatter {
      * @param string|int pastTime The timestamp from the past.
      * @param bool backwards Whether the difference was backwards.
      * @param IData[string] options An array of options.
-     */
+     * /
     protected array _diffData(string|int futureTime, string|int pastTime, bool backwards, IData[string] options = null) {
         futureTime = (int)futureTime;
         pastTime = (int)pastTime;
@@ -288,7 +288,7 @@ class RelativeTimeFormatter : DifferenceII18NFormatter {
      * Params:
      * \UIM\I18n\DateTime|\UIM\I18n\Date date The date to format.
      * @param IData[string] options Array of options.
-     */
+     * /
     string dateAgoInWords(DateTime|Date date, IData[string] options = null) {
         options = _options(options, Date.classname);
         if (cast(DateTime)date && options["timezone"]) {
@@ -360,7 +360,7 @@ class RelativeTimeFormatter : DifferenceII18NFormatter {
      * Build the options for relative date formatting.
      * Params:
      * IData[string] options The options provided by the user.
-     */
+     * /
     protected IData[string] _options(IData[string] options, string className) {
         options += [
             "from":  className.now(),
@@ -381,5 +381,5 @@ class RelativeTimeFormatter : DifferenceII18NFormatter {
             options["accuracy"] += className.wordAccuracy;
         }
         return options;
-    }
+    } */
 }

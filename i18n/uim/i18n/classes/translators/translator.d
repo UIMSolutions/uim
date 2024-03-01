@@ -9,6 +9,11 @@ import uim.i18n;
  * @internal
  */
 class Translator : ITranslator {
+    // Initialization
+    bool initialize(IData[string] configData = null) {
+        return true;
+    }
+
     const string PLURAL_PREFIX = "p:";
 
     // A fallback translator.
@@ -131,6 +136,5 @@ class Translator : ITranslator {
         return result.isEmpty
             ? [messageKey] : result;
     }
-
 
 }

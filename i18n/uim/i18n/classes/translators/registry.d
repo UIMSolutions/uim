@@ -44,10 +44,8 @@ class TranslatorRegistry {
     /**
      * A CacheEngine object that is used to remember translator across
      * requests.
-     *
-     * @var (\Psr\SimpleCache\ICache&\UIM\Cache\ICacheEngine)|null
      */
-    protected _cacher;
+    protected ICacheEngine _cacher;
 
     /**
      * Constructor.

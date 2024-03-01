@@ -5,7 +5,7 @@ import uim.i18n;
 @safe:
 
 // Message Catalog
-class DMessageCatalog {
+class DMessageCatalog : ICatalog {
   this() {
     initialize;
     formatterName("default");
@@ -22,7 +22,7 @@ class DMessageCatalog {
     fallbackName(fallbackName);
   }
 
-  // Initialization hook
+  // Initialization
   bool initialize(IData[string] configData = null) {
     return true;
   }

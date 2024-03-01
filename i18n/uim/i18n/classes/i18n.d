@@ -19,7 +19,7 @@ class I18n {
      * Returns the translators collection instance. It can be used
      * for getting specific translators based of their name and locale
      * or to configure some aspect of future translations that are not yet constructed.
-     */
+     * /
     static TranslatorRegistry translators() {
         if (!_collection.isNull) {
             return _collection;
@@ -77,14 +77,14 @@ class I18n {
      * @param string locale The locale for the translator.
      */
     static void setTranslator(string domainName, callable loader, string translatorLocale = null) {
-        translatorlocale = translatorlocale ?: getLocale();
+        translatorlocale = translatorlocale.isEmpty ? translatorlocale : getLocale();
 
         translators = translators();
         loader = translators.setLoaderFallback(domainname, loader);
         catalogs = translators.getPackages();
         catalogs.set(domainname, translatorlocale, loader);
     }
-    
+
     /**
      * Returns an instance of a translator that was configured for the name and locale.
      *
@@ -110,7 +110,7 @@ class I18n {
         }
         return translator;
     }
-    
+
     /**
      * Registers a callable object that can be used for creating new translator
      * instances for the same translations domain. Loaders will be invoked whenever
@@ -156,7 +156,7 @@ class I18n {
     static void config(string translatorName, callable loader) {
         translators().registerLoader(translatorView, loader);
     }
-    
+
     /**
      * Sets the default locale to use for future translator instances.
      * This also affects the `intl.default_locale` PHP setting.
@@ -170,7 +170,7 @@ class I18n {
             translators().setLocale(locale);
         }
     }
-    
+
     /**
      * Will return the currently configure locale as stored in the
      * `intl.default_locale` PHP setting.
@@ -184,7 +184,7 @@ class I18n {
         }
         return current;
     }
-    
+
     /**
      * Returns the default locale.
      *
@@ -193,16 +193,16 @@ class I18n {
      * any manipulation by this class.
     */
     static string getDefaultLocale() {
-        return _defaultLocale ??= Locale.getDefault() ?: DEFAULT_LOCALE;
+        return _defaultLocale ?  ?  = Locale.getDefault() ?  : DEFAULT_LOCALE;
     }
-    
+
     /**
      * Returns the currently configured default formatter.
      */
     static string getDefaultFormatter() {
         return translators().defaultFormatter();
     }
-    
+
     /**
      * Sets the name of the default messages formatter to use for future
      * translator instances. By default, the `default` and `sprintf` formatters
@@ -213,7 +213,7 @@ class I18n {
     static void setDefaultFormatter(string formatterName) {
         translators().defaultFormatter(formatterName);
     }
-    
+
     /**
      * Set if the domain fallback is used.
      * Params:
@@ -222,7 +222,7 @@ class I18n {
     static void useFallback(bool enable = true) {
         translators().useFallback(enable);
     }
-    
+
     /**
      * Destroys all translator instances and creates a new empty translations
      * collection.

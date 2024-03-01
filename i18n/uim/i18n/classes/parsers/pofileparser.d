@@ -49,6 +49,10 @@ class PoFileParser {
      * string resourceFilepath The file name to parse
      */
     array parse(string resourceFilepath) {
+        if (!exists(resourceFilepath)){
+            throw new UimException("Not found file `%s`".format(resourceFilepath));
+        }
+
         auto fileStream = fopen(resourceFilepath, "rb");
         if (fileStream == false) {
             throw new UimException("Cannot open resource `%s`".format(resourceFilepath));

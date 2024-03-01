@@ -8,7 +8,7 @@ import uim.i18n;
  * : the built-in DateTime class to provide handy methods and locale-aware
  * formatting helpers.
  */
-class DateTime : Chronos, JsonSerializable, Stringable {
+class DateTime /* : Chronos, JsonSerializable, Stringable */ {
     // TODO mixin DateFormatTemplate();
 
     /**
@@ -54,7 +54,7 @@ class DateTime : Chronos, JsonSerializable, Stringable {
      *
      * @var \Closure|array<int>|string|int
      * @see \UIM\I18n\DateTime.i18nFormat()
-     */
+     * /
     protected auto Closure|string[]|int _jsonEncodeFormat = "yyyy-MM-dd'T'HH':'mm':'ssxxx'";
 
     /**
@@ -71,20 +71,20 @@ class DateTime : Chronos, JsonSerializable, Stringable {
      * @var array<int>|string|int
      * @see \UIM\I18n\DateTime.nice()
      */
-    auto string[] niceFormat = [IntlDateFormatter.MEDIUM, IntlDateFormatter.SHORT];
+    string[] niceFormat = [IntlDateFormatter.MEDIUM, IntlDateFormatter.SHORT];
 
     /**
      * The format to use when formatting a time using `UIM\I18n\DateTime.timeAgoInWords()`
      * and the difference is more than `UIM\I18n\DateTime.wordEnd`
      *
      * @var array<int>|string|int
-     */
+     * /
     auto string[] wordFormat = [IntlDateFormatter.SHORT, IntlDateFormatter.NONE];
 
     /**
      * The format to use when formatting a time using `DateTime.timeAgoInWords()`
      * and the difference is less than `DateTime.wordEnd`
-     */
+     * /
     auto string[string] wordAccuracy = [
         "year": "day",
         "month": "day",
@@ -113,22 +113,22 @@ class DateTime : Chronos, JsonSerializable, Stringable {
      * Params:
      * string locale The default locale string to be used.
      */
-    auto void setDefaultLocale(string alocale = null) {
+    void setDefaultLocale(string alocale = null) {
         defaultLocale = locale;
     }
     
     // Gets whether locale format parsing is set to lenient.
-    auto bool lenientParsingEnabled() {
+    bool lenientParsingEnabled() {
         return _lenientParsing;
     }
     
     // Enables lenient parsing for locale formats.
-    auto void enableLenientParsing() {
+    void enableLenientParsing() {
         _lenientParsing = true;
     }
     
     // Enables lenient parsing for locale formats.
-    auto void disableLenientParsing() {
+    void disableLenientParsing() {
         _lenientParsing = false;
     }
     
@@ -145,7 +145,7 @@ class DateTime : Chronos, JsonSerializable, Stringable {
      * Params:
      * array<int>|string|int format Format.
      */
-    auto void setToStringFormat(format) {
+    void setToStringFormat(format) {
         _toStringFormat = format;
     }
     
@@ -153,7 +153,7 @@ class DateTime : Chronos, JsonSerializable, Stringable {
      * Resets the format used to the default when converting an instance of this type to
      * a string
      */
-    auto void resetToStringFormat() {
+    void resetToStringFormat() {
         setToStringFormat([IntlDateFormatter.SHORT, IntlDateFormatter.SHORT]);
     }
     
@@ -173,7 +173,7 @@ class DateTime : Chronos, JsonSerializable, Stringable {
      *
      * @param \Closure|string[]|int format Format.
      */
-    auto void setJsonEncodeFormat(Closure|string[]|int format) {
+    void setJsonEncodeFormat(Closure|string[]|int format) {
         _jsonEncodeFormat = format;
     }
     
@@ -202,11 +202,11 @@ class DateTime : Chronos, JsonSerializable, Stringable {
      * string atime The time string to parse.
      * @param array<int>|string|int format Any format accepted by IntlDateFormatter.
      * @param \DateTimeZone|string tz The timezone for the instance
-     */
+     * /
     auto parseDateTime(
         string timeToParse,
         int format = null,
-        /* DateTimeZone| */ string tz = null
+        /* DateTimeZone| * / string tz = null
     ) {
         return parseDateTime(timeToParse, [to!string(format)], tz);
     }
@@ -214,7 +214,7 @@ class DateTime : Chronos, JsonSerializable, Stringable {
     auto parseDateTime(
         string timeToParse,
         string[] format = null,
-        /* DateTimeZone| */ string tz = null
+        /* DateTimeZone| * / string tz = null
     ) {
         format = format ? format : _toStringFormat;
         return _parseDateTime(time, format, tz);
@@ -240,7 +240,7 @@ class DateTime : Chronos, JsonSerializable, Stringable {
      * Params:
      * string adate The date string to parse.
      * @param string[]|int format Any format accepted by IntlDateFormatter.
-     */
+     * /
     auto parseDate(string adate, string[]|int format = null) {
     }
     auto parseDate(string adate, string[]|int format = null) {
@@ -268,7 +268,7 @@ class DateTime : Chronos, JsonSerializable, Stringable {
      * ```
      * Params:
      * @param string[]|int format Any format accepted by IntlDateFormatter.
-     */
+     * /
     auto parseTime(string timeToParse, int format) {
         auto myFormat = [IntlDateFormatter.NONE, to!string(format)];
         return parseTime(timeToParse, myFormat);
@@ -437,7 +437,7 @@ class DateTime : Chronos, JsonSerializable, Stringable {
      *  keys. Setting `group` and `abbr` to true will group results and append
      *  timezone abbreviation in the display value. Set `before` and `after`
      *  to customize the abbreviation wrapper.
-     */
+     * /
     auto array listTimezones(
         string|int filter = null,
         string acountry = null,
@@ -477,7 +477,7 @@ class DateTime : Chronos, JsonSerializable, Stringable {
             now = time();
             before = options["before"];
             after = options["after"];
-            foreach (anIdentifiers as tz) {
+            anIdentifiers.each!((tz) {
                 abbr = "";
                 if (options["abbr"]) {
                     dateTimeZone = new DateTimeZone(tz);
@@ -492,7 +492,7 @@ class DateTime : Chronos, JsonSerializable, Stringable {
                 } else {
                      anGroupedIdentifiers[anItem[0]] = [tz:  anItem[0] ~ abbr];
                 }
-            }
+            });
             return anGroupedIdentifiers;
         }
         return array_combine(anIdentifiers,  anIdentifiers);
@@ -500,7 +500,7 @@ class DateTime : Chronos, JsonSerializable, Stringable {
     
     /**
      * Returns a string that should be serialized when converting this object to JSON
-     */
+     * /
     string jsonSerialize() {
         if (cast(Closure)_jsonEncodeFormat) {
             return call_user_func(_jsonEncodeFormat, this);
@@ -510,9 +510,6 @@ class DateTime : Chronos, JsonSerializable, Stringable {
  
     override string toString() {
         return (string)this.i18nFormat();
-    }
+    } */
 }
 
-// phpcs:disable
-class_alias("UIM\I18n\DateTime", "UIM\I18n\FrozenTime");
-// phpcs:enable

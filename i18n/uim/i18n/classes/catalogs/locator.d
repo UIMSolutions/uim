@@ -6,6 +6,10 @@ import uim.i18n;
 
 // A ServiceLocator implementation for loading and retaining catalog objects.
 class PackageLocator {
+  // Initialization
+  bool initialize(IData[string] configData = null) {
+    return true;
+  }
   /**
      * A registry of catalogs.
      *

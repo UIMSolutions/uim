@@ -1,0 +1,335 @@
+module uim.i18n.classes.number;
+
+import uim.i18n;
+
+@safe:
+
+/**
+ * Number helper library.
+ * Methods to make numbers more readable.
+ */
+class Number {
+  	override bool initialize(IData[string] configData = null) {
+		if (!super.initialize(configData)) { return false; }
+		
+		return true;
+	}
+
+    // Default locale
+    const string DEFAULT_LOCALE = "en_US";
+
+    // Format type to format as currency
+    const string FORMAT_CURRENCY = "currency";
+
+    // Format type to format as currency, accounting style (negative numbers in parentheses)
+    const string FORMAT_CURRENCY_ACCOUNTING = "currency_accounting";
+
+    // A list of number formatters indexed by locale and type
+    protected static array<int, mixed>[string] _formatters;
+
+    // Default currency used by Number.currency()
+    protected static string _defaultCurrency;
+
+    // Default currency format used by Number.currency()
+    protected static string _defaultCurrencyFormat;
+
+    /**
+     * Formats a number with a level of precision.
+     *
+     * Options:
+     * - `locale`: The locale name to use for formatting the number, e.g. fr_FR
+     * Params:
+     * string|float|int aValue A floating point number.
+     */
+    static string precision(string|float|int aValue, int numberPrecision = 3, IData[string] formattingOptions = null) {
+        auto formatter = formatter(["precision": precision, "places": precision] + options);
+        return (string)formatter.format((float)aValue);
+    }
+    
+    // Returns a formatted-for-humans file size.
+    static string toReadableSize(string size) {
+        return toReadableSize(to!int(size));
+    }
+
+    static string toReadableSize(float size) {
+        return toReadableSize(to!int(size));
+    }
+
+    static string toReadableSize(int size) {
+        if (size < 1024) return __dn("uim", "{0,number,integer} Byte", "{0,number,integer} Bytes", size, size);
+        if (round(size / 1024) < 1024) return __d("uim", "{0,number,#,###.##} KB", size / 1024); 
+        if (round(size / 1024 / 1024, 2) < 1024) return __d("uim", "{0,number,#,###.##} MB", size / 1024 / 1024);
+        if (round(size / 1024 / 1024 / 1024, 2) < 1024) __d("uim", "{0,number,#,###.##} GB", size / 1024 / 1024 / 1024);
+        return __d("uim", "{0,number,#,###.##} TB", size / 1024 / 1024 / 1024 / 1024);
+    }
+    
+    /**
+     * Formats a number into a percentage string.
+     *
+     * Options:
+     *
+     * - `multiply`: Multiply the input value by 100 for decimal percentages.
+     * - `locale`: The locale name to use for formatting the number, e.g. fr_FR
+     * Params:
+     * string|float|int aValue A floating point number
+     * @param int precision The precision of the returned number
+     * @param IData[string] options Options
+     */
+    static string toPercentage(string|float|int aValue, int precision = 2, IData[string] options = null) {
+        options += ["multiply": false, "type": NumberFormatter.PERCENT];
+        if (!options["multiply"]) {
+            aValue = (float)aValue / 100;
+        }
+        return precision(aValue, precision, options);
+    }
+    
+    /**
+     * Formats a number into the correct locale format
+     *
+     * Options:
+     *
+     * - `places` - Minimum number or decimals to use, e.g 0
+     * - `precision` - Maximum Number of decimal places to use, e.g. 2
+     * - `pattern` - An ICU number pattern to use for formatting the number. e.g #,##0.00
+     * - `locale` - The locale name to use for formatting the number, e.g. fr_FR
+     * - `before` - The string to place before whole numbers, e.g. '["
+     * - `after` - The string to place after decimal numbers, e.g. "]'
+     * Params:
+     * string|float|int aValue A floating point number.
+     * @param IData[string] options An array with options.
+     */
+    static string format(string|float|int aValue, IData[string] options = null) {
+        formatter = formatter(options);
+        options += ["before": "", "after": ""];
+
+        return options["before"] ~ formatter.format((float)aValue) ~ options["after"];
+    }
+    
+    /**
+     * Parse a localized numeric string and transform it in a float point
+     *
+     * Options:
+     *
+     * - `locale` - The locale name to use for parsing the number, e.g. fr_FR
+     * - `type` - The formatter type to construct, set it to `currency` if you need to parse
+     *   numbers representing money.
+     * Params:
+     * string avalue A numeric string.
+     * @param IData[string] options An array with options.
+     */
+    static float parseFloat(string avalue, IData[string] options = null) {
+        formatter = formatter(options);
+
+        return (float)formatter.parse(aValue, NumberFormatter.TYPE_DOUBLE);
+    }
+    
+    /**
+     * Formats a number into the correct locale format to show deltas (signed differences in value).
+     *
+     * ### Options
+     *
+     * - `places` - Minimum number or decimals to use, e.g 0
+     * - `precision` - Maximum Number of decimal places to use, e.g. 2
+     * - `locale` - The locale name to use for formatting the number, e.g. fr_FR
+     * - `before` - The string to place before whole numbers, e.g. '["
+     * - `after` - The string to place after decimal numbers, e.g. "]'
+     * Params:
+     * string|float|int aValue A floating point number
+     * @param IData[string] options Options list.
+     */
+    static string formatDelta(string|float|int aValue, IData[string] options = null) {
+        options += ["places": 0];
+        aValue = number_format((float)aValue, options["places"], ".", "");
+        sign = aValue > 0 ? "+" : "";
+        options["before"] = isSet(options["before"]) ? options["before"] ~ sign : sign;
+
+        return format(aValue, options);
+    }
+    
+    /**
+     * Formats a number into a currency format.
+     *
+     * ### Options
+     *
+     * - `locale` - The locale name to use for formatting the number, e.g. fr_FR
+     * - `fractionSymbol` - The currency symbol to use for fractional numbers.
+     * - `fractionPosition` - The position the fraction symbol should be placed
+     *   valid options are 'before' & 'after'.
+     * - `before` - Text to display before the rendered number
+     * - `after` - Text to display after the rendered number
+     * - `zero` - The text to use for zero values, can be a string or a number. e.g. 0, "Free!'
+     * - `places` - Number of decimal places to use. e.g. 2
+     * - `precision` - Maximum Number of decimal places to use, e.g. 2
+     * - `pattern` - An ICU number pattern to use for formatting the number. e.g #,##0.00
+     * - `useIntlCode` - Whether to replace the currency symbol with the international
+     *  currency code.
+     * Params:
+     * string|float|int aValue Value to format.
+     * @param string currency International currency name such as 'USD", "EUR", "JPY", "CAD'
+     * @param IData[string] options Options list.
+     */
+    static string currency(string|float|int aValue, string acurrency = null, IData[string] options = null) {
+        aValue = (float)aValue;
+        currency = currency ?: getDefaultCurrency();
+
+        if (isSet(options["zero"]) && !aValue) {
+            return options["zero"];
+        }
+        formatter = formatter(["type": getDefaultCurrencyFormat()] + options);
+        abs = abs(aValue);
+        if (!empty(options["fractionSymbol"]) && abs > 0 && abs < 1) {
+            aValue *= 100;
+            string pos = options["fractionPosition"] ?? "after";
+
+            return format(aValue, ["precision": 0, pos: options["fractionSymbol"]]);
+        }
+        before = options.get("before", "");
+        after = options["after"] ?? "";
+        aValue = formatter.formatCurrency(aValue, currency);
+
+        return before ~ aValue ~ after;
+    }
+    
+    /**
+     * Getter for default currency
+     */
+    static string getDefaultCurrency() {
+        if (_defaultCurrency.isNull) {
+            locale = ini_get("intl.default_locale") ?: DEFAULT_LOCALE;
+            formatter = new NumberFormatter(locale, NumberFormatter.CURRENCY);
+            _defaultCurrency = formatter.getTextAttribute(NumberFormatter.CURRENCY_CODE);
+        }
+        return _defaultCurrency;
+    }
+    
+    /**
+     * Setter for default currency
+     * Params:
+     * string currency Default currency string to be used by {@link currency()}
+     * if currency argument is not provided. If null is passed, it will clear the
+     * currently stored value
+     */
+    static void setDefaultCurrency(string acurrency = null) {
+        _defaultCurrency = currency;
+    }
+    
+    /**
+     * Getter for default currency format
+     */
+    static string|int|falseuto getDefaultCurrencyFormat() {
+        return _defaultCurrencyFormat ??= FORMAT_CURRENCY;
+    }
+    
+    /**
+     * Setter for default currency format
+     * Params:
+     * string currencyFormat Default currency format to be used by currency()
+     * if currencyFormat argument is not provided. If null is passed, it will clear the
+     * currently stored value
+     */
+    static void setDefaultCurrencyFormat(string currencyFormat = null) {
+        _defaultCurrencyFormat = currencyFormat;
+    }
+    
+    /**
+     * Returns a formatter object that can be reused for similar formatting task
+     * under the same locale and options. This is often a speedier alternative to
+     * using other methods in this class as only one formatter object needs to be
+     * constructed.
+     *
+     * ### Options
+     *
+     * - `locale` - The locale name to use for formatting the number, e.g. fr_FR
+     * - `type` - The formatter type to construct, set it to `currency` if you need to format
+     *   numbers representing money or a NumberFormatter constant.
+     * - `places` - Number of decimal places to use. e.g. 2
+     * - `precision` - Maximum Number of decimal places to use, e.g. 2
+     * - `pattern` - An ICU number pattern to use for formatting the number. e.g #,##0.00
+     * - `useIntlCode` - Whether to replace the currency symbol with the international
+     *  currency code.
+     * Params:
+     * IData[string] options An array with options.
+     */
+    static NumberFormatter formatter(IData[string] options = null) {
+        string locale = options.get("locale", ini_get("intl.default_locale"));
+
+        if (!locale) {
+            locale = DEFAULT_LOCALE;
+        }
+        type = NumberFormatter.DECIMAL;
+        if (!empty(options["type"])) {
+            type = (int)options["type"];
+            if (options["type"] == FORMAT_CURRENCY) {
+                type = NumberFormatter.CURRENCY;
+            } else if (options["type"] == FORMAT_CURRENCY_ACCOUNTING) {
+                type = NumberFormatter.CURRENCY_ACCOUNTING;
+            }
+        }
+        if (!_formatters[locale].isSet(type)) {
+            _formatters[locale][type] = new NumberFormatter(locale, type);
+        }
+        /** @var \NumberFormatter formatter */
+        formatter = _formatters[locale][type];
+        formatter = clone formatter;
+
+        return _setAttributes(formatter, options);
+    }
+    
+    /**
+     * Configure formatters.
+     * Params:
+     * string alocale The locale name to use for formatting the number, e.g. fr_FR
+     * @param int type The formatter type to construct. Defaults to NumberFormatter.DECIMAL.
+     * @param IData[string] options See Number.formatter() for possible options.
+     */
+    static void config(string alocale, int type = NumberFormatter.DECIMAL, IData[string] options = null) {
+        _formatters[locale][type] = _setAttributes(
+            new NumberFormatter(locale, type),
+            options
+        );
+    }
+    
+    /**
+     * Set formatter attributes
+     * Params:
+     * \NumberFormatter formatter Number formatter instance.
+     * @param IData[string] options See Number.formatter() for possible options.
+     */
+    protected static NumberFormatter _setAttributes(NumberFormatter formatter, IData[string] options = null) {
+        if (isSet(options["places"])) {
+            formatter.setAttribute(NumberFormatter.MIN_FRACTION_DIGITS, options["places"]);
+        }
+        if (isSet(options["precision"])) {
+            formatter.setAttribute(NumberFormatter.MAX_FRACTION_DIGITS, options["precision"]);
+        }
+        if (!empty(options["pattern"])) {
+            formatter.setPattern(options["pattern"]);
+        }
+        if (!empty(options["useIntlCode"])) {
+            // One of the odd things about ICU is that the currency marker in patterns
+            // is denoted with ¤, whereas the international code is marked with ¤¤,
+            // in order to use the code we need to simply duplicate the character wherever
+            // it appears in the pattern.
+             somePattern = str(formatter.getPattern().replace("¤", "¤¤ "));
+            formatter.setPattern(somePattern);
+        }
+        return formatter;
+    }
+    
+    /**
+     * Returns a formatted integer as an ordinal number string (e.g. 1st, 2nd, 3rd, 4th, [...])
+     *
+     * ### Options
+     *
+     * - `type` - The formatter type to construct, set it to `currency` if you need to format
+     *   numbers representing money or a NumberFormatter constant.
+     *
+     * For all other options see formatter().
+     * Params:
+     * float|int aValue An integer
+     * @param IData[string] options An array with options.
+     */
+    static string ordinal(float|int aValue, IData[string] options = null) {
+        return (string)formatter(["type": NumberFormatter.ORDINAL] + options).format(aValue);
+    }
+}

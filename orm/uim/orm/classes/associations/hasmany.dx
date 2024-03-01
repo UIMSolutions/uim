@@ -156,7 +156,7 @@ class HasMany : Association {
             if (!(cast(IEntity)entity)) {
                 break;
             }
-            if (!empty(options["atomic"])) {
+            if (!options["atomic"].isEmpty) {
                 entity = clone entity;
             }
             if (foreignKeyReference != entity.extract(foreignKey)) {

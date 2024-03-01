@@ -59,7 +59,7 @@ class PostgresDriver : Driver {
     if (!empty(configData["schema"])) {
         this.setSchema(configData["schema"]);
     }
-    if (!empty(configData["timezone"])) {
+    if (!configData["timezone"].isEmpty) {
         configData["init"] ~= "SET timezone = %s".format(this.getPdo()
                 .quote(configData["timezone"]));
     }

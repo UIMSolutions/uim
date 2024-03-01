@@ -97,7 +97,7 @@ _baseConfig = [
             (array)configData["init"])
                 .each!(command => this.pdo.exec(command));
         }
-        if (!empty(configData["settings"]) && isArray(configData["settings"])) {
+        if (!configData["settings"].isEmpty && isArray(configData["settings"])) {
             configData["settings"].byKeyValue
                 .each!(kv => this.pdo.exec("SET %s %s".format(kv.key, kv.value)));
         }

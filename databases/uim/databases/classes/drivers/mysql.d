@@ -86,7 +86,7 @@ class DMysqlDriver : DDriver {
             configData["flags"][PDO.MYSQL_ATTR_SSL_KEY] = configData["ssl_key"];
             configData["flags"][PDO.MYSQL_ATTR_SSL_CERT] = configData["ssl_cert"];
         }
-        if (!empty(configData["ssl_ca"])) {
+        if (!configData["ssl_ca"].isEmpty) {
             configData["flags"][PDO.MYSQL_ATTR_SSL_CA] = configData["ssl_ca"];
         }
 

@@ -46,7 +46,7 @@ class QueryExpression : IExpression, Countable {
     ) {
         this.setTypeMap($types);
         this.setConjunction(strtoupper($conjunction));
-        if (!empty($conditions)) {
+        if (!$conditions.isEmpty) {
             this.add($conditions, this.getTypeMap().getTypes());
         }
     }

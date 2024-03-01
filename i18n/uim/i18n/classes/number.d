@@ -305,7 +305,7 @@ class Number {
         if (!empty(options["pattern"])) {
             formatter.setPattern(options["pattern"]);
         }
-        if (!empty(options["useIntlCode"])) {
+        if (!options["useIntlCode"].isEmpty) {
             // One of the odd things about ICU is that the currency marker in patterns
             // is denoted with ¤, whereas the international code is marked with ¤¤,
             // in order to use the code we need to simply duplicate the character wherever

@@ -123,13 +123,13 @@ class SelectLoader {
         } else {
             fetchQuery = _addFilteringCondition(fetchQuery, aKey, filter);
         }
-        if (!empty(options["sort"])) {
+        if (!options["sort"].isEmpty) {
             fetchQuery.orderBy(options["sort"]);
         }
         if (!options["contain"].isEmpty) {
             fetchQuery.contain(options["contain"]);
         }
-        if (!empty(options["queryBuilder"])) {
+        if (!options["queryBuilder"].isEmpty) {
             fetchQuery = options["queryBuilder"](fetchQuery);
         }
        _assertFieldsPresent(fetchQuery, (array)aKey);

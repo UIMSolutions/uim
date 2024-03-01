@@ -80,7 +80,7 @@ class Entity : IEntity, InvalidPropertyInterface {
             return;
         }
 
-        if (!empty($properties)) {
+        if (!$properties.isEmpty) {
             this.set($properties, [
                 "setter": options["useSetters"],
                 "guard": options["guard"],

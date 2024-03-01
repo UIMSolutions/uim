@@ -114,7 +114,7 @@ class BelongsToMany : Association {
      * IData[string] options custom options key that could alter the return value
      */
     bool canBeJoined(IData[string] options = null) {
-        return !empty(options["matching"]);
+        return !options["matching"].isEmpty;
     }
  
     string[] getForeignKey() {
@@ -1242,7 +1242,7 @@ class BelongsToMany : Association {
         if (!options["joinTable"].isEmpty) {
            _junctionTableName(options["joinTable"]);
         }
-        if (!empty(options["through"])) {
+        if (!options["through"].isEmpty) {
             this.setThrough(options["through"]);
         }
         if (!empty(options["saveStrategy"])) {

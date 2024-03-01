@@ -15,41 +15,41 @@ class Translator : ITranslator {
     protected Translator _fallback = null;
 
     // The formatter to use when translating messages.
-    protected IFormatter _formatter;
+    protected II18NFormatter _formatter;
 
     // The locale being used for translations.
     protected string _localename;
 
-    // The catalog containing keys and translations.
-    protected ICatalog _catalog;
+    // Get / Set the catalog containing keys and translations.
+    mixin(TProperty!("ICatalog", "catalog"));
 
     /**
      * Constructor
      * Params:
      * string localename The locale being used.
      * @param \UIM\I18n\MessageCatalog catalog The catalog containing keys and translations.
-     * @param \UIM\I18n\IFormatter formatter A message formatter.
+     * @param \UIM\I18n\II18NFormatter formatter A message formatter.
      * @param \UIM\I18n\Translator|null fallback A fallback translator.
      */
     this(
         string localeName,
         ICatalog catalog,
-        IFormatter messageFormatter,
+        II18NFormatter messageFormatter,
         Translator fallback = null
     ) {
         _locale = localeName;
-        _catalog = catalog;
+        _catalog(catalog);
         _formatter = messageFormatter;
         _fallback = fallback;
     }
 
     // Gets the message translation by its key.
     protected string[] getMessage(string messageKey) {
-        string[] message = _catalog.message(messageKey);
+        string[] message = catalog.message(messageKey);
 
         if (message.isEmpty && _fallback) {
             if (message = _fallback.getMessage(messageKey)) {
-                _catalog.addMessage(messageKey, message);
+                catalog.addMessage(messageKey, message);
             }
         }
 
@@ -132,8 +132,5 @@ class Translator : ITranslator {
             ? [messageKey] : result;
     }
 
-    // Returns the translator catalog
-    ICatalog catalog() {
-        return _catalog;
-    }
+
 }

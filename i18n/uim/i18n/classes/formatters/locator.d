@@ -11,7 +11,7 @@ import uim.i18n;
  */
 class FormatterLocator {
     // A registry to retain formatter objects.
-    protected IFormatter[string] registry = [];
+    protected II18NFormatter[string] registry = [];
 
     /**
      * Tracks whether a registry entry has been converted from a
@@ -29,7 +29,7 @@ class FormatterLocator {
      * Sets a formatter into the registry by name.
      * Params:
      * string aName The formatter name.
-     * @param class-string<\UIM\I18n\IFormatter>  className A FQCN for a formatter.
+     * @param class-string<\UIM\I18n\II18NFormatter>  className A FQCN for a formatter.
      */
     void set(string formatterName, string className) {
         this.registry[formatterName] = className;
@@ -37,13 +37,13 @@ class FormatterLocator {
     }
     
     // Gets a formatter from the registry by name.
-    IFormatter get(string formatterName) {
+    II18NFormatter get(string formatterName) {
         if (!this.registry.isSet(formatterName)) {
             throw new I18nException("Formatter named `%s` has not been registered.".format(name));
         }
         if (!this.converted[formatterName]) {
             auto formatterClassName = this.registry[formatterName];
-            this.registry[formatterName] = cast(IFormatter)object.factory(formatterClassName);
+            this.registry[formatterName] = cast(II18NFormatter)object.factory(formatterClassName);
             this.converted[formatterName] = true;
         }
 

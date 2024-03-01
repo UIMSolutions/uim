@@ -133,7 +133,7 @@ class Date : ChronosDate, JsonSerializable {
     }
     
     // Get the difference formatter instance.
-    static RelativeTimeFormatter diffFormatter(DifferenceIFormatter differenceFormatter = null) {
+    static RelativeTimeFormatter diffFormatter(DifferenceII18NFormatter differenceFormatter = null) {
         if (differenceFormatter) {
             if (!cast(RelativeTimeFormatter)differenceFormatter) {
                 throw new InvalidArgumentException("Formatter for I18n must extend RelativeTimeFormatter.");

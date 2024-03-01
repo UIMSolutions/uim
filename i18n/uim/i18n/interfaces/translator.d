@@ -15,5 +15,6 @@ interface ITranslator {
     string translate(string messageKey, STRINGAA tokensValues);
     
     // Returns the translator catalog
+    void catalog(ICatalog newCatalog);
     ICatalog catalog();
 }

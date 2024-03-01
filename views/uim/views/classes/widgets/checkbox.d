@@ -1,0 +1,68 @@
+module uim.views.widgets.checkbox;
+
+import uim.views;
+
+@safe:
+
+/**
+ * Input widget for creating checkbox widgets.
+ *
+ * This class is usually used internally by `UIM\View\Helper\FormHelper`,
+ * it but can be used to generate standalone checkboxes.
+ */
+class CheckboxWidget : DWidget {
+    // Data defaults.
+    protected IData[string] _defaultData = [
+        "name": "",
+        "value": 1,
+        "val": null,
+        "disabled": false,
+        "templateVars": [],
+    ];
+
+    /**
+     * Render a checkbox element.
+     *
+     * Data supports the following keys:
+     *
+     * - `name` - The name of the input.
+     * - `value` - The value attribute. Defaults to "1".
+     * - `val` - The current value. If it matches `value` the checkbox will be checked.
+     *  You can also use the "checked" attribute to make the checkbox checked.
+     * - `disabled` - Whether the checkbox should be disabled.
+     *
+     * Any other attributes passed in will be treated as HTML attributes.
+     */
+    string render(IData[string] renderData, IContext formContext) {
+        renderData += this.mergeDefaults(renderData, formContext);
+
+        if (_isChecked(renderData)) {
+            renderData["checked"] = true;
+        }
+        renderData.removeKey("val");
+
+        myattrs = _templates.formatAttributes(
+            renderData,
+            ["name", "value"]
+        );
+
+        return _templates.format("checkbox", [
+            "name": renderData["name"],
+            "value": renderData["value"],
+            "templateVars": renderData["templateVars"],
+            "attrs": myattrs,
+        ]);
+    }
+    
+    /**
+     * Checks whether the checkbox should be checked.
+     * Params:
+     * IData[string] mydata Data to look at and determine checked state.
+     */
+    protected bool _isChecked(IData[string] data) {
+        if (array_key_exists("checked", mydata)) {
+            return (bool)mydata["checked"];
+        }
+        return (string)mydata["val"] == (string)mydata["value"];
+    }
+}

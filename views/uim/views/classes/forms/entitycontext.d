@@ -1,0 +1,605 @@
+module uim.views.forms;
+
+import uim.views;
+
+@safe:
+
+/**
+ * Provides a form context around a single entity and its relations.
+ * It also can be used as context around an array or iterator of entities.
+ *
+ * This class lets FormHelper interface with entities or collections
+ * of entities.
+ *
+ * Important Keys:
+ *
+ * - `entity` The entity this context is operating on.
+ * - `table` Either the ORM\Table instance to fetch schema/validators
+ *  from, an array of table instances in the case of a form spanning
+ *  multiple entities, or the name(s) of the table.
+ *  If this.isNull the table name(s) will be determined using naming
+ *  conventions.
+ * - `validator` Either the Validation\Validator to use, or the name of the
+ *  validation method to call on the table object. For example "default".
+ *  Defaults to "default". Can be an array of table alias=>validators when
+ *  dealing with associated forms.
+ */
+class EntityContext : IContext {
+    use LocatorAwareTrait;
+
+    // Context data for this object.
+    protected IData[string] my_context;
+
+    // The name of the top level entity/table object.
+    protected string _rootName;
+
+    /**
+     * Boolean to track whether the entity is a
+     * collection.
+     */
+    protected bool my_isCollection = false;
+
+    // A dictionary of tables
+    protected Table[] my_tables = [];
+
+    // Dictionary of validators.
+    protected Validator[] my_validator = [];
+
+    /**
+     * Constructor.
+     * Params:
+     * IData[string] mycontext Context info.
+     */
+    this(IData[string] contextData) {
+        mycontext += [
+            "entity": null,
+            "table": null,
+            "validator": [],
+        ];
+       _context = mycontext;
+       _prepare();
+    }
+    
+    /**
+     * Prepare some additional data from the context.
+     *
+     * If the table option was provided to the constructor and it
+     * was a string, TableLocator will be used to get the correct table instance.
+     *
+     * If an object is provided as the table option, it will be used as is.
+     *
+     * If no table option is provided, the table name will be derived based on
+     * naming conventions. This inference will work with a number of common objects
+     * like arrays, Collection objects and ResultSets.
+     */
+    protected void _prepare() {
+        mytable = _context["table"];
+
+        /** @var \UIM\Datasource\IEntity|iterable<\UIM\Datasource\IEntity|array> myentity */
+        myentity = _context["entity"];
+       _isCollection = is_iterable(myentity);
+
+        if (isEmpty(mytable)) {
+            if (_isCollection) {
+                /** @var iterable<\UIM\Datasource\IEntity|array> myentity */
+                foreach (myentity as mye) {
+                    myentity = mye;
+                    break;
+                }
+            }
+            if (cast(IEntity)myentity) {
+                mytable = myentity.getSource();
+            }
+            if (!mytable && cast(IEntity)myentity && myentity.classname != Entity.classname) {
+                [, myentityClass] = namespaceSplit(myentity.classname);
+                mytable = Inflector.pluralize(myentityClass);
+            }
+        }
+        if (isString(mytable) && mytable != "") {
+            mytable = this.getTableLocator().get(mytable);
+        }
+        if (!(cast(Table)mytable)) {
+            throw new UimException("Unable to find table class for current entity.");
+        }
+        myalias = _rootName = mytable.getAlias();
+       _tables[myalias] = mytable;
+    }
+    
+    /**
+     * Get the primary key data for the context.
+     *
+     * Gets the primary key columns from the root entity"s schema.
+     */
+    string[] getPrimaryKey() {
+        return (array)_tables[_rootName].getPrimaryKey();
+    }
+ 
+    bool isPrimaryKey(string pathToField) {
+        myparts = split(".", fieldPath);
+        mytable = _getTable(myparts);
+        if (!mytable) {
+            return false;
+        }
+        myprimaryKey = (array)mytable.getPrimaryKey();
+
+        return in_array(array_pop(myparts), myprimaryKey, true);
+    }
+    
+    /**
+     * Check whether this form is a create or update.
+     *
+     * If the context is for a single entity, the entity"s isNew() method will
+     * be used. If isNew() returns null, a create operation will be assumed.
+     *
+     * If the context is for a collection or array the first object in the
+     * collection will be used.
+     */
+    bool isCreate() {
+        myentity = _context["entity"];
+        if (is_iterable(myentity)) {
+            foreach (mye, myentity) {
+                myentity = mye;
+                break;
+            }
+        }
+        if (cast(IEntity)myentity) {
+            return myentity.isNew() != false;
+        }
+        return true;
+    }
+    
+    /**
+     * Get the value for a given path.
+     *
+     * Traverses the entity data and finds the value for mypath.
+     * Params:
+     * string fieldPath The dot separated path to the value.
+     * @param IData[string] options Options:
+     *
+     *  - `default`: Default value to return if no value found in data or
+     *    entity.
+     *  - `schemaDefault`: Boolean indicating whether default value from table
+     *    schema should be used if it"s not explicitly provided.
+     */
+    Json val(string fieldPath, IData[string] options  = null) {
+        options += [
+            "default": null,
+            "schemaDefault": true,
+        ];
+
+        if (isEmpty(_context["entity"])) {
+            return options["default"];
+        }
+        myparts = split(".", fieldPath);
+        myentity = this.entity(myparts);
+
+        if (myentity && end(myparts) == "_ids") {
+            return _extractMultiple(myentity, myparts);
+        }
+        if (cast(IEntity)myentity) {
+            mypart = end(myparts);
+
+            if (cast(IInvalidProperty)myentity) {
+                myval = myentity.getInvalidField(mypart);
+                if (myval !isNull) {
+                    return myval;
+                }
+            }
+            myval = myentity.get(mypart);
+            if (myval !isNull) {
+                return myval;
+            }
+            if (
+                options["default"] !isNull
+                || !options["schemaDefault"]
+                || !myentity.isNew()
+            ) {
+                return options["default"];
+            }
+            return _schemaDefault(myparts);
+        }
+        if (isArray(myentity) || cast(ArrayAccess)myentity) {
+            aKey = array_pop(myparts);
+
+            return myentity.get(aKey, options["default"]);
+        }
+        return null;
+    }
+    
+    /**
+     * Get default value from table schema for given entity field.
+     * Params:
+     * string[] myparts Each one of the parts in a path for a field name
+     */
+    protected Json _schemaDefault(array myparts) {
+        mytable = _getTable(myparts);
+        if (mytable.isNull) {
+            return null;
+        }
+        myfield = end(myparts);
+        mydefaults = mytable.getSchema().defaultValues();
+        if (myfield == false || !array_key_exists(myfield, mydefaults)) {
+            return null;
+        }
+        return mydefaults[myfield];
+    }
+    
+    /**
+     * Helper method used to extract all the primary key values out of an array, The
+     * primary key column is guessed out of the provided mypath array
+     * Params:
+     * Json myvalues The list from which to extract primary keys from
+     * @param string[] mypath Each one of the parts in a path for a field name
+     */
+    protected array _extractMultiple(Json myvalues, array mypath) {
+        if (!is_iterable(myvalues)) {
+            return null;
+        }
+        mytable = _getTable(mypath, false);
+        myprimary = mytable ? (array)mytable.getPrimaryKey(): ["id"];
+
+        return (new Collection(myvalues)).extract(myprimary[0]).toArray();
+    }
+    
+    /**
+     * Fetch the entity or data value for a given path
+     *
+     * This method will traverse the given path and find the entity
+     * or array value for a given path.
+     *
+     * If you only want the terminal Entity for a path use `leafEntity` instead.
+     * Params:
+     * array|null mypath Each one of the parts in a path for a field name
+     * or null to get the entity passed in constructor context.
+     */
+    IEntity|iterable|null entity(array mypath = null) {
+        if (mypath.isNull) {
+            return _context["entity"];
+        }
+        myoneElement = count(mypath) == 1;
+        if (myoneElement && _isCollection) {
+            return null;
+        }
+        myentity = _context["entity"];
+        if (myoneElement) {
+            return myentity;
+        }
+        if (mypath[0] == _rootName) {
+            mypath = array_slice(mypath, 1);
+        }
+        mylen = count(mypath);
+        mylast = mylen - 1;
+        for (myi = 0; myi < mylen; myi++) {
+            myprop = mypath[myi];
+            mynext = _getProp(myentity, myprop);
+            myisLast = (myi == mylast);
+            if (!myisLast && mynext.isNull && myprop != "_ids") {
+                mytable = _getTable(mypath);
+                if (mytable) {
+                    return mytable.newEmptyEntity();
+                }
+            }
+            myisTraversable = (
+                is_iterable(mynext) ||
+                cast(IEntity)mynext
+            );
+            if (myisLast || !myisTraversable) {
+                return myentity;
+            }
+            myentity = mynext;
+        }
+        throw new UimException(
+            "Unable to fetch property `%s`.".format(
+            join(".", mypath)
+        ));
+    }
+    
+    /**
+     * Fetch the terminal or leaf entity for the given path.
+     *
+     * Traverse the path until an entity cannot be found. Lists containing
+     * entities will be traversed if the first element contains an entity.
+     * Otherwise, the containing Entity will be assumed to be the terminal one.
+     * Params:
+     * array|null mypath Each one of the parts in a path for a field name
+     * or null to get the entity passed in constructor context.
+     */
+    protected array leafEntity(array mypath = null) {
+        if (mypath.isNull) {
+            return _context["entity"];
+        }
+        auto myoneElement = count(mypath) == 1;
+        if (myoneElement && _isCollection) {
+            throw new UimException(
+                "Unable to fetch property `%s`."
+                .format(join(".", mypath)));
+        }
+        myentity = _context["entity"];
+        if (myoneElement) {
+            return [myentity, mypath];
+        }
+        if (mypath[0] == _rootName) {
+            mypath = array_slice(mypath, 1);
+        }
+        mylen = count(mypath);
+        myleafEntity = myentity;
+        for (myi = 0; myi < mylen; myi++) {
+            myprop = mypath[myi];
+            mynext = _getProp(myentity, myprop);
+
+            // Did not dig into an entity, return the current one.
+            if (isArray(myentity) && !(cast(IEntity)mynext || cast(Traversable)mynext)) {
+                return [myleafEntity, array_slice(mypath, myi - 1)];
+            }
+            if (cast(IEntity)mynext) {
+                myleafEntity = mynext;
+            }
+            // If we are at the end of traversable elements
+            // return the last entity found.
+            myisTraversable = (
+                isArray(mynext) ||
+                cast(Traversable)mynext ||
+                cast(IEntity)mynext
+            );
+            if (!myisTraversable) {
+                return [myleafEntity, array_slice(mypath, myi)];
+            }
+            myentity = mynext;
+        }
+        throw new UimException(
+            "Unable to fetch property `%s`.".format(join(".", mypath)
+        ));
+    }
+    
+    /**
+     * Read property values or traverse arrays/iterators.
+     * Params:
+     * Json mytarget The entity/array/collection to fetch myfield from.
+     * @param string myfield The next field to fetch.
+     */
+    protected Json _getProp(Json mytarget, string myfield) {
+        if (isArray(mytarget) && isSet(mytarget[myfield])) {
+            return mytarget[myfield];
+        }
+        if (cast(IEntity)mytarget) {
+            return mytarget.get(myfield);
+        }
+        if (cast(Traversable)mytarget) {
+            foreach (mytarget as myi: myval) {
+                if ((string)myi == myfield) {
+                    return myval;
+                }
+            }
+            return false;
+        }
+        return null;
+    }
+    
+    /**
+     * Check if a field should be marked as required.
+     * Params:
+     * string myfield The dot separated path to the field you want to check.
+     */
+    bool isRequired(string myfield): bool
+    {
+        myparts = split(".", myfield);
+        myentity = this.entity(myparts);
+
+        myisNew = true;
+        if (cast(IEntity)myentity) {
+            myisNew = myentity.isNew();
+        }
+        myvalidator = _getValidator(myparts);
+        myfieldName = array_pop(myparts);
+        if (!myvalidator.hasField(myfieldName)) {
+            return null;
+        }
+        if (this.type(myfield) != "boolean") {
+            return !myvalidator.isEmptyAllowed(myfieldName, myisNew);
+        }
+        return false;
+    }
+ 
+    string getRequiredMessage(string myfield) {
+        myparts = split(".", myfield);
+
+        myvalidator = _getValidator(myparts);
+        myfieldName = array_pop(myparts);
+        if (!myvalidator.hasField(myfieldName)) {
+            return null;
+        }
+        myruleset = myvalidator.field(myfieldName);
+        if (myruleset.isEmptyAllowed()) {
+            return null;
+        }
+        return myvalidator.getNotEmptyMessage(myfieldName);
+    }
+    
+    /**
+     * Get field length from validation
+     * Params:
+     * string fieldPath The dot separated path to the field you want to check.
+     */
+    int getMaxLength(string fieldPath) {
+        string[] myparts = fieldPath.split(".");
+        auto myvalidator = _getValidator(myparts);
+        auto myfieldName = array_pop(myparts);
+
+        if (myvalidator.hasField(myfieldName)) {
+            foreach (myrule; myvalidator.field(myfieldName).rules()) {
+                if (myrule.get("rule") == "maxLength") {
+                    return myrule.get("pass")[0];
+                }
+            }
+        }
+        myattributes = this.attributes(fieldPath);
+        return myattributes["length"].isEmpty
+            ? null 
+            : (int)myattributes["length"];
+    }
+    
+    /**
+     * Get the field names from the top level entity.
+     *
+     * If the context is for an array of entities, the 0th index will be used.
+     */
+    string[] fieldNames() {
+        mytable = _getTable("0");
+        if (!mytable) {
+            return null;
+        }
+        return mytable.getSchema().columns();
+    }
+    
+    /**
+     * Get the validator associated to an entity based on naming
+     * conventions.
+     * Params:
+     * array myparts Each one of the parts in a path for a field name
+     */
+    protected Validator _getValidator(array myparts) {
+        mykeyParts = array_filter(array_slice(myparts, 0, -1), auto (mypart) {
+            return !isNumeric(mypart);
+        });
+        aKey = join(".", mykeyParts);
+        myentity = this.entity(myparts);
+
+        if (isSet(_validator[aKey])) {
+            if (isObject(myentity)) {
+               _validator[aKey].setProvider("entity", myentity);
+            }
+            return _validator[aKey];
+        }
+        mytable = _getTable(myparts);
+        if (!mytable) {
+            throw new InvalidArgumentException("Validator not found: `%s`.".format(aKey));
+        }
+        myalias = mytable.getAlias();
+
+        mymethod = "default";
+        if (isString(_context["validator"])) {
+            mymethod = _context["validator"];
+        } elseif (isSet(_context["validator"][myalias])) {
+            mymethod = _context["validator"][myalias];
+        }
+        myvalidator = mytable.getValidator(mymethod);
+
+        if (isObject(myentity)) {
+            myvalidator.setProvider("entity", myentity);
+        }
+        return _validator[aKey] = myvalidator;
+    }
+    
+    /**
+     * Get the table instance from a property path
+     * Params:
+     * \UIM\Datasource\IEntity|string[]|string myparts Each one of the parts in a path for a field name
+     * @param bool myfallback Whether to fallback to the last found table
+     * when a nonexistent field/property is being encountered.
+     */
+    protected Table _getTable(IEntity|string[] myparts, bool myfallback = true) {
+        if (!isArray(myparts) || count(myparts) == 1) {
+            return _tables[_rootName];
+        }
+        mynormalized = array_slice(array_filter(myparts, auto (mypart) {
+            return !isNumeric(mypart);
+        }), 0, -1);
+
+        mypath = join(".", mynormalized);
+        if (isSet(_tables[mypath])) {
+            return _tables[mypath];
+        }
+        if (current(mynormalized) == _rootName) {
+            mynormalized = array_slice(mynormalized, 1);
+        }
+        mytable = _tables[_rootName];
+        myassoc = null;
+        foreach (mypart; mynormalized) {
+            if (mypart == "_joinData") {
+                if (myassoc !isNull) {
+                    mytable = myassoc.junction();
+                    myassoc = null;
+                    continue;
+                }
+            } else {
+                myassociationCollection = mytable.associations();
+                myassoc = myassociationCollection.getByProperty(mypart);
+            }
+            if (myassoc.isNull) {
+                if (myfallback) {
+                    break;
+                }
+                return null;
+            }
+            mytable = myassoc.getTarget();
+        }
+        return _tables[mypath] = mytable;
+    }
+    
+    /**
+     * Get the abstract field type for a given field name.
+     * Params:
+     * string fieldPath A dot separated path to get a schema type for.
+     */
+    string type(string fieldPath) {
+        myparts = split(".", fieldPath);
+        mytable = _getTable(myparts);
+
+        return mytable?.getSchema().baseColumnType(array_pop(myparts));
+    }
+    
+    /**
+     * Get an associative array of other attributes for a field name.
+     * Params:
+     * string fieldPath A dot separated path to get additional data on.
+     */
+    array attributes(string fieldPath) {
+        string[] myparts = split(".", fieldPath);
+        mytable = _getTable(myparts);
+        if (!mytable) {
+            return null;
+        }
+        return array_intersect_key(
+            (array)mytable.getSchema().getColumn(array_pop(myparts)),
+            array_flip(VALID_ATTRIBUTES)
+        );
+    }
+    
+    /**
+     * Check whether a field has an error attached to it
+     * Params:
+     * string fieldPath A dot separated path to check errors on.
+     */
+    bool hasError(string fieldPath) {
+        return this.error(fieldPath) != [];
+    }
+    
+    /**
+     * Get the errors for a given field
+     * Params:
+     * string fieldPath A dot separated path to check errors on.
+     */
+    array error(string fieldPath) {
+        string[] myparts = fieldPath.split(".");
+        try {
+            /**
+             * @var \UIM\Datasource\IEntity|null myentity
+             * @var string[] myremainingParts
+             */
+            [myentity, myremainingParts] = this.leafEntity(myparts);
+        } catch (UimException) {
+            return null;
+        }
+        if (cast(IEntity)myentity && count(myremainingParts) == 0) {
+            return myentity.getErrors();
+        }
+        if (cast(IEntity)myentity) {
+            myerror = myentity.getError(join(".", myremainingParts));
+            if (myerror) {
+                return myerror;
+            }
+            return myentity.getError(array_pop(myparts));
+        }
+        return null;
+    }
+}

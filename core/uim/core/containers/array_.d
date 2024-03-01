@@ -74,10 +74,10 @@ auto positions(T)(in T[] baseArray...) {
 }
 
 ///
-  unittest {
-    assert(positions(1) == [1: [0UL]]);
-    assert(positions(1, 1) == [1: [0UL, 1UL]]);
-    assert(positions(1, 2) == [1: [0UL], 2: [1UL]]);
+unittest {
+  assert(positions(1) == [1: [0UL]]);
+  assert(positions(1, 1) == [1: [0UL, 1UL]]);
+  assert(positions(1, 2) == [1: [0UL], 2: [1UL]]);
 }
 
 /// Creates a associative array with all positions of a value in an array
@@ -93,11 +93,11 @@ size_t[][T] positions(T)(in T[] baseArray, in T[] validValues = null) {
   return results;
 }
 
-  unittest {
-    assert(positions([1]) == [1: [0UL]]);
-    assert(positions([1, 1]) == [1: [0UL, 1UL]]);
-    assert(positions([1, 2]) == [1: [0UL], 2: [1UL]]);
-    assert(positions([1, 2], [1]) == [1: [0UL]]);
+unittest {
+  assert(positions([1]) == [1: [0UL]]);
+  assert(positions([1, 1]) == [1: [0UL, 1UL]]);
+  assert(positions([1, 2]) == [1: [0UL], 2: [1UL]]);
+  assert(positions([1, 2], [1]) == [1: [0UL]]);
 }
 
 /// adding items into array
@@ -265,18 +265,11 @@ bool hasAllValues(T)(in T[] source, in T[] values...) {
 }
 
 bool hasAllValues(T)(in T[] source, in T[] values) {
-  // IN Check
   if (source.isEmpty || values.isEmpty) {
     return false;
   }
 
-  // BODY
-  foreach (myValue; values) {
-    if (!hasValue(source, myValue)) {
-      return false;
-    }
-  }
-  return true;
+  return values.all!(value => hasValue(source, value));
 }
 ///
 unittest {
@@ -368,7 +361,6 @@ unittest {
   assert(1.isIn([1, 2, 3, 4]));
   assert(!10.isIn([1, 2, 3, 4]));
 }
-
 
 size_t[] indexes(T)(T[] values, T value) {
   size_t[] results;

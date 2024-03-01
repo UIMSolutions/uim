@@ -88,13 +88,8 @@ class DStringDataMap : DData, IMap {
   }
 
   // containsKey - Returns true if this map contains a mapping for the specified key.
-  bool containsKey(string key) {
-    foreach (k; keys) {
-      if (k == key) {
-        return true;
-      }
-    }
-    return false;
+  bool containsKey(string keyToCheck) {
+    return keys.each!(key => key == keyToCheck);
   }
 
   override IData[] values() {

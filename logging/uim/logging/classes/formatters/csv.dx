@@ -1,0 +1,13 @@
+module uim.logging.classes.formatters.csv;
+
+import uim.logging;
+
+@safe:
+class DCSVLogFormatter : DLogFormatter {
+  mixin(LogFormatterThis!("CSVLogFormatter"));
+
+  override bool initialize(Json configSettings = Json(null)) {
+    return super.initialize(configSettings);
+  }
+}
+mixin(LogFormatterCalls!("CSVLogFormatter"));

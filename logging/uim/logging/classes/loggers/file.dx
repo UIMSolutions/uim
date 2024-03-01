@@ -65,7 +65,7 @@ class FileLog : BaseLog {
                _file ~= ".log";
             }
         }
-        if (!empty(configuration.data("size"))) {
+        if (!configuration.data("size").isEmpty) {
             _size = isNumeric(configuration.data("size"))
                 ? to!int(configuration.data("size"))
                 : Text.parseFileSize(configuration.data("size"));

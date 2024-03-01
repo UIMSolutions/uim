@@ -558,7 +558,7 @@ trait QueryTrait
             result = new MapReduce(result, functions["mapper"], functions["reducer"]);
         }
 
-        if (!empty(_mapReduce)) {
+        if (!_mapReduce.isEmpty) {
             result = new decorator(result);
         }
 

@@ -1404,7 +1404,7 @@ class FormHelper : Helper {
         if (myhiddenField != false && isScalar(myhiddenField)) {
             myhidden = this.hidden(fieldName, [
                 "value": myhiddenField == true ? "" : (string)myhiddenField,
-                "form": myattributes["form"] ?? null,
+                "form": myattributes["form"].ifNull(null),
                 "name": myattributes["name"],
                 "id": myattributes["id"],
             ]);

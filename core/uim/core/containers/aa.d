@@ -416,3 +416,9 @@ V[K] setValues(K, V)(V[K] target, V[K] someValues) {
     // TODO 
   }
 // #endregion update
+
+V ifNull(V[K] map, K key, V defaultValue) {
+  return key in map 
+    ? (map[k] !is null ? map[k] : defaultValue)
+    : defaultValue;
+}

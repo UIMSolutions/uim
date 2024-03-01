@@ -109,7 +109,7 @@ _baseConfig = [
     
     // Returns whether D is able to use this driver for connecting to database
     bool enabled() {
-        return in_array("sqlsrv", PDO.getAvailableDrivers(), true);
+        return PDO.getAvailableDrivers().has("sqlsrv");
     }
  
     IStatement prepare(Query queryToPrepare) { 

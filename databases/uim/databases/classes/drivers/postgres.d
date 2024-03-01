@@ -56,7 +56,7 @@ class PostgresDriver : Driver {
         this.setEncoding(configData["encoding"]);
     }
 
-    if (!empty(configData["schema"])) {
+    if (!configData["schema"].isEmpty) {
         this.setSchema(configData["schema"]);
     }
     if (!configData["timezone"].isEmpty) {

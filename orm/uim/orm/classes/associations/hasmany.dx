@@ -489,7 +489,7 @@ class HasMany : Association {
      * IData[string] options custom options key that could alter the return value
      */
     bool canBeJoined(IData[string] options = null) {
-        return !empty(options["matching"]);
+        return !options["matching"].isEmpty);
     }
  
     string[] getForeignKey() {

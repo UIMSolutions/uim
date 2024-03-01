@@ -41,7 +41,7 @@ trait ViewVarsTrait {
         });
         
         return mybuilder.build(
-            this.request ?? null,
+            this.request.ifNull(null),
             this.response ?? null,
             cast(IEventDispatcher)this ? this.getEventManager(): null
         );

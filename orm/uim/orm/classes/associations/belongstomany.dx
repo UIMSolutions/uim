@@ -105,7 +105,7 @@ class BelongsToMany : Association {
      * Gets the name of the field representing the foreign key to the target table.
      */
     string[] getTargetForeignKey() {
-        return _targetForeignKey ??= _modelKey(this.getTarget().getAlias());
+        return _targetForeignKey.ifEmpty(_modelKey(this.getTarget().getAlias()));
     }
     
     /**
@@ -334,7 +334,7 @@ class BelongsToMany : Association {
      * @param IData[string] options Any extra options or overrides to be taken in account
      */
     void attachTo(SelectQuery aQuery, IData[string] options = null) {
-        if (!empty(options["negateMatch"])) {
+        if (!options["negateMatch"].isEmpty) {
            _appendNotMatching(aQuery, options);
 
             return;
@@ -569,7 +569,7 @@ class BelongsToMany : Association {
     ) {
         joinAssociations = false;
         if (isSet(options["associated"]) && isArray(options["associated"])) {
-            if (!empty(options["associated"][_junctionProperty]["associated"])) {
+            if (!options["associated"][_junctionProperty]["associated"].isEmpty) {
                 joinAssociations = options["associated"][_junctionProperty]["associated"];
             }
             unset(options["associated"][_junctionProperty]);
@@ -1245,7 +1245,7 @@ class BelongsToMany : Association {
         if (!options["through"].isEmpty) {
             this.setThrough(options["through"]);
         }
-        if (!empty(options["saveStrategy"])) {
+        if (!options["saveStrategy"].isEmpty) {
             this.setSaveStrategy(options["saveStrategy"]);
         }
         if (isSet(options["sort"])) {

@@ -94,14 +94,13 @@ class QueryExpression : IExpression, Countable {
      * Params:
      * \UIM\Database\IExpression|string afield Database field to be compared against value
      * @param Json aValue The value to be bound to field for comparison
-     * @param string|null type the type name for aValue as configured using the Type map.
      * If it is suffixed with "[]" and the value is an array then multiple placeholders
      * will be created, one per each value in the array.
      */
-    auto eq(IExpression|string afield, Json aValue, string atype = null) {
-        auto type ??= _calculateType(field);
+    auto eq(IExpression|string afield, Json aValue, string typeName = null) {
+        typeName = typeName.ifEmpty(_calculateType(field));
 
-        return this.add(new ComparisonExpression(field, aValue, type, "="));
+        return this.add(new ComparisonExpression(field, aValue, typeName, "="));
     }
 
     /**

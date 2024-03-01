@@ -128,7 +128,7 @@ class SelectBoxWidget : Widget {
         if (isEmpty(options)) {
             return null;
         }
-        myselected = renderData["val"] ?? null;
+        myselected = renderData["val"].ifNull(null);
         mydisabled = null;
         if (isSet(renderData["disabled"]) && isArray(renderData["disabled"])) {
             mydisabled = renderData["disabled"];

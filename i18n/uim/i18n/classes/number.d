@@ -177,7 +177,7 @@ class Number {
         }
         formatter = formatter(["type": getDefaultCurrencyFormat()] + options);
         abs = abs(aValue);
-        if (!empty(options["fractionSymbol"]) && abs > 0 && abs < 1) {
+        if (!options["fractionSymbol"].isEmpty && abs > 0 && abs < 1) {
             aValue *= 100;
             string pos = options.get("fractionPosition", "after");
 

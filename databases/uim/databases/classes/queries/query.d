@@ -1372,7 +1372,7 @@ abstract class Query : IExpression, Stringable {
      * to the statement object.
      */
     ValueBinder getValueBinder() {
-        return _valueBinder ??= new ValueBinder();
+        return _valueBinder.ifNull(new ValueBinder());
     }
     
     /**

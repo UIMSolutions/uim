@@ -36,12 +36,8 @@ class DIntegerStringAttribute : DLookupAttribute {
   }
 
   bool hasLookupData(string LookupData) {
-    foreach (k, v; _lookups) {
-      if (v == LookupData) {
-        return true;
-      }
-    }
-    return false;
+    return _lookups.values
+      .any!(value => v == LookupData);
   }
 
   /* override IData createData() {

@@ -88,7 +88,7 @@ auto OBJ() { return new Obj; }
 
 auto toJson(Method[string] keyPairs) {
 	auto result = Json.emptyObject;
-	foreach(k, v; keyPairs) { result[k] = v.toJson; }
+	keyPairs.byKeyValue.each!(kv => result[kv.key] = kv.value.toJson);
 	return result;
 } 
 

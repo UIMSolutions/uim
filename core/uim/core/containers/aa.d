@@ -256,11 +256,7 @@ bool hasValue(T, S)(T[S] base, S value...) {
   }
 
   bool hasValues(T, S)(T[S] base, S[] values) {
-    foreach (value; values)
-      if (!base.hasValue(value)) {
-        return false;
-      }
-    return true;
+    return values.all!(value => base.hasValue(value));
   }
   unittest {
     assert(["a": "b", "c": "d"].hasValues("b"));

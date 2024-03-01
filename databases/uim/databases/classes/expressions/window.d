@@ -173,7 +173,7 @@ class WindowExpression : IExpression, WindowInterface {
                  mycallback(myoffset);
                  myoffset.traverse(mycallback);
             }
-             myoffset = this.frame["end"]["offset"] ?? null;
+             myoffset = this.frame["end"].get("offset", null);
             if (cast(IExpression)myoffset ) {
                  mycallback(myoffset);
                  myoffset.traverse(mycallback);

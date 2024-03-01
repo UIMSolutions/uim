@@ -344,7 +344,7 @@ class BelongsToMany : Association {
         cond = belongsTo._joinCondition(["foreignKey": belongsTo.getForeignKey()]);
         cond += this.junctionConditions();
 
-         anIncludeFields = options["includeFields"] ?? null;
+         anIncludeFields = options.get("includeFields", null);
 
         // Attach the junction table as well we need it to populate _joinData.
         assoc = this.getTarget().getAssociation(junction.getAlias());

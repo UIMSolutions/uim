@@ -59,7 +59,7 @@ class SelectLoader {
         this.bindingKey = options["bindingKey"];
         this.finder = options["finder"];
         this.associationType = options["associationType"];
-        this.sort = options["sort"] ?? null;
+        this.sort = options.get("sort", null);
     }
 
     /**
@@ -99,7 +99,7 @@ class SelectLoader {
         filter = options["keys"];
         useSubquery = options["strategy"] == Association.STRATEGY_SUBQUERY;
         finder = this.finder;
-        options["fields"] ??= [];
+        options.get("fields", null);
 
         aQuery = finder();
         assert(cast(SelectQuery)aQuery);

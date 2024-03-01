@@ -241,9 +241,9 @@ class DateTime /* : Chronos, JsonSerializable, Stringable */ {
      * string adate The date string to parse.
      * @param string[]|int format Any format accepted by IntlDateFormatter.
      * /
-    auto parseDate(string adate, string[]|int format = null) {
+    auto parseDate(string adate, int format)
     }
-    auto parseDate(string adate, string[]|int format = null) {
+    auto parseDate(string adate, string[] format = null) {
         format ??= wordFormat;
         if (isInt(format)) {
             format = [format, IntlDateFormatter.NONE];
@@ -353,9 +353,9 @@ class DateTime /* : Chronos, JsonSerializable, Stringable */ {
     }
 
     string i18nFormat(
-        string[] format = null,
+        string[] format;
         /* DateTimeZone| */ string timezone = null,
-        string alocale = null
+        string locale;
     ) {
         if (format == DateTime.UNIX_TIMESTAMP_FORMAT) {
             return this.getTimestamp();
@@ -365,8 +365,8 @@ class DateTime /* : Chronos, JsonSerializable, Stringable */ {
         if (timezone) {
             time = time.setTimezone(timezone);
         }
-        format ??= _toStringFormat;
-        locale = locale ?: DateTime.getDefaultLocale();
+        format = format.ifNull(_toStringFormat);
+        locale = locale.ifEmpty(DateTime.getDefaultLocale());
 
         return _formatObject(time, format, locale);
     }

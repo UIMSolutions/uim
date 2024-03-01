@@ -435,3 +435,12 @@ unittest {
       "z"
     ]);
 }
+
+
+T[] ifNull(T)(T[] values, T[] defaultValues = null) {
+  return !values.isNull ? values : defaultValues;
+}
+
+T[] ifEmpty(T)(T[] values, T[] defaultValues = null) {
+  return !values.isEmpty ? values : defaultValues;
+}

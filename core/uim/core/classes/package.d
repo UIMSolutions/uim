@@ -6,5 +6,6 @@
 module uim.core.classes;
 
 public {
+  import uim.core.general;
   import uim.core.mixins;
 }

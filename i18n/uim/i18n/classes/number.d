@@ -179,12 +179,12 @@ class Number {
         abs = abs(aValue);
         if (!empty(options["fractionSymbol"]) && abs > 0 && abs < 1) {
             aValue *= 100;
-            string pos = options["fractionPosition"] ?? "after";
+            string pos = options.get("fractionPosition", "after");
 
             return format(aValue, ["precision": 0, pos: options["fractionSymbol"]]);
         }
         before = options.get("before", "");
-        after = options["after"] ?? "";
+        after = options.get("after", "");
         aValue = formatter.formatCurrency(aValue, currency);
 
         return before ~ aValue ~ after;

@@ -72,7 +72,7 @@ class SqliteDriver : Driver {
             PDO.ATTR_ERRMODE: PDO.ERRMODE_EXCEPTION,
         ];
         if (!configData["database"].isString) || configData["database"] == "") {
-            name = configData["name"] ?? "unknown";
+            name = configData.get("name", "unknown");
             throw new InvalidArgumentException(
                 "The `database` key for the `{name}` SQLite connection needs to be a non-empty string."
             );

@@ -1,0 +1,1000 @@
+module uim.views.helpers.html;
+
+import uim.views;
+
+@safe:
+
+/**
+ * Html Helper class for easy use of HTML widgets.
+ *
+ * HtmlHelper encloses all methods needed while working with HTML pages.
+ *
+ * @property \UIM\View\Helper\UrlHelper myUrl
+ * @link https://book.UIM.org/5/en/views/helpers/html.html
+ */
+class HtmlHelper : Helper {
+    use StringTemplateTrait;
+
+    // List of helpers used by this helper
+    protected array myhelpers = ["Url"];
+
+    // Default config for this class
+    protected Json _defaultConfig = [
+        "templates": [
+            "meta": "<meta{{attrs}}>",
+            "metalink": "<link href=\"{{url}}\"{{attrs}}>",
+            "link": "<a href=\"{{url}}\"{{attrs}}>{{content}}</a>",
+            "mailto": "<a href=\"mailto:{{url}}\"{{attrs}}>{{content}}</a>",
+            "image": "<img src="{{url}}"{{attrs}}>",
+            "tableheader": "<th{{attrs}}>{{content}}</th>",
+            "tableheaderrow": "<tr{{attrs}}>{{content}}</tr>",
+            "tablecell": "<td{{attrs}}>{{content}}</td>",
+            "tablerow": "<tr{{attrs}}>{{content}}</tr>",
+            "block": "<div{{attrs}}>{{content}}</div>",
+            "blockstart": "<div{{attrs}}>",
+            "blockend": "</div>",
+            "tag": "<{{tag}}{{attrs}}>{{content}}</{{tag}}>",
+            "tagstart": "<{{tag}}{{attrs}}>",
+            "tagend": "</{{tag}}>",
+            "tagselfclosing": "<{{tag}}{{attrs}}/>",
+            "para": "<p{{attrs}}>{{content}}</p>",
+            "parastart": "<p{{attrs}}>",
+            "css": "<link rel="{{rel}}" href="{{url}}"{{attrs}}>",
+            "style": "<style{{attrs}}>{{content}}</style>",
+            "charset": "<meta charset="{{charset}}">",
+            "ul": "<ul{{attrs}}>{{content}}</ul>",
+            "ol": "<ol{{attrs}}>{{content}}</ol>",
+            "li": "<li{{attrs}}>{{content}}</li>",
+            "javascriptblock": "<script{{attrs}}>{{content}}</script>",
+            "javascriptstart": "<script>",
+            "javascriptlink": "<script src="{{url}}"{{attrs}}></script>",
+            "javascriptend": "</script>",
+            "confirmJs": "{{confirm}}",
+        ],
+    ];
+
+    // Names of script & css files that have been included once
+    protected array<string, array> my_includedAssets = [];
+
+    // Options for the currently opened script block buffer if any.
+    protected IData[string] my_scriptBlockOptions = [];
+
+    /**
+     * Creates a link to an external resource and handles basic meta tags
+     *
+     * Create a meta tag that is output inline:
+     *
+     * ```
+     * this.Html.meta("icon", "favicon.ico");
+     * ```
+     *
+     * Append the meta tag to custom view block "meta":
+     *
+     * ```
+     * this.Html.meta("description", "A great page", ["block": true]);
+     * ```
+     *
+     * Append the meta tag to custom view block:
+     *
+     * ```
+     * this.Html.meta("description", "A great page", ["block": "metaTags"]);
+     * ```
+     *
+     * Create a custom meta tag:
+     *
+     * ```
+     * this.Html.meta(["property": "og:site_name", "content": "UIM"]);
+     * ```
+     *
+     * ### Options
+     *
+     * - `block` - Set to true to append output to view block "meta" or provide
+     *  custom block name.
+     * Params:
+     * IData[string]|string mytype The title of the external resource, Or an array of attributes for a
+     *  custom meta tag.
+     * @param string[]|null mycontent The address of the external resource or string for content attribute
+     * @param IData[string] htmlAtributes Other attributes for the generated tag. If the type attribute is html,
+     *   rss, atom, or icon, the mime-type is returned.
+     */
+    string meta(string[] mytype, string[]|null mycontent = null, IData[string] htmlAtributes = null) {
+        if (!isArray(mytype)) {
+            mytypes = [
+                "rss": ["type": "application/rss+xml", "rel": "alternate", "title": mytype, "link": mycontent],
+                "atom": ["type": "application/atom+xml", "title": mytype, "link": mycontent],
+                "icon": ["type": "image/x-icon", "rel": "icon", "link": mycontent],
+                "keywords": ["name": "keywords", "content": mycontent],
+                "description": ["name": "description", "content": mycontent],
+                "robots": ["name": "robots", "content": mycontent],
+                "viewport": ["name": "viewport", "content": mycontent],
+                "canonical": ["rel": "canonical", "link": mycontent],
+                "next": ["rel": "next", "link": mycontent],
+                "prev": ["rel": "prev", "link": mycontent],
+                "first": ["rel": "first", "link": mycontent],
+                "last": ["rel": "last", "link": mycontent],
+            ];
+
+            if (mytype == "icon" && mycontent.isNull) {
+                mytypes["icon"]["link"] = "favicon.ico";
+            }
+            if (isSet(mytypes[mytype])) {
+                mytype = mytypes[mytype];
+            } elseif (!htmlAtributes.isSet("type") && mycontent !isNull) {
+                if (isArray(mycontent) && isSet(mycontent["_ext"])) {
+                    mytype = mytypes[mycontent["_ext"]];
+                } else {
+                    mytype = ["name": mytype, "content": mycontent];
+                }
+            } elseif (isSet(htmlAtributes["type"], mytypes[htmlAtributes["type"]])) {
+                mytype = mytypes[htmlAtributes["type"]];
+                unset(htmlAtributes["type"]);
+            } else {
+                mytype = [];
+            }
+        }
+        htmlAtributes += mytype ~ ["block": null];
+        string result = "";
+
+        if (isSet(htmlAtributes["link"])) {
+            if (isArray(htmlAtributes["link"])) {
+                htmlAtributes["link"] = this.Url.build(htmlAtributes["link"]);
+            } else {
+                htmlAtributes["link"] = this.Url.assetUrl(htmlAtributes["link"]);
+            }
+            if (isSet(htmlAtributes["rel"]) && htmlAtributes["rel"] == "icon") {
+                result = this.formatTemplate("metalink", [
+                    "url": htmlAtributes["link"],
+                    "attrs": this.templater().formatAttributes(htmlAtributes, ["block", "link"]),
+                ]);
+                htmlAtributes["rel"] = "shortcut icon";
+            }
+            result ~= this.formatTemplate("metalink", [
+                "url": htmlAtributes["link"],
+                "attrs": this.templater().formatAttributes(htmlAtributes, ["block", "link"]),
+            ]);
+        } else {
+            result = this.formatTemplate("meta", [
+                "attrs": this.templater().formatAttributes(htmlAtributes, ["block", "type"]),
+            ]);
+        }
+        if (isEmpty(htmlAtributes["block"])) {
+            return result;
+        }
+        if (htmlAtributes["block"] == true) {
+            htmlAtributes["block"] = __FUNCTION__;
+        }
+       _View.append(htmlAtributes["block"], result);
+
+        return null;
+    }
+    
+    /**
+     * Returns a charset META-tag.
+     * Params:
+     * string|null mycharset The character set to be used in the meta tag. If empty,
+     * The App.encoding value will be used. Example: "utf-8".
+     */
+    string charset(string metatagCharset = null) {
+        string result; 
+        if (metatagCharset.isEmpty) {
+            result = (string)Configure.read("App.encoding").toLower;
+        }
+        return this.formatTemplate("charset", [
+            "charset": !empty(result) ? result : "utf-8",
+        ]);
+    }
+    
+    /**
+     * Creates an HTML link.
+     *
+     * If myurl starts with "http://" this is treated as an external link. Else,
+     * it is treated as a path to controller/action and parsed with the
+     * UrlHelper.build() method.
+     *
+     * If the myurl is empty, mytitle is used instead.
+     *
+     * ### Options
+     *
+     * - `escape` Set to false to disable escaping of title and attributes.
+     * - `escapeTitle` Set to false to disable escaping of title. Takes precedence
+     *  over value of `escape`)
+     * - `confirm` JavaScript confirmation message.
+     * Params:
+     * string[] mytitle The content to be wrapped by `<a>` tags.
+     *  Can be an array if myurl.isNull. If myurl.isNull, mytitle will be used as both the URL and title.
+     * @param string[]|null myurl Cake-relative URL or array of URL parameters, or
+     *  external URL (starts with http://)
+     * @param IData[string] htmlAtributes Array of options and HTML attributes.
+     */
+    string link(string[] mytitle, string[]|null myurl = null, IData[string] htmlAtributes = null) {
+        myescapeTitle = true;
+        if (myurl !isNull) {
+            myurl = this.Url.build(myurl, htmlAtributes);
+            unset(htmlAtributes["fullBase"]);
+        } else {
+            myurl = this.Url.build(mytitle);
+            mytitle = htmlspecialchars_decode(myurl, ENT_QUOTES);
+            mytitle = h(urldecode(mytitle));
+            myescapeTitle = false;
+        }
+        if (isSet(htmlAtributes["escapeTitle"])) {
+            myescapeTitle = htmlAtributes["escapeTitle"];
+            unset(htmlAtributes["escapeTitle"]);
+        } elseif (isSet(htmlAtributes["escape"])) {
+            myescapeTitle = htmlAtributes["escape"];
+        }
+        if (myescapeTitle == true) {
+            mytitle = h(mytitle);
+        } elseif (isString(myescapeTitle)) {
+            /** @psalm-suppress PossiblyInvalidArgument */
+            mytitle = htmlentities(mytitle, ENT_QUOTES, myescapeTitle);
+        }
+        mytemplater = this.templater();
+        myconfirmMessage = null;
+        if (isSet(htmlAtributes["confirm"])) {
+            myconfirmMessage = htmlAtributes["confirm"];
+            unset(htmlAtributes["confirm"]);
+        }
+        if (myconfirmMessage) {
+            myconfirm = _confirm("return true;", "return false;");
+            htmlAtributes["data-confirm-message"] = myconfirmMessage;
+            htmlAtributes["onclick"] = mytemplater.format("confirmJs", [
+                "confirmMessage": h(myconfirmMessage),
+                "confirm": myconfirm,
+            ]);
+        }
+        return mytemplater.format("link", [
+            "url": myurl,
+            "attrs": mytemplater.formatAttributes(htmlAtributes),
+            "content": mytitle,
+        ]);
+    }
+    
+    /**
+     * Creates an HTML link from route path string.
+     *
+     * ### Options
+     *
+     * - `escape` Set to false to disable escaping of title and attributes.
+     * - `escapeTitle` Set to false to disable escaping of title. Takes precedence
+     *  over value of `escape`)
+     * - `confirm` JavaScript confirmation message.
+     * Params:
+     * string mytitle The content to be wrapped by `<a>` tags.
+     * @param string mypath Cake-relative route path.
+     * @param array myparams An array specifying any additional parameters.
+     *  Can be also any special parameters supported by `Router.url()`.
+     * @param IData[string] htmlAtributes Array of options and HTML attributes.
+     */
+    string linkFromPath(string mytitle, string mypath, array myparams = [], IData[string] htmlAtributes = null) {
+        return this.link(mytitle, ["_path": mypath] + myparams, htmlAtributes);
+    }
+    
+    /**
+     * Creates a link element for CSS stylesheets.
+     *
+     * ### Usage
+     *
+     * Include one CSS file:
+     *
+     * ```
+     * echo this.Html.css("styles.css");
+     * ```
+     *
+     * Include multiple CSS files:
+     *
+     * ```
+     * echo this.Html.css(["one.css", "two.css"]);
+     * ```
+     *
+     * Add the stylesheet to view block "css":
+     *
+     * ```
+     * this.Html.css("styles.css", ["block": true]);
+     * ```
+     *
+     * Add the stylesheet to a custom block:
+     *
+     * ```
+     * this.Html.css("styles.css", ["block": "layoutCss"]);
+     * ```
+     *
+     * ### Options
+     *
+     * - `block` Set to true to append output to view block "css" or provide
+     *  custom block name.
+     * - `once` Whether the css file should be checked for uniqueness. If true css
+     *  files  will only be included once, use false to allow the same
+     *  css to be included more than once per request.
+     * - `plugin` False value will prevent parsing path as a plugin
+     * - `rel` Defaults to "stylesheet". If equal to "import" the stylesheet will be imported.
+     * - `fullBase` If true the URL will get a full address for the css file.
+     *
+     * All other options will be treated as HTML attributes. If the request contains a
+     * `cspStyleNonce` attribute, that value will be applied as the `nonce` attribute on the
+     * generated HTML.
+     * Params:
+     * string[]|string mypath The name of a CSS style sheet or an array containing names of
+     *  CSS stylesheets. If `mypath` is prefixed with "/", the path will be relative to the webroot
+     *  of your application. Otherwise, the path will be relative to your CSS path, usually webroot/css.
+     * @param IData[string] htmlAtributes Array of options and HTML arguments.
+     */
+    string css(string[] mypath, IData[string] htmlAtributes = null) {
+        htmlAtributes += [
+            "once": true,
+            "block": null,
+            "rel": "stylesheet",
+            "nonce": _View.getRequest().getAttribute("cspStyleNonce"),
+        ];
+
+        if (isArray(mypath)) {
+            string result = "";
+            foreach (mypath as myi) {
+                result ~= "\n\t" ~ (string)this.css(myi, htmlAtributes);
+            }
+            if (isEmpty(htmlAtributes["block"])) {
+                return result ~ "\n";
+            }
+            return null;
+        }
+        myurl = this.Url.css(mypath, htmlAtributes);
+        htmlAtributes = array_diff_key(htmlAtributes, ["fullBase": null, "pathPrefix": null]);
+
+        if (htmlAtributes["once"] && isSet(_includedAssets[__METHOD__][mypath])) {
+            return null;
+        }
+        htmlAtributes.remove("once");
+       _includedAssets[__METHOD__][mypath] = true;
+
+        mytemplater = this.templater();
+        if (htmlAtributes["rel"] == "import") {
+            result = mytemplater.format("style", [
+                "attrs": mytemplater.formatAttributes(htmlAtributes, ["rel", "block"]),
+                "content": "@import url(" ~ myurl ~ ");",
+            ]);
+        } else {
+            result = mytemplater.format("css", [
+                "rel": htmlAtributes["rel"],
+                "url": myurl,
+                "attrs": mytemplater.formatAttributes(htmlAtributes, ["rel", "block"]),
+            ]);
+        }
+        if (isEmpty(htmlAtributes["block"])) {
+            return result;
+        }
+        if (htmlAtributes["block"] == true) {
+            htmlAtributes["block"] = __FUNCTION__;
+        }
+       _View.append(htmlAtributes["block"], result);
+
+        return null;
+    }
+    
+    /**
+     * Returns one or many `<script>` tags depending on the number of scripts given.
+     *
+     * If the filename is prefixed with "/", the path will be relative to the base path of your
+     * application. Otherwise, the path will be relative to your JavaScript path, usually webroot/js.
+     *
+     * ### Usage
+     *
+     * Include one script file:
+     *
+     * ```
+     * echo this.Html.script("styles.js");
+     * ```
+     *
+     * Include multiple script files:
+     *
+     * ```
+     * echo this.Html.script(["one.js", "two.js"]);
+     * ```
+     *
+     * Add the script file to a custom block:
+     *
+     * ```
+     * this.Html.script("styles.js", ["block": "bodyScript"]);
+     * ```
+     *
+     * ### Options
+     *
+     * - `block` Set to true to append output to view block "script" or provide
+     *  custom block name.
+     * - `once` Whether the script should be checked for uniqueness. If true scripts will only be
+     *  included once, use false to allow the same script to be included more than once per request.
+     * - `plugin` False value will prevent parsing path as a plugin
+     * - `fullBase` If true the url will get a full address for the script file.
+     *
+     * All other options will be added as attributes to the generated script tag.
+     * If the current request has a `cspScriptNonce` attribute, that value will
+     * be inserted as a `nonce` attribute on the script tag.
+     * Params:
+     * string[]|string myurl String or array of javascript files to include
+     * @param IData[string] htmlAtributes Array of options, and html attributes see above.
+     */
+    string script(string[] myurl, IData[string] htmlAtributes = null) {
+        mydefaults = [
+            "block": null,
+            "once": true,
+            "nonce": _View.getRequest().getAttribute("cspScriptNonce"),
+        ];
+        htmlAtributes += mydefaults;
+
+        if (isArray(myurl)) {
+            string result = myurl.map!(i => "\n\t" ~ (string)this.script(myi, htmlAtributes)).join;
+            if (isEmpty(htmlAtributes["block"])) {
+                return result ~ "\n";
+            }
+            return null;
+        }
+        myurl = this.Url.script(myurl, htmlAtributes);
+        htmlAtributes = array_diff_key(htmlAtributes, ["fullBase": null, "pathPrefix": null]);
+
+        if (htmlAtributes["once"] && isSet(_includedAssets[__METHOD__][myurl])) {
+            return null;
+        }
+       _includedAssets[__METHOD__][myurl] = true;
+
+        result = this.formatTemplate("javascriptlink", [
+            "url": myurl,
+            "attrs": this.templater().formatAttributes(htmlAtributes, ["block", "once"]),
+        ]);
+
+        if (isEmpty(htmlAtributes["block"])) {
+            return result;
+        }
+        if (htmlAtributes["block"] == true) {
+            htmlAtributes["block"] = __FUNCTION__;
+        }
+       _View.append(htmlAtributes["block"], result);
+
+        return null;
+    }
+    
+    /**
+     * Wrap myscript in a script tag.
+     *
+     * ### Options
+     *
+     * - `block` Set to true to append output to view block "script" or provide
+     *  custom block name.
+     * Params:
+     * string myscript The script to wrap
+     * @param IData[string] htmlAtributes The options to use. Options not listed above will be
+     *   treated as HTML attributes.
+     */
+    string scriptBlock(string myscript, IData[string] htmlAtributes = null) {
+        htmlAtributes += ["block": null, "nonce": _View.getRequest().getAttribute("cspScriptNonce")];
+
+        auto result = this.formatTemplate("javascriptblock", [
+            "attrs": this.templater().formatAttributes(htmlAtributes, ["block"]),
+            "content": myscript,
+        ]);
+
+        if (isEmpty(htmlAtributes["block"])) {
+            return result;
+        }
+        if (htmlAtributes["block"] == true) {
+            htmlAtributes["block"] = "script";
+        }
+       _View.append(htmlAtributes["block"], result);
+
+        return null;
+    }
+    
+    /**
+     * Begin a script block that captures output until HtmlHelper.scriptEnd()
+     * is called. This capturing block will capture all output between the methods
+     * and create a scriptBlock from it.
+     *
+     * ### Options
+     *
+     * - `block` Set to true to append output to view block "script" or provide
+     *  custom block name.
+     * Params:
+     * IData[string] options Options for the code block.
+     */
+    void scriptStart(IData[string] options  = null) {
+       _scriptBlockOptions = options;
+        ob_start();
+    }
+    
+    /**
+     * End a Buffered section of JavaScript capturing.
+     * Generates a script tag inline or appends to specified view block depending on
+     * the settings used when the scriptBlock was started
+     */
+    string scriptEnd() {
+        mybuffer = (string)ob_get_clean();
+        options = _scriptBlockOptions;
+       _scriptBlockOptions = [];
+
+        return this.scriptBlock(mybuffer, options);
+    }
+    
+    /**
+     * Builds CSS style data from an array of CSS properties
+     *
+     * ### Usage:
+     *
+     * ```
+     * echo this.Html.style(["margin": "10px", "padding": "10px"], true);
+     *
+     * // creates
+     * "margin:10px;padding:10px;"
+     * ```
+     * Params:
+     * STRINGAA mydata Style data array, keys will be used as property names, values as property values.
+     * @param bool myoneLine Whether the style block should be displayed on one line.
+     */
+    string style(array data, bool myoneLine = true) {
+        string[] result;
+        foreach (mydata as aKey: myvalue) {
+            result ~= aKey ~ ":" ~ myvalue ~ ";";
+        }
+        if (myoneLine) {
+            return result.join(" ");
+        }
+        return join("\n", result);
+    }
+    
+    /**
+     * Creates a formatted IMG element.
+     *
+     * This method will set an empty alt attribute if one is not supplied.
+     *
+     * ### Usage:
+     *
+     * Create a regular image:
+     *
+     * ```
+     * echo this.Html.image("cake_icon.png", ["alt": "UIM"]);
+     * ```
+     *
+     * Create an image link:
+     *
+     * ```
+     * echo this.Html.image("cake_icon.png", ["alt": "UIM", "url": "https://UIM.org"]);
+     * ```
+     *
+     * ### Options:
+     *
+     * - `url` If provided an image link will be generated and the link will point at
+     *  `options["url"]`.
+     * - `fullBase` If true the src attribute will get a full address for the image file.
+     * - `plugin` False value will prevent parsing path as a plugin
+     * Params:
+     * string[] mypath Path to the image file, relative to the webroot/img/ directory.
+     * @param IData[string] options Array of HTML attributes. See above for special options.
+     */
+    string image(string[] mypath, IData[string] htmlAtributes = null) {
+        if (isString(mypath)) {
+            mypath = this.Url.image(mypath, htmlAtributes);
+        } else {
+            mypath = this.Url.build(mypath, htmlAtributes);
+        }
+        htmlAtributes = array_diff_key(htmlAtributes, ["fullBase": null, "pathPrefix": null]);
+
+        if (!htmlAtributes.isSet("alt")) {
+            htmlAtributes["alt"] = "";
+        }
+        myurl = false;
+        if (!empty(htmlAtributes["url"])) {
+            myurl = htmlAtributes["url"];
+            unset(htmlAtributes["url"]);
+        }
+        mytemplater = this.templater();
+        myimage = mytemplater.format("image", [
+            "url": mypath,
+            "attrs": mytemplater.formatAttributes(htmlAtributes),
+        ]);
+
+        if (myurl) {
+            return mytemplater.format("link", [
+                "url": this.Url.build(myurl),
+                "attrs": null,
+                "content": myimage,
+            ]);
+        }
+        return myimage;
+    }
+    
+    /**
+     * Returns a row of formatted and named TABLE headers.
+     * Params:
+     * array viewss Array of tablenames. Each tablename can be string, or array with name and an array with a set
+     *    of attributes to its specific tag
+     * @param IData[string]|null mytrOptions HTML options for TR elements.
+     * @param IData[string]|null mythOptions HTML options for TH elements.
+     */
+    string tableHeaders(array viewss, array mytrOptions = null, array mythOptions = null) {
+        auto result = [];
+        foreach (viewss as myarg) {
+            if (!isArray(myarg)) {
+                mycontent = myarg;
+                myattrs = mythOptions;
+            } elseif (isSet(myarg[0], myarg[1])) {
+                mycontent = myarg[0];
+                myattrs = myarg[1];
+            } else {
+                mycontent = key(myarg);
+                myattrs = current(myarg);
+            }
+            result ~= this.formatTemplate("tableheader", [
+                "attrs": this.templater().formatAttributes(myattrs),
+                "content": mycontent,
+            ]);
+        }
+        return this.tableRow(join(" ", result), (array)mytrOptions);
+    }
+    
+    /**
+     * Returns a formatted string of table rows (TR"s with TD"s in them).
+     * Params:
+     * string[] mydata Array of table data
+     * @param IData[string]|bool|null myoddTrOptions HTML options for odd TR elements if true useCount is used
+     * @param IData[string]|bool|null myevenTrOptions HTML options for even TR elements
+     * @param bool myuseCount adds class "column-myi"
+     * @param bool mycontinueOddEven If false, will use a non-static mycount variable,
+     */
+    string tableCells(
+        string[] mydata,
+        array|bool|null myoddTrOptions = null,
+        array|bool|null myevenTrOptions = null,
+        bool myuseCount = false,
+        bool mycontinueOddEven = true
+    ) {
+        if (!isArray(mydata)) {
+            mydata = [[mydata]];
+        } elseif (isEmpty(mydata[0]) || !isArray(mydata[0])) {
+            mydata = [mydata];
+        }
+        if (myoddTrOptions == true) {
+            myuseCount = true;
+            myoddTrOptions = null;
+        }
+        if (myevenTrOptions == false) {
+            mycontinueOddEven = false;
+            myevenTrOptions = null;
+        }
+        if (mycontinueOddEven) {
+            static mycount = 0;
+        } else {
+            mycount = 0;
+        }
+        auto result = [];
+        foreach (mydata as myline) {
+            mycount++;
+            mycellsOut = _renderCells(myline, myuseCount);
+            myopts = mycount % 2 ? myoddTrOptions : myevenTrOptions;
+
+            IData[string] htmlAtributes = (array)myopts;
+            result ~= this.tableRow(join(" ", mycellsOut), htmlAtributes);
+        }
+        return join("\n", result);
+    }
+    
+    /**
+     * Renders cells for a row of a table.
+     *
+     * This is a helper method for tableCells(). Overload this method as you
+     * need to change the behavior of the cell rendering.
+     * Params:
+     * array myline Line data to render.
+     * @param bool myuseCount Renders the count into the row. Default is false.
+     */
+    protected string[] _renderCells(array myline, bool myuseCount = false) {
+        myi = 0;
+        mycellsOut = [];
+        myline.each!((cell) {
+            mycellOptions = [];
+
+            if (isArray(cell)) {
+                mycellOptions = cell[1];
+                cell = cell[0];
+            }
+            if (myuseCount) {
+                myi += 1;
+                if (isSet(mycellOptions["class"])) {
+                    mycellOptions["class"] ~= " column-" ~ myi;
+                } else {
+                    mycellOptions["class"] = "column-" ~ myi;
+                }
+            }
+            mycellsOut ~= this.tableCell((string)cell, mycellOptions);
+        });
+        return mycellsOut;
+    }
+    
+    /**
+     * Renders a single table row (A TR with attributes).
+     * Params:
+     * string mycontent The content of the row.
+     * @param IData[string] htmlAtributes HTML attributes.
+     */
+    string tableRow(string mycontent, IData[string] htmlAtributes = null) {
+        return this.formatTemplate("tablerow", [
+            "attrs": this.templater().formatAttributes(htmlAtributes),
+            "content": mycontent,
+        ]);
+    }
+    
+    /**
+     * Renders a single table cell (A TD with attributes).
+     * Params:
+     * string mycontent The content of the cell.
+     * @param IData[string] htmlAtributes HTML attributes.
+     */
+    string tableCell(string mycontent, IData[string] htmlAtributes = null) {
+        return this.formatTemplate("tablecell", [
+            "attrs": this.templater().formatAttributes(htmlAtributes),
+            "content": mycontent,
+        ]);
+    }
+    
+    /**
+     * Returns a formatted block tag, i.e DIV, SPAN, P.
+     *
+     * ### Options
+     *
+     * - `escape` Whether the contents should be html_entity escaped.
+     * Params:
+     * string views Tag name.
+     * @param string|null mytext String content that will appear inside the HTML element.
+     *  If null, only a start tag will be printed
+     * @param IData[string] htmlAtributes Additional HTML attributes of the HTML tag, see above.
+     */
+    string tag(string views, string mytext = null, IData[string] htmlAtributes = null) {
+        if (isSet(htmlAtributes["escape"]) && htmlAtributes["escape"]) {
+            mytext = h(mytext);
+            unset(htmlAtributes["escape"]);
+        }
+
+        auto tag = mytext.isNull ? "tagstart" : "tag";
+
+        return this.formatTemplate(mytag, [
+            "attrs": this.templater().formatAttributes(htmlAtributes),
+            "tag": views,
+            "content": mytext,
+        ]);
+    }
+    
+    /**
+     * Returns a formatted DIV tag for HTML FORMs.
+     *
+     * ### Options
+     *
+     * - `escape` Whether the contents should be html_entity escaped.
+     * Params:
+     * string|null myclass CSS class name of the div element.
+     * @param string|null mytext String content that will appear inside the div element.
+     *  If null, only a start tag will be printed
+     * @param IData[string] htmlAtributes Additional HTML attributes of the DIV tag
+     */
+    string div(string myclass = null, string mytext = null, IData[string] htmlAtributes = null) {
+        if (!empty(myclass)) {
+            htmlAtributes["class"] = myclass;
+        }
+        return this.tag("div", mytext, htmlAtributes);
+    }
+    
+    /**
+     * Returns a formatted P tag.
+     *
+     * ### Options
+     *
+     * - `escape` Whether the contents should be html_entity escaped.
+     * Params:
+     * string|null myclass CSS class name of the p element.
+     * @param string|null mytext String content that will appear inside the p element.
+     * @param IData[string] htmlAtributes Additional HTML attributes of the P tag
+     */
+    string para(string myclass, string mytext, IData[string] htmlAtributes = null) {
+        if (!empty(htmlAtributes["escape"])) {
+            mytext = h(mytext);
+        }
+        if (myclass) {
+            htmlAtributes["class"] = myclass;
+        }
+        mytag = "para";
+        if (mytext.isNull) {
+            mytag = "parastart";
+        }
+        return this.formatTemplate(mytag, [
+            "attrs": this.templater().formatAttributes(htmlAtributes),
+            "content": mytext,
+        ]);
+    }
+    
+    /**
+     * Returns an audio/video element
+     *
+     * ### Usage
+     *
+     * Using an audio file:
+     *
+     * ```
+     * echo this.Html.media("audio.mp3", ["fullBase": true]);
+     * ```
+     *
+     * Outputs:
+     *
+     * ```
+     * <video src="http://www.somehost.com/files/audio.mp3">Fallback text</video>
+     * ```
+     *
+     * Using a video file:
+     *
+     * ```
+     * echo this.Html.media("video.mp4", ["text": "Fallback text"]);
+     * ```
+     *
+     * Outputs:
+     *
+     * ```
+     * <video src="/files/video.mp4">Fallback text</video>
+     * ```
+     *
+     * Using multiple video files:
+     *
+     * ```
+     * echo this.Html.media(
+     *     ["video.mp4", ["src": "video.ogv", "type": "video/ogg; codecs="theora, vorbis""]],
+     *     ["tag": "video", "autoplay"]
+     * );
+     * ```
+     *
+     * Outputs:
+     *
+     * ```
+     * <video autoplay="autoplay">
+     *     <source src="/files/video.mp4" type="video/mp4">
+     *     <source src="/files/video.ogv" type="video/ogv; codecs="theora, vorbis"">
+     * </video>
+     * ```
+     *
+     * ### Options
+     *
+     * - `tag` Type of media element to generate, either "audio" or "video".
+     * If tag is not provided it"s guessed based on file"s mime type.
+     * - `text` Text to include inside the audio/video tag
+     * - `pathPrefix` Path prefix to use for relative URLs, defaults to "files/"
+     * - `fullBase` If provided the src attribute will get a full address including domain name
+     * Params:
+     * string[]|null mypath Path to the video file, relative to the webroot/{htmlAtributes["pathPrefix"]} directory.
+     * Or an array where each item itself can be a path string or an associate array containing keys `src` and `type`
+     * @param IData[string] htmlAtributes Array of HTML attributes, and special options above.
+     */
+    string media(string[]|null mypath, IData[string] htmlAtributes = null) {
+        htmlAtributes += [
+            "tag": null,
+            "pathPrefix": "files/",
+            "text": "",
+        ];
+
+        if (!empty(htmlAtributes["tag"])) {
+            mytag = htmlAtributes["tag"];
+        } else {
+            mytag = null;
+        }
+        if (isArray(mypath)) {
+            mysourceTags = "";
+            foreach (mypath as &mysource) {
+                if (isString(mysource)) {
+                    mysource = [
+                        "src": mysource,
+                    ];
+                }
+                if (!mysource.isSet("type")) {
+                    myext = pathinfo(mysource["src"], PATHINFO_EXTENSION);
+                    mysource["type"] = _View.getResponse().getMimeType(myext);
+                }
+                mysource["src"] = this.Url.assetUrl(mysource["src"], htmlAtributes);
+                mysourceTags ~= this.formatTemplate("tagselfclosing", [
+                    "tag": "source",
+                    "attrs": this.templater().formatAttributes(mysource),
+                ]);
+            }
+            unset(mysource);
+            htmlAtributes["text"] = mysourceTags ~ htmlAtributes["text"];
+            unset(htmlAtributes["fullBase"]);
+        } else {
+            if (isEmpty(mypath) && !empty(htmlAtributes["src"])) {
+                mypath = htmlAtributes["src"];
+            }
+            /** @psalm-suppress PossiblyNullArgument */
+            htmlAtributes["src"] = this.Url.assetUrl(mypath, htmlAtributes);
+        }
+        if (mytag.isNull) {
+            if (isArray(mypath)) {
+                mymimeType = mypath[0]["type"];
+            } else {
+                mymimeType = _View.getResponse().getMimeType(pathinfo(mypath, PATHINFO_EXTENSION));
+                assert(isString(mymimeType));
+            }
+            if (mymimeType.startsWith("video/")) {
+                mytag = "video";
+            } else {
+                mytag = "audio";
+            }
+        }
+        if (isSet(htmlAtributes["poster"])) {
+            htmlAtributes["poster"] = this.Url.assetUrl(
+                htmlAtributes["poster"],
+                ["pathPrefix": Configure.read("App.imageBaseUrl")] + htmlAtributes
+            );
+        }
+        mytext = htmlAtributes["text"];
+
+        htmlAtributes = array_diff_key(htmlAtributes, [
+            "tag": null,
+            "fullBase": null,
+            "pathPrefix": null,
+            "text": null,
+        ]);
+
+        return this.tag(mytag, mytext, htmlAtributes);
+    }
+    
+    /**
+     * Build a nested list (UL/OL) out of an associative array.
+     *
+     * Options for htmlAtributes:
+     *
+     * - `tag` - Type of list tag to use (ol/ul)
+     *
+     * Options for myitemOptions:
+     *
+     * - `even` - Class to use for even rows.
+     * - `odd` - Class to use for odd rows.
+     * Params:
+     * array mylist Set of elements to list
+     * @param IData[string] htmlAtributes Options and additional HTML attributes of the list (ol/ul) tag.
+     * @param IData[string] myitemOptions Options and additional HTML attributes of the list item (LI) tag.
+     */
+    string|int|false nestedList(array mylist, IData[string] htmlAtributes = null, array myitemOptions = []) {
+        htmlAtributes += ["tag": "ul"];
+        myitems = _nestedListItem(mylist, htmlAtributes, myitemOptions);
+
+        return this.formatTemplate(htmlAtributes["tag"], [
+            "attrs": this.templater().formatAttributes(htmlAtributes, ["tag"]),
+            "content": myitems,
+        ]);
+    }
+    
+    /**
+     * Internal auto to build a nested list (UL/OL) out of an associative array.
+     * Params:
+     * array myitems Set of elements to list.
+     * @param IData[string] htmlAtributes Additional HTML attributes of the list (ol/ul) tag.
+     * @param IData[string] myitemOptions Options and additional HTML attributes of the list item (LI) tag.
+     */
+    protected string _nestedListItem(array myitems, array htmlAtributes, array myitemOptions) {
+        string result = "";
+
+        auto myindex = 1;
+        foreach (aKey: myitem; myitems) {
+            if (isArray(myitem)) {
+                myitem = aKey ~ this.nestedList(myitem, htmlAtributes, myitemOptions);
+            }
+            if (isSet(myitemOptions["even"]) && myindex % 2 == 0) {
+                myitemOptions["class"] = myitemOptions["even"];
+            } elseif (isSet(myitemOptions["odd"]) && myindex % 2 != 0) {
+                myitemOptions["class"] = myitemOptions["odd"];
+            }
+            result ~= this.formatTemplate("li", [
+                "attrs": this.templater().formatAttributes(myitemOptions, ["even", "odd"]),
+                "content": myitem,
+            ]);
+            myindex++;
+        }
+        return result;
+    }
+    
+    /**
+     * Event listeners.
+     */
+    IData[string] implementedEvents() {
+        return null;
+    }
+}

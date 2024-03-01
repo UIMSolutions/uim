@@ -1,0 +1,392 @@
+module uim.views.helpers.time;
+
+import uim.views;
+
+@safe:
+
+/**
+ * Time Helper class for easy use of time data.
+ *
+ * Manipulation of time data.
+ *
+ * @link https://book.UIM.org/5/en/views/helpers/time.html
+ * @see \UIM\I18n\Time
+ */
+class TimeHelper : Helper {
+    use StringTemplateTrait;
+
+    protected IConfiguration _defaultConfiguration = [
+                "outputTimezone": null,
+    ];
+
+    /**
+     * Get a timezone.
+     *
+     * Will use the provided timezone, or default output timezone if defined.
+     * Params:
+     * \DateTimeZone|string|null mytimezone The override timezone if applicable.
+     */
+    protected DateTimeZone|string|null _getTimezone(DateTimeZone|string|null mytimezone) {
+        if (mytimezone) {
+            return mytimezone;
+        }
+        return _configData.isSet("outputTimezone");
+    }
+    
+    /**
+     * Returns a DateTime object, given either a UNIX timestamp or a valid strtotime() date string.
+     * Params:
+     * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
+     * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
+     */
+    DateTime fromString(
+        ChronosDate|IDateTime|string|int mydateString,
+        DateTimeZone|string|null mytimezone = null
+    ) {
+        mytime = new DateTime(mydateString);
+        if (mytimezone !isNull) {
+            mytime = mytime.setTimezone(mytimezone);
+        }
+        return mytime;
+    }
+    
+    /**
+     * Returns a nicely formatted date string for given Datetime string.
+     * Params:
+     * \IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
+     * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
+     * @param string|null mylocale Locale string.
+     */
+    string nice(
+        ChronosDate|IDateTime|string|int mydateString = null,
+        DateTimeZone|string|null mytimezone = null,
+        string mylocale = null
+    ) {
+        mytimezone = _getTimezone(mytimezone);
+
+        return (new DateTime(mydateString)).nice(mytimezone, mylocale);
+    }
+    
+    /**
+     * Returns true, if the given datetime string is today.
+     * Params:
+     * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
+     * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
+     */
+    bool isToday(
+        ChronosDate|IDateTime|string|int mydateString,
+        DateTimeZone|string|null mytimezone = null
+    ) {
+        return (new DateTime(mydateString, mytimezone)).isToday();
+    }
+    
+    /**
+     * Returns true, if the given datetime string is in the future.
+     * Params:
+     * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
+     * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
+     */
+    bool isFuture(
+        ChronosDate|IDateTime|string|int mydateString,
+        DateTimeZone|string|null mytimezone = null
+    ) {
+        return (new DateTime(mydateString, mytimezone)).isFuture();
+    }
+    
+    /**
+     * Returns true, if the given datetime string is in the past.
+     * Params:
+     * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
+     * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
+     */
+    bool isPast(
+        ChronosDate|IDateTime|string|int mydateString,
+        DateTimeZone|string|null mytimezone = null
+    ) {
+        return (new DateTime(mydateString, mytimezone)).isPast();
+    }
+    
+    /**
+     * Returns true if given datetime string is within this week.
+     * Params:
+     * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
+     * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
+     */
+    bool isThisWeek(
+        ChronosDate|IDateTime|string|int mydateString,
+        DateTimeZone|string|null mytimezone = null
+    ) {
+        return (new DateTime(mydateString, mytimezone)).isThisWeek();
+    }
+    
+    /**
+     * Returns true if given datetime string is within this month
+     * Params:
+     * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
+     * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
+     */
+    bool isThisMonth(
+        ChronosDate|IDateTime|string|int mydateString,
+        DateTimeZone|string|null mytimezone = null
+    ) {
+        return (new DateTime(mydateString, mytimezone)).isThisMonth();
+    }
+    
+    /**
+     * Returns true if given datetime string is within the current year.
+     * Params:
+     * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
+     * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
+     */
+    bool isThisYear(
+        ChronosDate|IDateTime|string|int mydateString,
+        DateTimeZone|string|null mytimezone = null
+    ) {
+        return (new DateTime(mydateString, mytimezone)).isThisYear();
+    }
+    
+    /**
+     * Returns true if given datetime string was yesterday.
+     * Params:
+     * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
+     * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
+     */
+    bool wasYesterday(
+        ChronosDate|IDateTime|string|int mydateString,
+        DateTimeZone|string|null mytimezone = null
+    ) {
+        return (new DateTime(mydateString, mytimezone)).isYesterday();
+    }
+    
+    /**
+     * Returns true if given datetime string is tomorrow.
+     * Params:
+     * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
+     * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
+     */
+    bool isTomorrow(
+        ChronosDate|IDateTime|string|int mydateString,
+        DateTimeZone|string|null mytimezone = null
+    ) {
+        return (new DateTime(mydateString, mytimezone)).isTomorrow();
+    }
+    
+    /**
+     * Returns the quarter
+     * Params:
+     * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
+     * @param bool myrange if true returns a range in Y-m-d format
+     */
+    string[] toQuarter(
+        ChronosDate|IDateTime|string|int mydateString,
+        bool myrange = false
+    )|int {
+        return (new DateTime(mydateString)).toQuarter(myrange);
+    }
+    
+    /**
+     * Returns a UNIX timestamp from a textual datetime description.
+     * Params:
+     * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
+     * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
+     */
+    string toUnix(
+        ChronosDate|IDateTime|string|int mydateString,
+        DateTimeZone|string|null mytimezone = null
+    ) {
+        return (new DateTime(mydateString, mytimezone)).toUnixString();
+    }
+    
+    /**
+     * Returns a date formatted for Atom RSS feeds.
+     * Params:
+     * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
+     * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
+     */
+    string toAtom(
+        ChronosDate|IDateTime|string|int mydateString,
+        DateTimeZone|string|null mytimezone = null
+    ) {
+        mytimezone = _getTimezone(mytimezone) ?: date_default_timezone_get();
+
+        return (new DateTime(mydateString)).setTimezone(mytimezone).toAtomString();
+    }
+    
+    /**
+     * Formats date for RSS feeds
+     * Params:
+     * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
+     * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
+     */
+    string toRss(
+        ChronosDate|IDateTime|string|int mydateString,
+        DateTimeZone|string|null mytimezone = null
+    ) {
+        mytimezone = _getTimezone(mytimezone) ?: date_default_timezone_get();
+
+        return (new DateTime(mydateString)).setTimezone(mytimezone).toRssString();
+    }
+    
+    /**
+     * Formats a date into a phrase expressing the relative time.
+     *
+     * ### Additional options
+     *
+     * - `element` - The element to wrap the formatted time in.
+     *  Has a few additional options:
+     *  - `tag` - The tag to use, defaults to "span".
+     *  - `class` - The class name to use, defaults to `time-ago-in-words`.
+     *  - `title` - Defaults to the mydateTime input.
+     * Params:
+     * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateTime UNIX timestamp, strtotime() valid
+     *  string or DateTime object.
+     * @param IData[string] options Default format if timestamp is used in mydateString
+     */
+    string timeAgoInWords(
+        ChronosDate|IDateTime|string|int mydateTime,
+        IData[string] options  = null
+    ) {
+        myelement = null;
+        options += [
+            "element": null,
+            "timezone": null,
+        ];
+        options["timezone"] = _getTimezone(options["timezone"]);
+        if (options["timezone"] && cast(IDateTime)mydateTime) {
+            if (cast(DateTime)mydateTime) {
+                mydateTime = clone mydateTime;
+            }
+            /** @var \DateTimeImmutable|\DateTime mydateTime */
+            mydateTime = mydateTime.setTimezone(options["timezone"]);
+            unset(options["timezone"]);
+        }
+        if (!empty(options["element"])) {
+            myelement = [
+                "tag": "span",
+                "class": "time-ago-in-words",
+                "title": mydateTime,
+            ];
+
+            if (isArray(options["element"])) {
+                myelement = options["element"] + myelement;
+            } else {
+                myelement["tag"] = options["element"];
+            }
+            unset(options["element"]);
+        }
+        myrelativeDate = (new DateTime(mydateTime)).timeAgoInWords(options);
+
+        if (myelement) {
+            myrelativeDate = 
+                "<%s%s>%s</%s>".format(
+                myelement["tag"],
+                this.templater().formatAttributes(myelement, ["tag"]),
+                myrelativeDate,
+                myelement["tag"]
+            );
+        }
+        return myrelativeDate;
+    }
+    
+    /**
+     * Returns true if specified datetime was within the interval specified, else false.
+     * Params:
+     * string mytimeInterval the numeric value with space then time type.
+     *   Example of valid types: 6 hours, 2 days, 1 minute.
+     * @param \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
+     * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
+     */
+    bool wasWithinLast(
+        string mytimeInterval,
+        ChronosDate|IDateTime|string|int mydateString,
+        DateTimeZone|string|null mytimezone = null
+    ) {
+        return (new DateTime(mydateString, mytimezone)).wasWithinLast(mytimeInterval);
+    }
+    
+    /**
+     * Returns true if specified datetime is within the interval specified, else false.
+     * Params:
+     * string mytimeInterval the numeric value with space then time type.
+     *   Example of valid types: 6 hours, 2 days, 1 minute.
+     * @param \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
+     * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
+     */
+    bool isWithinNext(
+        string mytimeInterval,
+        ChronosDate|IDateTime|string|int mydateString,
+        DateTimeZone|string|null mytimezone = null
+    ) {
+        return (new DateTime(mydateString, mytimezone)).isWithinNext(mytimeInterval);
+    }
+    
+    /**
+     * Returns gmt as a UNIX timestamp.
+     * Params:
+     * \UIM\Chronos\ChronosDate|\IDateTime|string|int mystring UNIX timestamp, strtotime() valid string or DateTime object
+     */
+    string gmt(ChronosDate|IDateTime|string|int mystring = null) {
+        return (new DateTime(mystring)).toUnixString();
+    }
+    
+    /**
+     * Returns a formatted date string, given either a Time instance,
+     * UNIX timestamp or a valid strtotime() date string.
+     *
+     * This method is an alias for TimeHelper.i18nFormat().
+     * Params:
+     * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydate UNIX timestamp, strtotime() valid string
+     *  or DateTime object (or a date format string).
+     * @param array<int>|string|int myformat date format string (or a UNIX timestamp,
+     *  `strtotime()` valid string or DateTime object).
+     * @param string|false myinvalid Default value to display on invalid dates
+     * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
+     */
+    string|int|false format(
+        ChronosDate|IDateTime|string|int mydate,
+        string[]|int myformat = null,
+        string|false myinvalid = false,
+        DateTimeZone|string|null mytimezone = null
+    ) {
+        return this.i18nFormat(mydate, myformat, myinvalid, mytimezone);
+    }
+    
+    /**
+     * Returns a formatted date string, given either a Datetime instance,
+     * UNIX timestamp or a valid strtotime() date string.
+     * Params:
+     * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydate UNIX timestamp, strtotime() valid string or DateTime object
+     * @param string[]|int myformat Intl compatible format string.
+     * @param string|false myinvalid Default value to display on invalid dates
+     * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
+     */
+    string|int|false i18nFormat(
+        ChronosDate|IDateTime|string|int mydate,
+        string[]|int myformat = null,
+        string|false myinvalid = false,
+        DateTimeZone|string|null mytimezone = null
+    ) {
+        if (mydate.isNull) {
+            return myinvalid;
+        }
+        mytimezone = _getTimezone(mytimezone);
+
+        try {
+            mytime = new DateTime(mydate);
+
+            return mytime.i18nFormat(myformat, mytimezone);
+        } catch (Exception mye) {
+            if (myinvalid == false) {
+                throw mye;
+            }
+            return myinvalid;
+        }
+    }
+    
+    /**
+     * Event listeners.
+     */
+    IData[string] implementedEvents() {
+        return null;
+    }
+}

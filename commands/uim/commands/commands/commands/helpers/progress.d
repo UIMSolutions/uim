@@ -1,4 +1,4 @@
-module uim.cake.commands.helpers.progress;
+module uim.commands.helpers.progress;
 
 import uim.cake;
 

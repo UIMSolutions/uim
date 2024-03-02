@@ -1,4 +1,4 @@
-module uim.cake.commands.version_;
+module uim.commands.version_;
 
 import uim.cake;
 

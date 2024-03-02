@@ -1,4 +1,4 @@
-module uim.cake.collections.functions;
+module uim.collections.functions;
 
 import uim.cake;
 

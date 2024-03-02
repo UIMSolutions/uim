@@ -1,0 +1,145 @@
+module uim.orm.associations.loaders.selectwithpivot;
+
+import uim.orm;
+
+@safe:
+
+/*
+ */
+/**
+ * : the logic for loading an association using a SELECT query and a pivot table
+ *
+ * @internal
+ */
+class SelectWithPivotLoader : SelectLoader {
+    // The name of the junction association
+    protected string ajunctionAssociationName;
+
+    // The property name for the junction association, where its results should be nested at.
+    protected string ajunctionProperty;
+
+    /**
+     * The junction association instance
+     */
+    protected HasMany junctionAssoc;
+
+    /**
+     * Custom conditions for the junction association
+     *
+     * @var \UIM\Database\IExpression|\Closure|string[]|null
+     */
+    protected IExpression|Closure|string[]|null junctionConditions = null;
+
+ 
+    this(IData[string] options = null) {
+        super(options);
+        this.junctionAssociationName = options["junctionAssociationName"];
+        this.junctionProperty = options["junctionProperty"];
+        this.junctionAssoc = options["junctionAssoc"];
+        this.junctionConditions = options["junctionConditions"];
+    }
+    
+    /**
+     * Auxiliary auto to construct a new Query object to return all the records
+     * in the target table that are associated to those specified in options from
+     * the source table.
+     *
+     * This is used for eager loading records on the target table based on conditions.
+     * Params:
+     * IData[string] options options accepted by eagerLoader()
+     */
+    protected SelectQuery _buildQuery(IData[string] options = null) {
+        name = this.junctionAssociationName;
+        assoc = this.junctionAssoc;
+        aQueryBuilder = false;
+
+        if (!empty(options["queryBuilder"])) {
+            aQueryBuilder = options["queryBuilder"];
+            unset(options["queryBuilder"]);
+        }
+        aQuery = super._buildQuery(options);
+
+        if (aQueryBuilder) {
+            aQuery = aQueryBuilder(aQuery);
+        }
+        if (aQuery.isAutoFieldsEnabled().isNull) {
+            aQuery.enableAutoFields(aQuery.clause("select") == []);
+        }
+        // Ensure that association conditions are applied
+        // and that the required keys are in the selected columns.
+
+        tempName = this.alias ~ "_CJoin";
+        tableSchema = assoc.getSchema();
+        joinFields = types = [];
+
+        foreach (tableSchema.typeMap() as f: type) {
+            aKey = tempName ~ "__" ~ f;
+            joinFields[aKey] = "name.f";
+            types[aKey] = type;
+        }
+        aQuery
+            .where(this.junctionConditions)
+            .select(joinFields);
+
+        aQuery
+            .getEagerLoader()
+            .addToJoinsMap(tempName, assoc, false, this.junctionProperty);
+
+        assoc.attachTo(aQuery, [
+            "aliasPath": assoc.getAlias(),
+            "includeFields": false,
+            "propertyPath": this.junctionProperty,
+        ]);
+        aQuery.getTypeMap().addDefaults(types);
+
+        return aQuery;
+    }
+ 
+    protected void _assertFieldsPresent(SelectQuery fetchQuery, array aKey) {
+        // _buildQuery() manually adds in required fields from junction table
+    }
+    
+    /**
+     * Generates a string used as a table field that contains the values upon
+     * which the filter should be applied
+     * Params:
+     * IData[string] options the options to use for getting the link field.
+     */
+    protected string[] _linkField(IData[string] options = null) {
+        string associationName = this.junctionAssociationName;
+
+        auto links = (array)options["foreignKey"]
+            .map!(key => "%s.%s".format(associationName, aKey))
+            .array;
+        }
+
+        return links;
+    }
+    
+    /**
+     * Builds an array containing the results from fetchQuery indexed by
+     * the foreignKey value corresponding to this association.
+     * Params:
+     * \UIM\ORM\Query\SelectQuery fetchQuery The query to get results from
+     * @param IData[string] options The options passed to the eager loader
+     */
+    protected IData[string] _buildResultMap(SelectQuery fetchQuery, IData[string] options = null) {
+        resultMap = [];
+        aKey = (array)options["foreignKey"];
+
+        foreach (fetchQuery.all() as result) {
+            if (!result.isSet(this.junctionProperty)) {
+                throw new DatabaseException(
+                    "`%s` is missing from the belongsToMany results. Results cannot be created."
+                    .format(this.junctionProperty
+                ));
+            }
+             someValues = [];
+            foreach (aKey as myKey) {
+                 someValues ~= result[this.junctionProperty][myKey];
+            }
+            resultMap[join(";",  someValues)] ~= result;
+        }
+        return resultMap;
+    }
+}

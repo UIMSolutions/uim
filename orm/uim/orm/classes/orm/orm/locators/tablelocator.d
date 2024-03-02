@@ -1,0 +1,275 @@
+module uim.orm.Locator;
+
+import uim.orm;
+
+@safe:
+
+/*
+/**
+ * Provides a default registry/factory for Table objects.
+ */
+class TableLocator : AbstractLocator : ILocator {
+    /**
+     * Contains a list of locations where table classes should be looked for.
+     */
+    protected string[] mylocations = [];
+
+    /**
+     * Configuration for aliases.
+     *
+     * @var array<string, array|null>
+     */
+    protected array my_config = [];
+
+    /**
+     * Instances that belong to the registry.
+     */
+    protected Table[string] myinstances = [];
+
+    /**
+     * Contains a list of Table objects that were created out of the
+     * built-in Table class. The list is indexed by table alias
+     *
+     * @var array<\UIM\ORM\Table>
+     */
+    protected array my_fallbacked = [];
+
+    /**
+     * Fallback class to use
+     */
+    protected string myfallbackClassName = Table.classname;
+
+    /**
+     * Whether fallback class should be used if a table class could not be found.
+     */
+    protected bool myallowFallbackClass = true;
+
+    protected QueryFactory myqueryFactory;
+
+    /**
+     * Constructor.
+     * Params:
+     * string[]|null mylocations Locations where tables should be looked for.
+     *  If none provided, the default `Model\Table` under your app"s namespace is used.
+     */
+    this(array mylocations = null, ?QueryFactory myqueryFactory = null) {
+        if (mylocations.isNull) {
+            mylocations = [
+                "Model/Table",
+            ];
+        }
+        foreach (mylocations as mylocation) {
+            this.addLocation(mylocation);
+        }
+        this.queryFactory = myqueryFactory ?: new QueryFactory();
+    }
+    
+    /**
+     * Set if fallback class should be used.
+     *
+     * Controls whether a fallback class should be used to create a table
+     * instance if a concrete class for alias used in `get()` could not be found.
+     * Params:
+     * bool myallow Flag to enable or disable fallback
+     */
+    void allowFallbackClass(bool myallow) {
+        this.allowFallbackClass = myallow;
+    }
+    
+    /**
+     * Set fallback class name.
+     *
+     * The class that should be used to create a table instance if a concrete
+     * class for alias used in `get()` could not be found. Defaults to
+     * `UIM\ORM\Table`.
+     * Params:
+     * string myclassName Fallback class name
+     */
+    void setFallbackClassName(string myclassName) {
+        this.fallbackClassName = myclassName;
+    }
+ 
+    void setConfig(string[] myalias, IData[string] options = null) {
+        if (!isString(myalias)) {
+           _config = myalias;
+
+            return;
+        }
+        if (isSet(this.instances[myalias])) {
+            throw new DatabaseException(
+                "You cannot configure `%s`, it has already been constructed.".format(
+                myalias
+            ));
+        }
+       configuration.data(myalias] = options;
+    }
+ 
+    array getConfig(string myalias = null) {
+        if (myalias.isNull) {
+            return _config;
+        }
+        return configuration.data(myalias] ?? [];
+    }
+    
+    /**
+     * Get a table instance from the registry.
+     *
+     * Tables are only created once until the registry is flushed.
+     * This means that aliases must be unique across your application.
+     * This is important because table associations are resolved at runtime
+     * and cyclic references need to be handled correctly.
+     *
+     * The options that can be passed are the same as in {@link \UIM\ORM\Table.__construct()}, but the
+     * `className` key is also recognized.
+     *
+     * ### Options
+     *
+     * - `className` Define the specific class name to use. If undefined, UIM will generate the
+     *  class name based on the alias. For example "Users" would result in
+     *  `App\Model\Table\UsersTable` being used. If this class does not exist,
+     *  then the default `UIM\ORM\Table` class will be used. By setting the `className`
+     *  option you can define the specific class to use. The className option supports
+     *  plugin short class references {@link \UIM\Core\App.shortName()}.
+     * - `table` Define the table name to use. If undefined, this option will default to the underscored
+     *  version of the alias name.
+     * - `connection` Inject the specific connection object to use. If this option and `connectionName` are undefined,
+     *  The table class" `defaultConnectionName()` method will be invoked to fetch the connection name.
+     * - `connectionName` Define the connection name to use. The named connection will be fetched from
+     *  {@link \UIM\Datasource\ConnectionManager}.
+     *
+     * *Note* If your `myalias` uses plugin syntax only the name part will be used as
+     * key in the registry. This means that if two plugins, or a plugin and app provide
+     * the same alias, the registry will only store the first instance.
+     * Params:
+     * string myalias The alias name you want to get. Should be in CamelCase format.
+     * @param IData[string] options The options you want to build the table with.
+     *  If a table has already been loaded the options will be ignored.
+     */
+    Table get(string myalias, IData[string] optionData = null) {
+        return super.get(myalias, options);
+    }
+ 
+    protected auto createInstance(string myalias, IData[string] options): Table
+    {
+        if (!myalias.has("\\")) {
+            [, myclassAlias] = pluginSplit(myalias);
+            options = ["alias": myclassAlias] + options;
+        } else if (!isSet(options["alias"])) {
+            options["className"] = myalias;
+        }
+        if (isSet(configuration.data(myalias])) {
+            options += configuration.data(myalias];
+        }
+        myallowFallbackClass = options.get("allowFallbackClass", this.allowFallbackClass);
+        myclassName = _getClassName(myalias, options);
+        if (myclassName) {
+            options["className"] = myclassName;
+        } else if (myallowFallbackClass) {
+            if (isEmpty(options["className"])) {
+                options["className"] = myalias;
+            }
+            if (!options.isSet("table") && !options["className"].has("\\")) {
+                [, mytable] = pluginSplit(options["className"]);
+                options["table"] = Inflector.underscore(mytable);
+            }
+            options["className"] = this.fallbackClassName;
+        } else {
+            mymessage = options["className"] ?? myalias;
+            mymessage = "`" ~ mymessage ~ "`";
+            if (!mymessage.has("\\")) {
+                mymessage = "for alias " ~ mymessage;
+            }
+            throw new MissingTableClassException([mymessage]);
+        }
+        if (isEmpty(options["connection"])) {
+            if (!empty(options["connectionName"])) {
+                myconnectionName = options["connectionName"];
+            } else {
+                /** @var \UIM\ORM\Table myclassName */
+                myclassName = options["className"];
+                myconnectionName = myclassName.defaultConnectionName();
+            }
+            options["connection"] = ConnectionManager.get(myconnectionName);
+        }
+        if (isEmpty(options["associations"])) {
+            myassociations = new AssociationCollection(this);
+            options["associations"] = myassociations;
+        }
+        if (isEmpty(options["queryFactory"])) {
+            options["queryFactory"] = this.queryFactory;
+        }
+        options["registryAlias"] = myalias;
+        myinstance = _create(options);
+
+        if (options["className"] == this.fallbackClassName) {
+           _fallbacked[myalias] = myinstance;
+        }
+        return myinstance;
+    }
+    
+    /**
+     * Gets the table class name.
+     * Params:
+     * string myalias The alias name you want to get. Should be in CamelCase format.
+     * @param IData[string] options Table options array.
+     */
+    protected string _getClassName(string myalias, IData[string] optionData = null) {
+        if (options["className"].isEmpty) {
+            options["className"] = myalias;
+        }
+        if (options["className"].has("\\") && class_exists(options["className"])) {
+            return options["className"];
+        }
+        foreach (location; this.locations) {
+            myclass = App.className(options["className"], location, "Table");
+            if (!myclass.isNull) {
+                return myclass;
+            }
+        }
+        return null;
+    }
+    
+    // Wrapper for creating table instances
+    protected Table _create(IData[string] options) {
+        auto myclass = options["className"];
+        return new myclass(options);
+    }
+    
+    /**
+     * Set a Table instance.
+     * Params:
+     * string myalias The alias to set.
+     * @param \UIM\ORM\Table myrepository The Table to set.
+     */
+    Table set(string myalias, IRepository myrepository) {
+        return this.instances[myalias] = myrepository;
+    }
+ 
+    void clear() {
+        super.clear();
+
+       _fallbacked = [];
+       _config = [];
+    }
+    
+    /**
+     * Returns the list of tables that were created by this registry that could
+     * not be instantiated from a specific subclass. This method is useful for
+     * debugging common mistakes when setting up associations or created new table classes.
+     */
+    Table[] genericInstances() {
+        return _fallbacked;
+    }
+ 
+    void remove(string myalias) {
+        super.remove(myalias);
+
+        unset(_fallbacked[myalias]);
+    }
+    
+    // Adds a location where tables should be looked for.
+    void addLocation(string tableLocation) {
+        string mylocation = tableLocation.replace("\\", "/");
+        this.locations ~= trim(mylocation, "/");
+    }
+}

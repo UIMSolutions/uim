@@ -1,6 +1,6 @@
 module uim.commands.helpers.table;
 
-import uim.cake;
+import uim.commands;
 
 @safe:
 

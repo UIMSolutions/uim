@@ -1,6 +1,6 @@
 module uim.commands.plugins.assetssymlink_;
 
-import uim.cake;
+import uim.commands;
 
 @safe:
 

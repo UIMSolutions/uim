@@ -1,6 +1,6 @@
 module uim.commands.i18n.i18nextract;
 
-import uim.cake;
+import uim.commands;
 
 @safe:
 

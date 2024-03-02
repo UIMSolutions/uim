@@ -1,6 +1,6 @@
 module uim.commands.i18n.i18ninit;
 
-import uim.cake;
+import uim.commands;
 
 @safe:
 

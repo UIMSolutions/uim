@@ -1,6 +1,6 @@
 module uim.commands.cacheclearall;
 
-import uim.cake;
+import uim.commands;
 
 @safe:
 

@@ -1,4 +1,4 @@
-module source.uim.i18n.helpers.functions_global;
+module uim.i18n.helpers.functions_global;
 
 if (!function_exists("__")) {
     /**

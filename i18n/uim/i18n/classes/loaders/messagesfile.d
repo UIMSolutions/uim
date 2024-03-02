@@ -1,4 +1,4 @@
-module source.uim.i18n.classes.loaders.messagesfile;
+module uim.i18n.classes.loaders.messagesfile;
 
 import uim.i18n;
 

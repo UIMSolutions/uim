@@ -1,4 +1,4 @@
-module source.uim.i18n.classes.translators.registry;
+module uim.i18n.classes.translators.registry;
 
 import uim.i18n;
 

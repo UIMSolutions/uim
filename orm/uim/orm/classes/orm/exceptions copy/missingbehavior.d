@@ -1,4 +1,4 @@
-module source.uim.orm.exceptions.missingbehavior;
+module uim.orm.exceptions.missingbehavior;
 
 
 /**

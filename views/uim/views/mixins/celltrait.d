@@ -1,4 +1,4 @@
-module source.uim.views.mixins.celltrait;
+module uim.views.mixins.celltrait;
 
 import uim.views;
 

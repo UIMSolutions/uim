@@ -1,2 +1,2 @@
-module source.uim.i18n.classes.loaders;
+module uim.i18n.classes.loaders;
 

@@ -1,4 +1,4 @@
-module source.uim.i18n.mixins.dateformat;
+module uim.i18n.mixins.dateformat;
 import uim.i18n;
 
 @safe:

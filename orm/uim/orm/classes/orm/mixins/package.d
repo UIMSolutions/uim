@@ -1,2 +1,2 @@
-module source.uim.orm.mixins;
+module uim.orm.mixins;
 

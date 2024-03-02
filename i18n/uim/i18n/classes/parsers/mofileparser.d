@@ -1,4 +1,4 @@
-module source.uim.i18n.classes.parsers.mofileparser;
+module uim.i18n.classes.parsers.mofileparser;
 
 import uim.i18n;
 

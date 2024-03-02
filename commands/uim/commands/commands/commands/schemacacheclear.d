@@ -6,7 +6,7 @@ import uim.commands;
 
 // Provides CLI tool for clearing schema cache.
 class SchemacacheClearCommand : Command {
-   mixin(CommandThis!("SchemacacheClearCommand"));
+   mixin(CommandThis!("SchemacacheClear"));
 
   	override bool initialize(IConfigData[string] configData = null) {
 		if (!super.initialize(configData)) { return false; }

@@ -6,7 +6,7 @@ import uim.commands;
 
 // Provides interactive CLI tools for URL generation
 class RoutesGenerateCommand : Command {
-   mixin(CommandThis!("RoutesGenerateCommand"));
+   mixin(CommandThis!("RoutesGenerate"));
 
   	override bool initialize(IConfigData[string] configData = null) {
 		if (!super.initialize(configData)) { return false; }

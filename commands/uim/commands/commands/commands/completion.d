@@ -6,7 +6,7 @@ import uim.commands;
 
 // Provide command completion shells such as bash.
 class CompletionCommand : Command, ICommandCollectionAware {
-   mixin(CommandThis!("CompletionCommand"));
+   mixin(CommandThis!("Completion"));
 
   	override bool initialize(IConfigData[string] configData = null) {
 		if (!super.initialize(configData)) { return false; }

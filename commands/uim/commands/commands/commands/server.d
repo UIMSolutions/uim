@@ -6,7 +6,7 @@ import uim.commands;
 
 // built-in Server command
 class ServerCommand : Command {
-   mixin(CommandThis!("ServerCommand"));
+   mixin(CommandThis!("Server"));
 
   	override bool initialize(IConfigData[string] configData = null) {
 		if (!super.initialize(configData)) { return false; }

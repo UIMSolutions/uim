@@ -6,7 +6,7 @@ import uim.commands;
 
 // Provides interactive CLI tool for testing routes.
 class RoutesCheckCommand : Command {
-   mixin(CommandThis!("RoutesCheckCommand"));
+   mixin(CommandThis!("RoutesCheck"));
 
   	override bool initialize(IConfigData[string] configData = null) {
 		if (!super.initialize(configData)) { return false; }

@@ -6,7 +6,7 @@ import uim.commands;
 
 // Provides interactive CLI tools for routing.
 class RoutesCommand : Command {
-   mixin(CommandThis!("RoutesCommand"));
+   mixin(CommandThis!("Routes"));
 
   	override bool initialize(IConfigData[string] configData = null) {
 		if (!super.initialize(configData)) { return false; }

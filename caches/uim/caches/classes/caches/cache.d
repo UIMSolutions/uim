@@ -1,4 +1,4 @@
-module caches.uim.caches.classes.caches.cache;
+module uim.caches.classes.caches.cache;
 
 import uim.caches;
 

@@ -1,4 +1,4 @@
-module uim.cake.commands.plugins.assetsremove;
+module uim.commands.plugins.assetsremove;
 
 import uim.cake;
 

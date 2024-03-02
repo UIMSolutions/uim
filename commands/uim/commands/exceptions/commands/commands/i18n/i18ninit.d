@@ -1,4 +1,4 @@
-module uim.cake.commands.i18n.i18ninit;
+module uim.commands.i18n.i18ninit;
 
 import uim.cake;
 

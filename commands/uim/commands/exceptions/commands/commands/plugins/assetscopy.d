@@ -1,4 +1,4 @@
-module uim.cake.commands.plugins.assetscopy;
+module uim.commands.plugins.assetscopy;
 
 import uim.cake;
 

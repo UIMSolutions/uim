@@ -1,7 +1,7 @@
-module uim.cake.satasources;
+module uim.satasources;
 
-import uim.cake.core.App;
-import uim.cake.core.ObjectRegistry;
+import uim.core.App;
+import uim.core.ObjectRegistry;
 import uim.datasources.exceptions.MissingDatasourceException;
 
     

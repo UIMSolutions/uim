@@ -1,2 +1,2 @@
-module uim.cake.commands.i18n;
+module uim.commands.i18n;
 

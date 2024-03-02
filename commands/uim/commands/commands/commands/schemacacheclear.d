@@ -1,4 +1,4 @@
-module uim.cake.commands.schemacacheclear;
+module uim.commands.schemacacheclear;
 
 import uim.cake;
 

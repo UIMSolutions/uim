@@ -1,4 +1,4 @@
-module uim.cake.commands.helpers.table;
+module uim.commands.helpers.table;
 
 import uim.cake;
 

@@ -1,6 +1,6 @@
 module uim.caches.engines.redis;
 
-import uim.cake;
+import uim.caches;
 
 @safe:
 // Redis storage engine for cache.

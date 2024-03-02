@@ -1,4 +1,4 @@
-module uim.cake.commands.i18n.i18nextract;
+module uim.commands.i18n.i18nextract;
 
 import uim.cake;
 

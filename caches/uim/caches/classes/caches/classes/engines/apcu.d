@@ -1,4 +1,4 @@
-module uim.cake.caches.engines.apcu;
+module uim.caches.engines.apcu;
 
 import uim.cake;
 

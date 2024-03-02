@@ -5,4 +5,4 @@
 **********************************************************************************************************/
 module uim.datasources;
 
-import uim.cake.caches.Cache;
+import uim.caches.Cache;

@@ -1,2 +1,2 @@
-module uim.cake.commands.helpers;
+module uim.commands.helpers;
 

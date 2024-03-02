@@ -34,7 +34,7 @@ abstract class Helper {
     bool initialize(IData[string] initData = null) {
        _defaultConfigData = Json.emptyObject;
 
-       _defaultConfigData.copy(aConfig)
+       _defaultConfigData.copy(myConfiguration)
     }
     
     /**

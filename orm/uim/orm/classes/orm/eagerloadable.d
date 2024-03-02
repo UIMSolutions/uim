@@ -84,7 +84,7 @@ class EagerLoadable {
     protected Nullable!string _targetProperty;
 
     /**
-     * Constructor. The aConfig parameter accepts the following array
+     * Constructor. The myConfiguration parameter accepts the following array
      * keys:
      *
      * - associations
@@ -99,17 +99,17 @@ class EagerLoadable {
      * The keys maps to the settable properties in this class.
      *
      * @param string aName The Association name.
-     * @param array<string, mixed> aConfig The list of properties to set.
+     * @param array<string, mixed> myConfiguration The list of properties to set.
      */
-    this(string aName, Json aConfig = null) {
+    this(string aName, Json myConfiguration = null) {
         _name = name;
         allowed = [
             "associations", "instance", "config", "canBeJoined",
             "aliasPath", "propertyPath", "forMatching", "targetProperty",
         ];
         foreach (allowed as property) {
-            if (isset(aConfig[property])) {
-                this.{"_" ~ property} = aConfig[property];
+            if (isset(myConfiguration[property])) {
+                this.{"_" ~ property} = myConfiguration[property];
             }
         }
     }
@@ -176,11 +176,11 @@ class EagerLoadable {
      * Sets the list of options to pass to the association object for loading
      * the records.
      *
-     * @param array<string, mixed> aConfig The value to set.
+     * @param array<string, mixed> myConfiguration The value to set.
      * @return this
      */
-    auto setConfig(Json aConfig) {
-        _config = aConfig;
+    auto setConfig(Json myConfiguration) {
+        _config = myConfiguration;
 
         return this;
     }
@@ -228,15 +228,15 @@ class EagerLoadable {
         foreach (_associations as assoc) {
             associations += assoc.asContainArray();
         }
-        aConfig = _config;
+        myConfiguration = _config;
         if (_forMatching != null) {
-            aConfig = ["matching": _forMatching] + aConfig;
+            myConfiguration = ["matching": _forMatching] + myConfiguration;
         }
 
         return [
             _name: [
                 "associations": associations,
-                "config": aConfig,
+                "config": myConfiguration,
             ],
         ];
     }

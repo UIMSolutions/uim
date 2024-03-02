@@ -38,19 +38,19 @@ class QueryCacher
      * Constructor.
      *
      * @param \Closure|string aKey The key or function to generate a key.
-     * @param \Psr\SimpleCache\ICache|string aConfig The cache config name or cache engine instance.
+     * @param \Psr\SimpleCache\ICache|string myConfiguration The cache config name or cache engine instance.
      * @throws \RuntimeException
      */
-    this(key, aConfig) {
+    this(key, myConfiguration) {
         if (!is_string(key) && !(key instanceof Closure)) {
             throw new RuntimeException("Cache keys must be strings or callables.");
         }
         _key = key;
 
-        if (!is_string(aConfig) && !(aConfig instanceof ICache)) {
+        if (!is_string(myConfiguration) && !(myConfiguration instanceof ICache)) {
             throw new RuntimeException("Cache configs must be strings or \Psr\SimpleCache\ICache instances.");
         }
-        _config = aConfig;
+        _config = myConfiguration;
     }
 
     /**

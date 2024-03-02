@@ -168,7 +168,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
     /**
      * Initializes a new instance
      *
-     * The aConfig array understands the following keys:
+     * The myConfiguration array understands the following keys:
      *
      * - table: Name of the database table to represent
      * - alias: Alias to be assigned to this table (default to table name)
@@ -184,42 +184,42 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      *   validation set, or an associative array, where key is the name of the
      *   validation set and value the Validator instance.
      *
-     * @param array<string, mixed> aConfig List of options for this table
+     * @param array<string, mixed> myConfiguration List of options for this table
      */
-    this(Json aConfig) {
-        if (!empty(aConfig["registryAlias"])) {
-            this.setRegistryAlias(aConfig["registryAlias"]);
+    this(Json myConfiguration) {
+        if (!empty(myConfiguration["registryAlias"])) {
+            this.setRegistryAlias(myConfiguration["registryAlias"]);
         }
-        if (!empty(aConfig["table"])) {
-            this.setTable(aConfig["table"]);
+        if (!empty(myConfiguration["table"])) {
+            this.setTable(myConfiguration["table"]);
         }
-        if (!empty(aConfig["alias"])) {
-            this.setAlias(aConfig["alias"]);
+        if (!empty(myConfiguration["alias"])) {
+            this.setAlias(myConfiguration["alias"]);
         }
-        if (!empty(aConfig["connection"])) {
-            this.setConnection(aConfig["connection"]);
+        if (!empty(myConfiguration["connection"])) {
+            this.setConnection(myConfiguration["connection"]);
         }
-        if (!empty(aConfig["schema"])) {
-            this.setSchema(aConfig["schema"]);
+        if (!empty(myConfiguration["schema"])) {
+            this.setSchema(myConfiguration["schema"]);
         }
-        if (!empty(aConfig["entityClassName"])) {
-            this.setEntityClass(aConfig["entityClassName"]);
+        if (!empty(myConfiguration["entityClassName"])) {
+            this.setEntityClass(myConfiguration["entityClassName"]);
         }
         eventManager = behaviors = associations = null;
-        if (!empty(aConfig["eventManager"])) {
-            eventManager = aConfig["eventManager"];
+        if (!empty(myConfiguration["eventManager"])) {
+            eventManager = myConfiguration["eventManager"];
         }
-        if (!empty(aConfig["behaviors"])) {
-            behaviors = aConfig["behaviors"];
+        if (!empty(myConfiguration["behaviors"])) {
+            behaviors = myConfiguration["behaviors"];
         }
-        if (!empty(aConfig["associations"])) {
-            associations = aConfig["associations"];
+        if (!empty(myConfiguration["associations"])) {
+            associations = myConfiguration["associations"];
         }
-        if (!empty(aConfig["validator"])) {
-            if (!is_array(aConfig["validator"])) {
-                this.setValidator(DEFAULT_VALIDATOR, aConfig["validator"]);
+        if (!empty(myConfiguration["validator"])) {
+            if (!is_array(myConfiguration["validator"])) {
+                this.setValidator(DEFAULT_VALIDATOR, myConfiguration["validator"]);
             } else {
-                foreach (aConfig["validator"] as name: validator) {
+                foreach (myConfiguration["validator"] as name: validator) {
                     this.setValidator(name, validator);
                 }
             }
@@ -229,7 +229,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
         _behaviors.setTable(this);
         _associations = associations ?: new AssociationCollection();
 
-        this.initialize(aConfig);
+        this.initialize(myConfiguration);
         _eventManager.on(this);
         this.dispatchEvent("Model.initialize");
     }
@@ -254,7 +254,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * define validation and do any other initialization logic you need.
      *
      * ```
-     *  function initialize(Json aConfig)
+     *  function initialize(Json myConfiguration)
      *  {
      *      this.belongsTo("Users");
      *      this.belongsToMany("Tagging.Tags");
@@ -262,9 +262,9 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      *  }
      * ```
      *
-     * @param array<string, mixed> aConfig Configuration options passed to the constructor
+     * @param array<string, mixed> myConfiguration Configuration options passed to the constructor
      */
-    void initialize(Json aConfig) {
+    void initialize(Json myConfiguration) {
     }
 
     /**

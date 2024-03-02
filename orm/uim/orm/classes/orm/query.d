@@ -1009,17 +1009,17 @@ class DORMQuery : DatabaseQuery : JsonSerializable, IQuery
      *
      * @param \Closure|string|false key Either the cache key or a function to generate the cache key.
      *   When using a function, this query instance will be supplied as an argument.
-     * @param DORMCache\CacheEngine|string aConfig Either the name of the cache config to use, or
+     * @param DORMCache\CacheEngine|string myConfiguration Either the name of the cache config to use, or
      *   a cache config instance.
      * @return this
      * @throws \RuntimeException When you attempt to cache a non-select query.
      */
-    function cache(key, aConfig = "default") {
+    function cache(key, myConfiguration = "default") {
         if (_type != "select" && _type != null) {
             throw new RuntimeException("You cannot cache the results of non-select queries.");
         }
 
-        return _cache(key, aConfig);
+        return _cache(key, myConfiguration);
     }
 
     /**

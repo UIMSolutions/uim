@@ -383,12 +383,12 @@ class EagerLoader
         processed = null;
         do {
             foreach (attachable as alias: loadable) {
-                aConfig = loadable.getConfig() + [
+                myConfiguration = loadable.getConfig() + [
                     "aliasPath": loadable.aliasPath(),
                     "propertyPath": loadable.propertyPath(),
                     "includeFields": includeFields,
                 ];
-                loadable.instance().attachTo(query, aConfig);
+                loadable.instance().attachTo(query, myConfiguration);
                 processed[alias] = true;
             }
 
@@ -467,7 +467,7 @@ class EagerLoader
         table = instance.getTarget();
 
         extra = array_diff_key(options, defaults);
-        aConfig = [
+        myConfiguration = [
             "associations": [],
             "instance": instance,
             "config": array_diff_key(options, extra),
@@ -475,13 +475,13 @@ class EagerLoader
             "propertyPath": trim(paths["propertyPath"], "."),
             "targetProperty": instance.getProperty(),
         ];
-        aConfig["canBeJoined"] = instance.canBeJoined(aConfig["config"]);
-        eagerLoadable = new EagerLoadable(alias, aConfig);
+        myConfiguration["canBeJoined"] = instance.canBeJoined(myConfiguration["config"]);
+        eagerLoadable = new EagerLoadable(alias, myConfiguration);
 
-        if (aConfig["canBeJoined"]) {
+        if (myConfiguration["canBeJoined"]) {
             _aliasList[paths["root"]][alias][] = eagerLoadable;
         } else {
-            paths["root"] = aConfig["aliasPath"];
+            paths["root"] = myConfiguration["aliasPath"];
         }
 
         foreach (extra as t: assoc) {
@@ -524,16 +524,16 @@ class EagerLoader
      * @param DORMEagerLoadable loadable The association config
      */
     protected void _correctStrategy(EagerLoadable loadable) {
-        aConfig = loadable.getConfig();
-        currentStrategy = aConfig["strategy"] ??
+        myConfiguration = loadable.getConfig();
+        currentStrategy = myConfiguration["strategy"] ??
             "join";
 
         if (!loadable.canBeJoined() || currentStrategy != "join") {
             return;
         }
 
-        aConfig["strategy"] = Association::STRATEGY_SELECT;
-        loadable.setConfig(aConfig);
+        myConfiguration["strategy"] = Association::STRATEGY_SELECT;
+        loadable.setConfig(myConfiguration);
         loadable.setCanBeJoined(false);
     }
 
@@ -599,11 +599,11 @@ class EagerLoader
         foreach (external as meta) {
             contain = meta.associations();
             instance = meta.instance();
-            aConfig = meta.getConfig();
+            myConfiguration = meta.getConfig();
             alias = instance.getSource().getAlias();
             path = meta.aliasPath();
 
-            requiresKeys = instance.requiresKeys(aConfig);
+            requiresKeys = instance.requiresKeys(myConfiguration);
             if (requiresKeys) {
                 // If the path or alias has no key the required association load will fail.
                 // Nested paths are not subject to this condition because they could
@@ -625,7 +625,7 @@ class EagerLoader
 
             keys = collected[path][alias] ?? null;
             f = instance.eagerLoader(
-                aConfig + [
+                myConfiguration + [
                     "query": query,
                     "contain": contain,
                     "keys": keys,

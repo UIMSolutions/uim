@@ -70,13 +70,13 @@ class ConnectionManager {
      *
      * ```
      * dsn = "mysql://user:pass@localhost/database";
-     * aConfig = ConnectionManager::parseDsn(dsn);
+     * myConfiguration = ConnectionManager::parseDsn(dsn);
      *
      * dsn = "Cake\databases.Driver\Mysql://localhost:3306/database?className=Cake\databases.Connection";
-     * aConfig = ConnectionManager::parseDsn(dsn);
+     * myConfiguration = ConnectionManager::parseDsn(dsn);
      *
      * dsn = "Cake\databases.Connection://localhost:3306/database?driver=Cake\databases.Driver\Mysql";
-     * aConfig = ConnectionManager::parseDsn(dsn);
+     * myConfiguration = ConnectionManager::parseDsn(dsn);
      * ```
      *
      * For all classes, the value of `scheme` is set as the value of both the `className` and `driver`
@@ -84,24 +84,24 @@ class ConnectionManager {
      *
      * Note that query-string arguments are also parsed and set as values in the returned configuration.
      *
-     * @param string aConfig The DSN string to convert to a configuration array
+     * @param string myConfiguration The DSN string to convert to a configuration array
      * @return array<string, mixed> The configuration array to be stored after parsing the DSN
      */
-    static array parseDsn(string aConfig) {
-        aConfig = _parseDsn(aConfig);
+    static array parseDsn(string myConfiguration) {
+        myConfiguration = _parseDsn(myConfiguration);
 
-        if (aConfig.isSet("path") && empty(aConfig["database"])) {
-            aConfig["database"] = substr(aConfig["path"], 1);
+        if (myConfiguration.isSet("path") && empty(myConfiguration["database"])) {
+            myConfiguration["database"] = substr(myConfiguration["path"], 1);
         }
 
-        if (empty(aConfig["driver"])) {
-            aConfig["driver"] = aConfig["className"];
-            aConfig["className"] = Connection :  : class;
+        if (empty(myConfiguration["driver"])) {
+            myConfiguration["driver"] = myConfiguration["className"];
+            myConfiguration["className"] = Connection :  : class;
         }
 
-        unset(aConfig["path"]);
+        unset(myConfiguration["path"]);
 
-        return aConfig;
+        return myConfiguration;
     }
 
     /**

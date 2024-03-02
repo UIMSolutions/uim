@@ -406,16 +406,16 @@ class NumericPaginator : PaginatorInterface
     /**
      * Shim method for reading the deprecated sortWhitelist or sortableFields options.
      *
-     * @param array<string, mixed> aConfig The configuration data to coalesce and emit warnings on.
+     * @param array<string, mixed> myConfiguration The configuration data to coalesce and emit warnings on.
      * @return array<string>|null
      */
-    protected string[] getSortableFields(Json aConfig): ?array
+    protected string[] getSortableFields(Json myConfiguration): ?array
     {
-        allowed = aConfig["sortableFields"] ?? null;
+        allowed = myConfiguration["sortableFields"] ?? null;
         if (allowed != null) {
             return allowed;
         }
-        deprecated = aConfig["sortWhitelist"] ?? null;
+        deprecated = myConfiguration["sortWhitelist"] ?? null;
         if (deprecated != null) {
             deprecationWarning("The `sortWhitelist` option is deprecated. Use `sortableFields` instead.");
         }

@@ -1,0 +1,316 @@
+module uim.caches.engines.redis;
+
+import uim.caches;
+
+@safe:
+// Redis storage engine for cache.
+class RedisEngine : CacheEngine {
+    // Redis wrapper.
+    protected Redis _redis;
+
+    /**
+     * The default config used unless overridden by runtime configuration
+     *
+     * - `database` database number to use for connection.
+     * - `duration` Specify how long items in this cache configuration last.
+     * - `groups` List of groups or 'tags' associated to every key stored in this config.
+     *   handy for deleting a complete group from cache.
+     * - `password` Redis server password.
+     * - `persistent` Connect to the Redis server with a persistent connection
+     * - `port` port number to the Redis server.
+     * - `prefix` Prefix appended to all entries. Good for when you need to share a keyspace
+     *   with either another cache config or another application.
+     * - `scanCount` Number of keys to ask for each scan (default: 10)
+     * - `server` URL or IP to the Redis server host.
+     * - `timeout` timeout in seconds (float).
+     * - `unix_socket` Path to the unix socket file (default: false)
+     *
+     */
+    protected IData[string] _defaultConfigData;
+
+    /**
+     * Initialize the Cache Engine
+     *
+     * Called automatically by the cache frontend
+     */
+    bool initialize(IData[string] initData = null) {
+        if (!extension_loaded("redis")) {
+            throw new UimException("The `redis` extension must be enabled to use RedisEngine.");
+        }
+        if (auto host = initData.get("host", null)) {
+            initData["server"] = host;
+        }
+        super.initialize(initData);
+
+        _defaultConfigData = [
+        "database": Json(0),
+        "duration": Json(3600),
+        "groups": Json.emptyArray,
+        "password": Json(false),
+        "persistent": Json(true),
+        "port": Json(6379),
+        "prefix": Json("uim_"),
+        "host": Json(null),
+        "server": Json("127.0.0.1"),
+        "timeout": Json(0),
+        "unix_socket": false,
+        "scanCount": Json(10)
+    ];
+        return _connect();
+    }
+    
+    // Connects to a Redis server
+    protected bool _connect() {
+        try {
+           _redis = new Redis();
+            if (!_config["unix_socket"].isEmpty) {
+                result = _redis.connect(_config["unix_socket"]);
+            } elseif (_config["persistent"].isEmpty) {
+                result = _redis.connect(
+                   _config["server"],
+                    (int)_config["port"],
+                    (int)_config["timeout"]
+                );
+            } else {
+                $persistentId = _config["port"] ~ _config["timeout"] ~ _config["database"];
+                result = _redis.pconnect(
+                   _config["server"],
+                    (int)_config["port"],
+                    (int)_config["timeout"],
+                    $persistentId
+                );
+            }
+        } catch (RedisException  anException) {
+            if (class_exists(Log.classname)) {
+                Log.error("RedisEngine could not connect. Got error: " ~  anException.getMessage());
+            }
+            return false;
+        }
+        if (result && _config["password"]) {
+            result = _redis.auth(_config["password"]);
+        }
+        if (result) {
+            result = _redis.select((int)_config["database"]);
+        }
+        return result;
+    }
+    
+    /**
+     * Write data for key into cache.
+     * Params:
+     * string aKey Identifier for the data
+     * @param Json aValue Data to be cached
+     * @param \DateInterval|int  aTtl Optional. The TTL value of this item. If no value is sent and
+     *  the driver supports TTL then the library may set a default value
+     *  for it or let the driver take care of that.
+     */
+    bool set(string aKey, Json aValue, DateInterval|int  aTtl = null) {
+        auto myKey = _key(aKey);
+        autoaValue = this.serialize(aValue);
+
+        auto myDuration = this.duration(aTtl);
+        if (myDuration == 0) {
+            return _redis.set(myKey, aValue);
+        }
+        return _redis.setEx(myKey, myDuration, aValue);
+    }
+    
+    /**
+     * Read a key from the cache
+     * Params:
+     * string aKey Identifier for the data
+     * @param Json defaultValue Default value to return if the key does not exist.
+     */
+    Json get(string aKey, Json defaultValue = Json(null)) {
+        aValue = _redis.get(_key(aKey));
+        if (aValue == false) {
+            return defaultValue;
+        }
+        return this.unserialize(aValue);
+    }
+    
+    /**
+     * Increments the value of an integer cached key & update the expiry time
+     * Params:
+     * string aKey Identifier for the data
+     * @param int anOffset How much to increment
+     */
+    int increment(string aKey, int anOffset = 1) {
+         aDuration = _config["duration"];
+        aKey = _key(aKey);
+
+        aValue = _redis.incrBy(aKey,  anOffset);
+        if (aDuration > 0) {
+           _redis.expire(aKey,  aDuration);
+        }
+        return aValue;
+    }
+    
+    /**
+     * Decrements the value of an integer cached key & update the expiry time
+     * Params:
+     * string aKey Identifier for the data
+     * @param int anOffset How much to subtract
+     */
+    int|false decrement(string aKey, int anOffset = 1) {
+         aDuration = _config["duration"];
+        aKey = _key(aKey);
+
+        aValue = _redis.decrBy(aKey,  anOffset);
+        if (aDuration > 0) {
+           _redis.expire(aKey,  aDuration);
+        }
+        return aValue;
+    }
+    
+    /**
+     * Delete a key from the cache
+     * Params:
+     * string aKey Identifier for the data
+     */
+    bool delete(string dataIdentifier) {
+        auto key = _key(dataIdentifier);
+
+        return _redis.del(key) > 0;
+    }
+    
+    /**
+     * Delete a key from the cache asynchronously
+     *
+     * Just unlink a key from the cache. The actual removal will happen later asynchronously.
+     */
+    bool deleteAsync(string dataIdentifier) {
+        auto key = _key(dataId);
+        return _redis.unlink(key) > 0;
+    }
+    
+    // Delete all keys from the cache
+    bool clear() {
+       _redis.setOption(Redis.OPT_SCAN, (string)Redis.SCAN_RETRY);
+
+        auto isAllDeleted = true;
+        auto  anIterator = null;
+        auto  somePattern = _config["prefix"] ~ "*";
+
+        while (true) {
+            keys = _redis.scan(anIterator,  somePattern, (int)_config["scanCount"]);
+
+            if (someKeys == false) {
+                break;
+            }
+            someKeys.each!((key) {
+                 isDeleted = (_redis.del(aKey) > 0);
+                 isAllDeleted =  isAllDeleted &&  isDeleted;
+            });
+        }
+        return isAllDeleted;
+    }
+    
+    /**
+     * Delete all keys from the cache by a blocking operation
+     *
+     * Faster than clear() using unlink method.
+     */
+    bool clearBlocking() {
+       _redis.setOption(Redis.OPT_SCAN, (string)Redis.SCAN_RETRY);
+
+        bool isAllDeleted = true;
+         anIterator = null;
+         somePattern = _config["prefix"] ~ "*";
+
+        while (true) {
+            someKeys = _redis.scan(anIterator,  somePattern, (int)_config["scanCount"]);
+
+            if (someKeys == false) {
+                break;
+            }
+            someKeys.each!((key) {
+                bool isDeleted = (_redis.unlink(key) > 0);
+                isAllDeleted =  isAllDeleted &&  isDeleted;
+            });
+        }
+        return isAllDeleted;
+    }
+    
+    /**
+     * Write data for key into cache if it doesn`t exist already.
+     * If it already exists, it fails and returns false.
+     * Params:
+     * string aKey Identifier for the data.
+     * @param Json aValue Data to be cached.
+     */
+    bool add(string aKey, Json aValue) {
+         aDuration = _config["duration"];
+        aKey = _key(aKey);
+        aValue = this.serialize(aValue);
+
+        if (_redis.set(aKey, aValue, ["nx", "ex":  aDuration])) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Returns the `group value` for each of the configured groups
+     * If the group initial value was not found, then it initializes
+     * the group accordingly.
+     */
+    string[] groups() {
+        auto result;
+        foreach (_config["groups"] as  anGroup) {
+            aValue = _redis.get(_config["prefix"] ~  anGroup);
+            if (!aValue) {
+                aValue = this.serialize(1);
+               _redis.set(_config["prefix"] ~  anGroup, aValue);
+            }
+            result ~=  anGroup ~ aValue;
+        }
+        return result;
+    }
+    
+    /**
+     * Increments the group value to simulate deletion of all keys under a group
+     * old values will remain in storage until they expire.
+     * Params:
+     * string agroup name of the group to be cleared
+         */
+    bool clearGroup(string agroup) {
+        return (bool)_redis.incr(_config["prefix"] ~  anGroup);
+    }
+    
+    /**
+     * Serialize value for saving to Redis.
+     *
+     * This is needed instead of using Redis' in built serialization feature
+     * as it creates problems incrementing/decrementing intially set integer value.
+     * Params:
+     * Json aValue Value to serialize.
+     */
+    protected string serialize(Json aValue) {
+        if (isInt(aValue)) {
+            return (string)aValue;
+        }
+        return serialize(aValue);
+    }
+    
+    /**
+     * Unserialize string value fetched from Redis.
+     * Params:
+     * string avalue Value to unserialize.
+     */
+    protected Json unserialize(string avalue) {
+        if (preg_match("/^[-]?\d+$/", aValue)) {
+            return (int)aValue;
+        }
+        return unserialize(aValue);
+    }
+    
+    /**
+     * Disconnects from the redis server
+     */
+    auto __destruct() {
+        if (isEmpty(_config["persistent"])) {
+           _redis.close();
+        }
+    }
+}

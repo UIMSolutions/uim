@@ -533,7 +533,7 @@ class EagerLoader
         }
 
         myConfiguration["strategy"] = Association::STRATEGY_SELECT;
-        loadable.setConfig(myConfiguration);
+        loadable.configuration.update(myConfiguration);
         loadable.setCanBeJoined(false);
     }
 

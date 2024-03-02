@@ -166,7 +166,7 @@ class EagerLoadable {
      *
      * configData - The value to set.
      */
-    void setConfig(IConfigData[string] configData = null) {
+    void configuration.update(IConfigData[string] configData = null) {
        _config = configData;
     }
     

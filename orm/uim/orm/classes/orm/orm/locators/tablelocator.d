@@ -89,7 +89,7 @@ class TableLocator : AbstractLocator : ILocator {
         this.fallbackClassName = myclassName;
     }
  
-    void setConfig(string[] myalias, IData[string] options = null) {
+    void configuration.update(string[] myalias, IData[string] options = null) {
         if (!isString(myalias)) {
            _config = myalias;
 

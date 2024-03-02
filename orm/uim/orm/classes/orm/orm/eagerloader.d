@@ -458,7 +458,7 @@ class EagerLoader {
             return;
         }
         configData("strategy"] = Association.STRATEGY_SELECT;
-        myloadable.setConfig(configData);
+        myloadable.configuration.update(configData);
         myloadable.setCanBeJoined(false);
     }
     

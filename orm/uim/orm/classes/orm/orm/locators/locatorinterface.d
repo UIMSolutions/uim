@@ -22,8 +22,8 @@ interface ILocator : BaseILocator {
      *  overwrite current config.
      * @param IData[string]|null options list of options for the alias
      */
-    ILocator setConfig(string[] aliasNames...);
-    ILocator setConfig(string[] aliasNames, IData[string] options = null);
+    ILocator configuration.update(string[] aliasNames...);
+    ILocator configuration.update(string[] aliasNames, IData[string] options = null);
 
     /**
      * Get a table instance from the registry.

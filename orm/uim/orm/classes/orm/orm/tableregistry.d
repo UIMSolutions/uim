@@ -19,7 +19,7 @@ import uim.orm;
  * an instance is made, the instances *will not* be updated.
  *
  * ```
- * TableRegistry.getTableLocator().setConfig("Users", ["table": "my_users"]);
+ * TableRegistry.getTableLocator().configuration.update("Users", ["table": "my_users"]);
  * ```
  *
  * Configuration data is stored *per alias* if you use the same table with

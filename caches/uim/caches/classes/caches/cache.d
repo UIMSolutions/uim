@@ -119,9 +119,9 @@ class Cache {
             assert(cast(CacheEngine)myfallbackEngine);
 
             mynewConfig = configData ~ ["groups": [], "prefix": null];
-            myfallbackEngine.setConfig("groups", mynewConfig["groups"], false);
+            myfallbackEngine.configuration.update("groups", mynewConfig["groups"], false);
             if (mynewConfig["prefix"]) {
-                myfallbackEngine.setConfig("prefix", mynewConfig["prefix"], false);
+                myfallbackEngine.configuration.update("prefix", mynewConfig["prefix"], false);
             }
             myRegistry.set(configName, myfallbackEngine);
         }

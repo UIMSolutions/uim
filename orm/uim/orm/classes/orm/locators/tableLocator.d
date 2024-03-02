@@ -104,7 +104,7 @@ class TableLocator : AbstractLocator : ILocator
     }
 
 
-    function setConfig(alias, options = null) {
+    function configuration.update(alias, options = null) {
         if (!is_string(alias)) {
             _config = alias;
 

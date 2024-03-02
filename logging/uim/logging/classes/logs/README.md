@@ -20,14 +20,14 @@ should be configured using `UIM\Log\Log.` An example would be:
 use UIM\Log\Log;
 
 // Short classname
-Log::setConfig("local", [
+Log::configuration.update("local", [
     "className": "File",
     "levels": ["notice", "info", "debug"],
     "file": "/path/to/file.log",
 ]);
 
 // Fully namespaced name.
-Log::setConfig("production", [
+Log::configuration.update("production", [
     "className": \UIM\Log\Engine\SyslogLog::class,
     "levels": ["warning", "error", "critical", "alert", "emergency"],
 ]);
@@ -36,7 +36,7 @@ Log::setConfig("production", [
 It is also possible to create loggers by providing a closure.
 
 ```php
-Log::setConfig("special", auto () {
+Log::configuration.update("special", auto () {
 	// Return any PSR-3 compatible logger
 	return new MyPSR3CompatibleLogger();
 });
@@ -45,7 +45,7 @@ Log::setConfig("special", auto () {
 Or by injecting an instance directly:
 
 ```php
-Log::setConfig("special", new MyPSR3CompatibleLogger());
+Log::configuration.update("special", new MyPSR3CompatibleLogger());
 ```
 
 You can then use the `Log` class to pass messages to the logging backends:
@@ -66,7 +66,7 @@ you can limit the logging engines that receive a particular message.
 ```php
 // Configure /logs/payments.log to receive all levels, but only
 // those with `payments` scope.
-Log::setConfig("payments", [
+Log::configuration.update("payments", [
     "className": "File",
     "levels": ["error", "info", "warning"],
     "scopes": ["payments"],

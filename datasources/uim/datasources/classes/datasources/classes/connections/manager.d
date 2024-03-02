@@ -55,11 +55,11 @@ class ConnectionManager {
      * @throws \UIM\Core\Exception\UimException When trying to modify an existing config.
      * @see \UIM\Core\StaticConfigTrait.config()
      */
-    static void setConfig(string[] aKey, IConnection | Closure | array | null configData = null) {
+    static void configuration.update(string[] aKey, IConnection | Closure | array | null configData = null) {
         if (isArray(configData)) {
             configData("name", aKey);
         }
-        _setConfig(aKey, configData);
+        _configuration.update(aKey, configData);
     }
 
     /**

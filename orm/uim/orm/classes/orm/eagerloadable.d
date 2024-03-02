@@ -179,7 +179,7 @@ class EagerLoadable {
      * @param array<string, mixed> myConfiguration The value to set.
      * @return this
      */
-    auto setConfig(Json myConfiguration) {
+    auto configuration.update(Json myConfiguration) {
         _config = myConfiguration;
 
         return this;

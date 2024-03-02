@@ -459,13 +459,13 @@ class ConsoleIo {
                 "types": outLevels,
                 "stream": _out,
             ]);
-            Log.setConfig("stdout", ["engine": stdout]);
+            Log.configuration.update("stdout", ["engine": stdout]);
         }
         stderr = new ConsoleLog([
             "types": ["emergency", "alert", "critical", "error", "warning"],
             "stream": _err,
         ]);
-        Log.setConfig("stderr", ["engine": stderr]);
+        Log.configuration.update("stderr", ["engine": stderr]);
     }
     
     /**

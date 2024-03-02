@@ -26,7 +26,7 @@ specify a driver to use:
 ```php
 use UIM\Datasource\ConnectionManager;
 
-ConnectionManager::setConfig("default", [
+ConnectionManager::configuration.update("default", [
 	"className": \UIM\Database\Connection::class,
 	"driver": \UIM\Database\Driver\Mysql::class,
 	"database": "test",
@@ -161,7 +161,7 @@ mycacheConfig = [
    "serialize": true,
    "prefix"   : "orm_",
 ];
-Cache::setConfig("_cake_model_", mycacheConfig);
+Cache::configuration.update("_cake_model_", mycacheConfig);
 ```
 
 Cache configs are optional, so you must require ``cachephp/cache`` to add one.

@@ -74,7 +74,7 @@ class LazyEagerLoader {
         foreach (myquery.getEagerLoader().attachableAssociations(mysource) as myloadable) {
             configData = myloadable.getConfig();
             configData("includeFields"] = true;
-            myloadable.setConfig(configData);
+            myloadable.configuration.update(configData);
         }
         return myquery;
     }

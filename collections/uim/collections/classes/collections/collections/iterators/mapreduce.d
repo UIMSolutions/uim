@@ -1,6 +1,6 @@
 module uim.collections.iterators.mapreduce;
 
-import uim.cake;
+import uim.collections;
 
 @safe:
 

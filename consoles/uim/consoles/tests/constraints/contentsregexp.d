@@ -1,0 +1,37 @@
+module uim.consoles\TestSuite\Constraint;
+
+import uim.consoles;
+
+@safe:
+
+/* * ContentsRegExp
+ *
+ * @internal
+ */
+class ContentsRegExp : ContentsBase {
+    /**
+     * Checks if contents contain expected
+     * Params:
+     * Json other Expected
+     */
+   bool matches(Json other) {
+        return preg_match($other, this.contents) > 0;
+    }
+    
+    // Assertion message
+    string toString() {
+        return "PCRE pattern found in %s".format(this.output);
+    }
+    
+    // @param Json other Expected
+    string failureDescription(Json other) {
+        return "`" ~ other ~ "` " ~ this.toString();
+    }
+}
+
+// uimcs:disable
+class_alias(
+    'UIM\Console\TestSuite\Constraint\ContentsRegExp",
+    'UIM\TestSuite\Constraint\Console\ContentsRegExp'
+);
+// uimcs:enable

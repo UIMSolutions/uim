@@ -1,0 +1,37 @@
+module uim.consoles\TestSuite\Constraint;
+
+import uim.consoles;
+
+@safe:
+
+/* * ContentsContainRow
+ *
+ * @internal
+ */
+class ContentsContainRow : ContentsRegExp {
+    /**
+     * Checks if contents contain expected
+     * Params:
+     * Json other Row
+     */
+    bool matches(Json other) {
+        string[] row = array_map(function ($cell) {
+            return preg_quote($cell, "/");
+        }, (array)$other);
+        
+        string cells = row.join("\s+\|\s+", );
+        somePattern = "/" ~ cells ~ "/";
+
+        return preg_match(somePattern, this.contents) > 0;
+    }
+    
+    // Assertion message
+    string toString() {
+        return "row was in %s".format(this.output);
+    }
+    
+    // @param Json other Expected content
+    string failureDescription(Json other) {
+        return "`" ~ this.exporter().shortenedExport($other) ~ "` " ~ this.toString();
+    }
+}

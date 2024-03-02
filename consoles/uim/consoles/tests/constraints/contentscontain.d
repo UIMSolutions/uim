@@ -1,0 +1,33 @@
+module uim.consoles\TestSuite\Constraint;
+
+import uim.consoles;
+
+@safe:
+
+/* * ContentsContain
+ *
+ * @internal
+ */
+class ContentsContain : ContentsBase {
+    /**
+     * Checks if contents contain expected
+     * Params:
+     * Json other Expected
+     */
+   bool matches(Json other) {
+        return mb_strpos(this.contents, other) != false;
+    }
+    
+    // Assertion message
+    string toString() {
+        return "is in %s," ~ D_EOL ~ "actual result:" ~ D_EOL ~ "`%s`"
+        .format(this.output, this.contents);
+    }
+}
+
+// uimcs:disable
+class_alias(
+    "UIM\Console\TestSuite\Constraint\ContentsContain",
+    "UIM\TestSuite\Constraint\Console\ContentsContain'
+);
+// uimcs:enable

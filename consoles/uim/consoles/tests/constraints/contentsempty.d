@@ -1,0 +1,34 @@
+module uim.consoles\TestSuite\Constraint;
+
+import uim.consoles;
+
+@safe:
+
+/* * ContentsEmpty
+ *
+ * @internal
+ */
+class ContentsEmpty : ContentsBase {
+    /**
+     * Checks if contents are empty
+     * Params:
+     * Json other Expected
+     */
+   bool matches(Json other) {
+        return this.contents == "";
+    }
+    
+    // Assertion message
+    string toString() {
+        return "%s is empty".format(this.output);
+    }
+    
+    /**
+     * Overwrites the descriptions so we can remove the automatic "expected" message
+     * Params:
+     * Json other Value
+     */
+    protected string failureDescription(Json other) {
+        return this.toString();
+    }
+}

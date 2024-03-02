@@ -1,0 +1,32 @@
+module uim.consoles\TestSuite\Constraint;
+
+import uim.consoles;
+
+@safe:
+
+/* * ContentsNotContain
+ *
+ * @internal
+ */
+class ContentsNotContain : ContentsBase {
+    /**
+     * Checks if contents contain expected
+     * Params:
+     * Json other Expected
+     */
+    bool matches(Json other) {
+        return mb_strpos(this.contents, other) == false;
+    }
+    
+    // Assertion message
+    string toString() {
+        return "is not in %s".format(this.output);
+    }
+}
+
+// uimcs:disable
+class_alias(
+    'UIM\Console\TestSuite\Constraint\ContentsNotContain",
+    'UIM\TestSuite\Constraint\Console\ContentsNotContain'
+);
+// uimcs:enable

@@ -1,2 +1,2 @@
-module uim.consoles.tests;
+module uim.consoles.TestSuite;
 

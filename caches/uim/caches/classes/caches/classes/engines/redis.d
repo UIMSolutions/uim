@@ -1,4 +1,4 @@
-module uim.cake.caches.engines.redis;
+module uim.caches.engines.redis;
 
 import uim.cake;
 

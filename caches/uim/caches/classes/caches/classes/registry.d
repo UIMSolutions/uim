@@ -1,4 +1,4 @@
-module uim.cake.caches.registry;
+module uim.caches.registry;
 
 import uim.cake;
 

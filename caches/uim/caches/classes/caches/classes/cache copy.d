@@ -1,5 +1,5 @@
 
-module uim.cake.caches;
+module uim.caches;
 
 import uim.cake;
 

@@ -1,4 +1,4 @@
-module uim.cake.caches.engines.array;
+module uim.caches.engines.array;
 
 import uim.cake;
 

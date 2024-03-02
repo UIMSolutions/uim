@@ -1,6 +1,6 @@
 module uim.commands.helpers.progress;
 
-import uim.cake;
+import uim.commands;
 
 @safe:
 

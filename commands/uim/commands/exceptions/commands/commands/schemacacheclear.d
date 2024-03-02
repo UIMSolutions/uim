@@ -1,6 +1,6 @@
 module uim.commands.schemacacheclear;
 
-import uim.cake;
+import uim.commands;
 
 @safe:
 

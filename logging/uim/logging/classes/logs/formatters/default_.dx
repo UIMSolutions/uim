@@ -17,7 +17,7 @@ class DefaultFormatter : AbstractFormatter {
 
 
     this(IConfigData[string] configData = null) {
-        this.setConfig(configData);
+        configuration.update(configData);
     }
  
     string format(level, string messageToFormat, array context = []) {

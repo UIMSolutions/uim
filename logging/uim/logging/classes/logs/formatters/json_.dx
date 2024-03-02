@@ -9,7 +9,7 @@ class JsonFormatter : AbstractFormatter {
 
     // configData - Formatter config
     this(IConfigData[string] configData = null) {
-        this.setConfig(configData);
+        configuration.update(configData);
     }
  
     string|int|false format(level, string amessage, array context = []) {

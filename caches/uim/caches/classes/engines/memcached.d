@@ -94,7 +94,7 @@ h     */
         ];
     }
     if (isSet(configData"servers"])) {
-      this.setConfig("servers", configData["servers"], false);
+      configuration.update("servers", configData["servers"], false);
     }
     if (!isArray(_config["servers"])) {
       _config["servers"] = [_config["servers"]];

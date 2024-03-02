@@ -12,7 +12,7 @@ abstract class AbstractFormatter {
     this(IConfigData[string] configData = null) {
         _defaultConfigData = Json.emptyObject;
 
-        this.setConfig(configData);
+        configuration.update(configData);
     }
     
     // Formats message.

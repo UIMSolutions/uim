@@ -40,7 +40,7 @@ abstract class CacheEngine : ICache, ICacheEngine {
      * configData - Associative array of parameters for the engine
      */
     bool initialize(IData[string] initData = null) {
-        this.setConfig(configData);
+        configuration.update(configData);
 
         if (!_config["groups"].isEmpty) {
             sort(_config["groups"]);
@@ -110,7 +110,7 @@ abstract class CacheEngine : ICache, ICacheEngine {
 
         if (myttl !isNull) {
             myrestore = _configData.isSet("duration");
-            this.setConfig("duration", myttl);
+            configuration.update("duration", myttl);
         }
         try {
             foreach (aKey: myvalue; myvalues) {
@@ -122,7 +122,7 @@ abstract class CacheEngine : ICache, ICacheEngine {
             return true;
         } finally {
             if (isSet(myrestore)) {
-                this.setConfig("duration", myrestore);
+                configuration.update("duration", myrestore);
             }
         }
     }

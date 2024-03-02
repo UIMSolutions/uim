@@ -151,7 +151,7 @@ class Behavior : IEventListener
             myConfiguration
         );
         _table = table;
-        this.setConfig(myConfiguration);
+        configuration.update(myConfiguration);
         this.initialize(myConfiguration);
     }
 
@@ -191,7 +191,7 @@ class Behavior : IEventListener
             return myConfiguration;
         }
         if (isset(myConfiguration[key]) && myConfiguration[key] == []) {
-            this.setConfig(key, [], false);
+            configuration.update(key, [], false);
             unset(myConfiguration[key]);
 
             return myConfiguration;
@@ -204,7 +204,7 @@ class Behavior : IEventListener
                 indexedCustom[method] = alias;
             }
         }
-        this.setConfig(key, array_flip(indexedCustom), false);
+        configuration.update(key, array_flip(indexedCustom), false);
         unset(myConfiguration[key]);
 
         return myConfiguration;

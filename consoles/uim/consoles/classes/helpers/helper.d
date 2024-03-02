@@ -29,7 +29,7 @@ abstract class Helper {
     this(ConsoleIo aConsoleIo, IData[string] configData = null) {
         this();
        _io = aConsoleIo;
-        this.setConfig(configData);
+        configuration.update(configData);
     }
     bool initialize(IData[string] initData = null) {
        _defaultConfigData = Json.emptyObject;

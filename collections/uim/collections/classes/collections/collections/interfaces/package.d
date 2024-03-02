@@ -1,2 +1,2 @@
-module uim.cake.collectionss.interfaces;
+module uim.collectionss.interfaces;
 

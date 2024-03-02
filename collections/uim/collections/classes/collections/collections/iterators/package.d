@@ -1,2 +1,2 @@
-module uim.cake.collectionss.iterators;
+module uim.collectionss.iterators;
 

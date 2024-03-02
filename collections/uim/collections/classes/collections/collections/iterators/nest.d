@@ -1,4 +1,4 @@
-module uim.cake.collections.iterators.nest;
+module uim.collections.iterators.nest;
 
 import uim.cake;
 

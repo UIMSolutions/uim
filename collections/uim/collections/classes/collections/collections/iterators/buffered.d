@@ -1,4 +1,4 @@
-module uim.cake.collectionss.iterators.buffered;
+module uim.collectionss.iterators.buffered;
 
 import uim.cake;
 

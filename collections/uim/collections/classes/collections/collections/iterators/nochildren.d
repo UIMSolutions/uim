@@ -1,4 +1,4 @@
-module uim.cake.collectionss.iterators.nochildren;
+module uim.collectionss.iterators.nochildren;
 
 import uim.cake;
 

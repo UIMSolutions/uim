@@ -1,4 +1,4 @@
-module uim.cake.collectionss.iterators.extract;
+module uim.collectionss.iterators.extract;
 
 import uim.cake;
 

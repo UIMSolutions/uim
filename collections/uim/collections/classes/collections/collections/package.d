@@ -1,2 +1,2 @@
-module uim.cake.collectionss;
+module uim.collectionss;
 

@@ -1,0 +1,65 @@
+module uim.cake.commands;
+
+import uim.cake;
+
+@safe:
+
+// Provides interactive CLI tools for URL generation
+class RoutesGenerateCommand : Command {
+   mixin(CommandThis!("RoutesGenerateCommand"));
+
+  	override bool initialize(IConfigData[string] configData = null) {
+		if (!super.initialize(configData)) { return false; }
+		
+		return true;
+	}
+
+  static string defaultName() {
+    return "routes generate";
+  }
+
+  // Display all routes in an application
+  int execute(Arguments commandArguments, ConsoleIo aConsoleIo) {
+    try {
+      commandArguments = _splitArgs(commandArguments.getArguments());
+      auto routerUrl = Router.url(commandArguments);
+      aConsoleIo.out ("> " ~ routerUrl);
+      aConsoleIo.out ();
+    } catch (MissingRouteException) {
+      aConsoleIo.writeErrorMessages(
+        "<warning>The provided parameters do not match any routes.</warning>");
+      aConsoleIo.out ();
+
+      return CODE_ERROR;
+    }
+    return CODE_SUCCESS;
+  }
+
+  // Split the CLI arguments into a hash.
+  protected array < string | bool > _splitArgs(string[] commandArguments) {
+    auto result = [];
+    foreach (myArgument; commandArguments) {
+      if (myArgument.has(":")) {
+        [aKey, aValue] = split(":", myArgument);
+        if (in_array(aValue, ["true", "false"], true)) {
+          aValue = aValue == "true";
+        }
+
+        result[aKey] = aValue;
+      } else {
+        result ~= myArgument;
+      }
+    }
+    return result;
+  }
+
+  ConsoleOptionParser buildOptionParser(ConsoleOptionParser parserToUpdate) {
+    parserToUpdate.description(
+      "Check a routing array against the routes. "."Will output the URL if there is a match." ~ "\n\n" ~
+        "Routing parameters should be supplied in a key:value format. " ~
+        "For example `controller:Articles action:view 2`"
+    );
+
+    return parserToUpdate;
+  }
+}

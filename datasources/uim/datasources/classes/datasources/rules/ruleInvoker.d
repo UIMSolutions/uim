@@ -3,12 +3,12 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.cake.satasources;
+module uim.satasources;
 
 /**
  * Contains logic for invoking an application rule.
  *
- * Combined with {@link uim.cake.Datasource\RulesChecker} as an implementation
+ * Combined with {@link uim.Datasource\RulesChecker} as an implementation
  * detail to de-duplicate rule decoration and provide cleaner separation
  * of duties.
  *
@@ -91,7 +91,7 @@ class RuleInvoker
     /**
      * Invoke the rule.
      *
-     * @param uim.cake.Datasource\IEntity entity The entity the rule
+     * @param uim.Datasource\IEntity entity The entity the rule
      *   should apply to.
      * @param array scope The rule"s scope/options.
      * @return bool Whether the rule passed.

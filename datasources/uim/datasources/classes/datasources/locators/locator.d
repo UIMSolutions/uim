@@ -15,7 +15,7 @@ abstract class AbstractLocator : ILocator {
     /**
      * Instances that belong to the registry.
      *
-     * @var array<string, uim.cake.Datasource\>
+     * @var array<string, uim.Datasource\>
      */
     protected IRepository[string] instances;
 
@@ -53,7 +53,7 @@ abstract class AbstractLocator : ILocator {
      *
      * @param string alias Repository alias.
      * @param array<string, mixed> options The options you want to build the instance with.
-     * @return uim.cake.Datasource\
+     * @return uim.Datasource\
      */
     abstract protected IRepository createInstance(string alias, STRINGAA someOptions);
 

@@ -1,7 +1,7 @@
 module uim.datasources.Paging;
 
-import uim.cake.core.exceptions.UIMException;
-import uim.cake.core.InstanceConfigTrait;
+import uim.core.exceptions.UIMException;
+import uim.core.InstanceConfigTrait;
 import uim.datasources.Paging\exceptions.PageOutOfBoundsException;
 import uim.datasources.IQuery;
 import uim.datasources.IRepository;
@@ -142,12 +142,12 @@ class NumericPaginator : PaginatorInterface
      * /dashboard?articles[page]=1&tags[page]=2
      * ```
      *
-     * @param uim.cake.Datasource\IRepository|uim.cake.Datasource\IQuery object The repository or query
+     * @param uim.Datasource\IRepository|uim.Datasource\IQuery object The repository or query
      *   to paginate.
      * @param array params Request params
      * @param array settings The settings/configuration used for pagination.
-     * @return uim.cake.Datasource\IResultSet Query results
-     * @throws uim.cake.Datasource\Paging\exceptions.PageOutOfBoundsException
+     * @return uim.Datasource\IResultSet Query results
+     * @throws uim.Datasource\Paging\exceptions.PageOutOfBoundsException
      */
     function paginate(object object, array params = null, array settings = null): IResultSet
     {
@@ -184,10 +184,10 @@ class NumericPaginator : PaginatorInterface
     /**
      * Get query for fetching paginated results.
      *
-     * @param uim.cake.Datasource\IRepository object Repository instance.
-     * @param uim.cake.Datasource\IQuery|null query Query Instance.
+     * @param uim.Datasource\IRepository object Repository instance.
+     * @param uim.Datasource\IQuery|null query Query Instance.
      * @param array<string, mixed> data Pagination data.
-     * @return uim.cake.Datasource\IQuery
+     * @return uim.Datasource\IQuery
      */
     protected function getQuery(IRepository object, ?IQuery query, array data): IQuery
     {
@@ -203,7 +203,7 @@ class NumericPaginator : PaginatorInterface
     /**
      * Get total count of records.
      *
-     * @param uim.cake.Datasource\IQuery query Query instance.
+     * @param uim.Datasource\IQuery query Query instance.
      * @param array data Pagination data.
      * @return int|null
      */
@@ -214,7 +214,7 @@ class NumericPaginator : PaginatorInterface
     /**
      * Extract pagination data needed
      *
-     * @param uim.cake.Datasource\IRepository object The repository object.
+     * @param uim.Datasource\IRepository object The repository object.
      * @param array<string, mixed> params Request params
      * @param array<string, mixed> settings The settings/configuration used for pagination.
      * @return array Array with keys "defaults", "options" and "finder"
@@ -502,7 +502,7 @@ class NumericPaginator : PaginatorInterface
      * The default order options provided to paginate() will be merged with the user"s
      * requested sorting field/direction.
      *
-     * @param uim.cake.Datasource\IRepository object Repository object.
+     * @param uim.Datasource\IRepository object Repository object.
      * @param array<string, mixed> options The pagination options being used for this request.
      * @return array<string, mixed> An array of options with sort + direction removed and
      *   replaced with order if possible.
@@ -594,7 +594,7 @@ class NumericPaginator : PaginatorInterface
     /**
      * Prefixes the field with the table alias if possible.
      *
-     * @param uim.cake.Datasource\IRepository object Repository object.
+     * @param uim.Datasource\IRepository object Repository object.
      * @param array order Order array.
      * @param bool allowed Whether the field was allowed.
      * @return array Final order array.

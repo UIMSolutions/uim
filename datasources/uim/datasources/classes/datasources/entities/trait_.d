@@ -128,7 +128,7 @@ trait EntityTrait
      *
      * @param string field The field to check.
      * @return bool
-     * @see uim.cake.orm.Entity::has()
+     * @see uim.orm.Entity::has()
      */
     bool __isSet(string field) {
         return this.has(field);
@@ -924,7 +924,7 @@ trait EntityTrait
     /**
      * Reads if there are errors for one or many objects.
      *
-     * @param uim.cake.Datasource\IEntity|array $object The object to read errors from.
+     * @param uim.Datasource\IEntity|array $object The object to read errors from.
      */
     protected bool _readHasErrors($object) {
         if ($object instanceof IEntity && $object.hasErrors()) {
@@ -945,7 +945,7 @@ trait EntityTrait
     /**
      * Read the error(s) from one or many objects.
      *
-     * @param uim.cake.Datasource\IEntity|iterable $object The object to read errors from.
+     * @param uim.Datasource\IEntity|iterable $object The object to read errors from.
      * @param string|null $path The field name for errors.
      */
     protected array _readError($object, $path = null) {

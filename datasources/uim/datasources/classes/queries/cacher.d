@@ -13,7 +13,7 @@ use Traversable;
 /**
  * Handles caching queries and loading results from the cache.
  *
- * Used by {@link uim.cake.Datasource\QueryTrait} internally.
+ * Used by {@link uim.Datasource\QueryTrait} internally.
  *
  * @internal
  * @see uim.datasources.QueryTrait::cache() for the interface.

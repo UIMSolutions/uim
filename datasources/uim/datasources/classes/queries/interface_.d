@@ -9,9 +9,9 @@ module uim.datasources.queries.interface_;
  * The basis for every query object
  *
  * @method this andWhere(conditions, array types = null) Connects any previously defined set of conditions to the
- *   provided list using the AND operator. {@see uim.cake.databases.Query::andWhere()}
- * @method uim.cake.Datasource\IEntity|array firstOrFail() Get the first result from the executing query or raise an exception.
- *   {@see uim.cake.databases.Query::firstOrFail()}
+ *   provided list using the AND operator. {@see uim.databases.Query::andWhere()}
+ * @method uim.Datasource\IEntity|array firstOrFail() Get the first result from the executing query or raise an exception.
+ *   {@see uim.databases.Query::firstOrFail()}
  */
 interface IQuery
 {
@@ -24,7 +24,7 @@ interface IQuery
      * If `true` is passed in the second argument, any previous selections will
      * be overwritten with the list passed in the first argument.
      *
-     * @param uim.cake.databases.IExpression|uim.cake.orm.Association|uim.cake.orm.Table|callable|array|string fields Fields.
+     * @param uim.databases.IExpression|uim.orm.Association|uim.orm.Table|callable|array|string fields Fields.
      * @param bool canOverwrite whether to reset fields with passed list or not
      * @return this
      */
@@ -61,7 +61,7 @@ interface IQuery
      * ResultSetDecorator is a traversable object that : the methods found
      * on Cake\collections.Collection.
      *
-     * @return uim.cake.Datasource\IResultSet
+     * @return uim.Datasource\IResultSet
      */
     function all(): IResultSet;
 
@@ -134,7 +134,7 @@ interface IQuery
      * singleUser = query.select(["id", "username"]).first();
      * ```
      *
-     * @return uim.cake.Datasource\IEntity|array|null the first result from the ResultSet
+     * @return uim.Datasource\IEntity|array|null the first result from the ResultSet
      */
     function first();
 
@@ -156,7 +156,7 @@ interface IQuery
      * query.limit(query.newExpr().add(["1 + 1"])); // LIMIT (1 + 1)
      * ```
      *
-     * @param uim.cake.databases.IExpression|int|null limit number of records to be returned
+     * @param uim.databases.IExpression|int|null limit number of records to be returned
      * @return this
      */
     function limit(limit);
@@ -176,7 +176,7 @@ interface IQuery
      *  query.offset(query.newExpr().add(["1 + 1"])); // OFFSET (1 + 1)
      * ```
      *
-     * @param uim.cake.databases.IExpression|int|null offset number of records to be skipped
+     * @param uim.databases.IExpression|int|null offset number of records to be skipped
      * @return this
      */
     function offset(offset);
@@ -226,7 +226,7 @@ interface IQuery
      * If you need to set complex expressions as order conditions, you
      * should use `orderAsc()` or `orderDesc()`.
      *
-     * @param uim.cake.databases.IExpression|\Closure|array|string fields fields to be added to the list
+     * @param uim.databases.IExpression|\Closure|array|string fields fields to be added to the list
      * @param bool canOverwrite whether to reset order with field list or not
      * @return this
      */
@@ -258,7 +258,7 @@ interface IQuery
      * Set the default Table object that will be used by this query
      * and form the `FROM` clause.
      *
-     * @param uim.cake.Datasource\IRepository repository The default repository object to use
+     * @param uim.Datasource\IRepository repository The default repository object to use
      * @return this
      */
     function repository(IRepository repository);
@@ -267,7 +267,7 @@ interface IQuery
      * Returns the default repository object that will be used by this query,
      * that is, the repository that will appear in the from clause.
      *
-     * @return uim.cake.Datasource\IRepository|null repository The default repository object to use
+     * @return uim.Datasource\IRepository|null repository The default repository object to use
      */
     function getRepository(): ?IRepository;
 

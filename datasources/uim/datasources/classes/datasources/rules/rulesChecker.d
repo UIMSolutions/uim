@@ -51,28 +51,28 @@ class RulesChecker
     /**
      * The list of rules to be checked on both create and update operations
      *
-     * @var array<uim.cake.Datasource\RuleInvoker>
+     * @var array<uim.Datasource\RuleInvoker>
      */
     protected _rules = null;
 
     /**
      * The list of rules to check during create operations
      *
-     * @var array<uim.cake.Datasource\RuleInvoker>
+     * @var array<uim.Datasource\RuleInvoker>
      */
     protected _createRules = null;
 
     /**
      * The list of rules to check during update operations
      *
-     * @var array<uim.cake.Datasource\RuleInvoker>
+     * @var array<uim.Datasource\RuleInvoker>
      */
     protected _updateRules = null;
 
     /**
      * The list of rules to check during delete operations
      *
-     * @var array<uim.cake.Datasource\RuleInvoker>
+     * @var array<uim.Datasource\RuleInvoker>
      */
     protected _deleteRules = null;
 
@@ -200,7 +200,7 @@ class RulesChecker
      * of them pass. The rules to be applied are depended on the mode parameter which
      * can only be RulesChecker::CREATE, RulesChecker::UPDATE or RulesChecker::DELETE
      *
-     * @param uim.cake.Datasource\IEntity entity The entity to check for validity.
+     * @param uim.Datasource\IEntity entity The entity to check for validity.
      * @param string mode Either "create, "update" or "delete".
      * @param array<string, mixed> options Extra options to pass to checker functions.
      * @return bool
@@ -226,7 +226,7 @@ class RulesChecker
      * Runs each of the rules by passing the provided entity and returns true if all
      * of them pass. The rules selected will be only those specified to be run on "create"
      *
-     * @param uim.cake.Datasource\IEntity entity The entity to check for validity.
+     * @param uim.Datasource\IEntity entity The entity to check for validity.
      * @param array<string, mixed> options Extra options to pass to checker functions.
      */
     bool checkCreate(IEntity entity, STRINGAA someOptions = null) {
@@ -237,7 +237,7 @@ class RulesChecker
      * Runs each of the rules by passing the provided entity and returns true if all
      * of them pass. The rules selected will be only those specified to be run on "update"
      *
-     * @param uim.cake.Datasource\IEntity entity The entity to check for validity.
+     * @param uim.Datasource\IEntity entity The entity to check for validity.
      * @param array<string, mixed> options Extra options to pass to checker functions.
      */
     bool checkUpdate(IEntity entity, STRINGAA someOptions = null) {
@@ -248,7 +248,7 @@ class RulesChecker
      * Runs each of the rules by passing the provided entity and returns true if all
      * of them pass. The rules selected will be only those specified to be run on "delete"
      *
-     * @param uim.cake.Datasource\IEntity entity The entity to check for validity.
+     * @param uim.Datasource\IEntity entity The entity to check for validity.
      * @param array<string, mixed> options Extra options to pass to checker functions.
      */
     bool checkDelete(IEntity entity, STRINGAA someOptions = null) {
@@ -259,9 +259,9 @@ class RulesChecker
      * Used by top level functions checkDelete, checkCreate and checkUpdate, this function
      * iterates an array containing the rules to be checked and checks them all.
      *
-     * @param uim.cake.Datasource\IEntity entity The entity to check for validity.
+     * @param uim.Datasource\IEntity entity The entity to check for validity.
      * @param array<string, mixed> options Extra options to pass to checker functions.
-     * @param array<uim.cake.Datasource\RuleInvoker> rules The list of rules that must be checked.
+     * @param array<uim.Datasource\RuleInvoker> rules The list of rules that must be checked.
      */
     protected bool _checkRules(IEntity entity, STRINGAA someOptions = null, array rules = null) {
         success = true;
@@ -277,10 +277,10 @@ class RulesChecker
      * Utility method for decorating any callable so that if it returns false, the correct
      * property in the entity is marked as invalid.
      *
-     * @param callable|uim.cake.Datasource\RuleInvoker rule The rule to decorate
+     * @param callable|uim.Datasource\RuleInvoker rule The rule to decorate
      * @param array|string|null name The alias for a rule or an array of options
      * @param array<string, mixed> options The options containing the error message and field.
-     * @return uim.cake.Datasource\RuleInvoker
+     * @return uim.Datasource\RuleInvoker
      */
     protected function _addError(callable rule, name = null, STRINGAA someOptions = null): RuleInvoker
     {

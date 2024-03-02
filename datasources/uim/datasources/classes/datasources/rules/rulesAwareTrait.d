@@ -9,7 +9,7 @@ module uim.datasources;
 import uim.datasources;
 
 use ArrayObject;
-import uim.cake.events.IEventDispatcher;
+import uim.events.IEventDispatcher;
 
 /**
  * A trait that allows a class to build and apply application.
@@ -34,7 +34,7 @@ trait RulesAwareTrait
      * Returns whether the passed entity complies with all the rules stored in
      * the rules checker.
      *
-     * @param uim.cake.Datasource\IEntity entity The entity to check for validity.
+     * @param uim.Datasource\IEntity entity The entity to check for validity.
      * @param string operation The operation being run. Either "create", "update" or "delete".
      * @param \ArrayObject|array|null options The options To be passed to the rules.
      */
@@ -78,14 +78,14 @@ trait RulesAwareTrait
      * needs to be fetched from relevant datasources.
      *
      * @see uim.datasources.RulesChecker
-     * @return uim.cake.Datasource\RulesChecker
+     * @return uim.Datasource\RulesChecker
      */
     function rulesChecker(): RulesChecker
     {
         if (_rulesChecker != null) {
             return _rulesChecker;
         }
-        /** @psalm-var class-string<uim.cake.Datasource\RulesChecker> class */
+        /** @psalm-var class-string<uim.Datasource\RulesChecker> class */
         class = defined("RULES_CLASS") ? RULES_CLASS : RulesChecker::class;
         /** @psalm-suppress ArgumentTypeCoercion */
         _rulesChecker = this.buildRules(new class(["repository": this]));
@@ -100,8 +100,8 @@ trait RulesAwareTrait
      * Subclasses should override this method in order to initialize the rules to be applied to
      * entities saved by this instance.
      *
-     * @param uim.cake.Datasource\RulesChecker rules The rules object to be modified.
-     * @return uim.cake.Datasource\RulesChecker
+     * @param uim.Datasource\RulesChecker rules The rules object to be modified.
+     * @return uim.Datasource\RulesChecker
      */
     function buildRules(RulesChecker rules): RulesChecker
     {

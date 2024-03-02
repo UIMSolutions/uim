@@ -153,8 +153,8 @@ class ConnectionManager {
      *
      * @param string aName The connection name.
      * @param bool $useAliases Set to false to not use aliased connections.
-     * @return uim.cake.Datasource\IConnection A connection object.
-     * @throws uim.cake.Datasource\exceptions.MissingDatasourceConfigException When config
+     * @return uim.Datasource\IConnection A connection object.
+     * @throws uim.Datasource\exceptions.MissingDatasourceConfigException When config
      * data is missing.
      */
     static function get(string aName, bool$useAliases = true) {

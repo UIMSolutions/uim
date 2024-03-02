@@ -1,4 +1,4 @@
-module uim.cake.commands.completion;
+module uim.commands.completion;
 
 import uim.cake;
 

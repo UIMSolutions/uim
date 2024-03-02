@@ -1,4 +1,4 @@
-module uim.cake.commands;
+module uim.commands;
 
 import uim.cake;
 

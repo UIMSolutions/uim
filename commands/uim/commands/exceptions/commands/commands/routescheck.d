@@ -1,4 +1,4 @@
-module uim.cake.commands.routescheck;
+module uim.commands.routescheck;
 
 import uim.cake;
 

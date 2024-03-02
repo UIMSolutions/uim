@@ -1,4 +1,4 @@
-module uim.cake.commands.plugins.pluginunload_;
+module uim.commands.plugins.pluginunload_;
 
 import uim.cake;
 

@@ -1,2 +1,2 @@
-module uim.cake.commands.plugins;
+module uim.commands.plugins;
 

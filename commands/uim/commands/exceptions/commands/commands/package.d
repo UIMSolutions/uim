@@ -1,2 +1,2 @@
-module uim.cake.commandss;
+module uim.commandss;
 

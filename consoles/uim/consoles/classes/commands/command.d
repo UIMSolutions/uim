@@ -1,15 +1,224 @@
-module uim.consoles.classes.commands.command;
+module uim.consoles.command;
 
 import uim.consoles;
 
 @safe:
 
-class DCommand : ICommand {
-  // Default error code
-  static const int CODE_ERROR = 1;
+/**
+ * Base class for console commands.
+ *
+ * Provides hooks for common command features:
+ *
+ * - `initialize` Acts as a post-construct hook.
+ * - `buildOptionParser` Build/Configure the option parser for your command.
+ * - `execute` Execute your command with parsed Arguments and ConsoleIo
+ *
+ * @implements \UIM\Event\IEventDispatcher<\UIM\Command\Command>
+ */
+abstract class Command : ICommand, IEventDispatcher {
+    this() { initialize; }
 
-  // Default success code
-  static const int CODE_SUCCESS = 0;
+  	override bool initialize(IData[string] configData = null) {
+		if (!super.initialize(configData)) { return false; }
+		
+		return true;
+	}
 
-  mixin(TProperty!("string", "name"));
+    mixin configForClass(); 
+    
+    //  @use \UIM\Event\EventDispatcherTrait<\UIM\Command\Command>
+    mixin EventDispatcherTemplate();
+
+    // The name of this command.
+    protected string _name = "unknown command";
+
+    @property void name(string newName) {
+        assert(
+            newName.has(" ") && !newName.startsWith(" "),
+            "The name '{name}' is missing a space. Names should look like `cake routes`"
+        );
+        _name = newName;
+    }
+    
+    // Get the command name.
+    @property string name() {
+        return _name;
+    }
+    
+    // Get the command description.
+    static string getDescription() {
+        return "";
+    }
+    
+    // Get the root command name.
+    string getRootName() {
+        [$root] = split(" ", this.name);
+
+        return root;
+    }
+    
+    /**
+     * Get the command name.
+     *
+     * Returns the command name based on class name.
+     * For e.g. for a command with class name `UpdateTableCommand` the default
+     * name returned would be `'update_table'`.
+     */
+    static string defaultName() {
+        size_t pos = strrpos(class, "\\");
+        /** @psalm-suppress PossiblyFalseOperand */
+        string name = substr(class, pos + 1, -7);
+        return Inflector.underscore(name);
+    }
+    
+    /**
+     * Get the option parser.
+     *
+     * You can override buildOptionParser() to define your options & arguments.
+     */
+    ConsoleOptionParser getOptionParser() {
+        [$root, name] = split(" ", this.name, 2);
+         aParser = new ConsoleOptionParser(name);
+         aParser.setRootName($root);
+         aParser.description(getDescription());
+
+         aParser = this.buildOptionParser( aParser);
+
+        return aParser;
+    }
+    
+    /**
+     * Hook method for defining this command`s option parser.
+     * Params:
+     * \UIM\Console\ConsoleOptionParser parserToDefine The parser to be defined
+     */
+    protected ConsoleOptionParser buildOptionParser(ConsoleOptionParser parserToDefine) {
+        return parserToDefine;
+    }
+    
+    /**
+     * Hook method invoked by UIM when a command is about to be executed.
+     *
+     * Override this method and implement expensive/important setup steps that
+     * should not run on every command run. This method will be called *before*
+     * the options and arguments are validated and processed.
+     */
+    bool initialize(IData[string] initData = null) {
+    }
+ 
+    int run(array argv, ConsoleIo aConsoleIo) {
+        this.initialize();
+
+         aParser = this.getOptionParser();
+        try {
+            [options, arguments] =  aParser.parse($argv,  aConsoleIo);
+            someArguments = new Arguments(
+                arguments,
+                options,
+                 aParser.argumentNames()
+            );
+        } catch (ConsoleException  anException) {
+             aConsoleIo.writeErrorMessages("Error: " ~  anException.getMessage());
+
+            return CODE_ERROR;
+        }
+        this.setOutputLevel(someArguments,  aConsoleIo);
+
+        if (someArguments.getOption("help")) {
+            this.displayHelp( aParser, someArguments,  aConsoleIo);
+
+            return CODE_SUCCESS;
+        }
+        if (someArguments.getOption("quiet")) {
+             aConsoleIo.setInteractive(false);
+        }
+        this.dispatchEvent("Command.beforeExecute", ["args": someArguments]);
+        /** @var int result */
+        result = this.execute(someArguments,  aConsoleIo);
+        this.dispatchEvent("Command.afterExecute", ["args": someArguments, "result": result]);
+
+        return result;
+    }
+    
+    /**
+     * Output help content
+     * Params:
+     * \UIM\Console\ConsoleOptionParser  aParser The option parser.
+     * @param \UIM\Console\Arguments someArguments The command arguments.
+     * @param \UIM\Console\ConsoleIo aConsoleIo The console io
+     */
+    protected void displayHelp(ConsoleOptionParser  aParser, Arguments someArguments, ConsoleIo aConsoleIo) {
+        format = "text";
+        if (someArguments.getArgumentAt(0) == "xml") {
+            format = "xml";
+             aConsoleIo.setOutputAs(ConsoleOutput.RAW);
+        }
+         aConsoleIo.writeln( aParser.help($format));
+    }
+    
+    /**
+     * Set the output level based on the Arguments.
+     * Params:
+     * \UIM\Console\Arguments someArguments The command arguments.
+     * @param \UIM\Console\ConsoleIo aConsoleIo The console io
+     */
+    protected void setOutputLevel(Arguments someArguments, ConsoleIo aConsoleIo) {
+         aConsoleIo.setLoggers(ConsoleIo.NORMAL);
+        if (someArguments.getOption("quiet")) {
+             aConsoleIo.level(ConsoleIo.QUIET);
+             aConsoleIo.setLoggers(ConsoleIo.QUIET);
+        }
+        if (someArguments.getOption("verbose")) {
+             aConsoleIo.level(ConsoleIo.VERBOSE);
+             aConsoleIo.setLoggers(ConsoleIo.VERBOSE);
+        }
+    }
+    
+    /**
+     * Implement this method with your command`s logic.
+     * Params:
+     * \UIM\Console\Arguments someArguments The command arguments.
+     * @param \UIM\Console\ConsoleIo aConsoleIo The console io
+     */
+    abstract int|void execute(Arguments someArguments, ConsoleIo aConsoleIo);
+
+    /**
+     * Halt the current process with a StopException.
+     * Params:
+     * int code The exit code to use.
+     */
+    never abort(int code = self.CODE_ERROR) {
+        throw new StopException("Command aborted", code);
+    }
+    
+    /**
+     * Execute another command with the provided set of arguments.
+     *
+     * If you are using a string command name, that command`s dependencies
+     * will not be resolved with the application container. Instead you will
+     * need to pass the command as an object with all of its dependencies.
+     * Params:
+     * \UIM\Console\ICommand|string acommand The command class name or command instance.
+     * @param array someArguments The arguments to invoke the command with.
+     * @param \UIM\Console\ConsoleIo|null  aConsoleIo The ConsoleIo instance to use for the executed command.
+     */
+    int executeCommand(string acommand, array someArguments = [], ?ConsoleIo aConsoleIo = null) {
+            assert(
+                isSubclass_of($command, ICommand.classname),
+                "Command `%s` is not a subclass of `%s`.".format($command, ICommand.classname)
+            );
+
+            auto newCommand = new command();
+        return executeCommand(ICommand acommand, array someArguments = [], ?ConsoleIo aConsoleIo = null) {
+    }
+        
+    int executeCommand(ICommand acommand, array someArguments = [], ?ConsoleIo aConsoleIo = null) {
+        auto myConsoleIo = aConsoleIo ?: new ConsoleIo();
+
+        try {
+            return acommand.run(someArguments,  myConsoleIo);
+        } catch (StopException  anException) {
+            return anException.getCode();
+        }
+    }
 }

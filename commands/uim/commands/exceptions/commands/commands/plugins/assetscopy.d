@@ -1,6 +1,6 @@
 module uim.commands.plugins.assetscopy;
 
-import uim.cake;
+import uim.commands;
 
 @safe:
 

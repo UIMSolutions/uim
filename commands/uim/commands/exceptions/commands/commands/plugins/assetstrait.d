@@ -1,6 +1,6 @@
 module uim.commands;
 
-import uim.cake;
+import uim.commands;
 
 @safe:
 

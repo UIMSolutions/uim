@@ -1,6 +1,6 @@
 module uim.commands.plugins.pluginunload_;
 
-import uim.cake;
+import uim.commands;
 
 @safe:
 

@@ -1,6 +1,6 @@
 module uim.commands.plugins.assetsremove;
 
-import uim.cake;
+import uim.commands;
 
 @safe:
 

@@ -1,0 +1,42 @@
+module uim.consoles\TestSuite\Constraint;
+
+import uim.consoles;
+
+@safe:
+
+/**
+ * ExitCode constraint
+ *
+ * @internal
+ */
+class ExitCode : Constraint {
+    private int _exitCode = null;
+
+    this(int exitCode) {
+        _exitCode = exitCode;
+    }
+    
+    /**
+     * Checks if event is in fired array
+     * Params:
+     * Json other Constraint check
+     */
+   bool matches(Json other) {
+        return other == this.exitCode;
+    }
+    
+    // Assertion message string
+    string toString() {
+        return "matches exit code `%s`".format(this.exitCode ?? "null");
+    }
+    
+    /**
+     * Returns the description of the failure.
+     * Params:
+     * Json other Expected
+     */
+    string failureDescription(Json other) {
+        return "`" ~ other ~ "` " ~ this.toString();
+    }
+}
+

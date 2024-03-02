@@ -417,8 +417,8 @@ V[K] setValues(K, V)(V[K] target, V[K] someValues) {
   }
 // #endregion update
 
-V ifNull(V[K] map, K key, V defaultValue) {
+V ifNull(K, V)(V[K] map, K key, V defaultValue) {
   return key in map 
-    ? (map[k] !is null ? map[k] : defaultValue)
+    ? (!map[k].isNull ? map[k] : defaultValue)
     : defaultValue;
 }

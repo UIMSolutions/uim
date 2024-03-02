@@ -207,7 +207,7 @@ class View : IEventDispatcher {
         if (this.helpers) {
             this.helpers = this.helpers().normalizeArray(this.helpers);
         }
-        this.setConfig(array_diff_key(
+        configuration.update(array_diff_key(
             myviewOptions,
             array_flip(_passedVars)
         ));

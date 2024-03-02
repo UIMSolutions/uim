@@ -61,7 +61,7 @@ class TimestampBehavior : Behavior {
      */
     void initialize(Json myConfiguration) {
         if (isset(myConfiguration["events"])) {
-            this.setConfig("events", myConfiguration["events"], false);
+            configuration.update("events", myConfiguration["events"], false);
         }
     }
 

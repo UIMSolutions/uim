@@ -42,7 +42,7 @@ class Helper : IEventListener {
 
     this(View myview, IData[string] helperSettings = null) {
        _View = myview;
-        this.setConfig(helperSettings);
+        configuration.update(helperSettings);
 
         if (this.helpers) {
             this.helpers = myview.helpers().normalizeArray(this.helpers);

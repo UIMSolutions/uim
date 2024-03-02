@@ -47,7 +47,7 @@ class TimestampBehavior : Behavior {
      */
     bool initialize(IData[string] initData = null) {
         if (configuration.hasKey("events")) {
-            this.setConfig("events", configData("events"), false);
+            configuration.update("events", configData("events"), false);
         }
         return super.initialize(configData);
     }

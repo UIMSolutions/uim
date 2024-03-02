@@ -66,7 +66,7 @@ class ShadowTableStrategy : ITranslateStrategy
             _tableLocator = myConfiguration["tableLocator"];
         }
 
-        this.setConfig(myConfiguration);
+        configuration.update(myConfiguration);
         this.table = table;
         this.translationTable = this.getTableLocator().get(
             _config["translationTable"],
@@ -570,7 +570,7 @@ class ShadowTableStrategy : ITranslateStrategy
 
         fields = this.table.getSchema().columns();
 
-        this.setConfig("mainTableFields", fields);
+        configuration.update("mainTableFields", fields);
 
         return fields;
     }
@@ -590,7 +590,7 @@ class ShadowTableStrategy : ITranslateStrategy
         fields = table.getSchema().columns();
         fields = array_values(array_diff(fields, ["id", "locale"]));
 
-        this.setConfig("fields", fields);
+        configuration.update("fields", fields);
 
         return fields;
     }

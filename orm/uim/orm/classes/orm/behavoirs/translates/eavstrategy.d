@@ -54,7 +54,7 @@ class EavStrategy : ITranslateStrategy {
             _tableLocator = myConfiguration["tableLocator"];
         }
 
-        this.setConfig(myConfiguration);
+        configuration.update(myConfiguration);
         this.table = table;
         this.translationTable = this.getTableLocator().get(
             _config["translationTable"],

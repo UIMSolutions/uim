@@ -148,7 +148,7 @@ class Behavior : IEventListener {
 >>>>>>> 281012f1b957b2df089e0f9ff60905fca492f311
         );
        _table = mytable;
-        this.setConfig(configData);
+        configuration.update(configData);
         
         this.initialize(configData);
     }
@@ -185,7 +185,7 @@ class Behavior : IEventListener {
             return configData;
         }
         if (configuration.hasKey(aKey) && configData[aKey] == []) {
-            this.setConfig(aKey, [], false);
+            configuration.update(aKey, [], false);
             unset(configData[aKey]);
 
             return configData;
@@ -197,7 +197,7 @@ class Behavior : IEventListener {
                 myindexedCustom[mymethod] = myalias;
             }
         }
-        this.setConfig(aKey, array_flip(myindexedCustom), false);
+        configuration.update(aKey, array_flip(myindexedCustom), false);
         unset(configData[aKey]);
 
         return configData;

@@ -110,7 +110,7 @@ class StringTemplate {
      * ```
      */
     /* void add(STRINGAA namedTemplates) {
-        this.setConfig(namedTemplates);
+        configuration.update(namedTemplates);
        _compileTemplates(namedTemplates.keys);
     }
 
@@ -162,7 +162,7 @@ class StringTemplate {
     
     // Remove the named template.
     /* void remove(string templateName) {
-        this.setConfig(templateName, null);
+        configuration.update(templateName, null);
         _compiled.remove(templateName);
     } */
     

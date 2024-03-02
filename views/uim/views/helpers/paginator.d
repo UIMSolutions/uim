@@ -81,7 +81,7 @@ class PaginatorHelper : Helper {
 
         myquery = _View.getRequest().getQueryParams();
         unset(myquery["page"], myquery["limit"], myquery["sort"], myquery["direction"]);
-        this.setConfig(
+        configuration.update(
             "options.url",
             array_merge(_View.getRequest().getParam("pass", []), ["?": myquery])
         );

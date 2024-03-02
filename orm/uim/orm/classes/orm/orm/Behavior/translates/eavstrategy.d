@@ -45,7 +45,7 @@ class EavStrategy : ITranslateStrategy {
         if (isSet(configData("tableLocator"])) {
            _tableLocator = configData("tableLocator"];
         }
-        this.setConfig(configData);
+        configuration.update(configData);
         this.table = mytable;
         this.translationTable = this.getTableLocator().get(
            configuration.data("translationTable"],

@@ -1,0 +1,1255 @@
+module uim.orm.Association;
+
+import uim.orm;
+
+@safe:
+
+/**
+ * Represents an M - N relationship where there exists a junction - or join - table
+ * that contains the association fields between the source and the target table.
+ *
+ * An example of a BelongsToMany association would be Article belongs to many Tags.
+ * In this example "Article" is the source table and "Tags" is the target table.
+ */
+class BelongsToMany : Association {
+    // Saving strategy that will only append to the links set
+    const string SAVE_APPEND = "append";
+
+    // Saving strategy that will replace the links with the provided set
+    const string SAVE_REPLACE = "replace";
+
+    // The type of join to be used when adding the association to a query
+    protected string _joinType = SelectQuery.JOIN_TYPE_INNER;
+
+    // The strategy name to be used to fetch associated records.
+    protected string _strategy = self.STRATEGY_SELECT;
+
+    // Junction table instance
+    protected Table _junctionTable;
+
+    // Junction table name
+    protected string _junctionTableName;
+
+    /**
+     * The name of the hasMany association from the target table
+     * to the junction table
+     */
+    protected string _junctionAssociationName;
+
+    /**
+     * The name of the property to be set containing data from the junction table
+     * once a record from the target table is hydrated
+     */
+    protected string _junctionProperty = "_joinData";
+
+    // Saving strategy to be used by this association
+    protected string _saveStrategy = self.SAVE_REPLACE;
+
+    /**
+     * The name of the field representing the foreign key to the target table
+     *
+     * @var string[]|string
+     */
+    protected string[]|null _targetForeignKey = null;
+
+    /**
+     * The table instance for the junction relation.
+     *
+     * @var \UIM\ORM\Table|string
+     */
+    protected Table|string _through;
+
+    /**
+     * Valid strategies for this type of association
+     */
+    protected string[] _validStrategies = [
+        self.STRATEGY_SELECT,
+        self.STRATEGY_SUBQUERY,
+    ];
+
+    /**
+     * Whether the records on the joint table should be removed when a record
+     * on the source table is deleted.
+     *
+     * Defaults to true for backwards compatibility.
+     */
+    protected bool _dependent = true;
+
+    /**
+     * Filtered conditions that reference the target table.
+     */
+    protected array _targetConditions = null;
+
+    /**
+     * Filtered conditions that reference the junction table.
+     */
+    protected array _junctionConditions = null;
+
+    /**
+     * Order in which target records should be returned
+     *
+     * @var \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string
+     */
+    protected IExpression|Closure|string[]|null _sort = null;
+
+    /**
+     * Sets the name of the field representing the foreign key to the target table.
+     * Params:
+     * string[]|string aKey the key to be used to link both tables together
+     */
+    void setTargetForeignKey(string[] aKey) {
+       _targetForeignKey = aKey;
+    }
+    
+    /**
+     * Gets the name of the field representing the foreign key to the target table.
+     */
+    string[] getTargetForeignKey() {
+        return _targetForeignKey ??= _modelKey(this.getTarget().getAlias());
+    }
+    
+    /**
+     * Whether this association can be expressed directly in a query join
+     * Params:
+     * IData[string] options custom options key that could alter the return value
+     */
+    bool canBeJoined(IData[string] options = null) {
+        return !empty(options["matching"]);
+    }
+ 
+    string[] getForeignKey() {
+        if (!isSet(_foreignKey)) {
+           _foreignKey = _modelKey(this.getSource().getTable());
+        }
+        return _foreignKey;
+    }
+    
+    /**
+     * Sets the sort order in which target records should be returned.
+     * Params:
+     * \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string asort A find() compatible order clause
+     */
+    auto setSort(IExpression|Closure|string[] asort) {
+       _sort = sort;
+
+        return this;
+    }
+    
+    /**
+     * Gets the sort order in which target records should be returned.
+     */
+    IExpression|Closure|string[]|null getSort() {
+        return _sort;
+    }
+ 
+    array defaultRowValue(array row, bool joined) {
+        sourceAlias = this.getSource().getAlias();
+        if (isSet(row[sourceAlias])) {
+            row[sourceAlias][this.getProperty()] = joined ? null : [];
+        }
+        return row;
+    }
+    
+    /**
+     * Sets the table instance for the junction relation. If no arguments
+     * are passed, the current configured table instance is returned
+     * Params:
+     * \UIM\ORM\Table|string aTable Name or instance for the join table
+     */
+    Table junction(Table|string aTable = null) {
+        if (aTable.isNull && isSet(_junctionTable)) {
+            return _junctionTable;
+        }
+        aTableLocator = this.getTableLocator();
+        if (aTable.isNull && isSet(_through)) {
+            aTable = _through;
+        } else if (aTable.isNull) {
+            aTableName = _junctionTableName();
+            aTableAlias = Inflector.camelize(aTableName);
+
+            configData = [];
+            if (!aTableLocator.exists(aTableAlias)) {
+                configData = ["table": aTableName, "allowFallbackClass": true];
+
+                // Propagate the connection if we"ll get an auto-model
+                if (!App.className(aTableAlias, "Model/Table", "Table")) {
+                    configData("connection"] = this.getSource().getConnection();
+                }
+            }
+            aTable = aTableLocator.get(aTableAlias, configData);
+        }
+        if (isString(aTable)) {
+            aTable = aTableLocator.get(aTable);
+        }
+        source = this.getSource();
+        target = this.getTarget();
+        if (source.getAlias() == target.getAlias()) {
+            throw new InvalidArgumentException(
+                "The `%s` association on `%s` cannot target the same table."
+                .format(this.name, source.getAlias())
+            );
+        }
+       _generateSourceAssociations(aTable, source);
+       _generateTargetAssociations(aTable, source, target);
+       _generateJunctionAssociations(aTable, source, target);
+
+        return _junctionTable = aTable;
+    }
+    
+    /**
+     * Generate reciprocal associations as necessary.
+     *
+     * Generates the following associations:
+     *
+     * - target hasMany junction e.g. Articles hasMany ArticlesTags
+     * - target belongsToMany source e.g Articles belongsToMany Tags.
+     *
+     * You can override these generated associations by defining associations
+     * with the correct aliases.
+     * Params:
+     * \UIM\ORM\Table junction The junction table.
+     * @param \UIM\ORM\Table source The source table.
+     * @param \UIM\ORM\Table target The target table.
+     */
+    protected void _generateTargetAssociations(Table junction, Table source, Table target) {
+        junctionAlias = junction.getAlias();
+        sAlias = source.getAlias();
+        tAlias = target.getAlias();
+
+        targetBindingKey = null;
+        if (junction.hasAssociation(tAlias)) {
+            targetBindingKey = junction.getAssociation(tAlias).getBindingKey();
+        }
+        if (!target.hasAssociation(junctionAlias)) {
+            target.hasMany(junctionAlias, [
+                "targetTable": junction,
+                "bindingKey": targetBindingKey,
+                "foreignKey": this.getTargetForeignKey(),
+                "strategy": _strategy,
+            ]);
+        }
+        if (!target.hasAssociation(sAlias)) {
+            target.belongsToMany(sAlias, [
+                "sourceTable": target,
+                "targetTable": source,
+                "foreignKey": this.getTargetForeignKey(),
+                "targetForeignKey": this.getForeignKey(),
+                "through": junction,
+                "conditions": this.getConditions(),
+                "strategy": _strategy,
+            ]);
+        }
+    }
+    
+    /**
+     * Generate additional source table associations as necessary.
+     *
+     * Generates the following associations:
+     *
+     * - source hasMany junction e.g. Tags hasMany ArticlesTags
+     *
+     * You can override these generated associations by defining associations
+     * with the correct aliases.
+     * Params:
+     * \UIM\ORM\Table junction The junction table.
+     * @param \UIM\ORM\Table source The source table.
+     */
+    protected void _generateSourceAssociations(Table junction, Table source) {
+        junctionAlias = junction.getAlias();
+        sAlias = source.getAlias();
+
+        sourceBindingKey = null;
+        if (junction.hasAssociation(sAlias)) {
+            sourceBindingKey = junction.getAssociation(sAlias).getBindingKey();
+        }
+        if (!source.hasAssociation(junctionAlias)) {
+            source.hasMany(junctionAlias, [
+                "targetTable": junction,
+                "bindingKey": sourceBindingKey,
+                "foreignKey": this.getForeignKey(),
+                "strategy": _strategy,
+            ]);
+        }
+    }
+    
+    /**
+     * Generate associations on the junction table as necessary
+     *
+     * Generates the following associations:
+     *
+     * - junction belongsTo source e.g. ArticlesTags belongsTo Tags
+     * - junction belongsTo target e.g. ArticlesTags belongsTo Articles
+     *
+     * You can override these generated associations by defining associations
+     * with the correct aliases.
+     * Params:
+     * \UIM\ORM\Table junction The junction table.
+     * @param \UIM\ORM\Table source The source table.
+     * @param \UIM\ORM\Table target The target table.
+     */
+    protected void _generateJunctionAssociations(Table junction, Table source, Table target) {
+        tAlias = target.getAlias();
+        sAlias = source.getAlias();
+
+        if (!junction.hasAssociation(tAlias)) {
+            junction.belongsTo(tAlias, [
+                "foreignKey": this.getTargetForeignKey(),
+                "targetTable": target,
+            ]);
+        } else {
+            belongsTo = junction.getAssociation(tAlias);
+            if (
+                this.getTargetForeignKey() != belongsTo.getForeignKey() ||
+                target != belongsTo.getTarget()
+            ) {
+                throw new InvalidArgumentException(
+                    "The existing `{tAlias}` association on `{junction.getAlias()}` " .
+                    "is incompatible with the `{this.name}` association on `{source.getAlias()}`"
+                );
+            }
+        }
+        if (!junction.hasAssociation(sAlias)) {
+            junction.belongsTo(sAlias, [
+                "bindingKey": this.getBindingKey(),
+                "foreignKey": this.getForeignKey(),
+                "targetTable": source,
+            ]);
+        }
+    }
+    
+    /**
+     * Alters a Query object to include the associated target table data in the final
+     * result
+     *
+     * The options array accept the following keys:
+     *
+     * - includeFields: Whether to include target model fields in the result or not
+     * - foreignKey: The name of the field to use as foreign key, if false none
+     *  will be used
+     * - conditions: array with a list of conditions to filter the join with
+     * - fields: a list of fields in the target table to include in the result
+     * - type: The type of join to be used (e.g. INNER)
+     * Params:
+     * \UIM\ORM\Query\SelectQuery aQuery the query to be altered to include the target table data
+     * @param IData[string] options Any extra options or overrides to be taken in account
+     */
+    void attachTo(SelectQuery aQuery, IData[string] options = null) {
+        if (!empty(options["negateMatch"])) {
+           _appendNotMatching(aQuery, options);
+
+            return;
+        }
+        junction = this.junction();
+        belongsTo = junction.getAssociation(this.getSource().getAlias());
+        cond = belongsTo._joinCondition(["foreignKey": belongsTo.getForeignKey()]);
+        cond += this.junctionConditions();
+
+         anIncludeFields = options["includeFields"] ?? null;
+
+        // Attach the junction table as well we need it to populate _joinData.
+        assoc = this.getTarget().getAssociation(junction.getAlias());
+        newOptions = array_intersect_key(options, ["joinType": 1, "fields": 1]);
+        newOptions += [
+            "conditions": cond,
+            "includeFields":  anIncludeFields,
+            "foreignKey": false,
+        ];
+        assoc.attachTo(aQuery, newOptions);
+        aQuery.getEagerLoader().addToJoinsMap(junction.getAlias(), assoc, true);
+
+        super.attachTo(aQuery, options);
+
+        foreignKey = this.getTargetForeignKey();
+        thisJoin = aQuery.clause("join")[this.name];
+        thisJoin["conditions"].add(assoc._joinCondition(["foreignKey": foreignKey]));
+    }
+ 
+    protected void _appendNotMatching(SelectQuery aQuery, IData[string] options = null) {
+        if (isEmpty(options["negateMatch"])) {
+            return;
+        }
+        options.get("conditions", []);
+        junction = this.junction();
+        belongsTo = junction.getAssociation(this.getSource().getAlias());
+        conds = belongsTo._joinCondition(["foreignKey": belongsTo.getForeignKey()]);
+
+        subquery = this.find()
+            .select(array_values(conds))
+            .where(options["conditions"]);
+
+        if (!empty(options["queryBuilder"])) {
+            subquery = options["queryBuilder"](subquery);
+        }
+        subquery = _appendJunctionJoin(subquery);
+
+        aQuery
+            .andWhere(function (QueryExpression exp) use (subquery, conds) {
+                auto anIdentifiers = conds.keys.map!(field => new IdentifierExpression(field)).array;
+
+                anIdentifiers = subquery.newExpr().add(anIdentifiers).setConjunction(",");
+                
+                auto nullExp = clone exp;
+                return exp
+                    .or([
+                        exp.notIn(anIdentifiers, subquery),
+                        nullExp.and(array_map([nullExp, "isNull"], conds.keys)),
+                    ]);
+            });
+    }
+    
+    /**
+     * Get the relationship type.
+     */
+    string type() {
+        return self.MANY_TO_MANY;
+    }
+    
+    /**
+     * Return false as join conditions are defined in the junction table
+     * Params:
+     * IData[string] options list of options passed to attachTo method
+     */
+    protected array _joinCondition(IData[string] options = null) {
+        return null;
+    }
+ 
+    auto eagerLoader(IData[string] options = null): Closure
+    {
+        name = _junctionAssociationName();
+        loader = new SelectWithPivotLoader([
+            "alias": this.getAlias(),
+            "sourceAlias": this.getSource().getAlias(),
+            "targetAlias": this.getTarget().getAlias(),
+            "foreignKey": this.getForeignKey(),
+            "bindingKey": this.getBindingKey(),
+            "strategy": this.getStrategy(),
+            "associationType": this.type(),
+            "sort": this.getSort(),
+            "junctionAssociationName": name,
+            "junctionProperty": _junctionProperty,
+            "junctionAssoc": this.getTarget().getAssociation(name),
+            "junctionConditions": this.junctionConditions(),
+            "finder": auto () {
+                return _appendJunctionJoin(this.find(), []);
+            },
+        ]);
+
+        return loader.buildEagerLoader(options);
+    }
+    
+    /**
+     * Clear out the data in the junction table for a given entity.
+     * Params:
+     * \UIM\Datasource\IEntity entity The entity that started the cascading delete.
+     * @param IData[string] options The options for the original delete.
+     */
+    bool cascadeDelete(IEntity entity, IData[string] options = null) {
+        if (!this.getDependent()) {
+            return true;
+        }
+        /** @var string[] foreignKeys */
+        foreignKeys = (array)this.getForeignKey();
+        bindingKeys = (array)this.getBindingKey();
+        conditions = [];
+
+        if (bindingKeys) {
+            conditions = array_combine(foreignKeys, entity.extract(bindingKeys));
+        }
+        aTable = this.junction();
+        hasMany = this.getSource().getAssociation(aTable.getAlias());
+        if (_cascadeCallbacks) {
+            foreach (related; hasMany.find("all").where(conditions).all().toList()) {
+                success = aTable.delete(related, options);
+                if (!success) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        assocConditions = hasMany.getConditions();
+        if (isArray(assocConditions)) {
+            conditions = array_merge(conditions, assocConditions);
+        } else {
+            conditions ~= assocConditions;
+        }
+        aTable.deleteAll(conditions);
+
+        return true;
+    }
+    
+    /**
+     * Returns boolean true, as both of the tables "own" rows in the other side
+     * of the association via the joint table.
+     * Params:
+     * \UIM\ORM\Table side The potential Table with ownership
+     */
+    bool isOwningSide(Table side) {
+        return true;
+    }
+    
+    /**
+     * Sets the strategy that should be used for saving.
+     * Params:
+     * string astrategy the strategy name to be used
+     * @throws \InvalidArgumentException if an invalid strategy name is passed
+     */
+    auto setSaveStrategy(string astrategy) {
+        if (!in_array(strategy, [self.SAVE_APPEND, self.SAVE_REPLACE], true)) {
+            auto message = "Invalid save strategy `%s`".format(strategy);
+            throw new InvalidArgumentException(message);
+        }
+       _saveStrategy = strategy;
+
+        return this;
+    }
+    
+    /**
+     * Gets the strategy that should be used for saving.
+     */
+    string getSaveStrategy() {
+        return _saveStrategy;
+    }
+    
+    /**
+     * Takes an entity from the source table and looks if there is a field
+     * matching the property name for this association. The found entity will be
+     * saved on the target table for this association by passing supplied
+     * `options`
+     *
+     * When using the "append" strategy, this auto will only create new links
+     * between each side of this association. It will not destroy existing ones even
+     * though they may not be present in the array of entities to be saved.
+     *
+     * When using the "replace" strategy, existing links will be removed and new links
+     * will be created in the joint table. If there exists links in the database to some
+     * of the entities intended to be saved by this method, they will be updated,
+     * not deleted.
+     * Params:
+     * \UIM\Datasource\IEntity entity an entity from the source table
+     * @param IData[string] options options to be passed to the save method in the target table
+     * @throws \InvalidArgumentException if the property representing the association
+     * in the parent entity cannot be traversed
+     */
+    IEntity|false saveAssociated(IEntity entity, IData[string] options = null) {
+        targetEntity = entity.get(this.getProperty());
+        strategy = this.getSaveStrategy();
+
+         isEmpty = in_array(targetEntity, [null, [], "", false], true);
+        if (isEmpty && entity.isNew()) {
+            return entity;
+        }
+        if (isEmpty) {
+            targetEntity = [];
+        }
+        if (strategy == self.SAVE_APPEND) {
+            return _saveTarget(entity, targetEntity, options);
+        }
+        if (this.replaceLinks(entity, targetEntity, options)) {
+            return entity;
+        }
+        return false;
+    }
+    
+    /**
+     * Persists each of the entities into the target table and creates links between
+     * the parent entity and each one of the saved target entities.
+     * Params:
+     * \UIM\Datasource\IEntity parentEntity the source entity containing the target
+     * entities to be saved.
+     * @param array entities list of entities to persist in target table and to
+     * link to the parent entity
+     * @param IData[string] options list of options accepted by `Table.save()`
+     * @throws \InvalidArgumentException if the property representing the association
+     * in the parent entity cannot be traversed
+     */
+    protected IEntity|false _saveTarget(
+        IEntity parentEntity,
+        array entities,
+        IData[string] options
+    ) {
+        joinAssociations = false;
+        if (isSet(options["associated"]) && isArray(options["associated"])) {
+            if (!empty(options["associated"][_junctionProperty]["associated"])) {
+                joinAssociations = options["associated"][_junctionProperty]["associated"];
+            }
+            unset(options["associated"][_junctionProperty]);
+        }
+        aTable = this.getTarget();
+        original = entities;
+        persisted = [];
+
+        foreach (myKe, entity; entities) {
+            if (!(cast(IEntity)entity)) {
+                break;
+            }
+            if (!empty(options["atomic"])) {
+                entity = clone entity;
+            }
+            saved = aTable.save(entity, options);
+            if (saved) {
+                entities[myKey] = entity;
+                persisted ~= entity;
+                continue;
+            }
+            // Saving the new linked entity failed, copy errors back into the
+            // original entity if applicable and abort.
+            if (!empty(options["atomic"])) {
+                original[myKey].setErrors(entity.getErrors());
+            }
+            return false;
+        }
+        options["associated"] = joinAssociations;
+        success = _saveLinks(parentEntity, persisted, options);
+        if (!success && !empty(options["atomic"])) {
+            parentEntity.set(this.getProperty(), original);
+
+            return false;
+        }
+        parentEntity.set(this.getProperty(), entities);
+
+        return parentEntity;
+    }
+    
+    /**
+     * Creates links between the source entity and each of the passed target entities
+     * Params:
+     * \UIM\Datasource\IEntity sourceEntity the entity from source table in this
+     * association
+     * @param array<\UIM\Datasource\IEntity> targetEntities list of entities to link to link to the source entity using the
+     * junction table
+     * @param IData[string] options list of options accepted by `Table.save()`
+     */
+    protected bool _saveLinks(IEntity sourceEntity, array targetEntities, IData[string] options = null) {
+        auto target = this.getTarget();
+        auto junction = this.junction();
+        auto entityClass = junction.getEntityClass();
+        auto belongsTo = junction.getAssociation(target.getAlias());
+        string[] foreignKey = (array)this.getForeignKey();
+        string[] assocForeignKey = (array)belongsTo.getForeignKey();
+        auto targetBindingKey = (array)belongsTo.getBindingKey();
+        auto bindingKey = (array)this.getBindingKey();
+        auto jointProperty = _junctionProperty;
+        auto junctionRegistryAlias = junction.getRegistryAlias();
+
+        foreach (anException; targetEntities) {
+            auto joint =  anException.get(jointProperty);
+            if (!joint || !(cast(IEntity)joint)) {
+                joint = new entityClass([], ["markNew": true, "source": junctionRegistryAlias]);
+            }
+            auto sourceKeys = array_combine(foreignKey, sourceEntity.extract(bindingKey));
+            auto targetKeys = array_combine(assocForeignKey,  anException.extract(targetBindingKey));
+
+            auto changedKeys = sourceKeys != joint.extract(foreignKey) ||
+                targetKeys != joint.extract(assocForeignKey);
+
+            // Keys were changed, the junction table record _could_be
+            // new. By clearing the primary key values, and marking the entity
+            // as new, we let save() sort out whether we have a new link
+            // or if we are updating an existing link.
+            if (changedKeys) {
+                joint.setNew(true);
+                joint.unset(junction.getPrimaryKey())
+                    .set(array_merge(sourceKeys, targetKeys), ["guard": false]);
+            }
+            saved = junction.save(joint, options);
+
+            if (!saved && !empty(options["atomic"])) {
+                return false;
+            }
+             anException.set(jointProperty, joint);
+             anException.setDirty(jointProperty, false);
+        }
+        return true;
+    }
+    
+    /**
+     * Associates the source entity to each of the target entities provided by
+     * creating links in the junction table. Both the source entity and each of
+     * the target entities are assumed to be already persisted, if they are marked
+     * as new or their status is unknown then an exception will be thrown.
+     *
+     * When using this method, all entities in `targetEntities` will be appended to
+     * the source entity"s property corresponding to this association object.
+     *
+     * This method does not check link uniqueness.
+     *
+     * ### Example:
+     *
+     * ```
+     * newTags = tags.find("relevant").toArray();
+     * articles.getAssociation("tags").link(article, newTags);
+     * ```
+     *
+     * `article.get("tags")` will contain all tags in `newTags` after liking
+     * Params:
+     * \UIM\Datasource\IEntity sourceEntity the row belonging to the `source` side
+     *  of this association
+     * @param array<\UIM\Datasource\IEntity> targetEntities list of entities belonging to the `target` side
+     *  of this association
+     * @param IData[string] options list of options to be passed to the internal `save` call
+     * @throws \InvalidArgumentException when any of the values in targetEntities is
+     *  detected to not be already persisted
+     */
+    bool link(IEntity sourceEntity, array targetEntities, IData[string] options = null) {
+       _checkPersistenceStatus(sourceEntity, targetEntities);
+         aProperty = this.getProperty();
+        links = sourceEntity.get(aProperty) ?: [];
+        links = array_merge(links, targetEntities);
+        sourceEntity.set(aProperty, links);
+
+        return this.junction().getConnection().transactional(
+            auto () use (sourceEntity, targetEntities, options) {
+                return _saveLinks(sourceEntity, targetEntities, options);
+            }
+        );
+    }
+    
+    /**
+     * Removes all links between the passed source entity and each of the provided
+     * target entities. This method assumes that all passed objects are already persisted
+     * in the database and that each of them contain a primary key value.
+     *
+     * ### Options
+     *
+     * Additionally to the default options accepted by `Table.delete()`, the following
+     * keys are supported:
+     *
+     * - cleanProperty: Whether to remove all the objects in `targetEntities` that
+     * are stored in `sourceEntity` (default: true)
+     *
+     * By default this method will unset each of the entity objects stored inside the
+     * source entity.
+     *
+     * ### Example:
+     *
+     * ```
+     * article.tags = [tag1, tag2, tag3, tag4];
+     * tags = [tag1, tag2, tag3];
+     * articles.getAssociation("tags").unlink(article, tags);
+     * ```
+     *
+     * `article.get("tags")` will contain only `[tag4]` after deleting in the database
+     * Params:
+     * \UIM\Datasource\IEntity sourceEntity An entity persisted in the source table for
+     *  this association.
+     * @param array<\UIM\Datasource\IEntity> targetEntities List of entities persisted in the target table for
+     *  this association.
+     * @param string[]|bool options List of options to be passed to the internal `delete` call,
+     *  or a `boolean` as `cleanProperty` key shortcut.
+     * @throws \InvalidArgumentException If non persisted entities are passed or if
+     *  any of them is lacking a primary key value.
+     */
+    bool unlink(IEntity sourceEntity, array targetEntities, array|bool auto options = []) {
+        if (isBool(options)) {
+            options = [
+                "cleanProperty": options,
+            ];
+        } else {
+            options += ["cleanProperty": true];
+        }
+       _checkPersistenceStatus(sourceEntity, targetEntities);
+         aProperty = this.getProperty();
+
+        this.junction().getConnection().transactional(
+            void () use (sourceEntity, targetEntities, options) {
+                _collectJointEntities(sourceEntity, targetEntities)
+                    .each!(entity => _junctionTable.delete(entity, options));
+            }
+        );
+
+        /** @var array<\UIM\Datasource\IEntity> existing */
+        existing = sourceEntity.get(aProperty) ?: [];
+        if (!options["cleanProperty"] || empty(existing)) {
+            return true;
+        }
+        /** @var \SplObjectStorage<\UIM\Datasource\IEntity, null> storage */
+        storage = new SplObjectStorage();
+        targetEntities.each!(exception => storage.attach(exception));
+
+        foreach (existing as myKey:  anException) {
+            if (storage.contains(anException)) {
+                unset(existing[myKey]);
+            }
+        }
+        sourceEntity.set(aProperty, existing.values);
+        sourceEntity.setDirty(aProperty, false);
+
+        return true;
+    }
+ 
+    auto setConditions(Closure|array conditions) {
+        super.setConditions(conditions);
+       _targetConditions = _junctionConditions = null;
+
+        return this;
+    }
+    
+    /**
+     * Sets the current join table, either the name of the Table instance or the instance itself.
+     * Params:
+     * \UIM\ORM\Table|string athrough Name of the Table instance or the instance itself
+     */
+    void setThrough(Table|string athrough) {
+       _through = through;
+    }
+    
+    // Gets the current join table, either the name of the Table instance or the instance itself.
+    Table|string getThrough() {
+        return _through;
+    }
+    
+    /**
+     * Returns filtered conditions that reference the target table.
+     *
+     * Any string expressions, or expression objects will
+     * also be returned in this list.
+     */
+    protected Closure[] targetConditions() {
+        if (_targetConditions !isNull) {
+            return _targetConditions;
+        }
+        conditions = this.getConditions();
+        if (!isArray(conditions)) {
+            return conditions;
+        }
+        matching = [];
+        string aliasName = this.getAlias() ~ ".";
+        conditions.byKeyValue.each!((fieldValue) { 
+            if (isString(fieldValue.key) && fieldValue.key.startWith(aliasName)) {
+                matching[fieldValue.key] = fieldValue.value;
+            } else if (isInt(fieldValue.key) || cast(IExpression)fieldValue.value ) {
+                matching[fieldValue.key] = fieldValue.value;
+            }
+        });
+        return _targetConditions = matching;
+    }
+
+    // Returns filtered conditions that specifically reference the junction table.
+    protected array junctionConditions() {
+        if (_junctionConditions !isNull) {
+            return _junctionConditions;
+        }
+        matching = [];
+        conditions = this.getConditions();
+        if (!isArray(conditions)) {
+            return matching;
+        }
+        string aliasName = _junctionAssociationName() ~ ".";
+        foreach (field: aValue; conditions) {
+            bool isString = isString(field);
+            if (isString && field.startWith(aliasName)) {
+                matching[field] = aValue;
+            }
+            // Assume that operators contain junction conditions.
+            // Trying to manage complex conditions could result in incorrect queries.
+            if (isString && in_array(strtoupper(field), ["OR", "NOT", "AND", "XOR"], true)) {
+                matching[field] = aValue;
+            }
+        }
+        return _junctionConditions = matching;
+    }
+    
+    /**
+     * Proxies the finding operation to the target table`s find method
+     * and modifies the query accordingly based of this association
+     * configuration.
+     *
+     * If your association includes conditions or a finder, the junction table will be
+     * included in the query`s contained associations.
+     * Params:
+     * IData[string]|string type the type of query to perform, if an array is passed,
+     *  it will be interpreted as the `options` parameter
+     * @param Json ...someArguments Arguments that match up to finder-specific parameters
+     * @see \UIM\ORM\Table.find()
+     */
+    SelectQuery find(string[]|null type = null, Json ...someArguments) {
+        type = type ?: this.getFinder();
+        [type, opts] = _extractFinder(type);
+
+        someArguments += opts;
+
+        aQuery = this.getTarget()
+            .find(type, ...someArguments)
+            .where(this.targetConditions())
+            .addDefaultTypes(this.getTarget());
+
+        if (this.junctionConditions()) {
+            return _appendJunctionJoin(aQuery);
+        }
+        return aQuery;
+    }
+
+    /**
+     * Append a join to the junction table.
+     * Params:
+     * \UIM\ORM\Query\SelectQuery aQuery The query to append.
+     * @param array|null conditions The query conditions to use.
+     */
+    protected SelectQuery _appendJunctionJoin(SelectQuery aQuery, array conditions = null) {
+        junctionTable = this.junction();
+        if (conditions.isNull) {
+            belongsTo = junctionTable.getAssociation(this.getTarget().getAlias());
+            conditions = belongsTo._joinCondition([
+                "foreignKey": this.getTargetForeignKey(),
+            ]);
+            conditions += this.junctionConditions();
+        }
+        name = _junctionAssociationName();
+        joins = aQuery.clause("join");
+        assert(isArray(joins));
+        matching = [
+            name: [
+                "table": junctionTable.getTable(),
+                "conditions": conditions,
+                "type": SelectQuery.JOIN_TYPE_INNER,
+            ],
+        ];
+
+        aQuery
+            .addDefaultTypes(junctionTable)
+            .join(matching + joins, [], true);
+
+        return aQuery;
+    }
+
+    /**
+     * Replaces existing association links between the source entity and the target
+     * with the ones passed. This method does a smart cleanup, links that are already
+     * persisted and present in `targetEntities` will not be deleted, new links will
+     * be created for the passed target entities that are not already in the database
+     * and the rest will be removed.
+     *
+     * For example, if an article is linked to tags 'cake' and 'framework' and you pass
+     * to this method an array containing the entities for tags 'cake", "php' and 'awesome",
+     * only the link for cake will be kept in database, the link for 'framework' will be
+     * deleted and the links for 'php' and 'awesome' will be created.
+     *
+     * Existing links are not deleted and created again, they are either left untouched
+     * or updated so that potential extra information stored in the joint row is not
+     * lost. Updating the link row can be done by making sure the corresponding passed
+     * target entity contains the joint property with its primary key and any extra
+     * information to be stored.
+     *
+     * On success, the passed `sourceEntity` will contain `targetEntities` as value
+     * in the corresponding property for this association.
+     *
+     * This method assumes that links between both the source entity and each of the
+     * target entities are unique. That is, for any given row in the source table there
+     * can only be one link in the junction table pointing to any other given row in
+     * the target table.
+     *
+     * Additional options for new links to be saved can be passed in the third argument,
+     * check `Table.save()` for information on the accepted options.
+     *
+     * ### Example:
+     *
+     * ```
+     * article.tags = [tag1, tag2, tag3, tag4];
+     * articles.save(article);
+     * tags = [tag1, tag3];
+     * articles.getAssociation("tags").replaceLinks(article, tags);
+     * ```
+     *
+     * `article.get("tags")` will contain only `[tag1, tag3]` at the end
+     * Params:
+     * \UIM\Datasource\IEntity sourceEntity an entity persisted in the source table for
+     *  this association
+     * @param array targetEntities list of entities from the target table to be linked
+     * @param IData[string] options list of options to be passed to the internal `save`/`delete` calls
+     *  when persisting/updating new links, or deleting existing ones
+     * @throws \InvalidArgumentException if non persisted entities are passed or if
+     *  any of them is lacking a primary key value
+     */
+    bool replaceLinks(IEntity sourceEntity, array targetEntities, IData[string] options = null) {
+        auto bindingKey = (array)this.getBindingKey();
+        auto primaryValue = sourceEntity.extract(bindingKey);
+
+        if (count(Hash.filter(primaryValue)) != count(bindingKey)) {
+           string message = "Could not find primary key value for source entity";
+            throw new InvalidArgumentException(message);
+        }
+        return this.junction().getConnection().transactional(
+            auto () use (sourceEntity, targetEntities, primaryValue, options) {
+                junction = this.junction();
+                target = this.getTarget();
+
+                /** @var string[] foreignKey */
+                foreignKey = (array)this.getForeignKey();
+                assocForeignKey = (array)junction.getAssociation(target.getAlias()).getForeignKey();
+                prefixedForeignKey = array_map([junction, "aliasField"], foreignKey);
+
+                junctionPrimaryKey = (array)junction.getPrimaryKey();
+                junctionQueryAlias = junction.getAlias() ~ "__matches";
+
+                someKeys = matchesConditions = [];
+                // string aKey */
+                foreach (aKey; array_merge(assocForeignKey, junctionPrimaryKey)) {
+                    aliased = junction.aliasField(aKey);
+                    someKeys[aKey] = aliased;
+                    matchesConditions[aliased] = new IdentifierExpression(junctionQueryAlias ~ "." ~ aKey);
+                }
+                // Use association to create row selection
+                // with finders & association conditions.
+                matches = _appendJunctionJoin(this.find())
+                    .select(someKeys)
+                    .where(array_combine(prefixedForeignKey, primaryValue));
+
+                // Create a subquery join to ensure we get
+                // the correct entity passed to callbacks.
+                existing = junction.selectQuery()
+                    .from([junctionQueryAlias: matches])
+                    .innerJoin(
+                        [junction.getAlias(): junction.getTable()],
+                        matchesConditions
+                    );
+
+                jointEntities = _collectJointEntities(sourceEntity, targetEntities);
+                 anInserts = _diffLinks(existing, jointEntities, targetEntities, options);
+                if (anInserts == false) {
+                    return false;
+                }
+                if (anInserts && !_saveTarget(sourceEntity,  anInserts, options)) {
+                    return false;
+                }
+                 aProperty = this.getProperty();
+
+                if (count(anInserts)) {
+                    /** @psalm-suppress RedundantConditionGivenDocblockType */
+                     anInserted = array_combine(
+                        anInserts.keys,
+                        (array)sourceEntity.get(aProperty)
+                    ) ?: [];
+                    targetEntities =  anInserted + targetEntities;
+                }
+                ksort(targetEntities);
+                sourceEntity.set(aProperty, targetEntities.values);
+                sourceEntity.setDirty(aProperty, false);
+
+                return true;
+            }
+        );
+    }
+
+    /**
+     * Helper method used to delete the difference between the links passed in
+     * `existing` and `jointEntities`. This method will return the values from
+     * `targetEntities` that were not deleted from calculating the difference.
+     * Params:
+     * \UIM\ORM\Query\SelectQuery existing a query for getting existing links
+     * @param array<\UIM\Datasource\IEntity> jointEntities link entities that should be persisted
+     * @param array targetEntities entities in target table that are related to
+     * the `jointEntities`
+     * @param IData[string] options list of options accepted by `Table.delete()`
+     */
+    protected array _diffLinks(
+        SelectQuery existing,
+        array jointEntities,
+        array targetEntities,
+        IData[string] options = null
+    )|false {
+        junction = this.junction();
+        target = this.getTarget();
+        belongsTo = junction.getAssociation(target.getAlias());
+        string[] foreignKey = (array)this.getForeignKey();
+        /** @var string[] assocForeignKey */
+        assocForeignKey = (array)belongsTo.getForeignKey();
+
+        someKeys = array_merge(foreignKey, assocForeignKey);
+        deletes = unmatchedEntityKeys = present = [];
+
+        foreach (jointEntities as  anI: entity) {
+            unmatchedEntityKeys[anI] = entity.extract(someKeys);
+            present[anI] = array_values(entity.extract(assocForeignKey));
+        }
+        foreach (existing as existingLink) {
+            existingKeys = existingLink.extract(someKeys);
+            found = false;
+            foreach (unmatchedEntityKeys as  anI: unmatchedKeys) {
+                matched = false;
+                foreach (someKeys as aKey) {
+                    if (isObject(unmatchedKeys[aKey]) && isObject(existingKeys[aKey])) {
+                        // If both sides are an object then use == so that value objects
+                        // are seen as equivalent.
+                        matched = existingKeys[aKey] == unmatchedKeys[aKey];
+                    } else {
+                        // Use strict equality for all other values.
+                        matched = existingKeys[aKey] == unmatchedKeys[aKey];
+                    }
+                    // Stop checks on first failure.
+                    if (!matched) {
+                        break;
+                    }
+                }
+                if (matched) {
+                    // Remove the unmatched entity so we don`t look at it again.
+                    unset(unmatchedEntityKeys[anI]);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                deletes ~= existingLink;
+            }
+        }
+        primary = (array)target.getPrimaryKey();
+        jointProperty = _junctionProperty;
+        foreach (targetEntities as myKey: entity) {
+            if (!(cast(IEntity)entity)) {
+                continue;
+            }
+            aKey = entity.extract(primary).values;
+            foreach (present as  anI: someData) {
+                if (aKey == someData && !entity.get(jointProperty)) {
+                    unset(targetEntities[myKey], present[anI]);
+                    break;
+                }
+            }
+        }
+        foreach (deletes as entity) {
+            if (!junction.delete(entity, options) && !empty(options["atomic"])) {
+                return false;
+            }
+        }
+        return targetEntities;
+    }
+    
+    /**
+     * Throws an exception should any of the passed entities is not persisted.
+     * Params:
+     * \UIM\Datasource\IEntity sourceEntity the row belonging to the `source` side
+     *  of this association
+     * @param array<\UIM\Datasource\IEntity> targetEntities list of entities belonging to the `target` side
+     *  of this association
+     */
+    protected bool _checkPersistenceStatus(IEntity sourceEntity, array targetEntities) {
+        if (sourceEntity.isNew()) {
+            error = "Source entity needs to be persisted before links can be created or removed.";
+            throw new InvalidArgumentException(error);
+        }
+        foreach (targetEntities as entity) {
+            if (entity.isNew()) {
+                error = "Cannot link entities that have not been persisted yet.";
+                throw new InvalidArgumentException(error);
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Returns the list of joint entities that exist between the source entity
+     * and each of the passed target entities
+     * Params:
+     * \UIM\Datasource\IEntity sourceEntity The row belonging to the source side
+     *  of this association.
+     * @param array targetEntities The rows belonging to the target side of this
+     *  association.
+     * @throws \InvalidArgumentException if any of the entities is lacking a primary
+     *  key value
+     */
+    protected array _collectJointEntities(IEntity sourceEntity, array targetEntities) {
+        target = this.getTarget();
+        source = this.getSource();
+        junction = this.junction();
+        jointProperty = _junctionProperty;
+        primary = (array)target.getPrimaryKey();
+
+        auto result;
+        missing = [];
+
+        foreach (targetEntities as entity) {
+            if (!(cast(IEntity)entity)) {
+                continue;
+            }
+            joint = entity.get(jointProperty);
+
+            if (!joint || !(cast(IEntity)joint)) {
+                missing ~= entity.extract(primary);
+                continue;
+            }
+            result ~= joint;
+        }
+        if (isEmpty(missing)) {
+            return result;
+        }
+        belongsTo = junction.getAssociation(target.getAlias());
+        hasMany = source.getAssociation(junction.getAlias());
+        /** @var string[] foreignKey */
+        foreignKey = (array)this.getForeignKey();
+        foreignKey = array_map(function (aKey) {
+            return aKey ~ " IS";
+        }, foreignKey);
+        assocForeignKey = (array)belongsTo.getForeignKey();
+        assocForeignKey = array_map(function (aKey) {
+            return aKey ~ " IS";
+        }, assocForeignKey);
+        sourceKey = sourceEntity.extract((array)source.getPrimaryKey());
+
+        unions = [];
+        foreach (missing as aKey) {
+            unions ~= hasMany.find()
+                .where(array_combine(foreignKey, sourceKey))
+                .where(array_combine(assocForeignKey, aKey));
+        }
+        aQuery = array_shift(unions);
+        unions.each!(q => aQuery.union(q));
+        return array_merge(result, aQuery.toArray());
+    }
+    
+    /**
+     * Returns the name of the association from the target table to the junction table,
+     * this name is used to generate alias in the query and to later on retrieve the
+     * results.
+     */
+    protected string _junctionAssociationName() {
+        if (!isSet(_junctionAssociationName)) {
+           _junctionAssociationName = this.getTarget()
+                .getAssociation(this.junction().getAlias())
+                .name;
+        }
+        return _junctionAssociationName;
+    }
+    
+    /**
+     * Sets the name of the junction table.
+     * If no arguments are passed the current configured name is returned. A default
+     * name based of the associated tables will be generated if none found.
+     * Params:
+     * string name The name of the junction table.
+     */
+    protected string _junctionTableName(string tableName = null) {
+        if (tableName.isNull) {
+            if (_junctionTableName.isEmpty) {
+                string[] tablesNames = array_map("UIM\Utility\Inflector.underscore", [
+                    this.getSource().getTable(),
+                    this.getTarget().getTable(),
+                ]);
+                string _junctionTableName = tablesNames.sort.join("_");
+            }
+            return _junctionTableName;
+        }
+        return _junctionTableName = tableName;
+    }
+    
+    /**
+     * Parse extra options passed in the constructor.
+     * Params:
+     * IData[string] options original list of options passed in constructor
+     */
+    protected void _options(IData[string] options = null) {
+        if (!empty(options["targetForeignKey"])) {
+            this.setTargetForeignKey(options["targetForeignKey"]);
+        }
+        if (!empty(options["joinTable"])) {
+           _junctionTableName(options["joinTable"]);
+        }
+        if (!empty(options["through"])) {
+            this.setThrough(options["through"]);
+        }
+        if (!empty(options["saveStrategy"])) {
+            this.setSaveStrategy(options["saveStrategy"]);
+        }
+        if (isSet(options["sort"])) {
+            this.setSort(options["sort"]);
+        }
+    }
+}

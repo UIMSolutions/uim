@@ -258,12 +258,12 @@ abstract class Association {
 
             tableLocator = this.getTableLocator();
 
-            aConfig = null;
+            myConfiguration = null;
             exists = tableLocator.exists(registryAlias);
             if (!exists) {
-                aConfig = ["className": _className];
+                myConfiguration = ["className": _className];
             }
-            _targetTable = tableLocator.get(registryAlias, aConfig);
+            _targetTable = tableLocator.get(registryAlias, myConfiguration);
 
             if (exists) {
                 className = App::className(_className, "Model/Table", "Table") ?: Table::class;

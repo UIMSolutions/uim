@@ -80,24 +80,24 @@ class TranslateBehavior : Behavior : IPropertyMarshal
      *   are created/modified. Default `null`.
      *
      * @param DORMDORMTable aTable The table this behavior is attached to.
-     * @param array<string, mixed> aConfig The config for this behavior.
+     * @param array<string, mixed> myConfiguration The config for this behavior.
      */
-    this(DORMTable aTable, Json aConfig = null) {
-        aConfig += [
+    this(DORMTable aTable, Json myConfiguration = null) {
+        myConfiguration += [
             "defaultLocale": I18n::getDefaultLocale(),
             "referenceName": this.referenceName(table),
             "tableLocator": table.associations().getTableLocator(),
         ];
 
-        super((table, aConfig);
+        super((table, myConfiguration);
     }
 
     /**
      * Initialize hook
      *
-     * @param array<string, mixed> aConfig The config for this behavior.
+     * @param array<string, mixed> myConfiguration The config for this behavior.
      */
-    void initialize(Json aConfig) {
+    void initialize(Json myConfiguration) {
         this.getStrategy();
     }
 
@@ -146,14 +146,14 @@ class TranslateBehavior : Behavior : IPropertyMarshal
      * @since 4.0.0
      */
     protected function createStrategy() {
-        aConfig = array_diff_key(
+        myConfiguration = array_diff_key(
             _config,
             ["implementedFinders", "implementedMethods", "strategyClass"]
         );
         /** @var class-string<DORMBehavior\Translate\ITranslateStrategy> className */
         className = this.getConfig("strategyClass", defaultStrategyClass);
 
-        return new className(_table, aConfig);
+        return new className(_table, myConfiguration);
     }
 
     /**

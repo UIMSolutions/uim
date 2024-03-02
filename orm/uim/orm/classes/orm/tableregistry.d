@@ -39,10 +39,10 @@ import uim.orm;
  * helps make cyclic references easier to solve.
  *
  * ```
- * table = TableRegistry::getTableLocator().get("Users", aConfig);
+ * table = TableRegistry::getTableLocator().get("Users", myConfiguration);
  *
  * // Prior to 3.6.0
- * table = TableRegistry::get("Users", aConfig);
+ * table = TableRegistry::get("Users", myConfiguration);
  * ```
  */
 class TableRegistry {

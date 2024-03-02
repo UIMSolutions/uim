@@ -47,14 +47,14 @@ class EavStrategy : ITranslateStrategy {
      * Constructor
      *
      * @param DORMDORMTable aTable The table this strategy is attached to.
-     * @param array<string, mixed> aConfig The config for this strategy.
+     * @param array<string, mixed> myConfiguration The config for this strategy.
      */
-    this(DORMTable aTable, Json aConfig = null) {
-        if (isset(aConfig["tableLocator"])) {
-            _tableLocator = aConfig["tableLocator"];
+    this(DORMTable aTable, Json myConfiguration = null) {
+        if (isset(myConfiguration["tableLocator"])) {
+            _tableLocator = myConfiguration["tableLocator"];
         }
 
-        this.setConfig(aConfig);
+        this.setConfig(myConfiguration);
         this.table = table;
         this.translationTable = this.getTableLocator().get(
             _config["translationTable"],

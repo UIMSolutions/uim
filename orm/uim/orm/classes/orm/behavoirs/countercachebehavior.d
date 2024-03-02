@@ -112,7 +112,7 @@ class CounterCacheBehavior : Behavior {
 
         foreach (_config as assoc: settings) {
             assoc = _table.getAssociation(assoc);
-            foreach (settings as field: aConfig) {
+            foreach (settings as field: myConfiguration) {
                 if (is_int(field)) {
                     continue;
                 }
@@ -121,9 +121,9 @@ class CounterCacheBehavior : Behavior {
                 entityAlias = assoc.getProperty();
 
                 if (
-                    !is_callable(aConfig) &&
-                    isset(aConfig["ignoreDirty"]) &&
-                    aConfig["ignoreDirty"] == true &&
+                    !is_callable(myConfiguration) &&
+                    isset(myConfiguration["ignoreDirty"]) &&
+                    myConfiguration["ignoreDirty"] == true &&
                     entity.entityAlias.isDirty(field)
                 ) {
                     _ignoreDirty[registryAlias][field] = true;
@@ -214,10 +214,10 @@ class CounterCacheBehavior : Behavior {
             updateOriginalConditions = array_combine(primaryKeys, countOriginalConditions);
         }
 
-        foreach (settings as field: aConfig) {
+        foreach (settings as field: myConfiguration) {
             if (is_int(field)) {
-                field = aConfig;
-                aConfig = null;
+                field = myConfiguration;
+                myConfiguration = null;
             }
 
             if (
@@ -228,10 +228,10 @@ class CounterCacheBehavior : Behavior {
             }
 
             if (_shouldUpdateCount(updateConditions)) {
-                if (aConfig instanceof Closure) {
-                    count = aConfig(event, entity, _table, false);
+                if (myConfiguration instanceof Closure) {
+                    count = myConfiguration(event, entity, _table, false);
                 } else {
-                    count = _getCount(aConfig, countConditions);
+                    count = _getCount(myConfiguration, countConditions);
                 }
                 if (count != false) {
                     assoc.getTarget().updateAll([field: count], updateConditions);
@@ -239,10 +239,10 @@ class CounterCacheBehavior : Behavior {
             }
 
             if (isset(updateOriginalConditions) && _shouldUpdateCount(updateOriginalConditions)) {
-                if (aConfig instanceof Closure) {
-                    count = aConfig(event, entity, _table, true);
+                if (myConfiguration instanceof Closure) {
+                    count = myConfiguration(event, entity, _table, true);
                 } else {
-                    count = _getCount(aConfig, countOriginalConditions);
+                    count = _getCount(myConfiguration, countOriginalConditions);
                 }
                 if (count != false) {
                     assoc.getTarget().updateAll([field: count], updateOriginalConditions);
@@ -266,19 +266,19 @@ class CounterCacheBehavior : Behavior {
     /**
      * Fetches and returns the count for a single field in an association
      *
-     * @param array<string, mixed> aConfig The counter cache configuration for a single field
+     * @param array<string, mixed> myConfiguration The counter cache configuration for a single field
      * @param array conditions Additional conditions given to the query
      * @return int The number of relations matching the given config and conditions
      */
-    protected int _getCount(Json aConfig, array conditions) {
+    protected int _getCount(Json myConfiguration, array conditions) {
         finder = "all";
-        if (!empty(aConfig["finder"])) {
-            finder = aConfig["finder"];
-            unset(aConfig["finder"]);
+        if (!empty(myConfiguration["finder"])) {
+            finder = myConfiguration["finder"];
+            unset(myConfiguration["finder"]);
         }
 
-        aConfig["conditions"] = array_merge(conditions, aConfig["conditions"] ?? []);
-        query = _table.find(finder, aConfig);
+        myConfiguration["conditions"] = array_merge(conditions, myConfiguration["conditions"] ?? []);
+        query = _table.find(finder, myConfiguration);
 
         return query.count();
     }

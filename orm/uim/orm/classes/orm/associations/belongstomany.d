@@ -211,16 +211,16 @@ class BelongsToMany : Association {
             tableName = _junctionTableName();
             tableAlias = Inflector::camelize(tableName);
 
-            aConfig = null;
+            myConfiguration = null;
             if (!tableLocator.exists(tableAlias)) {
-                aConfig = ["table": tableName, "allowFallbackClass": true];
+                myConfiguration = ["table": tableName, "allowFallbackClass": true];
 
                 // Propagate the connection if we"ll get an auto-model
                 if (!App::className(tableAlias, "Model/Table", "Table")) {
-                    aConfig["connection"] = this.getSource().getConnection();
+                    myConfiguration["connection"] = this.getSource().getConnection();
                 }
             }
-            table = tableLocator.get(tableAlias, aConfig);
+            table = tableLocator.get(tableAlias, myConfiguration);
         }
 
         if (is_string(table)) {

@@ -131,7 +131,7 @@ class Behavior : IEventListener {
             "implementedFinders",
 <<<<<<< HEAD
            _defaultConfigData,
-            aConfig
+            myConfiguration
 =======
            _defaultConfig,
             configData
@@ -141,7 +141,7 @@ class Behavior : IEventListener {
             "implementedMethods",
 <<<<<<< HEAD
            _defaultConfigData,
-            aConfig
+            myConfiguration
 =======
            _defaultConfig,
             configData

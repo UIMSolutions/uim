@@ -110,15 +110,15 @@ class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
      *
      * @param string aClassName  The classname that is missing.
      * @param string anAlias The alias of the object.
-     * @param array<string, mixed> aConfig An array of config to use for the behavior.
+     * @param array<string, mixed> myConfiguration An array of config to use for the behavior.
      * @return DORMBehavior The constructed behavior class.
      * @psalm-suppress MoreSpecificImplementedParamType
      */
-    protected function _create(class, string anAlias, Json aConfig): Behavior
+    protected function _create(class, string anAlias, Json myConfiguration): Behavior
     {
         /** @var DORMBehavior instance */
-        instance = new class(_table, aConfig);
-        enable = aConfig["enabled"] ?? true;
+        instance = new class(_table, myConfiguration);
+        enable = myConfiguration["enabled"] ?? true;
         if (enable) {
             this.getEventManager().on(instance);
         }

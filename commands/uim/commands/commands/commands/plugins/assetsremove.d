@@ -6,7 +6,7 @@ import uim.commands;
 
 // Command for removing plugin assets from app`s webroot.
 class PluginAssetsRemoveCommand : Command {
-   mixin(CommandThis!("PluginAssetsRemoveCommand"));
+   mixin(CommandThis!("PluginAssetsRemove"));
 
   	override bool initialize(IConfigData[string] configData = null) {
 		if (!super.initialize(configData)) { return false; }

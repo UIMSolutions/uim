@@ -6,7 +6,7 @@ import uim.commands;
 
 // Command for copying plugin assets to app`s webroot.
 class PluginAssetsCopyCommand : Command {
-   mixin(CommandThis!("PluginAssetsCopyCommand"));
+   mixin(CommandThis!("PluginAssetsCopy"));
 
   	override bool initialize(IConfigData[string] configData = null) {
 		if (!super.initialize(configData)) { return false; }

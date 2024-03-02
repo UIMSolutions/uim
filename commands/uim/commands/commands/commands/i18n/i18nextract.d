@@ -6,7 +6,7 @@ import uim.commands;
 
 // Language string extractor
 class I18nExtractCommand : Command {
-  mixin(CommandThis!("I18nExtractCommand"));
+  mixin(CommandThis!("I18nExtract"));
 
   	override bool initialize(IConfigData[string] configData = null) {
 		if (!super.initialize(configData)) { return false; }

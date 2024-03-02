@@ -6,7 +6,7 @@ import uim.commands;
 
 // Displays all currently loaded plugins.
 class PluginLoadedCommand : Command {
-   mixin(CommandThis!("PluginLoadedCommand"));
+   mixin(CommandThis!("PluginLoaded"));
 
   	override bool initialize(IConfigData[string] configData = null) {
 		if (!super.initialize(configData)) { return false; }

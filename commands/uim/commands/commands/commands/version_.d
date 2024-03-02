@@ -6,7 +6,7 @@ import uim.commands;
 
 // Print out the version of UIM in use.
 class VersionCommand : Command {
-   mixin(CommandThis!("VersionCommand"));
+   mixin(CommandThis!("Version"));
 
   	override bool initialize(IConfigData[string] configData = null) {
 		if (!super.initialize(configData)) { return false; }

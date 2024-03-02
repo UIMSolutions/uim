@@ -6,7 +6,7 @@ import uim.commands;
 
 // Command for symlinking / copying plugin assets to app`s webroot.
 class PluginAssetsSymlinkCommand : Command {
-   mixin(CommandThis!("PluginAssetsSymlinkCommand"));
+   mixin(CommandThis!("PluginAssetsSymlink"));
 
   	override bool initialize(IConfigData[string] configData = null) {
 		if (!super.initialize(configData)) { return false; }

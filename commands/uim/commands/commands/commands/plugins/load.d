@@ -6,7 +6,7 @@ import uim.commands;
 
 // Command for loading plugins.
 class PluginLoadCommand : Command {
-   mixin(CommandThis!("PluginLoadCommand"));
+   mixin(CommandThis!("PluginLoad"));
 
   	override bool initialize(IConfigData[string] configData = null) {
 		if (!super.initialize(configData)) { return false; }

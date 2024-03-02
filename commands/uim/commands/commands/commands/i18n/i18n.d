@@ -6,7 +6,7 @@ import uim.commands;
 
 // Command for interactive I18N management.
 class DI18nCommand : Command {
-  mixin!(CommandThis!("I18nCommand"));
+  mixin(CommandThis!("I18n"));
 
   	override bool initialize(IConfigData[string] configData = null) {
 		if (!super.initialize(configData)) { return false; }
@@ -59,4 +59,4 @@ class DI18nCommand : Command {
         return aParser;
     }
 }
-mixin!(CommandCalls!("I18nCommand"));
+mixin!(CommandCalls!("I18n"));

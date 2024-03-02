@@ -1,4 +1,4 @@
-module source.uim.databases.classes.drivers.sqlitex;
+module uim.databases.classes.drivers.sqlitex;
 
 import uim.databases;
 

@@ -1,2 +1,2 @@
-module source.uim.datasources.classes;
+module uim.datasources.classes;
 

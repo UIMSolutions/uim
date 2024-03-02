@@ -1,4 +1,4 @@
-module source.uim.databases.classes.expressions.aggregatex;
+module uim.databases.classes.expressions.aggregatex;
 
 import uim.databases;
 

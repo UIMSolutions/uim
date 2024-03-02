@@ -1,2 +1,2 @@
-module source.uim.datasources.classes.locators;
+module uim.datasources.classes.locators;
 

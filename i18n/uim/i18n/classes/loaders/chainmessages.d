@@ -1,4 +1,4 @@
-module source.uim.i18n.classes.loaders.chainmessages;
+module uim.i18n.classes.loaders.chainmessages;
 
 import uim.i18n;
 

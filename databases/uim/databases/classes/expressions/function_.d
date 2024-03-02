@@ -1,4 +1,4 @@
-module source.uim.databases.classes.expressions.function_x;
+module uim.databases.classes.expressions.function_x;
 
 import uim.databases;
 

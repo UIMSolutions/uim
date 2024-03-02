@@ -1,4 +1,4 @@
-module source.uim.databases.classes.drivers.sqlserver;
+module uim.databases.classes.drivers.sqlserver;
 
 import uim.databases;
 

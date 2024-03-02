@@ -1,4 +1,4 @@
-module source.uim.i18n.classes.pluralrules;
+module uim.i18n.classes.pluralrules;
 
 import uim.i18n;
 

@@ -1,6 +1,6 @@
 module uim.collectionss.iterators.insert;
 
-import uim.cake;
+import uim.collections;
 
 @safe:
 

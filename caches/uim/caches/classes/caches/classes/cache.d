@@ -1,6 +1,6 @@
 module uim.caches;
 
-import uim.cake;
+import uim.caches;
 
 @safe:
 

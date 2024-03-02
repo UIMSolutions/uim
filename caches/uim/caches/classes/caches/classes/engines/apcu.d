@@ -1,6 +1,6 @@
 module uim.caches.engines.apcu;
 
-import uim.cake;
+import uim.caches;
 
 @safe:
 

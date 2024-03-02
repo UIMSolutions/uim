@@ -1,6 +1,6 @@
 module uim.collectionss.iterators.buffered;
 
-import uim.cake;
+import uim.collections;
 
 @safe:
 

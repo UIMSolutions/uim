@@ -1,4 +1,4 @@
-module uim.cake.commands.cacheclearall;
+module uim.commands.cacheclearall;
 
 import uim.cake;
 

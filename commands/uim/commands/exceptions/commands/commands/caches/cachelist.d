@@ -1,4 +1,4 @@
-module uim.cake.commands.caches.cachelist;
+module uim.commands.caches.cachelist;
 
 import uim.cake;
 

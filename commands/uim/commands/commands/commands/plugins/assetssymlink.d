@@ -1,4 +1,4 @@
-module uim.cake.commands.plugins.assetssymlink_;
+module uim.commands.plugins.assetssymlink_;
 
 import uim.cake;
 

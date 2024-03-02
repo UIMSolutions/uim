@@ -1,0 +1,231 @@
+module uim.consoles.classes.consoleinputoption;
+
+import uim.consoles;
+
+@safe:
+
+/**
+ * An object to represent a single option used in the command line.
+ * ConsoleOptionParser creates these when you use addOption()
+ *
+ * @see \UIM\Console\ConsoleOptionParser.addOption()
+ */
+class ConsoleInputOption {
+  	override bool initialize(IData[string] configData = null) {
+		if (!super.initialize(configData)) { return false; }
+		
+		return true;
+	}
+
+    // Name of the option
+    protected string _name;
+
+    // Short (1 character) alias for the option.
+    protected string _short;
+
+    // Help text for the option.
+    protected string _help;
+
+    // Is the option a boolean option. Boolean options do not consume a parameter.
+    protected bool _isBooleanOption;
+
+    // Default value for the option
+    protected string|bool|null _default = null;
+
+    // Can the option accept multiple value definition.
+    protected bool _multiple;
+
+    // An array of choices for the option.
+    protected string[] _choices;
+
+    // The prompt string
+    protected string aprompt = null;
+
+    // Is the option required.
+    protected bool _isRequired;
+
+    /**
+     * Make a new Input Option
+     * Params:
+     * string aName The long name of the option, or an array with all the properties.
+     * @param string ashort The short alias for this option
+     * @param string ahelp The help text for this option
+     * @param bool isBooleanOption Whether this option is a boolean option. Boolean options don`t consume extra tokens
+     * @param string|bool|null default The default value for this option.
+     * @param string[] choices Valid choices for this option.
+     * @param bool multiple Whether this option can accept multiple value definition.
+     * @param bool isRequired Whether this option is required or not.
+     * @param string prompt The prompt string.
+     * @throws \UIM\Console\Exception\ConsoleException
+     */
+    this(
+        string aName,
+        string ashort = "",
+        string ahelp = "",
+        bool isBooleanOption = false,
+        string|bool|null default = null,
+        array choices = [],
+        bool multiple = false,
+        bool isRequired = false,
+        string aprompt = null
+    ) {
+       _name = name;
+       _short = short;
+       _help = help;
+       _isBooleanOption = isBooleanOption;
+       _choices = choices;
+       _multiple = multiple;
+        _isRequired = isRequired;
+        this.prompt = prompt;
+
+        if (isBooleanOption) {
+           _default = (bool)$default;
+        } else if (!$default.isNull) {
+           _default = to!string($default);
+        }
+        if (_short.length > 1) {
+            throw new ConsoleException(
+                "Short option `%s` is invalid, short options must be one letter.".format(_short)
+            );
+        }
+        if (isSet(_default) && this.prompt) {
+            throw new ConsoleException(
+                'You cannot set both `prompt` and `default` options. ' .
+                'Use either a static `default` or interactive `prompt`'
+            );
+        }
+    }
+    
+    /**
+     * Get the value of the name attribute.
+     */
+    string name() {
+        return _name;
+    }
+    
+    //  Get the value of the short attribute.
+    string short() {
+        return _short;
+    }
+    
+    /**
+     * Generate the help for this this option.
+     * Params:
+     * int width The width to make the name of the option.
+     */
+    string help(int width = 0) {
+        string default;
+        if (_default && _default != true) {
+            default = " <comment>(default: %s)</comment>".format(_default);
+        }
+        if (_choices) {
+            default ~= " <comment>(choices: %s)</comment>".format(join("|", _choices));
+        }
+
+        string short;
+        if (!_short.isEmpty) {
+            short = ", -" ~ _short;
+        }
+        
+        string name = "--%s%s".format(_name, short);
+        if (name.length < width) {
+            name = str_pad(name, width, " ");
+        }
+        
+        string required = _required 
+            ? " <comment>(%s)</comment>".format(_required)
+            : "";
+
+        return "%s%s%s%s".format(name, _help, default, required);
+    }
+    
+    // Get the usage value for this option
+    string usage() {
+        name = _short == "" ? "--" ~ _name : "-" ~ _short;
+        default = "";
+        if (!_default.isNull && !isBool(_default) && !_default.isEmpty) {
+            default = " " ~ _default;
+        }
+        if (_choices) {
+            default = " " ~ join("|", _choices);
+        }
+        template = "[%s%s]";
+        if (this.isRequired()) {
+            template = "%s%s";
+        }
+        return template.format(name, default);
+    }
+    
+    // Get the default value for this option
+    string|bool|null defaultValue() {
+        return _default;
+    }
+    
+    // Check if this option is required
+    bool isRequired() {
+        return this.required;
+    }
+    
+    // Check if this option is a boolean option
+    bool isBoolean() {
+        return _isBooleanOption;
+    }
+    
+    // Check if this option accepts multiple values.
+    bool acceptsMultiple() {
+        return _multiple;
+    }
+    
+    /**
+     * Check that a value is a valid choice for this option.
+     * Params:
+     * string|bool aValue The choice to validate.
+     */
+    bool validChoice(string|bool aValue) {
+        if (isEmpty(_choices)) {
+            return true;
+        }
+        if (!in_array(aValue, _choices, true)) {
+            throw new ConsoleException(
+                "`%s` is not a valid value for `--%s`. Please use one of `%s`"
+                .format(to!string(aValue), _name, join(", ", _choices))
+            );
+        }
+        return true;
+    }
+    
+    // Get the list of choices this option has.
+    array choices() {
+        return _choices;
+    }
+    
+    // Get the prompt string
+    string prompt() {
+        return to!string(this.prompt);
+    }
+    
+    // Append the option`s XML into the parent.
+    SimpleXMLElement xml(SimpleXMLElement parent) {
+        option = parent.addChild("option");
+        option.addAttribute("name", "--" ~ _name);
+        
+        string short = !_short.isEmpty
+            ? "-" ~ _short
+            : "";
+
+        auto default = _default;
+        if ($default == true) {
+            default = "true";
+        } else if ($default == false) {
+            default = "false";
+        }
+        option.addAttribute("short", short);
+        option.addAttribute("help", _help);
+        option.addAttribute("boolean", to!string(to!int(_isBooleanOption)));
+        option.addAttribute("required", (string)(int)this.required);
+        option.addChild("default", (string)$default);
+        choices = option.addChild("choices");
+        _choices.each!(valid => choices.addChild("choice", valid));
+        return parent;
+    }
+}

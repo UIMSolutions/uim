@@ -1,0 +1,552 @@
+module uim.consoles.classes.consoleio;
+
+import uim.consoles;
+
+@safe:
+
+/**
+ * A wrapper around the various IO operations shell tasks need to do.
+ *
+ * Packages up the stdout, stderr, and stdin streams providing a simple
+ * consistent interface for shells to use. This class also makes mocking streams
+ * easy to do in unit tests.
+ */
+class ConsoleIo {
+  	override bool initialize(IData[string] configData = null) {
+		if (!super.initialize(configData)) { return false; }
+		
+		return true;
+	}
+
+    // Output constant making verbose shells.
+    const int VERBOSE = 2;
+
+    // Output constant for making normal shells.
+    const int NORMAL = 1;
+
+    // Output constants for making quiet shells.
+    const int QUIET = 0;
+
+    // The output stream
+    protected ConsoleOutput _out;
+
+    // The error stream
+    protected ConsoleOutput _err;
+
+    // The input stream
+    protected ConsoleInput _in;
+
+    // The helper registry.
+    protected HelperRegistry _helpers;
+
+    // The current output level.
+    protected int _level = self.NORMAL;
+
+    /**
+     * The number of bytes last written to the output stream
+     * used when overwriting the previous message.
+     */
+    protected int _lastWritten = 0;
+
+    // Whether files should be overwritten
+    protected bool shouldOverwrite = false;
+
+    protected bool  anInteractive = true;
+
+    /**
+     * Constructor
+     * Params:
+     * \UIM\Console\ConsoleOutput|null  result A ConsoleOutput object for stdout.
+     * @param \UIM\Console\ConsoleOutput|null err A ConsoleOutput object for stderr.
+     * @param \UIM\Console\ConsoleInput|null  anIn A ConsoleInput object for stdin.
+     * @param \UIM\Console\HelperRegistry|null helpers A HelperRegistry instance
+     */
+    this(
+        ?ConsoleOutput  result = null,
+        ?ConsoleOutput err = null,
+        ?ConsoleInput  anIn = null,
+        ?HelperRegistry helpers = null
+    ) {
+       _out =  result ? result : new ConsoleOutput("uim://stdout");
+       _err = err ?: new ConsoleOutput("uim://stderr");
+       _in =  anIn ?: new ConsoleInput("uim://stdin");
+       _helpers = helpers ?: new HelperRegistry();
+       _helpers.setIo(this);
+    }
+    
+    void setInteractive(bool aValue) {
+        this.interactive = aValue;
+    }
+    
+    /**
+     * Get/set the current output level.
+     * Params:
+     * int level The current output level.
+     */
+    int level(int level = null) {
+        if ($level !isNull) {
+           _level = level;
+        }
+        return _level;
+    }
+    
+    /**
+     * Output at the verbose level.
+     * Params:
+     * string[]|string amessage A string or an array of strings to output
+     * @param int newLinesToAppend Number of newLinesToAppend to append
+     */
+    int verbose(string[] messages...) {
+        return verbose(messages.dup);
+    }
+    
+    int verbose(string[] messages, int newLinesToAppend = 1) {
+        return this.writeln(messages, newLinesToAppend, self.VERBOSE);
+    }
+    
+    /**
+     * Output at all levels.
+     * Params:
+     * string[]|string amessage A string or an array of strings to output
+     * @param int newLinesToAppend Number of newLinesToAppend to append
+     */
+    int quiet(string[] outputMessages...) {
+        return quiet(outputMessages.dup);
+    }
+
+    int quiet(string[] outputMessages, int newLinesToAppend = 1) {
+        return this.writeln(outputMessages, newLinesToAppend, QUIET);
+    }
+    
+    /**
+     * Outputs a single or multiple messages to stdout. If no parameters
+     * are passed outputs just a newline.
+     *
+     * ### Output levels
+     *
+     * There are 3 built-in output level. ConsoleIo.QUIET, ConsoleIo.NORMAL, ConsoleIo.VERBOSE.
+     * The verbose and quiet output levels, map to the `verbose` and `quiet` output switches
+     * present in most shells. Using ConsoleIo.QUIET for a message means it will always display.
+     * While using ConsoleIo.VERBOSE means it will only display when verbose output is toggled.
+     * Params:
+     * string[]|string amessage A string or an array of strings to output
+     * @param int newLinesToAppend Number of newLinesToAppend to append
+     * @param int level The message`s output level, see above.
+     */
+    int out(string[] amessage = "", int newLinesToAppend = 1, int level = self.NORMAL) {
+        if ($level > _level) {
+            return null;
+        }
+       _lastWritten = _out.write($message, newLinesToAppend);
+
+        return _lastWritten;
+    }
+    
+    /**
+     * Convenience method for out() that wraps message between <info> tag
+     * Params:
+     * string[]|string amessage A string or an array of strings to output
+     * @param int newLinesToAppend Number of newLinesToAppend to append
+     * @param int level The message`s output level, see above.
+     */
+    int info(string[] outputMessages...) {
+        return info(ouztputMessages.dup);
+    }
+    
+    int info(string[] outputMessages, int newLinesToAppend = 1, int outputLevel = NORMAL) {
+        auto messageType = "info";
+        auto myOutputMessages = this.wrapMessageWithType(messageType, outputMessages);
+
+        return this.writeln(myOutputMessages, newLinesToAppend, level);
+    }
+    
+    /**
+     * Convenience method for out() that wraps message between <comment> tag
+     * Params:
+     * @param int newLinesToAppend Number of newLinesToAppend to append
+     * @param int level The message`s output level, see above.
+     */
+    int comment(string[] outputMessages...) {
+        return comment(outputMessages.dup);
+    }
+
+    int comment(string[] outputMessages, int newLinesToAppendToAppend = 1, int level = self.NORMAL) {
+        string messageType = "comment";
+        message = this.wrapMessageWithType(messageType, message);
+
+        return this.writeln($message, newLinesToAppend, level);
+    }
+    
+    /**
+     * Convenience method for writeErrorMessages() that wraps message between <warning> tag
+     * Params:
+     * string[]|string amessage A string or an array of strings to output
+     * @param int newLinesToAppend Number of newLinesToAppend to append
+     */
+    int warning(string[] amessage, int newLinesToAppend = 1) {
+        string messageType = "warning";
+        message = this.wrapMessageWithType(messageType, message);
+
+        return this.writeErrorMessages($message, newLinesToAppend);
+    }
+    
+    /**
+     * Convenience method for writeErrorMessages() that wraps message between <error> tag
+     * Params:
+     * string[]|string amessage A string or an array of strings to output
+     * @param int newLinesToAppend Number of newLinesToAppend to append
+     */
+    int error(string[] messagesToOutput, int newLinesToAppend = 1) {
+        string messageType = "error";
+        auto message = this.wrapMessageWithType(messageType, messagesToOutput);
+
+        return this.writeErrorMessages(message, newLinesToAppend);
+    }
+    
+    /**
+     * Convenience method for out() that wraps message between <success> tag
+     * Params:
+     * string[]|string amessage A string or an array of strings to output
+     * @param int newLinesToAppend Number of newLinesToAppend to append
+     * @param int level The message`s output level, see above.
+     */
+    int success(string[] messagesToOutput, int newLinesToAppend = 1, int level = self.NORMAL) {
+        string messageType = "success";
+        message = this.wrapMessageWithType(messageType, message);
+
+        return this.writeln($message, newLinesToAppend, level);
+    }
+    
+    /**
+     * Halts the the current process with a StopException.
+     * Params:
+     * string amessage Error message.
+     * @param int code Error code.
+     */
+    never abort(string errorMessage, int code = ICommand.CODE_ERROR) {
+        this.error(errorMessage);
+
+        throw new StopException(errorMessage, code);
+    }
+    
+    /**
+     * Wraps a message with a given message type, e.g. <warning>
+     * Params:
+     * string amessageType The message type, e.g. "warning".
+     * @param string[]|string amessage The message to wrap.
+     */
+    protected string[] wrapMessageWithType(string amessageType, string[] amessage) {
+        if (isArray($message)) {
+            message.myKeyValue
+                .each!(kv => message[kv.key] = "<%s>%s</%s>".format(messageType, kv.value, messageType));
+        } else {
+            message = "<%s>%s</%s>".format(messageType, message, messageType);
+        }
+        return message;
+    }
+    
+    /**
+     * Overwrite some already output text.
+     *
+     * Useful for building progress bars, or when you want to replace
+     * text already output to the screen with new text.
+     *
+     * **Warning** You cannot overwrite text that contains newLinesToAppend.
+     * Params:
+     * string[]|string amessage The message to output.
+     * @param int newLinesToAppend Number of newLinesToAppend to append.
+     * @param int size The number of bytes to overwrite. Defaults to the
+     *   length of the last message output.
+     */
+    void overwrite(string[] amessage, int newLinesToAppend = 1, int size = null) {
+        size = size ?: _lastWritten;
+
+        // Output backspaces.
+        this.writeln(str_repeat("\x08", size), 0);
+
+        newBytes = (int)this.writeln($message, 0);
+
+        // Fill any remaining bytes with spaces.
+        fill = size - newBytes;
+        if ($fill > 0) {
+            this.writeln(str_repeat(" ", fill), 0);
+        }
+        if (newLinesToAppend) {
+            this.writeln(this.nl(newLinesToAppend), 0);
+        }
+        // Store length of content + fill so if the new content
+        // is shorter than the old content the next overwrite will work.
+        if ($fill > 0) {
+           _lastWritten = newBytes + fill;
+        }
+    }
+    
+    /**
+     * Outputs a single or multiple error messages to stderr. If no parameters
+     * are passed outputs just a newline.
+     * Params:
+     * string[]|string amessage A string or an array of strings to output
+     * @param int newLinesToAppend Number of newLinesToAppend to append
+     */
+    int writeErrorMessages(string[] messages...) {
+        return writeErrorMessages(messages.dup);
+    }
+    int writeErrorMessages(string[] messages, int newLinesToAppend = 1) {
+        return _err.write(messages, newLinesToAppend);
+    }
+    
+    /**
+     * Returns a single or multiple linefeeds sequences.
+     * Params:
+     * linefeedMultiplier = Number of times the linefeed sequence should be repeated
+     */
+    string nl(int linefeedMultiplier = 1) {
+        return str_repeat(ConsoleOutput.LF, linefeedMultiplier);
+    }
+    
+    /**
+     * Outputs a series of minus characters to the standard output, acts as a visual separator.
+     * Params:
+     * int newLinesToAppend Number of newLinesToAppend to pre- and append
+     * @param int width Width of the line, defaults to 79
+     */
+    void hr(int newLinesToAppend = 0, int width = 79) {
+        this.writeln("", newLinesToAppend);
+        this.writeln(str_repeat("-", width));
+        this.writeln("", newLinesToAppend);
+    }
+    
+    /**
+     * Prompts the user for input, and returns it.
+     * Params:
+     * promptText = Prompt text.
+     */
+    string ask(string promptText, string defaultInputValue = null) {
+        return _getInput(promptText, null, defaultInputValue);
+    }
+    
+    /**
+     * Change the output mode of the stdout stream
+     * Params:
+     * outputMode = The output mode.
+     * @see \UIM\Console\ConsoleOutput.setOutputAs()
+     */
+    void setOutputAs(int outputMode) {
+       _out.setOutputAs(outputMode);
+    }
+    
+    /**
+     * Gets defined styles.
+     * @see \UIM\Console\ConsoleOutput.styles()
+     */
+    array styles() {
+        return _out.styles();
+    }
+    
+    /**
+     * Get defined style.
+     * Params:
+     * string astyle The style to get.
+     * @see \UIM\Console\ConsoleOutput.getStyle()
+     */
+    array getStyle(string astyle) {
+        return _out.getStyle($style);
+    }
+    
+    /**
+     * Adds a new output style.
+     * Params:
+     * string astyle The style to set.
+     * @param array definition The array definition of the style to change or create.
+     * @see \UIM\Console\ConsoleOutput.setStyle()
+     */
+    void setStyle(string astyle, array definition) {
+       _out.setStyle($style, definition);
+    }
+    
+    /**
+     * Prompts the user for input based on a list of options, and returns it.
+     * Params:
+     * string aprompt Prompt text.
+     * @param string[]|string aoptions Array or string of options.
+     * @param string default Default input value.
+     */
+    string askChoice(string aprompt, string[] aoptions, string adefault = null) {
+        if (isString(options)) {
+            if (options.has(",")) {
+                string[] options = split(",", options);
+            } else if (options.has("/")) {
+                options = split("/", options);
+            } else {
+                options = [options];
+            }
+        }
+        printOptions = "(" ~ join("/", options) ~ ")";
+        options = chain(
+            array_map("strtolower", options),
+            array_map("strtoupper", options),
+            options
+        );
+
+        string anIn = "";
+        while (anIn.isEmpty || !in_array(anIn, options, true)) {
+             anIn = _getInput($prompt, printOptions, default);
+        }
+        return anIn;
+    }
+    
+    /**
+     * Prompts the user for input, and returns it.
+     * Params:
+     * string aprompt Prompt text.
+     * @param string options String of options. Pass null to omit.
+     * @param string default Default input value. Pass null to omit.
+     */
+    protected string _getInput(string aprompt, string options, string defaultValue) {
+        if (!this.interactive) {
+            return (string)defaultValue;
+        }
+
+        string optionsText = isSet(options) ? " options " : "";
+
+        string defaultText = !defaultValue.isNull ? "[%s] ".format(defaultValue) : "";
+        _out.write("<question>" ~ prompt ~ "</question>%s\n%s> ".fomat(optionsText, defaultText), 0);
+        result = _in.read();
+
+        string result = result.isNull ? "" : trim(result);
+        if (result.isEmpty) {
+            return defaultValue;
+        }
+        return result;
+    }
+    
+    /**
+     * Connects or disconnects the loggers to the console output.
+     *
+     * Used to enable or disable logging stream output to stdout and stderr
+     * If you don`t wish all log output in stdout or stderr
+     * through Cake`s Log class, call this auto with `$enable=false`.
+     *
+     * If you would like to take full control of how console application logging
+     * to stdout works add a logger that uses `'className": 'Console'`. By
+     * providing a console logger you replace the framework default behavior.
+     * Params:
+     * int|bool enable Use a boolean to enable/toggle all logging. Use
+     *  one of the verbosity constants (self.VERBOSE, self.QUIET, self.NORMAL)
+     *  to control logging levels. VERBOSE enables debug logs, NORMAL does not include debug logs,
+     *  QUIET disables notice, info and debug logs.
+     */
+    void setLoggers(int|bool enable) {
+        Log.drop("stdout");
+        Log.drop("stderr");
+        if ($enable == false) {
+            return;
+        }
+        // If the application has configured a console logger
+        // we don`t add a redundant one.
+        foreach ($loggerName; Log.configured()) {
+            log = Log.engine($loggerName);
+            if (cast(ConsoleLog)$log ) {
+                return;
+            }
+        }
+        outLevels = ["notice", "info"];
+        if ($enable == VERBOSE || enable == true) {
+            outLevels ~= "debug";
+        }
+        if ($enable != QUIET) {
+            stdout = new ConsoleLog([
+                "types": outLevels,
+                "stream": _out,
+            ]);
+            Log.setConfig("stdout", ["engine": stdout]);
+        }
+        stderr = new ConsoleLog([
+            "types": ["emergency", "alert", "critical", "error", "warning"],
+            "stream": _err,
+        ]);
+        Log.setConfig("stderr", ["engine": stderr]);
+    }
+    
+    /**
+     * Render a Console Helper
+     *
+     * Create and render the output for a helper object. If the helper
+     * object has not already been loaded, it will be loaded and constructed.
+     *
+     * nameToRender The name of the helper to render
+     * configData - Configuration data for the helper.
+     * returns = Created helper instance.
+     */
+    Helper helper(string nameToRender, IData[string] configData = null) {
+        auto renderName = ucfirst(nameToRender);
+
+        return _helpers.load(renderName, configData);
+    }
+    
+    /**
+     * Create a file at the given path.
+     *
+     * This method will prompt the user if a file will be overwritten.
+     * Setting `forceOverwrite` to true will suppress this behavior
+     * and always overwrite the file.
+     *
+     * If the user replies `a` subsequent `forceOverwrite` parameters will
+     * be coerced to true and all files will be overwritten.
+     * Params:
+     * string aPath The path to create the file at.
+     * @param string acontents The contents to put into the file.
+     * @param bool shouldOverwrite Whether the file should be overwritten.
+     *  If true, no question will be asked about whether to overwrite existing files.
+     * @throws \UIM\Console\Exception\StopException When `q` is given as an answer
+     *  to whether a file should be overwritten.
+     */
+    bool createFile(string aPath, string acontents, bool shouldOverwrite = false) {
+        this.writeln();
+        shouldOverwrite = shouldOverwrite || this.forceOverwrite;
+
+        if (file_exists(somePath) && shouldOverwrite == false) {
+            this.warning("File `{somePath}` exists");
+            aKey = this.askChoice("Do you want to overwrite?", ["y", "n", "a", "q"], "n");
+            aKey = aKey.toLower;
+
+            if (aKey == "q") {
+                this.error("Quitting.", 2);
+                throw new StopException("Not creating file. Quitting.");
+            }
+            if (aKey == "a") {
+                this.forceOverwrite = true;
+                aKey = "y";
+            }
+            if (aKey != "y") {
+                this.writeln("Skip `{somePath}`", 2);
+
+                return false;
+            }
+        } else {
+            this.writeln("Creating file {somePath}");
+        }
+        try {
+            // Create the directory using the current user permissions.
+            directory = dirname(somePath);
+            if (!file_exists($directory)) {
+                mkdir($directory, 0777 ^ umask(), true);
+            }
+            file = new SplFileObject(somePath, "w");
+        } catch (RuntimeException) {
+            this.error("Could not write to `{somePath}`. Permission denied.", 2);
+
+            return false;
+        }
+        file.rewind();
+        file.fwrite($contents);
+        if (file_exists(somePath)) {
+            this.writeln("<success>Wrote</success> `{somePath}`");
+
+            return true;
+        }
+        this.error("Could not write to `{somePath}`.", 2);
+
+        return false;
+    }
+}

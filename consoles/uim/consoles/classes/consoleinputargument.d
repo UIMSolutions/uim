@@ -1,0 +1,133 @@
+module uim.consoles.classes.consoleinputargument;
+
+import uim.consoles;
+
+@safe:
+
+/**
+ * An object to represent a single argument used in the command line.
+ * ConsoleOptionParser creates these when you use addArgument()
+ *
+ * @see \UIM\Console\ConsoleOptionParser.addArgument()
+ */
+class ConsoleInputArgument {
+
+  	override bool initialize(IData[string] configData = null) {
+		if (!super.initialize(configData)) { return false; }
+		
+		return true;
+	}
+
+    // Name of the argument.
+    protected string _name;
+
+    // Help string
+    protected string _help;
+
+    // Is this option required?
+    protected bool _required;
+
+    // An array of valid choices for this argument.
+    protected string[] _choices;
+
+    /**
+     * Make a new Input Argument
+     * Params:
+     * IData[string]|string aName The long name of the option, or an array with all the properties.
+     * @param string ahelp The help text for this option
+     * @param bool required Whether this argument is required. Missing required args will trigger exceptions
+     * @param string[] choices Valid choices for this option.
+     */
+    this(string[] aName, string ahelp = "", bool required = false, string[] optionChoices = []) {
+        if (isArray(name) && isSet(name["name"])) {
+            foreach (aKey: aValue; name) {
+                this.{"_" ~ aKey} = aValue;
+            }
+        } else {
+            /** @var string aName */
+           _name = name;
+           _help = help;
+           _required = required;
+           _choices = optionChoices;
+        }
+    }
+    
+    // Get the value of the name attribute.
+    string name() {
+        return _name;
+    }
+    
+    /**
+     * Checks if this argument is equal to another argument.
+     * Params:
+     * \UIM\Console\ConsoleInputArgument argument ConsoleInputArgument to compare to.
+     */
+    bool isEqualTo(ConsoleInputArgument argument) {
+        return this.name() == argument.name() &&
+            this.usage() == argument.usage();
+    }
+    
+    /**
+     * Generate the help for this argument.
+     * Params:
+     * int width The width to make the name of the option.
+     */
+    string help(int width = 0) {
+        name = _name;
+        if (name.length < width) {
+            name = str_pad(name, width, " ");
+        }
+        optional = "";
+        if (!this.isRequired()) {
+            optional = " <comment>(optional)</comment>";
+        }
+        if (_choices) {
+            optional ~= " <comment>(choices: %s)</comment>".format(join("|", _choices));
+        }
+        return "%s%s%s".format(name, _help, optional);
+    }
+    
+    // Get the usage value for this argument
+    string usage() {
+        string name = _name;
+        if (_choices) {
+            name = _choices.join("|");
+        }
+        name = "<" ~ name ~ ">";
+        if (!this.isRequired()) {
+            name = "[" ~ name ~ "]";
+        }
+        return name;
+    }
+    
+    // Check if this argument is a required argument
+    bool isRequired() {
+        return _required;
+    }
+    
+    // Check that aValue is a valid choice for this argument.
+    bool validChoice(string choiceToValidate) {
+        if (isEmpty(_choices)) {
+            return true;
+        }
+        if (!in_array(choiceToValidate, _choices, true)) {
+            throw new ConsoleException(                
+                "`%s` is not a valid value for `%s`. Please use one of `%s`"
+                .format(aValue, _name, _choices.join(", ", ))
+            );
+        }
+        return true;
+    }
+    
+    // Append this arguments XML representation to the passed in SimpleXml object.
+    SimpleXMLElement xml(SimpleXMLElement parentElement) {
+        auto option = parentElement.addChild("argument");
+        option.addAttribute("name", _name);
+        option.addAttribute("help", _help);
+        option.addAttribute("required", to!string(to!int(this.isRequired())));
+        
+        auto choices = option.addChild("choices");
+        choices.each!(valid => choices.addChild("choice", valid));
+        return parentElement;
+    }
+}

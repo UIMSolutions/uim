@@ -1,5 +1,2 @@
-module uim.consoles.classes;
+module uim.consoles;
 
-public {
-    import uim.consoles.classes.commands;
-}

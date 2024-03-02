@@ -1,2 +1,2 @@
-module source.uim.caches.mixins.cache;
+module uim.caches.mixins.cache;
 

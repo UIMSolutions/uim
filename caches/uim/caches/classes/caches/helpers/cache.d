@@ -1,4 +1,4 @@
-module source.uim.caches.helpers.cache;
+module uim.caches.helpers.cache;
 
 import uim.caches;
 

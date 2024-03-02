@@ -1,4 +1,4 @@
-module source.uim.databases.classes.drivers.postgresx;
+module uim.databases.classes.drivers.postgresx;
 
 import uim.databases;
 

@@ -1,4 +1,4 @@
-module source.uim.consoles.mixins.consoleintegrationtesttrait;
+module uim.consoles.mixins.consoleintegrationtesttrait;
 
 import uim.consoles;
 

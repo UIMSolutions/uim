@@ -1,4 +1,4 @@
-module source.uim.consoles.classes.helpers.registry;
+module uim.consoles.classes.helpers.registry;
 
 import uim.consoles;
 

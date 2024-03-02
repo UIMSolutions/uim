@@ -1,2 +1,2 @@
-module source.uim.consoles.classes.helpers;
+module uim.consoles.classes.helpers;
 

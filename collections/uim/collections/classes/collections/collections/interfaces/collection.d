@@ -1,6 +1,6 @@
 module uim.collectionss.interfaces.collection;
 
-import uim.cake;
+import uim.collectionss;
 
 @safe:
 

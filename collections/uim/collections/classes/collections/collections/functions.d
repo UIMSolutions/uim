@@ -1,6 +1,6 @@
 module uim.collections.functions;
 
-import uim.cake;
+import uim.collections;
 
 @safe:
 

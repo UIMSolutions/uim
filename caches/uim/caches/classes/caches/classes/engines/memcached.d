@@ -1,6 +1,6 @@
 module uim.caches.engines.memcached;
 
-import uim.cake;
+import uim.caches;
 
 @safe:
 

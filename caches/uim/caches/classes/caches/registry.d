@@ -1,4 +1,4 @@
-module uim.caches.classes.cacheregistry;
+module caches.uim.caches.classes.caches.registry;
 
 import uim.caches;
 
@@ -13,12 +13,21 @@ import uim.caches;
  */
 class CacheRegistry : ObjectRegistry {
   // Resolve a cache engine classname.
+     * Part of the template method for UIM\Core\ObjectRegistry.load()
   protected string _resolveClassName(string className) {
+    /** @var class-string<\UIM\Cache\CacheEngine>|null */
     return App.className(className, "Cache/Engine", "Engine");
   }
 
-  // Throws an exception when a cache engine is missing.
-  protected void _throwMissingClassError(string className,  string PpluginName) {
+  /**
+     * Throws an exception when a cache engine is missing.
+     *
+     * Part of the template method for UIM\Core\ObjectRegistry.load()
+     *
+     * className - The classname that is missing.
+     * @param string plugin The plugin the cache is missing in.
+     */
+  protected void _throwMissingClassError(string className,  ? string myplugin) {
     throw new BadMethodCallException("Cache engine `%s` is not available.".format(className));
   }
 
@@ -35,7 +44,8 @@ class CacheRegistry : ObjectRegistry {
     CacheEngine result = isObject(className) ? className : new className(configData);
     configData.remove("className");
 
-    assert(cast(CacheEngine)result, "Cache engines must extend `" ~ CacheEngine ~ class ~ "`.");
+    assert(cast(CacheEngine) result, "Cache engines must extend `" ~ CacheEngine
+        . class ~ "`.");
 
     if (!result.initialize(configData)) {
       throw new UimException(

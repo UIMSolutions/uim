@@ -1,4 +1,4 @@
-module uim.cake.logs.formatters.abstract_;
+module uim.logs.formatters.abstract_;
 
 import uim.cake;
 

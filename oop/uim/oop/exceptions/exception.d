@@ -68,7 +68,7 @@ class UimException : IException {
  */
     // --- protected string _messageTemplate = "";
 
-    // Array of headers to be passed to {@link uim.cake.Http\Response::withHeader()}
+    // Array of headers to be passed to {@link uim.Http\Response::withHeader()}
     //protected STRINGAA _responseHeaders;
 
     // --- protected int _defaultCode = 0;

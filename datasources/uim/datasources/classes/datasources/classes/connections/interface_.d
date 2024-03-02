@@ -12,21 +12,21 @@ import uim.datasources;
  * This interface defines the methods you can depend on in
  * a connection.
  *
- * @method object getDriver() Gets the driver instance. {@see uim.cake.databases.Connnection::getDriver()}
- * @method this setLogger($logger) Set the current logger. {@see uim.cake.databases.Connnection::setLogger()}
+ * @method object getDriver() Gets the driver instance. {@see uim.databases.Connnection::getDriver()}
+ * @method this setLogger($logger) Set the current logger. {@see uim.databases.Connnection::setLogger()}
  * @method bool supportsDynamicConstraints() Returns whether the driver supports adding or dropping constraints to
- *   already created tables. {@see uim.cake.databases.Connnection::supportsDynamicConstraints()}
- * @method uim.cake.databases.Schema\Collection getSchemaCollection() Gets a Schema\Collection object for this connection.
- *    {@see uim.cake.databases.Connnection::getSchemaCollection()}
- * @method uim.cake.databases.Query newQuery() Create a new Query instance for this connection.
- *    {@see uim.cake.databases.Connnection::newQuery()}
- * @method uim.cake.databases.StatementInterface prepare(sql) Prepares a SQL statement to be executed.
- *    {@see uim.cake.databases.Connnection::prepare()}
- * @method uim.cake.databases.StatementInterface execute(query, $params = null, array types = null) Executes a query using
+ *   already created tables. {@see uim.databases.Connnection::supportsDynamicConstraints()}
+ * @method uim.databases.Schema\Collection getSchemaCollection() Gets a Schema\Collection object for this connection.
+ *    {@see uim.databases.Connnection::getSchemaCollection()}
+ * @method uim.databases.Query newQuery() Create a new Query instance for this connection.
+ *    {@see uim.databases.Connnection::newQuery()}
+ * @method uim.databases.StatementInterface prepare(sql) Prepares a SQL statement to be executed.
+ *    {@see uim.databases.Connnection::prepare()}
+ * @method uim.databases.StatementInterface execute(query, $params = null, array types = null) Executes a query using
  *   `$params` for interpolating values and types as a hint for each those params.
- *   {@see uim.cake.databases.Connnection::execute()}
- * @method uim.cake.databases.StatementInterface query(string sql) Executes a SQL statement and returns the Statement
- *   object as result. {@see uim.cake.databases.Connnection::query()}
+ *   {@see uim.databases.Connnection::execute()}
+ * @method uim.databases.StatementInterface query(string sql) Executes a SQL statement and returns the Statement
+ *   object as result. {@see uim.databases.Connnection::query()}
  */
 interface IDSOConnection : ILoggerAware {
     // Gets the current logger object 

@@ -1,4 +1,4 @@
-module uim.cake.Log;
+module uim.Log;
 
 /**
  * Registry of loaded log engines

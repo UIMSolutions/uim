@@ -18,7 +18,7 @@ class SimplePaginator : Paginator
   /**
     * Simple pagination does not perform any count query, so this method returns `null`.
     *
-    * @param uim.cake.Datasource\IQuery myQuery Query instance.
+    * @param uim.Datasource\IQuery myQuery Query instance.
     * @param array myData Pagination data.
     * @return int|null
     */

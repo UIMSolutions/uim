@@ -1,2 +1,2 @@
-module uim.cake.logs;
+module uim.logs;
 

@@ -1,2 +1,2 @@
-module uim.cake.logs.formatters;
+module uim.logs.formatters;
 

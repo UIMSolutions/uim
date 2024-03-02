@@ -1,4 +1,4 @@
-module uim.cake.logs.Formatter;
+module uim.logs.Formatter;
 
 use DateTime;
 

@@ -9,7 +9,7 @@ module uim.datasources.trait_;
 import uim.datasources;
 
 use BadMethodCallException;
-import uim.cake.collections.Iterator\MapReduce;
+import uim.collections.Iterator\MapReduce;
 import uim.datasources.exceptions.RecordNotFoundException;
 use InvalidArgumentException;
 use Traversable;
@@ -77,7 +77,7 @@ trait QueryTrait
      * Set the default Table object that will be used by this query
      * and form the `FROM` clause.
      *
-     * @param uim.cake.Datasource\IRepository|uim.cake.orm.Table repository The default table object to use
+     * @param uim.Datasource\IRepository|uim.orm.Table repository The default table object to use
      * @return this
      */
     function repository(IRepository repository) {
@@ -90,7 +90,7 @@ trait QueryTrait
      * Returns the default table object that will be used by this query,
      * that is, the table that will appear in the from clause.
      *
-     * @return uim.cake.Datasource\IRepository
+     * @return uim.Datasource\IRepository
      */
     function getRepository(): IRepository
     {
@@ -121,7 +121,7 @@ trait QueryTrait
      * iterated without having to call execute() manually, thus making it look like
      * a result set instead of the query itself.
      *
-     * @return uim.cake.Datasource\IResultSet
+     * @return uim.Datasource\IResultSet
      * @psalm-suppress ImplementedReturnTypeMismatch
      */
     #[\ReturnTypeWillChange]
@@ -250,7 +250,7 @@ trait QueryTrait
      * ResultSetDecorator is a traversable object that : the methods found
      * on Cake\collections.Collection.
      *
-     * @return uim.cake.Datasource\IResultSet
+     * @return uim.Datasource\IResultSet
      */
     function all(): IResultSet
     {
@@ -294,7 +294,7 @@ trait QueryTrait
      * @param callable|null reducer The reducing function.
      * @param bool canOverwrite Set to true to overwrite existing map + reduce functions.
      * @return this
-     * @see uim.cake.collections.Iterator\MapReduce for details on how to use emit data to the map reducer.
+     * @see uim.collections.Iterator\MapReduce for details on how to use emit data to the map reducer.
      */
     function mapReduce(?callable mapper = null, ?callable reducer = null, bool canOverwrite = false) {
         if (canOverwrite) {
@@ -331,7 +331,7 @@ trait QueryTrait
      * after all the `MapReduce` routines for this query have been executed.
      *
      * Formatting callbacks will receive two arguments, the first one being an object
-     * implementing `uim.cake.collections.ICollection`, that can be traversed and
+     * implementing `uim.collections.ICollection`, that can be traversed and
      * modified at will. The second one being the query instance on which the formatter
      * callback is being applied.
      *
@@ -453,7 +453,7 @@ trait QueryTrait
      * singleUser = query.select(["id", "username"]).first();
      * ```
      *
-     * @return uim.cake.Datasource\IEntity|array|null The first result from the ResultSet.
+     * @return uim.Datasource\IEntity|array|null The first result from the ResultSet.
      */
     function first() {
         if (_isDirty) {
@@ -466,8 +466,8 @@ trait QueryTrait
     /**
      * Get the first result from the executing query or raise an exception.
      *
-     * @throws uim.cake.Datasource\exceptions.RecordNotFoundException When there is no first record.
-     * @return uim.cake.Datasource\IEntity|array The first result from the ResultSet.
+     * @throws uim.Datasource\exceptions.RecordNotFoundException When there is no first record.
+     * @return uim.Datasource\IEntity|array The first result from the ResultSet.
      */
     function firstOrFail() {
         entity = this.first();
@@ -541,7 +541,7 @@ trait QueryTrait
     /**
      * Executes this query and returns a traversable object containing the results
      *
-     * @return uim.cake.Datasource\IResultSet
+     * @return uim.Datasource\IResultSet
      */
     abstract protected function _execute(): IResultSet;
 
@@ -549,7 +549,7 @@ trait QueryTrait
      * Decorates the results iterator with MapReduce routines and formatters
      *
      * @param \Traversable result Original results
-     * @return uim.cake.Datasource\IResultSet
+     * @return uim.Datasource\IResultSet
      */
     protected function _decorateResults(Traversable result): IResultSet
     {
@@ -577,7 +577,7 @@ trait QueryTrait
      * Returns the name of the class to be used for decorating results
      *
      * @return string
-     * @psalm-return class-string<uim.cake.Datasource\IResultSet>
+     * @psalm-return class-string<uim.Datasource\IResultSet>
      */
     protected string _decoratorClass() {
         return ResultSetDecorator::class;

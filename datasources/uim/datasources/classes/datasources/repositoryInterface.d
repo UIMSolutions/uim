@@ -47,7 +47,7 @@ interface IRepository
      *
      * @param string type the type of query to perform
      * @param array<string, mixed> options An array that will be passed to Query::applyOptions()
-     * @return uim.cake.Datasource\IQuery
+     * @return uim.Datasource\IQuery
      */
     function find(string type = "all", STRINGAA someOptions = null);
 
@@ -66,9 +66,9 @@ interface IRepository
      *
      * @param mixed primaryKey primary key value to find
      * @param array<string, mixed> options options accepted by `Table::find()`
-     * @throws uim.cake.Datasource\exceptions.RecordNotFoundException if the record with such id
+     * @throws uim.Datasource\exceptions.RecordNotFoundException if the record with such id
      * could not be found
-     * @return uim.cake.Datasource\IEntity
+     * @return uim.Datasource\IEntity
      * @see uim.datasources.IRepository::find()
      */
     function get(primaryKey, STRINGAA someOptions = null): IEntity;
@@ -76,7 +76,7 @@ interface IRepository
     /**
      * Creates a new Query instance for this repository
      *
-     * @return uim.cake.Datasource\IQuery
+     * @return uim.Datasource\IQuery
      */
     function query();
 
@@ -87,7 +87,7 @@ interface IRepository
      * This method will *not* trigger beforeSave/afterSave events. If you need those
      * first load a collection of records and update them.
      *
-     * @param uim.cake.databases.Expression\QueryExpression|\Closure|array|string fields A hash of field: new value.
+     * @param uim.databases.Expression\QueryExpression|\Closure|array|string fields A hash of field: new value.
      * @param mixed conditions Conditions to be used, accepts anything Query::where()
      * can take.
      * @return size_t count Returns the affected rows.
@@ -124,9 +124,9 @@ interface IRepository
      * returns the same entity after a successful save or false in case
      * of any error.
      *
-     * @param uim.cake.Datasource\IEntity entity the entity to be saved
+     * @param uim.Datasource\IEntity entity the entity to be saved
      * @param \ArrayAccess|STRINGAA someOptions The options to use when saving.
-     * @return uim.cake.Datasource\IEntity|false
+     * @return uim.Datasource\IEntity|false
      */
     function save(IEntity entity, options = null);
 
@@ -136,7 +136,7 @@ interface IRepository
      * Deletes an entity and possibly related associations from the database
      * based on the "dependent" option used when defining the association.
      *
-     * @param uim.cake.Datasource\IEntity entity The entity to remove.
+     * @param uim.Datasource\IEntity entity The entity to remove.
      * @param \ArrayAccess|STRINGAA someOptions The options for the delete.
      * @return bool success
      */
@@ -149,7 +149,7 @@ interface IRepository
      * This entity can be persisted without validation error as empty record.
      * Always patch in required fields before saving.
      *
-     * @return uim.cake.Datasource\IEntity
+     * @return uim.Datasource\IEntity
      */
     function newEmptyEntity(): IEntity;
 
@@ -169,7 +169,7 @@ interface IRepository
      *
      * @param array data The data to build an entity with.
      * @param array<string, mixed> options A list of options for the object hydration.
-     * @return uim.cake.Datasource\IEntity
+     * @return uim.Datasource\IEntity
      */
     function newEntity(array data, STRINGAA someOptions = null): IEntity;
 
@@ -187,7 +187,7 @@ interface IRepository
      *
      * @param array data The data to build an entity with.
      * @param array<string, mixed> options A list of options for the objects hydration.
-     * @return array<uim.cake.Datasource\IEntity> An array of hydrated records.
+     * @return array<uim.Datasource\IEntity> An array of hydrated records.
      */
     array newEntities(array data, STRINGAA someOptions = null);
 
@@ -202,11 +202,11 @@ interface IRepository
      * article = this.Articles.patchEntity(article, this.request.getData());
      * ```
      *
-     * @param uim.cake.Datasource\IEntity entity the entity that will get the
+     * @param uim.Datasource\IEntity entity the entity that will get the
      * data merged in
      * @param array data key value list of fields to be merged into the entity
      * @param array<string, mixed> options A list of options for the object hydration.
-     * @return uim.cake.Datasource\IEntity
+     * @return uim.Datasource\IEntity
      */
     function patchEntity(IEntity entity, array data, STRINGAA someOptions = null): IEntity;
 
@@ -222,11 +222,11 @@ interface IRepository
      * article = this.Articles.patchEntities(articles, this.request.getData());
      * ```
      *
-     * @param iterable<uim.cake.Datasource\IEntity> entities the entities that will get the
+     * @param iterable<uim.Datasource\IEntity> entities the entities that will get the
      * data merged in
      * @param array data list of arrays to be merged into the entities
      * @param array<string, mixed> options A list of options for the objects hydration.
-     * @return array<uim.cake.Datasource\IEntity>
+     * @return array<uim.Datasource\IEntity>
      */
     array patchEntities(iterable entities, array data, STRINGAA someOptions = null);
 }

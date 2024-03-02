@@ -1,4 +1,4 @@
-module uim.cake.Log;
+module uim.Log;
 
 import uim.cake;
 

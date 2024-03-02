@@ -1,5 +1,5 @@
 
-module uim.caches;
+module caches.uim.caches.classes.cache copy;
 
 import uim.caches;
 

@@ -1,0 +1,1516 @@
+module uim.orm.queries.select;
+
+import uim.orm;
+
+@safe:
+
+/**
+ * : the UIM\Database\Query\SelectQuery class to provide new methods related to association
+ * loading, automatic fields selection, automatic type casting and to wrap results
+ * into a specific iterator that will be responsible for hydrating results if
+ * required.
+ *
+ * @template TSubject of \UIM\Datasource\IEntity|array
+ * @extends \UIM\Database\Query\SelectQuery<TSubject>
+ */
+class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
+    mixin CommonQueryTemplate();
+
+    // Indicates that the operation should append to the list
+    const int APPEND = 0;
+
+    // Indicates that the operation should prepend to the list
+    const int PREPEND = 1;
+
+    // Indicates that the operation should overwrite the list
+    const bool OVERWRITE = true;
+
+    /**
+     * Whether the user select any fields before being executed, this is used
+     * to determined if any fields should be automatically be selected.
+     */
+    protected bool my_hasFields = null;
+
+    /**
+     * Tracks whether the original query should include
+     * fields from the top level table.
+     */
+    protected bool my_autoFields = null;
+
+    // Whether to hydrate results into entity objects
+    protected bool my_hydrate = true;
+
+    // Whether aliases are generated for fields.
+    protected bool myaliasingEnabled = true;
+
+    /**
+     * A callback used to calculate the total amount of
+     * records this query will match when not using `limit`
+     */
+    protected Closure my_counter = null;
+
+    /**
+     * Instance of a class responsible for storing association containments and
+     * for eager loading them when this query is executed
+     */
+    protected EagerLoader my_eagerLoader = null;
+
+    /**
+     * Whether the query is standalone or the product of an eager load operation.
+     */
+    protected bool my_eagerLoaded = false;
+
+    // True if the beforeFind event has already been triggered for this query
+    protected bool my_beforeFindFired = false;
+
+    /**
+     * The COUNT(*) for the query.
+     *
+     * When set, count query execution will be bypassed.
+     */
+    protected int my_resultsCount = null;
+
+    /**
+     * Resultset factory
+     *
+     * @var \UIM\ORM\ResultSetFactory<\UIM\Datasource\IEntity|array>
+     */
+    protected ResultSetFactory resultSetFactory;
+
+    /**
+     * A ResultSet.
+     *
+     * When set, SelectQuery execution will be bypassed.
+     *
+     * @var iterable|null
+     * @see \UIM\Datasource\QueryTrait.setResult()
+     */
+    protected iterable my_results = null;
+
+    /**
+     * List of map-reduce routines that should be applied over the query
+     * result
+     */
+    protected array my_mapReduce = [];
+
+    /**
+     * List of formatter classes or callbacks that will post-process the
+     * results when fetched
+     */
+    protected Closure[] my_formatters = [];
+
+    /**
+     * A query cacher instance if this query has caching enabled.
+     *
+     * @var \UIM\Datasource\QueryCacher|null
+     */
+    protected QueryCacher my_cache = null;
+
+    /**
+     * Holds any custom options passed using applyOptions that could not be processed
+     * by any method in this class.
+     */
+    protected array my_options = [];
+
+    /**
+     * Constructor
+     * Params:
+     * \UIM\ORM\Table mytable The table this query is starting on
+     */
+    this(Table mytable) {
+        super(mytable.getConnection());
+
+        this.setRepository(mytable);
+        this.addDefaultTypes(mytable);
+    }
+    
+    /**
+     * Set the result set for a query.
+     *
+     * Setting the resultset of a query will make execute() a no-op. Instead
+     * of executing the SQL query and fetching results, the ResultSet provided to this
+     * method will be returned.
+     *
+     * This method is most useful when combined with results stored in a persistent cache.
+     * Params:
+     * iterable results The results this query should return.
+     */
+    void setResult(iterable results) {
+       _results = results;
+    }
+    
+    /**
+     * Executes this query and returns a results iterator. This bool is required
+     * for implementing the IteratorAggregate interface and allows the query to be
+     * iterated without having to call execute() manually, thus making it look like
+     * a result set instead of the query itself.
+     */
+    IResultSet getIterator() {
+        return this.all();
+    }
+    
+    /**
+     * Enable result caching for this query.
+     *
+     * If a query has caching enabled, it will do the following when executed:
+     *
+     * - Check the cache for aKey. If there are results no SQL will be executed.
+     *  Instead the cached results will be returned.
+     * - When the cached data is stale/missing the result set will be cached as the query
+     *  is executed.
+     *
+     * ### Usage
+     *
+     * ```
+     * // Simple string key + config
+     * myquery.cache("my_key", "db_results");
+     *
+     * // auto to generate key.
+     * myquery.cache(function (myq) {
+     *  aKey = serialize(myq.clause("select"));
+     *  aKey ~= serialize(myq.clause("where"));
+     *  return md5(aKey);
+     * });
+     *
+     * // Using a pre-built cache engine.
+     * myquery.cache("my_key", myengine);
+     *
+     * // Disable caching
+     * myquery.cache(false);
+     * ```
+     * Params:
+     * \Closure|string|false aKey Either the cache key or a auto to generate the cache key.
+     *  When using a function, this query instance will be supplied as an argument.
+     * @param \Psr\SimpleCache\ICache|string configData Either the name of the cache config to use, or
+     *  a cache engine instance.
+     */
+    void cache(Closure|string|false aKey, ICache|string configData = "default") {
+        if (aKey == false) {
+           _cache = null;
+
+            return;
+        }
+       _cache = new QueryCacher(aKey, configData);
+    }
+    
+    /**
+     * Returns the current configured query `_eagerLoaded` value
+     */
+    bool isEagerLoaded() {
+        return _eagerLoaded;
+    }
+    
+    /**
+     * Sets the query instance to be an eager loaded query. If no argument is
+     * passed, the current configured query `_eagerLoaded` value is returned.
+     * Params:
+     * bool myvalue Whether to eager load.
+     */
+    void eagerLoaded(bool myvalue) {
+       _eagerLoaded = myvalue;
+    }
+    
+    /**
+     * Returns a key: value array representing a single aliased field
+     * that can be passed directly to the select() method.
+     * The key will contain the alias and the value the actual field name.
+     *
+     * If the field is already aliased, then it will not be changed.
+     * If no myalias is passed, the default table for this query will be used.
+     * Params:
+     * string myfield The field to alias
+     * @param string myalias the alias used to prefix the field
+     */
+    STRINGAA aliasField(string myfield, string myalias = null) {
+        if (myfield.has(".")) {
+            myaliasedField = myfield;
+            [myalias, myfield] = split(".", myfield);
+        } else {
+            myalias = myalias ?: this.getRepository().getAlias();
+            myaliasedField = myalias ~ "." ~ myfield;
+        }
+        aKey = "%s__%s".format(myalias, myfield);
+
+        return [aKey: myaliasedField];
+    }
+    
+    /**
+     * Runs `aliasField()` for each field in the provided list and returns
+     * the result under a single array.
+     * Params:
+     * array myfields The fields to alias
+     * @param string mydefaultAlias The default alias
+     */
+    STRINGAA aliasFields(array myfields, string mydefaultAlias = null) {
+        myaliased = [];
+        foreach (myfields as myalias: myfield) {
+            if (isNumeric(myalias) && isString(myfield)) {
+                myaliased += this.aliasField(myfield, mydefaultAlias);
+                continue;
+            }
+            myaliased[myalias] = myfield;
+        }
+        return myaliased;
+    }
+    
+    /**
+     * Fetch the results for this query.
+     *
+     * Will return either the results set through setResult(), or execute this query
+     * and return the ResultSetDecorator object ready for streaming of results.
+     *
+     * ResultSetDecorator is a traversable object that : the methods found
+     * on UIM\Collection\Collection.
+     */
+    IResultSet<mixed> all() {
+        if (_results !isNull) {
+            if (!(cast(IResultSet)_results)) {
+               _results = _decorateResults(_results);
+            }
+            return _results;
+        }
+        results = null;
+        if (_cache) {
+            results = _cache.fetch(this);
+        }
+        if (results.isNull) {
+            results = _decorateResults(_execute());
+            if (_cache) {
+               _cache.store(this, results);
+            }
+        }
+       _results = results;
+
+        return _results;
+    }
+    
+    /**
+     * Returns an array representation of the results after executing the query.
+     */
+    array toArray() {
+        return this.all().toArray();
+    }
+    
+    /**
+     * Register a new MapReduce routine to be executed on top of the database results
+     *
+     * The MapReduce routing will only be run when the query is executed and the first
+     * result is attempted to be fetched.
+     *
+     * If the third argument is set to true, it will erase previous map reducers
+     * and replace it with the arguments passed.
+     * Params:
+     * \Closure|null mymapper The mapper function
+     * @param \Closure|null myreducer The reducing function
+     * @param bool myoverwrite Set to true to overwrite existing map + reduce functions.
+     * @return this
+     * @see \UIM\Collection\Iterator\MapReduce for details on how to use emit data to the map reducer.
+     */
+    void mapReduce(?Closure mymapper = null, ?Closure myreducer = null, bool myoverwrite = false) {
+        if (myoverwrite) {
+           _mapReduce = [];
+        }
+        if (mymapper.isNull) {
+            if (!myoverwrite) {
+                throw new InvalidArgumentException("mymapper can be null only when myoverwrite is true.");
+            }
+            return;
+        }
+       _mapReduce ~= compact("mapper", "reducer");
+    }
+    
+    /**
+     * Returns the list of previously registered map reduce routines.
+     */
+    array getMapReducers() {
+        return _mapReduce;
+    }
+    
+    /**
+     * Registers a new formatter callback auto that is to be executed when trying
+     * to fetch the results from the database.
+     *
+     * If the second argument is set to true, it will erase previous formatters
+     * and replace them with the passed first argument.
+     *
+     * Callbacks are required to return an iterator object, which will be used as
+     * the return value for this query"s result. Formatter functions are applied
+     * after all the `MapReduce` routines for this query have been executed.
+     *
+     * Formatting callbacks will receive two arguments, the first one being an object
+     * implementing `\UIM\Collection\ICollection`, that can be traversed and
+     * modified at will. The second one being the query instance on which the formatter
+     * callback is being applied.
+     *
+     * Usually the query instance received by the formatter callback is the same query
+     * instance on which the callback was attached to, except for in a joined
+     * association, in that case the callback will be invoked on the association source
+     * side query, and it will receive that query instance instead of the one on which
+     * the callback was originally attached to - see the examples below!
+     *
+     * ### Examples:
+     *
+     * Return all results from the table indexed by id:
+     *
+     * ```
+     * myquery.select(["id", "name"]).formatResults(function (results) {
+     *    return results.indexBy("id");
+     * });
+     * ```
+     *
+     * Add a new column to the ResultSet:
+     *
+     * ```
+     * myquery.select(["name", "birth_date"]).formatResults(function (results) {
+     *    return results.map(function (myrow) {
+     *        myrow["age"] = myrow["birth_date"].diff(new DateTime).y;
+     *
+     *        return myrow;
+     *    });
+     * });
+     * ```
+     *
+     * Add a new column to the results with respect to the query"s hydration configuration:
+     *
+     * ```
+     * myquery.formatResults(function (results, myquery) {
+     *    return results.map(function (myrow) use (myquery) {
+     *        mydata = [
+     *            "bar": "baz",
+     *        ];
+     *
+     *        if (myquery.isHydrationEnabled()) {
+     *            myrow["foo"] = new Foo(mydata)
+     *        } else {
+     *            myrow["foo"] = mydata;
+     *        }
+     *
+     *        return myrow;
+     *    });
+     * });
+     * ```
+     *
+     * Retaining access to the association target query instance of joined associations,
+     * by inheriting the contain callback"s query argument:
+     *
+     * ```
+     * // Assuming a `Articles belongsTo Authors` association that uses the join strategy
+     *
+     * myarticlesQuery.contain("Authors", auto (myauthorsQuery) {
+     *    return myauthorsQuery.formatResults(function (results, myquery) use (myauthorsQuery) {
+     *        // Here `myauthorsQuery` will always be the instance
+     *        // where the callback was attached to.
+     *
+     *        // The instance passed to the callback in the second
+     *        // argument (`myquery`), will be the one where the
+     *        // callback is actually being applied to, in this
+     *        // example that would be `myarticlesQuery`.
+     *
+     *        // ...
+     *
+     *        return results;
+     *    });
+     * });
+     * ```
+     * Params:
+     * \Closure|null myformatter The formatting function
+     * @param int|bool mymode Whether to overwrite, append or prepend the formatter.
+     */
+    void formatResults(?Closure myformatter = null, int|bool mymode = self.APPEND) {
+        if (mymode == self.OVERWRITE) {
+           _formatters = [];
+        }
+        if (myformatter.isNull) {
+            if (mymode != self.OVERWRITE) {
+                throw new InvalidArgumentException("myformatter can be null only when mymode is overwrite.");
+            }
+            return;
+        }
+        if (mymode == self.PREPEND) {
+            array_unshift(_formatters, myformatter);
+
+            return 
+        }
+       _formatters ~= myformatter;
+    }
+    
+    /**
+     * Returns the list of previously registered format routines.
+     */
+    Closure[] getResultFormatters() {
+        return _formatters;
+    }
+    
+    /**
+     * Returns the first result out of executing this query, if the query has not been
+     * executed before, it will set the limit clause to 1 for performance reasons.
+     *
+     * ### Example:
+     *
+     * ```
+     * mysingleUser = myquery.select(["id", "username"]).first();
+     * ```
+     */
+    Json first() {
+        if (_isDirty) {
+            this.limit(1);
+        }
+        return this.all().first();
+    }
+    
+    /**
+     * Get the first result from the executing query or raise an exception.
+     *
+     * @throws \UIM\Datasource\Exception\RecordNotFoundException When there is no first record.
+     */
+    Json firstOrFail() {
+        myentity = this.first();
+        if (!myentity) {
+            mytable = this.getRepository();
+            throw new RecordNotFoundException(
+                "Record not found in table `%s`.",
+                .format(mytable.getTable()
+            ));
+        }
+        return myentity;
+    }
+    
+    /**
+     * Returns an array with the custom options that were applied to this query
+     * and that were not already processed by another method in this class.
+     *
+     * ### Example:
+     *
+     * ```
+     * myquery.applyOptions(["doABarrelRoll": true, "fields": ["id", "name"]);
+     * myquery.getOptions(); // Returns ["doABarrelRoll": true]
+     * ```
+     *
+     * @see \UIM\Datasource\IQuery.applyOptions() to read about the options that will
+     * be processed by this class and not returned by this function
+     */
+    array getOptions() {
+        return _options;
+    }
+    
+    /**
+     * Populates or adds parts to current query clauses using an array.
+     * This is handy for passing all query clauses at once.
+     *
+     * The method accepts the following query clause related options:
+     *
+     * - fields: Maps to the select method
+     * - conditions: Maps to the where method
+     * - limit: Maps to the limit method
+     * - order: Maps to the order method
+     * - offset: Maps to the offset method
+     * - group: Maps to the group method
+     * - having: Maps to the having method
+     * - contain: Maps to the contain options for eager loading
+     * - join: Maps to the join method
+     * - page: Maps to the page method
+     *
+     * All other options will not affect the query, but will be stored
+     * as custom options that can be read via `getOptions()`. Furthermore
+     * they are automatically passed to `Model.beforeFind`.
+     *
+     * ### Example:
+     *
+     * ```
+     * myquery.applyOptions([
+     *  "fields": ["id", "name"],
+     *  "conditions": [
+     *    "created >=": "2013-01-01"
+     *  ],
+     *  "limit": 10,
+     * ]);
+     * ```
+     *
+     * Is equivalent to:
+     *
+     * ```
+     * myquery
+     *  .select(["id", "name"])
+     *  .where(["created >=": "2013-01-01"])
+     *  .limit(10)
+     * ```
+     *
+     * Custom options can be read via `getOptions()`:
+     *
+     * ```
+     * myquery.applyOptions([
+     *  "fields": ["id", "name"],
+     *  "custom": "value",
+     * ]);
+     * ```
+     *
+     * Here `options` will hold `["custom": "value"]` (the `fields`
+     * option will be applied to the query instead of being stored, as
+     * it"s a query clause related option):
+     *
+     * ```
+     * options = myquery.getOptions();
+     * ```
+     * Params:
+     * IData[string] options The options to be applied
+     * @return this
+     * @see getOptions()
+     */
+    auto applyOptions(IData[string] options) {
+        myvalid = [
+            "select": "select",
+            "fields": "select",
+            "conditions": "where",
+            "where": "where",
+            "join": "join",
+            "order": "orderBy",
+            "orderBy": "orderBy",
+            "limit": "limit",
+            "offset": "offset",
+            "group": "groupBy",
+            "groupBy": "groupBy",
+            "having": "having",
+            "contain": "contain",
+            "page": "page",
+        ];
+
+        ksort(options);
+        foreach (options as myoption: myvalues) {
+            if (isSet(myvalid[myoption], myvalues)) {
+                this.{myvalid[myoption]}(myvalues);
+            } else {
+               _options[myoption] = myvalues;
+            }
+        }
+        return this;
+    }
+    
+    /**
+     * Decorates the results iterator with MapReduce routines and formatters
+     * Params:
+     * iterable result Original results
+     */
+    protected IResultSet _decorateResults(iterable result) {
+        mydecorator = _decoratorClass();
+
+        auto result;
+        if (!empty(_mapReduce)) {
+            _mapReduce.each!(functions => result = new MapReduce(result, functions["mapper"], functions["reducer"]));
+            result = new mydecorator(result);
+        }
+        if (!(cast(IResultSet)result)) {
+            result = new mydecorator(result);
+        }
+        if (!empty(_formatters)) {
+            _formatters.each!(formatter => result = formatter(result, this));
+            if (!(cast(IResultSet)result)) {
+                result = new mydecorator(result);
+            }
+        }
+        return result;
+    }
+    
+    /**
+     * Returns the name of the class to be used for decorating results
+     */
+    protected string _decoratorClass() {
+        return ResultSetDecorator.classname;
+    }
+    
+    /**
+     * Adds new fields to be returned by a `SELECT` statement when this query is
+     * executed. Fields can be passed as an array of strings, array of expression
+     * objects, a single expression or a single string.
+     *
+     * If an array is passed, keys will be used to alias fields using the value as the
+     * real field to be aliased. It is possible to alias strings, Expression objects or
+     * even other Query objects.
+     *
+     * If a callback is passed, the returning array of the auto will
+     * be used as the list of fields.
+     *
+     * By default this auto will append any passed argument to the list of fields
+     * to be selected, unless the second argument is set to true.
+     *
+     * ### Examples:
+     *
+     * ```
+     * myquery.select(["id", "title"]); // Produces SELECT id, title
+     * myquery.select(["author": "author_id"]); // Appends author: SELECT id, title, author_id as author
+     * myquery.select("id", true); // Resets the list: SELECT id
+     * myquery.select(["total": mycountQuery]); // SELECT id, (SELECT ...) AS total
+     * myquery.select(function (myquery) {
+     *    return ["article_id", "total": myquery.count("*")];
+     * })
+     * ```
+     *
+     * By default no fields are selected, if you have an instance of `UIM\ORM\Query` and try to append
+     * fields you should also call `UIM\ORM\Query.enableAutoFields()` to select the default fields
+     * from the table.
+     *
+     * If you pass an instance of a `UIM\ORM\Table` or `UIM\ORM\Association` class,
+     * all the fields in the schema of the table or the association will be added to
+     * the select clause.
+     * Params:
+     * \UIM\Database\IExpression|\UIM\ORM\Table|\UIM\ORM\Association|\Closure|string[]|float|int myfields Fields
+     * to be added to the list.
+     * @param bool myoverwrite whether to reset fields with passed list or not
+     */
+    auto select(
+        IExpression|Table|Association|Closure|string[]|float|int myfields = [],
+        bool myoverwrite = false
+    ) {
+        if (cast(Association)myfields) {
+            myfields = myfields.getTarget();
+        }
+        if (cast(Table)myfields) {
+            if (this.aliasingEnabled) {
+                myfields = this.aliasFields(myfields.getSchema().columns(), myfields.getAlias());
+            } else {
+                myfields = myfields.getSchema().columns();
+            }
+        }
+        return super.select(myfields, myoverwrite);
+    }
+    
+    /**
+     * Behaves the exact same as `select()` except adds the field to the list of fields selected and
+     * does not disable auto-selecting fields for Associations.
+     *
+     * Use this instead of calling `select()` then `enableAutoFields()` to re-enable auto-fields.
+     * Params:
+     * \UIM\Database\IExpression|\UIM\ORM\Table|\UIM\ORM\Association|\Closure|string[]|float|int myfields Fields
+     * to be added to the list.
+     */
+    auto selectAlso(
+        IExpression|Table|Association|Closure|string[]|float|int myfields
+    ) {
+        this.select(myfields);
+       _autoFields = true;
+
+        return this;
+    }
+    
+    /**
+     * All the fields associated with the passed table except the excluded
+     * fields will be added to the select clause of the query. Passed excluded fields should not be aliased.
+     * After the first call to this method, a second call cannot be used to remove fields that have already
+     * been added to the query by the first. If you need to change the list after the first call,
+     * pass overwrite boolean true which will reset the select clause removing all previous additions.
+     * Params:
+     * \UIM\ORM\Table|\UIM\ORM\Association mytable The table to use to get an array of columns
+     * @param string[] myexcludedFields The un-aliased column names you do not want selected from mytable
+     * @param bool myoverwrite Whether to reset/remove previous selected fields
+     */
+    auto selectAllExcept(Table|Association mytable, array myexcludedFields, bool myoverwrite = false) {
+        if (cast(Association)mytable) {
+            mytable = mytable.getTarget();
+        }
+        myfields = array_diff(mytable.getSchema().columns(), myexcludedFields);
+        if (this.aliasingEnabled) {
+            myfields = this.aliasFields(myfields);
+        }
+        return this.select(myfields, myoverwrite);
+    }
+    
+    /**
+     * Sets the instance of the eager loader class to use for loading associations
+     * and storing containments.
+     * Params:
+     * \UIM\ORM\EagerLoader myinstance The eager loader to use.
+     */
+    auto setEagerLoader(EagerLoader myinstance) {
+       _eagerLoader = myinstance;
+
+        return this;
+    }
+    
+    // Returns the currently configured instance.
+    EagerLoader getEagerLoader() {
+        return _eagerLoader ??= new EagerLoader();
+    }
+    
+    /**
+     * Sets the list of associations that should be eagerly loaded along with this
+     * query. The list of associated tables passed must have been previously set as
+     * associations using the Table API.
+     *
+     * ### Example:
+     *
+     * ```
+     * // Bring articles" author information
+     * myquery.contain("Author");
+     *
+     * // Also bring the category and tags associated to each article
+     * myquery.contain(["Category", "Tag"]);
+     * ```
+     *
+     * Associations can be arbitrarily nested using dot notation or nested arrays,
+     * this allows this object to calculate joins or any additional queries that
+     * must be executed to bring the required associated data.
+     *
+     * ### Example:
+     *
+     * ```
+     * // Eager load the product info, and for each product load other 2 associations
+     * myquery.contain(["Product": ["Manufacturer", "Distributor"]);
+     *
+     * // Which is equivalent to calling
+     * myquery.contain(["Products.Manufactures", "Products.Distributors"]);
+     *
+     * // For an author query, load his region, state and country
+     * myquery.contain("Regions.States.Countries");
+     * ```
+     *
+     * It is possible to control the conditions and fields selected for each of the
+     * contained associations:
+     *
+     * ### Example:
+     *
+     * ```
+     * myquery.contain(["Tags": auto (myq) {
+     *    return myq.where(["Tags.is_popular": true]);
+     * }]);
+     *
+     * myquery.contain(["Products.Manufactures": auto (myq) {
+     *    return myq.select(["name"]).where(["Manufactures.active": true]);
+     * }]);
+     * ```
+     *
+     * Each association might define special options when eager loaded, the allowed
+     * options that can be set per association are:
+     *
+     * - `foreignKey`: Used to set a different field to match both tables, if set to false
+     *  no join conditions will be generated automatically. `false` can only be used on
+     *  joinable associations and cannot be used with hasMany or belongsToMany associations.
+     * - `fields`: An array with the fields that should be fetched from the association.
+     * - `finder`: The finder to use when loading associated records. Either the name of the
+     *  finder as a string, or an array to define options to pass to the finder.
+     * - `queryBuilder`: Equivalent to passing a callback instead of an options array.
+     *
+     * ### Example:
+     *
+     * ```
+     * // Set options for the hasMany articles that will be eagerly loaded for an author
+     * myquery.contain([
+     *    "Articles": [
+     *        "fields": ["title", "author_id"]
+     *    ]
+     * ]);
+     * ```
+     *
+     * Finders can be configured to use options.
+     *
+     * ```
+     * // Retrieve translations for the articles, but only those for the `en` and `es` locales
+     * myquery.contain([
+     *    "Articles": [
+     *        "finder": [
+     *            "translations": [
+     *                "locales": ["en", "es"]
+     *            ]
+     *        ]
+     *    ]
+     * ]);
+     * ```
+     *
+     * When containing associations, it is important to include foreign key columns.
+     * Failing to do so will trigger exceptions.
+     *
+     * ```
+     * // Use a query builder to add conditions to the containment
+     * myquery.contain("Authors", auto (myq) {
+     *    return myq.where(...); // add conditions
+     * });
+     * // Use special join conditions for multiple containments in the same method call
+     * myquery.contain([
+     *    "Authors": [
+     *        "foreignKey": false,
+     *        "queryBuilder": auto (myq) {
+     *            return myq.where(...); // Add full filtering conditions
+     *        }
+     *    ],
+     *    "Tags": auto (myq) {
+     *        return myq.where(...); // add conditions
+     *    }
+     * ]);
+     * ```
+     *
+     * If called with an empty first argument and `myoverride` is set to true, the
+     * previous list will be emptied.
+     * Params:
+     * string[] myassociations List of table aliases to be queried.
+     * @param \Closure|bool myoverride The query builder for the association, or
+     *  if associations is an array, a bool on whether to override previous list
+     *  with the one passed
+     * defaults to merging previous list with the new one.
+     */
+    auto contain(string[] myassociations, Closure|bool myoverride = false) {
+        myloader = this.getEagerLoader();
+        if (myoverride == true) {
+            this.clearContain();
+        }
+        myqueryBuilder = null;
+        if (cast(Closure)myoverride) {
+            myqueryBuilder = myoverride;
+        }
+        if (myassociations) {
+            myloader.contain(myassociations, myqueryBuilder);
+        }
+       _addAssociationsToTypeMap(
+            this.getRepository(),
+            this.getTypeMap(),
+            myloader.getContain()
+        );
+
+        return this;
+    }
+    
+    array getContain() {
+        return this.getEagerLoader().getContain();
+    }
+    
+    // Clears the contained associations from the current query.
+    auto clearContain() {
+        this.getEagerLoader().clearContain();
+       _isDirty();
+
+        return this;
+    }
+    
+    /**
+     * Used to recursively add contained association column types to
+     * the query.
+     * Params:
+     * \UIM\ORM\Table mytable The table instance to pluck associations from.
+     * @param \UIM\Database\TypeMap mytypeMap The typemap to check for columns in.
+     *  This typemap is indirectly mutated via {@link \UIM\ORM\Query\SelectQuery.addDefaultTypes()}
+     * @param array<string, array> myassociations The nested tree of associations to walk.
+     */
+    protected void _addAssociationsToTypeMap(Table mytable, TypeMap mytypeMap, array myassociations) {
+        foreach (myassociations as myname: mynested) {
+            if (!mytable.hasAssociation(myname)) {
+                continue;
+            }
+            myassociation = mytable.getAssociation(myname);
+            mytarget = myassociation.getTarget();
+            myprimary = (array)mytarget.getPrimaryKey();
+            if (isEmpty(myprimary) || mytypeMap.type(mytarget.aliasField(myprimary[0])).isNull) {
+                this.addDefaultTypes(mytarget);
+            }
+            if (!empty(mynested)) {
+               _addAssociationsToTypeMap(mytarget, mytypeMap, mynested);
+            }
+        }
+    }
+    
+    /**
+     * Adds filtering conditions to this query to only bring rows that have a relation
+     * to another from an associated table, based on conditions in the associated table.
+     *
+     * This auto will add entries in the `contain` graph.
+     *
+     * ### Example:
+     *
+     * ```
+     * // Bring only articles that were tagged with "uim"
+     * myquery.matching("Tags", auto (myq) {
+     *    return myq.where(["name": "uim"]);
+     * });
+     * ```
+     *
+     * It is possible to filter by deep associations by using dot notation:
+     *
+     * ### Example:
+     *
+     * ```
+     * // Bring only articles that were commented by "markstory"
+     * myquery.matching("Comments.Users", auto (myq) {
+     *    return myq.where(["username": "markstory"]);
+     * });
+     * ```
+     *
+     * As this auto will create `INNER JOIN`, you might want to consider
+     * calling `distinct` on this query as you might get duplicate rows if
+     * your conditions don"t filter them already. This might be the case, for example,
+     * of the same user commenting more than once in the same article.
+     *
+     * ### Example:
+     *
+     * ```
+     * // Bring unique articles that were commented by "markstory"
+     * myquery.distinct(["Articles.id"])
+     *    .matching("Comments.Users", auto (myq) {
+     *        return myq.where(["username": "markstory"]);
+     *    });
+     * ```
+     *
+     * Please note that the query passed to the closure will only accept calling
+     * `select`, `where`, `andWhere` and `orWhere` on it. If you wish to
+     * add more complex clauses you can do it directly in the main query.
+     * Params:
+     * string myassoc The association to filter by
+     * @param \Closure|null mybuilder a auto that will receive a pre-made query object
+     * that can be used to add custom conditions or selecting some fields
+     */
+    void matching(string myassoc, Closure mybuilder = null) {
+        result = this.getEagerLoader().setMatching(myassoc, mybuilder).getMatching();
+       _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
+       _isDirty();
+    }
+    
+    /**
+     * Creates a LEFT JOIN with the passed association table while preserving
+     * the foreign key matching and the custom conditions that were originally set
+     * for it.
+     *
+     * This auto will add entries in the `contain` graph.
+     *
+     * ### Example:
+     *
+     * ```
+     * // Get the count of articles per user
+     * myusersQuery
+     *    .select(["total_articles": myquery.func().count("Articles.id")])
+     *    .leftJoinWith("Articles")
+     *    .groupBy(["Users.id"])
+     *    .enableAutoFields();
+     * ```
+     *
+     * You can also customize the conditions passed to the LEFT JOIN:
+     *
+     * ```
+     * // Get the count of articles per user with at least 5 votes
+     * myusersQuery
+     *    .select(["total_articles": myquery.func().count("Articles.id")])
+     *    .leftJoinWith("Articles", auto (myq) {
+     *        return myq.where(["Articles.votes >=": 5]);
+     *    })
+     *    .groupBy(["Users.id"])
+     *    .enableAutoFields();
+     * ```
+     *
+     * This will create the following SQL:
+     *
+     * ```
+     * SELECT COUNT(Articles.id) AS total_articles, Users.*
+     * FROM users Users
+     * LEFT JOIN articles Articles ON Articles.user_id = Users.id AND Articles.votes >= 5
+     * GROUP BY USers.id
+     * ```
+     *
+     * It is possible to left join deep associations by using dot notation
+     *
+     * ### Example:
+     *
+     * ```
+     * // Total comments in articles by "markstory"
+     * myquery
+     *    .select(["total_comments": myquery.func().count("Comments.id")])
+     *    .leftJoinWith("Comments.Users", auto (myq) {
+     *        return myq.where(["username": "markstory"]);
+     *    })
+     *   .groupBy(["Users.id"]);
+     * ```
+     *
+     * Please note that the query passed to the closure will only accept calling
+     * `select`, `where`, `andWhere` and `orWhere` on it. If you wish to
+     * add more complex clauses you can do it directly in the main query.
+     * Params:
+     * string myassoc The association to join with
+     * @param \Closure|null mybuilder a auto that will receive a pre-made query object
+     * that can be used to add custom conditions or selecting some fields
+     */
+    void leftJoinWith(string myassoc, ?Closure mybuilder = null) {
+        result = this.getEagerLoader()
+            .setMatching(myassoc, mybuilder, [
+                "joinType": JOIN_TYPE_LEFT,
+                "fields": false,
+            ])
+            .getMatching();
+       _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
+       _isDirty();
+    }
+    
+    /**
+     * Creates an INNER JOIN with the passed association table while preserving
+     * the foreign key matching and the custom conditions that were originally set
+     * for it.
+     *
+     * This auto will add entries in the `contain` graph.
+     *
+     * ### Example:
+     *
+     * ```
+     * // Bring only articles that were tagged with "uim"
+     * myquery.innerJoinWith("Tags", auto (myq) {
+     *    return myq.where(["name": "uim"]);
+     * });
+     * ```
+     *
+     * This will create the following SQL:
+     *
+     * ```
+     * SELECT Articles.*
+     * FROM articles Articles
+     * INNER JOIN tags Tags ON Tags.name = "uim"
+     * INNER JOIN articles_tags ArticlesTags ON ArticlesTags.tag_id = Tags.id
+     *  AND ArticlesTags.articles_id = Articles.id
+     * ```
+     *
+     * This auto works the same as `matching()` with the difference that it
+     * will select no fields from the association.
+     * Params:
+     * string myassoc The association to join with
+     * @param \Closure|null mybuilder a auto that will receive a pre-made query object
+     * that can be used to add custom conditions or selecting some fields
+     */
+    void innerJoinWith(string myassoc, ?Closure mybuilder = null) {
+        result = this.getEagerLoader()
+            .setMatching(myassoc, mybuilder, [
+                "joinType": JOIN_TYPE_INNER,
+                "fields": false,
+            ])
+            .getMatching();
+       _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
+       _isDirty();
+    }
+    
+    /**
+     * Adds filtering conditions to this query to only bring rows that have no match
+     * to another from an associated table, based on conditions in the associated table.
+     *
+     * This auto will add entries in the `contain` graph.
+     *
+     * ### Example:
+     *
+     * ```
+     * // Bring only articles that were not tagged with "uim"
+     * myquery.notMatching("Tags", auto (myq) {
+     *    return myq.where(["name": "uim"]);
+     * });
+     * ```
+     *
+     * It is possible to filter by deep associations by using dot notation:
+     *
+     * ### Example:
+     *
+     * ```
+     * // Bring only articles that weren"t commented by "markstory"
+     * myquery.notMatching("Comments.Users", auto (myq) {
+     *    return myq.where(["username": "markstory"]);
+     * });
+     * ```
+     *
+     * As this auto will create a `LEFT JOIN`, you might want to consider
+     * calling `distinct` on this query as you might get duplicate rows if
+     * your conditions don"t filter them already. This might be the case, for example,
+     * of the same article having multiple comments.
+     *
+     * ### Example:
+     *
+     * ```
+     * // Bring unique articles that were commented by "markstory"
+     * myquery.distinct(["Articles.id"])
+     *    .notMatching("Comments.Users", auto (myq) {
+     *        return myq.where(["username": "markstory"]);
+     *    });
+     * ```
+     *
+     * Please note that the query passed to the closure will only accept calling
+     * `select`, `where`, `andWhere` and `orWhere` on it. If you wish to
+     * add more complex clauses you can do it directly in the main query.
+     * Params:
+     * string myassoc The association to filter by
+     * @param \Closure|null mybuilder a auto that will receive a pre-made query object
+     * that can be used to add custom conditions or selecting some fields
+     */
+    void notMatching(string myassoc, ?Closure mybuilder = null) {
+        result = this.getEagerLoader()
+            .setMatching(myassoc, mybuilder, [
+                "joinType": JOIN_TYPE_LEFT,
+                "fields": false,
+                "negateMatch": true,
+            ])
+            .getMatching();
+       _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
+       _isDirty();
+    }
+    
+    /**
+     * Creates a copy of this current query, triggers beforeFind and resets some state.
+     *
+     * The following state will be cleared:
+     *
+     * - autoFields
+     * - limit
+     * - offset
+     * - map/reduce functions
+     * - result formatters
+     * - order
+     * - containments
+     *
+     * This method creates query clones that are useful when working with subqueries.
+     */
+    static cleanCopy() {
+        myclone = clone this;
+        myclone.triggerBeforeFind();
+        myclone.disableAutoFields();
+        myclone.limit(null);
+        myclone.orderBy([], true);
+        myclone.offset(null);
+        myclone.mapReduce(null, null, true);
+        myclone.formatResults(null, self.OVERWRITE);
+        myclone.setSelectTypeMap(new TypeMap());
+        myclone.decorateResults(null, true);
+
+        return myclone;
+    }
+    
+    /**
+     * Clears the internal result cache and the internal count value from the current
+     * query object.
+     */
+    void clearResult() {
+       _isDirty();
+    }
+    
+    // Handles cloning eager loaders.
+    auto __clone() {
+        super.__clone();
+        if (_eagerLoader !isNull) {
+           _eagerLoader = clone _eagerLoader;
+        }
+    }
+    
+    /**
+
+     * Returns the COUNT(*) for the query. If the query has not been
+     * modified, and the count has already been performed the cached
+     * value is returned
+     */
+    size_t count() {
+        return _resultsCount ??= _performCount();
+    }
+    
+    /**
+     * Performs and returns the COUNT(*) for the query.
+     *
+     */
+    protected int _performCount() {
+        myquery = this.cleanCopy();
+        mycounter = _counter;
+        if (mycounter !isNull) {
+            myquery.counter(null);
+
+            return to!int(mycounter(myquery));
+        }
+        mycomplex = (
+            myquery.clause("distinct") ||
+            count(myquery.clause("group")) ||
+            count(myquery.clause("union")) ||
+            myquery.clause("having")
+        );
+
+        if (!mycomplex) {
+            // Expression fields could have bound parameters.
+            foreach (myquery.clause("select") as myfield) {
+                if (cast(IExpression)myfield ) {
+                    mycomplex = true;
+                    break;
+                }
+            }
+        }
+        if (!mycomplex && _valueBinder !isNull) {
+            myorder = this.clause("order");
+            assert(myorder.isNull || cast(QueryExpression)myorder);
+            mycomplex = myorder.isNull ? false : myorder.hasNestedExpression();
+        }
+        mycount = ["count": myquery.func().count("*")];
+
+        if (!mycomplex) {
+            myquery.getEagerLoader().disableAutoFields();
+            mystatement = myquery
+                .select(mycount, true)
+                .disableAutoFields()
+                .execute();
+        } else {
+            mystatement = this.getConnection().selectQuery()
+                .select(mycount)
+                .from(["count_source": myquery])
+                .execute();
+        }
+        result = mystatement.fetch("assoc");
+
+        if (result == false) {
+            return 0;
+        }
+        return to!int(result["count"]);
+    }
+    
+    /**
+     * Registers a callback that will be executed when the `count` method in
+     * this query is called. The return value for the auto will be set as the
+     * return value of the `count` method.
+     *
+     * This is particularly useful when you need to optimize a query for returning the
+     * count, for example removing unnecessary joins, removing group by or just return
+     * an estimated number of rows.
+     *
+     * The callback will receive as first argument a clone of this query and not this
+     * query itself.
+     *
+     * If the first param is a null value, the built-in counter auto will be called
+     * instead
+     * Params:
+     * \Closure|null mycounter The counter value
+     */
+    auto counter(?Closure mycounter) {
+       _counter = mycounter;
+
+        return this;
+    }
+    
+    /**
+     * Toggle hydrating entities.
+     *
+     * If set to false array results will be returned for the query.
+     * Params:
+     * bool myenable Use a boolean to set the hydration mode.
+     */
+    auto enableHydration(bool myenable = true) {
+       _isDirty();
+       _hydrate = myenable;
+
+        return this;
+    }
+    
+    /**
+     * Disable hydrating entities.
+     *
+     * Disabling hydration will cause array results to be returned for the query
+     * instead of entities.
+     */
+    auto disableHydration() {
+       _isDirty();
+       _hydrate = false;
+
+        return this;
+    }
+    
+    // Returns the current hydration mode.
+    bool isHydrationEnabled() {
+        return _hydrate;
+    }
+    
+    /**
+     * Trigger the beforeFind event on the query"s repository object.
+     *
+     * Will not trigger more than once, and only for select queries.
+     */
+    void triggerBeforeFind() {
+        if (!_beforeFindFired) {
+           _beforeFindFired = true;
+
+            myrepository = this.getRepository();
+            myrepository.dispatchEvent("Model.beforeFind", [
+                this,
+                new ArrayObject(_options),
+                !this.isEagerLoaded(),
+            ]);
+        }
+    }
+ 
+    string sql(ValueBinder mybinder = null) {
+        this.triggerBeforeFind();
+
+       _transformQuery();
+
+        return super.sql(mybinder);
+    }
+    
+    /**
+     * Executes this query and returns an iterable containing the results.
+     */
+    protected iterable _execute() {
+        this.triggerBeforeFind();
+        if (_results) {
+            return _results;
+        }
+        results = super.all();
+        if (!isArray(results)) {
+            results = iterator_to_array(results);
+        }
+        results = this.getEagerLoader().loadExternal(this, results);
+
+        return this.resultSetFactory().createResultSet(this, results);
+    }
+    
+    /**
+     * Get resultset factory.
+     */
+    protected ResultSetFactory resultSetFactory() {
+        return this.resultSetFactory ??= new ResultSetFactory();
+    }
+    
+    /**
+     * Applies some defaults to the query object before it is executed.
+     *
+     * Specifically add the FROM clause, adds default table fields if none are
+     * specified and applies the joins required to eager load associations defined
+     * using `contain`
+     *
+     * It also sets the default types for the columns in the select clause
+     *
+     * @see \UIM\Database\Query.execute()
+     */
+    protected void _transformQuery() {
+        if (!_isDirty) {
+            return;
+        }
+        auto myrepository = this.getRepository();
+
+        if (isEmpty(_parts["from"])) {
+            this.from([myrepository.getAlias(): myrepository.getTable()]);
+        }
+       _addDefaultFields();
+        this.getEagerLoader().attachAssociations(this, myrepository, !_hasFields);
+       _addDefaultSelectTypes();
+    }
+    
+    /**
+     * Inspects if there are any set fields for selecting, otherwise adds all
+     * the fields for the default table.
+     */
+    protected void _addDefaultFields() {
+        myselect = this.clause("select");
+       _hasFields = true;
+
+        myrepository = this.getRepository();
+
+        if (!count(myselect) || _autoFields == true) {
+           _hasFields = false;
+            this.select(myrepository.getSchema().columns());
+            myselect = this.clause("select");
+        }
+        if (this.aliasingEnabled) {
+            myselect = this.aliasFields(myselect, myrepository.getAlias());
+        }
+        this.select(myselect, true);
+    }
+    
+    /**
+     * Sets the default types for converting the fields in the select clause
+     */
+    protected void _addDefaultSelectTypes() {
+        mytypeMap = this.getTypeMap().getDefaults();
+        myselect = this.clause("select");
+        mytypes = [];
+
+        foreach (myselect as myalias: myvalue) {
+            if (cast(ITypedResult)myvalue instanceof ) {
+                mytypes[myalias] = myvalue.getReturnType();
+                continue;
+            }
+            if (isSet(mytypeMap[myalias])) {
+                mytypes[myalias] = mytypeMap[myalias];
+                continue;
+            }
+            if (isString(myvalue) && isSet(mytypeMap[myvalue])) {
+                mytypes[myalias] = mytypeMap[myvalue];
+            }
+        }
+        this.getSelectTypeMap().addDefaults(mytypes);
+    }
+    
+    /**
+ Params:
+     * string myfinder The finder method to use.
+     * @param Json ...myargs Arguments that match up to finder-specific parameters
+     */
+    static find(string myfinder, Json ...myargs) {
+        mytable = this.getRepository();
+
+        /** @psalm-suppress LessSpecificReturnStatement */
+        return mytable.callFinder(myfinder, this, ...myargs);
+    }
+    
+    /**
+     * Disable auto adding table"s alias to the fields of SELECT clause.
+     */
+    auto disableAutoAliasing() {
+        this.aliasingEnabled = false;
+
+        return this;
+    }
+    
+    /**
+     * Marks a query as dirty, removing any preprocessed information
+     * from in memory caching such as previous results
+     */
+    protected void _isDirty() {
+       _results = null;
+       _resultsCount = null;
+        super._isDirty();
+    }
+ 
+    IData[string] debugInfo() {
+        myeagerLoader = this.getEagerLoader();
+
+        return super.__debugInfo() ~ [
+            "hydrate": _hydrate,
+            "formatters": count(_formatters),
+            "mapReducers": count(_mapReduce),
+            "contain": myeagerLoader.getContain(),
+            "matching": myeagerLoader.getMatching(),
+            "extraOptions": _options,
+            "repository": _repository,
+        ];
+    }
+    
+    /**
+     * Executes the query and converts the result set into JSON.
+     *
+     * Part of JsonSerializable interface.
+     */
+    IResultSet<(\UIM\Datasource\IEntity|mixed)> jsonSerialize() {
+        return this.all();
+    }
+    
+    /**
+     * Sets whether the ORM should automatically append fields.
+     *
+     * By default calling select() will disable auto-fields. You can re-enable
+     * auto-fields with this method.
+     * Params:
+     * bool myvalue Set true to enable, false to disable.
+     */
+    auto enableAutoFields(bool myvalue = true) {
+       _autoFields = myvalue;
+
+        return this;
+    }
+    
+    /**
+     * Disables automatically appending fields.
+     */
+    auto disableAutoFields() {
+       _autoFields = false;
+
+        return this;
+    }
+    
+    /**
+     * Gets whether the ORM should automatically append fields.
+     *
+     * By default calling select() will disable auto-fields. You can re-enable
+     * auto-fields with enableAutoFields().
+     */
+    bool isAutoFieldsEnabled() {
+        return _autoFields;
+    }
+}
+
+// phpcs:disable
+class_exists("UIM\ORM\Query");
+// phpcs:enable

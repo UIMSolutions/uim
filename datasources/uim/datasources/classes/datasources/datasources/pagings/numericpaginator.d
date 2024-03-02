@@ -430,7 +430,7 @@ class NumericPaginator : IPaginator {
         }
         defaults = this.getConfig();
 
-        maxLimit = settings["maxLimit"] ?? defaults["maxLimit"];
+        maxLimit = settings.ifNull("maxLimit", ] ?? defaults["maxLimit"];
         aLimit = settings.get("limit", defaults["limit"]);
 
         if (aLimit > maxLimit) {

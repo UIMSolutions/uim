@@ -645,7 +645,7 @@ class Marshaller
             })
             .toArray();
 
-        new = indexed[""] ?? [];
+        new = indexed.ifNull("", null);
         unset(indexed[""]);
         output = null;
 

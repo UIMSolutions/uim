@@ -1,5 +1,5 @@
-module uim.Log;
-import uim.cake;
+module uim.logging;
+import uim.logging;
 
 @safe:
 /**

@@ -1,6 +1,6 @@
-module uim.logs.formatters.abstract_;
+module uim.logging.formatters.abstract_;
 
-import uim.cake;
+import uim.logging;
 
 @safe:
 

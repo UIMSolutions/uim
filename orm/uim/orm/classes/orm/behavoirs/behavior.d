@@ -137,22 +137,22 @@ class Behavior : IEventListener
      * Merges config with the default and store in the config property
      *
      * @param DORMDORMTable aTable The table this behavior is attached to.
-     * @param array<string, mixed> aConfig The config for this behavior.
+     * @param array<string, mixed> myConfiguration The config for this behavior.
      */
-    this(DORMTable aTable, Json aConfig = null) {
-        aConfig = _resolveMethodAliases(
+    this(DORMTable aTable, Json myConfiguration = null) {
+        myConfiguration = _resolveMethodAliases(
             "implementedFinders",
             _defaultConfig,
-            aConfig
+            myConfiguration
         );
-        aConfig = _resolveMethodAliases(
+        myConfiguration = _resolveMethodAliases(
             "implementedMethods",
             _defaultConfig,
-            aConfig
+            myConfiguration
         );
         _table = table;
-        this.setConfig(aConfig);
-        this.initialize(aConfig);
+        this.setConfig(myConfiguration);
+        this.initialize(myConfiguration);
     }
 
     /**
@@ -161,9 +161,9 @@ class Behavior : IEventListener
      * Implement this method to avoid having to overwrite
      * the constructor and call parent.
      *
-     * @param array<string, mixed> aConfig The configuration settings provided to this behavior.
+     * @param array<string, mixed> myConfiguration The configuration settings provided to this behavior.
      */
-    void initialize(Json aConfig) {
+    void initialize(Json myConfiguration) {
     }
 
     
@@ -183,31 +183,31 @@ class Behavior : IEventListener
      *
      * @param string aKey The key to filter.
      * @param array<string, mixed> defaults The default method mappings.
-     * @param array<string, mixed> aConfig The customized method mappings.
+     * @param array<string, mixed> myConfiguration The customized method mappings.
      * @return array A de-duped list of config data.
      */
-    protected array _resolveMethodAliases(string aKey, array defaults, Json aConfig) {
-        if (!isset(defaults[key], aConfig[key])) {
-            return aConfig;
+    protected array _resolveMethodAliases(string aKey, array defaults, Json myConfiguration) {
+        if (!isset(defaults[key], myConfiguration[key])) {
+            return myConfiguration;
         }
-        if (isset(aConfig[key]) && aConfig[key] == []) {
+        if (isset(myConfiguration[key]) && myConfiguration[key] == []) {
             this.setConfig(key, [], false);
-            unset(aConfig[key]);
+            unset(myConfiguration[key]);
 
-            return aConfig;
+            return myConfiguration;
         }
 
         indexed = array_flip(defaults[key]);
-        indexedCustom = array_flip(aConfig[key]);
+        indexedCustom = array_flip(myConfiguration[key]);
         foreach (indexed as method: alias) {
             if (!isset(indexedCustom[method])) {
                 indexedCustom[method] = alias;
             }
         }
         this.setConfig(key, array_flip(indexedCustom), false);
-        unset(aConfig[key]);
+        unset(myConfiguration[key]);
 
-        return aConfig;
+        return myConfiguration;
     }
 
     /**
@@ -264,8 +264,8 @@ class Behavior : IEventListener
             "Model.beforeRules": "beforeRules",
             "Model.afterRules": "afterRules",
         ];
-        aConfig = this.getConfig();
-        priority = aConfig["priority"] ?? null;
+        myConfiguration = configuration;
+        priority = myConfiguration["priority"] ?? null;
         events = null;
 
         foreach (eventMap as event: method) {

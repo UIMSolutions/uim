@@ -196,19 +196,19 @@ class I18nExtractCommand : Command {
      * @param array details Context and plural form if any, file and line references
      */
     protected void _addTranslation(string adomain, string amsgid, array details = []) {
-        context = details["msgctxt"] ?? "";
+        context = details.get("msgctxt", "");
 
         if (isEmpty(_translations[$domain][$msgid][$context])) {
            _translations[$domain][$msgid][$context] = [
                 "msgid_plural": false,
             ];
         }
-        if (isSet($details["msgid_plural"])) {
+        if (isSet(details["msgid_plural"])) {
            _translations[$domain][$msgid][$context]["msgid_plural"] = details["msgid_plural"];
         }
-        if (isSet($details["file"])) {
+        if (isSet(details["file"])) {
             line = details["line"] ?? 0;
-           _translations[$domain][$msgid][$context]["references"][$details["file"]] ~= line;
+           _translations[$domain][$msgid][$context]["references"][details["file"]] ~= line;
         }
     }
     

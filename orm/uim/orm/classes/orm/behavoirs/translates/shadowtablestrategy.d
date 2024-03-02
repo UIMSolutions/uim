@@ -49,24 +49,24 @@ class ShadowTableStrategy : ITranslateStrategy
      * Constructor
      *
      * @param DORMDORMTable aTable Table instance.
-     * @param array<string, mixed> aConfig Configuration.
+     * @param array<string, mixed> myConfiguration Configuration.
      */
-    this(DORMTable aTable, Json aConfig = null) {
+    this(DORMTable aTable, Json myConfiguration = null) {
         tableAlias = table.getAlias();
         [plugin] = pluginSplit(table.getRegistryAlias(), true);
-        tableReferenceName = aConfig["referenceName"];
+        tableReferenceName = myConfiguration["referenceName"];
 
-        aConfig += [
+        myConfiguration += [
             "mainTableAlias": tableAlias,
             "translationTable": plugin . tableReferenceName ~ "Translations",
             "hasOneAlias": tableAlias ~ "Translation",
         ];
 
-        if (isset(aConfig["tableLocator"])) {
-            _tableLocator = aConfig["tableLocator"];
+        if (isset(myConfiguration["tableLocator"])) {
+            _tableLocator = myConfiguration["tableLocator"];
         }
 
-        this.setConfig(aConfig);
+        this.setConfig(myConfiguration);
         this.table = table;
         this.translationTable = this.getTableLocator().get(
             _config["translationTable"],
@@ -83,13 +83,13 @@ class ShadowTableStrategy : ITranslateStrategy
      * in before find - so create/modify it there.
      */
     protected void setupAssociations() {
-        aConfig = this.getConfig();
+        myConfiguration = configuration;
 
         targetAlias = this.translationTable.getAlias();
         this.table.hasMany(targetAlias, [
-            "className": aConfig["translationTable"],
+            "className": myConfiguration["translationTable"],
             "foreignKey": "id",
-            "strategy": aConfig["strategy"],
+            "strategy": myConfiguration["strategy"],
             "propertyName": "_i18n",
             "dependent": true,
         ]);
@@ -106,26 +106,26 @@ class ShadowTableStrategy : ITranslateStrategy
      */
     void beforeFind(IEvent event, Query query, ArrayObject options) {
         locale = Hash::get(options, "locale", this.getLocale());
-        aConfig = this.getConfig();
+        myConfiguration = configuration;
 
-        if (locale == aConfig["defaultLocale"]) {
+        if (locale == myConfiguration["defaultLocale"]) {
             return;
         }
 
         this.setupHasOneAssociation(locale, options);
 
-        fieldsAdded = this.addFieldsToQuery(query, aConfig);
-        orderByTranslatedField = this.iterateClause(query, "order", aConfig);
+        fieldsAdded = this.addFieldsToQuery(query, myConfiguration);
+        orderByTranslatedField = this.iterateClause(query, "order", myConfiguration);
         filteredByTranslatedField =
-            this.traverseClause(query, "where", aConfig) ||
-            aConfig["onlyTranslated"] ||
+            this.traverseClause(query, "where", myConfiguration) ||
+            myConfiguration["onlyTranslated"] ||
             (options["filterByCurrentLocale"] ?? null);
 
         if (!fieldsAdded && !orderByTranslatedField && !filteredByTranslatedField) {
             return;
         }
 
-        query.contain([aConfig["hasOneAlias"]]);
+        query.contain([myConfiguration["hasOneAlias"]]);
 
         query.formatResults(function (results) use (locale) {
             return this.rowMapper(results, locale);
@@ -139,16 +139,16 @@ class ShadowTableStrategy : ITranslateStrategy
      * @param \ArrayObject options Find options
      */
     protected void setupHasOneAssociation(string locale, ArrayObject options) {
-        aConfig = this.getConfig();
+        myConfiguration = configuration;
 
-        [plugin] = pluginSplit(aConfig["translationTable"]);
-        hasOneTargetAlias = plugin ? (plugin ~ "." ~ aConfig["hasOneAlias"]) : aConfig["hasOneAlias"];
+        [plugin] = pluginSplit(myConfiguration["translationTable"]);
+        hasOneTargetAlias = plugin ? (plugin ~ "." ~ myConfiguration["hasOneAlias"]) : myConfiguration["hasOneAlias"];
         if (!this.getTableLocator().exists(hasOneTargetAlias)) {
             // Load table before hand with fallback class usage enabled
             this.getTableLocator().get(
                 hasOneTargetAlias,
                 [
-                    "className": aConfig["translationTable"],
+                    "className": myConfiguration["translationTable"],
                     "allowFallbackClass": true,
                 ]
             );
@@ -157,16 +157,16 @@ class ShadowTableStrategy : ITranslateStrategy
         if (isset(options["filterByCurrentLocale"])) {
             joinType = options["filterByCurrentLocale"] ? "INNER" : "LEFT";
         } else {
-            joinType = aConfig["onlyTranslated"] ? "INNER" : "LEFT";
+            joinType = myConfiguration["onlyTranslated"] ? "INNER" : "LEFT";
         }
 
-        this.table.hasOne(aConfig["hasOneAlias"], [
+        this.table.hasOne(myConfiguration["hasOneAlias"], [
             "foreignKey": ["id"],
             "joinType": joinType,
             "propertyName": "translation",
-            "className": aConfig["translationTable"],
+            "className": myConfiguration["translationTable"],
             "conditions": [
-                aConfig["hasOneAlias"] ~ ".locale": locale,
+                myConfiguration["hasOneAlias"] ~ ".locale": locale,
             ],
         ]);
     }
@@ -181,10 +181,10 @@ class ShadowTableStrategy : ITranslateStrategy
      * add the locale field though.
      *
      * @param DORMQuery query The query to check.
-     * @param array<string, mixed> aConfig The config to use for adding fields.
+     * @param array<string, mixed> myConfiguration The config to use for adding fields.
      * @return bool Whether a join to the translation table is required.
      */
-    protected function addFieldsToQuery(query, Json aConfig) {
+    protected function addFieldsToQuery(query, Json myConfiguration) {
         if (query.isAutoFieldsEnabled()) {
             return true;
         }
@@ -197,17 +197,17 @@ class ShadowTableStrategy : ITranslateStrategy
             return true;
         }
 
-        alias = aConfig["mainTableAlias"];
+        alias = myConfiguration["mainTableAlias"];
         joinRequired = false;
         foreach (this.translatedFields() as field) {
             if (array_intersect(select, [field, "alias.field"])) {
                 joinRequired = true;
-                query.select(query.aliasField(field, aConfig["hasOneAlias"]));
+                query.select(query.aliasField(field, myConfiguration["hasOneAlias"]));
             }
         }
 
         if (joinRequired) {
-            query.select(query.aliasField("locale", aConfig["hasOneAlias"]));
+            query.select(query.aliasField("locale", myConfiguration["hasOneAlias"]));
         }
 
         return joinRequired;
@@ -222,18 +222,18 @@ class ShadowTableStrategy : ITranslateStrategy
      *
      * @param DORMQuery query the query to check.
      * @param string aName The clause name.
-     * @param array<string, mixed> aConfig The config to use for adding fields.
+     * @param array<string, mixed> myConfiguration The config to use for adding fields.
      * @return bool Whether a join to the translation table is required.
      */
-    protected bool iterateClause(query, name = "", aConfig = null) {
+    protected bool iterateClause(query, name = "", myConfiguration = null) {
         clause = query.clause(name);
         if (!clause || !clause.count()) {
             return false;
         }
 
-        alias = aConfig["hasOneAlias"];
+        alias = myConfiguration["hasOneAlias"];
         fields = this.translatedFields();
-        mainTableAlias = aConfig["mainTableAlias"];
+        mainTableAlias = myConfiguration["mainTableAlias"];
         mainTableFields = this.mainFields();
         joinRequired = false;
 
@@ -267,18 +267,18 @@ class ShadowTableStrategy : ITranslateStrategy
      *
      * @param DORMQuery query the query to check.
      * @param string aName The clause name.
-     * @param array<string, mixed> aConfig The config to use for adding fields.
+     * @param array<string, mixed> myConfiguration The config to use for adding fields.
      * @return bool Whether a join to the translation table is required.
      */
-    protected bool traverseClause(query, name = "", aConfig = null) {
+    protected bool traverseClause(query, name = "", myConfiguration = null) {
         clause = query.clause(name);
         if (!clause || !clause.count()) {
             return false;
         }
 
-        alias = aConfig["hasOneAlias"];
+        alias = myConfiguration["hasOneAlias"];
         fields = this.translatedFields();
-        mainTableAlias = aConfig["mainTableAlias"];
+        mainTableAlias = myConfiguration["mainTableAlias"];
         mainTableFields = this.mainFields();
         joinRequired = false;
 

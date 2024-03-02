@@ -203,12 +203,12 @@ class I18nExtractCommand : Command {
                 "msgid_plural": false,
             ];
         }
-        if (isSet($details["msgid_plural"])) {
+        if (isSet(details["msgid_plural"])) {
            _translations[$domain][$msgid][$context]["msgid_plural"] = details["msgid_plural"];
         }
-        if (isSet($details["file"])) {
+        if (isSet(details["file"])) {
             line = details["line"] ?? 0;
-           _translations[$domain][$msgid][$context]["references"][$details["file"]] ~= line;
+           _translations[$domain][$msgid][$context]["references"][details["file"]] ~= line;
         }
     }
     

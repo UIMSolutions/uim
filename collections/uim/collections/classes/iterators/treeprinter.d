@@ -1,0 +1,82 @@
+module uim.collections.iterators;
+
+import uim.collections;
+
+@safe:
+
+/**
+ * Iterator for flattening elements in a tree structure while adding some
+ * visual markers for their relative position in the tree
+ *
+ * @template-extends \RecursiveIteratorIterator<\RecursiveIterator>
+ */
+class TreePrinter : RecursiveIteratorIterator, ICollection {
+  use CollectionTemplate();
+
+  // A callable to generate the iteration key
+  protected callable _key;
+
+  // A callable to extract the display value
+  protected callable _value;
+
+  // Cached value for the current iteration element
+  protected Json _current = null;
+
+  // The string to use for prefixing the values according to their depth in the tree.
+  protected string _spacer;
+
+  /**
+     * Constructor
+     * Params:
+     * \RecursiveIterator<mixed, mixed>  someItems The iterator to flatten.
+     * @param string avaluePath The property to extract or a callable to return
+     * the display value.
+     * @param string akeyPath The property to use as iteration key or a
+     * callable returning the key value.
+     * @param string aspacer The string to use for prefixing the values according to
+     * their depth in the tree.
+     * @param int mode Iterator mode.
+     */
+  this(
+    RecursiveIterator someItems,
+    callable | string myvaluePath,
+    callable | string mykeyPath,
+    string myspacer,
+    intmode = RecursiveIteratorIterator :  : SELF_FIRST
+  ) {
+    super.__construct(someItems, mode);
+    _value = _propertyExtractor(valuePath);
+    _key = _propertyExtractor($keyPath);
+    _spacer = spacer;
+  }
+
+  // Returns the current iteration key
+  Json key() {
+    auto myExtractor = _key;
+
+    return myExtractor(_fetchCurrent(), super.key(), this);
+  }
+
+  // Returns the current iteration value
+  string current() {
+    auto myExtractor = _value;
+    auto myCurrent = _fetchCurrent();
+    auto mySpacer = str_repeat(_spacer, this.getDepth());
+
+    return mySpacer ~ myExtractor(myCurrent, super.key(), this);
+  }
+
+  // Advances the cursor one position
+  void next() {
+    super.next();
+    _current = null;
+  }
+
+  // Returns the current iteration element and caches its value
+  protected Json _fetchCurrent() {
+    if (!_current.isNull) {
+      return _current;
+    }
+    return _current = super.current();
+  }
+}

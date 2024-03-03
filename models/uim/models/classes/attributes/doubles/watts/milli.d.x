@@ -26,8 +26,8 @@ class DMilliWattAttribute : DWattAttribute {
   mixin(AttributeThis!("MilliWattAttribute"));
 
   // Initialization hook method.
-  override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) {
+  override bool initialize(IData[string] initData = null) {
+    if (!super.initialize(initData)) {
       return false;
     }
 

@@ -15,7 +15,7 @@ import uim.orm;
  * An example of a BelongsToMany association would be Article belongs to many Tags.
  * In this example "Article" is the source table and "Tags" is the target table.
  */
-class BelongsToMany : Association {
+class BelongsToMany : DAssociation {
     // Saving strategy that will only append to the links set
     const string SAVE_APPEND = "append";
 

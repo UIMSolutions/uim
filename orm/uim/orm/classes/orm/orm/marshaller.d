@@ -104,7 +104,7 @@ class Marshaller {
      *
      * - validate: Set to false to disable validation. Can also be a string of the validator ruleset to be applied.
      *  Defaults to true/default.
-     * - associated: Associations listed here will be marshalled as well. Defaults to null.
+     * - associated: DAssociations listed here will be marshalled as well. Defaults to null.
      * - fields: An allowed list of fields to be assigned to the entity. If not present,
      *  the accessible fields list in the entity will be used. Defaults to null.
      * - accessibleFields: A list of fields to allow or deny in entity accessible fields. Defaults to null
@@ -271,7 +271,7 @@ class Marshaller {
      *
      * - validate: Set to false to disable validation. Can also be a string of the validator ruleset to be applied.
      *  Defaults to true/default.
-     * - associated: Associations listed here will be marshalled as well. Defaults to null.
+     * - associated: DAssociations listed here will be marshalled as well. Defaults to null.
      * - fields: An allowed list of fields to be assigned to the entity. If not present,
      *  the accessible fields list in the entity will be used. Defaults to null.
      * - accessibleFields: A list of fields to allow or deny in entity accessible fields. Defaults to null
@@ -420,7 +420,7 @@ class Marshaller {
      *
      * ### Options:
      *
-     * - associated: Associations listed here will be marshalled as well.
+     * - associated: DAssociations listed here will be marshalled as well.
      * - validate: Whether to validate data before hydrating the entities. Can
      *  also be set to a string to use a specific validator. Defaults to true/default.
      * - fields: An allowed list of fields to be assigned to the entity. If not present
@@ -543,7 +543,7 @@ class Marshaller {
      *
      * - validate: Whether to validate data before hydrating the entities. Can
      *  also be set to a string to use a specific validator. Defaults to true/default.
-     * - associated: Associations listed here will be marshalled as well.
+     * - associated: DAssociations listed here will be marshalled as well.
      * - fields: An allowed list of fields to be assigned to the entity. If not present,
      *  the accessible fields list in the entity will be used.
      * - accessibleFields: A list of fields to allow or deny in entity accessible fields.

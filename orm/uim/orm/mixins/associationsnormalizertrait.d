@@ -1,4 +1,4 @@
-module uim.orm;
+module uim.orm.uim.orm.mixins.associationsnormalizertrait;
 
 import uim.orm;
 

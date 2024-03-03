@@ -17,7 +17,7 @@ import uim.orm;
  *
  * An example of a HasOne association would be User has one Profile.
  */
-class HasOne : Association {
+class HasOne : DAssociation {
     /**
      * Valid strategies for this type of association
      *

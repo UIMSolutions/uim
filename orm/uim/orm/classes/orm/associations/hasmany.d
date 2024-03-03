@@ -14,7 +14,7 @@ import uim.orm;
  *
  * An example of a HasMany association would be Author has many Articles.
  */
-class HasMany : Association {
+class HasMany : DAssociation {
     /**
      * Order in which target records should be returned
      *

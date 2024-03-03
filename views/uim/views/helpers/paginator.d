@@ -40,7 +40,7 @@ class PaginatorHelper : Helper {
      * Templates: the templates used by this class
      *
      */
-    protected IConfiguration _defaultConfiguration = [
+    protected IConfiguration Configuration.updateDefaults([
         "params": [],
         "options": [],
         "templates": [

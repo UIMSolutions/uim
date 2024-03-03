@@ -26,7 +26,7 @@ class FormHelper : Helper {
     protected array myhelpers = ["Url", "Html"];
 
     // Default config for the helper.
-    protected IConfiguration _defaultConfiguration = [
+    protected IConfiguration Configuration.updateDefaults([
         "idPrefix": null,
         "errorClass": "form-error",
         "typeMap": [

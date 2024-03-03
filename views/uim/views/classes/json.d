@@ -69,7 +69,7 @@ class JsonView : SerializedView
      *    for finding the JSONP callback name.
      *
      */
-    protected IConfiguration _defaultConfiguration = [
+    protected IConfiguration Configuration.updateDefaults([
         "serialize": null,
         "jsonOptions": null,
         "jsonp": null,

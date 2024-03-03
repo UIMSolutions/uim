@@ -19,7 +19,7 @@ abstract class SerializedView : View {
      *  names. If true all view variables will be serialized. If null or false
      *  normal view template will be rendered.
      */
-    protected IConfiguration _defaultConfiguration = [
+    protected IConfiguration Configuration.updateDefaults([
         "serialize": null,
     ];
 

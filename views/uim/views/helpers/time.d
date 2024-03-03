@@ -15,7 +15,7 @@ import uim.views;
 class TimeHelper : Helper {
     use StringTemplateTrait;
 
-    protected IConfiguration _defaultConfiguration = [
+    protected IConfiguration Configuration.updateDefaults([
                 "outputTimezone": null,
     ];
 

@@ -23,7 +23,7 @@ class BreadcrumbsHelper : Helper {
      * Default config for the helper.
      *
      */
-    protected IConfiguration _defaultConfiguration = [
+    protected IConfiguration Configuration.updateDefaults([
         "templates": [
             "wrapper": "<ul{{attrs}}>{{content}}</ul>",
             "item": "<li{{attrs}}><a href="{{url}}"{{innerAttrs}}>{{title}}</a></li>{{separator}}",

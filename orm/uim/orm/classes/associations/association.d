@@ -55,9 +55,7 @@ abstract class DAssociation {
      */
     protected string my_name;
 
-    /**
-     * The class name of the target table object
-     */
+    // The class name of the target table object
     protected string my_className;
 
     /**
@@ -95,12 +93,10 @@ abstract class DAssociation {
     protected bool my_cascadeCallbacks = false;
 
     // Source table instance
-    protected Table my_sourceTable;
+    protected ITable my_sourceTable;
 
-    /**
-     * Target table instance
-     */
-    protected Table my_targetTable;
+    // Target table instance
+    protected ITable my_targetTable;
 
     /**
      * The type of join to be used when adding the association to a query
@@ -143,7 +139,7 @@ abstract class DAssociation {
      * string myalias The name given to the association
      * @param IData[string] options A list of properties to be set on this object
      */
-    this(string myalias, IData[string] optionData = null) {
+    this(string aliasName, IData[string] optionData = null) {
         mydefaults = [
             "cascadeCallbacks",
             "className",
@@ -164,41 +160,23 @@ abstract class DAssociation {
             }
         }
         if (isEmpty(_className)) {
-           _className = myalias;
+           _className = aliasName;
         }
-        [, myname] = pluginSplit(myalias);
+        [, myname] = pluginSplit(aliasName);
        _name = myname;
 
-       _options(options);
+       _options(optionData);
 
         if (!empty(options["strategy"])) {
             this.setStrategy(options["strategy"]);
         }
     }
     
-    /**
-     * Gets the name for this association, usually the alias
-     * assigned to the target associated table
-     */
-    @property string name() {
-        return _name;
-    }
+    // Gets the name for this association / alias to the target associated table
+    mixin(TProperty!("string", "name"));
     
-    /**
-     * Sets whether cascaded deletes should also fire callbacks.
-     * Params:
-     * bool mycascadeCallbacks cascade callbacks switch value
-     */
-    void setCascadeCallbacks(bool mycascadeCallbacks) {
-       _cascadeCallbacks = mycascadeCallbacks;
-    }
-    
-    /**
-     * Gets whether cascaded deletes should also fire callbacks.
-     */
-   bool getCascadeCallbacks() {
-        return _cascadeCallbacks;
-    }
+    // Get / Set whether cascaded deletes should also fire callbacks.
+     mixin(TProperty!("bool", "cascadeCallbacks"));
     
     /**
      * Sets the class name of the target table object.
@@ -228,37 +206,22 @@ abstract class DAssociation {
         return _className;
     }
     
-    /**
-     * Sets the table instance for the source side of the association.
-     * Params:
-     * \UIM\ORM\Table mytable the instance to be assigned as source side
-     */
-    auto setSource(Table mytable) {
-       _sourceTable = mytable;
+    // Get / Set the table instance for the source side of the association.
+    mixin(TProperty!("ITable", "sourceTable"));
 
-        return this;
-    }
-    
-    /**
-     * Gets the table instance for the source side of the association.
-     */
-    Table getSource() {
-        return _sourceTable;
-    }
-    
     /**
      * Sets the table instance for the target side of the association.
      * Params:
      * \UIM\ORM\Table mytable the instance to be assigned as target side
      */
-    void setTarget(Table mytable) {
-       _targetTable = mytable;
+    void setTargetTable(ITable table) {
+       _targetTable = table;
     }
     
     /**
      * Gets the table instance for the target side of the association.
      */
-    Table getTarget() {
+    Table getTargetTable() {
         if (!isSet(_targetTable)) {
             if (_className.has(".")) {
                 [myplugin] = pluginSplit(_className, true);
@@ -342,7 +305,7 @@ abstract class DAssociation {
         if (!isSet(_bindingKey)) {
            _bindingKey = this.isOwningSide(this.getSource()) ?
                 this.getSource().getPrimaryKey():
-                this.getTarget().getPrimaryKey();
+                this.getTargetTable().getPrimaryKey();
         }
         return _bindingKey;
     }
@@ -504,7 +467,7 @@ abstract class DAssociation {
      * @param IData[string] options Any extra options or overrides to be taken in account
      */
     auto attachTo(SelectQuery myquery, IData[string] optionData = null) {
-        auto mytarget = this.getTarget();
+        auto mytarget = this.getTargetTable();
         auto mytable = mytarget.getTable();
 
         options += [
@@ -575,7 +538,7 @@ abstract class DAssociation {
      * @param IData[string] options Options array containing the `negateMatch` key.
      */
     protected void _appendNotMatching(SelectQuery myquery, IData[string] options) {
-        mytarget = this.getTarget();
+        mytarget = this.getTargetTable();
         if (!empty(options["negateMatch"])) {
             myprimaryKey = myquery.aliasFields((array)mytarget.getPrimaryKey(), _name);
             myquery.andWhere(function (myexp) use (myprimaryKey) {
@@ -645,7 +608,7 @@ abstract class DAssociation {
 
         myargs += myopts;
 
-        return this.getTarget()
+        return this.getTargetTable()
             .find(mytype, ...myargs)
             .where(this.getConditions());
     }
@@ -663,7 +626,7 @@ abstract class DAssociation {
             .where(myconditions)
             .clause("where");
 
-        return this.getTarget().exists(myconditions);
+        return this.getTargetTable().exists(myconditions);
     }
     
     /**
@@ -680,7 +643,7 @@ abstract class DAssociation {
             .where(myconditions)
             .clause("where");
 
-        return this.getTarget().updateAll(myfields, myexpression);
+        return this.getTargetTable().updateAll(myfields, myexpression);
     }
     
     /**
@@ -694,7 +657,7 @@ abstract class DAssociation {
             .where(myconditions)
             .clause("where");
 
-        return this.getTarget().deleteAll(myexpression);
+        return this.getTargetTable().deleteAll(myexpression);
     }
     
     /**
@@ -737,10 +700,10 @@ abstract class DAssociation {
             (isEmpty(myfields) && options["includeFields"]) ||
             mysurrogate.isAutoFieldsEnabled()
         ) {
-            myfields = array_merge(myfields, this.getTarget().getSchema().columns());
+            myfields = array_merge(myfields, this.getTargetTable().getSchema().columns());
         }
         myquery.select(myquery.aliasFields(myfields, _name));
-        myquery.addDefaultTypes(this.getTarget());
+        myquery.addDefaultTypes(this.getTargetTable());
     }
     
     /**
@@ -850,7 +813,7 @@ abstract class DAssociation {
 
         if (count(myforeignKey) != count(mybindingKey)) {
             if (isEmpty(mybindingKey)) {
-                mytable = this.getTarget().getTable();
+                mytable = this.getTargetTable().getTable();
                 if (this.isOwningSide(this.getSource())) {
                     mytable = this.getSource().getTable();
                 }
@@ -908,7 +871,7 @@ abstract class DAssociation {
      * @throws \RuntimeException if no association with such name exists
      */
     Association __get(string myproperty) {
-        return this.getTarget().{myproperty};
+        return this.getTargetTable().{myproperty};
     }
     
     /**
@@ -916,7 +879,7 @@ abstract class DAssociation {
      * target table has another association with the passed name
      */
     bool __isSet(string propertyName) {
-        return isSet(this.getTarget().{propertyName});
+        return isSet(this.getTargetTable().{propertyName});
     }
     
     /**
@@ -926,7 +889,7 @@ abstract class DAssociation {
      * @param array myargument List of arguments passed to the function
      */
     Json __call(string mymethod, array myargument) {
-        return this.getTarget().mymethod(...myargument);
+        return this.getTargetTable().mymethod(...myargument);
     }
     
     /**

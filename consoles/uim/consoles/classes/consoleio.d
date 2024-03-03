@@ -425,7 +425,7 @@ class ConsoleIo {
      *
      * Used to enable or disable logging stream output to stdout and stderr
      * If you don`t wish all log output in stdout or stderr
-     * through Cake`s Log class, call this auto with `$enable=false`.
+     * through Cake`s Log class, call this auto with `enable=false`.
      *
      * If you would like to take full control of how console application logging
      * to stdout works add a logger that uses `'className": 'Console'`. By
@@ -439,7 +439,7 @@ class ConsoleIo {
     void setLoggers(int|bool enable) {
         Log.drop("stdout");
         Log.drop("stderr");
-        if ($enable == false) {
+        if (enable == false) {
             return;
         }
         // If the application has configured a console logger
@@ -451,10 +451,10 @@ class ConsoleIo {
             }
         }
         outLevels = ["notice", "info"];
-        if ($enable == VERBOSE || enable == true) {
+        if (enable == VERBOSE || enable == true) {
             outLevels ~= "debug";
         }
-        if ($enable != QUIET) {
+        if (enable != QUIET) {
             stdout = new ConsoleLog([
                 "types": outLevels,
                 "stream": _out,
@@ -539,7 +539,7 @@ class ConsoleIo {
             return false;
         }
         file.rewind();
-        file.fwrite($contents);
+        file.fwrite(contents);
         if (file_exists(somePath)) {
             this.writeln("<success>Wrote</success> `{somePath}`");
 

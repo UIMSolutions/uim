@@ -100,7 +100,7 @@ class CommandCollection { // : IteratorAggregate, Countable {
 
              className =  anInfo["class"];
              result[infoName] = className;
-            if ($addLong) {
+            if (addLong) {
                  result[anInfo["fullName"]] = className;
             }
         }

@@ -111,7 +111,7 @@ abstract class Command : ICommand, IEventDispatcher {
 
         aParser = this.getOptionParser();
         try {
-            [options, arguments] = aParser.parse($argv, aConsoleIo);
+            [options, arguments] = aParser.parse(argv, aConsoleIo);
             someArguments = new Arguments(
                 arguments,
                 options,
@@ -207,8 +207,8 @@ abstract class Command : ICommand, IEventDispatcher {
      */
     int executeCommand(string acommand, array someArguments = [],  ? ConsoleIo aConsoleIo = null) {
         assert(
-            isSubclass_of($command, ICommand.classname),
-            "Command `%s` is not a subclass of `%s`.".format($command, ICommand.classname)
+            isSubclass_of(command, ICommand.classname),
+            "Command `%s` is not a subclass of `%s`.".format(command, ICommand.classname)
         );
 
         auto newCommand = new command();

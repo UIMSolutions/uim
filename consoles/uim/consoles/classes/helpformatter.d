@@ -8,7 +8,7 @@ import uim.consoles;
  * HelpFormatter formats help for console shells. Can format to either
  * text or XML formats. Uses ConsoleOptionParser methods to generate help.
  *
- * Generally not directly used. Using myParser.help($command, "xml"); is usually
+ * Generally not directly used. Using myParser.help(command, "xml"); is usually
  * how you would access help. Or via the `--help=xml` option on the command line.
  *
  * Xml output is useful for integration with other tools like IDE`s or other build tools.
@@ -82,7 +82,7 @@ class HelpFormatter {
             result ~= "<info>Arguments:</info>";
             result ~= "";
             parserArguments.each!(argument => 
-                result ~= Text.wrapBlock($argument.help($max), [
+                result ~= Text.wrapBlock(argument.help($max), [
                     "width": withOfOutput,
                     "indent": str_repeat(" ", max),
                     "indentAt": 1,

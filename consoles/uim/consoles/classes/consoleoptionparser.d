@@ -98,7 +98,7 @@ class ConsoleOptionParser {
      * this to false will prevent the addition of `--verbose` & `--quiet` options.
      */
     this(string acommand = "", bool defaultOptions = true) {
-        this.setCommand($command);
+        this.setCommand(command);
 
         this.addOption("help", [
             "short": "h",
@@ -126,7 +126,7 @@ class ConsoleOptionParser {
      * @param bool defaultOptions Whether you want the verbose and quiet options set.
      */
     static auto create(string acommand, bool defaultOptions = true) {
-        return new static($command, defaultOptions);
+        return new static(command, defaultOptions);
     }
     
     /**
@@ -342,11 +342,11 @@ class ConsoleOptionParser {
             options.remove("index");
             arg = new ConsoleInputArgument(options);
         }
-        foreach ($a; _args) {
-            if ($a.isEqualTo($arg)) {
+        foreach (a; _args) {
+            if (a.isEqualTo(arg)) {
                 return;
             }
-            if (!empty(options["required"]) && !$a.isRequired()) {
+            if (!empty(options["required"]) && !a.isRequired()) {
                 throw new LogicException("A required argument cannot follow an optional one");
             }
         }
@@ -421,7 +421,7 @@ class ConsoleOptionParser {
                 afterDoubleDash = true;
                 continue;
             }
-            if ($afterDoubleDash) {
+            if (afterDoubleDash) {
                 // only positional arguments after --
                 someArguments = _parseArg($token, someArguments);
                 continue;
@@ -438,9 +438,9 @@ class ConsoleOptionParser {
             return [$params, someArguments];
         }
         foreach (anI: arg; _args) {
-            if ($arg.isRequired() && !isSet(someArguments[anI])) {
+            if (arg.isRequired() && !isSet(someArguments[anI])) {
                 throw new ConsoleException(
-                    "Missing required argument. The `%s` argument is required.".format($arg.name())
+                    "Missing required argument. The `%s` argument is required.".format(arg.name())
                 );
             }
         }
@@ -465,7 +465,7 @@ class ConsoleOptionParser {
                     );
                 }
                 choices = option.choices();
-                if ($choices) {
+                if (choices) {
                     aValue = aConsoleIo.askChoice($prompt, choices);
                 } else {
                     aValue = aConsoleIo.ask($prompt);
@@ -636,7 +636,7 @@ class ConsoleOptionParser {
                 .format($next, $expected)
             );
         }
-       _args[$next].validChoice($argument);
+       _args[$next].validChoice(argument);
         someArguments ~= argument;
 
         return someArguments;

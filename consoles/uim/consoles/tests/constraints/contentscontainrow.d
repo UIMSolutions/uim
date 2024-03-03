@@ -15,8 +15,8 @@ class ContentsContainRow : ContentsRegExp {
      * Json other Row
      */
     bool matches(Json other) {
-        string[] row = array_map(function ($cell) {
-            return preg_quote($cell, "/");
+        string[] row = array_map(function (cell) {
+            return preg_quote(cell, "/");
         }, (array)$other);
         
         string cells = row.join("\s+\|\s+", );

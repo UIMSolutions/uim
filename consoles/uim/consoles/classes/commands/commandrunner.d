@@ -85,7 +85,7 @@ class CommandRunner : IEventDispatcher {
      * @param \UIM\Console\ConsoleIo|null  aConsoleIo The ConsoleIo instance. Used primarily for testing.
      */
     int run(array argv, ?ConsoleIo aConsoleIo = null) {
-        assert(!$argv.isEmpty, "Cannot run any commands. No arguments received.");
+        assert(!argv.isEmpty, "Cannot run any commands. No arguments received.");
 
         this.bootstrap();
 
@@ -104,7 +104,7 @@ class CommandRunner : IEventDispatcher {
         this.loadRoutes();
 
         // Remove the root executable segment
-        array_shift($argv);
+        array_shift(argv);
 
         aConsoleIo = aConsoleIo ?aConsoleIo : new ConsoleIo();
 
@@ -118,7 +118,7 @@ class CommandRunner : IEventDispatcher {
         }
         auto command = this.getCommand(aConsoleIo, myCommands, name);
         
-        auto result = this.runCommand($command, argv,  aConsoleIo);
+        auto result = this.runCommand(command, argv,  aConsoleIo);
         if (result.isNull) {
             return ICommand.CODE_SUCCESS;
         }
@@ -174,7 +174,7 @@ class CommandRunner : IEventDispatcher {
          anInstance.name("{this.root} %s".format(commandName));
 
         if (cast(ICommandCollectionAware) anInstance) {
-             anInstance.setCommandCollection($commands);
+             anInstance.setCommandCollection(commands);
         }
         return anInstance;
     }
@@ -190,13 +190,13 @@ class CommandRunner : IEventDispatcher {
      */
     protected array longestCommandName(CommandCollection commands, array argv) {
         for (anI = 3;  anI > 1;  anI--) {
-            someParts = array_slice($argv, 0,  anI);
+            someParts = array_slice(argv, 0,  anI);
             name = someParts.join(" ");
-            if ($commands.has(name)) {
-                return [name, array_slice($argv,  anI)];
+            if (commands.has(name)) {
+                return [name, array_slice(argv,  anI)];
             }
         }
-        name = array_shift($argv);
+        name = array_shift(argv);
 
         return [name, argv];
     }
@@ -219,10 +219,10 @@ class CommandRunner : IEventDispatcher {
             name = "help";
         }
         name = _aliases[name] ?? name;
-        if (!$commands.has(name)) {
+        if (!commands.has(name)) {
             name = Inflector.underscore(name);
         }
-        if (!$commands.has(name)) {
+        if (!commands.has(name)) {
             throw new MissingOptionException(
                 "Unknown command `{this.root} {name}`. " .
                 "Run `{this.root} --help` to get the list of commands.",
@@ -242,10 +242,10 @@ class CommandRunner : IEventDispatcher {
      */
     protected int runCommand(ICommand command, array argv, ConsoleIo aConsoleIo) {
         try {
-            if (cast(IEventDispatcher)$command) {
+            if (cast(IEventDispatcher)command) {
                 command.setEventManager(this.getEventManager());
             }
-            return command.run($argv,  aConsoleIo);
+            return command.run(argv,  aConsoleIo);
         } catch (StopException  anException) {
             return anException.getCode();
         }
@@ -258,7 +258,7 @@ class CommandRunner : IEventDispatcher {
             if (cast(IContainerApplication)this.app) {
                 container = this.app.getContainer();
             }
-            this.factory = new CommandFactory($container);
+            this.factory = new CommandFactory(container);
         }
         return this.factory.create(className);
     }

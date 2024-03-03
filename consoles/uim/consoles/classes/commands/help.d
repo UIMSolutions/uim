@@ -31,7 +31,7 @@ class HelpCommand : Command, ICommandCollectionAware {
     
     /**
      * Output text.
-     * @param iterable<string, string|object> $commands The command collection to output.
+     * @param iterable<string, string|object> commands The command collection to output.
      */
     protected void asText(ConsoleIo aConsoleIo, STRINGAA commands) {
         string[][string] myInvert = [];

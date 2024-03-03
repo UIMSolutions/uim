@@ -205,10 +205,10 @@ template ConsoleIntegrationTestTemplate {
          anInDQuote = false;
          anInSQuote = false;
         for (anI = 0;  anI < charCount;  anI++) {
-            string char = substr($command,  anI, 1);
+            string char = substr(command,  anI, 1);
 
             // end of argument
-            if ($char == " " && !anInDQuote && !anInSQuote) {
+            if (char == " " && !anInDQuote && !anInSQuote) {
                 if (!argument.isEmpty) {
                     argv ~= argument;
                 }
@@ -226,12 +226,12 @@ template ConsoleIntegrationTestTemplate {
                 continue;
             }
             // entering double quote
-            if ($char == `""` && !anInSQuote) {
+            if (char == `""` && !anInSQuote) {
                  anInDQuote = true;
                 continue;
             }
             // entering single quote
-            if ($char == "'" && !anInDQuote) {
+            if (char == "'" && !anInDQuote) {
                  anInSQuote = true;
                 continue;
             }

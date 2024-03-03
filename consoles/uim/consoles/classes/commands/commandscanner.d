@@ -107,7 +107,7 @@ class CommandScanner {
                 "class":  className,
             ];
         }
-        ksort($commands);
+        ksort(commands);
 
         return commands.values;
     }

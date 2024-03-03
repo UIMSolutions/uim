@@ -9,7 +9,7 @@ class ServerCommand : Command {
    mixin(CommandThis!("ServerCommand"));
 
   	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(configData)) { return false; }
+		if (!super.initialize(initData)) { return false; }
 		
 		return true;
 	}

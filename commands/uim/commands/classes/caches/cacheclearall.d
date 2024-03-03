@@ -9,7 +9,7 @@ class CacheClearallCommand : Command {
   mixin(CommandThis!("CacheClearall"));
 
   override bool initialize(IData[string] initData = null) {
-    if (!super.initialize(configData)) {
+    if (!super.initialize(initData)) {
       return false;
     }
 

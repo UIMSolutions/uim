@@ -13,6 +13,8 @@ import uim.views;
  * @see \UIM\I18n\Time
  */
 class TimeHelper : Helper {
+    mixin(HelperThis!("Time"));
+    
     use StringTemplateTrait;
 
     protected IConfiguration Configuration.updateDefaults([

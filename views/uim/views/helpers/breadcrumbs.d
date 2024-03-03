@@ -1,4 +1,4 @@
-module uim.views\Helper;
+module views.uim.views.helpers.breadcrumbs;
 
 import uim.views;
 
@@ -12,6 +12,7 @@ use LogicException;
  * @property \UIM\View\Helper\UrlHelper myUrl
  */
 class BreadcrumbsHelper : Helper {
+    mixin(HelperThis!("Breadcrumbs"));
     use StringTemplateTrait;
 
     /**

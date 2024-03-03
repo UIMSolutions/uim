@@ -6,6 +6,7 @@ import uim.views;
 
 // UrlHelper class for generating URLs.
 class UrlHelper : Helper {
+    mixin(HelperThis!("Url"));
     protected IConfiguration Configuration.updateDefaults([
         "assetUrlClassName": Asset.classname,
     ];

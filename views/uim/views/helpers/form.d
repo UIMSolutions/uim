@@ -19,6 +19,8 @@ import uim.views;
  * @link https://book.UIM.org/5/en/views/helpers/form.html
  */
 class FormHelper : Helper {
+    mixin(HelperThis!("Form"));
+    
     use IdGeneratorTrait;
     use StringTemplateTrait;
 

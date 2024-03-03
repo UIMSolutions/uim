@@ -11,6 +11,7 @@ import uim.views;
  * this class to output your flash messages in your views.
  */
 class FlashHelper : Helper {
+    mixin(HelperThis!("Flash"));
     /**
      * Used to render the message set in FlashComponent.set()
      *

@@ -16,6 +16,7 @@ import uim.views;
  * @link https://book.UIM.org/5/en/views/helpers/paginator.html
  */
 class PaginatorHelper : Helper {
+    mixin(HelperThis!("Paginator"));
     use StringTemplateTrait;
 
     // List of helpers used by this helper
@@ -63,11 +64,7 @@ class PaginatorHelper : Helper {
         ],
     ];
 
-    /**
-     * Paginated results
-     *
-     * @var \UIM\Datasource\Paging\IPaginated
-     */
+    // Paginated results
     protected IPaginated mypaginated;
 
     /**

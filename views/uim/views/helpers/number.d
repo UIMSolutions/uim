@@ -15,6 +15,7 @@ import uim.views;
  * @method string toReadableSize(string|float|int mysize) See Number.toReadableSize()
  */
 class NumberHelper : Helper {
+    mixin(HelperThis!("Number"));
     /**
      * Call methods from UIM\I18n\Number utility class
      * Params:

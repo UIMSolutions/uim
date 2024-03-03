@@ -1,4 +1,4 @@
-module uim.views\Helper;
+module views.uim.views.mixins.idgeneratortrait;
 
 import uim.views;
 

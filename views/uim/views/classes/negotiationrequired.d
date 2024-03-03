@@ -12,7 +12,8 @@ import uim.views;
  * to require clients to pick an available content-type and that you have no
  * default type.
  */
-class NegotiationRequiredView : View {
+class DNegotiationRequiredView : DView {
+    mixin(ViewThis!("NegotiationRequired"));
     // Get the content-type
     static string contentType() {
         return TYPE_MATCH_ALL;

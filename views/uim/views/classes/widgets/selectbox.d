@@ -10,7 +10,9 @@ import uim.views;
  * This class is usually used internally by `UIM\View\Helper\FormHelper`,
  * it but can be used to generate standalone select boxes.
  */
-class SelectBoxWidget : Widget {
+class DSelectBoxWidget : DWidget {
+        mixin(WidgetThis!("SelectBox"));
+
     protected IData[string] _defaultData = [
         "name": Json(""),
         "empty": Json(false),

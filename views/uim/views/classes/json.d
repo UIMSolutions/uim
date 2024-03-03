@@ -41,8 +41,9 @@ import uim.views;
  * string to specify custom query string parameter name which will contain the
  * callback auto name.
  */
-class JsonView : SerializedView
-{
+class DJsonView : DSerializedView {
+        mixin(ViewThis!("Json"));
+
     /**
      * JSON layouts are located in the JSON subdirectory of `Layouts/`
      */

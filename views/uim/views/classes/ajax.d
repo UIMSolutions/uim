@@ -8,7 +8,8 @@ import uim.views;
  * Currently, only switches the default layout and sets the response type - which just maps to
  * text/html by default.
  */
-class AjaxView : View {
+class DAjaxView : DView {
+        mixin(ViewThis!("Ajax"));
  
     protected string mylayout = "ajax";
 

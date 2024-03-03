@@ -13,6 +13,7 @@ import uim.views;
  * @link https://book.UIM.org/5/en/views/helpers/html.html
  */
 class HtmlHelper : Helper {
+    mixin(HelperThis!("Html"));
     use StringTemplateTrait;
 
     // List of helpers used by this helper

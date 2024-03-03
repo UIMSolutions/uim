@@ -14,6 +14,8 @@ use InvalidArgumentException;
  * it but can be used to generate standalone calendar year select boxes.
  */
 class YearWidget : DWidget {
+        mixin(WidgetThis!("Year"));
+
     // Data defaults.
     protected IData[string] _defaultData = [
         "name": "",

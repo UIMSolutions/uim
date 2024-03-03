@@ -37,6 +37,16 @@ class FormContext : IContext {
        _validator = mycontext.get("validator", null);
     }
  
+   bool initialize(IData[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
+
+    configuration(new DConfiguration);
+    configuration.update(initData);
+
+    return true;
+  }
     array getPrimaryKey() {
         return null;
     }

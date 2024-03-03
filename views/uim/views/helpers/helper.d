@@ -26,6 +26,27 @@ import uim.views;
  *  If a listener returns a non-null value, the output of the rendered file will be set to that.
  */
 class Helper : IEventListener {
+    this(View myview, IData[string] helperSettings = null) {
+       _View = myview;
+        configuration.update(helperSettings);
+
+        if (this.helpers) {
+            this.helpers = myview.helpers().normalizeArray(this.helpers);
+        }
+        this.initialize(helperSettings);
+    }
+
+  bool initialize(IData[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
+
+    configuration(new DConfiguration);
+    configuration.update(initData);
+
+    return true;
+  }
+
     mixin InstanceConfigTemplate;
 
     // List of helpers used by this helper
@@ -38,18 +59,8 @@ class Helper : IEventListener {
     protected Helper[string] myhelperInstances = [];
 
     // The View instance this helper is attached to
-    protected View my_View;
+    protected IView _view;
 
-    this(View myview, IData[string] helperSettings = null) {
-       _View = myview;
-        configuration.update(helperSettings);
-
-        if (this.helpers) {
-            this.helpers = myview.helpers().normalizeArray(this.helpers);
-        }
-        this.initialize(helperSettings);
-    }
-    
     /**
      * Lazy loads helpers.
      */
@@ -66,8 +77,8 @@ class Helper : IEventListener {
     }
     
     // Get the view instance this helper is bound to.
-    View getView() {
-        return _View;
+    IView getView() {
+        return _view;
     }
     
     /**
@@ -132,13 +143,8 @@ class Helper : IEventListener {
      * Params:
      * IData[string] helperSettings The configuration settings provided to this helper.
      */
-<<<<<<< HEAD
-    bool initialize(IData[string] myConfiguration = Json(null)) {
-       _defaultConfigData = Json .emptyObject;
-=======
     bool initialize(IData[string] initData = null) {
        _defaultConfig = Json .emptyObject;
->>>>>>> 281012f1b957b2df089e0f9ff60905fca492f311
     }
     
     // Returns an array that can be used to describe the internal state of this object.

@@ -33,14 +33,14 @@ class RedisEngine : CacheEngine {
      *
      * Called automatically by the cache frontend
      */
-    bool initialize(IData[string] initData = null) {
+    override bool initialize(IData[string] initData = null) {
+    if (!super.initialize(initData)) { return false; }
         if (!extension_loaded("redis")) {
             throw new UimException("The `redis` extension must be enabled to use RedisEngine.");
         }
         if (auto host = initData.get("host", null)) {
             initData["server"] = host;
         }
-        super.initialize(initData);
 
         _defaultConfigData = [
         "database": Json(0),

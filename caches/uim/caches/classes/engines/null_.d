@@ -10,7 +10,7 @@ import uim.caches;
  */
 class NullEngine : CacheEngine {
 
-  bool initialize(IData[string] initData = null) {
+  override bool initialize(IData[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
     return true;

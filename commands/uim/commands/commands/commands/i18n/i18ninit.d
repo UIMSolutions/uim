@@ -8,7 +8,7 @@ import uim.commands;
 class I18nInitCommand : Command {
    mixin(CommandThis!("I18nInit"));
 
-  	override bool initialize(Iconfiguration.getData(string] configData = null) {
+  	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(configData)) { return false; }
 		
 		return true;

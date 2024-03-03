@@ -79,11 +79,13 @@ class ProgressHelper : Helper {
      * array commandArguments The initialization data.
 
      */
-  bool initialize(array commandArguments = []) {
-    commandArguments += ["total": self: : DEFAULT_TOTAL, "width": self: : DEFAULT_WIDTH];
+  override bool initialize(IData[string] initData = null) {
+		if (!super.initialize(initData)) { return false; }
+
+    initData += ["total": self: : DEFAULT_TOTAL, "width": self: : DEFAULT_WIDTH];
     _progress = 0;
-    _width = commandArguments["width"];
-    _total = commandArguments["total"];
+    _width = initData["width"];
+    _total = initData["total"];
   }
 
   /**

@@ -50,8 +50,10 @@ class FileEngine : CacheEngine {
      * Called automatically by the cache frontend.
      * configData - array of setting for the engine
      */
-    bool initialize(IData[string] initData = null) {
-        super.initialize(initData);
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
        configuration.getData("path"] ??= sys_get_temp_dir() ~ DIRECTORY_SEPARATOR ~ "cake_cache" ~ DIRECTORY_SEPARATOR;
         if (substr(configuration.getData("path"], -1) != DIRECTORY_SEPARATOR) {

@@ -413,7 +413,7 @@ class NumericPaginator : IPaginator {
             scope = settings["scope"];
             requestParameters = !empty(requestParameters[$scope]) ? (array)requestParameters[$scope] : [];
         }
-        requestParameters = array_intersect_key(requestParameters, array_flip(_configData.isSet("allowedParameters")));
+        requestParameters = array_intersect_key(requestParameters, array_flip(configurationData.isSet("allowedParameters")));
 
         return chain($settings, requestParameters);
     }

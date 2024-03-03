@@ -148,7 +148,7 @@ class Log {
         _registry ??= new LogEngineRegistry();
 
         if (_isDirtyConfig) {
-            foreach (_config as name: properties) {
+            foreach (configuration as name: properties) {
                 if (isSet(properties["engine"])) {
                     properties["className"] = properties["engine"];
                 }
@@ -174,7 +174,7 @@ class Log {
         if (isSet(_registry)) {
             _registry.reset();
         }
-        _config = [];
+        configuration = [];
         _isDirtyConfig = true;
     }
     
@@ -227,7 +227,7 @@ class Log {
      * @param \Psr\Log\ILogger|\Closure|IData[string]|null configData An array of name: config data for adapter.
      */
     static void configuration.update(string[] aKey, ILogger|Closure|array|null configData = null) {
-        _configuration.update(aKey, configData);
+        configurationuration.update(aKey, configData);
         _isDirtyConfig = true;
     }
     

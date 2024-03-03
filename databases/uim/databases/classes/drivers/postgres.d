@@ -39,7 +39,7 @@ class PostgresDriver : Driver {
             return;
         }
 
-        auto configData = _config;
+        auto configData = configuration;
         configData["flags"].data([
             PDO.ATTR_PERSISTENT: configData["persistent"],
             PDO.ATTR_EMULATE_PREPARES: false,

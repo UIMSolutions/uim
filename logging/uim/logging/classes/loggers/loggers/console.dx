@@ -39,7 +39,7 @@ class ConsoleLog : BaseLog {
     this(IConfigData[string] configData = null) {
         super(configData);
 
-        configData = _config;
+        configData = configuration;
         if (cast(ConsoleOutput)configData["stream"]) {
            _output = configData["stream"];
         }  else if (isString(configData["stream"])) {

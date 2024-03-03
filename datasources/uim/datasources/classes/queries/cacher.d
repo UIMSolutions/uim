@@ -32,7 +32,7 @@ class QueryCacher
      *
      * @var \Psr\SimpleCache\ICache|string
      */
-    protected _config;
+    protected configuration;
 
     /**
      * Constructor.
@@ -50,7 +50,7 @@ class QueryCacher
         if (!is_string(myConfiguration) && !(myConfiguration instanceof ICache)) {
             throw new RuntimeException("Cache configs must be strings or \Psr\SimpleCache\ICache instances.");
         }
-        _config = myConfiguration;
+        configuration = myConfiguration;
     }
 
     /**
@@ -111,10 +111,10 @@ class QueryCacher
      * @return \Psr\SimpleCache\ICache
      */
     protected function _resolveCacher() {
-        if (is_string(_config)) {
-            return Cache::pool(_config);
+        if (is_string(configuration)) {
+            return Cache::pool(configuration);
         }
 
-        return _config;
+        return configuration;
     }
 }

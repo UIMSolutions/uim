@@ -72,7 +72,7 @@ class SysLogger : Logger {
      */
     void log(level, string messageToLog, array context = []) {
         if (!_open) {
-            configData = _config;
+            configData = configuration;
            _open(configData["prefix"], configData["flag"], configData["facility"]);
            _open = true;
         }

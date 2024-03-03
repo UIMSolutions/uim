@@ -59,7 +59,7 @@ class ConnectionManager {
         if (isArray(configData)) {
             configData("name", aKey);
         }
-        _configuration.update(aKey, configData);
+        configurationuration.update(aKey, configData);
     }
 
     /**
@@ -161,7 +161,7 @@ class ConnectionManager {
         if ($useAliases && isset(_aliasMap[name])) {
             name = _aliasMap[name];
         }
-        if (empty(_config[name])) {
+        if (empty(configuration[name])) {
             throw new MissingDatasourceConfigException(["name": name]);
         }
         /** @psalm-suppress RedundantPropertyInitializationCheck */
@@ -173,7 +173,7 @@ class ConnectionManager {
             name
         }
         
-        ?  ? _registry.load(name, _config[name]);
+        ?  ? _registry.load(name, configuration[name]);
     }
 }
 /**

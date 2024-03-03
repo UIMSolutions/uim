@@ -17,7 +17,7 @@ class QueryCacher {
     protected Closure|string _key;
 
     // Config for cache engine.
-    protected ICache|string _config;
+    protected ICache|string configuration;
 
     /**
      * Constructor.
@@ -28,7 +28,7 @@ class QueryCacher {
      */
     this(Closure|string aKey, ICache|string configData) {
        _key = aKey;
-       _config = configData;
+       configuration = configData;
     }
     
     /**
@@ -80,9 +80,9 @@ class QueryCacher {
 
     // Get the cache engine.
     protected ICache _resolveCacher() {
-        if (isString(_config)) {
-            return Cache.pool(_config);
+        if (isString(configuration)) {
+            return Cache.pool(configuration);
         }
-        return _config;
+        return configuration;
     }
 }

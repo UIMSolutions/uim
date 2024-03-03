@@ -65,7 +65,7 @@ class SqliteDriver : Driver {
         if (isSet(this.pdo)) {
             return;
         }
-        configData = _config;
+        configData = configuration;
         configData["flags"] += [
             PDO.ATTR_PERSISTENT: configData["persistent"],
             PDO.ATTR_EMULATE_PREPARES: false,

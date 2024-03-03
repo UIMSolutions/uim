@@ -12,8 +12,8 @@ class DArrayDataData : DArrayData {
   mixin(DataThis!("ArrayDataData", "IData[]"));
 
   // Initialization hook method.
-  override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) {
+  override bool initialize(IData[string] initData = null) {
+    if (!super.initialize(initData)) {
       return false;
     }
 

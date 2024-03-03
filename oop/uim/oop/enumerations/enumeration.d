@@ -13,7 +13,7 @@ class DEnumeration(K, V) : IEnumeration, ICloneable {
     initialize;
   }
   
-  bool initialize(Json initData = null) {
+  bool initialize(IData[string] initData = null) {
     return true;
   }
                   

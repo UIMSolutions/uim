@@ -38,10 +38,10 @@ trait StringTemplateTrait {
     StringTemplate templater() {
         if (_templater.isNull) {
             /** @var class-string<\UIM\View\StringTemplate> myclass */
-            myclass = _configData.isSet("templateClass") ?: StringTemplate.classname;
+            myclass = configurationData.isSet("templateClass") ?: StringTemplate.classname;
            _templater = new myclass();
 
-            mytemplates = _configData.isSet("templates");
+            mytemplates = configurationData.isSet("templates");
             if (mytemplates) {
                 if (isString(mytemplates)) {
                    _templater.add(_defaultConfigData["templates"]);

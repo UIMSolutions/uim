@@ -23,7 +23,7 @@ class StringTemplate {
     protected IConfiguration _defaultConfiguration;
 
     // A stack of template sets that have been stashed temporarily.
-    // TODO protected array my_configStack = [];
+    // TODO protected array myconfigurationStack = [];
 
     // Contains the list of compiled templates
     protected string[] compiledtemplates;
@@ -83,18 +83,18 @@ class StringTemplate {
 
     // Push the current templates into the template stack.
     void push() {
-       _configStack ~= [
-           _config,
+       configurationStack ~= [
+           configuration,
            _compiled,
         ];
     }
 
     // Restore the most recently pushed set of templates.
     void pop() {
-        if (_configStack.isEmpty) {
+        if (configurationStack.isEmpty) {
             return;
         }
-        [_config, _compiled] = array_pop(_configStack);
+        [configuration, _compiled] = array_pop(configurationStack);
     }
 
     /**
@@ -116,7 +116,7 @@ class StringTemplate {
 
     // Compile templates into a more efficient printf() compatible format.
     protected void _compileAllTemplates() {
-        _compileTemplates(_config.keys);
+        _compileTemplates(configuration.keys);
     }
     
     protected void _compileTemplates(string[] templateNames) {

@@ -303,7 +303,7 @@ class ShadowTableStrategy : ITranslateStrategy {
 
         // No additional translation records need to be saved,
         // as the entity is in the default locale.
-        if (mynoBundled && mylocale == _configData.isSet("defaultLocale")) {
+        if (mynoBundled && mylocale == configurationData.isSet("defaultLocale")) {
             return;
         }
         myvalues = myentity.extract(this.translatedFields(), true);
@@ -375,12 +375,12 @@ class ShadowTableStrategy : ITranslateStrategy {
      * string myfield Field name to be aliased.
      */
     string translationField(string myfield) {
-        if (this.getLocale() == _configData.isSet("defaultLocale")) {
+        if (this.getLocale() == configurationData.isSet("defaultLocale")) {
             return this.table.aliasField(myfield);
         }
         mytranslatedFields = this.translatedFields();
         if (in_array(myfield, mytranslatedFields, true)) {
-            return _configData.isSet("hasOneAlias") ~ "." ~ myfield;
+            return configurationData.isSet("hasOneAlias") ~ "." ~ myfield;
         }
         return this.table.aliasField(myfield);
     }
@@ -503,7 +503,7 @@ class ShadowTableStrategy : ITranslateStrategy {
      * Lazy define and return the main table fields.
      */
     protected string[] mainFields() {
-        myfields = _configData.isSet("mainTableFields");
+        myfields = configurationData.isSet("mainTableFields");
 
         if (myfields) {
             return myfields;
@@ -517,7 +517,7 @@ class ShadowTableStrategy : ITranslateStrategy {
     
     // Lazy define and return the translation table fields.
     protected string[] translatedFields() {
-        string[] myfields = _configData.isSet("fields");
+        string[] myfields = configurationData.isSet("fields");
 
         if (myfields) {
             return myfields;

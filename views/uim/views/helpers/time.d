@@ -30,7 +30,7 @@ class TimeHelper : Helper {
         if (mytimezone) {
             return mytimezone;
         }
-        return _configData.isSet("outputTimezone");
+        return configurationData.isSet("outputTimezone");
     }
     
     /**

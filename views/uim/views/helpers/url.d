@@ -22,7 +22,7 @@ class UrlHelper : Helper {
      */
     void initialize(IData[string] configData = null) {
         super.initialize(configData);
-        myengineClassConfig = _configData.isSet("assetUrlClassName");
+        myengineClassConfig = configurationData.isSet("assetUrlClassName");
 
         /** @var class-string<\UIM\Routing\Asset>|null myengineClass */
         myengineClass = App.className(myengineClassConfig, "Routing");

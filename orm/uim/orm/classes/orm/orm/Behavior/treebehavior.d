@@ -178,7 +178,7 @@ class TreeBehavior : Behavior {
         mydiff = to!int((myright - myleft + 1));
 
         if (mydiff > 2) {
-            if (_configData.isSet("cascadeCallbacks")) {
+            if (configurationData.isSet("cascadeCallbacks")) {
                 myquery = _scope(_table.query())
                     .where(
                         fn (QueryExpression myexp): myexp
@@ -408,10 +408,10 @@ class TreeBehavior : Behavior {
         Closure|string myvaluePath = null,
         string myspacer = null
     ) {
-        myleft = _table.aliasField(_configData.isSet("left"));
+        myleft = _table.aliasField(configurationData.isSet("left"));
 
         results = _scope(myquery)
-            .find("threaded", parentField: _configData.isSet("parent"), order: [myleft: "ASC"]);
+            .find("threaded", parentField: configurationData.isSet("parent"), order: [myleft: "ASC"]);
 
         return this.formatTreeList(results, mykeyPath, myvaluePath, myspacer);
     }
@@ -762,7 +762,7 @@ class TreeBehavior : Behavior {
      * modified by future calls to this function.
      */
     protected void _sync(int myshift, string mydir, string myconditions, bool mymark = false) {
-        configData = _config;
+        configData = configuration;
 
         /** @var \UIM\Database\Expression\IdentifierExpression myfield */
         foreach (myfield; [configData("leftField"], configData("rightField"]]) {
@@ -795,7 +795,7 @@ class TreeBehavior : Behavior {
      */
     protected SelectQuery|UpdateQuery|DeleteQuer _scope(SelectQuery|UpdateQuery|DeleteQuery myquery): y
     {
-        myscope = _configData.isSet("scope");
+        myscope = configurationData.isSet("scope");
 
         if (myscope.isNull) {
             return myquery;

@@ -19,7 +19,7 @@ class TableLocator : AbstractLocator : ILocator {
      *
      * @var array<string, array|null>
      */
-    protected array my_config = [];
+    protected array myconfiguration = [];
 
     /**
      * Instances that belong to the registry.
@@ -91,7 +91,7 @@ class TableLocator : AbstractLocator : ILocator {
  
     void configuration.update(string[] myalias, IData[string] options = null) {
         if (!isString(myalias)) {
-           _config = myalias;
+           configuration = myalias;
 
             return;
         }
@@ -106,7 +106,7 @@ class TableLocator : AbstractLocator : ILocator {
  
     array getConfig(string myalias = null) {
         if (myalias.isNull) {
-            return _config;
+            return configuration;
         }
         return configuration.data(myalias] ?? [];
     }
@@ -249,7 +249,7 @@ class TableLocator : AbstractLocator : ILocator {
         super.clear();
 
        _fallbacked = [];
-       _config = [];
+       configuration = [];
     }
     
     /**

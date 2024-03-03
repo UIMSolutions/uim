@@ -99,7 +99,7 @@ class CounterCacheBehavior : Behavior {
         if (isSet(options["ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
             return;
         }
-        foreach (_config as myassoc: mysettings) {
+        foreach (configuration as myassoc: mysettings) {
             myassoc = _table.getAssociation(myassoc);
             /** @var string|int myfield */
             foreach (mysettings as myfield: configData) {
@@ -161,7 +161,7 @@ class CounterCacheBehavior : Behavior {
      * @param \UIM\Datasource\IEntity myentity Entity.
      */
     protected void _processAssociations(IEvent myevent, IEntity myentity) {
-        foreach (_config as myassoc: mysettings) {
+        foreach (configuration as myassoc: mysettings) {
             myassoc = _table.getAssociation(myassoc);
            _processAssociation(myevent, myentity, myassoc, mysettings);
         }

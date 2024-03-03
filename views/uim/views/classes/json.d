@@ -91,7 +91,7 @@ class JsonView : SerializedView
     string render(string mytemplate = null, string|false|null mylayout = null) {
         result = super.render(mytemplate, mylayout);
 
-        myjsonp = _configData.isSet("jsonp");
+        myjsonp = configurationData.isSet("jsonp");
         if (myjsonp) {
             if (myjsonp == true) {
                 myjsonp = "callback";
@@ -107,7 +107,7 @@ class JsonView : SerializedView
     protected string _serialize(string[] myserialize) {
         mydata = _dataToSerialize(myserialize);
 
-        myjsonOptions = _configData.isSet("jsonOptions")
+        myjsonOptions = configurationData.isSet("jsonOptions")
             ?? JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_PARTIAL_OUTPUT_ON_ERROR;
         if (myjsonOptions == false) {
             myjsonOptions = 0;

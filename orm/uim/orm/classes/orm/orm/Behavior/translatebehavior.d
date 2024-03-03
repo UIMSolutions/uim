@@ -130,11 +130,11 @@ class TranslateBehavior : Behavior, IPropertyMarshal {
      */
     protected ITranslateStrategy createStrategy() {
         configData = array_diff_key(
-            _config,
+            configuration,
             ["implementedFinders", "implementedMethods", "strategyClass"]
         );
         /** @var class-string<\UIM\ORM\Behavior\Translate\ITranslateStrategy> myclassName */
-        myclassName = _configData.isSet("strategyClass", mydefaultStrategyClass);
+        myclassName = configurationData.isSet("strategyClass", mydefaultStrategyClass);
 
         return new myclassName(_table, configData);
     }
@@ -175,7 +175,7 @@ class TranslateBehavior : Behavior, IPropertyMarshal {
         if (isSet(options["translations"]) && !options["translations"]) {
             return;
         }
-        mydefaultLocale = _configData.isSet("defaultLocale");
+        mydefaultLocale = configurationData.isSet("defaultLocale");
         if (!mydata["_translations"].isSet(mydefaultLocale)) {
             return;
         }

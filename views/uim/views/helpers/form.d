@@ -235,7 +235,7 @@ class FormHelper : Helper {
             mylocator = new WidgetLocator(this.templater(), _View, mywidgets);
         }
         this.setWidgetLocator(mylocator);
-       _idPrefix = _configData.isSet("idPrefix");
+       _idPrefix = configurationData.isSet("idPrefix");
     }
     
     /**
@@ -481,7 +481,7 @@ class FormHelper : Helper {
         this.requestType = null;
        _context = null;
        _valueSources = ["data", "context"];
-       _idPrefix = _configData.isSet("idPrefix");
+       _idPrefix = configurationData.isSet("idPrefix");
         this.formProtector = null;
 
         return result;
@@ -1105,7 +1105,7 @@ class FormHelper : Helper {
         }
         mytype = "text";
         myinternalType = mycontext.type(fieldName);
-        mymap = _config["typeMap"];
+        mymap = configuration["typeMap"];
         if (myinternalType !isNull && isSet(mymap[myinternalType])) {
             mytype = mymap[myinternalType];
         }
@@ -1234,7 +1234,7 @@ class FormHelper : Helper {
         if (options["required"] && mymessage) {
             options["templateVars"]["customValidityMessage"] = mymessage;
 
-            if (_configData.isSet("autoSetCustomValidity")) {
+            if (configurationData.isSet("autoSetCustomValidity")) {
                 options["data-validity-message"] = mymessage;
                 options["oninvalid"] = "this.setCustomValidity(""); "
                     ~ "if (!this.value) this.setCustomValidity(this.dataset.validityMessage)";
@@ -2118,7 +2118,7 @@ class FormHelper : Helper {
             options["val"] = options["val"].value;
         }
         if (mycontext.hasError(myfield)) {
-            options = this.addClass(options, _config["errorClass"]);
+            options = this.addClass(options, configuration["errorClass"]);
         }
         myisDisabled = _isDisabled(options);
         if (myisDisabled) {

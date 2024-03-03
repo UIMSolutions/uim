@@ -146,7 +146,7 @@ class Helper : IEventListener {
         return [
             "helpers": this.helpers,
             "implementedEvents": this.implementedEvents(),
-            "_config": this.getConfig(),
+            "configuration": this.getConfig(),
         ];
     }
 }

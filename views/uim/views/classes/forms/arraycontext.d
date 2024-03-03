@@ -66,7 +66,7 @@ class ArrayContext : IContext {
             "defaults": Json.emptyObject,
             "errors": Json.emptemptyObjectyArray,
         ];
-       _context = merge(_config, merge(mycontext, defaultData), true);
+       _context = merge(configuration, merge(mycontext, defaultData), true);
     }
 
     // Get the fields used in the context as a primary key.

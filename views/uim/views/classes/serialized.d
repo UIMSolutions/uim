@@ -25,7 +25,7 @@ abstract class SerializedView : View {
 
     // Load helpers only if serialization is disabled.
     void loadHelpers() {
-        if (!_configData.isSet("serialize")) {
+        if (!configurationData.isSet("serialize")) {
             super.loadHelpers();
         }
     }
@@ -49,7 +49,7 @@ abstract class SerializedView : View {
      * @param string|false|null mylayout The layout being rendered.
      */
     string render(string mytemplate = null, string|false|null renderLayout = null) {
-        bool shouldSerialize = _configData.isSet("serialize", false);
+        bool shouldSerialize = configurationData.isSet("serialize", false);
 
         if (shouldSerialize == true) {
             options = array_map(

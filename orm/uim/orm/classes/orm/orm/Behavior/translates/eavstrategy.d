@@ -128,7 +128,7 @@ class EavStrategy : ITranslateStrategy {
     void beforeFind(IEvent myevent, SelectQuery myquery, ArrayObject options) {
         mylocale = Hash.get(options, "locale", this.getLocale());
 
-        if (mylocale == _configData.isSet("defaultLocale")) {
+        if (mylocale == configurationData.isSet("defaultLocale")) {
             return;
         }
         myconditions = auto (string myfield, string mylocale, SelectQuery myquery, array myselect) {
@@ -204,7 +204,7 @@ class EavStrategy : ITranslateStrategy {
 
         // No additional translation records need to be saved,
         // as the entity is in the default locale.
-        if (mynoBundled && mylocale == _configData.isSet("defaultLocale")) {
+        if (mynoBundled && mylocale == configurationData.isSet("defaultLocale")) {
             return;
         }
         myvalues = myentity.extract(configuration.data("fields"], true);
@@ -276,7 +276,7 @@ class EavStrategy : ITranslateStrategy {
      */
     string translationField(string myfield) {
         mytable = this.table;
-        if (this.getLocale() == _configData.isSet("defaultLocale")) {
+        if (this.getLocale() == configurationData.isSet("defaultLocale")) {
             return mytable.aliasField(myfield);
         }
         myassociationName = mytable.getAlias() ~ "_" ~ myfield ~ "_translation";

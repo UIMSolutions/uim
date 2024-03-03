@@ -9,7 +9,7 @@ abstract class AbstractFormatter {
 
     protected IData[string] _defaultConfigData;
 
-    this(Iconfiguration.getData(string] configData = null) {
+    this(IData[string] configData = null) {
         _defaultConfigData = Json.emptyObject;
 
         configuration.update(configData);

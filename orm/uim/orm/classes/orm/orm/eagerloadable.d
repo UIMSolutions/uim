@@ -83,7 +83,7 @@ class EagerLoadable {
      * string associationName The Association name.
      * configData - The list of properties to set.
      */
-    this(string associationName, Iconfiguration.getData(string] configData = null) {
+    this(string associationName, IData[string] configData = null) {
         _name = associationName;
         string[] allowed = [
             "associations", "instance", "config", "canBeJoined",
@@ -166,7 +166,7 @@ class EagerLoadable {
      *
      * configData - The value to set.
      */
-    void configuration.update(Iconfiguration.getData(string] configData = null) {
+    void configuration.update(IData[string] configData = null) {
        configuration = configData;
     }
     

@@ -43,13 +43,18 @@ class TimestampBehavior : Behavior {
      * If events are specified - do *not* merge them with existing events,
      * overwrite the events to listen on
      * Params:
-     * Iconfiguration.getData(string] configData The config for this behavior.
+     * IData[string] configData The config for this behavior.
      */
-    bool initialize(IData[string] initData = null) {
+    override bool initialize(IData[string] initData = null) {
+         if (!super.initialize(initData)) {
+            return false;
+        }
+
         if (configuration.hasKey("events")) {
             configuration.update("events", configData("events"), false);
         }
-        return super.initialize(configData);
+
+        return true
     }
     
     /**

@@ -39,9 +39,9 @@ class EavStrategy : ITranslateStrategy {
      * Constructor
      * Params:
      * \UIM\ORM\Table mytable The table this strategy is attached to.
-     * @param Iconfiguration.getData(string] configData The config for this strategy.
+     * @param IData[string] configData The config for this strategy.
      */
-    this(Table mytable, Iconfiguration.getData(string] configData = null) {
+    this(Table mytable, IData[string] configData = null) {
         if (isSet(configData("tableLocator"])) {
            _tableLocator = configData("tableLocator"];
         }

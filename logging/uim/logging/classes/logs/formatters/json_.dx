@@ -8,7 +8,7 @@ class JsonFormatter : AbstractFormatter {
     ];
 
     // configData - Formatter config
-    this(Iconfiguration.getData(string] configData = null) {
+    this(IData[string] configData = null) {
         configuration.update(configData);
     }
  

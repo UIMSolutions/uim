@@ -140,7 +140,7 @@ class Behavior : IEventListener {
        _table = mytable;
         configuration.update(configData);
         
-        this.initialize(configData);
+        this.initialize(initData);
     }
     
     /**
@@ -170,7 +170,7 @@ class Behavior : IEventListener {
      * @param IData[string] mydefaults The default method mappings.
      * configData - The customized method mappings.
      */
-    protected array _resolveMethodAliases(string aKey, array mydefaults, Iconfiguration.getData(string] configData) {
+    protected array _resolveMethodAliases(string aKey, array mydefaults, IData[string] configData) {
         if (!isSet(mydefaults[aKey], configuration.getData(aKey])) {
             return configData;
         }

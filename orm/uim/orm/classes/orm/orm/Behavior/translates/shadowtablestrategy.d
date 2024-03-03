@@ -35,9 +35,9 @@ class ShadowTableStrategy : ITranslateStrategy {
      * Constructor
      * Params:
      * \UIM\ORM\Table mytable Table instance.
-     * @param Iconfiguration.getData(string] configData Configuration.
+     * @param IData[string] configData Configuration.
      */
-    this(Table mytable, Iconfiguration.getData(string] configData = null) {
+    this(Table mytable, IData[string] configData = null) {
         auto mytableAlias = mytable.getAlias();
         [myplugin] = pluginSplit(mytable.getRegistryAlias(), true);
         auto mytableReferenceName = configData("referenceName"];
@@ -163,9 +163,9 @@ class ShadowTableStrategy : ITranslateStrategy {
      * add the locale field though.
      * Params:
      * \UIM\ORM\Query\SelectQuery myquery The query to check.
-     * @param Iconfiguration.getData(string] configData The config to use for adding fields.
+     * @param IData[string] configData The config to use for adding fields.
      */
-    protected bool addFieldsToQuery(SelectQuery myquery, Iconfiguration.getData(string] configData) {
+    protected bool addFieldsToQuery(SelectQuery myquery, IData[string] configData) {
         if (myquery.isAutoFieldsEnabled()) {
             return true;
         }
@@ -199,9 +199,9 @@ class ShadowTableStrategy : ITranslateStrategy {
      * Params:
      * \UIM\ORM\Query\SelectQuery myquery the query to check.
      * @param string myname The clause name.
-     * @param Iconfiguration.getData(string] configData The config to use for adding fields.
+     * @param IData[string] configData The config to use for adding fields.
      */
-    protected bool iterateClause(SelectQuery myquery, string myname = "", Iconfiguration.getData(string] configData = null) {
+    protected bool iterateClause(SelectQuery myquery, string myname = "", IData[string] configData = null) {
         myclause = myquery.clause(myname);
         assert(myclause.isNull || cast(QueryExpression)myclause);
         if (!myclause || !myclause.count()) {
@@ -240,9 +240,9 @@ class ShadowTableStrategy : ITranslateStrategy {
      * Params:
      * \UIM\ORM\Query\SelectQuery myquery the query to check.
      * @param string myname The clause name.
-     * @param Iconfiguration.getData(string] configData The config to use for adding fields.
+     * @param IData[string] configData The config to use for adding fields.
      */
-    protected bool traverseClause(SelectQuery myquery, string myname = "", Iconfiguration.getData(string] configData = null) {
+    protected bool traverseClause(SelectQuery myquery, string myname = "", IData[string] configData = null) {
         /** @var \UIM\Database\Expression\QueryExpression|null myclause */
         myclause = myquery.clause(myname);
         if (!myclause || !myclause.count()) {

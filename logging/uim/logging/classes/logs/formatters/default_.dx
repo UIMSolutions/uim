@@ -4,9 +4,9 @@ use DateTime;
 
 class DefaultFormatter : AbstractFormatter {
   	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(configData)) { return false; }
+		if (!super.initialize(initData)) { return false; }
     
-        defaultConfiguration.data([
+        defaultConfiguration.update([
             "dateFormat": "Y-m-d H:i:s",
             "includeTags": false,
             "includeDate": true,
@@ -16,7 +16,7 @@ class DefaultFormatter : AbstractFormatter {
 	}
 
 
-    this(Iconfiguration.getData(string] configData = null) {
+    this(IData[string] configData = null) {
         configuration.update(configData);
     }
  

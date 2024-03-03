@@ -118,7 +118,11 @@ class Cache {
             myfallbackEngine = clone pool(configuration["fallback"]);
             assert(cast(CacheEngine)myfallbackEngine);
 
-            mynewConfig = configData ~ ["groups": [], "prefix": null];
+            mynewConfig = configuration.update([
+                    "groups": ArrayData, 
+                    "prefix": StringData
+                ]);
+
             myfallbackEngine.configuration.update("groups", mynewConfig["groups"], false);
             if (mynewConfig["prefix"]) {
                 myfallbackEngine.configuration.update("prefix", mynewConfig["prefix"], false);
@@ -128,8 +132,8 @@ class Cache {
         if (cast(CacheEngine)configuration["className"]) {
             configData = configuration["className"].getConfig();
         }
-        if (!configuration["groups"].isEmpty) {
-            configuration["groups"].each!((groupName) {
+        if (!configuration.isEmpty("groups")) {
+            (cast(DArrayData)configuration["groups"]).values.each!((groupName) {
                 my_groups[groupName] ~= configName;
                 my_groups[groupName] = array_unique(my_groups[groupName]);
                 sort(my_groups[groupName]);

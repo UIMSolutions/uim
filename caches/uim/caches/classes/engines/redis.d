@@ -42,7 +42,7 @@ class RedisEngine : CacheEngine {
             initData["server"] = host;
         }
 
-        _defaultConfigData = [
+        Configuration.updateDefaults([
         "database": Json(0),
         "duration": Json(3600),
         "groups": Json.emptyArray,

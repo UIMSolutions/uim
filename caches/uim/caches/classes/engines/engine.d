@@ -50,7 +50,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         if (!configuration.isNumeric("duration")) {
            configuration["duration"] = configuration["duration"].toTime - time();
         }
-        _defaultConfigData = [
+        Configuration.updateDefaults([
             "duration": IntData(3600),
             "groups": ArrayData,
             "prefix": StringData("uim_"),

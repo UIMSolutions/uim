@@ -10,7 +10,7 @@ import uim.commands;
  */
 class TableHelper : Helper {
   // Default config for this helper.
-  protected IData[string] _defaultConfigData = [
+  protected IData[string] Configuration.updateDefaults([
     "headers": true,
     "rowSeparator": false,
     "headerStyle": "info",

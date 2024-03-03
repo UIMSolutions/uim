@@ -58,7 +58,7 @@ h     */
      */
 
   bool initialize(IData[string] initData = isNull) {
-    _defaultInitData = [
+    Configuration.updateDefaults([
       "compress": false,
       "duration": 3600,
       "groups": [],

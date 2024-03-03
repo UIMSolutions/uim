@@ -27,7 +27,7 @@ class Paginator : IPaginator {
      *
      * @var array<string, mixed>
      */
-    protected STRINGAA _defaultConfig = [
+    protected STRINGAA Configuration.updateDefaults([
         "page":1,
         "limit":20,
         "maxLimit":100,

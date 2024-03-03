@@ -35,7 +35,7 @@ class NumericPaginator : IPaginator {
      *  Default `null`.
      *
      */
-    protected IData[string] _defaultConfigData = [
+    protected IData[string] Configuration.updateDefaults([
         "page": 1,
         "limit": 20,
         "maxLimit": 100,

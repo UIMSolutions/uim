@@ -29,7 +29,7 @@ class NumericPaginator : PaginatorInterface
      *
      * @var array<string, mixed>
      */
-    protected _defaultConfig = [
+    protected Configuration.updateDefaults([
         "page": 1,
         "limit": 20,
         "maxLimit": 100,

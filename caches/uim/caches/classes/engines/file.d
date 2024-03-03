@@ -30,7 +30,7 @@ class FileEngine : CacheEngine {
      *   cache.gc from ever being called automatically.
      * - `serialize` Should cache objects be serialized first.
      */
-    protected IData[string] _defaultConfigData = [
+    protected IData[string] Configuration.updateDefaults([
         "duration": 3600,
         "groups": [],
         "lock": true,

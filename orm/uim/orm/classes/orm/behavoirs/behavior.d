@@ -187,25 +187,25 @@ class Behavior : IEventListener
      * @return array A de-duped list of config data.
      */
     protected array _resolveMethodAliases(string aKey, array defaults, Json myConfiguration) {
-        if (!isset(defaults[key], myconfiguration.getData(key])) {
+        if (!isset(defaults[key], myconfiguration[key])) {
             return myConfiguration;
         }
-        if (isset(myconfiguration.getData(key]) && myconfiguration.getData(key] == []) {
+        if (isset(myconfiguration[key]) && myconfiguration[key] == []) {
             configuration.update(key, [], false);
-            unset(myconfiguration.getData(key]);
+            unset(myconfiguration[key]);
 
             return myConfiguration;
         }
 
         indexed = array_flip(defaults[key]);
-        indexedCustom = array_flip(myconfiguration.getData(key]);
+        indexedCustom = array_flip(myconfiguration[key]);
         foreach (indexed as method: alias) {
             if (!isset(indexedCustom[method])) {
                 indexedCustom[method] = alias;
             }
         }
         configuration.update(key, array_flip(indexedCustom), false);
-        unset(myconfiguration.getData(key]);
+        unset(myconfiguration[key]);
 
         return myConfiguration;
     }
@@ -221,11 +221,11 @@ class Behavior : IEventListener
     void verifyConfig() {
         keys = ["implementedFinders", "implementedMethods"];
         foreach (keys as key) {
-            if (!isset(configuration.getData(key])) {
+            if (!isset(configuration[key])) {
                 continue;
             }
 
-            foreach (configuration.getData(key] as method) {
+            foreach (configuration[key] as method) {
                 if (!is_callable([this, method])) {
                     throw new UIMException(sprintf(
                         "The method %s is not callable on class %s",
@@ -265,7 +265,7 @@ class Behavior : IEventListener
             "Model.afterRules": "afterRules",
         ];
         myConfiguration = configuration;
-        priority = myconfiguration.getData("priority"] ?? null;
+        priority = myconfiguration["priority"] ?? null;
         events = null;
 
         foreach (eventMap as event: method) {

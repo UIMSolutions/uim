@@ -122,8 +122,8 @@ class CounterCacheBehavior : Behavior {
 
                 if (
                     !is_callable(myConfiguration) &&
-                    isset(myconfiguration.getData("ignoreDirty"]) &&
-                    myconfiguration.getData("ignoreDirty"] == true &&
+                    isset(myconfiguration["ignoreDirty"]) &&
+                    myconfiguration["ignoreDirty"] == true &&
                     entity.entityAlias.isDirty(field)
                 ) {
                     _ignoreDirty[registryAlias][field] = true;
@@ -272,12 +272,12 @@ class CounterCacheBehavior : Behavior {
      */
     protected int _getCount(Json myConfiguration, array conditions) {
         finder = "all";
-        if (!empty(myconfiguration.getData("finder"])) {
-            finder = myconfiguration.getData("finder"];
-            unset(myconfiguration.getData("finder"]);
+        if (!empty(myconfiguration["finder"])) {
+            finder = myconfiguration["finder"];
+            unset(myconfiguration["finder"]);
         }
 
-        myconfiguration.getData("conditions"] = array_merge(conditions, myconfiguration.getData("conditions"] ?? []);
+        myconfiguration["conditions"] = array_merge(conditions, myconfiguration["conditions"] ?? []);
         query = _table.find(finder, myConfiguration);
 
         return query.count();

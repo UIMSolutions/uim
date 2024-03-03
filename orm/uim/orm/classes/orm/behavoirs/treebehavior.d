@@ -59,8 +59,8 @@ class TreeBehavior : Behavior {
 
 
     bool initialize(IData[string] myConfiguration) {
-        configuration.getData("leftField"] = new IdentifierExpression(configuration.getData("left"]);
-        configuration.getData("rightField"] = new IdentifierExpression(configuration.getData("right"]);
+        configuration["leftField"] = new IdentifierExpression(configuration["left"]);
+        configuration["rightField"] = new IdentifierExpression(configuration["right"]);
     }
 
     /**
@@ -76,10 +76,10 @@ class TreeBehavior : Behavior {
     function beforeSave(IEvent event, IEntity anEntity) {
         isNew = entity.isNew();
         myConfiguration = configuration;
-        parent = entity.get(myconfiguration.getData("parent"]);
+        parent = entity.get(myconfiguration["parent"]);
         primaryKeys = _getPrimaryKeys();
-        dirty = entity.isDirty(myconfiguration.getData("parent"]);
-        level = myconfiguration.getData("level"];
+        dirty = entity.isDirty(myconfiguration["parent"]);
+        level = myconfiguration["level"];
 
         if (parent && entity.get(primaryKeys) == parent) {
             throw new RuntimeException("Cannot set a node"s parent as itself");
@@ -87,9 +87,9 @@ class TreeBehavior : Behavior {
 
         if (isNew && parent) {
             parentNode = _getNode(parent);
-            edge = parentNode.get(myconfiguration.getData("right"]);
-            entity.set(myconfiguration.getData("left"], edge);
-            entity.set(myconfiguration.getData("right"], edge + 1);
+            edge = parentNode.get(myconfiguration["right"]);
+            entity.set(myconfiguration["left"], edge);
+            entity.set(myconfiguration["right"], edge + 1);
             _sync(2, "+", ">= {edge}");
 
             if (level) {
@@ -101,8 +101,8 @@ class TreeBehavior : Behavior {
 
         if (isNew && !parent) {
             edge = _getMax();
-            entity.set(myconfiguration.getData("left"], edge + 1);
-            entity.set(myconfiguration.getData("right"], edge + 2);
+            entity.set(myconfiguration["left"], edge + 1);
+            entity.set(myconfiguration["right"], edge + 2);
 
             if (level) {
                 entity.set(level, 0);
@@ -140,7 +140,7 @@ class TreeBehavior : Behavior {
      * @param DORMDatasource\IEntity anEntity the entity that is going to be saved
      */
     void afterSave(IEvent event, IEntity anEntity) {
-        if (!configuration.getData("level"] || entity.isNew()) {
+        if (!configuration["level"] || entity.isNew()) {
             return;
         }
 
@@ -155,28 +155,28 @@ class TreeBehavior : Behavior {
     protected void _setChildrenLevel(IEntity anEntity) {
         myConfiguration = configuration;
 
-        if (entity.get(myconfiguration.getData("left"]) + 1 == entity.get(myconfiguration.getData("right"])) {
+        if (entity.get(myconfiguration["left"]) + 1 == entity.get(myconfiguration["right"])) {
             return;
         }
 
         primaryKeys = _getPrimaryKeys();
         primaryKeysValue = entity.get(primaryKeys);
-        depths = [primaryKeysValue: entity.get(myconfiguration.getData("level"])];
+        depths = [primaryKeysValue: entity.get(myconfiguration["level"])];
 
         children = _table.find("children", [
             "for": primaryKeysValue,
-            "fields": [_getPrimaryKeys(), myconfiguration.getData("parent"], myconfiguration.getData("level"]],
-            "order": myconfiguration.getData("left"],
+            "fields": [_getPrimaryKeys(), myconfiguration["parent"], myconfiguration["level"]],
+            "order": myconfiguration["left"],
         ]);
 
         /** @var DORMdatasources.IEntity node */
         foreach (children as node) {
-            parentIdValue = node.get(myconfiguration.getData("parent"]);
+            parentIdValue = node.get(myconfiguration["parent"]);
             depth = depths[parentIdValue] + 1;
             depths[node.get(primaryKeys)] = depth;
 
             _table.updateAll(
-                [myconfiguration.getData("level"]: depth],
+                [myconfiguration["level"]: depth],
                 [primaryKeys: node.get(primaryKeys)]
             );
         }
@@ -191,8 +191,8 @@ class TreeBehavior : Behavior {
     void beforeDelete(IEvent event, IEntity anEntity) {
         myConfiguration = configuration;
         _ensureFields(entity);
-        left = entity.get(myconfiguration.getData("left"]);
-        right = entity.get(myconfiguration.getData("right"]);
+        left = entity.get(myconfiguration["left"]);
+        right = entity.get(myconfiguration["right"]);
         diff = right - left + 1;
 
         if (diff > 2) {
@@ -200,8 +200,8 @@ class TreeBehavior : Behavior {
                 .where(function (exp) use (myConfiguration, left, right) {
                     /** @var DDBExpression\QueryExpression exp */
                     return exp
-                        .gte(myconfiguration.getData("leftField"], left + 1)
-                        .lte(myconfiguration.getData("leftField"], right - 1);
+                        .gte(myconfiguration["leftField"], left + 1)
+                        .lte(myconfiguration["leftField"], right - 1);
                 });
             if (this.getConfig("cascadeCallbacks")) {
                 entities = query.toArray();
@@ -232,10 +232,10 @@ class TreeBehavior : Behavior {
         myConfiguration = configuration;
         parentNode = _getNode(parent);
         _ensureFields(entity);
-        parentLeft = parentNode.get(myconfiguration.getData("left"]);
-        parentRight = parentNode.get(myconfiguration.getData("right"]);
-        right = entity.get(myconfiguration.getData("right"]);
-        left = entity.get(myconfiguration.getData("left"]);
+        parentLeft = parentNode.get(myconfiguration["left"]);
+        parentRight = parentNode.get(myconfiguration["right"]);
+        right = entity.get(myconfiguration["right"]);
+        left = entity.get(myconfiguration["left"]);
 
         if (parentLeft > left && parentLeft < right) {
             throw new RuntimeException(sprintf(
@@ -275,8 +275,8 @@ class TreeBehavior : Behavior {
         }
 
         // Allocating new position
-        entity.set(myconfiguration.getData("left"], targetLeft);
-        entity.set(myconfiguration.getData("right"], targetRight);
+        entity.set(myconfiguration["left"], targetLeft);
+        entity.set(myconfiguration["right"], targetRight);
     }
 
     /**
@@ -290,8 +290,8 @@ class TreeBehavior : Behavior {
         myConfiguration = configuration;
         edge = _getMax();
         _ensureFields(entity);
-        right = entity.get(myconfiguration.getData("right"]);
-        left = entity.get(myconfiguration.getData("left"]);
+        right = entity.get(myconfiguration["right"]);
+        left = entity.get(myconfiguration["left"]);
         diff = right - left;
 
         if (right - left > 1) {
@@ -307,8 +307,8 @@ class TreeBehavior : Behavior {
             _unmarkInternalTree();
         }
 
-        entity.set(myconfiguration.getData("left"], edge - diff);
-        entity.set(myconfiguration.getData("right"], edge);
+        entity.set(myconfiguration["left"], edge - diff);
+        entity.set(myconfiguration["right"], edge);
     }
 
     /**
@@ -326,12 +326,12 @@ class TreeBehavior : Behavior {
                 rightInverse = clone leftInverse;
 
                 return exp
-                    .eq(myconfiguration.getData("leftField"], leftInverse.add(myconfiguration.getData("leftField"]))
-                    .eq(myconfiguration.getData("rightField"], rightInverse.add(myconfiguration.getData("rightField"]));
+                    .eq(myconfiguration["leftField"], leftInverse.add(myconfiguration["leftField"]))
+                    .eq(myconfiguration["rightField"], rightInverse.add(myconfiguration["rightField"]));
             },
             function (exp) use (myConfiguration) {
                 /** @var DDBExpression\QueryExpression exp */
-                return exp.lt(myconfiguration.getData("leftField"], 0);
+                return exp.lt(myconfiguration["leftField"], 0);
             }
         );
     }
@@ -357,15 +357,15 @@ class TreeBehavior : Behavior {
             function (field) {
                 return _table.aliasField(field);
             },
-            [myconfiguration.getData("left"], myconfiguration.getData("right"]]
+            [myconfiguration["left"], myconfiguration["right"]]
         );
 
         node = _table.get(options["for"], ["fields": [left, right]]);
 
         return _scope(query)
             .where([
-                "left <=": node.get(myconfiguration.getData("left"]),
-                "right >=": node.get(myconfiguration.getData("right"]),
+                "left <=": node.get(myconfiguration["left"]),
+                "right >=": node.get(myconfiguration["right"]),
             ])
             .order([left: "ASC"]);
     }
@@ -380,7 +380,7 @@ class TreeBehavior : Behavior {
      */
     int childCount(IEntity node, bool direct = false) {
         myConfiguration = configuration;
-        parent = _table.aliasField(myconfiguration.getData("parent"]);
+        parent = _table.aliasField(myconfiguration["parent"]);
 
         if (direct) {
             return _scope(_table.find())
@@ -390,7 +390,7 @@ class TreeBehavior : Behavior {
 
         _ensureFields(node);
 
-        return (node.get(myconfiguration.getData("right"]) - node.get(myconfiguration.getData("left"]) - 1) / 2;
+        return (node.get(myconfiguration["right"]) - node.get(myconfiguration["left"]) - 1) / 2;
     }
 
     /**
@@ -417,7 +417,7 @@ class TreeBehavior : Behavior {
             function (field) {
                 return _table.aliasField(field);
             },
-            [myconfiguration.getData("parent"], myconfiguration.getData("left"], myconfiguration.getData("right"]]
+            [myconfiguration["parent"], myconfiguration["left"], myconfiguration["right"]]
         );
 
         [for, direct] = [options["for"], options["direct"]];
@@ -438,8 +438,8 @@ class TreeBehavior : Behavior {
 
         return _scope(query)
             .where([
-                "{right} <": node.get(myconfiguration.getData("right"]),
-                "{left} >": node.get(myconfiguration.getData("left"]),
+                "{right} <": node.get(myconfiguration["right"]),
+                "{left} >": node.get(myconfiguration["left"]),
             ]);
     }
 
@@ -534,11 +534,11 @@ class TreeBehavior : Behavior {
      */
     protected function _removeFromTree(IEntity node) {
         myConfiguration = configuration;
-        left = node.get(myconfiguration.getData("left"]);
-        right = node.get(myconfiguration.getData("right"]);
-        parent = node.get(myconfiguration.getData("parent"]);
+        left = node.get(myconfiguration["left"]);
+        right = node.get(myconfiguration["right"]);
+        parent = node.get(myconfiguration["parent"]);
 
-        node.set(myconfiguration.getData("parent"], null);
+        node.set(myconfiguration["parent"], null);
 
         if (right - left == 1) {
             return _table.save(node);
@@ -546,15 +546,15 @@ class TreeBehavior : Behavior {
 
         primary = _getPrimaryKeys();
         _table.updateAll(
-            [myconfiguration.getData("parent"]: parent],
-            [myconfiguration.getData("parent"]: node.get(primary)]
+            [myconfiguration["parent"]: parent],
+            [myconfiguration["parent"]: node.get(primary)]
         );
         _sync(1, "-", "BETWEEN " ~ (left + 1) ~ " AND " ~ (right - 1));
         _sync(2, "-", "> {right}");
         edge = _getMax();
-        node.set(myconfiguration.getData("left"], edge + 1);
-        node.set(myconfiguration.getData("right"], edge + 2);
-        fields = [myconfiguration.getData("parent"], myconfiguration.getData("left"], myconfiguration.getData("right"]];
+        node.set(myconfiguration["left"], edge + 1);
+        node.set(myconfiguration["right"], edge + 2);
+        fields = [myconfiguration["parent"], myconfiguration["left"], myconfiguration["right"]];
 
         _table.updateAll(node.extract(fields), [primary: node.get(primary)]);
 
@@ -599,7 +599,7 @@ class TreeBehavior : Behavior {
     protected function _moveUp(IEntity node, number): IEntity
     {
         myConfiguration = configuration;
-        [parent, left, right] = [myconfiguration.getData("parent"], myconfiguration.getData("left"], myconfiguration.getData("right"]];
+        [parent, left, right] = [myconfiguration["parent"], myconfiguration["left"], myconfiguration["right"]];
         [nodeParent, nodeLeft, nodeRight] = array_values(node.extract([parent, left, right]));
 
         targetNode = null;
@@ -610,9 +610,9 @@ class TreeBehavior : Behavior {
                 .where(["parent IS": nodeParent])
                 .where(function (exp) use (myConfiguration, nodeLeft) {
                     /** @var DDBExpression\QueryExpression exp */
-                    return exp.lt(myconfiguration.getData("rightField"], nodeLeft);
+                    return exp.lt(myconfiguration["rightField"], nodeLeft);
                 })
-                .orderDesc(myconfiguration.getData("leftField"])
+                .orderDesc(myconfiguration["leftField"])
                 .offset(number - 1)
                 .limit(1)
                 .first();
@@ -624,9 +624,9 @@ class TreeBehavior : Behavior {
                 .where(["parent IS": nodeParent])
                 .where(function (exp) use (myConfiguration, nodeLeft) {
                     /** @var DDBExpression\QueryExpression exp */
-                    return exp.lt(myconfiguration.getData("rightField"], nodeLeft);
+                    return exp.lt(myconfiguration["rightField"], nodeLeft);
                 })
-                .orderAsc(myconfiguration.getData("leftField"])
+                .orderAsc(myconfiguration["leftField"])
                 .limit(1)
                 .first();
 
@@ -690,7 +690,7 @@ class TreeBehavior : Behavior {
     protected function _moveDown(IEntity node, number): IEntity
     {
         myConfiguration = configuration;
-        [parent, left, right] = [myconfiguration.getData("parent"], myconfiguration.getData("left"], myconfiguration.getData("right"]];
+        [parent, left, right] = [myconfiguration["parent"], myconfiguration["left"], myconfiguration["right"]];
         [nodeParent, nodeLeft, nodeRight] = array_values(node.extract([parent, left, right]));
 
         targetNode = null;
@@ -701,9 +701,9 @@ class TreeBehavior : Behavior {
                 .where(["parent IS": nodeParent])
                 .where(function (exp) use (myConfiguration, nodeRight) {
                     /** @var DDBExpression\QueryExpression exp */
-                    return exp.gt(myconfiguration.getData("leftField"], nodeRight);
+                    return exp.gt(myconfiguration["leftField"], nodeRight);
                 })
-                .orderAsc(myconfiguration.getData("leftField"])
+                .orderAsc(myconfiguration["leftField"])
                 .offset(number - 1)
                 .limit(1)
                 .first();
@@ -715,9 +715,9 @@ class TreeBehavior : Behavior {
                 .where(["parent IS": nodeParent])
                 .where(function (exp) use (myConfiguration, nodeRight) {
                     /** @var DDBExpression\QueryExpression exp */
-                    return exp.gt(myconfiguration.getData("leftField"], nodeRight);
+                    return exp.gt(myconfiguration["leftField"], nodeRight);
                 })
-                .orderDesc(myconfiguration.getData("leftField"])
+                .orderDesc(myconfiguration["leftField"])
                 .limit(1)
                 .first();
 
@@ -758,11 +758,11 @@ class TreeBehavior : Behavior {
     protected function _getNode(id): IEntity
     {
         myConfiguration = configuration;
-        [parent, left, right] = [myconfiguration.getData("parent"], myconfiguration.getData("left"], myconfiguration.getData("right"]];
+        [parent, left, right] = [myconfiguration["parent"], myconfiguration["left"], myconfiguration["right"]];
         primaryKeys = _getPrimaryKeys();
         fields = [parent, left, right];
-        if (myconfiguration.getData("level"]) {
-            fields[] = myconfiguration.getData("level"];
+        if (myconfiguration["level"]) {
+            fields[] = myconfiguration["level"];
         }
 
         node = _scope(_table.find())
@@ -798,9 +798,9 @@ class TreeBehavior : Behavior {
      */
     protected int _recoverTree(int lftRght = 1, parentId = null, level = 0) {
         myConfiguration = configuration;
-        [parent, left, right] = [myconfiguration.getData("parent"], myconfiguration.getData("left"], myconfiguration.getData("right"]];
+        [parent, left, right] = [myconfiguration["parent"], myconfiguration["left"], myconfiguration["right"]];
         primaryKeys = _getPrimaryKeys();
-        order = myconfiguration.getData("recoverOrder"] ?: primaryKeys;
+        order = myconfiguration["recoverOrder"] ?: primaryKeys;
 
         nodes = _scope(_table.query())
             .select(primaryKeys)
@@ -814,8 +814,8 @@ class TreeBehavior : Behavior {
             lftRght = _recoverTree(lftRght, node[primaryKeys], level + 1);
 
             fields = [left: nodeLft, right: lftRght++];
-            if (myconfiguration.getData("level"]) {
-                fields[myconfiguration.getData("level"]] = level;
+            if (myconfiguration["level"]) {
+                fields[myconfiguration["level"]] = level;
             }
 
             _table.updateAll(
@@ -831,8 +831,8 @@ class TreeBehavior : Behavior {
      * Returns the maximum index value in the table.
      */
     protected int _getMax() {
-        field = configuration.getData("right"];
-        rightField = configuration.getData("rightField"];
+        field = configuration["right"];
+        rightField = configuration["rightField"];
         edge = _scope(_table.find())
             .select([field])
             .orderDesc(rightField)
@@ -859,7 +859,7 @@ class TreeBehavior : Behavior {
     protected void _sync(int shift, string dir, string conditions, bool mark = false) {
         myConfiguration = configuration;
 
-        foreach ([myconfiguration.getData("leftField"], myconfiguration.getData("rightField"]] as field) {
+        foreach ([myconfiguration["leftField"], myconfiguration["rightField"]] as field) {
             query = _scope(_table.query());
             exp = query.newExpr();
 
@@ -911,7 +911,7 @@ class TreeBehavior : Behavior {
      */
     protected void _ensureFields(IEntity anEntity) {
         myConfiguration = configuration;
-        fields = [myconfiguration.getData("left"], myconfiguration.getData("right"]];
+        fields = [myconfiguration["left"], myconfiguration["right"]];
         values = array_filter(entity.extract(fields));
         if (count(values) == count(fields)) {
             return;
@@ -951,7 +951,7 @@ class TreeBehavior : Behavior {
         }
         myConfiguration = configuration;
         entity = _table.find("all")
-            .select([myconfiguration.getData("left"], myconfiguration.getData("right"]])
+            .select([myconfiguration["left"], myconfiguration["right"]])
             .where([primaryKeys: id])
             .first();
 
@@ -960,8 +960,8 @@ class TreeBehavior : Behavior {
         }
 
         query = _table.find("all").where([
-            myconfiguration.getData("left"] ~ " <": entity[myconfiguration.getData("left"]],
-            myconfiguration.getData("right"] ~ " >": entity[myconfiguration.getData("right"]],
+            myconfiguration["left"] ~ " <": entity[myconfiguration["left"]],
+            myconfiguration["right"] ~ " >": entity[myconfiguration["right"]],
         ]);
 
         return _scope(query).count();

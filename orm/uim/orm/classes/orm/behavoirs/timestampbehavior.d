@@ -60,8 +60,8 @@ class TimestampBehavior : Behavior {
      * @param array<string, mixed> myConfiguration The config for this behavior.
      */
     bool initialize(IData[string] myConfiguration) {
-        if (isset(myconfiguration.getData("events"])) {
-            configuration.update("events", myconfiguration.getData("events"], false);
+        if (isset(myconfiguration["events"])) {
+            configuration.update("events", myconfiguration["events"], false);
         }
     }
 
@@ -76,10 +76,10 @@ class TimestampBehavior : Behavior {
      */
     bool handleEvent(IEvent event, IEntity anEntity) {
         eventName = event.getName();
-        events = configuration.getData("events"];
+        events = configuration["events"];
 
         new = entity.isNew() != false;
-        refresh = configuration.getData("refreshTimestamp"];
+        refresh = configuration["refreshTimestamp"];
 
         foreach (events[eventName] as field: when) {
             if (!in_array(when, ["always", "new", "existing"], true)) {
@@ -114,7 +114,7 @@ class TimestampBehavior : Behavior {
      * @return array<string, mixed>
      */
     array implementedEvents() {
-        return array_fill_keys(configuration.getData("events"].keys, "handleEvent");
+        return array_fill_keys(configuration["events"].keys, "handleEvent");
     }
 
     /**
@@ -131,8 +131,8 @@ class TimestampBehavior : Behavior {
     function timestamp(?DateTimeInterface ts = null, bool refreshTimestamp = false): DateTimeInterface
     {
         if (ts) {
-            if (configuration.getData("refreshTimestamp"]) {
-                configuration.getData("refreshTimestamp"] = false;
+            if (configuration["refreshTimestamp"]) {
+                configuration["refreshTimestamp"] = false;
             }
             _ts = new FrozenTime(ts);
         } elseif (_ts == null || refreshTimestamp) {
@@ -154,13 +154,13 @@ class TimestampBehavior : Behavior {
      * @return bool true if a field is updated, false if no action performed
      */
     bool touch(IEntity anEntity, string eventName = "Model.beforeSave") {
-        events = configuration.getData("events"];
+        events = configuration["events"];
         if (empty(events[eventName])) {
             return false;
         }
 
         return = false;
-        refresh = configuration.getData("refreshTimestamp"];
+        refresh = configuration["refreshTimestamp"];
 
         foreach (events[eventName] as field: when) {
             if (in_array(when, ["always", "existing"], true)) {

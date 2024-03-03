@@ -118,7 +118,7 @@ class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
     {
         /** @var DORMBehavior instance */
         instance = new class(_table, myConfiguration);
-        enable = myconfiguration.getData("enabled"] ?? true;
+        enable = myconfiguration["enabled"] ?? true;
         if (enable) {
             this.getEventManager().on(instance);
         }

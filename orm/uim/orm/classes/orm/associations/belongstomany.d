@@ -217,7 +217,7 @@ class BelongsToMany : Association {
 
                 // Propagate the connection if we"ll get an auto-model
                 if (!App::className(tableAlias, "Model/Table", "Table")) {
-                    myconfiguration.getData("connection"] = this.getSource().getConnection();
+                    myconfiguration["connection"] = this.getSource().getConnection();
                 }
             }
             table = tableLocator.get(tableAlias, myConfiguration);

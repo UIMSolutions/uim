@@ -109,7 +109,7 @@ class EagerLoadable {
         ];
         allowed.each!((property) {
             if (configData.hasKey(property)) {
-                this.{"_" ~ property} = myconfiguration.getData(property);
+                this.{"_" ~ property} = myconfiguration[property);
             }
         });
     }

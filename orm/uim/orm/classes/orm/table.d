@@ -187,39 +187,39 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * @param array<string, mixed> myConfiguration List of options for this table
      */
     this(Json myConfiguration) {
-        if (!empty(myconfiguration.getData("registryAlias"])) {
-            this.setRegistryAlias(myconfiguration.getData("registryAlias"]);
+        if (!empty(myconfiguration["registryAlias"])) {
+            this.setRegistryAlias(myconfiguration["registryAlias"]);
         }
-        if (!empty(myconfiguration.getData("table"])) {
-            this.setTable(myconfiguration.getData("table"]);
+        if (!empty(myconfiguration["table"])) {
+            this.setTable(myconfiguration["table"]);
         }
-        if (!empty(myconfiguration.getData("alias"])) {
-            this.setAlias(myconfiguration.getData("alias"]);
+        if (!empty(myconfiguration["alias"])) {
+            this.setAlias(myconfiguration["alias"]);
         }
-        if (!empty(myconfiguration.getData("connection"])) {
-            this.setConnection(myconfiguration.getData("connection"]);
+        if (!empty(myconfiguration["connection"])) {
+            this.setConnection(myconfiguration["connection"]);
         }
-        if (!empty(myconfiguration.getData("schema"])) {
-            this.setSchema(myconfiguration.getData("schema"]);
+        if (!empty(myconfiguration["schema"])) {
+            this.setSchema(myconfiguration["schema"]);
         }
-        if (!empty(myconfiguration.getData("entityClassName"])) {
-            this.setEntityClass(myconfiguration.getData("entityClassName"]);
+        if (!empty(myconfiguration["entityClassName"])) {
+            this.setEntityClass(myconfiguration["entityClassName"]);
         }
         eventManager = behaviors = associations = null;
-        if (!empty(myconfiguration.getData("eventManager"])) {
-            eventManager = myconfiguration.getData("eventManager"];
+        if (!empty(myconfiguration["eventManager"])) {
+            eventManager = myconfiguration["eventManager"];
         }
-        if (!empty(myconfiguration.getData("behaviors"])) {
-            behaviors = myconfiguration.getData("behaviors"];
+        if (!empty(myconfiguration["behaviors"])) {
+            behaviors = myconfiguration["behaviors"];
         }
-        if (!empty(myconfiguration.getData("associations"])) {
-            associations = myconfiguration.getData("associations"];
+        if (!empty(myconfiguration["associations"])) {
+            associations = myconfiguration["associations"];
         }
-        if (!empty(myconfiguration.getData("validator"])) {
-            if (!is_array(myconfiguration.getData("validator"])) {
-                this.setValidator(DEFAULT_VALIDATOR, myconfiguration.getData("validator"]);
+        if (!empty(myconfiguration["validator"])) {
+            if (!is_array(myconfiguration["validator"])) {
+                this.setValidator(DEFAULT_VALIDATOR, myconfiguration["validator"]);
             } else {
-                foreach (myconfiguration.getData("validator"] as name: validator) {
+                foreach (myconfiguration["validator"] as name: validator) {
                     this.setValidator(name, validator);
                 }
             }
@@ -2572,7 +2572,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      *
      * ```
      * article = this.Articles.newEntity(
-     *   this.request.getData(),
+     *   this.request[),
      *   ["associated": ["Tags", "Comments.Users"]]
      * );
      * ```
@@ -2581,7 +2581,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * passing the `fields` option, which is also accepted for associations:
      *
      * ```
-     * article = this.Articles.newEntity(this.request.getData(), [
+     * article = this.Articles.newEntity(this.request[), [
      *  "fields": ["title", "body", "tags", "comments"],
      *  "associated": ["Tags", "Comments.Users": ["fields": "username"]]
      * ]
@@ -2594,7 +2594,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      *
      * ```
      * article = this.Articles.newEntity(
-     *   this.request.getData(),
+     *   this.request[),
      *   ["accessibleFields": ["protected_field": true]]
      * );
      * ```
@@ -2605,7 +2605,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      *
      * ```
      * article = this.Articles.newEntity(
-     *   this.request.getData(),
+     *   this.request[),
      *   ["validate": false]
      * );
      * ```
@@ -2638,7 +2638,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      *
      * ```
      * articles = this.Articles.newEntities(
-     *   this.request.getData(),
+     *   this.request[),
      *   ["associated": ["Tags", "Comments.Users"]]
      * );
      * ```
@@ -2647,7 +2647,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * passing the `fields` option, which is also accepted for associations:
      *
      * ```
-     * articles = this.Articles.newEntities(this.request.getData(), [
+     * articles = this.Articles.newEntities(this.request[), [
      *  "fields": ["title", "body", "tags", "comments"],
      *  "associated": ["Tags", "Comments.Users": ["fields": "username"]]
      *  ]
@@ -2679,7 +2679,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * passing the `fields` option, which is also accepted for associations:
      *
      * ```
-     * article = this.Articles.patchEntity(article, this.request.getData(), [
+     * article = this.Articles.patchEntity(article, this.request[), [
      *  "fields": ["title", "body", "tags", "comments"],
      *  "associated": ["Tags", "Comments.Users": ["fields": "username"]]
      *  ]
@@ -2687,7 +2687,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * ```
      *
      * ```
-     * article = this.Articles.patchEntity(article, this.request.getData(), [
+     * article = this.Articles.patchEntity(article, this.request[), [
      *   "associated": [
      *     "Tags": ["accessibleFields": ["*": true]]
      *   ]
@@ -2699,7 +2699,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * The `validate` option can be used to disable validation on the passed data:
      *
      * ```
-     * article = this.patchEntity(article, this.request.getData(),[
+     * article = this.patchEntity(article, this.request[),[
      *  "validate": false
      * ]);
      * ```
@@ -2742,7 +2742,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * passing the `fields` option, which is also accepted for associations:
      *
      * ```
-     * articles = this.Articles.patchEntities(articles, this.request.getData(), [
+     * articles = this.Articles.patchEntities(articles, this.request[), [
      *  "fields": ["title", "body", "tags", "comments"],
      *  "associated": ["Tags", "Comments.Users": ["fields": "username"]]
      *  ]

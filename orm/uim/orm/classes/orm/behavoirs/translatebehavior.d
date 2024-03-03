@@ -147,7 +147,7 @@ class TranslateBehavior : Behavior : IPropertyMarshal
      */
     protected function createStrategy() {
         myConfiguration = array_diff_key(
-            _config,
+            configuration,
             ["implementedFinders", "implementedMethods", "strategyClass"]
         );
         /** @var class-string<DORMBehavior\Translate\ITranslateStrategy> className */

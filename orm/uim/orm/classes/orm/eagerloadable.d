@@ -35,7 +35,7 @@ class EagerLoadable {
      *
      * @var array<string, mixed>
      */
-    protected _config = null;
+    protected configuration = null;
 
     // A dotted separated string representing the path of associations
      * that should be followed to fetch this level.
@@ -180,14 +180,14 @@ class EagerLoadable {
      * @return this
      */
     auto configuration.update(Json myConfiguration) {
-        _config = myConfiguration;
+        configuration = myConfiguration;
 
         return this;
     }
 
     // Gets the list of options to pass to the association object for loading the records.
     Json getConfig() {
-      return _config;
+      return configuration;
     }
 
     /**
@@ -228,7 +228,7 @@ class EagerLoadable {
         foreach (_associations as assoc) {
             associations += assoc.asContainArray();
         }
-        myConfiguration = _config;
+        myConfiguration = configuration;
         if (_forMatching != null) {
             myConfiguration = ["matching": _forMatching] + myConfiguration;
         }

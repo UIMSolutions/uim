@@ -21,11 +21,11 @@ template ConfigForClass() {
   protected Json _Data;
 
   Json config() {
-    return _config.clone;
+    return configuration.clone;
   }
 
   void config(Json newData) {
-    _config = newConfig.newData;
+    configuration = newConfig.newData;
   }
 
   void updateConfig(Json updateData) {

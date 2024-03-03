@@ -23,7 +23,7 @@ class EagerLoadable {
     protected Association my_instance = null;
 
     // A list of options to pass to the association object for loading the records.
-    protected IData[string] _config = [];
+    protected IData[string] configuration = [];
 
     /**
      * A dotted separated string representing the path of associations
@@ -167,7 +167,7 @@ class EagerLoadable {
      * configData - The value to set.
      */
     void configuration.update(IConfigData[string] configData = null) {
-       _config = configData;
+       configuration = configData;
     }
     
     /**
@@ -176,7 +176,7 @@ class EagerLoadable {
      *
      */
     IData[string] getConfig() {
-        return _config;
+        return configuration;
     }
     
     /**
@@ -210,7 +210,7 @@ class EagerLoadable {
     array<string, array asContainArray() {
         auto myassociations = _associations
             .map!(association => association.asContainArray()).array;
-        configData = _config;
+        configData = configuration;
         if (_forMatching !isNull) {
             configData = ["matching": _forMatching] + configData;
         }

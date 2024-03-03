@@ -69,7 +69,7 @@ class ShadowTableStrategy : ITranslateStrategy
         configuration.update(myConfiguration);
         this.table = table;
         this.translationTable = this.getTableLocator().get(
-            _config["translationTable"],
+            configuration["translationTable"],
             ["allowFallbackClass": true]
         );
 
@@ -324,8 +324,8 @@ class ShadowTableStrategy : ITranslateStrategy
 
         // Check early if empty translations are present in the entity.
         // If this is the case, unset them to prevent persistence.
-        // This only applies if _config["allowEmptyTranslations"] is false
-        if (_config["allowEmptyTranslations"] == false) {
+        // This only applies if configuration["allowEmptyTranslations"] is false
+        if (configuration["allowEmptyTranslations"] == false) {
             this.unsetEmptyFields(entity);
         }
 
@@ -440,7 +440,7 @@ class ShadowTableStrategy : ITranslateStrategy
      * @return DORMcollections.ICollection
      */
     protected function rowMapper(results, locale) {
-        allowEmpty = _config["allowEmptyTranslations"];
+        allowEmpty = configuration["allowEmptyTranslations"];
 
         return results.map(function (row) use (allowEmpty, locale) {
             /** @var DORMdatasources.IEntity|array|null row */

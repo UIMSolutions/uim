@@ -221,11 +221,11 @@ class Behavior : IEventListener
     void verifyConfig() {
         keys = ["implementedFinders", "implementedMethods"];
         foreach (keys as key) {
-            if (!isset(_config[key])) {
+            if (!isset(configuration[key])) {
                 continue;
             }
 
-            foreach (_config[key] as method) {
+            foreach (configuration[key] as method) {
                 if (!is_callable([this, method])) {
                     throw new UIMException(sprintf(
                         "The method %s is not callable on class %s",

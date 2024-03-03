@@ -59,8 +59,8 @@ class TreeBehavior : Behavior {
 
 
     void initialize(Json myConfiguration) {
-        _config["leftField"] = new IdentifierExpression(_config["left"]);
-        _config["rightField"] = new IdentifierExpression(_config["right"]);
+        configuration["leftField"] = new IdentifierExpression(configuration["left"]);
+        configuration["rightField"] = new IdentifierExpression(configuration["right"]);
     }
 
     /**
@@ -140,7 +140,7 @@ class TreeBehavior : Behavior {
      * @param DORMDatasource\IEntity anEntity the entity that is going to be saved
      */
     void afterSave(IEvent event, IEntity anEntity) {
-        if (!_config["level"] || entity.isNew()) {
+        if (!configuration["level"] || entity.isNew()) {
             return;
         }
 
@@ -831,8 +831,8 @@ class TreeBehavior : Behavior {
      * Returns the maximum index value in the table.
      */
     protected int _getMax() {
-        field = _config["right"];
-        rightField = _config["rightField"];
+        field = configuration["right"];
+        rightField = configuration["rightField"];
         edge = _scope(_table.find())
             .select([field])
             .orderDesc(rightField)
@@ -857,7 +857,7 @@ class TreeBehavior : Behavior {
      * modified by future calls to this function.
      */
     protected void _sync(int shift, string dir, string conditions, bool mark = false) {
-        myConfiguration = _config;
+        myConfiguration = configuration;
 
         foreach ([myConfiguration["leftField"], myConfiguration["rightField"]] as field) {
             query = _scope(_table.query());

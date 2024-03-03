@@ -23,7 +23,7 @@ class TableLocator : AbstractLocator : ILocator
      *
      * @var array<string, array|null>
      */
-    protected _config = null;
+    protected configuration = null;
 
     /**
      * Instances that belong to the registry.
@@ -106,7 +106,7 @@ class TableLocator : AbstractLocator : ILocator
 
     function configuration.update(alias, options = null) {
         if (!is_string(alias)) {
-            _config = alias;
+            configuration = alias;
 
             return this;
         }
@@ -118,7 +118,7 @@ class TableLocator : AbstractLocator : ILocator
             ));
         }
 
-        _config[alias] = options;
+        configuration[alias] = options;
 
         return this;
     }
@@ -126,10 +126,10 @@ class TableLocator : AbstractLocator : ILocator
 
     array getConfig(Nullable!string aliasName = null) {
         if (aliasName == null) {
-            return _config;
+            return configuration;
         }
 
-        return _config.get(aliasName, null);
+        return configuration.get(aliasName, null);
     }
 
     /**
@@ -183,8 +183,8 @@ class TableLocator : AbstractLocator : ILocator
             options["className"] = alias;
         }
 
-        if (isset(_config[alias])) {
-            options += _config[alias];
+        if (isset(configuration[alias])) {
+            options += configuration[alias];
         }
 
         allowFallbackClass = options["allowFallbackClass"] ?? this.allowFallbackClass;
@@ -290,7 +290,7 @@ class TableLocator : AbstractLocator : ILocator
         super.clear();
 
         _fallbacked = null;
-        _config = null;
+        configuration = null;
     }
 
     /**

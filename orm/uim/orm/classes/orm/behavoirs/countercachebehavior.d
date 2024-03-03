@@ -110,7 +110,7 @@ class CounterCacheBehavior : Behavior {
             return;
         }
 
-        foreach (_config as assoc: settings) {
+        foreach (configuration as assoc: settings) {
             assoc = _table.getAssociation(assoc);
             foreach (settings as field: myConfiguration) {
                 if (is_int(field)) {
@@ -174,7 +174,7 @@ class CounterCacheBehavior : Behavior {
      * @param DORMDatasource\IEntity anEntity Entity.
      */
     protected void _processAssociations(IEvent event, IEntity anEntity) {
-        foreach (_config as assoc: settings) {
+        foreach (configuration as assoc: settings) {
             assoc = _table.getAssociation(assoc);
             _processAssociation(event, entity, assoc, settings);
         }

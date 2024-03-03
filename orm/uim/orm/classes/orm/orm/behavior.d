@@ -282,7 +282,7 @@ class Behavior : IEventListener {
      * method list. See core behaviors for examples
      */
     array implementedFinders() {
-        mymethods = _configData.isSet("implementedFinders");
+        mymethods = configurationData.isSet("implementedFinders");
         if (isSet(mymethods)) {
             return mymethods;
         }
@@ -309,7 +309,7 @@ class Behavior : IEventListener {
      * method list. See core behaviors for examples
      */
     array implementedMethods() {
-        mymethods = _configData.isSet("implementedMethods");
+        mymethods = configurationData.isSet("implementedMethods");
         if (isSet(mymethods)) {
             return mymethods;
         }

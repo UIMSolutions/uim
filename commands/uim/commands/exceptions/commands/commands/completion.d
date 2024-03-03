@@ -8,7 +8,7 @@ import uim.commands;
 class CompletionCommand : Command, ICommandCollectionAware {
    mixin(CommandThis!("CompletionCommand"));
 
-  	override bool initialize(Iconfiguration.getData(string] configData = null) {
+  	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(configData)) { return false; }
 		
 		return true;

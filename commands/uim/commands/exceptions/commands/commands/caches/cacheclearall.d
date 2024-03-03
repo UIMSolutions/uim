@@ -8,7 +8,7 @@ import uim.commands;
 class CacheClearallCommand : Command {
   mixin!(CommandThis!("CacheClearallCommand"));
 
-  	override bool initialize(Iconfiguration.getData(string] configData = null) {
+  	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(configData)) { return false; }
 		
 		return true;

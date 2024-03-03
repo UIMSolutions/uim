@@ -77,7 +77,7 @@ trait TranslateStrategyTrait
     /**
      * Unset empty translations to avoid persistence.
      *
-     * Should only be called if configuration["allowEmptyTranslations"] is false.
+     * Should only be called if configuration.getData("allowEmptyTranslations"] is false.
      *
      * @param DORMDatasource\IEntity anEntity The entity to check for empty translations fields inside.
      */
@@ -85,14 +85,14 @@ trait TranslateStrategyTrait
         /** @var array<DORMEntity> translations */
         translations = (array)entity.get("_translations");
         foreach (translations as locale: translation) {
-            fields = translation.extract(configuration["fields"], false);
+            fields = translation.extract(configuration.getData("fields"], false);
             foreach (fields as field: value) {
                 if (value == null || value == "") {
                     translation.unset(field);
                 }
             }
 
-            translation = translation.extract(configuration["fields"]);
+            translation = translation.extract(configuration.getData("fields"]);
 
             // If now, the current locale property is empty,
             // unset it completely.
@@ -137,7 +137,7 @@ trait TranslateStrategyTrait
                     translations = null;
                 }
 
-                options["validate"] = configuration["validator"];
+                options["validate"] = configuration.getData("validator"];
                 errors = null;
                 foreach (value as language: fields) {
                     if (!isset(translations[language])) {

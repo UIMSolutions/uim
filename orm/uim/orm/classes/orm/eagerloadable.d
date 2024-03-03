@@ -108,8 +108,8 @@ class EagerLoadable {
             "aliasPath", "propertyPath", "forMatching", "targetProperty",
         ];
         foreach (allowed as property) {
-            if (isset(myConfiguration[property])) {
-                this.{"_" ~ property} = myConfiguration[property];
+            if (isset(myconfiguration.getData(property])) {
+                this.{"_" ~ property} = myconfiguration.getData(property];
             }
         }
     }

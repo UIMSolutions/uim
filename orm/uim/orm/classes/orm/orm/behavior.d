@@ -126,7 +126,7 @@ class Behavior : IEventListener {
      * \UIM\ORM\Table mytable The table this behavior is attached to.
      * configData - The config for this behavior.
      */
-    this(Table mytable, IConfigData[string] configData = null) {
+    this(Table mytable, Iconfiguration.getData(string] configData = null) {
         configData = _resolveMethodAliases(
             "implementedFinders",
 <<<<<<< HEAD
@@ -180,25 +180,25 @@ class Behavior : IEventListener {
      * @param IData[string] mydefaults The default method mappings.
      * configData - The customized method mappings.
      */
-    protected array _resolveMethodAliases(string aKey, array mydefaults, IConfigData[string] configData) {
-        if (!isSet(mydefaults[aKey], configData[aKey])) {
+    protected array _resolveMethodAliases(string aKey, array mydefaults, Iconfiguration.getData(string] configData) {
+        if (!isSet(mydefaults[aKey], configuration.getData(aKey])) {
             return configData;
         }
-        if (configuration.hasKey(aKey) && configData[aKey] == []) {
+        if (configuration.hasKey(aKey) && configuration.getData(aKey] == []) {
             configuration.update(aKey, [], false);
-            unset(configData[aKey]);
+            unset(configuration.getData(aKey]);
 
             return configData;
         }
         myindexed = array_flip(mydefaults[aKey]);
-        myindexedCustom = array_flip(configData[aKey]);
+        myindexedCustom = array_flip(configuration.getData(aKey]);
         foreach (myindexed as mymethod: myalias) {
             if (!isSet(myindexedCustom[mymethod])) {
                 myindexedCustom[mymethod] = myalias;
             }
         }
         configuration.update(aKey, array_flip(myindexedCustom), false);
-        unset(configData[aKey]);
+        unset(configuration.getData(aKey]);
 
         return configData;
     }

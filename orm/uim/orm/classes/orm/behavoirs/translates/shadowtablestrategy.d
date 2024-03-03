@@ -54,7 +54,7 @@ class ShadowTableStrategy : ITranslateStrategy
     this(DORMTable aTable, Json myConfiguration = null) {
         tableAlias = table.getAlias();
         [plugin] = pluginSplit(table.getRegistryAlias(), true);
-        tableReferenceName = myConfiguration["referenceName"];
+        tableReferenceName = myconfiguration.getData("referenceName"];
 
         myConfiguration += [
             "mainTableAlias": tableAlias,
@@ -62,14 +62,14 @@ class ShadowTableStrategy : ITranslateStrategy
             "hasOneAlias": tableAlias ~ "Translation",
         ];
 
-        if (isset(myConfiguration["tableLocator"])) {
-            _tableLocator = myConfiguration["tableLocator"];
+        if (isset(myconfiguration.getData("tableLocator"])) {
+            _tableLocator = myconfiguration.getData("tableLocator"];
         }
 
         configuration.update(myConfiguration);
         this.table = table;
         this.translationTable = this.getTableLocator().get(
-            configuration["translationTable"],
+            configuration.getData("translationTable"],
             ["allowFallbackClass": true]
         );
 
@@ -87,9 +87,9 @@ class ShadowTableStrategy : ITranslateStrategy
 
         targetAlias = this.translationTable.getAlias();
         this.table.hasMany(targetAlias, [
-            "className": myConfiguration["translationTable"],
+            "className": myconfiguration.getData("translationTable"],
             "foreignKey": "id",
-            "strategy": myConfiguration["strategy"],
+            "strategy": myconfiguration.getData("strategy"],
             "propertyName": "_i18n",
             "dependent": true,
         ]);
@@ -108,7 +108,7 @@ class ShadowTableStrategy : ITranslateStrategy
         locale = Hash::get(options, "locale", this.getLocale());
         myConfiguration = configuration;
 
-        if (locale == myConfiguration["defaultLocale"]) {
+        if (locale == myconfiguration.getData("defaultLocale"]) {
             return;
         }
 
@@ -118,14 +118,14 @@ class ShadowTableStrategy : ITranslateStrategy
         orderByTranslatedField = this.iterateClause(query, "order", myConfiguration);
         filteredByTranslatedField =
             this.traverseClause(query, "where", myConfiguration) ||
-            myConfiguration["onlyTranslated"] ||
+            myconfiguration.getData("onlyTranslated"] ||
             (options["filterByCurrentLocale"] ?? null);
 
         if (!fieldsAdded && !orderByTranslatedField && !filteredByTranslatedField) {
             return;
         }
 
-        query.contain([myConfiguration["hasOneAlias"]]);
+        query.contain([myconfiguration.getData("hasOneAlias"]]);
 
         query.formatResults(function (results) use (locale) {
             return this.rowMapper(results, locale);
@@ -141,14 +141,14 @@ class ShadowTableStrategy : ITranslateStrategy
     protected void setupHasOneAssociation(string locale, ArrayObject options) {
         myConfiguration = configuration;
 
-        [plugin] = pluginSplit(myConfiguration["translationTable"]);
-        hasOneTargetAlias = plugin ? (plugin ~ "." ~ myConfiguration["hasOneAlias"]) : myConfiguration["hasOneAlias"];
+        [plugin] = pluginSplit(myconfiguration.getData("translationTable"]);
+        hasOneTargetAlias = plugin ? (plugin ~ "." ~ myconfiguration.getData("hasOneAlias"]) : myconfiguration.getData("hasOneAlias"];
         if (!this.getTableLocator().exists(hasOneTargetAlias)) {
             // Load table before hand with fallback class usage enabled
             this.getTableLocator().get(
                 hasOneTargetAlias,
                 [
-                    "className": myConfiguration["translationTable"],
+                    "className": myconfiguration.getData("translationTable"],
                     "allowFallbackClass": true,
                 ]
             );
@@ -157,16 +157,16 @@ class ShadowTableStrategy : ITranslateStrategy
         if (isset(options["filterByCurrentLocale"])) {
             joinType = options["filterByCurrentLocale"] ? "INNER" : "LEFT";
         } else {
-            joinType = myConfiguration["onlyTranslated"] ? "INNER" : "LEFT";
+            joinType = myconfiguration.getData("onlyTranslated"] ? "INNER" : "LEFT";
         }
 
-        this.table.hasOne(myConfiguration["hasOneAlias"], [
+        this.table.hasOne(myconfiguration.getData("hasOneAlias"], [
             "foreignKey": ["id"],
             "joinType": joinType,
             "propertyName": "translation",
-            "className": myConfiguration["translationTable"],
+            "className": myconfiguration.getData("translationTable"],
             "conditions": [
-                myConfiguration["hasOneAlias"] ~ ".locale": locale,
+                myconfiguration.getData("hasOneAlias"] ~ ".locale": locale,
             ],
         ]);
     }
@@ -197,17 +197,17 @@ class ShadowTableStrategy : ITranslateStrategy
             return true;
         }
 
-        alias = myConfiguration["mainTableAlias"];
+        alias = myconfiguration.getData("mainTableAlias"];
         joinRequired = false;
         foreach (this.translatedFields() as field) {
             if (array_intersect(select, [field, "alias.field"])) {
                 joinRequired = true;
-                query.select(query.aliasField(field, myConfiguration["hasOneAlias"]));
+                query.select(query.aliasField(field, myconfiguration.getData("hasOneAlias"]));
             }
         }
 
         if (joinRequired) {
-            query.select(query.aliasField("locale", myConfiguration["hasOneAlias"]));
+            query.select(query.aliasField("locale", myconfiguration.getData("hasOneAlias"]));
         }
 
         return joinRequired;
@@ -231,9 +231,9 @@ class ShadowTableStrategy : ITranslateStrategy
             return false;
         }
 
-        alias = myConfiguration["hasOneAlias"];
+        alias = myconfiguration.getData("hasOneAlias"];
         fields = this.translatedFields();
-        mainTableAlias = myConfiguration["mainTableAlias"];
+        mainTableAlias = myconfiguration.getData("mainTableAlias"];
         mainTableFields = this.mainFields();
         joinRequired = false;
 
@@ -276,9 +276,9 @@ class ShadowTableStrategy : ITranslateStrategy
             return false;
         }
 
-        alias = myConfiguration["hasOneAlias"];
+        alias = myconfiguration.getData("hasOneAlias"];
         fields = this.translatedFields();
-        mainTableAlias = myConfiguration["mainTableAlias"];
+        mainTableAlias = myconfiguration.getData("mainTableAlias"];
         mainTableFields = this.mainFields();
         joinRequired = false;
 
@@ -324,8 +324,8 @@ class ShadowTableStrategy : ITranslateStrategy
 
         // Check early if empty translations are present in the entity.
         // If this is the case, unset them to prevent persistence.
-        // This only applies if configuration["allowEmptyTranslations"] is false
-        if (configuration["allowEmptyTranslations"] == false) {
+        // This only applies if configuration.getData("allowEmptyTranslations"] is false
+        if (configuration.getData("allowEmptyTranslations"] == false) {
             this.unsetEmptyFields(entity);
         }
 
@@ -440,7 +440,7 @@ class ShadowTableStrategy : ITranslateStrategy
      * @return DORMcollections.ICollection
      */
     protected function rowMapper(results, locale) {
-        allowEmpty = configuration["allowEmptyTranslations"];
+        allowEmpty = configuration.getData("allowEmptyTranslations"];
 
         return results.map(function (row) use (allowEmpty, locale) {
             /** @var DORMdatasources.IEntity|array|null row */

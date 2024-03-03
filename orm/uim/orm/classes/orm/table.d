@@ -187,39 +187,39 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * @param array<string, mixed> myConfiguration List of options for this table
      */
     this(Json myConfiguration) {
-        if (!empty(myConfiguration["registryAlias"])) {
-            this.setRegistryAlias(myConfiguration["registryAlias"]);
+        if (!empty(myconfiguration.getData("registryAlias"])) {
+            this.setRegistryAlias(myconfiguration.getData("registryAlias"]);
         }
-        if (!empty(myConfiguration["table"])) {
-            this.setTable(myConfiguration["table"]);
+        if (!empty(myconfiguration.getData("table"])) {
+            this.setTable(myconfiguration.getData("table"]);
         }
-        if (!empty(myConfiguration["alias"])) {
-            this.setAlias(myConfiguration["alias"]);
+        if (!empty(myconfiguration.getData("alias"])) {
+            this.setAlias(myconfiguration.getData("alias"]);
         }
-        if (!empty(myConfiguration["connection"])) {
-            this.setConnection(myConfiguration["connection"]);
+        if (!empty(myconfiguration.getData("connection"])) {
+            this.setConnection(myconfiguration.getData("connection"]);
         }
-        if (!empty(myConfiguration["schema"])) {
-            this.setSchema(myConfiguration["schema"]);
+        if (!empty(myconfiguration.getData("schema"])) {
+            this.setSchema(myconfiguration.getData("schema"]);
         }
-        if (!empty(myConfiguration["entityClassName"])) {
-            this.setEntityClass(myConfiguration["entityClassName"]);
+        if (!empty(myconfiguration.getData("entityClassName"])) {
+            this.setEntityClass(myconfiguration.getData("entityClassName"]);
         }
         eventManager = behaviors = associations = null;
-        if (!empty(myConfiguration["eventManager"])) {
-            eventManager = myConfiguration["eventManager"];
+        if (!empty(myconfiguration.getData("eventManager"])) {
+            eventManager = myconfiguration.getData("eventManager"];
         }
-        if (!empty(myConfiguration["behaviors"])) {
-            behaviors = myConfiguration["behaviors"];
+        if (!empty(myconfiguration.getData("behaviors"])) {
+            behaviors = myconfiguration.getData("behaviors"];
         }
-        if (!empty(myConfiguration["associations"])) {
-            associations = myConfiguration["associations"];
+        if (!empty(myconfiguration.getData("associations"])) {
+            associations = myconfiguration.getData("associations"];
         }
-        if (!empty(myConfiguration["validator"])) {
-            if (!is_array(myConfiguration["validator"])) {
-                this.setValidator(DEFAULT_VALIDATOR, myConfiguration["validator"]);
+        if (!empty(myconfiguration.getData("validator"])) {
+            if (!is_array(myconfiguration.getData("validator"])) {
+                this.setValidator(DEFAULT_VALIDATOR, myconfiguration.getData("validator"]);
             } else {
-                foreach (myConfiguration["validator"] as name: validator) {
+                foreach (myconfiguration.getData("validator"] as name: validator) {
                     this.setValidator(name, validator);
                 }
             }

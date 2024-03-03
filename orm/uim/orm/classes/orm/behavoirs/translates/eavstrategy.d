@@ -50,14 +50,14 @@ class EavStrategy : ITranslateStrategy {
      * @param array<string, mixed> myConfiguration The config for this strategy.
      */
     this(DORMTable aTable, Json myConfiguration = null) {
-        if (isset(myConfiguration["tableLocator"])) {
-            _tableLocator = myConfiguration["tableLocator"];
+        if (isset(myconfiguration.getData("tableLocator"])) {
+            _tableLocator = myconfiguration.getData("tableLocator"];
         }
 
         configuration.update(myConfiguration);
         this.table = table;
         this.translationTable = this.getTableLocator().get(
-            configuration["translationTable"],
+            configuration.getData("translationTable"],
             ["allowFallbackClass": true]
         );
 
@@ -72,11 +72,11 @@ class EavStrategy : ITranslateStrategy {
      * used for fetching all translations for each record in the bound table.
      */
     protected void setupAssociations() {
-        fields = configuration["fields"];
-        table = configuration["translationTable"];
-        model = configuration["referenceName"];
-        strategy = configuration["strategy"];
-        filter = configuration["onlyTranslated"];
+        fields = configuration.getData("fields"];
+        table = configuration.getData("translationTable"];
+        model = configuration.getData("referenceName"];
+        strategy = configuration.getData("strategy"];
+        filter = configuration.getData("onlyTranslated"];
 
         targetAlias = this.translationTable.getAlias();
         alias = this.table.getAlias();
@@ -100,7 +100,7 @@ class EavStrategy : ITranslateStrategy {
                 name ~ ".model": model,
                 name ~ ".field": field,
             ];
-            if (!configuration["allowEmptyTranslations"]) {
+            if (!configuration.getData("allowEmptyTranslations"]) {
                 conditions[name ~ ".content !="] = "";
             }
 
@@ -114,7 +114,7 @@ class EavStrategy : ITranslateStrategy {
         }
 
         conditions = ["targetAlias.model": model];
-        if (!configuration["allowEmptyTranslations"]) {
+        if (!configuration.getData("allowEmptyTranslations"]) {
             conditions["targetAlias.content !="] = "";
         }
 
@@ -161,12 +161,12 @@ class EavStrategy : ITranslateStrategy {
         };
 
         contain = null;
-        fields = configuration["fields"];
+        fields = configuration.getData("fields"];
         alias = this.table.getAlias();
         select = query.clause("select");
 
         changeFilter = isset(options["filterByCurrentLocale"]) &&
-            options["filterByCurrentLocale"] != configuration["onlyTranslated"];
+            options["filterByCurrentLocale"] != configuration.getData("onlyTranslated"];
 
         foreach (fields as field) {
             name = alias ~ "_" ~ field ~ "_translation";
@@ -207,8 +207,8 @@ class EavStrategy : ITranslateStrategy {
 
         // Check early if empty translations are present in the entity.
         // If this is the case, unset them to prevent persistence.
-        // This only applies if configuration["allowEmptyTranslations"] is false
-        if (configuration["allowEmptyTranslations"] == false) {
+        // This only applies if configuration.getData("allowEmptyTranslations"] is false
+        if (configuration.getData("allowEmptyTranslations"] == false) {
             this.unsetEmptyFields(entity);
         }
 
@@ -222,7 +222,7 @@ class EavStrategy : ITranslateStrategy {
             return;
         }
 
-        values = entity.extract(configuration["fields"], true);
+        values = entity.extract(configuration.getData("fields"], true);
         fields = values.keys;
         noFields = empty(fields);
 
@@ -240,7 +240,7 @@ class EavStrategy : ITranslateStrategy {
         // need to mark the entity dirty so the root
         // entity persists.
         if (noFields && bundled && !key) {
-            foreach (configuration["fields"] as field) {
+            foreach (configuration.getData("fields"] as field) {
                 entity.setDirty(field, true);
             }
 
@@ -251,7 +251,7 @@ class EavStrategy : ITranslateStrategy {
             return;
         }
 
-        model = configuration["referenceName"];
+        model = configuration.getData("referenceName"];
 
         preexistent = null;
         if (key) {
@@ -330,7 +330,7 @@ class EavStrategy : ITranslateStrategy {
             }
             hydrated = !is_array(row);
 
-            foreach (configuration["fields"] as field) {
+            foreach (configuration.getData("fields"] as field) {
                 name = field ~ "_translation";
                 translation = row[name] ?? null;
 
@@ -410,7 +410,7 @@ class EavStrategy : ITranslateStrategy {
             return;
         }
 
-        fields = configuration["fields"];
+        fields = configuration.getData("fields"];
         primaryKeys = (array)this.table.getPrimaryKeys();
         key = entity.get(current(primaryKeys));
         find = null;
@@ -439,7 +439,7 @@ class EavStrategy : ITranslateStrategy {
                 contents[i].set("id", results[i], ["setter": false]);
                 contents[i].setNew(false);
             } else {
-                translation["model"] = configuration["referenceName"];
+                translation["model"] = configuration.getData("referenceName"];
                 contents[i].set(translation, ["setter": false, "guard": false]);
                 contents[i].setNew(true);
             }

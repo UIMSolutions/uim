@@ -475,13 +475,13 @@ class EagerLoader
             "propertyPath": trim(paths["propertyPath"], "."),
             "targetProperty": instance.getProperty(),
         ];
-        myConfiguration["canBeJoined"] = instance.canBeJoined(myConfiguration["config"]);
+        myconfiguration.getData("canBeJoined"] = instance.canBeJoined(myconfiguration.getData("config"]);
         eagerLoadable = new EagerLoadable(alias, myConfiguration);
 
-        if (myConfiguration["canBeJoined"]) {
+        if (myconfiguration.getData("canBeJoined"]) {
             _aliasList[paths["root"]][alias][] = eagerLoadable;
         } else {
-            paths["root"] = myConfiguration["aliasPath"];
+            paths["root"] = myconfiguration.getData("aliasPath"];
         }
 
         foreach (extra as t: assoc) {
@@ -525,14 +525,14 @@ class EagerLoader
      */
     protected void _correctStrategy(EagerLoadable loadable) {
         myConfiguration = loadable.getConfig();
-        currentStrategy = myConfiguration["strategy"] ??
+        currentStrategy = myconfiguration.getData("strategy"] ??
             "join";
 
         if (!loadable.canBeJoined() || currentStrategy != "join") {
             return;
         }
 
-        myConfiguration["strategy"] = Association::STRATEGY_SELECT;
+        myconfiguration.getData("strategy"] = Association::STRATEGY_SELECT;
         loadable.configuration.update(myConfiguration);
         loadable.setCanBeJoined(false);
     }

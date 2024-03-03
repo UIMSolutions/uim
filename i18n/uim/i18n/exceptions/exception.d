@@ -8,8 +8,8 @@ import uim.i18n;
 class DI18nException : UimException {
   mixin(ExceptionThis!("I18n"));
 
-  override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) {
+  override bool initialize(IData[string] initData = null) {
+    if (!super.initialize(initData)) {
       return false;
     }
 

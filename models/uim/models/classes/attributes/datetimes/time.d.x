@@ -12,8 +12,8 @@ class DTimeAttribute : DAttribute {
   mixin(AttributeThis!("TimeAttribute"));
 
   // Initialization hook method.
-  override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+  override bool initialize(IData[string] initData = null) {
+    if (!super.initialize(initData)) { return false; }
 
     
       dataFormats(["time"]);

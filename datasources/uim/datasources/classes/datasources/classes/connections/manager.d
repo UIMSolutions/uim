@@ -15,7 +15,7 @@ import uim.datasources;
  * a registry for the connections defined in an application.
  */
 class ConnectionManager {
-    override bool initialize(Iconfiguration.getData(string] configData = null) {
+    override bool initialize(IData[string] initData = null) {
         if (!super.initialize(configData)) {
             return false;
         }

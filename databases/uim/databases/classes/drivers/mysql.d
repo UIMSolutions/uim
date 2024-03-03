@@ -7,7 +7,7 @@ import uim.databases;
 class DMysqlDriver : DDriver {
     mixin(DriverThis!("Mysql"));
 
-    override bool initialize(Iconfiguration.getData(string] configData = null) {
+    override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(configData)) { return false; }
 		
             // Base configuration settings for MySQL driver

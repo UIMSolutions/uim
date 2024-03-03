@@ -5,7 +5,7 @@ import uim.databases;
 @safe:
 
 class DDriver : IDriver {
-    bool initialize(Iconfiguration.getData(string] configData = null) {
+    bool initialize(IData[string] initData = null) {
         if (!super.initialize(configData)) {
             return false;
         }

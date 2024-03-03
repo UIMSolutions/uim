@@ -7,7 +7,7 @@ import uim.databases;
 class SqlserverDriver : Driver {
     mixin(DriverThis!("SqlserverDriver"));
     
-  	override bool initialize(Iconfiguration.getData(string] configData = null) {
+  	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(configData)) { return false; }
 
 _baseConfig = [

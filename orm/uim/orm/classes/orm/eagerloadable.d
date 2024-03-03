@@ -235,7 +235,7 @@ class EagerLoadable {
 
         return [
             _name: [
-                "associations": associations,
+                "associations": DAssociations,
                 "config": myConfiguration,
             ],
         ];
@@ -245,7 +245,7 @@ class EagerLoadable {
      * Handles cloning eager loadables.
      */
     void __clone() {
-        foreach (_associations as i: association) {
+        foreach (_associations as i: DAssociation) {
             _associations[i] = clone association;
         }
     }

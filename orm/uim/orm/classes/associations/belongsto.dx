@@ -8,7 +8,7 @@ import uim.orm;
  *
  * An example of a BelongsTo association would be Article belongs to Author.
  */
-class BelongsTo : Association {
+class BelongsTo : DAssociation {
     // Valid strategies for this type of association
     protected string[] _validStrategies = [
         self.STRATEGY_JOIN,

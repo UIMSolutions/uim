@@ -777,7 +777,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * @return DORMAssociation The association.
      * @throws \InvalidArgumentException
      */
-    function getAssociation(string aName): Association
+    function getAssociation(string aName): DAssociation
     {
         association = this.findAssociation(name);
         if (!association) {
@@ -844,7 +844,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      *
      * @return DORMAssociationCollection The collection of association objects.
      */
-    function associations(): AssociationCollection
+    function associations(): DAssociationCollection
     {
         return _associations;
     }

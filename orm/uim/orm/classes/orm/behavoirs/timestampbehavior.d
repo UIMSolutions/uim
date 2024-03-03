@@ -59,7 +59,7 @@ class TimestampBehavior : Behavior {
      *
      * @param array<string, mixed> myConfiguration The config for this behavior.
      */
-    void initialize(Json myConfiguration) {
+    bool initialize(Json myConfiguration) {
         if (isset(myconfiguration.getData("events"])) {
             configuration.update("events", myconfiguration.getData("events"], false);
         }

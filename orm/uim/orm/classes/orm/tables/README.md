@@ -26,7 +26,7 @@ namespace App\Model\Table;
 use DORMTable;
 
 class ArticlesTable : DORMTable {
-    void initialize(array config) {
+    bool initialize(array config) {
         this->setTable("my_table");
     }
 }
@@ -38,7 +38,7 @@ namespace App\Model\Table;
 use DORMTable;
 
 class ArticlesTable : DORMTable {
-    void initialize(JSON myConfiguration) {
+    bool initialize(JSON myConfiguration) {
         this->setPrimaryKey("my_id");
     }
 }
@@ -48,7 +48,7 @@ Customizing the Entity Class a Table Uses
 By default table objects use an entity class based on naming conventions. For example if your table class is called ArticlesTable the entity would be Article. If the table class was PurchaseOrdersTable the entity would be PurchaseOrder. If however, you want to use an entity that doesn’t follow the conventions you can use the setEntityClass() method to change things up:
 
 class PurchaseOrdersTable : DORMTable {
-    void initialize(JSON myConfiguration) {
+    bool initialize(JSON myConfiguration) {
         this->setEntityClass("App\Model\Entity\PO");
     }
 }
@@ -299,7 +299,7 @@ namespace App\Model\Table;
 use DORMTable;
 
 class ArticlesTable : DORMTable {
-    void initialize(JSON myConfiguration) {
+    bool initialize(JSON myConfiguration) {
         this->addBehavior("Timestamp");
     }
 }
@@ -311,7 +311,7 @@ namespace App\Model\Table;
 use DORMTable;
 
 class ArticlesTable : DORMTable {
-    void initialize(JSON myConfiguration) {
+    bool initialize(JSON myConfiguration) {
         this->addBehavior("Timestamp", [
             "events": [
                 "Model.beforeSave": [

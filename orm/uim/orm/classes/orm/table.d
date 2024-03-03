@@ -264,7 +264,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      *
      * @param array<string, mixed> myConfiguration Configuration options passed to the constructor
      */
-    void initialize(Json myConfiguration) {
+    bool initialize(Json myConfiguration) {
     }
 
     /**

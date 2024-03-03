@@ -20,7 +20,7 @@ class UrlHelper : Helper {
      * Params:
      * IData[string] configData The configuration settings provided to this helper.
      */
-    void initialize(IData[string] configData = null) {
+    bool initialize(IData[string] configData = null) {
         super.initialize(configData);
         myengineClassConfig = configurationData.isSet("assetUrlClassName");
 

@@ -58,7 +58,7 @@ class TreeBehavior : Behavior {
     ];
 
 
-    void initialize(Json myConfiguration) {
+    bool initialize(Json myConfiguration) {
         configuration.getData("leftField"] = new IdentifierExpression(configuration.getData("left"]);
         configuration.getData("rightField"] = new IdentifierExpression(configuration.getData("right"]);
     }

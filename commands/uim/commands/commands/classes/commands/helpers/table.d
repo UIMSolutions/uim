@@ -74,11 +74,11 @@ class TableHelper : Helper {
         string outputResult = "";
         foreach (index : value; row.values) {
           string column = to!string(value);
-          pad = columnWidths[index] - _cellWidth($column);
+          pad = columnWidths[index] - _cellWidth(column);
           if (!optionsToPass["style"].isEmpty) {
-            column = _addStyle($column, optionsToPass["style"]);
+            column = _addStyle(column, optionsToPass["style"]);
           }
-          if ($column != "" && preg_match("#(.*)<text-right>.+</text-right>(.*)#", column, matches)) {
+          if (column != "" && preg_match("#(.*)<text-right>.+</text-right>(.*)#", column, matches)) {
             if ($matches[1] != "" || !$matches[2].isEmpty) {
               throw new UnexpectedValueException(
                 "You cannot include text before or after the text-right tag.");

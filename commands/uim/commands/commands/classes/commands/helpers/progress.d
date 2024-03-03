@@ -109,7 +109,7 @@ class ProgressHelper : Helper {
     if ($pad > 0) {
       myBar ~= str_repeat(" ", (int)$pad);
     }
-    percent = ($complete * 100)~"%";
+    percent = (complete * 100)~"%";
     myBar ~= str_pad($percent, numberLength, " ", STR_PAD_LEFT);
 
     _io.overwrite(myBar, 0);

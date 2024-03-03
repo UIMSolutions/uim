@@ -74,7 +74,7 @@ class TreeIterator : RecursiveIteratorIterator, ICollection {
     ) {
         if (!$keyPath) {
             counter = 0;
-            keyPath = auto () use (&$counter) {
+            keyPath = auto () use (&counter) {
                 return counter++;
             };
         }

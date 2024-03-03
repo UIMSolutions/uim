@@ -27,7 +27,7 @@ class DI18nCommand : Command {
             string choice = aConsoleIo.askChoice("What would you like to do?", ["E", "I", "H", "Q"])
                 .toLower;
             code = null;
-            switch ($choice) {
+            switch (choice) {
             case "e" : code = this.executeCommand(I18nExtractCommand.classname, [], aConsoleIo);
                 break;
             case "i" : code = this.executeCommand(I18nInitCommand.classname, [], aConsoleIo);
@@ -41,11 +41,11 @@ class DI18nCommand : Command {
                         "Please choose a command to execute by entering E, I, H, or Q."
                 );
             }
-            if ($code == CODE_ERROR) {
+            if (code == CODE_ERROR) {
                 this.abort();
             }
         }
-        while ($choice != "q");
+        while (choice != "q");
 
         return CODE_SUCCESS;
     }

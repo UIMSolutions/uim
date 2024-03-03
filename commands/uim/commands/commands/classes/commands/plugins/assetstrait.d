@@ -90,7 +90,7 @@ template PluginAssetsTemplate {
                     continue;
                 }
             }
-            if (!$copy) {
+            if (!copy) {
                 result = _createSymlink(
                     configData("srcPath"],
                     dest

@@ -198,17 +198,17 @@ class I18nExtractCommand : Command {
     protected void _addTranslation(string adomain, string amsgid, array details = []) {
         context = details.get("msgctxt", "");
 
-        if (isEmpty(_translations[$domain][$msgid][$context])) {
-           _translations[$domain][$msgid][$context] = [
+        if (isEmpty(_translations[$domain][$msgid][context])) {
+           _translations[$domain][$msgid][context] = [
                 "msgid_plural": false,
             ];
         }
         if (isSet(details["msgid_plural"])) {
-           _translations[$domain][$msgid][$context]["msgid_plural"] = details["msgid_plural"];
+           _translations[$domain][$msgid][context]["msgid_plural"] = details["msgid_plural"];
         }
         if (isSet(details["file"])) {
             line = details["line"] ?? 0;
-           _translations[$domain][$msgid][$context]["references"][details["file"]] ~= line;
+           _translations[$domain][$msgid][context]["references"][details["file"]] ~= line;
         }
     }
     
@@ -333,7 +333,7 @@ class I18nExtractCommand : Command {
             auto code = (string)file_get_contents($file);
 
             if (preg_match(somePattern, code) == 1) {
-                auto allTokens = token_get_all($code);
+                auto allTokens = token_get_all(code);
 
                 auto _tokens = 
                     allTokens
@@ -341,7 +341,7 @@ class I18nExtractCommand : Command {
                         .map!(token => token).array;
 
                 }
-                unset($allTokens);
+                unset(allTokens);
 
                 foreach ($functionName: map; functions) {
                    _parse(aConsoleIo, functionName, map);
@@ -366,9 +366,9 @@ class I18nExtractCommand : Command {
         tokenCount = count(_tokens);
 
         while ($tokenCount - count > 1) {
-            countToken = _tokens[$count];
-            firstParenthesis = _tokens[$count + 1];
-            if (!isArray($countToken)) {
+            countToken = _tokens[count];
+            firstParenthesis = _tokens[count + 1];
+            if (!isArray(countToken)) {
                 count++;
                 continue;
             }
@@ -401,7 +401,7 @@ class I18nExtractCommand : Command {
                     if (isSet($plural)) {
                         details["msgid_plural"] = plural;
                     }
-                    if (isSet($context)) {
+                    if (isSet(context)) {
                         details["msgctxt"] = context;
                     }
                    _addTranslation($domain, singular, details);
@@ -449,8 +449,8 @@ class I18nExtractCommand : Command {
                     }
                     
                     string sentence = "";
-                    if (!$context.isEmpty) {
-                        sentence ~= "msgctxt \"{$context}\"\n";
+                    if (!context.isEmpty) {
+                        sentence ~= "msgctxt \"{context}\"\n";
                     }
 
                     sentence ~= plural == false 
@@ -660,14 +660,14 @@ class I18nExtractCommand : Command {
         parenthesis = 1;
 
         while (($tokenCount - count > 0) && parenthesis) {
-            if (isArray(_tokens[$count])) {
-                 aConsoleIo.writeErrorMessages(_tokens[$count][1], 0);
+            if (isArray(_tokens[count])) {
+                 aConsoleIo.writeErrorMessages(_tokens[count][1], 0);
             } else {
-                 aConsoleIo.writeErrorMessages(_tokens[$count], 0);
-                if (_tokens[$count] == "(") {
+                 aConsoleIo.writeErrorMessages(_tokens[count], 0);
+                if (_tokens[count] == "(") {
                     parenthesis++;
                 }
-                if (_tokens[$count] == ")") {
+                if (_tokens[count] == ")") {
                     parenthesis--;
                 }
             }

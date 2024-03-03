@@ -34,7 +34,7 @@ class StoppableIterator : Collection {
      * the collection, if the result evaluates to false, no more items will be
      * yielded from this iterator.
      */
-  this(iterable someItems, callable$condition) {
+  this(iterable someItems, callablecondition) {
     _condition = condition;
     super(someItems);
     _innerIterator = this.getInnerIterator();
@@ -52,7 +52,7 @@ class StoppableIterator : Collection {
     aKey = this.key();
     condition = _condition;
 
-    return !$condition($current, aKey, _innerIterator);
+    return !condition(current, aKey, _innerIterator);
   }
 
   Iterator unwrap() {

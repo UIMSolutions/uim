@@ -51,8 +51,8 @@ class RoutesCommand : Command {
         });
 
         if (commandArguments.getOption("sort")) {
-            usort($output, auto ($a, b) {
-                return strcasecmp($a[0], b[0]);
+            usort($output, auto (a, b) {
+                return strcasecmp(a[0], b[0]);
             });
         }
         array_unshift($output,  aHeader);

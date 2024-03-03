@@ -57,16 +57,16 @@ trait ExtractTrait {
      */
     protected string[] _extract($data, array $parts) {
         value = null;
-        $collectionTransform = false;
+        collectionTransform = false;
 
-        foreach ($parts as $i: $column) {
-            if ($column == "{*}") {
-                $collectionTransform = true;
+        foreach ($parts as $i: column) {
+            if (column == "{*}") {
+                collectionTransform = true;
                 continue;
             }
 
             if (
-                $collectionTransform &&
+                collectionTransform &&
                 !(
                     $data instanceof Traversable ||
                     is_array($data)
@@ -75,17 +75,17 @@ trait ExtractTrait {
                 return null;
             }
 
-            if ($collectionTransform) {
+            if (collectionTransform) {
                 $rest = implode(".", array_slice($parts, $i));
 
                 return (new Collection($data)).extract($rest);
             }
 
-            if (!isset($data[$column])) {
+            if (!isset($data[column])) {
                 return null;
             }
 
-            value = $data[$column];
+            value = $data[column];
             $data = value;
         }
 
@@ -102,11 +102,11 @@ trait ExtractTrait {
      */
     protected function _simpleExtract($data, array $parts) {
         value = null;
-        foreach ($parts as $column) {
-            if (!isset($data[$column])) {
+        foreach ($parts as column) {
+            if (!isset($data[column])) {
                 return null;
             }
-            value = $data[$column];
+            value = $data[column];
             $data = value;
         }
 
@@ -117,15 +117,15 @@ trait ExtractTrait {
      * Returns a callable that receives a value and will return whether
      * it matches certain condition.
      *
-     * @param array $conditions A key-value list of conditions to match where the
+     * @param array conditions A key-value list of conditions to match where the
      * key is the property path to get from the current item and the value is the
      * value to be compared the item with.
      * @return \Closure
      */
-    protected function _createMatcherFilter(array $conditions): Closure
+    protected function _createMatcherFilter(array conditions): Closure
     {
         $matchers = null;
-        foreach ($conditions as $property: value) {
+        foreach (conditions as $property: value) {
             $extractor = _propertyExtractor($property);
             $matchers ~= function ($v) use ($extractor, value) {
                 return $extractor($v) == value;

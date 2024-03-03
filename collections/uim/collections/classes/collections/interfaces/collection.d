@@ -21,7 +21,7 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * $collection = (new Collection($items)).each(function (value, $key) {
+     * collection = (new Collection($items)).each(function (value, $key) {
      *  writeln("Element $key: value";
      * });
      * ```
@@ -45,7 +45,7 @@ interface ICollection {
      * be present in the resulting collection:
      *
      * ```
-     * $collection = (new Collection([1, 2, 3])).filter(function (value, $key) {
+     * collection = (new Collection([1, 2, 3])).filter(function (value, $key) {
      *  return value % 2 == 0;
      * });
      * ```
@@ -71,7 +71,7 @@ interface ICollection {
      * be present in the resulting collection:
      *
      * ```
-     * $collection = (new Collection([1, 2, 3])).reject(function (value, $key) {
+     * collection = (new Collection([1, 2, 3])).reject(function (value, $key) {
      *  return value % 2 == 0;
      * });
      * ```
@@ -148,7 +148,7 @@ interface ICollection {
      * Getting a collection of booleans where true indicates if a person is female:
      *
      * ```
-     * $collection = (new Collection($people)).map(function ($person, $key) {
+     * collection = (new Collection($people)).map(function ($person, $key) {
      *  return $person.gender == "female";
      * });
      * ```
@@ -161,10 +161,10 @@ interface ICollection {
 
     /**
      * Folds the values in this collection to a single value, as the result of
-     * applying the callback function to all elements. $zero is the initial state
+     * applying the callback function to all elements. zero is the initial state
      * of the reduction, and each successive step of it should be returned
      * by the callback function.
-     * If $zero is omitted the first value of the collection will be used in its place
+     * If zero is omitted the first value of the collection will be used in its place
      * and reduction will start from the second item.
      *
      * @param callable callback The callback function to be called
@@ -226,9 +226,9 @@ interface ICollection {
      *
      * ```
      * // For a collection of employees
-     * $max = $collection.max("age");
-     * $max = $collection.max("user.salary");
-     * $max = $collection.max(function ($e) {
+     * $max = collection.max("age");
+     * $max = collection.max("user.salary");
+     * $max = collection.max(function ($e) {
      *  return $e.get("user").get("salary");
      * });
      *
@@ -252,9 +252,9 @@ interface ICollection {
      *
      * ```
      * // For a collection of employees
-     * $min = $collection.min("age");
-     * $min = $collection.min("user.salary");
-     * $min = $collection.min(function ($e) {
+     * $min = collection.min("age");
+     * $min = collection.min("user.salary");
+     * $min = collection.min(function ($e) {
      *  return $e.get("user").get("salary");
      * });
      *
@@ -347,15 +347,15 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * $items = $collection.sortBy(function ($user) {
+     * $items = collection.sortBy(function ($user) {
      *  return $user.age;
      * });
      *
      * // alternatively
-     * $items = $collection.sortBy("age");
+     * $items = collection.sortBy("age");
      *
      * // or use a property path
-     * $items = $collection.sortBy("department.name");
+     * $items = collection.sortBy("department.name");
      *
      * // output all user name order by their age in descending order
      * foreach ($items as $user) {
@@ -578,7 +578,7 @@ interface ICollection {
 
     /**
      * Looks through each value in the list, returning a Collection of all the
-     * values that contain all of the key-value pairs listed in $conditions.
+     * values that contain all of the key-value pairs listed in conditions.
      *
      * ### Example:
      *
@@ -596,24 +596,24 @@ interface ICollection {
      * ]
      * ```
      *
-     * @param array $conditions a key-value list of conditions where
+     * @param array conditions a key-value list of conditions where
      * the key is a property path as accepted by `Collection::extract,
      * and the value the condition against with each element will be matched
      * @return self
      */
-    ICollection match(array $conditions);
+    ICollection match(array conditions);
 
     /**
      * Returns the first result matching all the key-value pairs listed in
      * conditions.
      *
-     * @param array $conditions a key-value list of conditions where the key is
+     * @param array conditions a key-value list of conditions where the key is
      * a property path as accepted by `Collection::extract`, and the value the
      * condition against with each element will be matched
      * @see uim.collections.ICollection::match()
      * @return mixed
      */
-    Json firstMatch(array $conditions);
+    Json firstMatch(array conditions);
 
     /**
      * Returns the first result in this collection
@@ -678,7 +678,7 @@ interface ICollection {
      *  ["id": 3, "name": "baz", "parent": "a"],
      * ];
      *
-     * $combined = (new Collection($items)).combine("id", "name");
+     * combined = (new Collection($items)).combine("id", "name");
      *
      * // Result will look like this when converted to array
      * [
@@ -687,7 +687,7 @@ interface ICollection {
      *  3: "baz",
      * ];
      *
-     * $combined = (new Collection($items)).combine("id", "name", "parent");
+     * combined = (new Collection($items)).combine("id", "name", "parent");
      *
      * // Result will look like this when converted to array
      * [
@@ -796,15 +796,15 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * $collection.map(mapper).sortBy("age").extract("name");
-     * $compiled = $collection.compile();
-     * $isJohnHere = $compiled.some($johnMatcher);
-     * allButJohn = $compiled.filter($johnMatcher);
+     * collection.map(mapper).sortBy("age").extract("name");
+     * compiled = collection.compile();
+     * $isJohnHere = compiled.some($johnMatcher);
+     * allButJohn = compiled.filter($johnMatcher);
      * ```
      *
      * In the above example, had the collection not been compiled before, the
      * iterations for `map`, `sortBy` and `extract` would"ve been executed twice:
-     * once for getting `$isJohnHere` and once for `$allButJohn`
+     * once for getting `$isJohnHere` and once for `allButJohn`
      *
      * You can think of this method as a way to create save points for complex
      * calculations in a collection.
@@ -865,11 +865,11 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * $collection = new Collection([
+     * collection = new Collection([
      *  ["id": 1, "children": [["id": 2, "children": [["id": 3]]]]],
      *  ["id": 4, "children": [["id": 5]]]
      * ]);
-     * $flattenedIds = $collection.listNested().extract("id"); // Yields [1, 2, 3, 4, 5]
+     * $flattenedIds = collection.listNested().extract("id"); // Yields [1, 2, 3, 4, 5]
      * ```
      *
      * @param string|int $order The order in which to return the elements
@@ -902,17 +902,17 @@ interface ICollection {
      * Get elements until the first unapproved message is found:
      *
      * ```
-     * $comments = (new Collection($comments)).stopWhen(["is_approved": false]);
+     * comments = (new Collection(comments)).stopWhen(["is_approved": false]);
      * ```
      *
-     * @param callable|array $condition the method that will receive each of the elements and
+     * @param callable|array condition the method that will receive each of the elements and
      * returns true when the iteration should be stopped.
      * If an array, it will be interpreted as a key-value list of conditions where
      * the key is a property path as accepted by `Collection::extract`,
      * and the value the condition against with each element will be matched.
      * @return self
      */
-    function stopWhen($condition): ICollection;
+    function stopWhen(condition): ICollection;
 
     /**
      * Creates a new collection where the items are the
@@ -957,8 +957,8 @@ interface ICollection {
      *
      * ```
      * $items = [1, 2, 3];
-     * $decorated = (new Collection($items)).through(function ($collection) {
-     *      return new MyCustomCollection($collection);
+     * $decorated = (new Collection($items)).through(function (collection) {
+     *      return new MyCustomCollection(collection);
      * });
      * ```
      *
@@ -975,8 +975,8 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * $collection = new Collection([1, 2]);
-     * $collection.zip([3, 4], [5, 6]).toList(); // returns [[1, 3, 5], [2, 4, 6]]
+     * collection = new Collection([1, 2]);
+     * collection.zip([3, 4], [5, 6]).toList(); // returns [[1, 3, 5], [2, 4, 6]]
      * ```
      *
      * @param iterable ...$items The collections to zip.
@@ -988,16 +988,16 @@ interface ICollection {
      * Combines the elements of this collection with each of the elements of the
      * passed iterables, using their positional index as a reference.
      *
-     * The resulting element will be the return value of the $callable function.
+     * The resulting element will be the return value of the callable function.
      *
      * ### Example:
      *
      * ```
-     * $collection = new Collection([1, 2]);
-     * $zipped = $collection.zipWith([3, 4], [5, 6], function (...$args) {
-     *   return array_sum($args);
+     * collection = new Collection([1, 2]);
+     * zipped = collection.zipWith([3, 4], [5, 6], function (...args) {
+     *   return array_sum(args);
      * });
-     * $zipped.toList(); // returns [9, 12]; [(1 + 3 + 5), (2 + 4 + 6)]
+     * zipped.toList(); // returns [9, 12]; [(1 + 3 + 5), (2 + 4 + 6)]
      * ```
      *
      * @param iterable ...$items The collections to zip.
@@ -1013,14 +1013,14 @@ interface ICollection {
      *
      * ```
      * $items [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-     * $chunked = (new Collection($items)).chunk(3).toList();
+     * chunked = (new Collection($items)).chunk(3).toList();
      * // Returns [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11]]
      * ```
      *
-     * @param int $chunkSize The maximum size for each chunk
+     * @param int chunkSize The maximum size for each chunk
      * @return self
      */
-    function chunk(int $chunkSize): ICollection;
+    function chunk(int chunkSize): ICollection;
 
     /**
      * Breaks the collection into smaller arrays of the given size.
@@ -1029,15 +1029,15 @@ interface ICollection {
      *
      * ```
      * $items ["a": 1, "b": 2, "c": 3, "d": 4, "e": 5, "f": 6];
-     * $chunked = (new Collection($items)).chunkWithKeys(3).toList();
+     * chunked = (new Collection($items)).chunkWithKeys(3).toList();
      * // Returns [["a": 1, "b": 2, "c": 3], ["d": 4, "e": 5, "f": 6]]
      * ```
      *
-     * @param int $chunkSize The maximum size for each chunk
+     * @param int chunkSize The maximum size for each chunk
      * @param bool shouldKeepKeys If the keys of the array should be kept
      * @return self
      */
-    function chunkWithKeys(int $chunkSize, bool shouldKeepKeys = true): ICollection;
+    function chunkWithKeys(int chunkSize, bool shouldKeepKeys = true): ICollection;
 
     /**
      * Returns whether there are elements in this collection
@@ -1147,8 +1147,8 @@ interface ICollection {
      * ### Example
      *
      * ```
-     * $collection = new Collection([["A", "B", "C"], [1, 2, 3]]);
-     * result = $collection.cartesianProduct().toArray();
+     * collection = new Collection([["A", "B", "C"], [1, 2, 3]]);
+     * result = collection.cartesianProduct().toArray();
      * $expected = [
      *     ["A", 1],
      *     ["A", 2],

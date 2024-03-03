@@ -20,7 +20,7 @@ import uim.collections;
  * ### Example
  *
  * ```
- *  anIterator = new ZipIterator([[1, 2], [3, 4]], auto ($a, b) {
+ *  anIterator = new ZipIterator([[1, 2], [3, 4]], auto (a, b) {
  *   return a + b;
  * });
  *  anIterator.toList(); // Returns [4, 6]

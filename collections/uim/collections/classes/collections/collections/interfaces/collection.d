@@ -779,7 +779,7 @@ interface ICollection : Iterator, JsonSerializable, Countable {
      *
      * In the above example, had the collection not been compiled before, the
      * iterations for `map`, `sortBy` and `extract` would've been executed twice:
-     * once for getting ` isJohnHere` and once for `$allButJohn`
+     * once for getting ` isJohnHere` and once for `allButJohn`
      *
      * You can think of this method as a way to create save points for complex
      * calculations in a collection.
@@ -877,7 +877,7 @@ interface ICollection : Iterator, JsonSerializable, Countable {
      * Get elements until the first unapproved message is found:
      *
      * ```
-     * comments = (new Collection($comments)).stopWhen(["isApproved": false]);
+     * comments = (new Collection(comments)).stopWhen(["isApproved": false]);
      * ```
      * Params:
      * callable|array condition the method that will receive each of the elements and
@@ -931,8 +931,8 @@ interface ICollection : Iterator, JsonSerializable, Countable {
      *
      * ```
      *  someItems = [1, 2, 3];
-     * decorated = (new Collection(someItems)).through(function ($collection) {
-     *     return new MyCustomCollection($collection);
+     * decorated = (new Collection(someItems)).through(function (collection) {
+     *     return new MyCustomCollection(collection);
      * });
      * ```
      * Params:

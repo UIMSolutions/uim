@@ -31,12 +31,12 @@ trait CollectionTrait {
      * Allows classes which use this trait to determine their own
      * type of returned collection interface
      *
-     * @param mixed ...$args Constructor arguments.
+     * @param mixed ...args Constructor arguments.
      * @return uim.collections.ICollection
      */
-    protected function newCollection(...$args): ICollection
+    protected function newCollection(...args): ICollection
     {
-        return new Collection(...$args);
+        return new Collection(...args);
     }
 
 
@@ -158,10 +158,10 @@ trait CollectionTrait {
             result = result.extract($path);
         }
         result = result
-            .reduce(function ($acc, $current) {
-                [$count, $sum] = acc;
+            .reduce(function (acc, current) {
+                [count, $sum] = acc;
 
-                return [$count + 1, $sum + $current];
+                return [count + 1, $sum + current];
             }, [0, 0]);
 
         if (result[0] == 0) {
@@ -179,15 +179,15 @@ trait CollectionTrait {
         }
         values = $items.toList();
         sort(values);
-        $count = count(values);
+        count = count(values);
 
-        if ($count == 0) {
+        if (count == 0) {
             return null;
         }
 
-        $middle = (int)($count / 2);
+        $middle = (int)(count / 2);
 
-        if ($count % 2) {
+        if (count % 2) {
             return values[$middle];
         }
 
@@ -299,14 +299,14 @@ trait CollectionTrait {
     }
 
 
-    function match(array $conditions): ICollection
+    function match(array conditions): ICollection
     {
-        return this.filter(_createMatcherFilter($conditions));
+        return this.filter(_createMatcherFilter(conditions));
     }
 
 
-    function firstMatch(array $conditions) {
-        return this.match($conditions).first();
+    function firstMatch(array conditions) {
+        return this.match(conditions).first();
     }
 
 
@@ -325,12 +325,12 @@ trait CollectionTrait {
         }
 
         if ($iterator instanceof Countable) {
-            $count = count($iterator);
-            if ($count == 0) {
+            count = count($iterator);
+            if (count == 0) {
                 return null;
             }
             /** @var iterable $iterator */
-            $iterator = new LimitIterator($iterator, $count - 1, 1);
+            $iterator = new LimitIterator($iterator, count - 1, 1);
         }
 
         result = null;
@@ -354,13 +354,13 @@ trait CollectionTrait {
         }
 
         if ($iterator instanceof Countable) {
-            $count = count($iterator);
+            count = count($iterator);
 
-            if ($count == 0) {
+            if (count == 0) {
                 return this.newCollection([]);
             }
 
-            $iterator = new LimitIterator($iterator, max(0, $count - $length), $length);
+            $iterator = new LimitIterator($iterator, max(0, count - $length), $length);
 
             return this.newCollection($iterator);
         }
@@ -538,11 +538,11 @@ trait CollectionTrait {
                 return null;
             }
 
-            $children = null;
+            children = null;
             foreach (values as $id) {
-                $children ~= &$parents[$id];
+                children ~= &$parents[$id];
             }
-            $parents[$key][$nestingKey] = $children;
+            $parents[$key][$nestingKey] = children;
         };
 
         return this.newCollection(new MapReduce(this.unwrap(), mapper, $reducer))
@@ -636,13 +636,13 @@ trait CollectionTrait {
     }
 
 
-    function stopWhen($condition): ICollection
+    function stopWhen(condition): ICollection
     {
-        if (!is_callable($condition)) {
-            $condition = _createMatcherFilter($condition);
+        if (!is_callable(condition)) {
+            condition = _createMatcherFilter(condition);
         }
 
-        return new StoppableIterator(this.unwrap(), $condition);
+        return new StoppableIterator(this.unwrap(), condition);
     }
 
 
@@ -690,11 +690,11 @@ trait CollectionTrait {
     }
 
 
-    function chunk(int $chunkSize): ICollection
+    function chunk(int chunkSize): ICollection
     {
-        return this.map(function ($v, $k, $iterator) use ($chunkSize) {
+        return this.map(function ($v, $k, $iterator) use (chunkSize) {
             values = [$v];
-            for ($i = 1; $i < $chunkSize; $i++) {
+            for ($i = 1; $i < chunkSize; $i++) {
                 $iterator.next();
                 if (!$iterator.valid()) {
                     break;
@@ -707,15 +707,15 @@ trait CollectionTrait {
     }
 
 
-    function chunkWithKeys(int $chunkSize, bool shouldKeepKeys = true): ICollection
+    function chunkWithKeys(int chunkSize, bool shouldKeepKeys = true): ICollection
     {
-        return this.map(function ($v, $k, $iterator) use ($chunkSize, shouldKeepKeys) {
+        return this.map(function ($v, $k, $iterator) use (chunkSize, shouldKeepKeys) {
             $key = 0;
             if (shouldKeepKeys) {
                 $key = $k;
             }
             values = [$key: $v];
-            for ($i = 1; $i < $chunkSize; $i++) {
+            for ($i = 1; $i < chunkSize; $i++) {
                 $iterator.next();
                 if (!$iterator.valid()) {
                     break;
@@ -773,9 +773,9 @@ trait CollectionTrait {
             return this.newCollection([]);
         }
 
-        $collectionArrays = null;
-        $collectionArraysKeys = null;
-        $collectionArraysCounts = null;
+        collectionArrays = null;
+        collectionArraysKeys = null;
+        collectionArraysCounts = null;
 
         foreach (this.toList() as value) {
             valueCount = count(value);
@@ -783,36 +783,36 @@ trait CollectionTrait {
                 throw new LogicException("Cannot find the cartesian product of a multidimensional array");
             }
 
-            $collectionArraysKeys ~= value.keys;
-            $collectionArraysCounts ~= valueCount;
-            $collectionArrays ~= value;
+            collectionArraysKeys ~= value.keys;
+            collectionArraysCounts ~= valueCount;
+            collectionArrays ~= value;
         }
 
         result = null;
-        $lastIndex = count($collectionArrays) - 1;
+        $lastIndex = count(collectionArrays) - 1;
         // holds the indexes of the arrays that generate the current combination
-        $currentIndexes = array_fill(0, $lastIndex + 1, 0);
+        currentIndexes = array_fill(0, $lastIndex + 1, 0);
 
-        $changeIndex = $lastIndex;
+        changeIndex = $lastIndex;
 
-        while (!($changeIndex == 0 && $currentIndexes[0] == $collectionArraysCounts[0])) {
-            $currentCombination = array_map(function (value, $keys, $index) {
+        while (!(changeIndex == 0 && currentIndexes[0] == collectionArraysCounts[0])) {
+            currentCombination = array_map(function (value, $keys, $index) {
                 return value[$keys[$index]];
-            }, $collectionArrays, $collectionArraysKeys, $currentIndexes);
+            }, collectionArrays, collectionArraysKeys, currentIndexes);
 
-            if ($filter == null || $filter($currentCombination)) {
-                result ~= $operation == null ? $currentCombination : $operation($currentCombination);
+            if ($filter == null || $filter(currentCombination)) {
+                result ~= $operation == null ? currentCombination : $operation(currentCombination);
             }
 
-            $currentIndexes[$lastIndex]++;
+            currentIndexes[$lastIndex]++;
 
             for (
-                $changeIndex = $lastIndex;
-                $currentIndexes[$changeIndex] == $collectionArraysCounts[$changeIndex] && $changeIndex > 0;
-                $changeIndex--
+                changeIndex = $lastIndex;
+                currentIndexes[changeIndex] == collectionArraysCounts[changeIndex] && changeIndex > 0;
+                changeIndex--
             ) {
-                $currentIndexes[$changeIndex] = 0;
-                $currentIndexes[$changeIndex - 1]++;
+                currentIndexes[changeIndex] = 0;
+                currentIndexes[changeIndex - 1]++;
             }
         }
 
@@ -828,16 +828,16 @@ trait CollectionTrait {
     function transpose(): ICollection
     {
         arrayValue = this.toList();
-        $length = count(current($arrayValue));
+        $length = count(current(arrayValue));
         result = null;
-        foreach ($arrayValue as $row) {
+        foreach (arrayValue as $row) {
             if (count($row) != $length) {
                 throw new LogicException("Child arrays do not have even length");
             }
         }
 
-        for ($column = 0; $column < $length; $column++) {
-            result ~= array_column($arrayValue, $column);
+        for (column = 0; column < $length; column++) {
+            result ~= array_column(arrayValue, column);
         }
 
         return this.newCollection(result);

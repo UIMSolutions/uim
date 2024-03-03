@@ -54,10 +54,10 @@ class Collection : IteratorIterator : ICollection, Serializable {
     /**
      * Unserializes the passed string and rebuilds the Collection instance
      *
-     * @param string $collection The serialized collection
+     * @param string collection The serialized collection
      */
-    void unserialize($collection) {
-        __construct(unserialize($collection));
+    void unserialize(collection) {
+        __construct(unserialize(collection));
     }
 
     /**
@@ -97,13 +97,13 @@ class Collection : IteratorIterator : ICollection, Serializable {
      */
     array __debugInfo() {
         try {
-            $count = this.count();
+            count = this.count();
         } catch (Exception $e) {
-            $count = "An exception occurred while getting count";
+            count = "An exception occurred while getting count";
         }
 
         return [
-            "count": $count,
+            "count": count,
         ];
     }
 }

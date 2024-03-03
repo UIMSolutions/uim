@@ -98,7 +98,7 @@ class Collection : IteratorIterator : ICollection, Serializable {
     array __debugInfo() {
         try {
             count = this.count();
-        } catch (Exception $e) {
+        } catch (Exception e) {
             count = "An exception occurred while getting count";
         }
 

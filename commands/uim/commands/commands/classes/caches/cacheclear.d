@@ -48,7 +48,7 @@ class CacheClearCommand : Command {
 
       engine = Cache.pool(name);
       Cache.clear(name);
-      if (cast(ApcuEngine)$engine) {
+      if (cast(ApcuEngine)engine) {
         aConsoleIo.warning("ApcuEngine detected: Cleared {name} CLI cache successfully " ~
             "but {name} web cache must be cleared separately.");
       } else {

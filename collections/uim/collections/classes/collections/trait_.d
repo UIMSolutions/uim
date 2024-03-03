@@ -129,16 +129,16 @@ trait CollectionTrait {
 
     function extract($path): ICollection
     {
-        $extractor = new ExtractIterator(this.unwrap(), $path);
+        extractor = new ExtractIterator(this.unwrap(), $path);
         if (is_string($path) && strpos($path, "{*}") != false) {
-            $extractor = $extractor
+            extractor = extractor
                 .filter(function ($data) {
                     return $data != null && ($data instanceof Traversable || is_array($data));
                 })
                 .unfold();
         }
 
-        return $extractor;
+        return extractor;
     }
 
 
@@ -733,7 +733,7 @@ trait CollectionTrait {
 
 
     bool isEmpty() {
-        foreach (this as $el) {
+        foreach (this as el) {
             return false;
         }
 

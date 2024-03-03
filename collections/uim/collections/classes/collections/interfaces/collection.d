@@ -192,7 +192,7 @@ interface ICollection {
      *  ["comment": ["body": "cool", "user": ["name": "Mark"]],
      *  ["comment": ["body": "very cool", "user": ["name": "Renan"]]
      * ];
-     * $extracted = (new Collection($items)).extract("comment.user.name");
+     * extracted = (new Collection($items)).extract("comment.user.name");
      *
      * // Result will look like this when converted to array
      * ["Mark", "Renan"]
@@ -205,7 +205,7 @@ interface ICollection {
      *      ["comment": ["votes": [["value": 1], ["value": 2], ["value": 3]]],
      *      ["comment": ["votes": [["value": 4]]
      * ];
-     * $extracted = (new Collection($items)).extract("comment.votes.{*}.value");
+     * extracted = (new Collection($items)).extract("comment.votes.{*}.value");
      *
      * // Result will contain
      * [1, 2, 3, 4]
@@ -228,8 +228,8 @@ interface ICollection {
      * // For a collection of employees
      * $max = collection.max("age");
      * $max = collection.max("user.salary");
-     * $max = collection.max(function ($e) {
-     *  return $e.get("user").get("salary");
+     * $max = collection.max(function (e) {
+     *  return e.get("user").get("salary");
      * });
      *
      * // Display employee name
@@ -254,8 +254,8 @@ interface ICollection {
      * // For a collection of employees
      * $min = collection.min("age");
      * $min = collection.min("user.salary");
-     * $min = collection.min(function ($e) {
-     *  return $e.get("user").get("salary");
+     * $min = collection.min(function (e) {
+     *  return e.get("user").get("salary");
      * });
      *
      * // Display employee name
@@ -392,8 +392,8 @@ interface ICollection {
      * $group = (new Collection($items)).groupBy("parent_id");
      *
      * // Or
-     * $group = (new Collection($items)).groupBy(function ($e) {
-     *  return $e["parent_id"];
+     * $group = (new Collection($items)).groupBy(function (e) {
+     *  return e["parent_id"];
      * });
      *
      * // Result will look like this when converted to array
@@ -435,8 +435,8 @@ interface ICollection {
      * $indexed = (new Collection($items)).indexBy("id");
      *
      * // Or
-     * $indexed = (new Collection($items)).indexBy(function ($e) {
-     *  return $e["id"];
+     * $indexed = (new Collection($items)).indexBy(function (e) {
+     *  return e["id"];
      * });
      *
      * // Result will look like this when converted to array
@@ -474,8 +474,8 @@ interface ICollection {
      * $group = (new Collection($items)).countBy("parent_id");
      *
      * // Or
-     * $group = (new Collection($items)).countBy(function ($e) {
-     *  return $e["parent_id"];
+     * $group = (new Collection($items)).countBy(function (e) {
+     *  return e["parent_id"];
      * });
      *
      * // Result will look like this when converted to array
@@ -588,7 +588,7 @@ interface ICollection {
      *  ["comment": ["body": "very cool", "user": ["name": "Renan"]]
      * ];
      *
-     * $extracted = (new Collection($items)).match(["user.name": "Renan"]);
+     * extracted = (new Collection($items)).match(["user.name": "Renan"]);
      *
      * // Result will look like this when converted to array
      * [
@@ -1149,7 +1149,7 @@ interface ICollection {
      * ```
      * collection = new Collection([["A", "B", "C"], [1, 2, 3]]);
      * result = collection.cartesianProduct().toArray();
-     * $expected = [
+     * expected = [
      *     ["A", 1],
      *     ["A", 2],
      *     ["A", 3],

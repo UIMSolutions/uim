@@ -91,8 +91,8 @@ class HelpFormatter {
             result ~= "";
         }
         epilog = myParser.getEpilog();
-        if (!$epilog.isEmpty) {
-            result ~= Text.wrap($epilog, withOfOutput);
+        if (!epilog.isEmpty) {
+            result ~= Text.wrap(epilog, withOfOutput);
             result ~= "";
         }
         return result.join("\n");

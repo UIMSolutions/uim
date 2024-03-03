@@ -36,13 +36,13 @@ trait ExtractTrait {
         $parts = explode(".", $path);
 
         if (strpos($path, "{*}") != false) {
-            return function ($element) use ($parts) {
-                return _extract($element, $parts);
+            return function (element) use ($parts) {
+                return _extract(element, $parts);
             };
         }
 
-        return function ($element) use ($parts) {
-            return _simpleExtract($element, $parts);
+        return function (element) use ($parts) {
+            return _simpleExtract(element, $parts);
         };
     }
 
@@ -126,9 +126,9 @@ trait ExtractTrait {
     {
         $matchers = null;
         foreach (conditions as $property: value) {
-            $extractor = _propertyExtractor($property);
-            $matchers ~= function ($v) use ($extractor, value) {
-                return $extractor($v) == value;
+            extractor = _propertyExtractor($property);
+            $matchers ~= function ($v) use (extractor, value) {
+                return extractor($v) == value;
             };
         }
 

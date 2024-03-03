@@ -583,7 +583,7 @@ class ConsoleOptionParser {
          isBoolean = option.isBoolean();
         nextValue = _nextToken();
         emptyNextValue = (isEmpty($nextValue) && nextValue != "0");
-        if (!isBoolean && !$emptyNextValue && !_optionExists($nextValue)) {
+        if (!isBoolean && !emptyNextValue && !_optionExists($nextValue)) {
             array_shift(_tokens);
             aValue = nextValue;
         } else if (isBoolean) {
@@ -633,7 +633,7 @@ class ConsoleOptionParser {
             expected = count(_args);
             throw new ConsoleException(
                 "Received too many arguments. Got `%s` but only `%s` arguments are defined."
-                .format($next, $expected)
+                .format($next, expected)
             );
         }
        _args[$next].validChoice(argument);

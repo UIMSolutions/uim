@@ -86,7 +86,7 @@ template ConsoleIntegrationTestTemplate {
      * @param string amessage Failure message
      */
     void assertExitCode(int expected, string amessage= null) {
-        this.assertThat($expected, new ExitCode(_exitCode), message);
+        this.assertThat(expected, new ExitCode(_exitCode), message);
     }
     
     /**
@@ -123,7 +123,7 @@ template ConsoleIntegrationTestTemplate {
      * @param string amessage Failure message
      */
     void assertOutputContains(string aexpected, string message = null) {
-        this.assertThat($expected, new ContentsContain(_out.messages(), "output"), message);
+        this.assertThat(expected, new ContentsContain(_out.messages(), "output"), message);
     }
     
     /**
@@ -133,7 +133,7 @@ template ConsoleIntegrationTestTemplate {
      * @param string amessage Failure message
      */
     void assertOutputNotContains(string aexpected, string amessage= null) {
-        this.assertThat($expected, new ContentsNotContain(_out.messages(), "output"), message);
+        this.assertThat(expected, new ContentsNotContain(_out.messages(), "output"), message);
     }
     
     /**
@@ -163,7 +163,7 @@ template ConsoleIntegrationTestTemplate {
      * @param string amessage Failure message
      */
     void assertErrorContains(string aexpected, string amessage = null) {
-        this.assertThat($expected, new ContentsContain(_err.messages(), "error output"), message);
+        this.assertThat(expected, new ContentsContain(_err.messages(), "error output"), message);
     }
     
     /**

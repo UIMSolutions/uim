@@ -149,7 +149,7 @@ protected void _transformIdentifierExpression(IdentifierExpression expressionToT
      * Receives a FunctionExpression and changes it so that it conforms to this
      * SQL dialect.
      * Params:
-     * \UIM\Database\Expression\FunctionExpression $expression The auto expression to convert
+     * \UIM\Database\Expression\FunctionExpression expression The auto expression to convert
      *  to postgres SQL.
      */
 protected void _transformFunctionExpression(FunctionExpression expressionToConvert) {

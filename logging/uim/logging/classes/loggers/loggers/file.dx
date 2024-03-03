@@ -89,7 +89,7 @@ class FileLog : BaseLog {
         }
         
         string filePath = _path ~ filename;
-        IConfigData mask = configuration.data("mask");
+        IData mask = configuration.data("mask");
         if (!mask) {
             file_put_contents(filePath, message ~ "\n", FILE_APPEND);
 

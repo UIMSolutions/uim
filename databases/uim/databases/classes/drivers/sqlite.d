@@ -8,7 +8,7 @@ class SqliteDriver : Driver {
     mixin(DriverThis!("SqliteDriver"));
     
   	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(configData)) { return false; }
+		if (!super.initialize(initData)) { return false; }
 
         _baseConfig.data([
         "persistent": false,

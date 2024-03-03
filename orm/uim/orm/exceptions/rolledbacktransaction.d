@@ -14,7 +14,7 @@ class DRolledbackTransactionException : DORMException {
 	mixin(ExceptionThis!("RolledbackTransaction"));
 
 	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(configData)) {
+		if (!super.initialize(initData)) {
 			return false;
 		}
 

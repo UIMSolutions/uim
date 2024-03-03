@@ -10,7 +10,9 @@ import uim.views;
  * This class is usually used internally by `UIM\View\Helper\FormHelper`,
  * it but can be used to generate standalone radio buttons.
  */
-class RadioWidget : Widget {
+class DRadioWidget : DWidget {
+        mixin(WidgetThis!("Radio"));
+
     use IdGeneratorTrait;
 
     // Data defaults.

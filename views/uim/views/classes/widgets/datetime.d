@@ -17,7 +17,9 @@ use InvalidArgumentException; */
  * This class is usually used internally by `UIM\View\Helper\FormHelper`,
  * it but can be used to generate standalone date time inputs.
  */
-class DateTimeWidget : DWidget {
+class DDateTimeWidget : DWidget {
+        mixin(WidgetThis!("DateTime"));
+
     // Template instance.
     protected StringTemplate _templates;
 

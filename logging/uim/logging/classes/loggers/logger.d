@@ -9,7 +9,7 @@ abstract class Logger /* : AbstractLogger */ {
     this() { name("Logger"); initialize; }
     this(string name) { this(); name(name); }
 
-  bool initialize(IData[string] configSettings = null) {
+  bool initialize(IData[string] initData = null) {
     Configuration.updateDefaults([
         "levels": [],
         "scopes": [],

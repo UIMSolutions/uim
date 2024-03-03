@@ -11,6 +11,8 @@ import uim.views;
  * and FormHelper itself.
  */
 class LabelWidget : IWidget {
+        mixin(WidgetThis!("Label"));
+
     protected StringTemplate _templates;
 
     // The template to use.

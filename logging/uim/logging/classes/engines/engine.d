@@ -8,7 +8,7 @@ class DLogEngine : ILogEngine {
   this() {
   }
 
-  bool initialize(IData[string] configSettings = null) {
+  bool initialize(IData[string] initData = null) {
     return true;
   }
 

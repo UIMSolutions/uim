@@ -13,7 +13,7 @@ import uim.logging;
 class DArrayLogEngine : DLogEngine {
   mixin(LogEngineThis!("ArrayLogEngine"));
 
-  override bool initialize(IData[string] configSettings = null) {
+  override bool initialize(IData[string] initData = null) {
     super.initialize(configSettings);
   }
 }

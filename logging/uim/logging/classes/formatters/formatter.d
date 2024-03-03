@@ -17,7 +17,7 @@ class DLogFormatter : ILogFormatter {
   mixin(TProperty!("string", "name"));
   mixin(TProperty!("IData[string]", "config"));
 
-  bool initialize(IData[string] configSettings = null) {
+  bool initialize(IData[string] initData = null) {
     return true;
   }
 }

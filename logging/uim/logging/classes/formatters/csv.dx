@@ -6,7 +6,7 @@ import uim.logging;
 class DCSVLogFormatter : DLogFormatter {
   mixin(LogFormatterThis!("CSVLogFormatter"));
 
-  override bool initialize(IData[string] configSettings = null) {
+  override bool initialize(IData[string] initData = null) {
     return super.initialize(configSettings);
   }
 }

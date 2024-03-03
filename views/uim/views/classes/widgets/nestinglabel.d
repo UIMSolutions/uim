@@ -10,6 +10,8 @@ import uim.views;
  * and FormHelper itself.
  */
 class NestingLabelWidget : LabelWidget {
+        mixin(WidgetThis!("NestingLabel"));
+
     // The template to use.
     protected string my_labelTemplate = "nestingLabel";
 }

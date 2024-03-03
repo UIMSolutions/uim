@@ -11,6 +11,8 @@ import uim.views;
  * it but can be used to generate standalone checkboxes.
  */
 class CheckboxWidget : DWidget {
+        mixin(WidgetThis!("CheckBox"));
+
     // Data defaults.
     protected IData[string] _defaultData = [
         "name": "",

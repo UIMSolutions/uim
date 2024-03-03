@@ -16,16 +16,24 @@ import uim.consoles;
  * @implements \UIM\Event\IEventDispatcher<\UIM\Command\Command>
  */
 abstract class Command : ICommand, IEventDispatcher {
-    this() { initialize; }
+    this() {
+        initialize;
+    }
 
-  	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
+    // Hook method
+    bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
-    mixin configForClass(); 
-    
+        configuration(new DConfiguration);
+        configuration.update(initData);
+
+        return true;
+    }
+
+    mixin configForClass();
+
     //  @use \UIM\Event\EventDispatcherTrait<\UIM\Command\Command>
     mixin EventDispatcherTemplate();
 
@@ -39,24 +47,24 @@ abstract class Command : ICommand, IEventDispatcher {
         );
         _name = newName;
     }
-    
+
     // Get the command name.
     @property string name() {
         return _name;
     }
-    
+
     // Get the command description.
     static string getDescription() {
         return "";
     }
-    
+
     // Get the root command name.
     string getRootName() {
         [$root] = split(" ", this.name);
 
         return root;
     }
-    
+
     /**
      * Get the command name.
      *
@@ -67,10 +75,10 @@ abstract class Command : ICommand, IEventDispatcher {
     static string defaultName() {
         size_t pos = strrpos(class, "\\");
         /** @psalm-suppress PossiblyFalseOperand */
-        string name = substr(class, pos + 1, -7);
+        string name = substr(class, pos + 1,  - 7);
         return Inflector.underscore(name);
     }
-    
+
     /**
      * Get the option parser.
      *
@@ -78,15 +86,15 @@ abstract class Command : ICommand, IEventDispatcher {
      */
     ConsoleOptionParser getOptionParser() {
         [$root, name] = split(" ", this.name, 2);
-         aParser = new ConsoleOptionParser(name);
-         aParser.setRootName($root);
-         aParser.description(getDescription());
+        aParser = new ConsoleOptionParser(name);
+        aParser.setRootName($root);
+        aParser.description(getDescription());
 
-         aParser = this.buildOptionParser( aParser);
+        aParser = this.buildOptionParser(aParser);
 
         return aParser;
     }
-    
+
     /**
      * Hook method for defining this command`s option parser.
      * Params:
@@ -95,51 +103,46 @@ abstract class Command : ICommand, IEventDispatcher {
     protected ConsoleOptionParser buildOptionParser(ConsoleOptionParser parserToDefine) {
         return parserToDefine;
     }
-    
-    /**
-     * Hook method invoked by UIM when a command is about to be executed.
-     *
-     * Override this method and implement expensive/important setup steps that
-     * should not run on every command run. This method will be called *before*
-     * the options and arguments are validated and processed.
-     */
-    bool initialize(IData[string] initData = null) {
-    }
+
  
+
     int run(array argv, ConsoleIo aConsoleIo) {
         this.initialize();
 
-         aParser = this.getOptionParser();
+        aParser = this.getOptionParser();
         try {
-            [options, arguments] =  aParser.parse($argv,  aConsoleIo);
+            [options, arguments] = aParser.parse($argv, aConsoleIo);
             someArguments = new Arguments(
                 arguments,
                 options,
-                 aParser.argumentNames()
+                aParser.argumentNames()
             );
-        } catch (ConsoleException  anException) {
-             aConsoleIo.writeErrorMessages("Error: " ~  anException.getMessage());
+        } catch (ConsoleException anException) {
+            aConsoleIo.writeErrorMessages("Error: " ~ anException.getMessage());
 
             return CODE_ERROR;
         }
-        this.setOutputLevel(someArguments,  aConsoleIo);
+        this.setOutputLevel(someArguments, aConsoleIo);
 
         if (someArguments.getOption("help")) {
-            this.displayHelp( aParser, someArguments,  aConsoleIo);
+            this.displayHelp(aParser, someArguments, aConsoleIo);
 
             return CODE_SUCCESS;
         }
         if (someArguments.getOption("quiet")) {
-             aConsoleIo.setInteractive(false);
+            aConsoleIo.setInteractive(false);
         }
         this.dispatchEvent("Command.beforeExecute", ["args": someArguments]);
         /** @var int result */
-        result = this.execute(someArguments,  aConsoleIo);
-        this.dispatchEvent("Command.afterExecute", ["args": someArguments, "result": result]);
+        result = this.execute(someArguments, aConsoleIo);
+        this.dispatchEvent("Command.afterExecute", [
+                "args": someArguments,
+                "result": result
+            ]);
 
         return result;
     }
-    
+
     /**
      * Output help content
      * Params:
@@ -147,15 +150,15 @@ abstract class Command : ICommand, IEventDispatcher {
      * @param \UIM\Console\Arguments someArguments The command arguments.
      * @param \UIM\Console\ConsoleIo aConsoleIo The console io
      */
-    protected void displayHelp(ConsoleOptionParser  aParser, Arguments someArguments, ConsoleIo aConsoleIo) {
+    protected void displayHelp(ConsoleOptionParser aParser, Arguments someArguments, ConsoleIo aConsoleIo) {
         format = "text";
         if (someArguments.getArgumentAt(0) == "xml") {
             format = "xml";
-             aConsoleIo.setOutputAs(ConsoleOutput.RAW);
+            aConsoleIo.setOutputAs(ConsoleOutput.RAW);
         }
-         aConsoleIo.writeln( aParser.help($format));
+        aConsoleIo.writeln(aParser.help($format));
     }
-    
+
     /**
      * Set the output level based on the Arguments.
      * Params:
@@ -163,24 +166,24 @@ abstract class Command : ICommand, IEventDispatcher {
      * @param \UIM\Console\ConsoleIo aConsoleIo The console io
      */
     protected void setOutputLevel(Arguments someArguments, ConsoleIo aConsoleIo) {
-         aConsoleIo.setLoggers(ConsoleIo.NORMAL);
+        aConsoleIo.setLoggers(ConsoleIo.NORMAL);
         if (someArguments.getOption("quiet")) {
-             aConsoleIo.level(ConsoleIo.QUIET);
-             aConsoleIo.setLoggers(ConsoleIo.QUIET);
+            aConsoleIo.level(ConsoleIo.QUIET);
+            aConsoleIo.setLoggers(ConsoleIo.QUIET);
         }
         if (someArguments.getOption("verbose")) {
-             aConsoleIo.level(ConsoleIo.VERBOSE);
-             aConsoleIo.setLoggers(ConsoleIo.VERBOSE);
+            aConsoleIo.level(ConsoleIo.VERBOSE);
+            aConsoleIo.setLoggers(ConsoleIo.VERBOSE);
         }
     }
-    
+
     /**
      * Implement this method with your command`s logic.
      * Params:
      * \UIM\Console\Arguments someArguments The command arguments.
      * @param \UIM\Console\ConsoleIo aConsoleIo The console io
      */
-    abstract int|void execute(Arguments someArguments, ConsoleIo aConsoleIo);
+    abstract int | void execute(Arguments someArguments, ConsoleIo aConsoleIo);
 
     /**
      * Halt the current process with a StopException.
@@ -190,7 +193,7 @@ abstract class Command : ICommand, IEventDispatcher {
     never abort(int code = self.CODE_ERROR) {
         throw new StopException("Command aborted", code);
     }
-    
+
     /**
      * Execute another command with the provided set of arguments.
      *
@@ -202,23 +205,24 @@ abstract class Command : ICommand, IEventDispatcher {
      * @param array someArguments The arguments to invoke the command with.
      * @param \UIM\Console\ConsoleIo|null  aConsoleIo The ConsoleIo instance to use for the executed command.
      */
-    int executeCommand(string acommand, array someArguments = [], ?ConsoleIo aConsoleIo = null) {
-            assert(
-                isSubclass_of($command, ICommand.classname),
-                "Command `%s` is not a subclass of `%s`.".format($command, ICommand.classname)
-            );
+    int executeCommand(string acommand, array someArguments = [],  ? ConsoleIo aConsoleIo = null) {
+        assert(
+            isSubclass_of($command, ICommand.classname),
+            "Command `%s` is not a subclass of `%s`.".format($command, ICommand.classname)
+        );
 
-            auto newCommand = new command();
-        return executeCommand(ICommand acommand, array someArguments = [], ?ConsoleIo aConsoleIo = null) {
-    }
-        
-    int executeCommand(ICommand acommand, array someArguments = [], ?ConsoleIo aConsoleIo = null) {
-        auto myConsoleIo = aConsoleIo ?: new ConsoleIo();
+        auto newCommand = new command();
+        return executeCommand(ICommand acommand, array someArguments = [],  ? ConsoleIo aConsoleIo = null) {
+        }
 
-        try {
-            return acommand.run(someArguments,  myConsoleIo);
-        } catch (StopException  anException) {
-            return anException.getCode();
+        int executeCommand(ICommand acommand, array someArguments = [],  ? ConsoleIo aConsoleIo = null) {
+            auto myConsoleIo = aConsoleIo ?  : new ConsoleIo();
+
+            try {
+                return acommand.run(someArguments, myConsoleIo);
+            }
+ catch (StopException anException) {
+                return anException.getCode();
+            }
         }
     }
-}

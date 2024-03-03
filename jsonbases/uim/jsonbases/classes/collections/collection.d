@@ -18,8 +18,17 @@ abstract class DJsonCollection : IJsonCollection {
   mixin(TProperty!("string", "name"));
   mixin(TProperty!("IJsonTenant", "tenant"));
 
-  bool initialize(IData[string] configSettings = null) { // Hook
-  }
+    // Hook method
+    bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        configuration(new DConfiguration);
+        configuration.update(initData);
+
+        return true;
+    }
 
   // #region CREATE
     // #region insertOne()

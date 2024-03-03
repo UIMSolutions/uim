@@ -15,8 +15,17 @@ class DJsonTenant : IJsonTenant, IJsonCollectionManager {
   this(string aName) { this(); this.name(aName); }
   this(IJsonBase aBase, string aName) { this(aBase); this.name(aName); }
 
-  bool initialize(IData[string] configSettings = null) { // Hook
-  }
+    // Hook method
+    bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        configuration(new DConfiguration);
+        configuration.update(initData);
+
+        return true;
+    }
 
   // #region Properties 
     mixin(TProperty!("string", "className"));

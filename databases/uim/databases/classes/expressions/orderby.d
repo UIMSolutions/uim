@@ -18,7 +18,7 @@ class OrderByExpression : QueryExpression {
         TypeMap|array types = [],
         string aConjunction = ""
     ) {
-        super($conditions, types, aConjunction);
+        super(conditions, types, aConjunction);
     }
     string sql(ValueBinder aBinder) {
         string[] sqlOrders;
@@ -37,11 +37,11 @@ class OrderByExpression : QueryExpression {
      *
      * New order by expressions are merged to existing ones
      * Params:
-     * array $conditions list of order by expressions
-     * @param array types list of types associated on fields referenced in $conditions
+     * array conditions list of order by expressions
+     * @param array types list of types associated on fields referenced in conditions
      */
-    protected void _addConditions(array $conditions, array types) {
-        foreach ( aKey: $val; $conditions) {
+    protected void _addConditions(array conditions, array types) {
+        foreach ( aKey: $val; conditions) {
             if (
                 isString(aKey) &&
                 isString($val) &&
@@ -55,6 +55,6 @@ class OrderByExpression : QueryExpression {
                 );
             }
         }
-       _conditions = array_merge(_conditions, $conditions);
+       _conditions = array_merge(_conditions, conditions);
     }
 }

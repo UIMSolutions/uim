@@ -77,9 +77,9 @@ class SqliteDriver : Driver {
                 "The `database` key for the `{name}` SQLite connection needs to be a non-empty string."
             );
         }
-        $chmodFile = false;
+        chmodFile = false;
         if (configuration["database"] != ":memory:" && configuration["mode"] != "memory") {
-            $chmodFile = !file_exists(configuration["database"]);
+            chmodFile = !file_exists(configuration["database"]);
         }
         
         string[] params = [];
@@ -94,12 +94,12 @@ class SqliteDriver : Driver {
             : "sqlite:" ~ configuration["database"];
         }
         this.pdo = this.createPdo(dsn, configData);
-        if ($chmodFile) {
+        if (chmodFile) {
             @chmod(configuration["database"], configuration["mask"]);
         }
         if (!(configuration["init"].isEmpty) {
-            foreach ( $command; (array)configuration["init"] ) {
-                this.pdo.exec($command);
+            foreach ( command; (array)configuration["init"] ) {
+                this.pdo.exec(command);
             }
         }
     }

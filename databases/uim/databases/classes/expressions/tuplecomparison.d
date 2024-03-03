@@ -31,7 +31,7 @@ class TupleComparison : ComparisonExpression {
     ) {
         this.types = types;
         this.setFieldNames(fields);
-        _operator = $conjunction;
+        _operator = conjunction;
         this.setValue(someValues);
     }
 

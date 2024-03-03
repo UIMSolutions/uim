@@ -101,7 +101,7 @@ class DMysqlDriver : DDriver {
 
         if (!configuration["init"].isEmpty) {
             (array)configuration["init"]
-                .each!($command => this.pdo.exec($command));
+                .each!(command => this.pdo.exec(command));
         }
     }
     

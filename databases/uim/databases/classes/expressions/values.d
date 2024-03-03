@@ -128,8 +128,8 @@ class ValuesExpression : IExpression {
             $row += $defaults;
             $rowPlaceholders = [];
 
-            foreach ($column; colNames) {
-                auto aValue = $row[$column];
+            foreach (column; colNames) {
+                auto aValue = $row[column];
 
                 if (cast(IExpression)aValue ) {
                     $rowPlaceholders ~= "(" ~ aValue.sql(aBinder) ~ ")";
@@ -137,7 +137,7 @@ class ValuesExpression : IExpression {
                 }
                 auto $placeholder = aBinder.placeholder("c");
                 auto $rowPlaceholders ~= $placeholder;
-                aBinder.bind($placeholder, aValue, types[$column]);
+                aBinder.bind($placeholder, aValue, types[column]);
             }
             $placeholders ~= join(", ", $rowPlaceholders);
         }
@@ -189,9 +189,9 @@ class ValuesExpression : IExpression {
         }
         foreach (_values as $row:  someValues) {
             types.byKeyValue
-                .each!($col: type)
+                .each!(col: type)
                 /** @var \UIM\Database\Type\IExpressionType type */
-               _values[$row][$col] = type.toExpression(someValues[$col]);
+               _values[$row][col] = type.toExpression(someValues[col]);
             }
         }
        _castedExpressions = true;

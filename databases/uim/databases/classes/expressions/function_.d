@@ -64,7 +64,7 @@ class FunctionExpression : QueryExpression, ITypedResult {
         $put = $prepend ? "array_unshift' : 'array_push";
         typeMap = this.getTypeMap().setTypes($types);
 
-        $conditions.byKeyValue
+        conditions.byKeyValue
             .each!(kv => addCondtion(conditions, kv.key, kv.value));
     }
 
@@ -91,17 +91,17 @@ class FunctionExpression : QueryExpression, ITypedResult {
  
     string sql(ValueBinder aBinder) {
         someParts = [];
-        foreach ($condition; _conditions) {
-            if (cast(Query)$condition) {
-                $condition = "(%s)".format($condition.sql(aBinder));
-            } elseif (cast(IExpression)$condition ) {
-                $condition = $condition.sql(aBinder);
-            } elseif (isArray($condition)) {
+        foreach (condition; _conditions) {
+            if (cast(Query)condition) {
+                condition = "(%s)".format(condition.sql(aBinder));
+            } elseif (cast(IExpression)condition ) {
+                condition = condition.sql(aBinder);
+            } elseif (isArray(condition)) {
                 $p = aBinder.placeholder("param");
-                aBinder.bind($p, $condition["value"], $condition["type"]);
-                $condition = $p;
+                aBinder.bind($p, condition["value"], condition["type"]);
+                condition = $p;
             }
-            someParts ~= $condition;
+            someParts ~= condition;
         }
         return _name ~ "(%s)".format(join(
            _conjunction ~ " ",

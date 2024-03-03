@@ -141,7 +141,7 @@ protected void _transformIdentifierExpression(IdentifierExpression expressionToT
     auto collation = expressionToTranform.collation();
     if (collation) {
         // use trim() to work around expression being transformed multiple times
-        expressionToTranform.collation("\"" ~ trim($collation, "\"") ~ "\"");
+        expressionToTranform.collation("\"" ~ trim(collation, "\"") ~ "\"");
     }
 }
 

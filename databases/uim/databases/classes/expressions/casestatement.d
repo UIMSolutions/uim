@@ -193,7 +193,7 @@ class CaseStatementExpression : IExpression, ITypedResult {
      * The following is _unsafe_usage that must be avoided:
      *
      * ```
-     * $case
+     * case
      *     .when($userData)
      * ```
      *
@@ -201,7 +201,7 @@ class CaseStatementExpression : IExpression, ITypedResult {
      * the value:
      *
      * ```
-     * $case
+     * case
      *     .when($userData, "integer")
      * ```
      *
@@ -214,7 +214,7 @@ class CaseStatementExpression : IExpression, ITypedResult {
      * entries, which will cause them to be bound:
      *
      * ```
-     * $case
+     * case
      *     .when([
      *         'Table.column": $userData,
      *     ])
@@ -277,7 +277,7 @@ class CaseStatementExpression : IExpression, ITypedResult {
      * `\UIM\Database\Expression\WhenThenExpression`:
      *
      * ```
-     * $case
+     * case
      *    .when(["Table.column": true])
      *    .then("Yes")
      *    .when(["Table.column": false])
@@ -288,27 +288,27 @@ class CaseStatementExpression : IExpression, ITypedResult {
      * The following would all fail with an exception:
      *
      * ```
-     * $case
+     * case
      *    .when(["Table.column": true])
      *    .when(["Table.column": false])
      *    // ...
      * ```
      *
      * ```
-     * $case
+     * case
      *    .when(["Table.column": true])
      *    .else("Maybe")
      *    // ...
      * ```
      *
      * ```
-     * $case
+     * case
      *    .then("Yes")
      *    // ...
      * ```
      *
      * ```
-     * $case
+     * case
      *    .when(["Table.column": true])
      *    .then("Yes")
      *    .then("No")
@@ -427,13 +427,13 @@ class CaseStatementExpression : IExpression, ITypedResult {
      * string aclause The name of the clause to obtain.
      */
     IExpression|object|array<\UIM\Database\Expression\WhenThenExpression>|scalar|null clause(string aclause) {
-        if (!in_array($clause, this.validClauseNames, true)) {
+        if (!in_array(clause, this.validClauseNames, true)) {
             throw new InvalidArgumentException(
-                "The `$clause` argument must be one of `%s`, the given value `%s` is invalid."
-                    .format(join("`, `", this.validClauseNames), $clause)
+                "The `clause` argument must be one of `%s`, the given value `%s` is invalid."
+                    .format(join("`, `", this.validClauseNames), clause)
             );
         }
-        return this.{$clause};
+        return this.{clause};
     }
  
     string sql(ValueBinder aBinder) {

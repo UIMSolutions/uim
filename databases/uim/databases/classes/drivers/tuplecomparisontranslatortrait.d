@@ -69,12 +69,12 @@ trait TupleComparisonTranslatorTrait {
         if (!isArray(current(aValue))) {
             aValue = [aValue];
         }
-        $conditions = ["OR": []];
+        conditions = ["OR": []];
         aValue.each!((tuple) {
             auto items = []; foreach (anI : value2; tuple.values) {
                 items ~= [fields[anI]: value2];}
-                $conditions["OR"] ~= items;});
-                $surrogate.where($conditions, typeMap);
+                conditions["OR"] ~= items;});
+                $surrogate.where(conditions, typeMap);
 
                 $expression.setFieldNames($true);
                 $expression.setValue($surrogate);

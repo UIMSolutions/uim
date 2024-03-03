@@ -34,10 +34,10 @@ class QueryExpression : IExpression, Countable {
      * \UIM\Database\IExpression|string[] aconditions Tree like array structure
      * containing all the conditions to be added or nested inside this expression object.
      * @param \UIM\Database\TypeMap|array types Associative array of types to be associated with the values
-     * passed in $conditions.
+     * passed in conditions.
      * @param string aconjunction the glue that will join all the string conditions at this
      * level of the expression tree. For example "AND", "OR", "XOR"...
-     * @see \UIM\Database\Expression\QueryExpression.add() for more details on $conditions and types
+     * @see \UIM\Database\Expression\QueryExpression.add() for more details on conditions and types
      */
     this(
         IExpression|string[] aconditions = [],
@@ -45,9 +45,9 @@ class QueryExpression : IExpression, Countable {
         string aconjunction = "AND"
     ) {
         this.setTypeMap($types);
-        this.setConjunction(strtoupper($conjunction));
-        if (!$conditions.isEmpty) {
-            this.add($conditions, this.getTypeMap().getTypes());
+        this.setConjunction(strtoupper(conjunction));
+        if (!conditions.isEmpty) {
+            this.add(conditions, this.getTypeMap().getTypes());
         }
     }
     
@@ -81,12 +81,12 @@ class QueryExpression : IExpression, Countable {
      * @see \UIM\Database\Query.where() for examples on conditions
      */
     void add(IExpression|string[] aconditions, array types = []) {
-        if (isString($conditions) || cast(IExpression)$conditions ) {
-           _conditions ~= $conditions;
+        if (isString(conditions) || cast(IExpression)conditions ) {
+           _conditions ~= conditions;
 
             return;
         }
-       _addConditions($conditions, types);
+       _addConditions(conditions, types);
     }
 
     /**
@@ -354,10 +354,10 @@ class QueryExpression : IExpression, Countable {
      * values that are being passed. Used for correctly binding values to statements.
      */
     static and(IExpression|Closure|string[] aconditions, STRINGAA passedTypes = null) {
-        if (cast(Closure)$conditions) {
-            return $conditions(new static([], this.getTypeMap().setTypes(passedTypes)));
+        if (cast(Closure)conditions) {
+            return conditions(new static([], this.getTypeMap().setTypes(passedTypes)));
         }
-        return new static($conditions, this.getTypeMap().setTypes(passedTypes));
+        return new static(conditions, this.getTypeMap().setTypes(passedTypes));
     }
     
     /**
@@ -369,10 +369,10 @@ class QueryExpression : IExpression, Countable {
      * values that are being passed. Used for correctly binding values to statements.
      */
     static or(IExpression|Closure|string[] aconditions, STRINGAA passedTypes = []) {
-        if (cast(Closure)$conditions) {
-            return $conditions(new static([], this.getTypeMap().setTypes(passedTypes), "OR"));
+        if (cast(Closure)conditions) {
+            return conditions(new static([], this.getTypeMap().setTypes(passedTypes), "OR"));
         }
-        return new static($conditions, this.getTypeMap().setTypes(passedTypes), "OR");
+        return new static(conditions, this.getTypeMap().setTypes(passedTypes), "OR");
     }
     
     /**
@@ -386,7 +386,7 @@ class QueryExpression : IExpression, Countable {
      * values that are being passed. Used for correctly binding values to statements.
      */
     auto not(IExpression|Closure|string[] aconditions, STRINGAA passedTypes = []) {
-        return this.add(["NOT": $conditions], passedTypes);
+        return this.add(["NOT": conditions], passedTypes);
     }
     
     /**
@@ -419,7 +419,7 @@ class QueryExpression : IExpression, Countable {
         if ($len == 0) {
             return "";
         }
-        $conjunction = _conjunction;
+        conjunction = _conjunction;
         template = $len == 1 ? "%s' : '(%s)";
         someParts = [];
         foreach (_conditions as $part) {
@@ -432,12 +432,12 @@ class QueryExpression : IExpression, Countable {
                 someParts ~= $part;
             }
         }
-        return template.format(join(" $conjunction ", someParts));
+        return template.format(join(" conjunction ", someParts));
     }
 
     void traverse(Closure aCallback) {
         _conditions.each!((condition) {
-            if (cast(IExpression)$c ) {
+            if (cast(IExpression)c ) {
                 aCallback(condition);
                 condition.traverse(aCallback);
             }
@@ -460,9 +460,9 @@ class QueryExpression : IExpression, Countable {
      */
     void iterateParts(Closure aCallback) {
         someParts = [];
-        foreach (myKey: $c; _conditions) {
+        foreach (myKey: c; _conditions) {
             aKey = &myKey;
-            $part = aCallback($c, aKey);
+            $part = aCallback(c, aKey);
             if ($part !isNull) {
                 someParts[aKey] = $part;
             }
@@ -489,52 +489,52 @@ class QueryExpression : IExpression, Countable {
      * String conditions are stored directly in the conditions, while any other
      * representation is wrapped around an adequate instance or of this class.
      * Params:
-     * array $conditions list of conditions to be stored in this object
-     * fieldTypes list of types associated on fields referenced in $conditions
+     * array conditions list of conditions to be stored in this object
+     * fieldTypes list of types associated on fields referenced in conditions
      */
-    protected void _addConditions(array $conditions, STRINGAA fieldTypes) {
+    protected void _addConditions(array conditions, STRINGAA fieldTypes) {
         $operators = ["and", "or", "xor"];
 
         typeMap = this.getTypeMap().setTypes(fieldTypes);
 
-        foreach (myKey: $c; $conditions) {
+        foreach (myKey: c; conditions) {
             $numericKey = isNumeric(myKey);
 
-            if (cast(Closure)$c) {
+            if (cast(Closure)c) {
                 $expr = new static([], typeMap);
-                $c = $c($expr, this);
+                c = c($expr, this);
             }
-            if ($numericKey && empty($c)) {
+            if ($numericKey && empty(c)) {
                 continue;
             }
-             isArray = isArray($c);
+             isArray = isArray(c);
              isOperator =  isNot = false;
             if (!$numericKey) {
                 $normalizedKey = myKey.toLower;
                  isOperator = in_array($normalizedKey, $operators);
                  isNot = $normalizedKey == "not";
             }
-            if ((isOperator ||  isNot) && (isArray || cast(Countable)$c) && count($c) == 0) {
+            if ((isOperator ||  isNot) && (isArray || cast(Countable)c) && count(c) == 0) {
                 continue;
             }
-            if ($numericKey && cast(IExpression)$c ) {
-               _conditions ~= $c;
+            if ($numericKey && cast(IExpression)c ) {
+               _conditions ~= c;
                 continue;
             }
-            if ($numericKey && isString($c)) {
-               _conditions ~= $c;
+            if ($numericKey && isString(c)) {
+               _conditions ~= c;
                 continue;
             }
             if ($numericKey &&  isArray ||  isOperator) {
-               _conditions ~= new static($c, typeMap, $numericKey ? "AND" : myKey);
+               _conditions ~= new static(c, typeMap, $numericKey ? "AND" : myKey);
                 continue;
             }
             if (isNot) {
-               _conditions ~= new UnaryExpression("NOT", new static($c, typeMap));
+               _conditions ~= new UnaryExpression("NOT", new static(c, typeMap));
                 continue;
             }
             if (!$numericKey) {
-               _conditions ~= _parseCondition(myKey, $c);
+               _conditions ~= _parseCondition(myKey, c);
             }
         }
     }
@@ -551,7 +551,7 @@ class QueryExpression : IExpression, Countable {
      * @param Json aValue The value to be bound to a placeholder for the field
      */
     protected IExpression|string _parseCondition(string acondition, Json aValue) {
-        $expression = trim($condition);
+        $expression = trim(condition);
         $operator = "=";
 
         $spaces = substr_count($expression, " ");
@@ -632,9 +632,9 @@ class QueryExpression : IExpression, Countable {
     
     // Clone this object and its subtree of expressions.
     void __clone() {
-        foreach (anI: $condition; _conditions) {
-            if (cast(IExpression)$condition ) {
-               _conditions[anI] = clone $condition;
+        foreach (anI: condition; _conditions) {
+            if (cast(IExpression)condition ) {
+               _conditions[anI] = clone condition;
             }
         }
     }

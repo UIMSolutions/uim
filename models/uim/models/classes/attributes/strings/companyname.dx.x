@@ -13,8 +13,8 @@ class DCompanyNameAttribute : DStringAttribute {
   mixin(AttributeThis!("CompanyNameAttribute"));
 
   // Initialization hook method.
-  override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+  override bool initialize(IData[string] initData = null) {
+    if (!super.initialize(initData)) { return false; }
 
     name("companyName");
     registerPath("companyName");

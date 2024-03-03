@@ -37,12 +37,12 @@ class ConnectionRegistry : ObjectRegistry {
      * If a closure is passed as first argument, The returned value of this
      * auto will be the result from calling the closure.
      */
-    protected IConnection _create(string className, string objectAlias, IConfigData[string] configData) {
+    protected IConnection _create(string className, string objectAlias, Iconfiguration.getData(string] configData) {
         configData.remove("className");
 
         return new className(configData);
     }
-    protected IConnection _create(Object className, string objectAlias, IConfigData[string] configData) {
+    protected IConnection _create(Object className, string objectAlias, Iconfiguration.getData(string] configData) {
         return cast(Closure)className 
             ? className(objectAlias)
             : className;

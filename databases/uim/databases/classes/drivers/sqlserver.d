@@ -7,7 +7,7 @@ import uim.databases;
 class SqlserverDriver : Driver {
     mixin(DriverThis!("SqlserverDriver"));
     
-  	override bool initialize(IConfigData[string] configData = null) {
+  	override bool initialize(Iconfiguration.getData(string] configData = null) {
 		if (!super.initialize(configData)) { return false; }
 
 _baseConfig = [
@@ -83,26 +83,26 @@ _baseConfig = [
             : "";
         }
 
-        string dsn = "sqlsrv:Server={configData["host"]}{$port};Database={configData["database"]};MultipleActiveResultSets=false";
-        dsn ~= !configData["app"].isNull ? ";APP=%s".format(configData["app"]) : null;
-        dsn ~= !configData["connectionPooling"].isNull ? ";ConnectionPooling={configData["connectionPooling"]}" : null;
-        dsn ~= !configData["failoverPartner"].isNull ? ";Failover_Partner={configData["failoverPartner"]}" : null;
-        dsn ~= !configData["loginTimeout"].isNull ? ";LoginTimeout={configData["loginTimeout"]}" : null;
-        dsn ~= !configData["multiSubnetFailover"].isNull ? ";MultiSubnetFailover={configData["multiSubnetFailover"]}" : null;
-        dsn ~= !configData["encrypt"].isNull ? ";Encrypt={configData["encrypt"]}" : null;
-        dsn ~= !configData["trustServerCertificate"].isNull ? ";TrustServerCertificate={configData["trustServerCertificate"]}" : null;
+        string dsn = "sqlsrv:Server={configuration.getData("host"]}{$port};Database={configuration.getData("database"]};MultipleActiveResultSets=false";
+        dsn ~= !configuration.getData("app"].isNull ? ";APP=%s".format(configuration.getData("app"]) : null;
+        dsn ~= !configuration.getData("connectionPooling"].isNull ? ";ConnectionPooling={configuration.getData("connectionPooling"]}" : null;
+        dsn ~= !configuration.getData("failoverPartner"].isNull ? ";Failover_Partner={configuration.getData("failoverPartner"]}" : null;
+        dsn ~= !configuration.getData("loginTimeout"].isNull ? ";LoginTimeout={configuration.getData("loginTimeout"]}" : null;
+        dsn ~= !configuration.getData("multiSubnetFailover"].isNull ? ";MultiSubnetFailover={configuration.getData("multiSubnetFailover"]}" : null;
+        dsn ~= !configuration.getData("encrypt"].isNull ? ";Encrypt={configuration.getData("encrypt"]}" : null;
+        dsn ~= !configuration.getData("trustServerCertificate"].isNull ? ";TrustServerCertificate={configuration.getData("trustServerCertificate"]}" : null;
         
         this.pdo = this.createPdo(dsn, configData);
-        if (!(configData["init"].isEmpty) {
-            (array)configData["init"])
+        if (!(configuration.getData("init"].isEmpty) {
+            (array)configuration.getData("init"])
                 .each!(command => this.pdo.exec(command));
         }
-        if (!configData["settings"].isEmpty && isArray(configData["settings"])) {
-            configData["settings"].byKeyValue
+        if (!configuration.getData("settings"].isEmpty && isArray(configuration.getData("settings"])) {
+            configuration.getData("settings"].byKeyValue
                 .each!(kv => this.pdo.exec("SET %s %s".format(kv.key, kv.value)));
         }
-        if (!empty(configData["attributes"]) && isArray(configData["attributes"])) {
-            configData["attributes"].byKeyValue
+        if (!empty(configuration.getData("attributes"]) && isArray(configuration.getData("attributes"])) {
+            configuration.getData("attributes"].byKeyValue
                 .each(kv => this.pdo.setAttribute(kv.key, kv.value));
         }
     }

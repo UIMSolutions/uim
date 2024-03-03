@@ -15,7 +15,7 @@ import uim.datasources;
  * a registry for the connections defined in an application.
  */
 class ConnectionManager {
-    override bool initialize(IConfigData[string] configData = null) {
+    override bool initialize(Iconfiguration.getData(string] configData = null) {
         if (!super.initialize(configData)) {
             return false;
         }
@@ -90,16 +90,16 @@ class ConnectionManager {
     static array parseDsn(string myConfiguration) {
         myConfiguration = _parseDsn(myConfiguration);
 
-        if (myConfiguration.isSet("path") && empty(myConfiguration["database"])) {
-            myConfiguration["database"] = substr(myConfiguration["path"], 1);
+        if (myConfiguration.isSet("path") && empty(myconfiguration.getData("database"])) {
+            myconfiguration.getData("database"] = substr(myconfiguration.getData("path"], 1);
         }
 
-        if (empty(myConfiguration["driver"])) {
-            myConfiguration["driver"] = myConfiguration["className"];
-            myConfiguration["className"] = Connection :  : class;
+        if (empty(myconfiguration.getData("driver"])) {
+            myconfiguration.getData("driver"] = myconfiguration.getData("className"];
+            myconfiguration.getData("className"] = Connection :  : class;
         }
 
-        unset(myConfiguration["path"]);
+        unset(myconfiguration.getData("path"]);
 
         return myConfiguration;
     }
@@ -161,7 +161,7 @@ class ConnectionManager {
         if ($useAliases && isset(_aliasMap[name])) {
             name = _aliasMap[name];
         }
-        if (empty(configuration[name])) {
+        if (empty(configuration.getData(name])) {
             throw new MissingDatasourceConfigException(["name": name]);
         }
         /** @psalm-suppress RedundantPropertyInitializationCheck */
@@ -173,7 +173,7 @@ class ConnectionManager {
             name
         }
         
-        ?  ? _registry.load(name, configuration[name]);
+        ?  ? _registry.load(name, configuration.getData(name]);
     }
 }
 /**

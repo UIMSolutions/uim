@@ -6,7 +6,7 @@ import uim.databases;
 class PostgresDriver : Driver {
     mixin(DriverThis!("Postgres"));
 
-    override bool initialize(IConfigData[string] configData = null) {
+    override bool initialize(Iconfiguration.getData(string] configData = null) {
         if (!super.initialize(configData)) {
             return false;
         }
@@ -40,30 +40,30 @@ class PostgresDriver : Driver {
         }
 
         auto configData = configuration;
-        configData["flags"].data([
-            PDO.ATTR_PERSISTENT: configData["persistent"],
+        configuration.getData("flags"].data([
+            PDO.ATTR_PERSISTENT: configuration.getData("persistent"],
             PDO.ATTR_EMULATE_PREPARES: false,
             PDO.ATTR_ERRMODE: PDO.ERRMODE_EXCEPTION,
         ]);
 
-        string dsn = configData["unix_socket"].isEmpty
-            ? `pgsql:host={configData["host"]};port={configData["port"]};dbname={configData["database"]}`
-            : `pgsql:dbname={configData["database"]}`;
+        string dsn = configuration.getData("unix_socket"].isEmpty
+            ? `pgsql:host={configuration.getData("host"]};port={configuration.getData("port"]};dbname={configuration.getData("database"]}`
+            : `pgsql:dbname={configuration.getData("database"]}`;
     }
 
     this.pdo = this.createPdo(dsn, configData);
-    if (!(configData["encoding"].isEmpty) {
-        this.setEncoding(configData["encoding"]);
+    if (!(configuration.getData("encoding"].isEmpty) {
+        this.setEncoding(configuration.getData("encoding"]);
     }
 
-    if (!configData["schema"].isEmpty) {
-        this.setSchema(configData["schema"]);
+    if (!configuration.getData("schema"].isEmpty) {
+        this.setSchema(configuration.getData("schema"]);
     }
-    if (!configData["timezone"].isEmpty) {
-        configData["init"] ~= "SET timezone = %s".format(this.getPdo()
-                .quote(configData["timezone"]));
+    if (!configuration.getData("timezone"].isEmpty) {
+        configuration.getData("init"] ~= "SET timezone = %s".format(this.getPdo()
+                .quote(configuration.getData("timezone"]));
     }
-    configData["init"].each!(command => this.getPdo().exec(command));
+    configuration.getData("init"].each!(command => this.getPdo().exec(command));
 }
 
 

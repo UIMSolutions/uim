@@ -113,7 +113,7 @@ template PluginAssetsTemplate {
      *
      * configData - Plugin config.
      */
-    protected bool _remove(IConfigData[string] configData = null) {
+    protected bool _remove(Iconfiguration.getData(string] configData = null) {
         if (configData("namespaced"] && !isDir(configData("destDir"])) {
             this.io.verbose(
                 configData("destDir"] ~ configData("link"] ~ " does not exist",

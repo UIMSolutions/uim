@@ -44,17 +44,17 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     configuration.data(initData);
 
         if (configuration.hasKey("groups")) {
-            sort(configuration.getData("groups"));
-           _groupPrefix = str_repeat("%s_", count(configuration.getData("groups"]));
+            configuration["groups"].sort;
+           _groupPrefix = str_repeat("%s_", configuration["groups"].count);
         }
-        if (!configuration.getData("duration"].isNumeric) {
-           configuration.getData("duration"] = configuration.getData("duration"].toTime - time();
+        if (!configuration.isNumeric("duration")) {
+           configuration["duration"] = configuration["duration"].toTime - time();
         }
         _defaultConfigData = [
-            "duration": Json(3600),
-            "groups": Json.emptyArray,
-            "prefix": Json("uim_"),
-            "warnOnWriteFailures": Json(true),
+            "duration": IntData(3600),
+            "groups": ArrayData,
+            "prefix": StringData("uim_"),
+            "warnOnWriteFailures": BoolData(true),
         ];
 
         return true;
@@ -238,7 +238,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * the token representing each group in the cache key
      */
     string[] groups() {
-        return configuration.getData("groups"];
+        return configuration["groups"];
     }
     
     /**
@@ -258,7 +258,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         }
         aKey = preg_replace("/[\s]+/", "_", aKey);
 
-        return configuration.getData("prefix"] ~ myPrefix ~ aKey;
+        return configuration["prefix"] ~ myPrefix ~ aKey;
     }
     
     /**
@@ -280,7 +280,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      */
     protected int duration(DateInterval|int myttl) {
         if (myttl.isNull) {
-            return configuration.getData("duration"];
+            return configuration["duration"];
         }
         if (isInt(myttl)) {
             return myttl;

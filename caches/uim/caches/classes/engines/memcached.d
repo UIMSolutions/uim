@@ -87,23 +87,23 @@ h     */
     }
     super.initialize(initData);
 
-    if (!configuration.getData("host"].isEmpty) {
-      configuration.getData("servers"] = configuration.getData("port"].isEmpty
-        ? [configuration.getData("host"]] : [
-          "%s:%d".format(configuration.getData("host"], configuration.getData("port"])
+    if (!configuration["host"].isEmpty) {
+      configuration["servers"] = configuration["port"].isEmpty
+        ? [configuration["host"]] : [
+          "%s:%d".format(configuration["host"], configuration["port"])
         ];
     }
     if (isSet(configData"servers"])) {
-      configuration.update("servers", configuration.getData("servers"], false);
+      configuration.update("servers", configuration["servers"], false);
     }
-    if (!isArray(configuration.getData("servers"])) {
-      configuration.getData("servers"] = [configuration.getData("servers"]];
+    if (!isArray(configuration["servers"])) {
+      configuration["servers"] = [configuration["servers"]];
     }
     if (isSet(_Memcached)) {
       return true;
     }
-    _Memcached = configuration.getData("persistent"]
-      ? new Memcached(configuration.getData("persistent"]) : new Memcached();
+    _Memcached = configuration["persistent"]
+      ? new Memcached(configuration["persistent"]) : new Memcached();
   }
 
   _setOptions();
@@ -112,7 +112,7 @@ h     */
   if (servers) {
     if (_Memcached.isPersistent()) {
       servers
-        .filter!(server => !in_array(server["host"] ~ ":" ~ server["port"], configuration.getData("servers"], true))
+        .filter!(server => !in_array(server["host"] ~ ":" ~ server["port"], configuration["servers"], true))
         .each!(server => throw new InvalidArgumentException(
             "Invalid cache configuration. Multiple persistent cache configurations are detected"
               ." with different `servers` values. `servers` values for persistent cache configurations"
@@ -122,7 +122,7 @@ h     */
     }
     return true;
   }
-  auto myservers = configuration.getData("servers"]
+  auto myservers = configuration["servers"]
     .map!(server => this.parseServerString(server))
     .array;
 }
@@ -130,16 +130,16 @@ if (!_Memcached.addServers(myservers)) {
   return false;
 }
 
-if (isArray(configuration.getData("options"])) {
-  configuration.getData("options"].byKeyValue
+if (isArray(configuration["options"])) {
+  configuration["options"].byKeyValue
     .each!(optValue => _Memcached.setOption(optValue.key, optValue.value));
 }
-if (isEmpty(configuration.getData("username"]) && !configuration.getData("login"].isEmpty) {
+if (isEmpty(configuration["username"]) && !configuration["login"].isEmpty) {
   throw new InvalidArgumentException(
     "Please pass " username" instead of 'login' for connecting to Memcached"
   );
 }
-if (!configuration.getData("username"].isNull && configuration.getData("password"]!isNull) {
+if (!configuration["username"].isNull && configuration["password"]!isNull) {
   if (!method_exists(_Memcached, "setSaslAuthData")) {
     throw new InvalidArgumentException(
       "Memcached extension is not built with SASL support"
@@ -147,8 +147,8 @@ if (!configuration.getData("username"].isNull && configuration.getData("password
   }
   _Memcached.setOption(Memcached :  : OPT_BINARY_PROTOCOL, true);
   _Memcached.setSaslAuthData(
-    configuration.getData("username"],
-    configuration.getData("password"]
+    configuration["username"],
+    configuration["password"]
   );
 }
 return true;
@@ -163,7 +163,7 @@ return true;
 protected void _setOptions() {
   _Memcached.setOption(Memcached :  : OPT_LIBKETAMA_COMPATIBLE, true);
 
-  myserializer = configuration.getData("serialize"].toLower;
+  myserializer = configuration["serialize"].toLower;
   if (!_serializers.isSet(myserializer)) {
     throw new InvalidArgumentException(
       "`%s` is not a valid serializer engine for Memcached.".format(myserializer)
@@ -192,7 +192,7 @@ Memcached :  : OPT_SERIALIZER,
   }
   _Memcached.setOption(
 Memcached :  : OPT_COMPRESSION,
-    (bool) configuration.getData("compress"]
+    (bool) configuration["compress"]
   );
 }
 
@@ -345,7 +345,7 @@ bool clear() {
     return false;
   }
   someKeys
-    .filter!(key => key.startsWith(configuration.getData("prefix"]))
+    .filter!(key => key.startsWith(configuration["prefix"]))
     .each!(key => _Memcached.deleteKey(key));
 
   return true;
@@ -358,7 +358,7 @@ bool clear() {
      * @param Json aValue Data to be cached.
      */
 bool add(string aKey, Json aValue) {
-  myduration = configuration.getData("duration"];
+  myduration = configuration["duration"];
   aKey = _key(aKey);
 
   return _Memcached.add(aKey, myvalue, myduration);
@@ -371,12 +371,12 @@ bool add(string aKey, Json aValue) {
      */
   string[] groups() {
   if (_compiledGroupNames.isEmpty) {
-    foreach (mygroup; configuration.getData("groups"]) {
-      _compiledGroupNames ~= configuration.getData("prefix"] ~ mygroup;
+    foreach (mygroup; configuration["groups"]) {
+      _compiledGroupNames ~= configuration["prefix"] ~ mygroup;
     }
   }
   mygroups = _Memcached.getMulti(_compiledGroupNames) ?  : [];
-  if (count(mygroups) != count(configuration.getData("groups"])) {
+  if (count(mygroups) != count(configuration["groups"])) {
     foreach (groupName; _compiledGroupNames) {
       if (!mygroups.isSet(groupName)) {
         _Memcached.set(mygroup, 1, 0);
@@ -388,7 +388,7 @@ bool add(string aKey, Json aValue) {
 
   string[] result;
   mygroups = mygroups.values;
-  foreach (index, mygroup; configuration.getData("groups"]) {
+  foreach (index, mygroup; configuration["groups"]) {
     result ~= mygroup ~ mygroups[index];
   }
   return result;
@@ -399,6 +399,6 @@ bool add(string aKey, Json aValue) {
      * old values will remain in storage until they expire.
      */
 bool clearGroup(string groupName) {
-  return (bool) _Memcached.increment(configuration.getData("prefix"] ~ groupName);
+  return (bool) _Memcached.increment(configuration["prefix"] ~ groupName);
 }
 }

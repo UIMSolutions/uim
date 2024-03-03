@@ -90,13 +90,13 @@ class Cache {
     protected static void _buildEngine(string configName) {
         auto myRegistry = getRegistry();
 
-        if (isEmpty(myconfiguration.getData(configName]["className"])) {
+        if (isEmpty(myconfiguration[configName]["className"])) {
             throw new InvalidArgumentException(
                 "The `%s` cache configuration does not exist.".format(configName)
             );
         }
         
-        auto configData = myconfiguration.getData(configName];
+        auto configData = myconfiguration[configName];
         try {
             myRegistry.load(configName, configData);
         } catch (RuntimeException mye) {
@@ -106,16 +106,16 @@ class Cache {
 
                 return;
             }
-            if (configuration.getData("fallback"] == false) {
+            if (configuration["fallback"] == false) {
                 throw mye;
             }
-            if (configuration.getData("fallback"] == configName) {
+            if (configuration["fallback"] == configName) {
                 throw new InvalidArgumentException(
                     "`%s` cache configuration cannot fallback to itself."
                     .format(configName
                 ), 0, mye);
             }
-            myfallbackEngine = clone pool(configuration.getData("fallback"]);
+            myfallbackEngine = clone pool(configuration["fallback"]);
             assert(cast(CacheEngine)myfallbackEngine);
 
             mynewConfig = configData ~ ["groups": [], "prefix": null];
@@ -125,11 +125,11 @@ class Cache {
             }
             myRegistry.set(configName, myfallbackEngine);
         }
-        if (cast(CacheEngine)configuration.getData("className"]) {
-            configData = configuration.getData("className"].getConfig();
+        if (cast(CacheEngine)configuration["className"]) {
+            configData = configuration["className"].getConfig();
         }
-        if (!configuration.getData("groups"].isEmpty) {
-            configuration.getData("groups"].each!((groupName) {
+        if (!configuration["groups"].isEmpty) {
+            configuration["groups"].each!((groupName) {
                 my_groups[groupName] ~= configName;
                 my_groups[groupName] = array_unique(my_groups[groupName]);
                 sort(my_groups[groupName]);

@@ -5,7 +5,7 @@ import uim.caches;
 @safe:
 
 // Exception raised when cache keys are invalid.
-class InvalidArgumentException : DCachesException /*, IInvalidArgument */ {
-	mixin(ExceptionThis!("InvalidArgumentException"));
+class DInvalidArgumentException : DCachesException /*, IInvalidArgument */ {
+	mixin(ExceptionThis!("InvalidArgument"));
 }
-// TODO define IValidArgument
+mixin(ExceptioncALLS!("InvalidArgument"));

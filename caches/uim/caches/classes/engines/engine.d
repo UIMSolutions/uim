@@ -5,8 +5,8 @@ import uim.caches;
 @safe:
 
 // Storage engine for UIM caching
-abstract class CacheEngine : ICache, ICacheEngine {
-    use InstanceConfigTrait;
+abstract class DCacheEngine : ICache, ICacheEngine {
+    // TOD use InstanceConfigTrait;
 
     protected const string CHECK_KEY = "key";
     protected const string CHECK_VALUE = "value";
@@ -42,12 +42,12 @@ abstract class CacheEngine : ICache, ICacheEngine {
     bool initialize(IData[string] initData = null) {
         configuration.update(configData);
 
-        if (!_config["groups"].isEmpty) {
-            sort(_config["groups"]);
-           _groupPrefix = str_repeat("%s_", count(_config["groups"]));
+        if (!configuration["groups"].isEmpty) {
+            sort(configuration["groups"]);
+           _groupPrefix = str_repeat("%s_", count(configuration["groups"]));
         }
-        if (!_config["duration"].isNumeric) {
-           _config["duration"] = _config["duration"].toTime - time();
+        if (!configuration["duration"].isNumeric) {
+           configuration["duration"] = configuration["duration"].toTime - time();
         }
         _defaultConfigData = [
             "duration": Json(3600),
@@ -109,7 +109,7 @@ abstract class CacheEngine : ICache, ICacheEngine {
         this.ensureValidType(myvalues, self.CHECK_KEY);
 
         if (myttl !isNull) {
-            myrestore = _configData.isSet("duration");
+            myrestore = configurationData.isSet("duration");
             configuration.update("duration", myttl);
         }
         try {
@@ -237,7 +237,7 @@ abstract class CacheEngine : ICache, ICacheEngine {
      * the token representing each group in the cache key
      */
     string[] groups() {
-        return _config["groups"];
+        return configuration["groups"];
     }
     
     /**
@@ -257,7 +257,7 @@ abstract class CacheEngine : ICache, ICacheEngine {
         }
         aKey = preg_replace("/[\s]+/", "_", aKey);
 
-        return _config["prefix"] ~ myPrefix ~ aKey;
+        return configuration["prefix"] ~ myPrefix ~ aKey;
     }
     
     /**
@@ -265,7 +265,7 @@ abstract class CacheEngine : ICache, ICacheEngine {
      * if option warnOnWriteFailures is set to true.
      */
     protected void warning(string warningMessage) {
-        if (_configData.isSet("warnOnWriteFailures") != true) {
+        if (configurationData.isSet("warnOnWriteFailures") != true) {
             return;
         }
         triggerWarning(warningMessage);
@@ -279,7 +279,7 @@ abstract class CacheEngine : ICache, ICacheEngine {
      */
     protected int duration(DateInterval|int myttl) {
         if (myttl.isNull) {
-            return _config["duration"];
+            return configuration["duration"];
         }
         if (isInt(myttl)) {
             return myttl;

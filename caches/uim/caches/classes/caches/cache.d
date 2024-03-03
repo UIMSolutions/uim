@@ -90,13 +90,13 @@ class Cache {
     protected static void _buildEngine(string configName) {
         auto myRegistry = getRegistry();
 
-        if (isEmpty(my_config[configName]["className"])) {
+        if (isEmpty(myconfiguration[configName]["className"])) {
             throw new InvalidArgumentException(
                 "The `%s` cache configuration does not exist.".format(configName)
             );
         }
         
-        auto configData = my_config[configName];
+        auto configData = myconfiguration[configName];
         try {
             myRegistry.load(configName, configData);
         } catch (RuntimeException mye) {

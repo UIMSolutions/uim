@@ -12,7 +12,7 @@ import uim.caches;
  * or console tools where you don`t want the overhead of interacting
  * with a cache servers, but want the work saving properties a cache provides.
  */
-class ArrayEngine : CacheEngine {
+class DArrayEngine : DCacheEngine {
   // Cached data.
   // Structured as [key: [exp: expiration, val: value]]
   protected IData[string] _cachedData = [];
@@ -110,8 +110,8 @@ class ArrayEngine : CacheEngine {
      */
   string[] groups() {
     auto result;
-    foreach (myGroup; _config["groups"]) {
-      aKey = _config["prefix"] ~ myGroup;
+    foreach (myGroup; configuration["groups"]) {
+      aKey = configuration["prefix"] ~ myGroup;
       if (!_cachedData.isSet(aKey])) {
         _cachedData[aKey] = ["exp": PHP_INT_MAX, "val": 1];
       }
@@ -129,7 +129,7 @@ class ArrayEngine : CacheEngine {
      * return true if success
      */
   bool clearGroup(string aGroup) {
-    aKey = _config["prefix"] ~ aGroup;
+    aKey = configuration["prefix"] ~ aGroup;
     if (_cachedData.isSet(aKey)) {
       _cachedData[aKey]["val"] += 1;
     }

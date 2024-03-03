@@ -53,9 +53,9 @@ class FileEngine : CacheEngine {
     bool initialize(IData[string] initData = null) {
         super.initialize(initData);
 
-       _config["path"] ??= sys_get_temp_dir() ~ DIRECTORY_SEPARATOR ~ "cake_cache" ~ DIRECTORY_SEPARATOR;
-        if (substr(_config["path"], -1) != DIRECTORY_SEPARATOR) {
-           _config["path"] ~= DIRECTORY_SEPARATOR;
+       configuration["path"] ??= sys_get_temp_dir() ~ DIRECTORY_SEPARATOR ~ "cake_cache" ~ DIRECTORY_SEPARATOR;
+        if (substr(configuration["path"], -1) != DIRECTORY_SEPARATOR) {
+           configuration["path"] ~= DIRECTORY_SEPARATOR;
         }
         if (_groupPrefix) {
            _groupPrefix = _groupPrefix.replace("_", DIRECTORY_SEPARATOR);
@@ -81,13 +81,13 @@ class FileEngine : CacheEngine {
         if (_setKey(aKey, true) == false) {
             return false;
         }
-        if (!_config["serialize"].isEmpty) {
+        if (!configuration["serialize"].isEmpty) {
             cacheData = serialize(cacheData);
         }
         myexpires = time() + this.duration(myttl);
         mycontents = [myexpires, PHP_EOL, cacheData, PHP_EOL].join();
 
-        if (_config["lock"]) {
+        if (configuration["lock"]) {
            _File.flock(LOCK_EX);
         }
        _File.rewind();
@@ -95,7 +95,7 @@ class FileEngine : CacheEngine {
            _File.fwrite(mycontents) &&
            _File.fflush();
 
-        if (_config["lock"]) {
+        if (configuration["lock"]) {
            _File.flock(LOCK_UN);
         }
         _File = null;
@@ -114,7 +114,7 @@ class FileEngine : CacheEngine {
         if (!_init || _setKey(key) == false) {
             return defaultValue;
         }
-        if (_config["lock"]) {
+        if (configuration["lock"]) {
            _File.flock(LOCK_SH);
         }
        _File.rewind();
@@ -122,7 +122,7 @@ class FileEngine : CacheEngine {
         mycachetime = (int)_File.current();
 
         if (mycachetime < mytime) {
-            if (_config["lock"]) {
+            if (configuration["lock"]) {
                _File.flock(LOCK_UN);
             }
             return defaultValue;
@@ -134,12 +134,12 @@ class FileEngine : CacheEngine {
             myData ~= _File.current();
            _File.next();
         }
-        if (_config["lock"]) {
+        if (configuration["lock"]) {
            _File.flock(LOCK_UN);
         }
         myData = trim(myData);
 
-        if (myData != "" && !empty(_config["serialize"])) {
+        if (myData != "" && !empty(configuration["serialize"])) {
             myData = unserialize(myData);
         }
         return myData;
@@ -174,10 +174,10 @@ class FileEngine : CacheEngine {
         }
         unset(_File);
 
-       _clearDirectory(_config["path"]);
+       _clearDirectory(configuration["path"]);
 
         mydirectory = new RecursiveDirectoryIterator(
-           _config["path"],
+           configuration["path"],
             FilesystemIterator.SKIP_DOTS
         );
         /** @var \RecursiveDirectoryIterator<\SplFileInfo> myiterator Coerce for phpstan/psalm */
@@ -220,10 +220,10 @@ class FileEngine : CacheEngine {
         if (!mydir) {
             return;
         }
-        myprefixLength = _config["prefix"].length;
+        myprefixLength = configuration["prefix"].length;
 
         while ((myentry = mydir.read()) != false) {
-            if (substr(myentry, 0, myprefixLength) != _config["prefix"]) {
+            if (substr(myentry, 0, myprefixLength) != configuration["prefix"]) {
                 continue;
             }
             try {
@@ -275,10 +275,10 @@ class FileEngine : CacheEngine {
         if (_groupPrefix) {
             mygroups = vsprintf(_groupPrefix, this.groups());
         }
-        mydir = _config["path"] ~ mygroups;
+        mydir = configuration["path"] ~ mygroups;
 
         if (!isDir(mydir)) {
-            mkdir(mydir, _config["dirMask"], true);
+            mkdir(mydir, configuration["dirMask"], true);
         }
         mypath = new SplFileInfo(mydir ~ aKey);
 
@@ -301,11 +301,11 @@ class FileEngine : CacheEngine {
             }
             unset(mypath);
 
-            if (!myexists && !chmod(_File.getPathname(), (int)_config["mask"])) {
+            if (!myexists && !chmod(_File.getPathname(), (int)configuration["mask"])) {
                 trigger_error(
                     "Could not apply permission mask `%s` on cache file `%s`"
                     .format(_File.getPathname(),
-                   _config["mask"]
+                   configuration["mask"]
                 ), E_USER_WARNING);
             }
         }
@@ -314,19 +314,19 @@ class FileEngine : CacheEngine {
     
     // Determine if cache directory is writable
     protected bool _active() {
-        mydir = new SplFileInfo(_config["path"]);
+        mydir = new SplFileInfo(configuration["path"]);
         mypath = mydir.getPathname();
         mysuccess = true;
         if (!isDir(mypath)) {
             // phpcs:disable
-            mysuccess = @mkdir(mypath, _config["dirMask"], true);
+            mysuccess = @mkdir(mypath, configuration["dirMask"], true);
             // phpcs:enable
         }
         myisWritableDir = (mydir.isDir() && mydir.isWritable());
         if (!mysuccess || (_init && !myisWritableDir)) {
            _init = false;
             trigger_error("%s is not writable"
-                .format(_config["path"]
+                .format(configuration["path"]
             ), E_USER_WARNING);
         }
         return mysuccess;
@@ -345,9 +345,9 @@ class FileEngine : CacheEngine {
     bool clearGroup(string groupName) {
         unset(_File);
 
-        auto myprefix = (string)_config["prefix"];
+        auto myprefix = (string)configuration["prefix"];
 
-        auto mydirectoryIterator = new RecursiveDirectoryIterator(_config["path"]);
+        auto mydirectoryIterator = new RecursiveDirectoryIterator(configuration["path"]);
         auto mycontents = new RecursiveIteratorIterator(
             mydirectoryIterator,
             RecursiveIteratorIterator.CHILD_FIRST

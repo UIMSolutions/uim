@@ -63,20 +63,20 @@ class RedisEngine : CacheEngine {
     protected bool _connect() {
         try {
            _redis = new Redis();
-            if (!_config["unix_socket"].isEmpty) {
-                result = _redis.connect(_config["unix_socket"]);
-            } elseif (_config["persistent"].isEmpty) {
+            if (!configuration["unix_socket"].isEmpty) {
+                result = _redis.connect(configuration["unix_socket"]);
+            } elseif (configuration["persistent"].isEmpty) {
                 result = _redis.connect(
-                   _config["server"],
-                    (int)_config["port"],
-                    (int)_config["timeout"]
+                   configuration["server"],
+                    (int)configuration["port"],
+                    (int)configuration["timeout"]
                 );
             } else {
-                $persistentId = _config["port"] ~ _config["timeout"] ~ _config["database"];
+                $persistentId = configuration["port"] ~ configuration["timeout"] ~ configuration["database"];
                 result = _redis.pconnect(
-                   _config["server"],
-                    (int)_config["port"],
-                    (int)_config["timeout"],
+                   configuration["server"],
+                    (int)configuration["port"],
+                    (int)configuration["timeout"],
                     $persistentId
                 );
             }
@@ -86,11 +86,11 @@ class RedisEngine : CacheEngine {
             }
             return false;
         }
-        if (result && _config["password"]) {
-            result = _redis.auth(_config["password"]);
+        if (result && configuration["password"]) {
+            result = _redis.auth(configuration["password"]);
         }
         if (result) {
-            result = _redis.select((int)_config["database"]);
+            result = _redis.select((int)configuration["database"]);
         }
         return result;
     }
@@ -136,7 +136,7 @@ class RedisEngine : CacheEngine {
      * @param int anOffset How much to increment
      */
     int increment(string aKey, int anOffset = 1) {
-         aDuration = _config["duration"];
+         aDuration = configuration["duration"];
         aKey = _key(aKey);
 
         aValue = _redis.incrBy(aKey,  anOffset);
@@ -153,7 +153,7 @@ class RedisEngine : CacheEngine {
      * @param int anOffset How much to subtract
      */
     int|false decrement(string aKey, int anOffset = 1) {
-         aDuration = _config["duration"];
+         aDuration = configuration["duration"];
         aKey = _key(aKey);
 
         aValue = _redis.decrBy(aKey,  anOffset);
@@ -190,10 +190,10 @@ class RedisEngine : CacheEngine {
 
         auto isAllDeleted = true;
         auto  anIterator = null;
-        auto  somePattern = _config["prefix"] ~ "*";
+        auto  somePattern = configuration["prefix"] ~ "*";
 
         while (true) {
-            keys = _redis.scan(anIterator,  somePattern, (int)_config["scanCount"]);
+            keys = _redis.scan(anIterator,  somePattern, (int)configuration["scanCount"]);
 
             if (someKeys == false) {
                 break;
@@ -216,10 +216,10 @@ class RedisEngine : CacheEngine {
 
         bool isAllDeleted = true;
          anIterator = null;
-         somePattern = _config["prefix"] ~ "*";
+         somePattern = configuration["prefix"] ~ "*";
 
         while (true) {
-            someKeys = _redis.scan(anIterator,  somePattern, (int)_config["scanCount"]);
+            someKeys = _redis.scan(anIterator,  somePattern, (int)configuration["scanCount"]);
 
             if (someKeys == false) {
                 break;
@@ -240,7 +240,7 @@ class RedisEngine : CacheEngine {
      * @param Json aValue Data to be cached.
      */
     bool add(string aKey, Json aValue) {
-         aDuration = _config["duration"];
+         aDuration = configuration["duration"];
         aKey = _key(aKey);
         aValue = this.serialize(aValue);
 
@@ -257,11 +257,11 @@ class RedisEngine : CacheEngine {
      */
     string[] groups() {
         auto result;
-        foreach (_config["groups"] as  anGroup) {
-            aValue = _redis.get(_config["prefix"] ~  anGroup);
+        foreach (configuration["groups"] as  anGroup) {
+            aValue = _redis.get(configuration["prefix"] ~  anGroup);
             if (!aValue) {
                 aValue = this.serialize(1);
-               _redis.set(_config["prefix"] ~  anGroup, aValue);
+               _redis.set(configuration["prefix"] ~  anGroup, aValue);
             }
             result ~=  anGroup ~ aValue;
         }
@@ -275,7 +275,7 @@ class RedisEngine : CacheEngine {
      * string agroup name of the group to be cleared
          */
     bool clearGroup(string agroup) {
-        return (bool)_redis.incr(_config["prefix"] ~  anGroup);
+        return (bool)_redis.incr(configuration["prefix"] ~  anGroup);
     }
     
     /**
@@ -309,7 +309,7 @@ class RedisEngine : CacheEngine {
      * Disconnects from the redis server
      */
     auto __destruct() {
-        if (isEmpty(_config["persistent"])) {
+        if (isEmpty(configuration["persistent"])) {
            _redis.close();
         }
     }

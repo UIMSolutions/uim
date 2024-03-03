@@ -68,7 +68,7 @@ class DMysqlDriver : DDriver {
         if (this.pdo.isSet) {
             return;
         }
-        auto configData = _config;
+        auto configData = configuration;
 
         if (configData["timezone"] == "UTC") {
             configData["timezone"] = "+0:00";
@@ -118,7 +118,7 @@ class DMysqlDriver : DDriver {
     }
  
     string schema() {
-        return _config["database"];
+        return configuration["database"];
     }
     
     /**

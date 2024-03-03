@@ -44,7 +44,7 @@ trait StringTemplateTrait {
             mytemplates = configurationData.isSet("templates");
             if (mytemplates) {
                 if (isString(mytemplates)) {
-                   _templater.add(_defaultconfiguration.getData("templates"]);
+                   _templater.add(_defaultconfiguration["templates"]);
                    _templater.load(mytemplates);
                 } else {
                    _templater.add(mytemplates);

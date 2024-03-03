@@ -171,24 +171,24 @@ class Behavior : IEventListener {
      * configData - The customized method mappings.
      */
     protected array _resolveMethodAliases(string aKey, array mydefaults, IData[string] configData) {
-        if (!isSet(mydefaults[aKey], configuration.getData(aKey])) {
+        if (!isSet(mydefaults[aKey], configuration[aKey])) {
             return configData;
         }
-        if (configuration.hasKey(aKey) && configuration.getData(aKey] == []) {
+        if (configuration.hasKey(aKey) && configuration[aKey] == []) {
             configuration.update(aKey, [], false);
-            unset(configuration.getData(aKey]);
+            unset(configuration[aKey]);
 
             return configData;
         }
         myindexed = array_flip(mydefaults[aKey]);
-        myindexedCustom = array_flip(configuration.getData(aKey]);
+        myindexedCustom = array_flip(configuration[aKey]);
         foreach (myindexed as mymethod: myalias) {
             if (!isSet(myindexedCustom[mymethod])) {
                 myindexedCustom[mymethod] = myalias;
             }
         }
         configuration.update(aKey, array_flip(myindexedCustom), false);
-        unset(configuration.getData(aKey]);
+        unset(configuration[aKey]);
 
         return configData;
     }

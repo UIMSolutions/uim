@@ -55,7 +55,7 @@ class FormContext : IContext {
             "schemaDefault": true,
         ];
 
-        myval = _form.getData(myfield);
+        myval = _form[myfield);
         if (myval !isNull) {
             return myval;
         }

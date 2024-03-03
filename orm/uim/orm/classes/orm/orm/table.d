@@ -2439,7 +2439,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      *
      * ```
      * myarticle = this.Articles.newEntity(
-     *  this.request.getData(),
+     *  this.request[),
      *  ["associated": ["Tags", "Comments.Users"]]
      * );
      * ```
@@ -2448,7 +2448,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * passing the `fields` option, which is also accepted for associations:
      *
      * ```
-     * myarticle = this.Articles.newEntity(this.request.getData(), [
+     * myarticle = this.Articles.newEntity(this.request[), [
      * "fields": ["title", "body", "tags", "comments"],
      * "associated": ["Tags", "Comments.Users": ["fields": "username"]]
      * ]
@@ -2461,7 +2461,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      *
      * ```
      * myarticle = this.Articles.newEntity(
-     *  this.request.getData(),
+     *  this.request[),
      *  ["accessibleFields": ["protected_field": true]]
      * );
      * ```
@@ -2472,7 +2472,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      *
      * ```
      * myarticle = this.Articles.newEntity(
-     *  this.request.getData(),
+     *  this.request[),
      *  ["validate": false]
      * );
      * ```
@@ -2504,7 +2504,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      *
      * ```
      * myarticles = this.Articles.newEntities(
-     *  this.request.getData(),
+     *  this.request[),
      *  ["associated": ["Tags", "Comments.Users"]]
      * );
      * ```
@@ -2513,7 +2513,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * passing the `fields` option, which is also accepted for associations:
      *
      * ```
-     * myarticles = this.Articles.newEntities(this.request.getData(), [
+     * myarticles = this.Articles.newEntities(this.request[), [
      * "fields": ["title", "body", "tags", "comments"],
      * "associated": ["Tags", "Comments.Users": ["fields": "username"]]
      * ]
@@ -2542,7 +2542,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * passing the `fields` option, which is also accepted for associations:
      *
      * ```
-     * myarticle = this.Articles.patchEntity(myarticle, this.request.getData(), [
+     * myarticle = this.Articles.patchEntity(myarticle, this.request[), [
      * "fields": ["title", "body", "tags", "comments"],
      * "associated": ["Tags", "Comments.Users": ["fields": "username"]]
      * ]
@@ -2550,7 +2550,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * ```
      *
      * ```
-     * myarticle = this.Articles.patchEntity(myarticle, this.request.getData(), [
+     * myarticle = this.Articles.patchEntity(myarticle, this.request[), [
      *  "associated": [
      *    "Tags": ["accessibleFields": ["*": true]]
      *  ]
@@ -2562,7 +2562,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * The `validate` option can be used to disable validation on the passed data:
      *
      * ```
-     * myarticle = this.patchEntity(myarticle, this.request.getData(),[
+     * myarticle = this.patchEntity(myarticle, this.request[),[
      * "validate": false
      * ]);
      * ```
@@ -2600,7 +2600,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * passing the `fields` option, which is also accepted for associations:
      *
      * ```
-     * myarticles = this.Articles.patchEntities(myarticles, this.request.getData(), [
+     * myarticles = this.Articles.patchEntities(myarticles, this.request[), [
      * "fields": ["title", "body", "tags", "comments"],
      * "associated": ["Tags", "Comments.Users": ["fields": "username"]]
      * ]

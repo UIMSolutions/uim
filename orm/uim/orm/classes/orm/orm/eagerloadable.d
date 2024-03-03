@@ -90,8 +90,8 @@ class EagerLoadable {
             "aliasPath", "propertyPath", "forMatching", "targetProperty",
         ];
         allowed
-            .filter!(property => isSet(configuration.getData(property]))
-            .each!(property => this.{"_" ~ property} = configuration.getData(property]);
+            .filter!(property => isSet(configuration[property]))
+            .each!(property => this.{"_" ~ property} = configuration[property]);
         }
     }
     

@@ -118,7 +118,7 @@ class TableLocator : AbstractLocator : ILocator
             ));
         }
 
-        configuration.getData(alias] = options;
+        configuration[alias] = options;
 
         return this;
     }
@@ -183,8 +183,8 @@ class TableLocator : AbstractLocator : ILocator
             options["className"] = alias;
         }
 
-        if (isset(configuration.getData(alias])) {
-            options += configuration.getData(alias];
+        if (isset(configuration[alias])) {
+            options += configuration[alias];
         }
 
         allowFallbackClass = options["allowFallbackClass"] ?? this.allowFallbackClass;

@@ -138,12 +138,12 @@ class PaginatorHelper : Helper {
      */
     void options(IData[string] optionsForLinks = null) {
         if (!empty(options["paging"])) {
-           configuration.getData("params"] = options["paging"];
+           configuration["params"] = options["paging"];
             unset(options["paging"]);
         }
-       configuration.getData("options"] = array_filter(options + configuration.getData("options"]);
-        if (isEmpty(configuration.getData("options"]["url"])) {
-           configuration.getData("options"]["url"] = [];
+       configuration["options"] = array_filter(options + configuration["options"]);
+        if (isEmpty(configuration["options"]["url"])) {
+           configuration["options"]["url"] = [];
         }
     }
     
@@ -427,7 +427,7 @@ class PaginatorHelper : Helper {
         ) {
             options["sort"] = options["direction"] = null;
         }
-        mybaseUrl = configuration.getData("options"].get("url", null);
+        mybaseUrl = configuration["options"].get("url", null);
         if (!empty(mypaging["scope"])) {
             myscope = mypaging["scope"];
             if (isSet(mybaseUrl["?"][myscope]) && isArray(mybaseUrl["?"][myscope])) {
@@ -441,8 +441,8 @@ class PaginatorHelper : Helper {
         }
         myurl["?"] ??= [];
 
-        if (!empty(configuration.getData("options"]["routePlaceholders"])) {
-            myplaceholders = array_flip(configuration.getData("options"]["routePlaceholders"]);
+        if (!empty(configuration["options"]["routePlaceholders"])) {
+            myplaceholders = array_flip(configuration["options"]["routePlaceholders"]);
             myurl += array_intersect_key(options, myplaceholders);
             myurl["?"] += array_diff_key(options, myplaceholders);
         } else {

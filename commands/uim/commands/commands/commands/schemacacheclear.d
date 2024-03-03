@@ -8,7 +8,7 @@ import uim.commands;
 class SchemacacheClearCommand : Command {
    mixin(CommandThis!("SchemacacheClear"));
 
-  	override bool initialize(Iconfiguration.getData(string] configData = null) {
+  	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(configData)) { return false; }
 		
 		return true;

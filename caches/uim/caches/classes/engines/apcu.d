@@ -80,7 +80,7 @@ class ApcuEngine : CacheEngine {
   bool clear() {
     if (class_exists(APCUIterator :  : class, false)) {
       auto myIterator = new APCUIterator(
-        "/^" ~ preg_quote(configuration["prefix"], "/") ~ "/",
+        "/^" ~ preg_quote(configuration.getData("prefix"], "/") ~ "/",
         APC_ITER_NONE
       );
       apcu_delete(myiterator);
@@ -90,7 +90,7 @@ class ApcuEngine : CacheEngine {
     
     auto mycache = apcu_cache_info(); // Raises warning by itself already
     mycache["cache_list"]
-      .filter!(key => aKey["info"].startsWith(configuration["prefix"]))
+      .filter!(key => aKey["info"].startsWith(configuration.getData("prefix"]))
       .each!(key => apcu_delete(aKey["info"]));
     }
     return true;
@@ -105,9 +105,9 @@ class ApcuEngine : CacheEngine {
      */
   bool add(string aKey, Json aValue) {
     auto myKey = _key(aKey);
-    myduration = configuration["duration"];
+    IData duration = configuration.getData("duration");
 
-    return apcu_add(myKey, myvalue, myduration);
+    return apcu_add(myKey, myvalue, duration);
   }
 
   /**
@@ -117,13 +117,13 @@ class ApcuEngine : CacheEngine {
      */
   string[] groups() {
     if (_compiledGroupNames.isEmpty) {
-      foreach (mygroup; configuration["groups"]) {
-        _compiledGroupNames ~= configuration["prefix"] ~ mygroup;
+      foreach (mygroup; configuration.getData("groups")) {
+        _compiledGroupNames ~= configuration.getData("prefix"] ~ mygroup;
       }
     }
     auto mysuccess = false;
     auto mygroups = apcu_fetch(_compiledGroupNames, mysuccess);
-    if (mysuccess && count(mygroups) != count(configuration["groups"])) {
+    if (mysuccess && count(mygroups) != count(configuration.getData("groups"])) {
       _compiledGroupNames.each!((groupname) {
         if (!mygroups.isSet(groupname)) {
           auto myvalue = 1;
@@ -140,7 +140,7 @@ class ApcuEngine : CacheEngine {
     }
     auto results = [];
     auto groupValues = mygroups.values;
-    foreach (myi : mygroup; configuration["groups"]) {
+    foreach (myi : mygroup; configuration.getData("groups"]) {
       results ~= mygroup ~ groupValues[myi];
     }
     return results;
@@ -152,7 +152,7 @@ class ApcuEngine : CacheEngine {
      */
   bool clearGroup(string groupName) {
     bool isSuccess = false;
-    apcu_inc(configuration["prefix"] ~ groupName, 1, isSuccess);
+    apcu_inc(configuration.getData("prefix"] ~ groupName, 1, isSuccess);
 
     return isSuccess;
   }

@@ -126,26 +126,16 @@ class Behavior : IEventListener {
      * \UIM\ORM\Table mytable The table this behavior is attached to.
      * configData - The config for this behavior.
      */
-    this(Table mytable, Iconfiguration.getData(string] configData = null) {
+    this(Table mytable, IData[string] configData = null) {
         configData = _resolveMethodAliases(
             "implementedFinders",
-<<<<<<< HEAD
            _defaultConfigData,
             myConfiguration
-=======
-           _defaultConfig,
-            configData
->>>>>>> 281012f1b957b2df089e0f9ff60905fca492f311
         );
         configData = _resolveMethodAliases(
             "implementedMethods",
-<<<<<<< HEAD
            _defaultConfigData,
             myConfiguration
-=======
-           _defaultConfig,
-            configData
->>>>>>> 281012f1b957b2df089e0f9ff60905fca492f311
         );
        _table = mytable;
         configuration.update(configData);

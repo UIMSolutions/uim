@@ -20,7 +20,7 @@ class NegotiationRequiredView : View {
     
     // Initialization hook method.
     bool initialize(IData[string] initData = null) {
-        super.initialize(configData);
+        super.initialize(initData);
         
         auto statusResponse = this.getResponse().withStatus(406);
         this.setResponse(statusResponse);

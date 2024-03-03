@@ -96,7 +96,7 @@ class TranslateBehavior : Behavior, IPropertyMarshal {
      */
     bool initialize(IData[string] initData = null) {
         this.getStrategy();
-        return super.initialize(configData);
+        return super.initialize(initData);
     }
 
     /**

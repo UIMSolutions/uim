@@ -227,7 +227,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         /** @psalm-suppress TypeDoesNotContainType */
         this.queryFactory ??= new QueryFactory();
 
-        this.initialize(configData);
+        this.initialize(initData);
 
         assert(_eventManager !isNull, "EventManager not available");
 
@@ -263,7 +263,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * Iconfiguration.getData(string] configData Configuration options passed to the constructor
      */
     bool initialize(IData[string] initData = null) {
-        return super.initialize(configData);
+        return super.initialize(initData);
     }
     
     /**

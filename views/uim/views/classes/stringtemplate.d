@@ -29,7 +29,7 @@ class StringTemplate {
     protected string[] compiledtemplates;
 
     /* this(IData[string] configData = null) {
-        this.initialize(configData);
+        this.initialize(initData);
     } */
 
     /* bool initialize(IData[string] initData = null) {

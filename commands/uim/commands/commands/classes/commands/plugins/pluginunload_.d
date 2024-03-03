@@ -6,7 +6,7 @@ import uim.commands;
 
 // Command for unloading plugins.
 class PluginUnloadCommand : Command {
-   mixin(CommandThis!("PluginUnload"));
+   mixin(CommandThis!("PluginUnloadCommand"));
 
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }

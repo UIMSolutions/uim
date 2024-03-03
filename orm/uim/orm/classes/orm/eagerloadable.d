@@ -101,17 +101,17 @@ class EagerLoadable {
      * @param string aName The Association name.
      * @param array<string, mixed> myConfiguration The list of properties to set.
      */
-    this(string aName, Json myConfiguration = null) {
+    this(string aName, IData[string] configData) {
         _name = name;
         allowed = [
             "associations", "instance", "config", "canBeJoined",
             "aliasPath", "propertyPath", "forMatching", "targetProperty",
         ];
-        foreach (allowed as property) {
-            if (isset(myconfiguration.getData(property])) {
-                this.{"_" ~ property} = myconfiguration.getData(property];
+        allowed.each!((property) {
+            if (configData.hasKey(property)) {
+                this.{"_" ~ property} = myconfiguration.getData(property);
             }
-        }
+        });
     }
 
     /**

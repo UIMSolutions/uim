@@ -9,6 +9,6 @@ interface IFormatter : INamed {
   void config(IData[string] newConfig);
 
   // TODO
-  // Json configuration.data(string key);
+  // IData[string] configSettings = nulluration.data(string key);
   // void configuration.data(string key, Json newData)
 }

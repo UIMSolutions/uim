@@ -11,7 +11,7 @@ import uim.models;
 string modelThis(string name) {
   return `
     this() { super("`~name~`"); this.className("`~name~`"); }
-    this(Json configData) { super("`~name~`", configData); }
+    this(IData[string] configSettings = nullData) { super("`~name~`", configData); }
     this(IModelManager aManager, IData[string] configData = null) { this(configData).application(aManager); }
 
     this(string aName, IData[string] configData = null) { this(configData).name(aName); }

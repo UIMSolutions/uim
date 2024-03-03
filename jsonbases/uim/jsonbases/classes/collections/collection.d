@@ -18,7 +18,7 @@ abstract class DJsonCollection : IJsonCollection {
   mixin(TProperty!("string", "name"));
   mixin(TProperty!("IJsonTenant", "tenant"));
 
-  void initialize(Json configSettings = Json(null)) { // Hook
+  void initialize(IData[string] configSettings = nullSettings = Json(null)) { // Hook
   }
 
   // #region CREATE

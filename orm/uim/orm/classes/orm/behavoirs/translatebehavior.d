@@ -82,7 +82,7 @@ class TranslateBehavior : Behavior : IPropertyMarshal
      * @param DORMDORMTable aTable The table this behavior is attached to.
      * @param array<string, mixed> myConfiguration The config for this behavior.
      */
-    this(DORMTable aTable, Json myConfiguration = null) {
+    this(DORMTable aTable, IData[string] configData) {
         myConfiguration += [
             "defaultLocale": I18n::getDefaultLocale(),
             "referenceName": this.referenceName(table),

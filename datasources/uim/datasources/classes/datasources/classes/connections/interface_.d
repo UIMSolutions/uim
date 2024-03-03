@@ -42,7 +42,7 @@ interface IDSOConnection : ILoggerAware {
     string configName();
 
     /++ Get the configuration data used to create the connection +/
-    Json config();
+    IData[string] configSettings = null();
 
     /**
      * Executes a callable function inside a transaction, if any exception occurs

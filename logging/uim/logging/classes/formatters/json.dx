@@ -6,7 +6,7 @@ import uim.logging;
 class DJsonLogFormatter : DLogFormatter {
   mixin(LogFormatterThis!("JsonLogFormatter"));
 
-  override void initialize(Json configSettings = Json(null)) {
+  override void initialize(IData[string] configSettings = nullSettings = Json(null)) {
     super.initialize(configSettings);
   }
 }

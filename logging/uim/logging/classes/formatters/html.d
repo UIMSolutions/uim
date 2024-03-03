@@ -6,7 +6,7 @@ import uim.logging;
 class DHTMLLogFormatter : DLogFormatter {
   mixin(FormatterThis!("HTML"));
 
-  override void initialize(Json configSettings = Json(null)) {
+  override void initialize(IData[string] configSettings = nullSettings = Json(null)) {
     super.initialize(configSettings);
   }
 }

@@ -51,7 +51,7 @@ class ShadowTableStrategy : ITranslateStrategy
      * @param DORMDORMTable aTable Table instance.
      * @param array<string, mixed> myConfiguration Configuration.
      */
-    this(DORMTable aTable, Json myConfiguration = null) {
+    this(DORMTable aTable, IData[string] configData) {
         tableAlias = table.getAlias();
         [plugin] = pluginSplit(table.getRegistryAlias(), true);
         tableReferenceName = myconfiguration.getData("referenceName"];

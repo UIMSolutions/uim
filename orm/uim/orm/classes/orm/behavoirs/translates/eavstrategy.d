@@ -49,7 +49,7 @@ class EavStrategy : ITranslateStrategy {
      * @param DORMDORMTable aTable The table this strategy is attached to.
      * @param array<string, mixed> myConfiguration The config for this strategy.
      */
-    this(DORMTable aTable, Json myConfiguration = null) {
+    this(DORMTable aTable, IData[string] configData) {
         if (isset(myconfiguration.getData("tableLocator"])) {
             _tableLocator = myconfiguration.getData("tableLocator"];
         }

@@ -9,7 +9,7 @@ import uim.oop;
 @safe:
 
  abstract class Game {
-   abstract void initialize(/* Json configSettings = Json(null) */);
+   abstract void initialize(/* IData[string] configSettings = nullSettings = Json(null) */);
    abstract void startPlay();
    abstract void endPlay();
 
@@ -33,7 +33,7 @@ import uim.oop;
    }
 
    // Initialization hook method.
-  override void initialize(/* Json configSettings = Json(null) */) {
+  override void initialize(/* IData[string] configSettings = nullSettings = Json(null) */) {
       writeln("Cricket Game Initialized! Start playing.");
    }
 
@@ -49,7 +49,7 @@ import uim.oop;
    }
 
    // Initialization hook method.
-  override void initialize(/* Json configSettings = Json(null) */) {
+  override void initialize(/* IData[string] configSettings = nullSettings = Json(null) */) {
       writeln("Football Game Initialized! Start playing.");
    }
 

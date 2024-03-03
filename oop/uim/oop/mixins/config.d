@@ -9,7 +9,7 @@ import uim.oop;
 
 @safe:
 mixin template ConfigForInterface() {
-  Json config();
+  IData[string] configSettings = null();
   void config(Json newConfig);
 
   Json Data(string key);
@@ -20,7 +20,7 @@ mixin template ConfigForInterface() {
 template ConfigForClass() {
   protected Json _Data;
 
-  Json config() {
+  IData[string] configSettings = null() {
     return configuration.clone;
   }
 

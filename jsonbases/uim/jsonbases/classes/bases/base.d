@@ -13,7 +13,7 @@ class DJsonBase : IJsonBase, IJsonTenantManager {
   this() { initialize; this.className("JsonBase"); }
   this(string aName) { this(); this.name(aName); }
 
-  void initialize(IData[string] configSettings = nullSettings = Json(null)) { // Hook
+  bool initialize(IData[string] configSettings = null) { // Hook
   }
 
   mixin(TProperty!("string", "className"));

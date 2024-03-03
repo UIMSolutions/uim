@@ -13,5 +13,5 @@ class DDSRepository {
     initialize;
   }
 
-  void initialize() {}
+  bool initialize() {}
 }

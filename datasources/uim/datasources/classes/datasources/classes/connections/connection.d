@@ -13,5 +13,5 @@ class DDSConnection {
     initialize;
   }
 
-  void initialize() {}
+  bool initialize() {}
 }

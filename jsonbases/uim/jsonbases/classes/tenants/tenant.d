@@ -15,7 +15,7 @@ class DJsonTenant : IJsonTenant, IJsonCollectionManager {
   this(string aName) { this(); this.name(aName); }
   this(IJsonBase aBase, string aName) { this(aBase); this.name(aName); }
 
-  void initialize(IData[string] configSettings = nullSettings = Json(null)) { // Hook
+  bool initialize(IData[string] configSettings = null) { // Hook
   }
 
   // #region Properties 

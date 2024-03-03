@@ -7,8 +7,8 @@ import uim.datasources;
 class DDSOMissingPropertyException : DDatasourcesException {
 	mixin(ExceptionThis!("DSOMissingProperty"));
 
-    override bool initialize(IData[string] configData = null) {
-		if (!super.initialize(configData)) { return false; }
+    override bool initialize(IData[string] initData = null) {
+		if (!super.initialize(initData)) { return false; }
 		
 		this
 			.messageTemplate("Property `%s` does not exist for the entity `%s`.");

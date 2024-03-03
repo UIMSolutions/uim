@@ -32,8 +32,8 @@ import uim.consoles;
  * at this time.
  */
 class ConsoleOutput {
-  	override bool initialize(IData[string] configData = null) {
-		if (!super.initialize(configData)) { return false; }
+  	override bool initialize(IData[string] initData = null) {
+		if (!super.initialize(initData)) { return false; }
 		
 		return true;
 	}

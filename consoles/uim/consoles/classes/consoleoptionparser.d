@@ -57,8 +57,8 @@ import uim.consoles;
  * can generate a help display for you. You can view the help for shells by using the `--help` or `-h` switch.
  */
 class ConsoleOptionParser {
-  	override bool initialize(IData[string] configData = null) {
-		if (!super.initialize(configData)) { return false; }
+  	override bool initialize(IData[string] initData = null) {
+		if (!super.initialize(initData)) { return false; }
 		
 		return true;
 	}

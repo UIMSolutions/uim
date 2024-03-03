@@ -12,8 +12,8 @@ import uim.datasources;
 class DRecordNotFoundException : DDatasourcesException {
 	mixin(ExceptionThis!("RecordNotFound"));
 
-    override bool initialize(IData[string] configData = null) {
-		if (!super.initialize(configData)) { return false; }
+    override bool initialize(IData[string] initData = null) {
+		if (!super.initialize(initData)) { return false; }
 		
 		this
 			.messageTemplate("Record not found.");

@@ -12,8 +12,8 @@ import uim.datasources;
 class DDSOInvalidPrimaryKeyException : DDatasourcesException {
 	mixin(ExceptionThis!("DSOInvalidPrimaryKey"));
 
-    override bool initialize(IData[string] configData = null) {
-		if (!super.initialize(configData)) { return false; }
+    override bool initialize(IData[string] initData = null) {
+		if (!super.initialize(initData)) { return false; }
 		
 		this
 			.messageTemplate("Primary Key is invalid.");

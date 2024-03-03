@@ -8,7 +8,7 @@ import uim.commands;
 class PluginUnloadCommand : Command {
    mixin(CommandThis!("PluginUnload"));
 
-  	override bool initialize(IConfigData[string] configData = null) {
+  	override bool initialize(Iconfiguration.getData(string] configData = null) {
 		if (!super.initialize(configData)) { return false; }
 		
 		return true;

@@ -8,7 +8,7 @@ import uim.commands;
 class RoutesCommand : Command {
    mixin(CommandThis!("RoutesCommand"));
 
-  	override bool initialize(IConfigData[string] configData = null) {
+  	override bool initialize(Iconfiguration.getData(string] configData = null) {
 		if (!super.initialize(configData)) { return false; }
 		
 		return true;

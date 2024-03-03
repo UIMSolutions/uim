@@ -8,7 +8,7 @@ import uim.commands;
 class PluginLoadCommand : Command {
    mixin(CommandThis!("PluginLoad"));
 
-  	override bool initialize(IConfigData[string] configData = null) {
+  	override bool initialize(Iconfiguration.getData(string] configData = null) {
 		if (!super.initialize(configData)) { return false; }
 		
 		return true;
@@ -67,7 +67,7 @@ class PluginLoadCommand : Command {
         configData = Hash.normalize(configData);
     }
 
-    configData[pluginName] = options;
+    configuration.getData(pluginName] = options;
     auto array = class_exists(VarExporter.class)
         ? VarExporter.export(configData, VarExporter.TRAILING_COMMA_IN_ARRAY) 
         : var_export(configData, true);

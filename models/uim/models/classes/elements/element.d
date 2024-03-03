@@ -26,8 +26,7 @@ class DElement : IElement {
       this.fromJson(aJson);
   }
 
-  bool initialize(IData[string] configData = null) {
-    // values(MapData);
+  bool initialize(IData[string] initData = null) {
 
     requestPrefix("element_");
 

@@ -20,8 +20,11 @@ class UrlHelper : Helper {
      * Params:
      * IData[string] configData The configuration settings provided to this helper.
      */
-    bool initialize(IData[string] configData = null) {
-        super.initialize(configData);
+  	override bool initialize(IData[string] initData = null) {
+		if (!super.initialize(initData)) { return false; }
+		
+		return true;
+	}
         myengineClassConfig = configurationData.isSet("assetUrlClassName");
 
         /** @var class-string<\UIM\Routing\Asset>|null myengineClass */

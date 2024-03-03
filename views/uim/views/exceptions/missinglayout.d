@@ -8,8 +8,8 @@ import uim.views;
 class DMissingLayoutException : DMissingTemplateException {
     mixin(ExceptionThis!("MissingLayout"));
     
-    override bool initialize(IData[string] configData = null) {
-        if (!super.initialize(configData)) {
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
             return false;
         }
 

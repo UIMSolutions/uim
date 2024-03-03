@@ -11,7 +11,7 @@ import uim.models;
 /* class DMapData {
   this() { initialize; }
 
-  bool initialize(IData[string] configData = null) {}
+  bool initialize(IData[string] initData = null) {}
 
   mixin(TProperty!("IData[string]", "items"));
 

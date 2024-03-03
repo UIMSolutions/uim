@@ -8,7 +8,7 @@ class DMysqlDriver : DDriver {
     mixin(DriverThis!("Mysql"));
 
     override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(configData)) { return false; }
+		if (!super.initialize(initData)) { return false; }
 		
             // Base configuration settings for MySQL driver
         _baseConfig.data([

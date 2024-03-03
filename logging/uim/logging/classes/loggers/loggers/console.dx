@@ -36,7 +36,7 @@ class ConsoleLog : BaseLog {
      * configData - Options for the FileLog, see above.
      * @throws \InvalidArgumentException
      */
-    this(Iconfiguration.getData(string] configData = null) {
+    this(IData[string] configData = null) {
         super(configData);
 
         configData = configuration;

@@ -52,7 +52,7 @@ class FileLog : BaseLog {
     protected int _size = null;
 
     // Sets protected properties based on config provided
-    this(Iconfiguration.getData(string] configData = null) {
+    this(IData[string] configData = null) {
         super(configData);
 
        auto _path = configurationData.isSet("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR);

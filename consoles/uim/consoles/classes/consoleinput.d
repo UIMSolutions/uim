@@ -8,8 +8,8 @@ import uim.consoles;
 class ConsoleInput {
    mixin(CommandThis!("VersionCommand"));
 
-  	override bool initialize(IData[string] configData = null) {
-		if (!super.initialize(configData)) { return false; }
+  	override bool initialize(IData[string] initData = null) {
+		if (!super.initialize(initData)) { return false; }
 		
 		return true;
 	}

@@ -12,8 +12,8 @@ import uim.consoles;
  * easy to do in unit tests.
  */
 class ConsoleIo {
-  	override bool initialize(IData[string] configData = null) {
-		if (!super.initialize(configData)) { return false; }
+  	override bool initialize(IData[string] initData = null) {
+		if (!super.initialize(initData)) { return false; }
 		
 		return true;
 	}
@@ -475,13 +475,13 @@ class ConsoleIo {
      * object has not already been loaded, it will be loaded and constructed.
      *
      * nameToRender The name of the helper to render
-     * configData - Configuration data for the helper.
+     * initData - Configuration data for the helper.
      * returns = Created helper instance.
      */
-    Helper helper(string nameToRender, IData[string] configData = null) {
+    Helper helper(string nameToRender, IData[string] initData = null) {
         auto renderName = ucfirst(nameToRender);
 
-        return _helpers.load(renderName, configData);
+        return _helpers.load(renderName, initData);
     }
     
     /**

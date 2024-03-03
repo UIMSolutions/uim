@@ -49,7 +49,7 @@ class TreeBehavior : Behavior {
         "cascadeCallbacks": false,
     ];
 
-    bool initialize(Iconfiguration.getData(string] configData = null) {
+    bool initialize(IData[string] initData = null) {
        configuration.data("leftField"] = new IdentifierExpression(configuration.data("left"]);
        configuration.data("rightField"] = new IdentifierExpression(configuration.data("right"]);
     }

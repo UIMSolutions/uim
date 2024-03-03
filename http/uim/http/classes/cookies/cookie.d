@@ -9,7 +9,7 @@ class DCookie : ICookie {
         initialize();
     }
 
-    bool initialize(IData[string] configData = null) {
+    bool initialize(IData[string] initData = null) {
         return true;
     }
 

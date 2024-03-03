@@ -252,7 +252,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * define validation and do any other initialization logic you need.
      *
      * ```
-     * auto initialize(Iconfiguration.getData(string] configData = null)
+     * auto initialize(IData[string] initData = null)
      * {
      *     this.belongsTo("Users");
      *     this.belongsToMany("Tagging.Tags");

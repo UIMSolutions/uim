@@ -24,9 +24,11 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
     this.rootPath(aRootPath);
   }
 
-  bool initialize(IData[string] configData = null) { // Hook
+  bool initialize(IData[string] initData = null) { // Hook
+    configuration(new DConfiguration);
+    configuration.data(initData);
+    
     pathSeparator("/");
-
     return true;
   }
 

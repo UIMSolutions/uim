@@ -46,7 +46,9 @@ class DFilesystemEntry : IFilesystemEntry {
 		this.name(aName);
 	};
 
-	bool initialize(IData[string] configData = null) { // Hook
+	bool initialize(IData[string] initData = null) { // Hook
+		configuration(new DConfiguration);
+		configuration.data(initData);
 		return true;
 	}
 

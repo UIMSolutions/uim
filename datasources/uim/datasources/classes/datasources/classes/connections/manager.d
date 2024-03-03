@@ -90,16 +90,16 @@ class ConnectionManager {
     static array parseDsn(string myConfiguration) {
         myConfiguration = _parseDsn(myConfiguration);
 
-        if (myConfiguration.isSet("path") && empty(myconfiguration.getData("database"])) {
-            myconfiguration.getData("database"] = substr(myconfiguration.getData("path"], 1);
+        if (myConfiguration.isSet("path") && empty(myconfiguration["database"])) {
+            myconfiguration["database"] = substr(myconfiguration["path"], 1);
         }
 
-        if (empty(myconfiguration.getData("driver"])) {
-            myconfiguration.getData("driver"] = myconfiguration.getData("className"];
-            myconfiguration.getData("className"] = Connection :  : class;
+        if (empty(myconfiguration["driver"])) {
+            myconfiguration["driver"] = myconfiguration["className"];
+            myconfiguration["className"] = Connection :  : class;
         }
 
-        unset(myconfiguration.getData("path"]);
+        unset(myconfiguration["path"]);
 
         return myConfiguration;
     }
@@ -161,7 +161,7 @@ class ConnectionManager {
         if ($useAliases && isset(_aliasMap[name])) {
             name = _aliasMap[name];
         }
-        if (empty(configuration.getData(name])) {
+        if (empty(configuration[name])) {
             throw new MissingDatasourceConfigException(["name": name]);
         }
         /** @psalm-suppress RedundantPropertyInitializationCheck */
@@ -173,7 +173,7 @@ class ConnectionManager {
             name
         }
         
-        ?  ? _registry.load(name, configuration.getData(name]);
+        ?  ? _registry.load(name, configuration[name]);
     }
 }
 /**

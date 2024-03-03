@@ -73,7 +73,7 @@ class SysLogger : Logger {
     void log(level, string messageToLog, array context = []) {
         if (!_open) {
             configData = configuration;
-           _open(configuration.getData("prefix"], configuration.getData("flag"], configuration.getData("facility"]);
+           _open(configuration["prefix"], configuration["flag"], configuration["facility"]);
            _open = true;
         }
         priority = LOG_DEBUG;

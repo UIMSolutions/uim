@@ -411,11 +411,11 @@ class NumericPaginator : PaginatorInterface
      */
     protected string[] getSortableFields(Json myConfiguration): ?array
     {
-        allowed = myconfiguration.getData("sortableFields"] ?? null;
+        allowed = myconfiguration["sortableFields"] ?? null;
         if (allowed != null) {
             return allowed;
         }
-        deprecated = myconfiguration.getData("sortWhitelist"] ?? null;
+        deprecated = myconfiguration["sortWhitelist"] ?? null;
         if (deprecated != null) {
             deprecationWarning("The `sortWhitelist` option is deprecated. Use `sortableFields` instead.");
         }

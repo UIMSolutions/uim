@@ -67,7 +67,7 @@ class PluginLoadCommand : Command {
         configData = Hash.normalize(configData);
     }
 
-    configuration.getData(pluginName] = options;
+    configuration[pluginName] = options;
     auto array = class_exists(VarExporter.class)
         ? VarExporter.export(configData, VarExporter.TRAILING_COMMA_IN_ARRAY) 
         : var_export(configData, true);

@@ -40,15 +40,15 @@ class ConsoleLog : BaseLog {
         super(configData);
 
         configData = configuration;
-        if (cast(ConsoleOutput)configuration.getData("stream"]) {
-           _output = configuration.getData("stream"];
-        }  else if (isString(configuration.getData("stream"])) {
-           _output = new ConsoleOutput(configuration.getData("stream"]);
+        if (cast(ConsoleOutput)configuration["stream"]) {
+           _output = configuration["stream"];
+        }  else if (isString(configuration["stream"])) {
+           _output = new ConsoleOutput(configuration["stream"]);
         } else {
             throw new InvalidArgumentException("`stream` not a ConsoleOutput nor string");
         }
-        if (isSet(configuration.getData("outputAs"])) {
-           _output.setOutputAs(configuration.getData("outputAs"]);
+        if (isSet(configuration["outputAs"])) {
+           _output.setOutputAs(configuration["outputAs"]);
         }
     }
     

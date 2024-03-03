@@ -66,39 +66,39 @@ class SqliteDriver : Driver {
             return;
         }
         configData = configuration;
-        configuration.getData("flags"] += [
-            PDO.ATTR_PERSISTENT: configuration.getData("persistent"],
+        configuration["flags"] += [
+            PDO.ATTR_PERSISTENT: configuration["persistent"],
             PDO.ATTR_EMULATE_PREPARES: false,
             PDO.ATTR_ERRMODE: PDO.ERRMODE_EXCEPTION,
         ];
-        if (!configuration.getData("database"].isString) || configuration.getData("database"] == "") {
+        if (!configuration["database"].isString) || configuration["database"] == "") {
             name = configData.get("name", "unknown");
             throw new InvalidArgumentException(
                 "The `database` key for the `{name}` SQLite connection needs to be a non-empty string."
             );
         }
         $chmodFile = false;
-        if (configuration.getData("database"] != ":memory:" && configuration.getData("mode"] != "memory") {
-            $chmodFile = !file_exists(configuration.getData("database"]);
+        if (configuration["database"] != ":memory:" && configuration["mode"] != "memory") {
+            $chmodFile = !file_exists(configuration["database"]);
         }
         
         string[] params = [];
-        if (configuration.getData("cache"]) {
-            params ~= "cache=" ~ configuration.getData("cache"];
+        if (configuration["cache"]) {
+            params ~= "cache=" ~ configuration["cache"];
         }
-        if (configuration.getData("mode"]) {
-            params ~= "mode=" ~ configuration.getData("mode"];
+        if (configuration["mode"]) {
+            params ~= "mode=" ~ configuration["mode"];
         }
         auto dsn = params 
-            ? "sqlite:file:" ~ configuration.getData("database"] ~ "?" ~ params.join("&")
-            : "sqlite:" ~ configuration.getData("database"];
+            ? "sqlite:file:" ~ configuration["database"] ~ "?" ~ params.join("&")
+            : "sqlite:" ~ configuration["database"];
         }
         this.pdo = this.createPdo(dsn, configData);
         if ($chmodFile) {
-            @chmod(configuration.getData("database"], configuration.getData("mask"]);
+            @chmod(configuration["database"], configuration["mask"]);
         }
-        if (!(configuration.getData("init"].isEmpty) {
-            foreach ( $command; (array)configuration.getData("init"] ) {
+        if (!(configuration["init"].isEmpty) {
+            foreach ( $command; (array)configuration["init"] ) {
                 this.pdo.exec($command);
             }
         }

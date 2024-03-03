@@ -160,7 +160,7 @@ interface IRepository
      * For example, in your controller code:
      *
      * ```
-     * article = this.Articles.newEntity(this.request.getData());
+     * article = this.Articles.newEntity(this.request[));
      * ```
      *
      * The hydrated entity will correctly do an insert/update based
@@ -180,7 +180,7 @@ interface IRepository
      * For example, in your controller code:
      *
      * ```
-     * articles = this.Articles.newEntities(this.request.getData());
+     * articles = this.Articles.newEntities(this.request[));
      * ```
      *
      * The hydrated entities can then be iterated and saved.
@@ -199,7 +199,7 @@ interface IRepository
      * This is most useful when editing an existing entity using request data:
      *
      * ```
-     * article = this.Articles.patchEntity(article, this.request.getData());
+     * article = this.Articles.patchEntity(article, this.request[));
      * ```
      *
      * @param uim.Datasource\IEntity entity the entity that will get the
@@ -219,7 +219,7 @@ interface IRepository
      * This is most useful when editing a list of existing entities using request data:
      *
      * ```
-     * article = this.Articles.patchEntities(articles, this.request.getData());
+     * article = this.Articles.patchEntities(articles, this.request[));
      * ```
      *
      * @param iterable<uim.Datasource\IEntity> entities the entities that will get the

@@ -83,26 +83,26 @@ _baseConfig = [
             : "";
         }
 
-        string dsn = "sqlsrv:Server={configuration.getData("host"]}{$port};Database={configuration.getData("database"]};MultipleActiveResultSets=false";
-        dsn ~= !configuration.getData("app"].isNull ? ";APP=%s".format(configuration.getData("app"]) : null;
-        dsn ~= !configuration.getData("connectionPooling"].isNull ? ";ConnectionPooling={configuration.getData("connectionPooling"]}" : null;
-        dsn ~= !configuration.getData("failoverPartner"].isNull ? ";Failover_Partner={configuration.getData("failoverPartner"]}" : null;
-        dsn ~= !configuration.getData("loginTimeout"].isNull ? ";LoginTimeout={configuration.getData("loginTimeout"]}" : null;
-        dsn ~= !configuration.getData("multiSubnetFailover"].isNull ? ";MultiSubnetFailover={configuration.getData("multiSubnetFailover"]}" : null;
-        dsn ~= !configuration.getData("encrypt"].isNull ? ";Encrypt={configuration.getData("encrypt"]}" : null;
-        dsn ~= !configuration.getData("trustServerCertificate"].isNull ? ";TrustServerCertificate={configuration.getData("trustServerCertificate"]}" : null;
+        string dsn = "sqlsrv:Server={configuration["host"]}{$port};Database={configuration["database"]};MultipleActiveResultSets=false";
+        dsn ~= !configuration["app"].isNull ? ";APP=%s".format(configuration["app"]) : null;
+        dsn ~= !configuration["connectionPooling"].isNull ? ";ConnectionPooling={configuration["connectionPooling"]}" : null;
+        dsn ~= !configuration["failoverPartner"].isNull ? ";Failover_Partner={configuration["failoverPartner"]}" : null;
+        dsn ~= !configuration["loginTimeout"].isNull ? ";LoginTimeout={configuration["loginTimeout"]}" : null;
+        dsn ~= !configuration["multiSubnetFailover"].isNull ? ";MultiSubnetFailover={configuration["multiSubnetFailover"]}" : null;
+        dsn ~= !configuration["encrypt"].isNull ? ";Encrypt={configuration["encrypt"]}" : null;
+        dsn ~= !configuration["trustServerCertificate"].isNull ? ";TrustServerCertificate={configuration["trustServerCertificate"]}" : null;
         
         this.pdo = this.createPdo(dsn, configData);
-        if (!(configuration.getData("init"].isEmpty) {
-            (array)configuration.getData("init"])
+        if (!(configuration["init"].isEmpty) {
+            (array)configuration["init"])
                 .each!(command => this.pdo.exec(command));
         }
-        if (!configuration.getData("settings"].isEmpty && isArray(configuration.getData("settings"])) {
-            configuration.getData("settings"].byKeyValue
+        if (!configuration["settings"].isEmpty && isArray(configuration["settings"])) {
+            configuration["settings"].byKeyValue
                 .each!(kv => this.pdo.exec("SET %s %s".format(kv.key, kv.value)));
         }
-        if (!empty(configuration.getData("attributes"]) && isArray(configuration.getData("attributes"])) {
-            configuration.getData("attributes"].byKeyValue
+        if (!empty(configuration["attributes"]) && isArray(configuration["attributes"])) {
+            configuration["attributes"].byKeyValue
                 .each(kv => this.pdo.setAttribute(kv.key, kv.value));
         }
     }

@@ -40,30 +40,30 @@ class PostgresDriver : Driver {
         }
 
         auto configData = configuration;
-        configuration.getData("flags"].data([
-            PDO.ATTR_PERSISTENT: configuration.getData("persistent"],
+        configuration["flags"].data([
+            PDO.ATTR_PERSISTENT: configuration["persistent"],
             PDO.ATTR_EMULATE_PREPARES: false,
             PDO.ATTR_ERRMODE: PDO.ERRMODE_EXCEPTION,
         ]);
 
-        string dsn = configuration.getData("unix_socket"].isEmpty
-            ? `pgsql:host={configuration.getData("host"]};port={configuration.getData("port"]};dbname={configuration.getData("database"]}`
-            : `pgsql:dbname={configuration.getData("database"]}`;
+        string dsn = configuration["unix_socket"].isEmpty
+            ? `pgsql:host={configuration["host"]};port={configuration["port"]};dbname={configuration["database"]}`
+            : `pgsql:dbname={configuration["database"]}`;
     }
 
     this.pdo = this.createPdo(dsn, configData);
-    if (!(configuration.getData("encoding"].isEmpty) {
-        this.setEncoding(configuration.getData("encoding"]);
+    if (!(configuration["encoding"].isEmpty) {
+        this.setEncoding(configuration["encoding"]);
     }
 
-    if (!configuration.getData("schema"].isEmpty) {
-        this.setSchema(configuration.getData("schema"]);
+    if (!configuration["schema"].isEmpty) {
+        this.setSchema(configuration["schema"]);
     }
-    if (!configuration.getData("timezone"].isEmpty) {
-        configuration.getData("init"] ~= "SET timezone = %s".format(this.getPdo()
-                .quote(configuration.getData("timezone"]));
+    if (!configuration["timezone"].isEmpty) {
+        configuration["init"] ~= "SET timezone = %s".format(this.getPdo()
+                .quote(configuration["timezone"]));
     }
-    configuration.getData("init"].each!(command => this.getPdo().exec(command));
+    configuration["init"].each!(command => this.getPdo().exec(command));
 }
 
 

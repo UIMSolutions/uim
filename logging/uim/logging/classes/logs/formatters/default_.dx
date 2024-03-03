@@ -3,7 +3,7 @@ module uim.logs.Formatter;
 use DateTime;
 
 class DefaultFormatter : AbstractFormatter {
-  	override bool initialize(IConfigData[string] configData = null) {
+  	override bool initialize(Iconfiguration.getData(string] configData = null) {
 		if (!super.initialize(configData)) { return false; }
     
         defaultConfiguration.data([
@@ -16,7 +16,7 @@ class DefaultFormatter : AbstractFormatter {
 	}
 
 
-    this(IConfigData[string] configData = null) {
+    this(Iconfiguration.getData(string] configData = null) {
         configuration.update(configData);
     }
  

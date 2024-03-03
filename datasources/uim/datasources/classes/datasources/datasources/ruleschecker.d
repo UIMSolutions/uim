@@ -27,7 +27,7 @@ import uim.datasources;
  * RulesChecker.checkDelete().
  */
 class RulesChecker {
-  	override bool initialize(IConfigData[string] configData = null) {
+  	override bool initialize(Iconfiguration.getData(string] configData = null) {
 		if (!super.initialize(configData)) { return false; }
 		
 		return true;

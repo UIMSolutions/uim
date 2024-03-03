@@ -36,19 +36,19 @@ class ConsoleLog : BaseLog {
      * configData - Options for the FileLog, see above.
      * @throws \InvalidArgumentException
      */
-    this(IConfigData[string] configData = null) {
+    this(Iconfiguration.getData(string] configData = null) {
         super(configData);
 
         configData = configuration;
-        if (cast(ConsoleOutput)configData["stream"]) {
-           _output = configData["stream"];
-        }  else if (isString(configData["stream"])) {
-           _output = new ConsoleOutput(configData["stream"]);
+        if (cast(ConsoleOutput)configuration.getData("stream"]) {
+           _output = configuration.getData("stream"];
+        }  else if (isString(configuration.getData("stream"])) {
+           _output = new ConsoleOutput(configuration.getData("stream"]);
         } else {
             throw new InvalidArgumentException("`stream` not a ConsoleOutput nor string");
         }
-        if (isSet(configData["outputAs"])) {
-           _output.setOutputAs(configData["outputAs"]);
+        if (isSet(configuration.getData("outputAs"])) {
+           _output.setOutputAs(configuration.getData("outputAs"]);
         }
     }
     

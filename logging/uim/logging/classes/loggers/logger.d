@@ -26,7 +26,7 @@ abstract class Logger /* : AbstractLogger */ {
     protected IConfiguration _defaultConfigData; 
     protected IFormatter _formatter;
 
-    this(IConfigData[string] configData = null) {
+    this(Iconfiguration.getData(string] configData = null) {
         configuration.update(configData);
 
         if (!configuration.data("scopes").isNull) {

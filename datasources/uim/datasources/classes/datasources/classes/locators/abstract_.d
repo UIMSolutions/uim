@@ -45,17 +45,17 @@ abstract class AbstractLocator : ILocator {
 
  
     IRepository set(string aalias, IRepository repository) {
-        return this.instances[$alias] = repository;
+        return this.instances[alias] = repository;
     }
  
     bool exists(string aalias) {
-        return isSet(this.instances[$alias]);
+        return isSet(this.instances[alias]);
     }
  
     void remove(string aalias) {
         unset(
-            this.instances[$alias],
-            this.options[$alias]
+            this.instances[alias],
+            this.options[alias]
         );
     }
  

@@ -33,11 +33,11 @@ interface IStatement {
      * $statement.bindValue(5, new \DateTime(), "date");
      * ```
      * Params:
-     * string|int $column name or param position to be bound
+     * string|int column name or param position to be bound
      * @param Json aValue The value to bind to variable in query
      * @param string|int type name of configured Type class
      * /
-    void bindValue(string|int $column, Json aValue, string|int type = "string");
+    void bindValue(string|int column, Json aValue, string|int type = "string");
 
     /**
      * Closes the cursor, enabling the statement to be executed again.
@@ -136,7 +136,7 @@ interface IStatement {
      * Returns the latest primary inserted using this statement.
      * Params:
      * string|null aTable table name or sequence to get last insert value from
-     * @param string|null $column the name of the column representing the primary key
+     * @param string|null column the name of the column representing the primary key
      * /
     string|int lastInsertId(string atable = null, string acolumn = null);
 

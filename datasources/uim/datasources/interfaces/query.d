@@ -7,7 +7,7 @@ import uim.datasources;
 /**
  * The basis for every query object
  *
- * @method this andWhere($conditions, array types = []) Connects any previously defined set of conditions to the
+ * @method this andWhere(conditions, array types = []) Connects any previously defined set of conditions to the
  *  provided list using the AND operator. {@see \UIM\Database\Query.andWhere()}
  * @method \UIM\Datasource\IEntity|array firstOrFail() Get the first result from the executing query or raise an exception.
  *  {@see \UIM\Database\Query.firstOrFail()}
@@ -335,7 +335,7 @@ interface IQuery {
      * .where(function ($exp, aQuery) {
      *     $or = $exp.or(["id": 1]);
      *     and = $exp.and(["id >": 2, "id <": 10]);
-     * return $or.add($and);
+     * return $or.add(and);
      * });
      * ```
      *
@@ -359,9 +359,9 @@ interface IQuery {
      * If you use string conditions make sure that your values are correctly quoted.
      * The safest thing you can do is to never use string conditions.
      * Params:
-     * \Closure|string[]|null $conditions The conditions to filter on.
+     * \Closure|string[]|null conditions The conditions to filter on.
      * @param STRINGAA types Associative array of type names used to bind values to query
      * @param bool overwrite whether to reset conditions with passed list or not
      */
-    // TODO auto where(Closure|string[]|null $conditions = null, array types = [], bool overwrite = false);
+    // TODO auto where(Closure|string[]|null conditions = null, array types = [], bool overwrite = false);
 }

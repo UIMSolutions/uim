@@ -127,8 +127,8 @@ class ConnectionManager {
      * @param string $source The existing connection to alias.
      * @param string alias The alias name that resolves to `$source`.
      */
-    static void alias(string$source, string$alias) {
-        _aliasMap[$alias] = $source;
+    static void alias(string$source, stringalias) {
+        _aliasMap[alias] = $source;
     }
 
     /**
@@ -139,8 +139,8 @@ class ConnectionManager {
      *
      * @param string alias The connection alias to drop
      */
-    static void dropAlias(string$alias) {
-        unset(_aliasMap[$alias]);
+    static void dropAlias(stringalias) {
+        unset(_aliasMap[alias]);
     }
 
     /**
@@ -245,7 +245,7 @@ static IData[string] parseDsn(string adsn) {
      * string aalias The connection alias to drop
      */
                 static void dropAlias(string aalias) {
-                    unset(_connectionAliases[$alias]);}
+                    unset(_connectionAliases[alias]);}
 
                     // Returns the current connection aliases and what they alias.
                     static STRINGAA aliases() {

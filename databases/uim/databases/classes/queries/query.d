@@ -212,8 +212,8 @@ abstract class Query : IExpression, Stringable {
      *
      * ### Example
      * ```
-     * aQuery.select(["title"]).from("articles").traverse(function (aValue, $clause) {
-     *    if ($clause == "Select") {
+     * aQuery.select(["title"]).from("articles").traverse(function (aValue, clause) {
+     *    if (clause == "Select") {
      *        var_dump(aValue);
      *    }
      * });
@@ -238,8 +238,8 @@ abstract class Query : IExpression, Stringable {
      * ### Example
      *
      * ```
-     * aQuery.select(["title"]).from("articles").traverse(function (aValue, $clause) {
-     *    if ($clause == "Select") {
+     * aQuery.select(["title"]).from("articles").traverse(function (aValue, clause) {
+     *    if (clause == "Select") {
      *        var_dump(aValue);
      *    }
      * }, ["select", "from"]);
@@ -261,14 +261,14 @@ abstract class Query : IExpression, Stringable {
      * objects:
      *
      * ```
-     * $cte = new \UIM\Database\Expression\CommonTableExpression(
+     * cte = new \UIM\Database\Expression\CommonTableExpression(
      *    'cte",
      *    aConnection
      *        .selectQuery("*")
      *        .from("articles")
      * );
      *
-     * aQuery.with($cte);
+     * aQuery.with(cte);
      * ```
      *
      * or returned from a closure, which will receive a new common table expression
@@ -277,36 +277,36 @@ abstract class Query : IExpression, Stringable {
      *
      * ```
      * aQuery.with(function (
-     *    \UIM\Database\Expression\CommonTableExpression $cte,
+     *    \UIM\Database\Expression\CommonTableExpression cte,
      *    \UIM\Database\Query aQuery
      * ) {
-     *    $cteQuery = aQuery
+     *    cteQuery = aQuery
      *        .select("*")
      *        .from("articles");
      *
-     *    return $cte
+     *    return cte
      *        .name("cte")
-     *        .query($cteQuery);
+     *        .query(cteQuery);
      * });
      * ```
      * Params:
-     * \UIM\Database\Expression\CommonTableExpression|\Closure $cte The CTE to add.
+     * \UIM\Database\Expression\CommonTableExpression|\Closure cte The CTE to add.
      * @param bool overwrite Whether to reset the list of CTEs.
      */
-    void with(CommonTableExpression|Closure $cte, bool overwrite = false) {
+    void with(CommonTableExpression|Closure cte, bool overwrite = false) {
         if (overwrite) {
            _parts["with"] = [];
         }
-        if (cast(Closure)$cte) {
+        if (cast(Closure)cte) {
             aQuery = this.getConnection().selectQuery();
-            $cte = $cte(new CommonTableExpression(), aQuery);
-            if (!(cast(CommonTableExpression)$cte)) {
+            cte = cte(new CommonTableExpression(), aQuery);
+            if (!(cast(CommonTableExpression)cte)) {
                 throw new UimException(
                     'You must return a `CommonTableExpression` from a Closure passed to `with()`.'
                 );
             }
         }
-       _parts["with"] ~= $cte;
+       _parts["with"] ~= cte;
        _isDirty();
 
     
@@ -362,7 +362,7 @@ abstract class Query : IExpression, Stringable {
      * aQuery.from(["p": 'posts"]); // Produces FROM posts p
      * aQuery.from("authors"); // Appends authors: FROM posts p, authors
      * aQuery.from(["products"], true); // Resets the list: FROM products
-     * aQuery.from(["sub": $countQuery]); // FROM (SELECT ...) sub
+     * aQuery.from(["sub": countQuery]); // FROM (SELECT ...) sub
      * ```
      * Params:
      * the examples above for the valid call types.
@@ -470,7 +470,7 @@ abstract class Query : IExpression, Stringable {
         }
         $joins = [];
          anI = count(_parts["join"]);
-        foreach ($alias, t; aTables) {
+        foreach (alias, t; aTables) {
             if (!isArray($t)) {
                 t = ["table": t, "conditions": this.newExpr()];
             }
@@ -480,8 +480,8 @@ abstract class Query : IExpression, Stringable {
             if (!cast(IExpression)$t["conditions"]) {
                 t["conditions"] = this.newExpr().add($t["conditions"], types);
             }
-            alias = isString($alias) ? alias : null;
-            $joins[$alias ?:  anI++] = t ~ ["type": JOIN_TYPE_INNER, "alias": alias];
+            alias = isString(alias) ? alias : null;
+            $joins[alias ?:  anI++] = t ~ ["type": JOIN_TYPE_INNER, "alias": alias];
         }
         _parts["join"] = overwrite ? $joins : array_merge(_parts["join"], $joins);
 
@@ -543,7 +543,7 @@ abstract class Query : IExpression, Stringable {
         IExpression|Closure|string[] aconditions = [],
         array types = []
     ) {
-        this.join(_makeJoin(aTable, $conditions, JOIN_TYPE_LEFT), types);
+        this.join(_makeJoin(aTable, conditions, JOIN_TYPE_LEFT), types);
 
         return this;
     }
@@ -567,7 +567,7 @@ abstract class Query : IExpression, Stringable {
         IExpression|Closure|string[] aconditions = [],
         array types = []
     ) {
-        this.join(_makeJoin(aTable, $conditions, JOIN_TYPE_RIGHT), types);
+        this.join(_makeJoin(aTable, conditions, JOIN_TYPE_RIGHT), types);
     }
     
     /**
@@ -589,7 +589,7 @@ abstract class Query : IExpression, Stringable {
         IExpression|Closure|string[] aconditions = [],
         array types = []
     ) {
-        this.join(_makeJoin(aTable, $conditions, JOIN_TYPE_INNER), types);
+        this.join(_makeJoin(aTable, conditions, JOIN_TYPE_INNER), types);
 
         return this;
     }
@@ -620,7 +620,7 @@ abstract class Query : IExpression, Stringable {
         return [
             alias: [
                 'table": aTable,
-                'conditions": $conditions,
+                'conditions": conditions,
                 'type": type,
             ],
         ];
@@ -713,7 +713,7 @@ abstract class Query : IExpression, Stringable {
      *  .where(function ($exp, aQuery) {
      *    $or = $exp.or(["id": 1]);
      *    and = $exp.and(["id >": 2, "id <": 10]);
-     *   return $or.add($and);
+     *   return $or.add(and);
      *  });
      * ```
      *
@@ -746,27 +746,27 @@ abstract class Query : IExpression, Stringable {
      * ```
      * aQuery.where([
      *    'posted >=": new DateTime("3 days ago"),
-     *    'category_id IS": $category,
+     *    'category_id IS": category,
      * ]);
      * ```
      *
-     * If $category is `null` - it will actually convert that into `category_id isNull` - if it`s `4` it will convert it into `category_id = 4`
+     * If category is `null` - it will actually convert that into `category_id isNull` - if it`s `4` it will convert it into `category_id = 4`
      * Params:
-     * \UIM\Database\IExpression|\Closure|string[]|null $conditions The conditions to filter on.
+     * \UIM\Database\IExpression|\Closure|string[]|null conditions The conditions to filter on.
      * @param STRINGAA types Associative array of type names used to bind values to query
      * @param bool overwrite whether to reset conditions with passed list or not
      * @see \UIM\Database\TypeFactory
      * @see \UIM\Database\Expression\QueryExpression
      */
     auto where(
-        IExpression|Closure|string[]|null $conditions = null,
+        IExpression|Closure|string[]|null conditions = null,
         array types = [],
         bool overwrite = false
     ) {
         if (overwrite) {
            _parts["where"] = this.newExpr();
         }
-       _conjugate("where", $conditions, "AND", types);
+       _conjugate("where", conditions, "AND", types);
 
         return this;
     }
@@ -939,7 +939,7 @@ abstract class Query : IExpression, Stringable {
      * @see \UIM\Database\TypeFactory
      */
     auto andWhere(IExpression|Closure|string[] aconditions, array types = []) {
-       _conjugate("where", $conditions, "AND", types);
+       _conjugate("where", conditions, "AND", types);
 
         return this;
     }
@@ -1305,14 +1305,14 @@ abstract class Query : IExpression, Stringable {
      */
     Json clause(string aName) {
         if (!array_key_exists(name, _parts)) {
-            $clauses = _parts.keys;
-            array_walk($clauses, fn (&$x): $x = "`$x`");
-            $clauses = join(", ", $clauses);
+            clauses = _parts.keys;
+            array_walk(clauses, fn (&$x): $x = "`$x`");
+            clauses = join(", ", clauses);
             throw new InvalidArgumentException(
                 "The `%s` clause is not defined. Valid clauses are: %s."
                 .format(
                     name,
-                $clauses
+                clauses
             ));
         }
         return _parts[name];
@@ -1418,19 +1418,19 @@ abstract class Query : IExpression, Stringable {
         array types
     ) {
         $expression = _parts[$part] ?: this.newExpr();
-        if (isEmpty($append)) {
+        if (isEmpty(append)) {
            _parts[$part] = $expression;
 
             return;
         }
-        if (cast(Closure)$append) {
+        if (cast(Closure)append) {
             append = append(this.newExpr(), this);
         }
-        if ($expression.getConjunction() == $conjunction) {
-            $expression.add($append, types);
+        if ($expression.getConjunction() == conjunction) {
+            $expression.add(append, types);
         } else {
             $expression = this.newExpr()
-                .setConjunction($conjunction)
+                .setConjunction(conjunction)
                 .add([$expression, append], types);
         }
        _parts[$part] = $expression;

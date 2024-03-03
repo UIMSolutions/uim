@@ -155,7 +155,7 @@ class NumericPaginator : IPaginator {
      * the same controller action:
      *
      * ```
-     * articles = paginator.paginate($articlesQuery, ["scope": 'articles"]);
+     * articles = paginator.paginate(articlesQuery, ["scope": 'articles"]);
      * tags = paginator.paginate($tagsQuery, ["scope": "tags"]);
      * ```
      *
@@ -274,7 +274,7 @@ class NumericPaginator : IPaginator {
      */
     protected array extractData(IRepository object, IData[string] requestParameters, IData[string] settingForPagination) {
         auto aliasObj = object.getAlias();
-        auto defaults = this.getDefaults($aliasObj, settingForPagination);
+        auto defaults = this.getDefaults(aliasObj, settingForPagination);
 
         auto validSettings = _defaultConfigData.keys;
         validSettings ~= "order";
@@ -425,8 +425,8 @@ class NumericPaginator : IPaginator {
      * string aalias Model name to get settings for.
      */
     protected IData[string] getDefaults(string aalias, IData[string] settings) {
-        if (isSet($settings[$alias])) {
-            settings = settings[$alias];
+        if (isSet($settings[alias])) {
+            settings = settings[alias];
         }
         defaults = this.getConfig();
 
@@ -533,10 +533,10 @@ class NumericPaginator : IPaginator {
                 result[field] = sort;
                 continue;
             }
-            [$alias, currentField] = split(".", field);
+            [alias, currentField] = split(".", field);
 
-            if ($alias == model) {
-                result[$currentField] = sort;
+            if (alias == model) {
+                result[currentField] = sort;
                 continue;
             }
             result[field] = sort;
@@ -563,20 +563,20 @@ class NumericPaginator : IPaginator {
             alias = aTableAlias;
 
             if (aKey.has(".")) {
-                [$alias, field] = split(".", aKey);
+                [alias, field] = split(".", aKey);
             }
             correctAlias = (aTableAlias == alias);
 
-            if ($correctAlias && allowed) {
+            if (correctAlias && allowed) {
                 // Disambiguate fields in schema. As id is quite common.
                 if ($object.hasField(field)) {
                     field = alias ~ "." ~ field;
                 }
                 aTableOrder[field] = aValue;
-            } else if ($correctAlias && object.hasField(field)) {
+            } else if (correctAlias && object.hasField(field)) {
                 aTableOrder[aTableAlias ~ "." ~ field] = aValue;
-            } else if (!$correctAlias && allowed) {
-                aTableOrder[$alias ~ "." ~ field] = aValue;
+            } else if (!correctAlias && allowed) {
+                aTableOrder[alias ~ "." ~ field] = aValue;
             }
         }
         return aTableOrder;

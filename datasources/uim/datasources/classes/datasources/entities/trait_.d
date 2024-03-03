@@ -574,21 +574,21 @@ trait EntityTrait
      * @return string method name or empty string (no method available)
      */
     protected static string _accessor(string $property, string type) {
-        $class = class;
+        class = class;
 
-        if (isset(_accessors[$class][$type][$property])) {
-            return _accessors[$class][$type][$property];
+        if (isset(_accessors[class][$type][$property])) {
+            return _accessors[class][$type][$property];
         }
 
-        if (!empty(_accessors[$class])) {
-            return _accessors[$class][$type][$property] = "";
+        if (!empty(_accessors[class])) {
+            return _accessors[class][$type][$property] = "";
         }
 
         if (class == Entity::class) {
             return "";
         }
 
-        foreach (get_class_methods($class) as $method) {
+        foreach (get_class_methods(class) as $method) {
             $prefix = substr($method, 1, 3);
             if ($method[0] != "_" || ($prefix != "get" && $prefix != "set")) {
                 continue;
@@ -596,16 +596,16 @@ trait EntityTrait
             field = lcfirst(substr($method, 4));
             $snakeField = Inflector::underscore(field);
             titleField = ucfirst(field);
-            _accessors[$class][$prefix][$snakeField] = $method;
-            _accessors[$class][$prefix][field] = $method;
-            _accessors[$class][$prefix][$titleField] = $method;
+            _accessors[class][$prefix][$snakeField] = $method;
+            _accessors[class][$prefix][field] = $method;
+            _accessors[class][$prefix][$titleField] = $method;
         }
 
-        if (!isset(_accessors[$class][$type][$property])) {
-            _accessors[$class][$type][$property] = "";
+        if (!isset(_accessors[class][$type][$property])) {
+            _accessors[class][$type][$property] = "";
         }
 
-        return _accessors[$class][$type][$property];
+        return _accessors[class][$type][$property];
     }
 
     /**
@@ -964,7 +964,7 @@ trait EntityTrait
                 return null;
             }, (array)$object);
 
-            return array_filter($array);
+            return array_filter(array);
         }
 
         return [];

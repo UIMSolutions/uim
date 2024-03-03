@@ -170,13 +170,13 @@ class WhenThenExpression : IExpression {
      * string aclause The name of the clause to obtain.
      */
     IExpression|object|scalar|null clause(string aclause) {
-        if (!in_array($clause, this.validClauseNames, true)) {
+        if (!in_array(clause, this.validClauseNames, true)) {
             throw new InvalidArgumentException(                
-                "The `$clause` argument must be one of `%s`, the given value `%s` is invalid."
-                .format(join("`, `", this.validClauseNames), $clause)
+                "The `clause` argument must be one of `%s`, the given value `%s` is invalid."
+                .format(join("`, `", this.validClauseNames), clause)
             );
         }
-        return this.{$clause};
+        return this.{clause};
     }
  
     string sql(ValueBinder aBinder) {

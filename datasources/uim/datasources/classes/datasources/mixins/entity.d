@@ -278,14 +278,14 @@ mixin EntityTemplate {
      * string afield the name of the field for which original value is retrieved.
      * @param bool allowFallback whether to allow falling back to the current field value if no original exists
      */
-  Json getOriginal(string fieldName, bool $allowFallback = true) {
+  Json getOriginal(string fieldName, bool allowFallback = true) {
     if (fieldName.isEmpty) {
       throw new InvalidArgumentException("Cannot get an empty field");
     }
     if (array_key_exists(fieldName, _original)) {
       return _original[fieldName];
     }
-    if (!$allowFallback) {
+    if (!allowFallback) {
       throw new InvalidArgumentException(
         "Cannot retrieve original value for field `%s`".format(fieldName));
     }

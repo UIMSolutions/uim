@@ -27,13 +27,13 @@ Entities can be directly instantiated:
 
 use App\Model\Entity\Article;
 
-$article = new Article();
+article = new Article();
 
 When instantiating an entity you can pass the fields with the data you want to store in them:
 
 use App\Model\Entity\Article;
 
-$article = new Article([
+article = new Article([
     'id' => 1,
     'title' => 'New Article',
     'created' => new DateTime('now')
@@ -43,15 +43,15 @@ The preferred way of getting new entities is using the newEmptyEntity() method f
 
 use Cake\ORM\Locator\LocatorAwareTrait;
 
-$article = $this->fetchTable('Articles')->newEmptyEntity();
+article = $this->fetchTable('Articles')->newEmptyEntity();
 
-$article = $this->fetchTable('Articles')->newEntity([
+article = $this->fetchTable('Articles')->newEntity([
     'id' => 1,
     'title' => 'New Article',
     'created' => new DateTime('now')
 ]);
 
-$article will be an instance of App\Model\Entity\Article or fallback to Cake\ORM\Entity instance if you haven’t created the Article class.
+article will be an instance of App\Model\Entity\Article or fallback to Cake\ORM\Entity instance if you haven’t created the Article class.
 
 Prior to CakePHP 4.3 you need to use $this->getTableLocator->get('Articles') to get the table instance.
 Accessing Entity Data
@@ -60,9 +60,9 @@ Entities provide a few ways to access the data they contain. Most commonly you w
 
 use App\Model\Entity\Article;
 
-$article = new Article;
-$article->title = 'This is my first post';
-echo $article->title;
+article = new Article;
+article->title = 'This is my first post';
+echo article->title;
 
 You can also use the get() and set() methods.
 
@@ -72,12 +72,12 @@ Cake\ORM\Entity::get(field)
 
 For example:
 
-$article->set('title', 'This is my first post');
-echo $article->get('title');
+article->set('title', 'This is my first post');
+echo article->get('title');
 
 When using set() you can update multiple fields at once using an array:
 
-$article->set([
+article->set([
     'title' => 'My first post',
     'body' => 'It is the best ever!'
 ]);
@@ -86,37 +86,37 @@ When updating entities with request data you should configure which fields can b
 
 You can check if fields are defined in your entities with has():
 
-$article = new Article([
+article = new Article([
     'title' => 'First post',
     'user_id' => null
 ]);
-$article->has('title'); // true
-$article->has('user_id'); // false
-$article->has('undefined'); // false
+article->has('title'); // true
+article->has('user_id'); // false
+article->has('undefined'); // false
 
 The has() method will return true if a field is defined and has a non-null value. You can use isEmpty() and hasValue() to check if a field contains a ‘non-empty’ value:
 
-$article = new Article([
+article = new Article([
     'title' => 'First post',
     'user_id' => null,
     'text' => '',
     'links' => []
 ]);
-$article->has('title'); // true
-$article->isEmpty('title');  // false
-$article->hasValue('title'); // true
+article->has('title'); // true
+article->isEmpty('title');  // false
+article->hasValue('title'); // true
 
-$article->has('user_id'); // false
-$article->isEmpty('user_id');  // true
-$article->hasValue('user_id'); // false
+article->has('user_id'); // false
+article->isEmpty('user_id');  // true
+article->hasValue('user_id'); // false
 
-$article->has('text'); // true
-$article->isEmpty('text');  // true
-$article->hasValue('text'); // false
+article->has('text'); // true
+article->isEmpty('text');  // true
+article->hasValue('text'); // false
 
-$article->has('links'); // true
-$article->isEmpty('links');  // true
-$article->hasValue('links'); // false
+article->has('links'); // true
+article->isEmpty('links');  // true
+article->hasValue('links'); // false
 
 Accessors & Mutators
 
@@ -141,8 +141,8 @@ class Article extends Entity
 
 The example above converts the value of the title field to an uppercase version each time it is read. It would be run when getting the field through any of these two ways:
 
-echo $article->title; // returns FOO instead of foo
-echo $article->get('title'); // returns FOO instead of foo
+echo article->title; // returns FOO instead of foo
+echo article->get('title'); // returns FOO instead of foo
 
 Code in your accessors is executed each time you reference the field. You can use a local variable to cache it if you are performing a resource-intensive operation in your accessor like this: $myEntityProp = $entity->my_property.
 
@@ -203,28 +203,28 @@ Cake\ORM\Entity::dirty(field = null, $dirty = null)
 You may want to make code conditional based on whether or not fields have changed in an entity. For example, you may only want to validate fields when they change:
 
 // See if the title has been modified.
-$article->isDirty('title');
+article->isDirty('title');
 
 You can also flag fields as being modified. This is handy when appending into array fields as this wouldn’t automatically mark the field as dirty, only exchanging completely would.:
 
 // Add a comment and mark the field as changed.
-$article->comments[] = $newComment;
-$article->setDirty('comments', true);
+article->comments[] = $newComment;
+article->setDirty('comments', true);
 
 In addition you can also base your conditional code on the original field values by using the getOriginal() method. This method will either return the original value of the field if it has been modified or its actual value.
 
 You can also check for changes to any field in the entity:
 
 // See if the entity has changed
-$article->isDirty();
+article->isDirty();
 
 To remove the dirty mark from fields in an entity, you can use the clean() method:
 
-$article->clean();
+article->clean();
 
 When creating a new entity, you can avoid the fields from being marked as dirty by passing an extra option:
 
-$article = new Article(['title' => 'New Article'], ['markClean' => true]);
+article = new Article(['title' => 'New Article'], ['markClean' => true]);
 
 To get a list of all dirty fields of an Entity you may call:
 
@@ -294,17 +294,17 @@ When creating a new entity using the new keyword you can tell it to not protect 
 
 use App\Model\Entity\Article;
 
-$article = new Article(['id' => 1, 'title' => 'Foo'], ['guard' => false]);
+article = new Article(['id' => 1, 'title' => 'Foo'], ['guard' => false]);
 
 Modifying the Guarded Fields at Runtime
 
 You can modify the list of guarded fields at runtime using the setAccess() method:
 
 // Make user_id accessible.
-$article->setAccess('user_id', true);
+article->setAccess('user_id', true);
 
 // Make title guarded.
-$article->setAccess('title', false);
+article->setAccess('title', false);
 
 Modifying accessible fields affects only the instance the method is called on.
 
@@ -313,22 +313,22 @@ Bypassing Field Guarding
 
 There are some situations when you want to allow mass-assignment to guarded fields:
 
-$article->set(fields, ['guard' => false]);
+article->set(fields, ['guard' => false]);
 
 By setting the guard option to false, you can ignore the accessible field list for a single call to set().
 Checking if an Entity was Persisted
 
 It is often necessary to know if an entity represents a row that is already in the database. In those situations use the isNew() method:
 
-if (!$article->isNew()) {
+if (!article->isNew()) {
     echo 'This article was saved already!';
 }
 
 If you are certain that an entity has already been persisted, you can use setNew():
 
-$article->setNew(false);
+article->setNew(false);
 
-$article->setNew(true);
+article->setNew(true);
 
 Lazy Loading Associations
 
@@ -345,11 +345,11 @@ While lazy loading is not included by CakePHP’s ORM, you can just use one of t
 
 After adding the plugin to your entity, you will be able to do the following:
 
-$article = $this->Articles->findById($id);
+article = $this->Articles->findById($id);
 
 // The comments property was lazy loaded
-foreach ($article->comments as $comment) {
-    echo $comment->body;
+foreach (article->comments as comment) {
+    echo comment->body;
 }
 
 Creating Re-usable Code with Traits
@@ -388,7 +388,7 @@ When building APIs, you may often need to convert entities into arrays or JSON d
 
 // Get an array.
 // Associations will be converted with toArray() as well.
-$array = $user->toArray();
+array = $user->toArray();
 
 // Convert to JSON
 // Associations will be converted with jsonSerialize hook as well.

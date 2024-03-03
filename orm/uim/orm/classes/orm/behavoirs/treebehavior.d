@@ -33,7 +33,7 @@ class TreeBehavior : Behavior {
      *
      * @var array<string, mixed>
      */
-    protected _defaultConfig = [
+    protected Configuration.updateDefaults([
         "implementedFinders": [
             "path": "findPath",
             "children": "findChildren",

@@ -29,7 +29,7 @@ class TimestampBehavior : Behavior {
      *
      * @var array<string, mixed>
      */
-    protected _defaultConfig = [
+    protected Configuration.updateDefaults([
         "implementedFinders": [],
         "implementedMethods": [
             "timestamp": "timestamp",

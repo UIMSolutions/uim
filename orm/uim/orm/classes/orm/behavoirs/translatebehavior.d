@@ -15,31 +15,31 @@ import uim.orm;
  * If you want to bring all or certain languages for each of the fetched records,
  * you can use the custom `translations` finders that is exposed to the table.
  */
-class TranslateBehavior : Behavior : IPropertyMarshal
-{
-    /**
-     * Default config
-     *
-     * These are merged with user-provided configuration when the behavior is used.
-     *
-     * @var array<string, mixed>
-     */
-    protected _defaultConfig = [
-        "implementedFinders": ["translations": "findTranslations"],
-        "implementedMethods": [
-            "setLocale": "setLocale",
-            "getLocale": "getLocale",
-            "translationField": "translationField",
+class TranslateBehavior : Behavior,
+IPropertyMarshal {
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        Configuration.updateDefaults([
+            "implementedFinders": ["translations": "findTranslations"],
+            "implementedMethods": [
+                "setLocale": "setLocale",
+                "getLocale": "getLocale",
+                "translationField": "translationField",
+            
         ],
-        "fields": [],
-        "defaultLocale": null,
-        "referenceName": "",
-        "allowEmptyTranslations": true,
-        "onlyTranslated": false,
-        "strategy": "subquery",
-        "tableLocator": null,
-        "validator": false,
-    ];
+        "fields" : [],
+        "defaultLocale" : null,
+        "referenceName" : "",
+        "allowEmptyTranslations" : true,
+        "onlyTranslated" : false,
+        "strategy" : "subquery",
+        "tableLocator" : null,
+        "validator" : false,]);
+        return true;
+    }
 
     /**
      * Default strategy class name.
@@ -47,7 +47,7 @@ class TranslateBehavior : Behavior : IPropertyMarshal
      * @var string
      * @psalm-var class-string<DORMBehavior\Translate\ITranslateStrategy>
      */
-    protected static defaultStrategyClass = EavStrategy::class;
+    protected static defaultStrategyClass = EavStrategy.class;
 
     /**
      * Translation strategy instance.
@@ -84,24 +84,22 @@ class TranslateBehavior : Behavior : IPropertyMarshal
      */
     this(DORMTable aTable, IData[string] configData) {
         myConfiguration += [
-            "defaultLocale": I18n::getDefaultLocale(),
+            "defaultLocale": I18n: : getDefaultLocale(),
             "referenceName": this.referenceName(table),
             "tableLocator": table.associations().getTableLocator(),
         ];
 
-        super((table, myConfiguration);
-    }
+        super((table, myConfiguration);}
 
-    /**
+        /**
      * Initialize hook
      *
      * @param array<string, mixed> myConfiguration The config for this behavior.
      */
-    bool initialize(IData[string] myConfiguration) {
-        this.getStrategy();
-    }
+        bool initialize(IData[string] myConfiguration) {
+            this.getStrategy();}
 
-    /**
+            /**
      * Set default strategy class name.
      *
      * @param string aClassName  Class name.
@@ -109,80 +107,70 @@ class TranslateBehavior : Behavior : IPropertyMarshal
      * @since 4.0.0
      * @psalm-param class-string<DORMBehavior\Translate\ITranslateStrategy> class
      */
-    static function setDefaultStrategyClass(string aClassName ) {
-        defaultStrategyClass = class;
-    }
+            static function setDefaultStrategyClass(string aClassName) {
+                defaultStrategyClass = class;}
 
-    /**
+                /**
      * Get default strategy class name.
      *
      * @return string
      * @since 4.0.0
      * @psalm-return class-string<DORMBehavior\Translate\ITranslateStrategy>
      */
-    static string getDefaultStrategyClass() {
-        return defaultStrategyClass;
-    }
+                static string getDefaultStrategyClass() {
+                    return defaultStrategyClass;}
 
-    /**
+                    /**
      * Get strategy class instance.
      *
      * @return DORMBehavior\Translate\ITranslateStrategy
      * @since 4.0.0
      */
-    function getStrategy(): ITranslateStrategy
-    {
-        if (this.strategy != null) {
-            return this.strategy;
-        }
+                    function getStrategy() : ITranslateStrategy {
+                        if (this.strategy != null) {
+                            return this.strategy;}
 
-        return this.strategy = this.createStrategy();
-    }
+                            return this.strategy = this.createStrategy();}
 
-    /**
+                            /**
      * Create strategy instance.
      *
      * @return DORMBehavior\Translate\ITranslateStrategy
      * @since 4.0.0
      */
-    protected function createStrategy() {
-        myConfiguration = array_diff_key(
-            configuration,
-            ["implementedFinders", "implementedMethods", "strategyClass"]
-        );
-        /** @var class-string<DORMBehavior\Translate\ITranslateStrategy> className */
-        className = this.getConfig("strategyClass", defaultStrategyClass);
+                            protected function createStrategy() {
+                                myConfiguration = array_diff_key(
+                                    configuration,
+                                    ["implementedFinders", "implementedMethods", "strategyClass"]
+                                );  /** @var class-string<DORMBehavior\Translate\ITranslateStrategy> className */
+                                className = this.getConfig("strategyClass", defaultStrategyClass);
 
-        return new className(_table, myConfiguration);
-    }
+                                    return new className(_table, myConfiguration);
+                            }
 
-    /**
+                            /**
      * Set strategy class instance.
      *
      * @param DORMBehavior\Translate\ITranslateStrategy strategy Strategy class instance.
      * @return this
      * @since 4.0.0
      */
-    function setStrategy(ITranslateStrategy strategy) {
-        this.strategy = strategy;
+                            function setStrategy(ITranslateStrategy strategy) {
+                                this.strategy = strategy; return this;}
 
-        return this;
-    }
-
-    /**
+                                /**
      * Gets the Model callbacks this behavior is interested in.
      *
      * @return array<string, mixed>
      */
-    array implementedEvents() {
-        return [
-            "Model.beforeFind": "beforeFind",
-            "Model.beforeSave": "beforeSave",
-            "Model.afterSave": "afterSave",
-        ];
-    }
+                                array implementedEvents() {
+                                    return [
+                                        "Model.beforeFind": "beforeFind",
+                                        "Model.beforeSave": "beforeSave",
+                                        "Model.afterSave": "afterSave",
+                                    ];}
 
-    /**
+                                    /**
      * {@inheritDoc}
      *
      * Add in `_translations` marshalling handlers. You can disable marshalling
@@ -194,11 +182,12 @@ class TranslateBehavior : Behavior : IPropertyMarshal
      * @param array<string, mixed> options The options array used in the marshalling call.
      * @return array A map of `[property: callable]` of additional properties to marshal.
      */
-    array buildMarshalMap(Marshaller marshaller, array map, STRINGAA someOptions) {
-        return this.getStrategy().buildMarshalMap(marshaller, map, options);
-    }
+                                    array buildMarshalMap(Marshaller marshaller, array map, STRINGAA someOptions) {
+                                        return this.getStrategy()
+                                            .buildMarshalMap(marshaller, map, options);
+                                    }
 
-    /**
+                                    /**
      * Sets the locale that should be used for all future find and save operations on
      * the table where this behavior is attached to.
      *
@@ -218,13 +207,11 @@ class TranslateBehavior : Behavior : IPropertyMarshal
      * @link https://book.cakephp.org/4/en/orm/behaviors/translate.html#retrieving-one-language-without-using-i18n-locale
      * @link https://book.cakephp.org/4/en/orm/behaviors/translate.html#saving-in-another-language
      */
-    function setLocale(Nullable!string locale) {
-        this.getStrategy().setLocale(locale);
+                                    function setLocale(Nullable!string locale) {
+                                        this.getStrategy().setLocale(locale); return this;
+                                    }
 
-        return this;
-    }
-
-    /**
+                                    /**
      * Returns the current locale.
      *
      * If no locale has been explicitly set via `setLocale()`, this method will return
@@ -234,11 +221,10 @@ class TranslateBehavior : Behavior : IPropertyMarshal
      * @see DORMI18n\I18n::getLocale()
      * @see DORMBehavior\TranslateBehavior::setLocale()
      */
-    string getLocale() {
-        return this.getStrategy().getLocale();
-    }
+                                    string getLocale() {
+                                        return this.getStrategy().getLocale();}
 
-    /**
+                                        /**
      * Returns a fully aliased field name for translated fields.
      *
      * If the requested field is configured as a translation field, the `content`
@@ -247,11 +233,11 @@ class TranslateBehavior : Behavior : IPropertyMarshal
      *
      * @param string field Field name to be aliased.
      */
-    string translationField(string field) {
-        return this.getStrategy().translationField(field);
-    }
+                                        string translationField(string field) {
+                                            return this.getStrategy().translationField(field);
+                                        }
 
-    /**
+                                        /**
      * Custom finder method used to retrieve all translations for the found records.
      * Fetched translations can be filtered by locale by passing the `locales` key
      * in the options array.
@@ -273,35 +259,40 @@ class TranslateBehavior : Behavior : IPropertyMarshal
      * @param array<string, mixed> options Options
      * @return DORMQuery
      */
-    function findTranslations(Query query, STRINGAA someOptions): Query
-    {
-        locales = options["locales"] ?? [];
-        targetAlias = this.getStrategy().getTranslationTable().getAlias();
+                                        function findTranslations(Query query, STRINGAA someOptions)
+                                            : Query {
+                                                locales = options["locales"] ?  ? [];
+                                                    targetAlias = this.getStrategy()
+                                                    .getTranslationTable().getAlias();
 
-        return query
-            .contain([targetAlias: function (query) use (locales, targetAlias) {
-                /** @var DORMdatasources.IQuery query */
-                if (locales) {
-                    query.where(["targetAlias.locale IN": locales]);
-                }
+                                                    return query
+                                                    .contain([targetAlias: function(query) use(locales, targetAlias) {
+                                                                /** @var DORMdatasources.IQuery query */
+                                                                if (locales) {
+                                                                    query.where(
+                                                                        ["targetAlias.locale IN": locales]);
+                                                                }
 
-                return query;
-            }])
-            .formatResults([this.getStrategy(), "groupTranslations"], query::PREPEND);
-    }
+                                                                return query;}
+                                                                ])
+                                                                    .formatResults([this.getStrategy(), "groupTranslations"], query:
+                                                                         : PREPEND);
+                                                            }
 
-    /**
+                                                            /**
      * Proxy method calls to strategy class instance.
      *
      * @param string aMethodName Method name.
      * @param array args Method arguments.
      * @return mixed
      */
-    function __call(method, args) {
-        return this.strategy.{method}(...args);
-    }
+                                                            function __call(method, args) {
+                                                                return this.strategy. {
+                                                                    method
+                                                                }
+                                                                (...args);}
 
-    /**
+                                                                /**
      * Determine the reference name to use for a given table
      *
      * The reference name is usually derived from the class name of the table object
@@ -311,14 +302,16 @@ class TranslateBehavior : Behavior : IPropertyMarshal
      *
      * @param DORMDORMTable aTable The table class to get a reference name for.
      */
-    protected string referenceName(DORMTable aTable) {
-        name = namespaceSplit(get_class(table));
-        name = substr(end(name), 0, -5);
-        if (empty(name)) {
-            name = table.getTable() ?: table.getAlias();
-            name = Inflector::camelize(name);
-        }
+                                                                protected string referenceName(
+                                                                    DORMTable aTable) {
+                                                                    name = namespaceSplit(
+                                                                        get_class(table));
+                                                                        name = substr(end(name), 0, -5);
+                                                                        if (empty(name)) {
+                                                                            name = table.getTable() ?  : table.getAlias();
+                                                                                name = Inflector :  : camelize(
+                                                                                    name);
+                                                                        }
 
-        return name;
-    }
-}
+                                                                    return name;}
+                                                                }

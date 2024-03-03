@@ -19,7 +19,7 @@ class HtmlHelper : Helper {
     protected array myhelpers = ["Url"];
 
     // Default config for this class
-    protected Json _defaultConfig = [
+    protected Json Configuration.updateDefaults([
         "templates": [
             "meta": "<meta{{attrs}}>",
             "metalink": "<link href=\"{{url}}\"{{attrs}}>",

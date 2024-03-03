@@ -31,7 +31,7 @@ class EavStrategy : ITranslateStrategy {
      *
      * @var array<string, mixed>
      */
-    protected _defaultConfig = [
+    protected Configuration.updateDefaults([
         "fields": [],
         "translationTable": "I18n",
         "defaultLocale": null,

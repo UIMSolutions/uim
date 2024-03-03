@@ -21,7 +21,7 @@ class TranslateBehavior : Behavior, IPropertyMarshal {
      *
      * These are merged with user-provided configuration when the behavior is used.
      */
-    protected IData[string] _defaultConfigData = [
+    protected IData[string] Configuration.updateDefaults([
         "implementedFinders": ["translations": "findTranslations"],
         "implementedMethods": [
             "setLocale": "setLocale",

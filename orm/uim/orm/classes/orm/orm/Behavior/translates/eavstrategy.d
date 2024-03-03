@@ -23,7 +23,7 @@ class EavStrategy : ITranslateStrategy {
      *
      * These are merged with user-provided configuration.
      */
-    protected IData[string] _defaultConfigData = [
+    protected IData[string] Configuration.updateDefaults([
         "fields": [],
         "translationTable": "I18n",
         "defaultLocale": null,

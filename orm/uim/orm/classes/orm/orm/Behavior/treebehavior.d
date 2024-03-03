@@ -25,7 +25,7 @@ class TreeBehavior : Behavior {
      * These are merged with user-provided configuration when the behavior is used.
      *
      */
-    protected IData[string] _defaultConfigData = [
+    protected IData[string] Configuration.updateDefaults([
         "implementedFinders": [
             "path": "findPath",
             "children": "findChildren",

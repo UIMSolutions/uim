@@ -19,7 +19,7 @@ class TimestampBehavior : Behavior {
      * and call setTimestamp() on the behavior class before use.
      *
      */
-    protected IData[string] _defaultConfigData = [
+    protected IData[string] Configuration.updateDefaults([
         "implementedFinders": [],
         "implementedMethods": [
             "timestamp": "timestamp",

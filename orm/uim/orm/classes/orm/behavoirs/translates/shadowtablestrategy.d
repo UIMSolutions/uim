@@ -34,7 +34,7 @@ class ShadowTableStrategy : ITranslateStrategy
      *
      * @var array<string, mixed>
      */
-    protected _defaultConfig = [
+    protected Configuration.updateDefaults([
         "fields": [],
         "defaultLocale": null,
         "referenceName": null,

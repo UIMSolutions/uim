@@ -20,7 +20,7 @@ class ShadowTableStrategy : ITranslateStrategy {
      *
      * These are merged with user-provided configuration.
      */
-    protected IData[string] _defaultConfigData = [
+    protected IData[string] Configuration.updateDefaults([
         "fields": [],
         "defaultLocale": null,
         "referenceName": null,

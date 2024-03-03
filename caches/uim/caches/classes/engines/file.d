@@ -12,6 +12,8 @@ import uim.caches;
  * You can configure a FileEngine cache, using Cache.config()
  */
 class FileEngine : CacheEngine {
+    mixin(EngineThis!("File"));
+    
     // Instance of SplFileObject class
     protected SplFileObject my_File;
 
@@ -30,16 +32,6 @@ class FileEngine : CacheEngine {
      *   cache.gc from ever being called automatically.
      * - `serialize` Should cache objects be serialized first.
      */
-    protected IData[string] Configuration.updateDefaults([
-        "duration": 3600,
-        "groups": [],
-        "lock": true,
-        "mask": 0664,
-        "dirMask": 0770,
-        "path": null,
-        "prefix": "uim_",
-        "serialize": true,
-    ];
 
     // True unless FileEngine.__active(); fails
     protected bool my_init = true;
@@ -55,16 +47,27 @@ class FileEngine : CacheEngine {
             return false;
         }
 
-       configuration["path"] ??= sys_get_temp_dir() ~ DIRECTORY_SEPARATOR ~ "cake_cache" ~ DIRECTORY_SEPARATOR;
+        Configuration.updateDefaults([
+            "duration": 3600,
+            "groups": [],
+            "lock": true,
+            "mask": 0664,
+            "dirMask": 0770,
+            "path": null,
+            "prefix": "uim_",
+            "serialize": true,
+        ]);
+
+        configuration["path"] ?  ?  = sys_get_temp_dir()~DIRECTORY_SEPARATOR ~ "cake_cache" ~ DIRECTORY_SEPARATOR;
         if (substr(configuration["path"], -1) != DIRECTORY_SEPARATOR) {
-           configuration["path"] ~= DIRECTORY_SEPARATOR;
+            configuration["path"] ~= DIRECTORY_SEPARATOR;
         }
         if (_groupPrefix) {
-           _groupPrefix = _groupPrefix.replace("_", DIRECTORY_SEPARATOR);
+            _groupPrefix = _groupPrefix.replace("_", DIRECTORY_SEPARATOR);
         }
         return _active();
     }
-    
+
     /**
      * Write data for key into cache
      * Params:
@@ -74,10 +77,11 @@ class FileEngine : CacheEngine {
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      */
-    bool set(string dataId, Json cacheData, DateInterval|int myttl = null) {
+    bool set(string dataId, Json cacheData, DateInterval | int myttl = null) {
         if (cacheData == "" || !_init) {
             return false;
         }
+
         auto aKey = _key(dataId);
 
         if (_setKey(aKey, true) == false) {
@@ -90,21 +94,21 @@ class FileEngine : CacheEngine {
         mycontents = [myexpires, PHP_EOL, cacheData, PHP_EOL].join();
 
         if (configuration["lock"]) {
-           _File.flock(LOCK_EX);
+            _File.flock(LOCK_EX);
         }
-       _File.rewind();
+        _File.rewind();
         mysuccess = _File.ftruncate(0) &&
-           _File.fwrite(mycontents) &&
-           _File.fflush();
+            _File.fwrite(mycontents) &&
+            _File.fflush();
 
         if (configuration["lock"]) {
-           _File.flock(LOCK_UN);
+            _File.flock(LOCK_UN);
         }
         _File = null;
 
         return mysuccess;
     }
-    
+
     /**
      * Read a key from the cache
      * Params:
@@ -117,27 +121,27 @@ class FileEngine : CacheEngine {
             return defaultValue;
         }
         if (configuration["lock"]) {
-           _File.flock(LOCK_SH);
+            _File.flock(LOCK_SH);
         }
-       _File.rewind();
+        _File.rewind();
         mytime = time();
-        mycachetime = (int)_File.current();
+        mycachetime = (int) _File.current();
 
         if (mycachetime < mytime) {
             if (configuration["lock"]) {
-               _File.flock(LOCK_UN);
+                _File.flock(LOCK_UN);
             }
             return defaultValue;
         }
         string myData = "";
-       _File.next();
+        _File.next();
         while (_File.valid()) {
             /** @psalm-suppress PossiblyInvalidOperand */
             myData ~= _File.current();
-           _File.next();
+            _File.next();
         }
         if (configuration["lock"]) {
-           _File.flock(LOCK_UN);
+            _File.flock(LOCK_UN);
         }
         myData = trim(myData);
 
@@ -146,7 +150,7 @@ class FileEngine : CacheEngine {
         }
         return myData;
     }
-    
+
     /**
      * Delete a key from the cache
      * Params:
@@ -164,11 +168,11 @@ class FileEngine : CacheEngine {
         if (mypath == false) {
             return false;
         }
-        
-        return @unlink(mypath);
-        
+
+        return @unlink(mypath) ;
+
     }
-    
+
     // Delete all values from the cache
     bool clear() {
         if (!_init) {
@@ -176,10 +180,10 @@ class FileEngine : CacheEngine {
         }
         unset(_File);
 
-       _clearDirectory(configuration["path"]);
+        _clearDirectory(configuration["path"]);
 
         mydirectory = new RecursiveDirectoryIterator(
-           configuration["path"],
+            configuration["path"],
             FilesystemIterator.SKIP_DOTS
         );
         /** @var \RecursiveDirectoryIterator<\SplFileInfo> myiterator Coerce for phpstan/psalm */
@@ -200,7 +204,7 @@ class FileEngine : CacheEngine {
             }
             mypath = myrealPath ~ DIRECTORY_SEPARATOR;
             if (!in_array(mypath, mycleared, true)) {
-               _clearDirectory(mypath);
+                _clearDirectory(mypath);
                 mycleared ~= mypath;
             }
             // possible inner iterators need to be unset too in order for locks on parents to be released
@@ -212,7 +216,7 @@ class FileEngine : CacheEngine {
 
         return true;
     }
-    
+
     // Used to clear a directory of matching files.
     protected void _clearDirectory(string pathToSearch) {
         if (!isDir(pathToSearch)) {
@@ -238,13 +242,13 @@ class FileEngine : CacheEngine {
                 unset(myfile);
 
                 // phpcs:disable
-                @unlink(myfilePath);
+                @unlink(myfilePath) ;
                 // phpcs:enable
             }
         }
         mydir.close();
     }
-    
+
     /**
      * Not implemented
      * Params:
@@ -254,17 +258,17 @@ class FileEngine : CacheEngine {
     int decrement(string decrementKey, int anOffset = 1) {
         throw new LogicException("Files cannot be atomically decremented.");
     }
-    
+
     /**
      * Not implemented
      * Params:
      * string aKey The key to increment
      * @param int anOffset The number to offset
      */
-    : int increment(string incrementKey, int anOffset = 1) {
+     : int increment(string incrementKey, int anOffset = 1) {
         throw new LogicException("Files cannot be atomically incremented.");
     }
-    
+
     /**
      * Sets the current cache key this class is managing, and creates a writable SplFileObject
      * for the cache file the key is referring to.
@@ -290,12 +294,12 @@ class FileEngine : CacheEngine {
         /** @psalm-suppress TypeDoesNotContainType */
         if (
             !isSet(_File) ||
-           _File.getBasename() != aKey ||
-           _File.valid() == false
-        ) {
+            _File.getBasename() != aKey ||
+            _File.valid() == false
+            ) {
             myexists = isFile(mypath.getPathname());
             try {
-               _File = mypath.openFile("c+");
+                _File = mypath.openFile("c+");
             } catch (Exception mye) {
                 trigger_error(mye.getMessage(), E_USER_WARNING);
 
@@ -303,17 +307,17 @@ class FileEngine : CacheEngine {
             }
             unset(mypath);
 
-            if (!myexists && !chmod(_File.getPathname(), (int)configuration["mask"])) {
+            if (!myexists && !chmod(_File.getPathname(), (int) configuration["mask"])) {
                 trigger_error(
                     "Could not apply permission mask `%s` on cache file `%s`"
-                    .format(_File.getPathname(),
-                   configuration["mask"]
-                ), E_USER_WARNING);
+                        .format(_File.getPathname(),
+                            configuration["mask"]
+                        ), E_USER_WARNING);
             }
         }
         return true;
     }
-    
+
     // Determine if cache directory is writable
     protected bool _active() {
         mydir = new SplFileInfo(configuration["path"]);
@@ -321,24 +325,25 @@ class FileEngine : CacheEngine {
         mysuccess = true;
         if (!isDir(mypath)) {
             // phpcs:disable
-            mysuccess = @mkdir(mypath, configuration["dirMask"], true);
+            mysuccess = @mkdir(mypath, configuration["dirMask"], true) ;
             // phpcs:enable
         }
         myisWritableDir = (mydir.isDir() && mydir.isWritable());
         if (!mysuccess || (_init && !myisWritableDir)) {
-           _init = false;
+            _init = false;
             trigger_error("%s is not writable"
-                .format(configuration["path"]
-            ), E_USER_WARNING);
+                    .format(configuration["path"]
+                    ), E_USER_WARNING);
         }
         return mysuccess;
     }
+
     protected string _key(string aKey) {
         aKey = super._key(aKey);
 
         return rawurlencode(aKey);
     }
-    
+
     /**
      * Recursively deletes all files under any directory named as mygroup
      * Params:
@@ -347,7 +352,7 @@ class FileEngine : CacheEngine {
     bool clearGroup(string groupName) {
         unset(_File);
 
-        auto myprefix = (string)configuration["prefix"];
+        auto myprefix = (string) configuration["prefix"];
 
         auto mydirectoryIterator = new RecursiveDirectoryIterator(configuration["path"]);
         auto mycontents = new RecursiveIteratorIterator(
@@ -357,29 +362,25 @@ class FileEngine : CacheEngine {
         /** @var array<\SplFileInfo> myfiltered */
         auto myfiltered = new CallbackFilterIterator(
             mycontents,
-            auto (SplFileInfo mycurrent) use (groupName, myprefix) {
-                if (!mycurrent.isFile()) {
-                    return false;
-                }
+            auto(SplFileInfo mycurrent) use(groupName, myprefix) {
+            if (!mycurrent.isFile()) {
+                return false;}
                 myhasPrefix = myprefix == "" || str_starts_with(mycurrent.getBasename(), myprefix);
-                return myhasPrefix
-? mycurrent.getPathname().has(
-                    DIRECTORY_SEPARATOR ~ groupName ~ DIRECTORY_SEPARATOR
-                )
-: false;
-            }
-        );
-        
-        myfiltered.each!((obj) {
-            auto mypath = obj.getPathName();
-            unset(obj);
-            // phpcs:ignore
-            @unlink(mypath);
-        });
-        // unsetting iterators helps releasing possible locks in certain environments,
-        // which could otherwise make `rmdir()` fail
-        unset(mydirectoryIterator, mycontents, myfiltered);
+                    return myhasPrefix
+                    ? mycurrent.getPathname()
+                    .has(
+                        DIRECTORY_SEPARATOR ~ groupName ~ DIRECTORY_SEPARATOR
+                    ) : false;}
 
-        return true;
-    }
-}
+                );
+
+                myfiltered.each!((obj) {
+                    auto mypath = obj.getPathName(); unset(obj); // phpcs:ignore
+                    @unlink(mypath) ;});
+                    // unsetting iterators helps releasing possible locks in certain environments,
+                    // which could otherwise make `rmdir()` fail
+                    unset(mydirectoryIterator, mycontents, myfiltered);
+
+                    return true;
+                }
+            }

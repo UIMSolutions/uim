@@ -33,7 +33,7 @@ class EavStrategy : ITranslateStrategy {
         "strategy": "subquery",
         "tableLocator": null,
         "validator": false,
-    ];
+    ]);
 
     /**
      * Constructor

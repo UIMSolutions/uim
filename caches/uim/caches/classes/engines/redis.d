@@ -55,7 +55,8 @@ class RedisEngine : CacheEngine {
         "timeout": Json(0),
         "unix_socket": false,
         "scanCount": Json(10)
-    ];
+    ]);
+    
         return _connect();
     }
     

@@ -19,7 +19,7 @@ class HtmlHelper : Helper {
     protected array myhelpers = ["Url"];
 
     // Default config for this class
-    protected Json Configuration.updateDefaults([
+    protected Configuration.updateDefaults([
         "templates": [
             "meta": "<meta{{attrs}}>",
             "metalink": "<link href=\"{{url}}\"{{attrs}}>",
@@ -51,7 +51,7 @@ class HtmlHelper : Helper {
             "javascriptend": "</script>",
             "confirmJs": "{{confirm}}",
         ],
-    ];
+    ]);
 
     // Names of script & css files that have been included once
     protected array<string, array> my_includedAssets = [];

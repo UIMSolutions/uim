@@ -42,7 +42,7 @@ class TimestampBehavior : Behavior {
             ],
         ],
         "refreshTimestamp": true,
-    ];
+    ]);
 
     /**
      * Current timestamp

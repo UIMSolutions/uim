@@ -55,7 +55,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
             "groups": ArrayData,
             "prefix": StringData("uim_"),
             "warnOnWriteFailures": BoolData(true),
-        ];
+        ]);
 
         return true;
     }

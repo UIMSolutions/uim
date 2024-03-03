@@ -34,7 +34,7 @@ class NumericPaginator : PaginatorInterface
         "limit": 20,
         "maxLimit": 100,
         "allowedParameters": ["limit", "sort", "page", "direction"],
-    ];
+    ]);
 
     /**
      * Paging params after pagination operation is done.

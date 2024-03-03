@@ -43,7 +43,7 @@ class NumericPaginator : IPaginator {
         "sortableFields": null,
         "finder": "all",
         "scope": null,
-    ];
+    ]);
 
     // Calculated paging params.
     protected array pagingParams = [

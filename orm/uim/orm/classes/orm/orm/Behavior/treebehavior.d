@@ -47,7 +47,7 @@ class TreeBehavior : Behavior {
         "level": null,
         "recoverOrder": null,
         "cascadeCallbacks": false,
-    ];
+    ]);
 
     bool initialize(IData[string] initData = null) {
        configuration.data("leftField"] = new IdentifierExpression(configuration.data("left"]);

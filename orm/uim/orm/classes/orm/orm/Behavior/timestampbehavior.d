@@ -32,7 +32,7 @@ class TimestampBehavior : Behavior {
             ],
         ],
         "refreshTimestamp": true,
-    ];
+    ]);
 
     // Current timestamp
     protected DateTime my_ts = null;

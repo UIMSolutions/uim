@@ -71,7 +71,7 @@ h     */
       "serialize": "php",
       "servers": ["127.0.0.1"],
       "options": [],
-    ];
+    ]);
 
     if (!extension_loaded("memcached")) {
       throw new UimException("The `memcached` extension must be enabled to use MemcachedEngine.");

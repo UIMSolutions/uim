@@ -17,7 +17,7 @@ abstract class Logger /* : AbstractLogger */ {
         "levels": [],
         "scopes": [],
         "formatter": DefaultFormatter.classname,
-    ];
+    ]);
 
     protected IFormatter formatter;
 

@@ -27,7 +27,7 @@ class FileLog : BaseLog {
      * - `dirMask` The mask used for created folders.
      *
      */
-    protected IConfiguration _defaultConfigData = [
+    protected IConfiguration Configuration.updateDefaults([
         "path": null,
         "file": null,
         "types": null,

@@ -33,7 +33,7 @@ class SysLogger : Logger {
      * ```
      *
      */
-    protected IConfiguration _defaultConfigData = [
+    protected IConfiguration Configuration.updateDefaults([
         "levels": [],
         "scopes": [],
         "flag": LOG_ODELAY,

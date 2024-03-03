@@ -13,7 +13,7 @@ abstract class Logger /* : AbstractLogger */ {
 
 //     mixin InstanceConfigTemplate;
 
-    protected IConfiguration _defaultConfigData = [
+    protected IConfiguration Configuration.updateDefaults([
         "levels": [],
         "scopes": [],
         "formatter": DefaultFormatter.classname,

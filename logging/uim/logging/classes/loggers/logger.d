@@ -10,7 +10,7 @@ abstract class Logger /* : AbstractLogger */ {
     this(string name) { this(); name(name); }
 
   bool initialize(IData[string] configSettings = null) {
-    _defaultConfigData = [
+    Configuration.updateDefaults([
         "levels": [],
         "scopes": [],
         "formatter": DefaultFormatter.classname,

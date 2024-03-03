@@ -8,7 +8,7 @@ import uim.logging;
  * Console logging. Writes logs to console output.
  */
 class ConsoleLog : BaseLog {
-    protected IConfiguration _defaultConfigData = [
+    protected IConfiguration Configuration.updateDefaults([
         "stream": "php://stderr",
         "levels": null,
         "scopes": [],

@@ -9,7 +9,7 @@ class PluginLoadCommand : Command {
    mixin(CommandThis!("PluginLoad"));
 
   	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(configData)) { return false; }
+		if (!super.initialize(initData)) { return false; }
 		
 		return true;
 	}

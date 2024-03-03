@@ -40,14 +40,14 @@ class CacheRegistry : ObjectRegistry {
      * @param string aalias The alias of the object.
      * configData - An array of settings to use for the cache engine.
      */
-  protected CacheEngine _create(object | string className, string myalias, IData[string] configData) {
-    CacheEngine result = isObject(className) ? className : new className(configData);
-    configData.remove("className");
+  protected CacheEngine _create(object | string className, string myalias, IData[string] initData) {
+    CacheEngine result = isObject(className) ? className : new className(initData);
+    initData.remove("className");
 
     assert(cast(CacheEngine) result, "Cache engines must extend `" ~ CacheEngine
         . class ~ "`.");
 
-    if (!result.initialize(configData)) {
+    if (!result.initialize(initData)) {
       throw new UimException(
           "Cache engine `%s` is not properly configured. Check error log for additional information."
           .format(result . class)

@@ -40,10 +40,11 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * configData - Associative array of parameters for the engine
      */
     bool initialize(IData[string] initData = null) {
-        configuration.update(configData);
+            configuration(new DConfiguration);
+    configuration.data(initData);
 
-        if (!configuration.getData("groups"].isEmpty) {
-            sort(configuration.getData("groups"]);
+        if (configuration.hasKey("groups")) {
+            sort(configuration.getData("groups"));
            _groupPrefix = str_repeat("%s_", count(configuration.getData("groups"]));
         }
         if (!configuration.getData("duration"].isNumeric) {

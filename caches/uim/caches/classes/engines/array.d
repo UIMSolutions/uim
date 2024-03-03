@@ -17,7 +17,7 @@ class DArrayEngine : DCacheEngine {
   // Structured as [key: [exp: expiration, val: value]]
   protected IData[string] _cachedData = [];
 
-  bool initialize(IData[string] initData = null) {
+  override bool initialize(IData[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
     return true;

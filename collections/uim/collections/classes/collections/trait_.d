@@ -243,7 +243,7 @@ trait CollectionTrait {
     {
         callback = _propertyExtractor($path);
 
-        $mapper = void (value, $key, $mr) use (callback) {
+        mapper = void (value, $key, $mr) use (callback) {
             /** var DCOLIterator\MapReduce $mr */
             $mr.emitIntermediate(value, callback(value));
         };
@@ -253,7 +253,7 @@ trait CollectionTrait {
             $mr.emit(count(values), $key);
         };
 
-        return this.newCollection(new MapReduce(this.unwrap(), $mapper, $reducer));
+        return this.newCollection(new MapReduce(this.unwrap(), mapper, $reducer));
     }
 
 
@@ -480,30 +480,30 @@ trait CollectionTrait {
             "groupPath": $groupPath ? _propertyExtractor($groupPath) : null,
         ];
 
-        $mapper = function (value, $key, MapReduce $mapReduce) use (options) {
+        mapper = function (value, $key, MapReduce mapReduce) use (options) {
             $rowKey = options["keyPath"];
             $rowVal = options["valuePath"];
 
             if (!options["groupPath"]) {
-                $mapReduce.emit($rowVal(value, $key), $rowKey(value, $key));
+                mapReduce.emit($rowVal(value, $key), $rowKey(value, $key));
 
                 return null;
             }
 
             $key = options["groupPath"](value, $key);
-            $mapReduce.emitIntermediate(
+            mapReduce.emitIntermediate(
                 [$rowKey(value, $key): $rowVal(value, $key)],
                 $key
             );
         };
 
-        $reducer = void (values, $key, MapReduce $mapReduce) {
+        $reducer = void (values, $key, MapReduce mapReduce) {
             result = null;
             values.each!(value => result += value);
-            $mapReduce.emit(result, $key);
+            mapReduce.emit(result, $key);
         };
 
-        return this.newCollection(new MapReduce(this.unwrap(), $mapper, $reducer));
+        return this.newCollection(new MapReduce(this.unwrap(), mapper, $reducer));
     }
 
 
@@ -514,15 +514,15 @@ trait CollectionTrait {
         $parentPath = _propertyExtractor($parentPath);
         $isObject = true;
 
-        $mapper = void ($row, $key, MapReduce $mapReduce) use (&$parents, $idPath, $parentPath, $nestingKey) {
+        mapper = void ($row, $key, MapReduce mapReduce) use (&$parents, $idPath, $parentPath, $nestingKey) {
             $row[$nestingKey] = null;
             $id = $idPath($row, $key);
             $parentId = $parentPath($row, $key);
             $parents[$id] = &$row;
-            $mapReduce.emitIntermediate($id, $parentId);
+            mapReduce.emitIntermediate($id, $parentId);
         };
 
-        $reducer = function (values, $key, MapReduce $mapReduce) use (&$parents, &$isObject, $nestingKey) {
+        $reducer = function (values, $key, MapReduce mapReduce) use (&$parents, &$isObject, $nestingKey) {
             static $foundOutType = false;
             if (!$foundOutType) {
                 $isObject = is_object(current($parents));
@@ -532,7 +532,7 @@ trait CollectionTrait {
                 foreach (values as $id) {
                     /** @psalm-suppress PossiblyInvalidArgument */
                     $parents[$id] = $isObject ? $parents[$id] : new ArrayIterator($parents[$id], 1);
-                    $mapReduce.emit($parents[$id]);
+                    mapReduce.emit($parents[$id]);
                 }
 
                 return null;
@@ -545,7 +545,7 @@ trait CollectionTrait {
             $parents[$key][$nestingKey] = $children;
         };
 
-        return this.newCollection(new MapReduce(this.unwrap(), $mapper, $reducer))
+        return this.newCollection(new MapReduce(this.unwrap(), mapper, $reducer))
             .map(function (value) use (&$isObject) {
                 /** @var \ArrayIterator value */
                 return $isObject ? value : value.getArrayCopy();

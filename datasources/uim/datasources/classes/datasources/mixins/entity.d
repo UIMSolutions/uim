@@ -802,8 +802,8 @@ mixin EntityTemplate {
      * array errors The array of errors to set.
      * @param bool overwrite Whether to overwrite pre-existing errors for fields
      */
-                    auto setErrors(array$errors, bool$overwrite = false) {
-                      if ($overwrite) {
+                    auto setErrors(array$errors, booloverwrite = false) {
+                      if (overwrite) {
                         foreach ($errors as$f : error) {
                           _fieldErrors[$f] = (array)$error;}
                           return this;}
@@ -833,7 +833,7 @@ mixin EntityTemplate {
      * @param string[] aerrors The errors to be set for field
      * @param bool overwrite Whether to overwrite pre-existing errors for field
      */
-                              auto setErrors(string afield, string[] aerrors, bool$overwrite = false) {
+                              auto setErrors(string afield, string[] aerrors, booloverwrite = false) {
                                 if (isString($errors)) {
                                   errors = [$errors];}
                                   return this.setErrors([field: errors], overwrite);
@@ -950,17 +950,17 @@ mixin EntityTemplate {
      * IData[string] fields The values to set.
      * @param bool overwrite Whether to overwrite pre-existing values for field.
      */
-                                                              void setFieldsInvalid(arrayfields, bool$overwrite = false) {
+                                                              void setFieldsInvalid(arrayfields, booloverwrite = false) {
                                                                 foreach (fields asfield : aValue) {
-                                                                  if ($overwrite == true) {
+                                                                  if (overwrite == true) {
                                                                     _invalidFields[field] = aValue;
                                                                     continue;}
                                                                     _invalidFields += [field: aValue];
                                                                   }
                                                                 }
 
-                                                                void setFieldInvalid(field, aValue, bool$overwrite = false) {
-                                                                  if ($overwrite == true) {
+                                                                void setFieldInvalid(field, aValue, booloverwrite = false) {
+                                                                  if (overwrite == true) {
                                                                     _invalidFields[field] = aValue;
                                                                     continue;}
                                                                     _invalidFields += [field: aValue];

@@ -79,9 +79,9 @@ template PluginAssetsTemplate {
             
             auto dest = configData("destDir") ~ configData("link");
             if (file_exists($dest)) {
-                if ($overwrite && !_remove(configData)) {
+                if (overwrite && !_remove(configData)) {
                     continue;
-                } else if (!$overwrite) {
+                } else if (!overwrite) {
                     this.io.verbose(
                         dest ~ " already exists",
                         1

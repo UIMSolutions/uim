@@ -771,7 +771,7 @@ interface ICollection : Iterator, JsonSerializable, Countable {
      * ### Example:
      *
      * ```
-     * collection.map($mapper).sortBy("age").extract("name");
+     * collection.map(mapper).sortBy("age").extract("name");
      * compiled = collection.compile();
      *  isJohnHere = compiled.some($johnMatcher);
      * allButJohn = compiled.filter($johnMatcher);

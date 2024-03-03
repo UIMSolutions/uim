@@ -88,7 +88,7 @@ interface IEntity // : ArrayAccess, JsonSerializable, Stringable
      * Params:
      * string fieldName The field to get errors for, or the array of errors to set.
      * @param string[] aerrors The errors to be set for field
-     * @param bool $overwrite Whether to overwrite pre-existing errors for field
+     * @param bool overwrite Whether to overwrite pre-existing errors for field
      * /
     IEntity setErrors(string fieldName, string[] aerrors, bool overwrite = false);
 

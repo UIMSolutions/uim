@@ -385,12 +385,12 @@ class I18nExtractCommand : Command {
                     }
                     position++;
                 }
-                mapCount = count($map);
+                mapCount = count(map);
                 strings = _getStrings($position, mapCount);
 
-                if ($mapCount == count($strings)) {
+                if (mapCount == count($strings)) {
                     string singular = "";
-                    vars = array_combine($map, strings);
+                    vars = array_combine(map, strings);
                     extract($vars);
                     domain ??= "default";
                     details = [
@@ -494,7 +494,7 @@ class I18nExtractCommand : Command {
      */
     protected void _writeFiles(Arguments commandArguments, ConsoleIo aConsoleIo) {
          aConsoleIo.writeln();
-        overwriteAll = false;
+        bool overwriteAll = false;
         if (commandArguments.getOption("overwrite")) {
             overwriteAll = true;
         }
@@ -510,8 +510,9 @@ class I18nExtractCommand : Command {
                  aConsoleIo.writeln($filename ~ " is unchanged. Skipping.");
                 continue;
             }
-            response = "";
-            while ($overwriteAll == false && file_exists($outputPath) && strtoupper(response) != "Y") {
+            
+            string response = "";
+            while (overwriteAll == false && file_exists($outputPath) && strtoupper(response) != "Y") {
                  aConsoleIo.writeln();
                 response = aConsoleIo.askChoice(
                     "Error: %s already exists in this location. Overwrite? [Y]es, [N]o, [A]ll".format($filename),

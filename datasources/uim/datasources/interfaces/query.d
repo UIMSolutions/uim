@@ -23,9 +23,9 @@ interface IQuery {
      * be overwritten with the list passed in the first argument.
      * Params:
      * \Closure|string[]|float|int fields Fields.
-     * @param bool $overwrite whether to reset fields with passed list or not
+     * @param bool overwrite whether to reset fields with passed list or not
      * /
-    auto select(Closure|string[]|float|int fields, bool $overwrite = false);
+    auto select(Closure|string[]|float|int fields, bool overwrite = false);
 
     /**
      * Returns a key: value array representing a single aliased field
@@ -216,9 +216,9 @@ interface IQuery {
      * should use `orderByAsc()` or `orderByDesc()`.
      * Params:
      * \Closure|string[] afields fields to be added to the list
-     * @param bool $overwrite whether to reset order with field list or not
+     * @param bool overwrite whether to reset order with field list or not
      * /
-    auto orderBy(Closure|string[] afields, bool $overwrite = false);
+    auto orderBy(Closure|string[] afields, bool overwrite = false);
 
     /**
      * Set the page of results you want.
@@ -361,7 +361,7 @@ interface IQuery {
      * Params:
      * \Closure|string[]|null $conditions The conditions to filter on.
      * @param STRINGAA types Associative array of type names used to bind values to query
-     * @param bool $overwrite whether to reset conditions with passed list or not
+     * @param bool overwrite whether to reset conditions with passed list or not
      */
-    // TODO auto where(Closure|string[]|null $conditions = null, array types = [], bool $overwrite = false);
+    // TODO auto where(Closure|string[]|null $conditions = null, array types = [], bool overwrite = false);
 }

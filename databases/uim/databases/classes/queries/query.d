@@ -291,10 +291,10 @@ abstract class Query : IExpression, Stringable {
      * ```
      * Params:
      * \UIM\Database\Expression\CommonTableExpression|\Closure $cte The CTE to add.
-     * @param bool $overwrite Whether to reset the list of CTEs.
+     * @param bool overwrite Whether to reset the list of CTEs.
      */
-    void with(CommonTableExpression|Closure $cte, bool $overwrite = false) {
-        if ($overwrite) {
+    void with(CommonTableExpression|Closure $cte, bool overwrite = false) {
+        if (overwrite) {
            _parts["with"] = [];
         }
         if (cast(Closure)$cte) {
@@ -329,11 +329,11 @@ abstract class Query : IExpression, Stringable {
      * ```
      * Params:
      * \UIM\Database\IExpression|string[] amodifiers modifiers to be applied to the query
-     * @param bool $overwrite whether to reset order with field list or not
+     * @param bool overwrite whether to reset order with field list or not
      */
-    void modifier(IExpression|string[] amodifiers, bool $overwrite = false) {
+    void modifier(IExpression|string[] amodifiers, bool overwrite = false) {
        _isDirty();
-        if ($overwrite) {
+        if (overwrite) {
            _parts["modifier"] = [];
         }
         if (!isArray(someModifiers)) {
@@ -366,12 +366,12 @@ abstract class Query : IExpression, Stringable {
      * ```
      * Params:
      * the examples above for the valid call types.
-     * @param bool $overwrite whether to reset tables with passed list or not
+     * @param bool overwrite whether to reset tables with passed list or not
      */
-    void from(string[] tableNames, bool $overwrite = false) {
+    void from(string[] tableNames, bool overwrite = false) {
         if (tableNames.isEmpty) { return; }
 
-        if ($overwrite) {
+        if (overwrite) {
            _parts["from"] = aTables;
         } else {
            _parts["from"] = array_merge(_parts["from"], aTables);
@@ -461,10 +461,10 @@ abstract class Query : IExpression, Stringable {
      * Params:
      * IData[string]|string atables list of tables to be joined in the query
      * @param STRINGAA types Associative array of type names used to bind values to query
-     * @param bool $overwrite whether to reset joins with passed list or not
+     * @param bool overwrite whether to reset joins with passed list or not
      * @see \UIM\Database\TypeFactory
      */
-    auto join(string[] atables, array types = [], bool $overwrite = false) {
+    auto join(string[] atables, array types = [], bool overwrite = false) {
         if (isString(aTables) || isSet(aTables["table"])) {
             aTables = [aTables];
         }
@@ -483,7 +483,7 @@ abstract class Query : IExpression, Stringable {
             alias = isString($alias) ? alias : null;
             $joins[$alias ?:  anI++] = t ~ ["type": JOIN_TYPE_INNER, "alias": alias];
         }
-        _parts["join"] = $overwrite ? $joins : array_merge(_parts["join"], $joins);
+        _parts["join"] = overwrite ? $joins : array_merge(_parts["join"], $joins);
 
        _isDirty();
 
@@ -754,16 +754,16 @@ abstract class Query : IExpression, Stringable {
      * Params:
      * \UIM\Database\IExpression|\Closure|string[]|null $conditions The conditions to filter on.
      * @param STRINGAA types Associative array of type names used to bind values to query
-     * @param bool $overwrite whether to reset conditions with passed list or not
+     * @param bool overwrite whether to reset conditions with passed list or not
      * @see \UIM\Database\TypeFactory
      * @see \UIM\Database\Expression\QueryExpression
      */
     auto where(
         IExpression|Closure|string[]|null $conditions = null,
         array types = [],
-        bool $overwrite = false
+        bool overwrite = false
     ) {
-        if ($overwrite) {
+        if (overwrite) {
            _parts["where"] = this.newExpr();
         }
        _conjugate("where", $conditions, "AND", types);
@@ -1003,10 +1003,10 @@ abstract class Query : IExpression, Stringable {
      * should use `orderByAsc()` or `orderByDesc()`.
      * Params:
      * \UIM\Database\IExpression|\Closure|string[] afields fields to be added to the list
-     * @param bool $overwrite whether to reset order with field list or not
+     * @param bool overwrite whether to reset order with field list or not
      */
-    auto orderBy(IExpression|Closure|string[] afields, bool $overwrite = false) {
-        if ($overwrite) {
+    auto orderBy(IExpression|Closure|string[] afields, bool overwrite = false) {
+        if (overwrite) {
            _parts["order"] = null;
         }
         if (!fields) {
@@ -1030,10 +1030,10 @@ abstract class Query : IExpression, Stringable {
      * not sanitized by the query builder.
      * Params:
      * \UIM\Database\IExpression|\Closure|string afield The field to order on.
-     * @param bool $overwrite Whether to reset the order clauses.
+     * @param bool overwrite Whether to reset the order clauses.
      */
-    auto orderByAsc(IExpression|Closure|string afield, bool $overwrite = false) {
-        if ($overwrite) {
+    auto orderByAsc(IExpression|Closure|string afield, bool overwrite = false) {
+        if (overwrite) {
            _parts["order"] = null;
         }
         if (!field) {
@@ -1060,10 +1060,10 @@ abstract class Query : IExpression, Stringable {
      * not sanitized by the query builder.
      * Params:
      * \UIM\Database\IExpression|\Closure|string afield The field to order on.
-     * @param bool $overwrite Whether to reset the order clauses.
+     * @param bool overwrite Whether to reset the order clauses.
      */
-    auto orderByDesc(IExpression|Closure|string afield, bool $overwrite = false) {
-        if ($overwrite) {
+    auto orderByDesc(IExpression|Closure|string afield, bool overwrite = false) {
+        if (overwrite) {
            _parts["order"] = null;
         }
         if (!field) {

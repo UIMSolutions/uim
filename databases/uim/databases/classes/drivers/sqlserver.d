@@ -326,13 +326,13 @@ _baseConfig = [
      * Receives a FunctionExpression and changes it so that it conforms to this
      * SQL dialect.
      * Params:
-     * \UIM\Database\Expression\FunctionExpression $expression The auto expression to convert to TSQL.
+     * \UIM\Database\Expression\FunctionExpression expression The auto expression to convert to TSQL.
      */
-    protected void _transformFunctionExpression(FunctionExpression $expression) {
-        switch ($expression.name) {
+    protected void _transformFunctionExpression(FunctionExpression expression) {
+        switch (expression.name) {
             case "CONCAT":
                 // CONCAT bool is expressed as exp1 + exp2
-                $expression.name("").setConjunction(" +");
+                expression.name("").setConjunction(" +");
                 break;
             case "DATEDIFF":
                 $hasDay = false;
@@ -342,25 +342,25 @@ _baseConfig = [
                     }
                     return aValue;
                 };
-                $expression.iterateParts($visitor);
+                expression.iterateParts($visitor);
 
                 if (!$hasDay) {
-                    $expression.add(["day": "literal"], [], true);
+                    expression.add(["day": "literal"], [], true);
                 }
                 break;
             case "CURRENT_DATE":
                 time = new FunctionExpression("GETUTCDATE");
-                $expression.name("CONVERT").add(["date": "literal", time]);
+                expression.name("CONVERT").add(["date": "literal", time]);
                 break;
             case "CURRENT_TIME":
                 time = new FunctionExpression("GETUTCDATE");
-                $expression.name("CONVERT").add(["time": "literal", time]);
+                expression.name("CONVERT").add(["time": "literal", time]);
                 break;
             case "NOW":
-                $expression.name("GETUTCDATE");
+                expression.name("GETUTCDATE");
                 break;
             case "EXTRACT":
-                $expression.name("DATEPART").setConjunction(" ,");
+                expression.name("DATEPART").setConjunction(" ,");
                 break;
             case "DATE_ADD":
                 $params = [];
@@ -378,7 +378,7 @@ _baseConfig = [
                     return $params[aKey];
                 };
 
-                $expression
+                expression
                     .name("DATEADD")
                     .setConjunction(",")
                     .iterateParts($visitor)
@@ -386,16 +386,16 @@ _baseConfig = [
                     .add([$params[2]: "literal"]);
                 break;
             case "DAYOFWEEK":
-                $expression
+                expression
                     .name("DATEPART")
                     .setConjunction(" ")
                     .add(["weekday, ": "literal"], [], true);
                 break;
             case "SUBSTR":
-                $expression.name("SUBSTRING");
-                if (count($expression) < 4) {
+                expression.name("SUBSTRING");
+                if (count(expression) < 4) {
                     $params = [];
-                    $expression
+                    expression
                         .iterateParts(function ($p) use (&$params) {
                             return $params ~= $p;
                         })

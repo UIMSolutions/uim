@@ -144,7 +144,7 @@ The example above converts the value of the title field to an uppercase version 
 echo article->title; // returns FOO instead of foo
 echo article->get('title'); // returns FOO instead of foo
 
-Code in your accessors is executed each time you reference the field. You can use a local variable to cache it if you are performing a resource-intensive operation in your accessor like this: $myEntityProp = $entity->my_property.
+Code in your accessors is executed each time you reference the field. You can use a local variable to cache it if you are performing a resource-intensive operation in your accessor like this: $myEntityProp = entity->my_property.
 
 Accessors will be used when saving entities, so be careful when defining methods that format data, as the formatted data will be persisted.
 Mutators
@@ -228,17 +228,17 @@ article = new Article(['title' => 'New Article'], ['markClean' => true]);
 
 To get a list of all dirty fields of an Entity you may call:
 
-$dirtyFields = $entity->getDirty();
+$dirtyFields = entity->getDirty();
 
 Validation Errors
 
 After you save an entity any validation errors will be stored on the entity itself. You can access any validation errors using the getErrors(), getError() or hasErrors() methods:
 
 // Get all the errors
-$errors = $user->getErrors();
+errors = $user->getErrors();
 
 // Get the errors for a single field.
-$errors = $user->getError('password');
+errors = $user->getError('password');
 
 // Does the entity or any nested entity have an error.
 $user->hasErrors();

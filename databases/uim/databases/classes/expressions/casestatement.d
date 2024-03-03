@@ -47,7 +47,7 @@ class CaseStatementExpression : IExpression, ITypedResult {
      *
      * @var \UIM\Database\IExpression|object|scalar|null
      */
-    protected Json $else = null;
+    protected Json else = null;
 
     /**
      * The else part result type.
@@ -455,7 +455,7 @@ class CaseStatementExpression : IExpression, ITypedResult {
         string whenThen = whenThenExpressions.join(" ");
         
         auto sqlElse = this.compileNullableValue(aBinder, this.else, this.elseType);
-        return "CASE {aValue}{$whenThen} ELSE $else END";
+        return "CASE {aValue}{$whenThen} ELSE else END";
     }
  
     void traverse(Closure aCallback) {

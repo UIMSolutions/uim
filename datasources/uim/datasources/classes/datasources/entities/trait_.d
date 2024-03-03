@@ -149,7 +149,7 @@ trait EntityTrait
      * ### Example:
      *
      * ```
-     * $entity.set("name", "Andrew");
+     * entity.set("name", "Andrew");
      * ```
      *
      * It is also possible to mass-assign multiple fields to this entity
@@ -159,9 +159,9 @@ trait EntityTrait
      * ### Example:
      *
      * ```
-     * $entity.set(["name": "andrew", "id": 1]);
-     * echo $entity.name // prints andrew
-     * echo $entity.id // prints 1
+     * entity.set(["name": "andrew", "id": 1]);
+     * echo entity.name // prints andrew
+     * echo entity.id // prints 1
      * ```
      *
      * Some times it is handy to bypass setter functions in this entity when assigning
@@ -169,8 +169,8 @@ trait EntityTrait
      * `options` parameter:
      *
      * ```
-     * $entity.set("name", "Andrew", ["setter": false]);
-     * $entity.set(["name": "Andrew", "id": 1], ["setter": false]);
+     * entity.set("name", "Andrew", ["setter": false]);
+     * entity.set(["name": "Andrew", "id": 1], ["setter": false]);
      * ```
      *
      * Mass assignment should be treated carefully when accepting user input, by default
@@ -178,14 +178,14 @@ trait EntityTrait
      * the guarding for a single set call with the `guard` option:
      *
      * ```
-     * $entity.set(["name": "Andrew", "id": 1], ["guard": false]);
+     * entity.set(["name": "Andrew", "id": 1], ["guard": false]);
      * ```
      *
      * You do not need to use the guard option when assigning fields individually:
      *
      * ```
      * // No need to use the guard option.
-     * $entity.set("name", "Andrew");
+     * entity.set("name", "Andrew");
      * ```
      *
      * @param array<string, mixed>|string field the name of field to set or a list of
@@ -310,16 +310,16 @@ trait EntityTrait
      * ### Example:
      *
      * ```
-     * $entity = new Entity(["id": 1, "name": null]);
-     * $entity.has("id"); // true
-     * $entity.has("name"); // false
-     * $entity.has("last_name"); // false
+     * entity = new Entity(["id": 1, "name": null]);
+     * entity.has("id"); // true
+     * entity.has("name"); // false
+     * entity.has("last_name"); // false
      * ```
      *
      * You can check multiple fields by passing an array:
      *
      * ```
-     * $entity.has(["name", "last_name"]);
+     * entity.has(["name", "last_name"]);
      * ```
      *
      * All fields must not be null to get a truthy result.
@@ -397,8 +397,8 @@ trait EntityTrait
      * ### Examples:
      *
      * ```
-     * $entity.unset("name");
-     * $entity.unset(["name", "last_name"]);
+     * entity.unset("name");
+     * entity.unset(["name", "last_name"]);
      * ```
      *
      * @param array<string>|string field The field to unset.
@@ -501,11 +501,11 @@ trait EntityTrait
             value = this.get(field);
             if (is_array(value)) {
                 result[field] = null;
-                foreach (value as $k: $entity) {
-                    if ($entity instanceof IEntity) {
-                        result[field][$k] = $entity.toArray();
+                foreach (value as $k: entity) {
+                    if (entity instanceof IEntity) {
+                        result[field][$k] = entity.toArray();
                     } else {
-                        result[field][$k] = $entity;
+                        result[field][$k] = entity;
                     }
                 }
             } elseif (value instanceof IEntity) {
@@ -526,7 +526,7 @@ trait EntityTrait
     }
 
     /**
-     * : isset($entity);
+     * : isset(entity);
      *
      * @param string offset The offset to check.
      * @return bool Success
@@ -536,7 +536,7 @@ trait EntityTrait
     }
 
     /**
-     * : $entity[offset];
+     * : entity[offset];
      *
      * @param string offset The offset to get.
      * @return mixed
@@ -547,7 +547,7 @@ trait EntityTrait
     }
 
     /**
-     * : $entity[offset] = value;
+     * : entity[offset] = value;
      *
      * @param string offset The offset to set.
      * @param mixed value The value to set.
@@ -799,9 +799,9 @@ trait EntityTrait
      * @param string field Field name to get the errors from
      */
     array getError(string field) {
-        $errors = _errors[field] ?? [];
-        if ($errors) {
-            return $errors;
+        errors = _errors[field] ?? [];
+        if (errors) {
+            return errors;
         }
 
         return _nestedErrors(field);
@@ -814,32 +814,32 @@ trait EntityTrait
      *
      * ```
      * // Sets the error messages for multiple fields at once
-     * $entity.setErrors(["salary": ["message"], "name": ["another message"]]);
+     * entity.setErrors(["salary": ["message"], "name": ["another message"]]);
      * ```
      *
-     * @param array $errors The array of errors to set.
+     * @param array errors The array of errors to set.
      * @param bool canOverwrite Whether to overwrite pre-existing errors for fields
      * @return this
      */
-    function setErrors(array $errors, bool canOverwrite = false) {
+    function setErrors(array errors, bool canOverwrite = false) {
         if (canOverwrite) {
-            foreach ($errors as $f: $error) {
-                _errors[$f] = (array)$error;
+            foreach (errors as $f: error) {
+                _errors[$f] = (array)error;
             }
 
             return this;
         }
 
-        foreach ($errors as $f: $error) {
+        foreach (errors as $f: error) {
             _errors += [$f: []];
 
             // String messages are appended to the list,
             // while more complex error structures need their
             // keys preserved for nested validator.
-            if (is_string($error)) {
-                _errors[$f][] = $error;
+            if (is_string(error)) {
+                _errors[$f][] = error;
             } else {
-                foreach ($error as $k: $v) {
+                foreach (error as $k: $v) {
                     _errors[$f][$k] = $v;
                 }
             }
@@ -855,20 +855,20 @@ trait EntityTrait
      *
      * ```
      * // Sets the error messages for a single field
-     * $entity.setError("salary", ["must be numeric", "must be a positive number"]);
+     * entity.setError("salary", ["must be numeric", "must be a positive number"]);
      * ```
      *
      * @param string field The field to get errors for, or the array of errors to set.
-     * @param array|string $errors The errors to be set for field
+     * @param array|string errors The errors to be set for field
      * @param bool canOverwrite Whether to overwrite pre-existing errors for field
      * @return this
      */
-    function setError(string field, $errors, bool canOverwrite = false) {
-        if (is_string($errors)) {
-            $errors = [$errors];
+    function setError(string field, errors, bool canOverwrite = false) {
+        if (is_string(errors)) {
+            errors = [errors];
         }
 
-        return this.setErrors([field: $errors], canOverwrite);
+        return this.setErrors([field: errors], canOverwrite);
     }
 
     /**
@@ -883,24 +883,24 @@ trait EntityTrait
             return _readError(this.get(field));
         }
         // Try reading the errors data with field as a simple path
-        $error = Hash::get(_errors, field);
-        if ($error != null) {
-            return $error;
+        error = Hash::get(_errors, field);
+        if (error != null) {
+            return error;
         }
         $path = explode(".", field);
 
         // Traverse down the related entities/arrays for
         // the relevant entity.
-        $entity = this;
+        entity = this;
         $len = count($path);
         while ($len) {
             $part = array_shift($path);
             $len = count($path);
             $val = null;
-            if ($entity instanceof IEntity) {
-                $val = $entity.get($part);
-            } elseif (is_array($entity)) {
-                $val = $entity[$part] ?? false;
+            if (entity instanceof IEntity) {
+                $val = entity.get($part);
+            } elseif (is_array(entity)) {
+                $val = entity[$part] ?? false;
             }
 
             if (
@@ -908,14 +908,14 @@ trait EntityTrait
                 $val instanceof Traversable ||
                 $val instanceof IEntity
             ) {
-                $entity = $val;
+                entity = $val;
             } else {
                 $path[] = $part;
                 break;
             }
         }
         if (count($path) <= 1) {
-            return _readError($entity, array_pop($path));
+            return _readError(entity, array_pop($path));
         }
 
         return [];
@@ -1029,7 +1029,7 @@ trait EntityTrait
      * Stores whether a field value can be changed or set in this entity.
      * The special field `*` can also be marked as accessible or protected, meaning
      * that any other field specified before will take its value. For example
-     * `$entity.setAccess("*", true)` means that any field not specified already
+     * `entity.setAccess("*", true)` means that any field not specified already
      * will be accessible by default.
      *
      * You can also call this method with an array of fields, in which case they
@@ -1038,10 +1038,10 @@ trait EntityTrait
      * ### Example:
      *
      * ```
-     * $entity.setAccess("id", true); // Mark id as not protected
-     * $entity.setAccess("author_id", false); // Mark author_id as protected
-     * $entity.setAccess(["id", "user_id"], true); // Mark both fields as accessible
-     * $entity.setAccess("*", false); // Mark all fields as protected
+     * entity.setAccess("id", true); // Mark id as not protected
+     * entity.setAccess("author_id", false); // Mark author_id as protected
+     * entity.setAccess(["id", "user_id"], true); // Mark both fields as accessible
+     * entity.setAccess("*", false); // Mark all fields as protected
      * ```
      *
      * @param array<string>|string field Single or list of fields to change its accessibility
@@ -1082,7 +1082,7 @@ trait EntityTrait
      * ### Example:
      *
      * ```
-     * $entity.isAccessible("id"); // Returns whether it can be set or not
+     * entity.isAccessible("id"); // Returns whether it can be set or not
      * ```
      *
      * @param string field Field name to check

@@ -41,11 +41,11 @@ mixin RulesAwareTemplate {
                 "Model.beforeRules",
                 compact("entity", "options", "operation")
             );
-            if ($event.isStopped()) {
+            if (event.isStopped()) {
                 return event.getResult();
             }
         }
-        result = rules.check($entity, operation, options.getArrayCopy());
+        result = rules.check(entity, operation, options.getArrayCopy());
 
         if ($hasEvents) {
             event = this.dispatchEvent(
@@ -53,7 +53,7 @@ mixin RulesAwareTemplate {
                 compact("entity", "options", "result", "operation")
             );
 
-            if ($event.isStopped()) {
+            if (event.isStopped()) {
                 return event.getResult();
             }
         }

@@ -315,19 +315,19 @@ class QueryExpression : IExpression, Countable {
     /**
      * Adds a new condition to the expression object in the form "EXISTS (...)".
      * Params:
-     * \UIM\Database\IExpression $expression the inner query
+     * \UIM\Database\IExpression expression the inner query
      */
-    auto exists(IExpression $expression) {
-        return this.add(new UnaryExpression("EXISTS", $expression, UnaryExpression.PREFIX));
+    auto exists(IExpression expression) {
+        return this.add(new UnaryExpression("EXISTS", expression, UnaryExpression.PREFIX));
     }
     
     /**
      * Adds a new condition to the expression object in the form "NOT EXISTS (...)".
      * Params:
-     * \UIM\Database\IExpression $expression the inner query
+     * \UIM\Database\IExpression expression the inner query
      */
-    auto notExists(IExpression $expression) {
-        return this.add(new UnaryExpression("NOT EXISTS", $expression, UnaryExpression.PREFIX));
+    auto notExists(IExpression expression) {
+        return this.add(new UnaryExpression("NOT EXISTS", expression, UnaryExpression.PREFIX));
     }
     
     /**
@@ -501,8 +501,8 @@ class QueryExpression : IExpression, Countable {
             $numericKey = isNumeric(myKey);
 
             if (cast(Closure)c) {
-                $expr = new static([], typeMap);
-                c = c($expr, this);
+                expr = new static([], typeMap);
+                c = c(expr, this);
             }
             if ($numericKey && empty(c)) {
                 continue;
@@ -551,30 +551,30 @@ class QueryExpression : IExpression, Countable {
      * @param Json aValue The value to be bound to a placeholder for the field
      */
     protected IExpression|string _parseCondition(string acondition, Json aValue) {
-        $expression = trim(condition);
+        expression = trim(condition);
         $operator = "=";
 
-        $spaces = substr_count($expression, " ");
+        $spaces = substr_count(expression, " ");
         // Handle expression values that contain multiple spaces, such as
         // operators with a space in them like `field IS NOT` and
         // `field NOT LIKE`, or combinations with auto expressions
         // like `CONCAT(first_name, " ", last_name) IN`.
         if ($spaces > 1) {
-            string[] someParts = split(" ", $expression);
-            if (preg_match("/(is not|not \w+)$/i", $expression)) {
+            string[] someParts = split(" ", expression);
+            if (preg_match("/(is not|not \w+)$/i", expression)) {
                 $last = array_pop(someParts);
                 $second = array_pop(someParts);
                 someParts ~= "{$second} {$last}";
             }
             $operator = array_pop(someParts);
-            $expression = join(" ", someParts);
+            expression = join(" ", someParts);
         } elseif ($spaces == 1) {
-            string[] someParts = split(" ", $expression, 2);
-            [$expression, $operator] = someParts;
+            string[] someParts = split(" ", expression, 2);
+            [expression, $operator] = someParts;
         }
         $operator = strtoupper(trim($operator));
 
-        type = this.getTypeMap().type($expression);
+        type = this.getTypeMap().type(expression);
         typeMultiple = (isString($type) && type.has("[]"));
         if (in_array($operator, ["IN", "NOT IN"]) || typeMultiple) {
             type = type ?: "string";
@@ -592,14 +592,14 @@ class QueryExpression : IExpression, Countable {
         if ($operator == "IS' && aValue.isNull) {
             return new UnaryExpression(
                 'isNull",
-                new IdentifierExpression($expression),
+                new IdentifierExpression(expression),
                 UnaryExpression.POSTFIX
             );
         }
         if ($operator == "IS NOT" && aValue.isNull) {
             return new UnaryExpression(
                 "IS NOT NULL",
-                new IdentifierExpression($expression),
+                new IdentifierExpression(expression),
                 UnaryExpression.POSTFIX
             );
         }
@@ -611,10 +611,10 @@ class QueryExpression : IExpression, Countable {
         }
         if (aValue.isNull && _conjunction != ",") {
             throw new InvalidArgumentException(
-                "Expression `%s` is missing operator (IS, IS NOT) with `null` value.".format($expression)
+                "Expression `%s` is missing operator (IS, IS NOT) with `null` value.".format(expression)
             );
         }
-        return new ComparisonExpression($expression, aValue, type, $operator);
+        return new ComparisonExpression(expression, aValue, type, $operator);
     }
     
     /**

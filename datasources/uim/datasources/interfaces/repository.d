@@ -115,10 +115,10 @@ interface IRepository
      * returns the same entity after a successful save or false in case
      * of any error.
      * Params:
-     * \UIM\Datasource\IEntity $entity the entity to be saved
+     * \UIM\Datasource\IEntity entity the entity to be saved
      * @param IData[string] optionData The options to use when saving.
      * /
-    IEntity|false save(IEntity $entity, IData[string] optionData = null);
+    IEntity|false save(IEntity entity, IData[string] optionData = null);
 
     /**
      * Delete a single entity.
@@ -126,10 +126,10 @@ interface IRepository
      * Deletes an entity and possibly related associations from the database
      * based on the 'dependent' option used when defining the association.
      * Params:
-     * \UIM\Datasource\IEntity $entity The entity to remove.
+     * \UIM\Datasource\IEntity entity The entity to remove.
      * @param IData[string] optionData The options for the delete.
          * /
-    bool delete(IEntity $entity, IData[string] optionData = null);
+    bool delete(IEntity entity, IData[string] optionData = null);
 
     /**
      * This creates a new entity object.
@@ -174,7 +174,7 @@ interface IRepository
     IEntity[] newEntities(array buildData, IData[string] optionDataForHydration = null);
 
     /**
-     * Merges the passed `someData` into `$entity` respecting the accessible
+     * Merges the passed `someData` into `entity` respecting the accessible
      * fields configured on the entity. Returns the same entity after being
      * altered.
      *
@@ -184,18 +184,18 @@ interface IRepository
      * article = this.Articles.patchEntity(article, this.request[));
      * ```
      * Params:
-     * \UIM\Datasource\IEntity $entity the entity that will get the
+     * \UIM\Datasource\IEntity entity the entity that will get the
      * data merged in
      * @param array data key value list of fields to be merged into the entity
      * @param IData[string] options A list of options for the object hydration.
      * /
-    IEntity patchEntity(IEntity$entity, array data, IData[string] optionData = null);
+    IEntity patchEntity(IEntityentity, array data, IData[string] optionData = null);
 
     /**
      * Merges each of the elements passed in `someData` into the entities
-     * found in `$entities` respecting the accessible fields configured on the entities.
+     * found in `entities` respecting the accessible fields configured on the entities.
      * Merging is done by matching the primary key in each of the elements in `someData`
-     * and `$entities`.
+     * and `entities`.
      *
      * This is most useful when editing a list of existing entities using request data:
      *
@@ -203,11 +203,11 @@ interface IRepository
      * article = this.Articles.patchEntities(articles, this.request[));
      * ```
      * Params:
-     * iterable<\UIM\Datasource\IEntity> $entities the entities that will get the
+     * iterable<\UIM\Datasource\IEntity> entities the entities that will get the
      * data merged in
      * @param array data list of arrays to be merged into the entities
      * @param IData[string] options A list of options for the objects hydration.
      * /
-    IEntity[] patchEntities(iterable$entities, array data, IData[string] optionData = null);
+    IEntity[] patchEntities(iterableentities, array data, IData[string] optionData = null);
     */
 }

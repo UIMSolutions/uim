@@ -59,26 +59,26 @@ class AggregateExpression : FunctionExpression, IWindow {
         this.getWindow().orderBy(fields);
     }
  
-    void range(IExpression|string|int $start, IExpression|string|int $end = 0) {
-        this.getWindow().range($start, $end);
+    void range(IExpression|string|int $start, IExpression|string|int end = 0) {
+        this.getWindow().range($start, end);
     }
  
-    void rows(int $start, int $end = 0) {
-        this.getWindow().rows($start, $end);
+    void rows(int $start, int end = 0) {
+        this.getWindow().rows($start, end);
     }
  
-    void groups(int $start, int $end = 0) {
-        this.getWindow().groups($start, $end);
+    void groups(int $start, int end = 0) {
+        this.getWindow().groups($start, end);
     }
  
     void frame(
         string atype,
         IExpression|string|int $startOffset,
         string astartDirection,
-        IExpression|string|int $endOffset,
+        IExpression|string|int endOffset,
         string aendDirection
     ) {
-        this.getWindow().frame($type, $startOffset, $startDirection, $endOffset, $endDirection);
+        this.getWindow().frame($type, $startOffset, $startDirection, endOffset, endDirection);
     }
  
     void excludeCurrent() {

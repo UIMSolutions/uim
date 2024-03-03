@@ -25,23 +25,23 @@ trait TupleComparisonTranslatorTrait {
      *
      * 1 = (SELECT 1 FROM a_table WHERE (a = c) AND (b = d))
      * Params:
-     * \UIM\Database\Expression\TupleComparison $expression The expression to transform
+     * \UIM\Database\Expression\TupleComparison expression The expression to transform
      * @param \UIM\Database\Query aQuery The query to update.
      */
-    protected void _transformTupleComparison(TupleComparison$expression, Query aQuery) {
-        fields = $expression.getFieldNames();
+    protected void _transformTupleComparison(TupleComparisonexpression, Query aQuery) {
+        fields = expression.getFieldNames();
 
         if (!isArray(fields)) {
             return;
         }
-        $operator = strtoupper($expression.getOperator());
+        $operator = strtoupper(expression.getOperator());
         if (!in_array($operator, ["IN", "="])) {
             throw new InvalidArgumentException(
                 "Tuple comparison transform only supports the `IN` and `=` operators, `%s` given."
                     .format($operator)
             );
         }
-        aValue = $expression.getValue();
+        aValue = expression.getValue();
         true = new QueryExpression("1");
 
         if (cast(SelectQuery) aValue) {
@@ -50,12 +50,12 @@ trait TupleComparisonTranslatorTrait {
                 aValue.andWhere([field: new IdentifierExpression($selected[anI])]);
             }
             aValue.select($true, true);
-            $expression.setFieldNames($true);
-            $expression.setOperator("=");
+            expression.setFieldNames($true);
+            expression.setOperator("=");
 
             return;
         }
-        auto myType = $expression.getType();
+        auto myType = expression.getType();
         if (myType) {
             /** @var STRINGAA typeMap */
             typeMap = array_combine(fields, myType) ?  : [];
@@ -76,8 +76,8 @@ trait TupleComparisonTranslatorTrait {
                 conditions["OR"] ~= items;});
                 $surrogate.where(conditions, typeMap);
 
-                $expression.setFieldNames($true);
-                $expression.setValue($surrogate);
-                $expression.setOperator("=");
+                expression.setFieldNames($true);
+                expression.setValue($surrogate);
+                expression.setOperator("=");
             }
         }

@@ -690,8 +690,8 @@ abstract class Query : IExpression, Stringable {
      * ### Using expressions objects:
      *
      * ```
-     * $exp = aQuery.newExpr().add(["id !=": 100, "author_id' != 1]).tieWith("OR");
-     * aQuery.where(["published": true], ["published": 'boolean"]).where($exp);
+     * exp = aQuery.newExpr().add(["id !=": 100, "author_id' != 1]).tieWith("OR");
+     * aQuery.where(["published": true], ["published": 'boolean"]).where(exp);
      * ```
      *
      * The previous example produces:
@@ -710,9 +710,9 @@ abstract class Query : IExpression, Stringable {
      * ```
      * aQuery
      *  .where(["title !=": 'Hello World"])
-     *  .where(function ($exp, aQuery) {
-     *    $or = $exp.or(["id": 1]);
-     *    and = $exp.and(["id >": 2, "id <": 10]);
+     *  .where(function (exp, aQuery) {
+     *    $or = exp.or(["id": 1]);
+     *    and = exp.and(["id >": 2, "id <": 10]);
      *   return $or.add(and);
      *  });
      * ```
@@ -922,8 +922,8 @@ abstract class Query : IExpression, Stringable {
      * ```
      * aQuery
      *  .where(["title": 'Foo"])
-     *  .andWhere(function ($exp, aQuery) {
-     *    return $exp
+     *  .andWhere(function (exp, aQuery) {
+     *    return exp
      *      .or(["author_id": 1])
      *      .add(["author_id": 2]);
      *  });
@@ -979,15 +979,15 @@ abstract class Query : IExpression, Stringable {
      * `ORDER BY title DESC NULLS FIRST, author_id`
      *
      * ```
-     * $expression = aQuery.newExpr().add(["id % 2 = 0"]);
-     * aQuery.orderBy($expression).orderBy(["title": 'ASC"]);
+     * expression = aQuery.newExpr().add(["id % 2 = 0"]);
+     * aQuery.orderBy(expression).orderBy(["title": 'ASC"]);
      * ```
      *
      * and
      *
      * ```
-     * aQuery.orderBy(function ($exp, aQuery) {
-     *    return [$exp.add(["id % 2 = 0"]), "title": 'ASC"];
+     * aQuery.orderBy(function (exp, aQuery) {
+     *    return [exp.add(["id % 2 = 0"]), "title": 'ASC"];
      * });
      * ```
      *
@@ -1178,11 +1178,11 @@ abstract class Query : IExpression, Stringable {
      *
      * Epliog content is raw SQL and not suitable for use with user supplied data.
      * Params:
-     * \UIM\Database\IExpression|string|null $expression The expression to be appended
+     * \UIM\Database\IExpression|string|null expression The expression to be appended
      */
-    auto epilog(IExpression|string|null $expression = null) {
+    auto epilog(IExpression|string|null expression = null) {
        _isDirty();
-       _parts["epilog"] = $expression;
+       _parts["epilog"] = expression;
 
         return this;
     }
@@ -1197,11 +1197,11 @@ abstract class Query : IExpression, Stringable {
      *
      * Comment content is raw SQL and not suitable for use with user supplied data.
      * Params:
-     * string|null $expression The comment to be added
+     * string|null expression The comment to be added
      */
     auto comment(string aexpression = null) {
        _isDirty();
-       _parts["comment"] = $expression;
+       _parts["comment"] = expression;
 
         return this;
     }
@@ -1223,8 +1223,8 @@ abstract class Query : IExpression, Stringable {
      * any format accepted by \UIM\Database\Expression\QueryExpression:
      *
      * ```
-     * $expression = aQuery.expr(); // Returns an empty expression object
-     * $expression = aQuery.expr("Table.column = Table2.column"); // Return a raw SQL expression
+     * expression = aQuery.expr(); // Returns an empty expression object
+     * expression = aQuery.expr("Table.column = Table2.column"); // Return a raw SQL expression
      * ```
      * Params:
      * \UIM\Database\IExpression|string[]|null $rawExpression A string, array or anything you want wrapped in an expression object
@@ -1243,19 +1243,19 @@ abstract class Query : IExpression, Stringable {
      * any format accepted by \UIM\Database\Expression\QueryExpression:
      *
      * ```
-     * $expression = aQuery.expr(); // Returns an empty expression object
-     * $expression = aQuery.expr("Table.column = Table2.column"); // Return a raw SQL expression
+     * expression = aQuery.expr(); // Returns an empty expression object
+     * expression = aQuery.expr("Table.column = Table2.column"); // Return a raw SQL expression
      * ```
      * Params:
      * \UIM\Database\IExpression|string[]|null $rawExpression A string, array or anything you want wrapped in an expression object
      */
     QueryExpression expr(IExpression|string[]|null $rawExpression = null) {
-        $expression = new QueryExpression([], this.getTypeMap());
+        expression = new QueryExpression([], this.getTypeMap());
 
         if ($rawExpression !isNull) {
-            $expression.add($rawExpression);
+            expression.add($rawExpression);
         }
-        return $expression;
+        return expression;
     }
     
     /**
@@ -1337,7 +1337,7 @@ abstract class Query : IExpression, Stringable {
     /**
      * Query parts traversal method used by traverseExpressions()
      * Params:
-     * Json $expression Query expression or
+     * Json expression Query expression or
      *  array of expressions.
      * @param \Closure aCallback The callback to be executed for each IExpression
      *  found inside this query.
@@ -1347,12 +1347,12 @@ abstract class Query : IExpression, Stringable {
             .each!(exp => expressionsVisitor(exp, aCallback));
     }
     
-    protected void _expressionsVisitor(Json $expression, Closure aCallback) {
-        if (cast(IExpression)$expression) {
-            $expression.traverse(fn ($exp): _expressionsVisitor($exp, aCallback));
+    protected void _expressionsVisitor(Json expression, Closure aCallback) {
+        if (cast(IExpression)expression) {
+            expression.traverse(fn (exp): _expressionsVisitor(exp, aCallback));
 
-            if (!cast(self)$expression) {
-                aCallback($expression);
+            if (!cast(self)expression) {
+                aCallback(expression);
             }
         }
     }
@@ -1417,23 +1417,23 @@ abstract class Query : IExpression, Stringable {
         string aconjunction,
         array types
     ) {
-        $expression = _parts[$part] ?: this.newExpr();
+        expression = _parts[$part] ?: this.newExpr();
         if (isEmpty(append)) {
-           _parts[$part] = $expression;
+           _parts[$part] = expression;
 
             return;
         }
         if (cast(Closure)append) {
             append = append(this.newExpr(), this);
         }
-        if ($expression.getConjunction() == conjunction) {
-            $expression.add(append, types);
+        if (expression.getConjunction() == conjunction) {
+            expression.add(append, types);
         } else {
-            $expression = this.newExpr()
+            expression = this.newExpr()
                 .setConjunction(conjunction)
-                .add([$expression, append], types);
+                .add([expression, append], types);
         }
-       _parts[$part] = $expression;
+       _parts[$part] = expression;
        _isDirty();
     }
     
@@ -1488,8 +1488,8 @@ abstract class Query : IExpression, Stringable {
         $params = [];
         try {
             set_error_handler(
-                void ($errno, $errstr) {
-                    throw new UimException($errstr, $errno);
+                void (errno, errstr) {
+                    throw new UimException(errstr, errno);
                 },
                 E_ALL
             );

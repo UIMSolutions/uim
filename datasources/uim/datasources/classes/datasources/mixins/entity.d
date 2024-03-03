@@ -167,10 +167,10 @@ mixin EntityTemplate {
      * entity = new Entity(["name": 'andrew", "id": 1]);
      *
      * entity.set("phone_number", "555-0134");
-     * print_r($entity.getOriginalFields()) // prints ["name", "id"]
+     * print_r(entity.getOriginalFields()) // prints ["name", "id"]
      *
      * entity.set("phone_number", "555-0134", ["asOriginal": true]);
-     * print_r($entity.getOriginalFields()) // prints ["name", "id", "phone_number"]
+     * print_r(entity.getOriginalFields()) // prints ["name", "id", "phone_number"]
      * ```
      * Params:
      * IData[string]|string afield the name of field to set or a list of
@@ -802,18 +802,18 @@ mixin EntityTemplate {
      * array errors The array of errors to set.
      * @param bool overwrite Whether to overwrite pre-existing errors for fields
      */
-                    auto setErrors(array$errors, booloverwrite = false) {
+                    auto setErrors(arrayerrors, booloverwrite = false) {
                       if (overwrite) {
-                        foreach ($errors as$f : error) {
-                          _fieldErrors[$f] = (array)$error;}
+                        foreach (errors as$f : error) {
+                          _fieldErrors[$f] = (array)error;}
                           return this;}
                           foreach ($f : error; errors) {
                             _fieldErrors += [$f: []];  // String messages are appended to the list,
                             // while more complex error structures need their
                             // keys preserved for nested validator.
-                            if (isString($error)) {
+                            if (isString(error)) {
                               _fieldErrors[$f] ~= error;} else {
-                                foreach ($error as myKey : v) {
+                                foreach (error as myKey : v) {
                                   _fieldErrors[$f][myKey] = v;}
                                 }
                               }
@@ -834,8 +834,8 @@ mixin EntityTemplate {
      * @param bool overwrite Whether to overwrite pre-existing errors for field
      */
                               auto setErrors(string afield, string[] aerrors, booloverwrite = false) {
-                                if (isString($errors)) {
-                                  errors = [$errors];}
+                                if (isString(errors)) {
+                                  errors = [errors];}
                                   return this.setErrors([field: errors], overwrite);
                                 }
 
@@ -848,12 +848,12 @@ mixin EntityTemplate {
                                 string fieldName) {
                                   // Only one path element, check for nested entity with error.
                                   if (!fieldName.has(".")) {
-                                    entity = this.get(fieldName); if (cast(IEntity)$entity || is_iterable(
+                                    entity = this.get(fieldName); if (cast(IEntity)entity || is_iterable(
                                       entity)) {
-                                      return _readError($entity);}
+                                      return _readError(entity);}
                                       return null;}
                                       // Try reading the errors data with field as a simple path
-                                      error = Hash.get(_fieldErrors, fieldName); if ($error!isNull) {
+                                      error = Hash.get(_fieldErrors, fieldName); if (error!isNull) {
                                         return error;}
                                         somePath = split(".", fieldName); // Traverse down the related entities/arrays for
                                         // the relevant entity.
@@ -861,9 +861,9 @@ mixin EntityTemplate {
                                         somePath); while ($len) {
                                           string$part = array_shift(
                                           somePath); len = count(
-                                          somePath); val = null; if (cast(IEntity)$entity) {
+                                          somePath); val = null; if (cast(IEntity)entity) {
                                             val = entity.get($part);}
-                                            else if(isArray($entity)) {
+                                            else if(isArray(entity)) {
                                               val = entity[$part] ?  ? false;}
                                               if (
                                                 isArray($val) ||
@@ -874,7 +874,7 @@ mixin EntityTemplate {
                                                   somePath ~= part; break;}
                                                 }
                                                 if (count(somePath) <= 1) {
-                                                  return _readError($entity, array_pop(
+                                                  return _readError(entity, array_pop(
                                                   somePath));}
                                                   return null;}
 
@@ -981,7 +981,7 @@ mixin EntityTemplate {
      * Stores whether a field value can be changed or set in this entity.
      * The special field `*` can also be marked as accessible or protected, meaning
      * that any other field specified before will take its value. For example
-     * `$entity.setAccess("*", true)` means that any field not specified already
+     * `entity.setAccess("*", true)` means that any field not specified already
      * will be accessible by default.
      *
      * You can also call this method with an array of fields, in which case they

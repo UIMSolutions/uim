@@ -79,9 +79,9 @@ interface IEntity // : ArrayAccess, JsonSerializable, Stringable
     /**
      * Sets error messages to the entity
      * Params:
-     * array $errors The array of errors to set.
+     * array errors The array of errors to set.
      * /
-    void setErrors(array $errors, bool shouldOoverwrite = false);
+    void setErrors(array errors, bool shouldOoverwrite = false);
 
     /**
      * Sets errors for a single field

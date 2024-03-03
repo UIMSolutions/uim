@@ -160,16 +160,16 @@ class SqliteDriver : Driver {
      * Receives a FunctionExpression and changes it so that it conforms to this
      * SQL dialect.
      * Params:
-     * \UIM\Database\Expression\FunctionExpression $expression The auto expression to convert to TSQL.
+     * \UIM\Database\Expression\FunctionExpression expression The auto expression to convert to TSQL.
      */
-    protected void _transformFunctionExpression(FunctionExpression $expression) {
-        switch ($expression.name) {
+    protected void _transformFunctionExpression(FunctionExpression expression) {
+        switch (expression.name) {
             case "CONCAT":
                 // CONCAT bool is expressed as exp1 || exp2
-                $expression.name("").setConjunction(" ||");
+                expression.name("").setConjunction(" ||");
                 break;
             case "DATEDIFF":
-                $expression
+                expression
                     .name("ROUND")
                     .setConjunction("-")
                     .iterateParts(function ($p) {
@@ -177,21 +177,21 @@ class SqliteDriver : Driver {
                     });
                 break;
             case "NOW":
-                $expression.name("DATETIME").add(["'now'": "literal"]);
+                expression.name("DATETIME").add(["'now'": "literal"]);
                 break;
             case "RAND":
-                $expression
+                expression
                     .name("ABS")
                     .add(["RANDOM() % 1": "literal"], [], true);
                 break;
             case "CURRENT_DATE":
-                $expression.name("DATE").add(["'now'": "literal"]);
+                expression.name("DATE").add(["'now'": "literal"]);
                 break;
             case "CURRENT_TIME":
-                $expression.name("TIME").add(["'now'": "literal"]);
+                expression.name("TIME").add(["'now'": "literal"]);
                 break;
             case "EXTRACT":
-                $expression
+                expression
                     .name("STRFTIME")
                     .setConjunction(" ,")
                     .iterateParts(function ($p, aKey) {
@@ -205,7 +205,7 @@ class SqliteDriver : Driver {
                     });
                 break;
             case "DATE_ADD":
-                $expression
+                expression
                     .name("DATE")
                     .setConjunction(",")
                     .iterateParts(function ($p, aKey) {
@@ -216,7 +216,7 @@ class SqliteDriver : Driver {
                     });
                 break;
             case "DAYOFWEEK":
-                $expression
+                expression
                     .name("STRFTIME")
                     .setConjunction(" ")
                     .add(["'%w", ": 'literal"], [], true)

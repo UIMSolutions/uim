@@ -204,8 +204,8 @@ interface IQuery {
      * `ORDER BY title DESC NULLS FIRST, author_id`
      *
      * ```
-     * $expression = aQuery.newExpr().add(["id % 2 = 0"]);
-     * aQuery.orderBy($expression).orderBy(["title": 'ASC"]);
+     * expression = aQuery.newExpr().add(["id % 2 = 0"]);
+     * aQuery.orderBy(expression).orderBy(["title": 'ASC"]);
      * ```
      *
      * Will become:
@@ -312,8 +312,8 @@ interface IQuery {
      * ### Using expressions objects:
      *
      * ```
-     * $exp = aQuery.newExpr().add(["id !=": 100, "author_id' != 1]).tieWith("OR");
-     * aQuery.where(["published": true], ["published": 'boolean"]).where($exp);
+     * exp = aQuery.newExpr().add(["id !=": 100, "author_id' != 1]).tieWith("OR");
+     * aQuery.where(["published": true], ["published": 'boolean"]).where(exp);
      * ```
      *
      * The previous example produces:
@@ -332,9 +332,9 @@ interface IQuery {
      * ```
      * aQuery
      * .where(["title !=": 'Hello World"])
-     * .where(function ($exp, aQuery) {
-     *     $or = $exp.or(["id": 1]);
-     *     and = $exp.and(["id >": 2, "id <": 10]);
+     * .where(function (exp, aQuery) {
+     *     $or = exp.or(["id": 1]);
+     *     and = exp.and(["id >": 2, "id <": 10]);
      * return $or.add(and);
      * });
      * ```

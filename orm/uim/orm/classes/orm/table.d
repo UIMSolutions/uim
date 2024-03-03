@@ -254,7 +254,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * define validation and do any other initialization logic you need.
      *
      * ```
-     *  function initialize(Json myConfiguration)
+     *  function initialize(IData[string] myConfiguration)
      *  {
      *      this.belongsTo("Users");
      *      this.belongsToMany("Tagging.Tags");
@@ -264,7 +264,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      *
      * @param array<string, mixed> myConfiguration Configuration options passed to the constructor
      */
-    bool initialize(Json myConfiguration) {
+    bool initialize(IData[string] myConfiguration) {
     }
 
     /**

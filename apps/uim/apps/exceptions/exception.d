@@ -8,8 +8,8 @@ import uim.apps;
 class DAppException : UimException {
   mixin(ExceptionThis!("App"));
 
-  override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) { return false; }
+  override bool initialize(IData[string] initData = null) {
+    if (!super.initialize(initData)) { return false; }
 
     this
       .messageTemplate("Error in libary uim-apps");

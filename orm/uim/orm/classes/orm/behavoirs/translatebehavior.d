@@ -97,7 +97,7 @@ class TranslateBehavior : Behavior : IPropertyMarshal
      *
      * @param array<string, mixed> myConfiguration The config for this behavior.
      */
-    bool initialize(Json myConfiguration) {
+    bool initialize(IData[string] myConfiguration) {
         this.getStrategy();
     }
 

@@ -230,7 +230,7 @@ class View : IEventDispatcher {
      *
      * Helpers can be added using {@link addHelper()} method.
      */
-    bool initialize(Json myConfiguration = Json(null)) {
+    bool initialize(IData[string] myConfiguration = Json(null)) {
        _defaultConfigData = Json .emptyObject;
     }
 

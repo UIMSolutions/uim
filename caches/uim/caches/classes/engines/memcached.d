@@ -57,8 +57,8 @@ h     */
      * configData - array of setting for the engine
      */
 
-  bool initialize(IData[string] configData = isNull) {
-    _defaultConfigData = [
+  bool initialize(IData[string] initData = isNull) {
+    _defaultInitData = [
       "compress": false,
       "duration": 3600,
       "groups": [],
@@ -85,7 +85,7 @@ h     */
     if (defined("Memcached.HAVE_MSGPACK")) {
       _serializers["msgpack"] = Memcached :  : SERIALIZER_MSGPACK;
     }
-    super.initialize(configData);
+    super.initialize(initData);
 
     if (!configuration.getData("host"].isEmpty) {
       configuration.getData("servers"] = configuration.getData("port"].isEmpty

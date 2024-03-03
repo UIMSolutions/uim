@@ -8,8 +8,8 @@ import uim.sites;
 class DSitesException : UimException {
   mixin(ExceptionThis!("Sites"));
 
-  override bool initialize(IData[string] configData = null) {
-    if (!super.initialize(configData)) {
+  override bool initialize(IData[string] initData = null) {
+    if (!super.initialize(initData)) {
       return false;
     }
 

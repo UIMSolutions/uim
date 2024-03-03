@@ -163,7 +163,7 @@ class Behavior : IEventListener
      *
      * @param array<string, mixed> myConfiguration The configuration settings provided to this behavior.
      */
-    bool initialize(Json myConfiguration) {
+    bool initialize(IData[string] myConfiguration) {
     }
 
     

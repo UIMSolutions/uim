@@ -133,7 +133,7 @@ class Helper : IEventListener {
      * IData[string] helperSettings The configuration settings provided to this helper.
      */
 <<<<<<< HEAD
-    bool initialize(Json myConfiguration = Json(null)) {
+    bool initialize(IData[string] myConfiguration = Json(null)) {
        _defaultConfigData = Json .emptyObject;
 =======
     bool initialize(IData[string] initData = null) {

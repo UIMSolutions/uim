@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.datasources;
+module datasources.uim.datasources.interfaces.repositoryInterface;
 
 /**
  * Describes the methods that any class representing a data storage should

@@ -11,11 +11,17 @@ import uim.consoles;
  * @see \UIM\Console\ConsoleOptionParser.addOption()
  */
 class ConsoleInputOption {
-  	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
+    // Hook method
+    bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        configuration(new DConfiguration);
+        configuration.update(initData);
+
+        return true;
+    }
 
     // Name of the option
     protected string _name;

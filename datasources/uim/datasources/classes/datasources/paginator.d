@@ -10,6 +10,17 @@ import uim.datasources;
 
 // This class is used to handle automatic model data pagination.
 class Paginator : IPaginator {
+        // Hook method
+    bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        configuration(new DConfiguration);
+        configuration.update(initData);
+
+        return true;
+    }
     mixin InstanceConfigTemplate;
 
     /**

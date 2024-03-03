@@ -14,6 +14,17 @@ import uim.consoles;
  * Xml output is useful for integration with other tools like IDE`s or other build tools.
  */
 class HelpFormatter {
+        // Hook method
+    bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        configuration(new DConfiguration);
+        configuration.update(initData);
+
+        return true;
+    }
     // The maximum number of arguments shown when generating usage.
     protected int _maxArgs = 6;
 

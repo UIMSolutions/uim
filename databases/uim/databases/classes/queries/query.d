@@ -19,7 +19,19 @@ import uim.databases;
  * to a specific SQL dialect.
  */
 abstract class Query : IExpression, Stringable {
-    use TypeMapTrait;
+    // Hook method
+    bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        configuration(new DConfiguration);
+        configuration.update(initData);
+
+        return true;
+    }
+    
+        use TypeMapTrait;
 
     const string JOIN_TYPE_INNER = "INNER";
 

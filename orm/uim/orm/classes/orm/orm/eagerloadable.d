@@ -83,15 +83,15 @@ class EagerLoadable {
      * string associationName The Association name.
      * configData - The list of properties to set.
      */
-    this(string associationName, IConfigData[string] configData = null) {
+    this(string associationName, Iconfiguration.getData(string] configData = null) {
         _name = associationName;
         string[] allowed = [
             "associations", "instance", "config", "canBeJoined",
             "aliasPath", "propertyPath", "forMatching", "targetProperty",
         ];
         allowed
-            .filter!(property => isSet(configData[property]))
-            .each!(property => this.{"_" ~ property} = configData[property]);
+            .filter!(property => isSet(configuration.getData(property]))
+            .each!(property => this.{"_" ~ property} = configuration.getData(property]);
         }
     }
     
@@ -166,7 +166,7 @@ class EagerLoadable {
      *
      * configData - The value to set.
      */
-    void configuration.update(IConfigData[string] configData = null) {
+    void configuration.update(Iconfiguration.getData(string] configData = null) {
        configuration = configData;
     }
     

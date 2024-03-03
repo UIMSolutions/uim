@@ -178,9 +178,9 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      *  validation set, or an associative array, where key is the name of the
      *  validation set and value the Validator instance.
      * Params:
-     * IConfigData[string] configData List of options for this table.
+     * Iconfiguration.getData(string] configData List of options for this table.
      */
-    this(IConfigData[string] configData = null) {
+    this(Iconfiguration.getData(string] configData = null) {
         if (!empty(configData("registryAlias"])) {
             this.setRegistryAlias(configData("registryAlias"]);
         }
@@ -252,7 +252,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * define validation and do any other initialization logic you need.
      *
      * ```
-     * auto initialize(IConfigData[string] configData = null)
+     * auto initialize(Iconfiguration.getData(string] configData = null)
      * {
      *     this.belongsTo("Users");
      *     this.belongsToMany("Tagging.Tags");
@@ -260,7 +260,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * }
      * ```
      * Params:
-     * IConfigData[string] configData Configuration options passed to the constructor
+     * Iconfiguration.getData(string] configData Configuration options passed to the constructor
      */
     bool initialize(IData[string] initData = null) {
         return super.initialize(configData);

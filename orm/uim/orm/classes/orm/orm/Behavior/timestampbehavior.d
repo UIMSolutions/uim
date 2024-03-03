@@ -43,7 +43,7 @@ class TimestampBehavior : Behavior {
      * If events are specified - do *not* merge them with existing events,
      * overwrite the events to listen on
      * Params:
-     * IConfigData[string] configData The config for this behavior.
+     * Iconfiguration.getData(string] configData The config for this behavior.
      */
     bool initialize(IData[string] initData = null) {
         if (configuration.hasKey("events")) {

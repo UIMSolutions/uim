@@ -97,7 +97,7 @@ class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * @param string aliasToObject The alias of the object.
      * configData - An array of config to use for the behavior.
      */
-    protected Behavior _create(object|string myclass, string aliasToObject, IConfigData[string] configData) {
+    protected Behavior _create(object|string myclass, string aliasToObject, Iconfiguration.getData(string] configData) {
         if (isObject(myclass)) {
             return myclass;
         }

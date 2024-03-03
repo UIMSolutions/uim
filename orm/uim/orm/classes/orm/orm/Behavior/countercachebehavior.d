@@ -245,10 +245,10 @@ class CounterCacheBehavior : Behavior {
     /**
      * Fetches and returns the count for a single field in an association
      * Params:
-     * IConfigData[string] configData The counter cache configuration for a single field
+     * Iconfiguration.getData(string] configData The counter cache configuration for a single field
      * @param array myconditions Additional conditions given to the query
      */
-    protected int _getCount(IConfigData[string] configData, array myconditions) {
+    protected int _getCount(Iconfiguration.getData(string] configData, array myconditions) {
         myfinder = "all";
         if (!empty(configData("finder"])) {
             myfinder = configData("finder"];

@@ -77,9 +77,9 @@ class TranslateBehavior : Behavior, IPropertyMarshal {
      *  are created/modified. Default `null`.
      * Params:
      * \UIM\ORM\Table mytable The table this behavior is attached to.
-     * @param IConfigData[string] configData The config for this behavior.
+     * @param Iconfiguration.getData(string] configData The config for this behavior.
      */
-    this(Table mytable, IConfigData[string] configData = null) {
+    this(Table mytable, Iconfiguration.getData(string] configData = null) {
         configData += [
             "defaultLocale": I18n.getDefaultLocale(),
             "referenceName": this.referenceName(mytable),
@@ -92,7 +92,7 @@ class TranslateBehavior : Behavior, IPropertyMarshal {
     /**
      * Initialize hook
      * Params:
-     * IConfigData[string] configData The config for this behavior.
+     * Iconfiguration.getData(string] configData The config for this behavior.
      */
     bool initialize(IData[string] initData = null) {
         this.getStrategy();

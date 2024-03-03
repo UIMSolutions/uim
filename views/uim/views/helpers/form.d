@@ -214,20 +214,20 @@ class FormHelper : Helper {
     this(View myview, IData[string] configData = null) {
         mylocator = null;
         mywidgets = _defaultWidgets;
-        if (isSet(configData["locator"])) {
-            mylocator = configData["locator"];
-            unset(configData["locator"]);
+        if (isSet(configuration.getData("locator"])) {
+            mylocator = configuration.getData("locator"];
+            unset(configuration.getData("locator"]);
         }
-        if (isSet(configData["widgets"])) {
-            if (isString(configData["widgets"])) {
-                configData["widgets"] = (array)configData["widgets"];
+        if (isSet(configuration.getData("widgets"])) {
+            if (isString(configuration.getData("widgets"])) {
+                configuration.getData("widgets"] = (array)configuration.getData("widgets"];
             }
-            mywidgets = configData["widgets"] + mywidgets;
-            unset(configData["widgets"]);
+            mywidgets = configuration.getData("widgets"] + mywidgets;
+            unset(configuration.getData("widgets"]);
         }
-        if (isSet(configData["groupedInputTypes"])) {
-           _groupedInputTypes = configData["groupedInputTypes"];
-            unset(configData["groupedInputTypes"]);
+        if (isSet(configuration.getData("groupedInputTypes"])) {
+           _groupedInputTypes = configuration.getData("groupedInputTypes"];
+            unset(configuration.getData("groupedInputTypes"]);
         }
         super(myview, configData);
 
@@ -1105,7 +1105,7 @@ class FormHelper : Helper {
         }
         mytype = "text";
         myinternalType = mycontext.type(fieldName);
-        mymap = configuration["typeMap"];
+        mymap = configuration.getData("typeMap"];
         if (myinternalType !isNull && isSet(mymap[myinternalType])) {
             mytype = mymap[myinternalType];
         }
@@ -2118,7 +2118,7 @@ class FormHelper : Helper {
             options["val"] = options["val"].value;
         }
         if (mycontext.hasError(myfield)) {
-            options = this.addClass(options, configuration["errorClass"]);
+            options = this.addClass(options, configuration.getData("errorClass"]);
         }
         myisDisabled = _isDisabled(options);
         if (myisDisabled) {
@@ -2262,7 +2262,7 @@ class FormHelper : Helper {
      * This method will not reset any templates set in custom widgets.
      */
     void resetTemplates() {
-        this.setTemplates(_defaultConfigData["templates"]);
+        this.setTemplates(_defaultconfiguration.getData("templates"]);
     }
     
     /**

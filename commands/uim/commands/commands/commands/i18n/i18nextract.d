@@ -9,7 +9,7 @@ class I18nExtractCommand : Command {
   mixin(CommandThis!("I18nExtract"));
 
   	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(configData)) { return false; }
+		if (!super.initialize(initData)) { return false; }
 		
 		return true;
 	}

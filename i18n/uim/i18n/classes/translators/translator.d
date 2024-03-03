@@ -10,7 +10,7 @@ import uim.i18n;
  */
 class Translator : ITranslator {
     // Initialization
-    bool initialize(IData[string] configData = null) {
+    bool initialize(IData[string] initData = null) {
         return true;
     }
 

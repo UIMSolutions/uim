@@ -14,7 +14,7 @@ class ChainMessagesLoader {
     }
 
     // Initialization hook
-    bool initialize(IData[string] configData = null) {
+    bool initialize(IData[string] initData = null) {
         return true;
     }
 

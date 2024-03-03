@@ -17,8 +17,8 @@ unittest {
 class DLink : DFilesystemEntry, ILink {
 	mixin(FolderThis!("Link"));
 
-	override bool initialize(IData[string] configData = null) { // Hook
-		if (!super.initialize(configData)) {
+	override bool initialize(IData[string] initData = null) { // Hook
+		if (!super.initialize(initData)) {
 			return false;
 		}
 		return true;

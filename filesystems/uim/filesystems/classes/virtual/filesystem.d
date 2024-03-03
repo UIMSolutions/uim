@@ -17,8 +17,8 @@ unittest {
 class DVirtualFilesystem : DFilesystem {
   mixin(FilesystemThis!("VirtualFilesystem"));
 
-  override bool initialize(IData[string] configData = null) { // Hook
-		if (!super.initialize(configData)) {
+  override bool initialize(IData[string] initData = null) { // Hook
+		if (!super.initialize(initData)) {
 			return false;
 		}
     _rootFolder = VirtualFolder(this);

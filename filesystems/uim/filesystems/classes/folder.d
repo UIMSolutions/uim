@@ -17,8 +17,8 @@ unittest {
 class DFolder : DFilesystemEntry, IFolder, IFolderManager, IFileManager, ILinkManager {
   mixin(FolderThis!("Folder"));
 
-  override bool initialize(IData[string] configData = null) { // Hook
-		if (!super.initialize(configData)) {
+  override bool initialize(IData[string] initData = null) { // Hook
+		if (!super.initialize(initData)) {
 			return false;
 		} 
 		return true;

@@ -20,7 +20,7 @@ class TableHelper : Helper {
      * Calculate the column widths
      * @param array rows The rows on which the columns width will be calculated on.
      */
-  protected int[string] _calculateWidths(array$rows) {
+  protected int[string] _calculateWidths(arrayrows) {
     auto results;
     rows.each!((line) {
       line.values.byKeyValue
@@ -67,8 +67,8 @@ class TableHelper : Helper {
      * array row The row to output.
      * @param ] optionsToPass Options to be passed.
      */
-  protected void _render(array$row, int[] columnWidths, array optionsToPass = []) {
-    if (count($row) == 0) {
+  protected void _render(arrayrow, int[] columnWidths, array optionsToPass = []) {
+    if (count(row) == 0) {
       return;
     }
 

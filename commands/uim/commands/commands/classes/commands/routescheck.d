@@ -23,20 +23,20 @@ class RoutesCheckCommand : Command {
     auto myUrl = commandArguments.getArgument("url");
     try {
       auto request = new ServerRequest(["url": url]);
-      auto route = Router.parseRequest($request);
+      auto route = Router.parseRequest(request);
       auto name = null;
       foreach (myRoute; Router.routes()) {
-        if (myRoute.match($route)) {
+        if (myRoute.match(route)) {
           name = myRoute.options["_name"] ?  ? myRoute.name;
           break;
         }
       }
-      unset($route["_route"], route["_matchedRoute"]);
-      ksort($route);
+      unset(route["_route"], route["_matchedRoute"]);
+      ksort(route);
 
       output = [
         ["Route name", "URI template", "Defaults"],
-        [name, url, json_encode($route, JSON_THROW_ON_ERROR)],
+        [name, url, json_encode(route, JSON_THROW_ON_ERROR)],
       ];
       aConsoleIo.helper("table").output($output);
       aConsoleIo.out ();

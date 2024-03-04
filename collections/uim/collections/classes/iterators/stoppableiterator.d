@@ -77,6 +77,6 @@ class StoppableIterator : Collection {
       }
       res[myKey] = v;
     }
-    return new ArrayIterator($res);
+    return new ArrayIterator(res);
   }
 }

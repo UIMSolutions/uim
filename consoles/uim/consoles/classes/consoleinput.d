@@ -63,7 +63,7 @@ class ConsoleInput {
             error = "stream_select failed with code={code} message={$message}.";
 
                 return true;});
-            readyFds = stream_select($readFds, writeFds, errorFds, timeToWait);
+            readyFds = stream_select(readFds, writeFds, errorFds, timeToWait);
             restore_error_handler();
             if (!error.isNull) {
                 throw new ConsoleException(error);

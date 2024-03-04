@@ -61,7 +61,7 @@ template ExtractTemplate {
             if (isCollectionTransform) {
                 rest = array_slice(someParts,  anI).join(".");
 
-                return (new Collection(someData)).extract($rest);
+                return (new Collection(someData)).extract(rest);
             }
             if (!someData.isSet(myColumn)) {
                 return null;

@@ -66,6 +66,6 @@ class ExtractIterator : Collection {
 
     myIterator.getArrayCopy().byKeyValue.each!(kv => res[kv.key] = aCallback(kv.value));
 
-    return new ArrayIterator($res);
+    return new ArrayIterator(res);
   }
 }

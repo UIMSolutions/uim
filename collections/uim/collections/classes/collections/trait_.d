@@ -248,12 +248,12 @@ trait CollectionTrait {
             $mr.emitIntermediate(value, callback(value));
         };
 
-        $reducer = void (values, $key, $mr) {
+        reducer = void (values, $key, $mr) {
             /** var DCOLIterator\MapReduce $mr */
             $mr.emit(count(values), $key);
         };
 
-        return this.newCollection(new MapReduce(this.unwrap(), mapper, $reducer));
+        return this.newCollection(new MapReduce(this.unwrap(), mapper, reducer));
     }
 
 
@@ -481,29 +481,29 @@ trait CollectionTrait {
         ];
 
         mapper = function (value, $key, MapReduce mapReduce) use (options) {
-            $rowKey = options["keyPath"];
-            $rowVal = options["valuePath"];
+            rowKey = options["keyPath"];
+            rowVal = options["valuePath"];
 
             if (!options["groupPath"]) {
-                mapReduce.emit($rowVal(value, $key), $rowKey(value, $key));
+                mapReduce.emit(rowVal(value, $key), rowKey(value, $key));
 
                 return null;
             }
 
             $key = options["groupPath"](value, $key);
             mapReduce.emitIntermediate(
-                [$rowKey(value, $key): $rowVal(value, $key)],
+                [rowKey(value, $key): rowVal(value, $key)],
                 $key
             );
         };
 
-        $reducer = void (values, $key, MapReduce mapReduce) {
+        reducer = void (values, $key, MapReduce mapReduce) {
             result = null;
             values.each!(value => result += value);
             mapReduce.emit(result, $key);
         };
 
-        return this.newCollection(new MapReduce(this.unwrap(), mapper, $reducer));
+        return this.newCollection(new MapReduce(this.unwrap(), mapper, reducer));
     }
 
 
@@ -514,15 +514,15 @@ trait CollectionTrait {
         parentPath = _propertyExtractor(parentPath);
         isObject = true;
 
-        mapper = void ($row, $key, MapReduce mapReduce) use (&parents, idPath, parentPath, nestingKey) {
-            $row[nestingKey] = null;
-            id = idPath($row, $key);
-            parentId = parentPath($row, $key);
-            parents[id] = &$row;
+        mapper = void (row, $key, MapReduce mapReduce) use (&parents, idPath, parentPath, nestingKey) {
+            row[nestingKey] = null;
+            id = idPath(row, $key);
+            parentId = parentPath(row, $key);
+            parents[id] = &row;
             mapReduce.emitIntermediate(id, parentId);
         };
 
-        $reducer = function (values, $key, MapReduce mapReduce) use (&parents, &isObject, nestingKey) {
+        reducer = function (values, $key, MapReduce mapReduce) use (&parents, &isObject, nestingKey) {
             static foundOutType = false;
             if (!foundOutType) {
                 isObject = is_object(current(parents));
@@ -545,7 +545,7 @@ trait CollectionTrait {
             parents[$key][nestingKey] = children;
         };
 
-        return this.newCollection(new MapReduce(this.unwrap(), mapper, $reducer))
+        return this.newCollection(new MapReduce(this.unwrap(), mapper, reducer))
             .map(function (value) use (&isObject) {
                 /** @var \ArrayIterator value */
                 return isObject ? value : value.getArrayCopy();
@@ -830,8 +830,8 @@ trait CollectionTrait {
         arrayValue = this.toList();
         $length = count(current(arrayValue));
         result = null;
-        foreach (arrayValue as $row) {
-            if (count($row) != $length) {
+        foreach (arrayValue as row) {
+            if (count(row) != $length) {
                 throw new LogicException("Child arrays do not have even length");
             }
         }

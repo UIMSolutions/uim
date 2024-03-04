@@ -37,24 +37,17 @@ interface ISchema {
      * implemented in some database dialects, but not all:
      *
      * - `comment` The comment for the column.
-     * Params:
-     * string columnName The name of the column
-     * @param IData[string]|string aattrs The attributes for the column or the type name.
-     * /
-   auto addColumn(string columnName, array | string aattrs);
+     */
+   void addColumn(string columnName, IData[string] attributes);
 
-   /Get column data in the table.
-   IData[string] getColumn(string columnName);
+   // Get column data in the table.
+   IData[string] columnData(string columnName);
 
    // Returns true if a column exists in the schema.
-   bool hasColumn(string columnName) : bool;
+   bool hasColumn(string columnName);
 
-   /**
-     * Remove a column from the table schema.
-     *
-     * If the column is not defined in the table, no error will be raised.
-     * /
-   auto removeColumn(string columnName);
+   // Remove a column from the table schema.
+   void removeColumn(string columnName);
 
    // Get the column names in the table.
    string[] columnNames();
@@ -72,7 +65,7 @@ interface ISchema {
      * string columnName The column to set the type of.
      * @param string atype The type to set the column to.
      */
-   void setColumnType(string columnName, string atype);
+   void setColumnType(string columnName, string columnType);
 
    /**
      * Returns the base type name for the provided column.

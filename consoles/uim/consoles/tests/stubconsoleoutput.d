@@ -14,7 +14,7 @@ import uim.consoles;
  * 
  *
  * output = new StubConsoleOutput();
- * aConsoleIo = new ConsoleIo($output);
+ * aConsoleIo = new ConsoleIo( output);
  * ```
  */
 class StubConsoleOutput : ConsoleOutput {

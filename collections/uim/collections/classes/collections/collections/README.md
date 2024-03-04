@@ -18,7 +18,7 @@ collection = new Collection(someItems);
 
 // Create a new collection containing elements
 // with a value greater than one.
-$overOne = collection.filter(function (aValue, aKey,  anIterator) {
+ overOne = collection.filter(function (aValue, aKey,  anIterator) {
     return aValue > 1;
 });
 ```

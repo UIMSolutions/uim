@@ -506,12 +506,12 @@ class I18nExtractCommand : Command {
             filename = domain.replace("/", "_") ~ ".pot";
             outputPath = _output ~ filename;
 
-            if (this.checkUnchanged($outputPath,  aHeaderLength, outputHeader) == true) {
+            if (this.checkUnchanged( outputPath,  aHeaderLength, outputHeader) == true) {
                  aConsoleIo.writeln(filename ~ " is unchanged. Skipping.");
                 continue;
             }
             response = "";
-            while (overwriteAll == false && file_exists($outputPath) && strtoupper(response) != "Y") {
+            while (overwriteAll == false && file_exists( outputPath) && strtoupper(response) != "Y") {
                  aConsoleIo.writeln();
                 response = aConsoleIo.askChoice(
                     "Error: %s already exists in this location. Overwrite? [Y]es, [N]o, [A]ll".format(filename),
@@ -570,14 +570,14 @@ class I18nExtractCommand : Command {
      * @param string anewFileContent The content of the new file.
      */
     protected bool checkUnchanged(string aoldFile, int  aHeaderLength, string anewFileContent) {
-        if (!file_exists($oldFile)) {
+        if (!file_exists( oldFile)) {
             return false;
         }
-        oldFileContent = file_get_contents($oldFile);
-        if ($oldFileContent == false) {
-            throw new UimException("Cannot read file content of `%s`".format($oldFile));
+        oldFileContent = file_get_contents( oldFile);
+        if ( oldFileContent == false) {
+            throw new UimException("Cannot read file content of `%s`".format( oldFile));
         }
-        oldChecksum = sha1(substr($oldFileContent,  aHeaderLength));
+        oldChecksum = sha1(substr( oldFileContent,  aHeaderLength));
         newChecksum = sha1(substr(newFileContent,  aHeaderLength));
 
         return oldChecksum == newChecksum;

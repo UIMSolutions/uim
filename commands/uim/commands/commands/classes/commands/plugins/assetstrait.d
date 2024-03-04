@@ -161,7 +161,7 @@ template PluginAssetsTemplate {
     protected bool _createDirectory(string directoryName) {
         old = umask(0);
         result = @mkdir(directoryName, 0755, true);
-        umask($old);
+        umask( old);
 
         if (result) {
             this.io.writeln("Created directory " ~ directoryName);

@@ -195,9 +195,9 @@ trait CollectionTrait {
     }
 
 
-    function sortBy(path, int $order = \SORT_DESC, int sort = \SORT_NUMERIC): ICollection
+    function sortBy(path, int  order = \SORT_DESC, int sort = \SORT_NUMERIC): ICollection
     {
-        return new SortIterator(this.unwrap(), path, $order, sort);
+        return new SortIterator(this.unwrap(), path,  order, sort);
     }
 
 
@@ -610,28 +610,28 @@ trait CollectionTrait {
     }
 
 
-    function listNested($order = "desc", nestingKey = "children"): ICollection
+    function listNested( order = "desc", nestingKey = "children"): ICollection
     {
-        if (is_string($order)) {
-            $order = strtolower($order);
+        if (is_string( order)) {
+             order = strtolower( order);
             modes = [
                 "desc": RecursiveIteratorIterator::SELF_FIRST,
                 "asc": RecursiveIteratorIterator::CHILD_FIRST,
                 "leaves": RecursiveIteratorIterator::LEAVES_ONLY,
             ];
 
-            if (!modes.isSet($order)) {
+            if (!modes.isSet( order)) {
                 throw new RuntimeException(sprintf(
                     "Invalid direction `%s` provided. Must be one of: "desc", "asc", "leaves"",
-                    $order
+                     order
                 ));
             }
-            $order = modes[$order];
+             order = modes[ order];
         }
 
         return new TreeIterator(
             new NestIterator(this, nestingKey),
-            $order
+             order
         );
     }
 
@@ -761,13 +761,13 @@ trait CollectionTrait {
     /**
      * {@inheritDoc}
      *
-     * @param callable|null $operation A callable that allows you to customize the product result.
+     * @param callable|null  operation A callable that allows you to customize the product result.
      * @param callable|null filter A filtering callback that must return true for a result to be part
      *   of the final results.
      * @return uim.collections.ICollection
      * @throws \LogicException
      */
-    function cartesianProduct(?callable $operation = null, ?callable filter = null): ICollection
+    function cartesianProduct(?callable  operation = null, ?callable filter = null): ICollection
     {
         if (this.isEmpty()) {
             return this.newCollection([]);
@@ -801,7 +801,7 @@ trait CollectionTrait {
             }, collectionArrays, collectionArraysKeys, currentIndexes);
 
             if (filter == null || filter(currentCombination)) {
-                result ~= $operation == null ? currentCombination : $operation(currentCombination);
+                result ~=  operation == null ? currentCombination :  operation(currentCombination);
             }
 
             currentIndexes[$lastIndex]++;

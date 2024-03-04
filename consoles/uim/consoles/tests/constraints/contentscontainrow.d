@@ -17,7 +17,7 @@ class ContentsContainRow : ContentsRegExp {
     bool matches(Json other) {
         string[] row = array_map(function (cell) {
             return preg_quote(cell, "/");
-        }, (array)$other);
+        }, (array) other);
         
         string cells = row.join("\s+\|\s+", );
         somePattern = "/" ~ cells ~ "/";
@@ -32,6 +32,6 @@ class ContentsContainRow : ContentsRegExp {
     
     // @param Json other Expected content
     string failureDescription(Json other) {
-        return "`" ~ this.exporter().shortenedExport($other) ~ "` " ~ this.toString();
+        return "`" ~ this.exporter().shortenedExport( other) ~ "` " ~ this.toString();
     }
 }

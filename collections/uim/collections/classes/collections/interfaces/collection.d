@@ -92,7 +92,7 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * $overTwentyOne = (new Collection([24, 45, 60, 15])).every(function (value, $key) {
+     *  overTwentyOne = (new Collection([24, 45, 60, 15])).every(function (value, $key) {
      *  return value > 21;
      * });
      * ```
@@ -364,12 +364,12 @@ interface ICollection {
      * ```
      *
      * @param callable|string path The column name to use for sorting or callback that returns the value.
-     * @param int $order The sort order, either SORT_DESC or SORT_ASC
+     * @param int  order The sort order, either SORT_DESC or SORT_ASC
      * @param int sort The sort type, one of SORT_STRING
      * SORT_NUMERIC or SORT_NATURAL
      * @return self
      */
-    ICollection sortBy(path, int $order = SORT_DESC, int sort = \SORT_NUMERIC): ICollection;
+    ICollection sortBy(path, int  order = SORT_DESC, int sort = \SORT_NUMERIC): ICollection;
 
     /**
      * Splits a collection into sets, grouped by the result of running each value
@@ -872,12 +872,12 @@ interface ICollection {
      * flattenedIds = collection.listNested().extract("id"); // Yields [1, 2, 3, 4, 5]
      * ```
      *
-     * @param string|int $order The order in which to return the elements
+     * @param string|int  order The order in which to return the elements
      * @param callable|string nestingKey The key name under which children are nested
      * or a callable function that will return the children list
      * @return self
      */
-    function listNested($order = "desc", nestingKey = "children"): ICollection;
+    function listNested( order = "desc", nestingKey = "children"): ICollection;
 
     /**
      * Creates a new collection that when iterated will stop yielding results if
@@ -1162,10 +1162,10 @@ interface ICollection {
      * ];
      * ```
      *
-     * @param callable|null $operation A callable that allows you to customize the product result.
+     * @param callable|null  operation A callable that allows you to customize the product result.
      * @param callable|null filter A filtering callback that must return true for a result to be part
      *   of the final results.
      * @return self
      */
-    ICollection cartesianProduct(?callable $operation = null, ?callable filter = null);
+    ICollection cartesianProduct(?callable  operation = null, ?callable filter = null);
 }

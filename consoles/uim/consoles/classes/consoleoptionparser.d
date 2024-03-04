@@ -541,7 +541,7 @@ class ConsoleOptionParser {
      * @throws \UIM\Console\Exception\ConsoleException When unknown short options are encountered.
      */
     protected array _parseShortOption(string optionToParse, IData[string] params) {
-        string aKey = substr($option, 1);
+        string aKey = substr( option, 1);
         if (aKey.length > 1) {
             flags = str_split(aKey);
             aKey = flags[0];
@@ -589,10 +589,10 @@ class ConsoleOptionParser {
         } else if (isBoolean) {
             aValue = true;
         } else {
-            aValue = to!string($option.defaultValue());
+            aValue = to!string( option.defaultValue());
         }
         option.validChoice(aValue);
-        if ($option.acceptsMultiple()) {
+        if ( option.acceptsMultiple()) {
             params[name] ~= aValue;
         } else {
             params[name] = aValue;

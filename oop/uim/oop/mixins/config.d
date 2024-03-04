@@ -18,33 +18,33 @@ mixin template ConfigForInterface() {
 // TODO enhance interface
 
 template ConfigForClass() {
-  protected Json _Data;
+  protected IData[string] _configData;
 
-  IData[string] configSettings = null() {
+  IData[string] configSettings() {
     return configuration.clone;
   }
 
-  void config(Json newData) {
-    configuration = newConfig.newData;
+  void config(IData[string] newData) {
+    configuration.update(newData);
   }
 
-  void updateConfig(Json updateData) {
+  void updateConfig(IData[string] updateData) {
     updateData.byKeyValue
       .each!(kv => Data(kv.key, kv.value));
   }
 
   bool hasData(string key) {
-    return _Data.hasKey(key);
+    return _configData.hasKey(key);
   }
 
   Json Data(string key) {
-    if (_Data.has(key))
-      return _Data[key].clone;
+    if (_configData.has(key))
+      return _configData[key].clone;
     return Json(null);
   }
 
   void Data(string key, Json newData) {
-    _Data[key] = newData.clone;
+    _configData[key] = newData.clone;
   }
 
   Json removeConfigKeys(string[] keys...) {
@@ -59,7 +59,7 @@ template ConfigForClass() {
 
   Json removeConfigKey(string key) {
     auto data = Data(key);
-    _Data.remove(key);
+    _configData.remove(key);
     return data;
   }
 }

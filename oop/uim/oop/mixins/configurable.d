@@ -4,27 +4,39 @@ import uim.oop;
 
 @safe:
 
-mixin template TConfigurable() {
-    protected IConfiguration configurationuration;
+mixin template ConfigurableTemplate() {
+    protected IConfiguration _configuration;
+
+    // Get configuration
     @property IConfiguration configuration() {
-        return configurationuration;
+        return _configuration;
     }
+
+    // Set configuration
     @property void configuration(IConfiguration newConfiguration) {
-        configurationuration = newConfiguration;
+        return _configuration = newConfiguration;
     }
 
-    void setConfiguration(Json newData) {
-        newData.byKeyValue
-            .each!(kv => configurationuration.data(kv.key, kv.value));
+    // Get configuration data
+    IData[string] configurationData() {
+        return _configuration ? _configuration.data() : null;
     }
 
-    void setConfiguration(string key, IData newData) {
-        if (configurationuration) {
-            configurationuration.data(key, newData);
+    // Set configuration data
+    void configurationData(IData[string] newData) {
+        if (_configuration) {
+            _configuration.data(newData);
         }
     }
 
+
     IData getConfiguration(string key) {
-        return configurationuration ? configurationuration.data(key) : null;
+        return _configuration ? _configuration.get(key) : null;
+    }
+
+    void setConfiguration(string key, IData newData) {
+        if (_configuration) {
+            _configuration.set(key, newData);
+        }
     }
 }

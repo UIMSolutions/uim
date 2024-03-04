@@ -11,6 +11,8 @@ import uim.oop;
 class UimExceptionList {
   this() {}
 
-  bool initialize(/* IData[string] configSettings = null */) {}  
+  bool initialize(/* IData[string] configSettings = null */) {
+    return true;
+  }  
 }
 auto ExceptionList() { return new UimExceptionList; }

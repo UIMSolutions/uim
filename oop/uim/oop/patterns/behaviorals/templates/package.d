@@ -35,6 +35,8 @@ import uim.oop;
    // Initialization hook method.
   override bool initialize(/* IData[string] configSettings = null */) {
       writeln("Cricket Game Initialized! Start playing.");
+
+      return true;
    }
 
    override void startPlay() {
@@ -51,6 +53,8 @@ import uim.oop;
    // Initialization hook method.
   override bool initialize(/* IData[string] configSettings = null */) {
       writeln("Football Game Initialized! Start playing.");
+
+      return true;
    }
 
    override void startPlay() {

@@ -30,10 +30,12 @@ class DData : IData {
   // Hook
   bool initialize(IData[string] initData = null) {
     configuration(new DConfiguration);
-    configuration.data(initData);
+    configurationData(initData);
     return true;
   }
 
+  mixin ConfigurableTemplate!();
+  
   // #region properties
   // mixin(TProperty!("DAttribute", "attribute"));
 

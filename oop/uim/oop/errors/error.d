@@ -137,6 +137,7 @@ class DError {
       "deprecated": LOG_NOTICE,
     ]; */
 
+    return true;
   }
 
   /*   // Get the mapped LOG_ constant.

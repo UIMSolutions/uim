@@ -196,10 +196,10 @@ version(test_uim_oop) { unittest {
 
 }}
 
-string iProperty(string dataType, string propertyName, bool get = true, booö set = true) {
+string iProperty(string dataType, string propertyName, bool get = true, bool set = true) {
 	return 	(get ? dataType~" "~propertyName~"();" : null) ~
 			(set ? "void "~propertyName~"("~dataType~" newValue);" : null);
 }
-template IProperty(string dataType, string propertyName, bool get = true, booö set = true) {
+template IProperty(string dataType, string propertyName, bool get = true, bool set = true) {
 	const char[] IProperty = iProperty(dataType, propertyName, get, set);
 }

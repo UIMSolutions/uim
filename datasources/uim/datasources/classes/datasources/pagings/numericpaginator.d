@@ -169,7 +169,7 @@ class NumericPaginator : PaginatorInterface
         data["count"] = this.getCount(cleanQuery, data);
 
         pagingParams = this.buildParams(data);
-        alias = object.getAlias();
+        alias = object.aliasName();
         _pagingParams = [alias: pagingParams];
         if (pagingParams["requestedPage"] > pagingParams["page"]) {
             throw new PageOutOfBoundsException([
@@ -220,7 +220,7 @@ class NumericPaginator : PaginatorInterface
      * @return array Array with keys "defaults", "options" and "finder"
      */
     protected array extractData(IRepository object, array params, array settings) {
-        alias = object.getAlias();
+        alias = object.aliasName();
         defaults = this.getDefaults(alias, settings);
         options = this.mergeOptions(params, defaults);
         options = this.validateSort(object, options);
@@ -519,7 +519,7 @@ class NumericPaginator : PaginatorInterface
 
             order = isset(options["order"]) && is_array(options["order"]) ? options["order"] : [];
             if (order && options["sort"] && strpos(options["sort"], ".") == false) {
-                order = _removeAliases(order, object.getAlias());
+                order = _removeAliases(order, object.aliasName());
             }
 
             options["order"] = [options["sort"]: direction] + order;
@@ -600,7 +600,7 @@ class NumericPaginator : PaginatorInterface
      * @return array Final order array.
      */
     protected array _prefix(IRepository object, array order, bool allowed = false) {
-        tableAlias = object.getAlias();
+        tableAlias = object.aliasName();
         tableOrder = null;
         foreach (order as key: value) {
             if (is_numeric(key)) {

@@ -8,14 +8,10 @@ import uim.datasources;
  * Describes the methods that any class representing a data storage should
  * comply with.
  */
-interface IRepository
-{
-    // Sets the repository alias.
-    void setAlias(string tableAlias);
-
-    // Returns the repository alias.
-    string getAlias();
-
+interface IRepository {
+    // Get / Set the repository alias name.
+    mixin(IProperty!("string", "aliasName"));
+    
     /**
      * Alias a field with the repository`s current alias.
      *

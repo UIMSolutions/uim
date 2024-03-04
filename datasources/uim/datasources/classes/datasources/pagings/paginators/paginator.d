@@ -162,7 +162,7 @@ class Paginator : IPaginator {
         myData["count"] = this.getCount(cleanQuery, myData);
 
         pagingParams = this.buildParams(myData);
-        myAlias = object.getAlias();
+        myAlias = object.aliasName();
         _pagingParams = [myAlias: pagingParams];
         if (pagingParams["requestedPage"] > pagingParams["page"]) {
             throw new PageOutOfBoundsException([
@@ -209,7 +209,7 @@ class Paginator : IPaginator {
      * /
     protected auto extractData(IRepository anRepository, array myParams, array settings): array
     {
-        myAlias = object.getAlias();
+        myAlias = object.aliasName();
         defaults = this.getDefaults(myAlias, settings);
         options = this.mergeOptions(myParams, defaults);
         options = this.validateSort(anRepository, options);
@@ -514,7 +514,7 @@ class Paginator : IPaginator {
 
             order = isset(options["order"]) && is_array(options["order"]) ? options["order"] : [];
             if (order && options["sort"] && indexOf(options["sort"], ".") == false) {
-                order = _removeAliases(order, object.getAlias());
+                order = _removeAliases(order, object.aliasName());
             }
 
             options["order"] = [options["sort"]: direction] + order;
@@ -597,7 +597,7 @@ class Paginator : IPaginator {
      * /
     protected auto _prefix(IRepository object, array order, bool allowed = false): array
     {
-        myTableAlias = object.getAlias();
+        myTableAlias = object.aliasName();
         myTableOrder= null;
         foreach (order as myKey: myValue) {
             if (is_numeric(myKey)) {

@@ -492,7 +492,7 @@ class ConsoleOptionParser {
      */
     string help(string aformat = "text", int width = 72) {
         formatter = new HelpFormatter(this);
-        formatter.setAlias(_rootName);
+        formatter.aliasName(_rootName);
 
         if (format == "text") {
             return formatter.text($width);

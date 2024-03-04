@@ -46,7 +46,7 @@ class HelpFormatter {
        _parser = myParser;
     }
 
-    void setAlias(string anAlias) {
+    void aliasName(string anAlias) {
        _alias = anAlias;
     }
     

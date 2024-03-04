@@ -565,7 +565,7 @@ abstract class DAssociation {
      */
     array transformRow(array myrow, string mynestKey, bool myjoined, string mytargetProperty = null): array
     {
-        mysourceAlias = this.getSource().getAlias();
+        mysourceAlias = this.getSource().aliasName();
         mynestKey = mynestKey ?: _name;
         mytargetProperty = mytargetProperty ?: this.getProperty();
         if (isSet(myrow[mysourceAlias])) {
@@ -585,7 +585,7 @@ abstract class DAssociation {
      *  with this association
      */
     IData[string] defaultRowValue(array myrow, bool myjoined) {
-        mysourceAlias = this.getSource().getAlias();
+        mysourceAlias = this.getSource().aliasName();
         if (isSet(myrow[mysourceAlias])) {
             myrow[mysourceAlias][this.getProperty()] = null;
         }
@@ -807,7 +807,7 @@ abstract class DAssociation {
     protected array _joinCondition(IData[string] options) {
         myconditions = [];
         mytAlias = _name;
-        mysAlias = this.getSource().getAlias();
+        mysAlias = this.getSource().aliasName();
         myforeignKey = (array)options["foreignKey"];
         mybindingKey = (array)this.getBindingKey();
 

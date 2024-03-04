@@ -11,16 +11,7 @@ module datasources.uim.datasources.interfaces.repositoryInterface;
  */
 interface IRepository
 {
-    /**
-     * Sets the repository alias.
-     *
-     * @param string alias Table alias
-     * @return this
-     */
-    function setAlias(string alias);
 
-    // Returns the repository alias.
-    string getAlias();
 
     /**
      * Sets the table registry key used to create this table instance.

@@ -273,7 +273,7 @@ class NumericPaginator : IPaginator {
      * settings The settings/configuration used for pagination.
      */
     protected array extractData(IRepository object, IData[string] requestParameters, IData[string] settingForPagination) {
-        auto aliasObj = object.getAlias();
+        auto aliasObj = object.aliasName();
         auto defaults = this.getDefaults(aliasObj, settingForPagination);
 
         auto validSettings = _defaultConfigData.keys;
@@ -477,7 +477,7 @@ class NumericPaginator : IPaginator {
             }
             order = isSet(options["order"]) && isArray(options["order"]) ? options["order"] : [];
             if ($order && options["sort"] && !options["sort"].has(".")) {
-                order = _removeAliases($order, repository.getAlias());
+                order = _removeAliases($order, repository.aliasName());
             }
             options["order"] = [options["sort"]: direction] + order;
         } else {
@@ -552,7 +552,7 @@ class NumericPaginator : IPaginator {
      * @param bool allowed Whether the field was allowed.
      */
     protected array _prefix(IRepository object, array order, bool allowed = false) {
-        aTableAlias = object.getAlias();
+        aTableAlias = object.aliasName();
         aTableOrder = [];
         foreach ($order as aKey: aValue) {
             if (isNumeric(aKey)) {

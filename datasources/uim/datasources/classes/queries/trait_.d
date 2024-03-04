@@ -209,7 +209,7 @@ trait QueryTrait
      */
     STRINGAA aliasField(string field, Nullable!string alias = null) {
         if (strpos(field, ".") == false) {
-            alias = alias ?: this.getRepository().getAlias();
+            alias = alias ?: this.getRepository().aliasName();
             aliasedField = alias ~ "." ~ field;
         } else {
             aliasedField = field;

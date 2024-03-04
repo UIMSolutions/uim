@@ -392,7 +392,7 @@ class I18nExtractCommand : Command {
                     string singular = "";
                     vars = array_combine(map, strings);
                     extract($vars);
-                    domain ??= "default";
+                    doamin = domain.ifEmpty("default");
                     details = [
                         "file": _file,
                         "line": line,
@@ -420,7 +420,6 @@ class I18nExtractCommand : Command {
      */
     protected void _buildFiles(Arguments commandArguments) {
         somePaths = _paths;
-        /** @psalm-suppress UndefinedConstant */
         somePaths ~= realpath(APP) ~ DIRECTORY_SEPARATOR;
 
         usort(somePaths, auto (string aa, string ab) {

@@ -9,5 +9,9 @@ import uim.collections;
 
 @safe:
 class Collection {
-  
+
+  bool initialize(IData[string] initData = null) {
+
+    return true;
+  }
 }

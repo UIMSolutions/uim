@@ -392,7 +392,7 @@ class I18nExtractCommand : Command {
                     string singular = "";
                     vars = array_combine(map, strings);
                     extract($vars);
-                    domain ??= "default";
+                    domain = domain.ifEmpty("default");
                     details = [
                         "file": _file,
                         "line": line,

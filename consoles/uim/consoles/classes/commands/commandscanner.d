@@ -94,7 +94,7 @@ class CommandScanner {
                 continue;
             }
             reflection = new ReflectionClass(className);
-            if ($reflection.isAbstract()) {
+            if (reflection.isAbstract()) {
                 continue;
             }
             if (isSubclass_of(className, BaseCommand.classname)) {

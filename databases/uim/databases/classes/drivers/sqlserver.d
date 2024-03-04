@@ -260,11 +260,11 @@ _baseConfig = [
         }
         // Decorate the original query as that is what the
         // end developer will be calling execute() on originally.
-        $original.decorateResults(function ($row) {
-            if (isSet($row["_cake_page_rownum_"])) {
-                unset($row["_cake_page_rownum_"]);
+        $original.decorateResults(function (row) {
+            if (isSet(row["_cake_page_rownum_"])) {
+                unset(row["_cake_page_rownum_"]);
             }
-            return $row;
+            return row;
         });
 
         return $outer;
@@ -305,11 +305,11 @@ _baseConfig = [
 
         // Decorate the original query as that is what the
         // end developer will be calling execute() on originally.
-        $original.decorateResults(function ($row) {
-            if (isSet($row["_cake_distinct_pivot_"])) {
-                unset($row["_cake_distinct_pivot_"]);
+        $original.decorateResults(function (row) {
+            if (isSet(row["_cake_distinct_pivot_"])) {
+                unset(row["_cake_distinct_pivot_"]);
             }
-            return $row;
+            return row;
         });
 
         return $outer;

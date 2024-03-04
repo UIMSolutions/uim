@@ -124,22 +124,22 @@ class ValuesExpression : IExpression {
         $defaults.byKeyValue
             .each!(kv => types[kv.key] = typeMap.type(kv.key));
 
-        foreach ($row; _values ) {
-            $row += $defaults;
-            $rowPlaceholders = [];
+        foreach (row; _values ) {
+            row += $defaults;
+            rowPlaceholders = [];
 
             foreach (column; colNames) {
-                auto aValue = $row[column];
+                auto aValue = row[column];
 
                 if (cast(IExpression)aValue ) {
-                    $rowPlaceholders ~= "(" ~ aValue.sql(aBinder) ~ ")";
+                    rowPlaceholders ~= "(" ~ aValue.sql(aBinder) ~ ")";
                     continue;
                 }
                 auto placeholder = aBinder.placeholder("c");
-                auto $rowPlaceholders ~= placeholder;
+                auto rowPlaceholders ~= placeholder;
                 aBinder.bind(placeholder, aValue, types[column]);
             }
-            placeholders ~= join(", ", $rowPlaceholders);
+            placeholders ~= join(", ", rowPlaceholders);
         }
         aQuery = this.getQuery();
         if (aQuery) {
@@ -187,11 +187,11 @@ class ValuesExpression : IExpression {
         if (isEmpty(types)) {
             return;
         }
-        foreach (_values as $row:  someValues) {
+        foreach (_values as row:  someValues) {
             types.byKeyValue
                 .each!(col: type)
                 /** @var \UIM\Database\Type\IExpressionType type */
-               _values[$row][col] = type.toExpression(someValues[col]);
+               _values[row][col] = type.toExpression(someValues[col]);
             }
         }
        _castedExpressions = true;

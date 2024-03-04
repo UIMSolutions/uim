@@ -153,7 +153,7 @@ template ConsoleIntegrationTestTemplate {
      * @param string amessage Failure message.
      */
     protected void assertOutputContainsRows(array row, string amessage = null) {
-        this.assertThat($row, new ContentsContainRow(_out.messages(), "output"), message);
+        this.assertThat(row, new ContentsContainRow(_out.messages(), "output"), message);
     }
     
     /**

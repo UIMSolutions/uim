@@ -60,7 +60,7 @@ abstract class Command : ICommand, IEventDispatcher {
 
     // Get the root command name.
     string getRootName() {
-        [$root] = split(" ", this.name);
+        [root] = split(" ", this.name);
 
         return root;
     }
@@ -85,9 +85,9 @@ abstract class Command : ICommand, IEventDispatcher {
      * You can override buildOptionParser() to define your options & arguments.
      */
     ConsoleOptionParser getOptionParser() {
-        [$root, name] = split(" ", this.name, 2);
+        [root, name] = split(" ", this.name, 2);
         aParser = new ConsoleOptionParser(name);
-        aParser.setRootName($root);
+        aParser.setRootName(root);
         aParser.description(getDescription());
 
         aParser = this.buildOptionParser(aParser);

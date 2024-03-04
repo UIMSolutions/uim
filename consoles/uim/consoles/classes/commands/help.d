@@ -87,10 +87,10 @@ class HelpCommand : Command, ICommandCollectionAware {
             }
              aConsoleIo.out("");
         }
-        $root = this.getRootName();
+        root = this.getRootName();
 
-        aConsoleIo.out("To run a command, type <info>`{$root} command_name [args|options]`</info>");
-        aConsoleIo.out("To get help on a specific command, type <info>`{$root} command_name --help`</info>", 2);
+        aConsoleIo.out("To run a command, type <info>`{root} command_name [args|options]`</info>");
+        aConsoleIo.out("To get help on a specific command, type <info>`{root} command_name --help`</info>", 2);
     }
     
     // Output relevant paths if defined

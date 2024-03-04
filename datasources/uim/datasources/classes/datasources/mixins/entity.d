@@ -80,7 +80,7 @@ mixin EntityTemplate {
      *
      * If enabled an exception will be thrown when trying to access a non-existent property.
      */
-  protected bool$requireFieldPresence = false;
+  protected boolrequireFieldPresence = false;
 
   /**
      * Magic getter to access fields that have been set in this entity

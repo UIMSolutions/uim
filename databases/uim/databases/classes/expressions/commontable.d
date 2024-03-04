@@ -19,7 +19,7 @@ class CommonTableExpression : IExpression {
     protected string amaterialized = null;
 
     // Whether the CTE is recursive.
-    protected bool $recursive = false;
+    protected bool recursive = false;
 
     this(string cteName = "", IExpression cteQuery = null) {
        _cteName = new IdentifierExpression(cteName);

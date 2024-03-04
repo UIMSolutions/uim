@@ -58,8 +58,8 @@ abstract class AbstractLocator : ILocator {
     abstract protected IRepository createInstance(string alias, STRINGAA someOptions);
 
 
-    function set(string alias, IRepository $repository) {
-        return this.instances[alias] = $repository;
+    function set(string alias, IRepository repository) {
+        return this.instances[alias] = repository;
     }
 
 

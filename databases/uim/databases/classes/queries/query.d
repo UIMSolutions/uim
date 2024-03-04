@@ -155,7 +155,7 @@ abstract class Query : IExpression, Stringable {
      * ## Example
      *
      * ```
-     * $rowCount = aQuery.update("articles")
+     * rowCount = aQuery.update("articles")
      *                .set(["published'=>true])
      *                .where(["published'=>false])
      *                .rowCountAndClose();
@@ -1221,10 +1221,10 @@ abstract class Query : IExpression, Stringable {
      * expression = aQuery.expr("Table.column = Table2.column"); // Return a raw SQL expression
      * ```
      * Params:
-     * \UIM\Database\IExpression|string[]|null $rawExpression A string, array or anything you want wrapped in an expression object
+     * \UIM\Database\IExpression|string[]|null rawExpression A string, array or anything you want wrapped in an expression object
      */
-    QueryExpression newExpr(IExpression|string[]|null $rawExpression = null) {
-        return this.expr($rawExpression);
+    QueryExpression newExpr(IExpression|string[]|null rawExpression = null) {
+        return this.expr(rawExpression);
     }
     
     /**
@@ -1241,13 +1241,13 @@ abstract class Query : IExpression, Stringable {
      * expression = aQuery.expr("Table.column = Table2.column"); // Return a raw SQL expression
      * ```
      * Params:
-     * \UIM\Database\IExpression|string[]|null $rawExpression A string, array or anything you want wrapped in an expression object
+     * \UIM\Database\IExpression|string[]|null rawExpression A string, array or anything you want wrapped in an expression object
      */
-    QueryExpression expr(IExpression|string[]|null $rawExpression = null) {
+    QueryExpression expr(IExpression|string[]|null rawExpression = null) {
         expression = new QueryExpression([], this.getTypeMap());
 
-        if ($rawExpression !isNull) {
-            expression.add($rawExpression);
+        if (rawExpression !isNull) {
+            expression.add(rawExpression);
         }
         return expression;
     }

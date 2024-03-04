@@ -106,7 +106,7 @@ interface IQuery {
      * Allows custom find methods to be combined and applied to each other.
      *
      * ```
-     * $repository.find("all").find("recent");
+     * repository.find("all").find("recent");
      * ```
      *
      * The above is an example of stacking multiple finder methods onto
@@ -242,7 +242,7 @@ interface IQuery {
      * Set the default Table object that will be used by this query
      * and form the `FROM` clause.
      * Params:
-     * \UIM\Datasource\IRepository $repository The default repository object to use
+     * \UIM\Datasource\IRepository repository The default repository object to use
      */
     void setRepository(IRepository repository);
 

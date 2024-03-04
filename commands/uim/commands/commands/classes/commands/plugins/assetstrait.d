@@ -26,17 +26,17 @@ template PluginAssetsTemplate {
             : [pluginName];
         plugins = [];
 
-        foreach ($plugin; pluginsList) {
-            auto somePath = Plugin.path($plugin) ~ "webroot";
+        foreach (plugin; pluginsList) {
+            auto somePath = Plugin.path(plugin) ~ "webroot";
             if (!isDir(somePath)) {
                 this.io.verbose("", 1);
                 this.io.verbose(
-                    "Skipping plugin %s. It does not have webroot folder.".format($plugin),
+                    "Skipping plugin %s. It does not have webroot folder.".format(plugin),
                     2
                 );
                 continue;
             }
-            auto link = Inflector.underscore($plugin);
+            auto link = Inflector.underscore(plugin);
             auto wwwRoot = Configure.read("App.wwwRoot");
             auto dir = wwwRoot;
             auto namespaced = false;
@@ -46,8 +46,8 @@ template PluginAssetsTemplate {
                 link = array_pop(someParts);
                 dir = wwwRoot ~ join(DIRECTORY_SEPARATOR, someParts) ~ DIRECTORY_SEPARATOR;
             }
-            plugins[$plugin] = [
-                "srcPath": Plugin.path($plugin) ~ "webroot",
+            plugins[plugin] = [
+                "srcPath": Plugin.path(plugin) ~ "webroot",
                 "destDir": dir,
                 "link": link,
                 "namespaced": namespaced,
@@ -64,7 +64,7 @@ template PluginAssetsTemplate {
      * @param bool overwrite Overwrite existing files.
      */
     protected void _process(IData[string] pluginsToProcess, bool copy = false, bool overwrite = false) {
-        foreach ($plugin: configData; pluginsToProcess) {
+        foreach (plugin: configData; pluginsToProcess) {
             this.io.writeln();
             this.io.writeln("For plugin: " ~ plugin);
             this.io.hr();
@@ -146,7 +146,7 @@ template PluginAssetsTemplate {
             }
         }
         fs = new Filesystem();
-        if ($fs.deleteDir($dest)) {
+        if (fs.deleteDir($dest)) {
             this.io.writeln("Deleted " ~ dest);
 
             return true;
@@ -181,7 +181,7 @@ template PluginAssetsTemplate {
      */
     protected bool _createSymlink(string atarget, string alink) {
         // phpcs:disable
-        result = @symlink($target, link);
+        result = @symlink(target, link);
         // phpcs:enable
 
         if (result) {
@@ -200,7 +200,7 @@ template PluginAssetsTemplate {
      */
     protected bool _copyDirectory(string asource, string adestination) {
         fs = new Filesystem();
-        if ($fs.copyDir($source, destination)) {
+        if (fs.copyDir($source, destination)) {
             this.io.writeln("Copied assets to directory " ~ destination);
 
             return true;

@@ -47,13 +47,13 @@ class TreeIterator : RecursiveIteratorIterator, ICollection {
      * ### Example
      *
      * ```
-     * printer = (new Collection($treeStructure)).listNested().printer("name");
+     * printer = (new Collection(treeStructure)).listNested().printer("name");
      * ```
      *
      * Using a closure:
      *
      * ```
-     * printer = (new Collection($treeStructure))
+     * printer = (new Collection(treeStructure))
      *     .listNested()
      *     .printer(function (anItem, aKey, myIterator) {
      *         return anItem.name;

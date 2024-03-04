@@ -128,7 +128,7 @@ class I18nExtractCommand : Command {
         if (commandArguments.hasOption("output")) {
            _output = (string)commandArguments.getOption("output");
         } else if (commandArguments.hasOption("plugin")) {
-           _output = Plugin.path($plugin)
+           _output = Plugin.path(plugin)
                 ~ "resources" ~ DIRECTORY_SEPARATOR
                 ~ "locales" ~ DIRECTORY_SEPARATOR;
         } else {
@@ -309,7 +309,7 @@ class I18nExtractCommand : Command {
      */
     protected void _extractTokens(Arguments commandArguments, ConsoleIo aConsoleIo) {
         progress = aConsoleIo.helper("progress");
-        assert(cast(ProgressHelper)$progress);
+        assert(cast(ProgressHelper)progress);
         progress.initialize(["total": count(_files)]);
          isVerbose = commandArguments.getOption("verbose");
 
@@ -323,27 +323,27 @@ class I18nExtractCommand : Command {
             "__dx": ["domain", "context", "singular"],
             "__dxn": ["domain", "context", "singular", "plural"],
         ];
-         somePattern = "/(" ~ $functions.keys.join("|") ~ ")\s*\(/";
+         somePattern = "/(" ~ functions.keys.join("|") ~ ")\s*\(/";
 
-        foreach ($file; _files) {
+        foreach (file; _files) {
             auto _file = file;
             if (isVerbose) {
-                 aConsoleIo.verbose("Processing %s...".format($file));
+                 aConsoleIo.verbose("Processing %s...".format(file));
             }
-            auto code = (string)file_get_contents($file);
+            auto code = (string)file_get_contents(file);
 
             if (preg_match(somePattern, code) == 1) {
                 auto allTokens = token_get_all(code);
 
                 auto _tokens = 
                     allTokens
-                        .filter!(token => !isArray($token) || ($token[0] != T_WHITESPACE && token[0] != T_INLINE_HTML))
+                        .filter!(token => !isArray(token) || (token[0] != T_WHITESPACE && token[0] != T_INLINE_HTML))
                         .map!(token => token).array;
 
                 }
                 unset(allTokens);
 
-                foreach ($functionName: map; functions) {
+                foreach (functionName: map; functions) {
                    _parse(aConsoleIo, functionName, map);
                 }
             }
@@ -365,28 +365,28 @@ class I18nExtractCommand : Command {
         count = 0;
         tokenCount = count(_tokens);
 
-        while ($tokenCount - count > 1) {
+        while (tokenCount - count > 1) {
             countToken = _tokens[count];
             firstParenthesis = _tokens[count + 1];
             if (!isArray(countToken)) {
                 count++;
                 continue;
             }
-            [$type, string, line] = countToken;
-            if (($type == T_STRING) && ($string == functionName) && ($firstParenthesis == "(")) {
+            [type, string, line] = countToken;
+            if ((type == T_STRING) && ($string == functionName) && (firstParenthesis == "(")) {
                 position = count;
                 depth = 0;
 
                 while (!$depth) {
-                    if (_tokens[$position] == "(") {
+                    if (_tokens[position] == "(") {
                         depth++;
-                    } else if (_tokens[$position] == ")") {
+                    } else if (_tokens[position] == ")") {
                         depth--;
                     }
                     position++;
                 }
                 mapCount = count(map);
-                strings = _getStrings($position, mapCount);
+                strings = _getStrings(position, mapCount);
 
                 if (mapCount == count($strings)) {
                     string singular = "";
@@ -398,7 +398,7 @@ class I18nExtractCommand : Command {
                         "line": line,
                     ];
                     details["file"] = "." ~ details["file"].replace(ROOT, "");
-                    if (isSet($plural)) {
+                    if (isSet(plural)) {
                         details["msgid_plural"] = plural;
                     }
                     if (isSet(context)) {
@@ -437,7 +437,7 @@ class I18nExtractCommand : Command {
                     string aHeader = "";
                     if (!commandArguments.getOption("no-location")) {
                         auto occurrences = [];
-                        foreach ($file: lines; files) {
+                        foreach (file: lines; files) {
                             array_unique($lines)
                                 .each!(line => occurrences ~= file ~ ":" ~ line);
                         }
@@ -457,7 +457,7 @@ class I18nExtractCommand : Command {
                         ? "msgid \"{$msgid}\"\n" ~
                         "msgstr \"\"\n\n"
                         : "msgid \"{$msgid}\"\n" ~ 
-                        "msgid_plural \"{$plural}\"\n"~
+                        "msgid_plural \"{plural}\"\n"~
                         "msgstr[0] \"\"\n" ~
                         "msgstr[1] \"\"\n\n";
 
@@ -507,14 +507,14 @@ class I18nExtractCommand : Command {
             outputPath = _output ~ filename;
 
             if (this.checkUnchanged($outputPath,  aHeaderLength, outputHeader) == true) {
-                 aConsoleIo.writeln($filename ~ " is unchanged. Skipping.");
+                 aConsoleIo.writeln(filename ~ " is unchanged. Skipping.");
                 continue;
             }
             response = "";
             while (overwriteAll == false && file_exists($outputPath) && strtoupper(response) != "Y") {
                  aConsoleIo.writeln();
                 response = aConsoleIo.askChoice(
-                    "Error: %s already exists in this location. Overwrite? [Y]es, [N]o, [A]ll".format($filename),
+                    "Error: %s already exists in this location. Overwrite? [Y]es, [N]o, [A]ll".format(filename),
                     ["y", "n", "a"],
                     'y'
                 );
@@ -589,33 +589,33 @@ class I18nExtractCommand : Command {
      * int position Actual position on tokens array
      * @param int target Number of strings to extract
      */
-    protected string[] _getStrings(int &$position, int target) {
+    protected string[] _getStrings(int &position, int target) {
         string[] strings = [];
         count = 0;
         while (
             count < target
-            && (_tokens[$position] == ","
-                || _tokens[$position][0] == T_CONSTANT_ENCAPSED_STRING
-                || _tokens[$position][0] == T_LNUMBER
+            && (_tokens[position] == ","
+                || _tokens[position][0] == T_CONSTANT_ENCAPSED_STRING
+                || _tokens[position][0] == T_LNUMBER
             )
         ) {
             count = count($strings);
-            if (_tokens[$position][0] == T_CONSTANT_ENCAPSED_STRING && _tokens[$position + 1] == ".") {
+            if (_tokens[position][0] == T_CONSTANT_ENCAPSED_STRING && _tokens[position + 1] == ".") {
                 string = "";
                 while (
-                   _tokens[$position][0] == T_CONSTANT_ENCAPSED_STRING
-                    || _tokens[$position] == "."
+                   _tokens[position][0] == T_CONSTANT_ENCAPSED_STRING
+                    || _tokens[position] == "."
                 ) {
-                    if (_tokens[$position][0] == T_CONSTANT_ENCAPSED_STRING) {
-                        string ~= _formatString(_tokens[$position][1]);
+                    if (_tokens[position][0] == T_CONSTANT_ENCAPSED_STRING) {
+                        string ~= _formatString(_tokens[position][1]);
                     }
                     position++;
                 }
                 strings ~= string;
-            } else if (_tokens[$position][0] == T_CONSTANT_ENCAPSED_STRING) {
-                strings ~= _formatString(_tokens[$position][1]);
-            } else if (_tokens[$position][0] == T_LNUMBER) {
-                strings ~= _tokens[$position][1];
+            } else if (_tokens[position][0] == T_CONSTANT_ENCAPSED_STRING) {
+                strings ~= _formatString(_tokens[position][1]);
+            } else if (_tokens[position][0] == T_LNUMBER) {
+                strings ~= _tokens[position][1];
             }
             position++;
         }
@@ -653,12 +653,12 @@ class I18nExtractCommand : Command {
         if (!_markerError) {
             return;
         }
-         aConsoleIo.writeErrorMessages("Invalid marker content in %s:%s\n* %s(".format($file, lineNumber, marker));
+         aConsoleIo.writeErrorMessages("Invalid marker content in %s:%s\n* %s(".format(file, lineNumber, marker));
         count += 2;
         tokenCount = _tokens.length;
         parenthesis = 1;
 
-        while (($tokenCount - count > 0) && parenthesis) {
+        while ((tokenCount - count > 0) && parenthesis) {
             if (isArray(_tokens[count])) {
                  aConsoleIo.writeErrorMessages(_tokens[count][1], 0);
             } else {
@@ -696,8 +696,8 @@ class I18nExtractCommand : Command {
             somePath ~= DIRECTORY_SEPARATOR;
             fs = new Filesystem();
             files = fs.findRecursive(somePath, "/\.d$/");
-            files = iterator_to_array($files).keys;
-            sort($files);
+            files = iterator_to_array(files).keys;
+            sort(files);
             if (somePattern) {
                 files = preg_grep(somePattern, files, PREG_GREP_INVERT) ?: [];
                 files = files.values;

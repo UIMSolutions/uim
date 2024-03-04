@@ -151,7 +151,7 @@ interface ICollection : Iterator, JsonSerializable, Countable {
      * Getting a collection of booleans where true indicates if a person is female:
      *
      * ```
-     * collection = (new Collection($people)).map(function ($person, aKey) {
+     * collection = (new Collection(people)).map(function (person, aKey) {
      * return person.gender == "female";
      * });
      * ```
@@ -868,7 +868,7 @@ interface ICollection : Iterator, JsonSerializable, Countable {
      * Get an array of lines in a CSV file until the timestamp column is less than a date
      *
      * ```
-     * lines = (new Collection($fileLines)).stopWhen(function (aValue, aKey) {
+     * lines = (new Collection(fileLines)).stopWhen(function (aValue, aKey) {
      * return (new DateTime(aValue)).format("Y") < 2012;
      * })
      * .toArray();
@@ -913,8 +913,8 @@ interface ICollection : Iterator, JsonSerializable, Countable {
      *
      * ```
      *  someItems [1, 2, 3];
-     * allItems = (new Collection(someItems)).unfold(function ($page) {
-     * return service.fetchPage($page).toArray();
+     * allItems = (new Collection(someItems)).unfold(function (page) {
+     * return service.fetchPage(page).toArray();
      * });
      * ```
      * Params:

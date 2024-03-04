@@ -32,13 +32,13 @@ class I18nInitCommand : Command {
         auto somePaths = App.path("locales");
         if (commandArguments.hasOption("plugin")) {
             plugin = Inflector.camelize(to!string(commandArguments.getOption("plugin")));
-            somePaths = [Plugin.path($plugin) ~ "resources" ~ DIRECTORY_SEPARATOR ~ "locales" ~ DIRECTORY_SEPARATOR];
+            somePaths = [Plugin.path(plugin) ~ "resources" ~ DIRECTORY_SEPARATOR ~ "locales" ~ DIRECTORY_SEPARATOR];
         }
         response = aConsoleIo.ask("What folder?", rtrim(somePaths[0], DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR);
         sourceFolder = rtrim(response, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
         targetFolder = sourceFolder ~ myLanguage ~ DIRECTORY_SEPARATOR;
-        if (!isDir($targetFolder)) {
-            mkdir($targetFolder, 0770, true);
+        if (!isDir(targetFolder)) {
+            mkdir(targetFolder, 0770, true);
         }
         size_t countFiles = 0;
         auto anIterator = new DirectoryIterator($sourceFolder);
@@ -52,7 +52,7 @@ class I18nInitCommand : Command {
                 if (content == false) {
                     throw new UimException("Cannot read file content of `%s`".format($sourceFolder ~ filename));
                 }
-                aConsoleIo.createFile($targetFolder ~ newFilename, content);
+                aConsoleIo.createFile(targetFolder ~ newFilename, content);
                 countFiles++;
             });
          aConsoleIo.writeln("Generated " ~ countFiles ~ " PO files in " ~ targetFolder);

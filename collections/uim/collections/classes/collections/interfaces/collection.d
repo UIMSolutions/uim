@@ -21,7 +21,7 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * collection = (new Collection($items)).each(function (value, $key) {
+     * collection = (new Collection(items)).each(function (value, $key) {
      *  writeln("Element $key: value";
      * });
      * ```
@@ -148,8 +148,8 @@ interface ICollection {
      * Getting a collection of booleans where true indicates if a person is female:
      *
      * ```
-     * collection = (new Collection($people)).map(function ($person, $key) {
-     *  return $person.gender == "female";
+     * collection = (new Collection(people)).map(function (person, $key) {
+     *  return person.gender == "female";
      * });
      * ```
      *
@@ -168,10 +168,10 @@ interface ICollection {
      * and reduction will start from the second item.
      *
      * @param callable callback The callback function to be called
-     * @param mixed $initial The state of reduction
+     * @param mixed initial The state of reduction
      * @return mixed
      */
-    Json reduce(callable callback, $initial = null);
+    Json reduce(callable callback, initial = null);
 
     /**
      * Returns a new collection containing the column or property value found in each
@@ -188,11 +188,11 @@ interface ICollection {
      * Extract the user name for all comments in the array:
      *
      * ```
-     * $items = [
+     * items = [
      *  ["comment": ["body": "cool", "user": ["name": "Mark"]],
      *  ["comment": ["body": "very cool", "user": ["name": "Renan"]]
      * ];
-     * extracted = (new Collection($items)).extract("comment.user.name");
+     * extracted = (new Collection(items)).extract("comment.user.name");
      *
      * // Result will look like this when converted to array
      * ["Mark", "Renan"]
@@ -201,22 +201,22 @@ interface ICollection {
      * It is also possible to extract a flattened collection out of nested properties
      *
      * ```
-     *  $items = [
+     *  items = [
      *      ["comment": ["votes": [["value": 1], ["value": 2], ["value": 3]]],
      *      ["comment": ["votes": [["value": 4]]
      * ];
-     * extracted = (new Collection($items)).extract("comment.votes.{*}.value");
+     * extracted = (new Collection(items)).extract("comment.votes.{*}.value");
      *
      * // Result will contain
      * [1, 2, 3, 4]
      * ```
      *
-     * @param callable|string $path A dot separated path of column to follow
+     * @param callable|string path A dot separated path of column to follow
      * so that the final one can be returned or a callable that will take care
      * of doing that.
      * @return self
      */
-    ICollection extract($path);
+    ICollection extract(path);
 
     /**
      * Returns the top element in this collection after being sorted by a property.
@@ -236,13 +236,13 @@ interface ICollection {
      * writeln($max.name;
      * ```
      *
-     * @param callable|string $path The column name to use for sorting or callback that returns the value.
+     * @param callable|string path The column name to use for sorting or callback that returns the value.
      * @param int $sort The sort type, one of SORT_STRING
      * SORT_NUMERIC or SORT_NATURAL
      * @see uim.collections.ICollection::sortBy()
      * @return mixed The value of the top element in the collection
      */
-    Json max($path, int $sort = \SORT_NUMERIC);
+    Json max(path, int $sort = \SORT_NUMERIC);
 
     /**
      * Returns the bottom element in this collection after being sorted by a property.
@@ -262,27 +262,27 @@ interface ICollection {
      * writeln($min.name;
      * ```
      *
-     * @param callable|string $path The column name to use for sorting or callback that returns the value.
+     * @param callable|string path The column name to use for sorting or callback that returns the value.
      * @param int $sort The sort type, one of SORT_STRING
      * SORT_NUMERIC or SORT_NATURAL
      * @see uim.collections.ICollection::sortBy()
      * @return mixed The value of the bottom element in the collection
      */
-    Json min($path, int $sort = \SORT_NUMERIC);
+    Json min(path, int $sort = \SORT_NUMERIC);
 
     /**
-     * Returns the average of all the values extracted with $path
+     * Returns the average of all the values extracted with path
      * or of this collection.
      *
      * ### Example:
      *
      * ```
-     * $items = [
+     * items = [
      *  ["invoice": ["total": 100]],
      *  ["invoice": ["total": 200]]
      * ];
      *
-     * total = (new Collection($items)).avg("invoice.total");
+     * total = (new Collection(items)).avg("invoice.total");
      *
      * // Total: 150
      *
@@ -293,21 +293,21 @@ interface ICollection {
      * The average of an empty set or 0 rows is `null`. Collections with `null`
      * values are not considered empty.
      *
-     * @param callable|string|null $path The property name to sum or a function
+     * @param callable|string|null path The property name to sum or a function
      * If no value is passed, an identity function will be used.
      * that will return the value of the property to sum.
      * @return float|int|null
      */
-    float avg($path = null);
+    float avg(path = null);
 
     /**
-     * Returns the median of all the values extracted with $path
+     * Returns the median of all the values extracted with path
      * or of this collection.
      *
      * ### Example:
      *
      * ```
-     * $items = [
+     * items = [
      *  ["invoice": ["total": 400]],
      *  ["invoice": ["total": 500]]
      *  ["invoice": ["total": 100]]
@@ -315,7 +315,7 @@ interface ICollection {
      *  ["invoice": ["total": 200]]
      * ];
      *
-     * total = (new Collection($items)).median("invoice.total");
+     * total = (new Collection(items)).median("invoice.total");
      *
      * // Total: 333
      *
@@ -326,12 +326,12 @@ interface ICollection {
      * The median of an empty set or 0 rows is `null`. Collections with `null`
      * values are not considered empty.
      *
-     * @param callable|string|null $path The property name to sum or a function
+     * @param callable|string|null path The property name to sum or a function
      * If no value is passed, an identity function will be used.
      * that will return the value of the property to sum.
      * @return float|int|null
      */
-    float median($path = null);
+    float median(path = null);
 
     /**
      * Returns a sorted iterator out of the elements in this collection,
@@ -339,7 +339,7 @@ interface ICollection {
      * callback. callback can also be a string representing the column or property
      * name.
      *
-     * The callback will receive as its first argument each of the elements in $items,
+     * The callback will receive as its first argument each of the elements in items,
      * the value returned by the callback will be used as the value for sorting such
      * element. Please note that the callback function could be called more than once
      * per element.
@@ -347,29 +347,29 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * $items = collection.sortBy(function ($user) {
+     * items = collection.sortBy(function ($user) {
      *  return $user.age;
      * });
      *
      * // alternatively
-     * $items = collection.sortBy("age");
+     * items = collection.sortBy("age");
      *
      * // or use a property path
-     * $items = collection.sortBy("department.name");
+     * items = collection.sortBy("department.name");
      *
      * // output all user name order by their age in descending order
-     * foreach ($items as $user) {
+     * foreach (items as $user) {
      *  writeln($user.name;
      * }
      * ```
      *
-     * @param callable|string $path The column name to use for sorting or callback that returns the value.
+     * @param callable|string path The column name to use for sorting or callback that returns the value.
      * @param int $order The sort order, either SORT_DESC or SORT_ASC
      * @param int $sort The sort type, one of SORT_STRING
      * SORT_NUMERIC or SORT_NATURAL
      * @return self
      */
-    ICollection sortBy($path, int $order = SORT_DESC, int $sort = \SORT_NUMERIC): ICollection;
+    ICollection sortBy(path, int $order = SORT_DESC, int $sort = \SORT_NUMERIC): ICollection;
 
     /**
      * Splits a collection into sets, grouped by the result of running each value
@@ -383,16 +383,16 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * $items = [
+     * items = [
      *  ["id": 1, "name": "foo", "parent_id": 10],
      *  ["id": 2, "name": "bar", "parent_id": 11],
      *  ["id": 3, "name": "baz", "parent_id": 10],
      * ];
      *
-     * $group = (new Collection($items)).groupBy("parent_id");
+     * $group = (new Collection(items)).groupBy("parent_id");
      *
      * // Or
-     * $group = (new Collection($items)).groupBy(function (e) {
+     * $group = (new Collection(items)).groupBy(function (e) {
      *  return e["parent_id"];
      * });
      *
@@ -408,11 +408,11 @@ interface ICollection {
      * ];
      * ```
      *
-     * @param callable|string $path The column name to use for grouping or callback that returns the value.
+     * @param callable|string path The column name to use for grouping or callback that returns the value.
      * or a function returning the grouping key out of the provided element
      * @return self
      */
-    ICollection groupBy($path);
+    ICollection groupBy(path);
 
     /**
      * Given a list and a callback function that returns a key for each element
@@ -426,16 +426,16 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * $items = [
+     * items = [
      *  ["id": 1, "name": "foo"],
      *  ["id": 2, "name": "bar"],
      *  ["id": 3, "name": "baz"],
      * ];
      *
-     * $indexed = (new Collection($items)).indexBy("id");
+     * indexed = (new Collection(items)).indexBy("id");
      *
      * // Or
-     * $indexed = (new Collection($items)).indexBy(function (e) {
+     * indexed = (new Collection(items)).indexBy(function (e) {
      *  return e["id"];
      * });
      *
@@ -447,11 +447,11 @@ interface ICollection {
      * ];
      * ```
      *
-     * @param callable|string $path The column name to use for indexing or callback that returns the value.
+     * @param callable|string path The column name to use for indexing or callback that returns the value.
      * or a function returning the indexing key out of the provided element
      * @return self
      */
-    ICollection indexBy($path);
+    ICollection indexBy(path);
 
     /**
      * Sorts a list into groups and returns a count for the number of elements
@@ -465,16 +465,16 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * $items = [
+     * items = [
      *  ["id": 1, "name": "foo", "parent_id": 10],
      *  ["id": 2, "name": "bar", "parent_id": 11],
      *  ["id": 3, "name": "baz", "parent_id": 10],
      * ];
      *
-     * $group = (new Collection($items)).countBy("parent_id");
+     * $group = (new Collection(items)).countBy("parent_id");
      *
      * // Or
-     * $group = (new Collection($items)).countBy(function (e) {
+     * $group = (new Collection(items)).countBy(function (e) {
      *  return e["parent_id"];
      * });
      *
@@ -485,11 +485,11 @@ interface ICollection {
      * ];
      * ```
      *
-     * @param callable|string $path The column name to use for indexing or callback that returns the value.
+     * @param callable|string path The column name to use for indexing or callback that returns the value.
      * or a function returning the indexing key out of the provided element
      * @return self
      */
-    ICollection countBy($path);
+    ICollection countBy(path);
 
     /**
      * Returns the total sum of all the values extracted with $matcher
@@ -498,12 +498,12 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * $items = [
+     * items = [
      *  ["invoice": ["total": 100]],
      *  ["invoice": ["total": 200]]
      * ];
      *
-     * total = (new Collection($items)).sumOf("invoice.total");
+     * total = (new Collection(items)).sumOf("invoice.total");
      *
      * // Total: 300
      *
@@ -511,12 +511,12 @@ interface ICollection {
      * // Total: 6
      * ```
      *
-     * @param callable|string|null $path The property name to sum or a function
+     * @param callable|string|null path The property name to sum or a function
      * If no value is passed, an identity function will be used.
      * that will return the value of the property to sum.
      * @return float|int
      */
-    float sumOf($path = null);
+    float sumOf(path = null);
 
     /**
      * Returns a new collection with the elements placed in a random order,
@@ -554,9 +554,9 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * $items = [1, 2, 3, 4, 5];
+     * items = [1, 2, 3, 4, 5];
      *
-     * $last = (new Collection($items)).takeLast(3);
+     * $last = (new Collection(items)).takeLast(3);
      *
      * // Result will look like this when converted to array
      * [3, 4, 5];
@@ -583,12 +583,12 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * $items = [
+     * items = [
      *  ["comment": ["body": "cool", "user": ["name": "Mark"]],
      *  ["comment": ["body": "very cool", "user": ["name": "Renan"]]
      * ];
      *
-     * extracted = (new Collection($items)).match(["user.name": "Renan"]);
+     * extracted = (new Collection(items)).match(["user.name": "Renan"]);
      *
      * // Result will look like this when converted to array
      * [
@@ -633,36 +633,36 @@ interface ICollection {
      * Returns a new collection as the result of concatenating the list of elements
      * in this collection with the passed list of elements
      *
-     * @param iterable $items Items list.
+     * @param iterable items Items list.
      * @return self
      */
-    ICollection append($items);
+    ICollection append(items);
 
     /**
      * Append a single item creating a new collection.
      *
-     * @param mixed $item The item to append.
+     * @param mixed item The item to append.
      * @param mixed $key The key to append the item with. If null a key will be generated.
      * @return self
      */
-    ICollection appendItem($item, $key = null);
+    ICollection appendItem(item, $key = null);
 
     /**
      * Prepend a set of items to a collection creating a new collection
      *
-     * @param mixed $items The items to prepend.
+     * @param mixed items The items to prepend.
      * @return self
      */
-    ICollection prepend($items);
+    ICollection prepend(items);
 
     /**
      * Prepend a single item creating a new collection.
      *
-     * @param mixed $item The item to prepend.
+     * @param mixed item The item to prepend.
      * @param mixed $key The key to prepend the item with. If null a key will be generated.
      * @return self
      */
-    ICollection prependItem($item, $key = null);
+    ICollection prependItem(item, $key = null);
 
     /**
      * Returns a new collection where the values extracted based on a value path
@@ -672,13 +672,13 @@ interface ICollection {
      * ### Examples:
      *
      * ```
-     * $items = [
+     * items = [
      *  ["id": 1, "name": "foo", "parent": "a"],
      *  ["id": 2, "name": "bar", "parent": "b"],
      *  ["id": 3, "name": "baz", "parent": "a"],
      * ];
      *
-     * combined = (new Collection($items)).combine("id", "name");
+     * combined = (new Collection(items)).combine("id", "name");
      *
      * // Result will look like this when converted to array
      * [
@@ -687,7 +687,7 @@ interface ICollection {
      *  3: "baz",
      * ];
      *
-     * combined = (new Collection($items)).combine("id", "name", "parent");
+     * combined = (new Collection(items)).combine("id", "name", "parent");
      *
      * // Result will look like this when converted to array
      * [
@@ -710,21 +710,21 @@ interface ICollection {
      * Returns a new collection where the values are nested in a tree-like structure
      * based on an id property path and a parent id property path.
      *
-     * @param callable|string $idPath the column name path to use for determining
+     * @param callable|string idPath the column name path to use for determining
      * whether an element is parent of another
-     * @param callable|string $parentPath the column name path to use for determining
+     * @param callable|string parentPath the column name path to use for determining
      * whether an element is child of another
      * @param string $nestingKey The key name under which children are nested
      * @return self
      */
-    ICollection nest($idPath, $parentPath, string $nestingKey = "children");
+    ICollection nest(idPath, parentPath, string $nestingKey = "children");
 
     /**
      * Returns a new collection containing each of the elements found in `values` as
      * a property inside the corresponding elements in this collection. The property
-     * where the values will be inserted is described by the `$path` parameter.
+     * where the values will be inserted is described by the `path` parameter.
      *
-     * The $path can be a string with a property name or a dot separated path of
+     * The path can be a string with a property name or a dot separated path of
      * properties that should be followed to get the last one in the path.
      *
      * If a column or property could not be found for a particular element in the
@@ -735,12 +735,12 @@ interface ICollection {
      * Insert ages into a collection containing users:
      *
      * ```
-     * $items = [
+     * items = [
      *  ["comment": ["body": "cool", "user": ["name": "Mark"]],
      *  ["comment": ["body": "awesome", "user": ["name": "Renan"]]
      * ];
      * ages = [25, 28];
-     * $inserted = (new Collection($items)).insert("comment.user.age", ages);
+     * inserted = (new Collection(items)).insert("comment.user.age", ages);
      *
      * // Result will look like this when converted to array
      * [
@@ -749,13 +749,13 @@ interface ICollection {
      * ];
      * ```
      *
-     * @param string $path a dot separated string symbolizing the path to follow
+     * @param string path a dot separated string symbolizing the path to follow
      * inside the hierarchy of each value so that the value can be inserted
      * @param mixed values The values to be inserted at the specified path,
      * values are matched with the elements in this collection by its positional index.
      * @return self
      */
-    function insert(string $path, values): ICollection;
+    function insert(string path, values): ICollection;
 
     /**
      * Returns an array representation of the results
@@ -798,13 +798,13 @@ interface ICollection {
      * ```
      * collection.map(mapper).sortBy("age").extract("name");
      * compiled = collection.compile();
-     * $isJohnHere = compiled.some($johnMatcher);
+     * isJohnHere = compiled.some($johnMatcher);
      * allButJohn = compiled.filter($johnMatcher);
      * ```
      *
      * In the above example, had the collection not been compiled before, the
      * iterations for `map`, `sortBy` and `extract` would"ve been executed twice:
-     * once for getting `$isJohnHere` and once for `allButJohn`
+     * once for getting `isJohnHere` and once for `allButJohn`
      *
      * You can think of this method as a way to create save points for complex
      * calculations in a collection.
@@ -869,7 +869,7 @@ interface ICollection {
      *  ["id": 1, "children": [["id": 2, "children": [["id": 3]]]]],
      *  ["id": 4, "children": [["id": 5]]]
      * ]);
-     * $flattenedIds = collection.listNested().extract("id"); // Yields [1, 2, 3, 4, 5]
+     * flattenedIds = collection.listNested().extract("id"); // Yields [1, 2, 3, 4, 5]
      * ```
      *
      * @param string|int $order The order in which to return the elements
@@ -893,7 +893,7 @@ interface ICollection {
      * Get an array of lines in a CSV file until the timestamp column is less than a date
      *
      * ```
-     * $lines = (new Collection($fileLines)).stopWhen(function (value, $key) {
+     * $lines = (new Collection(fileLines)).stopWhen(function (value, $key) {
      *  return (new DateTime(value)).format("Y") < 2012;
      * })
      * .toArray();
@@ -930,16 +930,16 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * $items [[1, 2, 3], [4, 5]];
-     * $unfold = (new Collection($items)).unfold(); // Returns [1, 2, 3, 4, 5]
+     * items [[1, 2, 3], [4, 5]];
+     * $unfold = (new Collection(items)).unfold(); // Returns [1, 2, 3, 4, 5]
      * ```
      *
      * Using a transformer
      *
      * ```
-     * $items [1, 2, 3];
-     * allItems = (new Collection($items)).unfold(function ($page) {
-     *  return $service.fetchPage($page).toArray();
+     * items [1, 2, 3];
+     * allItems = (new Collection(items)).unfold(function (page) {
+     *  return $service.fetchPage(page).toArray();
      * });
      * ```
      *
@@ -956,8 +956,8 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * $items = [1, 2, 3];
-     * $decorated = (new Collection($items)).through(function (collection) {
+     * items = [1, 2, 3];
+     * $decorated = (new Collection(items)).through(function (collection) {
      *      return new MyCustomCollection(collection);
      * });
      * ```
@@ -979,10 +979,10 @@ interface ICollection {
      * collection.zip([3, 4], [5, 6]).toList(); // returns [[1, 3, 5], [2, 4, 6]]
      * ```
      *
-     * @param iterable ...$items The collections to zip.
+     * @param iterable ...items The collections to zip.
      * @return self
      */
-    function zip(iterable $items): ICollection;
+    function zip(iterable items): ICollection;
 
     /**
      * Combines the elements of this collection with each of the elements of the
@@ -1000,11 +1000,11 @@ interface ICollection {
      * zipped.toList(); // returns [9, 12]; [(1 + 3 + 5), (2 + 4 + 6)]
      * ```
      *
-     * @param iterable ...$items The collections to zip.
+     * @param iterable ...items The collections to zip.
      * @param callable callback The function to use for zipping the elements together.
      * @return self
      */
-    function zipWith(iterable $items, callback): ICollection;
+    function zipWith(iterable items, callback): ICollection;
 
     /**
      * Breaks the collection into smaller arrays of the given size.
@@ -1012,8 +1012,8 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * $items [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-     * chunked = (new Collection($items)).chunk(3).toList();
+     * items [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+     * chunked = (new Collection(items)).chunk(3).toList();
      * // Returns [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11]]
      * ```
      *
@@ -1028,8 +1028,8 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * $items ["a": 1, "b": 2, "c": 3, "d": 4, "e": 5, "f": 6];
-     * chunked = (new Collection($items)).chunkWithKeys(3).toList();
+     * items ["a": 1, "b": 2, "c": 3, "d": 4, "e": 5, "f": 6];
+     * chunked = (new Collection(items)).chunkWithKeys(3).toList();
      * // Returns [["a": 1, "b": 2, "c": 3], ["d": 4, "e": 5, "f": 6]]
      * ```
      *
@@ -1045,8 +1045,8 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * $items [1, 2, 3];
-     * (new Collection($items)).isEmpty(); // false
+     * items [1, 2, 3];
+     * (new Collection(items)).isEmpty(); // false
      * ```
      *
      * ```
@@ -1070,14 +1070,14 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * $items = [
+     * items = [
      *       ["Products", "2012", "2013", "2014"],
      *       ["Product A", "200", "100", "50"],
      *       ["Product B", "300", "200", "100"],
      *       ["Product C", "400", "300", "200"],
      * ]
      *
-     * transpose = (new Collection($items)).transpose().toList();
+     * transpose = (new Collection(items)).transpose().toList();
      *
      * // Returns
      * // [
@@ -1163,9 +1163,9 @@ interface ICollection {
      * ```
      *
      * @param callable|null $operation A callable that allows you to customize the product result.
-     * @param callable|null $filter A filtering callback that must return true for a result to be part
+     * @param callable|null filter A filtering callback that must return true for a result to be part
      *   of the final results.
      * @return self
      */
-    ICollection cartesianProduct(?callable $operation = null, ?callable $filter = null);
+    ICollection cartesianProduct(?callable $operation = null, ?callable filter = null);
 }

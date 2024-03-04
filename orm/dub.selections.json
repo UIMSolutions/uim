@@ -18,8 +18,12 @@
 		"taggedalgebraic": "0.11.22",
 		"uim": {"path":"../"},
 		"unit-threaded": "2.1.9",
-		"vibe-container": "1.1.1",
-		"vibe-core": "2.7.4",
-		"vibe-d": "0.9.7"
+		"vibe-container": "1.3.0",
+		"vibe-core": "2.8.2",
+		"vibe-d": "0.10.0",
+		"vibe-http": "1.0.0",
+		"vibe-inet": "1.0.0",
+		"vibe-serialization": "1.0.1",
+		"vibe-stream": "1.1.0"
 	}
 }

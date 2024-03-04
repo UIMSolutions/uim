@@ -28,9 +28,9 @@ interface IStatement {
      * ### Examples:
      *
      * ```
-     * $statement.bindValue(1, "a title");
-     * $statement.bindValue("active", true, "boolean");
-     * $statement.bindValue(5, new \DateTime(), "date");
+     * statement.bindValue(1, "a title");
+     * statement.bindValue("active", true, "boolean");
+     * statement.bindValue(5, new \DateTime(), "date");
      * ```
      * Params:
      * string|int column name or param position to be bound

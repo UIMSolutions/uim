@@ -498,42 +498,42 @@ class QueryExpression : IExpression, Countable {
         typeMap = this.getTypeMap().setTypes(fieldTypes);
 
         foreach (myKey: c; conditions) {
-            $numericKey = isNumeric(myKey);
+            numericKey = isNumeric(myKey);
 
             if (cast(Closure)c) {
                 expr = new static([], typeMap);
                 c = c(expr, this);
             }
-            if ($numericKey && empty(c)) {
+            if (numericKey && empty(c)) {
                 continue;
             }
              isArray = isArray(c);
              isOperator =  isNot = false;
-            if (!$numericKey) {
-                $normalizedKey = myKey.toLower;
-                 isOperator = in_array($normalizedKey, $operators);
-                 isNot = $normalizedKey == "not";
+            if (!numericKey) {
+                normalizedKey = myKey.toLower;
+                 isOperator = in_array(normalizedKey, $operators);
+                 isNot = normalizedKey == "not";
             }
             if ((isOperator ||  isNot) && (isArray || cast(Countable)c) && count(c) == 0) {
                 continue;
             }
-            if ($numericKey && cast(IExpression)c ) {
+            if (numericKey && cast(IExpression)c ) {
                _conditions ~= c;
                 continue;
             }
-            if ($numericKey && isString(c)) {
+            if (numericKey && isString(c)) {
                _conditions ~= c;
                 continue;
             }
-            if ($numericKey &&  isArray ||  isOperator) {
-               _conditions ~= new static(c, typeMap, $numericKey ? "AND" : myKey);
+            if (numericKey &&  isArray ||  isOperator) {
+               _conditions ~= new static(c, typeMap, numericKey ? "AND" : myKey);
                 continue;
             }
             if (isNot) {
                _conditions ~= new UnaryExpression("NOT", new static(c, typeMap));
                 continue;
             }
-            if (!$numericKey) {
+            if (!numericKey) {
                _conditions ~= _parseCondition(myKey, c);
             }
         }
@@ -554,21 +554,21 @@ class QueryExpression : IExpression, Countable {
         expression = trim(condition);
         $operator = "=";
 
-        $spaces = substr_count(expression, " ");
+        spaces = substr_count(expression, " ");
         // Handle expression values that contain multiple spaces, such as
         // operators with a space in them like `field IS NOT` and
         // `field NOT LIKE`, or combinations with auto expressions
         // like `CONCAT(first_name, " ", last_name) IN`.
-        if ($spaces > 1) {
+        if (spaces > 1) {
             string[] someParts = split(" ", expression);
             if (preg_match("/(is not|not \w+)$/i", expression)) {
                 $last = array_pop(someParts);
-                $second = array_pop(someParts);
-                someParts ~= "{$second} {$last}";
+                second = array_pop(someParts);
+                someParts ~= "{second} {$last}";
             }
             $operator = array_pop(someParts);
             expression = join(" ", someParts);
-        } elseif ($spaces == 1) {
+        } elseif (spaces == 1) {
             string[] someParts = split(" ", expression, 2);
             [expression, $operator] = someParts;
         }

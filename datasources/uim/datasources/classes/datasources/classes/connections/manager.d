@@ -124,11 +124,11 @@ class ConnectionManager {
      * ConnectionManager::alias("test_things", "things");
      * ```
      *
-     * @param string $source The existing connection to alias.
-     * @param string alias The alias name that resolves to `$source`.
+     * @param string source The existing connection to alias.
+     * @param string alias The alias name that resolves to `source`.
      */
-    static void alias(string$source, stringalias) {
-        _aliasMap[alias] = $source;
+    static void alias(stringsource, stringalias) {
+        _aliasMap[alias] = source;
     }
 
     /**
@@ -152,13 +152,13 @@ class ConnectionManager {
      * as second parameter.
      *
      * @param string aName The connection name.
-     * @param bool $useAliases Set to false to not use aliased connections.
+     * @param bool useAliases Set to false to not use aliased connections.
      * @return uim.Datasource\IConnection A connection object.
      * @throws uim.Datasource\exceptions.MissingDatasourceConfigException When config
      * data is missing.
      */
-    static function get(string aName, bool$useAliases = true) {
-        if ($useAliases && isset(_aliasMap[name])) {
+    static function get(string aName, booluseAliases = true) {
+        if (useAliases && isset(_aliasMap[name])) {
             name = _aliasMap[name];
         }
         if (empty(configuration[name])) {
@@ -231,7 +231,7 @@ static IData[string] parseDsn(string adsn) {
      * ```
      * Params:
      * string asource The existing connection to alias.
-     * @param string aalias The alias name that resolves to `$source`.
+     * @param string aalias The alias name that resolves to `source`.
      */
             static void alias(string asource, string connectionAlias) {
                 _connectionAliases[connectionAlias] = source;}
@@ -263,7 +263,7 @@ static IData[string] parseDsn(string adsn) {
      * @param bool useAliases Whether connection aliases are used
      */
                         static IConnection get(string connectionName, bool useAliases = true) {
-                            if ($useAliases && isSet(_connectionAliases[connectionName])) {
+                            if (useAliases && isSet(_connectionAliases[connectionName])) {
                                 connectionName = _connectionAliases[connectionName];
                             }
                             if (!isSet(configuration.data(connectionName])) {

@@ -34,7 +34,7 @@ interface WindowInterface {
     /**
      * Adds a simple range frame to the window.
      *
-     * `$start`:
+     * `start`:
      * - `0` - 'CURRENT ROW'
      * - `null` - 'UNBOUNDED PRECEDING'
      * - offset - 'offset PRECEDING'
@@ -47,33 +47,33 @@ interface WindowInterface {
      * If you need to use 'FOLLOWING' with frame start or
      * 'PRECEDING' with frame end, use `frame()` instead.
      * Params:
-     * \UIM\Database\IExpression|string|int $start Frame start
+     * \UIM\Database\IExpression|string|int start Frame start
      * @param \UIM\Database\IExpression|string|int end Frame end
      * If not passed in, only frame start SQL will be generated.
      */
-    auto range(IExpression|string|int $start, IExpression|string|int end = 0);
+    auto range(IExpression|string|int start, IExpression|string|int end = 0);
 
     /**
      * Adds a simple rows frame to the window.
      *
      * See `range()` for details.
      * Params:
-     * int $start Frame start
+     * int start Frame start
      * @param int end Frame end
      * If not passed in, only frame start SQL will be generated.
      */
-    auto rows(int $start, int end = 0);
+    auto rows(int start, int end = 0);
 
     /**
      * Adds a simple groups frame to the window.
      *
      * See `range()` for details.
      * Params:
-     * int $start Frame start
+     * int start Frame start
      * @param int end Frame end
      * If not passed in, only frame start SQL will be generated.
      */
-    auto groups(int $start, int end = 0);
+    auto groups(int start, int end = 0);
 
     /**
      * Adds a frame to the window.
@@ -83,19 +83,19 @@ interface WindowInterface {
      *
      * You can specify any direction for both frame start and frame end.
      *
-     * With both `$startOffset` and `endOffset`:
+     * With both `startOffset` and `endOffset`:
      * - `0` - 'CURRENT ROW'
      * - `null` - 'UNBOUNDED'
      * Params:
      * string atype Frame type
-     * @param \UIM\Database\IExpression|string|int $startOffset Frame start offset
+     * @param \UIM\Database\IExpression|string|int startOffset Frame start offset
      * @param string astartDirection Frame start direction
      * @param \UIM\Database\IExpression|string|int endOffset Frame end offset
      * @param string aendDirection Frame end direction
      */
     void frame(
         string atype,
-        IExpression|string|int $startOffset,
+        IExpression|string|int startOffset,
         string astartDirection,
         IExpression|string|int endOffset,
         string aendDirection

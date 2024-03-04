@@ -140,7 +140,7 @@ _baseConfig = [
             typeMap = aQuery.getSelectTypeMap();
         }
 
-        return new (STATEMENT_CLASS)($statement, this, typeMap);
+        return new (STATEMENT_CLASS)(statement, this, typeMap);
      }
 
     string savePointSQL(name) {
@@ -219,17 +219,17 @@ _baseConfig = [
             // the only practical way to specify the use of calculated columns
             // is with their alias.  So substitute the select SQL in place of
             // any column aliases for those entries in the order clause.
-            auto $select = $original.clause("select");
+            auto select = $original.clause("select");
             auto $order = new OrderByExpression();
             $original
                 .clause("order")
-                .iterateParts(function ($direction, $orderBy) use ($select, $order) {
+                .iterateParts(function ($direction, $orderBy) use (select, $order) {
                     aKey = $orderBy;
                     if (
-                        isSet($select[$orderBy]) &&
-                        cast(IExpression)$select[$orderBy] 
+                        isSet(select[$orderBy]) &&
+                        cast(IExpression)select[$orderBy] 
                     ) {
-                        $order.add(new OrderClauseExpression($select[$orderBy], $direction));
+                        $order.add(new OrderClauseExpression(select[$orderBy], $direction));
                     } else {
                         $order.add([aKey: $direction]);
                     }

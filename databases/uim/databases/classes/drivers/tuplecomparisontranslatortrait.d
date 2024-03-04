@@ -45,9 +45,9 @@ trait TupleComparisonTranslatorTrait {
         true = new QueryExpression("1");
 
         if (cast(SelectQuery) aValue) {
-            string[]$selected = aValue.clause("select").values;
+            string[]selected = aValue.clause("select").values;
             foreach (anI : field; fields) {
-                aValue.andWhere([field: new IdentifierExpression($selected[anI])]);
+                aValue.andWhere([field: new IdentifierExpression(selected[anI])]);
             }
             aValue.select(true, true);
             expression.setFieldNames(true);
@@ -62,7 +62,7 @@ trait TupleComparisonTranslatorTrait {
         } else {
             typeMap = [];
         }
-        $surrogate = aQuery.getConnection()
+        surrogate = aQuery.getConnection()
             .selectQuery()
             .select(true);
 
@@ -74,10 +74,10 @@ trait TupleComparisonTranslatorTrait {
             auto items = []; foreach (anI : value2; tuple.values) {
                 items ~= [fields[anI]: value2];}
                 conditions["OR"] ~= items;});
-                $surrogate.where(conditions, typeMap);
+                surrogate.where(conditions, typeMap);
 
                 expression.setFieldNames(true);
-                expression.setValue($surrogate);
+                expression.setValue(surrogate);
                 expression.setOperator("=");
             }
         }

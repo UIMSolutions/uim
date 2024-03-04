@@ -165,11 +165,11 @@ abstract class Query : IExpression, Stringable {
      * records that were updated.
      */
     int rowCountAndClose() {
-        $statement = this.execute();
+        statement = this.execute();
         try {
-            return $statement.rowCount();
+            return statement.rowCount();
         } finally {
-            $statement.closeCursor();
+            statement.closeCursor();
         }
     }
     
@@ -1083,13 +1083,13 @@ abstract class Query : IExpression, Stringable {
      *
      * Pages must start at 1.
      * Params:
-     * int $num The page number you want.
+     * int num The page number you want.
      * @param int aLimit The number of rows you want in the page. If null
      * the current limit clause will be used.
 
      * @throws \InvalidArgumentException If page number < 1.
      */
-    auto page(int $num, int aLimit = null) {
+    auto page(int num, int aLimit = null) {
         throw new UimException("Not implemented");
     }
     

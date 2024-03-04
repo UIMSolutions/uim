@@ -11,7 +11,7 @@ class StringExpression : IExpression {
     protected string aCollation;
 
     this(string astring, string aCollation) {
-        this.string = $string;
+        this.string = string;
         this.collation = aCollation;
     }
     

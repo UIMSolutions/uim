@@ -73,12 +73,12 @@ class RedisEngine : CacheEngine {
                     (int)configuration["timeout"]
                 );
             } else {
-                $persistentId = configuration["port"] ~ configuration["timeout"] ~ configuration["database"];
+                persistentId = configuration["port"] ~ configuration["timeout"] ~ configuration["database"];
                 result = _redis.pconnect(
                    configuration["server"],
                     (int)configuration["port"],
                     (int)configuration["timeout"],
-                    $persistentId
+                    persistentId
                 );
             }
         } catch (RedisException  anException) {

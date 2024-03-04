@@ -65,16 +65,16 @@ class WhenThenExpression : IExpression {
      * object|string[]|float|int|bool $when The `WHEN` value. When using an array of
      * conditions, it must be compatible with `\UIM\Database\Query.where()`. Note that this argument is _not_
      * completely safe for use with user data, as a user supplied array would allow for raw SQL to slip in!If you
-     * plan to use user data, either pass a single type for the `$type` argument (which forces the `$when` value to be
+     * plan to use user data, either pass a single type for the `type` argument (which forces the `$when` value to be
      * a non-array, and then always binds the data), use a conditions array where the user data is only passed on the
      * value side of the array entries, or custom bindings!
      * @param STRINGAA|string|null type The when value type. Either an associative array when using array style
      * conditions, or else a string. If no type is provided, the type will be tried to be inferred from the value.
 
      * @throws \InvalidArgumentException In case the `$when` argument is an empty array.
-     * @throws \InvalidArgumentException In case the `$when` argument is an array, and the `$type` argument is neither
+     * @throws \InvalidArgumentException In case the `$when` argument is an array, and the `type` argument is neither
      * an array, nor null.
-     * @throws \InvalidArgumentException In case the `$when` argument is a non-array value, and the `$type` argument is
+     * @throws \InvalidArgumentException In case the `$when` argument is a non-array value, and the `type` argument is
      * neither a string, nor null.
      * @see CaseStatementExpression.when() for a more detailed usage explanation.
      */
@@ -85,30 +85,30 @@ class WhenThenExpression : IExpression {
             }
             if (
                 type !isNull &&
-                !isArray($type)
+                !isArray(type)
             ) {
                 throw new InvalidArgumentException(
-                    "When using an array for the `$when` argument, the `$type` argument must be an " ~
-                    "array too, `%s` given.".format(get_debug_type($type)
+                    "When using an array for the `$when` argument, the `type` argument must be an " ~
+                    "array too, `%s` given.".format(get_debug_type(type)
                 ));
             }
             // avoid dirtying the type map for possible consecutive `when()` calls
             typeMap = clone _typeMap;
             if (
-                isArray($type) &&
-                count($type) > 0
+                isArray(type) &&
+                count(type) > 0
             ) {
-                typeMap = typeMap.setTypes($type);
+                typeMap = typeMap.setTypes(type);
             }
             $when = new QueryExpression($when, typeMap);
         } else {
             if (
                 type !isNull &&
-                !isString($type)
+                !isString(type)
             ) {
                 throw new InvalidArgumentException(
-                    "When using a non-array value for the `$when` argument, the `$type` argument must " ~
-                    "be a string, `%s` given.".format(get_debug_type($type))
+                    "When using a non-array value for the `$when` argument, the `type` argument must " ~
+                    "be a string, `%s` given.".format(get_debug_type(type))
                 );
             }
             if (
@@ -198,13 +198,13 @@ class WhenThenExpression : IExpression {
         } elseif (cast(IExpression)$when ) {
             $when = $when.sql(aBinder);
         } else {
-            $placeholder = aBinder.placeholder("c");
+            placeholder = aBinder.placeholder("c");
             $whenType = this.whenType.isString
                 ? this.whenType 
                 : null;
             }
-            aBinder.bind($placeholder, $when, $whenType);
-            $when = $placeholder;
+            aBinder.bind(placeholder, $when, $whenType);
+            $when = placeholder;
         }
         then = this.compileNullableValue(aBinder, this.then, this.thenType);
 

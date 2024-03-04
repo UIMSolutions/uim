@@ -6,12 +6,6 @@ import uim.databases;
 
 class DDBQuery {
 
-module uim.databases;
-
-import uim.databases;
-
-@safe:
-
 /**
  * This class represents a Relational database SQL Query. A query can be of
  * different types like select, update, insert and delete. Exposes the methods
@@ -471,14 +465,14 @@ abstract class Query : IExpression, Stringable {
         $joins = [];
          anI = count(_parts["join"]);
         foreach (alias, t; aTables) {
-            if (!isArray($t)) {
+            if (!isArray(t)) {
                 t = ["table": t, "conditions": this.newExpr()];
             }
-            if (cast(Closure)$t["conditions"]) {
+            if (cast(Closure)t["conditions"]) {
                 t["conditions"] = t["conditions"](this.newExpr(), this);
             }
-            if (!cast(IExpression)$t["conditions"]) {
-                t["conditions"] = this.newExpr().add($t["conditions"], types);
+            if (!cast(IExpression)t["conditions"]) {
+                t["conditions"] = this.newExpr().add(t["conditions"], types);
             }
             alias = isString(alias) ? alias : null;
             $joins[alias ?:  anI++] = t ~ ["type": JOIN_TYPE_INNER, "alias": alias];
@@ -519,7 +513,7 @@ abstract class Query : IExpression, Stringable {
      * ```
      *
      * Conditions can be passed as strings, arrays, or expression objects. When
-     * using arrays it is possible to combine them with the `$types` parameter
+     * using arrays it is possible to combine them with the `types` parameter
      * in order to define how to convert the values:
      *
      * ```
@@ -1364,14 +1358,14 @@ abstract class Query : IExpression, Stringable {
      * aQuery.bind(":id", 1, "integer");
      * ```
      * Params:
-     * string|int $param placeholder to be replaced with quoted version
+     * string|int param placeholder to be replaced with quoted version
      *  of aValue
      * @param Json aValue The value to be bound
      * @param string|int type the mapped type name, used for casting when sending
      *  to database
      */
-    auto bind(string|int $param, Json aValue, string|int type = null) {
-        this.getValueBinder().bind($param, aValue, type);
+    auto bind(string|int param, Json aValue, string|int type = null) {
+        this.getValueBinder().bind(param, aValue, type);
 
         return this;
     }
@@ -1417,9 +1411,9 @@ abstract class Query : IExpression, Stringable {
         string aconjunction,
         array types
     ) {
-        expression = _parts[$part] ?: this.newExpr();
+        expression = _parts[part] ?: this.newExpr();
         if (isEmpty(append)) {
-           _parts[$part] = expression;
+           _parts[part] = expression;
 
             return;
         }
@@ -1433,7 +1427,7 @@ abstract class Query : IExpression, Stringable {
                 .setConjunction(conjunction)
                 .add([expression, append], types);
         }
-       _parts[$part] = expression;
+       _parts[part] = expression;
        _isDirty();
     }
     
@@ -1456,18 +1450,18 @@ abstract class Query : IExpression, Stringable {
            _valueBinder = clone _valueBinder;
         }
         _parts.byKeyValue
-            .filter!(namePart => !isEmpty($part))
+            .filter!(namePart => !isEmpty(part))
             .each!(namePart => 
             if (namePart.value.isArray) {
-                foreach (anI: $piece; namePart.value) {
-                    if (isArray($piece)) {
-                        foreach ($piece as $j: aValue) {
+                foreach (anI: piece; namePart.value) {
+                    if (isArray(piece)) {
+                        foreach (piece as $j: aValue) {
                             if (cast(IExpression)aValue) {
                                _parts[namePart.key][anI][$j] = clone aValue;
                             }
                         }
-                    } elseif (cast(IExpression)$piece ) {
-                       _parts[namePart.key][anI] = clone $piece;
+                    } elseif (cast(IExpression)piece ) {
+                       _parts[namePart.key][anI] = clone piece;
                     }
                 }
             }
@@ -1485,7 +1479,7 @@ abstract class Query : IExpression, Stringable {
     // Returns an array that can be used to describe the internal state of this object.
     IData[string] debugInfo() {
         auto mySql = "SQL could not be generated for this query as it is incomplete.";
-        $params = [];
+        params = [];
         try {
             set_error_handler(
                 void (errno, errstr) {
@@ -1494,17 +1488,17 @@ abstract class Query : IExpression, Stringable {
                 E_ALL
             );
             mySql = this.sql();
-            $params = this.getValueBinder().bindings();
+            params = this.getValueBinder().bindings();
         } catch (Throwable  anException) {
             mySql = "SQL could not be generated for this query as it is incomplete.";
-            $params = [];
+            params = [];
         } finally {
             restore_error_handler();
 
             return [
                 "(help)": "This is a Query object, to get the results execute or iterate it.",
                 "sql": Json(mySql),
-                "params": Json($params),
+                "params": Json(params),
                 "defaultTypes": Json(this.getDefaultTypes()),
                 "executed": Json((bool)_statement),
             ];

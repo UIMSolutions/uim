@@ -73,9 +73,9 @@ interface IStatement {
      * that binding parameters from this method will not perform any custom type conversion
      * as it would normally happen when calling `bindValue`.
      * Params:
-     * array|null $params list of values to be bound to query
+     * array|null params list of values to be bound to query
       * /
-    bool execute(?array $params = null);
+    bool execute(?array params = null);
 
     /**
      * Fetches the next row from a result set
@@ -127,10 +127,10 @@ interface IStatement {
     /**
      * Binds a set of values to statement object with corresponding type.
      * Params:
-     * array $params list of values to be bound
-     * @param array types list of types to be used, keys should match those in $params
+     * array params list of values to be bound
+     * @param array types list of types to be used, keys should match those in params
      * /
-    void bind(array $params, array types);
+    void bind(array params, array types);
 
     /**
      * Returns the latest primary inserted using this statement.

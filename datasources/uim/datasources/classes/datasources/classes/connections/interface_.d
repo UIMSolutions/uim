@@ -22,8 +22,8 @@ import uim.datasources;
  *    {@see uim.databases.Connnection::newQuery()}
  * @method uim.databases.StatementInterface prepare(sql) Prepares a SQL statement to be executed.
  *    {@see uim.databases.Connnection::prepare()}
- * @method uim.databases.StatementInterface execute(query, $params = null, array types = null) Executes a query using
- *   `$params` for interpolating values and types as a hint for each those params.
+ * @method uim.databases.StatementInterface execute(query, params = null, array types = null) Executes a query using
+ *   `params` for interpolating values and types as a hint for each those params.
  *   {@see uim.databases.Connnection::execute()}
  * @method uim.databases.StatementInterface query(string sql) Executes a SQL statement and returns the Statement
  *   object as result. {@see uim.databases.Connnection::query()}

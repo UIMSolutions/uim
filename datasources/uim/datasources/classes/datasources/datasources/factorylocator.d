@@ -15,7 +15,7 @@ class FactoryLocator {
      * @param \UIM\Datasource\Locator\ILocator factory The factory auto used to create instances.
      */
     static void add(string atype, ILocator factory) {
-        _modelFactories[$type] = factory;
+        _modelFactories[type] = factory;
     }
     
     /**

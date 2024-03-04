@@ -263,7 +263,7 @@ IPropertyMarshal {
                                             : Query {
                                                 locales = options["locales"] ?  ? [];
                                                     targetAlias = this.getStrategy()
-                                                    .getTranslationTable().getAlias();
+                                                    .getTranslationTable().aliasName();
 
                                                     return query
                                                     .contain([targetAlias: function(query) use(locales, targetAlias) {
@@ -308,7 +308,7 @@ IPropertyMarshal {
                                                                         get_class(table));
                                                                         name = substr(end(name), 0, -5);
                                                                         if (empty(name)) {
-                                                                            name = table.getTable() ?  : table.getAlias();
+                                                                            name = table.getTable() ?  : table.aliasName();
                                                                                 name = Inflector :  : camelize(
                                                                                     name);
                                                                         }

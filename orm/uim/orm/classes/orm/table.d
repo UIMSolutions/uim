@@ -194,7 +194,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
             this.setTable(myconfiguration["table"]);
         }
         if (!empty(myconfiguration["alias"])) {
-            this.setAlias(myconfiguration["alias"]);
+            this.aliasName(myconfiguration["alias"]);
         }
         if (!empty(myconfiguration["connection"])) {
             this.setConnection(myconfiguration["connection"]);
@@ -308,7 +308,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * @param string anAliasName Table alias
      * @return this
      */
-    function setAlias(string anAliasName) {
+    function aliasName(string anAliasName) {
         _alias = alias;
 
         return this;
@@ -317,7 +317,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
     /**
      * Returns the table alias.
      */
-    string getAlias() {
+    string aliasName() {
         if (_alias == null) {
             alias = namespaceSplit(class);
             alias = substr(end(alias), 0, -5) ?: _table;
@@ -345,7 +345,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
             return field;
         }
 
-        return this.getAlias() ~ "." ~ field;
+        return this.aliasName() ~ "." ~ field;
     }
 
     /**
@@ -365,7 +365,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      */
     string getRegistryAlias() {
         if (_registryAlias == null) {
-            _registryAlias = this.getAlias();
+            _registryAlias = this.aliasName();
         }
 
         return _registryAlias;
@@ -462,7 +462,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      */
     protected void checkAliasLengths() {
         if (_schema == null) {
-            throw new RuntimeException("Unable to check max alias lengths for  `{this.getAlias()}` without schema.");
+            throw new RuntimeException("Unable to check max alias lengths for  `{this.aliasName()}` without schema.");
         }
 
         maxLength = null;
@@ -473,7 +473,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
             return;
         }
 
-        table = this.getAlias();
+        table = this.aliasName();
         foreach (_schema.columns() as name) {
             if (strlen(table ~ "__" ~ name) > maxLength) {
                 nameLength = maxLength - 2;
@@ -783,7 +783,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
         if (!association) {
             assocations = this.associations().keys();
 
-            message = "The `{name}` association is not defined on `{this.getAlias()}`.";
+            message = "The `{name}` association is not defined on `{this.aliasName()}`.";
             if (assocations) {
                 message ~= "\nValid associations are: " ~ implode(", ", assocations);
             }
@@ -1387,7 +1387,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
         }
 
         key = (array)this.getPrimaryKeys();
-        alias = this.getAlias();
+        alias = this.aliasName();
         foreach (key as index: keyname) {
             key[index] = alias ~ "." ~ keyname;
         }
@@ -1793,7 +1793,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
         primaryColumns = (array)this.getPrimaryKeys();
 
         if (options["checkExisting"] && primaryColumns && entity.isNew() && entity.has(primaryColumns)) {
-            alias = this.getAlias();
+            alias = this.aliasName();
             conditions = null;
             foreach (entity.extract(primaryColumns) as k: v) {
                 conditions["alias.k"] = v;
@@ -2945,7 +2945,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
         return [
             "registryAlias": this.getRegistryAlias(),
             "table": this.getTable(),
-            "alias": this.getAlias(),
+            "alias": this.aliasName(),
             "entityClassName": this.getEntityClass(),
             "associations": _associations.keys(),
             "behaviors": _behaviors.loaded(),

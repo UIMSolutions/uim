@@ -25,7 +25,7 @@ class BelongsTo : DAssociation {
     // Gets the name of the field representing the foreign key to the target table.
     string[] getForeignKey() {
       if (_foreignKeys == null) {
-          _foreignKeys = _modelKey(this.getTarget().getAlias());
+          _foreignKeys = _modelKey(this.getTarget().aliasName());
       }
 
       return _foreignKeys;
@@ -112,7 +112,7 @@ class BelongsTo : DAssociation {
     protected array _joinCondition(STRINGAA someOptions) {
         conditions = null;
         tAlias = _name;
-        sAlias = _sourceTable.getAlias();
+        sAlias = _sourceTable.aliasName();
         foreignKey = (array)options["foreignKey"];
         bindingKey = (array)this.getBindingKey();
 
@@ -144,9 +144,9 @@ class BelongsTo : DAssociation {
     function eagerLoader(STRINGAA someOptions): Closure
     {
         loader = new SelectLoader([
-            "alias": this.getAlias(),
-            "sourceAlias": this.getSource().getAlias(),
-            "targetAlias": this.getTarget().getAlias(),
+            "alias": this.aliasName(),
+            "sourceAlias": this.getSource().aliasName(),
+            "targetAlias": this.getTarget().aliasName(),
             "foreignKey": this.getForeignKey(),
             "bindingKey": this.getBindingKey(),
             "strategy": this.getStrategy(),

@@ -219,7 +219,7 @@ class AssociationCollection : IteratorAggregate {
                 msg = sprintf(
                     "Cannot save %s, it is not associated to %s",
                     alias,
-                    table.getAlias()
+                    table.aliasName()
                 );
                 throw new InvalidArgumentException(msg);
             }

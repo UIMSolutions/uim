@@ -35,7 +35,7 @@ class HasOne : DAssociation {
      */
     function getForeignKey() {
         if (_foreignKey == null) {
-            _foreignKey = _modelKey(this.getSource().getAlias());
+            _foreignKey = _modelKey(this.getSource().aliasName());
         }
 
         return _foreignKey;
@@ -101,9 +101,9 @@ class HasOne : DAssociation {
     function eagerLoader(STRINGAA someOptions): Closure
     {
         loader = new SelectLoader([
-            "alias": this.getAlias(),
-            "sourceAlias": this.getSource().getAlias(),
-            "targetAlias": this.getTarget().getAlias(),
+            "alias": this.aliasName(),
+            "sourceAlias": this.getSource().aliasName(),
+            "targetAlias": this.getTarget().aliasName(),
             "foreignKey": this.getForeignKey(),
             "bindingKey": this.getBindingKey(),
             "strategy": this.getStrategy(),

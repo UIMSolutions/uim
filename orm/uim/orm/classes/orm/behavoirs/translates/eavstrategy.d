@@ -78,8 +78,8 @@ class EavStrategy : ITranslateStrategy {
         strategy = configuration["strategy"];
         filter = configuration["onlyTranslated"];
 
-        targetAlias = this.translationTable.getAlias();
-        alias = this.table.getAlias();
+        targetAlias = this.translationTable.aliasName();
+        alias = this.table.aliasName();
         tableLocator = this.getTableLocator();
 
         foreach (fields as field) {
@@ -162,7 +162,7 @@ class EavStrategy : ITranslateStrategy {
 
         contain = null;
         fields = configuration["fields"];
-        alias = this.table.getAlias();
+        alias = this.table.aliasName();
         select = query.clause("select");
 
         changeFilter = isset(options["filterByCurrentLocale"]) &&
@@ -202,7 +202,7 @@ class EavStrategy : ITranslateStrategy {
      */
     void beforeSave(IEvent event, IEntity anEntity, ArrayObject options) {
         locale = entity.get("_locale") ?: this.getLocale();
-        newOptions = [this.translationTable.getAlias(): ["validate": false]];
+        newOptions = [this.translationTable.aliasName(): ["validate": false]];
         options["associated"] = newOptions + options["associated"];
 
         // Check early if empty translations are present in the entity.
@@ -305,7 +305,7 @@ class EavStrategy : ITranslateStrategy {
         if (this.getLocale() == this.getConfig("defaultLocale")) {
             return table.aliasField(field);
         }
-        associationName = table.getAlias() ~ "_" ~ field ~ "_translation";
+        associationName = table.aliasName() ~ "_" ~ field ~ "_translation";
 
         if (table.associations().has(associationName)) {
             return associationName ~ ".content";
@@ -456,7 +456,7 @@ class EavStrategy : ITranslateStrategy {
      * @param array ruleSet An array of array of conditions to be used for finding each
      */
     protected array findExistingTranslations(ruleSet) {
-        association = this.table.getAssociation(this.translationTable.getAlias());
+        association = this.table.getAssociation(this.translationTable.aliasName());
 
         query = association.find()
             .select(["id", "num": 0])

@@ -648,7 +648,7 @@ abstract class Association {
      * data shuld be nested in. Will use the default one if not provided.
      */
     array transformRow(array row, string nestKey, bool joined, Nullable!string targetProperty = null) {
-        sourceAlias = this.getSource().getAlias();
+        sourceAlias = this.getSource().aliasName();
         nestKey = nestKey ?: _name;
         targetProperty = targetProperty ?: this.getProperty();
         if (isset(row[sourceAlias])) {
@@ -670,7 +670,7 @@ abstract class Association {
      * @return array<string, mixed>
      */
     array defaultRowValue(array row, bool joined) {
-        sourceAlias = this.getSource().getAlias();
+        sourceAlias = this.getSource().aliasName();
         if (isset(row[sourceAlias])) {
             row[sourceAlias][this.getProperty()] = null;
         }
@@ -906,7 +906,7 @@ abstract class Association {
     protected array _joinCondition(STRINGAA someOptions) {
         conditions = null;
         tAlias = _name;
-        sAlias = this.getSource().getAlias();
+        sAlias = this.getSource().aliasName();
         foreignKeys = (array)options["foreignKeys"];
         bindingKeys = (array)this.getBindingKeys();
 

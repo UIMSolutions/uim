@@ -65,12 +65,12 @@ class TupleComparison : ComparisonExpression {
     }
 
     string sql(ValueBinder aBinder) {
-        $originalFields = this.getFieldNames();
-        if (!isArray($originalFields)) {
-            $originalFields = [$originalFields];
+         originalFields = this.getFieldNames();
+        if (!isArray( originalFields)) {
+             originalFields = [ originalFields];
         }
         string[] fields;
-        $originalFields.each!(field => fields ~= cast(IExpression) field
+         originalFields.each!(field => fields ~= cast(IExpression) field
                 ? field.sql(aBinder) : field;}
 
         string result = "(%s) %s (%s)"

@@ -15,30 +15,10 @@ interface IEntity : ArrayAccess, JsonSerializable
      */
     IENtity isFieldDirty(string fieldName, bool isDirty = true);
 
-    /**
-     * Checks if the entity is dirty or if a single field of it is dirty.
-     *
-     * fieldName - The field to check the status for. Null for the whole entity.
-     * returns if the field was changed or not
-     */
-    bool isFieldDirty(string fieldName);
+
 
  
     bool hasErrors(bool includeNested = true);
-
-    // Returns all validation errors.
-    array errors();
-
-    array getError(string fieldName);
-
-    /**
-     * Sets error messages to the entity
-     *
-     * @param array errors The array of errors to set.
-     * @param bool canOverwrite Whether to overwrite pre-existing errors for fields
-     * @return this
-     */
-    IEntity errors(array errors, bool canOverwrite = false);
 
     /**
      * Sets errors for a single field
@@ -162,9 +142,9 @@ interface IEntity : ArrayAccess, JsonSerializable
      * stored in this entity, indexed by field name
      *
      * @param array<string> fields list of fields to be returned
-     * @param bool $onlyDirty Return the requested field only if it is dirty
+     * @param bool  onlyDirty Return the requested field only if it is dirty
      */
-    array extract(string[] fieldNAmes, bool $onlyDirty = false);
+    array extract(string[] fieldNAmes, bool  onlyDirty = false);
 
     /**
      * Sets the entire entity as clean, which means that it will appear as

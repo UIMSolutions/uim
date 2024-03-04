@@ -16,79 +16,66 @@ import uim.datasources;
  * @property Json  anId Alias for commonly used primary key.
  * @template-extends \ArrayAccess<string, mixed>
  */
-interface IEntity // : ArrayAccess, JsonSerializable, Stringable
-{
-  /**
+interface IEntity { // : ArrayAccess, JsonSerializable, Stringable
+   /**
      * Sets hidden fields.
      *
      * fieldNames - An array of fields to hide from array exports.
      * shouldMerge - Merge the new fields with the existing. By default false.
      */
-  void setHidden(string[] fieldNames, bool shouldMerge = false);
+   void setHidden(string[] fieldNames, bool shouldMerge = false);
 
-  // Gets the hidden fields.
-  string[] getHidden();
+   // Gets the hidden fields.
+   string[] getHidden();
 
-  /**
+   /**
      * Sets the virtual fields on this entity.
      * Params:
      * string[] fields An array of fields to treat as virtual.
      * @param bool $merge Merge the new fields with the existing. By default false.
      */
-  void setVirtual(string[] fields, bool canMergeExisting = false);
+   void setVirtual(string[] fields, bool canMergeExisting = false);
 
-  // Gets the virtual fields on this entity.
-  string[] getVirtual();
+   // Gets the virtual fields on this entity.
+   string[] getVirtual();
 
-  /**
+   /**
      * Returns whether a field is an original one.
      * Original fields are those that an entity was instantiated with.
      */
-  bool isOriginalField(string fieldName);
+   bool isOriginalField(string fieldName);
 
-  /**
+   /**
      * Returns an array of original fields.
      * Original fields are those that an entity was initialized with.
      */
-  string[] getOriginalFields();
+   string[] getOriginalFieldNames();
 
-  // Sets the dirty status of a single field.
-  void setDirty(string fieldName, bool isDirtyMode = true);
+   // Sets the dirty status of a single field.
+   void setFieldDirty(string fieldName, bool isDirtyMode = true);
 
-  /**
-     * Checks if the entity is dirty or if a single field of it is dirty.
-     * Params:
-     * string|null field The field to check the status for. Null for the whole entity.
-     */
-  bool isDirty(string fieldName = null);
+   // Checks if the entity is dirty
+   bool isDirty();
 
-  // Gets the dirty fields.
-  string[] dirtyFields();
+   // Checks if a field of it is dirty.
+   bool isFieldDirty(string fieldName = null);
 
-  // Returns whether this entity has errors.
-  // includeNested - will check nested entities for hasErrors()
-  bool hasErrors(bool anIncludeNested = true);
+   // Gets the dirty fields.
+   string[] dirtyFieldNames();
 
-  /**
-     * Returns all validation errors.
-     * /
-    array getErrors();
+   // Returns whether this entity has errors.
+   bool hasErrors(bool includeNested = true);
 
-    /**
-     * Returns validation errors of a field
-     * Params:
-     * string fieldName Field name to get the errors from
-     * /
-    array getError(string fieldName);
+   // Returns all validation errors.
+   // TODO array getErrors();
 
-    /**
-     * Sets error messages to the entity
-     * Params:
-     * array errors The array of errors to set.
-     * /
-    void setErrors(array errors, bool shouldOoverwrite = false);
+   // Returns validation errors of a field
+   // TODO array getError(string fieldName);
 
-    /**
+   // Sets error messages to the entity
+   // TODO void setErrors(array errors, bool shouldOoverwrite = false);
+
+   /**
      * Sets errors for a single field
      * Params:
      * string fieldName The field to get errors for, or the array of errors to set.
@@ -104,23 +91,23 @@ interface IEntity // : ArrayAccess, JsonSerializable, Stringable
      * @param bool set true marks the field as accessible, false will
      * mark it as protected.
      */
-  void setAccess(string[] fieldName, bool set);
+   void setAccess(string[] fieldName, bool set);
 
-  // Accessible configuration for this entity.
-  bool[] getAccessible();
+   // Accessible configuration for this entity.
+   bool[] getAccessible();
 
-  // Checks if a field is accessible
-  bool isAccessible(string fieldName);
+   // Checks if a field is accessible
+   bool isAccessible(string fieldName);
 
-  // Sets the source alias
-  void setSource(string aliasName);
+   // Sets the source alias
+   void setSource(string aliasName);
 
-  /**
+   /**
      * Returns the alias of the repository from which this entity came from.
      */
-  string getSource();
+   string getSource();
 
-  /**
+   /**
      * Returns an array with the requested original fields
      * stored in this entity, indexed by field name.
      * Params:
@@ -162,16 +149,16 @@ interface IEntity // : ArrayAccess, JsonSerializable, Stringable
      * Params:
      * bool aValue `true` to enable, `false` to disable.
      */
-  void requireFieldPresence(bool aValue = true);
+   void requireFieldPresence(bool aValue = true);
 
-  /**
+   /**
      * Returns whether a field has an original value
      * Params:
      * string fieldName
      */
-  bool hasOriginal(string fieldName);
+   bool hasOriginal(string fieldName);
 
-  /**
+   /**
      * Returns the original value of a field.
      * Params:
      * string fieldName The name of the field.
@@ -189,16 +176,16 @@ interface IEntity // : ArrayAccess, JsonSerializable, Stringable
      * Params:
      * string[]|string fieldName The field to check.
      */
-  bool has(string[] fieldName);
+   bool has(string[] fieldName);
 
-  // Removes a field or list of fields from this entity
-  void unset(string[] fieldName...);
-  void unset(string[] fieldNames);
+   // Removes a field or list of fields from this entity
+   void unset(string[] fieldName...);
+   void unset(string[] fieldNames);
 
-  // Get the list of visible fields.
-  string[] getVisible();
+   // Get the list of visible fields.
+   string[] getVisible();
 
-  /**
+   /**
      * Returns an array with all the visible fields set in this entity.
      *
      * *Note* hidden fields are not visible, and will not be output
@@ -211,18 +198,18 @@ interface IEntity // : ArrayAccess, JsonSerializable, Stringable
      * stored in this entity, indexed by field name
      * Params:
      * string[] fields list of fields to be returned
-     * @param bool $onlyDirty Return the requested field only if it is dirty
+     * @param bool  onlyDirty Return the requested field only if it is dirty
      * /
-  array extract(array fields, bool$onlyDirty = false);
+  array extract(array fields, bool onlyDirty = false);
 
   /**
      * Sets the entire entity as clean, which means that it will appear as
      * no fields being modified or added at all. This is an useful call
      * for an initial object hydration
      */
-  void clean();
+   void clean();
 
-  /**
+   /**
      * Set the status of this entity.
      *
      * Using `true` means that the entity has not been persisted in the database,
@@ -230,8 +217,8 @@ interface IEntity // : ArrayAccess, JsonSerializable, Stringable
      * Params:
      * bool new Indicate whether this entity has been persisted.
      */
-    // TODO void setNew(bool new);
+   // TODO void setNew(bool new);
 
-    // Returns whether this entity has already been persisted.
-    bool isNew();
+   // Returns whether this entity has already been persisted.
+   bool isNew();
 }

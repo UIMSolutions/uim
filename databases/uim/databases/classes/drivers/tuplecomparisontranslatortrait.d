@@ -34,11 +34,11 @@ trait TupleComparisonTranslatorTrait {
         if (!isArray(fields)) {
             return;
         }
-        $operator = strtoupper(expression.getOperator());
-        if (!in_array($operator, ["IN", "="])) {
+         operator = strtoupper(expression.getOperator());
+        if (!in_array( operator, ["IN", "="])) {
             throw new InvalidArgumentException(
                 "Tuple comparison transform only supports the `IN` and `=` operators, `%s` given."
-                    .format($operator)
+                    .format( operator)
             );
         }
         aValue = expression.getValue();

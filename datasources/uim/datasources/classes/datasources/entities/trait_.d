@@ -292,15 +292,15 @@ trait EntityTrait
      * Gets all original values of the entity.
      */
     array getOriginalValues() {
-        $originals = _original;
-        $originalKeys = $originals.keys;
+         originals = _original;
+         originalKeys =  originals.keys;
         foreach (_fields as $key: value) {
-            if (!hasAllValues($key, $originalKeys, true)) {
-                $originals[$key] = value;
+            if (!hasAllValues($key,  originalKeys, true)) {
+                 originals[$key] = value;
             }
         }
 
-        return $originals;
+        return  originals;
     }
 
     /**
@@ -613,12 +613,12 @@ trait EntityTrait
      * stored in this entity, indexed by field name
      *
      * @param array<string> fields list of fields to be returned
-     * @param bool $onlyDirty Return the requested field only if it is dirty
+     * @param bool  onlyDirty Return the requested field only if it is dirty
      */
-    array extract(array fields, bool $onlyDirty = false) {
+    array extract(array fields, bool  onlyDirty = false) {
         result = null;
         foreach (fields as field) {
-            if (!$onlyDirty || this.isDirty(field)) {
+            if (! onlyDirty || this.isDirty(field)) {
                 result[field] = this.get(field);
             }
         }
@@ -656,9 +656,9 @@ trait EntityTrait
     array extractOriginalChanged(array fields) {
         result = null;
         foreach (fields as field) {
-            $original = this.getOriginal(field);
-            if ($original != this.get(field)) {
-                result[field] = $original;
+             original = this.getOriginal(field);
+            if ( original != this.get(field)) {
+                result[field] =  original;
             }
         }
 
@@ -924,15 +924,15 @@ trait EntityTrait
     /**
      * Reads if there are errors for one or many objects.
      *
-     * @param uim.Datasource\IEntity|array $object The object to read errors from.
+     * @param uim.Datasource\IEntity|array  object The object to read errors from.
      */
-    protected bool _readHasErrors($object) {
-        if ($object instanceof IEntity && $object.hasErrors()) {
+    protected bool _readHasErrors( object) {
+        if ( object instanceof IEntity &&  object.hasErrors()) {
             return true;
         }
 
-        if (is_array($object)) {
-            foreach ($object as value) {
+        if (is_array( object)) {
+            foreach ( object as value) {
                 if (_readHasErrors(value)) {
                     return true;
                 }
@@ -945,24 +945,24 @@ trait EntityTrait
     /**
      * Read the error(s) from one or many objects.
      *
-     * @param uim.Datasource\IEntity|iterable $object The object to read errors from.
+     * @param uim.Datasource\IEntity|iterable  object The object to read errors from.
      * @param string|null path The field name for errors.
      */
-    protected array _readError($object, path = null) {
-        if (path != null && $object instanceof IEntity) {
-            return $object.getError(path);
+    protected array _readError( object, path = null) {
+        if (path != null &&  object instanceof IEntity) {
+            return  object.getError(path);
         }
-        if ($object instanceof IEntity) {
-            return $object.getErrors();
+        if ( object instanceof IEntity) {
+            return  object.getErrors();
         }
-        if (is_iterable($object)) {
+        if (is_iterable( object)) {
             array = array_map(function ($val) {
                 if ($val instanceof IEntity) {
                     return $val.getErrors();
                 }
 
                 return null;
-            }, (array)$object);
+            }, (array) object);
 
             return array_filter(array);
         }

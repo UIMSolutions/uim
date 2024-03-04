@@ -287,7 +287,7 @@ class NumericPaginator : IPaginator {
             );
         }
         options = this.mergeOptions(requestParameters, defaults);
-        options = this.validateSort($object, options);
+        options = this.validateSort( object, options);
         options = this.checkLimit(options);
 
         options["page"] = max((int)options["page"], 1);
@@ -387,7 +387,7 @@ class NumericPaginator : IPaginator {
         }
         this.pagingParams = [
             `sort": someData["options"]["sort"],
-            'direction": isSet(someData["options"]["sort"]) && count($order) ? current($order): null,
+            'direction": isSet(someData["options"]["sort"]) && count( order) ? current( order): null,
             `sortDefault": sortDefault,
             'directionDefault": directionDefault,
             'completeSort": order,
@@ -476,8 +476,8 @@ class NumericPaginator : IPaginator {
                 direction = "asc";
             }
             order = isSet(options["order"]) && isArray(options["order"]) ? options["order"] : [];
-            if ($order && options["sort"] && !options["sort"].has(".")) {
-                order = _removeAliases($order, repository.aliasName());
+            if ( order && options["sort"] && !options["sort"].has(".")) {
+                order = _removeAliases( order, repository.aliasName());
             }
             options["order"] = [options["sort"]: direction] + order;
         } else {
@@ -554,7 +554,7 @@ class NumericPaginator : IPaginator {
     protected array _prefix(IRepository object, array order, bool allowed = false) {
         aTableAlias = object.aliasName();
         aTableOrder = [];
-        foreach ($order as aKey: aValue) {
+        foreach ( order as aKey: aValue) {
             if (isNumeric(aKey)) {
                 aTableOrder ~= aValue;
                 continue;
@@ -569,7 +569,7 @@ class NumericPaginator : IPaginator {
 
             if (correctAlias && allowed) {
                 // Disambiguate fields in schema. As id is quite common.
-                if ($object.hasField(field)) {
+                if ( object.hasField(field)) {
                     field = alias ~ "." ~ field;
                 }
                 aTableOrder[field] = aValue;

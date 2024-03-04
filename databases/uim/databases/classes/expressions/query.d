@@ -304,12 +304,12 @@ class QueryExpression : IExpression, Countable {
         IExpression|string[] avalues,
         string atype = null
     ) {
-        $or = new static([], [], "OR");
-        $or
+         or = new static([], [], "OR");
+         or
             .notIn(field,  someValues, type)
             .isNull(field);
 
-        return this.add($or);
+        return this.add( or);
     }
     
     /**
@@ -493,7 +493,7 @@ class QueryExpression : IExpression, Countable {
      * fieldTypes list of types associated on fields referenced in conditions
      */
     protected void _addConditions(array conditions, STRINGAA fieldTypes) {
-        $operators = ["and", "or", "xor"];
+         operators = ["and", "or", "xor"];
 
         typeMap = this.getTypeMap().setTypes(fieldTypes);
 
@@ -511,7 +511,7 @@ class QueryExpression : IExpression, Countable {
              isOperator =  isNot = false;
             if (!numericKey) {
                 normalizedKey = myKey.toLower;
-                 isOperator = in_array(normalizedKey, $operators);
+                 isOperator = in_array(normalizedKey,  operators);
                  isNot = normalizedKey == "not";
             }
             if ((isOperator ||  isNot) && (isArray || cast(Countable)c) && count(c) == 0) {
@@ -552,7 +552,7 @@ class QueryExpression : IExpression, Countable {
      */
     protected IExpression|string _parseCondition(string acondition, Json aValue) {
         expression = trim(condition);
-        $operator = "=";
+         operator = "=";
 
         spaces = substr_count(expression, " ");
         // Handle expression values that contain multiple spaces, such as
@@ -566,55 +566,55 @@ class QueryExpression : IExpression, Countable {
                 second = array_pop(someParts);
                 someParts ~= "{second} {$last}";
             }
-            $operator = array_pop(someParts);
+             operator = array_pop(someParts);
             expression = join(" ", someParts);
         } elseif (spaces == 1) {
             string[] someParts = split(" ", expression, 2);
-            [expression, $operator] = someParts;
+            [expression,  operator] = someParts;
         }
-        $operator = strtoupper(trim($operator));
+         operator = strtoupper(trim( operator));
 
         type = this.getTypeMap().type(expression);
         typeMultiple = (isString(type) && type.has("[]"));
-        if (in_array($operator, ["IN", "NOT IN"]) || typeMultiple) {
+        if (in_array( operator, ["IN", "NOT IN"]) || typeMultiple) {
             type = type ?: "string";
             if (!typeMultiple) {
                 type ~= "[]";
             }
-            $operator = $operator == "=" ? "IN" : $operator;
-            $operator = $operator == "!=" ? "NOT IN" : $operator;
+             operator =  operator == "=" ? "IN" :  operator;
+             operator =  operator == "!=" ? "NOT IN" :  operator;
             typeMultiple = true;
         }
 
         if (typeMultiple) {
             aValue = cast(IExpression)aValue  ? aValue : (array)aValue;
         }
-        if ($operator == "IS' && aValue.isNull) {
+        if ( operator == "IS' && aValue.isNull) {
             return new UnaryExpression(
                 'isNull",
                 new IdentifierExpression(expression),
                 UnaryExpression.POSTFIX
             );
         }
-        if ($operator == "IS NOT" && aValue.isNull) {
+        if ( operator == "IS NOT" && aValue.isNull) {
             return new UnaryExpression(
                 "IS NOT NULL",
                 new IdentifierExpression(expression),
                 UnaryExpression.POSTFIX
             );
         }
-        if ($operator == "IS" && aValue !isNull) {
-            $operator = "=";
+        if ( operator == "IS" && aValue !isNull) {
+             operator = "=";
         }
-        if ($operator == "IS NOT" && aValue !isNull) {
-            $operator = "!=";
+        if ( operator == "IS NOT" && aValue !isNull) {
+             operator = "!=";
         }
         if (aValue.isNull && _conjunction != ",") {
             throw new InvalidArgumentException(
                 "Expression `%s` is missing operator (IS, IS NOT) with `null` value.".format(expression)
             );
         }
-        return new ComparisonExpression(expression, aValue, type, $operator);
+        return new ComparisonExpression(expression, aValue, type,  operator);
     }
     
     /**

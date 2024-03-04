@@ -295,7 +295,7 @@ mixin EntityTemplate {
   // Gets all original values of the entity.
   array getOriginalValues() {
     originals = _original;
-    originalKeys = $originals.keys;
+    originalKeys =  originals.keys;
     _fields.byKeyValue
       .each!((kv) {
       if (
@@ -884,11 +884,11 @@ mixin EntityTemplate {
      * \UIM\Datasource\IEntity|array object The object to read errors from.
      */
                                                   protected bool _readHasErrors(
-                                                  IEntity[]$object) {
-                                                    if (cast(IEntity)$object && object
+                                                  IEntity[] object) {
+                                                    if (cast(IEntity) object && object
                                                     .hasErrors()) {
                                                       return true;}
-                                                      if (isArray($object)) {
+                                                      if (isArray( object)) {
                                                         foreach (
                                                           object as aValue) {
                                                           if (
@@ -906,13 +906,13 @@ mixin EntityTemplate {
      * @param string somePath The field name for errors.
      */
                                                         protected array _readError(
-                                                        IEntity | iterable$object, string aPath = null) {
+                                                        IEntity | iterable object, string aPath = null) {
                                                           if (somePath!isNull && cast(
-                                                            IEntity)$object) {
+                                                            IEntity) object) {
                                                             return object.getError(
                                                             somePath);}
                                                             if (
-                                                              cast(IEntity)$object) {
+                                                              cast(IEntity) object) {
                                                               return object.getErrors();
                                                             }
                                                             array = array_map(
@@ -921,7 +921,7 @@ mixin EntityTemplate {
                                                                 cast(IEntity)$val) {
                                                                 return val.getErrors();
                                                               }
-                                                            }, (array)$object); return array_filter(
+                                                            }, (array) object); return array_filter(
                                                             array);}
 
                                                             /**

@@ -207,112 +207,112 @@ _baseConfig = [
      * Prior to SQLServer 2012 there was no equivalent to LIMIT OFFSET, so a subquery must
      * be used.
      * Params:
-     * \UIM\Database\Query\SelectQuery<mixed> $original The query to wrap in a subquery.
+     * \UIM\Database\Query\SelectQuery<mixed>  original The query to wrap in a subquery.
      * @param int aLimit The number of rows to fetch.
      * @param int  anOffset The number of rows to offset.
      */
-    protected SelectQuery _pagingSubquery(SelectQuery $original, int aLimit, int anOffset) {
+    protected SelectQuery _pagingSubquery(SelectQuery  original, int aLimit, int anOffset) {
         auto field = "_cake_paging_._cake_page_rownum_";
 
-        if ($original.clause("order")) {
+        if ( original.clause("order")) {
             // SQL server does not support column aliases in OVER clauses.  But
             // the only practical way to specify the use of calculated columns
             // is with their alias.  So substitute the select SQL in place of
             // any column aliases for those entries in the order clause.
-            auto select = $original.clause("select");
-            auto $order = new OrderByExpression();
-            $original
+            auto select =  original.clause("select");
+            auto  order = new OrderByExpression();
+             original
                 .clause("order")
-                .iterateParts(function ($direction, $orderBy) use (select, $order) {
-                    aKey = $orderBy;
+                .iterateParts(function ($direction,  orderBy) use (select,  order) {
+                    aKey =  orderBy;
                     if (
-                        isSet(select[$orderBy]) &&
-                        cast(IExpression)select[$orderBy] 
+                        isSet(select[ orderBy]) &&
+                        cast(IExpression)select[ orderBy] 
                     ) {
-                        $order.add(new OrderClauseExpression(select[$orderBy], $direction));
+                         order.add(new OrderClauseExpression(select[ orderBy], $direction));
                     } else {
-                        $order.add([aKey: $direction]);
+                         order.add([aKey: $direction]);
                     }
                     // Leave original order clause unchanged.
-                    return $orderBy;
+                    return  orderBy;
                 });
         } else {
-            $order = new OrderByExpression("(SELECT NULL)");
+             order = new OrderByExpression("(SELECT NULL)");
         }
 
-        auto aQuery = clone $original;
+        auto aQuery = clone  original;
         aQuery.select([
-                "_cake_page_rownum_": new UnaryExpression("ROW_NUMBER() OVER", $order),
+                "_cake_page_rownum_": new UnaryExpression("ROW_NUMBER() OVER",  order),
             ]).limit(null)
             .offset(null)
             .orderBy([], true);
 
-        auto $outer = aQuery.getConnection().selectQuery();
-        $outer.select("*")
+        auto  outer = aQuery.getConnection().selectQuery();
+         outer.select("*")
             .from(["_cake_paging_": aQuery]);
 
         if (anOffset) {
-            $outer.where(["field > " ~  anOffset]);
+             outer.where(["field > " ~  anOffset]);
         }
         if (aLimit) {
             aValue = (int) anOffset + aLimit;
-            $outer.where(["field <= aValue"]);
+             outer.where(["field <= aValue"]);
         }
         // Decorate the original query as that is what the
         // end developer will be calling execute() on originally.
-        $original.decorateResults(function (row) {
+         original.decorateResults(function (row) {
             if (isSet(row["_cake_page_rownum_"])) {
                 unset(row["_cake_page_rownum_"]);
             }
             return row;
         });
 
-        return $outer;
+        return  outer;
     }
  
     protected SelectQuery _transformDistinct(SelectQuery aQuery) {
         if (!isArray(aQuery.clause("distinct"))) {
             return aQuery;
         }
-        $original = aQuery;
-        aQuery = clone $original;
+         original = aQuery;
+        aQuery = clone  original;
 
         $distinct = aQuery.clause("distinct");
         aQuery.distinct(false);
 
-        $order = new OrderByExpression($distinct);
+         order = new OrderByExpression($distinct);
         aQuery
-            .select(function ($q) use ($distinct, $order) {
-                $over = $q.newExpr("ROW_NUMBER() OVER")
+            .select(function ($q) use ($distinct,  order) {
+                 over = $q.newExpr("ROW_NUMBER() OVER")
                     .add("(PARTITION BY")
                     .add($q.newExpr().add($distinct).setConjunction(","))
-                    .add($order)
+                    .add( order)
                     .add(")")
                     .setConjunction(" ");
 
                 return [
-                    "_cake_distinct_pivot_": $over,
+                    "_cake_distinct_pivot_":  over,
                 ];
             })
             .limit(null)
             .offset(null)
             .orderBy([], true);
 
-        $outer = new SelectQuery(aQuery.getConnection());
-        $outer.select("*")
+         outer = new SelectQuery(aQuery.getConnection());
+         outer.select("*")
             .from(["_cake_distinct_": aQuery])
             .where(["_cake_distinct_pivot_": 1]);
 
         // Decorate the original query as that is what the
         // end developer will be calling execute() on originally.
-        $original.decorateResults(function (row) {
+         original.decorateResults(function (row) {
             if (isSet(row["_cake_distinct_pivot_"])) {
                 unset(row["_cake_distinct_pivot_"]);
             }
             return row;
         });
 
-        return $outer;
+        return  outer;
     }
  
     protected array _expressionTranslators() {

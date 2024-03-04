@@ -15,7 +15,7 @@ class ContentsRegExp : ContentsBase {
      * Json other Expected
      */
    bool matches(Json other) {
-        return preg_match($other, this.contents) > 0;
+        return preg_match( other, this.contents) > 0;
     }
     
     // Assertion message

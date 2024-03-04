@@ -154,7 +154,7 @@ class Marshaller
         primaryKeys = (array)_table.getPrimaryKeys();
         entityClass = _table.getEntityClass();
         entity = new entityClass();
-        entity.setSource(_table.getRegistryAlias());
+        entity.setSource(_table.registryKey());
 
         if (isset(options["accessibleFields"])) {
             foreach ((array)options["accessibleFields"] as key: value) {

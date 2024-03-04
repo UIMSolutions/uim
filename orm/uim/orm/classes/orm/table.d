@@ -188,7 +188,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      */
     this(Json myConfiguration) {
         if (!empty(myconfiguration["registryAlias"])) {
-            this.setRegistryAlias(myconfiguration["registryAlias"]);
+            this.registryKey(myconfiguration["registryAlias"]);
         }
         if (!empty(myconfiguration["table"])) {
             this.setTable(myconfiguration["table"]);
@@ -354,7 +354,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * @param string registryAlias The key used to access this object.
      * @return this
      */
-    function setRegistryAlias(string registryAlias) {
+    function registryKey(string registryAlias) {
         _registryAlias = registryAlias;
 
         return this;
@@ -363,7 +363,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
     /**
      * Returns the table registry key used to create this table instance.
      */
-    string getRegistryAlias() {
+    string registryKey() {
         if (_registryAlias == null) {
             _registryAlias = this.aliasName();
         }
@@ -1752,7 +1752,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
                     entity.clean();
                     entity.setNew(false);
                 }
-                entity.setSource(this.getRegistryAlias());
+                entity.setSource(this.registryKey());
             }
         }
 
@@ -1888,7 +1888,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
         if (!options["atomic"] && !options["_primary"]) {
             entity.clean();
             entity.setNew(false);
-            entity.setSource(this.getRegistryAlias());
+            entity.setSource(this.registryKey());
         }
 
         return true;
@@ -2560,7 +2560,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
     {
         class = this.getEntityClass();
 
-        return new class([], ["source": this.getRegistryAlias()]);
+        return new class([], ["source": this.registryKey()]);
     }
 
     /**
@@ -2808,7 +2808,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
             [
                 "useSetters": false,
                 "markNew": context["newRecord"],
-                "source": this.getRegistryAlias(),
+                "source": this.registryKey(),
             ]
         );
         fields = array_merge(
@@ -2943,7 +2943,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
         conn = this.getConnection();
 
         return [
-            "registryAlias": this.getRegistryAlias(),
+            "registryAlias": this.registryKey(),
             "table": this.getTable(),
             "alias": this.aliasName(),
             "entityClassName": this.getEntityClass(),

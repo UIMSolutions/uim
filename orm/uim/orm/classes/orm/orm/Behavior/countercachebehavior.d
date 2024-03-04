@@ -106,7 +106,7 @@ class CounterCacheBehavior : Behavior {
                 if (isInt(myfield)) {
                     continue;
                 }
-                myregistryAlias = myassoc.getTarget().getRegistryAlias();
+                myregistryAlias = myassoc.getTarget().registryKey();
                 myentityAlias = myassoc.getProperty();
 
                 if (
@@ -204,8 +204,8 @@ class CounterCacheBehavior : Behavior {
                 configData = [];
             }
             if (
-                isSet(_ignoreDirty[myassoc.getTarget().getRegistryAlias()][myfield]) &&
-               _ignoreDirty[myassoc.getTarget().getRegistryAlias()][myfield] == true
+                isSet(_ignoreDirty[myassoc.getTarget().registryKey()][myfield]) &&
+               _ignoreDirty[myassoc.getTarget().registryKey()][myfield] == true
             ) {
                 continue;
             }

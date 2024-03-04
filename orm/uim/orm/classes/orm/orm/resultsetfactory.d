@@ -39,7 +39,7 @@ class ResultSetFactory {
         myprimaryTable = myquery.getRepository();
         mydata = [
             "primaryAlias": myprimaryTable.aliasName(),
-            "registryAlias": myprimaryTable.getRegistryAlias(),
+            "registryAlias": myprimaryTable.registryKey(),
             "entityClass": myprimaryTable.getEntityClass(),
             "hydrate": myquery.isHydrationEnabled(),
             "autoFields": myquery.isAutoFieldsEnabled(),
@@ -109,7 +109,7 @@ class ResultSetFactory {
                 mytable = mymatching["instance"];
                 assert(cast(Table)mytable || cast(Association)mytable);
 
-                options["source"] = mytable.getRegistryAlias();
+                options["source"] = mytable.registryKey();
                 myentity = new mymatching["entityClass"](results["_matchingData"][myalias], options);
                 assert(cast(IEntity)myentity);
 
@@ -146,7 +146,7 @@ class ResultSetFactory {
                 results[myalias] = myrow[myalias];
             }
             mytarget = myinstance.getTarget();
-            options["source"] = mytarget.getRegistryAlias();
+            options["source"] = mytarget.registryKey();
             mypresentAliasesm.remove(yalias);
 
             if (myassoc["canBeJoined"] && mydata["autoFields"] != false) {

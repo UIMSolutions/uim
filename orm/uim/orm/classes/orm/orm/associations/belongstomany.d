@@ -629,7 +629,7 @@ class BelongsToMany : DAssociation {
         auto targetBindingKey = (array)belongsTo.getBindingKey();
         auto bindingKey = (array)this.getBindingKey();
         auto jointProperty = _junctionProperty;
-        auto junctionRegistryAlias = junction.getRegistryAlias();
+        auto junctionRegistryAlias = junction.registryKey();
 
         foreach (anException; targetEntities) {
             auto joint =  anException.get(jointProperty);

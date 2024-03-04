@@ -11,19 +11,16 @@ import uim.datasources;
 interface IRepository {
     // Get / Set the repository alias name.
     mixin(IProperty!("string", "aliasName"));
+
+    // Get / Set the table registry key used to create this table instance.
+    mixin(IProperty!("string", "registryKey"));
     
     /**
      * Alias a field with the repository`s current alias.
      *
      * If field is already aliased it will result in no-op.
      */
-    string aliasField(string fieldAlias);
-
-    // Sets the table registry key used to create this table instance.
-    void registryAlias(string registryAlias);
-
-    // Returns the table registry key used to create this table instance.
-    string registryAlias();
+    string aliasField(string fieldAliasName);
 
     // Test to see if a Repository has a specific field/column.
     bool hasField(string fieldName);

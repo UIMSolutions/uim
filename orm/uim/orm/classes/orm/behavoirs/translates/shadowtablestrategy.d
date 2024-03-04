@@ -53,7 +53,7 @@ class ShadowTableStrategy : ITranslateStrategy
      */
     this(DORMTable aTable, IData[string] configData) {
         tableAlias = table.aliasName();
-        [plugin] = pluginSplit(table.getRegistryAlias(), true);
+        [plugin] = pluginSplit(table.registryKey(), true);
         tableReferenceName = myconfiguration["referenceName"];
 
         myConfiguration += [

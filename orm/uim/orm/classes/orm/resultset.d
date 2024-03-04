@@ -410,7 +410,7 @@ class ResultSet : IResultSet {
             if (_hydrate) {
                 /** @var DORMDORMTable aTable */
                 table = matching["instance"];
-                options["source"] = table.getRegistryAlias();
+                options["source"] = table.registryKey();
                 /** @var DORMdatasources.IEntity anEntity */
                 entity = new matching["entityClass"](results["_matchingData"][alias], options);
                 results["_matchingData"][alias] = entity;
@@ -449,7 +449,7 @@ class ResultSet : IResultSet {
             }
 
             target = instance.getTarget();
-            options["source"] = target.getRegistryAlias();
+            options["source"] = target.registryKey();
             unset(presentAliases[alias]);
 
             if (assoc["canBeJoined"] && _autoFields != false) {
@@ -485,7 +485,7 @@ class ResultSet : IResultSet {
             results[defaultAlias]["_matchingData"] = results["_matchingData"];
         }
 
-        options["source"] = _defaultTable.getRegistryAlias();
+        options["source"] = _defaultTable.registryKey();
         if (isset(results[defaultAlias])) {
             results = results[defaultAlias];
         }

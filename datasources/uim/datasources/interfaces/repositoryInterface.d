@@ -12,26 +12,6 @@ module datasources.uim.datasources.interfaces.repositoryInterface;
 interface IRepository
 {
 
-
-    /**
-     * Sets the table registry key used to create this table instance.
-     *
-     * @param string registryAlias The key used to access this object.
-     * @return this
-     */
-    function setRegistryAlias(string registryAlias);
-
-    // Returns the table registry key used to create this table instance.
-    string getRegistryAlias();
-
-    /**
-     * Test to see if a Repository has a specific field/column.
-     *
-     * @param string field The field to check for.
-     * @return bool True if the field exists, false if it does not.
-     */
-    bool hasField(string field);
-
     /**
      * Creates a new Query for this repository and applies some defaults based on the
      * type of search that was selected.

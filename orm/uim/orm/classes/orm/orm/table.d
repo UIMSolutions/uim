@@ -182,7 +182,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      */
     this(IData[string] configData = null) {
         if (!empty(configData("registryAlias"])) {
-            this.setRegistryAlias(configData("registryAlias"]);
+            this.registryKey(configData("registryAlias"]);
         }
         if (!empty(configData("table"])) {
             this.setTable(configData("table"]);
@@ -338,12 +338,12 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * Params:
      * string myregistryAlias The key used to access this object.
      */
-    void setRegistryAlias(string myregistryAlias) {
+    void registryKey(string myregistryAlias) {
        _registryAlias = myregistryAlias;
     }
     
     // Returns the table registry key used to create this table instance.
-    string getRegistryAlias() {
+    string registryKey() {
         return _registryAlias ??= this.aliasName();
     }
     
@@ -1665,7 +1665,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
                     myentity.clean();
                     myentity.setNew(false);
                 }
-                myentity.setSource(this.getRegistryAlias());
+                myentity.setSource(this.registryKey());
             }
         }
         return mysuccess;
@@ -1778,7 +1778,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         if (!options["atomic"] && !options["_primary"]) {
             myentity.clean();
             myentity.setNew(false);
-            myentity.setSource(this.getRegistryAlias());
+            myentity.setSource(this.registryKey());
         }
         return true;
     }
@@ -2428,7 +2428,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     IEntity newEmptyEntity() {
         myclass = this.getEntityClass();
 
-        return new myclass([], ["source": this.getRegistryAlias()]);
+        return new myclass([], ["source": this.registryKey()]);
     }
     
     /**
@@ -2664,7 +2664,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
             [
                 "useSetters": false,
                 "markNew": mycontext["newRecord"],
-                "source": this.getRegistryAlias(),
+                "source": this.registryKey(),
             ]
         );
         myfields = array_merge(
@@ -2786,7 +2786,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         myconn = this.getConnection();
 
         return [
-            "registryAlias": this.getRegistryAlias(),
+            "registryAlias": this.registryKey(),
             "table": this.getTable(),
             "alias": this.aliasName(),
             "entityClass": this.getEntityClass(),

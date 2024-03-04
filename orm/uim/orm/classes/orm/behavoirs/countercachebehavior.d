@@ -117,7 +117,7 @@ class CounterCacheBehavior : Behavior {
                     continue;
                 }
 
-                registryAlias = assoc.getTarget().getRegistryAlias();
+                registryAlias = assoc.getTarget().registryKey();
                 entityAlias = assoc.getProperty();
 
                 if (
@@ -221,8 +221,8 @@ class CounterCacheBehavior : Behavior {
             }
 
             if (
-                isset(_ignoreDirty[assoc.getTarget().getRegistryAlias()][field]) &&
-                _ignoreDirty[assoc.getTarget().getRegistryAlias()][field] == true
+                isset(_ignoreDirty[assoc.getTarget().registryKey()][field]) &&
+                _ignoreDirty[assoc.getTarget().registryKey()][field] == true
             ) {
                 continue;
             }

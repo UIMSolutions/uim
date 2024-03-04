@@ -39,7 +39,7 @@ class ShadowTableStrategy : ITranslateStrategy {
      */
     this(Table mytable, IData[string] configData = null) {
         auto mytableAlias = mytable.aliasName();
-        [myplugin] = pluginSplit(mytable.getRegistryAlias(), true);
+        [myplugin] = pluginSplit(mytable.registryKey(), true);
         auto mytableReferenceName = configData("referenceName"];
 
         configData += [

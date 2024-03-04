@@ -22,30 +22,30 @@ class FactoryLocator {
      * Register a callable to generate repositories of a given type.
      *
      * @param string type The name of the repository type the factory bool is for.
-     * @param uim.Datasource\Locator\ILocator|callable $factory The factory function used to create instances.
+     * @param uim.Datasource\Locator\ILocator|callable factory The factory function used to create instances.
      */
-    static void add(string type, $factory) {
-        if ($factory instanceof ILocator) {
-            _modelFactories[$type] = $factory;
+    static void add(string type, factory) {
+        if (factory instanceof ILocator) {
+            _modelFactories[type] = factory;
 
             return;
         }
 
-        if (is_callable($factory)) {
+        if (is_callable(factory)) {
             deprecationWarning(
                 "Using a callable as a locator has been deprecated."
                 ~ " Use an instance of Cake\Datasource\Locator\ILocatorinstead."
             );
 
-            _modelFactories[$type] = $factory;
+            _modelFactories[type] = factory;
 
             return;
         }
 
         throw new InvalidArgumentException(sprintf(
-            "`$factory` must be an instance of Cake\Datasource\Locator\ILocatoror a callable."
+            "`factory` must be an instance of Cake\Datasource\Locator\ILocatoror a callable."
             ~ " Got type `%s` instead.",
-            getTypeName($factory)
+            getTypeName(factory)
         ));
     }
 
@@ -69,13 +69,13 @@ class FactoryLocator {
             _modelFactories["Table"] = new TableLocator();
         }
 
-        if (!isset(_modelFactories[$type])) {
+        if (!isset(_modelFactories[type])) {
             throw new InvalidArgumentException(sprintf(
                 "Unknown repository type '%s'. Make sure you register a type before trying to use it.",
                 type
             ));
         }
 
-        return _modelFactories[$type];
+        return _modelFactories[type];
     }
 }

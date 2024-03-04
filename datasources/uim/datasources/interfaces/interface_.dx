@@ -10,7 +10,7 @@ interface IEntity : ArrayAccess, JsonSerializable
      * Sets the dirty status of a single field.
      *
      * @param string field the field to set or check status for
-     * @param bool $isDirty true means the field was changed, false means it was not changed. Default true.
+     * @param bool isDirty true means the field was changed, false means it was not changed. Default true.
      * @return this
      */
     IENtity isFieldDirty(string fieldName, bool isDirty = true);

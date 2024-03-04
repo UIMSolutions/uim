@@ -54,7 +54,7 @@ interface IRepository
      * article = articles.get(anId, ["contain": ["Comments]]);
      * ```
      * Params:
-     * Json $primaryKey primary key value to find
+     * Json primaryKey primary key value to find
      * @param string[] afinder The finder to use. Passing an options array is deprecated.
      * @param \Psr\SimpleCache\ICache|string|null cache The cache config to use.
      *  Defaults to `null`, i.e. no caching.
@@ -64,7 +64,7 @@ interface IRepository
      * could not be found
      * /
     IEntity get(
-        Json $primaryKey,
+        Json primaryKey,
         string[] afinder = "all",
         ICache|string|null cache = null,
         Closure|string|null cacheKey = null,

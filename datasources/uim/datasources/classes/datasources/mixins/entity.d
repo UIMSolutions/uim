@@ -334,8 +334,8 @@ mixin EntityTemplate {
      * string[]|string afield The field or fields to check.
      */
   bool has(string[] afield) {
-    foreach ((array)field as$prop) {
-      if (!array_key_exists($prop, _fields) && !_accessor($prop, "get")) {
+    foreach ((array)field asprop) {
+      if (!array_key_exists(prop, _fields) && !_accessor(prop, "get")) {
         return false;
       }
     }
@@ -404,8 +404,8 @@ mixin EntityTemplate {
      */
   auto unset(string[] afield) {
     field = (array)field;
-    foreach (field as$p) {
-      unset(_fields[$p], _isDirty[$p]);
+    foreach (field asp) {
+      unset(_fields[p], _isDirty[p]);
     }
     return this;
   }
@@ -556,7 +556,7 @@ mixin EntityTemplate {
       titleField = ucfirst(field);
       _accessors[className][prefix][$snakeField] = method;
       _accessors[className][prefix][field] = method;
-      _accessors[className][prefix][$titleField] = method;
+      _accessors[className][prefix][titleField] = method;
     });
     if (!isSet(_accessors[className][accessorType][aProperty])) {
       _accessors[className][accessorType][aProperty] = "";
@@ -804,17 +804,17 @@ mixin EntityTemplate {
      */
                     auto setErrors(arrayerrors, booloverwrite = false) {
                       if (overwrite) {
-                        foreach (errors as$f : error) {
-                          _fieldErrors[$f] = (array)error;}
+                        foreach (errors asf : error) {
+                          _fieldErrors[f] = (array)error;}
                           return this;}
-                          foreach ($f : error; errors) {
-                            _fieldErrors += [$f: []];  // String messages are appended to the list,
+                          foreach (f : error; errors) {
+                            _fieldErrors += [f: []];  // String messages are appended to the list,
                             // while more complex error structures need their
                             // keys preserved for nested validator.
                             if (isString(error)) {
-                              _fieldErrors[$f] ~= error;} else {
+                              _fieldErrors[f] ~= error;} else {
                                 foreach (error as myKey : v) {
-                                  _fieldErrors[$f][myKey] = v;}
+                                  _fieldErrors[f][myKey] = v;}
                                 }
                               }
                               return this;}
@@ -859,12 +859,12 @@ mixin EntityTemplate {
                                         // the relevant entity.
                                         entity = this; len = count(
                                         somePath); while ($len) {
-                                          string$part = array_shift(
+                                          stringpart = array_shift(
                                           somePath); len = count(
                                           somePath); val = null; if (cast(IEntity)entity) {
-                                            val = entity.get($part);}
+                                            val = entity.get(part);}
                                             else if(isArray(entity)) {
-                                              val = entity[$part] ?  ? false;}
+                                              val = entity[part] ?  ? false;}
                                               if (
                                                 isArray($val) ||
                                               cast(Traversable)$val ||
@@ -1002,14 +1002,14 @@ mixin EntityTemplate {
      */
                                                                     auto setAccess(string[] afield, bool$set) {
                                                                       if (field == "*") {
-                                                                        _accessible = array_map(fn($p) : set, _accessible);
+                                                                        _accessible = array_map(fn(p) : set, _accessible);
                                                                         _accessible["*"] = set;
 
                                                                         return this;
                                                                       }
                                                                       foreach (
-                                                                        (array)field as$prop) {
-                                                                        _accessible[$prop] = set;
+                                                                        (array)field asprop) {
+                                                                        _accessible[prop] = set;
                                                                       }
                                                                       return this;
                                                                     }

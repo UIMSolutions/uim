@@ -330,8 +330,8 @@ trait EntityTrait
      * @param array<string>|string field The field or fields to check.
      */
     bool has(field) {
-        foreach ((array)field as $prop) {
-            if (this.get($prop) == null) {
+        foreach ((array)field as prop) {
+            if (this.get(prop) == null) {
                 return false;
             }
         }
@@ -406,8 +406,8 @@ trait EntityTrait
      */
     function unset(field) {
         field = (array)field;
-        foreach (field as $p) {
-            unset(_fields[$p], _original[$p], _isDirty[$p]);
+        foreach (field as p) {
+            unset(_fields[p], _original[p], _isDirty[p]);
         }
 
         return this;
@@ -569,19 +569,19 @@ trait EntityTrait
      * Fetch accessor method name
      * Accessor methods (available or not) are cached in _accessors
      *
-     * @param string $property the field name to derive getter name from
+     * @param string property the field name to derive getter name from
      * @param string type the accessor type ("get" or "set")
      * @return string method name or empty string (no method available)
      */
-    protected static string _accessor(string $property, string type) {
+    protected static string _accessor(string property, string type) {
         class = class;
 
-        if (isset(_accessors[class][$type][$property])) {
-            return _accessors[class][$type][$property];
+        if (isset(_accessors[class][type][property])) {
+            return _accessors[class][type][property];
         }
 
         if (!empty(_accessors[class])) {
-            return _accessors[class][$type][$property] = "";
+            return _accessors[class][type][property] = "";
         }
 
         if (class == Entity::class) {
@@ -589,23 +589,23 @@ trait EntityTrait
         }
 
         foreach (get_class_methods(class) as $method) {
-            $prefix = substr($method, 1, 3);
-            if ($method[0] != "_" || ($prefix != "get" && $prefix != "set")) {
+            prefix = substr($method, 1, 3);
+            if ($method[0] != "_" || (prefix != "get" && prefix != "set")) {
                 continue;
             }
             field = lcfirst(substr($method, 4));
             $snakeField = Inflector::underscore(field);
             titleField = ucfirst(field);
-            _accessors[class][$prefix][$snakeField] = $method;
-            _accessors[class][$prefix][field] = $method;
-            _accessors[class][$prefix][$titleField] = $method;
+            _accessors[class][prefix][$snakeField] = $method;
+            _accessors[class][prefix][field] = $method;
+            _accessors[class][prefix][titleField] = $method;
         }
 
-        if (!isset(_accessors[class][$type][$property])) {
-            _accessors[class][$type][$property] = "";
+        if (!isset(_accessors[class][type][property])) {
+            _accessors[class][type][property] = "";
         }
 
-        return _accessors[class][$type][$property];
+        return _accessors[class][type][property];
     }
 
     /**
@@ -669,12 +669,12 @@ trait EntityTrait
      * Sets the dirty status of a single field.
      *
      * @param string field the field to set or check status for
-     * @param bool $isDirty true means the field was changed, false means
+     * @param bool isDirty true means the field was changed, false means
      * it was not changed. Defaults to true.
      * @return this
      */
-    function setDirty(string field, bool $isDirty = true) {
-        if ($isDirty == false) {
+    function setDirty(string field, bool isDirty = true) {
+        if (isDirty == false) {
             unset(_isDirty[field]);
 
             return this;
@@ -728,7 +728,7 @@ trait EntityTrait
      */
     function setNew(bool $new) {
         if ($new) {
-            foreach (_fields as $k: $p) {
+            foreach (_fields as $k: p) {
                 _isDirty[$k] = true;
             }
         }
@@ -756,14 +756,14 @@ trait EntityTrait
     /**
      * Returns whether this entity has errors.
      *
-     * @param bool $includeNested true will check nested entities for hasErrors()
+     * @param bool includeNested true will check nested entities for hasErrors()
      */
-    bool hasErrors(bool $includeNested = true) {
+    bool hasErrors(bool includeNested = true) {
         if (Hash::filter(_errors)) {
             return true;
         }
 
-        if ($includeNested == false) {
+        if (includeNested == false) {
             return false;
         }
 
@@ -823,24 +823,24 @@ trait EntityTrait
      */
     function setErrors(array errors, bool canOverwrite = false) {
         if (canOverwrite) {
-            foreach (errors as $f: error) {
-                _errors[$f] = (array)error;
+            foreach (errors as f: error) {
+                _errors[f] = (array)error;
             }
 
             return this;
         }
 
-        foreach (errors as $f: error) {
-            _errors += [$f: []];
+        foreach (errors as f: error) {
+            _errors += [f: []];
 
             // String messages are appended to the list,
             // while more complex error structures need their
             // keys preserved for nested validator.
             if (is_string(error)) {
-                _errors[$f][] = error;
+                _errors[f][] = error;
             } else {
                 foreach (error as $k: $v) {
-                    _errors[$f][$k] = $v;
+                    _errors[f][$k] = $v;
                 }
             }
         }
@@ -887,20 +887,20 @@ trait EntityTrait
         if (error != null) {
             return error;
         }
-        $path = explode(".", field);
+        path = explode(".", field);
 
         // Traverse down the related entities/arrays for
         // the relevant entity.
         entity = this;
-        $len = count($path);
+        $len = count(path);
         while ($len) {
-            $part = array_shift($path);
-            $len = count($path);
+            part = array_shift(path);
+            $len = count(path);
             $val = null;
             if (entity instanceof IEntity) {
-                $val = entity.get($part);
+                $val = entity.get(part);
             } elseif (is_array(entity)) {
-                $val = entity[$part] ?? false;
+                $val = entity[part] ?? false;
             }
 
             if (
@@ -910,12 +910,12 @@ trait EntityTrait
             ) {
                 entity = $val;
             } else {
-                $path[] = $part;
+                path[] = part;
                 break;
             }
         }
-        if (count($path) <= 1) {
-            return _readError(entity, array_pop($path));
+        if (count(path) <= 1) {
+            return _readError(entity, array_pop(path));
         }
 
         return [];
@@ -946,11 +946,11 @@ trait EntityTrait
      * Read the error(s) from one or many objects.
      *
      * @param uim.Datasource\IEntity|iterable $object The object to read errors from.
-     * @param string|null $path The field name for errors.
+     * @param string|null path The field name for errors.
      */
-    protected array _readError($object, $path = null) {
-        if ($path != null && $object instanceof IEntity) {
-            return $object.getError($path);
+    protected array _readError($object, path = null) {
+        if (path != null && $object instanceof IEntity) {
+            return $object.getError(path);
         }
         if ($object instanceof IEntity) {
             return $object.getErrors();
@@ -1051,7 +1051,7 @@ trait EntityTrait
      */
     function setAccess(field, bool $set) {
         if (field == "*") {
-            _accessible = array_map(function ($p) use ($set) {
+            _accessible = array_map(function (p) use ($set) {
                 return $set;
             }, _accessible);
             _accessible["*"] = $set;
@@ -1059,8 +1059,8 @@ trait EntityTrait
             return this;
         }
 
-        foreach ((array)field as $prop) {
-            _accessible[$prop] = $set;
+        foreach ((array)field as prop) {
+            _accessible[prop] = $set;
         }
 
         return this;

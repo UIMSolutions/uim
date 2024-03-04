@@ -54,10 +54,10 @@ class Entity : IEntity, InvalidPropertyInterface {
      *  entity = new Entity(["id": 1, "name": "Andrew"])
      * ```
      *
-     * @param array<string, mixed> $properties hash of properties to set in this entity
+     * @param array<string, mixed> properties hash of properties to set in this entity
      * @param array<string, mixed> options list of options to use when creating this entity
      */
-    /* this(array $properties = null, STRINGAA someOptions = null) {
+    /* this(array properties = null, STRINGAA someOptions = null) {
         options += [
             "useSetters": true,
             "markClean": false,
@@ -74,14 +74,14 @@ class Entity : IEntity, InvalidPropertyInterface {
             this.setNew(options["markNew"]);
         }
 
-        if (!($properties.isEmpty && options["markClean"] && !options["useSetters"]) {
-            _fields = $properties;
+        if (!(properties.isEmpty && options["markClean"] && !options["useSetters"]) {
+            _fields = properties;
 
             return;
         }
 
-        if (!$properties.isEmpty) {
-            this.set($properties, [
+        if (!properties.isEmpty) {
+            this.set(properties, [
                 "setter": options["useSetters"],
                 "guard": options["guard"],
             ]);

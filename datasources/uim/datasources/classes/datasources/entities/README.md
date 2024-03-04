@@ -43,9 +43,9 @@ The preferred way of getting new entities is using the newEmptyEntity() method f
 
 use Cake\ORM\Locator\LocatorAwareTrait;
 
-article = $this->fetchTable('Articles')->newEmptyEntity();
+article = this->fetchTable('Articles')->newEmptyEntity();
 
-article = $this->fetchTable('Articles')->newEntity([
+article = this->fetchTable('Articles')->newEntity([
     'id' => 1,
     'title' => 'New Article',
     'created' => new DateTime('now')
@@ -53,7 +53,7 @@ article = $this->fetchTable('Articles')->newEntity([
 
 article will be an instance of App\Model\Entity\Article or fallback to Cake\ORM\Entity instance if you haven’t created the Article class.
 
-Prior to CakePHP 4.3 you need to use $this->getTableLocator->get('Articles') to get the table instance.
+Prior to CakePHP 4.3 you need to use this->getTableLocator->get('Articles') to get the table instance.
 Accessing Entity Data
 
 Entities provide a few ways to access the data they contain. Most commonly you will access the data in an entity using object notation:
@@ -133,9 +133,9 @@ use Cake\ORM\Entity;
 
 class Article extends Entity
 {
-    protected function _getTitle($title)
+    protected function _getTitle(title)
     {
-        return strtoupper($title);
+        return strtoupper(title);
     }
 }
 
@@ -160,11 +160,11 @@ use Cake\Utility\Text;
 
 class Article extends Entity
 {
-    protected function _setTitle($title)
+    protected function _setTitle(title)
     {
-        $this->slug = Text::slug($title);
+        this->slug = Text::slug(title);
 
-        return strtouppercase($title);
+        return strtouppercase(title);
     }
 }
 
@@ -186,7 +186,7 @@ class User extends Entity
 {
     protected function _getFullName()
     {
-        return $this->first_name . '  ' . $this->last_name;
+        return this->first_name . '  ' . this->last_name;
     }
 }
 
@@ -345,7 +345,7 @@ While lazy loading is not included by CakePHP’s ORM, you can just use one of t
 
 After adding the plugin to your entity, you will be able to do the following:
 
-article = $this->Articles->findById($id);
+article = this->Articles->findById(id);
 
 // The comments property was lazy loaded
 foreach (article->comments as comment) {
@@ -366,7 +366,7 @@ trait SoftDeleteTrait
 {
     public function softDelete()
     {
-        $this->set('deleted', true);
+        this->set('deleted', true);
     }
 }
 

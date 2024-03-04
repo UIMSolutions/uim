@@ -156,7 +156,7 @@ class NumericPaginator : IPaginator {
      *
      * ```
      * articles = paginator.paginate(articlesQuery, ["scope": 'articles"]);
-     * tags = paginator.paginate($tagsQuery, ["scope": "tags"]);
+     * tags = paginator.paginate(tagsQuery, ["scope": "tags"]);
      * ```
      *
      * Each of the above queries will use different query string parameter sets
@@ -177,28 +177,28 @@ class NumericPaginator : IPaginator {
         array settingsForPagination = []
     ) {
         aQuery = null;
-        if (cast(IQuery)$target) {
+        if (cast(IQuery)target) {
             aQuery = target;
             target = aQuery.getRepository();
-            if ($target.isNull) {
+            if (target.isNull) {
                 throw new UimException("No repository set for query.");
             }
         }
         assert(
-            cast(IRepository)$target ,
+            cast(IRepository)target ,
             'Pagination target must be an instance of `" ~ IQuery.classname
                 ~ "` or `" ~ IRepository.classname ~ "`.'
         );
 
-        someData = this.extractData($target, requestParameters, settingsForPagination);
-        aQuery = this.getQuery($target, aQuery, someData);
+        someData = this.extractData(target, requestParameters, settingsForPagination);
+        aQuery = this.getQuery(target, aQuery, someData);
 
          someItems = this.getItems(clone aQuery, someData);
         this.pagingParams["count"] = count(someItems);
         this.pagingParams["totalCount"] = this.getCount(aQuery, someData);
 
         pagingParams = this.buildParams(someData);
-        if ($pagingParams["requestedPage"] > pagingParams["currentPage"]) {
+        if (pagingParams["requestedPage"] > pagingParams["currentPage"]) {
             throw new PageOutOfBoundsException([
                 "requestedPage": pagingParams["requestedPage"],
                 "pagingParams": pagingParams,
@@ -234,11 +234,11 @@ class NumericPaginator : IPaginator {
         if (aQuery.isNull) {
             someArguments = [];
             type = !empty(options["finder"]) ? options["finder"] : "all";
-            if (isArray($type)) {
-                someArguments = (array)current($type);
-                type = key($type);
+            if (isArray(type)) {
+                someArguments = (array)current(type);
+                type = key(type);
             }
-            aQuery = object.find($type, ...someArguments);
+            aQuery = object.find(type, ...someArguments);
         }
         aQuery.applyOptions(aQueryOptions);
 
@@ -332,7 +332,7 @@ class NumericPaginator : IPaginator {
 
         if (this.pagingParams["totalCount"] !isNull) {
             pageCount = max((int)ceil(this.pagingParams["totalCount"] / this.pagingParams["perPage"]), 1);
-            page = min($page, pageCount);
+            page = min(page, pageCount);
         } else if (this.pagingParams["count"] == 0 && this.pagingParams["requestedPage"] > 1) {
             page = 1;
         }

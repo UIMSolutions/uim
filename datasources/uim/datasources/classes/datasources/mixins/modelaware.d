@@ -80,7 +80,7 @@ template ModelAwareTemplate {
             modelClass = alias;
         }
         factory = _modelFactories[modelType] ?? FactoryLocator.get(modelType);
-        if (cast(ILocator)$factory) {
+        if (cast(ILocator)factory) {
              anInstance = factory.get(modelClass, options);
         } else {
              anInstance = factory(modelClass, options);
@@ -98,7 +98,7 @@ template ModelAwareTemplate {
      * @param \UIM\Datasource\Locator\ILocator|callable factory The factory auto used to create instances.
      */
     void modelFactory(string atype, ILocator|callable factory) {
-       _modelFactories[$type] = factory;
+       _modelFactories[type] = factory;
     }
     
     mixin(TProperty!("string", "modelType"));

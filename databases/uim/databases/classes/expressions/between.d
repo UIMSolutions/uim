@@ -26,17 +26,17 @@ class BetweenExpression : IExpression, IField {
      * Constructor
      * Params:
      * \UIM\Database\IExpression|string afield The field name to compare for values inbetween the range.
-     * @param Json $from The initial value of the range.
+     * @param Json from The initial value of the range.
      * @param Json to The ending value in the comparison range.
      * @param string|null type The data type name to bind the values with.
      */
-    this(IExpression|string afield, Json $from, Json to, string atype = null) {
-        if (!$type.isNull) {
-            $from = _castToExpression($from, type);
-            to = _castToExpression($to, type);
+    this(IExpression|string afield, Json from, Json to, string atype = null) {
+        if (!type.isNull) {
+            from = _castToExpression(from, type);
+            to = _castToExpression(to, type);
         }
        _field = field;
-       _from = $from;
+       _from = from;
        _to = to;
        _type = type;
     }
@@ -51,12 +51,12 @@ class BetweenExpression : IExpression, IField {
         if (cast(IExpression)field ) {
             field = field.sql(aValueBinder);
         }
-        foreach (name: $part; someParts) {
-            if (cast(IExpression)$part) {
-                someParts[name] = $part.sql(aValueBinder);
+        foreach (name: part; someParts) {
+            if (cast(IExpression)part) {
+                someParts[name] = part.sql(aValueBinder);
                 continue;
             }
-            someParts[name] = _bindValue($part, aValueBinder, _type);
+            someParts[name] = _bindValue(part, aValueBinder, _type);
         }
         assert(isString(field));
 
@@ -77,16 +77,16 @@ class BetweenExpression : IExpression, IField {
      * @param string atype The type of aValue
      */
     protected string _bindValue(Json aValue, ValueBinder aValueBinder, string atype) {
-        $placeholder = aValueBinder.placeholder("c");
-        aValueBinder.bind($placeholder, aValue, type);
+        placeholder = aValueBinder.placeholder("c");
+        aValueBinder.bind(placeholder, aValue, type);
 
-        return $placeholder;
+        return placeholder;
     }
 
     // Do a deep clone of this expression.
     void __clone() {
         ["_field", "_from", "_to"]
-            .filter!(part => cast(IExpression)this.{$part})
-            .each!(part => this.{$part} = clone this.{$part});
+            .filter!(part => cast(IExpression)this.{part})
+            .each!(part => this.{part} = clone this.{part});
     }
 }

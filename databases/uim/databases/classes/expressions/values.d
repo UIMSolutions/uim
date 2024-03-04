@@ -34,7 +34,7 @@ class ValuesExpression : IExpression {
      */
     this(array someColumns, TypeMap typeMap) {
        _columns = someColumns;
-        this.setTypeMap($typeMap);
+        this.setTypeMap(typeMap);
     }
     
     /**
@@ -117,7 +117,7 @@ class ValuesExpression : IExpression {
         
         auto colNames = _columnNames();
         $defaults = array_fill_keys(colNames, null);
-        $placeholders = [];
+        placeholders = [];
 
         types = [];
         typeMap = this.getTypeMap();
@@ -135,17 +135,17 @@ class ValuesExpression : IExpression {
                     $rowPlaceholders ~= "(" ~ aValue.sql(aBinder) ~ ")";
                     continue;
                 }
-                auto $placeholder = aBinder.placeholder("c");
-                auto $rowPlaceholders ~= $placeholder;
-                aBinder.bind($placeholder, aValue, types[column]);
+                auto placeholder = aBinder.placeholder("c");
+                auto $rowPlaceholders ~= placeholder;
+                aBinder.bind(placeholder, aValue, types[column]);
             }
-            $placeholders ~= join(", ", $rowPlaceholders);
+            placeholders ~= join(", ", $rowPlaceholders);
         }
         aQuery = this.getQuery();
         if (aQuery) {
             return " " ~ aQuery.sql(aBinder);
         }
-        return " VALUES (%s)".format(join("), (", $placeholders));
+        return " VALUES (%s)".format(join("), (", placeholders));
     }
  
     void traverse(Closure aCallback) {
@@ -182,9 +182,9 @@ class ValuesExpression : IExpression {
             .filter!(colName => isString(colName) || isInt(colName))
             .each!(colName => types[colName] = typeMap.type(colName));
 
-        types = _requiresToExpressionCasting($types);
+        types = _requiresToExpressionCasting(types);
 
-        if (isEmpty($types)) {
+        if (isEmpty(types)) {
             return;
         }
         foreach (_values as $row:  someValues) {

@@ -93,7 +93,7 @@ class ComparisonExpression : IExpression, IField {
             template = "%s %s (%s)";
             aValue = _value.sql(aBinder);
         } else {
-            [$template, aValue] = _stringExpression(aBinder);
+            [template, aValue] = _stringExpression(aBinder);
         }
         assert(isString(field));
 
@@ -118,8 +118,8 @@ class ComparisonExpression : IExpression, IField {
     // Create a deep clone.
     void __clone() {
         ["_value", "_field"]
-            .filter!(prop => cast(IExpression)this.{$prop})
-            .each!(prop => this.{$prop} = clone this.{$prop});
+            .filter!(prop => cast(IExpression)this.{prop})
+            .each!(prop => this.{prop} = clone this.{prop});
     }
     
     /**
@@ -137,7 +137,7 @@ class ComparisonExpression : IExpression, IField {
         if (_isMultiple) {
             template ~= "%s (%s)";
             type = _type;
-            if ($type !isNull) {
+            if (type !isNull) {
                 type = type.replace("[]", "");
             }
             aValue = _flattenValue(_value, valueBinder, type);
@@ -154,7 +154,7 @@ class ComparisonExpression : IExpression, IField {
             template ~= "%s %s";
             aValue = _bindValue(_value, valueBinder, _type);
         }
-        return [$template, aValue];
+        return [template, aValue];
     }
     
     /**

@@ -44,7 +44,7 @@ class QueryExpression : IExpression, Countable {
         TypeMap|array types = [],
         string aconjunction = "AND"
     ) {
-        this.setTypeMap($types);
+        this.setTypeMap(types);
         this.setConjunction(strtoupper(conjunction));
         if (!conditions.isEmpty) {
             this.add(conditions, this.getTypeMap().getTypes());
@@ -335,14 +335,14 @@ class QueryExpression : IExpression, Countable {
      * "field BETWEEN from AND to".
      * Params:
      * \UIM\Database\IExpression|string afield The field name to compare for values inbetween the range.
-     * @param Json $from The initial value of the range.
+     * @param Json from The initial value of the range.
      * @param Json to The ending value in the comparison range.
      * @param string|null type the type name for aValue as configured using the Type map.
      */
-    auto between(IExpression|string afield, Json $from, Json to, string atype = null) {
+    auto between(IExpression|string afield, Json from, Json to, string atype = null) {
         type ??= _calculateType(field);
 
-        return this.add(new BetweenExpression(field, $from, to, type));
+        return this.add(new BetweenExpression(field, from, to, type));
     }
     
     /**
@@ -422,14 +422,14 @@ class QueryExpression : IExpression, Countable {
         conjunction = _conjunction;
         template = $len == 1 ? "%s' : '(%s)";
         someParts = [];
-        foreach (_conditions as $part) {
-            if (cast(Query)$part) {
-                $part = "(" ~ $part.sql(aBinder) ~ ")";
-            } elseif (cast(IExpression)$part) {
-                $part = $part.sql(aBinder);
+        foreach (_conditions as part) {
+            if (cast(Query)part) {
+                part = "(" ~ part.sql(aBinder) ~ ")";
+            } elseif (cast(IExpression)part) {
+                part = part.sql(aBinder);
             }
-            if ($part != "") {
-                someParts ~= $part;
+            if (part != "") {
+                someParts ~= part;
             }
         }
         return template.format(join(" conjunction ", someParts));
@@ -462,9 +462,9 @@ class QueryExpression : IExpression, Countable {
         someParts = [];
         foreach (myKey: c; _conditions) {
             aKey = &myKey;
-            $part = aCallback(c, aKey);
-            if ($part !isNull) {
-                someParts[aKey] = $part;
+            part = aCallback(c, aKey);
+            if (part !isNull) {
+                someParts[aKey] = part;
             }
         }
        _conditions = someParts;
@@ -575,10 +575,10 @@ class QueryExpression : IExpression, Countable {
         $operator = strtoupper(trim($operator));
 
         type = this.getTypeMap().type(expression);
-        typeMultiple = (isString($type) && type.has("[]"));
+        typeMultiple = (isString(type) && type.has("[]"));
         if (in_array($operator, ["IN", "NOT IN"]) || typeMultiple) {
             type = type ?: "string";
-            if (!$typeMultiple) {
+            if (!typeMultiple) {
                 type ~= "[]";
             }
             $operator = $operator == "=" ? "IN" : $operator;
@@ -586,7 +586,7 @@ class QueryExpression : IExpression, Countable {
             typeMultiple = true;
         }
 
-        if ($typeMultiple) {
+        if (typeMultiple) {
             aValue = cast(IExpression)aValue  ? aValue : (array)aValue;
         }
         if ($operator == "IS' && aValue.isNull) {

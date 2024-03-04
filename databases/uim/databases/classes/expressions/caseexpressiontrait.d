@@ -68,9 +68,9 @@ trait CaseExpressionTrait {
         } elseif (cast(IExpression)aValue) {
             aValue = aValue.sql(aBinder);
         } else {
-            $placeholder = aBinder.placeholder("c");
-            aBinder.bind($placeholder, aValue, type);
-            aValue = $placeholder;
+            placeholder = aBinder.placeholder("c");
+            aBinder.bind(placeholder, aValue, type);
+            aValue = placeholder;
         }
         return aValue;
     }

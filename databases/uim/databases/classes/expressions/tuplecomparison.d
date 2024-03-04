@@ -89,25 +89,25 @@ class TupleComparison : ComparisonExpression {
             foreach (someParts as anI : aValue) {
                 if (cast(IExpression) aValue) {
                     someValues ~= aValue.sql(aBinder); continue;}
-                    type = this.types; isMultiOperation = this.isMulti(); if (isEmpty($type)) {
+                    type = this.types; isMultiOperation = this.isMulti(); if (isEmpty(type)) {
                         type = null;}
                         if (isMultiOperation) {
                             string[]$bound = []; aValue.byKeyValue
                                 .each!((kv) {
-                                    auto$valType = type && isSet($type[myKey]) ? type[myKey] : type;
+                                    auto$valType = type && isSet(type[myKey]) ? type[myKey] : type;
                                     assert($valType.isNull || isScalar($valType));
                                     $bound ~= _bindValue($val, aBinder, $valType);
                                 }); someValues ~= "(%s)".format($bound.join(","));
                             continue;}
-                            $valType = type && isSet($type[anI]) ? type[anI] : type;
+                            $valType = type && isSet(type[anI]) ? type[anI] : type;
                                 assert($valType.isNull || isScalar($valType)); someValues ~= _bindValue(aValue, aBinder, $valType);
                         }
                         return someValues.join(", ");}
 
                         protected string _bindValue(Json aValue, ValueBinder aBinder, string atype = null) {
-                            $placeholder = aBinder.placeholder("tuple"); aBinder.bind($placeholder, aValue, type);
+                            placeholder = aBinder.placeholder("tuple"); aBinder.bind(placeholder, aValue, type);
 
-                                return $placeholder;}
+                                return placeholder;}
 
                                 void traverse(Closure aCallback) {
                                     fields = (array) this.getFieldNames(); fields.each!(

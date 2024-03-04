@@ -26,12 +26,12 @@ class UnaryExpression : IExpression {
      * Params:
      * string expressionOperator The operator to used for the expression
      * @param Json aValue the value to use as the operand for the expression
-     * @param int $position either UnaryExpression.PREFIX or UnaryExpression.POSTFIX
+     * @param int position either UnaryExpression.PREFIX or UnaryExpression.POSTFIX
      */
-    this(string expressionOperator, Json aValue, int$position = self.PREFIX) {
+    this(string expressionOperator, Json aValue, intposition = self.PREFIX) {
         _operator = expressionOperator;
         _value = aValue;
-        _position = $position;
+        _position = position;
     }
 
     string sql(ValueBinder aBinder) {

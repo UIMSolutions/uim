@@ -6,8 +6,12 @@ import uim.oop;
 interface IConfiguration : INamed {
     mixin(IProperty!("IData[string]", "data"));
 
-    bool hasKeys(string[] keys...);
-    bool hasKeys(string[] keys);
+    bool hasAnyKeys(string[] keys...);
+    bool hasAnyKeys(string[] keys);
+
+    bool hasAllKeys(string[] keys...);
+    bool hasAllKeys(string[] keys);
+    
     bool hasKey(string key);
 
     bool hasValues(string[] values...);

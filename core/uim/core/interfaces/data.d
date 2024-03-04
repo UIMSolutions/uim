@@ -49,10 +49,10 @@ interface IData {
     string key();
     void key(string newKey);
 
-    bool hasKeys(string[]); // Has many keys , one or more 
+    bool hasAllKeys(string[]); // Has many keys , one or more 
     string[] keys();
 
-    bool hasKeys(string[] keys, bool deepSearch = false);
+    bool hasAllKeys(string[] keys, bool deepSearch = false);
     bool hasKey(string key, bool deepSearch = false);
 
     bool hasData(IData[string] checkData, bool deepSearch = false);

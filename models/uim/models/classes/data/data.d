@@ -35,7 +35,7 @@ class DData : IData {
   }
 
   mixin ConfigurableTemplate!();
-  
+
   // #region properties
   // mixin(TProperty!("DAttribute", "attribute"));
 
@@ -143,11 +143,11 @@ class DData : IData {
       return !key.isEmpty;
     }
 
-    bool hasKeys() {
+    bool hasAllKeys() {
       return !keys.isEmpty;
     }
 
-    bool hasKeys(string[] keys, bool deepSearch = false) {
+    bool hasAllKeys(string[] keys, bool deepSearch = false) {
       return false;
     }
 
@@ -155,7 +155,7 @@ class DData : IData {
       return false;
     }
 
-    bool hasKeys(string[] keys) {
+    bool hasAllKeys(string[] keys) {
       return false;
     }
 

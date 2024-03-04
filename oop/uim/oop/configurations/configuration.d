@@ -12,19 +12,55 @@ class DConfiguration : IConfiguration {
     this() {}
     this(string name) { this(); this.name(name); }
 
-    // Name of configuration
-    protected string _name;
+  	bool initialize(IData[string] initData = null) {
+		return true;
+	}
 
-    // Get name of configuration
-    string name() {
-        return _name;
+    mixin(TProperty!("string", "name"));
+    
+    IData[string] data() {
+        return null;
     }
 
-    // Set name of configuration
-    IConfiguration name(string newName) {
-        _name = newName;
-        return this;
+    void data(IData[string] newData) {
     }
+
+    bool hasAllKeys(string[] keys...) {
+        return false;
+    }
+
+    bool hasAllKeys(string[] keys) {
+        return false;
+    }
+
+    bool hasKey(string key) {
+        return false;
+    }
+
+    bool hasValues(string[] values...) {
+        return false;
+    }
+
+    bool hasValues(string[] values) {
+        return false;
+    }
+
+    bool hasValue(string value) {
+        return false;
+    }
+
+    IData get(string key) {
+        return null;
+    }
+
+    IData[string] get(string[] keys);
+
+    void set(string key, IData newData);
+    void set(string[] keys, IData[string] newData);
+
+    void update(IData[string] newData);
+
+    void remove(string[] keys);
 }
 
 unittest{

@@ -62,7 +62,7 @@ class Marshaller {
                 if (!to!string(aKey).startWith("_")) {
                     throw new InvalidArgumentException(
                         "Cannot marshal data for `%s` association. It is not associated with `%s`."
-                        .format((string)aKey, _table.getAlias())
+                        .format((string)aKey, _table.aliasName())
                     );
                 }
                 continue;
@@ -215,7 +215,7 @@ class Marshaller {
     protected array _prepareDataAndOptions(array data, IData[string] options) {
         options += ["validate": true];
 
-        mytableName = _table.getAlias();
+        mytableName = _table.aliasName();
         if (isSet(mydata[mytableName]) && isArray(mydata[mytableName])) {
             mydata += mydata[mytableName];
             unset(mydata[mytableName]);

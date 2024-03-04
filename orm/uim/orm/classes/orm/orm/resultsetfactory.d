@@ -38,7 +38,7 @@ class ResultSetFactory {
     protected array collectData(SelectQuery myquery) {
         myprimaryTable = myquery.getRepository();
         mydata = [
-            "primaryAlias": myprimaryTable.getAlias(),
+            "primaryAlias": myprimaryTable.aliasName(),
             "registryAlias": myprimaryTable.getRegistryAlias(),
             "entityClass": myprimaryTable.getEntityClass(),
             "hydrate": myquery.isHydrationEnabled(),

@@ -188,7 +188,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
             this.setTable(configData("table"]);
         }
         if (!empty(configData("alias"])) {
-            this.setAlias(configData("alias"]);
+            this.aliasName(configData("alias"]);
         }
         if (!empty(configData("connection"])) {
             this.setConnection(configData("connection"]);
@@ -300,12 +300,12 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * Params:
      * string myalias Table alias
      */
-    void setAlias(string tableAlias) {
+    void aliasName(string tableAlias) {
        _alias = tableAlias;
     }
     
     // Returns the table alias.
-    string getAlias() {
+    string aliasName() {
         if (_alias.isNull) {
             myalias = namespaceSplit(class);
             myalias = substr(to!string(end(myalias), 0, -5)) ?: _table;
@@ -330,7 +330,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         if (myfield.has(".")) {
             return myfield;
         }
-        return this.getAlias() ~ "." ~ myfield;
+        return this.aliasName() ~ "." ~ myfield;
     }
     
     /**
@@ -344,7 +344,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     
     // Returns the table registry key used to create this table instance.
     string getRegistryAlias() {
-        return _registryAlias ??= this.getAlias();
+        return _registryAlias ??= this.aliasName();
     }
     
     /**
@@ -421,7 +421,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         if (_schema.isNull) {
             throw new DatabaseException(
                 "Unable to check max alias lengths for `%s` without schema."
-                .format(this.getAlias()
+                .format(this.aliasName()
             ));
         }
         
@@ -429,7 +429,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         if (maxLength.isNull) {
             return;
         }
-        string aliasName = this.getAlias();
+        string aliasName = this.aliasName();
         _schema.columns().each!(name => checkAliasLength(aliasName, name, maxLength)); 
     }
 
@@ -686,7 +686,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         if (!myassociation) {
             myassocations = this.associations().keys();
 
-            mymessage = "The `{myname}` association is not defined on `{this.getAlias()}`.";
+            mymessage = "The `{myname}` association is not defined on `{this.aliasName()}`.";
             if (myassocations) {
                 mymessage ~= "\nValid associations are: " ~ join(", ", myassocations);
             }
@@ -1261,7 +1261,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
             ));
         }
         aKey = (array)this.getPrimaryKey();
-        myalias = this.getAlias();
+        myalias = this.aliasName();
         foreach (myindex: mykeyname; aKey) {
             aKey[myindex] = myalias ~ "." ~ mykeyname;
         }
@@ -1696,7 +1696,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         myprimaryColumns = (array)this.getPrimaryKey();
 
         if (options["checkExisting"] && myprimaryColumns && myentity.isNew() && myentity.has(myprimaryColumns)) {
-            myalias = this.getAlias();
+            myalias = this.aliasName();
             myconditions = [];
             foreach (myentity.extract(myprimaryColumns) as myKey: myv) {
                 myconditions["myalias.myKey"] = myv;
@@ -2788,7 +2788,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         return [
             "registryAlias": this.getRegistryAlias(),
             "table": this.getTable(),
-            "alias": this.getAlias(),
+            "alias": this.aliasName(),
             "entityClass": this.getEntityClass(),
             "associations": _associations.keys(),
             "behaviors": _behaviors.loaded(),

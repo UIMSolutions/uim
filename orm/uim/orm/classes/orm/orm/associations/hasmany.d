@@ -518,7 +518,7 @@ class HasMany : DAssociation {
     }
  
     array defaultRowValue(array row, bool joined) {
-        sourceAlias = this.getSource().getAlias();
+        sourceAlias = this.getSource().aliasName();
         if (isSet(row[sourceAlias])) {
             row[sourceAlias][this.getProperty()] = joined ? null : [];
         }
@@ -542,9 +542,9 @@ class HasMany : DAssociation {
     auto eagerLoader(IData[string] options = null): Closure
     {
         loader = new SelectLoader([
-            "alias": this.getAlias(),
-            "sourceAlias": this.getSource().getAlias(),
-            "targetAlias": this.getTarget().getAlias(),
+            "alias": this.aliasName(),
+            "sourceAlias": this.getSource().aliasName(),
+            "targetAlias": this.getTarget().aliasName(),
             "foreignKey": this.getForeignKey(),
             "bindingKey": this.getBindingKey(),
             "strategy": this.getStrategy(),

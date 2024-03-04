@@ -19,7 +19,7 @@ class HasOne : DAssociation {
  
     string[] getForeignKey() {
         if (!isSet(_foreignKey)) {
-           _foreignKey = _modelKey(this.getSource().getAlias());
+           _foreignKey = _modelKey(this.getSource().aliasName());
         }
         return _foreignKey;
     }
@@ -89,9 +89,9 @@ class HasOne : DAssociation {
  
     Closure eagerLoader(IData[string] options = null) {
         auto selectLoader = new SelectLoader([
-            "alias": this.getAlias(),
-            "sourceAlias": this.getSource().getAlias(),
-            "targetAlias": this.getTarget().getAlias(),
+            "alias": this.aliasName(),
+            "sourceAlias": this.getSource().aliasName(),
+            "targetAlias": this.getTarget().aliasName(),
             "foreignKey": this.getForeignKey(),
             "bindingKey": this.getBindingKey(),
             "strategy": this.getStrategy(),

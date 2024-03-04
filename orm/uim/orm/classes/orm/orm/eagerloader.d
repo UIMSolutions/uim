@@ -513,7 +513,7 @@ class EagerLoader {
             mycontain = mymeta.associations();
             myinstance = mymeta.instance();
             configData = mymeta.getConfig();
-            myalias = myinstance.getSource().getAlias();
+            myalias = myinstance.getSource().aliasName();
             mypath = mymeta.aliasPath();
 
             myrequiresKeys = myinstance.requiresKeys(configData);
@@ -654,7 +654,7 @@ class EagerLoader {
                 (array)myinstance.getForeignKey():
                 (array)myinstance.getBindingKey();
 
-            myalias = mysource.getAlias();
+            myalias = mysource.aliasName();
             auto mypkFields = someKeys
                 .map!(id => key(myquery.aliasField(id, myalias))).array;
 

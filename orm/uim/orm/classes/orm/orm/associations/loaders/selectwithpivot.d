@@ -86,7 +86,7 @@ class SelectWithPivotLoader : SelectLoader {
             .addToJoinsMap(tempName, assoc, false, this.junctionProperty);
 
         assoc.attachTo(aQuery, [
-            "aliasPath": assoc.getAlias(),
+            "aliasPath": assoc.aliasName(),
             "includeFields": false,
             "propertyPath": this.junctionProperty,
         ]);

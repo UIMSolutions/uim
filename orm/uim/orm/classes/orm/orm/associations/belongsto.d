@@ -17,7 +17,7 @@ class BelongsTo : DAssociation {
 
     string[] getForeignKey() {
         if (!isSet(_foreignKey)) {
-            _foreignKey = _modelKey(this.getTarget().getAlias());
+            _foreignKey = _modelKey(this.getTarget().aliasName());
         }
         return _foreignKey;
     }
@@ -110,7 +110,7 @@ class BelongsTo : DAssociation {
     protected IdentifierExpression[] _joinCondition(IData[string] options = null) {
         auto myConditions = [];
         auto mytAlias = _name;
-        auto mysAlias = _sourceTable.getAlias();
+        auto mysAlias = _sourceTable.aliasName();
         auto myforeignKey = (array)options["foreignKey"];
         auto mybindingKey = (array) this.getBindingKey();
 
@@ -140,10 +140,10 @@ class BelongsTo : DAssociation {
 
     Closure eagerLoader(IData[string] options = null) {
         loader = new SelectLoader([
-                "alias": this.getAlias(),
+                "alias": this.aliasName(),
                 "sourceAlias": this.getSource()
-                .getAlias(),
-                "targetAlias": this.getTarget().getAlias(),
+                .aliasName(),
+                "targetAlias": this.getTarget().aliasName(),
                 "foreignKey": this.getForeignKey(),
                 "bindingKey": this.getBindingKey(),
                 "strategy": this.getStrategy(),

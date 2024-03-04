@@ -105,7 +105,7 @@ class BelongsToMany : DAssociation {
      * Gets the name of the field representing the foreign key to the target table.
      */
     string[] getTargetForeignKey() {
-        return _targetForeignKey ??= _modelKey(this.getTarget().getAlias());
+        return _targetForeignKey ??= _modelKey(this.getTarget().aliasName());
     }
     
     /**
@@ -143,7 +143,7 @@ class BelongsToMany : DAssociation {
     }
  
     array defaultRowValue(array row, bool joined) {
-        sourceAlias = this.getSource().getAlias();
+        sourceAlias = this.getSource().aliasName();
         if (isSet(row[sourceAlias])) {
             row[sourceAlias][this.getProperty()] = joined ? null : [];
         }
@@ -183,10 +183,10 @@ class BelongsToMany : DAssociation {
         }
         source = this.getSource();
         target = this.getTarget();
-        if (source.getAlias() == target.getAlias()) {
+        if (source.aliasName() == target.aliasName()) {
             throw new InvalidArgumentException(
                 "The `%s` association on `%s` cannot target the same table."
-                .format(this.name, source.getAlias())
+                .format(this.name, source.aliasName())
             );
         }
        _generateSourceAssociations(aTable, source);
@@ -212,9 +212,9 @@ class BelongsToMany : DAssociation {
      * @param \UIM\ORM\Table target The target table.
      */
     protected void _generateTargetAssociations(Table junction, Table source, Table target) {
-        junctionAlias = junction.getAlias();
-        sAlias = source.getAlias();
-        tAlias = target.getAlias();
+        junctionAlias = junction.aliasName();
+        sAlias = source.aliasName();
+        tAlias = target.aliasName();
 
         targetBindingKey = null;
         if (junction.hasAssociation(tAlias)) {
@@ -255,8 +255,8 @@ class BelongsToMany : DAssociation {
      * @param \UIM\ORM\Table source The source table.
      */
     protected void _generateSourceAssociations(Table junction, Table source) {
-        junctionAlias = junction.getAlias();
-        sAlias = source.getAlias();
+        junctionAlias = junction.aliasName();
+        sAlias = source.aliasName();
 
         sourceBindingKey = null;
         if (junction.hasAssociation(sAlias)) {
@@ -288,8 +288,8 @@ class BelongsToMany : DAssociation {
      * @param \UIM\ORM\Table target The target table.
      */
     protected void _generateJunctionAssociations(Table junction, Table source, Table target) {
-        tAlias = target.getAlias();
-        sAlias = source.getAlias();
+        tAlias = target.aliasName();
+        sAlias = source.aliasName();
 
         if (!junction.hasAssociation(tAlias)) {
             junction.belongsTo(tAlias, [
@@ -303,8 +303,8 @@ class BelongsToMany : DAssociation {
                 target != belongsTo.getTarget()
             ) {
                 throw new InvalidArgumentException(
-                    "The existing `{tAlias}` association on `{junction.getAlias()}` " .
-                    "is incompatible with the `{this.name}` association on `{source.getAlias()}`"
+                    "The existing `{tAlias}` association on `{junction.aliasName()}` " .
+                    "is incompatible with the `{this.name}` association on `{source.aliasName()}`"
                 );
             }
         }
@@ -340,14 +340,14 @@ class BelongsToMany : DAssociation {
             return;
         }
         junction = this.junction();
-        belongsTo = junction.getAssociation(this.getSource().getAlias());
+        belongsTo = junction.getAssociation(this.getSource().aliasName());
         cond = belongsTo._joinCondition(["foreignKey": belongsTo.getForeignKey()]);
         cond += this.junctionConditions();
 
          anIncludeFields = options["includeFields"] ?? null;
 
         // Attach the junction table as well we need it to populate _joinData.
-        assoc = this.getTarget().getAssociation(junction.getAlias());
+        assoc = this.getTarget().getAssociation(junction.aliasName());
         newOptions = array_intersect_key(options, ["joinType": 1, "fields": 1]);
         newOptions += [
             "conditions": cond,
@@ -355,7 +355,7 @@ class BelongsToMany : DAssociation {
             "foreignKey": false,
         ];
         assoc.attachTo(aQuery, newOptions);
-        aQuery.getEagerLoader().addToJoinsMap(junction.getAlias(), assoc, true);
+        aQuery.getEagerLoader().addToJoinsMap(junction.aliasName(), assoc, true);
 
         super.attachTo(aQuery, options);
 
@@ -370,7 +370,7 @@ class BelongsToMany : DAssociation {
         }
         options.get("conditions", []);
         junction = this.junction();
-        belongsTo = junction.getAssociation(this.getSource().getAlias());
+        belongsTo = junction.getAssociation(this.getSource().aliasName());
         conds = belongsTo._joinCondition(["foreignKey": belongsTo.getForeignKey()]);
 
         subquery = this.find()
@@ -417,9 +417,9 @@ class BelongsToMany : DAssociation {
     {
         name = _junctionAssociationName();
         loader = new SelectWithPivotLoader([
-            "alias": this.getAlias(),
-            "sourceAlias": this.getSource().getAlias(),
-            "targetAlias": this.getTarget().getAlias(),
+            "alias": this.aliasName(),
+            "sourceAlias": this.getSource().aliasName(),
+            "targetAlias": this.getTarget().aliasName(),
             "foreignKey": this.getForeignKey(),
             "bindingKey": this.getBindingKey(),
             "strategy": this.getStrategy(),
@@ -456,7 +456,7 @@ class BelongsToMany : DAssociation {
             conditions = array_combine(foreignKeys, entity.extract(bindingKeys));
         }
         aTable = this.junction();
-        hasMany = this.getSource().getAssociation(aTable.getAlias());
+        hasMany = this.getSource().getAssociation(aTable.aliasName());
         if (_cascadeCallbacks) {
             foreach (related; hasMany.find("all").where(conditions).all().toList()) {
                 success = aTable.delete(related, options);
@@ -623,7 +623,7 @@ class BelongsToMany : DAssociation {
         auto target = this.getTarget();
         auto junction = this.junction();
         auto entityClass = junction.getEntityClass();
-        auto belongsTo = junction.getAssociation(target.getAlias());
+        auto belongsTo = junction.getAssociation(target.aliasName());
         string[] foreignKey = (array)this.getForeignKey();
         string[] assocForeignKey = (array)belongsTo.getForeignKey();
         auto targetBindingKey = (array)belongsTo.getBindingKey();
@@ -813,7 +813,7 @@ class BelongsToMany : DAssociation {
             return conditions;
         }
         matching = [];
-        string aliasName = this.getAlias() ~ ".";
+        string aliasName = this.aliasName() ~ ".";
         conditions.byKeyValue.each!((fieldValue) { 
             if (isString(fieldValue.key) && fieldValue.key.startWith(aliasName)) {
                 matching[fieldValue.key] = fieldValue.value;
@@ -888,7 +888,7 @@ class BelongsToMany : DAssociation {
     protected SelectQuery _appendJunctionJoin(SelectQuery aQuery, array conditions = null) {
         junctionTable = this.junction();
         if (conditions.isNull) {
-            belongsTo = junctionTable.getAssociation(this.getTarget().getAlias());
+            belongsTo = junctionTable.getAssociation(this.getTarget().aliasName());
             conditions = belongsTo._joinCondition([
                 "foreignKey": this.getTargetForeignKey(),
             ]);
@@ -975,11 +975,11 @@ class BelongsToMany : DAssociation {
 
                 /** @var string[] foreignKey */
                 foreignKey = (array)this.getForeignKey();
-                assocForeignKey = (array)junction.getAssociation(target.getAlias()).getForeignKey();
+                assocForeignKey = (array)junction.getAssociation(target.aliasName()).getForeignKey();
                 prefixedForeignKey = array_map([junction, "aliasField"], foreignKey);
 
                 junctionPrimaryKey = (array)junction.getPrimaryKey();
-                junctionQueryAlias = junction.getAlias() ~ "__matches";
+                junctionQueryAlias = junction.aliasName() ~ "__matches";
 
                 someKeys = matchesConditions = [];
                 // string aKey */
@@ -999,7 +999,7 @@ class BelongsToMany : DAssociation {
                 existing = junction.selectQuery()
                     .from([junctionQueryAlias: matches])
                     .innerJoin(
-                        [junction.getAlias(): junction.getTable()],
+                        [junction.aliasName(): junction.getTable()],
                         matchesConditions
                     );
 
@@ -1049,7 +1049,7 @@ class BelongsToMany : DAssociation {
     )|false {
         junction = this.junction();
         target = this.getTarget();
-        belongsTo = junction.getAssociation(target.getAlias());
+        belongsTo = junction.getAssociation(target.aliasName());
         string[] foreignKey = (array)this.getForeignKey();
         /** @var string[] assocForeignKey */
         assocForeignKey = (array)belongsTo.getForeignKey();
@@ -1171,8 +1171,8 @@ class BelongsToMany : DAssociation {
         if (isEmpty(missing)) {
             return result;
         }
-        belongsTo = junction.getAssociation(target.getAlias());
-        hasMany = source.getAssociation(junction.getAlias());
+        belongsTo = junction.getAssociation(target.aliasName());
+        hasMany = source.getAssociation(junction.aliasName());
         /** @var string[] foreignKey */
         foreignKey = (array)this.getForeignKey();
         foreignKey = array_map(function (aKey) {
@@ -1203,7 +1203,7 @@ class BelongsToMany : DAssociation {
     protected string _junctionAssociationName() {
         if (!isSet(_junctionAssociationName)) {
            _junctionAssociationName = this.getTarget()
-                .getAssociation(this.junction().getAlias())
+                .getAssociation(this.junction().aliasName())
                 .name;
         }
         return _junctionAssociationName;

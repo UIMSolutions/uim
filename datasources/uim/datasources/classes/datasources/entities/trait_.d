@@ -232,9 +232,9 @@ trait EntityTrait
                 continue;
             }
 
-            $setter = _accessor(name, "set");
-            if ($setter) {
-                value = this.{$setter}(value);
+            setter = _accessor(name, "set");
+            if (setter) {
+                value = this.{setter}(value);
             }
             _fields[name] = value;
         }
@@ -594,9 +594,9 @@ trait EntityTrait
                 continue;
             }
             field = lcfirst(substr($method, 4));
-            $snakeField = Inflector::underscore(field);
+            snakeField = Inflector::underscore(field);
             titleField = ucfirst(field);
-            _accessors[class][prefix][$snakeField] = $method;
+            _accessors[class][prefix][snakeField] = $method;
             _accessors[class][prefix][field] = $method;
             _accessors[class][prefix][titleField] = $method;
         }
@@ -723,17 +723,17 @@ trait EntityTrait
      * Using `true` means that the entity has not been persisted in the database,
      * `false` that it already is.
      *
-     * @param bool $new Indicate whether this entity has been persisted.
+     * @param bool new Indicate whether this entity has been persisted.
      * @return this
      */
-    function setNew(bool $new) {
-        if ($new) {
+    function setNew(bool new) {
+        if (new) {
             foreach (_fields as $k: p) {
                 _isDirty[$k] = true;
             }
         }
 
-        _new = $new;
+        _new = new;
 
         return this;
     }
@@ -1045,22 +1045,22 @@ trait EntityTrait
      * ```
      *
      * @param array<string>|string field Single or list of fields to change its accessibility
-     * @param bool $set True marks the field as accessible, false will
+     * @param bool set True marks the field as accessible, false will
      * mark it as protected.
      * @return this
      */
-    function setAccess(field, bool $set) {
+    function setAccess(field, bool set) {
         if (field == "*") {
-            _accessible = array_map(function (p) use ($set) {
-                return $set;
+            _accessible = array_map(function (p) use (set) {
+                return set;
             }, _accessible);
-            _accessible["*"] = $set;
+            _accessible["*"] = set;
 
             return this;
         }
 
         foreach ((array)field as prop) {
-            _accessible[prop] = $set;
+            _accessible[prop] = set;
         }
 
         return this;

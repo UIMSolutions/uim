@@ -96,7 +96,7 @@ interface IEntity // : ArrayAccess, JsonSerializable, Stringable
      * Stores whether a field value can be changed or set in this entity.
      * Params:
      * string[]|string fieldName single or list of fields to change its accessibility
-     * @param bool $set true marks the field as accessible, false will
+     * @param bool set true marks the field as accessible, false will
      * mark it as protected.
      */
   void setAccess(string[] fieldName, bool set);
@@ -223,9 +223,9 @@ interface IEntity // : ArrayAccess, JsonSerializable, Stringable
      * Using `true` means that the entity has not been persisted in the database,
      * `false` indicates that the entity has been persisted.
      * Params:
-     * bool $new Indicate whether this entity has been persisted.
+     * bool new Indicate whether this entity has been persisted.
      */
-    // TODO void setNew(bool $new);
+    // TODO void setNew(bool new);
 
     // Returns whether this entity has already been persisted.
     bool isNew();

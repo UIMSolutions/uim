@@ -208,7 +208,7 @@ mixin EntityTemplate {
 
       if (options["setter"]) {
         setter = _accessor(fieldName, "set");
-        if ($setter) {
+        if (setter) {
           aValue = this. {
             setter
           }
@@ -554,7 +554,7 @@ mixin EntityTemplate {
       stringfield = lcfirst(substr(method, 4));
       snakeField = Inflector :  : underscore(field);
       titleField = ucfirst(field);
-      _accessors[className][prefix][$snakeField] = method;
+      _accessors[className][prefix][snakeField] = method;
       _accessors[className][prefix][field] = method;
       _accessors[className][prefix][titleField] = method;
     });
@@ -717,8 +717,8 @@ mixin EntityTemplate {
      * Params:
      * bool new Indicate whether this entity has been persisted.
      */
-    auto setNew(bool$new) {
-      if ($new) {
+    auto setNew(boolnew) {
+      if (new) {
         foreach (_fields as myKey : p) {
           _isDirty[myKey] = true;
         }
@@ -1000,7 +1000,7 @@ mixin EntityTemplate {
      * @param bool set True marks the field as accessible, false will
      * mark it as protected.
      */
-                                                                    auto setAccess(string[] afield, bool$set) {
+                                                                    auto setAccess(string[] afield, boolset) {
                                                                       if (field == "*") {
                                                                         _accessible = array_map(fn(p) : set, _accessible);
                                                                         _accessible["*"] = set;

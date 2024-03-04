@@ -12,10 +12,10 @@ interface IPaginator {
      * Params:
      * Json target Anything that needs to be paginated.
      * @param array params Request params.
-     * @param array $settings The settings/configuration used for pagination.
+     * @param array settings The settings/configuration used for pagination.
      * /
 IResultSet paginate(object $object, array myParams = null, 
-    array $settings = null);
+    array settings = null);
 
     /**
      * Get paging params after pagination operation.

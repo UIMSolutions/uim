@@ -111,7 +111,7 @@ class NumericPaginator : IPaginator {
      * repository object being paginated. Often times you will want to allow
      * sorting on either associated columns or calculated fields. In these cases
      * you will need to define an allowed list of all the columns you wish to allow
-     * sorting on. You can define the allowed sort fields in the `$settings` parameter:
+     * sorting on. You can define the allowed sort fields in the `settings` parameter:
      *
      * ```
      * settings = [
@@ -409,13 +409,13 @@ class NumericPaginator : IPaginator {
      * @param array settings The settings to merge with the request data.
      */
     protected IData[string] mergeOptions(IData[string] requestParameters, array settings) {
-        if (!empty($settings["scope"])) {
+        if (!empty(settings["scope"])) {
             scope = settings["scope"];
-            requestParameters = !empty(requestParameters[$scope]) ? (array)requestParameters[$scope] : [];
+            requestParameters = !empty(requestParameters[scope]) ? (array)requestParameters[scope] : [];
         }
         requestParameters = array_intersect_key(requestParameters, array_flip(configurationData.isSet("allowedParameters")));
 
-        return chain($settings, requestParameters);
+        return chain(settings, requestParameters);
     }
     
     /**
@@ -425,7 +425,7 @@ class NumericPaginator : IPaginator {
      * string aalias Model name to get settings for.
      */
     protected IData[string] getDefaults(string aalias, IData[string] settings) {
-        if (isSet($settings[alias])) {
+        if (isSet(settings[alias])) {
             settings = settings[alias];
         }
         defaults = this.getConfig();
@@ -495,7 +495,7 @@ class NumericPaginator : IPaginator {
         if (isSet(options["sortableFields"])) {
             field = key(options["order"]);
             sortAllowed = in_array(field, options["sortableFields"], true);
-            if (!$sortAllowed) {
+            if (!sortAllowed) {
                 options["order"] = [];
                 options["sort"] = null;
 

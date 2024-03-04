@@ -170,8 +170,8 @@ class Article extends Entity
 
 The example above is doing two things: It stores a modified version of the given value in the slug field and stores an uppercase version in the title field. It would be run when setting the field through any of these two ways:
 
-$user->title = 'foo'; // sets slug field and stores FOO instead of foo
-$user->set('title', 'foo'); // sets slug field and stores FOO instead of foo
+user->title = 'foo'; // sets slug field and stores FOO instead of foo
+user->set('title', 'foo'); // sets slug field and stores FOO instead of foo
 
 Accessors are also run before entities are persisted to the database. If you want to transform fields but not persist that transformation, we recommend using virtual fields as those are not persisted.
 Creating Virtual Fields
@@ -192,8 +192,8 @@ class User extends Entity
 
 You can access virtual fields as if they existed on the entity. The property name will be the lower case and underscored version of the method (full_name):
 
-echo $user->full_name;
-echo $user->get('full_name');
+echo user->full_name;
+echo user->get('full_name');
 
 Do bear in mind that virtual fields cannot be used in finds. If you want them to be part of JSON or array representations of your entities, see Exposing Virtual Fields.
 Checking if an Entity Has Been Modified
@@ -208,7 +208,7 @@ article->isDirty('title');
 You can also flag fields as being modified. This is handy when appending into array fields as this wouldn’t automatically mark the field as dirty, only exchanging completely would.:
 
 // Add a comment and mark the field as changed.
-article->comments[] = $newComment;
+article->comments[] = newComment;
 article->setDirty('comments', true);
 
 In addition you can also base your conditional code on the original field values by using the getOriginal() method. This method will either return the original value of the field if it has been modified or its actual value.
@@ -235,21 +235,21 @@ Validation Errors
 After you save an entity any validation errors will be stored on the entity itself. You can access any validation errors using the getErrors(), getError() or hasErrors() methods:
 
 // Get all the errors
-errors = $user->getErrors();
+errors = user->getErrors();
 
 // Get the errors for a single field.
-errors = $user->getError('password');
+errors = user->getError('password');
 
 // Does the entity or any nested entity have an error.
-$user->hasErrors();
+user->hasErrors();
 
 // Does only the root entity have an error
-$user->hasErrors(false);
+user->hasErrors(false);
 
 The setErrors() or setError() method can also be used to set the errors on an entity, making it easier to test code that works with error messages:
 
-$user->setError('password', ['Password is required']);
-$user->setErrors([
+user->setError('password', ['Password is required']);
+user->setErrors([
     'password' => ['Password is required'],
     'username' => ['Username is required']
 ]);
@@ -388,11 +388,11 @@ When building APIs, you may often need to convert entities into arrays or JSON d
 
 // Get an array.
 // Associations will be converted with toArray() as well.
-array = $user->toArray();
+array = user->toArray();
 
 // Convert to JSON
 // Associations will be converted with jsonSerialize hook as well.
-$json = json_encode($user);
+$json = json_encode(user);
 
 When converting an entity to an JSON, the virtual & hidden field lists are applied. Entities are recursively converted to JSON as well. This means that if you eager loaded entities and their associations CakePHP will correctly handle converting the associated data into the correct format.
 Exposing Virtual Fields
@@ -410,7 +410,7 @@ class User extends Entity
 
 This list can be modified at runtime using the setVirtual() method:
 
-$user->setVirtual(['full_name', 'is_admin']);
+user->setVirtual(['full_name', 'is_admin']);
 
 Hiding Fields
 
@@ -426,7 +426,7 @@ class User : DDSEntity {
 
 This list can be modified at runtime using the setHidden() method:
 
-$user->setHidden(['password', 'recovery_question']);
+user->setHidden(['password', 'recovery_question']);
 
 Storing Complex Types
 

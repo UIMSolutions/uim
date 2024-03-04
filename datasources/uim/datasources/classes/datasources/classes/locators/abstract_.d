@@ -19,10 +19,10 @@ abstract class AbstractLocator : ILocator {
      */
     IRepository get(string aliasName, IData[string] optionData = null) {
         storeOptions = options;
-        unset($storeOptions["allowFallbackClass"]);
+        unset(storeOptions["allowFallbackClass"]);
 
         if (isSet(this.instances[aliasName])) {
-            if (!empty($storeOptions) && isSet(this.options[aliasName]) && this.options[aliasName] != storeOptions) {
+            if (!empty(storeOptions) && isSet(this.options[aliasName]) && this.options[aliasName] != storeOptions) {
                 throw new UimException(
                     "You cannot configure `%s`, it already exists in the registry.",
                     .format(aliasName)

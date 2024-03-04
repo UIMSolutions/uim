@@ -124,7 +124,7 @@ interface IQuery {
      * ### Example:
      *
      * ```
-     * $singleUser = aQuery.select(["id", "username"]).first();
+     * singleUser = aQuery.select(["id", "username"]).first();
      * ```
      * /
     Json first()  ;
@@ -229,11 +229,11 @@ interface IQuery {
      *
      * Pages must start at 1.
      * Params:
-     * int $num The page number you want.
+     * int num The page number you want.
      * @param int aLimit The number of rows you want in the page. If null
      * the current limit clause will be used.
      * /
-    void page(int $num, int aLimit = null);
+    void page(int num, int aLimit = null);
 
     // Returns an array representation of the results after executing the query.
     array toArray();

@@ -11,17 +11,7 @@ module datasources.uim.datasources.interfaces.repositoryInterface;
  */
 interface IRepository
 {
-
-    /**
-     * Creates a new Query for this repository and applies some defaults based on the
-     * type of search that was selected.
-     *
-     * @param string type the type of query to perform
-     * @param array<string, mixed> options An array that will be passed to Query::applyOptions()
-     * @return uim.Datasource\IQuery
-     */
-    function find(string type = "all", STRINGAA someOptions = null);
-
+    
     /**
      * Returns a single record after finding it by its primary key, if no record is
      * found this method throws an exception.

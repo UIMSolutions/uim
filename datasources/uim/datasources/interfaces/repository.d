@@ -28,11 +28,8 @@ interface IRepository {
     /**
      * Creates a new Query for this repository and applies some defaults based on the
      * type of search that was selected.
-     * Params:
-     * string atype the type of query to perform
-     * @param Json ...someArguments Arguments that match up to finder-specific parameters
-     * /
-    IQuery find(string atype = "all", Json...someArguments);
+     */
+    IQuery find(string queryType = "all", IData someArguments);
 
     /**
      * Returns a single record after finding it by its primary key, if no record is

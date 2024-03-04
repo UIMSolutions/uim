@@ -34,7 +34,7 @@ class I18n {
         );
 
         if (class_exists(Cache.classname)) {
-            _collection.setCacher(Cache.pool("_cake_core_"));
+            _collection.cacher(Cache.pool("_cake_core_"));
         }
         return _collection;
     }

@@ -109,7 +109,7 @@ class TranslatorRegistry {
      * Params:
      * \Psr\SimpleCache\ICache&\UIM\Cache\ICacheEngine cacher The cacher instance.
      */
-    void setCacher(ICache&ICacheEngine cacher) {
+    void cacher(ICache&ICacheEngine cacher) {
        _cacher = cacher;
     }
     

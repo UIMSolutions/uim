@@ -350,7 +350,7 @@ class ConsoleIo {
      * @see \UIM\Console\ConsoleOutput.getStyle()
      */
     array getStyle(string astyle) {
-        return _out.getStyle($style);
+        return _out.getStyle(style);
     }
     
     /**
@@ -361,7 +361,7 @@ class ConsoleIo {
      * @see \UIM\Console\ConsoleOutput.setStyle()
      */
     void setStyle(string astyle, array definition) {
-       _out.setStyle($style, definition);
+       _out.setStyle(style, definition);
     }
     
     /**

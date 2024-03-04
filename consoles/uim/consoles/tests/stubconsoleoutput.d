@@ -31,7 +31,7 @@ class StubConsoleOutput : ConsoleOutput {
         (array)$message.each!(line => _out ~= line);
 
         int newlines--;
-        while ($newlines > 0) {
+        while (newlines > 0) {
            _out ~= "";
             newlines--;
         }

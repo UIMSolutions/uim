@@ -135,7 +135,7 @@ template PluginAssetsTemplate {
         if (isLink($dest)) {
             // phpcs:ignore
             success = DIRECTORY_SEPARATOR == "\\" ? @rmdir($dest): @unlink($dest);
-            if ($success) {
+            if (success) {
                 this.io.writeln("Unlinked " ~ dest);
 
                 return true;
@@ -200,7 +200,7 @@ template PluginAssetsTemplate {
      */
     protected bool _copyDirectory(string asource, string adestination) {
         fs = new Filesystem();
-        if (fs.copyDir($source, destination)) {
+        if (fs.copyDir(source, destination)) {
             this.io.writeln("Copied assets to directory " ~ destination);
 
             return true;

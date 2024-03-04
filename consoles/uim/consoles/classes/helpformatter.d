@@ -113,7 +113,7 @@ class HelpFormatter {
             options = ["[options]"];
         }
 
-        auto usage = chain($usage, options);
+        auto usage = chain(usage, options);
         auto someArguments = _parser.arguments
             .map!(argument => argument.usage())
             .array;
@@ -122,7 +122,7 @@ class HelpFormatter {
             someArguments = ["[arguments]"];
         }
         
-        return chain($usage, someArguments).join(" ");
+        return chain(usage, someArguments).join(" ");
     }
     
     /**

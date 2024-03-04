@@ -149,18 +149,18 @@ class ConsoleOptionParser {
      * @param bool defaultOptions Whether you want the verbose and quiet options set.
      */
     static auto buildFromArray(array spec, bool defaultOptions = true) {
-        auto aParser = new static($spec["command"], defaultOptions);
-        if (!$spec["arguments"].isEmpty) {
-             aParser.addArguments($spec["arguments"]);
+        auto aParser = new static(spec["command"], defaultOptions);
+        if (!spec["arguments"].isEmpty) {
+             aParser.addArguments(spec["arguments"]);
         }
-        if (!$spec["options"].isEmpty) {
-             aParser.addOptions($spec["options"]);
+        if (!spec["options"].isEmpty) {
+             aParser.addOptions(spec["options"]);
         }
-        if (!$spec["description"].isEmpty) {
-             aParser.description($spec["description"]);
+        if (!spec["description"].isEmpty) {
+             aParser.description(spec["description"]);
         }
-        if (!$spec["epilog"].isEmpty) {
-             aParser.setEpilog($spec["epilog"]);
+        if (!spec["epilog"].isEmpty) {
+             aParser.setEpilog(spec["epilog"]);
         }
         return aParser;
     }
@@ -182,20 +182,20 @@ class ConsoleOptionParser {
      * \UIM\Console\ConsoleOptionParser|array spec ConsoleOptionParser or spec to merge with.
      */
     void merge(ConsoleOptionParser|array spec) {
-        if (cast(ConsoleOptionParser)$spec) {
+        if (cast(ConsoleOptionParser)spec) {
             spec = spec.toArray();
         }
-        if (!$spec["arguments"].isEmpty) {
-            this.addArguments($spec["arguments"]);
+        if (!spec["arguments"].isEmpty) {
+            this.addArguments(spec["arguments"]);
         }
-        if (!empty($spec["options"])) {
-            this.addOptions($spec["options"]);
+        if (!empty(spec["options"])) {
+            this.addOptions(spec["options"]);
         }
-        if (!empty($spec["description"])) {
-            this.description($spec["description"]);
+        if (!empty(spec["description"])) {
+            this.description(spec["description"]);
         }
-        if (!empty($spec["epilog"])) {
-            this.setEpilog($spec["epilog"]);
+        if (!empty(spec["epilog"])) {
+            this.setEpilog(spec["epilog"]);
         }
     }
 
@@ -582,8 +582,8 @@ class ConsoleOptionParser {
         option = _options[name];
          isBoolean = option.isBoolean();
         nextValue = _nextToken();
-        emptyNextValue = (isEmpty($nextValue) && nextValue != "0");
-        if (!isBoolean && !emptyNextValue && !_optionExists($nextValue)) {
+        emptyNextValue = (isEmpty(nextValue) && nextValue != "0");
+        if (!isBoolean && !emptyNextValue && !_optionExists(nextValue)) {
             array_shift(_tokens);
             aValue = nextValue;
         } else if (isBoolean) {
@@ -629,14 +629,14 @@ class ConsoleOptionParser {
             return someArguments;
         }
         next = count(someArguments);
-        if (!isSet(_args[$next])) {
+        if (!isSet(_args[next])) {
             expected = count(_args);
             throw new ConsoleException(
                 "Received too many arguments. Got `%s` but only `%s` arguments are defined."
-                .format($next, expected)
+                .format(next, expected)
             );
         }
-       _args[$next].validChoice(argument);
+       _args[next].validChoice(argument);
         someArguments ~= argument;
 
         return someArguments;

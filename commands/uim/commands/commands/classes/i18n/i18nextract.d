@@ -373,7 +373,7 @@ class I18nExtractCommand : Command {
                 continue;
             }
             [type, string, line] = countToken;
-            if ((type == T_STRING) && ($string == functionName) && (firstParenthesis == "(")) {
+            if ((type == T_STRING) && (string == functionName) && (firstParenthesis == "(")) {
                 position = count;
                 depth = 0;
 
@@ -388,7 +388,7 @@ class I18nExtractCommand : Command {
                 mapCount = count(map);
                 strings = _getStrings(position, mapCount);
 
-                if (mapCount == count($strings)) {
+                if (mapCount == count(strings)) {
                     string singular = "";
                     vars = array_combine(map, strings);
                     extract($vars);
@@ -479,10 +479,10 @@ class I18nExtractCommand : Command {
     protected void _store(string adomain, string aheader, string asentence) {
        _storage[$domain] ??= [];
 
-        if (!isSet(_storage[$domain][$sentence])) {
-           _storage[$domain][$sentence] =  aHeader;
+        if (!isSet(_storage[$domain][sentence])) {
+           _storage[$domain][sentence] =  aHeader;
         } else {
-           _storage[$domain][$sentence] ~=  aHeader;
+           _storage[$domain][sentence] ~=  aHeader;
         }
     }
     
@@ -578,7 +578,7 @@ class I18nExtractCommand : Command {
             throw new UimException("Cannot read file content of `%s`".format($oldFile));
         }
         oldChecksum = sha1(substr($oldFileContent,  aHeaderLength));
-        newChecksum = sha1(substr($newFileContent,  aHeaderLength));
+        newChecksum = sha1(substr(newFileContent,  aHeaderLength));
 
         return oldChecksum == newChecksum;
     }
@@ -599,7 +599,7 @@ class I18nExtractCommand : Command {
                 || _tokens[position][0] == T_LNUMBER
             )
         ) {
-            count = count($strings);
+            count = count(strings);
             if (_tokens[position][0] == T_CONSTANT_ENCAPSED_STRING && _tokens[position + 1] == ".") {
                 string = "";
                 while (
@@ -635,7 +635,7 @@ class I18nExtractCommand : Command {
         
         textToFormat = textToFormat.replace("\r\n", "\n");
 
-        return addcslashes($string, "\0..\37\\\"");
+        return addcslashes(string, "\0..\37\\\"");
     }
     
     /**

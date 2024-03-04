@@ -41,16 +41,16 @@ class I18nInitCommand : Command {
             mkdir(targetFolder, 0770, true);
         }
         size_t countFiles = 0;
-        auto anIterator = new DirectoryIterator($sourceFolder);
+        auto anIterator = new DirectoryIterator(sourceFolder);
         anIterator
             .filter!(fileInfo => fileInfo.isFile())
             .each!((fileInfo) {
                 string filename = fileInfo.getFilename();
                 string newFilename = fileInfo.getBasename(".pot") ~ ".po";
 
-                auto content = file_get_contents($sourceFolder ~ filename);
+                auto content = file_get_contents(sourceFolder ~ filename);
                 if (content == false) {
-                    throw new UimException("Cannot read file content of `%s`".format($sourceFolder ~ filename));
+                    throw new UimException("Cannot read file content of `%s`".format(sourceFolder ~ filename));
                 }
                 aConsoleIo.createFile(targetFolder ~ newFilename, content);
                 countFiles++;

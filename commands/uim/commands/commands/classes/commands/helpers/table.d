@@ -40,7 +40,7 @@ class TableHelper : Helper {
           return mb_strwidth(maxText);
         }
         styles = _io.styles();
-        tags = $styles.keys.join("|",);
+        tags = styles.keys.join("|",);
         maxText = to!string(preg_replace("#</?(?:" ~ tags ~ ")>#", "", maxText));
 
         return mb_strwidth(maxText);

@@ -43,12 +43,12 @@ class RoutesCheckCommand : Command {
     } catch (RedirectException anException) {
       output = [
         ["URI template", "Redirect"],
-        [$url, anException.getMessage()],
+        [url, anException.getMessage()],
       ];
       aConsoleIo.helper("table").output($output);
       aConsoleIo.out ();
     } catch (MissingRouteException) {
-      aConsoleIo.warning("'$url' did not match any routes.");
+      aConsoleIo.warning("'url' did not match any routes.");
       aConsoleIo.out ();
 
       return CODE_ERROR;

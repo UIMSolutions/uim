@@ -34,6 +34,6 @@ class UniqueIterator : Collection {
                     uniqueValues ~= compareValue;
                 }
             }); 
-        super($unique);
+        super(unique);
     }
 }

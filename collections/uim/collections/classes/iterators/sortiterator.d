@@ -11,8 +11,8 @@ import uim.collections;
  * ### Example:
  *
  * ```
- *  someItems = [$user1, user2, user3];
- * sorted = new SortIterator(someItems, auto ($user) {
+ *  someItems = [user1, user2, user3];
+ * sorted = new SortIterator(someItems, auto (user) {
  * return user.age;
  * });
  *

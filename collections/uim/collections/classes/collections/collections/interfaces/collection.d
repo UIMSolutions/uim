@@ -340,7 +340,7 @@ interface ICollection : Iterator, JsonSerializable, Countable {
      * ### Example:
      *
      * ```
-     *  someItems = collection.sortBy(function ($user) {
+     *  someItems = collection.sortBy(function (user) {
      * return user.age;
      * });
      *
@@ -815,7 +815,7 @@ interface ICollection : Iterator, JsonSerializable, Countable {
      * Returns a new collection with each of the elements of this collection
      * after flattening the tree structure. The tree structure is defined
      * by nesting elements under a key with a known name. It is possible
-     * to specify such name by using the '$nestingKey' parameter.
+     * to specify such name by using the 'nestingKey' parameter.
      *
      * By default all elements in the tree following a Depth First Search
      * will be returned, that is, elements from the top parent to the leaves

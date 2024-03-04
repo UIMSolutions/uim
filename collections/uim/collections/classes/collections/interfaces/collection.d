@@ -220,7 +220,7 @@ interface ICollection {
 
     /**
      * Returns the top element in this collection after being sorted by a property.
-     * Check the sortBy method for information on the callback and $sort parameters
+     * Check the sortBy method for information on the callback and sort parameters
      *
      * ### Examples:
      *
@@ -237,16 +237,16 @@ interface ICollection {
      * ```
      *
      * @param callable|string path The column name to use for sorting or callback that returns the value.
-     * @param int $sort The sort type, one of SORT_STRING
+     * @param int sort The sort type, one of SORT_STRING
      * SORT_NUMERIC or SORT_NATURAL
      * @see uim.collections.ICollection::sortBy()
      * @return mixed The value of the top element in the collection
      */
-    Json max(path, int $sort = \SORT_NUMERIC);
+    Json max(path, int sort = \SORT_NUMERIC);
 
     /**
      * Returns the bottom element in this collection after being sorted by a property.
-     * Check the sortBy method for information on the callback and $sort parameters
+     * Check the sortBy method for information on the callback and sort parameters
      *
      * ### Examples:
      *
@@ -263,12 +263,12 @@ interface ICollection {
      * ```
      *
      * @param callable|string path The column name to use for sorting or callback that returns the value.
-     * @param int $sort The sort type, one of SORT_STRING
+     * @param int sort The sort type, one of SORT_STRING
      * SORT_NUMERIC or SORT_NATURAL
      * @see uim.collections.ICollection::sortBy()
      * @return mixed The value of the bottom element in the collection
      */
-    Json min(path, int $sort = \SORT_NUMERIC);
+    Json min(path, int sort = \SORT_NUMERIC);
 
     /**
      * Returns the average of all the values extracted with path
@@ -347,8 +347,8 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * items = collection.sortBy(function ($user) {
-     *  return $user.age;
+     * items = collection.sortBy(function (user) {
+     *  return user.age;
      * });
      *
      * // alternatively
@@ -358,18 +358,18 @@ interface ICollection {
      * items = collection.sortBy("department.name");
      *
      * // output all user name order by their age in descending order
-     * foreach (items as $user) {
-     *  writeln($user.name;
+     * foreach (items as user) {
+     *  writeln(user.name;
      * }
      * ```
      *
      * @param callable|string path The column name to use for sorting or callback that returns the value.
      * @param int $order The sort order, either SORT_DESC or SORT_ASC
-     * @param int $sort The sort type, one of SORT_STRING
+     * @param int sort The sort type, one of SORT_STRING
      * SORT_NUMERIC or SORT_NATURAL
      * @return self
      */
-    ICollection sortBy(path, int $order = SORT_DESC, int $sort = \SORT_NUMERIC): ICollection;
+    ICollection sortBy(path, int $order = SORT_DESC, int sort = \SORT_NUMERIC): ICollection;
 
     /**
      * Splits a collection into sets, grouped by the result of running each value
@@ -527,7 +527,7 @@ interface ICollection {
     ICollection shuffle();
 
     /**
-     * Returns a new collection with maximum $size random elements
+     * Returns a new collection with maximum size random elements
      * from this collection
      *
      * @param int $length the maximum number of elements to randomly
@@ -537,7 +537,7 @@ interface ICollection {
     ICollection sample(int $length = 10);
 
     /**
-     * Returns a new collection with maximum $size elements in the internal
+     * Returns a new collection with maximum size elements in the internal
      * order this collection was created. If a second parameter is passed, it
      * will determine from what position to start taking elements.
      *
@@ -714,10 +714,10 @@ interface ICollection {
      * whether an element is parent of another
      * @param callable|string parentPath the column name path to use for determining
      * whether an element is child of another
-     * @param string $nestingKey The key name under which children are nested
+     * @param string nestingKey The key name under which children are nested
      * @return self
      */
-    ICollection nest(idPath, parentPath, string $nestingKey = "children");
+    ICollection nest(idPath, parentPath, string nestingKey = "children");
 
     /**
      * Returns a new collection containing each of the elements found in `values` as
@@ -842,7 +842,7 @@ interface ICollection {
      * Returns a new collection with each of the elements of this collection
      * after flattening the tree structure. The tree structure is defined
      * by nesting elements under a key with a known name. It is possible
-     * to specify such name by using the "$nestingKey" parameter.
+     * to specify such name by using the "nestingKey" parameter.
      *
      * By default all elements in the tree following a Depth First Search
      * will be returned, that is, elements from the top parent to the leaves
@@ -873,11 +873,11 @@ interface ICollection {
      * ```
      *
      * @param string|int $order The order in which to return the elements
-     * @param callable|string $nestingKey The key name under which children are nested
+     * @param callable|string nestingKey The key name under which children are nested
      * or a callable function that will return the children list
      * @return self
      */
-    function listNested($order = "desc", $nestingKey = "children"): ICollection;
+    function listNested($order = "desc", nestingKey = "children"): ICollection;
 
     /**
      * Creates a new collection that when iterated will stop yielding results if
@@ -931,7 +931,7 @@ interface ICollection {
      *
      * ```
      * items [[1, 2, 3], [4, 5]];
-     * $unfold = (new Collection(items)).unfold(); // Returns [1, 2, 3, 4, 5]
+     * unfold = (new Collection(items)).unfold(); // Returns [1, 2, 3, 4, 5]
      * ```
      *
      * Using a transformer
@@ -939,7 +939,7 @@ interface ICollection {
      * ```
      * items [1, 2, 3];
      * allItems = (new Collection(items)).unfold(function (page) {
-     *  return $service.fetchPage(page).toArray();
+     *  return service.fetchPage(page).toArray();
      * });
      * ```
      *

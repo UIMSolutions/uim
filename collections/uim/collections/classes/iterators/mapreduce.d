@@ -51,8 +51,8 @@ class MapReduce : IteratorAggregate {
      *     mr.emitIntermediate(aValue, type);
      * };
      *
-     * reducer = auto ($numbers, type, mr) {
-     *     mr.emit(array_unique($numbers), type);
+     * reducer = auto (numbers, type, mr) {
+     *     mr.emit(array_unique(numbers), type);
      * };
      * results = new MapReduce(someData, mapper, reducer);
      * ```

@@ -141,8 +141,8 @@ class CompletionCommand : Command, ICommandCollectionAware {
                 foreach (commandName, option; aParser.options()) {
                     options ~= "--commandName";
                     short = option.short();
-                    if ($short) {
-                        options ~= "-$short";
+                    if (short) {
+                        options ~= "-short";
                     }
                 }
             }

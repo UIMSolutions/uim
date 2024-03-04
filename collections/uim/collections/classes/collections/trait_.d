@@ -142,13 +142,13 @@ trait CollectionTrait {
     }
 
 
-    function max(path, int $sort = \SORT_NUMERIC) {
-        return (new SortIterator(this.unwrap(), path, \SORT_DESC, $sort)).first();
+    function max(path, int sort = \SORT_NUMERIC) {
+        return (new SortIterator(this.unwrap(), path, \SORT_DESC, sort)).first();
     }
 
 
-    function min(path, int $sort = \SORT_NUMERIC) {
-        return (new SortIterator(this.unwrap(), path, \SORT_ASC, $sort)).first();
+    function min(path, int sort = \SORT_NUMERIC) {
+        return (new SortIterator(this.unwrap(), path, \SORT_ASC, sort)).first();
     }
 
 
@@ -159,9 +159,9 @@ trait CollectionTrait {
         }
         result = result
             .reduce(function (acc, current) {
-                [count, $sum] = acc;
+                [count, sum] = acc;
 
-                return [count + 1, $sum + current];
+                return [count + 1, sum + current];
             }, [0, 0]);
 
         if (result[0] == 0) {
@@ -195,9 +195,9 @@ trait CollectionTrait {
     }
 
 
-    function sortBy(path, int $order = \SORT_DESC, int $sort = \SORT_NUMERIC): ICollection
+    function sortBy(path, int $order = \SORT_DESC, int sort = \SORT_NUMERIC): ICollection
     {
-        return new SortIterator(this.unwrap(), path, $order, $sort);
+        return new SortIterator(this.unwrap(), path, $order, sort);
     }
 
 
@@ -263,12 +263,12 @@ trait CollectionTrait {
         }
 
         callback = _propertyExtractor(path);
-        $sum = 0;
+        sum = 0;
         foreach (this.optimizeUnwrap() as $k: $v) {
-            $sum += callback($v, $k);
+            sum += callback($v, $k);
         }
 
-        return $sum;
+        return sum;
     }
 
 
@@ -507,22 +507,22 @@ trait CollectionTrait {
     }
 
 
-    function nest(idPath, parentPath, string $nestingKey = "children"): ICollection
+    function nest(idPath, parentPath, string nestingKey = "children"): ICollection
     {
         parents = null;
         idPath = _propertyExtractor(idPath);
         parentPath = _propertyExtractor(parentPath);
         isObject = true;
 
-        mapper = void ($row, $key, MapReduce mapReduce) use (&parents, idPath, parentPath, $nestingKey) {
-            $row[$nestingKey] = null;
+        mapper = void ($row, $key, MapReduce mapReduce) use (&parents, idPath, parentPath, nestingKey) {
+            $row[nestingKey] = null;
             id = idPath($row, $key);
             parentId = parentPath($row, $key);
             parents[id] = &$row;
             mapReduce.emitIntermediate(id, parentId);
         };
 
-        $reducer = function (values, $key, MapReduce mapReduce) use (&parents, &isObject, $nestingKey) {
+        $reducer = function (values, $key, MapReduce mapReduce) use (&parents, &isObject, nestingKey) {
             static foundOutType = false;
             if (!foundOutType) {
                 isObject = is_object(current(parents));
@@ -542,7 +542,7 @@ trait CollectionTrait {
             foreach (values as id) {
                 children ~= &parents[id];
             }
-            parents[$key][$nestingKey] = children;
+            parents[$key][nestingKey] = children;
         };
 
         return this.newCollection(new MapReduce(this.unwrap(), mapper, $reducer))
@@ -610,7 +610,7 @@ trait CollectionTrait {
     }
 
 
-    function listNested($order = "desc", $nestingKey = "children"): ICollection
+    function listNested($order = "desc", nestingKey = "children"): ICollection
     {
         if (is_string($order)) {
             $order = strtolower($order);
@@ -630,7 +630,7 @@ trait CollectionTrait {
         }
 
         return new TreeIterator(
-            new NestIterator(this, $nestingKey),
+            new NestIterator(this, nestingKey),
             $order
         );
     }

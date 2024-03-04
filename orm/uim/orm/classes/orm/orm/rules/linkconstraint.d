@@ -125,7 +125,7 @@ class LinkConstraint {
             throw new DatabaseException(
                 "LinkConstraint rule on `%s` requires all primary key values for building the counting " .
                 "conditions, expected values for `(%s)`, got `(%s)`."
-                .format(mysource.getAlias(),
+                .format(mysource.aliasName(),
                 join(", ", myprimaryKey),
                 join(", ", myentity.extract(myprimaryKey))
             ));

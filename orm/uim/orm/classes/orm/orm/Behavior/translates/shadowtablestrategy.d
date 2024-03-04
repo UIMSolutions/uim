@@ -38,7 +38,7 @@ class ShadowTableStrategy : ITranslateStrategy {
      * @param IData[string] configData Configuration.
      */
     this(Table mytable, IData[string] configData = null) {
-        auto mytableAlias = mytable.getAlias();
+        auto mytableAlias = mytable.aliasName();
         [myplugin] = pluginSplit(mytable.getRegistryAlias(), true);
         auto mytableReferenceName = configData("referenceName"];
 
@@ -70,7 +70,7 @@ class ShadowTableStrategy : ITranslateStrategy {
     protected void setupAssociations() {
         configData = this.getConfig();
 
-        mytargetAlias = this.translationTable.getAlias();
+        mytargetAlias = this.translationTable.aliasName();
         this.table.hasMany(mytargetAlias, [
             "className": configData("translationTable"],
             "foreignKey": "id",
@@ -288,7 +288,7 @@ class ShadowTableStrategy : ITranslateStrategy {
      */
     void beforeSave(IEvent myevent, IEntity myentity, ArrayObject options) {
         mylocale = myentity.get("_locale") ?: this.getLocale();
-        mynewOptions = [this.translationTable.getAlias(): ["validate": false]];
+        mynewOptions = [this.translationTable.aliasName(): ["validate": false]];
         options["associated"] = mynewOptions + options["associated"];
 
         // Check early if empty translations are present in the entity.

@@ -226,7 +226,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
             myaliasedField = myfield;
             [myalias, myfield] = split(".", myfield);
         } else {
-            myalias = myalias ?: this.getRepository().getAlias();
+            myalias = myalias ?: this.getRepository().aliasName();
             myaliasedField = myalias ~ "." ~ myfield;
         }
         aKey = "%s__%s".format(myalias, myfield);
@@ -665,7 +665,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
         }
         if (cast(Table)myfields) {
             if (this.aliasingEnabled) {
-                myfields = this.aliasFields(myfields.getSchema().columns(), myfields.getAlias());
+                myfields = this.aliasFields(myfields.getSchema().columns(), myfields.aliasName());
             } else {
                 myfields = myfields.getSchema().columns();
             }
@@ -1371,7 +1371,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
         auto myrepository = this.getRepository();
 
         if (isEmpty(_parts["from"])) {
-            this.from([myrepository.getAlias(): myrepository.getTable()]);
+            this.from([myrepository.aliasName(): myrepository.getTable()]);
         }
        _addDefaultFields();
         this.getEagerLoader().attachAssociations(this, myrepository, !_hasFields);
@@ -1394,7 +1394,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
             myselect = this.clause("select");
         }
         if (this.aliasingEnabled) {
-            myselect = this.aliasFields(myselect, myrepository.getAlias());
+            myselect = this.aliasFields(myselect, myrepository.aliasName());
         }
         this.select(myselect, true);
     }

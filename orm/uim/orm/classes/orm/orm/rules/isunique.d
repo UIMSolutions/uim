@@ -44,7 +44,7 @@ class IsUnique {
         if (_options["allowMultipleNulls"] && array_filter(myfields, "is_null")) {
             return true;
         }
-        auto myalias = options["repository"].getAlias();
+        auto myalias = options["repository"].aliasName();
         
         auto myconditions = _alias(myalias, myfields);
         if (entity.isNew() == false) {

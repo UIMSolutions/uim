@@ -152,7 +152,7 @@ class LinkConstraint
             throw new \RuntimeException(sprintf(
                 "LinkConstraint rule on `%s` requires all primary key values for building the counting " ~
                 "conditions, expected values for `(%s)`, got `(%s)`.",
-                source.getAlias(),
+                source.aliasName(),
                 implode(", ", primaryKeys),
                 implode(", ", entity.extract(primaryKeys))
             ));

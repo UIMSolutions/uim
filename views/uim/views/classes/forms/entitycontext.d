@@ -101,7 +101,7 @@ class EntityContext : IContext {
         if (!(cast(Table)mytable)) {
             throw new UimException("Unable to find table class for current entity.");
         }
-        myalias = _rootName = mytable.getAlias();
+        myalias = _rootName = mytable.aliasName();
        _tables[myalias] = mytable;
     }
     
@@ -474,7 +474,7 @@ class EntityContext : IContext {
         if (!mytable) {
             throw new InvalidArgumentException("Validator not found: `%s`.".format(aKey));
         }
-        myalias = mytable.getAlias();
+        myalias = mytable.aliasName();
 
         mymethod = "default";
         if (isString(_context["validator"])) {

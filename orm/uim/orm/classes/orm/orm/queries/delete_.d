@@ -17,7 +17,7 @@ class DeleteQuery : DbDeleteQuery {
     string sql(ValueBinder mybinder = null) {
         if (isEmpty(_parts["from"])) {
             myrepository = this.getRepository();
-            this.from([myrepository.getAlias(): myrepository.getTable()]);
+            this.from([myrepository.aliasName(): myrepository.getTable()]);
         }
         return super.sql(mybinder);
     }

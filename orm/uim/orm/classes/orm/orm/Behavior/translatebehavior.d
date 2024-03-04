@@ -264,7 +264,7 @@ class TranslateBehavior : Behavior, IPropertyMarshal {
      * @param string[] mylocales A list of locales or options with the `locales` key defined
      */
     SelectQuery findTranslations(SelectQuery myquery, array mylocales = []) {
-        mytargetAlias = this.getStrategy().getTranslationTable().getAlias();
+        mytargetAlias = this.getStrategy().getTranslationTable().aliasName();
 
         return myquery
             .contain([mytargetAlias: auto(IQuery myquery) use(mylocales, mytargetAlias) {
@@ -305,7 +305,7 @@ class TranslateBehavior : Behavior, IPropertyMarshal {
                         myname = namespaceSplit(mytable.classname);
                         myname = substr(to!string(end(myname)), 0,  - 5);
                         if (isEmpty(myname)) {
-                            myname = mytable.getTable() ?  : mytable.getAlias();
+                            myname = mytable.getTable() ?  : mytable.aliasName();
                             myname = Inflector.camelize(myname);
                         }
                         return myname;

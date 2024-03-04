@@ -56,7 +56,7 @@ class IsUnique {
             return true;
         }
 
-        alias = options["repository"].getAlias();
+        alias = options["repository"].aliasName();
         conditions = _alias(alias, fields);
         if (entity.isNew() == false) {
             keys = (array)options["repository"].getPrimaryKeys();

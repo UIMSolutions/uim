@@ -24,7 +24,7 @@ template CommonQueryTemplate {
      * \UIM\ORM\Table mytable The table to pull types from
      */
     void addDefaultTypes(Table mytable) {
-        myalias = mytable.getAlias();
+        myalias = mytable.aliasName();
         mymap = mytable.getSchema().typeMap();
         myfields = [];
         foreach (mymap as myf: mytype) {

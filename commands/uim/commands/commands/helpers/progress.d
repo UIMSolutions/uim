@@ -12,7 +12,7 @@ import uim.commands;
  * The ProgressHelper can be accessed from shells using the helper() method
  *
  * ```
- * this.helper("Progress").output(["callback": auto ($progress) {
+ * this.helper("Progress").output(["callback": auto (progress) {
  *    // Do work
  *    progress.increment();
  * });
@@ -108,11 +108,11 @@ class ProgressHelper : Helper {
       myBar = str_repeat("=", to!int($barLen - 1))~">";
     }
     pad = ceil(_width - numberLength - barLen);
-    if ($pad > 0) {
-      myBar ~= str_repeat(" ", (int)$pad);
+    if (pad > 0) {
+      myBar ~= str_repeat(" ", (int)pad);
     }
     percent = (complete * 100)~"%";
-    myBar ~= str_pad($percent, numberLength, " ", STR_PAD_LEFT);
+    myBar ~= str_pad(percent, numberLength, " ", STR_PAD_LEFT);
 
     _io.overwrite(myBar, 0);
   }

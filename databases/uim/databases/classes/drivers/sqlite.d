@@ -42,8 +42,6 @@ class SqliteDriver : Driver {
     // Whether the connected server supports window functions
     protected bool _supportsWindowFunctions = null;
 
-
-
     // Mapping of date parts.
     protected STRINGAA _dateParts = [
         "day": "d",
@@ -169,12 +167,13 @@ class SqliteDriver : Driver {
                 expression.name("").setConjunction(" ||");
                 break;
             case "DATEDIFF":
-                expression
-                    .name("ROUND")
-                    .setConjunction("-")
-                    .iterateParts(function ($p) {
-                        return new FunctionExpression("JULIANDAY", [$p["value"]], [$p["type"]]);
+                with(expression) {
+                    name("ROUND");
+                    setConjunction("-");
+                    iterateParts(function (p) {
+                        return new FunctionExpression("JULIANDAY", [p["value"]], [p["type"]]);
                     });
+                }
                 break;
             case "NOW":
                 expression.name("DATETIME").add(["'now'": "literal"]);
@@ -194,25 +193,25 @@ class SqliteDriver : Driver {
                 expression
                     .name("STRFTIME")
                     .setConjunction(" ,")
-                    .iterateParts(function ($p, aKey) {
+                    .iterateParts(function (p, aKey) {
                         if (aKey == 0) {
-                            aValue = rtrim(s$p.toLower, "s");
+                            aValue = rtrim(sp.toLower, "s");
                             if (isSet(_dateParts[aValue])) {
-                                $p = ["value": '%" ~ _dateParts[aValue], "type": null];
+                                p = ["value": '%" ~ _dateParts[aValue], "type": null];
                             }
                         }
-                        return $p;
+                        return p;
                     });
                 break;
             case "DATE_ADD":
                 expression
                     .name("DATE")
                     .setConjunction(",")
-                    .iterateParts(function ($p, aKey) {
+                    .iterateParts(function (p, aKey) {
                         if (aKey == 1) {
-                            $p = ["value": $p, "type": null];
+                            p = ["value": p, "type": null];
                         }
-                        return $p;
+                        return p;
                     });
                 break;
             case "DAYOFWEEK":

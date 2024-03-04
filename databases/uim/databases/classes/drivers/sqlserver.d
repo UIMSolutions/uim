@@ -83,7 +83,7 @@ _baseConfig = [
             : "";
         }
 
-        string dsn = "sqlsrv:Server={configuration["host"]}{$port};Database={configuration["database"]};MultipleActiveResultSets=false";
+        string dsn = "sqlsrv:Server={configuration["host"]}{port};Database={configuration["database"]};MultipleActiveResultSets=false";
         dsn ~= !configuration["app"].isNull ? ";APP=%s".format(configuration["app"]) : null;
         dsn ~= !configuration["connectionPooling"].isNull ? ";ConnectionPooling={configuration["connectionPooling"]}" : null;
         dsn ~= !configuration["failoverPartner"].isNull ? ";Failover_Partner={configuration["failoverPartner"]}" : null;
@@ -363,19 +363,19 @@ _baseConfig = [
                 expression.name("DATEPART").setConjunction(" ,");
                 break;
             case "DATE_ADD":
-                $params = [];
-                $visitor = auto ($p, aKey) use (&$params) {
+                params = [];
+                $visitor = auto (p, aKey) use (&params) {
                     if (aKey == 0) {
-                        $params[2] = $p;
+                        params[2] = p;
                     } else {
-                        string[] valueUnit = split(" ", $p);
-                        $params[0] = rtrim(valueUnit[1], "s");
-                        $params[1] = valueUnit[0];
+                        string[] valueUnit = split(" ", p);
+                        params[0] = rtrim(valueUnit[1], "s");
+                        params[1] = valueUnit[0];
                     }
-                    return $p;
+                    return p;
                 };
-                $manipulator = auto ($p, aKey) use (&$params) {
-                    return $params[aKey];
+                $manipulator = auto (p, aKey) use (&params) {
+                    return params[aKey];
                 };
 
                 expression
@@ -383,7 +383,7 @@ _baseConfig = [
                     .setConjunction(",")
                     .iterateParts($visitor)
                     .iterateParts($manipulator)
-                    .add([$params[2]: "literal"]);
+                    .add([params[2]: "literal"]);
                 break;
             case "DAYOFWEEK":
                 expression
@@ -394,12 +394,12 @@ _baseConfig = [
             case "SUBSTR":
                 expression.name("SUBSTRING");
                 if (count(expression) < 4) {
-                    $params = [];
+                    params = [];
                     expression
-                        .iterateParts(function ($p) use (&$params) {
-                            return $params ~= $p;
+                        .iterateParts(function (p) use (&params) {
+                            return params ~= p;
                         })
-                        .add([new FunctionExpression("LEN", [$params[0]]), ["string"]]);
+                        .add([new FunctionExpression("LEN", [params[0]]), ["string"]]);
                 }
                 break;
         }

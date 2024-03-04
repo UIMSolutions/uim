@@ -23,7 +23,7 @@ class PluginUnloadCommand : Command {
   int execute(Arguments commandArguments, ConsoleIo aConsoleIo) {
         auto plugin = to!string(commandArguments.getArgument("plugin"));
 
-        result = this.modifyConfigFile($plugin);
+        result = this.modifyConfigFile(plugin);
         if (result.isNull) {
              aConsoleIo.success("Plugin removed from `CONFIG/plugins.d`");
 

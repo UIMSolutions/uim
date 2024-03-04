@@ -35,7 +35,7 @@ class StubConsoleInput : ConsoleInput {
             replies = join(", ", this.replies);
             
             string message = "There are no more input replies available. This is the {$nth} read operation, " .
-                "only {$total} replies were set.\nThe provided replies are: {$replies}";
+                "only {total} replies were set.\nThe provided replies are: {$replies}";
             throw new MissingConsoleInputException(message);
         }
         return this.replies[_currentIndex];

@@ -91,8 +91,8 @@ void setEncoding(string encodingToUse) {
      * string aschema The schema names to set `search_path` to.
      */
 void setSchema(string aschema) {
-    $pdo = this.getPdo();
-    $pdo.exec("SET search_path TO " ~ $pdo.quote(tableSchema));
+    pdo = this.getPdo();
+    pdo.exec("SET search_path TO " ~ pdo.quote(tableSchema));
 }
 
 // Get the SQL for disabling foreign keys.
@@ -162,21 +162,21 @@ protected void _transformFunctionExpression(FunctionExpression expressionToConve
         expressionToConvert
             .name("")
             .setConjunction("-")
-            .iterateParts(function($p) {
-                if (isString($p)) {
-                    $p = ["value": [$p: "literal"], "type": null];} else {
-                        $p["value"] = [$p["value"]];}
-                        return new FunctionExpression("DATE", $p["value"], [$p["type"]]);
+            .iterateParts(function(p) {
+                if (isString(p)) {
+                    p = ["value": [p: "literal"], "type": null];} else {
+                        p["value"] = [p["value"]];}
+                        return new FunctionExpression("DATE", p["value"], [p["type"]]);
                     }
 );
                     break;
     case "CURRENT_DATE" : time = new FunctionExpression("LOCALTIMESTAMP", [" 0 ": "literal"]);
                     expressionToConvert.name("CAST").setConjunction(" AS ")
-                        .add([$time, "date": "literal"]);
+                        .add([time, "date": "literal"]);
                     break;
     case "CURRENT_TIME" : time = new FunctionExpression("LOCALTIMESTAMP", [" 0 ": "literal"]);
                     expressionToConvert.name("CAST").setConjunction(" AS ")
-                        .add([$time, "time": "literal"]);
+                        .add([time, "time": "literal"]);
                     break;
     case "NOW" : expressionToConvert.name("LOCALTIMESTAMP").add([" 0 ": "literal"]);
                     break;
@@ -185,10 +185,10 @@ protected void _transformFunctionExpression(FunctionExpression expressionToConve
     case "DATE_ADD" : expressionToConvert
                         .name("")
                         .setConjunction(" + INTERVAL")
-                        .iterateParts(function($p, aKey) {
+                        .iterateParts(function(p, aKey) {
                             if (aKey == 1) {
-                                $p = "'%s'".format($p);}
-                                return $p;});
+                                p = "'%s'".format(p);}
+                                return p;});
                                 break;
     case "DAYOFWEEK" : expressionToConvert
                                 .name("EXTRACT")

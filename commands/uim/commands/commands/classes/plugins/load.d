@@ -39,7 +39,7 @@ class PluginLoadCommand : Command {
             }
         }
         try {
-        Plugin. getCollection().findPath($plugin);
+        Plugin. getCollection().findPath(plugin);
         } catch (MissingPluginException anException) {
             /** @psalm-suppress InvalidArgument */
             if (isEmpty(options["optional"])) {
@@ -49,7 +49,7 @@ class PluginLoadCommand : Command {
                 return CODE_ERROR;
             }
         }
-        result = this.modifyConfigFile($plugin, options);
+        result = this.modifyConfigFile(plugin, options);
         if (result == CODE_ERROR) {
             aConsoleIo.writeErrorMessages("Failed to update `CONFIG/plugins.d`");
         }

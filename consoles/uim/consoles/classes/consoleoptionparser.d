@@ -363,7 +363,7 @@ class ConsoleOptionParser {
      */
     void addArguments(array someArguments) {
         foreach (name: params; someArguments) {
-            if (cast(ConsoleInputArgument)$params) {
+            if (cast(ConsoleInputArgument)params) {
                 name = params;
                 params = [];
             }
@@ -380,7 +380,7 @@ class ConsoleOptionParser {
      */
     void addOptions(IData[string] optionsToAdd = null) {
         foreach (name: params; optionsToAdd) {
-            if (cast(ConsoleInputOption)$params) {
+            if (cast(ConsoleInputOption)params) {
                 name = params;
                 params = [];
             }
@@ -415,27 +415,27 @@ class ConsoleOptionParser {
        _tokens = argv;
 
         afterDoubleDash = false;
-        while (($token = array_shift(_tokens)) !isNull) {
-            token = to!string($token);
-            if ($token == "--") {
+        while ((token = array_shift(_tokens)) !isNull) {
+            token = to!string(token);
+            if (token == "--") {
                 afterDoubleDash = true;
                 continue;
             }
             if (afterDoubleDash) {
                 // only positional arguments after --
-                someArguments = _parseArg($token, someArguments);
+                someArguments = _parseArg(token, someArguments);
                 continue;
             }
-            if ($token.startsWith("--")) {
-                params = _parseLongOption($token, params);
-            } else if (str_starts_with($token, "-")) {
-                params = _parseShortOption($token, params);
+            if (token.startsWith("--")) {
+                params = _parseLongOption(token, params);
+            } else if (str_starts_with(token, "-")) {
+                params = _parseShortOption(token, params);
             } else {
-                someArguments = _parseArg($token, someArguments);
+                someArguments = _parseArg(token, someArguments);
             }
         }
-        if (isSet($params["help"])) {
-            return [$params, someArguments];
+        if (isSet(params["help"])) {
+            return [params, someArguments];
         }
         foreach (anI: arg; _args) {
             if (arg.isRequired() && !isSet(someArguments[anI])) {
@@ -449,7 +449,7 @@ class ConsoleOptionParser {
              isBoolean = option.isBoolean();
             default = option.defaultValue();
 
-            useDefault = !isSet($params[name]);
+            useDefault = !isSet(params[name]);
             if ($default !isNull && useDefault && !isBoolean) {
                 params[name] = default;
             }
@@ -457,7 +457,7 @@ class ConsoleOptionParser {
                 params[name] = false;
             }
             prompt = option.prompt();
-            if (!isSet($params[name]) && prompt) {
+            if (!isSet(params[name]) && prompt) {
                 if (!aConsoleIo) {
                     throw new ConsoleException(
                         'Cannot use interactive option prompts without a ConsoleIo instance. ' .
@@ -466,19 +466,19 @@ class ConsoleOptionParser {
                 }
                 choices = option.choices();
                 if (choices) {
-                    aValue = aConsoleIo.askChoice($prompt, choices);
+                    aValue = aConsoleIo.askChoice(prompt, choices);
                 } else {
-                    aValue = aConsoleIo.ask($prompt);
+                    aValue = aConsoleIo.ask(prompt);
                 }
                 params[name] = aValue;
             }
-            if (option.isRequired() && !isSet($params[name])) {
+            if (option.isRequired() && !isSet(params[name])) {
                 throw new ConsoleException(
                     "Missing required option. The `%s` option is required and has no default value.".format(name)
                 );
             }
         });
-        return [$params, someArguments];
+        return [params, someArguments];
     }
     
     /**
@@ -494,11 +494,11 @@ class ConsoleOptionParser {
         formatter = new HelpFormatter(this);
         formatter.setAlias(_rootName);
 
-        if ($format == "text") {
+        if (format == "text") {
             return formatter.text($width);
         }
-        if ($format == "xml") {
-            return to!string($formatter.xml());
+        if (format == "xml") {
+            return to!string(formatter.xml());
         }
         throw new ConsoleException("Invalid format. Output format can be text or xml.");
     }
@@ -545,7 +545,7 @@ class ConsoleOptionParser {
         if (aKey.length > 1) {
             flags = str_split(aKey);
             aKey = flags[0];
-            for (anI = 1, len = count($flags);  anI < len;  anI++) {
+            for (anI = 1, len = count(flags);  anI < len;  anI++) {
                 array_unshift(_tokens, "-" ~ flags[anI]);
             }
         }

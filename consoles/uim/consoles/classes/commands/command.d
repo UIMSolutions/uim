@@ -156,7 +156,7 @@ abstract class Command : ICommand, IEventDispatcher {
             format = "xml";
             aConsoleIo.setOutputAs(ConsoleOutput.RAW);
         }
-        aConsoleIo.writeln(aParser.help($format));
+        aConsoleIo.writeln(aParser.help(format));
     }
 
     /**

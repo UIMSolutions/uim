@@ -268,7 +268,7 @@ class ConsoleIo {
 
         // Fill any remaining bytes with spaces.
         fill = size - newBytes;
-        if ($fill > 0) {
+        if (fill > 0) {
             this.writeln(str_repeat(" ", fill), 0);
         }
         if (newLinesToAppend) {
@@ -276,7 +276,7 @@ class ConsoleIo {
         }
         // Store length of content + fill so if the new content
         // is shorter than the old content the next overwrite will work.
-        if ($fill > 0) {
+        if (fill > 0) {
            _lastWritten = newBytes + fill;
         }
     }
@@ -390,7 +390,7 @@ class ConsoleIo {
 
         string anIn = "";
         while (anIn.isEmpty || !in_array(anIn, options, true)) {
-             anIn = _getInput($prompt, printOptions, default);
+             anIn = _getInput(prompt, printOptions, default);
         }
         return anIn;
     }

@@ -199,7 +199,7 @@ class DORMQuery : DatabaseQuery : JsonSerializable, IQuery
       string[] fields; 
 
       if (this.aliasingEnabled) {
-          fields = this.aliasFields(anTable.getSchema().columns(), anTable.getAlias());
+          fields = this.aliasFields(anTable.getSchema().columns(), anTable.aliasName());
       } else {
           fields = anTable.getSchema().columns();
       }
@@ -256,7 +256,7 @@ class DORMQuery : DatabaseQuery : JsonSerializable, IQuery
      * @return this
      */
     function addDefaultTypes(DORMTable aTable) {
-        alias = table.getAlias();
+        alias = table.aliasName();
         map = table.getSchema().typeMap();
         fields = null;
         foreach (map as f: type) {
@@ -1106,7 +1106,7 @@ class DORMQuery : DatabaseQuery : JsonSerializable, IQuery
         repository = this.getRepository();
 
         if (empty(_parts["from"])) {
-            this.from([repository.getAlias(): repository.getTable()]);
+            this.from([repository.aliasName(): repository.getTable()]);
         }
         _addDefaultFields();
         this.getEagerLoader().attachAssociations(this, repository, !_hasFields);
@@ -1130,7 +1130,7 @@ class DORMQuery : DatabaseQuery : JsonSerializable, IQuery
         }
 
         if (this.aliasingEnabled) {
-            select = this.aliasFields(select, repository.getAlias());
+            select = this.aliasFields(select, repository.aliasName());
         }
         this.select(select, true);
     }
@@ -1213,7 +1213,7 @@ class DORMQuery : DatabaseQuery : JsonSerializable, IQuery
      */
     function delete(Nullable!string table = null) {
         repository = this.getRepository();
-        this.from([repository.getAlias(): repository.getTable()]);
+        this.from([repository.aliasName(): repository.getTable()]);
 
         // We do not pass table to parent class here
         return super.delete();

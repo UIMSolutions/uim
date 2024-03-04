@@ -600,7 +600,7 @@ class EagerLoader
             contain = meta.associations();
             instance = meta.instance();
             myConfiguration = meta.getConfig();
-            alias = instance.getSource().getAlias();
+            alias = instance.getSource().aliasName();
             path = meta.aliasPath();
 
             requiresKeys = instance.requiresKeys(myConfiguration);
@@ -746,7 +746,7 @@ class EagerLoader
                 (array)instance.getForeignKey() :
                 (array)instance.getBindingKey();
 
-            alias = source.getAlias();
+            alias = source.aliasName();
             pkFields = null;
             foreach (keys as key) {
                 pkFields[] = key(query.aliasField(key, alias));

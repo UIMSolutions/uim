@@ -207,7 +207,7 @@ class DAssociationCollection : IteratorAggregate {
                 mymsg = 
                     "Cannot save `%s`, it is not associated to `%s`.".format(
                     myalias,
-                    mytable.getAlias()
+                    mytable.aliasName()
                 );
                 throw new InvalidArgumentException(mymsg);
             }

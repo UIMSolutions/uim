@@ -74,7 +74,7 @@ class Marshaller
                     throw new InvalidArgumentException(sprintf(
                         "Cannot marshal data for '%s' association. It is not associated with '%s'.",
                         (string)key,
-                        _table.getAlias()
+                        _table.aliasName()
                     ));
                 }
                 continue;
@@ -257,7 +257,7 @@ class Marshaller
     protected function _prepareDataAndOptions(array data, STRINGAA someOptions) {
         options += ["validate": true];
 
-        tableName = _table.getAlias();
+        tableName = _table.aliasName();
         if (isset(data[tableName]) && is_array(data[tableName])) {
             data += data[tableName];
             unset(data[tableName]);

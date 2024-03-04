@@ -129,7 +129,7 @@ class ResultSet : IResultSet {
         _hydrate = query.isHydrationEnabled();
         _entityClass = repository.getEntityClass();
         _useBuffering = query.isBufferedResultsEnabled();
-        _defaultAlias = _defaultTable.getAlias();
+        _defaultAlias = _defaultTable.aliasName();
         _calculateColumnMap(query);
         _autoFields = query.isAutoFieldsEnabled();
 

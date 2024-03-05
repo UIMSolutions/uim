@@ -1,5 +1,8 @@
 module uim.oop.helpers.oop;
 
+import uim.oop;
+
+@safe:
 bool isSubclassOf(C, B)(C aClass, B aBaseClass) {
     return (cast(B)aClass ? true : false);
 }

@@ -8,8 +8,8 @@ module uim.oop.datatypes.scalars.integer;
 import uim.oop;
 
 @safe:
-class DIntegerData : DData {
-  mixin(DataThis!("IntegerData", "int"));
+class DIntegerData : DScalarData {
+  mixin(DataThis!("Integer"));
 
   // Initialization hook method.
   override bool initialize(IData[string] initData = null) {
@@ -181,6 +181,7 @@ class DIntegerData : DData {
 
   DIntegerData opBinary(string op)(int opValue) {
     auto result = IntegerData(_value);
+
     static if (op == "+")
       add(opValue);
     else static if (op == "-")
@@ -204,6 +205,7 @@ class DIntegerData : DData {
 
   DIntegerData opBinary(string op)(DIntegerData opValue) {
     auto result = IntegerData;
+
     result.set(get);
     static if (op == "+")
       add(opValue);
@@ -242,7 +244,7 @@ class DIntegerData : DData {
   mixin DataConvertTemplate;
 }
 
-mixin(DataCalls!("IntegerData", "int"));
+mixin(DataCalls!("Integer"));
 
 unittest {
   /* assert(IntegerData.set("100").toLong == 100);

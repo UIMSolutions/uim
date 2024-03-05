@@ -9,7 +9,7 @@ import uim.oop;
 
 @safe:
 class DLongData : DScalarData {
-  mixin(DataThis!("LongData", "long"));
+  mixin(DataThis!("Long"));
 
   // Initialization hook method.
   override bool initialize(IData[string] initData = null) {
@@ -145,7 +145,7 @@ class DLongData : DScalarData {
 
 }
 
-mixin(DataCalls!("LongData", "long"));
+mixin(DataCalls!("Long"));
 
 unittest {
   auto data = LongData;

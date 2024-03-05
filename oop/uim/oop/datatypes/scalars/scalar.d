@@ -10,9 +10,7 @@ import uim.oop;
 @safe:
 
 class DScalarData : DData {
-  this() {
-    super();
-  }
+  mixin(DataThis!("Scalar"));
 
   // Initialization hook method.
   override bool initialize(IData[string] initData = null) {
@@ -24,8 +22,9 @@ class DScalarData : DData {
 
     return true;
   }
-}
 
-auto ScalarData() {
-  return new DScalarData;
+  override size_t length() {
+    return 1;
+  }
 }
+mixin(DataCalls!("Scalar"));

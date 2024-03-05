@@ -8,8 +8,9 @@ module uim.oop.datatypes.scalars.string_;
 import uim.oop;
 
 @safe:
-class DStringData : DData {
-  mixin(DataThis!("StringData"));
+class DStringData : DScalarData {
+  mixin(DataThis!("String"));
+  
   // Initialization hook method.
   override bool initialize(IData[string] initData = null) {
     if (!super.initialize(initData)) {
@@ -166,7 +167,7 @@ class DStringData : DData {
   }
 }
 
-mixin(DataCalls!("StringData"));
+mixin(DataCalls!("String"));
 
 unittest {
   /* assert(StringData("test") == "test");

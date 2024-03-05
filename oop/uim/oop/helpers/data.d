@@ -17,14 +17,38 @@ unittest {
     assert(!(cast(DBooleanData)data).value);
 }
 
+IData toData(int value) {
+    return IntegerData(value);
+}
+unittest {
+    auto data = 100.toData;
+    assert(cast(DIntegerData)data);
+    assert((cast(DIntegerData)data).value = "hallo");
+
+    data = 1.toData;
+    assert(!cast(DStringData)data);
+}
+
+IData toData(long value) {
+    return LongData(value);
+}
+unittest {
+    auto data = 100.toData;
+    assert(cast(DIntegerData)data);
+    assert((cast(DIntegerData)data).value = "hallo");
+
+    data = 1.toData;
+    assert(!cast(DStringData)data);
+}
+
 IData toData(string value) {
     return StringData(value);
 }
 unittest {
     auto data = "hallo".toData;
-    assert(cast(StringData)data);
-    assert((cast(StringData)data).value = "hallo");
+    assert(cast(DStringData)data);
+    assert((cast(DStringData)data).value = "hallo");
 
     data = 1.toData;
-    assert(!cast(StringData)data);
+    assert(!cast(DStringData)data);
 }

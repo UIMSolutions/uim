@@ -25,7 +25,7 @@ class DStringData : DScalarData {
   mixin(TProperty!("size_t", "maxLength"));
 
   protected string _value;
-  @property string get() {
+  @property string value() {
     if (maxLength > 0 && _value.length > maxLength) {
       return _value[0 .. maxLength];
     } else {
@@ -65,7 +65,7 @@ class DStringData : DScalarData {
     if (newValue) {
       isNullable(newValue.isNullable);
       isNull(newValue.isNull);
-      set(newValue.get());
+      set(newValue.value());
     }
   } */
 
@@ -86,7 +86,7 @@ class DStringData : DScalarData {
   }
 
   string opCall() {
-    return get();
+    return value();
   }
 
   void opCall(DStringData newValue) {

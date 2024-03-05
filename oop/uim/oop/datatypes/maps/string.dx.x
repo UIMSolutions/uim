@@ -72,7 +72,7 @@ class DStringDataMap : DData, IMap {
   } */
 
   override IData opIndex(string key) {
-    return _items.get(key, null);
+    return _items.value(key, null);
   }
 
   bool isEmpty() {

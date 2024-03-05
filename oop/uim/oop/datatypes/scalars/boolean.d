@@ -8,8 +8,8 @@ module uim.oop.datatypes.scalars.boolean;
 import uim.oop;
 
 @safe:
-class DBoolData : DScalarData {
-  mixin(DataThis!("Bool"));
+class DBooleanData : DScalarData {
+  mixin(DataThis!("Boolean"));
 
   // Initialization hook method.
   override bool initialize(IData[string] initData = null) {
@@ -18,61 +18,57 @@ class DBoolData : DScalarData {
     }
 
     isBoolean(true);
+    typeName("boolean");
 
     return true;
   }
 
-  protected bool _value;
-  bool get() {
+  protected boolean _value;
+  boolean value() {
     return _value;
   }
   // alias get this;
   unittest {
-    /* bool myValue = true;
-    assert(BoolData(myValue).get == myValue);
+    /* boolean myValue = true;
+    assert(BooleanData(myValue).get == myValue);
 
-    auto data = new DBoolData;
+    auto data = new DBooleanData;
     data.set(myValue);
     assert(data.get == myValue);
 
-    data = BoolData(false);
+    data = BooleanData(false);
     data.get = myValue;
     assert(data.get == myValue); */
   }
 
-  void set(bool newValue) {
-    _value = newValue;
-  }
-
-  override void set(string newValue) {
-    _value = (newValue.toLower == "true") || (newValue.toLower == "on") || (newValue.toLower == "1");
-  }
-
-  override void set(Json newValue) {
-    if (newValue.isEmpty) {
-      set(false);
-      isNull(isNullable ? true : false);
-    } else {
-      set(newValue.get!bool);
-      isNull(false);
-    }
-  }
-
-// #region equal
-    mixin(ScalarDataOpEquals!("bool"));
-
-    override bool isEqual(IData[string] checkData) {
-      return false;
+  // #region set
+    void set(boolean newValue) {
+      _value = newValue;
     }
 
+    override void set(string newValue) {
+      set((newValue.toLower == "true") || (newValue.toLower == "on") || (newValue.toLower == "1"));
+    }
+
+    override void set(Json newValue) {
+      if (newValue.isEmpty) {
+        set(false);
+        isNull(isNullable ? true : false);
+      } else {
+        set(newValue.get!boolean);
+        isNull(false);
+      }
+    }
+  // #endregion set 
+
+  // #region equal
     override bool isEqual(IData checkData) {
       if (checkData.isNull || key != checkData.key) {
         return false;
       }
-      if (auto boolData = cast(DBoolData) checkData) {
-        return (get == boolData.get);
-      }
-      return false;
+      
+      auto data = cast(DBooleanData)checkData;
+      return data !is null ? data.value : false;
     }
 
     override bool isEqual(Json checkValue) {
@@ -80,7 +76,7 @@ class DBoolData : DScalarData {
         return false;
       }
 
-      return (get == checkValue.get!bool);
+      isEqual(checkValue.get!boolean);
     }
 
     override bool isEqual(string checkValue) {
@@ -88,152 +84,156 @@ class DBoolData : DScalarData {
     }
 
     bool isEqual(bool checkValue) {
-      return (get == checkValue);
+      return (value == checkValue);
     }
     ///
     unittest {
-      auto boolDataTrue = BoolData;
-      boolDataTrue.set(true);
-      auto boolDataIstrue = BoolData;
-      boolDataIstrue.set(true);
-      auto boolDataNottrue = BoolData;
-      boolDataNottrue.set(false);
-      assert(boolDataTrue == Json(true));
-      assert(boolDataTrue == "true");
-      assert(boolDataTrue == true);
+      auto booleanDataTrue = BooleanData;
+      booleanDataTrue.set(true);
+      auto booleanDataIstrue = BooleanData;
+      booleanDataIstrue.set(true);
+      auto booleanDataNottrue = BooleanData;
+      booleanDataNottrue.set(false);
+      assert(booleanDataTrue == Json(true));
+      assert(booleanDataTrue == "true");
+      assert(booleanDataTrue == true);
 
-      assert(boolDataTrue != Json(false));
-      assert(boolDataTrue != "false");
-      assert(boolDataTrue != false);
+      assert(booleanDataTrue != Json(false));
+      assert(booleanDataTrue != "false");
+      assert(booleanDataTrue != false);
     }
   // #endregion equal
 
+  // #region opCmp
   alias opCmp = Object.opCmp;
-  int opCmp(bool aValue) {
-    if (_value < aValue)
+  int opCmp(bool valueToCompare) {
+    if (value < valueToCompare)
       return -1;
-    if (_value == aValue)
-      return 0;
-    return 1;
+    if (value > valueToCompare)
+      return 1;
+    return 0;
   }
   ///
   unittest {
-    /*auto valueA = new DBoolData(true);
-    auto valueB = new DBoolData(false);
+    auto valueA = BooleanData(true);
+    auto valueB = BooleanData(false);
     assert(valueA > false);
-    assert(valueB < true); */
+    assert(valueB < true); 
   }
 
-  int opCmp(DBoolData aValue) {
+  int opCmp(DBooleanData aValue) {
     if (aValue) {
-      return opCmp(aValue.get());
+      return opCmp(aValue.value());
     }
     return -1;
-  }
-  ///
-  unittest {
-    /* auto dataA = new DBoolData(true);
-    auto dataB = new DBoolData(false);
-    assert(dataA > dataB);
-    assert(dataB < dataA);
+    }
+    ///
+    unittest {
+      /* auto dataA = new DBooleanData(true);
+      auto dataB = new DBooleanData(false);
+      assert(dataA > dataB);
+      assert(dataB < dataA);
 
-    dataA = BoolData(true);
-    dataB = BoolData(false);
-    assert(dataA > dataB);
-    assert(dataB < dataA);*/
-  }
+      dataA = BooleanData(true);
+      dataB = BooleanData(false);
+      assert(dataA > dataB);
+      assert(dataB < dataA);*/
+    }
+  // #endregion opCmp
 
-  override IData clone() {
-    return BoolData; // TODO (attribute, toJson);
-  }
+  // #region clone
+    override IData clone() {
+      return BooleanData; // TODO (attribute, toJson);
+    }
+  // #endregion clone
 
-  bool toBool() {
+  boolean toBoolean() {
     return _value;
   }
 
-  mixin DataConvertTemplate;
+  // mixin DataConvertTemplate;
 }
 
-mixin(DataCalls!("BoolData", "bool"));
+mixin(DataCalls!("BooleanData", "boolean"));
 
 version (test_uim_models) {
   unittest {
-    assert(BoolData(true) == true);
-    assert(BoolData(false) != true);
-    /* assert(BoolData.value(true) == true);
-    assert(BoolData.set(Json(true)) == true);
-    assert(BoolData.value(false) != true);
-    assert(BoolData.set(Json(false)) != true); */
+    assert(BooleanData(true) == true);
+    assert(BooleanData(false) != true);
+    /* assert(BooleanData.value(true) == true);
+    assert(BooleanData.set(Json(true)) == true);
+    assert(BooleanData.value(false) != true);
+    assert(BooleanData.set(Json(false)) != true); */
 
-    auto BoolData = BoolData;
+    auto BooleanData = BooleanData;
 
-    BoolData.set("true");
-    assert(BoolData.get());
+    BooleanData.set("true");
+    assert(BooleanData.value());
 
-    BoolData.set("false");
-    assert(!BoolData.get());
+    BooleanData.set("false");
+    assert(!BooleanData.value());
 
-    BoolData.set("on");
-    assert(BoolData.get());
+    BooleanData.set("on");
+    assert(BooleanData.value());
 
-    BoolData.set("off");
-    assert(!BoolData.get());
+    BooleanData.set("off");
+    assert(!BooleanData.value());
 
-    BoolData.set("1");
-    assert(BoolData.get());
+    BooleanData.set("1");
+    assert(BooleanData.value());
 
-    BoolData.set("0");
-    assert(!BoolData.get());
+    BooleanData.set("0");
+    assert(!BooleanData.value());
 
-    BoolData.value(true);
-    assert(BoolData.fromString(BoolData.toString).get());
-    assert(BoolData.fromJson(BoolData.toJson).get());
+    BooleanData.value(true);
+    assert(BooleanData.fromString(BooleanData.toString).value());
+    assert(BooleanData.fromJson(BooleanData.toJson).value());
 
-    BoolData.value(false);
-    assert(!BoolData.fromString(BoolData.toString).get());
-    assert(!BoolData.fromJson(BoolData.toJson).get());
+    BooleanData.value(false);
+    assert(!BooleanData.fromString(BooleanData.toString).value());
+    assert(!BooleanData.fromJson(BooleanData.toJson).value());
   }
 }
 
-/* boolean
+/* booleanean
 
-Optional<DynamicConstantDesc<Boolean>>
+Optional<DynamicConstantDesc<Booleanean>>
 describeConstable()
 Returns an Optional containing the nominal descriptor for this instance.
-boolean
+booleanean
 equals(Object obj)
-Returns true if and only if the argument is not null and is a Boolean object that represents the same boolean value as this object.
-static boolean
-getBoolean(String name)
+Returns true if and only if the argument is not null and is a Booleanean object that represents the same booleanean value as this object.
+static booleanean
+getBooleanean(String name)
 Returns true if and only if the system property named by the argument exists and is equal to, ignoring case, the string "true".
 int
 hashCode()
-Returns a hash code for this Boolean object.
+Returns a hash code for this Booleanean object.
 static int
-hashCode(boolean value)
-Returns a hash code for a boolean value; compatible with Boolean.hashCode().
-static boolean
-logicalAnd(boolean a, boolean b)
-Returns the result of applying the logical AND operator to the specified boolean operands.
-static boolean
-logicalOr(boolean a, boolean b)
-Returns the result of applying the logical OR operator to the specified boolean operands.
-static boolean
-logicalXor(boolean a, boolean b)
-Returns the result of applying the logical XOR operator to the specified boolean operands.
-static boolean
-parseBoolean(String s)
-Parses the string argument as a boolean.
+hashCode(booleanean value)
+Returns a hash code for a booleanean value; compatible with Booleanean.hashCode().
+static booleanean
+logicalAnd(booleanean a, booleanean b)
+Returns the result of applying the logical AND operator to the specified booleanean operands.
+static booleanean
+logicalOr(booleanean a, booleanean b)
+Returns the result of applying the logical OR operator to the specified booleanean operands.
+static booleanean
+logicalXor(booleanean a, booleanean b)
+Returns the result of applying the logical XOR operator to the specified booleanean operands.
+static booleanean
+parseBooleanean(String s)
+Parses the string argument as a booleanean.
 String
 toString()
-Returns a String object representing this Boolean's value.
+Returns a String object representing this Booleanean's value.
 static String
-toString(boolean b)
-Returns a String object representing the specified boolean.
-static Boolean
-valueOf(boolean b)
-Returns a Boolean instance representing the specified boolean value.
-static Boolean
+toString(booleanean b)
+Returns a String object representing the specified booleanean.
+static Booleanean
+valueOf(booleanean b)
+Returns a Booleanean instance representing the specified booleanean value.
+static Booleanean
 valueOf(String s)
-Returns a Boolean with a value represented by the specified string.
+Returns a Booleanean with a value represented by the specified string.
  */

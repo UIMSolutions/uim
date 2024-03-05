@@ -106,7 +106,7 @@ class DMapData : DData {
   // #endregion equal
 
   override IData data(string key) {
-    return _items.get(key, null);
+    return _items.value(key, null);
   }
 
   ///
@@ -128,7 +128,7 @@ class DMapData : DData {
   // #endregion equal
 
   override IData opIndex(string key) {
-    return _items.get(key, null);
+    return _items.value(key, null);
   }
 
   bool isEmpty() {

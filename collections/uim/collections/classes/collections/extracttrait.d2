@@ -127,8 +127,8 @@ trait ExtractTrait {
         $matchers = null;
         foreach (conditions as property: value) {
             extractor = _propertyExtractor(property);
-            $matchers ~= function ($v) use (extractor, value) {
-                return extractor($v) == value;
+            $matchers ~= function ( v) use (extractor, value) {
+                return extractor( v) == value;
             };
         }
 

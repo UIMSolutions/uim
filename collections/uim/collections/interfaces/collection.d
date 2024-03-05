@@ -530,23 +530,23 @@ interface ICollection {
      * Returns a new collection with maximum size random elements
      * from this collection
      *
-     * @param int $length the maximum number of elements to randomly
+     * @param int  length the maximum number of elements to randomly
      * take from this collection
      * @return self
      */
-    ICollection sample(int $length = 10);
+    ICollection sample(int  length = 10);
 
     /**
      * Returns a new collection with maximum size elements in the internal
      * order this collection was created. If a second parameter is passed, it
      * will determine from what position to start taking elements.
      *
-     * @param int $length the maximum number of elements to take from
+     * @param int  length the maximum number of elements to take from
      * this collection
      * @param int offset A positional offset from where to take the elements
      * @return self
      */
-    ICollection take(int $length = 1, int offset = 0);
+    ICollection take(int  length = 1, int offset = 0);
 
     /**
      * Returns the last N elements of a collection
@@ -556,25 +556,25 @@ interface ICollection {
      * ```
      * items = [1, 2, 3, 4, 5];
      *
-     * $last = (new Collection(items)).takeLast(3);
+     *  last = (new Collection(items)).takeLast(3);
      *
      * // Result will look like this when converted to array
      * [3, 4, 5];
      * ```
      *
-     * @param int $length The number of elements at the end of the collection
+     * @param int  length The number of elements at the end of the collection
      * @return self
      */
-    ICollection takeLast(int $length);
+    ICollection takeLast(int  length);
 
     /**
      * Returns a new collection that will skip the specified amount of elements
      * at the beginning of the iteration.
      *
-     * @param int $length The number of elements to skip.
+     * @param int  length The number of elements to skip.
      * @return self
      */
-    ICollection skip(int $length);
+    ICollection skip(int  length);
 
     /**
      * Looks through each value in the list, returning a Collection of all the
@@ -893,7 +893,7 @@ interface ICollection {
      * Get an array of lines in a CSV file until the timestamp column is less than a date
      *
      * ```
-     * $lines = (new Collection(fileLines)).stopWhen(function (value, $key) {
+     *  lines = (new Collection(fileLines)).stopWhen(function (value, $key) {
      *  return (new DateTime(value)).format("Y") < 2012;
      * })
      * .toArray();

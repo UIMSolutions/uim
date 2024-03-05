@@ -103,8 +103,8 @@ template ExtractTemplate {
          someMatchers = [];
         foreach (aProperty, aValue; conditions) {
              anExtractor = _propertyExtractor(aProperty);
-             someMatchers ~= auto ($v) use (anExtractor, aValue) {
-                return anExtractor($v) == aValue;
+             someMatchers ~= auto ( v) use (anExtractor, aValue) {
+                return anExtractor( v) == aValue;
             };
         }
         return auto (aValue) use (someMatchers) {

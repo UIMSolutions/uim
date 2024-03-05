@@ -41,8 +41,8 @@ trait CollectionTrait {
 
 
     function each(callable callback) {
-        foreach (this.optimizeUnwrap() as $k: $v) {
-            callback($v, $k);
+        foreach (this.optimizeUnwrap() as $k:  v) {
+            callback( v, $k);
         }
 
         return this;
@@ -52,8 +52,8 @@ trait CollectionTrait {
     function filter(?callable callback = null): ICollection
     {
         if (callback == null) {
-            callback = function ($v) {
-                return (bool)$v;
+            callback = function ( v) {
+                return (bool) v;
             };
         }
 
@@ -92,8 +92,8 @@ trait CollectionTrait {
 
 
     bool contains(value) {
-        foreach (this.optimizeUnwrap() as $v) {
-            if (value == $v) {
+        foreach (this.optimizeUnwrap() as  v) {
+            if (value ==  v) {
                 return true;
             }
         }
@@ -264,8 +264,8 @@ trait CollectionTrait {
 
         callback = _propertyExtractor(path);
         sum = 0;
-        foreach (this.optimizeUnwrap() as $k: $v) {
-            sum += callback($v, $k);
+        foreach (this.optimizeUnwrap() as $k:  v) {
+            sum += callback( v, $k);
         }
 
         return sum;
@@ -281,21 +281,21 @@ trait CollectionTrait {
     }
 
 
-    function sample(int $length = 10): ICollection
+    function sample(int  length = 10): ICollection
     {
-        return this.newCollection(new LimitIterator(this.shuffle(), 0, $length));
+        return this.newCollection(new LimitIterator(this.shuffle(), 0,  length));
     }
 
 
-    function take(int $length = 1, int offset = 0): ICollection
+    function take(int  length = 1, int offset = 0): ICollection
     {
-        return this.newCollection(new LimitIterator(this, offset, $length));
+        return this.newCollection(new LimitIterator(this, offset,  length));
     }
 
 
-    function skip(int $length): ICollection
+    function skip(int  length): ICollection
     {
-        return this.newCollection(new LimitIterator(this, $length));
+        return this.newCollection(new LimitIterator(this,  length));
     }
 
 
@@ -342,15 +342,15 @@ trait CollectionTrait {
     }
 
 
-    function takeLast(int $length): ICollection
+    function takeLast(int  length): ICollection
     {
-        if ($length < 1) {
+        if ( length < 1) {
             throw new InvalidArgumentException("The takeLast method requires a number greater than 0.");
         }
 
         iterator = this.optimizeUnwrap();
         if (is_array(iterator)) {
-            return this.newCollection(array_slice(iterator, $length * -1));
+            return this.newCollection(array_slice(iterator,  length * -1));
         }
 
         if (iterator instanceof Countable) {
@@ -360,12 +360,12 @@ trait CollectionTrait {
                 return this.newCollection([]);
             }
 
-            iterator = new LimitIterator(iterator, max(0, count - $length), $length);
+            iterator = new LimitIterator(iterator, max(0, count -  length),  length);
 
             return this.newCollection(iterator);
         }
 
-        $generator = function (iterator, $length) {
+        $generator = function (iterator,  length) {
             result = null;
             $bucket = 0;
             offset = 0;
@@ -418,34 +418,34 @@ trait CollectionTrait {
 
             foreach (iterator as $k: item) {
                 result[$bucket] = [$k, item];
-                $bucket = (++$bucket) % $length;
+                $bucket = (++$bucket) %  length;
                 offset++;
             }
 
-            offset = offset % $length;
+            offset = offset %  length;
             $head = array_slice(result, offset);
             tail = array_slice(result, 0, offset);
 
-            foreach ($head as $v) {
-                yield $v[0]: $v[1];
+            foreach ($head as  v) {
+                yield  v[0]:  v[1];
             }
 
-            foreach (tail as $v) {
-                yield $v[0]: $v[1];
+            foreach (tail as  v) {
+                yield  v[0]:  v[1];
             }
         };
 
-        return this.newCollection($generator(iterator, $length));
+        return this.newCollection($generator(iterator,  length));
     }
 
 
     function append(items): ICollection
     {
-        $list = new AppendIterator();
-        $list.append(this.unwrap());
-        $list.append(this.newCollection(items).unwrap());
+         list = new AppendIterator();
+         list.append(this.unwrap());
+         list.append(this.newCollection(items).unwrap());
 
-        return this.newCollection($list);
+        return this.newCollection( list);
     }
 
 
@@ -595,8 +595,8 @@ trait CollectionTrait {
     function lazy(): ICollection
     {
         $generator = function () {
-            foreach (this.unwrap() as $k: $v) {
-                yield $k: $v;
+            foreach (this.unwrap() as $k:  v) {
+                yield $k:  v;
             }
         };
 
@@ -692,8 +692,8 @@ trait CollectionTrait {
 
     function chunk(int chunkSize): ICollection
     {
-        return this.map(function ($v, $k, iterator) use (chunkSize) {
-            values = [$v];
+        return this.map(function ( v, $k, iterator) use (chunkSize) {
+            values = [ v];
             for (i = 1; i < chunkSize; i++) {
                 iterator.next();
                 if (!iterator.valid()) {
@@ -709,12 +709,12 @@ trait CollectionTrait {
 
     function chunkWithKeys(int chunkSize, bool shouldKeepKeys = true): ICollection
     {
-        return this.map(function ($v, $k, iterator) use (chunkSize, shouldKeepKeys) {
+        return this.map(function ( v, $k, iterator) use (chunkSize, shouldKeepKeys) {
             $key = 0;
             if (shouldKeepKeys) {
                 $key = $k;
             }
-            values = [$key: $v];
+            values = [$key:  v];
             for (i = 1; i < chunkSize; i++) {
                 iterator.next();
                 if (!iterator.valid()) {
@@ -789,11 +789,11 @@ trait CollectionTrait {
         }
 
         result = null;
-        $lastIndex = count(collectionArrays) - 1;
+         lastIndex = count(collectionArrays) - 1;
         // holds the indexes of the arrays that generate the current combination
-        currentIndexes = array_fill(0, $lastIndex + 1, 0);
+        currentIndexes = array_fill(0,  lastIndex + 1, 0);
 
-        changeIndex = $lastIndex;
+        changeIndex =  lastIndex;
 
         while (!(changeIndex == 0 && currentIndexes[0] == collectionArraysCounts[0])) {
             currentCombination = array_map(function (value, $keys, index) {
@@ -804,10 +804,10 @@ trait CollectionTrait {
                 result ~=  operation == null ? currentCombination :  operation(currentCombination);
             }
 
-            currentIndexes[$lastIndex]++;
+            currentIndexes[ lastIndex]++;
 
             for (
-                changeIndex = $lastIndex;
+                changeIndex =  lastIndex;
                 currentIndexes[changeIndex] == collectionArraysCounts[changeIndex] && changeIndex > 0;
                 changeIndex--
             ) {
@@ -828,15 +828,15 @@ trait CollectionTrait {
     function transpose(): ICollection
     {
         arrayValue = this.toList();
-        $length = count(current(arrayValue));
+         length = count(current(arrayValue));
         result = null;
         foreach (arrayValue as row) {
-            if (count(row) != $length) {
+            if (count(row) !=  length) {
                 throw new LogicException("Child arrays do not have even length");
             }
         }
 
-        for (column = 0; column < $length; column++) {
+        for (column = 0; column <  length; column++) {
             result ~= array_column(arrayValue, column);
         }
 

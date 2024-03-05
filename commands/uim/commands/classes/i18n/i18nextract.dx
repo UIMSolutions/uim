@@ -134,7 +134,7 @@ class I18nExtractCommand : Command {
         } else {
             message = "What is the path you would like to output?\n[Q]uit";
             localePaths = App.path("locales");
-            if (!$localePaths) {
+            if (! localePaths) {
                 localePaths ~= ROOT ~ "resources" ~ DIRECTORY_SEPARATOR ~ "locales";
             }
             while (true) {
@@ -391,7 +391,7 @@ class I18nExtractCommand : Command {
                 if (mapCount == count(strings)) {
                     string singular = "";
                     vars = array_combine(map, strings);
-                    extract($vars);
+                    extract( vars);
                     domain = domain.ifEmpty("default");
                     details = [
                         "file": _file,
@@ -438,7 +438,7 @@ class I18nExtractCommand : Command {
                     if (!commandArguments.getOption("no-location")) {
                         auto occurrences = [];
                         foreach (file: lines; files) {
-                            array_unique($lines)
+                            array_unique( lines)
                                 .each!(line => occurrences ~= file ~ ":" ~ line);
                         }
                         occurrences = join("\n#: ", occurrences);

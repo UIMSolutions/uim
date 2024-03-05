@@ -53,7 +53,7 @@ class SortIterator : Collection {
     auto aCallback = _propertyExtractor(aCallback);
     auto myResults = [];
     foreach (aKey, val; someItems) {
-      auto callbackValue = aCallback($val);
+      auto callbackValue = aCallback( val);
       auto isDateTime =
         cast(ChronosDate)callbackValue ||
         cast(ChronosTime)callbackValue ||

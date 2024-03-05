@@ -70,7 +70,7 @@ class BufferedIterator : Collection, Countable {
     }
     valid = super.valid();
 
-    if ($valid) {
+    if ( valid) {
       _current = super.current();
       _key = super.key();
       _buffer.push([
@@ -78,7 +78,7 @@ class BufferedIterator : Collection, Countable {
           "value": _current,
         ]);
     }
-    _finished = !$valid;
+    _finished = ! valid;
 
     return valid;
   }

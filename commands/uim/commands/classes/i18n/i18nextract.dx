@@ -198,17 +198,17 @@ class I18nExtractCommand : Command {
     protected void _addTranslation(string adomain, string amsgid, array details = []) {
         context = details.get("msgctxt", "");
 
-        if (isEmpty(_translations[ domain][$msgid][context])) {
-           _translations[ domain][$msgid][context] = [
+        if (isEmpty(_translations[ domain][ msgid][context])) {
+           _translations[ domain][ msgid][context] = [
                 "msgid_plural": false,
             ];
         }
         if (isSet(details["msgid_plural"])) {
-           _translations[ domain][$msgid][context]["msgid_plural"] = details["msgid_plural"];
+           _translations[ domain][ msgid][context]["msgid_plural"] = details["msgid_plural"];
         }
         if (isSet(details["file"])) {
             line = details["line"] ?? 0;
-           _translations[ domain][$msgid][context]["references"][details["file"]] ~= line;
+           _translations[ domain][ msgid][context]["references"][details["file"]] ~= line;
         }
     }
     
@@ -428,7 +428,7 @@ class I18nExtractCommand : Command {
         });
 
         foreach ( domain: translations; _translations) {
-            foreach ($msgid: contexts; translations) {
+            foreach ( msgid: contexts; translations) {
                 contexts.byKeyValue
                     .each!((contextDetails) {
                     auto plural = contextDetails.value["msgid_plural"];
@@ -454,9 +454,9 @@ class I18nExtractCommand : Command {
                     }
 
                     sentence ~= plural == false 
-                        ? "msgid \"{$msgid}\"\n" ~
+                        ? "msgid \"{ msgid}\"\n" ~
                         "msgstr \"\"\n\n"
-                        : "msgid \"{$msgid}\"\n" ~ 
+                        : "msgid \"{ msgid}\"\n" ~ 
                         "msgid_plural \"{plural}\"\n"~
                         "msgstr[0] \"\"\n" ~
                         "msgstr[1] \"\"\n\n";

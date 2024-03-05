@@ -185,13 +185,13 @@ trait CollectionTrait {
             return null;
         }
 
-        $middle = (int)(count / 2);
+         middle = (int)(count / 2);
 
         if (count % 2) {
-            return values[$middle];
+            return values[ middle];
         }
 
-        return (values[$middle - 1] + values[$middle]) / 2;
+        return (values[ middle - 1] + values[ middle]) / 2;
     }
 
 
@@ -243,14 +243,14 @@ trait CollectionTrait {
     {
         callback = _propertyExtractor(path);
 
-        mapper = void (value,  key, $mr) use (callback) {
-            /** var DCOLIterator\MapReduce $mr */
-            $mr.emitIntermediate(value, callback(value));
+        mapper = void (value,  key,  mr) use (callback) {
+            /** var DCOLIterator\MapReduce  mr */
+             mr.emitIntermediate(value, callback(value));
         };
 
-        reducer = void (values,  key, $mr) {
-            /** var DCOLIterator\MapReduce $mr */
-            $mr.emit(count(values),  key);
+        reducer = void (values,  key,  mr) {
+            /** var DCOLIterator\MapReduce  mr */
+             mr.emit(count(values),  key);
         };
 
         return this.newCollection(new MapReduce(this.unwrap(), mapper, reducer));

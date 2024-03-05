@@ -137,7 +137,7 @@ class ConsoleIo {
         if ( level > _level) {
             return null;
         }
-       _lastWritten = _out.write($message, newLinesToAppend);
+       _lastWritten = _out.write( message, newLinesToAppend);
 
         return _lastWritten;
     }
@@ -174,7 +174,7 @@ class ConsoleIo {
         string messageType = "comment";
         message = this.wrapMessageWithType(messageType, message);
 
-        return this.writeln($message, newLinesToAppend, level);
+        return this.writeln( message, newLinesToAppend, level);
     }
     
     /**
@@ -187,7 +187,7 @@ class ConsoleIo {
         string messageType = "warning";
         message = this.wrapMessageWithType(messageType, message);
 
-        return this.writeErrorMessages($message, newLinesToAppend);
+        return this.writeErrorMessages( message, newLinesToAppend);
     }
     
     /**
@@ -214,7 +214,7 @@ class ConsoleIo {
         string messageType = "success";
         message = this.wrapMessageWithType(messageType, message);
 
-        return this.writeln($message, newLinesToAppend, level);
+        return this.writeln( message, newLinesToAppend, level);
     }
     
     /**
@@ -236,7 +236,7 @@ class ConsoleIo {
      * @param string[]|string amessage The message to wrap.
      */
     protected string[] wrapMessageWithType(string amessageType, string[] amessage) {
-        if (isArray($message)) {
+        if (isArray( message)) {
             message.myKeyValue
                 .each!(kv => message[kv.key] = "<%s>%s</%s>".format(messageType, kv.value, messageType));
         } else {
@@ -264,7 +264,7 @@ class ConsoleIo {
         // Output backspaces.
         this.writeln(str_repeat("\x08", size), 0);
 
-        newBytes = (int)this.writeln($message, 0);
+        newBytes = (int)this.writeln( message, 0);
 
         // Fill any remaining bytes with spaces.
         fill = size - newBytes;

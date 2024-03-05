@@ -124,17 +124,17 @@ trait ExtractTrait {
      */
     protected function _createMatcherFilter(array conditions): Closure
     {
-        $matchers = null;
+         matchers = null;
         foreach (conditions as property: value) {
             extractor = _propertyExtractor(property);
-            $matchers ~= function ( v) use (extractor, value) {
+             matchers ~= function ( v) use (extractor, value) {
                 return extractor( v) == value;
             };
         }
 
-        return function (value) use ($matchers) {
-            foreach ($matchers as $match) {
-                if (!$match(value)) {
+        return function (value) use ( matchers) {
+            foreach ( matchers as  match) {
+                if (! match(value)) {
                     return false;
                 }
             }

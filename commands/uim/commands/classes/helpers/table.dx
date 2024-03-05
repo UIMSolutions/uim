@@ -79,7 +79,7 @@ class TableHelper : Helper {
             column = _addStyle(column, optionsToPass["style"]);
           }
           if (column != "" && preg_match("#(.*)<text-right>.+</text-right>(.*)#", column, matches)) {
-            if ($matches[1] != "" || !$matches[2].isEmpty) {
+            if ( matches[1] != "" || ! matches[2].isEmpty) {
               throw new UnexpectedValueException(
                 "You cannot include text before or after the text-right tag.");
             }

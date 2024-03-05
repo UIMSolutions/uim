@@ -108,8 +108,8 @@ template ExtractTemplate {
             };
         }
         return auto (aValue) use (someMatchers) {
-            foreach ($match; someMatchers) {
-                if (!$match(aValue)) {
+            foreach ( match; someMatchers) {
+                if (! match(aValue)) {
                     return false;
                 }
             }

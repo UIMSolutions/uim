@@ -69,7 +69,7 @@ class HelpFormatter {
             result ~= "<info>Options:</info>";
             result ~= "";
             parsedOptions.each!(option => 
-                result ~= Text.wrapBlock(option.help($max), [
+                result ~= Text.wrapBlock(option.help( max), [
                     "width": withOfOutput,
                     "indent": str_repeat(" ", max),
                     "indentAt": 1,
@@ -82,7 +82,7 @@ class HelpFormatter {
             result ~= "<info>Arguments:</info>";
             result ~= "";
             parserArguments.each!(argument => 
-                result ~= Text.wrapBlock(argument.help($max), [
+                result ~= Text.wrapBlock(argument.help( max), [
                     "width": withOfOutput,
                     "indent": str_repeat(" ", max),
                     "indentAt": 1,

@@ -226,14 +226,14 @@ interface ICollection {
      *
      * ```
      * // For a collection of employees
-     * $max = collection.max("age");
-     * $max = collection.max("user.salary");
-     * $max = collection.max(function (e) {
+     *  max = collection.max("age");
+     *  max = collection.max("user.salary");
+     *  max = collection.max(function (e) {
      *  return e.get("user").get("salary");
      * });
      *
      * // Display employee name
-     * writeln($max.name;
+     * writeln( max.name;
      * ```
      *
      * @param callable|string path The column name to use for sorting or callback that returns the value.
@@ -252,14 +252,14 @@ interface ICollection {
      *
      * ```
      * // For a collection of employees
-     * $min = collection.min("age");
-     * $min = collection.min("user.salary");
-     * $min = collection.min(function (e) {
+     *  min = collection.min("age");
+     *  min = collection.min("user.salary");
+     *  min = collection.min(function (e) {
      *  return e.get("user").get("salary");
      * });
      *
      * // Display employee name
-     * writeln($min.name;
+     * writeln( min.name;
      * ```
      *
      * @param callable|string path The column name to use for sorting or callback that returns the value.
@@ -492,7 +492,7 @@ interface ICollection {
     ICollection countBy(path);
 
     /**
-     * Returns the total sum of all the values extracted with $matcher
+     * Returns the total sum of all the values extracted with  matcher
      * or of this collection.
      *
      * ### Example:
@@ -798,8 +798,8 @@ interface ICollection {
      * ```
      * collection.map(mapper).sortBy("age").extract("name");
      * compiled = collection.compile();
-     * isJohnHere = compiled.some($johnMatcher);
-     * allButJohn = compiled.filter($johnMatcher);
+     * isJohnHere = compiled.some( johnMatcher);
+     * allButJohn = compiled.filter( johnMatcher);
      * ```
      *
      * In the above example, had the collection not been compiled before, the

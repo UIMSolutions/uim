@@ -8,8 +8,8 @@ module uim.oop.datatypes.scalars.double_;
 import uim.oop;
 
 @safe:
-class DDoubleData : DData {
-  mixin(DataThis!("DoubleData", "double"));
+class DDoubleData : DScalarData {
+  mixin(DataThis!("Double"));
 
   // Initialization hook method.
   override bool initialize(IData[string] initData = null) {

@@ -9,11 +9,11 @@ import uim.oop;
 
 @safe:
 class DMapData : DData {
-  mixin(DataThis!("MapValue"));
+  mixin(DataThis!("Map"));
 
   protected IData[string] _items;
 
-  DMapData opIndexAssign(DData value, string key) {
+  void opIndexAssign(IData value, string key) {
     _items[key] = value;
 
     return this;
@@ -164,7 +164,7 @@ class DMapData : DData {
   }
 }
 
-mixin(DataCalls!("MapData", "IData[string]"));
+mixin(DataCalls!("Map"));
 
 ///
 unittest {

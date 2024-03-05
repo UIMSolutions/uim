@@ -9,7 +9,8 @@ import uim.oop;
 
 @safe:
 class DArrayData : DData {
-  mixin(DataThis!("ArrayData", "IData[]"));
+  mixin(DataThis!("Array"));
+
   this(IData[] values) {
     this();
     _items = values.dup;
@@ -43,31 +44,35 @@ class DArrayData : DData {
   }
 
   // #region equal
-  mixin(ScalarDataOpEquals!("IData[]"));
-
-  override bool isEqual(IData[string] checkData) {
-    return false;
-  }
-
   override bool isEqual(IData checkData) {
-    return false;
-  }
-
-  override bool isEqual(Json checkValue) {
-    if (checkValue.isNull
-      || !checkValue.isArray
-      || checkValue.length != length) {
+    auto arrayData = cast(DArrayData)checkData;
+    if (array is null) {
       return false;
     }
 
-    for (auto i = 0; i < checkValue.length; i++) {
-      _items[i].isEqual(checkValue[i]);
+    if (length != checkData.length) {
+      return false;
     }
-    return false;
+
+    foreach(size_t index, item; _items) {
+      if (!item.isEqual(checkData.at(index))) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
-  override bool isEqual(string checkValue) {
-    return false; // (get == to!int(checkValue));
+  override bool isEqual(Json checkValue) {
+    if (!checkValue.isArray) {
+      return false;
+    }
+
+    IData[] values;
+    for (auto i = 0; i < checkValue.length; i++) {
+      values ~= checkValue[i].toData;
+    }
+    return isEqual(values);
   }
 
   bool isEqual(IData[] checkValue) {
@@ -166,7 +171,7 @@ class DArrayData : DData {
   }
 }
 
-mixin(DataCalls!("ArrayData"));
+mixin(DataCalls!("Array"));
 auto ArrayData(IData[] values) {
   return new DArrayData(values);
 }

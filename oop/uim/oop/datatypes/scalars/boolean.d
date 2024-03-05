@@ -8,8 +8,8 @@ module uim.oop.datatypes.scalars.boolean;
 import uim.oop;
 
 @safe:
-class DBoolData : DData {
-  mixin(DataThis!("BoolData", "bool"));
+class DBoolData : DScalarData {
+  mixin(DataThis!("Bool"));
 
   // Initialization hook method.
   override bool initialize(IData[string] initData = null) {

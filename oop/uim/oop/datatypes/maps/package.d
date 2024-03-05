@@ -3,17 +3,17 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.oop.classes.data.maps;
+module uim.oop.datatypes.maps;
 
 public { 
-	import uim.oop.classes.data.maps.map;
-	//import uim.oop.classes.data.maps.options;
-	//import uim.oop.classes.data.maps.config;
-	//import uim.oop.classes.data.maps.string; */
+	import uim.oop.datatypes.maps.map;
+	//import uim.oop.datatypes.maps.options;
+	//import uim.oop.datatypes.maps.config;
+	//import uim.oop.datatypes.maps.string; */
 }
 
-/* ublic //import uim.oop.classes.data.maps.lookup;
-	//import uim.oop.classes.data.maps.customertype;
-	//import uim.oop.classes.data.maps.string_;
-	//import uim.oop.classes.data.maps.preferredcontactmethod; */
+/* ublic //import uim.oop.datatypes.maps.lookup;
+	//import uim.oop.datatypes.maps.customertype;
+	//import uim.oop.datatypes.maps.string_;
+	//import uim.oop.datatypes.maps.preferredcontactmethod; */
 

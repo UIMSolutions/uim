@@ -99,7 +99,7 @@ class DArrayData : DData {
   // #endregion equal
 
   protected IData[] _values;
-  IData[] get() {
+  IData[] value() {
     return _values;
   }
 
@@ -108,7 +108,7 @@ class DArrayData : DData {
   }
 
   IData[] opCall() {
-    return get();
+    return value();
   }
 
   void opCall(IData[] newValue) {

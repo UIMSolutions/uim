@@ -18,7 +18,7 @@ class DTimestampData : DLongData {
 /*
   // #region Getter & Setter
     protected long _value;
-    long get() {
+    long value() {
       return _value;
     }
     void set(long newValue) {

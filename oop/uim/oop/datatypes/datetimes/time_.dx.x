@@ -12,7 +12,7 @@ class DTimeData : DData {
   mixin(DataThis!("TimeData", "TimeOfDay"));  
 
   protected TimeOfDay _value;  
-  TimeOfDay get() {
+  TimeOfDay value() {
     return _value; 
   }
   // Initialization hook method.

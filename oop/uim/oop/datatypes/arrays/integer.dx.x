@@ -21,7 +21,7 @@ class DIntegerArrayData : DArrayData {
   }
 
   protected int[] _value;
-  int[] get() {
+  int[] value() {
     return _value;
   }
   void set(int[] newValue) {

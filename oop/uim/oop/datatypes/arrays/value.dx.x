@@ -25,7 +25,7 @@ class DArrayDataData : DArrayData {
 /*
   // #region Getter & Setter
     protected IData[] _value;
-    IData[] get() {
+    IData[] value() {
       return _value;
     }
     void set(IData[] newValue) {

@@ -41,8 +41,7 @@ class DData : IData {
 
   mixin(TProperty!("bool", "isBoolean"));
   mixin(TProperty!("bool", "isInteger"));
-  mixin(TProperty!("bool", "isDouble"));
-  mixin(TProperty!("bool", "isLong"));
+  mixin(TProperty!("bool", "isNumber"));
   mixin(TProperty!("bool", "isTime"));
   mixin(TProperty!("bool", "isDate"));
   mixin(TProperty!("bool", "isDatetime"));
@@ -58,6 +57,8 @@ class DData : IData {
 
   mixin(TProperty!("bool", "isReadOnly"));
   mixin(TProperty!("bool", "isNullable"));
+
+  mixin(TProperty!("string", "typeName"));
 
   // #region isNull
   private bool _isNull;
@@ -210,7 +211,7 @@ class DData : IData {
   // #endregion hasData()
   // #endregion data
 
-  IData get(string key, IData defaultData) {
+  IData value(string key, IData defaultData) {
     return null;
   }
 
@@ -256,7 +257,7 @@ version (test_uim_models) {
     assert(!value.isString);
     assert(!value.isInteger);
     assert(!value.isBoolean);
-    assert(!value.isDouble);
+    assert(!value.isNumber);
     assert(!value.isNullable);
     assert(!value.isObject);
     assert(!value.isArray);

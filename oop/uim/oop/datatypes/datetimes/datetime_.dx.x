@@ -23,7 +23,7 @@ class DDatetimeData : DData {
   }
 
   protected DateTime _value;
-  DateTime get() {
+  DateTime value() {
     return _value;
   }
   

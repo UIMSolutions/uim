@@ -15,7 +15,7 @@ interface IData {
 
     bool isBoolean();
     bool isInteger();
-    bool isDouble();
+    bool isNumber();
     bool isLong();
     bool isTime();
     bool isDate();
@@ -32,6 +32,8 @@ interface IData {
     bool isNull();
     bool isReadOnly();
 
+    string typeName();
+
     Json toJson();
     string toString();
     size_t length();
@@ -43,7 +45,7 @@ interface IData {
     bool isEqual(Json value);
 
     IData at(size_t pos);
-    
+
     bool hasPaths(string[] paths, string separator = "/");
     bool hasPath(string path, string separator = "/");
 
@@ -61,7 +63,7 @@ interface IData {
     bool hasData(IData[] data, bool deepSearch = false);
     bool hasData(IData data, bool deepSearch = false);
 
-    IData get(string key, IData defaultData);
+    IData value(string key, IData defaultData);
 
     IData[string] data(string[] keys);
     IData data(string key);

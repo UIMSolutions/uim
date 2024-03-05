@@ -25,7 +25,7 @@ class DDateData : DData {
   }
 
   // #region Getter & Setter
-  Date get() {
+  Date value() {
     return _value;
   }
 
@@ -35,7 +35,7 @@ class DDateData : DData {
 
   protected Date _value;
   Date opCall() {
-    return get();
+    return value();
   }
 
   void opCall(Date newValue) {

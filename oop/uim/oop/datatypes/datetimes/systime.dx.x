@@ -14,7 +14,7 @@ class DSystimeData : DData {
 
   protected SysTime _value;
 
-  SysTime get() {
+  SysTime value() {
     return _value;
   }
   // Initialization hook method.

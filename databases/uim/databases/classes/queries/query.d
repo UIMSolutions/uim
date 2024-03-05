@@ -462,7 +462,7 @@ abstract class Query : IExpression, Stringable {
         if (isString(aTables) || isSet(aTables["table"])) {
             aTables = [aTables];
         }
-        $joins = [];
+         joins = [];
          anI = count(_parts["join"]);
         foreach (alias, t; aTables) {
             if (!isArray(t)) {
@@ -475,9 +475,9 @@ abstract class Query : IExpression, Stringable {
                 t["conditions"] = this.newExpr().add(t["conditions"], types);
             }
             alias = isString(alias) ? alias : null;
-            $joins[alias ?:  anI++] = t ~ ["type": JOIN_TYPE_INNER, "alias": alias];
+             joins[alias ?:  anI++] = t ~ ["type": JOIN_TYPE_INNER, "alias": alias];
         }
-        _parts["join"] = overwrite ? $joins : array_merge(_parts["join"], $joins);
+        _parts["join"] = overwrite ?  joins : array_merge(_parts["join"],  joins);
 
        _isDirty();
 
@@ -1455,9 +1455,9 @@ abstract class Query : IExpression, Stringable {
             if (namePart.value.isArray) {
                 foreach (anI: piece; namePart.value) {
                     if (isArray(piece)) {
-                        foreach (piece as $j: aValue) {
+                        foreach (piece as  j: aValue) {
                             if (cast(IExpression)aValue) {
-                               _parts[namePart.key][anI][$j] = clone aValue;
+                               _parts[namePart.key][anI][ j] = clone aValue;
                             }
                         }
                     } elseif (cast(IExpression)piece ) {

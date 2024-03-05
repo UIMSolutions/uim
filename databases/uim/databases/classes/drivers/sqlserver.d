@@ -374,7 +374,7 @@ _baseConfig = [
                     }
                     return p;
                 };
-                $manipulator = auto (p, aKey) use (&params) {
+                 manipulator = auto (p, aKey) use (&params) {
                     return params[aKey];
                 };
 
@@ -382,7 +382,7 @@ _baseConfig = [
                     .name("DATEADD")
                     .setConjunction(",")
                     .iterateParts( visitor)
-                    .iterateParts($manipulator)
+                    .iterateParts( manipulator)
                     .add([params[2]: "literal"]);
                 break;
             case "DAYOFWEEK":

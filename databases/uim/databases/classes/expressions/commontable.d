@@ -77,7 +77,7 @@ class CommonTableExpression : IExpression {
                 field = new IdentifierExpression(field);
             }
         });
-        /** @var array<\UIM\Database\Expression\IdentifierExpression> $mergedFields */
+        /** @var array<\UIM\Database\Expression\IdentifierExpression>  mergedFields */
         this.fields = chain(this.fields, fields);
     }
 

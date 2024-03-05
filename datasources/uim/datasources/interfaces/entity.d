@@ -32,7 +32,7 @@ interface IEntity { // : ArrayAccess, JsonSerializable, Stringable
      * Sets the virtual fields on this entity.
      * Params:
      * string[] fields An array of fields to treat as virtual.
-     * @param bool $merge Merge the new fields with the existing. By default false.
+     * @param bool  merge Merge the new fields with the existing. By default false.
      */
    void setVirtual(string[] fields, bool canMergeExisting = false);
 

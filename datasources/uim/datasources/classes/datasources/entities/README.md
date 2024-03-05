@@ -144,7 +144,7 @@ The example above converts the value of the title field to an uppercase version 
 echo article->title; // returns FOO instead of foo
 echo article->get('title'); // returns FOO instead of foo
 
-Code in your accessors is executed each time you reference the field. You can use a local variable to cache it if you are performing a resource-intensive operation in your accessor like this: $myEntityProp = entity->my_property.
+Code in your accessors is executed each time you reference the field. You can use a local variable to cache it if you are performing a resource-intensive operation in your accessor like this:  myEntityProp = entity->my_property.
 
 Accessors will be used when saving entities, so be careful when defining methods that format data, as the formatted data will be persisted.
 Mutators
@@ -392,7 +392,7 @@ array = user->toArray();
 
 // Convert to JSON
 // Associations will be converted with jsonSerialize hook as well.
-$json = json_encode(user);
+ json = json_encode(user);
 
 When converting an entity to an JSON, the virtual & hidden field lists are applied. Entities are recursively converted to JSON as well. This means that if you eager loaded entities and their associations CakePHP will correctly handle converting the associated data into the correct format.
 Exposing Virtual Fields

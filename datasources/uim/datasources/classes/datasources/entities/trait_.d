@@ -260,9 +260,9 @@ trait EntityTrait
             value = &_fields[field];
         }
 
-        $method = _accessor(field, "get");
-        if ($method) {
-            result = this.{$method}(value);
+         method = _accessor(field, "get");
+        if ( method) {
+            result = this.{ method}(value);
 
             return result;
         }
@@ -418,11 +418,11 @@ trait EntityTrait
      * Sets hidden fields.
      *
      * @param array<string> fields An array of fields to hide from array exports.
-     * @param bool $merge Merge the new fields with the existing. By default false.
+     * @param bool  merge Merge the new fields with the existing. By default false.
      * @return this
      */
-    function setHidden(array fields, bool $merge = false) {
-        if ($merge == false) {
+    function setHidden(array fields, bool  merge = false) {
+        if ( merge == false) {
             _hidden = fields;
 
             return this;
@@ -447,11 +447,11 @@ trait EntityTrait
      * Sets the virtual fields on this entity.
      *
      * @param array<string> fields An array of fields to treat as virtual.
-     * @param bool $merge Merge the new fields with the existing. By default false.
+     * @param bool  merge Merge the new fields with the existing. By default false.
      * @return this
      */
-    function setVirtual(array fields, bool $merge = false) {
-        if ($merge == false) {
+    function setVirtual(array fields, bool  merge = false) {
+        if ( merge == false) {
             _virtual = fields;
 
             return this;
@@ -588,17 +588,17 @@ trait EntityTrait
             return "";
         }
 
-        foreach (get_class_methods(class) as $method) {
-            prefix = substr($method, 1, 3);
-            if ($method[0] != "_" || (prefix != "get" && prefix != "set")) {
+        foreach (get_class_methods(class) as  method) {
+            prefix = substr( method, 1, 3);
+            if ( method[0] != "_" || (prefix != "get" && prefix != "set")) {
                 continue;
             }
-            field = lcfirst(substr($method, 4));
+            field = lcfirst(substr( method, 4));
             snakeField = Inflector::underscore(field);
             titleField = ucfirst(field);
-            _accessors[class][prefix][snakeField] = $method;
-            _accessors[class][prefix][field] = $method;
-            _accessors[class][prefix][titleField] = $method;
+            _accessors[class][prefix][snakeField] =  method;
+            _accessors[class][prefix][field] =  method;
+            _accessors[class][prefix][titleField] =  method;
         }
 
         if (!isset(_accessors[class][type][property])) {

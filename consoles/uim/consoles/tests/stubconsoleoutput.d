@@ -28,7 +28,7 @@ class StubConsoleOutput : ConsoleOutput {
      * @param int newlines Number of newlines to append
      */
     int write(string[] amessage, int newlines = 1) {
-        (array)$message.each!(line => _out ~= line);
+        (array) message.each!(line => _out ~= line);
 
         int newlines--;
         while (newlines > 0) {

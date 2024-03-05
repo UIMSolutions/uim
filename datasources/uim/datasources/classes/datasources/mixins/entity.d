@@ -241,7 +241,7 @@ mixin EntityTemplate {
       aValue =  & _fields[fieldName];
     }
     method = _accessor(fieldName, "get");
-    if ($method) {
+    if ( method) {
       result = this. {
         method
       }
@@ -416,8 +416,8 @@ mixin EntityTemplate {
      * string[] fields An array of fields to hide from array exports.
      * @param bool merge Merge the new fields with the existing. By default false.
      */
-  void setHidden(string[]fields, bool$merge = false) {
-    if ($merge == false) {
+  void setHidden(string[]fields, bool merge = false) {
+    if ( merge == false) {
       _hidden = fields;
 
       return;
@@ -437,8 +437,8 @@ mixin EntityTemplate {
      * string[] fields An array of fields to treat as virtual.
      * @param bool merge Merge the new fields with the existing. By default false.
      */
-  void setVirtual(arrayfields, bool$merge = false) {
-    if ($merge == false) {
+  void setVirtual(arrayfields, bool merge = false) {
+    if ( merge == false) {
       _virtual = fields;
 
       return;
@@ -546,7 +546,7 @@ mixin EntityTemplate {
       return "";
     }
     get_class_methods(className).each!((method) {
-      string prefix = substr($method, 1, 3);
+      string prefix = substr( method, 1, 3);
       if (method[0] != "_" || (prefix != "get" && prefix != "Set")) {
         continue;
       }
@@ -641,10 +641,10 @@ mixin EntityTemplate {
      * string[]|string afield the name of a field or a list of fields to set as original
      * @param bool merge
      */
-  protected void setOriginalField(string | arrayfield, bool$merge = true) {
+  protected void setOriginalField(string | arrayfield, bool merge = true) {
   }
-  protected void setOriginalField(string[] fields, bool$merge = true) {
-    if (!$merge) {
+  protected void setOriginalField(string[] fields, bool merge = true) {
+    if (! merge) {
       _originalFields = fields;
 
       return;

@@ -3,9 +3,9 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.models.classes.data.null_;
+module uim.oop.datatypes.null_;
 
-import uim.models;
+import uim.oop;
 
 @safe:
 class DNullData : DData {

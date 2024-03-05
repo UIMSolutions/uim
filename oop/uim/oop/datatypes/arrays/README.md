@@ -1,1 +1,1 @@
-# Package 📦 uim.oop.classes.data.arrays
+# Package 📦 uim.oop.datatypes.arrays

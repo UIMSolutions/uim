@@ -14,17 +14,21 @@ interface IConfiguration : INamed {
     
     bool hasKey(string key);
 
-    bool hasValues(string[] values...);
-    bool hasValues(string[] values);
+    bool hasAnyValues(string[] values...);
+    bool hasAnyValues(string[] values);
+    
+    bool hasAllValues(string[] values...);
+    bool hasAllValues(string[] values);
+    
     bool hasValue(string value);
 
-    IData get(string key);
-    IData[string] get(string[] keys);
+    // IData get(string key);
+    // IData[string] get(string[] keys, bool compressMode = true);
 
-    void set(string key, IData newData);
-    void set(string[] keys, IData[string] newData);
+    // void set(string key, IData newData);
+    // void set(string[] keys, IData[string] newData);
 
-    void update(IData[string] newData);
+    // void update(IData[string] newData);
 
     void remove(string[] keys);
 }

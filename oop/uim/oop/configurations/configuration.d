@@ -8,7 +8,7 @@ module uim.oop.configurations.configuration;
 import uim.oop;
 @safe:
 
-class DConfiguration : IConfiguration {
+abstract class DConfiguration : IConfiguration {
     this() {}
     this(string name) { this(); this.name(name); }
 
@@ -25,8 +25,16 @@ class DConfiguration : IConfiguration {
     void data(IData[string] newData) {
     }
 
-    bool hasAllKeys(string[] keys...) {
+    bool hasAnyKeys(string[] keys...) {
+        return hasAnyKeys(keys.dup);
+    }
+
+    bool hasAnyKeys(string[] keys) {
         return false;
+    }
+
+    bool hasAllKeys(string[] keys...) {
+        return hasAllKeys(keys.dup);
     }
 
     bool hasAllKeys(string[] keys) {
@@ -37,11 +45,19 @@ class DConfiguration : IConfiguration {
         return false;
     }
 
-    bool hasValues(string[] values...) {
+    bool hasAnyValues(string[] values...) {
+        return hasAnyValues(values.dup);
+    }
+
+    bool hasAnyValues(string[] values) {
         return false;
     }
 
-    bool hasValues(string[] values) {
+    bool hasAllValues(string[] values...) {
+        return hasAllValues(values.dup);
+    }
+
+    bool hasAllValues(string[] values) {
         return false;
     }
 
@@ -53,7 +69,7 @@ class DConfiguration : IConfiguration {
         return null;
     }
 
-    IData[string] get(string[] keys);
+    IData[string] get(string[] keys, bool compressMode = true);
 
     void set(string key, IData newData);
     void set(string[] keys, IData[string] newData);
@@ -63,8 +79,3 @@ class DConfiguration : IConfiguration {
     void remove(string[] keys);
 }
 
-unittest{
-    IConfiguration config = new Configuration;
-    // config["test"] = StringData("stringdata");
-    // config.data("data", StringData("string-data"));
-}

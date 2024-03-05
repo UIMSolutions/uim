@@ -250,21 +250,21 @@ bool hasValue(T, S)(T[S] base, S value...) {
   return false;
 }
 
-// #region hasValues
-  bool hasValues(T, S)(T[S] base, S[] values...) {
-    return base.hasValues(values);
+// #region hasAllValues
+  bool hasAllValues(T, S)(T[S] base, S[] values...) {
+    return base.hasAllValues(values);
   }
 
-  bool hasValues(T, S)(T[S] base, S[] values) {
+  bool hasAllValues(T, S)(T[S] base, S[] values) {
     return values.all!(value => base.hasValue(value));
   }
   unittest {
-    assert(["a": "b", "c": "d"].hasValues("b"));
-    assert(["a": "b", "c": "d"].hasValues("b", "d"));
-    assert(["a": "b", "c": "d"].hasValues(["b"]));
-    assert(["a": "b", "c": "d"].hasValues(["b", "d"]));
+    assert(["a": "b", "c": "d"].hasAllValues("b"));
+    assert(["a": "b", "c": "d"].hasAllValues("b", "d"));
+    assert(["a": "b", "c": "d"].hasAllValues(["b"]));
+    assert(["a": "b", "c": "d"].hasAllValues(["b", "d"]));
   }
-// #endregion hasValues
+// #endregion hasAllValues
 
 
 

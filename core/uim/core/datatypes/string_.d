@@ -61,31 +61,31 @@ unittest {
 
 // #region has
 
-bool hasValues(string[] bases, string[] values...) {
-	return hasValues(bases, values.dup);
+bool hasAllValues(string[] bases, string[] values...) {
+	return hasAllValues(bases, values.dup);
 }
 ///
 unittest {
-	assert(["One Two Three"].hasValues("One"));
-	assert(["One Two Three", "Eight Seven Six"].hasValues("Five", "Four", "Six"));
-	assert(!["One Two Three"].hasValues("Five", "Four"));
+	assert(["One Two Three"].hasAllValues("One"));
+	assert(["One Two Three", "Eight Seven Six"].hasAllValues("Five", "Four", "Six"));
+	assert(!["One Two Three"].hasAllValues("Five", "Four"));
 }
 
-bool hasValues(string[] bases, string[] values) {
-	return bases.any!(base => base.hasValues(values));
+bool hasAllValues(string[] bases, string[] values) {
+	return bases.any!(base => base.hasAllValues(values));
 }
 ///
 unittest {
-	assert(["One Two Three"].hasValues(["One"]));
-	assert(["One Two Three", "Eight Seven Six"].hasValues(["Five", "Four", "Six"]));
-	assert(!["One Two Three"].hasValues(["Five", "Four"]));
+	assert(["One Two Three"].hasAllValues(["One"]));
+	assert(["One Two Three", "Eight Seven Six"].hasAllValues(["Five", "Four", "Six"]));
+	assert(!["One Two Three"].hasAllValues(["Five", "Four"]));
 }
 
-bool hasValues(string base, string[] values...) {
-	return hasValues(base, values.dup);
+bool hasAllValues(string base, string[] values...) {
+	return hasAllValues(base, values.dup);
 }
 
-bool hasValues(string base, string[] values) {
+bool hasAllValues(string base, string[] values) {
 	foreach (value; values)
 		if ((base.hasValue(value))) {
 			return true;
@@ -94,9 +94,9 @@ bool hasValues(string base, string[] values) {
 }
 
 unittest {
-	assert("One Two Three".hasValues("One"));
-	assert("One Two Three".hasValues("Five", "Four", "Three"));
-	assert(!"One Two Three".hasValues("Five", "Four"));
+	assert("One Two Three".hasAllValues("One"));
+	assert("One Two Three".hasAllValues("Five", "Four", "Three"));
+	assert(!"One Two Three".hasAllValues("Five", "Four"));
 }
 
 bool hasValue(string base, string aValue) {

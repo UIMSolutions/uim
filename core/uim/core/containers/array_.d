@@ -259,7 +259,7 @@ bool has(T)(in T[] source, in T[] values) {
   return hasAllValues(source, values);
 }
 
-// #region hasValues & hasValue
+// #region hasAllValues & hasValue
 bool hasAllValues(T)(in T[] source, in T[] values...) {
   return hasAllValues(source, values.dup);
 }
@@ -336,7 +336,7 @@ bool hasValue(T)(in T[] source, in T aValue) {
   }
   return false;
 }
-// #endregion hasValues & hasValue
+// #endregion hasAllValues & hasValue
 
 size_t index(T)(T[] values, T value) {
   foreach (count, key; values) {

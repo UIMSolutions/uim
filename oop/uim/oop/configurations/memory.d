@@ -17,58 +17,86 @@ class DMemoryConfiguration : DConfiguration {
 
     protected IData[string] _data;
 
-    IData[string] data() {
+    override IData[string] data() {
         return _data;
     }
 
-    void data(IData[string] newData) {
+    override void data(IData[string] newData) {
         _data = newData;
     }
 
-    bool hasAnyKeys(string[] keys...) {
-        return hasAnyKeys(keys.dup);
-    }
-
-    bool hasAnyKeys(string[] keys) {
+    alias hasAnyKeys = DConfiguration.hasAnyKeys;
+    override bool hasAnyKeys(string[] keys) {
         return keys.any!(key => hasKey(key));
     }
 
-    bool hasAllKeys(string[] keys...) {
-        return hasAllKeys(keys.dup);
-    }
-
-    bool hasAllKeys(string[] keys) {
+    alias hasAllKeys = DConfiguration.hasAllKeys;
+    override bool hasAllKeys(string[] keys) {
         return keys.all!(key => hasKey(key));
     }
 
-    bool hasKey(string key) {
-        return (key in _data);
+    override bool hasKey(string key) {
+        return key in _data ? true : false;
     }
 
-    bool hasValues(string[] values...) {
-        return false;
+    alias hasAnyValues = DConfiguration.hasAnyValues;
+    override bool hasAnyValues(string[] values) {
+        return values.any!(value => hasValue(value));
     }
 
-    bool hasValues(string[] values) {
-        return false;
+    alias hasAllValues = DConfiguration.hasAllValues;
+    override bool hasAllValues(string[] values) {
+        return values.all!(value => hasValue(value));
     }
 
-    bool hasValue(string value) {
-        return false;
+    override bool hasValue(string value) {
+        return _data.byKeyValue
+            .any!(kv => kv.value.isEqual(value));
     }
 
-    IData get(string key) {
-        return null;
+    override IData[string] get(string[] keys, bool compressMode = true) {
+        IData[string] results;
+        
+        keys.each!((key) {
+            auto result = get(key);
+            if (result is null && !compressMode) {
+                results[key] = result;
+            }
+            else { // compressmode => no nulls
+                results[key] = result;
+            }
+        });
+
+        return results;
     }
 
-    IData[string] get(string[] keys);
+    override IData get(string key) {
+        return _data.get(key, null);
+    }
 
-    void set(string key, IData newData);
-    void set(string[] keys, IData[string] newData);
+    override void set(string[] keys, IData[string] newData) {
+        keys.filter!(key => newData.hasKey(key))
+            .each!(key => set(key, newData[key]));
+    }
 
-    void update(IData[string] newData);
+    override void set(string key, IData newData) {
+        _data[key] = newData;
+    }
 
-    void remove(string[] keys);
+    override void update(IData[string] newData) {
+        newData.byKeyValue
+            .each!(kv => set(kv.key, kv.value));
+    }
+
+    override void remove(string[] keys) {
+        keys.each!(key => _data.remove(key));
+    }
 }
 
 mixin(ConfigurationCalls!("Memory"));
+
+unittest {
+    IConfiguration config = new DMemoryConfiguration;
+    // config["test"] = StringData("stringdata");
+    // config.data("data", StringData("string-data"));
+}

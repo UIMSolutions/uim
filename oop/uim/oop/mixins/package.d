@@ -21,21 +21,21 @@ public {
 
 template ThisElement() {
 	const char[] ThisElement = `
-	@safe this() { super(); }
-	@safe this(string aName) { super(aName); }
+	this() { super(); }
+	this(string aName) { super(aName); }
 	`;
 }
 
 template ShortCutElement(string shortcut, string original) {
 	const char[] ShortCutElement = `
-	@safe `~original~` `~shortcut~`() { return new `~original~`(); }
-	@safe `~original~` `~shortcut~`(string aName) { return new `~original~`(aName); }
+	`~original~` `~shortcut~`() { return new `~original~`(); }
+	`~original~` `~shortcut~`(string aName) { return new `~original~`(aName); }
 	`;
 }
 
 template SProperty(string dataType, string propertyName) {
 	const char[] SProperty = "
 	protected "~dataType~" _"~propertyName~";
-	@safe @property "~dataType~" "~propertyName~"() { return _"~propertyName~"; }
-	@safe @property O "~propertyName~"(this O)("~dataType~" newValue) { _"~propertyName~" = newValue; return cast(O)this; }";
+	@property "~dataType~" "~propertyName~"() { return _"~propertyName~"; }
+	@property O "~propertyName~"(this O)("~dataType~" newValue) { _"~propertyName~" = newValue; return cast(O)this; }";
 }

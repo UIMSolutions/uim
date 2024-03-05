@@ -33,6 +33,7 @@ public {
   import uim.oop.containers;
   import uim.oop.containers.maps;
   import uim.oop.core;
+  import uim.oop.datatypes;
   import uim.oop.enumerations;
   import uim.oop.errors;
   import uim.oop.exceptions;

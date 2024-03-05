@@ -1,6 +1,6 @@
-module uim.core.interfaces.data;
+module uim.oop.interfaces.data;
 
-import uim.core;
+import uim.oop;
 
 @safe:
 interface IData {

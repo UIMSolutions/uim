@@ -156,7 +156,7 @@ class ValuesExpression : IExpression {
            _processExpressions();
         }
         _values.each!((value) {
-            if (cast(IExpression)$v) {
+            if (cast(IExpression) v) {
                 value.traverse(aCallback);
             }
             if (!isArray(value)) {

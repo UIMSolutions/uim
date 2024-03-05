@@ -13,7 +13,7 @@ import uim.datasources;
  * a connection.
  *
  * @method object getDriver() Gets the driver instance. {@see uim.databases.Connnection::getDriver()}
- * @method this setLogger($logger) Set the current logger. {@see uim.databases.Connnection::setLogger()}
+ * @method this setLogger( logger) Set the current logger. {@see uim.databases.Connnection::setLogger()}
  * @method bool supportsDynamicConstraints() Returns whether the driver supports adding or dropping constraints to
  *   already created tables. {@see uim.databases.Connnection::supportsDynamicConstraints()}
  * @method uim.databases.Schema\Collection getSchemaCollection() Gets a Schema\Collection object for this connection.

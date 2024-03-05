@@ -11,7 +11,7 @@ class CaseStatementExpression : IExpression, ITypedResult {
     use TypeMapTrait;
 
     // The names of the clauses that are valid for use with the `clause()` method.
-    protected string[] $validClauseNames = [
+    protected string[]  validClauseNames = [
         "value",
         "when",
         "else",

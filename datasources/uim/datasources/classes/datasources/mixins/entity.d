@@ -858,7 +858,7 @@ mixin EntityTemplate {
                                         somePath = split(".", fieldName); // Traverse down the related entities/arrays for
                                         // the relevant entity.
                                         entity = this; len = count(
-                                        somePath); while ($len) {
+                                        somePath); while ( len) {
                                           stringpart = array_shift(
                                           somePath); len = count(
                                           somePath); val = null; if (cast(IEntity)entity) {
@@ -866,9 +866,9 @@ mixin EntityTemplate {
                                             else if(isArray(entity)) {
                                               val = entity[part] ?  ? false;}
                                               if (
-                                                isArray($val) ||
-                                              cast(Traversable)$val ||
-                                              cast(IEntity)$val
+                                                isArray( val) ||
+                                              cast(Traversable) val ||
+                                              cast(IEntity) val
                                                 ) {
                                                 entity = val;} else {
                                                   somePath ~= part; break;}
@@ -916,9 +916,9 @@ mixin EntityTemplate {
                                                               return object.getErrors();
                                                             }
                                                             array = array_map(
-                                                            function($val) {
+                                                            function( val) {
                                                               if (
-                                                                cast(IEntity)$val) {
+                                                                cast(IEntity) val) {
                                                                 return val.getErrors();
                                                               }
                                                             }, (array) object); return array_filter(

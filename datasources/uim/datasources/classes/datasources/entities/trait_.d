@@ -839,8 +839,8 @@ trait EntityTrait
             if (is_string(error)) {
                 _errors[f][] = error;
             } else {
-                foreach (error as $k: $v) {
-                    _errors[f][$k] = $v;
+                foreach (error as $k:  v) {
+                    _errors[f][$k] =  v;
                 }
             }
         }
@@ -892,23 +892,23 @@ trait EntityTrait
         // Traverse down the related entities/arrays for
         // the relevant entity.
         entity = this;
-        $len = count(path);
-        while ($len) {
+         len = count(path);
+        while ( len) {
             part = array_shift(path);
-            $len = count(path);
-            $val = null;
+             len = count(path);
+             val = null;
             if (entity instanceof IEntity) {
-                $val = entity.get(part);
+                 val = entity.get(part);
             } elseif (is_array(entity)) {
-                $val = entity[part] ?? false;
+                 val = entity[part] ?? false;
             }
 
             if (
-                is_array($val) ||
-                $val instanceof Traversable ||
-                $val instanceof IEntity
+                is_array( val) ||
+                 val instanceof Traversable ||
+                 val instanceof IEntity
             ) {
-                entity = $val;
+                entity =  val;
             } else {
                 path[] = part;
                 break;
@@ -956,9 +956,9 @@ trait EntityTrait
             return  object.getErrors();
         }
         if (is_iterable( object)) {
-            array = array_map(function ($val) {
-                if ($val instanceof IEntity) {
-                    return $val.getErrors();
+            array = array_map(function ( val) {
+                if ( val instanceof IEntity) {
+                    return  val.getErrors();
                 }
 
                 return null;

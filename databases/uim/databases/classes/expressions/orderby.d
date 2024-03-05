@@ -41,17 +41,17 @@ class OrderByExpression : QueryExpression {
      * @param array types list of types associated on fields referenced in conditions
      */
     protected void _addConditions(array conditions, array types) {
-        foreach ( aKey: $val; conditions) {
+        foreach ( aKey:  val; conditions) {
             if (
                 isString(aKey) &&
-                isString($val) &&
-                !in_array(strtoupper($val), ["ASC", "DESC"], true)
+                isString( val) &&
+                !in_array(strtoupper( val), ["ASC", "DESC"], true)
             ) {
                 throw new InvalidArgumentException(
                     "Passing extra expressions by associative array (`\'%s\": \'%s\'`) " ~
                     "is not allowed to avoid potential SQL injection. " ~
                     "Use QueryExpression or numeric array instead."
-                    .format(aKey, $val)
+                    .format(aKey,  val)
                 );
             }
         }

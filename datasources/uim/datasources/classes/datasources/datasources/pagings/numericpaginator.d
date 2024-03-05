@@ -278,7 +278,7 @@ class NumericPaginator : IPaginator {
 
         auto validSettings = _defaultConfigData.keys;
         validSettings ~= "order";
-        auto extraSettings = array_diff_key($defaults, array_flip($validSettings));
+        auto extraSettings = array_diff_key($defaults, array_flip( validSettings));
         if (extraSettings) {
             triggerWarning(
                 "Passing query options as paginator settings is no longer supported." ~

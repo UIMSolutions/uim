@@ -84,7 +84,7 @@ class ConsoleIo {
      * int level The current output level.
      */
     int level(int level = null) {
-        if ($level !isNull) {
+        if ( level !isNull) {
            _level = level;
         }
         return _level;
@@ -134,7 +134,7 @@ class ConsoleIo {
      * @param int level The message`s output level, see above.
      */
     int out(string[] amessage = "", int newLinesToAppend = 1, int level = self.NORMAL) {
-        if ($level > _level) {
+        if ( level > _level) {
             return null;
         }
        _lastWritten = _out.write($message, newLinesToAppend);
@@ -444,9 +444,9 @@ class ConsoleIo {
         }
         // If the application has configured a console logger
         // we don`t add a redundant one.
-        foreach ($loggerName; Log.configured()) {
-            log = Log.engine($loggerName);
-            if (cast(ConsoleLog)$log ) {
+        foreach ( loggerName; Log.configured()) {
+            log = Log.engine( loggerName);
+            if (cast(ConsoleLog) log ) {
                 return;
             }
         }

@@ -412,15 +412,15 @@ class QueryExpression : IExpression, Countable {
             return new IdentifierExpression(field);
         };
 
-        return this.eq($wrapIdentifier($leftField), $wrapIdentifier(rightField));
+        return this.eq($wrapIdentifier( leftField), $wrapIdentifier(rightField));
     }
     string sql(ValueBinder aBinder) {
-        $len = this.count();
-        if ($len == 0) {
+         len = this.count();
+        if ( len == 0) {
             return "";
         }
         conjunction = _conjunction;
-        template = $len == 1 ? "%s' : '(%s)";
+        template =  len == 1 ? "%s' : '(%s)";
         someParts = [];
         foreach (_conditions as part) {
             if (cast(Query)part) {
@@ -562,9 +562,9 @@ class QueryExpression : IExpression, Countable {
         if (spaces > 1) {
             string[] someParts = split(" ", expression);
             if (preg_match("/(is not|not \w+)$/i", expression)) {
-                $last = array_pop(someParts);
+                 last = array_pop(someParts);
                 second = array_pop(someParts);
-                someParts ~= "{second} {$last}";
+                someParts ~= "{second} { last}";
             }
              operator = array_pop(someParts);
             expression = join(" ", someParts);

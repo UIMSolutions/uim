@@ -239,11 +239,11 @@ abstract class Query : IExpression, Stringable {
      * }, ["select", "from"]);
      * ```
      * Params:
-     * \Closure $visitor Callback executed for each part
+     * \Closure  visitor Callback executed for each part
      * @param string[] someParts The list of query parts to traverse
      */
-    void traverseParts(Closure $visitor, array someParts) {
-        someParts.each!(name => $visitor(_parts[name], name));
+    void traverseParts(Closure  visitor, array someParts) {
+        someParts.each!(name =>  visitor(_parts[name], name));
     }
     
     /**

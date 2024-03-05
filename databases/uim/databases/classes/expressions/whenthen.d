@@ -15,7 +15,7 @@ class WhenThenExpression : IExpression {
      * The names of the clauses that are valid for use with the
      * `clause()` method.
      */
-    protected string[] $validClauseNames = [
+    protected string[]  validClauseNames = [
         "when",
         "then",
     ];

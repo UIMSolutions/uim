@@ -336,13 +336,13 @@ _baseConfig = [
                 break;
             case "DATEDIFF":
                 $hasDay = false;
-                $visitor = auto (aValue) use (&$hasDay) {
+                 visitor = auto (aValue) use (&$hasDay) {
                     if (aValue == "day") {
                         $hasDay = true;
                     }
                     return aValue;
                 };
-                expression.iterateParts($visitor);
+                expression.iterateParts( visitor);
 
                 if (!$hasDay) {
                     expression.add(["day": "literal"], [], true);
@@ -364,7 +364,7 @@ _baseConfig = [
                 break;
             case "DATE_ADD":
                 params = [];
-                $visitor = auto (p, aKey) use (&params) {
+                 visitor = auto (p, aKey) use (&params) {
                     if (aKey == 0) {
                         params[2] = p;
                     } else {
@@ -381,7 +381,7 @@ _baseConfig = [
                 expression
                     .name("DATEADD")
                     .setConjunction(",")
-                    .iterateParts($visitor)
+                    .iterateParts( visitor)
                     .iterateParts($manipulator)
                     .add([params[2]: "literal"]);
                 break;

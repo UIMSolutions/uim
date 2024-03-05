@@ -25,7 +25,7 @@ class PluginLoadedCommand : Command {
      */
   int execute(Arguments commandArguments, ConsoleIo aConsoleIo) {
         loaded = Plugin. loaded();
-        aConsoleIo.out ($loaded);
+        aConsoleIo.out ( loaded);
 
         return static . CODE_SUCCESS;
     }

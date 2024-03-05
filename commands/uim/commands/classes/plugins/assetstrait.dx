@@ -40,7 +40,7 @@ template PluginAssetsTemplate {
             auto wwwRoot = Configure.read("App.wwwRoot");
             auto dir = wwwRoot;
             auto namespaced = false;
-            if ($link.has("/")) {
+            if ( link.has("/")) {
                 namespaced = true;
                 string[] someParts = split("/", link);
                 link = array_pop(someParts);

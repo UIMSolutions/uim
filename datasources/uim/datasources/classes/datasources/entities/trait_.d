@@ -294,9 +294,9 @@ trait EntityTrait
     array getOriginalValues() {
          originals = _original;
          originalKeys =  originals.keys;
-        foreach (_fields as $key: value) {
-            if (!hasAllValues($key,  originalKeys, true)) {
-                 originals[$key] = value;
+        foreach (_fields as  key: value) {
+            if (!hasAllValues( key,  originalKeys, true)) {
+                 originals[ key] = value;
             }
         }
 
@@ -501,11 +501,11 @@ trait EntityTrait
             value = this.get(field);
             if (is_array(value)) {
                 result[field] = null;
-                foreach (value as $k: entity) {
+                foreach (value as  k: entity) {
                     if (entity instanceof IEntity) {
-                        result[field][$k] = entity.toArray();
+                        result[field][ k] = entity.toArray();
                     } else {
-                        result[field][$k] = entity;
+                        result[field][ k] = entity;
                     }
                 }
             } elseif (value instanceof IEntity) {
@@ -728,8 +728,8 @@ trait EntityTrait
      */
     function setNew(bool new) {
         if (new) {
-            foreach (_fields as $k: p) {
-                _isDirty[$k] = true;
+            foreach (_fields as  k: p) {
+                _isDirty[ k] = true;
             }
         }
 
@@ -780,9 +780,9 @@ trait EntityTrait
      * Returns all validation errors.
      */
     array getErrors() {
-        $diff = array_diff_key(_fields, _errors);
+         diff = array_diff_key(_fields, _errors);
 
-        return _errors + (new Collection($diff))
+        return _errors + (new Collection( diff))
             .filter(function (value) {
                 return is_array(value) || value instanceof IEntity;
             })
@@ -839,8 +839,8 @@ trait EntityTrait
             if (is_string(error)) {
                 _errors[f][] = error;
             } else {
-                foreach (error as $k:  v) {
-                    _errors[f][$k] =  v;
+                foreach (error as  k:  v) {
+                    _errors[f][ k] =  v;
                 }
             }
         }

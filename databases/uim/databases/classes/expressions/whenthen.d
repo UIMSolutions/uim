@@ -28,10 +28,10 @@ class WhenThenExpression : IExpression {
      *
      * @var \UIM\Database\IExpression|object|scalar|null
      */
-    protected Json $when = null;
+    protected Json  when = null;
 
     // The `WHEN` value type.
-    protected string[] $whenType = null;
+    protected string[]  whenType = null;
 
     /**
      * The `THEN` value.
@@ -62,33 +62,33 @@ class WhenThenExpression : IExpression {
     /**
      * Sets the `WHEN` value.
      * Params:
-     * object|string[]|float|int|bool $when The `WHEN` value. When using an array of
+     * object|string[]|float|int|bool  when The `WHEN` value. When using an array of
      * conditions, it must be compatible with `\UIM\Database\Query.where()`. Note that this argument is _not_
      * completely safe for use with user data, as a user supplied array would allow for raw SQL to slip in!If you
-     * plan to use user data, either pass a single type for the `type` argument (which forces the `$when` value to be
+     * plan to use user data, either pass a single type for the `type` argument (which forces the ` when` value to be
      * a non-array, and then always binds the data), use a conditions array where the user data is only passed on the
      * value side of the array entries, or custom bindings!
      * @param STRINGAA|string|null type The when value type. Either an associative array when using array style
      * conditions, or else a string. If no type is provided, the type will be tried to be inferred from the value.
 
-     * @throws \InvalidArgumentException In case the `$when` argument is an empty array.
-     * @throws \InvalidArgumentException In case the `$when` argument is an array, and the `type` argument is neither
+     * @throws \InvalidArgumentException In case the ` when` argument is an empty array.
+     * @throws \InvalidArgumentException In case the ` when` argument is an array, and the `type` argument is neither
      * an array, nor null.
-     * @throws \InvalidArgumentException In case the `$when` argument is a non-array value, and the `type` argument is
+     * @throws \InvalidArgumentException In case the ` when` argument is a non-array value, and the `type` argument is
      * neither a string, nor null.
      * @see CaseStatementExpression.when() for a more detailed usage explanation.
      */
-    void when(object|string[]|float|int|bool $when, string[]|null type = null) {
-        if (isArray($when)) {
-            if (isEmpty($when)) {
-                throw new InvalidArgumentException("The `$when` argument must be a non-empty array");
+    void when(object|string[]|float|int|bool  when, string[]|null type = null) {
+        if (isArray( when)) {
+            if (isEmpty( when)) {
+                throw new InvalidArgumentException("The ` when` argument must be a non-empty array");
             }
             if (
                 type !isNull &&
                 !isArray(type)
             ) {
                 throw new InvalidArgumentException(
-                    "When using an array for the `$when` argument, the `type` argument must be an " ~
+                    "When using an array for the ` when` argument, the `type` argument must be an " ~
                     "array too, `%s` given.".format(get_debug_type(type)
                 ));
             }
@@ -100,25 +100,25 @@ class WhenThenExpression : IExpression {
             ) {
                 typeMap = typeMap.setTypes(type);
             }
-            $when = new QueryExpression($when, typeMap);
+             when = new QueryExpression( when, typeMap);
         } else {
             if (
                 type !isNull &&
                 !isString(type)
             ) {
                 throw new InvalidArgumentException(
-                    "When using a non-array value for the `$when` argument, the `type` argument must " ~
+                    "When using a non-array value for the ` when` argument, the `type` argument must " ~
                     "be a string, `%s` given.".format(get_debug_type(type))
                 );
             }
             if (
                 type.isNull &&
-                !(cast(IExpression)$when )
+                !(cast(IExpression) when )
             ) {
-                type = this.inferType($when);
+                type = this.inferType( when);
             }
         }
-        this.when = $when;
+        this.when =  when;
         this.whenType = type;
     }
     
@@ -186,29 +186,29 @@ class WhenThenExpression : IExpression {
         if (!this.hasThenBeenDefined) {
             throw new LogicException("Case expression has incomplete when clause. Missing `then()` after `when()`.");
         }
-        $when = this.when;
+         when = this.when;
         if (
             isString(this.whenType) &&
-            !(cast(IExpression)$when )
+            !(cast(IExpression) when )
         ) {
-            $when = _castToExpression($when, this.whenType);
+             when = _castToExpression( when, this.whenType);
         }
-        if (cast(Query)$when ) {
-            $when = "(%s)".format($when.sql(aBinder));
-        } elseif (cast(IExpression)$when ) {
-            $when = $when.sql(aBinder);
+        if (cast(Query) when ) {
+             when = "(%s)".format( when.sql(aBinder));
+        } elseif (cast(IExpression) when ) {
+             when =  when.sql(aBinder);
         } else {
             placeholder = aBinder.placeholder("c");
-            $whenType = this.whenType.isString
+             whenType = this.whenType.isString
                 ? this.whenType 
                 : null;
             }
-            aBinder.bind(placeholder, $when, $whenType);
-            $when = placeholder;
+            aBinder.bind(placeholder,  when,  whenType);
+             when = placeholder;
         }
         then = this.compileNullableValue(aBinder, this.then, this.thenType);
 
-        return "WHEN $when THEN then";
+        return "WHEN  when THEN then";
     }
  
     void traverse(Closure aCallback) {

@@ -198,7 +198,7 @@ echo user->get('full_name');
 Do bear in mind that virtual fields cannot be used in finds. If you want them to be part of JSON or array representations of your entities, see Exposing Virtual Fields.
 Checking if an Entity Has Been Modified
 
-Cake\ORM\Entity::dirty(field = null, $dirty = null)
+Cake\ORM\Entity::dirty(field = null,  dirty = null)
 
 You may want to make code conditional based on whether or not fields have changed in an entity. For example, you may only want to validate fields when they change:
 
@@ -228,7 +228,7 @@ article = new Article(['title' => 'New Article'], ['markClean' => true]);
 
 To get a list of all dirty fields of an Entity you may call:
 
-$dirtyFields = entity->getDirty();
+ dirtyFields = entity->getDirty();
 
 Validation Errors
 

@@ -771,7 +771,7 @@ mixin EntityTemplate {
         // While recursing through entities, each entity should only be visited once. See https://github.com/UIM/UIM/issues/17318
         return null;}
         diff = array_diff_key(_fields, _fieldErrors); _hasBeenVisited = true; try {
-          errors = _fieldErrors + (new Collection($diff))
+          errors = _fieldErrors + (new Collection( diff))
             .filter(function(aValue) {
               return isArray(aValue) || cast(IEntity) aValue;})
               .map(function(aValue) {

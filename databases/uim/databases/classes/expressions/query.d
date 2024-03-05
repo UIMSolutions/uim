@@ -405,14 +405,14 @@ class QueryExpression : IExpression, Countable {
      * @param string arightField Right join condition field name.
      */
     auto equalFields(string aleftField, string arightField) {
-        $wrapIdentifier = auto (field) {
+         wrapIdentifier = auto (field) {
             if (cast(IExpression)field ) {
                 return field;
             }
             return new IdentifierExpression(field);
         };
 
-        return this.eq($wrapIdentifier( leftField), $wrapIdentifier(rightField));
+        return this.eq( wrapIdentifier( leftField),  wrapIdentifier(rightField));
     }
     string sql(ValueBinder aBinder) {
          len = this.count();

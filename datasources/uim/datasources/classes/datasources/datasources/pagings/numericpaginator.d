@@ -143,7 +143,7 @@ class NumericPaginator : IPaginator {
      * You can also pass an already created instance of a query to this method:
      *
      * ```
-     * aQuery = this.Articles.find("popular").matching("Tags", auto ($q) {
+     * aQuery = this.Articles.find("popular").matching("Tags", auto ( q) {
      *  return q.where(["name": 'UIM"])
      * });
      * results = paginator.paginate(aQuery);
@@ -278,7 +278,7 @@ class NumericPaginator : IPaginator {
 
         auto validSettings = _defaultConfigData.keys;
         validSettings ~= "order";
-        auto extraSettings = array_diff_key($defaults, array_flip( validSettings));
+        auto extraSettings = array_diff_key( defaults, array_flip( validSettings));
         if (extraSettings) {
             triggerWarning(
                 "Passing query options as paginator settings is no longer supported." ~
@@ -381,9 +381,9 @@ class NumericPaginator : IPaginator {
         order = (array)someData["options"]["order"];
         sortDefault = directionDefault = false;
 
-        if (!empty($defaults["order"]) && count($defaults["order"]) >= 1) {
-            sortDefault = key($defaults["order"]);
-            directionDefault = current($defaults["order"]);
+        if (!empty( defaults["order"]) && count( defaults["order"]) >= 1) {
+            sortDefault = key( defaults["order"]);
+            directionDefault = current( defaults["order"]);
         }
         this.pagingParams = [
             `sort": someData["options"]["sort"],
@@ -472,7 +472,7 @@ class NumericPaginator : IPaginator {
             if (isSet(options["direction"])) {
                 direction = options["direction"].toLower;
             }
-            if (!in_array($direction, ["asc", "desc"], true)) {
+            if (!in_array( direction, ["asc", "desc"], true)) {
                 direction = "asc";
             }
             order = isSet(options["order"]) && isArray(options["order"]) ? options["order"] : [];

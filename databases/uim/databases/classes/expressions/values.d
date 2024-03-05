@@ -116,16 +116,16 @@ class ValuesExpression : IExpression {
         }
         
         auto colNames = _columnNames();
-        $defaults = array_fill_keys(colNames, null);
+         defaults = array_fill_keys(colNames, null);
         placeholders = [];
 
         types = [];
         typeMap = this.getTypeMap();
-        $defaults.byKeyValue
+         defaults.byKeyValue
             .each!(kv => types[kv.key] = typeMap.type(kv.key));
 
         foreach (row; _values ) {
-            row += $defaults;
+            row +=  defaults;
             rowPlaceholders = [];
 
             foreach (column; colNames) {

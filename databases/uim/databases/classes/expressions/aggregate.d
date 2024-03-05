@@ -14,7 +14,7 @@ import uim.databases;
 class AggregateExpression : FunctionExpression, IWindow {
     protected QueryExpression filter = null;
 
-    protected WindowExpression $window = null;
+    protected WindowExpression  window = null;
 
     /**
      * Adds conditions to the FILTER clause. The conditions are the same format as
@@ -40,10 +40,10 @@ class AggregateExpression : FunctionExpression, IWindow {
      * string|null windowName Window name
      */
     void over(string windowName = null) {
-        auto $window = this.getWindow();
+        auto  window = this.getWindow();
         if (!windowName.isEmpty) {
             // Set name manually in case this was chained from FunctionsBuilder wrapper
-            $window.name(windowName);
+             window.name(windowName);
         }
     }
  

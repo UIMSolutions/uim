@@ -106,7 +106,7 @@ class ConsoleOptionParser {
             "boolean": true,
         ]);
 
-        if ($defaultOptions) {
+        if ( defaultOptions) {
             this.addOption("verbose", [
                 "short": "v",
                 "help": "Enable verbose output.",
@@ -450,7 +450,7 @@ class ConsoleOptionParser {
             default = option.defaultValue();
 
             useDefault = !isSet(params[name]);
-            if ($default !isNull && useDefault && !isBoolean) {
+            if ( default !isNull && useDefault && !isBoolean) {
                 params[name] = default;
             }
             if (isBoolean && useDefault) {
@@ -495,7 +495,7 @@ class ConsoleOptionParser {
         formatter.aliasName(_rootName);
 
         if (format == "text") {
-            return formatter.text($width);
+            return formatter.text( width);
         }
         if (format == "xml") {
             return to!string(formatter.xml());

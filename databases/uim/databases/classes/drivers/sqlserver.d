@@ -223,15 +223,15 @@ _baseConfig = [
             auto  order = new OrderByExpression();
              original
                 .clause("order")
-                .iterateParts(function ($direction,  orderBy) use (select,  order) {
+                .iterateParts(function ( direction,  orderBy) use (select,  order) {
                     aKey =  orderBy;
                     if (
                         isSet(select[ orderBy]) &&
                         cast(IExpression)select[ orderBy] 
                     ) {
-                         order.add(new OrderClauseExpression(select[ orderBy], $direction));
+                         order.add(new OrderClauseExpression(select[ orderBy],  direction));
                     } else {
-                         order.add([aKey: $direction]);
+                         order.add([aKey:  direction]);
                     }
                     // Leave original order clause unchanged.
                     return  orderBy;
@@ -277,15 +277,15 @@ _baseConfig = [
          original = aQuery;
         aQuery = clone  original;
 
-        $distinct = aQuery.clause("distinct");
+         distinct = aQuery.clause("distinct");
         aQuery.distinct(false);
 
-         order = new OrderByExpression($distinct);
+         order = new OrderByExpression( distinct);
         aQuery
-            .select(function ($q) use ($distinct,  order) {
-                 over = $q.newExpr("ROW_NUMBER() OVER")
+            .select(function ( q) use ( distinct,  order) {
+                 over =  q.newExpr("ROW_NUMBER() OVER")
                     .add("(PARTITION BY")
-                    .add($q.newExpr().add($distinct).setConjunction(","))
+                    .add( q.newExpr().add( distinct).setConjunction(","))
                     .add( order)
                     .add(")")
                     .setConjunction(" ");

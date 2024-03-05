@@ -78,7 +78,7 @@ template PluginAssetsTemplate {
             }
             
             auto dest = configData("destDir") ~ configData("link");
-            if (file_exists($dest)) {
+            if (file_exists( dest)) {
                 if (overwrite && !_remove(configData)) {
                     continue;
                 } else if (!overwrite) {
@@ -124,7 +124,7 @@ template PluginAssetsTemplate {
         }
         dest = configData("destDir"] ~ configData("link"];
 
-        if (!file_exists($dest)) {
+        if (!file_exists( dest)) {
             this.io.verbose(
                 dest ~ " does not exist",
                 1
@@ -132,9 +132,9 @@ template PluginAssetsTemplate {
 
             return false;
         }
-        if (isLink($dest)) {
+        if (isLink( dest)) {
             // phpcs:ignore
-            success = DIRECTORY_SEPARATOR == "\\" ? @rmdir($dest): @unlink($dest);
+            success = DIRECTORY_SEPARATOR == "\\" ? @rmdir( dest): @unlink( dest);
             if (success) {
                 this.io.writeln("Unlinked " ~ dest);
 
@@ -146,7 +146,7 @@ template PluginAssetsTemplate {
             }
         }
         fs = new Filesystem();
-        if (fs.deleteDir($dest)) {
+        if (fs.deleteDir( dest)) {
             this.io.writeln("Deleted " ~ dest);
 
             return true;

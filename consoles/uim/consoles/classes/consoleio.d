@@ -529,8 +529,8 @@ class ConsoleIo {
         try {
             // Create the directory using the current user permissions.
             directory = dirname(somePath);
-            if (!file_exists($directory)) {
-                mkdir($directory, 0777 ^ umask(), true);
+            if (!file_exists( directory)) {
+                mkdir( directory, 0777 ^ umask(), true);
             }
             file = new SplFileObject(somePath, "w");
         } catch (RuntimeException) {

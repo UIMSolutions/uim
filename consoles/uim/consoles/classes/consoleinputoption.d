@@ -85,9 +85,9 @@ class ConsoleInputOption {
         this.prompt = prompt;
 
         if (isBooleanOption) {
-           _default = (bool)$default;
-        } else if (!$default.isNull) {
-           _default = to!string($default);
+           _default = (bool) default;
+        } else if (! default.isNull) {
+           _default = to!string( default);
         }
         if (_short.length > 1) {
             throw new ConsoleException(
@@ -220,16 +220,16 @@ class ConsoleInputOption {
             : "";
 
         auto default = _default;
-        if ($default == true) {
+        if ( default == true) {
             default = "true";
-        } else if ($default == false) {
+        } else if ( default == false) {
             default = "false";
         }
         option.addAttribute("short", short);
         option.addAttribute("help", _help);
         option.addAttribute("boolean", to!string(to!int(_isBooleanOption)));
         option.addAttribute("required", (string)(int)this.required);
-        option.addChild("default", (string)$default);
+        option.addChild("default", (string) default);
         choices = option.addChild("choices");
         _choices.each!(valid => choices.addChild("choice", valid));
         return parent;

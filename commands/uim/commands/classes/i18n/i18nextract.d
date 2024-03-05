@@ -198,17 +198,17 @@ class I18nExtractCommand : Command {
     protected void _addTranslation(string adomain, string amsgid, array details = []) {
         context = details["msgctxt"] ?? "";
 
-        if (isEmpty(_translations[$domain][$msgid][context])) {
-           _translations[$domain][$msgid][context] = [
+        if (isEmpty(_translations[ domain][$msgid][context])) {
+           _translations[ domain][$msgid][context] = [
                 "msgid_plural": false,
             ];
         }
         if (isSet(details["msgid_plural"])) {
-           _translations[$domain][$msgid][context]["msgid_plural"] = details["msgid_plural"];
+           _translations[ domain][$msgid][context]["msgid_plural"] = details["msgid_plural"];
         }
         if (isSet(details["file"])) {
             line = details["line"] ?? 0;
-           _translations[$domain][$msgid][context]["references"][details["file"]] ~= line;
+           _translations[ domain][$msgid][context]["references"][details["file"]] ~= line;
         }
     }
     
@@ -377,7 +377,7 @@ class I18nExtractCommand : Command {
                 position = count;
                 depth = 0;
 
-                while (!$depth) {
+                while (! depth) {
                     if (_tokens[position] == "(") {
                         depth++;
                     } else if (_tokens[position] == ")") {
@@ -404,7 +404,7 @@ class I18nExtractCommand : Command {
                     if (isSet(context)) {
                         details["msgctxt"] = context;
                     }
-                   _addTranslation($domain, singular, details);
+                   _addTranslation( domain, singular, details);
                 } else {
                    _markerError(aConsoleIo, _file, line, functionName, count);
                 }
@@ -426,7 +426,7 @@ class I18nExtractCommand : Command {
             return a.length - b.length;
         });
 
-        foreach ($domain: translations; _translations) {
+        foreach ( domain: translations; _translations) {
             foreach ($msgid: contexts; translations) {
                 contexts.byKeyValue
                     .each!((contextDetails) {
@@ -462,7 +462,7 @@ class I18nExtractCommand : Command {
 
                     domain != "default" && _merge 
                         ? _store("default",  aHeader, sentence)
-                        : _store($domain,  aHeader, sentence);
+                        : _store( domain,  aHeader, sentence);
                 }
             }
         });
@@ -476,12 +476,12 @@ class I18nExtractCommand : Command {
      * @param string asentence The sentence to store.
      */
     protected void _store(string adomain, string aheader, string asentence) {
-       _storage[$domain] ??= [];
+       _storage[ domain] ??= [];
 
-        if (!isSet(_storage[$domain][sentence])) {
-           _storage[$domain][sentence] =  aHeader;
+        if (!isSet(_storage[ domain][sentence])) {
+           _storage[ domain][sentence] =  aHeader;
         } else {
-           _storage[$domain][sentence] ~=  aHeader;
+           _storage[ domain][sentence] ~=  aHeader;
         }
     }
     
@@ -498,7 +498,7 @@ class I18nExtractCommand : Command {
             overwriteAll = true;
         }
         foreach (_storage as domain: sentences) {
-            auto outputHeader = _writeHeader($domain);
+            auto outputHeader = _writeHeader( domain);
              aHeaderLength = outputHeader.length;
             sentences.byKeyValue
                 .ech!(sentenceHeader => outputHeader ~=  sentenceHeader.value ~ sentenceHeader.key);

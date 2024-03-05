@@ -21,8 +21,8 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * collection = (new Collection(items)).each(function (value, $key) {
-     *  writeln("Element $key: value";
+     * collection = (new Collection(items)).each(function (value,  key) {
+     *  writeln("Element  key: value";
      * });
      * ```
      *
@@ -45,7 +45,7 @@ interface ICollection {
      * be present in the resulting collection:
      *
      * ```
-     * collection = (new Collection([1, 2, 3])).filter(function (value, $key) {
+     * collection = (new Collection([1, 2, 3])).filter(function (value,  key) {
      *  return value % 2 == 0;
      * });
      * ```
@@ -71,7 +71,7 @@ interface ICollection {
      * be present in the resulting collection:
      *
      * ```
-     * collection = (new Collection([1, 2, 3])).reject(function (value, $key) {
+     * collection = (new Collection([1, 2, 3])).reject(function (value,  key) {
      *  return value % 2 == 0;
      * });
      * ```
@@ -92,7 +92,7 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     *  overTwentyOne = (new Collection([24, 45, 60, 15])).every(function (value, $key) {
+     *  overTwentyOne = (new Collection([24, 45, 60, 15])).every(function (value,  key) {
      *  return value > 21;
      * });
      * ```
@@ -115,7 +115,7 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * $hasYoungPeople = (new Collection([24, 45, 15])).some(function (value, $key) {
+     * $hasYoungPeople = (new Collection([24, 45, 15])).some(function (value,  key) {
      *  return value < 21;
      * });
      * ```
@@ -148,7 +148,7 @@ interface ICollection {
      * Getting a collection of booleans where true indicates if a person is female:
      *
      * ```
-     * collection = (new Collection(people)).map(function (person, $key) {
+     * collection = (new Collection(people)).map(function (person,  key) {
      *  return person.gender == "female";
      * });
      * ```
@@ -642,10 +642,10 @@ interface ICollection {
      * Append a single item creating a new collection.
      *
      * @param mixed item The item to append.
-     * @param mixed $key The key to append the item with. If null a key will be generated.
+     * @param mixed  key The key to append the item with. If null a key will be generated.
      * @return self
      */
-    ICollection appendItem(item, $key = null);
+    ICollection appendItem(item,  key = null);
 
     /**
      * Prepend a set of items to a collection creating a new collection
@@ -659,10 +659,10 @@ interface ICollection {
      * Prepend a single item creating a new collection.
      *
      * @param mixed item The item to prepend.
-     * @param mixed $key The key to prepend the item with. If null a key will be generated.
+     * @param mixed  key The key to prepend the item with. If null a key will be generated.
      * @return self
      */
-    ICollection prependItem(item, $key = null);
+    ICollection prependItem(item,  key = null);
 
     /**
      * Returns a new collection where the values extracted based on a value path
@@ -704,7 +704,7 @@ interface ICollection {
      * grouping key or a function returning the key out of the provided element
      * @return self
      */
-    ICollection combine($keyPath, valuePath, $groupPath = null);
+    ICollection combine( keyPath, valuePath, $groupPath = null);
 
     /**
      * Returns a new collection where the values are nested in a tree-like structure
@@ -849,7 +849,7 @@ interface ICollection {
      * for each branch.
      *
      * It is possible to return all elements from bottom to top using a Breadth First
-     * Search approach by passing the "$dir" parameter with "asc". That is, it will
+     * Search approach by passing the " dir" parameter with "asc". That is, it will
      * return all elements for the same tree depth first and from bottom to top.
      *
      * Finally, you can specify to only get a collection with the leaf nodes in the
@@ -893,7 +893,7 @@ interface ICollection {
      * Get an array of lines in a CSV file until the timestamp column is less than a date
      *
      * ```
-     *  lines = (new Collection(fileLines)).stopWhen(function (value, $key) {
+     *  lines = (new Collection(fileLines)).stopWhen(function (value,  key) {
      *  return (new DateTime(value)).format("Y") < 2012;
      * })
      * .toArray();
@@ -957,7 +957,7 @@ interface ICollection {
      *
      * ```
      * items = [1, 2, 3];
-     * $decorated = (new Collection(items)).through(function (collection) {
+     *  decorated = (new Collection(items)).through(function (collection) {
      *      return new MyCustomCollection(collection);
      * });
      * ```

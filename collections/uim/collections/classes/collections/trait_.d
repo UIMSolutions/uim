@@ -41,8 +41,8 @@ trait CollectionTrait {
 
 
     function each(callable callback) {
-        foreach (this.optimizeUnwrap() as $k:  v) {
-            callback( v, $k);
+        foreach (this.optimizeUnwrap() as  k:  v) {
+            callback( v,  k);
         }
 
         return this;
@@ -63,15 +63,15 @@ trait CollectionTrait {
 
     function reject(callable callback): ICollection
     {
-        return new FilterIterator(this.unwrap(), function ($key, value, items) use (callback) {
-            return !callback($key, value, items);
+        return new FilterIterator(this.unwrap(), function ( key, value, items) use (callback) {
+            return !callback( key, value, items);
         });
     }
 
 
     bool every(callable callback) {
-        foreach (this.optimizeUnwrap() as $key: value) {
-            if (!callback(value, $key)) {
+        foreach (this.optimizeUnwrap() as  key: value) {
+            if (!callback(value,  key)) {
                 return false;
             }
         }
@@ -81,8 +81,8 @@ trait CollectionTrait {
 
 
     bool some(callable callback) {
-        foreach (this.optimizeUnwrap() as $key: value) {
-            if (callback(value, $key) == true) {
+        foreach (this.optimizeUnwrap() as  key: value) {
+            if (callback(value,  key) == true) {
                 return true;
             }
         }
@@ -114,13 +114,13 @@ trait CollectionTrait {
         }
 
         result = initial;
-        foreach (this.optimizeUnwrap() as $k: value) {
+        foreach (this.optimizeUnwrap() as  k: value) {
             if (isFirst) {
                 result = value;
                 isFirst = false;
                 continue;
             }
-            result = callback(result, value, $k);
+            result = callback(result, value,  k);
         }
 
         return result;
@@ -132,8 +132,8 @@ trait CollectionTrait {
         extractor = new ExtractIterator(this.unwrap(), path);
         if (is_string(path) && strpos(path, "{*}") != false) {
             extractor = extractor
-                .filter(function ($data) {
-                    return $data != null && ($data instanceof Traversable || is_array($data));
+                .filter(function ( data) {
+                    return  data != null && ( data instanceof Traversable || is_array( data));
                 })
                 .unfold();
         }
@@ -243,14 +243,14 @@ trait CollectionTrait {
     {
         callback = _propertyExtractor(path);
 
-        mapper = void (value, $key, $mr) use (callback) {
+        mapper = void (value,  key, $mr) use (callback) {
             /** var DCOLIterator\MapReduce $mr */
             $mr.emitIntermediate(value, callback(value));
         };
 
-        reducer = void (values, $key, $mr) {
+        reducer = void (values,  key, $mr) {
             /** var DCOLIterator\MapReduce $mr */
-            $mr.emit(count(values), $key);
+            $mr.emit(count(values),  key);
         };
 
         return this.newCollection(new MapReduce(this.unwrap(), mapper, reducer));
@@ -264,8 +264,8 @@ trait CollectionTrait {
 
         callback = _propertyExtractor(path);
         sum = 0;
-        foreach (this.optimizeUnwrap() as $k:  v) {
-            sum += callback( v, $k);
+        foreach (this.optimizeUnwrap() as  k:  v) {
+            sum += callback( v,  k);
         }
 
         return sum;
@@ -367,17 +367,17 @@ trait CollectionTrait {
 
         $generator = function (iterator,  length) {
             result = null;
-            $bucket = 0;
+             bucket = 0;
             offset = 0;
 
             /**
              * Consider the collection of elements [1, 2, 3, 4, 5, 6, 7, 8, 9], in order
              * to get the last 4 elements, we can keep a buffer of 4 elements and
-             * fill it circularly using modulo logic, we use the $bucket variable
+             * fill it circularly using modulo logic, we use the  bucket variable
              * to track the position to fill next in the buffer. This how the buffer
              * looks like after 4 iterations:
              *
-             * 0) 1 2 3 4 -- $bucket now goes back to 0, we have filled 4 elementes
+             * 0) 1 2 3 4 --  bucket now goes back to 0, we have filled 4 elementes
              * 1) 5 2 3 4 -- 5th iteration
              * 2) 5 6 3 4 -- 6th iteration
              * 3) 5 6 7 4 -- 7th iteration
@@ -416,9 +416,9 @@ trait CollectionTrait {
              * The logic above applies to collections of any size.
              */
 
-            foreach (iterator as $k: item) {
-                result[$bucket] = [$k, item];
-                $bucket = (++$bucket) %  length;
+            foreach (iterator as  k: item) {
+                result[ bucket] = [ k, item];
+                 bucket = (++ bucket) %  length;
                 offset++;
             }
 
@@ -449,12 +449,12 @@ trait CollectionTrait {
     }
 
 
-    ICollection appendItem(item, $key = null) {
-        data = $key != null
-            ? [$key: item]
+    ICollection appendItem(item,  key = null) {
+        data =  key != null
+            ? [ key: item]
             : [item];
 
-        return this.append($data);
+        return this.append( data);
     }
 
 
@@ -463,44 +463,44 @@ trait CollectionTrait {
     }
 
 
-    ICollection prependItem(item, $key = null) {
-        data = $key != null 
-            ? [$key: item]
+    ICollection prependItem(item,  key = null) {
+        data =  key != null 
+            ? [ key: item]
             : [item];
 
-        return this.prepend($data);
+        return this.prepend( data);
     }
 
 
-    function combine($keyPath, valuePath, $groupPath = null): ICollection
+    function combine( keyPath, valuePath, $groupPath = null): ICollection
     {
         options = [
-            "keyPath": _propertyExtractor($keyPath),
+            "keyPath": _propertyExtractor( keyPath),
             "valuePath": _propertyExtractor(valuePath),
             "groupPath": $groupPath ? _propertyExtractor($groupPath) : null,
         ];
 
-        mapper = function (value, $key, MapReduce mapReduce) use (options) {
+        mapper = function (value,  key, MapReduce mapReduce) use (options) {
             rowKey = options["keyPath"];
             rowVal = options["valuePath"];
 
             if (!options["groupPath"]) {
-                mapReduce.emit(rowVal(value, $key), rowKey(value, $key));
+                mapReduce.emit(rowVal(value,  key), rowKey(value,  key));
 
                 return null;
             }
 
-            $key = options["groupPath"](value, $key);
+             key = options["groupPath"](value,  key);
             mapReduce.emitIntermediate(
-                [rowKey(value, $key): rowVal(value, $key)],
-                $key
+                [rowKey(value,  key): rowVal(value,  key)],
+                 key
             );
         };
 
-        reducer = void (values, $key, MapReduce mapReduce) {
+        reducer = void (values,  key, MapReduce mapReduce) {
             result = null;
             values.each!(value => result += value);
-            mapReduce.emit(result, $key);
+            mapReduce.emit(result,  key);
         };
 
         return this.newCollection(new MapReduce(this.unwrap(), mapper, reducer));
@@ -514,21 +514,21 @@ trait CollectionTrait {
         parentPath = _propertyExtractor(parentPath);
         isObject = true;
 
-        mapper = void (row, $key, MapReduce mapReduce) use (&parents, idPath, parentPath, nestingKey) {
+        mapper = void (row,  key, MapReduce mapReduce) use (&parents, idPath, parentPath, nestingKey) {
             row[nestingKey] = null;
-            id = idPath(row, $key);
-            parentId = parentPath(row, $key);
+            id = idPath(row,  key);
+            parentId = parentPath(row,  key);
             parents[id] = &row;
             mapReduce.emitIntermediate(id, parentId);
         };
 
-        reducer = function (values, $key, MapReduce mapReduce) use (&parents, &isObject, nestingKey) {
+        reducer = function (values,  key, MapReduce mapReduce) use (&parents, &isObject, nestingKey) {
             static foundOutType = false;
             if (!foundOutType) {
                 isObject = is_object(current(parents));
                 foundOutType = true;
             }
-            if (empty($key) || !isset(parents[$key])) {
+            if (empty( key) || !isset(parents[ key])) {
                 foreach (values as id) {
                     /** @psalm-suppress PossiblyInvalidArgument */
                     parents[id] = isObject ? parents[id] : new ArrayIterator(parents[id], 1);
@@ -542,7 +542,7 @@ trait CollectionTrait {
             foreach (values as id) {
                 children ~= &parents[id];
             }
-            parents[$key][nestingKey] = children;
+            parents[ key][nestingKey] = children;
         };
 
         return this.newCollection(new MapReduce(this.unwrap(), mapper, reducer))
@@ -595,8 +595,8 @@ trait CollectionTrait {
     function lazy(): ICollection
     {
         $generator = function () {
-            foreach (this.unwrap() as $k:  v) {
-                yield $k:  v;
+            foreach (this.unwrap() as  k:  v) {
+                yield  k:  v;
             }
         };
 
@@ -692,7 +692,7 @@ trait CollectionTrait {
 
     function chunk(int chunkSize): ICollection
     {
-        return this.map(function ( v, $k, iterator) use (chunkSize) {
+        return this.map(function ( v,  k, iterator) use (chunkSize) {
             values = [ v];
             for (i = 1; i < chunkSize; i++) {
                 iterator.next();
@@ -709,12 +709,12 @@ trait CollectionTrait {
 
     function chunkWithKeys(int chunkSize, bool shouldKeepKeys = true): ICollection
     {
-        return this.map(function ( v, $k, iterator) use (chunkSize, shouldKeepKeys) {
-            $key = 0;
+        return this.map(function ( v,  k, iterator) use (chunkSize, shouldKeepKeys) {
+             key = 0;
             if (shouldKeepKeys) {
-                $key = $k;
+                 key =  k;
             }
-            values = [$key:  v];
+            values = [ key:  v];
             for (i = 1; i < chunkSize; i++) {
                 iterator.next();
                 if (!iterator.valid()) {
@@ -796,8 +796,8 @@ trait CollectionTrait {
         changeIndex =  lastIndex;
 
         while (!(changeIndex == 0 && currentIndexes[0] == collectionArraysCounts[0])) {
-            currentCombination = array_map(function (value, $keys, index) {
-                return value[$keys[index]];
+            currentCombination = array_map(function (value,  keys, index) {
+                return value[ keys[index]];
             }, collectionArrays, collectionArraysKeys, currentIndexes);
 
             if (filter == null || filter(currentCombination)) {

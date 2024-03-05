@@ -63,10 +63,10 @@ class Collection : IteratorIterator : ICollection, Serializable {
     /**
      * Rebuilds the Collection instance.
      *
-     * @param array $data Data array.
+     * @param array  data Data array.
      */
-    void __unserialize(array $data) {
-        __construct($data);
+    void __unserialize(array  data) {
+        __construct( data);
     }
 
     /**

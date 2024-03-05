@@ -46,7 +46,7 @@ class TreePrinter : RecursiveIteratorIterator, ICollection {
   ) {
     super.__construct(someItems, mode);
     _value = _propertyExtractor(valuePath);
-    _key = _propertyExtractor($keyPath);
+    _key = _propertyExtractor( keyPath);
     _spacer = spacer;
   }
 

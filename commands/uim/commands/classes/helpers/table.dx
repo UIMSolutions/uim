@@ -111,18 +111,18 @@ class TableHelper : Helper {
         configData = this.getConfig();
         widths = _calculateWidths(commandArguments);
 
-        _rowSeparator($widths);
+        _rowSeparator( widths);
         if (configData("headers"] == true) {
             _render(array_shift(commandArguments), widths, ["style": configData("headerStyle"]]);
-              _rowSeparator($widths); }
+              _rowSeparator( widths); }
               if (commandArguments.isEmpty) {
                 return; }
                 commandArguments.each!((line) {
                   _render(line, widths); if (configData("rowSeparator"] == true) {
-                      _rowSeparator($widths); }
+                      _rowSeparator( widths); }
                     }
                     if (configData("rowSeparator"] != true) {
-                        _rowSeparator($widths); }
+                        _rowSeparator( widths); }
                       }
 
                       /**

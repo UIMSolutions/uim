@@ -47,15 +47,15 @@ trait ExtractTrait {
     }
 
     /**
-     * Returns a column from $data that can be extracted
+     * Returns a column from  data that can be extracted
      * by iterating over the column names contained in path.
      * It will return arrays for elements in represented with `{*}`
      *
-     * @param \ArrayAccess|array $data Data.
+     * @param \ArrayAccess|array  data Data.
      * @param array<string> parts Path to extract from.
      * @return mixed
      */
-    protected string[] _extract($data, array parts) {
+    protected string[] _extract( data, array parts) {
         value = null;
         collectionTransform = false;
 
@@ -68,8 +68,8 @@ trait ExtractTrait {
             if (
                 collectionTransform &&
                 !(
-                    $data instanceof Traversable ||
-                    is_array($data)
+                     data instanceof Traversable ||
+                    is_array( data)
                 )
             ) {
                 return null;
@@ -78,36 +78,36 @@ trait ExtractTrait {
             if (collectionTransform) {
                 rest = implode(".", array_slice(parts, i));
 
-                return (new Collection($data)).extract(rest);
+                return (new Collection( data)).extract(rest);
             }
 
-            if (!isset($data[column])) {
+            if (!isset( data[column])) {
                 return null;
             }
 
-            value = $data[column];
-            $data = value;
+            value =  data[column];
+             data = value;
         }
 
         return value;
     }
 
     /**
-     * Returns a column from $data that can be extracted
+     * Returns a column from  data that can be extracted
      * by iterating over the column names contained in path
      *
-     * @param \ArrayAccess|array $data Data.
+     * @param \ArrayAccess|array  data Data.
      * @param array<string> parts Path to extract from.
      * @return mixed
      */
-    protected function _simpleExtract($data, array parts) {
+    protected function _simpleExtract( data, array parts) {
         value = null;
         foreach (parts as column) {
-            if (!isset($data[column])) {
+            if (!isset( data[column])) {
                 return null;
             }
-            value = $data[column];
-            $data = value;
+            value =  data[column];
+             data = value;
         }
 
         return value;

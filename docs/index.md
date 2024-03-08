@@ -1,5 +1,13 @@
 Welcome
 
-(C) Copyright Ozan Nurettin Süel 2015 - 2024
+# Content
 
-mixin(TProperty!("string","typeName"));
+[Style](style.md "UIM Style")
+
+
+
+
+
+---
+
+(C) Copyright Ozan Nurettin Süel 2015 - 2024

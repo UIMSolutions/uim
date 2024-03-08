@@ -10,6 +10,9 @@ import uim.oop;
 @safe:
 class DBooleanData : DScalarData {
   mixin(DataThis!("Boolean"));
+  this(bool newValue) {
+    this(); this.value(newValue);
+  }
 
   // Initialization hook method.
   override bool initialize(IData[string] initData = null) {
@@ -23,13 +26,13 @@ class DBooleanData : DScalarData {
     return true;
   }
 
-  protected boolean _value;
-  boolean value() {
+  protected bool _value;
+  bool value() {
     return _value;
   }
   // alias get this;
   unittest {
-    /* boolean myValue = true;
+    /* bool myValue = true;
     assert(BooleanData(myValue).get == myValue);
 
     auto data = new DBooleanData;
@@ -42,7 +45,7 @@ class DBooleanData : DScalarData {
   }
 
   // #region set
-    void set(boolean newValue) {
+    void set(bool newValue) {
       _value = newValue;
     }
 
@@ -55,7 +58,7 @@ class DBooleanData : DScalarData {
         set(false);
         isNull(isNullable ? true : false);
       } else {
-        set(newValue.get!boolean);
+        set(newValue.get!bool);
         isNull(false);
       }
     }
@@ -76,7 +79,7 @@ class DBooleanData : DScalarData {
         return false;
       }
 
-      isEqual(checkValue.get!boolean);
+      isEqual(checkValue.get!bool);
     }
 
     override bool isEqual(string checkValue) {
@@ -147,14 +150,16 @@ class DBooleanData : DScalarData {
     }
   // #endregion clone
 
-  boolean toBoolean() {
+  bool toBoolean() {
     return _value;
   }
 
   // mixin DataConvertTemplate;
 }
-
-mixin(DataCalls!("BooleanData", "boolean"));
+mixin(DataCalls!("Boolean"));
+auto BooleanData(bool newValue) {
+  return new DBooleanData(newValue);
+}
 
 version (test_uim_models) {
   unittest {

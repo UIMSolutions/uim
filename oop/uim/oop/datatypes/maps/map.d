@@ -79,7 +79,7 @@ class DMapData : DData {
   }*/
 
   // #region equal
-  mixin(ScalarDataOpEquals!(null));
+  // mixin(ScalarDataOpEquals!(null));
 
   override bool isEqual(IData[string] checkData) {
     return checkData.byKeyValue

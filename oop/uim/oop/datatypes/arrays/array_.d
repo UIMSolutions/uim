@@ -46,7 +46,7 @@ class DArrayData : DData {
   // #region equal
   override bool isEqual(IData checkData) {
     auto arrayData = cast(DArrayData)checkData;
-    if (array is null) {
+    if (arrayData is null) {
       return false;
     }
 
@@ -164,6 +164,10 @@ class DArrayData : DData {
     assert(data.length == 0);
     data ~= StringData;
     assert(data.length == 1);
+  }
+
+  override Json toJson() {
+    return Json(_items.map!(item => item.toJson).array);
   }
 
   override string toString() {

@@ -8,8 +8,12 @@ module uim.oop.datatypes.scalars.integer;
 import uim.oop;
 
 @safe:
+// Datatype integer in Javascript 
 class DIntegerData : DScalarData {
   mixin(DataThis!("Integer"));
+  this(long newValue) {
+    this(); this.value(newValue);
+  }
 
   // Initialization hook method.
   override bool initialize(IData[string] initData = null) {
@@ -33,7 +37,7 @@ class DIntegerData : DScalarData {
     _value = newValue;
   }
 
-  void set(Json newValue) {
+  override void set(Json newValue) {
     if (newValue.isInteger) {
       set(newValue.get!long);
     }
@@ -47,7 +51,7 @@ class DIntegerData : DScalarData {
     }
   }
 
-  void set(string newValue) {
+  override void set(string newValue) {
     if (newValue.isNumeric) {
       set(to!long(newValue));
     }
@@ -107,35 +111,57 @@ class DIntegerData : DScalarData {
   // #endregion isEqual
 
   // #region add
-  void add(long opValue) {
-    _value += opValue;
+  void add(IData dataToAdd) {
+    if (auto data = cast(DIntegerData) dataToAdd) {
+      add(data.value);
+      return;
+    }
+
+    if (auto data = cast(DNumberData) dataToAdd) {
+      add(data.value);
+      return;
+    }
+
+    if (auto data = cast(DStringData) dataToAdd) {
+      if (data.value.isNumeric) {
+        add(to!long(data.value));
+        return;
+      }
+    }
+  }
+  /// 
+  unittest {
+    auto data = IntegerData(0);
+    data.add(IntegerData(2));
+    assert(data.value == 2);
+
+    data.add(NumberData(1.0));
+    assert(data.value == 3);
+
+    data.add(StringData("3"));
+    assert(data.value == 6);
   }
 
+  void add(string valueToAdd) {
+    if (valueToAdd.isNumeric) {
+      add(to!long(valueToAdd));
+    }
+  }
+
+  void add(double valueToAdd) {
+    add(to!long(valueToAdd));
+  }
+
+  void add(long valueToAdd) {
+    _value += valueToAdd;
+  }
+  ///
   unittest {
     auto data = IntegerData(0);
     data.add(2);
     assert(data == 2);
     data.add(2);
     assert(data == 4);
-  }
-
-  void add(IData dataToAdd) {
-    if (auto data = cast(DIntegerData)dataToAdd) {
-      _value += data.value;
-      return;
-    }
-
-    if (auto data = cast(DNumberData)dataToAdd) {
-      _value += to!long(data.value);
-      return;
-    }
-
-    if (auto data = cast(DStringData)dataToAdd) {
-      if (data.value.isNumeric) {
-        _value += to!long(data.value);
-        return;
-      }
-    }
   }
   // #endregion add
 
@@ -277,6 +303,9 @@ class DIntegerData : DScalarData {
 }
 
 mixin(DataCalls!("Integer"));
+auto IntegerData(long newValue) {
+  return new IntegerData(newVaue);
+}
 
 unittest {
   /* assert(IntegerData.set("100").toLong == 100);

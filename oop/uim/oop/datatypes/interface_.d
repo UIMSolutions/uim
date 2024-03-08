@@ -16,7 +16,6 @@ interface IData {
     bool isBoolean();
     bool isInteger();
     bool isNumber();
-    bool isLong();
     bool isTime();
     bool isDate();
     bool isDatetime();

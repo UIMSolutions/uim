@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module oop.uim.oop.datatypes.scalars.number;
+module uim.oop.datatypes.scalars.number;
 
 import uim.oop;
 
@@ -35,33 +35,36 @@ class DNumberData : DScalarData {
   }
 
   // #region Getter & Setter
+  
   double value() {
     return _value;
   }
 
-  void set(double newValue) {
-    _value = newValue;
-  }
-
-  void set(Json newValue) {
-    if (newValue.isDouble) {
-      set(newValue.get!double);
+  // #region set
+    void set(double newValue) {
+      _value = newValue;
     }
 
-    if (newValue.isInteger) {
-      set(to!double(newValue.get!long));
+    override void set(Json newValue) {
+      if (newValue.isDouble) {
+        set(newValue.get!double);
+      }
+
+      if (newValue.isInteger) {
+        set(to!double(newValue.get!long));
+      }
+
+      if (newValue.isString) {
+        value(newValue.get!string);
+      }
     }
 
-    if (newValue.isString) {
-      value(newValue.get!string);
+    override void set(string newValue) {
+      if (newValue.isNumeric) {
+        set(to!double(newValue));
+      }
     }
-  }
-
-  void set(string newValue) {
-    if (newValue.isNumeric) {
-      set(to!double(newValue));
-    }
-  }
+  // #endregion set
   ///
   unittest {
     auto data = NumberData(0.0);
@@ -85,7 +88,7 @@ class DNumberData : DScalarData {
   }
 
   // #region equal
-  mixin(ScalarDataOpEquals!("number"));
+  // mixin(ScalarDataOpEquals!("number"));
 
   override bool isEqual(IData checkData) {
     if (checkData.isNull) {
@@ -112,7 +115,7 @@ class DNumberData : DScalarData {
     return (get == to!number(checkValue));
   }
 
-  bool isEqual(number checkValue) {
+  bool isEqual(double checkValue) {
     return (get == checkValue);
   }
   ///
@@ -139,7 +142,7 @@ class DNumberData : DScalarData {
     return NumberData; // TODO (attribute, toJson);
   }
 
-  number toNumber() {
+  double toNumber() {
     if (isNull)
       return 0;
     return _value;
@@ -148,7 +151,10 @@ class DNumberData : DScalarData {
   mixin DataConvertTemplate;
 }
 
-mixin(DataCalls!("NumberData", "number"));
+mixin(DataCalls!("Number"));
+auto NumberData(double newValue) {
+  return new NumberData(newVaue);
+}
 
 unittest {
   /*alias Alias = ;

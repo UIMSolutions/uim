@@ -1,4 +1,4 @@
-module oop.uim.oop.helpers.data;
+module uim.oop.helpers.data;
 
 import uim.oop;
 
@@ -51,4 +51,12 @@ unittest {
 
     data = 1.toData;
     assert(!cast(DStringData)data);
+}
+
+IData toData(Json value) {
+    if (value.isString) {
+        return toData(value.get!string);
+    }
+    return null;
+    // TODO
 }

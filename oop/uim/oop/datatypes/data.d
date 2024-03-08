@@ -231,6 +231,10 @@ class DData : IData {
     fromJson(newData);
   } */
 
+  IData at(size_t pos) {
+    return null;
+  }
+
   IData clone() {
     return null;
   }

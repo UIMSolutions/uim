@@ -8,8 +8,7 @@ module uim.oop.datatypes.scalars;
 public { 
 	import uim.oop.datatypes.scalars.scalar;
 	import uim.oop.datatypes.scalars.boolean;
-	import uim.oop.datatypes.scalars.double_;
+	import uim.oop.datatypes.scalars.number;
 	import uim.oop.datatypes.scalars.integer;
-	import uim.oop.datatypes.scalars.long_;
 	import uim.oop.datatypes.scalars.string_; 
 }

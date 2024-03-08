@@ -304,7 +304,7 @@ class DIntegerData : DScalarData {
 
 mixin(DataCalls!("Integer"));
 auto IntegerData(long newValue) {
-  return new IntegerData(newVaue);
+  return new DIntegerData(newValue);
 }
 
 unittest {

@@ -15,8 +15,6 @@ class DMapData : DData {
 
   void opIndexAssign(IData value, string key) {
     _items[key] = value;
-
-    return this;
   }
 
   /*

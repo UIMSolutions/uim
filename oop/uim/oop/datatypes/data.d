@@ -29,8 +29,8 @@ class DData : IData {
 
   // Hook
   bool initialize(IData[string] initData = null) {
-    configuration(new DConfiguration);
-    configurationData(initData);
+    // configuration(new DConfiguration);
+    // configurationData(initData);
     return true;
   }
 
@@ -59,6 +59,7 @@ class DData : IData {
   mixin(TProperty!("bool", "isNullable"));
 
   mixin(TProperty!("string", "typeName"));
+  mixin(TProperty!("string", "name"));
 
   // #region isNull
   private bool _isNull;

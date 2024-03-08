@@ -14,7 +14,7 @@ mixin template ConfigurableTemplate() {
 
     // Set configuration
     @property void configuration(IConfiguration newConfiguration) {
-        return _configuration = newConfiguration;
+        _configuration = newConfiguration;
     }
 
     // Get configuration data

@@ -18,7 +18,7 @@ template DateFormatTrait() {
      * \IDateTime date Date.
      * @param array<int>|string aformat Format.
      * @param string locale The locale name in which the date should be displayed.
-     */
+     * /
     protected string _formatObject(
         IDateTime date,
         string[] aformat,

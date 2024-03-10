@@ -74,6 +74,7 @@ class Translator : ITranslator {
     }
 
     // Translates the message formatting any placeholders
+    /* 
     string translate(string messageKey, STRINGAA tokensValues) {
         string[] message;
         if (tokensValues.isSet("_count")) { // use plural
@@ -97,7 +98,7 @@ class Translator : ITranslator {
             tokensValues.unSet("_context");
         }
         if (tokensValues.isEmpty) { // Fallback for plurals that were using the singular key
-            return message ~ [""]).values[0];
+            return message ~ [""].values[0];
         }
 
         // Singular message, but plural call
@@ -120,7 +121,7 @@ class Translator : ITranslator {
         }
         tokensValues.unset("_count", "_singular");
         return formatter.format(_locale, message, tokensValues);
-    }
+    } */
 
     // Resolve a message`s context structure.
     protected string[] resolveContext(string messageKey, string[][string][string] messageContent, STRINGAA variables) {

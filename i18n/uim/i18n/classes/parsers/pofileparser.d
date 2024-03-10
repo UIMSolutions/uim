@@ -1,4 +1,4 @@
-module uim.i18n.Parser;
+module uim.i18n.classes.parsers.pofileparser;
 
 import uim.i18n;
 
@@ -47,7 +47,7 @@ class PoFileParser {
      * Items with an empty id are ignored.
      * Params:
      * string resourceFilepath The file name to parse
-     */
+     * /
     array parse(string resourceFilepath) {
         if (!exists(resourceFilepath)){
             throw new UimException("Not found file `%s`".format(resourceFilepath));
@@ -105,7 +105,7 @@ class PoFileParser {
             /* addMessage(messages, anItem);
             anItem["ids"]["singular"] = substr(line, 7,  - 1);
             stage = ["ids", "singular"];
-            return; */ 
+            return; * / 
         }
 
         if (line.startsWith("msgstr \" ")) {
@@ -151,7 +151,7 @@ class PoFileParser {
      * Params:
      * array messages The messages array being collected from the file
      * @param array  anItem The current item being inspected
-     */
+     * /
     protected void addMessage(array messages, Json anItem) {
         auto ids = anItem["ids"];
         if (ids["singular"].isEmpty && ids["plural"].isEmpty) {
@@ -196,5 +196,5 @@ class PoFileParser {
                 messages[Translator.PLURAL_PREFIX ~ aKey]["_context"][""] = plurals;
             }
         }
-    }
+    } */ 
 }

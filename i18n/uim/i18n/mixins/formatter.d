@@ -1,4 +1,4 @@
-module uim.i18n.mixins.formatteratter;
+module uim.i18n.mixins.formatter;
 
 string formatterThis(string name) {
     string fullName = name ~ "Formatter";

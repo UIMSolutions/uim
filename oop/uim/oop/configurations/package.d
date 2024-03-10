@@ -1,6 +1,8 @@
 module uim.oop.configurations;
 
 public { // Modules
+    import uim.oop.configurations.config;
+    import uim.oop.configurations.configurable;
     import uim.oop.configurations.configuration;
     import uim.oop.configurations.file;
     import uim.oop.configurations.ini;

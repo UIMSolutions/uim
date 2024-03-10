@@ -17,10 +17,10 @@ class UniqueIterator : Collection {
      * The callback is passed the value as the first argument and the key as the
      * second argument.
      * Params:
-     * iterable someItems The items to be filtered.
+     * range someItems The items to be filtered.
      * @param callable aCallback Callback.
      */
-    this(iterable someItems, callable aCallback) {
+    this(Range someItems, callable aCallback) {
         if (!cast(Iterator)someItems) {
             someItems = new Collection(someItems);
         }

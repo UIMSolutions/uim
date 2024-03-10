@@ -189,5 +189,5 @@ interface IRepository
      * @param array<string, mixed> options A list of options for the objects hydration.
      * @return array<uim.Datasource\IEntity>
      */
-    array patchEntities(iterable entities, array data, STRINGAA someOptions = null);
+    array patchEntities(Range entities, array data, STRINGAA someOptions = null);
 }

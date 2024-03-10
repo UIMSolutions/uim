@@ -106,10 +106,10 @@ trait QueryTrait
      *
      * This method is most useful when combined with results stored in a persistent cache.
      *
-     * @param iterable results The results this query should return.
+     * @param range results The results this query should return.
      * @return this
      */
-    function setResult(iterable results) {
+    function setResult(Range results) {
         _results = results;
 
         return this;

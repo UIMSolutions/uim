@@ -945,7 +945,7 @@ trait EntityTrait
     /**
      * Read the error(s) from one or many objects.
      *
-     * @param uim.Datasource\IEntity|iterable  object The object to read errors from.
+     * @param uim.Datasource\IEntity|range  object The object to read errors from.
      * @param string|null path The field name for errors.
      */
     protected array _readError( object, path = null) {

@@ -1,4 +1,4 @@
-module uim.oop.mixins.configurable;
+module uim.oop.configurations.configurable;
 
 import uim.oop;
 

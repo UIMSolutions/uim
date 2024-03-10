@@ -902,11 +902,11 @@ mixin EntityTemplate {
                                                         /**
      * Read the error(s) from one or many objects.
      * Params:
-     * \UIM\Datasource\IEntity|iterable object The object to read errors from.
+     * \UIM\Datasource\IEntity|range object The object to read errors from.
      * @param string somePath The field name for errors.
      */
                                                         protected array _readError(
-                                                        IEntity | iterable object, string aPath = null) {
+                                                        IEntity | range object, string aPath = null) {
                                                           if (somePath!isNull && cast(
                                                             IEntity) object) {
                                                             return object.getError(

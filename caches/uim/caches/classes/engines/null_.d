@@ -16,13 +16,13 @@ class NullEngine : CacheEngine {
     return true;
   }
 
-  bool set(string aKey, Json aValue, DateInterval | int | null aTtl = null) {
+  /* bool set(string aKey, Json aValue, DateInterval | int | null aTtl = null) {
     return true;
   }
 
   bool setMultiple(iterable someValues, DateInterval | int | null aTtl = null) {
     return true;
-  }
+  } */ 
 
   Json get(string aKey, Json defaultValues = null) {
     return defaultValues;

@@ -76,14 +76,14 @@ h     */
     if (!extension_loaded("memcached")) {
       throw new UimException("The `memcached` extension must be enabled to use MemcachedEngine.");
     }
-    _serializers = [
+    /* _serializers = [
       "igbinary": Memcached: : SERIALIZER_IGBINARY,
       "json": Memcached: : SERIALIZER_JSON,
       "php": Memcached: : SERIALIZER_PHP,
-    ];
+    ]; */
 
     if (defined("Memcached.HAVE_MSGPACK")) {
-      _serializers["msgpack"] = Memcached :  : SERIALIZER_MSGPACK;
+      // TODO _serializers["msgpack"] = Memcached :  : SERIALIZER_MSGPACK;
     }
     super.initialize(initData);
 
@@ -96,14 +96,14 @@ h     */
     if (isSet(configData"servers"])) {
       configuration.update("servers", configuration["servers"], false);
     }
-    if (!isArray(configuration["servers"])) {
+    /* if (!isArray(configuration["servers"])) {
       configuration["servers"] = [configuration["servers"]];
-    }
+    } */ 
     if (isSet(_Memcached)) {
       return true;
     }
-    _Memcached = configuration["persistent"]
-      ? new Memcached(configuration["persistent"]) : new Memcached();
+    // _Memcached = configuration["persistent"]
+    // TODO   ? new Memcached(configuration["persistent"]) : new Memcached();
   }
 
   _setOptions();

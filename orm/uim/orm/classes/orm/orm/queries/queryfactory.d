@@ -30,7 +30,7 @@ class QueryFactory {
      * Params:
      * \UIM\ORM\Table mytable The table this query is starting on.
      */
-    DeleteQuery delete(Table mytable) {
+    DeleteQuery delete_(Table mytable) {
         return new DeleteQuery(mytable);
     }
 }

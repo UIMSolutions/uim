@@ -47,16 +47,16 @@ class FileEngine : CacheEngine {
             return false;
         }
 
-        Configuration.updateDefaults([
+        /* Configuration.updateDefaults([
             "duration": 3600,
             "groups": [],
             "lock": true,
-            "mask": 0664,
-            "dirMask": 0770,
+            "mask": std.conv.octal!"664",
+            "dirMask": std.conv.octal!"770",
             "path": null,
             "prefix": "uim_",
             "serialize": true,
-        ]);
+        ]); * / 
 
         configuration["path"] = configuration.get("path", sys_get_temp_dir()~DIRECTORY_SEPARATOR ~ "cake_cache" ~ DIRECTORY_SEPARATOR);
         if (substr(configuration["path"], -1) != DIRECTORY_SEPARATOR) {
@@ -64,7 +64,7 @@ class FileEngine : CacheEngine {
         }
         if (_groupPrefix) {
             _groupPrefix = _groupPrefix.replace("_", DIRECTORY_SEPARATOR);
-        }
+        } */ 
         return _active();
     }
 
@@ -77,7 +77,7 @@ class FileEngine : CacheEngine {
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      */
-    bool set(string dataId, Json cacheData, DateInterval | int myttl = null) {
+    /* bool set(string dataId, Json cacheData, DateInterval | int myttl = null) {
         if (cacheData == "" || !_init) {
             return false;
         }
@@ -107,7 +107,7 @@ class FileEngine : CacheEngine {
         _File = null;
 
         return mysuccess;
-    }
+    } */ 
 
     /**
      * Read a key from the cache
@@ -125,7 +125,7 @@ class FileEngine : CacheEngine {
         }
         _File.rewind();
         mytime = time();
-        mycachetime = (int) _File.current();
+        mycachetime = to!int(_File.current());
 
         if (mycachetime < mytime) {
             if (configuration["lock"]) {
@@ -319,7 +319,7 @@ class FileEngine : CacheEngine {
     }
 
     // Determine if cache directory is writable
-    protected bool _active() {
+    /* protected bool _active() {
         mydir = new SplFileInfo(configuration["path"]);
         mypath = mydir.getPathname();
         mysuccess = true;
@@ -336,12 +336,12 @@ class FileEngine : CacheEngine {
                     ), E_USER_WARNING);
         }
         return mysuccess;
-    }
+    } */ 
 
     protected string _key(string aKey) {
-        aKey = super._key(aKey);
+        auto newKey = super._key(aKey);
 
-        return rawurlencode(aKey);
+        return rawurlencode(newKey);
     }
 
     /**
@@ -360,7 +360,7 @@ class FileEngine : CacheEngine {
             RecursiveIteratorIterator.CHILD_FIRST
         );
         /** @var array<\SplFileInfo> myfiltered */
-        auto myfiltered = new CallbackFilterIterator(
+        /* auto myfiltered = new CallbackFilterIterator(
             mycontents,
             auto(SplFileInfo mycurrent) use(groupName, myprefix) {
             if (!mycurrent.isFile()) {
@@ -383,4 +383,7 @@ class FileEngine : CacheEngine {
 
                     return true;
                 }
-            }
+            } */
+
+    }
+}

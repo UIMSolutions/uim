@@ -228,19 +228,19 @@ DORMTable::afterSaveCommit(EventInterface event, EntityInterface entity, ArrayOb
 The Model.afterSaveCommit event is fired after the transaction in which the save operation is wrapped has been committed. It’s also triggered for non atomic saves where database operations are implicitly committed. The event is triggered only for the primary table on which save() is directly called. The event is not triggered if a transaction is started before calling save.
 beforeDelete
 
-DORMTable::beforeDelete(EventInterface event, EntityInterface entity, ArrayObject options)
+DORMTable::beforeDelete_(EventInterface event, EntityInterface entity, ArrayObject options)
 
 The Model.beforeDelete event is fired before an entity is deleted. By stopping this event you will abort the delete operation. When the event is stopped the result of the event will be returned.
 afterDelete
 
-DORMTable::afterDelete(EventInterface event, EntityInterface entity, ArrayObject options)
+DORMTable::afterDelete_(EventInterface event, EntityInterface entity, ArrayObject options)
 
 The Model.afterDelete event is fired after an entity has been deleted.
 afterDeleteCommit
 
 DORMTable::afterDeleteCommit(EventInterface event, EntityInterface entity, ArrayObject options)
 
-The Model.afterDeleteCommit event is fired after the transaction in which the delete operation is wrapped has been is committed. It’s also triggered for non atomic deletes where database operations are implicitly committed. The event is triggered only for the primary table on which delete() is directly called. The event is not triggered if a transaction is started before calling delete.
+The Model.afterDeleteCommit event is fired after the transaction in which the delete operation is wrapped has been is committed. It’s also triggered for non atomic deletes where database operations are implicitly committed. The event is triggered only for the primary table on which delete_() is directly called. The event is not triggered if a transaction is started before calling delete.
 Stopping Table Events
 
 To prevent the save from continuing, simply stop event propagation in your callback:
@@ -260,7 +260,7 @@ Callback priorities
 
 When using events on your tables and behaviors be aware of the priority and the order listeners are attached. Behavior events are attached before Table events are. With the default priorities this means that Behavior callbacks are triggered before the Table event with the same name.
 
-As an example, if your Table is using TreeBehavior the TreeBehavior::beforeDelete() method will be called before your table’s beforeDelete() method, and you will not be able to work wth the child nodes of the record being deleted in your Table’s method.
+As an example, if your Table is using TreeBehavior the TreeBehavior::beforeDelete_() method will be called before your table’s beforeDelete_() method, and you will not be able to work wth the child nodes of the record being deleted in your Table’s method.
 
 You can manage event priorities in one of a few ways:
 

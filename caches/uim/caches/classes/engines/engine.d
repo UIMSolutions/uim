@@ -40,8 +40,8 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * configData - Associative array of parameters for the engine
      */
     bool initialize(IData[string] initData = null) {
-            configuration(new DConfiguration);
-    configuration.data(initData);
+        configuration(new DConfiguration);
+        configuration.data(initData);
 
         if (configuration.hasKey("groups")) {
             configuration["groups"].sort;
@@ -73,14 +73,11 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * iterable myiterable The iterable to check.
      * @param string mycheck Whether to check keys or values.
      */
-    protected void ensureValidType(iterable myiterable, string mycheck = self.CHECK_VALUE) {
+    /* protected void ensureValidType(iterable myiterable, string mycheck = self.CHECK_VALUE) {
         myiterable.bykeyValue
             .each!(kv => 
-                mycheck == self.CHECK_VALUE 
-                    ? this.ensureValidKey(kv.value)
-                    : this.ensureValidKey(kv.key));
-        }
-    }
+                mycheck == self.CHECK_VALUE ? this.ensureValidKey(kv.value) : this.ensureValidKey(kv.key));
+    } */ 
     
     /**
      * Obtains multiple cache items by their unique keys.
@@ -159,9 +156,9 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * Params:
      * string aKey The cache item key.
      */
-    bool has(string aKey) {
+    /* bool has(string aKey) {
         return this.get(aKey) !isNull;
-    }
+    } */ 
     
     /**
      * Fetches the value for a given key from the cache.
@@ -199,9 +196,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     // Delete a key from the cache
     abstract bool delete_(string dataId);
 
-    /**
-     * Delete all keys from the cache
-     */
+    // Delete all keys from the cache
     abstract bool clear();
 
     /**

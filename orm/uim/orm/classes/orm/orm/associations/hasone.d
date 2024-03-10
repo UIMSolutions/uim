@@ -102,9 +102,9 @@ class HasOne : DAssociation {
         return selectLoader.buildEagerLoader(options);
     }
 
-    bool cascadeDelete(IEntity entity, IData[string] options = null) {
+    bool cascadeDelete_(IEntity entity, IData[string] options = null) {
         auto deleteHelper = new DependentDeleteHelper();
 
-        return deleteHelper.cascadeDelete(this, entity, options);
+        return deleteHelper.cascadeDelete_(this, entity, options);
     }
 }

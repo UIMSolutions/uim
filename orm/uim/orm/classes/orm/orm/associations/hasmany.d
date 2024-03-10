@@ -236,7 +236,7 @@ class HasMany : DAssociation {
      *
      * ### Options
      *
-     * Additionally to the default options accepted by `Table.delete()`, the following
+     * Additionally to the default options accepted by `Table.delete_()`, the following
      * keys are supported:
      *
      * - cleanProperty: Whether to remove all the objects in `targetEntities` that
@@ -380,7 +380,7 @@ class HasMany : DAssociation {
      * @param \UIM\Datasource\IEntity entity the entity which should have its associated entities unassigned
      * @param \UIM\ORM\Table target The associated table
      * @param iterable remainingEntities Entities that should not be deleted
-     * @param IData[string] options list of options accepted by `Table.delete()`
+     * @param IData[string] options list of options accepted by `Table.delete_()`
      */
     protected bool _unlinkAssociated(
         array foreignKeyReference,
@@ -425,7 +425,7 @@ class HasMany : DAssociation {
      * array foreignKey array of foreign key properties
      * @param \UIM\ORM\Table target The associated table
      * @param array conditions The conditions that specifies what are the objects to be unlinked
-     * @param IData[string] options list of options accepted by `Table.delete()`
+     * @param IData[string] options list of options accepted by `Table.delete_()`
      */
     protected bool _unlink(array foreignKey, Table target, array conditions = [], IData[string] options = null) {
         mustBeDependent = (!_foreignKeyAcceptsNull(target, foreignKey) || this.getDependent());
@@ -444,7 +444,7 @@ class HasMany : DAssociation {
                 aQuery = this.find().where(conditions);
                 ok = true;
                 foreach (aQuery.all() as assoc) {
-                    ok = ok && target.delete(assoc, options);
+                    ok = ok && target.delete_(assoc, options);
                 }
                 return ok;
             }
@@ -556,9 +556,9 @@ class HasMany : DAssociation {
         return loader.buildEagerLoader(options);
     }
  
-    bool cascadeDelete(IEntity entity, IData[string] options = null) {
+    bool cascadeDelete_(IEntity entity, IData[string] options = null) {
         helper = new DependentDeleteHelper();
 
-        return helper.cascadeDelete(this, entity, options);
+        return helper.cascadeDelete_(this, entity, options);
     }
 }

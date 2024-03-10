@@ -76,7 +76,7 @@ class DArrayEngine : DCacheEngine {
      * Decrements the value of an integer cached key
      * @param int anOffset How much to subValue
      */
-  int decrement(string dataId, int subValue = 1) | false {
+  /* int decrement(string dataId, int subValue = 1) | false {
     if (this.get(dataId).isNull) {
       this.set(dataId, 0);
     }
@@ -84,7 +84,7 @@ class DArrayEngine : DCacheEngine {
     _cachedData[key]["val"] -= subValue;
 
     return _cachedData[key]["val"];
-  }
+  } */ 
 
   // Delete a key from the cache
   bool delete_(string dataId) {
@@ -108,9 +108,9 @@ class DArrayEngine : DCacheEngine {
      * If the group initial value was not found, then it initializes
      * the group accordingly.
      */
-  string[] groups() {
+  /* string[] groups() {
     auto result;
-    foreach (myGroup; configuration["groups")) {
+    foreach (myGroup; configuration["groups"]) {
       string key = configuration["prefix").toString ~ myGroup;
       if (!_cachedData.isSet(key)) {
         _cachedData[aKey] = ["exp": PHP_INT_MAX, "val": 1];
@@ -119,7 +119,7 @@ class DArrayEngine : DCacheEngine {
       result ~= myGroup ~ myvalue;
     }
     return result;
-  }
+  } */ 
 
   /**
      * Increments the group value to simulate deletion of all keys under a group
@@ -128,11 +128,11 @@ class DArrayEngine : DCacheEngine {
      * string aGroup The group to clear.
      * return true if success
      */
-  bool clearGroup(string aGroup) {
+  /* bool clearGroup(string aGroup) {
     string aKey = configuration["prefix").toString ~ aGroup;
     if (_cachedData.isSet(aKey)) {
       _cachedData[aKey]["val"] += 1;
     }
     return true;
-  }
+  } */ 
 }

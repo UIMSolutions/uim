@@ -170,7 +170,7 @@ class TreeBehavior : Behavior {
      * \UIM\Event\IEvent<\UIM\ORM\Table> myevent The beforeDelete event that was fired
      * @param \UIM\Datasource\IEntity myentity The entity that is going to be saved
      */
-    void beforeDelete(IEvent myevent, IEntity myentity) {
+    void beforeDelete_(IEvent myevent, IEntity myentity) {
         configData = this.getConfig();
        _ensureFields(myentity);
         myleft = myentity.get(configData("left"]);
@@ -188,7 +188,7 @@ class TreeBehavior : Behavior {
 
                 myentities = myquery.toArray();
                 foreach (myentities as myentityToDelete) {
-                   _table.delete(myentityToDelete, ["atomic": false]);
+                   _table.delete_(myentityToDelete, ["atomic": false]);
                 }
             } else {
                _scope(_table.deleteQuery())

@@ -55,7 +55,7 @@ class TableRegistry {
      * Sets singleton instance of ILocatorimplementation.
      *
      * @param DORMLocator\ILocator tableLocator Instance of a locator to use.
-     */
+     * /
     static void setTableLocator(ILocator tableLocator) {
         FactoryLocator::add("Table", tableLocator);
     }
@@ -67,7 +67,7 @@ class TableRegistry {
      * @param DORMTable object The table to set.
      * @return DORMTable
      * @deprecated 3.6.0 Use {@link DORMLocator\TableLocator::set()} instead. Will be removed in 5.0
-     */
+     * /
     static function set(string anAliasName, Table object): Table
     {
         return getTableLocator().set(alias, object);
@@ -79,7 +79,7 @@ class TableRegistry {
      * @param string anAliasName The alias to remove.
      * @return void
      * @deprecated 3.6.0 Use {@link DORMLocator\TableLocator::remove()} instead. Will be removed in 5.0
-     */
+     * /
     static void remove(string anAliasName) {
         getTableLocator().remove(alias);
     }
@@ -89,7 +89,7 @@ class TableRegistry {
      *
      * @return void
      * @deprecated 3.6.0 Use {@link DORMLocator\TableLocator::clear()} instead. Will be removed in 5.0
-     */
+     * /
     static void clear() {
         getTableLocator().clear();
     }

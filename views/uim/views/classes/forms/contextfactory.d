@@ -26,7 +26,7 @@ class ContextFactory {
      * Params:
      * array myproviders Array of provider callables. Each element should
      *  be of form `["type": "a-string", "callable": ..]`
-     */
+     * /
     static static createWithDefaults(array myproviders = []) {
         auto myproviders = [
             [

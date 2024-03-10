@@ -242,7 +242,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      *
      * @return string
      * @see DORMLocator\TableLocator::get()
-     */
+     * /
     static function defaultConnectionName() {
         return "default";
     }

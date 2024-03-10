@@ -66,7 +66,7 @@ class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * @param string aClassName  Partial classname to resolve.
      * @return string|null Either the correct classname or null.
      * @psalm-return class-string|null
-     */
+     * /
     static Nullable!string className(string aClassName ) {
         return App::className(class, "Model/Behavior", "Behavior")
             ?: App::className(class, "ORM/Behavior", "Behavior");

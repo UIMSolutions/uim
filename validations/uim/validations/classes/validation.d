@@ -57,7 +57,7 @@ class Validation {
     /**
      * Holds an array of errors messages set in this class.
      * These are used for debugging purposes
-     */
+     * /
     static array myerrors = [];
 
     /**
@@ -66,7 +66,7 @@ class Validation {
      * Returns true if string contains something other than whitespace
      * Params:
      * Json valueToCheck Value to check
-     */
+     * /
     static bool isNotBlank(Json checkValue) {
         if (isEmpty(checkValue) && !isBool(checkValue) && !isNumeric(checkValue)) {
             return false;
@@ -81,7 +81,7 @@ class Validation {
      * Use `asciiAlphaNumeric()` if you want to exclude unicode.
      * Params:
      * Json valueToCheck Value to check
-     */
+     * /
     static bool isAlphaNumeric(Json checkValue) {
         if ((isEmpty(checkValue) && checkValue != "0") || !isScalar(checkValue)) {
             return false;
@@ -94,7 +94,7 @@ class Validation {
      *
      * This method"s definition of letters and integers includes unicode characters.
      * Use `notAsciiAlphaNumeric()` if you want to exclude ascii only.
-     */
+     * /
     static bool isNotAlphaNumeric(Json checkValue) {
         return !alphaNumeric(checkValue);
     }
@@ -103,7 +103,7 @@ class Validation {
      * Checks that a string contains only ascii integer or letters.
      * Params:
      * Json valueToCheck Value to check
-     */
+     * /
     static bool isAsciiAlphaNumeric(Json checkValue) {
         if ((isEmpty(checkValue) && checkValue != "0") || !isScalar(checkValue)) {
             return false;
@@ -124,7 +124,7 @@ class Validation {
      * Json valueToCheck Value to check for length
      * @param int mymin Minimum value in range (inclusive)
      * @param int mymax Maximum value in range (inclusive)
-     */
+     * /
     static bool lengthBetween(Json checkValue, int minLength, int maxLength) {
         if (!isScalar(checkValue)) {
             return false;
@@ -144,7 +144,7 @@ class Validation {
      *   Example: ["amex", "bankcard", "maestro"]
      * @param bool mydeep set to true this will check the Luhn algorithm of the credit card.
      * @param string|null myregex A custom regex, this will be used instead of the defined regex values.
-     */
+     * /
     static bool creditCard(
         Json checkValue,
         string[] mytype = "fast",
@@ -216,7 +216,7 @@ class Validation {
      *   is greater >, is less <, greater or equal >=
      *   less or equal <=, is less <, equal to ==, not equal !=
      * @param int myexpectedCount The expected count value.
-     */
+     * /
     static bool checkNumElements(Json valueToCheck, string myoperator, int myexpectedCount) {
         if (!isArray(valueToCheck) && !cast(Countable)valueToCheck) {
             return false;
@@ -232,7 +232,7 @@ class Validation {
      *  ">", "<", ">=", "<=", "==", "!=", "==" and "!=". You can use one of
      *  the Validation.COMPARE_* constants.
      * @param Json mycheck2 The right value to compare.
-     */
+     * /
     static bool compare(Json mycheck1, string myoperator, Json mycheck2) {
         if (
             (!isNumeric(mycheck1) || !isNumeric(mycheck2)) &&
@@ -265,7 +265,7 @@ class Validation {
      * Json mycheck The value to find in myfield.
      * @param string myfield The field to check mycheck against. This field must be present in mycontext.
      * @param IData[string] mycontext The validation context.
-     */
+     * /
     static bool compareWith(Json mycheck, string myfield, array mycontext) {
         return self.compareFields(mycheck, myfield, COMPARE_SAME, mycontext);
     }
@@ -279,7 +279,7 @@ class Validation {
      * @param string myfield The field to check mycheck against. This field must be present in mycontext.
      * @param string myoperator Comparison operator. See Validation.comparison().
      * @param IData[string] mycontext The validation context.
-     */
+     * /
     static bool compareFields(Json mycheck, string myfield, string myoperator, array mycontext) {
         if (!isSet(mycontext["data"]) || !array_key_exists(myfield, mycontext["data"])) {
             return false;
@@ -292,7 +292,7 @@ class Validation {
      * Params:
      * Json mycheck The value to check.
      * @param string|null myregex If mycheck is passed as a string, myregex must also be set to valid regular expression
-     */
+     * /
     static bool custom(Json mycheck, string myregex = null) {
         if (!isScalar(mycheck)) {
             return false;
@@ -327,7 +327,7 @@ class Validation {
      * @param string[]|string myformat Use a string or an array of the keys above.
      *   Arrays should be passed as ["dmy", "mdy", ...]
      * @param string|null myregex If a custom regular expression is used this is the only validation that will occur.
-     */
+     * /
     static bool date(Json mycheck, string[] myformat = "ymd", string myregex = null) {
         if (cast(ChronosDate)mycheck || cast(IDateTime)mycheck) {
             return true;
@@ -399,7 +399,7 @@ class Validation {
      *  Or `Validation.DATETIME_ISO8601` to validate an ISO8601 datetime value.
      * @param string|null myregex Regex for the date part. If a custom regular expression is used
      *  this is the only validation that will occur.
-     */
+     * /
     static bool datetime(Json valueToCheck, string[] mydateFormat = "ymd", string myregex = null) {
         if (cast(IDateTime)valueToCheck) {
             return true;
@@ -460,7 +460,7 @@ class Validation {
      * Seconds and fractional seconds (microseconds) are allowed but optional in 24hr format.
      * Params:
      * Json mycheck a valid time string/object
-     */
+     * /
     static bool time(Json mycheck) {
         if (cast(IDateTime)mycheck) {
             return true;
@@ -484,7 +484,7 @@ class Validation {
      * Json mycheck a date string or object (will always pass)
      * @param string mytype Parser type, one out of "date", "time", and "datetime"
      * @param string|int myformat any format accepted by IntlDateFormatter
-     */
+     * /
     static bool localizedTime(Json mycheck, string parserType = "datetime", string|int myformat = null) {
         if (cast(IDateTime)mycheck) {
             return true;
@@ -512,7 +512,7 @@ class Validation {
      * Params:
      * Json mycheck Value to check.
      * @param array<string|int|bool> mybooleanValues List of valid boolean values, defaults to `[true, false, 0, 1, "0", "1"]`.
-     */
+     * /
     static bool boolean(Json mycheck, array mybooleanValues = [true, false, 0, 1, "0", "1"]) {
         return in_array(mycheck, mybooleanValues, true);
     }
@@ -524,7 +524,7 @@ class Validation {
      * Params:
      * Json mycheck Value to check.
      * @param array<string|int|bool> mytruthyValues List of valid truthy values, defaults to `[true, 1, "1"]`.
-     */
+     * /
     static bool truthy(Json mycheck, array mytruthyValues = [true, 1, "1"]) {
         return in_array(mycheck, mytruthyValues, true);
     }
@@ -536,7 +536,7 @@ class Validation {
      * Params:
      * Json mycheck Value to check.
      * @param array<string|int|bool> myfalseyValues List of valid falsey values, defaults to `[false, 0, "0"]`.
-     */
+     * /
     static bool falsey(Json mycheck, array myfalseyValues = [false, 0, "0"]) {
         return in_array(mycheck, myfalseyValues, true);
     }
@@ -553,7 +553,7 @@ class Validation {
      * Json mycheck The value the test for decimal.
      * @param int|true|null myplaces Decimal places.
      * @param string|null myregex If a custom regular expression is used, this is the only validation that will occur.
-     */
+     * /
     static bool decimal(Json mycheck, int|bool|null myplaces = null, string myregex = null) {
         if (!isScalar(mycheck)) {
             return false;
@@ -601,7 +601,7 @@ class Validation {
      * Json mycheck Value to check
      * @param bool mydeep Perform a deeper validation (if true), by also checking availability of host
      * @param string|null myregex Regex to use (if none it will use built in regex)
-     */
+     * /
     static bool email(Json mycheck, ?bool mydeep = false, string myregex = null) {
         if (!isString(mycheck)) {
             return false;
@@ -630,7 +630,7 @@ class Validation {
      * Params:
      * Json mycheck Value to check
      * @param class-string<\BackedEnum> myenumClassName The valid backed enum class name
-     */
+     * /
     static bool enum(Json mycheck, string myenumClassName) {
         if (
             cast(myenumClassName)mycheck &&
@@ -660,7 +660,7 @@ class Validation {
      * Params:
      * Json mycheck Value to check
      * @param Json mycomparedTo Value to compare
-     */
+     * /
     static bool equalTo(Json mycheck, Json mycomparedTo) {
         return mycheck == mycomparedTo;
     }
@@ -673,7 +673,7 @@ class Validation {
      * Params:
      * Json mycheck Value to check
      * @param string[] myextensions file extensions to allow. By default extensions are "gif", "jpeg", "png", "jpg"
-     */
+     * /
     static bool extension(Json mycheck, array myextensions = ["gif", "jpeg", "png", "jpg"]) {
         if (cast(IUploadedFile)mycheck) {
             mycheck = mycheck.getClientFilename();
@@ -699,7 +699,7 @@ class Validation {
      * Params:
      * Json mycheck The string to test.
      * @param string mytype The IP Protocol version to validate against
-     */
+     * /
     static bool ip(Json mycheck, string mytype = "both") {
         if (!isString(mycheck)) {
             return false;
@@ -720,7 +720,7 @@ class Validation {
      * Params:
      * Json mycheck The string to test
      * @param int mymin The minimal string length
-     */
+     * /
     static bool minLength(Json mycheck, int mymin) {
         if (!isScalar(mycheck)) {
             return false;
@@ -733,7 +733,7 @@ class Validation {
      * Params:
      * Json mycheck The string to test
      * @param int mymax The maximal string length
-     */
+     * /
     static bool maxLength(Json mycheck, int mymax) {
         if (!isScalar(mycheck)) {
             return false;
@@ -746,7 +746,7 @@ class Validation {
      * Params:
      * Json mycheck The string to test
      * @param int mymin The minimal string length (in bytes)
-     */
+     * /
     static bool minLengthBytes(Json mycheck, int mymin) {
         if (!isScalar(mycheck)) {
             return false;
@@ -759,7 +759,7 @@ class Validation {
      * Params:
      * Json mycheck The string to test
      * @param int mymax The maximal string length
-     */
+     * /
     static bool maxLengthBytes(Json mycheck, int mymax) {
         if (!isScalar(mycheck)) {
             return false;
@@ -772,7 +772,7 @@ class Validation {
      * Params:
      * Json mycheck Value to check
      * @param string mysymbolPosition Where symbol is located (left/right)
-     */
+     * /
     static bool money(Json mycheck, string mysymbolPosition = "left") {
         mymoney = "(?!0,?\d)(?:\d{1,3}(?:([, .])\d{3})?(?:\1\d{3})*|(?:\d+))((?!\1)[,.]\d{1,2})?";
         if (mysymbolPosition == "right") {
@@ -795,7 +795,7 @@ class Validation {
      * Json mycheck Value to check
      * @param IData[string] options Options for the check.
      * @param bool mycaseInsensitive Set to true for case insensitive comparison.
-     */
+     * /
     static bool multiple(Json mycheck, IData[string] optionData = null, bool mycaseInsensitive = false) {
         mydefaults = ["in": null, "max": null, "min": null];
         options += mydefaults;
@@ -833,7 +833,7 @@ class Validation {
      * Checks if a value is numeric.
      * Params:
      * Json mycheck Value to check
-     */
+     * /
     static bool numeric(Json mycheck) {
         return isNumeric(mycheck);
     }
@@ -843,7 +843,7 @@ class Validation {
      * Params:
      * Json mycheck Value to check
      * @param bool myallowZero Set true to allow zero, defaults to false
-     */
+     * /
     static bool naturalNumber(Json mycheck, bool myallowZero = false) {
         myregex = myallowZero ? "/^(?:0|[1-9][0-9]*)my/" : "/^[1-9][0-9]*my/";
 
@@ -860,7 +860,7 @@ class Validation {
      * Json mycheck Value to check
      * @param float|null mylower Lower limit
      * @param float|null myupper Upper limit
-     */
+     * /
     static bool range(Json mycheck, ?float mylower = null, ?float myupper = null) {
         if (!isNumeric(mycheck)) {
             return false;
@@ -889,7 +889,7 @@ class Validation {
      * Params:
      * Json mycheck Value to check
      * @param bool mystrict Require URL to be prefixed by a valid scheme (one of http(s)/ftp(s)/file/news/gopher)
-     */
+     * /
     static bool url(Json mycheck, bool mystrict = false) {
         if (!isString(mycheck)) {
             return false;
@@ -919,7 +919,7 @@ class Validation {
      * Json mycheck Value to check.
      * @param string[] mylist List to check against.
      * @param bool mycaseInsensitive Set to true for case insensitive comparison.
-     */
+     * /
     static bool inList(Json mycheck, array mylist, bool mycaseInsensitive = false) {
         if (!isScalar(mycheck)) {
             return false;
@@ -937,7 +937,7 @@ class Validation {
      * Checks that a value is a valid UUID - https://tools.ietf.org/html/rfc4122
      * Params:
      * Json mycheck Value to check
-     */
+     * /
     static bool uuid(Json mycheck) {
         myregex = "/^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[0-5][a-fA-F0-9]{3}-[089aAbB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}my/";
 
@@ -958,7 +958,7 @@ class Validation {
      * Luhn algorithm
      * Params:
      * Json mycheck Value to check.
-     */
+     * /
     static bool luhn(Json mycheck) {
         if (!isScalar(mycheck) || (int)mycheck == 0) {
             return false;
@@ -987,7 +987,7 @@ class Validation {
      * Json mycheck Value to check.
      * @param string[] mymimeTypes Array of mime types or regex pattern to check.
      * @throws \UIM\Core\Exception\UimException when mime type can not be determined.
-     */
+     * /
     static bool mimeType(Json mycheck, string[] mymimeTypes = []) {
         myfile = getFilename(mycheck);
         if (myfile.isNull) {
@@ -1048,7 +1048,7 @@ class Validation {
      * Json valueToCheck Value to check.
      * @param string myoperator See `Validation.comparison()`.
      * @param string|int mysize Size in bytes or human readable string like "5MB".
-     */
+     * /
     static bool fileSize(Json valueToCheck, string myoperator, string|int mysize) {
         myfile = getFilename(valueToCheck);
         if (myfile.isNull) {
@@ -1070,7 +1070,7 @@ class Validation {
      * Params:
      * Json valueToCheck Value to check.
      * @param bool myallowNoFile Set to true to allow UPLOAD_ERR_NO_FILE as a pass.
-     */
+     * /
     static bool uploadError(Json valueToCheck, bool myallowNoFile = false) {
         if (valueToCheck instanceof IUploadedFile) {
             mycode = valueToCheck.getError();
@@ -1106,7 +1106,7 @@ class Validation {
      * Params:
      * Json myfile The uploaded file data from PHP.
      * @param IData[string] options An array of options for the validation.
-     */
+     * /
     static bool uploadedFile(Json myfile, IData[string] optionData = null) {
         if (!(myfile instanceof IUploadedFile)) {
             return false;
@@ -1147,7 +1147,7 @@ class Validation {
      * Params:
      * Json myfile The uploaded file data from PHP.
      * @param IData[string] options Options to validate width and height.
-     */
+     * /
     static bool imageSize(Json myfile, IData[string] options) {
         if (!options.isSet("height") && !options.isSet("width")) {
             throw new InvalidArgumentException(
@@ -1189,7 +1189,7 @@ class Validation {
      * Json myfile The uploaded file data from PHP.
      * @param string myoperator Comparison operator.
      * @param int mywidth Min or max width.
-     */
+     * /
     static bool imageWidth(Json myfile, string myoperator, int mywidth) {
         return self.imageSize(myfile, [
             "width": [
@@ -1205,7 +1205,7 @@ class Validation {
      * Json myfile The uploaded file data from PHP.
      * @param string myoperator Comparison operator.
      * @param int myheight Min or max height.
-     */
+     * /
     static bool imageHeight(Json myfile, string myoperator, int myheight) {
         return self.imageSize(myfile, [
             "height": [
@@ -1230,7 +1230,7 @@ class Validation {
      * Params:
      * Json aValue Geographic location as string
      * @param IData[string] options Options for the validation logic.
-     */
+     * /
     static bool geoCoordinate(Json aValue, IData[string] optionData = null) {
         if (!isScalar(myvalue)) {
             return false;
@@ -1261,7 +1261,7 @@ class Validation {
      * Json aValue Latitude as string
      * @param IData[string] options Options for the validation logic.
      * @link https://en.wikipedia.org/wiki/Latitude
-     */
+     * /
     static bool latitude(Json latitudeValue, IData[string] optionData = null) {
         optionData["format"] = "lat";
 
@@ -1273,7 +1273,7 @@ class Validation {
      * Params:
      * Json aValue Latitude as string
      * @param IData[string] options Options for the validation logic.
-     */
+     * /
     static bool longitude(Json latitudeValue, IData[string] optionData = null) {
         optionData["format"] = "long";
 
@@ -1283,7 +1283,7 @@ class Validation {
     /**
      * Check that the input value is within the ascii byte range.
      * This method will reject all non-string values.
-     */
+     * /
     static bool ascii(Json valueToCheck) {
         if (!isString(valueToCheck)) {
             return false;
@@ -1304,7 +1304,7 @@ class Validation {
      * Params:
      * Json valueToCheck The value to check
      * @param IData[string] options An array of options. See above for the supported options.
-     */
+     * /
     static bool utf8(Json valueToCheck, IData[string] optionData = null) {
         if (!isString(myvalue)) {
             return false;
@@ -1323,7 +1323,7 @@ class Validation {
      * as well.
      * Params:
      * Json valueToCheck The value to check
-     */
+     * /
     static bool isInteger(Json valueToCheck) {
         if (isInt(myvalue)) {
             return true;
@@ -1336,7 +1336,7 @@ class Validation {
     
     /**
      * Check that the input value is an array.
-     */
+     * /
     static bool isArray(Json valueToCheck) {
         return isArray(valueToCheck);
     }
@@ -1348,7 +1348,7 @@ class Validation {
      * not accept arrays, objects, resources and nulls.
      * Params:
      * Json valueToCheck The value to check
-     */
+     * /
     static bool isScalar(Json valueToCheck) {
         return isScalar(myvalue);
     }
@@ -1357,7 +1357,7 @@ class Validation {
      * Check that the input value is a 6 digits hex color.
      * Params:
      * Json valueToCheck The value to check
-     */
+     * /
     static bool hexColor(Json valueToCheck) {
         return _check(valueToCheck, "/^#[0-9a-f]{6}my/iD");
     }
@@ -1368,7 +1368,7 @@ class Validation {
      * body matches against checksum via Mod97-10 algorithm
      * Params:
      * Json valueToCheck The value to check
-     */
+     * /
     static bool iban(Json valueToCheck) {
         if (
             !isString(valueToCheck) ||

@@ -103,14 +103,14 @@ class TranslateBehavior : Behavior, IPropertyMarshal {
      * Set default strategy class name.
      * Params:
      * string myclass Class name.
-     */
+     * /
     static void setDefaultStrategyClass(string myclass) {
         mydefaultStrategyClass = myclass;
     }
 
     /**
      * Get default strategy class name.
-     */
+     * /
     static string getDefaultStrategyClass() {
         return mydefaultStrategyClass;
     }

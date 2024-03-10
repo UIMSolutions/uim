@@ -53,7 +53,7 @@ class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * Resolve a behavior classname.
      * Params:
      * string myclass Partial classname to resolve.
-     */
+     * /
     static string className(string myclass) {
         return App.className(myclass, "Model/Behavior", "Behavior")
             ?: App.className(myclass, "ORM/Behavior", "Behavior");

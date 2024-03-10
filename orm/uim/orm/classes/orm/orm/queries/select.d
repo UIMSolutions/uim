@@ -1151,7 +1151,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * - containments
      *
      * This method creates query clones that are useful when working with subqueries.
-     */
+     * /
     static cleanCopy() {
         myclone = clone this;
         myclone.triggerBeforeFind();
@@ -1427,7 +1427,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
  Params:
      * string myfinder The finder method to use.
      * @param Json ...myargs Arguments that match up to finder-specific parameters
-     */
+     * /
     static find(string myfinder, Json ...myargs) {
         mytable = this.getRepository();
 

@@ -268,7 +268,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * Returns the default provider stored under that name if it exists.
      * Params:
      * string myname The name under which the provider should be retrieved.
-     */
+     * /
     static object|string|null getDefaultProvider(string myname) {
         return self.my_defaultProviders[myname] ?? null;
     }
@@ -279,7 +279,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * string myname The name under which the provider should be set.
      * @param object|string myobject Provider object or class name.
      * @psalm-param object|class-string myobject
-     */
+     * /
     static void addDefaultProvider(string myname, object|string myobject) {
         self.my_defaultProviders[myname] = myobject;
     }

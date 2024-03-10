@@ -1245,7 +1245,7 @@ class DORMQuery : DatabaseQuery : JsonSerializable, IQuery
      *
      * @param DORMDORMTable aTable The table this query is starting on
      * @return static
-     */
+     * /
     static function subquery(DORMTable aTable) {
         query = new static(table.getConnection(), table);
         query.aliasingEnabled = false;

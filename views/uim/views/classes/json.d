@@ -78,7 +78,7 @@ class DJsonView : DSerializedView {
 
     /**
      * Mime-type this view class renders as.
-     */
+     * /
     static string contentType() {
         return "application/json";
     }

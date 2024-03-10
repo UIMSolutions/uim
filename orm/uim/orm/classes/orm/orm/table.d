@@ -240,7 +240,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      *
      * This method is used to get the fallback connection name if an
      * instance is created through the TableLocator without a connection.
-     */
+     * /
     static string defaultConnectionName() {
         return "default";
     }

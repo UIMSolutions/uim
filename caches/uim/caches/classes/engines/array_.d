@@ -1,4 +1,4 @@
-module uim.caches.engines.array;
+module uim.caches.classes.engines.array_;
 
 import uim.caches;
 
@@ -15,7 +15,7 @@ import uim.caches;
 class DArrayEngine : DCacheEngine {
   // Cached data.
   // Structured as [key: [exp: expiration, val: value]]
-  protected IData[string] _cachedData = [];
+  protected IData[string] _cachedData;
 
   override bool initialize(IData[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
@@ -37,10 +37,10 @@ class DArrayEngine : DCacheEngine {
    _cachedData[key] = ["exp": myexpires, "val": dataForCache];
 
     return true;
-  } */ 
+  } * / 
 
   // Read a key from the cache
-  Json get(string dataId, Json defaultValue = Json(null)) {
+  override Json get(string dataId, Json defaultValue = Json(null)) {
     auto key = _key(dataId);
     if (!_cachedData.isSet(key)) {
       return defaultValue;
@@ -50,11 +50,11 @@ class DArrayEngine : DCacheEngine {
 
     // Check expiration
     auto checkTime = time();
-    if (data["exp"] <= checkTime) {
+    /* if (data["exp"] <= checkTime) {
       _cachedData.remove(key);
 
       return mydefault;
-    }
+    } * / 
     return data["val"];
   }
 
@@ -84,10 +84,10 @@ class DArrayEngine : DCacheEngine {
     _cachedData[key]["val"] -= subValue;
 
     return _cachedData[key]["val"];
-  } */ 
+  } * / 
 
   // Delete a key from the cache
-  bool delete_(string dataId) {
+  override bool delete_(string dataId) {
     string key = _key(dataId);
     _cachedData.remove(key);
 
@@ -96,8 +96,8 @@ class DArrayEngine : DCacheEngine {
 
   /**
      * Delete all keys from the cache. This will clear every cache config using APC.
-     */
-  bool clear() {
+     * /
+  override bool clear() {
     _cachedData = [];
 
     return true;

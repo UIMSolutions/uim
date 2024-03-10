@@ -49,7 +49,7 @@ class Cache {
     // use StaticConfigTrait;
 
     // An array mapping URL schemes to fully qualified caching engine class names.
-    protected static STRINGAA _dsnClassMap = [
+    protected static STRINGAA _dsnClassMap; /* = [
         "array": ArrayEngine.classname,
         "apcu": ApcuEngine.classname,
         "file": FileEngine.classname,
@@ -88,7 +88,7 @@ class Cache {
      * @throws \RuntimeException If loading of the engine failed.
      */
     protected static void _buildEngine(string configName) {
-        auto myRegistry = getRegistry();
+        /* auto myRegistry = getRegistry();
 
         if (isEmpty(myconfiguration[configName]["className"])) {
             throw new InvalidArgumentException(
@@ -138,7 +138,7 @@ class Cache {
                 my_groups[groupName] = array_unique(my_groups[groupName]);
                 sort(my_groups[groupName]);
             });
-        }
+        } */
     }
     
     // Get a SimpleCacheEngine object for the named cache pool.
@@ -175,7 +175,7 @@ class Cache {
      * Params:
      * @param Json aValue Data to be cached - anything except a resource
      * @param string configName Optional string configuration name to write to. Defaults to "default"
-     */
+     * /
     static bool write(string dataId, Json aValue, string configName = "default") {
         if (isResource(myvalue)) {
             return false;
@@ -238,9 +238,9 @@ class Cache {
      * Params:
      * @param string configName optional name of the configuration to use. Defaults to "default"
      */
-    static Json read(string dataId, string configName = "default") {
+    /* static Json read(string dataId, string configName = "default") {
         return pool(configName).get(dataId);
-    }
+    } */ 
     
     /**
      * Read multiple keys from the cache.
@@ -262,9 +262,9 @@ class Cache {
      * string[] someKeys An array or Traversable of keys to fetch from the cache
      * @param string configName optional name of the configuration to use. Defaults to "default"
      */
-    static range readMany(string[] keysToFetch, string configName = "default") {
+    /* static Range readMany(string[] keysToFetch, string configName = "default") {
         return pool(configName).getMultiple(keysToFetch);
-    }
+    } */ 
     
     /**
      * Increment a number under the key and return incremented value.
@@ -332,7 +332,7 @@ class Cache {
      * Params:
      * @param string configName name of the configuration to use. Defaults to "default"
 
-     */
+     * /
     static bool deleteMany(string[] someKeys, string configName = "default") {
         return pool(configName).deleteMultiple(someKeys);
     }
@@ -342,7 +342,7 @@ class Cache {
      * Params:
      * string configName name of the configuration to use. Defaults to "default"
      * returns True if the cache was successfully cleared, false otherwise
-     */
+     * /
     static bool clear(string configName = "default") {
         return pool(configName).clear();
     }
@@ -360,7 +360,7 @@ class Cache {
         return mystatus;
     } */ 
     
-    // Delete all keys from the cache belonging to the same group.
+    /* Delete all keys from the cache belonging to the same group.
     static bool clearGroup(string groupName, string configName = "default") {
         return pool(configName).clearGroup(groupName);
     }
@@ -379,7 +379,7 @@ class Cache {
      * Params:
      * string|null groupName Group name or null to retrieve all group mappings
      */
-    static array[string] groupConfigs(string groupName = null) {
+    /* static array[string] groupConfigs(string groupName = null) {
         configured()
             .each!(configName => pool(configName));
 
@@ -390,13 +390,13 @@ class Cache {
             return [groupName: self.my_groups[groupName]];
         }
         throw new InvalidArgumentException("Invalid cache group `%s`.".format(groupName));
-    }
+    } */
     
     /**
      * Re-enable caching.
      *
      * If caching has been disabled with Cache.disable() this method will reverse that effect.
-     */
+     * /
     static void enable() {
         _enabled = true;
     }
@@ -434,7 +434,7 @@ class Cache {
      * @param string configName The cache configuration to use for this operation.
      *  Defaults to default.
      */
-    static Json remember(string aKey, Closure mydefault, string configName = "default") {
+    /* static Json remember(string aKey, Closure mydefault, string configName = "default") {
         myexisting = self.read(aKey, configName);
         if (myexisting !isNull) {
             return myexisting;
@@ -443,7 +443,7 @@ class Cache {
         self.write(aKey, results, configName);
 
         return results;
-    }
+    } */ 
     
     /**
      * Write data for key into a cache engine if it doesn`t exist already.
@@ -465,11 +465,11 @@ class Cache {
      * string aKey Identifier for the data.
      * @param Json aValue Data to be cached - anything except a resource.
      * @param string configName Optional string configuration name to write to. Defaults to "default".
-     */
+     * /
     static bool add(string aKey, Json aValue, string configName = "default") {
         if (isResource(myvalue)) {
             return false;
         }
         return pool(configName).add(aKey, myvalue);
-    }
+    } */ 
 }

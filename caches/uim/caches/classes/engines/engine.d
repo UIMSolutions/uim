@@ -1,4 +1,4 @@
-module uim.caches.engines.engine;
+module uim.caches.classes.engines.engine;
 
 import uim.caches;
 
@@ -7,6 +7,36 @@ import uim.caches;
 // Storage engine for UIM caching
 abstract class DCacheEngine : ICache, ICacheEngine {
     // TOD use InstanceConfigTrait;
+    mixin TConfigurable!();
+
+    /**
+     * Initialize the cache engine
+     *
+     * Called automatically by the cache frontend. Merge the runtime config with the defaults
+     * before use.
+     *
+     * configData - Associative array of parameters for the engine
+     */
+    bool initialize(IData[string] initData = null) {
+        /* configuration(new DConfiguration);
+        configuration.data(initData);
+
+        if (configuration.hasKey("groups")) {
+            configuration["groups"].sort;
+            _groupPrefix = str_repeat("%s_", configuration["groups"].count);
+        }
+        if (!configuration.isNumeric("duration")) {
+            configuration["duration"] = configuration["duration"].toTime - time();
+        }
+        Configuration.updateDefaults([
+            "duration": IntData(3600),
+            "groups": ArrayData,
+            "prefix": StringData("uim_"),
+            "warnOnWriteFailures": BoolData(true),
+        ]); */ 
+
+        return true;
+    }
 
     protected const string CHECK_KEY = "key";
     protected const string CHECK_VALUE = "value";
@@ -31,42 +61,13 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      */
     protected string my_groupPrefix = "";
 
-    /**
-     * Initialize the cache engine
-     *
-     * Called automatically by the cache frontend. Merge the runtime config with the defaults
-     * before use.
-     *
-     * configData - Associative array of parameters for the engine
-     */
-    bool initialize(IData[string] initData = null) {
-        configuration(new DConfiguration);
-        configuration.data(initData);
-
-        if (configuration.hasKey("groups")) {
-            configuration["groups"].sort;
-           _groupPrefix = str_repeat("%s_", configuration["groups"].count);
-        }
-        if (!configuration.isNumeric("duration")) {
-           configuration["duration"] = configuration["duration"].toTime - time();
-        }
-        Configuration.updateDefaults([
-            "duration": IntData(3600),
-            "groups": ArrayData,
-            "prefix": StringData("uim_"),
-            "warnOnWriteFailures": BoolData(true),
-        ]);
-
-        return true;
-    }
-    
     // Ensure the validity of the given cache key.
     protected void ensureValidKey(string keyToCheck) {
         if (keyToCheck.isEmpty) {
-            throw new InvalidArgumentException("A cache key must be a non-empty string.");
+            // throw InvalidArgumentException("A cache key must be a non-empty string.");
         }
     }
-    
+
     /**
      * Ensure the validity of the argument type and cache keys.
      * Params:
@@ -77,8 +78,8 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         myiterable.bykeyValue
             .each!(kv => 
                 mycheck == self.CHECK_VALUE ? this.ensureValidKey(kv.value) : this.ensureValidKey(kv.key));
-    } */ 
-    
+    } */
+
     /**
      * Obtains multiple cache items by their unique keys.
      * Params:
@@ -86,15 +87,15 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * @param Json mydefault Default value to return for keys that do not exist.
      */
     IData[string] getMultiple(string[] someKeys, Json mydefault = null) {
-        this.ensureValidType(someKeys);
+        // ensureValidType(someKeys);
 
         IData[string] results;
-        someKeys
-            .each!(key => results[key] = this.get(key, mydefault));
+        // someKeys
+        // hes    .each!(key => results[key] = this.get(key, mydefault));
 
         return results;
     }
-    
+
     /**
      * Persists a set of key: value pairs in the cache, with an optional TTL.
      * Params:
@@ -123,8 +124,8 @@ abstract class DCacheEngine : ICache, ICacheEngine {
                 configuration.update("duration", myrestore);
             }
         }
-    } */ 
-    
+    } */
+
     /**
      * Deletes multiple cache items as a list
      *
@@ -133,7 +134,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * be attempted.
      * Params:
      * string[] someKeys A list of string-based keys to be deleted.
-     */
+     * /
     bool deleteMultiple(string[] someKeys) {
         this.ensureValidType(someKeys);
 
@@ -145,7 +146,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         }
         return result;
     }
-    
+
     /**
      * Determines whether an item is present in the cache.
      *
@@ -158,8 +159,8 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      */
     /* bool has(string aKey) {
         return this.get(aKey) !isNull;
-    } */ 
-    
+    } */
+
     /**
      * Fetches the value for a given key from the cache.
      * Params:
@@ -207,7 +208,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * Params:
      * string aKey Identifier for the data.
      * @param Json aValue Data to be cached.
-     */
+     * /
     bool add(string aKey, Json aValue) {
         mycachedValue = this.get(aKey);
         if (mycachedValue.isNull) {
@@ -215,7 +216,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         }
         return false;
     }
-    
+
     /**
      * Clears all values belonging to a group. Is up to the implementing engine
      * to decide whether actually delete the keys or just simulate it to achieve
@@ -229,11 +230,11 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * Does whatever initialization for each group is required
      * and returns the `group value` for each of them, this is
      * the token representing each group in the cache key
-     */
+     * /
     string[] groups() {
         return configuration["groups"];
     }
-    
+
     /**
      * Generates a key for cache backend usage.
      *
@@ -241,7 +242,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * Whitespace in keys will be replaced.
      * Params:
      * string aKey the key passed over
-     */
+     * /
     protected string _key(string aKey) {
         this.ensureValidKey(aKey);
 
@@ -249,22 +250,22 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         if (_groupPrefix) {
             myPrefix = md5(join("_", this.groups()));
         }
-        
+
         // auto newKey = preg_replace("/[\s]+/", "_", aKey);
         return configuration["prefix"] ~ myPrefix ~ aKey;
     }
-    
+
     /**
      * Cache Engines may trigger warnings if they encounter failures during operation,
      * if option warnOnWriteFailures is set to true.
-     */
+     * /
     protected void warning(string warningMessage) {
         if (configurationData.isSet("warnOnWriteFailures") != true) {
             return;
         }
         triggerWarning(warningMessage);
     }
-    
+
     /**
      * Convert the various expressions of a TTL value into duration in seconds
      * Params:
@@ -284,5 +285,5 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         return (int)mydatetime
             .add(myttl)
             .format("U");
-    } */ 
+    } */
 }

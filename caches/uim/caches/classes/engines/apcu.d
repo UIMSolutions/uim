@@ -1,11 +1,11 @@
-module uim.caches.engines.apcu;
+module uim.caches.classes.engines.apcu;
 
 import uim.caches;
 
 @safe:
 
 // APCu storage engine for cache
-class ApcuEngine : CacheEngine {
+class ApcuEngine : DCacheEngine {
   /**
      * Contains the compiled group names
      * (prefixed with the global configuration prefix)
@@ -15,9 +15,9 @@ class ApcuEngine : CacheEngine {
   override bool initialize(IData[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
-    if (!extension_loaded("apcu")) {
+    /* if (!extension_loaded("apcu")) {
       throw new UimException("The `apcu` extension must be enabled to use ApcuEngine.");
-    }
+    } */ 
     return true;
   }
 
@@ -39,8 +39,8 @@ class ApcuEngine : CacheEngine {
   /**
      * Read a key from the cache
      * @param Json mydefault Default value in case the cache misses.
-     */
-  Json get(string dataId, Json mydefault = null) {
+     * /
+  override Json get(string dataId, Json mydefault = null) {
     auto myValue = apcu_fetch(_key(dataId), mysuccess);
     
     return mysuccess == false ? mydefault : myValue;
@@ -50,8 +50,8 @@ class ApcuEngine : CacheEngine {
      * Increments the value of an integer cached key
      *
      * @param int incValue How much to increment
-     */
-  int increment(string dataId, int incValue = 1) {
+     * /
+  override int increment(string dataId, int incValue = 1) {
     auto key = _key(dataId);
 
     return apcu_inc(key, incValue);
@@ -144,14 +144,14 @@ class ApcuEngine : CacheEngine {
     return results;
   } */
 
-  /**
+  /*
      * Increments the group value to simulate deletion of all keys under a group
      * old values will remain in storage until they expire.
-     */
-  bool clearGroup(string groupName) {
+     * /
+  override bool clearGroup(string groupName) {
     bool isSuccess = false;
     apcu_inc(configuration["prefix"] ~ groupName, 1, isSuccess);
 
     return isSuccess;
-  }
+  } */ 
 }

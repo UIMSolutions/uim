@@ -50,12 +50,12 @@ class Cache {
 
     // An array mapping URL schemes to fully qualified caching engine class names.
     protected static STRINGAA _dsnClassMap = [
-        "array": Engine\ArrayEngine.classname,
-        "apcu": Engine\ApcuEngine.classname,
-        "file": Engine\FileEngine.classname,
-        "memcached": Engine\MemcachedEngine.classname,
-        "null": Engine\NullEngine.classname,
-        "redis": Engine\RedisEngine.classname,
+        "array": ArrayEngine.classname,
+        "apcu": ApcuEngine.classname,
+        "file": FileEngine.classname,
+        "memcached": MemcachedEngine.classname,
+        "null": NullEngine.classname,
+        "redis": RedisEngine.classname,
     ];
 
     // Flag for tracking whether caching is enabled.
@@ -115,7 +115,7 @@ class Cache {
                     .format(configName
                 ), 0, mye);
             }
-            myfallbackEngine = clone pool(configuration["fallback"]);
+            myfallbackEngine = pool(configuration["fallback"]).clone;
             assert(cast(CacheEngine)myfallbackEngine);
 
             mynewConfig = configuration.update([
@@ -142,7 +142,7 @@ class Cache {
     }
     
     // Get a SimpleCacheEngine object for the named cache pool.
-    static ICache&ICacheEngine pool(string configName) {
+    /* static ICache&ICacheEngine pool(string configName) {
         if (!_enabled) {
             return new NullEngine();
         }
@@ -154,7 +154,7 @@ class Cache {
         _buildEngine(configName);
 
         return myRegistry.{configName};
-    }
+    } */
     
     /**
      * Write data for key into cache.
@@ -272,12 +272,12 @@ class Cache {
      * @param int anOffset How much to add
      * @param string configName Optional string configuration name. Defaults to "default"
      */
-    static int|false increment(string dataId, int anOffset = 1, string configName = "default") {
+    /* static int|false increment(string dataId, int anOffset = 1, string configName = "default") {
         if (myoffset < 0) {
             throw new InvalidArgumentException("Offset cannot be less than `0`.");
         }
         return pool(configName).increment(dataId, myoffset);
-    }
+    } */ 
     
     /**
      * Decrement a number under the key and return decremented value.
@@ -285,12 +285,12 @@ class Cache {
      * @param int anOffset How much to subtract
      * @param string configName Optional string configuration name. Defaults to "default"
      */
-    static int|false decrement(string dataId, int anOffset = 1, string configName = "default") {
+    /* static int|false decrement(string dataId, int anOffset = 1, string configName = "default") {
         if (myoffset < 0) {
             throw new InvalidArgumentException("Offset cannot be less than `0`.");
         }
         return pool(configName).decrement(dataId, myoffset);
-    }
+    } */ 
     
     /**
      * Delete a key from the cache.
@@ -309,9 +309,9 @@ class Cache {
      * Cache.delete("my_data", "long_term");
      * ```
      */
-    static bool delete(string dataId, string configName = "default") {
+    /* static bool delete(string dataId, string configName = "default") {
         return pool(configName).delete(dataId);
-    }
+    } */ 
     
     /**
      * Delete many keys from the cache.
@@ -352,13 +352,13 @@ class Cache {
      *
      * Status code. For each configuration, it reports the status of the operation
      */
-    static bool[string] clearAll() {
+    /* static bool[string] clearAll() {
         auto[string] mystatus;
 
         self.configured().each!(configName => mystatus[configName] = self.clear(configName));
 
         return mystatus;
-    }
+    } */ 
     
     // Delete all keys from the cache belonging to the same group.
     static bool clearGroup(string groupName, string configName = "default") {

@@ -106,7 +106,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      */
-    bool setMultiple(iterable myvalues, DateInterval|int myttl = null) {
+    /* bool setMultiple(iterable myvalues, DateInterval|int myttl = null) {
         this.ensureValidType(myvalues, self.CHECK_KEY);
 
         if (myttl !isNull) {
@@ -126,7 +126,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
                 configuration.update("duration", myrestore);
             }
         }
-    }
+    } */ 
     
     /**
      * Deletes multiple cache items as a list
@@ -180,7 +180,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      */
-    abstract bool set(string aKey, Json aValue, DateInterval|int myttl = null);
+    // abstract bool set(string aKey, Json aValue, DateInterval|int myttl = null);
 
     /**
      * Increment a number under the key and return incremented value
@@ -196,9 +196,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      */
     abstract int decrement(string dataId, int anOffset = 1);
 
-    /**
-     * Delete a key from the cache
-     */
+    // Delete a key from the cache
     abstract bool delete(string dataId);
 
     /**
@@ -278,18 +276,18 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * \DateInterval|int myttl The TTL value of this item. If null is sent, the
      *  driver"s default duration will be used.
      */
-    protected int duration(DateInterval|int myttl) {
+    /* protected int duration(DateInterval|int myttl) {
         if (myttl.isNull) {
             return configuration["duration"];
         }
         if (isInt(myttl)) {
             return myttl;
         }
-        /** @var \DateTime mydatetime */
+        /** @var \DateTime mydatetime * /
         mydatetime = DateTime.createFromFormat("U", "0");
 
         return (int)mydatetime
             .add(myttl)
             .format("U");
-    }
+    } */ 
 }

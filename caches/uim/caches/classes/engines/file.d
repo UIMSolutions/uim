@@ -58,7 +58,7 @@ class FileEngine : CacheEngine {
             "serialize": true,
         ]);
 
-        configuration["path"] ?  ?  = sys_get_temp_dir()~DIRECTORY_SEPARATOR ~ "cake_cache" ~ DIRECTORY_SEPARATOR;
+        configuration["path"] = configuration.get("path", sys_get_temp_dir()~DIRECTORY_SEPARATOR ~ "cake_cache" ~ DIRECTORY_SEPARATOR);
         if (substr(configuration["path"], -1) != DIRECTORY_SEPARATOR) {
             configuration["path"] ~= DIRECTORY_SEPARATOR;
         }

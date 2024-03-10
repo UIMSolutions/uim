@@ -13,7 +13,7 @@ import uim.caches;
  */
 class CacheRegistry : ObjectRegistry {
   // Resolve a cache engine classname.
-     * Part of the template method for UIM\Core\ObjectRegistry.load()
+  // * Part of the template method for UIM\Core\ObjectRegistry.load()
   protected string _resolveClassName(string className) {
     /** @var class-string<\UIM\Cache\CacheEngine>|null */
     return App.className(className, "Cache/Engine", "Engine");
@@ -27,7 +27,7 @@ class CacheRegistry : ObjectRegistry {
      * className - The classname that is missing.
      * @param string plugin The plugin the cache is missing in.
      */
-  protected void _throwMissingClassError(string className,  ? string myplugin) {
+  protected void _throwMissingClassError(string className, string myplugin) {
     throw new BadMethodCallException("Cache engine `%s` is not available.".format(className));
   }
 
@@ -40,7 +40,7 @@ class CacheRegistry : ObjectRegistry {
      * @param string aalias The alias of the object.
      * configData - An array of settings to use for the cache engine.
      */
-  protected CacheEngine _create(object | string className, string myalias, IData[string] initData) {
+  /* protected CacheEngine _create(object | string className, string myalias, IData[string] initData) {
     CacheEngine result = isObject(className) ? className : new className(initData);
     initData.remove("className");
 
@@ -54,7 +54,7 @@ class CacheRegistry : ObjectRegistry {
       );
     }
     return result;
-  }
+  } */ 
 
   // Remove a single adapter from the registry.
   void unload(string adapterName) {

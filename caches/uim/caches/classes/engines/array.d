@@ -31,13 +31,13 @@ class DArrayEngine : DCacheEngine {
      *  for it or let the driver take care of that.
      * returns True on success and false on failure.
      */
-  bool set(string dataId, Json dataForCache, DateInterval | int | nullmyttl = null) {
+  /* bool set(string dataId, Json dataForCache, DateInterval | int | nullmyttl = null) {
     auto key = _key(dataId);
     auto myexpires = time() + this.duration(myttl);
    _cachedData[key] = ["exp": myexpires, "val": dataForCache];
 
     return true;
-  }
+  } */ 
 
   // Read a key from the cache
   Json get(string dataId, Json defaultValue = Json(null)) {
@@ -61,7 +61,7 @@ class DArrayEngine : DCacheEngine {
   /**
      * Increments the value of an integer cached key
      * @param int anOffset How much to addValue  */
-  int increment(string dataId, int addValue = 1) | false {
+  /* int increment(string dataId, int addValue = 1) | false {
     if (this.get(dataId).isNull) {
       this.set(dataId, 0);
     }
@@ -70,7 +70,7 @@ class DArrayEngine : DCacheEngine {
     _cachedData[dataId]["val"] += addValue;
 
     return _cachedData[key]["val"];
-  }
+  } */ 
 
   /**
      * Decrements the value of an integer cached key

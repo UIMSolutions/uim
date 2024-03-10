@@ -10,7 +10,7 @@ import uim.oop;
 @safe:
 class DStringData : DScalarData {
   mixin(DataThis!("String"));
-  
+
   // Initialization hook method.
   override bool initialize(IData[string] initData = null) {
     if (!super.initialize(initData)) {
@@ -89,10 +89,20 @@ class DStringData : DScalarData {
     return value();
   }
 
-  void opCall(DStringData newValue) {
-    set(newValue.get);
-  }
+  mixin(ScalarOpCall!([]));
+  override void set(IData newValue) {
+    if (newValue is null) {
+      _value = null;
+      return;
+    }
+    auto strValue = cast(DStringData) newValue;
+    if (strValue is null) {
+      _value = null;
+    }
+    return;
 
+    set(strValue.value);
+  }
   ///
   unittest {
     /* auto a = StringData("aValue");
@@ -102,47 +112,43 @@ class DStringData : DScalarData {
   }
 
   // #region equal
-    mixin(ScalarOpEquals!(null));
+  mixin(ScalarOpEquals!(null));
 
-    override bool isEqual(IData[string] checkData) {
+  override bool isEqual(IData checkData) {
+    if (checkData.isNull || key != checkData.key) {
+      return false;
+    }
+    if (auto data = cast(DStringData) checkData) {
+      return (value == data.value);
+    }
+    return false;
+  }
+
+  override bool isEqual(Json checkValue) {
+    if (checkValue.isNull || !checkValue.isString) {
       return false;
     }
 
-    override bool isEqual(IData checkData) {
-      if (checkData.isNull || key != checkData.key) {
-        return false;
-      }
-      if (auto data = cast(DStringData)checkData) {
-        return (value == data.value);
-      }
-      return false;
-    }
+    return isEqual(checkValue.get!string);
+  }
 
-    override bool isEqual(Json checkValue) {
-      if (checkValue.isNull || !checkValue.isString) {
-        return false;
-      }
+  override bool isEqual(string checkValue) {
+    return (value == checkValue);
+  }
+  ///
+  unittest {
+    auto data100 = StringData;
+    data100.set("100");
+    auto dataIs100 = StringData;
+    dataIs100.set("100");
+    auto dataNot100 = StringData;
+    dataNot100.set("400");
+    assert(data100 == Json("100"));
+    assert(data100 == "100");
 
-      return isEqual(checkValue.get!string);
-    }
-
-    override bool isEqual(string checkValue) {
-      return (value == checkValue);
-    }
-    ///
-    unittest {
-      auto data100 = StringData;
-      data100.set("100");
-      auto dataIs100 = StringData;
-      dataIs100.set("100");
-      auto dataNot100 = StringData;
-      dataNot100.set("400");
-      assert(data100 == Json("100"));
-      assert(data100 == "100");
-
-      assert(data100 != Json("10"));
-      assert(data100 != "10");
-    }
+    assert(data100 != Json("10"));
+    assert(data100 != "10");
+  }
   // #endregion equal
 
   int opCmp(string otherValue) {
@@ -176,16 +182,16 @@ unittest {
   assert(StringData()("test") >= "aaaa");
   assert(StringData()("test") >= "test");
 
-  assert(StringData("test").get == "test");
+  assert(StringData("test").value == "test");
   assert(StringData("test2").value != "test");
 
-  assert(StringData(Json("test")).get == "test");
+  assert(StringData(Json("test")).value == "test");
   assert(StringData(Json("test2")).value != "test");
 
-  assert(StringData.set("test").get == "test");
+  assert(StringData.set("test").value == "test");
   assert(StringData.set("test2").value != "test");
 
-  assert(StringData.set(Json("test")).get == "test");
+  assert(StringData.set(Json("test")).value == "test");
   assert(StringData.set(Json("test2")).value != "test");
 
   assert(StringData("test").toString == "test");
@@ -210,5 +216,5 @@ unittest {
   assert(StringData.set("test2").toJson != Json("test"));
 
   assert(StringData.set(Json("test")).toJson == Json("test"));
-  assert(StringData.set(Json("test2")).toJson != Json("test")); */ 
+  assert(StringData.set(Json("test2")).toJson != Json("test")); */
 }

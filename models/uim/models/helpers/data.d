@@ -15,11 +15,11 @@ IData jsonToData(Json json) {
     case (Json.Type.bool_):
         return BooleanData(json);
     case (Json.Type.float_):
-        return DoubleData(json);
+        return NumberData(json);
     case (Json.Type.int_):
         return IntegerData(json);
-    case (Json.Type.null_):
-        return NullData(json);
+    // case (Json.Type.null_):
+    //     return NullData(json);
     case (Json.Type.object):
         return MapData(json);
     case (Json.Type.string):

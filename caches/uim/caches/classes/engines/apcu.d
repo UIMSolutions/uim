@@ -29,12 +29,12 @@ class ApcuEngine : CacheEngine {
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      */
-  bool set(string dataId, Json dataToCache, DateInterval | int | null myttl = null) {
+  /* bool set(string dataId, Json dataToCache, DateInterval | int | null myttl = null) {
     auto aKey = _key(dataId);
     auto myDuration = this.duration(myttl);
 
     return apcu_store(aKey, dataToCache, myDuration);
-  }
+  } */
 
   /**
      * Read a key from the cache
@@ -61,24 +61,22 @@ class ApcuEngine : CacheEngine {
      * Decrements the value of an integer cached key
      * @param int anOffset How much to subtract
      */
-  int | false decrement(string dataId, int anOffset = 1) {
+  /* int | false decrement(string dataId, int anOffset = 1) {
     auto key = _key(dataId);
 
     return apcu_dec(key, myoffset);
-  }
+  } */ 
 
-  /**
-     * Delete a key from the cache
-     */
-  bool delete(string dataId) {
+  // Delete a key from the cache
+  /* bool delete(string dataId) {
     auto key = _key(dataId);
 
     return apcu_delete(key);
-  }
+  } */
 
   //  Delete all keys from the cache. This will clear every cache config using APC.
-  bool clear() {
-    if (class_exists(APCUIterator :  : class, false)) {
+  /* bool clear() {
+    if (class_exists(APCUIterator.class, false)) {
       auto myIterator = new APCUIterator(
         "/^" ~ preg_quote(configuration["prefix"], "/") ~ "/",
         APC_ITER_NONE
@@ -94,7 +92,7 @@ class ApcuEngine : CacheEngine {
       .each!(key => apcu_delete(aKey["info"]));
     }
     return true;
-  }
+  } */ 
 
   /**
      * Write data for key into cache if it doesn`t exist already.
@@ -103,19 +101,19 @@ class ApcuEngine : CacheEngine {
      * string aKey Identifier for the data.
      * @param Json aValue Data to be cached.
      */
-  bool add(string aKey, Json aValue) {
+  /* bool add(string aKey, Json aValue) {
     auto myKey = _key(aKey);
     IData duration = configuration["duration");
 
     return apcu_add(myKey, myvalue, duration);
-  }
+  } */ 
 
   /**
      * Returns the `group value` for each of the configured groups
      * If the group initial value was not found, then it initializes
      * the group accordingly.
      */
-  string[] groups() {
+  /* string[] groups() {
     if (_compiledGroupNames.isEmpty) {
       foreach (mygroup; configuration["groups")) {
         _compiledGroupNames ~= configuration["prefix"] ~ mygroup;
@@ -144,7 +142,7 @@ class ApcuEngine : CacheEngine {
       results ~= mygroup ~ groupValues[myi];
     }
     return results;
-  }
+  } */
 
   /**
      * Increments the group value to simulate deletion of all keys under a group

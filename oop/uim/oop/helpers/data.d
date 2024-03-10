@@ -23,7 +23,7 @@ IData toData(int value) {
 unittest {
     auto data = 100.toData;
     assert(cast(DIntegerData)data);
-    assert((cast(DIntegerData)data).value == "hallo");
+    assert((cast(DIntegerData)data).value == 100);
 
     data = 1.toData;
     assert(!cast(DStringData)data);
@@ -35,7 +35,7 @@ IData toData(long value) {
 unittest {
     auto data = 100.toData;
     assert(cast(DIntegerData)data);
-    assert((cast(DIntegerData)data).value == "hallo");
+    assert((cast(DIntegerData)data).value == 100);
 
     data = 1.toData;
     assert(!cast(DStringData)data);

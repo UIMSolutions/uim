@@ -26,5 +26,10 @@ class DScalarData : DData {
   override size_t length() {
     return 1;
   }
+
+  override bool isEqual(IData[string] checkData) {
+    return false;
+  }
 }
+
 mixin(DataCalls!("Scalar"));

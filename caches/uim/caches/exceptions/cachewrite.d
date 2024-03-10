@@ -1,4 +1,4 @@
-module caches.uim.caches.exceptions.cachewrite;
+module uim.caches.exceptions.cachewrite;
 
 import uim.caches;
 

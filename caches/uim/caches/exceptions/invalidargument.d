@@ -8,4 +8,4 @@ import uim.caches;
 class DInvalidArgumentException : DCachesException /*, IInvalidArgument */ {
 	mixin(ExceptionThis!("InvalidArgument"));
 }
-mixin(ExceptioncALLS!("InvalidArgument"));
+mixin(ExceptionCalls!("InvalidArgument"));

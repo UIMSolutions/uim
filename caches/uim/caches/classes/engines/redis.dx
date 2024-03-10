@@ -69,15 +69,15 @@ class RedisEngine : CacheEngine {
             } elseif (configuration["persistent"].isEmpty) {
                 result = _redis.connect(
                    configuration["server"],
-                    (int)configuration["port"],
-                    (int)configuration["timeout"]
+                    configuration["port"].toInt,
+                    configuration["timeout"].toInt
                 );
             } else {
                 persistentId = configuration["port"] ~ configuration["timeout"] ~ configuration["database"];
                 result = _redis.pconnect(
                    configuration["server"],
-                    (int)configuration["port"],
-                    (int)configuration["timeout"],
+                    configuration["port"].toInt,
+                    configuration["timeout"].toInt,
                     persistentId
                 );
             }

@@ -249,8 +249,8 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         if (_groupPrefix) {
             myPrefix = md5(join("_", this.groups()));
         }
-        aKey = preg_replace("/[\s]+/", "_", aKey);
-
+        
+        // auto newKey = preg_replace("/[\s]+/", "_", aKey);
         return configuration["prefix"] ~ myPrefix ~ aKey;
     }
     

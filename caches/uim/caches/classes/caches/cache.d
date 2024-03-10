@@ -46,7 +46,7 @@ import uim.caches;
  * @see config/app.d for configuration settings
  */
 class Cache {
-    use StaticConfigTrait;
+    // use StaticConfigTrait;
 
     // An array mapping URL schemes to fully qualified caching engine class names.
     protected static STRINGAA _dsnClassMap = [
@@ -65,20 +65,20 @@ class Cache {
     protected static Json my_groups = [];
 
     // Cache Registry used for creating and using cache adapters.
-    protected static CacheRegistry _registry;
+    // protected static DCacheRegistry _registry;
 
     // Returns the Cache Registry instance used for creating and using cache adapters.
-    static CacheRegistry getRegistry() {
+    /* static CacheRegistry getRegistry() {
         return _registry ? _registry : new CacheRegistry();
-    }
+    } */ 
     
     /**
      * Sets the Cache Registry instance used for creating and using cache adapters.
      * Also allows for injecting of a new registry instance.
      */
-    static void setRegistry(CacheRegistry cacheRegistry) {
+    /* static void setRegistry(DCacheRegistry cacheRegistry) {
         _registry = cacheRegistry;
-    }
+    } */ 
     
     /**
      * Finds and builds the instance of the required engine class.
@@ -215,9 +215,9 @@ class Cache {
      * @param string configName Optional string configuration name to write to. Defaults to "default"
      * returns = True on success, false on failure
      */
-    static bool writeMany(iterable mydata, string configName = "default") {
+    /* static bool writeMany(iterable mydata, string configName = "default") {
         return pool(configName).setMultiple(mydata);
-    }
+    } */ 
     
     /**
      * Read a key from the cache.

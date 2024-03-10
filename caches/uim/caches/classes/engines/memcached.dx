@@ -93,9 +93,9 @@ h     */
           "%s:%d".format(configuration["host"], configuration["port"])
         ];
     }
-    if (isSet(configData"servers"])) {
+    /* if (isSet(configData"servers"])) {
       configuration.update("servers", configuration["servers"], false);
-    }
+    } */ 
     /* if (!isArray(configuration["servers"])) {
       configuration["servers"] = [configuration["servers"]];
     } */ 

@@ -1,4 +1,4 @@
-module uim.consoles.command;
+module uim.consoles.classes.commands.command;
 
 import uim.consoles;
 
@@ -15,27 +15,23 @@ import uim.consoles;
  *
  * @implements \UIM\Event\IEventDispatcher<\UIM\Command\Command>
  */
-abstract class Command : ICommand, IEventDispatcher {
+abstract class Command : ICommand /* , IEventDispatcher */ {
     this() {
         initialize;
     }
 
     // Hook method
     bool initialize(IData[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
-
-        configuration(new DConfiguration);
-        configuration.update(initData);
+        // configuration(new DConfiguration);
+        // configuration.update(initData);
 
         return true;
     }
 
-    mixin configForClass();
+    //mixin configForClass();
 
     //  @use \UIM\Event\EventDispatcherTrait<\UIM\Command\Command>
-    mixin EventDispatcherTemplate();
+    // mixin EventDispatcherTemplate();
 
     // The name of this command.
     protected string _name = "unknown command";
@@ -71,10 +67,10 @@ abstract class Command : ICommand, IEventDispatcher {
      * Returns the command name based on class name.
      * For e.g. for a command with class name `UpdateTableCommand` the default
      * name returned would be `'update_table'`.
-     */
+     * /
     static string defaultName() {
         size_t pos = strrpos(class, "\\");
-        /** @psalm-suppress PossiblyFalseOperand */
+        /** @psalm-suppress PossiblyFalseOperand * /
         string name = substr(class, pos + 1,  - 7);
         return Inflector.underscore(name);
     }
@@ -83,7 +79,7 @@ abstract class Command : ICommand, IEventDispatcher {
      * Get the option parser.
      *
      * You can override buildOptionParser() to define your options & arguments.
-     */
+     * /
     ConsoleOptionParser getOptionParser() {
         [root, name] = split(" ", this.name, 2);
         aParser = new ConsoleOptionParser(name);
@@ -99,7 +95,7 @@ abstract class Command : ICommand, IEventDispatcher {
      * Hook method for defining this command`s option parser.
      * Params:
      * \UIM\Console\ConsoleOptionParser parserToDefine The parser to be defined
-     */
+     * /
     protected ConsoleOptionParser buildOptionParser(ConsoleOptionParser parserToDefine) {
         return parserToDefine;
     }
@@ -133,7 +129,7 @@ abstract class Command : ICommand, IEventDispatcher {
             aConsoleIo.setInteractive(false);
         }
         this.dispatchEvent("Command.beforeExecute", ["args": someArguments]);
-        /** @var int result */
+        /** @var int result  * /
         result = this.execute(someArguments, aConsoleIo);
         this.dispatchEvent("Command.afterExecute", [
                 "args": someArguments,
@@ -149,7 +145,7 @@ abstract class Command : ICommand, IEventDispatcher {
      * \UIM\Console\ConsoleOptionParser  aParser The option parser.
      * @param \UIM\Console\Arguments someArguments The command arguments.
      * @param \UIM\Console\ConsoleIo aConsoleIo The console io
-     */
+     * /
     protected void displayHelp(ConsoleOptionParser aParser, Arguments someArguments, ConsoleIo aConsoleIo) {
         format = "text";
         if (someArguments.getArgumentAt(0) == "xml") {
@@ -164,7 +160,7 @@ abstract class Command : ICommand, IEventDispatcher {
      * Params:
      * \UIM\Console\Arguments someArguments The command arguments.
      * @param \UIM\Console\ConsoleIo aConsoleIo The console io
-     */
+     * /
     protected void setOutputLevel(Arguments someArguments, ConsoleIo aConsoleIo) {
         aConsoleIo.setLoggers(ConsoleIo.NORMAL);
         if (someArguments.getOption("quiet")) {
@@ -182,14 +178,14 @@ abstract class Command : ICommand, IEventDispatcher {
      * Params:
      * \UIM\Console\Arguments someArguments The command arguments.
      * @param \UIM\Console\ConsoleIo aConsoleIo The console io
-     */
+     * /
     abstract int | void execute(Arguments someArguments, ConsoleIo aConsoleIo);
 
     /**
      * Halt the current process with a StopException.
      * Params:
      * int code The exit code to use.
-     */
+     * /
     never abort(int code = self.CODE_ERROR) {
         throw new StopException("Command aborted", code);
     }
@@ -204,7 +200,7 @@ abstract class Command : ICommand, IEventDispatcher {
      * \UIM\Console\ICommand|string acommand The command class name or command instance.
      * @param array someArguments The arguments to invoke the command with.
      * @param \UIM\Console\ConsoleIo|null  aConsoleIo The ConsoleIo instance to use for the executed command.
-     */
+     * /
     int executeCommand(string acommand, array someArguments = [],  ? ConsoleIo aConsoleIo = null) {
         assert(
             isSubclass_of(command, ICommand.classname),
@@ -225,4 +221,5 @@ abstract class Command : ICommand, IEventDispatcher {
                 return anException.getCode();
             }
         }
-    }
+    } */ 
+}

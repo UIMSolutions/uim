@@ -1,4 +1,4 @@
-module controllers.uim.controllers.tests.controller;
+module uim.controllers.mixins.controller;
 
 string controllerThis(string name) {
     string fullName = name ~ "Controller";

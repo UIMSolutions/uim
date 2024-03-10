@@ -1,4 +1,4 @@
-module uim.collections;
+module uim.collections.classes.collections.collection;
 
 import uim.collections;
 
@@ -11,7 +11,7 @@ import uim.collections;
  * @template-extends \IteratorIterator<mixed, mixed, \Traversable<mixed>>
  */
 class Collection : IteratorIterator, ICollection {
-  mixin CollectionTemplate();
+  // mixin CollectionTemplate();
 
   this(Range someItems) {
     if (isArray(someItems)) {
@@ -27,6 +27,7 @@ class Collection : IteratorIterator, ICollection {
 	}
 
   // Returns an array for serializing this of this object.
+  /* 
   array __serialize() {
     return this.buffered().toArray();
   }
@@ -47,5 +48,5 @@ class Collection : IteratorIterator, ICollection {
     return [
       "count": Json(myCount),
     ];
-  }
+  } */ 
 }

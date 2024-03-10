@@ -754,8 +754,8 @@ interface ICollection {
      * @param mixed values The values to be inserted at the specified path,
      * values are matched with the elements in this collection by its positional index.
      * @return self
-     */
-    function insert(string path, values): ICollection;
+     * /
+    ICollection insert(string path, values);
 
     /**
      * Returns an array representation of the results
@@ -764,13 +764,13 @@ interface ICollection {
      * collection as the array keys. Keep in mind that it is valid for iterators
      * to return the same key for different elements, setting this value to false
      * can help getting all items if keys are not important in the result.
-     */
+      */
     array toArray(bool shouldKeepKeys = true);
 
     /**
      * Returns an numerically-indexed array representation of the results.
      * This is equivalent to calling `toArray(false)`
-     */
+     * /
     array toList();
 
     /**
@@ -780,7 +780,7 @@ interface ICollection {
      * Part of JsonSerializable interface.
      *
      * @return array The data to convert to JSON
-     */
+     * /
     array jsonSerialize();
 
     /**
@@ -814,7 +814,7 @@ interface ICollection {
      * to return the same key for different elements, setting this value to false
      * can help getting all items if keys are not important in the result.
      * @return self
-     */
+     * /
     function compile(bool shouldKeepKeys = true): ICollection;
 
     /**
@@ -824,8 +824,8 @@ interface ICollection {
      * A lazy collection can only be iterated once. A second attempt results in an error.
      *
      * @return self
-     */
-    function lazy(): ICollection;
+     * /
+    ICollection lazy();
 
     /**
      * Returns a new collection where the operations performed by this collection.
@@ -835,8 +835,8 @@ interface ICollection {
      * This can also be used to make any non-rewindable iterator rewindable.
      *
      * @return self
-     */
-    function buffered(): ICollection;
+     * /
+    ICollection buffered();
 
     /**
      * Returns a new collection with each of the elements of this collection
@@ -876,8 +876,8 @@ interface ICollection {
      * @param callable|string nestingKey The key name under which children are nested
      * or a callable function that will return the children list
      * @return self
-     */
-    function listNested( order = "desc", nestingKey = "children"): ICollection;
+     * /
+    ICollection listNested( order = "desc", nestingKey = "children");
 
     /**
      * Creates a new collection that when iterated will stop yielding results if
@@ -911,8 +911,8 @@ interface ICollection {
      * the key is a property path as accepted by `Collection::extract`,
      * and the value the condition against with each element will be matched.
      * @return self
-     */
-    function stopWhen(condition): ICollection;
+     * /
+    ICollection stopWhen(condition):;
 
     /**
      * Creates a new collection where the items are the

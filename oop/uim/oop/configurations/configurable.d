@@ -4,7 +4,7 @@ import uim.oop;
 
 @safe:
 
-mixin template ConfigurableTemplate() {
+mixin template TConfigurable() {
     protected IConfiguration _configuration;
 
     // Get configuration

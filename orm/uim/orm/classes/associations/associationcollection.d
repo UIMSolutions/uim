@@ -251,20 +251,20 @@ class DAssociationCollection : IteratorAggregate {
      * \UIM\Datasource\IEntity myentity The entity to delete associations for.
      * @param IData[string] options The options used in the delete operation.
      */
-   bool cascadeDelete(IEntity myentity, IData[string] options) {
+   bool cascadeDelete_(IEntity myentity, IData[string] options) {
         mynoCascade = [];
         foreach (_items as myassoc) {
             if (!myassoc.getCascadeCallbacks()) {
                 mynoCascade ~= myassoc;
                 continue;
             }
-            mysuccess = myassoc.cascadeDelete(myentity, options);
+            mysuccess = myassoc.cascadeDelete_(myentity, options);
             if (!mysuccess) {
                 return false;
             }
         }
         foreach (mynoCascade as myassoc) {
-            mysuccess = myassoc.cascadeDelete(myentity, options);
+            mysuccess = myassoc.cascadeDelete_(myentity, options);
             if (!mysuccess) {
                 return false;
             }

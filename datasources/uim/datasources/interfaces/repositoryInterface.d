@@ -68,7 +68,7 @@ interface IRepository
      * @param mixed conditions Conditions to be used, accepts anything Query::where()
      * can take.
      * @return int Returns the number of affected rows.
-     * @see uim.datasources.IRepository::delete()
+     * @see uim.datasources.IRepository::delete_()
      */
     int deleteAll(conditions);
 
@@ -101,7 +101,7 @@ interface IRepository
      * @param \ArrayAccess|STRINGAA someOptions The options for the delete.
      * @return bool success
      */
-    bool delete(IEntity entity, options = null);
+    bool delete_(IEntity entity, options = null);
 
     /**
      * This creates a new entity object.

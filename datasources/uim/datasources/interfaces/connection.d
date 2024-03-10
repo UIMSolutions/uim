@@ -48,7 +48,7 @@ interface IConnection { // : ILoggerAware
      *
      * ```
      * connection.transactional(function (connection) {
-     *   connection.newQuery().delete("users").execute();
+     *   connection.newQuery().delete_("users").execute();
      * });
      * ```
      *
@@ -69,7 +69,7 @@ interface IConnection { // : ILoggerAware
      *
      * ```
      * connection.disableConstraints(function (connection) {
-     *   connection.newQuery().delete("users").execute();
+     *   connection.newQuery().delete_("users").execute();
      * });
      * ```
      *

@@ -937,7 +937,7 @@ abstract class DAssociation {
      * \UIM\Datasource\IEntity myentity The entity that started the cascaded delete.
      * @param IData[string] options The options for the original delete.
      */
-    abstract bool cascadeDelete(IEntity myentity, IData[string] optionData = null);
+    abstract bool cascadeDelete_(IEntity myentity, IData[string] optionData = null);
 
     /**
      * Returns whether the passed table is the owning side for this

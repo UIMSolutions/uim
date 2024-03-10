@@ -300,17 +300,17 @@ class Cache {
      * Deleting from the active cache configuration.
      *
      * ```
-     * Cache.delete("my_data");
+     * Cache.delete_("my_data");
      * ```
      *
      * Deleting from a specific cache configuration.
      *
      * ```
-     * Cache.delete("my_data", "long_term");
+     * Cache.delete_("my_data", "long_term");
      * ```
      */
-    /* static bool delete(string dataId, string configName = "default") {
-        return pool(configName).delete(dataId);
+    /* static bool delete_(string dataId, string configName = "default") {
+        return pool(configName).delete_(dataId);
     } */ 
     
     /**

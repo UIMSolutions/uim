@@ -156,7 +156,7 @@ class FileEngine : CacheEngine {
      * Params:
      * string aKey Identifier for the data
      */
-    bool delete(string dataId) {
+    bool delete_(string dataId) {
         auto aKey = _key(dataId);
 
         if (_setKey(aKey) == false || !_init) {

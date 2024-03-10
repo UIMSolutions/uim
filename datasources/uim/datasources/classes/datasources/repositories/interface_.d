@@ -83,7 +83,7 @@ interface IRepository {
     * @param mixed conditions Conditions to be used, accepts anything Query::where()
     * can take.
     * @return int Returns the number of affected rows.
-    * @see \Cake\Datasource\IRepository::delete()
+    * @see \Cake\Datasource\IRepository::delete_()
     */
   int deleteAll(conditions);
 

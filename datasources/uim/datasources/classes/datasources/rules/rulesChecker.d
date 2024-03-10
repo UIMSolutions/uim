@@ -29,7 +29,7 @@ use InvalidArgumentException;
  *
  * Generally a Table object will invoke the rules objects, but you can manually
  * invoke the checks by calling RulesChecker::checkCreate(), RulesChecker::checkUpdate() or
- * RulesChecker::checkDelete().
+ * RulesChecker::checkDelete_().
  */
 class RulesChecker
 {
@@ -189,7 +189,7 @@ class RulesChecker
      * second argument.
      * @return this
      */
-    function addDelete(callable rule, name = null, STRINGAA someOptions = null) {
+    function addDelete_(callable rule, name = null, STRINGAA someOptions = null) {
         _deleteRules[] = _addError(rule, name, options);
 
         return this;
@@ -216,7 +216,7 @@ class RulesChecker
         }
 
         if (mode == self::DELETE) {
-            return this.checkDelete(entity, options);
+            return this.checkDelete_(entity, options);
         }
 
         throw new InvalidArgumentException("Wrong checking mode: " ~ mode);
@@ -251,7 +251,7 @@ class RulesChecker
      * @param uim.Datasource\IEntity entity The entity to check for validity.
      * @param array<string, mixed> options Extra options to pass to checker functions.
      */
-    bool checkDelete(IEntity entity, STRINGAA someOptions = null) {
+    bool checkDelete_(IEntity entity, STRINGAA someOptions = null) {
         return _checkRules(entity, options, _deleteRules);
     }
 

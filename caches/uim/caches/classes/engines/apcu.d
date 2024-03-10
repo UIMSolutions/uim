@@ -68,10 +68,10 @@ class ApcuEngine : CacheEngine {
   } */ 
 
   // Delete a key from the cache
-  /* bool delete(string dataId) {
+  /* bool delete_(string dataId) {
     auto key = _key(dataId);
 
-    return apcu_delete(key);
+    return apcu_delete_(key);
   } */
 
   //  Delete all keys from the cache. This will clear every cache config using APC.
@@ -81,7 +81,7 @@ class ApcuEngine : CacheEngine {
         "/^" ~ preg_quote(configuration["prefix"], "/") ~ "/",
         APC_ITER_NONE
       );
-      apcu_delete(myiterator);
+      apcu_delete_(myiterator);
 
       return true;
     }
@@ -89,7 +89,7 @@ class ApcuEngine : CacheEngine {
     auto mycache = apcu_cache_info(); // Raises warning by itself already
     mycache["cache_list"]
       .filter!(key => aKey["info"].startsWith(configuration["prefix"]))
-      .each!(key => apcu_delete(aKey["info"]));
+      .each!(key => apcu_delete_(aKey["info"]));
     }
     return true;
   } */ 

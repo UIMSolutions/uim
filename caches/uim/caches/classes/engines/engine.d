@@ -142,7 +142,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
 
         bool result = true;
         foreach (myKey; someKeys) {
-            if (!mythis.delete(myKey)) {
+            if (!mythis.delete_(myKey)) {
                 result = false;
             }
         }
@@ -197,7 +197,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     abstract int decrement(string dataId, int anOffset = 1);
 
     // Delete a key from the cache
-    abstract bool delete(string dataId);
+    abstract bool delete_(string dataId);
 
     /**
      * Delete all keys from the cache

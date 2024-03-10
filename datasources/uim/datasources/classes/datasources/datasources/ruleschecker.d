@@ -24,7 +24,7 @@ import uim.datasources;
  *
  * Generally a Table object will invoke the rules objects, but you can manually
  * invoke the checks by calling RulesChecker.checkCreate(), RulesChecker.checkUpdate() or
- * RulesChecker.checkDelete().
+ * RulesChecker.checkDelete_().
  */
 class RulesChecker {
   	override bool initialize(IData[string] initData = null) {
@@ -161,7 +161,7 @@ class RulesChecker {
      * @param IData[string] optionData List of extra options to pass to the rule callable as
      * second argument.
      */
-    auto addDelete(callable rule, string[]|null name = null, IData[string] optionData = null) {
+    auto addDelete_(callable rule, string[]|null name = null, IData[string] optionData = null) {
        _deleteRules ~= _addError(rule, name, options);
 
         return this;
@@ -185,7 +185,7 @@ class RulesChecker {
             return this.checkUpdate(entity, options);
         }
         if (mode == self.DELETE) {
-            return this.checkDelete(entity, options);
+            return this.checkDelete_(entity, options);
         }
         throw new InvalidArgumentException("Wrong checking mode: " ~ mode);
     }
@@ -231,7 +231,7 @@ class RulesChecker {
      * \UIM\Datasource\IEntity entity The entity to check for validity.
      * @param IData[string] optionData Extra options to pass to checker functions.
      */
-    bool checkDelete(IEntity entity, IData[string] optionData = null) {
+    bool checkDelete_(IEntity entity, IData[string] optionData = null) {
         return _checkRules(entity, options, _deleteRules);
     }
     

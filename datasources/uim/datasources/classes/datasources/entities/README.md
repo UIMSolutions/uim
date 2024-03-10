@@ -364,7 +364,7 @@ namespace SoftDelete\Model\Entity;
 
 trait SoftDeleteTrait
 {
-    public function softDelete()
+    public function softDelete_()
     {
         this->set('deleted', true);
     }

@@ -169,7 +169,7 @@ class RedisEngine : CacheEngine {
      * Params:
      * string aKey Identifier for the data
      */
-    bool delete(string dataIdentifier) {
+    bool delete_(string dataIdentifier) {
         auto key = _key(dataIdentifier);
 
         return _redis.del(key) > 0;

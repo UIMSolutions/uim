@@ -266,21 +266,21 @@ class AssociationCollection : IteratorAggregate {
      * @param DORMDatasource\IEntity anEntity The entity to delete associations for.
      * @param array<string, mixed> options The options used in the delete operation.
      */
-    bool cascadeDelete(IEntity anEntity, STRINGAA someOptions) {
+    bool cascadeDelete_(IEntity anEntity, STRINGAA someOptions) {
         noCascade = null;
         foreach (_items as assoc) {
             if (!assoc.getCascadeCallbacks()) {
                 noCascade[] = assoc;
                 continue;
             }
-            success = assoc.cascadeDelete(anEntity, options);
+            success = assoc.cascadeDelete_(anEntity, options);
             if (!success) {
                 return false;
             }
         }
 
         foreach (noCascade as assoc) {
-            success = assoc.cascadeDelete(anEntity, options);
+            success = assoc.cascadeDelete_(anEntity, options);
             if (!success) {
                 return false;
             }

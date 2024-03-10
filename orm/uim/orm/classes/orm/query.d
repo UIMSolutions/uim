@@ -1211,12 +1211,12 @@ class DORMQuery : DatabaseQuery : JsonSerializable, IQuery
      * @param string|null table Unused parameter.
      * @return this
      */
-    function delete(Nullable!string table = null) {
+    function delete_(Nullable!string table = null) {
         repository = this.getRepository();
         this.from([repository.aliasName(): repository.getTable()]);
 
         // We do not pass table to parent class here
-        return super.delete();
+        return super.delete_();
     }
 
     /**

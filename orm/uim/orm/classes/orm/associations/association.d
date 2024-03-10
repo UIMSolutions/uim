@@ -1047,7 +1047,7 @@ abstract class Association {
      * @param array<string, mixed> options The options for the original delete.
      * @return bool Success
      */
-    abstract bool cascadeDelete(IEntity anEntity, STRINGAA someOptions = null);
+    abstract bool cascadeDelete_(IEntity anEntity, STRINGAA someOptions = null);
 
     /**
      * Returns whether the passed table is the owning side for this

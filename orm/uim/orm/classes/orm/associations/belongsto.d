@@ -40,7 +40,7 @@ class BelongsTo : DAssociation {
      * @param array<string, mixed> options The options for the original delete.
      * @return bool Success.
      */
-    bool cascadeDelete(IEntity anEntity, STRINGAA someOptions = null) {
+    bool cascadeDelete_(IEntity anEntity, STRINGAA someOptions = null) {
       return true;
     }
 

@@ -115,9 +115,9 @@ class HasOne : DAssociation {
     }
 
 
-    bool cascadeDelete(IEntity anEntity, STRINGAA someOptions = null) {
+    bool cascadeDelete_(IEntity anEntity, STRINGAA someOptions = null) {
         helper = new DependentDeleteHelper();
 
-        return helper.cascadeDelete(this, entity, options);
+        return helper.cascadeDelete_(this, entity, options);
     }
 }

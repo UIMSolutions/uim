@@ -503,7 +503,7 @@ class BelongsToMany : DAssociation {
      * @param array<string, mixed> options The options for the original delete.
      * @return bool Success.
      */
-    bool cascadeDelete(IEntity anEntity, STRINGAA someOptions = null) {
+    bool cascadeDelete_(IEntity anEntity, STRINGAA someOptions = null) {
         if (!this.getDependent()) {
             return true;
         }
@@ -519,7 +519,7 @@ class BelongsToMany : DAssociation {
         hasMany = this.getSource().getAssociation(table.aliasName());
         if (_cascadeCallbacks) {
             foreach (hasMany.find("all").where(conditions).all().toList() as related) {
-                success = table.delete(related, options);
+                success = table.delete_(related, options);
                 if (!success) {
                     return false;
                 }
@@ -796,7 +796,7 @@ class BelongsToMany : DAssociation {
      *
      * ### Options
      *
-     * Additionally to the default options accepted by `Table::delete()`, the following
+     * Additionally to the default options accepted by `Table::delete_()`, the following
      * keys are supported:
      *
      * - cleanProperty: Whether to remove all the objects in `targetEntities` that
@@ -841,7 +841,7 @@ class BelongsToMany : DAssociation {
             void () use (sourceEntity, targetEntities, options) {
                 links = _collectJointEntities(sourceEntity, targetEntities);
                 foreach (links as entity) {
-                    _junctionTable.delete(entity, options);
+                    _junctionTable.delete_(entity, options);
                 }
             }
         );
@@ -1156,7 +1156,7 @@ class BelongsToMany : DAssociation {
      * @param array<DORMDatasource\IEntity> jointEntities link entities that should be persisted
      * @param array targetEntities entities in target table that are related to
      * the `jointEntities`
-     * @param array<string, mixed> options list of options accepted by `Table::delete()`
+     * @param array<string, mixed> options list of options accepted by `Table::delete_()`
      * @return array|false Array of entities not deleted or false in case of deletion failure for atomic saves.
      */
     protected function _diffLinks(
@@ -1227,7 +1227,7 @@ class BelongsToMany : DAssociation {
         }
 
         foreach (deletes as entity) {
-            if (!junction.delete(entity, options) && !empty(options["atomic"])) {
+            if (!junction.delete_(entity, options) && !empty(options["atomic"])) {
                 return false;
             }
         }

@@ -271,7 +271,7 @@ class HasMany : DAssociation {
      *
      * ### Options
      *
-     * Additionally to the default options accepted by `Table::delete()`, the following
+     * Additionally to the default options accepted by `Table::delete_()`, the following
      * keys are supported:
      *
      * - cleanProperty: Whether to remove all the objects in `myTargetEntities` that
@@ -416,7 +416,7 @@ class HasMany : DAssociation {
      * @param DORMDatasource\IEntity anEntity the entity which should have its associated entities unassigned
      * @param DORMTable myTarget The associated table
      * @param iterable remainingEntities Entities that should not be deleted
-     * @param array<string, mixed> options list of options accepted by `Table::delete()`
+     * @param array<string, mixed> options list of options accepted by `Table::delete_()`
      * @return bool success
      */
     protected bool _unlinkAssociated(
@@ -464,7 +464,7 @@ class HasMany : DAssociation {
      * @param array foreignKey array of foreign key properties
      * @param DORMTable myTarget The associated table
      * @param array conditions The conditions that specifies what are the objects to be unlinked
-     * @param array<string, mixed> options list of options accepted by `Table::delete()`
+     * @param array<string, mixed> options list of options accepted by `Table::delete_()`
      * @return bool success
      */
     protected bool _unlink(array foreignKey, Table myTarget, array conditions = null, IData[string] options = null) {
@@ -484,7 +484,7 @@ class HasMany : DAssociation {
                 myQuery = this.find().where(conditions);
                 ok = true;
                 foreach (myQuery as assoc) {
-                    ok = ok && myTarget.delete(assoc, options);
+                    ok = ok && myTarget.delete_(assoc, options);
                 }
 
                 return ok;
@@ -609,9 +609,9 @@ class HasMany : DAssociation {
     }
 
 
-    bool cascadeDelete(IEntity anEntity, IData[string] options = null) {
+    bool cascadeDelete_(IEntity anEntity, IData[string] options = null) {
         helper = new DependentDeleteHelper();
 
-        return helper.cascadeDelete(this, entity, options);
+        return helper.cascadeDelete_(this, entity, options);
     }
 }

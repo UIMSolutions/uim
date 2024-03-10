@@ -101,8 +101,8 @@ use RuntimeException; */
  * - `beforeSave(IEvent event, IEntity anEntity, ArrayObject options)`
  * - `afterSave(IEvent event, IEntity anEntity, ArrayObject options)`
  * - `afterSaveCommit(IEvent event, IEntity anEntity, ArrayObject options)`
- * - `beforeDelete(IEvent event, IEntity anEntity, ArrayObject options)`
- * - `afterDelete(IEvent event, IEntity anEntity, ArrayObject options)`
+ * - `beforeDelete_(IEvent event, IEntity anEntity, ArrayObject options)`
+ * - `afterDelete_(IEvent event, IEntity anEntity, ArrayObject options)`
  * - `afterDeleteCommit(IEvent event, IEntity anEntity, ArrayObject options)`
  *
  * @see DORMevents.EventManager for reference on the events system.
@@ -1610,7 +1610,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
 
     int deleteAll(conditions) {
         statement = this.query()
-            .delete()
+            .delete_()
             .where(conditions)
             .execute();
         statement.closeCursor();
@@ -2192,7 +2192,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * @param \ArrayAccess|STRINGAA someOptions The options for the delete.
      * @return bool success
      */
-    bool delete(IEntity anEntity, options = null) {
+    bool delete_(IEntity anEntity, options = null) {
         options = new ArrayObject((array)options + [
             "atomic": true,
             "checkRules": true,
@@ -2200,7 +2200,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
         ]);
 
         success = _executeTransaction(function () use (entity, options) {
-            return _processDelete(entity, options);
+            return _processDelete_(entity, options);
         }, options["atomic"]);
 
         if (success && _transactionCommitted(options["atomic"], options["_primary"])) {
@@ -2224,7 +2224,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * @param \ArrayAccess|STRINGAA someOptions Options used when calling Table::save() for each entity.
      * @return iterable<DORMDatasource\IEntity>|false Entities list
      *   on success, false on failure.
-     * @see DORMTable::delete() for options and events related to this method.
+     * @see DORMTable::delete_() for options and events related to this method.
      */
     function deleteMany(iterable entities, options = null) {
         failed = _deleteMany(entities, options);
@@ -2247,7 +2247,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * @param \ArrayAccess|STRINGAA someOptions Options used when calling Table::save() for each entity.
      * @return iterable<DORMDatasource\IEntity> Entities list.
      * @throws DORMexceptions.PersistenceFailedException
-     * @see DORMTable::delete() for options and events related to this method.
+     * @see DORMTable::delete_() for options and events related to this method.
      */
     function deleteManyOrFail(iterable entities, options = null): iterable
     {
@@ -2275,7 +2275,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
 
         failed = _executeTransaction(function () use (entities, options) {
             foreach (entities as entity) {
-                if (!_processDelete(entity, options)) {
+                if (!_processDelete_(entity, options)) {
                     return entity;
                 }
             }
@@ -2303,10 +2303,10 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * @param \ArrayAccess|STRINGAA someOptions The options for the delete.
      * @return true
      * @throws DORMexceptions.PersistenceFailedException
-     * @see DORMTable::delete()
+     * @see DORMTable::delete_()
      */
     bool deleteOrFail(IEntity anEntity, options = null) {
-        deleted = this.delete(entity, options);
+        deleted = this.delete_(entity, options);
         if (deleted == false) {
             throw new PersistenceFailedException(entity, ["delete"]);
         }
@@ -2326,7 +2326,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * passed entity
      * @return bool success
      */
-    protected bool _processDelete(IEntity anEntity, ArrayObject options) {
+    protected bool _processDelete_(IEntity anEntity, ArrayObject options) {
         if (entity.isNew()) {
             return false;
         }
@@ -2350,7 +2350,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
             return (bool)event.getResult();
         }
 
-        success = _associations.cascadeDelete(
+        success = _associations.cascadeDelete_(
             entity,
             ["_primary": false] + options.getArrayCopy()
         );
@@ -2359,7 +2359,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
         }
 
         statement = this.query()
-            .delete()
+            .delete_()
             .where(entity.extract(primaryKeys))
             .execute();
 

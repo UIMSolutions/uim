@@ -77,7 +77,13 @@ class DData : IData {
   // #endregion properties 
 
   // #region set
-  void set(Json newValue) {
+  void set(IData newValue) {
+    if (isReadOnly) {
+      return;
+    }
+    // TODO
+  }
+    void set(Json newValue) {
     if (isReadOnly) {
       return;
     }
@@ -91,47 +97,51 @@ class DData : IData {
     // TODO
   }
 
-  void opCall(Json newData) {
-    set(newData);
+  void opCall(IData newValue) {
+    set(newValue);
   }
 
-  void opCall(string newData) {
-    set(newData);
+  void opCall(Json newValue) {
+    set(newValue);
+  }
+
+  void opCall(string newValue) {
+    set(newValue);
   }
   // #endregion set
 
   // #region equals
-    bool opEquals(IData[string] checkData) {
-      return isEqual(checkData);
-    }
+  bool opEquals(IData[string] checkData) {
+    return isEqual(checkData);
+  }
 
-    bool opEquals(string checkValue) {
-      return isEqual(checkValue);
-    }
+  bool opEquals(string checkValue) {
+    return isEqual(checkValue);
+  }
 
-    bool opEquals(IData checkValue) {
-      return isEqual(checkValue);
-    }
+  bool opEquals(IData checkValue) {
+    return isEqual(checkValue);
+  }
 
-    bool opEquals(Json checkValue) {
-      return isEqual(checkValue);
-    }
+  bool opEquals(Json checkValue) {
+    return isEqual(checkValue);
+  }
 
-    bool isEqual(IData[string] checkData) {
-      return false;
-    }
+  bool isEqual(IData[string] checkData) {
+    return false;
+  }
 
-    bool isEqual(IData checkValue) {
-      return false;
-    }
+  bool isEqual(IData checkValue) {
+    return false;
+  }
 
-    bool isEqual(Json checkValue) {
-      return false;
-    }
+  bool isEqual(Json checkValue) {
+    return false;
+  }
 
-    bool isEqual(string checkValue) {
-      return false;
-    }
+  bool isEqual(string checkValue) {
+    return false;
+  }
   // #endregion equals
 
   IData[] values() {
@@ -139,31 +149,31 @@ class DData : IData {
   }
 
   // #region key/keys
-    mixin(TProperty!("string", "key"));
+  mixin(TProperty!("string", "key"));
 
-    bool hasKey() {
-      return !key.isEmpty;
-    }
+  bool hasKey() {
+    return !key.isEmpty;
+  }
 
-    bool hasAllKeys() {
-      return !keys.isEmpty;
-    }
+  bool hasAllKeys() {
+    return !keys.isEmpty;
+  }
 
-    bool hasAllKeys(string[] keys, bool deepSearch = false) {
-      return false;
-    }
+  bool hasAllKeys(string[] keys, bool deepSearch = false) {
+    return false;
+  }
 
-    bool hasKey(string key, bool deepSearch = false) {
-      return false;
-    }
+  bool hasKey(string key, bool deepSearch = false) {
+    return false;
+  }
 
-    bool hasAllKeys(string[] keys) {
-      return false;
-    }
+  bool hasAllKeys(string[] keys) {
+    return false;
+  }
 
-    string[] keys() {
-      return null;
-    }
+  string[] keys() {
+    return null;
+  }
   // #endregion key/keys
 
   ulong length() {

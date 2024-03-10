@@ -43,7 +43,7 @@ class DVersion : DElement {
     return true;
   }
 
-  mixin(LongDataProperty!("number"));
+  mixin(IntegerDataProperty!("number"));
 
   ///	Date and time when the entity was versioned.	
   mixin(TimeStampDataProperty!("on"));

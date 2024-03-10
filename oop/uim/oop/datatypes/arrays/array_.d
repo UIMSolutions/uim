@@ -152,6 +152,7 @@ class DArrayData : DData {
     assert(data.length == 1);
   }
 
+  alias toJson = DData.toJson;
   override Json toJson() {
     return Json(_items.map!(item => item.toJson).array);
   }

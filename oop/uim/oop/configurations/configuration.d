@@ -69,13 +69,22 @@ abstract class DConfiguration : IConfiguration {
         return null;
     }
 
-    IData[string] get(string[] keys, bool compressMode = true);
+    IData[string] get(string[] keys, bool compressMode = true){
+        return null; 
+    }
 
-    void set(string key, IData newData);
-    void set(string[] keys, IData[string] newData);
+    void set(string key, IData newData) {
 
-    void update(IData[string] newData);
+    }
 
-    void remove(string[] keys);
+    void set(string[] keys, IData[string] newData) {
+
+    }
+
+    void update(IData[string] newData) {
+
+    }
+
+    void remove(string[] keys) {}
 }
 

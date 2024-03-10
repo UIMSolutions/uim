@@ -296,8 +296,8 @@ class DElement : IElement {
 
   // Set long value
   void opIndexAssign(long value, string key) {
-    if (auto myValue = cast(DLongData) valueOfKey(key)) {
-      // values[key] exists and value of DLongData
+    if (auto myValue = cast(DIntegerData) valueOfKey(key)) {
+      // values[key] exists and value of DIntegerData
       // myValue.set(value);
     }
   }

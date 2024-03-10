@@ -37,7 +37,7 @@ import uim.models;
   }
 
   void opIndexAssign(long newValue, string key) {
-    _items[key] = LongData(newValue);
+    _items[key] = IntegerData(newValue);
   }
 
   void opIndexAssign(string newValue, string key) {

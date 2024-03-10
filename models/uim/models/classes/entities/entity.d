@@ -97,7 +97,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     assert(entity.pool != "noPool"); */
   }
 
-  mixin(LongDataProperty!("versionNumber", "version.number"));
+  mixin(IntegerDataProperty!("versionNumber", "version.number"));
 
   ///	Date and time when the entity was versioned.	
   mixin(TimeStampDataProperty!("versionOn", "version.on"));

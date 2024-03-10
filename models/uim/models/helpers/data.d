@@ -11,7 +11,7 @@ IData jsonToData(Json json) {
     case (Json.Type.array):
         return ArrayData(json);
     case (Json.Type.bigInt):
-        return LongData(json);
+        return IntegerData(json);
     case (Json.Type.bool_):
         return BoolData(json);
     case (Json.Type.float_):

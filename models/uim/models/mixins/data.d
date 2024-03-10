@@ -145,11 +145,11 @@ template TimeStampDataProperty(string name, string path = null) {
     dataSetter(name, "string", "DTimestampData", path);
 }
 
-template LongDataProperty(string name, string path = null) {
-  const char[] LongDataProperty = `
+template IntegerDataProperty(string name, string path = null) {
+  const char[] IntegerDataProperty = `
     @property long `
     ~ name ~ `() {
-      // if (auto myData = cast(DLongData)dataOfKey("`
+      // if (auto myData = cast(DIntegerData)dataOfKey("`
     ~ (path ? path : name) ~ `")) {
       //   return myData.data;
       // }
@@ -157,9 +157,9 @@ template LongDataProperty(string name, string path = null) {
     }`
     ~
      // Setter
-    dataSetter(name, "long", "DLongData", path) ~
-    dataSetter(name, "Json", "DLongData", path) ~
-    dataSetter(name, "string", "DLongData", path);
+    dataSetter(name, "long", "DIntegerData", path) ~
+    dataSetter(name, "Json", "DIntegerData", path) ~
+    dataSetter(name, "string", "DIntegerData", path);
 }
 
 

@@ -518,7 +518,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
 
     foreach (fName; fieldNames) {
       auto requestKey = "entity_" ~ fName;
-      /* if (auto boolValue = cast(DBoolData) values[fName]) {
+      /* if (auto boolValue = cast(DBooleanData) values[fName]) {
         boolValue.set(requestKey in requestValues ? true : false);
       } else {
         if (requestKey in requestValues) {

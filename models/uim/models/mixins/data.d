@@ -106,8 +106,8 @@ template StringDataProperty(string name, string path = null) {
   const char[] StringDataProperty = dataProperty("string", name, path, "DStringData");
 }
 
-template BoolDataProperty(string name, string path = null) {
-  const char[] BoolDataProperty = dataProperty("bool", name, path, "DBoolData");
+template BooleanDataProperty(string name, string path = null) {
+  const char[] BooleanDataProperty = dataProperty("bool", name, path, "DBooleanData");
 }
 
 template UUIDDataProperty(string name, string path = null) {

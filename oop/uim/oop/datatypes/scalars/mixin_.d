@@ -2,6 +2,28 @@ module uim.oop.datatypes.scalars.mixin_;
 
 import uim.oop; 
  
+ string scalarOpCall(string[] datatypes) {
+    return `
+override void opCall(IData checkValue) {
+  set(checkValue);
+}
+
+override void opCall(Json checkValue) {
+  set(checkValue);
+}
+
+override void opCall(string checkValue) {
+  set(checkValue);
+}`
+        ~ datatypes.map!(datatype => `
+void opCall(%s checkValue) { set(checkValue); }`.format(datatype))
+        .join();
+}
+
+template ScalarOpCall(string[] datatypes) {
+    const char[] ScalarOpCall = scalarOpCall(datatypes);
+}
+
 string scalarOpEquals(string[] datatypes) {
     return `
 override bool opEquals(IData checkValue) {

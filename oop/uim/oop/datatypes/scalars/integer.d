@@ -12,7 +12,7 @@ import uim.oop;
 class DIntegerData : DScalarData {
   mixin(DataThis!("Integer"));
   this(long newValue) {
-    this(); 
+    this();
     this.set(newValue);
   }
 
@@ -35,17 +35,13 @@ class DIntegerData : DScalarData {
   }
 
   // #region set
-  void set(long newValue) {
-    _value = newValue;
-  }
-
   override void set(Json newValue) {
     if (newValue.isInteger) {
       set(newValue.get!long);
     }
 
     if (newValue.isString) {
-      value(newValue.get!string);
+      set(newValue.get!string);
     }
   }
 
@@ -53,6 +49,14 @@ class DIntegerData : DScalarData {
     if (newValue.isNumeric) {
       set(to!long(newValue));
     }
+  }
+
+  void set(int newValue) {
+    _value = to!long(newValue);
+  }
+
+  void set(long newValue) {
+    _value = newValue;
   }
   ///
   unittest {
@@ -63,26 +67,31 @@ class DIntegerData : DScalarData {
   // #endregion set
 
   // #region isEqual
+  mixin(ScalarOpEquals!(["int", "bool"]));
   override bool isEqual(IData checkData) {
     if (checkData.isNull || key != checkData.key) {
       return false;
     }
     if (auto data = cast(DIntegerData) checkData) {
-      return (get == data.get);
+      return isEqual(data.value);
     }
     return false;
   }
 
   override bool isEqual(Json checkValue) {
-    if (checkValue.isNull || !checkValue.isInt) {
+    if (checkValue.isNull || !checkValue.isInteger) {
       return false;
     }
 
-    return (_value == checkValue.get!long);
+    return isEqual(checkValue.get!long);
   }
 
   override bool isEqual(string checkValue) {
-    return (_value == to!long(checkValue));
+    return isEqual(to!long(checkValue));
+  }
+
+  bool isEqual(bool checkValue) {
+    return ((_value > 0) == checkValue);
   }
 
   bool isEqual(long checkValue) {
@@ -183,7 +192,7 @@ class DIntegerData : DScalarData {
   }
 
   void sub(DIntegerData opValue) {
-    sub(opValue.get);
+    sub(opValue.value);
   }
 
   unittest {

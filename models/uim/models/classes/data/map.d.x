@@ -25,7 +25,7 @@ import uim.models;
 
   // Set value, if key exists
   void opIndexAssign(bool newValue, string key) {
-    _items[key] = BoolData(newValue);
+    _items[key] = BooleanData(newValue);
   }
 
 /*   void opIndexAssign(Json newValue, string key) {

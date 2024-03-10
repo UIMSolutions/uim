@@ -35,35 +35,60 @@ class DNumberData : DScalarData {
   }
 
   // #region Getter & Setter
-  
+  protected double _value;
   double value() {
     return _value;
   }
 
   // #region set
-    void set(double newValue) {
-      _value = newValue;
+  mixin(ScalarOpCall!(["int", "long", "float", "double"]));
+
+  override void set(IData newValue) {
+    if (newValue is null) {
+      _value = 0.0;
+      return;
     }
 
-    override void set(Json newValue) {
-      if (newValue.isDouble) {
-        set(newValue.get!double);
-      }
-
-      if (newValue.isNumber) {
-        set(to!double(newValue.get!long));
-      }
-
-      if (newValue.isString) {
-        value(newValue.get!string);
-      }
+    auto numberValue = cast(DNumberData)newValue;
+    if (numberValue is null) {
+      _value = 0.0;
+      return;
     }
 
-    override void set(string newValue) {
-      if (newValue.isNumeric) {
-        set(to!double(newValue));
-      }
+    set(numberValue.value);
+  }
+
+  override void set(Json newValue) {
+    if (newValue.isInteger /* || newValue.isDouble */ ) {
+      set(newValue.get!double);
     }
+
+    if (newValue.isString) {
+      set(newValue.get!string);
+    }
+  }
+
+  override void set(string newValue) {
+    if (newValue.isNumeric) {
+      set(to!double(newValue));
+    }
+  }
+
+  void set(int newValue) {
+    _value = to!double(newValue);
+  }
+
+  void set(long newValue) {
+    _value = to!double(newValue);
+  }
+
+  void set(float newValue) {
+    _value = to!double(newValue);
+  }
+
+  void set(double newValue) {
+    _value = newValue;
+  }
   // #endregion set
   ///
   unittest {
@@ -76,26 +101,26 @@ class DNumberData : DScalarData {
   unittest {
     /* number myValue = 42.0;
     auto data = NumberData(myValue);
-    assert(data.get == myValue);
+    assert(data.value == myValue);
 
     data = new DNumberData;
     data.set(myValue);
-    assert(data.get == myValue);
+    assert(data.value == myValue);
 
     data = new DNumberData;
     data.value = myValue;
-    assert(data.get == myValue); */
+    assert(data.value == myValue); */
   }
 
   // #region equal
-  // mixin(ScalarOpEquals!("number"));
+  mixin(ScalarOpEquals!(["float", "double"]));
 
   override bool isEqual(IData checkData) {
     if (checkData.isNull) {
       return false;
     }
-    
-    auto data = cast(DNumberData)checkData;
+
+    auto data = cast(DNumberData) checkData;
     if (data is null) {
       return false;
     }
@@ -112,6 +137,10 @@ class DNumberData : DScalarData {
   }
 
   override bool isEqual(string checkValue) {
+    return isEqual(to!double(checkValue));
+  }
+
+  bool isEqual(float checkValue) {
     return isEqual(to!double(checkValue));
   }
 
@@ -153,7 +182,7 @@ class DNumberData : DScalarData {
 
 mixin(DataCalls!("Number"));
 auto NumberData(double newValue) {
-  return new NumberData(newVaue);
+  return new DNumberData(newValue);
 }
 
 unittest {

@@ -13,7 +13,7 @@ IData jsonToData(Json json) {
     case (Json.Type.bigInt):
         return IntegerData(json);
     case (Json.Type.bool_):
-        return BoolData(json);
+        return BooleanData(json);
     case (Json.Type.float_):
         return DoubleData(json);
     case (Json.Type.int_):

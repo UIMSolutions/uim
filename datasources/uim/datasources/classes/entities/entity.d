@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module datasources.uim.datasources.classes.entities.entity;
+module uim.datasources.classes.entities.entity;
 
 @safe:
 import uim.datasources;
@@ -12,14 +12,14 @@ import uim.datasources;
  * An entity represents a single result row from a repository. It exposes the
  * methods for retrieving and storing properties associated in this row.
  */
-class Entity : IEntity, InvalidPropertyInterface {
+class DDBEntity : IDBEntity { //}, InvalidPropertyInterface {
     // use EntityTrait;
 
     // Holds all fields and their values for this entity.
-    protected IValue[string] _fields;
+    protected IData[string] _fields;
 
     // Holds all fields that have been changed and their original values for this entity.
-    protected IValue[string] _original;
+    protected IData[string] _original;
 
     // List of field names that should not be included in JSON or Array representations of this Entity.
     protected string[] _hidden;

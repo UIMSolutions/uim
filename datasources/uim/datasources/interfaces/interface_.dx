@@ -93,7 +93,7 @@ interface IEntity : ArrayAccess, JsonSerializable
      * @param string field the name of the field to retrieve
      * @return mixed
      */
-    IValue get(string fieldName);
+    IData get(string fieldName);
 
     /**
      * Returns the original value of a field.
@@ -101,10 +101,10 @@ interface IEntity : ArrayAccess, JsonSerializable
      * @param string field The name of the field.
      * @return mixed
      */
-    IValue getOriginal(string fieldName);
+    IData getOriginal(string fieldName);
 
     // Gets all original values of the entity.
-    IValue[] getOriginalValues();
+    IData[] getOriginalValues();
 
     /**
      * Returns whether this entity contains a field named field

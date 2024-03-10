@@ -24,7 +24,7 @@ interface IConnection { // : ILoggerAware
   IData[string] configData();
 
   // Gets the current logger object 
-  ILogger getLogger();
+  // ILogger getLogger();
 
   // Enable/disable query logging
   void enableQueryLogging(bool shouldEnable = true);

@@ -16,10 +16,10 @@ class Entity : IEntity, InvalidPropertyInterface {
     // use EntityTrait;
 
     // Holds all fields and their values for this entity.
-    protected IValue[string] _fields;
+    protected IData[string] _fields;
 
     // Holds all fields that have been changed and their original values for this entity.
-    protected IValue[string] _original;
+    protected IData[string] _original;
 
     // List of field names that should not be included in JSON or Array representations of this Entity.
     protected string[] _hidden;

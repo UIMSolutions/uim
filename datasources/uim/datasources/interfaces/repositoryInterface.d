@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module datasources.uim.datasources.interfaces.repositoryInterface;
+module uim.datasources.interfaces.repositoryinterface;
 
 /**
  * Describes the methods that any class representing a data storage should
@@ -31,14 +31,14 @@ interface IRepository
      * could not be found
      * @return uim.Datasource\IEntity
      * @see uim.datasources.IRepository::find()
-     */
+     * /
     function get(primaryKey, STRINGAA someOptions = null): IEntity;
 
     /**
      * Creates a new Query instance for this repository
      *
      * @return uim.Datasource\IQuery
-     */
+     * /
     function query();
 
     /**
@@ -52,7 +52,7 @@ interface IRepository
      * @param mixed conditions Conditions to be used, accepts anything Query::where()
      * can take.
      * @return size_t count Returns the affected rows.
-     */
+     * /
     int updateAll(fields, conditions);
 
     /**
@@ -69,7 +69,7 @@ interface IRepository
      * can take.
      * @return int Returns the number of affected rows.
      * @see uim.datasources.IRepository::delete_()
-     */
+     * /
     int deleteAll(conditions);
 
     /**
@@ -77,7 +77,7 @@ interface IRepository
      * conditions.
      *
      * @param array conditions list of conditions to pass to the query
-     */
+     * /
     bool exists(conditions);
 
     /**
@@ -88,7 +88,7 @@ interface IRepository
      * @param uim.Datasource\IEntity entity the entity to be saved
      * @param \ArrayAccess|STRINGAA someOptions The options to use when saving.
      * @return uim.Datasource\IEntity|false
-     */
+     * /
     function save(IEntity entity, options = null);
 
     /**
@@ -100,7 +100,7 @@ interface IRepository
      * @param uim.Datasource\IEntity entity The entity to remove.
      * @param \ArrayAccess|STRINGAA someOptions The options for the delete.
      * @return bool success
-     */
+     * /
     bool delete_(IEntity entity, options = null);
 
     /**
@@ -111,7 +111,7 @@ interface IRepository
      * Always patch in required fields before saving.
      *
      * @return uim.Datasource\IEntity
-     */
+     * /
     function newEmptyEntity(): IEntity;
 
     /**
@@ -131,7 +131,7 @@ interface IRepository
      * @param array data The data to build an entity with.
      * @param array<string, mixed> options A list of options for the object hydration.
      * @return uim.Datasource\IEntity
-     */
+     * /
     function newEntity(array data, STRINGAA someOptions = null): IEntity;
 
     /**
@@ -149,7 +149,7 @@ interface IRepository
      * @param array data The data to build an entity with.
      * @param array<string, mixed> options A list of options for the objects hydration.
      * @return array<uim.Datasource\IEntity> An array of hydrated records.
-     */
+     * /
     array newEntities(array data, STRINGAA someOptions = null);
 
     /**
@@ -168,7 +168,7 @@ interface IRepository
      * @param array data key value list of fields to be merged into the entity
      * @param array<string, mixed> options A list of options for the object hydration.
      * @return uim.Datasource\IEntity
-     */
+     * /
     function patchEntity(IEntity entity, array data, STRINGAA someOptions = null): IEntity;
 
     /**
@@ -188,6 +188,7 @@ interface IRepository
      * @param array data list of arrays to be merged into the entities
      * @param array<string, mixed> options A list of options for the objects hydration.
      * @return array<uim.Datasource\IEntity>
-     */
+     * /
     array patchEntities(Range entities, array data, STRINGAA someOptions = null);
+    */
 }

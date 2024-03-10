@@ -10,7 +10,7 @@ import uim.i18n;
  */
 class Number {
   	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
+		// if (!super.initialize(initData)) { return false; }
 		
 		return true;
 	}

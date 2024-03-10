@@ -16,14 +16,14 @@ class DateTime /* : Chronos, JsonSerializable, Stringable */ {
      *
      * Use setDefaultLocale() and getDefaultLocale() instead.
      */
-    protected auto string _defaultLocale;
+    protected string _defaultLocale;
 
     /**
      * Whether lenient parsing is enabled for IntlDateFormatter.
      *
      * Defaults to true which is the default for IntlDateFormatter.
      */
-    protected auto bool _lenientParsing = true;
+    protected bool _lenientParsing = true;
 
     /**
      * The format to use when formatting a time using `UIM\I18n\DateTime.i18nFormat()`
@@ -39,7 +39,7 @@ class DateTime /* : Chronos, JsonSerializable, Stringable */ {
      *
      * @var array<int>|string|int
      */
-    protected auto string[] _toStringFormat = [IntlDateFormatter.SHORT, IntlDateFormatter.SHORT];
+    protected string[] _toStringFormat = [IntlDateFormatter.SHORT, IntlDateFormatter.SHORT];
 
     /**
      * The format to use when converting this object to JSON.
@@ -71,7 +71,7 @@ class DateTime /* : Chronos, JsonSerializable, Stringable */ {
      * @var array<int>|string|int
      * @see \UIM\I18n\DateTime.nice()
      */
-    string[] niceFormat = [IntlDateFormatter.MEDIUM, IntlDateFormatter.SHORT];
+    // string[] niceFormat = [IntlDateFormatter.MEDIUM, IntlDateFormatter.SHORT];
 
     /**
      * The format to use when formatting a time using `UIM\I18n\DateTime.timeAgoInWords()`

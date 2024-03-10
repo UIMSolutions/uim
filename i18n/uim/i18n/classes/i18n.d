@@ -10,7 +10,7 @@ class I18n {
     const string DEFAULT_LOCALE = "en_US";
 
     // The translators collection
-    protected static TranslatorRegistry _collection = null;
+    // protected static TranslatorRegistry _collection = null;
 
     // The environment default locale
     protected static string _defaultLocale = null;

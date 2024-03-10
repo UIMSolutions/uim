@@ -18,6 +18,7 @@ class LocaleSelectorMiddleware : D18NMiddleware {
     }
     
     // Set locale based on request headers.
+    /* 
     IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
         auto locale = Locale.acceptFromHttp(request.getHeaderLine("Accept-Language"));
         if (!locale) {
@@ -30,5 +31,5 @@ class LocaleSelectorMiddleware : D18NMiddleware {
             I18n.setLocale(locale);
         }
         return requestHandler.handle(serverRequest);
-    }
+    } */ 
 }

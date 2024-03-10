@@ -8,7 +8,7 @@ import uim.i18n;
  * Constructs and stores instances of translators that can be
  * retrieved by name and locale.
  */
-class TranslatorRegistry {
+class DTranslatorRegistry {
     // Fallback loader name.
     const string FALLBACK_LOADER = "_fallback";
 
@@ -19,17 +19,17 @@ class TranslatorRegistry {
     protected string _localeName;
 
     // A catalog locator.
-    protected CatalogLocator _catalogs;
+    //protected CatalogLocator _catalogs;
 
     // A formatter locator.
-    protected FormatterLocator _formatters;
+    // protected FormatterLocator _formatters;
 
     /**
      * A list of loader functions indexed by domain name. Loaders are
      * callables that are invoked as a default for building translation
      * catalogs where none can be found for the combination of translator
      * name and locale.
-     */
+     * /
     protected callable[] _loaders = [];
 
     /**
@@ -44,7 +44,7 @@ class TranslatorRegistry {
     /**
      * A CacheEngine object that is used to remember translator across
      * requests.
-     */
+     * /
     protected ICacheEngine _cacher;
 
     /**

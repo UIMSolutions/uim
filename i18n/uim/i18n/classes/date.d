@@ -9,7 +9,7 @@ import uim.i18n;
  *
  * Adds handy methods and locale-aware formatting helpers.
  */
-class Date : ChronosDate, JsonSerializable {
+class Date { // }: ChronosDate, JsonSerializable {
     // TODO mixin DateFormatTemplate();
 
     /**

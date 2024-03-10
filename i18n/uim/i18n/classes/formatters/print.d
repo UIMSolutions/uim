@@ -10,7 +10,7 @@ import uim.i18n;
  */
 class PrintFormatter : DI18NFormatter {
     // Returns a string with all passed variables interpolated into the original message. 
-    string format(string messageLocale, string messageToTranslate, string[] tokenValues) {
+    /* string format(string messageLocale, string messageToTranslate, string[] tokenValues) {
         return messageToTranslate.format(tokenValues);
-    }
+    } */ 
 }

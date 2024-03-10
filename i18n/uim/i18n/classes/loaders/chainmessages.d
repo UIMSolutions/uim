@@ -8,19 +8,15 @@ import uim.i18n;
  * Wraps multiple message loaders calling them one after another until
  * one of them returns a non-empty catalog.
  */
-class ChainMessagesLoader {
+class DChainMessagesLoader {
     this() {
         initialize;
     }
 
     // Hook method
     bool initialize(IData[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
-
-        configuration(new DConfiguration);
-        configuration.update(initData);
+        // configuration(new DConfiguration);
+        // configuration.update(initData);
 
         return true;
     }

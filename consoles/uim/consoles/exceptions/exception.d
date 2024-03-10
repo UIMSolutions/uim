@@ -8,7 +8,7 @@ import uim.consoles;
 class DConsoleException : UimException {
 	mixin(ExceptionThis!("Console"));
     
-    protected int _defaultCode = DCommand.CODE_ERROR;
+    protected int _defaultCode; // = DCommand.CODE_ERROR;
     protected int _exceptionCode;
     protected Throwable _previousException;
 

@@ -37,10 +37,10 @@ abstract class DCommand : ICommand /* , IEventDispatcher */ {
     protected string _name = "unknown command";
 
     @property void name(string newName) {
-        assert(
+        /* assert(
             newName.has(" ") && !newName.startsWith(" "),
             "The name '{name}' is missing a space. Names should look like `cake routes`"
-        );
+        ); */ 
         _name = newName;
     }
 
@@ -56,7 +56,7 @@ abstract class DCommand : ICommand /* , IEventDispatcher */ {
 
     // Get the root command name.
     string getRootName() {
-        [root] = split(" ", this.name);
+        string root = this.name.split(" ").join(); // TODO
 
         return root;
     }

@@ -1,4 +1,4 @@
-module uim.collections.classes.collections.collection;
+module uim.collections.classes.collection;
 
 import uim.collections;
 
@@ -10,19 +10,17 @@ import uim.collections;
  *
  * @template-extends \IteratorIterator<mixed, mixed, \Traversable<mixed>>
  */
-class Collection : IteratorIterator, ICollection {
+class DCollection : /* IteratorIterator, */ ICollection2 {
   // mixin CollectionTemplate();
 
-  this(Range someItems) {
+  /* this(Range someItems) {
     if (isArray(someItems)) {
       someItems = new ArrayIterator(someItems);
     }
     super(someItems);
-  }
+  } */ 
 
-	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
+	bool initialize(IData[string] initData = null) {
 		return true;
 	}
 

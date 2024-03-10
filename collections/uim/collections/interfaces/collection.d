@@ -3,7 +3,7 @@
   License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
   Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module collections.uim.collections.interfaces.collection;
+module uim.collections.interfaces.collection;
 
 import uim.collections;
 
@@ -14,7 +14,7 @@ import uim.collections;
  * list of elements exposing a number of traversing and extracting method for
  * generating other collections.
  */
-interface ICollection {
+interface ICollection2 {
     /**
      * Applies a callback to the elements in this collection.
      *
@@ -55,7 +55,7 @@ interface ICollection {
      *   If left null, a callback that filters out falsey values will be used.
      * @return self
      */
-    ICollection filter(bool delegate(Json item));
+    // ICollection filter(bool delegate(Json item));
 
     /**
      * Looks through each value in the collection, and returns another collection with
@@ -171,7 +171,7 @@ interface ICollection {
      * @param mixed initial The state of reduction
      * @return mixed
      */
-    Json reduce(callable callback, initial = null);
+    // Json reduce(callable callback, initial = null);
 
     /**
      * Returns a new collection containing the column or property value found in each
@@ -216,7 +216,7 @@ interface ICollection {
      * of doing that.
      * @return self
      */
-    ICollection extract(path);
+    // ICollection extract(path);
 
     /**
      * Returns the top element in this collection after being sorted by a property.
@@ -242,7 +242,7 @@ interface ICollection {
      * @see uim.collections.ICollection::sortBy()
      * @return mixed The value of the top element in the collection
      */
-    Json max(path, int sort = SORT_NUMERIC);
+    // Json max(path, int sort = SORT_NUMERIC);
 
     /**
      * Returns the bottom element in this collection after being sorted by a property.
@@ -765,7 +765,7 @@ interface ICollection {
      * to return the same key for different elements, setting this value to false
      * can help getting all items if keys are not important in the result.
       */
-    array toArray(bool shouldKeepKeys = true);
+    // array toArray(bool shouldKeepKeys = true);
 
     /**
      * Returns an numerically-indexed array representation of the results.
@@ -1052,7 +1052,7 @@ interface ICollection {
      * ```
      * (new Collection([])).isEmpty(); // true
      * ```
-     */
+     * /
     bool isEmpty();
 
     /**
@@ -1124,7 +1124,7 @@ interface ICollection {
      *
      * If you need the count of elements after taking the keys in consideration
      * (the count of unique keys), you can call `countKeys()`
-     */
+     * /
     size_t count();
 
     /**
@@ -1135,7 +1135,7 @@ interface ICollection {
      * for details.
      *
      * @see uim.collections.ICollection::count()
-     */
+     * /
     size_t countKeys();
 
     /**
@@ -1167,5 +1167,5 @@ interface ICollection {
      *   of the final results.
      * @return self
      */
-    ICollection cartesianProduct(?callable  operation = null, ?callable filter = null);
+    // ICollection cartesianProduct(?callable  operation = null, ?callable filter = null);
 }

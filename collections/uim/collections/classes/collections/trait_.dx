@@ -204,7 +204,7 @@ trait CollectionTrait {
     function groupBy(path): ICollection
     {
         callback = _propertyExtractor(path);
-        $group = null;
+         group = null;
         foreach (this.optimizeUnwrap() as value) {
             pathValue = callback(value);
             if (pathValue == null) {
@@ -213,17 +213,17 @@ trait CollectionTrait {
                     "Use a callback to return a default value for that path."
                 );
             }
-            $group[pathValue] ~= value;
+             group[pathValue] ~= value;
         }
 
-        return this.newCollection($group);
+        return this.newCollection( group);
     }
 
 
     function indexBy(path): ICollection
     {
         callback = _propertyExtractor(path);
-        $group = null;
+         group = null;
         foreach (this.optimizeUnwrap() as value) {
             pathValue = callback(value);
             if (pathValue == null) {
@@ -232,10 +232,10 @@ trait CollectionTrait {
                     "Use a callback to return a default value for that path."
                 );
             }
-            $group[pathValue] = value;
+             group[pathValue] = value;
         }
 
-        return this.newCollection($group);
+        return this.newCollection( group);
     }
 
 
@@ -365,7 +365,7 @@ trait CollectionTrait {
             return this.newCollection(iterator);
         }
 
-        $generator = function (iterator,  length) {
+         generator = function (iterator,  length) {
             result = null;
              bucket = 0;
             offset = 0;
@@ -435,7 +435,7 @@ trait CollectionTrait {
             }
         };
 
-        return this.newCollection($generator(iterator,  length));
+        return this.newCollection( generator(iterator,  length));
     }
 
 
@@ -472,12 +472,12 @@ trait CollectionTrait {
     }
 
 
-    function combine( keyPath, valuePath, $groupPath = null): ICollection
+    function combine( keyPath, valuePath,  groupPath = null): ICollection
     {
         options = [
             "keyPath": _propertyExtractor( keyPath),
             "valuePath": _propertyExtractor(valuePath),
-            "groupPath": $groupPath ? _propertyExtractor($groupPath) : null,
+            "groupPath":  groupPath ? _propertyExtractor( groupPath) : null,
         ];
 
         mapper = function (value,  key, MapReduce mapReduce) use (options) {
@@ -594,13 +594,13 @@ trait CollectionTrait {
 
     function lazy(): ICollection
     {
-        $generator = function () {
+         generator = function () {
             foreach (this.unwrap() as  k:  v) {
                 yield  k:  v;
             }
         };
 
-        return this.newCollection($generator());
+        return this.newCollection( generator());
     }
 
 

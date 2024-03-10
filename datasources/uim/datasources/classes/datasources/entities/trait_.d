@@ -199,17 +199,17 @@ trait EntityTrait
      */
     function set(field, value = null, STRINGAA someOptions = null) {
         if (is_string(field) && field != "") {
-            $guard = false;
+             guard = false;
             field = [field: value];
         } else {
-            $guard = true;
+             guard = true;
             options = (array)value;
         }
 
         if (!is_array(field)) {
             throw new InvalidArgumentException("Cannot set an empty field");
         }
-        options += ["setter": true, "guard": $guard];
+        options += ["setter": true, "guard":  guard];
 
         foreach (field as name: value) {
             name = (string)name;

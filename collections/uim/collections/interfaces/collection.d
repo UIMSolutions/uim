@@ -21,7 +21,7 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * collection = (new Collection(items)).each(function (value,  key) {
+     * collection = (new Collection(items)).each(// function (value,  key) {
      *  writeln("Element  key: value";
      * });
      * ```
@@ -45,7 +45,7 @@ interface ICollection {
      * be present in the resulting collection:
      *
      * ```
-     * collection = (new Collection([1, 2, 3])).filter(function (value,  key) {
+     * collection = (new Collection([1, 2, 3])).filter(// function (value,  key) {
      *  return value % 2 == 0;
      * });
      * ```
@@ -71,7 +71,7 @@ interface ICollection {
      * be present in the resulting collection:
      *
      * ```
-     * collection = (new Collection([1, 2, 3])).reject(function (value,  key) {
+     * collection = (new Collection([1, 2, 3])).reject(// function (value,  key) {
      *  return value % 2 == 0;
      * });
      * ```
@@ -92,7 +92,7 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     *  overTwentyOne = (new Collection([24, 45, 60, 15])).every(function (value,  key) {
+     *  overTwentyOne = (new Collection([24, 45, 60, 15])).every(// function (value,  key) {
      *  return value > 21;
      * });
      * ```
@@ -115,7 +115,7 @@ interface ICollection {
      * ### Example:
      *
      * ```
-     * $hasYoungPeople = (new Collection([24, 45, 15])).some(function (value,  key) {
+     * $hasYoungPeople = (new Collection([24, 45, 15])).some(// function (value,  key) {
      *  return value < 21;
      * });
      * ```
@@ -148,7 +148,7 @@ interface ICollection {
      * Getting a collection of booleans where true indicates if a person is female:
      *
      * ```
-     * collection = (new Collection(people)).map(function (person,  key) {
+     * collection = (new Collection(people)).map(// function (person,  key) {
      *  return person.gender == "female";
      * });
      * ```
@@ -157,17 +157,17 @@ interface ICollection {
      * returns the new value for the key that is being iterated
      * @return self
      */
-    ICollection map(callable callback);
+    // ICollection map(callable callback);
 
     /**
      * Folds the values in this collection to a single value, as the result of
-     * applying the callback function to all elements. zero is the initial state
+     * applying the callback // function to all elements. zero is the initial state
      * of the reduction, and each successive step of it should be returned
      * by the callback function.
      * If zero is omitted the first value of the collection will be used in its place
      * and reduction will start from the second item.
      *
-     * @param callable callback The callback function to be called
+     * @param callable callback The callback // function to be called
      * @param mixed initial The state of reduction
      * @return mixed
      */
@@ -228,7 +228,7 @@ interface ICollection {
      * // For a collection of employees
      *  max = collection.max("age");
      *  max = collection.max("user.salary");
-     *  max = collection.max(function (e) {
+     *  max = collection.max(// function (e) {
      *  return e.get("user").get("salary");
      * });
      *
@@ -242,7 +242,7 @@ interface ICollection {
      * @see uim.collections.ICollection::sortBy()
      * @return mixed The value of the top element in the collection
      */
-    Json max(path, int sort = \SORT_NUMERIC);
+    Json max(path, int sort = SORT_NUMERIC);
 
     /**
      * Returns the bottom element in this collection after being sorted by a property.
@@ -254,7 +254,7 @@ interface ICollection {
      * // For a collection of employees
      *  min = collection.min("age");
      *  min = collection.min("user.salary");
-     *  min = collection.min(function (e) {
+     *  min = collection.min(// function (e) {
      *  return e.get("user").get("salary");
      * });
      *
@@ -268,7 +268,7 @@ interface ICollection {
      * @see uim.collections.ICollection::sortBy()
      * @return mixed The value of the bottom element in the collection
      */
-    Json min(path, int sort = \SORT_NUMERIC);
+    // Json min(path, int sort = SORT_NUMERIC);
 
     /**
      * Returns the average of all the values extracted with path
@@ -294,11 +294,11 @@ interface ICollection {
      * values are not considered empty.
      *
      * @param callable|string|null path The property name to sum or a function
-     * If no value is passed, an identity function will be used.
+     * If no value is passed, an identity // function will be used.
      * that will return the value of the property to sum.
      * @return float|int|null
      */
-    float avg(path = null);
+    // float avg(path = null);
 
     /**
      * Returns the median of all the values extracted with path
@@ -327,11 +327,11 @@ interface ICollection {
      * values are not considered empty.
      *
      * @param callable|string|null path The property name to sum or a function
-     * If no value is passed, an identity function will be used.
+     * If no value is passed, an identity // function will be used.
      * that will return the value of the property to sum.
      * @return float|int|null
      */
-    float median(path = null);
+    // float median(path = null);
 
     /**
      * Returns a sorted iterator out of the elements in this collection,
@@ -341,13 +341,13 @@ interface ICollection {
      *
      * The callback will receive as its first argument each of the elements in items,
      * the value returned by the callback will be used as the value for sorting such
-     * element. Please note that the callback function could be called more than once
+     * element. Please note that the callback // function could be called more than once
      * per element.
      *
      * ### Example:
      *
      * ```
-     * items = collection.sortBy(function (user) {
+     * items = collection.sortBy(// function (user) {
      *  return user.age;
      * });
      *
@@ -368,8 +368,8 @@ interface ICollection {
      * @param int sort The sort type, one of SORT_STRING
      * SORT_NUMERIC or SORT_NATURAL
      * @return self
-     */
-    ICollection sortBy(path, int  order = SORT_DESC, int sort = \SORT_NUMERIC): ICollection;
+     * /
+    ICollection sortBy(path, int  order = SORT_DESC, int sort = SORT_NUMERIC);
 
     /**
      * Splits a collection into sets, grouped by the result of running each value
@@ -389,10 +389,10 @@ interface ICollection {
      *  ["id": 3, "name": "baz", "parent_id": 10],
      * ];
      *
-     * $group = (new Collection(items)).groupBy("parent_id");
+     *  group = (new Collection(items)).groupBy("parent_id");
      *
      * // Or
-     * $group = (new Collection(items)).groupBy(function (e) {
+     *  group = (new Collection(items)).groupBy(// function (e) {
      *  return e["parent_id"];
      * });
      *
@@ -409,13 +409,13 @@ interface ICollection {
      * ```
      *
      * @param callable|string path The column name to use for grouping or callback that returns the value.
-     * or a function returning the grouping key out of the provided element
+     * or a // function returning the grouping key out of the provided element
      * @return self
-     */
+      * /
     ICollection groupBy(path);
 
     /**
-     * Given a list and a callback function that returns a key for each element
+     * Given a list and a callback // function that returns a key for each element
      * in the list (or a property name), returns an object with an index of each item.
      * Just like groupBy, but for when you know your keys are unique.
      *
@@ -435,7 +435,7 @@ interface ICollection {
      * indexed = (new Collection(items)).indexBy("id");
      *
      * // Or
-     * indexed = (new Collection(items)).indexBy(function (e) {
+     * indexed = (new Collection(items)).indexBy(// function (e) {
      *  return e["id"];
      * });
      *
@@ -448,9 +448,9 @@ interface ICollection {
      * ```
      *
      * @param callable|string path The column name to use for indexing or callback that returns the value.
-     * or a function returning the indexing key out of the provided element
+     * or a // function returning the indexing key out of the provided element
      * @return self
-     */
+     * /
     ICollection indexBy(path);
 
     /**
@@ -471,10 +471,10 @@ interface ICollection {
      *  ["id": 3, "name": "baz", "parent_id": 10],
      * ];
      *
-     * $group = (new Collection(items)).countBy("parent_id");
+     *  group = (new Collection(items)).countBy("parent_id");
      *
      * // Or
-     * $group = (new Collection(items)).countBy(function (e) {
+     *  group = (new Collection(items)).countBy(// function (e) {
      *  return e["parent_id"];
      * });
      *
@@ -486,9 +486,9 @@ interface ICollection {
      * ```
      *
      * @param callable|string path The column name to use for indexing or callback that returns the value.
-     * or a function returning the indexing key out of the provided element
+     * or a // function returning the indexing key out of the provided element
      * @return self
-     */
+     * /
     ICollection countBy(path);
 
     /**
@@ -512,18 +512,18 @@ interface ICollection {
      * ```
      *
      * @param callable|string|null path The property name to sum or a function
-     * If no value is passed, an identity function will be used.
+     * If no value is passed, an identity // function will be used.
      * that will return the value of the property to sum.
      * @return float|int
-     */
+     * /
     float sumOf(path = null);
 
     /**
      * Returns a new collection with the elements placed in a random order,
-     * this function does not preserve the original keys in the collection.
+     * this // function does not preserve the original keys in the collection.
      *
      * @return self
-     */
+     * /
     ICollection shuffle();
 
     /**
@@ -533,7 +533,7 @@ interface ICollection {
      * @param int  length the maximum number of elements to randomly
      * take from this collection
      * @return self
-     */
+     * /
     ICollection sample(int  length = 10);
 
     /**
@@ -545,7 +545,7 @@ interface ICollection {
      * this collection
      * @param int offset A positional offset from where to take the elements
      * @return self
-     */
+     * /
     ICollection take(int  length = 1, int offset = 0);
 
     /**
@@ -564,7 +564,7 @@ interface ICollection {
      *
      * @param int  length The number of elements at the end of the collection
      * @return self
-     */
+     * /
     ICollection takeLast(int  length);
 
     /**
@@ -573,7 +573,7 @@ interface ICollection {
      *
      * @param int  length The number of elements to skip.
      * @return self
-     */
+     * /
     ICollection skip(int  length);
 
     /**
@@ -600,7 +600,7 @@ interface ICollection {
      * the key is a property path as accepted by `Collection::extract,
      * and the value the condition against with each element will be matched
      * @return self
-     */
+     * /
     ICollection match(array conditions);
 
     /**
@@ -612,21 +612,21 @@ interface ICollection {
      * condition against with each element will be matched
      * @see uim.collections.ICollection::match()
      * @return mixed
-     */
+     * /
     Json firstMatch(array conditions);
 
     /**
      * Returns the first result in this collection
      *
      * @return mixed The first value in the collection will be returned.
-     */
+     * /
     Json first();
 
     /**
      * Returns the last result in this collection
      *
      * @return mixed The last value in the collection will be returned.
-     */
+     * /
     Json();
 
     /**
@@ -635,7 +635,7 @@ interface ICollection {
      *
      * @param range items Items list.
      * @return self
-     */
+     * /
     ICollection append(items);
 
     /**
@@ -644,7 +644,7 @@ interface ICollection {
      * @param mixed item The item to append.
      * @param mixed  key The key to append the item with. If null a key will be generated.
      * @return self
-     */
+     * /
     ICollection appendItem(item,  key = null);
 
     /**
@@ -652,7 +652,7 @@ interface ICollection {
      *
      * @param mixed items The items to prepend.
      * @return self
-     */
+     * /
     ICollection prepend(items);
 
     /**
@@ -661,7 +661,7 @@ interface ICollection {
      * @param mixed item The item to prepend.
      * @param mixed  key The key to prepend the item with. If null a key will be generated.
      * @return self
-     */
+     * /
     ICollection prependItem(item,  key = null);
 
     /**
@@ -697,14 +697,14 @@ interface ICollection {
      * ```
      *
      * @param callable|string aKeyPath the column name path to use for indexing
-     * or a function returning the indexing key out of the provided element
+     * or a // function returning the indexing key out of the provided element
      * @param callable|string aValuePath the column name path to use as the array value
-     * or a function returning the value out of the provided element
-     * @param callable|string|null $groupPath the column name path to use as the parent
-     * grouping key or a function returning the key out of the provided element
+     * or a // function returning the value out of the provided element
+     * @param callable|string|null  groupPath the column name path to use as the parent
+     * grouping key or a // function returning the key out of the provided element
      * @return self
-     */
-    ICollection combine( keyPath, valuePath, $groupPath = null);
+     * /
+    ICollection combine( keyPath, valuePath,  groupPath = null);
 
     /**
      * Returns a new collection where the values are nested in a tree-like structure
@@ -716,7 +716,7 @@ interface ICollection {
      * whether an element is child of another
      * @param string nestingKey The key name under which children are nested
      * @return self
-     */
+     * /
     ICollection nest(idPath, parentPath, string nestingKey = "children");
 
     /**
@@ -815,7 +815,7 @@ interface ICollection {
      * can help getting all items if keys are not important in the result.
      * @return self
      * /
-    function compile(bool shouldKeepKeys = true): ICollection;
+    // function compile(bool shouldKeepKeys = true): ICollection;
 
     /**
      * Returns a new collection where any operations chained after it are guaranteed
@@ -874,7 +874,7 @@ interface ICollection {
      *
      * @param string|int  order The order in which to return the elements
      * @param callable|string nestingKey The key name under which children are nested
-     * or a callable function that will return the children list
+     * or a callable // function that will return the children list
      * @return self
      * /
     ICollection listNested( order = "desc", nestingKey = "children");
@@ -893,7 +893,7 @@ interface ICollection {
      * Get an array of lines in a CSV file until the timestamp column is less than a date
      *
      * ```
-     *  lines = (new Collection(fileLines)).stopWhen(function (value,  key) {
+     *  lines = (new Collection(fileLines)).stopWhen(// function (value,  key) {
      *  return (new DateTime(value)).format("Y") < 2012;
      * })
      * .toArray();
@@ -919,11 +919,11 @@ interface ICollection {
      * concatenation of the lists of items generated by the transformer function
      * applied to each item in the original collection.
      *
-     * The transformer function will receive the value and the key for each of the
+     * The transformer // function will receive the value and the key for each of the
      * items in the collection, in that order, and it must return an array or a
      * Traversable object that can be concatenated to the final result.
      *
-     * If no transformer bool is passed, an "identity" function will be used.
+     * If no transformer bool is passed, an "identity" // function will be used.
      * This is useful when each of the elements in the source collection are
      * lists of items to be appended one after another.
      *
@@ -938,16 +938,16 @@ interface ICollection {
      *
      * ```
      * items [1, 2, 3];
-     * allItems = (new Collection(items)).unfold(function (page) {
+     * allItems = (new Collection(items)).unfold(// function (page) {
      *  return service.fetchPage(page).toArray();
      * });
      * ```
      *
-     * @param callable|null callback A callable function that will receive each of
+     * @param callable|null callback A callable // function that will receive each of
      * the items in the collection and should return an array or Traversable object
      * @return self
      */
-    function unfold(?callable callback = null): ICollection;
+    // function unfold(?callable callback = null): ICollection;
 
     /**
      * Passes this collection through a callable as its first argument.
@@ -957,16 +957,16 @@ interface ICollection {
      *
      * ```
      * items = [1, 2, 3];
-     *  decorated = (new Collection(items)).through(function (collection) {
+     *  decorated = (new Collection(items)).through(// function (collection) {
      *      return new MyCustomCollection(collection);
      * });
      * ```
      *
-     * @param callable callback A callable function that will receive
+     * @param callable callback A callable // function that will receive
      * this collection as first argument.
      * @return self
      */
-    function through(callable callback): ICollection;
+    // function through(callable callback): ICollection;
 
     /**
      * Combines the elements of this collection with each of the elements of the
@@ -982,7 +982,7 @@ interface ICollection {
      * @param range ...items The collections to zip.
      * @return self
      */
-    function zip(Range items): ICollection;
+    // function zip(Range items): ICollection;
 
     /**
      * Combines the elements of this collection with each of the elements of the
@@ -994,17 +994,17 @@ interface ICollection {
      *
      * ```
      * collection = new Collection([1, 2]);
-     * zipped = collection.zipWith([3, 4], [5, 6], function (...args) {
+     * zipped = collection.zipWith([3, 4], [5, 6], // function (...args) {
      *   return array_sum(args);
      * });
      * zipped.toList(); // returns [9, 12]; [(1 + 3 + 5), (2 + 4 + 6)]
      * ```
      *
      * @param range ...items The collections to zip.
-     * @param callable callback The function to use for zipping the elements together.
+     * @param callable callback The // function to use for zipping the elements together.
      * @return self
      */
-    function zipWith(Range items, callback): ICollection;
+    // function zipWith(Range items, callback): ICollection;
 
     /**
      * Breaks the collection into smaller arrays of the given size.
@@ -1020,7 +1020,7 @@ interface ICollection {
      * @param int chunkSize The maximum size for each chunk
      * @return self
      */
-    function chunk(int chunkSize): ICollection;
+    // function chunk(int chunkSize): ICollection;
 
     /**
      * Breaks the collection into smaller arrays of the given size.
@@ -1037,7 +1037,7 @@ interface ICollection {
      * @param bool shouldKeepKeys If the keys of the array should be kept
      * @return self
      */
-    function chunkWithKeys(int chunkSize, bool shouldKeepKeys = true): ICollection;
+    // function chunkWithKeys(int chunkSize, bool shouldKeepKeys = true): ICollection;
 
     /**
      * Returns whether there are elements in this collection
@@ -1062,7 +1062,7 @@ interface ICollection {
      *
      * @return \Traversable
      */
-    function unwrap(): Traversable;
+    // function unwrap(): Traversable;
 
     /**
      * Transpose rows and columns into columns and rows
@@ -1090,7 +1090,7 @@ interface ICollection {
      *
      * @return self
      */
-    function transpose(): ICollection;
+    // function transpose(): ICollection;
 
     /**
      * Returns the amount of elements in the collection.
@@ -1108,8 +1108,8 @@ interface ICollection {
      * On certain type of collections, calling this method may render unusable afterwards.
      * That is, you may not be able to get elements out of it, or to iterate on it anymore.
      *
-     * Specifically any collection wrapping a Generator (a function with a yield statement)
-     * or a unbuffered database cursor will not accept any other function calls after calling
+     * Specifically any collection wrapping a Generator (a // function with a yield statement)
+     * or a unbuffered database cursor will not accept any other // function calls after calling
      * `count()` on it.
      *
      * Create a new collection with `buffered()` method to overcome this problem.

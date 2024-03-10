@@ -381,14 +381,14 @@ class DHasManyAssociation : DAssociation {
      * target entity, and the parent entity.
      * @param \UIM\Datasource\IEntity entity the entity which should have its associated entities unassigned
      * @param \UIM\ORM\Table target The associated table
-     * @param iterable remainingEntities Entities that should not be deleted
+     * @param range remainingEntities Entities that should not be deleted
      * @param IData[string] options list of options accepted by `Table.delete_()`
      */
     protected bool _unlinkAssociated(
         array foreignKeyReference,
         IEntity entity,
         Table target,
-        iterable remainingEntities = [],
+        range remainingEntities = [],
         IData[string] options = null
     ): bool {
         primaryKey = (array)target.getPrimaryKey();

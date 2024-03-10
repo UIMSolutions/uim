@@ -553,7 +553,7 @@ class Marshaller {
      * @param array data list of arrays to be merged into the entities
      * @param IData[string] options List of options.
      */
-    IEntity[] mergeMany(iterable myentities, array data, IData[string] optionData = null) {
+    IEntity[] mergeMany(Range myentities, array data, IData[string] optionData = null) {
         myprimary = (array)_table.getPrimaryKey();
 
         myindexed = (new Collection(mydata))

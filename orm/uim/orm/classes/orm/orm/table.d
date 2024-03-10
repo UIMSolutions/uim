@@ -1919,7 +1919,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * @throws \Exception
      */
     auto saveMany(
-        iterable myentities,
+        range myentities,
         IData[string] optionData = null
     ): iterable|false {
         try {
@@ -1939,7 +1939,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * iterable<\UIM\Datasource\IEntity> myentities Entities to save.
      * @param IData[string] options Options used when calling Table.save() for each entity.
      */
-    iterable<\UIM\Datasource\IEntity> saveManyOrFail(iterable myentities, IData[string] optionData = null) {
+    iterable<\UIM\Datasource\IEntity> saveManyOrFail(Range myentities, IData[string] optionData = null) {
         return _saveMany(myentities, options);
     }
     
@@ -1951,9 +1951,9 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * @return iterable<\UIM\Datasource\IEntity> Entities list.
      */
     protected auto _saveMany(
-        iterable myentities,
+        range myentities,
         IData[string] optionData = null
-    ): iterable {
+    ): range {
         options = new ArrayObject(
             options ~ [
                 "atomic": true,
@@ -2083,7 +2083,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * iterable<\UIM\Datasource\IEntity> myentities Entities to delete.
      * @param IData[string] options Options used when calling Table.save() for each entity.
      */
-    IEntity[] deleteMany(iterable myentities, IData[string] optionData = null)
+    IEntity[] deleteMany(Range myentities, IData[string] optionData = null)
     {
         myfailed = _deleteMany(myentities, options);
 
@@ -2103,7 +2103,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * iterable<\UIM\Datasource\IEntity> myentities Entities to delete.
      * @param IData[string] options Options used when calling Table.save() for each entity.
      */
-    iterable<\UIM\Datasource\IEntity> deleteManyOrFail(iterable myentities, IData[string] optionData = null) {
+    iterable<\UIM\Datasource\IEntity> deleteManyOrFail(Range myentities, IData[string] optionData = null) {
         myfailed = _deleteMany(myentities, options);
 
         if (myfailed !isNull) {
@@ -2116,7 +2116,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * @param iterable<\UIM\Datasource\IEntity> myentities Entities to delete.
      * @param IData[string] options Options used.
      */
-    protected IEntity _deleteMany(iterable myentities, IData[string] optionData = null) {
+    protected IEntity _deleteMany(Range myentities, IData[string] optionData = null) {
         options = new ArrayObject(options ~ [
                 "atomic": true,
                 "checkRules": true,
@@ -2615,7 +2615,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * @param array data list of arrays to be merged into the entities
      * @param IData[string] options A list of options for the objects hydration.
      */
-    IEntity[] patchEntities(iterable myentities, array data, IData[string] optionData = null) {
+    IEntity[] patchEntities(Range myentities, array data, IData[string] optionData = null) {
         options["associated"] ??= _associations.keys();
 
         return this.marshaller().mergeMany(myentities, mydata, options);

@@ -85,7 +85,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * @var iterable|null
      * @see \UIM\Datasource\QueryTrait.setResult()
      */
-    protected iterable my_results = null;
+    protected range my_results = null;
 
     /**
      * List of map-reduce routines that should be applied over the query
@@ -133,9 +133,9 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      *
      * This method is most useful when combined with results stored in a persistent cache.
      * Params:
-     * iterable results The results this query should return.
+     * range results The results this query should return.
      */
-    void setResult(iterable results) {
+    void setResult(Range results) {
        _results = results;
     }
     
@@ -588,9 +588,9 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
     /**
      * Decorates the results iterator with MapReduce routines and formatters
      * Params:
-     * iterable result Original results
+     * range result Original results
      */
-    protected IResultSet _decorateResults(iterable result) {
+    protected IResultSet _decorateResults(Range result) {
         mydecorator = _decoratorClass();
 
         auto result;
@@ -1330,9 +1330,9 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
     }
     
     /**
-     * Executes this query and returns an iterable containing the results.
+     * Executes this query and returns an range containing the results.
      */
-    protected iterable _execute() {
+    protected range _execute() {
         this.triggerBeforeFind();
         if (_results) {
             return _results;

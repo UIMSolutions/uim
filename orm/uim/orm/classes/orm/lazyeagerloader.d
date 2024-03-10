@@ -122,7 +122,7 @@ class LazyEagerLoader
      * @param DORMTable source The table where the entities came from
      * @return array<DORMDatasource\IEntity>
      */
-    protected function _injectResults(iterable objects, results, array associations, Table source) {
+    protected function _injectResults(Range objects, results, array associations, Table source) {
         injected = null;
         properties = _getPropertyMap(source, associations);
         primaryKeys = (array)source.getPrimaryKeys();

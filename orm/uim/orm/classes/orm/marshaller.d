@@ -628,7 +628,7 @@ class Marshaller
      * @see DORMEntity::_accessible
      * @psalm-suppress NullArrayOffset
      */
-    function mergeMany(iterable entities, array data, STRINGAA someOptions = null) {
+    function mergeMany(Range entities, array data, STRINGAA someOptions = null) {
         primary = (array)_table.getPrimaryKeys();
 
         indexed = (new Collection(data))

@@ -415,7 +415,7 @@ class HasMany : DAssociation {
      * target entity, and the parent entity.
      * @param DORMDatasource\IEntity anEntity the entity which should have its associated entities unassigned
      * @param DORMTable myTarget The associated table
-     * @param iterable remainingEntities Entities that should not be deleted
+     * @param range remainingEntities Entities that should not be deleted
      * @param array<string, mixed> options list of options accepted by `Table::delete_()`
      * @return bool success
      */
@@ -423,7 +423,7 @@ class HasMany : DAssociation {
         array foreignKeyReference,
         IEntity anEntity,
         Table myTarget,
-        iterable remainingEntities = null,
+        range remainingEntities = null,
         IData[string] options = null
     ) {
         primaryKeys = (array)myTarget.getPrimaryKeys();

@@ -2046,7 +2046,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * @return iterable<DORMDatasource\IEntity>|false False on failure, entities list on success.
      * @throws \Exception
      */
-    function saveMany(iterable entities, options = null) {
+    function saveMany(Range entities, options = null) {
         try {
             return _saveMany(entities, options);
         } catch (PersistenceFailedException exception) {
@@ -2067,7 +2067,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * @throws \Exception
      * @throws DORMexceptions.PersistenceFailedException If an entity couldn"t be saved.
      */
-    function saveManyOrFail(iterable entities, options = null): iterable
+    function saveManyOrFail(Range entities, options = null): iterable
     {
         return _saveMany(entities, options);
     }
@@ -2079,7 +2079,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * @throws \Exception If an entity couldn"t be saved.
      * @return iterable<DORMDatasource\IEntity> Entities list.
      */
-    protected function _saveMany(iterable entities, options = null): iterable
+    protected function _saveMany(Range entities, options = null): iterable
     {
         if (options instanceof SaveOptionsBuilder) {
             deprecationWarning("SaveOptionsBuilder is deprecated. Use a normal array for options instead.");
@@ -2226,7 +2226,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      *   on success, false on failure.
      * @see DORMTable::delete_() for options and events related to this method.
      */
-    function deleteMany(iterable entities, options = null) {
+    function deleteMany(Range entities, options = null) {
         failed = _deleteMany(entities, options);
 
         if (failed != null) {
@@ -2249,7 +2249,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * @throws DORMexceptions.PersistenceFailedException
      * @see DORMTable::delete_() for options and events related to this method.
      */
-    function deleteManyOrFail(iterable entities, options = null): iterable
+    function deleteManyOrFail(Range entities, options = null): iterable
     {
         failed = _deleteMany(entities, options);
 
@@ -2265,7 +2265,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * @param \ArrayAccess|STRINGAA someOptions Options used.
      * @return DORMDatasource\IEntity|null
      */
-    protected function _deleteMany(iterable entities, options = null): ?IEntity
+    protected function _deleteMany(Range entities, options = null): ?IEntity
     {
         options = new ArrayObject((array)options + [
                 "atomic": true,
@@ -2758,7 +2758,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
      * @param array<string, mixed> options A list of options for the objects hydration.
      * @return array<DORMDatasource\IEntity>
      */
-    array patchEntities(iterable entities, array data, STRINGAA someOptions = null) {
+    array patchEntities(Range entities, array data, STRINGAA someOptions = null) {
         options["associated"] = options.get("associated", _associations.keys());
         marshaller = this.marshaller();
 

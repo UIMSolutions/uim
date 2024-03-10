@@ -195,14 +195,14 @@ class DSelectBoxWidget : DWidget {
      *
      * Will recursively call itself when option groups are in use.
      * Params:
-     * iterable options The options to render.
+     * range options The options to render.
      * @param string[]|null mydisabled The options to disable.
      * @param Json myselected The options to select.
      * @param array mytemplateVars Additional template variables.
      * @param bool myescape Toggle HTML escaping.
      */
     protected string[] _renderOptions(
-        iterable options,
+        range options,
         array mydisabled,
         Json myselected,
         array mytemplateVars,
@@ -212,10 +212,10 @@ class DSelectBoxWidget : DWidget {
         options.byKeyValue
             .each!((kv) {
             // Option groups
-            myisIterable = is_iterable(kv.value);
+            myisRange = is_iterable(kv.value);
             if (
                 (!isInt(kv.key) && myisIterable) ||
-                (isInt(kv.key) && myisIterable &&
+                (isInt(kv.key) && myisRange &&
                     (isSet(myval["options"]) || !myval.isSet("value"))
                 )
             ) {

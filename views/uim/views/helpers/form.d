@@ -1385,10 +1385,10 @@ class FormHelper : Helper {
      *  the radio label will be "empty". Set this option to a string to control the label value.
      * Params:
      * string aFieldName Name of a field, like this "modelname.fieldname"
-     * @param iterable options Radio button options array.
+     * @param range options Radio button options array.
      * @param IData[string] myattributes Array of attributes.
      */
-    string radio(string aFieldName, iterable options = [], array myattributes = []) {
+    string radio(string aFieldName, range options = [], array myattributes = []) {
         myattributes["options"] = options;
         myattributes["idPrefix"] = _idPrefix;
 
@@ -1834,11 +1834,11 @@ class FormHelper : Helper {
      * ```
      * Params:
      * string aFieldName Name attribute of the SELECT
-     * @param iterable options Array of the OPTION elements (as "value"=>"Text" pairs) to be used in the
+     * @param range options Array of the OPTION elements (as "value"=>"Text" pairs) to be used in the
      *  SELECT element
      * @param IData[string] myattributes The HTML attributes of the select element.
      */
-    string select(string aFieldName, iterable options = [], array myattributes = []) {
+    string select(string aFieldName, range options = [], array myattributes = []) {
         myattributes += [
             "disabled": null,
             "escape": true,
@@ -1906,11 +1906,11 @@ class FormHelper : Helper {
      * Can be used in place of a select box with the multiple attribute.
      * Params:
      * string aFieldName Name attribute of the SELECT
-     * @param iterable options Array of the OPTION elements
+     * @param range options Array of the OPTION elements
      *  (as "value"=>"Text" pairs) to be used in the checkboxes element.
      * @param IData[string] myattributes The HTML attributes of the select element.
      */
-    string multiCheckbox(string aFieldName, iterable options, array myattributes = []) {
+    string multiCheckbox(string aFieldName, range options, array myattributes = []) {
         myattributes += [
             "disabled": null,
             "escape": true,

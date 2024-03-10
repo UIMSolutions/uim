@@ -12,7 +12,7 @@ class DDBQuery {
  * for dynamically constructing each query part, execute it and transform it
  * to a specific SQL dialect.
  */
-abstract class Query : IExpression, Stringable {
+abstract class DQuery : IQuery { // : IExpression, Stringable {
     // Hook method
     bool initialize(IData[string] initData = null) {
         if (!super.initialize(initData)) {
@@ -286,7 +286,7 @@ abstract class Query : IExpression, Stringable {
      * Params:
      * \UIM\Database\Expression\CommonTableExpression|\Closure cte The CTE to add.
      * @param bool overwrite Whether to reset the list of CTEs.
-     */
+     * /
     void with(CommonTableExpression|Closure cte, bool overwrite = false) {
         if (overwrite) {
            _parts["with"] = [];
@@ -323,8 +323,7 @@ abstract class Query : IExpression, Stringable {
      * ```
      * Params:
      * \UIM\Database\IExpression|string[] amodifiers modifiers to be applied to the query
-     * @param bool overwrite whether to reset order with field list or not
-     */
+     * /
     void modifier(IExpression|string[] amodifiers, bool overwrite = false) {
        _isDirty();
         if (overwrite) {
@@ -361,7 +360,7 @@ abstract class Query : IExpression, Stringable {
      * Params:
      * the examples above for the valid call types.
      * @param bool overwrite whether to reset tables with passed list or not
-     */
+     * /
     void from(string[] tableNames, bool overwrite = false) {
         if (tableNames.isEmpty) { return; }
 
@@ -457,7 +456,7 @@ abstract class Query : IExpression, Stringable {
      * @param STRINGAA types Associative array of type names used to bind values to query
      * @param bool overwrite whether to reset joins with passed list or not
      * @see \UIM\Database\TypeFactory
-     */
+    * /
     auto join(string[] atables, array types = [], bool overwrite = false) {
         if (isString(aTables) || isSet(aTables["table"])) {
             aTables = [aTables];
@@ -488,7 +487,7 @@ abstract class Query : IExpression, Stringable {
      * Remove a join if it has been defined.
      *
      * Useful when you are redefining joins or want to re-order the join clauses.
-     */
+     * /
     auto removeJoin(string joinName) {
         _parts["join"].remove(joinName);
        _isDirty();
@@ -531,7 +530,7 @@ abstract class Query : IExpression, Stringable {
      * to use for joining.
      * @param array types a list of types associated to the conditions used for converting
      * values to the corresponding database representation.
-     */
+       * /
     auto leftJoin(
         string[] atable,
         IExpression|Closure|string[] aconditions = [],
@@ -555,7 +554,7 @@ abstract class Query : IExpression, Stringable {
      * to use for joining.
      * @param array types a list of types associated to the conditions used for converting
      * values to the corresponding database representation.
-     */
+     * /
     void rightJoin(
         string[] atable,
         IExpression|Closure|string[] aconditions = [],
@@ -577,7 +576,7 @@ abstract class Query : IExpression, Stringable {
      * to use for joining.
      * @param STRINGAA types a list of types associated to the conditions used for converting
      * values to the corresponding database representation.
-     */
+     * /
     auto innerJoin(
         string[] atable,
         IExpression|Closure|string[] aconditions = [],
@@ -595,7 +594,7 @@ abstract class Query : IExpression, Stringable {
      * @param \UIM\Database\IExpression|\Closure|string[] aconditions The conditions
      * to use for joining.
      * @param string atype the join type to use
-     */
+     * /
     protected array _makeJoin(
         string[] atable,
         IExpression|Closure|string[] aconditions,
@@ -610,7 +609,7 @@ abstract class Query : IExpression, Stringable {
         /**
          * @var string aalias
          * @psalm-suppress InvalidArrayOffset
-         */
+         * /
         return [
             alias: [
                 'table": aTable,

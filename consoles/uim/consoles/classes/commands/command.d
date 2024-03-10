@@ -15,7 +15,7 @@ import uim.consoles;
  *
  * @implements \UIM\Event\IEventDispatcher<\UIM\Command\Command>
  */
-abstract class Command : ICommand /* , IEventDispatcher */ {
+abstract class DCommand : ICommand /* , IEventDispatcher */ {
     this() {
         initialize;
     }

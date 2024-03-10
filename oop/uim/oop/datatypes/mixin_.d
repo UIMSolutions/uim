@@ -1,28 +1,40 @@
 module uim.oop.datatypes.mixin_;
 
 string dataThis(string name) {
-    string fullName = name ~ "Data";
-    return `
+  string fullName = name ~ "Data";
+  return `
     this() {
-        super(); this.name("`
-        ~ fullName ~ `");
+      super(); 
+      this.name("`
+    ~ fullName ~ `");
     }
-    `;
+    this(string newValue) {
+      this();
+      set(newValue);
+    }
+
+    this(Json newValue) {
+      this();
+      set(newValue);
+    }
+  `;
 }
 
 template DataThis(string name) {
-    const char[] DataThis = dataThis(name);
+  const char[] DataThis = dataThis(name);
 }
 
 string dataCalls(string name) {
-    string fullName = name ~ "Data";
-    return `
-    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
-    `;
+  string fullName = name ~ "Data";
+  return `
+    auto ` ~ fullName ~ `() { return new D` ~ fullName ~ `(); }
+    auto ` ~ fullName ~ `(string newValue) { return new D` ~ fullName ~ `(newValue); }
+    auto ` ~ fullName ~ `(Json newValue) { return new D` ~ fullName ~ `(newValue); }
+  `;
 }
 
 template DataCalls(string name) {
-    const char[] DataCalls = dataCalls(name);
+  const char[] DataCalls = dataCalls(name);
 }
 
 mixin template DataConvertTemplate() {
@@ -85,29 +97,4 @@ template DataGetSetTemplate(string nullValue, string dataType, string jsonType =
   const char[] DataGetSetTemplate = dataGetSetTemplate(nullValue, dataType, jsonType);
 }
 
-string scalarDataOpEquals(string datatype) {
-  return `
-override bool opEquals(IData[string] checkData) {
-  return isEqual(checkData);
-}
 
-override bool opEquals(IData checkValue) {
-  return isEqual(checkValue);
-}
-
-override bool opEquals(Json checkValue) {
-  return isEqual(checkValue);
-}
-
-override bool opEquals(string checkValue) {
-  return isEqual(checkValue);
-}`~
-(datatype !is null ? `
-bool opEquals(` ~ datatype ~ ` checkValue) {
-  return isEqual(checkValue);
-}` : null);
-}
-
-template ScalarDataOpEquals(string datatype) {
-  const char[] ScalarDataOpEquals = scalarDataOpEquals(datatype);
-}

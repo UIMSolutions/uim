@@ -11,7 +11,8 @@ import uim.oop;
 class DBooleanData : DScalarData {
   mixin(DataThis!("Boolean"));
   this(bool newValue) {
-    this(); this.value(newValue);
+    this(); 
+    this.set(newValue);
   }
 
   // Initialization hook method.
@@ -65,6 +66,7 @@ class DBooleanData : DScalarData {
   // #endregion set 
 
   // #region equal
+    mixin(ScalarOpEquals!(["bool"]));
     override bool isEqual(IData checkData) {
       if (checkData.isNull || key != checkData.key) {
         return false;
@@ -83,11 +85,11 @@ class DBooleanData : DScalarData {
     }
 
     override bool isEqual(string checkValue) {
-      return (get == to!bool(checkValue));
+      return isEqual(to!bool(checkValue));
     }
 
     bool isEqual(bool checkValue) {
-      return (value == checkValue);
+      return (_value == checkValue);
     }
     ///
     unittest {
@@ -154,7 +156,7 @@ class DBooleanData : DScalarData {
     return _value;
   }
 
-  // mixin DataConvertTemplate;
+  mixin DataConvertTemplate;
 }
 mixin(DataCalls!("Boolean"));
 auto BooleanData(bool newValue) {

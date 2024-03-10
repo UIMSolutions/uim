@@ -23,19 +23,19 @@ IData toData(int value) {
 unittest {
     auto data = 100.toData;
     assert(cast(DIntegerData)data);
-    assert((cast(DIntegerData)data).value = "hallo");
+    assert((cast(DIntegerData)data).value == "hallo");
 
     data = 1.toData;
     assert(!cast(DStringData)data);
 }
 
 IData toData(long value) {
-    return LongData(value);
+    return IntegerData(value);
 }
 unittest {
     auto data = 100.toData;
     assert(cast(DIntegerData)data);
-    assert((cast(DIntegerData)data).value = "hallo");
+    assert((cast(DIntegerData)data).value == "hallo");
 
     data = 1.toData;
     assert(!cast(DStringData)data);
@@ -47,7 +47,7 @@ IData toData(string value) {
 unittest {
     auto data = "hallo".toData;
     assert(cast(DStringData)data);
-    assert((cast(DStringData)data).value = "hallo");
+    assert((cast(DStringData)data).value == "hallo");
 
     data = 1.toData;
     assert(!cast(DStringData)data);

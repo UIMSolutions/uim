@@ -104,7 +104,7 @@ class DMapData : DData {
   // #endregion equal
 
   override IData data(string key) {
-    return _items.value(key, null);
+    return _items.get(key, null);
   }
 
   ///
@@ -126,7 +126,7 @@ class DMapData : DData {
   // #endregion equal
 
   override IData opIndex(string key) {
-    return _items.value(key, null);
+    return _items.get(key, null);
   }
 
   bool isEmpty() {
@@ -142,7 +142,7 @@ class DMapData : DData {
   }
 
   override IData clone() {
-    return NullData; // MapValue!string(attribute, toJson);
+    return null; // NullData; // MapValue!string(attribute, toJson);
   }
 
   alias toJson = DData.toJson;

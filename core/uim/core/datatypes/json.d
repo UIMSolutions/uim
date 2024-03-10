@@ -68,6 +68,9 @@ unittest {
 bool isInt(Json aJson) {
   return (aJson.type == Json.Type.int_);
 }
+bool isInteger(Json aJson) {
+  return (aJson.type == Json.Type.int_);
+}
 ///
 unittest {
   assert(parseJsonString(`1`).isInt);

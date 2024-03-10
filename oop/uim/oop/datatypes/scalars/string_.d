@@ -36,9 +36,9 @@ class DStringData : DScalarData {
   unittest {
     auto data = StringData;
     data.set("test");
-    assert(data.get == "test");
+    assert(data.value == "test");
     data.set("test2");
-    assert(data.get == "test2");
+    assert(data.value == "test2");
   }
 
   // Hooks for setting 
@@ -56,7 +56,7 @@ class DStringData : DScalarData {
       _value = null;
       isNull(isNullable ? true : false);
     } else {
-      _value = newValue.get!string;
+      set(newValue.get!string);
       isNull(false);
     }
   }
@@ -102,7 +102,7 @@ class DStringData : DScalarData {
   }
 
   // #region equal
-    mixin(ScalarDataOpEquals!(null));
+    mixin(ScalarOpEquals!(null));
 
     override bool isEqual(IData[string] checkData) {
       return false;
@@ -113,7 +113,7 @@ class DStringData : DScalarData {
         return false;
       }
       if (auto data = cast(DStringData)checkData) {
-        return (get == data.get);
+        return (value == data.value);
       }
       return false;
     }
@@ -123,11 +123,11 @@ class DStringData : DScalarData {
         return false;
       }
 
-      return (get == checkValue.get!string);
+      return isEqual(checkValue.get!string);
     }
 
     override bool isEqual(string checkValue) {
-      return (get == to!string(checkValue));
+      return (value == checkValue);
     }
     ///
     unittest {
@@ -153,18 +153,8 @@ class DStringData : DScalarData {
     return 1;
   }
 
-  alias toJson = DData.toJson;
-  override Json toJson() {
-    if (isNull)
-      return Json(null);
-    return Json(_value);
-  }
-
-  override string toString() {
-    if (isNull)
-      return null;
-    return _value;
-  }
+  // alias toJson = DData.toJson;
+  mixin DataConvertTemplate;
 }
 
 mixin(DataCalls!("String"));

@@ -12,7 +12,8 @@ import uim.oop;
 class DIntegerData : DScalarData {
   mixin(DataThis!("Integer"));
   this(long newValue) {
-    this(); this.value(newValue);
+    this(); 
+    this.set(newValue);
   }
 
   // Initialization hook method.
@@ -163,7 +164,7 @@ class DIntegerData : DScalarData {
   // #endregion add
 
   override IData clone() {
-    return IntegerData; // TODO (attribute, toJson);
+    return IntegerData(value); // TODO (attribute, toJson);
   }
 
   void sub(long opValue) {
@@ -182,7 +183,7 @@ class DIntegerData : DScalarData {
   }
 
   void sub(DIntegerData opValue) {
-    _value -= opValue.get;
+    sub(opValue.get);
   }
 
   unittest {
@@ -203,7 +204,7 @@ class DIntegerData : DScalarData {
   }
 
   void mul(DIntegerData opValue) {
-    _value *= opValue.get;
+    mul(opValue.value);
   }
   ///
   unittest {
@@ -224,7 +225,7 @@ class DIntegerData : DScalarData {
   }
 
   void div(DIntegerData opValue) {
-    _value /= opValue.get;
+    div(opValue.value);
   }
 
   unittest {

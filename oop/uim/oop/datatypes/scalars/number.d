@@ -88,7 +88,7 @@ class DNumberData : DScalarData {
   }
 
   // #region equal
-  // mixin(ScalarDataOpEquals!("number"));
+  // mixin(ScalarOpEquals!("number"));
 
   override bool isEqual(IData checkData) {
     if (checkData.isNull) {
@@ -100,7 +100,7 @@ class DNumberData : DScalarData {
       return false;
     }
 
-    return data.value == value;
+    return isEqual(data.value);
   }
 
   override bool isEqual(Json checkValue) {
@@ -108,15 +108,15 @@ class DNumberData : DScalarData {
       return false;
     }
 
-    return (get == checkValue.get!number);
+    return isEqual(checkValue.get!double);
   }
 
   override bool isEqual(string checkValue) {
-    return (get == to!number(checkValue));
+    return isEqual(to!double(checkValue));
   }
 
   bool isEqual(double checkValue) {
-    return (get == checkValue);
+    return (value == checkValue);
   }
   ///
   unittest {

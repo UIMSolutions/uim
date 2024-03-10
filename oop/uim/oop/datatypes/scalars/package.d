@@ -10,5 +10,6 @@ public {
 	import uim.oop.datatypes.scalars.boolean;
 	import uim.oop.datatypes.scalars.number;
 	import uim.oop.datatypes.scalars.integer;
+	import uim.oop.datatypes.scalars.mixin_;
 	import uim.oop.datatypes.scalars.string_; 
 }

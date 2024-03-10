@@ -46,7 +46,7 @@ IPropertyMarshal {
      *
      * @var string
      * @psalm-var class-string<DORMBehavior\Translate\ITranslateStrategy>
-     */
+     * /
     protected static defaultStrategyClass = EavStrategy.class;
 
     /**

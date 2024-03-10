@@ -60,7 +60,7 @@ trait EntityTrait
      * Holds a cached list of getters/setters per class
      *
      * @var array<string, array<string, array<string, string>>>
-     */
+     * /
     protected static _accessors = null;
 
     /**
@@ -572,7 +572,7 @@ trait EntityTrait
      * @param string property the field name to derive getter name from
      * @param string type the accessor type ("get" or "set")
      * @return string method name or empty string (no method available)
-     */
+     * /
     protected static string _accessor(string property, string type) {
         class = class;
 

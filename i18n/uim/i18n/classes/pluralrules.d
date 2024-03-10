@@ -12,7 +12,7 @@ class PluralRules {
     /**
      * A map of locale: plurals group used to determine
      * which plural rules apply to the language
-     */
+     * /
     protected static int[string] _rulesMap = [
         "af": 1,
         "am": 2,

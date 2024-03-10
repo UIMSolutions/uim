@@ -115,7 +115,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      *
      * @var array<string, object|string>
      * @psalm-var array<string, object|class-string>
-     */
+     * /
     protected static array my_defaultProviders = [];
 
     /**

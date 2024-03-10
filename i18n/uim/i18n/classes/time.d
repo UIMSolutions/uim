@@ -22,7 +22,7 @@ class Time : ChronosTime, JsonSerializable, Stringable {
      *
      * @var string|int
      * @see \UIM\I18n\Time.i18nFormat()
-     */
+     * /
     protected static string|int _toStringFormat = IntlDateFormatter.SHORT;
 
     /**
@@ -34,7 +34,7 @@ class Time : ChronosTime, JsonSerializable, Stringable {
      *
      * @var \Closure|string|int
      * @see \UIM\I18n\Date.i18nFormat()
-     */
+     * /
     protected static Closure|string|int _jsonEncodeFormat = "HH':'mm':'ss";
 
     /**

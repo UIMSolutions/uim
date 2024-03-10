@@ -86,7 +86,7 @@ class Cache {
      * string configName Name of the config array that needs an engine instance built
  When a cache engine cannot be created.
      * @throws \RuntimeException If loading of the engine failed.
-     */
+     * /
     protected static void _buildEngine(string configName) {
         /* auto myRegistry = getRegistry();
 

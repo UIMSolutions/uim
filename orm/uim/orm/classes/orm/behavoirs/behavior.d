@@ -119,7 +119,7 @@ class Behavior : IEventListener
      * This prevents reflecting the same class multiple times in a single process.
      *
      * @var array<string, array>
-     */
+     * /
     protected static _reflectionCache = null;
 
     /**

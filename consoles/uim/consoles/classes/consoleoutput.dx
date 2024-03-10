@@ -91,7 +91,7 @@ class ConsoleOutput {
     /**
      * Styles that are available as tags in console output.
      * You can modify these styles with ConsoleOutput.styles()
-     */
+     * /
     protected static array<string, array> _styles = [
         "emergency": ["text": "red"],
         "alert": ["text": "red"],

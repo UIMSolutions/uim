@@ -15,7 +15,7 @@ class FactoryLocator {
      * A list of model factory functions.
      *
      * @var array<callable|uim.Datasource\Locator\ILocator>
-     */
+     * /
     protected static _modelFactories = null;
 
     /**

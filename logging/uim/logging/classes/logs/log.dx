@@ -95,7 +95,7 @@ class Log {
     
     /**
      * An array mapping url schemes to fully qualified Log engine class names
-     */
+     * /
     protected static STRINGAA _dsnClassMap = [
         "console": Engine\ConsoleLog.classname,
         "file": Engine\FileLog.classname,
@@ -104,14 +104,14 @@ class Log {
 
     /**
      * Internal flag for tracking whether configuration has been changed.
-     */
+     * /
     protected static bool _isDirtyConfig = false;
 
     protected static LogEngineRegistry _registry;
 
     /**
      * Handled log levels
-     */
+     * /
     protected static string[] _levels = [
         "emergency",
         "alert",
@@ -128,7 +128,7 @@ class Log {
      * https://tools.ietf.org/html/rfc5424
      *
      * @var array<string, int>
-     */
+     * /
     protected static array _levelMap = [
         "emergency": LOG_EMERG,
         "alert": LOG_ALERT,
@@ -143,7 +143,7 @@ class Log {
     /**
      * Creates registry if doesn"t exist and creates all defined logging
      * adapters if config isn"t loaded.
-     */
+     * /
     protected static LogEngineRegistry getRegistry() {
         _registry ??= new LogEngineRegistry();
 

@@ -294,7 +294,7 @@ class Number {
      * Params:
      * \NumberFormatter formatter Number formatter instance.
      * @param IData[string] options See Number.formatter() for possible options.
-     */
+     * /
     protected static NumberFormatter _setAttributes(NumberFormatter formatter, IData[string] options = null) {
         if (isSet(options["places"])) {
             formatter.setAttribute(NumberFormatter.MIN_FRACTION_DIGITS, options["places"]);

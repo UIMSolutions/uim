@@ -79,5 +79,5 @@ class Plugin {
     static PluginCollection getCollection() {
         plugins = new PluginCollection();
         return plugins;
-    }
+    } */
 }

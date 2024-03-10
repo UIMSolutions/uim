@@ -65,22 +65,22 @@ class PoMessage {
         }
 
         if (line.startsWith("# ")) {
-            _translatorComments ~= line["# ".length .. ].strip;
+            _translatorComments ~= line["# ".length .. $].strip;
             return;
         }
 
         if (line.startsWith("#. ")) {
-            _extractedComments ~= line["#. ".length .. ].strip;
+            _extractedComments ~= line["#. ".length .. $].strip;
             return;
         }
 
         if (line.startsWith("#: ")) {
-            _references ~= line["#: ".length .. ].strip;
+            _references ~= line["#: ".length .. $].strip;
             return;
         }
 
         if (line.startsWith("msgid ")) {
-            string msgId = line["msgid ".length .. ].strip;
+            string msgId = line["msgid ".length .. $].strip;
             if (removeQuotes(msgId).isEmpty) {
                 _isMultiIdMode = true;
             } else {
@@ -92,7 +92,7 @@ class PoMessage {
         if (line.startsWith("msgstr ")) {
             _isMultiIdMode = false;
 
-            string msgstr = line["msgid ".length .. ].strip;
+            string msgstr = line["msgid ".length .. $].strip;
             if (removeQuotes(msgstr).isEmpty) {
                 _isMultiTextMode = true;
             } else {
@@ -106,7 +106,7 @@ class PoMessage {
     string removeQuotes(string line) {
         string result = line.strip;
         if (result.startsWith("\"")) {
-            result = result[1 .. ];
+            result = result[1 .. $];
         }
         if (result.endsWith("\"")) {
             result = result[0 ..  - 1];

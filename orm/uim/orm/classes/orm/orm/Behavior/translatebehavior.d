@@ -43,7 +43,7 @@ class TranslateBehavior : Behavior, IPropertyMarshal {
      * Default strategy class name.
      *
      * @psalm-var class-string<\UIM\ORM\Behavior\Translate\ITranslateStrategy>
-     */
+     * /
     protected static string mydefaultStrategyClass = ShadowTableStrategy.classname;
 
     /**

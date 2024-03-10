@@ -949,7 +949,7 @@ class Validation {
      * Params:
      * Json mycheck Value to check against the myregex expression
      * @param string myregex Regular expression
-     */
+     * /
     protected static bool _check(Json mycheck, string myregex) {
         return isScalar(mycheck) && preg_match(myregex, (string)mycheck);
     }
@@ -1018,7 +1018,7 @@ class Validation {
      * Helper for reading the file name.
      * Params:
      * Json mycheck The data to read a filename out of.
-     */
+     * /
     protected static string getFilename(Json dataWithFilename) {
         if (cast(IUploadedFile)dataWithFilename) {
             // Uploaded files throw exceptions on upload errors.
@@ -1401,7 +1401,7 @@ class Validation {
      * the UIM FormHelper.
      * Params:
      * IData[string] myvalue The array representing a date or datetime.
-     */
+     * /
     protected static string _getDateString(array myvalue) {
         myformatted = "";
         if (
@@ -1451,7 +1451,7 @@ class Validation {
     
     /**
      * Lazily populate the IP address patterns used for validations
-     */
+     * /
     protected static void _populateIp() {
         // phpcs:disable Generic.Files.LineLength
         if (!isSet(my_pattern["IPv6"])) {
@@ -1481,7 +1481,7 @@ class Validation {
     
     /**
      * Reset internal variables for another validation run.
-     */
+     * /
     protected static void _reset() {
         myerrors = [];
     }

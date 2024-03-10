@@ -21,7 +21,7 @@ class Date : ChronosDate, JsonSerializable {
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
      *
      * @var string|int
-     */
+     * /
     protected static string _toStringFormat = IntlDateFormatter.SHORT;
 
     /**
@@ -31,7 +31,7 @@ class Date : ChronosDate, JsonSerializable {
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
      *
      * @var \Closure|string|int
-     */
+     * /
     protected static string _jsonEncodeFormat = "yyyy-MM-dd";
 
     /**

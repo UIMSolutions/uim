@@ -33,7 +33,7 @@ class PoMessage {
         string prefix = `msgid "`;
         newId = strip(newId);
         if (newId.startsWith(prefix)) {
-            newId = newId[prefix.length .. ];
+            newId = newId[prefix.length .. $];
             if (newId.endsWith(`"`)) {
                 newId = newId[prefix ..  - 1];
                 _id = strip(newId);

@@ -46,7 +46,7 @@ class Time : ChronosTime, JsonSerializable, Stringable {
      *
      * @var string|int
      * @see \UIM\I18n\Time.nice()
-     */
+     * /
     static string|int niceFormat = IntlDateFormatter.MEDIUM;
 
     /**
@@ -57,7 +57,7 @@ class Time : ChronosTime, JsonSerializable, Stringable {
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
      * Params:
      * string|int format Format.
-     */
+     * /
     static auto setToStringFormat(string format) {
         _toStringFormat = format;
     }
@@ -78,7 +78,7 @@ class Time : ChronosTime, JsonSerializable, Stringable {
      * can receive this object and return a formatted string.
      *
      * @param \Closure|string|int format Format.
-     */
+     * /
     static void setJsonEncodeFormat(Closure|string|int format) {
         _jsonEncodeFormat = format;
     }
@@ -101,7 +101,7 @@ class Time : ChronosTime, JsonSerializable, Stringable {
      * Params:
      * string atime The time string to parse.
      * @param string|int format Any format accepted by IntlDateFormatter.
-     */
+     * /
     static static parseTime(string atime, string|int format = null) {
         format ??= [IntlDateFormatter.NONE, IntlDateFormatter.SHORT];
         if (isInt(format)) {

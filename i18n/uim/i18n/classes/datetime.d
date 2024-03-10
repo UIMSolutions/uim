@@ -1,4 +1,4 @@
-module uim.i18n;
+module uim.i18n.classes.datetime;
 
 import uim.i18n;
 
@@ -172,7 +172,7 @@ class DateTime /* : Chronos, JsonSerializable, Stringable */ {
      * can receive this datetime object and return a formatted string.
      *
      * @param \Closure|string[]|int format Format.
-     */
+     * /
     void setJsonEncodeFormat(Closure|string[]|int format) {
         _jsonEncodeFormat = format;
     }
@@ -342,10 +342,10 @@ class DateTime /* : Chronos, JsonSerializable, Stringable */ {
      * in which the date will be displayed. The timezone stored for this object will not
      * be changed.
      * @param string locale The locale name in which the date should be displayed (e.g. pt-BR)
-     */
+     * /
     string i18nFormat(
         int format = null,
-        /* DateTimeZone| */string timezone = null,
+        /* DateTimeZone| * /string timezone = null,
         string alocale = null
     ) {
         string[] myFormat = [to!string(format), to!string(format)];
@@ -354,7 +354,7 @@ class DateTime /* : Chronos, JsonSerializable, Stringable */ {
 
     string i18nFormat(
         string[] format;
-        /* DateTimeZone| */ string timezone = null,
+        /* DateTimeZone| * / string timezone = null,
         string locale;
     ) {
         if (format == DateTime.UNIX_TIMESTAMP_FORMAT) {
@@ -380,7 +380,7 @@ class DateTime /* : Chronos, JsonSerializable, Stringable */ {
      * in which the date will be displayed. The timezone stored for this object will not
      * be changed.
      * @param string locale The locale name in which the date should be displayed (e.g. pt-BR)
-     */
+     * /
     string nice(DateTimeZone|string timezone = null, string alocale = null) {
         return (string)this.i18nFormat(niceFormat, timezone, locale);
     }

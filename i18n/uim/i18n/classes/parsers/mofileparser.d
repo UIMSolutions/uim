@@ -23,7 +23,7 @@ class MoFileParser {
     /**
      * Parses machine object (MO) format, independent of the machine`s endian it
      * was created on. Both 32bit and 64bit systems are supported.
-     */
+     * /
     array parse(string filetoParsed) {
         auto stream = fopen(filetoParsed, "rb");
         if (stream.isNull) {
@@ -115,11 +115,11 @@ class MoFileParser {
      * Params:
      * resource stream The File being read.
      * @param bool  isBigEndian Whether the current platform is Big Endian
-     */
+     * /
     protected int _readLong(stream, bool isBigEndian) {
         string result = unpack(isBigEndian ? "N1" : "V1", (string) fread(stream, 4));
         result = current(result);
 
         return to!int(substr((string) result,  - 8));
-    }
+    } */
 }

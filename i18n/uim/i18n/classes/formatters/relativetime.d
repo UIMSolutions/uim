@@ -18,7 +18,7 @@ class RelativeTimeFormatter : DifferenceII18NFormatter {
      * @param bool absolute Removes time difference modifiers ago, after, etc.
      * /
     string diffForHumans(
-        /* ChronosDate| */IDateTime first,
+        /* ChronosDate| * /IDateTime first,
         /* ChronosDate| * /IDateTime|null second = null,
         bool absolute = false
     ) {

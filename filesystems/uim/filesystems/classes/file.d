@@ -18,7 +18,7 @@ class DFile : DFilesystemEntry, IFile {
 	mixin(FileThis!("File"));
 
 	override bool initialize(IData[string] initData = null) { // Hook
-		if (!super.initialize(configinitDataData)) {
+		if (!super.initialize(initData)) {
 			return false;
 		}
 

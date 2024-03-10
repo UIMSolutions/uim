@@ -39,7 +39,7 @@ class Date : ChronosDate, JsonSerializable {
      * and the difference is more than `UIM\I18n\Date.wordEnd`
      *
      * @var string|int
-     */
+     * /
     static string wordFormat = IntlDateFormatter.SHORT;
 
     /**
@@ -48,13 +48,13 @@ class Date : ChronosDate, JsonSerializable {
      * The format should be either the formatting constants from IntlDateFormatter as
      * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
-     */
+     * /
     static string niceFormat = IntlDateFormatter.MEDIUM;
 
     /**
      * The format to use when formatting a time using `Date.timeAgoInWords()`
      * and the difference is less than `Date.wordEnd`
-     */
+     * /
     static string[] wordAccuracy = [
         "year": "day",
         "month": "day",
@@ -74,7 +74,7 @@ class Date : ChronosDate, JsonSerializable {
      * The format should be either the formatting constants from IntlDateFormatter as
      * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
-     */
+     * /
     static void setToStringFormat(int format) {
         setToStringFormat(to!string(format));
     }
@@ -94,7 +94,7 @@ class Date : ChronosDate, JsonSerializable {
      * can receive this object and return a formatted string.
      *
      * @see \UIM\I18n\Date.i18nFormat()
-     */
+     * /
     static void setJsonEncodeFormat(Closure format) {
         _jsonEncodeFormat = format;
     }
@@ -123,7 +123,7 @@ class Date : ChronosDate, JsonSerializable {
      * Params:
      * string adate The date string to parse.
      * @param string|int format Any format accepted by IntlDateFormatter.
-     */
+     * /
     static auto parseDate(string adate, int format) {
         return parseDate(adate, to!string(format));
     }

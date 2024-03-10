@@ -25,7 +25,7 @@ class Number {
     const string FORMAT_CURRENCY_ACCOUNTING = "currency_accounting";
 
     // A list of number formatters indexed by locale and type
-    protected static array<int, mixed>[string] _formatters;
+    // protected static array<int, mixed>[string] _formatters;
 
     // Default currency used by Number.currency()
     protected static string _defaultCurrency;
@@ -40,7 +40,7 @@ class Number {
      * - `locale`: The locale name to use for formatting the number, e.g. fr_FR
      * Params:
      * string|float|int aValue A floating point number.
-     */
+     * /
     static string precision(string|float|int aValue, int numberPrecision = 3, IData[string] formattingOptions = null) {
         auto formatter = formatter(["precision": precision, "places": precision] + options);
         return (string)formatter.format((float)aValue);
@@ -74,7 +74,7 @@ class Number {
      * string|float|int aValue A floating point number
      * @param int precision The precision of the returned number
      * @param IData[string] options Options
-     */
+     * /
     static string toPercentage(string|float|int aValue, int precision = 2, IData[string] options = null) {
         options += ["multiply": false, "type": NumberFormatter.PERCENT];
         if (!options["multiply"]) {
@@ -97,7 +97,7 @@ class Number {
      * Params:
      * string|float|int aValue A floating point number.
      * @param IData[string] options An array with options.
-     */
+     * /
     static string format(string|float|int aValue, IData[string] options = null) {
         formatter = formatter(options);
         options += ["before": "", "after": ""];
@@ -116,7 +116,7 @@ class Number {
      * Params:
      * string avalue A numeric string.
      * @param IData[string] options An array with options.
-     */
+     * /
     static float parseFloat(string avalue, IData[string] options = null) {
         formatter = formatter(options);
 
@@ -136,7 +136,7 @@ class Number {
      * Params:
      * string|float|int aValue A floating point number
      * @param IData[string] options Options list.
-     */
+     * /
     static string formatDelta(string|float|int aValue, IData[string] options = null) {
         options += ["places": 0];
         aValue = number_format((float)aValue, options["places"], ".", "");
@@ -167,7 +167,7 @@ class Number {
      * string|float|int aValue Value to format.
      * @param string currency International currency name such as 'USD", "EUR", "JPY", "CAD'
      * @param IData[string] options Options list.
-     */
+     * /
     static string currency(string|float|int aValue, string acurrency = null, IData[string] options = null) {
         aValue = (float)aValue;
         currency = currency ?: getDefaultCurrency();
@@ -192,7 +192,7 @@ class Number {
     
     /**
      * Getter for default currency
-     */
+     * /
     static string getDefaultCurrency() {
         if (_defaultCurrency.isNull) {
             locale = ini_get("intl.default_locale") ?: DEFAULT_LOCALE;
@@ -208,14 +208,14 @@ class Number {
      * string currency Default currency string to be used by {@link currency()}
      * if currency argument is not provided. If null is passed, it will clear the
      * currently stored value
-     */
+     * /
     static void setDefaultCurrency(string acurrency = null) {
         _defaultCurrency = currency;
     }
     
     /**
      * Getter for default currency format
-     */
+     * /
     static string|int|falseuto getDefaultCurrencyFormat() {
         return _defaultCurrencyFormat ??= FORMAT_CURRENCY;
     }
@@ -226,7 +226,7 @@ class Number {
      * string currencyFormat Default currency format to be used by currency()
      * if currencyFormat argument is not provided. If null is passed, it will clear the
      * currently stored value
-     */
+     * /
     static void setDefaultCurrencyFormat(string currencyFormat = null) {
         _defaultCurrencyFormat = currencyFormat;
     }
@@ -249,7 +249,7 @@ class Number {
      *  currency code.
      * Params:
      * IData[string] options An array with options.
-     */
+     * /
     static NumberFormatter formatter(IData[string] options = null) {
         string locale = options.get("locale", ini_get("intl.default_locale"));
 
@@ -281,7 +281,7 @@ class Number {
      * string alocale The locale name to use for formatting the number, e.g. fr_FR
      * @param int type The formatter type to construct. Defaults to NumberFormatter.DECIMAL.
      * @param IData[string] options See Number.formatter() for possible options.
-     */
+     * /
     static void config(string alocale, int type = NumberFormatter.DECIMAL, IData[string] options = null) {
         _formatters[locale][type] = _setAttributes(
             new NumberFormatter(locale, type),
@@ -328,7 +328,7 @@ class Number {
      * Params:
      * float|int aValue An integer
      * @param IData[string] options An array with options.
-     */
+     * /
     static string ordinal(float|int aValue, IData[string] options = null) {
         return (string)formatter(["type": NumberFormatter.ORDINAL] + options).format(aValue);
     }

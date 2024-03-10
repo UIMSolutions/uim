@@ -25,8 +25,8 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
   }
 
   bool initialize(IData[string] initData = null) { // Hook
-    configuration(new DConfiguration);
-    configuration.update(initData);
+    // configuration(new DConfiguration);
+    // configuration.update(initData);
     
     pathSeparator("/");
     return true;

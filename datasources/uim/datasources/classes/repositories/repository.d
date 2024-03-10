@@ -8,19 +8,15 @@ module uim.datasources.repositories.repository;
 @safe:
 import uim.datasources;
 
-class DDSRepository {
+class DDatasourceRepository {
   this() {
     initialize;
   }
 
     // Hook method
     bool initialize(IData[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
-
-        configuration(new DConfiguration);
-        configuration.update(initData);
+        // configuration(new DConfiguration);
+        // configuration.update(initData);
 
         return true;
     }

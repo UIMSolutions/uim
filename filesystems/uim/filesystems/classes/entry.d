@@ -47,8 +47,8 @@ class DFilesystemEntry : IFilesystemEntry {
 	};
 
 	bool initialize(IData[string] initData = null) { // Hook
-		configuration(new DConfiguration);
-		configuration.data(initData);
+		// configuration(new DConfiguration);
+		// configuration.data(initData);
 		return true;
 	}
 

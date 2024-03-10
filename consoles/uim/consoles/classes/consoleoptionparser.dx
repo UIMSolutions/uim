@@ -124,7 +124,7 @@ class ConsoleOptionParser {
      * Params:
      * string acommand The command name this parser is for. The command name is used for generating help.
      * @param bool defaultOptions Whether you want the verbose and quiet options set.
-     */
+     * /
     static auto create(string acommand, bool defaultOptions = true) {
         return new static(command, defaultOptions);
     }
@@ -147,7 +147,7 @@ class ConsoleOptionParser {
      * Params:
      * IData[string] spec The spec to build the OptionParser with.
      * @param bool defaultOptions Whether you want the verbose and quiet options set.
-     */
+     * /
     static auto buildFromArray(array spec, bool defaultOptions = true) {
         auto aParser = new static(spec["command"], defaultOptions);
         if (!spec["arguments"].isEmpty) {

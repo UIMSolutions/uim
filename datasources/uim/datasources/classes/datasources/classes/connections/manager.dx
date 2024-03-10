@@ -54,7 +54,7 @@ class ConnectionManager {
      * @param \UIM\Datasource\IConnection|\Closure|IData[string]|null configData An array of name: config data for adapter.
      * @throws \UIM\Core\Exception\UimException When trying to modify an existing config.
      * @see \UIM\Core\StaticConfigTrait.config()
-     */
+     * /
     static void configuration.update(string[] aKey, IConnection | Closure | array | null configData = null) {
         if (isArray(configData)) {
             configData("name", aKey);
@@ -86,7 +86,7 @@ class ConnectionManager {
      *
      * @param string myConfiguration The DSN string to convert to a configuration array
      * @return array<string, mixed> The configuration array to be stored after parsing the DSN
-     */
+     * /
     static array parseDsn(string myConfiguration) {
         myConfiguration = _parseDsn(myConfiguration);
 
@@ -126,7 +126,7 @@ class ConnectionManager {
      *
      * @param string source The existing connection to alias.
      * @param string alias The alias name that resolves to `source`.
-     */
+     * /
     static void alias(stringsource, stringalias) {
         _aliasMap[alias] = source;
     }
@@ -138,7 +138,7 @@ class ConnectionManager {
      * connection may fail if there is no other connection with that name.
      *
      * @param string alias The connection alias to drop
-     */
+     * /
     static void dropAlias(stringalias) {
         unset(_aliasMap[alias]);
     }
@@ -156,7 +156,7 @@ class ConnectionManager {
      * @return uim.Datasource\IConnection A connection object.
      * @throws uim.Datasource\exceptions.MissingDatasourceConfigException When config
      * data is missing.
-     */
+     * /
     static function get(string aName, booluseAliases = true) {
         if (useAliases && isset(_aliasMap[name])) {
             name = _aliasMap[name];

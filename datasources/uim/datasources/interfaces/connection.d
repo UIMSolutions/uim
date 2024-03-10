@@ -10,13 +10,13 @@ import uim.datasources;
 @safe:
 
 // This interface defines the methods you can depend on in a connection
-interface IConnection { // : ILoggerAware
+interface IDataSourceConnection { // : ILoggerAware
   // Gets the driver instance.
   // object getDriver(string role = self.ROLE_WRITE);
 
   // Get / Set a cacher
-  mixin(IProperty!("ICache", "cacher"));
-
+  // mixin(IProperty!("ICache", "cacher"));
+/*
   // Get the configuration name for this connection.
   string configName();
 

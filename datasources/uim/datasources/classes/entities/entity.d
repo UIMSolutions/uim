@@ -5,14 +5,14 @@
 **********************************************************************************************************/
 module uim.datasources.classes.entities.entity;
 
-@safe:
 import uim.datasources;
 
+@safe:
 /**
  * An entity represents a single result row from a repository. It exposes the
  * methods for retrieving and storing properties associated in this row.
  */
-class DDBEntity : IDBEntity { //}, InvalidPropertyInterface {
+class DDBEntity : IDatasourceEntity { //}, InvalidPropertyInterface {
     // use EntityTrait;
 
     // Holds all fields and their values for this entity.

@@ -16,13 +16,13 @@ import uim.datasources;
  * @property Json  anId Alias for commonly used primary key.
  * @template-extends \ArrayAccess<string, mixed>
  */
-interface IDBEntity { // : ArrayAccess, JsonSerializable, Stringable
+interface IDatasourceEntity { // : ArrayAccess, JsonSerializable, Stringable
    /**
      * Sets hidden fields.
      *
      * fieldNames - An array of fields to hide from array exports.
      * shouldMerge - Merge the new fields with the existing. By default false.
-     */
+     * /
    void setHidden(string[] fieldNames, bool shouldMerge = false);
 
    // Gets the hidden fields.
@@ -33,7 +33,7 @@ interface IDBEntity { // : ArrayAccess, JsonSerializable, Stringable
      * Params:
      * string[] fields An array of fields to treat as virtual.
      * @param bool  merge Merge the new fields with the existing. By default false.
-     */
+     * /
    void setVirtual(string[] fields, bool canMergeExisting = false);
 
    // Gets the virtual fields on this entity.
@@ -42,13 +42,13 @@ interface IDBEntity { // : ArrayAccess, JsonSerializable, Stringable
    /**
      * Returns whether a field is an original one.
      * Original fields are those that an entity was instantiated with.
-     */
+     * /
    bool isOriginalField(string fieldName);
 
    /**
      * Returns an array of original fields.
      * Original fields are those that an entity was initialized with.
-     */
+     * /
    string[] getOriginalFieldNames();
 
    // Sets the dirty status of a single field.
@@ -90,7 +90,7 @@ interface IDBEntity { // : ArrayAccess, JsonSerializable, Stringable
      * string[]|string fieldName single or list of fields to change its accessibility
      * @param bool set true marks the field as accessible, false will
      * mark it as protected.
-     */
+     * /
    void setAccess(string[] fieldName, bool set);
 
    // Accessible configuration for this entity.
@@ -105,7 +105,7 @@ interface IDBEntity { // : ArrayAccess, JsonSerializable, Stringable
    /**
      * Returns the alias of the repository from which this entity came from.
      */
-   string getSource();
+   // string getSource();
 
    /**
      * Returns an array with the requested original fields
@@ -148,14 +148,14 @@ interface IDBEntity { // : ArrayAccess, JsonSerializable, Stringable
      * If enabled an exception will be thrown when trying to access a non-existent property.
      * Params:
      * bool aValue `true` to enable, `false` to disable.
-     */
+     * /
    void requireFieldPresence(bool aValue = true);
 
    /**
      * Returns whether a field has an original value
      * Params:
      * string fieldName
-     */
+     * /
    bool hasOriginal(string fieldName);
 
    /**
@@ -175,7 +175,7 @@ interface IDBEntity { // : ArrayAccess, JsonSerializable, Stringable
      * The method will return `true` even when the field is set to `null`.
      * Params:
      * string[]|string fieldName The field to check.
-     */
+     * /
    bool has(string[] fieldName);
 
    // Removes a field or list of fields from this entity
@@ -206,7 +206,7 @@ interface IDBEntity { // : ArrayAccess, JsonSerializable, Stringable
      * Sets the entire entity as clean, which means that it will appear as
      * no fields being modified or added at all. This is an useful call
      * for an initial object hydration
-     */
+     * /
    void clean();
 
    /**
@@ -220,5 +220,5 @@ interface IDBEntity { // : ArrayAccess, JsonSerializable, Stringable
    // TODO void setNew(bool new);
 
    // Returns whether this entity has already been persisted.
-   bool isNew();
+   // bool isNew();
 }

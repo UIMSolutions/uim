@@ -352,7 +352,7 @@ class QueryExpression : IExpression, Countable {
      * \UIM\Database\IExpression|\Closure|string[] aconditions to be joined with AND
      * passedTypes Associative array of fields pointing to the type of the
      * values that are being passed. Used for correctly binding values to statements.
-     */
+     * /
     static and(IExpression|Closure|string[] aconditions, STRINGAA passedTypes = null) {
         if (cast(Closure)conditions) {
             return conditions(new static([], this.getTypeMap().setTypes(passedTypes)));
@@ -367,7 +367,7 @@ class QueryExpression : IExpression, Countable {
      * \UIM\Database\IExpression|\Closure|string[] aconditions to be joined with OR
      * passedTypes Associative array of fields pointing to the type of the
      * values that are being passed. Used for correctly binding values to statements.
-     */
+     * /
     static or(IExpression|Closure|string[] aconditions, STRINGAA passedTypes = []) {
         if (cast(Closure)conditions) {
             return conditions(new static([], this.getTypeMap().setTypes(passedTypes), "OR"));

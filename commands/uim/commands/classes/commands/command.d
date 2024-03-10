@@ -9,16 +9,18 @@ import uim.commands;
  *
  * Includes traits that integrate logging and ORM models to console commands.
  */
-class Command : BaseCommand {
-    this() { initialize; }
+class Command : ICommand {
+    this() { /* initialize;  */ }
 
+    /* 
     mixin configForClass(); 
 
     mixin LocatorAwareTemplate();
     mixin LogTemplate();
 
+    */ 
     // Implement this method with your command`s logic.
-    int execute(Arguments commandArguments, ConsoleIo aConsoleIo) {
+    /* int execute(Arguments commandArguments, ConsoleIo aConsoleIo) {
         return 0;
-    }
+    } */
 }

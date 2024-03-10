@@ -19,7 +19,7 @@ class Arguments {
    * Constructor
    * Params:
    * @param array<string, string|bool|null> options Named arguments
-   */
+   * /
   this(array<int, string> argumentPositions, IData[string] argOptions,  array<int, string> argNames) {
     _argPositions = someArguments;
     _options = argOptions;
@@ -76,5 +76,5 @@ class Arguments {
   // Check if an option is defined and not null.
   bool hasOption(string optionName) {
     return this.options.isSet(optionName);
-  }
+  } */
 }

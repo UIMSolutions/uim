@@ -138,7 +138,7 @@ class Cache {
                 my_groups[groupName] = array_unique(my_groups[groupName]);
                 sort(my_groups[groupName]);
             });
-        } */
+        } * /
     }
     
     // Get a SimpleCacheEngine object for the named cache pool.

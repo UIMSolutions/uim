@@ -91,7 +91,7 @@ class MessagesFileLoader {
     /**
      * Loads the translation file and parses it. Returns an instance of a translations
      * catalog containing the messages loaded from the file.
-     */
+     * /
     Catalog catalog() {
         auto folders = this.translationsFolders();
         auto file = this.translationFile(folders, _name, _extension);
@@ -116,7 +116,7 @@ class MessagesFileLoader {
     /**
      * Returns the folders where the file should be looked for according to the locale
      * and catalog name.
-     */
+     * /
     string[] translationsFolders() {
         locale = Locale.parseLocale(_locale) ~ ["region": null];
 
@@ -153,5 +153,5 @@ class MessagesFileLoader {
         });
 
         return file;
-    }
+    } */
 }

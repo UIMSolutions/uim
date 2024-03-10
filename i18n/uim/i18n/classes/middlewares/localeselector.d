@@ -1,4 +1,4 @@
-module uim.i18n.classes.middleware.localeselector;
+module uim.i18n.classes.middlewares.localeselector;
 
 import uim.i18n;
 

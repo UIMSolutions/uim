@@ -161,5 +161,5 @@ class PluralRules {
             15: ruleNumber % 10 != 1 || ruleNumber % 100 == 11 ? 1 : 0,
             default: throw new UimException("Unable to find plural rule number."),
         };
-    }
+    } */
 }

@@ -9,8 +9,8 @@ import uim.i18n;
  *
  * Adds handy methods and locale-aware formatting helpers.
  */
-class Time : ChronosTime, JsonSerializable, Stringable {
-    use DateFormatTemplate();
+class Time { // : ChronosTime, JsonSerializable, Stringable {
+    // use DateFormatTemplate();
 
     /**
      * The format to use when formatting a time using `UIM\I18n\Time.i18nFormat()`
@@ -149,7 +149,7 @@ class Time : ChronosTime, JsonSerializable, Stringable {
      * Params:
      * string|int format Format string.
      * @param string locale The locale name in which the time should be displayed (e.g. pt-BR)
-     */
+     * /
     string|int i18nFormat(
         string|int format = null,
         string alocale = null
@@ -168,7 +168,7 @@ class Time : ChronosTime, JsonSerializable, Stringable {
      * Returns a nicely formatted date string for this object.
      *
      * The format to be used is stored in the static property `Time.niceFormat`.
-     */
+     * /
     string nice(string localeName = null) {
         return (string)this.i18nFormat(niceFormat, localeName);
     }
@@ -183,5 +183,5 @@ class Time : ChronosTime, JsonSerializable, Stringable {
  
     override string toString() {
         return (string)this.i18nFormat();
-    }
+    } */ 
 }

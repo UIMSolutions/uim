@@ -229,5 +229,5 @@ class I18n {
      * /
     static void clear() {
         _collection = null;
-    }
+    } */ 
 }

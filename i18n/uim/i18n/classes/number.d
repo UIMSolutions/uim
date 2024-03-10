@@ -268,7 +268,7 @@ class Number {
         if (!_formatters[locale].isSet(type)) {
             _formatters[locale][type] = new NumberFormatter(locale, type);
         }
-        /** @var \NumberFormatter formatter */
+        /** @var \NumberFormatter formatter * /
         formatter = _formatters[locale][type];
         formatter = clone formatter;
 
@@ -331,5 +331,5 @@ class Number {
      * /
     static string ordinal(float|int aValue, IData[string] options = null) {
         return (string)formatter(["type": NumberFormatter.ORDINAL] + options).format(aValue);
-    }
+    } */
 }

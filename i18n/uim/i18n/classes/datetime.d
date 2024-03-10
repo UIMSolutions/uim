@@ -144,7 +144,7 @@ class DateTime /* : Chronos, JsonSerializable, Stringable */ {
      * will be used to format the time part.
      * Params:
      * array<int>|string|int format Format.
-     */
+     * /
     void setToStringFormat(format) {
         _toStringFormat = format;
     }
@@ -152,7 +152,7 @@ class DateTime /* : Chronos, JsonSerializable, Stringable */ {
     /**
      * Resets the format used to the default when converting an instance of this type to
      * a string
-     */
+     * /
     void resetToStringFormat() {
         setToStringFormat([IntlDateFormatter.SHORT, IntlDateFormatter.SHORT]);
     }

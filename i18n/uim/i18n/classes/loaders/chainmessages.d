@@ -31,7 +31,7 @@ class ChainMessagesLoader {
     /**
      * Receives a list of loaders that will be executed
      * one after another until one of them returns a non-empty translations catalog
-     */
+     * /
     this(MessagesFileLoader[string] loaders) {
         _loaders = loaders;
     }
@@ -53,5 +53,5 @@ class ChainMessagesLoader {
             return catalog;
         }
         return new MessageCatalog();
-    }
+    } */ 
 }

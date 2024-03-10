@@ -14,10 +14,10 @@ if (!function_exists("collection")) {
     /**
      * Returns a new {@link uim.collections.Collection} object wrapping the passed argument.
      *
-     * @param iterable myItems The items from which the collection will be built.
+     * @param range myItems The items from which the collection will be built.
      * @return uim.collections.Collection
      */
-    ICollection collection(iterable myItems) {
+    ICollection collection(Range myItems) {
         return new Collection(myItems);
     }
 

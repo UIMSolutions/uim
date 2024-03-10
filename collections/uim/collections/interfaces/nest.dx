@@ -17,11 +17,11 @@ class NestIterator : Collection, RecursiveIterator {
     /**
      * Constructor
      * Params:
-     * iterable someItems Collection items.
+     * range someItems Collection items.
      * @param string anestKey the property that contains the nested items
      * If a callable is passed, it should return the childrens for the passed item
      */
-    this(iterable someItems, callable | string mynestKey) {
+    this(Range someItems, callable | string mynestKey) {
         super(someItems);
        _nestKey = nestKey;
     }

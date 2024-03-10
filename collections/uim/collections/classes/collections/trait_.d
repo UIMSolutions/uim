@@ -329,7 +329,7 @@ trait CollectionTrait {
             if (count == 0) {
                 return null;
             }
-            /** @var iterable iterator */
+            /** @var range iterator */
             iterator = new LimitIterator(iterator, count - 1, 1);
         }
 
@@ -671,13 +671,13 @@ trait CollectionTrait {
     }
 
 
-    function zip(iterable items): ICollection
+    function zip(Range items): ICollection
     {
         return new ZipIterator(array_merge([this.unwrap()], func_get_args()));
     }
 
 
-    function zipWith(iterable items, callback): ICollection
+    function zipWith(Range items, callback): ICollection
     {
         if (func_num_args() > 2) {
             items = func_get_args();

@@ -26,14 +26,14 @@ class InsertIterator : Collection {
      * Constructs a new collection that will dynamically add properties to it out of
      * the values found in  someValues.
      * Params:
-     * iterable anInto The target collection to which the values will
+     * range anInto The target collection to which the values will
      * be inserted at the specified path.
      * @param string aPath A dot separated list of properties that need to be traversed
      * to insert the value into the target collection.
-     * @param  iterable someValues The source collection from which the values will
+     * @param  range someValues The source collection from which the values will
      * be inserted at the specified path.
      */
-  this(iterable anInto, string aPath,  iterable someValues) {
+  this(Range anInto, string aPath,  range someValues) {
     super(anInto);
 
     if (!(cast(Collection) someValues)) {

@@ -31,12 +31,12 @@ class ExtractIterator : Collection {
      *  anExtractor = new ExtractIterator(someItems, "comment.user.name"");
      * ```
      * Params:
-     * iterable someItems The list of values to iterate
+     * range someItems The list of values to iterate
      * @param string aPath A dot separated path of column to follow
      * so that the final one can be returned or a callable that will take care
      * of doing that.
      */
-  this(iterable someItems, callable | string aPath) {
+  this(Range someItems, callable | string aPath) {
     _extractor = _propertyExtractor(somePath);
     super(someItems);
   }

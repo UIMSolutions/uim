@@ -31,9 +31,9 @@ class BufferedIterator : Collection, Countable {
      * Maintains an in-memory cache of the results yielded by the internal
      * iterator.
      * Params:
-     * iterable itemsToBeFiltered The items to be filtered.
+     * range itemsToBeFiltered The items to be filtered.
      */
-  this(iterable itemsToBeFiltered) {
+  this(Range itemsToBeFiltered) {
     _buffer = new SplDoublyLinkedList();
     super(itemsToBeFiltered);
   }

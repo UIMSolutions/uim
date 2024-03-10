@@ -23,10 +23,10 @@ class ReplaceIterator : Collection {
      * in the current iteration, the key of the element and the passed  someItems iterator
      * as arguments, in that order.
      * Params:
-     * iterable someItems The items to be filtered.
+     * range someItems The items to be filtered.
      * @param callable aCallback Callback.
      */
-  this(iterable someItems, callableaCallback) {
+  this(Range someItems, callableaCallback) {
    _callback = aCallback;
   super(someItems);
    _innerIterator = this.getInnerIterator();

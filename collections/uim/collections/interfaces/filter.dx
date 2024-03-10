@@ -23,10 +23,10 @@ class FilterIterator : Collection {
      * in the current iteration, the key of the element and the passed myitems iterator
      * as arguments, in that order.
      * Params:
-     * iterable myitems The items to be filtered.
+     * range myitems The items to be filtered.
      * @param callable aCallback Callback.
      */
-    this(iterable myitems, callable aCallback) {
+    this(Range myitems, callable aCallback) {
         if (!cast(Iterator)myitems) {
             myitems = new Collection(myitems);
         }

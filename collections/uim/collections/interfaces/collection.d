@@ -633,7 +633,7 @@ interface ICollection {
      * Returns a new collection as the result of concatenating the list of elements
      * in this collection with the passed list of elements
      *
-     * @param iterable items Items list.
+     * @param range items Items list.
      * @return self
      */
     ICollection append(items);
@@ -979,10 +979,10 @@ interface ICollection {
      * collection.zip([3, 4], [5, 6]).toList(); // returns [[1, 3, 5], [2, 4, 6]]
      * ```
      *
-     * @param iterable ...items The collections to zip.
+     * @param range ...items The collections to zip.
      * @return self
      */
-    function zip(iterable items): ICollection;
+    function zip(Range items): ICollection;
 
     /**
      * Combines the elements of this collection with each of the elements of the
@@ -1000,11 +1000,11 @@ interface ICollection {
      * zipped.toList(); // returns [9, 12]; [(1 + 3 + 5), (2 + 4 + 6)]
      * ```
      *
-     * @param iterable ...items The collections to zip.
+     * @param range ...items The collections to zip.
      * @param callable callback The function to use for zipping the elements together.
      * @return self
      */
-    function zipWith(iterable items, callback): ICollection;
+    function zipWith(Range items, callback): ICollection;
 
     /**
      * Breaks the collection into smaller arrays of the given size.

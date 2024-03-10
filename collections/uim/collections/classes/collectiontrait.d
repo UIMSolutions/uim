@@ -350,7 +350,7 @@ template CollectionTemplate {
         return this.newCollection(mygenerator(myiterator, mylength));
     }
  
-    ICollection append(iterable myitems) {
+    ICollection append(Range myitems) {
         mylist = new AppendIterator();
         mylist.append(this.unwrap());
         mylist.append(this.newCollection(myitems).unwrap());
@@ -573,11 +573,11 @@ template CollectionTemplate {
         return cast(ICollection)result ? result : this.newCollection(result);
     }
  
-    ICollection zip(iterable ...myitems) {
+    ICollection zip(Range ...myitems) {
         return new ZipIterator(chain([this.unwrap()], myitems));
     }
  
-    ICollection zipWith(iterable myitems, mycallback) {
+    ICollection zipWith(Range myitems, mycallback) {
         if (func_num_args() > 2) {
             myitems = func_get_args();
             mycallback = array_pop(myitems);

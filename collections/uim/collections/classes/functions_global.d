@@ -3,9 +3,9 @@ if (!function_exists("collection")) {
     /**
      * Returns a new {@link \UIM\Collection\Collection} object wrapping the passed argument.
      * Params:
-     * iterable someItems The items from which the collection will be built.
+     * range someItems The items from which the collection will be built.
      */
-    ICollection collection(iterable someItems) {
+    ICollection collection(Range someItems) {
         return cakeCollection(someItems);
     }
 }

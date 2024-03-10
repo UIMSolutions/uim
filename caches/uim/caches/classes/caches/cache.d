@@ -211,11 +211,11 @@ class Cache {
      * Cache.writeMany(["cached_data_1": 'data 1", "cached_data_2": 'data 2"], "long_term");
      * ```
      * Params:
-     * iterable mydata An array or Traversable of data to be stored in the cache
+     * range mydata An array or Traversable of data to be stored in the cache
      * @param string configName Optional string configuration name to write to. Defaults to "default"
      * returns = True on success, false on failure
      */
-    /* static bool writeMany(iterable mydata, string configName = "default") {
+    /* static bool writeMany(Range mydata, string configName = "default") {
         return pool(configName).setMultiple(mydata);
     } */ 
     
@@ -262,7 +262,7 @@ class Cache {
      * string[] someKeys An array or Traversable of keys to fetch from the cache
      * @param string configName optional name of the configuration to use. Defaults to "default"
      */
-    static iterable readMany(string[] keysToFetch, string configName = "default") {
+    static range readMany(string[] keysToFetch, string configName = "default") {
         return pool(configName).getMultiple(keysToFetch);
     }
     

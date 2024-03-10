@@ -70,10 +70,10 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     /**
      * Ensure the validity of the argument type and cache keys.
      * Params:
-     * iterable myiterable The iterable to check.
+     * range myrange The range to check.
      * @param string mycheck Whether to check keys or values.
      */
-    /* protected void ensureValidType(iterable myiterable, string mycheck = self.CHECK_VALUE) {
+    /* protected void ensureValidType(Range myiterable, string mycheck = self.CHECK_VALUE) {
         myiterable.bykeyValue
             .each!(kv => 
                 mycheck == self.CHECK_VALUE ? this.ensureValidKey(kv.value) : this.ensureValidKey(kv.key));
@@ -98,12 +98,12 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     /**
      * Persists a set of key: value pairs in the cache, with an optional TTL.
      * Params:
-     * iterable myvalues A list of key: value pairs for a multiple-set operation.
+     * range myvalues A list of key: value pairs for a multiple-set operation.
      * @param \DateInterval|int myttl Optional. The TTL value of this item. If no value is sent and
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      */
-    /* bool setMultiple(iterable myvalues, DateInterval|int myttl = null) {
+    /* bool setMultiple(Range myvalues, DateInterval|int myttl = null) {
         this.ensureValidType(myvalues, self.CHECK_KEY);
 
         if (myttl !isNull) {

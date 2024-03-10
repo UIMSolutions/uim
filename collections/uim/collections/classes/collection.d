@@ -13,7 +13,7 @@ import uim.collections;
 class Collection : IteratorIterator, ICollection {
   mixin CollectionTemplate();
 
-  this(iterable someItems) {
+  this(Range someItems) {
     if (isArray(someItems)) {
       someItems = new ArrayIterator(someItems);
     }

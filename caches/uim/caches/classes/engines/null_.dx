@@ -20,7 +20,7 @@ class NullEngine : CacheEngine {
     return true;
   }
 
-  bool setMultiple(iterable someValues, DateInterval | int | null aTtl = null) {
+  bool setMultiple(Range someValues, DateInterval | int | null aTtl = null) {
     return true;
   } */ 
 
@@ -28,7 +28,7 @@ class NullEngine : CacheEngine {
     return defaultValues;
   }
 
-  iterable getMultiple(string[] someKeys, Json defaultValues = null) {
+  range getMultiple(string[] someKeys, Json defaultValues = null) {
     return null;
   }
 

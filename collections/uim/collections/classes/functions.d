@@ -6,8 +6,8 @@ import uim.collections;
 
 /* 
  * Returns a new {@link \UIM\Collection\Collection} object wrapping the passed argument.
- * @param iterable someItems The items from which the collection will be built.
+ * @param range someItems The items from which the collection will be built.
  */
-ICollection collection(iterable someItems) {
+ICollection collection(Range someItems) {
     return new Collection(someItems);
 }

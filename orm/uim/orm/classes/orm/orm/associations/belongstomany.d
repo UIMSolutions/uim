@@ -443,7 +443,7 @@ class BelongsToMany : DAssociation {
      * \UIM\Datasource\IEntity entity The entity that started the cascading delete.
      * @param IData[string] options The options for the original delete.
      */
-    bool cascadeDelete(IEntity entity, IData[string] options = null) {
+    bool cascadeDelete_(IEntity entity, IData[string] options = null) {
         if (!this.getDependent()) {
             return true;
         }
@@ -459,7 +459,7 @@ class BelongsToMany : DAssociation {
         hasMany = this.getSource().getAssociation(aTable.aliasName());
         if (_cascadeCallbacks) {
             foreach (related; hasMany.find("all").where(conditions).all().toList()) {
-                success = aTable.delete(related, options);
+                success = aTable.delete_(related, options);
                 if (!success) {
                     return false;
                 }
@@ -711,7 +711,7 @@ class BelongsToMany : DAssociation {
      *
      * ### Options
      *
-     * Additionally to the default options accepted by `Table.delete()`, the following
+     * Additionally to the default options accepted by `Table.delete_()`, the following
      * keys are supported:
      *
      * - cleanProperty: Whether to remove all the objects in `targetEntities` that
@@ -753,7 +753,7 @@ class BelongsToMany : DAssociation {
         this.junction().getConnection().transactional(
             void () use (sourceEntity, targetEntities, options) {
                 _collectJointEntities(sourceEntity, targetEntities)
-                    .each!(entity => _junctionTable.delete(entity, options));
+                    .each!(entity => _junctionTable.delete_(entity, options));
             }
         );
 
@@ -1039,7 +1039,7 @@ class BelongsToMany : DAssociation {
      * @param array<\UIM\Datasource\IEntity> jointEntities link entities that should be persisted
      * @param array targetEntities entities in target table that are related to
      * the `jointEntities`
-     * @param IData[string] options list of options accepted by `Table.delete()`
+     * @param IData[string] options list of options accepted by `Table.delete_()`
      */
     protected array _diffLinks(
         SelectQuery existing,
@@ -1106,7 +1106,7 @@ class BelongsToMany : DAssociation {
             }
         }
         foreach (deletes as entity) {
-            if (!junction.delete(entity, options) && !empty(options["atomic"])) {
+            if (!junction.delete_(entity, options) && !empty(options["atomic"])) {
                 return false;
             }
         }

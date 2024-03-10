@@ -144,7 +144,7 @@ Once you have a reference to an entity, you can use it to delete data:
 ```php
 myarticles = this.getTableLocator().get("Articles");
 myarticle = myarticles.get(2);
-myarticles.delete(myarticle);
+myarticles.delete_(myarticle);
 ```
 
 ## Meta Data Cache

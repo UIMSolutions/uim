@@ -131,7 +131,7 @@ class RulesChecker : BaseRulesChecker {
      * ### Example:
      *
      * ```
-     * myrules.addDelete(myrules.isNotLinkedTo("Comments", "comments"));
+     * myrules.addDelete_(myrules.isNotLinkedTo("Comments", "comments"));
      * ```
      *
      * On a `Articles` table that has a `hasMany Comments` association, this check would ensure that articles

@@ -20,7 +20,7 @@ class DependentDeleteHelper {
      * @param \UIM\Datasource\IEntity entity The entity that started the cascaded delete.
      * @param IData[string] options The options for the original delete.
      */
-    bool cascadeDelete(Association association, IEntity entity, IData[string] options = null) {
+    bool cascadeDelete_(Association association, IEntity entity, IData[string] options = null) {
         if (!association.getDependent()) {
             return true;
         }        
@@ -37,7 +37,7 @@ class DependentDeleteHelper {
 
         if (association.getCascadeCallbacks()) {
             foreach (association.find().where(conditions).all().toList() as related) {
-                auto success = aTable.delete(related, options);
+                auto success = aTable.delete_(related, options);
                 if (!success) {
                     return false;
                 }

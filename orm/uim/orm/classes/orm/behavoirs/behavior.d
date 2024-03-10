@@ -69,11 +69,11 @@ use ReflectionMethod;
  * - `afterSave(IEvent event, IEntity anEntity, ArrayObject options)`
  *   Fired after an entity is saved.
  *
- * - `beforeDelete(IEvent event, IEntity anEntity, ArrayObject options)`
+ * - `beforeDelete_(IEvent event, IEntity anEntity, ArrayObject options)`
  *   Fired before an entity is deleted. By stopping this event you will abort
  *   the delete operation.
  *
- * - `afterDelete(IEvent event, IEntity anEntity, ArrayObject options)`
+ * - `afterDelete_(IEvent event, IEntity anEntity, ArrayObject options)`
  *   Fired after an entity has been deleted.
  *
  * In addition to the core events, behaviors can respond to any

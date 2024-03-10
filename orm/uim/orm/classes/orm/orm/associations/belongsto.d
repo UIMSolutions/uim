@@ -44,7 +44,7 @@ class BelongsTo : DAssociation {
      * \UIM\Datasource\IEntity entity The entity that started the cascaded delete.
      * @param IData[string] options The options for the original delete.
      */
-    bool cascadeDelete(IEntityentity, IData[string] options = null) {
+    bool cascadeDelete_(IEntityentity, IData[string] options = null) {
         return true;
     }
 

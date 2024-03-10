@@ -159,7 +159,7 @@ class CounterCacheBehavior : Behavior {
      * @param DORMDatasource\IEntity anEntity The entity that was deleted.
      * @param \ArrayObject options The options for the query
      */
-    void afterDelete(IEvent event, IEntity anEntity, ArrayObject options) {
+    void afterDelete_(IEvent event, IEntity anEntity, ArrayObject options) {
         if (isset(options["ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
             return;
         }

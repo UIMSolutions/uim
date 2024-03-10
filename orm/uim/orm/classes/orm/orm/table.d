@@ -91,8 +91,8 @@ import uim.orm;
  * - `beforeSave(IEvent myevent, IEntity myentity, ArrayObject options)`
  * - `afterSave(IEvent myevent, IEntity myentity, ArrayObject options)`
  * - `afterSaveCommit(IEvent myevent, IEntity myentity, ArrayObject options)`
- * - `beforeDelete(IEvent myevent, IEntity myentity, ArrayObject options)`
- * - `afterDelete(IEvent myevent, IEntity myentity, ArrayObject options)`
+ * - `beforeDelete_(IEvent myevent, IEntity myentity, ArrayObject options)`
+ * - `afterDelete_(IEvent myevent, IEntity myentity, ArrayObject options)`
  * - `afterDeleteCommit(IEvent myevent, IEntity myentity, ArrayObject options)`
  *
  * @see \UIM\Event\EventManager for reference on the events system.
@@ -1482,7 +1482,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * Creates a new delete query
      */
     DeleteQuery deleteQuery() {
-        return this.queryFactory.delete(this);
+        return this.queryFactory.delete_(this);
     }
     
     /**
@@ -2052,7 +2052,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * \UIM\Datasource\IEntity myentity The entity to remove.
      * @param IData[string] options The options for the delete.
          */
-    bool delete(IEntity myentity, IData[string] optionData = null) {
+    bool delete_(IEntity myentity, IData[string] optionData = null) {
         options = new ArrayObject(options ~ [
             "atomic": true,
             "checkRules": true,
@@ -2060,7 +2060,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         ]);
 
         mysuccess = _executeTransaction(
-            fn (): _processDelete(myentity, options),
+            fn (): _processDelete_(myentity, options),
             options["atomic"]
         );
 
@@ -2125,7 +2125,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
 
         myfailed = _executeTransaction(function () use (myentities, options) {
             foreach (myentities as myentity) {
-                if (!_processDelete(myentity, options)) {
+                if (!_processDelete_(myentity, options)) {
                     return myentity;
                 }
             }
@@ -2150,7 +2150,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * @param IData[string] options The options for the delete.
      */
     bool deleteOrFail(IEntity myentity, IData[string] optionData = null) {
-        mydeleted = this.delete(myentity, options);
+        mydeleted = this.delete_(myentity, options);
         if (mydeleted == false) {
             throw new PersistenceFailedException(myentity, ["delete"]);
         }
@@ -2168,7 +2168,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * @throws \InvalidArgumentException if there are no primary key values of the
      * passed entity
      */
-    protected bool _processDelete(IEntity myentity, ArrayObject options) {
+    protected bool _processDelete_(IEntity myentity, ArrayObject options) {
         if (myentity.isNew()) {
             return false;
         }
@@ -2188,7 +2188,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         if (myevent.isStopped()) {
             return (bool)myevent.getResult();
         }
-        mysuccess = _associations.cascadeDelete(
+        mysuccess = _associations.cascadeDelete_(
             myentity,
             ["_primary": false] + options.getArrayCopy()
         );

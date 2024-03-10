@@ -188,7 +188,7 @@ class TreeBehavior : Behavior {
      * @param DORMevents.IEvent event The beforeDelete event that was fired
      * @param DORMDatasource\IEntity anEntity The entity that is going to be saved
      */
-    void beforeDelete(IEvent event, IEntity anEntity) {
+    void beforeDelete_(IEvent event, IEntity anEntity) {
         myConfiguration = configuration;
         _ensureFields(entity);
         left = entity.get(myconfiguration["left"]);
@@ -206,10 +206,10 @@ class TreeBehavior : Behavior {
             if (this.getConfig("cascadeCallbacks")) {
                 entities = query.toArray();
                 foreach (entities as entityToDelete) {
-                    _table.delete(entityToDelete, ["atomic": false]);
+                    _table.delete_(entityToDelete, ["atomic": false]);
                 }
             } else {
-                query.delete();
+                query.delete_();
                 statement = query.execute();
                 statement.closeCursor();
             }

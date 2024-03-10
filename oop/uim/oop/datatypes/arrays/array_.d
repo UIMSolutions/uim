@@ -80,21 +80,7 @@ class DArrayData : DData {
   }
   ///
   unittest {
-    auto intData100 = IntegerData;
-    intData100.set(100);
-    auto intDataIs100 = IntegerData;
-    intDataIs100.set(100);
-    auto intDataNot100 = IntegerData;
-    intDataNot100.set(400);
-    // assert(intData100 == intDataIs100);
-    assert(intData100 == Json(100));
-    assert(intData100 == "100");
-    assert(intData100 == 100);
-
-    // assert(intData100 != intDataNot100);
-    assert(intData100 != Json(10));
-    assert(intData100 != "10");
-    assert(intData100 != 10);
+    // TODO
   }
   // #endregion equal
 

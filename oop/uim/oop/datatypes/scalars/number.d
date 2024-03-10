@@ -50,7 +50,7 @@ class DNumberData : DScalarData {
         set(newValue.get!double);
       }
 
-      if (newValue.isInteger) {
+      if (newValue.isNumber) {
         set(to!double(newValue.get!long));
       }
 

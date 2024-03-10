@@ -79,7 +79,7 @@ class DBooleanData : DScalarData {
         return false;
       }
 
-      isEqual(checkValue.get!bool);
+      return isEqual(checkValue.get!bool);
     }
 
     override bool isEqual(string checkValue) {

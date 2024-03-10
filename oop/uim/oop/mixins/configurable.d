@@ -30,7 +30,7 @@ mixin template ConfigurableTemplate() {
     }
 
 
-    IData getConfiguration(string key) {
+    /* IData getConfiguration(string key) {
         return _configuration ? _configuration.get(key) : null;
     }
 
@@ -38,5 +38,5 @@ mixin template ConfigurableTemplate() {
         if (_configuration) {
             _configuration.set(key, newData);
         }
-    }
+    } */
 }

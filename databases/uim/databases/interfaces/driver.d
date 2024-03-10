@@ -53,7 +53,7 @@ interface IDriver : INamed {
      *
      * @param mixed myValue The value to quote.
      * @param int myType Must be one of the \PDO.PARAM_* constants
-     */
+     * /
     string quote(myValue, myType);
 
 
@@ -65,7 +65,7 @@ interface IDriver : INamed {
      * @param string myType The type of query to be transformed
      * (select, insert, update, delete).
      * @return \Closure
-     */
+     * /
     Closure queryTranslator(string myType);
 
     /**
@@ -78,7 +78,7 @@ interface IDriver : INamed {
      * own schemas, then this may return null.
      *
      * @return uim.databases.Schema\SchemaDialect
-     */
+     * /
     SchemaDialect schemaDialect();
 
     /**
@@ -94,7 +94,7 @@ interface IDriver : INamed {
      *
      * @param mixed myValue The value to escape.
      * @return string String for use in schema definitions.
-     */
+     * /
     string schemaValue(myValue);
 
     // Returns the schema name that"s being used.
@@ -107,7 +107,7 @@ interface IDriver : INamed {
      * @param string|null column the name of the column representing the primary key.
      * @return string|int
      */
-    function lastInsertId(Nullable!string myTable = null, Nullable!string column = null);
+    // function lastInsertId(Nullable!string myTable = null, Nullable!string column = null);
 
     // Checks whether the driver is connected.
     bool isConnected();
@@ -134,7 +134,7 @@ interface IDriver : INamed {
      * @param uim.databases\ValueBinder aValueBinder The value binder to use.
      * @return array containing 2 entries. The first entity is the transformed query
      * and the second one the compiled SQL.
-     */
+     * /
     array compileQuery(Query myQuery, ValueBinder aValueBinder);
 
     // Returns an instance of a QueryCompiler.
@@ -146,9 +146,10 @@ interface IDriver : INamed {
      * @param string myTable The table name.
      * @param array columns The list of columns for the schema.
      * @return uim.databases.Schema\TableSchema
-     */
+     * /
     TableSchema newTableSchema(string myTable, array columns = []);
     
-    // Disconnects from database server.
+    // Disconnects from database server. 
+    */
     void disconnect();
 }

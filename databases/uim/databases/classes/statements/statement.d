@@ -7,12 +7,8 @@ import uim.databases;
 class DDBStatement {
         // Hook method
     bool initialize(IData[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
-
-        configuration(new DConfiguration);
-        configuration.update(initData);
+        // configuration(new DConfiguration);
+        // configuration.update(initData);
 
         return true;
     }

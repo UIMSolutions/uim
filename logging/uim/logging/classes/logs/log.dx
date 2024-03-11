@@ -152,7 +152,7 @@ class Log {
                 if (isSet(properties["engine"])) {
                     properties["className"] = properties["engine"];
                 }
-                if (!_registry.has((string)name)) {
+                if (!_registry.has(to!string(name))) {
                     _registry.load((string)name, properties);
                 }
             }

@@ -13,7 +13,7 @@ class JsonFormatter : AbstractFormatter {
     }
  
     string|int|false format(level, string amessage, array context = []) {
-        auto log = ["date": date(configuration.data("dateFormat"]), "level": (string)level, "message": message];
+        auto log = ["date": date(configuration.data("dateFormat"]), "level": to!string(level), "message": message];
         auto json = json_encode(log, JSON_THROW_ON_ERROR | configuration.data("flags"]);
 
         return configuration.data("appendNewline"] ? json ~ "\n" : json;

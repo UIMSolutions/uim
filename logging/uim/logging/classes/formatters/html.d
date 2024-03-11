@@ -7,7 +7,9 @@ class DHTMLLogFormatter : DLogFormatter {
   mixin(FormatterThis!("HTML"));
 
   override bool initialize(IData[string] initData = null) {
-    super.initialize(configSettings);
+    if (!super.initialize(initData)) { return false; }
+
+    return true;
   }
 }
-mixin(FormatterCalls!("HTML"));
+// mixin(FormatterCalls!("HTML"));

@@ -6,10 +6,10 @@ import uim.logging;
 
 // Base log engine class.
 abstract class Logger /* : AbstractLogger */ {
-    this() { name("Logger"); initialize; }
-    this(string name) { this(); name(name); }
+    this() { name("Logger"); } // TODOinitialize; }
+    this(string name) { this(); } // TODO name(name); }
 
-    mixin ConfigForClass;
+    // mixin ConfigForClass;
 
 //     mixin InstanceConfigTemplate;
 
@@ -20,10 +20,10 @@ abstract class Logger /* : AbstractLogger */ {
         "formatter": DefaultFormatter.classname,
     ]); */
 
-    protected IFormatter formatter;
+    protected ILogFormatter formatter;
 
     this(IData[string] configData = null) {
-        configuration.update(configData);
+        /* configuration.update(configData);
 
         if (!configuration.data("scopes").isNull) {
            configuration.data("scopes", configuration.data("scopes").toArray);
@@ -45,17 +45,19 @@ abstract class Logger /* : AbstractLogger */ {
             }
             formatter = new className(options);
         }
-        _formatter = formatter;
+        _formatter = formatter; */
     }
     
     // Get the levels this logger is interested in.
     string[] levels() {
-        return configuration.data("levels");
+        // TODO
+        return null; //return configuration.data("levels");
     }
     
     // Get the scopes this logger is interested in.
     string[] scopes() {
-        return configuration.data("scopes");
+        // TODO
+        return null; //return configuration.data("scopes");
     }
     
     /**
@@ -63,16 +65,16 @@ abstract class Logger /* : AbstractLogger */ {
      * Params:
      * \string amessage Formatted message.
      * @param array context Context for placeholder values.
-     */
+     * /
     protected string interpolate(string formattedMessage, array context = []) {
         if (!formattedMessage.has("{", "}")) {
             return formattedMessage;
         }
-        preg_match_all(
+        /* preg_match_all(
             "/(?<!" ~ preg_quote("\\", "/") ~ ")\{([a-z0-9-_]+)\}/i",
             formattedMessage,
             matches
-        );
+        ); * /
         if (isEmpty(matches)) {
             return formattedMessage;
         }
@@ -84,7 +86,7 @@ abstract class Logger /* : AbstractLogger */ {
             aValue = context[aKey];
 
             if (isScalar(aValue)) {
-                replacements["{" ~ aKey ~ "}"] = (string)aValue;
+                replacements["{" ~ aKey ~ "}"] = to!string(aValue);
                 continue;
             }
             if (isArray(aValue)) {
@@ -123,7 +125,7 @@ abstract class Logger /* : AbstractLogger */ {
             }
             replacements["{" ~ aKey ~ "}"] = "[unhandled value of type %s]".format(get_debug_type(aValue));
         }
-        /** @psalm-suppress InvalidArgument */
+        /** @psalm-suppress InvalidArgument * /
         return formattedMessage.replace(replacements.keys, replacements);
-    }
+    } */
 }

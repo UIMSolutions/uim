@@ -4,6 +4,6 @@ import uim.logging;
 
 @safe:
 
-bool testFormatter(IFormatter formatterToTest) {
+bool testFormatter(ILogFormatter formatterToTest) {
     return true;
 }

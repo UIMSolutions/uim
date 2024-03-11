@@ -88,7 +88,7 @@ abstract class Logger /* : AbstractLogger */ {
             aValue = context[aKey];
 
             if (isScalar(aValue)) {
-                replacements["{" ~ aKey ~ "}"] = (string)aValue;
+                replacements["{" ~ aKey ~ "}"] = to!string(aValue);
                 continue;
             }
             if (isArray(aValue)) {

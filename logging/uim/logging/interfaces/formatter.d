@@ -4,7 +4,7 @@ import uim.logging;
 
 @safe:
 
-interface IFormatter : INamed {
+interface ILogFormatter : INamed {
   IData[string] config();
   void config(IData[string] newConfig);
 

@@ -12,7 +12,7 @@ class DLogEngine : ILogEngine {
     return true;
   }
 
-  mixin(TProperty!("IFormatter", "formatter"));
+  mixin(TProperty!("ILogFormatter", "formatter"));
   mixin(TProperty!("string", "name"));
   mixin(TProperty!("string", "className"));
 }

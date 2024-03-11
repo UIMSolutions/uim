@@ -5,6 +5,6 @@ import uim.orm;
 @safe:
 
 interface IAssociation : INamed {
-    void sourceTable(ITable newTable);
-    ITable sourceTable();
+    // void sourceTable(ITable newTable);
+    // ITable sourceTable();
 }

@@ -9,7 +9,7 @@ import uim.i18n;
  * Methods to make numbers more readable.
  */
 class Number {
-  	override bool initialize(IData[string] initData = null) {
+  	bool initialize(IData[string] initData = null) {
 		// if (!super.initialize(initData)) { return false; }
 		
 		return true;

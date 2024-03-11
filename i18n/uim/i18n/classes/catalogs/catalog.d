@@ -17,9 +17,9 @@ class DMessageCatalog : ICatalog {
     string fallbackName = null,
   ) {
     this();
-    messages(messages);
-    formatterName(formatterName);
-    fallbackName(fallbackName);
+    // TODO messages(messages);
+    // TODO formatterName(formatterName);
+   // TODO  fallbackName(fallbackName);
   }
 
   // Hook method

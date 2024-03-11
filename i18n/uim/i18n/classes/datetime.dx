@@ -38,7 +38,7 @@ class DateTime /* : Chronos, JsonSerializable, Stringable */ {
      * will be used to format the time part.
      *
      * @var array<int>|string|int
-     */
+     * /
     protected string[] _toStringFormat = [IntlDateFormatter.SHORT, IntlDateFormatter.SHORT];
 
     /**

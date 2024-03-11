@@ -7,7 +7,7 @@ import uim.i18n;
 // A formatter that will interpolate variables using the MessageFormatter class
 class DIcuFormatter : DI18NFormatter {
     // Returns a string with all passed variables interpolated into the original message.
-    string format(string messageLocale, string messageToTranslate, string[] tokenValues) {
+    override string format(string messageLocale, string messageToTranslate, string[] tokenValues) {
         if (messageToTranslate.isEmpty) {
             return messageToTranslate;
         }

@@ -8,8 +8,8 @@ import uim.i18n;
 class PackageLocator {
   // Initialization
   bool initialize(IData[string] initData = null) {
-    configuration(new DConfiguration);
-    configuration.data(initData);
+    // TODO configuration(new DConfiguration);
+    // TODO configuration.data(initData);
     return true;
   }
   /**
@@ -29,18 +29,18 @@ class PackageLocator {
 
   // Sets a catalog.
   void set(string catalogName, string catalogLocale, ICatalog catalog) {
-    _registry[catalogName][catalogLocale] = catalog;
+    // TODO _registry[catalogName][catalogLocale] = catalog;
   }
 
   // Gets a Catalog object.
   ICatalog get(string catalogName, string catalogLocale) {
     if (!hasCatalog(catalogName)) {
-      throw new I18nException(
+      throw new DI18nException(
         "Catalog `%s` is not registered."
           .format(catalogName));
     }
     if (!hasCatalog(catalogName, catalogLocale)) {
-      throw new I18nException(
+      throw new DI18nException(
         "Catalog `%s` with locale `%s` is not registered."
           .format(catalogName, catalogLocale));
     }
@@ -51,7 +51,7 @@ class PackageLocator {
   // Check if a Catalog object for given name and locale exists in registry.
   bool hasCatalog(string catalogName, string catalogLocale = null) {
     return this.registry.isSet(catalogName)
-      ? (catalogLocal.isEmpty
+      ? (catalogLocale.isEmpty
           ? true : this.registry[catalogName].isSet(catalogLocale)) : false;
   }
 }

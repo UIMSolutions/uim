@@ -43,7 +43,7 @@ version (test_uim_core) {
 	}
 }
 
-bool endsWith(string str, string txt) {
+/* bool endsWith(string str, string txt) {
 	if (str.length == 0) {
 		return false;
 	}
@@ -57,7 +57,7 @@ unittest {
 	assert("ABC".endsWith("C"));
 	assert(!"".endsWith("C"));
 	assert(!"ABC".endsWith(""));
-}
+} */
 
 // #region has
 
@@ -157,7 +157,7 @@ version (test_uim_core) {
 	}
 }
 
-bool startsWith(string str, string txt) {
+/* bool startsWith(string str, string txt) {
 	if (str.length == 0) {
 		return false;
 	}
@@ -173,7 +173,7 @@ version (test_uim_core) {
 		assert(!"".startsWith("A"));
 		assert(!"ABC".startsWith(""));
 	}
-}
+} */
 
 string toString(string[] values) {
 	return "%s".format(values);

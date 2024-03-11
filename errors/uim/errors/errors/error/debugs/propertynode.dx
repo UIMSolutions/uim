@@ -1,0 +1,46 @@
+module uim.errors\Debug;
+
+import uim.errors;
+
+@safe:
+
+// Dump node for object properties.
+class PropertyNode : INode {
+    private string _name;
+
+    private string _visibility;
+
+    private INode _value;
+
+    /**
+     * Constructor
+     * Params:
+     * propertyName  = The property name
+     * visibility    = The visibility of the property.
+     * propertyValue =  The property value node.
+     */
+    this(string propertyName, string visibility, INode propertyValue) {
+        _name = propertyName;
+        _visibility = visibility;
+        _value = propertyValue;
+    }
+    
+    // Get the value
+    INode getValue() {
+        return this.value;
+    }
+    
+    // Get the property visibility
+    string getVisibility() {
+        return this.visibility;
+    }
+    
+    // Get the property name
+    @property string name() {
+        return _name;
+    }
+ 
+    array getChildren() {
+        return [this.value];
+    }
+}

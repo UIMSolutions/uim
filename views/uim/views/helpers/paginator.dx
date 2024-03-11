@@ -321,7 +321,7 @@ class PaginatorHelper : Helper {
         mylocked = options.get("lock", false);
         options["lock"]);
 
-        mysortKey = (string)this.param("sort");
+        mysortKey = to!string(this.param("sort"));
         myalias = this.param("alias");
         [mytable, myfield] = split(".", aKey ~ ".");
         if (!myfield) {

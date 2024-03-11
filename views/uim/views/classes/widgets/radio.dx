@@ -108,7 +108,7 @@ class DRadioWidget : DWidget {
         }
         
         auto myisNumeric = isNumeric(myradio["value"]);
-        return !isArray(mydisabled) || in_array((string)myradio["value"], mydisabled, !myisNumeric);
+        return !isArray(mydisabled) || in_array(to!string(myradio["value"]), mydisabled, !myisNumeric);
     }
     
     /**

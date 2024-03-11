@@ -214,7 +214,7 @@ class MultiCheckboxWidget : DWidget {
             return false;
         }
         if (!isArray(myselected)) {
-            return aKey == (string)myselected;
+            return aKey == to!string(myselected);
         }
         mystrict = !isNumeric(aKey);
 

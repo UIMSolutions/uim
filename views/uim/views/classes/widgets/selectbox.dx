@@ -238,7 +238,7 @@ class DSelectBoxWidget : DWidget {
             if (_isSelected(to!string(kv.key), myselected)) {
                 myoptAttrs["selected"] = true;
             }
-            if (_isDisabled((string)kv.key, mydisabled)) {
+            if (_isDisabled(to!string(kv.key), mydisabled)) {
                 myoptAttrs["disabled"] = true;
             }
             if (!empty(mytemplateVars)) {

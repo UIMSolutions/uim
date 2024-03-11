@@ -1348,7 +1348,7 @@ class FormHelper : Helper {
                 "name": options["name"],
                 "value": options["hiddenField"] != true
                     && options["hiddenField"] != "_split"
-                    ? (string)options["hiddenField"] : "0",
+                    ? to!string(options["hiddenField"]) : "0",
                 "form": options.get("form", null),
                 "secure": false,
             ];
@@ -1405,7 +1405,7 @@ class FormHelper : Helper {
         myhidden = "";
         if (myhiddenField != false && isScalar(myhiddenField)) {
             myhidden = this.hidden(fieldName, [
-                "value": myhiddenField == true ? "" : (string)myhiddenField,
+                "value": myhiddenField == true ? "" : to!string(myhiddenField),
                 "form": myattributes["form"].ifNull(null),
                 "name": myattributes["name"],
                 "id": myattributes["id"],

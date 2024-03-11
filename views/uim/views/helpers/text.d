@@ -201,7 +201,7 @@ class TextHelper : Helper {
     string autoParagraph(string mytext) {
         mytext ??= "";
         if (trim(mytext) != "") {
-            mytext = (string)preg_replace("|<br[^>]*>\s*<br[^>]*>|i", "\n\n", mytext ~ "\n");
+            mytext = to!string(preg_replace("|<br[^>]*>\s*<br[^>]*>|i", "\n\n", mytext ~ "\n"));
             mytext = (string)preg_replace("/\n\n+/", "\n\n", mytext.replace(["\r\n", "\r"], "\n"));
             mytexts = preg_split("/\n\s*\n/", mytext, -1, PREG_SPLIT_NO_EMPTY) ?: [];
             mytext = "";

@@ -59,7 +59,7 @@ class UrlHelper : Helper {
 
         myurl = Router.url(myurl, options["fullBase"]);
         if (options["escape"]) {
-            myurl = (string)h(myurl);
+            myurl = to!string(h(myurl));
         }
         return myurl;
     }

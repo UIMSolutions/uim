@@ -149,7 +149,7 @@ class MultiCheckboxWidget : DWidget {
             if (mycheckbox["id"].isEmpty) {
                 if (isSet(mydata["id"])) {
                     mycheckbox["id"] = mydata["id"] ~ "-" ~ trim(
-                       _idSuffix((string)mycheckbox["value"]),
+                       _idSuffix(to!string(mycheckbox["value"])),
                         "-"
                     );
                 } else {

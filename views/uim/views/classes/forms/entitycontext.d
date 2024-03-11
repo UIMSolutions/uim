@@ -366,7 +366,7 @@ class EntityContext : IContext {
         }
         if (cast(Traversable)mytarget) {
             foreach (mytarget as myi: myval) {
-                if ((string)myi == myfield) {
+                if (to!string(myi) == myfield) {
                     return myval;
                 }
             }

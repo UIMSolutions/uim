@@ -178,7 +178,7 @@ class HtmlHelper : Helper {
     string charset(string metatagCharset = null) {
         string result; 
         if (metatagCharset.isEmpty) {
-            result = (string)Configure.read("App.encoding").toLower;
+            result = to!string(Configure.read("App.encoding")).toLower;
         }
         return this.formatTemplate("charset", [
             "charset": !empty(result) ? result : "utf-8",

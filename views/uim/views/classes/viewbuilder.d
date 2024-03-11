@@ -419,7 +419,7 @@ class ViewBuilder : JsonSerializable {
      */
     protected void _checkViewVars(Json &myitem, string aKey) {
         if (cast8Exception)myitem) {
-            myitem = (string)myitem;
+            myitem = to!string(myitem);
         }
         if (
             isResource(myitem) ||

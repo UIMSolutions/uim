@@ -118,7 +118,7 @@ class DJsonView : DSerializedView {
         if (Configure.read("debug")) {
             myjsonOptions |= JSON_PRETTY_PRINT;
         }
-        return (string)json_encode(mydata, myjsonOptions);
+        return to!string(json_encode(mydata, myjsonOptions));
     }
     
     /**

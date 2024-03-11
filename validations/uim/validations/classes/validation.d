@@ -751,7 +751,7 @@ class Validation {
         if (!isScalar(mycheck)) {
             return false;
         }
-        return ((string)mycheck).length >= mymin;
+        return (to!string(mycheck)).length >= mymin;
     }
     
     /**
@@ -821,7 +821,7 @@ class Validation {
                 if (mycaseInsensitive) {
                     myval = mb_strtolower((string)myval);
                 }
-                if (!in_array((string)myval, options["in"], mystrict)) {
+                if (!in_array(to!string(myval), options["in"], mystrict)) {
                     return false;
                 }
             }

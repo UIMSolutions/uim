@@ -331,7 +331,7 @@ class HtmlHelper : Helper {
         if (isArray(mypath)) {
             string result = "";
             foreach (mypath as myi) {
-                result ~= "\n\t" ~ (string)this.css(myi, htmlAtributes);
+                result ~= "\n\t" ~ to!string(this.css(myi, htmlAtributes));
             }
             if (isEmpty(htmlAtributes["block"])) {
                 return result ~ "\n";

@@ -1490,7 +1490,7 @@ class FormHelper : Helper {
             this.formProtector.addField(
                 options["name"],
                 true,
-                options["val"] == false ? "0" : (string)options["val"]
+                options["val"] == false ? "0" : to!string(options["val"])
             );
         }
         options["type"] = "hidden";

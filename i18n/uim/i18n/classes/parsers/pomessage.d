@@ -10,13 +10,13 @@ class PoMessage {
     }
 
     protected bool _isFinished;
-    @property void _isFinished(bool mode) {
+    @property void isFinished(bool mode) {
         _isFinished = mode;
     }
 
     string[] _translatorComments;
     auto addTranslatorComment(string comment) {
-        _comments ~= comment;
+        // TODO _comments ~= comment;
         return this;
     }
 
@@ -32,14 +32,15 @@ class PoMessage {
     auto addId(string newId) {
         string prefix = `msgid "`;
         newId = strip(newId);
-        if (newId.startsWith(prefix)) {
+       // TODO 
+       /* if (newId.startsWith(prefix)) {
             newId = newId[prefix.length .. $];
             if (newId.endsWith(`"`)) {
                 newId = newId[prefix ..  - 1];
                 _id = strip(newId);
                 return this;
             }
-        }
+        } */
     }
 
     string[] id() {
@@ -52,9 +53,9 @@ class PoMessage {
     }
 
     protected string[] _text;
-    auto addId(string newId) {
+    /* void addId(string newId) {
 
-    }
+    } */
 
     void add(string line) {
         line = line.strip;

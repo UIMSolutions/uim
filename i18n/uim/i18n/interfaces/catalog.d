@@ -18,7 +18,7 @@ interface ICatalog {
     string[][string] messages(); 
 
     // Adds new messages for this catalog.
-    void addMessages(string[][string] messages...); 
+    // TODO void addMessages(string[][string] messages...); 
 
     // Adds new messages for this catalog.
     void addMessages(string[][string] messages); 

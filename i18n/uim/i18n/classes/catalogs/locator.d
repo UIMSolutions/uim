@@ -34,16 +34,16 @@ class PackageLocator {
 
   // Gets a Catalog object.
   ICatalog get(string catalogName, string catalogLocale) {
-    if (!hasCatalog(catalogName)) {
+    /* if (!hasCatalog(catalogName)) {
       throw new DI18nException(
         "Catalog `%s` is not registered."
           .format(catalogName));
-    }
+    } * /
     if (!hasCatalog(catalogName, catalogLocale)) {
       throw new DI18nException(
         "Catalog `%s` with locale `%s` is not registered."
           .format(catalogName, catalogLocale));
-    }
+    } */
 
     return this.registry[catalogName][catalogLocale];
   }

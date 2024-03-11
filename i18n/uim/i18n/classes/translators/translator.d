@@ -20,7 +20,7 @@ class DTranslator : ITranslator {
     const string PLURAL_PREFIX = "p:";
 
     // A fallback translator.
-    protected Translator _fallback = null;
+    protected ITranslator _fallback = null;
 
     // The formatter to use when translating messages.
     protected II18NFormatter _formatter;
@@ -43,12 +43,12 @@ class DTranslator : ITranslator {
         string localeName,
         ICatalog catalog,
         II18NFormatter messageFormatter,
-        Translator fallback = null
+        ITranslator fallback = null
     ) {
-        _locale = localeName;
+        /* _locale = localeName;
         _catalog(catalog);
         _formatter = messageFormatter;
-        _fallback = fallback;
+        _fallback = fallback; */
     }
 
     // Gets the message translation by its key.
@@ -56,9 +56,9 @@ class DTranslator : ITranslator {
         string[] message = catalog.message(messageKey);
 
         if (message.isEmpty && _fallback) {
-            if (message = _fallback.getMessage(messageKey)) {
+            /* if (auto message = _fallback.getMessage(messageKey)) {
                 catalog.addMessage(messageKey, message);
-            }
+            } */
         }
 
         return message;
@@ -130,11 +130,11 @@ class DTranslator : ITranslator {
 
         // No or missing context, fallback to the key/first message
         string[] result;
-        if (context.isNull) { // No context
+        /* if (context.isNull) { // No context
             result = messageContext.get("", null);
             return result.isEmpty
                 ? [messageKey] : result;
-        }
+        } */
 
         result = messageContext.get(context, null);
         return result.isEmpty

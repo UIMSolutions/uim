@@ -12,7 +12,7 @@ import uim.i18n;
 // Translator to translate the message.
 interface ITranslator {
     // Translates the message formatting any placeholders
-    string translate(string messageKey, STRINGAA tokensValues);
+    // TODO string translate(string messageKey, STRINGAA tokensValues);
     
     // Returns the translator catalog
     void catalog(ICatalog newCatalog);

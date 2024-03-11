@@ -13,10 +13,10 @@ class DTranslatorRegistry {
     const string FALLBACK_LOADER = "_fallback";
 
     // A registry to retain translator objects.
-    protected ITranslator[string][string] registry = [];
+    protected ITranslator[string][string] registry = null;
 
     // The current locale code.
-    protected string _localeName;
+    protected string _localeName = null;
 
     // A catalog locator.
     //protected CatalogLocator _catalogs;
@@ -180,7 +180,7 @@ class DTranslatorRegistry {
      * @param callable loader A callable object that should return a ICatalog
      */
     void registerLoader(string catalogName, ILoader loader) {
-       _loaders[catalogName] = loader;
+       //_loaders[catalogName] = loader;
     }
     
     /**

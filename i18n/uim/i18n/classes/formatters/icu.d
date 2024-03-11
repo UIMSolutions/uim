@@ -12,11 +12,11 @@ class DIcuFormatter : DI18NFormatter {
             return messageToTranslate;
         }
         
-        auto formatter = new MessageFormatter(messageLocale, messageToTranslate);
-        string result = formatter.format(tokenValues);
-        if (result.isEmpty) {
+        // TODO auto formatter = new DMessageFormatter(messageLocale, messageToTranslate);
+        string result; // TODO = formatter.format(tokenValues);
+        /* if (result.isEmpty) {
             throw new I18nException(formatter.getErrorMessage(), formatter.getErrorCode());
-        }
+        } */ 
         return result;
     }
 }

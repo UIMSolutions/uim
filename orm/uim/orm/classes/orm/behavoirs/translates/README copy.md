@@ -1,1 +1,0 @@
-# uim.orm.rules

@@ -1,2 +1,2 @@
-module uim.orm.Association;
+module uim.orm.association;
 

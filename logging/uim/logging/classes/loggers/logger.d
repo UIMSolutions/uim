@@ -10,11 +10,11 @@ abstract class Logger /* : AbstractLogger */ {
     this(string name) { this(); name(name); }
 
   bool initialize(IData[string] initData = null) {
-    Configuration.updateDefaults([
+    /* Configuration.updateDefaults([
         "levels": [],
         "scopes": [],
         "formatter": DefaultFormatter.classname,
-    ];
+    ]; */
 
     return true;
   }
@@ -72,11 +72,11 @@ abstract class Logger /* : AbstractLogger */ {
         if (!formattedMessage.has("{", "}")) {
             return formattedMessage;
         }
-        preg_match_all(
+        /* preg_match_all(
             "/(?<!" ~ preg_quote("\\", "/") ~ ")\{([a-z0-9-_]+)\}/i",
             formattedMessage,
             matches
-        );
+        ); */
         if (isEmpty(matches)) {
             return formattedMessage;
         }

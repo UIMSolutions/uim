@@ -48,7 +48,7 @@ class ServerCommand : Command {
            _port = to!int(commandArguments.getOption("port"));
         }
         if (commandArguments.getOption("document_root")) {
-           _documentRoot = (string)commandArguments.getOption("document_root");
+           _documentRoot = to!string(commandArguments.getOption("document_root"));
         }
         if (commandArguments.getOption("ini_path")) {
            _iniPath = to!string(commandArguments.getOption("ini_path"));

@@ -352,7 +352,7 @@ class FileEngine : CacheEngine {
     bool clearGroup(string groupName) {
         unset(_File);
 
-        auto myprefix = (string) configuration["prefix"];
+        auto myprefix = to!string( configuration["prefix"]);
 
         auto mydirectoryIterator = new RecursiveDirectoryIterator(configuration["path"]);
         auto mycontents = new RecursiveIteratorIterator(

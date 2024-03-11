@@ -126,7 +126,7 @@ class I18nExtractCommand : Command {
            _paths ~= CAKE;
         }
         if (commandArguments.hasOption("output")) {
-           _output = (string)commandArguments.getOption("output");
+           _output = to!string(commandArguments.getOption("output"));
         } else if (commandArguments.hasOption("plugin")) {
            _output = Plugin.path(plugin)
                 ~ "resources" ~ DIRECTORY_SEPARATOR
@@ -160,7 +160,7 @@ class I18nExtractCommand : Command {
             }
         }
         if (commandArguments.hasOption("merge")) {
-           _merge = !(strtolower((string)commandArguments.getOption("merge")) == "no");
+           _merge = !(strtolower(to!string(commandArguments.getOption("merge")) == "no"));
         } else {
              aConsoleIo.writeln();
             response = aConsoleIo.askChoice(

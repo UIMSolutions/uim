@@ -7,7 +7,7 @@ import uim.views;
 class DContext {
     bool initialize(IData[string] initData = null) {
         // configuration(MemoryConfiguration);
-        // configuration.update(initData);
+        // configurationData(initData);
 
         return true;
     }

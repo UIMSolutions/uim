@@ -10,7 +10,7 @@ class DDBConnection : IDataSourceConnection
     bool initialize(IData[string] initData = null) {
         
         // configuration(MemoryConfiguration);
-        // configuration.update(initData);
+        // configurationData(initData);
 
         return true;
     }

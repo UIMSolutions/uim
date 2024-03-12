@@ -16,7 +16,7 @@ class DCookie : ICookie {
         }
 
         configuration(MemoryConfiguration);
-        configuration.update(initData);
+        configurationData(initData);
 
         return true;
     }

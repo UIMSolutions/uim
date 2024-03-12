@@ -12,7 +12,7 @@ class DTranslator : ITranslator {
     // Hook method
     bool initialize(IData[string] initData = null) {
         // configuration(MemoryConfiguration);
-        // configuration.update(initData);
+        // configurationData(initData);
 
         return true;
     }

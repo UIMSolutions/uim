@@ -18,7 +18,7 @@ class ConsoleInputOption {
         }
 
         configuration(MemoryConfiguration);
-        configuration.update(initData);
+        configurationData(initData);
 
         return true;
     }

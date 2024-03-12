@@ -47,7 +47,7 @@ class DModel : IModel {
   }
 
   bool initialize(IData[string] initData = null) {
-    configuration(new DConfiguration);
+    configuration(MemoryConfiguration);
     configuration.data(initData);
     return true;
   }

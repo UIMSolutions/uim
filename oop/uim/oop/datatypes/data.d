@@ -29,7 +29,7 @@ class DData : IData {
 
   // Hook
   bool initialize(IData[string] initData = null) {
-    // configuration(new DConfiguration);
+    // configuration(MemoryConfiguration);
     // configurationData(initData);
     return true;
   }

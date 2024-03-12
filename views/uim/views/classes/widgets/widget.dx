@@ -30,7 +30,7 @@ class DWidget : IWidget {
       return false;
     }
 
-    configuration(new DConfiguration);
+    configuration(MemoryConfiguration);
     with (configuration) {
       update(initData);
       updateDefaults([

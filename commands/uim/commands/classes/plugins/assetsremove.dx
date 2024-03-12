@@ -21,7 +21,7 @@ class PluginAssetsRemoveCommand : Command {
     }
     
     // Remove plugin assets from app`s webroot.
-  int execute(IData[string] arguments, ConsoleIo aConsoleIo) {
+  int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         this.io = aConsoleIo;
         this.args = commandArguments;
 

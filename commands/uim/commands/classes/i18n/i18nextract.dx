@@ -55,7 +55,7 @@ class I18nExtractCommand : Command {
     protected size_t _countMarkerError = 0;
 
     // Method to interact with the user and get path selections.
-    protected void _getPaths(ConsoleIo aConsoleIo) {
+    protected void _getPaths(IConsoleIo aConsoleIo) {
         /** @psalm-suppress UndefinedConstant */
         defaultPaths = chain(
             [APP],
@@ -92,7 +92,7 @@ class I18nExtractCommand : Command {
     }
 
     // Execute the command
-  int execute(IData[string] arguments, ConsoleIo aConsoleIo) {
+  int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         string myPlugin = "";
         if (commandArguments.getOption("exclude")) {
            _exclude = split(",", to!string(commandArguments.getOption("exclude")));
@@ -213,7 +213,7 @@ class I18nExtractCommand : Command {
     }
     
     // Extract text
-    protected void _extract(Arguments commandArguments, ConsoleIo aConsoleIo) {
+    protected void _extract(Arguments commandArguments, IConsoleIo aConsoleIo) {
          aConsoleIo.writeln();
          aConsoleIo.writeln();
          aConsoleIo.writeln("Extracting...");
@@ -305,9 +305,9 @@ class I18nExtractCommand : Command {
      * Extract tokens out of all files to be processed
      * Params:
      * \UIM\Console\Arguments commandArguments The io instance
-     * @param \UIM\Console\ConsoleIo aConsoleIo The io instance
+     * @param \UIM\Console\IConsoleIo aConsoleIo The io instance
      */
-    protected void _extractTokens(Arguments commandArguments, ConsoleIo aConsoleIo) {
+    protected void _extractTokens(Arguments commandArguments, IConsoleIo aConsoleIo) {
         progress = aConsoleIo.helper("progress");
         assert(cast(ProgressHelper)progress);
         progress.initialize(["total": count(_files)]);
@@ -357,11 +357,11 @@ class I18nExtractCommand : Command {
     /**
      * Parse tokens
      * Params:
-     * \UIM\Console\ConsoleIo aConsoleIo The io instance
+     * \UIM\Console\IConsoleIo aConsoleIo The io instance
      * @param string afunctionName auto name that indicates translatable string (e.g: '__")
      * @param array map Array containing what variables it will find (e.g: domain, singular, plural)
      */
-    protected void _parse(ConsoleIo aConsoleIo, string afunctionName, array map) {
+    protected void _parse(IConsoleIo aConsoleIo, string afunctionName, array map) {
         count = 0;
         tokenCount = count(_tokens);
 
@@ -490,9 +490,9 @@ class I18nExtractCommand : Command {
      * Write the files that need to be stored
      * Params:
      * \UIM\Console\Arguments commandArguments The command arguments.
-     * @param \UIM\Console\ConsoleIo aConsoleIo The console io
+     * @param \UIM\Console\IConsoleIo aConsoleIo The console io
      */
-    protected void _writeFiles(Arguments commandArguments, ConsoleIo aConsoleIo) {
+    protected void _writeFiles(Arguments commandArguments, IConsoleIo aConsoleIo) {
          aConsoleIo.writeln();
         bool overwriteAll = false;
         if (commandArguments.getOption("overwrite")) {
@@ -642,12 +642,12 @@ class I18nExtractCommand : Command {
     /**
      * Indicate an invalid marker on a processed file
      * Params:
-     * \UIM\Console\ConsoleIo aConsoleIo The io instance.
+     * \UIM\Console\IConsoleIo aConsoleIo The io instance.
      * @param string afile File where invalid marker resides
      * @param string amarker Marker found
      * @param int count Count
      */
-    protected void _markerError(ConsoleIo aConsoleIo, string afile, int lineNumber, string amarker, int count) {
+    protected void _markerError(IConsoleIo aConsoleIo, string afile, int lineNumber, string amarker, int count) {
         if (!_file.has(CAKE_CORE_INCLUDE_PATH)) {
            _countMarkerError++;
         }

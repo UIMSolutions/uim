@@ -20,7 +20,7 @@ class SchemacacheBuildCommand : Command {
     }
     
     // Display all routes in an application
-    int execute(IData[string] arguments, ConsoleIo aConsoleIo) {
+    int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         SchemaCache schemaCache;
         try {
             aConnection = ConnectionManager.get(to!string(commandArguments.getOption("connection")));

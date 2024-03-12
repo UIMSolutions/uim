@@ -12,7 +12,7 @@ template PluginAssetsTemplate {
     protected Arguments commandArguments;
 
     // Console IO
-    protected ConsoleIo aConsoleIo;
+    protected IConsoleIo aConsoleIo;
 
     /**
      * Get list of plugins to process. Plugins without a webroot directory are skipped.

@@ -41,7 +41,7 @@ class CacheClearGroupCommand : Command {
   }
 
   // Clears the cache group
-  int execute(Arguments commandArguments, ConsoleIo aConsoleIo) {
+  int execute(IData[string] arguments, ConsoleIo aConsoleIo) {
     auto anGroup = to!string( commandArguments.getArgument("group"));
     try {
        anGroupConfigs = Cache.groupConfigs(anGroup);

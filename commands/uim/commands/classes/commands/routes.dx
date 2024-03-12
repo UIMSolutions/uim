@@ -15,7 +15,7 @@ class RoutesCommand : Command {
 	}
 
     // Display all routes in an application
-  int execute(Arguments commandArguments, ConsoleIo aConsoleIo) {
+  int execute(IData[string] arguments, ConsoleIo aConsoleIo) {
         auto myheader = ["Route name", "URI template", "Plugin", "Prefix", "Controller", "Action", "Method(s)"];
         if (commandArguments.getOption("verbose")) {
              aHeader ~= "Defaults";

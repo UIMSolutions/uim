@@ -23,7 +23,7 @@ class PluginLoadedCommand : Command {
      * \UIM\Console\Arguments commandArguments The command arguments.
      * @param \UIM\Console\ConsoleIo aConsoleIo The console io
      */
-  int execute(Arguments commandArguments, ConsoleIo aConsoleIo) {
+  int execute(IData[string] arguments, ConsoleIo aConsoleIo) {
         loaded = Plugin. loaded();
         aConsoleIo.out ( loaded);
 

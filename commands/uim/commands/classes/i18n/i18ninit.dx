@@ -18,7 +18,7 @@ class I18nInitCommand : Command {
         return "i18n init";
     }
 
-    int execute(Arguments commandArguments, ConsoleIo aConsoleIo) {
+    int execute(IData[string] arguments, ConsoleIo aConsoleIo) {
         auto myLanguage = commandArguments.getArgument("language");
         if (!myLanguage) {
             myLanguage = aConsoleIo.ask("Please specify language code, e.g. `en`, `eng`, `en_US` etc.");

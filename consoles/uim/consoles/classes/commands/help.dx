@@ -14,7 +14,7 @@ class HelpCommand : Command, ICommandCollectionAware {
     }
     
     // Main auto Prints out the list of commands.
-    int execute(Arguments commandArguments, ConsoleIo aConsoleIo) {
+    int execute(IData[string] arguments, ConsoleIo aConsoleIo) {
         auto myCommands = this.commands.getIterator();
         if (cast(ArrayIterator)myCommands) {
             myCommands.ksort();

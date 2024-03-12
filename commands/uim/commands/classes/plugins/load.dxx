@@ -21,7 +21,7 @@ class PluginLoadCommand : Command {
     //  Config file
     protected string configDataFile = CONFIG ~ "plugins.d";
 
-    int execute(Arguments commandArguments, ConsoleIo aConsoleIo) {
+    int execute(IData[string] arguments, ConsoleIo aConsoleIo) {
         auto plugin = to!string(commandArguments.getArgument("plugin"));
         auto options = [];
         if (commandArguments.getOption("only-debug")) {

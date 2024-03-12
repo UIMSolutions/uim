@@ -25,5 +25,5 @@ auto `~fullname~`(string name) { return new D`~fullname~`(name); }
 }
 
 template CommandCalls(string name) {
-    const char[] CommandThis = commandCalls(name);
+    const char[] CommandCalls = commandCalls(name);
 }

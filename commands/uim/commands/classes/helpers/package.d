@@ -1,2 +1,2 @@
-module uim.commands.helpers;
+module uim.commands.classes.helpers;
 

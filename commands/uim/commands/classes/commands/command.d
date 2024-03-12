@@ -12,13 +12,15 @@ class DCommand : ICommand {
         return true;
     }
 
+    mixin(TProperty!("string", "name"));
+    
     //TODO mixin configForClass(); 
 
     //TODO mixin LocatorAwareTemplate();
     //TODO mixin LogTemplate();
 
     // Implement this method with your command`s logic.
-    int execute(IData[string] arguments, IIConsoleIo aConsoleIo) {
+    int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         return 0;
     }
 }

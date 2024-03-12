@@ -4,6 +4,6 @@ import uim.commands;
 
 @safe:
 
-interface ICommand {
+interface ICommand : INamed {
     
 }

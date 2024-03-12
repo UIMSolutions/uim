@@ -16,10 +16,10 @@ class DVersionCommand : DCommand {
     return true;
   }
 
-  int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
-    aConsoleIo.writeln(Configure.currentVersion());
+  override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+    //TODO aConsoleIo.writeln(Configure.currentVersion());
 
-    return CODE_SUCCESS;
+    return 0; //TODO CODE_SUCCESS;
   }
 }
 

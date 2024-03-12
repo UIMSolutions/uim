@@ -9,7 +9,6 @@ module uim.errors;
 import uim.errors;
 
 /* use Psr\Http\messages.IServerRequest;
-use RuntimeException;
 use Throwable; */
 
 /**

@@ -18,7 +18,6 @@ use LimitIterator;
 use LogicException;
 use OuterIterator;
 use RecursiveIteratorIterator;
-use RuntimeException;
 use Traversable; */
 
 // Offers a handful of methods to manipulate iterators

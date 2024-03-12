@@ -7,7 +7,6 @@ module uim.datasources.queries.cacher;
 
 use Closure;
 use Psr\SimpleCache\ICache;
-use RuntimeException;
 use Traversable;
 
 /**

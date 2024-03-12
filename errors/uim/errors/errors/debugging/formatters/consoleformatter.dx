@@ -8,7 +8,6 @@ module uim.errors.debugs;
 @safe:
 import uim.errors;
 
-use RuntimeException;
 
 /**
  * A Debugger formatter for generating output with ANSI escape codes

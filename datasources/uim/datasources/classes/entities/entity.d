@@ -13,6 +13,8 @@ import uim.datasources;
  * methods for retrieving and storing properties associated in this row.
  */
 class DDBEntity : IDatasourceEntity { //}, InvalidPropertyInterface {
+    mixin TConfigurable!(); 
+
     // use EntityTrait;
 
     // Holds all fields and their values for this entity.

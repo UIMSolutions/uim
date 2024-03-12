@@ -29,7 +29,6 @@ mixin template TConfigurable() {
         }
     }
 
-
     /* IData getConfiguration(string key) {
         return _configuration ? _configuration.get(key) : null;
     }

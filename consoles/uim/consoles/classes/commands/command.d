@@ -16,14 +16,16 @@ import uim.consoles;
  * @implements \UIM\Event\IEventDispatcher<\UIM\Command\Command>
  */
 abstract class DCommand : ICommand /* , IEventDispatcher */ {
+    mixin TConfigurable!(); 
+
     this() {
         initialize;
     }
 
     // Hook method
     bool initialize(IData[string] initData = null) {
-        // configuration(new DConfiguration);
-        // configuration.update(initData);
+        configuration(MemoryConfiguration);
+        configurationData(initData);
 
         return true;
     }

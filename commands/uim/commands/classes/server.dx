@@ -74,7 +74,7 @@ class ServerCommand : Command {
          aConsoleIo.hr();
     }
 
-  int execute(Arguments commandArguments, ConsoleIo aConsoleIo) {
+  int execute(IData[string] arguments, ConsoleIo aConsoleIo) {
         this.startup(commandArguments,  aConsoleIo);
         phpBinary = (string)enviroment("PHP", "php");
         string commandText = "%s -S %s:%d -t %s"

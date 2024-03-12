@@ -63,7 +63,7 @@ class CompletionCommand : Command, ICommandCollectionAware {
     }
 
     // Main auto Prints out the list of commands.
-    int execute(Arguments commandArguments, ConsoleIo aConsoleIo) {
+    int execute(IData[string] arguments, ConsoleIo aConsoleIo) {
         return match(commandArguments.getArgument("mode")) {
             "commands" : this.getCommands(commandArguments, aConsoleIo),
             "subcommands" : this.getSubcommands(commandArguments, aConsoleIo),

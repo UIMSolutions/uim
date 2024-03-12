@@ -19,7 +19,7 @@ class RoutesCheckCommand : Command {
   }
 
   // Display all routes in an application
-  int execute(Arguments commandArguments, ConsoleIo aConsoleIo) {
+  int execute(IData[string] arguments, ConsoleIo aConsoleIo) {
     auto myUrl = commandArguments.getArgument("url");
     try {
       auto request = new ServerRequest(["url": url]);

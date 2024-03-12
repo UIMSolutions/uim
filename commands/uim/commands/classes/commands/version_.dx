@@ -1,11 +1,11 @@
-module uim.commands.version_;
+module uim.commands.classes.commands.version_;
 
 import uim.commands;
 
 @safe:
 
 // Print out the version of UIM in use.
-class VersionCommand : Command {
+class VersionCommand : DCommand {
    mixin(CommandThis!("VersionCommand"));
 
   	override bool initialize(IData[string] initData = null) {
@@ -20,3 +20,4 @@ class VersionCommand : Command {
         return CODE_SUCCESS;
     }
 }
+mixin(CommandCalls!("Version"));

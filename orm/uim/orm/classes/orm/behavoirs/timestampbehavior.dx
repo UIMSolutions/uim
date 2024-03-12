@@ -10,7 +10,6 @@ module uim.orm.behaviors.timestamp;
 import uim.orm;
 
 /* use DateTimeInterface;
-use RuntimeException;
 use UnexpectedValueException; */
 
 class TimestampBehavior : Behavior {

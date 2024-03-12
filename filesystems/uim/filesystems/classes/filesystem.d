@@ -15,6 +15,8 @@ unittest {
 
 @safe:
 class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
+    mixin TConfigurable!(); 
+
   this() {
     initialize;
   }
@@ -25,8 +27,8 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
   }
 
   bool initialize(IData[string] initData = null) { // Hook
-    // configuration(MemoryConfiguration);
-    // configurationData(initData);
+    configuration(MemoryConfiguration);
+    configurationData(initData);
     
     pathSeparator("/");
     return true;

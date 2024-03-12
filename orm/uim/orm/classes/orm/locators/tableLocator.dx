@@ -4,7 +4,6 @@ import uim.orm;
 
 @safe:
 
-use RuntimeException;
 
 /**
  * Provides a default registry/factory for Table objects.

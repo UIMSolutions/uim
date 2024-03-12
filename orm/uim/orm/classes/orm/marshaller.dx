@@ -5,7 +5,6 @@ import uim.orm;
 
 use ArrayObject;
 use InvalidArgumentException;
-use RuntimeException;
 
 /**
  * Contains logic to convert array data into entities.

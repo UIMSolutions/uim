@@ -9,15 +9,17 @@ module uim.datasources.repositories.repository;
 import uim.datasources;
 
 class DDatasourceRepository {
+  mixin TConfigurable!();
+
   this() {
     initialize;
   }
 
-    // Hook method
-    bool initialize(IData[string] initData = null) {
-        // configuration(MemoryConfiguration);
-        // configurationData(initData);
+  // Hook method
+  bool initialize(IData[string] initData = null) {
+    configuration(MemoryConfiguration);
+    configurationData(initData);
 
-        return true;
-    }
+    return true;
+  }
 }

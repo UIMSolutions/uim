@@ -12,7 +12,6 @@ use ArrayObject;
 use BadMethodCallException;
 use InvalidArgumentException;
 use JsonSerializable;
-use RuntimeException;
 use Traversable;
 
 /**

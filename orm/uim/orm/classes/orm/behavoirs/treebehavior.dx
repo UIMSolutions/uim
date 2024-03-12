@@ -8,7 +8,6 @@ import DORMevents.IEvent;
 import DORMbehaviors;
 import DORMQuery;
 use InvalidArgumentException;
-use RuntimeException;
 
 /**
  * Makes the table to which this is attached to behave like a nested set and

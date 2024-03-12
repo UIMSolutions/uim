@@ -8,7 +8,6 @@ module uim.orm.rules.existsin;
 @safe:
 import uim.orm;
 
-use RuntimeException;
 
 // Checks that the value provided in a field exists as the primary key of another table.
 class ExistsIn

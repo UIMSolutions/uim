@@ -5,7 +5,6 @@ import uim.orm;
 
 use Closure;
 use InvalidArgumentException;
-use RuntimeException;
 
 /**
  * : the logic for loading an association using a SELECT query

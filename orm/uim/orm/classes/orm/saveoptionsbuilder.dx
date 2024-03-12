@@ -9,7 +9,6 @@ module uim.orm.saveoptionsbuilder;
 import uim.orm;
 
 /* use ArrayObject;
-use RuntimeException;
  */
 /**
  * OOP style Save Option Builder.

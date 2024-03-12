@@ -5,9 +5,11 @@ import uim.views;
 @safe:
 
 class DContext {
+    mixin TConfigurable!(); 
+
     bool initialize(IData[string] initData = null) {
-        // configuration(MemoryConfiguration);
-        // configurationData(initData);
+        configuration(MemoryConfiguration);
+        configurationData(initData);
 
         return true;
     }

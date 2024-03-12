@@ -6,6 +6,8 @@ import uim.i18n;
 
 // Message Catalog
 class DMessageCatalog : ICatalog {
+    mixin TConfigurable!(); 
+
   this() {
     initialize;
     formatterName("default");
@@ -24,8 +26,8 @@ class DMessageCatalog : ICatalog {
 
   // Hook method
   bool initialize(IData[string] initData = null) {
-    // configuration(MemoryConfiguration);
-    // configurationData(initData);
+    configuration(MemoryConfiguration);
+    configurationData(initData);
 
     return true;
   }

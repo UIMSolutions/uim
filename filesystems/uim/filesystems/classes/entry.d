@@ -15,6 +15,8 @@ unittest {
 
 @safe:
 class DFilesystemEntry : IFilesystemEntry {
+    mixin TConfigurable!(); 
+
 	this() {
 		initialize;
 	}
@@ -47,8 +49,8 @@ class DFilesystemEntry : IFilesystemEntry {
 	};
 
 	bool initialize(IData[string] initData = null) { // Hook
-		// configuration(MemoryConfiguration);
-		// configuration.data(initData);
+		configuration(MemoryConfiguration);
+		configuration.data(initData);
 		return true;
 	}
 

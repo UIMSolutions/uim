@@ -1,4 +1,4 @@
-module commands.uim.commands.classes.commands.version_;
+module uim.commands.classes.commands.version_;
 
 import uim.commands;
 
@@ -16,7 +16,7 @@ class DVersionCommand : DCommand {
     return true;
   }
 
-  int execute(IData[string] arguments, ConsoleIo aConsoleIo) {
+  int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
     aConsoleIo.writeln(Configure.currentVersion());
 
     return CODE_SUCCESS;

@@ -37,10 +37,10 @@ class ServerCommand : Command {
      * Allows for checking and configuring prior to command or main execution
      * Params:
      * \UIM\Console\Arguments commandArguments The command arguments.
-     * @param \UIM\Console\ConsoleIo aConsoleIo The console io
+     * @param \UIM\Console\IConsoleIo aConsoleIo The console io
      * @link https://book.UIM.org/5/en/console-and-shells.html#hook-methods
      */
-    protected void startup(Arguments commandArguments, ConsoleIo aConsoleIo) {
+    protected void startup(Arguments commandArguments, IConsoleIo aConsoleIo) {
         if (commandArguments.getOption("host")) {
            _host = to!string(commandArguments.getOption("host"));
         }
@@ -74,7 +74,7 @@ class ServerCommand : Command {
          aConsoleIo.hr();
     }
 
-  int execute(IData[string] arguments, ConsoleIo aConsoleIo) {
+  int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         this.startup(commandArguments,  aConsoleIo);
         phpBinary = (string)enviroment("PHP", "php");
         string commandText = "%s -S %s:%d -t %s"

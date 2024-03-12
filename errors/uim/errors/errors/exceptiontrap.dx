@@ -10,7 +10,7 @@ import uim.errors;
 
 use InvalidArgumentException;
 use Psr\Http\messages.IServerRequest;
-use Throwable;
+
 
 /**
  * Entry point to UIM"s exception handling.

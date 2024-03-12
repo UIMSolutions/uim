@@ -5,7 +5,7 @@ import uim.orm;
 @safe:
 
 /*
-use Throwable;*/
+*/
 
 // Used when a strict save or delete fails
 class PersistenceFailedException : UimException {

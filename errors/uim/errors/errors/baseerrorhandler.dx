@@ -9,7 +9,7 @@ module uim.errors;
 import uim.errors;
 
 /* use Psr\Http\messages.IServerRequest;
-use Throwable; */
+ */
 
 /**
  * Base error handler that provides logic common to the CLI + web

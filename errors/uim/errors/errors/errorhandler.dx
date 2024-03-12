@@ -8,7 +8,7 @@ module uim.errors;
 @safe:
 import uim.errors;
 
-use Throwable;
+
 
 /**
  * Error Handler provides basic error and exception handling for your application. It captures and

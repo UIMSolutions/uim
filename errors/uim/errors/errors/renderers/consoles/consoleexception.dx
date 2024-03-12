@@ -9,7 +9,7 @@ module uim.errors.renderers.consoles.exception;
 import uim.errors;
 
 /* use Psr\Http\messages.IServerRequest;
-use Throwable; */
+ */
 
 /**
  * Plain text exception rendering with a stack trace.

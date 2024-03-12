@@ -8,7 +8,7 @@ module uim.errors.renderers;
 @safe:
 import uim.errors;
 
-// suse Throwable;
+// s
 
 /**
  * Plain text exception rendering with a stack trace.

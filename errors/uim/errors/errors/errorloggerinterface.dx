@@ -6,7 +6,7 @@
 module uim.errors;
 
 use Psr\Http\messages.IServerRequest;
-use Throwable;
+
 
 /**
  * Interface for error logging handlers.

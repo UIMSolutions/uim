@@ -5,7 +5,7 @@ import uim.errors;
 
 /* use PDOException;
 use Psr\Http\messages.IResponse;
-use Throwable; */
+ */
 
 /**
  * Web Exception Renderer.

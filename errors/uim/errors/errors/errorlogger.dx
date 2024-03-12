@@ -9,7 +9,7 @@ module uim.errors;
 import uim.errors;
 
 use Psr\Http\messages.IServerRequest;
-use Throwable;
+
 
 /**
  * Log errors and unhandled exceptions to `Cake\logs.Log`

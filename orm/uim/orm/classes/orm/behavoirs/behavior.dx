@@ -8,7 +8,7 @@ module uim.orm.behaviors;
 @safe:
 import uim.orm;
 
-use ReflectionClass;
+
 use ReflectionMethod;
 
 /**

@@ -12,7 +12,7 @@ import uim.consoles;
  */
 class HelperRegistry : ObjectRegistry {
     // IO instance.
-    protected ConsoleIo _io;
+    protected IConsoleIo _io;
 
     // Sets The IO instance that should be passed to the shell helpers
     void setIo(IConsoleIo aConsoleIo) {

@@ -1,4 +1,4 @@
-module uim.errors.uim.errors.exceptions.exception;
+module uim.errors.exceptions.exception;
 
 import uim.errors;
 

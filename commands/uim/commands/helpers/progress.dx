@@ -1,4 +1,4 @@
-module commands.uim.commands.commands.helpers.progress;
+module uim.commands.commands.helpers.progress;
 
 import uim.commands;
 

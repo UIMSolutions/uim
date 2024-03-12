@@ -6,7 +6,7 @@ import uim.views;
 
 /*
 use InvalidArgumentException;
-use ReflectionClass;
+
 /**
  * A registry/factory for input widgets.
  *

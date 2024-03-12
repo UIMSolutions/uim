@@ -18,10 +18,10 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * configData - Associative array of parameters for the engine
      */
     bool initialize(IData[string] initData = null) {
-        /* configuration(MemoryConfiguration);
-        configuration.data(initData);
+        configuration(MemoryConfiguration);
+        configurationData(initData);
 
-        if (configuration.hasKey("groups")) {
+        /* if (configuration.hasKey("groups")) {
             configuration["groups"].sort;
             _groupPrefix = str_repeat("%s_", configuration["groups"].count);
         }

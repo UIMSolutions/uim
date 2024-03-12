@@ -12,12 +12,14 @@ import uim.consoles;
  * progress bars or ascii art.
  */
 abstract class Helper {
+    mixin TConfigurable!();
+
     mixin InstanceConfigTemplate();
 
     // Default config for this helper.
     protected IData[string] _defaultConfigData;
 
-    protected ConsoleIo _io;
+    protected IConsoleIo _io;
 
     /**
      * @param \UIM\Console\IConsoleIo aConsoleIo The ConsoleIo instance to use.
@@ -28,13 +30,12 @@ abstract class Helper {
     }
     this(IConsoleIo aConsoleIo, IData[string] configData = null) {
         this();
-       _io = aConsoleIo;
-        configuration.update(configData);
+        initialize(configData);
     }
-    bool initialize(IData[string] initData = null) {
-       _defaultConfigData = Json.emptyObject;
 
-       _defaultConfigData.copy(myConfiguration)
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configurationData(initData);
     }
     
     /**

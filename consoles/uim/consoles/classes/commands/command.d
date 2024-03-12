@@ -102,7 +102,7 @@ abstract class DCommand : ICommand /* , IEventDispatcher */ {
 
  
 
-    int run(array argv, ConsoleIo aConsoleIo) {
+    int run(array argv, IConsoleIo aConsoleIo) {
         this.initialize();
 
         aParser = this.getOptionParser();
@@ -144,9 +144,9 @@ abstract class DCommand : ICommand /* , IEventDispatcher */ {
      * Params:
      * \UIM\Console\ConsoleOptionParser  aParser The option parser.
      * @param \UIM\Console\Arguments someArguments The command arguments.
-     * @param \UIM\Console\ConsoleIo aConsoleIo The console io
+     * @param \UIM\Console\IConsoleIo aConsoleIo The console io
      * /
-    protected void displayHelp(ConsoleOptionParser aParser, Arguments someArguments, ConsoleIo aConsoleIo) {
+    protected void displayHelp(ConsoleOptionParser aParser, Arguments someArguments, IConsoleIo aConsoleIo) {
         format = "text";
         if (someArguments.getArgumentAt(0) == "xml") {
             format = "xml";
@@ -159,9 +159,9 @@ abstract class DCommand : ICommand /* , IEventDispatcher */ {
      * Set the output level based on the Arguments.
      * Params:
      * \UIM\Console\Arguments someArguments The command arguments.
-     * @param \UIM\Console\ConsoleIo aConsoleIo The console io
+     * @param \UIM\Console\IConsoleIo aConsoleIo The console io
      * /
-    protected void setOutputLevel(Arguments someArguments, ConsoleIo aConsoleIo) {
+    protected void setOutputLevel(Arguments someArguments, IConsoleIo aConsoleIo) {
         aConsoleIo.setLoggers(ConsoleIo.NORMAL);
         if (someArguments.getOption("quiet")) {
             aConsoleIo.level(ConsoleIo.QUIET);
@@ -177,9 +177,9 @@ abstract class DCommand : ICommand /* , IEventDispatcher */ {
      * Implement this method with your command`s logic.
      * Params:
      * \UIM\Console\Arguments someArguments The command arguments.
-     * @param \UIM\Console\ConsoleIo aConsoleIo The console io
+     * @param \UIM\Console\IConsoleIo aConsoleIo The console io
      * /
-    abstract int | void execute(Arguments someArguments, ConsoleIo aConsoleIo);
+    abstract int | void execute(Arguments someArguments, IConsoleIo aConsoleIo);
 
     /**
      * Halt the current process with a StopException.
@@ -201,17 +201,17 @@ abstract class DCommand : ICommand /* , IEventDispatcher */ {
      * @param array someArguments The arguments to invoke the command with.
      * @param \UIM\Console\ConsoleIo|null  aConsoleIo The ConsoleIo instance to use for the executed command.
      * /
-    int executeCommand(string acommand, array someArguments = [],  ? ConsoleIo aConsoleIo = null) {
+    int executeCommand(string acommand, array someArguments = [],  ? IConsoleIo aConsoleIo = null) {
         assert(
             isSubclass_of(command, ICommand.classname),
             "Command `%s` is not a subclass of `%s`.".format(command, ICommand.classname)
         );
 
         auto newCommand = new command();
-        return executeCommand(ICommand acommand, array someArguments = [],  ? ConsoleIo aConsoleIo = null) {
+        return executeCommand(ICommand acommand, array someArguments = [],  ? IConsoleIo aConsoleIo = null) {
         }
 
-        int executeCommand(ICommand acommand, array someArguments = [],  ? ConsoleIo aConsoleIo = null) {
+        int executeCommand(ICommand acommand, array someArguments = [],  ? IConsoleIo aConsoleIo = null) {
             auto myConsoleIo = aConsoleIo ?  : new ConsoleIo();
 
             try {

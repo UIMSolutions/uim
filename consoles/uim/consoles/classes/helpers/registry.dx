@@ -15,7 +15,7 @@ class HelperRegistry : ObjectRegistry {
     protected ConsoleIo _io;
 
     // Sets The IO instance that should be passed to the shell helpers
-    void setIo(ConsoleIo aConsoleIo) {
+    void setIo(IConsoleIo aConsoleIo) {
         _io = aConsoleIo;
     }
 

@@ -14,7 +14,7 @@ class HelpCommand : Command, ICommandCollectionAware {
     }
     
     // Main auto Prints out the list of commands.
-    int execute(IData[string] arguments, ConsoleIo aConsoleIo) {
+    int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         auto myCommands = this.commands.getIterator();
         if (cast(ArrayIterator)myCommands) {
             myCommands.ksort();
@@ -33,7 +33,7 @@ class HelpCommand : Command, ICommandCollectionAware {
      * Output text.
      * @param iterable<string, string|object> commands The command collection to output.
      */
-    protected void asText(ConsoleIo aConsoleIo, STRINGAA commands) {
+    protected void asText(IConsoleIo aConsoleIo, STRINGAA commands) {
         string[][string] myInvert = [];
         foreach (name, className; commands) {
             /* if (isObject(className)) {
@@ -94,7 +94,7 @@ class HelpCommand : Command, ICommandCollectionAware {
     }
     
     // Output relevant paths if defined
-    protected void outputPaths(ConsoleIo aConsoleIo) {
+    protected void outputPaths(IConsoleIo aConsoleIo) {
         STRINGAA myPaths;
         if (Configure::check("App.dir")) {
             string appPath = rtrim(Configure::read("App.dir"), DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
@@ -125,14 +125,14 @@ class HelpCommand : Command, ICommandCollectionAware {
     }
     
     // Output as XML
-    protected void asXml(ConsoleIo aConsoleIo, ICommand[string] commands) {
+    protected void asXml(IConsoleIo aConsoleIo, ICommand[string] commands) {
         STRINGAA names = commands.byKeyValue
             .each(nameCommand => names[nameCommand.key] = nameCommand.value);
 
         asXml(aConsoleIo, names);   
     }
     
-    protected void asXml(ConsoleIo aConsoleIo, string[string] commandNames) {
+    protected void asXml(IConsoleIo aConsoleIo, string[string] commandNames) {
         auto shells = new SimpleXMLElement("<shells></shells>");
         commandNames.byKeyValue
             .each(nameClassname => shells.addCommandToShells(nameClassname.key, nameClassname.value));

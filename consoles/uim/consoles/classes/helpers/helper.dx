@@ -20,13 +20,13 @@ abstract class Helper {
     protected ConsoleIo _io;
 
     /**
-     * @param \UIM\Console\ConsoleIo aConsoleIo The ConsoleIo instance to use.
+     * @param \UIM\Console\IConsoleIo aConsoleIo The ConsoleIo instance to use.
      * configData - The settings for this helper.
      */
     this() {
         initialize;
     }
-    this(ConsoleIo aConsoleIo, IData[string] configData = null) {
+    this(IConsoleIo aConsoleIo, IData[string] configData = null) {
         this();
        _io = aConsoleIo;
         configuration.update(configData);

@@ -21,9 +21,9 @@ class PluginLoadedCommand : Command {
     //  Displays all currently loaded plugins.
      * Params:
      * \UIM\Console\Arguments commandArguments The command arguments.
-     * @param \UIM\Console\ConsoleIo aConsoleIo The console io
+     * @param \UIM\Console\IConsoleIo aConsoleIo The console io
      */
-  int execute(IData[string] arguments, ConsoleIo aConsoleIo) {
+  int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         loaded = Plugin. loaded();
         aConsoleIo.out ( loaded);
 

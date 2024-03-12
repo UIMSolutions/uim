@@ -410,7 +410,7 @@ class ConsoleOptionParser {
      * array argv Array of args (argv) to parse.
      * @param \UIM\Console\ConsoleIo|null  aConsoleIo A ConsoleIo instance or null. If null prompt options will error.
      */
-    array parse(array argv, ?ConsoleIo aConsoleIo = null) {
+    array parse(array argv, ?IConsoleIo aConsoleIo = null) {
         params = someArguments = [];
        _tokens = argv;
 

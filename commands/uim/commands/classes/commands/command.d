@@ -18,7 +18,7 @@ class DCommand : ICommand {
     //TODO mixin LogTemplate();
 
     // Implement this method with your command`s logic.
-    int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+    int execute(IData[string] arguments, IIConsoleIo aConsoleIo) {
         return 0;
     }
 }

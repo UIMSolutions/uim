@@ -41,7 +41,7 @@ class CacheClearCommand : Command {
   }
 
   // Implement this method with your command`s logic.
-  int execute(IData[string] arguments, ConsoleIo aConsoleIo) {
+  int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
     string engineName = to!string(commandArguments.getArgument("engine"));
     try {
       aConsoleIo.writeln("Clearing {engineName}");

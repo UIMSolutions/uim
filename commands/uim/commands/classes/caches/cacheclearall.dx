@@ -33,7 +33,7 @@ class CacheClearallCommand : Command {
   }
 
   // Implement this method with your command`s logic.
-  int execute(IData[string] arguments, ConsoleIo aConsoleIo) {
+  int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
     auto myEngines = Cache . configured();
     myEngines.each!(engine => this.executeCommand(CacheClearCommand . class, [engine], aConsoleIo));
 

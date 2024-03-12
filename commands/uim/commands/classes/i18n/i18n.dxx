@@ -15,7 +15,7 @@ class DI18nCommand : Command {
 	}
 
     // Execute interactive mode
-    int execute(Arguments commandArguments, ConsoleIo aConsoleIo) {
+    int execute(IData[string] arguments, ConsoleIo aConsoleIo) {
         aConsoleIo.writeln("<info>I18n Command</info>");
         aConsoleIo.hr();
         aConsoleIo.writeln("[E]xtract POT file from sources");

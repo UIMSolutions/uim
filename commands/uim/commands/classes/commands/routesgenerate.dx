@@ -19,7 +19,7 @@ class RoutesGenerateCommand : Command {
   }
 
   // Display all routes in an application
-  int execute(Arguments commandArguments, ConsoleIo aConsoleIo) {
+  int execute(IData[string] arguments, ConsoleIo aConsoleIo) {
     try {
       commandArguments = _splitArgs(commandArguments.getArguments());
       auto routerUrl = Router.url(commandArguments);

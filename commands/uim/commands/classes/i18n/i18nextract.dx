@@ -92,7 +92,7 @@ class I18nExtractCommand : Command {
     }
 
     // Execute the command
-  int execute(Arguments commandArguments, ConsoleIo aConsoleIo) {
+  int execute(IData[string] arguments, ConsoleIo aConsoleIo) {
         string myPlugin = "";
         if (commandArguments.getOption("exclude")) {
            _exclude = split(",", to!string(commandArguments.getOption("exclude")));

@@ -27,7 +27,7 @@ class CacheListCommand : Command {
   }
 
   // Get the list of cache prefixes
-  int execute(Arguments commandArguments, ConsoleIo aConsoleIo) {
+  int execute(IData[string] arguments, ConsoleIo aConsoleIo) {
     auto myEngines = Cache.configured();
     myEngines
       .each!(engine => aConsoleIo.writeln("- %s".format(engine)));

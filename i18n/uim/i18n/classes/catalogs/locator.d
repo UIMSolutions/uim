@@ -8,7 +8,7 @@ import uim.i18n;
 class PackageLocator {
   // Initialization
   bool initialize(IData[string] initData = null) {
-    // TODO configuration(new DConfiguration);
+    // TODO configuration(MemoryConfiguration);
     // TODO configuration.data(initData);
     return true;
   }

@@ -845,7 +845,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      *  with the one passed
      * defaults to merging previous list with the new one.
      */
-    auto contain(string[] myassociations, Closure|bool myoverride = false) {
+    auto contain(string[] myassociations, IClosure|bool myoverride = false) {
         myloader = this.getEagerLoader();
         if (myoverride == true) {
             this.clearContain();
@@ -953,7 +953,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * @param \Closure|null mybuilder a auto that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
      */
-    void matching(string myassoc, Closure mybuilder = null) {
+    void matching(string myassoc, IClosure mybuilder = null) {
         result = this.getEagerLoader().setMatching(myassoc, mybuilder).getMatching();
        _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
        _isDirty();

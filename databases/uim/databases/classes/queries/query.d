@@ -1331,12 +1331,12 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      * @param \Closure aCallback The callback to be executed for each IExpression
      *  found inside this query.
      * /
-    protected void _expressionsVisitor(Json[] queryExpressions, Closure aCallback) {
+    protected void _expressionsVisitor(Json[] queryExpressions, IClosure aCallback) {
         queryExpressions
             .each!(exp => expressionsVisitor(exp, aCallback));
     }
     
-    protected void _expressionsVisitor(Json expression, Closure aCallback) {
+    protected void _expressionsVisitor(Json expression, IClosure aCallback) {
         if (cast(IExpression)expression) {
             expression.traverse(fn (exp): _expressionsVisitor(exp, aCallback));
 

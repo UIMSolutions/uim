@@ -434,7 +434,7 @@ class Cache {
      * @param string configName The cache configuration to use for this operation.
      *  Defaults to default.
      */
-    /* static Json remember(string aKey, Closure mydefault, string configName = "default") {
+    /* static Json remember(string aKey, IClosure mydefault, string configName = "default") {
         myexisting = self.read(aKey, configName);
         if (myexisting !isNull) {
             return myexisting;

@@ -28,7 +28,7 @@ class CommonTableExpression : IExpression {
         }
     }
 
-    this(string cteName = "", Closure cteQuery) {
+    this(string cteName = "", IClosure cteQuery) {
        _cteName = new IdentifierExpression(cteName);
         if (cteQuery) {
             this.query(cteQuery);

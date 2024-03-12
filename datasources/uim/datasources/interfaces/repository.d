@@ -75,7 +75,7 @@ interface IRepository {
      * @param \Closure|string[]|null conditions Conditions to be used, accepts anything Query.where()
      * can take.
      * /
-    int updateAll(Closure|string[] afields, Closure|string[]|null conditions);
+    int updateAll(Closure|string[] afields, IClosure|string[]|null conditions);
 
     /**
      * Deletes all records matching the provided conditions.

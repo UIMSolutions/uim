@@ -135,7 +135,7 @@ class TupleComparison : ComparisonExpression {
      * @param \Closure aCallback The callback to use when traversing
      */
                                                 protected void _traverseValue(
-                                                    Json aValue, Closure aCallback) {
+                                                    Json aValue, IClosure aCallback) {
                                                     if (cast(IExpression) aValue) {
                                                         aCallback(aValue); aValue.traverse(
                                                             aCallback);}

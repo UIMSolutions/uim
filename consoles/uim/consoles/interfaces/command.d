@@ -5,7 +5,7 @@ import uim.consoles;
 @safe:
 
 // Describe the interface between a command and the surrounding console libraries.
-interface ICommand {
+interface IConsoleCommand {
     // Get & Set the name this command uses in the collection.
     string name();
     void name(string commandName);

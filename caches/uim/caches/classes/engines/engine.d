@@ -18,7 +18,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * configData - Associative array of parameters for the engine
      */
     bool initialize(IData[string] initData = null) {
-        /* configuration(new DConfiguration);
+        /* configuration(MemoryConfiguration);
         configuration.data(initData);
 
         if (configuration.hasKey("groups")) {

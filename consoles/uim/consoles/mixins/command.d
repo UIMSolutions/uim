@@ -1,7 +1,7 @@
 module uim.consoles.mixins.command;
 
-string commandThis(string name) {
-    string fullName = name ~ "Command";
+string consoleCommandThis(string name) {
+    string fullName = name ~ "ConsoleCommand";
     return `
     this() {
         super(); this.name("`
@@ -13,18 +13,18 @@ string commandThis(string name) {
     `;
 }
 
-template CommandThis(string name) {
-    const char[] CommandThis = commandThis(name);
+template ConsoleCommandThis(string name) {
+    const char[] ConsoleCommandThis = consoleCommandThis(name);
 }
 
-string commandCalls(string name) {
-    string fullName = name ~ "Command";
+string consoleCommandCalls(string name) {
+    string fullName = name ~ "ConsoleCommand";
     return `
     auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
     auto `~ fullName ~ `(string name) { return new D` ~ fullName ~ `(name); }
     `;
 }
 
-template CommandCalls(string name) {
-    const char[] CommandCalls = commandCalls(name);
+template ConsoleCommandCalls(string name) {
+    const char[] ConsoleCommandCalls = consoleCommandCalls(name);
 }

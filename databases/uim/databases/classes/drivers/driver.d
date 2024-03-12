@@ -5,10 +5,11 @@ import uim.databases;
 @safe:
 
 class DDriver { // }: IDriver {
+    mixin TConfigurable!(); 
     // Hook method
     bool initialize(IData[string] initData = null) {
-        // configuration(new DConfiguration);
-        // configuration.update(initData);
+        configuration(MemoryConfiguration);
+        configuration.update(initData);
 
         return true;
     }

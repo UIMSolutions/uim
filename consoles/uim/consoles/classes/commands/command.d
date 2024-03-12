@@ -15,7 +15,7 @@ import uim.consoles;
  *
  * @implements \UIM\Event\IEventDispatcher<\UIM\Command\Command>
  */
-abstract class DCommand : ICommand /* , IEventDispatcher */ {
+abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
     mixin TConfigurable!(); 
 
     this() {

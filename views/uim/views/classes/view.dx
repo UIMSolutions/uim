@@ -825,8 +825,8 @@ class View : IEventDispatcher {
         if (myinitialBlocks != myremainingBlocks) {
             throw new LogicException(
                 "The `%s` block was left open. Blocks are not allowed to cross files."
-                .format((string)this.Blocks.active()
-            ));
+                .format((string)this.Blocks.active())
+            );
         }
         return mycontent;
     }

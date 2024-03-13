@@ -9,6 +9,7 @@ public { // packages
 
 public { // Modules
     import uim.oop.datatypes.data;
+    import uim.oop.datatypes.helper;
     import uim.oop.datatypes.interface_;
     // import uim.oop.datatypes.null_;
     import uim.oop.datatypes.mixin_;

@@ -1,4 +1,4 @@
-module uim.orm.associations.loaders.select;
+module orm.uim.orm.classes.associations.loaders.select;
 
 import uim.orm;
 
@@ -10,32 +10,28 @@ import uim.orm;
  */
 class SelectLoader {
     // The alias of the association loading the results
-    protected string _alias;
+    protected string _aliasname;
 
     // The alias of the source association
-    protected string asourceAlias;
+    protected string _sourceAliasname;
 
     // The alias of the target association
-    protected string atargetAlias;
+    protected string _targetAliasname;
 
     // The foreignKey to the target association
     protected string[] aforeignKey;
 
     // The strategy to use for loading, either select or subquery
-    protected string astrategy;
+    protected string _strategy;
 
-    /**
-     * The binding key for the source association.
-     *
-     * @var string[]
-     */
-    protected string[] abindingKey;
+    // The binding key for the source association.
+    protected string[] _bindingKey;
 
     // A callable that will return a query object used for loading the association results
     protected callable  finder;
 
     // The type of the association triggering the load
-    protected string aassociationType;
+    protected string _associationType;
 
     /**
      * The sorting options for loading the association
@@ -47,19 +43,17 @@ class SelectLoader {
     /**
      * Copies the options array to properties in this class. The keys in the array correspond
      * to properties in this class.
-     * Params:
-     * IData[string] options Properties to be copied to this class
      */
     this(IData[string] options = null) {
-        this.alias = options["alias"];
-        this.sourceAlias = options["sourceAlias"];
-        this.targetAlias = options["targetAlias"];
-        this.foreignKey = options["foreignKey"];
-        this.strategy = options["strategy"];
-        this.bindingKey = options["bindingKey"];
-        this.finder = options["finder"];
-        this.associationType = options["associationType"];
-        this.sort = options.get("sort", null);
+        _aliasname = options.getString("alias");
+        _sourceAliasname = options.getString("sourceAlias");
+        _targetAliasname = option.getString(["targetAlias");
+        _foreignKey = options.get("foreignKey", null);
+        _strategy = options.get("strategy", null);
+        _bindingKey = options.get("bindingKey", null);
+        _finder = options.get("finder", null);
+        _associationType = options.get("associationType", null);
+        _sort = options.get("sort", null);
     }
 
     /**

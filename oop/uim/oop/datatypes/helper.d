@@ -1,4 +1,4 @@
-module uim.oop.helpers.data;
+module uim.oop.helpers.helper;
 
 import uim.oop;
 

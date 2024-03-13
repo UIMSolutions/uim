@@ -19,7 +19,7 @@ class SelectLoader {
     protected string _targetAliasname;
 
     // The foreignKey to the target association
-    protected string[] aforeignKey;
+    protected string[] _foreignKeys;
 
     // The strategy to use for loading, either select or subquery
     protected string _strategy;
@@ -47,12 +47,12 @@ class SelectLoader {
     this(IData[string] options = null) {
         _aliasname = options.getString("alias");
         _sourceAliasname = options.getString("sourceAlias");
-        _targetAliasname = option.getString("targetAlias");
-        _foreignKey = options.getString("foreignKey");
+        _targetAliasname = options.getString("targetAlias");
+        // TODO _foreignKeys = options.getStringArray("foreignKey");
         _strategy = options.getString("strategy");
-        _bindingKey = options.getString("bindingKey");
+        // TODO _bindingKeys = options.getStringArray("bindingKey");
         // TODO _finder = options.getString("finder", null);
-        _associationType = options.get("associationType", null);
+        _associationType = options.getString("associationType", null);
         // TODO _sort = options.get("sort", null);
     }
 

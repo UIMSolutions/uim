@@ -17,9 +17,7 @@ class SelectWithPivotLoader : SelectLoader {
     // The property name for the junction association, where its results should be nested at.
     protected string ajunctionProperty;
 
-    /**
-     * The junction association instance
-     */
+    // The junction association instance
     protected HasMany junctionAssoc;
 
     /**

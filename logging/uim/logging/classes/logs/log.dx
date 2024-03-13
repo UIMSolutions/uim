@@ -153,7 +153,7 @@ class Log {
                     properties["className"] = properties["engine"];
                 }
                 if (!_registry.has(to!string(name))) {
-                    _registry.load((string)name, properties);
+                    _registry.load(to!string(name, properties));
                 }
             }
         }

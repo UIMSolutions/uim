@@ -140,7 +140,7 @@ class DRadioWidget : DWidget {
             auto idData = options["id"];
             myradio["id"] = !idData.isNull
                 ? idData ~ "-" ~ rstrip(_idSuffix((string)myradio["value"]), "-")
-                : _id((string)myradio["name"], (string)myradio["value"]);
+                : _id(to!string(myradio["name"]), (string)myradio["value"]);
         }
         auto valData = options["val"];
         if (!valData.isNull && valData.isBool) {

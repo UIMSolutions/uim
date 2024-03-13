@@ -43,7 +43,7 @@ class Number {
      * /
     static string precision(string|float|int aValue, int numberPrecision = 3, IData[string] formattingOptions = null) {
         auto formatter = formatter(["precision": precision, "places": precision] + options);
-        return (string)formatter.format((float)aValue);
+        return to!string(formatter.format((float)aValue);
     }
     
     // Returns a formatted-for-humans file size.
@@ -330,6 +330,6 @@ class Number {
      * @param IData[string] options An array with options.
      * /
     static string ordinal(float|int aValue, IData[string] options = null) {
-        return (string)formatter(["type": NumberFormatter.ORDINAL] + options).format(aValue);
+        return to!string(formatter(["type": NumberFormatter.ORDINAL] + options)).format(aValue);
     } */
 }

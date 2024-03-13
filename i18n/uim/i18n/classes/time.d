@@ -170,7 +170,7 @@ class Time { // : ChronosTime, JsonSerializable, Stringable {
      * The format to be used is stored in the static property `Time.niceFormat`.
      * /
     string nice(string localeName = null) {
-        return (string)this.i18nFormat(niceFormat, localeName);
+        return to!string(this.i18nFormat(niceFormat, localeName));
     }
     
     // Returns a string that should be serialized when converting this object to JSON
@@ -182,6 +182,6 @@ class Time { // : ChronosTime, JsonSerializable, Stringable {
     }
  
     override string toString() {
-        return (string)this.i18nFormat();
+        return to!string(this.i18nFormat());
     } */ 
 }

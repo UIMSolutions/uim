@@ -476,7 +476,7 @@ class View : IEventDispatcher {
             }
             throw myexception;
         }
-        result = (string)ob_get_clean();
+        result = to!string(ob_get_clean());
 
         Cache.write(options["key"], result, options["config"]);
 

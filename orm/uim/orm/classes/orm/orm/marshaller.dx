@@ -62,12 +62,12 @@ class Marshaller {
                 if (!to!string(aKey).startWith("_")) {
                     throw new InvalidArgumentException(
                         "Cannot marshal data for `%s` association. It is not associated with `%s`."
-                        .format((string)aKey, _table.aliasName())
+                        .format(to!string(aKey, _table.aliasName()))
                     );
                 }
                 continue;
             }
-            myassoc = _table.getAssociation((string)aKey);
+            myassoc = _table.getAssociation(to!string(aKey));
 
             if (isSet(options["forceNew"])) {
                 mynested["forceNew"] = options["forceNew"];
@@ -584,7 +584,7 @@ class Marshaller {
         }
         myconditions = (new Collection(myindexed))
             .map(function (mydata, aKey) {
-                return split(";", (string)aKey);
+                return split(";", to!string(aKey));
             })
             .filter(fn (someKeys): count(Hash.filter(someKeys)) == count(myprimary))
             .reduce(function (myconditions, someKeys) use (myprimary) {

@@ -664,7 +664,7 @@ class Marshaller
 
         conditions = (new Collection(indexed))
             .map(function (data, key) {
-                return explode(";", (string)key);
+                return explode(";", to!string(key));
             })
             .filter(function (keys) use (primary) {
                 return count(Hash::filter(keys)) == count(primary);

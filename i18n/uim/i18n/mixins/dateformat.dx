@@ -67,7 +67,7 @@ template DateFormatTrait() {
             }
             formatters[aKey] = formatter;
         }
-        return (string)formatters[aKey].format(date.format("U"));
+        return to!string(formatters[aKey].format(date.format("U")));
     }
     
     /**

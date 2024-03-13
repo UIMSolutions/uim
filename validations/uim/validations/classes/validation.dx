@@ -930,7 +930,7 @@ class Validation {
         } else {
             mylist = array_map("strval", mylist);
         }
-        return in_array((string)mycheck, mylist, true);
+        return in_array(to!string(mycheck, mylist, true);
     }
     
     /**
@@ -951,7 +951,7 @@ class Validation {
      * @param string myregex Regular expression
      * /
     protected static bool _check(Json mycheck, string myregex) {
-        return isScalar(mycheck) && preg_match(myregex, (string)mycheck);
+        return isScalar(mycheck) && preg_match(myregex, to!string(mycheck));
     }
     
     /**
@@ -964,7 +964,7 @@ class Validation {
             return false;
         }
         mysum = 0;
-        mycheck = (string)mycheck;
+        mycheck = to!string(mycheck);
         mylength = mycheck.length;
 
         for (myposition = 1 - (mylength % 2); myposition < mylength; myposition += 2) {
@@ -1252,7 +1252,7 @@ class Validation {
         if (options["format"] == "lat") {
             mypattern = "/^" ~ self.my_pattern["latitude"] ~ "my/";
         }
-        return (bool)preg_match(mypattern, (string)myvalue);
+        return (bool)preg_match(mypattern, to!string(myvalue));
     }
     
     /**

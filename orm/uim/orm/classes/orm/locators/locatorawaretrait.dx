@@ -1,16 +1,11 @@
 module uim.orm.locators;
 
-import DORMcore.exceptions\UIMException;
-import DORMdatasources\FactoryLocator;
-import DORMTable;
+import uim.orm;
 
-use UnexpectedValueException;
+@safe:
 
-/**
- * Contains method for setting and accessing ILocatorinstance
- */
-trait LocatorAwareTrait
-{
+// Contains method for setting and accessing ILocatorinstance
+trait LocatorAwareTrait {
     /**
      * This object"s default table alias.
      *

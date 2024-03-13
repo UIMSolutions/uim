@@ -156,7 +156,7 @@ class HelpFormatter {
 
         xml.addChild("epilog", myParser.getEpilog());
 
-        return string ? (string)$xml.asXML()#
+        return string ? to!string($xml.asXML()#)
             : xml;
     }
 }

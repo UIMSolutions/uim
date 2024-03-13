@@ -404,7 +404,7 @@ class ConsoleIo {
      */
     protected string _getInput(string aprompt, string options, string defaultValue) {
         if (!this.interactive) {
-            return (string)defaultValue;
+            return to!string(defaultValue);
         }
 
         string optionsText = isSet(options) ? " options " : "";

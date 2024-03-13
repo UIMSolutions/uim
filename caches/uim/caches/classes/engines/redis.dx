@@ -289,7 +289,7 @@ class RedisEngine : CacheEngine {
      */
     protected string serialize(Json aValue) {
         if (isInt(aValue)) {
-            return (string)aValue;
+            return to!string(aValue;
         }
         return serialize(aValue);
     }

@@ -110,7 +110,7 @@ class I18nExtractCommand : Command {
         }
         string _extractCore; 
         if (commandArguments.hasOption("extract-core")) {
-           _extractCore = !((string)commandArguments.getOption("extract-core").toLower == "no");
+           _extractCore = !(to!string(commandArguments.getOption("extract-core")).toLower == "no");
         } else {
             response = aConsoleIo.askChoice(
                 "Would you like to extract the messages from the UIM core?",
@@ -330,7 +330,7 @@ class I18nExtractCommand : Command {
             if (isVerbose) {
                  aConsoleIo.verbose("Processing %s...".format(file));
             }
-            auto code = (string)file_get_contents(file);
+            auto code = to!string(file_get_contents(file));
 
             if (preg_match(somePattern, code) == 1) {
                 auto allTokens = token_get_all(code);

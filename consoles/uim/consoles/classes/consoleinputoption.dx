@@ -228,8 +228,8 @@ class ConsoleInputOption {
         option.addAttribute("short", short);
         option.addAttribute("help", _help);
         option.addAttribute("boolean", to!string(to!int(_isBooleanOption)));
-        option.addAttribute("required", (string)(int)this.required);
-        option.addChild("default", (string) default);
+        option.addAttribute("required", to!string((int)this.required));
+        option.addChild("default", to!string( default));
         choices = option.addChild("choices");
         _choices.each!(valid => choices.addChild("choice", valid));
         return parent;

@@ -138,7 +138,7 @@ class HelpCommand : Command, ICommandCollectionAware {
             .each(nameClassname => shells.addCommandToShells(nameClassname.key, nameClassname.value));
 
         aConsoleIo.setOutputAs(ConsoleOutput.RAW);
-        aConsoleIo.out(cast(string)xmlShells.saveXML());
+        aConsoleIo.out(castto!string(xmlShells.saveXML()));
     }
 
     void addCommandToShells(SimpleXMLElement shells, string commandName, ICommand command) {

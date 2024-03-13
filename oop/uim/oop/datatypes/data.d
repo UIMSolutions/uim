@@ -40,8 +40,18 @@ class DData : IData {
   // mixin(TProperty!("DAttribute", "attribute"));
 
   mixin(TProperty!("bool", "isBoolean"));
+  bool toBoolean() {
+    return false;
+  }
+
   mixin(TProperty!("bool", "isInteger"));
+  int toInteger() { return 0; }
+  long toLong() { return 0; }
+
   mixin(TProperty!("bool", "isNumber"));
+    float toFloat()  { return 0.0; }
+    double toDouble() { return 0.0; }
+
   mixin(TProperty!("bool", "isTime"));
   mixin(TProperty!("bool", "isDate"));
   mixin(TProperty!("bool", "isDatetime"));

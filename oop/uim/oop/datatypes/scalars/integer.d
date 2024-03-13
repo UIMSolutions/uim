@@ -300,7 +300,13 @@ class DIntegerData : DScalarData {
     assert((IntegerData(2) / IntegerData(2)) == 1); */
   }
 
-  long toLong() {
+  override int toInteger() {
+    if (isNull)
+      return 0;
+    return to!int(_value);
+  }
+
+  override long toLong() {
     if (isNull)
       return 0;
     return to!long(_value);

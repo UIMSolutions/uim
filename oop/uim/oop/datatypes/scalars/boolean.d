@@ -167,7 +167,7 @@ class DBooleanData : DScalarData {
   }
   // #endregion clone
 
-  bool toBoolean() {
+  override bool toBoolean() {
     return _value;
   }
 

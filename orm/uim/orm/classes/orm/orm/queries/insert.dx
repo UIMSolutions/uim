@@ -4,8 +4,7 @@ import uim.orm;
 
 @safe:
 
-/*
- */
+
 class InsertQuery : DbInsertQuery {
     mixin CommonQueryTemplate();
 

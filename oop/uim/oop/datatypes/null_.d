@@ -9,7 +9,7 @@ import uim.oop;
 
 @safe:
 class DNullData : DData {
-  mixin(DataThis!("NullData"));
+  mixin(DataThis!("Null"));
 
   // Initialization hook method.
   override bool initialize(IData[string] initData = null) {
@@ -36,4 +36,4 @@ class DNullData : DData {
   }
 }
 
-mixin(DataCalls!("NullData"));
+mixin(DataCalls!("Null"));

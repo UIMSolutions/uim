@@ -14,8 +14,17 @@ interface IData {
     // IAttribute attribute();
 
     bool isBoolean();
+    bool toBoolean();
+
+    bool isBoolean();
     bool isInteger();
+    int toInteger();
+    long toLong();
+
     bool isNumber();
+    float toFloat();
+    double toDouble();
+
     bool isTime();
     bool isDate();
     bool isDatetime();

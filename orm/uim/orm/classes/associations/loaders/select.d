@@ -1,4 +1,4 @@
-module orm.uim.orm.classes.associations.loaders.select;
+module uim.orm.classes.associations.loaders.select;
 
 import uim.orm;
 
@@ -24,11 +24,11 @@ class SelectLoader {
     // The strategy to use for loading, either select or subquery
     protected string _strategy;
 
-    // The binding key for the source association.
-    protected string[] _bindingKey;
+    // The binding keys for the source association.
+    protected string[] _bindingKeys;
 
     // A callable that will return a query object used for loading the association results
-    protected callable  finder;
+    // TODO protected callable  finder;
 
     // The type of the association triggering the load
     protected string _associationType;
@@ -38,7 +38,7 @@ class SelectLoader {
      *
      * @var \UIM\Database\IExpression|\Closure|string[]|null
      */
-    protected IExpression|Closure|string[]|null sort = null;
+    // TODO protected IExpression|Closure|string[]|null sort = null;
 
     /**
      * Copies the options array to properties in this class. The keys in the array correspond
@@ -47,13 +47,13 @@ class SelectLoader {
     this(IData[string] options = null) {
         _aliasname = options.getString("alias");
         _sourceAliasname = options.getString("sourceAlias");
-        _targetAliasname = option.getString(["targetAlias");
-        _foreignKey = options.get("foreignKey", null);
-        _strategy = options.get("strategy", null);
-        _bindingKey = options.get("bindingKey", null);
-        _finder = options.get("finder", null);
+        _targetAliasname = option.getString("targetAlias");
+        _foreignKey = options.getString("foreignKey");
+        _strategy = options.getString("strategy");
+        _bindingKey = options.getString("bindingKey");
+        // TODO _finder = options.getString("finder", null);
         _associationType = options.get("associationType", null);
-        _sort = options.get("sort", null);
+        // TODO _sort = options.get("sort", null);
     }
 
     /**
@@ -61,7 +61,7 @@ class SelectLoader {
      * iterator. The options accepted by this method are the same as `Association.eagerLoader()`
      * Params:
      * IData[string] options Same options as `Association.eagerLoader()`
-     */
+     * /
     Closure buildEagerLoader(IData[string] options = null) {
         options += _defaultOptions();
         fetchQuery = _buildQuery(options);
@@ -87,7 +87,7 @@ class SelectLoader {
      * the source table
      * Params:
      * IData[string] options options accepted by eagerLoader()
-     */
+     * /
     protected SelectQuery _buildQuery(IData[string] options = null) {
         aKey = _linkField(options);
         filter = options["keys"];
@@ -145,7 +145,7 @@ class SelectLoader {
      * Params:
      * string[] afinderData The finder name or an array having the name as key
      * and options as value.
-     */
+     * /
     protected array _extractFinder(string[] afinderData) {
         finderData = (array)finderData;
 
@@ -162,7 +162,7 @@ class SelectLoader {
      * Params:
      * \UIM\ORM\Query\SelectQuery fetchQuery The association fetching query
      * @param string[] aKey The foreign key fields to check
-     */
+     * /
     protected void _assertFieldsPresent(SelectQuery fetchQuery, array aKey) {
         if (fetchQuery.isAutoFieldsEnabled()) {
             return;
@@ -197,7 +197,7 @@ class SelectLoader {
      * \UIM\ORM\Query\SelectQuery aQuery Target table"s query
      * @param string[]|string aKey the fields that should be used for filtering
      * @param \UIM\ORM\Query\SelectQuery subquery The Subquery to use for filtering
-     */
+     * /
     protected SelectQuery _addFilteringJoin(SelectQuery aQuery, string[] aKey, SelectQuery subquery) {
         filter = [];
         aliasedTable = this.sourceAlias;
@@ -230,7 +230,7 @@ class SelectLoader {
      * \UIM\ORM\Query\SelectQuery aQuery Target table"s query
      * @param string[]|string aKey The fields that should be used for filtering
      * @param Json filter The value that should be used to match for aKey
-     */
+     * /
     protected SelectQuery _addFilteringCondition(SelectQuery aQuery, string[] aKey, Json filterValue) {
         IData[string] conditions = isArray(aKey) 
             ? _createTupleCondition(aQuery, aKey, filterValue, "IN")
@@ -247,7 +247,7 @@ class SelectLoader {
      * @param string[] someKeys the fields that should be used for filtering
      * @param Json filter the value that should be used to match for aKey
      * @param string aoperator The operator for comparing the tuples
-     */
+     * /
     protected TupleComparison _createTupleCondition(
         SelectQuery aQuery,
         array someKeys,
@@ -269,7 +269,7 @@ class SelectLoader {
      * Params:
      * IData[string] options The options for getting the link field.
      * @throws \UIM\Database\Exception\DatabaseException
-     */
+     * /
     protected string[]|string _linkField(IData[string] options = null) {
         auto links = [];
         auto name = this.alias;
@@ -297,7 +297,7 @@ class SelectLoader {
      * to load records in the source table.
      * Params:
      * \UIM\ORM\Query\SelectQuery aQuery the original query used to load source records
-     */
+     * /
     protected SelectQuery _buildSubquery(SelectQuery aQuery) {
         filterQuery = clone aQuery;
         filterQuery.disableAutoFields();
@@ -326,7 +326,7 @@ class SelectLoader {
      * that need to be present to ensure the correct association data is loaded.
      * Params:
      * \UIM\ORM\Query\SelectQuery aQuery The query to get fields from.
-     */
+     * /
     protected array<string, array> _subqueryFields(SelectQuery aQuery) {
         auto someKeys = (array)this.bindingKey;
 
@@ -354,7 +354,7 @@ class SelectLoader {
      * Params:
      * \UIM\ORM\Query\SelectQuery fetchQuery The query to get results from
      * @param IData[string] options The options passed to the eager loader
-     */
+     * /
     protected IData[string] _buildResultMap(SelectQuery fetchQuery, IData[string] options = null) {
         resultMap = [];
         singleResult = in_array(this.associationType, [Association.MANY_TO_ONE, Association.ONE_TO_ONE], true);
@@ -385,7 +385,7 @@ class SelectLoader {
      * @param IData[string] resultMap an array with the foreignKey as keys and
      * the corresponding target table results as value.
      * @param IData[string] options The options passed to the eagerLoader method
-     */
+     * /
     protected Closure _resultInjector(SelectQuery fetchQuery, array resultMap, IData[string] options = null): Closure
     {
         someKeys = this.associationType == Association.MANY_TO_ONE ?
@@ -419,7 +419,7 @@ class SelectLoader {
      * IData[string] resultMap A keyed arrays containing the target table
      * @param string[] sourceKeys An array with aliased keys to match
      * @param string anestKey The key under which results should be nested
-     */
+     * /
     protected Closure _multiKeysInjector(array resultMap, array sourceKeys, string anestKey) {
         return auto (row) use (resultMap, sourceKeys, nestKey) {
             string[] someValues = sourceKeys
@@ -431,5 +431,5 @@ class SelectLoader {
             }
             return row;
         };
-    }
+    } */
 }

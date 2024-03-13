@@ -1,4 +1,4 @@
-module uim.oop.helpers.helper;
+module uim.oop.datatypes.helper;
 
 import uim.oop;
 
@@ -59,4 +59,28 @@ IData toData(Json value) {
     }
     return null;
     // TODO
+}
+
+string getString(IData[string]data, string key, string fallback = null) {
+    if (auto mydata = data.get(key, null)) { 
+        return mydata.toString; 
+    }
+
+    return fallback;
+}
+
+int getInteger(IData[string]data, string key, int fallback = 0) {
+    if (auto mydata = data.get(key, null)) { 
+        return mydata.toInteger; 
+    }
+
+    return fallback;
+}
+
+long getLong(IData[string]data, string key, long fallback = 0) {
+    if (auto mydata = data.get(key, null)) { 
+        return mydata.toLong; 
+    }
+
+    return fallback;
 }

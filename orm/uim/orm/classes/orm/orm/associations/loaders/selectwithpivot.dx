@@ -4,8 +4,7 @@ import uim.orm;
 
 @safe:
 
-/*
- */
+
 /**
  * : the logic for loading an association using a SELECT query and a pivot table
  *

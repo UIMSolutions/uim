@@ -1,8 +1,10 @@
-module uim.orm.associations.loaders.selectwithpivot;
+/*********************************************************************************************************
+	Copyright: © 2015-2024 Ozan Nurettin Süel (Sicherheitsschmiede)                                        
+	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
+	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
+**********************************************************************************************************/module uim.orm.associations.loaders;
 
-import uim.orm;
-
-@safe:
+import DORMQuery;
 
 
 /**
@@ -10,133 +12,159 @@ import uim.orm;
  *
  * @internal
  */
-class SelectWithPivotLoader : SelectLoader {
-    // The name of the junction association
-    protected string ajunctionAssociationName;
+class SelectWithPivotLoader : SelectLoader
+{
+    /**
+     * The name of the junction association
+     */
+    protected string junctionAssociationName;
 
-    // The property name for the junction association, where its results should be nested at.
-    protected string ajunctionProperty;
+    /**
+     * The property name for the junction association, where its results should be nested at.
+     */
+    protected string junctionProperty;
 
-    // The junction association instance
-    protected HasMany junctionAssoc;
+    /**
+     * The junction association instance
+     *
+     * @var DORMassociations.HasMany
+     */
+    protected junctionAssoc;
 
     /**
      * Custom conditions for the junction association
      *
-     * @var \UIM\Database\IExpression|\Closure|string[]|null
+     * @var DDBIExpression|\Closure|array|string|null
      */
-    protected IExpression|Closure|string[]|null junctionConditions = null;
+    protected junctionConditions;
 
- 
-    this(IData[string] options = null) {
-        super(options);
+
+    this(STRINGAA someOptions) {
+        super((options);
         this.junctionAssociationName = options["junctionAssociationName"];
         this.junctionProperty = options["junctionProperty"];
         this.junctionAssoc = options["junctionAssoc"];
         this.junctionConditions = options["junctionConditions"];
     }
-    
+
     /**
-     * Auxiliary auto to construct a new Query object to return all the records
+     * Auxiliary function to construct a new Query object to return all the records
      * in the target table that are associated to those specified in options from
      * the source table.
      *
      * This is used for eager loading records on the target table based on conditions.
-     * Params:
-     * IData[string] options options accepted by eagerLoader()
+     *
+     * @param array<string, mixed> options options accepted by eagerLoader()
+     * @return DORMQuery
+     * @throws \InvalidArgumentException When a key is required for associations but not selected.
      */
-    protected SelectQuery _buildQuery(IData[string] options = null) {
+    protected function _buildQuery(STRINGAA someOptions): Query
+    {
         name = this.junctionAssociationName;
         assoc = this.junctionAssoc;
-        aQueryBuilder = false;
+        queryBuilder = false;
 
-        if (!options["queryBuilder"].isEmpty) {
-            aQueryBuilder = options["queryBuilder"];
+        if (!empty(options["queryBuilder"])) {
+            queryBuilder = options["queryBuilder"];
             unset(options["queryBuilder"]);
         }
-        aQuery = super._buildQuery(options);
 
-        if (aQueryBuilder) {
-            aQuery = aQueryBuilder(aQuery);
+        query = super._buildQuery(options);
+
+        if (queryBuilder) {
+            query = queryBuilder(query);
         }
-        if (aQuery.isAutoFieldsEnabled().isNull) {
-            aQuery.enableAutoFields(aQuery.clause("select") == []);
+
+        if (query.isAutoFieldsEnabled() == null) {
+            query.enableAutoFields(query.clause("select") == []);
         }
+
         // Ensure that association conditions are applied
         // and that the required keys are in the selected columns.
 
         tempName = this.alias ~ "_CJoin";
-        tableSchema = assoc.getSchema();
-        joinFields = types = [];
+        schema = assoc.getSchema();
+        joinFields = types = null;
 
-        foreach (tableSchema.typeMap() as f: type) {
-            aKey = tempName ~ "__" ~ f;
-            joinFields[aKey] = "name.f";
-            types[aKey] = type;
+        foreach (schema.typeMap() as f: type) {
+            key = tempName ~ "__" ~ f;
+            joinFields[key] = "name.f";
+            types[key] = type;
         }
-        aQuery
+
+        query
             .where(this.junctionConditions)
             .select(joinFields);
 
-        aQuery
+        query
             .getEagerLoader()
             .addToJoinsMap(tempName, assoc, false, this.junctionProperty);
 
-        assoc.attachTo(aQuery, [
+        assoc.attachTo(query, [
             "aliasPath": assoc.aliasName(),
             "includeFields": false,
             "propertyPath": this.junctionProperty,
         ]);
-        aQuery.getTypeMap().addDefaults(types);
+        query.getTypeMap().addDefaults(types);
 
-        return aQuery;
+        return query;
     }
- 
-    protected void _assertFieldsPresent(SelectQuery fetchQuery, array aKey) {
+
+
+    protected void _assertFieldsPresent(Query fetchQuery, array key) {
         // _buildQuery() manually adds in required fields from junction table
     }
-    
+
     /**
      * Generates a string used as a table field that contains the values upon
      * which the filter should be applied
-     * Params:
-     * IData[string] options the options to use for getting the link field.
+     *
+     * @param array<string, mixed> options the options to use for getting the link field.
+     * @return array<string>|string
      */
-    protected string[] _linkField(IData[string] options = null) {
-        string associationName = this.junctionAssociationName;
+    protected function _linkField(STRINGAA someOptions) {
+        links = null;
+        name = this.junctionAssociationName;
 
-        auto links = (array)options["foreignKey"]
-            .map!(key => "%s.%s".format(associationName, aKey))
-            .array;
+        foreach ((array)options["foreignKey"] as key) {
+            links[] = sprintf("%s.%s", name, key);
+        }
+
+        if (count(links) == 1) {
+            return links[0];
         }
 
         return links;
     }
-    
+
     /**
      * Builds an array containing the results from fetchQuery indexed by
      * the foreignKey value corresponding to this association.
-     * Params:
-     * \UIM\ORM\Query\SelectQuery fetchQuery The query to get results from
-     * @param IData[string] options The options passed to the eager loader
+     *
+     * @param DORMQuery fetchQuery The query to get results from
+     * @param array<string, mixed> options The options passed to the eager loader
+     * @return array<string, mixed>
+     * @throws \RuntimeException when the association property is not part of the results set.
      */
-    protected IData[string] _buildResultMap(SelectQuery fetchQuery, IData[string] options = null) {
-        resultMap = [];
-        aKey = (array)options["foreignKey"];
+    protected array _buildResultMap(Query fetchQuery, STRINGAA someOptions) {
+        resultMap = null;
+        key = (array)options["foreignKey"];
 
         foreach (fetchQuery.all() as result) {
-            if (!result.isSet(this.junctionProperty)) {
-                throw new DatabaseException(
-                    "`%s` is missing from the belongsToMany results. Results cannot be created."
-                    .format(this.junctionProperty
+            if (!isset(result[this.junctionProperty])) {
+                throw new RuntimeException(sprintf(
+                    "'%s' is missing from the belongsToMany results. Results cannot be created.",
+                    this.junctionProperty
                 ));
             }
-             someValues = [];
-            foreach (aKey as myKey) {
-                 someValues ~= result[this.junctionProperty][myKey];
+
+            values = null;
+            foreach (key as k) {
+                values[] = result[this.junctionProperty][k];
             }
-            resultMap[join(";",  someValues)] ~= result;
+            resultMap[implode(";", values)][] = result;
         }
+
         return resultMap;
     }
 }

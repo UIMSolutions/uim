@@ -8,7 +8,7 @@ import uim.views;
 use Error;
 
 use ReflectionException;
-use ReflectionMethod;
+
 use Stringable; */ 
 /**
  * Cell base.

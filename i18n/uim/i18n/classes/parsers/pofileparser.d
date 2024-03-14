@@ -6,6 +6,18 @@ import uim.i18n;
 
 // Parses file in PO format
 class PoFileParser {
+    mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configurationData(initData);
+        
+        return true;
+    }
     /**
      * Parses portable object (PO) format.
      *

@@ -11,14 +11,18 @@ import uim.i18n;
  * This class is a callable, so it can be used as a catalog loader argument.
  */
 class DMessagesFileLoader {
+    mixin TConfigurable!();
+
     this() {
         initialize;
     }
-    
-    // Initialization hook
-  	bool initialize(IData[string] initData = null) {
-		return true;
-	}
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configurationData(initData);
+        
+        return true;
+    }
 
     // The catalog (domain) name.
     protected string _name;

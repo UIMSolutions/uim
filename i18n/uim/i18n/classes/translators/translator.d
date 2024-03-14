@@ -9,13 +9,16 @@ import uim.i18n;
  * @internal
  */
 class DTranslator : ITranslator {
-    mixin TConfigurable!(); 
+    mixin TConfigurable!();
 
-    // Hook method
+    this() {
+        initialize;
+    }
+
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
         configurationData(initData);
-
+        
         return true;
     }
 

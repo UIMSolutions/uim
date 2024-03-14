@@ -5,6 +5,18 @@ import uim.i18n;
 @safe:
 // Parses file in MO format
 class MoFileParser {
+    mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configurationData(initData);
+        
+        return true;
+    }
     /**
      * Magic used for validating the format of a MO file as well as
      * detecting if the machine used to create that file was little endian.

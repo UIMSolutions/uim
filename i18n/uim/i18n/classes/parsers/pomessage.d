@@ -5,8 +5,17 @@ import uim.i18n;
 @safe:
 // Message in PO format
 class PoMessage {
-    this() {
+    mixin TConfigurable!();
 
+    this() {
+        initialize;
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configurationData(initData);
+        
+        return true;
     }
 
     protected bool _isFinished;

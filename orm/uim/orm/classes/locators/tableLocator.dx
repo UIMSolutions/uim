@@ -8,14 +8,9 @@ import uim.orm;
 /**
  * Provides a default registry/factory for Table objects.
  */
-class TableLocator : AbstractLocator : ILocator
-{
-    /**
-     * Contains a list of locations where table classes should be looked for.
-     *
-     * @var array<string>
-     */
-    protected locations = null;
+class TableLocator : AbstractLocator, ILocator {
+    // Contains a list of locations where table classes should be looked for.
+    protected string[] locations = null;
 
     /**
      * Configuration for aliases.

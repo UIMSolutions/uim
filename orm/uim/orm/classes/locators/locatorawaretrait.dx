@@ -6,38 +6,22 @@ import uim.orm;
 
 // Contains method for setting and accessing ILocatorinstance
 trait LocatorAwareTrait {
-    /**
-     * This object"s default table alias.
-     *
-     */
+    // This object"s default table alias.
     protected Nullable!string defaultTable = null;
 
-    /**
-     * Table locator instance
-     *
-     * @var DORMLocator\ILocator|null
-     */
-    protected _tableLocator;
+    // Table locator instance
+    protected ILocator _tableLocator;
 
     /**
      * Sets the table locator.
-     *
      * @param DORMLocator\ILocator tableLocator ILocatorinstance.
-     * @return this
      */
-    function setTableLocator(ILocator tableLocator) {
+    void setTableLocator(ILocator tableLocator) {
         _tableLocator = tableLocator;
-
-        return this;
     }
 
-    /**
-     * Gets the table locator.
-     *
-     * @return DORMLocator\ILocator
-     */
-    function getTableLocator(): ILocator
-    {
+    // Gets the table locator.
+    ILocator getTableLocator() {
         if (_tableLocator == null) {
             /** @psalm-suppress InvalidPropertyAssignmentValue */
             _tableLocator = FactoryLocator::get("Table");

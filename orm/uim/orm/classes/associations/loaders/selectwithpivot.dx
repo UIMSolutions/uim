@@ -12,8 +12,7 @@ import DORMQuery;
  *
  * @internal
  */
-class SelectWithPivotLoader : SelectLoader
-{
+class DSelectWithPivotLoader : DSelectLoader {
     /**
      * The name of the junction association
      */

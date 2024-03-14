@@ -13,7 +13,11 @@ import uim.orm;
  * An Association is a relationship established between two tables and is used
  * to configure and customize the way interconnected records are retrieved.
  */
-abstract class Association {
+class DAssociation : IAssociation{
+    bool initialize(IData[string] initData = null) {
+        return true;
+    }
+
     // TODO use ConventionsTrait;
     // TODO use LocatorAwareTrait;
 

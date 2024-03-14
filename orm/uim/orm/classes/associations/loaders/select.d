@@ -1,9 +1,8 @@
-module orm.uim.orm.classes.associations.loaders.select;
+module uim.orm.classes.associations.loaders.select;
 
 import uim.orm;
 
 @safe:
-
 
 /**
  * : the logic for loading an association using a SELECT query
@@ -11,6 +10,10 @@ import uim.orm;
  * @internal
  */
 class SelectLoader {
+    bool initialize(IData[string] initData = null) {
+        return true;
+    }
+    
     // The alias of the association loading the results
     protected string anAliasName;
 

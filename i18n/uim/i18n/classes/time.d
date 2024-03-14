@@ -10,6 +10,18 @@ import uim.i18n;
  * Adds handy methods and locale-aware formatting helpers.
  */
 class Time { // : ChronosTime, JsonSerializable, Stringable {
+    mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configurationData(initData);
+        
+        return true;
+    }
     // use DateFormatTemplate();
 
     /**

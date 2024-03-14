@@ -8,6 +8,17 @@ import uim.logging;
 abstract class Logger /* : AbstractLogger */ {
     mixin TConfigurable!();
 
+    this() {
+        initialize;
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configurationData(initData);
+        
+        return true;
+    }
+
     this() { name("Logger"); } // TODOinitialize; }
     this(string name) { this(); } // TODO name(name); }
 

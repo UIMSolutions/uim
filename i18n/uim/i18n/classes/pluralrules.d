@@ -9,6 +9,19 @@ import uim.i18n;
  * base on the locale.
  */
 class PluralRules {
+    mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configurationData(initData);
+        
+        return true;
+    }
+
     /**
      * A map of locale: plurals group used to determine
      * which plural rules apply to the language

@@ -14,10 +14,22 @@ import uim.orm;
  * to configure and customize the way interconnected records are retrieved.
  */
 class DAssociation : IAssociation{
+    mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
     bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configurationData(initData);
+        
         return true;
     }
 
+    mixin(TProperty!("string", "name"));
+} 
+/* 
     // TODO use ConventionsTrait;
     // TODO use LocatorAwareTrait;
 
@@ -58,14 +70,14 @@ class DAssociation : IAssociation{
      * A list of conditions to be always included when fetching records from the target association
      *
      * @var \Closure|array
-     */
+     * /
     protected _conditions = null;
 
     /**
      * Whether the records on the target table are dependent on the source table,
      * often used to indicate that records should be removed if the owning record in
      * the source table is deleted.
-     */
+     * /
     protected bool _dependent = false;
 
     // Whether cascaded deletes should also fire callbacks.
@@ -79,19 +91,19 @@ class DAssociation : IAssociation{
 
     /**
      * The type of join to be used when adding the association to a query
-     */
+     * /
     protected string _joinType = Query::JOIN_TYPE_LEFT;
 
     /**
      * The property name that should be filled with data from the target table
      * in the source table record.
-     */
+     * /
     protected string _propertyName;
 
     /**
      * The strategy name to be used to fetch associated records. Some association
      * types might not implement but one strategy to fetch records.
-     */
+     * /
     protected string _strategy = STRATEGY_JOIN;
 
     /**
@@ -99,7 +111,7 @@ class DAssociation : IAssociation{
      * With array value, finder name and default options are allowed.
      *
      * @var array|string
-     */
+     * /
     protected _finder = "all";
 
     // Valid strategies for this association. Subclasses can narrow this down.
@@ -115,7 +127,7 @@ class DAssociation : IAssociation{
      *
      * anAliasName - The name given to the association
      * @param array<string, mixed> options A list of properties to be set on this object
-     */
+     * /
     this(string anAliasName, STRINGAA someOptions = null) {
         defaults = [
             "cascadeCallbacks",
@@ -151,26 +163,13 @@ class DAssociation : IAssociation{
         }
     }
 
-   
-
-    /**
-     * Gets the name for this association, usually the alias
-     * assigned to the target associated table
-     */
-    string getName() {
-        return _name;
-    }
-
     /**
      * Sets whether cascaded deletes should also fire callbacks.
      *
      * @param bool cascadeCallbacks cascade callbacks switch value
-     * @return this
      */
-    function setCascadeCallbacks(bool cascadeCallbacks) {
+    void setCascadeCallbacks(bool cascadeCallbacks) {
         _cascadeCallbacks = cascadeCallbacks;
-
-        return this;
     }
 
     /**
@@ -188,7 +187,7 @@ class DAssociation : IAssociation{
      * @throws \InvalidArgumentException In case the class name is set after the target table has been
      *  resolved, and it doesn"t match the target table"s class name.
      */
-    function setClassName(string anClassName) {
+    void setClassName(string anClassName) {
         if (
             _targetTable != null &&
             get_class(_targetTable) != App::className(className, "Model/Table", "Table")
@@ -201,13 +200,9 @@ class DAssociation : IAssociation{
         }
 
         _className = className;
-
-        return this;
     }
 
-    /**
-     * Gets the class name of the target table object.
-     */
+    // Gets the class name of the target table object.
     string getClassName() {
         return _className;
     }
@@ -216,20 +211,13 @@ class DAssociation : IAssociation{
      * Sets the table instance for the source side of the association.
      *
      * @param DORMDORMTable aTable the instance to be assigned as source side
-     * @return this
      */
-    function setSource(DORMTable aTable) {
+    void setSource(DORMTable aTable) {
         _sourceTable = table;
-
-        return this;
     }
 
-    /**
-     * Gets the table instance for the source side of the association.
-     *
-     * @return DORMTable
-     */
-    function getSource(): Table
+    // Gets the table instance for the source side of the association.
+    Table getSource(): 
     {
         return _sourceTable;
     }

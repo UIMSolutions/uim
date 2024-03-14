@@ -4,7 +4,21 @@ import uim.models;
 
 @safe:
 class DModel : IModel {
-  this() {
+    mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configurationData(initData);
+        
+        return true;
+    }
+    
+    
+      this() {
     this.name("Model");
     className("Model");
   }

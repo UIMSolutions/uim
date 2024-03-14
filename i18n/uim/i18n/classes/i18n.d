@@ -6,6 +6,19 @@ import uim.i18n;
 
 // I18n handles translation of Text and time format strings.
 class I18n {
+    mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configurationData(initData);
+        
+        return true;
+    }
+
     // Default locale
     const string DEFAULT_LOCALE = "en_US";
 

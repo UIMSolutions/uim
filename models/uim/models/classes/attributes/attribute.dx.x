@@ -9,7 +9,20 @@ import uim.models;
 
 @safe:
 class DAttribute : /* DEntity,  */IAttribute {
-  mixin(AttributeThis!("Attribute"));
+    mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configurationData(initData);
+        
+        return true;
+    }
+    
+      mixin(AttributeThis!("Attribute"));
 
   // Initialization hook method.
   /* override  */bool initialize(IData[string] initData = null) { 

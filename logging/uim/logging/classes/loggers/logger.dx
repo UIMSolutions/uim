@@ -5,7 +5,19 @@ import uim.logging;
 @safe:
 
 // Base log engine class.
-abstract class Logger /* : AbstractLogger */ {
+abstract class Logger /* : AbstractLogger */ {   
+     mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configurationData(initData);
+        
+        return true;
+    }
     this() { name("Logger"); initialize; }
     this(string name) { this(); name(name); }
 

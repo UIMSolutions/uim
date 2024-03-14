@@ -6,6 +6,8 @@ import uim.commands;
 
 // Base class for commands
 class DCommand : ICommand {
+    mixin TConfigurable!();
+
     this() { initialize; }
 
     bool initialize(IData[string] initData = null) {
@@ -14,8 +16,6 @@ class DCommand : ICommand {
 
     mixin(TProperty!("string", "name"));
     
-    //TODO mixin configForClass(); 
-
     //TODO mixin LocatorAwareTemplate();
     //TODO mixin LogTemplate();
 

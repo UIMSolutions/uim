@@ -9,6 +9,8 @@ import uim.orm;
  * @internal
  */
 class SelectLoader {
+    mixin TConfigurable!();
+
     // The alias of the association loading the results
     protected string _aliasname;
 

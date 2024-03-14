@@ -6,14 +6,13 @@ import uim.logging;
 
 // Base log engine class.
 abstract class Logger /* : AbstractLogger */ {
+    mixin TConfigurable!();
+
     this() { name("Logger"); } // TODOinitialize; }
     this(string name) { this(); } // TODO name(name); }
 
-    // mixin ConfigForClass;
-
 //     mixin InstanceConfigTemplate;
 
-    protected IConfiguration _configuration;
     /* .updateDefaults([
         "levels": [],
         "scopes": [],
@@ -23,7 +22,7 @@ abstract class Logger /* : AbstractLogger */ {
     protected ILogFormatter formatter;
 
     this(IData[string] configData = null) {
-        /* configuration.update(configData);
+        configuration.update(configData);
 
         if (!configuration.data("scopes").isNull) {
            configuration.data("scopes", configuration.data("scopes").toArray);

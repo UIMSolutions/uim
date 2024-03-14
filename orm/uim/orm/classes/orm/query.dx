@@ -9,7 +9,7 @@ module uim.orm.query;
 import uim.orm;
 
 use ArrayObject;
-use BadMethodCallException;
+
 use InvalidArgumentException;
 use JsonSerializable;
 use Traversable;

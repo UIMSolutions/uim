@@ -15,7 +15,7 @@ use ArrayIterator;
 use Countable;
 use InvalidArgumentException;
 use LimitIterator;
-use LogicException;
+
 use OuterIterator;
 use RecursiveIteratorIterator;
 use Traversable; */

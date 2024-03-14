@@ -9,7 +9,7 @@ module uim.orm.table;
 import uim.orm;
 
 /* use ArrayObject;
-use BadMethodCallException;
+
 use Exception;
 use InvalidArgumentException;
 use RuntimeException; */

@@ -4,7 +4,7 @@ import uim.views;
 @safe:
 
 /**
-use BadMethodCallException;
+
 use Error;
 
 use ReflectionException;

@@ -22,6 +22,15 @@ use InvalidArgumentException;
  * https://www.sitepoint.com/hierarchical-data-database-2/
  */
 class TreeBehavior : Behavior {
+    mixin TConfigurable!(); 
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configurationData(initData);
+
+        return true;
+    }
+
     // Cached copy of the first column in a table"s primary key.
     protected string _primaryKeys;
 
@@ -32,7 +41,11 @@ class TreeBehavior : Behavior {
      *
      * @var array<string, mixed>
      */
-    protected Configuration.updateDefaults([
+    protected Configuration;
+
+
+    override bool initialize(IData[string] myConfiguration) {
+        Configuration.updateDefaults([
         "implementedFinders": [
             "path": "findPath",
             "children": "findChildren",
@@ -56,10 +69,10 @@ class TreeBehavior : Behavior {
         "cascadeCallbacks": false,
     ];
 
-
-    bool initialize(IData[string] myConfiguration) {
         configuration["leftField"] = new IdentifierExpression(configuration["left"]);
         configuration["rightField"] = new IdentifierExpression(configuration["right"]);
+
+        return true;
     }
 
     /**

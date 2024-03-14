@@ -8,8 +8,8 @@ module uim.orm.behaviors.registry;
 @safe:
 import uim.orm;
 
-/* use BadMethodCallException;
-use LogicException;
+/* 
+
  */
 /**
  * BehaviorRegistry is used as a registry for loaded behaviors and handles loading
@@ -25,19 +25,11 @@ class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
     // The table using this registry.
     protected DORMTable _table;
 
-    /**
-     * Method mappings.
-     *
-     * @var array<string, array>
-     */
-    protected _methodMap = null;
+    // Method mappings.
+    protected [][string] _methodMap = null;
 
-    /**
-     * Finder method mappings.
-     *
-     * @var array<string, array>
-     */
-    protected _finderMap = null;
+    // Finder method mappings.
+    protected []string _finderMap = null;
 
     /**
      * Constructor
@@ -55,7 +47,7 @@ class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
      *
      * @param DORMTable aTable The table this registry is attached to.
      */
-    void setTable(DORMTable aTable) {
+    @property table(DORMTable aTable) {
         _table = aTable;
         this.setEventManager(aTable.getEventManager());
     }
@@ -114,8 +106,7 @@ class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * @return DORMBehavior The constructed behavior class.
      * @psalm-suppress MoreSpecificImplementedParamType
      */
-    protected function _create(class, string anAlias, Json myConfiguration): Behavior
-    {
+    protected Behavior _create(class, string anAlias, Json myConfiguration) {
         /** @var DORMBehavior instance */
         instance = new class(_table, myConfiguration);
         enable = myconfiguration["enabled"] ?? true;

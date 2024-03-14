@@ -5,7 +5,7 @@ import uim.views;
 @safe:
 
 /*
-use LogicException;
+
 /**
  * BreadcrumbsHelper to register and display a breadcrumb trail for your views
  *

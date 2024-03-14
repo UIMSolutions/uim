@@ -8,7 +8,7 @@ module uim.datasources.trait_;
 @safe:
 import uim.datasources;
 
-use BadMethodCallException;
+
 import uim.collections.Iterator\MapReduce;
 import uim.datasources.exceptions.RecordNotFoundException;
 use InvalidArgumentException;

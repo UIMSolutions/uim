@@ -17,7 +17,7 @@ abstract class Logger /* : AbstractLogger */ {
         "levels": [],
         "scopes": [],
         "formatter": DefaultFormatter.classname,
-    ]); */
+    ]); * /
 
     protected ILogFormatter formatter;
 
@@ -44,8 +44,8 @@ abstract class Logger /* : AbstractLogger */ {
             }
             formatter = new className(options);
         }
-        _formatter = formatter; */
-    }
+        _formatter = formatter; 
+    } */
     
     // Get the levels this logger is interested in.
     string[] levels() {
@@ -127,4 +127,5 @@ abstract class Logger /* : AbstractLogger */ {
         /** @psalm-suppress InvalidArgument * /
         return formattedMessage.replace(replacements.keys, replacements);
     } */
+    
 }

@@ -20,28 +20,20 @@ class SelectLoader {
     // The alias of the target association
     protected string targetAlias;
 
-    /**
-     * The foreignKeys to the target association
-     *
-     * @var array|string
-     */
-    protected foreignKeys;
+    // The foreignKeys to the target association
+    protected string[] foreignKeys;
 
-    /**
-     * The strategy to use for loading, either select or subquery
-     */
+    // The strategy to use for loading, either select or subquery
     protected string strategy;
 
-    /**
-     * The binding key for the source association.
-     */
+    // The binding key for the source association.
     protected string bindingKey;
 
     /**
      * A callable that will return a query object used for loading the association results
      *
      * @var callable
-     */
+     * /
     protected finder;
 
     /**
@@ -49,9 +41,7 @@ class SelectLoader {
      */
     protected string associationType;
 
-    /**
-     * The sorting options for loading the association
-     */
+    // The sorting options for loading the association
     protected string sort;
 
     /**
@@ -59,7 +49,7 @@ class SelectLoader {
      * to properties in this class.
      *
      * @param array<string, mixed> options Properties to be copied to this class
-     */
+     * /
     this(STRINGAA someOptions) {
         this.alias = options["alias"];
         this.sourceAlias = options["sourceAlias"];
@@ -78,7 +68,7 @@ class SelectLoader {
      *
      * @param array<string, mixed> options Same options as `Association::eagerLoader()`
      * @return \Closure
-     */
+     * /
     function buildEagerLoader(STRINGAA someOptions): Closure
     {
         options += _defaultOptions();
@@ -92,7 +82,7 @@ class SelectLoader {
      * Returns the default options to use for the eagerLoader
      *
      * @return array<string, mixed>
-     */
+     * /
     protected array _defaultOptions() {
         return [
             "foreignKey": this.foreignKey,
@@ -111,7 +101,7 @@ class SelectLoader {
      * @param array<string, mixed> options options accepted by eagerLoader()
      * @return DORMQuery
      * @throws \InvalidArgumentException When a key is required for associations but not selected.
-     */
+     * /
     protected function _buildQuery(STRINGAA someOptions): Query
     {
         key = _linkField(options);
@@ -120,7 +110,7 @@ class SelectLoader {
         finder = this.finder;
         options["fields"] = options["fields"] ?? [];
 
-        /** @var DORMQuery query */
+        /** @var DORMQuery query * /
         query = finder();
         if (isset(options["finder"])) {
             [finderName, opts] = _extractFinder(options["finder"]);
@@ -176,7 +166,7 @@ class SelectLoader {
      *
      * @param array|string finderData The finder name or an array having the name as key
      * and options as value.
-     */
+     * /
     protected array _extractFinder(finderData) {
         finderData = (array)finderData;
 
@@ -196,7 +186,7 @@ class SelectLoader {
      * @param array<string> key The foreign key fields to check
      * @return void
      * @throws \InvalidArgumentException
-     */
+     * /
     protected void _assertFieldsPresent(Query fetchQuery, array key) {
         if (fetchQuery.isAutoFieldsEnabled()) {
             return;
@@ -242,7 +232,7 @@ class SelectLoader {
      * @param array<string>|string aKey the fields that should be used for filtering
      * @param DORMQuery subquery The Subquery to use for filtering
      * @return DORMQuery
-     */
+     * /
     protected function _addFilteringJoin(Query query, key, subquery): Query
     {
         filter = null;
@@ -278,7 +268,7 @@ class SelectLoader {
      * @param array<string>|string aKey The fields that should be used for filtering
      * @param mixed filter The value that should be used to match for key
      * @return DORMQuery
-     */
+     * /
     protected function _addFilteringCondition(Query query, key, filter): Query
     {
         if (is_array(key)) {
@@ -299,7 +289,7 @@ class SelectLoader {
      * @param mixed filter the value that should be used to match for key
      * @param string operator The operator for comparing the tuples
      * @return DORMdatabases.Expression\TupleComparison
-     */
+     * /
     protected function _createTupleCondition(Query query, array keys, filter, operator): TupleComparison
     {
         types = null;
@@ -320,7 +310,7 @@ class SelectLoader {
      * @param array<string, mixed> options The options for getting the link field.
      * @return array<string>|string
      * @throws \RuntimeException
-     */
+     * /
     protected function _linkField(STRINGAA someOptions) {
         links = null;
         name = this.alias;
@@ -353,7 +343,7 @@ class SelectLoader {
      *
      * @param DORMQuery query the original query used to load source records
      * @return DORMQuery
-     */
+     * /
     protected function _buildSubquery(Query query): Query
     {
         filterQuery = clone query;
@@ -385,7 +375,7 @@ class SelectLoader {
      *
      * @param DORMQuery query The query to get fields from.
      * @return array<string, array> The list of fields for the subquery.
-     */
+     * /
     protected array _subqueryFields(Query query) {
         keys = (array)this.bindingKey;
 
@@ -416,7 +406,7 @@ class SelectLoader {
      * @param DORMQuery fetchQuery The query to get results from
      * @param array<string, mixed> options The options passed to the eager loader
      * @return array<string, mixed>
-     */
+     * /
     protected array _buildResultMap(Query fetchQuery, STRINGAA someOptions) {
         resultMap = null;
         singleResult = in_array(this.associationType, [Association::MANY_TO_ONE, Association::ONE_TO_ONE], true);
@@ -449,7 +439,7 @@ class SelectLoader {
      * the corresponding target table results as value.
      * @param array<string, mixed> options The options passed to the eagerLoader method
      * @return \Closure
-     */
+     * /
     protected function _resultInjector(Query fetchQuery, array resultMap, STRINGAA someOptions): Closure
     {
         keys = this.associationType == Association::MANY_TO_ONE ?
@@ -486,7 +476,7 @@ class SelectLoader {
      * @param array<string, mixed> resultMap A keyed arrays containing the target table
      * someSourceKeys - An array with aliased keys to match
      * @param string nestKey The key under which results should be nested
-     */
+     * /
     protected Closure _multiKeysInjector(array resultMap, string[] someSourceKeys, string nestKey) {
         return function (row) use (resultMap, someSourceKeys, nestKey) {
             values = null;
@@ -501,5 +491,5 @@ class SelectLoader {
 
             return row;
         };
-    }
+    } */
 }

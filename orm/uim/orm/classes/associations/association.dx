@@ -5,8 +5,9 @@
 **********************************************************************************************************/
 module uim.orm.associations.association;
 
-@safe:
 import uim.orm;
+
+@safe:
 
 /**
  * An Association is a relationship established between two tables and is used

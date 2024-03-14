@@ -5,8 +5,9 @@
 **********************************************************************************************************/
 module uim.orm.caches.associations.dependentdeletehelper;
 
-@safe:
 import uim.orm;
+
+@safe:
 
 /**
  * Helper class for cascading deletes in associations.

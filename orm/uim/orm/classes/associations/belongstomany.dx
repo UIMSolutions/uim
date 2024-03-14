@@ -5,8 +5,9 @@
 **********************************************************************************************************/
 module uim.orm.caches.associations.belongstomany;
 
-@safe:
 import uim.orm;
+
+@safe:
 
 /**
  * Represents an M - N relationship where there exists a junction - or join - table

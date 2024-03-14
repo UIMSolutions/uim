@@ -5,8 +5,9 @@
 **********************************************************************************************************/
 module uim.orm.associations.hasmany;
 
-@safe:
 import uim.orm;
+
+@safe:
 
 /**
  * Represents an N - 1 relationship where the target side of the relationship

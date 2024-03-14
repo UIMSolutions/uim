@@ -6,10 +6,11 @@
 module uim.orm.associations;
 
 
-use Closure;
+
+
+import uim.orm;
 
 @safe:
-import uim.orm;
 
 /**
  * Represents an 1 - 1 relationship where the source side of the relation is

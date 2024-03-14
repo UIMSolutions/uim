@@ -8,7 +8,7 @@ module uim.databases.interfaces.dbaexpression;
 @safe:
 import uim.databases;
 
-//TODO use Closure;
+//TODO 
 
 // An interface used by Expression objects.
 interface IDBAExpression {

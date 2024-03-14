@@ -1,9 +1,8 @@
 module uim.orm.associations.loaders;
 
-@safe:
 import uim.orm;
 
-use Closure;
+@safe:
 use InvalidArgumentException;
 
 /**

@@ -5,7 +5,7 @@ import uim.views;
 @safe:
 
 /*
-use InvalidArgumentException;
+
 
 /**
  * A registry/factory for input widgets.

@@ -8,7 +8,7 @@ module uim.errors;
 @safe:
 import uim.errors;
 
-use InvalidArgumentException;
+
 use Psr\Http\messages.IServerRequest;
 
 

@@ -9,7 +9,7 @@ use ArrayIterator;
 use BackedEnum;
 
 use Countable;
-use InvalidArgumentException;
+
 use IteratorAggregate;
 use Psr\Http\Message\IUploadedFile;
 use Traversable;

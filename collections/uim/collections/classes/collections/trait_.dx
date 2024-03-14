@@ -13,7 +13,7 @@ import uim.collections;
 /* use AppendIterator;
 use ArrayIterator;
 use Countable;
-use InvalidArgumentException;
+
 use LimitIterator;
 
 use OuterIterator;

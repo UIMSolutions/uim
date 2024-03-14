@@ -12,7 +12,7 @@ import uim.orm;
 /* use ArrayObject;
 
 use Exception;
-use InvalidArgumentException;
+
 use RuntimeException; */
 
 /**

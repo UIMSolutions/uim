@@ -8,7 +8,7 @@ module uim.datasources.locators.factory;
 @safe:
 import uim.datasources;
 
-// use InvalidArgumentException;
+// 
 
 class FactoryLocator {
     /**

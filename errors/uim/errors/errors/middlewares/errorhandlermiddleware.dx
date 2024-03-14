@@ -8,7 +8,7 @@ module uim.errorss.Middleware;
 @safe:
 import uim.errors;
 
-use InvalidArgumentException;
+
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\messages.IResponse;
 use Psr\Http\messages.IServerRequest;

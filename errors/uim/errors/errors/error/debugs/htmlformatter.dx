@@ -11,7 +11,7 @@
 
  */module uim.errors\Debug;
 
-use InvalidArgumentException;
+
 use auto UIM\Core\h;
 /**
  * A Debugger formatter for generating interactive styled HTML output.

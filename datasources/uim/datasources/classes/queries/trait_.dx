@@ -11,7 +11,7 @@ import uim.datasources;
 
 import uim.collections.Iterator\MapReduce;
 import uim.datasources.exceptions.RecordNotFoundException;
-use InvalidArgumentException;
+
 use Traversable;
 
 /**

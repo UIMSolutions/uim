@@ -8,7 +8,7 @@ module uim.datasources;
 @safe:
 import uim.datasources;
 
-use InvalidArgumentException;
+
 
 /**
  * Contains logic for storing and checking rules on entities

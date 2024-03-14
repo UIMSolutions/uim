@@ -5,7 +5,7 @@ import uim.orm;
 @safe:
 
 use ArrayObject;
-use InvalidArgumentException;
+
 
 /**
  * Contains logic to convert array data into entities.

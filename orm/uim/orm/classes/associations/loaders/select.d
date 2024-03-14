@@ -3,7 +3,7 @@ module orm.uim.orm.classes.associations.loaders.select;
 import uim.orm;
 
 @safe:
-use InvalidArgumentException;
+
 
 /**
  * : the logic for loading an association using a SELECT query

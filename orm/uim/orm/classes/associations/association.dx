@@ -1,26 +1,20 @@
-module uim.orm.uim.orm.classes.associations.association;
-
-import uim.orm;
+/*********************************************************************************************************
+	Copyright: © 2015-2024 Ozan Nurettin Süel (Sicherheitsschmiede)                                        
+	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
+	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
+**********************************************************************************************************/
+module uim.orm.associations.association;
 
 @safe:
+import uim.orm;
 
 /**
  * An Association is a relationship established between two tables and is used
  * to configure and customize the way interconnected records are retrieved.
- *
- * @mixin \UIM\ORM\Table
  */
-abstract class DAssociation {
-        // Hook method
-    bool initialize(IData[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configurationData(initData);
-
-        return true;
-    }
-
-    mixin ConventionsTemplate();
-    mixin LocatorAwareTemplate();
+abstract class Association {
+    // TODO use ConventionsTrait;
+    // TODO use LocatorAwareTrait;
 
     // Strategy name to use joins for fetching associated records
     const string STRATEGY_JOIN = "join";
@@ -40,368 +34,456 @@ abstract class DAssociation {
     // Association type for many to many associations.
     const string MANY_TO_MANY = "manyToMany";
 
-    /**
-     * Association type for many to one associations.
-     */
+    // Association type for many to one associations.
     const string MANY_TO_ONE = "manyToOne";
 
-    /**
-     * Name given to the association, it usually represents the alias
-     * assigned to the target associated table
-     */
-    protected string my_name;
+    // Name given to the association, it usually represents the alias assigned to the target associated table
+    protected string _name;
 
     // The class name of the target table object
-    protected string my_className;
+    protected string _className;
+
+    // The field name in the owning side table that is used to match with the foreignKeys
+    protected string[] _bindingKeys;
+
+    // The name of the field representing the foreign key to the table to load
+    protected string[] _foreignKeys;
 
     /**
-     * The field name in the owning side table that is used to match with the foreignKey
-     *
-     * @var string[]|string
-     */
-    protected string[] my_bindingKey;
-
-    /**
-     * The name of the field representing the foreign key to the table to load
-     *
-     * @var string[]|string|false
-     */
-    protected string[]|false my_foreignKey;
-
-    /**
-     * A list of conditions to be always included when fetching records from
-     * the target association
+     * A list of conditions to be always included when fetching records from the target association
      *
      * @var \Closure|array
      */
-    protected Closure|array my_conditions = [];
+    protected _conditions = null;
 
     /**
      * Whether the records on the target table are dependent on the source table,
      * often used to indicate that records should be removed if the owning record in
      * the source table is deleted.
      */
-    protected bool my_dependent = false;
+    protected bool _dependent = false;
 
-    /**
-     * Whether cascaded deletes should also fire callbacks.
-     */
-    protected bool my_cascadeCallbacks = false;
+    // Whether cascaded deletes should also fire callbacks.
+    protected bool _cascadeCallbacks = false;
 
     // Source table instance
-    protected ITable my_sourceTable;
+    protected DORMTable _sourceTable;
 
     // Target table instance
-    protected ITable my_targetTable;
+    protected DORMTable _targetTable;
 
     /**
      * The type of join to be used when adding the association to a query
      */
-    protected string my_joinType = SelectQuery.JOIN_TYPE_LEFT;
+    protected string _joinType = Query::JOIN_TYPE_LEFT;
 
     /**
      * The property name that should be filled with data from the target table
      * in the source table record.
      */
-    protected string my_propertyName;
+    protected string _propertyName;
 
     /**
      * The strategy name to be used to fetch associated records. Some association
      * types might not implement but one strategy to fetch records.
      */
-    protected string my_strategy = self.STRATEGY_JOIN;
+    protected string _strategy = STRATEGY_JOIN;
 
     /**
      * The default finder name to use for fetching rows from the target table
      * With array value, finder name and default options are allowed.
      *
-     * @var string[]
+     * @var array|string
      */
-    protected string[] my_finder = "all";
+    protected _finder = "all";
 
-    /**
-     * Valid strategies for this association. Subclasses can narrow this down.
-     */
-    protected string[] my_validStrategies = [
-        self.STRATEGY_JOIN,
-        self.STRATEGY_SELECT,
-        self.STRATEGY_SUBQUERY,
+    // Valid strategies for this association. Subclasses can narrow this down.
+    protected string[] _validStrategies = [
+        STRATEGY_JOIN,
+        STRATEGY_SELECT,
+        STRATEGY_SUBQUERY,
     ];
 
     /**
-     * Constructor. Subclasses can override _options auto to get the original
+     * Constructor. Subclasses can override _options function to get the original
      * list of passed options if expecting any other special key
-     * Params:
-     * string myalias The name given to the association
-     * @param IData[string] options A list of properties to be set on this object
+     *
+     * anAliasName - The name given to the association
+     * @param array<string, mixed> options A list of properties to be set on this object
      */
-    this(string aliasName, IData[string] optionData = null) {
-        mydefaults = [
+    this(string anAliasName, STRINGAA someOptions = null) {
+        defaults = [
             "cascadeCallbacks",
             "className",
             "conditions",
             "dependent",
             "finder",
-            "bindingKey",
-            "foreignKey",
+            "bindingKeys",
+            "foreignKeys",
             "joinType",
             "tableLocator",
             "propertyName",
             "sourceTable",
             "targetTable",
         ];
-        foreach (mydefaults as myproperty) {
-            if (isSet(options[myproperty])) {
-                this.{"_" ~ myproperty} = options[myproperty];
+        foreach (property; defaults) {
+            if (property in options) {
+                this.{"_" ~ property} = options[property];
             }
         }
-        if (isEmpty(_className)) {
-           _className = aliasName;
-        }
-        [, myname] = pluginSplit(aliasName);
-       _name = myname;
 
-       _options(optionData);
+        if (empty(_className)) {
+            _className = anAliasName;
+        }
+
+        [, name] = pluginSplit(anAliasName);
+        _name = name;
+
+        _options(options);
 
         if (!empty(options["strategy"])) {
             this.setStrategy(options["strategy"]);
         }
     }
-    
-    // Gets the name for this association / alias to the target associated table
-    mixin(TProperty!("string", "name"));
-    
-    // Get / Set whether cascaded deletes should also fire callbacks.
-     mixin(TProperty!("bool", "cascadeCallbacks"));
-    
+
+   
+
+    /**
+     * Gets the name for this association, usually the alias
+     * assigned to the target associated table
+     */
+    string getName() {
+        return _name;
+    }
+
+    /**
+     * Sets whether cascaded deletes should also fire callbacks.
+     *
+     * @param bool cascadeCallbacks cascade callbacks switch value
+     * @return this
+     */
+    function setCascadeCallbacks(bool cascadeCallbacks) {
+        _cascadeCallbacks = cascadeCallbacks;
+
+        return this;
+    }
+
+    /**
+     * Gets whether cascaded deletes should also fire callbacks.
+     */
+    bool getCascadeCallbacks() {
+        return _cascadeCallbacks;
+    }
+
     /**
      * Sets the class name of the target table object.
-     * Params:
-     * string myclassName Class name to set.
+     *
+     * @param string anClassName Class name to set.
+     * @return this
      * @throws \InvalidArgumentException In case the class name is set after the target table has been
-     * resolved, and it doesn"t match the target table"s class name.
+     *  resolved, and it doesn"t match the target table"s class name.
      */
-    void setClassName(string myclassName) {
+    function setClassName(string anClassName) {
         if (
-            isSet(_targetTable) &&
-            get_class(_targetTable) != App.className(myclassName, "Model/Table", "Table")
+            _targetTable != null &&
+            get_class(_targetTable) != App::className(className, "Model/Table", "Table")
         ) {
-            throw new InvalidArgumentException(
-                "The class name `%s` doesn\"t match the target table class name of `%s`."
-                .format(myclassName,
+            throw new InvalidArgumentException(sprintf(
+                "The class name '%s' doesn\"t match the target table class name of '%s'.",
+                className,
                 get_class(_targetTable)
             ));
         }
-       _className = myclassName;
+
+        _className = className;
+
+        return this;
     }
-    
+
     /**
      * Gets the class name of the target table object.
      */
     string getClassName() {
         return _className;
     }
-    
-    // Get / Set the table instance for the source side of the association.
-    mixin(TProperty!("ITable", "sourceTable"));
 
     /**
-     * Sets the table instance for the target side of the association.
-     * Params:
-     * \UIM\ORM\Table mytable the instance to be assigned as target side
+     * Sets the table instance for the source side of the association.
+     *
+     * @param DORMDORMTable aTable the instance to be assigned as source side
+     * @return this
      */
-    void setTargetTable(ITable table) {
-       _targetTable = table;
-    }
-    
-    /**
-     * Gets the table instance for the target side of the association.
-     */
-    Table getTargetTable() {
-        if (!isSet(_targetTable)) {
-            if (_className.has(".")) {
-                [myplugin] = pluginSplit(_className, true);
-                myregistryAlias = to!string(myplugin) ~ _name;
-            } else {
-                myregistryAlias = _name;
-            }
-            mytableLocator = this.getTableLocator();
-
-            configData = [];
-            myexists = mytableLocator.exists(myregistryAlias);
-            if (!myexists) {
-                configData = ["className": _className];
-            }
-           _targetTable = mytableLocator.get(myregistryAlias, configData);
-
-            if (myexists) {
-                myclassName = App.className(_className, "Model/Table", "Table") ?: Table.classname;
-
-                if (!cast(myclassName)_targetTable) {
-                    mymsg = "`%s` association `%s` of type `%s` to `%s` doesn\"t match the expected class `%s`. ";
-                    mymsg ~= "You can\"t have an association of the same name with a different target ";
-                    mymsg ~= ""className" option anywhere in your app.";
-
-                    throw new DatabaseException(
-                        mymsg
-                        .format(
-                            isSet(_sourceTable) ? get_class(_sourceTable): "null",
-                            this.name,
-                            this.type(),
-                            get_class(_targetTable),
-                            myclassName
-                        )
-                    );
-                }
-            }
-        }
-        return _targetTable;
-    }
-    
-    /**
-     * Sets a list of conditions to be always included when fetching records from
-     * the target association.
-     * Params:
-     * \Closure|array myconditions list of conditions to be used
-     * @see \UIM\Database\Query.where() for examples on the format of the array
-     */
-    auto setConditions(Closure|array myconditions) {
-       _conditions = myconditions;
+    function setSource(DORMTable aTable) {
+        _sourceTable = table;
 
         return this;
     }
-    
+
+    /**
+     * Gets the table instance for the source side of the association.
+     *
+     * @return DORMTable
+     */
+    function getSource(): Table
+    {
+        return _sourceTable;
+    }
+
+    /**
+     * Sets the table instance for the target side of the association.
+     *
+     * @param DORMDORMTable aTable the instance to be assigned as target side
+     * @return this
+     */
+    function setTarget(DORMTable aTable) {
+        _targetTable = table;
+
+        return this;
+    }
+
+    /**
+     * Gets the table instance for the target side of the association.
+     *
+     * @return DORMTable
+     */
+    function getTarget(): Table
+    {
+        if (_targetTable == null) {
+            if (strpos(_className, ".")) {
+                [plugin] = pluginSplit(_className, true);
+                registryAlias = (string)plugin . _name;
+            } else {
+                registryAlias = _name;
+            }
+
+            tableLocator = this.getTableLocator();
+
+            myConfiguration = null;
+            exists = tableLocator.exists(registryAlias);
+            if (!exists) {
+                myConfiguration = ["className": _className];
+            }
+            _targetTable = tableLocator.get(registryAlias, myConfiguration);
+
+            if (exists) {
+                className = App::className(_className, "Model/Table", "Table") ?: Table::class;
+
+                if (!_targetTable instanceof className) {
+                    errorMessage = "%s association '%s' of type '%s' to '%s' doesn\"t match the expected class '%s'~ ";
+                    errorMessage ~= "You can\"t have an association of the same name with a different target ";
+                    errorMessage ~= ""className" option anywhere in your app.";
+
+                    throw new RuntimeException(sprintf(
+                        errorMessage,
+                        _sourceTable == null ? "null" : get_class(_sourceTable),
+                        this.getName(),
+                        this.type(),
+                        get_class(_targetTable),
+                        className
+                    ));
+                }
+            }
+        }
+
+        return _targetTable;
+    }
+
+    /**
+     * Sets a list of conditions to be always included when fetching records from
+     * the target association.
+     *
+     * @param \Closure|array conditions list of conditions to be used
+     * @see DORMdatabases.Query::where() for examples on the format of the array
+     * @return this
+     */
+    function setConditions(conditions) {
+        _conditions = conditions;
+
+        return this;
+    }
+
     /**
      * Gets a list of conditions to be always included when fetching records from
      * the target association.
      *
-     * @see \UIM\Database\Query.where() for examples on the format of the array
+     * @see DORMdatabases.Query::where() for examples on the format of the array
+     * @return \Closure|array
      */
-    Closure|array getConditions() {
+    function getConditions() {
         return _conditions;
     }
-    
+
     /**
      * Sets the name of the field representing the binding field with the target table.
      * When not manually specified the primary key of the owning side table is used.
-     * Params:
-     * string[]|string aKey the table field or fields to be used to link both tables together
+     *
+     * @param array<string>|string aKey the table field or fields to be used to link both tables together
+     * @return this
      */
-    auto setBindingKey(string[] aKey) {
-       _bindingKey = aKey;
+    function setBindingKeys(key) {
+        _bindingKeys = key;
 
         return this;
     }
-    
+
     /**
      * Gets the name of the field representing the binding field with the target table.
      * When not manually specified the primary key of the owning side table is used.
+     *
+     * @return array<string>|string
      */
-    string[] getBindingKey() {
-        if (!isSet(_bindingKey)) {
-           _bindingKey = this.isOwningSide(this.getSource()) ?
-                this.getSource().getPrimaryKey():
-                this.getTargetTable().getPrimaryKey();
+    function getBindingKeys() {
+        if (_bindingKeys == null) {
+            _bindingKeys = this.isOwningSide(this.getSource()) ?
+                this.getSource().getPrimaryKeys() :
+                this.getTarget().getPrimaryKeys();
         }
-        return _bindingKey;
+
+        return _bindingKeys;
     }
-    
+
     /**
      * Gets the name of the field representing the foreign key to the target table.
+     *
+     * @return array<string>|string
      */
-    string[] getForeignKey() {
-        return _foreignKey;
+    function getForeignKeys() {
+        return _foreignKeys;
     }
-    
+
     /**
      * Sets the name of the field representing the foreign key to the target table.
-     * Params:
-     * string[]|string aKey the key or keys to be used to link both tables together
+     *
+     * @param array<string>|string aKey the key or keys to be used to link both tables together
+     * @return this
      */
-    auto setForeignKey(string[] aKey) {
-       _foreignKey = aKey;
+    function setForeignKeys(key) {
+        _foreignKeys = key;
 
         return this;
     }
-    
-    // Get/Set whether the records on the target table are dependent on the source table.
-    // This is primarily used to indicate that records should be removed if the owning record in the source table is deleted.
-    // If no parameters are passed the current setting is returned.
-    mixin(TProperty!("bool", "dependent"));
-    
+
+    /**
+     * Sets whether the records on the target table are dependent on the source table.
+     *
+     * This is primarily used to indicate that records should be removed if the owning record in
+     * the source table is deleted.
+     *
+     * If no parameters are passed the current setting is returned.
+     *
+     * @param bool dependent Set the dependent mode. Use null to read the current state.
+     * @return this
+     */
+    function setDependent(bool dependent) {
+        _dependent = dependent;
+
+        return this;
+    }
+
+    /**
+     * Sets whether the records on the target table are dependent on the source table.
+     *
+     * This is primarily used to indicate that records should be removed if the owning record in
+     * the source table is deleted.
+     */
+    bool getDependent() {
+        return _dependent;
+    }
+
     /**
      * Whether this association can be expressed directly in a query join
-     * Params:
-     * IData[string] options custom options key that could alter the return value
+     *
+     * @param array<string, mixed> options custom options key that could alter the return value
      */
-   bool canBeJoined(IData[string] optionData = null) {
-        mystrategy = options["strategy"] ?? this.getStrategy();
+    bool canBeJoined(STRINGAA someOptions = null) {
+        strategy = options.get()"strategy", this.getStrategy());
 
-        return mystrategy == this.STRATEGY_JOIN;
+        return strategy == this::STRATEGY_JOIN;
     }
-    
-    // Get/Set the type of join to be used when adding the association to a query.
-    mixin(TProperty!("string", "joinType"));
-    
+
+    /**
+     * Sets the type of join to be used when adding the association to a query.
+     *
+     * @param string type the join type to be used (e.g. INNER)
+     * @return this
+     */
+    function setJoinType(string type) {
+        _joinType = type;
+
+        return this;
+    }
+
+    /**
+     * Gets the type of join to be used when adding the association to a query.
+     */
+    string getJoinType() {
+        return _joinType;
+    }
+
     /**
      * Sets the property name that should be filled with data from the target table
      * in the source table record.
-     * Params:
-     * string myname The name of the association property. Use null to read the current value.
+     *
+     * @param string aName The name of the association property. Use null to read the current value.
+     * @return this
      */
-    auto setProperty(string myname) {
-       _propertyName = myname;
+    function setProperty(string aName) {
+        _propertyName = name;
 
         return this;
     }
-    
+
     /**
      * Gets the property name that should be filled with data from the target table
      * in the source table record.
      */
     string getProperty() {
-        if (!isSet(_propertyName)) {
-           _propertyName = _propertyName();
+        if (!_propertyName) {
+            _propertyName = _propertyName();
             if (in_array(_propertyName, _sourceTable.getSchema().columns(), true)) {
-                mymsg = "Association property name `%s` clashes with field of same name of table `%s`." .
-                    " You should explicitly specify the `propertyName` option.";
+                msg = "Association property name '%s' clashes with field of same name of table '%s'." ~
+                    " You should explicitly specify the "propertyName" option.";
                 trigger_error(
-                    mymsg.format(_propertyName, _sourceTable.getTable()),
+                    sprintf(msg, _propertyName, _sourceTable.getTable()),
                     E_USER_WARNING
                 );
             }
         }
+
         return _propertyName;
     }
-    
-    // Returns default property name based on association name.
-    protected string _propertyName() {
-        [, myname] = pluginSplit(_name);
 
-        return Inflector.underscore(myname);
+    /**
+     * Returns default property name based on association name.
+     */
+    protected string _propertyName() {
+        [, name] = pluginSplit(_name);
+
+        return Inflector::underscore(name);
     }
-    
+
     /**
      * Sets the strategy name to be used to fetch associated records. Keep in mind
      * that some association types might not implement but a default strategy,
      * rendering any changes to this setting void.
-     * Params:
-     * string myname The strategy type. Use null to read the current value.
+     *
+     * @param string aName The strategy type. Use null to read the current value.
      * @return this
      * @throws \InvalidArgumentException When an invalid strategy is provided.
      */
-    auto setStrategy(string myname) {
-        if (!in_array(myname, _validStrategies, true)) {
-            throw new InvalidArgumentException(
-                "Invalid strategy `%s` was provided. Valid options are `(%s)`."
-                .format(myname, join(", ", _validStrategies)
+    function setStrategy(string aName) {
+        if (!in_array(name, _validStrategies, true)) {
+            throw new InvalidArgumentException(sprintf(
+                "Invalid strategy '%s' was provided. Valid options are (%s).",
+                name,
+                implode(", ", _validStrategies)
             ));
         }
-       _strategy = myname;
+        _strategy = name;
 
         return this;
     }
-    
+
     /**
      * Gets the strategy name to be used to fetch associated records. Keep in mind
      * that some association types might not implement but a default strategy,
@@ -410,34 +492,37 @@ abstract class DAssociation {
     string getStrategy() {
         return _strategy;
     }
-    
+
     /**
      * Gets the default finder to use for fetching rows from the target table.
+     *
+     * @return array|string
      */
-    string[] getFinder() {
+    function getFinder() {
         return _finder;
     }
-    
+
     /**
      * Sets the default finder to use for fetching rows from the target table.
-     * Params:
-     * string[] myfinder the finder name to use or array of finder name and option.
+     *
+     * @param array|string finder the finder name to use or array of finder name and option.
+     * @return this
      */
-    auto setFinder(string[] myfinder) {
-       _finder = myfinder;
+    function setFinder(finder) {
+        _finder = finder;
 
         return this;
     }
-    
+
     /**
-     * Override this auto to initialize any concrete association class, it will
+     * Override this function to initialize any concrete association class, it will
      * get passed the original list of options used in the constructor
-     * Params:
-     * IData[string] options List of options used for initialization
+     *
+     * @param array<string, mixed> options List of options used for initialization
      */
-    protected void _options(IData[string] options) {
+    protected void _options(STRINGAA someOptions) {
     }
-    
+
     /**
      * Alters a Query object to include the associated target table data in the final
      * result
@@ -445,451 +530,478 @@ abstract class DAssociation {
      * The options array accept the following keys:
      *
      * - includeFields: Whether to include target model fields in the result or not
-     * - foreignKey: The name of the field to use as foreign key, if false none
-     *  will be used
+     * - foreignKeys: The name of the field to use as foreign key, if false none
+     *   will be used
      * - conditions: array with a list of conditions to filter the join with, this
-     *  will be merged with any conditions originally configured for this association
+     *   will be merged with any conditions originally configured for this association
      * - fields: a list of fields in the target table to include in the result
      * - aliasPath: A dot separated string representing the path of association names
-     *  followed from the passed query main table to this association.
+     *   followed from the passed query main table to this association.
      * - propertyPath: A dot separated string representing the path of association
-     *  properties to be followed from the passed query main entity to this
-     *  association
+     *   properties to be followed from the passed query main entity to this
+     *   association
      * - joinType: The SQL join type to use in the query.
      * - negateMatch: Will append a condition to the passed query for excluding matches.
-     *  with this association.
-     * Params:
-     * \UIM\ORM\Query\SelectQuery myquery the query to be altered to include the target table data
-     * @param IData[string] options Any extra options or overrides to be taken in account
+     *   with this association.
+     *
+     * @param DORMQuery query the query to be altered to include the target table data
+     * @param array<string, mixed> options Any extra options or overrides to be taken in account
+     * @return void
+     * @throws \RuntimeException Unable to build the query or associations.
      */
-    auto attachTo(SelectQuery myquery, IData[string] optionData = null) {
-        auto mytarget = this.getTargetTable();
-        auto mytable = mytarget.getTable();
+    void attachTo(Query query, STRINGAA someOptions = null) {
+        target = this.getTarget();
+        table = target.getTable();
 
         options += [
             "includeFields": true,
-            "foreignKey": this.getForeignKey(),
+            "foreignKeys": this.getForeignKeys(),
             "conditions": [],
-            "joinType": this.jointype(),
+            "joinType": this.getJoinType(),
             "fields": [],
-            "table": mytable,
+            "table": table,
             "finder": this.getFinder(),
         ];
 
         // This is set by joinWith to disable matching results
         if (options["fields"] == false) {
-            options["fields"] = [];
+            options["fields"] = null;
             options["includeFields"] = false;
         }
-        if (!empty(options["foreignKey"])) {
-            myjoinCondition = _joinCondition(options);
-            if (myjoinCondition) {
-                options["conditions"] ~= myjoinCondition;
+
+        if (!empty(options["foreignKeys"])) {
+            joinCondition = _joinCondition(options);
+            if (joinCondition) {
+                options["conditions"][] = joinCondition;
             }
         }
-        [myfinder, myopts] = _extractFinder(options["finder"]);
-        mydummy = this
-            .find(myfinder, ...myopts)
+
+        [finder, opts] = _extractFinder(options["finder"]);
+        dummy = this
+            .find(finder, opts)
             .eagerLoaded(true);
 
         if (!empty(options["queryBuilder"])) {
-            mydummy = options["queryBuilder"](mydummy);
-            if (!(cast(SelectQuery)mydummy)) {
-                throw new DatabaseException(
-                    "Query builder for association `%s` did not return a query."
-                    .format(this.name
+            dummy = options["queryBuilder"](dummy);
+            if (!(dummy instanceof Query)) {
+                throw new RuntimeException(sprintf(
+                    "Query builder for association '%s' did not return a query",
+                    this.getName()
                 ));
             }
         }
+
         if (
             !empty(options["matching"]) &&
-           _strategy == STRATEGY_JOIN &&
-            mydummy.getContain()
+            _strategy == STRATEGY_JOIN &&
+            dummy.getContain()
         ) {
-            throw new DatabaseException(
-                "`%s` association cannot contain() associations when using JOIN strategy."
-                .format(this.name)
+            throw new RuntimeException(
+                "`{this.getName()}` association cannot contain() associations when using JOIN strategy."
             );
         }
-        mydummy.where(options["conditions"]);
-       _dispatchBeforeFind(mydummy);
 
-        myquery.join([_name: [
+        dummy.where(options["conditions"]);
+        _dispatchBeforeFind(dummy);
+
+        query.join([_name: [
             "table": options["table"],
-            "conditions": mydummy.clause("where"),
+            "conditions": dummy.clause("where"),
             "type": options["joinType"],
         ]]);
 
-       _appendFields(myquery, mydummy, options);
-       _formatAssociationResults(myquery, mydummy, options);
-       _bindNewAssociations(myquery, mydummy, options);
-       _appendNotMatching(myquery, options);
+        _appendFields(query, dummy, options);
+        _formatAssociationResults(query, dummy, options);
+        _bindNewAssociations(query, dummy, options);
+        _appendNotMatching(query, options);
     }
-    
+
     /**
      * Conditionally adds a condition to the passed Query that will make it find
      * records where there is no match with this association.
-     * Params:
-     * \UIM\ORM\Query\SelectQuery myquery The query to modify
-     * @param IData[string] options Options array containing the `negateMatch` key.
+     *
+     * @param DORMQuery query The query to modify
+     * @param array<string, mixed> options Options array containing the `negateMatch` key.
      */
-    protected void _appendNotMatching(SelectQuery myquery, IData[string] options) {
-        mytarget = this.getTargetTable();
+    protected void _appendNotMatching(Query query, STRINGAA someOptions) {
+        target = _targetTable;
         if (!empty(options["negateMatch"])) {
-            myprimaryKey = myquery.aliasFields((array)mytarget.getPrimaryKey(), _name);
-            myquery.andWhere(function (myexp) use (myprimaryKey) {
-                /** @var callable mycallable */
-                mycallable = [myexp, "isNull"];
-                array_map(mycallable, myprimaryKey);
+            primaryKeys = query.aliasFields((array)target.getPrimaryKeys(), _name);
+            query.andWhere(function (exp) use (primaryKeys) {
+                array_map([exp, "isNull"], primaryKeys);
 
-                return myexp;
+                return exp;
             });
         }
     }
-    
+
     /**
      * Correctly nests a result row associated values into the correct array keys inside the
      * source results.
-     * Params:
-     * array myrow The row to transform
-     * @param string mynestKey The array key under which the results for this association
-     *  should be found
-     * @param bool myjoined Whether the row is a result of a direct join
-     *  with this association
-     * @param string mytargetProperty The property name in the source results where the association
+     *
+     * @param array row The row to transform
+     * @param string nestKey The array key under which the results for this association
+     *   should be found
+     * @param bool joined Whether the row is a result of a direct join
+     *   with this association
+     * @param string|null targetProperty The property name in the source results where the association
      * data shuld be nested in. Will use the default one if not provided.
      */
-    array transformRow(array myrow, string mynestKey, bool myjoined, string mytargetProperty = null): array
-    {
-        mysourceAlias = this.getSource().aliasName();
-        mynestKey = mynestKey ?: _name;
-        mytargetProperty = mytargetProperty ?: this.getProperty();
-        if (isSet(myrow[mysourceAlias])) {
-            myrow[mysourceAlias][mytargetProperty] = myrow[mynestKey];
-            unset(myrow[mynestKey]);
+    array transformRow(array row, string nestKey, bool joined, Nullable!string targetProperty = null) {
+        sourceAlias = this.getSource().aliasName();
+        nestKey = nestKey ?: _name;
+        targetProperty = targetProperty ?: this.getProperty();
+        if (isset(row[sourceAlias])) {
+            row[sourceAlias][targetProperty] = row[nestKey];
+            unset(row[nestKey]);
         }
-        return myrow;
+
+        return row;
     }
-    
+
     /**
      * Returns a modified row after appending a property for this association
      * with the default empty value according to whether the association was
      * joined or fetched externally.
-     * Params:
-     * IData[string] myrow The row to set a default on.
-     * @param bool myjoined Whether the row is a result of a direct join
-     *  with this association
+     *
+     * @param array<string, mixed> row The row to set a default on.
+     * @param bool joined Whether the row is a result of a direct join
+     *   with this association
+     * @return array<string, mixed>
      */
-    IData[string] defaultRowValue(array myrow, bool myjoined) {
-        mysourceAlias = this.getSource().aliasName();
-        if (isSet(myrow[mysourceAlias])) {
-            myrow[mysourceAlias][this.getProperty()] = null;
+    array defaultRowValue(array row, bool joined) {
+        sourceAlias = this.getSource().aliasName();
+        if (isset(row[sourceAlias])) {
+            row[sourceAlias][this.getProperty()] = null;
         }
-        return myrow;
+
+        return row;
     }
-    
+
     /**
      * Proxies the finding operation to the target table"s find method
      * and modifies the query accordingly based of this association
      * configuration
-     * Params:
-     * IData[string]|string mytype the type of query to perform, if an array is passed,
-     *  it will be interpreted as the `myargs` parameter
-     * @param Json ...myargs Arguments that match up to finder-specific parameters
-     * @see \UIM\ORM\Table.find()
+     *
+     * @param array<string, mixed>|string|null type the type of query to perform, if an array is passed,
+     *   it will be interpreted as the `options` parameter
+     * @param array<string, mixed> options The options to for the find
+     * @see DORMTable::find()
+     * @return DORMQuery
      */
-    SelectQuery find(string[]|null mytype = null, Json ...myargs) {
-        mytype = mytype ?: this.getFinder();
-        [mytype, myopts] = _extractFinder(mytype);
+    function find(type = null, STRINGAA someOptions = null): Query
+    {
+        type = type ?: this.getFinder();
+        [type, opts] = _extractFinder(type);
 
-        myargs += myopts;
-
-        return this.getTargetTable()
-            .find(mytype, ...myargs)
+        return this.getTarget()
+            .find(type, options + opts)
             .where(this.getConditions());
     }
-    
+
     /**
      * Proxies the operation to the target table"s exists method after
      * appending the default conditions for this association
-     * Params:
-     * \UIM\Database\IExpression|\Closure|string[]|null myconditions The conditions to use
+     *
+     * @param DORMdatabases.IExpression|\Closure|array|string|null conditions The conditions to use
      * for checking if any record matches.
-     * @see \UIM\ORM\Table.exists()
+     * @see DORMTable::exists()
      */
-   bool exists(IExpression|Closure|string[]|null myconditions) {
-        myconditions = this.find()
-            .where(myconditions)
+    bool exists(conditions) {
+        conditions = this.find()
+            .where(conditions)
             .clause("where");
 
-        return this.getTargetTable().exists(myconditions);
+        return this.getTarget().exists(conditions);
     }
-    
-    /**
-     * Proxies the update operation to the target `Table.updateAll()` method
-     * Params:
-     * \UIM\Database\Expression\QueryExpression|\Closure|string[] myfields A hash of field: new value.
-     * @param \UIM\Database\Expression\QueryExpression|\Closure|string[]|null myconditions Conditions to be used, accepts anything Query.where()
-     */
-    int updateAll(
-        QueryExpression|Closure|string[] myfields,
-        QueryExpression|Closure|string[]|null myconditions
-    ) {
-        myexpression = this.find()
-            .where(myconditions)
-            .clause("where");
 
-        return this.getTargetTable().updateAll(myfields, myexpression);
-    }
-    
     /**
-     * Proxies the delete operation to the target `Table.deleteAll()` method
-     * Params:
-     * \UIM\Database\Expression\QueryExpression|\Closure|string[]|null myconditions Conditions to be used, accepts anything Query.where()
+     * Proxies the update operation to the target table"s updateAll method
+     *
+     * @param array fields A hash of field: new value.
+     * @param DORMdatabases.IExpression|\Closure|array|string|null conditions Conditions to be used, accepts anything Query::where()
      * can take.
+     * @see DORMTable::updateAll()
+     * @return int Count Returns the affected rows.
      */
-    int deleteAll(QueryExpression|Closure|string[]|null myconditions) {
-        myexpression = this.find()
-            .where(myconditions)
+    int updateAll(array fields, conditions) {
+        expression = this.find()
+            .where(conditions)
             .clause("where");
 
-        return this.getTargetTable().deleteAll(myexpression);
+        return this.getTarget().updateAll(fields, expression);
     }
-    
+
+    /**
+     * Proxies the delete operation to the target table"s deleteAll method
+     *
+     * @param DORMdatabases.IExpression|\Closure|array|string|null conditions Conditions to be used, accepts anything Query::where()
+     * can take.
+     * @return int Returns the number of affected rows.
+     * @see DORMTable::deleteAll()
+     */
+    int deleteAll(conditions) {
+        expression = this.find()
+            .where(conditions)
+            .clause("where");
+
+        return this.getTarget().deleteAll(expression);
+    }
+
     /**
      * Returns true if the eager loading process will require a set of the owning table"s
      * binding keys in order to use them as a filter in the finder query.
-     * Params:
-     * IData[string] options The options containing the strategy to be used.
+     *
+     * @param array<string, mixed> options The options containing the strategy to be used.
+     * @return bool true if a list of keys will be required
      */
-    bool requiresKeys(IData[string] optionData = null) {
-        mystrategy = options["strategy"] ?? this.getStrategy();
+    bool requiresKeys(STRINGAA someOptions = null) {
+        strategy = options["strategy"] ?? this.getStrategy();
 
-        return mystrategy == STRATEGY_SELECT;
+        return strategy == STRATEGY_SELECT;
     }
-    
+
     /**
      * Triggers beforeFind on the target table for the query this association is
      * attaching to
-     * Params:
-     * \UIM\ORM\Query\SelectQuery myquery the query this association is attaching itself to
+     *
+     * @param DORMQuery query the query this association is attaching itself to
      */
-    protected void _dispatchBeforeFind(SelectQuery myquery) {
-        myquery.triggerBeforeFind();
+    protected void _dispatchBeforeFind(Query query) {
+        query.triggerBeforeFind();
     }
-    
+
     /**
-     * Helper auto used to conditionally append fields to the select clause of
+     * Helper function used to conditionally append fields to the select clause of
      * a query from the fields found in another query object.
-     * Params:
-     * \UIM\ORM\Query\SelectQuery myquery the query that will get the fields appended to
-     * @param \UIM\ORM\Query\SelectQuery mysurrogate the query having the fields to be copied from
-     * @param IData[string] options options passed to the method `attachTo`
+     *
+     * @param DORMQuery query the query that will get the fields appended to
+     * @param DORMQuery surrogate the query having the fields to be copied from
+     * @param array<string, mixed> options options passed to the method `attachTo`
      */
-    protected void _appendFields(SelectQuery myquery, SelectQuery mysurrogate, IData[string] options) {
-        if (myquery.getEagerLoader().isAutoFieldsEnabled() == false) {
+    protected void _appendFields(Query query, Query surrogate, STRINGAA someOptions) {
+        if (query.getEagerLoader().isAutoFieldsEnabled() == false) {
             return;
         }
-        myfields = array_merge(mysurrogate.clause("select"), options["fields"]);
+
+        fields = array_merge(surrogate.clause("select"), options["fields"]);
 
         if (
-            (isEmpty(myfields) && options["includeFields"]) ||
-            mysurrogate.isAutoFieldsEnabled()
+            (empty(fields) && options["includeFields"]) ||
+            surrogate.isAutoFieldsEnabled()
         ) {
-            myfields = array_merge(myfields, this.getTargetTable().getSchema().columns());
+            fields = array_merge(fields, _targetTable.getSchema().columns());
         }
-        myquery.select(myquery.aliasFields(myfields, _name));
-        myquery.addDefaultTypes(this.getTargetTable());
+
+        query.select(query.aliasFields(fields, _name));
+        query.addDefaultTypes(_targetTable);
     }
-    
+
     /**
-     * Adds a formatter auto to the passed `myquery` if the `mysurrogate` query
-     * declares any other formatter. Since the `mysurrogate` query correspond to
+     * Adds a formatter function to the passed `query` if the `surrogate` query
+     * declares any other formatter. Since the `surrogate` query correspond to
      * the associated target table, the resulting formatter will be the result of
      * applying the surrogate formatters to only the property corresponding to
      * such table.
-     * Params:
-     * \UIM\ORM\Query\SelectQuery myquery the query that will get the formatter applied to
-     * @param \UIM\ORM\Query\SelectQuery mysurrogate the query having formatters for the associated
+     *
+     * @param DORMQuery query the query that will get the formatter applied to
+     * @param DORMQuery surrogate the query having formatters for the associated
      * target table.
-     * @param IData[string] options options passed to the method `attachTo`
+     * @param array<string, mixed> options options passed to the method `attachTo`
      */
-    protected void _formatAssociationResults(SelectQuery myquery, SelectQuery mysurrogate, IData[string] options) {
-        myformatters = mysurrogate.getResultFormatters();
+    protected void _formatAssociationResults(Query query, Query surrogate, STRINGAA someOptions) {
+        formatters = surrogate.getResultFormatters();
 
-        if (!myformatters || empty(options["propertyPath"])) {
+        if (!formatters || empty(options["propertyPath"])) {
             return;
         }
-        myproperty = options["propertyPath"];
-        string[] mypropertyPath = split(".", myproperty);
-        myquery.formatResults(
-            auto (ICollection results, SelectQuery myquery) use (myformatters, myproperty, mypropertyPath) {
-                myextracted = [];
+
+        property = options["propertyPath"];
+        propertyPath = explode(".", property);
+        query.formatResults(
+            function (ICollection results, query) use (formatters, property, propertyPath) {
+                extracted = null;
                 foreach (results as result) {
-                    foreach (mypropertyPath as mypropertyPathItem) {
-                        if (!isSet(result[mypropertyPathItem])) {
+                    foreach (propertyPath as propertyPathItem) {
+                        if (!isset(result[propertyPathItem])) {
                             result = null;
                             break;
                         }
-                        result = result[mypropertyPathItem];
+                        result = result[propertyPathItem];
                     }
-                    myextracted ~= result;
+                    extracted[] = result;
                 }
-                
-                ICollection myextracted = new Collection(myextracted);
-                myformatters.each!((mycallable) {
-                    myextracted = mycallable(myextracted, myquery);
-                    if (!cast(IResultSet)myextracted ) {
-                        myextracted = new ResultSetDecorator(myextracted);
+                extracted = new Collection(extracted);
+                foreach (formatters as callable) {
+                    extracted = callable(extracted, query);
+                    if (!extracted instanceof IResultSet) {
+                        extracted = new ResultSetDecorator(extracted);
                     }
-                });
+                }
 
-                auto results = results.insert(myproperty, myextracted);
-                if (myquery.isHydrationEnabled()) {
-                    results = results.map(function (IEntity result) {
+                results = results.insert(property, extracted);
+                if (query.isHydrationEnabled()) {
+                    results = results.map(function (result) {
                         result.clean();
 
                         return result;
                     });
                 }
+
                 return results;
             },
-            SelectQuery.PREPEND
+            Query::PREPEND
         );
     }
-    
-    /**
-     * Applies all attachable associations to `myquery` out of the containments found
-     * in the `mysurrogate` query.
-     *
-     * Copies all contained associations from the `mysurrogate` query into the
-     * passed `myquery`. Containments are altered so that they respect the associations
-     * chain from which they originated.
-     * Params:
-     * \UIM\ORM\Query\SelectQuery myquery the query that will get the associations attached to
-     * @param \UIM\ORM\Query\SelectQuery mysurrogate the query having the containments to be attached
-     * @param IData[string] options options passed to the method `attachTo`
-     */
-    protected void _bindNewAssociations(SelectQuery myquery, SelectQuery mysurrogate, IData[string] options) {
-        auto myloader = mysurrogate.getEagerLoader();
-        auto mycontain = myloader.getContain();
-        auto mymatching = myloader.getMatching();
 
-        if (!mycontain && !mymatching) {
+    /**
+     * Applies all attachable associations to `query` out of the containments found
+     * in the `surrogate` query.
+     *
+     * Copies all contained associations from the `surrogate` query into the
+     * passed `query`. Containments are altered so that they respect the associations
+     * chain from which they originated.
+     *
+     * @param DORMQuery query the query that will get the associations attached to
+     * @param DORMQuery surrogate the query having the containments to be attached
+     * @param array<string, mixed> options options passed to the method `attachTo`
+     */
+    protected void _bindNewAssociations(Query query, Query surrogate, STRINGAA someOptions) {
+        loader = surrogate.getEagerLoader();
+        contain = loader.getContain();
+        matching = loader.getMatching();
+
+        if (!contain && !matching) {
             return;
         }
-        auto[string] mynewContain;
-        mycontain.byKeyValue
-            .each!(aliasValue => mynewContain[options["aliasPath"] ~ "." ~ aliasValue.key] = aliasValue.value);
-        myeagerLoader = myquery.getEagerLoader();
-        if (mynewContain) {
-            myeagerLoader.contain(mynewContain);
+
+        newContain = null;
+        foreach (contain as alias: value) {
+            newContain[options["aliasPath"] ~ "." ~ alias] = value;
         }
-        foreach (mymatching as myalias: myvalue) {
-            myeagerLoader.setMatching(
-                options["aliasPath"] ~ "." ~ myalias,
-                myvalue["queryBuilder"],
-                myvalue
+
+        eagerLoader = query.getEagerLoader();
+        if (newContain) {
+            eagerLoader.contain(newContain);
+        }
+
+        foreach (matching as alias: value) {
+            eagerLoader.setMatching(
+                options["aliasPath"] ~ "." ~ alias,
+                value["queryBuilder"],
+                value
             );
         }
     }
-    
+
     /**
      * Returns a single or multiple conditions to be appended to the generated join
      * clause for getting the results on the target table.
-     * Params:
-     * IData[string] options list of options passed to attachTo method
+     *
+     * @param array<string, mixed> options list of options passed to attachTo method
+     * @return array
+     * @throws \RuntimeException if the number of columns in the foreignKeys do not
+     * match the number of columns in the source table primaryKeys
      */
-    protected array _joinCondition(IData[string] options) {
-        myconditions = [];
-        mytAlias = _name;
-        mysAlias = this.getSource().aliasName();
-        myforeignKey = (array)options["foreignKey"];
-        mybindingKey = (array)this.getBindingKey();
+    protected array _joinCondition(STRINGAA someOptions) {
+        conditions = null;
+        tAlias = _name;
+        sAlias = this.getSource().aliasName();
+        foreignKeys = (array)options["foreignKeys"];
+        bindingKeys = (array)this.getBindingKeys();
 
-        if (count(myforeignKey) != count(mybindingKey)) {
-            if (isEmpty(mybindingKey)) {
-                mytable = this.getTargetTable().getTable();
+        if (count(foreignKeys) != count(bindingKeys)) {
+            if (empty(bindingKeys)) {
+                table = this.getTarget().getTable();
                 if (this.isOwningSide(this.getSource())) {
-                    mytable = this.getSource().getTable();
+                    table = this.getSource().getTable();
                 }
-                mymsg = "The `%s` table does not define a primary key, and cannot have join conditions generated.";
-                throw new DatabaseException(mymsg.format(mytable));
+                msg = "The '%s' table does not define a primary key, and cannot have join conditions generated.";
+                throw new RuntimeException(sprintf(msg, table));
             }
-            string mymsg = "Cannot match provided foreignKey for `%s`, got `(%s)` but expected foreign key for `(%s)`";
-            throw new DatabaseException(
-                mymsg
-                .format(
-                    _name,
-                    myforeignKey.join(", "),
-                    join(", ", mybindingKey)
-                )
-            );
+
+            msg = "Cannot match provided foreignKeys for '%s', got "(%s)" but expected foreign key for "(%s)"";
+            throw new RuntimeException(sprintf(
+                msg,
+                _name,
+                implode(", ", foreignKeys),
+                implode(", ", bindingKeys)
+            ));
         }
-        foreach (myforeignKey as myKey: myf) {
-            myfield = "%s.%s".format(mysAlias, mybindingKey[myKey]);
-            myvalue = new IdentifierExpression("%s.%s".format(mytAlias, myf));
-            myconditions[myfield] = myvalue;
+
+        foreach (foreignKeys as k: f) {
+            field = sprintf("%s.%s", sAlias, bindingKeys[k]);
+            value = new IdentifierExpression(sprintf("%s.%s", tAlias, f));
+            conditions[field] = value;
         }
-        return myconditions;
+
+        return conditions;
     }
-    
+
     /**
      * Helper method to infer the requested finder and its options.
      *
-     * Returns the inferred options from the finder mytype.
+     * Returns the inferred options from the finder type.
      *
      * ### Examples:
      *
      * The following will call the finder "translations" with the value of the finder as its options:
-     * myquery.contain(["Comments": ["finder": ["translations"]]]);
-     * myquery.contain(["Comments": ["finder": ["translations": []]]]);
-     * myquery.contain(["Comments": ["finder": ["translations": ["locales": ["en_US"]]]]]);
-     * Params:
-     * string[] myfinderData The finder name or an array having the name as key
+     * query.contain(["Comments": ["finder": ["translations"]]]);
+     * query.contain(["Comments": ["finder": ["translations": []]]]);
+     * query.contain(["Comments": ["finder": ["translations": ["locales": ["en_US"]]]]]);
+     *
+     * @param array|string finderData The finder name or an array having the name as key
      * and options as value.
      */
-    protected array _extractFinder(string[] myfinderData) {
-        myfinderData = (array)myfinderData;
+    protected array _extractFinder(finderData) {
+        finderData = (array)finderData;
 
-        if (isNumeric(key(myfinderData))) {
-            return [current(myfinderData), []];
+        if (is_numeric(key(finderData))) {
+            return [current(finderData), []];
         }
-        return [key(myfinderData), current(myfinderData)];
+
+        return [key(finderData), current(finderData)];
     }
-    
+
     /**
      * Proxies property retrieval to the target table. This is handy for getting this
      * association"s associations
-     * Params:
-     * string myproperty the property name
-     * @return self
+     *
+     * @param string property the property name
+     * @return DORMAssociation
      * @throws \RuntimeException if no association with such name exists
      */
-    Association __get(string myproperty) {
-        return this.getTargetTable().{myproperty};
+    function __get(property) {
+        return this.getTarget().{property};
     }
-    
+
     /**
-     * Proxies the isSet call to the target table. This is handy to check if the
+     * Proxies the isset call to the target table. This is handy to check if the
      * target table has another association with the passed name
+     *
+     * @param string property the property name
+     * @return bool true if the property exists
      */
-    bool __isSet(string propertyName) {
-        return isSet(this.getTargetTable().{propertyName});
+    bool __isSet(property) {
+        return isset(this.getTarget().{property});
     }
-    
+
     /**
      * Proxies method calls to the target table.
-     * Params:
-     * string mymethod name of the method to be invoked
-     * @param array myargument List of arguments passed to the function
+     *
+     * @param string method name of the method to be invoked
+     * @param array argument List of arguments passed to the function
+     * @return mixed
+     * @throws \BadMethodCallException
      */
-    Json __call(string mymethod, array myargument) {
-        return this.getTargetTable().mymethod(...myargument);
+    function __call(method, argument) {
+        return this.getTarget().method(...argument);
     }
-    
+
     /**
      * Get the relationship type.
+     *
+     * @return string Constant of either ONE_TO_ONE, MANY_TO_ONE, ONE_TO_MANY or MANY_TO_MANY.
      */
     abstract string type();
 
@@ -910,46 +1022,52 @@ abstract class DAssociation {
      *
      * Options array accepts the following keys:
      *
-     * - query: SelectQuery object setup to find the source table records
+     * - query: Query object setup to find the source table records
      * - keys: List of primary key values from the source table
-     * - foreignKey: The name of the field used to relate both tables
+     * - foreignKeys: The name of the field used to relate both tables
      * - conditions: List of conditions to be passed to the query where() method
      * - sort: The direction in which the records should be returned
      * - fields: List of fields to select from the target table
      * - contain: List of related tables to eager load associated to the target table
      * - strategy: The name of strategy to use for finding target table records
      * - nestKey: The array key under which results will be found when transforming the row
-     * Params:
-     * IData[string] options The options for eager loading.
+     *
+     * @param array<string, mixed> options The options for eager loading.
+     * @return \Closure
      */
-    abstract Closure eagerLoader(IData[string] options);
+    abstract function eagerLoader(STRINGAA someOptions): Closure;
 
     /**
      * Handles cascading a delete from an associated model.
      *
      * Each implementing class should handle the cascaded delete as
      * required.
-     * Params:
-     * \UIM\Datasource\IEntity myentity The entity that started the cascaded delete.
-     * @param IData[string] options The options for the original delete.
+     *
+     * @param DORMDatasource\IEntity anEntity The entity that started the cascaded delete.
+     * @param array<string, mixed> options The options for the original delete.
+     * @return bool Success
      */
-    abstract bool cascadeDelete_(IEntity myentity, IData[string] optionData = null);
+    abstract bool cascadeDelete_(IEntity anEntity, STRINGAA someOptions = null);
 
     /**
      * Returns whether the passed table is the owning side for this
      * association. This means that rows in the "target" table would miss important
      * or required information if the row in "source" did not exist.
-     * Params:
-     * \UIM\ORM\Table myside The potential Table with ownership
+     *
+     * @param DORMTable side The potential Table with ownership
+     * @return bool
      */
-    abstract bool isOwningSide(Table myside);
+    abstract bool isOwningSide(Table side);
 
     /**
      * Extract the target"s association data our from the passed entity and proxies
      * the saving operation to the target table.
-     * Params:
-     * \UIM\Datasource\IEntity myentity the data to be saved
-     * @param IData[string] options The options for saving associated data.
+     *
+     * @param DORMDatasource\IEntity anEntity the data to be saved
+     * @param array<string, mixed> options The options for saving associated data.
+     * @return DORMDatasource\IEntity|false false if entity could not be saved, otherwise it returns
+     * the saved entity
+     * @see DORMTable::save()
      */
-    abstract IEntity|false saveAssociated(IEntity myentity, IData[string] optionData = null);
+    abstract function saveAssociated(IEntity anEntity, STRINGAA someOptions = null);
 }

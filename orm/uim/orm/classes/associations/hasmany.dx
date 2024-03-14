@@ -1,38 +1,45 @@
-module uim.orm.Association;
-
-import uim.orm;
+/*********************************************************************************************************
+  Copyright: © 2015-2024 Ozan Nurettin Süel (Sicherheitsschmiede)                                        
+  License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
+  Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
+**********************************************************************************************************/
+module uim.orm.associations.hasmany;
 
 @safe:
+import uim.orm;
+
 /**
  * Represents an N - 1 relationship where the target side of the relationship
  * will have one or multiple records per each one in the source side.
  *
  * An example of a HasMany association would be Author has many Articles.
  */
-class DHasManyAssociation : DAssociation {
-    mixin(AssociationThis!("HasMany"));
-
+class HasMany : DAssociation {
     /**
      * Order in which target records should be returned
      *
-     * @var \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string
+     * @var mixed
      */
-    protected IExpression|Closure|string[]|null _sort = null;
+    protected _sort;
 
-    // The type of join to be used when adding the association to a query
-    protected string _joinType = SelectQuery.JOIN_TYPE_INNER;
+    /**
+     * The type of join to be used when adding the association to a query
+     */
+    protected string _joinType = Query::JOIN_TYPE_INNER;
 
     /**
      * The strategy name to be used to fetch associated records.
      */
-    protected string _strategy = self.STRATEGY_SELECT;
+    protected string _strategy = self::STRATEGY_SELECT;
 
     /**
      * Valid strategies for this type of association
+     *
+     * @var array<string>
      */
-    protected string[] _validStrategies = [
-        self.STRATEGY_SELECT,
-        self.STRATEGY_SUBQUERY,
+    protected _validStrategies = [
+        self::STRATEGY_SELECT,
+        self::STRATEGY_SUBQUERY,
     ];
 
     /**
@@ -48,101 +55,116 @@ class DHasManyAssociation : DAssociation {
     /**
      * Saving strategy to be used by this association
      */
-    protected string _saveStrategy = self.SAVE_APPEND;
+    protected string _saveStrategy = self::SAVE_APPEND;
 
     /**
      * Returns whether the passed table is the owning side for this
      * association. This means that rows in the "target" table would miss important
      * or required information if the row in "source" did not exist.
-     * Params:
-     * \UIM\ORM\Table side The potential Table with ownership
+     *
+     * @param DORMTable side The potential Table with ownership
      */
     bool isOwningSide(Table side) {
         return side == this.getSource();
     }
-    
+
     /**
      * Sets the strategy that should be used for saving.
-     * Params:
-     * string astrategy the strategy name to be used
+     *
+     * @param string strategy the strategy name to be used
      * @throws \InvalidArgumentException if an invalid strategy name is passed
+     * @return this
      */
-    void setSaveStrategy(string astrategy) {
-        if (!in_array(strategy, [self.SAVE_APPEND, self.SAVE_REPLACE], true)) {
-            message = "Invalid save strategy `%s`".format(strategy);
-            throw new InvalidArgumentException(message);
+    auto setSaveStrategy(string strategy) {
+        if (!in_array(strategy, [self::SAVE_APPEND, self::SAVE_REPLACE], true)) {
+            msg = sprintf("Invalid save strategy '%s'", strategy);
+            throw new InvalidArgumentException(msg);
         }
-       _saveStrategy = strategy;
+
+        _saveStrategy = strategy;
+
+        return this;
     }
-    
+
     /**
      * Gets the strategy that should be used for saving.
+     *
+     * @return string the strategy to be used for saving
      */
     string getSaveStrategy() {
         return _saveStrategy;
     }
-    
+
     /**
      * Takes an entity from the source table and looks if there is a field
      * matching the property name for this association. The found entity will be
      * saved on the target table for this association by passing supplied
      * `options`
-     * Params:
-     * \UIM\Datasource\IEntity entity an entity from the source table
-     * @param IData[string] options options to be passed to the save method in the target table
+     *
+     * @param DORMDatasource\IEntity anEntity an entity from the source table
+     * @param array<string, mixed> options options to be passed to the save method in the target table
+     * @return DORMDatasource\IEntity|false false if entity could not be saved, otherwise it returns
+     * the saved entity
+     * @see DORMTable::save()
+     * @throws \InvalidArgumentException when the association data cannot be traversed.
      */
-    IEntity|false saveAssociated(IEntity entity, IData[string] options = null) {
-        targetEntities = entity.get(this.getProperty());
+    function saveAssociated(IEntity anEntity, IData[string] options = null) {
+        myTargetEntities = entity.get(this.getProperty());
 
-         isEmpty = in_array(targetEntities, [null, [], "", false], true);
+        isEmpty = in_array(myTargetEntities, [null, [], "", false], true);
         if (isEmpty) {
             if (
                 entity.isNew() ||
-                this.getSaveStrategy() != self.SAVE_REPLACE
+                this.getSaveStrategy() != self::SAVE_REPLACE
             ) {
                 return entity;
             }
-            targetEntities = [];
+
+            myTargetEntities = null;
         }
-        if (!is_iterable(targetEntities)) {
-            name = this.getProperty();
-            message = "Could not save %s, it cannot be traversed".format(name);
-            throw new InvalidArgumentException(message);
+
+        if (!is_iterable(myTargetEntities)) {
+            myName = this.getProperty();
+            myMessage = sprintf("Could not save %s, it cannot be traversed", myName);
+            throw new InvalidArgumentException(myMessage);
         }
-        string[] foreignKeys = (array)this.getForeignKey();
+
         foreignKeyReference = array_combine(
-            foreignKeys,
+            (array)this.getForeignKey(),
             entity.extract((array)this.getBindingKey())
         );
 
         options["_sourceTable"] = this.getSource();
 
         if (
-           _saveStrategy == self.SAVE_REPLACE &&
-            !_unlinkAssociated(foreignKeyReference, entity, this.getTarget(), targetEntities, options)
+            _saveStrategy == self::SAVE_REPLACE &&
+            !_unlinkAssociated(foreignKeyReference, entity, this.getTarget(), myTargetEntities, options)
         ) {
             return false;
         }
-        if (!isArray(targetEntities)) {
-            targetEntities = iterator_to_array(targetEntities);
+
+        if (!is_array(myTargetEntities)) {
+            myTargetEntities = iterator_to_array(myTargetEntities);
         }
-        if (!_saveTarget(foreignKeyReference, entity, targetEntities, options)) {
+        if (!_saveTarget(foreignKeyReference, entity, myTargetEntities, options)) {
             return false;
         }
+
         return entity;
     }
-    
+
     /**
      * Persists each of the entities into the target table and creates links between
      * the parent entity and each one of the saved target entities.
-     * Params:
-     * array foreignKeyReference The foreign key reference defining the link between the
+     *
+     * @param array foreignKeyReference The foreign key reference defining the link between the
      * target entity, and the parent entity.
-     * @param \UIM\Datasource\IEntity parentEntity The source entity containing the target
+     * @param DORMDatasource\IEntity parentEntity The source entity containing the target
      * entities to be saved.
      * @param array entities list of entities
      * to persist in target table and to link to the parent entity
-     * @param IData[string] options list of options accepted by `Table.save()`.
+     * @param array<string, mixed> options list of options accepted by `Table::save()`.
+     * @return bool `true` on success, `false` otherwise.
      */
     protected bool _saveTarget(
         array foreignKeyReference,
@@ -150,40 +172,46 @@ class DHasManyAssociation : DAssociation {
         array entities,
         IData[string] options
     ) {
-        auto foreignKey = foreignKeyReference.keys;
-        auto aTable = this.getTarget();
-        auto original = entities;
+        foreignKey = foreignKeyReference.keys;
+        myTable = this.getTarget();
+        original = entities;
 
-        foreach (entities as myKey: entity) {
-            if (!(cast(IEntity)entity)) {
+        foreach (entities as k: entity) {
+            if (!(entity instanceof IEntity)) {
                 break;
             }
-            if (!options["atomic"].isEmpty) {
+
+            if (!empty(options["atomic"])) {
                 entity = clone entity;
             }
+
             if (foreignKeyReference != entity.extract(foreignKey)) {
-                entity.set(foreignKeyReference, ["guard": false]);
+                entity.set(foreignKeyReference, ["guard":false]);
             }
-            if (aTable.save(entity, options)) {
-                entities[myKey] = entity;
+
+            if (myTable.save(entity, options)) {
+                entities[k] = entity;
                 continue;
             }
-            if (!options["atomic"].isEmpty) {
-                original[myKey].setErrors(entity.getErrors());
-                if (cast(IInvalidProperty)entity) {
-                    original[myKey].setFieldsInvalid(entity.getInvalid());
+
+            if (!empty(options["atomic"])) {
+                original[k].setErrors(entity.getErrors());
+                if (entity instanceof InvalidPropertyInterface) {
+                    original[k].setInvalid(entity.getInvalid());
                 }
+
                 return false;
             }
         }
+
         parentEntity.set(this.getProperty(), entities);
 
         return true;
     }
-    
+
     /**
      * Associates the source entity to each of the target entities provided.
-     * When using this method, all entities in `targetEntities` will be appended to
+     * When using this method, all entities in `myTargetEntities` will be appended to
      * the source entity"s property corresponding to this association object.
      *
      * This method does not check link uniqueness.
@@ -192,45 +220,50 @@ class DHasManyAssociation : DAssociation {
      * ### Example:
      *
      * ```
-     * user = users.get(1);
+     * myUser = myUsers.get(1);
      * allArticles = articles.find("all").toArray();
-     * users.Articles.link(user, allArticles);
+     * myUsers.Articles.link(myUser, allArticles);
      * ```
      *
-     * `user.get("articles")` will contain all articles in `allArticles` after linking
-     * Params:
-     * \UIM\Datasource\IEntity sourceEntity the row belonging to the `source` side
+     * `myUser.get("articles")` will contain all articles in `allArticles` after linking
+     *
+     * @param DORMDatasource\IEntity sourceEntity the row belonging to the `source` side
      * of this association
-     * @param array targetEntities list of entities belonging to the `target` side
+     * @param array myTargetEntities list of entities belonging to the `target` side
      * of this association
-     * @param IData[string] options list of options to be passed to the internal `save` call
+     * @param array<string, mixed> options list of options to be passed to the internal `save` call
+     * @return bool true on success, false otherwise
      */
-    bool link(IEntity sourceEntity, array targetEntities, IData[string] options = null) {
+    bool link(IEntity sourceEntity, array myTargetEntities, IData[string] options = null) {
         saveStrategy = this.getSaveStrategy();
-        this.setSaveStrategy(self.SAVE_APPEND);
-         aProperty = this.getProperty();
+        this.setSaveStrategy(self::SAVE_APPEND);
+        property = this.getProperty();
 
         currentEntities = array_unique(
-            chain(
-                (array)sourceEntity.get(aProperty),
-                targetEntities
+            array_merge(
+                (array)sourceEntity.get(property),
+                myTargetEntities
             )
         );
 
-        sourceEntity.set(aProperty, currentEntities);
+        sourceEntity.set(property, currentEntities);
 
-        savedEntity = this.getConnection().transactional(fn (): this.saveAssociated(sourceEntity, options));
-        ok = (cast(IEntity)savedEntity);
+        savedEntity = this.getConnection().transactional(function () use (sourceEntity, options) {
+            return this.saveAssociated(sourceEntity, options);
+        });
+
+        ok = (savedEntity instanceof IEntity);
 
         this.setSaveStrategy(saveStrategy);
 
         if (ok) {
-            sourceEntity.set(aProperty, savedEntity.get(aProperty));
-            sourceEntity.setDirty(aProperty, false);
+            sourceEntity.set(property, savedEntity.get(property));
+            sourceEntity.setDirty(property, false);
         }
+
         return ok;
     }
-    
+
     /**
      * Removes all links between the passed source entity and each of the provided
      * target entities. This method assumes that all passed objects are already persisted
@@ -238,10 +271,10 @@ class DHasManyAssociation : DAssociation {
      *
      * ### Options
      *
-     * Additionally to the default options accepted by `Table.delete_()`, the following
+     * Additionally to the default options accepted by `Table::delete_()`, the following
      * keys are supported:
      *
-     * - cleanProperty: Whether to remove all the objects in `targetEntities` that
+     * - cleanProperty: Whether to remove all the objects in `myTargetEntities` that
      * are stored in `sourceEntity` (default: true)
      *
      * By default this method will unset each of the entity objects stored inside the
@@ -252,72 +285,73 @@ class DHasManyAssociation : DAssociation {
      * ### Example:
      *
      * ```
-     * user = users.get(1);
-     * user.articles = [article1, article2, article3, article4];
-     * users.save(user, ["Associated": ["Articles"]]);
+     * myUser = myUsers.get(1);
+     * myUser.articles = [article1, article2, article3, article4];
+     * myUsers.save(myUser, ["Associated":["Articles"]]);
      * allArticles = [article1, article2, article3];
-     * users.Articles.unlink(user, allArticles);
+     * myUsers.Articles.unlink(myUser, allArticles);
      * ```
      *
      * `article.get("articles")` will contain only `[article4]` after deleting in the database
-     * Params:
-     * \UIM\Datasource\IEntity sourceEntity an entity persisted in the source table for
+     *
+     * @param DORMDatasource\IEntity sourceEntity an entity persisted in the source table for
      * this association
-     * @param array targetEntities list of entities persisted in the target table for
+     * @param array myTargetEntities list of entities persisted in the target table for
      * this association
-     * @param IData[string]|bool options list of options to be passed to the internal `delete` call.
-     *  If boolean it will be used a value for "cleanProperty" option.
+     * @param array<string, mixed>|bool options list of options to be passed to the internal `delete` call.
+     *   If boolean it will be used a value for "cleanProperty" option.
      * @throws \InvalidArgumentException if non persisted entities are passed or if
      * any of them is lacking a primary key value
      */
-    void unlink(IEntity sourceEntity, array targetEntities, array|bool auto options = []) {
-        if (isBool(options)) {
+    void unlink(IEntity sourceEntity, array myTargetEntities, options = null) {
+        if (is_bool(options)) {
             options = [
-                "cleanProperty": options,
+                "cleanProperty":options,
             ];
         } else {
-            options += ["cleanProperty": true];
+            options += ["cleanProperty":true];
         }
-        if (count(targetEntities) == 0) {
+        if (count(myTargetEntities) == 0) {
             return;
         }
+
         foreignKey = (array)this.getForeignKey();
-        target = this.getTarget();
-        targetPrimaryKey = array_merge((array)target.getPrimaryKey(), foreignKey);
-         aProperty = this.getProperty();
+        myTarget = this.getTarget();
+        myTargetPrimaryKey = array_merge((array)myTarget.getPrimaryKeys(), foreignKey);
+        property = this.getProperty();
 
         conditions = [
-            "OR": (new Collection(targetEntities))
-                .map(function (IEntity entity) use (targetPrimaryKey) {
-                    /** @psalm-suppress InvalidArgument,UnusedPsalmSuppress */
-                    /** @var string[] targetPrimaryKey */
-                    return entity.extract(targetPrimaryKey);
+            "OR":(new Collection(myTargetEntities))
+                .map(function (entity) use (myTargetPrimaryKey) {
+                    /** @var DORMdatasources.IEntity anEntity */
+                    return entity.extract(myTargetPrimaryKey);
                 })
                 .toList(),
         ];
 
-       _unlink(foreignKey, target, conditions, options);
+        _unlink(foreignKey, myTarget, conditions, options);
 
-        result = sourceEntity.get(aProperty);
-        if (options["cleanProperty"] && result !isNull) {
+        myResult = sourceEntity.get(property);
+        if (options["cleanProperty"] && myResult  !is null) {
             sourceEntity.set(
-                 aProperty,
-                (new Collection(sourceEntity.get(aProperty)))
+                property,
+                (new Collection(sourceEntity.get(property)))
                 .reject(
-                    auto (assoc) use (targetEntities) {
-                        return in_array(assoc, targetEntities);
+                    function (assoc) use (myTargetEntities) {
+                        return in_array(assoc, myTargetEntities);
                     }
                 )
                 .toList()
             );
         }
-        sourceEntity.setDirty(aProperty, false);
+
+        sourceEntity.setDirty(property, false);
     }
-    
+
     /**
      * Replaces existing association links between the source entity and the target
      * with the ones passed. This method does a smart cleanup, links that are already
-     * persisted and present in `targetEntities` will not be deleted, new links will
+     * persisted and present in `myTargetEntities` will not be deleted, new links will
      * be created for the passed target entities that are not already in the database
      * and the rest will be removed.
      *
@@ -331,11 +365,11 @@ class DHasManyAssociation : DAssociation {
      *
      * This method does not check link uniqueness.
      *
-     * On success, the passed `sourceEntity` will contain `targetEntities` as value
+     * On success, the passed `sourceEntity` will contain `myTargetEntities` as value
      * in the corresponding property for this association.
      *
      * Additional options for new links to be saved can be passed in the third argument,
-     * check `Table.save()` for information on the accepted options.
+     * check `Table::save()` for information on the accepted options.
      *
      * ### Example:
      *
@@ -347,59 +381,61 @@ class DHasManyAssociation : DAssociation {
      * ```
      *
      * `author.get("articles")` will contain only `[article1, article3]` at the end
-     * Params:
-     * \UIM\Datasource\IEntity sourceEntity an entity persisted in the source table for
+     *
+     * @param DORMDatasource\IEntity sourceEntity an entity persisted in the source table for
      * this association
-     * @param array targetEntities list of entities from the target table to be linked
-     * @param IData[string] options list of options to be passed to the internal `save`/`delete` calls
+     * @param array myTargetEntities list of entities from the target table to be linked
+     * @param array<string, mixed> options list of options to be passed to the internal `save`/`delete` calls
      * when persisting/updating new links, or deleting existing ones
      * @throws \InvalidArgumentException if non persisted entities are passed or if
      * any of them is lacking a primary key value
-         */
-    bool replace(IEntity sourceEntity, array targetEntities, IData[string] options = null) {
-         aProperty = this.getProperty();
-        sourceEntity.set(aProperty, targetEntities);
+     * @return bool success
+     */
+    bool replace(IEntity sourceEntity, array myTargetEntities, IData[string] options = null) {
+        property = this.getProperty();
+        sourceEntity.set(property, myTargetEntities);
         saveStrategy = this.getSaveStrategy();
-        this.setSaveStrategy(self.SAVE_REPLACE);
-        result = this.saveAssociated(sourceEntity, options);
-        ok = (cast(IEntity)result);
+        this.setSaveStrategy(self::SAVE_REPLACE);
+        myResult = this.saveAssociated(sourceEntity, options);
+        ok = (myResult instanceof IEntity);
 
         if (ok) {
-            // phpcs:ignore SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable
-            sourceEntity = result;
+            sourceEntity = myResult;
         }
         this.setSaveStrategy(saveStrategy);
 
         return ok;
     }
-    
+
     /**
      * Deletes/sets null the related objects according to the dependency between source and targets
      * and foreign key nullability. Skips deleting records present in remainingEntities
-     * Params:
-     * array foreignKeyReference The foreign key reference defining the link between the
+     *
+     * @param array foreignKeyReference The foreign key reference defining the link between the
      * target entity, and the parent entity.
-     * @param \UIM\Datasource\IEntity entity the entity which should have its associated entities unassigned
-     * @param \UIM\ORM\Table target The associated table
+     * @param DORMDatasource\IEntity anEntity the entity which should have its associated entities unassigned
+     * @param DORMTable myTarget The associated table
      * @param range remainingEntities Entities that should not be deleted
-     * @param IData[string] options list of options accepted by `Table.delete_()`
+     * @param array<string, mixed> options list of options accepted by `Table::delete_()`
+     * @return bool success
      */
     protected bool _unlinkAssociated(
         array foreignKeyReference,
-        IEntity entity,
-        Table target,
-        range remainingEntities = [],
+        IEntity anEntity,
+        Table myTarget,
+        range remainingEntities = null,
         IData[string] options = null
-    ): bool {
-        primaryKey = (array)target.getPrimaryKey();
+    ) {
+        primaryKeys = (array)myTarget.getPrimaryKeys();
         exclusions = new Collection(remainingEntities);
         exclusions = exclusions.map(
-            auto (IEntity ent) use (primaryKey) {
-                return ent.extract(primaryKey);
+            function (ent) use (primaryKeys) {
+                /** @var DORMdatasources.IEntity ent */
+                return ent.extract(primaryKeys);
             }
         )
         .filter(
-            auto (v) {
+            function (v) {
                 return !in_array(null, v, true);
             }
         )
@@ -409,156 +445,171 @@ class DHasManyAssociation : DAssociation {
 
         if (count(exclusions) > 0) {
             conditions = [
-                "NOT": [
-                    "OR": exclusions,
+                "NOT":[
+                    "OR":exclusions,
                 ],
                 foreignKeyReference,
             ];
         }
-        return _unlink(foreignKeyReference.keys, target, conditions, options);
+
+        return _unlink(foreignKeyReference.keys, myTarget, conditions, options);
     }
-    
+
     /**
      * Deletes/sets null the related objects matching conditions.
      *
      * The action which is taken depends on the dependency between source and
      * targets and also on foreign key nullability.
-     * Params:
-     * array foreignKey array of foreign key properties
-     * @param \UIM\ORM\Table target The associated table
+     *
+     * @param array foreignKey array of foreign key properties
+     * @param DORMTable myTarget The associated table
      * @param array conditions The conditions that specifies what are the objects to be unlinked
-     * @param IData[string] options list of options accepted by `Table.delete_()`
+     * @param array<string, mixed> options list of options accepted by `Table::delete_()`
+     * @return bool success
      */
-    protected bool _unlink(array foreignKey, Table target, array conditions = [], IData[string] options = null) {
-        mustBeDependent = (!_foreignKeyAcceptsNull(target, foreignKey) || this.getDependent());
+    protected bool _unlink(array foreignKey, Table myTarget, array conditions = null, IData[string] options = null) {
+        mustBeDependent = (!_foreignKeyAcceptsNull(myTarget, foreignKey) || this.getDependent());
 
         if (mustBeDependent) {
             if (_cascadeCallbacks) {
                 conditions = new QueryExpression(conditions);
-                conditions.traverse(void (entry) use (target) {
-                    if (cast(IField)entry) {
-                        field = entry.getFieldNames();
-                        if (isString(field)) {
-                            entry.setFieldNames(target.aliasField(field));
+                conditions.traverse(void (entry) use (myTarget) {
+                    if (entry instanceof FieldInterface) {
+                        myField = entry.getField();
+                        if (is_string(myField)) {
+                            entry.setField(myTarget.aliasField(myField));
                         }
                     }
                 });
-                aQuery = this.find().where(conditions);
+                myQuery = this.find().where(conditions);
                 ok = true;
-                foreach (aQuery.all() as assoc) {
-                    ok = ok && target.delete_(assoc, options);
+                foreach (myQuery as assoc) {
+                    ok = ok && myTarget.delete_(assoc, options);
                 }
+
                 return ok;
             }
+
             this.deleteAll(conditions);
 
             return true;
         }
+
         updateFields = array_fill_keys(foreignKey, null);
         this.updateAll(updateFields, conditions);
 
         return true;
     }
-    
+
     /**
      * Checks the nullable flag of the foreign key
-     * Params:
-     * \UIM\ORM\Table aTable the table containing the foreign key
+     *
+     * @param DORMTable myTable the table containing the foreign key
      * @param array properties the list of fields that compose the foreign key
      */
-    protected bool _foreignKeyAcceptsNull(Table aTable, array properties) {
+    protected bool _foreignKeyAcceptsNull(Table myTable, array properties) {
         return !in_array(
             false,
             array_map(
-                auto (prop) use (aTable) {
-                    return aTable.getSchema().isNullable(prop);
+                function (prop) use (myTable) {
+                    return myTable.getSchema().isNullable(prop);
                 },
                 properties
             )
         );
     }
-    
+
     /**
      * Get the relationship type.
      */
     string type() {
-        return self.ONE_TO_MANY;
+        return self::ONE_TO_MANY;
     }
-    
+
     /**
      * Whether this association can be expressed directly in a query join
-     * Params:
-     * IData[string] options custom options key that could alter the return value
+     *
+     * @param array<string, mixed> options custom options key that could alter the return value
+     * @return bool if the "matching" key in option is true then this function
+     * will return true, false otherwise
      */
     bool canBeJoined(IData[string] options = null) {
-        return !options["matching"].isEmpty);
+        return !empty(options["matching"]);
     }
- 
+
+    // Gets the name of the field representing the foreign key to the source table.
     string[] getForeignKey() {
-        if (!isSet(_foreignKey)) {
-           _foreignKey = _modelKey(this.getSource().getTable());
+        if (_foreignKey is null) {
+            _foreignKey = _modelKey(this.getSource().getTable());
         }
+
         return _foreignKey;
     }
-    
+
     /**
      * Sets the sort order in which target records should be returned.
-     * Params:
-     * \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string asort A find() compatible order clause
+     *
+     * @param mixed sort A find() compatible order clause
+     * @return this
      */
-    void setSort(IExpression|Closure|string[] asort) {
-       _sort = sort;
+    auto setSort(sort) {
+        _sort = sort;
 
         return this;
     }
-    
+
     /**
      * Gets the sort order in which target records should be returned.
+     *
+     * @return mixed
      */
-    IExpression|Closure|string[]|null getSort() {
+    auto getSort() {
         return _sort;
     }
- 
+
+
     array defaultRowValue(array row, bool joined) {
         sourceAlias = this.getSource().aliasName();
-        if (isSet(row[sourceAlias])) {
+        if (isset(row[sourceAlias])) {
             row[sourceAlias][this.getProperty()] = joined ? null : [];
         }
+
         return row;
     }
-    
+
     /**
      * Parse extra options passed in the constructor.
-     * Params:
-     * IData[string] options original list of options passed in constructor
+     *
+     * @param array<string, mixed> options original list of options passed in constructor
      */
-    protected void _options(IData[string] options = null) {
+    protected void _options(IData[string] options) {
         if (!empty(options["saveStrategy"])) {
             this.setSaveStrategy(options["saveStrategy"]);
         }
-        if (isSet(options["sort"])) {
+        if (isset(options["sort"])) {
             this.setSort(options["sort"]);
         }
     }
- 
-    auto eagerLoader(IData[string] options = null): Closure
-    {
+
+
+    Closure eagerLoader(IData[string] options) {
         loader = new SelectLoader([
-            "alias": this.aliasName(),
-            "sourceAlias": this.getSource().aliasName(),
-            "targetAlias": this.getTarget().aliasName(),
-            "foreignKey": this.getForeignKey(),
-            "bindingKey": this.getBindingKey(),
-            "strategy": this.getStrategy(),
-            "associationType": this.type(),
-            "sort": this.getSort(),
-            "finder": this.find(...),
+            "alias":this.aliasName(),
+            "sourceAlias":this.getSource().aliasName(),
+            "targetAlias":this.getTarget().aliasName(),
+            "foreignKey":this.getForeignKey(),
+            "bindingKey":this.getBindingKey(),
+            "strategy":this.getStrategy(),
+            "associationType":this.type(),
+            "sort":this.getSort(),
+            "finder":[this, "find"],
         ]);
 
         return loader.buildEagerLoader(options);
     }
- 
-    bool cascadeDelete_(IEntity entity, IData[string] options = null) {
+
+
+    bool cascadeDelete_(IEntity anEntity, IData[string] options = null) {
         helper = new DependentDeleteHelper();
 
         return helper.cascadeDelete_(this, entity, options);

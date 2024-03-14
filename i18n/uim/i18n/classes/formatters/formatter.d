@@ -21,11 +21,6 @@ class DI18NFormatter : II18NFormatter {
 
     mixin(TProperty!("string", "name"));
 
-    // Initialization hook
-    bool initialize(IData[string] initData = null) {
-        return true;
-    }
-
     // Returns a string with all passed variables interpolated into the original message. 
     string format(string messageLocale, string messageToTranslate, string[] tokenValues) {
         return messageToTranslate;

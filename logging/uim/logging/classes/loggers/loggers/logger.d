@@ -10,6 +10,12 @@ abstract class Logger /* : AbstractLogger */ {
 
     this() {
         initialize;
+        this.name("Logger");  
+    }
+
+    this(string name) { 
+        this(); 
+        this.name(name); 
     }
 
     bool initialize(IData[string] initData = null) {
@@ -18,9 +24,6 @@ abstract class Logger /* : AbstractLogger */ {
         
         return true;
     }
-
-    this() { name("Logger"); } // TODOinitialize; }
-    this(string name) { this(); } // TODO name(name); }
 
 //     mixin InstanceConfigTemplate;
 

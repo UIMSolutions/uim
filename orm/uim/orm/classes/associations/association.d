@@ -172,9 +172,7 @@ class DAssociation : IAssociation{
         _cascadeCallbacks = cascadeCallbacks;
     }
 
-    /**
-     * Gets whether cascaded deletes should also fire callbacks.
-     */
+    // Gets whether cascaded deletes should also fire callbacks.
     bool getCascadeCallbacks() {
         return _cascadeCallbacks;
     }
@@ -211,14 +209,13 @@ class DAssociation : IAssociation{
      * Sets the table instance for the source side of the association.
      *
      * @param DORMDORMTable aTable the instance to be assigned as source side
-     */
+     * /
     void setSource(DORMTable aTable) {
         _sourceTable = table;
     }
 
     // Gets the table instance for the source side of the association.
-    Table getSource(): 
-    {
+    Table getSource() {
         return _sourceTable;
     }
 

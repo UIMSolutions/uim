@@ -5,8 +5,9 @@
 **********************************************************************************************************/
 module uim.orm.rules;
 
-@safe:
 import uim.orm;
+
+@safe:
 
 // Checks that a list of fields from an entity are unique in the table
 class IsUnique {

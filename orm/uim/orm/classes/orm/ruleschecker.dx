@@ -5,8 +5,9 @@
 **********************************************************************************************************/
 module uim.orm.rulechecker;
 
-@safe:
 import uim.orm;
+
+@safe:
 
 /**
  * ORM flavoured rules checker.

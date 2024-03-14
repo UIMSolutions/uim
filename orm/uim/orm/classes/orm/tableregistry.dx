@@ -5,8 +5,9 @@
 **********************************************************************************************************/
 module uim.orm.tableregistry;
 
-@safe:
 import uim.orm;
+
+@safe:
 
 /**
  * Provides a registry/factory for Table objects.

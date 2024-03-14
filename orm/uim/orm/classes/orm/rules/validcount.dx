@@ -4,8 +4,9 @@
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/module uim.orm.rules.validcount;
 
-@safe:
 import uim.orm;
+
+@safe:
 
 use Countable;
 

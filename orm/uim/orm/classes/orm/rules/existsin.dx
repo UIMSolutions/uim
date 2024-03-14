@@ -5,8 +5,9 @@
 **********************************************************************************************************/
 module uim.orm.rules.existsin;
 
-@safe:
 import uim.orm;
+
+@safe:
 
 
 // Checks that the value provided in a field exists as the primary key of another table.

@@ -1,7 +1,8 @@
 module uim.orm;
 
-@safe:
 import uim.orm;
+
+@safe:
 
 use ArrayObject;
 use InvalidArgumentException;

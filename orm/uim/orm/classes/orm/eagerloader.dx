@@ -1,9 +1,10 @@
 module uim.orm;
 
-@safe:
 import uim.orm;
 
-/use Closure;
+@safe:
+
+/
 use InvalidArgumentException;
 
 /**

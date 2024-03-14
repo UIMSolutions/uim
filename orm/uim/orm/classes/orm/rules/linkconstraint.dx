@@ -5,8 +5,9 @@
 **********************************************************************************************************/
 module uim.orm.rules;
 
-@safe:
 import uim.orm;
+
+@safe:
 
 /**
  * Checks whether links to a given association exist / do not exist.

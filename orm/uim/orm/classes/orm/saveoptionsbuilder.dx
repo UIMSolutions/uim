@@ -5,8 +5,9 @@
 **********************************************************************************************************/
 module uim.orm.saveoptionsbuilder;
 
-@safe:
 import uim.orm;
+
+@safe:
 
 /* use ArrayObject;
  */

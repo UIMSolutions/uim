@@ -1,7 +1,8 @@
 module uim.orm.behaviors;
 
-@safe:
 import uim.orm;
+
+@safe:
 
 /**
  * This behavior provides a way to translate dynamic data by keeping translations

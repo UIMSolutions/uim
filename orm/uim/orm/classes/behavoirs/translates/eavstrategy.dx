@@ -1,7 +1,8 @@
 module uim.orm.behavoirs.translates.eavstrategy;
 
-@safe:
 import uim.orm;
+
+@safe:
 
 // use ArrayObject;
 

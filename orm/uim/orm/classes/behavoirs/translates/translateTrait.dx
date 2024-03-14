@@ -1,7 +1,8 @@
 module uim.orm.behaviors\Translate;
 
-@safe:
 import uim.orm;
+
+@safe:
 
 /**
  * Contains a translation method aimed to help managing multiple translations

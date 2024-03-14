@@ -6,8 +6,9 @@
 module uim.orm.behaviors.timestamp;
 
 
-@safe:
 import uim.orm;
+
+@safe:
 
 /* use DateTimeInterface;
 use UnexpectedValueException; */

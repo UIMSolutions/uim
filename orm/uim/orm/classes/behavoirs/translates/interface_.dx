@@ -1,7 +1,8 @@
 module uim.orm.behavoirs.translates.interface_;
 
-@safe:
 import uim.orm;
+
+@safe:
 
 
 // This interface describes the methods for translate behavior strategies.

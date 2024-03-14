@@ -182,7 +182,7 @@ class CounterCacheBehavior : Behavior {
         array mysettings
     ) {
         /** @var string[] myforeignKeys */
-        myforeignKeys = (array)myassoc.getForeignKey();
+        myforeignKeys = (array)myassoc.getForeignKeys();
         mycountConditions = myentity.extract(myforeignKeys);
 
         foreach (mycountConditions as myfield: myvalue) {

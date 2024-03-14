@@ -17,7 +17,7 @@ class HasOne : DAssociation {
         STRATEGY_SELECT,
     ];
  
-    string[] getForeignKey() {
+    string[] getForeignKeys() {
         if (!isSet(_foreignKey)) {
            _foreignKey = _modelKey(this.getSource().aliasName());
         }
@@ -72,7 +72,7 @@ class HasOne : DAssociation {
             return entity;
         }
 
-        string[] foreignKeys = (array)this.getForeignKey();
+        string[] foreignKeys = (array)this.getForeignKeys();
         properties = array_combine(
             foreignKeys,
             entity.extract((array)this.getBindingKey())
@@ -92,7 +92,7 @@ class HasOne : DAssociation {
             "alias": this.aliasName(),
             "sourceAlias": this.getSource().aliasName(),
             "targetAlias": this.getTarget().aliasName(),
-            "foreignKey": this.getForeignKey(),
+            "foreignKey": this.getForeignKeys(),
             "bindingKey": this.getBindingKey(),
             "strategy": this.getStrategy(),
             "associationType": this.type(),

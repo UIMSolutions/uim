@@ -651,7 +651,7 @@ class EagerLoader {
             }
             mysource = myinstance.getSource();
             someKeys = myinstance.type() == Association.MANY_TO_ONE ?
-                (array)myinstance.getForeignKey():
+                (array)myinstance.getForeignKeys():
                 (array)myinstance.getBindingKey();
 
             myalias = mysource.aliasName();

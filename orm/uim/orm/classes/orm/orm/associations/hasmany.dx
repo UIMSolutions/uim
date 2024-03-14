@@ -107,7 +107,7 @@ class HasMany : DAssociation {
             message = "Could not save %s, it cannot be traversed".format(name);
             throw new InvalidArgumentException(message);
         }
-        string[] foreignKeys = (array)this.getForeignKey();
+        string[] foreignKeys = (array)this.getForeignKeys();
         foreignKeyReference = array_combine(
             foreignKeys,
             entity.extract((array)this.getBindingKey())
@@ -279,7 +279,7 @@ class HasMany : DAssociation {
         if (count(targetEntities) == 0) {
             return;
         }
-        foreignKey = (array)this.getForeignKey();
+        foreignKey = (array)this.getForeignKeys();
         target = this.getTarget();
         targetPrimaryKey = array_merge((array)target.getPrimaryKey(), foreignKey);
          aProperty = this.getProperty();
@@ -492,7 +492,7 @@ class HasMany : DAssociation {
         return !empty(options["matching"]);
     }
  
-    string[] getForeignKey() {
+    string[] getForeignKeys() {
         if (!isSet(_foreignKey)) {
            _foreignKey = _modelKey(this.getSource().getTable());
         }
@@ -545,7 +545,7 @@ class HasMany : DAssociation {
             "alias": this.aliasName(),
             "sourceAlias": this.getSource().aliasName(),
             "targetAlias": this.getTarget().aliasName(),
-            "foreignKey": this.getForeignKey(),
+            "foreignKey": this.getForeignKeys(),
             "bindingKey": this.getBindingKey(),
             "strategy": this.getStrategy(),
             "associationType": this.type(),

@@ -152,7 +152,7 @@ class BelongsToMany : DAssociation {
      *
      * @return array<string>|string
      */
-    string[] getForeignKey() {
+    string[] getForeignKeys() {
         if (_foreignKey == null) {
             _foreignKey = _modelKey(this.getSource().getTable());
         }
@@ -261,9 +261,9 @@ class BelongsToMany : DAssociation {
      * @param DORMTable target The target table.
      */
     protected void _generateTargetAssociations(Table junction, Table source, Table target) {
-        junctionAlias = junction.aliasName();
-        sAlias = source.aliasName();
-        tAlias = target.aliasName();
+        string junctionAlias = junction.aliasName();
+        string sAlias = source.aliasName();
+        string tAlias = target.aliasName();
 
         targetBindingKey = null;
         if (junction.hasAssociation(tAlias)) {
@@ -283,7 +283,7 @@ class BelongsToMany : DAssociation {
                 "sourceTable": target,
                 "targetTable": source,
                 "foreignKey": this.getTargetForeignKey(),
-                "targetForeignKey": this.getForeignKey(),
+                "targetForeignKey": this.getForeignKeys(),
                 "through": junction,
                 "conditions": this.getConditions(),
                 "strategy": _strategy,
@@ -317,7 +317,7 @@ class BelongsToMany : DAssociation {
             source.hasMany(junctionAlias, [
                 "targetTable": junction,
                 "bindingKey": sourceBindingKey,
-                "foreignKey": this.getForeignKey(),
+                "foreignKey": this.getForeignKeys(),
                 "strategy": _strategy,
             ]);
         }
@@ -352,7 +352,7 @@ class BelongsToMany : DAssociation {
         } else {
             belongsTo = junction.getAssociation(tAlias);
             if (
-                this.getTargetForeignKey() != belongsTo.getForeignKey() ||
+                this.getTargetForeignKey() != belongsTo.getForeignKeys() ||
                 target != belongsTo.getTarget()
             ) {
                 throw new InvalidArgumentException(
@@ -365,7 +365,7 @@ class BelongsToMany : DAssociation {
         if (!junction.hasAssociation(sAlias)) {
             junction.belongsTo(sAlias, [
                 "bindingKey": this.getBindingKey(),
-                "foreignKey": this.getForeignKey(),
+                "foreignKey": this.getForeignKeys(),
                 "targetTable": source,
             ]);
         }
@@ -396,7 +396,7 @@ class BelongsToMany : DAssociation {
 
         junction = this.junction();
         belongsTo = junction.getAssociation(this.getSource().aliasName());
-        cond = belongsTo._joinCondition(["foreignKey": belongsTo.getForeignKey()]);
+        cond = belongsTo._joinCondition(["foreignKey": belongsTo.getForeignKeys()]);
         cond += this.junctionConditions();
 
         includeFields = options["includeFields"] ?? null;
@@ -427,7 +427,7 @@ class BelongsToMany : DAssociation {
         options["conditions"] = options["conditions"] ?? [];
         junction = this.junction();
         belongsTo = junction.getAssociation(this.getSource().aliasName());
-        conds = belongsTo._joinCondition(["foreignKey": belongsTo.getForeignKey()]);
+        conds = belongsTo._joinCondition(["foreignKey": belongsTo.getForeignKeys()]);
 
         subquery = this.find()
             .select(array_values(conds))
@@ -480,7 +480,7 @@ class BelongsToMany : DAssociation {
             "alias": this.aliasName(),
             "sourceAlias": this.getSource().aliasName(),
             "targetAlias": this.getTarget().aliasName(),
-            "foreignKey": this.getForeignKey(),
+            "foreignKey": this.getForeignKeys(),
             "bindingKey": this.getBindingKey(),
             "strategy": this.getStrategy(),
             "associationType": this.type(),
@@ -508,7 +508,7 @@ class BelongsToMany : DAssociation {
         if (!this.getDependent()) {
             return true;
         }
-        foreignKey = (array)this.getForeignKey();
+        foreignKey = (array)this.getForeignKeys();
         bindingKey = (array)this.getBindingKey();
         conditions = null;
 
@@ -706,8 +706,8 @@ class BelongsToMany : DAssociation {
         junction = this.junction();
         entityClass = junction.getEntityClass();
         belongsTo = junction.getAssociation(target.aliasName());
-        foreignKey = (array)this.getForeignKey();
-        assocForeignKey = (array)belongsTo.getForeignKey();
+        foreignKey = (array)this.getForeignKeys();
+        assocForeignKey = (array)belongsTo.getForeignKeys();
         targetBindingKey = (array)belongsTo.getBindingKey();
         bindingKey = (array)this.getBindingKey();
         jointProperty = _junctionProperty;
@@ -1090,8 +1090,8 @@ class BelongsToMany : DAssociation {
                 junction = this.junction();
                 target = this.getTarget();
 
-                foreignKey = (array)this.getForeignKey();
-                assocForeignKey = (array)junction.getAssociation(target.aliasName()).getForeignKey();
+                foreignKey = (array)this.getForeignKeys();
+                assocForeignKey = (array)junction.getAssociation(target.aliasName()).getForeignKeys();
 
                 prefixedForeignKey = array_map([junction, "aliasField"], foreignKey);
                 junctionPrimaryKey = (array)junction.getPrimaryKeys();
@@ -1169,8 +1169,8 @@ class BelongsToMany : DAssociation {
         junction = this.junction();
         target = this.getTarget();
         belongsTo = junction.getAssociation(target.aliasName());
-        foreignKey = (array)this.getForeignKey();
-        assocForeignKey = (array)belongsTo.getForeignKey();
+        foreignKey = (array)this.getForeignKeys();
+        assocForeignKey = (array)belongsTo.getForeignKeys();
 
         keys = array_merge(foreignKey, assocForeignKey);
         deletes = unmatchedEntityKeys = present = null;
@@ -1304,11 +1304,11 @@ class BelongsToMany : DAssociation {
 
         belongsTo = junction.getAssociation(target.aliasName());
         hasMany = source.getAssociation(junction.aliasName());
-        foreignKey = (array)this.getForeignKey();
+        foreignKey = (array)this.getForeignKeys();
         foreignKey = array_map(function (key) {
             return key ~ " IS";
         }, foreignKey);
-        assocForeignKey = (array)belongsTo.getForeignKey();
+        assocForeignKey = (array)belongsTo.getForeignKeys();
         assocForeignKey = array_map(function (key) {
             return key ~ " IS";
         }, assocForeignKey);

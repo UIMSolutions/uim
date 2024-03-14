@@ -27,7 +27,7 @@ class DependentDeleteHelper {
         table = association.getTarget();
         /** @var callable aCallable */
         aCallable = [association, "aliasField"];
-        foreignKey = array_map(aCallable, (array)association.getForeignKey());
+        foreignKey = array_map(aCallable, (array)association.getForeignKeys());
         bindingKey = (array)association.getBindingKey();
         bindingValue = entity.extract(bindingKey);
         if (in_array(null, bindingValue, true)) {

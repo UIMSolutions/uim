@@ -1,4 +1,4 @@
-module uim.orm.associations.loaders;
+module orm.uim.orm.classes.associations.loaders.select;
 
 import uim.orm;
 
@@ -10,29 +10,22 @@ use InvalidArgumentException;
  *
  * @internal
  */
-class SelectLoader
-{
-    /**
-     * The alias of the association loading the results
-     */
+class SelectLoader {
+    // The alias of the association loading the results
     protected string anAliasName;
 
-    /**
-     * The alias of the source association
-     */
+    // The alias of the source association
     protected string sourceAlias;
 
-    /**
-     * The alias of the target association
-     */
+    // The alias of the target association
     protected string targetAlias;
 
     /**
-     * The foreignKey to the target association
+     * The foreignKeys to the target association
      *
      * @var array|string
      */
-    protected foreignKey;
+    protected foreignKeys;
 
     /**
      * The strategy to use for loading, either select or subquery

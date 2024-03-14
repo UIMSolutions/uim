@@ -117,7 +117,7 @@ class BelongsToMany : DAssociation {
         return !empty(options["matching"]);
     }
  
-    string[] getForeignKey() {
+    string[] getForeignKeys() {
         if (!isSet(_foreignKey)) {
            _foreignKey = _modelKey(this.getSource().getTable());
         }
@@ -233,7 +233,7 @@ class BelongsToMany : DAssociation {
                 "sourceTable": target,
                 "targetTable": source,
                 "foreignKey": this.getTargetForeignKey(),
-                "targetForeignKey": this.getForeignKey(),
+                "targetForeignKey": this.getForeignKeys(),
                 "through": junction,
                 "conditions": this.getConditions(),
                 "strategy": _strategy,
@@ -266,7 +266,7 @@ class BelongsToMany : DAssociation {
             source.hasMany(junctionAlias, [
                 "targetTable": junction,
                 "bindingKey": sourceBindingKey,
-                "foreignKey": this.getForeignKey(),
+                "foreignKey": this.getForeignKeys(),
                 "strategy": _strategy,
             ]);
         }
@@ -299,7 +299,7 @@ class BelongsToMany : DAssociation {
         } else {
             belongsTo = junction.getAssociation(tAlias);
             if (
-                this.getTargetForeignKey() != belongsTo.getForeignKey() ||
+                this.getTargetForeignKey() != belongsTo.getForeignKeys() ||
                 target != belongsTo.getTarget()
             ) {
                 throw new InvalidArgumentException(
@@ -311,7 +311,7 @@ class BelongsToMany : DAssociation {
         if (!junction.hasAssociation(sAlias)) {
             junction.belongsTo(sAlias, [
                 "bindingKey": this.getBindingKey(),
-                "foreignKey": this.getForeignKey(),
+                "foreignKey": this.getForeignKeys(),
                 "targetTable": source,
             ]);
         }
@@ -341,7 +341,7 @@ class BelongsToMany : DAssociation {
         }
         junction = this.junction();
         belongsTo = junction.getAssociation(this.getSource().aliasName());
-        cond = belongsTo._joinCondition(["foreignKey": belongsTo.getForeignKey()]);
+        cond = belongsTo._joinCondition(["foreignKey": belongsTo.getForeignKeys()]);
         cond += this.junctionConditions();
 
          anIncludeFields = options["includeFields"] ?? null;
@@ -371,7 +371,7 @@ class BelongsToMany : DAssociation {
         options.get("conditions", []);
         junction = this.junction();
         belongsTo = junction.getAssociation(this.getSource().aliasName());
-        conds = belongsTo._joinCondition(["foreignKey": belongsTo.getForeignKey()]);
+        conds = belongsTo._joinCondition(["foreignKey": belongsTo.getForeignKeys()]);
 
         subquery = this.find()
             .select(array_values(conds))
@@ -420,7 +420,7 @@ class BelongsToMany : DAssociation {
             "alias": this.aliasName(),
             "sourceAlias": this.getSource().aliasName(),
             "targetAlias": this.getTarget().aliasName(),
-            "foreignKey": this.getForeignKey(),
+            "foreignKey": this.getForeignKeys(),
             "bindingKey": this.getBindingKey(),
             "strategy": this.getStrategy(),
             "associationType": this.type(),
@@ -448,7 +448,7 @@ class BelongsToMany : DAssociation {
             return true;
         }
         /** @var string[] foreignKeys */
-        foreignKeys = (array)this.getForeignKey();
+        foreignKeys = (array)this.getForeignKeys();
         bindingKeys = (array)this.getBindingKey();
         conditions = [];
 
@@ -624,8 +624,8 @@ class BelongsToMany : DAssociation {
         auto junction = this.junction();
         auto entityClass = junction.getEntityClass();
         auto belongsTo = junction.getAssociation(target.aliasName());
-        string[] foreignKey = (array)this.getForeignKey();
-        string[] assocForeignKey = (array)belongsTo.getForeignKey();
+        string[] foreignKey = (array)this.getForeignKeys();
+        string[] assocForeignKey = (array)belongsTo.getForeignKeys();
         auto targetBindingKey = (array)belongsTo.getBindingKey();
         auto bindingKey = (array)this.getBindingKey();
         auto jointProperty = _junctionProperty;
@@ -974,8 +974,8 @@ class BelongsToMany : DAssociation {
                 target = this.getTarget();
 
                 /** @var string[] foreignKey */
-                foreignKey = (array)this.getForeignKey();
-                assocForeignKey = (array)junction.getAssociation(target.aliasName()).getForeignKey();
+                foreignKey = (array)this.getForeignKeys();
+                assocForeignKey = (array)junction.getAssociation(target.aliasName()).getForeignKeys();
                 prefixedForeignKey = array_map([junction, "aliasField"], foreignKey);
 
                 junctionPrimaryKey = (array)junction.getPrimaryKey();
@@ -1050,9 +1050,9 @@ class BelongsToMany : DAssociation {
         junction = this.junction();
         target = this.getTarget();
         belongsTo = junction.getAssociation(target.aliasName());
-        string[] foreignKey = (array)this.getForeignKey();
+        string[] foreignKey = (array)this.getForeignKeys();
         /** @var string[] assocForeignKey */
-        assocForeignKey = (array)belongsTo.getForeignKey();
+        assocForeignKey = (array)belongsTo.getForeignKeys();
 
         someKeys = array_merge(foreignKey, assocForeignKey);
         deletes = unmatchedEntityKeys = present = [];
@@ -1174,11 +1174,11 @@ class BelongsToMany : DAssociation {
         belongsTo = junction.getAssociation(target.aliasName());
         hasMany = source.getAssociation(junction.aliasName());
         /** @var string[] foreignKey */
-        foreignKey = (array)this.getForeignKey();
+        foreignKey = (array)this.getForeignKeys();
         foreignKey = array_map(function (aKey) {
             return aKey ~ " IS";
         }, foreignKey);
-        assocForeignKey = (array)belongsTo.getForeignKey();
+        assocForeignKey = (array)belongsTo.getForeignKeys();
         assocForeignKey = array_map(function (aKey) {
             return aKey ~ " IS";
         }, assocForeignKey);

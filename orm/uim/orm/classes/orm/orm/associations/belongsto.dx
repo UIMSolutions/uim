@@ -15,7 +15,7 @@ class BelongsTo : DAssociation {
         self.STRATEGY_SELECT,
     ];
 
-    string[] getForeignKey() {
+    string[] getForeignKeys() {
         if (!isSet(_foreignKey)) {
             _foreignKey = _modelKey(this.getTarget().aliasName());
         }
@@ -91,7 +91,7 @@ class BelongsTo : DAssociation {
             return false;
         }
         /** @var string[] foreignKeys */
-        foreignKeys = (array) this.getForeignKey();
+        foreignKeys = (array) this.getForeignKeys();
         properties = array_combine(
             foreignKeys,
             targetEntity.extract((array) this.getBindingKey())
@@ -144,7 +144,7 @@ class BelongsTo : DAssociation {
                 "sourceAlias": this.getSource()
                 .aliasName(),
                 "targetAlias": this.getTarget().aliasName(),
-                "foreignKey": this.getForeignKey(),
+                "foreignKey": this.getForeignKeys(),
                 "bindingKey": this.getBindingKey(),
                 "strategy": this.getStrategy(),
                 "associationType": this.type(),

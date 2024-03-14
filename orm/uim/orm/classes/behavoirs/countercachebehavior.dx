@@ -197,7 +197,7 @@ class CounterCacheBehavior : Behavior {
         Association assoc,
         array settings
     ) {
-        foreignKeys = (array)assoc.getForeignKey();
+        foreignKeys = (array)assoc.getForeignKeys();
         countConditions = entity.extract(foreignKeys);
 
         foreach (countConditions as field: value) {

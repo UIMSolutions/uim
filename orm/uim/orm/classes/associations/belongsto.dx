@@ -23,7 +23,7 @@ class BelongsTo : DAssociation {
     ];
 
     // Gets the name of the field representing the foreign key to the target table.
-    string[] getForeignKey() {
+    string[] getForeignKeys() {
       if (_foreignKeys == null) {
           _foreignKeys = _modelKey(this.getTarget().aliasName());
       }
@@ -92,7 +92,7 @@ class BelongsTo : DAssociation {
         }
 
         auto properties = array_combine(
-            (array)this.getForeignKey(),
+            (array)this.getForeignKeys(),
             targetEntity.extract((array)this.getBindingKey())
         );
         entity.set(properties, ["guard": false]);
@@ -147,7 +147,7 @@ class BelongsTo : DAssociation {
             "alias": this.aliasName(),
             "sourceAlias": this.getSource().aliasName(),
             "targetAlias": this.getTarget().aliasName(),
-            "foreignKey": this.getForeignKey(),
+            "foreignKey": this.getForeignKeys(),
             "bindingKey": this.getBindingKey(),
             "strategy": this.getStrategy(),
             "associationType": this.type(),

@@ -131,7 +131,7 @@ class HasMany : DAssociation {
         }
 
         foreignKeyReference = array_combine(
-            (array)this.getForeignKey(),
+            (array)this.getForeignKeys(),
             entity.extract((array)this.getBindingKey())
         );
 
@@ -316,7 +316,7 @@ class HasMany : DAssociation {
             return;
         }
 
-        foreignKey = (array)this.getForeignKey();
+        foreignKey = (array)this.getForeignKeys();
         myTarget = this.getTarget();
         myTargetPrimaryKey = array_merge((array)myTarget.getPrimaryKeys(), foreignKey);
         property = this.getProperty();
@@ -539,7 +539,7 @@ class HasMany : DAssociation {
     }
 
     // Gets the name of the field representing the foreign key to the source table.
-    string[] getForeignKey() {
+    string[] getForeignKeys() {
         if (_foreignKey is null) {
             _foreignKey = _modelKey(this.getSource().getTable());
         }
@@ -598,7 +598,7 @@ class HasMany : DAssociation {
             "alias":this.aliasName(),
             "sourceAlias":this.getSource().aliasName(),
             "targetAlias":this.getTarget().aliasName(),
-            "foreignKey":this.getForeignKey(),
+            "foreignKey":this.getForeignKeys(),
             "bindingKey":this.getBindingKey(),
             "strategy":this.getStrategy(),
             "associationType":this.type(),

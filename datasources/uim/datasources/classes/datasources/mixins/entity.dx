@@ -88,7 +88,7 @@ mixin EntityTemplate {
      * string afield Name of the field to access
     */
   Json & __get(string fieldName) {
-    return this.get(field);
+    return get(field);
   }
 
   /**
@@ -107,7 +107,7 @@ mixin EntityTemplate {
      * string afield The field to check.
      */
   bool __isSet(string fieldName) {
-    return !this.get(fieldName).isNull;
+    return !get(fieldName).isNull;
   }
 
   // Removes a field from this entity
@@ -289,7 +289,7 @@ mixin EntityTemplate {
       throw new InvalidArgumentException(
         "Cannot retrieve original value for field `%s`".format(fieldName));
     }
-    return this.get(fieldName);
+    return get(fieldName);
   }
 
   // Gets all original values of the entity.
@@ -357,7 +357,7 @@ mixin EntityTemplate {
      * string afield The field to check.
      */
   bool isEmpty(string afield) {
-    aValue = this.get(field);
+    aValue = get(field);
     if (
       aValue.isNull ||
       (
@@ -477,7 +477,7 @@ mixin EntityTemplate {
   array toArray() {
     auto result;
     foreach (this.getVisible() asfield) {
-      aValue = this.get(field);
+      aValue = get(field);
       if (isArray(aValue)) {
         result[field] = [];
         aValue.byKeyValue
@@ -504,7 +504,7 @@ mixin EntityTemplate {
   }
 
   Json & offsetGet(Json anOffset) {
-    return this.get(anOffset);
+    return get(anOffset);
   }
 
   /**
@@ -574,7 +574,7 @@ mixin EntityTemplate {
     STRINGAA result;
     fieldsToReturn
       .filter!(field => !returnOnlyDirty || this.isDirty(field))
-      .each!(field => result[field] = this.get(field));
+      .each!(field => result[field] = get(field));
 
     return result;
   }
@@ -595,7 +595,7 @@ mixin EntityTemplate {
         result[field] = this.getOriginal(field);
       }
       else if(this.isOriginalField(field)) {
-        result[field] = this.get(field);
+        result[field] = get(field);
       }
     });
     return result;
@@ -614,7 +614,7 @@ mixin EntityTemplate {
       .filter!(field => this.hasOriginal(field))
       .each!((field) {
         auto originalField = this.getOriginal(field);
-        if (originalField != this.get(field)) {
+        if (originalField != get(field)) {
           result[field] = originalField;
         }
       });
@@ -848,7 +848,7 @@ mixin EntityTemplate {
                                 string fieldName) {
                                   // Only one path element, check for nested entity with error.
                                   if (!fieldName.has(".")) {
-                                    entity = this.get(fieldName); if (cast(IEntity)entity || is_iterable(
+                                    entity = get(fieldName); if (cast(IEntity)entity || is_iterable(
                                       entity)) {
                                       return _readError(entity);}
                                       return null;}

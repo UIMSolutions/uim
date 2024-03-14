@@ -18,10 +18,10 @@ template TranslateTemplate {
      * string mylanguage Language to return entilty for.
      */
     IEntity translation(string mylanguage) {
-        if (mylanguage == this.get("_locale")) {
+        if (mylanguage == get("_locale")) {
             return null;
         }
-        myi18n = this.get("_translations");
+        myi18n = get("_translations");
         mycreated = false;
 
         if (isEmpty(myi18n)) {

@@ -152,7 +152,7 @@ class WidgetLocator {
                 if (myrequirement == "_view") {
                     myarguments ~= _view;
                 } else {
-                    myarguments ~= this.get(myrequirement);
+                    myarguments ~= get(myrequirement);
                 }
             }
             myinstance = myreflection.newInstanceArgs(myarguments);

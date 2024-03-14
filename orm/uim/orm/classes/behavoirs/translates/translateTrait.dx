@@ -20,11 +20,11 @@ trait TranslateTrait
      * @return DORMDatasource\IEntity|this
      */
     function translation(string language) {
-        if (language == this.get("_locale")) {
+        if (language == get("_locale")) {
             return this;
         }
 
-        i18n = this.get("_translations");
+        i18n = get("_translations");
         created = false;
 
         if (empty(i18n)) {

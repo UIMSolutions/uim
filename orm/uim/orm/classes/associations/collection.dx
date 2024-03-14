@@ -215,7 +215,7 @@ class AssociationCollection : IteratorAggregate {
                 alias = nested;
                 nested = null;
             }
-            relation = this.get(alias);
+            relation = get(alias);
             if (!relation) {
                 msg = sprintf(
                     "Cannot save %s, it is not associated to %s",

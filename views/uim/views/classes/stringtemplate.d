@@ -125,7 +125,7 @@ class StringTemplate {
     }
 
     /* protected void compileTemplate(string templateName) {
-      string templateValue = this.get(templateName);
+      string templateValue = get(templateName);
             if (templateValue.isNull) {
                 throw new InvalidArgumentException("String template `%s` is not valid.".format(templateName));
             }

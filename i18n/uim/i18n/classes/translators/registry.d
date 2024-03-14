@@ -162,7 +162,7 @@ class DTranslatorRegistry {
         ICatalog catalog = this.catalogs.get(catalogName, localname);
         auto fallback = catalog.fallback();
         if (!fallback.isNull) {
-            fallback = this.get(fallback, localname);
+            fallback = get(fallback, localname);
         }
         formatter = this.formatters.get(catalog.formatterName());
 

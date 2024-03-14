@@ -91,7 +91,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
 
         IData[string] results;
         // someKeys
-        // hes    .each!(key => results[key] = this.get(key, mydefault));
+        // hes    .each!(key => results[key] = get(key, mydefault));
 
         return results;
     }
@@ -158,7 +158,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * string aKey The cache item key.
      */
     /* bool has(string aKey) {
-        return this.get(aKey) !isNull;
+        return get(aKey) !isNull;
     } */
 
     /**
@@ -210,7 +210,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * @param Json aValue Data to be cached.
      * /
     bool add(string aKey, Json aValue) {
-        mycachedValue = this.get(aKey);
+        mycachedValue = get(aKey);
         if (mycachedValue.isNull) {
             return this.set(aKey, myvalue);
         }

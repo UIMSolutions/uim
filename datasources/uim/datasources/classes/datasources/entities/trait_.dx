@@ -109,7 +109,7 @@ trait EntityTrait
      * @return mixed
      */
     function &__get(string field) {
-        return this.get(field);
+        return get(field);
     }
 
     /**
@@ -285,7 +285,7 @@ trait EntityTrait
             return _original[field];
         }
 
-        return this.get(field);
+        return get(field);
     }
 
     /**
@@ -331,7 +331,7 @@ trait EntityTrait
      */
     bool has(field) {
         foreach ((array)field as prop) {
-            if (this.get(prop) == null) {
+            if (get(prop) == null) {
                 return false;
             }
         }
@@ -354,7 +354,7 @@ trait EntityTrait
      * @param string field The field to check.
      */
     bool isEmpty(string field) {
-        value = this.get(field);
+        value = get(field);
         if (
             value == null ||
             (
@@ -498,7 +498,7 @@ trait EntityTrait
     array toArray() {
         result = null;
         foreach (this.getVisible() as field) {
-            value = this.get(field);
+            value = get(field);
             if (is_array(value)) {
                 result[field] = null;
                 foreach (value as  k: entity) {
@@ -543,7 +543,7 @@ trait EntityTrait
      */
     #[\ReturnTypeWillChange]
     function &offsetGet(offset) {
-        return this.get(offset);
+        return get(offset);
     }
 
     /**
@@ -619,7 +619,7 @@ trait EntityTrait
         result = null;
         foreach (fields as field) {
             if (! onlyDirty || this.isDirty(field)) {
-                result[field] = this.get(field);
+                result[field] = get(field);
             }
         }
 
@@ -657,7 +657,7 @@ trait EntityTrait
         result = null;
         foreach (fields as field) {
              original = this.getOriginal(field);
-            if ( original != this.get(field)) {
+            if ( original != get(field)) {
                 result[field] =  original;
             }
         }
@@ -880,7 +880,7 @@ trait EntityTrait
     protected function _nestedErrors(string field) {
         // Only one path element, check for nested entity with error.
         if (strpos(field, ".") == false) {
-            return _readError(this.get(field));
+            return _readError(get(field));
         }
         // Try reading the errors data with field as a simple path
         error = Hash::get(_errors, field);

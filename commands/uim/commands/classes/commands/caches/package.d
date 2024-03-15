@@ -1,8 +1,8 @@
 module uim.commands.classes.commands.caches;
 
 public {
-    import uim.commands.classes.commands.caches.cacheclear;
-    import uim.commands.classes.commands.caches.cacheclearall;
-    import uim.commands.classes.commands.caches.cachecleargroup;
-    import uim.commands.classes.commands.caches.cachelist;
+    import uim.commands.classes.commands.caches.clear;
+    import uim.commands.classes.commands.caches.clearall;
+    import uim.commands.classes.commands.caches.cleargroup;
+    import uim.commands.classes.commands.caches.list;
 }

@@ -7,14 +7,14 @@ module uim.oop.patterns.behaviorals.commands.version3;
 
 import uim.oop;
 @safe:
-
-public interface Command {
+ /* 
+public interface IXCommand {
 	public void execute();
 	public void undo();
 }
 
 
-public class NoCommand : DCommand {
+public class NoXCommand : IXCommand {
 	void execute() {
 	}
 
@@ -23,7 +23,7 @@ public class NoCommand : DCommand {
 }
 
 
-public class LightOnCommand : DCommand {
+public class LightOnXCommand : IXCommand {
 private:
 	Light light;
 
@@ -38,7 +38,7 @@ public:
 		light.off(); }
 }
 
-public class LightOffCommand : DCommand {
+public class LightOffCommand : IXCommand {
 private:
 	Light light;
 	
@@ -67,7 +67,7 @@ class Light {
 		writefln("Light in %s is off", location); }
 }
 
-public class TVOnCommand : DCommand {
+public class TVOnCommand : IXCommand {
 private:
 	TV tv;
 	
@@ -83,7 +83,7 @@ public:
 }
 
 
-public class TVOffCommand : DCommand {
+public class TVOffCommand : IXCommand {
 private:
 	TV tv;
 	
@@ -149,7 +149,7 @@ public:
 		return location; }
 }
 
-class CeilingFanHighCommand : DCommand {
+class CeilingFanHighCommand : DXCommand {
 private:
 	CeilingFan ceilingFan;
 	int previousSpeed;
@@ -191,7 +191,7 @@ public:
 	}
 }
 
-class CeilingFanLowCommand : DCommand {
+class CeilingFanLowCommand : IXCommand {
 private:
 	CeilingFan ceilingFan;
 	int previousSpeed;
@@ -234,7 +234,7 @@ public:
 }
 
 
-public class MacroCommand : DCommand {
+public class MacroCommand : IXCommand {
 	private Command[] commands;
 
 public:
@@ -252,8 +252,8 @@ public:
 
 public class RemoteControlWithUndo {
 private:
-	Command[] onCommands, offCommands;
-	Command undoCommand;
+	IXCommand[] onCommands, offCommands;
+	IXCommand undoCommand;
 
 public:
 	this() {
@@ -344,3 +344,4 @@ Command[] toCommand(T:Command)(T[] commands) {
     writeln("TV:");
     remoteControl.offButtonPressed(4);  
     }}
+	*/

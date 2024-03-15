@@ -1,4 +1,4 @@
-module uim.commands.caches.cachelist;
+module uim.commands.classes.commands.caches.list;
 
 import uim.commands;
 

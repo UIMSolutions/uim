@@ -9,7 +9,7 @@ import uim.commands;
  * @internal
  */
 template PluginAssetsTemplate {
-    protected Arguments commandArguments;
+    protected IData [string] arguments;
 
     // Console IO
     protected IConsoleIo aConsoleIo;

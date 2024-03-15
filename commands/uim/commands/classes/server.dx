@@ -36,11 +36,11 @@ class ServerCommand : DCommand {
      * Starts up the Command and displays the welcome message.
      * Allows for checking and configuring prior to command or main execution
      * Params:
-     * \UIM\Console\Arguments commandArguments The command arguments.
+     * \UIM\Console\IData [string] arguments The command arguments.
      * @param \UIM\Console\IConsoleIo aConsoleIo The console io
      * @link https://book.UIM.org/5/en/console-and-shells.html#hook-methods
      */
-    protected void startup(Arguments commandArguments, IConsoleIo aConsoleIo) {
+    protected void startup(IData [string] arguments, IConsoleIo aConsoleIo) {
         if (commandArguments.getOption("host")) {
            _host = to!string(commandArguments.getOption("host"));
         }

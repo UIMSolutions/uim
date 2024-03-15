@@ -213,7 +213,7 @@ class I18nExtractCommand : DCommand {
     }
     
     // Extract text
-    protected void _extract(Arguments commandArguments, IConsoleIo aConsoleIo) {
+    protected void _extract(IData [string] arguments, IConsoleIo aConsoleIo) {
          aConsoleIo.writeln();
          aConsoleIo.writeln();
          aConsoleIo.writeln("Extracting...");
@@ -304,10 +304,10 @@ class I18nExtractCommand : DCommand {
     /**
      * Extract tokens out of all files to be processed
      * Params:
-     * \UIM\Console\Arguments commandArguments The io instance
+     * \UIM\Console\IData [string] arguments The io instance
      * @param \UIM\Console\IConsoleIo aConsoleIo The io instance
      */
-    protected void _extractTokens(Arguments commandArguments, IConsoleIo aConsoleIo) {
+    protected void _extractTokens(IData [string] arguments, IConsoleIo aConsoleIo) {
         progress = aConsoleIo.helper("progress");
         assert(cast(ProgressHelper)progress);
         progress.initialize(["total": count(_files)]);
@@ -416,9 +416,9 @@ class I18nExtractCommand : DCommand {
     /**
      * Build the translate template file contents out of obtained strings
      * Params:
-     * \UIM\Console\Arguments commandArguments Console arguments
+     * \UIM\Console\IData [string] arguments Console arguments
      */
-    protected void _buildFiles(Arguments commandArguments) {
+    protected void _buildFiles(IData [string] arguments) {
         somePaths = _paths;
         somePaths ~= realpath(APP) ~ DIRECTORY_SEPARATOR;
 
@@ -488,10 +488,10 @@ class I18nExtractCommand : DCommand {
     /**
      * Write the files that need to be stored
      * Params:
-     * \UIM\Console\Arguments commandArguments The command arguments.
+     * \UIM\Console\IData [string] arguments The command arguments.
      * @param \UIM\Console\IConsoleIo aConsoleIo The console io
      */
-    protected void _writeFiles(Arguments commandArguments, IConsoleIo aConsoleIo) {
+    protected void _writeFiles(IData [string] arguments, IConsoleIo aConsoleIo) {
          aConsoleIo.writeln();
         overwriteAll = false;
         if (commandArguments.getOption("overwrite")) {

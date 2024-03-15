@@ -27,7 +27,7 @@ class DServerCommand : DCommand {
     protected int _port = DEFAULT_PORT;
 
     // document root
-    // protected string _documentRoot = WWW_ROOT;
+    protected string _documentRoot; // TODO = WWW_ROOT;
 
     // ini path
     protected string _iniPath = "";
@@ -36,17 +36,15 @@ class DServerCommand : DCommand {
      * Starts up the Command and displays the welcome message.
      * Allows for checking and configuring prior to command or main execution
      * Params:
-     * \UIM\Console\Arguments commandArguments The command arguments.
+     * \UIM\Console\IData [string] arguments The command arguments.
      * @param \UIM\Console\IConsoleIo aConsoleIo The console io
      * @link https://book.UIM.org/5/en/console-and-shells.html#hook-methods
      * /
-    protected void startup(Arguments commandArguments, IConsoleIo aConsoleIo) {
-        if (commandArguments.getOption("host")) {
-           _host = to!string(commandArguments.getOption("host"));
-        }
-        if (commandArguments.getOption("port")) {
-           _port = to!int(commandArguments.getOption("port"));
-        }
+    protected void startup(IData [string] arguments, IConsoleIo aConsoleIo) {
+        _host = commandArguments.getString("host", _host); 
+
+        _port = commandArguments.getInteger("port", _port));
+
         if (commandArguments.getOption("document_root")) {
            _documentRoot = to!string(commandArguments.getOption("document_root"));
         }

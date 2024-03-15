@@ -74,7 +74,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
     }
 
     // Get the list of defined commands.
-    protected int getCommands(Arguments commandArguments, IConsoleIo aConsoleIo) {
+    protected int getCommands(IData [string] arguments, IConsoleIo aConsoleIo) {
         auto options = [];
         foreach (aKey, aValue; this.commands) {
             string[] someParts = split(" ", aKey);
@@ -88,7 +88,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
     }
 
     // Get the list of defined sub-commands.
-    protected int getSubcommands(Arguments commandArguments, IConsoleIo aConsoleIo) {
+    protected int getSubcommands(IData [string] arguments, IConsoleIo aConsoleIo) {
         string commandName = commandArguments.getArgument("command");
         if (commandName.isNull || commandName.isEmpty) {
             return CODE_SUCCESS;
@@ -114,7 +114,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
     }
 
     // Get the options for a command or subcommand
-    protected int getOptions(Arguments commandArguments, IConsoleIo aConsoleIo) {
+    protected int getOptions(IData [string] arguments, IConsoleIo aConsoleIo) {
         auto commandName = commandArguments.getArgument("command");
         auto subcommand = commandArguments.getArgument("subcommand");
 

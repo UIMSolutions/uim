@@ -18,7 +18,7 @@ class DRoutesCommand : DCommand {
     // Display all routes in an application
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         auto myheader = ["Route name", "URI template", "Plugin", "Prefix", "Controller", "Action", "Method(s)"];
-        if (commandArguments.getOption("verbose")) {
+        if (arguments.getOption("verbose")) {
              aHeader ~= "Defaults";
         }
         auto myavailableRoutes = Router.routes();
@@ -37,7 +37,7 @@ class DRoutesCommand : DCommand {
                 someMethods.join(", "),
             ];
 
-            if (commandArguments.getOption("verbose")) {
+            if (arguments.getOption("verbose")) {
                 ksort(route.defaults);
                  anItem ~= json_encode(route.defaults, JSON_THROW_ON_ERROR);
             }
@@ -51,7 +51,7 @@ class DRoutesCommand : DCommand {
             });
         });
 
-        if (commandArguments.getOption("sort")) {
+        if (arguments.getOption("sort")) {
             usort( output, auto (a, b) {
                 return strcasecmp(a[0], b[0]);
             });

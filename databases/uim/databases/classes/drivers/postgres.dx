@@ -3,7 +3,7 @@ module uim.databases.classes.drivers.postgresx;
 import uim.databases;
 
 @safe:
-class PostgresDriver : Driver {
+class DPostgresDriver : DDriver {
     mixin(DriverThis!("Postgres"));
 
     override bool initialize(IData[string] initData = null) {

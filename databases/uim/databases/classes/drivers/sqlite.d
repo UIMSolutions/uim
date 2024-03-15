@@ -1,34 +1,46 @@
-module uim.databases.classes.drivers.sqlitex;
+module databases.uim.databases.classes.drivers.sqlite;
 
 import uim.databases;
 
 @safe:
 
-class SqliteDriver : Driver {
-    mixin(DriverThis!("SqliteDriver"));
-    
-  	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
+class SqliteDriver : DDriver {
+    mixin(DriverThis!("Sqlite"));
 
-        _baseConfig.data([
-        "persistent": false,
-        "username": null,
-        "password": null,
-        "database": ":memory:",
-        "encoding": "utf8",
-        "mask": 0644,
-        "cache": null,
-        "mode": null,
-        "flags": [],
-        "init": [],
-    ]);
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
-    protected string _startQuote = "\"";
+        configuration.update([
+            "persistent": BooleanData(false),
+            "username": StringData,
+            "password": StringData,
+            "database": StringData(":memory:"),
+            "encoding": StringData("utf8"),
+            /* "mask": 0644,
+            "cache": null,
+            "mode": null,
+            "flags": [],
+            "init": [], */
+        ]);
 
-    protected string _endQuote = "\"";
-		return true;
-	}
+        startQuote("\"");
+        endQuote("\"");
 
+        return true;
+    }
+
+    // Get the SQL for disabling foreign keys.
+    string disableForeignKeySQL() {
+        return "PRAGMA foreign_keys = OFF";
+    }
+
+    string enableForeignKeySQL() {
+        return "PRAGMA foreign_keys = ON";
+    }
+
+    /*
     use TupleComparisonTranslatorTrait;
 
     protected const STATEMENT_CLASS = SqliteStatement.classname;
@@ -37,7 +49,7 @@ class SqliteDriver : Driver {
      * Base configuration settings for Sqlite driver
      *
      * - `mask` The mask used for created database
-     */
+     * /
 
     // Whether the connected server supports window functions
     protected bool _supportsWindowFunctions = null;
@@ -104,20 +116,12 @@ class SqliteDriver : Driver {
     
     /**
      * Returns whether D is able to use this driver for connecting to database
-     */
+     * /
     bool enabled() {
         return in_array("sqlite", PDO.getAvailableDrivers(), true);
     }
     
-    /**
-     * Get the SQL for disabling foreign keys.
-     */
-    string disableForeignKeySQL() {
-        return "PRAGMA foreign_keys = OFF";
-    }
-    string enableForeignKeySQL() {
-        return "PRAGMA foreign_keys = ON";
-    }
+
 
     bool supports(DriverFeatures feature) {
         return match (feature) {
@@ -159,7 +163,7 @@ class SqliteDriver : Driver {
      * SQL dialect.
      * Params:
      * \UIM\Database\Expression\FunctionExpression expression The auto expression to convert to TSQL.
-     */
+     * /
     protected void _transformFunctionExpression(FunctionExpression expression) {
         switch (expression.name) {
             case "CONCAT":
@@ -222,5 +226,5 @@ class SqliteDriver : Driver {
                     .add([") + (1": 'literal"]); // Sqlite starts on index 0 but Sunday should be 1
                 break;
         }
-    }
+    } */
 }

@@ -4,8 +4,8 @@ import uim.databases;
 
 @safe:
 
-class SqlserverDriver : Driver {
-    mixin(DriverThis!("SqlserverDriver"));
+class DSqlserverDriver : DDriver {
+    mixin(DriverThis!("Sqlserver"));
     
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }

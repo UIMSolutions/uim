@@ -1,8 +1,33 @@
-module databases.uim.databases.mixins.statement;
+module uim.databases.mixins.statement;
 
 import uim.databases;
 
 @safe:
 
-class DDBDriver {
+string statementThis(string name) {
+    auto fullname = name~"Statement";
+    return `
+this() {
+    initialize(); this.name("`~fullname~`");
+}
+this(string name) {
+    this(); this.name(name);
+}
+    `;    
+}
+
+template StatementThis(string name) {
+    const char[] StatementThis = statementThis(name);
+}
+
+string statementCalls(string name) {
+    auto fullname = name~"Statement";
+    return `
+auto `~fullname~`() { return new D`~fullname~`(); }
+auto `~fullname~`(string name) { return new D`~fullname~`(name); }
+    `;    
+}
+
+template StatementCalls(string name) {
+    const char[] StatementThis = statementCalls(name);
 }

@@ -1,4 +1,4 @@
-module uim.commands.classes.caches.cacheclear;
+module uim.commands.classes.commands.caches.cacheclear;
 
 import uim.commands;
 

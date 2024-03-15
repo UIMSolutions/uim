@@ -6,7 +6,7 @@ import uim.commands;
 
 // Cache Clear Group command.
 class CacheClearGroupCommand : DCommand {
-  mixin(CommandThis!("CacheClearGroupCommand"));
+  mixin(CommandThis!("CacheClearGroup"));
 
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
@@ -24,7 +24,7 @@ class CacheClearGroupCommand : DCommand {
      *
      * @see https://book.UIM.org/5/en/console-commands/option-parsers.html
      * @param \UIM\Console\ConsoleOptionParser  aParser The parser to be defined
-     */
+     * /
   ConsoleOptionParser buildOptionParser(ConsoleOptionParser parserToDefine) {
     auto definedParser = super.buildOptionParser(parserToDefine);
     definedParser.description("Clear all data in a single cache group.");
@@ -71,5 +71,5 @@ class CacheClearGroupCommand : DCommand {
       }
     }
     return CODE_SUCCESS;
-  }
+  } */
 }

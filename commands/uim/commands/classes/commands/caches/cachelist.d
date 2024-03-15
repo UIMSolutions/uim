@@ -6,7 +6,7 @@ import uim.commands;
 
 // CacheList command.
 class CacheListCommand : DCommand {
-  mixin(CommandThis!("CacheListCommand"));
+  mixin(CommandThis!("CacheList"));
 
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
@@ -19,6 +19,7 @@ class CacheListCommand : DCommand {
   }
 
   // Hook method for defining this command`s option parser.
+  /* 
   ConsoleOptionParser buildOptionParser(ConsoleOptionParser parserToBeDefined) {
     auto myParser = super.buildOptionParser(parserToBeDefinedr);
     myParser.description("Show a list of configured caches.");
@@ -33,5 +34,5 @@ class CacheListCommand : DCommand {
       .each!(engine => aConsoleIo.writeln("- %s".format(engine)));
 
     return CODE_SUCCESS;
-  }
+  } */
 }

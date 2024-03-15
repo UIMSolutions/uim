@@ -5,8 +5,8 @@ import uim.commands;
 @safe:
 
 // Provides interactive CLI tools for routing.
-class RoutesCommand : DCommand {
-   mixin(CommandThis!("RoutesCommand"));
+class DRoutesCommand : DCommand {
+   mixin(CommandThis!("Routes"));
 
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
@@ -14,6 +14,7 @@ class RoutesCommand : DCommand {
 		return true;
 	}
 
+    /* 
     // Display all routes in an application
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         auto myheader = ["Route name", "URI template", "Plugin", "Prefix", "Controller", "Action", "Method(s)"];

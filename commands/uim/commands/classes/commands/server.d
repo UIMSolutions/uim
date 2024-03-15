@@ -6,7 +6,7 @@ import uim.commands;
 
 // built-in Server command
 class ServerCommand : DCommand {
-   mixin(CommandThis!("ServerCommand"));
+   mixin(CommandThis!("Server"));
 
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }

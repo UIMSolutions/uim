@@ -6,7 +6,7 @@ import uim.commands;
 
 // Provides interactive CLI tool for testing routes.
 class RoutesCheckCommand : DCommand {
-   mixin(CommandThis!("RoutesCheckCommand"));
+   mixin(CommandThis!("RoutesCheck"));
 
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }

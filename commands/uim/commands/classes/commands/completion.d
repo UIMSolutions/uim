@@ -6,7 +6,7 @@ import uim.commands;
 
 // Provide command completion shells such as bash.
 class CompletionCommand : DCommand, ICommandCollectionAware {
-   mixin(CommandThis!("CompletionCommand"));
+   mixin(CommandThis!("Completion"));
 
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
@@ -14,6 +14,7 @@ class CompletionCommand : DCommand, ICommandCollectionAware {
 		return true;
 	}
 
+    /* 
     protected CommandCollection _commands;
 
     // Set the command collection used to get completion data on.
@@ -151,5 +152,5 @@ class CompletionCommand : DCommand, ICommandCollectionAware {
         aConsoleIo.out (join(" ", options));
 
         return static.CODE_SUCCESS;
-    }
+    } */
 }

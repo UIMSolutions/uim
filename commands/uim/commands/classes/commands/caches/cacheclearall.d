@@ -6,7 +6,7 @@ import uim.commands;
 
 // CacheClearall command.
 class CacheClearallCommand : DCommand {
-  mixin(CommandThis!("CacheClearallCommand"));
+  mixin(CommandThis!("CacheClearall"));
 
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
@@ -24,7 +24,7 @@ class CacheClearallCommand : DCommand {
      *
      * @see https://book.UIM.org/5/en/console-commands/option-parsers.html
      * @param \UIM\Console\ConsoleOptionParser  aParser The parser to be defined
-     */
+     * /
   ConsoleOptionParser buildOptionParser(ConsoleOptionParser parserToBeDefined) {
     auto result = super.buildOptionParser(parserToBeDefined);
     result.description("Clear all data in all configured cache engines.");
@@ -38,5 +38,5 @@ class CacheClearallCommand : DCommand {
     myEngines.each!(engine => this.executeCommand(CacheClearCommand . class, [engine], aConsoleIo));
 
     return CODE_SUCCESS;
-  }
+  } */
 }

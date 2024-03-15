@@ -1,4 +1,4 @@
-module uim.logging.mixins.logengine;
+module uim.logging.mixins.engine;
 
 import uim.logging;
 

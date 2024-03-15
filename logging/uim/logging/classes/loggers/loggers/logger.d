@@ -25,7 +25,7 @@ abstract class Logger /* : AbstractLogger */ {
         return true;
     }
 
-//     mixin InstanceConfigTemplate;
+    mixin(TProperty!("string", "name"));
 
     /* .updateDefaults([
         "levels": [],

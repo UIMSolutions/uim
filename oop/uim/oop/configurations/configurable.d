@@ -29,6 +29,13 @@ mixin template TConfigurable() {
         }
     }
 
+    // Set configuration data
+    void configurationUpdate(IData[string] newData) {
+        if (_configuration) {
+            _configuration.update(newData);
+        }
+    }
+
     /* IData getConfiguration(string key) {
         return _configuration ? _configuration.get(key) : null;
     }

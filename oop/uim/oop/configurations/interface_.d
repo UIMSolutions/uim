@@ -28,7 +28,7 @@ interface IConfiguration : INamed {
     // void set(string key, IData newData);
     // void set(string[] keys, IData[string] newData);
 
-    // void update(IData[string] newData);
+    void update(IData[string] newData);
 
     void remove(string[] keys);
 }

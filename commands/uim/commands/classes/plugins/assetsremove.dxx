@@ -5,7 +5,7 @@ import uim.commands;
 @safe:
 
 // Command for removing plugin assets from app`s webroot.
-class PluginAssetsRemoveCommand : Command {
+class PluginAssetsRemoveCommand : DCommand {
    mixin(CommandThis!("PluginAssetsRemove"));
 
   	override bool initialize(IData[string] initData = null) {

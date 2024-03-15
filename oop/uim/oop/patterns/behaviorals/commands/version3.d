@@ -14,7 +14,7 @@ public interface Command {
 }
 
 
-public class NoCommand : Command {
+public class NoCommand : DCommand {
 	void execute() {
 	}
 
@@ -23,7 +23,7 @@ public class NoCommand : Command {
 }
 
 
-public class LightOnCommand : Command {
+public class LightOnCommand : DCommand {
 private:
 	Light light;
 
@@ -38,7 +38,7 @@ public:
 		light.off(); }
 }
 
-public class LightOffCommand : Command {
+public class LightOffCommand : DCommand {
 private:
 	Light light;
 	
@@ -67,7 +67,7 @@ class Light {
 		writefln("Light in %s is off", location); }
 }
 
-public class TVOnCommand : Command {
+public class TVOnCommand : DCommand {
 private:
 	TV tv;
 	
@@ -83,7 +83,7 @@ public:
 }
 
 
-public class TVOffCommand : Command {
+public class TVOffCommand : DCommand {
 private:
 	TV tv;
 	
@@ -149,7 +149,7 @@ public:
 		return location; }
 }
 
-class CeilingFanHighCommand : Command {
+class CeilingFanHighCommand : DCommand {
 private:
 	CeilingFan ceilingFan;
 	int previousSpeed;
@@ -191,7 +191,7 @@ public:
 	}
 }
 
-class CeilingFanLowCommand : Command {
+class CeilingFanLowCommand : DCommand {
 private:
 	CeilingFan ceilingFan;
 	int previousSpeed;
@@ -234,7 +234,7 @@ public:
 }
 
 
-public class MacroCommand : Command {
+public class MacroCommand : DCommand {
 	private Command[] commands;
 
 public:

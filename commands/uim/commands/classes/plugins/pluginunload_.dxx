@@ -5,7 +5,7 @@ import uim.commands;
 @safe:
 
 // Command for unloading plugins.
-class PluginUnloadCommand : Command {
+class PluginUnloadCommand : DCommand {
    mixin(CommandThis!("PluginUnload"));
 
   	override bool initialize(IData[string] initData = null) {

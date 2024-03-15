@@ -1,4 +1,4 @@
-module uim.commands.i18n.i18nextract;
+module commands.uim.commands.classes.commands.i18n.i18nextract;
 
 import uim.commands;
 

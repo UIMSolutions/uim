@@ -7,6 +7,7 @@ import uim.databases;
 class DSqlserverDriver : DDriver {
     mixin(DriverThis!("Sqlserver"));
     
+    /*
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 
@@ -59,7 +60,7 @@ _baseConfig = [
      * information see: https://github.com/Microsoft/msphpsql/issues/65).
      *
      * @throws \InvalidArgumentException if an unsupported setting is in the driver config
-     */
+     * /
     void connect() {
         if (isSet(this.pdo)) {
             return;
@@ -210,7 +211,7 @@ _baseConfig = [
      * \UIM\Database\Query\SelectQuery<mixed>  original The query to wrap in a subquery.
      * @param int aLimit The number of rows to fetch.
      * @param int  anOffset The number of rows to offset.
-     */
+     * /
     protected SelectQuery _pagingSubquery(SelectQuery  original, int aLimit, int anOffset) {
         auto field = "_cake_paging_._cake_page_rownum_";
 
@@ -327,7 +328,7 @@ _baseConfig = [
      * SQL dialect.
      * Params:
      * \UIM\Database\Expression\FunctionExpression expression The auto expression to convert to TSQL.
-     */
+     * /
     protected void _transformFunctionExpression(FunctionExpression expression) {
         switch (expression.name) {
             case "CONCAT":
@@ -403,5 +404,5 @@ _baseConfig = [
                 }
                 break;
         }
-    }
+    } */
 }

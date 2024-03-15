@@ -74,7 +74,7 @@ class DServerCommand : DCommand {
 
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         this.startup(commandArguments,  aConsoleIo);
-        phpBinary = to!string(enviroment("PHP", "php"));
+        phpBinary = to!string(enviroment("PHP", "d"));
         string commandText = "%s -S %s:%d -t %s"
             .format(
                 phpBinary,

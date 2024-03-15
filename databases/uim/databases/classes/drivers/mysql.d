@@ -7,6 +7,7 @@ import uim.databases;
 class DMysqlDriver : DDriver {
     mixin(DriverThis!("Mysql"));
 
+/*
     override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		
@@ -39,14 +40,12 @@ class DMysqlDriver : DDriver {
     // Server type MariaDB
     protected const string SERVER_TYPE_MARIADB = "mariadb";
 
-
-
     /**
      * Server type.
      *
      * If the underlying server is MariaDB, its value will get set to `'mariadb'`
      * after `currentVersion()` method is called.
-     */
+     * /
     protected string serverType = SERVER_TYPE_MYSQL;
 
     // Mapping of feature to db server version for feature availability checks.
@@ -123,7 +122,7 @@ class DMysqlDriver : DDriver {
     
     /**
      * Get the SQL for disabling foreign keys.
-     */
+     * /
     string disableForeignKeySQL() {
         return "SET foreign_key_checks = 0";
     }
@@ -167,5 +166,5 @@ class DMysqlDriver : DDriver {
             }
         }
         return _version;
-    }
+    } */
 }

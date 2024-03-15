@@ -1,4 +1,4 @@
-module uim.databases.classes.drivers.postgresx;
+module uim.databases.classes.drivers.postgres;
 
 import uim.databases;
 
@@ -6,6 +6,7 @@ import uim.databases;
 class DPostgresDriver : DDriver {
     mixin(DriverThis!("Postgres"));
 
+    /* 
     override bool initialize(IData[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
@@ -89,7 +90,7 @@ void setEncoding(string encodingToUse) {
      * postgres will fallback to looking the relation into defined default schema
      * Params:
      * string aschema The schema names to set `search_path` to.
-     */
+     * /
 void setSchema(string aschema) {
     pdo = this.getPdo();
     pdo.exec("SET search_path TO " ~ pdo.quote(tableSchema));
@@ -151,7 +152,7 @@ protected void _transformIdentifierExpression(IdentifierExpression expressionToT
      * Params:
      * \UIM\Database\Expression\FunctionExpression expression The auto expression to convert
      *  to postgres SQL.
-     */
+     * /
 protected void _transformFunctionExpression(FunctionExpression expressionToConvert) {
     switch (expressionToConvert.name) {
     case "CONCAT":
@@ -209,4 +210,6 @@ protected void _transformFunctionExpression(FunctionExpression expressionToConve
                     QueryCompiler newCompiler() {
                         return new PostgresCompiler();
                     }
-                }
+                } */ 
+}
+                

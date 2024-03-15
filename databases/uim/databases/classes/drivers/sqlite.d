@@ -1,4 +1,4 @@
-module databases.uim.databases.classes.drivers.sqlite;
+module uim.databases.classes.drivers.sqlite;
 
 import uim.databases;
 

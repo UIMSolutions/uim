@@ -1,11 +1,11 @@
-module uim.commands.completion;
+module commands.uim.commands.classes.completion;
 
 import uim.commands;
 
 @safe:
 
 // Provide command completion shells such as bash.
-class CompletionCommand : DCommand, ICommandCollectionAware {
+class CompletionCommand : DCommand { // }, ICommandCollectionAware {
    mixin(CommandThis!("Completion"));
 
   	override bool initialize(IData[string] initData = null) {
@@ -14,6 +14,7 @@ class CompletionCommand : DCommand, ICommandCollectionAware {
 		return true;
 	}
 
+    /*
     protected CommandCollection _commands;
 
     // Set the command collection used to get completion data on.
@@ -151,5 +152,5 @@ class CompletionCommand : DCommand, ICommandCollectionAware {
         aConsoleIo.out (join(" ", options));
 
         return static.CODE_SUCCESS;
-    }
+    } */
 }

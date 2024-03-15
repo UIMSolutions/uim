@@ -79,7 +79,7 @@ h     */
     /* _serializers = [
       "igbinary": Memcached: : SERIALIZER_IGBINARY,
       "json": Memcached: : SERIALIZER_JSON,
-      "php": Memcached: : SERIALIZER_PHP,
+      "d": Memcached: : SERIALIZER_PHP,
     ]; */
 
     if (defined("Memcached.HAVE_MSGPACK")) {

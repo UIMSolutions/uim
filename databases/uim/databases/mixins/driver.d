@@ -29,5 +29,5 @@ auto `~fullname~`(string name) { return new D`~fullname~`(name); }
 }
 
 template DriverCalls(string name) {
-    const char[] DriverThis = driverCalls(name);
+    const char[] DriverCalls = driverCalls(name);
 }

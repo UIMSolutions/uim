@@ -29,5 +29,5 @@ auto `~fullname~`(string name) { return new D`~fullname~`(name); }
 }
 
 template ExpressionCalls(string name) {
-    const char[] ExpressionThis = expressionCalls(name);
+    const char[] ExpressionCalls = expressionCalls(name);
 }

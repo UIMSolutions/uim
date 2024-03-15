@@ -25,5 +25,5 @@ auto `~fullname~`(string name) { return new D`~fullname~`(name); }
 }
 
 template AssociationCalls(string name) {
-    const char[] AssociationThis = associationCalls(name);
+    const char[] AssociationCalls = associationCalls(name);
 }

@@ -25,5 +25,5 @@ auto `~fullname~`(string name) { return new D`~fullname~`(name); }
 }
 
 template ResponseCalls(string name) {
-    const char[] ResponseThis = responseCalls(name);
+    const char[] ResponseCalls = responseCalls(name);
 }

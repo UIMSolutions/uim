@@ -19,7 +19,7 @@ class Obj {
 	mixin(PropertyDefinition!("DMethod[string]", "_methods", "methods")); 
 	// mixin(PropertyDefinition!("DEvent[string]", "_events", "events")); 
 	mixin(PropertyDefinition!("DAggregation[string]", "_aggregations", "aggregations")); 
-	mixin(PropertyDefinition!("DAssociation[string]", "_associations", "associations")); 
+	mixin(PropertyDefinition!("DOOPAssociation[string]", "_associations", "associations")); 
 
 	string namespace() { return "uim.oop"; }
 	string fullname()  { return namespace~"."~this.className; }

@@ -25,5 +25,5 @@ auto `~fullname~`(string name) { return new D`~fullname~`(name); }
 }
 
 template FormatterCalls(string name) {
-    const char[] FormatterThis = formatterCalls(name);
+    const char[] FormatterCalls = formatterCalls(name);
 }

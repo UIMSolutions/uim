@@ -25,5 +25,5 @@ auto `~fullname~`(string name) { return new D`~fullname~`(name); }
 }
 
 template BehaviorCalls(string name) {
-    const char[] BehaviorThis = behaviorCalls(name);
+    const char[] BehaviorCalls = behaviorCalls(name);
 }

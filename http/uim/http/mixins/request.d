@@ -25,5 +25,5 @@ auto `~fullname~`(string name) { return new D`~fullname~`(name); }
 }
 
 template RequestCalls(string name) {
-    const char[] RequestThis = requestCalls(name);
+    const char[] RequestCalls = requestCalls(name);
 }

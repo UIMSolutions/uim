@@ -25,5 +25,5 @@ auto `~fullname~`(string name) { return new D`~fullname~`(name); }
 }
 
 template RuleCalls(string name) {
-    const char[] RuleThis = ruleCalls(name);
+    const char[] RuleCalls = ruleCalls(name);
 }

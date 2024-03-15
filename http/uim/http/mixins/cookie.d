@@ -25,5 +25,5 @@ auto `~fullname~`(string name) { return new D`~fullname~`(name); }
 }
 
 template CookieCalls(string name) {
-    const char[] CookieThis = cookieCalls(name);
+    const char[] CookieCalls = cookieCalls(name);
 }

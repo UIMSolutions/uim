@@ -25,5 +25,5 @@ auto `~fullname~`(string name) { return new D`~fullname~`(name); }
 }
 
 template LocatorCalls(string name) {
-    const char[] LocatorThis = locatorCalls(name);
+    const char[] LocatorCalls = locatorCalls(name);
 }

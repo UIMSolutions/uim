@@ -29,5 +29,5 @@ auto `~fullname~`(string name) { return new D`~fullname~`(name); }
 }
 
 template StatementCalls(string name) {
-    const char[] StatementThis = statementCalls(name);
+    const char[] StatementCalls = statementCalls(name);
 }

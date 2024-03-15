@@ -14,7 +14,7 @@ template OOPASSOCIATION(string name, string datatype, bool isMultiple = false) {
 `;
 }
 
-class DAssociation : DOOPElement {
+class DOOPAssociation : DOOPElement {
 	mixin(ThisElement!()); 
 	mixin(TProperty!("string", "datatype"));
 	mixin(TProperty!("bool", "isMultiple"));
@@ -26,9 +26,9 @@ class DAssociation : DOOPElement {
 		_isMultiple = isMultiple; 
 	}	
 }
-mixin(ShortCutElement!("Association", "DAssociation")); 
+mixin(ShortCutElement!("OOPAssociation", "DOOPAssociation")); 
 
 version(test_uim_oop) { unittest {
-		assert(Association("Werte").name == "Werte");
-		assert(Association("Werte").name("Anderes").name == "Anderes");
+		assert(OOPAssociation("Werte").name == "Werte");
+		assert(OOPAssociation("Werte").name("Anderes").name == "Anderes");
 }}

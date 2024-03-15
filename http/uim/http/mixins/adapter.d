@@ -25,5 +25,5 @@ auto `~fullname~`(string name) { return new D`~fullname~`(name); }
 }
 
 template AdapterCalls(string name) {
-    const char[] AdapterThis = adapterCalls(name);
+    const char[] AdapterCalls = adapterCalls(name);
 }

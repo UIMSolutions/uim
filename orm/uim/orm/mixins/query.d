@@ -26,5 +26,5 @@ auto `~fullname~`(string name) { return new D`~fullname~`(name); }
 }
 
 template QueryCalls(string name) {
-    const char[] QueryThis = queryCalls(name);
+    const char[] QueryCalls = queryCalls(name);
 }

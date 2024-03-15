@@ -25,5 +25,5 @@ auto `~fullname~`(string name) { return new D`~fullname~`(name); }
 }
 
 template LoggerCalls(string name) {
-    const char[] LoggerThis = loggerCalls(name);
+    const char[] LoggerCalls = loggerCalls(name);
 }

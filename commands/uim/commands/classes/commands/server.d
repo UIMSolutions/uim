@@ -21,13 +21,13 @@ class DServerCommand : DCommand {
     const int DEFAULT_PORT = 8765;
 
     // server host
-    protected string _host = self.DEFAULT_HOST;
+    protected string _host = DEFAULT_HOST;
 
     // listen port
-    protected int _port = self.DEFAULT_PORT;
+    protected int _port = DEFAULT_PORT;
 
     // document root
-    protected string _documentRoot = WWW_ROOT;
+    // protected string _documentRoot = WWW_ROOT;
 
     // ini path
     protected string _iniPath = "";

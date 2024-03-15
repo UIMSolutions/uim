@@ -2,6 +2,7 @@ module uim.commands.classes.commands;
 
 public { // Packages
     import uim.commands.classes.commands.caches;
+    import uim.commands.classes.commands.routes;
 }
 
 public { // Modules

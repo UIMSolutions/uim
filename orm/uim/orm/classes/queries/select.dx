@@ -1511,6 +1511,6 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
     }
 }
 
-// phpcs:disable
+
 class_exists("UIM\ORM\Query");
-// phpcs:enable
+

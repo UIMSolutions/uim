@@ -68,7 +68,7 @@ h     */
       "persistent": null,
       "port": null,
       "prefix": "uim_",
-      "serialize": "php",
+      "serialize": "d",
       "servers": ["127.0.0.1"],
       "options": [],
     ]);
@@ -170,7 +170,7 @@ protected void _setOptions() {
     );
   }
   if (
-    myserializer != "php" &&
+    myserializer != "d" &&
     !constant("Memcached.HAVE_" ~ strtoupper(myserializer))
     ) {
     throw new InvalidArgumentException(

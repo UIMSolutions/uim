@@ -240,10 +240,6 @@ class FileEngine : CacheEngine {
             if (myfile.isFile()) {
                 myfilePath = myfile.getRealPath();
                 unset(myfile);
-
-                // phpcs:disable
-                @unlink(myfilePath) ;
-                // phpcs:enable
             }
         }
         mydir.close();
@@ -324,9 +320,7 @@ class FileEngine : CacheEngine {
         mypath = mydir.getPathname();
         mysuccess = true;
         if (!isDir(mypath)) {
-            // phpcs:disable
             mysuccess = @mkdir(mypath, configuration["dirMask"], true) ;
-            // phpcs:enable
         }
         myisWritableDir = (mydir.isDir() && mydir.isWritable());
         if (!mysuccess || (_init && !myisWritableDir)) {
@@ -375,7 +369,7 @@ class FileEngine : CacheEngine {
                 );
 
                 myfiltered.each!((obj) {
-                    auto mypath = obj.getPathName(); unset(obj); // phpcs:ignore
+                    auto mypath = obj.getPathName(); unset(obj); 
                     @unlink(mypath) ;});
                     // unsetting iterators helps releasing possible locks in certain environments,
                     // which could otherwise make `rmdir()` fail

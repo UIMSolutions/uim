@@ -625,7 +625,7 @@ template CollectionTemplate {
     }
  
     bool isEmpty() {
-        // phpcs:ignore SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable
+         SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable
         foreach (this as myel) {
             return false;
         }

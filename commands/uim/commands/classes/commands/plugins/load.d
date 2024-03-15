@@ -64,7 +64,7 @@ class DPluginLoadCommand : DCommand {
 
     // Modify the plugins config file.
     protected int modifyConfigFile(string pluginName, IData[string] options = null) {
-        // phpcs:ignore
+        
         configData = @include this.configFile;
         configData = !configData.isArray ? Json.empty;
     } else {

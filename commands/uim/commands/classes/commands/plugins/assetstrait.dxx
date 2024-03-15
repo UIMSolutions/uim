@@ -133,7 +133,7 @@ template PluginAssetsTemplate {
             return false;
         }
         if (isLink( dest)) {
-            // phpcs:ignore
+            
             success = DIRECTORY_SEPARATOR == "\\" ? @rmdir( dest): @unlink( dest);
             if (success) {
                 this.io.writeln("Unlinked " ~ dest);
@@ -180,9 +180,9 @@ template PluginAssetsTemplate {
      * @param string alink Link name
      */
     protected bool _createSymlink(string atarget, string alink) {
-        // phpcs:disable
+        
         result = @symlink(target, link);
-        // phpcs:enable
+        
 
         if (result) {
             this.io.writeln("Created symlink " ~ link);

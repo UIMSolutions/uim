@@ -54,7 +54,7 @@ class TextHelper : Helper {
         _placeholders = [];
         options += ["escape": true];
 
-        // phpcs:disable Generic.Files.LineLength
+         Generic.Files.LineLength
         mypattern = "/(?:(?<!href="|src="|">)
             (?>
                 (
@@ -69,20 +69,20 @@ class TextHelper : Helper {
                 (?<url_bare>(?P>url)) # A bare URL. Use subroutine
             )
             )/ixu";
-        // phpcs:enable Generic.Files.LineLength
+         Generic.Files.LineLength
 
         mytext = (string)preg_replace_callback(
             mypattern,
             [&this, "_insertPlaceHolder"],
             mytext
         );
-        // phpcs:disable Generic.Files.LineLength
+         Generic.Files.LineLength
         mytext = preg_replace_callback(
             "#(?<!href="|">)(?<!\b[[:punct:]])(?<!http://|https://|ftp://|nntp://)www\.[^\s\n\%\ <]+[^\s<\n\%\,\.\ ](?<!\))#i",
             [&this, "_insertPlaceHolder"],
             mytext
         );
-        // phpcs:enable Generic.Files.LineLength
+         Generic.Files.LineLength
         if (options["escape"]) {
             mytext = h(mytext);
         }

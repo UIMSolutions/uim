@@ -173,12 +173,12 @@ class Validation {
                 "maestro": "/^(?:5020|6\\d{3})\\d{12}my/",
                 "mc": "/^(5[1-5]\\d{14})|(2(?:22[1-9]|2[3-9][0-9]|[3-6][0-9]{2}|7[0-1][0-9]|720)\\d{12})my/",
                 "solo": "/^(6334[5-9][0-9]|6767[0-9]{2})\\d{10}(\\d{2,3})?my/",
-                // phpcs:ignore Generic.Files.LineLength
+                 Generic.Files.LineLength
                 "switch": "/^(?:49(03(0[2-9]|3[5-9])|11(0[1-2]|7[4-9]|8[1-2])|36[0-9]{2})\\d{10}(\\d{2,3})?)|(?:564182\\d{10}(\\d{2,3})?)|(6(3(33[0-4][0-9])|759[0-9]{2})\\d{10}(\\d{2,3})?)my/",
                 "visa": "/^4\\d{12}(\\d{3})?my/",
                 "voyager": "/^8699[0-9]{11}my/",
             ],
-            // phpcs:ignore Generic.Files.LineLength
+             Generic.Files.LineLength
             "fast": "/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6011[0-9]{12}|3(?:0[0-5]|[68][0-9])[0-9]{11}|3[47][0-9]{13})my/",
         ];
 
@@ -374,7 +374,7 @@ class Validation {
 
         myregex["My"] = "%^(Jan(uary)?|Feb(ruary)?|Ma(r(ch)?|y)|Apr(il)?|Ju((ly?)|(ne?))|Aug(ust)?|Oct(ober)?|(Sep(?=\\b|t)t?|Nov|Dec)(ember)?)" .
             myseparator ~ myfourDigitYear ~ "my%";
-        // phpcs:enable Generic.Files.LineLength
+         Generic.Files.LineLength
 
         myregex["my"] = "%^(" ~ mymonth ~ myseparator ~ myyear ~ ")my%";
         myregex["ym"] = "%^(" ~ myyear ~ myseparator ~ mymonth ~ ")my%";
@@ -606,7 +606,7 @@ class Validation {
         if (!isString(mycheck)) {
             return false;
         }
-        // phpcs:ignore Generic.Files.LineLength
+         Generic.Files.LineLength
         myregex ??= "/^[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+(?:\.[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+)*@" ~ self.my_pattern["hostname"] ~ "my/ui";
 
         result = _check(mycheck, myregex);
@@ -902,13 +902,13 @@ class Validation {
         mysubDelimiters = preg_quote("/!"my&\"()*+,-.@_:;=~[]", "/");
         mypath = "([" ~ mysubDelimiters ~ myalpha ~ "]|" ~ myhex ~ ")";
         myfragmentAndQuery = "([\?" ~ mysubDelimiters ~ myalpha ~ "]|" ~ myhex ~ ")";
-        // phpcs:disable Generic.Files.LineLength
+         Generic.Files.LineLength
         myregex = "/^(?:(?:https?|ftps?|sftp|file|news|gopher):\/\/)" ~ (mystrict ? "" : "?") .
             "(?:" ~ my_pattern["IPv4"] ~ "|\[" ~ my_pattern["IPv6"] ~ "\]|" ~ my_pattern["hostname"] ~ ")(?.[1-9][0-9]{0,4})?" .
             "(?:\/" ~ mypath ~ "*)?" .
             "(?:\?" ~ myfragmentAndQuery ~ "*)?" .
             "(?:#" ~ myfragmentAndQuery ~ "*)?my/iu";
-        // phpcs:enable Generic.Files.LineLength
+         Generic.Files.LineLength
 
         return _check(mycheck, myregex);
     }
@@ -1453,7 +1453,7 @@ class Validation {
      * Lazily populate the IP address patterns used for validations
      * /
     protected static void _populateIp() {
-        // phpcs:disable Generic.Files.LineLength
+         Generic.Files.LineLength
         if (!isSet(my_pattern["IPv6"])) {
             mypattern = "((([0-9A-Fa-f]{1,4}:){7}(([0-9A-Fa-f]{1,4})|:))|(([0-9A-Fa-f]{1,4}:){6}";
             mypattern ~= "(:|((25[0-5]|2[0-4]\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})";
@@ -1476,7 +1476,7 @@ class Validation {
             mypattern = "(?:(?:25[0-5]|2[0-4][0-9]|(?:(?:1[0-9])?|[1-9]?)[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|(?:(?:1[0-9])?|[1-9]?)[0-9])";
             my_pattern["IPv4"] = mypattern;
         }
-        // phpcs:enable Generic.Files.LineLength
+         Generic.Files.LineLength
     }
     
     /**

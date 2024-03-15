@@ -93,7 +93,7 @@ if (!function_exists("breakpoint")) {
      * ```
      */
     string breakpoint() {
-        // phpcs:ignore SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly
+         SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly
         if ((UIM_SAPI == "cli" || UIM_SAPI == "phpdbg") && class_exists(\Psy\Shell.classname)) {
             return "extract(\Psy\Shell.debug(get_defined_vars(), isSet(this) ? this : null));";
         }

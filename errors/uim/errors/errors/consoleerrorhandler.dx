@@ -116,9 +116,9 @@ class ConsoleErrorHandler : DERRErrorHandler {
     }
 }
 
-// phpcs:disable
+
 class_alias(
     "Cake\errors.ConsoleErrorHandler",
     "Cake\Console\ConsoleErrorHandler"
 );
-// phpcs:enable
+

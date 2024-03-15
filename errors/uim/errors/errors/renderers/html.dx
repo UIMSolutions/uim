@@ -70,7 +70,7 @@ HTML;
     private string renderToggle(string text, string id, string suffix) {
         selector = id ~ "-" ~ suffix;
 
-        // phpcs:disable
+        
         return <<<HTML
 <a href="javascript:void(0);"
   onclick="document.getElementById("{selector}").style.display = (document.getElementById("{selector}").style.display == "none" ? "" : "none")"
@@ -78,6 +78,6 @@ HTML;
     {text}
 </a>
 HTML;
-        // phpcs:enable
+        
     }
 }

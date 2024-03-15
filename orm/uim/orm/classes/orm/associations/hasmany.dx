@@ -363,7 +363,7 @@ class HasMany : DAssociation {
         ok = (cast(IEntity)result);
 
         if (ok) {
-            // phpcs:ignore SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable
+             SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable
             sourceEntity = result;
         }
         this.setSaveStrategy(saveStrategy);

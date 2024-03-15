@@ -3,7 +3,7 @@
   License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
   Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.orm.associations.hasmany;
+module uim.orm.classes.associations.hasmany;
 
 import uim.orm;
 
@@ -22,24 +22,24 @@ class DHasManyAssociation : DAssociation {
      * Order in which target records should be returned
      *
      * @var mixed
-     */
+     * /
     protected _sort;
 
     /**
      * The type of join to be used when adding the association to a query
-     */
+     * /
     protected string _joinType = Query::JOIN_TYPE_INNER;
 
     /**
      * The strategy name to be used to fetch associated records.
-     */
+     * /
     protected string _strategy = self::STRATEGY_SELECT;
 
     /**
      * Valid strategies for this type of association
      *
      * @var array<string>
-     */
+     * /
     protected _validStrategies = [
         self::STRATEGY_SELECT,
         self::STRATEGY_SUBQUERY,
@@ -47,17 +47,17 @@ class DHasManyAssociation : DAssociation {
 
     /**
      * Saving strategy that will only append to the links set
-     */
+     * /
     const string SAVE_APPEND = "append";
 
     /**
      * Saving strategy that will replace the links with the provided set
-     */
+     * /
     const string SAVE_REPLACE = "replace";
 
     /**
      * Saving strategy to be used by this association
-     */
+     * /
     protected string _saveStrategy = self::SAVE_APPEND;
 
     /**
@@ -66,7 +66,7 @@ class DHasManyAssociation : DAssociation {
      * or required information if the row in "source" did not exist.
      *
      * @param DORMTable side The potential Table with ownership
-     */
+     * /
     bool isOwningSide(Table side) {
         return side == this.getSource();
     }
@@ -77,7 +77,7 @@ class DHasManyAssociation : DAssociation {
      * @param string strategy the strategy name to be used
      * @throws \InvalidArgumentException if an invalid strategy name is passed
      * @return this
-     */
+     * /
     auto setSaveStrategy(string strategy) {
         if (!in_array(strategy, [self::SAVE_APPEND, self::SAVE_REPLACE], true)) {
             msg = sprintf("Invalid save strategy '%s'", strategy);
@@ -93,7 +93,7 @@ class DHasManyAssociation : DAssociation {
      * Gets the strategy that should be used for saving.
      *
      * @return string the strategy to be used for saving
-     */
+     * /
     string getSaveStrategy() {
         return _saveStrategy;
     }
@@ -110,7 +110,7 @@ class DHasManyAssociation : DAssociation {
      * the saved entity
      * @see DORMTable::save()
      * @throws \InvalidArgumentException when the association data cannot be traversed.
-     */
+     * /
     function saveAssociated(IEntity anEntity, IData[string] options = null) {
         myTargetEntities = entity.get(this.getProperty());
 
@@ -168,7 +168,7 @@ class DHasManyAssociation : DAssociation {
      * to persist in target table and to link to the parent entity
      * @param array<string, mixed> options list of options accepted by `Table::save()`.
      * @return bool `true` on success, `false` otherwise.
-     */
+     * /
     protected bool _saveTarget(
         array foreignKeyReference,
         IEntity parentEntity,
@@ -236,7 +236,7 @@ class DHasManyAssociation : DAssociation {
      * of this association
      * @param array<string, mixed> options list of options to be passed to the internal `save` call
      * @return bool true on success, false otherwise
-     */
+     * /
     bool link(IEntity sourceEntity, array myTargetEntities, IData[string] options = null) {
         saveStrategy = this.getSaveStrategy();
         this.setSaveStrategy(self::SAVE_APPEND);
@@ -305,7 +305,7 @@ class DHasManyAssociation : DAssociation {
      *   If boolean it will be used a value for "cleanProperty" option.
      * @throws \InvalidArgumentException if non persisted entities are passed or if
      * any of them is lacking a primary key value
-     */
+     * /
     void unlink(IEntity sourceEntity, array myTargetEntities, options = null) {
         if (is_bool(options)) {
             options = [
@@ -326,7 +326,7 @@ class DHasManyAssociation : DAssociation {
         conditions = [
             "OR":(new Collection(myTargetEntities))
                 .map(function (entity) use (myTargetPrimaryKey) {
-                    /** @var DORMdatasources.IEntity anEntity */
+                    /** @var DORMdatasources.IEntity anEntity * /
                     return entity.extract(myTargetPrimaryKey);
                 })
                 .toList(),
@@ -393,7 +393,7 @@ class DHasManyAssociation : DAssociation {
      * @throws \InvalidArgumentException if non persisted entities are passed or if
      * any of them is lacking a primary key value
      * @return bool success
-     */
+     * /
     bool replace(IEntity sourceEntity, array myTargetEntities, IData[string] options = null) {
         property = this.getProperty();
         sourceEntity.set(property, myTargetEntities);
@@ -421,7 +421,7 @@ class DHasManyAssociation : DAssociation {
      * @param range remainingEntities Entities that should not be deleted
      * @param array<string, mixed> options list of options accepted by `Table::delete_()`
      * @return bool success
-     */
+     * /
     protected bool _unlinkAssociated(
         array foreignKeyReference,
         IEntity anEntity,
@@ -433,7 +433,7 @@ class DHasManyAssociation : DAssociation {
         exclusions = new Collection(remainingEntities);
         exclusions = exclusions.map(
             function (ent) use (primaryKeys) {
-                /** @var DORMdatasources.IEntity ent */
+                /** @var DORMdatasources.IEntity ent * /
                 return ent.extract(primaryKeys);
             }
         )
@@ -469,7 +469,7 @@ class DHasManyAssociation : DAssociation {
      * @param array conditions The conditions that specifies what are the objects to be unlinked
      * @param array<string, mixed> options list of options accepted by `Table::delete_()`
      * @return bool success
-     */
+     * /
     protected bool _unlink(array foreignKey, Table myTarget, array conditions = null, IData[string] options = null) {
         mustBeDependent = (!_foreignKeyAcceptsNull(myTarget, foreignKey) || this.getDependent());
 
@@ -509,7 +509,7 @@ class DHasManyAssociation : DAssociation {
      *
      * @param DORMTable myTable the table containing the foreign key
      * @param array properties the list of fields that compose the foreign key
-     */
+     * /
     protected bool _foreignKeyAcceptsNull(Table myTable, array properties) {
         return !in_array(
             false,
@@ -524,7 +524,7 @@ class DHasManyAssociation : DAssociation {
 
     /**
      * Get the relationship type.
-     */
+     * /
     string type() {
         return self::ONE_TO_MANY;
     }
@@ -535,7 +535,7 @@ class DHasManyAssociation : DAssociation {
      * @param array<string, mixed> options custom options key that could alter the return value
      * @return bool if the "matching" key in option is true then this function
      * will return true, false otherwise
-     */
+     * /
     bool canBeJoined(IData[string] options = null) {
         return !empty(options["matching"]);
     }
@@ -554,7 +554,7 @@ class DHasManyAssociation : DAssociation {
      *
      * @param mixed sort A find() compatible order clause
      * @return this
-     */
+     * /
     auto setSort(sort) {
         _sort = sort;
 
@@ -565,7 +565,7 @@ class DHasManyAssociation : DAssociation {
      * Gets the sort order in which target records should be returned.
      *
      * @return mixed
-     */
+     * /
     auto getSort() {
         return _sort;
     }
@@ -584,7 +584,7 @@ class DHasManyAssociation : DAssociation {
      * Parse extra options passed in the constructor.
      *
      * @param array<string, mixed> options original list of options passed in constructor
-     */
+     * /
     protected void _options(IData[string] options) {
         if (!empty(options["saveStrategy"])) {
             this.setSaveStrategy(options["saveStrategy"]);
@@ -616,6 +616,6 @@ class DHasManyAssociation : DAssociation {
         helper = new DependentDeleteHelper();
 
         return helper.cascadeDelete_(this, entity, options);
-    }
+    } */
 }
 mixin(AssociationCalls!("HasMany"));

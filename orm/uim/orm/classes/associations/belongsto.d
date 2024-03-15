@@ -3,7 +3,7 @@
   License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
   Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.orm.caches.associations.belongsto;
+module uim.orm.classes.associations.belongsto;
 
 import uim.orm;
 
@@ -18,8 +18,21 @@ import uim.orm;
 class DBelongsToAssociation : DAssociation {
     mixin(AssociationThis!("BelongsTo"));
 
-    /*
+    /**
+     * Sets the name of the field representing the foreign key to the target table.
+     * Params:
+     * string[]|string|false aKey the key or keys to be used to link both tables together, if set to `false`
+     * no join conditions will be generated automatically.
+     */
+    void foreignKeys(string[] keys...) {
+        foreignKeys(keys.dup);
+    }
 
+    void foreignKeys(string[] keys) {
+        _foreignKeys = keys;
+    }
+
+    /*
     // Valid strategies for this type of association
     protected string[] _validStrategies = [
         STRATEGY_JOIN,
@@ -27,12 +40,12 @@ class DBelongsToAssociation : DAssociation {
     ];
 
     // Gets the name of the field representing the foreign key to the target table.
-    string[] getForeignKeys() {
-      if (_foreignKeys == null) {
-          _foreignKeys = _modelKey(this.getTarget().aliasName());
+    string[] getForeignKeyss() {
+      if (_foreignKeyss == null) {
+          _foreignKeyss = _modelKey(this.getTarget().aliasName());
       }
 
-      return _foreignKeys;
+      return _foreignKeyss;
     }
 
     /**
@@ -96,7 +109,7 @@ class DBelongsToAssociation : DAssociation {
         }
 
         auto properties = array_combine(
-            (array)this.getForeignKeys(),
+            (array)this.getForeignKeyss(),
             targetEntity.extract((array)this.getBindingKey())
         );
         entity.set(properties, ["guard": false]);
@@ -110,32 +123,32 @@ class DBelongsToAssociation : DAssociation {
      *
      * @param array<string, mixed> options list of options passed to attachTo method
      * @return array<DORMdatabases.Expression\IdentifierExpression>
-     * @throws \RuntimeException if the number of columns in the foreignKey do not
+     * @throws \RuntimeException if the number of columns in the foreignKeys do not
      * match the number of columns in the target table primaryKeys
      * /
     protected array _joinCondition(STRINGAA someOptions) {
         conditions = null;
         tAlias = _name;
         sAlias = _sourceTable.aliasName();
-        foreignKey = (array)options["foreignKey"];
+        foreignKeys = (array)options["foreignKeys"];
         bindingKey = (array)this.getBindingKey();
 
-        if (count(foreignKey) != count(bindingKey)) {
+        if (count(foreignKeys) != count(bindingKey)) {
             if (empty(bindingKey)) {
                 msg = "The '%s' table does not define a primary key. Please set one.";
                 throw new RuntimeException(sprintf(msg, this.getTarget().getTable()));
             }
 
-            msg = "Cannot match provided foreignKey for '%s', got "(%s)" but expected foreign key for "(%s)"";
+            msg = "Cannot match provided foreignKeys for '%s', got "(%s)" but expected foreign key for "(%s)"";
             throw new RuntimeException(sprintf(
                 msg,
                 _name,
-                implode(", ", foreignKey),
+                implode(", ", foreignKeys),
                 implode(", ", bindingKey)
             ));
         }
 
-        foreach (foreignKey as k: f) {
+        foreach (foreignKeys as k: f) {
             field = sprintf("%s.%s", tAlias, bindingKey[k]);
             value = new IdentifierExpression(sprintf("%s.%s", sAlias, f));
             conditions[field] = value;
@@ -151,7 +164,7 @@ class DBelongsToAssociation : DAssociation {
             "alias": this.aliasName(),
             "sourceAlias": this.getSource().aliasName(),
             "targetAlias": this.getTarget().aliasName(),
-            "foreignKey": this.getForeignKeys(),
+            "foreignKeys": this.getForeignKeyss(),
             "bindingKey": this.getBindingKey(),
             "strategy": this.getStrategy(),
             "associationType": this.type(),

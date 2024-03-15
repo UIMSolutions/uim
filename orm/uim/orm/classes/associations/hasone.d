@@ -3,10 +3,7 @@
   License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
   Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.orm.associations;
-
-
-
+module uim.orm.classes.associations.hasone;
 
 import uim.orm;
 
@@ -24,7 +21,7 @@ class DHasOneAssociation : DAssociation {
      * Valid strategies for this type of association
      *
      * @var array<string>
-     */
+     * /
     protected string[] _validStrategies = [
         STRATEGY_JOIN,
         STRATEGY_SELECT,
@@ -34,7 +31,7 @@ class DHasOneAssociation : DAssociation {
      * Gets the name of the field representing the foreign key to the target table.
      *
      * @return array<string>|string
-     */
+     * /
     function getForeignKeys() {
         if (_foreignKey == null) {
             _foreignKey = _modelKey(this.getSource().aliasName());
@@ -56,7 +53,7 @@ class DHasOneAssociation : DAssociation {
      * or required information if the row in "source" did not exist.
      *
      * @param DORMTable side The potential Table with ownership
-     */
+     * /
     bool isOwningSide(Table side) {
         return side == this.getSource();
     }
@@ -77,7 +74,7 @@ class DHasOneAssociation : DAssociation {
      * @return DORMDatasource\IEntity|false false if entity could not be saved, otherwise it returns
      * the saved entity
      * @see DORMTable::save()
-     */
+     * /
     function saveAssociated(IEntity anEntity, STRINGAA someOptions = null) {
         targetEntity = entity.get(this.getProperty());
         if (empty(targetEntity) || !(targetEntity instanceof IEntity)) {
@@ -121,6 +118,6 @@ class DHasOneAssociation : DAssociation {
         helper = new DependentDeleteHelper();
 
         return helper.cascadeDelete_(this, entity, options);
-    }
+    } */
 }
 mixin(AssociationCalls!("HasOne"));

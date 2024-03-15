@@ -2,39 +2,9 @@ import uim.orm;
 
 @safe:
 
-/**
- * Represents an 1 - N relationship where the source side of the relation is
- * related to only one record in the target table.
- *
- * An example of a BelongsTo association would be Article belongs to Author.
- */
 class BelongsTo : DAssociation {
-    // Valid strategies for this type of association
-    protected string[] _validStrategies = [
-        self.STRATEGY_JOIN,
-        self.STRATEGY_SELECT,
-    ];
 
-    string[] getForeignKeys() {
-        if (!isSet(_foreignKey)) {
-            _foreignKey = _modelKey(this.getTarget().aliasName());
-        }
-        return _foreignKey;
-    }
 
-    /**
-     * Sets the name of the field representing the foreign key to the target table.
-     * Params:
-     * string[]|string|false aKey the key or keys to be used to link both tables together, if set to `false`
-     * no join conditions will be generated automatically.
-     */
-    void setForeignKey(string[] aKey...) {
-        setForeignKey(aKey.dup);
-    }
-
-    void setForeignKey(string[] aKey) {
-        _foreignKey = aKey;
-    }
 
     /**
      * Handle cascading deletes.

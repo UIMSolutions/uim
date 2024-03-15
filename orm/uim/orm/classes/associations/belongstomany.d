@@ -3,7 +3,7 @@
   License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
   Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.orm.caches.associations.belongstomany;
+module uim.orm.classes.associations.belongstomany;
 
 import uim.orm;
 
@@ -25,6 +25,19 @@ class DBelongsToManyAssociation : DAssociation {
     // Saving strategy that will replace the links with the provided set
     const string SAVE_REPLACE = "replace";
 
+    // Junction table name
+    protected string _junctionTableName;
+
+    // The name of the hasMany association from the target table to the junction table
+    protected string _junctionAssociationName;
+
+    /**
+     * The name of the property to be set containing data from the junction table
+     * once a record from the target table is hydrated
+     */
+    protected string _junctionProperty = "_joinData";
+
+    /*
     // The type of join to be used when adding the association to a query
     protected string _joinType = Query::JOIN_TYPE_INNER;
 
@@ -35,50 +48,33 @@ class DBelongsToManyAssociation : DAssociation {
      * Junction table instance
      *
      * @var DORMTable
-     */
+     * /
     protected _junctionTable;
 
     /**
-     * Junction table name
-     */
-    protected string _junctionTableName;
-
-    /**
-     * The name of the hasMany association from the target table
-     * to the junction table
-     */
-    protected string _junctionAssociationName;
-
-    /**
-     * The name of the property to be set containing data from the junction table
-     * once a record from the target table is hydrated
-     */
-    protected string _junctionProperty = "_joinData";
-
-    /**
      * Saving strategy to be used by this association
-     */
+     * /
     protected string _saveStrategy = self::SAVE_REPLACE;
 
     /**
      * The name of the field representing the foreign key to the target table
      *
      * @var array<string>|string|null
-     */
+     * /
     protected _targetForeignKey;
 
     /**
      * The table instance for the junction relation.
      *
      * @var DORMTable|string
-     */
+     * /
     protected _through;
 
     /**
      * Valid strategies for this type of association
      *
      * @var array<string>
-     */
+     * /
     protected _validStrategies = [
         self::STRATEGY_SELECT,
         self::STRATEGY_SUBQUERY,
@@ -89,47 +85,44 @@ class DBelongsToManyAssociation : DAssociation {
      * on the source table is deleted.
      *
      * Defaults to true for backwards compatibility.
-     */
+     * /
     protected bool _dependent = true;
 
     /**
      * Filtered conditions that reference the target table.
      *
      * @var array|null
-     */
+     * /
     protected _targetConditions;
 
     /**
      * Filtered conditions that reference the junction table.
      *
      * @var array|null
-     */
+     * /
     protected _junctionConditions;
 
     /**
      * Order in which target records should be returned
      *
      * @var mixed
-     */
+     * /
     protected _sort;
 
     /**
      * Sets the name of the field representing the foreign key to the target table.
      *
      * @param array<string>|string aKey the key to be used to link both tables together
-     * @return this
-     */
-    function setTargetForeignKey(key) {
+     * /
+    void setTargetForeignKey(key) {
         _targetForeignKey = key;
-
-        return this;
     }
 
     /**
      * Gets the name of the field representing the foreign key to the target table.
      *
      * @return array<string>|string
-     */
+     * /
     string[] getTargetForeignKey() {
         if (_targetForeignKey == null) {
             _targetForeignKey = _modelKey(this.getTarget().aliasName());
@@ -144,7 +137,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @param array<string, mixed> options custom options key that could alter the return value
      * @return bool if the "matching" key in option is true then this function
      * will return true, false otherwise
-     */
+     * /
     bool canBeJoined(STRINGAA someOptions = null) {
         return !empty(options["matching"]);
     }
@@ -153,7 +146,7 @@ class DBelongsToManyAssociation : DAssociation {
      * Gets the name of the field representing the foreign key to the source table.
      *
      * @return array<string>|string
-     */
+     * /
     string[] getForeignKeys() {
         if (_foreignKey == null) {
             _foreignKey = _modelKey(this.getSource().getTable());
@@ -167,7 +160,7 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * @param mixed sort A find() compatible order clause
      * @return this
-     */
+     * /
     function setSort(sort) {
         _sort = sort;
 
@@ -178,7 +171,7 @@ class DBelongsToManyAssociation : DAssociation {
      * Gets the sort order in which target records should be returned.
      *
      * @return mixed
-     */
+     * /
     function getSort() {
         return _sort;
     }
@@ -200,7 +193,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @param DORMTable|string|null table Name or instance for the join table
      * @return DORMTable
      * @throws \InvalidArgumentException If the expected associations are incompatible with existing associations.
-     */
+     * /
     function junction(table = null): Table
     {
         if (table == null && _junctionTable != null) {
@@ -261,7 +254,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @param DORMTable junction The junction table.
      * @param DORMTable source The source table.
      * @param DORMTable target The target table.
-     */
+     * /
     protected void _generateTargetAssociations(Table junction, Table source, Table target) {
         string junctionAlias = junction.aliasName();
         string sAlias = source.aliasName();
@@ -305,7 +298,7 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * @param DORMTable junction The junction table.
      * @param DORMTable source The source table.
-     */
+     * /
     protected void _generateSourceAssociations(Table junction, Table source) {
         junctionAlias = junction.aliasName();
         sAlias = source.aliasName();
@@ -341,7 +334,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @param DORMTable target The target table.
      * @return void
      * @throws \InvalidArgumentException If the expected associations are incompatible with existing associations.
-     */
+     * /
     protected void _generateJunctionAssociations(Table junction, Table source, Table target) {
         tAlias = target.aliasName();
         sAlias = source.aliasName();
@@ -388,7 +381,7 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * @param DORMQuery query the query to be altered to include the target table data
      * @param array<string, mixed> options Any extra options or overrides to be taken in account
-     */
+     * /
     void attachTo(Query query, STRINGAA someOptions = null) {
         if (!empty(options["negateMatch"])) {
             _appendNotMatching(query, options);
@@ -460,7 +453,7 @@ class DBelongsToManyAssociation : DAssociation {
 
     /**
      * Get the relationship type.
-     */
+     * /
     string type() {
         return self::MANY_TO_MANY;
     }
@@ -469,7 +462,7 @@ class DBelongsToManyAssociation : DAssociation {
      * Return false as join conditions are defined in the junction table
      *
      * @param array<string, mixed> options list of options passed to attachTo method
-     */
+     * /
     protected array _joinCondition(STRINGAA someOptions) {
         return [];
     }
@@ -505,7 +498,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @param DORMDatasource\IEntity anEntity The entity that started the cascading delete.
      * @param array<string, mixed> options The options for the original delete.
      * @return bool Success.
-     */
+     * /
     bool cascadeDelete_(IEntity anEntity, STRINGAA someOptions = null) {
         if (!this.getDependent()) {
             return true;
@@ -548,7 +541,7 @@ class DBelongsToManyAssociation : DAssociation {
      * of the association via the joint table.
      *
      * @param DORMTable side The potential Table with ownership
-     */
+     * /
     bool isOwningSide(Table side) {
         return true;
     }
@@ -559,7 +552,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @param string strategy the strategy name to be used
      * @throws \InvalidArgumentException if an invalid strategy name is passed
      * @return this
-     */
+     * /
     function setSaveStrategy(string strategy) {
         if (!in_array(strategy, [self::SAVE_APPEND, self::SAVE_REPLACE], true)) {
             msg = sprintf("Invalid save strategy '%s'", strategy);
@@ -575,7 +568,7 @@ class DBelongsToManyAssociation : DAssociation {
      * Gets the strategy that should be used for saving.
      *
      * @return string the strategy to be used for saving
-     */
+     * /
     function getSaveStrategy() {
         return _saveStrategy;
     }
@@ -603,7 +596,7 @@ class DBelongsToManyAssociation : DAssociation {
      * the saved entity
      * @see DORMTable::save()
      * @see DORMassociations.BelongsToMany::replaceLinks()
-     */
+     * /
     function saveAssociated(IEntity anEntity, STRINGAA someOptions = null) {
         targetEntity = entity.get(this.getProperty());
         strategy = this.getSaveStrategy();
@@ -640,7 +633,7 @@ class DBelongsToManyAssociation : DAssociation {
      * in the parent entity cannot be traversed
      * @return DORMDatasource\IEntity|false The parent entity after all links have been
      * created if no errors happened, false otherwise
-     */
+     * /
     protected function _saveTarget(IEntity parentEntity, array entities, options) {
         joinAssociations = false;
         if (isset(options["associated"]) && is_array(options["associated"])) {
@@ -702,7 +695,7 @@ class DBelongsToManyAssociation : DAssociation {
      * junction table
      * @param array<string, mixed> options list of options accepted by `Table::save()`
      * @return bool success
-     */
+     * /
     protected bool _saveLinks(IEntity sourceEntity, array targetEntities, STRINGAA someOptions) {
         target = this.getTarget();
         junction = this.junction();
@@ -777,7 +770,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @throws \InvalidArgumentException when any of the values in targetEntities is
      *   detected to not be already persisted
      * @return bool true on success, false otherwise
-     */
+     * /
     bool link(IEntity sourceEntity, array targetEntities, STRINGAA someOptions = null) {
         _checkPersistenceStatus(sourceEntity, targetEntities);
         property = this.getProperty();
@@ -827,7 +820,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @throws \InvalidArgumentException If non persisted entities are passed or if
      *   any of them is lacking a primary key value.
      * @return bool Success
-     */
+     * /
     bool unlink(IEntity sourceEntity, array targetEntities, options = null) {
         if (is_bool(options)) {
             options = [
@@ -849,13 +842,13 @@ class DBelongsToManyAssociation : DAssociation {
             }
         );
 
-        /** @var array<DORMDatasource\IEntity> existing */
+        /** @var array<DORMDatasource\IEntity> existing * /
         existing = sourceEntity.get(property) ?: [];
         if (!options["cleanProperty"] || empty(existing)) {
             return true;
         }
 
-        /** @var \SplObjectStorage<DORMDatasource\IEntity, null> storage */
+        /** @var \SplObjectStorage<DORMDatasource\IEntity, null> storage * /
         storage = new SplObjectStorage();
         foreach (targetEntities as e) {
             storage.attach(e);
@@ -886,7 +879,7 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * @param DORMTable|string through Name of the Table instance or the instance itself
      * @return this
-     */
+     * /
     function setThrough(through) {
         _through = through;
 
@@ -897,7 +890,7 @@ class DBelongsToManyAssociation : DAssociation {
      * Gets the current join table, either the name of the Table instance or the instance itself.
      *
      * @return DORMTable|string
-     */
+     * /
     function getThrough() {
         return _through;
     }
@@ -911,7 +904,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @return array|\Closure|null Generally an array. If the conditions
      *   are not an array, the association conditions will be
      *   returned unmodified.
-     */
+     * /
     protected function targetConditions() {
         if (_targetConditions != null) {
             return _targetConditions;
@@ -937,7 +930,7 @@ class DBelongsToManyAssociation : DAssociation {
      * Returns filtered conditions that specifically reference
      * the junction table.
      *
-     */
+     * /
     protected array junctionConditions() {
         if (_junctionConditions != null) {
             return _junctionConditions;
@@ -976,7 +969,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @param array<string, mixed> options The options to for the find
      * @see DORMTable::find()
      * @return DORMQuery
-     */
+     * /
     function find(type = null, STRINGAA someOptions = null): Query
     {
         type = type ?: this.getFinder();
@@ -999,7 +992,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @param DORMQuery query The query to append.
      * @param array|null conditions The query conditions to use.
      * @return DORMQuery The modified query.
-     */
+     * /
     protected function _appendJunctionJoin(Query query, ?array conditions = null): Query
     {
         junctionTable = this.junction();
@@ -1012,7 +1005,7 @@ class DBelongsToManyAssociation : DAssociation {
         }
 
         name = _junctionAssociationName();
-        /** @var array joins */
+        /** @var array joins * /
         joins = query.clause("join");
         matching = [
             name: [
@@ -1077,7 +1070,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @throws \InvalidArgumentException if non persisted entities are passed or if
      *   any of them is lacking a primary key value
      * @return bool success
-     */
+     * /
     bool replaceLinks(IEntity sourceEntity, array targetEntities, STRINGAA someOptions = null) {
         bindingKey = (array)this.getBindingKey();
         primaryValue = sourceEntity.extract(bindingKey);
@@ -1161,7 +1154,7 @@ class DBelongsToManyAssociation : DAssociation {
      * the `jointEntities`
      * @param array<string, mixed> options list of options accepted by `Table::delete_()`
      * @return array|false Array of entities not deleted or false in case of deletion failure for atomic saves.
-     */
+     * /
     protected function _diffLinks(
         Query existing,
         array jointEntities,
@@ -1247,7 +1240,7 @@ class DBelongsToManyAssociation : DAssociation {
      *   of this association
      * @return bool
      * @throws \InvalidArgumentException
-     */
+     * /
     protected bool _checkPersistenceStatus(IEntity sourceEntity, array targetEntities) {
         if (sourceEntity.isNew()) {
             error = "Source entity needs to be persisted before links can be created or removed.";
@@ -1275,7 +1268,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @throws \InvalidArgumentException if any of the entities is lacking a primary
      *   key value
      * @return array<DORMDatasource\IEntity>
-     */
+     * /
     protected array _collectJointEntities(IEntity sourceEntity, array targetEntities) {
         target = this.getTarget();
         source = this.getSource();
@@ -1335,7 +1328,7 @@ class DBelongsToManyAssociation : DAssociation {
      * Returns the name of the association from the target table to the junction table,
      * this name is used to generate alias in the query and to later on retrieve the
      * results.
-     */
+     * /
     protected string _junctionAssociationName() {
         if (!_junctionAssociationName) {
             _junctionAssociationName = this.getTarget()
@@ -1352,7 +1345,7 @@ class DBelongsToManyAssociation : DAssociation {
      * name based of the associated tables will be generated if none found.
      *
      * @param string|null name The name of the junction table.
-     */
+     * /
     protected string _junctionTableName(Nullable!string aName = null) {
         if (name == null) {
             if (empty(_junctionTableName)) {
@@ -1374,7 +1367,7 @@ class DBelongsToManyAssociation : DAssociation {
      * Parse extra options passed in the constructor.
      *
      * @param array<string, mixed> options original list of options passed in constructor
-     */
+     * /
     protected void _options(STRINGAA someOptions) {
         if (!empty(options["targetForeignKey"])) {
             this.setTargetForeignKey(options["targetForeignKey"]);
@@ -1391,6 +1384,6 @@ class DBelongsToManyAssociation : DAssociation {
         if (isset(options["sort"])) {
             this.setSort(options["sort"]);
         }
-    }
+    } */
 }
 mixin(AssociationCalls!("BelongsToMany"));

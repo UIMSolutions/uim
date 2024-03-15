@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.orm.associations.association;
+module uim.orm.classes.associations.association;
 
 import uim.orm;
 
@@ -53,6 +53,25 @@ class DAssociation : IAssociation {
 
     // Association type for many to one associations.
     const string MANY_TO_ONE = "manyToOne";
+
+    // The field name in the owning side table that is used to match with the foreignKeys
+    protected string[] _bindingKeys;
+
+    // The name of the field representing the foreign key to the table to load
+    protected string[] _foreignKeys;
+
+    /**
+     * The property name that should be filled with data from the target table
+     * in the source table record.
+     */
+    protected string _propertyName;
+
+    /**
+     * The strategy name to be used to fetch associated records. Some association
+     * types might not implement but one strategy to fetch records.
+     */
+    protected string _strategy = STRATEGY_JOIN;
+
 /* 
     // TODO use ConventionsTrait;
     // TODO use LocatorAwareTrait;
@@ -62,11 +81,6 @@ class DAssociation : IAssociation {
     // The class name of the target table object
     protected string _className;
 
-    // The field name in the owning side table that is used to match with the foreignKeys
-    protected string[] _bindingKeys;
-
-    // The name of the field representing the foreign key to the table to load
-    protected string[] _foreignKeys;
 
     /**
      * A list of conditions to be always included when fetching records from the target association
@@ -96,17 +110,6 @@ class DAssociation : IAssociation {
      * /
     protected string _joinType = Query::JOIN_TYPE_LEFT;
 
-    /**
-     * The property name that should be filled with data from the target table
-     * in the source table record.
-     * /
-    protected string _propertyName;
-
-    /**
-     * The strategy name to be used to fetch associated records. Some association
-     * types might not implement but one strategy to fetch records.
-     * /
-    protected string _strategy = STRATEGY_JOIN;
 
     /**
      * The default finder name to use for fetching rows from the target table

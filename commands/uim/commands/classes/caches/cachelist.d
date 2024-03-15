@@ -6,7 +6,7 @@ import uim.commands;
 
 // CacheList command.
 class CacheListCommand : DCommand {
-  mixin!(CommandThis!("CacheListCommand"));
+  mixin(CommandThis!("CacheListCommand"));
 
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }

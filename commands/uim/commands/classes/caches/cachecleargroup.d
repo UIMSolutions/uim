@@ -6,7 +6,7 @@ import uim.commands;
 
 // Cache Clear Group command.
 class CacheClearGroupCommand : DCommand {
-  mixin!(CommandThis!("CacheClearGroupCommand"));
+  mixin(CommandThis!("CacheClearGroupCommand"));
 
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }

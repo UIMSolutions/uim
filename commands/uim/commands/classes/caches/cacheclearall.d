@@ -6,7 +6,7 @@ import uim.commands;
 
 // CacheClearall command.
 class CacheClearallCommand : DCommand {
-  mixin!(CommandThis!("CacheClearallCommand"));
+  mixin(CommandThis!("CacheClearallCommand"));
 
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }

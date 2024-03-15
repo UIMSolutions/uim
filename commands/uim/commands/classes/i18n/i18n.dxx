@@ -59,4 +59,4 @@ class DI18nCommand : DCommand {
         return aParser;
     }
 }
-mixin!(CommandCalls!("I18n"));
+mixin(CommandCalls!("I18n"));

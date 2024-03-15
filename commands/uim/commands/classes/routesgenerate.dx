@@ -5,7 +5,7 @@ import uim.commands;
 @safe:
 
 // Provides interactive CLI tools for URL generation
-class RoutesGenerateCommand : Command {
+class RoutesGenerateCommand : DCommand {
    mixin(CommandThis!("RoutesGenerate"));
 
   	override bool initialize(IData[string] initData = null) {

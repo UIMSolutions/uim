@@ -5,7 +5,7 @@ import uim.commands;
 @safe:
 
 // Provides CLI tool for updating schema cache.
-class SchemacacheBuildCommand : Command {
+class SchemacacheBuildCommand : DCommand {
    mixin(CommandThis!("SchemacacheBuild"));
 
   	override bool initialize(IData[string] initData = null) {

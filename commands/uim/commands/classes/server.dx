@@ -5,7 +5,7 @@ import uim.commands;
 @safe:
 
 // built-in Server command
-class ServerCommand : Command {
+class ServerCommand : DCommand {
    mixin(CommandThis!("Server"));
 
   	override bool initialize(IData[string] initData = null) {

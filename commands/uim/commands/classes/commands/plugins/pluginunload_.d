@@ -17,7 +17,7 @@ class PluginUnloadCommand : DCommand {
     protected string configDataFile = CONFIG ~ "plugins.d";
  
     static string defaultName() {
-        return "plugin unload";
+        return "plugin-unload";
     }
 
 /* 
@@ -43,7 +43,7 @@ class PluginUnloadCommand : DCommand {
         }
         configData = Hash.normalize(configData);
         if (!array_key_exists(pluginName, configData)) {
-            return "Plugin `%s` could not be found".format(pluginName);
+            return "plugin-`%s` could not be found".format(pluginName);
         }
         configData.remove(pluginName);
 

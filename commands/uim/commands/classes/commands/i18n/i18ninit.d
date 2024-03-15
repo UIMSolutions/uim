@@ -15,7 +15,7 @@ class I18nInitCommand : DCommand {
 	}
 
     static string defaultName() {
-        return "i18n init";
+        return "i18n-init";
     }
 
     /* 

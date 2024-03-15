@@ -15,7 +15,7 @@ class PluginLoadCommand : DCommand {
 	}
 
     static string defaultName() {
-        return "plugin load";
+        return "plugin-load";
     }
 
     //  Config file

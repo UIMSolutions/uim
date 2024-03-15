@@ -15,7 +15,7 @@ class PluginAssetsCopyCommand : DCommand {
 	}
 
     static string defaultName() {
-        return "plugin assets copy";
+        return "plugin-assets copy";
     }
 
     /* mixin PluginAssetsTemplate();

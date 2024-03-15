@@ -17,7 +17,7 @@ class PluginAssetsSymlinkCommand : DCommand {
     mixin PluginAssetsTemplate();
 
     static string defaultName() {
-        return "plugin assets symlink";
+        return "plugin-assets symlink";
     }
     
     /**

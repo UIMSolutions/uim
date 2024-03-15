@@ -15,7 +15,7 @@ class PluginAssetsRemoveCommand : DCommand {
 	}
 
     static string defaultName() {
-        return "plugin assets remove";
+        return "plugin-assets remove";
     }
 
     /* mixin PluginAssetsTemplate();

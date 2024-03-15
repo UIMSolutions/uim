@@ -15,7 +15,7 @@ class I18nExtractCommand : DCommand {
 	}
  
     static string defaultName() {
-        return "i18n extract";
+        return "i18n-extract";
     }
     
     // Paths to use when looking for strings

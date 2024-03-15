@@ -17,7 +17,7 @@ class PluginAssetsRemoveCommand : DCommand {
     mixin PluginAssetsTemplate();
  
     static string defaultName() {
-        return "plugin assets remove";
+        return "plugin-assets remove";
     }
     
     // Remove plugin assets from app`s webroot.

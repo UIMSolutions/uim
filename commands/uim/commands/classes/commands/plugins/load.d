@@ -17,7 +17,7 @@ class DPluginLoadCommand : DCommand {
     }
 
     static string defaultName() {
-        return "plugin load";
+        return "plugin-load";
     }
 
     /*

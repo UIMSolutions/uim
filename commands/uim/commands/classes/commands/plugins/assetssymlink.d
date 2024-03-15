@@ -15,7 +15,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
 	}
 
     static string defaultName() {
-        return "plugin assets symlink";
+        return "plugin-assets symlink";
     }
 
     /* 

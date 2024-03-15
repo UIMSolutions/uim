@@ -6,7 +6,7 @@ import uim.commands;
 
 // Displays all currently loaded plugins.
 class PluginLoadedCommand : DCommand {
-   mixin(CommandThis!("PluginLoadedCommand"));
+   mixin(CommandThis!("PluginLoaded"));
 
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }

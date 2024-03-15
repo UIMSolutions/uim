@@ -6,7 +6,7 @@ import uim.commands;
 
 // Language string extractor
 class I18nExtractCommand : DCommand {
-  mixin(CommandThis!("I18nExtractCommand"));
+  mixin(CommandThis!("I18nExtract"));
 
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }

@@ -6,7 +6,7 @@ import uim.consoles;
 
 // Object wrapper for interacting with stdin
 class ConsoleInput {
-   mixin(CommandThis!("VersionCommand"));
+   mixin(CommandThis!("Version"));
 
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }

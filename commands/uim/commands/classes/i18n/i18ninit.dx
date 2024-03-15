@@ -6,7 +6,7 @@ import uim.commands;
 
 // Command for interactive I18N management.
 class I18nInitCommand : DCommand {
-   mixin(CommandThis!("I18nInitCommand"));
+   mixin(CommandThis!("I18nInit"));
 
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }

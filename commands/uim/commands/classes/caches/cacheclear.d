@@ -1,15 +1,15 @@
-module uim.commands.caches.cacheclear;
+module uim.commands.classes.caches.cacheclear;
 
 import uim.commands;
 
 @safe:
 
-// CacheClear command.
-class CacheClearCommand : DCommand {
-  mixin!(CommandThis!("CacheClearCommand"));
+// CacheClear command
+class DCacheClearCommand : DCommand {
+  mixin!(CommandThis!("CacheClear"));
 
   override bool initialize(IData[string] initData = null) {
-    if (!super.initialize(initDataIData[string])) {
+    if (!super.initialize(initData)) {
       return false;
     }
 
@@ -26,7 +26,7 @@ class CacheClearCommand : DCommand {
      * @see https://book.UIM.org/5/en/console-commands/option-parsers.html
      * aConsoleOptionParser - The parser to be defined
      * returns - The built parser.
-     */
+     * /
   ConsoleOptionParser buildOptionParser(ConsoleOptionParser parserToBeDefined) {
     auto myParser = super.buildOptionParser(parserToBeDefined);
     myParser.description("Clear all data in a single cache engine");
@@ -60,5 +60,5 @@ class CacheClearCommand : DCommand {
       this.abort();
     }
     return CODE_SUCCESS;
-  }
+  } */ 
 }

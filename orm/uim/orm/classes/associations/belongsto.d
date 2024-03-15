@@ -16,6 +16,10 @@ import uim.orm;
  * An example of a BelongsTo association would be Article belongs to Author.
  */
 class DBelongsToAssociation : DAssociation {
+    mixin(AssociationThis!("BelongsTo"));
+
+    /*
+
     // Valid strategies for this type of association
     protected string[] _validStrategies = [
         STRATEGY_JOIN,
@@ -39,7 +43,7 @@ class DBelongsToAssociation : DAssociation {
      * @param DORMDatasource\IEntity anEntity The entity that started the cascaded delete.
      * @param array<string, mixed> options The options for the original delete.
      * @return bool Success.
-     */
+     * /
     bool cascadeDelete_(IEntity anEntity, STRINGAA someOptions = null) {
       return true;
     }
@@ -57,7 +61,7 @@ class DBelongsToAssociation : DAssociation {
      * or required information if the row in "source" did not exist.
      *
      * @param DORMTable side The potential Table with ownership
-     */
+     * /
     bool isOwningSide(Table side) {
         return side == this.getTarget();
     }
@@ -78,7 +82,7 @@ class DBelongsToAssociation : DAssociation {
      * @return DORMDatasource\IEntity|false false if entity could not be saved, otherwise it returns
      * the saved entity
      * @see DORMTable::save()
-     */
+     * /
     function saveAssociated(IEntity anEntity, STRINGAA someOptions = null) {
         auto targetEntity = entity.get(this.getProperty());
         if (empty(targetEntity) || !(targetEntity instanceof IEntity)) {
@@ -108,7 +112,7 @@ class DBelongsToAssociation : DAssociation {
      * @return array<DORMdatabases.Expression\IdentifierExpression>
      * @throws \RuntimeException if the number of columns in the foreignKey do not
      * match the number of columns in the target table primaryKeys
-     */
+     * /
     protected array _joinCondition(STRINGAA someOptions) {
         conditions = null;
         tAlias = _name;
@@ -155,5 +159,7 @@ class DBelongsToAssociation : DAssociation {
         ]);
 
         return loader.buildEagerLoader(options);
-    }
+    } */
 }
+mixin(AssociationCalls!("BelongsTo"));
+

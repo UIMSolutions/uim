@@ -17,6 +17,8 @@ import uim.orm;
  * In this example "Article" is the source table and "Tags" is the target table.
  */
 class DBelongsToManyAssociation : DAssociation {
+    mixin(AssociationThis!("BelongsToMany"));
+
     // Saving strategy that will only append to the links set
     const string SAVE_APPEND = "append";
 
@@ -1391,3 +1393,4 @@ class DBelongsToManyAssociation : DAssociation {
         }
     }
 }
+mixin(AssociationCalls!("BelongsToMany"));

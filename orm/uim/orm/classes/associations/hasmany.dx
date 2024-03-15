@@ -16,6 +16,8 @@ import uim.orm;
  * An example of a HasMany association would be Author has many Articles.
  */
 class DHasManyAssociation : DAssociation {
+    mixin(AssociationThis!("HasMany"));
+
     /**
      * Order in which target records should be returned
      *
@@ -616,3 +618,4 @@ class DHasManyAssociation : DAssociation {
         return helper.cascadeDelete_(this, entity, options);
     }
 }
+mixin(AssociationCalls!("HasMany"));

@@ -1,1 +1,1 @@
-# uim.orm.rules
+# Package 📦 uim.orm.classes.associations

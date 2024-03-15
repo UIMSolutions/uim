@@ -19,6 +19,7 @@ import uim.orm;
  * An example of a HasOne association would be User has one Profile.
  */
 class DHasOneAssociation : DAssociation {
+    mixin(AssociationThis!("HasOne"));
     /**
      * Valid strategies for this type of association
      *
@@ -122,3 +123,4 @@ class DHasOneAssociation : DAssociation {
         return helper.cascadeDelete_(this, entity, options);
     }
 }
+mixin(AssociationCalls!("HasOne"));

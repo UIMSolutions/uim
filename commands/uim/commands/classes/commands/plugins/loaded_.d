@@ -1,4 +1,4 @@
-module uim.commands.plugins.loaded_;
+module commands.uim.commands.classes.commands.plugins.loaded_;
 
 import uim.commands;
 
@@ -18,11 +18,11 @@ class PluginLoadedCommand : DCommand {
         return "plugin loaded";
     }
     
+    /* 
     //  Displays all currently loaded plugins.
      * Params:
      * \UIM\Console\IData [string] arguments The command arguments.
      * @param \UIM\Console\IConsoleIo aConsoleIo The console io
-     */
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         loaded = Plugin. loaded();
         aConsoleIo.out ( loaded);
@@ -36,5 +36,5 @@ class PluginLoadedCommand : DCommand {
         parserToUpdate.description("Displays all currently loaded plugins.");
 
         return parserToUpdate;
-    }
+    } */
 }

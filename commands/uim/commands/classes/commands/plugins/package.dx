@@ -1,2 +1,0 @@
-module uim.commands.plugins;
-

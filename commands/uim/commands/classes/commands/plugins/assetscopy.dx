@@ -1,4 +1,4 @@
-module uim.commands.classes.commands.plugins.assetscopy;
+module uim.commands.plugins.assetscopy;
 
 import uim.commands;
 
@@ -14,16 +14,16 @@ class PluginAssetsCopyCommand : DCommand {
 		return true;
 	}
 
+    mixin PluginAssetsTemplate();
+
     static string defaultName() {
         return "plugin assets copy";
     }
-
-    /* mixin PluginAssetsTemplate();
-
+    
     /**
      * Copying plugin assets to app`s webroot. For vendor namespaced plugin,
      * parent folder for vendor name are created if required.
-     * /
+     */
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         this.io = aConsoleIo;
         this.args = commandArguments;
@@ -39,7 +39,7 @@ class PluginAssetsCopyCommand : DCommand {
      * Get the option parser.
      * Params:
      * \UIM\Console\ConsoleOptionParser parserToUpdate The option parser to update
-     * /
+     */
     ConsoleOptionParser buildOptionParser(ConsoleOptionParser parserToUpdate){
         parserToUpdate.description([
             "Copy plugin assets to app\`s webroot.",
@@ -53,6 +53,5 @@ class PluginAssetsCopyCommand : DCommand {
         ]);
 
         return parserToUpdate;
-    } */
+    }
 }
-mixin(CommandCalls!("PluginAssetsCopy"));

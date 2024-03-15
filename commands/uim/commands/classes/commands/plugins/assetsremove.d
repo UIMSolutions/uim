@@ -1,4 +1,4 @@
-module uim.commands.plugins.assetsremove;
+module commands.uim.commands.classes.commands.plugins.assetsremove;
 
 import uim.commands;
 
@@ -14,12 +14,12 @@ class PluginAssetsRemoveCommand : DCommand {
 		return true;
 	}
 
-    mixin PluginAssetsTemplate();
- 
     static string defaultName() {
         return "plugin assets remove";
     }
-    
+
+    /* mixin PluginAssetsTemplate();
+
     // Remove plugin assets from app`s webroot.
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         this.io = aConsoleIo;

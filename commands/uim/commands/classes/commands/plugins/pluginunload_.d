@@ -1,4 +1,4 @@
-module uim.commands.plugins.pluginunload_;
+module uim.commands.classes.commands.plugins.pluginunload_;
 
 import uim.commands;
 
@@ -20,6 +20,7 @@ class PluginUnloadCommand : DCommand {
         return "plugin unload";
     }
 
+/* 
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         auto plugin = to!string(commandArguments.getArgument("plugin"));
 
@@ -63,7 +64,7 @@ class PluginUnloadCommand : DCommand {
      * Get the option parser.
      * Params:
      * \UIM\Console\ConsoleOptionParser  aParser The option parser to update
-     */
+     * /
     ConsoleOptionParser buildOptionParser(ConsoleOptionParser  aParser) {
          aParser.description([
             "Command for unloading plugins.",
@@ -74,5 +75,5 @@ class PluginUnloadCommand : DCommand {
         ]);
 
         return aParser;
-    }
+    } */
 }

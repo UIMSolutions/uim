@@ -1,11 +1,11 @@
-module uim.commands.plugins.assetssymlink_;
+module commands.uim.commands.classes.commands.plugins.assetssymlink;
 
 import uim.commands;
 
 @safe:
 
 // Command for symlinking / copying plugin assets to app`s webroot.
-class PluginAssetsSymlinkCommand : DCommand {
+class DPluginAssetsSymlinkCommand : DCommand {
    mixin(CommandThis!("PluginAssetsSymlink"));
 
   	override bool initialize(IData[string] initData = null) {
@@ -14,12 +14,13 @@ class PluginAssetsSymlinkCommand : DCommand {
 		return true;
 	}
 
-    mixin PluginAssetsTemplate();
-
     static string defaultName() {
         return "plugin assets symlink";
     }
-    
+
+    /* 
+    mixin PluginAssetsTemplate();
+
     /**
      * Attempt to symlink plugin assets to app`s webroot. If symlinking fails it
      * fallbacks to copying the assets. For vendor namespaced plugin, parent folder

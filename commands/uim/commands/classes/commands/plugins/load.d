@@ -1,11 +1,11 @@
-module uim.commands.plugins.load;
+module commands.uim.commands.classes.commands.plugins.load;
 
 import uim.commands;
 
 @safe:
 
 // Command for loading plugins.
-class PluginLoadCommand : DCommand {
+class DPluginLoadCommand : DCommand {
    mixin(CommandThis!("PluginLoad"));
 
   	override bool initialize(IData[string] initData = null) {
@@ -21,6 +21,7 @@ class PluginLoadCommand : DCommand {
     //  Config file
     protected string configDataFile = CONFIG ~ "plugins.d";
 
+    /* 
     int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         auto plugin = to!string(commandArguments.getArgument("plugin"));
         auto options = [];
@@ -41,7 +42,7 @@ class PluginLoadCommand : DCommand {
         try {
         Plugin. getCollection().findPath(plugin);
         } catch (MissingPluginException anException) {
-            /** @psalm-suppress InvalidArgument */
+            /** @psalm-suppress InvalidArgument * /
             if (isEmpty(options["optional"])) {
                 aConsoleIo.writeErrorMessages(anException.getMessage());
                 aConsoleIo.writeErrorMessages("Ensure you have the correct spelling and casing.");
@@ -121,5 +122,5 @@ ConsoleOptionParser buildOptionParser(ConsoleOptionParser aParser) {
         ]);
 
     return aParser;
-}
+} */ 
 }

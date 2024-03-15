@@ -5,7 +5,7 @@ import uim.commands;
 @safe:
 
 // Provides interactive CLI tools for routing.
-class RoutesCommand : Command {
+class RoutesCommand : DCommand {
    mixin(CommandThis!("RoutesCommand"));
 
   	override bool initialize(IData[string] initData = null) {

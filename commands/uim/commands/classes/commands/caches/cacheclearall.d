@@ -5,7 +5,7 @@ import uim.commands;
 @safe:
 
 // CacheClearall command.
-class CacheClearallCommand : DCommand {
+class DCacheClearallCommand : DCommand {
   mixin(CommandThis!("CacheClearall"));
 
   	override bool initialize(IData[string] initData = null) {

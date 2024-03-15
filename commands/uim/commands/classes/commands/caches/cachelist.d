@@ -5,7 +5,7 @@ import uim.commands;
 @safe:
 
 // CacheList command.
-class CacheListCommand : DCommand {
+class DCacheListCommand : DCommand {
   mixin(CommandThis!("CacheList"));
 
   	override bool initialize(IData[string] initData = null) {

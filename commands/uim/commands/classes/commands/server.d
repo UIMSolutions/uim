@@ -5,7 +5,7 @@ import uim.commands;
 @safe:
 
 // built-in Server command
-class ServerCommand : DCommand {
+class DServerCommand : DCommand {
    mixin(CommandThis!("Server"));
 
   	override bool initialize(IData[string] initData = null) {
@@ -39,7 +39,7 @@ class ServerCommand : DCommand {
      * \UIM\Console\Arguments commandArguments The command arguments.
      * @param \UIM\Console\IConsoleIo aConsoleIo The console io
      * @link https://book.UIM.org/5/en/console-and-shells.html#hook-methods
-     */
+     * /
     protected void startup(Arguments commandArguments, IConsoleIo aConsoleIo) {
         if (commandArguments.getOption("host")) {
            _host = to!string(commandArguments.getOption("host"));
@@ -102,7 +102,7 @@ class ServerCommand : DCommand {
      * Hook method for defining this command`s option parser.
      * Params:
      * \UIM\Console\ConsoleOptionParser  aParser The option parser to update
-     */
+     * /
     ConsoleOptionParser buildOptionParser(ConsoleOptionParser  aParser) {
          aParser.description([
             "PHP Built-in Server for UIM",
@@ -122,5 +122,5 @@ class ServerCommand : DCommand {
         ]);
 
         return aParser;
-    }
+    } */
 }

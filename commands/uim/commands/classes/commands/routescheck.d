@@ -5,19 +5,22 @@ import uim.commands;
 @safe:
 
 // Provides interactive CLI tool for testing routes.
-class RoutesCheckCommand : DCommand {
-   mixin(CommandThis!("RoutesCheck"));
+class DRoutesCheckCommand : DCommand {
+  mixin(CommandThis!("RoutesCheck"));
 
-  	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
+  override bool initialize(IData[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
+
+    return true;
+  }
 
   static string defaultName() {
     return "routes check";
   }
 
+  /* 
   // Display all routes in an application
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
     auto myUrl = commandArguments.getArgument("url");
@@ -67,5 +70,5 @@ class RoutesCheckCommand : DCommand {
         ]);
 
     return parserToUpdate;
-  }
+  } */
 }

@@ -5,7 +5,7 @@ import uim.commands;
 @safe:
 
 // Provides CLI tool for clearing schema cache.
-class SchemacacheClearCommand : DCommand {
+class DSchemacacheClearCommand : DCommand {
    mixin(CommandThis!("SchemacacheClear"));
 
   	override bool initialize(IData[string] initData = null) {
@@ -14,6 +14,7 @@ class SchemacacheClearCommand : DCommand {
 		return true;
 	}
 
+  /* 
   // Get the command name.
   static string defaultName() {
     return "schema_cache clear";
@@ -42,7 +43,7 @@ class SchemacacheClearCommand : DCommand {
   /**
      * Get the option parser.
      * @param \UIM\Console\ConsoleOptionParser  aParser The option parser to update
-     */
+     * /
   ConsoleOptionParser buildOptionParser(ConsoleOptionParser parserToUpdate) {
     parserToUpdate.description(
       "Clear all metadata caches for the connection. If a table name is provided, only that table will be removed."
@@ -57,5 +58,5 @@ class SchemacacheClearCommand : DCommand {
         ]);
 
     return parserToUpdate;
-  }
+  } */
 }

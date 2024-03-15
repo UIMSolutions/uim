@@ -5,7 +5,7 @@ import uim.commands;
 @safe:
 
 // Provides interactive CLI tools for URL generation
-class RoutesGenerateCommand : DCommand {
+class DRoutesGenerateCommand : DCommand {
    mixin(CommandThis!("RoutesGenerate"));
 
   	override bool initialize(IData[string] initData = null) {
@@ -18,6 +18,7 @@ class RoutesGenerateCommand : DCommand {
     return "routes generate";
   }
 
+  /* 
   // Display all routes in an application
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
     try {
@@ -61,5 +62,5 @@ class RoutesGenerateCommand : DCommand {
     );
 
     return parserToUpdate;
-  }
+  } */
 }

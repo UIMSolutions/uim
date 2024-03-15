@@ -5,7 +5,7 @@ import uim.commands;
 @safe:
 
 // Provides CLI tool for updating schema cache.
-class SchemacacheBuildCommand : DCommand {
+class DSchemacacheBuildCommand : DCommand {
    mixin(CommandThis!("SchemacacheBuild"));
 
   	override bool initialize(IData[string] initData = null) {
@@ -19,6 +19,7 @@ class SchemacacheBuildCommand : DCommand {
         return "schema_cache build";
     }
     
+    /* 
     // Display all routes in an application
     int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         SchemaCache schemaCache;
@@ -56,5 +57,5 @@ class SchemacacheBuildCommand : DCommand {
         ]);
 
         return parserToUpdate;
-    }
+    } */
 }

@@ -1,5 +1,5 @@
 module uim.commands.exceptions;
 
-public {
-    import uim.commands.exceptions.exception;
+public { // Modules
+    import uim.commands.exceptions.exception; // Root
 }

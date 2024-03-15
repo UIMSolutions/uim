@@ -1,4 +1,4 @@
-module commands.uim.commands.classes.commands.i18n.i18nextract;
+module uim.commands.classes.commands.i18n.i18nextract;
 
 import uim.commands;
 
@@ -33,6 +33,7 @@ class I18nExtractCommand : DCommand {
     // Contains all content waiting to be written
     protected Json _storage = [];
 
+    /* 
     // Extracted tokens
     protected array _tokens = [];
 
@@ -53,10 +54,10 @@ class I18nExtractCommand : DCommand {
 
     // Count number of marker errors found
     protected size_t _countMarkerError = 0;
-
+/* 
     // Method to interact with the user and get path selections.
     protected void _getPaths(IConsoleIo aConsoleIo) {
-        /** @psalm-suppress UndefinedConstant */
+        /** @psalm-suppress UndefinedConstant * /
         defaultPaths = chain(
             [APP],
             App.path("templates"),
@@ -194,7 +195,7 @@ class I18nExtractCommand : DCommand {
      * string adomain The domain
      * @param string amsgid The message string
      * @param array details Context and plural form if any, file and line references
-     */
+     * /
     protected void _addTranslation(string adomain, string amsgid, array details = []) {
         context = details.get("msgctxt", "");
 
@@ -240,7 +241,7 @@ class I18nExtractCommand : DCommand {
      * Gets the option parser instance and configures it.
      * Params:
      * \UIM\Console\ConsoleOptionParser  aParser The parser to configure
-     */
+     * /
     ConsoleOptionParser buildOptionParser(ConsoleOptionParser  aParser) {
          aParser.description(
             "Extract i18n POT files from application source files. " ~
@@ -306,7 +307,7 @@ class I18nExtractCommand : DCommand {
      * Params:
      * \UIM\Console\IData [string] arguments The io instance
      * @param \UIM\Console\IConsoleIo aConsoleIo The io instance
-     */
+     * /
     protected void _extractTokens(IData [string] arguments, IConsoleIo aConsoleIo) {
         progress = aConsoleIo.helper("progress");
         assert(cast(ProgressHelper)progress);
@@ -360,7 +361,7 @@ class I18nExtractCommand : DCommand {
      * \UIM\Console\IConsoleIo aConsoleIo The io instance
      * @param string afunctionName auto name that indicates translatable string (e.g: '__")
      * @param array map Array containing what variables it will find (e.g: domain, singular, plural)
-     */
+     * /
     protected void _parse(IConsoleIo aConsoleIo, string afunctionName, array map) {
         count = 0;
         tokenCount = count(_tokens);
@@ -417,10 +418,10 @@ class I18nExtractCommand : DCommand {
      * Build the translate template file contents out of obtained strings
      * Params:
      * \UIM\Console\IData [string] arguments Console arguments
-     */
+     * /
     protected void _buildFiles(IData [string] arguments) {
         somePaths = _paths;
-        /** @psalm-suppress UndefinedConstant */
+        /** @psalm-suppress UndefinedConstant  /
         somePaths ~= realpath(APP) ~ DIRECTORY_SEPARATOR;
 
         usort(somePaths, auto (string aa, string ab) {
@@ -475,7 +476,7 @@ class I18nExtractCommand : DCommand {
      * string adomain The domain
      * @param string aheader The header content.
      * @param string asentence The sentence to store.
-     */
+     *  /
     protected void _store(string adomain, string aheader, string asentence) {
        _storage[ domain] ??= [];
 
@@ -491,7 +492,7 @@ class I18nExtractCommand : DCommand {
      * Params:
      * \UIM\Console\IData [string] arguments The command arguments.
      * @param \UIM\Console\IConsoleIo aConsoleIo The console io
-     */
+     * /
     protected void _writeFiles(IData [string] arguments, IConsoleIo aConsoleIo) {
          aConsoleIo.writeln();
         bool overwriteAll = false;
@@ -538,7 +539,7 @@ class I18nExtractCommand : DCommand {
      * Build the translation template header
      * Params:
      * string adomain Domain
-     */
+     * /
     protected string _writeHeader(string adomain) {
         projectIdVersion = domain == "cake' ? "UIM " ~ Configure.currentVersion(): 'PROJECT VERSION";
 
@@ -569,7 +570,7 @@ class I18nExtractCommand : DCommand {
      * string aoldFile The existing file.
      * @param int  aHeaderLength The length of the file header in bytes.
      * @param string anewFileContent The content of the new file.
-     */
+     * /
     protected bool checkUnchanged(string aoldFile, int  aHeaderLength, string anewFileContent) {
         if (!file_exists( oldFile)) {
             return false;
@@ -589,7 +590,7 @@ class I18nExtractCommand : DCommand {
      * Params:
      * int position Actual position on tokens array
      * @param int target Number of strings to extract
-     */
+     * /
     protected string[] _getStrings(int &position, int target) {
         string[] strings = [];
         count = 0;
@@ -623,9 +624,7 @@ class I18nExtractCommand : DCommand {
         return strings;
     }
     
-    /**
-     * Format a string to be added as a translatable string
-     */
+    // Format a string to be added as a translatable string
     protected string _formatString(string textToFormat) {
         string quote = substr(textToFormat, 0, 1);
         textToFormat = substr(textToFormat, 1, -1);
@@ -646,7 +645,7 @@ class I18nExtractCommand : DCommand {
      * @param string afile File where invalid marker resides
      * @param string amarker Marker found
      * @param int count Count
-     */
+     * /
     protected void _markerError(IConsoleIo aConsoleIo, string afile, int lineNumber, string amarker, int count) {
         if (!_file.has(CAKE_CORE_INCLUDE_PATH)) {
            _countMarkerError++;
@@ -711,9 +710,9 @@ class I18nExtractCommand : DCommand {
     /**
      * Returns whether this execution is meant to extract string only from directories in folder represented by the
      * APP constant, i.e. this task is extracting strings from same application.
-     */
+     * /
     protected bool _isExtractingApp() {
-        /** @psalm-suppress UndefinedConstant */
+        /** @psalm-suppress UndefinedConstant * /
         return _paths == [APP];
     }
     
@@ -721,11 +720,11 @@ class I18nExtractCommand : DCommand {
      * Checks whether a given path is usable for writing.
      * Params:
      * string aPath Path to folder
-     */
+     * /
     protected bool _isPathUsable(string aPath) {
         if (!isDir(somePath)) {
             mkdir(somePath, 0770, true);
         }
         return isDir(somePath) && is_writable(somePath);
-    }
+    } */
 }

@@ -1,4 +1,4 @@
-module commands.uim.commands.classes.commands.plugins.assetssymlink;
+module uim.commands.classes.commands.plugins.assetssymlink;
 
 import uim.commands;
 
@@ -25,7 +25,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
      * Attempt to symlink plugin assets to app`s webroot. If symlinking fails it
      * fallbacks to copying the assets. For vendor namespaced plugin, parent folder
      * for vendor name are created if required.
-     */
+     * /
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         this.io = aConsoleIo;
         this.args = commandArguments;
@@ -50,5 +50,5 @@ class DPluginAssetsSymlinkCommand : DCommand {
         ]);
 
         return parserToUpdate;
-    }
+    } */
 }

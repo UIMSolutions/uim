@@ -1,4 +1,4 @@
-module commands.uim.commands.classes.commands.i18n.i18n;
+module uim.commands.classes.commands.i18n.i18n;
 
 import uim.commands;
 
@@ -14,6 +14,7 @@ class DI18nCommand : DCommand {
 		return true;
 	}
 
+    /*
     // Execute interactive mode
     int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         aConsoleIo.writeln("<info>I18n Command</info>");
@@ -57,6 +58,6 @@ class DI18nCommand : DCommand {
         );
 
         return aParser;
-    }
+    } */
 }
 mixin(CommandCalls!("I18n"));

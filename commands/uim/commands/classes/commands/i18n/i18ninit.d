@@ -1,4 +1,4 @@
-module commands.uim.commands.classes.commands.i18n.i18ninit;
+module uim.commands.classes.commands.i18n.i18ninit;
 
 import uim.commands;
 
@@ -18,6 +18,7 @@ class I18nInitCommand : DCommand {
         return "i18n init";
     }
 
+    /* 
     int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         auto myLanguage = commandArguments.getArgument("language");
         if (!myLanguage) {
@@ -64,7 +65,7 @@ class I18nInitCommand : DCommand {
      * Gets the option parser instance and configures it.
      * Params:
      * \UIM\Console\ConsoleOptionParser  aParser The parser to update
-     */
+     * /
     ConsoleOptionParser buildOptionParser(ConsoleOptionParser  aParser) {
          aParser.description("Initialize a language PO file from the POT file")
            .addOption("plugin", [
@@ -76,5 +77,5 @@ class I18nInitCommand : DCommand {
            ]);
 
         return aParser;
-    }
+    } */
 }

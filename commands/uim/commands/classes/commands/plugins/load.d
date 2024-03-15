@@ -6,18 +6,21 @@ import uim.commands;
 
 // Command for loading plugins.
 class DPluginLoadCommand : DCommand {
-   mixin(CommandThis!("PluginLoad"));
+    mixin(CommandThis!("PluginLoad"));
 
-  	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        return true;
+    }
 
     static string defaultName() {
         return "plugin load";
     }
 
+    /*
     //  Config file
     protected string configDataFile = CONFIG ~ "plugins.d";
 
@@ -122,5 +125,5 @@ ConsoleOptionParser buildOptionParser(ConsoleOptionParser aParser) {
         ]);
 
     return aParser;
-} */ 
+} */
 }

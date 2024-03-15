@@ -1,4 +1,4 @@
-module commands.uim.commands.exceptions.exception;
+module uim.commands.exceptions.exception;
 
 import uim.commands;
 

@@ -1,4 +1,4 @@
-module commands.uim.commands.classes.commands.plugins.assetsremove;
+module uim.commands.classes.commands.plugins.assetsremove;
 
 import uim.commands;
 
@@ -52,5 +52,5 @@ class PluginAssetsRemoveCommand : DCommand {
         ]);
 
         return aParser;
-    }
+    } */
 }

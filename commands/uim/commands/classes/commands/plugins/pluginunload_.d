@@ -5,7 +5,7 @@ import uim.commands;
 @safe:
 
 // Command for unloading plugins.
-class PluginUnloadCommand : DCommand {
+class DPluginUnloadCommand : DCommand {
    mixin(CommandThis!("PluginUnload"));
 
   	override bool initialize(IData[string] initData = null) {
@@ -14,7 +14,7 @@ class PluginUnloadCommand : DCommand {
 		return true;
 	}
 
-    protected string configDataFile = CONFIG ~ "plugins.d";
+    // TODO protected string configDataFile = CONFIG ~ "plugins.d";
  
     static string defaultName() {
         return "plugin-unload";
@@ -77,3 +77,4 @@ class PluginUnloadCommand : DCommand {
         return aParser;
     } */
 }
+mixin(CommandCalls!("PluginUnload"));

@@ -31,7 +31,7 @@ class I18nExtractCommand : DCommand {
     protected string _file = "";
 
     // Contains all content waiting to be written
-    protected Json _storage = [];
+    // TODO protected Json _storage = [];
 
     /* 
     // Extracted tokens

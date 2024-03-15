@@ -5,7 +5,7 @@ import uim.commands;
 @safe:
 
 // Command for copying plugin assets to app`s webroot.
-class PluginAssetsCopyCommand : DCommand {
+class DPluginAssetsCopyCommand : DCommand {
    mixin(CommandThis!("PluginAssetsCopy"));
 
   	override bool initialize(IData[string] initData = null) {

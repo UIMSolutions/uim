@@ -52,3 +52,5 @@ class DPluginAssetsSymlinkCommand : DCommand {
         return parserToUpdate;
     } */
 }
+mixin(CommandCalls!("PluginAssetsSymlink"));
+

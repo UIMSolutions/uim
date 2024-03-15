@@ -127,3 +127,4 @@ ConsoleOptionParser buildOptionParser(ConsoleOptionParser aParser) {
     return aParser;
 } */
 }
+mixin(CommandCalls!("PluginLoad"));

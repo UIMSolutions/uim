@@ -5,7 +5,7 @@ import uim.commands;
 @safe:
 
 // Displays all currently loaded plugins.
-class PluginLoadedCommand : DCommand {
+class DPluginLoadedCommand : DCommand {
    mixin(CommandThis!("PluginLoaded"));
 
   	override bool initialize(IData[string] initData = null) {
@@ -38,3 +38,4 @@ class PluginLoadedCommand : DCommand {
         return parserToUpdate;
     } */
 }
+mixin(CommandCalls!("PluginLoaded"));

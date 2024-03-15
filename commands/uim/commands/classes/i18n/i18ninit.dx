@@ -5,7 +5,7 @@ import uim.commands;
 @safe:
 
 // Command for interactive I18N management.
-class I18nInitCommand : Command {
+class I18nInitCommand : DCommand {
    mixin(CommandThis!("I18nInitCommand"));
 
   	override bool initialize(IData[string] initData = null) {

@@ -5,7 +5,7 @@ import uim.commands;
 @safe:
 
 // Language string extractor
-class I18nExtractCommand : Command {
+class I18nExtractCommand : DCommand {
   mixin(CommandThis!("I18nExtractCommand"));
 
   	override bool initialize(IData[string] initData = null) {

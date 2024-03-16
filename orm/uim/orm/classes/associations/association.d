@@ -22,7 +22,7 @@ class DAssociation : IAssociation {
 
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
-        configurationData(initData);
+        setConfigurationData(initData);
 
         return true;
     }

@@ -43,7 +43,7 @@ class FormContext : IContext {
     }
 
     configuration(MemoryConfiguration);
-    configurationData(initData);
+    setConfigurationData(initData);
 
     return true;
   }

@@ -18,12 +18,12 @@ mixin template TConfigurable() {
     }
 
     // Get configuration data
-    IData[string] configurationData() {
-        return _configuration ? _configuration.data() : null;
+    IData[string] getConfigurationData() {
+        return configuration ? configuration.data() : null;
     }
 
     // Set configuration data
-    void configurationData(IData[string] newData) {
+    void setConfigurationData(IData[string] newData) {
         if (configuration) {
             configuration.data(newData);
         }

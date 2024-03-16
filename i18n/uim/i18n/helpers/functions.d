@@ -1,4 +1,5 @@
-module uim.i18n;
+module uim.i18n.helpers.functions;
+
 import uim.i18n;
 
 @safe:
@@ -7,7 +8,7 @@ import uim.i18n;
  *
  * @param string asingular Text to translate.
  * @param Json ...someArguments Array with arguments or multiple arguments in function.
- */
+ * /
 string __(string asingular, Json ...someArguments) {
     if (!singular) {
         return "";
@@ -25,7 +26,7 @@ string __(string asingular, Json ...someArguments) {
  * @param string aplural Plural text.
  * @param int count Count.
  * @param Json ...someArguments Array with arguments or multiple arguments in function.
- */
+ * /
 string __n(string asingular, string aplural, int count, Json ...someArguments) {
     if (!singular) {
         return "";
@@ -38,13 +39,14 @@ string __n(string asingular, string aplural, int count, Json ...someArguments) {
         ["_count": count, "_singular": singular] + someArguments
     );
 }
+
 /**
  * Allows you to override the current domain for a single message lookup.
  *
  * @param string adomain Domain.
  * @param string amsg String to translate.
  * @param Json ...someArguments Array with arguments or multiple arguments in function.
- */
+ * /
 string __d(string adomain, string messageToTranslate, Json ...someArguments) {
     if (messageToTranslate.isEmpty) {
         return "";
@@ -55,6 +57,7 @@ string __d(string adomain, string messageToTranslate, Json ...someArguments) {
     }
     return I18n.getTranslator(domain).translate(message, someArguments);
 }
+
 /**
  * Allows you to override the current domain for a single plural message lookup.
  * Returns correct plural form of message identified by singular and plural for count count
@@ -65,7 +68,7 @@ string __d(string adomain, string messageToTranslate, Json ...someArguments) {
  * @param string aplural Plural.
  * @param int count Count.
  * @param Json ...someArguments Array with arguments or multiple arguments in function.
- */
+ * /
 string __dn(string adomain, string asingular, string aplural, int count, Json ...someArguments): 
 {
     if (singular.isEmpty) {
@@ -87,7 +90,7 @@ string __dn(string adomain, string asingular, string aplural, int count, Json ..
  * @param string acontext Context of the text.
  * @param string asingular Text to translate.
  * @param Json ...someArguments Array with arguments or multiple arguments in function.
- */
+ * /
 string __x(string acontext, string asingular, Json ...someArguments)
 {
     if (!singular) {
@@ -109,7 +112,7 @@ string __x(string acontext, string asingular, Json ...someArguments)
  * @param string aplural Plural text.
  * @param int count Count.
  * @param Json ...someArguments Array with arguments or multiple arguments in function.
- */
+ * /
 string __xn(string acontext, string asingular, string aplural, int count, Json ...someArguments) {
     if (!singular) {
         return "";
@@ -122,6 +125,7 @@ string __xn(string acontext, string asingular, string aplural, int count, Json .
         ["_count": count, "_singular": singular, "_context": context] + someArguments
     );
 }
+
 /**
  * Allows you to override the current domain for a single message lookup.
  * The context is a unique identifier for the translations string that makes it unique
@@ -131,7 +135,7 @@ string __xn(string acontext, string asingular, string aplural, int count, Json .
  * @param string acontext Context of the text.
  * @param string amsg String to translate.
  * @param Json ...someArguments Array with arguments or multiple arguments in function.
- */
+ * /
 string __dx(string adomain, string acontext, string amsg, Json ...someArguments) {
     if (!message) {
         return "";
@@ -144,6 +148,7 @@ string __dx(string adomain, string acontext, string amsg, Json ...someArguments)
         ["_context": context] + someArguments
     );
 }
+
 /**
  * Returns correct plural form of message identified by singular and plural for count count.
  * Allows you to override the current domain for a single message lookup.
@@ -156,7 +161,7 @@ string __dx(string adomain, string acontext, string amsg, Json ...someArguments)
  * @param string aplural Plural text.
  * @param int count Count.
  * @param Json ...someArguments Array with arguments or multiple arguments in function.
- */
+ * /
 string __dxn(
     string adomain,
     string acontext,
@@ -174,5 +179,5 @@ string __dxn(
     return I18n.getTranslator(domain).translate(
         plural,
         ["_count": count, "_singular": singular, "_context": context] + someArguments
-    );
-}
+    ); 
+} */

@@ -76,7 +76,7 @@ class DMessagesFileLoader {
      * in the system.
      * @param string fileExtension The file extension to use. This will also be mapped
      * to a messages parser class.
-     */
+     * /
     this(string domainName, string alocale, string fileExtension = "po") {
         this();
        _name = domainName;

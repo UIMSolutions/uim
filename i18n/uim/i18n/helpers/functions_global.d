@@ -1,12 +1,17 @@
 module uim.i18n.helpers.functions_global;
 
+import uim.commands;
+
+@safe:
+
+/*
 if (!function_exists("__")) {
     /**
      * Returns a translated string if one is found; Otherwise, the submitted message.
      * Params:
      * string asingular Text to translate.
      * @param Json ...someArguments Array with arguments or multiple arguments in function.
-     */
+     * /
     string __(string asingular, Json ...someArguments) {
         return cake__(singular, ...someArguments);
     }
@@ -21,7 +26,7 @@ if (!function_exists("__n")) {
      * @param string aplural Plural text.
      * @param int count Count.
      * @param Json ...someArguments Array with arguments or multiple arguments in function.
-     */
+     * /
     string|int|false __n(string asingular, string aplural, int count, Json ...someArguments) {
         return cake__n(singular, plural, count, ...someArguments);
     }
@@ -34,7 +39,7 @@ if (!function_exists("__d")) {
      * string adomain Domain.
      * @param string amsg String to translate.
      * @param Json ...someArguments Array with arguments or multiple arguments in function.
-     */
+     * /
     string __d(string adomain, string amsg, Json ...someArguments) {
         return cake__d(domain, message, ...someArguments);
     }
@@ -51,7 +56,7 @@ if (!function_exists("__dn")) {
      * @param string aplural Plural.
      * @param int count Count.
      * @param Json ...someArguments Array with arguments or multiple arguments in function.
-     */
+     * /
     string __dn(string adomain, string asingular, string aplural, int count, Json ...someArguments) {
         return cake__dn(domain, singular, plural, count, ...someArguments);
     }
@@ -66,7 +71,7 @@ if (!function_exists("__x")) {
      * string acontext Context of the text.
      * @param string asingular Text to translate.
      * @param Json ...someArguments Array with arguments or multiple arguments in function.
-     */
+     * /
     string __x(string acontext, string asingular, Json ...someArguments) {
         return cake__x(context, singular, ...someArguments);
     }
@@ -84,7 +89,7 @@ if (!function_exists("__xn")) {
      * @param string aplural Plural text.
      * @param int count Count.
      * @param Json ...someArguments Array with arguments or multiple arguments in function.
-     */
+     * /
     string __xn(string acontext, string asingular, string aplural, int count, Json ...someArguments) {
         return cake__xn(context, singular, plural, count, ...someArguments);
     }
@@ -100,7 +105,7 @@ if (!function_exists("__dx")) {
      * @param string acontext Context of the text.
      * @param string amsg String to translate.
      * @param Json ...someArguments Array with arguments or multiple arguments in function.
-     */
+     * /
     string __dx(string adomain, string acontext, string amsg, Json ...someArguments) {
         return cake__dx(domain, context, message, ...someArguments);
     }
@@ -119,7 +124,7 @@ if (!function_exists("__dxn")) {
      * @param string aplural Plural text.
      * @param int count Count.
      * @param Json ...someArguments Array with arguments or multiple arguments in function.
-     */
+     * /
     string __dxn(
         string adomain,
         string acontext,
@@ -131,3 +136,4 @@ if (!function_exists("__dxn")) {
         return cake__dxn(domain, context, singular, plural, count, ...someArguments);
     }
 }
+*/

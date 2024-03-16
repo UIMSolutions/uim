@@ -18,7 +18,7 @@ class Time { // : ChronosTime, JsonSerializable, Stringable {
 
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
-        configurationData(initData);
+        setConfigurationData(initData);
         
         return true;
     }

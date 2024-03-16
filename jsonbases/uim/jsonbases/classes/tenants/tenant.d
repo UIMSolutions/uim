@@ -18,7 +18,7 @@ class DJsonTenant : IJsonTenant, IJsonCollectionManager {
     // Hook method
     bool initialize(IData[string] initData = null) {
         //TODO configuration(MemoryConfiguration);
-        //TODO configurationData(initData);
+        //TODO setConfigurationData(initData);
 
         return true;
     }

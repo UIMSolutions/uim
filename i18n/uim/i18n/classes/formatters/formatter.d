@@ -14,7 +14,7 @@ class DI18NFormatter : II18NFormatter {
 
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
-        configurationData(initData);
+        setConfigurationData(initData);
         
         return true;
     }

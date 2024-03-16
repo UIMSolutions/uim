@@ -16,10 +16,10 @@ interface IConfigurable {
     void configuration(IConfiguration newConfiguration);
 
     /* 
-    void setConfiguration(Json newData); 
+    void setConfigurationData(Json newData); 
 
-    void setConfiguration(string key, IData newData); 
+    void setConfigurationData(string key, IData newData); 
     */
 
-    // TODO IData getConfiguration(string key); 
+    // TODO IData getConfigurationData(string key); 
 }

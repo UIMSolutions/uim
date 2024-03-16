@@ -24,25 +24,25 @@ mixin template TConfigurable() {
 
     // Set configuration data
     void configurationData(IData[string] newData) {
-        if (_configuration) {
-            _configuration.data(newData);
+        if (configuration) {
+            configuration.data(newData);
         }
     }
 
     // Set configuration data
-    void configurationUpdate(IData[string] newData) {
-        if (_configuration) {
-            _configuration.update(newData);
+    void updateConfiguration(IData[string] newData) {
+        if (configuration) {
+            configuration.update(newData);
         }
     }
 
-    /* IData getConfiguration(string key) {
+    /* IData getConfigurationData(string key) {
         return _configuration ? _configuration.get(key) : null;
     }
 
-    void setConfiguration(string key, IData newData) {
-        if (_configuration) {
-            _configuration.set(key, newData);
+    void setConfigurationData(string key, IData newData) {
+        if (configuration) {
+            configuration.set(key, newData);
         }
     } */
 }

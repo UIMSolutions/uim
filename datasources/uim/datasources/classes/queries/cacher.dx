@@ -7,7 +7,7 @@ module uim.datasources.queries.cacher;
 
 
 use Psr\SimpleCache\ICache;
-use Traversable;
+
 
 /**
  * Handles caching queries and loading results from the cache.

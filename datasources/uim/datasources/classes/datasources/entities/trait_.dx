@@ -9,7 +9,7 @@ module uim.datasources.entities.trait_;
 import uim.datasources;
 
 se InvalidArgumentException;
-use Traversable;
+
 
 /**
  * An entity represents a single result row from a repository. It exposes the

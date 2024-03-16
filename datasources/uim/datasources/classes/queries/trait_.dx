@@ -12,7 +12,7 @@ import uim.datasources;
 import uim.collections.Iterator\MapReduce;
 import uim.datasources.exceptions.RecordNotFoundException;
 
-use Traversable;
+
 
 /**
  * Contains the characteristics for an object that is attached to a repository and

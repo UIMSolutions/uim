@@ -12,7 +12,7 @@ use Countable;
 
 use IteratorAggregate;
 use Psr\Http\Message\IUploadedFile;
-use Traversable;
+
 use auto UIM\I18n\__d;
 /**
  * Validator object encapsulates all methods related to data validations for a model

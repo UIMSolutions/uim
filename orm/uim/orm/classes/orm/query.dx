@@ -13,7 +13,7 @@ use ArrayObject;
 
 
 use JsonSerializable;
-use Traversable;
+
 
 /**
  * : the base Query class to provide new methods related to association

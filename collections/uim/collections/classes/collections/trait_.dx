@@ -18,7 +18,7 @@ use LimitIterator;
 
 use OuterIterator;
 use RecursiveIteratorIterator;
-use Traversable; */
+ */
 
 // Offers a handful of methods to manipulate iterators
 trait CollectionTrait {

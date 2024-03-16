@@ -17,7 +17,7 @@ class Paginator : IPaginator {
         }
 
         configuration(MemoryConfiguration);
-        configurationData(initData);
+        setConfigurationData(initData);
 
         return true;
     }

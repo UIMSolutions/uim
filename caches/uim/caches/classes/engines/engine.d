@@ -19,7 +19,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      */
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
-        configurationData(initData);
+        setConfigurationData(initData);
 
         /* if (configuration.hasKey("groups")) {
             configuration["groups"].sort;

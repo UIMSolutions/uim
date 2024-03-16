@@ -21,7 +21,7 @@ class HelpFormatter {
         }
 
         configuration(MemoryConfiguration);
-        configurationData(initData);
+        setConfigurationData(initData);
 
         return true;
     }

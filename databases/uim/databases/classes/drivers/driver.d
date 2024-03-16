@@ -9,7 +9,7 @@ class DDriver { // }: IDriver {
     // Hook method
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
-        configurationData(initData);
+        setConfigurationData(initData);
 
         return true;
     }

@@ -35,7 +35,7 @@ abstract class Helper {
 
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
-        configurationData(initData);
+        setConfigurationData(initData);
     }
     
     /**

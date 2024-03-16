@@ -7,12 +7,19 @@ import uim.databases;
 class DMysqlDriver : DDriver {
     mixin(DriverThis!("Mysql"));
 
-/*
+    protected const MAX_ALIAS_LENGTH = 256;
+
+    // Server type MySQL
+    protected const string SERVER_TYPE_MYSQL = "mysql";
+
+    // Server type MariaDB
+    protected const string SERVER_TYPE_MARIADB = "mariadb";
+
     override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		
             // Base configuration settings for MySQL driver
-        _baseConfig.data([
+        /* _baseConfig.data([
                 "persistent": BoolData(true),
                 "host": StringData("localhost"),
                 "username": StringData("root"),
@@ -23,23 +30,14 @@ class DMysqlDriver : DDriver {
                 "encoding": StringData("utf8mb4"),
                 "timezone": NullData(null),
                 "init": ArrayData,
-            ]);
+            ]); */
     
-        _startQuote = "`";
-        _endQuote = "`";
+        startQuote("`");
+        endQuote("`");
 
 		return true;
 	}
  
-
-    protected const MAX_ALIAS_LENGTH = 256;
-
-    // Server type MySQL
-    protected const string SERVER_TYPE_MYSQL = "mysql";
-
-    // Server type MariaDB
-    protected const string SERVER_TYPE_MARIADB = "mariadb";
-
     /**
      * Server type.
      *

@@ -9,7 +9,7 @@ module uim.errors;
 @safe:
 import uim.errors;
 
-use Exception;
+
 
 /**
  * Entry point to UIM"s error handling.

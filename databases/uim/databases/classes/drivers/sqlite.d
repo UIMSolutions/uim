@@ -8,11 +8,7 @@ class SqliteDriver : DDriver {
     mixin(DriverThis!("Sqlite"));
 
     override bool initialize(IData[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
-
-        configuration.update([
+        IData[string] baseData = [
             "persistent": BooleanData(false),
             "username": StringData,
             "password": StringData,
@@ -23,7 +19,13 @@ class SqliteDriver : DDriver {
             "mode": null,
             "flags": [],
             "init": [], */
-        ]);
+        ];
+
+        if (!super.initialize(baseData)) {
+            return false;
+        }
+
+        updateConfiguration(initData);
 
         startQuote("\"");
         endQuote("\"");

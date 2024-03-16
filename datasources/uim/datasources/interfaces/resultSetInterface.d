@@ -9,7 +9,7 @@ module uim.datasources.interfaces.resultSetinterface;
 import uim.datasources;
 
 // use Countable;
-// use Serializable;
+// 
 
 /**
  * Describes how a collection of datasource results should look like

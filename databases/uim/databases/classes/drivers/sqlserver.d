@@ -7,11 +7,11 @@ import uim.databases;
 class DSqlserverDriver : DDriver {
     mixin(DriverThis!("Sqlserver"));
     
-    /*
+    
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 
-_baseConfig = [
+        /* _baseConfig = [
         "host": "localhost\SQLEXPRESS",
         "username": "",
         "password": "",
@@ -30,14 +30,14 @@ _baseConfig = [
         "multiSubnetFailover": null,
         "encrypt": null,
         "trustServerCertificate": null,
-    ];
+    ];*/
 
         _startQuote = "[";
         _endQuote = "]";
 
 		return true;
 	}
-
+/*
     mixin TupleComparisonTranslatorTemplate();
 
     protected const MAX_ALIAS_LENGTH = 128;

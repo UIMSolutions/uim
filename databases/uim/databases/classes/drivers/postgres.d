@@ -6,13 +6,12 @@ import uim.databases;
 class DPostgresDriver : DDriver {
     mixin(DriverThis!("Postgres"));
 
-    /* 
     override bool initialize(IData[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
 
-        _baseConfig = [
+        /*    _baseConfig = [
             "persistent": true,
             "host": "localhost",
             "username": "root",
@@ -25,14 +24,15 @@ class DPostgresDriver : DDriver {
             "flags": [],
             "init": [],
         ];
-
+*/
         // String used to start a database identifier quoting to make it safe
-        _startQuote = "\"";
-        _endQuote = "\"";
+        startQuote("\"");
+        endQuote("\"");
 
         return true;
     }
 
+    /** 
     protected const MAX_ALIAS_LENGTH = 63;
 
     void connect() {
@@ -210,6 +210,5 @@ protected void _transformFunctionExpression(FunctionExpression expressionToConve
                     QueryCompiler newCompiler() {
                         return new PostgresCompiler();
                     }
-                } */ 
+                } */
 }
-                

@@ -9,20 +9,30 @@ import uim.i18n;
  * formatting helpers.
  */
 class DateTime /* : Chronos, JsonSerializable, Stringable */ {
+    mixin TConfigurable!();
+
+    this() { initialize; }
+
+    bool initialize(IData[string] initData = null) {
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
+
     // TODO mixin DateFormatTemplate();
 
     /**
      * The default locale to be used for displaying formatted date strings.
      *
      * Use setDefaultLocale() and getDefaultLocale() instead.
-     */
+     * /
     protected string _defaultLocale;
 
     /**
      * Whether lenient parsing is enabled for IntlDateFormatter.
      *
      * Defaults to true which is the default for IntlDateFormatter.
-     */
+     * /
     protected bool _lenientParsing = true;
 
     /**
@@ -70,7 +80,7 @@ class DateTime /* : Chronos, JsonSerializable, Stringable */ {
      *
      * @var array<int>|string|int
      * @see \UIM\I18n\DateTime.nice()
-     */
+     * /
     // string[] niceFormat = [IntlDateFormatter.MEDIUM, IntlDateFormatter.SHORT];
 
     /**
@@ -112,7 +122,7 @@ class DateTime /* : Chronos, JsonSerializable, Stringable */ {
      * Set to null to use IntlDateFormatter default.
      * Params:
      * string locale The default locale string to be used.
-     */
+     * /
     void setDefaultLocale(string alocale = null) {
         defaultLocale = locale;
     }
@@ -420,7 +430,7 @@ class DateTime /* : Chronos, JsonSerializable, Stringable */ {
      * NOTE: If the difference is one week or more, the lowest level of accuracy is day
      * Params:
      * IData[string] options Array of options.
-     */
+     * /
     string timeAgoInWords(IData[string] options = null) {
         return diffFormatter().timeAgoInWords(this, options);
     }

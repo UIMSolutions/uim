@@ -6,4 +6,5 @@ public {
     import uim.i18n.classes.formatters.icu;
     import uim.i18n.classes.formatters.locator;
     import uim.i18n.classes.formatters.print;
+    import uim.i18n.classes.formatters.relativetime;
 }

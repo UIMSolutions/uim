@@ -10,6 +10,17 @@ import uim.i18n;
  * Adds handy methods and locale-aware formatting helpers.
  */
 class Date { // }: ChronosDate, JsonSerializable {
+    mixin TConfigurable!();
+
+    this() { initialize; }
+
+    bool initialize(IData[string] initData = null) {
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
+
+    /*
     // TODO mixin DateFormatTemplate();
 
     /**
@@ -183,7 +194,7 @@ class Date { // }: ChronosDate, JsonSerializable {
      * Params:
      * string|int format Format string.
      * @param string locale The locale name in which the date should be displayed (e.g. pt-BR)
-     */
+     * /
     string i18nFormat(int format, string localeName = null) {
         return i18nFormat(to!string(format), localeName);
     }
@@ -203,7 +214,7 @@ class Date { // }: ChronosDate, JsonSerializable {
      * The format to be used is stored in the static property `Date.niceFormat`.
      * Params:
      * string localname The localname name in which the date should be displayed (e.g. pt-BR)
-     */
+     * /
     string nice(string localeName = null) {
         return to!string(this.i18nFormat(niceFormat, localeName));
     }
@@ -240,7 +251,7 @@ class Date { // }: ChronosDate, JsonSerializable {
      * NOTE: If the difference is one week or more, the lowest level of accuracy is day.
      * Params:
      * IData[string] options Array of options.
-     */
+     * /
     string timeAgoInWords(IData[string] options = null) {
         return diffFormatter().dateAgoInWords(this, options);
     }
@@ -255,5 +266,5 @@ class Date { // }: ChronosDate, JsonSerializable {
  
     override string toString() {
         return to!string(this.i18nFormat());
-    }
+    } */
 }

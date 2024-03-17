@@ -1,6 +1,6 @@
 module uim.i18n.helpers.functions_global;
 
-import uim.commands;
+import uim.i18n;
 
 @safe:
 

@@ -1,4 +1,4 @@
-# Package 📦 uim.jsonbases.classes.base
+# Package 📦 uim.jsonbases.classes.bases
 
 ## Packages
 

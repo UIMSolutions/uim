@@ -16,7 +16,7 @@ class DSchemacacheBuildCommand : DCommand {
 
     // Get the command name.
     static string defaultName() {
-        return "schema_cache build";
+        return "schema_cache-build";
     }
     
     /* 

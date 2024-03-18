@@ -18,7 +18,7 @@ class DRoutesCommand : DCommand {
     // Display all routes in an application
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         auto myheader = ["Route name", "URI template", "Plugin", "Prefix", "Controller", "Action", "Method(s)"];
-        if (arguments.getOption("verbose")) {
+        if (arguments.hasKey("verbose")) {
              aHeader ~= "Defaults";
         }
         auto myavailableRoutes = Router.routes();

@@ -17,7 +17,7 @@ class DSchemacacheClearCommand : DCommand {
   /* 
   // Get the command name.
   static string defaultName() {
-    return "schema_cache clear";
+    return "schema_cache-clear";
   }
 
   // Display all routes in an application

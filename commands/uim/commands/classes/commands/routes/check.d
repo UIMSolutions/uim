@@ -17,7 +17,7 @@ class DRoutesCheckCommand : DCommand {
   }
 
   static string defaultName() {
-    return "routes check";
+    return "routes-check";
   }
 
   /* 

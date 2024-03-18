@@ -15,7 +15,7 @@ class DRoutesGenerateCommand : DCommand {
 	}
 
   static string defaultName() {
-    return "routes generate";
+    return "routes-generate";
   }
 
   /* 

@@ -6,8 +6,6 @@ import uim.commands;
 
 // Provides interactive CLI tools for routing.
 class RoutesCommand : DCommand {
-   mixin(CommandThis!("Routes"));
-
 
     // Display all routes in an application
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {

@@ -1,4 +1,4 @@
-module uim.commands;
+module uim.commands.mixins.assets;
 
 import uim.commands;
 
@@ -7,7 +7,7 @@ import uim.commands;
 /* * template for symlinking / copying plugin assets to app"s webroot.
  *
  * @internal
- */
+ * /
 template PluginAssetsTemplate {
     protected IData [string] arguments;
 
@@ -19,7 +19,7 @@ template PluginAssetsTemplate {
      * Params:
      * string name Name of plugin for which to symlink assets.
      *  If null all plugins will be processed.
-     */
+     * /
     protected IData[string] _list(string pluginName = null) {
         pluginsList = pluginName.isNull
             ? Plugin.loaded()
@@ -62,7 +62,7 @@ template PluginAssetsTemplate {
      *  pluginsToProcess List of plugins to process
      * @param bool copy Force copy mode. Default false.
      * @param bool overwrite Overwrite existing files.
-     */
+     * /
     protected void _process(IData[string] pluginsToProcess, bool copy = false, bool overwrite = false) {
         foreach (plugin: configData; pluginsToProcess) {
             this.io.writeln();
@@ -112,7 +112,7 @@ template PluginAssetsTemplate {
      * Remove folder/symlink.
      *
      * configData - Plugin config.
-     */
+     * /
     protected bool _remove(IData[string] configData = null) {
         if (configData("namespaced"] && !isDir(configData("destDir"])) {
             this.io.verbose(
@@ -178,7 +178,7 @@ template PluginAssetsTemplate {
      * Params:
      * string atarget Target directory
      * @param string alink Link name
-     */
+     * /
     protected bool _createSymlink(string atarget, string alink) {
         
         result = @symlink(target, link);
@@ -197,7 +197,7 @@ template PluginAssetsTemplate {
      * Params:
      * string asource Source directory
      * @param string adestination Destination directory
-     */
+     * /
     protected bool _copyDirectory(string asource, string adestination) {
         fs = new Filesystem();
         if (fs.copyDir(source, destination)) {
@@ -210,3 +210,4 @@ template PluginAssetsTemplate {
         return false;
     }
 }
+*/

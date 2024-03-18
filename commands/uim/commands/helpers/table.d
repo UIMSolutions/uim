@@ -8,8 +8,9 @@ import uim.commands;
  * Create a visually pleasing ASCII art table
  * from 2 dimensional array data.
  */
-class TableHelper : Helper {
+class TableHelper { // }: Helper {
   // Default config for this helper.
+  /*
   protected IData[string] Configuration.updateDefaults([
       "headers": true,
       "rowSeparator": false,
@@ -19,7 +20,7 @@ class TableHelper : Helper {
   /**
      * Calculate the column widths
      * @param array rows The rows on which the columns width will be calculated on.
-     */
+     * /
   protected int[string] _calculateWidths(arrayrows) {
     auto results;
     rows.each!((line) {
@@ -49,7 +50,7 @@ class TableHelper : Helper {
       /**
      * Output a row separator.
      * @param array<int> columnWidths The widths of each column to output.
-     */
+     * /
       protected void _rowSeparator(int[] columnWidths) {
         string outputResult = columnWidths
           .map!(width => "+" ~ str_repeat("-", width + 2))
@@ -65,7 +66,7 @@ class TableHelper : Helper {
      * Params:
      * array row The row to output.
      * @param ] optionsToPass Options to be passed.
-     */
+     * /
       protected void _render(arrayrow, int[] columnWidths, array optionsToPass = []) {
         if (count(row) == 0) {
           return;
@@ -101,7 +102,7 @@ class TableHelper : Helper {
      * in the array. The keys will not be used to align data.
      * Params:
      * array commandArguments The data to render out.
-     */
+     * /
       void output(array commandArguments) {
         if (commandArguments.isEmpty) {
           return;
@@ -130,8 +131,8 @@ class TableHelper : Helper {
      * Params:
      * string textForSurround The text to be surrounded
      * @param string astyle The style to be applied
-     */
+     * /
                       protected string _addStyle(string textForSurround, string astyle) {
                         return "<" ~ style ~ ">" ~ textForSurround ~ "</" ~ style ~ ">";
-                      }
-                      }
+                      } */
+}

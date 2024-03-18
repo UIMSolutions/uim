@@ -1,4 +1,4 @@
-module uim.commands.commands.helpers.progress;
+module uim.commands.helpers.progress;
 
 import uim.commands;
 
@@ -18,7 +18,7 @@ import uim.commands;
  * });
  * ```
  */
-class ProgressHelper : Helper {
+class ProgressHelper { // } : Helper {
   /**
      * Default value for progress bar total value.
      * Percent completion is derived from progress/total
@@ -29,7 +29,7 @@ class ProgressHelper : Helper {
   protected const DEFAULT_WIDTH = 80;
 
   // The current progress.
-  protected float | int _progress = 0;
+  protected float _progress = 0;
 
   // The total number of 'items' to progress through.
   protected int _total = DEFAULT_TOTAL;
@@ -48,7 +48,7 @@ class ProgressHelper : Helper {
      * - `callback` The callback that will be called in a loop to advance the progress bar.
      * Params:
      * array commandArguments The arguments/options to use when outputing the progress bar.
-     */
+     * /
   void output(array commandArguments) {
     commandArguments ~= ["callback": null];
     if (isSet(commandArguments[0])) {
@@ -78,21 +78,19 @@ class ProgressHelper : Helper {
      * Params:
      * array commandArguments The initialization data.
 
-     */
-  override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-
-    initData += ["total": self: : DEFAULT_TOTAL, "width": self: : DEFAULT_WIDTH];
+     * /
+  bool initialize(array commandArguments = []) {
+    commandArguments += ["total": self: : DEFAULT_TOTAL, "width": self: : DEFAULT_WIDTH];
     _progress = 0;
-    _width = initData["width"];
-    _total = initData["total"];
+    _width = commandArguments["width"];
+    _total = commandArguments["total"];
   }
 
   /**
      * Increment the progress bar.
      * Params:
      * float|int num The amount of progress to advance by.
-     */
+     * /
   void increment(float | int num = 1) {
     _progress = min(max(0, _progress + num), _total);
   }
@@ -115,5 +113,5 @@ class ProgressHelper : Helper {
     myBar ~= str_pad(percent, numberLength, " ", STR_PAD_LEFT);
 
     _io.overwrite(myBar, 0);
-  }
+  } */
 }

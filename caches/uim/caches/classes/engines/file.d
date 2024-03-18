@@ -1,4 +1,4 @@
-module uim.caches.engines.file;
+module uim.caches.classes.engines.file;
 
 import uim.caches;
 
@@ -11,9 +11,10 @@ import uim.caches;
  *
  * You can configure a FileEngine cache, using Cache.config()
  */
-class FileEngine : CacheEngine {
-    mixin(EngineThis!("File"));
+class DFileCacheEngine : DCacheEngine {
+    mixin(CacheEngineThis!("File"));
 
+    /*
     // Instance of SplFileObject class
     protected SplFileObject my_File;
 
@@ -31,7 +32,7 @@ class FileEngine : CacheEngine {
      *   with either another cache config or another application.
      *   cache.gc from ever being called automatically.
      * - `serialize` Should cache objects be serialized first.
-     */
+     * /
 
     // True unless FileEngine.__active(); fails
     protected bool my_init = true;
@@ -41,7 +42,7 @@ class FileEngine : CacheEngine {
      *
      * Called automatically by the cache frontend.
      * configData - array of setting for the engine
-     */
+     * /
     override bool initialize(IData[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
@@ -64,7 +65,7 @@ class FileEngine : CacheEngine {
         }
         if (_groupPrefix) {
             _groupPrefix = _groupPrefix.replace("_", DIRECTORY_SEPARATOR);
-        } */
+        } * /
         return _active();
     }
 
@@ -113,7 +114,7 @@ class FileEngine : CacheEngine {
      * Read a key from the cache
      * Params:
      * @param Json defaultValue Default value to return if the key does not exist.
-     */
+     * /
     Json get(string dataId, Json defaultValue = Json(null)) {
         auto key = _key(dataId);
 
@@ -136,7 +137,7 @@ class FileEngine : CacheEngine {
         string myData = "";
         _File.next();
         while (_File.valid()) {
-            /** @psalm-suppress PossiblyInvalidOperand */
+            /** @psalm-suppress PossiblyInvalidOperand * /
             myData ~= _File.current();
             _File.next();
         }
@@ -155,7 +156,7 @@ class FileEngine : CacheEngine {
      * Delete a key from the cache
      * Params:
      * string aKey Identifier for the data
-     */
+     * /
     bool delete_(string dataId) {
         auto aKey = _key(dataId);
 
@@ -186,7 +187,7 @@ class FileEngine : CacheEngine {
             configuration["path"],
             FilesystemIterator.SKIP_DOTS
         );
-        /** @var \RecursiveDirectoryIterator<\SplFileInfo> myiterator Coerce for phpstan/psalm */
+        /** @var \RecursiveDirectoryIterator<\SplFileInfo> myiterator Coerce for phpstan/psalm * /
         auto myIterator = new RecursiveIteratorIterator(
             mydirectory,
             RecursiveIteratorIterator.SELF_FIRST
@@ -250,7 +251,7 @@ class FileEngine : CacheEngine {
      * Params:
      * string aKey The key to decrement
      * @param int anOffset The number to offset
-     */
+     * /
     int decrement(string decrementKey, int anOffset = 1) {
         throw new LogicException("Files cannot be atomically decremented.");
     }
@@ -260,8 +261,8 @@ class FileEngine : CacheEngine {
      * Params:
      * string aKey The key to increment
      * @param int anOffset The number to offset
-     */
-     : int increment(string incrementKey, int anOffset = 1) {
+     * /
+    int increment(string incrementKey, int anOffset = 1) {
         throw new LogicException("Files cannot be atomically incremented.");
     }
 
@@ -271,7 +272,7 @@ class FileEngine : CacheEngine {
      * Params:
      * string aKey The key
      * @param bool mycreateKey Whether the key should be created if it doesn"t exists, or not
-     */
+     * /
     /* protected bool _setKey(string aKey, bool mycreateKey = false) {
         mygroups = null;
         if (_groupPrefix) {
@@ -287,7 +288,7 @@ class FileEngine : CacheEngine {
         if (!mycreateKey && !mypath.isFile()) {
             return false;
         }
-        /** @psalm-suppress TypeDoesNotContainType */
+        /** @psalm-suppress TypeDoesNotContainType * /
         if (
             !isSet(_File) ||
             _File.getBasename() != aKey ||
@@ -330,7 +331,7 @@ class FileEngine : CacheEngine {
                     ), E_USER_WARNING);
         }
         return mysuccess;
-    } */
+    } * /
 
     protected string _key(string aKey) {
         auto newKey = super._key(aKey);
@@ -342,7 +343,7 @@ class FileEngine : CacheEngine {
      * Recursively deletes all files under any directory named as mygroup
      * Params:
      * string mygroup The group to clear.
-         */
+         * /
     bool clearGroup(string groupName) {
         unset(_File);
 
@@ -377,7 +378,8 @@ class FileEngine : CacheEngine {
 
                     return true;
                 }
-            } */
+            } * /
         return false;
-    }
+    } */
 }
+mixin(CacheEngineCalls!("File"));

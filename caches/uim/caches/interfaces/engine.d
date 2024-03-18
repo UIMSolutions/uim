@@ -1,3 +1,9 @@
 module uim.caches.interfaces.engine;
 
-interface ICacheEngine {}
+import uim.caches;
+
+@safe:
+
+interface ICacheEngine : INamed {
+
+}

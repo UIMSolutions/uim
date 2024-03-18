@@ -6,8 +6,17 @@ import uim.caches;
 
 // Storage engine for UIM caching
 abstract class DCacheEngine : ICache, ICacheEngine {
-    // TOD use InstanceConfigTrait;
     mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    this(string newName) {
+        this();
+        this.name(newName);
+    }
+    // TOD use InstanceConfigTrait;
 
     /**
      * Initialize the cache engine
@@ -33,10 +42,12 @@ abstract class DCacheEngine : ICache, ICacheEngine {
             "groups": ArrayData,
             "prefix": StringData("uim_"),
             "warnOnWriteFailures": BoolData(true),
-        ]); */ 
+        ]); */
 
         return true;
     }
+
+    mixin(TProperty!("string", "name"));
 
     protected const string CHECK_KEY = "key";
     protected const string CHECK_VALUE = "value";
@@ -59,7 +70,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * Contains the compiled string with all group
      * prefixes to be prepended to every key in this cache engine
      */
-    protected string my_groupPrefix = "";
+    protected string _groupPrefix = "";
 
     // Ensure the validity of the given cache key.
     protected void ensureValidKey(string keyToCheck) {
@@ -157,9 +168,9 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * Params:
      * string aKey The cache item key.
      */
-    /* bool has(string aKey) {
-        return get(aKey) !isNull;
-    } */
+    bool has(string aKey) {
+        return false;
+    }
 
     /**
      * Fetches the value for a given key from the cache.
@@ -167,7 +178,9 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * string aKey The unique key of this item in the cache.
      * @param Json mydefault Default value to return if the key does not exist.
      */
-    abstract Json get(string aKey, Json mydefault = null);
+    Json get(string aKey, Json mydefault = null) {
+        return Json(null);
+    }
 
     /**
      * Persists data in the cache, uniquely referenced by the given key with an optional expiration TTL time.
@@ -185,21 +198,28 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * Params:
      * int anOffset How much to add
      */
-    abstract int increment(string dataId, int anOffset = 1);
+    int increment(string dataId, int anOffset = 1) {
+        return 0;
+    }
 
     /**
      * Decrement a number under the key and return decremented value
      * Params:
      * int anOffset How much to subtract
      */
-    abstract int decrement(string dataId, int anOffset = 1);
+    int decrement(string dataId, int anOffset = 1) {
+        return 0;
+    }
 
     // Delete a key from the cache
-    abstract bool delete_(string dataId);
+    bool delete_(string dataId) {
+        return false;
+    }
 
     // Delete all keys from the cache
-    abstract bool clear();
-
+    bool clear() {
+        return false;
+    }
     /**
      * Add a key to the cache if it does not already exist.
      *
@@ -224,15 +244,17 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * Params:
      * string mygroup name of the group to be cleared
      */
-    abstract bool clearGroup(string mygroup);
+    bool clearGroup(string mygroup) {
+        return false;
+    }
 
     /**
      * Does whatever initialization for each group is required
      * and returns the `group value` for each of them, this is
      * the token representing each group in the cache key
-     * /
-    string[] groups() {
-        return configuration["groups"];
+     */
+    string[] groups()  {
+        return null; // return configuration["groups"];
     }
 
     /**

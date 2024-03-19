@@ -3,12 +3,12 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.orm.associations.normalizertrait;
+module uim.orm.classes.associations.associationsnormalizertrait;
 
 /**
  * Contains methods for parsing the associated tables array that is typically
  * passed to a save operation
- */
+ * /
 trait AssociationsNormalizerTrait
 {
     /**
@@ -17,7 +17,7 @@ trait AssociationsNormalizerTrait
      *
      * @param array|string associations The array of included associations.
      * @return array An array having dot notation transformed into nested arrays
-     */
+     * /
     protected array _normalizeAssociations(associations) {
         result = null;
         foreach ((array)associations as table: options) {
@@ -35,7 +35,7 @@ trait AssociationsNormalizerTrait
 
             path = explode(".", table);
             table = array_pop(path);
-            /** @var string first */
+            /** @var string first * /
             first = array_shift(path);
             pointer += [first: []];
             pointer = &pointer[first];
@@ -54,4 +54,4 @@ trait AssociationsNormalizerTrait
 
         return result["associated"] ?? result;
     }
-}
+} */

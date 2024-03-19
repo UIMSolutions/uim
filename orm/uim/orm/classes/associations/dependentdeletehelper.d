@@ -3,7 +3,7 @@
   License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
   Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.orm.caches.associations.dependentdeletehelper;
+module uim.orm.classes.associations.dependentdeletehelper;
 
 import uim.orm;
 
@@ -24,13 +24,13 @@ class DependentDeleteHelper {
      * @param DORMDatasource\IEntity anEntity The entity that started the cascaded delete.
      * @param array<string, mixed> options The options for the original delete.
      * @return bool Success.
-     */
+     * /
     bool cascadeDelete_(DORMAssociation anAssociation, IEntity anEntity, STRINGAA someOptions = null) {
         if (!anAssociation.getDependent()) {
             return true;
         }
         table = anAssociation.getTarget();
-        /** @psalm-suppress InvalidArgument */
+        /** @psalm-suppress InvalidArgument * /
         foreignKey = array_map([anAssociation, "aliasField"], (array)anAssociation.getForeignKeys());
         bindingKey = (array)anAssociation.getBindingKey();
         bindingValue = entity.extract(bindingKey);
@@ -53,5 +53,5 @@ class DependentDeleteHelper {
         anAssociation.deleteAll(conditions);
 
         return true;
-    }
+    } */
 }

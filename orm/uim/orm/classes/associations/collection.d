@@ -3,21 +3,20 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.orm.associations.collection;
+module uim.orm.classes.associations.collection;
 
 import uim.orm;
 
 @safe:
 
- */
 /**
  * A container/collection for association classes.
  *
  * Contains methods for managing associations, and
  * ordering operations around saving and deleting.
  */
-class AssociationCollection : IteratorAggregate {
-    use AssociationsNormalizerTrait;
+class AssociationCollection { // }: IteratorAggregate {
+    /* use AssociationsNormalizerTrait;
     use LocatorAwareTrait;
 
     // Stored associations
@@ -30,7 +29,7 @@ class AssociationCollection : IteratorAggregate {
      * If no locator is provided, the global one will be used.
      *
      * @param DORMLocator\ILocator|null tableLocator Table locator instance.
-     */
+     * /
     this(?ILocator tableLocator = null) {
         if (tableLocator != null) {
             _tableLocator = tableLocator;
@@ -46,7 +45,7 @@ class AssociationCollection : IteratorAggregate {
      * anAliasName -  The association alias
      * @param DORMDORMAssociation anAssociation The association to add.
      * @return  The association object being added.
-     */
+     * /
      DORMAssociation add(string anAliasName, DORMAssociation anAssociation) {
         [, anAliasName] = pluginSplit(alias);
 
@@ -62,7 +61,7 @@ class AssociationCollection : IteratorAggregate {
      * @return DORMAssociation
      * @throws \InvalidArgumentException
      * @psalm-param class-string<DORMAssociation> className
-     */
+     * /
     DORMAssociation load(string anClassName, string associated, STRINGAA someOptions = null) {
         someOptions["tableLocator"] = this.getTableLocator();
         association = new className(associated, someOptions);
@@ -75,7 +74,7 @@ class AssociationCollection : IteratorAggregate {
      *
      * @param string anAliasName The association alias to get.
      * @return DORMAssociation|null Either the association or null.
-     */
+     * /
     DORMAssociation get(string anAliasName) {
         return _items[alias] ?? null;
     }
@@ -85,7 +84,7 @@ class AssociationCollection : IteratorAggregate {
      *
      * aProperty - The property to find an association by.
      * returns the association or null.
-     */
+     * /
     DORMAssociation getByProperty(string aProperty) {
         foreach (myAssociation; _items ) {
             if (myAssociation.getProperty() == aProperty) {
@@ -101,7 +100,7 @@ class AssociationCollection : IteratorAggregate {
      *
      * @param string anAliasName The association alias to get.
      * return true if the association exists.
-     */
+     * /
     bool has(string anAliasName) {
       return isset(_items[alias]);
     }
@@ -117,7 +116,7 @@ class AssociationCollection : IteratorAggregate {
      * @param array<string>|string class The type of associations you want.
      *   For example "BelongsTo" or array like ["BelongsTo", "HasOne"]
      * returns an array of Association objects.
-     */
+     * /
     DORMAssociation[] getByType(string[] someClassNames...) {
       auto myClassNames = someClassNames.map!(className => className.toLower).array;
 
@@ -134,7 +133,7 @@ class AssociationCollection : IteratorAggregate {
      * Drop/remove an association.
      *
      * Once removed the association will no longer be reachable
-     */
+     * /
     void remove(string aliasName) {
         unset(_items[aliasName]);
     }
@@ -143,7 +142,7 @@ class AssociationCollection : IteratorAggregate {
      * Remove all registered associations.
      *
      * Once removed associations will no longer be reachable
-     */
+     * /
     void removeAll() {
       foreach (myAliasName, object; _items) {
         this.remove(myAliasName);
@@ -162,7 +161,7 @@ class AssociationCollection : IteratorAggregate {
      *   associations not in this list will not be saved.
      * @param array<string, mixed> options The options for the save operation.
      * @return bool Success
-     */
+     * /
     bool saveParents(DORMTable aTable, IEntity anEntity, array associations, STRINGAA someOptions = null) {
       if (empty(associations)) {
           return true;
@@ -182,7 +181,7 @@ class AssociationCollection : IteratorAggregate {
      *   associations not in this list will not be saved.
      * @param array<string, mixed> options The options for the save operation.
      * @return bool Success
-     */
+     * /
     bool saveChildren(DORMTable aTable, IEntity anEntity, array associations, STRINGAA someOptions) {
         if (empty(associations)) {
             return true;
@@ -201,7 +200,7 @@ class AssociationCollection : IteratorAggregate {
      * @param bool owningSide Compared with association classes" isOwningSide method.
      * returns True if Success
      * @throws \InvalidArgumentException When an unknown alias is used.
-     */
+     * /
     protected bool _saveAssociations(
         DORMTable aTable,
         IEntity anEntity,
@@ -243,7 +242,7 @@ class AssociationCollection : IteratorAggregate {
      * @param array<string, mixed> nested Options for deeper associations
      * @param array<string, mixed> options Original options
      * @return bool Success
-     */
+     * /
     protected bool _save(
         DORMAssociation anAssociation,
         IEntity anEntity,
@@ -266,7 +265,7 @@ class AssociationCollection : IteratorAggregate {
      *
      * @param DORMDatasource\IEntity anEntity The entity to delete associations for.
      * @param array<string, mixed> options The options used in the delete operation.
-     */
+     * /
     bool cascadeDelete_(IEntity anEntity, STRINGAA someOptions) {
         noCascade = null;
         foreach (_items as assoc) {
@@ -296,7 +295,7 @@ class AssociationCollection : IteratorAggregate {
      * in this collection.
      *
      * @param array|bool keys the list of association names to normalize
-     */
+     * /
     array normalizeKeys(keys) {
         if (keys == true) {
             keys = this.keys();
@@ -312,5 +311,5 @@ class AssociationCollection : IteratorAggregate {
     // Allow looping through the associations
     DORMAssociation[string] getIterator() {
       return new ArrayIterator(_items);
-    }
-}
+    } */
+} 

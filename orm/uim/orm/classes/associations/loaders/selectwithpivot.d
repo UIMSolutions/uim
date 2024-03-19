@@ -2,9 +2,12 @@
 	Copyright: © 2015-2024 Ozan Nurettin Süel (Sicherheitsschmiede)                                        
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
-**********************************************************************************************************/module uim.orm.associations.loaders;
+**********************************************************************************************************/
+module uim.orm.classes.associations.loaders.selectwithpivot;
 
-import DORMQuery;
+import uim.orm;
+
+@safe:
 
 
 /**
@@ -13,31 +16,23 @@ import DORMQuery;
  * @internal
  */
 class DSelectWithPivotLoader : DSelectLoader {
-    /**
-     * The name of the junction association
-     */
+    // he name of the junction association
     protected string junctionAssociationName;
 
-    /**
-     * The property name for the junction association, where its results should be nested at.
-     */
+    // The property name for the junction association, where its results should be nested at.
     protected string junctionProperty;
 
-    /**
-     * The junction association instance
-     *
-     * @var DORMassociations.HasMany
-     */
-    protected junctionAssoc;
+    // The junction association instance
+    protected DHasManyAssociation junctionAssoc;
 
     /**
      * Custom conditions for the junction association
      *
      * @var DDBIExpression|\Closure|array|string|null
-     */
+     * /
     protected junctionConditions;
 
-
+    /*
     this(STRINGAA someOptions) {
         super((options);
         this.junctionAssociationName = options["junctionAssociationName"];
@@ -56,7 +51,7 @@ class DSelectWithPivotLoader : DSelectLoader {
      * @param array<string, mixed> options options accepted by eagerLoader()
      * @return DORMQuery
      * @throws \InvalidArgumentException When a key is required for associations but not selected.
-     */
+     * /
     protected function _buildQuery(STRINGAA someOptions): Query
     {
         name = this.junctionAssociationName;
@@ -120,7 +115,7 @@ class DSelectWithPivotLoader : DSelectLoader {
      *
      * @param array<string, mixed> options the options to use for getting the link field.
      * @return array<string>|string
-     */
+     * /
     protected function _linkField(STRINGAA someOptions) {
         links = null;
         name = this.junctionAssociationName;
@@ -144,7 +139,7 @@ class DSelectWithPivotLoader : DSelectLoader {
      * @param array<string, mixed> options The options passed to the eager loader
      * @return array<string, mixed>
      * @throws \RuntimeException when the association property is not part of the results set.
-     */
+     * /
     protected array _buildResultMap(Query fetchQuery, STRINGAA someOptions) {
         resultMap = null;
         key = (array)options["foreignKey"];
@@ -165,5 +160,5 @@ class DSelectWithPivotLoader : DSelectLoader {
         }
 
         return resultMap;
-    }
+    } */
 }

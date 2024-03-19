@@ -9,28 +9,28 @@ import uim.orm;
  *
  * @internal
  */
-class SelectLoader {
+class DSelectLoader {
     bool initialize(IData[string] initData = null) {
         return true;
     }
     
     // The alias of the association loading the results
-    protected string anAliasName;
+    protected string _aliasName;
 
     // The alias of the source association
-    protected string sourceAlias;
+    protected string _sourceAlias;
 
     // The alias of the target association
-    protected string targetAlias;
+    protected string _targetAlias;
 
     // The foreignKeys to the target association
-    protected string[] foreignKeys;
+    protected string[] _foreignKeys;
 
     // The strategy to use for loading, either select or subquery
-    protected string strategy;
+    protected string _strategy;
 
     // The binding key for the source association.
-    protected string bindingKey;
+    protected string _bindingKey;
 
     /**
      * A callable that will return a query object used for loading the association results

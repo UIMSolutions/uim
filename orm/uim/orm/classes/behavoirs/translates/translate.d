@@ -1,4 +1,4 @@
-module orm.uim.orm.classes.behavoirs.translates.translate;
+module uim.orm.classes.behavoirs.translates.translate;
 
 import uim.orm;
 
@@ -16,8 +16,8 @@ import uim.orm;
  * If you want to bring all or certain languages for each of the fetched records,
  * you can use the custom `translations` finders that is exposed to the table.
  */
-class TranslateBehavior : Behavior,
-IPropertyMarshal {
+class DTranslateBehavior : DBehavior { // IPropertyMarshal {
+    /* 
     override bool initialize(IData[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
@@ -54,7 +54,7 @@ IPropertyMarshal {
      * Translation strategy instance.
      *
      * @var DORMBehavior\Translate\ITranslateStrategy|null
-     */
+     * /
     protected strategy;
 
     /**
@@ -82,7 +82,7 @@ IPropertyMarshal {
      *
      * @param DORMDORMTable aTable The table this behavior is attached to.
      * @param array<string, mixed> myConfiguration The config for this behavior.
-     */
+     * /
     this(DORMTable aTable, IData[string] configData) {
         myConfiguration += [
             "defaultLocale": I18n: : getDefaultLocale(),
@@ -96,7 +96,7 @@ IPropertyMarshal {
      * Initialize hook
      *
      * @param array<string, mixed> myConfiguration The config for this behavior.
-     */
+     * /
         bool initialize(IData[string] myConfiguration) {
             this.getStrategy();}
 
@@ -107,7 +107,7 @@ IPropertyMarshal {
      * @return void
      * @since 4.0.0
      * @psalm-param class-string<DORMBehavior\Translate\ITranslateStrategy> class
-     */
+     * /
             static function setDefaultStrategyClass(string aClassName) {
                 defaultStrategyClass = class;}
 
@@ -117,7 +117,7 @@ IPropertyMarshal {
      * @return string
      * @since 4.0.0
      * @psalm-return class-string<DORMBehavior\Translate\ITranslateStrategy>
-     */
+     * /
                 static string getDefaultStrategyClass() {
                     return defaultStrategyClass;}
 
@@ -126,7 +126,7 @@ IPropertyMarshal {
      *
      * @return DORMBehavior\Translate\ITranslateStrategy
      * @since 4.0.0
-     */
+     * /
                     function getStrategy() : ITranslateStrategy {
                         if (this.strategy != null) {
                             return this.strategy;}
@@ -138,12 +138,12 @@ IPropertyMarshal {
      *
      * @return DORMBehavior\Translate\ITranslateStrategy
      * @since 4.0.0
-     */
+     * /
                             protected function createStrategy() {
                                 myConfiguration = array_diff_key(
                                     configuration,
                                     ["implementedFinders", "implementedMethods", "strategyClass"]
-                                );  /** @var class-string<DORMBehavior\Translate\ITranslateStrategy> className */
+                                );  /** @var class-string<DORMBehavior\Translate\ITranslateStrategy> className * /
                                 className = this.getConfig("strategyClass", defaultStrategyClass);
 
                                     return new className(_table, myConfiguration);
@@ -155,7 +155,7 @@ IPropertyMarshal {
      * @param DORMBehavior\Translate\ITranslateStrategy strategy Strategy class instance.
      * @return this
      * @since 4.0.0
-     */
+     * /
                             function setStrategy(ITranslateStrategy strategy) {
                                 this.strategy = strategy; return this;}
 
@@ -163,7 +163,7 @@ IPropertyMarshal {
      * Gets the Model callbacks this behavior is interested in.
      *
      * @return array<string, mixed>
-     */
+     * /
                                 array implementedEvents() {
                                     return [
                                         "Model.beforeFind": "beforeFind",
@@ -182,7 +182,7 @@ IPropertyMarshal {
      * @param array map The property map being built.
      * @param array<string, mixed> options The options array used in the marshalling call.
      * @return array A map of `[property: callable]` of additional properties to marshal.
-     */
+     * /
                                     array buildMarshalMap(Marshaller marshaller, array map, STRINGAA someOptions) {
                                         return this.getStrategy()
                                             .buildMarshalMap(marshaller, map, options);
@@ -207,7 +207,7 @@ IPropertyMarshal {
      * @see DORMBehavior\TranslateBehavior::getLocale()
      * @link https://book.cakephp.org/4/en/orm/behaviors/translate.html#retrieving-one-language-without-using-i18n-locale
      * @link https://book.cakephp.org/4/en/orm/behaviors/translate.html#saving-in-another-language
-     */
+     * /
                                     function setLocale(Nullable!string locale) {
                                         this.getStrategy().setLocale(locale); return this;
                                     }
@@ -221,7 +221,7 @@ IPropertyMarshal {
      * @return string
      * @see DORMI18n\I18n::getLocale()
      * @see DORMBehavior\TranslateBehavior::setLocale()
-     */
+     * /
                                     string getLocale() {
                                         return this.getStrategy().getLocale();}
 
@@ -233,7 +233,7 @@ IPropertyMarshal {
      * field name is returned for all other fields.
      *
      * @param string field Field name to be aliased.
-     */
+     * /
                                         string translationField(string field) {
                                             return this.getStrategy().translationField(field);
                                         }
@@ -259,7 +259,7 @@ IPropertyMarshal {
      * @param DORMQuery query The original query to modify
      * @param array<string, mixed> options Options
      * @return DORMQuery
-     */
+     * /
                                         function findTranslations(Query query, STRINGAA someOptions)
                                             : Query {
                                                 locales = options["locales"] ?  ? [];
@@ -268,7 +268,7 @@ IPropertyMarshal {
 
                                                     return query
                                                     .contain([targetAlias: function(query) use(locales, targetAlias) {
-                                                                /** @var DORMdatasources.IQuery query */
+                                                                /** @var DORMdatasources.IQuery query * /
                                                                 if (locales) {
                                                                     query.where(
                                                                         ["targetAlias.locale IN": locales]);
@@ -286,7 +286,7 @@ IPropertyMarshal {
      * @param string aMethodName Method name.
      * @param array args Method arguments.
      * @return mixed
-     */
+     * /
                                                             function __call(method, args) {
                                                                 return this.strategy. {
                                                                     method
@@ -302,7 +302,7 @@ IPropertyMarshal {
      * of the autotable instance.
      *
      * @param DORMDORMTable aTable The table class to get a reference name for.
-     */
+     * /
                                                                 protected string referenceName(
                                                                     DORMTable aTable) {
                                                                     name = namespaceSplit(
@@ -314,5 +314,5 @@ IPropertyMarshal {
                                                                                     name);
                                                                         }
 
-                                                                    return name;}
-                                                                }
+                                                                    return name;} */
+}

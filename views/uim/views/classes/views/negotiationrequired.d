@@ -1,10 +1,10 @@
-module uim.views.negotiationrequired;
+module uim.views.classes.views.negotiationrequired;
 
 import uim.views;
 
 @safe:
 
-/* * A view class that responds to any content-type and can be used to create
+/** A view class that responds to any content-type and can be used to create
  * an empty body 406 status code response.
  *
  * This is most useful when using content-type negotiation via `viewClasses()`
@@ -14,6 +14,8 @@ import uim.views;
  */
 class DNegotiationRequiredView : DView {
     mixin(ViewThis!("NegotiationRequired"));
+
+    /* 
     // Get the content-type
     static string contentType() {
         return TYPE_MATCH_ALL;
@@ -31,8 +33,8 @@ class DNegotiationRequiredView : DView {
      * Renders view with no body and a 406 status code.
      * Params:
      * @param string|false|null mylayout Layout to use. False to disable.
-     */
+     * /
     string render(string templateName = null, string | false | nullmylayout = null) {
         return "";
-    }
+    } */
 }

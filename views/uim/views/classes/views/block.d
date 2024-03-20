@@ -1,4 +1,4 @@
-module uim.views;
+module views.uim.views.classes.views.block;
 
 import uim.views;
 
@@ -9,7 +9,7 @@ import uim.views;
  * of content that are present in a layout or parent view, but are defined by the child
  * view or elements used in the view.
  */
-class ViewBlock {
+class DViewBlock {
     // Override content
     const string OVERRIDE = "override";
 
@@ -20,17 +20,13 @@ class ViewBlock {
     const string PREPEND = "prepend";
 
     // Block content. An array of blocks indexed by name.
-    protected string[] my_blocks = [];
+    protected string[] _blocks = [];
 
     // The active blocks being captured.
-    protected string[] my_active = [];
+    protected string[] _active = [];
 
-    /**
-     * Should the currently captured content be discarded on ViewBlock.end()
-     *
-     * @see \UIM\View\ViewBlock.end()
-     */
-    protected bool my_discardActiveBufferOnEnd = false;
+    // Should the currently captured content be discarded on ViewBlock.end()
+    protected bool _discardActiveBufferOnEnd = false;
 
     /**
      * Start capturing output for a "block"
@@ -46,15 +42,10 @@ class ViewBlock {
      *  If ViewBlock.APPEND content will be appended to existing content.
      *  If ViewBlock.PREPEND it will be prepended.
      * @throws \UIM\Core\Exception\UimException When starting a block twice
-     */
+     * /
     void start(string views, string mymode = ViewBlock.OVERRIDE) {
         if (array_key_exists(views, _active)) {
-<<<<<<< HEAD
             throw new UimException("A view block with the name `%s` is already/still open.".format(views));
-=======
-            throw new UimException(
-                "A view block with the name `%s` is already/still open.".format(views));
->>>>>>> a8eca63e3a082caffb32183a18c571cd53fc1ac0
         }
        _active[views] = mymode;
         ob_start();
@@ -63,7 +54,7 @@ class ViewBlock {
     /**
      * End a capturing block. The compliment to ViewBlock.start()
      * @see \UIM\View\ViewBlock.start()
-     */
+     * /
     void end() {
         if (_discardActiveBufferOnEnd) {
            _discardActiveBufferOnEnd = false;
@@ -98,7 +89,7 @@ class ViewBlock {
      *  to string.
      * @param string mymode If ViewBlock.APPEND content will be appended to existing content.
      *  If ViewBlock.PREPEND it will be prepended.
-     */
+     * /
     void concat(string views, Json aValue = null, string mymode = ViewBlock.APPEND) {
         if (myvalue.isNull) {
             this.start(views, mymode);
@@ -120,7 +111,7 @@ class ViewBlock {
      * Params:
      * string views Name of the block
      * @param Json aValue The content for the block. Value will be type cast to string.
-     */
+     * /
     void set(string blockName, Json aValue) {
        _blocks[views] = (string)myvalue;
     }
@@ -130,7 +121,7 @@ class ViewBlock {
      * Params:
      * string views Name of the block
      * @param string mydefault Default string
-     */
+     * /
     string get(string blockName, string mydefault = "") {
         return _blocks[blockName] ?? mydefault;
     }
@@ -139,7 +130,7 @@ class ViewBlock {
      * Check if a block exists
      * Params:
      * string views Name of the block
-     */
+     * /
    bool exists(string blockName) {
         return isSet(_blocks[blockName]);
     }
@@ -153,12 +144,12 @@ class ViewBlock {
     string active() {
         end(_active);
 
-        /** @var string|null */
+        /** @var string|null * /
         return key(_active);
     }
     
     // Get the unclosed/active blocks. Key is name, value is mode.
     string[] unclosed() {
         return _active;
-    }
+    } */
 }

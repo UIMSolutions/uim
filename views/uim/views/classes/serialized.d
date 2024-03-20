@@ -1,4 +1,4 @@
-module uim.views.serialized;
+module uim.views.classes.serialized;
 
 import uim.views;
 
@@ -16,7 +16,7 @@ abstract class DSerializedView : DView {
      *  Its value can be a string for single variable name or array for multiple
      *  names. If true all view variables will be serialized. If null or false
      *  normal view template will be rendered.
-     */
+     * /
     protected IConfiguration Configuration.updateDefaults([
         "serialize": null,
     ];
@@ -33,7 +33,7 @@ abstract class DSerializedView : DView {
      * Params:
      * string[] myserialize The name(s) of the view variable(s) that
      *  need(s) to be serialized
-     */
+     * /
     protected string _serialize(string[] serializeViews...) {
         return _serialize(serializeViews.dup);
     }
@@ -45,7 +45,7 @@ abstract class DSerializedView : DView {
      * Params:
      * string|null mytemplate The template being rendered.
      * @param string|false|null mylayout The layout being rendered.
-     */
+     * /
     string render(string mytemplate = null, string|false|null renderLayout = null) {
         bool shouldSerialize = configurationData.isSet("serialize", false);
 
@@ -76,5 +76,5 @@ abstract class DSerializedView : DView {
         }
 
         return super.render(mytemplate, false);
-    }
+    } */
 }

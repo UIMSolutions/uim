@@ -10,7 +10,7 @@ import uim.views;
  * Generally this element is used by other widgets,
  * and FormHelper itself.
  */
-class LabelWidget : DWidget {
+class DLabelWidget : DWidget {
     mixin(WidgetThis!("Label"));
 
     /* 

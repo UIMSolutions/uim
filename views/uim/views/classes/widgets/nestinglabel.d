@@ -9,7 +9,7 @@ import uim.views;
  * Generally this element is used by other widgets,
  * and FormHelper itself.
  */
-class NestingLabelWidget : LabelWidget {
+class DNestingLabelWidget : DLabelWidget {
     mixin(WidgetThis!("NestingLabel"));
 
     // The template to use.

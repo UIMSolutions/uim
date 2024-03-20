@@ -10,7 +10,7 @@ import uim.views;
  * This class is usually used internally by `UIM\View\Helper\FormHelper`,
  * it but can be used to generate standalone multiple checkboxes.
  */
-class MultiCheckboxWidget : DWidget {
+class DMultiCheckboxWidget : DWidget {
     mixin(WidgetThis!("MultiCheckbox"));
 
     /* 

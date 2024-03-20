@@ -1,4 +1,5 @@
-module uim.views;
+module uim.views.mixins.viewvars;
+
 import uim.views;
 
 @safe:

@@ -28,7 +28,7 @@ import uim.cake;
  *
  * @see \UIM\Core\Configure.load() for how to load custom configuration files.
  */
-class PhpConfig : IConfigEngine {
+class DConfig : IConfigEngine {
     mixin FileConfigTemplate();
 
     // File extension.

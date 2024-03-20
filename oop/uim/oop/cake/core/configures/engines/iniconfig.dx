@@ -37,7 +37,7 @@ import uim.cake;
  *
  * @see https://secure.d.net/parse_ini_file
  */
-class IniConfig : IConfigEngine {
+class DIniConfig : IConfigEngine {
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		

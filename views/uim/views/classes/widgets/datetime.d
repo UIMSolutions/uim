@@ -1,16 +1,9 @@
-module uim.views.widgets.dateTime;
+module uim.views.classes.widgets.datetime;
 
 import uim.views;
 
 @safe:
 
-/*
-use DateTime;
-use DateTimeImmutable;
-use IDateTime;
-use DateTimeZone;
-
- */
 /**
  * Input widget class for generating a date time input widget.
  *

@@ -1,4 +1,4 @@
-module uim.views.widgets;
+module uim.views.classes.widgets.label;
 
 import uim.views;
 
@@ -10,9 +10,10 @@ import uim.views;
  * Generally this element is used by other widgets,
  * and FormHelper itself.
  */
-class LabelWidget : IWidget {
-        mixin(WidgetThis!("Label"));
+class LabelWidget : DWidget {
+    mixin(WidgetThis!("Label"));
 
+    /* 
     protected StringTemplate _templates;
 
     // The template to use.
@@ -27,11 +28,11 @@ class LabelWidget : IWidget {
      *  Can use the following variables `attrs`, `text` and `input`.
      * Params:
      * \UIM\View\StringTemplate mytemplates Templates list.
-     */
+     * /
     this(StringTemplate mytemplates) {
-       _templates = mytemplates;
+        _templates = mytemplates;
     }
-    
+
     /**
      * Render a label widget.
      *
@@ -42,7 +43,7 @@ class LabelWidget : IWidget {
      * - `escape` Set to false to disable HTML escaping.
      *
      * All other attributes will be converted into HTML attributes.
-     */
+     * /
     string render(IData[string] renderData, IContext formContext) {
         renderData.update([
             "text": StringData(""),
@@ -53,15 +54,17 @@ class LabelWidget : IWidget {
         ]);
 
         return _templates.format(_labelTemplate, [
-            "text": renderData["escape"] ? h(renderData["text"]): renderData["text"],
-            "input": renderData["input"],
-            "hidden": renderData["hidden"],
-            "templateVars": renderData["templateVars"],
-            "attrs": _templates.formatAttributes(renderData, ["text", "input", "hidden"]),
-        ]);
+                "text": renderData["escape"] ? h(renderData["text"]): renderData["text"],
+                "input": renderData["input"],
+                "hidden": renderData["hidden"],
+                "templateVars": renderData["templateVars"],
+                "attrs": _templates.formatAttributes(renderData, [
+                        "text", "input", "hidden"
+                    ]),
+            ]);
     }
- 
+
     array secureFields(array data) {
         return null;
-    }
+    } */
 }

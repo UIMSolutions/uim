@@ -1,11 +1,8 @@
-module uim.views.widgets.locator;
+module uim.views.classes.widgets.locator;
 
 import uim.views;
 
 @safe:
-
-/*
-
 
 /**
  * A registry/factory for input widgets.
@@ -23,6 +20,7 @@ import uim.views;
  * Widgets can ask for the current view by using the `_view` widget.
  */
 class WidgetLocator {
+    /* 
     // Array of widgets + widget configuration.
     protected array my_widgets = [];
 
@@ -38,7 +36,7 @@ class WidgetLocator {
      * \UIM\View\StringTemplate mytemplates Templates instance to use.
      * @param \UIM\View\View myview The view instance to set as a widget.
      * @param array mywidgets See add() method for more information.
-     */
+     * /
     this(StringTemplate mytemplates, View myview, array mywidgets = []) {
        _templates = mytemplates;
        _view = myview;
@@ -54,7 +52,7 @@ class WidgetLocator {
      * widgets.
      * Params:
      * string myfile The file to load
-     */
+     * /
     void load(string fileToLoad) {
         myloader = new PhpConfig();
         mywidgets = myloader.read(fileToLoad);
@@ -78,7 +76,7 @@ class WidgetLocator {
      * with plugin notation, or fully namespaced class names.
      * Params:
      * array mywidgets Array of widgets to use.
-     */
+     * /
     void add(array mywidgets) {
         auto myfiles = [];
 
@@ -110,7 +108,7 @@ class WidgetLocator {
      * the `_default` widget is undefined.
      * Params:
      * string views The widget name to get.
-     */
+     * /
     IWidget get(string views) {
         if (!_widgets.isSet(views)) {
             if (isEmpty(_widgets["_default"])) {
@@ -126,7 +124,7 @@ class WidgetLocator {
     
     /**
      * Clear the registry and reset the widgets.
-     */
+     * /
     void clear() {
        _widgets = [];
     }
@@ -135,7 +133,7 @@ class WidgetLocator {
      * Resolves a widget spec into an instance.
      * Params:
      * string[] configData The widget config.
-     */
+     * /
     protected IWidget _resolveWidget(string[] configData) {
         if (isString(configData)) {
             configData = [configData];
@@ -161,5 +159,5 @@ class WidgetLocator {
         }
         
         return myinstance;
-    }
+    } */
 }

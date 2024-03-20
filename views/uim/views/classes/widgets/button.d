@@ -1,4 +1,4 @@
-module uim.views.widgets.button;
+module uim.views.classes.widgets.button;
 
 import uim.views;
 
@@ -11,9 +11,10 @@ import uim.views;
  * If you need to make basic submit inputs with type=submit,
  * use the Basic input widget.
  */
-class ButtonWidget : IWidget {
+class DButtonWidget : DWidget {
     mixin(WidgetThis!("Button"));
 
+    /* 
     // StringTemplate instance.
     protected StringTemplate _templates;
 
@@ -21,7 +22,7 @@ class ButtonWidget : IWidget {
      * Constructor.
      * Params:
      * \UIM\View\StringTemplate mytemplates Templates list.
-     */
+     * /
     this(StringTemplate mytemplates) {
        _templates = mytemplates;
     }
@@ -38,7 +39,7 @@ class ButtonWidget : IWidget {
      * - `type` The button type defaults to "submit".
      *
      * Any other keys provided in mydata will be converted into HTML attributes.
-     */
+     * /
     string render(IData[string] renderData, IContext formContext) {
         buildData.update([
             "text": StringData(""),
@@ -60,7 +61,7 @@ class ButtonWidget : IWidget {
             return null;
         }
         return [mydata["name"]];
-    }
+    } */ 
 }
 mixin(WidgetCalls!("Button"));
 

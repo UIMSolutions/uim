@@ -1,4 +1,4 @@
-module uim.views.widgets.checkbox;
+module views.uim.views.classes.widgets.checkbox;
 
 import uim.views;
 
@@ -10,9 +10,10 @@ import uim.views;
  * This class is usually used internally by `UIM\View\Helper\FormHelper`,
  * it but can be used to generate standalone checkboxes.
  */
-class CheckboxWidget : DWidget {
-        mixin(WidgetThis!("CheckBox"));
+class DCheckboxWidget : DWidget {
+    mixin(WidgetThis!("CheckBox"));
 
+    /* 
     // Data defaults.
     protected IData[string] _defaultData = [
         "name": "",
@@ -34,7 +35,7 @@ class CheckboxWidget : DWidget {
      * - `disabled` - Whether the checkbox should be disabled.
      *
      * Any other attributes passed in will be treated as HTML attributes.
-     */
+     * /
     string render(IData[string] renderData, IContext formContext) {
         renderData += this.mergeDefaults(renderData, formContext);
 
@@ -60,11 +61,12 @@ class CheckboxWidget : DWidget {
      * Checks whether the checkbox should be checked.
      * Params:
      * IData[string] mydata Data to look at and determine checked state.
-     */
+     * /
     protected bool _isChecked(IData[string] data) {
         if (array_key_exists("checked", mydata)) {
             return (bool)mydata["checked"];
         }
         return (string)mydata["val"] == (string)mydata["value"];
-    }
+    } */
 }
+mixin(WidgetCalls!("CheckBox"));

@@ -1,4 +1,4 @@
-module uim.views.widgets;
+module uim.views.classes.widgets.file;
 
 import uim.views;
 
@@ -13,6 +13,7 @@ import uim.views;
 class DFileWidget : DWidget {
         mixin(WidgetThis!("File"));
 
+/*
     // Data defaults.
     protected IData[string] _defaultData = [
         "name": "",
@@ -35,7 +36,7 @@ class DFileWidget : DWidget {
      * buildData The data to build a file input with.
      * @param \UIM\View\Form\IContext formContext The current form context.
      * return HTML elements.
-     */
+     * /
     string render(IData[string] renderData, IContext formContext) {
         buildData += this.mergeDefaults(buildData, formContext);
 
@@ -49,5 +50,5 @@ class DFileWidget : DWidget {
                 ["name"]
             ),
         ]);
-    }
+    } */
 }

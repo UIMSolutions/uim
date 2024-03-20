@@ -27,5 +27,4 @@ class DSecurityException : DControllersException {
     return _exceptionType;
   }
 }
-
 mixin(ExceptionCalls!("Security"));

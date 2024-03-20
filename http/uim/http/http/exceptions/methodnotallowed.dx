@@ -1,16 +1,19 @@
-module uim.http\Exception;
+module source.uim.http.exceptions.methodnotallowed;
 
 import uim.http;
 
 @safe:
 
-// Represents an HTTP 500 error.
-class InternalErrorException : HttpException {
-    protected int _defaultCode = 500;
-    
+/**
+ * Represents an HTTP 405 error.
+ */
+class MethodNotAllowedException : HttpException {
+ 
+    protected int _defaultCode = 405;
+
     this(string exceptionMessage = null, int statusCode = null, Throwable previousException = null) {
         if (exceptionMessage.isEmpty) {
-            exceptionMessage = "Internal Server Error";
+            exceptionMessage = "Method Not Allowed";
         }
         super(exceptionMessage, statusCode, previousException);
     }

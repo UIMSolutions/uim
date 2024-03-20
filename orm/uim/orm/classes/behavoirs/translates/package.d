@@ -1,5 +1,5 @@
-module uim.orm.classes.behavoirs.translates;
+module uim.orm.classes.behaviors.translates;
 
 public {
-    import uim.orm.classes.behavoirs.translates.translate;
+    import uim.orm.classes.behaviors.translates.translate;
 }

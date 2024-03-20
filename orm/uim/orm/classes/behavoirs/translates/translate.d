@@ -1,4 +1,4 @@
-module uim.orm.classes.behavoirs.translates.translate;
+module uim.orm.classes.behaviors.translates.translate;
 
 import uim.orm;
 

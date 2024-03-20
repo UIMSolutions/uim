@@ -1,13 +1,14 @@
-module uim.orm.queries.delete_;
+module orm.uim.orm.classes.queries.insert;
 
 import uim.orm;
 
 @safe:
 
-class DeleteQuery : DbDeleteQuery {
+class DInsertQuery : DQuery {
+    /*
     mixin CommonQueryTemplate();
 
-    this(Table mytable) {
+    this(Table table) {
         super(table.getConnection());
 
         this.setRepository(table);
@@ -15,10 +16,10 @@ class DeleteQuery : DbDeleteQuery {
     }
  
     string sql(ValueBinder mybinder = null) {
-        if (isEmpty(_parts["from"])) {
+        if (isEmpty(_parts["into"])) {
             myrepository = this.getRepository();
-            this.from([myrepository.aliasName(): myrepository.getTable()]);
+            this.into(myrepository.getTable());
         }
         return super.sql(mybinder);
-    }
+    } */
 }

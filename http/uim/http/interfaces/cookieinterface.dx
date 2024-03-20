@@ -10,7 +10,7 @@
 
  * @since         3.5.0
  * @license       https://www.opensource.org/licenses/mit-license.d MIT License
- */module uim.cake.http\Cookie;
+ */module http.uim.http.interfaces.cookieinterface;
 
 use IDateTime;
 /**

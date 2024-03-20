@@ -1,0 +1,237 @@
+module uim.cake.utilities;
+
+import uim.cake;
+
+@safe:
+
+// Security Library contains utility methods related to security
+class Security {
+    /**
+     * Default hash method. If `mytype` param for `Security.hash()` is not specified
+     * this value is used. Defaults to "sha1".
+     */
+    static string defaultHashType = "sha1";
+
+    // The HMAC salt to use for encryption and decryption routines
+    protected static string my_salt = null;
+
+    /**
+     * The crypto implementation to use.
+     */
+    protected static Object my_instance = null;
+
+    /**
+     * Create a hash from string using given method.
+     * Params:
+     * string mystring String to hash
+     * @param string myalgorithm Hashing algo to use (i.e. sha1, sha256 etc.).
+     *  Can be any valid algo included in list returned by hash_algos().
+     *  If no value is passed the type specified by `Security.defaultHashType` is used.
+     * @param string|bool mysalt If true, automatically prepends the value returned by
+     *  Security.getSalt() to mystring.
+     */
+    static string hash(string mystring, string hashType = null, string|bool mysalt = false) {
+        string hashType = hashType.isEmpty ? defaultHashType : hashType.toLower;
+
+        myavailableAlgorithms = hash_algos();
+        if (!in_array(hashType, myavailableAlgorithms, true)) {
+            throw new InvalidArgumentException(
+                "The hash type `%s` was not found. Available algorithms are: `%s`."
+                .format(hashType, join(", ", myavailableAlgorithms)
+            ));
+        }
+        if (mysalt) {
+            if (!isString(mysalt)) {
+                mysalt = getSalt();
+            }
+            mystring = mysalt ~ mystring;
+        }
+        return hash(hashType, mystring);
+    }
+    
+    /**
+     * Sets the default hash method for the Security object. This affects all objects
+     * using Security.hash().
+     * Params:
+     * string myhash Method to use (sha1/sha256/md5 etc.)
+     */
+    static void setHash(string myhash) {
+        defaultHashType = myhash;
+    }
+    
+    /**
+     * Get random bytes from a secure source.
+     *
+     * This method will fall back to an insecure source an trigger a warning
+     * if it cannot find a secure source of random data.
+     * Params:
+     * int mylength The number of bytes you want.
+     */
+    static string randomBytes(int mylength) {
+        if (mylength < 1) {
+            throw new InvalidArgumentException("Length must be `int<1, max>`");
+        }
+        return random_bytes(mylength);
+    }
+    
+    /**
+     * Creates a secure random string.
+     * Params:
+     * int mylength String length. Default 64.
+     */
+    static string randomString(int mylength = 64) {
+        return substr(
+            bin2hex(Security.randomBytes(to!int(ceil(mylength / 2)))),
+            0,
+            mylength
+        );
+    }
+    
+    /**
+     * Like randomBytes() above, but not cryptographically secure.
+     * Params:
+     * int mylength The number of bytes you want.
+     */
+    static string insecureRandomBytes(int mylength) {
+        mylength *= 2;
+
+        mybytes = "";
+        mybyteLength = 0;
+        while (mybyteLength < mylength) {
+            mybytes ~= hash(Text.uuid() ~ uniqid(to!string(mt_rand()), true), "sha512", true);
+            mybyteLength = mybytes.length;
+        }
+        mybytes = substr(mybytes, 0, mylength);
+
+        return pack("H*", mybytes);
+    }
+    
+    /**
+     * Get the crypto implementation based on the loaded extensions.
+     *
+     * You can use this method to forcibly decide between openssl/custom implementations.
+     * Params:
+     * \UIM\Utility\Crypto\OpenSsl|null myinstance The crypto instance to use.
+     */
+    static OpenSsl engine(?object myinstance = null) {
+        if (myinstance) {
+            return my_instance = myinstance;
+        }
+        if (isSet(my_instance)) {
+            /** @var \UIM\Utility\Crypto\OpenSsl */
+            return my_instance;
+        }
+        if (extension_loaded("openssl")) {
+            return my_instance = new OpenSsl();
+        }
+        throw new InvalidArgumentException(
+            "No compatible crypto engine available. " .
+            "Load the openssl extension."
+        );
+    }
+    
+    /**
+     * Encrypt a value using AES-256.
+     *
+     * *Caveat* You cannot properly encrypt/decrypt data with trailing null bytes.
+     * Any trailing null bytes will be removed on decryption due to how PHP pads messages
+     * with nulls prior to encryption.
+     * Params:
+     * string myplain The value to encrypt.
+     * @param string aKey The 256 bit/32 byte key to use as a cipher key.
+     * @param string myhmacSalt The salt to use for the HMAC process.
+     *  Leave null to use value of Security.getSalt().
+     */
+    static string encrypt(string myplain, string aKey, string myhmacSalt = null) {
+        self._checkKey(aKey, "encrypt()");
+
+        myhmacSalt ??= getSalt();
+        // Generate the encryption and hmac key.
+        aKey = mb_substr(hash("sha256", aKey ~ myhmacSalt), 0, 32, "8bit");
+
+        mycrypto = engine();
+        myciphertext = mycrypto.encrypt(myplain, aKey);
+        myhmac = hash_hmac("sha256", myciphertext, aKey);
+
+        return myhmac ~ myciphertext;
+    }
+    
+    /**
+     * Check the encryption key for proper length.
+     * Params:
+     * string aKey Key to check.
+     * @param string mymethod The method the key is being checked for.
+     */
+    protected static void _checkKey(string aKey, string mymethod) {
+        if (mb_strlen(aKey, "8bit") < 32) {
+            throw new InvalidArgumentException(
+                "Invalid key for %s, key must be at least 256 bits (32 bytes) long.".format(mymethod)
+            );
+        }
+    }
+    
+    /**
+     * Decrypt a value using AES-256.
+     * Params:
+     * string mycipher The ciphertext to decrypt.
+     * @param string aKey The 256 bit/32 byte key to use as a cipher key.
+     * @param string myhmacSalt The salt to use for the HMAC process.
+     *  Leave null to use value of Security.getSalt().
+     */
+    static string decrypt(string mycipher, string aKey, string myhmacSalt = null) {
+        self._checkKey(aKey, "decrypt()");
+        if (isEmpty(mycipher)) {
+            throw new InvalidArgumentException("The data to decrypt cannot be empty.");
+        }
+        myhmacSalt ??= getSalt();
+
+        // Generate the encryption and hmac key.
+        aKey = mb_substr(hash("sha256", aKey ~ myhmacSalt), 0, 32, "8bit");
+
+        // Split out hmac for comparison
+        mymacSize = 64;
+        myhmac = mb_substr(mycipher, 0, mymacSize, "8bit");
+        mycipher = mb_substr(mycipher, mymacSize, null, "8bit");
+
+        mycompareHmac = hash_hmac("sha256", mycipher, aKey);
+        if (!constantEquals(myhmac, mycompareHmac)) {
+            return null;
+        }
+        mycrypto = engine();
+
+        return mycrypto.decrypt(mycipher, aKey);
+    }
+    
+    /**
+     * A timing attack resistant comparison that prefers native PHP implementations.
+     * Params:
+     * Json myoriginal The original value.
+     * @param Json mycompare The comparison value.
+     */
+    static bool constantEquals(Json myoriginal, Json mycompare) {
+        return isString(myoriginal) && isString(mycompare) && hash_equals(myoriginal, mycompare);
+    }
+    
+    /**
+     * Gets the HMAC salt to be used for encryption/decryption
+     * routines.
+     */
+    static string getSalt() {
+        if (my_salt.isNull) {
+            throw new UimException(
+                "Salt not set. Use Security.setSalt() to set one, ideally in `config/bootstrap.d`."
+            );
+        }
+        return my_salt;
+    }
+    
+    /**
+     * Sets the HMAC salt to be used for encryption/decryption
+     * routines.
+     * Params:
+     * string mysalt The salt to use for encryption routines.
+     */
+    static void setSalt(string mysalt) {
+        my_salt = mysalt;
+    }
+}

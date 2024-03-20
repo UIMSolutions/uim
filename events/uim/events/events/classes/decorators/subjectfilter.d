@@ -1,0 +1,43 @@
+module uim.events.event.decorators.subjectfilter;
+
+import uim.events;
+
+@safe:
+
+/*
+ * Event Subject Filter Decorator
+ *
+ * Use this decorator to allow your event listener to only
+ * be invoked if event subject matches the `allowedSubject` option.
+ *
+ * The `allowedSubject` option can be a list of class names, if you want
+ * to check multiple classes.
+ */
+class SubjectFilterDecorator : AbstractDecorator {
+ 
+    Json __invoke() {
+        auto someArguments = func_get_args();
+        if (!this.canTrigger(someArguments[0])) {
+            return Json(null);
+        }
+        return _call(someArguments);
+    }
+
+    // Checks if the event is triggered for this listener.
+   bool canTrigger(IEvent eventToCheck) {
+        if (!_options.isSet("allowedSubject")) {
+            throw new UimException(self::class ~ " Missing subject filter options!");
+        }
+        if (_options["allowedSubject"].isString) {
+           _options["allowedSubject"] = [_options["allowedSubject"]];
+        }
+        IEventObject subject;
+        try {
+            subject = eventToCheck.subject();
+        } catch (UimException) {
+            return false;
+        }
+
+        return in_array(subject.class, _options["allowedSubject"], true);
+    }
+}

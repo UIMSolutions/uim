@@ -1,4 +1,4 @@
-module uim.views.widgets;
+module uim.views.classes.widgets.widget;
 
 import uim.views;
 
@@ -23,18 +23,19 @@ class DWidget : IWidget {
     initialize;
   }
 
+  /* 
   this(StringTemplate mytemplates) {
     _templates = mytemplates;
-  }
+  } */
 
   bool initialize(IData[string] initData = null) {
     configuration(MemoryConfiguration);
-    configurationData([
+    setConfigurationData([
       "name": StringData(),
-      "val": NullData(null),
+      // "val": NullData(null),
       "type": StringData("text"),
-      "escape": BoolData(true),
-      "templateVars": ArrayData()
+      "escape": BooleanData(true),
+      "templateVars": ArrayData
     ]);
     setConfigurationData(initData);
 
@@ -56,6 +57,7 @@ class DWidget : IWidget {
      * @param \UIM\View\Form\IContext mycontext The current form context.
      */
   string render(IData[string] renderData, IContext formContext) {
+    /* 
     auto mydata = this.mergeDefaults(buildData, formContext);
 
     mydata["value"] = mydata["val"];
@@ -86,7 +88,9 @@ class DWidget : IWidget {
           mydata,
           ["name", "type"]
         ),
-      ]);
+      ]); */
+
+      return null;
   }
 
   /**
@@ -94,7 +98,7 @@ class DWidget : IWidget {
      * Params:
      * IData[string] mydata Data array
      * @param \UIM\View\Form\IContext mycontext Context instance.
-     */
+     * /
   protected IData[string] mergeDefaults(array data, IContext mycontext) {
     mydata += this.defaults;
 
@@ -110,14 +114,10 @@ class DWidget : IWidget {
      * IData[string] mydata Data array
      * @param \UIM\View\Form\IContext mycontext Context instance.
      * @param string aFieldName Field name.
-     */
+     * /
   protected IData[string] setRequired(array data, IContext mycontext, string aFieldName) {
     if (
-      mydata["disabled"].isEmpty)
-
-      
-
-        && (
+      mydata["disabled"].isEmpty && (
           (isSet(mydata["type"])
             && mydata["type"] != "hidden"
         )
@@ -136,7 +136,7 @@ class DWidget : IWidget {
      * IData[string] mydata Data array
      * @param \UIM\View\Form\IContext mycontext Context instance.
      * @param string aFieldName Field name.
-     */
+     * /
   protected IData[string] setMaxLength(array data, IContext mycontext, string aFieldName) {
     mymaxLength = mycontext.getMaxLength(aFieldName);
     if (mymaxLength!isNull) {
@@ -151,7 +151,7 @@ class DWidget : IWidget {
      * IData[string] mydata Data array
      * @param \UIM\View\Form\IContext mycontext Context instance.
      * @param string aFieldName Field name.
-     */
+     * /
   protected IData[string] setStep(array data, IContext mycontext, string aFieldName) {
     mydbType = mycontext.type(myfieldName);
     myfieldDef = mycontext.attributes(myfieldName);
@@ -165,12 +165,14 @@ class DWidget : IWidget {
     }
 
     return mydata;
-  }
+  } */ 
 
-  array secureFields(array data) {
-    if (!mydata.isSet("name") || mydata["name"].isEmpty) {
+  string[] secureFields(IData[string] dataToRender) {
+    /* if (!dataToRender.isSet("name") || dataToRender["name"].isEmpty) {
       return null;
     }
-    return [mydata["name"]];
-  }
+    return [dataToRender["name"]]; */
+    
+    return null;
+  } 
 }

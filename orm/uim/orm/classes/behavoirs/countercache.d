@@ -1,4 +1,4 @@
-module uim.orm.behaviors;
+module uim.orm.classes.behavoirs.countercache;
 
 import uim.orm;
 
@@ -82,12 +82,12 @@ import uim.orm;
  * this.Articles.save(article, ["ignoreCounterCache": true]);
  * ```
  */
-class CounterCacheBehavior : Behavior {
+class DCounterCacheBehavior : DBehavior {
     /**
      * Store the fields which should be ignored
      *
      * @var array<string, array<string, bool>>
-     */
+     * /
     protected _ignoreDirty = null;
 
     /**
@@ -98,7 +98,7 @@ class CounterCacheBehavior : Behavior {
      * @param DORMevents.IEvent event The beforeSave event that was fired
      * @param DORMDatasource\IEntity anEntity The entity that is going to be saved
      * @param \ArrayObject options The options for the query
-     */
+     * /
     void beforeSave(IEvent event, IEntity anEntity, ArrayObject options) {
         if (isset(options["ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
             return;
@@ -134,7 +134,7 @@ class CounterCacheBehavior : Behavior {
      * @param DORMevents.IEvent event The afterSave event that was fired.
      * @param DORMDatasource\IEntity anEntity The entity that was saved.
      * @param \ArrayObject options The options for the query
-     */
+     * /
     void afterSave(IEvent event, IEntity anEntity, ArrayObject options) {
         if (isset(options["ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
             return;
@@ -152,7 +152,7 @@ class CounterCacheBehavior : Behavior {
      * @param DORMevents.IEvent event The afterDelete event that was fired.
      * @param DORMDatasource\IEntity anEntity The entity that was deleted.
      * @param \ArrayObject options The options for the query
-     */
+     * /
     void afterDelete_(IEvent event, IEntity anEntity, ArrayObject options) {
         if (isset(options["ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
             return;
@@ -166,7 +166,7 @@ class CounterCacheBehavior : Behavior {
      *
      * @param DORMevents.IEvent event Event instance.
      * @param DORMDatasource\IEntity anEntity Entity.
-     */
+     * /
     protected void _processAssociations(IEvent event, IEntity anEntity) {
         foreach (configuration as assoc: settings) {
             assoc = _table.getAssociation(assoc);
@@ -183,7 +183,7 @@ class CounterCacheBehavior : Behavior {
      * @param array settings The settings for counter cache for this association
      * @return void
      * @throws \RuntimeException If invalid callable is passed.
-     */
+     * /
     protected void _processAssociation(
         IEvent event,
         IEntity anEntity,
@@ -250,7 +250,7 @@ class CounterCacheBehavior : Behavior {
      *
      * @param array conditions Conditions to update count.
      * @return bool True if the count update should happen, false otherwise.
-     */
+     * /
     protected function _shouldUpdateCount(array conditions) {
         return !empty(array_filter(conditions, function (value) {
             return value != null;
@@ -263,7 +263,7 @@ class CounterCacheBehavior : Behavior {
      * @param array<string, mixed> myConfiguration The counter cache configuration for a single field
      * @param array conditions Additional conditions given to the query
      * @return int The number of relations matching the given config and conditions
-     */
+     * /
     protected int _getCount(Json myConfiguration, array conditions) {
         finder = "all";
         if (!empty(myconfiguration["finder"])) {
@@ -275,5 +275,5 @@ class CounterCacheBehavior : Behavior {
         query = _table.find(finder, myConfiguration);
 
         return query.count();
-    }
+    } */
 }

@@ -3,7 +3,7 @@
   License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
   Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.orm.behaviors.registry;
+module uim.orm.classes.behavoirs.registry;
 
 import uim.orm;
 
@@ -17,7 +17,8 @@ import uim.orm;
  *
  * @: DORMCore\ObjectRegistry<DORMBehavior>
  */
-class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
+class BehaviorRegistry { // }: ObjectRegistry, IEventDispatcher {
+    /* 
     use EventDispatcherTrait;
 
     // The table using this registry.
@@ -33,7 +34,7 @@ class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * Constructor
      *
      * aTable - The table this registry is attached to.
-     */
+     * /
     this(DORMTable aTable = null) {
         if (aTable != null) {
             this.setTable(aTable);
@@ -44,7 +45,7 @@ class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * Attaches a table instance to this registry.
      *
      * @param DORMTable aTable The table this registry is attached to.
-     */
+     * /
     @property table(DORMTable aTable) {
         _table = aTable;
         this.setEventManager(aTable.getEventManager());
@@ -70,7 +71,7 @@ class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * @param string aClassName  Partial classname to resolve.
      * @return string|null Either the correct class name or null.
      * @psalm-return class-string|null
-     */
+     * /
     protected Nullable!string _resolveClassName(string aClassName ) {
         return className(class);
     }
@@ -84,7 +85,7 @@ class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * aClassName - The classname that is missing.
      * @param string|null plugin The plugin the behavior is missing in.
      * @throws DORMexceptions.MissingBehaviorException
-     */
+     * /
     protected void _throwMissingClassError(string aClassName , Nullable!string plugin) {
         throw new MissingBehaviorException([
             "class": aClassName ~ "Behavior",
@@ -103,9 +104,9 @@ class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * @param array<string, mixed> myConfiguration An array of config to use for the behavior.
      * @return DORMBehavior The constructed behavior class.
      * @psalm-suppress MoreSpecificImplementedParamType
-     */
+     * /
     protected Behavior _create(class, string anAlias, Json myConfiguration) {
-        /** @var DORMBehavior instance */
+        /** @var DORMBehavior instance * /
         instance = new class(_table, myConfiguration);
         enable = myconfiguration["enabled"] ?? true;
         if (enable) {
@@ -130,7 +131,7 @@ class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * @param string anAlias The alias of the object.
      * @return array A list of implemented finders and methods.
      * @throws \LogicException when duplicate methods are connected.
-     */
+     * /
     protected array _getMethods(Behavior instance, string aClassName , string anAlias) {
         finders = array_change_key_case(instance.implementedFinders());
         aMethodNames = array_change_key_case(instance.implementedMethods());
@@ -173,7 +174,7 @@ class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * with the chosen name.
      *
      * @param string aMethodName The method to check for.
-     */
+     * /
     bool hasMethod(string aMethodName) {
         method = strtolower(method);
 
@@ -187,7 +188,7 @@ class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * the chosen name.
      *
      * @param string aMethodName The method to check for.
-     */
+     * /
     bool hasFinder(string aMethodName) {
         aMethodName = aMethodName.toLower;
 
@@ -201,7 +202,7 @@ class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * @param array args The arguments you want to invoke the method with.
      * @return mixed The return value depends on the underlying behavior method.
      * @throws \BadMethodCallException When the method is unknown.
-     */
+     * /
     function call(string aMethodName, array args = null) {
         aMethodName = strtolower(aMethodName);
         if (this.hasMethod(aMethodName) && this.has(_methodMap[aMethodName][0])) {
@@ -222,7 +223,7 @@ class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * @param array args The arguments you want to invoke the method with.
      * @return DORMQuery The return value depends on the underlying behavior method.
      * @throws \BadMethodCallException When the method is unknown.
-     */
+     * /
     Query callFinder(string type, array args = null) {
         type = type.toLower;
 
@@ -236,5 +237,5 @@ class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
         throw new BadMethodCallException(
             "Cannot call finder '%s' it does not belong to any attached behavior.".format(type)
         );
-    }
+    } */
 }

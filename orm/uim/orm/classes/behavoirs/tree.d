@@ -1,4 +1,4 @@
-module uim.orm.behaviors;
+module uim.orm.classes.behavoirs.tree;
 
 import uim.orm;
 
@@ -17,16 +17,7 @@ import uim.orm;
  * For more information on what is a nested set and a how it works refer to
  * https://www.sitepoint.com/hierarchical-data-database-2/
  */
-class TreeBehavior : Behavior {
-    mixin TConfigurable!(); 
-
-    bool initialize(IData[string] initData = null) {
-        configuration(MemoryConfiguration);
-        setConfigurationData(initData);
-
-        return true;
-    }
-
+class DTreeBehavior : DBehavior {
     // Cached copy of the first column in a table"s primary key.
     protected string _primaryKeys;
 
@@ -36,7 +27,7 @@ class TreeBehavior : Behavior {
      * These are merged with user-provided configuration when the behavior is used.
      *
      * @var array<string, mixed>
-     */
+     * /
     protected Configuration;
 
 
@@ -80,7 +71,7 @@ class TreeBehavior : Behavior {
      * @param DORMDatasource\IEntity anEntity the entity that is going to be saved
      * @return void
      * @throws \RuntimeException if the parent to set for the node is invalid
-     */
+     * /
     function beforeSave(IEvent event, IEntity anEntity) {
         isNew = entity.isNew();
         myConfiguration = configuration;
@@ -146,7 +137,7 @@ class TreeBehavior : Behavior {
      *
      * @param DORMevents.IEvent event The afterSave event that was fired
      * @param DORMDatasource\IEntity anEntity the entity that is going to be saved
-     */
+     * /
     void afterSave(IEvent event, IEntity anEntity) {
         if (!configuration["level"] || entity.isNew()) {
             return;
@@ -159,7 +150,7 @@ class TreeBehavior : Behavior {
      * Set level for descendants.
      *
      * @param DORMDatasource\IEntity anEntity The entity whose descendants need to be updated.
-     */
+     * /
     protected void _setChildrenLevel(IEntity anEntity) {
         myConfiguration = configuration;
 
@@ -177,7 +168,7 @@ class TreeBehavior : Behavior {
             "order": myconfiguration["left"],
         ]);
 
-        /** @var DORMdatasources.IEntity node */
+        /** @var DORMdatasources.IEntity node * /
         foreach (children as node) {
             parentIdValue = node.get(myconfiguration["parent"]);
             depth = depths[parentIdValue] + 1;
@@ -195,7 +186,7 @@ class TreeBehavior : Behavior {
      *
      * @param DORMevents.IEvent event The beforeDelete event that was fired
      * @param DORMDatasource\IEntity anEntity The entity that is going to be saved
-     */
+     * /
     void beforeDelete_(IEvent event, IEntity anEntity) {
         myConfiguration = configuration;
         _ensureFields(entity);
@@ -206,7 +197,7 @@ class TreeBehavior : Behavior {
         if (diff > 2) {
             query = _scope(_table.query())
                 .where(function (exp) use (myConfiguration, left, right) {
-                    /** @var DDBExpression\QueryExpression exp */
+                    /** @var DDBExpression\QueryExpression exp * /
                     return exp
                         .gte(myconfiguration["leftField"], left + 1)
                         .lte(myconfiguration["leftField"], right - 1);
@@ -235,7 +226,7 @@ class TreeBehavior : Behavior {
      * @param mixed parent the id of the parent to set
      * @return void
      * @throws \RuntimeException if the parent to set to the entity is not valid
-     */
+     * /
     protected void _setParent(IEntity anEntity, parent) {
         myConfiguration = configuration;
         parentNode = _getNode(parent);
@@ -293,7 +284,7 @@ class TreeBehavior : Behavior {
      * so the structure remains valid
      *
      * @param DORMDatasource\IEntity anEntity The entity to set as a new root
-     */
+     * /
     protected void _setAsRoot(IEntity anEntity) {
         myConfiguration = configuration;
         edge = _getMax();
@@ -323,12 +314,12 @@ class TreeBehavior : Behavior {
      * Helper method used to invert the sign of the left and right columns that are
      * less than 0. They were set to negative values before so their absolute value
      * wouldn't change while performing other tree transformations.
-     */
+     * /
     protected void _unmarkInternalTree() {
         myConfiguration = configuration;
         _table.updateAll(
             function (exp) use (myConfiguration) {
-                /** @var DDBExpression\QueryExpression exp */
+                /** @var DDBExpression\QueryExpression exp * /
                 leftInverse = clone exp;
                 leftInverse.setConjunction("*").add("-1");
                 rightInverse = clone leftInverse;
@@ -338,7 +329,7 @@ class TreeBehavior : Behavior {
                     .eq(myconfiguration["rightField"], rightInverse.add(myconfiguration["rightField"]));
             },
             function (exp) use (myConfiguration) {
-                /** @var DDBExpression\QueryExpression exp */
+                /** @var DDBExpression\QueryExpression exp * /
                 return exp.lt(myconfiguration["leftField"], 0);
             }
         );
@@ -353,7 +344,7 @@ class TreeBehavior : Behavior {
      * @param array<string, mixed> options the list of options for the query
      * @return 
      * @throws \InvalidArgumentException If the "for" key is missing in options
-     */
+     * /
     DORMQuery findPath(Query query, STRINGAA someOptions)
     {
         if (empty(options["for"])) {
@@ -385,7 +376,7 @@ class TreeBehavior : Behavior {
      * @param bool direct whether to count all nodes in the subtree or just
      * direct children
      * @return int Number of children nodes.
-     */
+     * /
     int childCount(IEntity node, bool direct = false) {
         myConfiguration = configuration;
         parent = _table.aliasField(myconfiguration["parent"]);
@@ -416,7 +407,7 @@ class TreeBehavior : Behavior {
      * @param array<string, mixed> options Array of options as described above
      * @return DORMQuery
      * @throws \InvalidArgumentException When the "for" key is not passed in options
-     */
+     * /
     function findChildren(Query query, STRINGAA someOptions): Query
     {
         myConfiguration = configuration;
@@ -467,7 +458,7 @@ class TreeBehavior : Behavior {
      * @param DORMQuery query Query.
      * @param array<string, mixed> options Array of options as described above.
      * @return DORMQuery
-     */
+     * /
     function findTreeList(Query query, STRINGAA someOptions): Query
     {
         left = _table.aliasField(this.getConfig("left"));
@@ -497,7 +488,7 @@ class TreeBehavior : Behavior {
      * @param DORMQuery query The query object to format.
      * @param array<string, mixed> options Array of options as described above.
      * @return DORMQuery Augmented query.
-     */
+     * /
     function formatTreeList(Query query, STRINGAA someOptions = null): Query
     {
         return query.formatResults(function (ICollection results) use (options) {
@@ -507,7 +498,7 @@ class TreeBehavior : Behavior {
                 "spacer": "_",
             ];
 
-            /** @var DORMcollections.Iterator\TreeIterator nested */
+            /** @var DORMcollections.Iterator\TreeIterator nested * /
             nested = results.listNested();
 
             return nested.printer(options["valuePath"], options["keyPath"], options["spacer"]);
@@ -524,7 +515,7 @@ class TreeBehavior : Behavior {
      * @param DORMDatasource\IEntity node The node to remove from the tree
      * @return DORMDatasource\IEntity|false the node after being removed from the tree or
      * false on error
-     */
+     * /
     function removeFromTree(IEntity node) {
         return _table.getConnection().transactional(function () use (node) {
             _ensureFields(node);
@@ -539,7 +530,7 @@ class TreeBehavior : Behavior {
      * @param DORMDatasource\IEntity node The node to remove from the tree
      * @return DORMDatasource\IEntity|false the node after being removed from the tree or
      * false on error
-     */
+     * /
     protected function _removeFromTree(IEntity node) {
         myConfiguration = configuration;
         left = node.get(myconfiguration["left"]);
@@ -583,7 +574,7 @@ class TreeBehavior : Behavior {
      * @param int|true number How many places to move the node, or true to move to first position
      * @throws DORMDatasource\exceptions.RecordNotFoundException When node was not found
      * @return DORMDatasource\IEntity|false node The node after being moved or false if `number` is < 1
-     */
+     * /
     function moveUp(IEntity node, number = 1) {
         if (number < 1) {
             return false;
@@ -603,7 +594,7 @@ class TreeBehavior : Behavior {
      * @param int|true number How many places to move the node, or true to move to first position
      * @return DORMDatasource\IEntity node The node after being moved
      * @throws DORMDatasource\exceptions.RecordNotFoundException When node was not found
-     */
+     * /
     protected function _moveUp(IEntity node, number): IEntity
     {
         myConfiguration = configuration;
@@ -612,12 +603,12 @@ class TreeBehavior : Behavior {
 
         targetNode = null;
         if (number != true) {
-            /** @var DORMdatasources.IEntity|null targetNode */
+            /** @var DORMdatasources.IEntity|null targetNode * /
             targetNode = _scope(_table.find())
                 .select([left, right])
                 .where(["parent IS": nodeParent])
                 .where(function (exp) use (myConfiguration, nodeLeft) {
-                    /** @var DDBExpression\QueryExpression exp */
+                    /** @var DDBExpression\QueryExpression exp * /
                     return exp.lt(myconfiguration["rightField"], nodeLeft);
                 })
                 .orderDesc(myconfiguration["leftField"])
@@ -626,12 +617,12 @@ class TreeBehavior : Behavior {
                 .first();
         }
         if (!targetNode) {
-            /** @var DORMdatasources.IEntity|null targetNode */
+            /** @var DORMdatasources.IEntity|null targetNode * /
             targetNode = _scope(_table.find())
                 .select([left, right])
                 .where(["parent IS": nodeParent])
                 .where(function (exp) use (myConfiguration, nodeLeft) {
-                    /** @var DDBExpression\QueryExpression exp */
+                    /** @var DDBExpression\QueryExpression exp * /
                     return exp.lt(myconfiguration["rightField"], nodeLeft);
                 })
                 .orderAsc(myconfiguration["leftField"])
@@ -674,7 +665,7 @@ class TreeBehavior : Behavior {
      * @param int|true number How many places to move the node or true to move to last position
      * @throws DORMDatasource\exceptions.RecordNotFoundException When node was not found
      * @return DORMDatasource\IEntity|false the entity after being moved or false if `number` is < 1
-     */
+     * /
     function moveDown(IEntity node, number = 1) {
         if (number < 1) {
             return false;
@@ -694,7 +685,7 @@ class TreeBehavior : Behavior {
      * @param int|true number How many places to move the node, or true to move to last position
      * @return DORMDatasource\IEntity node The node after being moved
      * @throws DORMDatasource\exceptions.RecordNotFoundException When node was not found
-     */
+     * /
     protected function _moveDown(IEntity node, number): IEntity
     {
         myConfiguration = configuration;
@@ -703,12 +694,12 @@ class TreeBehavior : Behavior {
 
         targetNode = null;
         if (number != true) {
-            /** @var DORMdatasources.IEntity|null targetNode */
+            /** @var DORMdatasources.IEntity|null targetNode * /
             targetNode = _scope(_table.find())
                 .select([left, right])
                 .where(["parent IS": nodeParent])
                 .where(function (exp) use (myConfiguration, nodeRight) {
-                    /** @var DDBExpression\QueryExpression exp */
+                    /** @var DDBExpression\QueryExpression exp * /
                     return exp.gt(myconfiguration["leftField"], nodeRight);
                 })
                 .orderAsc(myconfiguration["leftField"])
@@ -717,12 +708,12 @@ class TreeBehavior : Behavior {
                 .first();
         }
         if (!targetNode) {
-            /** @var DORMdatasources.IEntity|null targetNode */
+            /** @var DORMdatasources.IEntity|null targetNode * /
             targetNode = _scope(_table.find())
                 .select([left, right])
                 .where(["parent IS": nodeParent])
                 .where(function (exp) use (myConfiguration, nodeRight) {
-                    /** @var DDBExpression\QueryExpression exp */
+                    /** @var DDBExpression\QueryExpression exp * /
                     return exp.gt(myconfiguration["leftField"], nodeRight);
                 })
                 .orderDesc(myconfiguration["leftField"])
@@ -762,7 +753,7 @@ class TreeBehavior : Behavior {
      * @return DORMDatasource\IEntity
      * @throws DORMDatasource\exceptions.RecordNotFoundException When node was not found
      * @psalm-suppress InvalidReturnType
-     */
+     * /
     protected function _getNode(id): IEntity
     {
         myConfiguration = configuration;
@@ -782,14 +773,14 @@ class TreeBehavior : Behavior {
             throw new RecordNotFoundException("Node \"{id}\" was not found in the tree.");
         }
 
-        /** @psalm-suppress InvalidReturnStatement */
+        /** @psalm-suppress InvalidReturnStatement * /
         return node;
     }
 
     /**
      * Recovers the lft and right column values out of the hierarchy defined by the
      * parent column.
-     */
+     * /
     void recover() {
         _table.getConnection().transactional(void () {
             _recoverTree();
@@ -803,7 +794,7 @@ class TreeBehavior : Behavior {
      * @param mixed parentId the parent id of the level to be recovered
      * @param int level Node level
      * @return int The next lftRght value
-     */
+     * /
     protected int _recoverTree(int lftRght = 1, parentId = null, level = 0) {
         myConfiguration = configuration;
         [parent, left, right] = [myconfiguration["parent"], myconfiguration["left"], myconfiguration["right"]];
@@ -837,7 +828,7 @@ class TreeBehavior : Behavior {
 
     /**
      * Returns the maximum index value in the table.
-     */
+     * /
     protected int _getMax() {
         field = configuration["right"];
         rightField = configuration["rightField"];
@@ -863,7 +854,7 @@ class TreeBehavior : Behavior {
      * against it.
      * @param bool mark whether to mark the updated values so that they can not be
      * modified by future calls to this function.
-     */
+     * /
     protected void _sync(int shift, string dir, string conditions, bool mark = false) {
         myConfiguration = configuration;
 
@@ -896,7 +887,7 @@ class TreeBehavior : Behavior {
      *
      * @param DORMQuery query the Query to modify
      * @return DORMQuery
-     */
+     * /
     protected function _scope(Query query): Query
     {
         scope = this.getConfig("scope");
@@ -916,7 +907,7 @@ class TreeBehavior : Behavior {
      * right fields
      *
      * @param DORMDatasource\IEntity anEntity The entity to ensure fields for
-     */
+     * /
     protected void _ensureFields(IEntity anEntity) {
         myConfiguration = configuration;
         fields = [myconfiguration["left"], myconfiguration["right"]];
@@ -935,7 +926,7 @@ class TreeBehavior : Behavior {
 
     /**
      * Returns a single string value representing the primary key of the attached table
-     */
+     * /
     protected string _getPrimaryKeys() {
         if (!_primaryKeys) {
             primaryKeys = (array)_table.getPrimaryKeys();
@@ -950,7 +941,7 @@ class TreeBehavior : Behavior {
      *
      * @param DORMDatasource\IEntity|string|int entity The entity or primary key get the level of.
      * @return int|false Integer of the level or false if the node does not exist.
-     */
+     * /
     function getLevel(entity) {
         primaryKeys = _getPrimaryKeys();
         id = entity;
@@ -973,5 +964,5 @@ class TreeBehavior : Behavior {
         ]);
 
         return _scope(query).count();
-    }
+    } */
 }

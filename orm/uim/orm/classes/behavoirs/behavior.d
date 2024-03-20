@@ -3,7 +3,7 @@
   License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
   Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.orm.behaviors;
+module uim.orm.classes.behavoirs.behavior;
 
 import uim.orm;
 
@@ -99,15 +99,24 @@ import uim.orm;
  * @see DORMTable::addBehavior()
  * @see DORMevents.EventManager
  */
-class Behavior : IEventListener
-{
+class DBehavior { // }: IEventListener {
+    mixin TConfigurable!(); 
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
+        return true;
+    }
+
+    /*
     mixin InstanceConfigTemplate;
 
     /**
      * Table instance.
      *
      * @var DORMTable
-     */
+     * /
     protected _table;
 
     /**
@@ -126,7 +135,7 @@ class Behavior : IEventListener
      * These are merged with user-provided configuration when the behavior is used.
      *
      * @var array<string, mixed>
-     */
+     * /
     protected _defaultConfig = null;
 
     /**
@@ -136,7 +145,7 @@ class Behavior : IEventListener
      *
      * @param DORMDORMTable aTable The table this behavior is attached to.
      * @param array<string, mixed> myConfiguration The config for this behavior.
-     */
+     * /
     this(DORMTable aTable, IData[string] configData) {
         myConfiguration = _resolveMethodAliases(
             "implementedFinders",
@@ -160,7 +169,7 @@ class Behavior : IEventListener
      * the constructor and call parent.
      *
      * @param array<string, mixed> myConfiguration The configuration settings provided to this behavior.
-     */
+     * /
     bool initialize(IData[string] myConfiguration) {
     }
 
@@ -170,7 +179,7 @@ class Behavior : IEventListener
      * Get the table instance this behavior is bound to.
      *
      * @return DORMTable The bound table instance.
-     */
+     * /
     function table(): Table
     {
         return _table;
@@ -183,7 +192,7 @@ class Behavior : IEventListener
      * @param array<string, mixed> defaults The default method mappings.
      * @param array<string, mixed> myConfiguration The customized method mappings.
      * @return array A de-duped list of config data.
-     */
+     * /
     protected array _resolveMethodAliases(string aKey, array defaults, Json myConfiguration) {
         if (!isset(defaults[key], myconfiguration[key])) {
             return myConfiguration;
@@ -215,7 +224,7 @@ class Behavior : IEventListener
      *
      * @return void
      * @throws DORMCore\exceptions.UIMException if config are invalid
-     */
+     * /
     void verifyConfig() {
         keys = ["implementedFinders", "implementedMethods"];
         foreach (keys as key) {
@@ -245,7 +254,7 @@ class Behavior : IEventListener
      * Or if you want your behavior to listen to non-standard events.
      *
      * @return array<string, mixed>
-     */
+     * /
     array implementedEvents() {
         eventMap = [
             "Model.beforeMarshal": "beforeMarshal",
@@ -304,7 +313,7 @@ class Behavior : IEventListener
      *
      * @return array
      * @throws \ReflectionException
-     */
+     * /
     array implementedFinders() {
         methods = this.getConfig("implementedFinders");
         if (isset(methods)) {
@@ -335,7 +344,7 @@ class Behavior : IEventListener
      *
      * @return array
      * @throws \ReflectionException
-     */
+     * /
     array implementedMethods() {
         methods = this.getConfig("implementedMethods");
         if (isset(methods)) {
@@ -354,7 +363,7 @@ class Behavior : IEventListener
      *
      * @return array
      * @throws \ReflectionException
-     */
+     * /
     protected array _reflectionCache() {
         class = class;
         if (isset(self::_reflectionCache[class])) {
@@ -365,7 +374,7 @@ class Behavior : IEventListener
         eventMethods = null;
         foreach (events as binding) {
             if (is_array(binding) && isset(binding["callable"])) {
-                /** @var string callable */
+                /** @var string callable * /
                 callable = binding["callable"];
                 binding = callable;
             }
@@ -404,5 +413,5 @@ class Behavior : IEventListener
         }
 
         return self::_reflectionCache[class] = return;
-    }
+    } */
 }

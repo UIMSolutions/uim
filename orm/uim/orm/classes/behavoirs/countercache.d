@@ -88,192 +88,180 @@ class DCounterCacheBehavior : DBehavior {
      *
      * @var array<string, array<string, bool>>
      * /
-    protected _ignoreDirty = null;
+    // Store the fields which should be ignored
+    protected bool[string][string] my_ignoreDirty = [];
 
     /**
      * beforeSave callback.
      *
      * Check if a field, which should be ignored, is dirty
-     *
-     * @param DORMevents.IEvent event The beforeSave event that was fired
-     * @param DORMDatasource\IEntity anEntity The entity that is going to be saved
-     * @param \ArrayObject options The options for the query
+     * Params:
+     * \UIM\Event\IEvent<\UIM\ORM\Table> myevent The beforeSave event that was fired
+     * @param \UIM\Datasource\IEntity myentity The entity that is going to be saved
+     * @param \ArrayObject<string, mixed> options The options for the query
      * /
-    void beforeSave(IEvent event, IEntity anEntity, ArrayObject options) {
-        if (isset(options["ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
+    void beforeSave(IEvent myevent, IEntity myentity, ArrayObject options) {
+        if (isSet(options["ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
             return;
         }
-
-        foreach (configuration as assoc: settings) {
-            assoc = _table.getAssociation(assoc);
-            foreach (settings as field: myConfiguration) {
-                if (is_int(field)) {
+        foreach (configuration as myassoc: mysettings) {
+            myassoc = _table.getAssociation(myassoc);
+            /** @var string|int myfield * /
+            foreach (mysettings as myfield: configData) {
+                if (isInt(myfield)) {
                     continue;
                 }
-
-                registryAlias = assoc.getTarget().registryKey();
-                entityAlias = assoc.getProperty();
+                myregistryAlias = myassoc.getTarget().registryKey();
+                myentityAlias = myassoc.getProperty();
 
                 if (
-                    !is_callable(myConfiguration) &&
-                    isset(myconfiguration["ignoreDirty"]) &&
-                    myconfiguration["ignoreDirty"] == true &&
-                    entity.entityAlias.isDirty(field)
+                    !isCallable(configData) &&
+                    configuration.hasKey("ignoreDirty") &&
+                    configData("ignoreDirty"] == true &&
+                    myentity.myentityAlias.isDirty(myfield)
                 ) {
-                    _ignoreDirty[registryAlias][field] = true;
+                   _ignoreDirty[myregistryAlias][myfield] = true;
                 }
             }
         }
     }
-
+    
     /**
      * afterSave callback.
      *
      * Makes sure to update counter cache when a new record is created or updated.
-     *
-     * @param DORMevents.IEvent event The afterSave event that was fired.
-     * @param DORMDatasource\IEntity anEntity The entity that was saved.
-     * @param \ArrayObject options The options for the query
+     * Params:
+     * \UIM\Event\IEvent<\UIM\ORM\Table> myevent The afterSave event that was fired.
+     * @param \UIM\Datasource\IEntity myentity The entity that was saved.
+     * @param \ArrayObject<string, mixed> options The options for the query
      * /
-    void afterSave(IEvent event, IEntity anEntity, ArrayObject options) {
-        if (isset(options["ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
+    void afterSave(IEvent myevent, IEntity myentity, ArrayObject options) {
+        if (isSet(options["ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
             return;
         }
-
-        _processAssociations(event, entity);
-        _ignoreDirty = null;
+       _processAssociations(myevent, myentity);
+       _ignoreDirty = [];
     }
-
+    
     /**
      * afterDelete callback.
      *
      * Makes sure to update counter cache when a record is deleted.
-     *
-     * @param DORMevents.IEvent event The afterDelete event that was fired.
-     * @param DORMDatasource\IEntity anEntity The entity that was deleted.
-     * @param \ArrayObject options The options for the query
+     * Params:
+     * \UIM\Event\IEvent<\UIM\ORM\Table> myevent The afterDelete event that was fired.
+     * @param \UIM\Datasource\IEntity myentity The entity that was deleted.
+     * @param \ArrayObject<string, mixed> options The options for the query
      * /
-    void afterDelete_(IEvent event, IEntity anEntity, ArrayObject options) {
-        if (isset(options["ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
+    void afterDelete_(IEvent myevent, IEntity myentity, ArrayObject options) {
+        if (isSet(options["ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
             return;
         }
-
-        _processAssociations(event, entity);
+       _processAssociations(myevent, myentity);
     }
-
+    
     /**
      * Iterate all associations and update counter caches.
-     *
-     * @param DORMevents.IEvent event Event instance.
-     * @param DORMDatasource\IEntity anEntity Entity.
+     * Params:
+     * \UIM\Event\IEvent<\UIM\ORM\Table> myevent Event instance.
+     * @param \UIM\Datasource\IEntity myentity Entity.
      * /
-    protected void _processAssociations(IEvent event, IEntity anEntity) {
-        foreach (configuration as assoc: settings) {
-            assoc = _table.getAssociation(assoc);
-            _processAssociation(event, entity, assoc, settings);
+    protected void _processAssociations(IEvent myevent, IEntity myentity) {
+        foreach (configuration as myassoc: mysettings) {
+            myassoc = _table.getAssociation(myassoc);
+           _processAssociation(myevent, myentity, myassoc, mysettings);
         }
     }
-
+    
     /**
      * Updates counter cache for a single association
-     *
-     * @param DORMevents.IEvent event Event instance.
-     * @param DORMDatasource\IEntity anEntity Entity
-     * @param DORMAssociation assoc The association object
-     * @param array settings The settings for counter cache for this association
-     * @return void
-     * @throws \RuntimeException If invalid callable is passed.
+     * Params:
+     * \UIM\Event\IEvent<\UIM\ORM\Table> myevent Event instance.
+     * @param \UIM\Datasource\IEntity myentity Entity
+     * @param \UIM\ORM\Association myassoc The association object
+     * @param array mysettings The settings for counter cache for this association
      * /
     protected void _processAssociation(
-        IEvent event,
-        IEntity anEntity,
-        Association assoc,
-        array settings
+        IEvent myevent,
+        IEntity myentity,
+        Association myassoc,
+        array mysettings
     ) {
-        foreignKeys = (array)assoc.getForeignKeys();
-        countConditions = entity.extract(foreignKeys);
+        /** @var string[] myforeignKeys * /
+        myforeignKeys = (array)myassoc.getForeignKeys();
+        mycountConditions = myentity.extract(myforeignKeys);
 
-        foreach (countConditions as field: value) {
-            if (value == null) {
-                countConditions[field ~ " IS"] = value;
-                unset(countConditions[field]);
+        foreach (mycountConditions as myfield: myvalue) {
+            if (myvalue.isNull) {
+                mycountConditions[myfield ~ " IS"] = myvalue;
+                unset(mycountConditions[myfield]);
             }
         }
+        myprimaryKeys = (array)myassoc.getBindingKey();
+        myupdateConditions = array_combine(myprimaryKeys, mycountConditions);
 
-        primaryKeys = (array)assoc.getBindingKey();
-        updateConditions = array_combine(primaryKeys, countConditions);
-
-        countOriginalConditions = entity.extractOriginalChanged(foreignKeys);
-        if (countOriginalConditions != []) {
-            updateOriginalConditions = array_combine(primaryKeys, countOriginalConditions);
+        mycountOriginalConditions = myentity.extractOriginalChanged(myforeignKeys);
+        if (mycountOriginalConditions != []) {
+            myupdateOriginalConditions = array_combine(myprimaryKeys, mycountOriginalConditions);
         }
-
-        foreach (settings as field: myConfiguration) {
-            if (is_int(field)) {
-                field = myConfiguration;
-                myConfiguration = null;
+        foreach (mysettings as myfield: configData) {
+            if (isInt(myfield)) {
+                myfield = configData;
+                configData = [];
             }
-
             if (
-                isset(_ignoreDirty[assoc.getTarget().registryKey()][field]) &&
-                _ignoreDirty[assoc.getTarget().registryKey()][field] == true
+                isSet(_ignoreDirty[myassoc.getTarget().registryKey()][myfield]) &&
+               _ignoreDirty[myassoc.getTarget().registryKey()][myfield] == true
             ) {
                 continue;
             }
+            if (_shouldUpdateCount(myupdateConditions)) {
+                mycount = cast(Closure)configData
+                    ? configData(myevent, myentity, _table, false)
+                    : _getCount(configData, mycountConditions);
 
-            if (_shouldUpdateCount(updateConditions)) {
-                if (myConfiguration instanceof Closure) {
-                    count = myConfiguration(event, entity, _table, false);
-                } else {
-                    count = _getCount(myConfiguration, countConditions);
-                }
-                if (count != false) {
-                    assoc.getTarget().updateAll([field: count], updateConditions);
+                if (mycount != false) {
+                    myassoc.getTarget().updateAll([myfield: mycount], myupdateConditions);
                 }
             }
-
-            if (isset(updateOriginalConditions) && _shouldUpdateCount(updateOriginalConditions)) {
-                if (myConfiguration instanceof Closure) {
-                    count = myConfiguration(event, entity, _table, true);
+            if (isSet(myupdateOriginalConditions) && _shouldUpdateCount(myupdateOriginalConditions)) {
+                if (cast(Closure)configData) {
+                    mycount = configData(myevent, myentity, _table, true);
                 } else {
-                    count = _getCount(myConfiguration, countOriginalConditions);
+                    mycount = _getCount(configData, mycountOriginalConditions);
                 }
-                if (count != false) {
-                    assoc.getTarget().updateAll([field: count], updateOriginalConditions);
+                if (mycount != false) {
+                    myassoc.getTarget().updateAll([myfield: mycount], myupdateOriginalConditions);
                 }
             }
         }
     }
-
+    
     /**
      * Checks if the count should be updated given a set of conditions.
-     *
-     * @param array conditions Conditions to update count.
-     * @return bool True if the count update should happen, false otherwise.
+     * Params:
+     * array myconditions Conditions to update count.
      * /
-    protected function _shouldUpdateCount(array conditions) {
-        return !empty(array_filter(conditions, function (value) {
-            return value != null;
+    protected bool _shouldUpdateCount(array myconditions) {
+        return !empty(array_filter(myconditions, auto (myvalue) {
+            return myvalue !isNull;
         }));
     }
-
+    
     /**
      * Fetches and returns the count for a single field in an association
-     *
-     * @param array<string, mixed> myConfiguration The counter cache configuration for a single field
-     * @param array conditions Additional conditions given to the query
-     * @return int The number of relations matching the given config and conditions
+     * Params:
+     * IData[string] configData The counter cache configuration for a single field
+     * @param array myconditions Additional conditions given to the query
      * /
-    protected int _getCount(Json myConfiguration, array conditions) {
-        finder = "all";
-        if (!empty(myconfiguration["finder"])) {
-            finder = myconfiguration["finder"];
-            unset(myconfiguration["finder"]);
+    protected int _getCount(IData[string] configData, array myconditions) {
+        myfinder = "all";
+        if (!empty(configData("finder"])) {
+            myfinder = configData("finder"];
+            unset(configData("finder"]);
         }
+        configData("conditions"] = chain(myconditions, configData("conditions"] ?? []);
+        myquery = _table.find(myfinder, ...configData);
 
-        myconfiguration["conditions"] = array_merge(conditions, myconfiguration["conditions"] ?? []);
-        query = _table.find(finder, myConfiguration);
-
-        return query.count();
+        return myquery.count();
     } */
 }

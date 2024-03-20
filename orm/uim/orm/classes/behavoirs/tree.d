@@ -21,16 +21,7 @@ class DTreeBehavior : DBehavior {
     // Cached copy of the first column in a table"s primary key.
     protected string _primaryKeys;
 
-    /**
-     * Default config
-     *
-     * These are merged with user-provided configuration when the behavior is used.
-     *
-     * @var array<string, mixed>
-     * /
-    protected Configuration;
-
-
+    /* 
     override bool initialize(IData[string] myConfiguration) {
         Configuration.updateDefaults([
         "implementedFinders": [

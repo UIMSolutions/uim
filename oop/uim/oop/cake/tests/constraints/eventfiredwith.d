@@ -1,0 +1,87 @@
+module uim.cake.TestSuite\Constraint;
+
+import uim.cake;
+
+@safe:
+
+/**
+ * EventFiredWith constraint
+ *
+ * @internal
+ */
+class EventFiredWith : Constraint {
+    // Array of fired events
+    protected EventManager _eventManager;
+
+    // Event data key
+    protected string _dataKey;
+
+    // Event data value
+    protected Json _dataValue;
+
+    /**
+     * Constructor
+     * Params:
+     * \UIM\Event\EventManager eventManager Event manager to check
+     * @param string dataKey Data key
+     * @param Json someDataValue Data value
+     */
+    this(EventManager eventManager, string dataKey, Json someDataValue) {
+       _eventManager = eventManager;
+       _dataKey = dataKey;
+       _dataValue = someDataValue;
+
+        if (_eventManager.getEventList().isNull) {
+            throw new AssertionFailedError(
+                "The event manager you are asserting against is not configured to track events."
+            );
+        }
+    }
+    
+    /**
+     * Checks if event is in fired array
+     * Params:
+     * Json other Constraint check
+     * @throws \PHPUnit\Framework\AssertionFailedError
+     */
+    bool matches(Json expectedOther) {
+        firedEvents = [];
+        list = _eventManager.getEventList();
+        if (list !isNull) {
+            totalEvents = count(list);
+            for (anException = 0;  anException < totalEvents;  anException++) {
+                firedEvents ~= list[anException];
+            }
+        }
+        eventGroup = (new Collection(firedEvents))
+            .groupBy(string (IEvent event) {
+                return event.name;
+            })
+            .toArray();
+
+        if (!array_key_exists(other, eventGroup)) {
+            return false;
+        }
+        /** @var array<\UIM\Event\IEvent<object>> events */
+        events = eventGroup[other];
+
+        if (count(events) > 1) {
+            throw new AssertionFailedError(
+                "Event `%s` was fired %d times, cannot make data assertion".format(
+                other,
+                count(events)
+            ));
+        }
+        event = events[0];
+
+        if (array_key_exists(_dataKey, (array)event.getData()) == false) {
+            return false;
+        }
+        return event.getData(_dataKey) == _dataValue;
+    }
+    
+    // Assertion message string
+    override string toString() {
+        return "was fired with " ~ _dataKey ~ " matching " ~ to!string(_dataValue);
+    }
+}

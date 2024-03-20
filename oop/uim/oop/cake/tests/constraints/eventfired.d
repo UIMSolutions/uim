@@ -1,0 +1,49 @@
+module uim.cake.TestSuite\Constraint;
+
+import uim.cake;
+
+@safe:
+
+/**
+ * EventFired constraint
+ *
+ * @internal
+ */
+class EventFired : Constraint {
+    /**
+     * Array of fired events
+     */
+    protected EventManager _eventManager;
+
+    /**
+     * Constructor
+     * Params:
+     * \UIM\Event\EventManager eventManager Event manager to check
+     */
+    this(EventManager eventManager) {
+       _eventManager = eventManager;
+
+        if (_eventManager.getEventList().isNull) {
+            throw new AssertionFailedError(
+                "The event manager you are asserting against is not configured to track events."
+            );
+        }
+    }
+    
+    /**
+     * Checks if event is in fired array
+     * Params:
+     * Json other Constraint check
+     */
+   bool matches(Json expectedOther) {
+        list = _eventManager.getEventList();
+
+        return list.isNull ? false : list.hasEvent(other);
+    }
+    
+    // Assertion message string
+     */
+    override string toString() {
+        return "was fired";
+    }
+}

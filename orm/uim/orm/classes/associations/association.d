@@ -19,6 +19,11 @@ class DAssociation : IAssociation {
     this() {
         initialize;
     }
+    
+    this(string newName) {
+        this();
+        this.name(newName);
+    }
 
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);

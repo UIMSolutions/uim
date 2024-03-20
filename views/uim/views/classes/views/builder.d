@@ -10,7 +10,7 @@ import uim.views;
  * Once you have configured the view and established all the context
  * you can create a view instance with `build()`.
  */
-class DViewBuilder : DJsonSerializable {
+class DViewBuilder { // }: DJsonSerializable {
     // The subdirectory to the template.
     protected string my_templatePath = null;
 

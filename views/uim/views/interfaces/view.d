@@ -4,6 +4,6 @@ import uim.views;
 
 @safe:
 
-interface IView {
+interface IView : INamed {
     
 }

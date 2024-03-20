@@ -40,6 +40,26 @@ import uim.views;
  * @implements \UIM\Event\IEventDispatcher<\UIM\View\View>
  */
 class DView { //  }: IEventDispatcher {
+    mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    this(string newName) {
+        this();
+        this.name(newName);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
+    
     /* 
     use CellTrait {
         cell as public;

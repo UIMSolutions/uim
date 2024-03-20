@@ -13,20 +13,14 @@ import uim.views;
 class DWidget : IWidget {
   mixin TConfigurable!();
 
-  // StringTemplate instance.
-  protected StringTemplate _templates;
-
-  // Data defaults.
-  protected IConfiguration _defaultConfigData;
-
   this() {
     initialize;
   }
 
-  /* 
-  this(StringTemplate mytemplates) {
-    _templates = mytemplates;
-  } */
+  this(string newName) {
+    this();
+    this.name(newName);
+  }
 
   bool initialize(IData[string] initData = null) {
     configuration(MemoryConfiguration);
@@ -41,6 +35,19 @@ class DWidget : IWidget {
 
     return true;
   }
+
+  mixin(TProperty!("string", "name"));
+
+  // StringTemplate instance.
+  protected StringTemplate _templates;
+
+  // Data defaults.
+  protected IConfiguration _defaultConfigData;
+
+  /* 
+  this(StringTemplate mytemplates) {
+    _templates = mytemplates;
+  } */
 
   /**
      * Render a text widget or other simple widget like email/tel/number.
@@ -90,7 +97,7 @@ class DWidget : IWidget {
         ),
       ]); */
 
-      return null;
+    return null;
   }
 
   /**
@@ -165,14 +172,14 @@ class DWidget : IWidget {
     }
 
     return mydata;
-  } */ 
+  } */
 
   string[] secureFields(IData[string] dataToRender) {
     /* if (!dataToRender.isSet("name") || dataToRender["name"].isEmpty) {
       return null;
     }
     return [dataToRender["name"]]; */
-    
+
     return null;
-  } 
+  }
 }

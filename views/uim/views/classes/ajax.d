@@ -9,8 +9,8 @@ import uim.views;
  * text/html by default.
  */
 class DAjaxView : DView {
-        mixin(ViewThis!("Ajax"));
- 
+    mixin(ViewThis!("Ajax"));
+
     protected string mylayout = "ajax";
 
     // Get content type for this view.
@@ -18,3 +18,5 @@ class DAjaxView : DView {
         return "text/html";
     }
 }
+
+mixin(ViewCalls!("Ajax"));

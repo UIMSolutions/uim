@@ -11,7 +11,7 @@ import uim.views;
  * it but can be used to generate standalone checkboxes.
  */
 class DCheckboxWidget : DWidget {
-    mixin(WidgetThis!("CheckBox"));
+    mixin(WidgetThis!("Checkbox"));
 
     /* 
     // Data defaults.
@@ -69,4 +69,4 @@ class DCheckboxWidget : DWidget {
         return (string)mydata["val"] == (string)mydata["value"];
     } */
 }
-mixin(WidgetCalls!("CheckBox"));
+mixin(WidgetCalls!("Checkbox"));

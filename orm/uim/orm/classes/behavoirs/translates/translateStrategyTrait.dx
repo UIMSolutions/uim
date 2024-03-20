@@ -4,9 +4,7 @@ import uim.orm;
 
 @safe:
 
-/**
- * Contains common code needed by TranslateBehavior strategy classes.
- */
+// Contains common code needed by TranslateBehavior strategy classes.
 trait TranslateStrategyTrait
 {
     /**

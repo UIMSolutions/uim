@@ -4,9 +4,6 @@ import uim.orm;
 
 @safe:
 
-// use ArrayObject;
-
-
 /**
  * This class provides a way to translate dynamic data by keeping translations
  * in a separate table linked to the original record from another one. Translated

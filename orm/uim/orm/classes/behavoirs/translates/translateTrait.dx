@@ -4,10 +4,7 @@ import uim.orm;
 
 @safe:
 
-/**
- * Contains a translation method aimed to help managing multiple translations
- * for an entity.
- */
+// Contains a translation method aimed to help managing multiple translations for an entity.
 trait TranslateTrait
 {
     /**

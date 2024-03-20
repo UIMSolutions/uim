@@ -1,4 +1,4 @@
-module uim.views;
+module uim.views.mixins.stringtemplate;
 
 import uim.views;
 
@@ -10,7 +10,7 @@ import uim.views;
  * This trait requires the implementing class to provide a `config()`
  * method for reading/updating templates. An implementation of this method
  * is provided by `UIM\Core\InstanceConfigTrait`
- */
+ * /
 trait StringTemplateTrait {
     // StringTemplate instance.
     protected StringTemplate my_templater = null;
@@ -24,7 +24,7 @@ trait StringTemplateTrait {
      * Gets templates to use or a specific template.
      * Params:
      * string|null mytemplate String for reading a specific template, null for all.
-     */
+     * /
     string[] getTemplates(string templateName = null) {
         return this.templater().get(templateName);
     }
@@ -37,7 +37,7 @@ trait StringTemplateTrait {
     // Returns the templater instance.
     StringTemplate templater() {
         if (_templater.isNull) {
-            /** @var class-string<\UIM\View\StringTemplate> myclass */
+            /** @var class-string<\UIM\View\StringTemplate> myclass * /
             myclass = configurationData.isSet("templateClass") ?: StringTemplate.classname;
            _templater = new myclass();
 
@@ -54,3 +54,4 @@ trait StringTemplateTrait {
         return _templater;
     }
 }
+ */

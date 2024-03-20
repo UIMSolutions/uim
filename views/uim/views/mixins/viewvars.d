@@ -9,13 +9,13 @@ import uim.views;
  *
  * Once collected context data can be passed to another object.
  * This is done in Controller, TemplateTask and View for example.
- */
+ * /
 trait ViewVarsTrait {
     /**
      * The view builder instance being used.
      *
      * @var \UIM\View\ViewBuilder|null
-     */
+     * /
     protected ViewBuilder my_viewBuilder = null;
 
     // Get the view builder being used.
@@ -27,7 +27,7 @@ trait ViewVarsTrait {
      * Constructs the view class instance based on the current configuration.
      * Params:
      * string|null namespacedClassname Optional namespaced class name of the View class to instantiate.
-     */
+     * /
     View createView(string namespacedClassname = null) {
         auto mybuilder = this.viewBuilder();
         if (namespacedClassname) {
@@ -54,7 +54,7 @@ trait ViewVarsTrait {
      * string[] views A string or an array of data.
      * @param Json aValue Value in case views is a string (which then works as the key).
      *  Unused if views is an associative array, otherwise serves as the values to views"s keys.
-     */
+     * /
     void set(string[] views, Json aValue = null) {
         if (isArray(views)) {
             if (isArray(myvalue)) {
@@ -67,4 +67,4 @@ trait ViewVarsTrait {
         }
         this.viewBuilder().setVars(mydata);
     }
-}
+} */

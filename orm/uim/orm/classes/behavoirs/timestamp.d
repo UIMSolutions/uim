@@ -1,4 +1,4 @@
-module uim.orm.behaviors;
+module uim.orm.classes.behaviors.timestamp;
 
 import uim.orm;
 
@@ -18,7 +18,7 @@ class TimestampBehavior : Behavior {
      * the code is executed, to set to an explicit date time value - set refreshTimetamp to false
      * and call setTimestamp() on the behavior class before use.
      *
-     */
+     * /
     protected IData[string] Configuration.updateDefaults([
         "implementedFinders": [],
         "implementedMethods": [
@@ -44,7 +44,7 @@ class TimestampBehavior : Behavior {
      * overwrite the events to listen on
      * Params:
      * IData[string] configData The config for this behavior.
-     */
+     * /
     override bool initialize(IData[string] initData = null) {
          if (!super.initialize(initData)) {
             return false;
@@ -63,7 +63,7 @@ class TimestampBehavior : Behavior {
      * \UIM\Event\IEvent<\UIM\ORM\Table> myevent Event instance.
      * @param \UIM\Datasource\IEntity myentity Entity instance.
      * @throws \UnexpectedValueException if a field"s when value is misdefined
-     */
+     * /
     void handleEvent(IEvent myevent, IEntity myentity) {
         myeventName = myevent.name;
         myevents = configuration.data("events"];
@@ -98,7 +98,7 @@ class TimestampBehavior : Behavior {
      * implementedEvents
      *
      * The implemented events of this behavior depend on configuration
-     */
+     * /
     IData[string] implementedEvents() {
         return array_fill_keys(configuration.data("events"].keys, "handleEvent");
     }
@@ -112,7 +112,7 @@ class TimestampBehavior : Behavior {
      * Params:
      * \IDateTime|null myts Timestamp
      * @param bool myrefreshTimestamp If true timestamp is refreshed.
-     */
+     * /
     DateTime timestamp(?IDateTime myts = null, bool myrefreshTimestamp = false) {
         if (myts) {
             if (configuration.data("refreshTimestamp"]) {
@@ -134,7 +134,7 @@ class TimestampBehavior : Behavior {
      * Params:
      * \UIM\Datasource\IEntity myentity Entity instance.
      * @param string myeventName Event name.
-     */
+     * /
     bool touch(IEntity myentity, string myeventName = "Model.beforeSave") {
         myevents = configuration.data("events"];
         if (isEmpty(myevents[myeventName])) {
@@ -159,7 +159,7 @@ class TimestampBehavior : Behavior {
      * \UIM\Datasource\IEntity myentity Entity instance.
      * @param string myfield Field name
      * @param bool myrefreshTimestamp Whether to refresh timestamp.
-     */
+     * /
     protected void _updateField(IEntity myentity, string myfield, bool myrefreshTimestamp) {
         if (myentity.isDirty(myfield)) {
             return;
@@ -180,5 +180,5 @@ class TimestampBehavior : Behavior {
         myclass = mytype.getDateTimeClassName();
 
         myentity.set(myfield, new myclass(myts));
-    }
+    } */
 }

@@ -1,4 +1,4 @@
-module uim.orm.classes.behavoirs.countercache;
+module uim.orm.classes.behaviors.countercache;
 
 import uim.orm;
 

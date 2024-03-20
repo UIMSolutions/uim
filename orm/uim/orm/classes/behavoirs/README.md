@@ -1,1 +1,1 @@
-# Package 📦 uim.orm.classes.behavoirs
+# Package 📦 uim.orm.classes.behaviors

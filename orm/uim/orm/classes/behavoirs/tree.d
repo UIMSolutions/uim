@@ -1,4 +1,4 @@
-module uim.orm.classes.behavoirs.tree;
+module uim.orm.classes.behaviors.tree;
 
 import uim.orm;
 

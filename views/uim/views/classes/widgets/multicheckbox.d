@@ -240,5 +240,4 @@ class DMultiCheckboxWidget : DWidget {
         return in_array(aKey, mydisabled, mystrict);
     } */
 }
-
 mixin(WidgetCalls!("MultiCheckbox"));

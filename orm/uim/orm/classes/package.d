@@ -7,3 +7,8 @@ public { // Packages
     import uim.orm.classes.queries;
     import uim.orm.classes.rules;
 }
+
+public {
+    import uim.orm.classes.entity;
+    import uim.orm.classes.marshaller;
+}

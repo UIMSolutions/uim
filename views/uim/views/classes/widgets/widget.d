@@ -11,7 +11,7 @@ import uim.views;
  * input elements like hidden, text, email, tel and other types.
  */
 class DWidget : IWidget {
-    mixin TConfigurable!();
+  mixin TConfigurable!();
 
   // StringTemplate instance.
   protected StringTemplate _templates;
@@ -30,12 +30,12 @@ class DWidget : IWidget {
   bool initialize(IData[string] initData = null) {
     configuration(MemoryConfiguration);
     configurationData([
-        "name": StringData(),
-        "val": NullData(null),
-        "type": StringData("text"),
-        "escape": BoolData(true),
-        "templateVars": ArrayData()
-      ]);
+      "name": StringData(),
+      "val": NullData(null),
+      "type": StringData("text"),
+      "escape": BoolData(true),
+      "templateVars": ArrayData()
+    ]);
     setConfigurationData(initData);
 
     return true;

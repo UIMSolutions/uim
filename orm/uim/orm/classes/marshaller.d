@@ -1,4 +1,4 @@
-module uim.orm;
+module uim.orm.classes.marshaller;
 
 import uim.orm;
 
@@ -14,7 +14,8 @@ import uim.orm;
  * @see \UIM\ORM\Table.patchEntity()
  * @see \UIM\ORM\Table.patchEntities()
  */
-class Marshaller {
+class DMarshaller {
+    /*
     mixin AssociationsNormalizerTemplate();
 
     // The table instance this marshaller is for.
@@ -24,7 +25,7 @@ class Marshaller {
      * Constructor.
      * Params:
      * \UIM\ORM\Table mytable The table this marshaller is for.
-     */
+     * /
     this(Table mytable) {
        _table = mytable;
     }
@@ -35,7 +36,7 @@ class Marshaller {
      * array data The data being marshalled.
      * @param IData[string] options List of options containing the "associated" key.
      * @throws \InvalidArgumentException When associations do not exist.
-     */
+     * /
     protected array _buildPropertyMap(array data, IData[string] options) {
         auto mymap = [];
         auto tableSchema = _table.getSchema();
@@ -132,7 +133,7 @@ class Marshaller {
      * Params:
      * IData[string] mydata The data to hydrate.
      * @param IData[string] options List of options
-     */
+     * /
     IEntity one(array data, IData[string] optionData = null) {
         [mydata, options] = _prepareDataAndOptions(mydata, options);
 
@@ -151,7 +152,7 @@ class Marshaller {
         myproperties = [];
         /**
          * @var string aKey
-         */
+         * /
         foreach (mydata as aKey: myvalue) {
             if (!empty(myerrors[aKey])) {
                 if (cast(IInvalidProperty)myentity) {
@@ -195,7 +196,7 @@ class Marshaller {
      * array data The data to validate.
      * @param string|bool myvalidator Validator name or `true` for default validator.
      * @param bool myisNew Whether it is a new entity or one to be updated.
-     */
+     * /
     protected array _validate(array data, string|bool myvalidator, bool myisNew) {
         if (!myvalidator) {
             return null;
@@ -211,7 +212,7 @@ class Marshaller {
      * Params:
      * IData[string] mydata The data to prepare.
      * @param IData[string] options The options passed to this marshaller.
-     */
+     * /
     protected array _prepareDataAndOptions(array data, IData[string] options) {
         options += ["validate": true];
 
@@ -233,7 +234,7 @@ class Marshaller {
      * \UIM\ORM\Association myassoc The association to marshall
      * @param Json aValue The data to hydrate. If not an array, this method will return null.
      * @param IData[string] options List of options.
-     */
+     * /
     protected IEntity[] _marshalAssociation(Association myassoc, Json aValue, IData[string] options) {
         if (!isArray(myvalue)) {
             return null;
@@ -281,7 +282,7 @@ class Marshaller {
      * Params:
      * array data The data to hydrate.
      * @param IData[string] options List of options
-     */
+     * /
     IEntity[] many(array data, IData[string] optionData = null) {
         myoutput = [];
         foreach (mydata as myrecord) {
@@ -302,7 +303,7 @@ class Marshaller {
      * \UIM\ORM\Association\BelongsToMany myassoc The association to marshal.
      * @param array data The data to convert into entities.
      * @param IData[string] options List of options.
-     */
+     * /
     protected IEntity[] _belongsToMany(BelongsToMany myassoc, array data, IData[string] optionData = null) {
         auto myassociated = options["associated"] ?? [];
         auto myforceNew = options.get("forceNew", false);
@@ -333,7 +334,7 @@ class Marshaller {
             }
         }
         if (!empty(myconditions)) {
-            /** @var \Traversable<\UIM\Datasource\IEntity> results */
+            /** @var \Traversable<\UIM\Datasource\IEntity> results * /
             results = mytarget.find()
                 .andWhere(fn (QueryExpression myexp): myexp.or(myconditions))
                 .all();
@@ -380,7 +381,7 @@ class Marshaller {
      * Params:
      * \UIM\ORM\Association myassoc The association class for the belongsToMany association.
      * @param array myids The list of ids to load.
-     */
+     * /
     protected IEntity[] _loadAssociatedByIds(Association myassoc, array myids) {
         if (isEmpty(myids)) {
             return null;
@@ -440,7 +441,7 @@ class Marshaller {
      * \UIM\Datasource\IEntity myentity the entity that will get the data merged in
      * @param array data key value list of fields to be merged into the entity
      * @param IData[string] options List of options.
-     */
+     * /
     IEntity merge(IEntity myentity, array data, IData[string] optionData = null) {
         [mydata, options] = _prepareDataAndOptions(mydata, options);
 
@@ -552,7 +553,7 @@ class Marshaller {
      *  data merged in
      * @param array data list of arrays to be merged into the entities
      * @param IData[string] options List of options.
-     */
+     * /
     IEntity[] mergeMany(Range myentities, array data, IData[string] optionData = null) {
         myprimary = (array)_table.getPrimaryKey();
 
@@ -596,7 +597,7 @@ class Marshaller {
         mymaybeExistentQuery = _table.find().where(myconditions);
 
         if (!empty(myindexed) && count(mymaybeExistentQuery.clause("where"))) {
-            /** @var \Traversable<\UIM\Datasource\IEntity> myexistent */
+            /** @var \Traversable<\UIM\Datasource\IEntity> myexistent * /
             myexistent = mymaybeExistentQuery.all();
             myexistent.each!((entity) {
                 string key = entity.extract(myprimary).join(";");
@@ -622,7 +623,7 @@ class Marshaller {
      * @param \UIM\ORM\Association myassoc The association to merge
      * @param Json aValue The array of data to hydrate. If not an array, this method will return null.
      * @param IData[string] options List of options.
-     */
+     * /
     protected IEntity[] _mergeAssociation(
         IEntity|array|null myoriginal,
         Association myassoc,
@@ -640,14 +641,14 @@ class Marshaller {
         auto mytypes = [Association.ONE_TO_ONE, Association.MANY_TO_ONE];
         auto mytype = myassoc.type();
         if (in_array(mytype, mytypes, true)) {
-            /** @var \UIM\Datasource\IEntity myoriginal */
+            /** @var \UIM\Datasource\IEntity myoriginal * /
             return mymarshaller.merge(myoriginal, myvalue, options);
         }
         if (mytype == Association.MANY_TO_MANY) {
             /**
              * @var array<\UIM\Datasource\IEntity> myoriginal
              * @var \UIM\ORM\Association\BelongsToMany myassoc
-             */
+             * /
             return mymarshaller._mergeBelongsToMany(myoriginal, myassoc, myvalue, options);
         }
         if (mytype == Association.ONE_TO_MANY) {
@@ -662,7 +663,7 @@ class Marshaller {
         }
         /**
          * @var array<\UIM\Datasource\IEntity> myoriginal
-         */
+         * /
         return mymarshaller.mergeMany(myoriginal, myvalue, options);
     }
     
@@ -674,7 +675,7 @@ class Marshaller {
      * @param \UIM\ORM\Association\BelongsToMany myassoc The association to marshall
      * @param array myvalue The data to hydrate
      * @param IData[string] options List of options.
-     */
+     * /
     protected IEntity[] _mergeBelongsToMany(IEntity[] myoriginal, BelongsToMany associationToMarshall, array myvalue, IData[string] options) {
         myassociated = options["associated"] ?? [];
 
@@ -700,7 +701,7 @@ class Marshaller {
      * @param \UIM\ORM\Association\BelongsToMany myassoc The association to marshall
      * @param array myvalue The data to hydrate
      * @param IData[string] options List of options.
-     */
+     * /
     protected IEntity[] _mergeJoinData(array myoriginal, BelongsToMany myassoc, array myvalue, IData[string] options) {
         myassociated = options["associated"] ?? [];
         myextra = [];
@@ -753,10 +754,10 @@ class Marshaller {
      * \UIM\Datasource\IEntity myentity The entity that was marshaled.
      * @param array data readOnly mydata to use.
      * @param IData[string] options List of options that are readOnly.
-     */
+     * /
     protected void dispatchAfterMarshal(IEntity myentity, array data, IData[string] optionData = null) {
         mydata = new ArrayObject(mydata);
         options = new ArrayObject(options);
        _table.dispatchEvent("Model.afterMarshal", compact("entity", "data", "options"));
-    }
+    } */
 }

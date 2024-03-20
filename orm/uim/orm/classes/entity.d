@@ -1,4 +1,4 @@
-module uim.orm;
+module uim.orm.classes.entity;
 
 import uim.orm;
 
@@ -8,7 +8,8 @@ import uim.orm;
  * An entity represents a single result row from a repository. It exposes the
  * methods for retrieving and storing properties associated in this row.
  */
-class Entity : IEntity, IInvalidProperty {
+class Entity { // }: IEntity, IInvalidProperty {
+    /* 
     mixin EntityTemplate();
 
     /**
@@ -29,7 +30,7 @@ class Entity : IEntity, IInvalidProperty {
      * Params:
      * IData[string] myproperties hash of properties to set in this entity
      * @param IData[string] options list of options to use when creating this entity
-     */
+     * /
     this(array myproperties = [], IData[string] optionData = null) {
         options += [
             "useSetters": true,
@@ -62,5 +63,5 @@ class Entity : IEntity, IInvalidProperty {
         if (options["markClean"]) {
             this.clean();
         }
-    }
+    } */
 }

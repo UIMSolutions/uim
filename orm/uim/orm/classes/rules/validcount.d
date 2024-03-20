@@ -1,4 +1,4 @@
-module orm.uim.orm.classes.rules.validcount;
+module uim.orm.classes.rules.validcount;
 
 import uim.orm;
 

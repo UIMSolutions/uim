@@ -1,0 +1,195 @@
+module uim.cake.TestSuite;
+
+import uim.cake;
+
+@safe:
+
+/**
+ * Make assertions on emails sent through the UIM\TestSuite\TestEmailTransport
+ *
+ * After adding the template to your test case, all mail transports will be replaced
+ * with TestEmailTransport which is used for making assertions and will *not* actually
+ * send emails.
+ */
+template EmailTemplate {
+    /**
+     * Replaces all transports with the test transport during test setup
+     *
+     * @before
+     */
+    void setupTransports() {
+        TestEmailTransport.replaceAllTransports();
+    }
+    
+    /**
+     * Resets transport state
+     *
+     * @after
+     */
+    void cleanupEmailTrait() {
+        TestEmailTransport.clearMessages();
+    }
+    
+    // Asserts an expected number of emails were sent
+    void assertMailCount(int emailCount, string message= null) {
+        this.assertThat(emailCount, new MailCount(), message);
+    }
+    
+    // Asserts that no emails were sent
+    void assertNoMailSent(string message= null) {
+        this.assertThat(null, new NoMailSent(), message);
+    }
+    
+    // Asserts an email at a specific index was sent to an address
+    void assertMailSentToAt(int emailIndex, string emailAddress, string message = null) {
+        this.assertThat(emailAddress, new MailSentTo(emailIndex), message);
+    }
+    
+    /**
+     * Asserts an email at a specific index was sent from an address
+     * Params:
+     * int at Email index
+     * @param string aaddress Email address
+     * @param string amessage Message
+     */
+    void assertMailSentFromAt(int at, string aaddress, string amessage= null)) {
+        this.assertThat(address, new MailSentFrom(at), message);
+    }
+    
+    /**
+     * Asserts an email at a specific index contains expected contents
+     * Params:
+     * int at Email index
+     * @param string acontents Contents
+     * @param string amessage Message
+     */
+    void assertMailContainsAt(int at, string acontents, string amessage = null) {
+        this.assertThat(contents, new MailContains(at), message);
+    }
+    
+    /**
+     * Asserts an email at a specific index contains expected html contents
+     * Params:
+     * int at Email index
+     * @param string acontents Contents
+     * @param string amessage Message
+     */
+    void assertMailContainsHtmlAt(int at, string acontents, string amessage = null) {
+        this.assertThat(contents, new MailContainsHtml(at), message);
+    }
+    
+    /**
+     * Asserts an email at a specific index contains expected text contents
+     * Params:
+     * int at Email index
+     * @param string acontents Contents
+     * @param string amessage Message
+     */
+    void assertMailContainsTextAt(int at, string acontents, string amessage = null) {
+        this.assertThat(contents, new MailContainsText(at), message);
+    }
+    
+    /**
+     * Asserts an email at a specific index contains the expected value within an Email getter
+     * Params:
+     * int at Email index
+     * @param string aexpected Contents
+     * @param string aparameter Email getter parameter (e.g. "cc", "bcc")
+     * @param string amessage Message
+     */
+    void assertMailSentWithAt(int at, string aexpected, string aparameter, string amessage= null) {
+        this.assertThat(expected, new MailSentWith(at, parameter), message);
+    }
+    
+    /**
+     * Asserts an email was sent to an address
+     * Params:
+     * string aaddress Email address
+     * @param string amessage Message
+     */
+    void assertMailSentTo(string aaddress, string amessage = null) {
+        this.assertThat(address, new MailSentTo(), message);
+    }
+    
+    /**
+     * Asserts an email was sent from an address
+     * Params:
+     * string[]|string aaddress Email address
+     * @param string amessage Message
+     */
+    void assertMailSentFrom(string[] aaddress, string amessage = null) {
+        this.assertThat(address, new MailSentFrom(), message);
+    }
+    
+    /**
+     * Asserts an email contains expected contents
+     * Params:
+     * string acontents Contents
+     */
+    void assertMailContains(string acontents, string message = null) {
+        this.assertThat(contents, new MailContains(), message);
+    }
+    
+    /**
+     * Asserts an email contains expected attachment
+     * Params:
+     * string afilename Filename
+     * @param array file Additional file properties
+     * @param string amessage Message
+     */
+    void assertMailContainsAttachment(string afilename, array file = [], string amessage = null) {
+        this.assertThat([filename, file], new MailContainsAttachment(), message);
+    }
+    
+    /**
+     * Asserts an email contains expected html contents
+     * Params:
+     * string acontents Contents
+     * @param string amessage Message
+     */
+    void assertMailContainsHtml(string acontents, string amessage = null) {
+        this.assertThat(contents, new MailContainsHtml(), message);
+    }
+    
+    /**
+     * Asserts an email contains an expected text content
+     * Params:
+     * string aexpected Expected text.
+     * @param string amessage Message to display if assertion fails.
+     */
+    void assertMailContainsText(string aexpected, string amessage = "") {
+        this.assertThat(expected, new MailContainsText(), message);
+    }
+    
+    /**
+     * Asserts an email contains the expected value within an Email getter
+     * Params:
+     * string aexpected Contents
+     * @param string aparameter Email getter parameter (e.g. "cc", "subject")
+     * @param string amessage Message
+     */
+    void assertMailSentWith(string aexpected, string aparameter, string amessage = null) {
+        this.assertThat(expected, new MailSentWith(null, parameter), message);
+    }
+    
+    /**
+     * Asserts an email subject contains expected contents
+     * Params:
+     * string acontents Contents
+     * @param string amessage Message
+     */
+    void assertMailSubjectContains(string acontents, string amessage = null) {
+        this.assertThat(contents, new MailSubjectContains(), message);
+    }
+    
+    /**
+     * Asserts an email at a specific index contains expected html contents
+     * Params:
+     * int at Email index
+     * @param string acontents Contents
+     * @param string amessage Message
+     */
+    void assertMailSubjectContainsAt(int at, string acontents, string amessage = null) {
+        this.assertThat(contents, new MailSubjectContains(at), message);
+    }
+}

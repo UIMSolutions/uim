@@ -1,0 +1,120 @@
+module uim.cake.TestSuite;
+
+import uim.cake;
+
+@safe:
+
+/**
+ * Helper for managing test connections
+ *
+ * @internal
+ */
+class ConnectionHelper {
+    /**
+     * Adds `test_<connection name>` aliases for all non-test connections.
+     *
+     * This forces all models to use the test connection instead. For example,
+     * if a model is confused to use connection `files` then it will be aliased
+     * to `test_files`.
+     *
+     * The `default` connection is aliased to `test`.
+     */
+    void addTestAliases() {
+        ConnectionManager.alias("test", "default");
+        ConnectionManager.configured()
+            .filter!(connection => !(aConnection == "test" || aConnection == "default"))
+            .each!(connection => ConnectionManager.alias(connection, 
+                str_starts_with(connection, "test_")
+                ? substr(connection, 5) // original
+                : "test_" ~ aConnection
+            ));
+        }
+    }
+    
+    /**
+     * Enables query logging for all database connections.
+     * Params:
+     * array<int, string>|null aConnections Connection names or null for all.
+     */
+    void enableQueryLogging(array aConnections = null) {
+        aConnections ??= ConnectionManager.configured();
+        foreach (aConnections as aConnection) {
+            aConnection = ConnectionManager.get(aConnection);
+            string message = "--Starting test run " ~ date("Y-m-d H:i:s");
+            if (
+                cast(Connection)aConnection &&
+                aConnection.getDriver().log(message) == false
+            ) {
+                aConnection.getDriver().setLogger(new QueryLogger());
+                aConnection.getDriver().log(message);
+            }
+        }
+    }
+    
+    /**
+     * Drops all tables.
+     * Params:
+     * string aconnectionName Connection name
+     * @param string[]|null aTables List of tables names or null for all.
+     */
+    void dropTables(string aconnectionName, string[] aTables = null) {
+        aConnection = ConnectionManager.get(aConnectionName);
+        assert(cast(Connection)aConnection);
+        collection = aConnection.getSchemaCollection();
+        allTables = collection.listTablesWithoutViews();
+
+        aTables = aTables !isNull ? array_intersect(aTables, allTables): allTables;
+        /** @var array<\UIM\Database\Schema\TableSchema> schemas Specify type for psalm */
+        schemas = array_map(fn (aTable): collection.describe(aTable), aTables);
+
+        dialect = aConnection.getDriver().schemaDialect();
+        foreach (schemas as tableSchema) {
+            foreach (dialect.dropConstraintSql(tableSchema) as statement) {
+                aConnection.execute(statement);
+            }
+        }
+        foreach (schemas as tableSchema) {
+            dialect.dropTableSql(tableSchema).each!(statement => aConnection.execute(statement));
+        }
+    }
+    
+    /**
+     * Truncates all tables.
+     * Params:
+     * string aconnectionName Connection name
+     * @param string[]|null aTables List of tables names or null for all.
+     */
+    void truncateTables(string aconnectionName, array aTables = null) {
+        aConnection = ConnectionManager.get(aConnectionName);
+        assert(cast(Connection)aConnection);
+        collection = aConnection.getSchemaCollection();
+
+        allTables = collection.listTablesWithoutViews();
+        aTables = aTables !isNull ? array_intersect(aTables, allTables): allTables;
+        /** @var array<\UIM\Database\Schema\TableSchema> schemas Specify type for psalm */
+        schemas = array_map(fn (aTable): collection.describe(aTable), aTables);
+
+        this.runWithoutConstraints(aConnection, void (Connection aConnection) use (schemas) {
+            dialect = aConnection.getDriver().schemaDialect();
+            tableSchema.each!(schema => 
+                dialect.truncateTableSql(schema)
+                    .each!(statement => aConnection.execute(statement));
+            );
+        });
+    }
+    
+    /**
+     * Runs callback with constraints disabled correctly per-database
+     * Params:
+     * \UIM\Database\Connection aConnection Database connection
+     */
+    void runWithoutConstraints(Connection dbConnection, Closure aCallback) {
+        if (dbConnection.getDriver().supports(DriverFeatures.DISABLE_CONSTRAINT_WITHOUT_TRANSACTION)) {
+            dbConnection.disableConstraints(fn (Connection aConnection): aCallback(aConnection));
+        } else {
+            dbConnection.transactional(void (Connection aConnection) use (aCallback) {
+                dbConnection.disableConstraints(fn (Connection aConnection): aCallback(aConnection));
+            });
+        }
+    }
+}

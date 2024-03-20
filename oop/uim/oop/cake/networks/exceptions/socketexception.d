@@ -1,0 +1,12 @@
+module uim.cake.networks\Exception;
+
+import uim.cake;
+
+@safe:
+
+/**
+ * Exception class for Socket. This exception will be thrown from Socket, Email, HttpSocket
+ * SmtpTransport, MailTransport and HttpResponse when it encounters an error.
+ */
+class SocketException : UimException {
+}

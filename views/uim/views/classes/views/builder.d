@@ -1,4 +1,4 @@
-module views.uim.views.classes.views.builder;
+module uim.views.classes.views.builder;
 
 import uim.views;
 

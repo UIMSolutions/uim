@@ -1,4 +1,4 @@
-module views.uim.views.classes.views.block;
+module uim.views.classes.views.block;
 
 import uim.views;
 

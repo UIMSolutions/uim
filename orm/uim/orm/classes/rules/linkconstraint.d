@@ -1,4 +1,4 @@
-module uim.orm.Rule;
+module uim.orm.classes.rules.linkconstraint;
 
 import uim.orm;
 
@@ -6,26 +6,22 @@ import uim.orm;
 
 // Checks whether links to a given association exist / do not exist.
 class LinkConstraint {
-    /**
-     * Status that requires a link to be present.
-     */
+    // Status that requires a link to be present.
     const string STATUS_LINKED = "linked";
 
-    /**
-     * Status that requires a link to not be present.
-     */
+    // Status that requires a link to not be present.
     const string STATUS_NOT_LINKED = "notLinked";
 
     /**
      * The association that should be checked.
      *
      * @var \UIM\ORM\Association|string
-     */
+     * /
     protected Association|string my_association;
 
     /**
      * The link status that is required to be present in order for the check to succeed.
-     */
+     * /
     protected string my_requiredLinkState;
 
     /**
@@ -34,7 +30,7 @@ class LinkConstraint {
      * \UIM\ORM\Association|string myassociation The alias of the association that should be checked.
      * @param string myrequiredLinkStatus The link status that is required to be present in order for the check to
      * succeed.
-     */
+     * /
     this(Association|string myassociation, string myrequiredLinkStatus) {
         if (!in_array(myrequiredLinkStatus, [STATUS_LINKED, STATUS_NOT_LINKED], true)) {
             throw new InvalidArgumentException(
@@ -52,7 +48,7 @@ class LinkConstraint {
      * Params:
      * \UIM\Datasource\IEntity myentity The entity involved in the operation.
      * @param IData[string] options Options passed from the rules checker.
-     */
+     * /
     bool __invoke(IEntity myentity, IData[string] options) {
         mytable = options["repository"] ?? null;
         if (!(cast(Table)mytable)) {
@@ -86,7 +82,7 @@ class LinkConstraint {
      * Params:
      * string[] myfields The fields that should be aliased.
      * @param \UIM\ORM\Table mysource The object to use for aliasing.
-     */
+     * /
     protected string[] _aliasFields(array myfields, Table mysource) {
         foreach (myfields as aKey: myvalue) {
             myfields[aKey] = mysource.aliasField(myvalue);
@@ -99,7 +95,7 @@ class LinkConstraint {
      * Params:
      * array myfields The condition fields.
      * @param array myvalues The condition values.
-     */
+     * /
     protected array _buildConditions(array myfields, array myvalues) {
         if (count(myfields) != count(myvalues)) {
             throw new InvalidArgumentException(
@@ -116,7 +112,7 @@ class LinkConstraint {
      * Params:
      * \UIM\ORM\Association myassociation The association for which to count links.
      * @param \UIM\Datasource\IEntity myentity The entity involved in the operation.
-     */
+     * /
     protected int _countLinks(Association myassociation, IEntity myentity) {
         mysource = myassociation.getSource();
 
@@ -141,5 +137,5 @@ class LinkConstraint {
             .matching(myassociation.name)
             .where(myconditions)
             .count();
-    }
+    } */
 }

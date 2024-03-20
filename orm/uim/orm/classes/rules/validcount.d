@@ -1,4 +1,4 @@
-module uim.orm.Rule;
+module orm.uim.orm.classes.rules.validcount;
 
 import uim.orm;
 
@@ -11,7 +11,7 @@ class ValidCount {
 
     /**
      * @param string myfield The field to check the count on.
-     */
+     * /
     this(string myfield) {
        _field = myfield;
     }
@@ -21,12 +21,12 @@ class ValidCount {
      * Params:
      * \UIM\Datasource\IEntity myentity The entity from where to extract the fields.
      * @param IData[string] options Options passed to the check.
-     */
+     * /
     bool __invoke(IEntity myentity, IData[string] options) {
         myvalue = myentity.{_field};
         if (!isArray(myvalue) && !cast(Countable)myvalue) {
             return false;
         }
         return Validation.comparison(count(myvalue), options["operator"], options["count"]);
-    }
+    } */
 }

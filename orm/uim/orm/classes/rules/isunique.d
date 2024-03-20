@@ -1,22 +1,17 @@
-module uim.orm.Rule;
+module uim.orm.classes.rules.isunique;
 
 import uim.orm;
 
 @safe:
 
-/*
- * Checks that a list of fields from an entity are unique in the table
- */
+// Checks that a list of fields from an entity are unique in the table
 class IsUnique {
-    /**
-     * The list of fields to check
-     */
-    protected string[] my_fields;
+    /* 
+    // The list of fields to check
+    protected string[] _fields;
 
-    /**
-     * The unique check options
-     */
-    protected IData[string] my_options = [
+    // The unique check options
+    protected IData[string] _options = [
         "allowMultipleNulls": true,
     ];
 
@@ -29,7 +24,7 @@ class IsUnique {
      * Params:
      * string[] myfields The list of fields to check uniqueness for
      * @param IData[string] options The options for unique checks.
-     */
+     * /
     this(array myfields, IData[string] optionData = null) {
        _fields = myfields;
        _options = options + _options;
@@ -63,5 +58,5 @@ class IsUnique {
         aliasConditions.byKeyValue
             .each!(kv => myaliased["aliasToAdd.aKey IS"] = kv.value);
         return myaliased;
-    }
+    } */
 }

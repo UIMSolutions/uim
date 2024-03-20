@@ -1,4 +1,4 @@
-module uim.orm;
+module uim.orm.classes.rules.checker;
 
 import uim.orm;
 
@@ -11,7 +11,7 @@ import uim.orm;
  *
  * @see \UIM\Datasource\RulesChecker
  */
-class RulesChecker : BaseRulesChecker {
+class DRulesChecker { // }: BaseRulesChecker {
     /**
      * Returns a callable that can be used as a rule for checking the uniqueness of a value
      * in the table.
@@ -29,7 +29,7 @@ class RulesChecker : BaseRulesChecker {
      * string[] myfields The list of fields to check for uniqueness.
      * @param IData[string]|string mymessage The error message to show in case the rule does not pass. Can
      *  also be an array of options. When an array, the "message" key can be used to provide a message.
-     */
+     * /
     RuleInvoker isUnique(array myfields, string[]|null mymessage = null) {
         options = isArray(mymessage) ? mymessage : ["message": mymessage];
         mymessage = options["message"] ?? null;
@@ -70,7 +70,7 @@ class RulesChecker : BaseRulesChecker {
      * @param \UIM\ORM\Table|\UIM\ORM\Association|string mytable The table name where the fields existence will be checked.
      * @param IData[string]|string mymessage The error message to show in case the rule does not pass. Can
      *  also be an array of options. When an array, the "message" key can be used to provide a message.
-     */
+     * /
     RuleInvoker existsIn(
         string[] myfield,
         Table|Association|string mytable,
@@ -110,7 +110,7 @@ class RulesChecker : BaseRulesChecker {
      * @param string myfield The name of the association property. When supplied, this is the name used to set
      * possible errors. When absent, the name is inferred from `myassociation`.
      * @param string mymessage The error message to show in case the rule does not pass.
-     */
+     * /
     RuleInvoker isLinkedTo(
         Association|string myassociation,
         string myfield = null,
@@ -141,7 +141,7 @@ class RulesChecker : BaseRulesChecker {
      * @param string myfield The name of the association property. When supplied, this is the name used to set
      * possible errors. When absent, the name is inferred from `myassociation`.
      * @param string mymessage The error message to show in case the rule does not pass.
-     */
+     * /
     RuleInvoker isNotLinkedTo(
         Association|string myassociation,
         string myfield = null,
@@ -165,7 +165,7 @@ class RulesChecker : BaseRulesChecker {
      * @param string mymessage The error message to show in case the rule does not pass.
      * @param string mylinkStatus The ink status required for the check to pass.
      * @param string myruleName The alias/name of the rule.
-     */
+     * /
     protected RuleInvoker _addLinkConstraintRule(
         Association|string myassociation,
         string myerrorField,
@@ -216,7 +216,7 @@ class RulesChecker : BaseRulesChecker {
      * @param int mycount The expected count.
      * @param string myoperator The operator for the count comparison.
      * @param string mymessage The error message to show in case the rule does not pass.
-     */
+     * /
     RuleInvoker validCount(
         string myfield,
         int mycount = 0,
@@ -237,5 +237,5 @@ class RulesChecker : BaseRulesChecker {
             "_validCount",
             compact("count", "operator", "errorField", "message")
         );
-    }
+    } */
 }

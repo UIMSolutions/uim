@@ -4,13 +4,9 @@ import uim.orm;
 
 @safe:
 
-/*
- * Trait with common methods used by all ORM query classes.
- */
+// Trait with common methods used by all ORM query classes.
 template CommonQueryTemplate {
-    /**
-     * Instance of a repository/table object this query is bound to.
-     */
+    // Instance of a repository/table object this query is bound to.
     protected Table my_repository;
 
     /**

@@ -1,4 +1,5 @@
-module uim.views;
+module uim.views.classes.cell;
+
 import uim.views;
 
 @safe:
@@ -8,10 +9,10 @@ import uim.views;
  *
  * @implements \UIM\Event\IEventDispatcher<\UIM\View\View>
  */
-abstract class Cell : IEventDispatcher, Stringable {
+abstract class Cell { // }: IEventDispatcher, Stringable {
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\View\View>
-     */
+     * /
     use EventDispatcherTrait;
     use LocatorAwareTrait;
     use ViewVarsTrait;
@@ -22,14 +23,14 @@ abstract class Cell : IEventDispatcher, Stringable {
     /**
      * Instance of the View created during rendering. Won"t be set until after
      * Cell.__toString()/render() is called.
-     */
+     * /
     protected View _view;
 
     /**
      * An instance of a UIM\Http\ServerRequest object that contains information about the current request.
      * This object contains all the information about a request and several methods for reading
      * additional information about the request.
-     */
+     * /
     protected ServerRequest myrequest;
 
     // An instance of a Response object that contains information about the impending response
@@ -45,7 +46,7 @@ abstract class Cell : IEventDispatcher, Stringable {
      * List of valid options (constructor"s fourth arguments)
      * Override this property in subclasses to allow
      * which options you want set as properties in your Cell.
-     */
+     * /
     protected string[] my_validCellOptions = [];
 
     // Caching setup.
@@ -58,7 +59,7 @@ abstract class Cell : IEventDispatcher, Stringable {
      * @param \UIM\Http\Response myresponse The response to use in the cell.
      * @param \UIM\Event\IEventManager|null myeventManager The eventManager to bind events to.
      * @param  mycellOptions Cell options to apply.
-     */
+     * /
     this(
         ServerRequest myrequest,
         Response myresponse,
@@ -87,7 +88,7 @@ abstract class Cell : IEventDispatcher, Stringable {
      *
      * Implement this method to avoid having to overwrite
      * the constructor and calling super().
-     */
+     * /
     bool initialize(IData[string] initData = null) {
     }
     
@@ -96,7 +97,7 @@ abstract class Cell : IEventDispatcher, Stringable {
      * Params:
      * string|null mytemplate Custom template name to render. If not provided (null), the last
      * value will be used. This value is automatically set by `CellTrait.cell()`.
-     */
+     * /
     string render(string mytemplate = null) {
         mycache = [];
         if (_cache) {
@@ -120,7 +121,7 @@ abstract class Cell : IEventDispatcher, Stringable {
             }
             myclassName = class;
             viewsPrefix = "\View\Cell\\";
-            /** @psalm-suppress PossiblyFalseOperand */
+            /** @psalm-suppress PossiblyFalseOperand * /
             views = substr(myclassName, strpos(myclassName, viewsPrefix) + viewsPrefix.length);
             views = substr(views, 0, -4);
             if (!mybuilder.getTemplatePath()) {
@@ -158,7 +159,7 @@ abstract class Cell : IEventDispatcher, Stringable {
      * Params:
      * string myaction The action invoked.
      * @param string|null mytemplate The name of the template to be rendered.
-     */
+     * /
     protected array _cacheConfig(string myaction, string mytemplate = null) {
         if (isEmpty(_cache)) {
             return null;
@@ -183,7 +184,7 @@ abstract class Cell : IEventDispatcher, Stringable {
      *
      * *Note* This method will trigger an error when view rendering has a problem.
      * This is because PHP will not allow a __toString() method to throw an exception.
-     */
+     * /
     override string toString() {
         try {
             return this.render();
@@ -196,7 +197,7 @@ abstract class Cell : IEventDispatcher, Stringable {
             ), E_USER_WARNING);
 
             return "";
-        /** @phpstan-ignore-next-line */
+        /** @phpstan-ignore-next-line * /
         } catch (Error mye) {
             throw new Error(
                 "Could not render cell - %s [%s, line %d]".format(
@@ -209,7 +210,7 @@ abstract class Cell : IEventDispatcher, Stringable {
     
     /**
      * Debug info.
-     */
+     * /
     IData[string] debugInfo() {
         return [
             "action": this.action,
@@ -218,5 +219,5 @@ abstract class Cell : IEventDispatcher, Stringable {
             "response": this.response,
             "viewBuilder": this.viewBuilder(),
         ];
-    }
+    } */
 }

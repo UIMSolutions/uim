@@ -1,10 +1,11 @@
-module views.uim.views.mixins.cell;
+module uim.views.mixins.cell;
 
 import uim.views;
 
 @safe:
 
 // Provides cell() method for usage in Controller and View classes.
+/*
 trait CellTrait {
     /**
      * Renders the given cell.
@@ -33,7 +34,7 @@ trait CellTrait {
      * @param array data Additional arguments for cell method. e.g.:
      *   `cell("TagCloud.smallList", ["a1": "v1", "a2": "v2"])` maps to `View\Cell\TagCloud.smallList(v1, v2)`
      * @param IData[string] options Options for Cell"s constructor
-     */
+     * /
     protected Cell cell(string mycell, array data = [], IData[string] options  = null) {
         string[] myparts = mycell.split(".");
 
@@ -59,7 +60,7 @@ trait CellTrait {
      * @param string myaction The action name.
      * @param string|null myplugin The plugin name.
      * @param IData[string] options The constructor options for the cell.
-     */
+     * /
     protected Cell _createCell(string myclassName, string myaction, string myplugin, IData[string] options) {
         Cell myinstance = new myclassName(this.request, this.response, this.getEventManager(), options);
 
@@ -91,4 +92,4 @@ trait CellTrait {
         }
         return myinstance;
     }
-}
+} */

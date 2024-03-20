@@ -1,4 +1,4 @@
-module views.uim.views.mixins.idgeneratortrait;
+module uim.views.mixins.idgeneratortrait;
 
 import uim.views;
 

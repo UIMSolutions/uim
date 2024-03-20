@@ -11,7 +11,7 @@ import uim.views;
  * it but can be used to generate standalone date time inputs.
  */
 class DDateTimeWidget : DWidget {
-        mixin(WidgetThis!("DateTime"));
+    mixin(WidgetThis!("DateTime"));
 
     /* 
     // Template instance.

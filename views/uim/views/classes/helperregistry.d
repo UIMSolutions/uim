@@ -1,4 +1,4 @@
-module uim.views;
+module uim.views.classes.helperregistry;
 
 import uim.views;
 
@@ -14,7 +14,7 @@ import uim.views;
 class HelperRegistry { // }: ObjectRegistry : IEventDispatcher {
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\View\View>
-     */
+     * /
     use EventDispatcherTrait;
 
     // View object to use when making helpers.
@@ -24,7 +24,7 @@ class HelperRegistry { // }: ObjectRegistry : IEventDispatcher {
      * Constructor
      * Params:
      * \UIM\View\View myview View object.
-     */
+     * /
     this(View myview) {
        _view = myview;
         this.setEventManager(myview.getEventManager());
@@ -36,7 +36,7 @@ class HelperRegistry { // }: ObjectRegistry : IEventDispatcher {
      * if any
      * Params:
      * string myhelper The helper name to be loaded
-     */
+     * /
     bool __isSet(string myhelper) {
         if (isSet(_loaded[myhelper])) {
             return true;
@@ -61,10 +61,10 @@ class HelperRegistry { // }: ObjectRegistry : IEventDispatcher {
      * Provide read access to the loaded objects
      * Params:
      * string views Name of property to read
-     */
+     * /
     Helper __get(string views) {
         // This calls __isSet() and loading the named helper if it isn"t already loaded.
-        /** @psalm-suppress NoValue */
+        /** @psalm-suppress NoValue * /
         if (isSet(this.{views})) {
             return _loaded[views];
         }
@@ -77,7 +77,7 @@ class HelperRegistry { // }: ObjectRegistry : IEventDispatcher {
      * Part of the template method for UIM\Core\ObjectRegistry.load()
      * Params:
      * string myclass Partial classname to resolve.
-     */
+     * /
     protected string _resolveClassName(string myclass) {
         return App.className(myclass, "View/Helper", "Helper");
     }
@@ -90,7 +90,7 @@ class HelperRegistry { // }: ObjectRegistry : IEventDispatcher {
      * Params:
      * string myclass The classname that is missing.
      * @param string|null myplugin The plugin the helper is missing in.
-     */
+     * /
     protected void _throwMissingClassError(string myclass, string myplugin) {
         throw new MissingHelperException([
             "class": myclass ~ "Helper",
@@ -107,7 +107,7 @@ class HelperRegistry { // }: ObjectRegistry : IEventDispatcher {
      * \UIM\View\Helper|class-string<\UIM\View\Helper> myclass The class to create.
      * @param string myalias The alias of the loaded helper.
      * @param IData[string] configData An array of settings to use for the helper.
-     */
+     * /
     protected Helper _create(object|string myclass, string myalias, IData[string] configData) {
         if (isObject(myclass)) {
             return myclass;
@@ -118,5 +118,5 @@ class HelperRegistry { // }: ObjectRegistry : IEventDispatcher {
             this.getEventManager().on(myinstance);
         }
         return myinstance;
-    }
+    } */
 }

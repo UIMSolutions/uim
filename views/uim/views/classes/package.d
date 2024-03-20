@@ -7,5 +7,7 @@ public { // Packages
 }
 
 public { // Modules
+    import uim.views.classes.cell;
+    import uim.views.classes.helperregistry;
     import uim.views.classes.stringtemplate;
 }

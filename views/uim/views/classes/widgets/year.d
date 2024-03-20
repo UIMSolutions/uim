@@ -1,4 +1,4 @@
-module views.uim.views.classes.widgets.year;
+module uim.views.classes.widgets.year;
 
 import uim.views;
 
@@ -13,6 +13,7 @@ import uim.views;
 class YearWidget : DWidget {
         mixin(WidgetThis!("Year"));
 
+    /* 
     // Data defaults.
     protected IData[string] _defaultData = [
         "name": "",
@@ -31,7 +32,7 @@ class YearWidget : DWidget {
      * Params:
      * \UIM\View\StringTemplate mytemplates Templates list.
      * @param \UIM\View\Widget\SelectBoxWidget myselectBox Selectbox widget instance.
-     */
+     * /
     this(StringTemplate mytemplates, SelectBoxWidget myselectBox) {
        _select = myselectBox;
        _templates = mytemplates;
@@ -42,7 +43,7 @@ class YearWidget : DWidget {
      * Params:
      * IData[string] mydata Data to render with.
      * @param \UIM\View\Form\IContext mycontext The current form context.
-     */
+     * /
     string render(IData[string] renderData, IContext mycontext) {
         mydata += this.mergeDefaults(mydata, mycontext);
 
@@ -78,5 +79,5 @@ class YearWidget : DWidget {
         unset(mydata["order"], mydata["min"], mydata["max"]);
 
         return _select.render(mydata, mycontext);
-    }
+    } */
 }

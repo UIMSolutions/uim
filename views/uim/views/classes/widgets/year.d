@@ -4,9 +4,6 @@ import uim.views;
 
 @safe:
 
-/*
-use IDateTime;
-
 /**
  * Input widget class for generating a calendar year select box.
  *

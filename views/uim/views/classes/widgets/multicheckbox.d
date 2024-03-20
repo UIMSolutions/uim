@@ -1,4 +1,4 @@
-module uim.views.widgets;
+module uim.views.classes.widgets.multicheckbox;
 
 import uim.views;
 
@@ -11,8 +11,9 @@ import uim.views;
  * it but can be used to generate standalone multiple checkboxes.
  */
 class MultiCheckboxWidget : DWidget {
-        mixin(WidgetThis!("MultiCheckbox"));
+    mixin(WidgetThis!("MultiCheckbox"));
 
+    /* 
     use IdGeneratorTrait;
 
     protected IData[string] _defaultData = [
@@ -30,7 +31,7 @@ class MultiCheckboxWidget : DWidget {
      * Label widget instance.
      *
      * @var \UIM\View\Widget\LabelWidget
-     */
+     * /
     protected LabelWidget my_label;
 
     /**
@@ -48,10 +49,10 @@ class MultiCheckboxWidget : DWidget {
      * Params:
      * \UIM\View\StringTemplate mytemplates Templates list.
      * @param \UIM\View\Widget\LabelWidget mylabel Label widget instance.
-     */
-    this(StringTemplate mytemplates, LabelWidget mylabel) {
+     * /
+    this(StringTemplate mytemplates, LabelWidget labelWidget) {
        _templates = mytemplates;
-       _label = mylabel;
+       _label = labelWidget;
     }
     
     /**
@@ -94,7 +95,7 @@ class MultiCheckboxWidget : DWidget {
      * Params:
      * IData[string] mydata The data to generate a checkbox set with.
      * @param \UIM\View\Form\IContext mycontext The current form context.
-     */
+     * /
     string render(array data, IContext mycontext) {
         mydata += this.mergeDefaults(mydata, mycontext);
 
@@ -110,7 +111,7 @@ class MultiCheckboxWidget : DWidget {
      * IData[string] mydata The data array defining the checkboxes.
      * @param \UIM\View\Form\IContext mycontext The current form context.
      * returns An array of rendered inputs.
-     */
+     * /
     protected string[] _renderInputs(array data, IContext mycontext) {
         result = [];
         mydata["options"].byKeyValue
@@ -166,7 +167,7 @@ class MultiCheckboxWidget : DWidget {
      * Params:
      * IData[string] mycheckbox An array containing checkbox key/value option pairs
      * @param \UIM\View\Form\IContext mycontext Context object.
-     */
+     * /
     protected string _renderInput(array mycheckbox, IContext mycontext) {
         myinput = _templates.format("checkbox", [
             "name": mycheckbox["name"] ~ "[]",
@@ -208,7 +209,7 @@ class MultiCheckboxWidget : DWidget {
      * Params:
      * string aKey The key to test.
      * @param string[]|string|int|false|null myselected The selected values.
-     */
+     * /
     protected bool _isSelected(string aKey, string[]|int|false|null myselected) {
         if (myselected.isNull) {
             return false;
@@ -226,7 +227,7 @@ class MultiCheckboxWidget : DWidget {
      * Params:
      * string aKey The key to test.
      * @param Json mydisabled The disabled values.
-     */
+     * /
     protected bool _isDisabled(string aKey, Json mydisabled) {
         if (mydisabled.isNull || mydisabled == false) {
             return false;
@@ -237,5 +238,7 @@ class MultiCheckboxWidget : DWidget {
         mystrict = !isNumeric(aKey);
 
         return in_array(aKey, mydisabled, mystrict);
-    }
+    } */
 }
+
+mixin(WidgetCalls!("MultiCheckbox"));

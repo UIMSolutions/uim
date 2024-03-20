@@ -1,4 +1,4 @@
-module uim.views.widgets;
+module uim.views.classes.widgets.textarea;
 
 import uim.views;
 
@@ -11,8 +11,9 @@ import uim.views;
  * it but can be used to generate standalone text areas.
  */
 class DTextareaWidget : DWidget {
-        mixin(WidgetThis!("Textarea"));
+    mixin(WidgetThis!("Textarea"));
 
+    /* 
     protected IData[string] _defaultData = [
         "val": Json(""),
         "name": Json(""),
@@ -34,7 +35,7 @@ class DTextareaWidget : DWidget {
      * Params:
      * IData[string] mydata The data to build a textarea with.
      * @param \UIM\View\Form\IContext mycontext The current form context.
-     */
+     * /
     string render(IData[string] renderData, IContext mycontext) {
         mydata += this.mergeDefaults(mydata, mycontext);
 
@@ -53,5 +54,6 @@ class DTextareaWidget : DWidget {
                 ["name", "val"]
             ),
         ]);
-    }
+    } */
 }
+mixin(WidgetCalls!("Textarea"));

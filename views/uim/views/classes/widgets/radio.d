@@ -1,4 +1,4 @@
-module uim.views.widgets;
+module uim.views.classes.widgets.radio;
 
 import uim.views;
 
@@ -11,8 +11,8 @@ import uim.views;
  * it but can be used to generate standalone radio buttons.
  */
 class DRadioWidget : DWidget {
-        mixin(WidgetThis!("Radio"));
-
+    mixin(WidgetThis!("Radio"));
+    /*
     use IdGeneratorTrait;
 
     // Data defaults.
@@ -43,7 +43,7 @@ class DRadioWidget : DWidget {
      *  variables.
      * Params:
      * \UIM\View\StringTemplate mytemplates Templates list.
-     */
+     * /
     this(StringTemplate mytemplates, LabelWidget labelWidget) {
        _templates = mytemplates;
        _label = labelWidget;
@@ -67,7 +67,7 @@ class DRadioWidget : DWidget {
      * Params:
      * IData[string] mydata The data to build radio buttons with.
      * @param \UIM\View\Form\IContext formContext The current form context.
-     */
+     * /
     string render(IData[string] data, IContext formContext) {
         mydata += this.mergeDefaults(mydata, formContext);
 
@@ -98,7 +98,7 @@ class DRadioWidget : DWidget {
      * IData[string] myradio Radio info.
      * @param string[]|true|null mydisabled The disabled values.
      *  bool
-     */
+     * /
     protected bool _isDisabled(IData[string] myradio, string[]|bool|null mydisabled) {
         if (!mydisabled) {
             return false;
@@ -118,7 +118,7 @@ class DRadioWidget : DWidget {
      * @param IData[string]|string|int mytext The label text, or complex radio type.
      * @param IData[string] mydata Additional options for input generation.
      * @param \UIM\View\Form\IContext formContext The form context
-     */
+     * /
     protected string _renderInput(
         string|int myval,
         string[]|int mytext,
@@ -204,7 +204,7 @@ class DRadioWidget : DWidget {
      * @param string myinput The input widget.
      * @param \UIM\View\Form\IContext formContext The form context.
      * @param bool myescape Whether to HTML escape the label.
-     */
+     * /
     protected string _renderLabel(
         array myradio,
         string[]|bool|null mylabel,
@@ -228,5 +228,6 @@ class DRadioWidget : DWidget {
         ];
 
         return _label.render(mylabelAttrs, formContext);
-    }
+    } */
 }
+mixin(WidgetCalls!("Radio"));

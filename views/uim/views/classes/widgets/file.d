@@ -11,9 +11,9 @@ import uim.views;
  * it but can be used to generate standalone file upload controls.
  */
 class DFileWidget : DWidget {
-        mixin(WidgetThis!("File"));
+    mixin(WidgetThis!("File"));
 
-/*
+    /*
     // Data defaults.
     protected IData[string] _defaultData = [
         "name": "",
@@ -52,3 +52,4 @@ class DFileWidget : DWidget {
         ]);
     } */
 }
+mixin(WidgetCalls!("File"));

@@ -68,3 +68,4 @@ class LabelWidget : DWidget {
         return null;
     } */
 }
+    mixin(WidgetCalls!("Label"));

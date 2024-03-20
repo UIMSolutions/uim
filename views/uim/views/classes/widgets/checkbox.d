@@ -1,4 +1,4 @@
-module views.uim.views.classes.widgets.checkbox;
+module uim.views.classes.widgets.checkbox;
 
 import uim.views;
 

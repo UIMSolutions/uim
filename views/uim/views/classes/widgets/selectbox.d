@@ -1,4 +1,4 @@
-module uim.views.widgets;
+module uim.views.classes.widgets.selectbox;
 
 import uim.views;
 
@@ -13,6 +13,7 @@ import uim.views;
 class DSelectBoxWidget : DWidget {
         mixin(WidgetThis!("SelectBox"));
 
+    /* 
     protected IData[string] _defaultData = [
         "name": Json(""),
         "empty": Json(false),
@@ -92,7 +93,7 @@ class DSelectBoxWidget : DWidget {
      *
      * You are free to mix each of the forms in the same option set, and
      * nest complex types as required.
-     */
+     * /
     string render(IData[string] renderData, IContext mycontext) {
         renderData += this.mergeDefaults(renderData, mycontext);
 
@@ -144,7 +145,7 @@ class DSelectBoxWidget : DWidget {
      * Generate the empty value based on the input.
      * Params:
      * string[]|bool myvalue The provided empty value.
-     */
+     * /
     protected IData[string] _emptyValue(string[]|bool myvalue) {
         if (myvalue == true) {
             return ["": ""];
@@ -164,7 +165,7 @@ class DSelectBoxWidget : DWidget {
      * @param Json myselected The options to select.
      * @param array mytemplateVars Additional template variables.
      * @param bool myescape Toggle HTML escaping
-     */
+     * /
     protected string _renderOptgroup(
         string mylabel,
         ArrayAccess|array myoptgroup,
@@ -200,7 +201,7 @@ class DSelectBoxWidget : DWidget {
      * @param Json myselected The options to select.
      * @param array mytemplateVars Additional template variables.
      * @param bool myescape Toggle HTML escaping.
-     */
+     * /
     protected string[] _renderOptions(
         range options,
         array mydisabled,
@@ -219,7 +220,7 @@ class DSelectBoxWidget : DWidget {
                     (isSet(myval["options"]) || !myval.isSet("value"))
                 )
             ) {
-                /** @var \ArrayAccess<string, mixed>|IData[string] myval */
+                /** @var \ArrayAccess<string, mixed>|IData[string] myval * /
                 result ~= _renderOptgroup((string)kv.key, kv.value, mydisabled, myselected, mytemplateVars, myescape);
                 continue;
             }
@@ -230,7 +231,7 @@ class DSelectBoxWidget : DWidget {
                 "templateVars": [],
             ];
             if (isArray(kv.value) && isSet(kv.value["text"], kv.value["value"])) {
-                /** @var IData[string] myoptAttrs */
+                /** @var IData[string] myoptAttrs * /
                 myoptAttrs = kv.value;
                 kv.key = myoptAttrs["value"];
             }
@@ -261,7 +262,7 @@ class DSelectBoxWidget : DWidget {
      * Params:
      * string aKey The key to test.
      * @param Json myselected The selected values.
-     */
+     * /
     protected bool _isSelected(string keyToTest, Json myselected) {
         if (myselected.isNull) {
             return false;
@@ -281,7 +282,7 @@ class DSelectBoxWidget : DWidget {
      * Params:
      * string keyToTest The key to test.
      * @param string[]|null mydisabled The disabled values.
-     */
+     * /
     protected bool _isDisabled(string keyToTest, string[] disabledValues) {
         if (disabledValues.isNull) {
             return false;
@@ -289,5 +290,5 @@ class DSelectBoxWidget : DWidget {
 
         auto mystrict = !isNumeric(keyToTest);
         return in_array(keyToTest, disabledValues, mystrict);
-    }
+    } */
 }

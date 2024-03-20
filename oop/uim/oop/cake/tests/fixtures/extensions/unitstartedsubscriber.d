@@ -1,0 +1,28 @@
+module source.uim.cake.tests.fixtures.extensions.unitstartedsubscriber;
+
+import uim.cake;
+
+@safe:
+
+class PHPUnitStartedSubscriber : PHPUnitStarted {
+    /**
+     * Initializes before any tests are run.
+     * Params:
+     * \PHPUnit\Event\TestSuite\Started event The event
+     */
+    void notify(Started event) {
+        helper = new ConnectionHelper();
+        helper.addTestAliases();
+
+        enableLogging = enviroment("LOG_QUERIES", false);
+        if (to!int(enableLogging) != 0) {
+            helper.enableQueryLogging();
+            Log.drop("queries");
+            Log.setConfig("queries", [
+                "className": "Console",
+                "stream": "php://stderr",
+                "scopes": ["cake.database.queries"],
+            ]);
+        }
+    }
+}

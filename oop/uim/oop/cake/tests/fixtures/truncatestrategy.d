@@ -1,0 +1,28 @@
+module uim.cake.tests.fixtures.truncatestrategys;
+
+import uim.cake;
+
+@safe:
+
+// Fixture strategy that truncates all fixture ables at the end of test.
+class TruncateStrategy : IFixtureStrategy {
+    protected FixtureHelper _helper;
+
+    protected IFixture _fixtures;
+
+    this() {
+        _helper = new FixtureHelper();
+    }
+ 
+    void setupTest(string[] fixtureNames) {
+        if (fixtureNames.isEmpty) {
+            return;
+        }
+        _fixtures = _helper.loadFixtures(fixtureNames);
+        _helper.insert(_fixtures);
+    }
+ 
+    void teardownTest() {
+        _helper.truncate(_fixtures);
+    }
+}

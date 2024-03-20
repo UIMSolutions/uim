@@ -1,4 +1,4 @@
-module orm.uim.orm.classes.queries.insert;
+module uim.orm.classes.queries.insert;
 
 import uim.orm;
 

@@ -1,15 +1,17 @@
-module uim.orm.queries.update;
+module uim.orm.classes.queries.update;
+
 import uim.orm;
 
 @safe:
-class UpdateQuery : DbUpdateQuery {
-    mixin CommonQueryTemplate();
+
+class DUpdateQuery : DQuery {
+    // mixin CommonQueryTemplate();
 
     /**
      * Constructor
      * Params:
      * \UIM\ORM\Table mytable The table this query is starting on
-     */
+     * /
     this(Table aTable) {
         super(aTable.getConnection());
 
@@ -23,5 +25,5 @@ class UpdateQuery : DbUpdateQuery {
             this.update(myrepository.getTable());
         }
         return super.sql(mybinder);
-    }
+    } */
 }

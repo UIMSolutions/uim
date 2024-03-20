@@ -1,26 +1,23 @@
-module uim.orm.Query;
+module uim.orm.classes.queries.factory;
 
-/**
- * Factory class for generating instances of Select, Insert, Update, Delete queries.
- */
+import uim.orm;
+
+@safe:
+
+// Factory class for generating instances of Select, Insert, Update, Delete queries.
 class QueryFactory {
-    /**
-     * Create a new Query instance.
-     */
+    /* 
+    // Create a new Query instance.
     SelectQuery select(Table tableForQuery) {
         return new SelectQuery(tableForQuery);
     }
     
-    /**
-     * Create a new InsertQuery instance.
-     */
+    // Create a new InsertQuery instance.
     InsertQuery insert(Table tableForQuery) {
         return new InsertQuery(tableForQuery);
     }
     
-    /**
-     * Create a new UpdateQuery instance.
-     */
+    // Create a new UpdateQuery instance.
     UpdateQuery update(Table tableForQuery) {
         return new UpdateQuery(tableForQuery);
     }
@@ -29,8 +26,8 @@ class QueryFactory {
      * Create a new DeleteQuery instance.
      * Params:
      * \UIM\ORM\Table mytable The table this query is starting on.
-     */
+     * /
     DeleteQuery delete_(Table mytable) {
         return new DeleteQuery(mytable);
-    }
+    } */
 }

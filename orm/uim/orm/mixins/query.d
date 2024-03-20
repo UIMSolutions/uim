@@ -1,6 +1,5 @@
 module uim.orm.mixins.query;
 
-
 string queryThis(string name) {
     auto fullname = name~"Query";
     return `

@@ -1,4 +1,4 @@
-module uim.orm.queries.select;
+module uim.orm.classes.queries.select;
 
 import uim.orm;
 
@@ -13,7 +13,8 @@ import uim.orm;
  * @template TSubject of \UIM\Datasource\IEntity|array
  * @extends \UIM\Database\Query\SelectQuery<TSubject>
  */
-class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
+class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
+    /* 
     mixin CommonQueryTemplate();
 
     // Indicates that the operation should append to the list
@@ -28,13 +29,13 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
     /**
      * Whether the user select any fields before being executed, this is used
      * to determined if any fields should be automatically be selected.
-     */
+     * /
     protected bool my_hasFields = null;
 
     /**
      * Tracks whether the original query should include
      * fields from the top level table.
-     */
+     * /
     protected bool my_autoFields = null;
 
     // Whether to hydrate results into entity objects
@@ -46,18 +47,18 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
     /**
      * A callback used to calculate the total amount of
      * records this query will match when not using `limit`
-     */
+     * /
     protected Closure my_counter = null;
 
     /**
      * Instance of a class responsible for storing association containments and
      * for eager loading them when this query is executed
-     */
+     * /
     protected EagerLoader my_eagerLoader = null;
 
     /**
      * Whether the query is standalone or the product of an eager load operation.
-     */
+     * /
     protected bool my_eagerLoaded = false;
 
     // True if the beforeFind event has already been triggered for this query
@@ -67,14 +68,14 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * The COUNT(*) for the query.
      *
      * When set, count query execution will be bypassed.
-     */
+     * /
     protected int my_resultsCount = null;
 
     /**
      * Resultset factory
      *
      * @var \UIM\ORM\ResultSetFactory<\UIM\Datasource\IEntity|array>
-     */
+     * /
     protected ResultSetFactory resultSetFactory;
 
     /**
@@ -84,39 +85,39 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      *
      * @var iterable|null
      * @see \UIM\Datasource\QueryTrait.setResult()
-     */
+     * /
     protected range my_results = null;
 
     /**
      * List of map-reduce routines that should be applied over the query
      * result
-     */
+     * /
     protected array my_mapReduce = [];
 
     /**
      * List of formatter classes or callbacks that will post-process the
      * results when fetched
-     */
+     * /
     protected Closure[] my_formatters = [];
 
     /**
      * A query cacher instance if this query has caching enabled.
      *
      * @var \UIM\Datasource\QueryCacher|null
-     */
+     * /
     protected QueryCacher my_cache = null;
 
     /**
      * Holds any custom options passed using applyOptions that could not be processed
      * by any method in this class.
-     */
+     * /
     protected array my_options = [];
 
     /**
      * Constructor
      * Params:
      * \UIM\ORM\Table mytable The table this query is starting on
-     */
+     * /
     this(Table mytable) {
         super(mytable.getConnection());
 
@@ -134,7 +135,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * This method is most useful when combined with results stored in a persistent cache.
      * Params:
      * range results The results this query should return.
-     */
+     * /
     void setResult(Range results) {
        _results = results;
     }
@@ -144,7 +145,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * for implementing the IteratorAggregate interface and allows the query to be
      * iterated without having to call execute() manually, thus making it look like
      * a result set instead of the query itself.
-     */
+     * /
     IResultSet getIterator() {
         return this.all();
     }
@@ -183,7 +184,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      *  When using a function, this query instance will be supplied as an argument.
      * @param \Psr\SimpleCache\ICache|string configData Either the name of the cache config to use, or
      *  a cache engine instance.
-     */
+     * /
     void cache(Closure|string|false aKey, ICache|string configData = "default") {
         if (aKey == false) {
            _cache = null;
@@ -195,7 +196,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
     
     /**
      * Returns the current configured query `_eagerLoaded` value
-     */
+     * /
     bool isEagerLoaded() {
         return _eagerLoaded;
     }
@@ -205,7 +206,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * passed, the current configured query `_eagerLoaded` value is returned.
      * Params:
      * bool myvalue Whether to eager load.
-     */
+     * /
     void eagerLoaded(bool myvalue) {
        _eagerLoaded = myvalue;
     }
@@ -220,7 +221,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * Params:
      * string myfield The field to alias
      * @param string myalias the alias used to prefix the field
-     */
+     * /
     STRINGAA aliasField(string myfield, string myalias = null) {
         if (myfield.has(".")) {
             myaliasedField = myfield;
@@ -240,7 +241,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * Params:
      * array myfields The fields to alias
      * @param string mydefaultAlias The default alias
-     */
+     * /
     STRINGAA aliasFields(array myfields, string mydefaultAlias = null) {
         myaliased = [];
         foreach (myfields as myalias: myfield) {
@@ -261,7 +262,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      *
      * ResultSetDecorator is a traversable object that : the methods found
      * on UIM\Collection\Collection.
-     */
+     * /
     IResultSet<mixed> all() {
         if (_results !isNull) {
             if (!(cast(IResultSet)_results)) {
@@ -286,7 +287,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
     
     /**
      * Returns an array representation of the results after executing the query.
-     */
+     * /
     array toArray() {
         return this.all().toArray();
     }
@@ -305,7 +306,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * @param bool myoverwrite Set to true to overwrite existing map + reduce functions.
      * @return this
      * @see \UIM\Collection\Iterator\MapReduce for details on how to use emit data to the map reducer.
-     */
+     * /
     void mapReduce(?Closure mymapper = null, ?Closure myreducer = null, bool myoverwrite = false) {
         if (myoverwrite) {
            _mapReduce = [];
@@ -321,7 +322,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
     
     /**
      * Returns the list of previously registered map reduce routines.
-     */
+     * /
     array getMapReducers() {
         return _mapReduce;
     }
@@ -415,7 +416,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * Params:
      * \Closure|null myformatter The formatting function
      * @param int|bool mymode Whether to overwrite, append or prepend the formatter.
-     */
+     * /
     void formatResults(?Closure myformatter = null, int|bool mymode = self.APPEND) {
         if (mymode == self.OVERWRITE) {
            _formatters = [];
@@ -436,7 +437,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
     
     /**
      * Returns the list of previously registered format routines.
-     */
+     * /
     Closure[] getResultFormatters() {
         return _formatters;
     }
@@ -450,7 +451,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * ```
      * mysingleUser = myquery.select(["id", "username"]).first();
      * ```
-     */
+     * /
     Json first() {
         if (_isDirty) {
             this.limit(1);
@@ -462,7 +463,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * Get the first result from the executing query or raise an exception.
      *
      * @throws \UIM\Datasource\Exception\RecordNotFoundException When there is no first record.
-     */
+     * /
     Json firstOrFail() {
         myentity = this.first();
         if (!myentity) {
@@ -488,7 +489,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      *
      * @see \UIM\Datasource\IQuery.applyOptions() to read about the options that will
      * be processed by this class and not returned by this function
-     */
+     * /
     array getOptions() {
         return _options;
     }
@@ -555,7 +556,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * IData[string] options The options to be applied
      * @return this
      * @see getOptions()
-     */
+     * /
     auto applyOptions(IData[string] options) {
         myvalid = [
             "select": "select",
@@ -589,7 +590,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * Decorates the results iterator with MapReduce routines and formatters
      * Params:
      * range result Original results
-     */
+     * /
     protected IResultSet _decorateResults(Range result) {
         mydecorator = _decoratorClass();
 
@@ -612,7 +613,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
     
     /**
      * Returns the name of the class to be used for decorating results
-     */
+     * /
     protected string _decoratorClass() {
         return ResultSetDecorator.classname;
     }
@@ -655,7 +656,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * \UIM\Database\IExpression|\UIM\ORM\Table|\UIM\ORM\Association|\Closure|string[]|float|int myfields Fields
      * to be added to the list.
      * @param bool myoverwrite whether to reset fields with passed list or not
-     */
+     * /
     auto select(
         IExpression|Table|Association|Closure|string[]|float|int myfields = [],
         bool myoverwrite = false
@@ -681,7 +682,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * Params:
      * \UIM\Database\IExpression|\UIM\ORM\Table|\UIM\ORM\Association|\Closure|string[]|float|int myfields Fields
      * to be added to the list.
-     */
+     * /
     auto selectAlso(
         IExpression|Table|Association|Closure|string[]|float|int myfields
     ) {
@@ -701,7 +702,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * \UIM\ORM\Table|\UIM\ORM\Association mytable The table to use to get an array of columns
      * @param string[] myexcludedFields The un-aliased column names you do not want selected from mytable
      * @param bool myoverwrite Whether to reset/remove previous selected fields
-     */
+     * /
     auto selectAllExcept(Table|Association mytable, array myexcludedFields, bool myoverwrite = false) {
         if (cast(Association)mytable) {
             mytable = mytable.getTarget();
@@ -718,7 +719,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * and storing containments.
      * Params:
      * \UIM\ORM\EagerLoader myinstance The eager loader to use.
-     */
+     * /
     auto setEagerLoader(EagerLoader myinstance) {
        _eagerLoader = myinstance;
 
@@ -844,7 +845,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      *  if associations is an array, a bool on whether to override previous list
      *  with the one passed
      * defaults to merging previous list with the new one.
-     */
+     * /
     auto contain(string[] myassociations, IClosure|bool myoverride = false) {
         myloader = this.getEagerLoader();
         if (myoverride == true) {
@@ -886,7 +887,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * @param \UIM\Database\TypeMap mytypeMap The typemap to check for columns in.
      *  This typemap is indirectly mutated via {@link \UIM\ORM\Query\SelectQuery.addDefaultTypes()}
      * @param array<string, array> myassociations The nested tree of associations to walk.
-     */
+     * /
     protected void _addAssociationsToTypeMap(Table mytable, TypeMap mytypeMap, array myassociations) {
         foreach (myassociations as myname: mynested) {
             if (!mytable.hasAssociation(myname)) {
@@ -952,7 +953,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * string myassoc The association to filter by
      * @param \Closure|null mybuilder a auto that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
-     */
+     * /
     void matching(string myassoc, IClosure mybuilder = null) {
         result = this.getEagerLoader().setMatching(myassoc, mybuilder).getMatching();
        _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
@@ -1020,7 +1021,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * string myassoc The association to join with
      * @param \Closure|null mybuilder a auto that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
-     */
+     * /
     void leftJoinWith(string myassoc, ?Closure mybuilder = null) {
         result = this.getEagerLoader()
             .setMatching(myassoc, mybuilder, [
@@ -1064,7 +1065,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * string myassoc The association to join with
      * @param \Closure|null mybuilder a auto that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
-     */
+     * /
     void innerJoinWith(string myassoc, ?Closure mybuilder = null) {
         result = this.getEagerLoader()
             .setMatching(myassoc, mybuilder, [
@@ -1124,7 +1125,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * string myassoc The association to filter by
      * @param \Closure|null mybuilder a auto that will receive a pre-made query object
      * that can be used to add custom conditions or selecting some fields
-     */
+     * /
     void notMatching(string myassoc, ?Closure mybuilder = null) {
         result = this.getEagerLoader()
             .setMatching(myassoc, mybuilder, [
@@ -1170,7 +1171,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
     /**
      * Clears the internal result cache and the internal count value from the current
      * query object.
-     */
+     * /
     void clearResult() {
        _isDirty();
     }
@@ -1188,7 +1189,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * Returns the COUNT(*) for the query. If the query has not been
      * modified, and the count has already been performed the cached
      * value is returned
-     */
+     * /
     size_t count() {
         return _resultsCount ??= _performCount();
     }
@@ -1196,7 +1197,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
     /**
      * Performs and returns the COUNT(*) for the query.
      *
-     */
+     * /
     protected int _performCount() {
         myquery = this.cleanCopy();
         mycounter = _counter;
@@ -1264,7 +1265,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * instead
      * Params:
      * \Closure|null mycounter The counter value
-     */
+     * /
     auto counter(?Closure mycounter) {
        _counter = mycounter;
 
@@ -1277,7 +1278,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * If set to false array results will be returned for the query.
      * Params:
      * bool myenable Use a boolean to set the hydration mode.
-     */
+     * /
     auto enableHydration(bool myenable = true) {
        _isDirty();
        _hydrate = myenable;
@@ -1290,7 +1291,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      *
      * Disabling hydration will cause array results to be returned for the query
      * instead of entities.
-     */
+     * /
     auto disableHydration() {
        _isDirty();
        _hydrate = false;
@@ -1307,7 +1308,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * Trigger the beforeFind event on the query"s repository object.
      *
      * Will not trigger more than once, and only for select queries.
-     */
+     * /
     void triggerBeforeFind() {
         if (!_beforeFindFired) {
            _beforeFindFired = true;
@@ -1331,7 +1332,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
     
     /**
      * Executes this query and returns an range containing the results.
-     */
+     * /
     protected range _execute() {
         this.triggerBeforeFind();
         if (_results) {
@@ -1348,7 +1349,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
     
     /**
      * Get resultset factory.
-     */
+     * /
     protected ResultSetFactory resultSetFactory() {
         return this.resultSetFactory ??= new ResultSetFactory();
     }
@@ -1363,7 +1364,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * It also sets the default types for the columns in the select clause
      *
      * @see \UIM\Database\Query.execute()
-     */
+     * /
     protected void _transformQuery() {
         if (!_isDirty) {
             return;
@@ -1381,7 +1382,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
     /**
      * Inspects if there are any set fields for selecting, otherwise adds all
      * the fields for the default table.
-     */
+     * /
     protected void _addDefaultFields() {
         myselect = this.clause("select");
        _hasFields = true;
@@ -1401,7 +1402,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
     
     /**
      * Sets the default types for converting the fields in the select clause
-     */
+     * /
     protected void _addDefaultSelectTypes() {
         mytypeMap = this.getTypeMap().getDefaults();
         myselect = this.clause("select");
@@ -1431,13 +1432,13 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
     static find(string myfinder, Json ...myargs) {
         mytable = this.getRepository();
 
-        /** @psalm-suppress LessSpecificReturnStatement */
+        /** @psalm-suppress LessSpecificReturnStatement * /
         return mytable.callFinder(myfinder, this, ...myargs);
     }
     
     /**
      * Disable auto adding table"s alias to the fields of SELECT clause.
-     */
+     * /
     auto disableAutoAliasing() {
         this.aliasingEnabled = false;
 
@@ -1447,7 +1448,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
     /**
      * Marks a query as dirty, removing any preprocessed information
      * from in memory caching such as previous results
-     */
+     * /
     protected void _isDirty() {
        _results = null;
        _resultsCount = null;
@@ -1472,7 +1473,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * Executes the query and converts the result set into JSON.
      *
      * Part of JsonSerializable interface.
-     */
+     * /
     IResultSet<(\UIM\Datasource\IEntity|mixed)> jsonSerialize() {
         return this.all();
     }
@@ -1484,7 +1485,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      * auto-fields with this method.
      * Params:
      * bool myvalue Set true to enable, false to disable.
-     */
+     * /
     auto enableAutoFields(bool myvalue = true) {
        _autoFields = myvalue;
 
@@ -1493,7 +1494,7 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
     
     /**
      * Disables automatically appending fields.
-     */
+     * /
     auto disableAutoFields() {
        _autoFields = false;
 
@@ -1505,12 +1506,8 @@ class SelectQuery : DbSelectQuery, JsonSerializable, IQuery {
      *
      * By default calling select() will disable auto-fields. You can re-enable
      * auto-fields with enableAutoFields().
-     */
+     * /
     bool isAutoFieldsEnabled() {
         return _autoFields;
-    }
+    } */
 }
-
-
-class_exists("UIM\ORM\Query");
-

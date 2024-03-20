@@ -1,4 +1,4 @@
-module uim.views.widgets;
+module views.uim.views.classes.widgets.year;
 
 import uim.views;
 

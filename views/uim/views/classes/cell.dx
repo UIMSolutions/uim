@@ -4,13 +4,6 @@ import uim.views;
 @safe:
 
 /**
-
-use Error;
-
-use ReflectionException;
-
-use Stringable; */ 
-/**
  * Cell base.
  *
  * @implements \UIM\Event\IEventDispatcher<\UIM\View\View>

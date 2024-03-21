@@ -11,10 +11,6 @@ class DCookie : ICookie {
 
     // Hook method
     bool initialize(IData[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
-
         configuration(MemoryConfiguration);
         setConfigurationData(initData);
 

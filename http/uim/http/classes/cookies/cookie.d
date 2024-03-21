@@ -5,17 +5,18 @@ import uim.http;
 @safe:
 
 class DCookie : ICookie {
-    this() {
-        initialize();
-    }
+    mixin TConfigurable!();
 
-    // Hook method
+    this() { initialize; }
+
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
         setConfigurationData(initData);
 
         return true;
     }
+
+    mixin(TProperty!("string", "name"));
 
     // Expires attribute format.
     const string EXPIRES_FORMAT = "D, d-M-Y H:i:s T";

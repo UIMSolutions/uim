@@ -11,6 +11,9 @@ class DCommand : ICommand {
     this() { initialize; }
 
     bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
         return true;
     }
 

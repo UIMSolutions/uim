@@ -1,2 +1,2 @@
-module uim.cake.http.Session;
+module uim.http.classes.sessions;
 

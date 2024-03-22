@@ -13,11 +13,12 @@ import uim.views;
 class DLabelWidget : DWidget {
     mixin(WidgetThis!("Label"));
 
+    // The template to use.
+    protected string _labelTemplate = "label";
+
     /* 
     protected StringTemplate _templates;
 
-    // The template to use.
-    protected string _labelTemplate = "label";
 
     /**
      * Constructor.

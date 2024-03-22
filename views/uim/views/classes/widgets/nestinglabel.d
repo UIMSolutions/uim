@@ -15,5 +15,4 @@ class DNestingLabelWidget : DLabelWidget {
     // The template to use.
     protected string _labelTemplate = "nestingLabel";
 }
-
 mixin(WidgetCalls!("NestingLabel"));

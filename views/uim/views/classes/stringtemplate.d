@@ -12,28 +12,16 @@ import uim.views;
  * for generating HTML and other content.
  */
 class StringTemplate {
-    // TODO use InstanceConfigTrait {
-    //     getConfig as get;
-    // } 
+    mixin TConfigurable!();
 
-    // List of attributes that can be made compact.
-    protected bool[string] _compactAttributes;
-
-    // The default templates this instance holds.
-    protected IConfiguration _defaultConfiguration;
-
-    // A stack of template sets that have been stashed temporarily.
-    // TODO protected array myconfigurationStack = [];
-
-    // Contains the list of compiled templates
-    protected string[] compiledtemplates;
-
-    /* this(IData[string] configData = null) {
+    this(string newName) { this();  this.name(newName); }
+    this(IData[string] initData = null) {
         this.initialize(initData);
-    } */
+    }
 
-    /* bool initialize(IData[string] initData = null) {
-       _defaultConfig = Configuration;
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
 
        _compactAttributes = [
             "allowfullscreen": true,
@@ -79,8 +67,36 @@ class StringTemplate {
             "typemustmatch": true,
             "visible": true,
         ];
+
+        return true;
     }
 
+    mixin(TProperty!("string", "name"));
+
+    // List of attributes that can be made compact.
+    protected bool[string] _compactAttributes;
+
+    // Contains the list of compiled templates
+    protected string[] _compiledTemplates;
+
+    /**
+     * Registers a list of templates by name
+     *
+     * ### Example:
+     *
+     * ```
+     * mytemplater.add([
+     *  "link": "<a href="{{url}}">{{title}}</a>"
+     *  "button": "<button>{{text}}</button>"
+     * ]);
+     * ```
+     */
+    void add(STRINGAA namedTemplates) {
+        // TODO configuration.update(namedTemplates);
+       // _compiledTemplates(namedTemplates.keys);
+    }
+
+    /*
     // Push the current templates into the template stack.
     void push() {
        configurationStack ~= [
@@ -95,23 +111,6 @@ class StringTemplate {
             return;
         }
         [configuration, _compiled] = array_pop(configurationStack);
-    }
-
-    /**
-     * Registers a list of templates by name
-     *
-     * ### Example:
-     *
-     * ```
-     * mytemplater.add([
-     *  "link": "<a href="{{url}}">{{title}}</a>"
-     *  "button": "<button>{{text}}</button>"
-     * ]);
-     * ```
-     */
-    /* void add(STRINGAA namedTemplates) {
-        configuration.update(namedTemplates);
-       _compileTemplates(namedTemplates.keys);
     }
 
     // Compile templates into a more efficient printf() compatible format.
@@ -168,14 +167,13 @@ class StringTemplate {
     
     /**
      * Format a template string with mydata
-     * Params:
-     * string views The template name.
      */
-    /* string format(string views, IData[string] insertData) {
-        if (!_compiled.isSet(views)) {
-            throw new InvalidArgumentException("Cannot find template named `%s`.".format(views));
+    string format(string templateName, IData[string] insertData) {
+        // TODO 
+        /* if (!_compiled.isSet(templateName)) {
+            throw new InvalidArgumentException("Cannot find template named `%s`.".format(templateName));
         }
-        [mytemplate, myplaceholders] = _compiled[views];
+        [mytemplate, myplaceholders] = _compiled[templateName];
 
         if (insertData.isSet("templateVars")) {
             mydata = mydata["templateVars"];
@@ -190,8 +188,9 @@ class StringTemplate {
             }
             myreplace ~= myreplacement;
         });
-        return vsprintf(mytemplate, myreplace);
-    } */
+        return vsprintf(mytemplate, myreplace); */
+        return null; 
+    } 
     
     /**
      * Returns a space-delimited string with items of the options array. If a key

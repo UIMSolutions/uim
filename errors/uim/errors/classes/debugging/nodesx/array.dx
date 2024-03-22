@@ -1,0 +1,43 @@
+/*********************************************************************************************************
+	Copyright: © 2015-2023 Ozan Nurettin Süel (Sicherheitsschmiede)                                        
+	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
+	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
+**********************************************************************************************************/
+module uim.errors.debugs.nodes.array;
+
+@safe:
+import uim.errors;
+
+// Dump node for Array values.
+class DERRArrayNode : IERRNode {
+  private IERRNode[] _items;
+
+  /**
+    * Constructor
+    *
+    * someItems - The items for the array
+    */
+  this(DERRArrayItemNode[] nodes = null) {
+    _items = [];
+    this.add(nodes);
+  }
+
+  // Add nodes
+  void add(DERRArrayItemNode[] nodes...) {
+    this.add(nodes);
+  }
+
+  void add(DERRArrayItemNode[] nodes) {
+    foreach (myItem; nodes) { _items ~= myItem; }
+  }
+
+  // Get the contained items
+  string value() {
+    return _items.map!(item => item.value).join(", ");
+  }
+
+  // Get Item nodes
+  IERRNode[] children() {
+    return _items;
+  }
+}

@@ -44,8 +44,8 @@ class DRadioWidget : DWidget {
      * Params:
      * \UIM\View\StringTemplate mytemplates Templates list.
      * /
-    this(StringTemplate mytemplates, LabelWidget labelWidget) {
-       _templates = mytemplates;
+    this(DStringTemplate mytemplates, LabelWidget labelWidget) {
+       _stringTemplate = mytemplates;
        _label = labelWidget;
     }
     
@@ -152,8 +152,8 @@ class DRadioWidget : DWidget {
         }
         auto labelData = options["label"];
         if (!isBool(labelData) && isSet(myradio["checked"]) && myradio["checked"]) {
-            myselectedClass = _templates.format("selectedClass", []);
-            mydoptionsata["label"] = _templates.addClass(labelData, myselectedClass);
+            myselectedClass = _stringTemplate.format("selectedClass", []);
+            mydoptionsata["label"] = _stringTemplate.addClass(labelData, myselectedClass);
         }
         myradio["disabled"] = _isDisabled(myradio, mydata["disabled"]);
         if (!empty(options["required"])) {
@@ -162,11 +162,11 @@ class DRadioWidget : DWidget {
         if (!empty(options["form"])) {
             myradio["form"] = mydata["form"];
         }
-        myinput = _templates.format("radio", [
+        myinput = _stringTemplate.format("radio", [
             "name": myradio["name"],
             "value": myescape ? h(myradio["value"]): myradio["value"],
             "templateVars": myradio["templateVars"],
-            "attrs": _templates.formatAttributes(
+            "attrs": _stringTemplate.formatAttributes(
                 myradio + options,
                 ["name", "value", "text", "options", "label", "val", "type"]
             ),
@@ -182,11 +182,11 @@ class DRadioWidget : DWidget {
 
         if (
             mylabel == false &&
-            !_templates.get("radioWrapper").has("{{input}}")
+            !_stringTemplate.get("radioWrapper").has("{{input}}")
         ) {
             mylabel = myinput;
         }
-        return _templates.format("radioWrapper", [
+        return _stringTemplate.format("radioWrapper", [
             "input": myinput,
             "label": mylabel,
             "templateVars": mydata["templateVars"],

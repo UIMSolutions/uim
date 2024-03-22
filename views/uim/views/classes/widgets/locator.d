@@ -25,7 +25,7 @@ class DWidgetLocator {
     protected array my_widgets = [];
 
     // Templates to use.
-    protected StringTemplate _templates;
+    protected StringTemplate _stringTemplate;
 
     // View instance.
     protected View _view;
@@ -37,8 +37,8 @@ class DWidgetLocator {
      * @param \UIM\View\View myview The view instance to set as a widget.
      * @param array mywidgets See add() method for more information.
      * /
-    this(StringTemplate mytemplates, View myview, array mywidgets = []) {
-       _templates = mytemplates;
+    this(DStringTemplate mytemplates, View myview, array mywidgets = []) {
+       _stringTemplate = mytemplates;
        _view = myview;
 
         this.add(mywidgets);
@@ -145,7 +145,7 @@ class DWidgetLocator {
         }
         if (count(configData)) {
             myreflection = new ReflectionClass(myclassName);
-            myarguments = [_templates];
+            myarguments = [_stringTemplate];
             foreach (configData as myrequirement) {
                 if (myrequirement == "_view") {
                     myarguments ~= _view;
@@ -155,7 +155,7 @@ class DWidgetLocator {
             }
             myinstance = myreflection.newInstanceArgs(myarguments);
         } else {
-            myinstance = new myclassName(_templates);
+            myinstance = new myclassName(_stringTemplate);
         }
         
         return myinstance;

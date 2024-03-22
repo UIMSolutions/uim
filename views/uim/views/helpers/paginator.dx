@@ -635,7 +635,7 @@ class PaginatorHelper : Helper {
      * \UIM\View\StringTemplate mytemplater StringTemplate instance.
      * @param IData[string] options Options from the numbers() method.
      */
-    protected string _formatNumber(StringTemplate mytemplater, IData[string] options) {
+    protected string _formatNumber(DStringTemplate mytemplater, IData[string] options) {
         myvars = [
             "text": options["text"],
             "url": this.generateUrl(["page": options["page"]], options["url"]),
@@ -651,7 +651,7 @@ class PaginatorHelper : Helper {
      * @param IData[string] myparams Params from the numbers() method.
      * @param IData[string] options Options from the numbers() method.
      */
-    protected string _modulusNumbers(StringTemplate mytemplater, array myparams, IData[string] options) {
+    protected string _modulusNumbers(DStringTemplate mytemplater, array myparams, IData[string] options) {
         string result = "";
         myellipsis = mytemplater.format("ellipsis", []);
 
@@ -744,7 +744,7 @@ class PaginatorHelper : Helper {
      * @param IData[string] myparams Params from the numbers() method.
      * @param IData[string] options Options from the numbers() method.
      */
-    protected string _numbers(StringTemplate mytemplater, array myparams, IData[string] options) {
+    protected string _numbers(DStringTemplate mytemplater, array myparams, IData[string] options) {
         string result = "";
         result ~= options["before"];
 

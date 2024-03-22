@@ -11,7 +11,7 @@ class DInvalidParameterException : DControllersException {
   // Switches message template based on `template` key in message array.
   /* this(string messageKey = "default", int errorCode = 0, Throwable previousException = null) {
     super();
-    _templates["default"] = _templates.get(messageKey, null);
+    _stringTemplate["default"] = _stringTemplate.get(messageKey, null);
   }
   // mixin(ExceptionThis!("InvalidParameterException"));
 
@@ -20,7 +20,7 @@ class DInvalidParameterException : DControllersException {
       return false;
     }
 
-    _templates = [
+    _stringTemplate = [
       "failed_coercion": "Unable to coerce `%s` to `%s` for `%s` in action `%s::%s()`.",
       "missing_dependency": "Failed to inject dependency from service container for parameter `%s` with type `%s` in action `%s::%s()`.",
       "missing_parameter": "Missing passed parameter for `%s` in action `%s::%s()`.",

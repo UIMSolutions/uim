@@ -17,7 +17,7 @@ class DLabelWidget : DWidget {
     protected string _labelTemplate = "label";
 
     /* 
-    protected StringTemplate _templates;
+    protected StringTemplate _stringTemplate;
 
 
     /**
@@ -30,8 +30,8 @@ class DLabelWidget : DWidget {
      * Params:
      * \UIM\View\StringTemplate mytemplates Templates list.
      * /
-    this(StringTemplate mytemplates) {
-        _templates = mytemplates;
+    this(DStringTemplate mytemplates) {
+        _stringTemplate = mytemplates;
     }
 
     /**
@@ -47,19 +47,19 @@ class DLabelWidget : DWidget {
      * /
     string render(IData[string] renderData, IContext formContext) {
         renderData.update([
-            "text": StringData(""),
-            "input": StringData(""),
-            "hidden": StringData(""),
+            "text": StringData,
+            "input": StringData,
+            "hidden": StringData,
             "escape": BoolData(true),
-            "templateVars": Arraydata(),
+            "templateVars": ArrayData(),
         ]);
 
-        return _templates.format(_labelTemplate, [
+        return _stringTemplate.format(_labelTemplate, [
                 "text": renderData["escape"] ? h(renderData["text"]): renderData["text"],
                 "input": renderData["input"],
                 "hidden": renderData["hidden"],
                 "templateVars": renderData["templateVars"],
-                "attrs": _templates.formatAttributes(renderData, [
+                "attrs": _stringTemplate.formatAttributes(renderData, [
                         "text", "input", "hidden"
                     ]),
             ]);

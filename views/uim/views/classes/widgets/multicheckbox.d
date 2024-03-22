@@ -50,8 +50,8 @@ class DMultiCheckboxWidget : DWidget {
      * \UIM\View\StringTemplate mytemplates Templates list.
      * @param \UIM\View\Widget\LabelWidget mylabel Label widget instance.
      * /
-    this(StringTemplate mytemplates, LabelWidget labelWidget) {
-       _templates = mytemplates;
+    this(DStringTemplate mytemplates, LabelWidget labelWidget) {
+       _stringTemplate = mytemplates;
        _label = labelWidget;
     }
     
@@ -119,8 +119,8 @@ class DMultiCheckboxWidget : DWidget {
             // Grouped inputs in a fieldset.
             if (isString(kv.key) && isArray(kv.value) && !myval.isSet("text"), myval["value"])) {
                 myinputs = _renderInputs(["options": kv.value] + mydata, mycontext);
-                mytitle = _templates.format("multicheckboxTitle", ["text": kv.key]);
-                result ~= _templates.format("multicheckboxWrapper", [
+                mytitle = _stringTemplate.format("multicheckboxTitle", ["text": kv.key]);
+                result ~= _stringTemplate.format("multicheckboxWrapper", [
                     "content": mytitle ~ join("", myinputs),
                 ]);
                 continue;
@@ -169,17 +169,17 @@ class DMultiCheckboxWidget : DWidget {
      * @param \UIM\View\Form\IContext mycontext Context object.
      * /
     protected string _renderInput(array mycheckbox, IContext mycontext) {
-        myinput = _templates.format("checkbox", [
+        myinput = _stringTemplate.format("checkbox", [
             "name": mycheckbox["name"] ~ "[]",
             "value": mycheckbox["escape"] ? h(mycheckbox["value"]): mycheckbox["value"],
             "templateVars": mycheckbox["templateVars"],
-            "attrs": _templates.formatAttributes(
+            "attrs": _stringTemplate.formatAttributes(
                 mycheckbox,
                 ["name", "value", "text", "options", "label", "val", "type"]
             ),
         ]);
 
-        if (mycheckbox["label"] == false && !_templates.get("checkboxWrapper").has("{{input}}")) {
+        if (mycheckbox["label"] == false && !_stringTemplate.get("checkboxWrapper").has("{{input}}")) {
             mylabel = myinput;
         } else {
             mylabelAttrs = isArray(mycheckbox["label"]) ? mycheckbox["label"] : [];
@@ -192,12 +192,12 @@ class DMultiCheckboxWidget : DWidget {
             ];
 
             if (mycheckbox["checked"]) {
-                myselectedClass = _templates.format("selectedClass", []);
-                mylabelAttrs = (array)_templates.addClass(mylabelAttrs, myselectedClass);
+                myselectedClass = _stringTemplate.format("selectedClass", []);
+                mylabelAttrs = (array)_stringTemplate.addClass(mylabelAttrs, myselectedClass);
             }
             mylabel = _label.render(mylabelAttrs, mycontext);
         }
-        return _templates.format("checkboxWrapper", [
+        return _stringTemplate.format("checkboxWrapper", [
             "templateVars": mycheckbox["templateVars"],
             "label": mylabel,
             "input": myinput,

@@ -42,7 +42,7 @@ class Debugger
      *
      * @var array<string, array<string, mixed>>
      */
-    protected _templates = [
+    protected _stringTemplate = [
         'log': [
             // These templates are not actually used, as Debugger::log() is called instead.
             'trace': '{:reference} - {:path}, line {:line}',
@@ -135,11 +135,11 @@ class Debugger
         e ~= '<div id="{:id}-trace" class="cake-stack-trace" style="display: none;">';
         e ~= '{:links}{:info}</div>';
         e ~= '</pre>';
-        _templates['js']['error'] = e;
+        _stringTemplate['js']['error'] = e;
 
         t = '<div id="{:id}-trace" class="cake-stack-trace" style="display: none;">';
         t ~= '{:context}{:code}{:trace}</div>';
-        _templates['js']['info'] = t;
+        _stringTemplate['js']['info'] = t;
 
         links = null;
         link = '<a href="javascript:void(0);" onclick="document.getElementById(\'{:id}-code\')';
@@ -152,20 +152,20 @@ class Debugger
         link ~= '\'none\' ? \'\' : \'none\')">Context</a>';
         links['context'] = link;
 
-        _templates['js']['links'] = links;
+        _stringTemplate['js']['links'] = links;
 
-        _templates['js']['context'] = '<pre id="{:id}-context" class="cake-context cake-debug" ';
-        _templates['js']['context'] ~= 'style="display: none;">{:context}</pre>';
+        _stringTemplate['js']['context'] = '<pre id="{:id}-context" class="cake-context cake-debug" ';
+        _stringTemplate['js']['context'] ~= 'style="display: none;">{:context}</pre>';
 
-        _templates['js']['code'] = '<pre id="{:id}-code" class="cake-code-dump" ';
-        _templates['js']['code'] ~= 'style="display: none;">{:code}</pre>';
+        _stringTemplate['js']['code'] = '<pre id="{:id}-code" class="cake-code-dump" ';
+        _stringTemplate['js']['code'] ~= 'style="display: none;">{:code}</pre>';
 
         e = '<pre class="cake-error"><b>{:error}</b> ({:code}) : {:description} ';
         e ~= '[<b>{:path}</b>, line <b>{:line}]</b></pre>';
-        _templates['html']['error'] = e;
+        _stringTemplate['html']['error'] = e;
 
-        _templates['html']['context'] = '<pre class="cake-context cake-debug"><b>Context</b> ';
-        _templates['html']['context'] ~= '<p>{:context}</p></pre>';
+        _stringTemplate['html']['context'] = '<pre class="cake-context cake-debug"><b>Context</b> ';
+        _stringTemplate['html']['context'] ~= '<p>{:context}</p></pre>';
     }
 
     /**
@@ -413,10 +413,10 @@ class Debugger
                 }
                 back ~= trace;
             } else {
-                if (isset(self._templates[options['format']]['traceLine'])) {
-                    tpl = self._templates[options['format']]['traceLine'];
+                if (isset(self._stringTemplate[options['format']]['traceLine'])) {
+                    tpl = self._stringTemplate[options['format']]['traceLine'];
                 } else {
-                    tpl = self._templates['base']['traceLine'];
+                    tpl = self._stringTemplate['base']['traceLine'];
                 }
                 trace['path'] = trimPath(trace['file']);
                 trace['reference'] = reference;
@@ -864,7 +864,7 @@ class Debugger
 
         data['trace'] = trace;
         data['id'] = 'cakeErr' . uniqid();
-        tpl = _templates[outputFormat] + _templates['base'];
+        tpl = _stringTemplate[outputFormat] + _stringTemplate['base'];
 
         if (isset(tpl['links'])) {
             foreach (tpl['links'] as key: val) {

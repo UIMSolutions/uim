@@ -33,9 +33,9 @@ class YearWidget : DWidget {
      * \UIM\View\StringTemplate mytemplates Templates list.
      * @param \UIM\View\Widget\SelectBoxWidget myselectBox Selectbox widget instance.
      * /
-    this(StringTemplate mytemplates, SelectBoxWidget myselectBox) {
+    this(DStringTemplate mytemplates, SelectBoxWidget myselectBox) {
        _select = myselectBox;
-       _templates = mytemplates;
+       _stringTemplate = mytemplates;
     }
     
     /**

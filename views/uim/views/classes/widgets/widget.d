@@ -17,6 +17,10 @@ class DWidget : IWidget {
     initialize;
   }
 
+  this(DStringTemplate newTemplate) {
+    this.stringTemplate(newTemplate);
+  }
+
   this(string newName) {
     this();
     this.name(newName);
@@ -37,17 +41,7 @@ class DWidget : IWidget {
   }
 
   mixin(TProperty!("string", "name"));
-
-  // StringTemplate instance.
-  protected StringTemplate _templates;
-
-  // Data defaults.
-  protected IConfiguration _defaultConfigData;
-
-  /* 
-  this(StringTemplate mytemplates) {
-    _templates = mytemplates;
-  } */
+  mixin(TProperty!("DStringTemplate", "stringTemplate"));
 
   /**
      * Render a text widget or other simple widget like email/tel/number.
@@ -87,11 +81,11 @@ class DWidget : IWidget {
       }
     }
 
-    return _templates.format("input", [
+    return _stringTemplate.format("input", [
         "name": mydata["name"],
         "type": mydata["type"],
         "templateVars": mydata["templateVars"],
-        "attrs": _templates.formatAttributes(
+        "attrs": _stringTemplate.formatAttributes(
           mydata,
           ["name", "type"]
         ),

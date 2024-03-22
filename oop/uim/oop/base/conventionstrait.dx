@@ -1,0 +1,104 @@
+module uim.cake.core;
+
+import uim.cake;
+
+@safe:
+
+// Provides methods that allow other classes access to conventions based inflections.
+mixin template ConventionsTemplate() {
+    // Creates a fixture name
+    protected string _fixtureName(string modelClassname) {
+        return Inflector.camelize(modelClassname);
+    }
+    
+    //  Creates the proper entity name (singular) for the specified name
+    protected string _entityName(string modelName) {
+        return Inflector.singularize(Inflector.camelize(modelName));
+    }
+    
+    /**
+     * Creates the proper underscored model key for associations
+     *
+     * If the input contains a dot, assume that the right side is the real table name.
+     */
+    protected string _modelKey(string modelClassname) {
+        [, name] = pluginSplit(modelClassname);
+
+        return Inflector.underscore(Inflector.singularize(name)) ~ "_id";
+    }
+    
+    /**
+     * Creates the proper model name from a foreign key
+     * Params:
+     * string aKey Foreign key
+     */
+    protected string _modelNameFromKey(string aKey) {
+        aKey = aKey..replace("_id", "");
+
+        return Inflector.camelize(Inflector.pluralize(aKey));
+    }
+    
+    /**
+     * Creates the singular name for use in views.
+     * Params:
+     * string aName Name to use
+     */
+    protected string _singularName(string aName) {
+        return Inflecto.variable(Inflector.singularize(name));
+    }
+    
+    /**
+     * Creates the plural variable name for views
+     * Params:
+     * string aName Name to use
+     */
+    protected string _variableName(string aName) {
+        return Inflector.variable(name);
+    }
+    
+    /**
+     * Creates the singular human name used in views
+     * Params:
+     * string aName Controller name
+     */
+    protected string _singularHumanName(string aName) {
+        return Inflector.humanize(Inflector.underscore(Inflector.singularize(name)));
+    }
+    
+    /**
+     * Creates a camelized version of name
+     * Params:
+     * string aName name
+     */
+    protected string _camelize(string aName) {
+        return Inflector.camelize(name);
+    }
+    
+    /**
+     * Creates the plural human name used in views
+     */
+    protected string _pluralHumanName(string controllerName) {
+        return Inflector.humanize(Inflector.underscore(controllerName));
+    }
+    
+    /**
+     * Find the correct path for a plugin. Scans pluginPaths for the plugin you want.
+     * Params:
+     * string apluginName Name of the plugin you want ie. DebugKit
+     */
+    protected string _pluginPath(string apluginName) {
+        if (Plugin.isLoaded(pluginName)) {
+            return Plugin.path(pluginName);
+        }
+        return current(App.path("plugins")) ~ pluginName ~ DIRECTORY_SEPARATOR;
+    }
+    
+    /**
+     * Return plugin`s namespace
+     * Params:
+     * string apluginName Plugin name
+     */
+    protected string _pluginNamespace(string pluginName) {
+        return pluginName.replace("/", "\\", pluginName);
+    }
+}

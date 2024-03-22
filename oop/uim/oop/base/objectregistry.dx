@@ -1,0 +1,283 @@
+module uim.cake.core;
+
+import uim.cake;
+
+@safe:
+
+/**
+ * Acts as a registry/factory for objects.
+ *
+ * Provides registry & factory functionality for object types. Used
+ * as a super class for various composition based re-use features in UIM.
+ *
+ * Each subclass needs to implement the various abstract methods to complete
+ * the template method load().
+ *
+ * The ObjectRegistry is EventManager aware, but each extending class will need to use
+ * \UIM\Event\EventDispatcherTrait to attach and detach on set and bind
+ *
+ * @see \UIM\Controller\ComponentRegistry
+ * @see \UIM\View\HelperRegistry
+ * @see \UIM\Console\TaskRegistry
+ * @template TObject of object
+ * @template-implements \IteratorAggregate<string, TObject>
+ */
+abstract class ObjectRegistry : Countable, IteratorAggregate {
+  // Map of loaded objects.
+  protected Object[string] _loaded = [];
+
+  /**
+     * Loads/constructs an object instance.
+     *
+     * Will return the instance in the registry if it already exists.
+     * If a subclass provides event support, you can use `configData("enabled"] = false`
+     * to exclude constructed objects from being registered for events.
+     *
+     * Using {@link \UIM\Controller\Component.components} as an example. You can alias
+     * an object by setting the 'className' key, i.e.,
+     *
+     * ```
+     * protected components = [
+     *  'Email": [
+     *    'className": 'App\Controller\Component\AliasedEmailComponent'
+     *  ];
+     * ];
+     * ```
+     *
+     * All calls to the `Email` component would use `AliasedEmail` instead.
+     * Params:
+     * string aName The name/class of the object to load.
+     * configData - Additional settings to use when loading the object.
+     */
+  Object load(string objectName, IData[string] configData = null) {
+    string myObjectName;
+    if (configuration.hasKey("className")) {
+      objName = objectName;
+      objectName = configData("className");
+    } else {
+      [, objName] = pluginSplit(objectName);
+    }
+
+    auto loaded = isSet(_loaded[objName]);
+    if (loaded && !empty(configData)) {
+      _checkDuplicate(objName, configData);
+    }
+    if (loaded) {
+      return _loaded[objName];
+    }
+
+    string className = name;
+    if (isString(name)) {
+      className = _resolveClassName(name);
+      if (className.isNull) {
+        [plugin, name] = pluginSplit(name);
+        _throwMissingClassError(name, plugin);
+      }
+    }
+
+    auto anInstance = _create(className, objName, configData);
+    _loaded[objName] = anInstance;
+
+    return anInstance;
+  }
+
+  /**
+     * Check for duplicate object loading.
+     *
+     * If a duplicate is being loaded and has different configuration, that is
+     * bad and an exception will be raised.
+     *
+     * An exception is raised, as replacing the object will not update any
+     * references other objects may have. Additionally, simply updating the runtime
+     * configuration is not a good option as we may be missing important constructor
+     * logic dependent on the configuration.
+     * Params:
+     * string aName The name of the alias in the registry.
+     * configData - The config data for the new instance.
+     * @throws \UIM\Core\Exception\UimException When a duplicate is found.
+     */
+  protected void _checkDuplicate(string aliasName, IData[string] configData) {
+    auto existing = _loaded[aliasName];
+    if (existing is null) {
+      throw new UimException("Alias '%s' not found".format(aliasName));
+    }
+    if (configData.isEmpty) { // Check configData not necessary
+      return;
+    }
+
+    string message = "The `%s` alias has already been loaded.".format(aliasName);
+    auto objWithConfig = cast(IConfigurable) existing;
+    if (objWithConfig is null) { // No check of configdata
+      throw new UimException(message);
+    }
+
+    IConfiguration existingConfig = existing.configuration();
+    // TODO ?
+    // configData.remove("enabled");
+    // existingConfig.remove("enabled");
+
+    string failure;
+    configData.keys
+      .filter(key => !array_key_exists(key, existingConfig))
+      .each!(
+        key => failure = " The `%s` was not defined in the previous configuration data.".format(
+          key));
+    if (!failure.isEmpty) {
+      throw new UimException(message ~ failure);
+    }
+
+    configData.byKeyValue
+      .filter!(kv => existingConfig.isSet(kv.key) && existingConfig[kv.key] != kv.value)
+      .each!(kv => failure =
+          " The `%s` key has a value of `%s` but previously had a value of `%s`"
+          .format(kv.key,
+            json_encode(kv.value, JSON_THROW_ON_ERROR),
+            json_encode(existingConfig[kv.key], JSON_THROW_ON_ERROR)
+          ));
+    if (!failure.isEmpty) {
+      throw new UimException(message ~ failure);
+    }
+  }
+
+  // Should resolve the classname for a given object type.
+  abstract protected string _resolveClassName(string className); // Throw an exception when the requested object name is missing.
+  abstract protected void _throwMissingClassError(string className, string pluginName);
+
+  /**
+     * Create an instance of a given classname.
+     *
+     * This method should construct and do any other initialization logic
+     * required.
+     * Params:
+     * object|string className The class to build.
+     * configData - The Configuration settings for construction
+     */
+  abstract protected object _create(object objInstance, string aliasName, IData[string] configData);
+  abstract protected object _create(string className, string aliasName, IData[string] configData);
+
+  // Get the list of loaded object names.
+  string[] loaded() {
+    return _loaded.keys;
+  }
+
+  // Check whether a given object is loaded.
+  bool has(string objectName) {
+    return _loaded.isSet(objectName);
+  }
+
+  // Get loaded object instance.
+  object get(string objectName) {
+    if (!_loaded.isSet(objectName)) {
+      throw new UimException("Unknown object `%s`.".format(objectName));
+    }
+    return _loaded[objectName];
+  }
+
+  //  Provide read access to the loaded objects
+  object __get(string propertyName) {
+    return _loaded.get(propertyName, null);
+  }
+
+  // Provide isSet access to _loaded
+  bool __isSet(string objectName) {
+    return this.has(objectName);
+  }
+
+  // Sets an object.
+  void __set(string propertyName, Object objectToSet) {
+    this.set(propertyName, objectToSet);
+  }
+
+  // Unsets an object.
+  void __unset(string propertyName) {
+    this.unload(propertyName);
+  }
+
+  /**
+     * Normalizes an object configuration array into associative form for making
+     * lazy loading easier.
+     * Params:
+     * array objects Array of child objects to normalize.
+     */
+  array < string, array > normalizeArray(Object[] objects) {
+    normal = [];
+    foreach (objectName, configData; objects) {
+      if (isInt(objectName)) {
+        objectName = configData;
+        configData = [];
+      }
+
+      [plugin, name] = pluginSplit(objectName);
+      if (plugin) {
+        configData[]"className"] = objectName;
+      }
+      normal[name] = configData;
+    }
+    return normal;
+  }
+
+  /**
+     * Clear loaded instances in the registry.
+     * If the registry subclass has an event manager, the objects will be detached from events as well.
+     */
+  void reset() {
+    _loaded.keys
+      .each!(key => this.unload(key));
+  }
+
+  /**
+     * Set an object directly into the registry by name.
+     * If this collection : events, the passed object will be attached into the event manager
+     */
+  void set(string objectName, objectobject) {
+    [, objName] = pluginSplit(objectName); // Just call unload if the object was loaded before
+    if (array_key_exists(objectName, _loaded)) {
+      this.unload(objectName);
+    }
+    if (cast(IEventDispatcher) this && cast(IEventListener) object) {
+      this.getEventManager().on(object);
+    }
+    _loaded[objName] = object;
+  }
+
+  /**
+     * Remove an object from the registry.
+     *
+     * If this registry has an event manager, the object will be detached from any events as well.
+     * Params:
+     * string aName The name of the object to remove from the registry.
+     */
+  void unload(string aName) {
+    if (_loaded[name].isEmpty) {
+      [plugin, name] = pluginSplit(name);
+      _throwMissingClassError(name, plugin);
+    }
+    object = _loaded[name];
+    if (cast(IEventDispatcher) this && cast(
+        IEventListener) object) {
+      this.getEventManager().off(object);
+    }
+    unset(_loaded[name]);
+  }
+
+  // Returns an array iterator.
+  Traversable getIterator() {
+    return new ArrayIterator(_loaded);
+  }
+
+  // Returns the number of loaded objects.
+  size_t count() {
+    return count(_loaded);
+  }
+
+  /**
+     * Debug friendly object properties.
+     */
+  IData[string] debugInfo() {
+    properties = get_object_vars(this);
+    if (isSet(properties["_loaded"])) {
+      properties["_loaded"] = properties["_loaded"].keys;
+    }
+    return properties;
+  }
+}

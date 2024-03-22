@@ -1,0 +1,56 @@
+module uim.errors\Debug;
+
+import uim.errors;
+
+@safe:
+
+/**
+ * Dump node for objects/class instances.
+ */
+class ClassNode : INode {
+    private string className;
+
+    private int  anId;
+
+    private PropertyNode[] properties = [];
+
+    /**
+     * Constructor
+     * Params:
+     * @param int  anId The reference id of this object in the DumpContext
+     */
+    this(string className, int  anId) {
+        this.class = className;
+        this.id =  anId;
+    }
+    
+    /**
+     * Add a property
+     * Params:
+     * \UIM\Error\Debug\PropertyNode node The property to add.
+     */
+    void addProperty(PropertyNode node) {
+        this.properties ~= node;
+    }
+    
+    /**
+     * Get the class name
+     */
+    string getValue() {
+        return this.class;
+    }
+    
+    /**
+     * Get the reference id
+     */
+    int getId() {
+        return this.id;
+    }
+    
+    /**
+     * Get property nodes
+     */
+    PropertyNode[] getChildren() {
+        return this.properties;
+    }
+}

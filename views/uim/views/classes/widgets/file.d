@@ -42,10 +42,10 @@ class DFileWidget : DWidget {
 
         unset(buildData["val"]);
 
-        return _templates.format("file", [
+        return _stringTemplate.format("file", [
             "name": buildData["name"],
             "templateVars": buildData["templateVars"],
-            "attrs": _templates.formatAttributes(
+            "attrs": _stringTemplate.formatAttributes(
                 buildData,
                 ["name"]
             ),

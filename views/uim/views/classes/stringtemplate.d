@@ -11,7 +11,7 @@ import uim.views;
  * Used by several helpers to provide simple flexible templates
  * for generating HTML and other content.
  */
-class StringTemplate {
+class DStringTemplate {
     mixin TConfigurable!();
 
     this(string newName) { this();  this.name(newName); }

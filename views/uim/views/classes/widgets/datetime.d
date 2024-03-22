@@ -15,7 +15,7 @@ class DDateTimeWidget : DWidget {
 
     /* 
     // Template instance.
-    protected StringTemplate _templates;
+    protected StringTemplate _stringTemplate;
 
     // Data defaults
     protected IData[string] _defaultData = [
@@ -86,11 +86,11 @@ class DDateTimeWidget : DWidget {
         mydata["value"] = this.formatDateTime(mydata["val"] == true ? new DateTimeImmutable(): mydata["val"], mydata);
         unset(mydata["val"], mydata["timezone"], mydata["format"]);
 
-        return _templates.format("input", [
+        return _stringTemplate.format("input", [
             "name": mydata["name"],
             "type": mydata["type"],
             "templateVars": mydata["templateVars"],
-            "attrs": _templates.formatAttributes(
+            "attrs": _stringTemplate.formatAttributes(
                 mydata,
                 ["name", "type"]
             ),

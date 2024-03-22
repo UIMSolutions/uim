@@ -44,12 +44,12 @@ class DCheckboxWidget : DWidget {
         }
         renderData.removeKey("val");
 
-        myattrs = _templates.formatAttributes(
+        myattrs = _stringTemplate.formatAttributes(
             renderData,
             ["name", "value"]
         );
 
-        return _templates.format("checkbox", [
+        return _stringTemplate.format("checkbox", [
             "name": renderData["name"],
             "value": renderData["value"],
             "templateVars": renderData["templateVars"],

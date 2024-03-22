@@ -16,15 +16,15 @@ class DButtonWidget : DWidget {
 
     /* 
     // StringTemplate instance.
-    protected StringTemplate _templates;
+    protected StringTemplate _stringTemplate;
 
     /**
      * Constructor.
      * Params:
      * \UIM\View\StringTemplate mytemplates Templates list.
      * /
-    this(StringTemplate mytemplates) {
-       _templates = mytemplates;
+    this(DStringTemplate mytemplates) {
+       _stringTemplate = mytemplates;
     }
     
     /**
@@ -49,10 +49,10 @@ class DButtonWidget : DWidget {
             "templateVars": ArrayData(),
         ]);
 
-        return _templates.format("button", [
+        return _stringTemplate.format("button", [
                 "text": buildData["escapeTitle"] ? h(buildData["text"]): buildData["text"],
                 "templateVars": buildData["templateVars"],
-                "attrs": _templates.formatAttributes(buildData, ["text", "escapeTitle"]),
+                "attrs": _stringTemplate.formatAttributes(buildData, ["text", "escapeTitle"]),
             ]);
     }
     

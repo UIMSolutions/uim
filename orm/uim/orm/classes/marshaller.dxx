@@ -279,7 +279,7 @@ class Marshaller
      * @return DORMDatasource\IEntity|array<DORMDatasource\IEntity>|null
      */
     protected function _marshalAssociation(Association assoc, value, STRINGAA someOptions) {
-        if (!is_array(value)) {
+        if (!(value.isArray) {
             return null;
         }
         targetTable = assoc.getTarget();
@@ -367,7 +367,7 @@ class Marshaller
         primaryCount = count(primaryKeys);
 
         foreach (data as i: row) {
-            if (!is_array(row)) {
+            if (!(row.isArray) {
                 continue;
             }
             if (array_intersect_key(primaryKeys, row) == primaryKeys) {
@@ -457,7 +457,7 @@ class Marshaller
 
         if (multi) {
             first = current(ids);
-            if (!is_array(first) || count(first) != count(primaryKeys)) {
+            if (!(first.isArray || count(first) != count(primaryKeys)) {
                 return [];
             }
             type = null;
@@ -689,7 +689,7 @@ class Marshaller
         }
 
         foreach ((new Collection(indexed)).append(new) as value) {
-            if (!is_array(value)) {
+            if (!(value.isArray) {
                 continue;
             }
             output[] = this.one(value, options);
@@ -711,7 +711,7 @@ class Marshaller
         if (!original) {
             return _marshalAssociation(assoc, value, options);
         }
-        if (!is_array(value)) {
+        if (!(value.isArray) {
             return null;
         }
 
@@ -731,7 +731,7 @@ class Marshaller
         if (type == Association::ONE_TO_MANY) {
             hasIds = array_key_exists("_ids", value);
             onlyIds = array_key_exists("onlyIds", options) && options["onlyIds"];
-            if (hasIds && is_array(value["_ids"])) {
+            if (hasIds && (value["_ids"].isArray) {
                 return _loadAssociatedByIds(assoc, value["_ids"]);
             }
             if (hasIds || onlyIds) {
@@ -759,7 +759,7 @@ class Marshaller
         hasIds = array_key_exists("_ids", value);
         onlyIds = array_key_exists("onlyIds", options) && options["onlyIds"];
 
-        if (hasIds && is_array(value["_ids"])) {
+        if (hasIds && (value["_ids"].isArray) {
             return _loadAssociatedByIds(assoc, value["_ids"]);
         }
         if (hasIds || onlyIds) {
@@ -816,7 +816,7 @@ class Marshaller
             }
 
             // Scalar data can"t be handled
-            if (!is_array(value)) {
+            if (!(value.isArray) {
                 record.unset("_joinData");
                 continue;
             }

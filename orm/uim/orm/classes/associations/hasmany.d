@@ -146,7 +146,7 @@ class DHasManyAssociation : DAssociation {
             return false;
         }
 
-        if (!is_array(myTargetEntities)) {
+        if (!(myTargetEntities.isArray) {
             myTargetEntities = iterator_to_array(myTargetEntities);
         }
         if (!_saveTarget(foreignKeyReference, entity, myTargetEntities, options)) {

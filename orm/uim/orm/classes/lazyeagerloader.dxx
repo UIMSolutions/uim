@@ -69,7 +69,7 @@ class LazyEagerLoader
                  * @var DDBExpression\QueryExpression exp
                  * @var DORMQuery q
                  */
-                if (is_array(primaryKeys) && count(primaryKeys) == 1) {
+                if ((primaryKeys.isArray && count(primaryKeys) == 1) {
                     primaryKeys = current(primaryKeys);
                 }
 

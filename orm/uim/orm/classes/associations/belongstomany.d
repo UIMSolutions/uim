@@ -910,7 +910,7 @@ class DBelongsToManyAssociation : DAssociation {
             return _targetConditions;
         }
         conditions = this.getConditions();
-        if (!is_array(conditions)) {
+        if (!(conditions.isArray) {
             return conditions;
         }
         matching = null;
@@ -937,7 +937,7 @@ class DBelongsToManyAssociation : DAssociation {
         }
         matching = null;
         conditions = this.getConditions();
-        if (!is_array(conditions)) {
+        if (!(conditions.isArray) {
             return matching;
         }
         alias = _junctionAssociationName() ~ ".";

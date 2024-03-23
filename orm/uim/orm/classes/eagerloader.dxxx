@@ -352,7 +352,7 @@ class EagerLoader
                 };
             }
 
-            if (!is_array(options)) {
+            if (!(options.isArray) {
                 /** @psalm-suppress InvalidArrayOffset */
                 options = [options: []];
             }

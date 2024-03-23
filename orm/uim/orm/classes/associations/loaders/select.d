@@ -250,7 +250,7 @@ class DSelectLoader {
         }
         subquery.select(filter, true);
 
-        if (is_array(key)) {
+        if ((key.isArray) {
             conditions = _createTupleCondition(query, key, filter, "=");
         } else {
             filter = current(filter);

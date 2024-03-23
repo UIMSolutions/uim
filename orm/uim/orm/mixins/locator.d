@@ -3,8 +3,8 @@ module uim.orm.mixins.locator;
 string locatorThis(string name) {
     auto fullname = name~"Locator";
     return `
-this() {
-    initialize(); this.name("`~fullname~`");
+this(IData[string] initData = null) {
+    initialize(initData); this.name("`~fullname~`");
 }
 this(string name) {
     this(); this.name(name);

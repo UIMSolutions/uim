@@ -7,7 +7,7 @@ import uim.orm;
 // Contains method for setting and accessing ILocatorinstance
 trait LocatorAwareTrait {
     // This object"s default table alias.
-    protected Nullable!string defaultTable = null;
+    protected string defaultTable = null;
 
     // Table locator instance
     protected ILocator _tableLocator;
@@ -43,7 +43,7 @@ trait LocatorAwareTrait {
      * @see DORMTableLocator::get()
      * @since 4.3.0
      */
-    function fetchTable(Nullable!string anAliasName = null, STRINGAA someOptions = null): Table
+    function fetchTable(string anAliasName = null, STRINGAA someOptions = null): Table
     {
         alias = alias ?? this.defaultTable;
         if (empty(alias)) {

@@ -3,8 +3,8 @@ module uim.orm.mixins.association;
 string associationThis(string name) {
     auto fullname = name~"Association";
     return `
-this() {
-    initialize(); this.name("`~fullname~`");
+this(IData[string] initData = null) {
+    initialize(initData); this.name("`~fullname~`");
 }
 this(string name) {
     this(); this.name(name);

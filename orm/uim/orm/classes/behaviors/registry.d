@@ -58,7 +58,7 @@ class BehaviorRegistry { // }: ObjectRegistry, IEventDispatcher {
      * @return string|null Either the correct classname or null.
      * @psalm-return class-string|null
      * /
-    static Nullable!string className(string aClassName ) {
+    static string className(string aClassName ) {
         return App::className(class, "Model/Behavior", "Behavior")
             ?: App::className(class, "ORM/Behavior", "Behavior");
     }
@@ -72,7 +72,7 @@ class BehaviorRegistry { // }: ObjectRegistry, IEventDispatcher {
      * @return string|null Either the correct class name or null.
      * @psalm-return class-string|null
      * /
-    protected Nullable!string _resolveClassName(string aClassName ) {
+    protected string _resolveClassName(string aClassName ) {
         return className(class);
     }
 
@@ -86,7 +86,7 @@ class BehaviorRegistry { // }: ObjectRegistry, IEventDispatcher {
      * @param string|null plugin The plugin the behavior is missing in.
      * @throws DORMexceptions.MissingBehaviorException
      * /
-    protected void _throwMissingClassError(string aClassName , Nullable!string plugin) {
+    protected void _throwMissingClassError(string aClassName , string plugin) {
         throw new MissingBehaviorException([
             "class": aClassName ~ "Behavior",
             "plugin": plugin,

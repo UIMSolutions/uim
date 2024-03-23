@@ -118,7 +118,7 @@ class TableLocator : AbstractLocator, ILocator {
     }
 
 
-    array getConfig(Nullable!string aliasName = null) {
+    array getConfig(string aliasName = null) {
         if (aliasName == null) {
             return configuration;
         }
@@ -235,7 +235,7 @@ class TableLocator : AbstractLocator, ILocator {
      * @param array<string, mixed> options Table options array.
      * @return string|null
      */
-    protected Nullable!string _getClassName(string anAliasName, STRINGAA someOptions = null) {
+    protected string _getClassName(string anAliasName, STRINGAA someOptions = null) {
         if (empty(options["className"])) {
             options["className"] = alias;
         }

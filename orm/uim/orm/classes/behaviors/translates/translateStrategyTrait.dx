@@ -19,7 +19,7 @@ trait TranslateStrategyTrait
      * from the translations table
      *
      */
-    protected Nullable!string locale;
+    protected string locale;
 
     /**
      * Instance of Table responsible for translating
@@ -53,7 +53,7 @@ trait TranslateStrategyTrait
      *   the behavior fall back to using the globally configured locale.
      * @return this
      */
-    function setLocale(Nullable!string locale) {
+    function setLocale(string locale) {
         this.locale = locale;
 
         return this;

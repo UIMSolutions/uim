@@ -107,7 +107,7 @@ class ConsoleInputArgument {
     
     // Check that aValue is a valid choice for this argument.
     bool validChoice(string choiceToValidate) {
-        if (isEmpty(_choices)) {
+        if (_choices.isEmpty) {
             return true;
         }
         if (!in_array(choiceToValidate, _choices, true)) {

@@ -552,7 +552,7 @@ class DView { //  }: IEventDispatcher {
         this.dispatchEvent("View.afterRender", [mytemplateFileName]);
 
         if (this.autoLayout) {
-            if (isEmpty(this.layout)) {
+            if (this.layout.isEmpty) {
                 throw new UimException(
                     "View.mylayout must be a non-empty string." .
                     "To disable layout rendering use method `View.disableAutoLayout()` instead."
@@ -820,7 +820,7 @@ class DView { //  }: IEventDispatcher {
      *  View.myviewVars will be used.
      * /
     protected string _render(string mytemplateFile, array data = []) {
-        if (isEmpty(mydata)) {
+        if (mydata.isEmpty) {
             mydata = this.viewVars;
         }
        _current = mytemplateFile;
@@ -1063,7 +1063,7 @@ class DView { //  }: IEventDispatcher {
      * /
     protected string _getLayoutFileName(string views = null) {
         if (views.isNull) {
-            if (isEmpty(this.layout)) {
+            if (this.layout.isEmpty) {
                 throw new UimException(
                     "View.mylayout must be a non-empty string." .
                     "To disable layout rendering use method `View.disableAutoLayout()` instead."

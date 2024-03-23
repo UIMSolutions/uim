@@ -79,7 +79,7 @@ class EntityContext : IContext {
         myentity = _context["entity"];
        _isCollection = is_iterable(myentity);
 
-        if (isEmpty(mytable)) {
+        if (mytable.isEmpty) {
             if (_isCollection) {
                 /** @var iterable<\UIM\Datasource\IEntity|array> myentity */
                 foreach (myentity as mye) {

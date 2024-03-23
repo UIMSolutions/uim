@@ -1081,7 +1081,7 @@ class FormHelper : Helper {
      */
     protected IData[string] _parseOptions(string aFieldName, IData[string] options) {
         myneedsMagicType = false;
-        if (isEmpty(options["type"])) {
+        if (options.isEmpty("type")) {
             myneedsMagicType = true;
             options["type"] = _inputType(fieldName, options);
         }

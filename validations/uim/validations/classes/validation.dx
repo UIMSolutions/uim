@@ -68,7 +68,7 @@ class Validation {
      * Json valueToCheck Value to check
      * /
     static bool isNotBlank(Json checkValue) {
-        if (isEmpty(checkValue) && !isBool(checkValue) && !isNumeric(checkValue)) {
+        if (checkValue.isEmpty && !isBool(checkValue) && !isNumeric(checkValue)) {
             return false;
         }
         return _check(checkValue, "/[^\s]+/m");

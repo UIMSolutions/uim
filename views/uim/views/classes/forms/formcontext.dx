@@ -118,13 +118,13 @@ class FormContext : IContext {
             }
         }
         myattributes = this.attributes(myfield);
-        if (isEmpty(myattributes["length"])) {
+        if (myattributes.isEmpty("length")) {
             return null;
         }
-        return myattributes["length"];
+        return myattributes.getInteger("length");
     }
  
-    array fieldNames() {
+    string[] fieldNames() {
         return _form.getSchema().fields();
     }
  

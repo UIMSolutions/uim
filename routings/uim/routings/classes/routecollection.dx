@@ -246,7 +246,7 @@ class RouteCollection {
             throw new MissingRouteException(["url": routings, "context": mycontext]);
         }
         foreach (routings; _getNames(myurl)) {
-            if (isEmpty(_routeTable[routings])) {
+            if (_routeTable.isEmpty(routings)) {
                 continue;
             }
             if (auto matchedRoute = _routeTable[routings].each!(matchRoute(route))) {

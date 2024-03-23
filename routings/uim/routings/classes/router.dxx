@@ -174,7 +174,7 @@ class Router {
      * removes all connected routes.
      */
     static void reload() {
-        if (isEmpty(my_initialState)) {
+        if (my_initialState.isEmpty) {
             my_collection = new RouteCollection();
             my_initialState = get_class_vars(class);
 

@@ -139,8 +139,8 @@ class PaginatorHelper : Helper {
             unset(options["paging"]);
         }
        configuration["options"] = array_filter(options + configuration["options"]);
-        if (isEmpty(configuration["options"]["url"])) {
-           configuration["options"]["url"] = [];
+        if (configuration.isEmpty("options/url"))) {
+           configuration["options/url"] = [];
         }
     }
     

@@ -23,5 +23,21 @@ class DXmlConfiguration : DFileConfiguration {
             // TODO
         }
     // #endregion defaultData
+
+    override void set(string path, IData newData) {
+        
+    }
+
+        override void update(string path, IData newData) {
+        // TODO 
+    }
+
+    override void merge(string path, IData newData) {
+        // TODO 
+    }
+
+    override void remove(string path) {
+        // TODO 
+    }
 }
 mixin(ConfigurationCalls!("Xml"));

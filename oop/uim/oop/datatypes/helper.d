@@ -85,11 +85,11 @@ long getLong(IData[string] data, string key, long fallback = 0) {
     return fallback;
 }
 
-string getStringArray(IData[] data) {
+string[] getStringArray(IData[] data) {
     return data.map!(d => d.toString).array;
 }
 
-string getStringArray(IData[string] data, string[] keys) {
+string[] getStringArray(IData[string] data, string[] keys) {
     string[] results;
     keys
         .filter!(key => key in data)

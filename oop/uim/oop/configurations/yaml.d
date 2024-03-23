@@ -15,7 +15,7 @@ class DYamlConfiguration : DFileConfiguration {
     }
     
     // #region defaultData
-        override void setDefault(string key, IData newData) {
+        override void setDefault(string path, IData newData) {
             // TODO
         }
 
@@ -23,5 +23,21 @@ class DYamlConfiguration : DFileConfiguration {
             // TODO
         }
     // #endregion defaultData
+
+    override void set(string path, IData newData) {
+        
+    }
+
+    override void update(string path, IData newData) {
+        // TODO 
+    }
+
+    override void merge(string path, IData newData) {
+        // TODO 
+    }
+
+    override void remove(string path) {
+        // TODO 
+    }
 }
 mixin(ConfigurationCalls!("Yaml"));

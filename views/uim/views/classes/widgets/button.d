@@ -41,12 +41,11 @@ class DButtonWidget : DWidget {
         ]);
 
         return _stringTemplate.format("button", [
-                "text": !buildData.isEmpty("escapeTitle") ? h(buildData.getString("text") : buildData.getString("text"),
+                "text": !buildData.isEmpty("escapeTitle") ? h(buildData.getString("text")) : buildData.getString("text"),
                 "templateVars": buildData.getStringArray("templateVars"),
                 "attrs": _stringTemplate.formatAttributes(buildData.getStringMap("text", "escapeTitle")),
             ]);
     }
-    */
 }
 mixin(WidgetCalls!("Button"));
 

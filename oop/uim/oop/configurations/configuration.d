@@ -13,15 +13,17 @@ abstract class DConfiguration : IConfiguration {
     this(string name) { this(); this.name(name); }
 
   	bool initialize(IData[string] initData = null) {
+        separator("/");
 		return true;
 	}
 
     mixin(TProperty!("string", "name"));
+    mixin(TProperty!("string", "separator"));
 
     // #region defaultData
         protected IData[string] _defaultData;
 
-        abstract void setDefault(string key, IData newData); 
+        abstract void setDefault(string path, IData newData); 
 
         abstract void updateDefaults(IData[string] newData); 
     // #endregion defaultData
@@ -33,23 +35,23 @@ abstract class DConfiguration : IConfiguration {
     void data(IData[string] newData) {
     }
 
-    bool hasAnyKeys(string[] keys...) {
-        return hasAnyKeys(keys.dup);
+    bool hasAnyPaths(string[] paths...) {
+        return hasAnyPaths(paths.dup);
     }
 
-    bool hasAnyKeys(string[] keys) {
+    bool hasAnyPaths(string[] paths) {
         return false;
     }
 
-    bool hasAllKeys(string[] keys...) {
-        return hasAllKeys(keys.dup);
+    bool hasAllPaths(string[] paths...) {
+        return hasAllPaths(paths.dup);
     }
 
-    bool hasAllKeys(string[] keys) {
+    bool hasAllPaths(string[] paths) {
         return false;
     }
 
-    bool hasKey(string key) {
+    bool hasPath(string path) {
         return false;
     }
 
@@ -73,41 +75,57 @@ abstract class DConfiguration : IConfiguration {
         return false;
     }
 
-    IData opIndex(string[] path) {
-        return get(path.join("/"));
-    }
-
     IData opIndex(string path) {
         return get(path);
     }
 
-    IData get(string key) {
+    IData get(string path) {
         return null;
     }
 
-    IData[string] get(string[] keys, bool compressMode = true){
+    IData[string] get(string[] paths, bool compressMode = true){
         return null; 
     }
 
-    void set(string[] path, IData newData) {
-        set(path.join("/"), newData);
+    void set(IData[string] newData, string[] paths = null) {
+        if (paths.isNull) {
+            paths.each!(path => set(path, newData[path]));
+        }
+        else {
+            paths.filter!(path => path in newData)
+                .each!(path => set(path, newData[path]));
+        }
     }
 
-    void set(string path, IData newData) {
-    }
-
-    void set(string[] keys, IData[string] newData) {
-
-    }
+    abstract void set(string path, IData newData);
 
     void opIndexAssign(IData data, string path) {
         set(path, data);
     }
     
-    void update(IData[string] newData) {
-
+    void update(IData[string] newData, string[] paths = null) {
+        newData.byKeyValue
+            .each!(kv => update(kv.path, kv.value));
     }
 
-    void remove(string[] keys) {}
+    abstract void update(string path, IData newData);
+
+    void merge(IData[string] newData) {
+        newData.byKeyValue
+            .each!(kv => merge(kv.path, kv.value));
+    }
+
+    abstract void merge(string path, IData newData);
+
+    void clear() {
+        remove(allPaths);        
+    }
+
+    void remove(string[] paths) {
+        path.each!(path => remove(path));
+    }
+
+    abstract void remove(string path);
+
 }
 

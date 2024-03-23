@@ -88,23 +88,22 @@ class DMemoryConfiguration : DConfiguration {
         return _data.get(path, _defaultData.get(path, null));
     }
 
-    override void set(string[] keys, IData[string] newData) {
-        keys.filter!(key => newData.hasKey(key))
-            .each!(key => set(key, newData[key]));
-    }
-
     override void set(string key, IData newData) {
         _data[key] = newData;
     }
 
-    override void update(IData[string] newData) {
-        newData.byKeyValue
-            .each!(kv => set(kv.key, kv.value));
+    override void update(string path, IData newData) {
+        set(path, newData);
     }
 
+    override void merge(string path, IData newData) {
+        if (hasPath(path)) { return; }
 
-    override void remove(string[] keys) {
-        keys.each!(key => _data.remove(key));
+        set(path, newData);
+    }
+
+    override void remove(string path) {
+        _data.remove(path);
     }
 }
 

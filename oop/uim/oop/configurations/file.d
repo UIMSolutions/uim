@@ -11,19 +11,36 @@ class DFileConfiguration : DConfiguration {
         if (!super.initialize(initData)) {
             return false;
         }
-        
+
         return true;
     }
 
     // #region defaultData
-        override void setDefault(string key, IData newData) {
-            // TODO
-        }
 
-        override void updateDefaults(IData[string] newData) {
-            // TODO
-        }
+    override void set(string path, IData newData) {
+        
+    }
+
+    override void setDefault(string key, IData newData) {
+        // TODO
+    }
+
+    override void updateDefaults(IData[string] newData) {
+        // TODO
+    }
     // #endregion defaultData
+
+    override void update(string path, IData newData) {
+        // TODO 
+    }
+
+    override void merge(string path, IData newData) {
+        // TODO 
+    }
+
+    override void remove(string path) {
+        // TODO 
+    }
 }
 
 mixin(ConfigurationCalls!("File"));

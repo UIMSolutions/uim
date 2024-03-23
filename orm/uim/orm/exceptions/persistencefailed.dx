@@ -27,7 +27,7 @@ class PersistenceFailedException : UimException {
         ?Throwable myprevious = null
     ) {
        _entity = myentity;
-        if (isArray(mymessage)) {
+        if (mymessage.isArray) {
             string[] myerrors;
             foreach (Hash.flatten(myentity.getErrors()) as myfield: myerror) {
                 myerrors ~= myfield ~ ": "" ~ myerror ~ """;

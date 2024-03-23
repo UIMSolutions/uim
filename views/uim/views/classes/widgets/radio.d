@@ -218,7 +218,7 @@ class DRadioWidget : DWidget {
             return false;
         }
         
-        mylabelAttrs = isArray(mylabel) ? mylabel : [];
+        mylabelAttrs = mylabel.isArray ? mylabel : [];
         mylabelAttrs += [
             "for": myradio["id"],
             "escape": myescape,

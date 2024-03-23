@@ -218,10 +218,9 @@ class Validation {
      * @param int myexpectedCount The expected count value.
      * /
     static bool checkNumElements(Json valueToCheck, string myoperator, int myexpectedCount) {
-        if (!isArray(valueToCheck) && !cast(Countable)valueToCheck) {
-            return false;
-        }
-        return self.comparison(count(valueToCheck), myoperator, myexpectedCount);
+        return !valueToCheck.isArray && !cast(Countable)valueToCheck
+            ? false
+            : self.comparison(count(valueToCheck), myoperator, myexpectedCount);
     }
     
     /**

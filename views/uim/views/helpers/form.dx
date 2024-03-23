@@ -2144,7 +2144,7 @@ class FormHelper : Helper {
         if (!ons.isSet("options")) {
             return false;
         }
-        if (isArray(options["options"])) {
+        if (options["options"].isArray) {
             // Simple list options
             myfirst = options["options"][options["options"].keys[0]];
             if (isScalar(myfirst)) {

@@ -273,7 +273,7 @@ class RouteBuilder {
      *  scopes inherit the existing path and "id" parameter.
      */
     auto resources(string routings, Closure|IData[string] optionData = null, ?Closure mycallback = null) {
-        if (!isArray(options)) {
+        if (!options.isArray) {
             mycallback = options;
             options = [];
         }

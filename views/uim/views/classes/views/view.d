@@ -621,7 +621,7 @@ class DView { //  }: IEventDispatcher {
      * /
     void set(string[] views, Json aValue = null) {
         if (views.isArray) {
-            if (isArray(myvalue)) {
+            if (myvalue.isArray) {
                 /** @var array|false mydata Coerce phpstan to accept failure case * /
                 mydata = array_combine(views, myvalue);
                 if (mydata == false) {

@@ -150,7 +150,7 @@ class DSelectBoxWidget : DWidget {
         if (myvalue == true) {
             return ["": ""];
         }
-        if (isArray(myvalue)) {
+        if (myvalue.isArray) {
             return myvalue;
         }
         return ["": myvalue];

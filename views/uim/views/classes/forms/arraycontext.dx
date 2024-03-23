@@ -164,7 +164,7 @@ class ArrayContext : IContext {
     }
  
     string getRequiredMessage(string myfield) {
-        if (!isArray(_context["required"])) {
+        if (!_context["required"].isArray) {
             return null;
         }
         myrequired = Hash.get(_context["required"], myfield)

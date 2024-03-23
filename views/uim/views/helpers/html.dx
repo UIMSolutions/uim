@@ -99,7 +99,7 @@ class HtmlHelper : Helper {
      *   rss, atom, or icon, the mime-type is returned.
      */
     string meta(string[] mytype, string[]|null mycontent = null, IData[string] htmlAtributes = null) {
-        if (!isArray(mytype)) {
+        if (!mytype.isArray) {
             mytypes = [
                 "rss": ["type": "application/rss+xml", "rel": "alternate", "title": mytype, "link": mycontent],
                 "atom": ["type": "application/atom+xml", "title": mytype, "link": mycontent],

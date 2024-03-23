@@ -1,6 +1,6 @@
-module uim.cake.networks;
+module uim.oop.networks;
 
-import uim.cake;
+import uim.oop;
 
 @safe:
 

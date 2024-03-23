@@ -1,6 +1,6 @@
-module uim.cake.Mailer;
+module uim.oop.Mailer;
 
-import uim.cake;
+import uim.oop;
 
 @safe:
 

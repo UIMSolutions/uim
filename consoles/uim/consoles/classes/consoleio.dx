@@ -12,9 +12,7 @@ import uim.consoles;
  * easy to do in unit tests.
  */
 class ConsoleIo {
-  	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
+  	bool initialize(IData[string] initData = null) {
 		return true;
 	}
 

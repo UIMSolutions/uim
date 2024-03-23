@@ -107,7 +107,7 @@ interface IDriver : INamed {
      * @param string|null column the name of the column representing the primary key.
      * @return string|int
      */
-    // function lastInsertId(Nullable!string myTable = null, Nullable!string column = null);
+    // function lastInsertId(string myTable = null, string column = null);
 
     // Checks whether the driver is connected.
     bool isConnected();

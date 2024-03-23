@@ -3,8 +3,8 @@ module uim.caches.mixins.cache;
 string cacheThis(string name) {
     auto fullname = name~"Cache";
     return `
-this() {
-    initialize(); this.name("`~fullname~`");
+this(IData[string] initData = null) {
+    initialize(initData); this.name("`~fullname~`");
 }
 this(string name) {
     this(); this.name(name);

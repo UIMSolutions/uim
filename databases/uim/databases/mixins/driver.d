@@ -7,8 +7,8 @@ import uim.databases;
 string driverThis(string name) {
     auto fullname = name~"Driver";
     return `
-this() {
-    initialize(); this.name("`~fullname~`");
+this(IData[string] initData = null) {
+    initialize(initData); this.name("`~fullname~`");
 }
 this(string name) {
     this(); this.name(name);

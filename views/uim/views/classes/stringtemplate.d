@@ -254,7 +254,7 @@ class DStringTemplate {
         mytruthy = [1, "1", true, "true", aKey];
         myisMinimized = isSet(_compactAttributes[aKey]);
         // TODO if (!preg_match("/\A(\w|[.-])+\z/", aKey)) {
-        //    aKey = h(aKey);
+        //    aKey = htmlAllEscape(aKey);
         // }
         if (myisMinimized && myvalue.has(mytruthy)) {
             return "aKey=\"aKey\"";
@@ -262,7 +262,7 @@ class DStringTemplate {
         if (myisMinimized) {
             return "";
         }
-        return aKey ~ "="" ~ (myescape ? h(myvalue): myvalue) ~ """;
+        return aKey ~ "="" ~ (myescape ? htmlAllEscape(myvalue): myvalue) ~ """;
     }
     
     /**

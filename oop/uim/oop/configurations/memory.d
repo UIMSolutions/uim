@@ -68,6 +68,10 @@ class DMemoryConfiguration : DConfiguration {
             .any!(kv => kv.value.isEqual(value));
     }
 
+    override string[] allPaths() {
+        return _data.keys;
+    }
+
     override IData[string] get(string[] keys, bool compressMode = true) {
         IData[string] results;
         

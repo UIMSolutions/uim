@@ -24,6 +24,10 @@ class DYamlConfiguration : DFileConfiguration {
         }
     // #endregion defaultData
 
+    override string[] allPaths() {
+        return null; //TODO
+    }
+
     override void set(string path, IData newData) {
         
     }

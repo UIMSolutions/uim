@@ -31,7 +31,7 @@ class DButtonWidget : DWidget {
      *
      * Any other keys provided in mydata will be converted into HTML attributes.
      */
-    string render(IData[string] renderData, IContext formContext) {
+    override string render(IData[string] renderData, IContext formContext) {
         auto buildData = renderData.update([
             "text": StringData(""),
             "type": StringData("submit"),
@@ -41,7 +41,7 @@ class DButtonWidget : DWidget {
         ]);
 
         return _stringTemplate.format("button", [
-                "text": !buildData.isEmpty("escapeTitle") ? h(buildData.getString("text")) : buildData.getString("text"),
+                "text": !buildData.isEmpty("escapeTitle") ? htmlAllEscape(buildData.getString("text")) : buildData.getString("text"),
                 "templateVars": buildData.getStringArray("templateVars"),
                 "attrs": _stringTemplate.formatAttributes(buildData.getStringMap("text", "escapeTitle")),
             ]);

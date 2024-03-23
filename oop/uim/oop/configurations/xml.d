@@ -1,6 +1,7 @@
 module uim.oop.configurations.xml;
 
 import uim.oop;
+
 @safe:
 
 class DXmlConfiguration : DFileConfiguration {
@@ -13,22 +14,26 @@ class DXmlConfiguration : DFileConfiguration {
 
         return true;
     }
-    
+
     // #region defaultData
-        override void setDefault(string key, IData newData) {
-            // TODO
-        }
-
-        override void updateDefaults(IData[string] newData) {
-            // TODO
-        }
-    // #endregion defaultData
-
-    override void set(string path, IData newData) {
-        
+    override void setDefault(string key, IData newData) {
+        // TODO
     }
 
-        override void update(string path, IData newData) {
+    override void updateDefaults(IData[string] newData) {
+        // TODO
+    }
+    // #endregion defaultData
+
+    override string[] allPaths() {
+        return null; //TODO
+    }
+
+    override void set(string path, IData newData) {
+
+    }
+
+    override void update(string path, IData newData) {
         // TODO 
     }
 
@@ -40,4 +45,5 @@ class DXmlConfiguration : DFileConfiguration {
         // TODO 
     }
 }
+
 mixin(ConfigurationCalls!("Xml"));

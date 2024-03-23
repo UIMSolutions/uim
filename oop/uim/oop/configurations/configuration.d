@@ -75,6 +75,8 @@ abstract class DConfiguration : IConfiguration {
         return false;
     }
 
+    abstract string[] allPaths();
+
     IData opIndex(string path) {
         return get(path);
     }
@@ -88,7 +90,7 @@ abstract class DConfiguration : IConfiguration {
     }
 
     void set(IData[string] newData, string[] paths = null) {
-        if (paths.isNull) {
+        if (paths is null) {
             paths.each!(path => set(path, newData[path]));
         }
         else {
@@ -104,15 +106,25 @@ abstract class DConfiguration : IConfiguration {
     }
     
     void update(IData[string] newData, string[] paths = null) {
-        newData.byKeyValue
-            .each!(kv => update(kv.path, kv.value));
+        if (paths is null) {
+            paths.each!(path => update(path, newData[path]));
+        }
+        else {
+            paths.filter!(path => path in newData)
+                .each!(path => update(path, newData[path]));
+        }
     }
 
     abstract void update(string path, IData newData);
 
-    void merge(IData[string] newData) {
-        newData.byKeyValue
-            .each!(kv => merge(kv.path, kv.value));
+    void merge(IData[string] newData, string[] paths = null) {
+        if (paths is null) {
+            paths.each!(path => merge(path, newData[path]));
+        }
+        else {
+            paths.filter!(path => path in newData)
+                .each!(path => merge(path, newData[path]));
+        }
     }
 
     abstract void merge(string path, IData newData);
@@ -122,10 +134,9 @@ abstract class DConfiguration : IConfiguration {
     }
 
     void remove(string[] paths) {
-        path.each!(path => remove(path));
+        paths.each!(path => remove(path));
     }
 
     abstract void remove(string path);
-
 }
 

@@ -212,12 +212,12 @@ class ExceptionTrap {
         if (this.disabled) {
             return;
         }
-        megabytes = configuration["extraFatalErrorMemory"] ?? 4;
+        auto megabytes = configuration.getLong("extraFatalErrorMemory", 4);
         if (megabytes > 0) {
             this.increaseMemoryLimit(megabytes * 1024);
         }
         error = error_get_last();
-        if (!isArray(error)) {
+        if (!error.isArray) {
             return;
         }
         fatals = [

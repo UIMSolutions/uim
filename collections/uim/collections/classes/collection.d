@@ -14,7 +14,7 @@ class DCollection : /* IteratorIterator, */ ICollection2 {
   // mixin CollectionTemplate();
 
   /* this(Range someItems) {
-    if (isArray(someItems)) {
+    if (someItems.isArray) {
       someItems = new ArrayIterator(someItems);
     }
     super(someItems);

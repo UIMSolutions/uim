@@ -79,9 +79,7 @@ class DSqlserverDriver : DDriver {
         if (!configData("encoding").isEmpty) {
             configData("flags"][PDO.SQLSRV_ATTR_ENCODING] = configData("encoding"];
         }
-        string port = configuration["port")
-            ? "," ~ configuration["port")
-            : "";
+        string port = configuration.getString("port");
         }
 
         string dsn = "sqlsrv:Server={configuration["host"]}{port};Database={configuration["database"]};MultipleActiveResultSets=false";

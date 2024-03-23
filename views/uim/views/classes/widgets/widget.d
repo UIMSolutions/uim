@@ -169,7 +169,7 @@ class DWidget : IWidget {
   } */
 
   string[] secureFields(IData[string] dataToRender) {
-    return (dataToRender.isEmpty("name"))
+    return (dataToRender.hasKey("name"))
       ? null
       : [dataToRender["name"].toString]; 
   }

@@ -338,7 +338,7 @@ class I18nExtractCommand : DCommand {
 
                 auto _tokens = 
                     allTokens
-                        .filter!(token => !isArray(token) || (token[0] != T_WHITESPACE && token[0] != T_INLINE_HTML))
+                        .filter!(token => !token.isArray || (token[0] != T_WHITESPACE && token[0] != T_INLINE_HTML))
                         .map!(token => token).array;
 
                 }
@@ -659,7 +659,7 @@ class I18nExtractCommand : DCommand {
         parenthesis = 1;
 
         while ((tokenCount - count > 0) && parenthesis) {
-            if (isArray(_tokens[count])) {
+            if (_tokens[count].isArray) {
                  aConsoleIo.writeErrorMessages(_tokens[count][1], 0);
             } else {
                  aConsoleIo.writeErrorMessages(_tokens[count], 0);

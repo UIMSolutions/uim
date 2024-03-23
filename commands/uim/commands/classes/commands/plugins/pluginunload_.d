@@ -38,7 +38,7 @@ class DPluginUnloadCommand : DCommand {
     //  Modify the plugins config file.
     protected string modifyConfigFile(string pluginName) {
         auto configData = @include this.configFile;
-        if (!isArray(configData)) {
+        if (!configData.isArray) {
             return "`CONFIG/plugins.d` not found or does not return an array";
         }
         configData = Hash.normalize(configData);

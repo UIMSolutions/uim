@@ -337,7 +337,7 @@ class I18nExtractCommand : DCommand {
 
                 auto _tokens = 
                     allTokens
-                        .filter!(token => !isArray(token) || (token[0] != T_WHITESPACE && token[0] != T_INLINE_HTML))
+                        .filter!(token => !token.isArray || (token[0] != T_WHITESPACE && token[0] != T_INLINE_HTML))
                         .map!(token => token).array;
 
                 }

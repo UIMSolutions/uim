@@ -111,7 +111,7 @@ class DArrayEngine : DCacheEngine {
   /* string[] groups() {
     auto result;
     foreach (myGroup; configuration["groups"]) {
-      string key = configuration["prefix").toString ~ myGroup;
+      string key = configuration.getString("prefix") ~ myGroup;
       if (!_cachedData.isSet(key)) {
         _cachedData[aKey] = ["exp": PHP_INT_MAX, "val": 1];
       }

@@ -43,7 +43,7 @@ class NestIterator : Collection, RecursiveIterator {
         auto myProperty = _propertyExtractor(_nestKey);
         auto myChildren = myProperty(this.current());
 
-        if (isArray(myChildren)) {
+        if (myChildren.isArray) {
             return !myChildren.isEmpty;
         }
         return cast(Traversable)myChildren;

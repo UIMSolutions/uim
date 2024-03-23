@@ -64,7 +64,7 @@ class ErrorTrap {
      * via error_reporting().
      */
     void register() {
-        level = configuration["errorLevel"] ?? -1;
+        auto level = configuration.getInteger("errorLevel", -1);
         error_reporting(level);
         set_error_handler(this.handleError(...), level);
     }

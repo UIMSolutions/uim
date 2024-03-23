@@ -63,10 +63,6 @@ class DLabelWidget : DWidget {
                         "text", "input", "hidden"
                     ]),
             ]);
-    }
-
-    array secureFields(array data) {
-        return null;
     } */
 }
-    mixin(WidgetCalls!("Label"));
+mixin(WidgetCalls!("Label"));

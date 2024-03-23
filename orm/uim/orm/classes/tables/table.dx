@@ -2706,7 +2706,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * - Model.afterRules: afterRules
      *
      */
-    IData[string] implementedEvents() {
+    IEvents[] implementedEvents() {
         myeventMap = [
             "Model.beforeMarshal": "beforeMarshal",
             "Model.afterMarshal": "afterMarshal",

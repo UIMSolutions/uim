@@ -99,7 +99,7 @@ class DTimestampBehavior : DBehavior {
      *
      * The implemented events of this behavior depend on configuration
      * /
-    IData[string] implementedEvents() {
+    IEvents[] implementedEvents() {
         return array_fill_keys(configuration.data("events"].keys, "handleEvent");
     }
     

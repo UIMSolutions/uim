@@ -13,8 +13,8 @@ import uim.views;
 class DWidget : IWidget {
   mixin TConfigurable!();
 
-  this() {
-    initialize;
+  this(IData[string] initData = null) {
+    initialize(initData);
   }
 
   this(DStringTemplate newTemplate) {
@@ -169,11 +169,8 @@ class DWidget : IWidget {
   } */
 
   string[] secureFields(IData[string] dataToRender) {
-    /* if (!dataToRender.isSet("name") || dataToRender["name"].isEmpty) {
-      return null;
-    }
-    return [dataToRender["name"]]; */
-
-    return null;
+    return (dataToRender.isEmpty("name"))
+      ? null
+      : [dataToRender["name"].toString]; 
   }
 }

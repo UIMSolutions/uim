@@ -55,13 +55,7 @@ class DButtonWidget : DWidget {
                 "attrs": _stringTemplate.formatAttributes(buildData, ["text", "escapeTitle"]),
             ]);
     }
-    
-    Json[] secureFields(IData[string] mydata) {
-        if (!mydata.isSet("name") || mydata["name"].isEmpty) {
-            return null;
-        }
-        return [mydata["name"]];
-    } */ 
+    */
 }
 mixin(WidgetCalls!("Button"));
 

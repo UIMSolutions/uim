@@ -151,7 +151,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
     /**
      * Gets the Model callbacks this behavior is interested in.
      * /
-    IData[string] implementedEvents() {
+    IEvents[] implementedEvents() {
         return [
             "Model.beforeFind": "beforeFind",
             "Model.beforeMarshal": "beforeMarshal",

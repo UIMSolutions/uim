@@ -2270,7 +2270,7 @@ class FormHelper : Helper {
     /**
      * Event listeners.
      */
-    IData[string] implementedEvents() {
+    IEvents[] implementedEvents() {
         return null;
     }
     

@@ -1,4 +1,4 @@
-module events.uim.events.interfaces.eventlistener;
+module uim.events.interfaces.eventlistener;
 
 import uim.events;
 
@@ -29,5 +29,5 @@ interface IEventListener {
      * @return IData[string] Associative array or event key names pointing to the function
      * that should be called in the object when the respective event is fired
      */
-    IEb´vent[] implementedEvents();
+    IEvent[] implementedEvents();
 }

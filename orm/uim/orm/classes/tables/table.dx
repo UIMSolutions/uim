@@ -123,7 +123,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     const string IS_UNIQUE_CLASS = IsUnique.classname;
 
     // Name of the table as it can be found in the database
-    protected string my_table = null;
+    protected string _tableName = null;
 
     /**
      * Human name giving to this particular instance. Multiple objects representing
@@ -131,9 +131,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      */
     protected string my_alias = null;
 
-    /**
-     * Connection instance
-     */
+    // Connection instance
     protected Connection my_connection = null;
 
     // The schema object containing a description of this table fields

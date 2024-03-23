@@ -899,7 +899,7 @@ trait EntityTrait
              val = null;
             if (entity instanceof IEntity) {
                  val = entity.get(part);
-            } elseif (is_array(entity)) {
+            } elseif ((entity.isArray) {
                  val = entity[part] ?? false;
             }
 

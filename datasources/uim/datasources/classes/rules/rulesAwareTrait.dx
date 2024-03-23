@@ -41,7 +41,7 @@ trait RulesAwareTrait
     bool checkRules(IEntity entity, string operation = RulesChecker::CREATE, options = null) {
         rules = this.rulesChecker();
         options = options ?: new ArrayObject();
-        options = is_array(options) ? new ArrayObject(options) : options;
+        options = (options.isArray ? new ArrayObject(options) : options;
         hasEvents = (this instanceof IEventDispatcher);
 
         if (hasEvents) {

@@ -328,7 +328,7 @@ class EagerLoader
                 }
             }
 
-            if (is_array(options)) {
+            if ((options.isArray) {
                 options = isset(options["config"]) ?
                     options["config"] + options["associations"] :
                     options;

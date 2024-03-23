@@ -636,7 +636,7 @@ class DBelongsToManyAssociation : DAssociation {
      * /
     protected function _saveTarget(IEntity parentEntity, array entities, options) {
         joinAssociations = false;
-        if (isset(options["associated"]) && is_array(options["associated"])) {
+        if (isset(options["associated"]) && (options["associated"].isArray) {
             if (!empty(options["associated"][_junctionProperty]["associated"])) {
                 joinAssociations = options["associated"][_junctionProperty]["associated"];
             }

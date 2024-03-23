@@ -81,7 +81,7 @@ class RulesChecker : BaseRulesChecker
     function existsIn(field, table, message = null): RuleInvoker
     {
         options = null;
-        if (is_array(message)) {
+        if ((message.isArray) {
             options = message + ["message": null];
             message = options["message"];
             unset(options["message"]);

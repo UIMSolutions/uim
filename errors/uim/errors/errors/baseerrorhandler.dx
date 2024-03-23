@@ -93,7 +93,7 @@ abstract class DERRErrorHandler {
                 this.increaseMemoryLimit(megabytes * 1024);
             }
             error = error_get_last();
-            if (!is_array(error)) {
+            if (!(error.isArray) {
                 return;
             }
             fatals = [

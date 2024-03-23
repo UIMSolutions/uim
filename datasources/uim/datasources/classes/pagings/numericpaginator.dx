@@ -517,7 +517,7 @@ class NumericPaginator : PaginatorInterface
                 direction = "asc";
             }
 
-            order = isset(options["order"]) && is_array(options["order"]) ? options["order"] : [];
+            order = isset(options["order"]) && (options["order"].isArray ? options["order"] : [];
             if (order && options["sort"] && strpos(options["sort"], ".") == false) {
                 order = _removeAliases(order, object.aliasName());
             }

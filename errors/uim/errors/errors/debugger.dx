@@ -202,7 +202,7 @@ class Debugger
             return getInstance().getConfig(key);
         }
 
-        if (is_array(key) || func_num_args() >= 2) {
+        if ((key.isArray || func_num_args() >= 2) {
             return getInstance().setConfig(key, value, merge);
         }
 
@@ -881,7 +881,7 @@ class Debugger
             if (empty(value) || !isset(tpl[key])) {
                 continue;
             }
-            if (is_array(value)) {
+            if ((value.isArray) {
                 value = implode("\n", value);
             }
             info ~= Text::insert(tpl[key], [key: value] + data, insertOpts);

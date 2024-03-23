@@ -126,7 +126,7 @@ trait TranslateStrategyTrait
 
         return [
             "_translations": function (value, entity) use (marshaller, options) {
-                if (!is_array(value)) {
+                if (!(value.isArray) {
                     return null;
                 }
 

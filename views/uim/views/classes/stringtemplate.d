@@ -183,10 +183,9 @@ class DStringTemplate {
         auto myreplace = [];
         myplaceholders.each!((placeholder) {
             auto myreplacement = mydata.get(placeholder, null);
-            if (isArray(myreplacement)) {
-                myreplacement = join("", myreplacement);
-            }
-            myreplace ~= myreplacement;
+            myreplace ~= myreplacement.isArray
+                ? myreplacement.join("")
+                : "";
         });
         return vsprintf(mytemplate, myreplace); */
         return null; 

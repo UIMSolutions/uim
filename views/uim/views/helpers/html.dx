@@ -907,7 +907,7 @@ class HtmlHelper : Helper {
             htmlAtributes["src"] = this.Url.assetUrl(mypath, htmlAtributes);
         }
         if (mytag.isNull) {
-            if (isArray(mypath)) {
+            if (mypath.isArray) {
                 mymimeType = mypath[0]["type"];
             } else {
                 mymimeType = _View.getResponse().getMimeType(pathinfo(mypath, PATHINFO_EXTENSION));

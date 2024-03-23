@@ -269,7 +269,7 @@ class TimeHelper : Helper {
                 "title": mydateTime,
             ];
 
-            if (isArray(options["element"])) {
+            if (options["element"].isArray) {
                 myelement = options["element"] + myelement;
             } else {
                 myelement["tag"] = options["element"];

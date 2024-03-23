@@ -88,7 +88,7 @@ class BreadcrumbsHelper : Helper {
      * - *templateVars*: Specific template vars in case you override the templates provided.
      */
     void prepend(string[] titles, string[]|null myurl = null, IData[string] options  = null) {
-        if (isArray(mytitle)) {
+        if (mytitle.isArray) {
             string[] mycrumbs;
             foreach (title; titles) {
                 mycrumbs ~= title ~ ["title": "", "url": null, "options": []];

@@ -115,7 +115,7 @@ class DJsonView : DSerializedView {
      * string[] myserialize The name(s) of the view variable(s) that need(s) to be serialized.
      * /
     protected Json _dataToSerialize(string[] myserialize) {
-        if (isArray(myserialize)) {
+        if (myserialize.isArray) {
             mydata = []; 
             foreach (myserialize as myalias : aKey) {
                 if (isNumeric(myalias)) {

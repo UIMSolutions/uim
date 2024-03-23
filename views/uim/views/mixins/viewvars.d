@@ -56,7 +56,7 @@ trait ViewVarsTrait {
      *  Unused if views is an associative array, otherwise serves as the values to views"s keys.
      * /
     void set(string[] views, Json aValue = null) {
-        if (isArray(views)) {
+        if (views.isArray) {
             if (isArray(myvalue)) {
                 mydata = array_combine(views, myvalue);
             } else {

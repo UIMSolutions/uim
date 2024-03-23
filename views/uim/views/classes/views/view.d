@@ -620,7 +620,7 @@ class DView { //  }: IEventDispatcher {
      *  Unused if views is an associative array, otherwise serves as the values to views"s keys.
      * /
     void set(string[] views, Json aValue = null) {
-        if (isArray(views)) {
+        if (views.isArray) {
             if (isArray(myvalue)) {
                 /** @var array|false mydata Coerce phpstan to accept failure case * /
                 mydata = array_combine(views, myvalue);

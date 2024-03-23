@@ -9,10 +9,10 @@ class TestFixture : IFixture {
     mixin LocatorAwareTemplate();
 
     // Fixture Datasource
-    string aconnection = "test";
+    string _connectionName = "test";
 
     // Full Table Name
-    string atable = "";
+    string fullTableName = "";
 
     // Fixture records to be inserted.
     array records = [];
@@ -43,7 +43,7 @@ class TestFixture : IFixture {
     }
  
     string connection() {
-        return this.connection;
+        return _connectionName;
     }
  
     string sourceName() {
@@ -51,7 +51,7 @@ class TestFixture : IFixture {
     }
     
     bool initialize() {
-        if (isEmpty(this.table)) {
+        if (this.table.isEmpty) {
             this.table = _tableFromClass();
         }
        _schemaFromReflection();
@@ -63,9 +63,9 @@ class TestFixture : IFixture {
     protected string _tableFromClass() {
         [,  className] = namespaceSplit(class);
         preg_match("/^(.*)Fixture/",  className, matches);
-        aTable = matches[1] ??  className;
+        fullTableName = matches[1] ??  className;
 
-        return Inflector.tableize(aTable);
+        return Inflector.tableize(fullTableName);
     }
     
     // Build fixture schema directly from the datasource

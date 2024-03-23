@@ -58,7 +58,7 @@ class UriFactory : IUriFactory {
         if (uriPath == "/index.d" && anUri.getQuery()) {
             uriPath = anUri.getQuery();
         }
-        if (isEmpty(uriPath) || uriPath == "/" || uriPath == "//" || uriPath == "/index.d") {
+        if (uriPath.isEmpty || uriPath.isAny("/", "//", "/index.d")) {
             uriPath = "/";
         }
         endsWithIndex = "/" ~ (Configure.read("App.webroot") ?: "webroot") ~ "/index.d";

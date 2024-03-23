@@ -53,7 +53,7 @@ template LocatorAwareTemplate {
      */
     Table fetchTable(string myalias = null, IData[string] optionData = null) {
         myalias ??= this.defaultTable;
-        if (isEmpty(myalias)) {
+        if (myalias.isEmpty) {
             throw new UnexpectedValueException(
                 "You must provide an `myalias` or set the `mydefaultTable` property to a non empty string."
             );

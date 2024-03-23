@@ -170,35 +170,31 @@ class Socket {
         return resource;
     }
 
-    /**
-     * Configure the SSL context options.
-     * Params:
-     * string hostName The host name being connected to.
-     */
+    // Configure the SSL context options.
     protected void _setSslContext(string hostName) {
         _config.byKeyValue
             .filter!(kv => str_starts_with(kv.key, "ssl_"));
         
         .each!((kv) {
             string contextKey = substr(kv.key, 4);
-            if (isEmpty(configuration["context"]["ssl"][contextKey])) {
-                configuration["context"]["ssl"][contextKey] = kv.value;
+            if (isEmpty(configuration["context/ssl/"~contextKey])) {
+                configuration["context/ssl/"~contextKey] = kv.value;
             }
-            unset(configuration.data(kv.key]);
+            unset(configuration.getString(kv.key));
         });
-        if (!isSet(configuration["context"]["ssl"]["SNI_enabled"])) {
-            configuration["context"]["ssl"]["SNI_enabled"] = true;
+        if (!isSet(configuration["context/ssl"]["SNI_enabled"])) {
+            configuration["context/ssl/SNI_enabled"] = true;
         }
-        if (isEmpty(configuration["context"]["ssl"]["peer_name"])) {
-            configuration["context"]["ssl"]["peer_name"] = hostName;
+        if (isEmpty(configuration["context/ssl"]["peer_name"])) {
+            configuration["context/ssl/peer_name"] = hostName;
         }
-        if (isEmpty(configuration["context"]["ssl"]["cafile"])) {
-            configuration["context"]["ssl"]["cafile"] = CaBundle.getBundledCaBundlePath();
+        if (configuration.isEmpty("context/ssl/cafile")) {
+            configuration["context/ssl/cafile"] = CaBundle.getBundledCaBundlePath();
         }
-        if (!empty(configuration["context"]["ssl"]["verify_host"])) {
-            configuration["context"]["ssl"]["CN_match"] = hostName;
+        if (!empty(configuration["context/ssl/verify_host"])) {
+            configuration["context/ssl/CN_match"] = hostName;
         }
-        unset(configuration["context"]["ssl"]["verify_host"]);
+        unset(configuration["context/ssl/verify_host"]);
     }
 
     
@@ -383,7 +379,7 @@ class Socket {
      * array|null state Array with key and values to reset
      */
         void reset(arraystate = null) {
-            if (isEmpty(state)) {
+            if (state.isEmpty) {
                 static anInitialState = [];
                 if (isEmpty(anInitialState)) {
                     anInitialState = get_class_vars(self.classname);

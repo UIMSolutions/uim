@@ -86,7 +86,7 @@ class BelongsTo : DAssociation {
 
         string message;
         if (count(foreignKey) != count(bindingKey)) {
-            if (isEmpty(bindingKey)) {
+            if (bindingKey.isEmpty) {
                 message = "The `%s` table does not define a primary key. Please set one.";
                 throw new DatabaseException(message.format(this.getTarget().getTable()));
             }

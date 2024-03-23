@@ -962,7 +962,7 @@ class Hash {
         if (isEmpty(mydata) && !empty(mycompare)) {
             return mycompare;
         }
-        if (isEmpty(mycompare)) {
+        if (mycompare.isEmpty) {
             return mydata;
         }
         foreach (mycompare as aKey: myvalue) {

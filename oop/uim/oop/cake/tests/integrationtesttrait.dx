@@ -425,7 +425,7 @@ template IntegrationTestTemplate {
      */
     protected void _handleError(Throwable exceptionToHandle) {
          className = Configure.read("Error.exceptionRenderer");
-        if (isEmpty(className) || !class_exists(className)) {
+        if (className.isEmpty || !class_exists(className)) {
              className = WebExceptionRenderer.classname;
         }
 

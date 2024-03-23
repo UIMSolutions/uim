@@ -139,15 +139,15 @@ class Security {
      * Params:
      * string myplain The value to encrypt.
      * @param string aKey The 256 bit/32 byte key to use as a cipher key.
-     * @param string myhmacSalt The salt to use for the HMAC process.
+     * @param string hmacSalt The salt to use for the HMAC process.
      *  Leave null to use value of Security.getSalt().
      */
-    static string encrypt(string myplain, string aKey, string myhmacSalt = null) {
+    static string encrypt(string myplain, string aKey, string hmacSalt = null) {
         self._checkKey(aKey, "encrypt()");
 
-        myhmacSalt ??= getSalt();
+        hmacSalt ??= getSalt();
         // Generate the encryption and hmac key.
-        aKey = mb_substr(hash("sha256", aKey ~ myhmacSalt), 0, 32, "8bit");
+        aKey = mb_substr(hash("sha256", aKey ~ hmacSalt), 0, 32, "8bit");
 
         mycrypto = engine();
         myciphertext = mycrypto.encrypt(myplain, aKey);
@@ -175,18 +175,18 @@ class Security {
      * Params:
      * string mycipher The ciphertext to decrypt.
      * @param string aKey The 256 bit/32 byte key to use as a cipher key.
-     * @param string myhmacSalt The salt to use for the HMAC process.
+     * @param string hmacSalt The salt to use for the HMAC process.
      *  Leave null to use value of Security.getSalt().
      */
-    static string decrypt(string mycipher, string aKey, string myhmacSalt = null) {
+    static string decrypt(string mycipher, string aKey, string hmacSalt = null) {
         self._checkKey(aKey, "decrypt()");
-        if (isEmpty(mycipher)) {
+        if (mycipher.isEmpty) {
             throw new InvalidArgumentException("The data to decrypt cannot be empty.");
         }
-        myhmacSalt ??= getSalt();
+        hmacSalt ??= getSalt();
 
         // Generate the encryption and hmac key.
-        aKey = mb_substr(hash("sha256", aKey ~ myhmacSalt), 0, 32, "8bit");
+        aKey = mb_substr(hash("sha256", aKey ~ hmacSalt), 0, 32, "8bit");
 
         // Split out hmac for comparison
         mymacSize = 64;

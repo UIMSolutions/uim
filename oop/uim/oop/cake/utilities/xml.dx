@@ -258,7 +258,7 @@ class Xml {
                     Json mydata,
                     string myformat
                     ) {
-                        if (isEmpty(mydata) || !isArray(mydata)) {
+                        if (mydata.isEmpty || !isArray(mydata)) {
                             return;
                         }
                         foreach (aKey : myValue; mydata) {

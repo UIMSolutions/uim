@@ -1141,7 +1141,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
                 types[alias] = typeMap[alias];
                 continue;
             }
-            if (is_string(value) && isset(typeMap[value])) {
+            if (value.isString && isset(typeMap[value])) {
                 types[alias] = typeMap[value];
             }
         }

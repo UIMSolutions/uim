@@ -219,7 +219,7 @@ class DBelongsToManyAssociation : DAssociation {
             table = tableLocator.get(tableAlias, myConfiguration);
         }
 
-        if (is_string(table)) {
+        if (table.isString) {
             table = tableLocator.get(table);
         }
 

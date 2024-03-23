@@ -249,11 +249,11 @@ class ExceptionRenderer : IExceptionRenderer
     protected Response _customMethod(string method, Throwable myException) {
         myResult = this.{method}(myException);
         _shutdown();
-        if (is_string(myResult)) {
-            myResult = this.controller.getResponse().withStringBody(myResult);
+        if (!myResult.isString) {
+            return myResult;
         }
 
-        return myResult;
+        return this.controller.getResponse().withStringBody(myResult);
     }
 
     /**

@@ -223,10 +223,10 @@ class Marshaller
             return [];
         }
 
-        validator = null;
+        IValidator validator = null;
         if (options["validate"] == true) {
             validator = _table.getValidator();
-        } elseif (is_string(options["validate"])) {
+        } elseif (options["validate"].isString) {
             validator = _table.getValidator(options["validate"]);
         } elseif (is_object(options["validate"])) {
             deprecationWarning(

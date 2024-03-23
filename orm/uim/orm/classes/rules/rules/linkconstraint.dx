@@ -45,8 +45,8 @@ class LinkConstraint
      */
     this(association, string requiredLinkStatus) {
         if (
-            !is_string(association) &&
-            !(association instanceof Association)
+            !association.isString &&
+            !(cast(IAssiciation)association)
         ) {
             throw new \InvalidArgumentException(sprintf(
                 "Argument 1 is expected to be of type `DORMAssociation|string`, `%s` given.",

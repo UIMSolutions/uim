@@ -99,7 +99,7 @@ class TableLocator : AbstractLocator, ILocator {
 
 
     function configuration.update(alias, options = null) {
-        if (!is_string(alias)) {
+        if (!alias.isString) {
             configuration = alias;
 
             return this;

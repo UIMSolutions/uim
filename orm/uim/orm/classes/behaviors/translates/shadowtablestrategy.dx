@@ -179,7 +179,7 @@ class ShadowTableStrategy : ITranslateStrategy
         }
 
         select = array_filter(query.clause("select"), function (field) {
-            return is_string(field);
+            return field.isString;
         });
 
         if (!select) {

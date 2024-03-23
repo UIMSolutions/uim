@@ -54,8 +54,8 @@ class LazyEagerLoader
      */
     protected function _getQuery(ICollection objects, array contain, Table source): Query
     {
-        primaryKeys = source.getPrimaryKeys();
-        method = is_string(primaryKeys) ? "get" : "extract";
+        auto primaryKeys = source.getPrimaryKeys();
+        auto method = primaryKeys.isString ? "get" : "extract";
 
         keys = objects.map(function (entity) use (primaryKeys, method) {
             return entity.{method}(primaryKeys);
@@ -73,7 +73,7 @@ class LazyEagerLoader
                     primaryKeys = current(primaryKeys);
                 }
 
-                if (is_string(primaryKeys)) {
+                if (primaryKeys.isString) {
                     return exp.in(source.aliasField(primaryKeys), keys.toList());
                 }
 

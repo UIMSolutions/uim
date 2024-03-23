@@ -1,6 +1,6 @@
-module uim.cake.core\Configure;
+module uim.oop.core\Configure;
 
-import uim.cake;
+import uim.oop;
 
 @safe:
 

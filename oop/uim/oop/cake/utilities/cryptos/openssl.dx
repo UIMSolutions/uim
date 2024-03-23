@@ -1,6 +1,6 @@
-module uim.cake.utilities\Crypto;
+module uim.oop.utilities\Crypto;
 
-import uim.cake;
+import uim.oop;
 
 @safe:
 

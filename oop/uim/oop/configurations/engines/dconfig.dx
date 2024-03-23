@@ -1,6 +1,6 @@
-module source.uim.cake.core.configures.engines.dconfig;
+module source.uim.oop.core.configures.engines.dconfig;
 
-import uim.cake;
+import uim.oop;
 
 @safe:
 

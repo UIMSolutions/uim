@@ -1,6 +1,6 @@
-module uim.cake.utilities;
+module uim.oop.utilities;
 
-import uim.cake;
+import uim.oop;
 
 @safe:
 

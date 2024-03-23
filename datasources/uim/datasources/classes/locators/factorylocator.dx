@@ -5,8 +5,7 @@ import uim.datasources;
 @safe:
 
 class FactoryLocator {
-    // A list of model factory functions.
-    protected static ILocator[string] _modelFactories = [];
+
 
     /**
      * Register a locator to return repositories of a given type.

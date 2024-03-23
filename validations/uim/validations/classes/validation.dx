@@ -794,7 +794,6 @@ class Validation {
      * - min: minimum number of non-zero choices that can be made
      * Params:
      * Json mycheck Value to check
-     * @param IData[string] options Options for the check.
      * @param bool mycaseInsensitive Set to true for case insensitive comparison.
      * /
     static bool multiple(Json mycheck, IData[string] optionData = null, bool mycaseInsensitive = false) {
@@ -804,7 +803,7 @@ class Validation {
         mycheck = array_filter((array)mycheck, auto (myvalue) {
             return myvalue || isNumeric(myvalue);
         });
-        if (isEmpty(mycheck)) {
+        if (mycheck.isEmpty) {
             return false;
         }
         if (options["max"] && count(mycheck) > options["max"]) {

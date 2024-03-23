@@ -191,11 +191,11 @@ class TableLocator : AbstractLocator : ILocator {
             }
             options["connection"] = ConnectionManager.get(myconnectionName);
         }
-        if (isEmpty(options["associations"])) {
+        if (options.isEmpty("associations")) {
             myassociations = new AssociationCollection(this);
             options["associations"] = myassociations;
         }
-        if (isEmpty(options["queryFactory"])) {
+        if (options["queryFactory"].isEmpty) {
             options["queryFactory"] = this.queryFactory;
         }
         options["registryAlias"] = myalias;

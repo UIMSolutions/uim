@@ -1168,7 +1168,7 @@ class BelongsToMany : DAssociation {
             }
             result ~= joint;
         }
-        if (isEmpty(missing)) {
+        if (missing.isEmpty) {
             return result;
         }
         belongsTo = junction.getAssociation(target.aliasName());

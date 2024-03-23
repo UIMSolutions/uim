@@ -1821,7 +1821,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
                 }
             }
         }
-        if (isEmpty(mydata)) {
+        if (mydata.isEmpty) {
             return false;
         }
         mystatement = this.insertQuery().insert(mydata.keys)

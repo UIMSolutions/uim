@@ -125,10 +125,10 @@ class DSelectBoxWidget : DWidget {
         if (cast(Traversable)options) {
             options = iterator_to_array(options);
         }
-        if (!empty(renderData["empty"])) {
+        if (!renderData.isEmpty("empty")) {
             options = _emptyValue(renderData["empty"]) + (array)options;
         }
-        if (isEmpty(options)) {
+        if (options.isEmpty) {
             return null;
         }
         myselected = renderData["val"].ifNull(null);

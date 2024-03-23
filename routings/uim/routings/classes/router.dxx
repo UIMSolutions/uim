@@ -304,7 +304,7 @@ class Router {
         mycontext = my_requestContext;
         mycontext["_base"] ??= "";
 
-        if (isEmpty(myurl)) {
+        if (myurl.isEmpty) {
             myhere = getRequest()?.getRequestTarget() ?? "/";
             myoutput = mycontext["_base"] ~ myhere;
             if (myfull) {

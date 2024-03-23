@@ -196,12 +196,13 @@ class Route {
      * regular expression that can be used to parse request strings.
      */
     protected void _writeRoute() {
-        if (isEmpty(this.template) || (this.template == "/")) {
+        if (this.template.isEmpty || (this.template == "/")) {
            _compiledRoute = "#^/*my#";
             this.keys = [];
 
             return;
         }
+
         auto myroute = this.template;
         auto routingss = myrouteParams = [];
         auto myparsed = preg_quote(this.template, "#");
@@ -593,10 +594,10 @@ class Route {
      * array myurl The array for the URL being generated.
      */
     protected bool _matchMethod(array myurl) {
-        if (isEmpty(this.defaults["_method"])) {
+        if (this.defaults["_method"].isEmpty) {
             return true;
         }
-        if (isEmpty(myurl["_method"])) {
+        if (myurl["_method"].isEmpty) {
             myurl["_method"] = "GET";
         }
         _defaultValues = (array)this.defaults["_method"];

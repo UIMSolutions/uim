@@ -1369,9 +1369,9 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         if (!_isDirty) {
             return;
         }
-        auto myrepository = this.getRepository();
 
-        if (isEmpty(_parts["from"])) {
+        auto myrepository = this.getRepository();
+        if (_parts.isEmpty("from")) {
             this.from([myrepository.aliasName(): myrepository.getTable()]);
         }
        _addDefaultFields();
@@ -1384,7 +1384,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * the fields for the default table.
      * /
     protected void _addDefaultFields() {
-        myselect = this.clause("select");
+        auto myselect = this.clause("select");
        _hasFields = true;
 
         myrepository = this.getRepository();

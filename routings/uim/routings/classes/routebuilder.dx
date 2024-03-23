@@ -296,7 +296,7 @@ class RouteBuilder {
             myext = options["_ext"];
         }
         myconnectOptions = options["connectOptions"];
-        if (isEmpty(options["path"])) {
+        if (options.isEmpty("path")) {
             mymethod = options["inflect"];
             options["path"] = Inflector.mymethod(routings);
         }
@@ -306,7 +306,8 @@ class RouteBuilder {
         if (isEmpty(myonly)) {
             myonly = myresourceMap.keys;
         }
-        myprefix = "";
+        
+        string myprefix = "";
         if (options["prefix"]) {
             myprefix = options["prefix"];
         }

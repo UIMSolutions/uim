@@ -1,6 +1,6 @@
-module source.uim.cake.tests.fixtures.extensions.unitstartedsubscriber;
+module source.uim.oop.tests.fixtures.extensions.unitstartedsubscriber;
 
-import uim.cake;
+import uim.oop;
 
 @safe:
 

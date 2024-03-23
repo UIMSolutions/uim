@@ -1,6 +1,6 @@
-module uim.cake.TestSuite\Stub;
+module uim.oop.TestSuite\Stub;
 
-import uim.cake;
+import uim.oop;
 
 @safe:
 

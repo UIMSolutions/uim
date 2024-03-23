@@ -1,6 +1,6 @@
-module uim.cake.tests.fixtures.transactionfixturestrategys;
+module uim.oop.tests.fixtures.transactionfixturestrategys;
 
-import uim.cake;
+import uim.oop;
 
 @safe:
 

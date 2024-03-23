@@ -883,7 +883,7 @@ class DTreeBehavior : DBehavior {
     {
         scope = this.getConfig("scope");
 
-        if (is_array(scope)) {
+        if ((scope.isArray) {
             return query.where(scope);
         }
         if (is_callable(scope)) {

@@ -437,7 +437,7 @@ class ShadowTableStrategy : ITranslateStrategy
                 return row;
             }
 
-            hydrated = !is_array(row);
+            hydrated = !(row.isArray;
 
             if (empty(row["translation"])) {
                 row["_locale"] = locale;

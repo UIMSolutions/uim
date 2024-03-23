@@ -274,7 +274,7 @@ class DSelectLoader {
      * /
     protected function _addFilteringCondition(Query query, key, filter): Query
     {
-        if (is_array(key)) {
+        if ((key.isArray) {
             conditions = _createTupleCondition(query, key, filter, "IN");
         } else {
             conditions = [key ~ " IN": filter];

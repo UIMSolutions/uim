@@ -39,7 +39,7 @@ class RulesChecker : BaseRulesChecker
      */
     bool isUnique(array fields, message = null): RuleInvoker
     {
-        options = is_array(message) ? message : ["message": message];
+        options = (message.isArray ? message : ["message": message];
         message = options.get("message", null);
         unset(options["message"]);
 

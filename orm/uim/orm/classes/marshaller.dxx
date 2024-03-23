@@ -293,7 +293,7 @@ class Marshaller
             hasIds = array_key_exists("_ids", value);
             onlyIds = array_key_exists("onlyIds", options) && options["onlyIds"];
 
-            if (hasIds && is_array(value["_ids"])) {
+            if (hasIds && (value["_ids"].isArray) {
                 return _loadAssociatedByIds(assoc, value["_ids"]);
             }
             if (hasIds || onlyIds) {

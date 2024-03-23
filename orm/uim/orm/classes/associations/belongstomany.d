@@ -525,7 +525,7 @@ class DBelongsToManyAssociation : DAssociation {
         }
 
         assocConditions = hasMany.getConditions();
-        if (is_array(assocConditions)) {
+        if ((assocConditions.isArray) {
             conditions = array_merge(conditions, assocConditions);
         } else {
             conditions[] = assocConditions;

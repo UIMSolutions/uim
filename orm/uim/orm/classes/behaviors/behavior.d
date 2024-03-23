@@ -375,7 +375,7 @@ class DBehavior { // }: IEventListener {
         events = this.implementedEvents();
         eventMethods = null;
         foreach (events as binding) {
-            if (is_array(binding) && isset(binding["callable"])) {
+            if ((binding.isArray && isset(binding["callable"])) {
                 /** @var string callable * /
                 callable = binding["callable"];
                 binding = callable;

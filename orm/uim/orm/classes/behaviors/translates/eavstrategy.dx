@@ -326,7 +326,7 @@ class EavStrategy : ITranslateStrategy {
             if (row == null) {
                 return row;
             }
-            hydrated = !is_array(row);
+            hydrated = !(row.isArray;
 
             foreach (configuration["fields"] as field) {
                 name = field ~ "_translation";

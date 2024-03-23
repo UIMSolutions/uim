@@ -91,7 +91,7 @@ class Curl : IAdapter {
         if (result[CURLOPT_POSTFIELDS].isEmpty) {
             unset(result[CURLOPT_POSTFIELDS]);
         }
-        if (isEmpty(options["ssl_cafile"])) {
+        if (options.isEmpty("ssl_cafile")) {
             options["ssl_cafile"] = CaBundle.getBundledCaBundlePath();
         }
         if (!empty(options["ssl_verify_host"])) {

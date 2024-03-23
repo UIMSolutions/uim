@@ -165,10 +165,11 @@ template StaticConfigTemplate {
      * string adsn The DSN string to convert to a configuration array
      */
     static IData[string] parseDsn(string adsn) {
-        if (isEmpty(dsn)) {
+        if (dsn.isEmpty) {
             return null;
         }
-         somePattern = <<<'REGEXP'
+
+        somePattern = <<<'REGEXP'
 {
     ^
     (?P<_scheme>

@@ -621,7 +621,7 @@ class FormHelper : Helper {
         }
         myerror = formContext.error(myfield);
 
-        if (isArray(mytext)) {
+        if (mytext.isArray) {
             mytmp = [];
             foreach (myerror as myKey: mye) {
                 if (isSet(mytext[myKey])) {

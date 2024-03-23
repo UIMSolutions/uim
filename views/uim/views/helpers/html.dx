@@ -321,14 +321,14 @@ class HtmlHelper : Helper {
      * @param IData[string] htmlAtributes Array of options and HTML arguments.
      */
     string css(string[] mypath, IData[string] htmlAtributes = null) {
-        htmlAtributes += [
-            "once": true,
+        htmlAtributes = htmlAtributes.update([
+            "once": Booleandata(true),
             "block": null,
-            "rel": "stylesheet",
+            "rel": StringData("stylesheet"),
             "nonce": _View.getRequest().getAttribute("cspStyleNonce"),
-        ];
+        ]);
 
-        if (isArray(mypath)) {
+        if (mypath.isArray) {
             string result = "";
             foreach (mypath as myi) {
                 result ~= "\n\t" ~ to!string(this.css(myi, htmlAtributes));
@@ -360,7 +360,7 @@ class HtmlHelper : Helper {
                 "attrs": mytemplater.formatAttributes(htmlAtributes, ["rel", "block"]),
             ]);
         }
-        if (isEmpty(htmlAtributes["block"])) {
+        if (htmlAtributes.isEmpty("block")) {
             return result;
         }
         if (htmlAtributes["block"] == true) {
@@ -873,12 +873,11 @@ class HtmlHelper : Helper {
             "text": "",
         ];
 
-        if (!empty(htmlAtributes["tag"])) {
-            mytag = htmlAtributes["tag"];
-        } else {
-            mytag = null;
-        }
-        if (isArray(mypath)) {
+        auto mytag = !htmlAtributes.isEmpty("tag") 
+            ? htmlAtributes["tag"]
+            : null;
+
+        if (mypath.isArray) {
             mysourceTags = "";
             foreach (mypath as &mysource) {
                 if (isString(mysource)) {

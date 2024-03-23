@@ -206,7 +206,7 @@ class CookieCollection : IteratorAggregate, Countable {
             }
             cookiePairs ~= cookie;
         }
-        if (isEmpty(cookiePairs)) {
+        if (cookiePairs.isEmpty() {
             return request;
         }
         return request.withHeader("Cookie", join("; ", cookiePairs));

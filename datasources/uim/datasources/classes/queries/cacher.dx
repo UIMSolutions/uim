@@ -87,16 +87,15 @@ class QueryCacher
      * Get/generate the cache key.
      *
      * @param object query The query to generate a key for.
-     * @return string
      * @throws \RuntimeException
      */
     protected string _resolveKey(object query) {
-        if (is_string(_key)) {
+        if (_key.isString) {
             return _key;
         }
         func = _key;
         key = func(query);
-        if (!is_string(key)) {
+        if (!key.isString) {
             msg = sprintf("Cache key functions must return a string. Got %s.", var_export(key, true));
             throw new RuntimeException(msg);
         }
@@ -104,13 +103,9 @@ class QueryCacher
         return key;
     }
 
-    /**
-     * Get the cache engine.
-     *
-     * @return \Psr\SimpleCache\ICache
-     */
-    protected function _resolveCacher() {
-        if (is_string(configuration)) {
+    // Get the cache engine.
+    protected ICache _resolveCacher() {
+        if (configuration.isString) {
             return Cache::pool(configuration);
         }
 

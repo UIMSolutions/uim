@@ -173,7 +173,7 @@ class DSelectLoader {
     protected array _extractFinder(finderData) {
         finderData = (array)finderData;
 
-        if (is_numeric(key(finderData))) {
+        if (key(finderData).isNumeric) {
             return [current(finderData), []];
         }
 

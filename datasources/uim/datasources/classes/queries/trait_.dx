@@ -231,7 +231,7 @@ trait QueryTrait
     STRINGAA aliasFields(array fields, string defaultAlias = null) {
         aliased = null;
         foreach (fields as alias: field) {
-            if (is_numeric(alias) && is_string(field)) {
+            if (is_numeric(alias) && field.isString) {
                 aliased += this.aliasField(field, defaultAlias);
                 continue;
             }

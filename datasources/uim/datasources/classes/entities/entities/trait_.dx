@@ -361,8 +361,7 @@ trait EntityTrait
                 is_array(value) &&
                 empty(value) ||
                 (
-                    is_string(value) &&
-                    value == ""
+                    value.isString && value.isEmpty
                 )
             )
         ) {
@@ -863,12 +862,12 @@ trait EntityTrait
      * @param bool canOverwrite Whether to overwrite pre-existing errors for field
      * @return this
      */
-    function setError(string field, errors, bool canOverwrite = false) {
-        if (is_string(errors)) {
-            errors = [errors];
-        }
+    void setError(string field, string errors, bool canOverwrite = false) {
+        setError(field, errors, canOverwrite);
+    }
 
-        return this.setErrors([field: errors], canOverwrite);
+    void setError(string field, string[] errors, bool canOverwrite = false) {
+        setErrors([field: errors], canOverwrite);
     }
 
     /**

@@ -603,7 +603,7 @@ class NumericPaginator : PaginatorInterface
         tableAlias = object.aliasName();
         tableOrder = null;
         foreach (order as key: value) {
-            if (is_numeric(key)) {
+            if (key.isNumeric) {
                 tableOrder[] = value;
                 continue;
             }

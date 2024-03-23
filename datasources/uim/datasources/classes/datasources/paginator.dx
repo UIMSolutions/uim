@@ -607,20 +607,20 @@ class Paginator : IPaginator {
      * @return array Final order array.
      */
     protected array _prefix(IRepository object, array order, bool allowed = false) {
-        myTableAlias = object.aliasName();
+        string tableAliasName = object.aliasName();
         myTableOrder = null;
         foreach (order as myKey: myValue) {
-            if (is_numeric(myKey)) {
+            if (myKey.isNumeric) {
                 myTableOrder[] = myValue;
                 continue;
             }
             myField = myKey;
-            myAlias = myTableAlias;
+            myAlias = tableAliasName;
 
             if (indexOf(myKey, ".") != false) {
                 [myAlias, myField] = explode(".", myKey);
             }
-            correctAlias = (myTableAlias == myAlias);
+            correctAlias = (tableAliasName == myAlias);
 
             if (correctAlias && allowed) {
                 // Disambiguate fields in schema. As id is quite common.
@@ -629,7 +629,7 @@ class Paginator : IPaginator {
                 }
                 myTableOrder[myField] = myValue;
             } elseif (correctAlias && object.hasField(myField)) {
-                myTableOrder[myTableAlias ~ "." ~ myField] = myValue;
+                myTableOrder[tableAliasName ~ "." ~ myField] = myValue;
             } elseif (!correctAlias && allowed) {
                 myTableOrder[myAlias ~ "." ~ myField] = myValue;
             }

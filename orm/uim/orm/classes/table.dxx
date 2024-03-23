@@ -130,13 +130,13 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
     const string IS_UNIQUE_CLASS = IsUnique::class;
 
     // Name of the table as it can be found in the database
-    protected Nullable!string _table;
+    protected string _table;
 
     /**
      * Human name giving to this particular instance. Multiple objects representing
      * the same database table can exist by using different aliases.
      */
-    protected Nullable!string _alias;
+    protected string _alias;
 
     // Connection instance
     protected DDBConnection _connection;
@@ -164,7 +164,7 @@ class DORMTable : IRepository, IEventListener, IEventDispatcher, ValidatorAwareI
     protected string _entityClasName;
 
     // Registry key used to create this table object
-    protected Nullable!string _registryAlias;
+    protected string _registryAlias;
 
     /**
      * Initializes a new instance

@@ -4,8 +4,8 @@ import uim.logging;
 
 @safe:
 class DLogFormatter : ILogFormatter {
-  this() {
-    initialize();
+  this(IData[string] initData = null) {
+    initialize(initData);
     this.name("LogFormatter");
   }
 

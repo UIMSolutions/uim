@@ -3,8 +3,8 @@ module uim.logging.mixins.logger;
 string loggerThis(string name) {
     auto fullname = name~"Logger";
     return `
-this() {
-    initialize(); this.name("`~fullname~`");
+this(IData[string] initData = null) {
+    initialize(initData); this.name("`~fullname~`");
 }
 this(string name) {
     this(); this.name(name);

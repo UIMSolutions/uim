@@ -47,7 +47,7 @@ class EagerLoadable {
      * The property path of `country` will be `author.company`
      *
      */
-    protected Nullable!string _propertyPath;
+    protected string _propertyPath;
 
     // Whether this level can be fetched using a join.
      */
@@ -73,7 +73,7 @@ class EagerLoadable {
      * The target property of `country` will be just `country`
      *
      */
-    protected Nullable!string _targetProperty;
+    protected string _targetProperty;
 
     /**
      * Constructor. The myConfiguration parameter accepts the following array
@@ -148,7 +148,7 @@ class EagerLoadable {
      * The property path of `country` will be `author.company`
      *
      */
-    Nullable!string propertyPath() {
+    string propertyPath() {
         return _propertyPath;
     }
 
@@ -205,7 +205,7 @@ class EagerLoadable {
      * The target property of `country` will be just `country`
      *
      */
-    Nullable!string targetProperty() {
+    string targetProperty() {
         return _targetProperty;
     }
 

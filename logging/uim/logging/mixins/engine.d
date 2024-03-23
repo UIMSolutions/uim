@@ -7,8 +7,8 @@ import uim.logging;
 string logEngineThis(string name) {
     auto fullname = name ~ "LogEngine";
     return `
-this() {
-    initialize(); 
+this(IData[string] initData = null) {
+    initialize(initData); 
     this.name("`
         ~ fullname ~ `");
 }

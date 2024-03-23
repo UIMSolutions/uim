@@ -836,7 +836,7 @@ trait EntityTrait
             // String messages are appended to the list,
             // while more complex error structures need their
             // keys preserved for nested validator.
-            if (is_string(error)) {
+            if ((error.isString) {
                 _errors[f][] = error;
             } else {
                 foreach (error as  k:  v) {

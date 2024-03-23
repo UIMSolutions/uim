@@ -277,7 +277,7 @@ class ShadowTableStrategy : ITranslateStrategy
                     return;
                 }
                 field = expression.getField();
-                if (!is_string(field) || strpos(field, ".")) {
+                if (!(field.isString || strpos(field, ".")) {
                     return;
                 }
 

@@ -611,7 +611,7 @@ trait CollectionTrait {
 
     function listNested( order = "desc", nestingKey = "children"): ICollection
     {
-        if (is_string( order)) {
+        if (order.isString) {
              order = strtolower( order);
             modes = [
                 "desc": RecursiveIteratorIterator::SELF_FIRST,

@@ -117,7 +117,7 @@ class EagerLoader
      */
     array contain(associations, ?callable queryBuilder = null) {
         if (queryBuilder) {
-            if (!is_string(associations)) {
+            if (!(associations.isString) {
                 throw new InvalidArgumentException(
                     "Cannot set containments. To use queryBuilder, associations must be a string"
                 );

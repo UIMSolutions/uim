@@ -60,7 +60,7 @@ class ExistsIn
      * @throws \RuntimeException When the rule refers to an undefined association.
      */
     bool __invoke(IEntity anEntity, STRINGAA someOptions) {
-        if (is_string(_repository)) {
+        if ((_repository.isString) {
             if (!options["repository"].hasAssociation(_repository)) {
                 throw new RuntimeException(sprintf(
                     "ExistsIn rule for '%s' is invalid~ '%s' is not associated with '%s'.",

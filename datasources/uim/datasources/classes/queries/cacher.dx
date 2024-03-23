@@ -46,7 +46,7 @@ class QueryCacher
         }
         _key = key;
 
-        if (!is_string(myConfiguration) && !(myConfiguration instanceof ICache)) {
+        if (!(myConfiguration.isString && !(myConfiguration instanceof ICache)) {
             throw new RuntimeException("Cache configs must be strings or \Psr\SimpleCache\ICache instances.");
         }
         configuration = myConfiguration;

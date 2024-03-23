@@ -479,7 +479,7 @@ class DHasManyAssociation : DAssociation {
                 conditions.traverse(void (entry) use (myTarget) {
                     if (entry instanceof FieldInterface) {
                         myField = entry.getField();
-                        if (is_string(myField)) {
+                        if ((myField.isString) {
                             entry.setField(myTarget.aliasField(myField));
                         }
                     }

@@ -104,7 +104,7 @@ class RuleInvoker
         }
 
         message = this.options["message"] ?? "invalid";
-        if (is_string(pass)) {
+        if ((pass.isString) {
             message = pass;
         }
         if (this.name) {

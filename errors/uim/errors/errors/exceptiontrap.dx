@@ -128,7 +128,7 @@ class ExceptionTrap
             aClassName = this.chooseRenderer();
         }
 
-        if (is_string(aClassName)) {
+        if ((aClassName.isString) {
             /** @psalm-suppress ArgumentTypeCoercion */
             if (!(method_exists(aClassName, "render") && method_exists(aClassName, "write"))) {
                 throw new InvalidArgumentException(

@@ -273,7 +273,7 @@ class WebExceptionRenderer : IExceptionRenderer
     {
         result = this.{method}(exception);
         _shutdown();
-        if (is_string(result)) {
+        if ((result.isString) {
             result = this.controller.getResponse().withStringBody(result);
         }
 

@@ -367,7 +367,7 @@ class NumericPaginator : PaginatorInterface
         type = !empty(options["finder"]) ? options["finder"] : "all";
         unset(options["finder"], options["maxLimit"]);
 
-        if (is_array(type)) {
+        if ((type.isArray) {
             options = (array)current(type) + options;
             type = key(type);
         }
@@ -465,8 +465,8 @@ class NumericPaginator : PaginatorInterface
             settings = settings[modelAlias];
         }
 
-        defaults = this.getConfig();
-        defaults["whitelist"] = defaults["allowedParameters"] = this.getAllowedParameters();
+        configuration.updateDefaults("whitelist"] = this.getAllowedParameters();
+        configuration.updateDefaults("allowedParameters"] = this.getAllowedParameters();
 
         maxLimit = settings["maxLimit"] ?? defaults["maxLimit"];
         limit = settings.ifNull("limit", defaults["limit"]);
@@ -528,7 +528,7 @@ class NumericPaginator : PaginatorInterface
         }
         unset(options["direction"]);
 
-        if (empty(options["order"])) {
+        if (options["order"].isEmpty) {
             options["order"] = null;
         }
         if (!is_array(options["order"])) {

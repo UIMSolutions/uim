@@ -69,7 +69,7 @@ trait ExtractTrait {
                 collectionTransform &&
                 !(
                      data instanceof Traversable ||
-                    is_array( data)
+                    is_array( data.isArray
                 )
             ) {
                 return null;

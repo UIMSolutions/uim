@@ -904,7 +904,7 @@ trait EntityTrait
             }
 
             if (
-                is_array( val) ||
+                ( val.isArray ||
                  val instanceof Traversable ||
                  val instanceof IEntity
             ) {
@@ -931,7 +931,7 @@ trait EntityTrait
             return true;
         }
 
-        if (is_array( object)) {
+        if (( object.isArray) {
             foreach ( object as value) {
                 if (_readHasErrors(value)) {
                     return true;

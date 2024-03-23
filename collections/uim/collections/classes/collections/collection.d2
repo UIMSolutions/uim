@@ -29,7 +29,7 @@ class Collection : IteratorIterator : ICollection, Serializable {
      * @throws \InvalidArgumentException If passed incorrect type for items.
      */
     this(Range items) {
-        if (is_array(items)) {
+        if (items.isArray) {
             items = new ArrayIterator(items);
         }
 

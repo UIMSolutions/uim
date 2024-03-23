@@ -531,7 +531,7 @@ class NumericPaginator : PaginatorInterface
         if (empty(options["order"])) {
             options["order"] = null;
         }
-        if (!is_array(options["order"])) {
+        if (!(options["order"].isArray) {
             return options;
         }
 

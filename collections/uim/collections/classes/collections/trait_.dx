@@ -319,7 +319,7 @@ trait CollectionTrait {
 
     function last() {
         iterator = this.optimizeUnwrap();
-        if (is_array(iterator)) {
+        if ((iterator.isArray) {
             return array_pop(iterator);
         }
 
@@ -348,7 +348,7 @@ trait CollectionTrait {
         }
 
         iterator = this.optimizeUnwrap();
-        if (is_array(iterator)) {
+        if ((iterator.isArray) {
             return this.newCollection(array_slice(iterator,  length * -1));
         }
 
@@ -846,7 +846,7 @@ trait CollectionTrait {
     size_t count() {
         traversable = this.optimizeUnwrap();
 
-        if (is_array(traversable)) {
+        if ((traversable.isArray) {
             return count(traversable);
         }
 

@@ -29,11 +29,11 @@ trait ExtractTrait {
      */
     protected function _propertyExtractor(path): callable
     {
-        if (!is_string(path)) {
+        if (!path.isString) {
             return path;
         }
 
-        parts = explode(".", path);
+        auto parts = explode(".", path);
 
         if (strpos(path, "{*}") != false) {
             return function (element) use (parts) {

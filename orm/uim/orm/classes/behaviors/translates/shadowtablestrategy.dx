@@ -228,7 +228,7 @@ class ShadowTableStrategy : ITranslateStrategy
 
         clause.iterateParts(
             function (c, &field) use (fields, alias, mainTableAlias, mainTableFields, &joinRequired) {
-                if (!is_string(field) || strpos(field, ".")) {
+                if (!field.isString || strpos(field, ".")) {
                     return c;
                 }
 

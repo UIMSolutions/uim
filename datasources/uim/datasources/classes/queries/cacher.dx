@@ -41,7 +41,7 @@ class QueryCacher
      * @throws \RuntimeException
      */
     this(key, myConfiguration) {
-        if (!is_string(key) && !(key instanceof Closure)) {
+        if (!key.isString && !(key instanceof Closure)) {
             throw new RuntimeException("Cache keys must be strings or callables.");
         }
         _key = key;

@@ -190,7 +190,7 @@ class RulesChecker : BaseRulesChecker
             if (errorField == null) {
                 errorField = association.getProperty();
             }
-        } elseif (is_string(association)) {
+        } elseif (association.isString) {
             associationAlias = association;
 
             if (errorField == null) {

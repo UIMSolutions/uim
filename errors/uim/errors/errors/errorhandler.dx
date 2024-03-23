@@ -137,7 +137,7 @@ class ErrorHandler : DERRErrorHandler
     ): IExceptionRenderer {
         renderer = _config["exceptionRenderer"];
 
-        if (is_string(renderer)) {
+        if (renderer.isString) {
             /** @var class-string<uim.errors.IExceptionRenderer>|null aClassName */
             aClassName = App::className(renderer, "Error");
             if (!aClassName) {
@@ -181,8 +181,8 @@ class ErrorHandler : DERRErrorHandler
      * @param \Psr\Http\messages.IResponse|string response Either the message or response object.
      */
     protected void _sendResponse(response) {
-        if (is_string(response)) {
-            writeln(response;
+        if (response.isString) {
+            writeln(response);
 
             return;
         }

@@ -114,11 +114,9 @@ class ErrorLogger : IErrorLogger
             trace = Debugger::formatTrace(exception, ["format": "points"]);
             message ~= "\nStack Trace:\n";
             foreach (trace as line) {
-                if (is_string(line)) {
-                    message ~= "- " ~ line;
-                } else {
-                    message ~= "- {line["file"]}:{line["line"]}\n";
-                }
+                message ~= line.isString
+                    ? "- " ~ line
+                    : "- {line["file"]}:{line["line"]}\n";
             }
         }
 

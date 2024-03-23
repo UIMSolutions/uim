@@ -909,14 +909,15 @@ class DBelongsToManyAssociation : DAssociation {
         if (_targetConditions != null) {
             return _targetConditions;
         }
-        conditions = this.getConditions();
+
+        auto conditions = this.getConditions();
         if (!(conditions.isArray) {
             return conditions;
         }
         matching = null;
         alias = this.aliasName() ~ ".";
         foreach (conditions as field: value) {
-            if (is_string(field) && strpos(field, alias) == 0) {
+            if (field.isString && strpos(field, alias) == 0) {
                 matching[field] = value;
             } elseif (is_int(field) || value instanceof IExpression) {
                 matching[field] = value;
@@ -942,7 +943,7 @@ class DBelongsToManyAssociation : DAssociation {
         }
         alias = _junctionAssociationName() ~ ".";
         foreach (conditions as field: value) {
-            isString = is_string(field);
+            isString = field.isString;
             if (isString && strpos(field, alias) == 0) {
                 matching[field] = value;
             }

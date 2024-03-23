@@ -198,7 +198,7 @@ trait EntityTrait
      * @throws \InvalidArgumentException
      */
     function set(field, value = null, STRINGAA someOptions = null) {
-        if (is_string(field) && field != "") {
+        if (field.isString && field != "") {
              guard = false;
             field = [field: value];
         } else {

@@ -243,8 +243,8 @@ class Debugger
      * @param \Closure|string template The string template or closure
      */
     static void addEditor(string aName, template) {
-        instance = getInstance();
-        if (!is_string(template) && !(template instanceof Closure)) {
+        auto instance = getInstance();
+        if (!template.isString && !(template instanceof Closure)) {
             type = getTypeName(template);
             throw new RuntimeException("Invalid editor type of `{type}`. Expected string or Closure.");
         }
@@ -280,7 +280,7 @@ class Debugger
         }
 
         template = instance.editors[editor];
-        if (is_string(template)) {
+        if (template.isString) {
             return replace(['{file}', '{line}'], [file, (string)line], template);
         }
 

@@ -216,7 +216,7 @@ class TextHelper : Helper {
     /**
      * Event listeners.
      */
-    IData[string] implementedEvents() {
+    IEvents[] implementedEvents() {
         return null;
     }
 }

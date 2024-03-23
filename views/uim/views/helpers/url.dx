@@ -203,7 +203,7 @@ class UrlHelper : Helper {
     /**
      * Event listeners.
      */
-    IData[string] implementedEvents() {
+    IEvents[] implementedEvents() {
         return null;
     }
 }

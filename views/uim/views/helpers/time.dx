@@ -388,7 +388,7 @@ class TimeHelper : Helper {
     /**
      * Event listeners.
      */
-    IData[string] implementedEvents() {
+    IEvents[] implementedEvents() {
         return null;
     }
 }

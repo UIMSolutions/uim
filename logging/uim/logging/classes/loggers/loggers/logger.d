@@ -38,16 +38,16 @@ abstract class Logger /* : AbstractLogger */ {
     this(IData[string] configData = null) {
         configuration.update(configData);
 
-        if (!configuration.data("scopes").isNull) {
-           configuration.data("scopes", configuration.data("scopes").toArray);
+        if (!configuration["scopes").isNull) {
+           configuration["scopes", configuration["scopes").toArray);
         }
-        configuration.data("levels", configuration.data("levels").toArray);
+        configuration["levels", configuration["levels").toArray);
 
-        if (!configuration.data("types").isEmpty && configuration.data("levels").isEmpty) {
-           configuration.data("levels", configuration.data("types").toArray);
+        if (!configuration["types").isEmpty && configuration["levels").isEmpty) {
+           configuration["levels", configuration["types").toArray);
         }
 
-        auto formatter = hasconfiguration.data("formatter") ? configuration.data("formatter") : DefaultFormatter.classname;
+        auto formatter = hasconfiguration["formatter") ? configuration["formatter") : DefaultFormatter.classname;
         if (!isObject(formatter)) {
             if (isArray(formatter)) {
                 className = formatter["className"];
@@ -64,13 +64,13 @@ abstract class Logger /* : AbstractLogger */ {
     // Get the levels this logger is interested in.
     string[] levels() {
         // TODO
-        return null; //return configuration.data("levels");
+        return null; //return configuration["levels");
     }
     
     // Get the scopes this logger is interested in.
     string[] scopes() {
         // TODO
-        return null; //return configuration.data("scopes");
+        return null; //return configuration["scopes");
     }
     
     /**

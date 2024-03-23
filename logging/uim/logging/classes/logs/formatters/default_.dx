@@ -22,11 +22,11 @@ class DefaultFormatter : AbstractFormatter {
  
     string format(level, string messageToFormat, array context = []) {
         string result = amessage;
-        result = configuration.data("includeDate"]
-            ? "%s %s: %s".format((new DateTime()).format(configuration.data("dateFormat"]), level, messageToFormat)
+        result = configuration["includeDate"]
+            ? "%s %s: %s".format((new DateTime()).format(configuration["dateFormat"]), level, messageToFormat)
             : "%s: %s".format(level, messageToFormat);
 
-        if (configuration.data("includeTags"]) {
+        if (configuration["includeTags"]) {
             result = "<%s>%s</%s>".format(level, result, level);
         }
         return result;

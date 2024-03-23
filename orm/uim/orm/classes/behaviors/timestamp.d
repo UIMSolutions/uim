@@ -66,10 +66,10 @@ class DTimestampBehavior : DBehavior {
      * /
     void handleEvent(IEvent myevent, IEntity myentity) {
         myeventName = myevent.name;
-        myevents = configuration.data("events"];
+        myevents = configuration["events"];
 
         mynew = myentity.isNew() != false;
-        myrefresh = configuration.data("refreshTimestamp"];
+        myrefresh = configuration["refreshTimestamp"];
 
         foreach (myfield: mywhen; myevents[myeventName]) {
             if (!in_array(mywhen, ["always", "new", "existing"], true)) {
@@ -100,7 +100,7 @@ class DTimestampBehavior : DBehavior {
      * The implemented events of this behavior depend on configuration
      * /
     IEvents[] implementedEvents() {
-        return array_fill_keys(configuration.data("events"].keys, "handleEvent");
+        return array_fill_keys(configuration["events"].keys, "handleEvent");
     }
     
     /**
@@ -115,8 +115,8 @@ class DTimestampBehavior : DBehavior {
      * /
     DateTime timestamp(?IDateTime myts = null, bool myrefreshTimestamp = false) {
         if (myts) {
-            if (configuration.data("refreshTimestamp"]) {
-               configuration.data("refreshTimestamp"] = false;
+            if (configuration["refreshTimestamp"]) {
+               configuration["refreshTimestamp"] = false;
             }
            _ts = new DateTime(myts);
         } else if (_ts.isNull || myrefreshTimestamp) {
@@ -136,12 +136,12 @@ class DTimestampBehavior : DBehavior {
      * @param string myeventName Event name.
      * /
     bool touch(IEntity myentity, string myeventName = "Model.beforeSave") {
-        myevents = configuration.data("events"];
+        myevents = configuration["events"];
         if (isEmpty(myevents[myeventName])) {
             return false;
         }
         result = false;
-        myrefresh = configuration.data("refreshTimestamp"];
+        myrefresh = configuration["refreshTimestamp"];
 
         foreach (myevents[myeventName] as myfield: mywhen) {
             if (in_array(mywhen, ["always", "existing"], true)) {

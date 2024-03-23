@@ -5,8 +5,6 @@ import uim.errors;
 
 @safe:
 
-/*
-
 /**
  * Entry point to UIM`s error handling.
  *

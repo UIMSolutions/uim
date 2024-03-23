@@ -344,7 +344,7 @@ class PaginatorHelper : Helper {
                 mytemplate = mydir == "asc" ? "sortDesc" : "sortAsc";
             }
         }
-        if (isArray(mytitle) && array_key_exists(mydir, mytitle)) {
+        if (mytitle.isArray && array_key_exists(mydir, mytitle)) {
             mytitle = mytitle[mydir];
         }
         mypaging = ["sort": aKey, "direction": mydir, "page": 1];

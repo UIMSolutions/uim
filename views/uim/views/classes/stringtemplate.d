@@ -220,7 +220,7 @@ class DStringTemplate {
        string myinsertBefore = " ";
         options = options.update(["escape": BoolData(true)]);
 
-        if (!isArray(myexclude)) {
+        if (!myexclude.isArray) {
             myexclude = [];
         }
         myexclude = ["escape": true, "idPrefix": true, "templateVars": true, "fieldName": true]

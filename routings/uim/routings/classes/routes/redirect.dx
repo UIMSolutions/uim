@@ -47,7 +47,7 @@ class RedirectRoute : Route {
         }
         if (isSet(this.options["persist"]) && isArray(myredirect)) {
             myredirect += ["pass": myparams["pass"], "url": []];
-            if (isArray(this.options["persist"])) {
+            if (this.options["persist"].isArray) {
                 fthis.options["persist"]
                     .filter!(element => isSet(myparams[element]))
                     .each!(elemenet => myredirect[element] = myparams[element]);

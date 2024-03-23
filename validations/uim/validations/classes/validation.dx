@@ -412,12 +412,14 @@ class Validation {
         if (mydateFormat == DATETIME_ISO8601 && !iso8601(valueToCheck)) {
             return false;
         }
-        myvalid = false;
-        if (isArray(valueToCheck)) {
+        
+        auto myvalid = false;
+        if (valueToCheck.isArray) {
             valueToCheck = _getDateString(valueToCheck);
             mydateFormat = "ymd";
         }
-        myparts = preg_split("/[\sT]+/", valueToCheck);
+        
+        auto myparts = preg_split("/[\sT]+/", valueToCheck);
         if (myparts && count(myparts) > 1) {
             mydate = rtrim(array_shift(myparts), ",");
             mytime = join(" ", myparts);
@@ -1333,11 +1335,9 @@ class Validation {
         return (bool)preg_match("/^-?[0-9]+my/", myvalue);
     }
     
-    /**
-     * Check that the input value is an array.
-     * /
+    // Check that the input value is an array.
     static bool isArray(Json valueToCheck) {
-        return isArray(valueToCheck);
+        return valueToCheck.isArray;
     }
     
     /**

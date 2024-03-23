@@ -421,7 +421,7 @@ class HtmlHelper : Helper {
         ];
         htmlAtributes += mydefaults;
 
-        if (isArray(myurl)) {
+        if (myurl.isArray) {
             string result = myurl.map!(i => "\n\t" ~ (string)this.script(myi, htmlAtributes)).join;
             if (isEmpty(htmlAtributes["block"])) {
                 return result ~ "\n";

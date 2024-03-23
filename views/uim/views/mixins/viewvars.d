@@ -57,7 +57,7 @@ trait ViewVarsTrait {
      * /
     void set(string[] views, Json aValue = null) {
         if (views.isArray) {
-            if (isArray(myvalue)) {
+            if (myvalue.isArray) {
                 mydata = array_combine(views, myvalue);
             } else {
                 mydata = views;

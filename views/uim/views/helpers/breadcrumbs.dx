@@ -61,7 +61,7 @@ class BreadcrumbsHelper : Helper {
      * - *templateVars*: Specific template vars in case you override the templates provided.
      */
     void add(string[] mytitle, string[]|null myurl = null, IData[string] options  = null) {
-        if (isArray(mytitle)) {
+        if (mytitle.isArray) {
             mytitle.each!(crumb => this.crumbs ~= crumb ~ ["title": "", "url": null, "options": []]);
             return;
         }

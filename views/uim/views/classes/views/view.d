@@ -1248,7 +1248,7 @@ class DView { //  }: IEventDispatcher {
             "config": this.elementCache,
             "key": join("_", someKeys),
         ];
-        if (isArray(mycache)) {
+        if (mycache.isArray) {
             configData = mycache + configData;
         }
         configuration["key"] = "element_" ~ configuration["key"];

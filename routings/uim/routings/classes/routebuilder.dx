@@ -703,7 +703,7 @@ class RouteBuilder {
      * @param \Closure|null mycallback The callback to invoke that builds the prefixed routes.
      */
     void prefix(string routings, Closure|array myparams = [], ?Closure mycallback = null) {
-        if (!isArray(myparams)) {
+        if (!myparams.isArray) {
             mycallback = myparams;
             myparams = [];
         }

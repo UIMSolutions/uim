@@ -411,14 +411,14 @@ class FormHelper : Helper {
      * @param IData[string] options An array of options from create()
      */
     protected string[] _formUrl(IContext formContext, IData[string] options) {
-        myrequest = _View.getRequest();
+        auto myrequest = _View.getRequest();
 
-        if (options["url"].isNull) {
+        if (options.isNull("url")) {
             return myrequest.getRequestTarget();
         }
         if (
             isString(options["url"]) ||
-            (isArray(options["url"]) &&
+            (options["url"].isArray &&
             isSet(options["url"]["_name"]))
         ) {
             return options["url"];

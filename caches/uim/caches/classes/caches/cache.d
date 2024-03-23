@@ -45,7 +45,7 @@ import uim.caches;
  *
  * @see config/app.d for configuration settings
  */
-class Cache {
+class DCache : ICache {
     // use StaticConfigTrait;
 
     // An array mapping URL schemes to fully qualified caching engine class names.

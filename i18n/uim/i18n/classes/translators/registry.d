@@ -8,12 +8,14 @@ import uim.i18n;
  * Constructs and stores instances of translators that can be
  * retrieved by name and locale.
  */
-class DTranslatorRegistry {
+class DTranslatorRegistry : DObjectRegistry!DTranslator {
+    static DTranslatorRegistry registry;
+  
     // Fallback loader name.
     const string FALLBACK_LOADER = "_fallback";
 
     // A registry to retain translator objects.
-    protected ITranslator[string][string] registry = null;
+    // TODO protected ITranslator[string][string] registry = null;
 
     // The current locale code.
     protected string _localeName = null;
@@ -230,3 +232,9 @@ class DTranslatorRegistry {
         };
     } */
 }
+  auto TranslatorRegistry() { // Singleton
+    if (!DTranslatorRegistry.registry) {
+      DTranslatorRegistry.registry = new DTranslatorRegistry;
+    }
+    return DTranslatorRegistry.registry;
+  }

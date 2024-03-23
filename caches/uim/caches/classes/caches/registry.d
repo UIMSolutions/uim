@@ -11,7 +11,9 @@ import uim.caches;
  *
  * @extends \UIM\Core\ObjectRegistry<\UIM\Cache\CacheEngine>
  */
-class DCacheRegistry {
+class DCacheRegistry : DObjectRegistry!DCache {
+    static DCacheRegistry registry;
+
   /*
 }: ObjectRegistry {
   // Resolve a cache engine classname.
@@ -56,10 +58,11 @@ class DCacheRegistry {
       );
     }
     return result;
-  } * / 
-
-  // Remove a single adapter from the registry.
-  void unload(string adapterName) {
-    _loaded.remove(adapterName);
-  } */
+  } */ 
+}
+auto CacheRegistry() { // Singleton
+  if (!DCacheRegistry.registry) {
+    DCacheRegistry.registry = new DCacheRegistry;
+  }
+  return DCacheRegistry.registry;
 }

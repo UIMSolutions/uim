@@ -8,6 +8,10 @@ module uim.oop.registries;
 import uim.oop;
 @safe:
 
+public {
+  import uim.oop.registries.registry;
+}
+
 
 /* class DOOPObjclassRegistry : DRegistry!DOOPObjclass {
   static DOOPObjclassRegistry registry;

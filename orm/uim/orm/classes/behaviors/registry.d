@@ -17,7 +17,11 @@ import uim.orm;
  *
  * @: DORMCore\ObjectRegistry<DORMBehavior>
  */
-class BehaviorRegistry { // }: ObjectRegistry, IEventDispatcher {
+class DBehaviorRegistry : DObjectRegistry!DBehavior {
+    static DBehaviorRegistry registry;
+
+
+    // }: ObjectRegistry, IEventDispatcher {
     /* 
     use EventDispatcherTrait;
 
@@ -80,7 +84,7 @@ class BehaviorRegistry { // }: ObjectRegistry, IEventDispatcher {
      * Throws an exception when a behavior is missing.
      *
      * Part of the template method for Cake\Core\ObjectRegistry::load()
-     * and Cake\Core\ObjectRegistry::unload()
+     * and Cake\Core\ObjectRegistry::remove()
      *
      * aClassName - The classname that is missing.
      * @param string|null plugin The plugin the behavior is missing in.
@@ -239,3 +243,9 @@ class BehaviorRegistry { // }: ObjectRegistry, IEventDispatcher {
         );
     } */
 }
+  auto BehaviorRegistry() { // Singleton
+    if (!DBehaviorRegistry.registry) {
+      DBehaviorRegistry.registry = new DBehaviorRegistry;
+    }
+    return DBehaviorRegistry.registry;
+  }

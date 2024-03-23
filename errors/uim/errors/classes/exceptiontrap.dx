@@ -212,7 +212,7 @@ class ExceptionTrap {
         if (this.disabled) {
             return;
         }
-        megabytes = configuration.data("extraFatalErrorMemory"] ?? 4;
+        megabytes = configuration["extraFatalErrorMemory"] ?? 4;
         if (megabytes > 0) {
             this.increaseMemoryLimit(megabytes * 1024);
         }
@@ -288,7 +288,7 @@ class ExceptionTrap {
      * @param \Psr\Http\Message\IServerRequest|null serverRequest The optional request
      */
     void logException(Throwable anException, ?IServerRequest serverRequest = null) {
-        shouldLog = configuration.data("log"];
+        shouldLog = configuration["log"];
         if (shouldLog) {
             foreach (_configData.isSet("skipLog") as  className) {
                 if (cast(className)anException) {
@@ -298,7 +298,7 @@ class ExceptionTrap {
             }
         }
         if (shouldLog) {
-            this.logger().logException(anException, serverRequest, configuration.data("trace"]);
+            this.logger().logException(anException, serverRequest, configuration["trace"]);
         }
     }
     

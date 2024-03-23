@@ -64,7 +64,7 @@ class ErrorTrap {
      * via error_reporting().
      */
     void register() {
-        level = configuration.data("errorLevel"] ?? -1;
+        level = configuration["errorLevel"] ?? -1;
         error_reporting(level);
         set_error_handler(this.handleError(...), level);
     }
@@ -134,10 +134,10 @@ class ErrorTrap {
      * \UIM\Error\UimError error The error object to log.
      */
     protected void logError(UimError error) {
-        if (!configuration.data("log")) {
+        if (!configuration["log")) {
             return;
         }
-        this.logger().logError(error, Router.getRequest(), configuration.data("trace"]);
+        this.logger().logError(error, Router.getRequest(), configuration["trace"]);
     }
     
     /**
@@ -151,7 +151,7 @@ class ErrorTrap {
     
     // Get an instance of the logger.
     IErrorLogger logger() {
-        string className = configData.get("logger", defaultConfiguration.data("logger"));
+        string className = configData.get("logger", defaultconfiguration["logger"));
         return new className(_config);
     }
 }

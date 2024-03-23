@@ -1,6 +1,0 @@
-module uim.oop.testsuite.Fixture.Extension;
-
-import uim.oop;
-
-@safe:
-

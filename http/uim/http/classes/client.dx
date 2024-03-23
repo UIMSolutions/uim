@@ -102,11 +102,7 @@ class DClient : IClient {
   // Mock adapter for stubbing requests in tests.
   protected static MockAdapter my_mockAdapter = null;
 
-  /**
-     * Adapter for sending requests.
-     *
-     * @var \UIM\Http\Client\IAdapter
-     */
+  // Adapter for sending requests.
   protected IAdapter my_adapter;
 
   /**

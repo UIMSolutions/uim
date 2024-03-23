@@ -14,6 +14,16 @@ class DJsonConfiguration : DConfiguration {
 
         return true;
     }
+
+    // #region defaultData
+        override void setDefault(string key, IData newData) {
+            // TODO
+        }
+
+        override void updateDefaults(IData[string] newData) {
+            // TODO
+        }
+    // #endregion defaultData
 }
 
 mixin(ConfigurationCalls!("Json"));

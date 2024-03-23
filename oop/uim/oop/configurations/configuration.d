@@ -17,7 +17,15 @@ abstract class DConfiguration : IConfiguration {
 	}
 
     mixin(TProperty!("string", "name"));
-    
+
+    // #region defaultData
+        protected IData[string] _defaultData;
+
+        abstract void setDefault(string key, IData newData); 
+
+        abstract void updateDefaults(IData[string] newData); 
+    // #endregion defaultData
+
     IData[string] data() {
         return null;
     }
@@ -65,6 +73,14 @@ abstract class DConfiguration : IConfiguration {
         return false;
     }
 
+    IData opIndex(string[] path) {
+        return get(path.join("/"));
+    }
+
+    IData opIndex(string path) {
+        return get(path);
+    }
+
     IData get(string key) {
         return null;
     }
@@ -73,14 +89,21 @@ abstract class DConfiguration : IConfiguration {
         return null; 
     }
 
-    void set(string key, IData newData) {
+    void set(string[] path, IData newData) {
+        set(path.join("/"), newData);
+    }
 
+    void set(string path, IData newData) {
     }
 
     void set(string[] keys, IData[string] newData) {
 
     }
 
+    void opIndexAssign(IData data, string path) {
+        set(path, data);
+    }
+    
     void update(IData[string] newData) {
 
     }

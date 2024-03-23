@@ -10,5 +10,6 @@ public { // Modules
     import uim.oop.configurations.json;
     import uim.oop.configurations.memory;
     import uim.oop.configurations.mixin_;
+    import uim.oop.configurations.xml;
     import uim.oop.configurations.yaml;
 }

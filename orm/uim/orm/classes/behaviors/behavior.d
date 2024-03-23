@@ -109,6 +109,8 @@ class DBehavior { // }: IEventListener {
         return true;
     }
 
+    mixin(TProperty!("string", "name"));
+
     /*
     mixin InstanceConfigTemplate;
 

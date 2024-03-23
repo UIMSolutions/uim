@@ -1,20 +1,19 @@
-module uim.oop.configurations.file;
+module uim.oop.configurations.xml;
 
 import uim.oop;
-
 @safe:
 
-class DFileConfiguration : DConfiguration {
-    mixin(ConfigurationThis!("File"));
+class DXmlConfiguration : DFileConfiguration {
+    mixin(ConfigurationThis!("Xml"));
 
     override bool initialize(IData[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
-        
+
         return true;
     }
-
+    
     // #region defaultData
         override void setDefault(string key, IData newData) {
             // TODO
@@ -25,5 +24,4 @@ class DFileConfiguration : DConfiguration {
         }
     // #endregion defaultData
 }
-
-mixin(ConfigurationCalls!("File"));
+mixin(ConfigurationCalls!("Xml"));

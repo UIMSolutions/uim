@@ -15,39 +15,53 @@ class DMemoryConfiguration : DConfiguration {
         return true;
     }
 
-    protected IData[string] _data;
+    // #region defaultData
+        protected IData[string] _defaultData;
 
-    override IData[string] data() {
-        return _data;
-    }
+        override void setDefault(string key, IData newData) {
+            _defaultData[key] = newData;
+        }
 
-    override void data(IData[string] newData) {
-        _data = newData;
-    }
+        override void updateDefaults(IData[string] newData) {
+            newData.byKeyValue
+                .each!(kv => setDefault(kv.key, kv.value));
+        }
+    // #endregion defaultData
 
-    alias hasAnyKeys = DConfiguration.hasAnyKeys;
-    override bool hasAnyKeys(string[] keys) {
-        return keys.any!(key => hasKey(key));
-    }
+    // #region Data
+        protected IData[string] _data;
 
-    alias hasAllKeys = DConfiguration.hasAllKeys;
-    override bool hasAllKeys(string[] keys) {
-        return keys.all!(key => hasKey(key));
-    }
+        override IData[string] data() {
+            return _data;
+        }
+        override void data(IData[string] newData) {
+            _data = newData;
+        }
 
-    override bool hasKey(string key) {
-        return key in _data ? true : false;
-    }
+        alias hasAnyKeys = DConfiguration.hasAnyKeys;
+        override bool hasAnyKeys(string[] keys) {
+            return keys.any!(key => hasKey(key));
+        }
 
-    alias hasAnyValues = DConfiguration.hasAnyValues;
-    override bool hasAnyValues(string[] values) {
-        return values.any!(value => hasValue(value));
-    }
+        alias hasAllKeys = DConfiguration.hasAllKeys;
+        override bool hasAllKeys(string[] keys) {
+            return keys.all!(key => hasKey(key));
+        }
 
-    alias hasAllValues = DConfiguration.hasAllValues;
-    override bool hasAllValues(string[] values) {
-        return values.all!(value => hasValue(value));
-    }
+        override bool hasKey(string key) {
+            return key in _data ? true : false;
+        }
+
+        alias hasAnyValues = DConfiguration.hasAnyValues;
+        override bool hasAnyValues(string[] values) {
+            return values.any!(value => hasValue(value));
+        }
+
+        alias hasAllValues = DConfiguration.hasAllValues;
+        override bool hasAllValues(string[] values) {
+            return values.all!(value => hasValue(value));
+        }
+    // #region Data
 
     override bool hasValue(string value) {
         return _data.byKeyValue
@@ -70,8 +84,8 @@ class DMemoryConfiguration : DConfiguration {
         return results;
     }
 
-    override IData get(string key) {
-        return _data.get(key, null);
+    override IData get(string path) {
+        return _data.get(path, _defaultData.get(path, null));
     }
 
     override void set(string[] keys, IData[string] newData) {
@@ -87,6 +101,7 @@ class DMemoryConfiguration : DConfiguration {
         newData.byKeyValue
             .each!(kv => set(kv.key, kv.value));
     }
+
 
     override void remove(string[] keys) {
         keys.each!(key => _data.remove(key));

@@ -84,7 +84,7 @@ class TextHelper : Helper {
         );
          Generic.Files.LineLength
         if (options["escape"]) {
-            mytext = h(mytext);
+            mytext = htmlAllEscape(mytext);
         }
         return _linkUrls(mytext, options);
     }
@@ -170,7 +170,7 @@ class TextHelper : Helper {
             mytext
         );
         if (options["escape"]) {
-            mytext = h(mytext);
+            mytext = htmlAllEscape(mytext);
         }
         return _linkEmails(mytext, options);
     }

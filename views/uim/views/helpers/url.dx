@@ -101,7 +101,7 @@ class UrlHelper : Helper {
     string image(string mypath, IData[string] options  = null) {
         options += ["theme": _View.getTheme()];
 
-        return h(_assetUrlClassName.imageUrl(mypath, options));
+        return htmlAllEscape(_assetUrlClassName.imageUrl(mypath, options));
     }
     
     /**
@@ -124,7 +124,7 @@ class UrlHelper : Helper {
     string css(string mypath, IData[string] options  = null) {
         options += ["theme": _View.getTheme()];
 
-        return h(_assetUrlClassName.cssUrl(mypath, options));
+        return htmlAllEscape(_assetUrlClassName.cssUrl(mypath, options));
     }
     
     /**
@@ -147,7 +147,7 @@ class UrlHelper : Helper {
     string script(string mypath, IData[string] options  = null) {
         options += ["theme": _View.getTheme()];
 
-        return h(_assetUrlClassName.scriptUrl(mypath, options));
+        return htmlAllEscape(_assetUrlClassName.scriptUrl(mypath, options));
     }
     
     /**
@@ -174,7 +174,7 @@ class UrlHelper : Helper {
     string assetUrl(string mypath, IData[string] options  = null) {
         options += ["theme": _View.getTheme()];
 
-        return h(_assetUrlClassName.url(mypath, options));
+        return htmlAllEscape(_assetUrlClassName.url(mypath, options));
     }
     
     /**
@@ -186,7 +186,7 @@ class UrlHelper : Helper {
      * @param string|bool mytimestamp If set will overrule the value of `Asset.timestamp` in Configure.
      */
     string assetTimestamp(string mypath, string|bool|null mytimestamp = null) {
-        return h(_assetUrlClassName.assetTimestamp(mypath, mytimestamp));
+        return htmlAllEscape(_assetUrlClassName.assetTimestamp(mypath, mytimestamp));
     }
     
     /**
@@ -197,7 +197,7 @@ class UrlHelper : Helper {
     string webroot(string myfile) {
         options = ["theme": _View.getTheme()];
 
-        return h(_assetUrlClassName.webroot(myfile, options));
+        return htmlAllEscape(_assetUrlClassName.webroot(myfile, options));
     }
     
     /**

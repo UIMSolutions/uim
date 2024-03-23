@@ -215,7 +215,7 @@ class HtmlHelper : Helper {
         } else {
             myurl = this.Url.build(mytitle);
             mytitle = htmlspecialchars_decode(myurl, ENT_QUOTES);
-            mytitle = h(urldecode(mytitle));
+            mytitle = htmlAllEscape(urldecode(mytitle));
             myescapeTitle = false;
         }
         if (isSet(htmlAtributes["escapeTitle"])) {
@@ -225,7 +225,7 @@ class HtmlHelper : Helper {
             myescapeTitle = htmlAtributes["escape"];
         }
         if (myescapeTitle == true) {
-            mytitle = h(mytitle);
+            mytitle = htmlAllEscape(mytitle);
         } elseif (isString(myescapeTitle)) {
             /** @psalm-suppress PossiblyInvalidArgument */
             mytitle = htmlentities(mytitle, ENT_QUOTES, myescapeTitle);
@@ -240,7 +240,7 @@ class HtmlHelper : Helper {
             myconfirm = _confirm("return true;", "return false;");
             htmlAtributes["data-confirm-message"] = myconfirmMessage;
             htmlAtributes["onclick"] = mytemplater.format("confirmJs", [
-                "confirmMessage": h(myconfirmMessage),
+                "confirmMessage": htmlAllEscape(myconfirmMessage),
                 "confirm": myconfirm,
             ]);
         }
@@ -748,7 +748,7 @@ class HtmlHelper : Helper {
      */
     string tag(string views, string mytext = null, IData[string] htmlAtributes = null) {
         if (isSet(htmlAtributes["escape"]) && htmlAtributes["escape"]) {
-            mytext = h(mytext);
+            mytext = htmlAllEscape(mytext);
             unset(htmlAtributes["escape"]);
         }
 
@@ -793,7 +793,7 @@ class HtmlHelper : Helper {
      */
     string para(string myclass, string mytext, IData[string] htmlAtributes = null) {
         if (!empty(htmlAtributes["escape"])) {
-            mytext = h(mytext);
+            mytext = htmlAllEscape(mytext);
         }
         if (myclass) {
             htmlAtributes["class"] = myclass;

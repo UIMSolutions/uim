@@ -45,7 +45,7 @@ class NumberHelper : Helper {
         auto formattedNumber = Number.format(mynumber, options);
         auto options += ["escape": true];
 
-        return options["escape"] ? h(formattedNumber) : formattedNumber;
+        return options["escape"] ? htmlAllEscape(formattedNumber) : formattedNumber;
     }
     
     /**
@@ -75,7 +75,7 @@ class NumberHelper : Helper {
         auto formattedCurrency = Number.currency(mynumber, mycurrency, options);
         auto options += ["escape": true];
 
-        return options["escape"] ? h(formattedCurrency) : formattedCurrency;
+        return options["escape"] ? htmlAllEscape(formattedCurrency) : formattedCurrency;
     }
     
     /**
@@ -97,7 +97,7 @@ class NumberHelper : Helper {
         myformatted = Number.formatDelta(myvalue, options);
         options += ["escape": true];
 
-        return options["escape"] ? h(myformatted): myformatted;
+        return options["escape"] ? htmlAllEscape(myformatted): myformatted;
     }
 
     // Event listeners.

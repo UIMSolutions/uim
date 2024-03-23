@@ -171,7 +171,7 @@ class DMultiCheckboxWidget : DWidget {
     protected string _renderInput(array mycheckbox, IContext mycontext) {
         myinput = _stringTemplate.format("checkbox", [
             "name": mycheckbox["name"] ~ "[]",
-            "value": mycheckbox["escape"] ? h(mycheckbox["value"]): mycheckbox["value"],
+            "value": mycheckbox["escape"] ? htmlAllEscape(mycheckbox["value"]): mycheckbox["value"],
             "templateVars": mycheckbox["templateVars"],
             "attrs": _stringTemplate.formatAttributes(
                 mycheckbox,

@@ -20,7 +20,7 @@ class RuleInvoker
      * The rule name
      *
      */
-    protected Nullable!string name;
+    protected string name;
 
     /**
      * Rule options
@@ -49,10 +49,10 @@ class RuleInvoker
      * rule scope.
      *
      * @param callable rule The rule to be invoked.
-     * @param Nullable!string aName The name of the rule. Used in error messages.
+     * @param string aName The name of the rule. Used in error messages.
      * @param array<string, mixed> options The options for the rule. See above.
      */
-    this(callable rule, Nullable!string aName, STRINGAA someOptions = null) {
+    this(callable rule, string aName, STRINGAA someOptions = null) {
         this.rule = rule;
         this.name = name;
         this.options = options;
@@ -80,7 +80,7 @@ class RuleInvoker
      * @param string|null name The name to set.
      * @return this
      */
-    function setName(Nullable!string aName) {
+    function setName(string aName) {
         if (name) {
             this.name = name;
         }

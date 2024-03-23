@@ -18,7 +18,7 @@ class DDSConnectionRegistry : ObjectRegistry {
      * @param string myClass Partial classname to resolve.
      * @return string|null Either the correct class name or null.
      */
-    /* protected Nullable!string _resolveClassName(string myClass) {
+    /* protected string _resolveClassName(string myClass) {
         return App::className(myClass, "Datasource");
     } */
 

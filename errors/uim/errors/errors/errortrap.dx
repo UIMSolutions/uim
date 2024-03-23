@@ -103,7 +103,7 @@ class ErrorTrap
     bool handleError(
         int code,
         string description,
-        Nullable!string file = null,
+        string file = null,
         Nullable!int line = null
     ) {
         if (!(error_reporting() & code)) {

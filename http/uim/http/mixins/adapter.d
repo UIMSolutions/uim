@@ -3,8 +3,8 @@ module uim.http.mixins.adapter;
 string adapterThis(string name) {
     auto fullname = name~"Adapter";
     return `
-this() {
-    initialize(); this.name("`~fullname~`");
+this(IData[string] initData = null) {
+    initialize(initData); this.name("`~fullname~`");
 }
 this(string name) {
     this(); this.name(name);

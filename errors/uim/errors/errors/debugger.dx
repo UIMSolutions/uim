@@ -174,7 +174,7 @@ class Debugger
      * @param string|null aClassName Class name.
      * @return static
      */
-    static function getInstance(Nullable!string aClassName = null) {
+    static function getInstance(string aClassName = null) {
         static instance = null;
         if (!empty(aClassName)) {
             if (!instance || strtolower(aClassName) != strtolower(get_class(instance[0]))) {

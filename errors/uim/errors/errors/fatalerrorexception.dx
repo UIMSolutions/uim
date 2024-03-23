@@ -19,7 +19,7 @@ class FatalErrorException : UIMException {
     this(
         string message,
         Nullable!int code = null,
-        Nullable!string file = null,
+        string file = null,
         Nullable!int line = null,
         ?Throwable previous = null
     ) {

@@ -14,15 +14,6 @@ import uim.views;
 class DButtonWidget : DWidget {
     mixin(WidgetThis!("Button"));
 
-    /* 
-    // StringTemplate instance.
-    protected StringTemplate _stringTemplate;
-
-    /**
-     * Constructor.
-     * Params:
-     * \UIM\View\StringTemplate mytemplates Templates list.
-     * /
     this(DStringTemplate mytemplates) {
        _stringTemplate = mytemplates;
     }
@@ -39,20 +30,20 @@ class DButtonWidget : DWidget {
      * - `type` The button type defaults to "submit".
      *
      * Any other keys provided in mydata will be converted into HTML attributes.
-     * /
+     */
     string render(IData[string] renderData, IContext formContext) {
-        buildData.update([
+        auto buildData = renderData.update([
             "text": StringData(""),
             "type": StringData("submit"),
-            "escapeTitle": BoolData(true),
-            "escape": BoolData(true),
+            "escapeTitle": BooleanData(true),
+            "escape": BooleanData(true),
             "templateVars": ArrayData(),
         ]);
 
         return _stringTemplate.format("button", [
-                "text": buildData["escapeTitle"] ? h(buildData["text"]): buildData["text"],
-                "templateVars": buildData["templateVars"],
-                "attrs": _stringTemplate.formatAttributes(buildData, ["text", "escapeTitle"]),
+                "text": !buildData.isEmpty("escapeTitle") ? h(buildData.getString("text") : buildData.getString("text"),
+                "templateVars": buildData.getStringArray("templateVars"),
+                "attrs": _stringTemplate.formatAttributes(buildData.getStringMap("text", "escapeTitle")),
             ]);
     }
     */

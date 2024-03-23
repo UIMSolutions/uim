@@ -11,7 +11,7 @@ import uim.views;
  * it but can be used to generate standalone select boxes.
  */
 class DSelectBoxWidget : DWidget {
-        mixin(WidgetThis!("SelectBox"));
+    mixin(WidgetThis!("SelectBox"));
 
     /* 
     protected IData[string] _defaultData = [

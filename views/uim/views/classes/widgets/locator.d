@@ -1,6 +1,6 @@
-module uim.widgetName.classes.widgets.locator;
+module uim.views.classes.widgets.locator;
 
-import uim.widgetName;
+import uim.views;
 
 @safe:
 

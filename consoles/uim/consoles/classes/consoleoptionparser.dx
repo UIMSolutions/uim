@@ -623,12 +623,12 @@ class ConsoleOptionParser {
      * @param array someArguments The array of parsed args to append to.
      */
     protected string[] _parseArg(string argumentToAppend, array someArguments) {
-        if (isEmpty(_args)) {
+        if (_args.isEmpty) {
             someArguments ~= argumentToAppend;
-
             return someArguments;
         }
-        next = count(someArguments);
+
+        auto next = count(someArguments);
         if (!isSet(_args[next])) {
             expected = count(_args);
             throw new ConsoleException(

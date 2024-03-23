@@ -61,7 +61,7 @@ IData toData(Json value) {
     // TODO
 }
 
-string getString(IData[string]data, string key, string fallback = null) {
+string getString(IData[string] data, string key, string fallback = null) {
     if (auto mydata = data.get(key, null)) { 
         return mydata.toString; 
     }
@@ -69,7 +69,7 @@ string getString(IData[string]data, string key, string fallback = null) {
     return fallback;
 }
 
-int getInteger(IData[string]data, string key, int fallback = 0) {
+int getInteger(IData[string] data, string key, int fallback = 0) {
     if (auto mydata = data.get(key, null)) { 
         return mydata.toInteger; 
     }
@@ -77,10 +77,32 @@ int getInteger(IData[string]data, string key, int fallback = 0) {
     return fallback;
 }
 
-long getLong(IData[string]data, string key, long fallback = 0) {
+long getLong(IData[string] data, string key, long fallback = 0) {
     if (auto mydata = data.get(key, null)) { 
         return mydata.toLong; 
     }
 
     return fallback;
+}
+
+string getStringArray(IData[] data) {
+    return data.map!(d => d.toString).array;
+}
+
+string getStringArray(IData[string] data, string[] keys) {
+    string[] results;
+    keys
+        .filter!(key => key in data)
+        .each!(key => results ~= data[key].toString);
+
+    return results;
+}
+
+STRINGAA getStringMap(IData[string] data, string[] keys) {
+    STRINGAA results;
+    keys
+        .filter!(key => key in data)
+        .each!(key => results[key] = data[key].toString);
+
+    return results;
 }

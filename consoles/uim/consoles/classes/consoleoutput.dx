@@ -191,7 +191,7 @@ class ConsoleOutput {
      */
     protected string _replaceTags(STRINGAA matchesToReplace) {
         style = this.getStyle(matchesToReplace["tag"]);
-        if (isEmpty(style)) {
+        if (style.isEmpty) {
             return "<" ~ matchesToReplace["tag"] ~ ">" ~ matchesToReplace["text"] ~ "</" ~ matchesToReplace["tag"] ~ ">";
         }
         styleInfo = [];

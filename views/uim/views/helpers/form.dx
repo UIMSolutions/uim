@@ -218,18 +218,18 @@ class FormHelper : Helper {
         mywidgets = _defaultWidgets;
         if (isSet(configuration["locator"])) {
             mylocator = configuration["locator"];
-            unset(configuration["locator"]);
+            configuration.remove("locator");
         }
         if (isSet(configuration["widgets"])) {
             if (isString(configuration["widgets"])) {
                 configuration["widgets"] = (array)configuration["widgets"];
             }
             mywidgets = configuration["widgets"] + mywidgets;
-            unset(configuration["widgets"]);
+            configuration.remove("widgets");
         }
         if (isSet(configuration["groupedInputTypes"])) {
            _groupedInputTypes = configuration["groupedInputTypes"];
-            unset(configuration["groupedInputTypes"]);
+            configuration.remove("groupedInputTypes");
         }
         super(myview, configData);
 
@@ -639,7 +639,7 @@ class FormHelper : Helper {
         }
         if (options["escape"]) {
             myerror = h(myerror);
-            unset(options.remove("escape");
+            options.remove("escape");
         }
         if (isArray(myerror)) {
             if (count(myerror) > 1) {
@@ -1539,7 +1539,7 @@ class FormHelper : Helper {
         options["text"] = mytitle;
 
         myconfirmMessage = options["confirm"];
-        unset(options["confirm"]);
+        options.remove("confirm");
         if (myconfirmMessage) {
             myconfirm = _confirm("return true;", "return false;");
             options["data-confirm-message"] = myconfirmMessage;

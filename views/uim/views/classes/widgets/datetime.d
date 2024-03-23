@@ -14,9 +14,6 @@ class DDateTimeWidget : DWidget {
     mixin(WidgetThis!("DateTime"));
 
     /* 
-    // Template instance.
-    protected StringTemplate _stringTemplate;
-
     // Data defaults
     protected IData[string] _defaultData = [
         "name": "",

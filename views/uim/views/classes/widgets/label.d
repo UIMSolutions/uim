@@ -17,9 +17,6 @@ class DLabelWidget : DWidget {
     protected string _labelTemplate = "label";
 
     /* 
-    protected StringTemplate _stringTemplate;
-
-
     /**
      * Constructor.
      *

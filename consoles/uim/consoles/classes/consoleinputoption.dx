@@ -188,7 +188,7 @@ class ConsoleInputOption {
      * string|bool aValue The choice to validate.
      */
     bool validChoice(string|bool aValue) {
-        if (isEmpty(_choices)) {
+        if (_choices.isEmpty) {
             return true;
         }
         if (!in_array(aValue, _choices, true)) {

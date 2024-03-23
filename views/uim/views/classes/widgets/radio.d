@@ -80,7 +80,7 @@ class DRadioWidget : DWidget {
             myempty = mydata["empty"] == true ? "empty" : mydata["empty"];
             options = ["": myempty] + options;
         }
-        unset(mydata["empty"]);
+        mydata.remove("empty");
 
        _idPrefix = mydata["idPrefix"];
        _clearIds();

@@ -81,7 +81,9 @@ class DDateTimeWidget : DWidget {
         mydata = this.setStep(mydata, mycontext, mydata["fieldName"] ?? "");
 
         mydata["value"] = this.formatDateTime(mydata["val"] == true ? new DateTimeImmutable(): mydata["val"], mydata);
-        unset(mydata["val"], mydata["timezone"], mydata["format"]);
+        mydata.remove("val");
+        mydata.remove("timezone");
+        mydata.remove("format");
 
         return _stringTemplate.format("input", [
             "name": mydata["name"],

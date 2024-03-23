@@ -62,8 +62,8 @@ class DWidget : IWidget {
     auto mydata = this.mergeDefaults(buildData, formContext);
 
     mydata["value"] = mydata["val"];
-    unset(mydata["val"]);
-    if (mydata["value"] == false) {
+    mydata.remove("val");
+    if (mydata.isEmpty("value")) {
       // explicitly convert to 0 to avoid empty string which is marshaled as null
       mydata["value"] = "0";
     }

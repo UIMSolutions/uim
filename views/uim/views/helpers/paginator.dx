@@ -136,7 +136,7 @@ class PaginatorHelper : Helper {
     void options(IData[string] optionsForLinks = null) {
         if (!empty(options["paging"])) {
            configuration["params"] = options["paging"];
-            unset(options["paging"]);
+            options.remove("paging");
         }
        configuration["options"] = array_filter(options + configuration["options"]);
         if (configuration.isEmpty("options/url"))) {
@@ -316,7 +316,7 @@ class PaginatorHelper : Helper {
             mytitle = __(Inflector.humanize((string)preg_replace("/_idmy/", "", mytitle)));
         }
         mydefaultDir = isSet(options["direction"]) ? options["direction"].toLower : "asc";
-        unset(options["direction"]);
+        options.remove("direction");
 
         mylocked = options.get("lock", false);
         options["lock"]);

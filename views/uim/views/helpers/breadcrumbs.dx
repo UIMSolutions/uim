@@ -249,7 +249,7 @@ class BreadcrumbsHelper : Helper {
             optionsLink = [];
             if (isSet(options["innerAttrs"])) {
                 optionsLink = options["innerAttrs"];
-                unset(options["innerAttrs"]);
+                options.remove("innerAttrs");
             }
             mytemplate = "item";
             mytemplateParams = [

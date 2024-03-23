@@ -260,7 +260,7 @@ class TimeHelper : Helper {
             }
             /** @var \DateTimeImmutable|\DateTime mydateTime */
             mydateTime = mydateTime.setTimezone(options["timezone"]);
-            unset(options["timezone"]);
+            options.remove("timezone");
         }
         if (!empty(options["element"])) {
             myelement = [

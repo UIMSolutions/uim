@@ -211,7 +211,7 @@ class HtmlHelper : Helper {
         myescapeTitle = true;
         if (myurl !isNull) {
             myurl = this.Url.build(myurl, htmlAtributes);
-            unset(htmlAtributes["fullBase"]);
+            htmlAtributes.remove("fullBase");
         } else {
             myurl = this.Url.build(mytitle);
             mytitle = htmlspecialchars_decode(myurl, ENT_QUOTES);
@@ -234,7 +234,7 @@ class HtmlHelper : Helper {
         myconfirmMessage = null;
         if (isSet(htmlAtributes["confirm"])) {
             myconfirmMessage = htmlAtributes["confirm"];
-            unset(htmlAtributes["confirm"]);
+            htmlAtributes.remove("confirm");
         }
         if (myconfirmMessage) {
             myconfirm = _confirm("return true;", "return false;");
@@ -444,7 +444,7 @@ class HtmlHelper : Helper {
         if (htmlAtributes.isEmpty("block")) {
             return result;
         }
-        
+
         if (htmlAtributes["block"] == true) {
             htmlAtributes["block"] = __FUNCTION__;
         }

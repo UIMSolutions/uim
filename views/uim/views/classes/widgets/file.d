@@ -40,7 +40,7 @@ class DFileWidget : DWidget {
     string render(IData[string] renderData, IContext formContext) {
         buildData += this.mergeDefaults(buildData, formContext);
 
-        unset(buildData["val"]);
+        buildData.remove("val");
 
         return _stringTemplate.format("file", [
             "name": buildData["name"],

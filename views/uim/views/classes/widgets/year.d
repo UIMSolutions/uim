@@ -76,7 +76,9 @@ class YearWidget : DWidget {
         }
         mydata["options"] = array_combine(mydata["options"], mydata["options"]);
 
-        unset(mydata["order"], mydata["min"], mydata["max"]);
+        mydata.remove("order");
+        mydata.remove("min");
+        mydata.remove("max");
 
         return _select.render(mydata, mycontext);
     } */

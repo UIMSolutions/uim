@@ -1051,8 +1051,9 @@ class FormHelper : Helper {
      */
     protected string[] _getInput(string aFieldName, IData[string] options) {
         mylabel = options["labelOptions"];
-        unset(options["labelOptions"]);
-        switch (options["type"].toLower) {
+        options.remove("labelOptions");
+
+        switch (options.getString("type").toLower) {
             case "select":
             case "radio":
             case "multicheckbox":

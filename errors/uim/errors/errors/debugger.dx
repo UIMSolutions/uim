@@ -873,7 +873,7 @@ class Debugger
         }
 
         if (!empty(tpl['escapeContext'])) {
-            data['description'] = h(data['description']);
+            data['description'] = htmlAllEscape(data['description']);
         }
 
         infoData = compact('code', 'context', 'trace');
@@ -966,7 +966,7 @@ class Debugger
      * @return string Formatted message.
      */
     static string formatHtmlMessage(string message) {
-        message = h(message);
+        message = htmlAllEscape(message);
         message = preg_replace('/`([^`]+)`/', '<code>1</code>', message);
 
         return nl2br(message);

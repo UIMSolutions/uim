@@ -24,13 +24,13 @@ class HtmlErrorRenderer : IErrorRenderer {
         file = error.getFile();
 
         // Some of the error data is not HTML safe so we escape everything.
-        description = h(error.getMessage());
-        somePath = h(file);
-        trace = h(error.getTraceAsString());
+        description = htmlAllEscape(error.getMessage());
+        somePath = htmlAllEscape(file);
+        trace = htmlAllEscape(error.getTraceAsString());
         line = error.getLine();
 
         errorMessage = "<b>%s</b> (%s)"
-            .format(h(ucfirst(error.getLabel())), h(error.getCode())
+            .format(h(ucfirst(error.getLabel())), htmlAllEscape(error.getCode())
         );
         toggle = this.renderToggle(errorMessage,  anId, "trace");
         codeToggle = this.renderToggle("Code",  anId, "code");

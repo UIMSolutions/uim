@@ -245,7 +245,7 @@ class HtmlFormatter : IFormatter {
         return sprintf(
             "<span class="cake-dbg-%s">%s</span>",
             style,
-            h(text)
+            htmlAllEscape(text)
         );
     }
 }

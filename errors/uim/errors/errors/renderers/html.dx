@@ -28,15 +28,15 @@ class HtmlErrorRenderer : IErrorRenderer {
         file = error.getFile();
 
         // Some of the error data is not HTML safe so we escape everything.
-        description = h(error.getMessage());
-        path = h(file);
-        trace = h(error.getTraceAsString());
+        description = htmlAllEscape(error.getMessage());
+        path = htmlAllEscape(file);
+        trace = htmlAllEscape(error.getTraceAsString());
         line = error.getLine();
 
         errorMessage = sprintf(
             "<b>%s</b> (%s)",
-            h(ucfirst(error.getLabel())),
-            h(error.getCode())
+            htmlAllEscape(ucfirst(error.getLabel())),
+            htmlAllEscape(error.getCode())
         );
         toggle = this.renderToggle(errorMessage, id, "trace");
         codeToggle = this.renderToggle("Code", id, "code");

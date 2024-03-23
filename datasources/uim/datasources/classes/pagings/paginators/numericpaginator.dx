@@ -553,7 +553,7 @@ class NumericPaginator : PaginatorInterface
         if (
             options["sort"] == null
             && count(options["order"]) >= 1
-            && !is_numeric(key(options["order"]))
+            && !key(options["order"].isNumeric)
         ) {
             options["sort"] = key(options["order"]);
         }

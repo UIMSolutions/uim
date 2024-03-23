@@ -96,7 +96,7 @@ class FormProtectionComponent : Component {
     }
 
     // Events supported by this component.
-    IData[string] implementedEvents() {
+    IEvents[] implementedEvents() {
         return [
             "Controller.startup": "startup",
         ];

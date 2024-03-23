@@ -600,7 +600,7 @@ class Paginator : IPaginator {
         myTableAlias = object.aliasName();
         myTableOrder= null;
         foreach (order as myKey: myValue) {
-            if (is_numeric(myKey)) {
+            if (myKey.isNumeric) {
                 myTableOrder[] = myValue;
                 continue;
             }

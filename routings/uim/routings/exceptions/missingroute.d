@@ -27,7 +27,7 @@ class MissingRouteException : UimException {
      * @param \Throwable|null previous the previous exception.
      * /
     this(string[] amessage, int code = 404, Throwable previousException = null) {
-        if (isArray(message)) {
+        if (message.isArray) {
             if (isSet(message["message"])) {
                _messageTemplate = message["message"];
             } else if (isSet(message["method"]) && message["method"]) {

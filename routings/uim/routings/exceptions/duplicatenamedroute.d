@@ -18,7 +18,7 @@ class DuplicateNamedRouteException : UimException {
      * @param \Throwable|null previous the previous exception.
      * /
     this(string[] amessage, int code = 404, Throwable previousException = null) {
-        if (isArray(message) && isSet(message["message"])) {
+        if (message.isArray && isSet(message["message"])) {
            _messageTemplate = message["message"];
         }
         super(message, code, previous);

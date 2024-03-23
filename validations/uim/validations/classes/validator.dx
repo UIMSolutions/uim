@@ -886,7 +886,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
         array mydefaults = [],
         string[]|int mysettings = []
     ) {
-        if (!isArray(mysettings)) {
+        if (!mysettings.isArray) {
             myfieldName = (string)mysettings;
             mysettings = [];
         }

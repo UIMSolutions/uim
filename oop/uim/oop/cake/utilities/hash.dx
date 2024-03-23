@@ -380,7 +380,7 @@ class Hash {
         if (isArray(mykeyPath)) {
             string myformat = array_shift(mykeyPath);
             someKeys = format(mydata, mykeyPath, myformat);
-            assert(isArray(someKeys));
+            assert(someKeys.isArray);
         } else if (mykeyPath.isNull) {
             someKeys = mykeyPath;
         } else {
@@ -727,7 +727,7 @@ class Hash {
         mydepth = [];
         if (!empty(mydata)) {
             mydata.each!((value) {
-                mydepth ~= isArray(value) 
+                mydepth ~= value.isArray 
                     ? maxDimensions(value) + 1
                     : 1;
             });
@@ -865,7 +865,7 @@ class Hash {
         myignoreCase = false;
 
         // mytype can be overloaded for case insensitive sort
-        if (isArray(mytype)) {
+        if (mytype.isArray) {
             mytype += ["ignoreCase": false, "type": "regular"];
             myignoreCase = mytype["ignoreCase"];
             mytype = mytype["type"];
@@ -968,7 +968,7 @@ class Hash {
         foreach (mycompare as aKey: myvalue) {
             if (!array_key_exists(aKey, mydata)) {
                 mydata[aKey] = myvalue;
-            } else if (isArray(myvalue) && isArray(mydata[aKey])) {
+            } else if (myvalue.isArray && isArray(mydata[aKey])) {
                 mydata[aKey] = mergeDiff(mydata[aKey], myvalue);
             }
         }
@@ -1039,7 +1039,7 @@ class Hash {
 
         result = myidMap = [];
         myids = extract(mydata, options["idPath"]);
-        assert(isArray(myids));
+        assert(myids.isArray);
 
         string[] myidKeys = split(".", options["idPath"]);
         array_shift(myidKeys);

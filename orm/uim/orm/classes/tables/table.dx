@@ -1209,7 +1209,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      */
     protected IData[string] _setFieldMatchers(IData[string] options, array someKeys) {
         someKeys.each!((field) {
-            if (!isArray(options[field])) {
+            if (!options[field].isArray) {
                 continue;
             }
             if (count(options[field]) == 1) {

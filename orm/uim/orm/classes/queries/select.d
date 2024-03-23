@@ -1339,7 +1339,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
             return _results;
         }
         results = super.all();
-        if (!isArray(results)) {
+        if (!results.isArray) {
             results = iterator_to_array(results);
         }
         results = this.getEagerLoader().loadExternal(this, results);

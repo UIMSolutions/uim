@@ -28,7 +28,7 @@ template CookieCryptTemplate {
      * returns Encoded values
      */
     protected string _encrypt(string[] myvalue, string|false myencrypt, string aKey = null) {
-        if (isArray(myvalue)) {
+        if (myvalue.isArray) {
             myvalue = _join(myvalue);
         }
         if (myencrypt == false) {

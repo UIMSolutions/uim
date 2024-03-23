@@ -223,7 +223,7 @@ class ArrayContext : IContext {
      * string myfield A dot separated path to get additional data on.
      */
     array attributes(string myfield) {
-        if (!isArray(_context["schema"])) {
+        if (!_context["schema"].isArray) {
             return null;
         }
         myschema = Hash.get(_context["schema"], myfield)

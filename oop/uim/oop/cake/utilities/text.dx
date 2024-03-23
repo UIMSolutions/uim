@@ -191,7 +191,7 @@ class Text {
         /** @var IData[string] mydataReplacements */
         mydataReplacements = array_combine(myhashKeys, array_values(mydata));
         foreach (mytmpHash, mytmpValue; mydataReplacements) {
-            mytmpValue = isArray(mytmpValue) ? "" : (string)mytmpValue;
+            mytmpValue = mytmpValue.isArray ? "" : mytmpValue.toString;
             mystr = (string)mystr.replace(mytmpHash, mytmpValue);
         }
         if (!options.isSet("format") && isSet(options["before"])) {

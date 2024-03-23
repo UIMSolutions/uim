@@ -1,6 +1,6 @@
-module uim.cake.TestSuite;
+module uim.oop.TestSuite;
 
-import uim.cake;
+import uim.oop;
 
 @safe:
 

@@ -1,6 +1,6 @@
-module uim.cake.TestSuite\Constraint;
+module uim.oop.TestSuite\Constraint;
 
-import uim.cake;
+import uim.oop;
 
 @safe:
 

@@ -1,6 +1,6 @@
-module source.uim.cake.tests.unitconsecutivetrait;
+module source.uim.oop.tests.unitconsecutivetrait;
 
-import uim.cake;
+import uim.oop;
 
 @safe:
 

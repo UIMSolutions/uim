@@ -380,7 +380,7 @@ class Paginator : IPaginator {
         myType = !empty(options["finder"]) ? options["finder"] : "all";
         unset(options["finder"], options["maxLimit"]);
 
-        if (is_array(myType)) {
+        if ((myType.isArray) {
             options = (array)current(myType) + options;
             myType = key(myType);
         }

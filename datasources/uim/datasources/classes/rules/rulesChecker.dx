@@ -284,7 +284,7 @@ class RulesChecker
      */
     protected function _addError(callable rule, name = null, STRINGAA someOptions = null): RuleInvoker
     {
-        if (is_array(name)) {
+        if ((name.isArray) {
             options = name;
             name = null;
         }

@@ -38,7 +38,7 @@ class ValidCount
      */
     bool __invoke(IEntity anEntity, STRINGAA someOptions) {
         value = entity.{_field};
-        if (!is_array(value) && !value instanceof Countable) {
+        if (!(value.isArray && !value instanceof Countable) {
             return false;
         }
 

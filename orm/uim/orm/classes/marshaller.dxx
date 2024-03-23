@@ -332,7 +332,7 @@ class Marshaller
     function many(array data, STRINGAA someOptions = null) {
         output = null;
         foreach (data as record) {
-            if (!is_array(record)) {
+            if (!(record.isArray) {
                 continue;
             }
             output[] = this.one(record, options);

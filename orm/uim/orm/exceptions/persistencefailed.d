@@ -46,7 +46,7 @@ mixin(ExceptionCalls!("PersistenceFailed"));
      * /
     this(IEntity anEntity, myMessage, Nullable!int code = null, ?Throwable previous = null) {
         _entity = entity;
-        if (is_array(myMessage)) {
+        if ((myMessage.isArray) {
             myErrors = null;
             foreach (Hash::flatten(entity.getErrors()) as myField: myError) {
                 myErrors[] = myField ~ ": "" ~ myError ~ """;

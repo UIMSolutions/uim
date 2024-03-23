@@ -206,7 +206,7 @@ trait EntityTrait
             options = (array)value;
         }
 
-        if (!is_array(field)) {
+        if (!(field.isArray) {
             throw new InvalidArgumentException("Cannot set an empty field");
         }
         options += ["setter": true, "guard":  guard];

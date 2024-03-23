@@ -367,7 +367,7 @@ class NumericPaginator : PaginatorInterface
         type = !empty(options["finder"]) ? options["finder"] : "all";
         unset(options["finder"], options["maxLimit"]);
 
-        if (is_array(type)) {
+        if ((type.isArray) {
             options = (array)current(type) + options;
             type = key(type);
         }

@@ -82,7 +82,7 @@ class ErrorHandlerMiddleware : IMiddleware
             ini_set("zend.exception_ignore_args", "0");
         }
 
-        if (is_array(myErrorHandler)) {
+        if ((myErrorHandler.isArray) {
             this.setConfig(myErrorHandler);
 
             return;

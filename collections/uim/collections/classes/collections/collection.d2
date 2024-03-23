@@ -75,7 +75,7 @@ class Collection : IteratorIterator : ICollection, Serializable {
     size_t count() {
         traversable = this.optimizeUnwrap();
 
-        if (is_array(traversable)) {
+        if ((traversable.isArray) {
             return count(traversable);
         }
 

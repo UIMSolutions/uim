@@ -86,7 +86,7 @@ class FormProtectionComponent : Component {
                 "unlockedFields": token["unlockedFields"],
             ]);
 
-        if (isArray(someData)) {
+        if (someData.isArray) {
             someData.remove("_Token");
              request =  request.withParsedBody(someData);
         }

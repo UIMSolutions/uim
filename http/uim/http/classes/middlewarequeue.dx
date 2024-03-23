@@ -63,7 +63,7 @@ class MiddlewareQueue : Countable, SeekableIterator {
      * \Psr\Http\Server\IMiddleware|\Closure|string[] amiddleware The middleware(s) to append.
      */
     void add(IMiddleware|Closure|string[] amiddleware) {
-        if (isArray(middleware)) {
+        if (middleware.isArray) {
             this.queue = chain(this.queue, middleware);
 
             return;
@@ -86,7 +86,7 @@ class MiddlewareQueue : Countable, SeekableIterator {
      * \Psr\Http\Server\IMiddleware|\Closure|string[] amiddleware The middleware(s) to prepend.
      */
     auto prepend(IMiddleware|Closure|string[] amiddleware) {
-        if (isArray(middleware)) {
+        if (middleware.isArray) {
             this.queue = chain(middleware, this.queue);
 
             return this;

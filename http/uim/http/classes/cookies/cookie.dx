@@ -539,7 +539,7 @@ class Cookie : ICookie {
         if (somePath.isNull) {
             return this.value;
         }
-        assert(isArray(this.value), "aValue is not an array");
+        assert(this.value.isArray, "aValue is not an array");
 
         return Hash.get(this.value, somePath);
     }

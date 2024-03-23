@@ -237,7 +237,7 @@ abstract class TestCase : BaseTestCase {
         };
 
         foreach (plugins as pluginName: configData) {
-            if (isArray(configData)) {
+            if (configData.isArray) {
                 app.addPlugin(pluginName, configData);
             } else {
                 app.addPlugin(configData);

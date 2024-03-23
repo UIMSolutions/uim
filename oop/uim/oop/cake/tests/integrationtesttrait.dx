@@ -485,7 +485,7 @@ template IntegrationTestTemplate {
         if (isString(someData)) {
             props["input"] = someData;
         } else if (
-            isArray(someData) &&
+            someData.isArray &&
             isSet(props["environment"]["CONTENT_TYPE"]) &&
             props["environment"]["CONTENT_TYPE"] == "application/x-www-form-urlencoded"
         ) {

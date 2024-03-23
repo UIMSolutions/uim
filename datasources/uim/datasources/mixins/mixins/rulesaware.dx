@@ -33,7 +33,7 @@ mixin RulesAwareTemplate {
     ) {
         auto rules = this.rulesChecker();
         options = options ?: new ArrayObject();
-        options = isArray(options) ? new ArrayObject(options): options;
+        options = options.isArray ? new ArrayObject(options): options;
         bool hasEvents = (cast(IEventDispatcher)this);
 
         if ($hasEvents) {

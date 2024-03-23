@@ -234,7 +234,7 @@ class ConsoleIo {
      * @param string[]|string amessage The message to wrap.
      */
     protected string[] wrapMessageWithType(string amessageType, string[] amessage) {
-        if (isArray( message)) {
+        if (message.isArray) {
             message.myKeyValue
                 .each!(kv => message[kv.key] = "<%s>%s</%s>".format(messageType, kv.value, messageType));
         } else {

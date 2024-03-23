@@ -90,13 +90,13 @@ h     */
     if (!configuration["host"].isEmpty) {
       configuration["servers"] = configuration["port"].isEmpty
         ? [configuration["host"]] : [
-          "%s:%d".format(configuration["host"], configuration["port"])
+          "%s:%d".format(configuration.getString("host"), configuration.getString("port"))
         ];
     }
-    /* if (isSet(configData"servers"])) {
+    /* if (isSet(configData["servers"])) {
       configuration.update("servers", configuration["servers"], false);
     } */ 
-    /* if (!isArray(configuration["servers"])) {
+    /* if (!configuration["servers"].isArray) {
       configuration["servers"] = [configuration["servers"]];
     } */ 
     if (isSet(_Memcached)) {
@@ -358,7 +358,7 @@ bool clear() {
      * @param Json aValue Data to be cached.
      */
 bool add(string aKey, Json aValue) {
-  myduration = configuration["duration"];
+  auto myduration = configuration["duration"];
   aKey = _key(aKey);
 
   return _Memcached.add(aKey, myvalue, myduration);

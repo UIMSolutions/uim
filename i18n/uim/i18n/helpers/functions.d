@@ -96,7 +96,7 @@ string __x(string acontext, string asingular, Json ...someArguments)
     if (!singular) {
         return "";
     }
-    if (isSet(someArguments[0]) && isArray(someArguments[0])) {
+    if (isSet(someArguments[0]) && someArguments[0].isArray) {
         someArguments = someArguments[0];
     }
     return I18n.getTranslator().translate(singular, ["_context": context] + someArguments);

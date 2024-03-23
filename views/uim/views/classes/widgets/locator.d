@@ -1,6 +1,6 @@
-module uim.views.classes.widgets.locator;
+module uim.widgetName.classes.widgets.locator;
 
-import uim.views;
+import uim.widgetName;
 
 @safe:
 
@@ -109,17 +109,17 @@ class DWidgetLocator {
      * Params:
      * string views The widget name to get.
      * /
-    IWidget get(string views) {
-        if (!_widgets.isSet(views)) {
-            if (isEmpty(_widgets["_default"])) {
-                throw new InvalidArgumentException("Unknown widget `%s`".format(views));
+    IWidget get(string widgetName) {
+        if (!_widgets.isSet(widgetName)) {
+            if (_widgets.isEmpty("_default")) {
+                throw new InvalidArgumentException("Unknown widget `%s`".format(widgetName));
             }
-            views = "_default";
+            widgetName = "_default";
         }
-        if (cast(IWidget)_widgets[views]) {
-            return _widgets[views];
+        if (cast(IWidget)_widgets[widgetName]) {
+            return _widgets[widgetName];
         }
-        return _widgets[views] = _resolveWidget(_widgets[views]);
+        return _widgets[widgetName] = _resolveWidget(_widgets[widgetName]);
     }
     
     /**

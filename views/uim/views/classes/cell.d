@@ -161,12 +161,12 @@ abstract class Cell { // }: IEventDispatcher, Stringable {
      * @param string|null mytemplate The name of the template to be rendered.
      * /
     protected array _cacheConfig(string myaction, string mytemplate = null) {
-        if (isEmpty(_cache)) {
+        if (_cache.isEmpty) {
             return null;
         }
         mytemplate = mytemplate ?: "default";
-        aKey = "cell_" ~ Inflector.underscore(class) ~ "_" ~ myaction ~ "_" ~ mytemplate;
-        aKey = aKey.replace("\\", "_");
+        string key = "cell_" ~ Inflector.underscore(class) ~ "_" ~ myaction ~ "_" ~ mytemplate;
+        string aKey = key.replace("\\", "_");
         mydefault = [
             "config": "default",
             "key": aKey,

@@ -241,20 +241,16 @@ class ArrayContext : IContext {
      * string myfield A dot separated path to check errors on.
      */
     bool hasError(string myfield) {
-        if (isEmpty(_context["errors"])) {
-            return false;
-        }
-        return Hash.check(_context["errors"], myfield);
+        return _context.isEmpty("errors") 
+            ? false
+            : Hash.check(_context["errors"], myfield);
     }
 
-    /**
-     * Get the errors for a given field
-     */
+    // Get the errors for a given field
     array error(string pathToField) {
-        if (isEmpty(_context["errors"])) {
-            return null;
-        }
-        return (array)Hash.get(_context["errors"], pathToField);
+        return _context.isEmpty("errors")
+            ? null
+            : (array)Hash.get(_context["errors"], pathToField);
     }
 
     /**

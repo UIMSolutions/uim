@@ -108,12 +108,12 @@ class DDateTimeWidget : DWidget {
         if (array_key_exists("step", mydata)) {
             return mydata;
         }
-        if (isSet(mydata["format"])) {
-            mydata["step"] = null;
-        } else {
-            mydata["step"] = this.defaultStep[mydata["type"]];
-        }
-        if (isEmpty(mydata["fieldName"])) {
+
+        mydata["step"] = isSet(mydata["format"])
+            ? null
+            : this.defaultStep[mydata["type"]];
+
+        if (mydata.isEmpty("fieldName")) {
             return mydata;
         }
         mydbType = mycontext.type(myfieldName);

@@ -303,7 +303,7 @@ class FormHelper : Helper {
         if (cast(IContext)formContext) {
             this.context(formContext);
         } else {
-            if (isEmpty(options["context"])) {
+            if (options.isEmpty("context")) {
                 options["context"] = [];
             }
             options["context"]["entity"] = formContext;

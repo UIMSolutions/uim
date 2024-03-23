@@ -278,7 +278,7 @@ class DStringTemplate {
         string myuseIndex = "class"
     ) {
         // NOOP
-        if (isEmpty(mynewClass)) {
+        if (mynewClass.isEmpty) {
             return myinput;
         }
         if (myinput.isArray) {

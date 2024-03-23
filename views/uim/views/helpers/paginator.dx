@@ -303,11 +303,11 @@ class PaginatorHelper : Helper {
      * @param IData[string] options Options for sorting link. See above for list of keys.
      */
     string sort(string aKey, string[]|null mytitle = null, IData[string] options  = null) {
-        options += ["url": [], "escape": true];
-        myurl = options["url"];
-        unset(options.remove("url");
+        auto updatedOptions = options.update(["url": [], "escape": true]);
+        auto myurl = updatedOptions["url"];
+        updatedOptions.remove("url");
 
-        if (isEmpty(mytitle)) {
+        if (mytitle.isEmpty) {
             mytitle = aKey;
 
             if (mytitle.has(".")) {

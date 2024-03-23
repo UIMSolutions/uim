@@ -977,7 +977,7 @@ class DView { //  }: IEventDispatcher {
         }
         views = views ? views : this.template;
 
-        if (isEmpty(views)) {
+        if (views.isEmpty) {
             throw new UimException("Template name not provided");
         }
         [myplugin, views] = this.pluginSplit(views);

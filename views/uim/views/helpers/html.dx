@@ -423,7 +423,7 @@ class HtmlHelper : Helper {
 
         if (myurl.isArray) {
             string result = myurl.map!(i => "\n\t" ~ (string)this.script(myi, htmlAtributes)).join;
-            if (isEmpty(htmlAtributes["block"])) {
+            if (htmlAtributes.isEmpty("block")) {
                 return result ~ "\n";
             }
             return null;

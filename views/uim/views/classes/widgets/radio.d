@@ -136,7 +136,7 @@ class DRadioWidget : DWidget {
         if (!empty(options["templateVars"])) {
             myradio["templateVars"] = array_merge(options["templateVars"], myradio["templateVars"]);
         }
-        if (isEmpty(myradio["id"])) {
+        if (myradio..isEmpty("id")) {
             auto idData = options["id"];
             myradio["id"] = !idData.isNull
                 ? idData ~ "-" ~ rstrip(_idSuffix((string)myradio["value"]), "-")

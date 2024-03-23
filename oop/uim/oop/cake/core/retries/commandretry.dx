@@ -1,6 +1,6 @@
-module uim.cake.core\Retry;
+module uim.oop.core\Retry;
 
-import uim.cake;
+import uim.oop;
 
 @safe:
 

@@ -1,4 +1,4 @@
-module uim.cake.TestSuite\Constraint\View;
+module uim.oop.TestSuite\Constraint\View;
 /**
  * LayoutFileEquals
  *

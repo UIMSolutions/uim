@@ -1,6 +1,6 @@
-module uim.cake.TestSuite\Constraint\View;
+module uim.oop.TestSuite\Constraint\View;
 
-import uim.cake;
+import uim.oop;
 
 @safe:
 /**

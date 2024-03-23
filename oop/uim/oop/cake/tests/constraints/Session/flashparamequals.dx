@@ -1,6 +1,6 @@
-module uim.cake.TestSuite\Constraint\Session;
+module uim.oop.TestSuite\Constraint\Session;
 
-import uim.cake;
+import uim.oop;
 
 @safe:
 

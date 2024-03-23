@@ -1,6 +1,6 @@
-module uim.cake.TestSuite\Fixture;
+module uim.oop.TestSuite\Fixture;
 
-import uim.cake;
+import uim.oop;
 
 @safe:
 

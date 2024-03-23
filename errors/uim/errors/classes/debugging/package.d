@@ -4,9 +4,11 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file. 
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.errors.debugging;
+module uim.errors.classes.debugging;
 
-public import uim.errors.debugging.debugcontext;
+// TODO public import uim.errors.classes.debugging.debugcontext;
 
-public import uim.errors.debugging.formatters;
-public import uim.errors.debugging.nodes;
+public {
+	import uim.errors.classes.debugging.formatters;
+	import uim.errors.classes.debugging.nodes;
+}

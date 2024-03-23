@@ -72,7 +72,7 @@ import uim.cake;
  * specify which authentication strategy you want to use.
  * UIM comes with built-in support for basic authentication.
  */
-class Client : ClientInterface {
+class DClient : IClient {
   mixin InstanceConfigTemplate();
 
   protected IData[string] _defaultConfigData = [

@@ -15,11 +15,11 @@ class DTextareaWidget : DWidget {
 
     /* 
     protected IData[string] _defaultData = [
-        "val": StringData,
-        "name": StringData,
+        "val": StringData(""),
+        "name": StringData(""),
         "escape": BooleanData(true),
-        "rows": Json(5),
-        "templateVars": Json.emptyArray,
+        "rows": IntegerData(5),
+        "templateVars": ArrayData,
     ];
 
     /**

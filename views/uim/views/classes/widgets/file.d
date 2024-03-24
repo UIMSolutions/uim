@@ -36,7 +36,7 @@ class DFileWidget : DWidget {
      * @param \UIM\View\Form\IContext formContext The current form context.
      * return HTML elements.
      * /
-    string render(IData[string] renderData, IContext formContext) {
+    override string render(IData[string] renderData, IContext formContext) {
         buildData = buildData.merge // Todo  this.mergeDefaults(buildData, formContext);
 
         buildData.remove("val");

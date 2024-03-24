@@ -13,23 +13,23 @@ import uim.views;
 class DRadioWidget : DWidget {
     mixin(WidgetThis!("Radio"));
     /*
-    use IdGeneratorTrait; */
+    use IdGeneratorTrait; * 
 
     // Data defaults.
     protected IData[string] _defaultData = [
         "name": StringData,
         "options": ArrayData,
-        "disabled": NullData,
-        "val": NullData,
-        "escape": BoolData(true),
-        "label": BoolData(true),
-        "empty": BoolData(false),
+        "disabled": null, // NullData,
+        "val": null, // NullData,
+        "escape": BooleanData(true),
+        "label": BooleanData(true),
+        "empty": BooleanData(false),
         "idPrefix": NullData,
         "templateVars": ArrayData
-    ];
+    ]; */
 
     // Label instance.
-    protected LabelWidget my_label;
+    protected DLabelWidget _label;
 
     /**
      * Constructor
@@ -97,7 +97,6 @@ class DRadioWidget : DWidget {
      * Params:
      * IData[string] myradio Radio info.
      * @param string[]|true|null mydisabled The disabled values.
-     *  bool
      * /
     protected bool _isDisabled(IData[string] myradio, string[]|bool isDisabled) {
         if (!isDisabled) {

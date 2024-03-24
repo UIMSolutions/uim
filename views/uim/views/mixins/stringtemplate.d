@@ -13,7 +13,7 @@ import uim.views;
  * /
 trait StringTemplateTrait {
     // StringTemplate instance.
-    protected StringTemplate my_templater = null;
+    protected DStringTemplate _templater = null;
 
     // Sets templates to use.
     void setTemplates(string[] addTemplates) {

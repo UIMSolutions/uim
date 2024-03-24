@@ -25,10 +25,10 @@ class DWidgetLocator {
     protected array my_widgets = [];
 
     // Templates to use.
-    protected StringTemplate _stringTemplate;
+    protected DStringTemplate _stringTemplate;
 
     // View instance.
-    protected View _view;
+    protected DView _view;
 
     /**
      * Constructor
@@ -37,9 +37,9 @@ class DWidgetLocator {
      * @param \UIM\View\View myview The view instance to set as a widget.
      * @param array mywidgets See add() method for more information.
      * /
-    this(DStringTemplate mytemplates, View myview, array mywidgets = []) {
-       _stringTemplate = mytemplates;
-       _view = myview;
+    this(DStringTemplate newTemplate, DView newView, array mywidgets = []) {
+       _stringTemplate = newTemplate;
+       _view = newView;
 
         this.add(mywidgets);
     }
@@ -48,10 +48,7 @@ class DWidgetLocator {
      * Load a config file containing widgets.
      *
      * Widget files should define a `configData` variable containing
-     * all the widgets to load. Loaded widgets will be merged with existing
-     * widgets.
-     * Params:
-     * string myfile The file to load
+     * all the widgets to load. Loaded widgets will be merged with existing* widgets.
      * /
     void load(string fileToLoad) {
         myloader = new PhpConfig();
@@ -106,8 +103,6 @@ class DWidgetLocator {
      * if the widget has been defined. If the widget is undefined an instance of
      * the `_default` widget will be returned. An exception will be thrown if
      * the `_default` widget is undefined.
-     * Params:
-     * string views The widget name to get.
      * /
     IWidget get(string widgetName) {
         if (!_widgets.isSet(widgetName)) {
@@ -122,19 +117,13 @@ class DWidgetLocator {
         return _widgets[widgetName] = _resolveWidget(_widgets[widgetName]);
     }
     
-    /**
-     * Clear the registry and reset the widgets.
-     * /
+    // Clear the registry and reset the widgets.
     void clear() {
-       _widgets = [];
+       _widgets = null;
     }
     
-    /**
-     * Resolves a widget spec into an instance.
-     * Params:
-     * string[] configData The widget config.
-     * /
-    protected IWidget _resolveWidget(string[] configData) {
+    // Resolves a widget spec into an instance.
+    protected IWidget _resolveWidget(IData[string] configData) {
         if (isString(configData)) {
             configData = [configData];
         }

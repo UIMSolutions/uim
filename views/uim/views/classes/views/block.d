@@ -66,7 +66,7 @@ class DViewBlock {
         string blockMode = end(_activeBlocks);
         string activeKey = key(_activeBlocks);
         string blockContent = ob_get_clean().to!string;
-        if (blockMode == ViewBlock.OVERRIDE) {
+        if (blockMode == DViewBlock.OVERRIDE) {
            _blocks[activeKey] = blockContent;
         } else {
             this.concat(activeKey, blockContent, blockMode);
@@ -82,7 +82,7 @@ class DViewBlock {
      * block that needs to be finished with View.end(). The content
      * of the new capturing context will be added to the existing block context.
      */
-    void concat(string blockName, string blockContent = null, string blockMode = ViewBlock.APPEND) {
+    void concat(string blockName, string blockContent = null, string blockMode = DViewBlock.APPEND) {
         if (blockContent.isNull) {
             start(blockName, blockMode);
 
@@ -91,7 +91,7 @@ class DViewBlock {
         if (!_blocks.isSet(blockName)) {
            _blocks[blockName] = "";
         }
-        _blocks[blockName] = blockMode == ViewBlock.PREPEND
+        _blocks[blockName] = blockMode == DViewBlock.PREPEND
             ? blockContent ~ _blocks[blockName]
             : _blocks[blockName] ~ blockContent;
 
@@ -107,7 +107,7 @@ class DViewBlock {
     void set(string blockName, IData blockData) {
        set(blockName, blockData.toString);
     }
-    
+
     void set(string blockName, string blockContent) {
        _blocks[blockName] = blockContent;
     }

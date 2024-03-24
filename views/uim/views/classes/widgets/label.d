@@ -7,8 +7,7 @@ import uim.views;
 /**
  * Form "widget" for creating labels.
  *
- * Generally this element is used by other widgets,
- * and FormHelper itself.
+ * Generally this element is used by other widgets, * and FormHelper itself.
  */
 class DLabelWidget : DWidget {
     mixin(WidgetThis!("Label"));
@@ -24,17 +23,15 @@ class DLabelWidget : DWidget {
      *
      * - `label` Used to generate the label for a radio button.
      *  Can use the following variables `attrs`, `text` and `input`.
-     * Params:
-     * \UIM\View\StringTemplate mytemplates Templates list.
      */
-    this(DStringTemplate mytemplates) {
-        super(mytemplates);
+    this(DStringTemplate newTemplates) {
+        super(newTemplates);
     }
 
     /**
      * Render a label widget.
      *
-     * Accepts the following keys in mydata:
+     * Accepts the following keys in renderData:
      *
      * - `text` The text for the label.
      * - `input` The input that can be formatted into the label if the template allows it.
@@ -42,24 +39,25 @@ class DLabelWidget : DWidget {
      *
      * All other attributes will be converted into HTML attributes.
      */
-    string render(IData[string] renderData, IContext formContext) {
-        renderData.update([
-            "text": StringData,
-            "input": StringData,
-            "hidden": StringData,
+    override string render(IData[string] renderData, IContext formContext) {
+        auto myData = renderData.merge([
+            "text": StringData(""),
+            "input": StringData(""),
+            "hidden": StringData(""),
             "escape": BoolData(true),
             "templateVars": ArrayData(),
         ]);
 
         return _stringTemplate.format(_labelTemplate, [
-                "text": renderData["escape"] ? htmlAttribEscape(renderData["text"]): renderData["text"],
-                "input": renderData["input"],
-                "hidden": renderData["hidden"],
-                "templateVars": renderData["templateVars"],
-                "attrs": _stringTemplate.formatAttributes(renderData, [
+                "text": myData["escape"] ? htmlAttribEscape(myData["text"]): myData["text"],
+                "input": myData["input"],
+                "hidden": myData["hidden"],
+                "templateVars": myData["templateVars"],
+                "attrs": _stringTemplate.formatAttributes(myData, [
                         "text", "input", "hidden"
                     ]),
             ]);
-    } 
+    }
 }
+
 mixin(WidgetCalls!("Label"));

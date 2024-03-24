@@ -18,10 +18,10 @@ class DSelectBoxWidget : DWidget {
         "name": StringData(""),
         "empty": BooleanData(false),
         "escape": BooleanData(true),
-        "options": Json.emptyArray,
+        "options": ArrayData,
         "disabled": Json(null),
         "val": Json(null),
-        "templateVars": Json.emptyArray,
+        "templateVars": ArrayData,
     ];
 
     /**

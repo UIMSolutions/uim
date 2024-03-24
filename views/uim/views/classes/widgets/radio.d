@@ -203,7 +203,7 @@ class DRadioWidget : DWidget {
      * @param IData[string]|string|bool|null mylabel The properties for a label.
      * @param string myinput The input widget.
      * @param \UIM\View\Form\IContext formContext The form context.
-     * @param bool myescape Whether to HTML escape the label.
+     * @param bool shouldEscape Whether to HTML escape the label.
      * /
     protected string _renderLabel(
         array myradio,
@@ -221,7 +221,7 @@ class DRadioWidget : DWidget {
         mylabelAttrs = mylabel.isArray ? mylabel : [];
         mylabelAttrs += [
             "for": myradio["id"],
-            "escape": myescape,
+            "escape": shouldEscape,
             "text": myradio["text"],
             "templateVars": myradio["templateVars"],
             "input": myinput,

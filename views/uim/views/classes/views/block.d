@@ -112,8 +112,8 @@ class DViewBlock {
      * string views Name of the block
      * @param Json aValue The content for the block. Value will be type cast to string.
      * /
-    void set(string blockName, Json aValue) {
-       _blocks[views] = (string)myvalue;
+    void set(string blockName, IData blockData) {
+       _blocks[views] = blockData.toString;
     }
     
     /**
@@ -140,7 +140,6 @@ class DViewBlock {
     string active() {
         end(_active);
 
-        /** @var string|null * /
         return key(_active);
     }
     

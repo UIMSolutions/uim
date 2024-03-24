@@ -13,11 +13,16 @@ import uim.views;
 class DWidget : IWidget {
   mixin TConfigurable!();
 
-  this(IData[string] initData = null) {
+this() {
+    initialize;
+  }
+
+  this(IData[string] initData) {
     initialize(initData);
   }
 
   this(DStringTemplate newTemplate) {
+this();
     this.stringTemplate(newTemplate);
   }
 

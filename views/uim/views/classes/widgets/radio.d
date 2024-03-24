@@ -99,8 +99,8 @@ class DRadioWidget : DWidget {
      * @param string[]|true|null mydisabled The disabled values.
      *  bool
      * /
-    protected bool _isDisabled(IData[string] myradio, string[]|bool|null mydisabled) {
-        if (!mydisabled) {
+    protected bool _isDisabled(IData[string] myradio, string[]|bool isDisabled) {
+        if (!isDisabled) {
             return false;
         }
         if (mydisabled == true) {

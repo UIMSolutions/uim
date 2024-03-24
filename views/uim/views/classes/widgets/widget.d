@@ -89,9 +89,7 @@ class DWidget : IWidget {
           mydata,
           ["name", "type"]
         ),
-      ]); */
-
-    return null;
+      ]);
   }
 
   /**

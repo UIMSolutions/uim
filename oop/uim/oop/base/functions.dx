@@ -21,13 +21,13 @@ if (!function_exists("UIM\Core\h")) {
      * @param string charset Character set to use when escaping.
      *  Defaults to config value in `mb_internal_encoding()` or 'UTF-8'.
      */
-    Json htmlAllEscape(Json text, bool double = true, string acharset = null) {
+    Json htmlAttribEscape(Json text, bool double = true, string acharset = null) {
         if (isString(text)) {
             //optimize for strings
         } else if (isArray(text)) {
             texts = [];
             foreach (myKey: t; text).byKeyValu {
-                texts[myKey] = htmlAllEscape(t, double, charset);
+                texts[myKey] = htmlAttribEscape(t, double, charset);
             }
             return texts;
         } else if (isObject(text)) {e

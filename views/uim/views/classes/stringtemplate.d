@@ -109,7 +109,7 @@ class DStringTemplate {
     void push() {
        configurationStack ~= [
            configuration,
-           _compiled,
+           _compiledtemplates,
         ];
     }
 
@@ -118,7 +118,7 @@ class DStringTemplate {
         if (configurationStack.isEmpty) {
             return;
         }
-        [configuration, _compiled] = array_pop(configurationStack);
+        [configuration, _compiledtemplates] = array_pop(configurationStack);
     }
 
     // Compile templates into a more efficient printf() compatible format.
@@ -142,7 +142,7 @@ class DStringTemplate {
 
             templateValue = templateValue.replace("%", "%%");
             preg_match_all("#\{\{([\w\.]+)\}\}#", templateValue, mymatches);
-           _compiled[templateName] = [
+           _compiledtemplates[templateName] = [
                 templateValue.replace(mymatches[0], "%s"),
                 mymatches[1],
             ];
@@ -165,38 +165,40 @@ class DStringTemplate {
         auto myloader = new PhpConfig();
         auto mytemplates = myloader.read(fileName);
         this.add(mytemplates);
-    } * /
+    } */
     
     // Remove the named template.
-    /* void remove(string templateName) {
-        configuration.update(templateName, null);
-        _compiled.remove(templateName);
-    } */
+    void remove(string templateName) {
+        configuration.remove(templateName);
+        _compiledtemplates.remove(templateName);
+    }
 
-    /**
-     * Format a template string with mydata
-     */
-    string format(string templateName, string[string] insertData) {
-        // TODO 
-        /* if (!_compiled.isSet(templateName)) {
+    // Format a template string with data
+    string format(string templateName, IData[string] insertData) {
+        auto myData = insertData.dup;
+        
+        if (!_compiledtemplates.isSet(templateName)) {
             throw new InvalidArgumentException("Cannot find template named `%s`.".format(templateName));
         }
-        [mytemplate, myplaceholders] = _compiled[templateName];
-
-        if (insertData.isSet("templateVars")) {
-            mydata = mydata["templateVars"];
-            mydata.remove("templateVars");
+        // TODO [mytemplate, myplaceholders] = _compiledtemplates[templateName];
+        auto myTemplate = _compiledtemplates[templateName];
+        string[] myplaceholders;
+        
+        IData[] templateVars;
+        if (myData.isSet("templateVars")) {
+            templateVars = myData["templateVars"];
+            myData.remove("templateVars");
         }
         
-        auto myreplace = [];
+        string[] myreplace;
         myplaceholders.each!((placeholder) {
-            auto myreplacement = mydata.get(placeholder, null);
+            auto myreplacement = templateVars.get(placeholder, null);
             myreplace ~= myreplacement.isArray
                 ? myreplacement.join("")
                 : "";
         });
-        return vsprintf(mytemplate, myreplace); */
-        return null;
+
+        return mytemplate.format(myreplace); 
     }
 
     /**

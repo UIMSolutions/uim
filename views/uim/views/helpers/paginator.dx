@@ -183,7 +183,7 @@ class PaginatorHelper : Helper {
         if (!myenabled && mytext == false) {
             return "";
         }
-        mytext = options["escape"] ? htmlAllEscape(mytext): mytext;
+        mytext = options["escape"] ? htmlAttribEscape(mytext): mytext;
 
         mytemplater = this.templater();
         mynewTemplates = options["templates"] ?? false;
@@ -350,7 +350,7 @@ class PaginatorHelper : Helper {
         mypaging = ["sort": aKey, "direction": mydir, "page": 1];
 
         myvars = [
-            "text": options["escape"] ? htmlAllEscape(mytitle): mytitle,
+            "text": options["escape"] ? htmlAttribEscape(mytitle): mytitle,
             "url": this.generateUrl(mypaging, myurl),
         ];
 
@@ -811,7 +811,7 @@ class PaginatorHelper : Helper {
                 ]);
             }
         } elseif (this.paginated().currentPage() > 1 && isString(myfirst)) {
-            myfirst = options["escape"] ? htmlAllEscape(myfirst): myfirst;
+            myfirst = options["escape"] ? htmlAttribEscape(myfirst): myfirst;
             result ~= this.templater().format("first", [
                 "url": this.generateUrl(["page": 1], options["url"]),
                 "text": myfirst,
@@ -866,7 +866,7 @@ class PaginatorHelper : Helper {
                 ]);
             }
         } elseif (mycurrentPage < mypageCount && isString(mylast)) {
-            mylast = options["escape"] ? htmlAllEscape(mylast): mylast;
+            mylast = options["escape"] ? htmlAttribEscape(mylast): mylast;
             result ~= this.templater().format("last", [
                 "url": this.generateUrl(["page": mypageCount], options["url"]),
                 "text": mylast,

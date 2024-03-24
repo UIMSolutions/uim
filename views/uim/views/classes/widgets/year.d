@@ -47,13 +47,13 @@ class YearWidget : DWidget {
     string render(IData[string] renderData, IContext mycontext) {
         mydata += this.mergeDefaults(mydata, mycontext);
 
-        if (mydata["min"].isEmpty) {
+        if (mydata.isEmpty("min")) {
             mydata["min"] = date("Y", strtotime("-5 years"));
         }
-        if (mydata["max"].isEmpty) {
+        if (mydata.isEmpty("max")) {
             mydata["max"] = date("Y", strtotime("+5 years"));
         }
-        mydata["min"] = (int)mydata["min"];
+        mydata["min"] = mydata.getInteger("min");
         mydata["max"] = (int)mydata["max"];
 
         if (

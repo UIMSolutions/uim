@@ -90,18 +90,18 @@ class DViewBlock {
      * @param string mymode If ViewBlock.APPEND content will be appended to existing content.
      *  If ViewBlock.PREPEND it will be prepended.
      * /
-    void concat(string views, Json aValue = null, string mymode = ViewBlock.APPEND) {
+    void concat(string blockName, Json aValue = null, string mymode = ViewBlock.APPEND) {
         if (myvalue.isNull) {
-            this.start(views, mymode);
+            this.start(blockName, mymode);
 
             return;
         }
         if (!_blocks.isSet(views)) {
-           _blocks[views] = "";
+           _blocks[blockName = "";
         }
         _blocks[views] = mymode == ViewBlock.PREPEND
-            ? myvalue ~ _blocks[views]
-            : _blocks[views] ~ myvalue;
+            ? myvalue ~ _blocks[blockName]
+            : _blocks[blockName] ~ myvalue;
 
     }
     

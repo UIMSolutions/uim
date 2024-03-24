@@ -10,7 +10,7 @@
      * @param string charset Character set to use when escaping.
      *  Defaults to config value in `mb_internal_encoding()` or 'UTF-8'.
      */
-    Json htmlAllEscape(Json text, bool double = true, string acharset = null) {
+    Json htmlAttribEscape(Json text, bool double = true, string acharset = null) {
         return cakeH(text, double, charset);
     }
 

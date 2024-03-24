@@ -4,6 +4,12 @@ import uim.oop;
 
 @safe:
 
+bool isEmpty(IData[string] data, string key) {
+    if (data is null) { return true; }
+
+    return data.hasKey(key); 
+}
+
 IData toData(bool value) {
     return BooleanData(value);
 }

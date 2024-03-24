@@ -177,7 +177,7 @@ class WebExceptionRenderer : IExceptionRenderer {
         }
         viewVars = [
             "message": message,
-            "url": htmlAllEscape(url),
+            "url": htmlAttribEscape(url),
             "error": exception,
             "exceptions": exceptions,
             "code": code,

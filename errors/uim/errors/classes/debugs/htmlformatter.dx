@@ -218,6 +218,6 @@ class HtmlFormatter : IFormatter {
      */
     protected string style(string astyle, string atext) {
         return "<span class="cake-debug-%s">%s</span>"
-            .format(style, htmlAllEscape(text));
+            .format(style, htmlAttribEscape(text));
     }
 }

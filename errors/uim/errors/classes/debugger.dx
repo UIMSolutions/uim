@@ -699,7 +699,7 @@ class Debugger {
      * string messageToFormat The string message to format.
      */
     static string formatHtmlMessage(string messageToFormat) {
-        string message = htmlAllEscape(messageToFormat);
+        string message = htmlAttribEscape(messageToFormat);
         message = (string)preg_replace("/`([^`]+)`/", "<code>0</code>", message);
 
         return nl2br(message);

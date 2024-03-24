@@ -119,7 +119,7 @@ class DViewBlock {
     
     //Check if a block exists
    bool exists(string blockName) {
-        return isSet(_blocks[blockName]);
+        return false; // TODO isSet(_blocks[blockName]);
     }
     
     // Get the names of all the existing blocks.

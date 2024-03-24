@@ -210,7 +210,7 @@ class DRadioWidget : DWidget {
         string[]|bool|null mylabel,
         string myinput,
         IContext formContext,
-        bool myescape
+        bool shouldEscape
     ): {
         if (isSet(myradio["label"])) {
             mylabel = myradio["label"];

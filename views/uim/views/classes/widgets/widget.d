@@ -13,7 +13,7 @@ import uim.views;
 class DWidget : IWidget {
   mixin TConfigurable!();
 
-this() {
+  this() {
     initialize;
   }
 
@@ -22,7 +22,7 @@ this() {
   }
 
   this(DStringTemplate newTemplate) {
-this();
+    this();
     this.stringTemplate(newTemplate);
   }
 
@@ -33,7 +33,7 @@ this();
 
   bool initialize(IData[string] initData = null) {
     configuration(MemoryConfiguration);
-setConfigurationData(initData);
+    setConfigurationData(initData);
     mergeConfigurationData([
       "name": StringData(),
       // "val": NullData(null),
@@ -41,7 +41,6 @@ setConfigurationData(initData);
       "escape": BooleanData(true),
       "templateVars": ArrayData
     ]);
-    
 
     return true;
   }
@@ -62,7 +61,7 @@ setConfigurationData(initData);
      * Params:
      * IData[string] buildData The data to build an input with.
      * @param \UIM\View\Form\IContext mycontext The current form context.
-     */
+     * /
   string render(IData[string] renderData, IContext formContext) {
     /* 
     auto mydata = this.mergeDefaults(buildData, formContext);
@@ -173,8 +172,7 @@ setConfigurationData(initData);
   } */
 
   string[] secureFields(IData[string] dataToRender) {
-    return (dataToRender.hasKey("name"))
-      ? null
-      : [dataToRender["name"].toString]; 
+    return !dataToRender.hasKey("name")
+      ? [dataToRender.getString("name")] : null;
   }
 }

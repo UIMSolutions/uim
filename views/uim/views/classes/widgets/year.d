@@ -10,8 +10,8 @@ import uim.views;
  * This class is usually used internally by `UIM\View\Helper\FormHelper`,
  * it but can be used to generate standalone calendar year select boxes.
  */
-class YearWidget : DWidget {
-        mixin(WidgetThis!("Year"));
+class DYearWidget : DWidget {
+    mixin(WidgetThis!("Year"));
 
     /* 
     // Data defaults.
@@ -23,29 +23,18 @@ class YearWidget : DWidget {
         "order": StringData("desc"),
         "templateVars": ArrayData,
     ];
-
+*/
     // Select box widget
-    protected SelectBoxWidget my_select;
+    protected DSelectBoxWidget _select;
 
-    /**
-     * Constructor
-     * Params:
-     * \UIM\View\StringTemplate mytemplates Templates list.
-     * @param \UIM\View\Widget\SelectBoxWidget myselectBox Selectbox widget instance.
-     * /
-    this(DStringTemplate mytemplates, SelectBoxWidget myselectBox) {
-       super(mytemplates);
-_select = myselectBox;
+    this(DStringTemplate newTemplates, DSelectBoxWidget selectBox) {
+        super(newTemplates);
+        _select = selectBox;
     }
-    
-    /**
-     * Renders a year select box.
-     * Params:
-     * IData[string] mydata Data to render with.
-     * @param \UIM\View\Form\IContext mycontext The current form context.
-     * /
-    string render(IData[string] renderData, IContext mycontext) {
-        mergedData += this.mergeDefaults(renderData, mycontext);
+    /*
+    // Renders a year select box.
+    string render(IData[string] renderData, IContext formContext) {
+        auto mergedData += this.mergeDefaults(renderData, mycontext);
 
         if (mergedData("min")) {
             mergedData["min"] = date("Y", strtotime("-5 years"));

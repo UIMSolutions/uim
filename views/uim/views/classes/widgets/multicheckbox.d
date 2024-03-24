@@ -46,12 +46,9 @@ class DMultiCheckboxWidget : DWidget {
      *  variables.
      * - `multicheckboxWrapper` Renders a wrapper around grouped inputs.
      * - `multicheckboxTitle` Renders the title element for grouped inputs.
-     * Params:
-     * \UIM\View\StringTemplate mytemplates Templates list.
-     * @param \UIM\View\Widget\LabelWidget mylabel Label widget instance.
      * /
-    this(DStringTemplate mytemplates, LabelWidget labelWidget) {
-       _stringTemplate = mytemplates;
+    this(DStringTemplate newTemplate, LabelWidget labelWidget) {
+       super(newTemplate);
        _label = labelWidget;
     }
     

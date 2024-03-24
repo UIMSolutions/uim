@@ -60,6 +60,6 @@ class DLabelWidget : DWidget {
                         "text", "input", "hidden"
                     ]),
             ]);
-    } */
+    } 
 }
 mixin(WidgetCalls!("Label"));

@@ -13,7 +13,7 @@ import uim.views;
  */
 class BreadcrumbsHelper : Helper {
     mixin(HelperThis!("Breadcrumbs"));
-    use StringTemplateTrait;
+    // TODO use StringTemplateTrait;
 
     /**
      * Other helpers used by BreadcrumbsHelper.

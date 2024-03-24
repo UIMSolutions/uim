@@ -279,13 +279,14 @@ class DStringTemplate {
         return attributeKey ~ "=\"" ~ (shouldEscape ? htmlAttribEscape(data.toString): data.toString) ~ "\"";
     }
     
+    // TODO
     /**
      * Adds a class and returns a unique list either in array or space separated
      * Params:
      * Json myinput The array or string to add the class to
      * @param string[]|string|false|null mynewClass the new class or classes to add
      * @param string myuseIndex if you are inputting an array with an element other than default of "class".
-     */
+     * /
     string[] addClass(
         Json myinput,
         string[]|false|null mynewClass,
@@ -313,5 +314,5 @@ class DStringTemplate {
         }
         auto myclass = array_unique(chain(myclass, mynewClass));
         return Hash.insert(myinput, myuseIndex, myclass);
-    } 
+    } */
 }

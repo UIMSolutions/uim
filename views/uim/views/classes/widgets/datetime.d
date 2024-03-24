@@ -14,6 +14,7 @@ class DDateTimeWidget : DWidget {
     mixin(WidgetThis!("DateTime"));
 
     // Data defaults
+    /* 
     protected IData[string] _defaultData = [
         "name": StringData (""),
         "val": null,
@@ -24,6 +25,7 @@ class DDateTimeWidget : DWidget {
     ];
 
     // Formats for various input types.
+    /* 
     protected string[] myformatMap = [
         "datetime-local": "Y-m-d\TH:i:s",
         "date": "Y-m-d",

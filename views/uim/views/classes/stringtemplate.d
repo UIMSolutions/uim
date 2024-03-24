@@ -132,9 +132,9 @@ class DStringTemplate {
 
     protected void compileTemplate(string templateName) {
         string templateValue = get(templateName);
-        if (templateValue.isNull) {
-            throw new InvalidArgumentException("String template `%s` is not valid.".format(templateName));
-        }
+        // TODO if (templateValue.isNull) {
+        // TODO    throw new InvalidArgumentException("String template `%s` is not valid.".format(templateName));
+        // TODO}
 
         assert(templateValue.isString,
             "Template for `%s` must be of type `string`, but is `%s`".format(templateName, templateValue)
@@ -168,7 +168,7 @@ class DStringTemplate {
     
     // Remove the named template.
     void remove(string templateName) {
-        configuration.remove(templateName);
+        //TODO configuration.remove(templateName);
         _compiledtemplates.remove(templateName);
     }
 

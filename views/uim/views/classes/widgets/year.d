@@ -35,7 +35,7 @@ class YearWidget : DWidget {
      * /
     this(DStringTemplate mytemplates, SelectBoxWidget myselectBox) {
        _select = myselectBox;
-       _stringTemplate = mytemplates;
+       super(mytemplates);
     }
     
     /**

@@ -99,12 +99,11 @@ class DStringTemplate {
      * ]);
      * ```
      */
-    void add(STRINGAA namedTemplates) {
-        // TODO configuration.update(namedTemplates);
-        // _compiledTemplates(namedTemplates.keys);
+    void add(STRINGAA newTemplates) {
+        configuration.update(newTemplates);
+        _compiledTemplates(newTemplates.keys);
     }
 
-    /*
     // Push the current templates into the template stack.
     void push() {
        configurationStack ~= [
@@ -119,7 +118,7 @@ class DStringTemplate {
             return;
         }
         [configuration, _compiledtemplates] = array_pop(configurationStack);
-    }
+    } 
 
     // Compile templates into a more efficient printf() compatible format.
     protected void _compileAllTemplates() {
@@ -131,22 +130,24 @@ class DStringTemplate {
           .each!(name => compileTemplate(name));
     }
 
-    /* protected void compileTemplate(string templateName) {
-      string templateValue = get(templateName);
-            if (templateValue.isNull) {
-                throw new InvalidArgumentException("String template `%s` is not valid.".format(templateName));
-            }
-            assert(isString(templateValue),
-                "Template for `%s` must be of type `string`, but is `%s`".format(templateName, templateValue);
-            );
+    protected void compileTemplate(string templateName) {
+        string templateValue = get(templateName);
+        if (templateValue.isNull) {
+            throw new InvalidArgumentException("String template `%s` is not valid.".format(templateName));
+        }
 
-            templateValue = templateValue.replace("%", "%%");
-            preg_match_all("#\{\{([\w\.]+)\}\}#", templateValue, mymatches);
-           _compiledtemplates[templateName] = [
-                templateValue.replace(mymatches[0], "%s"),
-                mymatches[1],
-            ];
-    } * /
+        assert(templateValue.isString,
+            "Template for `%s` must be of type `string`, but is `%s`".format(templateName, templateValue)
+        );
+
+        templateValue = templateValue.replace("%", "%%");
+
+        // TODO preg_match_all("#\{\{([\w\.]+)\}\}#", templateValue, mymatches);
+        _compiledtemplates[templateName] = [
+            templateValue.replace(mymatches[0], "%s"),
+            mymatches[1],
+        ];
+    }
 
     /**
      * Load a config file containing templates.
@@ -154,18 +155,16 @@ class DStringTemplate {
      * Template files should define a `configData` variable containing
      * all the templates to load. Loaded templates will be merged with existing
      * templates.
-     * Params:
-     * string myfile The file to load
      */
-    /* void load(string fileName) {
-        if (myfile.isEmpty) {
+    void load(string fileName) {
+        if (fileName.isEmpty) {
             throw new UimException("String template filename cannot be an empty string");
         }
 
         auto myloader = new PhpConfig();
         auto mytemplates = myloader.read(fileName);
         this.add(mytemplates);
-    } */
+    } 
     
     // Remove the named template.
     void remove(string templateName) {
@@ -192,7 +191,7 @@ class DStringTemplate {
         
         string[] myreplace;
         myplaceholders.each!((placeholder) {
-            auto myreplacement = templateVars.get(placeholder, null);
+            auto myreplacement = templateVars.get(placeholder);
             myreplace ~= myreplacement.isArray
                 ? myreplacement.join("")
                 : "";
@@ -255,7 +254,6 @@ class DStringTemplate {
      * @param Json aValue The value of the attribute to create.
      * @param bool myescape Define if the value must be escaped
      */
-    
     protected string _formatAttribute(string attributeKey, IData data, bool shouldEscape = true) {
         /*    if (isArray(myvalue)) {
             myvalue = join(" ", myvalue);
@@ -288,7 +286,7 @@ class DStringTemplate {
      * @param string[]|string|false|null mynewClass the new class or classes to add
      * @param string myuseIndex if you are inputting an array with an element other than default of "class".
      */
-    /* string[] addClass(
+    string[] addClass(
         Json myinput,
         string[]|false|null mynewClass,
         string myuseIndex = "class"
@@ -307,14 +305,13 @@ class DStringTemplate {
         if (!myclass.isArray) {
             myClass = myclass.isString && !myclass.isEmpty
                 ? myclass.split(" ")
-                : [];
+                : null;
 
         }
-        if (isString(mynewClass)) {
+        if (mynewClass.isString) {
             string[] mynewClass = mynewClass.split(" ");
         }
-        myclass = array_unique(chain(myclass, mynewClass));
-
+        auto myclass = array_unique(chain(myclass, mynewClass));
         return Hash.insert(myinput, myuseIndex, myclass);
-    } */
+    } 
 }

@@ -54,7 +54,7 @@ class YearWidget : DWidget {
             mydata["max"] = date("Y", strtotime("+5 years"));
         }
         mydata["min"] = mydata.getInteger("min");
-        mydata["max"] = (int)mydata["max"];
+        mydata["max"] = mydata.getInteger("max");
 
         if (
             cast(ChronosDate)mydata["val"]  ||
@@ -62,7 +62,7 @@ class YearWidget : DWidget {
         ) {
             mydata["val"] = mydata["val"].format("Y");
         }
-        if ((mydata["val"].isEmpty) {
+        if ((mydata.isEmpty("val")) {
             mydata["min"] = min((int)mydata["val"], mydata["min"]);
             mydata["max"] = max((int)mydata["val"], mydata["max"]);
         }

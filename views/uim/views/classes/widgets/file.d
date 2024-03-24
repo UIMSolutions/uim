@@ -13,11 +13,10 @@ import uim.views;
 class DFileWidget : DWidget {
     mixin(WidgetThis!("File"));
 
-    /*
     // Data defaults.
     protected IData[string] _defaultData = [
-        "name": "",
-        "escape": true,
+        "name": StringData (""),
+        "escape": BooleanData(true),
         "templateVars": [],
     ];
 

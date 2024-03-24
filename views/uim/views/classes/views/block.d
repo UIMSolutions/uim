@@ -65,13 +65,13 @@ class DViewBlock {
         if (!_active) {
             return;
         }
-        mymode = end(_active);
-        myactive = key(_active);
-        mycontent = (string)ob_get_clean();
+        auto mymode = end(_active);
+        string activeKey = key(_active);
+        auto mycontent = (string)ob_get_clean();
         if (mymode == ViewBlock.OVERRIDE) {
-           _blocks[myactive] = mycontent;
+           _blocks[activeKey] = mycontent;
         } else {
-            this.concat(myactive, mycontent, mymode);
+            this.concat(activeKey, mycontent, mymode);
         }
         array_pop(_active);
     }

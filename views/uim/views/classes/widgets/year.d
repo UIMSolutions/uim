@@ -16,12 +16,12 @@ class YearWidget : DWidget {
     /* 
     // Data defaults.
     protected IData[string] _defaultData = [
-        "name": "",
+        "name": StringData(""),
         "val": null,
         "min": null,
         "max": null,
-        "order": "desc",
-        "templateVars": [],
+        "order": StringData("desc"),
+        "templateVars": ArrayData,
     ];
 
     // Select box widget

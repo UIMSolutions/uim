@@ -1,4 +1,5 @@
 # Library 📚 uim-filesystems
+[![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-filesystems.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-filesystems.yml) [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 A **file system** (often abbreviated as **FS**) is a fundamental component in computing that **controls how data is stored and retrieved**.
 

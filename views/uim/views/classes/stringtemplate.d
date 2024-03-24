@@ -100,8 +100,8 @@ class DStringTemplate {
      * ```
      */
     void add(STRINGAA newTemplates) {
-        configuration.update(newTemplates);
-        _compiledTemplates(newTemplates.keys);
+        updateConfiguration(newTemplates);
+        _compiledTemplates = newTemplates.keys;
     }
 
     // Push the current templates into the template stack.
@@ -155,7 +155,7 @@ class DStringTemplate {
      * Template files should define a `configData` variable containing
      * all the templates to load. Loaded templates will be merged with existing
      * templates.
-     */
+     * /
     void load(string fileName) {
         if (fileName.isEmpty) {
             throw new UimException("String template filename cannot be an empty string");
@@ -164,7 +164,7 @@ class DStringTemplate {
         auto myloader = new PhpConfig();
         auto mytemplates = myloader.read(fileName);
         this.add(mytemplates);
-    } 
+    } */
     
     // Remove the named template.
     void remove(string templateName) {
@@ -197,7 +197,8 @@ class DStringTemplate {
                 : "";
         });
 
-        return mytemplate.format(myreplace); 
+        // TODO return mytemplate.format(myreplace); 
+        return null;
     }
 
     /**

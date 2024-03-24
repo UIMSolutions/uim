@@ -89,6 +89,10 @@ abstract class DConfiguration : IConfiguration {
         return null; 
     }
 
+    void set(string[string] values, string[] paths = null) {
+        set(values.toData, paths);
+    }
+
     void set(IData[string] newData, string[] paths = null) {
         if (paths is null) {
             paths.each!(path => set(path, newData[path]));

@@ -46,6 +46,10 @@ class DView { //  }: IEventDispatcher {
         initialize;
     }
 
+this(IData[string] initData) {
+        initialize(initData);
+    }
+
     this(string newName) {
         this();
         this.name(newName);

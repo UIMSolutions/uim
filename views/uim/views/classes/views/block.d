@@ -63,15 +63,15 @@ class DViewBlock {
             return;
         }
 
-        string blockMode = end(_activeBlocks);
-        string activeKey = key(_activeBlocks);
-        string blockContent = ob_get_clean().to!string;
+        string blockMode; // TODO = end(_activeBlocks);
+        string activeKey; // TOD = key(_activeBlocks);
+        string blockContent; // TODO ob_get_clean().to!string;
         if (blockMode == DViewBlock.OVERRIDE) {
            _blocks[activeKey] = blockContent;
         } else {
             this.concat(activeKey, blockContent, blockMode);
         }
-        array_pop(_activeBlocks);
+        //TODO array_pop(_activeBlocks);
     }
     
     /**
@@ -83,7 +83,7 @@ class DViewBlock {
      * of the new capturing context will be added to the existing block context.
      */
     void concat(string blockName, string blockContent = null, string blockMode = DViewBlock.APPEND) {
-        if (blockContent.isNull) {
+        if (blockContent.isEmpty) {
             start(blockName, blockMode);
 
             return;
@@ -129,9 +129,9 @@ class DViewBlock {
     
     // Get the name of the currently open block.
     string active() {
-        end(_activeBlocks);
+       //TODO  end(_activeBlocks);
 
-        return key(_activeBlocks);
+        return null; //TODO  key(_activeBlocks);
     }
     
     // Get the unclosed/active blocks. Key is name, value is mode.

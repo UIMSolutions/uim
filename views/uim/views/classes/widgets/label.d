@@ -44,11 +44,12 @@ class DLabelWidget : DWidget {
             "text": StringData(""),
             "input": StringData(""),
             "hidden": StringData(""),
-            "escape": BoolData(true),
+            "escape": BooleanData(true),
             "templateVars": ArrayData(),
         ]);
 
-        return _stringTemplate.format(_labelTemplate, [
+        return null; 
+        /* _stringTemplate.format(_labelTemplate, [
                 "text": myData["escape"] ? htmlAttribEscape(myData["text"]): myData["text"],
                 "input": myData["input"],
                 "hidden": myData["hidden"],
@@ -56,7 +57,7 @@ class DLabelWidget : DWidget {
                 "attrs": _stringTemplate.formatAttributes(myData, [
                         "text", "input", "hidden"
                     ]),
-            ]);
+            ]); */
     }
 }
 

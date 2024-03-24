@@ -100,16 +100,16 @@ class DStringTemplate {
      * ```
      */
     void add(STRINGAA newTemplates) {
-        updateConfiguration(newTemplates);
+        //TODO updateConfiguration(newTemplates);
         _compiledTemplates = newTemplates.keys;
     }
 
     // Push the current templates into the template stack.
     void push() {
-       configurationStack ~= [
-           configuration,
-           _compiledtemplates,
-        ];
+       //TODO configurationStack ~= [
+       //TODO     configuration,
+       //TODO     _compiledtemplates,
+       //TODO  ];
     }
 
     // Restore the most recently pushed set of templates.
@@ -176,9 +176,9 @@ class DStringTemplate {
     string format(string templateName, IData[string] insertData) {
         auto myData = insertData.dup;
         
-        if (!_compiledtemplates.isSet(templateName)) {
-            throw new InvalidArgumentException("Cannot find template named `%s`.".format(templateName));
-        }
+        // TODO if (!_compiledtemplates.isSet(templateName)) {
+        // TODO     throw new InvalidArgumentException("Cannot find template named `%s`.".format(templateName));
+        // TODO }
         // TODO [mytemplate, myplaceholders] = _compiledtemplates[templateName];
         auto myTemplate = _compiledtemplates[templateName];
         string[] myplaceholders;
@@ -190,12 +190,12 @@ class DStringTemplate {
         }
         
         string[] myreplace;
-        myplaceholders.each!((placeholder) {
-            auto myreplacement = templateVars.get(placeholder);
-            myreplace ~= myreplacement.isArray
-                ? myreplacement.join("")
-                : "";
-        });
+        //TODO myplaceholders.each!((placeholder) {
+        //TODO     auto myreplacement = templateVars.get(placeholder);
+        //TODO     myreplace ~= myreplacement.isArray
+        //TODO         ? myreplacement.join("")
+        //TODO         : "";
+        //TODO });
 
         // TODO return mytemplate.format(myreplace); 
         return null;

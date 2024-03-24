@@ -1,5 +1,6 @@
 {
     "dscanner.ignoredKeys": [
         "dscanner.suspicious.object_const"
-    ]
+    ],
+    "commentTranslate.source": "Google"
 }

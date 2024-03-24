@@ -1,5 +1,7 @@
 # **Library 📚 uim-css**
 
+[![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-css.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-css.yml) [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 **CSS (Cascading Style Sheets)** is a fundamental component of web development that allows you to style and format web pages.
 
 **Purpose of CSS**:

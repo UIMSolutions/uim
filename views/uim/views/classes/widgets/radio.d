@@ -44,8 +44,8 @@ class DRadioWidget : DWidget {
      * Params:
      * \UIM\View\StringTemplate mytemplates Templates list.
      * /
-    this(DStringTemplate mytemplates, LabelWidget labelWidget) {
-       _stringTemplate = mytemplates;
+    this(DStringTemplate mytemplates, DLabelWidget labelWidget) {
+       super(mytemplates);
        _label = labelWidget;
     }
     

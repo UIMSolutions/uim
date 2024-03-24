@@ -76,8 +76,8 @@ class DRadioWidget : DWidget {
         } else {
             options = (array)mydata["options"];
         }
-        if (!empty(mydata["empty"])) {
-            myempty = mydata["empty"] == true ? "empty" : mydata["empty"];
+        if (!mydata["empty"].isEmpty) {
+            myempty = mydata.has("empty") ? "empty" : mydata["empty"];
             options = ["": myempty] + options;
         }
         mydata.remove("empty");

@@ -33,14 +33,15 @@ this();
 
   bool initialize(IData[string] initData = null) {
     configuration(MemoryConfiguration);
-    setConfigurationData([
+setConfigurationData(initData);
+    mergeConfigurationData([
       "name": StringData(),
       // "val": NullData(null),
       "type": StringData("text"),
       "escape": BooleanData(true),
       "templateVars": ArrayData
     ]);
-    setConfigurationData(initData);
+    
 
     return true;
   }

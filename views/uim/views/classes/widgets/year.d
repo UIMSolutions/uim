@@ -34,8 +34,8 @@ class YearWidget : DWidget {
      * @param \UIM\View\Widget\SelectBoxWidget myselectBox Selectbox widget instance.
      * /
     this(DStringTemplate mytemplates, SelectBoxWidget myselectBox) {
-       _select = myselectBox;
        super(mytemplates);
+_select = myselectBox;
     }
     
     /**
@@ -45,26 +45,26 @@ class YearWidget : DWidget {
      * @param \UIM\View\Form\IContext mycontext The current form context.
      * /
     string render(IData[string] renderData, IContext mycontext) {
-        mydata += this.mergeDefaults(mydata, mycontext);
+        mergedData += this.mergeDefaults(renderData, mycontext);
 
-        if (mydata.isEmpty("min")) {
-            mydata["min"] = date("Y", strtotime("-5 years"));
+        if (mergedData("min")) {
+            mergedData["min"] = date("Y", strtotime("-5 years"));
         }
-        if (mydata.isEmpty("max")) {
-            mydata["max"] = date("Y", strtotime("+5 years"));
+        if (mergedData("max")) {
+            mergedData["max"] = date("Y", strtotime("+5 years"));
         }
-        mydata["min"] = mydata.getInteger("min");
-        mydata["max"] = mydata.getInteger("max");
+        mergedData["min"] = mergedData.getInteger("min");
+        mergedData["max"] = mergedData.getInteger("max");
 
         if (
             cast(ChronosDate)mydata["val"]  ||
-            cast(IDateTime)mydata["val"]
+            cast(IDateTime)mergedData["val"]
         ) {
-            mydata["val"] = mydata["val"].format("Y");
+            mergedData["val"] = mydata["val"].format("Y");
         }
-        if ((mydata.isEmpty("val")) {
-            mydata["min"] = min((int)mydata["val"], mydata["min"]);
-            mydata["max"] = max((int)mydata["val"], mydata["max"]);
+        if ((mergedData.isEmpty("val")) {
+            mergedData["min"] = min(mydata.getInteger("val"), mergedData["min"]);
+            mydata["max"] = max(mydata.getInteger("val"), mydata["max"]);
         }
         if (mydata["max"] < mydata["min"]) {
             throw new InvalidArgumentException("Max year cannot be less than min year");

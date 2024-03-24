@@ -44,9 +44,9 @@ class DViewBlock {
      * @throws \UIM\Core\Exception\UimException When starting a block twice
      */
     void start(string blockName, string blockMode = DViewBlock.OVERRIDE) {
-        if (_activeBlocks.hasKey(blockName)) {
-            throw new UimException("A view block with the name `%s` is already/still open.".format(blockName));
-        }
+        // TODO if (_activeBlocks.hasKey(blockName)) {
+        // TODO     throw new UimException("A view block with the name `%s` is already/still open.".format(blockName));
+        // TODO }
        _activeBlocks[blockName] = blockMode;
         // TODO ob_start();
     }

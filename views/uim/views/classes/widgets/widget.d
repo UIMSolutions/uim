@@ -13,11 +13,16 @@ import uim.views;
 class DWidget : IWidget {
   mixin TConfigurable!();
 
-  this(IData[string] initData = null) {
+this() {
+    initialize;
+  }
+
+  this(IData[string] initData) {
     initialize(initData);
   }
 
   this(DStringTemplate newTemplate) {
+this();
     this.stringTemplate(newTemplate);
   }
 
@@ -28,14 +33,15 @@ class DWidget : IWidget {
 
   bool initialize(IData[string] initData = null) {
     configuration(MemoryConfiguration);
-    setConfigurationData([
+setConfigurationData(initData);
+    mergeConfigurationData([
       "name": StringData(),
       // "val": NullData(null),
       "type": StringData("text"),
       "escape": BooleanData(true),
       "templateVars": ArrayData
     ]);
-    setConfigurationData(initData);
+    
 
     return true;
   }
@@ -89,9 +95,7 @@ class DWidget : IWidget {
           mydata,
           ["name", "type"]
         ),
-      ]); */
-
-    return null;
+      ]);
   }
 
   /**

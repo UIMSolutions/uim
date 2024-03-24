@@ -15,13 +15,13 @@ class DSelectBoxWidget : DWidget {
 
     /* 
     protected IData[string] _defaultData = [
-        "name": Json(""),
-        "empty": Json(false),
-        "escape": Json(true),
-        "options": Json.emptyArray,
+        "name": StringData(""),
+        "empty": BooleanData(false),
+        "escape": BooleanData(true),
+        "options": ArrayData,
         "disabled": Json(null),
         "val": Json(null),
-        "templateVars": Json.emptyArray,
+        "templateVars": ArrayData,
     ];
 
     /**

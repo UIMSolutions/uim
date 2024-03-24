@@ -12,34 +12,31 @@ import uim.views;
  */
 class DViewBuilder { // }: DJsonSerializable {
     // The subdirectory to the template.
-    protected string my_templatePath = null;
+    protected string _templatePath = null;
 
     // The template file to render.
-    protected string my_template = null;
+    protected string _template = null;
 
     // The plugin name to use.
-    protected string my_plugin = null;
+    protected string _plugin = null;
 
     // The theme name to use
-    protected string my_theme = null;
+    protected string _theme = null;
 
     // The layout name to render.
-    protected string my_layout = null;
+    protected string _layout = null;
 
     // Whether autoLayout should be enabled.
-    protected bool my_autoLayout = true;
+    protected bool _autoLayout = true;
 
     // The layout path to build the view with.
-    protected string my_layoutPath = null;
+    protected string _layoutPath = null;
 
     /**
      * The view class name to use.
      * Can either use plugin notation, a short name
      * or a fully namespaced classname.
-     *
-     * @var string|null
-     * @psalm-var class-string<\UIM\View\View>|string|null
-     * /
+     */
     protected string _className = null;
 
     /**
@@ -56,7 +53,7 @@ class DViewBuilder { // }: DJsonSerializable {
     protected array my_helpers = [];
 
     // View vars
-    protected IData[string] my_vars = [];
+    protected IData[string] _vars = [];
 
     /**
      * Saves a variable for use inside a template.
@@ -74,12 +71,12 @@ class DViewBuilder { // }: DJsonSerializable {
      * IData[string] mydata Array of data.
      * @param bool mymerge Whether to merge with existing vars, default true.
      * /
-    void setVars(array data, bool mymerge = true) {
-        if (mymerge) {
-           _vars = mydata + _vars;
-        } else {
-           _vars = mydata;
-        }
+    void setVars(IData[string] data, bool shouldMerge = true) {
+vars = 
+        shouldMerge ?
+           mydata + _vars
+: mydata;
+        
     }
     
     /**

@@ -1,1 +1,1 @@
-# Package 📦 uim.views.classes
+# Package 📦 uim.views.classes.widgets

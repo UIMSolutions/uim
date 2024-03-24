@@ -13,7 +13,7 @@ import uim.views;
 class DRadioWidget : DWidget {
     mixin(WidgetThis!("Radio"));
     /*
-    use IdGeneratorTrait;
+    use IdGeneratorTrait; */
 
     // Data defaults.
     protected IData[string] _defaultData = [
@@ -44,8 +44,8 @@ class DRadioWidget : DWidget {
      * Params:
      * \UIM\View\StringTemplate mytemplates Templates list.
      * /
-    this(DStringTemplate mytemplates, LabelWidget labelWidget) {
-       _stringTemplate = mytemplates;
+    this(DStringTemplate mytemplates, DLabelWidget labelWidget) {
+       super(mytemplates);
        _label = labelWidget;
     }
     
@@ -76,8 +76,8 @@ class DRadioWidget : DWidget {
         } else {
             options = (array)mydata["options"];
         }
-        if (!empty(mydata["empty"])) {
-            myempty = mydata["empty"] == true ? "empty" : mydata["empty"];
+        if (!mydata["empty"].isEmpty) {
+            myempty = mydata.has("empty") ? "empty" : mydata["empty"];
             options = ["": myempty] + options;
         }
         mydata.remove("empty");
@@ -99,8 +99,8 @@ class DRadioWidget : DWidget {
      * @param string[]|true|null mydisabled The disabled values.
      *  bool
      * /
-    protected bool _isDisabled(IData[string] myradio, string[]|bool|null mydisabled) {
-        if (!mydisabled) {
+    protected bool _isDisabled(IData[string] myradio, string[]|bool isDisabled) {
+        if (!isDisabled) {
             return false;
         }
         if (mydisabled == true) {
@@ -203,14 +203,14 @@ class DRadioWidget : DWidget {
      * @param IData[string]|string|bool|null mylabel The properties for a label.
      * @param string myinput The input widget.
      * @param \UIM\View\Form\IContext formContext The form context.
-     * @param bool myescape Whether to HTML escape the label.
+     * @param bool shouldEscape Whether to HTML escape the label.
      * /
     protected string _renderLabel(
         array myradio,
         string[]|bool|null mylabel,
         string myinput,
         IContext formContext,
-        bool myescape
+        bool shouldEscape
     ): {
         if (isSet(myradio["label"])) {
             mylabel = myradio["label"];
@@ -221,7 +221,7 @@ class DRadioWidget : DWidget {
         mylabelAttrs = mylabel.isArray ? mylabel : [];
         mylabelAttrs += [
             "for": myradio["id"],
-            "escape": myescape,
+            "escape": shouldEscape,
             "text": myradio["text"],
             "templateVars": myradio["templateVars"],
             "input": myinput,

@@ -26,9 +26,9 @@ class DLabelWidget : DWidget {
      *  Can use the following variables `attrs`, `text` and `input`.
      * Params:
      * \UIM\View\StringTemplate mytemplates Templates list.
-     * /
+     */
     this(DStringTemplate mytemplates) {
-        _stringTemplate = mytemplates;
+        super(mytemplates);
     }
 
     /**
@@ -41,7 +41,7 @@ class DLabelWidget : DWidget {
      * - `escape` Set to false to disable HTML escaping.
      *
      * All other attributes will be converted into HTML attributes.
-     * /
+     */
     string render(IData[string] renderData, IContext formContext) {
         renderData.update([
             "text": StringData,

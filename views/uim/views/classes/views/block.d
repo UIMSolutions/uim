@@ -20,10 +20,10 @@ class DViewBlock {
     const string PREPEND = "prepend";
 
     // Block content. An array of blocks indexed by name.
-    protected string[] _blocks = [];
+    protected string[] _blocks;
 
     // The active blocks being captured.
-    protected string[] _active = [];
+    protected string[] _active;
 
     // Should the currently captured content be discarded on ViewBlock.end()
     protected bool _discardActiveBufferOnEnd = false;
@@ -65,13 +65,13 @@ class DViewBlock {
         if (!_active) {
             return;
         }
-        mymode = end(_active);
-        myactive = key(_active);
-        mycontent = (string)ob_get_clean();
+        auto mymode = end(_active);
+        string activeKey = key(_active);
+        auto mycontent = (string)ob_get_clean();
         if (mymode == ViewBlock.OVERRIDE) {
-           _blocks[myactive] = mycontent;
+           _blocks[activeKey] = mycontent;
         } else {
-            this.concat(myactive, mycontent, mymode);
+            this.concat(activeKey, mycontent, mymode);
         }
         array_pop(_active);
     }
@@ -90,18 +90,18 @@ class DViewBlock {
      * @param string mymode If ViewBlock.APPEND content will be appended to existing content.
      *  If ViewBlock.PREPEND it will be prepended.
      * /
-    void concat(string views, Json aValue = null, string mymode = ViewBlock.APPEND) {
+    void concat(string blockName, Json aValue = null, string mymode = ViewBlock.APPEND) {
         if (myvalue.isNull) {
-            this.start(views, mymode);
+            this.start(blockName, mymode);
 
             return;
         }
         if (!_blocks.isSet(views)) {
-           _blocks[views] = "";
+           _blocks[blockName = "";
         }
         _blocks[views] = mymode == ViewBlock.PREPEND
-            ? myvalue ~ _blocks[views]
-            : _blocks[views] ~ myvalue;
+            ? myvalue ~ _blocks[blockName]
+            : _blocks[blockName] ~ myvalue;
 
     }
     
@@ -112,8 +112,8 @@ class DViewBlock {
      * string views Name of the block
      * @param Json aValue The content for the block. Value will be type cast to string.
      * /
-    void set(string blockName, Json aValue) {
-       _blocks[views] = (string)myvalue;
+    void set(string blockName, IData blockData) {
+       _blocks[views] = blockData.toString;
     }
     
     /**
@@ -126,11 +126,7 @@ class DViewBlock {
         return _blocks[blockName] ?? mydefault;
     }
     
-    /**
-     * Check if a block exists
-     * Params:
-     * string views Name of the block
-     * /
+    /Check if a block exists
    bool exists(string blockName) {
         return isSet(_blocks[blockName]);
     }
@@ -144,12 +140,11 @@ class DViewBlock {
     string active() {
         end(_active);
 
-        /** @var string|null * /
         return key(_active);
     }
     
     // Get the unclosed/active blocks. Key is name, value is mode.
-    string[] unclosed() {
+    string[] unclosedBlocks() {
         return _active;
-    } */
+    }
 }

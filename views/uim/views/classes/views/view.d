@@ -46,6 +46,10 @@ class DView { //  }: IEventDispatcher {
         initialize;
     }
 
+this(IData[string] initData) {
+        initialize(initData);
+    }
+
     this(string newName) {
         this();
         this.name(newName);
@@ -94,14 +98,14 @@ class DView { //  }: IEventDispatcher {
      * The name of the template file to render. The name specified
      * is the filename in `templates/<SubFolder>/` without the .d extension.
      * /
-    protected string mytemplate = "";
+    protected string mytemplateFileName;
 
     /**
      * The name of the layout file to render the template inside of. The name specified
      * is the filename of the layout in `templates/layout/` without the .d
      * extension.
      * /
-    protected string mylayout = "default";
+    protected string mylayoutName = "default";
 
     // The name of the layouts subfolder containing layouts for this View.
     protected string mylayoutPath = "";
@@ -110,10 +114,10 @@ class DView { //  }: IEventDispatcher {
      * Turns on or off UIM"s conventional mode of applying layout files. On by default.
      * Setting to off means that layouts will not be automatically applied to rendered templates.
      * /
-    protected bool myautoLayout = true;
+    protected bool _autoLayout = true;
 
     // An array of variables
-    protected IData[string] myviewVars = [];
+    protected IData[string] _viewVars;
 
     // File extension. Defaults to ".d".
     protected string my_ext = ".d";
@@ -122,10 +126,10 @@ class DView { //  }: IEventDispatcher {
      * Sub-directory for this template file. This is often used for extension based routing.
      * Eg. With an `xml` extension, mysubDir would be `xml/`
      * /
-    protected string mysubDir = "";
+    protected string _subDir = "";
 
     // The view theme to use.
-    protected string mytheme = null;
+    protected string _viewTheme;
 
     /**
      * An instance of a \UIM\Http\ServerRequest object that contains information about the current request.

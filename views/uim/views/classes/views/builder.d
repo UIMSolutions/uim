@@ -12,34 +12,31 @@ import uim.views;
  */
 class DViewBuilder { // }: DJsonSerializable {
     // The subdirectory to the template.
-    protected string my_templatePath = null;
+    protected string _templatePath = null;
 
     // The template file to render.
-    protected string my_template = null;
+    protected string _template = null;
 
     // The plugin name to use.
-    protected string my_plugin = null;
+    protected string _plugin = null;
 
     // The theme name to use
-    protected string my_theme = null;
+    protected string _theme = null;
 
     // The layout name to render.
-    protected string my_layout = null;
+    protected string _layout = null;
 
     // Whether autoLayout should be enabled.
-    protected bool my_autoLayout = true;
+    protected bool _autoLayout = true;
 
     // The layout path to build the view with.
-    protected string my_layoutPath = null;
+    protected string _layoutPath = null;
 
     /**
      * The view class name to use.
      * Can either use plugin notation, a short name
      * or a fully namespaced classname.
-     *
-     * @var string|null
-     * @psalm-var class-string<\UIM\View\View>|string|null
-     * /
+     */
     protected string _className = null;
 
     /**

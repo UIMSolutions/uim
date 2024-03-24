@@ -638,7 +638,7 @@ class FormHelper : Helper {
             myerror = mytext;
         }
         if (options["escape"]) {
-            myerror = htmlAllEscape(myerror);
+            myerror = htmlAttribEscape(myerror);
             options.remove("escape");
         }
         if (isArray(myerror)) {
@@ -1232,7 +1232,7 @@ class FormHelper : Helper {
             options["required"] = mycontext.isRequired(fieldName);
         }
         mymessage = mycontext.getRequiredMessage(fieldName);
-        mymessage = htmlAllEscape(mymessage);
+        mymessage = htmlAttribEscape(mymessage);
 
         if (options["required"] && mymessage) {
             options["templateVars"]["customValidityMessage"] = mymessage;
@@ -1545,7 +1545,7 @@ class FormHelper : Helper {
             myconfirm = _confirm("return true;", "return false;");
             options["data-confirm-message"] = myconfirmMessage;
             options["onclick"] = this.templater().format("confirmJs", [
-                "confirmMessage": htmlAllEscape(myconfirmMessage),
+                "confirmMessage": htmlAttribEscape(myconfirmMessage),
                 "confirm": myconfirm,
             ]);
         }
@@ -1695,7 +1695,7 @@ class FormHelper : Helper {
             myonClick = _confirm(myonClick, "");
             myonClick = myonClick ~ "event.returnValue = false; return false;";
             myonClick = this.templater().format("confirmJs", [
-                "confirmMessage": htmlAllEscape(myconfirmMessage),
+                "confirmMessage": htmlAttribEscape(myconfirmMessage),
                 "formName": myformName,
                 "confirm": myonClick,
             ]);

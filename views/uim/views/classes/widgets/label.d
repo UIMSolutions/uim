@@ -52,7 +52,7 @@ class DLabelWidget : DWidget {
         ]);
 
         return _stringTemplate.format(_labelTemplate, [
-                "text": renderData["escape"] ? htmlAllEscape(renderData["text"]): renderData["text"],
+                "text": renderData["escape"] ? htmlAttribEscape(renderData["text"]): renderData["text"],
                 "input": renderData["input"],
                 "hidden": renderData["hidden"],
                 "templateVars": renderData["templateVars"],

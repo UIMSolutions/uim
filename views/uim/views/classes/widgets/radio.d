@@ -164,7 +164,7 @@ class DRadioWidget : DWidget {
         }
         myinput = _stringTemplate.format("radio", [
             "name": myradio["name"],
-            "value": myescape ? htmlAllEscape(myradio["value"]): myradio["value"],
+            "value": myescape ? htmlAttribEscape(myradio["value"]): myradio["value"],
             "templateVars": myradio["templateVars"],
             "attrs": _stringTemplate.formatAttributes(
                 myradio + options,

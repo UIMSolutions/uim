@@ -14,8 +14,16 @@ import uim.views;
 class DStringTemplate {
     mixin TConfigurable!();
 
-    this(string newName) { this();  this.name(newName); }
-    this(IData[string] initData = null) {
+    this() {
+        this.initialize;
+    }
+
+    this(string newName) {
+        this();
+        this.name(newName);
+    }
+
+    this(IData[string] initData) {
         this.initialize(initData);
     }
 
@@ -23,7 +31,7 @@ class DStringTemplate {
         configuration(MemoryConfiguration);
         setConfigurationData(initData);
 
-       _compactAttributes = [
+        _compactAttributes = [
             "allowfullscreen": true,
             "async": true,
             "autofocus": true,
@@ -93,7 +101,7 @@ class DStringTemplate {
      */
     void add(STRINGAA namedTemplates) {
         // TODO configuration.update(namedTemplates);
-       // _compiledTemplates(namedTemplates.keys);
+        // _compiledTemplates(namedTemplates.keys);
     }
 
     /*
@@ -164,11 +172,11 @@ class DStringTemplate {
         configuration.update(templateName, null);
         _compiled.remove(templateName);
     } */
-    
+
     /**
      * Format a template string with mydata
      */
-    string format(string templateName, IData[string] insertData) {
+    string format(string templateName, string[string] insertData) {
         // TODO 
         /* if (!_compiled.isSet(templateName)) {
             throw new InvalidArgumentException("Cannot find template named `%s`.".format(templateName));
@@ -188,9 +196,9 @@ class DStringTemplate {
                 : "";
         });
         return vsprintf(mytemplate, myreplace); */
-        return null; 
-    } 
-    
+        return null;
+    }
+
     /**
      * Returns a space-delimited string with items of the options array. If a key
      * of options array happens to be one of those listed
@@ -216,53 +224,59 @@ class DStringTemplate {
      * IData[string]|null options Array of options.
      * @param string[]|null myexclude Array of options to be excluded, the options here will not be part of the return.
      */
-    /* string formatAttributes(IData[string] options, array myexclude = null) {
-       string myinsertBefore = " ";
-        options = options.update(["escape": BoolData(true)]);
+    string formatAttributes(IData[string] options, string[] excludes) {
+        bool[string] newExcludes;
+        excludes.each!(ex => newExcludes[ex] = true);
+        return formatAttributes(options, newExcludes);
+    }
 
-        if (!myexclude.isArray) {
-            myexclude = [];
-        }
-        myexclude = ["escape": true, "idPrefix": true, "templateVars": true, "fieldName": true]
-            + array_flip(myexclude);
-        myescape = options["escape"];
+    string formatAttributes(IData[string] options, bool[string] excludes = null) {
+        string myinsertBefore = " ";
+        auto updatedOptions = options.update(["escape": BooleanData(true)]);
 
-        auto myattributes = = options.byKeyValue
-            .filter!(kv => !myexclude.isSet(kv.key) && kv.value != false && !kv.value.isNull)
-            .map!(kv => _formatAttribute((string)kv.key, kv.value, myescape));
-        
-        string result = trim(join(" ", myattributes));
+        auto myExcludes = excludes.update(["escape": true, "idPrefix": true, "templateVars": true, "fieldName": true]);
+        bool escape = updatedOptions["escape"].toBoolean;
+
+        string[] attributes = updatedOptions.byKeyValue
+            .filter!(kv => !myExcludes.hasKey(kv.key))
+            .map!(kv => _formatAttribute(kv.key, kv.value, escape))
+            .array;
+
+        string result = strip(attributes.join(" "));
         return result ? myinsertBefore ~ result : "";
-    } */
-    
+    }
+
     /**
      * Formats an individual attribute, and returns the string value of the composed attribute.
      * Works with minimized attributes that have the same value as their name such as "disabled" and "checked"
      * Params:
-     * string aKey The name of the attribute to create
      * @param Json aValue The value of the attribute to create.
      * @param bool myescape Define if the value must be escaped
      */
-     /* 
-    protected string _formatAttribute(string aKey, Json aValue, bool myescape = true) {
-        if (isArray(myvalue)) {
+    
+    protected string _formatAttribute(string attributeKey, IData data, bool shouldEscape = true) {
+        /*    if (isArray(myvalue)) {
             myvalue = join(" ", myvalue);
         }
-        if (isNumeric(aKey)) {
+        if (isNumeric(attributeKey)) {
             return "myvalue=\"myvalue\"";
-        }
-        mytruthy = [1, "1", true, "true", aKey];
-        myisMinimized = isSet(_compactAttributes[aKey]);
+        } */
+
+        // mytruthy = [1, "1", true, "true", aKey];
+        bool isMinimized; 
+        // isMinimized = isSet(_compactAttributes[aKey]);
         // TODO if (!preg_match("/\A(\w|[.-])+\z/", aKey)) {
-        //    aKey = htmlAllEscape(aKey);
+        //    aKey = htmlAttribEscape(aKey);
         // }
-        if (myisMinimized && myvalue.has(mytruthy)) {
-            return "aKey=\"aKey\"";
+        
+        if (isMinimized && ["1", "true", attributeKey].has(data.toString)) {
+            return attributeKey~"=\"" ~attributeKey~ "\"";
         }
-        if (myisMinimized) {
-            return "";
-        }
-        return aKey ~ "="" ~ (myescape ? htmlAllEscape(myvalue): myvalue) ~ """;
+        // TODO if (myisMinimized) {
+        //     return "";
+        // }
+
+        return attributeKey ~ "=\"" ~ (shouldEscape ? htmlAttribEscape(data.toString): data.toString) ~ "\"";
     }
     
     /**

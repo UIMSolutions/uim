@@ -72,11 +72,11 @@ class DViewBuilder { // }: DJsonSerializable {
      * @param bool mymerge Whether to merge with existing vars, default true.
      * /
     void setVars(IData[string] data, bool shouldMerge = true) {
-        if (shouldMerge) {
-           _vars = mydata + _vars;
-        } else {
-           _vars = mydata;
-        }
+vars = 
+        shouldMerge ?
+           mydata + _vars
+: mydata;
+        
     }
     
     /**

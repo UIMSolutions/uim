@@ -20,10 +20,10 @@ class DViewBlock {
     const string PREPEND = "prepend";
 
     // Block content. An array of blocks indexed by name.
-    protected string[] _blocks = [];
+    protected string[] _blocks;
 
     // The active blocks being captured.
-    protected string[] _active = [];
+    protected string[] _active;
 
     // Should the currently captured content be discarded on ViewBlock.end()
     protected bool _discardActiveBufferOnEnd = false;
@@ -126,11 +126,7 @@ class DViewBlock {
         return _blocks[blockName] ?? mydefault;
     }
     
-    /**
-     * Check if a block exists
-     * Params:
-     * string views Name of the block
-     * /
+    /Check if a block exists
    bool exists(string blockName) {
         return isSet(_blocks[blockName]);
     }
@@ -149,7 +145,7 @@ class DViewBlock {
     }
     
     // Get the unclosed/active blocks. Key is name, value is mode.
-    string[] unclosed() {
+    string[] unclosedBlocks() {
         return _active;
-    } */
+    }
 }

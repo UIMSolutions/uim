@@ -17,7 +17,7 @@ class DFileWidget : DWidget {
     protected IData[string] _defaultData = [
         "name": StringData (""),
         "escape": BooleanData(true),
-        "templateVars": [],
+        "templateVars": ArrayData,
     ];
 
     /**
@@ -37,7 +37,7 @@ class DFileWidget : DWidget {
      * return HTML elements.
      * /
     string render(IData[string] renderData, IContext formContext) {
-        buildData += this.mergeDefaults(buildData, formContext);
+        buildData = buildData.merge // Todo  this.mergeDefaults(buildData, formContext);
 
         buildData.remove("val");
 

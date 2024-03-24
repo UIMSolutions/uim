@@ -53,7 +53,7 @@ class DViewBuilder { // }: DJsonSerializable {
     protected array my_helpers = [];
 
     // View vars
-    protected IData[string] my_vars = [];
+    protected IData[string] _vars = [];
 
     /**
      * Saves a variable for use inside a template.
@@ -71,8 +71,8 @@ class DViewBuilder { // }: DJsonSerializable {
      * IData[string] mydata Array of data.
      * @param bool mymerge Whether to merge with existing vars, default true.
      * /
-    void setVars(array data, bool mymerge = true) {
-        if (mymerge) {
+    void setVars(IData[string] data, bool shouldMerge = true) {
+        if (shouldMerge) {
            _vars = mydata + _vars;
         } else {
            _vars = mydata;

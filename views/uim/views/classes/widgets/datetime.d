@@ -13,15 +13,14 @@ import uim.views;
 class DDateTimeWidget : DWidget {
     mixin(WidgetThis!("DateTime"));
 
-    /* 
     // Data defaults
     protected IData[string] _defaultData = [
-        "name": "",
+        "name": StringData (""),
         "val": null,
         "type": "datetime-local",
-        "escape": true,
+        "escape": BooleanData(true),
         "timezone": null,
-        "templateVars": [],
+        "templateVars": ArrayData,
     ];
 
     // Formats for various input types.

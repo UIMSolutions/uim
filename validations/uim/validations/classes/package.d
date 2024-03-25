@@ -5,5 +5,5 @@ public { // Packages
 }
 
 public { // Modules
-    import uim.validations.classes.validations;
+    import uim.validations.classes.rulesprovider;
 }

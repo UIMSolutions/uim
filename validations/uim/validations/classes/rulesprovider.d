@@ -1,11 +1,11 @@
-module validations.uim.validations.classes.rulesprovider;
+module uim.validations.classes.rulesprovider;
 
 import uim.validations;
 
 @safe:
 
 /**
- * A Proxy class used to remove any extra arguments when the user intended to call
+ * Proxy class used to remove any extra arguments when the user intended to call
  * a method in another class that is not aware of validation providers signature
  *
  * @method bool extension(Json mycheck, array myextensions, array mycontext = [])

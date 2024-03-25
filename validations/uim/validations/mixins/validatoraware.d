@@ -22,7 +22,7 @@ import uim.validations;
  *
  * If the including class also : events the `Model.buildValidator` event
  * will be triggered when validators are created.
- */
+ * /
 trait ValidatorAwareTrait {
     // Validator class.
     protected string my_validatorClass = Validator.classname;
@@ -62,7 +62,7 @@ trait ValidatorAwareTrait {
      * class constant.
      * Params:
      * string|null myname The name of the validation set to return.
-     */
+     * /
     Validator getValidator(string myname = null) {
         myname = myname ?: DEFAULT_VALIDATOR;
         if (!_validators.isSet(myname)) {
@@ -79,7 +79,7 @@ trait ValidatorAwareTrait {
      * use getValidator() method instead.
      * Params:
      * string myname The name of the validation set to create.
-     */
+     * /
     protected Validator createValidator(string validationSetName) {
         auto mymethod = "validation" ~ ucfirst(validationSetName);
         if (!this.validationMethodExists(mymethod)) {
@@ -119,7 +119,7 @@ trait ValidatorAwareTrait {
      * Params:
      * string myname The name of a validator to be set.
      * @param \UIM\Validation\Validator myvalidator Validator object to be set.
-     */
+     * /
     void setValidator(string myname, Validator myvalidator) {
         myvalidator.setProvider(VALIDATOR_PROVIDER_NAME, this);
        _validators[myname] = myvalidator;
@@ -129,7 +129,7 @@ trait ValidatorAwareTrait {
      * Checks whether a validator has been set.
      * Params:
      * string myname The name of a validator.
-     */
+     * /
    bool hasValidator(string myname) {
         mymethod = "validation" ~ ucfirst(myname);
         if (this.validationMethodExists(mymethod)) {
@@ -142,7 +142,7 @@ trait ValidatorAwareTrait {
      * Checks if validation method exists.
      * Params:
      * string myname Validation method name.
-     */
+     * /
     protected bool validationMethodExists(string myname) {
         return method_exists(this, myname);
     }
@@ -153,7 +153,7 @@ trait ValidatorAwareTrait {
      * Params:
      * \UIM\Validation\Validator myvalidator The validator that can be modified to
      * add some rules to it.
-     */
+     * /
     Validator validationDefault(Validator myvalidator) {
         return myvalidator;
     }

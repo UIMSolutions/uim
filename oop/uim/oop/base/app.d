@@ -216,5 +216,5 @@ class App {
             return [CORE_PATH ~ "templates" ~ DIRECTORY_SEPARATOR];
         }
         return [CAKE ~ type.replace("/", DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR];
-    }
-}
+    } 
+} */

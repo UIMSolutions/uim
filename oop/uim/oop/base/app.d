@@ -1,4 +1,4 @@
-module uim.oop.core;
+module uim.oop.base.app;
 
 import uim.oop;
 
@@ -24,7 +24,7 @@ import uim.oop;
  *
  * Plugins can be located with App as well. Using Plugin.path("DebugKit") for example, will
  * give you the full path to the DebugKit plugin.
- */
+ * /
 class App {
     /**
      * Return the class name namespaced. This method checks if the class is defined on the
@@ -33,7 +33,7 @@ class App {
      * className = Class name
      * @param string classType Type of class
      * @param string classNameSuffix Class name suffix
-     */
+     * /
     static string className(string className, string classType = "", string classNameSuffix= null) {
         if (className.has("\\")) {
             return class_exists(className) ?  className : null;
@@ -93,7 +93,7 @@ class App {
      * className = Class name
      * classType = Type of class
      * classNameSuffix = Class name suffix
-     */
+     * /
     static string shortName(string className, string classType, string classNameSuffix= null) {
         auto myClassName = className.replace("\\", "/");
         string type = "/" ~ classType ~ "/";
@@ -126,7 +126,7 @@ class App {
      * Params:
      * className  = Class name.
      * aNamespace = Namespace.
-     */
+     * /
     protected static bool _classExistsInBase(string className, string namespace) {
         return class_exists(namespace ~ className);
     }
@@ -154,7 +154,7 @@ class App {
      * string pathType Type of path
      * @param string plugin Plugin name
      * @link https://book.UIM.org/5/en/core-libraries/app.html#finding-paths-to-namespaces
-     */
+     * /
     static string[] path(string pathType, string aplugin = null) {
         if (plugin.isNull) {
             return (array)Configure.read("App.paths." ~ type);
@@ -188,7 +188,7 @@ class App {
      * Params:
      * string packageType Package type.
      * @param string plugin Plugin name.
-     */
+     * /
     static string[] classPath(string packageType, string aplugin = null) {
         if (plugin !isNull) {
             return [
@@ -210,7 +210,7 @@ class App {
      * Will return the full path to the cache engines package.
      * Params:
      * string packageType Package type.
-     */
+     * /
     static string[] core(string packageType) {
         if (type == "templates") {
             return [CORE_PATH ~ "templates" ~ DIRECTORY_SEPARATOR];

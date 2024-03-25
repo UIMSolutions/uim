@@ -1,4 +1,4 @@
-module uim.commands.completion;
+module uim.commands.classes.commands.completion;
 
 import uim.commands;
 

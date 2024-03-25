@@ -1,4 +1,4 @@
-module uim.commands.server;
+module uim.commands.classes.commands.server;
 
 import uim.commands;
 

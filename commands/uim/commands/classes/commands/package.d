@@ -8,5 +8,7 @@ public { // Packages
 
 public { // Modules
     import uim.commands.classes.commands.command;
+    import uim.commands.classes.commands.completion;
+    import uim.commands.classes.commands.server;
     import uim.commands.classes.commands.version_;
 }

@@ -8,12 +8,6 @@ import uim.commands;
 class DI18nCommand : DCommand {
   mixin(CommandThis!("I18n"));
 
-  	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
-
     // Execute interactive mode
     int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         aConsoleIo.writeln("<info>I18n Command</info>");

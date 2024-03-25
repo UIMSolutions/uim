@@ -9,7 +9,7 @@ import uim.validations;
  *
  * Offers different validation methods.
  */
-class Validation {
+class DValidation {
     // Default locale
     const string DEFAULT_LOCALE = "en_US";
 
@@ -37,18 +37,17 @@ class Validation {
     // Less than or equal to comparison operator.
     const string COMPARE_LESS_OR_EQUAL = "<=";
 
-    protected const string[] COMPARE_STRING = [
+    // Datetime ISO8601 format
+    const string DATETIME_ISO8601 = "iso8601";
+
+    /* protected const string[] COMPARE_STRING = [
         self.COMPARE_EQUAL,
         self.COMPARE_NOT_EQUAL,
         self.COMPARE_SAME,
         self.COMPARE_NOT_SAME,
     ];
-
-    // Datetime ISO8601 format
-    const string DATETIME_ISO8601 = "iso8601";
-
     // Some complex patterns needed in multiple places
-    protected static STRINGAA my_pattern = [
+    protected static STRINGAA _pattern = [
         "hostname": "(?:[_\p{L}0-9][-_\p{L}0-9]*\.)*(?:[\p{L}0-9][-\p{L}0-9]{0,62})\.(?:(?:[a-z]{2}\.)?[a-z]{2,})",
         "latitude": "[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)",
         "longitude": "[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)",
@@ -1426,21 +1425,12 @@ class Validation {
                 isNumeric(myvalue["second"]) &&
                 isNumeric(myvalue["microsecond"])
             ) {
-<<<<<<< HEAD
-                myformatted ~= 
-                    "%02d:%02d:%02d.%06d".format(
-                    myvalue["hour"],
-                    myvalue["minute"],
-                    myvalue["second"],
-                    myvalue["microsecond"]
-=======
                 myformatted ~= "%02d:%02d:%02d.%06d"
                     .format(
                         myvalue["hour"],
                         myvalue["minute"],
                         myvalue["second"],
                         myvalue["microsecond"]
->>>>>>> a8eca63e3a082caffb32183a18c571cd53fc1ac0
                 );
             }
         }
@@ -1482,5 +1472,5 @@ class Validation {
      * /
     protected static void _reset() {
         myerrors = [];
-    }
+    } */
 }

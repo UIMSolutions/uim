@@ -114,15 +114,15 @@ class DStringTemplate {
 
     // Restore the most recently pushed set of templates.
     void pop() {
-        if (configurationStack.isEmpty) {
-            return;
-        }
-        [configuration, _compiledtemplates] = array_pop(configurationStack);
+       // TODO if (configurationStack.isEmpty) {
+        // TODO     return;
+        // TODO }
+        // TODO [configuration, _compiledtemplates] = array_pop(configurationStack);
     } 
 
     // Compile templates into a more efficient printf() compatible format.
     protected void _compileAllTemplates() {
-        _compileTemplates(configuration.keys);
+        // TODO _compileTemplates(configuration.keys);
     }
     
     protected void _compileTemplates(string[] templateNames) {
@@ -131,22 +131,22 @@ class DStringTemplate {
     }
 
     protected void compileTemplate(string templateName) {
-        string templateValue = get(templateName);
+        string templateValue; // TODO  = get(templateName);
         // TODO if (templateValue.isNull) {
         // TODO    throw new InvalidArgumentException("String template `%s` is not valid.".format(templateName));
         // TODO}
 
-        assert(templateValue.isString,
-            "Template for `%s` must be of type `string`, but is `%s`".format(templateName, templateValue)
-        );
+        // TODO assert(templateValue.isString,
+        // TODO     "Template for `%s` must be of type `string`, but is `%s`".format(templateName, templateValue)
+        // TODO );
 
         templateValue = templateValue.replace("%", "%%");
 
         // TODO preg_match_all("#\{\{([\w\.]+)\}\}#", templateValue, mymatches);
-        _compiledtemplates[templateName] = [
-            templateValue.replace(mymatches[0], "%s"),
-            mymatches[1],
-        ];
+        // TODO _compiledtemplates[templateName] = [
+        // TODO     templateValue.replace(mymatches[0], "%s"),
+        // TODO     mymatches[1],
+        // TODO ];
     }
 
     /**
@@ -169,7 +169,7 @@ class DStringTemplate {
     // Remove the named template.
     void remove(string templateName) {
         //TODO configuration.remove(templateName);
-        _compiledtemplates.remove(templateName);
+        _compiledTemplates.remove(templateName);
     }
 
     // Format a template string with data
@@ -180,12 +180,12 @@ class DStringTemplate {
         // TODO     throw new InvalidArgumentException("Cannot find template named `%s`.".format(templateName));
         // TODO }
         // TODO [mytemplate, myplaceholders] = _compiledtemplates[templateName];
-        auto myTemplate = _compiledtemplates[templateName];
+        string myTemplate; // TODO  = _compiledtemplates[templateName];
         string[] myplaceholders;
         
         IData[] templateVars;
         if (myData.isSet("templateVars")) {
-            templateVars = myData["templateVars"];
+            // TODO templateVars = myData["templateVars"];
             myData.remove("templateVars");
         }
         

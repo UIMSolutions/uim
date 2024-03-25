@@ -1,13 +1,5 @@
-# Package 📦 uim.caches
+# Package 📦 uim.caches.classes.caches
 
-## Classes
+## Packages
 
-## Exceptions
-
-## Helpers
-
-## Interfaces
-
-## Mixins
-
-## Tests
+## Modules

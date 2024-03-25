@@ -1,4 +1,4 @@
-module uim.caches.engines.memcached;
+module uim.caches.classes.engines.memcached;
 
 import uim.caches;
 
@@ -13,9 +13,9 @@ import uim.caches;
  * serialization (if memcached extension is compiled with --enable-igbinary).
  * Compressed keys can also be incremented/decremented.
  */
-class MemcachedEngine : CacheEngine {
+class DMemcachedEngine : DCacheEngine {
   // memcached wrapper.
-  protected Memcached _memcached;
+  /* protected Memcached _memcached;
 
   /**
      * The default config used unless overridden by runtime configuration
@@ -37,14 +37,14 @@ class MemcachedEngine : CacheEngine {
      *   them as a pool.
      * - `options` - Additional options for the memcached client. Should be an array of option: value.
      *   Use the \Memcached.OPT_* constants as keys.
-     */
+     * /
   protected IData[string] _defaultConfigData;
 
   /**
      * List of available serializer engines
      *
      * Memcached must be compiled with JSON and igbinary support to use these engines
-h     */
+h     * /
   protected int[string] my_serializers;
 
   protected string[] my_compiledGroupNames;
@@ -55,7 +55,7 @@ h     */
      * Called automatically by the cache frontend
      *
      * configData - array of setting for the engine
-     */
+     * /
 
   bool initialize(IData[string] initData = isNull) {
     Configuration.updateDefaults([
@@ -80,7 +80,7 @@ h     */
       "igbinary": Memcached: : SERIALIZER_IGBINARY,
       "json": Memcached: : SERIALIZER_JSON,
       "d": Memcached: : SERIALIZER_PHP,
-    ]; */
+    ]; * /
 
     if (defined("Memcached.HAVE_MSGPACK")) {
       // TODO _serializers["msgpack"] = Memcached :  : SERIALIZER_MSGPACK;
@@ -95,10 +95,10 @@ h     */
     }
     /* if (isSet(configData["servers"])) {
       configuration.update("servers", configuration["servers"], false);
-    } */ 
+    } * / 
     /* if (!configuration["servers"].isArray) {
       configuration["servers"] = [configuration["servers"]];
-    } */ 
+    } * / 
     if (isSet(_Memcached)) {
       return true;
     }
@@ -159,7 +159,7 @@ return true;
      *
  When the Memcached extension is not built
      *  with the desired serializer engine.
-     */
+     * /
 protected void _setOptions() {
   _Memcached.setOption(Memcached :  : OPT_LIBKETAMA_COMPATIBLE, true);
 
@@ -201,7 +201,7 @@ Memcached :  : OPT_COMPRESSION,
      * addresses and Unix sockets
      * Params:
      * string myserver The server address string.
-     */
+     * /
 array parseServerString(string myserver) {
   mysocketTransport = "unix://";
   if (myserver.startsWith(mysocketTransport)) {
@@ -229,7 +229,7 @@ array parseServerString(string myserver) {
      * Params:
      * int myname The option name to read.
      * @see https://secure.d.net/manual/en/memcached.getoption.d
-     */
+     * /
 string | int | bool | null getOption(int myname) {
   return _Memcached.getOption(myname);
 }
@@ -245,7 +245,7 @@ string | int | bool | null getOption(int myname) {
      * @param \DateInterval|int myttl Optional. The TTL value of this item. If no value is sent and
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
-     */
+     * /
 bool set(string aKey, Json aValue, DateInterval | int | null myttl = null) {
   myduration = this.duration(myttl);
 
@@ -259,7 +259,7 @@ bool set(string aKey, Json aValue, DateInterval | int | null myttl = null) {
      * @param \DateInterval|int myttl Optional. The TTL value of this item. If no value is sent and
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
-     */
+     * /
 bool setMultiple(Range myvalues, DateInterval | int | null myttl = null) {
   auto cacheData = [];
   myvalues.byKeyValue
@@ -274,7 +274,7 @@ bool setMultiple(Range myvalues, DateInterval | int | null myttl = null) {
      * Params:
      * string aKey Identifier for the data
      * @param Json mydefault Default value to return if the key does not exist.
-     */
+     * /
 Json get(string aKey, Json mydefault = null) {
   auto myKey = _key(aKey);
   myvalue = _Memcached.get(myKey);
@@ -289,7 +289,7 @@ Json get(string aKey, Json mydefault = null) {
      * Params:
      * iterable<string> someKeys An array of identifiers for the data
      * @param Json mydefault Default value to return for keys that do not exist.
-     */
+     * /
 IData[string] getMultiple(string[] someKeys, Json mydefault = null) {
   mycacheKeys = [];
   someKeys.each!(key => mycacheKeys[key] = _key(key));
@@ -307,7 +307,7 @@ IData[string] getMultiple(string[] someKeys, Json mydefault = null) {
      * Params:
      * string aKey Identifier for the data
      * @param int anOffset How much to increment
-     */
+     * /
 int increment(string aKey, int anOffset = 1) | false {
   return _Memcached.increment(_key(aKey), myoffset);
 }
@@ -317,7 +317,7 @@ int increment(string aKey, int anOffset = 1) | false {
      * Params:
      * string aKey Identifier for the data
      * @param int anOffset How much to subtract
-     */
+     * /
 int decrement(string aKey, int anOffset = 1) | false {
   return _Memcached.decrement(_key(aKey), myoffset);
 }
@@ -326,7 +326,7 @@ int decrement(string aKey, int anOffset = 1) | false {
      * Delete a key from the cache
      * Params:
      * string aKey Identifier for the data
-     */
+     * /
 bool deleteKey(string aKey) {
   return _Memcached.deleteKey(_key(aKey));
 }
@@ -356,7 +356,7 @@ bool clear() {
      * Params:
      * string aKey Identifier for the data.
      * @param Json aValue Data to be cached.
-     */
+     * /
 bool add(string aKey, Json aValue) {
   auto myduration = configuration["duration"];
   aKey = _key(aKey);
@@ -368,7 +368,7 @@ bool add(string aKey, Json aValue) {
      * Returns the `group value` for each of the configured groups
      * If the group initial value was not found, then it initializes
      * the group accordingly.
-     */
+     * /
   string[] groups() {
   if (_compiledGroupNames.isEmpty) {
     foreach (mygroup; configuration["groups"]) {
@@ -397,8 +397,8 @@ bool add(string aKey, Json aValue) {
 /**
      * Increments the group value to simulate deletion of all keys under a group
      * old values will remain in storage until they expire.
-     */
+     * /
 bool clearGroup(string groupName) {
   return (bool) _Memcached.increment(configuration["prefix"] ~ groupName);
-}
+} */
 }

@@ -1,4 +1,4 @@
-module uim.validations.classes.validationx;
+module uim.validations.classes.validations.validation;
 
 import uim.validations;
 
@@ -438,7 +438,7 @@ class DValidation {
      * Params:
      * Json valueToCheck Value to check
      * @see Regex credits: https://www.myintervals.com/blog/2009/05/20/iso-8601-date-validation-that-doesnt-suck/
-     */
+     * /
 
     static bool iso8601(IDateTime valueToCheck) {
             return true;

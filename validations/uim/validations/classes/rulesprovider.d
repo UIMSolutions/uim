@@ -1,4 +1,4 @@
-module uim.validations.classes.rulesproviderx;
+module validations.uim.validations.classes.rulesprovider;
 
 import uim.validations;
 
@@ -10,7 +10,8 @@ import uim.validations;
  *
  * @method bool extension(Json mycheck, array myextensions, array mycontext = [])
  */
-class RulesProvider {
+class DRulesProvider {
+    /*
     // The class/object to proxy
     protected object|string my_class;
 
@@ -23,7 +24,7 @@ class RulesProvider {
      * object|string myclass the default class to proxy
      * @throws \ReflectionException
      * @psalm-param object|class-string myclass
-     */
+     * /
     this(object|string myclass = Validation.classname) {
        _class = myclass;
        _reflection = new ReflectionClass(myclass);
@@ -39,7 +40,7 @@ class RulesProvider {
      * Params:
      * string mymethod the validation method to call
      * @param array myarguments the list of arguments to pass to the method
-     */
+     * /
     bool __call(string validationMethod, array myarguments) {
         auto method = _reflection.getMethod(mymethod);
         myargumentList = method.getParameters();
@@ -51,5 +52,5 @@ class RulesProvider {
         myobject = isString(_class) ? null : _class;
 
         return method.invokeArgs(myobject, myarguments);
-    }
+    } */
 }

@@ -1,19 +1,9 @@
-module uim.validations.classes.validator;
+module validations.uim.validations.classes.validations.validator;
 
 import uim.validations;
 
 @safe:
-/*
-use ArrayAccess;
 
-use BackedEnum;
-
-use Countable;
-
-use IteratorAggregate;
-use Psr\Http\Message\IUploadedFile;
-
-use auto UIM\I18n\__d;
 /**
  * Validator object encapsulates all methods related to data validations for a model
  * It also provides an API to dynamically change validation rules for each model field.
@@ -24,41 +14,41 @@ use auto UIM\I18n\__d;
  * @template-implements \ArrayAccess<string, \UIM\Validation\ValidationSet>
  * @template-implements \IteratorAggregate<string, \UIM\Validation\ValidationSet>
  */
-class Validator : ArrayAccess, IteratorAggregate, Countable {
+class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * By using "create" you can make fields required when records are first created.
-     */
+     * /
     const string WHEN_CREATE = "create";
 
     /**
      * By using "update", you can make fields required when they are updated.
-     */
+     * /
     const string WHEN_UPDATE = "update";
 
     /**
      * Used to flag nested rules created with addNested() and addNestedMany()
-     */
+     * /
     const string NESTED = "_nested";
 
     /**
      * A flag for allowEmptyFor()
      *
      * When `null` is given, it will be recognized as empty.
-     */
+     * /
     const int EMPTY_NULL = 0;
 
     /**
      * A flag for allowEmptyFor()
      *
      * When an empty string is given, it will be recognized as empty.
-     */
+     * /
     const int EMPTY_STRING = 1;
 
     /**
      * A flag for allowEmptyFor()
      *
      * When an empty array is given, it will be recognized as empty.
-     */
+     * /
     const int EMPTY_ARRAY = 2;
 
     /**
@@ -66,7 +56,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      *
      * The return value of \Psr\Http\Message\IUploadedFile.getError()
      * method must be equal to `UPLOAD_ERR_NO_FILE`.
-     */
+     * /
     const int EMPTY_FILE = 4;
 
     /**
@@ -74,7 +64,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      *
      * When an array is given, if it contains the `year` key, and only empty strings
      * or null values, it will be recognized as empty.
-     */
+     * /
     const int EMPTY_DATE = 8;
 
     /**
@@ -82,12 +72,12 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      *
      * When an array is given, if it contains the `hour` key, and only empty strings
      * or null values, it will be recognized as empty.
-     */
+     * /
     const int EMPTY_TIME = 16;
 
     /**
      * A combination of the all EMPTY_* flags
-     */
+     * /
     const int EMPTY_ALL = self.EMPTY_STRING
         | self.EMPTY_ARRAY
         | self.EMPTY_FILE
@@ -98,7 +88,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * Holds the ValidationSet objects array
      *
      * @var array<string, \UIM\Validation\ValidationSet>
-     */
+     * /
     protected array my_fields = [];
 
     /**
@@ -107,7 +97,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      *
      * @var array<string, object|string>
      * @psalm-var array<string, object|class-string>
-     */
+     * /
     protected array my_providers = [];
 
     /**
@@ -121,7 +111,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
     /**
      * Contains the validation messages associated with checking the presence
      * for each corresponding field.
-     */
+     * /
     protected STRINGAA my_presenceMessages = [];
 
     // Whether to use I18n functions for translating default error messages
@@ -135,12 +125,12 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * Contains the flags which specify what is empty for each corresponding field.
      *
      * @var array<string, int>
-     */
+     * /
     protected array my_allowEmptyFlags = [];
 
     /**
      * Whether to apply last flag to generated rule(s).
-     */
+     * /
     protected bool my_stopOnFailure = false;
 
     this() {
@@ -155,7 +145,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * When disabled all rules will be run even if there are failures.
      * Params:
      * bool mystopOnFailure If to apply last flag.
-     */
+     * /
     void setStopOnFailure(bool mystopOnFailure = true) {
        _stopOnFailure = mystopOnFailure;
     }
@@ -165,7 +155,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * array data The data to be checked for errors
      * @param bool mynewRecord whether the data to be validated is new or to be updated.
-     */
+     * /
     array<array> validate(array data, bool mynewRecord = true) {
         myerrors = [];
 
@@ -213,7 +203,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string myname [optional] The fieldname to fetch.
      * @param \UIM\Validation\ValidationSet|null myset The set of rules for field
-     */
+     * /
     ValidationSet field(string myname, ?ValidationSet myset = null) {
         if (isEmpty(_fields[myname])) {
             myset = myset ?: new ValidationSet();
@@ -226,7 +216,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * Check whether a validator contains any rules for the given field.
      * Params:
      * string myname The field name to check.
-     */
+     * /
    bool hasField(string myname) {
         return isSet(_fields[myname]);
     }
@@ -240,7 +230,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * string myname The name under which the provider should be set.
      * @param object|string myobject Provider object or class name.
      * @psalm-param object|class-string myobject
-     */
+     * /
     auto setProvider(string myname, object|string myobject) {
        _providers[myname] = myobject;
 
@@ -251,7 +241,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * Returns the provider stored under that name if it exists.
      * Params:
      * string myname The name under which the provider should be set.
-     */
+     * /
     object|string|null getProvider(string myname) {
         if (isSet(_providers[myname])) {
             return _providers[myname];
@@ -298,7 +288,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * Returns whether a rule set is defined for a field or not
      * Params:
      * string myfield name of the field to check
-     */
+     * /
     bool offsetExists(Json myfield) {
         return isSet(_fields[myfield]);
     }
@@ -307,7 +297,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * Returns the rule set for a field
      * Params:
      * string|int myfield name of the field to check
-     */
+     * /
     ValidationSet offsetGet(Json myfield) {
         return this.field((string)myfield);
     }
@@ -317,7 +307,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string fieldName name of the field to set
      * @param \UIM\Validation\ValidationSet|array myrules set of rules to apply to field
-     */
+     * /
     void offsetSet(string fieldName, Json myrules) {
         if (!cast(ValidationSet)myrules) {
             myset = new ValidationSet();
@@ -333,21 +323,21 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * Unsets the rule set for a field
      * Params:
      * string fieldName name of the field to unset
-     */
+     * /
     void offsetUnset(Json fieldName) {
         unset(_fields[fieldName]);
     }
     
     /**
      * Returns an iterator for each of the fields to be validated
-     */
+     * /
     Traversable<string, \UIM\Validation\ValidationSet> getIterator() {
         return new ArrayIterator(_fields);
     }
     
     /**
      * Returns the number of fields having validation rules
-     */
+     * /
     size_t count() {
         return count(_fields);
     }
@@ -374,7 +364,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param string[] myname The alias for a single rule or multiple rules array
      * @param \UIM\Validation\ValidationRule|array myrule the rule to add
      * @throws \InvalidArgumentException If numeric index cannot be resolved to a string one
-     */
+     * /
     auto add(string fieldName, string[] myname, ValidationRule|array myrule = []) {
         myvalidationSet = this.field(fieldName);
 
@@ -419,7 +409,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
-     */
+     * /
     auto addNested(
         string rootfieldName,
         Validator myvalidator,
@@ -462,7 +452,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
-     */
+     * /
     auto addNestedMany(
         string rootfieldName,
         Validator myvalidator,
@@ -511,7 +501,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string fieldName The name of the field from which the rule will be removed
      * @param string|null myrule the name of the rule to be removed
-     */
+     * /
     auto remove(string fieldName, string myrule = null) {
         if (myrule.isNull) {
             unset(_fields[fieldName]);
@@ -537,7 +527,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      *  If a Closure is passed then the field will be required only when the callback
      *  returns true.
      * @param string|null myMessage The message to show if the field presence validation fails.
-     */
+     * /
     void requirePresence(string[] fieldName, IClosure|string|bool mymode = true, string myMessage = null) {
         mydefaults = [
             "mode": mymode,
@@ -625,7 +615,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * the field will allowed to be empty only when the callback returns true.
      * @param string|null myMessage The message to show if the field is not
     
-     */
+     * /
     void allowEmptyFor(
         string fieldName,
         int myflags = null,
@@ -652,7 +642,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * Valid values are true, false, "create", "update". If a Closure is passed then
      * the field will allowed to be empty only when the callback returns true.
      * @return this
-     */
+     * /
     auto allowEmptyString(string fieldName, string myMessage = null, IClosure|string|bool mywhen = true) {
         return this.allowEmptyFor(fieldName, self.EMPTY_STRING, mywhen, myMessage);
     }
@@ -669,7 +659,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      *  Closure is passed then the field will be required to be not empty when
      *  the callback returns true.
      * @return this
-     */
+     * /
     auto notEmptyString(string fieldName, string myMessage = null, IClosure|string|bool mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
@@ -690,7 +680,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @return this
     
      * @see \UIM\Validation\Validator.allowEmptyFor() for examples.
-     */
+     * /
     auto allowEmptyArray(string fieldName, string myMessage = null, IClosure|string|bool mywhen = true) {
         return this.allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_ARRAY, mywhen, myMessage);
     }
@@ -708,7 +698,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      *  the callback returns true.
      * @return this
      * @see \UIM\Validation\Validator.allowEmptyArray()
-     */
+     * /
     auto notEmptyArray(string fieldName, string myMessage = null, IClosure|string|bool mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
@@ -728,7 +718,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      *  Valid values are true, "create", "update". If a Closure is passed then
      *  the field will allowed to be empty only when the callback returns true.
      * @return this
-     */
+     * /
     auto allowEmptyFile(string fieldName, string myMessage = null, IClosure|string|bool mywhen = true) {
         return this.allowEmptyFor(fieldName, self.EMPTY_FILE, mywhen, myMessage);
     }
@@ -745,7 +735,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      *  Closure is passed then the field will be required to be not empty when
      *  the callback returns true.
      * @return this
-     */
+     * /
     auto notEmptyFile(string fieldName, string myMessage = null, IClosure|string|bool mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
@@ -765,7 +755,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * the field will allowed to be empty only when the callback returns true.
      * @return this
      * @see \UIM\Validation\Validator.allowEmptyFor() for examples
-     */
+     * /
     auto allowEmptyDate(string fieldName, string myMessage = null, IClosure|string|bool mywhen = true) {
         return this.allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_DATE, mywhen, myMessage);
     }
@@ -781,7 +771,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      *  the callback returns true.
      * @return this
      * @see \UIM\Validation\Validator.allowEmptyDate() for examples
-     */
+     * /
     auto notEmptyDate(string fieldName, string myMessage = null, IClosure|string|bool mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
@@ -805,7 +795,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @return this
     
      * @see \UIM\Validation\Validator.allowEmptyFor() for examples.
-     */
+     * /
     auto allowEmptyTime(string fieldName, string myMessage = null, IClosure|string|bool mywhen = true) {
         return this.allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_TIME, mywhen, myMessage);
     }
@@ -824,7 +814,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @return this
      * @since 3.8.0
      * @see \UIM\Validation\Validator.allowEmptyTime()
-     */
+     * /
     auto notEmptyTime(string fieldName, string myMessage = null, IClosure|string|bool mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
@@ -848,7 +838,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @return this
     
      * @see \UIM\Validation\Validator.allowEmptyFor() for examples.
-     */
+     * /
     auto allowEmptyDateTime(string myfield, string myMessage = null, IClosure|string|bool mywhen = true) {
         return this.allowEmptyFor(myfield, self.EMPTY_STRING | self.EMPTY_DATE | self.EMPTY_TIME, mywhen, myMessage);
     }
@@ -867,7 +857,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @return this
      * @since 3.8.0
      * @see \UIM\Validation\Validator.allowEmptyDateTime()
-     */
+     * /
     auto notEmptyDateTime(string myfield, string myMessage = null, IClosure|string|bool mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
@@ -880,7 +870,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * string aFieldName name of field
      * @param IData[string] mydefaults default settings
      * @param array<string|int, mixed>|string|int mysettings settings from data
-     */
+     * /
     protected array<string, array<string|int, mixed>> _convertValidatorToArray(
         string aFieldName,
         array mydefaults = [],
@@ -902,7 +892,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      *  to be empty. Valid values are true (always), "create", "update". If a
      *  Closure is passed then the field will allowed to be empty only when
      *  the callback returns false.
-     */
+     * /
     protected Closure|string|bool invertWhenClause(Closure|string|bool mywhen) {
         if (mywhen == WHEN_CREATE || mywhen == WHEN_UPDATE) {
             return mywhen == WHEN_CREATE ? WHEN_UPDATE : WHEN_CREATE;
@@ -921,7 +911,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.notBlank()
-     */
+     * /
     auto notBlank(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -945,7 +935,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.alphaNumeric()
-     */
+     * /
     auto alphaNumeric(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -969,7 +959,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.notAlphaNumeric()
-     */
+     * /
     auto notAlphaNumeric(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -993,7 +983,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.asciiAlphaNumeric()
-     */
+     * /
     auto asciiAlphaNumeric(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -1017,7 +1007,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.notAlphaNumeric()
-     */
+     * /
     auto notAsciiAlphaNumeric(string myfield, string errorMessage = null, IClosure|string|null mywhen = null) {
         auto myMessage = errorMessage;
         if (myMessage.isNull) {
@@ -1043,7 +1033,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.alphaNumeric()
      * @return this
      * @throws \InvalidArgumentException
-     */
+     * /
     auto lengthBetween(
         string myfield,
         array myrange,
@@ -1089,7 +1079,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.creditCard()
-     */
+     * /
     auto creditCard(
         string myfield,
         string[] mytype = "all",
@@ -1140,7 +1130,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.comparison()
-     */
+     * /
     auto greaterThan(
         string myfield,
         float|int myvalue,
@@ -1170,7 +1160,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.comparison()
-     */
+     * /
     auto greaterThanOrEqual(
         string myfield,
         float|int myvalue,
@@ -1200,7 +1190,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.comparison()
-     */
+     * /
     auto lessThan(
         string myfield,
         float|int myvalue,
@@ -1231,7 +1221,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.comparison()
-     */
+     * /
     auto lessThanOrEqual(
         string myfield,
         float|int myvalue,
@@ -1261,7 +1251,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.comparison()
-     */
+     * /
     auto equals(
         string myfield,
         Json aValue,
@@ -1289,7 +1279,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.comparison()
-     */
+     * /
     auto notEquals(
         string myfield,
         Json aValue,
@@ -1321,7 +1311,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.compareFields()
-     */
+     * /
     auto sameAs(
         string myfield,
         string mysecondField,
@@ -1353,7 +1343,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.compareFields()
      * @return this
      * @since 3.6.0
-     */
+     * /
     auto notSameAs(
         string myfield,
         string mysecondField,
@@ -1384,7 +1374,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.compareFields()
      * @return this
-     */
+     * /
     auto equalToField(
         string myfield,
         string mysecondField,
@@ -1419,7 +1409,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.compareFields()
      * @return this
-     */
+     * /
     auto notEqualToField(
         string myfield,
         string mysecondField,
@@ -1455,7 +1445,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.compareFields()
      * @return this
      * @since 3.6.0
-     */
+     * /
     auto greaterThanField(
         string myfield,
         string mysecondField,
@@ -1490,7 +1480,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.compareFields()
      * @return this
      * @since 3.6.0
-     */
+     * /
     auto greaterThanOrEqualToField(
         string myfield,
         string mysecondField,
@@ -1528,7 +1518,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.compareFields()
      * @return this
-     */
+     * /
     auto lessThanField(
         string myfield,
         string mysecondField,
@@ -1564,7 +1554,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.compareFields()
      * @return this
      * @since 3.6.0
-     */
+     * /
     auto lessThanOrEqualToField(
         string myfield,
         string mysecondField,
@@ -1601,7 +1591,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.date()
-     */
+     * /
     auto date(
         string myfield,
         array myformats = ["ymd"],
@@ -1640,7 +1630,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.datetime()
-     */
+     * /
     auto dateTime(
         string myfield,
         array myformats = ["ymd"],
@@ -1678,7 +1668,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.time()
-     */
+     * /
     auto time(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -1703,7 +1693,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.localizedTime()
-     */
+     * /
     auto localizedTime(
         string myfield,
         string mytype = "datetime",
@@ -1732,7 +1722,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.boolean()
-     */
+     * /
     auto boolean(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -1757,7 +1747,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.decimal()
-     */
+     * /
     auto decimal(
         string myfield,
         int myplaces = null,
@@ -1799,7 +1789,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.email()
-     */
+     * /
     auto email(
         string myfield,
         bool mycheckMX = false,
@@ -1829,7 +1819,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @return this
      * @see \UIM\Validation\Validation.enum()
      * @since 5.0.3
-     */
+     * /
     auto enum(
         string myfield,
         string myenumClassName,
@@ -1867,7 +1857,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.ip()
-     */
+     * /
     auto ip(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -1891,7 +1881,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.ip()
-     */
+     * /
     auto ipv4(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -1915,7 +1905,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.ip()
-     */
+     * /
     auto ipv6(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -1940,7 +1930,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.minLength()
-     */
+     * /
     auto minLength(string myfield, int mymin, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -1965,7 +1955,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.minLengthBytes()
-     */
+     * /
     auto minLengthBytes(string myfield, int mymin, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -1990,7 +1980,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.maxLength()
-     */
+     * /
     auto maxLength(string myfield, int mymax, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -2015,7 +2005,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.maxLengthBytes()
-     */
+     * /
     auto maxLengthBytes(string myfield, int mymax, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -2039,7 +2029,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.numeric()
-     */
+     * /
     auto numeric(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -2063,7 +2053,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.naturalNumber()
-     */
+     * /
     auto naturalNumber(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -2087,7 +2077,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.naturalNumber()
-     */
+     * /
     auto nonNegativeInteger(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -2114,7 +2104,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.range()
      * @return this
      * @throws \InvalidArgumentException
-     */
+     * /
     auto range(string myfield, array myrange, string myMessage = null, IClosure|string|null mywhen = null) {
         if (count(myrange) != 2) {
             throw new InvalidArgumentException("The myrange argument requires 2 numbers");
@@ -2153,7 +2143,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.url()
-     */
+     * /
     auto url(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -2179,7 +2169,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.url()
-     */
+     * /
     auto urlWithProtocol(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -2204,7 +2194,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.inList()
-     */
+     * /
     auto inList(string myfield, array mylist, string myMessage = null, IClosure|string|null mywhen = null) {
         mylistEnumeration = join(", ", mylist);
 
@@ -2234,7 +2224,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.uuid()
-     */
+     * /
     auto uuid(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -2259,7 +2249,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.uploadedFile() For options
-     */
+     * /
     auto uploadedFile(
         string myfield,
         IData[string] options,
@@ -2290,7 +2280,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.geoCoordinate()
-     */
+     * /
     auto latLong(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -2314,7 +2304,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.latitude()
-     */
+     * /
     auto latitude(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -2338,7 +2328,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.longitude()
-     */
+     * /
     auto longitude(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -2362,7 +2352,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.ascii()
-     */
+     * /
     auto ascii(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -2386,7 +2376,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.utf8()
-     */
+     * /
     auto utf8(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -2412,7 +2402,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.utf8()
-     */
+     * /
     auto utf8Extended(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -2436,7 +2426,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.isInteger()
-     */
+     * /
     auto integer(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -2460,7 +2450,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.isArray()
-     */
+     * /
     auto array(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -2484,7 +2474,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.isScalar()
-     */
+     * /
     auto scalar(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             myMessage = "The provided value must be scalar";
@@ -2507,7 +2497,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.hexColor()
-     */
+     * /
     auto hexColor(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             myMessage = "The provided value must be a hex color";
@@ -2532,7 +2522,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.multiple()
-     */
+     * /
     auto multipleOptions(
         string myfield,
         IData[string] optionData = null,
@@ -2564,7 +2554,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.numElements()
-     */
+     * /
     auto hasAtLeast(string myfield, int mycount, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             mymewssage = !_useI18n
@@ -2594,20 +2584,12 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.numElements()
-     */
+     * /
     auto hasAtMost(string myfield, int mycount, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
-<<<<<<< HEAD
             myMessage = !_useI18n 
                 ? "The provided value must have at most `%s` elements".format(mycount)
                 : __d("uim", "The provided value must have at most `{0}` elements"mycount);
-=======
-            if (!_useI18n) {
-                myMessage = "The provided value must have at most `%s` elements".format(mycount);
-            } else {
-                myMessage = __d("uim", "The provided value must have at most `{0}` elements", mycount);
-            }
->>>>>>> a8eca63e3a082caffb32183a18c571cd53fc1ac0
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
@@ -2627,7 +2609,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string myfield Field name.
      * @param bool mynewRecord whether the data to be validated is new or to be updated.
-     */
+     * /
     bool isEmptyAllowed(string fieldName, bool mynewRecord) {
         myproviders = _providers;
         mydata = [];
@@ -2642,7 +2624,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string fieldName Field name.
      * @param bool mynewRecord Whether the data to be validated is new or to be updated.
-     */
+     * /
     bool isPresenceRequired(string fieldName, bool mynewRecord) {
         myproviders = _providers;
         mydata = [];
@@ -2659,7 +2641,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
-     */
+     * /
     auto regex(string fieldName, string myregex, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage.isNull) {
             if (!_useI18n) {
@@ -2679,7 +2661,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * Gets the required message for a field
      * Params:
      * string fieldName Field name
-     */
+     * /
     string getRequiredMessage(string fieldName) {
         if (!_fields.isSet(fieldName)) {
             return null;
@@ -2723,7 +2705,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * \UIM\Validation\ValidationSet myfield The set of rules for a field.
      * @param IData[string] mycontext A key value list of data containing the validation context.
-     */
+     * /
     protected bool _checkPresence(ValidationSet myfield, array mycontext) {
         myrequired = myfield.isPresenceRequired();
 
@@ -2743,7 +2725,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * \UIM\Validation\ValidationSet myfield the set of rules for a field
      * @param IData[string] mycontext a key value list of data containing the validation context.
-     */
+     * /
     protected bool _canBeEmpty(ValidationSet myfield, array mycontext) {
         myallowed = myfield.isEmptyAllowed();
 
@@ -2763,7 +2745,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * Json mydata Value to check against.
      * @param int myflags A bitmask of EMPTY_* flags which specify what is empty
-     */
+     * /
     protected bool isEmpty(Json mydata, int myflags) {
         if (mydata.isNull) {
             return true;
@@ -2810,7 +2792,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
      * @param \UIM\Validation\ValidationSet myrules the list of rules for a field
      * @param array data the full data passed to the validator
      * @param bool mynewRecord whether is it a new record or an existing one
-     */
+     * /
     protected IData[string] _processRules(string myfield, ValidationSet myrules, array data, bool mynewRecord) {
         myerrors = [];
         // Loading default provider in case there is none
@@ -2843,7 +2825,7 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
     
     /**
      * Get the printable version of this object.
-     */
+     * /
     IData[string] debugInfo() {
         myfields = [];
         foreach (_fields as myname: myfieldSet) {
@@ -2862,5 +2844,5 @@ class Validator : ArrayAccess, IteratorAggregate, Countable {
             "_providers": _providers.keys,
             "_fields": myfields,
         ];
-    }
+    } */
 }

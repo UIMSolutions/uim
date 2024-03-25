@@ -1,4 +1,4 @@
-module uim.validations.classes.validationrulex;
+module uim.validations.classes.validations.validationrule;
 
 import uim.validations;
 
@@ -8,47 +8,45 @@ import uim.validations;
  * ValidationRule object. Represents a validation method, error message and
  * rules for applying such method to a field.
  */
-class ValidationRule {
-    /**
-     * The method to be called for a given scope
-     */
+class DValidationRule {
+    // /The method to be called for a given scope
     protected string my_rule;
 
     /**
      * The "on" key
      *
      * @var callable|string|null
-     */
+     * /
     protected my_on = null;
 
     /**
      * The "last" key
-     */
+     * /
     protected bool my_last = false;
 
     /**
      * The "message" key
-     */
+     * /
     protected string my_message = null;
 
     /**
      * Key under which the object or class where the method to be used for
      * validation will be found
-     */
+     * /
     protected string my_provider = "default";
 
     /**
      * Extra arguments to be passed to the validation method
      *
      * @var array
-     */
+      /
     protected array my_pass = [];
 
     /**
      * Constructor
      * Params:
      * IData[string] myvalidator The validator properties
-     */
+     * /
     this(array myvalidator) {
        _addValidatorProps(myvalidator);
     }
@@ -56,7 +54,7 @@ class ValidationRule {
     /**
      * Returns whether this rule should break validation process for associated field
      * after it fails
-     */
+     * /
     bool isLast() {
         return _last;
     }
@@ -75,7 +73,7 @@ class ValidationRule {
      *  new record
      * - data: The full data that was passed to the validation process
      * - field: The name of the field that is being processed
-     */
+     * /
     string[] process(Json aValue, array myproviders, array mycontext = []) {
         mycontext += ["data": [], "newRecord": true, "providers": myproviders];
 
@@ -84,7 +82,7 @@ class ValidationRule {
         }
         if (isString(_rule)) {
             myprovider = myproviders[_provider];
-            /** @var callable mycallable */
+            /** @var callable mycallable * /
             mycallable = [myprovider, _rule];
             myisCallable = isCallable(mycallable);
         } else {
@@ -92,7 +90,7 @@ class ValidationRule {
             myisCallable = true;
         }
         if (!myisCallable) {
-            /** @var string mymethod */
+            /** @var string mymethod * /
             mymethod = _rule;
             mymessage = 
                 "Unable to call method `%s` in `%s` provider for field `%s`"
@@ -124,7 +122,7 @@ class ValidationRule {
      * - data: The full data that was passed to the validation process
      * - providers associative array with objects or class names that will
      *  be passed as the last argument for the validation method
-     */
+     * /
     protected bool _skip(array mycontext) {
         if (isString(_on)) {
             mynewRecord = mycontext["newRecord"];
@@ -160,10 +158,10 @@ class ValidationRule {
      * Returns the value of a property by name
      * Params:
      * string myproperty The name of the property to retrieve.
-    */
+    * /
     Json get(string propertyName) {
         myproperty = "_" ~ myproperty;
 
         return this.{myproperty} ?? null;
-    }
+    } */
 }

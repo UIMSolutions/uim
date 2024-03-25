@@ -1,5 +1,9 @@
 module uim.validations.classes;
 
-public {
+public { // Packages
+    import uim.validations.classes.validations;
+}
+
+public { // Modules
     import uim.validations.classes.validations;
 }

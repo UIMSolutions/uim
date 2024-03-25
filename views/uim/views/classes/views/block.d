@@ -59,9 +59,9 @@ class DViewBlock {
 
             return;
         }
-        if (_activeBlocks.isNull) {
-            return;
-        }
+        // TODO if (_activeBlocks.isNull) {
+        // TODO     return;
+        // TODO }
 
         string blockMode; // TODO = end(_activeBlocks);
         string activeKey; // TOD = key(_activeBlocks);

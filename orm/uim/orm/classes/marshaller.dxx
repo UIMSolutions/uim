@@ -153,7 +153,7 @@ class Marshaller
 
         primaryKeys = (array)_table.getPrimaryKeys();
         entityClass = _table.getEntityClass();
-        entity = new entityClass();
+        entity = new DORMEntityClass();
         entity.setSource(_table.registryKey());
 
         if (isset(options["accessibleFields"])) {
@@ -214,7 +214,7 @@ class Marshaller
      *
      * @param array data The data to validate.
      * @param array<string, mixed> options The options passed to this marshaller.
-     * @param bool isNew Whether it is a new entity or one to be updated.
+     * @param bool isNew Whether it is a new DORMEntity or one to be updated.
      * @return array The list of validation errors.
      * @throws \RuntimeException If no validator can be created.
      */
@@ -605,7 +605,7 @@ class Marshaller
      * Records in `data` are matched against the entities using the primary key
      * column. Entries in `entities` that cannot be matched to any record in
      * `data` will be discarded. Records in `data` that could not be matched will
-     * be marshalled as a new entity.
+     * be marshalled as a new DORMEntity.
      *
      * When merging HasMany or BelongsToMany associations, all the entities in the
      * `data` array will appear, those that can be matched by primary key will get

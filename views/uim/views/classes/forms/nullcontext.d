@@ -7,12 +7,10 @@ import uim.views;
 /* * Provides a context provider that does nothing.
  * This context provider simply fulfils the interface requirements that FormHelper has.
  */
-class DNullContext : IContext {
-    mixin(ContextThis!("Null"));
-    this(IData[string] contextData) {
-    }
+class DNullContext { // }: DContext {
+    // mixin(ContextThis!("Null"));
  
-    array getPrimaryKeys() {
+    string[] getPrimaryKeys() {
         return null;
     }
  
@@ -21,16 +19,16 @@ class DNullContext : IContext {
     }
  
     bool isCreate() {
-        return true;
+        return false;
     }
  
     IData val(string myfield, IData[string] options  = null) {
         return null;
     }
  
-    bool isRequired(string myfield): bool
+    bool isRequired(string myfield)
     {
-        return null;
+        return false;
     }
  
     string getRequiredMessage(string myfield) {
@@ -38,10 +36,10 @@ class DNullContext : IContext {
     }
  
     int getMaxLength(string myfield) {
-        return null;
+        return 0;
     }
  
-    array fieldNames() {
+    string[] fieldNames() {
         return null;
     }
  
@@ -49,16 +47,16 @@ class DNullContext : IContext {
         return null;
     }
  
-    array attributes(string myfield) {
+    /* array attributes(string myfield) {
         return null;
-    }
+    } */
  
     bool hasError(string myfield) {
         return false;
     }
  
-    array error(string myfield) {
+   /* array error(string myfield) {
         return null;
-    }
+    } */
 }
-mixin(ContextCalls!("Null"));
+// mixin(ContextCalls!("Null"));

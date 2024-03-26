@@ -195,7 +195,7 @@ class DMarshaller {
      * Params:
      * array data The data to validate.
      * @param string|bool myvalidator Validator name or `true` for default validator.
-     * @param bool myisNew Whether it is a new entity or one to be updated.
+     * @param bool myisNew Whether it is a new DORMEntity or one to be updated.
      * /
     protected array _validate(array data, string|bool myvalidator, bool myisNew) {
         if (!myvalidator) {
@@ -534,7 +534,7 @@ class DMarshaller {
      * Records in `mydata` are matched against the entities using the primary key
      * column. Entries in `myentities` that cannot be matched to any record in
      * `mydata` will be discarded. Records in `mydata` that could not be matched will
-     * be marshalled as a new entity.
+     * be marshalled as a new DORMEntity.
      *
      * When merging HasMany or BelongsToMany associations, all the entities in the
      * `mydata` array will appear, those that can be matched by primary key will get

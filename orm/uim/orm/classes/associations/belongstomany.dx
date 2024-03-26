@@ -634,7 +634,7 @@ class BelongsToMany : DAssociation {
         foreach (anException; targetEntities) {
             auto joint =  anException.get(jointProperty);
             if (!joint || !(cast(IEntity)joint)) {
-                joint = new entityClass([], ["markNew": true, "source": junctionRegistryAlias]);
+                joint = new DORMEntityClass([], ["markNew": true, "source": junctionRegistryAlias]);
             }
             auto sourceKeys = array_combine(foreignKey, sourceEntity.extract(bindingKey));
             auto targetKeys = array_combine(assocForeignKey,  anException.extract(targetBindingKey));

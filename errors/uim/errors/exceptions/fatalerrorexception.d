@@ -1,12 +1,12 @@
-module errors.uim.errors.exceptions.fatalerrorexception;
+module uim.errors.exceptions.fatalerrorexception;
 
-import uim.cake.core.exceptions.UIMException;
+import uim.errors;
 
 
 /**
  * Represents a fatal error
  */
-class FatalErrorException : UIMException {
+class FatalErrorException : UimException {
     /**
      * Constructor
      *
@@ -15,7 +15,7 @@ class FatalErrorException : UIMException {
      * @param string|null file File name.
      * @param int|null line Line number.
      * @param \Throwable|null previous The previous exception.
-     */
+     * /
     this(
         string message,
         Nullable!int code = null,
@@ -30,5 +30,5 @@ class FatalErrorException : UIMException {
         if (line) {
             this.line = line;
         }
-    }
+    } */
 }

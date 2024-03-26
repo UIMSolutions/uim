@@ -711,7 +711,7 @@ class DBelongsToManyAssociation : DAssociation {
         foreach (targetEntities as e) {
             joint = e.get(jointProperty);
             if (!joint || !(joint instanceof IEntity)) {
-                joint = new entityClass([], ["markNew": true, "source": junctionRegistryAlias]);
+                joint = new DORMEntityClass([], ["markNew": true, "source": junctionRegistryAlias]);
             }
             sourceKeys = array_combine(foreignKey, sourceEntity.extract(bindingKey));
             targetKeys = array_combine(assocForeignKey, e.extract(targetBindingKey));

@@ -8,7 +8,7 @@ import uim.orm;
  * An entity represents a single result row from a repository. It exposes the
  * methods for retrieving and storing properties associated in this row.
  */
-class Entity { // }: IEntity, IInvalidProperty {
+class DORMEntity { // }: IEntity, IInvalidProperty {
     /* 
     mixin EntityTemplate();
 
@@ -25,7 +25,7 @@ class Entity { // }: IEntity, IInvalidProperty {
      * ### Example:
      *
      * ```
-     * myentity = new Entity(["id": 1, "name": "Andrew"])
+     * myentity = new DORMEntity(["id": 1, "name": "Andrew"])
      * ```
      * Params:
      * IData[string] myproperties hash of properties to set in this entity

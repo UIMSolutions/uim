@@ -1342,7 +1342,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * defined in mysearch. If records matches the conditions, the first record
      * will be returned.
      *
-     * If no record can be found, a new entity will be created
+     * If no record can be found, a new DORMEntity will be created
      * with the mysearch properties. If a callback is provided, it will be
      * called allowing you to define additional default values. The new
      * entity will be saved and returned.
@@ -1357,7 +1357,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      *
      * - atomic: Whether to execute the methods for find, save and callbacks inside a database
      *  transaction (default: true)
-     * - defaults: Whether to use the search criteria as default values for the new entity (default: true)
+     * - defaults: Whether to use the search criteria as default values for the new DORMEntity (default: true)
      * Params:
      * \UIM\ORM\Query\SelectQuery|callable|array mysearch The criteria to find existing
      *  records by. Note that when you pass a query object you"ll have to use
@@ -2464,7 +2464,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * );
      * ```
      *
-     * By default, the data is validated before being passed to the new entity. In
+     * By default, the data is validated before being passed to the new DORMEntity. In
      * the case of invalid fields, those will not be present in the resulting object.
      * The `validate` option can be used to disable validation on the passed data:
      *
@@ -2588,7 +2588,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
 
      * Those entries in `myentities` that cannot be matched to any record in
      * `mydata` will be discarded. Records in `mydata` that could not be matched will
-     * be marshalled as a new entity.
+     * be marshalled as a new DORMEntity.
      *
      * When merging HasMany or BelongsToMany associations, all the entities in the
      * `mydata` array will appear, those that can be matched by primary key will get
@@ -2657,7 +2657,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         if (mycontext.isNull) {
             mycontext = options;
         }
-        myentity = new Entity(
+        myentity = new DORMEntity(
             mycontext["data"],
             [
                 "useSetters": false,

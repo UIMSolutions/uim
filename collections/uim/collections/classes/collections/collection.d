@@ -15,7 +15,18 @@ import uim.collections;
  *
  * @template-extends \IteratorIterator<mixed, mixed, \Traversable<mixed>>
  */
-class DCollection : /* IteratorIterator, */ ICollection2 {
+class DCollection : /* IteratorIterator, */ ICollection {
+  protected IData[] _items;
+
+  this() {}
+
+  this(IData[] newItems) {
+    _items = newItems;
+  }
+
+	bool initialize(IData[string] initData = null) {
+		return true;
+	}
   // mixin CollectionTemplate();
 
   /* this(Range someItems) {
@@ -25,9 +36,6 @@ class DCollection : /* IteratorIterator, */ ICollection2 {
     super(someItems);
   } */ 
 
-	bool initialize(IData[string] initData = null) {
-		return true;
-	}
 
   // Returns an array for serializing this of this object.
   /* 

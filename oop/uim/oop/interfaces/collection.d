@@ -8,12 +8,12 @@ module uim.oop.interfaces.collection;
 import uim.oop;
 
 @safe:
-interface ICollection(T) { // : IIterable!T {
+interface ICollection2(T) { // : IIterable!T {
   // Ensures that this collection contains the specified element (optional operation).
   bool add(T newItem);
 
   // Adds all of the elements in the specified collection to this collection (optional operation).
-  bool addAll(ICollection!T aCollection);
+  bool addAll(ICollection2!T aCollection);
 
   // Removes all of the elements from this collection (optional operation).
   void	clear();
@@ -22,7 +22,7 @@ interface ICollection(T) { // : IIterable!T {
   bool contains(T anItem);
 
   // Returns true if this collection contains all of the elements in the specified collection.
-  bool containsAll(ICollection!T aCollection);
+  bool containsAll(ICollection2!T aCollection);
 
   // Returns the hash code value for this collection.
   int	hashCode();
@@ -37,7 +37,7 @@ interface ICollection(T) { // : IIterable!T {
   bool remove(T anItem);
 
   // Removes all of this collection's elements that are also contained in the specified collection (optional operation).
-  bool removeAll(ICollection!T aCollection);
+  bool removeAll(ICollection2!T aCollection);
 
   // Returns the number of elements in this collection.
   size_t	size();

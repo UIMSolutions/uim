@@ -14,7 +14,7 @@ import uim.collections;
  * list of elements exposing a number of traversing and extracting method for
  * generating other collections.
  */
-interface ICollection2 {
+interface ICollection {
     /**
      * Applies a callback to the elements in this collection.
      *

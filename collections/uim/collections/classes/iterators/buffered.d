@@ -9,6 +9,9 @@ import uim.collections;
  * iterator in memory, so that results don`t have to be re-calculated.
  */
 class DBufferedIterator : DCollection { // }, Countable {
+    this() {
+      super();
+    }
   /*
   // The in-memory cache containing results from previous iterators
   protected SplDoublyLinkedList _buffer;

@@ -10,6 +10,9 @@ import uim.collections;
  * it does not return true.
  */
 class DFilterIterator : DCollection {
+    this() {
+        super();
+    }
     /**
      * The callback used to filter the elements in this collection
           * /

@@ -9,6 +9,9 @@ import uim.collections;
  * or property based on a path
  */
 class DExtractIterator : DCollection {
+  this() {
+    super();
+  }
   /**
      * A callable responsible for extracting a single value for each
      * item in the collection.

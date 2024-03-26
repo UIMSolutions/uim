@@ -1,4 +1,4 @@
-module uim.collectionss.iterators.insert;
+module collections.uim.collections.classes.iterators.insert;
 
 import uim.collections;
 
@@ -10,6 +10,7 @@ import uim.collections;
  * each of the values from one collection into a property inside the other collection.
  */
 class InsertIterator : DCollection {
+  /*
   // The collection from which to extract the values to be inserted
   protected Collection _values;
 
@@ -32,7 +33,7 @@ class InsertIterator : DCollection {
      * to insert the value into the target collection.
      * @param  range someValues The source collection from which the values will
      * be inserted at the specified path.
-     */
+     * /
   this(Range anInto, string aPath,  range someValues) {
     super(anInto);
 
@@ -58,8 +59,8 @@ class InsertIterator : DCollection {
   /**
      * Returns the current element in the target collection after inserting
      * the value from the source collection into the specified path.
-    */
-  Json current() {
+    * /
+  IData current() {
     auto myRow = super.current();
 
     if (!_validValues) {
@@ -82,5 +83,5 @@ class InsertIterator : DCollection {
     super.rewind();
    _values.rewind();
    _validValues = _values.valid();
-  }
+  } */
 }

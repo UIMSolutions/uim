@@ -14,9 +14,9 @@ template CollectionTemplate {
      * Allows classes which use this template to determine their own
      * type of returned collection interface
      * Params:
-     * Json ...myargs Constructor arguments.
+     * IData ...myargs Constructor arguments.
      */
-    protected ICollection newCollection(Json ...myargs) {
+    protected ICollection newCollection(IData ...myargs) {
         return new DCollection(...myargs);
     }
  
@@ -68,7 +68,7 @@ template CollectionTemplate {
         return false;
     }
  
-    bool contains(Json aValue) {
+    bool contains(IData aValue) {
         foreach (myValue; this.optimizeUnwrap()) {
             if (myvalue == myValue) {
                 return true;
@@ -81,7 +81,7 @@ template CollectionTemplate {
         return new ReplaceIterator(this.unwrap(), mycallback);
     }
  
-    Json reduce(callable aCallback, Json myinitial = null) {
+    IData reduce(callable aCallback, IData myinitial = null) {
         myisFirst = false;
         if (func_num_args() < 2) {
             myisFirst = true;
@@ -110,11 +110,11 @@ template CollectionTemplate {
         return myextractor;
     }
  
-    Json max(string mypath, int mysort = SORT_NUMERIC) {
+    IData max(string mypath, int mysort = SORT_NUMERIC) {
         return (new SortIterator(this.unwrap(), mypath, SORT_DESC, mysort)).first();
     }
  
-    Json min(string mypath, int mysort = SORT_NUMERIC) {
+    IData min(string mypath, int mysort = SORT_NUMERIC) {
         return (new SortIterator(this.unwrap(), mypath, SORT_ASC, mysort)).first();
     }
  
@@ -237,11 +237,11 @@ template CollectionTemplate {
         return this.filter(_createMatcherFilter(myconditions));
     }
  
-    Json firstMatch(array myconditions) {
+    IData firstMatch(array myconditions) {
         return this.match(myconditions).first();
     }
  
-    Json first() {
+    IData first() {
         auto myIterator = new DLimitIterator(this, 0, 1);
         foreach (result; myiterator) {
             return result;
@@ -249,7 +249,7 @@ template CollectionTemplate {
         return null;
     }
  
-    Json last() {
+    IData last() {
         myiterator = this.optimizeUnwrap();
         if (isArray(myiterator)) {
             return array_pop(myiterator);
@@ -358,7 +358,7 @@ template CollectionTemplate {
         return this.newCollection(mylist);
     }
  
-    ICollection appendItem(Json myitem, string aKey = null) {
+    ICollection appendItem(IData myitem, string aKey = null) {
         if (aKey !isNull) {
             mydata = [aKey: myitem];
         } else {
@@ -367,11 +367,11 @@ template CollectionTemplate {
         return this.append(mydata);
     }
  
-    ICollection prepend(Json myitems) {
+    ICollection prepend(IData myitems) {
         return this.newCollection(myitems).append(this);
     }
  
-    ICollection prependItem(Json myitem, string aKey = null) {
+    ICollection prependItem(IData myitem, string aKey = null) {
         if (aKey !isNull) {
             mydata = [aKey: myitem];
         } else {
@@ -477,7 +477,7 @@ template CollectionTemplate {
             .map(fn (myvalue): myisObject ? myvalue : myvalue.getArrayCopy());
     }
  
-    auto insert(string mypath, Json myvalues) {
+    auto insert(string mypath, IData myvalues) {
         return new InsertIterator(this.unwrap(), mypath, myvalues);
     }
  
@@ -500,7 +500,7 @@ template CollectionTemplate {
         return this.toArray(false);
     }
  
-    array jsonSerialize() {
+    array IDataSerialize() {
         return this.toArray();
     }
  

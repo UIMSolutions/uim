@@ -20,7 +20,7 @@ class TreePrinter : RecursiveIteratorIterator, ICollection {
   protected callable _value;
 
   // Cached value for the current iteration element
-  protected Json _current = null;
+  protected IData _current = null;
 
   // The string to use for prefixing the values according to their depth in the tree.
   protected string _spacer;
@@ -51,7 +51,7 @@ class TreePrinter : RecursiveIteratorIterator, ICollection {
   }
 
   // Returns the current iteration key
-  Json key() {
+  IData key() {
     auto myExtractor = _key;
 
     return myExtractor(_fetchCurrent(), super.key(), this);
@@ -73,7 +73,7 @@ class TreePrinter : RecursiveIteratorIterator, ICollection {
   }
 
   // Returns the current iteration element and caches its value
-  protected Json _fetchCurrent() {
+  protected IData _fetchCurrent() {
     if (!_current.isNull) {
       return _current;
     }

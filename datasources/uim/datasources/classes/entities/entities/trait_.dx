@@ -207,7 +207,7 @@ trait EntityTrait
         }
 
         if (!(field.isArray) {
-            throw new InvalidArgumentException("Cannot set an empty field");
+            throw new DInvalidArgumentException("Cannot set an empty field");
         }
         options += ["setter": true, "guard":  guard];
 
@@ -251,7 +251,7 @@ trait EntityTrait
      */
     function &get(string field) {
         if (field == "") {
-            throw new InvalidArgumentException("Cannot get an empty field");
+            throw new DInvalidArgumentException("Cannot get an empty field");
         }
 
         value = null;
@@ -279,7 +279,7 @@ trait EntityTrait
      */
     function getOriginal(string field) {
         if (field == "") {
-            throw new InvalidArgumentException("Cannot get an empty field");
+            throw new DInvalidArgumentException("Cannot get an empty field");
         }
         if (array_key_exists(field, _original)) {
             return _original[field];

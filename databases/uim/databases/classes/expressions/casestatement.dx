@@ -86,7 +86,7 @@ class CaseStatementExpression : IExpression, ITypedResult {
                 !isScalar(aValue) &&
                 !(isObject(aValue) && !(cast(Closure)aValue))
             ) {
-                throw new InvalidArgumentException(
+                throw new DInvalidArgumentException(
                     "The `aValue` argument must be either `null`, a scalar value, an object, " .
                     "or an instance of `\%s`, `%s` given."
                     .format(IExpression.classname,
@@ -355,7 +355,7 @@ class CaseStatementExpression : IExpression, ITypedResult {
             !isScalar(result) &&
             !(isObject(result) && !(cast(Closure)result))
         ) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "The `result` argument must be either `null`, a scalar value, an object, " .
                 "or an instance of `\%s`, `%s` given."
                 .format(IExpression.classname,
@@ -428,7 +428,7 @@ class CaseStatementExpression : IExpression, ITypedResult {
      */
     IExpression|object|array<\UIM\Database\Expression\WhenThenExpression>|scalar|null clause(string aclause) {
         if (!in_array(clause, this.validClauseNames, true)) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "The `clause` argument must be one of `%s`, the given value `%s` is invalid."
                     .format(join("`, `", this.validClauseNames), clause)
             );

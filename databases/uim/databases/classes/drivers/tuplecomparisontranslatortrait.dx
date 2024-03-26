@@ -36,7 +36,7 @@ trait TupleComparisonTranslatorTrait {
         }
          operator = strtoupper(expression.getOperator());
         if (!in_array( operator, ["IN", "="])) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "Tuple comparison transform only supports the `IN` and `=` operators, `%s` given."
                     .format( operator)
             );

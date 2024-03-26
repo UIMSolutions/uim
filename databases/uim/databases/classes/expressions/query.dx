@@ -610,7 +610,7 @@ class QueryExpression : IExpression, Countable {
              operator = "!=";
         }
         if (aValue.isNull && _conjunction != ",") {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "Expression `%s` is missing operator (IS, IS NOT) with `null` value.".format(expression)
             );
         }

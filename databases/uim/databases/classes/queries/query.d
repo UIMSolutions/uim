@@ -1298,7 +1298,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
             clauses = _parts.keys;
             array_walk(clauses, fn (&$x): $x = "`$x`");
             clauses = join(", ", clauses);
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "The `%s` clause is not defined. Valid clauses are: %s."
                 .format(
                     name,

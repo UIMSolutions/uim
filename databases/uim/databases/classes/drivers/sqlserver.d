@@ -67,7 +67,7 @@ class DSqlserverDriver : DDriver {
         }
 
         if (configuration.hasKey("persistent") && configData("persistent")) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "Config setting 'persistent' cannot be set to true, "
                 ~ "as the Sqlserver PDO driver does not support PDO.ATTR_PERSISTENT"
             );
@@ -113,7 +113,7 @@ class DSqlserverDriver : DDriver {
  
     IStatement prepare(Query queryToPrepare) { 
         if (count(queryToPrepare.getValueBinder().bindings()) > 2100) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "Exceeded maximum number of parameters (2100) for prepared statements in Sql Server. " ~
                 "This is probably due to a very large WHERE IN () clause which generates a parameter " ~
                 "for each value in the array. " ~

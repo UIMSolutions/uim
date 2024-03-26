@@ -68,7 +68,7 @@ class HasMany : DAssociation {
     void setSaveStrategy(string astrategy) {
         if (!in_array(strategy, [self.SAVE_APPEND, self.SAVE_REPLACE], true)) {
             message = "Invalid save strategy `%s`".format(strategy);
-            throw new InvalidArgumentException(message);
+            throw new DInvalidArgumentException(message);
         }
        _saveStrategy = strategy;
     }
@@ -105,7 +105,7 @@ class HasMany : DAssociation {
         if (!is_iterable(targetEntities)) {
             name = this.getProperty();
             message = "Could not save %s, it cannot be traversed".format(name);
-            throw new InvalidArgumentException(message);
+            throw new DInvalidArgumentException(message);
         }
         string[] foreignKeys = (array)this.getForeignKeys();
         foreignKeyReference = array_combine(

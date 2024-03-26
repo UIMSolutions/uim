@@ -221,7 +221,7 @@ class AssociationCollection { // }: IteratorAggregate {
                     alias,
                     table.aliasName()
                 );
-                throw new InvalidArgumentException(msg);
+                throw new DInvalidArgumentException(msg);
             }
             if (relation.isOwningSide(table) != owningSide) {
                 continue;

@@ -188,7 +188,7 @@ class SelectLoader {
             missingFields = missingKey(select, quoted);
         }
         if (missingFields) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "You are required to select the "%s" field(s)"
                 .format(join(", ", aKey))
             );

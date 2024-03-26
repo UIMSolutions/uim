@@ -33,7 +33,7 @@ class LinkConstraint {
      * /
     this(Association|string myassociation, string myrequiredLinkStatus) {
         if (!in_array(myrequiredLinkStatus, [STATUS_LINKED, STATUS_NOT_LINKED], true)) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "Argument 2 is expected to match one of the `\UIM\ORM\Rule\LinkConstraint.STATUS_*` constants."
             );
         }
@@ -52,7 +52,7 @@ class LinkConstraint {
     bool __invoke(IEntity myentity, IData[string] options) {
         mytable = options["repository"] ?? null;
         if (!(cast(Table)mytable)) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "Argument 2 is expected to have a `repository` key that holds an instance of `\UIM\ORM\Table`."
             );
         }
@@ -98,7 +98,7 @@ class LinkConstraint {
      * /
     protected array _buildConditions(array myfields, array myvalues) {
         if (count(myfields) != count(myvalues)) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "The number of fields is expected to match the number of values, got %d field(s) and %d value(s)."
                 .format(count(myfields),
                 count(myvalues)

@@ -81,7 +81,7 @@ class DHasManyAssociation : DAssociation {
     auto setSaveStrategy(string strategy) {
         if (!in_array(strategy, [self::SAVE_APPEND, self::SAVE_REPLACE], true)) {
             msg = sprintf("Invalid save strategy '%s'", strategy);
-            throw new InvalidArgumentException(msg);
+            throw new DInvalidArgumentException(msg);
         }
 
         _saveStrategy = strategy;
@@ -129,7 +129,7 @@ class DHasManyAssociation : DAssociation {
         if (!is_iterable(myTargetEntities)) {
             myName = this.getProperty();
             myMessage = sprintf("Could not save %s, it cannot be traversed", myName);
-            throw new InvalidArgumentException(myMessage);
+            throw new DInvalidArgumentException(myMessage);
         }
 
         foreignKeyReference = array_combine(

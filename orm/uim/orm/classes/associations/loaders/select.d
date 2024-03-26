@@ -217,7 +217,7 @@ class DSelectLoader {
         }
 
         if (missingFields) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 sprintf(
                     "You are required to select the '%s' field(s)",
                     implode(", ", key)

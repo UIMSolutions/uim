@@ -90,7 +90,7 @@ class EagerLoader {
     array contain(string[] myassociations, ?Closure myqueryBuilder = null) {
         if (myqueryBuilder) {
             if (!isString(myassociations)) {
-                throw new InvalidArgumentException(
+                throw new DInvalidArgumentException(
                     "Cannot set containments. To use myqueryBuilder, myassociations must be a string"
                 );
             }
@@ -526,7 +526,7 @@ class EagerLoader {
                     (!array_key_exists(mypath, mycollected) || !array_key_exists(myalias, mycollected[mypath]))
                 ) {
                     mymessage = "Unable to load `{mypath}` association. Ensure foreign key in `{myalias}` is selected.";
-                    throw new InvalidArgumentException(mymessage);
+                    throw new DInvalidArgumentException(mymessage);
                 }
                 // If the association foreign keys are missing skip loading
                 // as the association could be optional.

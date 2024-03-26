@@ -646,7 +646,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      */
     Behavior getBehavior(string myname) {
         if (!_behaviors.has(myname)) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "The `%s` behavior is not defined on `%s`."
                 .format(myname, class)
             );
@@ -688,7 +688,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
             if (myassocations) {
                 mymessage ~= "\nValid associations are: " ~ join(", ", myassocations);
             }
-            throw new InvalidArgumentException(mymessage);
+            throw new DInvalidArgumentException(mymessage);
         }
         return myassociation;
     }
@@ -1889,12 +1889,12 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
             myentityClass = myentity.classname;
             mytable = this.getTable();
             mymessage = "Cannot update `myentityClass`. The `mytable` has no primary key.";
-            throw new InvalidArgumentException(mymessage);
+            throw new DInvalidArgumentException(mymessage);
         }
         if (!myentity.has(myprimaryColumns)) {
             mymessage = "All primary key value(s) are needed for updating, ";
             mymessage ~= myentity.classname ~ " is missing " ~ join(", ", myprimaryColumns);
-            throw new InvalidArgumentException(mymessage);
+            throw new DInvalidArgumentException(mymessage);
         }
         mystatement = this.updateQuery()
             .set(mydata)
@@ -2173,7 +2173,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         myprimaryKey = (array)this.getPrimaryKeys();
         if (!myentity.has(myprimaryKey)) {
             mymsg = "Deleting requires all primary key values.";
-            throw new InvalidArgumentException(mymsg);
+            throw new DInvalidArgumentException(mymsg);
         }
         if (options["checkRules"] && !this.checkRules(myentity, RulesChecker.DELETE, options)) {
             return false;

@@ -222,7 +222,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         }
 
         if (!(table instanceof Table)) {
-            throw new InvalidArgumentException("You must provide either an Association or a Table object");
+            throw new DInvalidArgumentException("You must provide either an Association or a Table object");
         }
 
         fields = array_diff(table.getSchema().columns(), excludedFields);

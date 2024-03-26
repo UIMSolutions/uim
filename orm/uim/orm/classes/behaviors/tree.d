@@ -339,7 +339,7 @@ class DTreeBehavior : DBehavior {
     DORMQuery findPath(Query query, STRINGAA someOptions)
     {
         if (empty(options["for"])) {
-            throw new InvalidArgumentException("The "for" key is required for find("path")");
+            throw new DInvalidArgumentException("The "for" key is required for find("path")");
         }
 
         myConfiguration = configuration;
@@ -413,7 +413,7 @@ class DTreeBehavior : DBehavior {
         [for, direct] = [options["for"], options["direct"]];
 
         if (empty(for)) {
-            throw new InvalidArgumentException("The "for" key is required for find("children")");
+            throw new DInvalidArgumentException("The "for" key is required for find("children")");
         }
 
         if (query.clause("order") == null) {

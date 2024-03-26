@@ -3,13 +3,10 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.errors.renderers.consoles.exception;
+module uim.errors.classes.renderers.consoles.consoleexception;
 
 @safe:
 import uim.errors;
-
-/* use Psr\Http\messages.IServerRequest;
- */
 
 /**
  * Plain text exception rendering with a stack trace.

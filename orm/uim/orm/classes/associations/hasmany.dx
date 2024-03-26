@@ -285,7 +285,7 @@ class HasMany : DAssociation {
          aProperty = this.getProperty();
 
         conditions = [
-            "OR": (new Collection(targetEntities))
+            "OR": (new DCollection(targetEntities))
                 .map(function (IEntity entity) use (targetPrimaryKey) {
                     /** @psalm-suppress InvalidArgument,UnusedPsalmSuppress */
                     /** @var string[] targetPrimaryKey */
@@ -300,7 +300,7 @@ class HasMany : DAssociation {
         if (options["cleanProperty"] && result !isNull) {
             sourceEntity.set(
                  aProperty,
-                (new Collection(sourceEntity.get(aProperty)))
+                (new DCollection(sourceEntity.get(aProperty)))
                 .reject(
                     auto (assoc) use (targetEntities) {
                         return in_array(assoc, targetEntities);
@@ -390,7 +390,7 @@ class HasMany : DAssociation {
         IData[string] options = null
     ): bool {
         primaryKey = (array)target.getPrimaryKeys();
-        exclusions = new Collection(remainingEntities);
+        exclusions = new DCollection(remainingEntities);
         exclusions = exclusions.map(
             auto (IEntity ent) use (primaryKey) {
                 return ent.extract(primaryKey);

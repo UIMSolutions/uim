@@ -39,7 +39,7 @@ class ContextFactory {
                         return new EntityContext(mydata);
                     }
                     if (is_iterable(mydata["entity"])) {
-                        mypass = (new Collection(mydata["entity"])).first() !isNull;
+                        mypass = (new DCollection(mydata["entity"])).first() !isNull;
                         if (mypass) {
                             return new EntityContext(mydata);
                         } else {

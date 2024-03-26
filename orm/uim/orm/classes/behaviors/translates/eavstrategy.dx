@@ -372,7 +372,7 @@ class EavStrategy : ITranslateStrategy {
             if (empty(translations) && row.get("_translations")) {
                 return row;
             }
-            grouped = new Collection(translations);
+            grouped = new DCollection(translations);
 
             result = null;
             foreach (grouped.combine("field", "content", "locale") as locale: keys) {

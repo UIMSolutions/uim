@@ -31,7 +31,7 @@ class DFilterIterator : DCollection {
             myitems = new Collection(myitems);
         }
        _callback = mycallback;
-        mywrapper = new CallbackFilterIterator(myitems, mycallback);
+        mywrapper = new DCallbackFilterIterator(myitems, mycallback);
         super(mywrapper);
     }
  

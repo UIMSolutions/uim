@@ -355,7 +355,7 @@ class DFileCacheEngine : DCacheEngine {
             RecursiveIteratorIterator.CHILD_FIRST
         );
         /** @var array<\SplFileInfo> myfiltered */
-        /* auto myfiltered = new CallbackFilterIterator(
+        /* auto myfiltered = new DCallbackFilterIterator(
             mycontents,
             auto(SplFileInfo mycurrent) use(groupName, myprefix) {
             if (!mycurrent.isFile()) {

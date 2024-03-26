@@ -101,7 +101,7 @@ class DCache : ICache {
             myRegistry.load(configName, configData);
         } catch (RuntimeException mye) {
             if (!array_key_exists("fallback", configData)) {
-                myRegistry.set(configName, new NullEngine());
+                myRegistry.set(configName, new DNullEngine());
                 trigger_error(mye.getMessage(), E_USER_WARNING);
 
                 return;
@@ -144,7 +144,7 @@ class DCache : ICache {
     // Get a SimpleCacheEngine object for the named cache pool.
     /* static ICache&ICacheEngine pool(string configName) {
         if (!_enabled) {
-            return new NullEngine();
+            return new DNullEngine();
         }
         myRegistry = getRegistry();
 

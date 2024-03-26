@@ -78,7 +78,7 @@ class Filesystem {
         if (isString(myfilter)) {
             return new RegexIterator(myiterator, myfilter);
         }
-        return new CallbackFilterIterator(myiterator, myfilter);
+        return new DCallbackFilterIterator(myiterator, myfilter);
     }
     
     /**

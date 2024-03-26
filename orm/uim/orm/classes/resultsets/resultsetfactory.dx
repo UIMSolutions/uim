@@ -47,12 +47,12 @@ class ResultSetFactory {
         ];
 
         myassocMap = myquery.getEagerLoader().associationsMap(myprimaryTable);
-        mydata["matchingAssoc"] = (new Collection(myassocMap))
+        mydata["matchingAssoc"] = (new DCollection(myassocMap))
             .match(["matching": true])
             .indexBy("alias")
             .toArray();
 
-        mydata["containAssoc"] = (new Collection(array_reverse(myassocMap)))
+        mydata["containAssoc"] = (new DCollection(array_reverse(myassocMap)))
             .match(["matching": false])
             .indexBy("nestKey")
             .toArray();

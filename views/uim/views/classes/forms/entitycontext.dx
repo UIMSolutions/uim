@@ -238,7 +238,7 @@ class EntityContext : IContext {
         mytable = _getTable(mypath, false);
         myprimary = mytable ? (array)mytable.getPrimaryKeys(): ["id"];
 
-        return (new Collection(myvalues)).extract(myprimary[0]).toArray();
+        return (new DCollection(myvalues)).extract(myprimary[0]).toArray();
     }
     
     /**

@@ -262,7 +262,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
 
   // Returns an array iterator.
   Traversable getIterator() {
-    return new ArrayIterator(_loaded);
+    return new DArrayIterator(_loaded);
   }
 
   // Returns the number of loaded objects.

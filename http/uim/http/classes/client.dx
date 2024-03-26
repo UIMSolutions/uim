@@ -175,7 +175,7 @@ class DClient : IClient {
     myparts = parse_url(myurl);
 
     if (myparts == false) {
-      throw new InvalidArgumentException(
+      throw new DInvalidArgumentException(
         "string `%s` did not parse.".format(myurl
       ));
     }
@@ -187,7 +187,7 @@ class DClient : IClient {
       ]);
 
     if (isEmpty(configData("scheme"]) || configData("host"].isEmpty) {
-      throw new InvalidArgumentException(
+      throw new DInvalidArgumentException(
         "The URL was parsed but did not contain a scheme or host");
     }
     if (isSet(configData("path"])) {
@@ -211,7 +211,7 @@ class DClient : IClient {
      */
   void addCookie(ICookie mycookie) {
     if (!mycookie.getDomain() || !mycookie.getPath()) {
-      throw new InvalidArgumentException("Cookie must have a domain and a path set.");
+      throw new DInvalidArgumentException("Cookie must have a domain and a path set.");
     }
     _cookies = _cookies.add(mycookie);
   }

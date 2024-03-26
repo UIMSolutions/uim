@@ -66,7 +66,7 @@ class EventManager : IEventManager {
             return;
         }
         if (!aCallable && !isCallable(options)) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "second argument of `EventManager::on()` must be a callable if `aCallable`.isNull."
             );
         }

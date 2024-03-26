@@ -89,7 +89,7 @@ class ErrorHandlerMiddleware : IMiddleware
         }
 
         if (!myErrorHandler instanceof ErrorHandler) {
-            throw new InvalidArgumentException(sprintf(
+            throw new DInvalidArgumentException(sprintf(
                 "myErrorHandler argument must be a config array or ErrorHandler instance. Got `%s` instead.",
                 getTypeName(myErrorHandler)
             ));

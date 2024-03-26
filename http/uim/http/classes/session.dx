@@ -221,7 +221,7 @@ class Session {
         /** @var class-string<\!SessionHandler>|null  className */
         className = App.className(className, "Http/Session");
         if (className.isNull) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "The class `%s` does not exist and cannot be used as a session engine"
                     .format(className)
             );

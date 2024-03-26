@@ -65,7 +65,7 @@ class Digest {
     protected void setAlgorithm(array credentials) {
         algorithm = credentials.get("algorithm", self.ALGO_MD5);
         if (!isSet(self.HASH_ALGORITHMS[algorithm])) {
-            throw new InvalidArgumentException("Invalid Algorithm. Valid ones are: " ~
+            throw new DInvalidArgumentException("Invalid Algorithm. Valid ones are: " ~
                 join(",", self.HASH_ALGORITHMS.keys));
         }
         this.algorithm = algorithm;
@@ -157,7 +157,7 @@ class Digest {
             response = hash(this.hashType, ha1 ~ ":" ~ credentials["nonce"] ~ ":" ~ ha2);
         } else {
             if (!in_array(credentials["qop"], [self.QOP_AUTH, self.QOP_AUTH_INT])) {
-                throw new InvalidArgumentException("Invalid QOP parameter. Valid types are: ' .
+                throw new DInvalidArgumentException("Invalid QOP parameter. Valid types are: ' .
                     join(",", [self.QOP_AUTH, self.QOP_AUTH_INT]));
             }
             if (credentials["qop"] == self.QOP_AUTH_INT) {

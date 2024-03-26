@@ -131,7 +131,7 @@ class ExceptionTrap
         if ((aClassName.isString) {
             /** @psalm-suppress ArgumentTypeCoercion */
             if (!(method_exists(aClassName, "render") && method_exists(aClassName, "write"))) {
-                throw new InvalidArgumentException(
+                throw new DInvalidArgumentException(
                     "Cannot use {aClassName} as an `exceptionRenderer`~ " ~
                     "It must implement render() and write() methods."
                 );

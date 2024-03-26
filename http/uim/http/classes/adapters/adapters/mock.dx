@@ -30,7 +30,7 @@ class Mock : IAdapter {
     void addResponse(IRequest request, Response response, IData[string] options = null) {
         if (isSet(options["match"]) && !(cast(Closure)options["match"])) {
             type = get_debug_type(options["match"]);
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "The `match` option must be a `Closure`. Got `%s`."
                 .format(type
             ));
@@ -63,7 +63,7 @@ class Mock : IAdapter {
             if (isSet(mock["options"]["match"])) {
                 match = mock["options"]["match"](request);
                 if (!isBool(match)) {
-                    throw new InvalidArgumentException("Match callback must return a boolean value.");
+                    throw new DInvalidArgumentException("Match callback must return a boolean value.");
                 }
                 if (!match) {
                     continue;

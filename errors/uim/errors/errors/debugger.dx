@@ -791,7 +791,7 @@ class Debugger
     static void addRenderer(string aName, string aClassName) {
         deprecationWarning('Debugger::addRenderer() is deprecated.');
         if (!hasAllValues(IErrorRenderer::class, class_implements(aClassName))) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 'Invalid renderer class. aClassName must implement ' . IErrorRenderer::class
             );
         }

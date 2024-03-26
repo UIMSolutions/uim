@@ -5,7 +5,8 @@ import uim.consoles;
 @safe:
 
 // Print out command list
-class HelpCommand : DCommand, ICommandCollectionAware {
+class HelpCommand : DCommand { // }, ICommandCollectionAware {
+    /* 
     // The command collection to get help on.
     protected CommandCollection _commands;
 
@@ -32,13 +33,13 @@ class HelpCommand : DCommand, ICommandCollectionAware {
     /**
      * Output text.
      * @param iterable<string, string|object> commands The command collection to output.
-     */
+     * /
     protected void asText(IConsoleIo aConsoleIo, STRINGAA commands) {
         string[][string] myInvert = [];
         foreach (name, className; commands) {
             /* if (isObject(className)) {
                  className = className.class;
-            }*/
+            }* /
             myInvert.require(className, null);
             myInvert[className] ~= name;
         }
@@ -163,5 +164,5 @@ class HelpCommand : DCommand, ICommandCollectionAware {
         parserToBuild.addOption("xml", addOption);
 
         return parserToBuild;
-    }
+    } */
 }

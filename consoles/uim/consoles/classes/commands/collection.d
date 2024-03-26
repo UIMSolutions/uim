@@ -5,7 +5,8 @@ import uim.consoles;
 @safe:
 
 // Collection for Commands.
-class CommandCollection { // : IteratorAggregate, Countable {
+class DCommandCollection { // : IteratorAggregate, Countable {
+    /* 
     // Command list
     protected ICommand[string] _commands;
 
@@ -55,7 +56,7 @@ class CommandCollection { // : IteratorAggregate, Countable {
     Traversable getIterator() {
         return new DArrayIterator(this.commands);
     }
-    */ 
+    * / 
 
     // Get the number of commands in the collection.
     size_t count() {
@@ -69,7 +70,7 @@ class CommandCollection { // : IteratorAggregate, Countable {
      * existing commands in the collection. If a command is already
      * defined in the collection and discovered in a plugin, only
      * the long name (`plugin.command`) will be returned.
-     */
+     * /
      // TODO
 /*    STRINGAA discoverPlugin(string pluginName) {
         auto commandScanner = new CommandScanner();
@@ -130,10 +131,10 @@ class CommandCollection { // : IteratorAggregate, Countable {
 
         return app + core;
     }
-    */
+    * /
     
     // Get the list of available command names.
     string[] comamndNames() {
         return _commands.keys;
-    }
+    } */
 }

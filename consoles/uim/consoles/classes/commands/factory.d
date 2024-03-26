@@ -5,7 +5,8 @@ import uim.consoles;
 @safe:
 
 // This is a factory for creating Command instances.
-class CommandFactory : ICommandFactory {
+class DCommandFactory { // }: ICommandFactory {
+  /* 
   protected IContainer _container = null;
 
   this(IContainer newContainer = null) {
@@ -23,5 +24,6 @@ class CommandFactory : ICommandFactory {
   ICommand create(string className) {
     return _container && _container.has(aClassName)
       ? _container.get(aClassName).copy : null;
-  }
+  } 
+  */
 }

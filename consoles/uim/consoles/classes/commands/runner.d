@@ -1,4 +1,4 @@
-module uim.consoles.classes.commands.commandrunner;
+module uim.consoles.classes.commands.runner;
 
 import uim.consoles;
 
@@ -9,16 +9,24 @@ import uim.consoles;
  *
  * @implements \UIM\Event\IEventDispatcher<\UIM\Core\IConsoleApplication>
  */
-class CommandRunner : IEventDispatcher {
+class DCommandRunner { // }: IEventDispatcher {
+    mixin TConfigurable!(); 
 
-  	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
+    this() {
+        initialize;
+    }
+
+    // Hook method
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
+        return true;
+    }
+    
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\Core\IConsoleApplication>
-     */
+     * /
     mixin EventDispatcherTemplate();
 
     // The application console commands are being run for.
@@ -38,7 +46,7 @@ class CommandRunner : IEventDispatcher {
      *
      * consoleApp - The application to run CLI commands for.
      * @param \UIM\Console\ICommandFactory|null factory Command factory instance.
-     */
+     * /
     this(
         IConsoleApplication consoleApp,
         string rootCommandName = "uim",
@@ -66,7 +74,7 @@ class CommandRunner : IEventDispatcher {
      * ```
      * runner.setAliases(["--version": 'version"]);
      * ```
-     */
+     * /
     void setAliases(string[] aliasesToReplace) {
         _aliases = aliasesToReplace;
     }
@@ -83,7 +91,7 @@ class CommandRunner : IEventDispatcher {
      * Params:
      * array argv The arguments from the CLI environment.
      * @param \UIM\Console\ConsoleIo|null  aConsoleIo The ConsoleIo instance. Used primarily for testing.
-     */
+     * /
     int run(array argv, IConsoleIo aConsoleIo = null) {
         assert(!argv.isEmpty, "Cannot run any commands. No arguments received.");
 
@@ -133,7 +141,7 @@ class CommandRunner : IEventDispatcher {
      *
      * Calls the application`s `bootstrap()` hook. After the application the
      * plugins are bootstrapped.
-     */
+     * /
     protected void bootstrap() {
         this.app.bootstrap();
         if (cast(IPluginApplication)this.app) {
@@ -165,7 +173,7 @@ class CommandRunner : IEventDispatcher {
      * \UIM\Console\IConsoleIo aConsoleIo The IO wrapper for the created shell class.
      * @param \UIM\Console\CommandCollection commands The command collection to find the shell in.
      * @param string aName The command name to find
-     */
+     * /
     protected ICommand getCommand(IConsoleIo aConsoleIo, CommandCollection commands, string commandName) {
         auto anInstance = commands.get(commandName);
         if (isString(anInstance)) {
@@ -187,7 +195,7 @@ class CommandRunner : IEventDispatcher {
      * Params:
      * \UIM\Console\CommandCollection commands The command collection to check.
      * @param array argv The CLI arguments.
-     */
+     * /
     protected array longestCommandName(CommandCollection commands, array argv) {
         for (anI = 3;  anI > 1;  anI--) {
             someParts = array_slice(argv, 0,  anI);
@@ -212,7 +220,7 @@ class CommandRunner : IEventDispatcher {
      * \UIM\Console\CommandCollection commands The command collection to check.
      * @param \UIM\Console\IConsoleIo aConsoleIo ConsoleIo object for errors.
      * @param string name The name from the CLI args.
-     */
+     * /
     protected string resolveName(CommandCollection commands, IConsoleIo aConsoleIo, string aName) {
         if (!name) {
              aConsoleIo.writeErrorMessages("<error>No command provided. Choose one of the available commands.</error>", 2);
@@ -239,7 +247,7 @@ class CommandRunner : IEventDispatcher {
      * \UIM\Console\ICommand command The command to run.
      * @param array argv The CLI arguments to invoke.
      * @param \UIM\Console\IConsoleIo aConsoleIo The console io
-     */
+     * /
     protected int runCommand(ICommand command, array argv, IConsoleIo aConsoleIo) {
         try {
             if (cast(IEventDispatcher)command) {
@@ -266,7 +274,7 @@ class CommandRunner : IEventDispatcher {
     /**
      * Ensure that the application`s routes are loaded.
      * Console commands and shells often need to generate URLs.
-     */
+     * /
     protected void loadRoutes() {
         if (!(cast(IRoutingApplication)this.app)) {
             return;
@@ -277,5 +285,5 @@ class CommandRunner : IEventDispatcher {
         if (cast(IPluginApplication)this.app) {
             this.app.pluginRoutes( builder);
         }
-    }
+    } */
 }

@@ -1,4 +1,4 @@
-module uim.consoles;
+module uim.consoles.classes.commands.scanner;
 
 import uim.consoles;
 
@@ -10,17 +10,25 @@ import uim.consoles;
  *
  * @internal
  */
-class CommandScanner {
-  	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
+class DCommandScanner {
+    mixin TConfigurable!(); 
+
+    this() {
+        initialize;
+    }
+
+    // Hook method
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
+        return true;
+    }
     /**
      * Scan UIM internals for shells & commands.
      *
      * returs A list of command metadata.
-     */
+     * /
     array scanCore() {
         return this.scanDir(
             dirname(__DIR__) ~ DIRECTORY_SEPARATOR ~ "Command" ~ DIRECTORY_SEPARATOR,
@@ -32,7 +40,7 @@ class CommandScanner {
     
     /**
      * Scan the application for shells & commands.
-     */
+     * /
     array scanApp() {
         appNamespace = Configure.read("App.namespace");
 
@@ -48,7 +56,7 @@ class CommandScanner {
      * Scan the named plugin for shells and commands
      * Params:
      * string aplugin The named plugin.
-     */
+     * /
     array scanPlugin(string pluginName) {
         if (!Plugin.isLoaded(pluginName)) {
             return null;
@@ -68,7 +76,7 @@ class CommandScanner {
      * @param string aNamespace The namespace the shells live in.
      * @param string aprefix The prefix to apply to commands for their full name.
      * @param string[] commandsToHide A list of command names to hide as they are internal commands.
-     */
+     * /
     protected array scanDir(string directoryPath, string aNamespace, string aprefix, string[] commandsToHide) {
         if (!isDir(directoryPath)) {
             return null;
@@ -78,7 +86,7 @@ class CommandScanner {
 
          classNamePattern = "/Command\.d$/";
         fs = new Filesystem();
-        /** @var array<\SplFileInfo> files */
+        /** @var array<\SplFileInfo> files * /
         files = fs.find(somePath,  classNamePattern);
 
         commands = [];
@@ -110,5 +118,5 @@ class CommandScanner {
         ksort(commands);
 
         return commands.values;
-    }
+    } */
 }

@@ -1,4 +1,4 @@
-module consoles.uim.consoles.classes.commands.commandcollectionaware;
+module uim.consoles.classes.commands.collectionaware;
 
 import uim.consoles;
 

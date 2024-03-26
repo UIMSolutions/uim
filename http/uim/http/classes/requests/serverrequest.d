@@ -8,7 +8,7 @@ import uim.http;
  * A class that helps wrap Request information and particulars about a single request.
  * Provides methods commonly used to introspect on the request headers and request body.
  */
-class ServerRequest : IServerRequest {
+class DServerRequest { // }: IServerRequest {
     /**
      * Array of parameters parsed from the URL.
      *

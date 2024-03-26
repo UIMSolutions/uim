@@ -5,7 +5,7 @@ import uim.consoles;
 @safe:
 
 // Print out command list
-class HelpCommand : DCommand { // }, ICommandCollectionAware {
+class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     /* 
     // The command collection to get help on.
     protected CommandCollection _commands;

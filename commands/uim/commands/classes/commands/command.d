@@ -10,6 +10,8 @@ class DCommand : ICommand {
 
     this() { initialize; }
 
+    this(IData[string] initData) { initialize(initData); }
+
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
         setConfigurationData(initData);

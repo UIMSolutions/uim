@@ -93,7 +93,7 @@ class ServiceLocator {
   private static Cache _cache;
 
   static this() {
-    _cache = new Cache();		
+    _cache = new DCache();		
   }
 
   static Service getService(string jndiName) {

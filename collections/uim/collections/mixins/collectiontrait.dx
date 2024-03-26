@@ -574,7 +574,7 @@ template CollectionTemplate {
     }
  
     ICollection zip(Range ...myitems) {
-        return new ZipIterator(chain([this.unwrap()], myitems));
+        return new DZipIterator(chain([this.unwrap()], myitems));
     }
  
     ICollection zipWith(Range myitems, mycallback) {
@@ -585,7 +585,7 @@ template CollectionTemplate {
             myitems = [myitems];
         }
         /** @var callable aCallback */
-        return new ZipIterator(chain([this.unwrap()], myitems), mycallback);
+        return new DZipIterator(chain([this.unwrap()], myitems), mycallback);
     }
  
     ICollection chunk(int mychunkSize) {

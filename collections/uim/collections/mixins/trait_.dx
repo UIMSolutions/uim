@@ -672,7 +672,7 @@ trait CollectionTrait {
 
     function zip(Range items): ICollection
     {
-        return new ZipIterator(array_merge([this.unwrap()], func_get_args()));
+        return new DZipIterator(array_merge([this.unwrap()], func_get_args()));
     }
 
 
@@ -685,7 +685,7 @@ trait CollectionTrait {
             items = [items];
         }
 
-        return new ZipIterator(array_merge([this.unwrap()], items), callback);
+        return new DZipIterator(array_merge([this.unwrap()], items), callback);
     }
 
 

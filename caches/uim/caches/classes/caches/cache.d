@@ -69,7 +69,7 @@ class DCache : ICache {
 
     // Returns the Cache Registry instance used for creating and using cache adapters.
     /* static CacheRegistry getRegistry() {
-        return _registry ? _registry : new CacheRegistry();
+        return _registry ? _registry : new DCacheRegistry();
     } */ 
     
     /**
@@ -183,7 +183,7 @@ class DCache : ICache {
         auto mybackend = pool(configName);
         auto mysuccess = mybackend.set(dataId, myvalue);
         if (mysuccess == false && myvalue != "") {
-            throw new CacheWriteException(
+            throw new DCacheWriteException(
                 "%s cache was unable to write '%s' to %s cache"
                 .format(
                     configName,

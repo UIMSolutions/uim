@@ -222,15 +222,15 @@ template CollectionTemplate {
     }
  
     ICollection sample(int mylength = 10) {
-        return this.newCollection(new LimitIterator(this.shuffle(), 0, mylength));
+        return this.newCollection(new DLimitIterator(this.shuffle(), 0, mylength));
     }
  
     ICollection take(int mylength = 1, int anOffset = 0) {
-        return this.newCollection(new LimitIterator(this, myoffset, mylength));
+        return this.newCollection(new DLimitIterator(this, myoffset, mylength));
     }
  
     ICollection skip(int mylength) {
-        return this.newCollection(new LimitIterator(this, mylength));
+        return this.newCollection(new DLimitIterator(this, mylength));
     }
  
     ICollection match(array myconditions) {
@@ -242,7 +242,7 @@ template CollectionTemplate {
     }
  
     Json first() {
-        auto myIterator = new LimitIterator(this, 0, 1);
+        auto myIterator = new DLimitIterator(this, 0, 1);
         foreach (result; myiterator) {
             return result;
         }
@@ -259,7 +259,7 @@ template CollectionTemplate {
             if (mycount == 0) {
                 return null;
             }
-            auto myIterator = new LimitIterator(myiterator, mycount - 1, 1);
+            auto myIterator = new DLimitIterator(myiterator, mycount - 1, 1);
         }
         result = null;
     }
@@ -278,7 +278,7 @@ template CollectionTemplate {
             if (mycount == 0) {
                 return this.newCollection([]);
             }
-            auto myIterator = new LimitIterator(myiterator, max(0, mycount - mylength), mylength);
+            auto myIterator = new DLimitIterator(myiterator, max(0, mycount - mylength), mylength);
 
             return this.newCollection(myiterator);
         }

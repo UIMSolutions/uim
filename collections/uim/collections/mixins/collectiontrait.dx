@@ -9,7 +9,7 @@ template CollectionTemplate {
     mixin ExtractTemplate();
 
     /**
-     * Returns a new collection.
+     * Returns a new DCollection.
      *
      * Allows classes which use this template to determine their own
      * type of returned collection interface
@@ -17,7 +17,7 @@ template CollectionTemplate {
      * Json ...myargs Constructor arguments.
      */
     protected ICollection newCollection(Json ...myargs) {
-        return new Collection(...myargs);
+        return new DCollection(...myargs);
     }
  
     void each(callable aCallback) {
@@ -199,7 +199,7 @@ template CollectionTemplate {
         mymapper = fn (myvalue, aKey, MapReduce mymr): mymr.emitIntermediate(myvalue, mycallback(myvalue));
         myreducer = fn (myvalues, aKey, MapReduce mymr): mymr.emit(count(myvalues), aKey);
 
-        return this.newCollection(new MapReduce(this.unwrap(), mymapper, myreducer));
+        return this.newCollection(new DMapReduce(this.unwrap(), mymapper, myreducer));
     }
  
     float|int sumOf(string mypath = null) {
@@ -434,7 +434,7 @@ template CollectionTemplate {
             mymapReduce.emit(result, aKey);
         };
 
-        return this.newCollection(new MapReduce(this.unwrap(), mymapper, myreducer));
+        return this.newCollection(new DMapReduce(this.unwrap(), mymapper, myreducer));
     }
  
     ICollection nest(
@@ -463,7 +463,7 @@ template CollectionTemplate {
             }
             if (isEmpty(aKey) || !myparents.isSet(aKey)) {
                 myvalues.each!((id) {
-                    myparents[id] = myisObject ? myparents[myid] : new ArrayIterator(myparents[myid], 1);
+                    myparents[id] = myisObject ? myparents[myid] : new DArrayIterator(myparents[myid], 1);
                     mymapReduce.emit(myparents[id]);
                 });
                 return null;
@@ -473,7 +473,7 @@ template CollectionTemplate {
             myparents[aKey][mynestingKey] = mychildren;
         };
 
-        return this.newCollection(new MapReduce(this.unwrap(), mymapper, myreducer))
+        return this.newCollection(new DMapReduce(this.unwrap(), mymapper, myreducer))
             .map(fn (myvalue): myisObject ? myvalue : myvalue.getArrayCopy());
     }
  

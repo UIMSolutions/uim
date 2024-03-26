@@ -281,7 +281,7 @@ trait QueryTrait
     }
 
     /**
-     * Register a new MapReduce routine to be executed on top of the database results
+     * Register a new DMapReduce routine to be executed on top of the database results
      * Both the mapper and caller callable should be invokable objects.
      *
      * The MapReduce routing will only be run when the query is executed and the first
@@ -555,7 +555,7 @@ trait QueryTrait
     {
         decorator = _decoratorClass();
         foreach (_mapReduce as functions) {
-            result = new MapReduce(result, functions["mapper"], functions["reducer"]);
+            result = new DMapReduce(result, functions["mapper"], functions["reducer"]);
         }
 
         if (!_mapReduce.isEmpty) {

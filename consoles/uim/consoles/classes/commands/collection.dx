@@ -53,7 +53,7 @@ class CommandCollection { // : IteratorAggregate, Countable {
     /* 
     // Implementation of IteratorAggregate.
     Traversable getIterator() {
-        return new ArrayIterator(this.commands);
+        return new DArrayIterator(this.commands);
     }
     */ 
 

@@ -48,7 +48,7 @@ class CookieCollection : IteratorAggregate, Countable {
     }
     
     /**
-     * Create a new collection from the cookies in a ServerRequest
+     * Create a new DCollection from the cookies in a ServerRequest
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request to extract cookie data from
      */
@@ -131,7 +131,7 @@ class CookieCollection : IteratorAggregate, Countable {
     }
     
     /**
-     * Create a new collection with all cookies matching name removed.
+     * Create a new DCollection with all cookies matching name removed.
      *
      * If the cookie is not in the collection, this method will do nothing.
      * Params:
@@ -172,7 +172,7 @@ class CookieCollection : IteratorAggregate, Countable {
      * Gets the iterator
      */
     Traversable getIterator() {
-        return new ArrayIterator(this.cookies);
+        return new DArrayIterator(this.cookies);
     }
     
     /**
@@ -246,7 +246,7 @@ class CookieCollection : IteratorAggregate, Countable {
     }
     
     /**
-     * Create a new collection that includes cookies from the response.
+     * Create a new DCollection that includes cookies from the response.
      * Params:
      * \Psr\Http\Message\IResponse response Response to extract cookies from.
      * @param \Psr\Http\Message\IRequest request Request to get cookie context from.

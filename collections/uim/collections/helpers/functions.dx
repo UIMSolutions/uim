@@ -9,5 +9,5 @@ import uim.collections;
  * @param range someItems The items from which the collection will be built.
  */
 ICollection collection(Range someItems) {
-    return new Collection(someItems);
+    return new DCollection(someItems);
 }

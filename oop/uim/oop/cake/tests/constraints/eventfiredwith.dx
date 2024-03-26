@@ -53,7 +53,7 @@ class EventFiredWith : Constraint {
                 firedEvents ~= list[anException];
             }
         }
-        eventGroup = (new Collection(firedEvents))
+        eventGroup = (new DCollection(firedEvents))
             .groupBy(string (IEvent event) {
                 return event.name;
             })

@@ -781,7 +781,7 @@ trait EntityTrait
     array getErrors() {
          diff = array_diff_key(_fields, _errors);
 
-        return _errors + (new Collection( diff))
+        return _errors + (new DCollection( diff))
             .filter(function (value) {
                 return is_array(value) || value instanceof IEntity;
             })

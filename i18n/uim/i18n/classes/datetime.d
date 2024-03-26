@@ -293,7 +293,7 @@ class DateTime /* : Chronos, JsonSerializable, Stringable */ {
     auto RelativeTimeFormatter diffFormatter(DifferenceII18NFormatter formatter = null) {
         if (formatter) {
             if (!cast(RelativeTimeFormatter)formatter ) {
-                throw new InvalidArgumentException("Formatter for I18n must extend RelativeTimeFormatter.");
+                throw new DInvalidArgumentException("Formatter for I18n must extend RelativeTimeFormatter.");
             }
             return diffFormatter = formatter;
         }

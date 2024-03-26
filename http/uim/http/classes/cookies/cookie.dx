@@ -296,12 +296,12 @@ class Cookie : ICookie {
     // Validates the cookie name
     protected void validateName(string cookieName) {
         if (preg_match("/[=,;\t\r\n\013\014]/", name)) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "The cookie name `%s` contains invalid characters.".format(name)
             );
         }
         if (name.isEmpty) {
-            throw new InvalidArgumentException("The cookie name cannot be empty.");
+            throw new DInvalidArgumentException("The cookie name cannot be empty.");
         }
     }
  

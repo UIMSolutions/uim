@@ -138,7 +138,7 @@ class SecurityHeadersMiddleware : IMiddleware {
 
         if (option == self.ALLOW_FROM) {
             if (url.isEmpty) {
-                throw new InvalidArgumentException("The 2nd arg url can not be empty when `allow-from` is used");
+                throw new DInvalidArgumentException("The 2nd arg url can not be empty when `allow-from` is used");
             }
             option ~= " " ~ url;
         }
@@ -189,7 +189,7 @@ class SecurityHeadersMiddleware : IMiddleware {
     protected void checkValues(string avalue, array allowed) {
         if (!in_array(aValue, allowed, true)) {
             array_walk(allowed, fn (&x): x = "`x`");
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "Invalid arg `%s`, use one of these: %s."
                 .format(aValue,
                 allowed.join(", ")

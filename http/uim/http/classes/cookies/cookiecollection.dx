@@ -91,7 +91,7 @@ class CookieCollection : IteratorAggregate, Countable {
         cookie = __get(name);
 
         if (cookie.isNull) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 
                     "Cookie `%s` not found. Use `has()` to check first for existence."
                     .format(name
@@ -156,7 +156,7 @@ class CookieCollection : IteratorAggregate, Countable {
     protected void checkCookies(array cookies) {
         foreach (anIndex: cookie; cookies) {
             if (!cast(ICookie)!cookie) {
-                throw new InvalidArgumentException(                    
+                throw new DInvalidArgumentException(                    
                     "Expected `%s[]` as cookies but instead got `%s` at index %d"
                     .format(
                         class,

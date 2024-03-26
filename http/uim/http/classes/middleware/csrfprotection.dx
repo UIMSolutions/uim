@@ -185,7 +185,7 @@ class CsrfProtectionMiddleware : IMiddleware {
         }
         decoded = base64_decode(token, true);
         if (decoded == false) {
-            throw new InvalidArgumentException("Invalid token data.");
+            throw new DInvalidArgumentException("Invalid token data.");
         }
         length = decoded.length;
         salt = Security.randomBytes(length);

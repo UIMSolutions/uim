@@ -147,7 +147,7 @@ class Date { // }: ChronosDate, JsonSerializable {
     static RelativeTimeFormatter diffFormatter(DifferenceII18NFormatter differenceFormatter = null) {
         if (differenceFormatter) {
             if (!cast(RelativeTimeFormatter)differenceFormatter) {
-                throw new InvalidArgumentException("Formatter for I18n must extend RelativeTimeFormatter.");
+                throw new DInvalidArgumentException("Formatter for I18n must extend RelativeTimeFormatter.");
             }
             return diffFormatter = differenceFormatter;
         }
@@ -201,7 +201,7 @@ class Date { // }: ChronosDate, JsonSerializable {
 
     string i18nFormat(string format = null, string localeName = null) {
         if (format == DateTime.UNIX_TIMESTAMP_FORMAT) {
-            throw new InvalidArgumentException("UNIT_TIMESTAMP_FORMAT is not supported for Date.");
+            throw new DInvalidArgumentException("UNIT_TIMESTAMP_FORMAT is not supported for Date.");
         }
         localname = localeName.isEmpty ? DateTime.getDefaultLocale() : localeName;
 

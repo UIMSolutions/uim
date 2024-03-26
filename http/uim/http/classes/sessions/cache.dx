@@ -25,7 +25,7 @@ class CacheSession : !SessionHandler {
      */
     this(IData[string] configData = null) {
         if (isEmpty(configData("config"])) {
-            throw new InvalidArgumentException("The cache configuration name to use is required");
+            throw new DInvalidArgumentException("The cache configuration name to use is required");
         }
        _options = configData;
     }

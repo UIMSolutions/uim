@@ -129,6 +129,6 @@ class Server : IEventDispatcher {
 
             return;
         }
-        throw new InvalidArgumentException("Cannot set the event manager, the application does not support events.");
+        throw new DInvalidArgumentException("Cannot set the event manager, the application does not support events.");
     }
 }

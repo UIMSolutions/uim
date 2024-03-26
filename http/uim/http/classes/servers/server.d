@@ -13,7 +13,7 @@ import uim.http;
 class Server : IEventDispatcher {
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\Core\IHttpApplication>
-     */
+     * /
     use EventDispatcherTrait;
 
     protected IHttpApplication _app;
@@ -25,7 +25,7 @@ class Server : IEventDispatcher {
      * Params:
      * \UIM\Core\IHttpApplication app The application to use.
      * @param \UIM\Http\Runner|null runner Application runner.
-     */
+     * /
     this(IHttpApplication httpApp, Runner appRunner = null) {
         _app = httpApp;
         _runner = appRunner ?? new Runner();
@@ -44,7 +44,7 @@ class Server : IEventDispatcher {
      * Params:
      * \Psr\Http\Message\IServerRequest|null request The request to use or null.
      * @param \UIM\Http\MiddlewareQueue|null middlewareQueue MiddlewareQueue or null.
-     */
+     * /
     IResponse run(
         ?IServerRequest serverRequest = null,
         ?MiddlewareQueue middlewareQueue = null
@@ -79,7 +79,7 @@ class Server : IEventDispatcher {
      *
      * Calls the application`s `bootstrap()` hook. After the application the
      * plugins are bootstrapped.
-     */
+     * /
     protected void bootstrap() {
         this.app.bootstrap();
         if (this.app instanceof IPluginApplication) {
@@ -93,7 +93,7 @@ class Server : IEventDispatcher {
      * \Psr\Http\Message\IResponse response The response to emit
      * @param \UIM\Http\ResponseEmitter|null emitter The emitter to use.
      *  When null, a SAPI Stream Emitter will be used.
-     */
+     * /
     void emit(IResponse response, ?ResponseEmitter emitter = null) {
         if (!emitter) {
             emitter = new ResponseEmitter();
@@ -103,7 +103,7 @@ class Server : IEventDispatcher {
     
     /**
      * Get the current application.
-     */
+     * /
     IHttpApplication getApp() {
         return this.app;
     }
@@ -122,7 +122,7 @@ class Server : IEventDispatcher {
      * If the application does not support events, an exception will be raised.
      * Params:
      * \UIM\Event\IEventManager eventManager The event manager to set.
-     */
+     * /
     void setEventManager(IEventManager eventManager) {
         if (this.app instanceof IEventDispatcher) {
             this.app.setEventManager(eventManager);
@@ -130,5 +130,5 @@ class Server : IEventDispatcher {
             return;
         }
         throw new DInvalidArgumentException("Cannot set the event manager, the application does not support events.");
-    }
+    } */
 }

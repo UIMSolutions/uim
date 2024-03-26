@@ -7,13 +7,13 @@ import uim.http;
 /**
  * Factory class for creating uri instances.
  */
-class UriFactory : IUriFactory {
+class UriFactory { // }: IUriFactory {
     /**
      * Create a new URI.
      *
      * uriToParse The URI to parse.
      * @throws \InvalidArgumentException If the given URI cannot be parsed.
-     */
+     * /
     IUri createUri(string uriToParse= null) {
         return new Uri(uriToParse);
     }
@@ -23,7 +23,7 @@ class UriFactory : IUriFactory {
      * Params:
      * array|null serverData Array of server data to build the Uri from.
      *  _SERVER will be used if serverData parameter.isNull.
-     */
+     * /
     static array marshalUriAndBaseFromSapi(array serverData = null) {
         serverData ??= _SERVER;
         azto  aHeaders = marshalHeadersFromSapi(serverData);
@@ -49,7 +49,7 @@ class UriFactory : IUriFactory {
      * Params:
      * string abase The base path to remove.
      * @param \Psr\Http\Message\IUri anUri The uri to update.
-     */
+     * /
     protected static IUri updatePath(string basePath, IUri anUri) {
         auto uriPath = anUri.getPath();
         if (!basePath.isEmpty && uriPath.startWith(basePath)) {
@@ -77,7 +77,7 @@ class UriFactory : IUriFactory {
      * Params:
      * \Psr\Http\Message\IUri anUri The Uri instance.
      * @param array serverData The SERVER data to use.
-     */
+     * /
     protected static array getBase(IUri anUri, array serverData) {
         configData = (array)Configure.read("App") ~ [
             "base": null,
@@ -130,5 +130,5 @@ class UriFactory : IUriFactory {
             webrootDir ~= webroot ~ "/";
         }
         return ["base": base ~ file, "webroot": webrootDir];
-    }
+    } */
 }

@@ -13,14 +13,14 @@ class Runner : IRequestHandler {
      * The middleware queue being run.
      *
      * @var \UIM\Http\MiddlewareQueue
-     */
+     * /
     protected MiddlewareQueue queue;
 
     /**
      * Fallback handler to use if middleware queue does not generate response.
      *
      * @var \Psr\Http\Server\IRequestHandler|null
-     */
+     * /
     protected IRequestHandler fallbackHandler = null;
 
     /**
@@ -28,7 +28,7 @@ class Runner : IRequestHandler {
      * @param \Psr\Http\Message\IServerRequest serverRequest The Server Request
      * @param \Psr\Http\Server\IRequestHandler|null fallbackHandler Fallback request handler.
      * returns A response object
-     */
+     * /
     IResponse run(
         MiddlewareQueue queue,
         IServerRequest serverRequest,
@@ -51,7 +51,7 @@ class Runner : IRequestHandler {
      * Handle incoming server request and return a response.
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The server request
-     */
+     * /
     IResponse handle(IServerRequest serverRequest) {
         if (this.queue.valid()) {
             middleware = this.queue.current();
@@ -67,5 +67,5 @@ class Runner : IRequestHandler {
                 ~ "and no fallback request handler was set for Runner",
             `status": 500,
         ]);
-    }
+    } */
 }

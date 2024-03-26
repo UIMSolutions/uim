@@ -1,4 +1,4 @@
-module source.uim.http.exceptions.network;
+module uim.http.exceptions.network;
 
 import uim.http;
 
@@ -11,10 +11,10 @@ import uim.http;
  *
  * Example: the target host name can not be resolved or the connection failed.
  */
-class NetworkException : RuntimeException : INetworkException {
+class NetworkException { // }: RuntimeException : INetworkException {
     /**
      * @var \Psr\Http\Message\IRequest
-     */
+     * /
     protected IRequest request;
 
     /**
@@ -23,7 +23,7 @@ class NetworkException : RuntimeException : INetworkException {
      * string amessage Exeception message.
      * @param \Psr\Http\Message\IRequest request Request instance.
      * @param \Throwable|null previous Previous Exception
-     */
+     * /
     this(string amessage, IRequest request, Throwable previousException = null) {
         this.request = request;
         super(message, 0, previous);
@@ -36,5 +36,5 @@ class NetworkException : RuntimeException : INetworkException {
      */
     IRequest getRequest() {
         return this.request;
-    }
+    } */
 }

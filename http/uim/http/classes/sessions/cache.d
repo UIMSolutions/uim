@@ -11,7 +11,8 @@ use !SessionHandler;
  *
  * @see \UIM\Http\Session for configuration information.
  */
-class CacheSession : !SessionHandler {
+class DCacheSession { // }: !SessionHandler {
+    /* 
     // Options for this session engine
     protected IData[string] _options = [];
 
@@ -22,7 +23,7 @@ class CacheSession : !SessionHandler {
      * It requires the key 'config' which is the name of the Cache config to use for
      * storing the session
      * @throws \InvalidArgumentException if the 'config' key is not provided
-     */
+     * /
     this(IData[string] configData = null) {
         if (isEmpty(configData("config"])) {
             throw new DInvalidArgumentException("The cache configuration name to use is required");
@@ -35,7 +36,7 @@ class CacheSession : !SessionHandler {
      * Params:
      * string aPath The path where to store/retrieve the session.
      * @param string aName The session name.
-         */
+         * /
     bool open(string aPath, string aName) {
         return true;
     }
@@ -43,7 +44,7 @@ class CacheSession : !SessionHandler {
     /**
      * Method called on close of a database session.
      *
-         */
+         * /
     bool close() {
         return true;
     }
@@ -52,7 +53,7 @@ class CacheSession : !SessionHandler {
      * Method used to read from a cache session.
      * Params:
      * string aid ID that uniquely identifies session in cache.
-     */
+     * /
     string read(string aid) {
         return Cache.read(anId, _options["config"]) ?? "";
     }
@@ -62,7 +63,7 @@ class CacheSession : !SessionHandler {
      * Params:
      * string aid ID that uniquely identifies session in cache.
      * @param string adata The data to be saved.
-     */
+     * /
     bool write(string aid, string adata) {
         if (!anId) {
             return false;
@@ -85,8 +86,8 @@ class CacheSession : !SessionHandler {
      * No-op method. Always returns 0 since cache engine don`t have garbage collection.
      * Params:
      * int maxlifetime Sessions that have not updated for the last maxlifetime seconds will be removed.
-     */
+     * /
     int gc(int maxlifetime) {
         return 0;
-    }
+    } */
 }

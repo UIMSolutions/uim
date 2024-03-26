@@ -7,7 +7,8 @@ import uim.http;
 /**
  * DatabaseSession provides methods to be used with Session.
  */
-class DatabaseSession : SessionHandler {
+class DatabaseSession { // }: SessionHandler {
+    /* 
     use LocatorAwareTemplate();
 
     // Reference to the table handling the session data
@@ -22,7 +23,7 @@ class DatabaseSession : SessionHandler {
      * Params:
      * IData[string] configData The configuration for this engine. It requires the 'model'
      * key to be present corresponding to the Table to use for managing the sessions.
-     */
+     * /
     this(IData[string] configData = null) {
         if (isSet(configData("tableLocator"])) {
             this.setTableLocator(configData("tableLocator"]);
@@ -42,7 +43,7 @@ class DatabaseSession : SessionHandler {
      * Set the timeout value for sessions.
      *
      * Primarily used in testing.
-     */
+     * /
     void setTimeout(int timeoutDuration) {
        _timeout = timeoutDuration;
     }
@@ -51,7 +52,7 @@ class DatabaseSession : SessionHandler {
      * Method called on open of a database session.
      * Params:
      * string aPath The path where to store/retrieve the session.
-     */
+     * /
     bool open(string aPath, string sessionName) {
         return true;
     }
@@ -59,7 +60,7 @@ class DatabaseSession : SessionHandler {
     /**
      * Method called on close of a database session.
      *
-         */
+         * /
     bool close() {
         return true;
     }
@@ -68,7 +69,7 @@ class DatabaseSession : SessionHandler {
      * Method used to read from a database session.
      * Params:
      * string aid ID that uniquely identifies session in database.
-     */
+     * /
     string read(string aid) {
         pkField = _table.getPrimaryKeys();
         assert(isString(pkField));
@@ -98,7 +99,7 @@ class DatabaseSession : SessionHandler {
      * Params:
      * string aid ID that uniquely identifies session in database.
      * @param string adata The data to be saved.
-     */
+     * /
     bool write(string aid, string adata) {
         string pkField = _table.getPrimaryKeys();
         session = _table.newEntity([
@@ -124,8 +125,8 @@ class DatabaseSession : SessionHandler {
      * Helper auto called on gc for database sessions.
      * Params:
      * int maxlifetime Sessions that have not updated for the last maxlifetime seconds will be removed.
-     */
+     * /
     int gc(int maxlifetime) {
         return _table.deleteAll(["expires <": time()]);
-    }
+    } */
 }

@@ -2,8 +2,8 @@
 	Copyright: © 2015-2023 Ozan Nurettin Süel (Sicherheitsschmiede)                                        
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
-**********************************************************************************************************/
-module uim.errors;
+********************************************************************************************************** /
+module uim.errors.errors.debugger;
 
 @safe:
 import uim.errors;
@@ -16,15 +16,15 @@ import uim.errors;
  *
  * @link https://book.cakephp.org/4/en/development/debugging.html#namespace-Cake\Error
  */
-class Debugger
-{
+class DDebugger {
+    /*
     mixin InstanceConfigTemplate;
 
     /**
      * Default configuration
      *
      * @var array<string, mixed>
-     */
+     * /
     protected _defaultConfig = [
         'outputMask': [],
         'exportFormatter': null,
@@ -33,7 +33,7 @@ class Debugger
 
     /**
      * The current output format.
-     */
+     * /
     protected string _outputFormat = 'js';
 
     /**
@@ -41,7 +41,7 @@ class Debugger
      * value used in _outputFormat.
      *
      * @var array<string, array<string, mixed>>
-     */
+     * /
     protected _stringTemplate = [
         'log': [
             // These templates are not actually used, as Debugger::log() is called instead.
@@ -82,7 +82,7 @@ class Debugger
      * will be deprecated and the new ErrorTrap system should be used instead.
      *
      * @var array<string, class-string>
-     */
+     * /
     protected renderers = [
         'txt': TextErrorRenderer::class,
         // The html alias currently uses no JS and will be deprecated.
@@ -93,7 +93,7 @@ class Debugger
      * A map of editors to their link templates.
      *
      * @var array<string, string|callable>
-     */
+     * /
     protected editors = [
         'atom': 'atom://core/open/file?filename={file}&line={line}',
         'emacs': 'emacs://open?url=file://{file}&line={line}',
@@ -108,12 +108,12 @@ class Debugger
      * Holds current output data when outputFormat is false.
      *
      * @var array
-     */
+     * /
     protected _data = null;
 
     /**
      * Constructor.
-     */
+     * /
     this() {
         docRef = ini_get('docref_root');
         if (empty(docRef) && function_exists('ini_set')) {
@@ -173,7 +173,7 @@ class Debugger
      *
      * @param string|null aClassName Class name.
      * @return static
-     */
+     * /
     static function getInstance(string aClassName = null) {
         static instance = null;
         if (!empty(aClassName)) {
@@ -196,7 +196,7 @@ class Debugger
      * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
      * @return mixed Config value being read, or the object itself on write operations.
      * @throws uim.cake.Core\exceptions.UIMException When trying to set a key that is invalid.
-     */
+     * /
     static function configInstance(key = null, value = null, bool merge = true) {
         if (key == null) {
             return getInstance().getConfig(key);
@@ -213,7 +213,7 @@ class Debugger
      * Reads the current output masking.
      *
      * @return array<string, string>
-     */
+     * /
     static STRINGAA outputMask() {
         return configInstance('outputMask');
     }
@@ -227,7 +227,7 @@ class Debugger
      *
      * @param array<string, string> value An array where keys are replaced by their values in output.
      * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
-     */
+     * /
     static void setOutputMask(array value, bool merge = true) {
         configInstance('outputMask', value, merge);
     }
@@ -241,7 +241,7 @@ class Debugger
      *
      * @param string aName The name of the editor.
      * @param \Closure|string template The string template or closure
-     */
+     * /
     static void addEditor(string aName, template) {
         auto instance = getInstance();
         if (!template.isString && !(template instanceof Closure)) {
@@ -255,7 +255,7 @@ class Debugger
      * Choose the editor link style you want to use.
      *
      * @param string aName The editor name.
-     */
+     * /
     static void setEditor(string aName) {
         instance = getInstance();
         if (!isset(instance.editors[name])) {
@@ -271,7 +271,7 @@ class Debugger
      * @param string file The file to create a link for.
      * @param int line The line number to create a link for.
      * @return string The formatted URL.
-     */
+     * /
     static string editorUrl(string file, int line) {
         instance = getInstance();
         editor = instance.getConfig('editor');
@@ -295,7 +295,7 @@ class Debugger
      * @return void
      * @see uim.errors.Debugger::exportVar()
      * @link https://book.cakephp.org/4/en/development/debugging.html#outputting-values
-     */
+     * /
     static void dump(var, int maxDepth = 3) {
         pr(exportVar(var, maxDepth));
     }
@@ -307,9 +307,9 @@ class Debugger
      * @param mixed var Variable or content to log.
      * @param string|int level Type of log to use. Defaults to 'debug'.
      * @param int maxDepth The depth to output to. Defaults to 3.
-     */
+     * /
     static void log(var, level = 'debug', int maxDepth = 3) {
-        /** @var string source */
+        /** @var string source * /
         source = trace(['start': 1]);
         source ~= "\n";
 
@@ -334,7 +334,7 @@ class Debugger
      * @param array<string, mixed> options Format for outputting stack trace.
      * @return array|string Formatted stack trace.
      * @link https://book.cakephp.org/4/en/development/debugging.html#generating-stack-traces
-     */
+     * /
     static function trace(STRINGAA someOptions = null) {
         return Debugger::formatTrace(debug_backtrace(), options);
     }
@@ -355,7 +355,7 @@ class Debugger
      * @param array<string, mixed> options Format for outputting stack trace.
      * @return array|string Formatted stack trace.
      * @link https://book.cakephp.org/4/en/development/debugging.html#generating-stack-traces
-     */
+     * /
     static function formatTrace(backtrace, STRINGAA someOptions = null) {
         if (backtrace instanceof Throwable) {
             backtrace = backtrace.getTrace();
@@ -432,7 +432,7 @@ class Debugger
         /**
          * @psalm-suppress InvalidArgument
          * @phpstan-ignore-next-line
-         */
+         * /
         return implode("\n", back);
     }
 
@@ -442,7 +442,7 @@ class Debugger
      *
      * @param string path Path to shorten.
      * @return string Normalized path
-     */
+     * /
     static string trimPath(string path) {
         if (defined('APP') && strpos(path, APP) == 0) {
             return replace(APP, 'APP/', path);
@@ -477,7 +477,7 @@ class Debugger
      * @return array<string> Set of lines highlighted
      * @see https://secure.php.net/highlight_string
      * @link https://book.cakephp.org/4/en/development/debugging.html#getting-an-excerpt-from-a-file
-     */
+     * /
     static string[] excerpt(string file, int line, int context = 2) {
         lines = null;
         if (!file_exists(file)) {
@@ -515,7 +515,7 @@ class Debugger
      *
      * @param string str The string to convert.
      * @return string
-     */
+     * /
     protected static string _highlight(string str) {
         if (function_exists('hphp_log') || function_exists('hphp_gettid')) {
             return htmlentities(str);
@@ -543,7 +543,7 @@ class Debugger
      * @return uim.errors.debugs.IFormatter
      * @unstable This method is not stable and may change in the future.
      * @since 4.1.0
-     */
+     * /
     function getExportFormatter(): IFormatter
     {
         instance = getInstance();
@@ -587,7 +587,7 @@ class Debugger
      * @param mixed var Variable to convert.
      * @param int maxDepth The depth to output to. Defaults to 3.
      * @return string Variable as a formatted string
-     */
+     * /
     static string exportVar(var, int maxDepth = 3) {
         context = new DebugContext(maxDepth);
         node = export(var, context);
@@ -601,7 +601,7 @@ class Debugger
      * @param mixed var Variable to convert.
      * @param int maxDepth The depth to output to. Defaults to 3.
      * @return string Variable as a string
-     */
+     * /
     static string exportVarAsPlainText(var, int maxDepth = 3) {
         return (new TextFormatter()).dump(
             export(var, new DebugContext(maxDepth))
@@ -617,7 +617,7 @@ class Debugger
      * @param mixed var Variable to convert.
      * @param int maxDepth The depth to generate nodes to. Defaults to 3.
      * @return uim.errors.debugs.IERRNode The root node of the tree.
-     */
+     * /
     static function exportVarAsNodes(var, int maxDepth = 3): IERRNode
     {
         return export(var, new DebugContext(maxDepth));
@@ -629,7 +629,7 @@ class Debugger
      * @param mixed var The variable to dump.
      * @param uim.errors.debugs.DebugContext context Dump context
      * @return uim.errors.debugs.IERRNode The dumped variable.
-     */
+     * /
     protected static function export(var, DebugContext context): IERRNode
     {
         type = getType(var);
@@ -669,7 +669,7 @@ class Debugger
      * @param array var The array to export.
      * @param uim.errors.debugs.DebugContext context The current dump context.
      * @return uim.errors.debugs.ArrayNode Exported array.
-     */
+     * /
     protected static function exportArray(array var, DebugContext context): ArrayNode
     {
         items = null;
@@ -706,7 +706,7 @@ class Debugger
      * @param uim.errors.debugs.DebugContext context The dump context.
      * @return uim.errors.debugs.IERRNode
      * @see uim.errors.Debugger::exportVar()
-     */
+     * /
     protected static function exportObject(object var, DebugContext context): IERRNode
     {
         isRef = context.hasReference(var);
@@ -738,7 +738,7 @@ class Debugger
                 if (array_key_exists(key, outputMask)) {
                     value = outputMask[key];
                 }
-                /** @psalm-suppress RedundantCast */
+                /** @psalm-suppress RedundantCast * /
                 node.addProperty(
                     new PropertyNode((string)key, 'public', export(value, context.withAddedDepth()))
                 );
@@ -787,7 +787,7 @@ class Debugger
      * @param class-string<uim.errors.IErrorRenderer> aClassName The classname of the renderer to use.
      * @return void
      * @deprecated 4.4.0 Update your application so use ErrorTrap instead.
-     */
+     * /
     static void addRenderer(string aName, string aClassName) {
         deprecationWarning('Debugger::addRenderer() is deprecated.');
         if (!hasAllValues(IErrorRenderer::class, class_implements(aClassName))) {
@@ -805,7 +805,7 @@ class Debugger
      * @param array data Data to output.
      * @return void
      * @deprecated 4.4.0 Update your application so use ErrorTrap instead.
-     */
+     * /
     void outputError(array data) {
         defaults = [
             'level': 0,
@@ -821,7 +821,7 @@ class Debugger
 
         outputFormat = _outputFormat;
         if (isset(this.renderers[outputFormat])) {
-            /** @var array trace */
+            /** @var array trace * /
             trace = trace(['start': data['start'], 'format': 'points']);
             error = new DERRError(data['code'], data['description'], data['file'], data['line'], trace);
             renderer = new this.renderers[outputFormat]();
@@ -902,7 +902,7 @@ class Debugger
      *
      * @param mixed var The variable to get the type of.
      * @return string The type of variable.
-     */
+     * /
     static string getType(var) {
         type = getTypeName(var);
 
@@ -931,7 +931,7 @@ class Debugger
      *    data encoded as HTML. If false, plain text formatting will be used.
      *    If null, the format will be chosen based on the configured exportFormatter, or
      *    environment conditions.
-     */
+     * /
     static void printVar(var, array location = null, ?bool showHtml = null) {
         location += ['file': null, 'line': null];
         if (location['file']) {
@@ -964,7 +964,7 @@ class Debugger
      *
      * @param string message The string message to format.
      * @return string Formatted message.
-     */
+     * /
     static string formatHtmlMessage(string message) {
         message = htmlAttribEscape(message);
         message = preg_replace('/`([^`]+)`/', '<code>1</code>', message);
@@ -974,7 +974,7 @@ class Debugger
 
     /**
      * Verifies that the application's salt and cipher seed value has been changed from the default value.
-     */
+     * /
     static void checkSecurityKeys() {
         salt = Security::getSalt();
         if (salt == '__SALT__' || strlen(salt) < 32) {
@@ -984,5 +984,5 @@ class Debugger
                 E_USER_NOTICE
             );
         }
-    }
+    } */
 }

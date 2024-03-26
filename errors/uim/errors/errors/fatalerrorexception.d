@@ -1,4 +1,4 @@
-module uim.errors;
+module errors.uim.errors.errors.fatalerrorexception;
 
 import uim.cake.core.exceptions.UIMException;
 

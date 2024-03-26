@@ -20,7 +20,7 @@ import uim.errors;
  */
 abstract class DERRErrorHandler {
     // mixin InstanceConfigTemplate;
-
+/*
     this() {
       initialize;
 
@@ -44,7 +44,7 @@ abstract class DERRErrorHandler {
      * Exception logger instance.
      *
      * @var uim.errors.|null
-     */
+     * /
     protected IErrorLogger logger;
 
     /**
@@ -56,7 +56,7 @@ abstract class DERRErrorHandler {
      * @param array error An array of error data.
      * @param bool shouldDebug Whether the app is in debug mode.
      * @return void
-     */
+     * /
     abstract protected void _displayError(array error, bool shouldDebug);
 
     /**
@@ -67,12 +67,12 @@ abstract class DERRErrorHandler {
      *
      * @param \Throwable exception The uncaught exception.
      * @return void
-     */
+     * /
     abstract protected void _displayException(Throwable exception);
 
     /**
      * Register the error and exception handlers.
-     */
+     * /
     void register() {
         deprecationWarning(
             "Use of `DERRErrorHandler` and subclasses are deprecated~ " ~
@@ -129,7 +129,7 @@ abstract class DERRErrorHandler {
      * @param int|null line Line that triggered the error
      * @param array<string, mixed>|null context Context
      * @return bool True if error was handled
-     */
+     * /
     bool handleError(
         int myCode,
         string myDescription,
@@ -143,7 +143,7 @@ abstract class DERRErrorHandler {
         _handled = true;
         [myError, myLog] = mapErrorCode(myCode);
         if (myLog == LOG_ERR) {
-            /** @psalm-suppress PossiblyNullArgument */
+            /** @psalm-suppress PossiblyNullArgument * /
             return this.handleFatalError(myCode, myDescription, myFile, myLine);
         }
         data = [
@@ -190,7 +190,7 @@ abstract class DERRErrorHandler {
      * @return void
      * @throws \Exception When renderer class not found
      * @see https://secure.php.net/manual/en/function.set-exception-handler.php
-     */
+     * /
     void handleException(Throwable exception) {
         _displayException(exception);
         this.logException(exception);
@@ -204,7 +204,7 @@ abstract class DERRErrorHandler {
      * Implemented in subclasses that need it.
      *
      * @param int code Exit code.
-     */
+     * /
     protected void _stop(int code) {
         // Do nothing.
     }
@@ -216,7 +216,7 @@ abstract class DERRErrorHandler {
      * @param string description Error description
      * @param string file File on which error occurred
      * @param int line Line that triggered the error
-     */
+     * /
     bool handleFatalError(int code, string description, string file, int line) {
         data = [
             "code": code,
@@ -237,7 +237,7 @@ abstract class DERRErrorHandler {
      * in kilobytes
      *
      * @param int additionalKb Number in kilobytes
-     */
+     * /
     void increaseMemoryLimit(int additionalKb) {
         limit = ini_get("memory_limit");
         if (limit == false || limit == "" || limit == "-1") {
@@ -265,7 +265,7 @@ abstract class DERRErrorHandler {
      *
      * @param string|int level The level name of the log.
      * @param array data Array of error data.
-     */
+     * /
     protected bool _logError(level, array data) {
         message = sprintf(
             "%s (%s): %s in [%s, line %s]",
@@ -292,7 +292,7 @@ abstract class DERRErrorHandler {
      *
      * @param \Throwable exception The exception to log a message for.
      * @param \Psr\Http\messages.IServerRequest|null request The current request.
-     */
+     * /
     bool logException(Throwable exception, ?IServerRequest request = null) {
         if (empty(_config["log"])) {
             return false;
@@ -310,10 +310,10 @@ abstract class DERRErrorHandler {
      * Get exception logger.
      *
      * @return uim.errors.IErrorLogger
-     */
+     * /
     function getLogger() {
         if (this.logger == null) {
-            /** @var uim.errors.IErrorLogger logger */
+            /** @var uim.errors.IErrorLogger logger * /
             logger = new _config["errorLogger"](_config);
 
             if (!logger instanceof IErrorLogger) {
@@ -335,7 +335,7 @@ abstract class DERRErrorHandler {
      *
      * @param int code Error code to map
      * @return array Array of error word, and log location.
-     */
+     * /
     static array mapErrorCode(int code) {
         levelMap = [
             E_PARSE: "error",
@@ -365,5 +365,5 @@ abstract class DERRErrorHandler {
         log = logMap[error];
 
         return [ucfirst(error), log];
-    }
+    } */
 }

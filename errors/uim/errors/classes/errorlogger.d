@@ -1,4 +1,4 @@
-module uim.errors;
+module uim.errors.classes.errorlogger;
 
 import uim.errors;
 
@@ -7,7 +7,8 @@ import uim.errors;
 /**
  * Log errors and unhandled exceptions to `UIM\Log\Log`
  */
-class ErrorLogger : IErrorLogger {
+class ErrorLogger { // }: IErrorLogger {
+    /*
     use InstanceConfigTemplate();
 
     /**
@@ -15,7 +16,7 @@ class ErrorLogger : IErrorLogger {
      *
      * - `trace` Should error logs include stack traces?
      *
-     */
+     * /
     protected IData[string] _defaultConfigData = [
         "trace": false,
     ];
@@ -24,11 +25,11 @@ class ErrorLogger : IErrorLogger {
      * Constructor
      * Params:
      * IData[string] configData Config array.
-     */
+     * /
     this(IData[string] configData = null) {
         this.setConfig(configData);
     }
- 
+  /*
     void logError(UimError error, ?IServerRequest serverRequest = null, bool  anIncludeTrace = false) {
         auto errorMessage = error.getMessage();
         if (request) {
@@ -66,7 +67,7 @@ class ErrorLogger : IErrorLogger {
      * \Throwable exception The exception to log a message for.
      * @param bool  isPrevious False for original exception, true for previous
      * @param bool  anIncludeTrace Whether or not to include a stack trace.
-     */
+     * /
     protected string getMessage(Throwable exception, bool  isPrevious = false, bool  anIncludeTrace = false) {
         string message = "%s[%s] %s in %s on line %s"
             .format(
@@ -107,7 +108,7 @@ class ErrorLogger : IErrorLogger {
      * Get the request context for an error/exception trace.
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request to read from.
-     */
+     * /
     string getRequestContext(IServerRequest serverRequest) {
         string message = "\nRequest URL: " ~ request.getRequestTarget();
 
@@ -122,5 +123,5 @@ class ErrorLogger : IErrorLogger {
             }
         }
         return message;
-    }
+    } */
 }

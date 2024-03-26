@@ -12,6 +12,11 @@ class DLogEngine : ILogEngine {
         this.name("LogEngine");  
     }
 
+    this(IData[string] initData) {
+        this.initialize(initData);
+        this.name("LogEngine");  
+    }
+
     this(string name) { 
         this(); 
         this.name(name); 

@@ -12,7 +12,8 @@ import uim.errors;
  *
  * @link https://book.UIM.org/5/en/development/debugging.html#namespace-UIM\Error
  */
-class Debugger {
+class DDebugger {
+    /*
     mixin InstanceConfigTemplate();
 
     // Default configuration
@@ -26,7 +27,7 @@ class Debugger {
      * A map of editors to their link templates.
      *
      * @var array<string, string|callable>
-     */
+     * /
     protected array editors = [
         "atom": "atom://core/open/file?filename={file}&line={line}",
         "emacs": "emacs://open?url=file://{file}&line={line}",
@@ -48,22 +49,17 @@ class Debugger {
         if (!defined("E_RECOVERABLE_ERROR")) {
             define("E_RECOVERABLE_ERROR", 4096);
         }
-<<<<<<< HEAD
         aConfig = array_intersect_key((array)Configure.read("Debugger"), _defaultConfigData);
         this.setConfig(aConfig);
-=======
-        configData = array_intersect_key((array)Configure.read("Debugger"), _defaultConfig);
-        this.setConfig(configData);
->>>>>>> 281012f1b957b2df089e0f9ff60905fca492f311
     }
     
     /**
      * Returns a reference to the Debugger singleton object instance.
      * Params:
      * class-string<\UIM\Error\Debugger>|null  className Class name.
-     */
+     * /
     static static getInstance(string className = null) {
-        /** @var array<int, static>  anInstance */
+        /** @var array<int, static>  anInstance * /
         static  anInstance = [];
         if (className) {
             if (!anInstance || strtolower(className) != get_class(anInstance[0]).toLower) {
@@ -83,7 +79,7 @@ class Debugger {
      * @param mixed|null aValue The value to set.
      * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
      * @throws \UIM\Core\Exception\UimException When trying to set a key that is invalid.
-     */
+     * /
     static IData[string] configSettings = nullInstance(string[]|null aKey = null, Json aValue = null, bool merge = true) {
         if (aKey.isNull) {
             return getInstance().getConfig(aKey);
@@ -108,7 +104,7 @@ class Debugger {
      * Params:
      * STRINGAA aValue An array where keys are replaced by their values in output.
      * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
-     */
+     * /
     static void setOutputMask(array aValue, bool merge = true) {
         configInstance("outputMask", aValue, merge);
     }
@@ -122,7 +118,7 @@ class Debugger {
      * Params:
      * string aName The name of the editor.
      * @param \Closure|string atemplate The string template or closure
-     */
+     * /
     static void addEditor(string aName, IClosure|string atemplate) {
          anInstance = getInstance();
          anInstance.editors[name] = template;
@@ -132,7 +128,7 @@ class Debugger {
      * Choose the editor link style you want to use.
      * Params:
      * string aName The editor name.
-     */
+     * /
     static void setEditor(string aName) {
          anInstance = getInstance();
         if (!isSet(anInstance.editors[name])) {
@@ -150,7 +146,7 @@ class Debugger {
      * Params:
      * string afile The file to create a link for.
      * @param int line The line number to create a link for.
-     */
+     * /
     static string editorUrl(string afile, int line) {
          anInstance = getInstance();
         editor =  anInstance.getConfig("editor");
@@ -171,7 +167,7 @@ class Debugger {
      * Params:
      * Json var The variable to dump.
      * @param int maxDepth The depth to output to. Defaults to 3.
-     */
+     * /
     static void dump(Json var, int maxDepth = 3) {
         pr(exportVar(var, maxDepth));
     }
@@ -183,9 +179,9 @@ class Debugger {
      * Json var Variable or content to log.
      * @param string|int level Type of log to use. Defaults to 'debug'.
      * @param int maxDepth The depth to output to. Defaults to 3.
-     */
+     * /
     static void log(Json var, string|int level = "debug", int maxDepth = 3) {
-        /** @var string asource */
+        /** @var string asource * /
         source = trace(["start": 1]);
         source ~= "\n";
 
@@ -200,7 +196,7 @@ class Debugger {
      * Params:
      * \Throwable exception The exception to get frames from.
      * @param ?\Throwable parent The parent exception to compare frames with.
-     */
+     * /
     static array getUniqueFrames(Throwable exception, Throwable parent) {
         if (parent.isNull) {
             return exception.getTrace();
@@ -249,7 +245,7 @@ class Debugger {
      * - `start` - The stack frame to start generating a trace from. Defaults to 0
      * Params:
      * IData[string] options Format for outputting stack trace.
-     */
+     * /
     static string[] trace(IData[string] options = null) {
         // Remove the frame for Debugger.trace()
         backtrace = debug_backtrace();
@@ -273,7 +269,7 @@ class Debugger {
      * \Throwable|array backtrace Trace as array or an exception object.
      * @param IData[string] options Format for outputting stack trace.
      * @link https://book.UIM.org/5/en/development/debugging.html#generating-stack-traces
-     */
+     * /
     static string[] formatTrace(Throwable|array backtrace, IData[string] options = null) {
         if (cast(Throwable)backtrace) {
             backtrace = backtrace.getTrace();
@@ -338,7 +334,7 @@ class Debugger {
     /**
      * Shortens file paths by replacing the application base path with 'APP", and the UIM core
      * path with 'CORE'.
-     */
+     * /
     static string trimPath(string pathToShorten) {
         if (defined("APP") && pathToShorten.startWith(APP)) {
             return pathToShorten.replace(APP, "APP/");
@@ -368,7 +364,7 @@ class Debugger {
      * string afile Absolute path to a PHP file.
      * @param int line Line number to highlight.
      * @param int context Number of lines of context to extract above and below line.
-     */
+     * /
     static string[] excerpt(string afile, int line, int context = 2) {
         lines = [];
         if (!file_exists(file)) {
@@ -404,7 +400,7 @@ class Debugger {
      * implement the auto as it is the case of the HipHop interpreter
      * Params:
      * string astr The string to convert.
-     */
+     * /
     protected static string _highlight(string astr) {
         if (function_exists("hphp_log") || function_exists("hphp_gettid")) {
             return htmlentities(str);
@@ -425,7 +421,7 @@ class Debugger {
     
     /**
      * Get the configured export formatter or infer one based on the environment.
-     */
+     * /
     IFormatter getExportFormatter() {
          anInstance = getInstance();
          className =  anInstance.getConfig("exportFormatter");
@@ -467,7 +463,7 @@ class Debugger {
      * Params:
      * Json var Variable to convert.
      * @param int maxDepth The depth to output to. Defaults to 3.
-     */
+     * /
     static string exportVar(Json var, int maxDepth = 3) {
         auto context = new DebugContext(maxDepth);
         auto node = export(var, context);
@@ -480,7 +476,7 @@ class Debugger {
      * Params:
      * Json var Variable to convert.
      * @param int maxDepth The depth to output to. Defaults to 3.
-     */
+     * /
     static string exportVarAsPlainText(Json var, int maxDepth = 3) {
         return (new TextFormatter()).dump(
             export(var, new DebugContext(maxDepth))
@@ -495,7 +491,7 @@ class Debugger {
      * Params:
      * Json var Variable to convert.
      * @param int maxDepth The depth to generate nodes to. Defaults to 3.
-     */
+     * /
     static INode exportVarAsNodes(Json var, int maxDepth = 3) {
         return export(var, new DebugContext(maxDepth));
     }
@@ -505,7 +501,7 @@ class Debugger {
      * Params:
      * Json var The variable to dump.
      * @param \UIM\Error\Debug\DebugContext context Dump context
-     */
+     * /
     protected static INode export(Json var, DebugContext context) {
         string type = getType(var);
 
@@ -538,7 +534,7 @@ class Debugger {
      * array var The array to export.
      * @param \UIM\Error\Debug\DebugContext context The current dump context.
      * @return \UIM\Error\Debug\ArrayNode Exported array.
-     */
+     * /
     protected static ArrayNode exportArray(array var, DebugContext context) {
         someItems = [];
 
@@ -571,7 +567,7 @@ class Debugger {
      * Params:
      * object var Object to convert.
      * @param \UIM\Error\Debug\DebugContext context The dump context.
-     */
+     * /
     protected static INode exportObject(object var, DebugContext context) {
          isRef = context.hasReference(var);
         refNum = context.getReferenceId(var);
@@ -642,7 +638,7 @@ class Debugger {
      * for objects.
      * Params:
      * Json var The variable to get the type of.
-     */
+     * /
     static string getType(Json variableToCheck) {
         string variableType = get_debug_type(variableToCheck);
 
@@ -666,7 +662,7 @@ class Debugger {
      *   data encoded as HTML. If false, plain text formatting will be used.
      *   If null, the format will be chosen based on the configured exportFormatter, or
      *   environment conditions.
-     */
+     * /
     static void printVar(Json var, array location = [], ?bool showHtml = null) {
         location ~= ["file": null, "line": null];
         if (location["file"]) {
@@ -697,7 +693,7 @@ class Debugger {
      * - Convert newlines into `<br>`
      * Params:
      * string messageToFormat The string message to format.
-     */
+     * /
     static string formatHtmlMessage(string messageToFormat) {
         string message = htmlAttribEscape(messageToFormat);
         message = (string)preg_replace("/`([^`]+)`/", "<code>0</code>", message);
@@ -715,5 +711,5 @@ class Debugger {
                 E_USER_NOTICE
             );
         }
-    }
+    } */
 }

@@ -12,7 +12,7 @@ module errors.uim.errors.classes.functions;
  * @param Json var Variable to show debug information for.
  * @param bool|null showHtml If set to true, the method prints the debug data in a browser-friendly way.
  * @param bool showFrom If set to true, the method prints from where the auto was called.
- */
+ * /
 Json debug(Json var, ?bool showHtml = null, bool showFrom = true):  
 {
     if (!Configure.read("debug")) {
@@ -43,7 +43,7 @@ Json debug(Json var, ?bool showHtml = null, bool showFrom = true):
  * - `start` - The stack frame to start generating a trace from. Defaults to 1
  *
  * @param IData[string] options Format for outputting stack trace
- */
+ * /
 void stackTrace(IData[string] options = null) {
     if (!Configure.read("debug")) {
         return;
@@ -51,7 +51,7 @@ void stackTrace(IData[string] options = null) {
     options += ["start": 0];
     options["start"]++;
 
-    /** @var string atrace */
+    /** @var string atrace * /
     trace = Debugger.trace(options);
     echo trace;
 }
@@ -63,13 +63,13 @@ void stackTrace(IData[string] options = null) {
  *
  * @param Json var Variable to show debug information for.
  * @param bool|null showHtml If set to true, the method prints the debug data in a browser-friendly way.
- */
+ * /
 void dd(Json var, ?bool showHtml = null) {
     if (!Configure.read("debug")) {
         return;
     }
     trace = Debugger.trace(["start": 0, "depth": 2, "format": 'array"]);
-    /** @psalm-suppress PossiblyInvalidArrayOffset */
+    /** @psalm-suppress PossiblyInvalidArrayOffset * /
     location = [
         'line": trace[0]["line"],
         'file": trace[0]["file"],
@@ -80,7 +80,7 @@ void dd(Json var, ?bool showHtml = null) {
 }
 /**
  * Include global functions.
- */
+ * /
 if (!getEnvironmentData("CAKE_DISABLE_GLOBAL_FUNCS")) {
     include 'functions_global.d";
-}
+} */

@@ -8,26 +8,23 @@ module uim.errors.errors.handlers.consoleerror;
 @safe:
 import uim.errors;
 
-/* 
- */
-
 /**
  * Error Handler for Cake console. Does simple printing of the
  * exception that occurred and the stack trace of the error.
  */
-class ConsoleErrorHandler : DERRErrorHandler {
+class ConsoleErrorHandler { // } : DERRErrorHandler {
     /**
      * Standard error stream.
      *
      * @var DCONConsoleOutput
-     */
+     * /
     protected _stderr;
 
     /**
      * Constructor
      *
      * @param array<string, mixed> aConfig Config options for the error handler.
-     */
+     * /
     this(Json aConfig = null) {
         super();
 
@@ -50,7 +47,7 @@ class ConsoleErrorHandler : DERRErrorHandler {
      * @return void
      * @throws \Exception When renderer class not found
      * @see https://secure.php.net/manual/en/function.set-exception-handler.php
-     */
+     * /
     void handleException(Throwable exception) {
         _displayException(exception);
         this.logException(exception);
@@ -66,7 +63,7 @@ class ConsoleErrorHandler : DERRErrorHandler {
      * Prints an exception to stderr.
      *
      * @param \Throwable exception The exception to handle
-     */
+     * /
     protected void _displayException(Throwable exception) {
         errorName = "Exception:";
         if (exception instanceof FatalErrorException) {
@@ -90,7 +87,7 @@ class ConsoleErrorHandler : DERRErrorHandler {
      *
      * @param array error An array of error data.
      * @param bool shouldDebug Whether the app is in debug mode.
-     */
+     * /
     protected void _displayError(array error, bool shouldDebug) {
         message = sprintf(
             "%s\nIn [%s, line %s]",
@@ -110,15 +107,10 @@ class ConsoleErrorHandler : DERRErrorHandler {
      * Stop the execution and set the exit code for the process.
      *
      * @param int code The exit code.
-     */
+     * /
     protected void _stop(int code) {
         exit(code);
-    }
+    } */
 }
 
-
-class_alias(
-    "Cake\errors.ConsoleErrorHandler",
-    "Cake\Console\ConsoleErrorHandler"
-);
 

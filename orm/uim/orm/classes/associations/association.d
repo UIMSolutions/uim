@@ -19,6 +19,10 @@ class DAssociation : IAssociation {
     this() {
         initialize;
     }
+
+    this(IData[string] initData) {
+        this.initialize(initData);
+    }
     
     this(string newName) {
         this();

@@ -3,28 +3,48 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module errors.uim.errors.errors.errorlogger;
+module uim.errors.errors.errorlogger;
 
 @safe:
 import uim.errors;
-
-use Psr\Http\messages.IServerRequest;
 
 
 /**
  * Log errors and unhandled exceptions to `Cake\logs.Log`
  */
-class ErrorLogger : IErrorLogger
-{
-    mixin InstanceConfigTemplate;
+class DErrorLogger { //}: IErrorLogger
 
+mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    this(string name) {
+        this();
+        this.name(name);
+    }
+
+    // Hook method
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
     /**
      * Default configuration values.
      *
      * - `trace` Should error logs include stack traces?
      *
      * @var array<string, mixed>
-     */
+     * /
     protected _defaultConfig = [
         "trace": false,
     ];
@@ -33,7 +53,7 @@ class ErrorLogger : IErrorLogger
      * Constructor
      *
      * @param array<string, mixed> aConfig Config array.
-     */
+     * /
     this(Json aConfig = null) {
         this.setConfig(aConfig);
     }
@@ -44,7 +64,7 @@ class ErrorLogger : IErrorLogger
      * @param uim.errors.DError error The error to log
      * @param ?\Psr\Http\messages.IServerRequest request The request if in an HTTP context.
      * @param bool includeTrace Should the log message include a stacktrace
-     */
+     * /
     void logError(DError error, ?IServerRequest request = null, bool includeTrace = false) {
         message = error.getMessage();
         if (request) {
@@ -69,7 +89,7 @@ class ErrorLogger : IErrorLogger
      * @param \Throwable exception The exception to log a message for.
      * @param \Psr\Http\messages.IServerRequest|null request The current request if available.
      * @param bool includeTrace Whether or not a stack trace should be logged.
-     */
+     * /
     void logException(
         Throwable exception,
         ?IServerRequest request = null,
@@ -90,7 +110,7 @@ class ErrorLogger : IErrorLogger
      * @param bool isPrevious False for original exception, true for previous
      * @param bool includeTrace Whether or not to include a stack trace.
      * @return string Error message
-     */
+     * /
     protected string getMessage(Throwable exception, bool isPrevious = false, bool includeTrace = false) {
         message = sprintf(
             "%s[%s] %s in %s on line %s",
@@ -110,7 +130,7 @@ class ErrorLogger : IErrorLogger
         }
 
         if (includeTrace) {
-            /** @var array trace */
+            /** @var array trace * /
             trace = Debugger::formatTrace(exception, ["format": "points"]);
             message ~= "\nStack Trace:\n";
             foreach (trace as line) {
@@ -132,7 +152,7 @@ class ErrorLogger : IErrorLogger
      * Get the request context for an error/exception trace.
      *
      * @param \Psr\Http\messages.IServerRequest request The request to read from.
-     */
+     * /
     string getRequestContext(IServerRequest request) {
         message = "\nRequest URL: " ~ request.getRequestTarget();
 
@@ -149,5 +169,5 @@ class ErrorLogger : IErrorLogger
         }
 
         return message;
-    }
+    } */
 }

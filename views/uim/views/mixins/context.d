@@ -1,4 +1,4 @@
-module uim.contexts.mixins.context;
+module uim.views.mixins.context;
 
 string contextThis(string name) {
     string fullName = name ~ "Context";

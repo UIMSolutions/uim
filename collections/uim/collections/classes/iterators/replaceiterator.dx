@@ -57,6 +57,6 @@ class ReplaceIterator : Collection {
     anIterator.byKeyValue
       .each!(kv => res[kv.key] = aCallback(kv.value, kv.key,  anIterator));
     
-    return new ArrayIterator(res);
+    return new DArrayIterator(res);
   }
 }

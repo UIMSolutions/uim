@@ -25,7 +25,7 @@ trait CollectionTrait {
     // use ExtractTrait;
 
     /**
-     * Returns a new collection.
+     * Returns a new DCollection.
      *
      * Allows classes which use this trait to determine their own
      * type of returned collection interface
@@ -35,7 +35,7 @@ trait CollectionTrait {
      */
     protected function newCollection(...args): ICollection
     {
-        return new Collection(...args);
+        return new DCollection(...args);
     }
 
 
@@ -252,7 +252,7 @@ trait CollectionTrait {
              mr.emit(count(values),  key);
         };
 
-        return this.newCollection(new MapReduce(this.unwrap(), mapper, reducer));
+        return this.newCollection(new DMapReduce(this.unwrap(), mapper, reducer));
     }
 
 
@@ -502,7 +502,7 @@ trait CollectionTrait {
             mapReduce.emit(result,  key);
         };
 
-        return this.newCollection(new MapReduce(this.unwrap(), mapper, reducer));
+        return this.newCollection(new DMapReduce(this.unwrap(), mapper, reducer));
     }
 
 
@@ -530,7 +530,7 @@ trait CollectionTrait {
             if (empty( key) || !isset(parents[ key])) {
                 foreach (values as id) {
                     /** @psalm-suppress PossiblyInvalidArgument */
-                    parents[id] = isObject ? parents[id] : new ArrayIterator(parents[id], 1);
+                    parents[id] = isObject ? parents[id] : new DArrayIterator(parents[id], 1);
                     mapReduce.emit(parents[id]);
                 }
 
@@ -544,7 +544,7 @@ trait CollectionTrait {
             parents[ key][nestingKey] = children;
         };
 
-        return this.newCollection(new MapReduce(this.unwrap(), mapper, reducer))
+        return this.newCollection(new DMapReduce(this.unwrap(), mapper, reducer))
             .map(function (value) use (&isObject) {
                 /** @var \ArrayIterator value */
                 return isObject ? value : value.getArrayCopy();

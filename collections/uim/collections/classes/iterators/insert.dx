@@ -23,7 +23,7 @@ class InsertIterator : Collection {
   protected string _target;
 
   /**
-     * Constructs a new collection that will dynamically add properties to it out of
+     * Constructs a new DCollection that will dynamically add properties to it out of
      * the values found in  someValues.
      * Params:
      * range anInto The target collection to which the values will
@@ -37,7 +37,7 @@ class InsertIterator : Collection {
     super(anInto);
 
     if (!(cast(Collection) someValues)) {
-       someValues = new Collection(someValues);
+       someValues = new DCollection(someValues);
     }
     string[] mypath = split(".", somePath);
     auto mytarget = array_pop(somePath);

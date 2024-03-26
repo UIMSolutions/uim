@@ -47,7 +47,7 @@ class SortIterator : Collection {
     int sortType = SORT_NUMERIC
   ) {
     if (!isArray(someItems)) {
-      someItems = iterator_to_array((new Collection(someItems)).unwrap(), false);
+      someItems = iterator_to_array((new DCollection(someItems)).unwrap(), false);
     }
 
     auto aCallback = _propertyExtractor(aCallback);

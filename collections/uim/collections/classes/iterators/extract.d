@@ -1,4 +1,4 @@
-module collections.uim.collections.classes.iterators.extract;
+module uim.collections.classes.iterators.extract;
 
 import uim.collections;
 
@@ -8,11 +8,11 @@ import uim.collections;
  * Creates an iterator from another iterator that extract the requested column
  * or property based on a path
  */
-class ExtractIterator : Collection {
+class DExtractIterator : DCollection {
   /**
      * A callable responsible for extracting a single value for each
      * item in the collection.
-          */
+          * /
   protected callable _extractor;
 
   /**
@@ -35,7 +35,7 @@ class ExtractIterator : Collection {
      * @param string aPath A dot separated path of column to follow
      * so that the final one can be returned or a callable that will take care
      * of doing that.
-     */
+     * /
   this(Range someItems, callable | string aPath) {
     _extractor = _propertyExtractor(somePath);
     super(someItems);
@@ -67,5 +67,5 @@ class ExtractIterator : Collection {
     myIterator.getArrayCopy().byKeyValue.each!(kv => res[kv.key] = aCallback(kv.value));
 
     return new ArrayIterator(res);
-  }
+  } */
 }

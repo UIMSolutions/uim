@@ -1,4 +1,4 @@
-module uim.collectionss.iterators.filter;
+module uim.collections.classes.iterators.filter;
 
 import uim.collections;
 
@@ -9,10 +9,10 @@ import uim.collections;
  * passing a callback auto to each of the elements and taking them out if
  * it does not return true.
  */
-class FilterIterator : Collection {
+class DFilterIterator : DCollection {
     /**
      * The callback used to filter the elements in this collection
-          */
+          * /
     protected callable _callback;
 
     /**
@@ -25,7 +25,7 @@ class FilterIterator : Collection {
      * Params:
      * range myitems The items to be filtered.
      * @param callable aCallback Callback.
-     */
+     * /
     this(Range myitems, callable aCallback) {
         if (!cast(Iterator)myitems) {
             myitems = new Collection(myitems);
@@ -36,7 +36,7 @@ class FilterIterator : Collection {
     }
  
     Iterator unwrap() {
-        /** @var \IteratorIterator myfilter */
+        /** @var \IteratorIterator myfilter * /
         auto myfilter = this.getInnerIterator();
         auto myiterator = myfilter.getInnerIterator();
 
@@ -56,5 +56,5 @@ class FilterIterator : Collection {
             .each!(kv => myres[kv.key] = kv.value);
         }
         return new ArrayIterator(myres);
-    }
+    } */
 }

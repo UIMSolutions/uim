@@ -58,7 +58,7 @@ class ZipIterator : ICollection {
        _callback = aCallable;
 
         foreach (set; sets) {
-             anIterator = (new Collection(set)).unwrap();
+             anIterator = (new DCollection(set)).unwrap();
            _iterators ~=  anIterator;
             this.multipleIterator.attachIterator(anIterator);
         }

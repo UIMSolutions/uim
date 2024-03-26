@@ -219,7 +219,7 @@ class RulesChecker
             return this.checkDelete_(entity, options);
         }
 
-        throw new InvalidArgumentException("Wrong checking mode: " ~ mode);
+        throw new DInvalidArgumentException("Wrong checking mode: " ~ mode);
     }
 
     /**

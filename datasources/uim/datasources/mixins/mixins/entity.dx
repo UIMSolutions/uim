@@ -191,7 +191,7 @@ mixin EntityTemplate {
       options = (array) aValue;
     }
     if (!isArray(field)) {
-      throw new InvalidArgumentException("Cannot set an empty field");
+      throw new DInvalidArgumentException("Cannot set an empty field");
     }
     options += ["setter": true, "guard": guard, "asOriginal": false];
 
@@ -231,7 +231,7 @@ mixin EntityTemplate {
   // Returns the value of a field by name
   Json & get(string fieldName) {
     if (fieldName.isEmpty) {
-      throw new InvalidArgumentException("Cannot get an empty field");
+      throw new DInvalidArgumentException("Cannot get an empty field");
     }
 
     aValue = null;
@@ -280,13 +280,13 @@ mixin EntityTemplate {
      */
   Json getOriginal(string fieldName, bool allowFallback = true) {
     if (fieldName.isEmpty) {
-      throw new InvalidArgumentException("Cannot get an empty field");
+      throw new DInvalidArgumentException("Cannot get an empty field");
     }
     if (array_key_exists(fieldName, _original)) {
       return _original[fieldName];
     }
     if (!allowFallback) {
-      throw new InvalidArgumentException(
+      throw new DInvalidArgumentException(
         "Cannot retrieve original value for field `%s`".format(fieldName));
     }
     return get(fieldName);

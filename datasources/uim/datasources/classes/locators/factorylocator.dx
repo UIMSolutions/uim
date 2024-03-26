@@ -36,7 +36,7 @@ class FactoryLocator {
         if (isSet(_modelFactories[type])) {
             return _modelFactories[type];
         }
-        throw new InvalidArgumentException(
+        throw new DInvalidArgumentException(
             "Unknown repository type `%s`. Make sure you register a type before trying to use it."
             .format(type)
         ));

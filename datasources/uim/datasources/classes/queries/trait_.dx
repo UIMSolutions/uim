@@ -302,7 +302,7 @@ trait QueryTrait
         }
         if (mapper == null) {
             if (!canOverwrite) {
-                throw new InvalidArgumentException("mapper can be null only when canOverwrite is true.");
+                throw new DInvalidArgumentException("mapper can be null only when canOverwrite is true.");
             }
 
             return this;
@@ -417,7 +417,7 @@ trait QueryTrait
         }
         if (formatter == null) {
             if (mode != self::OVERWRITE) {
-                throw new InvalidArgumentException("formatter can be null only when mode is overwrite.");
+                throw new DInvalidArgumentException("formatter can be null only when mode is overwrite.");
             }
 
             return this;

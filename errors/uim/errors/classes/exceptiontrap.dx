@@ -107,7 +107,7 @@ class ExceptionTrap {
         string className = _configData.isSet("exceptionRenderer") ? _configData("exceptionRenderer"] : this.chooseRenderer();
         if (isString(className)) {
             if (!isSubclass_of(className, IExceptionRenderer.className)) {
-                throw new InvalidArgumentException(
+                throw new DInvalidArgumentException(
                     "Cannot use `{ className}` as an `exceptionRenderer`. " .
                     'It must be an instance of `UIM\Error\IExceptionRenderer`.'
                 );

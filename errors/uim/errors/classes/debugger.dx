@@ -137,7 +137,7 @@ class Debugger {
          anInstance = getInstance();
         if (!isSet(anInstance.editors[name])) {
             known = join(", ", anInstance.editors.keys);
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "Unknown editor `%s`. Known editors are `%s`."
                 .format(name, known
             ));
@@ -155,7 +155,7 @@ class Debugger {
          anInstance = getInstance();
         editor =  anInstance.getConfig("editor");
         if (!anInstance.editors.isSet(editor)) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "Cannot format editor URL `%s` is not a known editor."
                 .format(editor));
         }
@@ -324,7 +324,7 @@ class Debugger {
                 back ~= "%s - %s, line %d".format(reference, somePath, frame["line"]);
             } else {
                 debug(options);
-                throw new InvalidArgumentException(
+                throw new DInvalidArgumentException(
                     "Invalid trace format of `{options["format"]}` chosen. Must be one of `array`, `points` or `text`."
                 );
             }

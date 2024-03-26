@@ -107,7 +107,7 @@ class ConsoleFormatter : IFormatter {
         if (cast(SpecialNode)var) {
             return this.style("special", var.getValue());
         }
-        throw new InvalidArgumentException("Unknown node received " ~ var.classname);
+        throw new DInvalidArgumentException("Unknown node received " ~ var.classname);
     }
     
     /**

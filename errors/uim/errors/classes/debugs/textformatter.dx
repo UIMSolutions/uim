@@ -64,7 +64,7 @@ TEXT;
         if (cast(SpecialNode)nodeToDump ) {
             return nodeToDump.getValue();
         }
-        throw new InvalidArgumentException("Unknown node received " ~ nodeToDump.classname);
+        throw new DInvalidArgumentException("Unknown node received " ~ nodeToDump.classname);
     }
     
     /**

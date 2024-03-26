@@ -1,6 +1,6 @@
 module uim.cake.http.sessions.cache;
 
-import uim.cake;
+import uim.http;
 
 @safe:
 

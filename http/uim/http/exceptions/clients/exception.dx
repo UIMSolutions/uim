@@ -1,5 +1,5 @@
 module source.uim.http.exceptions.clients.exception;
-import uim.cake;
+import uim.http;
 
 @safe:
 

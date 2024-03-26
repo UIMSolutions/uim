@@ -1,7 +1,7 @@
 module uim.cake.http;
 
 
-import uim.cake;
+import uim.http;
 
 @safe:
 

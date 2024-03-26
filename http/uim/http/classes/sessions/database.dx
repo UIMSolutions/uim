@@ -1,6 +1,6 @@
 module uim.cake.http.sessions.database;
 
-import uim.cake;
+import uim.http;
 
 @safe:
 

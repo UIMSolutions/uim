@@ -1,44 +1,34 @@
 # Library 📚 uim-mvc
 
-An **HTML form** is a fundamental component used to collect user input on a web page. It allows users to submit data to a server for processing.
+[![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-mvc.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-mvc.yml) [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-**Form Basics**:
+**In the **Model-View-Controller (MVC)** pattern, the term **“model”** plays a crucial role.**
 
-- A form is created using the `<form>` element.
-- It acts as a container for various input elements, such as text fields, checkboxes, radio buttons, and submit buttons.
-- Users fill out the form, and the data is sent to the server when they submit it.
+**Definition**:
 
-**Input Elements**:
+- **MVC** stands for **“Model-View-Controller.”**
+- It is an application design model that divides related program logic into three interconnected components:
+  - **Model**: Represents the **data** and defines the **logic** to manipulate that data.
+  - **View**: Handles the **user interface** (what the user sees).
+  - **Controller**: Manages processes related to **user input**.
+- **MVC** is commonly used for developing modern user interfaces
 
-- Common input elements within a form:
-  - **Text Fields**: Allow users to enter single-line or multi-line text.
-  - **Radio Buttons**: Users can select one option from a group of choices.
-  - **Checkboxes**: Users can select multiple options.
-  - **Submit Buttons**: Trigger form submission.
-  - **Other Elements**: Password fields, file upload fields, hidden fields, etc.
+**Role of the Model**:
 
-**Form Structure Example**:
+- The **model** serves as a **container for everything else**—everything that doesn’t directly involve the user interface.
+- Its primary responsibilities include:
+  - Holding and managing the **data**.
+  - Defining the **business logic** to manipulate that data.
+- Each **view** reads from the corresponding **model** to display data in various ways.
+- The separation of concerns achieved through the **model** allows flexibility:
+  - You can have one model (e.g., a user list) and multiple views that display the data differently.
+  - If you need to change views, you won’t impact the model’s logic.
 
-- In this example:
-  - The form sends data to the `/submit` URL using the `POST` method.
-  - It includes text fields for username and password.
-  - The submit button triggers form submission.
+**Example**:
 
-```html
-<form action="/submit" method="post">
-  <label for="username">Username:</label>
-  <input type="text" id="username" name="username" /><br />
+- Suppose you’re building a web application:
+  - The **model** might represent user accounts, products, or any other relevant data.
+  - Views (web pages) would display this data to users.
+  - Controllers handle user interactions (e.g., submitting forms, navigating pages).
 
-  <label for="password">Password:</label>
-  <input type="password" id="password" name="password" /><br />
-
-  <input type="submit" value="Submit" />
-</form>
-```
-
-**Form Best Practices**:
-
-- Use appropriate input types (text, password, email, etc.).
-- Include labels for each input field using the `<label>` element.
-- Validate user input on the client side (JavaScript) and server side.
-- Consider accessibility by providing clear instructions and using semantic HTML.
+In summary, the **model** in **MVC** encapsulates data and logic, promoting a clean separation between different aspects of your application.

@@ -167,7 +167,7 @@ class Time { // : ChronosTime, JsonSerializable, Stringable {
         string alocale = null
     ) {
         if (format == DateTime.UNIX_TIMESTAMP_FORMAT) {
-            throw new InvalidArgumentException("UNIT_TIMESTAMP_FORMAT is not supported for Time.");
+            throw new DInvalidArgumentException("UNIT_TIMESTAMP_FORMAT is not supported for Time.");
         }
         format ??= _toStringFormat;
         format = isInt(format) ? [IntlDateFormatter.NONE, format] : format;

@@ -149,7 +149,7 @@ class Plugin : IPlugin {
      */
     protected void checkHook(string aHook) {
         if (!in_array(aHook, VALID_HOOKS, true)) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "`%s` is not a valid hook name. Must be one of `%s.`"
                 .format(aHook, join(", ", VALID_HOOKS))
             );

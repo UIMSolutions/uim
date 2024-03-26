@@ -302,7 +302,7 @@ class Log {
         }
         if (!in_array(level, _levels, true)) {
             /** @psalm-suppress PossiblyFalseArgument */
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "Invalid log level `%s`".format(level));
         }
         logged = false;

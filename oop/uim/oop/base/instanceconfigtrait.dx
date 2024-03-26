@@ -100,7 +100,7 @@ template InstanceConfigTemplate {
     Json getConfigOrFail(string keyToGet) {
         configData = this.getConfig(keyToGet);
         if (configData.isNull) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "Expected configuration `%s` not found.".format(keyToGet));
         }
         return configData;

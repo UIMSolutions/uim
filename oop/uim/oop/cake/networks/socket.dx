@@ -312,7 +312,7 @@ class Socket {
      */
     string read(size_t aLength = 1024) {
         if (length < 0) {
-            throw new InvalidArgumentException("Length must be greater than `0`");
+            throw new DInvalidArgumentException("Length must be greater than `0`");
         }
         if (!this.connected && !this.connect()) {
             return null;
@@ -409,7 +409,7 @@ class Socket {
      */
         void enableCrypto(string atype, string aclientOrServer = "client", boolenable = true) {
             if (!array_key_exists(type ~ "_" ~ clientOrServer, _encryptMethods)) {
-                throw new InvalidArgumentException("Invalid encryption scheme chosen");
+                throw new DInvalidArgumentException("Invalid encryption scheme chosen");
             }
             method = _encryptMethods[type ~ "_" ~ clientOrServer];
 

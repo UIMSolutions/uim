@@ -45,7 +45,7 @@ class ConsoleLog : BaseLog {
         }  else if (isString(configuration["stream"])) {
            _output = new ConsoleOutput(configuration["stream"]);
         } else {
-            throw new InvalidArgumentException("`stream` not a ConsoleOutput nor string");
+            throw new DInvalidArgumentException("`stream` not a ConsoleOutput nor string");
         }
         if (isSet(configuration["outputAs"])) {
            _output.setOutputAs(configuration["outputAs"]);

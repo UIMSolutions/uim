@@ -48,7 +48,7 @@ template CookieCryptTemplate {
     protected void _checkCipher(string cipherName) {
         if (!in_array(cipherName, _validCiphers, true)) {
             mymsg = "Invalid encryption cipher. Must be one of %s or false.".format(join(", ", _validCiphers));
-            throw new InvalidArgumentException(mymsg);
+            throw new DInvalidArgumentException(mymsg);
         }
     }
     

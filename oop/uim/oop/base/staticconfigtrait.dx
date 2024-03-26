@@ -95,7 +95,7 @@ template StaticConfigTemplate {
      */
     static Json getConfigOrFail(string aKey) {
         if (!isSet(configuration.data(aKey])) {
-            throw new InvalidArgumentException("Expected configuration `%s` not found.".format(aKey));
+            throw new DInvalidArgumentException("Expected configuration `%s` not found.".format(aKey));
         }
         return configuration.data(aKey];
     }
@@ -204,7 +204,7 @@ REGEXP;
         preg_match(somePattern, dsn, parsed);
 
         if (!parsed) {
-            throw new InvalidArgumentException("The DSN string `%s` could not be parsed.".format(dsn));
+            throw new DInvalidArgumentException("The DSN string `%s` could not be parsed.".format(dsn));
         }
         exists = [];d
         /**

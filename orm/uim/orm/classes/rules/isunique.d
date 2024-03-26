@@ -43,7 +43,7 @@ class IsUnique {
         
         auto myconditions = _alias(myalias, myfields);
         if (entity.isNew() == false) {
-            auto someKeys = (array)options["repository"].getPrimaryKey();
+            auto someKeys = (array)options["repository"].getPrimaryKeys();
             someKeys = _alias(myalias, entity.extract(someKeys));
             if (Hash.filter(someKeys)) {
                 myconditions["NOT"] = someKeys;

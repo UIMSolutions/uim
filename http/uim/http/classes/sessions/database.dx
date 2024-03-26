@@ -70,7 +70,7 @@ class DatabaseSession : SessionHandler {
      * string aid ID that uniquely identifies session in database.
      */
     string read(string aid) {
-        pkField = _table.getPrimaryKey();
+        pkField = _table.getPrimaryKeys();
         assert(isString(pkField));
         result = _table
             .find("all")
@@ -100,7 +100,7 @@ class DatabaseSession : SessionHandler {
      * @param string adata The data to be saved.
      */
     bool write(string aid, string adata) {
-        string pkField = _table.getPrimaryKey();
+        string pkField = _table.getPrimaryKeys();
         session = _table.newEntity([
             pkField:  anId,
             'data": someData,

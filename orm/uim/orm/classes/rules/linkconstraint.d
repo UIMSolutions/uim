@@ -116,7 +116,7 @@ class LinkConstraint {
     protected int _countLinks(Association myassociation, IEntity myentity) {
         mysource = myassociation.getSource();
 
-        myprimaryKey = (array)mysource.getPrimaryKey();
+        myprimaryKey = (array)mysource.getPrimaryKeys();
         if (!myentity.has(myprimaryKey)) {
             throw new DatabaseException(
                 "LinkConstraint rule on `%s` requires all primary key values for building the counting " .

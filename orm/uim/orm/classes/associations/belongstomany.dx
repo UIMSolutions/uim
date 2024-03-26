@@ -648,7 +648,7 @@ class BelongsToMany : DAssociation {
             // or if we are updating an existing link.
             if (changedKeys) {
                 joint.setNew(true);
-                joint.unset(junction.getPrimaryKey())
+                joint.unset(junction.getPrimaryKeys())
                     .set(array_merge(sourceKeys, targetKeys), ["guard": false]);
             }
             saved = junction.save(joint, options);
@@ -978,7 +978,7 @@ class BelongsToMany : DAssociation {
                 assocForeignKey = (array)junction.getAssociation(target.aliasName()).getForeignKeys();
                 prefixedForeignKey = array_map([junction, "aliasField"], foreignKey);
 
-                junctionPrimaryKey = (array)junction.getPrimaryKey();
+                junctionPrimaryKey = (array)junction.getPrimaryKeys();
                 junctionQueryAlias = junction.aliasName() ~ "__matches";
 
                 someKeys = matchesConditions = [];
@@ -1091,7 +1091,7 @@ class BelongsToMany : DAssociation {
                 deletes ~= existingLink;
             }
         }
-        primary = (array)target.getPrimaryKey();
+        primary = (array)target.getPrimaryKeys();
         jointProperty = _junctionProperty;
         foreach (targetEntities as myKey: entity) {
             if (!(cast(IEntity)entity)) {
@@ -1151,7 +1151,7 @@ class BelongsToMany : DAssociation {
         source = this.getSource();
         junction = this.junction();
         jointProperty = _junctionProperty;
-        primary = (array)target.getPrimaryKey();
+        primary = (array)target.getPrimaryKeys();
 
         auto result;
         missing = [];
@@ -1182,7 +1182,7 @@ class BelongsToMany : DAssociation {
         assocForeignKey = array_map(function (aKey) {
             return aKey ~ " IS";
         }, assocForeignKey);
-        sourceKey = sourceEntity.extract((array)source.getPrimaryKey());
+        sourceKey = sourceEntity.extract((array)source.getPrimaryKeys());
 
         unions = [];
         foreach (missing as aKey) {

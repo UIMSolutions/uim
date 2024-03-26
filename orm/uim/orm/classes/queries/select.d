@@ -895,7 +895,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
             }
             myassociation = mytable.getAssociation(myname);
             mytarget = myassociation.getTarget();
-            myprimary = (array)mytarget.getPrimaryKey();
+            myprimary = (array)mytarget.getPrimaryKeys();
             if (isEmpty(myprimary) || mytypeMap.type(mytarget.aliasField(myprimary[0])).isNull) {
                 this.addDefaultTypes(mytarget);
             }

@@ -281,7 +281,7 @@ class HasMany : DAssociation {
         }
         foreignKey = (array)this.getForeignKeys();
         target = this.getTarget();
-        targetPrimaryKey = array_merge((array)target.getPrimaryKey(), foreignKey);
+        targetPrimaryKey = array_merge((array)target.getPrimaryKeys(), foreignKey);
          aProperty = this.getProperty();
 
         conditions = [
@@ -389,7 +389,7 @@ class HasMany : DAssociation {
         range remainingEntities = [],
         IData[string] options = null
     ): bool {
-        primaryKey = (array)target.getPrimaryKey();
+        primaryKey = (array)target.getPrimaryKeys();
         exclusions = new Collection(remainingEntities);
         exclusions = exclusions.map(
             auto (IEntity ent) use (primaryKey) {

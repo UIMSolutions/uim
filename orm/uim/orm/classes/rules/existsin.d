@@ -70,7 +70,7 @@ class ExistsIn {
             mybindingKey = (array)mytarget.getBindingKey();
             myrealTarget = mytarget.getTarget();
         } else {
-            mybindingKey = (array)mytarget.getPrimaryKey();
+            mybindingKey = (array)mytarget.getPrimaryKeys();
             myrealTarget = mytarget;
         }
         if (!empty(options["_sourceTable"]) && myrealTarget == options["_sourceTable"]) {

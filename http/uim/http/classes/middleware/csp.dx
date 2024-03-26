@@ -1,6 +1,6 @@
 module uim.cake.http\Middleware;
 
-import uim.cake;
+import uim.http;
 
 @safe:
 /**

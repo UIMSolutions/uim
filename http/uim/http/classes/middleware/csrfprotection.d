@@ -20,7 +20,7 @@ import uim.http;
  *
  * @see https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#double-submit-cookie
  */
-class CsrfProtectionMiddleware : IMiddleware {
+class CsrfProtectionMiddleware { // }: IMiddleware {
     /**
      * Config for the CSRF handling.
      *
@@ -35,7 +35,7 @@ class CsrfProtectionMiddleware : IMiddleware {
      * - `field` The form field to check. Changing this will also require configuring
      *   FormHelper.
      *
-     */
+     * /
     protected Json _config = [
         "cookieName": "csrfToken",
         "expiry": 0,
@@ -49,7 +49,7 @@ class CsrfProtectionMiddleware : IMiddleware {
      * Callback for deciding whether to skip the token check for particular request.
      *
      * CSRF protection token check will be skipped if the callback returns `true`.
-     */
+     * /
     protected callable skipCheckCallback;
 
     const int TOKEN_VALUE_LENGTH = 16;
@@ -62,7 +62,7 @@ class CsrfProtectionMiddleware : IMiddleware {
      *
      * We are currently using sha1 for the hmac which
      * creates 40 bytes.
-     */
+     * /
     const int TOKEN_WITH_CHECKSUM_LENGTH = 56;
 
     this(IData[string] configData = null) {
@@ -74,7 +74,7 @@ class CsrfProtectionMiddleware : IMiddleware {
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request.
      * @param \Psr\Http\Server\IRequestHandler handler The request handler.
-     */
+     * /
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
         method = request.getMethod();
         hasData = in_array(method, ["PUT", "POST", "DELETE", "PATCH"], true)
@@ -128,7 +128,7 @@ class CsrfProtectionMiddleware : IMiddleware {
      * `true` if you want to skip token check for the current request.
      * Params:
      * callable aCallback A callable.
-     */
+     * /
     void skipCheckCallback(callable aCallback) {
         this.skipCheckCallback = aCallback;
     }
@@ -137,7 +137,7 @@ class CsrfProtectionMiddleware : IMiddleware {
      * Remove CSRF protection token from request data.
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request object.
-     */
+     * /
     protected IServerRequest _unsetTokenField(IServerRequest serverRequest) {
         body = request.getParsedBody();
         if (isArray(body)) {
@@ -156,14 +156,14 @@ class CsrfProtectionMiddleware : IMiddleware {
      * in 5.x.
      * Params:
      * string atoken The token to test.
-     */
+     * /
     protected bool isHexadecimalToken(string atoken) {
         return preg_match("/^[a-f0-9]{" ~ TOKEN_WITH_CHECKSUM_LENGTH ~ "}/", token) == 1;
     }
     
     /**
      * Create a new token to be used for CSRF protection
-     */
+     * /
     string createToken() {
         aValue = Security.randomBytes(TOKEN_VALUE_LENGTH);
 
@@ -178,7 +178,7 @@ class CsrfProtectionMiddleware : IMiddleware {
      * to be unsalted.
      * Params:
      * string atoken The token to salt.
-     */
+     * /
     string saltToken(string atoken) {
         if (this.isHexadecimalToken(token)) {
             return token;
@@ -205,7 +205,7 @@ class CsrfProtectionMiddleware : IMiddleware {
      * unsalted value that is supported for backwards compatibility.
      * Params:
      * string atoken The token that could be salty.
-     */
+     * /
     string unsaltToken(string atoken) {
         if (this.isHexadecimalToken(token)) {
             return token;
@@ -250,7 +250,7 @@ class CsrfProtectionMiddleware : IMiddleware {
      * string atoken The token to add.
      * @param \Psr\Http\Message\IServerRequest serverRequest The request to validate against.
      * @param \Psr\Http\Message\IResponse response The response.
-     */
+     * /
     protected IResponse _addTokenCookie(
         string tokenToAdd,
         IServerRequest serverRequest,
@@ -267,7 +267,7 @@ class CsrfProtectionMiddleware : IMiddleware {
      * Validate the request data against the cookie token.
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request to validate against.
-     */
+     * /
     protected void _validateToken(IServerRequest serverRequest) {
         cookie = Hash.get(request.getCookieParams(), configuration["cookieName"]);
 
@@ -306,7 +306,7 @@ class CsrfProtectionMiddleware : IMiddleware {
      * Params:
      * string avalue Cookie value
      * @param \Psr\Http\Message\IServerRequest serverRequest The request object.
-     */
+     * /
     protected ICookie _createCookie(string avalue, IServerRequest serverRequest) {
         return Cookie.create(
            configuration["cookieName"],
@@ -319,5 +319,5 @@ class CsrfProtectionMiddleware : IMiddleware {
                 `samesite": configuration["samesite"],
             ]
         );
-    }
+    } */ 
 }

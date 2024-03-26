@@ -16,7 +16,7 @@ class ContentTypeNegotiation {
      * discarded as they are not frequently used.
      * Params:
      * \Psr\Http\Message\IRequest request The request to get an accept from.
-     */
+     * /
     array<string, string[]> parseAccept(IRequest request) {
          aHeader = request.getHeaderLine("Accept");
 
@@ -30,7 +30,7 @@ class ContentTypeNegotiation {
      * as they are not frequently used.
      * Params:
      * \Psr\Http\Message\IRequest request The request to get an accept from.
-     */
+     * /
     array<string, string[]> parseAcceptLanguage(IRequest request) {
          aHeader = request.getHeaderLine("Accept-Language");
 
@@ -40,7 +40,7 @@ class ContentTypeNegotiation {
     /**
      * Parse a header value into preference: value mapping
      * @param string aheader The header value to parse
-     */
+     * /
     protected string[][string] parseQualifiers(string aheader) {
         return HeaderUtility.parseAccept( aHeader);
     }
@@ -56,7 +56,7 @@ class ContentTypeNegotiation {
      * Params:
      * \Psr\Http\Message\IRequest request The request to use.
      * string[] supportedChoices The supported content type choices.
-     */
+     * /
     string preferredType(IRequest request, string[] supportedChoices = []) {
         auto parsed = this.parseAccept(request);
         if (parsed.isEmpty) {
@@ -82,7 +82,7 @@ class ContentTypeNegotiation {
      * `_` replaced with `-`.
      * Params:
      * \Psr\Http\Message\IRequest request The request to read headers from.
-     */
+     * /
     string[] acceptedLanguages(IRequest request) {
         auto raw = this.parseAcceptLanguage(request);
         auto accept = [];
@@ -106,10 +106,10 @@ class ContentTypeNegotiation {
      * Params:
      * \Psr\Http\Message\IRequest request The request to read headers from.
      * @param string alang The language code to check.
-     */
+     * /
     bool acceptLanguage(IRequest request, string alang) {
         accept = this.acceptedLanguages(request);
 
         return in_array(lang.toLower, accept, true);
-    }
+    } */
 }

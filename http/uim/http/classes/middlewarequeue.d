@@ -14,7 +14,7 @@ class MiddlewareQueue : Countable, SeekableIterator {
      * The queue of middlewares.
      *
      * @var array<int, mixed>
-     */
+     * /
     protected Json[int] queue = [];
 
     protected IContainer container;
@@ -24,7 +24,7 @@ class MiddlewareQueue : Countable, SeekableIterator {
      * Params:
      * array middleware The list of middleware to append.
      * @param \UIM\Core\IContainer container Container instance.
-     */
+     * /
     this(array middleware = [], ?IContainer container = null) {
         this.container = container;
         this.queue = middleware;
@@ -35,7 +35,7 @@ class MiddlewareQueue : Countable, SeekableIterator {
      * Params:
      * \Psr\Http\Server\IMiddleware|\Closure|string amiddleware The middleware to resolve.
      * @throws \InvalidArgumentException If Middleware not found.
-     */
+     * /
     protected IMiddleware resolve(IMiddleware|Closure|string amiddleware) {
         if (isString(middleware)) {
             if (this.container && this.container.has(middleware)) {
@@ -61,7 +61,7 @@ class MiddlewareQueue : Countable, SeekableIterator {
      * Append a middleware to the end of the queue.
      * Params:
      * \Psr\Http\Server\IMiddleware|\Closure|string[] amiddleware The middleware(s) to append.
-     */
+     * /
     void add(IMiddleware|Closure|string[] amiddleware) {
         if (middleware.isArray) {
             this.queue = chain(this.queue, middleware);
@@ -75,7 +75,7 @@ class MiddlewareQueue : Countable, SeekableIterator {
      * Alias for MiddlewareQueue.add().
      * Params:
      * \Psr\Http\Server\IMiddleware|\Closure|string[] amiddleware The middleware(s) to append.
-     */
+     * /
     MiddlewareQueue push(IMiddleware|Closure|string[] amiddleware) {
         return this.add(middleware);
     }
@@ -84,7 +84,7 @@ class MiddlewareQueue : Countable, SeekableIterator {
      * Prepend a middleware to the start of the queue.
      * Params:
      * \Psr\Http\Server\IMiddleware|\Closure|string[] amiddleware The middleware(s) to prepend.
-     */
+     * /
     auto prepend(IMiddleware|Closure|string[] amiddleware) {
         if (middleware.isArray) {
             this.queue = chain(middleware, this.queue);
@@ -104,7 +104,7 @@ class MiddlewareQueue : Countable, SeekableIterator {
      * Params:
      * int  anIndex The index to insert at.
      * @param \Psr\Http\Server\IMiddleware|\Closure|string amiddleware The middleware to insert.
-     */
+     * /
     auto insertAt(int  anIndex, IMiddleware|Closure|string amiddleware) {
         array_splice(this.queue,  anIndex, 0, [middleware]);
 
@@ -120,7 +120,7 @@ class MiddlewareQueue : Countable, SeekableIterator {
      * @param \Psr\Http\Server\IMiddleware|\Closure|string amiddleware The middleware to insert.
      * @return this
      * @throws \LogicException If middleware to insert before is not found.
-     */
+     * /
     auto insertBefore(string className, IMiddleware|Closure|string amiddleware) {
         bool isFound = false;
          anI = 0;
@@ -151,12 +151,12 @@ class MiddlewareQueue : Countable, SeekableIterator {
      * Params:
      * string className The classname to insert the middleware before.
      * @param \Psr\Http\Server\IMiddleware|\Closure|string amiddleware The middleware to insert.
-     */
+     * /
     auto insertAfter(string className, IMiddleware|Closure|string amiddleware) {
         found = false;
          anI = 0;
         foreach (anI: object; this.queue) {
-            /** @psalm-suppress ArgumentTypeCoercion */
+            /** @psalm-suppress ArgumentTypeCoercion * /
             if (
                 (
                     isString(object)
@@ -178,7 +178,7 @@ class MiddlewareQueue : Countable, SeekableIterator {
      * Get the number of connected middleware layers.
      *
      * Implement the Countable interface.
-     */
+     * /
     size_t count() {
         return count(this.queue);
     }
@@ -187,7 +187,7 @@ class MiddlewareQueue : Countable, SeekableIterator {
      * Seeks to a given position in the queue.
      * Params:
      * int position The position to seek to.
-     */
+     * /
     void seek(int position) {
         if (!isSet(this.queue[position])) {
             throw new OutOfBoundsException("Invalid seek position (%s)."
@@ -198,7 +198,7 @@ class MiddlewareQueue : Countable, SeekableIterator {
     
     /**
      * Rewinds back to the first element of the queue.
-     */
+     * /
     void rewind() {
         this.position = 0;
     }
@@ -206,7 +206,7 @@ class MiddlewareQueue : Countable, SeekableIterator {
     /**
      * Returns the current middleware.
      * @see \Iterator.current()
-     */
+     * /
     IMiddleware current() {
         if (!isSet(this.queue[this.position])) {
             throw new OutOfBoundsException("Invalid current position (%s).".format(this.position));
@@ -221,7 +221,7 @@ class MiddlewareQueue : Countable, SeekableIterator {
      * Return the key of the middleware.
      *
      * @see \Iterator.key()
-     */
+     * /
     int key() {
         return this.position;
     }
@@ -230,7 +230,7 @@ class MiddlewareQueue : Countable, SeekableIterator {
      * Moves the current position to the next middleware.
      *
      * @see \Iterator.next()
-     */
+     * /
     void next() {
         ++this.position;
     }
@@ -239,8 +239,8 @@ class MiddlewareQueue : Countable, SeekableIterator {
      * Checks if current position is valid.
      *
      * @see \Iterator.valid()
-     */
+     * /
     bool valid() {
         return isSet(this.queue[this.position]);
-    }
+    } */ 
 }

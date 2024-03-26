@@ -7,7 +7,7 @@ import uim.http;
 /**
  * Represents an HTTP 403 error.
  */
-class ForbiddenException : HttpException {
+class ForbiddenException : DHttpException {
  
     protected int _defaultCode = 403;
 

@@ -1,4 +1,4 @@
-module uim.cake.http\Middleware;
+module uim.http.classes.middleware.encryptedcookie;
 
 import uim.http;
 
@@ -18,7 +18,9 @@ import uim.http;
  * The encryption types and padding are compatible with those used by CookieComponent
  * for backwards compatibility.
  */
-class EncryptedCookieMiddleware : IMiddleware {
+class EncryptedCookieMiddleware {
+    /*
+}: IMiddleware {
     use CookieCryptTemplate();
 
     // The list of cookies to encrypt/decrypt
@@ -36,7 +38,7 @@ class EncryptedCookieMiddleware : IMiddleware {
      * string[] cookieNames The list of cookie names that should have their values encrypted.
      * @param string aKey The encryption key to use.
      * @param string acipherType The cipher type to use. Defaults to 'aes'.
-     */
+     * /
     this(array cookieNames, string aKey, string acipherType = "aes") {
         this.cookieNames = cookieNames;
         this.key = aKey;
@@ -48,7 +50,7 @@ class EncryptedCookieMiddleware : IMiddleware {
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request.
      * @param \Psr\Http\Server\IRequestHandler handler The request handler.
-     */
+     * /
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
         if (serverRequest.getCookieParams()) {
             serverRequest = this.decodeCookies(serverRequest);
@@ -67,7 +69,7 @@ class EncryptedCookieMiddleware : IMiddleware {
      * Fetch the cookie encryption key.
      *
      * Part of the CookieCryptTrait implementation.
-     */
+     * /
     protected string _getCookieEncryptionKey() {
         return this.key;
     }
@@ -76,7 +78,7 @@ class EncryptedCookieMiddleware : IMiddleware {
      * Decode cookies from the request.
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request to decode cookies from.
-     */
+     * /
     protected IServerRequest decodeCookies(IServerRequest serverRequest) {
         cookies = serverRequest.getCookieParams();
         this.cookieNames
@@ -90,7 +92,7 @@ class EncryptedCookieMiddleware : IMiddleware {
      * Encode cookies from a response`s CookieCollection.
      * Params:
      * \UIM\Http\Response response The response to encode cookies in.
-     */
+     * /
     protected Response encodeCookies(Response response) {
         response.getCookieCollection()
             .filter!(cookie => in_array(cookie.name, this.cookieNames, true))
@@ -114,5 +116,5 @@ class EncryptedCookieMiddleware : IMiddleware {
             aHeader ~= cookieWithValue.toHeaderValue();
         });
         return response.withHeader("Set-Cookie",  aHeader);
-    }
+    } */
 }

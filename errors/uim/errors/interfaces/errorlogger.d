@@ -39,5 +39,5 @@ interface IErrorLogger {
         UimError error,
         ?IServerRequest serverRequest = null,
         bool  anIncludeTrace = false
-    );
+    ); */
 }

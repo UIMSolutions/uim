@@ -9,7 +9,8 @@ import uim.errors;
  *
  * Useful in CI or plain text environments.
  */
-class TextExceptionRenderer : IExceptionRenderer {
+class TextExceptionRenderer { // }: IExceptionRenderer {
+    /* 
     protected Throwable error;
 
     this(Throwable errorToRender) {
@@ -18,7 +19,7 @@ class TextExceptionRenderer : IExceptionRenderer {
     
     /**
      * Render an exception into a plain text message.
-     */
+     * /
     IResponse|string render() {
         return "%s : %s on line %s of %s\nTrace:\n%s".format(
             this.error.getCode(),
@@ -32,9 +33,9 @@ class TextExceptionRenderer : IExceptionRenderer {
     /**
      * Write output to stdout.
      * @param \Psr\Http\Message\IResponse|string aoutput The output to print.
-     */
+     * /
     void write(IResponse|string aoutput) {
         assert(isString(output));
         echo output;
-    }
+    } */
 }

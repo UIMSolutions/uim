@@ -21,29 +21,29 @@ import uim.errors;
  * Using a subclass of WebExceptionRenderer gives you full control over how Exceptions are rendered, you
  * can configure your class in your config/app.d.
  */
-class WebExceptionRenderer : IExceptionRenderer {
+class WebExceptionRenderer { // }: IExceptionRenderer {
     /**
      * The exception being handled.
      *
      * @var \Throwable
-     */
+     * /
     protected Throwable error;
 
     /**
      * Controller instance.
      *
      * @var \UIM\Controller\Controller
-     */
+     * /
     protected Controller controller;
 
     /**
      * Template to render for {@link \UIM\Core\Exception\UimException}
-     */
+     * /
     protected string atemplate = "";
 
     /**
      * The method corresponding to the Exception this object is for.
-     */
+     * /
     protected string amethod = "";
 
     /**
@@ -51,7 +51,7 @@ class WebExceptionRenderer : IExceptionRenderer {
      * the error.
      *
      * @var \UIM\Http\ServerRequest|null
-     */
+     * /
     protected ServerRequest serverRequest;
 
     /**
@@ -62,7 +62,7 @@ class WebExceptionRenderer : IExceptionRenderer {
      *
      * @var array<string, int>
      * @psalm-var array<class-string<\Throwable>, int>
-     */
+     * /
     protected array exceptionHttpCodes = [
         // Controller exceptions
         InvalidParameterException.classname: 404,
@@ -82,7 +82,7 @@ class WebExceptionRenderer : IExceptionRenderer {
      * \Throwable exception Exception.
      * @param \UIM\Http\ServerRequest|null request The request if this is set it will be used
      *  instead of creating a new one.
-     */
+     * /
     this(Throwable exception, ?ServerRequest serverRequest = null) {
         this.error = exception;
         this.request = request;
@@ -94,7 +94,7 @@ class WebExceptionRenderer : IExceptionRenderer {
      * Override this method in subclasses to customize the controller used.
      * This method returns the built in `ErrorController` normally, or if an error is repeated
      * a bare controller will be used.
-     */
+     * /
     protected Controller _getController() {
         request = this.request;
         routerRequest = Router.getRequest();
@@ -138,7 +138,7 @@ class WebExceptionRenderer : IExceptionRenderer {
     
     /**
      * Clear output buffers so error pages display properly.
-     */
+     * /
     protected void clearOutput() {
         if (in_array(UIM_SAPI, ["cli", "phpdbg"])) {
             return;
@@ -216,7 +216,7 @@ class WebExceptionRenderer : IExceptionRenderer {
      * Emit the response content
      * Params:
      * \Psr\Http\Message\IResponse|string aoutput The response to output.
-     */
+     * /
     void write(IResponse|string aoutput) {
         if (isString(output)) {
             echo output;
@@ -232,7 +232,7 @@ class WebExceptionRenderer : IExceptionRenderer {
      * Params:
      * string amethod The method name to invoke.
      * @param \Throwable exception The exception to render.
-     */
+     * /
     protected Response _customMethod(string amethod, Throwable exception) {
         result = this.{method}(exception);
        _shutdown();
@@ -257,7 +257,7 @@ class WebExceptionRenderer : IExceptionRenderer {
     
     /**
      * Get error message.
-     */
+     * /
     protected string _message(Throwable exception, int errorCode) {
         string result = exception.getMessage();
 
@@ -279,7 +279,7 @@ class WebExceptionRenderer : IExceptionRenderer {
      * \Throwable exception Exception instance.
      * @param string amethod Method name.
      * @param int code Error code.
-     */
+     * /
     protected string _template(Throwable exception, string amethod, int code) {
         if (cast(HttpException)exception || !Configure.read("debug")) {
             return this.template = code < 500 ? "error400' : 'error500";
@@ -294,7 +294,7 @@ class WebExceptionRenderer : IExceptionRenderer {
      * Gets the appropriate http status code for exception.
      * Params:
      * \Throwable exception Exception.
-     */
+     * /
     protected int getHttpCode(Throwable exception) {
         if (cast(HttpException)exception) {
             return exception.getCode();
@@ -306,7 +306,7 @@ class WebExceptionRenderer : IExceptionRenderer {
      * Generate the response using the controller object.
      * Params:
      * string atemplate The template to render.
-     */
+     * /
     protected Response _outputMessage(string atemplate) {
         try {
             this.controller.render(template);
@@ -341,7 +341,7 @@ class WebExceptionRenderer : IExceptionRenderer {
      * and doesn`t call component methods.
      * Params:
      * string atemplate The template to render.
-     */
+     * /
     protected Response _outputMessageSafe(string atemplate) {
         builder = this.controller.viewBuilder();
         builder
@@ -362,7 +362,7 @@ class WebExceptionRenderer : IExceptionRenderer {
      * Run the shutdown events.
      *
      * Triggers the afterFilter and afterDispatch events.
-     */
+     * /
     protected Response _shutdown() {
         this.controller.dispatchEvent("Controller.shutdown");
 
@@ -372,7 +372,7 @@ class WebExceptionRenderer : IExceptionRenderer {
     /**
      * Returns an array that can be used to describe the internal state of this
      * object.
-     */
+     * /
     IData[string] debugInfo() {
         return [
             'error": this.error,
@@ -381,5 +381,5 @@ class WebExceptionRenderer : IExceptionRenderer {
             'template": this.template,
             'method": this.method,
         ];
-    }
+    } */
 }

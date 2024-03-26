@@ -12,6 +12,10 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         initialize;
     }
 
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
     this(string newName) {
         this();
         this.name(newName);

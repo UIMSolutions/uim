@@ -10,7 +10,7 @@ import uim.http;
  *
  * @implements \UIM\Event\IEventDispatcher<\UIM\Core\IHttpApplication>
  */
-class Server : IEventDispatcher {
+class DServer { // }: IEventDispatcher {
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\Core\IHttpApplication>
      * /

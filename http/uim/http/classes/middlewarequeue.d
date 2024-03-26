@@ -6,7 +6,7 @@ module uim.http.classes.middlewarequeue;
  *
  * @template-implements \SeekableIterator<int, \Psr\Http\Server\IMiddleware>
  */
-class MiddlewareQueue : Countable, SeekableIterator {
+class MiddlewareQueue { // }: Countable, SeekableIterator {
     // Internal position for iterator.
     protected int position = 0;
 

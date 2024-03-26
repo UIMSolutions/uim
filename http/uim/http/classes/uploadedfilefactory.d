@@ -7,7 +7,7 @@ import uim.http;
 /**
  * Factory class for creating uploaded file instances.
  */
-class DUploadedFileFactory : UploadedFileFactoryInterface {
+class DUploadedFileFactory { //}: UploadedFileFactoryInterface {
     /**
      * Create a new uploaded file.
      *

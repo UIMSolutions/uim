@@ -12,7 +12,7 @@ import uim.collections;
  *
  * @template-implements \IteratorAggregate<mixed>
  */
-class MapReduce : IteratorAggregate {
+class DMapReduce { // }: IteratorAggregate {
     /* 
     // Holds the shuffled results that were emitted from the map phase
     protected array _intermediate = [];

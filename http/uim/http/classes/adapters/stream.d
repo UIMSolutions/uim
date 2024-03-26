@@ -1,4 +1,4 @@
-module uim.cake.http\Client\Adapter;
+module http.uim.http.classes.adapters.stream;
 
 import uim.http;
 

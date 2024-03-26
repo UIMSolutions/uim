@@ -14,7 +14,8 @@ import uim.errors;
  *
  * Writes to STDERR via a Cake\Console\ConsoleOutput instance for console environments
  */
-class DERRConsoleErrorRenderer : IERRErrorRenderer {
+class DERRConsoleErrorRenderer { // }: IERRErrorRenderer {
+  /* 
   protected DCONConsoleOutput output;
 
   protected bool trace = false;
@@ -28,7 +29,7 @@ class DERRConsoleErrorRenderer : IERRErrorRenderer {
     * - `trace` - Whether or not stacktraces should be output.
     *
     * @param Json aConfig Error handling configuration.
-    */
+    * /
   this(Json aConfig) {
     this.output = aConfig["stderr"] ?? new ConsoleOutput("php://stderr");
     this.trace = (bool)(aConfig["trace"] ?? false);
@@ -55,5 +56,5 @@ class DERRConsoleErrorRenderer : IERRErrorRenderer {
         error.getFile() ?? "",
         trace            
     );
-  }
+  } */
 }

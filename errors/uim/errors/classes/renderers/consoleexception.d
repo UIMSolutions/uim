@@ -1,4 +1,4 @@
-module uim.errors.renderers;
+module errors.uim.errors.classes.renderers.consoleexception;
 
 import uim.errors;
 
@@ -9,17 +9,18 @@ import uim.errors;
  *
  * Useful in CI or plain text environments.
  */
-class ConsoleExceptionRenderer : IExceptionRenderer {
+class ConsoleExceptionRenderer { // }: IExceptionRenderer {
+    /* 
     private Throwable error;
 
     /**
      * @var \UIM\Console\ConsoleOutput
-     */
+     * /
     private ConsoleOutput output;
 
     /**
      * @var bool
-     */
+     * /
     private bool trace;
 
     /**
@@ -28,7 +29,7 @@ class ConsoleExceptionRenderer : IExceptionRenderer {
      * \Throwable error The error to render.
      * @param \Psr\Http\Message\IServerRequest|null request Not used.
      * @param IData[string] configData Error handling configuration.
-     */
+     * /
     this(Throwable error, ?IServerRequest serverRequest, IData[string] configData) {
         this.error = error;
         this.output = configData("stderr"] ?? new ConsoleOutput("php://stderr");
@@ -57,7 +58,7 @@ class ConsoleExceptionRenderer : IExceptionRenderer {
      * Params:
      * \Throwable exception The exception to render.
      * @param ?\Throwable parent The Exception index in the chain
-     */
+     * /
     protected array renderException(Throwable exception, Throwable parent) {
         auto result = [
                 "<error>%s[%s] %s</error> in %s on line %s"
@@ -95,10 +96,10 @@ class ConsoleExceptionRenderer : IExceptionRenderer {
      * Write output to the output stream
      * Params:
      * \Psr\Http\Message\IResponse|string aoutput The output to print.
-     */
+     * /
     void write(IResponse|string aoutput) {
         if (isString(output)) {
             this.output.write(output);
         }
-    }
+    } */
 }

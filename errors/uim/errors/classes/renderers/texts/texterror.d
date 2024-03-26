@@ -13,8 +13,8 @@ import uim.errors;
  *
  * Useful in CLI environments.
  */
-class TextErrorRenderer : IErrorRenderer {
-
+class TextErrorRenderer { // }: IErrorRenderer {
+  /*
   void write(string outText) {
     writeln(outText);
   }
@@ -31,5 +31,5 @@ class TextErrorRenderer : IErrorRenderer {
         error.getLine() ?? "",
         error.getFile() ?? "",
         error.getTraceAsString());
-  }
+  } */
 }

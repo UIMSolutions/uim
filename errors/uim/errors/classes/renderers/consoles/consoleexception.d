@@ -19,7 +19,7 @@ import uim.errors;
 class ConsoleExceptionRenderer {
   /**
     * @var \Throwable
-    */
+    * /
   private error;
 
   private DCONConsoleOutput output;
@@ -32,7 +32,7 @@ class ConsoleExceptionRenderer {
     * @param \Throwable error The error to render.
     * @param \Psr\Http\messages.IServerRequest|null request Not used.
     * @param Json aConfig Error handling configuration.
-    */
+    * /
   this(Throwable error, ?IServerRequest request, Json aConfig) {
     this.error = error;
     this.output = aConfig["stderr"] ?? new ConsoleOutput("php://stderr");
@@ -60,7 +60,7 @@ class ConsoleExceptionRenderer {
     *
     * @param \Throwable exception The exception to render.
     * @param int index Exception index in the chain
-    */
+    * /
   protected string[] renderException(Throwable anException, int anIndex) {
     string[] results = [
             "<error>%s[%s] %s</error> in %s on line %s".format(
@@ -98,8 +98,8 @@ class ConsoleExceptionRenderer {
     * Write output to the output stream
     *
     * @param string output The output to print.
-    */
+    * /
   void write(string anOutput) {
-      this.output.write(anOutput);
-  }
+      this.output.write(anOutput); 
+  } */
 }

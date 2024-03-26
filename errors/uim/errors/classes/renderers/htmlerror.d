@@ -1,4 +1,4 @@
-module uim.errors.renderers;
+module uim.errors.classes.renderers.htmlerror;
 
 import uim.errors;
 
@@ -9,8 +9,8 @@ import uim.errors;
  *
  * Default output renderer for non CLI SAPI.
  */
-class HtmlErrorRenderer : IErrorRenderer {
- 
+class HtmlErrorRenderer { // }: IErrorRenderer {
+    /* 
     void write(string aout) {
         // Output to stdout which is the server response.
         echo  result;
@@ -59,7 +59,7 @@ HTML;
      * string atext The text to insert. Assumed to be HTML safe.
      * @param string aid The error id scope.
      * @param string asuffix The element selector.
-     */
+     * /
     private string renderToggle(string atext, string aid, string asuffix) {
         selector =  anId ~ "-" ~ suffix;
 
@@ -72,5 +72,5 @@ HTML;
 </a>
 HTML;
         
-    }
+    } */ 
 }

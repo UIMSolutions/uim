@@ -1,4 +1,4 @@
-module uim.errors.renderers;
+module uim.errors.classes.renderers.consoleerror;
 
 import uim.errors;
 
@@ -10,6 +10,7 @@ import uim.errors;
  * Writes to STDERR via a UIM\Console\ConsoleOutput instance for console environments
  */
 class ConsoleErrorRenderer : IErrorRenderer {
+    /*
     protected ConsoleOutput output;
 
     protected bool trace = false;
@@ -23,7 +24,7 @@ class ConsoleErrorRenderer : IErrorRenderer {
      * - `trace` - Whether or not stacktraces should be output.
      * Params:
      * IData[string] configData Error handling configuration.
-     */
+     * /
     this(IData[string] configData = null) {
         this.output = configData("stderr"] ?? new ConsoleOutput("php://stderr");
         this.trace = (bool)(configData("trace"] ?? false);
@@ -47,5 +48,5 @@ class ConsoleErrorRenderer : IErrorRenderer {
                 error.getFile() ?? "",
                 trace
             );
-    }
+    } */
 }

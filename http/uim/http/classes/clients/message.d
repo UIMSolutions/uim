@@ -1,4 +1,4 @@
-module http.uim.http.classes.clients.message;
+module uim.http.classes.clients.message;
 
 import uim.http;
 

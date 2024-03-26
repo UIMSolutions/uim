@@ -103,5 +103,5 @@ class HeaderUtility {
         matches.each!(match => result[match[1]] = match[3] ? match[3] : match[2]);
 
         return result;
-    }
+    } */
 }

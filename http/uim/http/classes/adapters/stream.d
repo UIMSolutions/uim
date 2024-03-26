@@ -1,4 +1,4 @@
-module http.uim.http.classes.adapters.stream;
+module uim.http.classes.adapters.stream;
 
 import uim.http;
 
@@ -15,29 +15,29 @@ class Stream : IAdapter {
      * Context resource used by the stream API.
      *
      * @var resource|null
-     */
+     * /
     protected _context;
 
     /**
      * Array of options/content for the HTTP stream context.
-     */
+     * /
     protected IData[string] _contextOptions = [];
 
     /**
      * Array of options/content for the SSL stream context.
-     */
+     * /
     protected IData[string] _sslContextOptions = [];
 
     /**
      * The stream resource.
      *
      * @var resource|null
-     */
+     * /
     protected _stream;
 
     /**
      * Connection error list.
-     */
+     * /
     protected array _connectionErrors = [];
 
     array send(IRequest request, IData[string] options = null) {
@@ -60,7 +60,7 @@ class Stream : IAdapter {
      * Params:
      * array  aHeaders The list of headers from the request(s)
      * @param string acontent The response content.
-     */
+     * /
     Response[] createResponses(array  aHeaders, string acontent) {
          anIndexes = responses = [];
         foreach ( aHeaders as  anI:  aHeader) {
@@ -70,9 +70,9 @@ class Stream : IAdapter {
         }
         last = count(anIndexes) - 1;
         foreach (anIndexes as  anI: start) {
-            /** @psalm-suppress InvalidOperand */
+            /** @psalm-suppress InvalidOperand * /
             end = isSet(anIndexes[anI + 1]) ?  anIndexes[anI + 1] - start : null;
-            /** @psalm-suppress PossiblyInvalidArgument */
+            /** @psalm-suppress PossiblyInvalidArgument * /
              aHeaderSlice = array_slice( aHeaders, start, end);
             body =  anI == last ? content : "";
             responses ~= _buildResponse( aHeaderSlice, body);
@@ -85,7 +85,7 @@ class Stream : IAdapter {
      * Params:
      * \Psr\Http\Message\IRequest request The request to build context from.
      * @param IData[string] options Additional request options.
-     */
+     * /
     protected void _buildContext(IRequest request, IData[string] options = null) {
        _buildContent(request, options);
        _buildHeaders(request, options);
@@ -109,7 +109,7 @@ class Stream : IAdapter {
      * Params:
      * \Psr\Http\Message\IRequest request The request being sent.
      * @param IData[string] options Array of options to use.
-     */
+     * /
     protected void _buildHeaders(IRequest request, IData[string] options = null) {
          aHeaders = [];
         foreach (request.getHeaders() as name:  someValues) {
@@ -126,7 +126,7 @@ class Stream : IAdapter {
      * Params:
      * \Psr\Http\Message\IRequest request The request being sent.
      * @param IData[string] options Array of options to use.
-     */
+     * /
     protected void _buildContent(IRequest request, IData[string] options = null) {
         body = request.getBody();
         body.rewind();
@@ -138,7 +138,7 @@ class Stream : IAdapter {
      * Params:
      * \Psr\Http\Message\IRequest request The request being sent.
      * @param IData[string] options Array of options to use.
-     */
+     * /
     protected void _buildOptions(IRequest request, IData[string] options = null) {
        _contextOptions["method"] = request.getMethod();
        _contextOptions["protocol_version"] = request.getProtocolVersion();
@@ -161,7 +161,7 @@ class Stream : IAdapter {
      * Params:
      * \Psr\Http\Message\IRequest request The request being sent.
      * @param IData[string] options Array of options to use.
-     */
+     * /
     protected void _buildSslContext(IRequest request, IData[string] options = null) {
         sslOptions = [
             "ssl_verify_peer",
@@ -193,11 +193,11 @@ class Stream : IAdapter {
      * Open the stream and send the request.
      * Params:
      * \Psr\Http\Message\IRequest request The request object.
-     */
+     * /
     protected array _send(IRequest request) {
         deadline = false;
         if (isSet(_contextOptions["timeout"]) && _contextOptions["timeout"] > 0) {
-            /** @var int deadline */
+            /** @var int deadline * /
             deadline = time() + _contextOptions["timeout"];
         }
         url = request.getUri();
@@ -220,7 +220,7 @@ class Stream : IAdapter {
             }
         }
         meta = stream_get_meta_data(_stream);
-        /** @psalm-suppress InvalidPropertyAssignmentValue */
+        /** @psalm-suppress InvalidPropertyAssignmentValue * /
         fclose(_stream);
 
         if (timedOut) {
@@ -238,7 +238,7 @@ class Stream : IAdapter {
      * Params:
      * array  aHeaders Unparsed headers.
      * @param string abody The response body.
-     */
+     * /
     protected Response _buildResponse(array  aHeaders, string abody) {
         return new Response( aHeaders, body);
     }
@@ -248,7 +248,7 @@ class Stream : IAdapter {
      * Params:
      * string aurl The url to connect to.
      * @param \Psr\Http\Message\IRequest request The request object.
-     */
+     * /
     protected void _open(string aurl, IRequest request) {
         if (!(bool)ini_get("allow_url_fopen")) {
             throw new ClientException("The PHP directive `allow_url_fopen` must be enabled.");
@@ -276,8 +276,8 @@ class Stream : IAdapter {
      * Get the context options
      *
      * Useful for debugging and testing context creation.
-     */
+     * /
     IData[string] contextOptions() {
         return array_merge(_contextOptions, _sslContextOptions);
-    }
+    } */
 }

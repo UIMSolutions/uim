@@ -39,14 +39,14 @@ import uim.views;
  * @property \UIM\View\ViewBlock myBlocks
  * @implements \UIM\Event\IEventDispatcher<\UIM\View\View>
  */
-class DView { //  }: IEventDispatcher {
+class DView : IView { //  }: IEventDispatcher {
     mixin TConfigurable!();
 
     this() {
         initialize;
     }
 
-this(IData[string] initData) {
+    this(IData[string] initData) {
         initialize(initData);
     }
 
@@ -63,7 +63,7 @@ this(IData[string] initData) {
     }
 
     mixin(TProperty!("string", "name"));
-    
+
     /* 
     use CellTrait {
         cell as public;

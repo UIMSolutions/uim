@@ -1,7 +1,7 @@
-module uim.views.mixins.view;
+module uim.contexts.mixins.context;
 
-string viewThis(string name) {
-    string fullName = name ~ "View";
+string contextThis(string name) {
+    string fullName = name ~ "Context";
     return `
     this() {
         super(); this.name("`
@@ -16,12 +16,12 @@ string viewThis(string name) {
     `;
 }
 
-template ViewThis(string name) {
-    const char[] ViewThis = viewThis(name);
+template ContextThis(string name) {
+    const char[] ContextThis = contextThis(name);
 }
 
-string viewCalls(string name) {
-    string fullName = name ~ "View";
+string contextCalls(string name) {
+    string fullName = name ~ "Context";
     return `
     auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
     auto `~ fullName ~ `(IData[string] initData) { return new D` ~ fullName ~ `(initData);}
@@ -29,6 +29,6 @@ string viewCalls(string name) {
     `;
 }
 
-template ViewCalls(string name) {
-    const char[] ViewCalls = viewCalls(name);
+template ContextCalls(string name) {
+    const char[] ContextCalls = contextCalls(name);
 }

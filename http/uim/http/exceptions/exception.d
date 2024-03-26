@@ -4,7 +4,14 @@ import uim.http;
 
 @safe:
 
-// I18n exception.
+/*
+ * Parent class for all the HTTP related exceptions in UIM.
+ * All HTTP status/error related exceptions should extend this class so
+ * catch blocks can be specifically typed.
+ *
+ * You may also use this as a meaningful bridge to {@link \UIM\Core\Exception\UimException}, e.g.:
+ * throw new \UIM\Network\Exception\HttpException("HTTP Version Not Supported", 505);
+ */
 class DHttpException : UimException {
   mixin(ExceptionThis!("Http"));
 
@@ -18,6 +25,19 @@ class DHttpException : UimException {
 
     return true;
   }
-}
 
+  protected int _defaultCode = 500;
+
+  // Gets/Sets HTTP response headers.
+  mixin(TProperty!("IData[string]", "headers"));
+
+  // Set a single HTTP response header.
+  void header(string headerName, IData headerValue = null) {
+    this.headers[headerName] = headerValue;
+  }
+
+  /* void header(string headerName, string[] aValue = null) {
+    this.headers[aHeader] = aValue;
+  } */
+}
 mixin(ExceptionCalls!("Http"));

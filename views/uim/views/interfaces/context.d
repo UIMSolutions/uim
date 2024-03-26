@@ -25,7 +25,7 @@ interface IContext {
      *  - `schemaDefault`: Boolean indicating whether default value from
      *    context"s schema should be used if it"s not explicitly provided.
     */
-    // TODO Json val(string fieldPath, IData[string] options  = null) ;
+    IData val(string fieldPath, IData[string] options  = null) ;
 
     /**
      * Check if a given field is "required".

@@ -1,19 +1,14 @@
-module uim.views.forms;
+module uim.views.classes.forms.nullcontext;
 
 import uim.views;
 
 @safe:
 
 /* * Provides a context provider that does nothing.
- *
  * This context provider simply fulfils the interface requirements that FormHelper has.
  */
-class NullContext : IContext {
-    /**
-     * Constructor.
-     * Params:
-     * array mycontext Context info.
-     */
+class DNullContext : IContext {
+    mixin(ContextThis!("Null"));
     this(IData[string] contextData) {
     }
  
@@ -29,7 +24,7 @@ class NullContext : IContext {
         return true;
     }
  
-    Json val(string myfield, IData[string] options  = null) {
+    IData val(string myfield, IData[string] options  = null) {
         return null;
     }
  
@@ -66,3 +61,4 @@ class NullContext : IContext {
         return null;
     }
 }
+mixin(ContextCalls!("Null"));

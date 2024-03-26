@@ -1,4 +1,4 @@
-module uim.cake.error.renderers.webexception;
+module errors.uim.errors.classes.renderers.webexception;
 
 import uim.errors;
 

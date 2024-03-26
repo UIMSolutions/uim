@@ -1,4 +1,4 @@
-module uim.errors.renderers;
+module errors.uim.errors.classes.renderers.texterror;
 
 import uim.errors;
 
@@ -8,8 +8,8 @@ import uim.errors;
  *
  * Useful in CLI environments.
  */
-class TextErrorRenderer : IErrorRenderer {
- 
+class TextErrorRenderer { // }: IErrorRenderer {
+    /* 
     void write(string aout) {
         echo  result;
     }
@@ -27,5 +27,5 @@ class TextErrorRenderer : IErrorRenderer {
                 error.getFile() ?? "",
                 error.getTraceAsString(),
             );
-    }
+    } */
 }

@@ -1,3 +1,5 @@
+module errors.uim.errors.classes.functions;
+
 //phpcs:disable PSR1.Files.SideEffectsmodule uim.errors;
 
 

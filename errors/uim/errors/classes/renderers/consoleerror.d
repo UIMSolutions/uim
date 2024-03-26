@@ -9,7 +9,7 @@ import uim.errors;
  *
  * Writes to STDERR via a UIM\Console\ConsoleOutput instance for console environments
  */
-class ConsoleErrorRenderer : IErrorRenderer {
+class DConsoleErrorRenderer { // }: IErrorRenderer {
     /*
     protected ConsoleOutput output;
 

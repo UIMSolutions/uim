@@ -1,4 +1,4 @@
-module uim.errors.renderers;
+module errors.uim.errors.classes.renderers.textexception;
 
 import uim.errors;
 

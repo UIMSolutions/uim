@@ -1,4 +1,4 @@
-module uim.cake.http\Client;
+module uim.http.classes.clients.formdata;
 
 import uim.http;
 
@@ -11,7 +11,7 @@ import uim.http;
  * Used by Http\Client to upload POST/PUT data
  * and files.
  */
-class FormData : Countable, Stringable {
+class DFormData { // }: Countable, Stringable {
     // Boundary marker.
     protected string _boundary = "";
 
@@ -21,6 +21,7 @@ class FormData : Countable, Stringable {
     // Whether this formdata object has a complex part.
     protected bool _hasComplexPart = false;
 
+    /* 
     // The parts in the form data.
     protected FormDataPart[] _parts = [];
 
@@ -39,7 +40,7 @@ class FormData : Countable, Stringable {
      * Params:
      * string aName The name of the part.
      * @param string avalue The value to add.
-     */
+     * /
     FormDataPart newPart(string aName, string avalue) {
         return new FormDataPart(name, aValue);
     }
@@ -56,7 +57,7 @@ class FormData : Countable, Stringable {
      * \UIM\Http\Client\FormDataPart|string aName The name of the part to add,
      *  or the part data object.
      * @param Json aValue The value for the part.
-     */
+     * /
     void add(FormDataPart|string aName, Json aValue = null) {
         if (isString(name)) {
             if (isArray(aValue)) {
@@ -78,7 +79,7 @@ class FormData : Countable, Stringable {
      * Iterates the parameter and adds all the key/values.
      * Params:
      * array data Array of data to add.
-     */
+     * /
     void addMany(array data) {
         someData.byKeyValue
             .each!(nameValue => this.add(nameValue.key, nameValue.value));
@@ -91,7 +92,7 @@ class FormData : Countable, Stringable {
      * string aName The name to use.
      * @param \Psr\Http\Message\IUploadedFile|resource|string avalue Either a string filename, or a filehandle,
      * or a IUploadedFile instance.
-     */
+     * /
     FormDataPart addFile(string aName, Json aValue) {
        _hasFile = true;
 
@@ -131,7 +132,7 @@ class FormData : Countable, Stringable {
      * Params:
      * string aName The name to use.
      * @param Json aValue The value to add.
-     */
+     * /
     void addRecursive(string nameToUse, Json valueToAdd) {
         valueToAdd.byKeyValue.each!((kv) {
             string key = name ~ "[" ~ kv.key ~ "]";
@@ -147,7 +148,7 @@ class FormData : Countable, Stringable {
     /**
      * Check whether the current payload
      * has any files.
-     */
+     * /
     bool hasFile() {
         return _hasFile;
     }
@@ -158,7 +159,7 @@ class FormData : Countable, Stringable {
      *
      * A payload will become multipart when you add files
      * or use add() with a Part instance.
-     */
+     * /
     bool isMultipart() {
         return this.hasFile() || _hasComplexPart;
     }
@@ -168,7 +169,7 @@ class FormData : Countable, Stringable {
      *
      * If this object contains files, `multipart/form-data` will be used,
      * otherwise `application/x-www-form-urlencoded` will be used.
-     */
+     * /
     string contentType() {
         if (!this.isMultipart()) {
             return "application/x-www-form-urlencoded";
@@ -179,7 +180,7 @@ class FormData : Countable, Stringable {
     /**
      * Converts the FormData and its parts into a string suitable
      * for use in an HTTP request.
-     */
+     * /
     override string toString() {
         if (this.isMultipart()) {
             auto boundary = this.boundary();
@@ -190,5 +191,5 @@ class FormData : Countable, Stringable {
         someData = [];
         _parts.each!(part => someData[part.name()] = part.value());
         return http_build_query(someData);
-    }
+    } */
 }

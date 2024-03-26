@@ -1,4 +1,4 @@
-module uim.cake.http\Client;
+module http.uim.http.classes.clients.message;
 
 import uim.http;
 
@@ -10,10 +10,8 @@ import uim.http;
  * Defines some common helper methods, constants
  * and properties.
  */
-class Message {
-    /**
-     * HTTP 200 code
-     */
+class DMessage {
+    // HTTP 200 code
     const int STATUS_OK = 200;
 
     /**
@@ -81,9 +79,7 @@ class Message {
      */
     const string METHOD_DELETE = "DELETE";
 
-    /**
-     * HTTP PATCH method
-     */
+    // HTTP PATCH method
     const string METHOD_PATCH = "PATCH";
 
     /**
@@ -105,14 +101,14 @@ class Message {
      * The array of cookies in the response.
      *
      * @var array
-     */
+     * /
     protected array _cookies = [];
 
     /**
      * Get all cookies
      *
-     */
+     * /
     array cookies() {
         return _cookies;
-    }
+    } */
 }

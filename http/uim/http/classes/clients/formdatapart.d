@@ -1,4 +1,4 @@
-module uim.cake.http\Client;
+module uim.http.classes.clients.formdatapart;
 
 import uim.http;
 
@@ -13,23 +13,23 @@ import uim.http;
  *
  * @internal
  */
-class FormDataPart : Stringable {
+class FormDataPart { // }: Stringable {
     // Content type to use
-    protected string atype = null;
+    protected string _type;
 
     /**
      * Filename to send if using files.
-     */
+     * /
     protected string afilename = null;
 
     /**
      * The encoding used in this part.
-     */
+     * /
     protected string atransferEncoding = null;
 
     /**
      * The contentId for the part
-     */
+     * /
     protected string acontentId = null;
 
     /**
@@ -39,7 +39,7 @@ class FormDataPart : Stringable {
      * @param string avalue The value of the data.
      * @param string adisposition The type of disposition to use, defaults to form-data.
      * @param string charset The charset of the data.
-     */
+     * /
     this(
         protected string aName,
         protected string avalue,
@@ -55,7 +55,7 @@ class FormDataPart : Stringable {
      * header from being added.
      * Params:
      * string disposition Use null to get/string to set.
-     */
+     * /
     string disposition(string adisposition = null) {
         if (disposition.isNull) {
             return this.disposition;
@@ -67,7 +67,7 @@ class FormDataPart : Stringable {
      * Get/set the contentId for a part.
      * Params:
      * string  anId The content id.
-     */
+     * /
     string contentId(string aid = null) {
         if (anId.isNull) {
             return this.contentId;
@@ -82,7 +82,7 @@ class FormDataPart : Stringable {
      * generated output.
      * Params:
      * string filename Use null to get/string to set.
-     */
+     * /
     string filename(string afilename = null) {
         if (filename.isNull) {
             return this.filename;
@@ -94,7 +94,7 @@ class FormDataPart : Stringable {
      * Get/set the content type.
      * Params:
      * string type Use null to get/string to set.
-     */
+     * /
     string type(string atype) {
         if (type.isNull) {
             return this.type;
@@ -108,7 +108,7 @@ class FormDataPart : Stringable {
      * Useful when content bodies are in encodings like base64.
      * Params:
      * string type The type of encoding the value has.
-     */
+     * /
     string transferEncoding(string atype) {
         if (type.isNull) {
             return this.transferEncoding;
@@ -118,14 +118,14 @@ class FormDataPart : Stringable {
     
     /**
      * Get the part name.
-     */
+     * /
     string name() {
         return this.name;
     }
     
     /**
      * Get the value.
-     */
+     * /
     string value() {
         return this.value;
     }
@@ -134,7 +134,7 @@ class FormDataPart : Stringable {
      * Convert the part into a string.
      *
      * Creates a string suitable for use in HTTP requests.
-     */
+     * /
     override string toString() {
         string result;
         if (this.disposition) {
@@ -170,7 +170,7 @@ class FormDataPart : Stringable {
      * Params:
      * string aName The name of the header parameter
      * @param string avalue The value of the header parameter
-     */
+     * /
     protected string _headerParameterToString(string aName, string avalue) {
         transliterated = Text.transliterate(aValue.replace("\"", ""));
         result = "%s="%s"".format(name, transliterated);
@@ -178,5 +178,5 @@ class FormDataPart : Stringable {
             result ~= "; %s*=%s""%s".format(name, this.charset.toLower, rawurlencode(aValue));
         }
         return result;
-    }
+    } */
 }

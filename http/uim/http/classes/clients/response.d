@@ -1,4 +1,4 @@
-module uim.cake.http\Client;
+module uim.http.classes.clients.response;
 
 import uim.http;
 
@@ -62,7 +62,8 @@ import uim.http;
  * content = response.statusCode();
  * ```
  */
-class Response : Message : IResponse {
+class DResponse { // }: Message : IResponse {
+    /* 
     use MessageTemplate();
 
     /**
@@ -74,26 +75,26 @@ class Response : Message : IResponse {
      * Cookie Collection instance
      *
      * @var \UIM\Http\Cookie\CookieCollection|null
-     */
+     * /
     protected CookieCollection cookies = null;
 
     /**
      * The reason phrase for the status code
-     */
+     * /
     protected string areasonPhrase;
 
     /**
      * Cached decoded XML data.
      *
      * @var \SimpleXMLElement|null
-     */
+     * /
     protected SimpleXMLElement _xml = null;
 
     /**
      * Cached decoded JSON data.
      *
      * @var mixed
-     */
+     * /
     protected Json _json = null;
 
     /**
@@ -101,7 +102,7 @@ class Response : Message : IResponse {
      *
      * string[] unparsedHeaders Unparsed headers.
      * @param string abody The response body.
-     */
+     * /
     this(string[] unparsedHeaders = [], string abody= null) {
        _parseHeaders(unparsedHeaders);
         if (this.getHeaderLine("Content-Encoding") == "gzip") {
@@ -120,7 +121,7 @@ class Response : Message : IResponse {
      * the body will be decompressed.
      * Params:
      * string abody Gzip encoded body.
-     */
+     * /
     protected string _decodeGzipBody(string encodedBody) {
         if (!function_exists("gzinflate")) {
             throw new UimException("Cannot decompress gzip response body without gzinflate()");
@@ -145,7 +146,7 @@ class Response : Message : IResponse {
      * - Parses and normalizes header names + values.
      *
      * string[] headersToParse Headers to parse.
-     */
+     * /
     protected void _parseHeaders(string[] headersToParse) {
         foreach (headersToParse as aValue) {
             if (aValue.startWith("HTTP/")) {
@@ -160,7 +161,7 @@ class Response : Message : IResponse {
             }
             [name, aValue] = split(":", aValue, 2);
             aValue = trim(aValue);
-            /** @phpstan-var non-empty-string aName */
+            /** @phpstan-var non-empty-string aName * /
             string name = trim(name);
             string normalized = name.toLower;
             if (isSet(this.headers[name])) {
@@ -174,21 +175,21 @@ class Response : Message : IResponse {
     
     /**
      * Check if the response status code was in the 2xx/3xx range
-     */
+     * /
     bool isOk() {
         return this.code >= 200 && this.code <= 399;
     }
     
     /**
      * Check if the response status code was in the 2xx range
-     */
+     * /
     bool isSuccess() {
         return this.code >= 200 && this.code <= 299;
     }
     
     /**
      * Check if the response had a redirect status code.
-     */
+     * /
     bool isRedirect() {
         codes = [
             STATUS_MOVED_PERMANENTLY,
@@ -210,7 +211,7 @@ class Response : Message : IResponse {
  Params:
      * int code The status code to set.
      * @param string areasonPhrase The status reason phrase.
-     */
+     * /
     static withStatus(int code, string areasonPhrase= null) {
         new = clone this;
         new.code = code;
@@ -225,7 +226,7 @@ class Response : Message : IResponse {
     
     /**
      * Get the encoding if it was set.
-     */
+     * /
     string getEncoding() {
         content = this.getHeaderLine("content-type");
         if (!content) {
@@ -242,7 +243,7 @@ class Response : Message : IResponse {
      * Get the all cookie data.
      *
      * @return array The cookie data
-     */
+     * /
     array getCookies() {
         return _getCookies();
     }
@@ -252,7 +253,7 @@ class Response : Message : IResponse {
      *
      * This method exposes the response`s CookieCollection
      * instance allowing you to interact with cookie objects directly.
-     */
+     * /
     CookieCollection getCookieCollection() {
         return this.buildCookieCollection();
     }
@@ -261,7 +262,7 @@ class Response : Message : IResponse {
      * Get the value of a single cookie.
      * Params:
      * string aName The name of the cookie value.
-     */
+     * /
     string[] getCookie(string aName) {
         cookies = this.buildCookieCollection();
 
@@ -275,7 +276,7 @@ class Response : Message : IResponse {
      * Get the full data for a single cookie.
      * Params:
      * string aName The name of the cookie value.
-     */
+     * /
     array getCookieData(string valueName) {
         cookies = this.buildCookieCollection();
 
@@ -287,7 +288,7 @@ class Response : Message : IResponse {
     
     /**
      * Lazily build the CookieCollection and cookie objects from the response header
-     */
+     * /
     protected CookieCollection buildCookieCollection() {
         this.cookies ??= CookieCollection.createFromHeader(this.getHeader("Set-Cookie"));
 
@@ -341,7 +342,7 @@ class Response : Message : IResponse {
     
     /**
      * Provides magic __get() support.
-     */
+     * /
     protected string[] _getHeaders() {
          auto result;
         foreach (this.headers as aKey:  someValues) {
@@ -355,5 +356,5 @@ class Response : Message : IResponse {
         this.stream.rewind();
 
         return this.stream.getContents();
-    }
+    } */
 }

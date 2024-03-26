@@ -1,4 +1,4 @@
-module uim.cake.http\Client\Auth;
+module http.uim.http.classes.clients.auth.oauth;
 
 import uim.http;
 
@@ -14,14 +14,14 @@ import uim.http;
  * Generally not directly constructed, but instead used by {@link \UIM\Http\Client}
  * when options["auth"]["type"] is 'oauth'
  */
-class Oauth
+class DOauth 
 {
     /**
      * Add headers for Oauth authorization.
      * Params:
      * \UIM\Http\Client\Request request The request object.
      * @param array credentials Authentication credentials.
-     */
+     * /
     Request authentication(Request request, array credentials) {
         if (!isSet(credentials["consumerKey"])) {
             return request;
@@ -78,7 +78,7 @@ class Oauth
      * Params:
      * \UIM\Http\Client\Request request The request object.
      * @param array credentials Authentication credentials.
-     */
+     * /
     protected string _plaintext(Request request, array credentials) {
         auto someValues = [
             "oauth_version": "1.0",
@@ -106,7 +106,7 @@ class Oauth
      * Params:
      * \UIM\Http\Client\Request request The request object.
      * @param array credentials Authentication credentials.
-     */
+     * /
     protected string _hmacSha1(Request request, array credentials) {
         nonce = credentials["nonce"] ?? uniqid();
         timestamp = credentials["timestamp"] ?? time();
@@ -145,7 +145,7 @@ class Oauth
      * Params:
      * \UIM\Http\Client\Request request The request object.
      * @param array credentials Authentication credentials.
-     */
+     * /
     protected string _rsaSha1(Request request, array credentials) {
         if (!function_exists("openssl_pkey_get_private")) {
             throw new UimException("RSA-SHA1 signature method requires the OpenSSL extension.");
@@ -188,7 +188,7 @@ class Oauth
             rewind(resource);
             credentials["privateKeyPassphrase"] = passphrase;
         }
-        /** @var \OpenSSLAsymmetricKey|\OpenSSLCertificate|string[] aprivateKey */
+        /** @var \OpenSSLAsymmetricKey|\OpenSSLCertificate|string[] aprivateKey * /
         privateKey = openssl_pkey_get_private(credentials["privateKey"], credentials["privateKeyPassphrase"]);
         this.checkSslError();
 
@@ -212,7 +212,7 @@ class Oauth
      * Params:
      * \UIM\Http\Client\Request request The request object.
      * @param array oauthValues Oauth values.
-     */
+     * /
     string baseString(Request request, array oauthValues) {
         someParts = [
             request.getMethod(),
@@ -231,7 +231,7 @@ class Oauth
      * Params:
      * \Psr\Http\Message\IUri anUri Uri object to build a normalized version of.
      * returns Normalized URL
-     */
+     * /
     protected string _normalizedUrl(IUri anUri) {
          string result = anUri.getScheme() ~ "://" ~
             anUri.getHost().toLower
@@ -250,7 +250,7 @@ class Oauth
      * Params:
      * \UIM\Http\Client\Request request The request object.
      * @param array oauthValues Oauth values.
-     */
+     * /
     protected string _normalizedParams(Request request, array oauthValues) {
         aQuery = parse_url((string)request.getUri(), UIM_URL_QUERY);
         parse_str((string)aQuery, aQueryArgs);
@@ -277,7 +277,7 @@ class Oauth
      * array someArguments The arguments to normalize.
      * @param string aPath The current path being converted.
      * @see https://tools.ietf.org/html/rfc5849#section-3.4.1.3.2
-     */
+     * /
     protected array _normalizeData(array someArguments, string aPath= null) {
         someData = [];
         foreach (someArguments as aKey: aValue) {
@@ -319,7 +319,7 @@ class Oauth
     
     /**
      * Check for SSL errors and throw an exception if found.
-     */
+     * /
     protected void checkSslError() {
         error = "";
         while (text = openssl_error_string()) {
@@ -328,5 +328,5 @@ class Oauth
         if (error.length > 0) {
             throw new UimException("openssl error: " ~ error);
         }
-    }
+    } */
 }

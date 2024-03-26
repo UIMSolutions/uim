@@ -1,35 +1,9 @@
 module uim.cake.http\Cookie;
 
-import uim.http;
+import uim.cake;
 
 @safe:
 
-/**
- * Cookie object to build a cookie and turn it into a header value
- *
- * An HTTP cookie (also called web cookie, Internet cookie, browser cookie or
- * simply cookie) is a small piece of data sent from a website and stored on
- * the user`s computer by the user`s web browser while the user is browsing.
- *
- * Cookies were designed to be a reliable mechanism for websites to remember
- * stateful information (such as items added in the shopping cart in an online
- * store) or to record the user`s browsing activity (including clicking
- * particular buttons, logging in, or recording which pages were visited in
- * the past). They can also be used to remember arbitrary pieces of information
- * that the user previously entered into form fields such as names, and preferences.
- *
- * Cookie objects are immutable, and you must re-assign variables when modifying
- * cookie objects:
- *
- * ```
- * cookie = cookie.withValue("0");
- * ```
- *
- * @link https://tools.ietf.org/html/draft-ietf-httpbis-rfc6265bis-03
- * @link https://en.wikipedia.org/wiki/HTTP_cookie
- * @see \UIM\Http\Cookie\CookieCollection for working with collections of cookies.
- * @see \UIM\Http\Response.getCookieCollection() for working with response cookies.
- */
 class Cookie : ICookie {
     // Cookie name
     protected string _name = "";
@@ -130,7 +104,7 @@ class Cookie : ICookie {
      * IData[string] options Default options.
      */
     static void setDefaults(IData[string] options = null) {
-        auto options = options.clone;
+        auto options = options.copy;
 
         if (isSet(options["expires"])) {
             options["expires"] = dateTimeInstance(options["expires"]);

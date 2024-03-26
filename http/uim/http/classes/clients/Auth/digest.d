@@ -1,4 +1,4 @@
-module uim.cake.http\Client\Auth;
+module http.uim.http.classes.clients.auth.digest;
 
 import uim.http;
 
@@ -10,7 +10,8 @@ import uim.http;
  * Generally not directly constructed, but instead used by {@link \UIM\Http\Client}
  * when options["auth"]["type"] is 'digest'
  */
-class Digest {
+class DDigest {
+    /* 
     // Algorithms
     const ALGO_MD5 = "MD5";
     const ALGO_SHA_256 = "SHA-256";
@@ -25,7 +26,7 @@ class Digest {
 
     /**
      * Algorithms <. Hash type
-     */
+     * /
     const HASH_ALGORITHMS = [
         self.ALGO_MD5: "md5",
         self.ALGO_SHA_256: "sha256",
@@ -52,7 +53,7 @@ class Digest {
      * Params:
      * \UIM\Http\Client client Http client object.
      * @param array|null options Options list.
-     */
+     * /
     this(Client httpClient, IData[string] options = null) {
        _client = httpClient;
     }
@@ -61,7 +62,7 @@ class Digest {
      * Set algorithm based on credentials
      * Params:
      * array credentials authentication params
-     */
+     * /
     protected void setAlgorithm(array credentials) {
         algorithm = credentials.get("algorithm", self.ALGO_MD5);
         if (!isSet(self.HASH_ALGORITHMS[algorithm])) {
@@ -78,7 +79,7 @@ class Digest {
      * Params:
      * \UIM\Http\Client\Request request The request object.
      * @param IData[string] credentials Authentication credentials.
-     */
+     * /
     Request authentication(Request request, array credentials) {
         if (!isSet(credentials["username"], credentials["password"])) {
             return request;
@@ -104,7 +105,7 @@ class Digest {
      * Params:
      * \UIM\Http\Client\Request request The request object.
      * @param array credentials Authentication credentials.
-     */
+     * /
     protected array _getServerInfo(Request request, array credentials) {
         response = _client.get(
             to!string(request.getUri()),
@@ -126,7 +127,7 @@ class Digest {
     }
     
     /**
-     */
+     * /
     protected string generateCnonce() {
         return uniqid();
     }
@@ -136,7 +137,7 @@ class Digest {
      * Params:
      * \UIM\Http\Client\Request request The request object.
      * @param IData[string] credentials Authentication credentials.
-     */
+     * /
     protected string _generateHeader(Request request, array credentials) {
         somePath = request.getRequestTarget();
 
@@ -192,5 +193,5 @@ class Digest {
             authHeader ~= ", opaque="" ~ credentials["opaque"] ~ """;
         }
         return authHeader;
-    }
+    } */
 }

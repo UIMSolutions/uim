@@ -1,4 +1,4 @@
-module uim.cake.http\Client;
+module http.uim.http.classes.clients.request;
 
 import uim.http;
 
@@ -10,7 +10,8 @@ import uim.http;
  * Used by UIM\Http\Client to contain request information
  * for making requests.
  */
-class Request : Message, IRequest {
+class DRequest { // }: Message, IRequest {
+    /* 
     use RequestTemplate();
 
     /**

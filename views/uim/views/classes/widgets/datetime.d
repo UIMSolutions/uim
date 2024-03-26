@@ -74,7 +74,7 @@ class DDateTimeWidget : DWidget {
         mydata += this.mergeDefaults(mydata, mycontext);
 
         if (!isSet(this.formatMap[mydata["type"]])) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "Invalid type `%s` for input tag, expected datetime-local, date, time, month or week".format(
                 mydata["type"]
             ));

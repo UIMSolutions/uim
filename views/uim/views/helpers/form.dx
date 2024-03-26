@@ -1065,7 +1065,7 @@ class FormHelper : Helper {
 
                 return this.{options["type"]}(fieldName, myopts, options ~ ["label": mylabel]);
             case "input":
-                throw new InvalidArgumentException(
+                throw new DInvalidArgumentException(
                     "Invalid type `input` used for field `%s`.".format(fieldName
                 ));
 
@@ -2295,7 +2295,7 @@ class FormHelper : Helper {
         if (mydiff) {
             array_walk(mydiff, fn (&myx): myx = "`myx`");
             array_walk(this.supportedValueSources, fn (&myx): myx = "`myx`");
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
 <<<<<<< HEAD
                 "Invalid value source(s): %s. Valid values are: %s.".format(
                 join(", ", mydiff),

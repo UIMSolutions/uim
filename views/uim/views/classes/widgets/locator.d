@@ -107,7 +107,7 @@ class DWidgetLocator {
     IWidget get(string widgetName) {
         if (!_widgets.isSet(widgetName)) {
             if (_widgets.isEmpty("_default")) {
-                throw new InvalidArgumentException("Unknown widget `%s`".format(widgetName));
+                throw new DInvalidArgumentException("Unknown widget `%s`".format(widgetName));
             }
             widgetName = "_default";
         }
@@ -130,7 +130,7 @@ class DWidgetLocator {
         myclass = array_shift(configData);
         myclassName = App.className(myclass, "View/Widget", "Widget");
         if (myclassName.isNull) {
-            throw new InvalidArgumentException("Unable to locate widget class `%s`.".format(myclass));
+            throw new DInvalidArgumentException("Unable to locate widget class `%s`.".format(myclass));
         }
         if (count(configData)) {
             myreflection = new ReflectionClass(myclassName);

@@ -56,7 +56,7 @@ class DYearWidget : DWidget {
             mydata["max"] = max(mydata.getInteger("val"), mydata["max"]);
         }
         if (mydata["max"] < mydata["min"]) {
-            throw new InvalidArgumentException("Max year cannot be less than min year");
+            throw new DInvalidArgumentException("Max year cannot be less than min year");
         }
         if (mydata["order"] == "desc") {
             mydata["options"] = range(mydata["max"], mydata["min"]);

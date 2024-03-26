@@ -70,7 +70,7 @@ class ArrayContext : IContext {
     }
 
     // Get the fields used in the context as a primary key.
-    string[] getPrimaryKey() {
+    string[] getPrimaryKeys() {
         if (
             !_context.isSet("schema") ||
             !_context["schema"].isSet("_constraints") ||
@@ -88,7 +88,7 @@ class ArrayContext : IContext {
     }
  
     bool isPrimaryKey(string pathToField) {
-        myprimaryKey = this.getPrimaryKey();
+        myprimaryKey = this.getPrimaryKeys();
 
         return in_array(myfield, myprimaryKey, true);
     }

@@ -43,7 +43,7 @@ class FormContext : IContext {
 
     return true;
   }
-    array getPrimaryKey() {
+    array getPrimaryKeys() {
         return null;
     }
  

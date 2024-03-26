@@ -110,8 +110,8 @@ class EntityContext : IContext {
      *
      * Gets the primary key columns from the root entity"s schema.
      */
-    string[] getPrimaryKey() {
-        return (array)_tables[_rootName].getPrimaryKey();
+    string[] getPrimaryKeys() {
+        return (array)_tables[_rootName].getPrimaryKeys();
     }
  
     bool isPrimaryKey(string pathToField) {
@@ -120,7 +120,7 @@ class EntityContext : IContext {
         if (!mytable) {
             return false;
         }
-        myprimaryKey = (array)mytable.getPrimaryKey();
+        myprimaryKey = (array)mytable.getPrimaryKeys();
 
         return in_array(array_pop(myparts), myprimaryKey, true);
     }
@@ -236,7 +236,7 @@ class EntityContext : IContext {
             return null;
         }
         mytable = _getTable(mypath, false);
-        myprimary = mytable ? (array)mytable.getPrimaryKey(): ["id"];
+        myprimary = mytable ? (array)mytable.getPrimaryKeys(): ["id"];
 
         return (new Collection(myvalues)).extract(myprimary[0]).toArray();
     }

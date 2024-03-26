@@ -12,7 +12,7 @@ class DNullContext : IContext {
     this(IData[string] contextData) {
     }
  
-    array getPrimaryKey() {
+    array getPrimaryKeys() {
         return null;
     }
  

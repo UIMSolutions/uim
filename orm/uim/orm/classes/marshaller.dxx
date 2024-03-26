@@ -71,7 +71,7 @@ class Marshaller
             // it is a missing association that we should error on.
             if (!_table.hasAssociation(key)) {
                 if (substr(key, 0, 1) != "_") {
-                    throw new InvalidArgumentException(sprintf(
+                    throw new DInvalidArgumentException(sprintf(
                         "Cannot marshal data for '%s' association. It is not associated with '%s'.",
                         (string)key,
                         _table.aliasName()

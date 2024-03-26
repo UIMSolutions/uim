@@ -403,7 +403,7 @@ class Hash {
             myvals = array_fill(0, someKeys.isNull ? count(mydata): count(someKeys), null);
         }
         if (isArray(someKeys) && count(someKeys) != count(myvals)) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "`Hash.combine()` needs an equal number of keys + values."
             );
         }
@@ -1064,7 +1064,7 @@ class Hash {
             }
         }
         if (!result) {
-            throw new InvalidArgumentException("Invalid data array to nest.");
+            throw new DInvalidArgumentException("Invalid data array to nest.");
         }
         myroot = options["root"]
             ? options["root"]

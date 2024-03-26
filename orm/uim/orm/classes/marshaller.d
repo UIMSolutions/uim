@@ -61,7 +61,7 @@ class DMarshaller {
             // it is a missing association that we should error on.
             if (!_table.hasAssociation((string)aKey)) {
                 if (!to!string(aKey).startWith("_")) {
-                    throw new InvalidArgumentException(
+                    throw new DInvalidArgumentException(
                         "Cannot marshal data for `%s` association. It is not associated with `%s`."
                         .format(to!string(aKey, _table.aliasName()))
                     );

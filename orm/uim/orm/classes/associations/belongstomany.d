@@ -226,7 +226,7 @@ class DBelongsToManyAssociation : DAssociation {
         source = this.getSource();
         target = this.getTarget();
         if (source.aliasName() == target.aliasName()) {
-            throw new InvalidArgumentException(sprintf(
+            throw new DInvalidArgumentException(sprintf(
                 "The `%s` association on `%s` cannot target the same table.",
                 this.getName(),
                 source.aliasName()
@@ -350,7 +350,7 @@ class DBelongsToManyAssociation : DAssociation {
                 this.getTargetForeignKey() != belongsTo.getForeignKeys() ||
                 target != belongsTo.getTarget()
             ) {
-                throw new InvalidArgumentException(
+                throw new DInvalidArgumentException(
                     "The existing `{tAlias}` association on `{junction.aliasName()}` " ~
                     "is incompatible with the `{this.getName()}` association on `{source.aliasName()}`"
                 );
@@ -556,7 +556,7 @@ class DBelongsToManyAssociation : DAssociation {
     function setSaveStrategy(string strategy) {
         if (!in_array(strategy, [self::SAVE_APPEND, self::SAVE_REPLACE], true)) {
             msg = sprintf("Invalid save strategy '%s'", strategy);
-            throw new InvalidArgumentException(msg);
+            throw new DInvalidArgumentException(msg);
         }
 
         _saveStrategy = strategy;
@@ -1078,7 +1078,7 @@ class DBelongsToManyAssociation : DAssociation {
 
         if (count(Hash::filter(primaryValue)) != count(bindingKey)) {
             message = "Could not find primary key value for source entity";
-            throw new InvalidArgumentException(message);
+            throw new DInvalidArgumentException(message);
         }
 
         return this.junction().getConnection().transactional(
@@ -1245,13 +1245,13 @@ class DBelongsToManyAssociation : DAssociation {
     protected bool _checkPersistenceStatus(IEntity sourceEntity, array targetEntities) {
         if (sourceEntity.isNew()) {
             error = "Source entity needs to be persisted before links can be created or removed.";
-            throw new InvalidArgumentException(error);
+            throw new DInvalidArgumentException(error);
         }
 
         foreach (targetEntities as entity) {
             if (entity.isNew()) {
                 error = "Cannot link entities that have not been persisted yet.";
-                throw new InvalidArgumentException(error);
+                throw new DInvalidArgumentException(error);
             }
         }
 

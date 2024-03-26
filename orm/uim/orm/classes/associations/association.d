@@ -189,7 +189,7 @@ void setClassName(string anClassName) {
         get_class(_targetTable) != App
         :  : className(className, "Model/Table", "Table")
         ) {
-        throw new InvalidArgumentException(sprintf(
+        throw new DInvalidArgumentException(sprintf(
                 "The class name '%s' doesn\"t match the target table class name of '%s'.",
                 className,
                 get_class(_targetTable)
@@ -462,7 +462,7 @@ protected string _propertyName() {
      * /
 function setStrategy(string aName) {
     if (!in_array(name, _validStrategies, true)) {
-        throw new InvalidArgumentException(sprintf(
+        throw new DInvalidArgumentException(sprintf(
                 "Invalid strategy '%s' was provided. Valid options are (%s).",
                 name,
                 implode(", ", _validStrategies)

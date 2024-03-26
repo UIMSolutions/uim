@@ -35,7 +35,7 @@ class Security {
 
         myavailableAlgorithms = hash_algos();
         if (!in_array(hashType, myavailableAlgorithms, true)) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "The hash type `%s` was not found. Available algorithms are: `%s`."
                 .format(hashType, join(", ", myavailableAlgorithms)
             ));
@@ -69,7 +69,7 @@ class Security {
      */
     static string randomBytes(int mylength) {
         if (mylength < 1) {
-            throw new InvalidArgumentException("Length must be `int<1, max>`");
+            throw new DInvalidArgumentException("Length must be `int<1, max>`");
         }
         return random_bytes(mylength);
     }
@@ -124,7 +124,7 @@ class Security {
         if (extension_loaded("openssl")) {
             return my_instance = new OpenSsl();
         }
-        throw new InvalidArgumentException(
+        throw new DInvalidArgumentException(
             "No compatible crypto engine available. " .
             "Load the openssl extension."
         );
@@ -164,7 +164,7 @@ class Security {
      */
     protected static void _checkKey(string aKey, string mymethod) {
         if (mb_strlen(aKey, "8bit") < 32) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "Invalid key for %s, key must be at least 256 bits (32 bytes) long.".format(mymethod)
             );
         }
@@ -181,7 +181,7 @@ class Security {
     static string decrypt(string mycipher, string aKey, string hmacSalt = null) {
         self._checkKey(aKey, "decrypt()");
         if (mycipher.isEmpty) {
-            throw new InvalidArgumentException("The data to decrypt cannot be empty.");
+            throw new DInvalidArgumentException("The data to decrypt cannot be empty.");
         }
         hmacSalt ??= getSalt();
 

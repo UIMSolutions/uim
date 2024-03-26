@@ -423,7 +423,7 @@ class Message : JsonSerializable {
         if (encoding !isNull) {
             encoding = encoding.toLower;
             if (!in_array(encoding, this.transferEncodingAvailable, true)) {
-                throw new InvalidArgumentException(
+                throw new DInvalidArgumentException(
                     "Transfer encoding not available. Can be : %s."
                     .format(join(", ", this.transferEncodingAvailable))
                 );
@@ -502,9 +502,9 @@ class Message : JsonSerializable {
         }
         context = ltrim(context, "_");
         if (emailAddress.isEmpty) {
-            throw new InvalidArgumentException("The email set for `%s` is empty.".format(context));
+            throw new DInvalidArgumentException("The email set for `%s` is empty.".format(context));
         }
-        throw new InvalidArgumentException("Invalid email set for `%s`. You passed `%s`.".format(context, emailAddress));
+        throw new DInvalidArgumentException("Invalid email set for `%s`. You passed `%s`.".format(context, emailAddress));
     }
     
     /**
@@ -526,7 +526,7 @@ class Message : JsonSerializable {
         this.setEmail(varName, email, name);
         if (count(this.{varName}) != 1) {
             this.{varName} = current;
-            throw new InvalidArgumentException(exceptionMessage);
+            throw new DInvalidArgumentException(exceptionMessage);
         }
     }
     
@@ -752,7 +752,7 @@ class Message : JsonSerializable {
      */
     void setEmailFormat(string aformat) {
         if (!in_array(aformat, this.emailFormatAvailable, true)) {
-            throw new InvalidArgumentException("Format not available.");
+            throw new DInvalidArgumentException("Format not available.");
         }
         this.emailFormat = format;
     }
@@ -785,7 +785,7 @@ class Message : JsonSerializable {
     }
     void setMessageId(string message) {
         if (!preg_match("/^\<.+@.+\>/", message)) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "Invalid format to Message-ID. The text should be something like "<uuid@server.com>""
             );
         }
@@ -868,10 +868,10 @@ class Message : JsonSerializable {
             }
             if (!dirEntry.isSet("file")) {
                 if (!isSet(dirEntry["data"])) {
-                    throw new InvalidArgumentException("No file or data specified.");
+                    throw new DInvalidArgumentException("No file or data specified.");
                 }
                 if (isInt(attName)) {
-                    throw new InvalidArgumentException("No filename specified.");
+                    throw new DInvalidArgumentException("No filename specified.");
                 }
                 dirEntry["data"] = chunk_split(base64_encode(dirEntry["data"]), 76, "\r\n");
             } else if (cast(IUploadedFile)dirEntry["file"]) {
@@ -884,13 +884,13 @@ class Message : JsonSerializable {
                 string fileName = dirEntry["file"];
                 dirEntry["file"] = realpath(dirEntry["file"]);
                 if (dirEntry["file"] == false || !file_exists(dirEntry["file"])) {
-                    throw new InvalidArgumentException("File not found: `%s`".format(fileName));
+                    throw new DInvalidArgumentException("File not found: `%s`".format(fileName));
                 }
                 if (isInt(attName)) {
                     attName = basename(dirEntry["file"]);
                 }
             } else {
-                throw new InvalidArgumentException(
+                throw new DInvalidArgumentException(
                     "File must be a filepath or IUploadedFile instance. Found `%s` instead."
                     .format(dirEntry["file"].stringof)
                 );
@@ -1151,7 +1151,7 @@ class Message : JsonSerializable {
     auto setBody(array content) {
         foreach (content as type: text) {
             if (!in_array(type, this.emailFormatAvailable, true)) {
-                throw new InvalidArgumentException(
+                throw new DInvalidArgumentException(
                     "Invalid message type: `%s`. Valid types are: `text`, `html`.".format(
                     type
                 ));

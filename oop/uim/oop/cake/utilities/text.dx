@@ -287,7 +287,7 @@ class Text {
         } else {
             mylength = options["width"] - 1;
             if (mylength < 1) {
-                throw new InvalidArgumentException("Length must be `int<1, max>`.");
+                throw new DInvalidArgumentException("Length must be `int<1, max>`.");
             }
             mywrapped = trim(chunk_split(textToFormat, mylength, "\n"));
         }
@@ -897,7 +897,7 @@ class Text {
         if (mydefault != false) {
             return mydefault;
         }
-        throw new InvalidArgumentException("No unit type.");
+        throw new DInvalidArgumentException("No unit type.");
     }
     
     /**

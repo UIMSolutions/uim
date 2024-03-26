@@ -202,7 +202,7 @@ class PluginCollection /* : Iterator, Countable */ { // TODO
         }
         if (pluginName.has("\\")) {
             if (!class_exists(pluginName)) {
-                throw new InvalidArgumentException("Class `%s` does not exist.".format(pluginName));
+                throw new DInvalidArgumentException("Class `%s` does not exist.".format(pluginName));
             }
             return new pluginName(Data);
         }
@@ -281,7 +281,7 @@ class PluginCollection /* : Iterator, Countable */ { // TODO
 /*    Generator<\UIM\Core\IPlugin> with (string myhook) {
         if (!in_array(hook, IPlugin:
                  : VALID_HOOKS, true)) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "The `%s` hook is not a known plugin hook.".format(hook));
         }
         this

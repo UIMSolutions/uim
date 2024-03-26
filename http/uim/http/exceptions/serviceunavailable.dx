@@ -5,7 +5,7 @@ import uim.http;
 @safe:
 
 // Represents an HTTP 503 error.
-class ServiceUnavailableException : HttpException {
+class ServiceUnavailableException : DHttpException {
  
     protected int _defaultCode = 503;
 

@@ -1,19 +1,19 @@
-module source.uim.http.exceptions.methodnotallowed;
+module uim.http.exceptions.invalidcsrftoken;
 
 import uim.http;
 
 @safe:
 
 /**
- * Represents an HTTP 405 error.
+ * Represents an HTTP 403 error caused by an invalid CSRF token
  */
-class MethodNotAllowedException : HttpException {
+class InvalidCsrfTokenException : DHttpException {
  
-    protected int _defaultCode = 405;
+    protected int _defaultCode = 403;
 
     this(string exceptionMessage = null, int statusCode = null, Throwable previousException = null) {
         if (exceptionMessage.isEmpty) {
-            exceptionMessage = "Method Not Allowed";
+            exceptionMessage = "Invalid CSRF Token";
         }
         super(exceptionMessage, statusCode, previousException);
     }

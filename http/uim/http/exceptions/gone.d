@@ -7,7 +7,7 @@ import uim.http;
 /**
  * Represents an HTTP 410 error.
  */
-class GoneException : HttpException {
+class DGoneException : DHttpException {
  
     protected int _defaultCode = 410;
 

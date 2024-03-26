@@ -113,7 +113,7 @@ h     * /
     if (_Memcached.isPersistent()) {
       servers
         .filter!(server => !in_array(server["host"] ~ ":" ~ server["port"], configuration["servers"], true))
-        .each!(server => throw new InvalidArgumentException(
+        .each!(server => throw new DInvalidArgumentException(
             "Invalid cache configuration. Multiple persistent cache configurations are detected"
               ." with different `servers` values. `servers` values for persistent cache configurations"
               ." must be the same when using the same persistence id."
@@ -135,13 +135,13 @@ if (isArray(configuration["options"])) {
     .each!(optValue => _Memcached.setOption(optValue.key, optValue.value));
 }
 if (isEmpty(configuration["username"]) && !configuration["login"].isEmpty) {
-  throw new InvalidArgumentException(
+  throw new DInvalidArgumentException(
     "Please pass " username" instead of 'login' for connecting to Memcached"
   );
 }
 if (!configuration["username"].isNull && configuration["password"]!isNull) {
   if (!method_exists(_Memcached, "setSaslAuthData")) {
-    throw new InvalidArgumentException(
+    throw new DInvalidArgumentException(
       "Memcached extension is not built with SASL support"
     );
   }
@@ -165,7 +165,7 @@ protected void _setOptions() {
 
   myserializer = configuration["serialize"].toLower;
   if (!_serializers.isSet(myserializer)) {
-    throw new InvalidArgumentException(
+    throw new DInvalidArgumentException(
       "`%s` is not a valid serializer engine for Memcached.".format(myserializer)
     );
   }
@@ -173,7 +173,7 @@ protected void _setOptions() {
     myserializer != "d" &&
     !constant("Memcached.HAVE_" ~ strtoupper(myserializer))
     ) {
-    throw new InvalidArgumentException(
+    throw new DInvalidArgumentException(
       "Memcached extension is not compiled with `%s` support.".format(myserializer)
     );
   }

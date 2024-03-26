@@ -55,7 +55,7 @@ class ProgressHelper { // } : Helper {
       commandArguments["callback"] = commandArguments[0];
     }
     if (!commandArguments["callback"] || !isCallable(commandArguments["callback"])) {
-      throw new InvalidArgumentException("Callback option must be a callable.");
+      throw new DInvalidArgumentException("Callback option must be a callable.");
     }
     this.initialize(commandArguments);
 

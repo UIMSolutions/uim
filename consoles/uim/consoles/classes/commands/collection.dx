@@ -44,7 +44,7 @@ class CommandCollection { // : IteratorAggregate, Countable {
     // Get the target for a command.
     ICommand get(string commandName) {
         if (!has(commandName)) {
-            throw new InvalidArgumentException("The `%s` is not a known command name.".format(commandName));
+            throw new DInvalidArgumentException("The `%s` is not a known command name.".format(commandName));
         }
         return _commands[commandName];
     }

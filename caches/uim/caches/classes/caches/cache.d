@@ -91,7 +91,7 @@ class DCache : ICache {
         /* auto myRegistry = getRegistry();
 
         if (isEmpty(myconfiguration[configName]["className"])) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "The `%s` cache configuration does not exist.".format(configName)
             );
         }
@@ -110,7 +110,7 @@ class DCache : ICache {
                 throw mye;
             }
             if (configuration["fallback"] == configName) {
-                throw new InvalidArgumentException(
+                throw new DInvalidArgumentException(
                     "`%s` cache configuration cannot fallback to itself."
                     .format(configName
                 ), 0, mye);
@@ -274,7 +274,7 @@ class DCache : ICache {
      */
     /* static int|false increment(string dataId, int anOffset = 1, string configName = "default") {
         if (myoffset < 0) {
-            throw new InvalidArgumentException("Offset cannot be less than `0`.");
+            throw new DInvalidArgumentException("Offset cannot be less than `0`.");
         }
         return pool(configName).increment(dataId, myoffset);
     } */ 
@@ -287,7 +287,7 @@ class DCache : ICache {
      */
     /* static int|false decrement(string dataId, int anOffset = 1, string configName = "default") {
         if (myoffset < 0) {
-            throw new InvalidArgumentException("Offset cannot be less than `0`.");
+            throw new DInvalidArgumentException("Offset cannot be less than `0`.");
         }
         return pool(configName).decrement(dataId, myoffset);
     } */ 
@@ -389,7 +389,7 @@ class DCache : ICache {
         if (isSet(self.my_groups[groupName])) {
             return [groupName: self.my_groups[groupName]];
         }
-        throw new InvalidArgumentException("Invalid cache group `%s`.".format(groupName));
+        throw new DInvalidArgumentException("Invalid cache group `%s`.".format(groupName));
     } */
     
     /**

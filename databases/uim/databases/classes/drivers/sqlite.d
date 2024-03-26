@@ -85,7 +85,7 @@ class SqliteDriver : DDriver {
         ];
         if (!configuration["database"].isString) || configuration["database"] == "") {
             name = configData.get("name", "unknown");
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "The `database` key for the `{name}` SQLite connection needs to be a non-empty string."
             );
         }

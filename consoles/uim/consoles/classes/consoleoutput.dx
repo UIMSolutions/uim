@@ -270,7 +270,7 @@ class ConsoleOutput {
      */
     void setOutputAs(int type) {
         if (!in_array(type, [self.RAW, self.PLAIN, self.COLOR], true)) {
-            throw new InvalidArgumentException("Invalid output type `%s`.".format(type));
+            throw new DInvalidArgumentException("Invalid output type `%s`.".format(type));
         }
        _outputAs = type;
     }

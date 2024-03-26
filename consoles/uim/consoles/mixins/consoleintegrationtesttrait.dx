@@ -46,7 +46,7 @@ template ConsoleIntegrationTestTemplate {
         if (_in.isNull) {
            _in = new StubConsoleInput(anInput);
         } else if (anInput) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "You can use ` anInput` only if ` _in` property.isNull and will be reset.'
             );
         }

@@ -207,7 +207,7 @@ trait CollectionTrait {
         foreach (this.optimizeUnwrap() as value) {
             pathValue = callback(value);
             if (pathValue == null) {
-                throw new InvalidArgumentException(
+                throw new DInvalidArgumentException(
                     "Cannot group by path that does not exist or contains a null value~ " ~
                     "Use a callback to return a default value for that path."
                 );
@@ -226,7 +226,7 @@ trait CollectionTrait {
         foreach (this.optimizeUnwrap() as value) {
             pathValue = callback(value);
             if (pathValue == null) {
-                throw new InvalidArgumentException(
+                throw new DInvalidArgumentException(
                     "Cannot index by path that does not exist or contains a null value~ " ~
                     "Use a callback to return a default value for that path."
                 );
@@ -344,7 +344,7 @@ trait CollectionTrait {
     function takeLast(int  length): ICollection
     {
         if ( length < 1) {
-            throw new InvalidArgumentException("The takeLast method requires a number greater than 0.");
+            throw new DInvalidArgumentException("The takeLast method requires a number greater than 0.");
         }
 
         iterator = this.optimizeUnwrap();
@@ -641,7 +641,7 @@ trait CollectionTrait {
             condition = _createMatcherFilter(condition);
         }
 
-        return new StoppableIterator(this.unwrap(), condition);
+        return new DStoppableIterator(this.unwrap(), condition);
     }
 
 

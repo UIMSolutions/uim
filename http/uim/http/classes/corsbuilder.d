@@ -1,4 +1,4 @@
-module uim.cake.http;
+module uim.http.classes.corsbuilder;
 
 import uim.cake;
 
@@ -16,7 +16,7 @@ import uim.cake;
  *
  * @see \UIM\Http\Response.cors()
  */
-class CorsBuilder {
+class DCorsBuilder {
     // The response object this builder is attached to.
     protected IResponse _response;
 

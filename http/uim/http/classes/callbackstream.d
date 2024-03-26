@@ -1,4 +1,4 @@
-module uim.cake.http;
+module uim.http.classes.callbackstream;
 
 import uim.cake;
 
@@ -17,7 +17,8 @@ import uim.cake;
  *
  * @internal
  */
-class CallbackStream : BaseCallbackStream {
+class DCallbackStream { // }: BaseCallbackStream {
+    /* 
     string getContents() {
         auto aCallback = this.detach();
         string aresult = "";
@@ -28,5 +29,5 @@ class CallbackStream : BaseCallbackStream {
             return "";
         }
         return result;
-    }
-}
+    } */
+} 

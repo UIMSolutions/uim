@@ -1,5 +1,6 @@
 # Library 📚 uim-i18n
 
+
 **Internationalization (i18n)** in software development refers to designing a program in a way that it can be easily adapted to other languages and cultures without requiring changes to the source code. The term “i18n” is often used as an abbreviation for internationalization (since there are 18 letters between the first letter “i” and the last letter “n” in the word “internationalization”).
 
 **Scope of Internationalization**:

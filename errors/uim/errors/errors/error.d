@@ -3,13 +3,13 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module errors.uim.errors.errors.phperror;
+module uim.errors.errors.error;
 
 @safe:
 import uim.errors;
 
 // Error base class for UIM applications
-class DERRError {
+class DError {
   mixin(OProperty!("int", "code"));
 
   mixin(OProperty!("string", "message"));
@@ -20,6 +20,7 @@ class DERRError {
 
   mixin(OProperty!("int[string][]", "trace"));
 
+  /* 
   private string[int] levelMap = [
       E_PARSE: "error",
       E_ERROR: "error",
@@ -53,7 +54,7 @@ class DERRError {
      * @param string|null file The filename of the error.
      * @param int|null line The line number for the error.
      * @param array trace The backtrace for the error.
-     */
+     * /
     this(
         int aCode,
         string aMessage,
@@ -93,5 +94,5 @@ class DERRError {
       }
 
       return results.join("\n");
-    }
+    } */
 }

@@ -19,7 +19,7 @@ interface IERRErrorRenderer {
      * isDebugMode - Whether or not the application is in debug mode.
      * returns - The output to be echoed.
      */
-    string render(DERRError anError, bool isDebugMode);
+    string render(DError anError, bool isDebugMode);
 
     /**
      * Write output to the renderer"s output stream

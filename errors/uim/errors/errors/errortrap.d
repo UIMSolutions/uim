@@ -4,12 +4,10 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module errors.uim.errors.errors.errortrap;
+module uim.errors.errors.errortrap;
 
 @safe:
 import uim.errors;
-
-
 
 /**
  * Entry point to UIM"s error handling.
@@ -20,8 +18,8 @@ import uim.errors;
  * Finally, errors are "rendered" using the defined renderer. If no error renderer is defined in configuration
  * one of the default implementations will be chosen based on the PHP SAPI.
  */
-class ErrorTrap
-{
+class DErrorTrap {
+    /* 
     use EventDispatcherTrait;
     mixin InstanceConfigTemplate;
 
@@ -37,7 +35,7 @@ class ErrorTrap
      *   logged errors.
      *
      * @var array<string, mixed>
-     */
+     * /
     protected _defaultConfig = [
         "errorLevel": E_ALL,
         "errorRenderer": null,
@@ -50,7 +48,7 @@ class ErrorTrap
      * Constructor
      *
      * @param array<string, mixed> options An options array. See _defaultConfig.
-     */
+     * /
     this(STRINGAA someOptions = null) {
         this.setConfig(options);
     }
@@ -59,14 +57,14 @@ class ErrorTrap
      * Choose an error renderer based on config or the SAPI
      *
      * @return class-string<uim.errors.IErrorRenderer>
-     */
+     * /
     string function chooseErrorRenderer() {
         aConfig = this.getConfig("errorRenderer");
         if (aConfig != null) {
             return aConfig;
         }
 
-        /** @var class-string<uim.errors.IErrorRenderer> */
+        /** @var class-string<uim.errors.IErrorRenderer> * /
         return PHP_SAPI == "cli" ? ConsoleErrorRenderer::class : HtmlErrorRenderer::class;
     }
 
@@ -78,7 +76,7 @@ class ErrorTrap
      *
      * This method will also set the global error level
      * via error_reporting().
-     */
+     * /
     void register() {
         level = _config["errorLevel"] ?? -1;
         error_reporting(level);
@@ -99,7 +97,7 @@ class ErrorTrap
      * @param string|null file File on which error occurred
      * @param int|null line Line that triggered the error
      * @return bool True if error was handled
-     */
+     * /
     bool handleError(
         int code,
         string description,
@@ -113,9 +111,9 @@ class ErrorTrap
             throw new FatalErrorException(description, code, file, line);
         }
 
-        /** @var array trace */
+        /** @var array trace * /
         trace = Debugger::trace(["start": 1, "format": "points"]);
-        error = new DERRError(code, description, file, line, trace);
+        error = new DError(code, description, file, line, trace);
 
         debug = Configure::read("debug");
         renderer = this.renderer();
@@ -141,9 +139,9 @@ class ErrorTrap
     /**
      * Logging helper method.
      *
-     * @param uim.errors.DERRError error The error object to log.
-     */
-    protected void logError(DERRError error) {
+     * @param uim.errors.DError error The error object to log.
+     * /
+    protected void logError(DError error) {
         if (!_config["log"]) {
             return;
         }
@@ -171,10 +169,10 @@ class ErrorTrap
      * Get an instance of the renderer.
      *
      * @return uim.errors.IErrorRenderer
-     */
+     * /
     function renderer(): IErrorRenderer
     {
-        /** @var class-string<uim.errors.IErrorRenderer> aClassName */
+        /** @var class-string<uim.errors.IErrorRenderer> aClassName * /
         aClassName = this.getConfig("errorRenderer") ?: this.chooseErrorRenderer();
 
         return new aClassName(_config);
@@ -184,7 +182,7 @@ class ErrorTrap
      * Get an instance of the logger.
      *
      * @return uim.errors.IErrorLogger
-     */
+     * /
     function logger(): IErrorLogger
     {
         oldConfig = this.getConfig("errorLogger");
@@ -193,9 +191,9 @@ class ErrorTrap
             this.setConfig(["logger": oldConfig, "errorLogger": null]);
         }
 
-        /** @var class-string<uim.errors.IErrorLogger> aClassName */
+        /** @var class-string<uim.errors.IErrorLogger> aClassName * /
         aClassName = this.getConfig("logger", _defaultConfig["logger"]);
 
         return new aClassName(_config);
-    }
+    } */
 }

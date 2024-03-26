@@ -1,4 +1,4 @@
-module http.uim.http.classes.cookies.collection;
+module uim.http.classes.cookies.collection;
 
 import uim.http;
 

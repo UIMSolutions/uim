@@ -1,4 +1,4 @@
-module http.uim.http.classes.servers.server;
+module uim.http.classes.servers.server;
 
 
 import uim.http;

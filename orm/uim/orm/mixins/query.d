@@ -1,15 +1,19 @@
 module uim.orm.mixins.query;
 
 string queryThis(string name) {
-    auto fullname = name~"Query";
+    string fullName = name ~ "Query";
     return `
-this(IData[string] initData = null) {
-    initialize(initData); this.name("`~fullname~`");
-}
-this(string name) {
-    this(); this.name(name);
-}
-    `;    
+    this() {
+        super(); this.name("`
+        ~ fullName ~ `");
+    }
+    this(IData[string] initData) {
+        super(initData); this.name("`~ fullName ~ `");
+    }
+    this(string name) {
+        super(); this.name(name);
+    }
+    `;
 }
 
 template QueryThis(string name) {
@@ -17,11 +21,12 @@ template QueryThis(string name) {
 }
 
 string queryCalls(string name) {
-    auto fullname = name~"Query";
+    string fullName = name ~ "Query";
     return `
-auto `~fullname~`() { return new D`~fullname~`(); }
-auto `~fullname~`(string name) { return new D`~fullname~`(name); }
-    `;    
+    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
+    auto `~ fullName ~ `(IData[string] initData) { return new D` ~ fullName ~ `(initData);}
+    auto `~ fullName ~ `(string name) { return new D` ~ fullName ~ `(name); }
+    `;
 }
 
 template QueryCalls(string name) {

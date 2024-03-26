@@ -1,9 +1,11 @@
+module errors.uim.errors.errors.handlers.errorhandler;
+
 /*********************************************************************************************************
 	Copyright: © 2015-2023 Ozan Nurettin Süel (Sicherheitsschmiede)                                        
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
-**********************************************************************************************************/
-module uim.errors;
+********************************************************************************************************** /
+module errors.uim.errors.errors.errorhandler;
 
 @safe:
 import uim.errors;
@@ -73,13 +75,12 @@ import uim.errors;
  *
  * @see uim.errors.ExceptionRenderer for more information on how to customize exception rendering.
  */
-class ErrorHandler : DERRErrorHandler
-{
+class DErrorHandler { // }: DERRErrorHandler
     /**
      * Constructor
      *
      * @param array<string, mixed> aConfig The options for error handling.
-     */
+     * /
     this(Json aConfig = null) {
         aConfig += [
             "exceptionRenderer": ExceptionRenderer::class,
@@ -95,7 +96,7 @@ class ErrorHandler : DERRErrorHandler
      *
      * @param array error An array of error data.
      * @param bool debug Whether the app is in debug mode.
-     */
+     * /
     protected void _displayError(array error, bool debug) {
         if (!debug) {
             return;
@@ -109,7 +110,7 @@ class ErrorHandler : DERRErrorHandler
      * @param \Throwable exception The exception to display.
      * @return void
      * @throws \Exception When the chosen exception renderer is invalid.
-     */
+     * /
     protected void _displayException(Throwable exception) {
         try {
             renderer = this.getRenderer(
@@ -130,7 +131,7 @@ class ErrorHandler : DERRErrorHandler
      * @param \Psr\Http\messages.IServerRequest|null request The request.
      * @return uim.errors.IExceptionRenderer The exception renderer.
      * @throws \RuntimeException When the renderer class cannot be found.
-     */
+     * /
     function getRenderer(
         Throwable exception,
         ?IServerRequest request = null
@@ -138,7 +139,7 @@ class ErrorHandler : DERRErrorHandler
         renderer = _config["exceptionRenderer"];
 
         if (renderer.isString) {
-            /** @var class-string<uim.errors.IExceptionRenderer>|null aClassName */
+            /** @var class-string<uim.errors.IExceptionRenderer>|null aClassName * /
             aClassName = App::className(renderer, "Error");
             if (!aClassName) {
                 throw new RuntimeException(sprintf(
@@ -150,7 +151,7 @@ class ErrorHandler : DERRErrorHandler
             return new aClassName(exception, request);
         }
 
-        /** @var callable factory */
+        /** @var callable factory * /
         factory = renderer;
 
         return factory(exception, request);
@@ -160,7 +161,7 @@ class ErrorHandler : DERRErrorHandler
      * Log internal errors.
      *
      * @param \Throwable exception Exception.
-     */
+     * /
     protected void _logInternalError(Throwable exception) {
         // Disable trace for internal errors.
         _config["trace"] = false;
@@ -179,7 +180,7 @@ class ErrorHandler : DERRErrorHandler
      * Method that can be easily stubbed in testing.
      *
      * @param \Psr\Http\messages.IResponse|string response Either the message or response object.
-     */
+     * /
     protected void _sendResponse(response) {
         if (response.isString) {
             writeln(response);
@@ -189,5 +190,5 @@ class ErrorHandler : DERRErrorHandler
 
         emitter = new ResponseEmitter();
         emitter.emit(response);
-    }
+    } */
 }

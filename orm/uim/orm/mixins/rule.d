@@ -1,15 +1,19 @@
 module uim.orm.mixins.rule;
 
 string ruleThis(string name) {
-    auto fullname = name~"Rule";
+    string fullName = name ~ "Rule";
     return `
-this(IData[string] initData = null) {
-    initialize(initData); this.name("`~fullname~`");
-}
-this(string name) {
-    this(); this.name(name);
-}
-    `;    
+    this() {
+        super(); this.name("`
+        ~ fullName ~ `");
+    }
+    this(IData[string] initData) {
+        super(initData); this.name("`~ fullName ~ `");
+    }
+    this(string name) {
+        super(); this.name(name);
+    }
+    `;
 }
 
 template RuleThis(string name) {
@@ -17,11 +21,12 @@ template RuleThis(string name) {
 }
 
 string ruleCalls(string name) {
-    auto fullname = name~"Rule";
+    string fullName = name ~ "Rule";
     return `
-auto `~fullname~`() { return new D`~fullname~`(); }
-auto `~fullname~`(string name) { return new D`~fullname~`(name); }
-    `;    
+    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
+    auto `~ fullName ~ `(IData[string] initData) { return new D` ~ fullName ~ `(initData);}
+    auto `~ fullName ~ `(string name) { return new D` ~ fullName ~ `(name); }
+    `;
 }
 
 template RuleCalls(string name) {

@@ -1,4 +1,4 @@
-module uim.databases.Expression;
+module uim.databases.mixins.caseexpression;
 
 import uim.databases;
 
@@ -8,17 +8,17 @@ import uim.databases;
  * Trait that holds shared functionality for case related expressions.
  *
  * @internal
- */
+ * /
 trait CaseExpressionTrait {
     /**
      * Infers the abstract type for the given value.
      * Params:
      * Json aValue The value for which to infer the type.
-     */
+     * /
     protected string inferType(Json aValue) {
         auto type = null;
 
-        /** @psalm-suppress RedundantCondition */
+        /** @psalm-suppress RedundantCondition * /
         if (isString(aValue)) {
             type = "String";
         } elseif (isInt(aValue)) {
@@ -53,7 +53,7 @@ trait CaseExpressionTrait {
      * \UIM\Database\ValueBinder aBinder The value binder to use.
      * @param \UIM\Database\IExpression|object|scalar|null aValue The value to compile.
      * @param string|null type The value type.
-     */
+     * /
     protected string compileNullableValue(ValueBinder aBinder, Json aValue, string atype = null) {
         if (
             type !isNull &&
@@ -75,3 +75,4 @@ trait CaseExpressionTrait {
         return aValue;
     }
 }
+*/

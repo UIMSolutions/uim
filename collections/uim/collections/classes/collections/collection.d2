@@ -30,7 +30,7 @@ class Collection : IteratorIterator : ICollection, Serializable {
      */
     this(Range items) {
         if (items.isArray) {
-            items = new ArrayIterator(items);
+            items = new DArrayIterator(items);
         }
 
         super(items);

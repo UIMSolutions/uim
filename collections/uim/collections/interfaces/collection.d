@@ -21,7 +21,7 @@ interface ICollection2 {
      * ### Example:
      *
      * ```
-     * collection = (new Collection(items)).each(// function (value,  key) {
+     * collection = (new DCollection(items)).each(// function (value,  key) {
      *  writeln("Element  key: value";
      * });
      * ```
@@ -45,7 +45,7 @@ interface ICollection2 {
      * be present in the resulting collection:
      *
      * ```
-     * collection = (new Collection([1, 2, 3])).filter(// function (value,  key) {
+     * collection = (new DCollection([1, 2, 3])).filter(// function (value,  key) {
      *  return value % 2 == 0;
      * });
      * ```
@@ -71,7 +71,7 @@ interface ICollection2 {
      * be present in the resulting collection:
      *
      * ```
-     * collection = (new Collection([1, 2, 3])).reject(// function (value,  key) {
+     * collection = (new DCollection([1, 2, 3])).reject(// function (value,  key) {
      *  return value % 2 == 0;
      * });
      * ```
@@ -92,7 +92,7 @@ interface ICollection2 {
      * ### Example:
      *
      * ```
-     *  overTwentyOne = (new Collection([24, 45, 60, 15])).every(// function (value,  key) {
+     *  overTwentyOne = (new DCollection([24, 45, 60, 15])).every(// function (value,  key) {
      *  return value > 21;
      * });
      * ```
@@ -115,7 +115,7 @@ interface ICollection2 {
      * ### Example:
      *
      * ```
-     * $hasYoungPeople = (new Collection([24, 45, 15])).some(// function (value,  key) {
+     * $hasYoungPeople = (new DCollection([24, 45, 15])).some(// function (value,  key) {
      *  return value < 21;
      * });
      * ```
@@ -148,7 +148,7 @@ interface ICollection2 {
      * Getting a collection of booleans where true indicates if a person is female:
      *
      * ```
-     * collection = (new Collection(people)).map(// function (person,  key) {
+     * collection = (new DCollection(people)).map(// function (person,  key) {
      *  return person.gender == "female";
      * });
      * ```
@@ -174,7 +174,7 @@ interface ICollection2 {
     // Json reduce(callable callback, initial = null);
 
     /**
-     * Returns a new collection containing the column or property value found in each
+     * Returns a new DCollection containing the column or property value found in each
      * of the elements.
      *
      * The matcher can be a string with a property name to extract or a dot separated
@@ -192,7 +192,7 @@ interface ICollection2 {
      *  ["comment": ["body": "cool", "user": ["name": "Mark"]],
      *  ["comment": ["body": "very cool", "user": ["name": "Renan"]]
      * ];
-     * extracted = (new Collection(items)).extract("comment.user.name");
+     * extracted = (new DCollection(items)).extract("comment.user.name");
      *
      * // Result will look like this when converted to array
      * ["Mark", "Renan"]
@@ -205,7 +205,7 @@ interface ICollection2 {
      *      ["comment": ["votes": [["value": 1], ["value": 2], ["value": 3]]],
      *      ["comment": ["votes": [["value": 4]]
      * ];
-     * extracted = (new Collection(items)).extract("comment.votes.{*}.value");
+     * extracted = (new DCollection(items)).extract("comment.votes.{*}.value");
      *
      * // Result will contain
      * [1, 2, 3, 4]
@@ -282,11 +282,11 @@ interface ICollection2 {
      *  ["invoice": ["total": 200]]
      * ];
      *
-     * total = (new Collection(items)).avg("invoice.total");
+     * total = (new DCollection(items)).avg("invoice.total");
      *
      * // Total: 150
      *
-     * total = (new Collection([1, 2, 3])).avg();
+     * total = (new DCollection([1, 2, 3])).avg();
      * // Total: 2
      * ```
      *
@@ -315,11 +315,11 @@ interface ICollection2 {
      *  ["invoice": ["total": 200]]
      * ];
      *
-     * total = (new Collection(items)).median("invoice.total");
+     * total = (new DCollection(items)).median("invoice.total");
      *
      * // Total: 333
      *
-     * total = (new Collection([1, 2, 3, 4])).median();
+     * total = (new DCollection([1, 2, 3, 4])).median();
      * // Total: 2.5
      * ```
      *
@@ -389,10 +389,10 @@ interface ICollection2 {
      *  ["id": 3, "name": "baz", "parent_id": 10],
      * ];
      *
-     *  group = (new Collection(items)).groupBy("parent_id");
+     *  group = (new DCollection(items)).groupBy("parent_id");
      *
      * // Or
-     *  group = (new Collection(items)).groupBy(// function (e) {
+     *  group = (new DCollection(items)).groupBy(// function (e) {
      *  return e["parent_id"];
      * });
      *
@@ -432,10 +432,10 @@ interface ICollection2 {
      *  ["id": 3, "name": "baz"],
      * ];
      *
-     * indexed = (new Collection(items)).indexBy("id");
+     * indexed = (new DCollection(items)).indexBy("id");
      *
      * // Or
-     * indexed = (new Collection(items)).indexBy(// function (e) {
+     * indexed = (new DCollection(items)).indexBy(// function (e) {
      *  return e["id"];
      * });
      *
@@ -471,10 +471,10 @@ interface ICollection2 {
      *  ["id": 3, "name": "baz", "parent_id": 10],
      * ];
      *
-     *  group = (new Collection(items)).countBy("parent_id");
+     *  group = (new DCollection(items)).countBy("parent_id");
      *
      * // Or
-     *  group = (new Collection(items)).countBy(// function (e) {
+     *  group = (new DCollection(items)).countBy(// function (e) {
      *  return e["parent_id"];
      * });
      *
@@ -503,11 +503,11 @@ interface ICollection2 {
      *  ["invoice": ["total": 200]]
      * ];
      *
-     * total = (new Collection(items)).sumOf("invoice.total");
+     * total = (new DCollection(items)).sumOf("invoice.total");
      *
      * // Total: 300
      *
-     * total = (new Collection([1, 2, 3])).sumOf();
+     * total = (new DCollection([1, 2, 3])).sumOf();
      * // Total: 6
      * ```
      *
@@ -519,7 +519,7 @@ interface ICollection2 {
     float sumOf(path = null);
 
     /**
-     * Returns a new collection with the elements placed in a random order,
+     * Returns a new DCollection with the elements placed in a random order,
      * this // function does not preserve the original keys in the collection.
      *
      * @return self
@@ -527,7 +527,7 @@ interface ICollection2 {
     ICollection shuffle();
 
     /**
-     * Returns a new collection with maximum size random elements
+     * Returns a new DCollection with maximum size random elements
      * from this collection
      *
      * @param int  length the maximum number of elements to randomly
@@ -537,7 +537,7 @@ interface ICollection2 {
     ICollection sample(int  length = 10);
 
     /**
-     * Returns a new collection with maximum size elements in the internal
+     * Returns a new DCollection with maximum size elements in the internal
      * order this collection was created. If a second parameter is passed, it
      * will determine from what position to start taking elements.
      *
@@ -556,7 +556,7 @@ interface ICollection2 {
      * ```
      * items = [1, 2, 3, 4, 5];
      *
-     *  last = (new Collection(items)).takeLast(3);
+     *  last = (new DCollection(items)).takeLast(3);
      *
      * // Result will look like this when converted to array
      * [3, 4, 5];
@@ -568,7 +568,7 @@ interface ICollection2 {
     ICollection takeLast(int  length);
 
     /**
-     * Returns a new collection that will skip the specified amount of elements
+     * Returns a new DCollection that will skip the specified amount of elements
      * at the beginning of the iteration.
      *
      * @param int  length The number of elements to skip.
@@ -588,7 +588,7 @@ interface ICollection2 {
      *  ["comment": ["body": "very cool", "user": ["name": "Renan"]]
      * ];
      *
-     * extracted = (new Collection(items)).match(["user.name": "Renan"]);
+     * extracted = (new DCollection(items)).match(["user.name": "Renan"]);
      *
      * // Result will look like this when converted to array
      * [
@@ -630,7 +630,7 @@ interface ICollection2 {
     Json();
 
     /**
-     * Returns a new collection as the result of concatenating the list of elements
+     * Returns a new DCollection as the result of concatenating the list of elements
      * in this collection with the passed list of elements
      *
      * @param range items Items list.
@@ -639,7 +639,7 @@ interface ICollection2 {
     ICollection append(items);
 
     /**
-     * Append a single item creating a new collection.
+     * Append a single item creating a new DCollection.
      *
      * @param mixed item The item to append.
      * @param mixed  key The key to append the item with. If null a key will be generated.
@@ -648,7 +648,7 @@ interface ICollection2 {
     ICollection appendItem(item,  key = null);
 
     /**
-     * Prepend a set of items to a collection creating a new collection
+     * Prepend a set of items to a collection creating a new DCollection
      *
      * @param mixed items The items to prepend.
      * @return self
@@ -656,7 +656,7 @@ interface ICollection2 {
     ICollection prepend(items);
 
     /**
-     * Prepend a single item creating a new collection.
+     * Prepend a single item creating a new DCollection.
      *
      * @param mixed item The item to prepend.
      * @param mixed  key The key to prepend the item with. If null a key will be generated.
@@ -665,7 +665,7 @@ interface ICollection2 {
     ICollection prependItem(item,  key = null);
 
     /**
-     * Returns a new collection where the values extracted based on a value path
+     * Returns a new DCollection where the values extracted based on a value path
      * and then indexed by a key path. Optionally this method can produce parent
      * groups based on a group property path.
      *
@@ -678,7 +678,7 @@ interface ICollection2 {
      *  ["id": 3, "name": "baz", "parent": "a"],
      * ];
      *
-     * combined = (new Collection(items)).combine("id", "name");
+     * combined = (new DCollection(items)).combine("id", "name");
      *
      * // Result will look like this when converted to array
      * [
@@ -687,7 +687,7 @@ interface ICollection2 {
      *  3: "baz",
      * ];
      *
-     * combined = (new Collection(items)).combine("id", "name", "parent");
+     * combined = (new DCollection(items)).combine("id", "name", "parent");
      *
      * // Result will look like this when converted to array
      * [
@@ -707,7 +707,7 @@ interface ICollection2 {
     ICollection combine( keyPath, valuePath,  groupPath = null);
 
     /**
-     * Returns a new collection where the values are nested in a tree-like structure
+     * Returns a new DCollection where the values are nested in a tree-like structure
      * based on an id property path and a parent id property path.
      *
      * @param callable|string idPath the column name path to use for determining
@@ -720,7 +720,7 @@ interface ICollection2 {
     ICollection nest(idPath, parentPath, string nestingKey = "children");
 
     /**
-     * Returns a new collection containing each of the elements found in `values` as
+     * Returns a new DCollection containing each of the elements found in `values` as
      * a property inside the corresponding elements in this collection. The property
      * where the values will be inserted is described by the `path` parameter.
      *
@@ -740,7 +740,7 @@ interface ICollection2 {
      *  ["comment": ["body": "awesome", "user": ["name": "Renan"]]
      * ];
      * ages = [25, 28];
-     * inserted = (new Collection(items)).insert("comment.user.age", ages);
+     * inserted = (new DCollection(items)).insert("comment.user.age", ages);
      *
      * // Result will look like this when converted to array
      * [
@@ -785,7 +785,7 @@ interface ICollection2 {
 
     /**
      * Iterates once all elements in this collection and executes all stacked
-     * operations of them, finally it returns a new collection with the result.
+     * operations of them, finally it returns a new DCollection with the result.
      * This is useful for converting non-rewindable internal iterators into
      * a collection that can be rewound and used multiple times.
      *
@@ -818,7 +818,7 @@ interface ICollection2 {
     // function compile(bool shouldKeepKeys = true): ICollection;
 
     /**
-     * Returns a new collection where any operations chained after it are guaranteed
+     * Returns a new DCollection where any operations chained after it are guaranteed
      * to be run lazily. That is, elements will be yieleded one at a time.
      *
      * A lazy collection can only be iterated once. A second attempt results in an error.
@@ -828,8 +828,8 @@ interface ICollection2 {
     ICollection lazy();
 
     /**
-     * Returns a new collection where the operations performed by this collection.
-     * No matter how many times the new collection is iterated, those operations will
+     * Returns a new DCollection where the operations performed by this collection.
+     * No matter how many times the new DCollection is iterated, those operations will
      * only be performed once.
      *
      * This can also be used to make any non-rewindable iterator rewindable.
@@ -839,7 +839,7 @@ interface ICollection2 {
     ICollection buffered();
 
     /**
-     * Returns a new collection with each of the elements of this collection
+     * Returns a new DCollection with each of the elements of this collection
      * after flattening the tree structure. The tree structure is defined
      * by nesting elements under a key with a known name. It is possible
      * to specify such name by using the "nestingKey" parameter.
@@ -865,7 +865,7 @@ interface ICollection2 {
      * ### Example:
      *
      * ```
-     * collection = new Collection([
+     * collection = new DCollection([
      *  ["id": 1, "children": [["id": 2, "children": [["id": 3]]]]],
      *  ["id": 4, "children": [["id": 5]]]
      * ]);
@@ -880,7 +880,7 @@ interface ICollection2 {
     ICollection listNested( order = "desc", nestingKey = "children");
 
     /**
-     * Creates a new collection that when iterated will stop yielding results if
+     * Creates a new DCollection that when iterated will stop yielding results if
      * the provided condition evaluates to true.
      *
      * This is handy for dealing with infinite iterators or any generator that
@@ -893,7 +893,7 @@ interface ICollection2 {
      * Get an array of lines in a CSV file until the timestamp column is less than a date
      *
      * ```
-     *  lines = (new Collection(fileLines)).stopWhen(// function (value,  key) {
+     *  lines = (new DCollection(fileLines)).stopWhen(// function (value,  key) {
      *  return (new DateTime(value)).format("Y") < 2012;
      * })
      * .toArray();
@@ -902,7 +902,7 @@ interface ICollection2 {
      * Get elements until the first unapproved message is found:
      *
      * ```
-     * comments = (new Collection(comments)).stopWhen(["is_approved": false]);
+     * comments = (new DCollection(comments)).stopWhen(["is_approved": false]);
      * ```
      *
      * @param callable|array condition the method that will receive each of the elements and
@@ -915,7 +915,7 @@ interface ICollection2 {
     ICollection stopWhen(condition):;
 
     /**
-     * Creates a new collection where the items are the
+     * Creates a new DCollection where the items are the
      * concatenation of the lists of items generated by the transformer function
      * applied to each item in the original collection.
      *
@@ -931,14 +931,14 @@ interface ICollection2 {
      *
      * ```
      * items [[1, 2, 3], [4, 5]];
-     * unfold = (new Collection(items)).unfold(); // Returns [1, 2, 3, 4, 5]
+     * unfold = (new DCollection(items)).unfold(); // Returns [1, 2, 3, 4, 5]
      * ```
      *
      * Using a transformer
      *
      * ```
      * items [1, 2, 3];
-     * allItems = (new Collection(items)).unfold(// function (page) {
+     * allItems = (new DCollection(items)).unfold(// function (page) {
      *  return service.fetchPage(page).toArray();
      * });
      * ```
@@ -957,7 +957,7 @@ interface ICollection2 {
      *
      * ```
      * items = [1, 2, 3];
-     *  decorated = (new Collection(items)).through(// function (collection) {
+     *  decorated = (new DCollection(items)).through(// function (collection) {
      *      return new MyCustomCollection(collection);
      * });
      * ```
@@ -975,7 +975,7 @@ interface ICollection2 {
      * ### Example:
      *
      * ```
-     * collection = new Collection([1, 2]);
+     * collection = new DCollection([1, 2]);
      * collection.zip([3, 4], [5, 6]).toList(); // returns [[1, 3, 5], [2, 4, 6]]
      * ```
      *
@@ -993,7 +993,7 @@ interface ICollection2 {
      * ### Example:
      *
      * ```
-     * collection = new Collection([1, 2]);
+     * collection = new DCollection([1, 2]);
      * zipped = collection.zipWith([3, 4], [5, 6], // function (...args) {
      *   return array_sum(args);
      * });
@@ -1013,7 +1013,7 @@ interface ICollection2 {
      *
      * ```
      * items [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-     * chunked = (new Collection(items)).chunk(3).toList();
+     * chunked = (new DCollection(items)).chunk(3).toList();
      * // Returns [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11]]
      * ```
      *
@@ -1029,7 +1029,7 @@ interface ICollection2 {
      *
      * ```
      * items ["a": 1, "b": 2, "c": 3, "d": 4, "e": 5, "f": 6];
-     * chunked = (new Collection(items)).chunkWithKeys(3).toList();
+     * chunked = (new DCollection(items)).chunkWithKeys(3).toList();
      * // Returns [["a": 1, "b": 2, "c": 3], ["d": 4, "e": 5, "f": 6]]
      * ```
      *
@@ -1046,11 +1046,11 @@ interface ICollection2 {
      *
      * ```
      * items [1, 2, 3];
-     * (new Collection(items)).isEmpty(); // false
+     * (new DCollection(items)).isEmpty(); // false
      * ```
      *
      * ```
-     * (new Collection([])).isEmpty(); // true
+     * (new DCollection([])).isEmpty(); // true
      * ```
      * /
     bool isEmpty();
@@ -1077,7 +1077,7 @@ interface ICollection2 {
      *       ["Product C", "400", "300", "200"],
      * ]
      *
-     * transpose = (new Collection(items)).transpose().toList();
+     * transpose = (new DCollection(items)).transpose().toList();
      *
      * // Returns
      * // [
@@ -1112,7 +1112,7 @@ interface ICollection2 {
      * or a unbuffered database cursor will not accept any other // function calls after calling
      * `count()` on it.
      *
-     * Create a new collection with `buffered()` method to overcome this problem.
+     * Create a new DCollection with `buffered()` method to overcome this problem.
      *
      * ### Can report more elements than unique keys:
      *
@@ -1139,7 +1139,7 @@ interface ICollection2 {
     size_t countKeys();
 
     /**
-     * Create a new collection that is the cartesian product of the current collection
+     * Create a new DCollection that is the cartesian product of the current collection
      *
      * In order to create a carteisan product a collection must contain a single dimension
      * of data.
@@ -1147,7 +1147,7 @@ interface ICollection2 {
      * ### Example
      *
      * ```
-     * collection = new Collection([["A", "B", "C"], [1, 2, 3]]);
+     * collection = new DCollection([["A", "B", "C"], [1, 2, 3]]);
      * result = collection.cartesianProduct().toArray();
      * expected = [
      *     ["A", 1],

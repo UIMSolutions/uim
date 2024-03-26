@@ -34,7 +34,7 @@ class LazyEagerLoader
             returnSingle = true;
         }
 
-        entities = new Collection(entities);
+        entities = new DCollection(entities);
         query = _getQuery(entities, contain, source);
         associations = query.getContain().keys;
 

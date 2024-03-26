@@ -20,7 +20,7 @@ class DCollection : /* IteratorIterator, */ ICollection2 {
 
   /* this(Range someItems) {
     if (someItems.isArray) {
-      someItems = new ArrayIterator(someItems);
+      someItems = new DArrayIterator(someItems);
     }
     super(someItems);
   } */ 

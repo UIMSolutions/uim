@@ -28,7 +28,7 @@ class DFilterIterator : DCollection {
      * /
     this(Range myitems, callable aCallback) {
         if (!cast(Iterator)myitems) {
-            myitems = new Collection(myitems);
+            myitems = new DCollection(myitems);
         }
        _callback = mycallback;
         mywrapper = new DCallbackFilterIterator(myitems, mycallback);
@@ -55,6 +55,6 @@ class DFilterIterator : DCollection {
             .filter!(kv => mycallback(kv.value, kv.key, myiterator)) {
             .each!(kv => myres[kv.key] = kv.value);
         }
-        return new ArrayIterator(myres);
+        return new DArrayIterator(myres);
     } */
 }

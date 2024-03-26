@@ -823,7 +823,7 @@ protected void _formatAssociationResults(Query query, Query surrogate, STRINGAA 
             }
             extracted[] = result;
         }
-        extracted = new Collection(extracted);
+        extracted = new DCollection(extracted);
         foreach (formatters as callable) {
             extracted = callable(extracted, query);
             if (!extracted instanceof IResultSet) {

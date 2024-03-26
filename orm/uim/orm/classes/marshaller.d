@@ -557,7 +557,7 @@ class DMarshaller {
     IEntity[] mergeMany(Range myentities, array data, IData[string] optionData = null) {
         myprimary = (array)_table.getPrimaryKeys();
 
-        myindexed = (new Collection(mydata))
+        myindexed = (new DCollection(mydata))
             .groupBy(function (myel) use (myprimary) {
                 auto someKeys = myprimary
                     .map!(key => myel.get(key, "")).array;
@@ -583,7 +583,7 @@ class DMarshaller {
             myoutput ~= this.merge(myentity, myindexed[aKey], options);
             unset(myindexed[aKey]);
         }
-        myconditions = (new Collection(myindexed))
+        myconditions = (new DCollection(myindexed))
             .map(function (mydata, aKey) {
                 return split(";", to!string(aKey));
             })
@@ -607,7 +607,7 @@ class DMarshaller {
                 }
             }
         }
-        foreach ((new Collection(myindexed)).append(mynew) as myvalue) {
+        foreach ((new DCollection(myindexed)).append(mynew) as myvalue) {
             if (!isArray(myvalue)) {
                 continue;
             }

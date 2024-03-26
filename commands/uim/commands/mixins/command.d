@@ -1,15 +1,19 @@
 module uim.commands.mixins.command;
 
 string commandThis(string name) {
-    auto fullname = name~"Command";
+    string fullName = name ~ "Command";
     return `
-this(IData[string] initData = null) {
-    initialize(initData); this.name("`~fullname~`");
-}
-this(string name) {
-    this(); this.name(name);
-}
-    `;    
+    this() {
+        super(); this.name("`
+        ~ fullName ~ `");
+    }
+    this(IData[string] initData) {
+        super(initData); this.name("`~ fullName ~ `");
+    }
+    this(string name) {
+        super(); this.name(name);
+    }
+    `;
 }
 
 template CommandThis(string name) {
@@ -17,11 +21,12 @@ template CommandThis(string name) {
 }
 
 string commandCalls(string name) {
-    auto fullname = name~"Command";
+    string fullName = name ~ "Command";
     return `
-auto `~fullname~`() { return new D`~fullname~`(); }
-auto `~fullname~`(string name) { return new D`~fullname~`(name); }
-    `;    
+    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
+    auto `~ fullName ~ `(IData[string] initData) { return new D` ~ fullName ~ `(initData);}
+    auto `~ fullName ~ `(string name) { return new D` ~ fullName ~ `(name); }
+    `;
 }
 
 template CommandCalls(string name) {

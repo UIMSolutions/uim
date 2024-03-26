@@ -1,19 +1,19 @@
 module uim.databases.mixins.statement;
 
-import uim.databases;
-
-@safe:
-
 string statementThis(string name) {
-    auto fullname = name~"Statement";
+    string fullName = name ~ "Statement";
     return `
-this(IData[string] initData = null) {
-    initialize(initData); this.name("`~fullname~`");
-}
-this(string name) {
-    this(); this.name(name);
-}
-    `;    
+    this() {
+        super(); this.name("`
+        ~ fullName ~ `");
+    }
+    this(IData[string] initData) {
+        super(initData); this.name("`~ fullName ~ `");
+    }
+    this(string name) {
+        super(); this.name(name);
+    }
+    `;
 }
 
 template StatementThis(string name) {
@@ -21,11 +21,12 @@ template StatementThis(string name) {
 }
 
 string statementCalls(string name) {
-    auto fullname = name~"Statement";
+    string fullName = name ~ "Statement";
     return `
-auto `~fullname~`() { return new D`~fullname~`(); }
-auto `~fullname~`(string name) { return new D`~fullname~`(name); }
-    `;    
+    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
+    auto `~ fullName ~ `(IData[string] initData) { return new D` ~ fullName ~ `(initData);}
+    auto `~ fullName ~ `(string name) { return new D` ~ fullName ~ `(name); }
+    `;
 }
 
 template StatementCalls(string name) {

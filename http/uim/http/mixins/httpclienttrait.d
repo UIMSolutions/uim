@@ -1,4 +1,4 @@
-module uim.cake.http\TestSuite;
+module http.uim.http.mixins.httpclienttrait;
 
 import uim.http;
 

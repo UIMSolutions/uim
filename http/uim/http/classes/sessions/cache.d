@@ -1,4 +1,4 @@
-module uim.cake.http.sessions.cache;
+module http.uim.http.classes.sessions.cache;
 
 import uim.http;
 

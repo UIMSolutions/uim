@@ -1,4 +1,4 @@
-module uim.databastatementses.mixins.query;
+module uim.databases.mixins.query;
 
 string queryThis(string name) {
     string fullName = name ~ "Query";

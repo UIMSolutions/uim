@@ -7,7 +7,7 @@ import uim.http;
 /**
  * Represents an HTTP 451 error.
  */
-class UnavailableForLegalReasonsException : HttpException {
+class UnavailableForLegalReasonsException : DHttpException {
  
     protected int _defaultCode = 451;
 

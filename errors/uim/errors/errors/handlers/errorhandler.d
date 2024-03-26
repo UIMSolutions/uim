@@ -95,9 +95,9 @@ class DErrorHandler { // }: DERRErrorHandler
      * Template method of DERRErrorHandler.
      *
      * @param array error An array of error data.
-     * @param bool debug Whether the app is in debug mode.
+     * @param bool shouldDebug Whether the app is in debug mode.
      * /
-    protected void _displayError(array error, bool debug) {
+    protected void _displayError(array error, bool shouldDebug) {
         if (!debug) {
             return;
         }

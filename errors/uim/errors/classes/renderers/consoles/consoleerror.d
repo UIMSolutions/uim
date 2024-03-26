@@ -41,7 +41,7 @@ class DERRConsoleErrorRenderer { // }: IERRErrorRenderer {
   }
 
 
-  string render(DError anError, bool debug) {
+  string render(DError anError, bool shouldDebug) {
     trace = "";
     if (this.trace) {
       trace = "\n<info>Stack Trace:</info>\n\n" ~ error.getTraceAsString();

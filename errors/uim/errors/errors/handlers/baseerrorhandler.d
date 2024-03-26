@@ -54,10 +54,10 @@ abstract class DERRErrorHandler {
      * desired for the runtime they operate in.
      *
      * @param array error An array of error data.
-     * @param bool debug Whether the app is in debug mode.
+     * @param bool shouldDebug Whether the app is in debug mode.
      * @return void
      */
-    abstract protected void _displayError(array error, bool debug);
+    abstract protected void _displayError(array error, bool shouldDebug);
 
     /**
      * Display an exception in an environment specific way.

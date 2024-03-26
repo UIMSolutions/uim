@@ -16,7 +16,7 @@ class HtmlErrorRenderer { // }: IErrorRenderer {
         echo  result;
     }
  
-    string render(UimError error, bool debug) {
+    string render(UimError error, bool shouldDebug) {
         if (!debug) {
             return "";
         }

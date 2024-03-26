@@ -20,7 +20,7 @@ class HtmlErrorRenderer : IErrorRenderer {
         writeln(outText);
     }
 
-    string render(DError anError, bool debug) {
+    string render(DError anError, bool shouldDebug) {
         if (!debug) {
             return "";
         }

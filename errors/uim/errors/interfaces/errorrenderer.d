@@ -1,4 +1,4 @@
-module errors.uim.errors.interfaces.errorrendererinterface;
+module errors.uim.errors.interfaces.errorrenderer;
 
 import uim.errors;
 
@@ -15,9 +15,9 @@ interface IErrorRenderer {
      * Render output for the provided error.
      * Params:
      * \UIM\Error\UimError error The error to be rendered.
-     * @param bool debug Whether or not the application is in debug mode.
+     * @param bool shouldDebug Whether or not the application is in debug mode.
      */
-    string render(UimError error, bool debug);
+    string render(UimError error, bool shouldDebug);
 
     /**
      * Write output to the renderer`s output stream

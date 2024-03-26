@@ -1,4 +1,9 @@
-module errors.uim.errors.interfaces.errorloggerinterface;
+/*********************************************************************************************************
+	Copyright: © 2015-2024 Ozan Nurettin Süel (Sicherheitsschmiede)                                        
+	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
+	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
+**********************************************************************************************************/
+module errors.uim.errors.interfaces.errorlogger;
 
 import uim.errors;
 
@@ -16,7 +21,7 @@ interface IErrorLogger {
      * \Throwable exception The exception to log a message for.
      * @param \Psr\Http\Message\IServerRequest|null request The current request if available.
      * @param bool  anIncludeTrace Should the log message include a stacktrace.
-     */
+     * /
     void logException(
         Throwable exception,
         ?IServerRequest serverRequest = null,
@@ -29,7 +34,7 @@ interface IErrorLogger {
      * \UIM\Error\UimError error The error to log.
      * @param \Psr\Http\Message\IServerRequest|null request The request if in an HTTP context.
      * @param bool  anIncludeTrace Should the log message include a stacktrace.
-     */
+     * /
     void logError(
         UimError error,
         ?IServerRequest serverRequest = null,

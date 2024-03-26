@@ -428,7 +428,7 @@ class Log {
      * will be treated as the `scope` key.
      * See {@link \UIM\Log\Log.configuration.update()} for more information on logging scopes.
      * /
-    static bool debug(string amessage, string[] acontext = []) {
+    static bool shouldDebug(string amessage, string[] acontext = []) {
         return write(__FUNCTION__, message, context);
     }
     

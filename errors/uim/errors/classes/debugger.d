@@ -1,4 +1,4 @@
-module errors.uim.errors.classes.debugger;
+module uim.errors.classes.debugger;
 
 import uim.errors;
 

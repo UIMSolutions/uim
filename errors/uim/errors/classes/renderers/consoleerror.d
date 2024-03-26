@@ -34,7 +34,7 @@ class DConsoleErrorRenderer { // }: IErrorRenderer {
         this.output.write(result);
     }
     
-    string render(UimError error, bool debug) {
+    string render(UimError error, bool shouldDebug) {
         string trace = "";
         if (this.trace) {
             trace = "\n<info>Stack Trace:</info>\n\n" ~ error.getTraceAsString();

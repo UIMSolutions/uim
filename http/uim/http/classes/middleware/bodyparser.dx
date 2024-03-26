@@ -1,6 +1,6 @@
 module uim.cake.http.middleware.bodyparser;
 
-import uim.cake;
+import uim.http;
 
 @safe:
 

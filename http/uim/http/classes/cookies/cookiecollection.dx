@@ -1,6 +1,6 @@
 module uim.cake.http\Cookie;
 
-import uim.cake;
+import uim.http;
 
 @safe:
 

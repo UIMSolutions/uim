@@ -333,12 +333,12 @@ class RouteCollection {
     void middlewareGroup(string routings, array mymiddlewareNames) {
         if (this.hasMiddleware(routings)) {
             mymessage = "Cannot add middleware group " routings". A middleware by this name has already been registered.";
-            throw new InvalidArgumentException(mymessage);
+            throw new DInvalidArgumentException(mymessage);
         }
         foreach (mymiddlewareNames as mymiddlewareName) {
             if (!this.hasMiddleware(mymiddlewareName)) {
                 mymessage = "Cannot add " mymiddlewareName" middleware to group " routings". It has not been registered.";
-                throw new InvalidArgumentException(mymessage);
+                throw new DInvalidArgumentException(mymessage);
             }
         }
         _middlewareGroups[routings] = mymiddlewareNames;
@@ -384,7 +384,7 @@ class RouteCollection {
                 continue;
             }
             if (!this.hasMiddleware(routings)) {
-                throw new InvalidArgumentException(
+                throw new DInvalidArgumentException(
                     "The middleware named `%s` has not been registered. Use registerMiddleware() to define it."
                         .format(routings
                         ));

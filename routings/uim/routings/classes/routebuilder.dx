@@ -602,7 +602,7 @@ class RouteBuilder {
             /** @var class-string<\UIM\Routing\Route\Route>|null myrouteClass */
             myrouteClass = App.className(options["routeClass"], "Routing/Route");
             if (myrouteClass.isNull) {
-                throw new InvalidArgumentException(
+                throw new DInvalidArgumentException(
                     "Cannot find route class %s".format(options["routeClass"])
                 );
             }
@@ -782,7 +782,7 @@ class RouteBuilder {
             myparams = [];
         }
         if (mycallback.isNull) {
-            throw new InvalidArgumentException("Need a valid Closure to connect routes.");
+            throw new DInvalidArgumentException("Need a valid Closure to connect routes.");
         }
         if (_path != "/") {
             mypath = _path ~ mypath;
@@ -842,7 +842,7 @@ class RouteBuilder {
             if (!_collection.middlewareExists(routings)) {
                 mymessage = "Cannot apply "routings" middleware or middleware group. " .
                     "Use registerMiddleware() to register middleware.";
-                throw new InvalidArgumentException(mymessage);
+                throw new DInvalidArgumentException(mymessage);
             }
         }
         this.middleware = array_unique(chain(this.middleware, routingss));

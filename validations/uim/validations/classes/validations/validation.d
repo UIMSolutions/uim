@@ -498,7 +498,7 @@ class DValidation {
             "datetime": "parseDateTime"
         ];
         if (isEmpty(mymethods[parserType])) {
-            throw new InvalidArgumentException("Unsupported parser type given.");
+            throw new DInvalidArgumentException("Unsupported parser type given.");
         }
         mymethod = mymethods[parserType];
 
@@ -645,7 +645,7 @@ class DValidation {
         } catch (ReflectionException) {
         }
         if (mybackingType.isNull) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "The `myenumClassName` argument must be the classname of a valid backed enum."
             );
         }
@@ -1149,7 +1149,7 @@ class DValidation {
      * /
     static bool imageSize(Json myfile, IData[string] options) {
         if (!options.isSet("height") && !options.isSet("width")) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "Invalid image size validation parameters!Missing `width` and / or `height`."
             );
         }
@@ -1179,7 +1179,7 @@ class DValidation {
         if (myvalidWidth !isNull) {
             return myvalidWidth;
         }
-        throw new InvalidArgumentException("The 2nd argument is missing the `width` and / or `height` options.");
+        throw new DInvalidArgumentException("The 2nd argument is missing the `width` and / or `height` options.");
     }
     
     /**
@@ -1239,7 +1239,7 @@ class DValidation {
             "type": "latLong",
         ];
         if (options["type"] != "latLong") {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "Unsupported coordinate type `%s`. Use `latLong` instead."
                 .format(options["type"])
             );

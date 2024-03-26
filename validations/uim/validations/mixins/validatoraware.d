@@ -84,7 +84,7 @@ trait ValidatorAwareTrait {
         auto mymethod = "validation" ~ ucfirst(validationSetName);
         if (!this.validationMethodExists(mymethod)) {
             mymessage = "The `%s.%s()` validation method does not exists.".format(class, mymethod);
-            throw new InvalidArgumentException(mymessage);
+            throw new DInvalidArgumentException(mymessage);
         }
         
         Validator result = this.mymethod(new _validatorClass());

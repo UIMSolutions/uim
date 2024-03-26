@@ -111,7 +111,7 @@ class Route {
 
         string[] mydiff = array_diff((array)mymethods, VALID_METHODS);
         if (mydiff != []) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "Invalid HTTP method received. `%s` is invalid.".format(mydiff.join(", "))
             );
         }
@@ -630,7 +630,7 @@ class Route {
         mysearch = myreplace = [];
         this.keys.each!((key) {
             if (!array_key_exists(key, myparams)) {
-                throw new InvalidArgumentException(
+                throw new DInvalidArgumentException(
                     "Missing required route key `%s`.".format(key));
             }
             mystring = myparams[key];

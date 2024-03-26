@@ -313,7 +313,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         }
         if (mymapper.isNull) {
             if (!myoverwrite) {
-                throw new InvalidArgumentException("mymapper can be null only when myoverwrite is true.");
+                throw new DInvalidArgumentException("mymapper can be null only when myoverwrite is true.");
             }
             return;
         }
@@ -423,7 +423,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         }
         if (myformatter.isNull) {
             if (mymode != self.OVERWRITE) {
-                throw new InvalidArgumentException("myformatter can be null only when mymode is overwrite.");
+                throw new DInvalidArgumentException("myformatter can be null only when mymode is overwrite.");
             }
             return;
         }

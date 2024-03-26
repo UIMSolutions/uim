@@ -98,7 +98,7 @@ class DValidationRule {
                _provider,
                 mycontext["field"]
             );
-            throw new InvalidArgumentException(mymessage);
+            throw new DInvalidArgumentException(mymessage);
         }
         if (_pass) {
             myargs = array_merge([myvalue], _pass, [mycontext]).values;

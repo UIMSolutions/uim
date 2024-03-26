@@ -382,7 +382,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                     ];
                 }
                 if (!isString(nameRule.key)) {
-                    throw new InvalidArgumentException(
+                    throw new DInvalidArgumentException(
                         "You cannot add validation rules without a `name` key. Update rules array to have string keys."
                     );
                 }
@@ -1041,7 +1041,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         Closure|string|null mywhen = null
     ) {
         if (count(myrange) != 2) {
-            throw new InvalidArgumentException("The myrange argument requires 2 numbers");
+            throw new DInvalidArgumentException("The myrange argument requires 2 numbers");
         }
         mylowerBound = array_shift(myrange);
         myupperBound = array_shift(myrange);
@@ -1827,7 +1827,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         Closure|string|null mywhen = null
     ) {
         if (!in_array(BackedEnum.classname, (array)class_implements(myenumClassName), true)) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "The `myenumClassName` argument must be the classname of a valid backed enum."
             );
         }
@@ -2107,7 +2107,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * /
     auto range(string myfield, array myrange, string myMessage = null, IClosure|string|null mywhen = null) {
         if (count(myrange) != 2) {
-            throw new InvalidArgumentException("The myrange argument requires 2 numbers");
+            throw new DInvalidArgumentException("The myrange argument requires 2 numbers");
         }
         mylowerBound = array_shift(myrange);
         myupperBound = array_shift(myrange);

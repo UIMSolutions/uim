@@ -12,7 +12,7 @@ import uim.http;
  *
  * @internal
  */
-class DMockAdapter : IAdapter {
+class DMockAdapter { //}: IAdapter {
     /*alias Alias = ;
     // List of mocked responses.
     protected array responses = [];

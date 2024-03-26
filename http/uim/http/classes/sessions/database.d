@@ -1,4 +1,4 @@
-module uim.cake.http.sessions.database;
+module uim.http.classes.sessions.database;
 
 import uim.http;
 
@@ -115,7 +115,7 @@ class DatabaseSession { // }: SessionHandler {
      * Method called on the destruction of a database session.
      * Params:
      * string aid ID that uniquely identifies session in database.
-     */
+     * /
     bool destroy(string aid) {
         /** @var string apk) {  _table.deleteAll([pkField:  anId]);
 

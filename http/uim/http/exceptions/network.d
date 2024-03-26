@@ -11,7 +11,7 @@ import uim.http;
  *
  * Example: the target host name can not be resolved or the connection failed.
  */
-class NetworkException { // }: RuntimeException : INetworkException {
+class DNetworkException { // }: RuntimeException : INetworkException {
     /**
      * @var \Psr\Http\Message\IRequest
      * /
@@ -33,7 +33,7 @@ class NetworkException { // }: RuntimeException : INetworkException {
      * Returns the request.
      *
      * The request object MAY be a different object from the one passed to IClient.sendRequest()
-     */
+     * /
     IRequest getRequest() {
         return this.request;
     } */

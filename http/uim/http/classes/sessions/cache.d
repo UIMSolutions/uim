@@ -75,7 +75,7 @@ class DCacheSession { // }: !SessionHandler {
      * Method called on the destruction of a cache session.
      * Params:
      * string aid ID that uniquely identifies session in cache.
-     */
+     * /
     bool destroy(string aid) {
         Cache.delete(anId, _options["config"]);
 

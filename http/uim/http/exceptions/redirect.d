@@ -22,11 +22,11 @@ class RedirectException : DHttpException {
      * Constructor
      * Params:
      * headerToSend - The headers that should be sent in the unauthorized challenge response.
-     */
+     * /
     this(string redirectUrl, int statusCode = 302, array headerToSend = []) {
         super(redirectUrl, statusCode);
 
         headerToSend.byKeyValue
             .each!(kv => this.header(kv.key, kv.value));
-    }
+    } */
 }

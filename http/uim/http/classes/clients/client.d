@@ -72,7 +72,7 @@ import uim.http;
  * specify which authentication strategy you want to use.
  * UIM comes with built-in support for basic authentication.
  */
-class DClient : IClient {
+class DClient { // }: IClient {
   /* 
   mixin InstanceConfigTemplate();
 

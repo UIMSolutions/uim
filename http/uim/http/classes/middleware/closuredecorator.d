@@ -1,4 +1,5 @@
-module uim.cake.http\Middleware;
+module uim.http.classes.middleware.closuredecorator;
+
 import uim.http;
 
 @safe:
@@ -16,17 +17,17 @@ import uim.http;
  *
  * such that it will operate as PSR-15 middleware.
  */
-class ClosureDecoratorMiddleware : IMiddleware {
+class ClosureDecoratorMiddleware { // }: IMiddleware {
     /**
      * A Closure.
-     */
+     * /
     protected Closure aCallable;
 
     /**
      * Constructor
      * Params:
      * \Closure callable A closure.
-     */
+     * /
     this(Closure aCallable) {
         this.callable = aCallable;
     }
@@ -36,7 +37,7 @@ class ClosureDecoratorMiddleware : IMiddleware {
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest Request instance.
      * @param \Psr\Http\Server\IRequestHandler handler Request handler instance.
-     */
+     * /
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
         return (this.callable)(
             request,
@@ -46,5 +47,5 @@ class ClosureDecoratorMiddleware : IMiddleware {
     
     Closure getCallable() {
         return this.callable;
-    }
+    } */
 }

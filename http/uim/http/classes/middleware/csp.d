@@ -1,4 +1,4 @@
-module uim.cake.http\Middleware;
+module uim.http.classes.middleware.csp;
 
 import uim.http;
 
@@ -11,7 +11,7 @@ import uim.http;
  * - `scriptNonce` Enable to have a nonce policy added to the script-src directive.
  * - `styleNonce` Enable to have a nonce policy added to the style-src directive.
  */
-class CspMiddleware : IMiddleware {
+class DCspMiddleware : IMiddleware {
     mixin InstanceConfigTemplate();
 
     /**

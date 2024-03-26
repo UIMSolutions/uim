@@ -1,4 +1,4 @@
-module uim.cake.http.middleware.bodyparser;
+module uim.http.classes.middleware.bodyparser;
 
 import uim.http;
 
@@ -10,7 +10,8 @@ import uim.http;
  * Enables JSON and XML request payloads to be parsed into the request`s body.
  * You can also add your own request body parsers using the `addParser()` method.
  */
-class BodyParserMiddleware : IMiddleware {
+class DBodyParserMiddleware { // }: IMiddleware {
+    /*
     // Registered Parsers
     protected Closure[] aParsers = [];
 
@@ -28,7 +29,7 @@ class BodyParserMiddleware : IMiddleware {
      * - `methods` The HTTP methods to parse on. Defaults to PUT, POST, PATCH DELETE.
      * Params:
      * IData[string] options The options to use. See above.
-     */
+     * /
     this(IData[string] options = null) {
         options += ["json": true, "xml": false, "methods": null];
         if (options["json"]) {
@@ -52,7 +53,7 @@ class BodyParserMiddleware : IMiddleware {
      * Set the HTTP methods to parse request bodies on.
      * Params:
      * string[] someMethods The methods to parse data on.
-     */
+     * /
     void setMethods(string[] methodsToParseData) {
         this.methods = methodsToParseData;
     }
@@ -80,7 +81,7 @@ class BodyParserMiddleware : IMiddleware {
      * string[] types An array of content-type header values to match. eg. application/json
      * @param \Closure  aParser The parser function. Must return an array of data to be inserted
      *  into the request.
-     */
+     * /
     void addParser(array types, Closure  aParser) {
         types
             .map!(type => type.toLower)
@@ -99,7 +100,7 @@ class BodyParserMiddleware : IMiddleware {
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request.
      * @param \Psr\Http\Server\IRequestHandler handler The request handler.
-     */
+     * /
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
         if (!in_array(request.getMethod(), this.methods, true)) {
             return handler.handle(request);
@@ -123,7 +124,7 @@ class BodyParserMiddleware : IMiddleware {
      * Decode JSON into an array.
      * Params:
      * string abody The request body to decode
-     */
+     * /
     protected array decodeJson(string abody) {
         if (body.isEmpty) {
             return null;
@@ -137,14 +138,12 @@ class BodyParserMiddleware : IMiddleware {
     
     /**
      * Decode XML into an array.
-     * Params:
-     * string abody The request body to decode
-     */
-    protected array decodeXml(string abody) {
+     * /
+    protected array decodeXml(string bodyToDecode) {
         try {
-            xml = Xml.build(body, ["return": "domdocument", "readFile": false]);
+            xml = Xml.build(bodyToDecode, ["return": "domdocument", "readFile": false]);
             // We might not get child nodes if there are nested inline entities.
-            /** @var \DOMNodeList domNodeList */
+            /** @var \DOMNodeList domNodeList * /
             domNodeList = xml.childNodes;
             if ((int)domNodeList.length > 0) {
                 return Xml.toArray(xml);
@@ -153,5 +152,5 @@ class BodyParserMiddleware : IMiddleware {
         } catch (XmlException) {
             return null;
         }
-    }
+    } */
 }

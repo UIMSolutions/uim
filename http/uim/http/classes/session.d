@@ -1,4 +1,4 @@
-module uim.cake.http;
+module uim.http.classes.session;
 
 import uim.http;
 
@@ -17,7 +17,8 @@ import uim.http;
  * values from the `session.*` directives in php.ini. This class will also alter such
  * directives when configuration values are provided.
  */
-class Session {
+class DSession {
+    /* 
     // The Session handler instance used as an engine for persisting the session data.
     protected SessionHandler _engine = null;
 
@@ -34,7 +35,7 @@ class Session {
      * Info about where the headers were sent.
      *
      * @var array{filename: string, line: int}|null
-     */
+     * /
     protected array aHeaderSentInfo = null;
 
     /**
@@ -61,7 +62,7 @@ class Session {
      * - timeout: The time in minutes the session should stay active
      * Params:
      * array sessionConfig Session config.
-     */
+     * /
     static static create(arraysessionConfig = []) {
         if (isSet(sessionConfig["defaults"])) {
             defaults = _defaultConfigData(sessionConfig["defaults"]);
@@ -98,7 +99,7 @@ class Session {
      * Params:
      * string aName Config name.
      * @return array|false
-     */
+     * /
     protected static array | false _defaultConfigData(string aName) {
         tmp = defined("TMP") ? TMP : sys_get_temp_dir() ~ DIRECTORY_SEPARATOR;
         IData[string]defaults = [
@@ -162,7 +163,7 @@ class Session {
      *  instantiated session handler object.
      * Params:
      * IData[string] configData The Configuration to apply to this session object
-     */
+     * /
     this(IData[string] configData = null) {
         configData += [
             "timeout": null,
@@ -207,7 +208,7 @@ class Session {
      * Params:
      * \!SessionHandler|string  className The session handler to use
      * @param IData[string] options the options to pass to the SessionHandler constructor
-     */
+     * /
     SessionHandler engine(
         !SessionHandler | string | null className = null,
         IData[string] options = null
@@ -218,7 +219,7 @@ class Session {
         if (cast(!SessionHandler) className) {
             return this.setEngine(className);
         }
-        /** @var class-string<\!SessionHandler>|null  className */
+        /** @var class-string<\!SessionHandler>|null  className * /
         className = App.className(className, "Http/Session");
         if (className.isNull) {
             throw new DInvalidArgumentException(
@@ -233,7 +234,7 @@ class Session {
      * Set the engine property and update the session handler in PHP.
      * Params:
      * \!SessionHandler handler The handler to set
-     */
+     * /
     protected SessionHandler setEngine(!SessionHandlerhandler) : ! {
         if (!headers_sent() && session_status() != UIM_SESSION_ACTIVE) {
             session_set_save_handler(handler, false);
@@ -252,7 +253,7 @@ class Session {
      * ```
      * Params:
      * IData[string] options Ini options to set.
-     */
+     * /
     void options(IData[string] options = null) {
         if (session_status() == UIM_SESSION_ACTIVE || headers_sent()) {
             return;
@@ -268,7 +269,7 @@ class Session {
 
     /**
      * Starts the Session.
-     */
+     * /
     bool start() {
         if (_started) {
             return true;
@@ -303,7 +304,7 @@ class Session {
 
     /**
      * Write data and close the session
-     */
+     * /
     bool close() {
         if (!_started) {
             return true;
@@ -323,7 +324,7 @@ class Session {
 
     /**
      * Determine if Session has already been started.
-     */
+     * /
     bool started() {
         return _started || session_status() == UIM_SESSION_ACTIVE;
     }
@@ -332,7 +333,7 @@ class Session {
      * Returns true if given variable name is set in session.
      * Params:
      * string name Variable name to check for
-     */
+     * /
     bool check(string aName = null) {
         if (_hasSession() && !this.started()) {
             this.start();
@@ -351,7 +352,7 @@ class Session {
      * Params:
      * string name The name of the session variable (or a path as sent to Hash.extract)
      * @param Json defaultValue The return value when the path does not exist
-     */
+     * /
     Json read(string aName = null, Json defaultValue = Json(null)) {
         if (_hasSession() && !this.started()) {
             this.start();
@@ -367,7 +368,7 @@ class Session {
 
     /**
      * Returns given session variable, or throws Exception if not found.
-     */
+     * /
     Json readOrFail(string sessionName) {
         if (!this.check(sessionName)) {
             throw new UimException("Expected session key `%s` not found.".format(sessionName));
@@ -379,14 +380,14 @@ class Session {
      * Reads and deletes a variable from session.
      * Params:
      * string aName The key to read and remove (or a path as sent to Hash.extract).
-     */
+     * /
     Json consume(string aName) {
         if (isEmpty(name)) {
             return null;
         }
         aValue = this.read(name);
         if (aValue!isNull) {
-            /** @psalm-suppress InvalidScalarArgument */
+            /** @psalm-suppress InvalidScalarArgument * /
             _overwrite(_SESSION, Hash.remove(_SESSION, name));
         }
         return aValue;
@@ -397,7 +398,7 @@ class Session {
      * Params:
      * string[] aName Name of variable
      * @param Json aValue Value to write
-     */
+     * /
     void write(string[] aName, Json aValue = null) {
         started = this.started() || this.start();
         if (!started) {
@@ -433,7 +434,7 @@ class Session {
      * characters in the range a-z A-Z 0-9 , (comma) and - (minus).
      * Params:
      * string  anId ID to replace the current session ID.
-     */
+     * /
     string id(string aid = null) {
         if (anId!isNull && !headers_sent()) {
             session_id(anId);
@@ -445,10 +446,10 @@ class Session {
      * Removes a variable from session.
      * Params:
      * string aName Session variable to remove
-     */
+     * /
     void delete(string aName) {
         if (this.check(name)) {
-            /** @psalm-suppress InvalidScalarArgument */
+            /** @psalm-suppress InvalidScalarArgument * /
             _overwrite(_SESSION, Hash.remove(_SESSION, name));
         }
     }
@@ -458,7 +459,7 @@ class Session {
      * Params:
      * array old Set of old variables: values
      * @param array new New set of variable: value
-     */
+     * /
     protected void _overwrite(array & old, arraynew) {
         ) {
             foreach (old as aKey : var) {
@@ -488,7 +489,7 @@ class Session {
      * Optionally it also clears the session id and renews the session.
      * Params:
      * bool renew If session should be renewed, as well. Defaults to false.
-     */
+     * /
         void clear(boolrenew = false) {
             _SESSION = [];
             if (renew) {
@@ -498,7 +499,7 @@ class Session {
 
         /**
      * Returns whether a session exists
-     */
+     * /
         protected bool _hasSession() {
             return !ini_get("session.use_cookies")
                 || isSet(_COOKIE[session_name()])
@@ -531,7 +532,7 @@ class Session {
         /**
      * Returns true if the session is no longer valid because the last time it was
      * accessed was after the configured timeout.
-     */
+     * /
         protected bool _timedOut() {
             time = this.read("Config.time");
             result = false;
@@ -543,5 +544,5 @@ class Session {
             this.write("Config.time", time());
 
             return result;
-        }
-    }
+        } */
+}

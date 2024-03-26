@@ -1,16 +1,16 @@
-module uim.cake.http.headerutilities;
+module uim.http.classes.headerutility;
 
-import uim.cake;
+import uim.http;
 
 @safe:
-/*
+
 // Provides helper methods related to HTTP headers
 class HeaderUtility {
     /**
      * Get an array representation of the HTTP Link header values.
      * Params:
      * array linkHeaders An array of Link header strings.
-     */
+     * /
     static array parseLinks(array linkHeaders) {
         auto result = linkHeaders
             .map!(linkHeader => parseLinkItem(linkHeader)).array;
@@ -22,7 +22,7 @@ class HeaderUtility {
      * Parses one item of the HTTP link header into an array
      * Params:
      * string avalue The HTTP Link header part
-     */
+     * /
     protected static IData[string] parseLinkItem(string headerPart) {
         preg_match("/<(.*)>[; ]?[; ]?(.*)?/i", headerPart, matches);
 
@@ -54,7 +54,7 @@ class HeaderUtility {
      * Parse the Accept header value into weight: value mapping.
      * Params:
      * string aheader The header value to parse
-     */
+     * /
     static string[][string] parseAccept(string aheader) {
         accept = [];
         if (!aHeader) {
@@ -90,7 +90,7 @@ class HeaderUtility {
     
     /**
      * authenticateHeader = The WWW-Authenticate header
-     */
+     * /
     static array parseWwwAuthenticate(string authenticateHeader) {
         preg_match_all(
             "@(\w+)=(?:(?:')([^"]+)"|([^\s,]+))@",

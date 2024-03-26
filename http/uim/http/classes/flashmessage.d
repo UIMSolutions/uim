@@ -1,6 +1,6 @@
-module uim.cake.http;
+module uim.http.classes.flashmessage;
 
-import uim.cake;
+import uim.http;
 
 @safe:
 
@@ -8,7 +8,8 @@ import uim.cake;
  * The FlashMessage class provides a way for you to write a flash variable
  * to the session, to be rendered in a view with the FlashHelper.
  */
-class FlashMessage {
+class DFlashMessage {
+    /* 
     use InstanceConfigTemplate();
 
     // Default configuration
@@ -47,7 +48,7 @@ class FlashMessage {
      * messageToBeFlashed - Message to be flashed.
      * @param IData[string] options An array of options
      * @see FlashMessage._defaultConfigData For default values for the options.
-     */
+     * /
     void set(string messageToBeFlashed, IData[string] options = null) {
         auto options = options.update(this.getConfig());
 
@@ -95,7 +96,7 @@ class FlashMessage {
      * Params:
      * \Throwable exception Exception instance.
      * @param IData[string] options An array of options.
-     */
+     * /
     void setExceptionMessage(Throwable exception, IData[string] options = null) {
         options["element"] ??= "error";
         options["params"]["code"] ??= exception.getCode();
@@ -108,7 +109,7 @@ class FlashMessage {
      * Get the messages for given key and remove from session.
      * Params:
      * string aKey The key for get messages for.
-     */
+     * /
     array consume(string aKey) {
         return this.session.consume("Flash.{aKey}");
     }
@@ -121,7 +122,7 @@ class FlashMessage {
      * string amessage Message to flash.
      * @param IData[string] options An array of options.
      * @see FlashMessage.set() For list of valid options
-     */
+     * /
     void success(string amessage, IData[string] options = null) {
         options["element"] = "Success";
         this.set(message, options);
@@ -135,7 +136,7 @@ class FlashMessage {
      * string amessage Message to flash.
      * @param IData[string] options An array of options.
      * @see FlashMessage.set() For list of valid options
-     */
+     * /
     void error(string amessage, IData[string] options = null) {
         options["element"] = "error";
         this.set(message, options);
@@ -148,7 +149,7 @@ class FlashMessage {
      * Params:
      * string amessage Message to flash.
      * @param IData[string] options An array of options.
-     */
+     * /
     void warning(string amessage, IData[string] options = null) {
         options["element"] = "warning";
         this.set(message, options);
@@ -161,9 +162,9 @@ class FlashMessage {
      * Params:
      * string amessage Message to flash.
      * @param IData[string] options An array of options.
-     */
+     * /
     void info(string amessage, IData[string] options = null) {
         options["element"] = "info";
         this.set(message, options);
-    }
+    } */
 }

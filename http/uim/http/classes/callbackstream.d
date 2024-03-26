@@ -1,6 +1,6 @@
 module uim.http.classes.callbackstream;
 
-import uim.cake;
+import uim.http;
 
 @safe:
 

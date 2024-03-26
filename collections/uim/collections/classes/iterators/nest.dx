@@ -10,7 +10,7 @@ import uim.collections;
  *
  * @template-implements \RecursiveIterator<mixed, mixed>
  */
-class NestIterator : Collection, RecursiveIterator {
+class NestIterator : DCollection, RecursiveIterator {
     // The name of the property that contains the nested items for each element
     protected string _nestKey;
 
@@ -26,9 +26,7 @@ class NestIterator : Collection, RecursiveIterator {
        _nestKey = nestKey;
     }
     
-    /**
-     * Returns a traversable containing the children for the current item
-     */
+    // Returns a traversable containing the children for the current item
     RecursiveIterator getChildren() {
          aProperty = _propertyExtractor(_nestKey);
 

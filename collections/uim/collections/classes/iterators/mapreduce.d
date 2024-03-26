@@ -1,4 +1,4 @@
-module uim.collections.iterators.mapreduce;
+module uim.collections.classes.iterators.mapreduce;
 
 import uim.collections;
 
@@ -13,6 +13,7 @@ import uim.collections;
  * @template-implements \IteratorAggregate<mixed>
  */
 class MapReduce : IteratorAggregate {
+    /* 
     // Holds the shuffled results that were emitted from the map phase
     protected array _intermediate = [];
 
@@ -31,7 +32,7 @@ class MapReduce : IteratorAggregate {
     /**
      * A callable that will be executed for each intermediate record emitted during
      * the Map phase
-     */
+     * /
     protected callable _reducer;
 
     // Count of elements emitted during the Reduce phase
@@ -71,7 +72,7 @@ class MapReduce : IteratorAggregate {
      * The first one is the list of values inside a bucket, second one is the name
      * of the bucket that was created during the mapping phase and third one is an
      * instance of this class.
-     */
+     * /
     this(Range someData, callable mapper, ?callable reducer = null) {
        _data = someData;
        _mapper = mapper;
@@ -81,7 +82,7 @@ class MapReduce : IteratorAggregate {
     /**
      * Returns an iterator with the end result of running the Map and Reduce
      * phases on the original data
-     */
+     * /
     Traversable getIterator() {
         if (!_executed) {
            _execute();
@@ -95,7 +96,7 @@ class MapReduce : IteratorAggregate {
      * Params:
      * IData val The record itself to store in the bucket
      * @param IData aBucketName the name of the bucket where to put the record
-     */
+     *  /
     void emitIntermediate(IData val, IData aBucketName)) {
        _intermediate[aBucketName] ~= val;
     }
@@ -106,7 +107,7 @@ class MapReduce : IteratorAggregate {
      * Params:
      * IData val The value to be appended to the final list of results
      * @param string aKey and optional key to assign to the value
-     */
+     * /
     void emit(IData val, string aKey = null) {
        _result[aKey ?? _counter] = val;
        _counter++;
@@ -119,7 +120,7 @@ class MapReduce : IteratorAggregate {
      *
      * @throws \LogicException if emitIntermediate was called but no reducer function
      * was provided
-     */
+     * /
     protected void _execute() {
         auto myMapper = _mapper;
         _data.byKeyValue.each!(kv => myMapper(kv.value, kv.key, this));
@@ -133,5 +134,5 @@ class MapReduce : IteratorAggregate {
         }
        _intermediate = [];
        _executed = true;
-    }
+    } */
 }

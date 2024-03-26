@@ -1,4 +1,4 @@
-module collections.uim.collections.classes.iterators.insert;
+module uim.collections.classes.iterators.insert;
 
 import uim.collections;
 

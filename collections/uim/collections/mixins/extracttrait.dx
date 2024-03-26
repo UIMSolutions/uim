@@ -43,7 +43,7 @@ template ExtractTemplate {
      * \ArrayAccess<string|int, mixed>|array data Data.
      * string[] someParts Path to extract from.
      */
-    protected Json _extract(ArrayAccess|array data, string[] someParts) {
+    protected IData _extract(ArrayAccess|array data, string[] someParts) {
         auto aValue = null;
         bool isCollectionTransform = false;
 
@@ -79,7 +79,7 @@ template ExtractTemplate {
      * \ArrayAccess<string|int, mixed>|array data Data.
      * @param string[] someParts Path to extract from.
      */
-    protected Json _simpleExtract(ArrayAccess|array data, array someParts) {
+    protected IData _simpleExtract(ArrayAccess|array data, array someParts) {
         auto value = null;
         someParts
             .filter!(column => someData.isSet(column))

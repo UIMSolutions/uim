@@ -580,7 +580,7 @@ trait CollectionTrait {
     }
 
 
-    array jsonSerialize() {
+    array IDataSerialize() {
         return this.toArray();
     }
 

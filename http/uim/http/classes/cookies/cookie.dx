@@ -130,7 +130,7 @@ class Cookie : ICookie {
      * IData[string] options Default options.
      */
     static void setDefaults(IData[string] options = null) {
-        auto options = options.copy;
+        auto options = options.clone;
 
         if (isSet(options["expires"])) {
             options["expires"] = dateTimeInstance(options["expires"]);

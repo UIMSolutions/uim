@@ -6,6 +6,19 @@ import uim.consoles;
 
 // This is a factory for creating Command instances.
 class DCommandFactory { // }: ICommandFactory {
+  mixin TConfigurable!();
+
+  this() {
+    initialize;
+  }
+
+  // Hook method
+  bool initialize(IData[string] initData = null) {
+    configuration(MemoryConfiguration);
+    setConfigurationData(initData);
+
+    return true;
+  }
   /* 
   protected IContainer _container = null;
 
@@ -13,17 +26,11 @@ class DCommandFactory { // }: ICommandFactory {
     _container = newContainer;
   }
 
-  override bool initialize(IData[string] initData = null) {
-    if (!super.initialize(initData)) {
-      return false;
-    }
-
-    return true;
-  }
+    
 
   ICommand create(string className) {
     return _container && _container.has(aClassName)
-      ? _container.get(aClassName).copy : null;
+      ? _container.get(aClassName).clone : null;
   } 
   */
 }

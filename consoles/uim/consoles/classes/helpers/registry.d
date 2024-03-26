@@ -10,7 +10,21 @@ import uim.consoles;
  *
  * @extends \UIM\Core\ObjectRegistry<\UIM\Console\Helper>
  */
-class HelperRegistry : ObjectRegistry {
+class HelperRegistry { // }: ObjectRegistry {
+    mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    // Hook method
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
+        return true;
+    }
+    /* 
     // IO instance.
     protected IConsoleIo _io;
 
@@ -22,7 +36,7 @@ class HelperRegistry : ObjectRegistry {
     /**
      * Resolve a helper classname.
      * Part of the template method for {@link \UIM\Core\ObjectRegistry.load()}.
-     */
+     * /
     protected string _resolveClassName(string className) {
         return App.className(className, "Command/Helper", "Helper");
     }
@@ -32,7 +46,7 @@ class HelperRegistry : ObjectRegistry {
      *
      * Part of the template method for UIM\Core\ObjectRegistry.load()
      * and UIM\Core\ObjectRegistry.unload()
-     */
+     * /
     protected void _throwMissingClassError(string className, string pluginName) {
         throw new MissingHelperException([
             "class": className,
@@ -47,12 +61,12 @@ class HelperRegistry : ObjectRegistry {
      * Params:
      * \UIM\Console\Helper|class-string<\UIM\Console\Helper> className The classname to create.
      * configData - An array of settings to use for the helper.
-     */
+     * /
     protected Helper _create(object obj, string helperAlias, IData[string] configData) {
         return obj;
     }
 
     protected Helper _create(string className, string helperAlias, IData[string] configData) {
         return new className(_io, configData);
-    }
+    } */
 }

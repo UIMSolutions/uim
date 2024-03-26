@@ -103,7 +103,7 @@ version (linux) {
 		}
 
 		try {
-			fileName.copy(from, to);
+			fileName.clone(from, to);
 		} catch (Exception e) {
 			return false;
 		}

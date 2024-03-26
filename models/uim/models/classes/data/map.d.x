@@ -76,7 +76,7 @@ import uim.models;
     DMapData MapValue = MapValue;
 
     foreach(key, value; _items) {
-      MapValue[key] = value.copy;
+      MapValue[key] = value.clone;
     }
 
     return MapValue;

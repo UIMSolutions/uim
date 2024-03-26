@@ -1,4 +1,4 @@
-module uim.consoles;
+module uim.consoles.classes.helpers.helper;
 
 import uim.consoles;
 
@@ -12,8 +12,21 @@ import uim.consoles;
  * progress bars or ascii art.
  */
 abstract class Helper {
-    mixin TConfigurable!();
+    mixin TConfigurable!(); 
 
+    this() {
+        initialize;
+    }
+
+    // Hook method
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
+        return true;
+    }
+    
+    /*
     mixin InstanceConfigTemplate();
 
     // Default config for this helper.
@@ -24,7 +37,7 @@ abstract class Helper {
     /**
      * @param \UIM\Console\IConsoleIo aConsoleIo The ConsoleIo instance to use.
      * configData - The settings for this helper.
-     */
+     * /
     this() {
         initialize;
     }
@@ -42,6 +55,7 @@ abstract class Helper {
      * This method should output content using `_io`.
      * Params:
      * array someArguments The arguments for the helper.
-     */
+     * /
     abstract void output(array someArguments);
+    */ 
 }

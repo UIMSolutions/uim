@@ -10,7 +10,7 @@ import uim.http;
  *
  * This approach and implementation is partly inspired by Aura.Http
  */
-class Stream : IAdapter {
+class DStream { // }: IAdapter {
     /**
      * Context resource used by the stream API.
      *

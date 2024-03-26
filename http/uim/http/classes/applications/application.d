@@ -1,4 +1,4 @@
-module http.uim.http.classes.applications.application;
+module uim.http.classes.applications.application;
 
 import uim.http;
 

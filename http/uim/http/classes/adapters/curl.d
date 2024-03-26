@@ -12,7 +12,7 @@ import uim.http;
  * can be set via the `curl` option key when making requests or configuring
  * a client.
  */
-class Curl : IAdapter {
+class DCurl { // }: IAdapter {
     /*
     array send(IRequest request, IData[string] options = null) {
         if (!extension_loaded("curl")) {

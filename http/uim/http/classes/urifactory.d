@@ -1,4 +1,4 @@
-module uim.cake.http;
+module uim.http.classes.urifactory;
 
 import uim.http;
 

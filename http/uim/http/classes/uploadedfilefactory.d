@@ -23,7 +23,7 @@ class DUploadedFileFactory : UploadedFileFactoryInterface {
      * @param string clientFilename The filename as provided by the client, if any.
      * @param string clientMediaType The media type as provided by the client, if any.
      * @throws \InvalidArgumentException If the file resource is not readable.
-     */
+     * /
     auto createUploadedFile(
         IStream stream,
         int size = null,
@@ -35,5 +35,5 @@ class DUploadedFileFactory : UploadedFileFactoryInterface {
             size = stream.getSize() ?? 0;
         }
         return new UploadedFile(stream, size, error, clientFilename, clientMediaType);
-    }
+    } */
 }

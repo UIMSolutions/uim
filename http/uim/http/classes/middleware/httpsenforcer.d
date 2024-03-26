@@ -1,11 +1,11 @@
-module uim.cake.http\Middleware;
+module uim.http.classes.middleware.httpsenforcer;
 
 import uim.http;
 
 @safe:
 
 // Enforces use of HTTPS (SSL) for requests.
-class HttpsEnforcerMiddleware : IMiddleware {
+class HttpsEnforcerMiddleware { // }: IMiddleware {
     /**
      * Configuration.
      *
@@ -22,7 +22,7 @@ class HttpsEnforcerMiddleware : IMiddleware {
      *       - 'maxAge' - `max-age` directive value in seconds.
      *       - 'includeSubDomains' - Whether to include `includeSubDomains` directive. Defaults to `false`.
      *       - 'preload' - Whether to include 'preload' directive. Defauls to `false`.
-     */
+     * /
     protected IData[string] configData = [
         "redirect": Json(true),
         "statusCode": Json(301),
@@ -36,7 +36,7 @@ class HttpsEnforcerMiddleware : IMiddleware {
      * Constructor
      * Params:
      * @see \UIM\Http\Middleware\HttpsEnforcerMiddleware.configData
-     */
+     * /
     this(IData[string] configData = null) {
         this.config = configData + this.config;
     }
@@ -49,7 +49,7 @@ class HttpsEnforcerMiddleware : IMiddleware {
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request.
      * @param \Psr\Http\Server\IRequestHandler handler The request handler.
-     */
+     * /
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
         if (cast8ServerRequest)request  && isArray(configuration["trustedProxies"])) {
             request.setTrustedProxies(configuration["trustedProxies"]);
@@ -86,7 +86,7 @@ class HttpsEnforcerMiddleware : IMiddleware {
      * Adds Strict-Transport-Security header to response.
      * Params:
      * \Psr\Http\Message\IResponse response Response
-     */
+     * /
     protected IResponse addHsts(IResponse response) {
         configData = configuration["hsts"];
         if (!isArray(configData)) {
@@ -100,5 +100,5 @@ class HttpsEnforcerMiddleware : IMiddleware {
             aValue ~= "; preload";
         }
         return response.withHeader("strict-transport-security", aValue);
-    }
+    } */
 }

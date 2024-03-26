@@ -1,4 +1,4 @@
-module uim.cake.http\Middleware;
+module http.uim.http.classes.middleware.csrfprotection;
 
 import uim.http;
 

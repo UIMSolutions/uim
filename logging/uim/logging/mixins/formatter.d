@@ -1,15 +1,19 @@
 module uim.logging.mixins.formatter;
 
 string formatterThis(string name) {
-    auto fullname = name~"Formatter";
+    string fullName = name ~ "Formatter";
     return `
-this(IData[string] initData = null) {
-    initialize(initData); this.name("`~fullname~`");
-}
-this(string name) {
-    this(); this.name(name);
-}
-    `;    
+    this() {
+        super(); this.name("`
+        ~ fullName ~ `");
+    }
+    this(IData[string] initData) {
+        super(initData); this.name("`~ fullName ~ `");
+    }
+    this(string name) {
+        super(); this.name(name);
+    }
+    `;
 }
 
 template FormatterThis(string name) {
@@ -17,11 +21,12 @@ template FormatterThis(string name) {
 }
 
 string formatterCalls(string name) {
-    auto fullname = name~"Formatter";
+    string fullName = name ~ "Formatter";
     return `
-auto `~fullname~`() { return new D`~fullname~`(); }
-auto `~fullname~`(string name) { return new D`~fullname~`(name); }
-    `;    
+    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
+    auto `~ fullName ~ `(IData[string] initData) { return new D` ~ fullName ~ `(initData);}
+    auto `~ fullName ~ `(string name) { return new D` ~ fullName ~ `(name); }
+    `;
 }
 
 template FormatterCalls(string name) {

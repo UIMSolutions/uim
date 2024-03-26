@@ -1,15 +1,19 @@
 module uim.http.mixins.request;
 
 string requestThis(string name) {
-    auto fullname = name~"Request";
+    string fullName = name ~ "Request";
     return `
-this(IData[string] initData = null) {
-    initialize(initData); this.name("`~fullname~`");
-}
-this(string name) {
-    this(); this.name(name);
-}
-    `;    
+    this() {
+        super(); this.name("`
+        ~ fullName ~ `");
+    }
+    this(IData[string] initData) {
+        super(initData); this.name("`~ fullName ~ `");
+    }
+    this(string name) {
+        super(); this.name(name);
+    }
+    `;
 }
 
 template RequestThis(string name) {
@@ -17,11 +21,12 @@ template RequestThis(string name) {
 }
 
 string requestCalls(string name) {
-    auto fullname = name~"Request";
+    string fullName = name ~ "Request";
     return `
-auto `~fullname~`() { return new D`~fullname~`(); }
-auto `~fullname~`(string name) { return new D`~fullname~`(name); }
-    `;    
+    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
+    auto `~ fullName ~ `(IData[string] initData) { return new D` ~ fullName ~ `(initData);}
+    auto `~ fullName ~ `(string name) { return new D` ~ fullName ~ `(name); }
+    `;
 }
 
 template RequestCalls(string name) {

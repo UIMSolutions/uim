@@ -1,15 +1,19 @@
 module uim.logging.mixins.logger;
 
 string loggerThis(string name) {
-    auto fullname = name~"Logger";
+    string fullName = name ~ "Logger";
     return `
-this(IData[string] initData = null) {
-    initialize(initData); this.name("`~fullname~`");
-}
-this(string name) {
-    this(); this.name(name);
-}
-    `;    
+    this() {
+        super(); this.name("`
+        ~ fullName ~ `");
+    }
+    this(IData[string] initData) {
+        super(initData); this.name("`~ fullName ~ `");
+    }
+    this(string name) {
+        super(); this.name(name);
+    }
+    `;
 }
 
 template LoggerThis(string name) {
@@ -17,11 +21,12 @@ template LoggerThis(string name) {
 }
 
 string loggerCalls(string name) {
-    auto fullname = name~"Logger";
+    string fullName = name ~ "Logger";
     return `
-auto `~fullname~`() { return new D`~fullname~`(); }
-auto `~fullname~`(string name) { return new D`~fullname~`(name); }
-    `;    
+    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
+    auto `~ fullName ~ `(IData[string] initData) { return new D` ~ fullName ~ `(initData);}
+    auto `~ fullName ~ `(string name) { return new D` ~ fullName ~ `(name); }
+    `;
 }
 
 template LoggerCalls(string name) {

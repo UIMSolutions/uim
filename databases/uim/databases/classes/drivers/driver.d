@@ -5,7 +5,21 @@ import uim.databases;
 @safe:
 
 class DDriver { // }: IDriver {
-    mixin TConfigurable!(); 
+    mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    this(string name) {
+        this();
+        this.name(name);
+    }
+
     // Hook method
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);

@@ -310,6 +310,6 @@ class AssociationCollection { // }: IteratorAggregate {
 
     // Allow looping through the associations
     DORMAssociation[string] getIterator() {
-      return new ArrayIterator(_items);
+      return new DArrayIterator(_items);
     } */
 } 

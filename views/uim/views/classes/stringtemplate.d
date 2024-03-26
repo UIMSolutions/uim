@@ -133,7 +133,7 @@ class DStringTemplate {
     protected void compileTemplate(string templateName) {
         string templateValue; // TODO  = get(templateName);
         // TODO if (templateValue.isNull) {
-        // TODO    throw new InvalidArgumentException("String template `%s` is not valid.".format(templateName));
+        // TODO    throw new DInvalidArgumentException("String template `%s` is not valid.".format(templateName));
         // TODO}
 
         // TODO assert(templateValue.isString,
@@ -177,7 +177,7 @@ class DStringTemplate {
         auto myData = insertData.dup;
         
         // TODO if (!_compiledtemplates.isSet(templateName)) {
-        // TODO     throw new InvalidArgumentException("Cannot find template named `%s`.".format(templateName));
+        // TODO     throw new DInvalidArgumentException("Cannot find template named `%s`.".format(templateName));
         // TODO }
         // TODO [mytemplate, myplaceholders] = _compiledtemplates[templateName];
         string myTemplate; // TODO  = _compiledtemplates[templateName];

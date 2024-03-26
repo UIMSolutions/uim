@@ -417,7 +417,7 @@ vars =
             cast(Closure)myitem ||
             cast(PDO)myitem
         ) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "Failed serializing the `%s` %s in the `%s` view var"
                 .format(isResource(myitem) ? get_resource_type(myitem): myitem.classname,
                 isResource(myitem) ? "resource" : "object",

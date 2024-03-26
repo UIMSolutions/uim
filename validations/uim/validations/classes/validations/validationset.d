@@ -148,7 +148,7 @@ class ValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      * Returns an iterator for each of the rules to be applied
      * /
     Traversable<string, \UIM\Validation\ValidationRule> getIterator() {
-        return new ArrayIterator(_rules);
+        return new DArrayIterator(_rules);
     }
 
     // Returns the number of rules in this set

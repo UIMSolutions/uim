@@ -484,7 +484,7 @@ class DView : IView { //  }: IEventDispatcher {
     string cache(callable myblock, IData[string] options  = null) {
         IData[string] options += ["key": "", "config": this.elementCache];
         if (options["key"].isEmpty) {
-            throw new InvalidArgumentException("Cannot cache content with an empty key");
+            throw new DInvalidArgumentException("Cannot cache content with an empty key");
         }
         result = Cache.read(options["key"], options["config"]);
         if (result) {
@@ -1032,7 +1032,7 @@ class DView : IView { //  }: IEventDispatcher {
         }
         string myabsolute = realpath(myfile);
         if (myabsolute == false || !myabsolute.startWith(mypath)) {
-            throw new InvalidArgumentException(
+            throw new DInvalidArgumentException(
                 "Cannot use `%s` as a template, it is not within any view template path."
                 .format(myfile));
         }

@@ -324,7 +324,7 @@ class DHasManyAssociation : DAssociation {
         property = this.getProperty();
 
         conditions = [
-            "OR":(new Collection(myTargetEntities))
+            "OR":(new DCollection(myTargetEntities))
                 .map(function (entity) use (myTargetPrimaryKey) {
                     /** @var DORMdatasources.IEntity anEntity * /
                     return entity.extract(myTargetPrimaryKey);
@@ -338,7 +338,7 @@ class DHasManyAssociation : DAssociation {
         if (options["cleanProperty"] && myResult  !is null) {
             sourceEntity.set(
                 property,
-                (new Collection(sourceEntity.get(property)))
+                (new DCollection(sourceEntity.get(property)))
                 .reject(
                     function (assoc) use (myTargetEntities) {
                         return in_array(assoc, myTargetEntities);
@@ -430,7 +430,7 @@ class DHasManyAssociation : DAssociation {
         IData[string] options = null
     ) {
         primaryKeys = (array)myTarget.getPrimaryKeys();
-        exclusions = new Collection(remainingEntities);
+        exclusions = new DCollection(remainingEntities);
         exclusions = exclusions.map(
             function (ent) use (primaryKeys) {
                 /** @var DORMdatasources.IEntity ent * /

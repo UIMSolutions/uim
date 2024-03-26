@@ -472,7 +472,7 @@ class EntityContext : IContext {
         }
         mytable = _getTable(myparts);
         if (!mytable) {
-            throw new InvalidArgumentException("Validator not found: `%s`.".format(aKey));
+            throw new DInvalidArgumentException("Validator not found: `%s`.".format(aKey));
         }
         myalias = mytable.aliasName();
 

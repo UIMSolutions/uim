@@ -332,7 +332,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Returns an iterator for each of the fields to be validated
      * /
     Traversable<string, \UIM\Validation\ValidationSet> getIterator() {
-        return new ArrayIterator(_fields);
+        return new DArrayIterator(_fields);
     }
     
     /**

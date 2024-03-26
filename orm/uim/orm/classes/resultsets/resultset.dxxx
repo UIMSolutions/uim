@@ -325,12 +325,12 @@ class ResultSet : IResultSet {
      */
     protected void _calculateAssociationMap(Query query) {
         map = query.getEagerLoader().associationsMap(_defaultTable);
-        _matchingMap = (new Collection(map))
+        _matchingMap = (new DCollection(map))
             .match(["matching": true])
             .indexBy("alias")
             .toArray();
 
-        _containMap = (new Collection(array_reverse(map)))
+        _containMap = (new DCollection(array_reverse(map)))
             .match(["matching": false])
             .indexBy("nestKey")
             .toArray();

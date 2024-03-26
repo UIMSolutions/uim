@@ -631,7 +631,7 @@ class Marshaller
     function mergeMany(Range entities, array data, STRINGAA someOptions = null) {
         primary = (array)_table.getPrimaryKeys();
 
-        indexed = (new Collection(data))
+        indexed = (new DCollection(data))
             .groupBy(function (el) use (primary) {
                 keys = null;
                 foreach (primary as key) {
@@ -663,7 +663,7 @@ class Marshaller
             unset(indexed[key]);
         }
 
-        conditions = (new Collection(indexed))
+        conditions = (new DCollection(indexed))
             .map(function (data, key) {
                 return explode(";", to!string(key));
             })
@@ -688,7 +688,7 @@ class Marshaller
             }
         }
 
-        foreach ((new Collection(indexed)).append(new) as value) {
+        foreach ((new DCollection(indexed)).append(new) as value) {
             if (!(value.isArray) {
                 continue;
             }

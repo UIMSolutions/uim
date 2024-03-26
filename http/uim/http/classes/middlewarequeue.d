@@ -1,4 +1,4 @@
-module http.uim.http.classes.middlewarequeue;
+module uim.http.classes.middlewarequeue;
 
 /**
  * Provides methods for creating and manipulating a "queue" of middlewares.

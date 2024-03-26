@@ -1,4 +1,4 @@
-module http.uim.http.classes.adapters.mock;
+module uim.http.classes.adapters.mock;
 
 import uim.http;
 
@@ -12,7 +12,8 @@ import uim.http;
  *
  * @internal
  */
-class Mock : IAdapter {
+class DMockAdapter : IAdapter {
+    /*alias Alias = ;
     // List of mocked responses.
     protected array responses = [];
 
@@ -26,7 +27,7 @@ class Mock : IAdapter {
      * \Psr\Http\Message\IRequest request A partial request to use for matching.
      * @param \UIM\Http\Client\Response response The response that matches the request.
      * @param IData[string] options See above.
-     */
+     * /
     void addResponse(IRequest request, Response response, IData[string] options = null) {
         if (isSet(options["match"]) && !(cast(Closure)options["match"])) {
             type = get_debug_type(options["match"]);
@@ -47,7 +48,7 @@ class Mock : IAdapter {
      * Params:
      * \Psr\Http\Message\IRequest request The request to match
      * @param IData[string] options Unused.
-     */
+     * /
     Response[] send(IRequest request, IData[string] options = null) {
         found = null;
         method = request.getMethod();
@@ -89,7 +90,7 @@ class Mock : IAdapter {
      * Params:
      * string arequestUri The request being sent.
      * @param \Psr\Http\Message\IRequest mock The request being mocked.
-     */
+     * /
     protected bool urlMatches(string requestUri, IRequest mock) {
         string mockUri = (string)mock.getUri();
         if (requestUri == mockUri) {
@@ -102,5 +103,5 @@ class Mock : IAdapter {
             return requestUri.startWith(mockUri);
         }
         return false;
-    }
+    } */
 }

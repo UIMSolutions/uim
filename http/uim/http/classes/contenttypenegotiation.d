@@ -1,4 +1,4 @@
-module http.uim.http.classes.contenttypenegotiation;
+module uim.http.classes.contenttypenegotiation;
 
 import uim.http;
 

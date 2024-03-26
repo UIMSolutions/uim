@@ -1,4 +1,4 @@
-module http.uim.http.classes.uploadedfilefactory;
+module uim.http.classes.uploadedfilefactory;
 
 import uim.http;
 

@@ -1,4 +1,4 @@
-module http.uim.http.classes.middleware.csrfprotection;
+module uim.http.classes.middleware.csrfprotection;
 
 import uim.http;
 

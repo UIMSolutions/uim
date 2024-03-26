@@ -1,4 +1,4 @@
-module http.uim.http.classes.clients.request;
+module uim.http.classes.clients.request;
 
 import uim.http;
 
@@ -24,7 +24,7 @@ class DRequest { // }: Message, IRequest {
      * @param string amethod The HTTP method to use.
      * @param array  aHeaders The HTTP headers to set.
      * @param string[]|null someData The request body to use.
-     */
+     * /
     this(
         IUri|string aurl = "",
         string amethod = self.METHOD_GET,
@@ -49,7 +49,7 @@ class DRequest { // }: Message, IRequest {
     /**
      * Add an array of headers to the request.
      * @param STRINGAA  aHeaders The headers to add.
-     */
+     * /
     protected void addHeaders(STRINGAA headersToAdd) {
         headersToAdd.byKeyValue
             .each!(kv => addHeader(kv.key, kv.value));
@@ -68,12 +68,13 @@ class DRequest { // }: Message, IRequest {
      * and the content-type will be set.
      * Params:
      * string[] requestBody The body for the request.
-     */
+     * /
     protected void setContent(string[] requestBody) {
         if (isArray(content)) {
             formData = new FormData();
             formData.addMany(requestBody);
-            /** @phpstan-var array<non-empty-string, non-empty-string>  aHeaders */
+            /** @phpstan-var array<non-empty-string, non-empty-string>  aHeaders *
+            /
              aHeaders = ["Content-Type": formData.contentType()];
             this.addHeaders( aHeaders);
             auto myFormData = (string)formData;
@@ -81,5 +82,5 @@ class DRequest { // }: Message, IRequest {
         stream = new Stream("php://memory", "rw");
         stream.write(myFormData);
         this.stream = stream;
-    }
+    } */
 }

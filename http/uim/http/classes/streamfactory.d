@@ -1,4 +1,4 @@
-module http.uim.http.classes.streamfactory;
+module uim.http.classes.streamfactory;
 
 import uim.http;
 

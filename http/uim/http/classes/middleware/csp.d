@@ -12,13 +12,14 @@ import uim.http;
  * - `styleNonce` Enable to have a nonce policy added to the style-src directive.
  */
 class DCspMiddleware : IMiddleware {
+    /* 
     mixin InstanceConfigTemplate();
 
     /**
      * CSP Builder
      *
      * @var \ParagonIE\CSPBuilder\CSPBuilder csp CSP Builder or config array
-     */
+     * /
     protected CSPBuilder csp;
 
     // Configuration options.
@@ -32,7 +33,7 @@ class DCspMiddleware : IMiddleware {
      * Params:
      * \ParagonIE\CSPBuilder\CSPBuilder|array csp CSP object or config array
      * @param IData[string] configData Configuration options.
-     */
+     * /
     this(CSPBuilder|array csp, IData[string] configData = null) {
         if (!class_exists(CSPBuilder.classname)) {
             throw new UimException("You must install paragonie/csp-builder to use CspMiddleware");
@@ -50,7 +51,7 @@ class DCspMiddleware : IMiddleware {
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request.
      * @param \Psr\Http\Server\IRequestHandler handler The request handler.
-     */
+     * /
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
         if (_configData.isSet("scriptNonce")) {
             request = request.withAttribute("cspScriptNonce", this.csp.nonce("script-src"));
@@ -60,7 +61,7 @@ class DCspMiddleware : IMiddleware {
         }
         response = handler.handle(request);
 
-        /** @var \Psr\Http\Message\IResponse */
+        /** @var \Psr\Http\Message\IResponse * /
         return this.csp.injectCSPHeader(response);
-    }
+    } */
 }

@@ -1,4 +1,4 @@
-module http.uim.http.classes.clients.auth.digest;
+module uim.http.classes.clients.auth.digest;
 
 import uim.http;
 

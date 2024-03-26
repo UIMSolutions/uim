@@ -1,4 +1,4 @@
-module http.uim.http.classes.clients.auth.oauth;
+module uim.http.classes.clients.auth.oauth;
 
 import uim.http;
 

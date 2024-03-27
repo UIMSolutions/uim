@@ -101,12 +101,12 @@ bool hasPerson(Person[] persons, Person person) {
 version(test_uim_oop) { unittest {
     Person[] persons;
 
-  persons ~= (new Person("Robert","Male", "Single"));
-  persons ~= (new Person("John", "Male", "Married"));
-  persons ~= (new Person("Laura", "Female", "Married"));
-  persons ~= (new Person("Diana", "Female", "Single"));
-  persons ~= (new Person("Mike", "Male", "Single"));
-  persons ~= (new Person("Bobby", "Male", "Single"));
+  persons ~= (new DPerson("Robert","Male", "Single"));
+  persons ~= (new DPerson("John", "Male", "Married"));
+  persons ~= (new DPerson("Laura", "Female", "Married"));
+  persons ~= (new DPerson("Diana", "Female", "Single"));
+  persons ~= (new DPerson("Mike", "Male", "Single"));
+  persons ~= (new DPerson("Bobby", "Male", "Single"));
 
   ICriteria male = new DCriteriaMale();
   ICriteria female = new DCriteriaFemale();

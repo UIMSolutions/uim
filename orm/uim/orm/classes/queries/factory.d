@@ -12,9 +12,9 @@ class QueryFactory {
         return new SelectQuery(tableForQuery);
     }
     
-    // Create a new InsertQuery instance.
+    // Create a new DInsertQuery instance.
     InsertQuery insert(Table tableForQuery) {
-        return new InsertQuery(tableForQuery);
+        return new DInsertQuery(tableForQuery);
     }
     
     // Create a new UpdateQuery instance.

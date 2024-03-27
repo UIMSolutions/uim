@@ -278,7 +278,7 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
     // Returns the currently configured instance.
     DORMEagerLoader getEagerLoader() {
         if (_eagerLoader == null) {
-          _eagerLoader = new EagerLoader();
+          _eagerLoader = new DEagerLoader();
         }
 
         return _eagerLoader;

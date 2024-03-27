@@ -57,7 +57,7 @@ bool isNull(RealImage aImage) {
 version(test_uim_oop) { unittest {
       writeln("ProxyPatternDemo");
       
-      Image image = new ProxyImage("test_10mb.jpg");
+      Image image = new DProxyImage("test_10mb.jpg");
 
       //image will be loaded from disk
       image.display(); 

@@ -76,7 +76,7 @@ SchemaDialect schemaDialect() {
     if (isSet(_schemaDialect)) {
         return _schemaDialect;
     }
-    return _schemaDialect = new PostgresSchemaDialect(this);
+    return _schemaDialect = new DPostgresSchemaDialect(this);
 }
 
 // Sets connection encoding
@@ -208,7 +208,7 @@ protected void _transformFunctionExpression(FunctionExpression expressionToConve
                     }
 
                     QueryCompiler newCompiler() {
-                        return new PostgresCompiler();
+                        return new DPostgresCompiler();
                     }
                 } */
 }

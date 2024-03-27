@@ -77,7 +77,7 @@ class Plugin {
      * runtime as plugins should be set during Application startup.
      * /
     static PluginCollection getCollection() {
-        plugins = new PluginCollection();
+        plugins = new DPluginCollection();
         return plugins;
     } */
 }

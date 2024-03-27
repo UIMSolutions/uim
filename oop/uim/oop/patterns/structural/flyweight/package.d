@@ -49,7 +49,7 @@ class DShapeFactory {
     Circle circle = cast(Circle)circleMap.get(color, null);
 
     if (circle.isNull) {
-        circle = new Circle(color);
+        circle = new DCircle(color);
         circleMap[color] = circle;
         writeln("Creating circle of color : "~color);
     }

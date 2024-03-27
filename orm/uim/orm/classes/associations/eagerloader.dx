@@ -404,7 +404,7 @@ class DEagerLoader {
             "targetProperty": myinstance.getProperty(),
         ];
         configData("canBeJoined"] = myinstance.canBeJoined(configData("config"]);
-        myeagerLoadable = new EagerLoadable(myalias, configData);
+        myeagerLoadable = new DEagerLoadable(myalias, configData);
 
         if (configData("canBeJoined"]) {
            _aliasList[mypaths["root"]][myalias] ~= myeagerLoadable;
@@ -625,7 +625,7 @@ class DEagerLoader {
         bool myasMatching = false,
         string mytargetProperty = null
     ) {
-       _joinsMap[myalias] = new EagerLoadable(myalias, [
+       _joinsMap[myalias] = new DEagerLoadable(myalias, [
             "aliasPath": myalias,
             "instance": myassoc,
             "canBeJoined": true,

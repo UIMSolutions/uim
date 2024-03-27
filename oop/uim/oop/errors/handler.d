@@ -4,5 +4,5 @@ import uim.oop;
 
 @safe:
 
-class ErrorHandler {
+class DErrorHandler {
 }

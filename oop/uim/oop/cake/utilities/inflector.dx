@@ -9,7 +9,7 @@ import uim.oop;
  * Inflector pluralizes and singularizes English nouns.
  * Used by UIM"s naming conventions throughout the framework.
  */
-class Inflector {
+class DInflector {
   // Plural inflector rules
   protected static STRINGAA _plural = [
     "/(s)tatusmy/i": "\1tatuses",

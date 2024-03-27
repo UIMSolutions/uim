@@ -21,7 +21,7 @@ import uim.oop;
    }
 }
 
- class Square : Shape {
+ class DSquare : Shape {
 
    override  void draw() {
       writeln("Square::draw()");
@@ -36,7 +36,7 @@ import uim.oop;
 }
 
 /// Create a facade class.
- class ShapeMaker {
+ class DShapeMaker {
    private Shape circle;
    private Shape rectangle;
    private Shape square;

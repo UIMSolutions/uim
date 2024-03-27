@@ -10,7 +10,7 @@ import uim.oop;
 @safe:
 
 /// Create Employee class having list of Employee objects.
-class Employee {
+class DEmployee {
   private string name;
   private string dept;
   private int salary;

@@ -44,7 +44,7 @@ class DService2 : Service {
 }
 
 /// Create InitialContext for JNDI lookup
-class InitialContext {
+class DInitialContext {
   Object lookup(string jndiName) {
     switch(jndiName.toLower) {
       case "service1":

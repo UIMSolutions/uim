@@ -15,7 +15,7 @@ interface IState {
 }
 
 /// Create concrete classes implementing the same interface.
-class StartState : IState {
+class DStartState : IState {
   void doAction(Context context) {
     writeln("Player is in start state");
     context.state(this);	
@@ -26,7 +26,7 @@ class StartState : IState {
   }
 }
 
-class StopState : IState {
+class DStopState : IState {
   void doAction(Context context) {
     writeln("Player is in stop state");
     context.state(this);	

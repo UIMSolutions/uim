@@ -77,7 +77,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * Part of the template method for UIM\Core\ObjectRegistry.load()
      * and UIM\Core\ObjectRegistry.unload()
      * Params:
-     * string myclass The classname that is missing.
+     * string myclass DThe classname that is missing.
      * @param string myplugin The plugin the behavior is missing in.
      */
     protected void _throwMissingClassError(string myclass, string myplugin) {
@@ -93,7 +93,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * Part of the template method for UIM\Core\ObjectRegistry.load()
      * Enabled behaviors will be registered with the event manager.
      * Params:
-     * \UIM\ORM\Behavior|class-string<\UIM\ORM\Behavior> myclass The classname that is missing.
+     * \UIM\ORM\Behavior|class-string<\UIM\ORM\Behavior> myclass DThe classname that is missing.
      * @param string aliasToObject The alias of the object.
      * configData - An array of config to use for the behavior.
      */
@@ -122,7 +122,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * declared on UIM\ORM\Behavior
      * Params:
      * \UIM\ORM\Behavior myinstance The behavior to get methods from.
-     * @param string myclass The classname that is missing.
+     * @param string myclass DThe classname that is missing.
      * @param string aliasToObject The alias of the object.
      */
     protected array _getMethods(Behavior myinstance, string myclass, string aliasToObject) {

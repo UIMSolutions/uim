@@ -27,7 +27,7 @@ class DebugFilter : Filter {
 }
 
 /// Create Target
-class Target {
+class DTarget {
   void execute(string request) {
     writeln("Executing request: ", request);
   }

@@ -216,7 +216,7 @@ interface Dough
 }
 
 // тонкая основа
-class ThinDough : Dough
+class DThinDough : Dough
 {
 
 	this()
@@ -226,7 +226,7 @@ class ThinDough : Dough
 }
 
 // толстая основа
-class ThickDough : Dough
+class DThickDough : Dough
 {
 	
 	this()
@@ -253,7 +253,7 @@ class MarinaraSauce : Sauce
 }
 
 // томатный соус
-class TomateSauce : Sauce
+class DTomateSauce : Sauce
 {
 	
 	this()

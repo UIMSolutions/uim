@@ -46,7 +46,7 @@ import uim.orm;
  * table = TableRegistry::get("Users", myConfiguration);
  * ```
  */
-class TableRegistry {
+class DTableRegistry {
     // Returns a singleton instance of ILocatorimplementation.
     static ILocator getTableLocator() {
         return FactoryLocator::get("Table");

@@ -12,7 +12,7 @@ import uim.errors;
  *
  * @internal
  */
-class TextFormatter : IFormatter {
+class DTextFormatter : IFormatter {
  
     string formatWrapper(string acontents, array location) {
         template = <<<TEXT

@@ -9,7 +9,7 @@ import uim.oop;
 @safe:
 
 // Complex parts
-class CPU {
+class DCPU {
   void freeze() {
     writeln("CPU: freeze"); }
 
@@ -32,7 +32,7 @@ class HardDrive {
 }
 
 // Facade
-class Computer {
+class DComputer {
   enum BOOT_ADDRESS = 0;
   enum BOOT_SECTOR = 0;
   enum SECTOR_SIZE = 512;

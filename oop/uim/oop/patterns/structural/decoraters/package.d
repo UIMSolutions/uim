@@ -20,7 +20,7 @@ import uim.oop;
    }
 }
 
- class Circle : Shape {
+ class DCircle : Shape {
 
    override  void draw() {
       writeln("Shape: Circle");

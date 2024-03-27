@@ -14,7 +14,7 @@ interface Shape {
 }
 
 /// Create concrete class implementing the same interface.
-class Circle : Shape {
+class DCircle : Shape {
   private string _color;
   private int _x;
   private int _y;

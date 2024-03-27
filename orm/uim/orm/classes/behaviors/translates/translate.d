@@ -102,7 +102,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
     /**
      * Set default strategy class name.
      * Params:
-     * string myclass Class name.
+     * string myclass DClass name.
      * /
     static void setDefaultStrategyClass(string myclass) {
         mydefaultStrategyClass = myclass;

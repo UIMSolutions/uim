@@ -29,7 +29,7 @@ abstract class Shape {
   abstract void draw();	
 }
 
-class Circle : Shape {
+class DCircle : Shape {
    private int _x, _y, _radius;
 
    this(int x, int y, int radius, IDrawAPI drawAPI) {

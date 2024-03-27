@@ -38,7 +38,7 @@ abstract class Burger : Item {
    override abstract float price();
 }
 
- abstract class ColdDrink : Item {
+ abstract class DColdDrink : Item {
 	override Packing packing() {
     return new Bottle();
 	}
@@ -56,7 +56,7 @@ abstract class Burger : Item {
   }
 }
 
-class ChickenBurger : Burger {
+class DChickenBurger : Burger {
   override float price() {
     return 50.5f;
   }
@@ -66,7 +66,7 @@ class ChickenBurger : Burger {
   }
 }
 
-class Coke : ColdDrink {
+class DCoke : ColdDrink {
   override float price() {
     return 30.0f;
   }

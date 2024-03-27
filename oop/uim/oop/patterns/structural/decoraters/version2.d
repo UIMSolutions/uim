@@ -16,7 +16,7 @@ class SimpleCoffee : Coffee {
     return "Coffee"; }
 }
 
-abstract class CoffeeDecorator : Coffee {
+abstract class DCoffeeDecorator : Coffee {
   private Coffee decorated_coffee;
 
   this(Coffee d) {

@@ -29,19 +29,19 @@ interface ICriteria {
   Person[] meetCriteria(Person[] persons);
 }
 
-class CriteriaMale : ICriteria {
+class DCriteriaMale : ICriteria {
   override Person[] meetCriteria(Person[] persons) {
     return persons.filter!(a => a.gender.toLower == "male").array;
   }
 }
 
-class CriteriaFemale : ICriteria {
+class DCriteriaFemale : ICriteria {
   override Person[] meetCriteria(Person[] persons) {
     return persons.filter!(a => a.gender.toLower == "female").array;
   }
 }
 
- class CriteriaSingle : ICriteria {
+ class DCriteriaSingle : ICriteria {
    override Person[] meetCriteria(Person[] persons) {
       return persons.filter!(a => a.maritalStatus.toLower == "single").array;
    }

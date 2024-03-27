@@ -17,7 +17,7 @@ class DRegistry(T) {
   protected T _nullValue = T.init;
   @property O nullValue(this O)(T newNullValue) {
     _nullValue = newNullValue;
-    return cast(O) this;
+    return cast(DO) this;
   }
 
   protected T[string] _entries;
@@ -46,7 +46,7 @@ class DRegistry(T) {
   /// Add new entry
   O register(this O)(T[] newEntries...) {
     this.register(newEntries.dup);
-    return cast(O) this;
+    return cast(DO) this;
   }
 
   // register new DEntries
@@ -55,18 +55,18 @@ class DRegistry(T) {
       .filter!(entry => entry !is null)
       .array
       .each!(entry => this.register(entry.registerPath, entry));
-    return cast(O) this;
+    return cast(DO) this;
   }
 
   // register new entry
   O register(this O)(string path, T newEntry) {
     _entries[path] = newEntry;
-    return cast(O) this;
+    return cast(DO) this;
   }
 
   /*   O register(this O)(T newEntry, string name) {
     _entries[name] = newEntry;
-    return cast(O)this; }
+    return cast(DO)this; }
  * /
 
 

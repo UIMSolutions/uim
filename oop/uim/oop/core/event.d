@@ -12,7 +12,7 @@ template OOPEVENT(string name, string defaultValue = "", bool readOnly = false) 
 	const char[] OOPEVENT = `
 	@OOP_EVENT("`~name~`", "`~defaultValue~`", `~(readOnly ? "true" : "false")~`) string _`~name~``~((defaultValue.length > 0) ? (" = "~defaultValue) : "")~`;
 	@property string `~name~`() { return _`~name~`; }
-	`~(!readOnly ? `@property O `~name~`(this O)(string newValue) { _`~name~` = newValue; return cast(O)this; }` : "");
+	`~(!readOnly ? `@property O `~name~`(this O)(string newValue) { _`~name~` = newValue; return cast(DO)this; }` : "");
 }
 
 /* class DEvent : DOOPElement {

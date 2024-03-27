@@ -16,7 +16,7 @@ class DOPKeypair {
 
 	DOOPObject _key;
 	auto key() { return _key; }
-	O key(this O)(DOOPObject newKey) { _key = newKey; return cast(O)this; }
+	O key(this O)(DOOPObject newKey) { _key = newKey; return cast(DO)this; }
 	version(test_uim_oop) { unittest {
 		/// TODO
 	}}
@@ -24,7 +24,7 @@ class DOPKeypair {
 
 	DOOPObject _value;
 	auto value() { return _value; }
-	O value(this O)(DOOPObject newValue) { _value = newValue; return cast(O)this; }
+	O value(this O)(DOOPObject newValue) { _value = newValue; return cast(DO)this; }
 	version(test_uim_oop) { unittest {
 		/// TODO
 	}}

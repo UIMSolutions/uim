@@ -14,7 +14,7 @@ import uim.oop;
  * @see \UIM\TestSuite\IntegrationTestCase.disableErrorHandlerMiddleware()
  * @internal
  */
-class TestExceptionRenderer : IExceptionRenderer {
+class DTestExceptionRenderer : IExceptionRenderer {
     /**
      * Simply rethrow the given exception
      * Params:

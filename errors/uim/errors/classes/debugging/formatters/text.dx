@@ -11,7 +11,7 @@ import uim.errors;
 /* use RuntimeException; */
 
 /// A Debugger formatter for generating unstyled plain text output.
-class TextFormatter : IFormatter {
+class DTextFormatter : IFormatter {
 
   string formatWrapper(string aContent, array theLocation) {
       myTemplate = `

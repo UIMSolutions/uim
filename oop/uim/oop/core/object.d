@@ -109,7 +109,7 @@ auto toJson(Association[string] keyPairs) {
 } 
  */
 version(test_uim_oop) { unittest {
-	class TestClass : Obj {
+	class DTestClass : Obj {
 		this() { super(); init;  }
 		void init(this O)() {
 			foreach (memberName; __traits(allMembers, O)) {

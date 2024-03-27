@@ -5,7 +5,7 @@ import uim.oop;
 @safe:
 
 // Text handling methods.
-class Text {
+class DText {
     /**
      * Default transliterator.
      */

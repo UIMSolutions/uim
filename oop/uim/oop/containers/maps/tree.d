@@ -8,5 +8,5 @@ module uim.oop.containers.maps.tree;
 import uim.oop;
 @safe:
 
-class TreeMap : Map {
+class DTreeMap : Map {
 }

@@ -13,7 +13,7 @@ template SProperty_get(string dataType, string propertyName) {
 	const char[] SProperty_get = SPropertyGet(dataType, propertyName);
 }
 version(test_uim_oop) { unittest {
-	class Test{ int _a = 1; mixin(SProperty_get!("int", "a")); }
+	class DTest{ int _a = 1; mixin(SProperty_get!("int", "a")); }
  	assert((new Test).a == 1);
 }}
 
@@ -23,7 +23,7 @@ template SProperty_set(string dataType, string propertyName) {
 	const char[] SProperty_set = SPropertySet(dataType, propertyName);
 }
 version(test_uim_oop) { unittest {
-	class Test{ int _a = 1; mixin(SProperty_set!("int", "a")); }
+	class DTest{ int _a = 1; mixin(SProperty_set!("int", "a")); }
  	assert((new Test).a(1)._a == 1);
 }}
 
@@ -32,6 +32,6 @@ template SProperty_getset(string dataType, string propertyName, bool getter = fa
 	const char[] SProperty_set = "@safe @property O "~propertyName~"(this O)("~dataType~" value) { _"~propertyName~" = value; return cast(O)this; }";
 }
 version(test_uim_oop) { unittest {
-	class Test{ int _a = 1; mixin(SProperty_set!("int", "a")); }
+	class DTest{ int _a = 1; mixin(SProperty_set!("int", "a")); }
  	assert((new Test).a(1)._a == 1);
 }}

@@ -21,7 +21,7 @@ template XString(string name) {
 	";
 }
 version(test_uim_oop) { unittest {
-	class Test { mixin(XString!"a"); }
+	class DTest { mixin(XString!"a"); }
 	assert((new Test).a("x").a == "x");
 	assert((new Test).a("x").a("x").a == "xx");
 	assert((new Test).a("x", "x").a == "xx");
@@ -47,7 +47,7 @@ template XStringArray(string name) {
 	";
 }
 version(test_uim_oop) { unittest {
-	class Test { mixin(XStringArray!"a"); }
+	class DTest { mixin(XStringArray!"a"); }
 	assert((new Test).a("x").a == ["x"]);
 	assert((new Test).a("x").a("x").a == ["x", "x"]);
 	assert((new Test).a("x", "x").a == ["x", "x"]);
@@ -78,7 +78,7 @@ template XStringAA(string name) {
 	";
 }
 version(test_uim_oop) { unittest {
-	class Test { mixin(XStringAA!"a"); }
+	class DTest { mixin(XStringAA!"a"); }
 	assert((new Test).a(["a":"x"]).a == ["a":"x"]);
 	assert((new Test).a("a", "x").a == ["a":"x"]);
 	assert((new Test).a("a", "x").clearA.a == null);
@@ -108,7 +108,7 @@ template XPropertyAA(string key, string value, string name) {
 `;
 }
 version(test_uim_oop) { unittest {
-	class Test { mixin(XPropertyAA!("int", "double", "a")); }
+	class DTest { mixin(XPropertyAA!("int", "double", "a")); }
  	assert((new Test).a([1:1.0]).a[1] == 1.0);
  	assert((new Test).a([1:1.0]).a.hasKey(1));
  	assert((new Test).a([1:1.0]).a([2:3.0]).a.hasKey(2));
@@ -134,7 +134,7 @@ template XPropertyArray(string datatype, string name) {
 `;
 }
 version(test_uim_oop) { unittest {
-	class Test { mixin(XPropertyArray!("int", "a")); }
+	class DTest { mixin(XPropertyArray!("int", "a")); }
  	assert((new Test).a(0).a == [0]);
 	assert((new Test).a(0).a(1).a == [0, 1]);
 	assert((new Test).a(0, 1).a == [0, 1]);

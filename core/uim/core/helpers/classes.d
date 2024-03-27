@@ -40,7 +40,7 @@ unittest {
                 O create(this O)();
     };
 
-    class Test : ITest {
+    class DTest : ITest {
                 O create(this O)() {
             return cast(O)this.classinfo.create;
         }
@@ -49,10 +49,10 @@ unittest {
     assert(test.className == "Test");
     assert(test.stringof == "test");
 
-    class Test1 : Test {
+    class DTest1 : Test {
 
     }
-    class Test2 : Test1 {
+    class DTest2 : Test1 {
     }
 
     assert((new Test1).className == "Test1");

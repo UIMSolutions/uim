@@ -13,7 +13,7 @@ use Countable;
 /**
  * Validates the count of associated records.
  */
-class ValidCount
+class DValidCount
 {
     /**
      * The field to check

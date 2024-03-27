@@ -8,7 +8,7 @@ module uim.oop.tools.rpn_calculator;
 import uim.oop;
 @safe:
 
-class RPNCalculator {
+class DRPNCalculator {
   this() {}
   double calc(string input) {
     import std.typetuple;

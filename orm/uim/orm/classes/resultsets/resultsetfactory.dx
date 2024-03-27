@@ -13,7 +13,7 @@ import uim.orm;
  *
  * @template T of array|\UIM\Datasource\IEntity
  */
-class ResultSetFactory {
+class DResultSetFactory {
     /**
      * Constructor
      * Params:

@@ -7,7 +7,7 @@ import uim.http;
 /**
  * Emits a Response to the PHP Server API.
  */
-class ResponseEmitter {
+class DResponseEmitter {
     /**
      * Maximum output buffering size for each iteration.
      */

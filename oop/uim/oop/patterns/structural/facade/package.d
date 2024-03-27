@@ -14,7 +14,7 @@ import uim.oop;
 }
 
 /// Create concrete classes implementing the same interface.
- class Rectangle : Shape {
+ class DRectangle : Shape {
 
    override  void draw() {
       writeln("Rectangle::draw()");

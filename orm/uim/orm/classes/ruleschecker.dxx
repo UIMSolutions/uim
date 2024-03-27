@@ -16,7 +16,7 @@ import uim.orm;
  *
  * @see DORMdatasources.RulesChecker
  */
-class RulesChecker : BaseRulesChecker
+class DRulesChecker : BaseRulesChecker
 {
     /**
      * Returns a callable that can be used as a rule for checking the uniqueness of a value

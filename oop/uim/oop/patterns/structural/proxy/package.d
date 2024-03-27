@@ -14,7 +14,7 @@ import uim.oop;
 }
 
 /// Create concrete classes implementing the same interface.
- class RealImage : Image {
+ class DRealImage : Image {
 
    private string fileName;
 

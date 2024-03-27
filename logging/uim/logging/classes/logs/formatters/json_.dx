@@ -1,6 +1,6 @@
 module uim.logs.Formatter;
 
-class DIDataFormatter : AbstractFormatter {
+class DIDataFormatter : DAbstractFormatter {
     protected IData[string] Configuration.updateDefaults([
         "dateFormat": DATE_ATOM,
         "flags": IData_UNESCAPED_UNICODE | IData_UNESCAPED_SLASHES,

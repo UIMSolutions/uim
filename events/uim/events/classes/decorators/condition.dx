@@ -10,7 +10,7 @@ import uim.events;
  * Use this decorator to allow your event listener to only
  * be invoked if the `if` and/or `unless` conditions pass.
  */
-class DConditionDecorator : AbstractDecorator {
+class DConditionDecorator : DAbstractDecorator {
  
     IData __invoke() {
         someArguments = func_get_args();

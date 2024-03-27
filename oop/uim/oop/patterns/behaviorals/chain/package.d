@@ -17,7 +17,7 @@ abstract class DAbstractLogger {
   protected int _level;
 
   //next element in chain or responsibility
-  protected AbstractLogger _nextLogger;
+  protected DAbstractLogger _nextLogger;
 
   @property void nextLogger(AbstractLogger nextLogger) {
     _nextLogger = nextLogger;
@@ -33,7 +33,7 @@ abstract class DAbstractLogger {
 }
 
 /// Create concrete classes extending the logger.
-class DConsoleLogger : AbstractLogger {
+class DConsoleLogger : DAbstractLogger {
 
   this(int level) {
     _level = level;
@@ -44,7 +44,7 @@ class DConsoleLogger : AbstractLogger {
   }
 }
 
-class DErrorLogger : AbstractLogger {
+class DErrorLogger : DAbstractLogger {
   this(int level) {
     _level = level;
   }
@@ -54,7 +54,7 @@ class DErrorLogger : AbstractLogger {
   }
 }
 
-class FileLogger : AbstractLogger {
+class FileLogger : DAbstractLogger {
 
   this(int level) {
     _level = level;
@@ -65,10 +65,10 @@ class FileLogger : AbstractLogger {
   }
 }
 
-private static AbstractLogger getChainOfLoggers() {
-  AbstractLogger errorLogger = new DErrorLogger(AbstractLogger.ERROR);
-  AbstractLogger fileLogger = new FileLogger(AbstractLogger.DEBUG);
-  AbstractLogger consoleLogger = new DConsoleLogger(AbstractLogger.INFO);
+private static DAbstractLogger getChainOfLoggers() {
+  DAbstractLogger errorLogger = new DErrorLogger(AbstractLogger.ERROR);
+  DAbstractLogger fileLogger = new FileLogger(AbstractLogger.DEBUG);
+  DAbstractLogger consoleLogger = new DConsoleLogger(AbstractLogger.INFO);
 
   errorLogger.nextLogger = fileLogger;
   fileLogger.nextLogger = consoleLogger;
@@ -80,7 +80,7 @@ private static AbstractLogger getChainOfLoggers() {
 version(test_uim_oop) { unittest {
    writeln("ChainPatternDemo"); 
    
-   AbstractLogger loggerChain = getChainOfLoggers();
+   DAbstractLogger loggerChain = getChainOfLoggers();
 
    loggerChain.logMessage(AbstractLogger.INFO, 
       "This is an information.");

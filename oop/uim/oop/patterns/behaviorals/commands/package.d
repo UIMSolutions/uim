@@ -9,7 +9,7 @@ import uim.oop;
 @safe:
 
 /// Create a command interface.
-interface Order {
+interface DOrder {
    void execute();
 }
 
@@ -26,8 +26,8 @@ class DStock {
   }
 }
 
-/// Create concrete classes implementing the Order interface.
-class DBuyStock : Order {
+/// Create concrete classes implementing the DOrder interface.
+class DBuyStock : DOrder {
   private Stock _abcStock;
 
   this(Stock abcStock) {
@@ -39,7 +39,7 @@ class DBuyStock : Order {
   }
 }
 
-class DSellStock : Order {
+class DSellStock : DOrder {
   private Stock _abcStock;
 
   this(Stock abcStock) {
@@ -53,7 +53,7 @@ class DSellStock : Order {
 
 /// Create command invoker class.
 class DBroker {
-  private Order[] _orderList; 
+  private DOrder[] _orderList; 
 
   void takeOrder(Order order) {
     _orderList ~= order;		

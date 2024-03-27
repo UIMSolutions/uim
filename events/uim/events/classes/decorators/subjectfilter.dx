@@ -13,7 +13,7 @@ import uim.events;
  * The `allowedSubject` option can be a list of class names, if you want
  * to check multiple classes.
  */
-class DSubjectFilterDecorator : AbstractDecorator {
+class DSubjectFilterDecorator : DAbstractDecorator {
  
     IData __invoke() {
         auto someArguments = func_get_args();

@@ -20,7 +20,7 @@ In **programming**, an **entity** refers to a specific object or concept that ho
 
 - Entities are uniquely identified by a value of an **identifying attribute** (or a combination of attributes). For instance, a vehicle’s chassis number or a license plate.
 - Entities can be related to other entities through **relationships** (e.g., “Person X owns Vehicle Y” or “Person A is the supervisor of Person B”).
-- Abstraction helps distinguish between instances (individual entities) and types (entity types), leading to a **data model**.
+- DAbstraction helps distinguish between instances (individual entities) and types (entity types), leading to a **data model**.
 - In data models, entities become **entity types**, and relationships become **relationship types**, visually represented in **Entity-Relationship Diagrams**1.
 
 **Programming Context**:

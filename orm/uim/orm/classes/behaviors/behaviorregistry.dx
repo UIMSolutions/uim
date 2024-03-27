@@ -189,7 +189,7 @@ class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * string mymethod The method to invoke.
      * @param array myargs The arguments you want to invoke the method with.
      */
-    Json call(string mymethod, array myargs = []) {
+    IData call(string mymethod, array myargs = []) {
         mymethod = mymethod.toLower;
         if (this.hasMethod(mymethod) && this.has(_methodMap[mymethod][0])) {
             [mybehavior, mycallMethod] = _methodMap[mymethod];
@@ -209,9 +209,9 @@ class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * @template TSubject of \UIM\Datasource\IEntity|array
      * @param string mytype The finder type to invoke.
      * @param \UIM\ORM\Query\SelectQuery<TSubject> myquery The query object to apply the finder options to.
-     * @param Json ...myargs Arguments that match up to finder-specific parameters
+     * @param IData ...myargs Arguments that match up to finder-specific parameters
      */
-    SelectQuery<TSubject> callFinder(string mytype, SelectQuery myquery, Json ...myargs) {
+    SelectQuery<TSubject> callFinder(string mytype, SelectQuery myquery, IData ...myargs) {
         mytype = mytype.toLower;
 
         if (this.hasFinder(mytype) && this.has(_finderMap[mytype][0])) {

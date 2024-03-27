@@ -35,7 +35,7 @@ class TextHelper : Helper {
      * string mymethod Method to invoke
      * @param array myparams Array of params for the method.
      */
-    Json __call(string methodName, array myparams) {
+    IData __call(string methodName, array myparams) {
         return Text.{methodName}(...myparams);
     }
     

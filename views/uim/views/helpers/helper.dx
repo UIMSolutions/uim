@@ -144,11 +144,11 @@ class Helper : IEventListener {
      * IData[string] helperSettings The configuration settings provided to this helper.
      */
     bool initialize(IData[string] initData = null) {
-       _defaultConfig = Json .emptyObject;
+       _defaultConfig = IData .emptyObject;
     }
     
     // Returns an array that can be used to describe the internal state of this object.
-    Json __debugInfo() {
+    IData __debugInfo() {
         return [
             "helpers": this.helpers,
             "implementedEvents": this.implementedEvents(),

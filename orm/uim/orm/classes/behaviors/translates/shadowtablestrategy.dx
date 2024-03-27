@@ -173,7 +173,7 @@ class ShadowTableStrategy : ITranslateStrategy
      * @param array<string, mixed> myConfiguration The config to use for adding fields.
      * @return bool Whether a join to the translation table is required.
      */
-    protected function addFieldsToQuery(query, Json myConfiguration) {
+    protected function addFieldsToQuery(query, IData myConfiguration) {
         if (query.isAutoFieldsEnabled()) {
             return true;
         }

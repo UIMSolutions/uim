@@ -82,13 +82,13 @@ class ExceptionTrap {
 
   bool initialize(IData[string] initData = null) {
     IData[string] defaultData = [
-      "exceptionRenderer": Json(null),
-      "logger": Json(ErrorLogger.classname),
-      "stderr": Json(null),
-      "log": Json(true),
-      "skipLog": Json.emptyArray,
-      "trace": Json(false),
-      "extraFatalErrorMemory": Json(4)
+      "exceptionRenderer": IData(null),
+      "logger": IData(ErrorLogger.classname),
+      "stderr": IData(null),
+      "log": IData(true),
+      "skipLog": IData.emptyArray,
+      "trace": IData(false),
+      "extraFatalErrorMemory": IData(4)
     ];
 
     _configData = merge(initData, defaultData);

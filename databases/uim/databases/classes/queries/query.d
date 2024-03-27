@@ -810,8 +810,8 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      * @param array  someValues Array of values
       /
     auto whereInList(string afield, array  someValues, IData[string] options = null) {
-        options["types"] = Json.emptyArray;
-        options["allowEmpty"] = Json(false);
+        options["types"] = IData.emptyArray;
+        options["allowEmpty"] = IData(false);
 
         if (options["allowEmpty"].get!bool && !someValues) {
             return this.where("1=0");
@@ -833,8 +833,8 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      * /
     auto whereNotInList(string afield, array someValues, IData[string] options = null) {
         auto options = options.update([
-            "types": Json.emptyArray,
-            "allowEmpty": Json(false)
+            "types": IData.emptyArray,
+            "allowEmpty": IData(false)
         ];
 
         if (options["allowEmpty"] && !someValues) {
@@ -858,8 +858,8 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      * /
     auto whereNotInListOrNull(string afield, array  someValues, IData[string] options = null) {
         auto options = options.update() [
-            "types": Json.emptyArray,
-            "allowEmpty": Json(false),
+            "types": IData.emptyArray,
+            "allowEmpty": IData(false),
         ];
 
         if (options["allowEmpty"] && !someValues) {
@@ -1293,7 +1293,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      * Params:
      * string aName name of the clause to be returned
      * /
-    Json clause(string aName) {
+    IData clause(string aName) {
         if (!array_key_exists(name, _parts)) {
             clauses = _parts.keys;
             array_walk(clauses, fn (&$x): $x = "`$x`");
@@ -1327,17 +1327,17 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
     /**
      * Query parts traversal method used by traverseExpressions()
      * Params:
-     * Json expression Query expression or
+     * IData expression Query expression or
      *  array of expressions.
      * @param \Closure aCallback The callback to be executed for each IExpression
      *  found inside this query.
      * /
-    protected void _expressionsVisitor(Json[] queryExpressions, IClosure aCallback) {
+    protected void _expressionsVisitor(IData[] queryExpressions, IClosure aCallback) {
         queryExpressions
             .each!(exp => expressionsVisitor(exp, aCallback));
     }
     
-    protected void _expressionsVisitor(Json expression, IClosure aCallback) {
+    protected void _expressionsVisitor(IData expression, IClosure aCallback) {
         if (cast(IExpression)expression) {
             expression.traverse(fn (exp): _expressionsVisitor(exp, aCallback));
 
@@ -1356,11 +1356,11 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      * Params:
      * string|int param placeholder to be replaced with quoted version
      *  of aValue
-     * @param Json aValue The value to be bound
+     * @param IData aValue The value to be bound
      * @param string|int type the mapped type name, used for casting when sending
      *  to database
      * /
-    auto bind(string|int param, Json aValue, string|int type = null) {
+    auto bind(string|int param, IData aValue, string|int type = null) {
         this.getValueBinder().bind(param, aValue, type);
 
         return this;
@@ -1493,10 +1493,10 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
 
             return [
                 "(help)": "This is a Query object, to get the results execute or iterate it.",
-                "sql": Json(mySql),
-                "params": Json(params),
-                "defaultTypes": Json(this.getDefaultTypes()),
-                "executed": Json((bool)_statement),
+                "sql": IData(mySql),
+                "params": IData(params),
+                "defaultTypes": IData(this.getDefaultTypes()),
+                "executed": IData((bool)_statement),
             ];
         }
     } */

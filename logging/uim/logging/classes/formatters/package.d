@@ -7,7 +7,7 @@ public {
 public {
   /* 
   import uim.logging.classes.formatters.csv;
-  import uim.logging.classes.formatters.json;
+  import uim.logging.classes.formatters.IData;
   import uim.logging.classes.formatters.text;
   import uim.logging.classes.formatters.xml;
   */ 

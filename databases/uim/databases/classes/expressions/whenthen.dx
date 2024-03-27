@@ -28,7 +28,7 @@ class WhenThenExpression : IExpression {
      *
      * @var \UIM\Database\IExpression|object|scalar|null
      */
-    protected Json  when = null;
+    protected IData  when = null;
 
     // The `WHEN` value type.
     protected string[]  whenType = null;
@@ -38,7 +38,7 @@ class WhenThenExpression : IExpression {
      *
      * @var \UIM\Database\IExpression|object|scalar|null
      */
-    protected Json then = null;
+    protected IData then = null;
 
     /**
      * Whether the `THEN` value has been defined, eg whether `then()`
@@ -129,7 +129,7 @@ class WhenThenExpression : IExpression {
      * @param string|null type The result type. If no type is provided, the type will be inferred from the given
      * result value.
      */
-    void then(Json result, string atype = null) {
+    void then(IData result, string atype = null) {
         if (
             result !isNull &&
             !isScalar(result) &&

@@ -14,5 +14,5 @@ interface INode {
     INode[] getChildren();
 
     // Get the contained value.
-    Json getValue();
+    IData getValue();
 }

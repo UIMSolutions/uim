@@ -45,9 +45,9 @@ class DTupleComparison : ComparisonExpression {
     /**
      * Sets the value
      * Params:
-     * Json aValue The value to compare
+     * IData aValue The value to compare
      */
-    void setValue(Json aValue) {
+    void setValue(IData aValue) {
         if (this.isMulti()) {
             if (isArray(aValue) && !isArray(current(aValue))) {
                 throw new DInvalidArgumentException(
@@ -104,7 +104,7 @@ class DTupleComparison : ComparisonExpression {
                         }
                         return someValues.join(", ");}
 
-                        protected string _bindValue(Json aValue, ValueBinder aBinder, string atype = null) {
+                        protected string _bindValue(IData aValue, ValueBinder aBinder, string atype = null) {
                             placeholder = aBinder.placeholder("tuple"); aBinder.bind(placeholder, aValue, type);
 
                                 return placeholder;}
@@ -131,11 +131,11 @@ class DTupleComparison : ComparisonExpression {
      * Conditionally executes the callback for the passed value if
      * it is an IExpression
      * Params:
-     * Json aValue The value to traverse
+     * IData aValue The value to traverse
      * @param \Closure aCallback The callback to use when traversing
      */
                                                 protected void _traverseValue(
-                                                    Json aValue, IClosure aCallback) {
+                                                    IData aValue, IClosure aCallback) {
                                                     if (cast(IExpression) aValue) {
                                                         aCallback(aValue); aValue.traverse(
                                                             aCallback);}

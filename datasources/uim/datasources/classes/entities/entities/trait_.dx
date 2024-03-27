@@ -722,7 +722,7 @@ trait EntityTrait
      * Using `true` means that the entity has not been persisted in the database,
      * `false` that it already is.
      *
-     * @param bool new Indicate whether this entity has been persisted.
+     * @param bool new DIndicate whether this entity has been persisted.
      * @return this
      */
     function setNew(bool new) {

@@ -215,7 +215,7 @@ interface IDatasourceEntity { // : ArrayAccess, IDataSerializable, Stringable
      * Using `true` means that the entity has not been persisted in the database,
      * `false` indicates that the entity has been persisted.
      * Params:
-     * bool new Indicate whether this entity has been persisted.
+     * bool new DIndicate whether this entity has been persisted.
      */
    // TODO void setNew(bool new);
 

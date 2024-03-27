@@ -715,7 +715,7 @@ mixin EntityTemplate {
      * Using `true` means that the entity has not been persisted in the database,
      * `false` that it already is.
      * Params:
-     * bool new Indicate whether this entity has been persisted.
+     * bool new DIndicate whether this entity has been persisted.
      */
     auto setNew(boolnew) {
       if (new) {

@@ -149,7 +149,7 @@ class Paginator : IPaginator {
             myQuery = object;
             object = myQuery.getRepository();
             if (object == null) {
-                throw new CakeException("No repository set for query.");
+                throw new DCakeException("No repository set for query.");
             }
         }
 

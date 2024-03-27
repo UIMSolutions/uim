@@ -100,7 +100,7 @@ class DQueryExpression : IExpression, Countable {
     auto eq(IExpression|string afield, IData aValue, string typeName = null) {
         typeName = typeName.ifEmpty(_calculateType(field));
 
-        return this.add(new ComparisonExpression(field, aValue, typeName, "="));
+        return this.add(new DComparisonExpression(field, aValue, typeName, "="));
     }
 
     /**
@@ -115,7 +115,7 @@ class DQueryExpression : IExpression, Countable {
     auto notEq(IExpression|string afield, IData aValue, string atype = null) {
         auto type ??= _calculateType(field);
 
-        return this.add(new ComparisonExpression(field, aValue, type, "!="));
+        return this.add(new DComparisonExpression(field, aValue, type, "!="));
     }
     
     /**
@@ -128,7 +128,7 @@ class DQueryExpression : IExpression, Countable {
     auto gt(IExpression|string afield, IData aValue, string atype = null) {
         auto type ??= _calculateType(field);
 
-        return this.add(new ComparisonExpression(field, aValue, type, ">"));
+        return this.add(new DComparisonExpression(field, aValue, type, ">"));
     }
     
     /**
@@ -141,7 +141,7 @@ class DQueryExpression : IExpression, Countable {
     auto lt(IExpression|string afield, IData aValue, string atype = null) {
         type ??= _calculateType(field);
 
-        return this.add(new ComparisonExpression(field, aValue, type, "<"));
+        return this.add(new DComparisonExpression(field, aValue, type, "<"));
     }
     
     /**
@@ -154,7 +154,7 @@ class DQueryExpression : IExpression, Countable {
     auto gte(IExpression|string afield, IData aValue, string atype = null) {
         type ??= _calculateType(field);
 
-        return this.add(new ComparisonExpression(field, aValue, type, ">="));
+        return this.add(new DComparisonExpression(field, aValue, type, ">="));
     }
     
     /**
@@ -167,7 +167,7 @@ class DQueryExpression : IExpression, Countable {
     auto lte(IExpression|string afield, IData aValue, string atype = null) {
         type ??= _calculateType(field);
 
-        return this.add(new ComparisonExpression(field, aValue, type, "<="));
+        return this.add(new DComparisonExpression(field, aValue, type, "<="));
     }
     
     /**
@@ -178,7 +178,7 @@ class DQueryExpression : IExpression, Countable {
      */
     auto isNull(IExpression|string afield) {
         if (!(cast(IExpression)field )) {
-            field = new IdentifierExpression(field);
+            field = new DIdentifierExpression(field);
         }
         return this.add(new UnaryExpression("isNull", field, UnaryExpression.POSTFIX));
     }
@@ -190,7 +190,7 @@ class DQueryExpression : IExpression, Countable {
      */
     auto isNotNull(IExpression|string afield) {
         if (!(cast(IExpression)field)) {
-            field = new IdentifierExpression(field);
+            field = new DIdentifierExpression(field);
         }
         return this.add(new UnaryExpression("IS NOT NULL", field, UnaryExpression.POSTFIX));
     }
@@ -205,7 +205,7 @@ class DQueryExpression : IExpression, Countable {
     auto like(IExpression|string afield, IData aValue, string atype = null) {
         type ??= _calculateType(field);
 
-        return this.add(new ComparisonExpression(field, aValue, type, "LIKE"));
+        return this.add(new DComparisonExpression(field, aValue, type, "LIKE"));
     }
     
     /**
@@ -218,7 +218,7 @@ class DQueryExpression : IExpression, Countable {
     auto notLike(IExpression|string afield, IData aValue, string atype = null) {
         type ??= _calculateType(field);
 
-        return this.add(new ComparisonExpression(field, aValue, type, "NOT LIKE"));
+        return this.add(new DComparisonExpression(field, aValue, type, "NOT LIKE"));
     }
     
     /**
@@ -239,7 +239,7 @@ class DQueryExpression : IExpression, Countable {
         type ~= "[]";
          someValues =  cast(IExpression)someValues  ?  someValues : (array) someValues;
 
-        return this.add(new ComparisonExpression(field,  someValues, type, "IN"));
+        return this.add(new DComparisonExpression(field,  someValues, type, "IN"));
     }
     
     /**
@@ -264,8 +264,8 @@ class DQueryExpression : IExpression, Countable {
      */
     CaseStatementExpression case(IData aValue = null, string atype = null) {
         auto caseExpression = (func_num_args() > 0) 
-            ? new CaseStatementExpression(aValue, type);
-            : new CaseStatementExpression();
+            ? new DCaseStatementExpression(aValue, type);
+            : new DCaseStatementExpression();
         
         return caseExpression.setTypeMap(this.getTypeMap());
     }
@@ -288,7 +288,7 @@ class DQueryExpression : IExpression, Countable {
         type ~= "[]";
          someValues =  cast(IExpression)someValues  ?  someValues : (array) someValues;
 
-        return this.add(new ComparisonExpression(field,  someValues, type, "NOT IN"));
+        return this.add(new DComparisonExpression(field,  someValues, type, "NOT IN"));
     }
     
     /**
@@ -409,7 +409,7 @@ class DQueryExpression : IExpression, Countable {
             if (cast(IExpression)field ) {
                 return field;
             }
-            return new IdentifierExpression(field);
+            return new DIdentifierExpression(field);
         };
 
         return this.eq( wrapIdentifier( leftField),  wrapIdentifier(rightField));
@@ -592,14 +592,14 @@ class DQueryExpression : IExpression, Countable {
         if ( operator == "IS' && aValue.isNull) {
             return new UnaryExpression(
                 'isNull",
-                new IdentifierExpression(expression),
+                new DIdentifierExpression(expression),
                 UnaryExpression.POSTFIX
             );
         }
         if ( operator == "IS NOT" && aValue.isNull) {
             return new UnaryExpression(
                 "IS NOT NULL",
-                new IdentifierExpression(expression),
+                new DIdentifierExpression(expression),
                 UnaryExpression.POSTFIX
             );
         }
@@ -614,7 +614,7 @@ class DQueryExpression : IExpression, Countable {
                 "Expression `%s` is missing operator (IS, IS NOT) with `null` value.".format(expression)
             );
         }
-        return new ComparisonExpression(expression, aValue, type,  operator);
+        return new DComparisonExpression(expression, aValue, type,  operator);
     }
     
     /**

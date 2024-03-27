@@ -74,7 +74,7 @@ class FunctionExpression : QueryExpression, ITypedResult {
                 return;
             }
             if (condition == "identifier") {
-                put(_conditions, new IdentifierExpression(key));
+                put(_conditions, new DIdentifierExpression(key));
                 return;
             }
             type = typeMap.type(myKey);

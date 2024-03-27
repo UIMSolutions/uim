@@ -290,7 +290,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
         }
         if (cast(Closure)cte) {
             aQuery = this.getConnection().selectQuery();
-            cte = cte(new CommonTableExpression(), aQuery);
+            cte = cte(new DCommonTableExpression(), aQuery);
             if (!(cast(CommonTableExpression)cte)) {
                 throw new UimException(
                     'You must return a `CommonTableExpression` from a Closure passed to `with()`.'
@@ -1003,7 +1003,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
             return this;
         }
         if (!_parts["order"]) {
-           _parts["order"] = new OrderByExpression();
+           _parts["order"] = new DOrderByExpression();
         }
        _conjugate("order", fields, "", []);
 
@@ -1033,9 +1033,9 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
             field = field(this.newExpr(), this);
         }
         if (!_parts["order"]) {
-           _parts["order"] = new OrderByExpression();
+           _parts["order"] = new DOrderByExpression();
         }
-       _parts["order"].add(new OrderClauseExpression(field, "ASC"));
+       _parts["order"].add(new DOrderClauseExpression(field, "ASC"));
 
         return this;
     }
@@ -1063,9 +1063,9 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
             field = field(this.newExpr(), this);
         }
         if (!_parts["order"]) {
-           _parts["order"] = new OrderByExpression();
+           _parts["order"] = new DOrderByExpression();
         }
-       _parts["order"].add(new OrderClauseExpression(field, "DESC"));
+       _parts["order"].add(new DOrderClauseExpression(field, "DESC"));
 
         return this;
     }
@@ -1151,7 +1151,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      * string aidentifier The identifier for an expression
      * /
     IExpression identifier(string aidentifier) {
-        return new IdentifierExpression(anIdentifier);
+        return new DIdentifierExpression(anIdentifier);
     }
     
     /**

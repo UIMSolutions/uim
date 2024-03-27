@@ -20,7 +20,7 @@ class DWindowExpression : IExpression, WindowInterface {
     protected string myexclusion = null;
 
     this(string windowName = "") {
-        this.name = new IdentifierExpression(windowName);
+        this.name = new DIdentifierExpression(windowName);
     }
     
     /**
@@ -35,7 +35,7 @@ class DWindowExpression : IExpression, WindowInterface {
     
     // Sets the window name.
     void name(string windowName) {
-        this.name = new IdentifierExpression(windowName);
+        this.name = new DIdentifierExpression(windowName);
     }
  
     void partition(IExpression|Closure|string[] mypartitions) {
@@ -50,7 +50,7 @@ class DWindowExpression : IExpression, WindowInterface {
         }
         foreach (mypartitions as & mypartition) {
             if (isString(mypartition)) {
-                 mypartition = new IdentifierExpression(mypartition);
+                 mypartition = new DIdentifierExpression(mypartition);
             }
         }
         this.partitions = array_merge(this.partitions,  mypartitions);
@@ -64,7 +64,7 @@ class DWindowExpression : IExpression, WindowInterface {
         if (!myfields) {
             return;
         }
-        this.order ??= new OrderByExpression();
+        this.order ??= new DOrderByExpression();
 
         if (cast(Closure)myfields) {
              myfields = myfields(new QueryExpression([], [], ""));

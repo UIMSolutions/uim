@@ -166,7 +166,7 @@ class DConnectionManager {
         }
         /** @psalm-suppress RedundantPropertyInitializationCheck */
         if (!isset(_registry)) {
-            _registry = new ConnectionRegistry();
+            _registry = new DConnectionRegistry();
         }
 
         return _registry. {
@@ -270,7 +270,7 @@ static IData[string] parseDsn(string adsn) {
                                     throw new MissingDatasourceConfigException(
                                         ["name": connectionName]); }
 
-                                    _registry ? _registry : new ConnectionRegistry();
+                                    _registry ? _registry : new DConnectionRegistry();
                                         return _registry. {
                                             connectionName
                                         }

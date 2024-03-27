@@ -9,7 +9,7 @@ import uim.i18n;
  *
  * @internal
  */
-class RelativeTimeFormatter { // }: DifferenceII18NFormatter {
+class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
     /**
      * Get the difference in a human readable format.
      * Params:

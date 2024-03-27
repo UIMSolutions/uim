@@ -26,7 +26,7 @@ import uim.datasources;
  * invoke the checks by calling RulesChecker.checkCreate(), RulesChecker.checkUpdate() or
  * RulesChecker.checkDelete_().
  */
-class RulesChecker {
+class DRulesChecker {
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		

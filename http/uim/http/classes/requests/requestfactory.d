@@ -5,7 +5,7 @@ import uim.http;
 @safe:
 
 // Factory for creating request instances.
-class RequestFactory { //} : IRequestFactory {
+class DRequestFactory { //} : IRequestFactory {
     /**
      * Create a new request.
      * Params:

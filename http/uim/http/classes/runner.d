@@ -8,7 +8,7 @@ import uim.http;
  * Executes the middleware queue and provides the `next` callable
  * that allows the queue to be iterated.
  */
-class Runner : IRequestHandler {
+class DRunner : IRequestHandler {
     /**
      * The middleware queue being run.
      *

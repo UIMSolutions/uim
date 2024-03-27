@@ -17,7 +17,7 @@ import uim.http;
  * Additional headers can also be provided in the constructor, or
  * using the headers() method.
  */
-class RedirectException : DHttpException {
+class DRedirectException : DHttpException {
     /**
      * Constructor
      * Params:

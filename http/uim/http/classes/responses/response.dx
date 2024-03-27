@@ -13,7 +13,7 @@ import uim.http;
  * include status codes that are now allowed which will throw an
  * `\InvalidArgumentException`.
  */
-class Response : IResponse, Stringable {
+class DResponse : IResponse, Stringable {
     use MessageTrait;
 
     const int STATUS_CODE_MIN = 100;

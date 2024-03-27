@@ -14,7 +14,7 @@ module uim.satasources;
  *
  * @internal
  */
-class RuleInvoker
+class DRuleInvoker
 {
     /**
      * The rule name

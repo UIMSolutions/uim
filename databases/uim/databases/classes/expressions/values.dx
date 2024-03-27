@@ -10,7 +10,7 @@ import uim.databases;
  * Helps generate SQL with the correct number of placeholders and bind
  * values correctly into the statement.
  */
-class ValuesExpression : IExpression {
+class DValuesExpression : IExpression {
     mixin ExpressionTypeCasterTrait;
     mixin TypeMapTrait;
 

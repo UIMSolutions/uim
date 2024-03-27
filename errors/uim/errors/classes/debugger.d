@@ -80,7 +80,7 @@ class DDebugger {
      * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
      * @throws \UIM\Core\Exception\UimException When trying to set a key that is invalid.
      * /
-    static IData[string] configSettings = nullInstance(string[]|null aKey = null, Json aValue = null, bool merge = true) {
+    static IData[string] configSettings = nullInstance(string[]|null aKey = null, IData aValue = null, bool merge = true) {
         if (aKey.isNull) {
             return getInstance().getConfig(aKey);
         }
@@ -165,10 +165,10 @@ class DDebugger {
     /**
      * Recursively formats and outputs the contents of the supplied variable.
      * Params:
-     * Json var The variable to dump.
+     * IData var The variable to dump.
      * @param int maxDepth The depth to output to. Defaults to 3.
      * /
-    static void dump(Json var, int maxDepth = 3) {
+    static void dump(IData var, int maxDepth = 3) {
         pr(exportVar(var, maxDepth));
     }
     
@@ -176,11 +176,11 @@ class DDebugger {
      * Creates an entry in the log file. The log entry will contain a stack trace from where it was called.
      * as well as export the variable using exportVar. By default, the log is written to the debug log.
      * Params:
-     * Json var Variable or content to log.
+     * IData var Variable or content to log.
      * @param string|int level Type of log to use. Defaults to 'debug'.
      * @param int maxDepth The depth to output to. Defaults to 3.
      * /
-    static void log(Json var, string|int level = "debug", int maxDepth = 3) {
+    static void log(IData var, string|int level = "debug", int maxDepth = 3) {
         /** @var string asource * /
         source = trace(["start": 1]);
         source ~= "\n";
@@ -461,10 +461,10 @@ class DDebugger {
      * This is done to protect database credentials, which could be accidentally
      * shown in an error message if UIM is deployed in development mode.
      * Params:
-     * Json var Variable to convert.
+     * IData var Variable to convert.
      * @param int maxDepth The depth to output to. Defaults to 3.
      * /
-    static string exportVar(Json var, int maxDepth = 3) {
+    static string exportVar(IData var, int maxDepth = 3) {
         auto context = new DebugContext(maxDepth);
         auto node = export(var, context);
 
@@ -474,10 +474,10 @@ class DDebugger {
     /**
      * Converts a variable to a plain text string.
      * Params:
-     * Json var Variable to convert.
+     * IData var Variable to convert.
      * @param int maxDepth The depth to output to. Defaults to 3.
      * /
-    static string exportVarAsPlainText(Json var, int maxDepth = 3) {
+    static string exportVarAsPlainText(IData var, int maxDepth = 3) {
         return (new TextFormatter()).dump(
             export(var, new DebugContext(maxDepth))
         );
@@ -489,20 +489,20 @@ class DDebugger {
      * The node tree can be manipulated and serialized more easily
      * than many object graphs can.
      * Params:
-     * Json var Variable to convert.
+     * IData var Variable to convert.
      * @param int maxDepth The depth to generate nodes to. Defaults to 3.
      * /
-    static INode exportVarAsNodes(Json var, int maxDepth = 3) {
+    static INode exportVarAsNodes(IData var, int maxDepth = 3) {
         return export(var, new DebugContext(maxDepth));
     }
     
     /**
      * Protected export auto used to keep track of indentation and recursion.
      * Params:
-     * Json var The variable to dump.
+     * IData var The variable to dump.
      * @param \UIM\Error\Debug\DebugContext context Dump context
      * /
-    protected static INode export(Json var, DebugContext context) {
+    protected static INode export(IData var, DebugContext context) {
         string type = getType(var);
 
         if (type.startWith("resource ")) {
@@ -637,9 +637,9 @@ class DDebugger {
      * Get the type of the given variable. Will return the class name
      * for objects.
      * Params:
-     * Json var The variable to get the type of.
+     * IData var The variable to get the type of.
      * /
-    static string getType(Json variableToCheck) {
+    static string getType(IData variableToCheck) {
         string variableType = get_debug_type(variableToCheck);
 
         switch(variableType) {
@@ -655,7 +655,7 @@ class DDebugger {
     /**
      * Prints out debug information about given variable.
      * Params:
-     * Json var Variable to show debug information for.
+     * IData var Variable to show debug information for.
      * @param array location If contains keys "file" and "line" their values will
      *   be used to show location info.
      * @param bool|null showHtml If set to true, the method prints the debug
@@ -663,7 +663,7 @@ class DDebugger {
      *   If null, the format will be chosen based on the configured exportFormatter, or
      *   environment conditions.
      * /
-    static void printVar(Json var, array location = [], ?bool showHtml = null) {
+    static void printVar(IData var, array location = [], ?bool showHtml = null) {
         location ~= ["file": null, "line": null];
         if (location["file"]) {
             location["file"] = trimPath((string)location["file"]);

@@ -3,7 +3,7 @@ module uim.datasources.interfaces.interface_;
 @safe:
 import uim.datasources;
 
-interface IEntity : ArrayAccess, JsonSerializable
+interface IEntity : ArrayAccess, IDataSerializable
 {
 
     /**

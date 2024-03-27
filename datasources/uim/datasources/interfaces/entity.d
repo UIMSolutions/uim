@@ -13,10 +13,10 @@ import uim.datasources;
  * Describes the methods that any class representing a data storage should
  * comply with.
  *
- * @property Json  anId Alias for commonly used primary key.
+ * @property IData  anId Alias for commonly used primary key.
  * @template-extends \ArrayAccess<string, mixed>
  */
-interface IDatasourceEntity { // : ArrayAccess, JsonSerializable, Stringable
+interface IDatasourceEntity { // : ArrayAccess, IDataSerializable, Stringable
    /**
      * Sets hidden fields.
      *
@@ -128,19 +128,19 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable, Stringable
      * Params:
      * IData[string]|string fieldName the name of field to set or a list of
      * fields with their respective values
-     * @param Json aValue The value to set to the field or an array if the
+     * @param IData aValue The value to set to the field or an array if the
      * first argument is also an array, in which case will be treated as options
      * @param IData[string] options Options to be used for setting the field. Allowed option
      * keys are `setter` and `guard`
      * /
-    void set(string[] fieldName, Json aValue = null, IData[string] optionData = null);
+    void set(string[] fieldName, IData aValue = null, IData[string] optionData = null);
 
     /**
      * Returns the value of a field by name
      * Params:
      * string fieldName the name of the field to retrieve
     * /
-    Json &get(string fieldName) ;
+    IData &get(string fieldName) ;
 
     /**
      * Enable/disable field presence check when accessing a property.
@@ -164,7 +164,7 @@ interface IDatasourceEntity { // : ArrayAccess, JsonSerializable, Stringable
      * string fieldName The name of the field.
      * @param bool allowFallback whether to allow falling back to the current field value if no original exists
     * /
-    Json getOriginal(string fieldName, bool allowFallback = true);
+    IData getOriginal(string fieldName, bool allowFallback = true);
 
     // Gets all original values of the entity.
     array getOriginalValues();

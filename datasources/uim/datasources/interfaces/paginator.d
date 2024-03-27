@@ -10,7 +10,7 @@ interface IPaginator {
     /**
      * Handles pagination of data.
      * Params:
-     * Json target Anything that needs to be paginated.
+     * IData target Anything that needs to be paginated.
      * @param array params Request params.
      * @param array settings The settings/configuration used for pagination.
      * /

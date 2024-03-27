@@ -113,9 +113,9 @@ interface IQuery {
      * a single query.
      * Params:
      * string afinder The finder method to use.
-     * @param Json ...someArguments Arguments that match up to finder-specific parameters
+     * @param IData ...someArguments Arguments that match up to finder-specific parameters
      * /
-    static find(string afinder, Json ...someArguments);
+    static find(string afinder, IData ...someArguments);
 
     /**
      * Returns the first result out of executing this query, if the query has not been
@@ -127,7 +127,7 @@ interface IQuery {
      * singleUser = aQuery.select(["id", "username"]).first();
      * ```
      * /
-    Json first()  ;
+    IData first()  ;
 
     /**
      * Returns the total amount of results for the query.

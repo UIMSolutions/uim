@@ -13,21 +13,21 @@ mixin EntityTemplate {
   protected IData[string] _fields = [];
 
   // Holds all fields that have been changed and their original values for this entity.
-  protected Json _original = [];
+  protected IData _original = [];
 
   // Holds all fields that have been initially set on instantiation, or after marking as clean
   protected string[] _originalFields = [];
 
   /**
-     * List of field names that should **not** be included in JSON or Array
+     * List of field names that should **not** be included in IData or Array
      * representations of this Entity.
      */
   protected string[] _hidden = [];
 
   /**
-     * List of computed or virtual fields that **should** be included in JSON or array
+     * List of computed or virtual fields that **should** be included in IData or array
      * representations of this Entity. If a field is present in both _hidden and _virtual
-     * the field will **not** be in the array/JSON versions of the entity.
+     * the field will **not** be in the array/IData versions of the entity.
      */
   protected string[] _virtual = [];
 
@@ -87,16 +87,16 @@ mixin EntityTemplate {
      * Params:
      * string afield Name of the field to access
     */
-  Json & __get(string fieldName) {
+  IData & __get(string fieldName) {
     return get(field);
   }
 
   /**
      * Magic setter to add or edit a field in this entity
      * Params:
-     * @param Json aValue The value to set to the field
+     * @param IData aValue The value to set to the field
      */
-  void __set(string fieldName, Json aValue) {
+  void __set(string fieldName, IData aValue) {
     this.set(fieldName, aValue);
   }
 
@@ -175,14 +175,14 @@ mixin EntityTemplate {
      * Params:
      * IData[string]|string afield the name of field to set or a list of
      * fields with their respective values
-     * @param Json aValue The value to set to the field or an array if the
+     * @param IData aValue The value to set to the field or an array if the
      * first argument is also an array, in which case will be treated as options
      * @param IData[string] optionData Options to be used for setting the field. Allowed option
      * keys are `setter`, `guard` and `asOriginal`
 
      * @throws \InvalidArgumentException
      */
-  void set(string[] afield, Json aValue = null, IData[string] optionData = null) {
+  void set(string[] afield, IData aValue = null, IData[string] optionData = null) {
     if (isString(field) && !field.isEmpty) {
       guard = false;
       field = [field: aValue];
@@ -229,7 +229,7 @@ mixin EntityTemplate {
   }
 
   // Returns the value of a field by name
-  Json & get(string fieldName) {
+  IData & get(string fieldName) {
     if (fieldName.isEmpty) {
       throw new DInvalidArgumentException("Cannot get an empty field");
     }
@@ -278,7 +278,7 @@ mixin EntityTemplate {
      * string afield the name of the field for which original value is retrieved.
      * @param bool allowFallback whether to allow falling back to the current field value if no original exists
      */
-  Json getOriginal(string fieldName, bool allowFallback = true) {
+  IData getOriginal(string fieldName, bool allowFallback = true) {
     if (fieldName.isEmpty) {
       throw new DInvalidArgumentException("Cannot get an empty field");
     }
@@ -494,16 +494,16 @@ mixin EntityTemplate {
     return result;
   }
 
-  // Returns the fields that will be serialized as JSON
-  array jsonSerialize() {
+  // Returns the fields that will be serialized as IData
+  array IDataSerialize() {
     return this.extract(this.getVisible());
   }
 
-  bool offsetExists(Json anOffset) {
+  bool offsetExists(IData anOffset) {
     return __isSet(anOffset);
   }
 
-  Json & offsetGet(Json anOffset) {
+  IData & offsetGet(IData anOffset) {
     return get(anOffset);
   }
 
@@ -511,9 +511,9 @@ mixin EntityTemplate {
      * : entity[anOffset] = aValue;
      * Params:
      * string aoffset The offset to set.
-     * @param Json aValue The value to set.
+     * @param IData aValue The value to set.
      */
-  void offsetSet(Json anOffset, Json aValue) {
+  void offsetSet(IData anOffset, IData aValue) {
     this.set(anOffset, aValue);
   }
 
@@ -522,7 +522,7 @@ mixin EntityTemplate {
      * Params:
      * string aoffset The offset to remove.
      */
-  void offsetUnset(Json anOffset) {
+  void offsetUnset(IData anOffset) {
     this.unset(anOffset);
   }
 
@@ -935,7 +935,7 @@ mixin EntityTemplate {
      * Params:
      * string afield The name of the field.
      */
-                                                              Json getInvalidField(
+                                                              IData getInvalidField(
                                                               string fieldName) {
                                                                 return _invalidFields.get(fieldName, null);
                                                               }
@@ -970,9 +970,9 @@ mixin EntityTemplate {
      * Sets a field as invalid and not patchable into the entity.
      * Params:
      * string afield The value to set.
-     * @param Json aValue The invalid value to be set for field.
+     * @param IData aValue The invalid value to be set for field.
      */
-                                                                  auto setInvalidField(string afield, Json aValue) {
+                                                                  auto setInvalidField(string afield, IData aValue) {
                                                                     _invalidFields[field] = aValue;
 
                                                                     return this;}
@@ -1062,7 +1062,7 @@ mixin EntityTemplate {
      * Returns a string representation of this object in a human readable format.
      */
                                                                     override string toString() {
-                                                                      return to!string(json_encode(this, JSON_PRETTY_PRINT));
+                                                                      return to!string(IData_encode(this, IData_PRETTY_PRINT));
                                                                     }
 
                                                                     /**

@@ -20,7 +20,7 @@ import uim.cake;
  *
  * @implements \UIM\Event\IEventDispatcher<\UIM\Form\Form>
  */
-class Form : IEventListener, IEventDispatcher, IValidatorAware {
+class DForm : IEventListener, IEventDispatcher, IValidatorAware {
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\Form\Form>
      */

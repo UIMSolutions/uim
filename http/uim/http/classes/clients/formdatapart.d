@@ -13,7 +13,7 @@ import uim.http;
  *
  * @internal
  */
-class FormDataPart { // }: Stringable {
+class DFormDataPart { // }: Stringable {
     // Content type to use
     protected string _type;
 

@@ -5,7 +5,7 @@ import uim.oop;
 @safe:
 
 // Helper for managing fixtures.
-class FixtureHelper {
+class DFixtureHelper {
     // Finds fixtures from their TestCase names such as "core.Articles".
     IFixture[] loadFixtures(string[] fixtureNames) {
         static cachedFixtures = [];

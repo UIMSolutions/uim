@@ -4,7 +4,7 @@ import uim.datasources;
 
 @safe:
 
-class FactoryLocator {
+class DFactoryLocator {
 
 
     /**

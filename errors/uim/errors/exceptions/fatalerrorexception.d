@@ -6,7 +6,7 @@ import uim.errors;
 /**
  * Represents a fatal error
  */
-class FatalErrorException : UimException {
+class DFatalErrorException : UimException {
     /**
      * Constructor
      *

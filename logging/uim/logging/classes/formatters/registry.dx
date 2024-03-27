@@ -4,5 +4,5 @@ import uim.logging;
 
 @safe:
 
-class FormatterRegistry : DRegistry!IFormatter {
+class DFormatterRegistry : DRegistry!IFormatter {
 }

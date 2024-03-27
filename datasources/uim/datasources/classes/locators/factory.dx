@@ -10,7 +10,7 @@ import uim.datasources;
 
 // 
 
-class FactoryLocator {
+class DFactoryLocator {
     // A list of model factory functions.
     protected static ILocator[string] _modelFactories = [];
 

@@ -146,11 +146,11 @@ class DSqliteDriver : DDriver {
         if (isSet(_schemaDialect)) {
             return _schemaDialect;
         }
-        return _schemaDialect = new SqliteSchemaDialect(this);
+        return _schemaDialect = new DSqliteSchemaDialect(this);
     }
  
     QueryCompiler newCompiler() {
-        return new SqliteCompiler();
+        return new DSqliteCompiler();
     }
  
     protected array _expressionTranslators() {

@@ -189,7 +189,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * int code The exit code to use.
      * /
     never abort(int code = self.CODE_ERROR) {
-        throw new StopException("Command aborted", code);
+        throw new DStopException("Command aborted", code);
     }
 
     /**

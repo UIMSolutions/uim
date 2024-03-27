@@ -177,11 +177,11 @@ class DSqlserverDriver : DDriver {
  
     auto schemaDialect(): SchemaDialect
     {
-        return _schemaDialect ??= new SqlserverSchemaDialect(this);
+        return _schemaDialect ??= new DSqlserverSchemaDialect(this);
     }
     
     QueryCompiler newCompiler() {
-        return new SqlserverCompiler();
+        return new DSqlserverCompiler();
     }
  
     protected SelectQuery _selectQueryTranslator(SelectQuery aQuery) {
@@ -297,7 +297,7 @@ class DSqlserverDriver : DDriver {
             .offset(null)
             .orderBy([], true);
 
-         outer = new SelectQuery(aQuery.getConnection());
+         outer = new DSelectQuery(aQuery.getConnection());
          outer.select("*")
             .from(["_cake_distinct_": aQuery])
             .where(["_cake_distinct_pivot_": 1]);

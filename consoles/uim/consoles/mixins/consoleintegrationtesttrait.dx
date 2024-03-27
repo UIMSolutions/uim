@@ -41,10 +41,10 @@ template ConsoleIntegrationTestTemplate {
     void exec(string acommand, array  anInput = []) {
         runner = this.makeRunner();
 
-       _out ??= new StubConsoleOutput();
-       _err ??= new StubConsoleOutput();
+       _out ??= new DStubConsoleOutput();
+       _err ??= new DStubConsoleOutput();
         if (_in.isNull) {
-           _in = new StubConsoleInput(anInput);
+           _in = new DStubConsoleInput(anInput);
         } else if (anInput) {
             throw new DInvalidArgumentException(
                 "You can use ` anInput` only if ` _in` property.isNull and will be reset.'

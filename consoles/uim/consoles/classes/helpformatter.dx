@@ -151,7 +151,7 @@ class DHelpFormatter {
      */
     SimpleXMLElement|string xml(bool string = true) {
         auto myParser = _parser;
-        xml = new SimpleXMLElement("<shell></shell>");
+        xml = new DSimpleXMLElement("<shell></shell>");
         xml.addChild("command", myParser.getCommand());
         xml.addChild("description", myParser.getDescription());
 

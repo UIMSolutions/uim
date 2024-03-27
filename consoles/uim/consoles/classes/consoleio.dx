@@ -239,7 +239,7 @@ class DConsoleIo {
     never abort(string errorMessage, int code = ICommand.CODE_ERROR) {
         this.error(errorMessage);
 
-        throw new StopException(errorMessage, code);
+        throw new DStopException(errorMessage, code);
     }
     
     /**
@@ -525,7 +525,7 @@ class DConsoleIo {
 
             if (aKey == "q") {
                 this.error("Quitting.", 2);
-                throw new StopException("Not creating file. Quitting.");
+                throw new DStopException("Not creating file. Quitting.");
             }
             if (aKey == "a") {
                 this.forceOverwrite = true;
@@ -545,7 +545,7 @@ class DConsoleIo {
             if (!file_exists( directory)) {
                 mkdir( directory, 0777 ^ umask(), true);
             }
-            file = new SplFileObject(somePath, "w");
+            file = new DSplFileObject(somePath, "w");
         } catch (RuntimeException) {
             this.error("Could not write to `{somePath}`. Permission denied.", 2);
 

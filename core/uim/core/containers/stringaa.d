@@ -24,7 +24,7 @@ version (test_uim_core) {
   }
 }
 
-/// Selects only entries, where key starts with prefix. Creates a new STRINGAA
+/// Selects only entries, where key starts with prefix. Creates a new DSTRINGAA
 STRINGAA allStartsWith(STRINGAA entries, string prefix) {
   STRINGAA results;
   foreach (k, v; entries)
@@ -40,7 +40,7 @@ version (test_uim_core) {
   }
 }
 
-/// Opposite of selectStartsWith: Selects only entries, where key starts not with prefix. Creates a new STRINGAA
+/// Opposite of selectStartsWith: Selects only entries, where key starts not with prefix. Creates a new DSTRINGAA
 STRINGAA allStartsNotWith(STRINGAA entries, string prefix) { // right will overright left
   STRINGAA results;
   foreach (k, v; entries)

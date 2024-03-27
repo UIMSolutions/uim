@@ -506,14 +506,14 @@ class DDebugger {
         string type = getType(var);
 
         if (type.startWith("resource ")) {
-            return new ScalarNode(type, var);
+            return new DScalarNode(type, var);
         }
         return match (type) {
-            "float", "string", "null": new ScalarNode(type, var),
-            "bool": new ScalarNode("bool", var),
-            "int": new ScalarNode("int", var),
+            "float", "string", "null": new DScalarNode(type, var),
+            "bool": new DScalarNode("bool", var),
+            "int": new DScalarNode("int", var),
             "array": exportArray(var, context.withAddedDepth()),
-            "unknown": new SpecialNode("(unknown)"),
+            "unknown": new DSpecialNode("(unknown)"),
             default: exportObject(var, context.withAddedDepth()),
         };
     }
@@ -543,7 +543,7 @@ class DDebugger {
             outputMask = outputMask();
             foreach (aKey: val; var) {
                 if (array_key_exists(aKey, outputMask)) {
-                    node = new ScalarNode("string", outputMask[aKey]);
+                    node = new DScalarNode("string", outputMask[aKey]);
                 } else if (val != var) {
                     // Dump all the items without increasing depth.
                     node = export(val, context);
@@ -555,8 +555,8 @@ class DDebugger {
             }
         } else {
              someItems ~= new ArrayItemNode(
-                new ScalarNode("string", ""),
-                new SpecialNode("[maximum depth reached]")
+                new DScalarNode("string", ""),
+                new DSpecialNode("[maximum depth reached]")
             );
         }
         return new ArrayNode(someItems);
@@ -587,7 +587,7 @@ class DDebugger {
                     }
                     return node;
                 } catch (Exception  anException) {
-                    return new SpecialNode("(unable to export object: { anException.getMessage()})");
+                    return new DSpecialNode("(unable to export object: { anException.getMessage()})");
                 }
             }
             outputMask = outputMask();
@@ -616,7 +616,7 @@ class DDebugger {
                         method_exists(reflectionProperty, "isInitialized") &&
                         !reflectionProperty.isInitialized(var)
                     ) {
-                        aValue = new SpecialNode("[uninitialized]");
+                        aValue = new DSpecialNode("[uninitialized]");
                     } else {
                         aValue = export(reflectionProperty.getValue(var), context.withAddedDepth());
                     }

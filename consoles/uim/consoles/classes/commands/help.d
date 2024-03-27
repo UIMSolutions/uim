@@ -134,7 +134,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     }
     
     protected void asXml(IConsoleIo aConsoleIo, string[string] commandNames) {
-        auto shells = new SimpleXMLElement("<shells></shells>");
+        auto shells = new DSimpleXMLElement("<shells></shells>");
         commandNames.byKeyValue
             .each(nameClassname => shells.addCommandToShells(nameClassname.key, nameClassname.value));
 

@@ -13,7 +13,7 @@ import uim.consoles;
  * ```
  * 
  *
- * output = new StubConsoleOutput();
+ * output = new DStubConsoleOutput();
  * aConsoleIo = new DConsoleIo( output);
  * ```
  */

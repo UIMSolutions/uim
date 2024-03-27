@@ -190,7 +190,7 @@ class DController : IEventListener, IEventDispatcher {
     
     // Get the component registry for this controller.
     ComponentRegistry components() {
-        return _components ??= new ComponentRegistry(this);
+        return _components ??= new DComponentRegistry(this);
     }
     
     /**
@@ -525,7 +525,7 @@ class DController : IEventListener, IEventDispatcher {
             throw new NotFoundException("View class for `%s` extension not found".format(ext));
         }
         // Use accept header based negotiation.
-        auto contentType = new ContentTypeNegotiation();
+        auto contentType = new DContentTypeNegotiation();
         if(auto preferredType = contentType.preferredType( request, typeMap.keys)) {
             return typeMap[preferredType];
         }

@@ -219,7 +219,7 @@ class DSqlserverDriver : DDriver {
             // is with their alias.  So substitute the select SQL in place of
             // any column aliases for those entries in the order clause.
             auto select =  original.clause("select");
-            auto  order = new OrderByExpression();
+            auto  order = new DOrderByExpression();
              original
                 .clause("order")
                 .iterateParts(function ( direction,  orderBy) use (select,  order) {
@@ -228,7 +228,7 @@ class DSqlserverDriver : DDriver {
                         isSet(select[ orderBy]) &&
                         cast(IExpression)select[ orderBy] 
                     ) {
-                         order.add(new OrderClauseExpression(select[ orderBy],  direction));
+                         order.add(new DOrderClauseExpression(select[ orderBy],  direction));
                     } else {
                          order.add([aKey:  direction]);
                     }
@@ -236,7 +236,7 @@ class DSqlserverDriver : DDriver {
                     return  orderBy;
                 });
         } else {
-             order = new OrderByExpression("(SELECT NULL)");
+             order = new DOrderByExpression("(SELECT NULL)");
         }
 
         auto aQuery = clone  original;
@@ -279,7 +279,7 @@ class DSqlserverDriver : DDriver {
          distinct = aQuery.clause("distinct");
         aQuery.distinct(false);
 
-         order = new OrderByExpression( distinct);
+         order = new DOrderByExpression( distinct);
         aQuery
             .select(function ( q) use ( distinct,  order) {
                  over =  q.newExpr("ROW_NUMBER() OVER")

@@ -47,7 +47,7 @@ trait TupleComparisonTranslatorTrait {
         if (cast(SelectQuery) aValue) {
             string[]selected = aValue.clause("select").values;
             foreach (anI : field; fields) {
-                aValue.andWhere([field: new IdentifierExpression(selected[anI])]);
+                aValue.andWhere([field: new DIdentifierExpression(selected[anI])]);
             }
             aValue.select(true, true);
             expression.setFieldNames(true);

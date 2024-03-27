@@ -35,7 +35,7 @@ final class DImage(T) {
     }
 
     @property Image dup() const pure nothrow @safe {
-        auto result = new Image();
+        auto result = new DImage();
         result.image = this.image.dup;
         result.nx_ = this.nx;
         result.ny_ = this.ny;
@@ -46,7 +46,7 @@ final class DImage(T) {
     pure nothrow @safe in {
         assert(nxx >= 0 && nyy >= 0 && data.length == nxx * nyy);
     } body {
-        auto result = new Image();
+        auto result = new DImage();
         result.image = data;
         result.nx_ = nxx;
         result.ny_ = nyy;
@@ -134,7 +134,7 @@ struct RGB {
 /*
 Image!RGB loadPPM6(ref Image!RGB img, in string fileName) {
     if (img is null)
-        img = new Image!RGB;
+        img = new DImage!RGB;
     auto f = File(fileName, "rb");
     enforce(f.readln.strip == "P6");
     string line;
@@ -156,7 +156,7 @@ Image!RGB loadPPM6(ref Image!RGB img, in string fileName) {
 } */
 
 
-void savePPM6(in Image!RGB img, in string fileName)
+void savePPM6(in DImage!RGB img, in string fileName)
 in {
     assert(img !is null);
     assert(img.nx > 0 && img.nx > 0);
@@ -173,7 +173,7 @@ in {
 
 version (bitmap_main) {
     void main() {
-        auto img = new Image!RGB(30, 10);
+        auto img = new DImage!RGB(30, 10);
         img[4, 5] = RGB.white;
         img.textualShow;
     }

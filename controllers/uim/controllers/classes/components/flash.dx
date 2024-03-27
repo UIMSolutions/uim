@@ -121,7 +121,7 @@ class DFlashComponent : DComponent {
         anElement = Inflector.underscore(elementName);
 
         if (count(someArguments) == 0) {
-            throw new InternalErrorException("Flash message missing.");
+            throw new DInternalErrorException("Flash message missing.");
         }
         auto options = ["element": anElement];
 

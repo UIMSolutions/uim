@@ -40,14 +40,14 @@ class DCommonTableExpression : IExpression {
     protected bool recursive = false;
 
     this(string cteName = "", IExpression cteQuery = null) {
-       _cteName = new IdentifierExpression(cteName);
+       _cteName = new DIdentifierExpression(cteName);
         if (cteQuery) {
             this.query(cteQuery);
         }
     }
 
     this(string cteName = "", IClosure cteQuery) {
-       _cteName = new IdentifierExpression(cteName);
+       _cteName = new DIdentifierExpression(cteName);
         if (cteQuery) {
             this.query(cteQuery);
         }
@@ -60,7 +60,7 @@ class DCommonTableExpression : IExpression {
      * in select, insert, etc queries.
      */
     void name(string cteName) {
-        _name = new IdentifierExpression(cteName);
+        _name = new DIdentifierExpression(cteName);
     }
     
     /**
@@ -92,7 +92,7 @@ class DCommonTableExpression : IExpression {
         /** @var array<string|\UIM\Database\Expression\IdentifierExpression> fields */
         fields.each!((field) {
             if (!(cast(IdentifierExpression)field)) {
-                field = new IdentifierExpression(field);
+                field = new DIdentifierExpression(field);
             }
         });
         /** @var array<\UIM\Database\Expression\IdentifierExpression>  mergedFields */

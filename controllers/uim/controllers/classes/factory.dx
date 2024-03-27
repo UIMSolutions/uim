@@ -140,7 +140,7 @@ class DControllerFactory : IControllerFactory, IRequestHandler {
                      resolved ~= parameter.getDefaultValue();
                     continue;
                 }
-                throw new InvalidParameterException([
+                throw new DInvalidParameterException([
                     "template": "missing_dependency",
                     "parameter": parameter.name,
                     "type": typeName,
@@ -157,7 +157,7 @@ class DControllerFactory : IControllerFactory, IRequestHandler {
                     typedArgument = this.coerceStringToType(argument, type);
 
                     if (typedArgument.isNull) {
-                        throw new InvalidParameterException([
+                        throw new DInvalidParameterException([
                             "template": 'failed_coercion",
                             "passed": argument,
                             "type": type.name,
@@ -182,7 +182,7 @@ class DControllerFactory : IControllerFactory, IRequestHandler {
             if (parameter.isVariadic()) {
                 continue;
             }
-            throw new InvalidParameterException([
+            throw new DInvalidParameterException([
                 "template": "missing_parameter",
                 "parameter": parameter.name,
                 "controller": this.controller.name,

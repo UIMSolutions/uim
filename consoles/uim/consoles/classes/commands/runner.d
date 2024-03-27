@@ -102,7 +102,7 @@ class DCommandRunner { // }: IEventDispatcher {
 
         this.bootstrap();
 
-        auto myCommands = new CommandCollection([
+        auto myCommands = new DCommandCollection([
             "help": HelpCommand.classname,
         ]);
         if (class_exists(VersionCommand.classname)) {
@@ -119,7 +119,7 @@ class DCommandRunner { // }: IEventDispatcher {
         // Remove the root executable segment
         array_shift(argv);
 
-        aConsoleIo = aConsoleIo ?aConsoleIo : new ConsoleIo();
+        aConsoleIo = aConsoleIo ?aConsoleIo : new DConsoleIo();
 
         try {
             [name, argv] = this.longestCommandName(myCommands, argv);
@@ -271,7 +271,7 @@ class DCommandRunner { // }: IEventDispatcher {
             if (cast(IContainerApplication)this.app) {
                 container = this.app.getContainer();
             }
-            this.factory = new CommandFactory(container);
+            this.factory = new DCommandFactory(container);
         }
         return this.factory.create(className);
     }

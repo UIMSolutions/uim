@@ -9,7 +9,7 @@ import uim.oop;
  *
  * @internal
  */
-class ConnectionHelper {
+class DConnectionHelper {
     /**
      * Adds `test_<connection name>` aliases for all non-test connections.
      *

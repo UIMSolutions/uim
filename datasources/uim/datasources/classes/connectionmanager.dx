@@ -12,7 +12,7 @@ import uim.datasources;
  *
  * Provides an interface for loading and enumerating connections defined in config/app.d
  */
-class ConnectionManager {
+class DConnectionManager {
     use StaticConfigTemplate {
         setConfig as protected _setConfig;
         parseDsn as protected _parseDsn;

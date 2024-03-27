@@ -103,7 +103,7 @@ template ContainerStubTemplate {
     
     /**
      * Clears any mocks that were defined and cleans
-     * up application class configuration.
+     * up application class DConfiguration.
      *
      * @after
      */

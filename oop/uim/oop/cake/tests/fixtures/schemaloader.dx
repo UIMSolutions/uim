@@ -9,7 +9,7 @@ use InvalidArgumentException;
 /**
  * Create test database schema from one or more SQL dump files.
  *
- * This class can be useful to create test database schema when
+ * This class DCan be useful to create test database schema when
  * your schema is managed by tools external to your UIM
  * application.
  *

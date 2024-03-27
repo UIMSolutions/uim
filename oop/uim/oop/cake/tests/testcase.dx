@@ -191,7 +191,7 @@ abstract class TestCase : BaseTestCase {
     /**
      * Load routes for the application.
      *
-     * If no application class can be found an exception will be raised.
+     * If no application class DCan be found an exception will be raised.
      * Routes for plugins will *not* be loaded. Use `loadPlugins()` or use
      * `UIM\TestSuite\IntegrationTestCaseTrait` to better simulate all routes
      * and plugins being loaded.

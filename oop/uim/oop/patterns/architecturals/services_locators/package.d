@@ -59,7 +59,7 @@ class InitialContext {
 }
 
 /// Create Cache
-class Cache {
+class DCache {
   private Service[] _services;
 
   this() {

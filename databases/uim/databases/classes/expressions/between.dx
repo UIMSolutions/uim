@@ -5,7 +5,26 @@ import uim.databases;
 @safe:
 
 // An expression object that represents a SQL BETWEEN snippet
-class BetweenExpression : IExpression, IField {
+class DBetweenExpression : IExpression, IField {
+    mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
+
     use ExpressionTypeCasterTrait;
     use FieldTrait;
 

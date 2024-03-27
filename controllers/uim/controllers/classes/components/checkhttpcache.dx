@@ -15,7 +15,7 @@ import uim.controllers;
  * or `Etag` header. Without one of these headers being set this component
  * will have no effect.
  */
-class CheckHttpCacheComponent : Component {
+class DCheckHttpCacheComponent : DComponent {
   // Before Render hook
   void beforeRender(IEvent beforeRenderEvent) {
     auto controller = this.getController();

@@ -11,7 +11,7 @@ import uim.databases;
  * For security reasons, all params passed are quoted by default unless
  * explicitly told otherwise.
  */
-class AggregateExpression : FunctionExpression, IWindow {
+class DAggregateExpression : DFunctionExpression, IWindow {
     protected QueryExpression filter = null;
 
     protected WindowExpression  window = null;

@@ -4,6 +4,25 @@ import uim.css;
 @safe:
 
 class DCSSContainer {
+    mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
+
   DCSSObj[] _cssItems;
 
   alias opEquals = Object.opEquals;

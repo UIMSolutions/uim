@@ -14,7 +14,7 @@ import uim.controllers;
  * @method void warning(string amessage, IData[string] options = null) Set a message using "warning" element
  * @method void error(string amessage, IData[string] options = null) Set a message using "error" element
  */
-class FlashComponent : Component {
+class DFlashComponent : DComponent {
     // Default configuration
     protected IData[string] _defaultConfigData = [
         "key": "flash",

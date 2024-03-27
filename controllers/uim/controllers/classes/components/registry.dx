@@ -13,7 +13,7 @@ import uim.controllers;
  * @extends \UIM\Core\ObjectRegistry<\UIM\Controller\Component>
  * @implements \UIM\Event\IEventDispatcher<TSubject>
  */
-class ComponentRegistry : ObjectRegistry, IEventDispatcher {
+class DComponentRegistry : DObjectRegistry, IEventDispatcher {
     // @use \UIM\Event\EventDispatcherTrait<TSubject>
     use EventDispatcherTrait;
 

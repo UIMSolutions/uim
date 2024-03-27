@@ -4,7 +4,7 @@ import uim.databases;
 
 @safe:
 
-class SqliteDriver : DDriver {
+class DSqliteDriver : DDriver {
     mixin(DriverThis!("Sqlite"));
 
     override bool initialize(IData[string] initData = null) {

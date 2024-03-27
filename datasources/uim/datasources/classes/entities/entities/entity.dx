@@ -12,7 +12,7 @@ import uim.datasources;
  * An entity represents a single result row from a repository. It exposes the
  * methods for retrieving and storing properties associated in this row.
  */
-class Entity : IEntity, InvalidPropertyInterface {
+class DEntity : IEntity, InvalidPropertyInterface {
     // use EntityTrait;
 
     // Holds all fields and their values for this entity.

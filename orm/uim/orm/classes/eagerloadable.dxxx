@@ -13,7 +13,7 @@ module uim.orm.eagerloadable;
  *
  * @internal
  */
-class EagerLoadable {
+class DEagerLoadable {
     // The name of the association to load.
 
     // A list of other associations to load from this level.

@@ -20,7 +20,7 @@ import uim.orm;
  * @see DORMdatasources.RulesChecker
  * @deprecated 4.4.0 Use a normal array for options instead.
  */
-class SaveOptionsBuilder : ArrayObject {
+class DSaveOptionsBuilder : ArrayObject {
     use AssociationsNormalizerTrait;
 
     /**

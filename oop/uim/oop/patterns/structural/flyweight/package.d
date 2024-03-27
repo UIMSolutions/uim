@@ -42,7 +42,7 @@ class DCircle : Shape {
 }
 
 /// Create a factory to generate object of concrete class based on given information.
-class ShapeFactory {
+class DShapeFactory {
   private static Shape[string] circleMap;
 
   static Shape getCircle(string color) {

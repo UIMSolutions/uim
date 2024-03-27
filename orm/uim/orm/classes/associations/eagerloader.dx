@@ -10,7 +10,7 @@ import uim.orm;
  * required joins and decorating the results so that those associations can be
  * part of the result set.
  */
-class EagerLoader {
+class DEagerLoader {
     /**
      * Nested array describing the association to be fetched
      * and the options to apply for each of them, if any

@@ -8,7 +8,7 @@ import uim.orm;
  * : the logic for loading an association using a SELECT query
  * @internal
  */
-class SelectLoader {
+class DSelectLoader {
     // The alias of the association loading the results
     protected string _alias;
 

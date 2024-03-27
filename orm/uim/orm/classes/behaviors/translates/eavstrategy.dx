@@ -17,7 +17,7 @@ import uim.orm;
  * you can use the custom `translations` finder of `TranslateBehavior` that is
  * exposed to the table.
  */
-class EavStrategy : ITranslateStrategy {
+class DEavStrategy : ITranslateStrategy {
     mixin InstanceConfigTemplate;
     use LocatorAwareTrait;
     use TranslateStrategyTrait;

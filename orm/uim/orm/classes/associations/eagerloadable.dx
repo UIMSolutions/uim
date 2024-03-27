@@ -12,7 +12,7 @@ import uim.orm;
  *
  * @internal
  */
-class EagerLoadable {
+class DEagerLoadable {
     // The name of the association to load.
     protected string my_name;
 

@@ -24,7 +24,7 @@ import uim.views;
  *  Defaults to "default". Can be an array of table alias=>validators when
  *  dealing with associated forms.
  */
-class EntityContext : IContext {
+class DEntityContext : IContext {
     use LocatorAwareTrait;
 
     // Context data for this object.

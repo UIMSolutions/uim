@@ -8,7 +8,7 @@ import uim.orm;
  * Checks that the value provided in a field exists as the primary key of another
  * table.
  */
-class ExistsIn {
+class DExistsIn {
     // The list of fields to check
     protected string[] _fields;
 

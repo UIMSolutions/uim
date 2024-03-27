@@ -179,14 +179,14 @@ class EagerLoadable {
      * @param array<string, mixed> myConfiguration The value to set.
      * @return this
      */
-    auto configuration.update(Json myConfiguration) {
+    auto configuration.update(IData myConfiguration) {
         configuration = myConfiguration;
 
         return this;
     }
 
     // Gets the list of options to pass to the association object for loading the records.
-    Json getConfig() {
+    IData getConfig() {
       return configuration;
     }
 

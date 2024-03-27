@@ -47,14 +47,14 @@ class DMysqlDriver : DDriver {
     protected string serverType = SERVER_TYPE_MYSQL;
 
     // Mapping of feature to db server version for feature availability checks.
-    protected Json _featureVersions = [
+    protected IData _featureVersions = [
         "mysql": [
-            "json": "5.7.0",
+            "IData": "5.7.0",
             "cte": "8.0.0",
             "window": "8.0.0",
         ],
         "mariadb": [
-            "json": "10.2.7",
+            "IData": "10.2.7",
             "cte": "10.2.1",
             "window": "10.2.0",
         ],
@@ -137,7 +137,7 @@ class DMysqlDriver : DDriver {
             DriverFeatures.TRUNCATE_WITH_CONSTRAINTS: false,
 
             DriverFeatures.CTE,
-            DriverFeatures.JSON,
+            DriverFeatures.IData,
             DriverFeatures.WINDOW: version_compare(
                 this.currentVersion(),
                 this.featureVersions[this.serverType][feature.value],

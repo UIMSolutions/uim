@@ -21,7 +21,7 @@ template PHPUnitConsecutiveTemplate {
         aCallbackCall = 0;
         foreach (argumentList as  anIndex: argument) {
             yield new Callback(
-                static auto (Json actualArgument) use (
+                static auto (IData actualArgument) use (
                     argumentList,
                     &mockedMethodCall,
                     &aCallbackCall,

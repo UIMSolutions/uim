@@ -119,7 +119,7 @@ class Router {
     /**
      * Get or set default route class.
      * Params:
-     * string myrouteClass Class name.
+     * string myrouteclass DClass name.
      */
     static string defaultRouteClass(string className = null) {
         if (className.isNull) {

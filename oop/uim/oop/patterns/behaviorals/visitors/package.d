@@ -20,7 +20,7 @@ class Keyboard : IComputerPart {
   }
 }
 
-class ComputerPartMonitor : IComputerPart {
+class DComputerPartMonitor : IComputerPart {
   override void accept(IComputerPartVisitor computerPartVisitor) {
     computerPartVisitor.visit(this);
   }
@@ -32,7 +32,7 @@ class Mouse : IComputerPart {
   }
 }
 
-class Computer : IComputerPart {	
+class DComputer : IComputerPart {	
   IComputerPart[] parts;
 
   this() {
@@ -59,7 +59,7 @@ interface IComputerPartVisitor {
 }
 
 /// Create concrete visitor implementing the above class.
-class ComputerPartDisplayVisitor : IComputerPartVisitor {
+class DComputerPartDisplayVisitor : IComputerPartVisitor {
   override void visit(Computer computer) {
     writeln("Displaying Computer.");
   }

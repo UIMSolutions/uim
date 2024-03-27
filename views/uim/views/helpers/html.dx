@@ -768,7 +768,7 @@ class HtmlHelper : Helper {
      *
      * - `escape` Whether the contents should be html_entity escaped.
      * Params:
-     * string|null myclass CSS class name of the div element.
+     * string|null myclass DCSS class name of the div element.
      * @param string|null mytext String content that will appear inside the div element.
      *  If null, only a start tag will be printed
      * @param IData[string] htmlAtributes Additional HTML attributes of the DIV tag
@@ -787,7 +787,7 @@ class HtmlHelper : Helper {
      *
      * - `escape` Whether the contents should be html_entity escaped.
      * Params:
-     * string|null myclass CSS class name of the p element.
+     * string|null myclass DCSS class name of the p element.
      * @param string|null mytext String content that will appear inside the p element.
      * @param IData[string] htmlAtributes Additional HTML attributes of the P tag
      */

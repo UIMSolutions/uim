@@ -33,7 +33,7 @@ abstract class AbstractLogger {
 }
 
 /// Create concrete classes extending the logger.
-class ConsoleLogger : AbstractLogger {
+class DConsoleLogger : AbstractLogger {
 
   this(int level) {
     _level = level;

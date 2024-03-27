@@ -101,7 +101,7 @@ class RouteBuilder {
     /**
      * Set default route class.
      * Params:
-     * string myrouteClass Class name.
+     * string myrouteclass DClass name.
      */
     void setRouteClass(string myrouteClass) {
        _routeClass = myrouteClass;

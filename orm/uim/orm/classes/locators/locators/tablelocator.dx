@@ -40,7 +40,7 @@ class TableLocator : AbstractLocator : ILocator {
     protected string myfallbackClassName = Table.classname;
 
     /**
-     * Whether fallback class should be used if a table class could not be found.
+     * Whether fallback class should be used if a table class DCould not be found.
      */
     protected bool myallowFallbackClass = true;
 

@@ -59,7 +59,7 @@ trait ValidatorAwareTrait {
      *
      * If a myname argument has not been provided, the default validator will be returned.
      * You can configure your default validator name in a `DEFAULT_VALIDATOR`
-     * class constant.
+     * class DConstant.
      * Params:
      * string|null myname The name of the validation set to return.
      * /

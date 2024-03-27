@@ -7,7 +7,7 @@ import uim.views;
 /**
  * Basic input class.
  *
- * This input class can be used to render basic simple
+ * This input class DCan be used to render basic simple
  * input elements like hidden, text, email, tel and other types.
  */
 class DWidget : IWidget {

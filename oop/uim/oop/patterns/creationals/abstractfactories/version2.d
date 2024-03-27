@@ -28,7 +28,7 @@ public class NYPizzaIngredientFactory : PizzaIngredientFactory {
 		return new FreshClam(); }
 }
 
-public class ChicagoPizzaIngredientFactory : PizzaIngredientFactory {
+public class DChicagoPizzaIngredientFactory : PizzaIngredientFactory {
 	public Dough createDough() {
 		return new ThickDough(); }
 	
@@ -91,7 +91,7 @@ public:
 }
 
 // пицца с сыром
-public class CheesePizza : Pizza
+public class DCheesePizza : Pizza
 {
 protected:
 	PizzaIngredientFactory ingredientFactory;
@@ -113,7 +113,7 @@ public:
 }
 
 // пицца с мидиями
-public class ClamPizza : Pizza
+public class DClamPizza : Pizza
 {
 protected:
 	PizzaIngredientFactory ingredientFactory;
@@ -184,7 +184,7 @@ public class NYPizzaStore : PizzaStore
 
 
 // чикагская пиццерия
-public class ChicagoPizzaStore : PizzaStore
+public class DChicagoPizzaStore : PizzaStore
 {
 	override protected Pizza createPizza(string item)
 	{

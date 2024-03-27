@@ -7,7 +7,7 @@ import uim.views;
 /**
  * Button input class
  *
- * This input class can be used to render button elements.
+ * This input class DCan be used to render button elements.
  * If you need to make basic submit inputs with type=submit,
  * use the Basic input widget.
  */

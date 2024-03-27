@@ -8,7 +8,7 @@ import uim.orm;
  * Represents a single database table.
  *
  * Exposes methods for retrieving data out of it, and manages the associations
- * this table has to other tables. Multiple instances of this class can be created
+ * this table has to other tables. Multiple instances of this class DCan be created
  * for the same database table with different aliases, this allows you to address
  * your database structure in a richer and more expressive way.
  *
@@ -548,7 +548,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * Sets the class used to hydrate rows for this table.
      * Params:
      * string myname The name of the class to use
-     * @throws \UIM\ORM\Exception\MissingEntityException when the entity class cannot be found
+     * @throws \UIM\ORM\Exception\MissingEntityException when the entity class DCannot be found
      */
     auto setEntityClass(string myname) {
         /** @var class-string<\UIM\Datasource\IEntity>|null myclass */

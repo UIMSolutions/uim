@@ -33,7 +33,7 @@ interface ISpecification {
   ISpecification Not();
 }
 
-abstract class CompositeSpecification : ISpecification {
+abstract class DCompositeSpecification : ISpecification {
   abstract bool IsSatisfiedBy(Object candidate);
 
   ISpecification And(ISpecification other) {

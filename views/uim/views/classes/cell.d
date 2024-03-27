@@ -9,7 +9,7 @@ import uim.views;
  *
  * @implements \UIM\Event\IEventDispatcher<\UIM\View\View>
  */
-abstract class Cell { // }: IEventDispatcher, Stringable {
+abstract class DCell { // }: IEventDispatcher, Stringable {
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\View\View>
      * /

@@ -15,10 +15,10 @@ import uim.events;
  */
 class SubjectFilterDecorator : AbstractDecorator {
  
-    Json __invoke() {
+    IData __invoke() {
         auto someArguments = func_get_args();
         if (!this.canTrigger(someArguments[0])) {
-            return Json(null);
+            return IData(null);
         }
         return _call(someArguments);
     }

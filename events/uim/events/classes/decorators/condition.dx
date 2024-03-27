@@ -12,7 +12,7 @@ import uim.events;
  */
 class ConditionDecorator : AbstractDecorator {
  
-    Json __invoke() {
+    IData __invoke() {
         someArguments = func_get_args();
         if (!this.canTrigger(someArguments[0])) {
             return null;

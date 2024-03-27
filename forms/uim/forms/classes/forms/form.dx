@@ -192,7 +192,7 @@ class Form : IEventListener, IEventDispatcher, IValidatorAware {
     }
 
     // Get field data.
-    Json getData(string fieldName = null) {
+    IData getData(string fieldName = null) {
         if (fieldName.isNull) {
             return _data; // null - get all Data
         }
@@ -205,9 +205,9 @@ class Form : IEventListener, IEventDispatcher, IValidatorAware {
      * Params:
      * string[] aName The key to write, can be a dot notation value.
      * Alternatively can be an array containing key(s) and value(s).
-     * @param Json aValue Value to set for var
+     * @param IData aValue Value to set for var
      */
-    void set(string aName, Json aValue = null) {
+    void set(string aName, IData aValue = null) {
         set([aName: aValue]);
     }
     

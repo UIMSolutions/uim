@@ -23,15 +23,15 @@ interface IEvent {
   bool isStopped();
 
   // The result value of the event listeners.
-  Json result();
+  IData result();
 
   // Listeners can attach a result value to the event.
-  IEvent result(Json resultValue);
+  IEvent result(IData resultValue);
 
   // Accesses the event data/payload.
-  Json allData(string dataKey);
-  Json data(string dataKey);
+  IData allData(string dataKey);
+  IData data(string dataKey);
 
   // Assigns a value to the data/payload of this event.
-  IEvent data(string[] dataKeys, Json aValue);
+  IEvent data(string[] dataKeys, IData aValue);
 }

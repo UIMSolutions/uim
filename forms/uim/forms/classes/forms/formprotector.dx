@@ -27,11 +27,11 @@ class FormProtector {
     /**
      * Validate submitted form data.
      * Params:
-     * Json formData Form data.
+     * IData formData Form data.
      * @param string aurl URL form was POSTed to.
      * @param string asessionId Session id for hash generation.
      */
-    bool validate(Json formData, string aurl, string asessionId) {
+    bool validate(IData formData, string aurl, string asessionId) {
         this.debugMessage = null;
 
         auto extractedToken = this.extractToken(formData);
@@ -76,9 +76,9 @@ class FormProtector {
      *  separated string to indicate nesting or array of fieldname parts.
      * @param bool lock Whether this field should be part of the validation
      *  or excluded as part of the unlockedFields. Default `true`.
-     * @param Json aValue Field value, if value should not be tampered with.
+     * @param IData aValue Field value, if value should not be tampered with.
      */
-    auto addField(string[] afield, bool lock = true, Json aValue = null) {
+    auto addField(string[] afield, bool lock = true, IData aValue = null) {
         if (isString(field)) {
             field = this.getFieldNameArray(field);
         }
@@ -165,9 +165,9 @@ class FormProtector {
     /**
      * Extract token from data.
      * Params:
-     * Json formData Data to validate.
+     * IData formData Data to validate.
      */
-    protected string extractToken(Json formData) {
+    protected string extractToken(IData formData) {
         if (!isArray(formData)) {
             this.debugMessage = "Request data is not an array.";
 
@@ -343,7 +343,7 @@ class FormProtector {
         return [
             "fields": urlencode(fields ~ ":" ~ locked),
             "unlocked": urlencode(join("|", unlockedFields)),
-            "debug": urlencode((string)json_encode([
+            "debug": urlencode((string)IData_encode([
                 url,
                 this.fields,
                 this.unlockedFields,
@@ -381,7 +381,7 @@ class FormProtector {
         if (!isSet(formData["_Token"]["debug"])) {
             return "Form protection debug token not found.";
         }
-        expectedParts = json_decode(urldecode(formData["_Token"]["debug"]), true);
+        expectedParts = IData_decode(urldecode(formData["_Token"]["debug"]), true);
         if (!isArray(expectedParts) || count(expectedParts) != 3) {
             return "Invalid form protection debug token.";
         }

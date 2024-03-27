@@ -17,12 +17,12 @@ abstract class AbstractDecorator {
        _options = options;
     }
     
-    Json __invoke() {
+    IData __invoke() {
         return _call(func_get_args());
     }
     
     // Calls the decorated callable with the passed arguments.
-    protected Json _call(array someArguments) {
+    protected IData _call(array someArguments) {
         aCallable = _callable;
 
         return aCallable(...someArguments);

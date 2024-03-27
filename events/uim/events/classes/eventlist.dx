@@ -35,10 +35,10 @@ class EventList : ArrayAccess, Countable {
      * Whether a offset exists
      *
      * @link https://secure.php.net/manual/en/arrayaccess.offsetexists.php
-     * @param Json  anOffset An offset to check for.
+     * @param IData  anOffset An offset to check for.
      * @return bool True on success or false on failure.
      */
-    bool offsetExists(Json anOffset) {
+    bool offsetExists(IData anOffset) {
         return isSet(_events[anOffset]);
     }
 
@@ -46,10 +46,10 @@ class EventList : ArrayAccess, Countable {
      * Offset to retrieve
      *
      * @link https://secure.php.net/manual/en/arrayaccess.offsetget.php
-     * @param Json  anOffset The offset to retrieve.
+     * @param IData  anOffset The offset to retrieve.
      * @return \UIM\Event\IEvent<object>|null
      */
-    IEvent offsetGet(Json anOffset) {
+    IEvent offsetGet(IData anOffset) {
         if (!this.offsetExists(anOffset)) {
             return null;
         }
@@ -60,10 +60,10 @@ class EventList : ArrayAccess, Countable {
      * Offset to set
      *
      * @link https://secure.php.net/manual/en/arrayaccess.offsetset.php
-     * @param Json  anOffset The offset to assign the value to.
-     * @param Json aValue The value to set.
+     * @param IData  anOffset The offset to assign the value to.
+     * @param IData aValue The value to set.
      */
-    void offsetSet(Json anOffset, Json aValue) {
+    void offsetSet(IData anOffset, IData aValue) {
        _events[anOffset] = aValue;
     }
 
@@ -71,9 +71,9 @@ class EventList : ArrayAccess, Countable {
      * Offset to unset
      *
      * @link https://secure.php.net/manual/en/arrayaccess.offsetunset.php
-     * @param Json  anOffset The offset to unset.
+     * @param IData  anOffset The offset to unset.
      */
-    void offsetUnset(Json  anOffset) {
+    void offsetUnset(IData  anOffset) {
         unset(_events[anOffset]);
     }
 

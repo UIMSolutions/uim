@@ -196,7 +196,7 @@ class DomainTest {
         Property.PRICE.toString(), TEST_CAR_PRICE,
         Property.PARTS.toString(), List.of(Map.of(), Map.of())
     );
-    var car = new Car(carProperties);
+    var car = new DCar(carProperties);
     assertEquals(TEST_CAR_MODEL, car.getModel().orElseThrow());
     assertEquals(TEST_CAR_PRICE, car.getPrice().orElseThrow());
     assertEquals(2, car.getParts().count());
@@ -233,7 +233,7 @@ class DomainTest {
         Property.PRICE.toString(), TEST_CAR_PRICE,
         Property.PARTS.toString(), List.of(Map.of(), Map.of())
     );
-    var car = new Car(carProperties);
+    var car = new DCar(carProperties);
     assertEquals(TEST_CAR_MODEL, car.getModel().orElseThrow());
     assertEquals(TEST_CAR_PRICE, car.getPrice().orElseThrow());
     assertEquals(2, car.getParts().count());
@@ -262,7 +262,7 @@ version(test_uim_oop) { unittest {
         PriceProperty(10000L), 
         PartsProperty([wheelProperties, doorProperties])];
 
-    auto car = new Car(carProperties);
+    auto car = new DCar(carProperties);
 
     debug writeln("Here is our car:");
     debug writeln("-> model: {}", car.getModel().orElseThrow());

@@ -43,7 +43,7 @@ class DComputer {
     HardDrive hard_drive; }
 
   this() {
-    cpu = new CPU;
+    cpu = new DCPU;
     memory = new Memory;
     hard_drive = new HardDrive;}
 
@@ -56,6 +56,6 @@ class DComputer {
 
 // Client
 version(test_uim_oop) { unittest {
-    auto facade = new Computer;
+    auto facade = new DComputer;
     facade.start_computer;
     }}

@@ -42,7 +42,7 @@ import uim.oop;
    private Shape square;
 
     this() {
-      circle = new Circle();
+      circle = new DCircle();
       rectangle = new Rectangle();
       square = new Square();
    }

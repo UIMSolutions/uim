@@ -82,7 +82,7 @@ version(test_uim_oop) { unittest {
     DSubject subject = new DSubject();
 
     new HexaObserver(subject);
-    new OctalObserver(subject);
+    new DOctalObserver(subject);
     new BinaryObserver(subject);
 
     debug writeln("First state change: 15");	

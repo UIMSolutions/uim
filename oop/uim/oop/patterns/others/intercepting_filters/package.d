@@ -91,7 +91,7 @@ version(test_uim_oop) { unittest {
     filterManager.filter(new AuthenticationFilter());
     filterManager.filter(new DebugFilter());
 
-    Client client = new Client();
+    Client client = new DClient();
     client.filterManager(filterManager);
     client.sendRequest("HOME");
   }

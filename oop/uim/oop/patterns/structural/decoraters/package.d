@@ -60,9 +60,9 @@ import uim.oop;
 /// Use the RedShapeDecorator to decorate Shape objects.
 version(test_uim_oop) { unittest {
     writeln("DecoratorPatternDemo");
-      Shape circle = new Circle();
+      Shape circle = new DCircle();
 
-      Shape redCircle = new RedShapeDecorator(new Circle());
+      Shape redCircle = new RedShapeDecorator(new DCircle());
 
       Shape redRectangle = new RedShapeDecorator(new Rectangle());
       writeln("Circle with normal border");

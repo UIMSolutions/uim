@@ -62,9 +62,9 @@ import core.thread.osthread;
 version(test_uim_oop) { unittest {
     writeln("\nRosettacode - Singleton");
 
-  /* Coder x = new Coder ; 
-  Coder y = new Coder ; 
-  Coder z = new Coder ; 
+  /* Coder x = new DCoder ; 
+  Coder y = new DCoder ; 
+  Coder z = new DCoder ; 
  
   x.hasName("Peter").start() ;
   y.hasName("Paul").start() ;

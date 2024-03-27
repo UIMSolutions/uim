@@ -108,11 +108,11 @@ version(test_uim_oop) { unittest {
   persons ~= (new Person("Mike", "Male", "Single"));
   persons ~= (new Person("Bobby", "Male", "Single"));
 
-  ICriteria male = new CriteriaMale();
-  ICriteria female = new CriteriaFemale();
-  ICriteria single = new CriteriaSingle();
+  ICriteria male = new DCriteriaMale();
+  ICriteria female = new DCriteriaFemale();
+  ICriteria single = new DCriteriaSingle();
   ICriteria singleMale = new AndCriteria(single, male);
-  ICriteria singleOrFemale = new OrCriteria(single, female);
+  ICriteria singleOrFemale = new DOrCriteria(single, female);
 
   writeln("Males: ");
   printPersons(male.meetCriteria(persons));

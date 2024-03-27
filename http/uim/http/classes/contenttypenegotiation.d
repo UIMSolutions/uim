@@ -8,7 +8,7 @@ import uim.http;
  * Negotiates the prefered content type from what the application
  * provides and what the request has in its Accept header.
  */
-class ContentTypeNegotiation {
+class DContentTypeNegotiation {
     /**
      * Parse Accept* headers with qualifier options.
      *

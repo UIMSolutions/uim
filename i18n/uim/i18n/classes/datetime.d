@@ -439,7 +439,7 @@ class DateTime /* : Chronos, IDataSerializable, Stringable */ {
      * Get list of timezone identifiers
      * Params:
      * string|int filter A regex to filter identifier
-     *  Or one of DateTimeZone class constants
+     *  Or one of DateTimeZone class DConstants
      * @param string country A two-letter ISO 3166-1 compatible country code.
      *  This option is only used when filter is set to DateTimeZone.PER_COUNTRY
      * @param IData[string]|bool options If true (default value) groups the identifiers list by primary region.

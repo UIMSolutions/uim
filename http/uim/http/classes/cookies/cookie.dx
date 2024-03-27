@@ -4,7 +4,7 @@ import uim.cake;
 
 @safe:
 
-class Cookie : ICookie {
+class DCookie : ICookie {
     // Cookie name
     protected string _name = "";
 

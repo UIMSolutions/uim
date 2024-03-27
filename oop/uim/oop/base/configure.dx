@@ -13,7 +13,7 @@ import uim.oop;
  *
  * @link https://book.UIM.org/5/en/development/configuration.html
  */
-class Configure {
+class DConfigure {
   	bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		

@@ -20,7 +20,7 @@ import uim.http;
  *
  * @see https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#double-submit-cookie
  */
-class CsrfProtectionMiddleware { // }: IMiddleware {
+class DCsrfProtectionMiddleware { // }: IMiddleware {
     /**
      * Config for the CSRF handling.
      *

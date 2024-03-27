@@ -5,7 +5,7 @@ import uim.commands;
 @safe:
 
 // Provide command completion shells such as bash.
-class CompletionCommand : DCommand { // }, ICommandCollectionAware {
+class DCompletionCommand : DCommand { // }, ICommandCollectionAware {
    mixin(CommandThis!("Completion"));
 
   	override bool initialize(IData[string] initData = null) {

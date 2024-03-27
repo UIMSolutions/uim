@@ -10,13 +10,25 @@ import uim.consoles;
  *
  * @see \UIM\Console\ConsoleOptionParser.addArgument()
  */
-class ConsoleInputArgument {
+class DConsoleInputArgument {
+    mixin TConfigurable!();
 
-  	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
 
     // Name of the argument.
     protected string _name;

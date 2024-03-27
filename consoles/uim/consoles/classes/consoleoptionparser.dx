@@ -56,12 +56,25 @@ import uim.consoles;
  * By providing help text for your positional arguments and named arguments, the ConsoleOptionParser
  * can generate a help display for you. You can view the help for shells by using the `--help` or `-h` switch.
  */
-class ConsoleOptionParser {
-  	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
+class DConsoleOptionParser {
+    mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
 
     // Description text - displays before options when help is generated
     protected string _description = "";

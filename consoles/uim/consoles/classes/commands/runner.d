@@ -10,19 +10,24 @@ import uim.consoles;
  * @implements \UIM\Event\IEventDispatcher<\UIM\Core\IConsoleApplication>
  */
 class DCommandRunner { // }: IEventDispatcher {
-    mixin TConfigurable!(); 
+    mixin TConfigurable!();
 
     this() {
         initialize;
     }
 
-    // Hook method
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
         setConfigurationData(initData);
 
         return true;
     }
+
+    mixin(TProperty!("string", "name"));
     
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\Core\IConsoleApplication>

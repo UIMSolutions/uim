@@ -31,12 +31,25 @@ import uim.consoles;
  * See ConsoleOutput.styles() to learn more about defining your own styles. Nested styles are not supported
  * at this time.
  */
-class ConsoleOutput {
-  	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
+class DConsoleOutput {
+    mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
 
     // Raw output constant - no modification of output text.
     const int RAW = 0;

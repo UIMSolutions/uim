@@ -11,19 +11,24 @@ import uim.consoles;
  * @internal
  */
 class DCommandScanner {
-    mixin TConfigurable!(); 
+    mixin TConfigurable!();
 
     this() {
         initialize;
     }
 
-    // Hook method
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
         setConfigurationData(initData);
 
         return true;
     }
+
+    mixin(TProperty!("string", "name"));
     /**
      * Scan UIM internals for shells & commands.
      *

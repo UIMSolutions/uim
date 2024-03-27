@@ -6,19 +6,24 @@ import uim.consoles;
 
 // This is a factory for creating Command instances.
 class DCommandFactory { // }: ICommandFactory {
-  mixin TConfigurable!();
+    mixin TConfigurable!();
 
-  this() {
-    initialize;
-  }
+    this() {
+        initialize;
+    }
 
-  // Hook method
-  bool initialize(IData[string] initData = null) {
-    configuration(MemoryConfiguration);
-    setConfigurationData(initData);
+    this(IData[string] initData) {
+        initialize(initData);
+    }
 
-    return true;
-  }
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
   /* 
   protected IContainer _container = null;
 

@@ -6,6 +6,24 @@ import uim.consoles;
 
 // Collection for Commands.
 class DCommandCollection { // : IteratorAggregate, Countable {
+    mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
     /* 
     // Command list
     protected ICommand[string] _commands;

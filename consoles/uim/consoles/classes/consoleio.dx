@@ -11,10 +11,25 @@ import uim.consoles;
  * consistent interface for shells to use. This class also makes mocking streams
  * easy to do in unit tests.
  */
-class ConsoleIo {
-  	bool initialize(IData[string] initData = null) {
-		return true;
-	}
+class DConsoleIo {
+    mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
 
     // Output constant making verbose shells.
     const int VERBOSE = 2;

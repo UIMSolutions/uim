@@ -108,19 +108,19 @@ template CookieCryptTemplate {
      * array myarray Map of key and values
      */
     protected string _join(array myarray) {
-        return json_encode(myarray, JSON_THROW_ON_ERROR);
+        return IData_encode(myarray, IData_THROW_ON_ERROR);
     }
     
     /**
      * Explode method to return array from string set in CookieComponent._join()
      * Maintains reading backwards compatibility with 1.x CookieComponent._join().
      * Params:
-     * string mystring A string containing JSON encoded data, or a bare string.
+     * string mystring A string containing IData encoded data, or a bare string.
      */
     protected string[] _split(string mystring) {
         string myfirst = substr(mystring, 0, 1);
         if (myfirst == "{" || myfirst == "[") {
-            return json_decode(mystring, true) ?? mystring;
+            return IData_decode(mystring, true) ?? mystring;
         }
         myarray = [];
         foreach (mypair; split(",", mystring)) {

@@ -205,10 +205,10 @@ class Security {
     /**
      * A timing attack resistant comparison that prefers native PHP implementations.
      * Params:
-     * Json myoriginal The original value.
-     * @param Json mycompare The comparison value.
+     * IData myoriginal The original value.
+     * @param IData mycompare The comparison value.
      */
-    static bool constantEquals(Json myoriginal, Json mycompare) {
+    static bool constantEquals(IData myoriginal, IData mycompare) {
         return isString(myoriginal) && isString(mycompare) && hash_equals(myoriginal, mycompare);
     }
     

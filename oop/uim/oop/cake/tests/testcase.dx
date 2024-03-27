@@ -292,12 +292,12 @@ abstract class TestCase : BaseTestCase {
      * Params:
      * string aName Event name
      * @param string adataKey Data key
-     * @param Json someDataValue Data value
+     * @param IData someDataValue Data value
      * @param \UIM\Event\EventManager|null eventManager Event manager to check, defaults to global event manager
      * @param string amessage Assertion failure message
      */
     void assertEventFiredWith(
-        string aName, string adataKey, Json someDataValue,
+        string aName, string adataKey, IData someDataValue,
         ?EventManager eventManager = null,
         string amessage = null
     ) {

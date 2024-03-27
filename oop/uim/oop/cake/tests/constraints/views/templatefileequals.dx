@@ -23,9 +23,9 @@ class TemplateFileEquals : Constraint {
     /**
      * Checks assertion
      * Params:
-     * Json other Expected filename
+     * IData other Expected filename
      */
-   bool matches(Json expectedOther) {
+   bool matches(IData expectedOther) {
         return this.filename.has(other);
     }
     

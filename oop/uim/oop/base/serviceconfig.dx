@@ -15,9 +15,9 @@ class ServiceConfig {
      * Read a configuration key
      * Params:
      * string aPath The path to read.
-     * @param Json defaultValue The default value to use if somePath does not exist.
+     * @param IData defaultValue The default value to use if somePath does not exist.
      */
-    Json get(string aPath, IData defaultData = null) {
+    IData get(string aPath, IData defaultData = null) {
         return Configure.read(somePath, defaultData);
     }
     

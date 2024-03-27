@@ -23,11 +23,11 @@ class Hash {
      *  \ArrayAccess interface to operate on.
      * @param string[]|string|int mypath The path being searched for. Either a dot
      *  separated string, or an array of path segments.
-     * @param Json mydefault The return value when the path does not exist
+     * @param IData mydefault The return value when the path does not exist
      */
-    // TODO static Json get(ArrayAccess data, string[] mypath, Json mydefault = null) {
+    // TODO static IData get(ArrayAccess data, string[] mypath, IData mydefault = null) {
 
-    static Json get(array data, string[] mypath, Json mydefault = null) {
+    static IData get(array data, string[] mypath, IData mydefault = null) {
         if (mydata.isEmpty || mypath.isNull) {
             return mydefault;
         }
@@ -228,9 +228,9 @@ class Hash {
      * Params:
      * array data The data to insert into.
      * @param string mypath The path to insert at.
-     * @param Json myvalues The values to insert.
+     * @param IData myvalues The values to insert.
      */
-    static array insert(array data, string mypath, Json myvalues = null) {
+    static array insert(array data, string mypath, IData myvalues = null) {
         mynoTokens = !mypath.has("[");
         if (mynoTokens && !mypath.has(".")) {
             mydata[mypath] = myvalues;
@@ -270,9 +270,9 @@ class Hash {
      * string myop The operation to do.
      * @param array data The data to operate on.
      * @param string[] mypath The path to work on.
-     * @param Json myvalues The values to insert when doing inserts.
+     * @param IData myvalues The values to insert when doing inserts.
      */
-    protected static array _simpleOp(string myop, array data, array mypath, Json myvalues = null) {
+    protected static array _simpleOp(string myop, array data, array mypath, IData myvalues = null) {
         my_list = &mydata;
 
         mycount = count(mypath);
@@ -544,9 +544,9 @@ class Hash {
     /**
      * Callback auto for filtering.
      * Params:
-     * Json myvar Array to filter.
+     * IData myvar Array to filter.
      */
-    protected static bool _filter(Json valueToFilter) {
+    protected static bool _filter(IData valueToFilter) {
         return valueToFilter == 0 || valueToFilter == 0.0 || valueToFilter == "0" || !empty(valueToFilter);
     }
     
@@ -631,9 +631,9 @@ class Hash {
      * This auto will work with an unlimited amount of arguments and typecasts non-array parameters into arrays.
      * Params:
      * array data Array to be merged
-     * @param Json mymerge Array to merge with. The argument and all trailing arguments will be array cast when merged
+     * @param IData mymerge Array to merge with. The argument and all trailing arguments will be array cast when merged
      */
-    static array merge(array data, Json mymerge) {
+    static array merge(array data, IData mymerge) {
         myargs = array_slice(func_get_args(), 1);
         result = mydata;
         mystack = [];
@@ -719,7 +719,7 @@ class Hash {
     
     /**
      * Counts the dimensions of *all* array elements. Useful for finding the maximum
-     * number of dimensions in a Json array.
+     * number of dimensions in a IData array.
      * Params:
      * array data Array to count dimensions on
      */
@@ -756,7 +756,7 @@ class Hash {
      * @param string mypath The path to extract from mydata.
      * @param callable myfunction The auto to call on each extracted value.
      */
-    static Json reduce(array data, string mypath, callable myfunction) {
+    static IData reduce(array data, string mypath, callable myfunction) {
         myvalues = (array)extract(mydata, mypath);
 
         return array_reduce(myvalues, myfunction);
@@ -785,7 +785,7 @@ class Hash {
      * @param string mypath The path to extract from mydata.
      * @param callable myfunction The auto to call on each extracted value.
      */
-    static Json apply(array data, string mypath, callable myfunction) {
+    static IData apply(array data, string mypath, callable myfunction) {
         myvalues = (array)extract(mydata, mypath);
 
         return myfunction(myvalues);
@@ -980,9 +980,9 @@ class Hash {
      * Params:
      * array data List to normalize
      * @param bool myassoc If true, mydata will be converted to an associative array.
-     * @param Json mydefault The default value to use when a top level numeric key is converted to associative form.
+     * @param IData mydefault The default value to use when a top level numeric key is converted to associative form.
      */
-    static array normalize(array data, bool myassoc = true, Json mydefault = null) {
+    static array normalize(array data, bool myassoc = true, IData mydefault = null) {
         someKeys = mydata.keys;
         mycount = count(someKeys);
         mynumeric = true;

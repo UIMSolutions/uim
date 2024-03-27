@@ -17,16 +17,16 @@ class EventFiredWith : Constraint {
     protected string _dataKey;
 
     // Event data value
-    protected Json _dataValue;
+    protected IData _dataValue;
 
     /**
      * Constructor
      * Params:
      * \UIM\Event\EventManager eventManager Event manager to check
      * @param string dataKey Data key
-     * @param Json someDataValue Data value
+     * @param IData someDataValue Data value
      */
-    this(EventManager eventManager, string dataKey, Json someDataValue) {
+    this(EventManager eventManager, string dataKey, IData someDataValue) {
        _eventManager = eventManager;
        _dataKey = dataKey;
        _dataValue = someDataValue;
@@ -41,10 +41,10 @@ class EventFiredWith : Constraint {
     /**
      * Checks if event is in fired array
      * Params:
-     * Json other Constraint check
+     * IData other Constraint check
      * @throws \PHPUnit\Framework\AssertionFailedError
      */
-    bool matches(Json expectedOther) {
+    bool matches(IData expectedOther) {
         firedEvents = [];
         list = _eventManager.getEventList();
         if (list !isNull) {

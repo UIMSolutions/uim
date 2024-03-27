@@ -86,7 +86,7 @@ template ConsoleIntegrationTestTemplate {
      * @param string amessage Failure message
      */
     void assertExitCode(int expected, string amessage= null) {
-        this.assertThat(expected, new ExitCode(_exitCode), message);
+        this.assertThat(expected, new DExitCode(_exitCode), message);
     }
     
     /**
@@ -95,7 +95,7 @@ template ConsoleIntegrationTestTemplate {
      * string amessage Failure message
      */
     void assertExitSuccess(string amessage= null) {
-        this.assertThat(Command.CODE_SUCCESS, new ExitCode(_exitCode), message);
+        this.assertThat(Command.CODE_SUCCESS, new DExitCode(_exitCode), message);
     }
     
     /**
@@ -104,7 +104,7 @@ template ConsoleIntegrationTestTemplate {
      * string amessage Failure message
      */
     void assertExitError(string amessage = null) {
-        this.assertThat(Command.CODE_ERROR, new ExitCode(_exitCode), message);
+        this.assertThat(Command.CODE_ERROR, new DExitCode(_exitCode), message);
     }
     
     /**

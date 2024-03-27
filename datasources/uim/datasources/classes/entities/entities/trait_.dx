@@ -310,7 +310,7 @@ trait EntityTrait
      * ### Example:
      *
      * ```
-     * entity = new Entity(["id": 1, "name": null]);
+     * entity = new DEntity(["id": 1, "name": null]);
      * entity.has("id"); // true
      * entity.has("name"); // false
      * entity.has("last_name"); // false

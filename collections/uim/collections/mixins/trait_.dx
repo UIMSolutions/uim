@@ -128,7 +128,7 @@ trait CollectionTrait {
 
     function extract(path): ICollection
     {
-        extractor = new ExtractIterator(this.unwrap(), path);
+        extractor = new DExtractIterator(this.unwrap(), path);
         if (path.isString && strpos(path, "{*}") != false) {
             extractor = extractor
                 .filter(function ( data) {

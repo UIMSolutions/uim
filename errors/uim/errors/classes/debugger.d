@@ -576,14 +576,14 @@ class DDebugger {
         if (isRef) {
             return new ReferenceNode(className, refNum);
         }
-        node = new ClassNode(className, refNum);
+        node = new DClassNode(className, refNum);
 
         remaining = context.remainingDepth();
         if (remaining > 0) {
             if (method_exists(var, "__debugInfo")) {
                 try {
                     foreach ((array)var.__debugInfo() as aKey: val) {
-                        node.addProperty(new PropertyNode("'{aKey}'", null, export(val, context)));
+                        node.addProperty(new DPropertyNode("'{aKey}'", null, export(val, context)));
                     }
                     return node;
                 } catch (Exception  anException) {
@@ -598,7 +598,7 @@ class DDebugger {
                         kv.value = outputMask[kv.key];
                     }
                     node.addProperty(
-                        new PropertyNode((string)kv.key, "public", export(kv.value, context.withAddedDepth()))
+                        new DPropertyNode((string)kv.key, "public", export(kv.value, context.withAddedDepth()))
                     );
             });
             ref = new ReflectionObject(var);
@@ -621,7 +621,7 @@ class DDebugger {
                         aValue = export(reflectionProperty.getValue(var), context.withAddedDepth());
                     }
                     node.addProperty(
-                        new PropertyNode(
+                        new DPropertyNode(
                             reflectionProperty.name,
                             visibility,
                             aValue

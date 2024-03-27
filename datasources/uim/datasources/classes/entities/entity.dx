@@ -53,7 +53,7 @@ class DDBEntity : IDatasourceEntity { //}, InvalidPropertyInterface {
      * ### Example:
      *
      * ```
-     *  entity = new Entity(["id": 1, "name": "Andrew"])
+     *  entity = new DEntity(["id": 1, "name": "Andrew"])
      * ```
      *
      * @param array<string, mixed> properties hash of properties to set in this entity

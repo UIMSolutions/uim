@@ -164,7 +164,7 @@ mixin EntityTemplate {
      * present when the entity was instantiated.
      *
      * ```
-     * entity = new Entity(["name": 'andrew", "id": 1]);
+     * entity = new DEntity(["name": 'andrew", "id": 1]);
      *
      * entity.set("phone_number", "555-0134");
      * print_r(entity.getOriginalFields()) // prints ["name", "id"]
@@ -316,7 +316,7 @@ mixin EntityTemplate {
      * ### Example:
      *
      * ```
-     * entity = new Entity(["id": 1, "name": null]);
+     * entity = new DEntity(["id": 1, "name": null]);
      * entity.has("id"); // true
      * entity.has("name"); // true
      * entity.has("last_name"); // false

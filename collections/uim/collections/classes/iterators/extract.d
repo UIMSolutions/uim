@@ -31,7 +31,7 @@ class DExtractIterator : DCollection {
      * ["comment": ["body": 'cool", "user": ["name": 'Mark"]],
      * ["comment": ["body": 'very cool", "user": ["name": 'Renan"]]
      * ];
-     *  anExtractor = new ExtractIterator(someItems, "comment.user.name"");
+     *  anExtractor = new DExtractIterator(someItems, "comment.user.name"");
      * ```
      * Params:
      * range someItems The list of values to iterate

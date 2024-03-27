@@ -99,7 +99,7 @@ template CollectionTemplate {
     }
  
     ICollection extract(string mypath) {
-        auto myextractor = new ExtractIterator(this.unwrap(), mypath);
+        auto myextractor = new DExtractIterator(this.unwrap(), mypath);
         if (isString(mypath) && mypath.has("{*}")) {
             myextractor = myextractor
                 .filter(function (mydata) {

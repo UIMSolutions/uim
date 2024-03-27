@@ -2,7 +2,7 @@ import uim.orm;
 
 @safe:
 
-class BelongsTo : DAssociation {
+class DBelongsTo : DAssociation {
 
 
 

@@ -27,7 +27,7 @@ class JMSService : IBusinessService {
 }
 
 /// Create Business Lookup Service.
-class BusinessLookUp {
+class DBusinessLookUp {
   IBusinessService getBusinessService(string serviceType) {
 
     // TODO an error?
@@ -39,7 +39,7 @@ class BusinessLookUp {
 }
 
 /// Create Business Delegate.
-class BusinessDelegate {
+class DBusinessDelegate {
   private BusinessLookUp lookupService = new BusinessLookUp();
   private IBusinessService businessService;
   private string _serviceType;

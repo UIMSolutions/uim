@@ -13,7 +13,7 @@ import uim.orm;
  * @extends \UIM\Core\ObjectRegistry<\UIM\ORM\Behavior>
  * @implements \UIM\Event\IEventDispatcher<\UIM\ORM\Table>
  */
-class BehaviorRegistry : ObjectRegistry, IEventDispatcher {
+class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\ORM\Table>
      */

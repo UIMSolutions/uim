@@ -5,7 +5,7 @@ import uim.http;
 @safe:
 
 // Represents an HTTP 400 error.
-class BadRequestException : DHttpException {
+class DBadRequestException : DHttpException {
  
     protected int _defaultCode = 400;
 

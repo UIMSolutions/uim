@@ -39,7 +39,7 @@ class DSubject {
 }
 
 /// Create concrete observer classes
-class BinaryObserver : DObserver{
+class DBinaryObserver : DObserver{
 
   this(DSubject subject) {
     _subject = subject;

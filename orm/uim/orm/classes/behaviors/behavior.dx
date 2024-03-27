@@ -92,7 +92,7 @@ import uim.orm;
  * @see \UIM\ORM\Table.addBehavior()
  * @see \UIM\Event\EventManager
  */
-class Behavior : IEventListener {
+class DBehavior : IEventListener {
     use InstanceConfigTemplate();
 
     /**

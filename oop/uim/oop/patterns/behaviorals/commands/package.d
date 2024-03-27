@@ -27,7 +27,7 @@ class Stock {
 }
 
 /// Create concrete classes implementing the Order interface.
-class BuyStock : Order {
+class DBuyStock : Order {
   private Stock _abcStock;
 
   this(Stock abcStock) {
@@ -52,7 +52,7 @@ class SellStock : Order {
 }
 
 /// Create command invoker class.
-class Broker {
+class DBroker {
   private Order[] _orderList; 
 
   void takeOrder(Order order) {

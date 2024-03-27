@@ -24,13 +24,13 @@ class Wrapper : Packing {
   }
 }
 
-class Bottle : Packing {
+class DBottle : Packing {
   override string pack() {
     return "Bottle";
   }
 }
 
-abstract class Burger : Item {
+abstract class DBurger : Item {
    override Packing packing() {
       return new Wrapper();
    }

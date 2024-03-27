@@ -142,7 +142,7 @@ class DAssociation : IAssociation {
      * anAliasName - The name given to the association
      * @param array<string, mixed> options A list of properties to be set on this object
      * /
-    this(string anAliasName, STRINGAA someOptions = null) {
+    this(string anAliasName, IData[string] optionData = null) {
         defaults = [
             "cascadeCallbacks",
             "className",
@@ -388,7 +388,7 @@ bool getDependent() {
      *
      * @param array<string, mixed> options custom options key that could alter the return value
      * /
-bool canBeJoined(STRINGAA someOptions = null) {
+bool canBeJoined(IData[string] optionData = null) {
     strategy = options.get() "strategy", this.getStrategy());
 
     return strategy == this :  : STRATEGY_JOIN;
@@ -513,7 +513,7 @@ function setFinder(finder) {
      *
      * @param array<string, mixed> options List of options used for initialization
      * /
-protected void _options(STRINGAA someOptions) {
+protected void _options(IData[string] optionData) {
 }
 
 /**
@@ -542,7 +542,7 @@ protected void _options(STRINGAA someOptions) {
      * @return void
      * @throws \RuntimeException Unable to build the query or associations.
      * /
-void attachTo(Query query, STRINGAA someOptions = null) {
+void attachTo(Query query, IData[string] optionData = null) {
     target = this.getTarget();
     table = target.getTable();
 
@@ -620,7 +620,7 @@ void attachTo(Query query, STRINGAA someOptions = null) {
      * @param DORMQuery query The query to modify
      * @param array<string, mixed> options Options array containing the `negateMatch` key.
      * /
-protected void _appendNotMatching(Query query, STRINGAA someOptions) {
+protected void _appendNotMatching(Query query, IData[string] optionData) {
     target = _targetTable;
     if (!empty(options["negateMatch"])) {
         primaryKeys = query.aliasFields((array) target.getPrimaryKeys(), _name);
@@ -686,7 +686,7 @@ array defaultRowValue(array row, bool joined) {
      * @see DORMTable::find()
      * @return DORMQuery
      * /
-function find(type = null, STRINGAA someOptions = null) : Query {
+function find(type = null, IData[string] optionData = null) : Query {
     type = type ?  : this.getFinder();
     [type, opts] = _extractFinder(type);
 
@@ -751,7 +751,7 @@ int deleteAll(conditions) {
      * @param array<string, mixed> options The options containing the strategy to be used.
      * @return bool true if a list of keys will be required
      * /
-bool requiresKeys(STRINGAA someOptions = null) {
+bool requiresKeys(IData[string] optionData = null) {
     strategy = options["strategy"] ?  ? this.getStrategy();
 
     return strategy == STRATEGY_SELECT;
@@ -775,7 +775,7 @@ protected void _dispatchBeforeFind(Query query) {
      * @param DORMQuery surrogate the query having the fields to be copied from
      * @param array<string, mixed> options options passed to the method `attachTo`
      * /
-protected void _appendFields(Query query, Query surrogate, STRINGAA someOptions) {
+protected void _appendFields(Query query, Query surrogate, IData[string] optionData) {
     if (query.getEagerLoader().isAutoFieldsEnabled() == false) {
         return;
     }
@@ -805,7 +805,7 @@ protected void _appendFields(Query query, Query surrogate, STRINGAA someOptions)
      * target table.
      * @param array<string, mixed> options options passed to the method `attachTo`
      * /
-protected void _formatAssociationResults(Query query, Query surrogate, STRINGAA someOptions) {
+protected void _formatAssociationResults(Query query, Query surrogate, IData[string] optionData) {
     formatters = surrogate.getResultFormatters();
 
     if (!formatters || empty(options["propertyPath"])) {
@@ -863,7 +863,7 @@ Query:
      * @param DORMQuery surrogate the query having the containments to be attached
      * @param array<string, mixed> options options passed to the method `attachTo`
      * /
-protected void _bindNewAssociations(Query query, Query surrogate, STRINGAA someOptions) {
+protected void _bindNewAssociations(Query query, Query surrogate, IData[string] optionData) {
     loader = surrogate.getEagerLoader();
     contain = loader.getContain();
     matching = loader.getMatching();
@@ -900,7 +900,7 @@ protected void _bindNewAssociations(Query query, Query surrogate, STRINGAA someO
      * @throws \RuntimeException if the number of columns in the foreignKeys do not
      * match the number of columns in the source table primaryKeys
      * /
-protected array _joinCondition(STRINGAA someOptions) {
+protected array _joinCondition(IData[string] optionData) {
     conditions = null;
     tAlias = _name;
     sAlias = this.getSource().aliasName();
@@ -1040,7 +1040,7 @@ abstract string type();
      * @param array<string, mixed> options The options for eager loading.
      * @return \Closure
      * /
-abstract function eagerLoader(STRINGAA someOptions) : Closure;
+abstract function eagerLoader(IData[string] optionData) : Closure;
 
 /**
      * Handles cascading a delete from an associated model.
@@ -1052,7 +1052,7 @@ abstract function eagerLoader(STRINGAA someOptions) : Closure;
      * @param array<string, mixed> options The options for the original delete.
      * @return bool Success
      *  /
-abstract bool cascadeDelete_(IEntity anEntity, STRINGAA someOptions = null);
+abstract bool cascadeDelete_(IEntity anEntity, IData[string] optionData = null);
 
 /**
      * Returns whether the passed table is the owning side for this
@@ -1074,6 +1074,6 @@ abstract bool isOwningSide(Table side);
      * the saved entity
      * @see DORMTable::save()
      * /
-abstract function saveAssociated(IEntity anEntity, STRINGAA someOptions = null);
+abstract function saveAssociated(IEntity anEntity, IData[string] optionData = null);
     */ 
 }

@@ -215,7 +215,7 @@ class EagerLoader
      * @param array<string, mixed> options Extra options for the association matching.
      * @return this
      */
-    function setMatching(string associationPath, ?callable builder = null, STRINGAA someOptions = null) {
+    function setMatching(string associationPath, ?callable builder = null, IData[string] optionData = null) {
         if (_matching == null) {
             _matching = new static();
         }
@@ -448,7 +448,7 @@ class EagerLoader
      * @return DORMEagerLoadable Object with normalized associations
      * @throws \InvalidArgumentException When containments refer to associations that do not exist.
      */
-    protected function _normalizeContain(Table parent, string anAliasName, STRINGAA someOptions, array paths): EagerLoadable
+    protected function _normalizeContain(Table parent, string anAliasName, IData[string] optionData, array paths): EagerLoadable
     {
         defaults = _containOptions;
         instance = parent.getAssociation(alias);

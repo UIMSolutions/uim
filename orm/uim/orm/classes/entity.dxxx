@@ -30,7 +30,7 @@ class Entity : IEntity, InvalidPropertyInterface {
      * @param array<string, mixed> properties hash of properties to set in this entity
      * @param array<string, mixed> options list of options to use when creating this entity
      */
-    this(array properties = null, STRINGAA someOptions = null) {
+    this(array properties = null, IData[string] optionData = null) {
         options += [
             "useSetters": true,
             "markClean": false,

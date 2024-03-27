@@ -44,7 +44,7 @@ class Marshaller
      * @param array<string, mixed> options List of options containing the "associated" key.
      * @throws \InvalidArgumentException When associations do not exist.
      */
-    protected array _buildPropertyMap(array data, STRINGAA someOptions) {
+    protected array _buildPropertyMap(array data, IData[string] optionData) {
         map = null;
         schema = _table.getSchema();
 
@@ -148,7 +148,7 @@ class Marshaller
      * @param array data The data to hydrate.
      * @param array<string, mixed> options List of options
      */
-    IEntity one(array data, STRINGAA someOptions = null) {
+    IEntity one(array data, IData[string] optionData = null) {
         [data, options] = _prepareDataAndOptions(data, options);
 
         primaryKeys = (array)_table.getPrimaryKeys();
@@ -218,7 +218,7 @@ class Marshaller
      * @return array The list of validation errors.
      * @throws \RuntimeException If no validator can be created.
      */
-    protected function _validate(array data, STRINGAA someOptions, bool isNew) {
+    protected function _validate(array data, IData[string] optionData, bool isNew) {
         if (!options["validate"]) {
             return [];
         }
@@ -254,7 +254,7 @@ class Marshaller
      * @param array<string, mixed> options The options passed to this marshaller.
      * @return array An array containing prepared data and options.
      */
-    protected function _prepareDataAndOptions(array data, STRINGAA someOptions) {
+    protected function _prepareDataAndOptions(array data, IData[string] optionData) {
         options += ["validate": true];
 
         tableName = _table.aliasName();
@@ -278,7 +278,7 @@ class Marshaller
      * @param array<string, mixed> options List of options.
      * @return DORMDatasource\IEntity|array<DORMDatasource\IEntity>|null
      */
-    protected function _marshalAssociation(Association assoc, value, STRINGAA someOptions) {
+    protected function _marshalAssociation(Association assoc, value, IData[string] optionData) {
         if (!(value.isArray) {
             return null;
         }
@@ -329,7 +329,7 @@ class Marshaller
      * @see DORMTable::newEntities()
      * @see DORMEntity::_accessible
      */
-    function many(array data, STRINGAA someOptions = null) {
+    function many(array data, IData[string] optionData = null) {
         output = null;
         foreach (data as record) {
             if (!(record.isArray) {
@@ -355,7 +355,7 @@ class Marshaller
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      */
-    protected function _belongsToMany(BelongsToMany assoc, array data, STRINGAA someOptions = null) {
+    protected function _belongsToMany(BelongsToMany assoc, array data, IData[string] optionData = null) {
         associated = options["associated"] ?? [];
         forceNew = options.get("forceNew", false);
 
@@ -510,7 +510,7 @@ class Marshaller
      * @return DORMDatasource\IEntity
      * @see DORMEntity::_accessible
      */
-    function merge(IEntity anEntity, array data, STRINGAA someOptions = null): IEntity
+    function merge(IEntity anEntity, array data, IData[string] optionData = null): IEntity
     {
         [data, options] = _prepareDataAndOptions(data, options);
 
@@ -628,7 +628,7 @@ class Marshaller
      * @see DORMEntity::_accessible
      * @psalm-suppress NullArrayOffset
      */
-    function mergeMany(Range entities, array data, STRINGAA someOptions = null) {
+    function mergeMany(Range entities, array data, IData[string] optionData = null) {
         primary = (array)_table.getPrimaryKeys();
 
         indexed = (new DCollection(data))
@@ -707,7 +707,7 @@ class Marshaller
      * @param array<string, mixed> options List of options.
      * @return DORMDatasource\IEntity|array<DORMDatasource\IEntity>|null
      */
-    protected function _mergeAssociation(original, Association assoc, value, STRINGAA someOptions) {
+    protected function _mergeAssociation(original, Association assoc, value, IData[string] optionData) {
         if (!original) {
             return _marshalAssociation(assoc, value, options);
         }
@@ -753,7 +753,7 @@ class Marshaller
      * @param array<string, mixed> options List of options.
      * @return array<DORMDatasource\IEntity>
      */
-    protected function _mergeBelongsToMany(array original, BelongsToMany assoc, array value, STRINGAA someOptions) {
+    protected function _mergeBelongsToMany(array original, BelongsToMany assoc, array value, IData[string] optionData) {
         associated = options["associated"]  [];
 
         hasIds = array_key_exists("_ids", value);
@@ -782,7 +782,7 @@ class Marshaller
      * @param array<string, mixed> options List of options.
      * @return array<DORMDatasource\IEntity> An array of entities
      */
-    protected function _mergeJoinData(array original, BelongsToMany assoc, array value, STRINGAA someOptions) {
+    protected function _mergeJoinData(array original, BelongsToMany assoc, array value, IData[string] optionData) {
         associated = options.get("associated", null);
         extra = null;
         foreach (original as entity) {
@@ -840,7 +840,7 @@ class Marshaller
      * @param array data readOnly data to use.
      * @param array<string, mixed> options List of options that are readOnly.
      */
-    protected void dispatchAfterMarshal(IEntity anEntity, array data, STRINGAA someOptions = null) {
+    protected void dispatchAfterMarshal(IEntity anEntity, array data, IData[string] optionData = null) {
         data = new ArrayObject(data);
         options = new ArrayObject(options);
         _table.dispatchEvent("Model.afterMarshal", compact("entity", "data", "options"));

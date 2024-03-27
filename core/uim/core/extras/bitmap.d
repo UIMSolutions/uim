@@ -3,7 +3,7 @@ module uim.core.extras.bitmap;
 import uim.core;
 
 @safe:
-final class Image(T) {
+final class DImage(T) {
     static if (is(typeof({ auto x = T.black; })))
         const static T black = T.black;
     else

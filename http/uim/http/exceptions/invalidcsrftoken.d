@@ -7,7 +7,7 @@ import uim.http;
 /**
  * Represents an HTTP 403 error caused by an invalid CSRF token
  */
-class InvalidCsrfTokenException : DHttpException {
+class DInvalidCsrfTokenException : DHttpException {
  
     protected int _defaultCode = 403;
 

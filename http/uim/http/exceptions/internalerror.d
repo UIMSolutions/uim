@@ -5,7 +5,7 @@ import uim.http;
 @safe:
 
 // Represents an HTTP 500 error.
-class InternalErrorException : DHttpException {
+class DInternalErrorException : DHttpException {
     protected int _defaultCode = 500;
     
     /* 

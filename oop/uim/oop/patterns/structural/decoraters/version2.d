@@ -8,7 +8,7 @@ interface Coffee {
     string ingredients();
 }
 
-class SimpleCoffee : Coffee {
+class DSimpleCoffee : Coffee {
   float cost() {
     return 1.0; }
 
@@ -29,7 +29,7 @@ abstract class DCoffeeDecorator : Coffee {
     return decorated_coffee.ingredients;}
 }
 
-class WithMilk : CoffeeDecorator {
+class DWithMilk : CoffeeDecorator {
   this(Coffee d) {
     super(d); }
 
@@ -40,7 +40,7 @@ class WithMilk : CoffeeDecorator {
     return super.ingredients ~ ", Milk"; }
 }
 
-class WithSprinkles : CoffeeDecorator {
+class DWithSprinkles : CoffeeDecorator {
   this(Coffee d) {
     super(d); }
 

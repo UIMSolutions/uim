@@ -5,7 +5,7 @@ import uim.orm;
 @safe:
 
 // Checks that a list of fields from an entity are unique in the table
-class IsUnique {
+class DIsUnique {
     /* 
     // The list of fields to check
     protected string[] _fields;

@@ -9,7 +9,7 @@ import uim.collections;
  * when you have two separate collections and want to merge them together by placing
  * each of the values from one collection into a property inside the other collection.
  */
-class InsertIterator : DCollection {
+class DInsertIterator : DCollection {
   /*
   // The collection from which to extract the values to be inserted
   protected Collection _values;

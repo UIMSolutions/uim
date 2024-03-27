@@ -15,7 +15,7 @@ means.measurement.dimension.angle
 means.measurement.units.degree
 has.measurement.fundamentalComponent */
 class DDegreeAttribute : DDoubleAttribute {
-  mixin(AttributeThis!("DegreeAttribute"));
+  mixin(AttributeThis!("Degree"));
 
   // Initialization hook method.
   override bool initialize(IData[string] initData = null) {
@@ -30,7 +30,7 @@ class DDegreeAttribute : DDoubleAttribute {
   }
 }
 
-mixin(AttributeCalls!("DegreeAttribute"));
+mixin(AttributeCalls!("Degree"));
 
 version (test_uim_models) {
   unittest {

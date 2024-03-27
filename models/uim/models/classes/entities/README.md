@@ -23,7 +23,7 @@ In **programming**, an **entity** refers to a specific object or concept that ho
 - DAbstraction helps distinguish between instances (individual entities) and types (entity types), leading to a **data model**.
 - In data models, entities become **entity types**, and relationships become **relationship types**, visually represented in **Entity-Relationship Diagrams**1.
 
-**Programming Context**:
+**Programming DContext**:
 
 - In **object-oriented programming (OOP)**, an **entity** corresponds to an **object instance**.
 - In **data modeling**, it represents a **unit of data** rather than necessarily having a physical presence.

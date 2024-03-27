@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DDecimalAttribute : DAttribute {
-  mixin(AttributeThis!("DecimalAttribute"));
+  mixin(AttributeThis!("Decimal"));
 
   // Initialization hook method.
   override bool initialize(IData[string] initData = null) {
@@ -25,7 +25,7 @@ class DDecimalAttribute : DAttribute {
   }
 }
 
-mixin(AttributeCalls!"DecimalAttribute");
+mixin(AttributeCalls!"Decimal");
 
 version (test_uim_models) {
   unittest {

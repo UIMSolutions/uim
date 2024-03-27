@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DDoubleAttribute : DAttribute {
-  mixin(AttributeThis!("DoubleAttribute"));
+  mixin(AttributeThis!("Double"));
 
   // Initialization hook method.
   override bool initialize(IData[string] initData = null) {
@@ -26,7 +26,7 @@ class DDoubleAttribute : DAttribute {
   }
 }
 
-mixin(AttributeCalls!("DoubleAttribute"));
+mixin(AttributeCalls!("Double"));
 
 ///
 unittest {

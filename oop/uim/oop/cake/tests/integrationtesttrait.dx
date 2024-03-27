@@ -1101,14 +1101,14 @@ template IntegrationTestTemplate {
      * string amessage Original message to use as a base
      */
     protected string extractVerboseMessage(string message) {
-        if (cast(Exception)_exception) {
+        if (cast(DException)_exception) {
             message ~= this.extractExceptionMessage(_exception);
         }
         if (_controller.isNull) {
             return message;
         }
         error = _controller.viewBuilder().getVar("error");
-        if (cast(Exception)error) {
+        if (cast(DException)error) {
             message ~= this.extractExceptionMessage(this.viewVariable("error"));
         }
         return message;

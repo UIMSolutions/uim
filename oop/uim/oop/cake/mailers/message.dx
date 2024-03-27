@@ -1478,7 +1478,7 @@ class Message : IDataSerializable {
     array __serialize() {
         array = this.IDataSerialize();
         array_walk_recursive(array, void (& anItem, aKey) {
-            if (cast(SimpleXMLElement)anItem ) {
+            if (cast(DSimpleXMLElement)anItem ) {
                  anItem = IData_decode((string)IData_encode((array) anItem), true);
             }
         });

@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DDisplayOrderAttribute : DIntegerAttribute {
-  mixin(AttributeThis!("DisplayOrderAttribute"));
+  mixin(AttributeThis!("DisplayOrder"));
 
   // Initialization hook method.
   override bool initialize(IData[string] initData = null) {
@@ -24,7 +24,7 @@ class DDisplayOrderAttribute : DIntegerAttribute {
   }
 }
 
-mixin(AttributeCalls!("DisplayOrderAttribute"));
+mixin(AttributeCalls!("DisplayOrder"));
 
 version (test_uim_models) {
   unittest {

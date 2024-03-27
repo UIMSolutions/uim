@@ -12,7 +12,7 @@ import uim.models;
 /* means.calendar
 means.calendar.day */
 class DDayPartAttribute : DIntegerCalendarPart {
-  mixin(AttributeThis!("DayPartAttribute"));
+  mixin(AttributeThis!("DayPart"));
 
   override bool initialize(IData[string] initData = null) {
     if (!super.initialize(initData)) {
@@ -26,7 +26,7 @@ class DDayPartAttribute : DIntegerCalendarPart {
   }
 }
 
-mixin(AttributeCalls!("DayPartAttribute"));
+mixin(AttributeCalls!("DayPart"));
 
 version (test_uim_models) {
   unittest {

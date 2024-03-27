@@ -131,7 +131,7 @@ class DSqliteDriver : DDriver {
             DriverFeatures.SAVEPOINT,
             DriverFeatures.TRUNCATE_WITH_CONSTRAINTS: true,
 
-            DriverFeatures.JSON: false,
+            DriverFeatures.IData: false,
 
             DriverFeatures.CTE,
             DriverFeatures.WINDOW: version_compare(

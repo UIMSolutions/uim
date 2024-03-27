@@ -32,7 +32,7 @@ class DComparisonExpression : IExpression, IField {
     mixin FieldTrait;
 
     // The value to be used in the right hand side of the operation
-    protected Json _value;
+    protected IData _value;
 
     // The type to be used for casting the value to a database representation
     protected string _type = null;
@@ -53,11 +53,11 @@ class DComparisonExpression : IExpression, IField {
      * Constructor
      * Params:
      * \UIM\Database\IExpression|string afield the field name to compare to a value
-     * @param Json aValue The value to be used in comparison
+     * @param IData aValue The value to be used in comparison
      */
     this(
         IExpression|string afield,
-        Json aValue,
+        IData aValue,
         string typeName = null,
         string operator = "="
     ) {
@@ -70,9 +70,9 @@ class DComparisonExpression : IExpression, IField {
     /**
      * Sets the value
      * Params:
-     * Json aValue The value to compare
+     * IData aValue The value to compare
      */
-    void setValue(Json aValue) {
+    void setValue(IData aValue) {
         aValue = _castToExpression(aValue, _type);
 
          isMultiple = _type && _type.has("[]");
@@ -84,7 +84,7 @@ class DComparisonExpression : IExpression, IField {
     }
     
     // Returns the value used for comparison
-    Json getValue() {
+    IData getValue() {
         return _value;
     }
     
@@ -178,11 +178,11 @@ class DComparisonExpression : IExpression, IField {
     /**
      * Registers a value in the placeholder generator and returns the generated placeholder
      * Params:
-     * Json aValue The value to bind
+     * IData aValue The value to bind
      * @param \UIM\Database\ValueBinder valueBinder The value binder to use
      * @param string|null type The type of aValue
      */
-    protected string _bindValue(Json aValue, ValueBinder valueBinder, string valueType = null) {
+    protected string _bindValue(IData aValue, ValueBinder valueBinder, string valueType = null) {
         auto placeholder = valueBinder.placeholder("c");
         valueBinder.bind(placeholder, valueBinder, valueType);
 

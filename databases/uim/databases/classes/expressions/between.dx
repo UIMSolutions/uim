@@ -29,27 +29,27 @@ class DBetweenExpression : IExpression, IField {
     use FieldTrait;
 
     // The first value in the expression
-    protected Json _from;
+    protected IData _from;
 
     /**
      * The second value in the expression
      *
      * @var mixed
      */
-    protected Json _to;
+    protected IData _to;
 
     // The data type for the from and to arguments
-    protected Json _type;
+    protected IData _type;
 
     /**
      * Constructor
      * Params:
      * \UIM\Database\IExpression|string afield The field name to compare for values inbetween the range.
-     * @param Json from The initial value of the range.
-     * @param Json to The ending value in the comparison range.
+     * @param IData from The initial value of the range.
+     * @param IData to The ending value in the comparison range.
      * @param string|null type The data type name to bind the values with.
      */
-    this(IExpression|string afield, Json from, Json to, string atype = null) {
+    this(IExpression|string afield, IData from, IData to, string atype = null) {
         if (!type.isNull) {
             from = _castToExpression(from, type);
             to = _castToExpression(to, type);
@@ -91,11 +91,11 @@ class DBetweenExpression : IExpression, IField {
     /**
      * Registers a value in the placeholder generator and returns the generated placeholder
      * Params:
-     * Json aValue The value to bind
+     * IData aValue The value to bind
      * @param \UIM\Database\ValueBinder aValueBinder The value binder to use
      * @param string atype The type of aValue
      */
-    protected string _bindValue(Json aValue, ValueBinder aValueBinder, string atype) {
+    protected string _bindValue(IData aValue, ValueBinder aValueBinder, string atype) {
         placeholder = aValueBinder.placeholder("c");
         aValueBinder.bind(placeholder, aValue, type);
 

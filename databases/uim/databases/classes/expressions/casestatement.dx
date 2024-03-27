@@ -44,7 +44,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      *
      * @var \UIM\Database\IExpression|object|scalar|null
      */
-    protected Json aValue = null;
+    protected IData aValue = null;
 
     /**
      * The case value type.
@@ -66,7 +66,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      *
      * @var \UIM\Database\IExpression|object|scalar|null
      */
-    protected Json else = null;
+    protected IData else = null;
 
     /**
      * The else part result type.
@@ -98,7 +98,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      * @param string|null type The case value type. If no type is provided, the type will be tried to be inferred
      * from the value.
      */
-    this(Json aValue = null, string atype = null) {
+    this(IData aValue = null, string atype = null) {
         if (func_num_args() > 0) {
             if (
                 aValue !isNull &&
@@ -265,7 +265,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      * @throws \LogicException In case the callable doesn`t return an instance of
      * `\UIM\Database\Expression\WhenThenExpression`.
      */
-    void when(Json  when, string[]|null type = null) {
+    void when(IData  when, string[]|null type = null) {
         if (!this.whenBuffer.isNull) {
             throw new LogicException("Cannot call `when()` between `when()` and `then()`.");
         }
@@ -341,7 +341,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      * @throws \LogicException In case `when()` wasn`t previously called with a value other than a closure or an
      * instance of `\UIM\Database\Expression\WhenThenExpression`.
      */
-    void then(Json result, string atype = null) {
+    void then(IData result, string atype = null) {
         if (this.whenBuffer.isNull) {
             throw new LogicException("Cannot call `then()` before `when()`.");
         }
@@ -365,7 +365,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      * @throws \InvalidArgumentException In case the `result` argument is neither a scalar value, nor an object, an
      * instance of `\UIM\Database\IExpression`, or `null`.
      */
-    void else(Json result, string atype = null) {
+    void else(IData result, string atype = null) {
         if (!this.whenBuffer.isNull) {
             throw new LogicException("Cannot call `else()` between `when()` and `then()`.");
         }

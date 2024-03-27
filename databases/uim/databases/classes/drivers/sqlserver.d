@@ -171,7 +171,7 @@ class DSqlserverDriver : DDriver {
             DriverFeatures.TRUNCATE_WITH_CONSTRAINTS,
             DriverFeatures.WINDOW: true,
 
-            DriverFeatures.JSON: false,
+            DriverFeatures.IData: false,
         };
     }
  

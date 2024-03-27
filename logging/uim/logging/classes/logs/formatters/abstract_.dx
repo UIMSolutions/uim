@@ -10,11 +10,11 @@ abstract class AbstractFormatter {
     protected IData[string] _defaultConfigData;
 
     this(IData[string] configData = null) {
-        _defaultConfigData = Json.emptyObject;
+        _defaultConfigData = IData.emptyObject;
 
         configuration.update(configData);
     }
     
     // Formats message.
-    abstract string format(Json loggingLevel, string loggingMessage, IData[string] loggingData = null);
+    abstract string format(IData loggingLevel, string loggingMessage, IData[string] loggingData = null);
 }

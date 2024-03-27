@@ -47,7 +47,7 @@ class DCriteriaFemale : ICriteria {
    }
 }
 
- class AndCriteria : ICriteria {
+ class DAndCriteria : ICriteria {
    private ICriteria _criteria;
    private ICriteria _otherCriteria;
 

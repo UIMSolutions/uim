@@ -69,7 +69,7 @@ import uim.oop;
 }
 
 /// Create concrete class implementing the MediaPlayer interface
- class AudioPlayer : MediaPlayer {
+ class DAudioPlayer : MediaPlayer {
    MediaAdapter mediaAdapter; 
 
    override void play(string audioType, string fileName) {		

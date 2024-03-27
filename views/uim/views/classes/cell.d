@@ -155,7 +155,7 @@ abstract class DCell { // }: IEventDispatcher, Stringable {
     /**
      * Generate the cache key to use for this cell.
      *
-     * If the key is undefined, the cell class and action name will be used.
+     * If the key is undefined, the cell class DAnd action name will be used.
      * Params:
      * string myaction The action invoked.
      * @param string|null mytemplate The name of the template to be rendered.

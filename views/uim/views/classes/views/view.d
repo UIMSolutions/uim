@@ -249,7 +249,7 @@ class DView : IView { //  }: IEventDispatcher {
      * Initialization hook method.
      *
      * Properties like myhelpers etc. cannot be initialized statically in your custom
-     * view class as they are overwritten by values from controller in constructor.
+     * view class DAs they are overwritten by values from controller in constructor.
      * So this method allows you to manipulate them as required after view instance
      * is constructed.
      *

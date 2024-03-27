@@ -5,7 +5,7 @@ import uim.caches;
 @safe:
 
 // APCu storage engine for cache
-class ApcuEngine : DCacheEngine {
+class DApcuEngine : DCacheEngine {
   /**
      * Contains the compiled group names
      * (prefixed with the global configuration prefix)

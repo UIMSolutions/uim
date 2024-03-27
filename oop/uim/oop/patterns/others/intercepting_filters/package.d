@@ -14,7 +14,7 @@ interface Filter {
 }
 
 /// Create concrete filters.
-class AuthenticationFilter : Filter {
+class DAuthenticationFilter : Filter {
   void execute(string request) {
     writeln("Authenticating request: ", request);
   }

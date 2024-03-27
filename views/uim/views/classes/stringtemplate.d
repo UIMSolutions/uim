@@ -282,7 +282,7 @@ class DStringTemplate {
     
     // TODO
     /**
-     * Adds a class and returns a unique list either in array or space separated
+     * Adds a class DAnd returns a unique list either in array or space separated
      * Params:
      * IData myinput The array or string to add the class to
      * @param string[]|string|false|null mynewClass the new class or classes to add

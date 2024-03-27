@@ -776,7 +776,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @return this
      * @see getOptions()
      * /
-    function applyOptions(STRINGAA someOptions) {
+    function applyOptions(IData[string] optionData) {
         valid = [
             "fields": "select",
             "conditions": "where",
@@ -1156,7 +1156,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @return static Returns a modified query.
      * @psalm-suppress MoreSpecificReturnType
      * /
-    function find(string finder, STRINGAA someOptions = null) {
+    function find(string finder, IData[string] optionData = null) {
         table = this.getRepository();
 
         /** @psalm-suppress LessSpecificReturnStatement * /

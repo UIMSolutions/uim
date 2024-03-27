@@ -73,7 +73,7 @@ class LinkConstraint
      * @param array<string, mixed> options Options passed from the rules checker.
      * @return bool Whether the check was successful.
      */
-    bool __invoke(IEntity anEntity, STRINGAA someOptions) {
+    bool __invoke(IEntity anEntity, IData[string] optionData) {
         table = options["repository"] ?? null;
         if (!(table instanceof DORMTable)) {
             throw new \InvalidArgumentException(

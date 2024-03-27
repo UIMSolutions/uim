@@ -36,7 +36,7 @@ class ValidCount
      * @param array<string, mixed> options Options passed to the check.
      * @return bool True if successful, else false.
      */
-    bool __invoke(IEntity anEntity, STRINGAA someOptions) {
+    bool __invoke(IEntity anEntity, IData[string] optionData) {
         value = entity.{_field};
         if (!(value.isArray && !value instanceof Countable) {
             return false;

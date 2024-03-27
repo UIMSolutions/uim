@@ -392,7 +392,7 @@ class ShadowTableStrategy : ITranslateStrategy
     }
 
 
-    array buildMarshalMap(Marshaller marshaller, array map, STRINGAA someOptions) {
+    array buildMarshalMap(Marshaller marshaller, array map, IData[string] optionData) {
         this.translatedFields();
 
         return _buildMarshalMap(marshaller, map, options);

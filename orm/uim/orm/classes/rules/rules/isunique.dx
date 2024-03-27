@@ -35,7 +35,7 @@ class IsUnique {
      * @param array<string> fields The list of fields to check uniqueness for
      * @param array<string, mixed> options The options for unique checks.
      */
-    this(array fields, STRINGAA someOptions = null) {
+    this(array fields, IData[string] optionData = null) {
         _fields = fields;
         _options = options + _options;
     }
@@ -47,7 +47,7 @@ class IsUnique {
      *   where the `repository` key is required.
      * @param array<string, mixed> options Options passed to the check,
      */
-    bool __invoke(IEntity anEntity, STRINGAA someOptions) {
+    bool __invoke(IEntity anEntity, IData[string] optionData) {
         if (!entity.extract(_fields, true)) {
             return true;
         }

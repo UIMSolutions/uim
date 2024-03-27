@@ -162,14 +162,14 @@ class TableLocator : AbstractLocator, ILocator {
      * @return DORMTable
      * @throws \RuntimeException When you try to configure an alias that already exists.
      */
-    function get(string anAliasName, STRINGAA someOptions = null): Table
+    function get(string anAliasName, IData[string] optionData = null): Table
     {
         /** @var DORMTable */
         return super.get(alias, options);
     }
 
 
-    protected function createInstance(string anAliasName, STRINGAA someOptions) {
+    protected function createInstance(string anAliasName, IData[string] optionData) {
         if (strpos(alias, "\\") == false) {
             [, classAlias] = pluginSplit(alias);
             options = ["alias": classAlias] + options;
@@ -235,7 +235,7 @@ class TableLocator : AbstractLocator, ILocator {
      * @param array<string, mixed> options Table options array.
      * @return string|null
      */
-    protected string _getClassName(string anAliasName, STRINGAA someOptions = null) {
+    protected string _getClassName(string anAliasName, IData[string] optionData = null) {
         if (empty(options["className"])) {
             options["className"] = alias;
         }
@@ -260,7 +260,7 @@ class TableLocator : AbstractLocator, ILocator {
      * @param array<string, mixed> options The alias to check for.
      * @return DORMTable
      */
-    protected function _create(STRINGAA someOptions): Table
+    protected function _create(IData[string] optionData): Table
     {
         /** @var DORMTable */
         return new options["className"](options);

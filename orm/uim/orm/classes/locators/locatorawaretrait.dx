@@ -43,7 +43,7 @@ trait LocatorAwareTrait {
      * @see DORMTableLocator::get()
      * @since 4.3.0
      */
-    function fetchTable(string anAliasName = null, STRINGAA someOptions = null): Table
+    function fetchTable(string anAliasName = null, IData[string] optionData = null): Table
     {
         alias = alias ?? this.defaultTable;
         if (empty(alias)) {

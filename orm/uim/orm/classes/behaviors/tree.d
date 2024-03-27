@@ -336,7 +336,7 @@ class DTreeBehavior : DBehavior {
      * @return 
      * @throws \InvalidArgumentException If the "for" key is missing in options
      * /
-    DORMQuery findPath(Query query, STRINGAA someOptions)
+    DORMQuery findPath(Query query, IData[string] optionData)
     {
         if (empty(options["for"])) {
             throw new DInvalidArgumentException("The "for" key is required for find("path")");
@@ -399,7 +399,7 @@ class DTreeBehavior : DBehavior {
      * @return DORMQuery
      * @throws \InvalidArgumentException When the "for" key is not passed in options
      * /
-    function findChildren(Query query, STRINGAA someOptions): Query
+    function findChildren(Query query, IData[string] optionData): Query
     {
         myConfiguration = configuration;
         options += ["for": null, "direct": false];
@@ -450,7 +450,7 @@ class DTreeBehavior : DBehavior {
      * @param array<string, mixed> options Array of options as described above.
      * @return DORMQuery
      * /
-    function findTreeList(Query query, STRINGAA someOptions): Query
+    function findTreeList(Query query, IData[string] optionData): Query
     {
         left = _table.aliasField(this.getConfig("left"));
 
@@ -480,7 +480,7 @@ class DTreeBehavior : DBehavior {
      * @param array<string, mixed> options Array of options as described above.
      * @return DORMQuery Augmented query.
      * /
-    function formatTreeList(Query query, STRINGAA someOptions = null): Query
+    function formatTreeList(Query query, IData[string] optionData = null): Query
     {
         return query.formatResults(function (ICollection results) use (options) {
             options += [

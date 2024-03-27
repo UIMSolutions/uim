@@ -8,9 +8,9 @@ module uim.oop.patterns.creational.singleton;
 import uim.oop;
 @safe:
 
-private static SingleObject _obj;
+private static DSingleObject _obj;
 static this() { 
-   _obj = new SingleObject();
+   _obj = new DSingleObject();
 }
 
 /// Create a Singleton Class.
@@ -23,7 +23,7 @@ class DSingleObject {
   private this() {}
 
   //Get the only object available
-  static SingleObject obj() {
+  static DSingleObject obj() {
     return _obj;
   }
 
@@ -36,18 +36,18 @@ class DSingleObject {
 version(test_uim_oop) { unittest {
      writeln("\nSingletonPatternDemo");
    //illegal construct
-   //Compile Time Error: The constructor SingleObject() is not visible
-   //SingleObject object = new SingleObject();
+   //Compile Time Error: The constructoDr SingleObject() is not visible
+   //DSingleObject object = new DSingleObject();
 
    //Get the only object available
-   SingleObject object = SingleObject.obj();
+   DSingleObject object = DSingleObject.obj();
 
    //show the message
    object.showMessage();
 }}
 
 /// Singleton implementation was taken from David Simcha.
-class FastSingleton {
+class DFastSingleton {
 private:
    this() {}
 
@@ -63,7 +63,7 @@ public:
       return "I'm single";
    } 
 
-   static FastSingleton get() {
+   static DFastSingleton get() {
       // Since every thread has its own _instantiated variable,
       // there is no need for synchronization here.
       if (!_instantiated) {
@@ -79,7 +79,7 @@ public:
 version(test_uim_oop) { unittest {
       writeln("\nSingleton D-like Demo");
 
-      auto singleton = FastSingleton.get();
+      auto singleton = DFastSingleton.get();
       writeln(singleton);
   }
 }

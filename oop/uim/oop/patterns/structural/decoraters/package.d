@@ -64,7 +64,7 @@ version(test_uim_oop) { unittest {
 
       IShape redCircle = new DRedShapeDecorator(new DCircle());
 
-      IShape redRectangle = new DRedShapeDecorator(new Rectangle());
+      IShape redRectangle = new DRedShapeDecorator(new DRectangle());
       writeln("Circle with normal border");
       circle.draw();
 

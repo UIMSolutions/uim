@@ -25,7 +25,7 @@ class DRoutesCheckCommand : DCommand {
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
     auto myUrl = commandArguments.getArgument("url");
     try {
-      auto request = new ServerRequest(["url": url]);
+      auto request = new DServerRequest(["url": url]);
       auto route = Router.parseRequest(request);
       auto name = null;
       foreach (myRoute; Router.routes()) {

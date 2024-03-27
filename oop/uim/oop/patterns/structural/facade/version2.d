@@ -39,13 +39,13 @@ class DComputer {
 
   private {
     DCPU cpu;
-    Memory memory;
-    HardDrive hard_drive; }
+    DMemory memory;
+    DHardDrive hard_drive; }
 
   this() {
     cpu = new DCPU;
-    memory = new Memory;
-    hard_drive = new HardDrive;}
+    memory = new DMemory;
+    hard_drive = new DHardDrive;}
 
   void start_computer() {
     cpu.freeze;

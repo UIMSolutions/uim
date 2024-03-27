@@ -26,7 +26,7 @@ class DSchemacacheClearCommand : DCommand {
       aConnection = ConnectionManager . get(to!string(commandArguments.getOption("connection")));
       assert(cast8Connection)aConnection);
 
-      cache = new SchemaCache(aConnection);
+      cache = new DSchemaCache(aConnection);
     } catch (RuntimeException anException) {
       aConsoleIo.error(anException.getMessage());
 

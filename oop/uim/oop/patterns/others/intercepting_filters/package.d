@@ -9,18 +9,18 @@ import uim.oop;
 @safe:
 
 /// Create Filter interface.
-interface Filter {
+interface IFilter {
   void execute(string request);
 }
 
 /// Create concrete filters.
-class DAuthenticationFilter : Filter {
+class DAuthenticationFilter : IFilter {
   void execute(string request) {
     writeln("Authenticating request: ", request);
   }
 }
 
-class DebugFilter : Filter {
+class DDebugFilter : IFilter {
   void execute(string request) {
     writeln("request log: ", request);
   }
@@ -35,10 +35,10 @@ class DTarget {
 
 /// Create Filter Chain
 class DFilterChain {
-  private Filter[] _filters;
+  private IFilter[] _filters;
   private Target _target;
 
-  void addFilter(Filter filter) {
+  void addFilter(IFilter filter) {
     _filters ~= filter;
   }
 
@@ -47,7 +47,7 @@ class DFilterChain {
     _target.execute(request);
   }
 
-  @property void target(Target target) {
+  @property void target(DTarget target) {
     _target = target;
   }
 }
@@ -61,7 +61,7 @@ class DFilterManager {
     _filterChain.target = target;
   }
   
-  @property void filter(DFilter filter) {
+  @property void filter(IFilter filter) {
     _filterChain.addFilter(filter);
   }
 
@@ -87,11 +87,11 @@ class DClient {
 version(test_uim_oop) { unittest {
     writeln("InterceptingFilterDemo");
     
-    FilterManager filterManager = new DFilterManager(new Target());
-    filterManager.filter(new AuthenticationFilter());
-    filterManager.filter(new DebugFilter());
+    DFilterManager filterManager = new DFilterManager(new DTarget());
+    filterManager.filter(new DAuthenticationFilter());
+    filterManager.filter(new DDebugFilter());
 
-    Client client = new DClient();
+    DClient client = new DClient();
     client.filterManager(filterManager);
     client.sendRequest("HOME");
   }

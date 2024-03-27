@@ -132,7 +132,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
             }
             // Handle class strings
             if (isString(aValue)) {
-                reflection = new ReflectionClass(aValue);
+                reflection = new DReflectionClass(aValue);
                 aValue = reflection.newInstance();
                 assert(cast(BaseCommand) aValue);
             }

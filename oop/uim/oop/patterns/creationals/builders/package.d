@@ -40,7 +40,7 @@ abstract class DBurger : IItem {
 
  abstract class DColdDrink : IItem {
 	override Packing packing() {
-    return new Bottle();
+    return new DBottle();
 	}
 
 	override abstract float price();
@@ -111,14 +111,14 @@ class DCoke : DColdDrink {
 
 class DMealBuilder {
   DMeal prepareVegMeal () {
-    DMeal meal = new Meal();
+    DMeal meal = new DMeal();
     meal.addItem(new VegBurger());
     meal.addItem(new DCoke());
     return meal;
   }   
 
   DMeal prepareNonVegMeal () {
-    DMeal meal = new Meal();
+    DMeal meal = new DMeal();
     meal.addItem(new DChickenBurger());
     meal.addItem(new DPepsi());
     return meal;
@@ -126,7 +126,7 @@ class DMealBuilder {
 }
 
 version(test_uim_oop) { unittest {
-    MealBuilder mealBuilder = new MealBuilder();
+    MealBuilder mealBuilder = new DMealBuilder();
 
   Meal vegMeal = mealBuilder.prepareVegMeal();
   writeln("Veg Meal");

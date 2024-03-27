@@ -5,7 +5,26 @@ import uim.databases;
 @safe:
 
 // Represents a SQL case statement with a fluid API
-class CaseStatementExpression : IExpression, ITypedResult {
+class DCaseStatementExpression : IExpression, ITypedResult {
+    mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
+
     use CaseExpressionTrait;
     use ExpressionTypeCasterTrait;
     use TypeMapTrait;

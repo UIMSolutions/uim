@@ -5,7 +5,7 @@ import uim.databases;
 @safe:
 
 // String expression with collation.
-class StringExpression : IExpression {
+class DStringExpression : IExpression {
     protected string astring;
 
     protected string aCollation;

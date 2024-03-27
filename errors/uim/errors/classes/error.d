@@ -10,7 +10,26 @@ import uim.errors;
 
 // Error base class for UIM applications
 class DError {
-  mixin(OProperty!("int", "code"));
+      mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
+
+mixin(OProperty!("int", "code"));
 
   mixin(OProperty!("string", "message"));
 
@@ -20,9 +39,6 @@ class DError {
 
   mixin(OProperty!("int[string][]", "trace"));
 
-  bool initialize() {}
-    
-  }
   /* 
   private string[int] levelMap = [
       E_PARSE: "error",

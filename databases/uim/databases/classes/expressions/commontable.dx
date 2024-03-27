@@ -5,7 +5,25 @@ import uim.databases;
 @safe:
 
 // An expression that represents a common table expression definition.
-class CommonTableExpression : IExpression {
+class DCommonTableExpression : IExpression {
+    mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
     // The CTE name.
     protected IdentifierExpression _cteName;
 

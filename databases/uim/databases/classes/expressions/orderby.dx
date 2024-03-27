@@ -5,7 +5,7 @@ import uim.databases;
 @safe:
 
 // An expression object for ORDER BY clauses
-class OrderByExpression : QueryExpression {
+class DOrderByExpression : DQueryExpression {
     /**
      * Constructor
      * Params:

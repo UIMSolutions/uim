@@ -12,7 +12,7 @@ import uim.routings;
  *
  * @internal
  */
-class RouteCollection {
+class DRouteCollection {
     /**
      * The routes connected to this collection.
      *

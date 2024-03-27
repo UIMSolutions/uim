@@ -14,7 +14,7 @@ import uim.datasources;
  *
  * @internal
  */
-class RuleInvoker {
+class DRuleInvoker {
     // The rule name
     protected string _ruleName;
 

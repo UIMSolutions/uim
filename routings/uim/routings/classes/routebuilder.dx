@@ -10,7 +10,7 @@ import uim.routings;
  * Gives an easy to use way to build routes and append them
  * into a route collection.
  */
-class RouteBuilder {
+class DRouteBuilder {
     // Regular expression for auto increment IDs
     const string ID = "[0-9]+";
 

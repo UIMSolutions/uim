@@ -8,7 +8,7 @@ import uim.routings;
  * Applies routing rules to the request and creates the controller
  * instance if possible.
  */
-class RoutingMiddleware : IMiddleware {
+class DRoutingMiddleware : IMiddleware {
     // Key used to store the route collection in the cache engine
     const string ROUTE_COLLECTION_CACHE_KEY = "routeCollection";
 

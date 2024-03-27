@@ -10,7 +10,7 @@ import uim.routings;
  * This route class will transparently inflect the controller and plugin routing
  * parameters, so that requesting `/my_controller` is parsed as `["controller": "MyController"]`
  */
-class InflectedRoute : Route {
+class DInflectedRoute : Route {
     /**
      * Flag for tracking whether the defaults have been inflected.
      *

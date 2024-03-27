@@ -11,7 +11,7 @@ import uim.datasources;
  * @template T of \UIM\Datasource\IEntity|array
  * @implements \UIM\Datasource\IResultSet<T>
  */
-class ResultSetDecorator : Collection, IResultSet {
+class DResultSetDecorator : Collection, IResultSet {
  
     IData[string] debugInfo() {
         parentInfo = super.__debugInfo();

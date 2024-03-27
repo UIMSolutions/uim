@@ -19,7 +19,7 @@ import uim.oop;
 }
 
 /// Create concrete classes implementing the AdvancedMediaPlayer interface.
- class VlcPlayer : AdvancedMediaPlayer{
+ class DVlcPlayer : AdvancedMediaPlayer{
    override  void playVlc(string fileName) {
       writeln("Playing vlc file. Name: ", fileName);		
    }

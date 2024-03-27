@@ -16,7 +16,7 @@ import uim.routings;
  * parameters, routes are enumerated in the order they were connected. For more information on routes and
  * how to connect them see Router.connect().
  */
-class Router {
+class DRouter {
     /**
      * Default route class.
      */

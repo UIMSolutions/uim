@@ -58,15 +58,15 @@ version(test_uim_oop) { unittest {
 
    //Rule: Robert and John are male
    static Expression maleExpression() {
-      Expression robert = new ContainsExpression("Robert");
-      Expression john = new ContainsExpression("John");
-      return new OrExpression(robert, john);		
+      Expression robert = new DContainsExpression("Robert");
+      Expression john = new DContainsExpression("John");
+      return new DOrExpression(robert, john);		
    }
 
    //Rule: Julie is a married women
    static Expression marriedWomanExpression() {
-      Expression julie = new ContainsExpression("Julie");
-      Expression married = new ContainsExpression("Married");
+      Expression julie = new DContainsExpression("Julie");
+      Expression married = new DContainsExpression("Married");
       return new AndExpression(julie, married);		
    }
 

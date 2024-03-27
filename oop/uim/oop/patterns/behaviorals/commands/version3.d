@@ -257,8 +257,8 @@ private:
 
 public:
 	this() {
-		onCommands = new Command[7];
-		offCommands = new Command[7];
+		onCommands = new DCommand[7];
+		offCommands = new DCommand[7];
 
 		Command noCommand = new NoCommand();
 
@@ -294,7 +294,7 @@ Command[] toCommand(T:Command)(T[] commands) {
     Light light2 = new Light("Bath Room");
     Light light3 = new Light("Watercloset");
 
-    CeilingFan ceilingFan = new CeilingFan("Living Room");
+    CeilingFan ceilingFan = new DCeilingFan("Living Room");
 
     TV tv1 = new TV("Living Room");
     TV tv2 = new TV("Bath Room");
@@ -307,8 +307,8 @@ Command[] toCommand(T:Command)(T[] commands) {
     LightOffCommand lightOff2 = new LightOffCommand(light2);
     LightOffCommand lightOff3 = new LightOffCommand(light3);
 
-    CeilingFanHighCommand ceilingFanHigh = new CeilingFanHighCommand(ceilingFan);
-    CeilingFanLowCommand ceilingFanLow = new CeilingFanLowCommand(ceilingFan);
+    CeilingFanHighCommand ceilingFanHigh = new DCeilingFanHighCommand(ceilingFan);
+    CeilingFanLowCommand ceilingFanLow = new DCeilingFanLowCommand(ceilingFan);
 
     TVOnCommand tvOn1 = new TVOnCommand(tv1);
     TVOffCommand tvOff1 = new TVOffCommand(tv1);

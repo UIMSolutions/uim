@@ -68,7 +68,7 @@ class FileLogger : AbstractLogger {
 private static AbstractLogger getChainOfLoggers() {
   AbstractLogger errorLogger = new ErrorLogger(AbstractLogger.ERROR);
   AbstractLogger fileLogger = new FileLogger(AbstractLogger.DEBUG);
-  AbstractLogger consoleLogger = new ConsoleLogger(AbstractLogger.INFO);
+  AbstractLogger consoleLogger = new DConsoleLogger(AbstractLogger.INFO);
 
   errorLogger.nextLogger = fileLogger;
   fileLogger.nextLogger = consoleLogger;

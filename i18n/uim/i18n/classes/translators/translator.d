@@ -71,7 +71,7 @@ class DTranslator : ITranslator {
 
     unittest {
         // TODO Unittest
-        // auto translator = new I18NTranslator()
+        // auto translator = new DI18NTranslator()
     }
 
     // Translates the message formatting any placeholders

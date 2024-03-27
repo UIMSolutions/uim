@@ -11,7 +11,7 @@ class PHPUnitStartedSubscriber : PHPUnitStarted {
      * \PHPUnit\Event\TestSuite\Started event The event
      */
     void notify(Started event) {
-        helper = new ConnectionHelper();
+        helper = new DConnectionHelper();
         helper.addTestAliases();
 
         enableLogging = enviroment("LOG_QUERIES", false);

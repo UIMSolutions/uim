@@ -39,7 +39,7 @@ class FormatterLocator {
     // Gets a formatter from the registry by name.
     II18NFormatter get(string formatterName) {
         if (!this.registry.isSet(formatterName)) {
-            // TODO throw new I18nException("Formatter named `%s` has not been registered.".format(name));
+            // TODO throw new DI18nException("Formatter named `%s` has not been registered.".format(name));
         }
         if (!this.converted[formatterName]) {
             auto formatterClassName = this.registry[formatterName];

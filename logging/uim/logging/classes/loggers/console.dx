@@ -23,7 +23,7 @@ class DConsoleLog : BaseLog {
     protected ConsoleOutput _output;
 
     /**
-     * Constructs a new Console Logger.
+     * Constructs a new DConsole Logger.
      *
      * Config
      *
@@ -43,7 +43,7 @@ class DConsoleLog : BaseLog {
         if (cast(ConsoleOutput)configuration["stream"]) {
            _output = configuration["stream"];
         }  else if (isString(configuration["stream"])) {
-           _output = new ConsoleOutput(configuration["stream"]);
+           _output = new DConsoleOutput(configuration["stream"]);
         } else {
             throw new DInvalidArgumentException("`stream` not a ConsoleOutput nor string");
         }

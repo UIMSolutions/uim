@@ -47,12 +47,12 @@ abstract class DCompositeSpecification : ISpecification {
 
   ISpecification Or(ISpecification other) 
   {
-    return new OrSpecification(this, other);
+    return new DOrSpecification(this, other);
   }
 
   ISpecification OrNot(ISpecification other) 
   {
-    return new OrNotSpecification(this, other);
+    return new DOrNotSpecification(this, other);
   }
 
   ISpecification Not() {

@@ -31,7 +31,7 @@ class DERRConsoleErrorRenderer { // }: IERRErrorRenderer {
     * @param IData aConfig Error handling configuration.
     * /
   this(IData aConfig) {
-    this.output = aConfig["stderr"] ?? new ConsoleOutput("php://stderr");
+    this.output = aConfig["stderr"] ?? new DConsoleOutput("php://stderr");
     this.trace = (bool)(aConfig["trace"] ?? false);
   }
 

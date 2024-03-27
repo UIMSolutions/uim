@@ -142,12 +142,12 @@ trait CollectionTrait {
 
 
     function max(path, int sort = \SORT_NUMERIC) {
-        return (new SortIterator(this.unwrap(), path, \SORT_DESC, sort)).first();
+        return (new DSortIterator(this.unwrap(), path, \SORT_DESC, sort)).first();
     }
 
 
     function min(path, int sort = \SORT_NUMERIC) {
-        return (new SortIterator(this.unwrap(), path, \SORT_ASC, sort)).first();
+        return (new DSortIterator(this.unwrap(), path, \SORT_ASC, sort)).first();
     }
 
 
@@ -196,7 +196,7 @@ trait CollectionTrait {
 
     function sortBy(path, int  order = \SORT_DESC, int sort = \SORT_NUMERIC): ICollection
     {
-        return new SortIterator(this.unwrap(), path,  order, sort);
+        return new DSortIterator(this.unwrap(), path,  order, sort);
     }
 
 

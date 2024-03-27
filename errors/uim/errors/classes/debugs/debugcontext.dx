@@ -26,7 +26,7 @@ class DebugContext {
      */
     this(int maxDepth) {
         this.maxDepth = maxDepth;
-        this.refs = new SplObjectStorage();
+        this.refs = new DSplObjectStorage();
     }
     
     // Return a clone with increased depth.

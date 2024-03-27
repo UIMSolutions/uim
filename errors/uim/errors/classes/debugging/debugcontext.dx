@@ -32,7 +32,7 @@ class DebugContext {
      */
     this(int aMaxDepth) {
         _maxDepth = aMaxDepth;
-        _refs = new SplObjectStorage();
+        _refs = new DSplObjectStorage();
     }
 
     /**

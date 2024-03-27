@@ -40,7 +40,7 @@ class DRequest { // }: Message, IRequest {
         this.addHeaders( aHeaders);
 
         if (someData.isNull) {
-            this.stream = new Stream("php://memory", "rw");
+            this.stream = new DStream("php://memory", "rw");
         } else {
             this.setContent(someData);
         }
@@ -79,7 +79,7 @@ class DRequest { // }: Message, IRequest {
             this.addHeaders( aHeaders);
             auto myFormData = (string)formData;
         }
-        stream = new Stream("php://memory", "rw");
+        stream = new DStream("php://memory", "rw");
         stream.write(myFormData);
         this.stream = stream;
     } */

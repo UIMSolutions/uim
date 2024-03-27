@@ -39,7 +39,7 @@ class DStreamFactory { // }: IStreamFactory {
         if (!isReadable(filename)) {
             throw new RuntimeException("Cannot read file `%s`".format(filename));
         }
-        return new Stream(filename, mode);
+        return new DStream(filename, mode);
     }
     
     /**
@@ -50,6 +50,6 @@ class DStreamFactory { // }: IStreamFactory {
      * resource resource The PHP resource to use as the basis for the stream.
      * /
     IStream createStreamFromResource(resource) {
-        return new Stream(resource);
+        return new DStream(resource);
     } */
 }

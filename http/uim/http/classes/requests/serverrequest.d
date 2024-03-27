@@ -206,7 +206,7 @@ class DServerRequest { // }: IServerRequest {
      * /
     protected void _setConfig(IData[string] configData = null) {
         if (isEmpty(configData["session"])) {
-            configData["session"] = new Session([
+            configData["session"] = new DSession([
                 'cookiePath": configData["base"],
             ]);
         }
@@ -233,11 +233,11 @@ class DServerRequest { // }: IServerRequest {
         this.webroot = configData["webroot"];
 
         if (isSet(configData["input"])) {
-            stream = new Stream("php://memory", "rw");
+            stream = new DStream("php://memory", "rw");
             stream.write(configData["input"]);
             stream.rewind();
         } else {
-            stream = new Stream("php://input");
+            stream = new DStream("php://input");
         }
         this.stream = stream;
 

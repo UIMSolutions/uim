@@ -637,15 +637,15 @@ class DDebugger {
             case 'resource':
             case 'resource (closed)':
             case 'null':
-                return new ScalarNode(type, var);
+                return new DScalarNode(type, var);
             case 'boolean':
-                return new ScalarNode('bool', var);
+                return new DScalarNode('bool', var);
             case 'integer':
-                return new ScalarNode('int', var);
+                return new DScalarNode('int', var);
             case 'array':
                 return exportArray(var, context.withAddedDepth());
             case 'unknown':
-                return new SpecialNode('(unknown)');
+                return new DSpecialNode('(unknown)');
             default:
                 return exportObject(var, context.withAddedDepth());
         }
@@ -677,7 +677,7 @@ class DDebugger {
             outputMask = outputMask();
             foreach (var as key: val) {
                 if (array_key_exists(key, outputMask)) {
-                    node = new ScalarNode('string', outputMask[key]);
+                    node = new DScalarNode('string', outputMask[key]);
                 } elseif (val != var) {
                     // Dump all the items without increasing depth.
                     node = export(val, context);
@@ -689,8 +689,8 @@ class DDebugger {
             }
         } else {
             items ~= new DERRArrayItemNode(
-                new ScalarNode('string', ''),
-                new SpecialNode('[maximum depth reached]')
+                new DScalarNode('string', ''),
+                new DSpecialNode('[maximum depth reached]')
             );
         }
 
@@ -726,7 +726,7 @@ class DDebugger {
 
                     return node;
                 } catch (Exception e) {
-                    return new SpecialNode("(unable to export object: {e.getMessage()})");
+                    return new DSpecialNode("(unable to export object: {e.getMessage()})");
                 }
             }
 
@@ -757,7 +757,7 @@ class DDebugger {
                         method_exists(reflectionProperty, 'isInitialized') &&
                         !reflectionProperty.isInitialized(var)
                     ) {
-                        value = new SpecialNode('[uninitialized]');
+                        value = new DSpecialNode('[uninitialized]');
                     } else {
                         value = export(reflectionProperty.getValue(var), context.withAddedDepth());
                     }

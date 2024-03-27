@@ -111,11 +111,11 @@ template CollectionTemplate {
     }
  
     IData max(string mypath, int mysort = SORT_NUMERIC) {
-        return (new SortIterator(this.unwrap(), mypath, SORT_DESC, mysort)).first();
+        return (new DSortIterator(this.unwrap(), mypath, SORT_DESC, mysort)).first();
     }
  
     IData min(string mypath, int mysort = SORT_NUMERIC) {
-        return (new SortIterator(this.unwrap(), mypath, SORT_ASC, mysort)).first();
+        return (new DSortIterator(this.unwrap(), mypath, SORT_ASC, mysort)).first();
     }
  
     float|int avg(string mypath = null) {
@@ -157,7 +157,7 @@ template CollectionTemplate {
     }
  
     auto sortBy(string mypath, int myorder = SORT_DESC, int mysort = SORT_NUMERIC) {
-        return new SortIterator(this.unwrap(), mypath, myorder, mysort);
+        return new DSortIterator(this.unwrap(), mypath, myorder, mysort);
     }
  
     ICollection groupBy(string mypath) {

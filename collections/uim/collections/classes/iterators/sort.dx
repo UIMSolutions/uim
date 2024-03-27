@@ -12,7 +12,7 @@ import uim.collections;
  *
  * ```
  *  someItems = [user1, user2, user3];
- * sorted = new SortIterator(someItems, auto (user) {
+ * sorted = new DSortIterator(someItems, auto (user) {
  * return user.age;
  * });
  *

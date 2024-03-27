@@ -48,7 +48,7 @@ class DTextFormatter : IFormatter {
     * return resulting plain text
     */
   protected string export(IERRNode aNode, int anIndent) {
-    if (auto scalarNode = cast(ScalarNode)aNode) {
+    if (auto scalarNode = cast(DScalarNode)aNode) {
       switch (scalarNode.nodeType()) {
         case "bool":
           return scalarNode.value() ? "true" : "false";
@@ -69,7 +69,7 @@ class DTextFormatter : IFormatter {
     if (auto referenceNode = cast(ReferenceNode)aNode) {
       return this.exportObject(referenceNode, anIndent + 1);
     }
-    if (auto specialNode = cast(SpecialNode)aNode) {
+    if (auto specialNode = cast(DSpecialNode)aNode) {
       return specialNode.getValue();
     }
     throw new DException("Unknown node received " ~ get_class(aVar));

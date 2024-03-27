@@ -33,7 +33,7 @@ trait CaseExpressionTrait {
             type = "datetime";
         } elseif (
             isObject(aValue) &&
-            cast(Stringable)aValue
+            cast(DStringable)aValue
         ) {
             type = "String";
         } elseif (

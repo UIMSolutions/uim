@@ -44,7 +44,7 @@ class DEventManager : IEventManager {
      * @return \UIM\Event\EventManager The global event manager
      */
     static auto instance(?EventManager manager = null): EventManager {
-        if (cast(EventManager)manager) {
+        if (cast(DEventManager)manager) {
             _generalManager = manager;
         }
         if (_generalManager.isEmpty) {

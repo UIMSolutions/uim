@@ -15,6 +15,6 @@ unittest {
 
 @safe:
 class DDatabaseFolder : DFolder {
-  mixin(FolderThis!("DatabaseFolder"));
+  mixin(FolderThis!("Database"));
 }
-mixin(FolderCalls!("DatabaseFolder"));
+mixin(FolderCalls!("Database"));

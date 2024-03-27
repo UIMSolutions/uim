@@ -47,7 +47,7 @@ TEXT;
      * @param int indentSize The current indentation level.
      */
     protected string export(INode nodeToDump, int indentSize) {
-        if (cast(ScalarNode)nodeToDump) {
+        if (cast(DScalarNode)nodeToDump) {
             return match (nodeToDump.getType()) {
                 "bool": nodeToDump.getValue() ? "true" : "false",
                 "null": "null",
@@ -61,7 +61,7 @@ TEXT;
         if (cast(ClassNode)nodeToDump || cast(ReferenceNode)nodeToDump) {
             return this.exportObject(nodeToDump, indentSize + 1);
         }
-        if (cast(SpecialNode)nodeToDump ) {
+        if (cast(DSpecialNode)nodeToDump ) {
             return nodeToDump.getValue();
         }
         throw new DInvalidArgumentException("Unknown node received " ~ nodeToDump.classname);

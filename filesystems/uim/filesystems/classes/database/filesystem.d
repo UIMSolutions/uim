@@ -15,7 +15,7 @@ unittest {
 
 @safe:
 class DDatabaseFilesystem : DFilesystem {
-  mixin(FilesystemThis!("DatabaseFilesystem"));
+  mixin(FilesystemThis!("Database"));
 
   override bool initialize(IData[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
@@ -24,4 +24,4 @@ class DDatabaseFilesystem : DFilesystem {
     return true;
   }
 }
-mixin(FilesystemCalls!("DatabaseFilesystem"));
+mixin(FilesystemCalls!("Database"));

@@ -16,6 +16,6 @@ A **file system** (often abbreviated as **FS**) is a fundamental component in co
 
 **Retrieval and Storage**: A file system’s primary tasks include making data easy to find (for quick retrieval) and ensuring secure storage.
 
-**Integral Part of Computers**: File systems are an integral part of computer systems and operating systems. They consider device properties and play a crucial role in managing data on storage volumes.
+**Integral Part of DComputers**: File systems are an integral part of computer systems and operating systems. They consider device properties and play a crucial role in managing data on storage volumes.
 
 **Access via Directory Structure**: To access files and directories, you navigate through the directory structure provided by the file system.

@@ -116,7 +116,7 @@ class DErrorLogger { // }: IErrorLogger {
         if (referer) {
             message ~= "\nReferer URL: " ~ referer;
         }
-        if (cast(ServerRequest)request) {
+        if (cast(DServerRequest)request) {
             clientIp = request.clientIp();
             if (clientIp && clientIp != ".1") {
                 message ~= "\nClient IP: " ~ clientIp;

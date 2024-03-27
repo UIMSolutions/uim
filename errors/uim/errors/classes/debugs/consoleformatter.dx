@@ -88,7 +88,7 @@ class DConsoleFormatter : IFormatter {
      * @param int  anIndent The current indentation level.
      */
     protected string export(INode var, int  anIndent) {
-        if (cast(ScalarNode)var) {
+        if (cast(DScalarNode)var) {
             return match (var.getType()) {
                 "bool": this.style("const", var.getValue() ? "true" : "false"),
                 "null": this.style("const", "null"),
@@ -104,7 +104,7 @@ class DConsoleFormatter : IFormatter {
         if (cast(ClassNode)var || cast(ReferenceNode)var) {
             return this.exportObject(var,  anIndent + 1);
         }
-        if (cast(SpecialNode)var) {
+        if (cast(DSpecialNode)var) {
             return this.style("special", var.getValue());
         }
         throw new DInvalidArgumentException("Unknown node received " ~ var.classname);

@@ -93,7 +93,7 @@ import uim.orm;
  * methods should expect the following arguments:
  *
  * ```
- * findSlugged(Query query, STRINGAA someOptions)
+ * findSlugged(Query query, IData[string] optionData)
  * ```
  *
  * @see DORMTable::addBehavior()

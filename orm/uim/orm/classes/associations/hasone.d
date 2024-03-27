@@ -75,7 +75,7 @@ class DHasOneAssociation : DAssociation {
      * the saved entity
      * @see DORMTable::save()
      * /
-    function saveAssociated(IEntity anEntity, STRINGAA someOptions = null) {
+    function saveAssociated(IEntity anEntity, IData[string] optionData = null) {
         targetEntity = entity.get(this.getProperty());
         if (empty(targetEntity) || !(targetEntity instanceof IEntity)) {
             return entity;
@@ -97,7 +97,7 @@ class DHasOneAssociation : DAssociation {
     }
 
 
-    function eagerLoader(STRINGAA someOptions): Closure
+    function eagerLoader(IData[string] optionData): Closure
     {
         loader = new SelectLoader([
             "alias": this.aliasName(),
@@ -114,7 +114,7 @@ class DHasOneAssociation : DAssociation {
     }
 
 
-    bool cascadeDelete_(IEntity anEntity, STRINGAA someOptions = null) {
+    bool cascadeDelete_(IEntity anEntity, IData[string] optionData = null) {
         helper = new DependentDeleteHelper();
 
         return helper.cascadeDelete_(this, entity, options);

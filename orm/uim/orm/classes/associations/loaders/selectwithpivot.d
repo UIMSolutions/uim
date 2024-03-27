@@ -33,7 +33,7 @@ class DSelectWithPivotLoader : DSelectLoader {
     protected junctionConditions;
 
     /*
-    this(STRINGAA someOptions) {
+    this(IData[string] optionData) {
         super((options);
         this.junctionAssociationName = options["junctionAssociationName"];
         this.junctionProperty = options["junctionProperty"];
@@ -52,7 +52,7 @@ class DSelectWithPivotLoader : DSelectLoader {
      * @return DORMQuery
      * @throws \InvalidArgumentException When a key is required for associations but not selected.
      * /
-    protected function _buildQuery(STRINGAA someOptions): Query
+    protected function _buildQuery(IData[string] optionData): Query
     {
         name = this.junctionAssociationName;
         assoc = this.junctionAssoc;
@@ -116,7 +116,7 @@ class DSelectWithPivotLoader : DSelectLoader {
      * @param array<string, mixed> options the options to use for getting the link field.
      * @return array<string>|string
      * /
-    protected function _linkField(STRINGAA someOptions) {
+    protected function _linkField(IData[string] optionData) {
         links = null;
         name = this.junctionAssociationName;
 
@@ -140,7 +140,7 @@ class DSelectWithPivotLoader : DSelectLoader {
      * @return array<string, mixed>
      * @throws \RuntimeException when the association property is not part of the results set.
      * /
-    protected array _buildResultMap(Query fetchQuery, STRINGAA someOptions) {
+    protected array _buildResultMap(Query fetchQuery, IData[string] optionData) {
         resultMap = null;
         key = (array)options["foreignKey"];
 

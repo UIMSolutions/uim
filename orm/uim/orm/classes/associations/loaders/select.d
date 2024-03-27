@@ -53,7 +53,7 @@ class DSelectLoader {
      *
      * @param array<string, mixed> options Properties to be copied to this class
      * /
-    this(STRINGAA someOptions) {
+    this(IData[string] optionData) {
         this.alias = options["alias"];
         this.sourceAlias = options["sourceAlias"];
         this.targetAlias = options["targetAlias"];
@@ -72,7 +72,7 @@ class DSelectLoader {
      * @param array<string, mixed> options Same options as `Association::eagerLoader()`
      * @return \Closure
      * /
-    function buildEagerLoader(STRINGAA someOptions): Closure
+    function buildEagerLoader(IData[string] optionData): Closure
     {
         options += _defaultOptions();
         fetchQuery = _buildQuery(options);
@@ -105,7 +105,7 @@ class DSelectLoader {
      * @return DORMQuery
      * @throws \InvalidArgumentException When a key is required for associations but not selected.
      * /
-    protected function _buildQuery(STRINGAA someOptions): Query
+    protected function _buildQuery(IData[string] optionData): Query
     {
         key = _linkField(options);
         filter = options["keys"];
@@ -314,7 +314,7 @@ class DSelectLoader {
      * @return array<string>|string
      * @throws \RuntimeException
      * /
-    protected function _linkField(STRINGAA someOptions) {
+    protected function _linkField(IData[string] optionData) {
         links = null;
         name = this.alias;
 
@@ -410,7 +410,7 @@ class DSelectLoader {
      * @param array<string, mixed> options The options passed to the eager loader
      * @return array<string, mixed>
      * /
-    protected array _buildResultMap(Query fetchQuery, STRINGAA someOptions) {
+    protected array _buildResultMap(Query fetchQuery, IData[string] optionData) {
         resultMap = null;
         singleResult = in_array(this.associationType, [Association::MANY_TO_ONE, Association::ONE_TO_ONE], true);
         keys = in_array(this.associationType, [Association::ONE_TO_ONE, Association::ONE_TO_MANY], true) ?
@@ -443,7 +443,7 @@ class DSelectLoader {
      * @param array<string, mixed> options The options passed to the eagerLoader method
      * @return \Closure
      * /
-    protected function _resultInjector(Query fetchQuery, array resultMap, STRINGAA someOptions): Closure
+    protected function _resultInjector(Query fetchQuery, array resultMap, IData[string] optionData): Closure
     {
         keys = this.associationType == Association::MANY_TO_ONE ?
             this.foreignKey :

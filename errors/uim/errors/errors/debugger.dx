@@ -31,9 +31,7 @@ class DDebugger {
         'editor': 'phpstorm',
     ];
 
-    /**
-     * The current output format.
-     * /
+    // The current output format.
     protected string _outputFormat = 'js';
 
     /**
@@ -84,9 +82,9 @@ class DDebugger {
      * @var array<string, class-string>
      * /
     protected renderers = [
-        'txt': TextErrorRenderer::class,
+        'txt': TextErrorRenderer.classname,
         // The html alias currently uses no JS and will be deprecated.
-        'js': HtmlErrorRenderer::class,
+        'js': HtmlErrorRenderer.classname,
     ];
 
     /**
@@ -335,7 +333,7 @@ class DDebugger {
      * @return array|string Formatted stack trace.
      * @link https://book.cakephp.org/4/en/development/debugging.html#generating-stack-traces
      * /
-    static function trace(STRINGAA someOptions = null) {
+    static function trace(IData[string] optionData = null) {
         return Debugger::formatTrace(debug_backtrace(), options);
     }
 
@@ -356,7 +354,7 @@ class DDebugger {
      * @return array|string Formatted stack trace.
      * @link https://book.cakephp.org/4/en/development/debugging.html#generating-stack-traces
      * /
-    static function formatTrace(backtrace, STRINGAA someOptions = null) {
+    static function formatTrace(backtrace, IData[string] optionData = null) {
         if (backtrace instanceof Throwable) {
             backtrace = backtrace.getTrace();
         }

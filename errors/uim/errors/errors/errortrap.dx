@@ -49,7 +49,7 @@ class DErrorTrap {
      *
      * @param array<string, mixed> options An options array. See _defaultConfig.
      * /
-    this(STRINGAA someOptions = null) {
+    this(IData[string] optionData = null) {
         this.setConfig(options);
     }
 

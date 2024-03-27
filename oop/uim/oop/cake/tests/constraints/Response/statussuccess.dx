@@ -8,7 +8,7 @@ import uim.oop;
  *
  * @internal
  */
-class StatusSuccess : StatusCodeBase {
+class DStatusSuccess : StatusCodeBase {
     /**
      * @var array<int, int>|int
      */

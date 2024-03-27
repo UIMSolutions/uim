@@ -9,7 +9,7 @@ import uim.oop;
  *
  * @internal
  */
-class SessionHasKey : Constraint {
+class DSessionHasKey : Constraint {
     protected string aPath;
 
     /**

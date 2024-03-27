@@ -17,7 +17,7 @@ use InvalidArgumentException;
  * support multiple database platforms. You should use migrations
  * for that instead.
  */
-class SchemaLoader {
+class DSchemaLoader {
     protected ConnectionHelper helper;
 
     this() {

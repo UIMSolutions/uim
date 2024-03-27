@@ -8,5 +8,5 @@ module uim.oop.containers.maps.weak;
 import uim.oop;
 @safe:
 
-class WeakHashMap : Map {
+class DWeakHashMap : Map {
 }

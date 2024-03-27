@@ -5,7 +5,7 @@ import uim.oop;
 @safe:
 
 // Security Library contains utility methods related to security
-class Security {
+class DSecurity {
     /**
      * Default hash method. If `mytype` param for `Security.hash()` is not specified
      * this value is used. Defaults to "sha1".

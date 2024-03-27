@@ -9,7 +9,7 @@ import uim.oop;
  *
  * @internal
  */
-class EventFired : Constraint {
+class DEventFired : Constraint {
     /**
      * Array of fired events
      */

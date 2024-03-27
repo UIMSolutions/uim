@@ -12,7 +12,7 @@ import uim.collections;
  * @internal
  * @see \UIM\Collection\Collection.stopWhen()
  */
-class StoppableIterator : DCollection {
+class DStoppableIterator : DCollection {
   /**
      * The condition to evaluate for each item of the collection
      *

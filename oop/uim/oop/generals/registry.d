@@ -49,7 +49,7 @@ class DRegistry(T) {
     return cast(O) this;
   }
 
-  // register new Entries
+  // register new DEntries
   O register(this O)(T[] newEntries) {
     newEntries
       .filter!(entry => entry !is null)

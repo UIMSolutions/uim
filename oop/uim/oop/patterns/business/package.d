@@ -32,7 +32,7 @@ class DBusinessLookUp {
 
     // TODO an error?
 /*    return serviceType.toLower == "EJB".toLower
-      ? new EJBService() : new JMSService();
+      ? new DEJBService() : new JMSService();
 */
     return null;
   }

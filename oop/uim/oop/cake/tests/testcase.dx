@@ -69,7 +69,7 @@ abstract class DTestCase : BaseTestCase {
             auto (int mycode, string mydescription, string myfile, int myline) {
                 mytrace = Debugger.trace(["start": 1, "format": "points"]);
                 assert(isArray(mytrace));
-               _capturedError = new PhpError(mycode, mydescription, myfile, myline, mytrace);
+               _capturedError = new DPhpError(mycode, mydescription, myfile, myline, mytrace);
 
                 return true;
             },
@@ -139,7 +139,7 @@ abstract class DTestCase : BaseTestCase {
         if (class_exists(Router.class, false)) {
             Router.reload();
         }
-        EventManager.instance(new EventManager());
+        EventManager.instance(new DEventManager());
     }
     
     /**
@@ -282,7 +282,7 @@ abstract class DTestCase : BaseTestCase {
         if (!eventManager) {
             eventManager = EventManager.instance();
         }
-        this.assertThat(name, new EventFired(eventManager), message);
+        this.assertThat(name, new DEventFired(eventManager), message);
     }
     
     /**
@@ -304,7 +304,7 @@ abstract class DTestCase : BaseTestCase {
         if (!eventManager) {
             eventManager = EventManager.instance();
         }
-        this.assertThat(name, new EventFiredWith(eventManager, someDataKey, someDataValue), message);
+        this.assertThat(name, new DEventFiredWith(eventManager, someDataKey, someDataValue), message);
     }
     
     /**
@@ -924,7 +924,7 @@ abstract class DTestCase : BaseTestCase {
      */
     protected void expectErrorHandlerMessageMatches(string aregex, Closure aCallable, int errorLevel) {
         set_error_handler(static auto (int errno, string aerrstr): never {
-            throw new Exception(errstr, errno);
+            throw new DException(errstr, errno);
         }, errorLevel);
 
         this.expectException(Exception.classname);

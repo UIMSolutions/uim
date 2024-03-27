@@ -183,7 +183,7 @@ class DomainTest {
         Property.MODEL.toString(), TEST_PART_MODEL,
         Property.PRICE.toString(), (Object) TEST_PART_PRICE
     );
-    var part = new Part(partProperties);
+    var part = new DPart(partProperties);
     assertEquals(TEST_PART_TYPE, part.getType().orElseThrow());
     assertEquals(TEST_PART_MODEL, part.getModel().orElseThrow());
     assertEquals(TEST_PART_PRICE, part.getPrice().orElseThrow());
@@ -220,7 +220,7 @@ class DomainTest {
         Property.MODEL.toString(), TEST_PART_MODEL,
         Property.PRICE.toString(), (Object) TEST_PART_PRICE
     );
-    var part = new Part(partProperties);
+    var part = new DPart(partProperties);
     assertEquals(TEST_PART_TYPE, part.getType().orElseThrow());
     assertEquals(TEST_PART_MODEL, part.getModel().orElseThrow());
     assertEquals(TEST_PART_PRICE, part.getPrice().orElseThrow());

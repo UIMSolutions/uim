@@ -66,7 +66,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
         _localeName(localName);
 
         this.registerLoader(FALLBACK_LOADER, auto (name, locale) {
-            loader = new ChainMessagesLoader([
+            loader = new DChainMessagesLoader([
                 new MessagesFileLoader(name, locale, "mo"),
                 new MessagesFileLoader(name, locale, "po"),
             ]);

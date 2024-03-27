@@ -13,7 +13,7 @@ class PHPUnitExtension : Extension {
      */
     void bootstrap(Configuration configDatauration, Facade facade, ParameterCollection parameters) {
         facade.registerSubscriber(
-            new PHPUnitStartedSubscriber()
+            new DPHPUnitStartedSubscriber()
         );
     }
 }

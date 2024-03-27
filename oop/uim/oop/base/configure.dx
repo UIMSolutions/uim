@@ -325,7 +325,7 @@ static string[] configured() {
 
     /**
      * Get the configured engine. Internally used by `Configure.load()` and `Configure.dump()`
-     * Will create new PhpConfig for default if not configured yet.
+     * Will create new DPhpConfig for default if not configured yet.
      * Params:
      * string configData The name of the configured adapter
      */
@@ -334,7 +334,7 @@ static string[] configured() {
             if (configData != "default") {
                 return null;
             }
-            config(configData, new PhpConfig());
+            config(configData, new DPhpConfig());
         }
         return static._engines[configData];
     }

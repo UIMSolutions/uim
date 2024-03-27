@@ -120,7 +120,7 @@ class MealBuilder {
   Meal prepareNonVegMeal () {
     Meal meal = new Meal();
     meal.addItem(new DChickenBurger());
-    meal.addItem(new Pepsi());
+    meal.addItem(new DPepsi());
     return meal;
   }
 }

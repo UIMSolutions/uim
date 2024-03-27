@@ -229,7 +229,7 @@ class DApplication {
         this.controllerFactory ??= new DControllerFactory(container);
 
         if (Router.getRequest() != request) {
-            assert(cast(ServerRequest)request);
+            assert(cast(DServerRequest)request);
             Router.setRequest(request);
         }
         controller = this.controllerFactory.create(request);

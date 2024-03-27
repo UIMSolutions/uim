@@ -40,7 +40,7 @@ class DRunner : IRequestHandler {
 
         if (
             cast(IRoutingApplication)fallbackHandler  &&
-            cast(ServerRequest)request
+            cast(DServerRequest)request
         ) {
             Router.setRequest(request);
         }

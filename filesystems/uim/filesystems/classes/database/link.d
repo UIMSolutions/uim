@@ -15,6 +15,6 @@ unittest {
 
 @safe:
 class DDatabaseLink : DLink {
-  mixin(LinkThis!("DatabaseLink"));
+  mixin(LinkThis!("Database"));
 }
-mixin(LinkCalls!("DatabaseLink"));
+mixin(LinkCalls!("Database"));

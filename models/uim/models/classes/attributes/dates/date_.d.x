@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DDateAttribute : DAttribute {
-  mixin(AttributeThis!("DateAttribute"));
+  mixin(AttributeThis!("Date"));
 
   // Initialization hook method.  // Initialization hook method.
   override bool initialize(IData[string] initData = null) {
@@ -29,7 +29,7 @@ class DDateAttribute : DAttribute {
     return DateData(this); } */
 }
 
-mixin(AttributeCalls!("DateAttribute"));
+mixin(AttributeCalls!("Date"));
 
 version (test_uim_models) {
   unittest {

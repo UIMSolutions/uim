@@ -114,7 +114,7 @@ abstract class Logger /* : DAbstractLogger */ {
                 replacements["{" ~ aKey ~ "}"] = IData_encode(aValue.getArrayCopy(), IDataFlags);
                 continue;
             }
-            if (cast(Serializable)aValue) {
+            if (cast(DSerializable)aValue) {
                 replacements["{" ~ aKey ~ "}"] = aValue.serialize();
                 continue;
             }
@@ -123,11 +123,11 @@ abstract class Logger /* : DAbstractLogger */ {
                     replacements["{" ~ aKey ~ "}"] = IData_encode(aValue.toArray(), IDataFlags);
                     continue;
                 }
-                if (cast(Serializable)aValue) {
+                if (cast(DSerializable)aValue) {
                     replacements["{" ~ aKey ~ "}"] = serialize(aValue);
                     continue;
                 }
-                if (cast(Stringable)aValue) {
+                if (cast(DStringable)aValue) {
                     replacements["{" ~ aKey ~ "}"] = to!string(aValue);
                     continue;
                 }

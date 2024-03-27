@@ -29,14 +29,14 @@ template MyPropertyString(string propertyName, string defaultValue = null) {
 	bool "~propertyName~"IsDefault() { return (_"~propertyName~" == _default"~propertyName~"); }
 
 	@property string "~propertyName~"(this O)() { return _"~propertyName~"; }
-	@property O "~propertyName~"(this O)(string newValue) { _"~propertyName~" = newValue; return cast(O)this; }";
+	@property O "~propertyName~"(this O)(string newValue) { _"~propertyName~" = newValue; return cast(DO)this; }";
 }
 
 template MyPropertyOverride(string dataType, string propertyName, string sourceName = "super") {
 	const char[] MyPropertyOverride = "
     alias "~propertyName~" = "~sourceName~"."~propertyName~";
 	@property "~dataType~" "~propertyName~"(this O)() { return _"~propertyName~"; }
-	@property O "~propertyName~"(this O)("~dataType~" newValue) { _"~propertyName~" = newValue; return cast(O)this; }";
+	@property O "~propertyName~"(this O)("~dataType~" newValue) { _"~propertyName~" = newValue; return cast(DO)this; }";
 }
 
 template BoolProperty(string propertyName, string defaultValue = null) {
@@ -45,7 +45,7 @@ protected bool _"~propertyName~(defaultValue.length > 0 ? " = "~defaultValue : "
 protected bool _default"~propertyName~(defaultValue.length > 0 ? " = "~defaultValue : "")~";
 
 @property bool "~propertyName~"() { return _"~propertyName~"; }
-@property O "~propertyName~"(this O)(bool value) { _"~propertyName~" = value; return cast(O)this; }
+@property O "~propertyName~"(this O)(bool value) { _"~propertyName~" = value; return cast(DO)this; }
 
 auto "~propertyName~"Default() { return _default"~propertyName~"; }
 void "~propertyName~"Reset() { _"~propertyName~" = _default"~propertyName~"; }
@@ -60,7 +60,7 @@ protected string _"~propertyName~(defaultValue.length > 0 ? " = "~defaultValue :
 protected string _default"~propertyName~(defaultValue.length > 0 ? " = "~defaultValue : "")~";
 
 @property string "~propertyName~"() { return _"~propertyName~"; }
-@property O "~propertyName~"(this O)(string value) { _"~propertyName~" = value; return cast(O)this; }
+@property O "~propertyName~"(this O)(string value) { _"~propertyName~" = value; return cast(DO)this; }
 
 auto "~propertyName~"Default() { return _default"~propertyName~"; }
 void "~propertyName~"Reset() { _"~propertyName~" = _default"~propertyName~"; }
@@ -75,7 +75,7 @@ protected "~dataType~" _"~propertyName~(defaultValue.length > 0 ? " = "~dataType
 protected "~dataType~" _default"~propertyName~(defaultValue.length > 0 ? " = "~dataType~"."~defaultValue : "")~";
 
 @property "~dataType~" "~propertyName~"() { return _"~propertyName~"; }
-@property O "~propertyName~"(this O)("~dataType~" value) { _"~propertyName~" = value; return cast(O)this; }
+@property O "~propertyName~"(this O)("~dataType~" value) { _"~propertyName~" = value; return cast(DO)this; }
 
 auto "~propertyName~"Default() { return _default"~propertyName~"; }
 void "~propertyName~"Reset() { _"~propertyName~" = _default"~propertyName~"; }

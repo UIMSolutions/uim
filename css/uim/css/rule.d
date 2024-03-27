@@ -21,10 +21,10 @@ class DCSSRule : DCSSObj {
 
 	string[string] _declarations;
 	auto declarations(this O)(){ return _declarations; }
-	O declarations(this O)(string[string] someDeclarations){ foreach(k, v; someDeclarations) this.declaration(k, v); return cast(O)this;}
+	O declarations(this O)(string[string] someDeclarations){ foreach(k, v; someDeclarations) this.declaration(k, v); return cast(DO)this;}
 
 	string declaration(string name){ return _declarations[name]; }
-	O declaration(this O)(string name, string value){ _declarations[name] = value; return cast(O)this; }
+	O declaration(this O)(string name, string value){ _declarations[name] = value; return cast(DO)this; }
 	version(test_uim_css) { unittest {
 		assert(CSSRule("test").declaration("do", "it") == `test{do:it}`);
 		assert(CSSRule("body", ["background-color": "lightgreen"]) == "body{background-color:lightgreen}");

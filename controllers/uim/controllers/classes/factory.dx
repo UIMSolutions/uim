@@ -43,7 +43,7 @@ class DControllerFactory : IControllerFactory, IRequestHandler {
      * \Psr\Http\Message\IServerRequest serverRequest The request to build a controller for.
      */
     Controller create(IServerRequest serverRequest) {
-        assert(cast(ServerRequest) request);
+        assert(cast(DServerRequest) request);
         auto className = this.getControllerClass( request);
         if (className.isNull) {
             throw this.missingController( request);
@@ -87,7 +87,7 @@ class DControllerFactory : IControllerFactory, IRequestHandler {
      * \Psr\Http\Message\IServerRequest serverRequest Request instance.
      */
     IResponse handle(IServerRequest serverRequest) {
-        assert(cast(ServerRequest) request);
+        assert(cast(DServerRequest) request);
         controller = this.controller;
         controller.setRequest( request);
 

@@ -42,7 +42,7 @@ unittest {
 
     class DTest : ITest {
                 O create(this O)() {
-            return cast(O)this.classinfo.create;
+            return cast(DO)this.classinfo.create;
         }
     }
     auto test = new Test;

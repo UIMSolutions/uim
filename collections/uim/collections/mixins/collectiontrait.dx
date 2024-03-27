@@ -636,7 +636,7 @@ template CollectionTemplate {
         myiterator = this;
         while (
             myiterator.classname == Collection.classname
-            && cast(OuterIterator)myiterator
+            && cast(DOuterIterator)myiterator
         ) {
             myiterator = myiterator.getInnerIterator();
         }

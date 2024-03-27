@@ -19,7 +19,7 @@ class DCSSMediaQueries {
 
   O query(this O)(string queryName, string condition) {
     if (queryName !in _queries) _queries[queryName] = CSSMediaQuery(condition);
-    return cast(O)this; }
+    return cast(DO)this; }
   version(test_uim_css) { unittest {
       /// TODO
     }}
@@ -32,28 +32,28 @@ class DCSSMediaQueries {
 
   O rule(this O)(string name, string properties) {
     _queries["default"].rule(name, properties); 
-    return cast(O)this; }
+    return cast(DO)this; }
   version(test_uim_css) { unittest {
       /// TODO
     }}
 
   O rule(this O)(string queryName, string name, string properties) {
     if (queryName in _queries) _queries[query].rule(name, properties); 
-    return cast(O)this; }
+    return cast(DO)this; }
   version(test_uim_css) { unittest {
       /// TODO
     }}
 
  O removeRule(this O)(string name) {
     _queries["default"].removeRule(name); 
-    return cast(O)this; }
+    return cast(DO)this; }
   version(test_uim_css) { unittest {
       /// TODO
     }}
 
   O removeRule(this O)(string queryName, string name) {
     if (queryName in _queries) _queries[queryName].removeRule(name); 
-    return cast(O)this; }
+    return cast(DO)this; }
   version(test_uim_css) { unittest {
       /// TODO
     }}

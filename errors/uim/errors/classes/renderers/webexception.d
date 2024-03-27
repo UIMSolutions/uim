@@ -21,7 +21,7 @@ import uim.errors;
  * Using a subclass of WebExceptionRenderer gives you full control over how Exceptions are rendered, you
  * can configure your class in your config/app.d.
  */
-class WebExceptionRenderer { // }: IExceptionRenderer {
+class DWebExceptionRenderer { // }: IExceptionRenderer {
     /**
      * The exception being handled.
      *

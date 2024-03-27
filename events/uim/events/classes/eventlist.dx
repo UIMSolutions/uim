@@ -11,7 +11,7 @@ use Countable; */
  *
  * @template-implements \ArrayAccess<int, \UIM\Event\IEvent>
  */
-class EventList : ArrayAccess, Countable {
+class DEventList : ArrayAccess, Countable {
     /**
      * Events list
      */

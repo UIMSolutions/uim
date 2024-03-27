@@ -88,7 +88,7 @@ class SecurityHeadersMiddleware { // }: IMiddleware {
      * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
      * /
     void noSniff() {
-        _headers["x-content-type-options"] = Json(self.NOSNIFF);
+        _headers["x-content-type-options"] = IData(self.NOSNIFF);
     }
     
     /**
@@ -99,7 +99,7 @@ class SecurityHeadersMiddleware { // }: IMiddleware {
      * @link https://msdn.microsoft.com/en-us/library/jj542450(v=vs.85).aspx
      * /
     void noOpen() {
-        _headers["x-download-options"] = Json(self.NOOPEN);
+        _headers["x-download-options"] = IData(self.NOOPEN);
     }
     
     /**

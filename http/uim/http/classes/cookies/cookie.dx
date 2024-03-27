@@ -11,7 +11,7 @@ class Cookie : ICookie {
     // Raw Cookie value.
     protected string[] avalue = "";
 
-    // Whether a JSON value has been expanded into an array.
+    // Whether a IData value has been expanded into an array.
     protected bool  isExpanded = false;
 
     // Expiration time
@@ -30,12 +30,12 @@ class Cookie : ICookie {
 
     // Default attributes for a cookie.
     protected static @var IData[string] defaultAttributes = [
-        "expires": Json(null),
-        "path": Json("/"),
-        "domain": Json(""),
-        "secure": Json(false),
-        "httponly": Json(false),
-        "samesite": Json(null),
+        "expires": IData(null),
+        "path": IData("/"),
+        "domain": IData(""),
+        "secure": IData(false),
+        "httponly": IData(false),
+        "samesite": IData(null),
     ];
 
     /**
@@ -460,9 +460,9 @@ class Cookie : ICookie {
      * Create a new cookie with updated data.
      * Params:
      * string aPath Path to write to
-     * @param Json aValue Value to write
+     * @param IData aValue Value to write
      */
-    static withAddedValue(string pathToWrite, Json aValue) {
+    static withAddedValue(string pathToWrite, IData aValue) {
         new = clone this;
         if (new.isExpanded == false) {
             assert(isString(new.value), "aValue is not a string");
@@ -500,7 +500,7 @@ class Cookie : ICookie {
      * Params:
      * string somePath Path to read the data from
     */
-    Json read(string aPath = null) {
+    IData read(string aPath = null) {
         if (this.isExpanded == false) {
             assert(isString(this.value), "aValue is not a string");
 
@@ -546,20 +546,20 @@ class Cookie : ICookie {
      * array array Map of key and values
      */
     protected string _flatten(array array) {
-        return json_encode(array, JSON_THROW_ON_ERROR);
+        return IData_encode(array, IData_THROW_ON_ERROR);
     }
     
     /**
      * Explode method to return array from string set in CookieComponent._flatten()
      * Maintains reading backwards compatibility with 1.x CookieComponent._flatten().
      * Params:
-     * string astring A string containing JSON encoded data, or a bare string.
+     * string astring A string containing IData encoded data, or a bare string.
      */
     protected string[] _expand(string astring) {
         this.isExpanded = true;
         first = substr(string, 0, 1);
         if (first == "{" || first == "[") {
-            return json_decode(string, true) ?? string;
+            return IData_decode(string, true) ?? string;
         }
         array = [];
         foreach (split(",", string) as pair) {

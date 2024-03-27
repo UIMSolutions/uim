@@ -36,7 +36,7 @@ class CsrfProtectionMiddleware { // }: IMiddleware {
      *   FormHelper.
      *
      * /
-    protected Json _config = [
+    protected IData _config = [
         "cookieName": "csrfToken",
         "expiry": 0,
         "secure": false,

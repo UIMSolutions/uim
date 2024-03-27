@@ -31,7 +31,7 @@ class SessionCsrfProtectionMiddleware { // }: IMiddleware {
      *   FormHelper.
      *
      * /
-    protected Json _config = [
+    protected IData _config = [
         "key": "csrfToken",
         "field": "_csrfToken",
     ];

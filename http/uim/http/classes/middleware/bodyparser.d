@@ -7,7 +7,7 @@ import uim.http;
 /**
  * Parse encoded request body data.
  *
- * Enables JSON and XML request payloads to be parsed into the request`s body.
+ * Enables IData and XML request payloads to be parsed into the request`s body.
  * You can also add your own request body parsers using the `addParser()` method.
  */
 class DBodyParserMiddleware { // }: IMiddleware {
@@ -23,19 +23,19 @@ class DBodyParserMiddleware { // }: IMiddleware {
      *
      * ### Options
      *
-     * - `json` Set to false to disable JSON body parsing.
+     * - `IData` Set to false to disable IData body parsing.
      * - `xml` Set to true to enable XML parsing. Defaults to false, as XML
-     *  handling requires more care than JSON does.
+     *  handling requires more care than IData does.
      * - `methods` The HTTP methods to parse on. Defaults to PUT, POST, PATCH DELETE.
      * Params:
      * IData[string] options The options to use. See above.
      * /
     this(IData[string] options = null) {
-        options += ["json": true, "xml": false, "methods": null];
-        if (options["json"]) {
+        options += ["IData": true, "xml": false, "methods": null];
+        if (options["IData"]) {
             this.addParser(
-                ["application/json", "text/json"],
-                this.decodeJson(...)
+                ["application/IData", "text/IData"],
+                this.decodeIData(...)
             );
         }
         if (options["xml"]) {
@@ -78,7 +78,7 @@ class DBodyParserMiddleware { // }: IMiddleware {
      * });
      * ```
      * Params:
-     * string[] types An array of content-type header values to match. eg. application/json
+     * string[] types An array of content-type header values to match. eg. application/IData
      * @param \Closure  aParser The parser function. Must return an array of data to be inserted
      *  into the request.
      * /
@@ -121,16 +121,16 @@ class DBodyParserMiddleware { // }: IMiddleware {
     }
     
     /**
-     * Decode JSON into an array.
+     * Decode IData into an array.
      * Params:
      * string abody The request body to decode
      * /
-    protected array decodeJson(string abody) {
+    protected array decodeIData(string abody) {
         if (body.isEmpty) {
             return null;
         }
-        decoded = json_decode(body, true);
-        if (json_last_error() != JSON_ERROR_NONE) {
+        decoded = IData_decode(body, true);
+        if (IData_last_error() != IData_ERROR_NONE) {
             return null;
         }
         return (array)decoded;

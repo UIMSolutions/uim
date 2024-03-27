@@ -351,9 +351,9 @@ class DSession {
      * Returns given session variable, or all of them, if no parameters given.
      * Params:
      * string name The name of the session variable (or a path as sent to Hash.extract)
-     * @param Json defaultValue The return value when the path does not exist
+     * @param IData defaultValue The return value when the path does not exist
      * /
-    Json read(string aName = null, Json defaultValue = Json(null)) {
+    IData read(string aName = null, IData defaultValue = IData(null)) {
         if (_hasSession() && !this.started()) {
             this.start();
         }
@@ -369,7 +369,7 @@ class DSession {
     /**
      * Returns given session variable, or throws Exception if not found.
      * /
-    Json readOrFail(string sessionName) {
+    IData readOrFail(string sessionName) {
         if (!this.check(sessionName)) {
             throw new UimException("Expected session key `%s` not found.".format(sessionName));
         }
@@ -381,7 +381,7 @@ class DSession {
      * Params:
      * string aName The key to read and remove (or a path as sent to Hash.extract).
      * /
-    Json consume(string aName) {
+    IData consume(string aName) {
         if (isEmpty(name)) {
             return null;
         }
@@ -397,9 +397,9 @@ class DSession {
      * Writes value to given session variable name.
      * Params:
      * string[] aName Name of variable
-     * @param Json aValue Value to write
+     * @param IData aValue Value to write
      * /
-    void write(string[] aName, Json aValue = null) {
+    void write(string[] aName, IData aValue = null) {
         started = this.started() || this.start();
         if (!started) {
             message = "Could not start the session";

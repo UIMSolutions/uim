@@ -56,9 +56,9 @@ class DFormData { // }: Countable, Stringable {
      * Params:
      * \UIM\Http\Client\FormDataPart|string aName The name of the part to add,
      *  or the part data object.
-     * @param Json aValue The value for the part.
+     * @param IData aValue The value for the part.
      * /
-    void add(FormDataPart|string aName, Json aValue = null) {
+    void add(FormDataPart|string aName, IData aValue = null) {
         if (isString(name)) {
             if (isArray(aValue)) {
                 this.addRecursive(name, aValue);
@@ -93,7 +93,7 @@ class DFormData { // }: Countable, Stringable {
      * @param \Psr\Http\Message\IUploadedFile|resource|string avalue Either a string filename, or a filehandle,
      * or a IUploadedFile instance.
      * /
-    FormDataPart addFile(string aName, Json aValue) {
+    FormDataPart addFile(string aName, IData aValue) {
        _hasFile = true;
 
         filename = false;
@@ -131,9 +131,9 @@ class DFormData { // }: Countable, Stringable {
      * Recursively add data.
      * Params:
      * string aName The name to use.
-     * @param Json aValue The value to add.
+     * @param IData aValue The value to add.
      * /
-    void addRecursive(string nameToUse, Json valueToAdd) {
+    void addRecursive(string nameToUse, IData valueToAdd) {
         valueToAdd.byKeyValue.each!((kv) {
             string key = name ~ "[" ~ kv.key ~ "]";
             this.add(key, kv.value);

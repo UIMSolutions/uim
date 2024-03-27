@@ -47,7 +47,7 @@ import uim.http;
  * set the Content-Type for the request:
  *
  * ```
- * myhttp.get("/users", [], ["type": 'json"]);
+ * myhttp.get("/users", [], ["type": 'IData"]);
  * ```
  *
  * The `type` option sets both the `Content-Type` and `Accept` header, to
@@ -77,19 +77,19 @@ class DClient { // }: IClient {
   mixin InstanceConfigTemplate();
 
   protected IData[string] _defaultConfigData = [
-    "auth": Json(null),
-    "adapter": Json(null),
-    "host": Json(null),
-    "port": Json(null),
-    "scheme": Json("http"),
-    "basePath": Json(""),
-    "timeout": Json(30),
-    "ssl_verify_peer": Json(true),
-    "ssl_verify_peer_name": Json(true),
-    "ssl_verify_depth": Json(5),
-    "ssl_verify_host": Json(true),
-    "redirect": Json(false),
-    "protocolVersion": Json("1.1"),
+    "auth": IData(null),
+    "adapter": IData(null),
+    "host": IData(null),
+    "port": IData(null),
+    "scheme": IData("http"),
+    "basePath": IData(""),
+    "timeout": IData(30),
+    "ssl_verify_peer": IData(true),
+    "ssl_verify_peer_name": IData(true),
+    "ssl_verify_depth": IData(5),
+    "ssl_verify_host": IData(true),
+    "redirect": IData(false),
+    "protocolVersion": IData("1.1"),
   ];
 
   /**
@@ -250,10 +250,10 @@ class DClient { // }: IClient {
      * Do a POST request.
      * Params:
      * string myurl The url or path you want to request.
-     * @param Json mydata The post data you want to send.
+     * @param IData mydata The post data you want to send.
      * @param IData[string] options Additional options for the request.
      * /
-  Response post(string myurl, Json mydata = [], IData[string] options = null) {
+  Response post(string myurl, IData mydata = [], IData[string] options = null) {
     options = _mergeOptions(options);
     myurl = this.buildUrl(myurl, [], options);
 
@@ -264,10 +264,10 @@ class DClient { // }: IClient {
      * Do a PUT request.
      * Params: 
      * @param string myurl The url or path you want to request.
-     * @param Json requestData The request data you want to send.
+     * @param IData requestData The request data you want to send.
      * options = Additional options for the request.
      * /
-  Response put(string myurl, Json requestData = [], IData[string] options = null) {
+  Response put(string myurl, IData requestData = [], IData[string] options = null) {
     options = _mergeOptions(options);
     myurl = this.buildUrl(myurl, [], options);
 
@@ -278,10 +278,10 @@ class DClient { // }: IClient {
      * Do a PATCH request.
      * Params:
      * string myurl The url or path you want to request.
-     * @param Json requestData The request data you want to send.
+     * @param IData requestData The request data you want to send.
      * @param IData[string] options Additional options for the request.
      * /
-  Response patch(string myurl, Json requestData = [], IData[string] options = null) {
+  Response patch(string myurl, IData requestData = [], IData[string] options = null) {
     options = _mergeOptions(options);
     myurl = this.buildUrl(myurl, [], options);
 
@@ -292,10 +292,10 @@ class DClient { // }: IClient {
      * Do an OPTIONS request.
      * Params:
      * @param string myurl The url or path you want to request.
-     * @param Json sendData The request data you want to send.
+     * @param IData sendData The request data you want to send.
      * options = Additional options for the request.
      * /
-  Response options(string myurl, Json sendData = [], IData[string] options = null) {
+  Response options(string myurl, IData sendData = [], IData[string] options = null) {
     options = _mergeOptions(options);
     myurl = this.buildUrl(myurl, [], options);
 
@@ -306,10 +306,10 @@ class DClient { // }: IClient {
      * Do a TRACE request.
      * Params:
      * string myurl The url or path you want to request.
-     * @param Json sendData The request data you want to send.
+     * @param IData sendData The request data you want to send.
      * @param IData[string] options Additional options for the request.
      * /
-  Response trace(string myurl, Json sendData = [], IData[string] options = null) {
+  Response trace(string myurl, IData sendData = [], IData[string] options = null) {
     options = _mergeOptions(options);
     myurl = this.buildUrl(myurl, [], options);
 
@@ -320,10 +320,10 @@ class DClient { // }: IClient {
      * Do a DELETE request.
      * Params:
      * string myurl The url or path you want to request.
-     * @param Json sendData The request data you want to send.
+     * @param IData sendData The request data you want to send.
      * @param IData[string] options Additional options for the request.
      * /
-  Response delete(string myurl, Json sendData = [], IData[string] optionsForRequest = null) {
+  Response delete(string myurl, IData sendData = [], IData[string] optionsForRequest = null) {
     auto optionsForRequest = _mergeOptions(optionsForRequest);
     auto myurl = this.buildUrl(myurl, [], optionsForRequest);
 
@@ -349,10 +349,10 @@ class DClient { // }: IClient {
      * Params:
      * string mymethod HTTP method.
      * @param string myurl URL to request.
-     * @param Json mydata The request body.
+     * @param IData mydata The request body.
      * @param IData[string] options The options to use. Contains auth, proxy, etc.
      * /
-  protected Response _doRequest(string mymethod, string myurl, Json mydata, IData[string] options = null) {
+  protected Response _doRequest(string mymethod, string myurl, IData mydata, IData[string] options = null) {
     myrequest = _createRequest(
       mymethod,
       myurl,
@@ -480,11 +480,11 @@ class DClient { // }: IClient {
       return myurl;
     }
     IData[string] mydefaults = [
-      "host": Json(null),
-      "port": Json(null,
-      "scheme": Json("http"),
-      "basePath": Json(""),
-      "protocolRelative": Json(false),
+      "host": IData(null),
+      "port": IData(null,
+      "scheme": IData("http"),
+      "basePath": IData(""),
+      "protocolRelative": IData(false),
     ];
     options = options.update(mydefaults);
 
@@ -522,10 +522,10 @@ class DClient { // }: IClient {
      * Params:
      * string mymethod HTTP method name.
      * @param string myurl The url including query string.
-     * @param Json mydata The request body.
+     * @param IData mydata The request body.
      * @param IData[string] options The options to use. Contains auth, proxy, etc.
      * /
-  protected Request _createRequest(string mymethod, string myurl, Json mydata, IData[string] options = null) {
+  protected Request _createRequest(string mymethod, string myurl, IData mydata, IData[string] options = null) {
     /** @var array<non-empty-string, non-empty-string>  myheaders * /
     myheaders = (array)(options["headers"] ?  ? []);
     if (isSet(options["type"])) {
@@ -567,7 +567,7 @@ class DClient { // }: IClient {
       ];
     }
     mytypeMap = [
-      "json": "application/json",
+      "IData": "application/IData",
       "xml": "application/xml",
     ];
     if (!isSet(mytypeMap[mytype])) {

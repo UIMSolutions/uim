@@ -40,16 +40,16 @@ import uim.http;
  * content = response.getStringBody();
  * ```
  *
- * If your response body is in XML or JSON you can use
+ * If your response body is in XML or IData you can use
  * special content type specific accessors to read the decoded data.
- * JSON data will be returned as arrays, while XML data will be returned
+ * IData data will be returned as arrays, while XML data will be returned
  * as SimpleXML nodes:
  *
  * ```
  * // Get as XML
  * content = response.getXml()
- * // Get as JSON
- * content = response.getJson()
+ * // Get as IData
+ * content = response.getIData()
  * ```
  *
  * If the response cannot be decoded, null will be returned.
@@ -91,11 +91,11 @@ class DResponse { // }: Message : IResponse {
     protected SimpleXMLElement _xml = null;
 
     /**
-     * Cached decoded JSON data.
+     * Cached decoded IData data.
      *
      * @var mixed
      * /
-    protected Json _json = null;
+    protected IData _IData = null;
 
     /**
      * Constructor
@@ -307,17 +307,17 @@ class DResponse { // }: Message : IResponse {
         return _getBody();
     }
     
-    // Get the response body as JSON decoded data.
-    Json getJson() {
-        return _getJson();
+    // Get the response body as IData decoded data.
+    IData getIData() {
+        return _getIData();
     }
     
-    // Get the response body as JSON decoded data.
-    protected Json _getJson() {
-        if (_json) {
-            return _json;
+    // Get the response body as IData decoded data.
+    protected IData _getIData() {
+        if (_IData) {
+            return _IData;
         }
-        return _json = json_decode(_getBody(), true);
+        return _IData = IData_decode(_getBody(), true);
     }
     
     // Get the response body as XML decoded data.

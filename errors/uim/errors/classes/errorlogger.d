@@ -7,7 +7,7 @@ import uim.errors;
 /**
  * Log errors and unhandled exceptions to `UIM\Log\Log`
  */
-class ErrorLogger { // }: IErrorLogger {
+class DErrorLogger { // }: IErrorLogger {
     /*
     use InstanceConfigTemplate();
 

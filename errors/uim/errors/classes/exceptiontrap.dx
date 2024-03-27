@@ -19,7 +19,7 @@ import uim.errors;
  *
  * If undefined, an ExceptionRenderer will be selected based on the current SAPI (CLI or Web).
  */
-class ExceptionTrap {
+class DExceptionTrap {
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\Error\ExceptionTrap>
      */

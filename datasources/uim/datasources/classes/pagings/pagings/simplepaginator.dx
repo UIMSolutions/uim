@@ -11,7 +11,7 @@ import uim.datasources;
  * When using a simple paginator you will not be able to generate page numbers.
  * Instead use only the prev/next pagination controls.
  */
-class SimplePaginator : NumericPaginator {
+class DSimplePaginator : NumericPaginator {
     /**
      * Get paginated items.
      *

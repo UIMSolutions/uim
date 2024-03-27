@@ -11,7 +11,7 @@ import uim.errors;
 /**
  * Dump node for scalar values.
  */
-class ScalarNode : IERRNode {
+class DScalarNode : IERRNode {
   private string _nodeType;
 
   private string myStringValue;

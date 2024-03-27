@@ -11,7 +11,7 @@ import uim.errors;
 /**
  * Debug node for special messages like errors or recursion warnings.
  */
-class SpecialNode : IERRNode {
+class DSpecialNode : IERRNode {
     /**
      * @var string
      */

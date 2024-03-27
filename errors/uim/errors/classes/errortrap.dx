@@ -14,7 +14,7 @@ import uim.errors;
  * Finally, errors are 'rendered' using the defined renderer. If no error renderer is defined in configuration
  * one of the default implementations will be chosen based on the PHP SAPI.
  */
-class ErrorTrap {
+class DErrorTrap {
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\Error\ErrorTrap>
      */

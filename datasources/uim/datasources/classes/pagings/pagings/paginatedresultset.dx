@@ -10,7 +10,7 @@ import uim.datasources;
  * @template-extends \IteratorIterator<mixed, mixed, \Traversable<mixed>>
  * @template T
  */
-class PaginatedResultSet : IteratorIterator : JsonSerializable, IPaginated {
+class PaginatedResultSet : IteratorIterator : IDataSerializable, IPaginated {
     // Paging params.
     protected array params = [];
 
@@ -38,9 +38,9 @@ class PaginatedResultSet : IteratorIterator : JsonSerializable, IPaginated {
     }
     
     /**
-     * Provide data which should be serialized to JSON.
+     * Provide data which should be serialized to IData.
      */
-    array jsonSerialize() {
+    array IDataSerialize() {
         return iterator_to_array(this.items());
     }
  
@@ -68,7 +68,7 @@ class PaginatedResultSet : IteratorIterator : JsonSerializable, IPaginated {
         return this.params["hasNextPage"];
     }
  
-    Json pagingParam(string aName) {
+    IData pagingParam(string aName) {
         return this.params[name] ?? null;
     }
  

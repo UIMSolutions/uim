@@ -195,7 +195,7 @@ You can access virtual fields as if they existed on the entity. The property nam
 writeln(user->full_name;
 writeln(user->get('full_name');
 
-Do bear in mind that virtual fields cannot be used in finds. If you want them to be part of JSON or array representations of your entities, see Exposing Virtual Fields.
+Do bear in mind that virtual fields cannot be used in finds. If you want them to be part of IData or array representations of your entities, see Exposing Virtual Fields.
 Checking if an Entity Has Been Modified
 
 Cake\ORM\Entity::dirty(field = null,  dirty = null)
@@ -382,22 +382,22 @@ class Article extends Entity
     use SoftDeleteTrait;
 }
 
-Converting to Arrays/JSON
+Converting to Arrays/IData
 
-When building APIs, you may often need to convert entities into arrays or JSON data. CakePHP makes this simple:
+When building APIs, you may often need to convert entities into arrays or IData data. CakePHP makes this simple:
 
 // Get an array.
 // Associations will be converted with toArray() as well.
 array = user->toArray();
 
-// Convert to JSON
-// Associations will be converted with jsonSerialize hook as well.
- json = json_encode(user);
+// Convert to IData
+// Associations will be converted with IDataSerialize hook as well.
+ IData = IData_encode(user);
 
-When converting an entity to an JSON, the virtual & hidden field lists are applied. Entities are recursively converted to JSON as well. This means that if you eager loaded entities and their associations CakePHP will correctly handle converting the associated data into the correct format.
+When converting an entity to an IData, the virtual & hidden field lists are applied. Entities are recursively converted to IData as well. This means that if you eager loaded entities and their associations CakePHP will correctly handle converting the associated data into the correct format.
 Exposing Virtual Fields
 
-By default virtual fields are not exported when converting entities to arrays or JSON. In order to expose virtual fields you need to make them visible. When defining your entity class you can provide a list of virtual field that should be exposed:
+By default virtual fields are not exported when converting entities to arrays or IData. In order to expose virtual fields you need to make them visible. When defining your entity class you can provide a list of virtual field that should be exposed:
 
 namespace App\Model\Entity;
 
@@ -414,7 +414,7 @@ user->setVirtual(['full_name', 'is_admin']);
 
 Hiding Fields
 
-There are often fields you do not want exported in JSON or array formats. For example it is often unwise to expose password hashes or account recovery questions. When defining an entity class, define which fields should be hidden:
+There are often fields you do not want exported in IData or array formats. For example it is often unwise to expose password hashes or account recovery questions. When defining an entity class, define which fields should be hidden:
 
 namespace App\Model\Entity;
 

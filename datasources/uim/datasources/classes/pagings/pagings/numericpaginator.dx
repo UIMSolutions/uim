@@ -166,13 +166,13 @@ class NumericPaginator : IPaginator {
      * /dashboard?articles[page]=1&tags[page]=2
      * ```
      * Params:
-     * Json target The repository or query
+     * IData target The repository or query
      *  to paginate.
      * @param array requestParameters Request params
      * @param array settingsForPagination The settings/configuration used for pagination.
      */
     IPaginated paginate(
-        Json target,
+        IData target,
         array requestParameters = [],
         array settingsForPagination = []
     ) {

@@ -409,7 +409,7 @@ class NumericPaginator : PaginatorInterface
      * @param array<string, mixed> myConfiguration The configuration data to coalesce and emit warnings on.
      * @return array<string>|null
      */
-    protected string[] getSortableFields(Json myConfiguration): ?array
+    protected string[] getSortableFields(IData myConfiguration): ?array
     {
         allowed = myconfiguration["sortableFields"] ?? null;
         if (allowed != null) {

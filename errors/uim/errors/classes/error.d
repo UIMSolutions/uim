@@ -24,23 +24,7 @@ class DError {
         configuration(MemoryConfiguration);
         setConfigurationData(initData);
 
-        return true;
-    }
-
-    mixin(TProperty!("string", "name"));
-
-mixin(OProperty!("int", "code"));
-
-  mixin(OProperty!("string", "message"));
-
-  mixin(OProperty!("string", "file"));
-
-  mixin(OProperty!("int", "line"));
-
-  mixin(OProperty!("int[string][]", "trace"));
-
-  /* 
-  private string[int] levelMap = [
+levelMap = [
       E_PARSE: "error",
       E_ERROR: "error",
       E_CORE_ERROR: "error",
@@ -57,7 +41,7 @@ mixin(OProperty!("int", "code"));
       E_USER_DEPRECATED: "deprecated",
   ];
 
-  private int[string] _logMap = [
+  _logMap = [
       "error": LOG_ERR,
       "warning": LOG_WARNING,
       "notice": LOG_NOTICE,
@@ -65,50 +49,56 @@ mixin(OProperty!("int", "code"));
       "deprecated": LOG_NOTICE,
   ];
 
-    /**
-     * Constructor
-     *
-     * @param int code The PHP error code constant
-     * @param string message The error message.
-     * @param string|null file The filename of the error.
-     * @param int|null line The line number for the error.
-     * @param array trace The backtrace for the error.
-     * /
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
+
+mixin(OProperty!("int", "code"));
+
+  mixin(OProperty!("string", "message"));
+
+  mixin(OProperty!("string", "filename"));
+
+  mixin(OProperty!("int", "lineNumber"));
+
+  mixin(OProperty!("int[string][]", "trace"));
+
+  protected string[int] levelMap;
+
+  private int[string] _logMap;
+
     this(
-        int aCode,
-        string aMessage,
-        string aFile = "",
-        int aLine = 0,
+        int newErrorCode,
+        string newErrorMessage,
+        string newErrorFilename = "",
+        int newLineNumber = 0,
         int[string][] traceData = null
     ) {
-        this
-          .code(aCode)
-          .message(aMessage)
-          .file(aFile)
-          .line(aLine)
-          .trace(traceData);
+        this.code(newErrorCode);
+        this.message(newErrorMessage);
+          this.filename(newErrorFilename);
+          this.lineNumber(newLineNumber);
+          this.trace(traceData);
     }
 
 
     // Get the mapped LOG_ constant.
     int getLogLevel() {
-        label = this.getLabel();
+        auto myLabel = label();
 
-        return this.logMap.get(label, LOG_ERR);
+        return logMap.get(myLabel, LOG_ERR);
     }
 
     // Get the error code label
     string label() {
-      return this.levelMap.get(this.code, "error");
+      return levelMap.get(this.code, "error");
     }
 
     // Get the stacktrace as a string.
     string getTraceAsString() {
-      string[] results;
-      foreach (traceEntry; this.trace) {
-          out ~= "{frame["reference"]} {frame["file"]}, line {frame["line"]}";
-      }
-
-      return results.join("\n");
-    } */
+      return this.trace.map!(entry => 
+            "{frame["reference"]} {frame["file"]}, line {frame["line"]}")
+            .join("\n"); // TODOD
+    } 
 }

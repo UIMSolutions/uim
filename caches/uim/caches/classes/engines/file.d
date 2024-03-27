@@ -73,12 +73,12 @@ class DFileCacheEngine : DCacheEngine {
      * Write data for key into cache
      * Params:
      * string aKey Identifier for the data
-     * @param Json aValue Data to be cached
+     * @param IData aValue Data to be cached
      * @param \DateInterval|int myttl Optional. The TTL value of this item. If no value is sent and
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      */
-    /* bool set(string dataId, Json cacheData, DateInterval | int myttl = null) {
+    /* bool set(string dataId, IData cacheData, DateInterval | int myttl = null) {
         if (cacheData == "" || !_init) {
             return false;
         }
@@ -113,9 +113,9 @@ class DFileCacheEngine : DCacheEngine {
     /**
      * Read a key from the cache
      * Params:
-     * @param Json defaultValue Default value to return if the key does not exist.
+     * @param IData defaultValue Default value to return if the key does not exist.
      * /
-    Json get(string dataId, Json defaultValue = Json(null)) {
+    IData get(string dataId, IData defaultValue = IData(null)) {
         auto key = _key(dataId);
 
         if (!_init || _setKey(key) == false) {

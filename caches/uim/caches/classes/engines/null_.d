@@ -16,7 +16,7 @@ class DNullEngine : DCacheEngine {
   }
 
 /*
-  /* bool set(string aKey, Json aValue, DateInterval | int | null aTtl = null) {
+  /* bool set(string aKey, IData aValue, DateInterval | int | null aTtl = null) {
     return true;
   }
 
@@ -24,11 +24,11 @@ class DNullEngine : DCacheEngine {
     return true;
   } * / 
 
-  Json get(string aKey, Json defaultValues = null) {
+  IData get(string aKey, IData defaultValues = null) {
     return defaultValues;
   }
 
-  range getMultiple(string[] someKeys, Json defaultValues = null) {
+  range getMultiple(string[] someKeys, IData defaultValues = null) {
     return null;
   }
 

@@ -31,7 +31,7 @@ class DMemcachedEngine : DCacheEngine {
      * - `prefix` Prepended to all entries. Good for when you need to share a keyspace
      *   with either another cache config or another application.
      * - `serialize` The serializer engine used to serialize data. Available engines are 'php",
-     *   'igbinary' and 'json'. Beside 'php", the memcached extension must be compiled with the
+     *   'igbinary' and 'IData'. Beside 'php", the memcached extension must be compiled with the
      *   appropriate serializer support.
      * - `servers` String or array of memcached servers. If an array MemcacheEngine will use
      *   them as a pool.
@@ -43,7 +43,7 @@ class DMemcachedEngine : DCacheEngine {
   /**
      * List of available serializer engines
      *
-     * Memcached must be compiled with JSON and igbinary support to use these engines
+     * Memcached must be compiled with IData and igbinary support to use these engines
 h     * /
   protected int[string] my_serializers;
 
@@ -78,7 +78,7 @@ h     * /
     }
     /* _serializers = [
       "igbinary": Memcached: : SERIALIZER_IGBINARY,
-      "json": Memcached: : SERIALIZER_JSON,
+      "IData": Memcached: : SERIALIZER_IData,
       "d": Memcached: : SERIALIZER_PHP,
     ]; * /
 
@@ -241,12 +241,12 @@ string | int | bool | null getOption(int myname) {
      * will be treated as real Unix time value rather than an offset from current time.
      * Params:
      * string aKey Identifier for the data
-     * @param Json aValue Data to be cached
+     * @param IData aValue Data to be cached
      * @param \DateInterval|int myttl Optional. The TTL value of this item. If no value is sent and
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      * /
-bool set(string aKey, Json aValue, DateInterval | int | null myttl = null) {
+bool set(string aKey, IData aValue, DateInterval | int | null myttl = null) {
   myduration = this.duration(myttl);
 
   return _Memcached.set(_key(aKey), myvalue, myduration);
@@ -273,9 +273,9 @@ bool setMultiple(Range myvalues, DateInterval | int | null myttl = null) {
      * Read a key from the cache
      * Params:
      * string aKey Identifier for the data
-     * @param Json mydefault Default value to return if the key does not exist.
+     * @param IData mydefault Default value to return if the key does not exist.
      * /
-Json get(string aKey, Json mydefault = null) {
+IData get(string aKey, IData mydefault = null) {
   auto myKey = _key(aKey);
   myvalue = _Memcached.get(myKey);
   if (_Memcached.getResultCode() == Memcached :  : RES_NOTFOUND) {
@@ -288,9 +288,9 @@ Json get(string aKey, Json mydefault = null) {
      * Read many keys from the cache at once
      * Params:
      * iterable<string> someKeys An array of identifiers for the data
-     * @param Json mydefault Default value to return for keys that do not exist.
+     * @param IData mydefault Default value to return for keys that do not exist.
      * /
-IData[string] getMultiple(string[] someKeys, Json mydefault = null) {
+IData[string] getMultiple(string[] someKeys, IData mydefault = null) {
   mycacheKeys = [];
   someKeys.each!(key => mycacheKeys[key] = _key(key));
   myvalues = _Memcached.getMulti(mycacheKeys);
@@ -355,9 +355,9 @@ bool clear() {
      * Add a key to the cache if it does not already exist.
      * Params:
      * string aKey Identifier for the data.
-     * @param Json aValue Data to be cached.
+     * @param IData aValue Data to be cached.
      * /
-bool add(string aKey, Json aValue) {
+bool add(string aKey, IData aValue) {
   auto myduration = configuration["duration"];
   aKey = _key(aKey);
 

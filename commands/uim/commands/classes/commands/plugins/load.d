@@ -66,7 +66,7 @@ class DPluginLoadCommand : DCommand {
     protected int modifyConfigFile(string pluginName, IData[string] options = null) {
         
         configData = @include this.configFile;
-        configData = !configData.isArray ? Json.empty;
+        configData = !configData.isArray ? IData.empty;
     } else {
         configData = Hash.normalize(configData);
     }

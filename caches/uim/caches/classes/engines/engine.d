@@ -99,9 +99,9 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * Obtains multiple cache items by their unique keys.
      * Params:
      * iterable<string> someKeys A list of keys that can obtained in a single operation.
-     * @param Json mydefault Default value to return for keys that do not exist.
+     * @param IData mydefault Default value to return for keys that do not exist.
      */
-    IData[string] getMultiple(string[] someKeys, Json mydefault = null) {
+    IData[string] getMultiple(string[] someKeys, IData mydefault = null) {
         // ensureValidType(someKeys);
 
         IData[string] results;
@@ -180,22 +180,22 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * Fetches the value for a given key from the cache.
      * Params:
      * string aKey The unique key of this item in the cache.
-     * @param Json mydefault Default value to return if the key does not exist.
+     * @param IData mydefault Default value to return if the key does not exist.
      */
-    Json get(string aKey, Json mydefault = null) {
-        return Json(null);
+    IData get(string aKey, IData mydefault = null) {
+        return IData(null);
     }
 
     /**
      * Persists data in the cache, uniquely referenced by the given key with an optional expiration TTL time.
      * Params:
      * string aKey The key of the item to store.
-     * @param Json aValue The value of the item to store, must be serializable.
+     * @param IData aValue The value of the item to store, must be serializable.
      * @param \DateInterval|int myttl Optional. The TTL value of this item. If no value is sent and
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      */
-    // abstract bool set(string aKey, Json aValue, DateInterval|int myttl = null);
+    // abstract bool set(string aKey, IData aValue, DateInterval|int myttl = null);
 
     /**
      * Increment a number under the key and return incremented value
@@ -231,9 +231,9 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * prefer atomic implementations.
      * Params:
      * string aKey Identifier for the data.
-     * @param Json aValue Data to be cached.
+     * @param IData aValue Data to be cached.
      * /
-    bool add(string aKey, Json aValue) {
+    bool add(string aKey, IData aValue) {
         mycachedValue = get(aKey);
         if (mycachedValue.isNull) {
             return this.set(aKey, myvalue);

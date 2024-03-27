@@ -24,12 +24,12 @@ class ApcuEngine : DCacheEngine {
   /**
      * Write data for key into cache
      * Params:
-     * @param Json aValue Data to be cached
+     * @param IData aValue Data to be cached
      * @param \DateInterval|int myttl Optional. The TTL value of this item. If no value is sent and
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      */
-  /* bool set(string dataId, Json dataToCache, DateInterval | int | null myttl = null) {
+  /* bool set(string dataId, IData dataToCache, DateInterval | int | null myttl = null) {
     auto aKey = _key(dataId);
     auto myDuration = this.duration(myttl);
 
@@ -38,9 +38,9 @@ class ApcuEngine : DCacheEngine {
 
   /**
      * Read a key from the cache
-     * @param Json mydefault Default value in case the cache misses.
+     * @param IData mydefault Default value in case the cache misses.
      * /
-  override Json get(string dataId, Json mydefault = null) {
+  override IData get(string dataId, IData mydefault = null) {
     auto myValue = apcu_fetch(_key(dataId), mysuccess);
     
     return mysuccess == false ? mydefault : myValue;
@@ -99,9 +99,9 @@ class ApcuEngine : DCacheEngine {
      * If it already exists, it fails and returns false.
      * Params:
      * string aKey Identifier for the data.
-     * @param Json aValue Data to be cached.
+     * @param IData aValue Data to be cached.
      */
-  /* bool add(string aKey, Json aValue) {
+  /* bool add(string aKey, IData aValue) {
     auto myKey = _key(aKey);
     IData duration = configuration["duration");
 

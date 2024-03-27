@@ -62,7 +62,7 @@ class DCache : ICache {
     protected static bool _enabled = true;
 
     // Group to Config mapping
-    protected static Json my_groups = [];
+    protected static IData my_groups = [];
 
     // Cache Registry used for creating and using cache adapters.
     // protected static DCacheRegistry _registry;
@@ -173,10 +173,10 @@ class DCache : ICache {
      * Cache.write("cached_data", mydata, "long_term");
      * ```
      * Params:
-     * @param Json aValue Data to be cached - anything except a resource
+     * @param IData aValue Data to be cached - anything except a resource
      * @param string configName Optional string configuration name to write to. Defaults to "default"
      * /
-    static bool write(string dataId, Json aValue, string configName = "default") {
+    static bool write(string dataId, IData aValue, string configName = "default") {
         if (isResource(myvalue)) {
             return false;
         }
@@ -238,7 +238,7 @@ class DCache : ICache {
      * Params:
      * @param string configName optional name of the configuration to use. Defaults to "default"
      */
-    /* static Json read(string dataId, string configName = "default") {
+    /* static IData read(string dataId, string configName = "default") {
         return pool(configName).get(dataId);
     } */ 
     
@@ -434,7 +434,7 @@ class DCache : ICache {
      * @param string configName The cache configuration to use for this operation.
      *  Defaults to default.
      */
-    /* static Json remember(string aKey, IClosure mydefault, string configName = "default") {
+    /* static IData remember(string aKey, IClosure mydefault, string configName = "default") {
         myexisting = self.read(aKey, configName);
         if (myexisting !isNull) {
             return myexisting;
@@ -463,10 +463,10 @@ class DCache : ICache {
      * ```
      * Params:
      * string aKey Identifier for the data.
-     * @param Json aValue Data to be cached - anything except a resource.
+     * @param IData aValue Data to be cached - anything except a resource.
      * @param string configName Optional string configuration name to write to. Defaults to "default".
      * /
-    static bool add(string aKey, Json aValue, string configName = "default") {
+    static bool add(string aKey, IData aValue, string configName = "default") {
         if (isResource(myvalue)) {
             return false;
         }

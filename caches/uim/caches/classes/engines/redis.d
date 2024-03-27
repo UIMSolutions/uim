@@ -44,18 +44,18 @@ class DRedisEngine : DCacheEngine {
         }
 
         Configuration.updateDefaults([
-        "database": Json(0),
-        "duration": Json(3600),
-        "groups": Json.emptyArray,
-        "password": Json(false),
-        "persistent": Json(true),
-        "port": Json(6379),
-        "prefix": Json("uim_"),
-        "host": Json(null),
-        "server": Json("127.0.0.1"),
-        "timeout": Json(0),
+        "database": IData(0),
+        "duration": IData(3600),
+        "groups": IData.emptyArray,
+        "password": IData(false),
+        "persistent": IData(true),
+        "port": IData(6379),
+        "prefix": IData("uim_"),
+        "host": IData(null),
+        "server": IData("127.0.0.1"),
+        "timeout": IData(0),
         "unix_socket": false,
-        "scanCount": Json(10)
+        "scanCount": IData(10)
     ]);
     
         return _connect();
@@ -101,12 +101,12 @@ class DRedisEngine : DCacheEngine {
      * Write data for key into cache.
      * Params:
      * string aKey Identifier for the data
-     * @param Json aValue Data to be cached
+     * @param IData aValue Data to be cached
      * @param \DateInterval|int  aTtl Optional. The TTL value of this item. If no value is sent and
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      * /
-    bool set(string aKey, Json aValue, DateInterval|int  aTtl = null) {
+    bool set(string aKey, IData aValue, DateInterval|int  aTtl = null) {
         auto myKey = _key(aKey);
         autoaValue = this.serialize(aValue);
 
@@ -121,9 +121,9 @@ class DRedisEngine : DCacheEngine {
      * Read a key from the cache
      * Params:
      * string aKey Identifier for the data
-     * @param Json defaultValue Default value to return if the key does not exist.
+     * @param IData defaultValue Default value to return if the key does not exist.
      * /
-    Json get(string aKey, Json defaultValue = Json(null)) {
+    IData get(string aKey, IData defaultValue = IData(null)) {
         aValue = _redis.get(_key(aKey));
         if (aValue == false) {
             return defaultValue;
@@ -239,9 +239,9 @@ class DRedisEngine : DCacheEngine {
      * If it already exists, it fails and returns false.
      * Params:
      * string aKey Identifier for the data.
-     * @param Json aValue Data to be cached.
+     * @param IData aValue Data to be cached.
      * /
-    bool add(string aKey, Json aValue) {
+    bool add(string aKey, IData aValue) {
          aDuration = configuration["duration"];
         aKey = _key(aKey);
         aValue = this.serialize(aValue);
@@ -286,9 +286,9 @@ class DRedisEngine : DCacheEngine {
      * This is needed instead of using Redis' in built serialization feature
      * as it creates problems incrementing/decrementing intially set integer value.
      * Params:
-     * Json aValue Value to serialize.
+     * IData aValue Value to serialize.
      * /
-    protected string serialize(Json aValue) {
+    protected string serialize(IData aValue) {
         if (isInt(aValue)) {
             return to!string(aValue;
         }
@@ -300,7 +300,7 @@ class DRedisEngine : DCacheEngine {
      * Params:
      * string avalue Value to unserialize.
      * /
-    protected Json unserialize(string avalue) {
+    protected IData unserialize(string avalue) {
         if (preg_match("/^[-]?\d+$/", aValue)) {
             return (int)aValue;
         }

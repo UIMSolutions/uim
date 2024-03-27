@@ -39,7 +39,7 @@ class DRoutesCheckCommand : DCommand {
 
       output = [
         ["Route name", "URI template", "Defaults"],
-        [name, url, json_encode(route, JSON_THROW_ON_ERROR)],
+        [name, url, IData_encode(route, IData_THROW_ON_ERROR)],
       ];
       aConsoleIo.helper("table").output( output);
       aConsoleIo.out ();

@@ -29,7 +29,7 @@ class HomeView {
    }
 }
 
-class StudentView {
+class DStudentView {
    void show() {
       writeln("Displaying Student Page");
    }

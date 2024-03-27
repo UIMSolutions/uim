@@ -36,7 +36,7 @@ interface IStudentDao {
   void deleteStudent(DStudent student);
 }
 
-class StudentDao : IStudentDao {	
+class DStudentDao : IStudentDao {	
   //list is working as a database
   DStudent[] _students;
 

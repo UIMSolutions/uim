@@ -18,7 +18,7 @@ import uim.oop;
 @safe:
 
 /// Create Transfer Object.
-class StudentVO {
+class DStudentVO {
   this(string newName, int newId) {
     this.name = newName;
     this.id = newId;
@@ -29,7 +29,7 @@ class StudentVO {
 }
 
 /// Create Business Object.
-class StudentBO {
+class DStudentBO {
   //list is working as a database
   StudentVO[] _students;
 

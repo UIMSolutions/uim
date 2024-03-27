@@ -21,7 +21,7 @@ public:
         writeln(strategyName, " executes"); }
 }
 
-class SecondStrategy : Strategy {
+class DSecondStrategy : Strategy {
 protected:
     string strategyName = "Second strategy";
 public:

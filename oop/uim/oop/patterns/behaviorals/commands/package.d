@@ -14,7 +14,7 @@ interface Order {
 }
 
 /// Create a request class.
-class Stock {
+class DStock {
   private string name = "ABC";
   private int quantity = 10;
 
@@ -39,7 +39,7 @@ class DBuyStock : Order {
   }
 }
 
-class SellStock : Order {
+class DSellStock : Order {
   private Stock _abcStock;
 
   this(Stock abcStock) {

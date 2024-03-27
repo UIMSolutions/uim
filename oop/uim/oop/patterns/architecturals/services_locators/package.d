@@ -23,7 +23,7 @@ interface Service {
 }
 
 /// Create concrete services.
-class Service1 : Service {
+class DService1 : Service {
   void execute() {
     writeln("Executing Service1");
   }
@@ -33,7 +33,7 @@ class Service1 : Service {
   }
 }
 
-class Service2 : Service {
+class DService2 : Service {
   void execute() {
     writeln("Executing Service2");
   }
@@ -89,7 +89,7 @@ class DCache {
 }
 
 /// Create Service Locator
-class ServiceLocator {
+class DServiceLocator {
   private static ICache _cache;
 
   static this() {

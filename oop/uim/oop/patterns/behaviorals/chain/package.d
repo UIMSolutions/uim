@@ -44,7 +44,7 @@ class DConsoleLogger : AbstractLogger {
   }
 }
 
-class ErrorLogger : AbstractLogger {
+class DErrorLogger : AbstractLogger {
   this(int level) {
     _level = level;
   }

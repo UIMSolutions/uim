@@ -37,7 +37,7 @@ class DAssetMiddleware : IMiddleware {
         if (assetFile.isNull || !isFile(assetFile)) {
             return requestHandler.handle(serverRequest);
         }
-        file = new SplFileInfo(assetFile);
+        file = new DSplFileInfo(assetFile);
         modifiedTime = file.getMTime();
         if (this.isNotModified(serverRequest, file)) {
             return (new Response())
@@ -101,7 +101,7 @@ class DAssetMiddleware : IMiddleware {
         if (resource == false) {
             throw new UimException("Cannot open resource `%s`".format(file.getPathname()));
         }
-        autstream = new Stream(resource);
+        autstream = new DStream(resource);
 
         auto response = new Response(["stream": stream]);
 

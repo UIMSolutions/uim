@@ -1448,7 +1448,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     }
     
     /**
-     * Creates a new SelectQuery instance for a table.
+     * Creates a new DSelectQuery instance for a table.
      */
     SelectQuery query() {
         return this.selectQuery();

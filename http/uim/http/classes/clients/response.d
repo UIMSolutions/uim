@@ -108,7 +108,7 @@ class DResponse { // }: Message : IResponse {
         if (this.getHeaderLine("Content-Encoding") == "gzip") {
             body = _decodeGzipBody(body);
         }
-        stream = new Stream("php://memory", "wb+");
+        stream = new DStream("php://memory", "wb+");
         stream.write(body);
         stream.rewind();
         this.stream = stream;

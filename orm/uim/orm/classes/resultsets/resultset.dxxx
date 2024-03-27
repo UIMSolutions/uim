@@ -136,7 +136,7 @@ class DResultSet : IResultSet {
 
         if (_useBuffering) {
             count = this.count();
-            _results = new SplFixedArray(count);
+            _results = new DSplFixedArray(count);
         }
     }
 

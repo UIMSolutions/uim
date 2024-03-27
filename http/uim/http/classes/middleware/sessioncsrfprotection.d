@@ -217,7 +217,7 @@ class DSessionCsrfProtectionMiddleware { // }: IMiddleware {
      * @param string aKey The session key/attribute to set.
      * /
     static ServerRequest replaceToken(ServerRequest serverRequest, string aKey = "csrfToken") {
-        middleware = new SessionCsrfProtectionMiddleware(["key": aKey]);
+        middleware = new DSessionCsrfProtectionMiddleware(["key": aKey]);
 
         token = middleware.createToken();
         request.getSession().write(aKey, token);

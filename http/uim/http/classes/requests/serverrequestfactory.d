@@ -40,7 +40,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
         ];
         session = Session.create(sessionConfig);
 
-        request = new ServerRequest([
+        request = new DServerRequest([
             'environment": server,
             'uri": anUri,
             'cookies": cookies ?? _COOKIE,
@@ -145,6 +145,6 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
         }
         options["uri"] = anUri;
 
-        return new ServerRequest(options);
+        return new DServerRequest(options);
     } */
 }

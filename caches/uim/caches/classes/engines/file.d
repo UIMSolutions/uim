@@ -234,7 +234,7 @@ class DFileCacheEngine : DCacheEngine {
                 continue;
             }
             try {
-                myfile = new SplFileObject(mypath ~ myentry, "r");
+                myfile = new DSplFileObject(mypath ~ myentry, "r");
             } catch (Exception) {
                 continue;
             }
@@ -283,7 +283,7 @@ class DFileCacheEngine : DCacheEngine {
         if (!isDir(mydir)) {
             mkdir(mydir, configuration["dirMask"], true);
         }
-        mypath = new SplFileInfo(mydir ~ aKey);
+        mypath = new DSplFileInfo(mydir ~ aKey);
 
         if (!mycreateKey && !mypath.isFile()) {
             return false;
@@ -317,7 +317,7 @@ class DFileCacheEngine : DCacheEngine {
 
     // Determine if cache directory is writable
     /* protected bool _active() {
-        mydir = new SplFileInfo(configuration["path"]);
+        mydir = new DSplFileInfo(configuration["path"]);
         mypath = mydir.getPathname();
         mysuccess = true;
         if (!isDir(mypath)) {

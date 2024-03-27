@@ -35,7 +35,7 @@ class DConsoleExceptionRenderer {
     * /
   this(Throwable error, ?IServerRequest request, IData aConfig) {
     this.error = error;
-    this.output = aConfig["stderr"] ?? new ConsoleOutput("php://stderr");
+    this.output = aConfig["stderr"] ?? new DConsoleOutput("php://stderr");
     this.trace = aConfig["trace"] ?? true;
   }
 

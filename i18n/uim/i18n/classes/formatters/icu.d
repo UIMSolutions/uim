@@ -15,7 +15,7 @@ class DIcuFormatter : DI18NFormatter {
         // TODO auto formatter = new DMessageFormatter(messageLocale, messageToTranslate);
         string result; // TODO = formatter.format(tokenValues);
         /* if (result.isEmpty) {
-            throw new I18nException(formatter.getErrorMessage(), formatter.getErrorCode());
+            throw new DI18nException(formatter.getErrorMessage(), formatter.getErrorCode());
         } */ 
         return result;
     }

@@ -272,10 +272,10 @@ class DCsrfProtectionMiddleware { // }: IMiddleware {
         cookie = Hash.get(request.getCookieParams(), configuration["cookieName"]);
 
         if (!cookie || !isString(cookie)) {
-            throw new InvalidCsrfTokenException(__d("uim", "Missing or incorrect CSRF cookie type."));
+            throw new DInvalidCsrfTokenException(__d("uim", "Missing or incorrect CSRF cookie type."));
         }
         if (!_verifyToken(cookie)) {
-            exception = new InvalidCsrfTokenException(__d("uim", "Missing or invalid CSRF cookie."));
+            exception = new DInvalidCsrfTokenException(__d("uim", "Missing or invalid CSRF cookie."));
 
             expiredCookie = _createCookie("", request).withExpired();
             exception.setHeader("Set-Cookie", expiredCookie.toHeaderValue());
@@ -295,7 +295,7 @@ class DCsrfProtectionMiddleware { // }: IMiddleware {
         if (hash_equals( aHeader, cookie)) {
             return;
         }
-        throw new InvalidCsrfTokenException(__d(
+        throw new DInvalidCsrfTokenException(__d(
             "uim",
             "CSRF token from either the request body or request headers did not match or is missing."
         ));

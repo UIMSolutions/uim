@@ -115,7 +115,7 @@ class DI18n {
         }
         translator = translators.get(domainname);
         if (translator.isNull) {
-            throw new I18nException(
+            throw new DI18nException(
                 "Translator for domain `%s` could not be found.".format(domainname));
         }
         if (isSet(currentLocale)) {

@@ -463,7 +463,7 @@ class DServerRequest { // }: IServerRequest {
      * array detect Detector options array.
      * /
     protected bool _acceptHeaderDetector(array detect) {
-        content = new ContentTypeNegotiation();
+        content = new DContentTypeNegotiation();
         options = detect["accept"];
 
         // Some detectors overlap with the default browser Accept header
@@ -934,7 +934,7 @@ class DServerRequest { // }: IServerRequest {
      * string|null type The content type to check for. Leave null to get all types a client accepts.
      * /
     string[]|bool accepts(string atype = null) {
-        content = new ContentTypeNegotiation();
+        content = new DContentTypeNegotiation();
         if (type) {
             return content.preferredType(this, [type]) !isNull;
         }
@@ -960,7 +960,7 @@ class DServerRequest { // }: IServerRequest {
      * @return array|bool If a language is provided, a boolean. Otherwise, the array of accepted languages.
      * /
     array|bool acceptLanguage(string alanguage = null) {
-        content = new ContentTypeNegotiation();
+        content = new DContentTypeNegotiation();
         if (language !isNull) {
             return content.acceptLanguage(this, language);
         }

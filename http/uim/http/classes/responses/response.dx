@@ -415,7 +415,7 @@ class DResponse : IResponse, Stringable {
             type = this.resolveType(options["type"]);
         }
        _setContentType(type);
-       _cookies = new CookieCollection();
+       _cookies = new DCookieCollection();
     }
     
     /**
@@ -1063,7 +1063,7 @@ class DResponse : IResponse, Stringable {
      *
      * ```
      * // add a cookie object
-     * response = response.withCookie(new Cookie("remember_me", 1));
+     * response = response.withCookie(new DCookie("remember_me", 1));
      * ```
      * Params:
      * \UIM\Http\Cookie\ICookie cookie cookie object
@@ -1084,7 +1084,7 @@ class DResponse : IResponse, Stringable {
      *
      * ```
      * // add a cookie object
-     * response = response.withExpiredCookie(new Cookie("remember_me"));
+     * response = response.withExpiredCookie(new DCookie("remember_me"));
      * ```
      * Params:
      * \UIM\Http\Cookie\ICookie cookie cookie object
@@ -1156,7 +1156,7 @@ class DResponse : IResponse, Stringable {
         origin = serverRequest.getHeaderLine("Origin");
         https = serverRequest.is("https");
 
-        return new CorsBuilder(this, origin, https);
+        return new DCorsBuilder(this, origin, https);
     }
     
     /**

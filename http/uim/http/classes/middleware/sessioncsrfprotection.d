@@ -186,7 +186,7 @@ class DSessionCsrfProtectionMiddleware { // }: IMiddleware {
     protected void validateToken(IServerRequest serverRequest, Session session) {
         auto token = session.read(configuration["key"]);
         if (!token || !isString(token)) {
-            throw new InvalidCsrfTokenException(__d("uim", "Missing or incorrect CSRF session key"));
+            throw new DInvalidCsrfTokenException(__d("uim", "Missing or incorrect CSRF session key"));
         }
         body = request.getParsedBody();
         if (isArray(body) || cast(ArrayAccess)body) {
@@ -201,7 +201,7 @@ class DSessionCsrfProtectionMiddleware { // }: IMiddleware {
         if (hash_equals( aHeader, token)) {
             return;
         }
-        throw new InvalidCsrfTokenException(__d(
+        throw new DInvalidCsrfTokenException(__d(
             'cake",
             'CSRF token from either the request body or request headers did not match or is missing.'
         ));

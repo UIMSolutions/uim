@@ -488,7 +488,7 @@ class DSession {
      *
      * Optionally it also clears the session id and renews the session.
      * Params:
-     * bool renew If session should be renewed, as well. Defaults to false.
+     * bool renew DIf session should be renewed, as well. Defaults to false.
      * /
         void clear(boolrenew = false) {
             _SESSION = [];

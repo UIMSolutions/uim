@@ -56,7 +56,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
         someData = request.getCookieParams();
         cookies = [];
         foreach (someData as name: aValue) {
-            cookies ~= new Cookie((string)name, aValue);
+            cookies ~= new DCookie((string)name, aValue);
         }
         return new static(cookies);
     }

@@ -28,9 +28,9 @@ class DStock {
 
 /// Create concrete classes implementing the DOrder interface.
 class DBuyStock : DOrder {
-  private Stock _abcStock;
+  private DStock _abcStock;
 
-  this(Stock abcStock) {
+  this(DStock abcStock) {
     _abcStock = abcStock;
   }
 
@@ -40,7 +40,7 @@ class DBuyStock : DOrder {
 }
 
 class DSellStock : DOrder {
-  private Stock _abcStock;
+  private DStock _abcStock;
 
   this(Stock abcStock) {
     _abcStock = abcStock;
@@ -55,7 +55,7 @@ class DSellStock : DOrder {
 class DBroker {
   private DOrder[] _orderList; 
 
-  void takeOrder(Order order) {
+  void takeOrder(DOrder order) {
     _orderList ~= order;		
   }
 
@@ -69,12 +69,12 @@ class DBroker {
 version(test_uim_oop) { unittest {
     writeln("CommandPatternDemo");
     
-    Stock abcStock = new Stock();
+    DStock abcStock = new Stock();
 
-    BuyStock buyStockOrder = new BuyStock(abcStock);
-    SellStock sellStockOrder = new SellStock(abcStock);
+    DBuyStock buyStockOrder = new DBuyStock(abcStock);
+    DSellStock sellStockOrder = new DSellStock(abcStock);
 
-    Broker broker = new Broker();
+    DBroker broker = new DBroker();
     broker.takeOrder(buyStockOrder);
     broker.takeOrder(sellStockOrder);
 

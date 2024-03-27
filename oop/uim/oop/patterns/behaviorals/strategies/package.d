@@ -32,7 +32,7 @@ class OperationMultiply : IStrategy{
   }
 }
 
-/// Create Context Class.
+/// Create DContext Class.
 class DContext {
   private IStrategy _strategy;
 
@@ -45,9 +45,9 @@ class DContext {
   }
 }
 
-/// Use the Context to see change in behaviour when it changes its Strategy.
+/// Use the DContext to see change in behaviour when it changes its Strategy.
 version(test_uim_oop) { unittest {
-    Context context = new DContext(new DOperationAdd());		
+    DContext context = new DContext(new DOperationAdd());		
     writeln("10 + 5 = ", context.executeStrategy(10, 5));
 
     context = new DContext(new DOperationSubstract());		

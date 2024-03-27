@@ -70,7 +70,7 @@ class DStudentDao : IStudentDao {
 version(test_uim_oop) { unittest {
       writeln("DaoPatternDemo");
 
-  StudentDao studentDao = new StudentDao();
+  DStudentDao studentDao = new DStudentDao();
 
   //print all students
   foreach (student; studentDao.allStudents()) {

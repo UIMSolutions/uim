@@ -10,13 +10,13 @@ import uim.oop;
 
 /// Create an interface.
 interface IState {
-  void doAction(Context context);
+  void doAction(DContext context);
   string toString();
 }
 
 /// Create concrete classes implementing the same interface.
 class DStartState : IState {
-  void doAction(Context context) {
+  void doAction(DContext context) {
     writeln("Player is in start state");
     context.state(this);	
   }
@@ -27,7 +27,7 @@ class DStartState : IState {
 }
 
 class DStopState : IState {
-  void doAction(Context context) {
+  void doAction(DContext context) {
     writeln("Player is in stop state");
     context.state(this);	
   }
@@ -37,7 +37,7 @@ class DStopState : IState {
   }
 }
 
-/// Create Context Class.
+/// Create DContext Class.
 class DContext {
   this() {
     _state = null; }
@@ -45,7 +45,7 @@ class DContext {
   mixin(OProperty!("IState", "state")); 
 }
 
-/// Use the Context to see change in behaviour when State changes.
+/// Use the DContext to see change in behaviour when State changes.
 version(test_uim_oop) { unittest {
     writeln("\nStatePatternDemo");
     

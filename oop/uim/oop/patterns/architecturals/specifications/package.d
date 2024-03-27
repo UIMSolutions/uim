@@ -4,7 +4,7 @@ In computer programming, the specification pattern is a particular software desi
 the business rules together using boolean logic. The pattern is frequently used in the context of domain-driven design.
 
 A specification pattern outlines a business rule that is combinable with other business rules. In this pattern, a unit of business logic inherits 
-its functionality from the abstract aggregate Composite Specification class. The Composite Specification class has one function called IsSatisfiedBy 
+its functionality from the abstract aggregate DComposite Specification class. The DComposite Specification class has one function called IsSatisfiedBy 
 that returns a boolean value. After instantiation, the specification is "chained" with other specifications, making new specifications easily maintainable, 
 yet highly customizable business logic. Furthermore, upon instantiation the business logic may, through method invocation or inversion of control, have its state altered in order to become a delegate of other classes such as a persistence repository.
 
@@ -60,7 +60,7 @@ abstract class DCompositeSpecification : ISpecification {
   }
 }
 
-class DAndSpecification : CompositeSpecification {
+class DAndSpecification : DCompositeSpecification {
   private ISpecification leftCondition;
   private ISpecification rightCondition;
 
@@ -74,7 +74,7 @@ class DAndSpecification : CompositeSpecification {
   }
 }
 
-class DAndNotSpecification : CompositeSpecification {
+class DAndNotSpecification : DCompositeSpecification {
   private ISpecification leftCondition;
   private ISpecification rightCondition;
 
@@ -88,7 +88,7 @@ class DAndNotSpecification : CompositeSpecification {
   }
 }
 
-class OrSpecification : CompositeSpecification {
+class OrSpecification : DCompositeSpecification {
   private ISpecification leftCondition;
   private ISpecification rightCondition;
 
@@ -102,7 +102,7 @@ class OrSpecification : CompositeSpecification {
   }
 }
 
-class OrNotSpecification : CompositeSpecification {
+class OrNotSpecification : DCompositeSpecification {
   private ISpecification leftCondition;
   private ISpecification rightCondition;
 
@@ -116,7 +116,7 @@ class OrNotSpecification : CompositeSpecification {
   }
 }
 
-class NotSpecification : CompositeSpecification {
+class NotSpecification : DCompositeSpecification {
   private ISpecification Wrapped;
 
   this(ISpecification x) {

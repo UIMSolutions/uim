@@ -31,17 +31,17 @@ class HomeView {
 
 class DStudentView {
    void show() {
-      writeln("Displaying Student Page");
+      writeln("Displaying DStudent Page");
    }
 }
 
 /// Create Dispatcher.
 class Dispatcher {
-   private StudentView _studentView;
+   private DStudentView _studentView;
    private HomeView _homeView;
    
    this() {
-      _studentView = new StudentView();
+      _studentView = new DStudentView();
       _homeView = new HomeView();
    }
 

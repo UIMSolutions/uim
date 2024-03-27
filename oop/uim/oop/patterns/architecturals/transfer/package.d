@@ -59,9 +59,9 @@ class DStudentBO {
   }
 }
 
-/// Use the StudentBO to demonstrate Transfer Object Design Pattern.
+/// Use the DStudentBO to demonstrate Transfer Object Design Pattern.
 version(test_uim_oop) { unittest {
-    StudentBO studentBusinessObject = new StudentBO();
+    DStudentBO studentBusinessObject = new DStudentBO();
 
   //print all students
   foreach(student; studentBusinessObject.allStudents()) {

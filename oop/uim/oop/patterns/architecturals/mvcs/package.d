@@ -37,18 +37,18 @@ class DRobot {
 }
 
 class DRobotView {
-  void printRobotDetails(string RobotName, string RobotId) {
+  void printRobotDetails(string robotName, string robotId) {
     writeln("Robot: ");
-    writeln("Name: ", RobotName);
-    writeln("Roll Id: ", RobotId);
+    writeln("Name: ", robotName);
+    writeln("Roll Id: ", robotId);
   }
 }
 
 class DRobotController {
   private DRobot _model;
-  private RobotView _view;
+  private DRobotView _view;
 
-  this(DRobot newModel, RobotView newView) {
+  this(DRobot newModel, DRobotView newView) {
     _model = newModel;
     _view = newView;
   }

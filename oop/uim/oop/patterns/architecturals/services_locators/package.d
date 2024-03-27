@@ -102,7 +102,7 @@ class DServiceLocator {
     if (service) return service;
 
     InitialContext context = new DInitialContext();
-    Service service1 = cast(Service)context.lookup(jndiName);
+    Service service1 = cast(DService)context.lookup(jndiName);
     _cache.addService(service1);
     return service1;
   }

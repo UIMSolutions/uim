@@ -36,8 +36,8 @@ class DComputer : IComputerPart {
   IComputerPart[] parts;
 
   this() {
-    parts ~= new Mouse();
-    parts ~= new Keyboard();
+    parts ~= new DMouse();
+    parts ~= new DKeyboard();
     parts ~= new DComputerPartMonitor(); 		
   } 
 
@@ -52,16 +52,16 @@ class DComputer : IComputerPart {
 
 /// Define an interface to represent visitor.
 interface IComputerPartVisitor {
-	void visit(Computer computer);
-	void visit(Mouse mouse);
-	void visit(Keyboard keyboard);
-  void visit(ComputerPartMonitor monitor);
+	void visit(DComputer computer);
+	void visit(DMouse mouse);
+	void visit(DKeyboard keyboard);
+  void visit(DComputerPartMonitor monitor);
 }
 
 /// Create concrete visitor implementing the above class.
 class DComputerPartDisplayVisitor : IComputerPartVisitor {
-  override void visit(Computer computer) {
-    writeln("Displaying Computer.");
+  override void visit(DComputer computer) {
+    writeln("Displaying DComputer.");
   }
 
   override void visit(Mouse mouse) {
@@ -77,7 +77,7 @@ class DComputerPartDisplayVisitor : IComputerPartVisitor {
   }
 }
 
-/// Use the ComputerPartDisplayVisitor to display parts of Computer.
+/// Use the DComputerPartDisplayVisitor to display parts of DComputer.
 version(test_uim_oop) { unittest {
     IComputerPart computer = new DComputer();
   computer.accept(new DComputerPartDisplayVisitor());

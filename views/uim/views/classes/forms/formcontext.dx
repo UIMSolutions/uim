@@ -72,7 +72,7 @@ class FormContext : IContext {
     }
 
     // Get default value from form schema for given field.
-    protected Json _schemaDefault(string fieldName) {
+    protected IData _schemaDefault(string fieldName) {
         auto fieldSchema = _form.getSchema().field(fieldName);
         if (!fieldSchema) {
             return null;

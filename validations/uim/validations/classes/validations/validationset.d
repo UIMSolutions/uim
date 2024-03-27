@@ -125,7 +125,7 @@ class ValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string myindex name of the rule
      * /
-    ValidationRule offsetGet(Json myindex) {
+    ValidationRule offsetGet(IData myindex) {
         return _rules[myindex];
     }
     
@@ -135,7 +135,7 @@ class ValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      * string myindex name of the rule
      * @param \UIM\Validation\ValidationRule|array myrule Rule to add to myindex
      * /
-    void offsetSet(Json myindex, Json myrule) {
+    void offsetSet(IData myindex, IData myrule) {
         this.add(myindex, myrule);
     }
 

@@ -64,7 +64,7 @@ class DValidationRule {
      * a boolean indicating whether the rule passed or not. If a string is returned
      * it is assumed that the rule failed and the error message was given as a result.
      * Params:
-     * Json aValue The data to validate
+     * IData aValue The data to validate
      * @param IData[string] myproviders Associative array with objects or class names that will
      * be passed as the last argument for the validation method
      * @param IData[string] mycontext A key value list of data that could be used as context
@@ -74,7 +74,7 @@ class DValidationRule {
      * - data: The full data that was passed to the validation process
      * - field: The name of the field that is being processed
      * /
-    string[] process(Json aValue, array myproviders, array mycontext = []) {
+    string[] process(IData aValue, array myproviders, array mycontext = []) {
         mycontext += ["data": [], "newRecord": true, "providers": myproviders];
 
         if (_skip(mycontext)) {
@@ -159,7 +159,7 @@ class DValidationRule {
      * Params:
      * string myproperty The name of the property to retrieve.
     * /
-    Json get(string propertyName) {
+    IData get(string propertyName) {
         myproperty = "_" ~ myproperty;
 
         return this.{myproperty} ?? null;

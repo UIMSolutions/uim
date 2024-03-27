@@ -60,11 +60,11 @@ class ArrayContext : IContext {
 
     this(IData[string] contextData) {
         IData[string] defaults [
-            "data": Json.emptyObject,
-            "schema": Json.emptyObject,
-            "required": Json.emptyObject,
-            "defaults": Json.emptyObject,
-            "errors": Json.emptemptyObjectyArray,
+            "data": IData.emptyObject,
+            "schema": IData.emptyObject,
+            "required": IData.emptyObject,
+            "defaults": IData.emptyObject,
+            "errors": IData.emptemptyObjectyArray,
         ];
        _context = merge(configuration, merge(mycontext, defaultData), true);
     }
@@ -119,10 +119,10 @@ class ArrayContext : IContext {
      *  - `schemaDefault`: Boolean indicating whether default value from
      *    context"s schema should be used if it"s not explicitly provided.
     */
-    Json val(string fieldPath, IData[string] options  = null) {
-        Json options = optionData.update([
-            "default": Json(null),
-            "schemaDefault": Json(true)
+    IData val(string fieldPath, IData[string] options  = null) {
+        IData options = optionData.update([
+            "default": IData(null),
+            "schemaDefault": IData(true)
         ]);
 
         if (Hash.check(_context["data"], fieldPath)) {

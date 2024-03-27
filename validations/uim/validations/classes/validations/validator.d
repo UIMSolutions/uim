@@ -289,7 +289,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string myfield name of the field to check
      * /
-    bool offsetExists(Json myfield) {
+    bool offsetExists(IData myfield) {
         return isSet(_fields[myfield]);
     }
     
@@ -298,7 +298,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string|int myfield name of the field to check
      * /
-    ValidationSet offsetGet(Json myfield) {
+    ValidationSet offsetGet(IData myfield) {
         return this.field((string)myfield);
     }
     
@@ -308,7 +308,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * string fieldName name of the field to set
      * @param \UIM\Validation\ValidationSet|array myrules set of rules to apply to field
      * /
-    void offsetSet(string fieldName, Json myrules) {
+    void offsetSet(string fieldName, IData myrules) {
         if (!cast(ValidationSet)myrules) {
             myset = new ValidationSet();
             foreach (myrules as myname: myrule) {
@@ -324,7 +324,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string fieldName name of the field to unset
      * /
-    void offsetUnset(Json fieldName) {
+    void offsetUnset(IData fieldName) {
         unset(_fields[fieldName]);
     }
     
@@ -1246,7 +1246,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a equal to comparison rule to a field.
      * Params:
      * string myfield The field you want to apply the rule to.
-     * @param Json aValue The value user data must be equal to.
+     * @param IData aValue The value user data must be equal to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
@@ -1254,7 +1254,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * /
     auto equals(
         string myfield,
-        Json aValue,
+        IData aValue,
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
@@ -1274,7 +1274,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a not equal to comparison rule to a field.
      * Params:
      * string myfield The field you want to apply the rule to.
-     * @param Json aValue The value user data must be not be equal to.
+     * @param IData aValue The value user data must be not be equal to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
@@ -1282,7 +1282,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * /
     auto notEquals(
         string myfield,
-        Json aValue,
+        IData aValue,
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
@@ -2743,10 +2743,10 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Returns true if the field is empty in the passed data array
      * Params:
-     * Json mydata Value to check against.
+     * IData mydata Value to check against.
      * @param int myflags A bitmask of EMPTY_* flags which specify what is empty
      * /
-    protected bool isEmpty(Json mydata, int myflags) {
+    protected bool isEmpty(IData mydata, int myflags) {
         if (mydata.isNull) {
             return true;
         }

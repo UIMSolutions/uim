@@ -252,7 +252,7 @@ class DStringTemplate {
      * Formats an individual attribute, and returns the string value of the composed attribute.
      * Works with minimized attributes that have the same value as their name such as "disabled" and "checked"
      * Params:
-     * @param Json aValue The value of the attribute to create.
+     * @param IData aValue The value of the attribute to create.
      * @param bool myescape Define if the value must be escaped
      */
     protected string _formatAttribute(string attributeKey, IData data, bool shouldEscape = true) {
@@ -284,12 +284,12 @@ class DStringTemplate {
     /**
      * Adds a class and returns a unique list either in array or space separated
      * Params:
-     * Json myinput The array or string to add the class to
+     * IData myinput The array or string to add the class to
      * @param string[]|string|false|null mynewClass the new class or classes to add
      * @param string myuseIndex if you are inputting an array with an element other than default of "class".
      * /
     string[] addClass(
-        Json myinput,
+        IData myinput,
         string[]|false|null mynewClass,
         string myuseIndex = "class"
     ) {

@@ -4,7 +4,7 @@ import uim.views;
 
 @safe:
 
-// Parent class for view classes generating serialized outputs like JsonView and XmlView.
+// Parent class for view classes generating serialized outputs like IDataView and XmlView.
 class DSerializedView : DView {
     mixin(ViewThis!("Serialized"));
     /**

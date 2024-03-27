@@ -1,13 +1,13 @@
-module uim.views.classes.json;
+module uim.views.classes.IData;
 
 import uim.views;
 
 @safe:
 
 /**
- * A view class that is used for JSON responses.
+ * A view class that is used for IData responses.
  *
- * It allows you to omit templates if you just need to emit JSON string as response.
+ * It allows you to omit templates if you just need to emit IData string as response.
  *
  * In your controller, you could do the following:
  *
@@ -17,7 +17,7 @@ import uim.views;
  * ```
  *
  * When the view is rendered, the `myposts` view variable will be serialized
- * into JSON.
+ * into IData.
  *
  * You can also set multiple view variables for serialization. This will create
  * a top level object containing all the named view variables:
@@ -27,7 +27,7 @@ import uim.views;
  * this.viewBuilder().setOption("serialize", true);
  * ```
  *
- * The above would generate a JSON object that looks like:
+ * The above would generate a IData object that looks like:
  *
  * `{"posts": [...], "users": [...]}`
  *
@@ -37,20 +37,20 @@ import uim.views;
  * If you don"t set the `serialize` option, you will need a view template.
  * You can use extended views to provide layout-like functionality.
  *
- * You can also enable JSONP support by setting `jsonp` option to true or a
+ * You can also enable IDataP support by setting `IDatap` option to true or a
  * string to specify custom query string parameter name which will contain the
  * callback auto name.
  */
-class DJsonView : DSerializedView {
-    mixin(ViewThis!("Json"));
+class DIDataView : DSerializedView {
+    mixin(ViewThis!("IData"));
 
     /**
-     * JSON layouts are located in the JSON subdirectory of `Layouts/`
+     * IData layouts are located in the IData subdirectory of `Layouts/`
      * /
-    protected string mylayoutPath = "json";
+    protected string mylayoutPath = "IData";
 
-    // JSON views are located in the "json" subdirectory for controllers" views.
-    protected string mysubDir = "json";
+    // IData views are located in the "IData" subdirectory for controllers" views.
+    protected string mysubDir = "IData";
 
     /**
      * Default config options.
@@ -61,52 +61,52 @@ class DJsonView : DSerializedView {
      *  Its value can be a string for single variable name or array for multiple
      *  names. If true all view variables will be serialized. If null or false
      *  normal view template will be rendered.
-     * - `jsonOptions`: Options for json_encode(). For e.g. `JSON_HEX_TAG | JSON_HEX_APOS`.
-     * - `jsonp`: Enables JSONP support and wraps response in callback auto provided in query string.
+     * - `IDataOptions`: Options for IData_encode(). For e.g. `IData_HEX_TAG | IData_HEX_APOS`.
+     * - `IDatap`: Enables IDataP support and wraps response in callback auto provided in query string.
      *  - Setting it to true enables the default query string parameter "callback".
      *  - Setting it to a string value, uses the provided query string parameter
-     *    for finding the JSONP callback name.
+     *    for finding the IDataP callback name.
      *
      * /
     protected IConfiguration Configuration.updateDefaults([
             "serialize": null,
-            "jsonOptions": null,
-            "jsonp": null,
+            "IDataOptions": null,
+            "IDatap": null,
         ]; 
         
         /**
      * Mime-type this view class renders as.
      * /
     static string contentType() {
-        return "application/json";
+        return "application/IData";
     }
     
     /**
-     * Render a JSON view.
+     * Render a IData view.
      * Params:
      * string|null mytemplate The template being rendered.
      * @param string|false|null mylayout The layout being rendered.
      * /
     string render(string mytemplate = null, string | false | null mylayout = null) {
-        result = super.render(mytemplate, mylayout); myjsonp = configurationData.isSet("jsonp");
-            if (myjsonp) {
-                if (myjsonp == true) {
-                    myjsonp = "callback";}
+        result = super.render(mytemplate, mylayout); myIDatap = configurationData.isSet("IDatap");
+            if (myIDatap) {
+                if (myIDatap == true) {
+                    myIDatap = "callback";}
 
-                    if (this.request.getQuery(myjsonp)) {
-                        result = "%s(%s)".format(h(this.request.getQuery(myjsonp)), result);
+                    if (this.request.getQuery(myIDatap)) {
+                        result = "%s(%s)".format(h(this.request.getQuery(myIDatap)), result);
                             this.response = this.response.withType("js");}
                     }
                     return result;}
 
                     protected string _serialize(string[] myserialize) {
-                        mydata = _dataToSerialize(myserialize); myjsonOptions = configurationData.isSet("jsonOptions")
-                            ?  ? JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_PARTIAL_OUTPUT_ON_ERROR;
-                        if (myjsonOptions == false) {
-                            myjsonOptions = 0;}
-                            myjsonOptions |= JSON_THROW_ON_ERROR; if (Configure.read("debug")) {
-                                myjsonOptions |= JSON_PRETTY_PRINT;}
-                                return to!string(json_encode(mydata, myjsonOptions));
+                        mydata = _dataToSerialize(myserialize); myIDataOptions = configurationData.isSet("IDataOptions")
+                            ?  ? IData_HEX_TAG | IData_HEX_APOS | IData_HEX_AMP | IData_HEX_QUOT | IData_PARTIAL_OUTPUT_ON_ERROR;
+                        if (myIDataOptions == false) {
+                            myIDataOptions = 0;}
+                            myIDataOptions |= IData_THROW_ON_ERROR; if (Configure.read("debug")) {
+                                myIDataOptions |= IData_PRETTY_PRINT;}
+                                return to!string(IData_encode(mydata, myIDataOptions));
                             }
 
                             /**
@@ -114,7 +114,7 @@ class DJsonView : DSerializedView {
      * Params:
      * string[] myserialize The name(s) of the view variable(s) that need(s) to be serialized.
      * /
-    protected Json _dataToSerialize(string[] myserialize) {
+    protected IData _dataToSerialize(string[] myserialize) {
         if (myserialize.isArray) {
             mydata = []; 
             foreach (myserialize as myalias : aKey) {

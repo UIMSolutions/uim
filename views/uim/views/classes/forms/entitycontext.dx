@@ -161,7 +161,7 @@ class EntityContext : IContext {
      *  - `schemaDefault`: Boolean indicating whether default value from table
      *    schema should be used if it"s not explicitly provided.
      */
-    Json val(string fieldPath, IData[string] options  = null) {
+    IData val(string fieldPath, IData[string] options  = null) {
         options += [
             "default": null,
             "schemaDefault": true,
@@ -211,7 +211,7 @@ class EntityContext : IContext {
      * Params:
      * string[] myparts Each one of the parts in a path for a field name
      */
-    protected Json _schemaDefault(array myparts) {
+    protected IData _schemaDefault(array myparts) {
         mytable = _getTable(myparts);
         if (mytable.isNull) {
             return null;
@@ -228,10 +228,10 @@ class EntityContext : IContext {
      * Helper method used to extract all the primary key values out of an array, The
      * primary key column is guessed out of the provided mypath array
      * Params:
-     * Json myvalues The list from which to extract primary keys from
+     * IData myvalues The list from which to extract primary keys from
      * @param string[] mypath Each one of the parts in a path for a field name
      */
-    protected array _extractMultiple(Json myvalues, array mypath) {
+    protected array _extractMultiple(IData myvalues, array mypath) {
         if (!is_iterable(myvalues)) {
             return null;
         }
@@ -354,10 +354,10 @@ class EntityContext : IContext {
     /**
      * Read property values or traverse arrays/iterators.
      * Params:
-     * Json mytarget The entity/array/collection to fetch myfield from.
+     * IData mytarget The entity/array/collection to fetch myfield from.
      * @param string myfield The next field to fetch.
      */
-    protected Json _getProp(Json mytarget, string myfield) {
+    protected IData _getProp(IData mytarget, string myfield) {
         if (isArray(mytarget) && isSet(mytarget[myfield])) {
             return mytarget[myfield];
         }

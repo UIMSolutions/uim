@@ -8,7 +8,7 @@ import uim.consoles;
  *
  * @internal
  */
-class ContentsContain : ContentsBase {
+class DContentsContain : DContentsBase {
     /**
      * Checks if contents contain expected
      * Params:

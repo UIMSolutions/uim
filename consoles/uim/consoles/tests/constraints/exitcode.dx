@@ -9,7 +9,7 @@ import uim.consoles;
  *
  * @internal
  */
-class ExitCode : Constraint {
+class DExitCode : DConstraint {
     private int _exitCode = null;
 
     this(int exitCode) {

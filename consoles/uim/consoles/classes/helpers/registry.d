@@ -10,20 +10,25 @@ import uim.consoles;
  *
  * @extends \UIM\Core\ObjectRegistry<\UIM\Console\Helper>
  */
-class HelperRegistry { // }: ObjectRegistry {
+class DHelperRegistry { // }: ObjectRegistry {
     mixin TConfigurable!();
 
     this() {
         initialize;
     }
 
-    // Hook method
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
         setConfigurationData(initData);
 
         return true;
     }
+
+    mixin(TProperty!("string", "name"));
     /* 
     // IO instance.
     protected IConsoleIo _io;

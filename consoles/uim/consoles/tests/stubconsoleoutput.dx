@@ -17,7 +17,7 @@ import uim.consoles;
  * aConsoleIo = new ConsoleIo( output);
  * ```
  */
-class StubConsoleOutput : ConsoleOutput {
+class DStubConsoleOutput : DConsoleOutput {
     // Buffered messages.
     protected string[] _out = [];
 

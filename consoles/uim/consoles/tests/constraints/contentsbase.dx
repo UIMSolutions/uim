@@ -9,7 +9,7 @@ import uim.consoles;
  *
  * @internal
  */
-abstract class ContentsBase : Constraint {
+abstract class DContentsBase : DConstraint {
     protected string _content;
     protected string _output;
 

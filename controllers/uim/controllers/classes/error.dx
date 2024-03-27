@@ -9,7 +9,7 @@ import uim.controllers;
  *
  * Controller used by ErrorHandler to render error views.
  */
-class ErrorController : Controller {
+class DErrorController : DController {
     // Get alternate view classes that can be used in content-type negotiation.
     string[] viewClasses() {
         return [JsonView.classname];

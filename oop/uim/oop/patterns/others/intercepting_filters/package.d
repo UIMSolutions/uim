@@ -71,7 +71,7 @@ class FilterManager {
 }
 
 /// Create Client
-class Client {
+class DClient {
   FilterManager _filterManager;
 
   @property void filterManager(FilterManager filterManager) {

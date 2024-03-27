@@ -12,7 +12,7 @@ In **programming**, a **class interface** refers to the **public contract** expo
 
 - **Abstraction**: An interface abstracts away the implementation details, focusing on what an object can do rather than how it does it.
 - **Method Signatures**: Interfaces declare method signatures (names, parameters, return types) without providing the actual code.
-- **Multiple Interfaces**: A class can implement multiple interfaces, allowing it to fulfill various contracts.
+- **Multiple Interfaces**: A class DCan implement multiple interfaces, allowing it to fulfill various contracts.
 - **Language-Specific Variations**:
   - In **Java**, an interface is a specific construct with language-specific semantics. It defines a set of method declarations without implementation.
   - In other languages (like **C++**), there are no explicit interfaces, but classes can still adhere to an interface by implementing the required methods.

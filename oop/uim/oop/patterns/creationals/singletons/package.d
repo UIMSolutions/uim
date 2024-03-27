@@ -18,7 +18,7 @@ class SingleObject {
 
   //create an object of SingleObject
 
-  //make the constructor private so that this class cannot be
+  //make the constructor private so that this class DCannot be
   //instantiated
   private this() {}
 

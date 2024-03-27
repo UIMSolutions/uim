@@ -28,7 +28,7 @@ class Square : IShape {
 }
 
 /// Class for Circle Shape
-class Circle : IShape {
+class DCircle : IShape {
   override void draw() {
     writeln("Inside Circle::draw() method.");
   }

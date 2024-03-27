@@ -64,7 +64,7 @@ class Square : Shape {
   }
 }
 
-class Circle : Shape {
+class DCircle : Shape {
 
   this() {
     type = "Circle";

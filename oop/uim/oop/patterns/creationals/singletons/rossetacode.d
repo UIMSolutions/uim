@@ -43,7 +43,7 @@ import core.thread.osthread;
   override string toString() { return str[state] ; }   
 } */
  
-/* class Coder : Thread {
+/* class DCoder : Thread {
   private string name_ ;
   Coder hasName(string name) {  name_ = name ; return this ; }
   int run() {

@@ -8,7 +8,7 @@ module uim.oop.patterns.creationals.object_pools;
 import uim.oop;
 /* 
 @safe:
-class Connection {
+class DConnection {
   void close() {}
   bool isClosed() { 
       return false; 
@@ -71,7 +71,7 @@ abstract class ObjectPool(T) {
 //The three remaining methods are abstract 
 //and therefore must be implemented by the subclass
 
-class ConnectionPool : ObjectPool!Connection {
+class DConnectionPool : ObjectPool!Connection {
 
   private string dsn, usr, pwd;
 

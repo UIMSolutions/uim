@@ -43,7 +43,7 @@ template InstanceConfigTemplate {
      * @param mixed|null aValue The value to set.
      * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
      */
-    void setConfig(string[] keyToSet, Json aValue = null, bool shouldMerge = true) {
+    void setConfig(string[] keyToSet, IData aValue = null, bool shouldMerge = true) {
         if (!_configInitialized) {
            _config = _defaultConfigData;
            _configInitialized = true;
@@ -80,9 +80,9 @@ template InstanceConfigTemplate {
      * _configData.isSet("some-key", "default-value");
      * ```
      * Params:
-     * @param Json defaultValue The return value when the key does not exist.
+     * @param IData defaultValue The return value when the key does not exist.
      */
-    Json getConfig(string keyToGet = null, IData defaultData = null) {
+    IData getConfig(string keyToGet = null, IData defaultData = null) {
         if (!_configInitialized) {
            _config = _defaultConfigData;
            _configInitialized = true;
@@ -97,7 +97,7 @@ template InstanceConfigTemplate {
      * Params:
      * string keyToGet The key to get.
      */
-    Json getConfigOrFail(string keyToGet) {
+    IData getConfigOrFail(string keyToGet) {
         configData = this.getConfig(keyToGet);
         if (configData.isNull) {
             throw new DInvalidArgumentException(
@@ -131,7 +131,7 @@ template InstanceConfigTemplate {
      * IData[string]|string keyToSet The key to set, or a complete array of configs.
      * @param mixed|null aValue The value to set.
      */
-    void configShallow(string[] keyToSet, Json aValue = null) {
+    void configShallow(string[] keyToSet, IData aValue = null) {
         if (!_configInitialized) {
            _config = _defaultConfigData;
            _configInitialized = true;
@@ -140,7 +140,7 @@ template InstanceConfigTemplate {
     }
     
     // Reads a config key.
-    protected Json _configRead(string keyToRead) {
+    protected IData _configRead(string keyToRead) {
         if (keyToRead.isNull) {
             return _config;
         }
@@ -163,12 +163,12 @@ template InstanceConfigTemplate {
      * Writes a config key.
      * Params:
      * IData[string]|string keyToWrite Key to write to.
-     * @param Json aValue Value to write.
+     * @param IData aValue Value to write.
      * @param string|bool merge True to merge recursively, "shallow' for simple merge,
      *  false to overwrite, defaults to false.
      * @throws \UIM\Core\Exception\UimException if attempting to clobber existing config
      */
-    protected void _configWrite(string[] keyToWrite, Json aValue, string|bool merge = false) {
+    protected void _configWrite(string[] keyToWrite, IData aValue, string|bool merge = false) {
         if (isString(keyToWrite) && aValue.isNull) {
            _configDelete(keyToWrite);
 

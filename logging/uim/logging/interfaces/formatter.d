@@ -10,5 +10,5 @@ interface ILogFormatter : INamed {
 
   // TODO
   // IData[string] configSettings = nulluration.data(string key);
-  // void configuration.data(string key, Json newData)
+  // void configuration.data(string key, IData newData)
 }

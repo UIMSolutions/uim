@@ -75,7 +75,7 @@ class FileLog : BaseLog {
     /**
      * : writing to log files.
      * Params:
-     * Json logLevel The severity level of the message being written.
+     * IData logLevel The severity level of the message being written.
      * @param \string messageToLog The message you want to log.
      * @param array messageContext Additional information about the logged message
      */

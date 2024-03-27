@@ -65,9 +65,9 @@ class DFlashComponent : DComponent {
 
      * @throws \UIM\Core\Exception\UimException When trying to set a key that is invalid.
      */
-    void setConfig(string[] aKey, Json valueToSet = null, bool  merge = true) {
+    void setConfig(string[] aKey, IData valueToSet = null, bool  merge = true) {
     }
-    void setConfig(string[] aKey, Json valueToSet = null, bool  merge = true) {
+    void setConfig(string[] aKey, IData valueToSet = null, bool  merge = true) {
         this.flash().setConfig(aKey, valueToSet,  merge);
     }
     
@@ -75,24 +75,24 @@ class DFlashComponent : DComponent {
      * Proxy method to FlashMessage instance.
      * Params:
      * string|null aKey The key to get or null for the whole config.
-     * @param Json defaultValue The return value when the key does not exist.
+     * @param IData defaultValue The return value when the key does not exist.
      */
-    Json getConfig(string aKey = null, Json defaultValue = Json(null)) {
+    IData getConfig(string aKey = null, IData defaultValue = IData(null)) {
         return this.flash().getConfig(aKey,  default);
     }
     
     /**
      * Proxy method to FlashMessage instance.
-    Json getConfigOrFail(string aKey) {
+    IData getConfigOrFail(string aKey) {
         return this.flash().getConfigOrFail(aKey);
     }
     
     //  Proxy method to FlashMessage instance.
      * Params:
      * IData[string]|string aKey The key to set, or a complete array of configs.
-     * @param Json aValue The value to set.
+     * @param IData aValue The value to set.
      */
-    void configShallow(string[] aKey, Json aValue = null) {
+    void configShallow(string[] aKey, IData aValue = null) {
         this.flash().configShallow(aKey, aValue);
     }
     

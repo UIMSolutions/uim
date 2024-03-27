@@ -53,7 +53,7 @@ void stackTrace(IData[string] options = null) {
 
     /** @var string atrace * /
     trace = Debugger.trace(options);
-    writeln(trace;
+    writeln(trace);
 }
 /**
  * Prints out debug information about given variable and dies.
@@ -78,9 +78,3 @@ void dd(Json var, ?bool showHtml = null) {
     Debugger.printVar(var, location, showHtml);
     die(1);
 }
-/**
- * Include global functions.
- * /
-if (!getEnvironmentData("CAKE_DISABLE_GLOBAL_FUNCS")) {
-    include 'functions_global.d";
-} */

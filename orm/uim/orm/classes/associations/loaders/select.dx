@@ -235,9 +235,9 @@ class SelectLoader {
      * Params:
      * \UIM\ORM\Query\SelectQuery aQuery Target table"s query
      * @param string[]|string aKey The fields that should be used for filtering
-     * @param Json filter The value that should be used to match for aKey
+     * @param IData filter The value that should be used to match for aKey
      */
-    protected SelectQuery _addFilteringCondition(SelectQuery aQuery, string[] aKey, Json filterValue) {
+    protected SelectQuery _addFilteringCondition(SelectQuery aQuery, string[] aKey, IData filterValue) {
         IData[string] conditions = isArray(aKey) 
             ? _createTupleCondition(aQuery, aKey, filterValue, "IN")
             : conditions = [aKey ~ " IN": filterValue];
@@ -251,13 +251,13 @@ class SelectLoader {
      * Params:
      * \UIM\ORM\Query\SelectQuery aQuery Target table"s query
      * @param string[] someKeys the fields that should be used for filtering
-     * @param Json filter the value that should be used to match for aKey
+     * @param IData filter the value that should be used to match for aKey
      * @param string aoperator The operator for comparing the tuples
      */
     protected TupleComparison _createTupleCondition(
         SelectQuery aQuery,
         array someKeys,
-        Json filter,
+        IData filter,
         string aoperator
     ) {
         types = [];

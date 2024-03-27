@@ -26,11 +26,11 @@ class RouteBuilder {
         super.initialize(initData);
 
         _resourceMap = [
-            "index": Json(["action": "index", "method": "GET", "path": ""]),
-            "create": Json(["action": "add", "method": "POST", "path": ""]),
-            "view": Json(["action": "view", "method": "GET", "path": "{id}"]),
-            "update": Json(["action": "edit", "method": ["PUT", "PATCH"], "path": "{id}"]),
-            "delete": Json(["action": "delete", "method": "DELETE", "path": "{id}"]),
+            "index": IData(["action": "index", "method": "GET", "path": ""]),
+            "create": IData(["action": "add", "method": "POST", "path": ""]),
+            "view": IData(["action": "view", "method": "GET", "path": "{id}"]),
+            "update": IData(["action": "edit", "method": ["PUT", "PATCH"], "path": "{id}"]),
+            "delete": IData(["action": "delete", "method": "DELETE", "path": "{id}"]),
         ];
     }
 

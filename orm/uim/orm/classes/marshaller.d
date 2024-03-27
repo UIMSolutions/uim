@@ -232,10 +232,10 @@ class DMarshaller {
      * Create a new sub-marshaller and marshal the associated data.
      * Params:
      * \UIM\ORM\Association myassoc The association to marshall
-     * @param Json aValue The data to hydrate. If not an array, this method will return null.
+     * @param IData aValue The data to hydrate. If not an array, this method will return null.
      * @param IData[string] options List of options.
      * /
-    protected IEntity[] _marshalAssociation(Association myassoc, Json aValue, IData[string] options) {
+    protected IEntity[] _marshalAssociation(Association myassoc, IData aValue, IData[string] options) {
         if (!isArray(myvalue)) {
             return null;
         }
@@ -621,13 +621,13 @@ class DMarshaller {
      * Params:
      * \UIM\Datasource\IEntity|array<\UIM\Datasource\IEntity>|null myoriginal The original entity
      * @param \UIM\ORM\Association myassoc The association to merge
-     * @param Json aValue The array of data to hydrate. If not an array, this method will return null.
+     * @param IData aValue The array of data to hydrate. If not an array, this method will return null.
      * @param IData[string] options List of options.
      * /
     protected IEntity[] _mergeAssociation(
         IEntity|array|null myoriginal,
         Association myassoc,
-        Json aValue,
+        IData aValue,
         IData[string] options
     ) {
         if (!myoriginal) {

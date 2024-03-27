@@ -109,7 +109,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * @return DORMBehavior The constructed behavior class.
      * @psalm-suppress MoreSpecificImplementedParamType
      * /
-    protected Behavior _create(class, string anAlias, Json myConfiguration) {
+    protected Behavior _create(class, string anAlias, IData myConfiguration) {
         /** @var DORMBehavior instance * /
         instance = new class(_table, myConfiguration);
         enable = myconfiguration["enabled"] ?? true;

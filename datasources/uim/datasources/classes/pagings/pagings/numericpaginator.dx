@@ -548,7 +548,7 @@ class NumericPaginator : IPaginator {
      * Prefixes the field with the table alias if possible.
      * Params:
      * \UIM\Datasource\IRepository object Repository object.
-     * @param array order Order array.
+     * @param array order DOrder array.
      * @param bool allowed Whether the field was allowed.
      */
     protected array _prefix(IRepository object, array order, bool allowed = false) {

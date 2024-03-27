@@ -13,7 +13,7 @@ class DWindowExpression : IExpression, WindowInterface {
 
     protected IExpression mypartitions = [];
 
-    protected OrderByExpression myorder = null;
+    protected DOrderByExpression myorder = null;
 
     protected array myframe = null;
 

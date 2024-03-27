@@ -132,7 +132,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      * self-contained expression that holds both the value for `WHEN`
      * and the value for `THEN`.
      *
-     * ### Order based syntax
+     * ### DOrder based syntax
      *
      * When passing a value other than a self-contained
      * `\UIM\Database\Expression\WhenThenExpression`,
@@ -289,7 +289,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      * Sets the `THEN` result value for the last `WHEN ... THEN ...`
      * statement that was opened using `when()`.
      *
-     * ### Order based syntax
+     * ### DOrder based syntax
      *
      * This method can only be invoked in case `when()` was previously
      * used with a value other than a closure or an instance of

@@ -985,7 +985,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      *
      * `ORDER BY (id %2 = 0), title ASC`
      *
-     * Order fields/directions are not sanitized by the query builder.
+     * DOrder fields/directions are not sanitized by the query builder.
      * You should use an allowed list of fields/directions when passing
      * in user-supplied data to `order()`.
      *
@@ -1016,7 +1016,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      * This method allows you to set complex expressions
      * as order conditions unlike order()
      *
-     * Order fields are not suitable for use with user supplied data as they are
+     * DOrder fields are not suitable for use with user supplied data as they are
      * not sanitized by the query builder.
      * Params:
      * \UIM\Database\IExpression|\Closure|string afield The field to order on.
@@ -1046,7 +1046,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      * This method allows you to set complex expressions
      * as order conditions unlike order()
      *
-     * Order fields are not suitable for use with user supplied data as they are
+     * DOrder fields are not suitable for use with user supplied data as they are
      * not sanitized by the query builder.
      * Params:
      * \UIM\Database\IExpression|\Closure|string afield The field to order on.
@@ -1286,7 +1286,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      * - where: QueryExpression, returns null when not set
      * - group: array
      * - having: QueryExpression, returns null when not set
-     * - order: OrderByExpression, returns null when not set
+     * - order: DOrderByExpression, returns null when not set
      * - limit: integer or QueryExpression, null when not set
      * - offset: integer or QueryExpression, null when not set
      * - union: array

@@ -602,7 +602,7 @@ class Paginator : IPaginator {
      * Prefixes the field with the table alias if possible.
      *
      * @param uim.Datasource\IRepository object Repository object.
-     * @param array order Order array.
+     * @param array order DOrder array.
      * @param bool allowed Whether the field was allowed.
      * @return array Final order array.
      */

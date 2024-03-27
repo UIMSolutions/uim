@@ -214,7 +214,7 @@ class DEventManager : IEventManager {
  
     IEvent dispatch(IEvent|string aevent) {
         if (isString(event)) {
-            event = new Event(event);
+            event = new DEvent(event);
         }
         listeners = this.listeners(event.name);
 

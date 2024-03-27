@@ -102,7 +102,7 @@ class PoFileParser {
         }
 
         if (!line.isEmpty && message.isNull) {
-            message = new PoMessage;
+            message = new DPoMessage;
         }
 
         if (line.startsWith("#")) {

@@ -147,7 +147,7 @@ class DWebExceptionRenderer : IExceptionRenderer
         // there could be userland input data parsers.
         if (errorOccured && isset(controller.RequestHandler)) {
             try {
-                event = new Event("Controller.startup", controller);
+                event = new DEvent("Controller.startup", controller);
                 controller.RequestHandler.startup(event);
             } catch (Throwable e) {
             }

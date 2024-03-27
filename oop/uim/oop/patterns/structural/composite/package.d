@@ -48,13 +48,13 @@ version (test_uim_oop) {
   unittest {
     writeln("CompositePatternDemo");
 
-    Employee CEO = new Employee("John", "CEO", 30000);
-    Employee headSales = new Employee("Robert", "Head Sales", 20000);
-    Employee headMarketing = new Employee("Michel", "Head Marketing", 20000);
-    Employee clerk1 = new Employee("Laura", "Marketing", 10000);
-    Employee clerk2 = new Employee("Bob", "Marketing", 10000);
-    Employee salesExecutive1 = new Employee("Richard", "Sales", 10000);
-    Employee salesExecutive2 = new Employee("Rob", "Sales", 10000);
+    Employee CEO = new DEmployee("John", "CEO", 30000);
+    Employee headSales = new DEmployee("Robert", "Head Sales", 20000);
+    Employee headMarketing = new DEmployee("Michel", "Head Marketing", 20000);
+    Employee clerk1 = new DEmployee("Laura", "Marketing", 10000);
+    Employee clerk2 = new DEmployee("Bob", "Marketing", 10000);
+    Employee salesExecutive1 = new DEmployee("Richard", "Sales", 10000);
+    Employee salesExecutive2 = new DEmployee("Rob", "Sales", 10000);
 
     CEO.add(headSales);
     CEO.add(headMarketing);

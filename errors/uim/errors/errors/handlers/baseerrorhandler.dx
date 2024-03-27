@@ -318,7 +318,7 @@ abstract class DERRErrorHandler {
 
             if (!logger instanceof IErrorLogger) {
                 // Set the logger so that the next error can be logged.
-                this.logger = new ErrorLogger(_config);
+                this.logger = new DErrorLogger(_config);
 
                 interface = IErrorLogger::class;
                 type = getTypeName(logger);

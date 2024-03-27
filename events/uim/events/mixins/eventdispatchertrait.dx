@@ -28,7 +28,7 @@ trait EventDispatcherTrait {
      * object events, or create your own events and trigger them at will.
      */
     IEventManager getEventManager() {
-        return _eventManager ? _eventManager : new EventManager();
+        return _eventManager ? _eventManager : new DEventManager();
     }
 
     /**

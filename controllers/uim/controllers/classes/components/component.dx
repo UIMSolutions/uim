@@ -113,7 +113,7 @@ class DComponent : IEventListener {
      * configData = The configuration settings provided to this component.
      */
        bool initialize(IData[string] initData = null) {
-       _defaultConfig = Json .emptyObject;
+       _defaultConfig = IData .emptyObject;
     }
     
     /**

@@ -158,7 +158,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     protected ConsoleOptionParser buildOptionParser(ConsoleOptionParser parserToBuild) {
         parserToBuild.description("Get the list of available commands for this application.");
 
-        auto addOption = Json.emptyObject;
+        auto addOption = IData.emptyObject;
         addOption["help"] = "Get the listing as XML.";
         addOption["boolean"] = true; 
         parserToBuild.addOption("xml", addOption);

@@ -45,9 +45,9 @@ class EntityRoute : Route {
      * Checks that we really deal with an entity object
      *
      * @throws \RuntimeException
-     * @param Json myentity Entity value from the URL options
+     * @param IData myentity Entity value from the URL options
      */
-    protected void _checkEntity(Json myentity) {
+    protected void _checkEntity(IData myentity) {
         if (!cast(ArrayAccess)myentity && !isArray(myentity)) {
             throw new UimException(
                 "Route `%s` expects the URL option `_entity` to be an array or object implementing \ArrayAccess, "

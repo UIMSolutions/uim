@@ -13,7 +13,7 @@ import uim.orm;
  * @template TSubject of \UIM\Datasource\IEntity|array
  * @extends \UIM\Database\Query\SelectQuery<TSubject>
  */
-class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
+class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
     /* 
     mixin CommonQueryTemplate();
 
@@ -452,7 +452,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * mysingleUser = myquery.select(["id", "username"]).first();
      * ```
      * /
-    Json first() {
+    IData first() {
         if (_isDirty) {
             this.limit(1);
         }
@@ -464,7 +464,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *
      * @throws \UIM\Datasource\Exception\RecordNotFoundException When there is no first record.
      * /
-    Json firstOrFail() {
+    IData firstOrFail() {
         myentity = this.first();
         if (!myentity) {
             mytable = this.getRepository();
@@ -1427,9 +1427,9 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     /**
  Params:
      * string myfinder The finder method to use.
-     * @param Json ...myargs Arguments that match up to finder-specific parameters
+     * @param IData ...myargs Arguments that match up to finder-specific parameters
      * /
-    static find(string myfinder, Json ...myargs) {
+    static find(string myfinder, IData ...myargs) {
         mytable = this.getRepository();
 
         /** @psalm-suppress LessSpecificReturnStatement * /
@@ -1470,11 +1470,11 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     }
     
     /**
-     * Executes the query and converts the result set into JSON.
+     * Executes the query and converts the result set into IData.
      *
-     * Part of JsonSerializable interface.
+     * Part of IDataSerializable interface.
      * /
-    IResultSet<(\UIM\Datasource\IEntity|mixed)> jsonSerialize() {
+    IResultSet<(\UIM\Datasource\IEntity|mixed)> IDataSerialize() {
         return this.all();
     }
     

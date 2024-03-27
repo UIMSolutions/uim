@@ -284,7 +284,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * string mymethod Method name.
      * @param array myargs Method arguments.
     * /
-                    Json __call(string mymethod, array myargs) {
+                    IData __call(string mymethod, array myargs) {
                         return this.strategy. {
                             mymethod
                         }

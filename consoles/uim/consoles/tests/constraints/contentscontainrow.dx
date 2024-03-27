@@ -12,9 +12,9 @@ class DContentsContainRow : DContentsRegExp {
     /**
      * Checks if contents contain expected
      * Params:
-     * Json other Row
+     * IData other Row
      */
-    bool matches(Json other) {
+    bool matches(IData other) {
         string[] row = array_map(function (cell) {
             return preg_quote(cell, "/");
         }, (array) other);
@@ -30,8 +30,8 @@ class DContentsContainRow : DContentsRegExp {
         return "row was in %s".format(this.output);
     }
     
-    // @param Json other Expected content
-    string failureDescription(Json other) {
+    // @param IData other Expected content
+    string failureDescription(IData other) {
         return "`" ~ this.exporter().shortenedExport( other) ~ "` " ~ this.toString();
     }
 }

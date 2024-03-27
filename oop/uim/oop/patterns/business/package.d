@@ -55,7 +55,7 @@ class BusinessDelegate {
 }
 
 /// Create Client.
-class Client {
+class DClient {
   BusinessDelegate _businessService;
 
   this(BusinessDelegate newBusinessService) {

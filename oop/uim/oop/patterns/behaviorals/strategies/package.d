@@ -33,7 +33,7 @@ class OperationMultiply : IStrategy{
 }
 
 /// Create Context Class.
-class Context {
+class DContext {
   private IStrategy _strategy;
 
   this(IStrategy strategy) {

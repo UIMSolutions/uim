@@ -16,7 +16,7 @@ import uim.errors;
  * @todo 5.0 Implement uim.errors.IExceptionRenderer. This implementation can"t implement
  *  the concrete interface because the return types are not compatible.
  */
-class ConsoleExceptionRenderer {
+class DConsoleExceptionRenderer {
   /**
     * @var \Throwable
     * /

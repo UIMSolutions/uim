@@ -27,7 +27,7 @@ import uim.oop;
    }
 }
 
- class Cricket : Game {
+ class DCricket : Game {
    override void endPlay() {
       writeln("Cricket Game Finished!");
    }

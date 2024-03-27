@@ -116,7 +116,7 @@ class TV {
 
 enum FanSpeed : int { OFF, LOW, MEDIUM, HIGH, ULTRAHIGH };
 
-public class CeilingFan {
+public class DCeilingFan {
 private:
 	string location;
 	int speed;
@@ -149,7 +149,7 @@ public:
 		return location; }
 }
 
-class CeilingFanHighCommand : DXCommand {
+class DCeilingFanHighCommand : DXCommand {
 private:
 	CeilingFan ceilingFan;
 	int previousSpeed;
@@ -191,7 +191,7 @@ public:
 	}
 }
 
-class CeilingFanLowCommand : IXCommand {
+class DCeilingFanLowCommand : IXCommand {
 private:
 	CeilingFan ceilingFan;
 	int previousSpeed;

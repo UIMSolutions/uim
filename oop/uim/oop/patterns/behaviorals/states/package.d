@@ -38,7 +38,7 @@ class StopState : IState {
 }
 
 /// Create Context Class.
-class Context {
+class DContext {
   this() {
     _state = null; }
 

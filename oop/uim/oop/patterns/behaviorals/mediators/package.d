@@ -9,7 +9,7 @@ import uim.oop;
 
 @safe:
 /// Create mediator class.
-class ChatRoom {
+class DChatRoom {
   static void showMessage(User user, string message) {
     writeln(new Date(), " [", user.name, "] : ", message);
   }

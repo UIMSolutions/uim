@@ -36,7 +36,7 @@ class NullCustomer : AbstractCustomer {
 }
 
 /// Create CustomerFactory Class.
-class CustomerFactory {
+class DCustomerFactory {
   static const string[] names = ["Rob", "Joe", "Julie"];
 
   static AbstractCustomer getCustomer(string name) {

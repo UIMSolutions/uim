@@ -130,7 +130,7 @@ class DErrorHandler { // }: DERRErrorHandler
      * @param \Throwable exception The exception being rendered.
      * @param \Psr\Http\messages.IServerRequest|null request The request.
      * @return uim.errors.IExceptionRenderer The exception renderer.
-     * @throws \RuntimeException When the renderer class cannot be found.
+     * @throws \RuntimeException When the renderer class DCannot be found.
      * /
     function getRenderer(
         Throwable exception,
@@ -143,7 +143,7 @@ class DErrorHandler { // }: DERRErrorHandler
             aClassName = App::className(renderer, "Error");
             if (!aClassName) {
                 throw new RuntimeException(sprintf(
-                    "The '%s' renderer class could not be found.",
+                    "The '%s' renderer class DCould not be found.",
                     renderer
                 ));
             }

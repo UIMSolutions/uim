@@ -12,7 +12,7 @@ interface Expression {
    bool interpret(string context);
 }
 
-class ContainsExpression : Expression {
+class DContainsExpression : Expression {
    private string _data;
 
    this(string newData) {

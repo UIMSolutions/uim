@@ -70,8 +70,8 @@ class PoFileParser {
             throw new UimException("Cannot open resource `%s`".format(resourceFilepath));
         }
 
-        Json defaultItem = Json.emptyObject;
-        defaultItem["ids"] = Json.emptyArray;
+        IData defaultItem = IData.emptyObject;
+        defaultItem["ids"] = IData.emptyArray;
         defaultItem["translated"] = false;
 
         anItem = defaultItem.clone;
@@ -94,7 +94,7 @@ class PoFileParser {
         return messages;
     }
 
-    PoMessage parseByLine(string line, Json[] messages, PoMessage message) {
+    PoMessage parseByLine(string line, IData[] messages, PoMessage message) {
         string line = strip(line);
 
         if (line.isEmpty && message.isNull) {
@@ -164,7 +164,7 @@ class PoFileParser {
      * array messages The messages array being collected from the file
      * @param array  anItem The current item being inspected
      * /
-    protected void addMessage(array messages, Json anItem) {
+    protected void addMessage(array messages, IData anItem) {
         auto ids = anItem["ids"];
         if (ids["singular"].isEmpty && ids["plural"].isEmpty) {
             return;

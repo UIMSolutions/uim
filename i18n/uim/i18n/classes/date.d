@@ -9,7 +9,7 @@ import uim.i18n;
  *
  * Adds handy methods and locale-aware formatting helpers.
  */
-class Date { // }: ChronosDate, JsonSerializable {
+class Date { // }: ChronosDate, IDataSerializable {
     mixin TConfigurable!();
 
     this() { initialize; }
@@ -36,14 +36,14 @@ class Date { // }: ChronosDate, JsonSerializable {
     protected static string _toStringFormat = IntlDateFormatter.SHORT;
 
     /**
-     * The format to use when converting this object to JSON.
+     * The format to use when converting this object to IData.
      *
      * The format should be either the formatting constants from IntlDateFormatter as described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
      *
      * @var \Closure|string|int
      * /
-    protected static string _jsonEncodeFormat = "yyyy-MM-dd";
+    protected static string _IDataEncodeFormat = "yyyy-MM-dd";
 
     /**
      * The format to use when formatting a time using `UIM\I18n\Date.timeAgoInWords()`
@@ -95,7 +95,7 @@ class Date { // }: ChronosDate, JsonSerializable {
     }
     
     /**
-     * Sets the default format used when converting this object to JSON
+     * Sets the default format used when converting this object to IData
      *
      * The format should be either the formatting constants from IntlDateFormatter as
      * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
@@ -106,12 +106,12 @@ class Date { // }: ChronosDate, JsonSerializable {
      *
      * @see \UIM\I18n\Date.i18nFormat()
      * /
-    static void setJsonEncodeFormat(Closure format) {
-        _jsonEncodeFormat = format;
+    static void setIDataEncodeFormat(Closure format) {
+        _IDataEncodeFormat = format;
     }
 
-    static void setJsonEncodeFormat(string format) {
-        _jsonEncodeFormat = format;
+    static void setIDataEncodeFormat(string format) {
+        _IDataEncodeFormat = format;
     }
     
     /**
@@ -256,12 +256,12 @@ class Date { // }: ChronosDate, JsonSerializable {
         return diffFormatter().dateAgoInWords(this, options);
     }
     
-    // Returns a string that should be serialized when converting this object to JSON
-    string jsonSerialize() {
-        if (cast(Closure)_jsonEncodeFormat) {
-            return call_user_func(_jsonEncodeFormat, this);
+    // Returns a string that should be serialized when converting this object to IData
+    string IDataSerialize() {
+        if (cast(Closure)_IDataEncodeFormat) {
+            return call_user_func(_IDataEncodeFormat, this);
         }
-        return this.i18nFormat(_jsonEncodeFormat);
+        return this.i18nFormat(_IDataEncodeFormat);
     }
  
     override string toString() {

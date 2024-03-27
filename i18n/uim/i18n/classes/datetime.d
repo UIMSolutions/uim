@@ -8,7 +8,7 @@ import uim.i18n;
  * : the built-in DateTime class to provide handy methods and locale-aware
  * formatting helpers.
  */
-class DateTime /* : Chronos, JsonSerializable, Stringable */ {
+class DateTime /* : Chronos, IDataSerializable, Stringable */ {
     mixin TConfigurable!();
 
     this() { initialize; }
@@ -52,7 +52,7 @@ class DateTime /* : Chronos, JsonSerializable, Stringable */ {
     protected string[] _toStringFormat = [IntlDateFormatter.SHORT, IntlDateFormatter.SHORT];
 
     /**
-     * The format to use when converting this object to JSON.
+     * The format to use when converting this object to IData.
      *
      * The format should be either the formatting constants from IntlDateFormatter as
      * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
@@ -65,7 +65,7 @@ class DateTime /* : Chronos, JsonSerializable, Stringable */ {
      * @var \Closure|array<int>|string|int
      * @see \UIM\I18n\DateTime.i18nFormat()
      * /
-    protected auto Closure|string[]|int _jsonEncodeFormat = "yyyy-MM-dd'T'HH':'mm':'ssxxx'";
+    protected auto Closure|string[]|int _IDataEncodeFormat = "yyyy-MM-dd'T'HH':'mm':'ssxxx'";
 
     /**
      * The format to use when formatting a time using `UIM\I18n\DateTime.nice()`
@@ -168,7 +168,7 @@ class DateTime /* : Chronos, JsonSerializable, Stringable */ {
     }
     
     /**
-     * Sets the default format used when converting this object to JSON
+     * Sets the default format used when converting this object to IData
      *
      * The format should be either the formatting constants from IntlDateFormatter as
      * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
@@ -183,8 +183,8 @@ class DateTime /* : Chronos, JsonSerializable, Stringable */ {
      *
      * @param \Closure|string[]|int format Format.
      * /
-    void setJsonEncodeFormat(Closure|string[]|int format) {
-        _jsonEncodeFormat = format;
+    void setIDataEncodeFormat(Closure|string[]|int format) {
+        _IDataEncodeFormat = format;
     }
     
     /**
@@ -509,13 +509,13 @@ class DateTime /* : Chronos, JsonSerializable, Stringable */ {
     }
     
     /**
-     * Returns a string that should be serialized when converting this object to JSON
+     * Returns a string that should be serialized when converting this object to IData
      * /
-    string jsonSerialize() {
-        if (cast(Closure)_jsonEncodeFormat) {
-            return call_user_func(_jsonEncodeFormat, this);
+    string IDataSerialize() {
+        if (cast(Closure)_IDataEncodeFormat) {
+            return call_user_func(_IDataEncodeFormat, this);
         }
-        return this.i18nFormat(_jsonEncodeFormat);
+        return this.i18nFormat(_IDataEncodeFormat);
     }
  
     override string toString() {

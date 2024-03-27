@@ -9,11 +9,11 @@ module errors.uim.errors.classes.functions;
  *
  * Only runs if debug mode is enabled.
  *
- * @param Json var Variable to show debug information for.
+ * @param IData var Variable to show debug information for.
  * @param bool|null showHtml If set to true, the method prints the debug data in a browser-friendly way.
  * @param bool showFrom If set to true, the method prints from where the auto was called.
  * /
-Json debug(Json var, bool showHtml = null, bool showFrom = true):  
+IData debug(IData var, bool showHtml = null, bool showFrom = true):  
 {
     if (!Configure.read("debug")) {
         return var;
@@ -61,10 +61,10 @@ void stackTrace(IData[string] options = null) {
  * Only runs if debug mode is enabled.
  * It will otherwise just continue code execution and ignore this function.
  *
- * @param Json var Variable to show debug information for.
+ * @param IData var Variable to show debug information for.
  * @param bool|null showHtml If set to true, the method prints the debug data in a browser-friendly way.
  * /
-void dd(Json var, ?bool showHtml = null) {
+void dd(IData var, ?bool showHtml = null) {
     if (!Configure.read("debug")) {
         return;
     }

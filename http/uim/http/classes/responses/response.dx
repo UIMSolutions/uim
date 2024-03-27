@@ -92,7 +92,7 @@ class Response : IResponse, Stringable {
     // Holds type key to mime type mappings for known mime types.
     protected IData[string] _mimeTypes = [
         "html": ["text/html", "*/*"],
-        "json": "application/json",
+        "IData": "application/IData",
         "xml": ["application/xml", "text/xml"],
         "xhtml": ["application/xhtml+xml", "application/xhtml", "text/xhtml"],
         "webp": "image/webp",
@@ -127,7 +127,7 @@ class Response : IResponse, Stringable {
         "bz2": "application/x-bzip",
         "7z": "application/x-7z-compressed",
         "hal": ["application/hal+xml", "application/vnd.hal+xml"],
-        "haljson": ["application/hal+json", "application/vnd.hal+json"],
+        "halIData": ["application/hal+IData", "application/vnd.hal+IData"],
         "halxml": ["application/hal+xml", "application/vnd.hal+xml"],
         "hdf": "application/x-hdf",
         "hqx": "application/mac-binhex40",
@@ -135,9 +135,9 @@ class Response : IResponse, Stringable {
         "ips": "application/x-ipscript",
         "ipx": "application/x-ipix",
         "js": "application/javascript",
-        "jsonapi": "application/vnd.api+json",
+        "IDataapi": "application/vnd.api+IData",
         "latex": "application/x-latex",
-        "jsonld": "application/ld+json",
+        "IDatald": "application/ld+IData",
         "kml": "application/vnd.google-earth.kml+xml",
         "kmz": "application/vnd.google-earth.kmz",
         "lha": "application/octet-stream",
@@ -319,7 +319,7 @@ class Response : IResponse, Stringable {
         "oex": "application/x-opera-extension",
         "xpi": "application/x-xpinstall",
         "safariextz": "application/octet-stream",
-        "webapp": "application/x-web-app-manifest+json",
+        "webapp": "application/x-web-app-manifest+IData",
         "vcf": "text/x-vcard",
         "vtt": "text/vtt",
         "mkv": "video/x-matroska",
@@ -1178,8 +1178,8 @@ class Response : IResponse, Stringable {
     static withFile(string aPath, IData[string] options = null) {
         file = this.validateFile(somePath);
         auto options = options.update([
-            "name": Json(null),
-            "download": Json(null)
+            "name": IData(null),
+            "download": IData(null)
         ]);
 
         auto fileExtension = file.getExtension().toLower;

@@ -9,7 +9,7 @@ import uim.i18n;
  *
  * Adds handy methods and locale-aware formatting helpers.
  */
-class Time { // : ChronosTime, JsonSerializable, Stringable {
+class Time { // : ChronosTime, IDataSerializable, Stringable {
     mixin TConfigurable!();
 
     this() {
@@ -38,7 +38,7 @@ class Time { // : ChronosTime, JsonSerializable, Stringable {
     protected static string|int _toStringFormat = IntlDateFormatter.SHORT;
 
     /**
-     * The format to use when converting this object to JSON.
+     * The format to use when converting this object to IData.
      *
      * The format should be either the formatting constants from IntlDateFormatter as
      * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
@@ -47,7 +47,7 @@ class Time { // : ChronosTime, JsonSerializable, Stringable {
      * @var \Closure|string|int
      * @see \UIM\I18n\Date.i18nFormat()
      * /
-    protected static Closure|string|int _jsonEncodeFormat = "HH':'mm':'ss";
+    protected static Closure|string|int _IDataEncodeFormat = "HH':'mm':'ss";
 
     /**
      * The format to use when formatting a time using `UIM\I18n\Time.nice()`
@@ -80,7 +80,7 @@ class Time { // : ChronosTime, JsonSerializable, Stringable {
     }
     
     /**
-     * Sets the default format used when converting this object to JSON
+     * Sets the default format used when converting this object to IData
      *
      * The format should be either the formatting constants from IntlDateFormatter as
      * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
@@ -91,8 +91,8 @@ class Time { // : ChronosTime, JsonSerializable, Stringable {
      *
      * @param \Closure|string|int format Format.
      * /
-    static void setJsonEncodeFormat(Closure|string|int format) {
-        _jsonEncodeFormat = format;
+    static void setIDataEncodeFormat(Closure|string|int format) {
+        _IDataEncodeFormat = format;
     }
     
     /**
@@ -185,12 +185,12 @@ class Time { // : ChronosTime, JsonSerializable, Stringable {
         return to!string(this.i18nFormat(niceFormat, localeName));
     }
     
-    // Returns a string that should be serialized when converting this object to JSON
-    string jsonSerialize() {
-        if (cast(Closure)_jsonEncodeFormat) {
-            return call_user_func(_jsonEncodeFormat, this);
+    // Returns a string that should be serialized when converting this object to IData
+    string IDataSerialize() {
+        if (cast(Closure)_IDataEncodeFormat) {
+            return call_user_func(_IDataEncodeFormat, this);
         }
-        return this.i18nFormat(_jsonEncodeFormat);
+        return this.i18nFormat(_IDataEncodeFormat);
     }
  
     override string toString() {

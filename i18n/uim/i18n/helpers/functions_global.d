@@ -10,9 +10,9 @@ if (!function_exists("__")) {
      * Returns a translated string if one is found; Otherwise, the submitted message.
      * Params:
      * string asingular Text to translate.
-     * @param Json ...someArguments Array with arguments or multiple arguments in function.
+     * @param IData ...someArguments Array with arguments or multiple arguments in function.
      * /
-    string __(string asingular, Json ...someArguments) {
+    string __(string asingular, IData ...someArguments) {
         return cake__(singular, ...someArguments);
     }
 }
@@ -25,9 +25,9 @@ if (!function_exists("__n")) {
      * string asingular Singular text to translate.
      * @param string aplural Plural text.
      * @param int count Count.
-     * @param Json ...someArguments Array with arguments or multiple arguments in function.
+     * @param IData ...someArguments Array with arguments or multiple arguments in function.
      * /
-    string|int|false __n(string asingular, string aplural, int count, Json ...someArguments) {
+    string|int|false __n(string asingular, string aplural, int count, IData ...someArguments) {
         return cake__n(singular, plural, count, ...someArguments);
     }
 }
@@ -38,9 +38,9 @@ if (!function_exists("__d")) {
      * Params:
      * string adomain Domain.
      * @param string amsg String to translate.
-     * @param Json ...someArguments Array with arguments or multiple arguments in function.
+     * @param IData ...someArguments Array with arguments or multiple arguments in function.
      * /
-    string __d(string adomain, string amsg, Json ...someArguments) {
+    string __d(string adomain, string amsg, IData ...someArguments) {
         return cake__d(domain, message, ...someArguments);
     }
 }
@@ -55,9 +55,9 @@ if (!function_exists("__dn")) {
      * @param string asingular Singular string to translate.
      * @param string aplural Plural.
      * @param int count Count.
-     * @param Json ...someArguments Array with arguments or multiple arguments in function.
+     * @param IData ...someArguments Array with arguments or multiple arguments in function.
      * /
-    string __dn(string adomain, string asingular, string aplural, int count, Json ...someArguments) {
+    string __dn(string adomain, string asingular, string aplural, int count, IData ...someArguments) {
         return cake__dn(domain, singular, plural, count, ...someArguments);
     }
 }
@@ -70,9 +70,9 @@ if (!function_exists("__x")) {
      * Params:
      * string acontext Context of the text.
      * @param string asingular Text to translate.
-     * @param Json ...someArguments Array with arguments or multiple arguments in function.
+     * @param IData ...someArguments Array with arguments or multiple arguments in function.
      * /
-    string __x(string acontext, string asingular, Json ...someArguments) {
+    string __x(string acontext, string asingular, IData ...someArguments) {
         return cake__x(context, singular, ...someArguments);
     }
 }
@@ -88,9 +88,9 @@ if (!function_exists("__xn")) {
      * @param string asingular Singular text to translate.
      * @param string aplural Plural text.
      * @param int count Count.
-     * @param Json ...someArguments Array with arguments or multiple arguments in function.
+     * @param IData ...someArguments Array with arguments or multiple arguments in function.
      * /
-    string __xn(string acontext, string asingular, string aplural, int count, Json ...someArguments) {
+    string __xn(string acontext, string asingular, string aplural, int count, IData ...someArguments) {
         return cake__xn(context, singular, plural, count, ...someArguments);
     }
 }
@@ -104,9 +104,9 @@ if (!function_exists("__dx")) {
      * string adomain Domain.
      * @param string acontext Context of the text.
      * @param string amsg String to translate.
-     * @param Json ...someArguments Array with arguments or multiple arguments in function.
+     * @param IData ...someArguments Array with arguments or multiple arguments in function.
      * /
-    string __dx(string adomain, string acontext, string amsg, Json ...someArguments) {
+    string __dx(string adomain, string acontext, string amsg, IData ...someArguments) {
         return cake__dx(domain, context, message, ...someArguments);
     }
 }
@@ -123,7 +123,7 @@ if (!function_exists("__dxn")) {
      * @param string asingular Singular text to translate.
      * @param string aplural Plural text.
      * @param int count Count.
-     * @param Json ...someArguments Array with arguments or multiple arguments in function.
+     * @param IData ...someArguments Array with arguments or multiple arguments in function.
      * /
     string __dxn(
         string adomain,
@@ -131,7 +131,7 @@ if (!function_exists("__dxn")) {
         string asingular,
         string aplural,
         int count,
-        Json ...someArguments
+        IData ...someArguments
     ) {
         return cake__dxn(domain, context, singular, plural, count, ...someArguments);
     }

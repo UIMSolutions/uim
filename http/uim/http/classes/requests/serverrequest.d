@@ -88,7 +88,7 @@ class DServerRequest { // }: IServerRequest {
         "options": ["env": 'REQUEST_METHOD", "value": 'OPTIONS"],
         "https": ["env": 'HTTPS", "options": [1, "on"]],
         "ajax": ["env": 'HTTP_X_REQUESTED_WITH", "value": 'XMLHttpRequest"],
-        "json": ["accept": ["application/json"], "param": '_ext", "value": 'json"],
+        "IData": ["accept": ["application/IData"], "param": '_ext", "value": 'IData"],
         "xml": [
             "accept": ["application/xml", "text/xml"],
             "exclude": ["text/html"],
@@ -402,9 +402,9 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * string[]|string atype The type of request you want to check. If an array
      *  this method will return true if the request matches any type.
-     * @param Json ...someArguments List of arguments
+     * @param IData ...someArguments List of arguments
      * /
-    bool is(string[] atype, Json ...someArguments) {
+    bool is(string[] atype, IData ...someArguments) {
         if (isArray(type)) {
             foreach (type as _type) {
                 if (this.is(_type)) {
@@ -925,7 +925,7 @@ class DServerRequest { // }: IServerRequest {
      * #### Check for a single type:
      *
      * ```
-     * this.request.accepts("application/json");
+     * this.request.accepts("application/IData");
      * ```
      *
      * This method will order the returned content types by the preference values indicated
@@ -980,9 +980,9 @@ class DServerRequest { // }: IServerRequest {
      * ```
      * Params:
      * string|null name The name or dotted path to the query param or null to read all.
-     * @param Json defaultValue The default value if the named parameter is not set, and name is not null.
+     * @param IData defaultValue The default value if the named parameter is not set, and name is not null.
      * /
-    Json getQuery(string aName = null, Json defaultValue = Json(null)) {
+    IData getQuery(string aName = null, IData defaultValue = IData(null)) {
         if (name.isNull) {
             return this.query;
         }
@@ -1018,9 +1018,9 @@ class DServerRequest { // }: IServerRequest {
      * ```
      * Params:
      * string|null name Dot separated name of the value to read. Or null to read all data.
-     * @param Json defaultValue The default data.
+     * @param IData defaultValue The default data.
      * /
-    Json getData(string aName = null, Json defaultValue = Json(null)) {
+    IData getData(string aName = null, IData defaultValue = IData(null)) {
         if (name.isNull) {
             return this.data;
         }
@@ -1051,7 +1051,7 @@ class DServerRequest { // }: IServerRequest {
      * This is an optimization that allows fewer objects to be allocated until
      * the more complex CookieCollection is needed. In general you should prefer
      * `getCookie()` and `getCookieParams()` over this method. Using a CookieCollection
-     * is ideal if your cookies contain complex JSON encoded data.
+     * is ideal if your cookies contain complex IData encoded data.
      * /
     CookieCollection getCookieCollection() {
         return CookieCollection.createFromServerRequest(this);
@@ -1230,10 +1230,10 @@ class DServerRequest { // }: IServerRequest {
      * Use `withParsedBody()` if you need to replace the all request data.
      * Params:
      * string aName The dot separated path to insert aValue at.
-     * @param Json aValue The value to insert into the request data.
+     * @param IData aValue The value to insert into the request data.
      * @return static
      * /
-    auto withData(string aName, Json aValue): static
+    auto withData(string aName, IData aValue): static
     {
         copy = clone this;
 
@@ -1267,10 +1267,10 @@ class DServerRequest { // }: IServerRequest {
      * a *new* request object and does not mutate the request in-place.
      * Params:
      * string aName The dot separated path to insert aValue at.
-     * @param Json aValue The value to insert into the the request parameters.
+     * @param IData aValue The value to insert into the the request parameters.
      * @return static
      * /
-    auto withParam(string aName, Json aValue): static
+    auto withParam(string aName, IData aValue): static
     {
         copy = clone this;
         copy.params = Hash.insert(copy.params, name, aValue);
@@ -1282,9 +1282,9 @@ class DServerRequest { // }: IServerRequest {
      * Safely access the values in this.params.
      * Params:
      * string aName The name or dotted path to parameter.
-     * @param Json defaultValue The default value if `name` is not set. Default `null`.
+     * @param IData defaultValue The default value if `name` is not set. Default `null`.
     * /
-    Json getParam(string aName, Json defaultValue = Json(null)) {
+    IData getParam(string aName, IData defaultValue = IData(null)) {
         return Hash.get(this.params, name, default);
     }
     
@@ -1292,9 +1292,9 @@ class DServerRequest { // }: IServerRequest {
      * Return an instance with the specified request attribute.
      * Params:
      * string aName The attribute name.
-     * @param Json aValue The value of the attribute.
+     * @param IData aValue The value of the attribute.
      * /
-    static withAttribute(string aName, Json aValue) {
+    static withAttribute(string aName, IData aValue) {
         new = clone this;
         if (in_array(name, this.emulatedAttributes, true)) {
             new.{name} = aValue;
@@ -1328,9 +1328,9 @@ class DServerRequest { // }: IServerRequest {
      * Read an attribute from the request, or get the default
      * Params:
      * string aName The attribute name.
-     * @param Json defaultValue The default value if the attribute has not been set.
+     * @param IData defaultValue The default value if the attribute has not been set.
      * /
-    Json getAttribute(string aName, Json defaultValue = Json(null)) {
+    IData getAttribute(string aName, IData defaultValue = IData(null)) {
         if (in_array(name, this.emulatedAttributes, true)) {
             if (name == "here") {
                 return this.base ~ this.uri.getPath();

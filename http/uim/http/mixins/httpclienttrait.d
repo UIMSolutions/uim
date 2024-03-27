@@ -21,7 +21,7 @@ template HttpClientTemplate {
      * Create a new response.
      * Params:
      * int code The response code to use. Defaults to 200
-     * @param string[] aHeaders A list of headers for the response. Example `Content-Type: application/json`
+     * @param string[] aHeaders A list of headers for the response. Example `Content-Type: application/IData`
      * @param string abody The body for the response.
      *  \UIM\Http\Client\Response
      * /

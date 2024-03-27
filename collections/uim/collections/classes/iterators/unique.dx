@@ -9,7 +9,7 @@ import uim.collections;
  * passing a callback auto to each of the elements and taking them out if
  * the value returned is not unique.
  */
-class UniqueIterator : DCollection {
+class DUniqueIterator : DCollection {
     /**
      * Creates a filtered iterator using the callback to determine which items are
      * accepted or rejected.

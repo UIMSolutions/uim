@@ -9,6 +9,25 @@ import uim.commands;
  * from 2 dimensional array data.
  */
 class TableHelper { // }: Helper {
+      mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
+
   // Default config for this helper.
   /*
   protected IData[string] Configuration.updateDefaults([

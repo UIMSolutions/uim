@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.errors.errors.error;
+module uim.errors.classes.error;
 
 @safe:
 import uim.errors;
@@ -20,6 +20,9 @@ class DError {
 
   mixin(OProperty!("int[string][]", "trace"));
 
+  bool initialize() {}
+    
+  }
   /* 
   private string[int] levelMap = [
       E_PARSE: "error",
@@ -70,9 +73,6 @@ class DError {
           .trace(traceData);
     }
 
-    bool initialize() {}
-      
-    }
 
     // Get the mapped LOG_ constant.
     int getLogLevel() {

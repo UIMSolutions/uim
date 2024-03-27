@@ -13,7 +13,7 @@ import uim.collections;
  * @template-implements \RecursiveIterator<mixed, mixed>
  * @template-extends \IteratorIterator<mixed, mixed, \Traversable<mixed, mixed>>
  */
-class UnfoldIterator : IteratorIterator, RecursiveIterator {
+class DUnfoldIterator : IteratorIterator, RecursiveIterator {
     /**
      * A auto that is passed each element in this iterator and
      * must return an array or Traversable object.

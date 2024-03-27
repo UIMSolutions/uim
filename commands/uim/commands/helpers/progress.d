@@ -19,6 +19,25 @@ import uim.commands;
  * ```
  */
 class ProgressHelper { // } : Helper {
+      mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
+
   /**
      * Default value for progress bar total value.
      * Percent completion is derived from progress/total

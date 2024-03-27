@@ -5,7 +5,7 @@ import uim.commands;
 @safe:
 
 // Provides interactive CLI tools for routing.
-class RoutesCommand : DCommand {
+class DRoutesCommand : DCommand {
 
     // Display all routes in an application
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {

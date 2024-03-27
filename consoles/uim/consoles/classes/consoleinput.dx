@@ -5,14 +5,25 @@ import uim.consoles;
 @safe:
 
 // Object wrapper for interacting with stdin
-class ConsoleInput {
-   mixin(CommandThis!("Version"));
+class DConsoleInput {
+    mixin TConfigurable!();
 
-  	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
 
     // Input value.
     protected resource _input;

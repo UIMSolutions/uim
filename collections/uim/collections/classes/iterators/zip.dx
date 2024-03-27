@@ -26,7 +26,7 @@ import uim.collections;
  *  anIterator.toList(); // Returns [4, 6]
  * ```
  */
-class ZipIterator : ICollection {
+class DZipIterator : ICollection {
     use CollectionTemplate();
 
     protected MultipleIterator multipleIterator;

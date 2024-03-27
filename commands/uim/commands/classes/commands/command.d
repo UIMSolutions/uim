@@ -8,9 +8,13 @@ import uim.commands;
 class DCommand : ICommand {
     mixin TConfigurable!();
 
-    this() { initialize; }
+    this() {
+        initialize;
+    }
 
-    this(IData[string] initData) { initialize(initData); }
+    this(IData[string] initData) {
+        initialize(initData);
+    }
 
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
@@ -20,7 +24,7 @@ class DCommand : ICommand {
     }
 
     mixin(TProperty!("string", "name"));
-    
+
     //TODO mixin LocatorAwareTemplate();
     //TODO mixin LogTemplate();
 

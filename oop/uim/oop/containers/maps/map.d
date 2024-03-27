@@ -13,7 +13,7 @@ class Map : Obj, IMap {
 
 	bool isEmpty() { return true; }
 	size_t length() { return 0; }
-	O clear(this O)() { return cast(O)this; }
+	O clear(this O)() { return cast(DO)this; }
 
 	override string toString() {
 		return super.toString;

@@ -34,11 +34,11 @@ class DArrayObj : Obj {
 	}
 
 	O clear(this O)() {
-		return cast(O) this;
+		return cast(DO) this;
 	}
 
 	O sorting(this O)() {
-		return cast(O) this;
+		return cast(DO) this;
 	}
 
 	O uniquing(this O)() {
@@ -52,7 +52,7 @@ class DArrayObj : Obj {
 		}
 		_objs = _objs.filter!(obj => !obj.isNull).array;
 
-		return cast(O) this;
+		return cast(DO) this;
 	}
 
 	O dup(this O)() {

@@ -17,13 +17,13 @@ class DArrayString : DArrayTempl!string {
 	O opCall(this O)(string[] newItems...) { 
 		newItems.each!(item => this.add(item)); 		
 
-		return cast(O)this;
+		return cast(DO)this;
 	}
 
 	O opCall(this O)(string[] newItems) { 
 		newItems.each!(item => this.add(item)); 		
 
-		return cast(O)this;
+		return cast(DO)this;
 	}
 
 	string join(string separator) { 

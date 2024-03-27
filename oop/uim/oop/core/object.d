@@ -29,31 +29,31 @@ class Obj {
 		if (aProperty) {
 			if (aProperty.name) _properties[aProperty.name] = aProperty;
 		}
-		return cast(O)this;
+		return cast(DO)this;
 	}
 	O add(this O)(Event aEvent) {
 		if (aEvent) {
 			if (aEvent.name) _events[aEvent.name] = aEvent;
 		}
-		return cast(O)this;
+		return cast(DO)this;
 	}
 	O add(this O)(Method aMethod) {
 		if (aMethod) {
 			if (aMethod.name) _methods[aMethod.name] = aMethod;
 		}
-		return cast(O)this;
+		return cast(DO)this;
 	}
 	O add(this O)(Aggregation anAggregation) {
 		if (anAggregation) {
 			if (anAggregation.name) _aggregations[anAggregation.name] = anAggregation;
 		}
-		return cast(O)this;
+		return cast(DO)this;
 	}
 	O add(this O)(Association anAssociation) {
 		if (anAssociation) {
 			if (anAssociation.name) _associations[anAssociation.name] = anAssociation;
 		}
-		return cast(O)this;
+		return cast(DO)this;
 	}
 
 	O remove(this O)(PropertyObj aProperty) {
@@ -61,7 +61,7 @@ class Obj {
 			if (aProperty.name in _properties) _properties.remove(aProperty.name);
 			else foreach(k, v; _properties) if (v == aProperty) _properties.remove(aProperty.name); 
 		}
-		return cast(O)this;
+		return cast(DO)this;
 	}
 
 /* 	Json toJson() {

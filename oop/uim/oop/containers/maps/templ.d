@@ -15,7 +15,7 @@ class MapTempl(K, V): Map {
 	this(V[K] values) { this(); this.items(values); }
 
 	@property V[K] items() { return _items; }
-	@property O items(this O)(V[K] newItems) { _items = newItems.dup; return cast(O)this; }
+	@property O items(this O)(V[K] newItems) { _items = newItems.dup; return cast(DO)this; }
 
 	override bool isEmpty() { return (length == 0); }
 	override size_t length() { return _items.length; }
@@ -46,8 +46,8 @@ class MapTempl(K, V): Map {
     } return true; }
 	bool hasValue(V value) { foreach(k, v; _items) if (v == value) { return true; } return false; }
 
-	O add(this O)(V[K] values) { foreach(k, v; values) this.add(k, v); return cast(O)this; }
-	O add(this O)(K key, V value) { this[key] = value; return cast(O)this; }
+	O add(this O)(V[K] values) { foreach(k, v; values) this.add(k, v); return cast(DO)this; }
+	O add(this O)(K key, V value) { this[key] = value; return cast(DO)this; }
 
 //	auto opCast(T:STRINGAA)() {
 //		T result;
@@ -78,15 +78,15 @@ class MapTempl(K, V): Map {
 	}
 	O remove(this O)(K key) {
 		_items.remove(key);
-		return cast(O)this;
+		return cast(DO)this;
 	}
 	O remove(this O)(K[] someKeys) {
 		foreach(key; someKeys) _items.remove(key);
-		return cast(O)this;
+		return cast(DO)this;
 	}
 	O clear(this O)() {
 		_items.clear;
-		return cast(O)this;
+		return cast(DO)this;
 	}
 
 	string[] toStrings(string mask = "%s=%s") {

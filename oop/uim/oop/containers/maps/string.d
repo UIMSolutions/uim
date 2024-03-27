@@ -31,23 +31,23 @@ class DMapString : MapTempl!(string, string) {
 
 	@property O items(this O)(STRINGAA newItems) {
 		_items = newItems.dup;
-		return cast(O) this;
+		return cast(DO) this;
 	}
 
 	O add(this O)(STRINGAA values) {
 		foreach (k, v; values)
 			_items[k] = v;
-		return cast(O) this;
+		return cast(DO) this;
 	}
 
 	O add(this O)(STRINGAA[] values) {
 		values.each!(value => add(value));
-		return cast(O) this;
+		return cast(DO) this;
 	}
 
 	O opCall(this O)(STRINGAA values) {
 		add(values);
-		return cast(O) this;
+		return cast(DO) this;
 	}
 
 	void opIndexAssign(V, K)(V value, K key) {

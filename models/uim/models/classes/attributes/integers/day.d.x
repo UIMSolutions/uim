@@ -15,7 +15,7 @@ import uim.models;
   means.measurement.duration.days
   has.measurement.fundamentalComponent.second */
 class DDayAttribute : DIntegerAttribute {
-  mixin(AttributeThis!("DayAttribute"));
+  mixin(AttributeThis!("Day"));
 
   override bool initialize(IData[string] initData = null) {
     if (!super.initialize(initData)) {
@@ -29,7 +29,7 @@ class DDayAttribute : DIntegerAttribute {
   }
 }
 
-mixin(AttributeCalls!("DayAttribute"));
+mixin(AttributeCalls!("Day"));
 
 version (test_uim_models) {
   unittest {

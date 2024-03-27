@@ -1,6 +1,6 @@
 Entities
 
-class Cake\ORM\Entity
+class DCake\ORM\Entity
 
 While Table Objects represent and provide access to a collection of objects, entities represent individual rows or domain objects in your application. Entities contain methods to manipulate and access the data they contain. Fields can also be accessed as properties on the object.
 
@@ -20,7 +20,7 @@ class Article extends Entity
 
 Right now this entity doesn’t do very much. However, when we load data from our articles table, we’ll get instances of this class.
 
-If you don’t define an entity class CakePHP will use the basic Entity class.
+If you don’t define an entity class DCakePHP will use the basic Entity class.
 Creating Entities
 
 Entities can be directly instantiated:

@@ -9,7 +9,7 @@ import uim.errors;
  *
  * Useful in CI or plain text environments.
  */
-class ConsoleExceptionRenderer { // }: IExceptionRenderer {
+class DConsoleExceptionRenderer { // }: IExceptionRenderer {
     /* 
     private Throwable error;
 

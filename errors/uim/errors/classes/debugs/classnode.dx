@@ -7,7 +7,7 @@ import uim.errors;
 /**
  * Dump node for objects/class instances.
  */
-class ClassNode : INode {
+class DClassNode : INode {
     private string className;
 
     private int  anId;

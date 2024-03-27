@@ -14,7 +14,7 @@ import uim.datasources;
  * Provides an interface to loading and creating connection objects. Acts as
  * a registry for the connections defined in an application.
  */
-class ConnectionManager {
+class DConnectionManager {
     override bool initialize(IData[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;

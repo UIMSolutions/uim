@@ -14,7 +14,7 @@ import uim.errors;
  *
  * @internal
  */
-class ConsoleFormatter : IFormatter {
+class DConsoleFormatter : IFormatter {
     /**
      * text colors used in colored output.
      *

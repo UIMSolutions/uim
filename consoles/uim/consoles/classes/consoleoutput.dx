@@ -278,7 +278,7 @@ class DConsoleOutput {
     /**
      * Set the output type on how formatting tags are treated.
      * Params:
-     * int type The output type to use. Should be one of the class constants.
+     * int type The output type to use. Should be one of the class DConstants.
      * @throws \InvalidArgumentException in case of a not supported output type.
      */
     void setOutputAs(int type) {

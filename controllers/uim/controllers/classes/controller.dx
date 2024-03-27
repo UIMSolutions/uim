@@ -50,7 +50,7 @@ import uim.controllers;
  * @link https://book.UIM.org/5/en/controllers.html
  * @implements \UIM\Event\IEventDispatcher<\UIM\Controller\Controller>
  */
-class Controller : IEventListener, IEventDispatcher {
+class DController : IEventListener, IEventDispatcher {
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\Controller\Controller>
      */

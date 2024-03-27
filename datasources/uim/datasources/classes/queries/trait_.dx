@@ -536,7 +536,7 @@ trait QueryTrait
      * @param array<string, mixed> options the options to be applied
      * @return this
      */
-    abstract function applyOptions(STRINGAA someOptions);
+    abstract function applyOptions(IData[string] optionData);
 
     /**
      * Executes this query and returns a traversable object containing the results

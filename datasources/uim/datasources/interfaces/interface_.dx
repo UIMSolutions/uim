@@ -85,7 +85,7 @@ interface IEntity : ArrayAccess, JsonSerializable
      * keys are `setter` and `guard`
      * @return this
      */
-    function set(string fieldName, value = null, STRINGAA someOptions = null);
+    function set(string fieldName, value = null, IData[string] optionData = null);
 
     /**
      * Returns the value of a field by name

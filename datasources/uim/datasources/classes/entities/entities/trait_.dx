@@ -197,7 +197,7 @@ trait EntityTrait
      * @return this
      * @throws \InvalidArgumentException
      */
-    function set(field, value = null, STRINGAA someOptions = null) {
+    function set(field, value = null, IData[string] optionData = null) {
         if (field.isString && field != "") {
              guard = false;
             field = [field: value];

@@ -17,7 +17,7 @@ interface ILocator {
      * @throws \RuntimeException When trying to get alias for which instance
      *   has already been created with different options.
      */
-    IRepository get(string aliasName, STRINGAA someOptions = null);
+    IRepository get(string aliasName, IData[string] optionData = null);
 
     /**
      * Set a repository instance.

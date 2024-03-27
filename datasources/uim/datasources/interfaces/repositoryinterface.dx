@@ -32,7 +32,7 @@ interface IRepository
      * @return uim.Datasource\IEntity
      * @see uim.datasources.IRepository::find()
      * /
-    function get(primaryKey, STRINGAA someOptions = null): IEntity;
+    function get(primaryKey, IData[string] optionData = null): IEntity;
 
     /**
      * Creates a new Query instance for this repository
@@ -86,7 +86,7 @@ interface IRepository
      * of any error.
      *
      * @param uim.Datasource\IEntity entity the entity to be saved
-     * @param \ArrayAccess|STRINGAA someOptions The options to use when saving.
+     * @param \ArrayAccess|IData[string] optionData The options to use when saving.
      * @return uim.Datasource\IEntity|false
      * /
     function save(IEntity entity, options = null);
@@ -98,7 +98,7 @@ interface IRepository
      * based on the "dependent" option used when defining the association.
      *
      * @param uim.Datasource\IEntity entity The entity to remove.
-     * @param \ArrayAccess|STRINGAA someOptions The options for the delete.
+     * @param \ArrayAccess|IData[string] optionData The options for the delete.
      * @return bool success
      * /
     bool delete_(IEntity entity, options = null);
@@ -132,7 +132,7 @@ interface IRepository
      * @param array<string, mixed> options A list of options for the object hydration.
      * @return uim.Datasource\IEntity
      * /
-    function newEntity(array data, STRINGAA someOptions = null): IEntity;
+    function newEntity(array data, IData[string] optionData = null): IEntity;
 
     /**
      * Create a list of entities + associated entities from an array.
@@ -150,7 +150,7 @@ interface IRepository
      * @param array<string, mixed> options A list of options for the objects hydration.
      * @return array<uim.Datasource\IEntity> An array of hydrated records.
      * /
-    array newEntities(array data, STRINGAA someOptions = null);
+    array newEntities(array data, IData[string] optionData = null);
 
     /**
      * Merges the passed `data` into `entity` respecting the accessible
@@ -169,7 +169,7 @@ interface IRepository
      * @param array<string, mixed> options A list of options for the object hydration.
      * @return uim.Datasource\IEntity
      * /
-    function patchEntity(IEntity entity, array data, STRINGAA someOptions = null): IEntity;
+    function patchEntity(IEntity entity, array data, IData[string] optionData = null): IEntity;
 
     /**
      * Merges each of the elements passed in `data` into the entities
@@ -189,6 +189,6 @@ interface IRepository
      * @param array<string, mixed> options A list of options for the objects hydration.
      * @return array<uim.Datasource\IEntity>
      * /
-    array patchEntities(Range entities, array data, STRINGAA someOptions = null);
+    array patchEntities(Range entities, array data, IData[string] optionData = null);
     */
 }

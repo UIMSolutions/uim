@@ -93,7 +93,7 @@ class RulesChecker
      *
      * @param array<string, mixed> options The options to pass to every rule
      */
-    this(STRINGAA someOptions = null) {
+    this(IData[string] optionData = null) {
         _options = options;
         _useI18n = function_exists("__d");
     }
@@ -117,7 +117,7 @@ class RulesChecker
      * second argument.
      * @return this
      */
-    function add(callable rule, name = null, STRINGAA someOptions = null) {
+    function add(callable rule, name = null, IData[string] optionData = null) {
         _rules[] = _addError(rule, name, options);
 
         return this;
@@ -141,7 +141,7 @@ class RulesChecker
      * second argument.
      * @return this
      */
-    function addCreate(callable rule, name = null, STRINGAA someOptions = null) {
+    function addCreate(callable rule, name = null, IData[string] optionData = null) {
         _createRules[] = _addError(rule, name, options);
 
         return this;
@@ -165,7 +165,7 @@ class RulesChecker
      * second argument.
      * @return this
      */
-    function addUpdate(callable rule, name = null, STRINGAA someOptions = null) {
+    function addUpdate(callable rule, name = null, IData[string] optionData = null) {
         _updateRules[] = _addError(rule, name, options);
 
         return this;
@@ -189,7 +189,7 @@ class RulesChecker
      * second argument.
      * @return this
      */
-    function addDelete_(callable rule, name = null, STRINGAA someOptions = null) {
+    function addDelete_(callable rule, name = null, IData[string] optionData = null) {
         _deleteRules[] = _addError(rule, name, options);
 
         return this;
@@ -206,7 +206,7 @@ class RulesChecker
      * @return bool
      * @throws \InvalidArgumentException if an invalid mode is passed.
      */
-    bool check(IEntity entity, string mode, STRINGAA someOptions = null) {
+    bool check(IEntity entity, string mode, IData[string] optionData = null) {
         if (mode == self::CREATE) {
             return this.checkCreate(entity, options);
         }
@@ -229,7 +229,7 @@ class RulesChecker
      * @param uim.Datasource\IEntity entity The entity to check for validity.
      * @param array<string, mixed> options Extra options to pass to checker functions.
      */
-    bool checkCreate(IEntity entity, STRINGAA someOptions = null) {
+    bool checkCreate(IEntity entity, IData[string] optionData = null) {
         return _checkRules(entity, options, array_merge(_rules, _createRules));
     }
 
@@ -240,7 +240,7 @@ class RulesChecker
      * @param uim.Datasource\IEntity entity The entity to check for validity.
      * @param array<string, mixed> options Extra options to pass to checker functions.
      */
-    bool checkUpdate(IEntity entity, STRINGAA someOptions = null) {
+    bool checkUpdate(IEntity entity, IData[string] optionData = null) {
         return _checkRules(entity, options, array_merge(_rules, _updateRules));
     }
 
@@ -251,7 +251,7 @@ class RulesChecker
      * @param uim.Datasource\IEntity entity The entity to check for validity.
      * @param array<string, mixed> options Extra options to pass to checker functions.
      */
-    bool checkDelete_(IEntity entity, STRINGAA someOptions = null) {
+    bool checkDelete_(IEntity entity, IData[string] optionData = null) {
         return _checkRules(entity, options, _deleteRules);
     }
 
@@ -263,7 +263,7 @@ class RulesChecker
      * @param array<string, mixed> options Extra options to pass to checker functions.
      * @param array<uim.Datasource\RuleInvoker> rules The list of rules that must be checked.
      */
-    protected bool _checkRules(IEntity entity, STRINGAA someOptions = null, array rules = null) {
+    protected bool _checkRules(IEntity entity, IData[string] optionData = null, array rules = null) {
         success = true;
         options += _options;
         foreach (rules as rule) {
@@ -282,7 +282,7 @@ class RulesChecker
      * @param array<string, mixed> options The options containing the error message and field.
      * @return uim.Datasource\RuleInvoker
      */
-    protected function _addError(callable rule, name = null, STRINGAA someOptions = null): RuleInvoker
+    protected function _addError(callable rule, name = null, IData[string] optionData = null): RuleInvoker
     {
         if ((name.isArray) {
             options = name;

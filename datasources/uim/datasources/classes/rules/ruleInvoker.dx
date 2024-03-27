@@ -52,7 +52,7 @@ class RuleInvoker
      * @param string aName The name of the rule. Used in error messages.
      * @param array<string, mixed> options The options for the rule. See above.
      */
-    this(callable rule, string aName, STRINGAA someOptions = null) {
+    this(callable rule, string aName, IData[string] optionData = null) {
         this.rule = rule;
         this.name = name;
         this.options = options;
@@ -66,7 +66,7 @@ class RuleInvoker
      * @param array<string, mixed> options The options to set.
      * @return this
      */
-    function setOptions(STRINGAA someOptions) {
+    function setOptions(IData[string] optionData) {
         this.options = options + this.options;
 
         return this;

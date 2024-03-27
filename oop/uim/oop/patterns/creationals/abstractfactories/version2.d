@@ -269,7 +269,7 @@ interface Cheese
 }
 
 // сыр реджано
-class ReggianoCheese : Cheese
+class DReggianoCheese : Cheese
 {
 	
 	this()

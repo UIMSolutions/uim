@@ -7,7 +7,7 @@ interface IDrawAPI {
   void drawCircle(int radius, int x, int y);
 }
 
-class RedCircle : IDrawAPI {
+class DRedCircle : IDrawAPI {
   override void drawCircle(int radius, int x, int y) {
       writeln("Drawing Circle[ color: red, radius: ", radius, ", x: ", x, ", ", y, "]");
   }

@@ -250,7 +250,7 @@ public:
 			commands[i].undo(); }}
 }
 
-public class RemoteControlWithUndo {
+public class DRemoteControlWithUndo {
 private:
 	IXCommand[] onCommands, offCommands;
 	IXCommand undoCommand;

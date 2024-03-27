@@ -46,7 +46,7 @@ abstract class DBurger : Item {
 	override abstract float price();
 }
 
- class VegBurger : Burger {
+ class DVegBurger : Burger {
   override float price() {
     return 25.0f;
   }

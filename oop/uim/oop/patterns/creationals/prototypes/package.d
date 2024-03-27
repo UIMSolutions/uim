@@ -43,7 +43,7 @@ interface ICloneable {}
 }
 
 /// Create concrete classes extending the above class.
-class Rectangle : Shape {
+class DRectangle : Shape {
 
   this() {
     type = "Rectangle";

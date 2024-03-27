@@ -36,7 +36,7 @@ class DRobot {
   @property void name(string newName) { _name = newName; }
 }
 
-class RobotView {
+class DRobotView {
   void printRobotDetails(string RobotName, string RobotId) {
     writeln("Robot: ");
     writeln("Name: ", RobotName);
@@ -44,7 +44,7 @@ class RobotView {
   }
 }
 
-class RobotController {
+class DRobotController {
   private DRobot _model;
   private RobotView _view;
 

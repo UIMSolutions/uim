@@ -16,7 +16,7 @@ abstract class DAbstractCustomer {
 }
 
 /// Create concrete classes extending the above class.
-class RealCustomer : AbstractCustomer {
+class DRealCustomer : AbstractCustomer {
   this(string name) {
     _name = name;	}
   

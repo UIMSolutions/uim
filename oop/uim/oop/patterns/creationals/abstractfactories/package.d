@@ -14,7 +14,7 @@ interface IShape {
 }
 
 /// Class for Rectangle Shape
-class Rectangle : IShape {
+class DRectangle : IShape {
    override void draw() {
       writeln("Inside Rectangle::draw() method.");
    }
@@ -28,14 +28,14 @@ class DSquare : IShape {
 }
 
 /// Class for RoundedRectangle Shape
-class RoundedRectangle : IShape {
+class DRoundedRectangle : IShape {
    override void draw() {
       writeln("Inside RoundedRectangle::draw() method.");
    }
 }
 
 /// Class for RoundedSquare Shape
-class RoundedSquare : IShape {
+class DRoundedSquare : IShape {
   override void draw() {
     writeln("Inside RoundedSquare::draw() method.");
   }
@@ -58,7 +58,7 @@ class DShapeFactory : AbstractFactory {
    }
 }
 
-class RoundedShapeFactory : AbstractFactory {	
+class DRoundedShapeFactory : AbstractFactory {	
    //use createShape method to get object of type shape 
    override IShape createShape(string shapeType) {
       switch(shapeType.toLower) {

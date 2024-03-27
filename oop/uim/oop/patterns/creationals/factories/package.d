@@ -14,7 +14,7 @@ interface IShape {
 }
 
 /// Class for Rectangle Shape
-class Rectangle : IShape {
+class DRectangle : IShape {
    override void draw() {
       writeln("Inside Rectangle::draw() method.");
    }

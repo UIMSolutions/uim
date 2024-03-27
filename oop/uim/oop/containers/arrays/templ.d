@@ -185,7 +185,7 @@ class DArrayTempl(T) : DArrayObj {
 	}
 
 	O dup(this O)() {
-		auto result = new O();
+		auto result = new DO();
 		result.sorted = sorted;
 		result.uniqued = uniqued;
 		result.items = items;

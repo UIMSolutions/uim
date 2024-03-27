@@ -21,7 +21,7 @@ class DSchemaLoader {
     protected ConnectionHelper helper;
 
     this() {
-        this.helper = new ConnectionHelper();
+        this.helper = new DConnectionHelper();
     }
     
     /**

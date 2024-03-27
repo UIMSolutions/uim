@@ -20,7 +20,7 @@ template PHPUnitConsecutiveTemplate {
         mockedMethodCall = 0;
         aCallbackCall = 0;
         foreach (argumentList as  anIndex: argument) {
-            yield new Callback(
+            yield new DCallback(
                 static auto (IData actualArgument) use (
                     argumentList,
                     &mockedMethodCall,

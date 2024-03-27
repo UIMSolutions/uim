@@ -37,7 +37,7 @@ class Xml {
      * ```
      * use UIM\Http\Client;
      *
-     * myhttp = new Client();
+     * myhttp = new DClient();
      * myresponse = myhttp.get("http://example.com/example.xml");
      * myxml = Xml.build(myresponse.body());
      * ```

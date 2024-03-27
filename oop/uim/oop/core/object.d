@@ -78,7 +78,7 @@ class Obj {
 
 	override string toString() { return ""; }
 }
-auto OBJ() { return new Obj; }
+auto OBJ() { return new DObj; }
 
 /* auto toJson(PropertyObj[string] keyPairs) {
 	auto result = Json.emptyObject;

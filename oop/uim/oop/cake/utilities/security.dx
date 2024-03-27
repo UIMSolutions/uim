@@ -122,7 +122,7 @@ class DSecurity {
             return my_instance;
         }
         if (extension_loaded("openssl")) {
-            return my_instance = new OpenSsl();
+            return my_instance = new DOpenSsl();
         }
         throw new DInvalidArgumentException(
             "No compatible crypto engine available. " .

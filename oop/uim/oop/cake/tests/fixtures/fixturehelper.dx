@@ -98,7 +98,7 @@ class DFixtureHelper {
                 if (sortedFixtures) {
                     this.insertConnection(aConnection, sortedFixtures);
                 } else {
-                    helper = new ConnectionHelper();
+                    helper = new DConnectionHelper();
                     helper.runWithoutConstraints(
                         aConnection,
                         fn (Connection aConnection): this.insertConnection(aConnection,  anGroupFixtures)
@@ -142,7 +142,7 @@ class DFixtureHelper {
                 if (sortedFixtures !isNull) {
                     this.truncateConnection(aConnection, array_reverse(sortedFixtures));
                 } else {
-                    helper = new ConnectionHelper();
+                    helper = new DConnectionHelper();
                     helper.runWithoutConstraints(
                         aConnection,
                         fn (Connection aConnection): this.truncateConnection(aConnection,  anGroupFixtures)

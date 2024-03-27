@@ -217,7 +217,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     hasVersions = true;
 
     UUID user;
-    /* auto result = new O(toJson);
+    /* auto result = new DO(toJson);
     result.versionNumber = result.versionNumber + 1;
     result.versionDescription = description;
     result.versionOn(now);
@@ -231,7 +231,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
 
     if (model) {
       foreach(json; model.jsons([id])) {
-        results ~= (new O(model)).fromJson(json);
+        results ~= (new DO(model)).fromJson(json);
       }
     }
 

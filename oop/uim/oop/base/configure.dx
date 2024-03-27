@@ -198,7 +198,7 @@ static Json consume(string avar) {
      * To add a new engine to Configure:
      *
      * ```
-     * Configure.config("ini", new IniConfig());
+     * Configure.config("ini", new DIniConfig());
      * ```
      * Params:
      * string aName The name of the engine being configured. This alias is used later to

@@ -522,7 +522,7 @@ template IntegrationTestTemplate {
             someData["_Token"]["debug"] = "FormProtector debug data would be added here";
         }
         if (_csrfToken == true) {
-            auto middleware = new CsrfProtectionMiddleware();
+            auto middleware = new DCsrfProtectionMiddleware();
             if (!isSet(_cookie[_csrfKeyName]) && !isSet(_session[_csrfKeyName])) {
                 token = middleware.createToken();
             } else if (isSet(_cookie[_csrfKeyName])) {
@@ -785,7 +785,7 @@ template IntegrationTestTemplate {
      */
     void assertContentType(string atype, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(type, new ContentType(_response), verboseMessage);
+        this.assertThat(type, new DContentType(_response), verboseMessage);
     }
     
     /**
@@ -1007,8 +1007,8 @@ template IntegrationTestTemplate {
      */
     void assertCookie(IData expected, string aName, string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(name, new CookieSet(_response), verboseMessage);
-        this.assertThat(expected, new CookieEquals(_response, name), verboseMessage);
+        this.assertThat(name, new DCookieSet(_response), verboseMessage);
+        this.assertThat(expected, new DCookieEquals(_response, name), verboseMessage);
     }
     
     /**
@@ -1022,7 +1022,7 @@ template IntegrationTestTemplate {
      */
     void assertCookieIsSet(string aName, string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(name, new CookieSet(_response), verboseMessage);
+        this.assertThat(name, new DCookieSet(_response), verboseMessage);
     }
     
     /**
@@ -1033,7 +1033,7 @@ template IntegrationTestTemplate {
      */
     void assertCookieNotSet(string acookie, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(cookie, new CookieNotSet(_response), verboseMessage);
+        this.assertThat(cookie, new DCookieNotSet(_response), verboseMessage);
     }
     
     /**
@@ -1069,12 +1069,12 @@ template IntegrationTestTemplate {
         string amessage = null
     ) {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(name, new CookieSet(_response), verboseMessage);
+        this.assertThat(name, new DCookieSet(_response), verboseMessage);
 
        _cookieEncryptionKey = aKey;
         this.assertThat(
             expected,
-            new CookieEncryptedEquals(_response, name, encrypt, _getCookieEncryptionKey())
+            new DCookieEncryptedEquals(_response, name, encrypt, _getCookieEncryptionKey())
         );
     }
     

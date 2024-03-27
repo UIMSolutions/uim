@@ -88,7 +88,7 @@ class HasOne : DAssociation {
     }
  
     Closure eagerLoader(IData[string] options = null) {
-        auto selectLoader = new SelectLoader([
+        auto selectLoader = new DSelectLoader([
             "alias": this.aliasName(),
             "sourceAlias": this.getSource().aliasName(),
             "targetAlias": this.getTarget().aliasName(),

@@ -172,7 +172,7 @@ class Filesystem {
      * string mysource Source path.
      */
    bool copyDir(string mysource, string destinationPath) {
-        auto destPath = (new SplFileInfo(destinationPath)).getPathname();
+        auto destPath = (new DSplFileInfo(destinationPath)).getPathname();
 
         if (!isDir(destPath)) {
             this.mkdir(destPath);

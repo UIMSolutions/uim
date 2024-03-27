@@ -31,7 +31,7 @@ public:
 
 version(test_uim_oop) { unittest {
     FirstStrategy first = new FirstStrategy();
-    SecondStrategy second = new SecondStrategy();
+    SecondStrategy second = new DSecondStrategy();
 
     first.execute();
     second.execute();

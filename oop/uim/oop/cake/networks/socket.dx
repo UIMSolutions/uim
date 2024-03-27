@@ -112,10 +112,10 @@ class DSocket {
 
         if (this.connection.isNull && (!errNum || !errStr)) {
             this.setLastError(errNum, errStr);
-            throw new SocketException(errStr, errNum);
+            throw new DSocketException(errStr, errNum);
         }
         if (this.connection.isNull && _connectionErrors) {
-            throw new SocketException(
+            throw new DSocketException(
                 _connectionErrors.join("\n"),
                 E_WARNING
             );
@@ -426,7 +426,7 @@ class DSocket {
                 enableCryptoResult = stream_socket_enable_crypto(this.connection, enable, method);
             } catch (Exception anException) {
                 this.setLastError(null, anException.getMessage());
-                throw new SocketException(anException.getMessage(), null, anException);
+                throw new DSocketException(anException.getMessage(), null, anException);
             }
             if (enableCryptoResult == true) {
                 this.encrypted = enable;
@@ -435,7 +435,7 @@ class DSocket {
             }
             errorMessage = "Unable to perform enableCrypto operation on the current socket";
             this.setLastError(null, errorMessage);
-            throw new SocketException(errorMessage);
+            throw new DSocketException(errorMessage);
         }
     
     <<  <<  <<  < HEAD /**

@@ -81,7 +81,7 @@ class MiddlewareDispatcher {
     
     // Run a request and get the response.
     IResponse execute(IData[string] requestSpec) {
-        auto newServer = new Server(_app);
+        auto newServer = new DServer(_app);
 
         return newServer.run(_createRequest(requestSpec));
     }

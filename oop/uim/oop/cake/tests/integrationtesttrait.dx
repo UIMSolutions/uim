@@ -613,23 +613,23 @@ template IntegrationTestTemplate {
     // Asserts that the response status code is in the 2xx range.
     void assertResponseOk(string failureMessage= null) {
         auto verboseMessage = this.extractVerboseMessage(failureMessage);
-        this.assertThat(null, new StatusOk(_response), verboseMessage);
+        this.assertThat(null, new DStatusOk(_response), verboseMessage);
     }
     
     // Asserts that the response status code is in the 2xx/3xx range.
     void assertResponseSuccess(string failureMessage = null) {
         auto verboseMessage = this.extractVerboseMessage(failureMessage);
-        this.assertThat(null, new StatusSuccess(_response), verboseMessage);
+        this.assertThat(null, new DStatusSuccess(_response), verboseMessage);
     }
     
     // Asserts that the response status code is in the 4xx range.
     void assertResponseError(string failureMessage = null) {
-        this.assertThat(null, new StatusError(_response), failureMessage);
+        this.assertThat(null, new DStatusError(_response), failureMessage);
     }
     
     // Asserts that the response status code is in the 5xx range.
     void assertResponseFailure(string failureMessage= null) {
-        this.assertThat(null, new StatusFailure(_response), failureMessage);
+        this.assertThat(null, new DStatusFailure(_response), failureMessage);
     }
     
     /**
@@ -639,7 +639,7 @@ template IntegrationTestTemplate {
      * @param string amessage Custom message for failure.
      */
     void assertResponseCode(int statusCode, string failureMessage = null) {
-        this.assertThat(statusCode, new StatusCode(_response), failureMessage);
+        this.assertThat(statusCode, new DStatusCode(_response), failureMessage);
     }
     
     /**
@@ -911,7 +911,7 @@ template IntegrationTestTemplate {
      */
     void assertSession(IData expected, string aPath, string message = "") {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(expected, new SessionEquals(somePath), verboseMessage);
+        this.assertThat(expected, new DSessionEquals(somePath), verboseMessage);
     }
     
     /**
@@ -922,7 +922,7 @@ template IntegrationTestTemplate {
      */
     void assertSessionHasKey(string aPath, string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(somePath, new SessionHasKey(somePath), verboseMessage);
+        this.assertThat(somePath, new DSessionHasKey(somePath), verboseMessage);
     }
     
     /**
@@ -933,7 +933,7 @@ template IntegrationTestTemplate {
      */
     void assertSessionNotHasKey(string aPath, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(somePath, this.logicalNot(new SessionHasKey(somePath)), verboseMessage);
+        this.assertThat(somePath, this.logicalNot(new DSessionHasKey(somePath)), verboseMessage);
     }
     
     /**

@@ -596,7 +596,7 @@ class DHasManyAssociation : DAssociation {
 
 
     Closure eagerLoader(IData[string] options) {
-        loader = new SelectLoader([
+        loader = new DSelectLoader([
             "alias":this.aliasName(),
             "sourceAlias":this.getSource().aliasName(),
             "targetAlias":this.getTarget().aliasName(),

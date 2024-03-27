@@ -541,7 +541,7 @@ class HasMany : DAssociation {
  
     auto eagerLoader(IData[string] options = null): Closure
     {
-        loader = new SelectLoader([
+        loader = new DSelectLoader([
             "alias": this.aliasName(),
             "sourceAlias": this.getSource().aliasName(),
             "targetAlias": this.getTarget().aliasName(),

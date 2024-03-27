@@ -416,7 +416,7 @@ class DBelongsToMany : DAssociation {
     auto eagerLoader(IData[string] options = null): Closure
     {
         name = _junctionAssociationName();
-        loader = new SelectWithPivotLoader([
+        loader = new DSelectWithPivotLoader([
             "alias": this.aliasName(),
             "sourceAlias": this.getSource().aliasName(),
             "targetAlias": this.getTarget().aliasName(),
@@ -763,7 +763,7 @@ class DBelongsToMany : DAssociation {
             return true;
         }
         /** @var \SplObjectStorage<\UIM\Datasource\IEntity, null> storage */
-        storage = new SplObjectStorage();
+        storage = new DSplObjectStorage();
         targetEntities.each!(exception => storage.attach(exception));
 
         foreach (existing as myKey:  anException) {

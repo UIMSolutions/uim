@@ -99,7 +99,7 @@ class DHasOneAssociation : DAssociation {
 
     function eagerLoader(IData[string] optionData): Closure
     {
-        loader = new SelectLoader([
+        loader = new DSelectLoader([
             "alias": this.aliasName(),
             "sourceAlias": this.getSource().aliasName(),
             "targetAlias": this.getTarget().aliasName(),

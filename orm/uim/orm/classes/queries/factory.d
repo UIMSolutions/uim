@@ -9,7 +9,7 @@ class QueryFactory {
     /* 
     // Create a new Query instance.
     SelectQuery select(Table tableForQuery) {
-        return new SelectQuery(tableForQuery);
+        return new DSelectQuery(tableForQuery);
     }
     
     // Create a new DInsertQuery instance.

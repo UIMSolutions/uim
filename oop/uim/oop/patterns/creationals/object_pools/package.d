@@ -83,7 +83,7 @@ class DConnectionPool : ObjectPool!Connection {
   }
 
   override protected Connection create() {
-    return new Connection;
+    return new DConnection;
   }
 
   override void expire(Connection connection) {
@@ -107,7 +107,7 @@ class DConnectionPool : ObjectPool!Connection {
 
 version(test_uim_oop) { unittest {
     // Create the ConnectionPool:
-    ConnectionPool pool = new ConnectionPool(
+    ConnectionPool pool = new DConnectionPool(
       "org.hsqldb.jdbcDriver", "jdbc:hsqldb://localhost/mydb",
       "sa", "secret");
 

@@ -113,13 +113,13 @@ class MealBuilder {
   Meal prepareVegMeal () {
     Meal meal = new Meal();
     meal.addItem(new VegBurger());
-    meal.addItem(new Coke());
+    meal.addItem(new DCoke());
     return meal;
   }   
 
   Meal prepareNonVegMeal () {
     Meal meal = new Meal();
-    meal.addItem(new ChickenBurger());
+    meal.addItem(new DChickenBurger());
     meal.addItem(new Pepsi());
     return meal;
   }

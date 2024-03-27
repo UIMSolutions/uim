@@ -43,7 +43,7 @@ class DShapeFactory {
          return null;
       }		
       if(shapeType.toLower == "CIRCLE".toLower) {
-         return new Circle();
+         return new DCircle();
          
       } else if(shapeType.toLower == "RECTANGLE".toLower) {
          return new Rectangle();

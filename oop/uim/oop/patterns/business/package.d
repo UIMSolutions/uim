@@ -73,7 +73,7 @@ version (test_uim_oop) {
     BusinessDelegate businessDelegate = new BusinessDelegate();
     businessDelegate.setServiceType("EJB");
 
-    Client client = new Client(businessDelegate);
+    Client client = new DClient(businessDelegate);
     client.doTask();
 
     businessDelegate.setServiceType("JMS");

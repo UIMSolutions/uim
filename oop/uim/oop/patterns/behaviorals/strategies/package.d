@@ -47,13 +47,13 @@ class DContext {
 
 /// Use the Context to see change in behaviour when it changes its Strategy.
 version(test_uim_oop) { unittest {
-    Context context = new Context(new OperationAdd());		
+    Context context = new DContext(new DOperationAdd());		
     writeln("10 + 5 = ", context.executeStrategy(10, 5));
 
-    context = new Context(new OperationSubstract());		
+    context = new DContext(new DOperationSubstract());		
     writeln("10 - 5 = ", context.executeStrategy(10, 5));
 
-    context = new Context(new OperationMultiply());		
+    context = new DContext(new DOperationMultiply());		
     writeln("10 * 5 = ", context.executeStrategy(10, 5));
   }
 }

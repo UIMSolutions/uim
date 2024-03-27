@@ -89,7 +89,7 @@ class DShapeCache {
   // for example, we are adding three shapes
   
   static void loadCache() {
-    Circle circle = new Circle();
+    Circle circle = new DCircle();
     circle.setId("1");
     shapeMap[circle.getId()] = circle;
 

@@ -38,7 +38,7 @@ class DComputer : IComputerPart {
   this() {
     parts ~= new Mouse();
     parts ~= new Keyboard();
-    parts ~= new ComputerPartMonitor(); 		
+    parts ~= new DComputerPartMonitor(); 		
   } 
 
 
@@ -79,7 +79,7 @@ class DComputerPartDisplayVisitor : IComputerPartVisitor {
 
 /// Use the ComputerPartDisplayVisitor to display parts of Computer.
 version(test_uim_oop) { unittest {
-    IComputerPart computer = new Computer();
-  computer.accept(new ComputerPartDisplayVisitor());
+    IComputerPart computer = new DComputer();
+  computer.accept(new DComputerPartDisplayVisitor());
 }
 }

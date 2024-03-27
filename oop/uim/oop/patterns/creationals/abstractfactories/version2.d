@@ -167,11 +167,11 @@ public class NYPizzaStore : PizzaStore
 		switch(item)
 		{
 			case "cheese":
-				pizza = new CheesePizza(ingredientFactory);
+				pizza = new DCheesePizza(ingredientFactory);
 				pizza.setName("NY Style Cheese Pizza");
 				break;
 			case "clam":
-				pizza = new ClamPizza(ingredientFactory);
+				pizza = new DClamPizza(ingredientFactory);
 				pizza.setName("NY Style Clam Pizza");
 				break;
 			default:
@@ -189,16 +189,16 @@ public class DChicagoPizzaStore : PizzaStore
 	override protected Pizza createPizza(string item)
 	{
 		Pizza pizza = null;
-		PizzaIngredientFactory ingredientFactory = new ChicagoPizzaIngredientFactory(); 
+		PizzaIngredientFactory ingredientFactory = new DChicagoPizzaIngredientFactory(); 
 
 		switch(item)
 		{
 			case "cheese":
-				pizza = new CheesePizza(ingredientFactory);
+				pizza = new DCheesePizza(ingredientFactory);
 				pizza.setName("Chicago Style Cheese Pizza");
 				break;
 			case "clam":
-				pizza = new ClamPizza(ingredientFactory);
+				pizza = new DClamPizza(ingredientFactory);
 				pizza.setName("Chicago Style Clam Pizza");
 				break;
 			default:
@@ -318,7 +318,7 @@ class FreezeClam : Clam
 version(test_uim_oop) { unittest {	
     writeln("--- Abstract Factory test ---");
     PizzaStore nyStore = new NYPizzaStore();
-    PizzaStore chicagoStore = new ChicagoPizzaStore();
+    PizzaStore chicagoStore = new DChicagoPizzaStore();
 
     Pizza pizza = nyStore.orderPizza("cheese");
     writeln();

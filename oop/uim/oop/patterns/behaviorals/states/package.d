@@ -49,7 +49,7 @@ class DContext {
 version(test_uim_oop) { unittest {
     writeln("\nStatePatternDemo");
     
-    auto context = new Context();
+    auto context = new DContext();
 
     auto startState = new StartState();
     startState.doAction(context);

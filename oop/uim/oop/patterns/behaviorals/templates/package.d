@@ -65,7 +65,7 @@ import uim.oop;
 version(test_uim_models) { unittest {
       writeln("TemplatePatternDemo");
 
-      Game game = new Cricket();
+      Game game = new DCricket();
       game.play();
       writeln();
       game = new Football();

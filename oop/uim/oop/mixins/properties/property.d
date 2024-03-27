@@ -125,7 +125,7 @@ template OProperty(string dataType, string propertyName, string defaultValue = n
 	~getFkt~setFkt;
 }	
 version(test_uim_oop) { unittest {
-	class Test {mixin(OProperty!("string", "name", "`someThing`"));}
+	class DTest {mixin(OProperty!("string", "name", "`someThing`"));}
 	assert((new Test).name == "someThing");
 	assert((new Test).name("test").name == "test");
 	assert((new Test).name("test").name("test2").name == "test2");

@@ -12,7 +12,7 @@ import uim.views;
  * @link https://book.UIM.org/5/en/views/helpers/time.html
  * @see \UIM\I18n\Time
  */
-class TimeHelper : Helper {
+class DTimeHelper : Helper {
     mixin(HelperThis!("Time"));
     
     use StringTemplateTrait;

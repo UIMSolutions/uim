@@ -88,7 +88,7 @@ class HelperRegistry { // }: ObjectRegistry : IEventDispatcher {
      * Part of the template method for UIM\Core\ObjectRegistry.load()
      * and UIM\Core\ObjectRegistry.unload()
      * Params:
-     * string myclass The classname that is missing.
+     * string myclass DThe classname that is missing.
      * @param string|null myplugin The plugin the helper is missing in.
      * /
     protected void _throwMissingClassError(string myclass, string myplugin) {
@@ -104,7 +104,7 @@ class HelperRegistry { // }: ObjectRegistry : IEventDispatcher {
      * Part of the template method for UIM\Core\ObjectRegistry.load()
      * Enabled helpers will be registered with the event manager.
      * Params:
-     * \UIM\View\Helper|class-string<\UIM\View\Helper> myclass The class to create.
+     * \UIM\View\Helper|class-string<\UIM\View\Helper> myclass DThe class to create.
      * @param string myalias The alias of the loaded helper.
      * @param IData[string] configData An array of settings to use for the helper.
      * /

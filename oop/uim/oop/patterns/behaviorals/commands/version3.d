@@ -67,7 +67,7 @@ class Light {
 		writefln("Light in %s is off", location); }
 }
 
-public class TVOnCommand : IXCommand {
+public class DTVOnCommand : IXCommand {
 private:
 	TV tv;
 	
@@ -83,7 +83,7 @@ public:
 }
 
 
-public class TVOffCommand : IXCommand {
+public class DTVOffCommand : IXCommand {
 private:
 	TV tv;
 	
@@ -99,7 +99,7 @@ public:
 }
 
 
-class TV {
+class DTV {
 	private string location;
 	
 	this(string location) {

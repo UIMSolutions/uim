@@ -99,7 +99,7 @@ import uim.orm;
  * @link https://book.UIM.org/5/en/orm/table-objects.html#event-list
  * @implements \UIM\Event\IEventDispatcher<\UIM\ORM\Table>
  */
-class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
+class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\ORM\Table>
      */

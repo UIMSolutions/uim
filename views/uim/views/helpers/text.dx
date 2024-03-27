@@ -19,7 +19,7 @@ import uim.views;
  * @link https://book.UIM.org/5/en/views/helpers/text.html
  * @see \UIM\Utility\Text
  */
-class TextHelper : Helper {
+class DTextHelper : Helper {
     // helpers
     protected array myhelpers = ["Html"];
 

@@ -13,7 +13,7 @@ import uim.errors;
  *
  * Useful in CLI environments.
  */
-class TextErrorRenderer { // }: IErrorRenderer {
+class DTextErrorRenderer { // }: IErrorRenderer {
   /*
   void write(string outText) {
     writeln(outText);

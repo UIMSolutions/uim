@@ -9,7 +9,7 @@ import uim.oop;
  * A class to contain and retain the session during integration testing.
  * Read only access to the session during testing.
  */
-class TestSession {
+class DTestSession {
     /**
      * @var array|null
      */

@@ -9,7 +9,7 @@ import uim.oop;
 @safe:
 
 /// Create an abstract logger class.
-abstract class AbstractLogger {
+abstract class DAbstractLogger {
   static int INFO = 1;
   static int DEBUG = 2;
   static int ERROR = 3;

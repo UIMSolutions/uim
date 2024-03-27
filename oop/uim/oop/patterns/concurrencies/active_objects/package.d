@@ -36,7 +36,7 @@ class MyClass {
 
 /* The class is dangerous in a multithreading scenario because both methods can be called simultaneously, so the value of val (which is not atomic—it's updated in multiple steps) could be undefined—a classic race condition. You can, of course, use synchronization to solve this problem, which in this trivial case is easy. But once the class becomes realistically complex, synchronization can become very difficult. [5]
 
-To rewrite this class as an active object, you could do the following:
+To rewrite this class DAs an active object, you could do the following:
 
 class MyActiveObject {
 

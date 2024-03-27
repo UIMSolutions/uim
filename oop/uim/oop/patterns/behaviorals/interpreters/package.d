@@ -39,7 +39,7 @@ class OrExpression : Expression {
    }
 }
 
-class AndExpression : Expression {
+class DAndExpression : Expression {
    private Expression _expr1 = null;
    private Expression _expr2 = null;
 

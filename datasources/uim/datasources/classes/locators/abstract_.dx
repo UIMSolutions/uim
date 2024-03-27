@@ -5,7 +5,7 @@ import uim.datasources;
 @safe:
 
 // Provides an abstract registry/factory for repository objects.
-abstract class AbstractLocator : ILocator {
+abstract class DAbstractLocator : ILocator {
     // Instances that belong to the registry.
     protected IRepository[string] _instances;
 

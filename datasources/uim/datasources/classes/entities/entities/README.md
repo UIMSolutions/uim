@@ -14,7 +14,7 @@ namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
 
-class Article extends Entity
+class DArticle extends Entity
 {
 }
 
@@ -131,7 +131,7 @@ namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
 
-class Article extends Entity
+class DArticle extends Entity
 {
     protected function _getTitle(title)
     {
@@ -158,7 +158,7 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 use Cake\Utility\Text;
 
-class Article extends Entity
+class DArticle extends Entity
 {
     protected function _setTitle(title)
     {
@@ -264,7 +264,7 @@ namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
 
-class Article extends Entity
+class DArticle extends Entity
 {
     protected $_accessible = [
         'title' => true,
@@ -278,7 +278,7 @@ namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
 
-class Article extends Entity
+class DArticle extends Entity
 {
     protected $_accessible = [
         'title' => true,
@@ -377,7 +377,7 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 use SoftDelete\Model\Entity\SoftDeleteTrait;
 
-class Article extends Entity
+class DArticle extends Entity
 {
     use SoftDeleteTrait;
 }

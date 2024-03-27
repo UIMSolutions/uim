@@ -9,7 +9,7 @@ import uim.oop;
 @safe:
 
 /// Create an abstract class.
-abstract class AbstractCustomer {
+abstract class DAbstractCustomer {
   protected string _name;
   abstract bool isNil();
   abstract string name();

@@ -60,7 +60,7 @@ abstract class DCompositeSpecification : ISpecification {
   }
 }
 
-class AndSpecification : CompositeSpecification {
+class DAndSpecification : CompositeSpecification {
   private ISpecification leftCondition;
   private ISpecification rightCondition;
 
@@ -74,7 +74,7 @@ class AndSpecification : CompositeSpecification {
   }
 }
 
-class AndNotSpecification : CompositeSpecification {
+class DAndNotSpecification : CompositeSpecification {
   private ISpecification leftCondition;
   private ISpecification rightCondition;
 

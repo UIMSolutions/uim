@@ -64,7 +64,7 @@ interface Document {
 }
 
 // Abstract implementation of Document interface.
-abstract class AbstractDocument : Document {
+abstract class DAbstractDocument : Document {
   private DProperty[string] properties;
 
   protected this(DProperty[string] properties) {
@@ -94,7 +94,7 @@ abstract class AbstractDocument : Document {
  * <p>In Abstract Document pattern,({@link AbstractDocument}) fully implements {@link Document})
  * interface. Traits are then defined to enable access to properties in usual, static way.
  */
- // class App {
+ // class DApp {
 
   /**
    * Program entry point.
@@ -102,7 +102,7 @@ abstract class AbstractDocument : Document {
    * /
 
 /// AbstractDocument test class
-class AbstractDocumentTest {
+class DAbstractDocumentTest {
   private static final string KEY = "key";
   private static final string VALUE = "value";
 
@@ -152,7 +152,7 @@ et(KEY));
 
 
 /// Simple App test
-class AppTest {
+class DAppTest {
   /**
    * Issue: Add at least one assertion to this test case.
    *

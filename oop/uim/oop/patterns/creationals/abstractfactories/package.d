@@ -42,7 +42,7 @@ class RoundedSquare : IShape {
 }
 
 /// Create an Abstract class to get factories for Normal and Rounded Shape Objects.
-abstract class AbstractFactory {
+abstract class DAbstractFactory {
    abstract IShape createShape(string shapeType) ;
 }
 

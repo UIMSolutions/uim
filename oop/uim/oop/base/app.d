@@ -25,7 +25,7 @@ import uim.oop;
  * Plugins can be located with App as well. Using Plugin.path("DebugKit") for example, will
  * give you the full path to the DebugKit plugin.
  * /
-class App {
+class DApp {
     /**
      * Return the class name namespaced. This method checks if the class is defined on the
      * application/plugin, otherwise try to load from the UIM core

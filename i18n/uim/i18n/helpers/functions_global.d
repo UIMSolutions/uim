@@ -68,7 +68,7 @@ if (!function_exists("__x")) {
      * The context is a unique identifier for the translations string that makes it unique
      * within the same domain.
      * Params:
-     * string acontext Context of the text.
+     * string acontext DContext of the text.
      * @param string asingular Text to translate.
      * @param IData ...someArguments Array with arguments or multiple arguments in function.
      * /
@@ -84,7 +84,7 @@ if (!function_exists("__xn")) {
      * The context is a unique identifier for the translations string that makes it unique
      * within the same domain.
      * Params:
-     * string acontext Context of the text.
+     * string acontext DContext of the text.
      * @param string asingular Singular text to translate.
      * @param string aplural Plural text.
      * @param int count Count.
@@ -102,7 +102,7 @@ if (!function_exists("__dx")) {
      * within the same domain.
      * Params:
      * string adomain Domain.
-     * @param string acontext Context of the text.
+     * @param string acontext DContext of the text.
      * @param string amsg String to translate.
      * @param IData ...someArguments Array with arguments or multiple arguments in function.
      * /
@@ -119,7 +119,7 @@ if (!function_exists("__dxn")) {
      * within the same domain.
      * Params:
      * string adomain Domain.
-     * @param string acontext Context of the text.
+     * @param string acontext DContext of the text.
      * @param string asingular Singular text to translate.
      * @param string aplural Plural text.
      * @param int count Count.

@@ -87,7 +87,7 @@ string __dn(string adomain, string asingular, string aplural, int count, IData .
  * The context is a unique identifier for the translations string that makes it unique
  * within the same domain.
  *
- * @param string acontext Context of the text.
+ * @param string acontext DContext of the text.
  * @param string asingular Text to translate.
  * @param IData ...someArguments Array with arguments or multiple arguments in function.
  * /
@@ -107,7 +107,7 @@ string __x(string acontext, string asingular, IData ...someArguments)
  * The context is a unique identifier for the translations string that makes it unique
  * within the same domain.
  *
- * @param string acontext Context of the text.
+ * @param string acontext DContext of the text.
  * @param string asingular Singular text to translate.
  * @param string aplural Plural text.
  * @param int count Count.
@@ -132,7 +132,7 @@ string __xn(string acontext, string asingular, string aplural, int count, IData 
  * within the same domain.
  *
  * @param string adomain Domain.
- * @param string acontext Context of the text.
+ * @param string acontext DContext of the text.
  * @param string amsg String to translate.
  * @param IData ...someArguments Array with arguments or multiple arguments in function.
  * /
@@ -156,7 +156,7 @@ string __dx(string adomain, string acontext, string amsg, IData ...someArguments
  * within the same domain.
  *
  * @param string adomain Domain.
- * @param string acontext Context of the text.
+ * @param string acontext DContext of the text.
  * @param string asingular Singular text to translate.
  * @param string aplural Plural text.
  * @param int count Count.

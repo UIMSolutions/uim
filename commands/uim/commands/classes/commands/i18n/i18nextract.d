@@ -194,7 +194,7 @@ class DI18nExtractCommand : DCommand {
      * Params:
      * string adomain The domain
      * @param string amsgid The message string
-     * @param array details Context and plural form if any, file and line references
+     * @param array details DContext and plural form if any, file and line references
      * /
     protected void _addTranslation(string adomain, string amsgid, array details = []) {
         context = details.get("msgctxt", "");

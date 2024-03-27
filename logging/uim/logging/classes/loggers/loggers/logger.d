@@ -77,7 +77,7 @@ abstract class Logger /* : DAbstractLogger */ {
      * Replaces placeholders in message string with context values.
      * Params:
      * \string amessage Formatted message.
-     * @param array context Context for placeholder values.
+     * @param array context DContext for placeholder values.
      * /
     protected string interpolate(string formattedMessage, array context = []) {
         if (!formattedMessage.has("{", "}")) {

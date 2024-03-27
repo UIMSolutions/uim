@@ -12,7 +12,7 @@ import uim.http;
  */
 class DStream { // }: IAdapter {
     /**
-     * Context resource used by the stream API.
+     * DContext resource used by the stream API.
      *
      * @var resource|null
      * /

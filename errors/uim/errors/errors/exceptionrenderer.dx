@@ -123,7 +123,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
             myParams = myRequest.getAttribute("params");
             myParams["controller"] = "Error";
 
-            factory = new ControllerFactory(new Container());
+            factory = new DControllerFactory(new DContainer());
             myClass = factory.getControllerClass(myRequest.withAttribute("params", myParams));
 
             if (!myClass) {
@@ -139,7 +139,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
         }
 
         if (!isset(controller)) {
-            return new Controller(myRequest);
+            return new DController(myRequest);
         }
 
         // Retry RequestHandler, as another aspect of startupProcess()

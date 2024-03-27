@@ -54,7 +54,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
         if (cast(IMiddleware)middleware) {
             return middleware;
         }
-        return new ClosureDecoratorMiddleware(middleware);
+        return new DClosureDecoratorMiddleware(middleware);
     }
     
     /**
@@ -190,7 +190,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * /
     void seek(int position) {
         if (!isSet(this.queue[position])) {
-            throw new OutOfBoundsException("Invalid seek position (%s)."
+            throw new DOutOfBoundsException("Invalid seek position (%s)."
                 .format(position));
         }
         this.position = position;
@@ -209,7 +209,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * /
     IMiddleware current() {
         if (!isSet(this.queue[this.position])) {
-            throw new OutOfBoundsException("Invalid current position (%s).".format(this.position));
+            throw new DOutOfBoundsException("Invalid current position (%s).".format(this.position));
         }
         if (cast(IMiddleware)this.queue[this.position]) {
             return this.queue[this.position];

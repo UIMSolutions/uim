@@ -35,7 +35,7 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
     bool initialize() {
         super.initialize;
 
-        aConfig["stderr"] = new ConsoleOutput("php://stderr");
+        aConfig["stderr"] = new DConsoleOutput("php://stderr");
         aConfig["log"] = false;
     }
 

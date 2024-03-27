@@ -190,7 +190,7 @@ class DApplication {
      * want to change how the container is built.
      * /
     protected IContainer buildContainer() {
-        container = new Container();
+        container = new DContainer();
         this.services(container);
         this.plugins.with("services")
             .each!(plugin => plugin.services(container));
@@ -226,7 +226,7 @@ class DApplication {
         container.add(ServerRequest.classname, request);
         container.add(IContainer.classname, container);
 
-        this.controllerFactory ??= new ControllerFactory(container);
+        this.controllerFactory ??= new DControllerFactory(container);
 
         if (Router.getRequest() != request) {
             assert(cast(ServerRequest)request);

@@ -251,7 +251,7 @@ class DStream { // }: IAdapter {
      * /
     protected void _open(string aurl, IRequest request) {
         if (!(bool)ini_get("allow_url_fopen")) {
-            throw new ClientException("The PHP directive `allow_url_fopen` must be enabled.");
+            throw new DClientException("The PHP directive `allow_url_fopen` must be enabled.");
         }
         bool set_error_handler(function (code, message) {
            _connectionErrors ~= message;

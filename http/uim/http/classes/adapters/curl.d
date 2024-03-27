@@ -16,7 +16,7 @@ class DCurl { // }: IAdapter {
     /*
     array send(IRequest request, IData[string] options = null) {
         if (!extension_loaded("curl")) {
-            throw new ClientException("curl extension is not loaded.");
+            throw new DClientException("curl extension is not loaded.");
         }
         ch = curl_initialize();
         options = this.buildOptions(request, options);

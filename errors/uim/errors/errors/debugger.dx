@@ -714,7 +714,7 @@ class DDebugger {
         if (isRef) {
             return new ReferenceNode(aClassNameName, refNum);
         }
-        node = new ClassNode(aClassNameName, refNum);
+        node = new DClassNode(aClassNameName, refNum);
 
         remaining = context.remainingDepth();
         if (remaining > 0) {

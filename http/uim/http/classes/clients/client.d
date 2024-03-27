@@ -160,7 +160,7 @@ class DClient { // }: IClient {
       _cookies = configuration["cookieJar"];
       this.setConfig("cookieJar", null);
     } else {
-      _cookies = new CookieCollection();
+      _cookies = new DCookieCollection();
     }
   }
 

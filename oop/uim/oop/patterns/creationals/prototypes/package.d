@@ -43,7 +43,7 @@ interface ICloneable {}
 }
 
 /// Create concrete classes extending the above class.
-class DRectangle : Shape {
+class DRectangle : DShape {
 
   this() {
     type = "Rectangle";
@@ -54,7 +54,7 @@ class DRectangle : Shape {
   }
 }
 
-class DSquare : Shape {
+class DSquare : DShape {
   this() {
     type = "Square";
   }
@@ -64,7 +64,7 @@ class DSquare : Shape {
   }
 }
 
-class DCircle : Shape {
+class DCircle : DShape {
 
   this() {
     type = "Circle";
@@ -77,11 +77,11 @@ class DCircle : Shape {
 
 ///Create a class to get concrete classes from database and store them in a Hashtable.
 class DShapeCache {
-  private static Shape[string] shapeMap;
+  private static DShape[string] shapeMap;
 
-  static Shape getShape(string shapeId) {
-    Shape cachedShape = shapeMap.get(shapeId, null);
-    return cast(Shape)cachedShape.clone();
+  static DShape getShape(string shapeId) {
+    DShape cachedShape = shapeMap.get(shapeId, null);
+    return cast(DShape)cachedShape.clone();
   }
 
   // for each shape run database query and create shape
@@ -89,7 +89,7 @@ class DShapeCache {
   // for example, we are adding three shapes
   
   static void loadCache() {
-    Circle circle = new DCircle();
+    DCircle circle = new DCircle();
     circle.setId("1");
     shapeMap[circle.getId()] = circle;
 
@@ -106,14 +106,14 @@ class DShapeCache {
 /// PrototypePatternDemo uses ShapeCache class to get clones of shapes stored in a Hashtable.
 version(test_uim_oop) { unittest {
   debug writeln("PrototypePatternDemo");
-  ShapeCache.loadCache();
+  DShapeCache.loadCache();
 
-  Shape clonedShape = cast(Shape) ShapeCache.getShape("1");
+  Shape clonedShape = cast(DShape) ShapeCache.getShape("1");
   writeln("Shape : ", clonedShape.getType());		
 
-  Shape clonedShape2 = cast(Shape) ShapeCache.getShape("2");
+  Shape clonedShape2 = cast(DShape) ShapeCache.getShape("2");
   writeln("Shape : ", clonedShape2.getType());		
 
-  Shape clonedShape3 = cast(Shape) ShapeCache.getShape("3");
+  Shape clonedShape3 = cast(DShape) ShapeCache.getShape("3");
   writeln("Shape : ", clonedShape3.getType());		
 }}

@@ -504,7 +504,7 @@ class DRouter {
      */
     static array reverseToArray(ServerRequest|array myparams) {
         myroute = null;
-        if (cast(ServerRequest)myparams) {
+        if (cast(DServerRequest)myparams) {
             myroute = myparams.getAttribute("route");
             assert(myroute.isNull || cast(Route)myroute);
 

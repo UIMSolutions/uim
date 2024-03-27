@@ -55,7 +55,7 @@ import uim.views;
  * ```
  */
 class DArrayContext : IContext {
-    // Context data for this object.
+    // DContext data for this object.
     protected IData[string] _contextData;
 
     this(IData[string] contextData) {

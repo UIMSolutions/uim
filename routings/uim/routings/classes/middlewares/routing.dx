@@ -47,7 +47,7 @@ class DRoutingMiddleware : IMiddleware {
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
         this.loadRoutes();
         try {
-            assert(cast(ServerRequest)serverRequest);
+            assert(cast(DServerRequest)serverRequest);
             Router.setRequest(serverRequest);
             params = (array)serverRequest.getAttribute("params", []);
             middleware = [];
@@ -62,7 +62,7 @@ class DRoutingMiddleware : IMiddleware {
                 myserverRequest = serverRequest.withAttribute("route", route);
                 myserverRequest = serverRequest.withAttribute("params", params);
 
-                assert(cast(ServerRequest)myserverRequest);
+                assert(cast(DServerRequest)myserverRequest);
                 Router.setRequest(myserverRequest);
             }
         } catch (RedirectException  anException) {

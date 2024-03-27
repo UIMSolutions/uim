@@ -434,7 +434,7 @@ class DEagerLoader {
                 .filter!(confifData => count(configData) > 1)
                 .each!((configData) {
                     foreach (configData as myloadable) {
-                        assert(cast(EagerLoadable)myloadable);
+                        assert(cast(DEagerLoadable)myloadable);
                         if (myloadable.aliasPath().has(".")) {
                         _correctStrategy(myloadable);
                         }

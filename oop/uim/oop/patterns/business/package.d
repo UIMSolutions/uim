@@ -56,9 +56,9 @@ class DBusinessDelegate {
 
 /// Create Client.
 class DClient {
-  BusinessDelegate _businessService;
+  DBusinessDelegate _businessService;
 
-  this(BusinessDelegate newBusinessService) {
+  this(DBusinessDelegate newBusinessService) {
     _businessService = newBusinessService;
   }
 
@@ -70,10 +70,10 @@ class DClient {
 /// Use BusinessDelegate and Client classes to demonstrate Business Delegate pattern.
 version (test_uim_oop) {
   unittest {
-    BusinessDelegate businessDelegate = new BusinessDelegate();
+    DBusinessDelegate businessDelegate = new DBusinessDelegate();
     businessDelegate.setServiceType("EJB");
 
-    Client client = new DClient(businessDelegate);
+    DClient client = new DClient(businessDelegate);
     client.doTask();
 
     businessDelegate.setServiceType("JMS");

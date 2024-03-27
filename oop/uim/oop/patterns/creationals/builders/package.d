@@ -46,7 +46,7 @@ abstract class DBurger : Item {
 	override abstract float price();
 }
 
- class DVegBurger : Burger {
+ class DVegBurger : DBurger {
   override float price() {
     return 25.0f;
   }
@@ -56,7 +56,7 @@ abstract class DBurger : Item {
   }
 }
 
-class DChickenBurger : Burger {
+class DChickenBurger : DBurger {
   override float price() {
     return 50.5f;
   }
@@ -66,7 +66,7 @@ class DChickenBurger : Burger {
   }
 }
 
-class DCoke : ColdDrink {
+class DCoke : DColdDrink {
   override float price() {
     return 30.0f;
   }
@@ -76,7 +76,7 @@ class DCoke : ColdDrink {
   }
 }
 
- class Pepsi : ColdDrink {
+ class DPepsi : DColdDrink {
 
    override  float price() {
       return 35.0f;
@@ -109,16 +109,16 @@ class DCoke : ColdDrink {
   }	
 }
 
-class MealBuilder {
-  Meal prepareVegMeal () {
-    Meal meal = new Meal();
+class DMealBuilder {
+  DMeal prepareVegMeal () {
+    DMeal meal = new Meal();
     meal.addItem(new VegBurger());
     meal.addItem(new DCoke());
     return meal;
   }   
 
-  Meal prepareNonVegMeal () {
-    Meal meal = new Meal();
+  DMeal prepareNonVegMeal () {
+    DMeal meal = new Meal();
     meal.addItem(new DChickenBurger());
     meal.addItem(new DPepsi());
     return meal;

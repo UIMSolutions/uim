@@ -102,7 +102,7 @@ class DSelectLoader {
         options["fields"] ??= [];
 
         aQuery = finder();
-        assert(cast(SelectQuery)aQuery);
+        assert(cast(DSelectQuery)aQuery);
         if (isSet(options["finder"])) {
             [finderName, opts] = _extractFinder(options["finder"]);
             aQuery = aQuery.find(finderName, ...opts);

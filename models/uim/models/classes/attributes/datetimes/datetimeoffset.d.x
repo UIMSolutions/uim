@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 class DDatetimeOffsetAttribute : DDatetimeAttribute {
-  mixin(AttributeThis!("DatetimeOffsetAttribute"));
+  mixin(AttributeThis!("DatetimeOffset"));
 
   // Initialization hook method.
   override bool initialize(IData[string] initData = null) {
@@ -26,7 +26,7 @@ class DDatetimeOffsetAttribute : DDatetimeAttribute {
       return true; 
   }
 }
-mixin(AttributeCalls!"DatetimeOffsetAttribute");
+mixin(AttributeCalls!"DatetimeOffset");
 
 version(test_uim_models) { unittest {
     testAttribute(new DDatetimeOffsetAttribute);

@@ -35,7 +35,7 @@ class ScalarNode : INode {
     /**
      * Get the value
      */
-    Json getValue() {
+    IData getValue() {
         return this.value;
     }
  

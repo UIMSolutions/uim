@@ -17,5 +17,5 @@ interface IFormatter {
      * contentsToWrap = The contents to wrap and return
      * contentLocation = The file and line the contents came from.
      *************************************************************************/
-    // TODO string formatWrapper(string contentsToWrap, Json contentLocation);
+    // TODO string formatWrapper(string contentsToWrap, IData contentLocation);
 }

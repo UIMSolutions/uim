@@ -25,7 +25,7 @@ class ConsoleErrorHandler { // } : DERRErrorHandler {
      *
      * @param array<string, mixed> aConfig Config options for the error handler.
      * /
-    this(Json aConfig = null) {
+    this(IData aConfig = null) {
         super();
 
         this.setConfig(aConfig);

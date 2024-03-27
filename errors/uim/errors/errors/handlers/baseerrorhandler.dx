@@ -28,7 +28,7 @@ abstract class DERRErrorHandler {
     }
 
     bool initialize() {}
-      _defaultConfig = Json.emptyObject;
+      _defaultConfig = IData.emptyObject;
       _defaultConfig["log"] = true;
       _defaultConfig["trace"] = false;
       _defaultConfig["skipLog"] = Jso.emptyArray;
@@ -36,7 +36,7 @@ abstract class DERRErrorHandler {
     }
 
     // Options to use for the Error handling.
-    protected JSON _defaultConfig;
+    protected IData _defaultConfig;
 
     protected bool _handled = false;
 

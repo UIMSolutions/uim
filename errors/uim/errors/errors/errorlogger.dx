@@ -54,7 +54,7 @@ mixin TConfigurable!();
      *
      * @param array<string, mixed> aConfig Config array.
      * /
-    this(Json aConfig = null) {
+    this(IData aConfig = null) {
         this.setConfig(aConfig);
     }
 

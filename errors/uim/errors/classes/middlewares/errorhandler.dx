@@ -42,7 +42,7 @@ class ErrorHandlerMiddleware : IMiddleware {
      * or config array.
      * @param \UIM\Routing\IRoutingApplication|null app Application instance.
      */
-    this(ExceptionTrap|IData[string] configData = Json(null), ?IRoutingApplication app = null) {
+    this(ExceptionTrap|IData[string] configData = IData(null), ?IRoutingApplication app = null) {
         this.app = app;
 
         if (Configure.read("debug")) {

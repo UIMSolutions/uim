@@ -11,7 +11,7 @@ import uim.oop;
 interface ICloneable {}
 
 /// Create an abstract class implementing Clonable interface.  
- abstract class Shape : ICloneable {
+ abstract class DShape : ICloneable {
    
   private string id;
   protected string type;
@@ -54,7 +54,7 @@ class Rectangle : Shape {
   }
 }
 
-class Square : Shape {
+class DSquare : Shape {
   this() {
     type = "Square";
   }
@@ -76,7 +76,7 @@ class DCircle : Shape {
 }
 
 ///Create a class to get concrete classes from database and store them in a Hashtable.
-class ShapeCache {
+class DShapeCache {
   private static Shape[string] shapeMap;
 
   static Shape getShape(string shapeId) {

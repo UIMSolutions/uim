@@ -28,7 +28,7 @@ import uim.oop;
 }
 
 /// Create abstract decorator class implementing the Shape interface.
- abstract class ShapeDecorator : Shape {
+ abstract class DShapeDecorator : Shape {
    protected Shape decoratedShape;
 
     this(Shape decoratedShape) {

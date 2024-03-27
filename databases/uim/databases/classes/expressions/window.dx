@@ -8,7 +8,7 @@ import uim.databases;
 /**
  * This represents a SQL window expression used by aggregate and window functions.
  */
-class WindowExpression : IExpression, WindowInterface {
+class DWindowExpression : IExpression, WindowInterface {
     protected IdentifierExpression  myname;
 
     protected IExpression mypartitions = [];

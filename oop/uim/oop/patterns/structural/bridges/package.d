@@ -19,7 +19,7 @@ class GreenCircle : IDrawAPI {
    }
 }
 
-abstract class Shape {
+abstract class DShape {
   protected IDrawAPI _drawAPI;
    
   protected this(IDrawAPI drawAPI) {

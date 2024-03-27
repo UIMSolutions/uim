@@ -14,7 +14,7 @@ static this() {
 }
 
 /// Create a Singleton Class.
-class SingleObject {
+class DSingleObject {
 
   //create an object of SingleObject
 

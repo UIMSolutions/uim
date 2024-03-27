@@ -14,7 +14,7 @@ interface IBusinessService {
 }
 
 /// Create concrete Service classes.
-class EJBService : IBusinessService {
+class DEJBService : IBusinessService {
   override void doProcessing() {
     writeln("Processing task by invoking EJB Service");
   }

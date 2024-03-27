@@ -18,7 +18,7 @@ interface Packing {
   string pack();
 }
 
-class Wrapper : Packing {
+class DWrapper : Packing {
   override string pack() {
     return "Wrapper";
   }

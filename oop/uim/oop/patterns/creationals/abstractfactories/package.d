@@ -21,7 +21,7 @@ class Rectangle : IShape {
 }
 
 /// Class for Square Shape
-class Square : IShape {
+class DSquare : IShape {
   override void draw() {
     writeln("Inside Square::draw() method.");
   }
@@ -47,7 +47,7 @@ abstract class DAbstractFactory {
 }
 
 /// Create a Factory to generate object of concrete class based on given information.
-class ShapeFactory : AbstractFactory {	
+class DShapeFactory : AbstractFactory {	
    //use createShape method to get object of type shape 
    override IShape createShape(string shapeType) {
       switch(shapeType.toLower) {

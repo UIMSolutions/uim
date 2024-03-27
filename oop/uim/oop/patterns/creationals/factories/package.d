@@ -21,7 +21,7 @@ class Rectangle : IShape {
 }
 
 /// Class for Square Shape
-class Square : IShape {
+class DSquare : IShape {
   override void draw() {
     writeln("Inside Square::draw() method.");
   }
@@ -36,7 +36,7 @@ class DCircle : IShape {
 
 
 /// Create a Factory to generate object of concrete class based on given information.
-class ShapeFactory {	
+class DShapeFactory {	
    //use createShape method to get object of type shape 
    IShape createShape(string shapeType) {
       if(shapeType == null) {

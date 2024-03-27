@@ -8,7 +8,7 @@ import uim.oop;
  *
  * @internal
  */
-class TemplateFileEquals : Constraint {
+class DTemplateFileEquals : Constraint {
     protected string afilename;
 
     /**

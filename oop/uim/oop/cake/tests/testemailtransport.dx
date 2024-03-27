@@ -8,7 +8,7 @@ import uim.oop;
  * TestEmailTransport
  * Set this as the email transport to capture emails for later assertions
  */
-class TestEmailTransport : DebugTransport {
+class DTestEmailTransport : DebugTransport {
     protected static Message[] _messages;
 
     // Stores email for later assertions

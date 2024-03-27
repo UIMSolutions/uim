@@ -30,7 +30,7 @@ unittest {
   assert(["1": "4", "2": "5", "3": "6"].getKeys(true) == ["1", "2", "3"]);
 
   // Using objects
-  class Test {
+  class DTest {
   }
 
   auto a = new Test;

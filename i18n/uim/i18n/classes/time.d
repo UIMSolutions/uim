@@ -9,7 +9,7 @@ import uim.i18n;
  *
  * Adds handy methods and locale-aware formatting helpers.
  */
-class Time { // : ChronosTime, IDataSerializable, Stringable {
+class DTime { // : ChronosTime, IDataSerializable, Stringable {
     mixin TConfigurable!();
 
     this() {

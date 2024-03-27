@@ -8,7 +8,7 @@ import uim.commands;
  * Create a visually pleasing ASCII art table
  * from 2 dimensional array data.
  */
-class TableHelper { // }: Helper {
+class DTableHelper { // }: Helper {
       mixin TConfigurable!();
 
     this() {

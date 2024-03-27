@@ -10,7 +10,7 @@ import uim.collections;
  *
  * @template-extends \RecursiveIteratorIterator<\RecursiveIterator>
  */
-class TreePrinter : RecursiveIteratorIterator, ICollection {
+class DTreePrinter : RecursiveIteratorIterator, ICollection {
   use CollectionTemplate();
 
   // A callable to generate the iteration key

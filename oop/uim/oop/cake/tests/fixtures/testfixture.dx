@@ -5,7 +5,7 @@ import uim.oop;
 @safe:
 
 // TestFixture is responsible for building and destroying tables to be used during testing.
-class TestFixture : IFixture {
+class DTestFixture : IFixture {
     mixin LocatorAwareTemplate();
 
     // Fixture Datasource

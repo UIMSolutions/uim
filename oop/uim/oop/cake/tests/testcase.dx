@@ -4,7 +4,7 @@ import uim.oop;
 
 @safe:
 
-abstract class TestCase : BaseTestCase {
+abstract class DTestCase : BaseTestCase {
     mixin LocatorAwareTemplate();
     mixin PHPUnitConsecutiveTemplate();
 

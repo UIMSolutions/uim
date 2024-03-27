@@ -109,7 +109,7 @@ class DBelongsTo : DAssociation {
     }
 
     Closure eagerLoader(IData[string] options = null) {
-        loader = new SelectLoader([
+        loader = new DSelectLoader([
                 "alias": this.aliasName(),
                 "sourceAlias": this.getSource()
                 .aliasName(),

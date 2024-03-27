@@ -471,7 +471,7 @@ class DBelongsToManyAssociation : DAssociation {
     function eagerLoader(IData[string] optionData): Closure
     {
         name = _junctionAssociationName();
-        loader = new SelectWithPivotLoader([
+        loader = new DSelectWithPivotLoader([
             "alias": this.aliasName(),
             "sourceAlias": this.getSource().aliasName(),
             "targetAlias": this.getTarget().aliasName(),
@@ -849,7 +849,7 @@ class DBelongsToManyAssociation : DAssociation {
         }
 
         /** @var \SplObjectStorage<DORMDatasource\IEntity, null> storage * /
-        storage = new SplObjectStorage();
+        storage = new DSplObjectStorage();
         foreach (targetEntities as e) {
             storage.attach(e);
         }

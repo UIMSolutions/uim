@@ -64,7 +64,7 @@ class DRulesChecker : BaseRulesChecker
      * ```
      * rules.add(rules.existsIn("author_id", "Authors", "Invalid Author"));
      *
-     * rules.add(rules.existsIn("site_id", new SitesTable(), "Invalid Site"));
+     * rules.add(rules.existsIn("site_id", new DSitesTable(), "Invalid Site"));
      * ```
      *
      * Available options are error "message" and "allowNullableNulls" flag.

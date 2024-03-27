@@ -36,7 +36,7 @@ class DTarget {
 /// Create Filter Chain
 class DFilterChain {
   private IFilter[] _filters;
-  private Target _target;
+  private DTarget _target;
 
   void addFilter(IFilter filter) {
     _filters ~= filter;

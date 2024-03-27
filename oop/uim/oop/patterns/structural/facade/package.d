@@ -44,7 +44,7 @@ import uim.oop;
     this() {
       circle = new DCircle();
       rectangle = new Rectangle();
-      square = new Square();
+      square = new DSquare();
    }
 
     void drawCircle() {
@@ -61,7 +61,7 @@ import uim.oop;
 version(test_uim_oop) { unittest {
     writeln("FacadePatternDemo");
     
-    ShapeMaker shapeMaker = new ShapeMaker();
+    ShapeMaker shapeMaker = new DShapeMaker();
 
       shapeMaker.drawCircle();
       shapeMaker.drawRectangle();

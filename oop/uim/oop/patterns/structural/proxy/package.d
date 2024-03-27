@@ -9,12 +9,12 @@ import uim.oop;
 @safe:
 
 /// Create an interface.
- interface DImage {
+ interface IImage {
    void display();
 }
 
 /// Create concrete classes implementing the same interface.
- class DRealImage : DImage {
+ class DRealImage : IImage {
 
    private string fileName;
 
@@ -32,24 +32,24 @@ import uim.oop;
    }
 }
 
- class ProxyImage : DImage{
+ class DProxyImage : IImage{
 
-   private RealImage realImage;
+   private DRealImage realImage;
    private string fileName;
 
     this(string fileName) {
       this.fileName = fileName;
    }
 
-   override  void display() {
+   override void display() {
       if(realImage.isNull) {
-         realImage = new RealImage(fileName);
+         realImage = new DRealImage(fileName);
       }
       realImage.display();
    }
 }
 
-bool isNull(RealImage aImage) {
+bool isNull(DRealImage aImage) {
    return aImage is null;
 }
 
@@ -57,7 +57,7 @@ bool isNull(RealImage aImage) {
 version(test_uim_oop) { unittest {
       writeln("ProxyPatternDemo");
       
-      DImage image = new DProxyImage("test_10mb.jpg");
+      IImage image = new DProxyImage("test_10mb.jpg");
 
       //image will be loaded from disk
       image.display(); 

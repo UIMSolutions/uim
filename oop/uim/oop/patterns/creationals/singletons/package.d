@@ -56,7 +56,7 @@ private:
 
    // "True" global
    // does not work with @safe __gshared FastSingleton _instance;
-   static FastSingleton _instance;
+   static DFastSingleton _instance;
 
 public:
    override string toString() {

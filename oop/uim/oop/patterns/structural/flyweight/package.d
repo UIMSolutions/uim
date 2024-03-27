@@ -9,12 +9,12 @@ import uim.oop;
 @safe:
 
 /// Create an interface.
-interface Shape {
+interface IShape {
   void draw();
 }
 
 /// Create concrete class implementing the same interface.
-class DCircle : Shape {
+class DCircle : IShape {
   private string _color;
   private int _x;
   private int _y;
@@ -43,9 +43,9 @@ class DCircle : Shape {
 
 /// Create a factory to generate object of concrete class based on given information.
 class DShapeFactory {
-  private static Shape[string] circleMap;
+  private static IShape[string] circleMap;
 
-  static Shape getCircle(string color) {
+  static IShape getCircle(string color) {
     Circle circle = cast(Circle)circleMap.get(color, null);
 
     if (circle.isNull) {
@@ -57,7 +57,7 @@ class DShapeFactory {
   }
 }
 
-bool isNull(Circle aShape) {
+bool isNull(DCircle aShape) {
   return aShape is null;
 }
 /// Use the factory to get object of concrete class by passing an information such as color.
@@ -75,7 +75,7 @@ version(test_uim_oop) { unittest {
     writeln("FlyweightPatternDemo");
 
     for(auto i=0; i < 20; i++) {
-        Circle circle = cast(Circle)ShapeFactory.getCircle(getRandomColor());
+        Circle circle = cast(DCircle)DShapeFactory.getCircle(getRandomColor());
         circle.x(getRandomX());
         circle.y(getRandomY());
         circle.radius(100);

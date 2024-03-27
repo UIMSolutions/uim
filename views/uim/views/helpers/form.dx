@@ -292,12 +292,12 @@ class FormHelper : Helper {
      * - `valueSources` The sources that values should be read from. See FormHelper.setValueSources()
      * - `templateVars` Provide template variables for the formStart template.
      * Params:
-     * Json formContext The context for which the form is being defined.
+     * IData formContext The context for which the form is being defined.
      *  Can be a IContext instance, ORM entity, ORM resultset, or an
      *  array of meta data. You can use `null` to make a context-less form.
      * @param IData[string] options An array of html attributes and options.
      */
-    string create(Json formContext = null, IData[string] options  = null) {
+    string create(IData formContext = null, IData[string] options  = null) {
         myappend = "";
 
         if (cast(IContext)formContext) {
@@ -1274,9 +1274,9 @@ class FormHelper : Helper {
      * Params:
      * string views The name of the option to pull out.
      * @param IData[string] options The array of options you want to extract.
-     * @param Json mydefault The default option value
+     * @param IData mydefault The default option value
      */
-    protected Json _extractOption(string views, IData[string] options, Json mydefault = null) {
+    protected IData _extractOption(string views, IData[string] options, IData mydefault = null) {
         if (array_key_exists(views, options)) {
             return options[views];
         }
@@ -1292,7 +1292,7 @@ class FormHelper : Helper {
      * @param IData[string]|string|null mylabel Label text or array with label attributes.
      */
     protected string _inputLabel(string fieldName, string labelText = null, string[string] labelAttributes = null, IData[string] labelOptions = null) {
-        IData[string] options += ["id": Json(null), "input": Json(null), "nestedInput": Json(false), "templateVars": Json.emptyArray];
+        IData[string] options += ["id": IData(null), "input": IData(null), "nestedInput": IData(false), "templateVars": IData.emptyArray];
         string[string] mylabelAttributes = ["templateVars": labelOptions["templateVars"]];
         if (isArray(mylabel)) {
             mylabelText = null;
@@ -2066,10 +2066,10 @@ class FormHelper : Helper {
      * - `secure` - boolean whether the field should be added to the security fields.
      *  Disabling the field using the `disabled` option, will also omit the field from being
      *  part of the hashed key.
-     * - `default` - Json - The value to use if there is no value in the form"s context.
-     * - `disabled` - Json - Either a boolean indicating disabled state, or the string in
+     * - `default` - IData - The value to use if there is no value in the form"s context.
+     * - `disabled` - IData - Either a boolean indicating disabled state, or the string in
      *  a numerically indexed value.
-     * - `id` - Json - If `true` it will be auto generated based on field name.
+     * - `id` - IData - If `true` it will be auto generated based on field name.
      *
      * This method will convert a numerically indexed "disabled" into an associative
      * array value. FormHelper"s internals expect associative options.
@@ -2202,9 +2202,9 @@ class FormHelper : Helper {
      *
      * If no type can be matched a NullContext will be returned.
      * Params:
-     * Json mydata The data to get a context provider for.
+     * IData mydata The data to get a context provider for.
      */
-    protected IContext _getContext(Json mydata = []) {
+    protected IContext _getContext(IData mydata = []) {
         if (isSet(_context) && empty(mydata)) {
             return _context;
         }
@@ -2327,7 +2327,7 @@ class FormHelper : Helper {
     }
     
     // Gets a single field value from the sources available.
-    Json getSourceValue(string fieldName, IData[string] options  = null) {
+    IData getSourceValue(string fieldName, IData[string] options  = null) {
         auto myvalueMap = [
             "data": "getData",
             "query": "getQuery",

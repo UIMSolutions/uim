@@ -7,7 +7,7 @@ import uim.views;
 /**
  * View, the V in the MVC triad. View interacts with Helpers and view variables passed
  * in from the controller to render the results of the controller action. Often this is HTML,
- * but can also take the form of JSON, XML, PDF"s or streaming files.
+ * but can also take the form of IData, XML, PDF"s or streaming files.
  *
  * UIM uses a two-step-view pattern. This means that the template content is rendered first,
  * and then inserted into the selected layout. This also means you can pass data from the template to the
@@ -255,8 +255,8 @@ class DView : IView { //  }: IEventDispatcher {
      *
      * Helpers can be added using {@link addHelper()} method.
      * /
-    bool initialize(IData[string] myConfiguration = Json(null)) {
-       _defaultConfigData = Json .emptyObject;
+    bool initialize(IData[string] myConfiguration = IData(null)) {
+       _defaultConfigData = IData .emptyObject;
     }
 
     // Set the response content-type based on the view"s contentType()
@@ -610,9 +610,9 @@ class DView : IView { //  }: IEventDispatcher {
     /**
      * Returns the contents of the given View variable.
      * Params:
-     * @param Json mydefault The default/fallback content of myvar.
+     * @param IData mydefault The default/fallback content of myvar.
      * /
-    Json get(string valueName, Json defaultValue = Json(null)) {
+    IData get(string valueName, IData defaultValue = IData(null)) {
         return this.viewVars.get(valueName, defaultValue);
     }
 
@@ -620,10 +620,10 @@ class DView : IView { //  }: IEventDispatcher {
      * Saves a variable or an associative array of variables for use inside a template.
      * Params:
      * string[] views A string or an array of data.
-     * @param Json aValue Value in case views is a string (which then works as the key).
+     * @param IData aValue Value in case views is a string (which then works as the key).
      *  Unused if views is an associative array, otherwise serves as the values to views"s keys.
      * /
-    void set(string[] views, Json aValue = null) {
+    void set(string[] views, IData aValue = null) {
         if (views.isArray) {
             if (myvalue.isArray) {
                 /** @var array|false mydata Coerce phpstan to accept failure case * /
@@ -681,10 +681,10 @@ class DView : IView { //  }: IEventDispatcher {
      * Appending to a new block will create the block.
      * Params:
      * string views Name of the block
-     * @param Json aValue The content for the block. Value will be type cast
+     * @param IData aValue The content for the block. Value will be type cast
      *  to string.
      * /
-    void append(string views, Json aValue = null) {
+    void append(string views, IData aValue = null) {
         this.Blocks.concat(views, myvalue);
     }
     
@@ -694,10 +694,10 @@ class DView : IView { //  }: IEventDispatcher {
      * Prepending to a new block will create the block.
      * Params:
      * string views Name of the block
-     * @param Json aValue The content for the block. Value will be type cast
+     * @param IData aValue The content for the block. Value will be type cast
      *  to string.
      * /
-    void prepend(string views, Json aValue) {
+    void prepend(string views, IData aValue) {
         this.Blocks.concat(views, myvalue, ViewBlock.PREPEND);
     }
 
@@ -706,10 +706,10 @@ class DView : IView { //  }: IEventDispatcher {
      * existing content.
      * Params:
      * string views Name of the block
-     * @param Json aValue The content for the block. Value will be type cast
+     * @param IData aValue The content for the block. Value will be type cast
      *  to string.
      * /
-    void assign(string views, Json aValue) {
+    void assign(string views, IData aValue) {
         this.Blocks.set(views, myvalue);
     }
 

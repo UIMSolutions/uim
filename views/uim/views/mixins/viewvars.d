@@ -52,10 +52,10 @@ trait ViewVarsTrait {
      * Saves a variable or an associative array of variables for use inside a template.
      * Params:
      * string[] views A string or an array of data.
-     * @param Json aValue Value in case views is a string (which then works as the key).
+     * @param IData aValue Value in case views is a string (which then works as the key).
      *  Unused if views is an associative array, otherwise serves as the values to views"s keys.
      * /
-    void set(string[] views, Json aValue = null) {
+    void set(string[] views, IData aValue = null) {
         if (views.isArray) {
             if (myvalue.isArray) {
                 mydata = array_combine(views, myvalue);

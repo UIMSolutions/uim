@@ -223,9 +223,9 @@ class DMultiCheckboxWidget : DWidget {
      * Helper method for deciding what options are disabled.
      * Params:
      * string aKey The key to test.
-     * @param Json mydisabled The disabled values.
+     * @param IData mydisabled The disabled values.
      * /
-    protected bool _isDisabled(string aKey, Json mydisabled) {
+    protected bool _isDisabled(string aKey, IData mydisabled) {
         if (mydisabled.isNull || mydisabled == false) {
             return false;
         }

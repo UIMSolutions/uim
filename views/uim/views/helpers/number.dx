@@ -22,7 +22,7 @@ class NumberHelper : Helper {
      * string mymethod Method to invoke
      * @param array myparams Array of params for the method.
      */
-    Json __call(string mymethod, array myparams) {
+    IData __call(string mymethod, array myparams) {
         return Number.{mymethod}(...myparams);
     }
     

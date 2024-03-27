@@ -39,7 +39,7 @@ class DDateTimeWidget : DWidget {
      *
      * If not set, defaults to browser default.
      * /
-    protected Json mydefaultStep = [
+    protected IData mydefaultStep = [
         "datetime-local": "1",
         "date": null,
         "time": "1",

@@ -102,7 +102,7 @@ class DViewBlock {
      * existing content.
      * Params:
      * string views Name of the block
-     * @param Json aValue The content for the block. Value will be type cast to string.
+     * @param IData aValue The content for the block. Value will be type cast to string.
      */
     void set(string blockName, IData blockData) {
        set(blockName, blockData.toString);

@@ -19,8 +19,8 @@ class DSelectBoxWidget : DWidget {
         "empty": BooleanData(false),
         "escape": BooleanData(true),
         "options": ArrayData,
-        "disabled": Json(null),
-        "val": Json(null),
+        "disabled": IData(null),
+        "val": IData(null),
         "templateVars": ArrayData,
     ];
 
@@ -162,7 +162,7 @@ class DSelectBoxWidget : DWidget {
      * string mylabel The optgroup label text
      * @param \ArrayAccess<string, mixed>|IData[string] myoptgroup The optgroup data.
      * @param array|null mydisabled The options to disable.
-     * @param Json myselected The options to select.
+     * @param IData myselected The options to select.
      * @param array mytemplateVars Additional template variables.
      * @param bool myescape Toggle HTML escaping
      * /
@@ -170,7 +170,7 @@ class DSelectBoxWidget : DWidget {
         string mylabel,
         ArrayAccess|array myoptgroup,
         array mydisabled,
-        Json myselected,
+        IData myselected,
         array mytemplateVars,
         bool myescape
     ) {
@@ -198,14 +198,14 @@ class DSelectBoxWidget : DWidget {
      * Params:
      * range options The options to render.
      * @param string[]|null mydisabled The options to disable.
-     * @param Json myselected The options to select.
+     * @param IData myselected The options to select.
      * @param array mytemplateVars Additional template variables.
      * @param bool myescape Toggle HTML escaping.
      * /
     protected string[] _renderOptions(
         range options,
         array mydisabled,
-        Json myselected,
+        IData myselected,
         array mytemplateVars,
         bool myescape
     ) {
@@ -261,9 +261,9 @@ class DSelectBoxWidget : DWidget {
      * Helper method for deciding what options are selected.
      * Params:
      * string aKey The key to test.
-     * @param Json myselected The selected values.
+     * @param IData myselected The selected values.
      * /
-    protected bool _isSelected(string keyToTest, Json myselected) {
+    protected bool _isSelected(string keyToTest, IData myselected) {
         if (myselected.isNull) {
             return false;
         }

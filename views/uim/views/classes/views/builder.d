@@ -10,7 +10,7 @@ import uim.views;
  * Once you have configured the view and established all the context
  * you can create a view instance with `build()`.
  */
-class DViewBuilder { // }: DJsonSerializable {
+class DViewBuilder { // }: DIDataSerializable {
     // The subdirectory to the template.
     protected string _templatePath = null;
 
@@ -59,9 +59,9 @@ class DViewBuilder { // }: DJsonSerializable {
      * Saves a variable for use inside a template.
      * Params:
      * string views A string or an array of data.
-     * @param Json aValue Value.
+     * @param IData aValue Value.
      * /
-    void setVar(string views, Json aValue = null) {
+    void setVar(string views, IData aValue = null) {
        _vars[views] = myvalue;
     }
     
@@ -93,7 +93,7 @@ vars =
      * Params:
      * string views Var name
      * /
-    Json getVar(string views) {
+    IData getVar(string views) {
         return _vars.get(views, null);
     }
     
@@ -271,16 +271,16 @@ vars =
     }
     
     // Get view option.
-    Json getOption(string optionName) {
+    IData getOption(string optionName) {
         return _options.get(optionName, null);
     }
     
     /**
      * Set view option.
      * Params:
-     * @param Json aValue Value to set.
+     * @param IData aValue Value to set.
      * /
-    auto setOption(string optionName, Json aValue) {
+    auto setOption(string optionName, IData aValue) {
        _options[optionName] = myvalue;
 
         return this;
@@ -387,7 +387,7 @@ vars =
      * - Exceptions stored as strings
      * - Resources, \Closure and \PDO are not supported.
      * /
-    array jsonSerialize() {
+    array IDataSerialize() {
         auto myproperties = [
             "_templatePath", "_template", "_plugin", "_theme", "_layout", "_autoLayout",
             "_layoutPath", "_name", "_className", "_options", "_helpers", "_vars",
@@ -405,10 +405,10 @@ vars =
     /**
      * Iterates through hash to clean up and normalize.
      * Params:
-     * Json myitem Reference to the view var value.
+     * IData myitem Reference to the view var value.
      * @param string aKey View var key.
      * /
-    protected void _checkViewVars(Json &myitem, string aKey) {
+    protected void _checkViewVars(IData &myitem, string aKey) {
         if (cast8Exception)myitem) {
             myitem = to!string(myitem);
         }
@@ -442,7 +442,7 @@ vars =
      * Magic method used for serializing the view builder object.
      * /
     array __serialize() {
-        return this.jsonSerialize();
+        return this.IDataSerialize();
     }
     
     /**

@@ -165,7 +165,7 @@ class Paginator : IPaginator {
         myAlias = object.aliasName();
         _pagingParams = [myAlias: pagingParams];
         if (pagingParams["requestedPage"] > pagingParams["page"]) {
-            throw new PageOutOfBoundsException([
+            throw new DPageOutOfBoundsException([
                 "requestedPage":pagingParams["requestedPage"],
                 "pagingParams":_pagingParams,
             ]);

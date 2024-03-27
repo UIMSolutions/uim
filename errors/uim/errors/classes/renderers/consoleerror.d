@@ -26,7 +26,7 @@ class DConsoleErrorRenderer { // }: IErrorRenderer {
      * IData[string] configData Error handling configuration.
      * /
     this(IData[string] configData = null) {
-        this.output = configData("stderr"] ?? new ConsoleOutput("php://stderr");
+        this.output = configData("stderr"] ?? new DConsoleOutput("php://stderr");
         this.trace = (bool)(configData("trace"] ?? false);
     }
  

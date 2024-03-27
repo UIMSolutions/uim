@@ -50,7 +50,7 @@ class DSimplePaginator : NumericPaginator {
         if (count(someItems) > this.pagingParams["perPage"]) {
              someItems =  someItems.take(this.pagingParams["perPage"]);
         }
-        return new PaginatedResultSet(someItems, pagingParams);
+        return new DPaginatedResultSet(someItems, pagingParams);
     }
     
     /**

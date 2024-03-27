@@ -172,7 +172,7 @@ class NumericPaginator : PaginatorInterface
         alias = object.aliasName();
         _pagingParams = [alias: pagingParams];
         if (pagingParams["requestedPage"] > pagingParams["page"]) {
-            throw new PageOutOfBoundsException([
+            throw new DPageOutOfBoundsException([
                 "requestedPage": pagingParams["requestedPage"],
                 "pagingParams": _pagingParams,
             ]);

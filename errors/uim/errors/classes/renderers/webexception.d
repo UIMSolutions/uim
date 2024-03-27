@@ -112,7 +112,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
             params = request.getAttribute("params");
             params["controller"] = "Error";
 
-            factory = new ControllerFactory(new Container());
+            factory = new DControllerFactory(new DContainer());
             // Check including plugin + prefix
              className = factory.getControllerClass(request.withAttribute("params", params));
 
@@ -131,7 +131,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         } catch (Throwable  anException) {
         }
         if (!isSet(controller)) {
-            return new Controller(request);
+            return new DController(request);
         }
         return controller;
     }

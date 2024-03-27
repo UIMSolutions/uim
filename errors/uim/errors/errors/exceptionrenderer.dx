@@ -147,7 +147,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
         // there could be userland input data parsers.
         if (myErrorOccured && isset(controller.RequestHandler)) {
             try {
-                myEvent = new Event("Controller.startup", controller);
+                myEvent = new DEvent("Controller.startup", controller);
                 controller.RequestHandler.startup(myEvent);
             } catch (Throwable e) {
             }

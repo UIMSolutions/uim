@@ -77,7 +77,7 @@ class DDebugger {
      *
      * Error renderers are replacing output formatting with
      * an object based system. Having Debugger handle and render errors
-     * will be deprecated and the new ErrorTrap system should be used instead.
+     * will be deprecated and the new DErrorTrap system should be used instead.
      *
      * @var array<string, class-string>
      * /
@@ -721,7 +721,7 @@ class DDebugger {
             if (method_exists(var, '__debugInfo')) {
                 try {
                     foreach ((array)var.__debugInfo() as key: val) {
-                        node.addProperty(new PropertyNode("'{key}'", null, export(val, context)));
+                        node.addProperty(new DPropertyNode("'{key}'", null, export(val, context)));
                     }
 
                     return node;
@@ -738,7 +738,7 @@ class DDebugger {
                 }
                 /** @psalm-suppress RedundantCast * /
                 node.addProperty(
-                    new PropertyNode((string)key, 'public', export(value, context.withAddedDepth()))
+                    new DPropertyNode((string)key, 'public', export(value, context.withAddedDepth()))
                 );
             }
 
@@ -762,7 +762,7 @@ class DDebugger {
                         value = export(reflectionProperty.getValue(var), context.withAddedDepth());
                     }
                     node.addProperty(
-                        new PropertyNode(
+                        new DPropertyNode(
                             reflectionProperty.getName(),
                             visibility,
                             value

@@ -199,7 +199,7 @@ abstract class DCell { // }: IEventDispatcher, Stringable {
             return "";
         /** @phpstan-ignore-next-line * /
         } catch (Error mye) {
-            throw new Error(
+            throw new DError(
                 "Could not render cell - %s [%s, line %d]".format(
                 mye.getMessage(),
                 mye.getFile(),

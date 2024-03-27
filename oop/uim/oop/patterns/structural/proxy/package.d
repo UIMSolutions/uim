@@ -9,12 +9,12 @@ import uim.oop;
 @safe:
 
 /// Create an interface.
- interface Image {
+ interface DImage {
    void display();
 }
 
 /// Create concrete classes implementing the same interface.
- class DRealImage : Image {
+ class DRealImage : DImage {
 
    private string fileName;
 
@@ -32,7 +32,7 @@ import uim.oop;
    }
 }
 
- class ProxyImage : Image{
+ class ProxyImage : DImage{
 
    private RealImage realImage;
    private string fileName;
@@ -57,7 +57,7 @@ bool isNull(RealImage aImage) {
 version(test_uim_oop) { unittest {
       writeln("ProxyPatternDemo");
       
-      Image image = new DProxyImage("test_10mb.jpg");
+      DImage image = new DProxyImage("test_10mb.jpg");
 
       //image will be loaded from disk
       image.display(); 

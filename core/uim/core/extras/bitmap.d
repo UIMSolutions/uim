@@ -34,7 +34,7 @@ final class DImage(T) {
         }
     }
 
-    @property Image dup() const pure nothrow @safe {
+    @property DImage dup() const pure nothrow @safe {
         auto result = new DImage();
         result.image = this.image.dup;
         result.nx_ = this.nx;
@@ -42,7 +42,7 @@ final class DImage(T) {
         return result;
     }
 
-    static Image fromData(T[] data, in size_t nxx=0, in size_t nyy=0)
+    static DImage fromData(T[] data, in size_t nxx=0, in size_t nyy=0)
     pure nothrow @safe in {
         assert(nxx >= 0 && nyy >= 0 && data.length == nxx * nyy);
     } body {
@@ -97,7 +97,7 @@ final class DImage(T) {
     }
 
     /// Convert a 2D array of chars to a binary Image.
-    static Image fromText(in string txt,
+    static DImage fromText(in string txt,
                           in char one='#', in char zero='.') pure {
         auto M = txt
                  .strip
@@ -110,7 +110,7 @@ final class DImage(T) {
         assert(M.join.length > 0); // Not empty.
         foreach (row; M)
             assert(row.length == M[0].length); // Rectangular
-        return Image.fromData(M.join, M[0].length, M.length);
+        return DImage.fromData(M.join, M[0].length, M.length);
     }
 
     /// The axis origin is at the top left.
@@ -132,7 +132,7 @@ struct RGB {
 }
 
 /*
-Image!RGB loadPPM6(ref Image!RGB img, in string fileName) {
+Image!RGB loadPPM6(ref DImage!RGB img, in string fileName) {
     if (img is null)
         img = new DImage!RGB;
     auto f = File(fileName, "rb");

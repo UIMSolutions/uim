@@ -31,16 +31,16 @@ class DStudentVO {
 /// Create Business Object.
 class DStudentBO {
   //list is working as a database
-  StudentVO[] _students;
+  DStudentVO[] _students;
 
   this() {
     _students = null;
-    StudentVO student1 = new StudentVO("Michael",0);
-    StudentVO student2 = new StudentVO("Peter",1);
+    DStudentVO student1 = new DStudentVO("Michael",0);
+    DStudentVO student2 = new DStudentVO("Peter",1);
     _students ~= student1;
     _students ~= student2;		
   }
-  void deleteStudent(StudentVO student) {
+  void deleteStudent(DStudentVO student) {
     _students.remove(student.id());
     writeln("Student: Id ", student.id, ", deleted from database");
   }
@@ -48,12 +48,12 @@ class DStudentBO {
   //retrive list of students from the database
   auto allStudents() { return _students; }
 
-  StudentVO getStudent(int id) {
+  DStudentVO getStudent(int id) {
     foreach(s; _students) if (s.id == id) return s;
     return null;
   }
 
-  void updateStudent(StudentVO student) {
+  void updateStudent(DStudentVO student) {
     getStudent(student.id()).name(student.name());
     writeln("Student: Id ", student.id, ", updated in the database");
   }
@@ -69,7 +69,7 @@ version(test_uim_oop) { unittest {
   }
 
   //update student
-  StudentVO student = studentBusinessObject.getStudent(0);
+  DStudentVO student = studentBusinessObject.getStudent(0);
   student.name("Michael");
   studentBusinessObject.updateStudent(student);
 

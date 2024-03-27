@@ -51,7 +51,7 @@ class DWidgetLocator {
      * all the widgets to load. Loaded widgets will be merged with existing* widgets.
      * /
     void load(string fileToLoad) {
-        myloader = new PhpConfig();
+        myloader = new DPhpConfig();
         mywidgets = myloader.read(fileToLoad);
         this.add(mywidgets);
     }

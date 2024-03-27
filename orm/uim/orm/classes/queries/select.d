@@ -728,7 +728,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
     
     // Returns the currently configured instance.
     EagerLoader getEagerLoader() {
-        return _eagerLoader ??= new EagerLoader();
+        return _eagerLoader ??= new DEagerLoader();
     }
     
     /**

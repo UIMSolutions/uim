@@ -161,7 +161,7 @@ class DStringTemplate {
             throw new UimException("String template filename cannot be an empty string");
         }
 
-        auto myloader = new PhpConfig();
+        auto myloader = new DPhpConfig();
         auto mytemplates = myloader.read(fileName);
         this.add(mytemplates);
     } */

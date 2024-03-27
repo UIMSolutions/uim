@@ -33,15 +33,15 @@ class DContextFactory {
                 "type": "orm",
                 "callable": auto (myrequest, mydata) {
                     if (cast(IEntity)mydata["entity"]) {
-                        return new EntityContext(mydata);
+                        return new DEntityContext(mydata);
                     }
                     if (isSet(mydata["table"])) {
-                        return new EntityContext(mydata);
+                        return new DEntityContext(mydata);
                     }
                     if (is_iterable(mydata["entity"])) {
                         mypass = (new DCollection(mydata["entity"])).first() !isNull;
                         if (mypass) {
-                            return new EntityContext(mydata);
+                            return new DEntityContext(mydata);
                         } else {
                             return new NullContext(mydata);
                         }

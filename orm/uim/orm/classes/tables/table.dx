@@ -218,7 +218,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
                     .each!(nameValidator => this.setValidator(nameValidator.key, nameValidator.value);
             }
         }
-       _eventManager = myeventManager ?: new EventManager();
+       _eventManager = myeventManager ?: new DEventManager();
        _behaviors = mybehaviors ?: new BehaviorRegistry();
        _behaviors.setTable(this);
        _associations = myassociations ?: new AssociationCollection();
@@ -1253,7 +1253,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         IData ...myargs
     ) {
         if (myprimaryKey.isNull) {
-            throw new InvalidPrimaryKeyException(
+            throw new DInvalidPrimaryKeyException(
                 "Record not found in table `%s` with primary key `[NULL]`."
                 .format(this.getTable()
             ));
@@ -1272,7 +1272,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
                 return var_export(aKey, true);
             }, myprimaryKey);
 
-            throw new InvalidPrimaryKeyException(
+            throw new DInvalidPrimaryKeyException(
                 "Record not found in table `%s` with primary key `[%s]`."
                 .format(this.getTable(), join(", ", myprimaryKey)
             ));
@@ -1425,7 +1425,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         result = this.save(myentity, options);
 
         if (result == false) {
-            throw new PersistenceFailedException(myentity, ["findOrCreate"]);
+            throw new DPersistenceFailedException(myentity, ["findOrCreate"]);
         }
         return myentity;
     }
@@ -1679,7 +1679,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     IEntity saveOrFail(IEntity myentity, IData[string] optionData = null) {
         mysaved = this.save(myentity, options);
         if (mysaved == false) {
-            throw new PersistenceFailedException(myentity, ["save"]);
+            throw new DPersistenceFailedException(myentity, ["save"]);
         }
         return mysaved;
     }
@@ -1857,7 +1857,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * Note: The ORM will not generate primary key values for composite primary keys.
      * You can overwrite _newId() in your table class.
      * Params:
-     * string[] myprimary The primary key columns to get a new ID for.
+     * string[] myprimary The primary key columns to get a new DID for.
      * @return string Either null or the primary key value or a list of primary key values.
      */
     protected string _newId(array myprimary) {
@@ -1994,7 +1994,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         if (myfailed !isNull) {
             mycleanupOnFailure(myentities);
 
-            throw new PersistenceFailedException(myfailed, ["saveMany"]);
+            throw new DPersistenceFailedException(myfailed, ["saveMany"]);
         }
         mycleanupOnSuccess = void (IEntity myentity) use (&mycleanupOnSuccess) {
             myentity.clean();
@@ -2105,7 +2105,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         myfailed = _deleteMany(myentities, options);
 
         if (myfailed !isNull) {
-            throw new PersistenceFailedException(myfailed, ["deleteMany"]);
+            throw new DPersistenceFailedException(myfailed, ["deleteMany"]);
         }
         return myentities;
     }
@@ -2150,7 +2150,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     bool deleteOrFail(IEntity myentity, IData[string] optionData = null) {
         mydeleted = this.delete_(myentity, options);
         if (mydeleted == false) {
-            throw new PersistenceFailedException(myentity, ["delete"]);
+            throw new DPersistenceFailedException(myentity, ["delete"]);
         }
         return mydeleted;
     }

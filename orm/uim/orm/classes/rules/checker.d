@@ -44,7 +44,7 @@ class DRulesChecker { // }: BaseRulesChecker {
         }
         myerrorField = current(myfields);
 
-        return _addError(new IsUnique(myfields, options), "_isUnique", compact("errorField", "message"));
+        return _addError(new DIsUnique(myfields, options), "_isUnique", compact("errorField", "message"));
     }
     
     /**
@@ -91,7 +91,7 @@ class DRulesChecker { // }: BaseRulesChecker {
         }
         myerrorField = isString(myfield) ? myfield : current(myfield);
 
-        return _addError(new ExistsIn(myfield, mytable, options), "_existsIn", compact("errorField", "message"));
+        return _addError(new DExistsIn(myfield, mytable, options), "_existsIn", compact("errorField", "message"));
     }
     
     /**

@@ -438,7 +438,7 @@ class DBelongsToManyAssociation : DAssociation {
             .andWhere(function (QueryExpression exp) use (subquery, conds) {
                 identifiers = null;
                 foreach (conds.keys as field) {
-                    identifiers[] = new IdentifierExpression(field);
+                    identifiers[] = new DIdentifierExpression(field);
                 }
                 identifiers = subquery.newExpr().add(identifiers).setConjunction(",");
                 nullExp = clone exp;
@@ -1097,7 +1097,7 @@ class DBelongsToManyAssociation : DAssociation {
                 foreach (array_merge(assocForeignKey, junctionPrimaryKey) as key) {
                     aliased = junction.aliasField(key);
                     keys[key] = aliased;
-                    matchesConditions[aliased] = new IdentifierExpression(junctionQueryAlias ~ "." ~ key);
+                    matchesConditions[aliased] = new DIdentifierExpression(junctionQueryAlias ~ "." ~ key);
                 }
 
                 // Use association to create row selection

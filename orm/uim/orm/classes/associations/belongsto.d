@@ -150,7 +150,7 @@ class DBelongsToAssociation : DAssociation {
 
         foreach (foreignKeys as k: f) {
             field = sprintf("%s.%s", tAlias, bindingKey[k]);
-            value = new IdentifierExpression(sprintf("%s.%s", sAlias, f));
+            value = new DIdentifierExpression(sprintf("%s.%s", sAlias, f));
             conditions[field] = value;
         }
 

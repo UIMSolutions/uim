@@ -633,7 +633,7 @@ class DEagerLoader
                     "nestKey": meta.aliasPath(),
                 ]
             );
-            statement = new CallbackStatement(statement, driver, f);
+            statement = new DCallbackStatement(statement, driver, f);
         }
 
         return statement;

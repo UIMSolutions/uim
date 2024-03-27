@@ -50,7 +50,7 @@ class DRulesChecker : BaseRulesChecker
         }
 
         errorField = current(fields);
-        return _addError(new IsUnique(fields, options), "_isUnique", compact("errorField", "message"));
+        return _addError(new DIsUnique(fields, options), "_isUnique", compact("errorField", "message"));
     }
 
     /**

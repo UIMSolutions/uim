@@ -47,8 +47,8 @@ class DTreeBehavior : DBehavior {
         "cascadeCallbacks": false,
     ];
 
-        configuration["leftField"] = new IdentifierExpression(configuration["left"]);
-        configuration["rightField"] = new IdentifierExpression(configuration["right"]);
+        configuration["leftField"] = new DIdentifierExpression(configuration["left"]);
+        configuration["rightField"] = new DIdentifierExpression(configuration["right"]);
 
         return true;
     }

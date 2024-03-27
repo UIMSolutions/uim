@@ -932,7 +932,7 @@ protected array _joinCondition(IData[string] optionData) {
 
     foreach (foreignKeys as k : f) {
         field = sprintf("%s.%s", sAlias, bindingKeys[k]);
-        value = new IdentifierExpression(sprintf("%s.%s", tAlias, f));
+        value = new DIdentifierExpression(sprintf("%s.%s", tAlias, f));
         conditions[field] = value;
     }
 

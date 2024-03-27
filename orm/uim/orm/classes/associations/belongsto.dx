@@ -102,7 +102,7 @@ class DBelongsTo : DAssociation {
         foreignKey.byKeyValue
             .each!((kv) {
                 string field = "%s.%s".format(tAlias, bindingKey[kv.key]);
-                auto aValue = new IdentifierExpression("%s.%s".format(sAlias, kv.value));
+                auto aValue = new DIdentifierExpression("%s.%s".format(sAlias, kv.value));
                 myConditions[field] = aValue;
             });
         return conditions;

@@ -243,7 +243,7 @@ class DSelectLoader {
 
         foreach (subquery.clause("select") as aliasedField: field) {
             if (is_int(aliasedField)) {
-                filter[] = new IdentifierExpression(field);
+                filter[] = new DIdentifierExpression(field);
             } else {
                 filter[aliasedField] = field;
             }

@@ -488,7 +488,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * ```
      *
      * @see \UIM\Datasource\IQuery.applyOptions() to read about the options that will
-     * be processed by this class and not returned by this function
+     * be processed by this class DAnd not returned by this function
      * /
     array getOptions() {
         return _options;

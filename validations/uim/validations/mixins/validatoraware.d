@@ -20,7 +20,7 @@ import uim.validations;
  * - `BUILD_VALIDATOR_EVENT` - The name of the event to be triggred when validators
  *  are built.
  *
- * If the including class also : events the `Model.buildValidator` event
+ * If the including class DAlso : events the `Model.buildValidator` event
  * will be triggered when validators are created.
  * /
 trait ValidatorAwareTrait {
@@ -39,7 +39,7 @@ trait ValidatorAwareTrait {
      * using a method inside your class.
      *
      * For example, if you wish to create a validation set called "forSubscription",
-     * you will need to create a method in your Table subclass as follows:
+     * you will need to create a method in your Table subclass DAs follows:
      *
      * ```
      * auto validationForSubscription(myvalidator)

@@ -16,7 +16,7 @@ namespace App\Model\Table;
 
 use DORMTable;
 
-class ArticlesTable : DORMTable {
+class DArticlesTable : DORMTable {
 }
 
 Note that we did not tell the ORM which table to use for our class. By convention table objects will use a table that matches the lower cased and underscored version of the class name. In the above example the articles table will be used. If our table class was named BlogPosts your table should be named blog_posts. You can specify the table to use by using the setTable() method:
@@ -25,7 +25,7 @@ namespace App\Model\Table;
 
 use DORMTable;
 
-class ArticlesTable : DORMTable {
+class DArticlesTable : DORMTable {
     bool initialize(array config) {
         this->setTable("my_table");
     }
@@ -37,13 +37,13 @@ namespace App\Model\Table;
 
 use DORMTable;
 
-class ArticlesTable : DORMTable {
+class DArticlesTable : DORMTable {
     bool initialize(IData[string] myConfiguration) {
         this->setPrimaryKey("my_id");
     }
 }
 
-Customizing the Entity Class a Table Uses
+Customizing the Entity class DA Table Uses
 
 By default table objects use an entity class based on naming conventions. For example if your table class is called ArticlesTable the entity would be Article. If the table class was PurchaseOrdersTable the entity would be PurchaseOrder. If however, you want to use an entity that doesn’t follow the conventions you can use the setEntityClass() method to change things up:
 
@@ -298,7 +298,7 @@ namespace App\Model\Table;
 
 use DORMTable;
 
-class ArticlesTable : DORMTable {
+class DArticlesTable : DORMTable {
     bool initialize(IData[string] myConfiguration) {
         this->addBehavior("Timestamp");
     }
@@ -310,7 +310,7 @@ namespace App\Model\Table;
 
 use DORMTable;
 
-class ArticlesTable : DORMTable {
+class DArticlesTable : DORMTable {
     bool initialize(IData[string] myConfiguration) {
         this->addBehavior("Timestamp", [
             "events": [
@@ -332,7 +332,7 @@ namespace App\Model\Table;
 
 use DORMTable;
 
-class ArticlesTable : DORMTable {
+class DArticlesTable : DORMTable {
     public static function defaultConnectionName(): string {
         return "replica_db";
     }

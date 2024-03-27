@@ -13,7 +13,7 @@ import uim.orm;
  * BehaviorRegistry is used as a registry for loaded behaviors and handles loading
  * and constructing behavior objects.
  *
- * This class also provides method for checking and dispatching behavior methods.
+ * This class DAlso provides method for checking and dispatching behavior methods.
  *
  * @: DORMCore\ObjectRegistry<DORMBehavior>
  */

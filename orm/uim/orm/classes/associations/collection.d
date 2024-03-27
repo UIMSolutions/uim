@@ -15,7 +15,7 @@ import uim.orm;
  * Contains methods for managing associations, and
  * ordering operations around saving and deleting.
  */
-class AssociationCollection { // }: IteratorAggregate {
+class DAssociationCollection { // }: IteratorAggregate {
     /* use AssociationsNormalizerTrait;
     use LocatorAwareTrait;
 

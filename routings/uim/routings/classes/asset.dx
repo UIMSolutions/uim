@@ -9,7 +9,7 @@ import uim.routings;
 /**
  * Class for generating asset URLs.
  */
-class Asset
+class DAsset
 {
     /**
      * Inflection type.

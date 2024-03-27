@@ -115,7 +115,7 @@ class PluginCollection /* : Iterator, Countable */ { // TODO
      * This will use the `plugins` Configure key, and fallback to enumerating `App.path("plugins")`
      *
      * This method is not part of the official API as plugins with
-     * no plugin class are being phased out.
+     * no plugin class DAre being phased out.
      */
     string findPath(string pluginName) {
         // Ensure plugin config is loaded each time. This is necessary primarily

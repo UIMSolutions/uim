@@ -41,13 +41,13 @@ class DRoundedSquare : IShape {
   }
 }
 
-/// Create an Abstract class to get factories for Normal and Rounded Shape Objects.
+/// Create an DAbstract class to get factories for Normal and Rounded Shape Objects.
 abstract class DAbstractFactory {
    abstract IShape createShape(string shapeType) ;
 }
 
 /// Create a Factory to generate object of concrete class based on given information.
-class DShapeFactory : AbstractFactory {	
+class DShapeFactory : DAbstractFactory {	
    //use createShape method to get object of type shape 
    override IShape createShape(string shapeType) {
       switch(shapeType.toLower) {
@@ -58,7 +58,7 @@ class DShapeFactory : AbstractFactory {
    }
 }
 
-class DRoundedShapeFactory : AbstractFactory {	
+class DRoundedShapeFactory : DAbstractFactory {	
    //use createShape method to get object of type shape 
    override IShape createShape(string shapeType) {
       switch(shapeType.toLower) {
@@ -71,7 +71,7 @@ class DRoundedShapeFactory : AbstractFactory {
 
 /// Create a Factory generator/producer class to get factories by passing an information such as Shape
  class FactoryProducer {
-    static AbstractFactory factory(bool rounded) {   
+    static DAbstractFactory factory(bool rounded) {   
       if(rounded) {
          return new RoundedShapeFactory();         
       }else{
@@ -85,7 +85,7 @@ version(test_uim_oop) { unittest {
   writeln("\nAbstractFactory Pattern Demo");
 
   //get shape factory
-  AbstractFactory shapeFactory = FactoryProducer.factory(false);
+  DAbstractFactory shapeFactory = FactoryProducer.factory(false);
 
   //get an object of Circle and call its draw method.
   IShape shape = shapeFactory.createShape("RECTANGLE");

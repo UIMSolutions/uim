@@ -16,7 +16,7 @@ abstract class DAbstractCustomer {
 }
 
 /// Create concrete classes extending the above class.
-class DRealCustomer : AbstractCustomer {
+class DRealCustomer : DAbstractCustomer {
   this(string name) {
     _name = name;	}
   
@@ -27,7 +27,7 @@ class DRealCustomer : AbstractCustomer {
     return false; }
 }
 
-class NullCustomer : AbstractCustomer {
+class NullCustomer : DAbstractCustomer {
   override string name() {
     return "Not Available in Customer Database"; }
 
@@ -39,7 +39,7 @@ class NullCustomer : AbstractCustomer {
 class DCustomerFactory {
   static const string[] names = ["Rob", "Joe", "Julie"];
 
-  static AbstractCustomer getCustomer(string name) {
+  static DAbstractCustomer getCustomer(string name) {
     for (int i = 0; i < names.length; i++) {
       if (names[i].toLower == name.toLower) {
         return new RealCustomer(name);
@@ -53,10 +53,10 @@ class DCustomerFactory {
 version(test_uim_oop) { unittest {
     writeln("NullPatternDemo");
 
-    AbstractCustomer customer1 = CustomerFactory.getCustomer("Rob");
-    AbstractCustomer customer2 = CustomerFactory.getCustomer("Bob");
-    AbstractCustomer customer3 = CustomerFactory.getCustomer("Julie");
-    AbstractCustomer customer4 = CustomerFactory.getCustomer("Laura");
+    DAbstractCustomer customer1 = CustomerFactory.getCustomer("Rob");
+    DAbstractCustomer customer2 = CustomerFactory.getCustomer("Bob");
+    DAbstractCustomer customer3 = CustomerFactory.getCustomer("Julie");
+    DAbstractCustomer customer4 = CustomerFactory.getCustomer("Laura");
 
     writeln("Customers");
     writeln(customer1.name);

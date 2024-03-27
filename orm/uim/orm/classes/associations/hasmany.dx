@@ -11,7 +11,7 @@ import uim.orm;
  */
 class HasMany : DAssociation {
     /**
-     * Order in which target records should be returned
+     * DOrder in which target records should be returned
      *
      * @var \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string
      */

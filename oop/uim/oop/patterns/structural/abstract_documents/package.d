@@ -63,7 +63,7 @@ interface Document {
   Document[] children(string key);
 }
 
-// Abstract implementation of Document interface.
+// DAbstract implementation of Document interface.
 abstract class DAbstractDocument : Document {
   private DProperty[string] properties;
 
@@ -87,11 +87,11 @@ abstract class DAbstractDocument : Document {
 }
 
 /**
- * The Abstract Document pattern enables handling additional, non-static properties. This pattern
+ * The DAbstract Document pattern enables handling additional, non-static properties. This pattern
  * uses concept of traits to enable type safety and separate properties of different classes into
  * set of interfaces.
  *
- * <p>In Abstract Document pattern,({@link AbstractDocument}) fully implements {@link Document})
+ * <p>In DAbstract Document pattern,({@link DAbstractDocument}) fully implements {@link Document})
  * interface. Traits are then defined to enable access to properties in usual, static way.
  */
  // class DApp {
@@ -101,12 +101,12 @@ abstract class DAbstractDocument : Document {
    * @param args command line args
    * /
 
-/// AbstractDocument test class
+/// DAbstractDocument test class
 class DAbstractDocumentTest {
   private static final string KEY = "key";
   private static final string VALUE = "value";
 
-  private static class DocumentImplementation : AbstractDocument {
+  private static class DocumentImplementation : DAbstractDocument {
     this(DProperty[string] properties) {
       super(properties); }
   }

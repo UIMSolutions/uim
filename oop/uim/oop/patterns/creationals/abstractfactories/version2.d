@@ -316,7 +316,7 @@ class FreezeClam : Clam
 }
 
 version(test_uim_oop) { unittest {	
-    writeln("--- Abstract Factory test ---");
+    writeln("--- DAbstract Factory test ---");
     PizzaStore nyStore = new NYPizzaStore();
     PizzaStore chicagoStore = new DChicagoPizzaStore();
 

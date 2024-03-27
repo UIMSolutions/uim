@@ -19,7 +19,7 @@ class DHasManyAssociation : DAssociation {
     mixin(AssociationThis!("HasMany"));
 
     /**
-     * Order in which target records should be returned
+     * DOrder in which target records should be returned
      *
      * @var mixed
      * /

@@ -103,7 +103,7 @@ class DBelongsToManyAssociation : DAssociation {
     protected _junctionConditions;
 
     /**
-     * Order in which target records should be returned
+     * DOrder in which target records should be returned
      *
      * @var mixed
      * /

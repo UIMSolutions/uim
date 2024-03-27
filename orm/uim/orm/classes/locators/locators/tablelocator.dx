@@ -8,7 +8,7 @@ import uim.orm;
 /**
  * Provides a default registry/factory for Table objects.
  */
-class DTableLocator : AbstractLocator : ILocator {
+class DTableLocator : DAbstractLocator : ILocator {
     /**
      * Contains a list of locations where table classes should be looked for.
      */

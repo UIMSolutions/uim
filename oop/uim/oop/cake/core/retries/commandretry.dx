@@ -34,7 +34,7 @@ class CommandRetry {
      * Params:
      * \Closure action Callback to run for each attempt
      */
-    Json run(Closure action) {
+    IData run(Closure action) {
         this.numRetries = 0;
         while (true) {
             try {

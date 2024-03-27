@@ -93,7 +93,7 @@ abstract class Logger /* : AbstractLogger */ {
         }
         placeholders = array_intersect(matches[1], context.keys);
         replacements = [];
-        jsonFlags = JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE;
+        IDataFlags = IData_THROW_ON_ERROR | IData_UNESCAPED_UNICODE;
 
         foreach (aKey; placeholders) {
             aValue = context[aKey];
@@ -103,15 +103,15 @@ abstract class Logger /* : AbstractLogger */ {
                 continue;
             }
             if (isArray(aValue)) {
-                replacements["{" ~ aKey ~ "}"] = json_encode(aValue, jsonFlags);
+                replacements["{" ~ aKey ~ "}"] = IData_encode(aValue, IDataFlags);
                 continue;
             }
-            if (cast(JsonSerializable)aValue) {
-                replacements["{" ~ aKey ~ "}"] = json_encode(aValue, jsonFlags);
+            if (cast(IDataSerializable)aValue) {
+                replacements["{" ~ aKey ~ "}"] = IData_encode(aValue, IDataFlags);
                 continue;
             }
             if (cast(ArrayObject)aValue) {
-                replacements["{" ~ aKey ~ "}"] = json_encode(aValue.getArrayCopy(), jsonFlags);
+                replacements["{" ~ aKey ~ "}"] = IData_encode(aValue.getArrayCopy(), IDataFlags);
                 continue;
             }
             if (cast(Serializable)aValue) {
@@ -120,7 +120,7 @@ abstract class Logger /* : AbstractLogger */ {
             }
             if (isObject(aValue)) {
                 if (method_exists(aValue, "toArray")) {
-                    replacements["{" ~ aKey ~ "}"] = json_encode(aValue.toArray(), jsonFlags);
+                    replacements["{" ~ aKey ~ "}"] = IData_encode(aValue.toArray(), IDataFlags);
                     continue;
                 }
                 if (cast(Serializable)aValue) {
@@ -132,7 +132,7 @@ abstract class Logger /* : AbstractLogger */ {
                     continue;
                 }
                 if (method_exists(aValue, "__debugInfo")) {
-                    replacements["{" ~ aKey ~ "}"] = json_encode(aValue.__debugInfo(), jsonFlags);
+                    replacements["{" ~ aKey ~ "}"] = IData_encode(aValue.__debugInfo(), IDataFlags);
                     continue;
                 }
             }

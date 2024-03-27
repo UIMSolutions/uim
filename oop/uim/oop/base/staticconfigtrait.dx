@@ -82,7 +82,7 @@ template StaticConfigTemplate {
      * Params:
      * string aKey The name of the configuration.
      */
-    static Json getConfig(string aKey) {
+    static IData getConfig(string aKey) {
         return _config.get(aKey, null);
     }
     
@@ -93,7 +93,7 @@ template StaticConfigTemplate {
      * Params:
      * string aKey The name of the configuration.
      */
-    static Json getConfigOrFail(string aKey) {
+    static IData getConfigOrFail(string aKey) {
         if (!isSet(configuration.data(aKey])) {
             throw new DInvalidArgumentException("Expected configuration `%s` not found.".format(aKey));
         }

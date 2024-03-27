@@ -870,9 +870,9 @@ class Text {
      * Converts filesize from human readable string to bytes
      * Params:
      * string mysize Size in human readable string like "5MB", "5M", "500B", "50kb" etc.
-     * @param Json mydefault Value to be returned when invalid size was used, for example "Unknown type"
+     * @param IData mydefault Value to be returned when invalid size was used, for example "Unknown type"
      */
-    static Json parseFileSize(string mysize, Json mydefault = false) {
+    static IData parseFileSize(string mysize, IData mydefault = false) {
         if (ctype_digit(mysize)) {
             return (int)mysize;
         }

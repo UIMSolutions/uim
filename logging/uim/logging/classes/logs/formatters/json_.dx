@@ -1,9 +1,9 @@
 module uim.logs.Formatter;
 
-class JsonFormatter : AbstractFormatter {
+class IDataFormatter : AbstractFormatter {
     protected IData[string] Configuration.updateDefaults([
         "dateFormat": DATE_ATOM,
-        "flags": JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES,
+        "flags": IData_UNESCAPED_UNICODE | IData_UNESCAPED_SLASHES,
         "appendNewline": true,
     ];
 
@@ -14,8 +14,8 @@ class JsonFormatter : AbstractFormatter {
  
     string|int|false format(level, string amessage, array context = []) {
         auto log = ["date": date(configuration["dateFormat"]), "level": to!string(level), "message": message];
-        auto json = json_encode(log, JSON_THROW_ON_ERROR | configuration["flags"]);
+        auto IData = IData_encode(log, IData_THROW_ON_ERROR | configuration["flags"]);
 
-        return configuration["appendNewline"] ? json ~ "\n" : json;
+        return configuration["appendNewline"] ? IData ~ "\n" : IData;
     }
 }

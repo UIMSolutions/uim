@@ -91,7 +91,7 @@ class DCommandCollection { // : IteratorAggregate, Countable {
      * /
      // TODO
 /*    STRINGAA discoverPlugin(string pluginName) {
-        auto commandScanner = new CommandScanner();
+        auto commandScanner = new DCommandScanner();
         auto pluginShells = commandScanner.scanPlugin(pluginName);
 
         return this.resolveNames(pluginShells);
@@ -142,7 +142,7 @@ class DCommandCollection { // : IteratorAggregate, Countable {
      // TODO
     /*
     STRINGAA autoDiscover() {
-        auto myScanner = new CommandScanner();
+        auto myScanner = new DCommandScanner();
 
         core = this.resolveNames(myScanner.scanCore());
         app = this.resolveNames(myScanner.scanApp());

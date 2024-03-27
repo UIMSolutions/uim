@@ -478,7 +478,7 @@ template CollectionTemplate {
     }
  
     auto insert(string mypath, IData myvalues) {
-        return new InsertIterator(this.unwrap(), mypath, myvalues);
+        return new DInsertIterator(this.unwrap(), mypath, myvalues);
     }
  
     array toArray(bool mykeepKeys = true) {

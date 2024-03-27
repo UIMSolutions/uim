@@ -80,9 +80,9 @@ class DConsoleIo {
         ?ConsoleInput  anIn = null,
         ?HelperRegistry helpers = null
     ) {
-       _out =  result ? result : new ConsoleOutput("uim://stdout");
-       _err = err ?: new ConsoleOutput("uim://stderr");
-       _in =  anIn ?: new ConsoleInput("uim://stdin");
+       _out =  result ? result : new DConsoleOutput("uim://stdout");
+       _err = err ?: new DConsoleOutput("uim://stderr");
+       _in =  anIn ?: new DConsoleInput("uim://stdin");
        _helpers = helpers ?: new HelperRegistry();
        _helpers.setIo(this);
     }
@@ -468,13 +468,13 @@ class DConsoleIo {
             outLevels ~= "debug";
         }
         if (enable != QUIET) {
-            stdout = new ConsoleLog([
+            stdout = new DConsoleLog([
                 "types": outLevels,
                 "stream": _out,
             ]);
             Log.configuration.update("stdout", ["engine": stdout]);
         }
-        stderr = new ConsoleLog([
+        stderr = new DConsoleLog([
             "types": ["emergency", "alert", "critical", "error", "warning"],
             "stream": _err,
         ]);

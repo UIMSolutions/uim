@@ -554,7 +554,7 @@ trait CollectionTrait {
 
     function insert(string path, values): ICollection
     {
-        return new InsertIterator(this.unwrap(), path, values);
+        return new DInsertIterator(this.unwrap(), path, values);
     }
 
 

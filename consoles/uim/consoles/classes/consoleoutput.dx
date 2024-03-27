@@ -131,7 +131,7 @@ class DConsoleOutput {
     this(string streamIdentifier = "uim://stdout") {
         auto fileStream = fopen(streamIdentifier, "wb");
         if (!isResource(fileStream)) {
-            throw new ConsoleException("Invalid stream in constructor. It is not a valid resource.");
+            throw new DConsoleException("Invalid stream in constructor. It is not a valid resource.");
         }
        _output = fileStream;
 

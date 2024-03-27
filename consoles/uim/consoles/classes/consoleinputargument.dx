@@ -43,7 +43,7 @@ class DConsoleInputArgument {
     protected string[] _choices;
 
     /**
-     * Make a new Input Argument
+     * Make a new DInput Argument
      * Params:
      * IData[string]|string aName The long name of the option, or an array with all the properties.
      * @param string ahelp The help text for this option
@@ -123,7 +123,7 @@ class DConsoleInputArgument {
             return true;
         }
         if (!in_array(choiceToValidate, _choices, true)) {
-            throw new ConsoleException(                
+            throw new DConsoleException(                
                 "`%s` is not a valid value for `%s`. Please use one of `%s`"
                 .format(aValue, _name, _choices.join(", ", ))
             );

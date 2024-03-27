@@ -84,7 +84,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * /
     ConsoleOptionParser getOptionParser() {
         [root, name] = split(" ", this.name, 2);
-        aParser = new ConsoleOptionParser(name);
+        aParser = new DConsoleOptionParser(name);
         aParser.setRootName(root);
         aParser.description(getDescription());
 
@@ -214,7 +214,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
         }
 
         int executeCommand(ICommand acommand, array someArguments = [],  ? IConsoleIo aConsoleIo = null) {
-            auto myConsoleIo = aConsoleIo ?  : new ConsoleIo();
+            auto myConsoleIo = aConsoleIo ?  : new DConsoleIo();
 
             try {
                 return acommand.run(someArguments, myConsoleIo);

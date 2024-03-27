@@ -58,7 +58,7 @@ class DConsoleInputOption {
     protected bool _isRequired;
 
     /**
-     * Make a new Input Option
+     * Make a new DInput Option
      * Params:
      * string aName The long name of the option, or an array with all the properties.
      * @param string ashort The short alias for this option
@@ -97,12 +97,12 @@ class DConsoleInputOption {
            _default = to!string( default);
         }
         if (_short.length > 1) {
-            throw new ConsoleException(
+            throw new DConsoleException(
                 "Short option `%s` is invalid, short options must be one letter.".format(_short)
             );
         }
         if (isSet(_default) && this.prompt) {
-            throw new ConsoleException(
+            throw new DConsoleException(
                 'You cannot set both `prompt` and `default` options. ' .
                 'Use either a static `default` or interactive `prompt`'
             );
@@ -199,7 +199,7 @@ class DConsoleInputOption {
             return true;
         }
         if (!in_array(aValue, _choices, true)) {
-            throw new ConsoleException(
+            throw new DConsoleException(
                 "`%s` is not a valid value for `--%s`. Please use one of `%s`"
                 .format(to!string(aValue), _name, join(", ", _choices))
             );

@@ -133,7 +133,7 @@ class DConsoleOptionParser {
     }
     
     /**
-     * Static factory method for creating new OptionParsers so you can chain methods off of them.
+     * Static factory method for creating new DOptionParsers so you can chain methods off of them.
      * Params:
      * string acommand The command name this parser is for. The command name is used for generating help.
      * @param bool defaultOptions Whether you want the verbose and quiet options set.
@@ -287,7 +287,7 @@ class DConsoleOptionParser {
             ];
             behaviorOptions = behaviorOptions.update(defaultValues);
             
-            auto inputOption = new ConsoleInputOption(
+            auto inputOption = new DConsoleInputOption(
                 name,
                 behaviorOptions["short"],
                 behaviorOptions["help"],
@@ -353,7 +353,7 @@ class DConsoleOptionParser {
             options = params + defaults;
              anIndex = options["index"];
             options.remove("index");
-            arg = new ConsoleInputArgument(options);
+            arg = new DConsoleInputArgument(options);
         }
         foreach (a; _args) {
             if (a.isEqualTo(arg)) {
@@ -452,7 +452,7 @@ class DConsoleOptionParser {
         }
         foreach (anI: arg; _args) {
             if (arg.isRequired() && !isSet(someArguments[anI])) {
-                throw new ConsoleException(
+                throw new DConsoleException(
                     "Missing required argument. The `%s` argument is required.".format(arg.name())
                 );
             }
@@ -472,7 +472,7 @@ class DConsoleOptionParser {
             prompt = option.prompt();
             if (!isSet(params[name]) && prompt) {
                 if (!aConsoleIo) {
-                    throw new ConsoleException(
+                    throw new DConsoleException(
                         'Cannot use interactive option prompts without a ConsoleIo instance. ' .
                         'Please provide a ` aConsoleIo` parameter to `parse()`.'
                     );
@@ -486,7 +486,7 @@ class DConsoleOptionParser {
                 params[name] = aValue;
             }
             if (option.isRequired() && !isSet(params[name])) {
-                throw new ConsoleException(
+                throw new DConsoleException(
                     "Missing required option. The `%s` option is required and has no default value.".format(name)
                 );
             }
@@ -513,7 +513,7 @@ class DConsoleOptionParser {
         if (format == "xml") {
             return to!string(formatter.xml());
         }
-        throw new ConsoleException("Invalid format. Output format can be text or xml.");
+        throw new DConsoleException("Invalid format. Output format can be text or xml.");
     }
     
     /**
@@ -644,7 +644,7 @@ class DConsoleOptionParser {
         auto next = count(someArguments);
         if (!isSet(_args[next])) {
             expected = count(_args);
-            throw new ConsoleException(
+            throw new DConsoleException(
                 "Received too many arguments. Got `%s` but only `%s` arguments are defined."
                 .format(next, expected)
             );

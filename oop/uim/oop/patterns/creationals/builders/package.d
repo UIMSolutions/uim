@@ -10,7 +10,7 @@ import uim.oop;
 
 interface IItem {
   string name();
-  Packing packing();
+  IPacking packing();
   float price();	
 }
 
@@ -31,7 +31,7 @@ class DBottle : IPacking {
 }
 
 abstract class DBurger : IItem {
-   override Packing packing() {
+   override IPacking packing() {
       return new Wrapper();
    }
 
@@ -39,7 +39,7 @@ abstract class DBurger : IItem {
 }
 
  abstract class DColdDrink : IItem {
-	override Packing packing() {
+	override IPacking packing() {
     return new DBottle();
 	}
 
@@ -90,7 +90,7 @@ class DCoke : DColdDrink {
  class DMeal {
   private IItem[] items;	
 
-  void addItem(DItem item) {
+  void addItem(IItem item) {
     items ~= item;
   }
 
@@ -126,14 +126,14 @@ class DMealBuilder {
 }
 
 version(test_uim_oop) { unittest {
-    MealBuilder mealBuilder = new DMealBuilder();
+    DMealBuilder mealBuilder = new DMealBuilder();
 
-  Meal vegMeal = mealBuilder.prepareVegMeal();
+  DMeal vegMeal = mealBuilder.prepareVegMeal();
   writeln("Veg Meal");
   vegMeal.showItems();
   writeln("Total Cost: ", vegMeal.getCost());
 
-  Meal nonVegMeal = mealBuilder.prepareNonVegMeal();
+  DMeal nonVegMeal = mealBuilder.prepareNonVegMeal();
   writeln("\n\nNon-Veg Meal");
   nonVegMeal.showItems();
   writeln("Total Cost: ",  nonVegMeal.getCost());

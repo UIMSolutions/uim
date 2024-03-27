@@ -46,10 +46,10 @@ class DShapeFactory {
          return new DCircle();
          
       } else if(shapeType.toLower == "RECTANGLE".toLower) {
-         return new Rectangle();
+         return new DRectangle();
          
       } else if(shapeType.toLower == "SQUARE".toLower) {
-         return new Square();
+         return new DSquare();
       }
       
       return null;
@@ -60,7 +60,7 @@ class DShapeFactory {
 version(test_uim_oop) { unittest {
      writeln("\nFactoryPatternDemo");
 
-  ShapeFactory shapeFactory = new ShapeFactory();
+  DShapeFactory shapeFactory = new DShapeFactory();
 
   //get an object of Circle and call its draw method.
   IShape shape = shapeFactory.createShape("CIRCLE");

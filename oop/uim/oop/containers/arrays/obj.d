@@ -9,8 +9,8 @@ import uim.oop;
 
 @safe:
 
-class DArrayObj : Obj {
-	Obj[] _objs;
+class DArrayObj : DObj {
+	DObj[] _objs;
 
 	mixin(BoolProperty!"sorted");
 	mixin(BoolProperty!"uniqued");

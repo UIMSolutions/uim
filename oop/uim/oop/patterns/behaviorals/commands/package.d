@@ -9,7 +9,7 @@ import uim.oop;
 @safe:
 
 /// Create a command interface.
-interface DOrder {
+interface IOrder {
    void execute();
 }
 
@@ -26,8 +26,8 @@ class DStock {
   }
 }
 
-/// Create concrete classes implementing the DOrder interface.
-class DBuyStock : DOrder {
+/// Create concrete classes implementing the IOrder interface.
+class DBuyStock : IOrder {
   private DStock _abcStock;
 
   this(DStock abcStock) {
@@ -39,10 +39,10 @@ class DBuyStock : DOrder {
   }
 }
 
-class DSellStock : DOrder {
+class DSellStock : IOrder {
   private DStock _abcStock;
 
-  this(Stock abcStock) {
+  this(DStock abcStock) {
     _abcStock = abcStock;
   }
 
@@ -53,9 +53,9 @@ class DSellStock : DOrder {
 
 /// Create command invoker class.
 class DBroker {
-  private DOrder[] _orderList; 
+  private IOrder[] _orderList; 
 
-  void takeOrder(DOrder order) {
+  void takeOrder(IOrder order) {
     _orderList ~= order;		
   }
 
@@ -69,7 +69,7 @@ class DBroker {
 version(test_uim_oop) { unittest {
     writeln("CommandPatternDemo");
     
-    DStock abcStock = new Stock();
+    DStock abcStock = new DStock();
 
     DBuyStock buyStockOrder = new DBuyStock(abcStock);
     DSellStock sellStockOrder = new DSellStock(abcStock);

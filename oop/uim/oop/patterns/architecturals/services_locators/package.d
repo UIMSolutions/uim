@@ -48,11 +48,11 @@ class DInitialContext {
   Object lookup(string jndiName) {
     switch(jndiName.toLower) {
       case "service1":
-        writeln("Looking up and creating a new Service1 object");
-        return new Service1();
+        writeln("Looking up and creating a new DService1 object");
+        return new DService1();
       case "service2": 
-        writeln("Looking up and creating a new Service2 object");
-        return new Service2();
+        writeln("Looking up and creating a new DService2 object");
+        return new DService2();
       default: return null;
     }		
   }

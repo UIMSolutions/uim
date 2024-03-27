@@ -52,7 +52,7 @@ class DShapeFactory : DAbstractFactory {
    override IShape createShape(string shapeType) {
       switch(shapeType.toLower) {
          case "rectangle": return new Rectangle();
-         case "square": return new Square();
+         case "square": return new DSquare();
          default: return null;
       }
    }
@@ -75,7 +75,7 @@ class DRoundedShapeFactory : DAbstractFactory {
       if(rounded) {
          return new RoundedShapeFactory();         
       }else{
-         return new ShapeFactory();
+         return new DShapeFactory();
       }
    }
 }

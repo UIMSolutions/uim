@@ -30,7 +30,7 @@ class DOOPElement : ICloneable {
     return fullname.replace(".", "/");
   }
 
-  mixin(PropertyDefinition!("string", "_name", "name", true, true));
+  mixin(TProperty!("string", "name"));
 
   /* 	Bson toBson() {
 		Bson result = Bson.emptyObject;

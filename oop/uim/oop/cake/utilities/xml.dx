@@ -117,7 +117,7 @@ class Xml {
             options,
             auto(myinput, options, myflags) {
             if (options["return"] == "simplexml" || options["return"] == "simplexmlelement") {
-                myflags |= LIBXML_NOCDATA; myxml = new SimpleXMLElement(myinput, myflags);
+                myflags |= LIBXML_NOCDATA; myxml = new DSimpleXMLElement(myinput, myflags);
             } else {
                 myxml = new DOMDocument(); myxml.loadXML(myinput, myflags);}
                 return myxml;}
@@ -239,7 +239,7 @@ class Xml {
 
                         options["return"] = options["return"].toLower;
                         if (optionData["return"] == "simplexml" || optionData["return"] == "simplexmlelement") {
-                            return new SimpleXMLElement(to!string(domDocument.saveXML()));
+                            return new DSimpleXMLElement(to!string(domDocument.saveXML()));
                         }
                         return domDocument;
                     }

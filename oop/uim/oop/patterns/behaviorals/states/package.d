@@ -51,12 +51,12 @@ version(test_uim_oop) { unittest {
     
     auto context = new DContext();
 
-    auto startState = new StartState();
+    auto startState = new DStartState();
     startState.doAction(context);
 
     writeln(context.state);
 
-    auto stopState = new StopState();
+    auto stopState = new DStopState();
     stopState.doAction(context);
 
     writeln(context.state);

@@ -40,7 +40,7 @@ class DBusinessLookUp {
 
 /// Create Business Delegate.
 class DBusinessDelegate {
-  private BusinessLookUp lookupService = new BusinessLookUp();
+  private DBusinessLookUp lookupService = new DBusinessLookUp();
   private IBusinessService businessService;
   private string _serviceType;
 

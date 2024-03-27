@@ -27,7 +27,7 @@ import uim.views;
 class DEntityContext : IContext {
     use LocatorAwareTrait;
 
-    // Context data for this object.
+    // DContext data for this object.
     protected IData[string] my_context;
 
     // The name of the top level entity/table object.
@@ -48,7 +48,7 @@ class DEntityContext : IContext {
     /**
      * Constructor.
      * Params:
-     * IData[string] mycontext Context info.
+     * IData[string] mycontext DContext info.
      */
     this(IData[string] contextData) {
         mycontext += [

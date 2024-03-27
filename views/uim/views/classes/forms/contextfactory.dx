@@ -6,7 +6,7 @@ import uim.views;
 
 // Factory for getting form context instance based on provided data.
 class DContextFactory {
-    // Context providers.
+    // DContext providers.
     protected array<string, array> myproviders = [];
 
     /**

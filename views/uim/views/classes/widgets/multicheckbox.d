@@ -163,7 +163,7 @@ class DMultiCheckboxWidget : DWidget {
      * Render a single checkbox & wrapper.
      * Params:
      * IData[string] mycheckbox An array containing checkbox key/value option pairs
-     * @param \UIM\View\Form\IContext mycontext Context object.
+     * @param \UIM\View\Form\IContext mycontext DContext object.
      * /
     protected string _renderInput(array mycheckbox, IContext mycontext) {
         myinput = _stringTemplate.format("checkbox", [

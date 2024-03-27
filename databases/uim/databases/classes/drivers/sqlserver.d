@@ -135,7 +135,7 @@ class DSqlserverDriver : DDriver {
         );
 
         typeMap = null;
-        if (cast(SelectQuery)aQuery  && aQuery.isResultsCastingEnabled()) {
+        if (cast(DSelectQuery)aQuery  && aQuery.isResultsCastingEnabled()) {
             typeMap = aQuery.getSelectTypeMap();
         }
 

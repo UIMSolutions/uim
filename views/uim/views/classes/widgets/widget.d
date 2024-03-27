@@ -102,7 +102,7 @@ class DWidget : IWidget {
      * Merge default values with supplied data.
      * Params:
      * IData[string] mydata Data array
-     * @param \UIM\View\Form\IContext mycontext Context instance.
+     * @param \UIM\View\Form\IContext mycontext DContext instance.
      * /
   protected IData[string] mergeDefaults(array data, IContext mycontext) {
     mydata += this.defaults;
@@ -117,7 +117,7 @@ class DWidget : IWidget {
      * Set value for "required" attribute if applicable.
      * Params:
      * IData[string] mydata Data array
-     * @param \UIM\View\Form\IContext mycontext Context instance.
+     * @param \UIM\View\Form\IContext mycontext DContext instance.
      * @param string aFieldName Field name.
      * /
   protected IData[string] setRequired(array data, IContext mycontext, string aFieldName) {
@@ -139,7 +139,7 @@ class DWidget : IWidget {
      * Set value for "maxlength" attribute if applicable.
      * Params:
      * IData[string] mydata Data array
-     * @param \UIM\View\Form\IContext mycontext Context instance.
+     * @param \UIM\View\Form\IContext mycontext DContext instance.
      * @param string aFieldName Field name.
      * /
   protected IData[string] setMaxLength(array data, IContext mycontext, string aFieldName) {
@@ -154,7 +154,7 @@ class DWidget : IWidget {
      * Set value for "step" attribute if applicable.
      * Params:
      * IData[string] mydata Data array
-     * @param \UIM\View\Form\IContext mycontext Context instance.
+     * @param \UIM\View\Form\IContext mycontext DContext instance.
      * @param string aFieldName Field name.
      * /
   protected IData[string] setStep(array data, IContext mycontext, string aFieldName) {

@@ -20,7 +20,7 @@ class FormContext : IContext {
     /**
      * Constructor.
      * Params:
-     * array mycontext Context info.
+     * array mycontext DContext info.
      *
      * Keys:
      *

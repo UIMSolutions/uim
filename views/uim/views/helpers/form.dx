@@ -162,16 +162,16 @@ class FormHelper : Helper {
     protected WidgetLocator my_locator;
 
     /**
-     * Context for the current form.
+     * DContext for the current form.
      *
      * @var \UIM\View\Form\IContext|null
      */
     protected IContext my_context = null;
 
     /**
-     * Context factory.
+     * DContext factory.
      */
-    protected ContextFactory my_contextFactory = null;
+    protected DContextFactory my_contextFactory = null;
 
     /**
      * The action attribute value of the last created form.
@@ -262,9 +262,9 @@ class FormHelper : Helper {
      * \UIM\View\Form\ContextFactory|null myinstance The context factory instance to set.
      * @param array mycontexts An array of context providers.
      */
-    ContextFactory contextFactory(?ContextFactory myinstance = null, array mycontexts = []) {
+    DContextFactory contextFactory(?ContextFactory myinstance = null, array mycontexts = []) {
         if (myinstance.isNull) {
-            return _contextFactory ??= ContextFactory.createWithDefaults(mycontexts);
+            return _contextFactory ??= DContextFactory.createWithDefaults(mycontexts);
         }
        _contextFactory = myinstance;
 
@@ -1954,7 +1954,7 @@ class FormHelper : Helper {
      *
      * - `empty` - If true, the empty select option is shown. If a string,
      *  that string is displayed as the empty element.
-     * - `order` - Ordering of year values in select options.
+     * - `order` - DOrdering of year values in select options.
      *  Possible values "asc", "desc". Default "desc"
      * - `value` The selected value of the input.
      * - `max` The max year to appear in the select element.
@@ -2312,7 +2312,7 @@ class FormHelper : Helper {
      * Sets the value sources.
      *
      * You need to supply one or more valid sources, as a list of strings.
-     * Order sets priority.
+     * DOrder sets priority.
      *
      * @see FormHelper.mysupportedValueSources for valid values.
      * @param string[]|string mysources A string or a list of strings identifying a source.

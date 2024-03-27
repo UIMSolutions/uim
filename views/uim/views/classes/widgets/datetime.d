@@ -101,7 +101,7 @@ class DDateTimeWidget : DWidget {
      * Set value for "step" attribute if applicable.
      * Params:
      * IData[string] mydata Data array
-     * @param \UIM\View\Form\IContext mycontext Context instance.
+     * @param \UIM\View\Form\IContext mycontext DContext instance.
      * @param string aFieldName Field name.
      * /
     protected IData[string] setStep(array data, IContext mycontext, string aFieldName) {

@@ -530,7 +530,7 @@ class DI18nExtractCommand : DCommand {
                     overwriteAll = true;
                 }
             }
-            fs = new Filesystem();
+            fs = new DFilesystem();
             fs.dumpFile(_output ~ filename, outputHeader);
         }
     }
@@ -694,7 +694,7 @@ class DI18nExtractCommand : DCommand {
                 continue;
             }
             somePath ~= DIRECTORY_SEPARATOR;
-            fs = new Filesystem();
+            fs = new DFilesystem();
             files = fs.findRecursive(somePath, "/\.d$/");
             files = iterator_to_array(files).keys;
             sort(files);

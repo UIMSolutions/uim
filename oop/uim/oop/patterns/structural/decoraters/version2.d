@@ -3,12 +3,12 @@ module uim.oop.patterns.structural.decoraters.version2;
 import uim.oop;
 @safe:
 
-interface Coffee {
+interface ICoffee {
     float cost();
     string ingredients();
 }
 
-class DSimpleCoffee : Coffee {
+class DSimpleCoffee : ICoffee {
   float cost() {
     return 1.0; }
 
@@ -16,10 +16,10 @@ class DSimpleCoffee : Coffee {
     return "Coffee"; }
 }
 
-abstract class DCoffeeDecorator : Coffee {
-  private Coffee decorated_coffee;
+abstract class DCoffeeDecorator : ICoffee {
+  private ICoffee decorated_coffee;
 
-  this(Coffee d) {
+  this(ICoffee d) {
     decorated_coffee = d; }
 
   float cost() {
@@ -29,8 +29,8 @@ abstract class DCoffeeDecorator : Coffee {
     return decorated_coffee.ingredients;}
 }
 
-class DWithMilk : CoffeeDecorator {
-  this(Coffee d) {
+class DWithMilk : DCoffeeDecorator {
+  this(ICoffee d) {
     super(d); }
 
   override float cost() {
@@ -40,8 +40,8 @@ class DWithMilk : CoffeeDecorator {
     return super.ingredients ~ ", Milk"; }
 }
 
-class DWithSprinkles : CoffeeDecorator {
-  this(Coffee d) {
+class DWithSprinkles : DCoffeeDecorator {
+  this(ICoffee d) {
     super(d); }
 
   override float cost() {
@@ -51,17 +51,17 @@ class DWithSprinkles : CoffeeDecorator {
     return super.ingredients ~ ", Sprinkles"; }
 }
 
-void print(Coffee coffee) {
+void print(ICoffee coffee) {
     writefln("Cost: %1.1f; Ingredients: %s", coffee.cost, coffee.ingredients);
 }
 
 version(test_uim_oop) { unittest {
-    Coffee coffee = new SimpleCoffee;
-    print(coffee);
+    ICoffee coffee = new DSimpleCoffee;
+    print(ICoffee);
 
     coffee = new WithMilk(coffee);
-    print(coffee);
+    print(ICoffee);
 
     coffee = new WithSprinkles(coffee);
-    print(coffee);
+    print(ICoffee);
   }}

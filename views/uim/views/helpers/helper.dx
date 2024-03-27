@@ -5,7 +5,7 @@ import uim.views;
 @safe:
 
 /**
- * Abstract base class for all other Helpers in UIM.
+ * DAbstract base class for all other Helpers in UIM.
  * Provides common methods and features.
  *
  * ### Callback methods

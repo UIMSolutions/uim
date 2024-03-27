@@ -9,18 +9,18 @@ import uim.oop;
 @safe:
 
 /// Create an interface.
- interface Shape {
+ interface IShape {
    void draw();
 }
 
 /// Create concrete classes implementing the same interface.
- class Rectangle : Shape {
+ class Rectangle : IShape {
    override  void draw() {
       writeln("Shape: Rectangle");
    }
 }
 
- class DCircle : Shape {
+ class DCircle : IShape {
 
    override  void draw() {
       writeln("Shape: Circle");
@@ -28,10 +28,10 @@ import uim.oop;
 }
 
 /// Create abstract decorator class implementing the Shape interface.
- abstract class DShapeDecorator : Shape {
-   protected Shape decoratedShape;
+ abstract class DShapeDecorator : IShape {
+   protected IShape decoratedShape;
 
-    this(Shape decoratedShape) {
+    this(IShape decoratedShape) {
       this.decoratedShape = decoratedShape;
    }
 
@@ -41,9 +41,9 @@ import uim.oop;
 }
 
 /// Create concrete decorator class extending the ShapeDecorator class.
- class RedShapeDecorator : ShapeDecorator {
+ class DRedShapeDecorator : DShapeDecorator {
 
-    this(Shape decoratedShape) {
+    this(IShape decoratedShape) {
       super(decoratedShape);		
    }
 
@@ -52,7 +52,7 @@ import uim.oop;
       setRedBorder(decoratedShape);
    }
 
-   private void setRedBorder(Shape decoratedShape) {
+   private void setRedBorder(IShape decoratedShape) {
       writeln("Border Color: Red");
    }
 }
@@ -60,11 +60,11 @@ import uim.oop;
 /// Use the RedShapeDecorator to decorate Shape objects.
 version(test_uim_oop) { unittest {
     writeln("DecoratorPatternDemo");
-      Shape circle = new DCircle();
+      IShape circle = new DCircle();
 
-      Shape redCircle = new RedShapeDecorator(new DCircle());
+      IShape redCircle = new DRedShapeDecorator(new DCircle());
 
-      Shape redRectangle = new RedShapeDecorator(new Rectangle());
+      IShape redRectangle = new DRedShapeDecorator(new Rectangle());
       writeln("Circle with normal border");
       circle.draw();
 

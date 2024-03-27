@@ -8,29 +8,29 @@ module uim.oop.patterns.creational.builders;
 import uim.oop;
 @safe:
 
-interface Item {
+interface IItem {
   string name();
   Packing packing();
   float price();	
 }
 
-interface Packing {
+interface IPacking {
   string pack();
 }
 
-class DWrapper : Packing {
+class DWrapper : IPacking {
   override string pack() {
     return "Wrapper";
   }
 }
 
-class DBottle : Packing {
+class DBottle : IPacking {
   override string pack() {
     return "Bottle";
   }
 }
 
-abstract class DBurger : Item {
+abstract class DBurger : IItem {
    override Packing packing() {
       return new Wrapper();
    }
@@ -38,7 +38,7 @@ abstract class DBurger : Item {
    override abstract float price();
 }
 
- abstract class DColdDrink : Item {
+ abstract class DColdDrink : IItem {
 	override Packing packing() {
     return new Bottle();
 	}
@@ -87,10 +87,10 @@ class DCoke : DColdDrink {
    }
 }
 
- class Meal {
-  private Item[] items;	
+ class DMeal {
+  private IItem[] items;	
 
-  void addItem(Item item) {
+  void addItem(DItem item) {
     items ~= item;
   }
 

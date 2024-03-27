@@ -13,7 +13,7 @@ class DRedCircle : IDrawAPI {
   }
 }
 
-class GreenCircle : IDrawAPI {
+class DGreenCircle : IDrawAPI {
    override void drawCircle(int radius, int x, int y) {
       writeln("Drawing Circle[ color: green, radius: ", radius, ", x: ", x, ", ", y, "]");
    }
@@ -29,7 +29,7 @@ abstract class DShape {
   abstract void draw();	
 }
 
-class DCircle : Shape {
+class DCircle : DShape {
    private int _x, _y, _radius;
 
    this(int x, int y, int radius, IDrawAPI drawAPI) {
@@ -45,8 +45,8 @@ class DCircle : Shape {
 }
 
 version(test_uim_oop) { unittest {
-    Shape redCircle = new DCircle(100,100, 10, new RedCircle());
-  Shape greenCircle = new DCircle(100,100, 10, new GreenCircle());
+    DShape redCircle = new DCircle(100,100, 10, new DRedCircle());
+  DShape greenCircle = new DCircle(100,100, 10, new DGreenCircle());
 
   redCircle.draw();
   greenCircle.draw();

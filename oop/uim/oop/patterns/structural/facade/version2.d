@@ -20,12 +20,12 @@ class DCPU {
     writeln("CPU: execute"); }
 }
 
-class Memory {
+class DMemory {
   void load(int position, string data) {
     writefln("Memory: load %s at %d", data, position); }
 }
 
-class HardDrive {
+class DHardDrive {
   string read(int lba, int size) {
     writefln("HardDrive: read sector %d (%d bytes)", lba, size);
     return "hdd data"; }
@@ -38,7 +38,7 @@ class DComputer {
   enum SECTOR_SIZE = 512;
 
   private {
-    CPU cpu;
+    DCPU cpu;
     Memory memory;
     HardDrive hard_drive; }
 

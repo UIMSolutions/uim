@@ -145,7 +145,7 @@ template PluginAssetsTemplate {
                 return false;
             }
         }
-        fs = new Filesystem();
+        fs = new DFilesystem();
         if (fs.deleteDir( dest)) {
             this.io.writeln("Deleted " ~ dest);
 
@@ -199,7 +199,7 @@ template PluginAssetsTemplate {
      * @param string adestination Destination directory
      * /
     protected bool _copyDirectory(string asource, string adestination) {
-        fs = new Filesystem();
+        fs = new DFilesystem();
         if (fs.copyDir(source, destination)) {
             this.io.writeln("Copied assets to directory " ~ destination);
 

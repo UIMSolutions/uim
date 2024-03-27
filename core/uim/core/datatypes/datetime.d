@@ -11,7 +11,7 @@ enum startUNIX = DateTime(1970, 1, 1, 0, 0, 0);
 @safe:
 
 long toTimestamp(SysTime untilTime) {
-	return (untilTime - cast(DSysTime)startUNIX).total!"hnsecs"();
+	return (untilTime - cast(SysTime)startUNIX).total!"hnsecs"();
 }
 
 // Convert a timestamp in string format (long value) to SysTime
@@ -21,14 +21,14 @@ SysTime fromTimestamp(string aTimestamp) {
 
 // Convert a timestamp (long value) to SysTime
 SysTime fromTimestamp(long aTimestamp) {
-	return (cast(DSysTime)startUNIX + aTimestamp.hnsecs);
+	return (cast(SysTime)startUNIX + aTimestamp.hnsecs);
 }
 
 long toJSTimestamp(long jsTimestamp) {
-	return (fromJSTimestamp(jsTimestamp) - cast(DSysTime)startUNIX).total!"msecs"();
+	return (fromJSTimestamp(jsTimestamp) - cast(SysTime)startUNIX).total!"msecs"();
 }
 SysTime fromJSTimestamp(long jsTimestamp) {
-	return (cast(DSysTime)startUNIX + jsTimestamp.msecs);
+	return (cast(SysTime)startUNIX + jsTimestamp.msecs);
 }
 
 // Current SysTime based on System Clock

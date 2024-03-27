@@ -19,7 +19,7 @@ abstract class DAbstractLogger {
   //next element in chain or responsibility
   protected DAbstractLogger _nextLogger;
 
-  @property void nextLogger(AbstractLogger nextLogger) {
+  @property void nextLogger(DAbstractLogger nextLogger) {
     _nextLogger = nextLogger;
   }
 
@@ -54,7 +54,7 @@ class DErrorLogger : DAbstractLogger {
   }
 }
 
-class FileLogger : DAbstractLogger {
+class DFileLogger : DAbstractLogger {
 
   this(int level) {
     _level = level;
@@ -67,7 +67,7 @@ class FileLogger : DAbstractLogger {
 
 private static DAbstractLogger getChainOfLoggers() {
   DAbstractLogger errorLogger = new DErrorLogger(AbstractLogger.ERROR);
-  DAbstractLogger fileLogger = new FileLogger(AbstractLogger.DEBUG);
+  DAbstractLogger fileLogger = new DFileLogger(AbstractLogger.DEBUG);
   DAbstractLogger consoleLogger = new DConsoleLogger(AbstractLogger.INFO);
 
   errorLogger.nextLogger = fileLogger;
@@ -82,13 +82,13 @@ version(test_uim_oop) { unittest {
    
    DAbstractLogger loggerChain = getChainOfLoggers();
 
-   loggerChain.logMessage(AbstractLogger.INFO, 
+   loggerChain.logMessage(DAbstractLogger.INFO, 
       "This is an information.");
 
-   loggerChain.logMessage(AbstractLogger.DEBUG, 
+   loggerChain.logMessage(DAbstractLogger.DEBUG, 
       "This is an debug level information.");
 
-   loggerChain.logMessage(AbstractLogger.ERROR, 
+   loggerChain.logMessage(DAbstractLogger.ERROR, 
         "This is an error information.");
    }
 }

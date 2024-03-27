@@ -6,6 +6,7 @@
 module uim.oop.patterns.behavioral.visitors;
 
 import uim.oop;
+
 @safe:
 
 /// Define an interface to represent element.
@@ -14,7 +15,7 @@ interface IComputerPart {
 }
 
 /// Create concrete classes extending the above class.
-class Keyboard : IComputerPart {
+class DKeyboard : IComputerPart {
   override void accept(IComputerPartVisitor computerPartVisitor) {
     computerPartVisitor.visit(this);
   }
@@ -26,25 +27,24 @@ class DComputerPartMonitor : IComputerPart {
   }
 }
 
-class Mouse : IComputerPart {
+class DMouse : IComputerPart {
   override void accept(IComputerPartVisitor computerPartVisitor) {
     computerPartVisitor.visit(this);
   }
 }
 
-class DComputer : IComputerPart {	
+class DComputer : IComputerPart {
   IComputerPart[] parts;
 
   this() {
     parts ~= new DMouse();
     parts ~= new DKeyboard();
-    parts ~= new DComputerPartMonitor(); 		
-  } 
-
+    parts ~= new DComputerPartMonitor();
+  }
 
   override void accept(IComputerPartVisitor computerPartVisitor) {
     for (int i = 0; i < parts.length; i++) {
-        parts[i].accept(computerPartVisitor);
+      parts[i].accept(computerPartVisitor);
     }
     computerPartVisitor.visit(this);
   }
@@ -52,9 +52,9 @@ class DComputer : IComputerPart {
 
 /// Define an interface to represent visitor.
 interface IComputerPartVisitor {
-	void visit(DComputer computer);
-	void visit(DMouse mouse);
-	void visit(DKeyboard keyboard);
+  void visit(DComputer computer);
+  void visit(DMouse mouse);
+  void visit(DKeyboard keyboard);
   void visit(DComputerPartMonitor monitor);
 }
 
@@ -64,22 +64,23 @@ class DComputerPartDisplayVisitor : IComputerPartVisitor {
     writeln("Displaying DComputer.");
   }
 
-  override void visit(Mouse mouse) {
+  override void visit(DMouse mouse) {
     writeln("Displaying Mouse.");
   }
 
-  override void visit(Keyboard keyboard) {
+  override void visit(DKeyboard keyboard) {
     writeln("Displaying Keyboard.");
   }
 
-  override void visit(ComputerPartMonitor monitor) {
+  override void visit(DComputerPartMonitor monitor) {
     writeln("Displaying Monitor.");
   }
 }
 
 /// Use the DComputerPartDisplayVisitor to display parts of DComputer.
-version(test_uim_oop) { unittest {
+version (test_uim_oop) {
+  unittest {
     IComputerPart computer = new DComputer();
-  computer.accept(new DComputerPartDisplayVisitor());
-}
+    computer.accept(new DComputerPartDisplayVisitor());
+  }
 }

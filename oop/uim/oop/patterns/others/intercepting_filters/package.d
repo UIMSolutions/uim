@@ -34,7 +34,7 @@ class DTarget {
 }
 
 /// Create Filter Chain
-class FilterChain {
+class DFilterChain {
   private Filter[] _filters;
   private Target _target;
 
@@ -53,15 +53,15 @@ class FilterChain {
 }
 
 /// Create Filter Manager
-class FilterManager {
-  FilterChain _filterChain;
+class DFilterManager {
+  DFilterChain _filterChain;
 
-  this(Target target) {
-    _filterChain = new FilterChain();
+  this(DTarget target) {
+    _filterChain = new DFilterChain();
     _filterChain.target = target;
   }
   
-  @property void filter(Filter filter) {
+  @property void filter(DFilter filter) {
     _filterChain.addFilter(filter);
   }
 
@@ -72,9 +72,9 @@ class FilterManager {
 
 /// Create Client
 class DClient {
-  FilterManager _filterManager;
+  DFilterManager _filterManager;
 
-  @property void filterManager(FilterManager filterManager) {
+  @property void filterManager(DFilterManager filterManager) {
     _filterManager = filterManager;
   }
 
@@ -87,7 +87,7 @@ class DClient {
 version(test_uim_oop) { unittest {
     writeln("InterceptingFilterDemo");
     
-    FilterManager filterManager = new FilterManager(new Target());
+    FilterManager filterManager = new DFilterManager(new Target());
     filterManager.filter(new AuthenticationFilter());
     filterManager.filter(new DebugFilter());
 

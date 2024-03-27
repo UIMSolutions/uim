@@ -16,8 +16,8 @@ string contextThis(string name) {
     `;
 }
 
-template ContextThis(string name) {
-    const char[] ContextThis = contextThis(name);
+template DContextThis(string name) {
+    const char[] DContextThis = contextThis(name);
 }
 
 string contextCalls(string name) {
@@ -29,6 +29,6 @@ string contextCalls(string name) {
     `;
 }
 
-template ContextCalls(string name) {
-    const char[] ContextCalls = contextCalls(name);
+template DContextCalls(string name) {
+    const char[] DContextCalls = contextCalls(name);
 }

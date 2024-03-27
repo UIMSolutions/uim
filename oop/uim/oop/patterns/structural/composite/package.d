@@ -9,12 +9,12 @@ import uim.oop;
 
 @safe:
 
-/// Create Employee class having list of Employee objects.
+/// Create DEmployee class having list of DEmployee objects.
 class DEmployee {
   private string name;
   private string dept;
   private int salary;
-  private Employee[] subordinates;
+  private DEmployee[] subordinates;
 
   // constructor
   this(string name, string dept, int sal) {
@@ -23,11 +23,11 @@ class DEmployee {
     this.salary = sal;
   }
 
-  void add(Employee e) {
+  void add(DEmployee e) {
     subordinates ~= e;
   }
 
-  void remove(Employee employee) {
+  void remove(DEmployee employee) {
     subordinates = subordinates
       .filter!(subordinate => subordinate !is employee)
       .array;
@@ -43,18 +43,18 @@ class DEmployee {
   }
 }
 
-/// Use the Employee class to create and print employee hierarchy.
+/// Use the DEmployee class to create and print employee hierarchy.
 version (test_uim_oop) {
   unittest {
     writeln("CompositePatternDemo");
 
-    Employee CEO = new DEmployee("John", "CEO", 30000);
-    Employee headSales = new DEmployee("Robert", "Head Sales", 20000);
-    Employee headMarketing = new DEmployee("Michel", "Head Marketing", 20000);
-    Employee clerk1 = new DEmployee("Laura", "Marketing", 10000);
-    Employee clerk2 = new DEmployee("Bob", "Marketing", 10000);
-    Employee salesExecutive1 = new DEmployee("Richard", "Sales", 10000);
-    Employee salesExecutive2 = new DEmployee("Rob", "Sales", 10000);
+    DEmployee CEO = new DEmployee("John", "CEO", 30000);
+    DEmployee headSales = new DEmployee("Robert", "Head Sales", 20000);
+    DEmployee headMarketing = new DEmployee("Michel", "Head Marketing", 20000);
+    DEmployee clerk1 = new DEmployee("Laura", "Marketing", 10000);
+    DEmployee clerk2 = new DEmployee("Bob", "Marketing", 10000);
+    DEmployee salesExecutive1 = new DEmployee("Richard", "Sales", 10000);
+    DEmployee salesExecutive2 = new DEmployee("Rob", "Sales", 10000);
 
     CEO.add(headSales);
     CEO.add(headMarketing);

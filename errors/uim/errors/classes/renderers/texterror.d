@@ -11,7 +11,7 @@ import uim.errors;
 class TextErrorRenderer { // }: IErrorRenderer {
     /* 
     void write(string aout) {
-        echo  result;
+        writeln( result;
     }
  
     string render(UimError error, bool shouldDebug) {

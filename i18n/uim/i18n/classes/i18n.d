@@ -70,7 +70,7 @@ class I18n {
      * }, "fr_FR");
      *
      * translator = I18n.getTranslator("default", "fr_FR");
-     * echo translator.translate("uim");
+     * writeln(translator.translate("uim");
      * ```
      *
      * You can also use the `UIM\I18n\MessagesFileLoader` class to load a specific

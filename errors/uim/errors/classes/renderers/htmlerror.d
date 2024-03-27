@@ -13,7 +13,7 @@ class HtmlErrorRenderer { // }: IErrorRenderer {
     /* 
     void write(string aout) {
         // Output to stdout which is the server response.
-        echo  result;
+        writeln( result;
     }
  
     string render(UimError error, bool shouldDebug) {

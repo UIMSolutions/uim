@@ -279,13 +279,13 @@ class HtmlHelper : Helper {
      * Include one CSS file:
      *
      * ```
-     * echo this.Html.css("styles.css");
+     * writeln(this.Html.css("styles.css");
      * ```
      *
      * Include multiple CSS files:
      *
      * ```
-     * echo this.Html.css(["one.css", "two.css"]);
+     * writeln(this.Html.css(["one.css", "two.css"]);
      * ```
      *
      * Add the stylesheet to view block "css":
@@ -382,13 +382,13 @@ class HtmlHelper : Helper {
      * Include one script file:
      *
      * ```
-     * echo this.Html.script("styles.js");
+     * writeln(this.Html.script("styles.js");
      * ```
      *
      * Include multiple script files:
      *
      * ```
-     * echo this.Html.script(["one.js", "two.js"]);
+     * writeln(this.Html.script(["one.js", "two.js"]);
      * ```
      *
      * Add the script file to a custom block:
@@ -520,7 +520,7 @@ class HtmlHelper : Helper {
      * ### Usage:
      *
      * ```
-     * echo this.Html.style(["margin": "10px", "padding": "10px"], true);
+     * writeln(this.Html.style(["margin": "10px", "padding": "10px"], true);
      *
      * // creates
      * "margin:10px;padding:10px;"
@@ -550,13 +550,13 @@ class HtmlHelper : Helper {
      * Create a regular image:
      *
      * ```
-     * echo this.Html.image("cake_icon.png", ["alt": "UIM"]);
+     * writeln(this.Html.image("cake_icon.png", ["alt": "UIM"]);
      * ```
      *
      * Create an image link:
      *
      * ```
-     * echo this.Html.image("cake_icon.png", ["alt": "UIM", "url": "https://UIM.org"]);
+     * writeln(this.Html.image("cake_icon.png", ["alt": "UIM", "url": "https://UIM.org"]);
      * ```
      *
      * ### Options:
@@ -816,7 +816,7 @@ class HtmlHelper : Helper {
      * Using an audio file:
      *
      * ```
-     * echo this.Html.media("audio.mp3", ["fullBase": true]);
+     * writeln(this.Html.media("audio.mp3", ["fullBase": true]);
      * ```
      *
      * Outputs:
@@ -828,7 +828,7 @@ class HtmlHelper : Helper {
      * Using a video file:
      *
      * ```
-     * echo this.Html.media("video.mp4", ["text": "Fallback text"]);
+     * writeln(this.Html.media("video.mp4", ["text": "Fallback text"]);
      * ```
      *
      * Outputs:
@@ -840,7 +840,7 @@ class HtmlHelper : Helper {
      * Using multiple video files:
      *
      * ```
-     * echo this.Html.media(
+     * writeln(this.Html.media(
      *     ["video.mp4", ["src": "video.ogv", "type": "video/ogg; codecs="theora, vorbis""]],
      *     ["tag": "video", "autoplay"]
      * );

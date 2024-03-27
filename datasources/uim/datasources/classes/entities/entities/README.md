@@ -62,7 +62,7 @@ use App\Model\Entity\Article;
 
 article = new Article;
 article->title = 'This is my first post';
-echo article->title;
+writeln(article->title;
 
 You can also use the get() and set() methods.
 
@@ -73,7 +73,7 @@ Cake\ORM\Entity::get(field)
 For example:
 
 article->set('title', 'This is my first post');
-echo article->get('title');
+writeln(article->get('title');
 
 When using set() you can update multiple fields at once using an array:
 
@@ -141,8 +141,8 @@ class Article extends Entity
 
 The example above converts the value of the title field to an uppercase version each time it is read. It would be run when getting the field through any of these two ways:
 
-echo article->title; // returns FOO instead of foo
-echo article->get('title'); // returns FOO instead of foo
+writeln(article->title; // returns FOO instead of foo
+writeln(article->get('title'); // returns FOO instead of foo
 
 Code in your accessors is executed each time you reference the field. You can use a local variable to cache it if you are performing a resource-intensive operation in your accessor like this:  myEntityProp = entity->my_property.
 
@@ -192,8 +192,8 @@ class User extends Entity
 
 You can access virtual fields as if they existed on the entity. The property name will be the lower case and underscored version of the method (full_name):
 
-echo user->full_name;
-echo user->get('full_name');
+writeln(user->full_name;
+writeln(user->get('full_name');
 
 Do bear in mind that virtual fields cannot be used in finds. If you want them to be part of JSON or array representations of your entities, see Exposing Virtual Fields.
 Checking if an Entity Has Been Modified
@@ -321,7 +321,7 @@ Checking if an Entity was Persisted
 It is often necessary to know if an entity represents a row that is already in the database. In those situations use the isNew() method:
 
 if (!article->isNew()) {
-    echo 'This article was saved already!';
+    writeln('This article was saved already!';
 }
 
 If you are certain that an entity has already been persisted, you can use setNew():
@@ -349,7 +349,7 @@ article = this->Articles->findById(id);
 
 // The comments property was lazy loaded
 foreach (article->comments as comment) {
-    echo comment->body;
+    writeln(comment->body;
 }
 
 Creating Re-usable Code with Traits

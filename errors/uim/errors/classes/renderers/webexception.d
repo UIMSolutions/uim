@@ -219,7 +219,7 @@ class WebExceptionRenderer { // }: IExceptionRenderer {
      * /
     void write(IResponse|string aoutput) {
         if (isString(output)) {
-            echo output;
+            writeln(output;
 
             return;
         }

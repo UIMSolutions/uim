@@ -36,6 +36,6 @@ class TextExceptionRenderer { // }: IExceptionRenderer {
      * /
     void write(IResponse|string aoutput) {
         assert(isString(output));
-        echo output;
+        writeln(output;
     } */
 }

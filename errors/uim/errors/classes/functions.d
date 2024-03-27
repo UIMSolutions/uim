@@ -13,7 +13,7 @@ module errors.uim.errors.classes.functions;
  * @param bool|null showHtml If set to true, the method prints the debug data in a browser-friendly way.
  * @param bool showFrom If set to true, the method prints from where the auto was called.
  * /
-Json debug(Json var, ?bool showHtml = null, bool showFrom = true):  
+Json debug(Json var, bool showHtml = null, bool showFrom = true):  
 {
     if (!Configure.read("debug")) {
         return var;
@@ -53,7 +53,7 @@ void stackTrace(IData[string] options = null) {
 
     /** @var string atrace * /
     trace = Debugger.trace(options);
-    echo trace;
+    writeln(trace;
 }
 /**
  * Prints out debug information about given variable and dies.

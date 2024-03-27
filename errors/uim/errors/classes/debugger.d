@@ -680,7 +680,7 @@ class DDebugger {
         if (restore) {
             debugger.setConfig("exportFormatter", restore);
         }
-        echo formatter.formatWrapper(contents, location);
+        writeln(formatter.formatWrapper(contents, location);
     }
     
     /**

@@ -37,7 +37,7 @@ about expected folder structure and file naming.
 ### Translating a Message
 
 ```php
-echo __(
+writeln(__(
     'Hi {0,string}, your balance on the {1,date} is {2,number,currency}",
     ["Charles", "2014-01-13 11:12:00", 1354.37]
 );
@@ -75,17 +75,17 @@ __d("animals", "Dog"); // Returns "Chien"
 
 ```php
 time = Time::now();
-echo time; // shows '4/20/14, 10:10 PM' for the en-US locale
+writeln(time; // shows '4/20/14, 10:10 PM' for the en-US locale
 ```
 
 ### Formatting Numbers
 
 ```php
-echo Number::format(100100100);
+writeln(Number::format(100100100);
 ```
 
 ```php
-echo Number::currency(123456.7890, "EUR");
+writeln(Number::currency(123456.7890, "EUR");
 // outputs €123,456.79
 ```
 

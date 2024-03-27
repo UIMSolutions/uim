@@ -456,7 +456,7 @@ class DView : IView { //  }: IEventDispatcher {
         auto myfile = _getElementFileName(views, mypluginCheck);
         if (myfile && options["cache"]) {
             return this.cache(void () use (myfile, mydata, options) {
-                echo _renderElement(myfile, mydata, options);
+                writeln(_renderElement(myfile, mydata, options);
             }, options["cache"]);
         }
         if (myfile) {
@@ -658,14 +658,14 @@ class DView : IView { //  }: IEventDispatcher {
      * ```
      * // Append content to an existing block.
      * this.start("content");
-     * echo this.fetch("content");
-     * echo "Some new content";
+     * writeln(this.fetch("content");
+     * writeln("Some new content";
      * this.end();
      *
      * // Prepend content to an existing block
      * this.start("content");
-     * echo "Some new content";
-     * echo this.fetch("content");
+     * writeln("Some new content";
+     * writeln(this.fetch("content");
      * this.end();
      * ```
      * Params:

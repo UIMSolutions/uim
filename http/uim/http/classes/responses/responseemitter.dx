@@ -65,13 +65,13 @@ class ResponseEmitter {
         body = response.getBody();
 
         if (!body.isSeekable()) {
-            echo body;
+            writeln(body;
 
             return;
         }
         body.rewind();
         while (!body.eof()) {
-            echo body.read(this.maxBufferLength);
+            writeln(body.read(this.maxBufferLength);
         }
     }
     
@@ -88,7 +88,7 @@ class ResponseEmitter {
 
         if (!body.isSeekable()) {
             contents = body.getContents();
-            echo substr(contents, first, last - first + 1);
+            writeln(substr(contents, first, last - first + 1);
 
             return;
         }
@@ -99,10 +99,10 @@ class ResponseEmitter {
         length = last - first + 1;
         while (!body.eof() && pos < length) {
             if (pos + this.maxBufferLength > length) {
-                echo body.read(length - pos);
+                writeln(body.read(length - pos);
                 break;
             }
-            echo body.read(this.maxBufferLength);
+            writeln(body.read(this.maxBufferLength);
             pos = body.tell();
         }
     }

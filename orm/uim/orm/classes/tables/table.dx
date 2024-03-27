@@ -2750,7 +2750,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * ```
      * myuser = myusersTable.get(1);
      * myuser = myusersTable.loadInto(myuser, ["Articles.Tags", "Articles.Comments"]);
-     * echo myuser.articles[0].title;
+     * writeln(myuser.articles[0].title;
      * ```
      *
      * You can also load associations for multiple entities at once
@@ -2760,7 +2760,7 @@ class Table : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * ```
      * myusers = myusersTable.find().where([...]).toList();
      * myusers = myusersTable.loadInto(myusers, ["Articles.Tags", "Articles.Comments"]);
-     * echo myuser[1].articles[0].title;
+     * writeln(myuser[1].articles[0].title;
      * ```
      *
      * The properties for the associations to be loaded will be overwritten on each entity.

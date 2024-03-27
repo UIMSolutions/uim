@@ -10,7 +10,7 @@ import uim.http;
  * via external handlers and helps with using session in CLI without any warnings.
  *
  * Sessions can be created from the defaults using `Session.create()` or you can get
- * an instance of a new session by just instantiating this class and passing the complete
+ * an instance of a new session by just instantiating this class DAnd passing the complete
  * options you want to use.
  *
  * When specific options are omitted, this class will take its defaults from the configuration

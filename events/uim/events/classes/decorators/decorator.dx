@@ -5,7 +5,7 @@ import uim.events;
 @safe:
 
 // Common base class for event decorator subclasses.
-abstract class AbstractDecorator {
+abstract class DAbstractDecorator {
     // Callable
     protected callable  _callable;
 

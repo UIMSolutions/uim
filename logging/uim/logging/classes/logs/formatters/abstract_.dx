@@ -4,7 +4,7 @@ import uim.logging;
 
 @safe:
 
-abstract class AbstractFormatter {
+abstract class DAbstractFormatter {
     use InstanceConfigTemplate();
 
     protected IData[string] _defaultConfigData;

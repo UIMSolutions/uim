@@ -7,7 +7,7 @@ import uim.errors;
 /******************************************************************************
  * Dump node for Array Items.
  ******************************************************************************/
-class ArrayItemNode : INode {
+class DArrayItemNode : INode {
     private INode _key;
 
     private INode _value;

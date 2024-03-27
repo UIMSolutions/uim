@@ -8,7 +8,7 @@ import uim.consoles;
  * A wrapper around the various IO operations shell tasks need to do.
  *
  * Packages up the stdout, stderr, and stdin streams providing a simple
- * consistent interface for shells to use. This class also makes mocking streams
+ * consistent interface for shells to use. This class DAlso makes mocking streams
  * easy to do in unit tests.
  */
 class DConsoleIo {

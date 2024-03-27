@@ -241,7 +241,7 @@ class Number {
     /**
      * Returns a formatter object that can be reused for similar formatting task
      * under the same locale and options. This is often a speedier alternative to
-     * using other methods in this class as only one formatter object needs to be
+     * using other methods in this class DAs only one formatter object needs to be
      * constructed.
      *
      * ### Options

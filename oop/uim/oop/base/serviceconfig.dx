@@ -10,7 +10,7 @@ import uim.oop;
  * a typehintable way for services to have application
  * configuration injected as arrays cannot be typehinted.
  */
-class ServiceConfig {
+class DServiceConfig {
     /**
      * Read a configuration key
      * Params:

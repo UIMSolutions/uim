@@ -11,7 +11,7 @@ import uim.http;
  * attributes. Furthermore the Uri`s path is corrected to only contain the
  * 'virtual' path for the request.
  */
-class ServerRequestFactory { // }: ServerIRequestFactory {
+class DServerRequestFactory { // }: ServerIRequestFactory {
     /**
      * Create a request from the supplied superglobal values.
      *

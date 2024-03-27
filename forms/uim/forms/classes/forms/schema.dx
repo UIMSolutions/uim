@@ -2,7 +2,7 @@ module uim.cake.Form;
 /**
  * Contains the schema information for Form instances.
  */
-class Schema {
+class DSchema {
     // The fields in this schema.
     protected IData[string] _fields;
 

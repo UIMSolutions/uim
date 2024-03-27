@@ -276,14 +276,14 @@ class DConsoleOptionParser {
      */
     void addOption(string optionName, IData[string] behaviorOptions = null) {
             defaultValues = [
-                "short": Json(""),
-                "help": Json(""),
-                "default": Json(null),
-                "boolean": Json(false),
-                "multiple": Json(false),
-                "choices": Json.emptyArray,
-                "required": Json(false),
-                "prompt": Json(null),
+                "short": IData(""),
+                "help": IData(""),
+                "default": IData(null),
+                "boolean": IData(false),
+                "multiple": IData(false),
+                "choices": IData.emptyArray,
+                "required": IData(false),
+                "prompt": IData(null),
             ];
             behaviorOptions = behaviorOptions.update(defaultValues);
             

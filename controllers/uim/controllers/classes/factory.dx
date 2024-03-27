@@ -67,7 +67,7 @@ class DControllerFactory : IControllerFactory, IRequestHandler {
      * Params:
      * \UIM\Controller\Controller controller The controller to invoke.
      */
-    IResponse invoke(Json controller) {
+    IResponse invoke(IData controller) {
         this.controller = controller;
 
          middlewares = controller.getMiddleware();

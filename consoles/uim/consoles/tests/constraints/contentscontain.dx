@@ -12,9 +12,9 @@ class DContentsContain : DContentsBase {
     /**
      * Checks if contents contain expected
      * Params:
-     * Json other Expected
+     * IData other Expected
      */
-   bool matches(Json other) {
+   bool matches(IData other) {
         return mb_strpos(this.contents, other) != false;
     }
     

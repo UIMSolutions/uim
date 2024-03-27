@@ -39,7 +39,7 @@ class DRoutesCommand : DCommand {
 
             if (arguments.getOption("verbose")) {
                 ksort(route.defaults);
-                 anItem ~= json_encode(route.defaults, JSON_THROW_ON_ERROR);
+                 anItem ~= IData_encode(route.defaults, IData_THROW_ON_ERROR);
             }
             output ~=  anItem;
 

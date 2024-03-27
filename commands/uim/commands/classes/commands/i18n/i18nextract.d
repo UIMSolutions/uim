@@ -31,7 +31,7 @@ class I18nExtractCommand : DCommand {
     protected string _file = "";
 
     // Contains all content waiting to be written
-    // TODO protected Json _storage = [];
+    // TODO protected IData _storage = [];
 
     /* 
     // Extracted tokens
@@ -249,54 +249,54 @@ class I18nExtractCommand : DCommand {
             "provided to the <info>__</info> family of functions are extracted."
         );
         aParser.addOption("app", [
-            "help": Json("Directory where your application is located."),
+            "help": IData("Directory where your application is located."),
         ]);
         aParser.addOption("paths", [
-            "help": Json("2'Comma separated list of paths that are searched for source files."),
+            "help": IData("2'Comma separated list of paths that are searched for source files."),
         ]);
         aParser.addOption("merge", [
-            "help": Json("Merge all domain strings into a single default.po file."),
-            "default": Json("no"),
+            "help": IData("Merge all domain strings into a single default.po file."),
+            "default": IData("no"),
             "choices": ["yes", "no"],
         ]);
         aParser.addOption("output", [
-            "help": Json("Full path to output directory.")
+            "help": IData("Full path to output directory.")
         ]);
         aParser.addOption("files", [
-            "help": Json("Comma separated list of files to parse.")
+            "help": IData("Comma separated list of files to parse.")
         ]);
         aParser.addOption("exclude-plugins", [
-            "boolean": Json(true),
-            "default": Json(true),
-            "help": Json("Ignores all files in plugins if this command is run inside from the same app directory."),
+            "boolean": IData(true),
+            "default": IData(true),
+            "help": IData("Ignores all files in plugins if this command is run inside from the same app directory."),
         ]);
         aParser.addOption("plugin", [
-            "help": Json("Extracts tokens only from the plugin specified and " ~ 
+            "help": IData("Extracts tokens only from the plugin specified and " ~ 
                 "puts the result in the plugin\`s `locales` directory."),
-            "short": Json("p"),
+            "short": IData("p"),
         ]);
         aParser.addOption("exclude", [
-            "help": Json("Comma separated list of directories to exclude." ~
+            "help": IData("Comma separated list of directories to exclude." ~
                 " Any path containing a path segment with the provided values will be skipped. E.g. test,vendors")
         ]);
         aParser.addOption("overwrite", [
-            "boolean": Json(true),
-            "default": Json(false),
-            "help": Json("Always overwrite existing .pot files.")
+            "boolean": IData(true),
+            "default": IData(false),
+            "help": IData("Always overwrite existing .pot files.")
         ]);
         aParser.addOption("extract-core", [
             "help": "Extract messages from the UIM core libraries.",
             "choices": ["yes", "no"],
         ]);
         aParser.addOption("no-location", [
-            "boolean": Json(true,
-            "default": Json(false,
-            "help": Json("Do not write file locations for each extracted message.",
+            "boolean": IData(true,
+            "default": IData(false,
+            "help": IData("Do not write file locations for each extracted message.",
         ]);
         aParser.addOption("marker-error", [
-            "boolean": Json(true,
-            "default": Json(false,
-            "help": Json("Do not display marker error.",
+            "boolean": IData(true,
+            "default": IData(false,
+            "help": IData("Do not display marker error.",
         ]);
 
         return aParser;

@@ -12,7 +12,7 @@ import uim.controllers;
 class DErrorController : DController {
     // Get alternate view classes that can be used in content-type negotiation.
     string[] viewClasses() {
-        return [JsonView.classname];
+        return [IDataView.classname];
     }
     
     // Initialization hook method.

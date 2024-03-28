@@ -27,7 +27,7 @@ class DMessageCatalog : ICatalog {
   // Hook method
   bool initialize(IData[string] initData = null) {
     configuration(MemoryConfiguration);
-    setConfigurationData(initData);
+    configuration.data(initData);
 
     return true;
   }

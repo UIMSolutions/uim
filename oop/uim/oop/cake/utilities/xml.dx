@@ -29,7 +29,7 @@ class Xml {
      * Building XML from a file path:
      *
      * ```
-     * myxml = Xml.build("/path/to/an/xml/file.xml", ["readFile": true]);
+     * myxml = Xml.build("/path/to/an/xml/file.xml", ["readFile": BooleanData(true)]);
      * ```
      *
      * Building XML from a remote URL:
@@ -133,7 +133,7 @@ class Xml {
             static SimpleXMLElement | DOMDocument loadHtml(string myinput, IData[string] optionData = null) {
                 IData[string] defaultData = [
                     "return": "simplexml",
-                    "loadEntities": false,
+                    "loadEntities": BooleanData(false),
                 ];
                 optionData = optionData.add(defaultData);
 

@@ -839,7 +839,7 @@ class Message : IDataSerializable {
      *     "file": "path/to/file",
      *     "mimetype": "image/png",
      *     "contentId": "abc123",
-     *     "contentDisposition": false
+     *     "contentDisposition": BooleanData(false)
      *   ]
      * ]);
      * ```

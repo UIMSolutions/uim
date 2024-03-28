@@ -12,7 +12,7 @@ import uim.oop;
  *
  * ```
  * {
- *    "debug": false,
+ *    "debug": BooleanData(false),
  *    "App": {
  *        "namespace": "MyApp"
  *    },

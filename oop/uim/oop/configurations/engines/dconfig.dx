@@ -16,7 +16,7 @@ import uim.oop;
  * ```
  * 
  * return [
- *    'debug": false,
+ *    'debug": BooleanData(false),
  *    `security": [
  *        `salt": 'its-secret'
  *    ],

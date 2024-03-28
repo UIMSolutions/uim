@@ -156,7 +156,7 @@ class Hash {
         return match (mytoken) {
             "{n}": isNumeric(aKey),
             "{s}": isString(aKey),
-            "{*}": true,
+            "{*}": BooleanData(true),
             default: isNumeric(mytoken) ? (aKey == mytoken): aKey == mytoken,
         };
     }
@@ -811,7 +811,7 @@ class Hash {
      * To do case insensitive sorting, pass the type as an array as follows:
      *
      * ```
-     * Hash.sort(mydata, "some.attribute", "asc", ["type": "regular", "ignoreCase": true]);
+     * Hash.sort(mydata, "some.attribute", "asc", ["type": "regular", "ignoreCase": BooleanData(true)]);
      * ```
      *
      * When using the array form, `type` defaults to "regular". The `ignoreCase` option
@@ -866,7 +866,7 @@ class Hash {
 
         // mytype can be overloaded for case insensitive sort
         if (mytype.isArray) {
-            mytype += ["ignoreCase": false, "type": "regular"];
+            mytype += ["ignoreCase": BooleanData(false), "type": "regular"];
             myignoreCase = mytype["ignoreCase"];
             mytype = mytype["type"];
         }

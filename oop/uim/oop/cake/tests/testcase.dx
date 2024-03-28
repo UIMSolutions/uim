@@ -492,10 +492,10 @@ abstract class DTestCase : BaseTestCase {
      *
      * ```
      * [
-     *  ["p": true],
+     *  ["p": BooleanData(true)],
      *  "textA",
      *  "/p",
-     *  ["p": true],
+     *  ["p": BooleanData(true)],
      *  "textB",
      *  "/p"
      * ]

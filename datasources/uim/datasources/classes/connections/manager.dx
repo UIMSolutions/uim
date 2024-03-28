@@ -90,16 +90,16 @@ class DConnectionManager {
     static array parseDsn(string myConfiguration) {
         myConfiguration = _parseDsn(myConfiguration);
 
-        if (myConfiguration.isSet("path") && empty(myconfiguration["database"])) {
-            myconfiguration["database"] = substr(myconfiguration["path"], 1);
+        if (myConfiguration.isSet("path") && empty(configuration["database"])) {
+            configuration["database"] = substr(configuration["path"], 1);
         }
 
-        if (empty(myconfiguration["driver"])) {
-            myconfiguration["driver"] = myconfiguration["className"];
-            myconfiguration["className"] = Connection :  : class;
+        if (configuration.isEmpty("driver")) {
+            configuration["driver"] = configuration["className"];
+            configuration["className"] = DConnection.class;
         }
 
-        unset(myconfiguration["path"]);
+        configuration.remove("path");
 
         return myConfiguration;
     }

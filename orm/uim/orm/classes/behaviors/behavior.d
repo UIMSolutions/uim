@@ -99,7 +99,7 @@ import uim.orm;
  * @see DORMTable::addBehavior()
  * @see DORMevents.EventManager
  */
-class DBehavior { // }: IEventListener {
+class DBehavior : IEventListener {
     mixin TConfigurable!();
 
     this() {
@@ -125,6 +125,10 @@ class DBehavior { // }: IEventListener {
     }
 
     mixin(TProperty!("string", "name"));
+
+    IEvent[] implementedEvents() {
+        return null;
+    }
 
     /**
      * Table instance.
@@ -165,19 +169,6 @@ class DBehavior { // }: IEventListener {
     }
 
     /**
-     * Constructor hook method.
-     *
-     * Implement this method to avoid having to overwrite
-     * the constructor and call parent.
-     *
-     * @param array<string, mixed> myConfiguration The configuration settings provided to this behavior.
-     * /
-    bool initialize(IData[string] myConfiguration) {
-    }
-
-    
-
-    /**
      * Get the table instance this behavior is bound to.
      *
      * @return DORMTable The bound table instance.
@@ -196,25 +187,25 @@ class DBehavior { // }: IEventListener {
      * @return array A de-duped list of config data.
      * /
     protected array _resolveMethodAliases(string aKey, array defaults, IData myConfiguration) {
-        if (!isset(defaults[key], myconfiguration[key])) {
+        if (!isset(defaults[key], configuration[key])) {
             return myConfiguration;
         }
-        if (isset(myconfiguration[key]) && myconfiguration[key] == []) {
+        if (isset(configuration[key]) && configuration[key] == []) {
             configuration.update(key, [], false);
-            unset(myconfiguration[key]);
+            configuration.remove(key);
 
-            return myConfiguration;
+            return configuration;
         }
 
         indexed = array_flip(defaults[key]);
-        indexedCustom = array_flip(myconfiguration[key]);
+        indexedCustom = array_flip(configuration[key]);
         foreach (indexed as method: alias) {
             if (!isset(indexedCustom[method])) {
                 indexedCustom[method] = alias;
             }
         }
         configuration.update(key, array_flip(indexedCustom), false);
-        unset(myconfiguration[key]);
+        unset(configuration[key]);
 
         return myConfiguration;
     }
@@ -274,7 +265,7 @@ class DBehavior { // }: IEventListener {
             "Model.afterRules": "afterRules",
         ];
         myConfiguration = configuration;
-        priority = myconfiguration["priority"] ?? null;
+        priority = configuration["priority"] ?? null;
         events = null;
 
         foreach (eventMap as event: method) {

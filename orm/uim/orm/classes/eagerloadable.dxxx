@@ -101,7 +101,7 @@ class DEagerLoadable {
         ];
         allowed.each!((property) {
             if (configData.hasKey(property)) {
-                this.{"_" ~ property} = myconfiguration[property);
+                this.{"_" ~ property} = configuration[property);
             }
         });
     }

@@ -116,18 +116,18 @@ class DConsoleOptionParser {
         this.addOption("help", [
             "short": "h",
             "help": "Display this help.",
-            "boolean": true,
+            "boolean": BooleanData(true),
         ]);
 
         if ( defaultOptions) {
             this.addOption("verbose", [
                 "short": "v",
                 "help": "Enable verbose output.",
-                "boolean": true,
+                "boolean": BooleanData(true),
             ]).addOption("quiet", [
                 "short": "q",
                 "help": "Enable quiet output.",
-                "boolean": true,
+                "boolean": BooleanData(true),
             ]);
         }
     }

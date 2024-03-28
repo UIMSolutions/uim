@@ -166,12 +166,12 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      *    .case()
      *    .when(function (\UIM\Database\Expression\WhenThenExpression  whenThen) {
      *        return  whenThen
-     *            .when(["Table.column": true])
+     *            .when(["Table.column": BooleanData(true)])
      *            .then("Yes");
      *    })
      *    .when(function (\UIM\Database\Expression\WhenThenExpression  whenThen) {
      *        return  whenThen
-     *            .when(["Table.column": false])
+     *            .when(["Table.column": BooleanData(false)])
      *            .then("No");
      *    })
      *    .else("Maybe");
@@ -192,12 +192,12 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      *    .case()
      *    .when(function (\UIM\Database\Expression\WhenThenExpression  whenThen) {
      *        return  whenThen
-     *            .when(["unmapped_column": true], ["unmapped_column": 'bool"])
+     *            .when(["unmapped_column": BooleanData(true)], ["unmapped_column": 'bool"])
      *            .then("Yes");
      *    })
      *    .when(function (\UIM\Database\Expression\WhenThenExpression  whenThen) {
      *        return  whenThen
-     *            .when(["unmapped_column": false], ["unmapped_column": 'bool"])
+     *            .when(["unmapped_column": BooleanData(false)], ["unmapped_column": 'bool"])
      *            .then("No");
      *    })
      *    .else("Maybe");
@@ -297,9 +297,9 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      *
      * ```
      * case
-     *    .when(["Table.column": true])
+     *    .when(["Table.column": BooleanData(true)])
      *    .then("Yes")
-     *    .when(["Table.column": false])
+     *    .when(["Table.column": BooleanData(false)])
      *    .then("No")
      *    .else("Maybe");
      * ```
@@ -308,14 +308,14 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      *
      * ```
      * case
-     *    .when(["Table.column": true])
-     *    .when(["Table.column": false])
+     *    .when(["Table.column": BooleanData(true)])
+     *    .when(["Table.column": BooleanData(false)])
      *    // ...
      * ```
      *
      * ```
      * case
-     *    .when(["Table.column": true])
+     *    .when(["Table.column": BooleanData(true)])
      *    .else("Maybe")
      *    // ...
      * ```
@@ -328,7 +328,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      *
      * ```
      * case
-     *    .when(["Table.column": true])
+     *    .when(["Table.column": BooleanData(true)])
      *    .then("Yes")
      *    .then("No")
      *    // ...

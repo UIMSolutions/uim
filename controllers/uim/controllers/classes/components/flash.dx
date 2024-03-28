@@ -20,8 +20,8 @@ class DFlashComponent : DComponent {
         "key": "flash",
         "element": "default",
         "params": [],
-        "clear": false,
-        "duplicate": true,
+        "clear": BooleanData(false),
+        "duplicate": BooleanData(true),
     ];
 
     /**

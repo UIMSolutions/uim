@@ -101,7 +101,7 @@ class DRoutesCommand : DCommand {
             .addOption("sort", [
                 "help": "sorts alphabetically by route name A-Z",
                 "short": "s",
-                "boolean": true,
+                "boolean": BooleanData(true),
             ]);
 
         return aParser;

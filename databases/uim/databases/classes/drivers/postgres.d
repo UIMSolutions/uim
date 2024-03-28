@@ -12,7 +12,7 @@ class DPostgresDriver : DDriver {
         }
 
         /*    _baseConfig = [
-            "persistent": true,
+            "persistent": BooleanData(true),
             "host": "localhost",
             "username": "root",
             "password": "",

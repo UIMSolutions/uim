@@ -50,14 +50,14 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
     // List of SQL parts that will be used to build this query.
     protected IData[string] _parts; /* = [
         "comment": null,
-        "delete": true,
+        "delete": BooleanData(true),
         "update": [],
         "set": [],
         "insert": [],
         "values": [],
         "with": [],
         "select": [],
-        "distinct": false,
+        "distinct": BooleanData(false),
         "modifier": [],
         "from": [],
         "join": [],
@@ -430,7 +430,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      *    'table": 'articles",
      *    'conditions": [
      *        'a.posted >=": new DateTime("-3 days"),
-     *        'a.published": true,
+     *        'a.published": BooleanData(true),
      *        'a.author_id = authors.id'
      *    ]
      * ]], ["a.posted": 'datetime", "a.published": 'boolean"])
@@ -515,7 +515,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      * ```
      * aQuery.leftJoin(["a": 'articles"], [
      *     'a.posted >=": new DateTime("-3 days"),
-     *     'a.published": true,
+     *     'a.published": BooleanData(true),
      *     'a.author_id = authors.id'
      * ], ["a.posted": 'datetime", "a.published": 'boolean"]);
      * ```
@@ -653,7 +653,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      * ```
      * aQuery.where([
      *    'author_id !=": 1,
-     *    'OR": ["published": true, "posted <": new DateTime("now")],
+     *    'OR": ["published": BooleanData(true), "posted <": new DateTime("now")],
      *    'NOT": ["title": 'Hello"]
      * ], ["published": boolean, "posted": 'datetime"]
      * ```
@@ -666,7 +666,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      * may want to define 2 different options for the same key, in that case, you can
      * wrap each condition inside a new array:
      *
-     * `aQuery.where(["OR": [["published": false], ["published": true]])`
+     * `aQuery.where(["OR": [["published": BooleanData(false)], ["published": BooleanData(true)]])`
      *
      * Would result in:
      *
@@ -681,7 +681,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      *
      * ```
      * exp = aQuery.newExpr().add(["id !=": 100, "author_id' != 1]).tieWith("OR");
-     * aQuery.where(["published": true], ["published": 'boolean"]).where(exp);
+     * aQuery.where(["published": BooleanData(true)], ["published": 'boolean"]).where(exp);
      * ```
      *
      * The previous example produces:
@@ -901,7 +901,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      *
      * ```
      * aQuery
-     *  .where(["OR": ["published": false, "published isNull"]])
+     *  .where(["OR": ["published": BooleanData(false), "published isNull"]])
      *  .andWhere(["author_id": 1, "comments_count >": 10])
      * ```
      *

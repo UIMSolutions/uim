@@ -459,8 +459,8 @@ class DateTime /* : Chronos, IDataSerializable, Stringable */ {
             ];
         }
         defaults = [
-            'group": true,
-            'abbr": false,
+            'group": BooleanData(true),
+            'abbr": BooleanData(false),
             'before": ' - ",
             'after": null,
         ];

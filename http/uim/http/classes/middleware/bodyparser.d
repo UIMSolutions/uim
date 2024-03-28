@@ -31,7 +31,7 @@ class DBodyParserMiddleware { // }: IMiddleware {
      * IData[string] options The options to use. See above.
      * /
     this(IData[string] options = null) {
-        options += ["IData": true, "xml": false, "methods": null];
+        options += ["IData": BooleanData(true), "xml": BooleanData(false), "methods": null];
         if (options["IData"]) {
             this.addParser(
                 ["application/IData", "text/IData"],
@@ -141,7 +141,7 @@ class DBodyParserMiddleware { // }: IMiddleware {
      * /
     protected array decodeXml(string bodyToDecode) {
         try {
-            xml = Xml.build(bodyToDecode, ["return": "domdocument", "readFile": false]);
+            xml = Xml.build(bodyToDecode, ["return": "domdocument", "readFile": BooleanData(false)]);
             // We might not get child nodes if there are nested inline entities.
             /** @var \DOMNodeList domNodeList * /
             domNodeList = xml.childNodes;

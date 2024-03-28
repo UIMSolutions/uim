@@ -17,7 +17,7 @@ class DArrayLog : BaseLog {
         "scopes": [],
         "formatter": [
             "className": DefaultFormatter.classname,
-            "includeDate": false
+            "includeDate": BooleanData(false)
         ]
     ];
 

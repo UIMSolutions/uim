@@ -56,9 +56,9 @@ class DExceptionTrap {
         "exceptionRenderer": null,
         "logger": ErrorLogger::class,
         "stderr": null,
-        "log": true,
+        "log": BooleanData(true),
         "skipLog": [],
-        "trace": false,
+        "trace": BooleanData(false),
         "extraFatalErrorMemory": 4,
     ];
 

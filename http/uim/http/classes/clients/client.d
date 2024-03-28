@@ -404,7 +404,7 @@ class DClient { // }: IClient {
             "host": requestUrl.getHost(),
             "port": requestUrl.getPort(),
             "scheme": requestUrl.getScheme(),
-            "protocolRelative": true,
+            "protocolRelative": BooleanData(true),
           ]);
         myrequest = myrequest.withUri(new Uri(mylocationUrl));
         myrequest = _cookies.addToRequest(myrequest, []);

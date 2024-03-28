@@ -83,7 +83,7 @@ class Number {
      * @param IData[string] options Options
      * /
     static string toPercentage(string|float|int aValue, int precision = 2, IData[string] options = null) {
-        options += ["multiply": false, "type": NumberFormatter.PERCENT];
+        options += ["multiply": BooleanData(false), "type": NumberFormatter.PERCENT];
         if (!options["multiply"]) {
             aValue = (float)aValue / 100;
         }

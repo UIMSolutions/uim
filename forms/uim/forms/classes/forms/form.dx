@@ -172,7 +172,7 @@ class DForm : IEventListener, IEventDispatcher, IValidatorAware {
     bool execute(array data, IData[string] options = null) {
        _data = someData;
 
-        options += ["validate": true];
+        options += ["validate": BooleanData(true)];
 
         if (options["validate"] == false) {
             return _execute(someData);

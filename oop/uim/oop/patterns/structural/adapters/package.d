@@ -48,7 +48,7 @@ import uim.oop;
     this(string audioType) {
    
       if(audioType.toLower == "vlc") {
-         advancedMusicPlayer = new VlcPlayer();			
+         advancedMusicPlayer = new DVlcPlayer();			
          
       } else if (audioType.toLower == "mp4") {
          advancedMusicPlayer = new Mp4Player();

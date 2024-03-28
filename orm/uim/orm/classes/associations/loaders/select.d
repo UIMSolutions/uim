@@ -354,7 +354,7 @@ class DSelectLoader {
         filterQuery.mapReduce(null, null, true);
         filterQuery.formatResults(null, true);
         filterQuery.contain([], true);
-        filterQuery.setValueBinder(new ValueBinder());
+        filterQuery.setValueBinder(new DValueBinder());
 
         // Ignore limit if there is no order since we need all rows to find matches
         if (!filterQuery.clause("limit") || !filterQuery.clause("order")) {

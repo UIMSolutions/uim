@@ -5,7 +5,7 @@ import uim.orm;
 @safe:
 
 // Validates the count of associated records.
-class ValidCount {
+class DValidCount {
     // The field to check
     protected string my_field;
 

@@ -1374,7 +1374,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      * to the statement object.
      * /
     ValueBinder getValueBinder() {
-        return _valueBinder.ifNull(new ValueBinder());
+        return _valueBinder.ifNull(new DValueBinder());
     }
     
     /**

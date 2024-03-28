@@ -253,7 +253,7 @@ class DRulesChecker : BaseRulesChecker
         errorField = field;
 
         return _addError(
-            new ValidCount(field),
+            new DValidCount(field),
             "_validCount",
             compact("count", "operator", "errorField", "message")
         );

@@ -11,7 +11,7 @@ import uim.validations;
  * @template-implements \ArrayAccess<string, \UIM\Validation\ValidationRule>
  * @template-implements \IteratorAggregate<string, \UIM\Validation\ValidationRule>
  */ 
-class ValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
+class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
     // Holds the ValidationRule objects
     // TODO protected ValidationRule[] my_rules = [];
 
@@ -89,7 +89,7 @@ class ValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      * /
     void add(string myname, ValidationRule[] myrule) {
         if (!(cast(ValidationRule)myrule)) {
-            myrule = new ValidationRule(myrule);
+            myrule = new DValidationRule(myrule);
         }
        _rules[myname] = myrule;
     }

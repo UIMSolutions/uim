@@ -112,7 +112,7 @@ class DCoke : DColdDrink {
 class DMealBuilder {
   DMeal prepareVegMeal () {
     DMeal meal = new DMeal();
-    meal.addItem(new VegBurger());
+    meal.addItem(new DVegBurger());
     meal.addItem(new DCoke());
     return meal;
   }   

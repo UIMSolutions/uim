@@ -20,7 +20,7 @@ trait ViewVarsTrait {
 
     // Get the view builder being used.
     ViewBuilder viewBuilder() {
-        return _viewBuilder ??= new ViewBuilder();
+        return _viewBuilder ??= new DViewBuilder();
     }
     
     /**

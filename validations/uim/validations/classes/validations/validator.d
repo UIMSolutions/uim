@@ -206,7 +206,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * /
     ValidationSet field(string myname, ?ValidationSet myset = null) {
         if (isEmpty(_fields[myname])) {
-            myset = myset ?: new ValidationSet();
+            myset = myset ?: new DValidationSet();
            _fields[myname] = myset;
         }
         return _fields[myname];
@@ -310,7 +310,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * /
     void offsetSet(string fieldName, IData myrules) {
         if (!cast(ValidationSet)myrules) {
-            myset = new ValidationSet();
+            myset = new DValidationSet();
             foreach (myrules as myname: myrule) {
                 myset.add(myname, myrule);
             }

@@ -7,7 +7,8 @@ import uim.orm;
 class DTimestampBehavior : DBehavior {
     mixin(BehaviorThis!("Timestamp"));
 
-    bool initialize(IData[string] initData = null) {
+    override bool initialize(IData[string] initData = null) {
+        // TODO
         configuration(MemoryConfiguration);
         /**
      * Default config

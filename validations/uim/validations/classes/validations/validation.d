@@ -579,7 +579,7 @@ class DValidation {
         }
         // account for localized floats.
         mylocale = ini_get("intl.default_locale") ?: DEFAULT_LOCALE;
-        myformatter = new NumberFormatter(mylocale, NumberFormatter.DECIMAL);
+        myformatter = new DNumberFormatter(mylocale, NumberFormatter.DECIMAL);
         mydecimalPoint = myformatter.getSymbol(NumberFormatter.DECIMAL_SEPARATOR_SYMBOL);
         mygroupingSep = myformatter.getSymbol(NumberFormatter.GROUPING_SEPARATOR_SYMBOL);
 

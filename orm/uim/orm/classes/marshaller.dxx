@@ -104,7 +104,7 @@ class Marshaller
         behaviors = _table.behaviors();
         foreach (behaviors.loaded() as name) {
             behavior = behaviors.get(name);
-            if (behavior instanceof PropertyMarshalInterface) {
+            if (behavior instanceof IPropertyMarshal) {
                 map += behavior.buildMarshalMap(this, map, options);
             }
         }

@@ -8,23 +8,13 @@ module uim.errorss.Middleware;
 @safe:
 import uim.errors;
 
-
-use Laminas\Diactoros\Response\RedirectResponse;
-use Psr\Http\messages.IResponse;
-use Psr\Http\messages.IServerRequest;
-use Psr\Http\servers.IMiddleware;
-use Psr\Http\servers.RequestHandlerInterface;
-
-
-
 /**
  * Error handling middleware.
  *
  * Traps exceptions and converts them into HTML or content-type appropriate
  * error pages using the UIM ExceptionRenderer.
  */
-class DErrorHandlerMiddleware : IMiddleware
-{
+class DErrorHandlerMiddleware : IMiddleware {
     mixin InstanceConfigTemplate;
 
     /**

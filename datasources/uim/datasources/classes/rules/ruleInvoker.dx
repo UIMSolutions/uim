@@ -115,7 +115,7 @@ class DRuleInvoker
         errorField = this.options["errorField"];
         entity.setError(errorField, message);
 
-        if (entity instanceof InvalidPropertyInterface && isset(entity.{errorField})) {
+        if (entity instanceof IInvalidProperty && isset(entity.{errorField})) {
             invalidValue = entity.{errorField};
             entity.setInvalidField(errorField, invalidValue);
         }

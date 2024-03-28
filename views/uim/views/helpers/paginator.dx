@@ -302,7 +302,7 @@ class PaginatorHelper : Helper {
      *  with keys `asc` and `desc` for specifying separate titles based on the direction.
      * @param IData[string] options Options for sorting link. See above for list of keys.
      */
-    string sort(string aKey, string[]|null mytitle = null, IData[string] options  = null) {
+    string sort(string aKey, string[] mytitle = null, IData[string] options  = null) {
         auto updatedOptions = options.update(["url": ArrayData, "escape": BooleanData(true)]);
         auto myurl = updatedOptions["url"];
         updatedOptions.remove("url");

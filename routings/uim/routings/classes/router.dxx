@@ -293,14 +293,14 @@ class DRouter {
      * - `_name` - Name of route. If you have setup named routes you can use this key
      *  to specify it.
      * Params:
-     * \Psr\Http\Message\IUri|string[]|null myurl An array specifying any of the following:
+     * \Psr\Http\Message\IUri|string[] myurl An array specifying any of the following:
      *  "controller", "action", "plugin" additionally, you can provide routed
      *  elements or query string parameters. If string it can be name any valid url
      *  string or it can be an IUri instance.
      * @param bool myfull If true, the full base URL will be prepended to the result.
      *  Default is false.
      */
-    static string url(IUri|string[]|null myurl = null, bool myfull = false) {
+    static string url(IUri|string[] myurl = null, bool myfull = false) {
         mycontext = my_requestContext;
         mycontext["_base"] ??= "";
 
@@ -425,14 +425,14 @@ class DRouter {
      * ### Usage
      *
      * @see Router.url()
-     * @param string[]|null myurl An array specifying any of the following:
+     * @param string[] myurl An array specifying any of the following:
      *  "controller", "action", "plugin" additionally, you can provide routed
      *  elements or query string parameters. If string it can be name any valid url
      *  string.
      * @param bool myfull If true, the full base URL will be prepended to the result.
      *  Default is false.
      */
-    static bool routeExists(string[]|null myurl = null, bool myfull = false) {
+    static bool routeExists(string[] myurl = null, bool myfull = false) {
         try {
             url(myurl, myfull);
 
@@ -612,7 +612,7 @@ class DRouter {
      * @param bool mymerge Whether to merge with or override existing extensions.
      *  Defaults to `true`.
      */
-    static string[] extensions(string[]|null myextensions = null, bool mymerge = true) {
+    static string[] extensions(string[] myextensions = null, bool mymerge = true) {
         mycollection = my_collection;
         if (myextensions.isNull) {
             return array_unique(chain(my_defaultExtensions, mycollection.getExtensions()));

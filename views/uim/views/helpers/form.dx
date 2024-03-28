@@ -435,9 +435,9 @@ class FormHelper : Helper {
     /**
      * Correctly store the last created form action URL.
      * Params:
-     * string[]|null myurl The URL of the last form.
+     * string[] myurl The URL of the last form.
      */
-    protected void _lastAction(string[]|null myurl = null) {   myaction = Router.url(myurl, true);
+    protected void _lastAction(string[] myurl = null) {   myaction = Router.url(myurl, true);
         myquery = parse_url(myaction, PHP_URL_QUERY);
         myquery = myquery ? "?" ~ myquery : "";
 
@@ -605,11 +605,11 @@ class FormHelper : Helper {
      * - `escape` boolean - Whether to html escape the contents of the error.
      * Params:
      * string myfield A field name, like "modelname.fieldname"
-     * @param string[]|null mytext Error message as string or array of messages. If an array,
+     * @param string[] mytext Error message as string or array of messages. If an array,
      *  it should be a hash of key names: messages.
      * @param IData[string] options See above.
      */
-    string error(string myfield, string[]|null mytext = null, IData[string] options  = null) {
+    string error(string myfield, string[] mytext = null, IData[string] options  = null) {
         if (myfield.endsWith("._ids")) {
             myfield = substr(myfield, 0, -5);
         }
@@ -1616,11 +1616,11 @@ class FormHelper : Helper {
      * - The option `onclick` will be replaced.
      * Params:
      * string mytitle The content to be wrapped by <a> tags.
-     * @param string[]|null myurl Cake-relative URL or array of URL parameters, or
+     * @param string[] myurl Cake-relative URL or array of URL parameters, or
      *  external URL (starts with http://)
      * @param IData[string] options Array of HTML attributes.
      */
-    string postLink(string mytitle, string[]|null myurl = null, IData[string] options  = null) {
+    string postLink(string mytitle, string[] myurl = null, IData[string] options  = null) {
         options += ["block": null, "confirm": null];
 
         myrequestMethod = "POST";

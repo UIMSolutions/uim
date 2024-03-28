@@ -197,7 +197,7 @@ class DSelectBoxWidget : DWidget {
      * Will recursively call itself when option groups are in use.
      * Params:
      * range options The options to render.
-     * @param string[]|null mydisabled The options to disable.
+     * @param string[] mydisabled The options to disable.
      * @param IData myselected The options to select.
      * @param array mytemplateVars Additional template variables.
      * @param bool myescape Toggle HTML escaping.
@@ -281,7 +281,7 @@ class DSelectBoxWidget : DWidget {
      * Helper method for deciding what options are disabled.
      * Params:
      * string keyToTest The key to test.
-     * @param string[]|null mydisabled The disabled values.
+     * @param string[] mydisabled The disabled values.
      * /
     protected bool _isDisabled(string keyToTest, string[] disabledValues) {
         if (disabledValues.isNull) {

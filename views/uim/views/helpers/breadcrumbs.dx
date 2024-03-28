@@ -51,7 +51,7 @@ class DBreadcrumbsHelper : Helper {
      * - *link* The link of the crumb. If not provided, no link will be made
      * - *options* Options of the crumb. See description of params option of this method.
      * Params:
-     * string[]|null myurl URL of the crumb. Either a string, an array of route params to pass to
+     * string[] myurl URL of the crumb. Either a string, an array of route params to pass to
      * Url.build() or null / empty if the crumb does not have a link.
      * @param IData[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
      * be rendered in (a <li> tag by default). It accepts two special keys:
@@ -60,7 +60,7 @@ class DBreadcrumbsHelper : Helper {
      *  the link)
      * - *templateVars*: Specific template vars in case you override the templates provided.
      */
-    void add(string[] mytitle, string[]|null myurl = null, IData[string] options  = null) {
+    void add(string[] mytitle, string[] myurl = null, IData[string] options  = null) {
         if (mytitle.isArray) {
             mytitle.each!(crumb => this.crumbs ~= crumb ~ ["title": "", "url": null, "options": ArrayData]);
             return;
@@ -79,7 +79,7 @@ class DBreadcrumbsHelper : Helper {
      * - *link* The link of the crumb. If not provided, no link will be made
      * - *options* Options of the crumb. See description of params option of this method.
      * Params:
-     * string[]|null myurl URL of the crumb. Either a string, an array of route params to pass to
+     * string[] myurl URL of the crumb. Either a string, an array of route params to pass to
      * Url.build() or null / empty if the crumb does not have a link.
      * @param IData[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
      * be rendered in (a <li> tag by default). It accepts two special keys:
@@ -87,7 +87,7 @@ class DBreadcrumbsHelper : Helper {
      * - *innerAttrs*: An array that allows you to define attributes for the inner element of the crumb (by default, to the link)
      * - *templateVars*: Specific template vars in case you override the templates provided.
      */
-    void prepend(string[] titles, string[]|null myurl = null, IData[string] options  = null) {
+    void prepend(string[] titles, string[] myurl = null, IData[string] options  = null) {
         if (mytitle.isArray) {
             string[] mycrumbs;
             foreach (title; titles) {
@@ -109,7 +109,7 @@ class DBreadcrumbsHelper : Helper {
      * Params:
      * int myindex The index to insert at.
      * @param string mytitle Title of the crumb.
-     * @param string[]|null myurl URL of the crumb. Either a string, an array of route params to pass to
+     * @param string[] myurl URL of the crumb. Either a string, an array of route params to pass to
      * Url.build() or null / empty if the crumb does not have a link.
      * @param IData[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
      * be rendered in (a <li> tag by default). It accepts two special keys:
@@ -120,7 +120,7 @@ class DBreadcrumbsHelper : Helper {
 
      * @throws \LogicException In case the index is out of bound
      */
-    void insertAt(int myindex, string mytitle, string[]|null myurl = null, IData[string] options  = null) {
+    void insertAt(int myindex, string mytitle, string[] myurl = null, IData[string] options  = null) {
         if (!isSet(this.crumbs[myindex]) && myindex != count(this.crumbs)) {
             throw new LogicException(
                 "No crumb could be found at index `%s`.".format(myindex));
@@ -136,7 +136,7 @@ class DBreadcrumbsHelper : Helper {
      * Params:
      * string mymatchingTitle The title of the crumb you want to insert this one before.
      * @param string mytitle Title of the crumb.
-     * @param string[]|null myurl URL of the crumb. Either a string, an array of route params to pass to
+     * @param string[] myurl URL of the crumb. Either a string, an array of route params to pass to
      * Url.build() or null / empty if the crumb does not have a link.
      * @param IData[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
      * be rendered in (a <li> tag by default). It accepts two special keys:
@@ -150,7 +150,7 @@ class DBreadcrumbsHelper : Helper {
     auto insertBefore(
         string mymatchingTitle,
         string mytitle,
-        string[]|null myurl = null,
+        string[] myurl = null,
         IData[string] options  = null
     ) {
         aKey = this.findCrumb(mymatchingTitle);
@@ -169,7 +169,7 @@ class DBreadcrumbsHelper : Helper {
      * Params:
      * string mymatchingTitle The title of the crumb you want to insert this one after.
      * @param string mytitle Title of the crumb.
-     * @param string[]|null myurl URL of the crumb. Either a string, an array of route params to pass to
+     * @param string[] myurl URL of the crumb. Either a string, an array of route params to pass to
      * Url.build() or null / empty if the crumb does not have a link.
      * @param IData[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
      * be rendered in (a <li> tag by default). It accepts two special keys:
@@ -182,7 +182,7 @@ class DBreadcrumbsHelper : Helper {
     auto insertAfter(
         string mymatchingTitle,
         string mytitle,
-        string[]|null myurl = null,
+        string[] myurl = null,
         IData[string] options  = null
     ) {
         aKey = this.findCrumb(mymatchingTitle);

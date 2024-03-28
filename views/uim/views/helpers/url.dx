@@ -45,12 +45,12 @@ class UrlHelper : Helper {
      *   escaped afterwards before being displayed.
      * - `fullBase`: If true, the full base URL will be prepended to the result
      * Params:
-     * string[]|null myurl Either a relative string URL like `/products/view/23` or
+     * string[] myurl Either a relative string URL like `/products/view/23` or
      *   an array of URL parameters. Using an array for URLs will allow you to leverage
      *   the reverse routing features of UIM.
      * @param IData[string] options Array of options.
      */
-    string build(string[]|null myurl = null, IData[string] options  = null) {
+    string build(string[] myurl = null, IData[string] options  = null) {
         mydefaults = [
             "fullBase": BooleanData(false),
             "escape": BooleanData(true),

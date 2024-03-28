@@ -224,7 +224,7 @@ class DStringTemplate {
      * templates to change how attributes are formatted.
      * Params:
      * IData[string]|null options Array of options.
-     * @param string[]|null myexclude Array of options to be excluded, the options here will not be part of the return.
+     * @param string[] myexclude Array of options to be excluded, the options here will not be part of the return.
      */
     string formatAttributes(IData[string] options, string[] excludes) {
         bool[string] newExcludes;

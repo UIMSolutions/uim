@@ -88,7 +88,7 @@ class DRulesChecker {
      * @param IData[string] optionData List of extra options to pass to the rule callable as
      * second argument.
      */
-    void add(callable rule, string[] name = null, IData[string] optionData = null) {
+    void add(callable rule, string[] name = null, IData[string] options = null) {
        _rules ~= _addError(rule, name, options);
     }
     

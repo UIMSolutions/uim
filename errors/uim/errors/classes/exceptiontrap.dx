@@ -88,7 +88,7 @@ class DExceptionTrap {
       "log": BooleanData(true),
       "skipLog": ArrayData,
       "trace": BooleanData(false),
-      "extraFatalErrorMemory": IData(4)
+      "extraFatalErrorMemory": IntegerData(4)
     ];
 
     _configData = merge(initData, defaultData);

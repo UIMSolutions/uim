@@ -15,7 +15,7 @@ unittest {
 
 @safe:
 class DVirtualFilesystem : DFilesystem {
-  mixin(FilesystemThis!("VirtualFilesystem"));
+  mixin(FilesystemThis!("Virtual"));
 
   override bool initialize(IData[string] initData = null) { // Hook
 		if (!super.initialize(initData)) {
@@ -25,4 +25,4 @@ class DVirtualFilesystem : DFilesystem {
 		return true;
   }
 }
-mixin(FilesystemCalls!("VirtualFilesystem"));
+mixin(FilesystemCalls!("Virtual"));

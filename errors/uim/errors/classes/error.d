@@ -24,6 +24,8 @@ class DError {
         configuration(MemoryConfiguration);
         setConfigurationData(initData);
 
+        // TODO
+        /*
         levelMap = [
             E_PARSE: "error",
             E_ERROR: "error",
@@ -39,15 +41,16 @@ class DError {
             E_STRICT: "strict",
             E_DEPRECATED: "deprecated",
             E_USER_DEPRECATED: "deprecated",
-        ];
+        ]; */
 
-        _logMap = [
+        // TODO
+        /* _logMap = [
             "error": LOG_ERR,
             "warning": LOG_WARNING,
             "notice": LOG_NOTICE,
             "strict": LOG_NOTICE,
             "deprecated": LOG_NOTICE,
-        ];
+        ]; */
 
         return true;
     }
@@ -64,7 +67,7 @@ class DError {
 
     mixin(OProperty!("int[string][]", "trace"));
 
-    protected string[int] levelMap;
+    protected string[int] _levelMap;
 
     private int[string] _logMap;
 
@@ -86,12 +89,12 @@ class DError {
     int getLogLevel() {
         auto myLabel = label();
 
-        return logMap.get(myLabel, LOG_ERR);
+        return _logMap.get(myLabel, 0); // TODO LOG_ERR);
     }
 
     // Get the error code label
     string label() {
-        return levelMap.get(this.code, "error");
+        return _levelMap.get(code, "error");
     }
 
     // Get the stacktrace as a string.

@@ -16,7 +16,7 @@ unittest {
 @safe:
 
 class DVirtualFolder : DFolder {
-	mixin(FolderThis!("VirtualFolder"));
+	mixin(FolderThis!("Virtual"));
 
 	// #region files
 	protected IFile[string] _files;
@@ -75,4 +75,4 @@ class DVirtualFolder : DFolder {
 	} */
 	// #endregion Folders
 }
-mixin(FolderCalls!("VirtualFolder"));
+mixin(FolderCalls!("Virtual"));

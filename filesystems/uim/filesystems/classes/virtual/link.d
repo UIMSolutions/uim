@@ -15,8 +15,8 @@ unittest {
 
 @safe:
 class DVirtualLink : DLink {
-	mixin(LinkThis!("VirtualLink"));
+	mixin(LinkThis!("Virtual"));
 
 	
 }
-mixin(LinkCalls!("VirtualLink"));
+mixin(LinkCalls!("Virtual"));

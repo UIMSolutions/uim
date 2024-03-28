@@ -1,4 +1,4 @@
-module uim.views.classes.IData;
+module uim.views.classes.json;
 
 import uim.views;
 

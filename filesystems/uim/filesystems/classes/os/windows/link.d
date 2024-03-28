@@ -15,6 +15,6 @@ unittest {
 
 @safe:
 class DWindowsLink : DLink {
-  mixin(LinkThis!("WindowsLink"));
+  mixin(LinkThis!("Windows"));
 }
-mixin(LinkCalls!("WindowsLink"));
+mixin(LinkCalls!("Windows"));

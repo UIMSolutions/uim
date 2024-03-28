@@ -15,6 +15,6 @@ unittest {
 
 @safe:
 class DWindowsFolder : DFolder {
-  mixin(FolderThis!("WindowsFolder"));
+  mixin(FolderThis!("Windows"));
 }
-mixin(FolderCalls!("WindowsFolder"));
+mixin(FolderCalls!("Windows"));

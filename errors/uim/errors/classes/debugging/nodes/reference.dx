@@ -15,7 +15,7 @@ import uim.errors;
  * a reference node can be used after an object has been seen the
  * first time.
  */
-class ReferenceNode : IERRNode {
+class DReferenceNode : IERRNode {
   /**
     * Constructor
     *

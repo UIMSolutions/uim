@@ -473,7 +473,7 @@ trait QueryTrait
         entity = this.first();
         if (!entity) {
             table = this.getRepository();
-            throw new RecordNotFoundException(sprintf(
+            throw new DRecordNotFoundException(sprintf(
                 "Record not found in table '%s'",
                 table.getTable()
             ));

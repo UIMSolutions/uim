@@ -223,7 +223,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
 
             return;
         }
-        emitter = new ResponseEmitter();
+        emitter = new DResponseEmitter();
         emitter.emit(output);
     }
     

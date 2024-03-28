@@ -100,11 +100,11 @@ class DErrorHandlerMiddleware : IMiddleware {
                 response = renderer.render();
             }
             if (isString(response)) {
-                return new Response(["body": response, "status": 500]);
+                return new DResponse(["body": response, "status": 500]);
             }
             return cast(IResponse)response 
                 ? response
-                : new Response(["body": response, "status": 500]);
+                : new DResponse(["body": response, "status": 500]);
         } catch (Throwable  anInternalException) {
             trap.logException(anInternalException, request);
 
@@ -118,7 +118,7 @@ class DErrorHandlerMiddleware : IMiddleware {
      * \UIM\Http\Exception\RedirectException exception The exception to handle
      */
     IResponse handleRedirect(RedirectException exception) {
-        return new RedirectResponse(
+        return new DRedirectResponse(
             exception.getMessage(),
             exception.getCode(),
             exception.getHeaders()
@@ -129,7 +129,7 @@ class DErrorHandlerMiddleware : IMiddleware {
      * Handle internal errors.
      */
     protected IResponse handleInternalError() {
-        return new Response([
+        return new DResponse([
             'body": 'An Internal Server Error Occurred",
             `status": 500,
         ]);

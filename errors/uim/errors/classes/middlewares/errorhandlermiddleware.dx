@@ -144,7 +144,7 @@ class DErrorHandlerMiddleware : IMiddleware
      * @return \Psr\Http\messages.IResponse Response created from the redirect.
      */
     IResponse handleRedirect(RedirectException myException) {
-        return new RedirectResponse(
+        return new DRedirectResponse(
             myException.getMessage(),
             myException.getCode(),
             myException.getHeaders()
@@ -157,7 +157,7 @@ class DErrorHandlerMiddleware : IMiddleware
      * @return \Psr\Http\messages.IResponse A response
      */
     protected IResponse handleInternalError() {
-        response = new Response(["body":"An Internal Server Error Occurred"]);
+        response = new DResponse(["body":"An Internal Server Error Occurred"]);
 
         return response.withStatus(500);
     }

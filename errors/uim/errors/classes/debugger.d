@@ -574,7 +574,7 @@ class DDebugger {
 
          className = var.classname;
         if (isRef) {
-            return new ReferenceNode(className, refNum);
+            return new DReferenceNode(className, refNum);
         }
         node = new DClassNode(className, refNum);
 
@@ -601,7 +601,7 @@ class DDebugger {
                         new DPropertyNode((string)kv.key, "public", export(kv.value, context.withAddedDepth()))
                     );
             });
-            ref = new ReflectionObject(var);
+            ref = new DReflectionObject(var);
 
             filters = [
                 ReflectionProperty.IS_PROTECTED: "protected",

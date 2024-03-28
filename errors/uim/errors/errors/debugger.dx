@@ -244,7 +244,7 @@ class DDebugger {
         auto instance = getInstance();
         if (!template.isString && !(template instanceof Closure)) {
             type = getTypeName(template);
-            throw new RuntimeException("Invalid editor type of `{type}`. Expected string or Closure.");
+            throw new DRuntimeException("Invalid editor type of `{type}`. Expected string or Closure.");
         }
         instance.editors[name] = template;
     }
@@ -258,7 +258,7 @@ class DDebugger {
         instance = getInstance();
         if (!isset(instance.editors[name])) {
             known = implode(', ', instance.editors.keys);
-            throw new RuntimeException("Unknown editor `{name}`. Known editors are {known}");
+            throw new DRuntimeException("Unknown editor `{name}`. Known editors are {known}");
         }
         instance.setConfig('editor', name);
     }
@@ -274,7 +274,7 @@ class DDebugger {
         instance = getInstance();
         editor = instance.getConfig('editor');
         if (!isset(instance.editors[editor])) {
-            throw new RuntimeException("Cannot format editor URL `{editor}` is not a known editor.");
+            throw new DRuntimeException("Cannot format editor URL `{editor}` is not a known editor.");
         }
 
         template = instance.editors[editor];
@@ -557,7 +557,7 @@ class DDebugger {
         }
         instance = new aClassName();
         if (!instance instanceof IFormatter) {
-            throw new RuntimeException(
+            throw new DRuntimeException(
                 "The `{aClassName}` formatter does not implement " ~ IFormatter::class
             );
         }
@@ -712,7 +712,7 @@ class DDebugger {
 
         aClassNameName = get_class(var);
         if (isRef) {
-            return new ReferenceNode(aClassNameName, refNum);
+            return new DReferenceNode(aClassNameName, refNum);
         }
         node = new DClassNode(aClassNameName, refNum);
 
@@ -742,7 +742,7 @@ class DDebugger {
                 );
             }
 
-            ref = new ReflectionObject(var);
+            ref = new DReflectionObject(var);
 
             filters = [
                 ReflectionProperty::IS_PROTECTED: 'protected',

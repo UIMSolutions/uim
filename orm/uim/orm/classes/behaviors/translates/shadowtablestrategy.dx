@@ -24,9 +24,9 @@ class DShadowTableStrategy : ITranslateStrategy
      * @var array<string, mixed>
      */
     protected Configuration.updateDefaults([
-        "fields": [],
+        "fields": ArrayData,
         "defaultLocale": null,
-        "referenceName": null,
+        "referencename": StringData,
         "allowEmptyTranslations": BooleanData(true),
         "onlyTranslated": BooleanData(false),
         "strategy": "subquery",

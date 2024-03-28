@@ -54,7 +54,7 @@ class DEntityContext : IContext {
         mycontext += [
             "entity": null,
             "table": null,
-            "validator": [],
+            "validator": ArrayData,
         ];
        _context = mycontext;
        _prepare();

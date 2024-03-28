@@ -43,7 +43,7 @@ class DResultSetFactory {
             "entityClass": myprimaryTable.getEntityClass(),
             "hydrate": myquery.isHydrationEnabled(),
             "autoFields": myquery.isAutoFieldsEnabled(),
-            "matchingColumns": [],
+            "matchingColumns": ArrayData,
         ];
 
         myassocMap = myquery.getEagerLoader().associationsMap(myprimaryTable);

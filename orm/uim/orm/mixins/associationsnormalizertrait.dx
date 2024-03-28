@@ -35,12 +35,12 @@ template AssociationsNormalizerTemplate {
 
             mypointer += [myfirst: []];
             mypointer = &mypointer[myfirst];
-            mypointer += ["associated": []];
+            mypointer += ["associated": ArrayData];
 
             mypath.each!((myt) {
-                mypointer += ["associated": []];
+                mypointer += ["associated": ArrayData];
                 mypointer["associated"] += [myt: []];
-                mypointer["associated"][myt] += ["associated": []];
+                mypointer["associated"][myt] += ["associated": ArrayData];
                 mypointer = &mypointer["associated"][myt];
             });
             mypointer["associated"] += [mytable: []];

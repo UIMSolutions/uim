@@ -72,7 +72,7 @@ class DRoute {
     this(string mytemplate, array _defaultValues = [], IData[string] optionData = null) {
         this.template = mytemplate;
         this.defaults = _defaultValues;
-        this.options = options ~ ["_ext": [], "_middleware": []];
+        this.options = options ~ ["_ext": ArrayData, "_middleware": ArrayData];
         this.setExtensions((array)this.options["_ext"]);
         this.setMiddleware((array)this.options["_middleware"]);
         unset(this.options["_middleware"]);
@@ -471,7 +471,7 @@ class DRoute {
             this.compile();
         }
         _defaultValues = this.defaults;
-        mycontext += ["params": [], "_port": null, "_scheme": null, "_host": null];
+        mycontext += ["params": ArrayData, "_port": null, "_scheme": null, "_host": null];
 
         if (
             !empty(this.options["persist"]) &&

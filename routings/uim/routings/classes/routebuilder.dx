@@ -278,12 +278,12 @@ class DRouteBuilder {
             options = [];
         }
         options += [
-            "connectOptions": [],
+            "connectOptions": ArrayData,
             "inflect": "dasherize",
             "id": ID ~ "|" ~ UUID,
-            "only": [],
-            "actions": [],
-            "map": [],
+            "only": ArrayData,
+            "actions": ArrayData,
+            "map": ArrayData,
             "prefix": null,
             "path": null,
         ];

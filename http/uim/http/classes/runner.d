@@ -9,19 +9,34 @@ import uim.http;
  * that allows the queue to be iterated.
  */
 class DRunner : IRequestHandler {
-    
-    /**
-     * The middleware queue being run.
-     *
-     * @var \UIM\Http\MiddlewareQueue
-     * /
-    protected MiddlewareQueue queue;
+    mixin TConfigurable!();
 
-    /**
-     * Fallback handler to use if middleware queue does not generate response.
-     *
-     * @var \Psr\Http\Server\IRequestHandler|null
-     * /
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    this(string name) {
+        this().name(name);
+    }
+
+    // Hook method
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
+
+    // The middleware queue being run.
+    protected DMiddlewareQueue queue;
+
+    // Fallback handler to use if middleware queue does not generate response.
     protected IRequestHandler fallbackHandler = null;
 
     /**

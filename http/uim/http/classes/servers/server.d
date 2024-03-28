@@ -11,6 +11,29 @@ import uim.http;
  * @implements \UIM\Event\IEventDispatcher<\UIM\Core\IHttpApplication>
  */
 class DServer { // }: IEventDispatcher {
+        mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    this(string name) {
+        this().name(name);
+    }
+
+    // Hook method
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\Core\IHttpApplication>
      * /

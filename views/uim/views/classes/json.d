@@ -68,7 +68,7 @@ class DIDataView : DSerializedView {
      *    for finding the IDataP callback name.
      *
      * /
-    protected IConfiguration Configuration.updateDefaults([
+    protected IConfiguration configuration.updateDefaults([
             "serialize": null,
             "IDataOptions": null,
             "IDatap": null,

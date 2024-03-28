@@ -19,7 +19,7 @@ import uim.orm;
 class DTranslateBehavior : DBehavior { // IPropertyMarshal {
     /* 
     override bool initialize(IData[string] initData = null) {
-        Configuration.updateDefaults([
+        configuration.updateDefaults([
             "implementedFinders": ["translations": "findTranslations"],
             "implementedMethods": [
                 "setLocale": "setLocale",

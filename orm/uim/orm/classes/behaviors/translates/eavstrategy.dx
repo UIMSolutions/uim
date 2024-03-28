@@ -29,7 +29,7 @@ class DEavStrategy : ITranslateStrategy {
      *
      * @var array<string, mixed>
      */
-    protected Configuration.updateDefaults([
+    protected configuration.updateDefaults([
         "fields": ArrayData,
         "translationTable": "I18n",
         "defaultLocale": null,

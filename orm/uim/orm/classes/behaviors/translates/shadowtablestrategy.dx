@@ -23,7 +23,7 @@ class DShadowTableStrategy : ITranslateStrategy
      *
      * @var array<string, mixed>
      */
-    protected Configuration.updateDefaults([
+    protected configuration.updateDefaults([
         "fields": ArrayData,
         "defaultLocale": null,
         "referencename": StringData,

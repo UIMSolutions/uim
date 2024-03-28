@@ -23,7 +23,7 @@ class DTreeBehavior : DBehavior {
 
     /* 
     override bool initialize(IData[string] myConfiguration) {
-        Configuration.updateDefaults([
+        configuration.updateDefaults([
         "implementedFinders": [
             "path": "findPath",
             "children": "findChildren",

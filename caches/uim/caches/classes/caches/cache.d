@@ -130,7 +130,7 @@ class DCache : ICache {
             myRegistry.set(configName, myfallbackEngine);
         }
         if (cast(CacheEngine)configuration["className"]) {
-            configData = configuration["className"].getConfig();
+            configData = configuration["className"].configuration.data;
         }
         if (!configuration.isEmpty("groups")) {
             (cast(DArrayData)configuration["groups"]).values.each!((groupName) {

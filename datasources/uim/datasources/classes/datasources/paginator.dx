@@ -472,7 +472,7 @@ class Paginator : IPaginator {
             settings = settings[myAlias];
         }
 
-        defaults = this.getConfig();
+        defaults = this.configuration.data;
         defaults["whitelist"] = defaults["allowedParameters"] = this.getAllowedParameters();
 
         maxLimit = settings["maxLimit"] ?? defaults["maxLimit"];

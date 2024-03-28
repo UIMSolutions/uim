@@ -172,7 +172,7 @@ class DErrorHandlerMiddleware : IMiddleware
         if (this.errorHandler is null) {
             /** @var class-string<uim.errorss.ErrorHandler> myClassName */
             myClassName = App::className("ErrorHandler", "Error");
-            this.errorHandler = new myClassName(this.getConfig());
+            this.errorHandler = new myClassName(this.configuration.data);
         }
 
         return this.errorHandler;

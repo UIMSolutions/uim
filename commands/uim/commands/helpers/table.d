@@ -128,7 +128,7 @@ class DTableHelper { // }: Helper {
         }
         _io.setStyle("text-right", ["text": null]);
 
-        configData = this.getConfig();
+        configData = this.configuration.data;
         widths = _calculateWidths(commandArguments);
 
         _rowSeparator( widths);

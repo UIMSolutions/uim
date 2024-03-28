@@ -50,7 +50,7 @@ class DFlashMessage {
      * @see FlashMessage._defaultConfigData For default values for the options.
      * /
     void set(string messageToBeFlashed, IData[string] options = null) {
-        auto options = options.update(this.getConfig());
+        auto options = options.update(this.configuration.data);
 
         if (isSet(options["escape"]) && !isSet(options["params"]["escape"])) {
             options["params"]["escape"] = options["escape"];

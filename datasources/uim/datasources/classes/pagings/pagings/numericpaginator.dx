@@ -428,7 +428,7 @@ class NumericPaginator : IPaginator {
         if (isSet(settings[alias])) {
             settings = settings[alias];
         }
-        defaults = this.getConfig();
+        defaults = this.configuration.data;
 
         maxLimit = settings.ifNull("maxLimit", ] ?? defaults["maxLimit"];
         aLimit = settings.get("limit", defaults["limit"]);

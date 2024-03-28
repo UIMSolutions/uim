@@ -142,7 +142,7 @@ class DErrorHandlerMiddleware : IMiddleware {
         if (this.exceptionTrap.isNull) {
             /** @var class-string<\UIM\Error\ExceptionTrap>  className */
              className = App.className("ExceptionTrap", "Error");
-            this.exceptionTrap = new className(this.getConfig());
+            this.exceptionTrap = new className(this.configuration.data);
         }
         return this.exceptionTrap;
     }

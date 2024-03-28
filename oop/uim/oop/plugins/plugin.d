@@ -8,7 +8,7 @@ import uim.oop;
  *
  * It also can retrieve plugin paths and load their bootstrap and routes files.
  */
-class Plugin {
+class DPlugin {
     this() {
         initialize;
     }

@@ -52,7 +52,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
     /**
      * Resolve a behavior classname.
      * Params:
-     * string myclass Partial classname to resolve.
+     * string myclass DPartial classname to resolve.
      * /
     static string className(string myclass) {
         return App.className(myclass, "Model/Behavior", "Behavior")
@@ -64,7 +64,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
      *
      * Part of the template method for UIM\Core\ObjectRegistry.load()
      * Params:
-     * string myclass Partial classname to resolve.
+     * string myclass DPartial classname to resolve.
      */
     protected string|int|false _resolveClassName(string myclass) {
         /** @var class-string<\UIM\ORM\Behavior>|null */

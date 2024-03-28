@@ -4,7 +4,7 @@ import uim.oop;
 
 @safe:
 
-class PHPUnitStartedSubscriber : PHPUnitStarted {
+class DPHPUnitStartedSubscriber : PHPUnitStarted {
     /**
      * Initializes before any tests are run.
      * Params:

@@ -5,7 +5,7 @@ import uim.oop;
 @safe:
 
 // PHPUnit extension to integrate UIM"s data-only fixtures.
-class PHPUnitExtension : Extension {
+class DPHPUnitExtension : Extension {
     /**
      * @param \PHPUnit\TextUI\Configuration\Configuration configDatauration
      * @param \PHPUnit\Runner\Extension\Facade facade

@@ -20,7 +20,7 @@ import uim.oop;
  *
  * @template-implements \Iterator<string, \UIM\Core\IPlugin>
  */
-class PluginCollection /* : Iterator, Countable */ { // TODO
+class DPluginCollection /* : Iterator, Countable */ { // TODO
     // Plugin list
     protected IPlugin[string] _plugins;
 

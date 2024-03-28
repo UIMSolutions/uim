@@ -5,7 +5,7 @@ import uim.errors;
 @safe:
 
 // Dump node for object properties.
-class PropertyNode : INode {
+class DPropertyNode : INode {
     private string _name;
 
     private string _visibility;

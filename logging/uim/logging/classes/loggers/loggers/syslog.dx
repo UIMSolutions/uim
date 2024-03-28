@@ -5,8 +5,8 @@ import uim.logging;
 @safe:
 
 // Syslog stream for Logging. Writes logs to the system logger
-class DSysLogger : Logger {
-    mixin(LoggerThis!("SysLogger"));
+class DSysLogger : DLogger {
+    mixin(LoggerThis!("Sys"));
     /**
      * Default config for this class
      *

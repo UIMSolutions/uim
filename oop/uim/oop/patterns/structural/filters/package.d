@@ -8,7 +8,7 @@ module uim.oop.patterns.filters;
 import uim.oop;
 @safe:
 
-class Person {
+class DPerson {
   this(string name, string gender, string maritalStatus) {
     _name = name;
     _gender = gender;

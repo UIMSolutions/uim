@@ -92,7 +92,7 @@ class DResponseEmitter {
 
             return;
         }
-        body = new RelativeStream(body, first);
+        body = new DRelativeStream(body, first);
         body.rewind();
         pos = 0;
         /** @var size_t aLength */

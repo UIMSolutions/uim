@@ -86,7 +86,7 @@ class Plugin : IPlugin {
             return _path;
         }
         
-        ReflectionClass reflection = new ReflectionClass(this);        
+        ReflectionClass reflection = new DReflectionClass(this);        
         string somePath = dirname(to!string(reflection.getFileName()));
 
         // Trim off src

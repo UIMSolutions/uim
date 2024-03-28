@@ -11,7 +11,7 @@ import uim.http;
  * The URL and status code are provided as constructor arguments.
  *
  * ```
- * throw new RedirectException("http://example.com/some/path", 301);
+ * throw new DRedirectException("http://example.com/some/path", 301);
  * ```
  *
  * Additional headers can also be provided in the constructor, or

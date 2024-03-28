@@ -28,7 +28,7 @@ class DServer { // }: IEventDispatcher {
      * /
     this(IHttpApplication httpApp, Runner appRunner = null) {
         _app = httpApp;
-        _runner = appRunner ?? new Runner();
+        _runner = appRunner ?? new DRunner();
     }
     
     /**
@@ -96,7 +96,7 @@ class DServer { // }: IEventDispatcher {
      * /
     void emit(IResponse response, ?ResponseEmitter emitter = null) {
         if (!emitter) {
-            emitter = new ResponseEmitter();
+            emitter = new DResponseEmitter();
         }
         emitter.emit(response);
     }

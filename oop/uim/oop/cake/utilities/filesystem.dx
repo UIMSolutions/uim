@@ -49,8 +49,8 @@ class Filesystem {
         myflags ??= FilesystemIterator.KEY_AS_PATHNAME
             | FilesystemIterator.CURRENT_AS_FILEINFO
             | FilesystemIterator.SKIP_DOTS;
-        mydirectory = new RecursiveDirectoryIterator(mypath, myflags);
-        mydirFilter = new RecursiveCallbackFilterIterator(
+        mydirectory = new DRecursiveDirectoryIterator(mypath, myflags);
+        mydirFilter = new DRecursiveCallbackFilterIterator(
             mydirectory,
             auto (SplFileInfo mycurrent) {
                 return mycurrent.getFilename()[0] == "." && mycurrent.isDir()
@@ -58,7 +58,7 @@ class Filesystem {
             }
         );
 
-        myflatten = new RecursiveIteratorIterator(
+        myflatten = new DRecursiveIteratorIterator(
             mydirFilter,
             RecursiveIteratorIterator.CHILD_FIRST
         );
@@ -76,7 +76,7 @@ class Filesystem {
      */
     protected Iterator filterIterator(Iterator myiterator, Closure|string myfilter) {
         if (isString(myfilter)) {
-            return new RegexIterator(myiterator, myfilter);
+            return new DRegexIterator(myiterator, myfilter);
         }
         return new DCallbackFilterIterator(myiterator, myfilter);
     }
@@ -139,8 +139,8 @@ class Filesystem {
             throw new UimException("`%s` is not a directory".format(mypath));
         }
         /** @var \RecursiveDirectoryIterator<\SplFileInfo> myiterator Replace type for psalm */
-        auto myIterator = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator(mypath, FilesystemIterator.SKIP_DOTS),
+        auto myIterator = new DRecursiveIteratorIterator(
+            new DRecursiveDirectoryIterator(mypath, FilesystemIterator.SKIP_DOTS),
             RecursiveIteratorIterator.CHILD_FIRST
         );
 

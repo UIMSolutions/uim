@@ -322,7 +322,7 @@ abstract class DERRErrorHandler {
 
                 interface = IErrorLogger::class;
                 type = getTypeName(logger);
-                throw new RuntimeException("Cannot create logger. `{type}` does not implement `{interface}`.");
+                throw new DRuntimeException("Cannot create logger. `{type}` does not implement `{interface}`.");
             }
             this.logger = logger;
         }

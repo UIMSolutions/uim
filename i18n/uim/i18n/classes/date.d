@@ -152,7 +152,7 @@ class Date { // }: ChronosDate, IDataSerializable {
             return diffFormatter = differenceFormatter;
         }
         
-        return diffFormatter ? diffFormatter : new RelativeTimeFormatter();
+        return diffFormatter ? diffFormatter : new DRelativeTimeFormatter();
     }
     
     /**

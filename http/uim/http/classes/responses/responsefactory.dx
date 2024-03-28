@@ -7,7 +7,7 @@ import uim.http;
 /**
  * Factory class for creating response instances.
  */
-class ResponseFactory : IResponseFactory {
+class DResponseFactory : IResponseFactory {
     /**
      * Create a new response.
      * Params:
@@ -17,6 +17,6 @@ class ResponseFactory : IResponseFactory {
      *  the defaults as suggested in the HTTP specification.
      */
     IResponse createResponse(int httpStatusCode = 200, string areasonPhrase = "") {
-        return (new Response()).withStatus(httpStatusCode, reasonPhrase);
+        return (new DResponse()).withStatus(httpStatusCode, reasonPhrase);
     }
 }

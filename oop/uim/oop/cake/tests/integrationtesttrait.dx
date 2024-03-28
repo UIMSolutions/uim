@@ -514,7 +514,7 @@ template IntegrationTestTemplate {
                 return preg_replace("/(\.\d+)+/", "", field);
             }, Hash.flatten(fields).keys);
 
-            auto formProtector = new FormProtector(["unlockedFields": _unlockedFields]);
+            auto formProtector = new DFormProtector(["unlockedFields": _unlockedFields]);
             someKeys.each!(field => formProtector.addField(field));
             tokenData = formProtector.buildTokenData(url, "cli");
 
@@ -888,7 +888,7 @@ template IntegrationTestTemplate {
      */
     void assertTemplate(string acontent, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(content, new TemplateFileEquals(_viewName), verboseMessage);
+        this.assertThat(content, new DTemplateFileEquals(_viewName), verboseMessage);
     }
     
     /**
@@ -945,7 +945,7 @@ template IntegrationTestTemplate {
      */
     void assertFlashMessage(string aexpected, string aKey = "flash", string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(expected, new FlashParamEquals(_requestSession, aKey, "message"), verboseMessage);
+        this.assertThat(expected, new DFlashParamEquals(_requestSession, aKey, "message"), verboseMessage);
     }
     
     /**
@@ -960,7 +960,7 @@ template IntegrationTestTemplate {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(
             expected,
-            new FlashParamEquals(_requestSession, aKey, "message", at),
+            new DFlashParamEquals(_requestSession, aKey, "message", at),
             verboseMessage
         );
     }
@@ -976,7 +976,7 @@ template IntegrationTestTemplate {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(
             expected,
-            new FlashParamEquals(_requestSession, aKey, "element"),
+            new DFlashParamEquals(_requestSession, aKey, "element"),
             verboseMessage
         );
     }
@@ -993,7 +993,7 @@ template IntegrationTestTemplate {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(
             expected,
-            new FlashParamEquals(_requestSession, aKey, "element", at),
+            new DFlashParamEquals(_requestSession, aKey, "element", at),
             verboseMessage
         );
     }
@@ -1086,8 +1086,8 @@ template IntegrationTestTemplate {
      */
     void assertFileResponse(string aexpected, string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(null, new FileSent(_response), verboseMessage);
-        this.assertThat(expected, new FileSentAs(_response), verboseMessage);
+        this.assertThat(null, new DFileSent(_response), verboseMessage);
+        this.assertThat(expected, new DFileSentAs(_response), verboseMessage);
 
         if (!_response) {
             return;
@@ -1140,6 +1140,6 @@ template IntegrationTestTemplate {
     
     protected TestSession getSession() {
         /** @psalm-suppress InvalidScalarArgument */
-        return new TestSession(_SESSION);
+        return new DTestSession(_SESSION);
     }
 }

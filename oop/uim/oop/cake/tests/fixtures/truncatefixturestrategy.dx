@@ -11,7 +11,7 @@ class DTruncateFixtureStrategy : IFixtureStrategy {
     protected IFixture[] fixtures = [];
 
     this() {
-        this.helper = new FixtureHelper();
+        this.helper = new DFixtureHelper();
     }
  
     void setupTest(string[] fixtureNames) {

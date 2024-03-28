@@ -185,7 +185,7 @@ abstract class DTestCase : BaseTestCase {
      * Returns fixture strategy used by these tests.
      */
     protected IFixtureStrategy getFixtureStrategy() {
-        return new TruncateStrategy();
+        return new DTruncateStrategy();
     }
     
     /**

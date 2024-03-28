@@ -11,7 +11,7 @@ class DTruncateStrategy : IFixtureStrategy {
     protected IFixture _fixtures;
 
     this() {
-        _helper = new FixtureHelper();
+        _helper = new DFixtureHelper();
     }
  
     void setupTest(string[] fixtureNames) {

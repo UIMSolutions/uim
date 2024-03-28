@@ -144,7 +144,7 @@ class DSchemaLoader {
                             ~ "(`\"articles\": [...]`) or define the `table` key in the table definition.".format(name)
                     );
                 }
-                tableSchema = new TableSchema(name, aTable["columns"]);
+                tableSchema = new DTableSchema(name, aTable["columns"]);
                 if (isSet(aTable["indexes"])) {
                     foreach (aTable["indexes"] as aKey:  anIndex) {
                         tableSchema.addIndex(aKey,  anIndex);

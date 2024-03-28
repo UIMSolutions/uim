@@ -76,7 +76,7 @@ class MiddlewareDispatcher {
 
         return request
             .withAttribute("session", spec["session"])
-            .withAttribute("flash", new FlashMessage(spec["session"]));
+            .withAttribute("flash", new DFlashMessage(spec["session"]));
     }
     
     // Run a request and get the response.

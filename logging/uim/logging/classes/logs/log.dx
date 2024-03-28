@@ -214,7 +214,7 @@ class Log {
      * Using a factory auto to get an adapter:
      *
      * ```
-     * Log.configuration.update("default", auto () { return new FileLog(); });
+     * Log.configuration.update("default", auto () { return new DFileLog(); });
      * ```
      *
      * Configure multiple adapters at once:

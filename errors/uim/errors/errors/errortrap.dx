@@ -108,7 +108,7 @@ class DErrorTrap {
             return false;
         }
         if (code == E_USER_ERROR || code == E_ERROR || code == E_PARSE) {
-            throw new FatalErrorException(description, code, file, line);
+            throw new DFatalErrorException(description, code, file, line);
         }
 
         /** @var array trace * /

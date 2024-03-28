@@ -17,7 +17,7 @@ class DTransactionStrategy : IFixtureStrategy {
     protected IFixture[] fixtures;
 
     this() {
-        this.helper = new FixtureHelper();
+        this.helper = new DFixtureHelper();
     }
  
     auto setupTest(string[] fixtureNames) {

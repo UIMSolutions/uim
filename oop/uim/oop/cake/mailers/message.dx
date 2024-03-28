@@ -1061,7 +1061,7 @@ class Message : IDataSerializable {
                 !isSet(dirEntry["contentDisposition"]) ||
                 dirEntry["contentDisposition"]
             );
-            part = new FormDataPart("", someData, "", this.getHeaderCharset());
+            part = new DFormDataPart("", someData, "", this.getHeaderCharset());
 
             if (hasDisposition) {
                 part.disposition("attachment");
@@ -1093,7 +1093,7 @@ class Message : IDataSerializable {
             someData = dirEntry["data"] ?? this.readFile(dirEntry["file"]);
 
             message ~= "--" ~ boundary;
-            part = new FormDataPart("", someData, "inline", this.getHeaderCharset());
+            part = new DFormDataPart("", someData, "inline", this.getHeaderCharset());
             part.type(dirEntry["mimetype"]);
             part.transferEncoding("base64");
             part.contentId(dirEntry["contentId"]);

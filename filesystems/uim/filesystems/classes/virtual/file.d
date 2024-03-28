@@ -15,7 +15,7 @@ unittest {
 
 @safe:
 class DVirtualFile : DFile {
-	mixin(FileThis!("VirtualFile"));
+	mixin(FileThis!("Virtual"));
 }
-mixin(FileCalls!("VirtualFile"));
+mixin(FileCalls!("Virtual"));
 

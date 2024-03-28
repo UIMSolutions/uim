@@ -8,9 +8,11 @@ module uim.filesystems.mixins.folder;
 import uim.filesystems;
 
 @safe:
-string folderThis(string aName) {
+string folderThis(string shortName) {
+  string fullName = shortName~"Folder";
+
   return `
-this() { super(); this.name("`~aName~`"); }
+this() { super(); this.name("`~fullName~`"); }
 
 this(IFilesystem aFilesystem) { this(); this.filesystem(aFilesystem); };
 this(string[] aPath) { this(); this.path(aPath); };
@@ -23,26 +25,27 @@ this(IFilesystem aFilesystem, string[] aPath, string aName) { this(aFilesystem, 
   `;
 }
 
-template FolderThis(string aName) {
-  const char[] FolderThis = folderThis(aName);
+template FolderThis(string shortName) {
+  const char[] FolderThis = folderThis(shortName);
 }
 
-string folderCalls(string shortName, string className = null) {
-  string clName = className.length > 0 ? className : "D"~shortName;
+string folderCalls(string shortName) {
+  string fullName = shortName~"Folder";
+
   return `
-auto `~shortName~`() { return new `~clName~`; }
+auto `~fullName~`() { return new D`~fullName~`; }
 
-auto `~shortName~`(IFilesystem aFilesystem) { return new `~clName~`(aFilesystem); };
-auto `~shortName~`(string[] aPath) { return new `~clName~`(aPath); };
-auto `~shortName~`(string aName) { return new `~clName~`(aName); };
+auto `~fullName~`(IFilesystem aFilesystem) { return new D`~fullName~`(aFilesystem); };
+auto `~fullName~`(string[] aPath) { return new D`~fullName~`(aPath); };
+auto `~fullName~`(string aName) { return new D`~fullName~`(aName); };
 
-auto `~shortName~`(IFilesystem aFilesystem, string[] aPath) { return new `~clName~`(aFilesystem, aPath); };
-auto `~shortName~`(IFilesystem aFilesystem, string aName) { return new `~clName~`(aFilesystem, aName); };
+auto `~fullName~`(IFilesystem aFilesystem, string[] aPath) { return new D`~fullName~`(aFilesystem, aPath); };
+auto `~fullName~`(IFilesystem aFilesystem, string aName) { return new D`~fullName~`(aFilesystem, aName); };
 
-auto `~shortName~`(IFilesystem aFilesystem, string[] aPath, string aName) { return new `~clName~`(aFilesystem, aPath, aName); };
+auto `~fullName~`(IFilesystem aFilesystem, string[] aPath, string aName) { return new D`~fullName~`(aFilesystem, aPath, aName); };
   `;
 }
 
-template FolderCalls(string shortName, string className = null) {
-  const char[] FolderCalls = folderCalls(shortName, className);
+template FolderCalls(string shortName) {
+  const char[] FolderCalls = folderCalls(shortName);
 }

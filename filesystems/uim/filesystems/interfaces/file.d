@@ -62,7 +62,6 @@ interface IFile : IFilesystemEntry {
 		// TODO: OpenAsTextStream 	Opens a specified file and returns a TextStream object to access the file.
 	// #endregion Methods
 }
-mixin(FileCalls!("File"));
 
 unittest {
 	assert(File(), "Could not create file object");

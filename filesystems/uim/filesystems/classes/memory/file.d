@@ -15,6 +15,6 @@ unittest {
 
 @safe:
 class DMemoryFile : DFile {
-  mixin(FileThis!("MemoryFile"));
+  mixin(FileThis!("Memory"));
 }
-mixin(FileCalls!("MemoryFile"));
+mixin(FileCalls!("Memory"));

@@ -15,6 +15,6 @@ unittest {
 
 @safe:
 class DWindowsFile : DFile {
-  mixin(FileThis!("WindowsFile"));
+  mixin(FileThis!("Windows"));
 }
-mixin(FileCalls!("WindowsFile"));
+mixin(FileCalls!("Windows"));

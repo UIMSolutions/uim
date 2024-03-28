@@ -15,10 +15,10 @@ unittest {
 
 @safe:
 class DLinuxFile : DFile {
-  mixin(FileThis!("LinuxFile"));
+  mixin(FileThis!("Linux"));
 
 }
-mixin(FileCalls!("LinuxFile"));
+mixin(FileCalls!("Linux"));
 
 version(testUimFilesystems) { 
 	unittest {

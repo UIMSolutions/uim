@@ -15,7 +15,7 @@ unittest {
 
 @safe:
 class DWindowsFilesystem : DFilesystem {
-  mixin(FilesystemThis!("WindowsFilesystem"));
+  mixin(FilesystemThis!("Windows"));
 
   override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) {
@@ -27,4 +27,4 @@ class DWindowsFilesystem : DFilesystem {
 
   }
 }
-mixin(FilesystemCalls!("WindowsFilesystem"));
+mixin(FilesystemCalls!("Windows"));

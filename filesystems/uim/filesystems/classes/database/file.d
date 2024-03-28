@@ -15,6 +15,6 @@ unittest {
 
 @safe:
 class DDatabaseFile : DFile {
-  mixin(FileThis!("DatabaseFile"));
+  mixin(FileThis!("Database"));
 }
-mixin(FileCalls!("DatabaseFile"));
+mixin(FileCalls!("Database"));

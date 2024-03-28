@@ -5,27 +5,30 @@
 ***********************************************************************************/
 module uim.filesystems.mixins.filesystem;
 
-string filesystemThis(string aName) {
+string filesystemThis(string shortName) {
+string fullName = shortName~"Filesystem";
+
   return `
-this() { super(); this.name("`~aName~`"); }
+this() { super(); this.name("`~fullName~`"); }
 
 this(string aName) { this(); this.name(aName); };
   `;
 }
 
-template FilesystemThis(string aName) {
-  const char[] FilesystemThis = filesystemThis(aName);
+template FilesystemThis(string shortName) {
+  const char[] FilesystemThis = filesystemThis(shortName);
 }
 
-string filesystemCalls(string shortName, string className = null) {
-  string clName = className.length > 0 ? className : "D"~shortName;
-  return `
-auto `~shortName~`() { return new `~clName~`; }
+string filesystemCalls(string shortName) {
+  string fullName = shortName~"Filesystem";
 
-auto `~shortName~`(string aName) { return new `~clName~`(aName); };
+  return `
+auto `~fullName~`() { return new D`~fullName~`; }
+
+auto `~fullName~`(string aName) { return new D`~fullName~`(aName); };
   `;
 }
 
-template FilesystemCalls(string shortName, string className = null) {
-  const char[] FilesystemCalls = filesystemCalls(shortName, className);
+template FilesystemCalls(string shortName) {
+  const char[] FilesystemCalls = filesystemCalls(shortName);
 }

@@ -8,7 +8,7 @@ module uim.filesystems.mixins.file;
 import uim.filesystems;
 
 @safe:
-string fileThis(string aName) {
+string fileThis(string shortName) {
   string fullName = shortName~"File";
 
   return `
@@ -25,8 +25,8 @@ this(IFilesystem aFilesystem, string[] aPath, string aName) { this(aFilesystem, 
   `;
 }
 
-template FileThis(string aName) {
-  const char[] FileThis = fileThis(aName);
+template FileThis(string shortName) {
+  const char[] FileThis = fileThis(shortName);
 }
 
 string fileCalls(string shortName) {
@@ -39,13 +39,13 @@ auto `~fullName~`(IFilesystem aFilesystem) { return new D`~fullName~`(aFilesyste
 auto `~fullName~`(string[] aPath) { return new D`~fullName~`(aPath); };
 auto `~fullName~`(string aName) { return new D`~fullName~`(aName); };
 
-auto `~shortfullNamefullNameName~`(IFilesystem aFilesystem, string[] aPath) { return new D`~fullName~`(aFilesystem, aPath); };
+auto `~fullName~`(IFilesystem aFilesystem, string[] aPath) { return new D`~fullName~`(aFilesystem, aPath); };
 auto `~fullName~`(IFilesystem aFilesystem, string aName) { return new D`~fullName~`(aFilesystem, aName); };
 
 auto `~fullName~`(IFilesystem aFilesystem, string[] aPath, string aName) { return new D`~fullName~`(aFilesystem, aPath, aName); };
   `;
 }
 
-template FileCalls(string shortName, string className = null) {
-  const char[] FileCalls = fileCalls(shortName, className);
+template FileCalls(string shortName) {
+  const char[] FileCalls = fileCalls(shortName);
 }

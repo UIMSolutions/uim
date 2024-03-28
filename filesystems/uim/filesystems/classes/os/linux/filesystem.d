@@ -9,7 +9,7 @@ import uim.filesystems;
 
 @safe:
 class DLinuxFilesystem : DFilesystem {
-  mixin(FilesystemThis!("LinuxFilesystem"));
+  mixin(FilesystemThis!("Linux"));
 
 	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) {
@@ -418,7 +418,7 @@ class DLinuxFilesystem : DFilesystem {
     }
 	// #endregion LinkManagement */
 }
-mixin(FilesystemCalls!("LinuxFilesystem"));
+mixin(FilesystemCalls!("Linux"));
 
 version(testUimFilesystems) { 
 unittest {

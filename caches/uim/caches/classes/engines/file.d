@@ -48,7 +48,7 @@ class DFileCacheEngine : DCacheEngine {
             return false;
         }
 
-        /* Configuration.updateDefaults([
+        /* configuration.updateDefaults([
             "duration": 3600,
             "groups": ArrayData,
             "lock": BooleanData(true),

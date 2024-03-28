@@ -36,7 +36,7 @@ class DMemcachedEngine : DCacheEngine {
      * - `options` - Additional options for the memcached client. Should be an array of option: value.
      *   Use the \Memcached.OPT_* constants as keys.
      * /
-    Configuration.updateDefaults([
+    configuration.updateDefaults([
       "compress": BooleanData(false),
       "duration": 3600,
       "groups": ArrayData,

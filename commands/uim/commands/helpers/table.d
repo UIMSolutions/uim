@@ -30,7 +30,7 @@ class DTableHelper { // }: Helper {
 
   // Default config for this helper.
   /*
-  protected IData[string] Configuration.updateDefaults([
+  protected IData[string] configuration.updateDefaults([
       "headers": BooleanData(true),
       "rowSeparator": BooleanData(false),
       "headerStyle": "info",

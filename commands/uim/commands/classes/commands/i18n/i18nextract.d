@@ -289,13 +289,13 @@ class DI18nExtractCommand : DCommand {
             "choices": ["yes", "no"],
         ]);
         aParser.addOption("no-location", [
-            "boolean": IData(true,
-            "default": IData(false,
+            "boolean": BooleanData(true),
+            "default": BooleanData(false),
             "help": StringData("Do not write file locations for each extracted message.",
         ]);
         aParser.addOption("marker-error", [
-            "boolean": IData(true,
-            "default": IData(false,
+            "boolean": BooleanData(true),
+            "default": BooleanData(false),
             "help": StringData("Do not display marker error.",
         ]);
 

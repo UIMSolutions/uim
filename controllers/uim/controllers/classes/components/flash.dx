@@ -15,14 +15,21 @@ import uim.controllers;
  * @method void error(string amessage, IData[string] options = null) Set a message using "error" element
  */
 class DFlashComponent : DComponent {
-    // Default configuration
-    protected IData[string] _defaultConfigData = [
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        configuration.updateDefaults([
         "key": "flash",
         "element": "default",
         "params": ArrayData,
         "clear": BooleanData(false),
         "duplicate": BooleanData(true),
-    ];
+    ])
+
+    return true;
+    }
 
     /**
      * Used to set a session variable that can be used to output messages in the view.

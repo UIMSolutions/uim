@@ -27,30 +27,17 @@ abstract class Helper {
     }
     
     /*
-    mixin InstanceConfigTemplate();
-
-    // Default config for this helper.
-    protected IData[string] _defaultConfigData;
-
     protected IConsoleIo _io;
 
     /**
      * @param \UIM\Console\IConsoleIo aConsoleIo The ConsoleIo instance to use.
      * configData - The settings for this helper.
      * /
-    this() {
-        initialize;
-    }
     this(IConsoleIo aConsoleIo, IData[string] configData = null) {
         this();
         initialize(configData);
     }
 
-    bool initialize(IData[string] initData = null) {
-        configuration(MemoryConfiguration);
-        setConfigurationData(initData);
-    }
-    
     /**
      * This method should output content using `_io`.
      * Params:

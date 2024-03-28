@@ -168,8 +168,8 @@ class DSession {
         configData += [
             "timeout": null,
             "cookie": null,
-            "ini": [],
-            "handler": [],
+            "ini": ArrayData,
+            "handler": ArrayData,
         ];
 
         if (configData("timeout"]) {

@@ -11,7 +11,7 @@ class DConsoleLog : BaseLog {
     protected IConfiguration Configuration.updateDefaults([
         "stream": "php://stderr",
         "levels": null,
-        "scopes": [],
+        "scopes": ArrayData,
         "outputAs": null,
         "formatter": [
             "className": DefaultFormatter.classname,

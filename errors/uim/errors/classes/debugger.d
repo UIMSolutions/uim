@@ -18,7 +18,7 @@ class DDebugger {
 
     // Default configuration
     protected IData[string] _defaultConfigData = [
-        "outputMask": [],
+        "outputMask": ArrayData,
         "exportFormatter": null,
         "editor": "phpstorm",
     ];

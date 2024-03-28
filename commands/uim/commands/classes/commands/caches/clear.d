@@ -34,7 +34,7 @@ class DCacheClearCommand : DCommand {
         "help": "The cache engine to clear." ~
         "For example, `cake cache clear _cake_model_` will clear the model cache." ~
         " Use `cake cache list` to list available engines.",
-        "required": true,
+        "required": BooleanData(true),
       ]);
 
     return myParser;

@@ -90,37 +90,37 @@ ConsoleOptionParser buildOptionParser(ConsoleOptionParser aParser) {
         ]); 
         addArgument("plugin", [
             "help": "Name of the plugin to load. Must be in CamelCase format. Example: cake plugin load Example",
-            "required": true,
+            "required": BooleanData(true),
         ]); 
         addOption("only-debug", [
-            "boolean": true,
+            "boolean": BooleanData(true),
             "help": "Load the plugin only when `debug` is enabled.",
         ]); 
         addOption("only-cli", [
-            "boolean": true,
+            "boolean": BooleanData(true),
             "help": "Load the plugin only for CLI.",
         ]); 
         addOption("optional", [
-            "boolean": true,
+            "boolean": BooleanData(true),
             "help": "Do not throw an error if the plugin is not available.",
         ]); 
         addOption("no-bootstrap", [
-            "boolean": true,
+            "boolean": BooleanData(true),
             "help": "Do not run the `bootstrap()` hook.",
         ]); 
         addOption("no-console", [
-            "boolean": true,
+            "boolean": BooleanData(true),
             "help": "Do not run the `console()` hook.",
         ]); addOption("no-middleware", [
-            "boolean": true,
+            "boolean": BooleanData(true),
             "help": "Do not run the `middleware()` hook..",
         ]); 
         addOption("no-routes", [
-            "boolean": true,
+            "boolean": BooleanData(true),
             "help": "Do not run the `routes()` hook.",
         ]);
         addOption("no-services", [
-            "boolean": true,
+            "boolean": BooleanData(true),
             "help": "Do not run the `services()` hook.",
         ]);
 

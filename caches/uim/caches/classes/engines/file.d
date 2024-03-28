@@ -51,12 +51,12 @@ class DFileCacheEngine : DCacheEngine {
         /* Configuration.updateDefaults([
             "duration": 3600,
             "groups": [],
-            "lock": true,
+            "lock": BooleanData(true),
             "mask": std.conv.octal!"664",
             "dirMask": std.conv.octal!"770",
             "path": null,
             "prefix": "uim_",
-            "serialize": true,
+            "serialize": BooleanData(true),
         ]); * / 
 
         configuration["path"] = configuration.get("path", sys_get_temp_dir()~DIRECTORY_SEPARATOR ~ "cake_cache" ~ DIRECTORY_SEPARATOR);

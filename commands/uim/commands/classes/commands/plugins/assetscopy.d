@@ -49,7 +49,7 @@ class DPluginAssetsCopyCommand : DCommand {
         ]).addOption("overwrite", [
             "help": "Overwrite existing symlink / folder / files.",
             "default": BooleanData(false),
-            "boolean": true,
+            "boolean": BooleanData(true),
         ]);
 
         return parserToUpdate;

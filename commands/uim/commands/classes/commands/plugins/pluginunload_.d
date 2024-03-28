@@ -71,7 +71,7 @@ class DPluginUnloadCommand : DCommand {
         ])
         .addArgument("plugin", [
             "help": 'Name of the plugin to unload.",
-            "required": true,
+            "required": BooleanData(true),
         ]);
 
         return aParser;

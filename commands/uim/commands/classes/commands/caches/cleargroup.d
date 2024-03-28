@@ -31,7 +31,7 @@ class DCacheClearGroupCommand : DCommand {
     definedParser.addArgument("group", [
         "help": "The cache group to clear. For example, `cake cache clear_group mygroup` will clear "
         ."all cache items belonging to group " mygroup".",
-        "required": true,
+        "required": BooleanData(true),
       ]);
     definedParser.addArgument("config", [
         "help": "Name of the configuration to use. Defaults to no value which clears all cache configurations.",

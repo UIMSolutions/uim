@@ -478,7 +478,7 @@ template IntegrationTestTemplate {
             "url": url,
             "session": session,
             "query": aQueryData,
-            "files": [],
+            "files": ArrayData,
             "environment": env,
         ];
 

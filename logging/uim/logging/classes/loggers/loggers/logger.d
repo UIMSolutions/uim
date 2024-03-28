@@ -28,8 +28,8 @@ abstract class Logger /* : DAbstractLogger */ {
     mixin(TProperty!("string", "name"));
 
     /* .updateDefaults([
-        "levels": [],
-        "scopes": [],
+        "levels": ArrayData,
+        "scopes": ArrayData,
         "formatter": DefaultFormatter.classname,
     ]); * /
 

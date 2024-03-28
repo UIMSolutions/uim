@@ -23,8 +23,8 @@ abstract class Logger /* : DAbstractLogger */ {
 
   bool initialize(IData[string] initData = null) {
     /* Configuration.updateDefaults([
-        "levels": [],
-        "scopes": [],
+        "levels": ArrayData,
+        "scopes": ArrayData,
         "formatter": DefaultFormatter.classname,
     ]; */
 

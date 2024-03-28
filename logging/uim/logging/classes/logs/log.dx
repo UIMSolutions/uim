@@ -310,7 +310,7 @@ class Log {
         if (isSet(context[0])) {
             context = ["scope": context];
         }
-        context ~= ["scope": []];
+        context ~= ["scope": ArrayData];
 
         registry = getRegistry();
         registry.loaded().each!((streamName) {

@@ -1,4 +1,4 @@
-module errors.uim.errors.interfaces.errorrenderer;
+module uim.errors.interfaces.errorrenderer;
 
 import uim.errors;
 

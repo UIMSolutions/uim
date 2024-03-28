@@ -1,0 +1,45 @@
+module uim.errors\Debug;
+
+import uim.errors;
+
+@safe:
+
+/*
+ * Dump node for scalar values.
+ */
+class DScalarNode : INode {
+
+    private string atype;
+
+    /**
+     * @var resource|string|float|int|bool|null
+     */
+    private aValue;
+
+    /**
+     * Constructor
+     * Params:
+     * string atype The type of scalar value.
+     * @param resource|string|float|int|bool|null aValue The wrapped value.
+     */
+    this(string atype, aValue) {
+        this.type = type;
+        this.value = aValue;
+    }
+    
+    // Get the type of value
+    string getType() {
+        return this.type;
+    }
+    
+    /**
+     * Get the value
+     */
+    IData getValue() {
+        return this.value;
+    }
+ 
+    array getChildren() {
+        return null;
+    }
+}

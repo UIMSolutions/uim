@@ -19,8 +19,8 @@ class DSelectBoxWidget : DWidget {
         "empty": BooleanData(false),
         "escape": BooleanData(true),
         "options": ArrayData,
-        "disabled": IData(null),
-        "val": IData(null),
+        "disabled": null,
+        "val": null,
         "templateVars": ArrayData,
     ];
 

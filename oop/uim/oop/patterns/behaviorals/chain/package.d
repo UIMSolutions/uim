@@ -66,9 +66,9 @@ class DFileLogger : DAbstractLogger {
 }
 
 private static DAbstractLogger getChainOfLoggers() {
-  DAbstractLogger errorLogger = new DErrorLogger(AbstractLogger.ERROR);
-  DAbstractLogger fileLogger = new DFileLogger(AbstractLogger.DEBUG);
-  DAbstractLogger consoleLogger = new DConsoleLogger(AbstractLogger.INFO);
+  DAbstractLogger errorLogger = new DErrorLogger(DAbstractLogger.ERROR);
+  DAbstractLogger fileLogger = new DFileLogger(DAbstractLogger.DEBUG);
+  DAbstractLogger consoleLogger = new DConsoleLogger(DAbstractLogger.INFO);
 
   errorLogger.nextLogger = fileLogger;
   fileLogger.nextLogger = consoleLogger;

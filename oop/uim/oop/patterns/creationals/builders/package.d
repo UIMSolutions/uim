@@ -32,7 +32,7 @@ class DBottle : IPacking {
 
 abstract class DBurger : IItem {
    override IPacking packing() {
-      return new Wrapper();
+      return new DWrapper();
    }
 
    override abstract float price();

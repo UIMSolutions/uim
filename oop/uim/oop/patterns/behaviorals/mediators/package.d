@@ -10,21 +10,21 @@ import uim.oop;
 @safe:
 /// Create mediator class.
 class DChatRoom {
-  static void showMessage(User user, string message) {
+  static void showMessage(DUser user, string message) {
     writeln(new Date(), " [", user.name, "] : ", message);
   }
 }
 
 /// Create user class
-class User {
+class DUser {
   this(string name) {
     this.name  = name;
   }
 
-  mixin(OProperty!("string", "name"));
+  mixin(TProperty!("string", "name"));
 
   void sendMessage(string message) {
-    ChatRoom.showMessage(this,message);
+    DChatRoom.showMessage(this,message);
   }
 }
 
@@ -32,8 +32,8 @@ class User {
 version(test_uim_oop) { unittest {
     writeln("MediatorPatternDemo"); 
 
-    User robert = new User("Robert");
-    User john = new User("John");
+    DUser robert = new User("Robert");
+    DUser john = new User("John");
 
     robert.sendMessage("Hi! John!");
     john.sendMessage("Hello! Robert!");

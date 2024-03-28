@@ -22,6 +22,7 @@ an implementation of the humble object pattern.
 module uim.oop.patterns.architecturals.specifications;
 
 import uim.oop;
+
 @safe:
 
 interface ISpecification {
@@ -37,26 +38,23 @@ abstract class DCompositeSpecification : ISpecification {
   abstract bool IsSatisfiedBy(Object candidate);
 
   ISpecification And(ISpecification other) {
-    return new AndSpecification(this, other);
+    return new DAndSpecification(this, other);
   }
 
-  ISpecification AndNot(ISpecification other) 
-  {
-    return new AndNotSpecification(this, other);
+  ISpecification AndNot(ISpecification other) {
+    return new DAndNotSpecification(this, other);
   }
 
-  ISpecification Or(ISpecification other) 
-  {
+  ISpecification Or(ISpecification other) {
     return new DOrSpecification(this, other);
   }
 
-  ISpecification OrNot(ISpecification other) 
-  {
+  ISpecification OrNot(ISpecification other) {
     return new DOrNotSpecification(this, other);
   }
 
   ISpecification Not() {
-    return new NotSpecification(this);
+    return new DNotSpecification(this);
   }
 }
 
@@ -88,7 +86,7 @@ class DAndNotSpecification : DCompositeSpecification {
   }
 }
 
-class OrSpecification : DCompositeSpecification {
+class DOrSpecification : DCompositeSpecification {
   private ISpecification leftCondition;
   private ISpecification rightCondition;
 
@@ -102,7 +100,7 @@ class OrSpecification : DCompositeSpecification {
   }
 }
 
-class OrNotSpecification : DCompositeSpecification {
+class DOrNotSpecification : DCompositeSpecification {
   private ISpecification leftCondition;
   private ISpecification rightCondition;
 
@@ -116,7 +114,7 @@ class OrNotSpecification : DCompositeSpecification {
   }
 }
 
-class NotSpecification : DCompositeSpecification {
+class DNotSpecification : DCompositeSpecification {
   private ISpecification Wrapped;
 
   this(ISpecification x) {

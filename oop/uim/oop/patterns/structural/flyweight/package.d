@@ -46,7 +46,7 @@ class DShapeFactory {
   private static IShape[string] circleMap;
 
   static IShape getCircle(string color) {
-    Circle circle = cast(Circle)circleMap.get(color, null);
+    DCircle circle = cast(DCircle)circleMap.get(color, null);
 
     if (circle.isNull) {
         circle = new DCircle(color);
@@ -75,7 +75,7 @@ version(test_uim_oop) { unittest {
     writeln("FlyweightPatternDemo");
 
     for(auto i=0; i < 20; i++) {
-        Circle circle = cast(DCircle)DShapeFactory.getCircle(getRandomColor());
+        DCircle circle = cast(DCircle)DShapeFactory.getCircle(getRandomColor());
         circle.x(getRandomX());
         circle.y(getRandomY());
         circle.radius(100);

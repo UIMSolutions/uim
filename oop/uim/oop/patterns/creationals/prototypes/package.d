@@ -93,11 +93,11 @@ class DShapeCache {
     circle.setId("1");
     shapeMap[circle.getId()] = circle;
 
-    Square square = new DSquare();
+    DSquare square = new DSquare();
     square.setId("2");
     shapeMap[square.getId()] = square;
 
-    Rectangle rectangle = new DRectangle();
+    DRectangle rectangle = new DRectangle();
     rectangle.setId("3");
     shapeMap[rectangle.getId()] = rectangle;
   }
@@ -108,12 +108,12 @@ version(test_uim_oop) { unittest {
   debug writeln("PrototypePatternDemo");
   DShapeCache.loadCache();
 
-  DShape clonedShape = cast(DShape) ShapeCache.getShape("1");
+  DShape clonedShape = cast(DShape) DShapeCache.getShape("1");
   writeln("Shape : ", clonedShape.getType());		
 
-  DShape clonedShape2 = cast(DShape) ShapeCache.getShape("2");
+  DShape clonedShape2 = cast(DShape) DShapeCache.getShape("2");
   writeln("Shape : ", clonedShape2.getType());		
 
-  DShape clonedShape3 = cast(DShape) ShapeCache.getShape("3");
+  DShape clonedShape3 = cast(DShape) DShapeCache.getShape("3");
   writeln("Shape : ", clonedShape3.getType());		
 }}

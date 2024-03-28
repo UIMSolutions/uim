@@ -255,7 +255,7 @@ class DView : IView { //  }: IEventDispatcher {
      *
      * Helpers can be added using {@link addHelper()} method.
      * /
-    bool initialize(IData[string] myConfiguration = IData(null)) {
+    bool initialize(IData[string] myConfiguration = null) {
        _defaultConfigData = IData .emptyObject;
     }
 
@@ -612,7 +612,7 @@ class DView : IView { //  }: IEventDispatcher {
      * Params:
      * @param IData mydefault The default/fallback content of myvar.
      * /
-    IData get(string valueName, IData defaultValue = IData(null)) {
+    IData get(string valueName, IData defaultValue = null) {
         return this.viewVars.get(valueName, defaultValue);
     }
 

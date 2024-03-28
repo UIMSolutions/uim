@@ -41,9 +41,9 @@ class DArrayTempl(T) : DArrayObj {
 
 	@property O items(this O)(T[] newItems) {
 		_items = newItems.dup;
-		if (sorted)
+		if (isSorted)
 			this.sorting;
-		if (uniqued)
+		if (isUniqued)
 			this.uniquing;
 		return cast(O) this;
 	}

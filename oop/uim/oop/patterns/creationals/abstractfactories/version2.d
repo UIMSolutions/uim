@@ -5,105 +5,99 @@
 ***********************************************************************************/
 module uim.oop.patterns.creationals.abstractfactories.version2;
 
-public interface PizzaIngredientFactory {
-	public Dough createDough();
-	public Sauce createSauce();
-	public Cheese createCheese();
-	public Clam createClam();
+public interface IPizzaIngredientFactory {
+	public IDough createDough();
+	public ISauce createSauce();
+	public ICheese createCheese();
+	public IClam createClam();
 }
 
-public class NYPizzaIngredientFactory : PizzaIngredientFactory {
-	public Dough createDough() {
+public class DNYPizzaIngredientFactory : IPizzaIngredientFactory {
+	public IDough createDough() {
 		return new DThinDough();
 	}
 
-	public Sauce createSauce() {
-		return new MarinaraSauce();
+	public ISauce createSauce() {
+		return new DMarinaraSauce();
 	}
 
-	public Cheese createCheese() {
-		return new DReggianoCheese(); }
+	public ICheese createCheese() {
+		return new DReggianoCheese();
+	}
 
-	public Clam createClam() {
-		return new DFreshClam(); }
+	public IClam createClam() {
+		return new DFreshClam();
+	}
 }
 
-public class DChicagoPizzaIngredientFactory : PizzaIngredientFactory {
-	public Dough createDough() {
-		return new DThickDough(); }
-	
-	public Sauce createSauce() {
-		return new DTomateSauce(); }
-	
-	public Cheese createCheese() {
-		return new MozzarellaCheese(); }
-	
-	public Clam createClam() {
-		return new DFreezeClam(); }
+public class DChicagoPizzaIngredientFactory : IPizzaIngredientFactory {
+	public IDough createDough() {
+		return new DThickDough();
+	}
+
+	public ISauce createSauce() {
+		return new DTomateSauce();
+	}
+
+	public ICheese createCheese() {
+		return new DMozzarellaCheese();
+	}
+
+	public IClam createClam() {
+		return new DFreezeClam();
+	}
 }
 
 import std.stdio;
 
-// прародитель всех пицц
-public abstract class Pizza
-{
+//the ancestor of all pizzas
+public abstract class DPizza {
 protected:
 	string name;
-	Dough dough;
-	Sauce sauce;
-	Cheese cheese;
-	Clam clam;
+	IDough dough;
+	ISauce sauce;
+	ICheese cheese;
+	IClam clam;
 
 public:
 	abstract void prepare();
 
-	// выпекание пиццы
-	void bake()
-	{
+	// baking pizza
+	void bake() {
 		writeln("Bake for 25 minutes at 350 degrees");
 	}
-	
-	
-	// нарезание пиццы
-	void cut()
-	{
+
+	//cutting pizza
+	void cut() {
 		writeln("Cutting the pizza into diagonal slices");
 	}
-	
-	
-	// упаковка пиццы
-	void box()
-	{
+
+	//pizza packaging
+	void box() {
 		writeln("Place pizza in official PizzaStore Box");
 	}
-	
-	
-	// получить название пиццы
-	string getName()
-	{
+
+	//get the name of the pizza
+	string getName() {
 		return name;
 	}
 
-	void setName(string name)
-	{
+	void setName(string name) {
 		this.name = name;
 	}
 }
 
-// пицца с сыром
-public class DCheesePizza : Pizza
-{
+// Pizza with cheese
+public class DCheesePizza : DPizza {
 protected:
-	PizzaIngredientFactory ingredientFactory;
+	IPizzaIngredientFactory ingredientFactory;
 
 public:
-	this(PizzaIngredientFactory ingredientFactory)
-	{
+	this(IPizzaIngredientFactory ingredientFactory) {
 		this.ingredientFactory = ingredientFactory;
 	}
 
-	override void prepare()
-	{
+	override void prepare() {
 		writeln("Preparing " ~ name);
 		dough = ingredientFactory.createDough();
 		sauce = ingredientFactory.createSauce();
@@ -112,20 +106,17 @@ public:
 	}
 }
 
-// пицца с мидиями
-public class DClamPizza : Pizza
-{
+// Pizza with mussels
+public class DClamPizza : DPizza {
 protected:
-	PizzaIngredientFactory ingredientFactory;
-	
+	IPizzaIngredientFactory ingredientFactory;
+
 public:
-	this(PizzaIngredientFactory ingredientFactory)
-	{
+	this(IPizzaIngredientFactory ingredientFactory) {
 		this.ingredientFactory = ingredientFactory;
 	}
-	
-	override void prepare()
-	{
+
+	override void prepare() {
 		writeln("Preparing " ~ name);
 		dough = ingredientFactory.createDough();
 		sauce = ingredientFactory.createSauce();
@@ -134,195 +125,165 @@ public:
 	}
 }
 
+// General class for different types of pizzerias
+public abstract class DPizzaStore {
+	// The recipe for making pizza is written here
+	public DPizza orderPizza(string type) {
+		DPizza pizza;
 
-// общий класс для различных видов пиццерий
-public abstract class PizzaStore
-{
-	// рецепт приготовления пиццы прописан тут
-	public Pizza orderPizza(string type)
-	{
-		Pizza pizza;
-		
 		pizza = createPizza(type);
-		
+
 		pizza.prepare();
 		pizza.bake();
 		pizza.cut();
 		pizza.box();
-		
+
 		return pizza;
 	}
 
-	protected abstract Pizza createPizza(string type);
+	protected abstract DPizza createPizza(string type);
 }
 
-// нью-йоркская пиццерия
-public class NYPizzaStore : PizzaStore
-{
-	override protected Pizza createPizza(string item)
-	{
-		Pizza pizza = null;
-		PizzaIngredientFactory ingredientFactory = new NYPizzaIngredientFactory(); 
+// New York pizzeria
+public class DNYPizzaStore : DPizzaStore {
+	override protected DPizza createPizza(string item) {
+		DPizza pizza = null;
+		IPizzaIngredientFactory ingredientFactory = new DNYPizzaIngredientFactory();
 
-		switch(item)
-		{
-			case "cheese":
-				pizza = new DCheesePizza(ingredientFactory);
-				pizza.setName("NY Style Cheese Pizza");
-				break;
-			case "clam":
-				pizza = new DClamPizza(ingredientFactory);
-				pizza.setName("NY Style Clam Pizza");
-				break;
-			default:
-				pizza = null;
-				break;
+		switch (item) {
+		case "cheese":
+			pizza = new DCheesePizza(ingredientFactory);
+			pizza.setName("NY Style Cheese Pizza");
+			break;
+		case "clam":
+			pizza = new DClamPizza(ingredientFactory);
+			pizza.setName("NY Style Clam Pizza");
+			break;
+		default:
+			pizza = null;
+			break;
 		}
 		return pizza;
 	}
 }
 
+//Chicago pizzeria
+public class DChicagoPizzaStore : DPizzaStore {
+	override protected DPizza createPizza(string item) {
+		DPizza pizza = null;
+		IPizzaIngredientFactory ingredientFactory = new DChicagoPizzaIngredientFactory();
 
-// чикагская пиццерия
-public class DChicagoPizzaStore : PizzaStore
-{
-	override protected Pizza createPizza(string item)
-	{
-		Pizza pizza = null;
-		PizzaIngredientFactory ingredientFactory = new DChicagoPizzaIngredientFactory(); 
-
-		switch(item)
-		{
-			case "cheese":
-				pizza = new DCheesePizza(ingredientFactory);
-				pizza.setName("Chicago Style Cheese Pizza");
-				break;
-			case "clam":
-				pizza = new DClamPizza(ingredientFactory);
-				pizza.setName("Chicago Style Clam Pizza");
-				break;
-			default:
-				pizza = null;
-				break;
+		switch (item) {
+		case "cheese":
+			pizza = new DCheesePizza(ingredientFactory);
+			pizza.setName("Chicago Style Cheese Pizza");
+			break;
+		case "clam":
+			pizza = new DClamPizza(ingredientFactory);
+			pizza.setName("Chicago Style Clam Pizza");
+			break;
+		default:
+			pizza = null;
+			break;
 		}
 		return pizza;
 	}
 }
 
-// тип основы
-interface Dough
-{
+//base type
+interface IDough {
 
 }
 
-// тонкая основа
-class DThinDough : Dough
-{
+//thin base
+class DThinDough : IDough {
 
-	this()
-	{
+	this() {
 		writeln("  ---> Thin Dough");
 	}
 }
 
-// толстая основа
-class DThickDough : Dough
-{
-	
-	this()
-	{
+//thick base
+class DThickDough : IDough {
+
+	this() {
 		writeln("  ---> Thick Dough");
 	}
 }
 
-
-// тип соуса
-interface Sauce
-{
+//sauce type
+interface ISauce {
 
 }
 
-// соус маринара
-class MarinaraSauce : Sauce
-{
-	
-	this()
-	{
+//marinara sauce
+class DMarinaraSauce : ISauce {
+
+	this() {
 		writeln("  ---> Marinara Sauce");
 	}
 }
 
-// томатный соус
-class DTomateSauce : Sauce
-{
-	
-	this()
-	{
+//tomato sauce
+class DTomateSauce : ISauce {
+
+	this() {
 		writeln("  ---> Tomate Sauce");
 	}
 }
 
-// тип сыра
-interface Cheese
-{
+//type of cheese
+interface ICheese {
 
 }
 
-// сыр реджано
-class DReggianoCheese : Cheese
-{
-	
-	this()
-	{
+//Reggiano cheese
+class DReggianoCheese : ICheese {
+
+	this() {
 		writeln("  ---> Reggiano Cheese");
 	}
 }
 
-// сыр моццарелла
-class MozzarellaCheese : Cheese
-{
-	
-	this()
-	{
+//mozzarella cheese
+class DMozzarellaCheese : ICheese {
+
+	this() {
 		writeln("  ---> Mozzarella Cheese");
 	}
 }
 
-// тип мидий (!)
-interface Clam
-{
+//mussel type (!)
+interface IClam {
 
 }
 
-// мидии - свежие
-class FreshClam : Clam
-{
-	
-	this()
-	{
+//mussels -fresh
+class DFreshClam : IClam {
+
+	this() {
 		writeln("  ---> Fresh Clam");
 	}
 }
 
+//canned mussels
+class DFreezeClam : IClam {
 
-// мидии в консервах
-class FreezeClam : Clam
-{
-	
-	this()
-	{
+	this() {
 		writeln("  ---> Freeze Clam");
 	}
 }
 
-version(test_uim_oop) { unittest {	
-    writeln("--- DAbstract Factory test ---");
-    PizzaStore nyStore = new NYPizzaStore();
-    PizzaStore chicagoStore = new DChicagoPizzaStore();
+version (test_uim_oop) {
+	unittest {
+		writeln("--- DAbstract Factory test ---");
+		DPizzaStore nyStore = new NYPizzaStore();
+		DPizzaStore chicagoStore = new DChicagoPizzaStore();
 
-    Pizza pizza = nyStore.orderPizza("cheese");
-    writeln();
-    pizza = chicagoStore.orderPizza("cheese");
-    writeln();
-    pizza = nyStore.orderPizza("clam");
-    }}
+		DPizza pizza = nyStore.orderPizza("cheese");
+		writeln();
+		pizza = chicagoStore.orderPizza("cheese");
+		writeln();
+		pizza = nyStore.orderPizza("clam");
+	}
+}

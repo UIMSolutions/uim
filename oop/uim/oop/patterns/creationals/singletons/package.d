@@ -67,7 +67,7 @@ public:
       // Since every thread has its own _instantiated variable,
       // there is no need for synchronization here.
       if (!_instantiated) {
-         synchronized (FastSingleton.classinfo) {
+         synchronized (DFastSingleton.classinfo) {
             if (!_instance) {
                _instance = new DFastSingleton(); }
             _instantiated = true;

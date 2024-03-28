@@ -121,7 +121,7 @@ class DArrayContext : IContext {
     */
     IData val(string fieldPath, IData[string] options  = null) {
         IData options = optionData.update([
-            "default": IData(null),
+            "default": null,
             "schemaDefault": IData(true)
         ]);
 

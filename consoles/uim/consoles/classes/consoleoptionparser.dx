@@ -276,8 +276,8 @@ class DConsoleOptionParser {
      */
     void addOption(string optionName, IData[string] behaviorOptions = null) {
             defaultValues = [
-                "short": IData(""),
-                "help": IData(""),
+                "short": StringData(""),
+                "help": StringData(""),
                 "default": null,
                 "boolean": BooleanData(false),
                 "multiple": BooleanData(false),

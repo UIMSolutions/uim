@@ -14,12 +14,12 @@ class DFlashMessage {
 
     // Default configuration
     protected IData[string] _defaultConfigData = [
-        "key": IData("flash"),
-        "element": IData("default"),
+        "key": StringData("flash"),
+        "element": StringData("default"),
         "plugin": null,
         "params": ArrayData,
         "clear": BooleanData(false),
-        "duplicate": IData(true),
+        "duplicate": BooleanData(true),
     ];
 
     protected Session _session;

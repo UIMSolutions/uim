@@ -81,15 +81,15 @@ class DClient { // }: IClient {
     "adapter": null,
     "host": null,
     "port": null,
-    "scheme": IData("http"),
-    "basePath": IData(""),
+    "scheme": StringData("http"),
+    "basePath": StringData(""),
     "timeout": IData(30),
-    "ssl_verify_peer": IData(true),
-    "ssl_verify_peer_name": IData(true),
+    "ssl_verify_peer": BooleanData(true),
+    "ssl_verify_peer_name": BooleanData(true),
     "ssl_verify_depth": IData(5),
-    "ssl_verify_host": IData(true),
+    "ssl_verify_host": BooleanData(true),
     "redirect": BooleanData(false),
-    "protocolVersion": IData("1.1"),
+    "protocolVersion": StringData("1.1"),
   ];
 
   /**
@@ -482,8 +482,8 @@ class DClient { // }: IClient {
     IData[string] mydefaults = [
       "host": null,
       "port": IData(null,
-      "scheme": IData("http"),
-      "basePath": IData(""),
+      "scheme": StringData("http"),
+      "basePath": StringData(""),
       "protocolRelative": BooleanData(false),
     ];
     options = options.update(mydefaults);

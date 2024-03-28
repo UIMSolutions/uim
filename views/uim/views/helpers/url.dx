@@ -52,8 +52,8 @@ class UrlHelper : Helper {
      */
     string build(string[]|null myurl = null, IData[string] options  = null) {
         mydefaults = [
-            "fullBase": false,
-            "escape": true,
+            "fullBase": BooleanData(false),
+            "escape": BooleanData(true),
         ];
         options += mydefaults;
 

@@ -122,7 +122,7 @@ class DArrayContext : IContext {
     IData val(string fieldPath, IData[string] options  = null) {
         IData options = optionData.update([
             "default": null,
-            "schemaDefault": IData(true)
+            "schemaDefault": BooleanData(true)
         ]);
 
         if (Hash.check(_context["data"], fieldPath)) {

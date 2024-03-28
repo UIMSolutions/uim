@@ -85,7 +85,7 @@ class DExceptionTrap {
       "exceptionRenderer": null,
       "logger": IData(ErrorLogger.classname),
       "stderr": null,
-      "log": IData(true),
+      "log": BooleanData(true),
       "skipLog": ArrayData,
       "trace": BooleanData(false),
       "extraFatalErrorMemory": IData(4)

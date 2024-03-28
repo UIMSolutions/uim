@@ -42,7 +42,7 @@ class DFormProtectionComponent : DComponent {
         "validate": BooleanData(true),
         "unlockedFields": ArrayData,
         "unlockedActions": ArrayData,
-        "validationFailureCallback": null,
+        "validationFailureCallback": NullData,
     ]);
 
     return true;

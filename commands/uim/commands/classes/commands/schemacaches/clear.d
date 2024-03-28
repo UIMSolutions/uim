@@ -14,11 +14,12 @@ class DSchemacacheClearCommand : DCommand {
 		return true;
 	}
 
-  /* 
   // Get the command name.
   static string defaultName() {
     return "schema_cache-clear";
   }
+  
+  /* 
 
   // Display all routes in an application
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {

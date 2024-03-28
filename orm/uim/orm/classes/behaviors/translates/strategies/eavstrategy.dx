@@ -37,32 +37,28 @@ class DEavStrategy : ITranslateStrategy {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
+configuration.updateDefaults([
+        "fields": ArrayData,
+        "translationTable": "I18n",
+        "defaultLocale": NullData,
+        "referencename": StringData,
+        "allowEmptyTranslations": BooleanData(true),
+        "onlyTranslated": BooleanData(false),
+        "strategy": "subquery",
+        "tableLocator": NullData,
+        "validator": BooleanData(false),
+    ];
+
         return true;
     }
 
     mixin(TProperty!("string", "name"));
     
+    /*
     use LocatorAwareTrait;
     use TranslateStrategyTrait;
 
-    /**
-     * Default config
-     *
-     * These are merged with user-provided configuration.
-     *
-     * @var array<string, mixed>
-     */
-    protected configuration.updateDefaults([
-        "fields": ArrayData,
-        "translationTable": "I18n",
-        "defaultLocale": null,
-        "referencename": StringData,
-        "allowEmptyTranslations": BooleanData(true),
-        "onlyTranslated": BooleanData(false),
-        "strategy": "subquery",
-        "tableLocator": null,
-        "validator": BooleanData(false),
-    ];
+  
 
     /**
      * Constructor

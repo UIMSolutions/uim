@@ -385,10 +385,10 @@ template CollectionTemplate {
         string myvaluePath,
         string mygroupPath = null
     ) {
-        auto options = [
+        IData[string] options = [
             "keyPath": _propertyExtractor(mykeyPath),
             "valuePath": _propertyExtractor(myvaluePath),
-            "groupPath": mygroupPath ? _propertyExtractor(mygroupPath): null,
+            "groupPath": mygroupPath ? _propertyExtractor(mygroupPath): NullData,
         ];
 
         mymapper = auto (myvalue, aKey, MapReduce mymapReduce) use (options) {

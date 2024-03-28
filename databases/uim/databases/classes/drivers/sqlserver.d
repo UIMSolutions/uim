@@ -23,13 +23,13 @@ class DSqlserverDriver : DDriver {
         "init": ArrayData,
         "settings": ArrayData,
         "attributes": ArrayData,
-        "app": null,
-        "connectionPooling": null,
-        "failoverPartner": null,
-        "loginTimeout": null,
-        "multiSubnetFailover": null,
-        "encrypt": null,
-        "trustServerCertificate": null,
+        "app": NullData,
+        "connectionPooling": NullData,
+        "failoverPartner": NullData,
+        "loginTimeout": NullData,
+        "multiSubnetFailover": NullData,
+        "encrypt": NullData,
+        "trustServerCertificate": NullData,
     ];
 
         _startQuote = "[";

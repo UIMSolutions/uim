@@ -71,7 +71,7 @@ class HttpsEnforcerMiddleware { // }: IMiddleware {
             if (requestBase) {
                 requestUri = requestUri.withPath(requestBase ~ requestUri.getPath());
             }
-            return new RedirectResponse(
+            return new DRedirectResponse(
                 requestUri,
                 configuration["statusCode"],
                 configuration["headers"]

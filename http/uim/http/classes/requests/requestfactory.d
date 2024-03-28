@@ -14,6 +14,6 @@ class DRequestFactory { //} : IRequestFactory {
      * /
 
     IRequest createRequest(string amethod, anUri) {
-        return new Request(anUri, method);
+        return new DRequest(anUri, method);
     } */
 }

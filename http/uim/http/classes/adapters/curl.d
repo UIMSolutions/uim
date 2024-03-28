@@ -36,7 +36,7 @@ class DCurl { // }: IAdapter {
                 CURLE_URL_MALFORMAT_USER,
             ];
             if (in_array(errorCode, errorNumbers, true)) {
-                throw new RequestException(message, request);
+                throw new DRequestException(message, request);
             }
             throw new NetworkException(message, request);
         }
@@ -156,7 +156,7 @@ class DCurl { // }: IAdapter {
          aHeaderSize = curl_getinfo(handle, CURLINFO_HEADER_SIZE);
          aHeaders = trim(substr(responseData, 0,  aHeaderSize));
         body = substr(responseData,  aHeaderSize);
-        response = new Response(split("\r\n",  aHeaders), body);
+        response = new DResponse(split("\r\n",  aHeaders), body);
 
         return [response];
     }

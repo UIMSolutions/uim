@@ -142,7 +142,7 @@ class DErrorHandler { // }: DERRErrorHandler
             /** @var class-string<uim.errors.IExceptionRenderer>|null aClassName * /
             aClassName = App::className(renderer, "Error");
             if (!aClassName) {
-                throw new RuntimeException(sprintf(
+                throw new DRuntimeException(sprintf(
                     "The '%s' renderer class DCould not be found.",
                     renderer
                 ));
@@ -188,7 +188,7 @@ class DErrorHandler { // }: DERRErrorHandler
             return;
         }
 
-        emitter = new ResponseEmitter();
+        emitter = new DResponseEmitter();
         emitter.emit(response);
     } */
 }

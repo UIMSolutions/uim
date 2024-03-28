@@ -37,7 +37,7 @@ class DStreamFactory { // }: IStreamFactory {
      * /
     IStream createStreamFromFile(string afilename, string amode = "r") {
         if (!isReadable(filename)) {
-            throw new RuntimeException("Cannot read file `%s`".format(filename));
+            throw new DRuntimeException("Cannot read file `%s`".format(filename));
         }
         return new DStream(filename, mode);
     }

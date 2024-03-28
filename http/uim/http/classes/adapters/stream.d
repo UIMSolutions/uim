@@ -240,7 +240,7 @@ class DStream { // }: IAdapter {
      * @param string abody The response body.
      * /
     protected Response _buildResponse(array  aHeaders, string abody) {
-        return new Response( aHeaders, body);
+        return new DResponse( aHeaders, body);
     }
     
     /**
@@ -268,7 +268,7 @@ class DStream { // }: IAdapter {
             restore_error_handler();
         }
         if (!_stream || _connectionErrors) {
-            throw new RequestException(join("\n", _connectionErrors), request);
+            throw new DRequestException(join("\n", _connectionErrors), request);
         }
     }
     

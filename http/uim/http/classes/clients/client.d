@@ -445,7 +445,7 @@ class DClient { // }: IClient {
     if (!my_mockAdapter) {
       my_mockAdapter = new MockAdapter();
     }
-    myrequest = new Request(myurl, mymethod);
+    myrequest = new DRequest(myurl, mymethod);
     my_mockAdapter.addResponse(myrequest, myresponse, options);
   }
 
@@ -535,7 +535,7 @@ class DClient { // }: IClient {
         myheaders["content-type"])) {
       myheaders["Content-Type"] = "application/x-www-form-urlencoded";
     }
-    myrequest = new Request(myurl, mymethod, myheaders, mydata);
+    myrequest = new DRequest(myurl, mymethod, myheaders, mydata);
     myrequest = myrequest.withProtocolVersion(_configData.isSet("protocolVersion"));
     mycookies = options["cookies"] ?  ? [];
     /** @var \UIM\Http\Client\Request  myrequest * /

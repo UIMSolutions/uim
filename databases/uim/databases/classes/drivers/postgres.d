@@ -167,15 +167,15 @@ protected void _transformFunctionExpression(FunctionExpression expressionToConve
                 if (isString(p)) {
                     p = ["value": [p: "literal"], "type": null];} else {
                         p["value"] = [p["value"]];}
-                        return new FunctionExpression("DATE", p["value"], [p["type"]]);
+                        return new DFunctionExpression("DATE", p["value"], [p["type"]]);
                     }
 );
                     break;
-    case "CURRENT_DATE" : time = new FunctionExpression("LOCALTIMESTAMP", [" 0 ": "literal"]);
+    case "CURRENT_DATE" : time = new DFunctionExpression("LOCALTIMESTAMP", [" 0 ": "literal"]);
                     expressionToConvert.name("CAST").setConjunction(" AS ")
                         .add([time, "date": "literal"]);
                     break;
-    case "CURRENT_TIME" : time = new FunctionExpression("LOCALTIMESTAMP", [" 0 ": "literal"]);
+    case "CURRENT_TIME" : time = new DFunctionExpression("LOCALTIMESTAMP", [" 0 ": "literal"]);
                     expressionToConvert.name("CAST").setConjunction(" AS ")
                         .add([time, "time": "literal"]);
                     break;

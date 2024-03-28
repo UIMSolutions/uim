@@ -177,7 +177,7 @@ class DSqliteDriver : DDriver {
                     name("ROUND");
                     setConjunction("-");
                     iterateParts(function (p) {
-                        return new FunctionExpression("JULIANDAY", [p["value"]], [p["type"]]);
+                        return new DFunctionExpression("JULIANDAY", [p["value"]], [p["type"]]);
                     });
                 }
                 break;

@@ -601,7 +601,7 @@ class DDebugger {
      * @return string Variable as a string
      * /
     static string exportVarAsPlainText(var, int maxDepth = 3) {
-        return (new TextFormatter()).dump(
+        return (new DTextFormatter()).dump(
             export(var, new DebugContext(maxDepth))
         );
     }

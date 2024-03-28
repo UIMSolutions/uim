@@ -1260,7 +1260,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      * ```
      * /
     FunctionsBuilder func() {
-        return _functionsBuilder ??= new FunctionsBuilder();
+        return _functionsBuilder ??= new DFunctionsBuilder();
     }
     
     /**

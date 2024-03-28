@@ -373,7 +373,7 @@ trait QueryTrait
      *         ];
      *
      *         if (query.isHydrationEnabled()) {
-     *             row["foo"] = new Foo(data)
+     *             row["foo"] = new DFoo(data)
      *         } else {
      *             row["foo"] = data;
      *         }

@@ -27,11 +27,11 @@ class FunctionExpression : QueryExpression, ITypedResult {
      *
      * ### Examples:
      *
-     * `f = new FunctionExpression("CONCAT", ["UIM", " rules"]);`
+     * `f = new DFunctionExpression("CONCAT", ["UIM", " rules"]);`
      *
      * Previous line will generate `CONCAT("UIM", " rules")`
      *
-     * `f = new FunctionExpression("CONCAT", ["name": 'literal", " rules"]);`
+     * `f = new DFunctionExpression("CONCAT", ["name": 'literal", " rules"]);`
      *
      * Will produce `CONCAT(name, " rules")`
      * Params:

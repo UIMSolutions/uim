@@ -72,7 +72,7 @@ class DFormProtectionComponent : DComponent {
             auto sessionId = _getSessionId();
             auto url = Router.url( request.getRequestTarget());
 
-            auto formProtector = new FormProtector(_config);
+            auto formProtector = new DFormProtector(_config);
             isValid = formProtector.validate(someData, url, sessionId);
 
             if (!isValid) {

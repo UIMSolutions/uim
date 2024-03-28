@@ -93,7 +93,7 @@ class DErrorTrap {
             return false;
         }
         if (errorCode == E_USER_ERROR ||  errorCode == E_ERROR || errorCode == E_PARSE) {
-            throw new FatalErrorException(description, errorCode, file, line);
+            throw new DFatalErrorException(description, errorCode, file, line);
         }
         auto trace = (array)Debugger.trace(["start": 1, "format": "points"]);
         auto error = new UimError(errorCode, description, file, line, trace);

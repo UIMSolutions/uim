@@ -348,11 +348,11 @@ class DSqlserverDriver : DDriver {
                 }
                 break;
             case "CURRENT_DATE":
-                time = new FunctionExpression("GETUTCDATE");
+                time = new DFunctionExpression("GETUTCDATE");
                 expression.name("CONVERT").add(["date": "literal", time]);
                 break;
             case "CURRENT_TIME":
-                time = new FunctionExpression("GETUTCDATE");
+                time = new DFunctionExpression("GETUTCDATE");
                 expression.name("CONVERT").add(["time": "literal", time]);
                 break;
             case "NOW":
@@ -398,7 +398,7 @@ class DSqlserverDriver : DDriver {
                         .iterateParts(function (p) use (&params) {
                             return params ~= p;
                         })
-                        .add([new FunctionExpression("LEN", [params[0]]), ["string"]]);
+                        .add([new DFunctionExpression("LEN", [params[0]]), ["string"]]);
                 }
                 break;
         }

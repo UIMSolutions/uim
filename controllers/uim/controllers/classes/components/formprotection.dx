@@ -35,7 +35,7 @@ class DFormProtectionComponent : DComponent {
      *  exception is thrown on validation failure.
      */
     protected IData[string] _defaultConfigData = [
-        "validate": true,
+        "validate": BooleanData(true),
         "unlockedFields": [],
         "unlockedActions": [],
         "validationFailureCallback": null,

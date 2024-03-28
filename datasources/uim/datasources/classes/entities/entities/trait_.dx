@@ -90,12 +90,12 @@ trait EntityTrait
      * means no fields are accessible
      *
      * The special field "\*" can also be mapped, meaning that any other field
-     * not defined in the map will take its value. For example, `"*": true`
+     * not defined in the map will take its value. For example, `"*": BooleanData(true)`
      * means that any field not defined in the map will be accessible by default
      *
      * @var array<string, bool>
      */
-    protected _accessible = ["*": true];
+    protected _accessible = ["*": BooleanData(true)];
 
     /**
      * The alias of the repository this entity came from
@@ -169,8 +169,8 @@ trait EntityTrait
      * `options` parameter:
      *
      * ```
-     * entity.set("name", "Andrew", ["setter": false]);
-     * entity.set(["name": "Andrew", "id": 1], ["setter": false]);
+     * entity.set("name", "Andrew", ["setter": BooleanData(false)]);
+     * entity.set(["name": "Andrew", "id": 1], ["setter": BooleanData(false)]);
      * ```
      *
      * Mass assignment should be treated carefully when accepting user input, by default
@@ -178,7 +178,7 @@ trait EntityTrait
      * the guarding for a single set call with the `guard` option:
      *
      * ```
-     * entity.set(["name": "Andrew", "id": 1], ["guard": false]);
+     * entity.set(["name": "Andrew", "id": 1], ["guard": BooleanData(false)]);
      * ```
      *
      * You do not need to use the guard option when assigning fields individually:
@@ -209,7 +209,7 @@ trait EntityTrait
         if (!(field.isArray) {
             throw new DInvalidArgumentException("Cannot set an empty field");
         }
-        options += ["setter": true, "guard":  guard];
+        options += ["setter": BooleanData(true), "guard":  guard];
 
         foreach (field as name: value) {
             name = (string)name;

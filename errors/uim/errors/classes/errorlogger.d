@@ -25,7 +25,7 @@ class DErrorLogger : IErrorLogger {
      * - `trace` Should error logs include stack traces?
      * /
     protected IData[string] _defaultConfigData = [
-        "trace": false,
+        "trace": BooleanData(false),
     ];
         return true;
     }

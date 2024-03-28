@@ -63,11 +63,11 @@ mixin EntityTemplate {
      * means no fields are accessible for mass assigment.
      *
      * The special field '\*' can also be mapped, meaning that any other field
-     * not defined in the map will take its value. For example, `'*": true`
+     * not defined in the map will take its value. For example, `'*": BooleanData(true)`
      * means that any field not defined in the map will be accessible for mass
      * assignment by default.
      */
-  protected bool[string] _accessible = ["*": true];
+  protected bool[string] _accessible = ["*": BooleanData(true)];
 
   // The alias of the repository this entity came from
   protected string _registryAlias = "";
@@ -141,8 +141,8 @@ mixin EntityTemplate {
      * `options` parameter:
      *
      * ```
-     * entity.set("name", "Andrew", ["setter": false]);
-     * entity.set(["name": 'Andrew", "id": 1], ["setter": false]);
+     * entity.set("name", "Andrew", ["setter": BooleanData(false)]);
+     * entity.set(["name": 'Andrew", "id": 1], ["setter": BooleanData(false)]);
      * ```
      *
      * Mass assignment should be treated carefully when accepting user input, by default
@@ -150,7 +150,7 @@ mixin EntityTemplate {
      * the guarding for a single set call with the `guard` option:
      *
      * ```
-     * entity.set(["name": 'Andrew", "id": 1], ["guard": false]);
+     * entity.set(["name": 'Andrew", "id": 1], ["guard": BooleanData(false)]);
      * ```
      *
      * You do not need to use the guard option when assigning fields individually:
@@ -169,7 +169,7 @@ mixin EntityTemplate {
      * entity.set("phone_number", "555-0134");
      * print_r(entity.getOriginalFields()) // prints ["name", "id"]
      *
-     * entity.set("phone_number", "555-0134", ["asOriginal": true]);
+     * entity.set("phone_number", "555-0134", ["asOriginal": BooleanData(true)]);
      * print_r(entity.getOriginalFields()) // prints ["name", "id", "phone_number"]
      * ```
      * Params:
@@ -193,7 +193,7 @@ mixin EntityTemplate {
     if (!isArray(field)) {
       throw new DInvalidArgumentException("Cannot set an empty field");
     }
-    options += ["setter": true, "guard": guard, "asOriginal": false];
+    options += ["setter": BooleanData(true), "guard": guard, "asOriginal": BooleanData(false)];
 
     if (options["asOriginal"] == true) {
       this.setOriginalField(field.keys);

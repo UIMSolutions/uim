@@ -71,7 +71,7 @@ class DEavStrategy : ITranslateStrategy {
      * @param array<string, mixed> myConfiguration The config for this strategy.
      */
     this(DORMTable aTable, IData[string] configData) {
-        if (isset(configuration["tableLocator"])) {
+        if (configuration.has("tableLocator"])) {
             _tableLocator = configuration["tableLocator"];
         }
 

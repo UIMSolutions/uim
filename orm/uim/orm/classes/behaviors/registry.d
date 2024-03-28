@@ -20,7 +20,6 @@ import uim.orm;
 class DBehaviorRegistry : ObjectRegistry!DBehavior {
     static DBehaviorRegistry registry;
 
-
     // }: ObjectRegistry, IEventDispatcher {
     /* 
     use EventDispatcherTrait;

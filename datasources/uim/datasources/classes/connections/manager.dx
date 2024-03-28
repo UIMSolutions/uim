@@ -101,7 +101,7 @@ class DConnectionManager {
 
         configuration.remove("path");
 
-        return myConfiguration;
+        return configuration;
     }
 
     /**

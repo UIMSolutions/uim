@@ -103,18 +103,17 @@ class DBehavior : IEventListener {
     mixin TConfigurable!();
 
     this() {
-        super();
+        initialize;
         this.name("Behavior");
     }
 
     this(IData[string] initData) {
-        super(initData);
+        initialize(initData);
         this.name("Behavior");
     }
 
     this(string name) {
-        super();
-        this.name(name);
+        this().name(name);
     }
 
     bool initialize(IData[string] initData = null) {
@@ -171,10 +170,9 @@ class DBehavior : IEventListener {
     /**
      * Get the table instance this behavior is bound to.
      *
-     * @return DORMTable The bound table instance.
+     * @return  The bound table instance.
      * /
-    function table(): Table
-    {
+    DORMTable table() {
         return _table;
     }
 
@@ -188,9 +186,9 @@ class DBehavior : IEventListener {
      * /
     protected array _resolveMethodAliases(string aKey, array defaults, IData myConfiguration) {
         if (!isset(defaults[key], configuration[key])) {
-            return myConfiguration;
+            return configuration;
         }
-        if (isset(configuration[key]) && configuration[key] == []) {
+        if (configuration.has(key) && configuration[key] == []) {
             configuration.update(key, [], false);
             configuration.remove(key);
 
@@ -205,9 +203,9 @@ class DBehavior : IEventListener {
             }
         }
         configuration.update(key, array_flip(indexedCustom), false);
-        configuration.remove(key]);
+        configuration.remove(key);
 
-        return myConfiguration;
+        return configuration;
     }
 
     /**
@@ -221,7 +219,7 @@ class DBehavior : IEventListener {
     void verifyConfig() {
         keys = ["implementedFinders", "implementedMethods"];
         foreach (keys as key) {
-            if (!isset(configuration[key])) {
+            if (!configuration.has(key)) {
                 continue;
             }
 

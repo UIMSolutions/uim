@@ -2,14 +2,11 @@ module uim.orm;
 import uim.orm;
 
 @safe:
-/**
- *  */
+
 class DBehavior : IEventListener {
     use InstanceConfigTemplate();
 
-    /**
-     * Table instance.
-     */
+    // Table instance.
     protected Table my_table;
 
     /**

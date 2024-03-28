@@ -177,7 +177,7 @@ class DTableLocator : DAbstractLocator, ILocator {
             options["className"] = alias;
         }
 
-        if (isset(configuration[alias])) {
+        if (configuration.has(alias])) {
             options += configuration[alias];
         }
 

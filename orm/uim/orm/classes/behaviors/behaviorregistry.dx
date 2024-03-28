@@ -14,6 +14,16 @@ import uim.orm;
  * @implements \UIM\Event\IEventDispatcher<\UIM\ORM\Table>
  */
 class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
+        /**
+     * Constructor
+     * Params:
+     * \UIM\ORM\Table|null mytable The table this registry is attached to.
+     */
+    this(Table mytable = null) {
+        if (mytable !isNull) {
+            this.setTable(mytable);
+        }
+    }
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\ORM\Table>
      */
@@ -28,16 +38,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
     // Finder method mappings.
     protected array[string] my_finderMap = [];
 
-    /**
-     * Constructor
-     * Params:
-     * \UIM\ORM\Table|null mytable The table this registry is attached to.
-     */
-    this(Table mytable = null) {
-        if (mytable !isNull) {
-            this.setTable(mytable);
-        }
-    }
+
 
     /**
      * Attaches a table instance to this registry.

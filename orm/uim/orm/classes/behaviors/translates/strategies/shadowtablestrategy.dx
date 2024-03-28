@@ -73,7 +73,7 @@ class DShadowTableStrategy : ITranslateStrategy
             "hasOneAlias": tableAlias ~ "Translation",
         ];
 
-        if (isset(configuration["tableLocator"])) {
+        if (configuration.has("tableLocator"])) {
             _tableLocator = configuration["tableLocator"];
         }
 

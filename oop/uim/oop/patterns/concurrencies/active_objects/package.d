@@ -44,7 +44,7 @@ class MyActiveObject {
     private BlockingQueue<Runnable> dispatchQueue = new LinkedBlockingQueue<Runnable>();
 
     public MyActiveObject() {
-        new Thread (new DRunnable() {
+        new DThread (new DRunnable() {
                     
                 @Override
                 public void run() {
@@ -90,7 +90,7 @@ public class MyClass {
     // decides which request to execute next 
     // asyncMode=true means our worker thread processes its local task queue in the FIFO order 
     // only single thread may modify internal state
-    private final ForkJoinPool fj = new ForkJoinPool(1, ForkJoinPool.defaultForkJoinWorkerThreadFactory, null, true);
+    private final ForkJoinPool fj = new DForkJoinPool(1, ForkJoinPool.defaultForkJoinWorkerThreadFactory, null, true);
     
     // implementation of active object method
     public void doSomething() throws InterrupteUimException {

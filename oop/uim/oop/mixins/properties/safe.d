@@ -14,7 +14,7 @@ template SProperty_get(string dataType, string propertyName) {
 }
 version(test_uim_oop) { unittest {
 	class DTest{ int _a = 1; mixin(SProperty_get!("int", "a")); }
- 	assert((new Test).a == 1);
+ 	assert((new DTest).a == 1);
 }}
 
 // Mixin for a safe setter 
@@ -24,7 +24,7 @@ template SProperty_set(string dataType, string propertyName) {
 }
 version(test_uim_oop) { unittest {
 	class DTest{ int _a = 1; mixin(SProperty_set!("int", "a")); }
- 	assert((new Test).a(1)._a == 1);
+ 	assert((new DTest).a(1)._a == 1);
 }}
 
 // Mixin for a safe getter and setter 
@@ -33,5 +33,5 @@ template SProperty_getset(string dataType, string propertyName, bool getter = fa
 }
 version(test_uim_oop) { unittest {
 	class DTest{ int _a = 1; mixin(SProperty_set!("int", "a")); }
- 	assert((new Test).a(1)._a == 1);
+ 	assert((new DTest).a(1)._a == 1);
 }}

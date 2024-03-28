@@ -68,7 +68,7 @@ version(test_uim_models) { unittest {
       Game game = new DCricket();
       game.play();
       writeln();
-      game = new Football();
+      game = new DFootball();
       game.play();		
    }
 }

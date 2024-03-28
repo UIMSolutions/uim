@@ -29,7 +29,7 @@ class Filesystem {
             FilesystemIterator.KEY_AS_PATHNAME
             | FilesystemIterator.CURRENT_AS_FILEINFO
             | FilesystemIterator.SKIP_DOTS;
-        auto mydirectory = new FilesystemIterator(mypath, myflags);
+        auto mydirectory = new DFilesystemIterator(mypath, myflags);
 
         return myfilter.isNull
             ? mydirectory
@@ -179,7 +179,7 @@ class Filesystem {
         }
 
         bool result = true;
-        new FilesystemIterator(mysource).each!((fileInfo) {
+        new DFilesystemIterator(mysource).each!((fileInfo) {
             if (fileInfo.isDir()) {
                 result = result && this.copyDir(
                     fileInfo.getPathname(),

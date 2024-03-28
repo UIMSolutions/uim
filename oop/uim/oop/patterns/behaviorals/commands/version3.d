@@ -296,8 +296,8 @@ Command[] toCommand(T:Command)(T[] commands) {
 
     CeilingFan ceilingFan = new DCeilingFan("Living Room");
 
-    TV tv1 = new TV("Living Room");
-    TV tv2 = new TV("Bath Room");
+    TV tv1 = new DTV("Living Room");
+    TV tv2 = new DTV("Bath Room");
 
     LightOnCommand lightOn1 = new LightOnCommand(light1);
     LightOnCommand lightOn2 = new LightOnCommand(light2);
@@ -310,11 +310,11 @@ Command[] toCommand(T:Command)(T[] commands) {
     CeilingFanHighCommand ceilingFanHigh = new DCeilingFanHighCommand(ceilingFan);
     CeilingFanLowCommand ceilingFanLow = new DCeilingFanLowCommand(ceilingFan);
 
-    TVOnCommand tvOn1 = new TVOnCommand(tv1);
-    TVOffCommand tvOff1 = new TVOffCommand(tv1);
+    TVOnCommand tvOn1 = new DTVOnCommand(tv1);
+    TVOffCommand tvOff1 = new DTVOffCommand(tv1);
 
-    TVOnCommand tvOn2 = new TVOnCommand(tv2);
-    TVOffCommand tvOff2 = new TVOffCommand(tv2);
+    TVOnCommand tvOn2 = new DTVOnCommand(tv2);
+    TVOffCommand tvOff2 = new DTVOffCommand(tv2);
 
     Command[] commands1 = [lightOn1, lightOn2, lightOn3, tvOn1, tvOn2].map!(a => cast(Command)a).array;
     Command[] commands2 = [lightOff1, lightOff2, lightOff3, tvOff1, tvOff2].map!(a => cast(Command)a).array;

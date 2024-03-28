@@ -126,9 +126,9 @@ template OProperty(string dataType, string propertyName, string defaultValue = n
 }	
 version(test_uim_oop) { unittest {
 	class DTest {mixin(OProperty!("string", "name", "`someThing`"));}
-	assert((new Test).name == "someThing");
-	assert((new Test).name("test").name == "test");
-	assert((new Test).name("test").name("test2").name == "test2");
+	assert((new DTest).name == "someThing");
+	assert((new DTest).name("test").name == "test");
+	assert((new DTest).name("test").name("test2").name == "test2");
 }}
 // mixins for Template based properties
 

@@ -83,7 +83,7 @@ class FrontController {
 version(test_uim_oop) { unittest {
    writeln("FrontControllerPatternDemo");
    
-   FrontController frontController = new FrontController();
+   FrontController frontController = new DFrontController();
    frontController.dispatchRequest("HOME");
    frontController.dispatchRequest("STUDENT");
 }}

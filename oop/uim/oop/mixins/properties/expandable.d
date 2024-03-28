@@ -22,11 +22,11 @@ template XString(string name) {
 }
 version(test_uim_oop) { unittest {
 	class DTest { mixin(XString!"a"); }
-	assert((new Test).a("x").a == "x");
-	assert((new Test).a("x").a("x").a == "xx");
-	assert((new Test).a("x", "x").a == "xx");
-	assert((new Test).a(["x", "x"]).a == "xx");
-	assert((new Test).a("x").clearA.a == "");
+	assert((new DTest).a("x").a == "x");
+	assert((new DTest).a("x").a("x").a == "xx");
+	assert((new DTest).a("x", "x").a == "xx");
+	assert((new DTest).a(["x", "x"]).a == "xx");
+	assert((new DTest).a("x").clearA.a == "");
 }}
 
 // Mixin for expandable string array datatypes
@@ -48,16 +48,16 @@ template XStringArray(string name) {
 }
 version(test_uim_oop) { unittest {
 	class DTest { mixin(XStringArray!"a"); }
-	assert((new Test).a("x").a == ["x"]);
-	assert((new Test).a("x").a("x").a == ["x", "x"]);
-	assert((new Test).a("x", "x").a == ["x", "x"]);
-	assert((new Test).a("x").clearA.a == null);
-	assert((new Test).a(["a", "b", "c"]).a == ["a", "b", "c"]);
- 	assert((new Test).a(["a", "b", "c"]).removeA("x").a == ["a", "b", "c"]);
-	assert((new Test).a(["a", "b", "c", "a"]).a == ["a", "b", "c", "a"]); 
-  assert((new Test).a(["a", "b", "c", "a"]).removeA("a").a == ["b", "c", "a"]);
-	assert((new Test).a(["a", "b", "c", "a"]).removeA(["a"]).a == ["b", "c", "a"]); 
-	//assert((new Test).a(["a", "b", "c"]).removeA(["a"], true).a == ["b", "c"]);
+	assert((new DTest).a("x").a == ["x"]);
+	assert((new DTest).a("x").a("x").a == ["x", "x"]);
+	assert((new DTest).a("x", "x").a == ["x", "x"]);
+	assert((new DTest).a("x").clearA.a == null);
+	assert((new DTest).a(["a", "b", "c"]).a == ["a", "b", "c"]);
+ 	assert((new DTest).a(["a", "b", "c"]).removeA("x").a == ["a", "b", "c"]);
+	assert((new DTest).a(["a", "b", "c", "a"]).a == ["a", "b", "c", "a"]); 
+  assert((new DTest).a(["a", "b", "c", "a"]).removeA("a").a == ["b", "c", "a"]);
+	assert((new DTest).a(["a", "b", "c", "a"]).removeA(["a"]).a == ["b", "c", "a"]); 
+	//assert((new DTest).a(["a", "b", "c"]).removeA(["a"], true).a == ["b", "c"]);
 }}
 
 // Mixin for expandable string associative array datatypes
@@ -79,9 +79,9 @@ template XStringAA(string name) {
 }
 version(test_uim_oop) { unittest {
 	class DTest { mixin(XStringAA!"a"); }
-	assert((new Test).a(["a":"x"]).a == ["a":"x"]);
-	assert((new Test).a("a", "x").a == ["a":"x"]);
-	assert((new Test).a("a", "x").clearA.a == null);
+	assert((new DTest).a(["a":"x"]).a == ["a":"x"]);
+	assert((new DTest).a("a", "x").a == ["a":"x"]);
+	assert((new DTest).a("a", "x").clearA.a == null);
 }}
 
 template XPropertyAA(string key, string value, string name) {
@@ -109,11 +109,11 @@ template XPropertyAA(string key, string value, string name) {
 }
 version(test_uim_oop) { unittest {
 	class DTest { mixin(XPropertyAA!("int", "double", "a")); }
- 	assert((new Test).a([1:1.0]).a[1] == 1.0);
- 	assert((new Test).a([1:1.0]).a.hasKey(1));
- 	assert((new Test).a([1:1.0]).a([2:3.0]).a.hasKey(2));
- 	assert(!(new Test).a([1:1.0, 2:3.0]).aSub([2:3.0]).a.hasKey(2));
- 	assert((new Test).aInit([1, 2], 1.0).a[1] == 1.0);
+ 	assert((new DTest).a([1:1.0]).a[1] == 1.0);
+ 	assert((new DTest).a([1:1.0]).a.hasKey(1));
+ 	assert((new DTest).a([1:1.0]).a([2:3.0]).a.hasKey(2));
+ 	assert(!(new DTest).a([1:1.0, 2:3.0]).aSub([2:3.0]).a.hasKey(2));
+ 	assert((new DTest).aInit([1, 2], 1.0).a[1] == 1.0);
 }}
 
 template XPropertyArray(string datatype, string name) {
@@ -135,14 +135,14 @@ template XPropertyArray(string datatype, string name) {
 }
 version(test_uim_oop) { unittest {
 	class DTest { mixin(XPropertyArray!("int", "a")); }
- 	assert((new Test).a(0).a == [0]);
-	assert((new Test).a(0).a(1).a == [0, 1]);
-	assert((new Test).a(0, 1).a == [0, 1]);
-	assert((new Test).a(0).clearA.a == null);
-	assert((new Test).a([1, 2, 3]).a == [1, 2, 3]);
- 	// assert((new Test).a([1, 2, 3]).removeA(4).a == [1, 2, 3]);
-	/* assert((new Test).a([1, 2, 3, 1]).a == [1, 2, 3, 1]); 
-  assert((new Test).a([1, 2, 3, 1]).removeA(1).a == [2, 3, 1]);
-	assert((new Test).a([1, 2, 3, 1]).removeA([1]).a == [2, 3, 1]);  */
- 	//assert((new Test).a(["a", "b", "c"]).removeA(["a"], true).a == ["b", "c"]);
+ 	assert((new DTest).a(0).a == [0]);
+	assert((new DTest).a(0).a(1).a == [0, 1]);
+	assert((new DTest).a(0, 1).a == [0, 1]);
+	assert((new DTest).a(0).clearA.a == null);
+	assert((new DTest).a([1, 2, 3]).a == [1, 2, 3]);
+ 	// assert((new DTest).a([1, 2, 3]).removeA(4).a == [1, 2, 3]);
+	/* assert((new DTest).a([1, 2, 3, 1]).a == [1, 2, 3, 1]); 
+  assert((new DTest).a([1, 2, 3, 1]).removeA(1).a == [2, 3, 1]);
+	assert((new DTest).a([1, 2, 3, 1]).removeA([1]).a == [2, 3, 1]);  */
+ 	//assert((new DTest).a(["a", "b", "c"]).removeA(["a"], true).a == ["b", "c"]);
 }}

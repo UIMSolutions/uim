@@ -16,7 +16,7 @@ class DFlashMessage {
     protected IData[string] _defaultConfigData = [
         "key": IData("flash"),
         "element": IData("default"),
-        "plugin": IData(null),
+        "plugin": null,
         "params": IData.emptyArray,
         "clear": IData(false),
         "duplicate": IData(true),

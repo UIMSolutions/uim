@@ -30,12 +30,12 @@ class DCookie : ICookie {
 
     // Default attributes for a cookie.
     protected static @var IData[string] defaultAttributes = [
-        "expires": IData(null),
+        "expires": null,
         "path": IData("/"),
         "domain": IData(""),
         "secure": IData(false),
         "httponly": IData(false),
-        "samesite": IData(null),
+        "samesite": null,
     ];
 
     /**

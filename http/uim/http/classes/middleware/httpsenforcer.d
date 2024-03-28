@@ -28,8 +28,8 @@ class HttpsEnforcerMiddleware { // }: IMiddleware {
         "statusCode": IData(301),
         "headers": IData.emptyArray,
         "disableOnDebug": IData(true),
-        "trustedProxies": IData(null),
-        "hsts": IData(null),
+        "trustedProxies": null,
+        "hsts": null,
     ];
 
     /**

@@ -982,7 +982,7 @@ class DServerRequest { // }: IServerRequest {
      * string|null name The name or dotted path to the query param or null to read all.
      * @param IData defaultValue The default value if the named parameter is not set, and name is not null.
      * /
-    IData getQuery(string aName = null, IData defaultValue = IData(null)) {
+    IData getQuery(string aName = null, IData defaultValue = null) {
         if (name.isNull) {
             return this.query;
         }
@@ -1020,7 +1020,7 @@ class DServerRequest { // }: IServerRequest {
      * string|null name Dot separated name of the value to read. Or null to read all data.
      * @param IData defaultValue The default data.
      * /
-    IData getData(string aName = null, IData defaultValue = IData(null)) {
+    IData getData(string aName = null, IData defaultValue = null) {
         if (name.isNull) {
             return this.data;
         }
@@ -1284,7 +1284,7 @@ class DServerRequest { // }: IServerRequest {
      * string aName The name or dotted path to parameter.
      * @param IData defaultValue The default value if `name` is not set. Default `null`.
     * /
-    IData getParam(string aName, IData defaultValue = IData(null)) {
+    IData getParam(string aName, IData defaultValue = null) {
         return Hash.get(this.params, name, default);
     }
     
@@ -1330,7 +1330,7 @@ class DServerRequest { // }: IServerRequest {
      * string aName The attribute name.
      * @param IData defaultValue The default value if the attribute has not been set.
      * /
-    IData getAttribute(string aName, IData defaultValue = IData(null)) {
+    IData getAttribute(string aName, IData defaultValue = null) {
         if (in_array(name, this.emulatedAttributes, true)) {
             if (name == "here") {
                 return this.base ~ this.uri.getPath();

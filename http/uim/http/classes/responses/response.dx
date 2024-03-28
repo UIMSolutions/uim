@@ -1178,8 +1178,8 @@ class DResponse : IResponse, Stringable {
     static withFile(string aPath, IData[string] options = null) {
         file = this.validateFile(somePath);
         auto options = options.update([
-            "name": IData(null),
-            "download": IData(null)
+            "name": null,
+            "download": null
         ]);
 
         auto fileExtension = file.getExtension().toLower;

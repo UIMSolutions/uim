@@ -59,7 +59,7 @@ class DConsoleLog : BaseLog {
      * @param \string messageToLog The message you want to log.
      * @param array context Additional information about the logged message
      */
-    void log(logLevel, string messageToLog, IData context = IData(null)) {
+    void log(logLevel, string messageToLog, IData context = null) {
         string resultMessage = this.interpolate(messageToLog, context);
        _output.write(this.formatter.format(logLevel, resultMessage, context));
     }

@@ -17,7 +17,7 @@ template LogTemplate {
      */
     bool log(string logMessage,
         LogLevels errorLevel = LogLevels.ERROR,
-        IData logContext = IData(null)
+        IData logContext = null
     ) {
         return Log.write(errorLevel, logMessage, logContext);
     }

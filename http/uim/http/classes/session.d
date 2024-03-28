@@ -353,7 +353,7 @@ class DSession {
      * string name The name of the session variable (or a path as sent to Hash.extract)
      * @param IData defaultValue The return value when the path does not exist
      * /
-    IData read(string aName = null, IData defaultValue = IData(null)) {
+    IData read(string aName = null, IData defaultValue = null) {
         if (_hasSession() && !this.started()) {
             this.start();
         }

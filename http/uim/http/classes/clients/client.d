@@ -77,10 +77,10 @@ class DClient { // }: IClient {
   mixin InstanceConfigTemplate();
 
   protected IData[string] _defaultConfigData = [
-    "auth": IData(null),
-    "adapter": IData(null),
-    "host": IData(null),
-    "port": IData(null),
+    "auth": null,
+    "adapter": null,
+    "host": null,
+    "port": null,
     "scheme": IData("http"),
     "basePath": IData(""),
     "timeout": IData(30),
@@ -480,7 +480,7 @@ class DClient { // }: IClient {
       return myurl;
     }
     IData[string] mydefaults = [
-      "host": IData(null),
+      "host": null,
       "port": IData(null,
       "scheme": IData("http"),
       "basePath": IData(""),

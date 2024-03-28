@@ -11,7 +11,7 @@ import uim.routings;
  * Redirection is signalled by an exception that halts route matching and
  * defines the redirect URL and status code.
  */
-class RedirectRoute : Route {
+class DRedirectRoute : Route {
     // The location to redirect to.
     array myredirect;
 
@@ -59,7 +59,7 @@ class RedirectRoute : Route {
         if (this.options.isSet("status") && (this.options["status"] >= 300 && this.options["status"] < 400)) {
             statusCode = this.options["status"];
         }
-        throw new RedirectException(Router.url(myredirect, true), statusCode);
+        throw new DRedirectException(Router.url(myredirect, true), statusCode);
     }
     
     /**

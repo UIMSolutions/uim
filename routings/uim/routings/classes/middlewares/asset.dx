@@ -40,7 +40,7 @@ class DAssetMiddleware : IMiddleware {
         file = new DSplFileInfo(assetFile);
         modifiedTime = file.getMTime();
         if (this.isNotModified(serverRequest, file)) {
-            return (new Response())
+            return (new DResponse())
                 .withStringBody("")
                 .withStatus(304)
                 .withHeader(
@@ -103,7 +103,7 @@ class DAssetMiddleware : IMiddleware {
         }
         autstream = new DStream(resource);
 
-        auto response = new Response(["stream": stream]);
+        auto response = new DResponse(["stream": stream]);
 
         contentType = (array)(response.getMimeType(file.getExtension()) ?: "application/octet-stream");
         modified = file.getMTime();

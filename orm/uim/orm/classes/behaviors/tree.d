@@ -72,7 +72,7 @@ class DTreeBehavior : DBehavior {
         level = myconfiguration["level"];
 
         if (parent && entity.get(primaryKeys) == parent) {
-            throw new RuntimeException("Cannot set a node"s parent as itself");
+            throw new DRuntimeException("Cannot set a node"s parent as itself");
         }
 
         if (isNew && parent) {
@@ -228,7 +228,7 @@ class DTreeBehavior : DBehavior {
         left = entity.get(myconfiguration["left"]);
 
         if (parentLeft > left && parentLeft < right) {
-            throw new RuntimeException(sprintf(
+            throw new DRuntimeException(sprintf(
                 "Cannot use node '%s' as parent for entity '%s'",
                 parent,
                 entity.get(_getPrimaryKeys())
@@ -761,7 +761,7 @@ class DTreeBehavior : DBehavior {
             .first();
 
         if (!node) {
-            throw new RecordNotFoundException("Node \"{id}\" was not found in the tree.");
+            throw new DRecordNotFoundException("Node \"{id}\" was not found in the tree.");
         }
 
         /** @psalm-suppress InvalidReturnStatement * /

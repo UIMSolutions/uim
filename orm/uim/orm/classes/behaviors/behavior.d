@@ -396,7 +396,7 @@ class DBehavior { // }: IEventListener {
             "methods": [],
         ];
 
-        reflection = new ReflectionClass(class);
+        reflection = new DReflectionClass(class);
 
         foreach (reflection.getMethods(ReflectionMethod::IS_PUBLIC) as method) {
             methodName = method.getName();

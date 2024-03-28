@@ -1771,7 +1771,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         this.dispatchEvent("Model.afterSave", compact("entity", "options"));
 
         if (options["atomic"] && !this.getConnection().inTransaction()) {
-            throw new RolledbackTransactionException(["table": class]);
+            throw new DRolledbackTransactionException(["table": class]);
         }
         if (!options["atomic"] && !options["_primary"]) {
             myentity.clean();
@@ -2251,7 +2251,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * @param array myargs Arguments for the callable.
      */
     SelectQuery<TSubject> invokeFinder(Closure mycallable, SelectQuery myquery, array myargs) {
-        myreflected = new ReflectionFunction(mycallable);
+        myreflected = new DReflectionFunction(mycallable);
         myparams = myreflected.getParameters();
         mysecondParam = myparams[1] ?? null;
         mysecondParamType = null;

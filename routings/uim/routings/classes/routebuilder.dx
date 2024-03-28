@@ -480,7 +480,7 @@ class DRouteBuilder {
     }
     
     /**
-     * Connects a new Route.
+     * Connects a new DRoute.
      *
      * Routes are a way of connecting request URLs to objects in your application.
      * At their core routes are a set or regular expressions that are used to

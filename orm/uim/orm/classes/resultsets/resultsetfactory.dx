@@ -26,7 +26,7 @@ class DResultSetFactory {
         foreach (results as myi: myrow) {
             results[myi] = this.groupResult(myrow, mydata);
         }
-        return new ResultSet(results);
+        return new DResultSet(results);
     }
     
     /**

@@ -136,11 +136,11 @@ class DBelongsToAssociation : DAssociation {
         if (count(foreignKeys) != count(bindingKey)) {
             if (empty(bindingKey)) {
                 msg = "The '%s' table does not define a primary key. Please set one.";
-                throw new RuntimeException(sprintf(msg, this.getTarget().getTable()));
+                throw new DRuntimeException(sprintf(msg, this.getTarget().getTable()));
             }
 
             msg = "Cannot match provided foreignKeys for '%s', got "(%s)" but expected foreign key for "(%s)"";
-            throw new RuntimeException(sprintf(
+            throw new DRuntimeException(sprintf(
                 msg,
                 _name,
                 implode(", ", foreignKeys),

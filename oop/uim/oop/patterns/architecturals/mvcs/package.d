@@ -8,7 +8,7 @@ Traditionally used for desktop graphical user interfaces (GUIs), this pattern ha
 Popular programming languages have MVC frameworks that facilitate implementation of the pattern.
 **/
 /***********************************************************************************
-*	Copyright: ©2015-2024 Ozan Nurettin Süel (sicherheitsschmiede)                   *
+*	Copyright: © 2015-2024 Ozan Nurettin Süel (sicherheitsschmiede)                   *
 *	License  : Licensed under Apache 2 [https://apache.org/licenses/LICENSE-2.0.txt] *
 *	Author   : Ozan Nurettin Süel (Sicherheitsschmiede)										           * 
 ***********************************************************************************/

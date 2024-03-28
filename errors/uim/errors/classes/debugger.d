@@ -20,15 +20,11 @@ class DDebugger {
     configuration.updateDefaults([
         "outputMask": ArrayData,
         "exportFormatter": null,
-        "editor": "phpstorm",
+        "editor": StringData("phpstorm"),
     ];
 
-    /**
-     * A map of editors to their link templates.
-     *
-     * @var array<string, string|callable>
-     * /
-    protected array editors = [
+    // A map of editors to their link templates.
+    protected STRINGAA editors = [
         "atom": "atom://core/open/file?filename={file}&line={line}",
         "emacs": "emacs://open?url=file://{file}&line={line}",
         "macvim": "mvim://open/?url=file://{file}&line={line}",

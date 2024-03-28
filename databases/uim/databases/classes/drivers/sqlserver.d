@@ -11,7 +11,7 @@ class DSqlserverDriver : DDriver {
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 
-        /* _baseConfig = [
+        configuration.update([
         "host": "localhost\SQLEXPRESS",
         "username": "",
         "password": "",
@@ -30,7 +30,7 @@ class DSqlserverDriver : DDriver {
         "multiSubnetFailover": null,
         "encrypt": null,
         "trustServerCertificate": null,
-    ];*/
+    ];
 
         _startQuote = "[";
         _endQuote = "]";

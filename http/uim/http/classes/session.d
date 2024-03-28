@@ -102,7 +102,7 @@ class DSession {
      * /
     protected static array | false _defaultConfigData(string aName) {
         tmp = defined("TMP") ? TMP : sys_get_temp_dir() ~ DIRECTORY_SEPARATOR;
-        IData[string]defaults = [
+        IData[string] defaults = [
             "php": [
                 "ini": [
                     "session.use_trans_sid": 0,

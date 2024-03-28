@@ -41,7 +41,7 @@ class DFileCacheEngine : DCacheEngine {
             "mask": std.conv.octal!"664",
             "dirMask": std.conv.octal!"770",
             "path": null,
-            "prefix": "uim_",
+            "prefix": StringData("uim_"),
             "serialize": BooleanData(true),
         ]); * / 
 

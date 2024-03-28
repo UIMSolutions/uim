@@ -34,20 +34,16 @@ mixin TConfigurable!();
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
+    _defaultConfig = [
+     // `trace` Should error logs include stack traces?
+        "trace": BooleanData(false),
+    ];
+
+
         return true;
     }
 
     mixin(TProperty!("string", "name"));
-    /**
-     * Default configuration values.
-     *
-     * - `trace` Should error logs include stack traces?
-     *
-     * @var array<string, mixed>
-     * /
-    protected _defaultConfig = [
-        "trace": BooleanData(false),
-    ];
 
     /**
      * Constructor

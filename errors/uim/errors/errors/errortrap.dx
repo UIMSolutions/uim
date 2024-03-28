@@ -58,13 +58,13 @@ class DErrorTrap {
      *
      * @var array<string, mixed>
      * /
-    protected _defaultConfig = [
+   configuration.updateDefaults([
         "errorLevel": E_ALL,
         "errorRenderer": null,
         "log": BooleanData(true),
         "logger": ErrorLogger::class,
         "trace": BooleanData(false),
-    ];
+    ]);
 
     /**
      * Constructor

@@ -45,12 +45,7 @@ class DExceptionTrap {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
-        return true;
-    }
-
-    mixin(TProperty!("string", "name"));
-
-    /**
+ /**
      * Configuration options. Generally these will be defined in your config/app.php
      *
      * - `exceptionRenderer` - string - The class responsible for rendering uncaught exceptions.
@@ -74,7 +69,7 @@ class DExceptionTrap {
      *
      * @var array<string, mixed>
      * /
-    protected _defaultConfig = [
+    configuration.updateDefaults([
         "exceptionRenderer": null,
         "logger": ErrorLogger::class,
         "stderr": null,
@@ -82,7 +77,14 @@ class DExceptionTrap {
         "skipLog": ArrayData,
         "trace": BooleanData(false),
         "extraFatalErrorMemory": 4,
-    ];
+    ]);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
+
+   
 
     /**
      * A list of handling callbacks.

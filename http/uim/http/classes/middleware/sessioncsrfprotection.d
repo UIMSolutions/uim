@@ -32,8 +32,8 @@ class DSessionCsrfProtectionMiddleware { // }: IMiddleware {
      *
      * /
     protected IData _config = [
-        "key": "csrfToken",
-        "field": "_csrfToken",
+        "key": StringData("csrfToken"),
+        "field": StringData("_csrfToken"),
     ];
 
     /**

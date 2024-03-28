@@ -21,7 +21,7 @@ class DResponse : IResponse, Stringable {
     const int STATUS_CODE_MAX = 599;
 
     // Allowed HTTP status codes and their default description.
-    protected array _statusCodes = [
+    protected string[int] _statusCodes = [
         100: "Continue",
         101: "switching Protocols",
         102: "Processing",
@@ -90,7 +90,7 @@ class DResponse : IResponse, Stringable {
     ];
 
     // Holds type key to mime type mappings for known mime types.
-    protected IData[string] _mimeTypes = [
+    protected string[string] _mimeTypes = [
         "html": ["text/html", "*/*"],
         "IData": "application/IData",
         "xml": ["application/xml", "text/xml"],

@@ -483,8 +483,8 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * myquery.applyOptions(["doABarrelRoll": true, "fields": ["id", "name"]);
-     * myquery.getOptions(); // Returns ["doABarrelRoll": true]
+     * myquery.applyOptions(["doABarrelRoll": BooleanData(true), "fields": ["id", "name"]);
+     * myquery.getOptions(); // Returns ["doABarrelRoll": BooleanData(true)]
      * ```
      *
      * @see \UIM\Datasource\IQuery.applyOptions() to read about the options that will
@@ -770,11 +770,11 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      *
      * ```
      * myquery.contain(["Tags": auto (myq) {
-     *    return myq.where(["Tags.is_popular": true]);
+     *    return myq.where(["Tags.is_popular": BooleanData(true)]);
      * }]);
      *
      * myquery.contain(["Products.Manufactures": auto (myq) {
-     *    return myq.select(["name"]).where(["Manufactures.active": true]);
+     *    return myq.select(["name"]).where(["Manufactures.active": BooleanData(true)]);
      * }]);
      * ```
      *
@@ -826,7 +826,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * // Use special join conditions for multiple containments in the same method call
      * myquery.contain([
      *    "Authors": [
-     *        "foreignKey": false,
+     *        "foreignKey": BooleanData(false),
      *        "queryBuilder": auto (myq) {
      *            return myq.where(...); // Add full filtering conditions
      *        }
@@ -1026,7 +1026,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
         result = this.getEagerLoader()
             .setMatching(myassoc, mybuilder, [
                 "joinType": JOIN_TYPE_LEFT,
-                "fields": false,
+                "fields": BooleanData(false),
             ])
             .getMatching();
        _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
@@ -1070,7 +1070,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
         result = this.getEagerLoader()
             .setMatching(myassoc, mybuilder, [
                 "joinType": JOIN_TYPE_INNER,
-                "fields": false,
+                "fields": BooleanData(false),
             ])
             .getMatching();
        _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
@@ -1130,8 +1130,8 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
         result = this.getEagerLoader()
             .setMatching(myassoc, mybuilder, [
                 "joinType": JOIN_TYPE_LEFT,
-                "fields": false,
-                "negateMatch": true,
+                "fields": BooleanData(false),
+                "negateMatch": BooleanData(true),
             ])
             .getMatching();
        _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);

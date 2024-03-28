@@ -323,11 +323,11 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
      *
      * ```
      * query.contain(["Tags": function (q) {
-     *     return q.where(["Tags.is_popular": true]);
+     *     return q.where(["Tags.is_popular": BooleanData(true)]);
      * }]);
      *
      * query.contain(["Products.Manufactures": function (q) {
-     *     return q.select(["name"]).where(["Manufactures.active": true]);
+     *     return q.select(["name"]).where(["Manufactures.active": BooleanData(true)]);
      * }]);
      * ```
      *
@@ -379,7 +379,7 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
      * // Use special join conditions for multiple containments in the same method call
      * query.contain([
      *     "Authors": [
-     *         "foreignKey": false,
+     *         "foreignKey": BooleanData(false),
      *         "queryBuilder": function (q) {
      *             return q.where(...); // Add full filtering conditions
      *         }
@@ -592,7 +592,7 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
         result = this.getEagerLoader()
             .setMatching(assoc, builder, [
                 "joinType": Query::JOIN_TYPE_LEFT,
-                "fields": false,
+                "fields": BooleanData(false),
             ])
             .getMatching();
         _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
@@ -640,7 +640,7 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
         result = this.getEagerLoader()
             .setMatching(assoc, builder, [
                 "joinType": Query::JOIN_TYPE_INNER,
-                "fields": false,
+                "fields": BooleanData(false),
             ])
             .getMatching();
         _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
@@ -703,8 +703,8 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
         result = this.getEagerLoader()
             .setMatching(assoc, builder, [
                 "joinType": Query::JOIN_TYPE_LEFT,
-                "fields": false,
-                "negateMatch": true,
+                "fields": BooleanData(false),
+                "negateMatch": BooleanData(true),
             ])
             .getMatching();
         _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);

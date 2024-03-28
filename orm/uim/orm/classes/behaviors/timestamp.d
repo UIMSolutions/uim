@@ -31,7 +31,7 @@ class DTimestampBehavior : DBehavior {
                 "modified": "always",
             ],
         ],
-        "refreshTimestamp": true,
+        "refreshTimestamp": BooleanData(true),
     ]);
 
     // Current timestamp

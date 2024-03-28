@@ -27,11 +27,11 @@ class DShadowTableStrategy : ITranslateStrategy
         "fields": [],
         "defaultLocale": null,
         "referenceName": null,
-        "allowEmptyTranslations": true,
-        "onlyTranslated": false,
+        "allowEmptyTranslations": BooleanData(true),
+        "onlyTranslated": BooleanData(false),
         "strategy": "subquery",
         "tableLocator": null,
-        "validator": false,
+        "validator": BooleanData(false),
     ];
 
     /**
@@ -59,7 +59,7 @@ class DShadowTableStrategy : ITranslateStrategy
         this.table = table;
         this.translationTable = this.getTableLocator().get(
             configuration["translationTable"],
-            ["allowFallbackClass": true]
+            ["allowFallbackClass": BooleanData(true)]
         );
 
         this.setupAssociations();
@@ -80,7 +80,7 @@ class DShadowTableStrategy : ITranslateStrategy
             "foreignKey": "id",
             "strategy": myconfiguration["strategy"],
             "propertyName": "_i18n",
-            "dependent": true,
+            "dependent": BooleanData(true),
         ]);
     }
 
@@ -138,7 +138,7 @@ class DShadowTableStrategy : ITranslateStrategy
                 hasOneTargetAlias,
                 [
                     "className": myconfiguration["translationTable"],
-                    "allowFallbackClass": true,
+                    "allowFallbackClass": BooleanData(true),
                 ]
             );
         }
@@ -308,7 +308,7 @@ class DShadowTableStrategy : ITranslateStrategy
      */
     void beforeSave(IEvent event, IEntity anEntity, ArrayObject options) {
         locale = entity.get("_locale") ?: this.getLocale();
-        newOptions = [this.translationTable.aliasName(): ["validate": false]];
+        newOptions = [this.translationTable.aliasName(): ["validate": BooleanData(false)]];
         options["associated"] = newOptions + options["associated"];
 
         // Check early if empty translations are present in the entity.
@@ -376,14 +376,14 @@ class DShadowTableStrategy : ITranslateStrategy
             translation = this.translationTable.newEntity(
                 where + values,
                 [
-                    "useSetters": false,
-                    "markNew": true,
+                    "useSetters": BooleanData(false),
+                    "markNew": BooleanData(true),
                 ]
             );
         }
 
         entity.set("_i18n", array_merge(bundled, [translation]));
-        entity.set("_locale", locale, ["setter": false]);
+        entity.set("_locale", locale, ["setter": BooleanData(false)]);
         entity.setDirty("_locale", false);
 
         foreach (fields as field) {
@@ -538,7 +538,7 @@ class DShadowTableStrategy : ITranslateStrategy
                     "id": key,
                     "locale": lang,
                 ];
-                translation.set(update, ["guard": false]);
+                translation.set(update, ["guard": BooleanData(false)]);
             }
         }
 

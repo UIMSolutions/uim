@@ -326,12 +326,12 @@ class DResultSet : IResultSet {
     protected void _calculateAssociationMap(Query query) {
         map = query.getEagerLoader().associationsMap(_defaultTable);
         _matchingMap = (new DCollection(map))
-            .match(["matching": true])
+            .match(["matching": BooleanData(true)])
             .indexBy("alias")
             .toArray();
 
         _containMap = (new DCollection(array_reverse(map)))
-            .match(["matching": false])
+            .match(["matching": BooleanData(false)])
             .indexBy("nestKey")
             .toArray();
     }
@@ -396,10 +396,10 @@ class DResultSet : IResultSet {
         defaultAlias = _defaultAlias;
         results = presentAliases = null;
         options = [
-            "useSetters": false,
-            "markClean": true,
-            "markNew": false,
-            "guard": false,
+            "useSetters": BooleanData(false),
+            "markClean": BooleanData(true),
+            "markNew": BooleanData(false),
+            "guard": BooleanData(false),
         ];
 
         foreach (_matchingMapColumns as alias: keys) {

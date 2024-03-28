@@ -209,7 +209,7 @@ class DBelongsToManyAssociation : DAssociation {
 
             myConfiguration = null;
             if (!tableLocator.exists(tableAlias)) {
-                myConfiguration = ["table": tableName, "allowFallbackClass": true];
+                myConfiguration = ["table": tableName, "allowFallbackClass": BooleanData(true)];
 
                 // Propagate the connection if we"ll get an auto-model
                 if (!App::className(tableAlias, "Model/Table", "Table")) {
@@ -402,7 +402,7 @@ class DBelongsToManyAssociation : DAssociation {
         newOptions += [
             "conditions": cond,
             "includeFields": includeFields,
-            "foreignKey": false,
+            "foreignKey": BooleanData(false),
         ];
         assoc.attachTo(query, newOptions);
         query.getEagerLoader().addToJoinsMap(junction.aliasName(), assoc, true);
@@ -711,7 +711,7 @@ class DBelongsToManyAssociation : DAssociation {
         foreach (targetEntities as e) {
             joint = e.get(jointProperty);
             if (!joint || !(joint instanceof IEntity)) {
-                joint = new DORMEntityClass([], ["markNew": true, "source": junctionRegistryAlias]);
+                joint = new DORMEntityClass([], ["markNew": BooleanData(true), "source": junctionRegistryAlias]);
             }
             sourceKeys = array_combine(foreignKey, sourceEntity.extract(bindingKey));
             targetKeys = array_combine(assocForeignKey, e.extract(targetBindingKey));
@@ -727,7 +727,7 @@ class DBelongsToManyAssociation : DAssociation {
             if (changedKeys) {
                 joint.setNew(true);
                 joint.unset(junction.getPrimaryKeys())
-                    .set(array_merge(sourceKeys, targetKeys), ["guard": false]);
+                    .set(array_merge(sourceKeys, targetKeys), ["guard": BooleanData(false)]);
             }
             saved = junction.save(joint, options);
 
@@ -827,7 +827,7 @@ class DBelongsToManyAssociation : DAssociation {
                 "cleanProperty": options,
             ];
         } else {
-            options += ["cleanProperty": true];
+            options += ["cleanProperty": BooleanData(true)];
         }
 
         _checkPersistenceStatus(sourceEntity, targetEntities);

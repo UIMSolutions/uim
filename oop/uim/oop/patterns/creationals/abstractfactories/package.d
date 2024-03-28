@@ -51,7 +51,7 @@ class DShapeFactory : DAbstractFactory {
    //use createShape method to get object of type shape 
    override IShape createShape(string shapeType) {
       switch(shapeType.toLower) {
-         case "rectangle": return new Rectangle();
+         case "rectangle": return new DRectangle();
          case "square": return new DSquare();
          default: return null;
       }
@@ -62,8 +62,8 @@ class DRoundedShapeFactory : DAbstractFactory {
    //use createShape method to get object of type shape 
    override IShape createShape(string shapeType) {
       switch(shapeType.toLower) {
-         case "rectangle": return new RoundedRectangle();
-         case "square": return new RoundedSquare();
+         case "rectangle": return new DRoundedRectangle();
+         case "square": return new DRoundedSquare();
          default: return null;
       }
    }
@@ -73,7 +73,7 @@ class DRoundedShapeFactory : DAbstractFactory {
  class FactoryProducer {
     static DAbstractFactory factory(bool rounded) {   
       if(rounded) {
-         return new RoundedShapeFactory();         
+         return new DRoundedShapeFactory();         
       }else{
          return new DShapeFactory();
       }

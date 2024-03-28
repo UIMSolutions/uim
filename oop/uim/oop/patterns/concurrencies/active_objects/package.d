@@ -44,7 +44,7 @@ class MyActiveObject {
     private BlockingQueue<Runnable> dispatchQueue = new LinkedBlockingQueue<Runnable>();
 
     public MyActiveObject() {
-        new Thread (new Runnable() {
+        new Thread (new DRunnable() {
                     
                 @Override
                 public void run() {
@@ -61,7 +61,7 @@ class MyActiveObject {
     }
 
     void doSomething() throws InterrupteUimException {
-        dispatchQueue.put(new Runnable() {
+        dispatchQueue.put(new DRunnable() {
                 @Override
                 public void run() { 
                     val = 1.0; 
@@ -71,7 +71,7 @@ class MyActiveObject {
     }
 
     void doSomethingElse() throws InterrupteUimException {
-        dispatchQueue.put(new Runnable() {
+        dispatchQueue.put(new DRunnable() {
                 @Override
                 public void run() { 
                     val = 2.0; 

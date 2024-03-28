@@ -43,7 +43,7 @@ import uim.oop;
 
     this() {
       circle = new DCircle();
-      rectangle = new Rectangle();
+      rectangle = new DRectangle();
       square = new DSquare();
    }
 

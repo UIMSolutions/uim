@@ -22,7 +22,7 @@ public class NYPizzaIngredientFactory : PizzaIngredientFactory {
 	}
 
 	public Cheese createCheese() {
-		return new ReggianoCheese(); }
+		return new DReggianoCheese(); }
 
 	public Clam createClam() {
 		return new FreshClam(); }

@@ -203,7 +203,7 @@ abstract class DTestCase : BaseTestCase {
         /** @var class-string myclassName */
         myclassName = Configure.read("App.namespace") ~ "\\Application";
         try {
-            myreflect = new ReflectionClass(myclassName);
+            myreflect = new DReflectionClass(myclassName);
             myapp = myreflect.newInstanceArgs(myappArgs);
             assert(cast(IRoutingApplication)myapp);
         } catch (ReflectionException  anException) {
@@ -790,7 +790,7 @@ abstract class DTestCase : BaseTestCase {
         [, baseClass] = pluginSplit(alias);
         options.update(["alias": baseClass, "connection": aConnection]);
         options += locator.getConfig(alias);
-        reflection = new ReflectionClass(className);
+        reflection = new DReflectionClass(className);
          classNameMethods = array_map(function (method) {
             return method.name;
         }, reflection.getMethods());

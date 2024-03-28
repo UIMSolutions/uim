@@ -288,7 +288,7 @@ Command[] toCommand(T:Command)(T[] commands) {
 }
    version(test_uim_oop) { unittest {
     writeln("--- Command test ---");
-    RemoteControlWithUndo remoteControl = new RemoteControlWithUndo();
+    RemoteControlWithUndo remoteControl = new DRemoteControlWithUndo();
 
     Light light1 = new Light("Living Room");
     Light light2 = new Light("Bath Room");

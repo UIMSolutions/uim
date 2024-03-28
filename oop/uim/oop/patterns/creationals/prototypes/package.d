@@ -97,7 +97,7 @@ class DShapeCache {
     square.setId("2");
     shapeMap[square.getId()] = square;
 
-    Rectangle rectangle = new Rectangle();
+    Rectangle rectangle = new DRectangle();
     rectangle.setId("3");
     shapeMap[rectangle.getId()] = rectangle;
   }

@@ -14,7 +14,7 @@ import uim.oop;
 }
 
 /// Create concrete classes implementing the same interface.
- class Rectangle : IShape {
+ class DRectangle : IShape {
    override  void draw() {
       writeln("Shape: Rectangle");
    }

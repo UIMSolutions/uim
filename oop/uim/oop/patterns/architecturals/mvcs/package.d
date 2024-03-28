@@ -74,8 +74,8 @@ version(test_uim_oop) { unittest {
   auto model  = retriveRobotFromDatabase();
 
   //Create a view : to write Robot details on console
-  RobotView view = new RobotView();
-  RobotController controller = new RobotController(model, view);
+  RobotView view = new DRobotView();
+  RobotController controller = new DRobotController(model, view);
 
   controller.updateView();
 

@@ -10,14 +10,14 @@ import std.string;
 template PropertyDefinition(string datatype, string field, string propertyName, bool get = true, bool set = true, string defaultValue = null, string condition = null) {
 	const char[] fieldDefinition = datatype~" "~field~(defaultValue.length>0?"="~defaultValue:"")~"; ";
 	const char[] getDefinition = get ? "@safe @property "~datatype~" "~propertyName~"() { return "~field~"; } ":"";
-	const char[] setDefinition = set ? "@safe @property O "~propertyName~"(this O)("~datatype~" value) { "~(condition.length>0?"if ("~condition~")":"")~field~"=value; return cast(DO)this; } ":"";
+	const char[] setDefinition = set ? "@safe @property O "~propertyName~"(this O)("~datatype~" value) { "~(condition.length>0?"if ("~condition~")":"")~field~"=value; return cast(O)this; } ":"";
 	const char[] PropertyDefinition = fieldDefinition~getDefinition~setDefinition;
 }
 
 template PropertyDefinition(string datatype, string propertyName, bool get = true, bool set = true, string defaultValue = null, string condition = null) {
 	const char[] fieldDefinition = datatype~" _"~propertyName~(defaultValue.length>0?"="~defaultValue:"")~"; ";
 	const char[] getDefinition = get ? "@safe @property "~datatype~" "~propertyName~"() { return _"~propertyName~"; } ":"";
-	const char[] setDefinition = set ? "@safe @property O "~propertyName~"(this O)("~datatype~" value) { "~(condition.length>0?"if ("~condition~")":"")~"_"~propertyName~"=value; return cast(DO)this; } ":"";
+	const char[] setDefinition = set ? "@safe @property O "~propertyName~"(this O)("~datatype~" value) { "~(condition.length>0?"if ("~condition~")":"")~"_"~propertyName~"=value; return cast(O)this; } ":"";
 	const char[] PropertyDefinition = fieldDefinition~getDefinition~setDefinition;
 }
 
@@ -25,7 +25,7 @@ template PropertyDefinition(string datatype, string propertyName, bool get = tru
 
 template OProperty(string dataType, string propertyName, string defaultValue = null, string get = null, string set = null) {
 	const char[] getFkt = (get.length > 0) ? get : "return _"~propertyName~";";
-	const char[] setFkt = (set.length > 0) ? set : "_"~propertyName~" = newValue; return cast(DO)this;";
+	const char[] setFkt = (set.length > 0) ? set : "_"~propertyName~" = newValue; return cast(O)this;";
 	
 	const char[] OProperty = "
 	protected "~dataType~" _"~propertyName~(defaultValue.length > 0 ? " = "~defaultValue : "")~";
@@ -69,7 +69,7 @@ void _set`~myPropertyName~`(`~dataType~` new`~myPropertyName~`) {
 	_`~propertyName~` = new`~myPropertyName~`; 
 	_afterSet`~myPropertyName~`(); 
 }
-@property O `~propertyName~`(this O)(`~dataType~` newValue) { _set`~myPropertyName~`(newValue); return cast(DO)this; }`;
+@property O `~propertyName~`(this O)(`~dataType~` newValue) { _set`~myPropertyName~`(newValue); return cast(O)this; }`;
 }
 version(test_uim_oop) { unittest {
 	/* assert(propertySet("string", "prop") ==
@@ -80,7 +80,7 @@ void _setProp(string newProp) {
 	_prop = newProp; 
 	_afterSetProp;
 }
-@property O prop(this O)(string newValue) { _setProp(newValue); return cast(DO)this; }`
+@property O prop(this O)(string newValue) { _setProp(newValue); return cast(O)this; }`
 	); */
 }}
 
@@ -153,9 +153,9 @@ template TPropertyAA(string keyDataType, string valueDataType, string propertyNa
 	protected "~aaDataType~" _default"~propertyName~(defaultValue.length > 0 ? " = "~defaultValue : "")~";
 	
 	@safe @property "~aaDataType~" "~propertyName~"(this O)() { "~getFkt~" }
-	@safe @property O "~propertyName~"(this O)("~aaDataType~" newValue) { "~setFkt~" return cast(DO)this; }
-	O "~propertyName~"(this O)("~keyDataType~" key, "~valueDataType~" value) { _"~propertyName~"[key] = value; return cast(DO)this; }
-	O "~propertyName~"Add(this O)("~aaDataType~" values) { foreach(k,v;values) _"~propertyName~"[k] = v; return cast(DO)this; }";
+	@safe @property O "~propertyName~"(this O)("~aaDataType~" newValue) { "~setFkt~" return cast(O)this; }
+	O "~propertyName~"(this O)("~keyDataType~" key, "~valueDataType~" value) { _"~propertyName~"[key] = value; return cast(O)this; }
+	O "~propertyName~"Add(this O)("~aaDataType~" values) { foreach(k,v;values) _"~propertyName~"[k] = v; return cast(O)this; }";
 }
 
 // mixins for Extended Template based properties
@@ -167,9 +167,9 @@ template TXProperty_get(string dataType, string propertyName, string defaultValu
 	protected "~dataType~" _"~propertyName~(defaultValue.length > 0 ? " = "~defaultValue : "")~";
 	protected "~dataType~" _default"~propertyName~(defaultValue.length > 0 ? " = "~defaultValue : "")~";
 	
-	O "~propertyName~"Reset(this O)() { _"~propertyName~" = _default"~propertyName~"; return cast(DO)this;}
+	O "~propertyName~"Reset(this O)() { _"~propertyName~" = _default"~propertyName~"; return cast(O)this;}
 	auto "~propertyName~"Default() { return _default"~propertyName~"; }
-	O "~propertyName~"Default(this O)("~dataType~" newValue) { _default"~propertyName~" = newValue; return cast(DO)this; }
+	O "~propertyName~"Default(this O)("~dataType~" newValue) { _default"~propertyName~" = newValue; return cast(O)this; }
 	bool "~propertyName~"IsDefault() { return (this._"~propertyName~" == _default"~propertyName~"); }
 
 	@property "~dataType~" "~propertyName~"(this O)() { "~getFkt~" }";
@@ -183,13 +183,13 @@ template TXProperty(string dataType, string propertyName, string defaultValue = 
 	protected "~dataType~" _"~propertyName~(defaultValue.length > 0 ? " = "~defaultValue : "")~";
 	protected "~dataType~" _default"~propertyName~(defaultValue.length > 0 ? " = "~defaultValue : "")~";
 	
-	O "~propertyName~"Reset(this O)() { _"~propertyName~" = _default"~propertyName~"; return cast(DO)this;}
+	O "~propertyName~"Reset(this O)() { _"~propertyName~" = _default"~propertyName~"; return cast(O)this;}
 	auto "~propertyName~"Default() { return _default"~propertyName~"; }
-	O "~propertyName~"Default(this O)("~dataType~" newValue) { _default"~propertyName~" = newValue; return cast(DO)this; }
+	O "~propertyName~"Default(this O)("~dataType~" newValue) { _default"~propertyName~" = newValue; return cast(O)this; }
 	bool "~propertyName~"IsDefault() { return (this._"~propertyName~" == _default"~propertyName~"); }
 
 	@property "~dataType~" "~propertyName~"(this O)() { "~getFkt~" }
-	@property O "~propertyName~"(this O)("~dataType~" newValue) { "~setFkt~" return cast(DO)this; }";
+	@property O "~propertyName~"(this O)("~dataType~" newValue) { "~setFkt~" return cast(O)this; }";
 }
 
 version(test_uim_oop) { unittest {

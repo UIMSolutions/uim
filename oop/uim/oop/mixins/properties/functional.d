@@ -12,7 +12,7 @@ template OBool(string propertyName, string defaultValue = null, bool get = true,
     const char[] OBool = `
     protected bool _`~propertyName~(defaultValue ? `=`~defaultValue:``)~`; 
     `~(get ? `@safe @property auto `~propertyName~`() { return _`~propertyName~`; }`: ``)~`
-    `~(set ? `@safe @property O `~propertyName~`(this O)(bool newValue) { _`~propertyName~` = newValue; return cast(DO)this; }`: ``)~`  
+    `~(set ? `@safe @property O `~propertyName~`(this O)(bool newValue) { _`~propertyName~` = newValue; return cast(O)this; }`: ``)~`  
     `;
 } 
 
@@ -20,7 +20,7 @@ template OBoolArray(string propertyName, string defaultValue = null, bool get = 
     const char[] OBoolArray = `
     protected bool[] _`~propertyName~(defaultValue ? `=`~defaultValue:``)~`; 
     `~(get ? `@safe @property auto `~propertyName~`() { return _`~propertyName~`; }`: ``)~`
-    `~(set ? `@safe @property O `~propertyName~`(this O)(bool[] newValue) { _`~propertyName~` = newValue; return cast(DO)this; }`: ``)~`  
+    `~(set ? `@safe @property O `~propertyName~`(this O)(bool[] newValue) { _`~propertyName~` = newValue; return cast(O)this; }`: ``)~`  
     `;
 } 
 
@@ -29,7 +29,7 @@ template OString(string propertyName, string defaultValue = null, bool get = tru
 	const char[] OString = `
 	protected string _`~propertyName~(defaultValue ? `=`~defaultValue:``)~`;
 	`~(get ? `@safe @property auto `~propertyName~`() { return _`~propertyName~`; }`: ``)~` 
-	`~(set ? `@safe @property O `~propertyName~`(this O)(string newValue) { _`~propertyName~`=newValue; return cast(DO)this; }`: ``)~`     
+	`~(set ? `@safe @property O `~propertyName~`(this O)(string newValue) { _`~propertyName~`=newValue; return cast(O)this; }`: ``)~`     
   `;
 }
 
@@ -38,8 +38,8 @@ template OStringAA(string propertyName, string defaultValue = null, bool get = t
 	protected STRINGAA _`~propertyName~(defaultValue ? `=`~defaultValue:``)~`;
 	`~(get ? `@safe @property auto `~propertyName~`() { return _`~propertyName~`; }`: ``)~` 
 	`~(set ? `
-  @safe @property O `~name~`(this O)(string key, string newValue) { _`~name~`[key] = newValue; return cast(DO)this; };     
-  @safe @property O `~propertyName~`(this O)(STRINGAA newValue) { _`~propertyName~`=newValue; return cast(DO)this; }`: ``)~` 
+  @safe @property O `~name~`(this O)(string key, string newValue) { _`~name~`[key] = newValue; return cast(O)this; };     
+  @safe @property O `~propertyName~`(this O)(STRINGAA newValue) { _`~propertyName~`=newValue; return cast(O)this; }`: ``)~` 
   `;
 }
 
@@ -48,7 +48,7 @@ template OUuid(string propertyName, string defaultValue = null, bool get = true,
     const char[] OUuid = `
     protected UUID _`~propertyName~(defaultValue ? `=`~defaultValue:``)~`; 
     `~(get ? `@safe @property UUID `~propertyName~`() { return _`~propertyName~`; }`: ``)~`  
-    `~(set ? `@safe @property O `~propertyName~`(this O)(UUID newValue) { _`~propertyName~` = newValue; return cast(DO)this; }`: ``)~`      
+    `~(set ? `@safe @property O `~propertyName~`(this O)(UUID newValue) { _`~propertyName~` = newValue; return cast(O)this; }`: ``)~`      
     `;
 } 
 /// mixin for uuid properties
@@ -57,8 +57,8 @@ template OUuidArray(string propertyName, string defaultValue = null, bool get = 
     protected UUID[] _`~propertyName~(defaultValue ? `=`~defaultValue:``)~`; 
     `~(get ? `@safe @property UUID[] `~propertyName~`() { return _`~propertyName~`; }`: ``)~`  
     `~(set ? `
-    @safe @property O `~name~`(this O)(UUID addValue) { _`~name~` ~= addValue; return cast(DO)this; };     
-    @safe @property O `~propertyName~`(this O)(UUID[] newValue) { _`~propertyName~` = newValue; return cast(DO)this; }
+    @safe @property O `~name~`(this O)(UUID addValue) { _`~name~` ~= addValue; return cast(O)this; };     
+    @safe @property O `~propertyName~`(this O)(UUID[] newValue) { _`~propertyName~` = newValue; return cast(O)this; }
     `: ``)~`      
     `;
 } 
@@ -68,8 +68,8 @@ template OUuidString(string propertyName, string defaultValue = null, bool get =
     protected UUID[string] _`~propertyName~(defaultValue ? `=`~defaultValue:``)~`; 
     `~(get ? `@safe @property UUID[string] `~propertyName~`() { return _`~propertyName~`; }`: ``)~`  
     `~(set ? `
-    @safe @property O `~name~`(this O)(string key, UUID newValue) { _`~name~`[key] = newValue; return cast(DO)this; };     
-    @safe @property O `~propertyName~`(this O)(UUID[string] newValue) { _`~propertyName~` = newValue; return cast(DO)this; }
+    @safe @property O `~name~`(this O)(string key, UUID newValue) { _`~name~`[key] = newValue; return cast(O)this; };     
+    @safe @property O `~propertyName~`(this O)(UUID[string] newValue) { _`~propertyName~` = newValue; return cast(O)this; }
     `: ``)~`      
     `;
 }
@@ -80,9 +80,9 @@ template OLanguageString(string name, string defaultValue = null, bool get = tru
     protected STRINGAA _`~name~`; 
     `~(get ? `@safe @property STRINGAA `~name~`() { return _`~name~`; }`: ``)~` 
     `~(set ? `
-    @safe @property O `~name~`(this O)(string defValue) { _`~name~`["default"] = defValue; return cast(DO)this; }   
-    @safe @property O `~name~`(this O)(string language, string langValue) { _`~name~`[language] = langValue; return cast(DO)this; }    
-    @safe @property O `~name~`(this O)(STRINGAA newValue) { _`~name~` = newValue; return cast(DO)this; }`: ``)~` 
+    @safe @property O `~name~`(this O)(string defValue) { _`~name~`["default"] = defValue; return cast(O)this; }   
+    @safe @property O `~name~`(this O)(string language, string langValue) { _`~name~`[language] = langValue; return cast(O)this; }    
+    @safe @property O `~name~`(this O)(STRINGAA newValue) { _`~name~` = newValue; return cast(O)this; }`: ``)~` 
     `;
 } 
 
@@ -91,7 +91,7 @@ template OObjectId(string name, string defaultValue = null, bool get = true, boo
     const char[] OObjectId = `
     protected string[UUID] _`~name~`; 
     `~(get ? `@safe @property string[UUID] `~name~`() { return _`~name~`; }`: ``)~`  
-    `~(set ? `@safe @property O `~name~`(this O)(string[UUID] newValue) { _`~name~` = newValue; return cast(DO)this; }`: ``)~` 
+    `~(set ? `@safe @property O `~name~`(this O)(string[UUID] newValue) { _`~name~` = newValue; return cast(O)this; }`: ``)~` 
     `;
 } 
 
@@ -100,7 +100,7 @@ template OObjectIds(string name, string defaultValue = null, bool get = true, bo
     const char[] OObjectIds = `
     protected string[UUID] _`~name~`; 
     `~(get ? `@safe @property string[UUID] `~name~`() { return _`~name~`; }`: ``)~`  
-    `~(set ? `@safe @property O `~name~`(this O)(string[UUID] newValue) { _`~name~` = newValue; return cast(DO)this; }`: ``)~`     
+    `~(set ? `@safe @property O `~name~`(this O)(string[UUID] newValue) { _`~name~` = newValue; return cast(O)this; }`: ``)~`     
     `;
 } 
 
@@ -109,7 +109,7 @@ template OTimestamp(string name, string defaultValue = null, bool get = true, bo
     const char[] OTimestamp = `
     protected size_t _`~name~`; 
     `~(get ? `@safe @property size_t `~name~`() { return _`~name~`; }`: ``)~`  
-    `~(set ? `@safe @property O `~name~`(this O)(size_t newValue) { _`~name~` = newValue; return cast(DO)this; }`: ``)~`     
+    `~(set ? `@safe @property O `~name~`(this O)(size_t newValue) { _`~name~` = newValue; return cast(O)this; }`: ``)~`     
     `;
 } 
 
@@ -119,9 +119,9 @@ template OCounter(string name, string defaultValue = null, bool get = true, bool
     protected size_t _`~name~`; 
     `~(get ? `@safe @property size_t `~name~`() { return _`~name~`; }`: ``)~` 
     `~(set ? `
-    @safe @property O dec`~name.capitalize~`(this O)() { _`~name~`--; return cast(DO)this; }
-    @safe @property O inc`~name.capitalize~`(this O)() { _`~name~`++; return cast(DO)this; }
-    @safe @property O `~name~`(this O)(size_t newValue) { _`~name~` = newValue; return cast(DO)this; }
+    @safe @property O dec`~name.capitalize~`(this O)() { _`~name~`--; return cast(O)this; }
+    @safe @property O inc`~name.capitalize~`(this O)() { _`~name~`++; return cast(O)this; }
+    @safe @property O `~name~`(this O)(size_t newValue) { _`~name~` = newValue; return cast(O)this; }
     `: ``)~`    
     `;
 } 

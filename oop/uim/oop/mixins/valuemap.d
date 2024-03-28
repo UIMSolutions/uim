@@ -20,34 +20,34 @@ template ValueMapWrapper() {
 
   O addValues(this O)(DAttribute[] attributes) {
     attributes.each!(attribute => this.addValue(attribute));
-    return cast(DO)this;
+    return cast(O)this;
   }
 
   O addValue(this O)(DAttribute attribute) {
     if (attribute) this.addValue(attribute.name, attribute.createValue);
-    return cast(DO)this;
+    return cast(O)this;
   }
 
   O addValues(this O)(DAttribute[string] attributes) {
     attributes.byKey.each!(key => this.addValue(key, attributes[key]));
-    return cast(DO)this;
+    return cast(O)this;
   }
 
   O addValue(this O)(string key, DAttribute attribute) {
     if (attribute) this.addValue(key, attribute.createValue);
-    return cast(DO)this;
+    return cast(O)this;
   }
 
   O addValues(this O)(DValue[string] newValues) {
     newValues.byKey.each!(key => this.addValue(key, newValues[key]));
-    return cast(DO)this;
+    return cast(O)this;
   }
 
   O addValue(this O)(string key, DValue newValue) {
     if (this.values) { // has values
       this.values[key] = newValue;
     }
-    return cast(DO)this;
+    return cast(O)this;
   }
 
   DValue getValue(string key) {

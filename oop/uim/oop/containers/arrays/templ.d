@@ -45,17 +45,17 @@ class DArrayTempl(T) : DArrayObj {
 			this.sorting;
 		if (uniqued)
 			this.uniquing;
-		return cast(DO) this;
+		return cast(O) this;
 	}
 
 	O opCall(this O)(T[] newItems) {
 		newItems.each!(item => add(item));
-		return cast(DO) this;
+		return cast(O) this;
 	}
 
 	O opCall(this O)(T[] newItems...) {
 		newItems.each!(item => add(item));
-		return cast(DO) this;
+		return cast(O) this;
 	}
 
 	override size_t length() {
@@ -99,7 +99,7 @@ class DArrayTempl(T) : DArrayObj {
 			_items[left] = _items[right];
 			_items[right] = item;
 		}
-		return cast(DO) this;
+		return cast(O) this;
 	}
 
 	O sorting(this O)(bool asc = true) { // a < b
@@ -122,7 +122,7 @@ class DArrayTempl(T) : DArrayObj {
 				}
 			}
 		}
-		return cast(DO) this;
+		return cast(O) this;
 	}
 
 	O uniquing(this O)() {
@@ -132,12 +132,12 @@ class DArrayTempl(T) : DArrayObj {
 			.filter!(item => !buffer.hasKey(item)) // filter only not existing items
 			.each!((item) { result ~= item; buffer[item] = item; });
 		_items = result;
-		return cast(DO) this;
+		return cast(O) this;
 	}
 
 	O add(this O)(T[] values...) {
 		values.each!(value => addValue(value));
-		return cast(DO) this;
+		return cast(O) this;
 	}
 
 	O addValue(this O)(T value) {
@@ -147,12 +147,12 @@ class DArrayTempl(T) : DArrayObj {
 		_items ~= value;
 		if (sorted)
 			this.sorting;
-		return cast(DO) this;
+		return cast(O) this;
 	}
 
 	O remove(this O)(T[] values...) {
 		values.each!(value => removeValue(value));
-		return cast(DO) this;
+		return cast(O) this;
 	}
 
 	O removeValue(this O)(T value) {
@@ -162,12 +162,12 @@ class DArrayTempl(T) : DArrayObj {
 
 		_items = result;
 
-		return cast(DO) this;
+		return cast(O) this;
 	}
 
 	O clear(this O)() {
 		_items = null;
-		return cast(DO) this;
+		return cast(O) this;
 	}
 
 	O toggle(this O)(T value) {
@@ -175,13 +175,13 @@ class DArrayTempl(T) : DArrayObj {
 			this.remove(value);
 		else
 			this.add(value);
-		return cast(DO) this;
+		return cast(O) this;
 	}
 
 	O toggle(this O)(T[] values) {
 		values.unique.each!(value => this.toggle(value));
 
-		return cast(DO) this;
+		return cast(O) this;
 	}
 
 	O dup(this O)() {

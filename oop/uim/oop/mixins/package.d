@@ -33,5 +33,5 @@ template SProperty(string dataType, string propertyName) {
 	const char[] SProperty = "
 	protected "~dataType~" _"~propertyName~";
 	@property "~dataType~" "~propertyName~"() { return _"~propertyName~"; }
-	@property O "~propertyName~"(this O)("~dataType~" newValue) { _"~propertyName~" = newValue; return cast(DO)this; }";
+	@property O "~propertyName~"(this O)("~dataType~" newValue) { _"~propertyName~" = newValue; return cast(O)this; }";
 }

@@ -14,10 +14,10 @@ template XString(string name) {
 	string _"~name~";
 	@safe auto "~name~"() { return _"~name~"; }
 
-	O "~name~"(this O)(string[] addValues...) { this."~name~"(addValues); return cast(DO)this; }
-	O "~name~"(this O)(string[] addValues) { _"~name~" ~= addValues.join(); return cast(DO)this; }
+	O "~name~"(this O)(string[] addValues...) { this."~name~"(addValues); return cast(O)this; }
+	O "~name~"(this O)(string[] addValues) { _"~name~" ~= addValues.join(); return cast(O)this; }
 
-	O clear"~name.capitalize~"(this O)() { _"~name~" = null; return cast(DO)this; }	
+	O clear"~name.capitalize~"(this O)() { _"~name~" = null; return cast(O)this; }	
 	";
 }
 version(test_uim_oop) { unittest {
@@ -36,14 +36,14 @@ template XStringArray(string name) {
 	string[] _"~name~";
 	@safe auto "~name~"() { return _"~name~"; }
 
-	O "~name~"(this O)(string[] values...) { this."~name~"(values); return cast(DO)this; }
-	O "~name~"(this O)(string[] values) { _"~name~" ~= values; return cast(DO)this; }
+	O "~name~"(this O)(string[] values...) { this."~name~"(values); return cast(O)this; }
+	O "~name~"(this O)(string[] values) { _"~name~" ~= values; return cast(O)this; }
 	
-	O remove"~Name~"(this O)(string[] values...) { this.remove"~Name~"(values); return cast(DO)this; }	
+	O remove"~Name~"(this O)(string[] values...) { this.remove"~Name~"(values); return cast(O)this; }	
 	O remove"~Name~"(this O)(string[] values) {
-		foreach(value; values) _"~name~" = _"~name~".sub(value); return cast(DO)this; }	
+		foreach(value; values) _"~name~" = _"~name~".sub(value); return cast(O)this; }	
 	
-	O clear"~Name~"(this O)() { _"~name~" = null; return cast(DO)this; }	
+	O clear"~Name~"(this O)() { _"~name~" = null; return cast(O)this; }	
 	";
 }
 version(test_uim_oop) { unittest {
@@ -68,13 +68,13 @@ template XStringAA(string name) {
 	@safe auto "~name~"() { return _"~name~"; }
 	@safe auto "~name~"(string key) { return _"~name~".get(key, ``); }
 
-	O "~name~"(this O)(string key, string value) { _"~name~"[key] = value; return cast(DO)this; }
-	O "~name~"(this O)(STRINGAA addValues) { foreach(kv; addValues.byKeyValue) _"~name~"[kv.key] = kv.value; return cast(DO)this; }
+	O "~name~"(this O)(string key, string value) { _"~name~"[key] = value; return cast(O)this; }
+	O "~name~"(this O)(STRINGAA addValues) { foreach(kv; addValues.byKeyValue) _"~name~"[kv.key] = kv.value; return cast(O)this; }
 	
-	O remove"~Name~"(this O)(string[] values...) { this.remove(values); return cast(DO)this; }	
-	O remove"~Name~"(this O)(string[] values) { foreach(value; values) _name = _"~name~".remove(value); return cast(DO)this; }	
+	O remove"~Name~"(this O)(string[] values...) { this.remove(values); return cast(O)this; }	
+	O remove"~Name~"(this O)(string[] values) { foreach(value; values) _name = _"~name~".remove(value); return cast(O)this; }	
 	
-	O clear"~Name~"(this O)() { _"~name~" = null; return cast(DO)this; }	
+	O clear"~Name~"(this O)() { _"~name~" = null; return cast(O)this; }	
 	";
 }
 version(test_uim_oop) { unittest {
@@ -95,16 +95,16 @@ template XPropertyAA(string key, string value, string name) {
 	@safe auto `~name~`(this O)(`~key~`[] keys...) { return this.`~name~`(keys); }
 	@safe auto `~name~`(this O)(`~key~`[] keys) { return _`~name~`.select(keys); }
 
-	O `~name~`(this O)(`~datatype~` values) { _`~name~` = _`~name~`.add(values); return cast(DO)this; }
+	O `~name~`(this O)(`~datatype~` values) { _`~name~` = _`~name~`.add(values); return cast(O)this; }
 
-	O `~name~`Init(this O)(`~key~`[] keys, `~value~` value) { foreach(k; keys) _`~name~`[k] = value; return cast(DO)this; }
-	O `~name~`Add(this O)(`~datatype~` values) { _`~name~` = _`~name~`.add(values); return cast(DO)this; }
-	O `~name~`Sub(this O)(`~datatype~` values) { _`~name~` = _`~name~`.sub(values); return cast(DO)this; }
+	O `~name~`Init(this O)(`~key~`[] keys, `~value~` value) { foreach(k; keys) _`~name~`[k] = value; return cast(O)this; }
+	O `~name~`Add(this O)(`~datatype~` values) { _`~name~` = _`~name~`.add(values); return cast(O)this; }
+	O `~name~`Sub(this O)(`~datatype~` values) { _`~name~` = _`~name~`.sub(values); return cast(O)this; }
 
-	O remove`~Name~`(this O)(`~key~`[] keys...) { return this.remove`~Name~`(keys); return cast(DO)this; }
-	O remove`~Name~`(this O)(`~key~`[] keys) { _`~name~` = _`~name~`.sub(keys); return cast(DO)this; }
+	O remove`~Name~`(this O)(`~key~`[] keys...) { return this.remove`~Name~`(keys); return cast(O)this; }
+	O remove`~Name~`(this O)(`~key~`[] keys) { _`~name~` = _`~name~`.sub(keys); return cast(O)this; }
 
-	O clear`~Name~`(this O)() { _`~name~` = _`~name~`.clear; return cast(DO)this; }
+	O clear`~Name~`(this O)() { _`~name~` = _`~name~`.clear; return cast(O)this; }
 `;
 }
 version(test_uim_oop) { unittest {
@@ -122,15 +122,15 @@ template XPropertyArray(string datatype, string name) {
 	`~datatype~`[] _`~name~`; 
 	@safe auto `~name~`() { return _`~name~`; }
 
-	O `~name~`(this O)(`~datatype~`[] values...) { _`~name~` = _`~name~`.add(values); return cast(DO)this; }
-	O `~name~`(this O)(`~datatype~`[] values, bool unique = false) { _`~name~` = _`~name~`.add(values, unique); return cast(DO)this; }
+	O `~name~`(this O)(`~datatype~`[] values...) { _`~name~` = _`~name~`.add(values); return cast(O)this; }
+	O `~name~`(this O)(`~datatype~`[] values, bool unique = false) { _`~name~` = _`~name~`.add(values, unique); return cast(O)this; }
 	
-	O remove`~Name~`(this O)(`~datatype~`[] values...) { remove`~Name~`(values); return cast(DO)this; }
+	O remove`~Name~`(this O)(`~datatype~`[] values...) { remove`~Name~`(values); return cast(O)this; }
 	O remove`~Name~`(this O)(`~datatype~`[] values) { 
 		foreach(value; values) if (value.index(_`~name~`) != -1) _`~name~`.remove(value.index(_`~name~`)); 
-		return cast(DO)this; }
+		return cast(O)this; }
 
-	O clear`~Name~`(this O)() { _`~name~` = null; return cast(DO)this; }
+	O clear`~Name~`(this O)() { _`~name~` = null; return cast(O)this; }
 `;
 }
 version(test_uim_oop) { unittest {

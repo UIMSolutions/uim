@@ -6,7 +6,7 @@ template OOPPROPERTY(string name, string datatype, string defaultValue = "", boo
 	const char[] OOPPROPERTY = `
 	@OOP_PROPERTY("`~name~`", "`~datatype~`", "`~defaultValue~`", `~(readOnly ? "true" : "false")~`) `~datatype~` _`~name~``~((defaultValue.length > 0) ? (" = "~defaultValue) : "")~`;
 	@property `~datatype~` `~name~`() { return _`~name~`; }
-	`~(!readOnly ? `@property O `~name~`(this O)(`~datatype~` newValue) { _`~name~` = newValue; return cast(DO)this; }` : "");
+	`~(!readOnly ? `@property O `~name~`(this O)(`~datatype~` newValue) { _`~name~` = newValue; return cast(O)this; }` : "");
 }
 
 class DPropertyObj : DOOPElement {

@@ -3,7 +3,7 @@ module uim.oop.mixins.cloneable;
 mixin template CloneableTemplate() {
     O create(this O)() {
         O result;
-        () @trusted { result = cast(DO) this.classinfo.create; }();
+        () @trusted { result = cast(O) this.classinfo.create; }();
         return result;
     }
 

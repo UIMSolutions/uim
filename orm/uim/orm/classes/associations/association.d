@@ -549,9 +549,9 @@ void attachTo(Query query, IData[string] optionData = null) {
     options += [
         "includeFields": BooleanData(true),
         "foreignKeys": this.getForeignKeys(),
-        "conditions": [],
+        "conditions": ArrayData,
         "joinType": this.getJoinType(),
-        "fields": [],
+        "fields": ArrayData,
         "table": table,
         "finder": this.getFinder(),
     ];
@@ -948,7 +948,7 @@ protected array _joinCondition(IData[string] optionData) {
      *
      * The following will call the finder "translations" with the value of the finder as its options:
      * query.contain(["Comments": ["finder": ["translations"]]]);
-     * query.contain(["Comments": ["finder": ["translations": []]]]);
+     * query.contain(["Comments": ["finder": ["translations": ArrayData]]]);
      * query.contain(["Comments": ["finder": ["translations": ["locales": ["en_US"]]]]]);
      *
      * @param array|string finderData The finder name or an array having the name as key

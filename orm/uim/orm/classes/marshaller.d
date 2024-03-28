@@ -75,13 +75,13 @@ class DMarshaller {
             }
             if (isSet(options["isMerge"])) {
                 mycallback = auto (myvalue, IEntity myentity) use (myassoc, mynested) {
-                    options = mynested ~ ["associated": [], "association": myassoc];
+                    options = mynested ~ ["associated": ArrayData, "association": myassoc];
 
                     return _mergeAssociation(myentity.get(myassoc.getProperty()), myassoc, myvalue, options);
                 };
             } else {
                 mycallback = auto (myvalue, myentity) use (myassoc, mynested) {
-                    options = mynested ~ ["associated": []];
+                    options = mynested ~ ["associated": ArrayData];
 
                     return _marshalAssociation(myassoc, myvalue, options);
                 };
@@ -593,7 +593,7 @@ class DMarshaller {
                 myconditions["OR"] ~= array_combine(myfields, someKeys);
 
                 return myconditions;
-            }, ["OR": []]);
+            }, ["OR": ArrayData]);
         mymaybeExistentQuery = _table.find().where(myconditions);
 
         if (!empty(myindexed) && count(mymaybeExistentQuery.clause("where"))) {

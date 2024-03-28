@@ -39,12 +39,12 @@ trait AssociationsNormalizerTrait
             first = array_shift(path);
             pointer += [first: []];
             pointer = &pointer[first];
-            pointer += ["associated": []];
+            pointer += ["associated": ArrayData];
 
             foreach (path as t) {
-                pointer += ["associated": []];
+                pointer += ["associated": ArrayData];
                 pointer["associated"] += [t: []];
-                pointer["associated"][t] += ["associated": []];
+                pointer["associated"][t] += ["associated": ArrayData];
                 pointer = &pointer["associated"][t];
             }
 

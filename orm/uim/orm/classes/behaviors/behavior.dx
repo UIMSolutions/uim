@@ -336,8 +336,8 @@ class DBehavior : IEventListener {
             self.my_reflectionCache[mybaseClass] = mybaseMethods;
         }
         result = [
-            "finders": [],
-            "methods": [],
+            "finders": ArrayData,
+            "methods": ArrayData,
         ];
 
         myreflection = new DReflectionClass(myclass);

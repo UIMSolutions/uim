@@ -87,13 +87,13 @@ class Marshaller
             if (isset(options["isMerge"])) {
                 callback = function (value, entity) use (assoc, nested) {
                     /** @var DORMdatasources.IEntity anEntity */
-                    options = nested + ["associated": [], "association": assoc];
+                    options = nested + ["associated": ArrayData, "association": assoc];
 
                     return _mergeAssociation(entity.get(assoc.getProperty()), assoc, value, options);
                 };
             } else {
                 callback = function (value, entity) use (assoc, nested) {
-                    options = nested + ["associated": []];
+                    options = nested + ["associated": ArrayData];
 
                     return _marshalAssociation(assoc, value, options);
                 };
@@ -675,7 +675,7 @@ class Marshaller
                 conditions["OR"][] = array_combine(fields, keys);
 
                 return conditions;
-            }, ["OR": []]);
+            }, ["OR": ArrayData]);
         maybeExistentQuery = _table.find().where(conditions);
 
         if (!empty(indexed) && count(maybeExistentQuery.clause("where"))) {

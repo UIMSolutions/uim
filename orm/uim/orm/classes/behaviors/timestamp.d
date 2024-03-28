@@ -20,7 +20,7 @@ class DTimestampBehavior : DBehavior {
      *
      * /
     protected IData[string] Configuration.updateDefaults([
-        "implementedFinders": [],
+        "implementedFinders": ArrayData,
         "implementedMethods": [
             "timestamp": "timestamp",
             "touch": "touch",

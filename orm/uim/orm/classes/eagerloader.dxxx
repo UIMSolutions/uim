@@ -469,7 +469,7 @@ class DEagerLoader
 
         extra = array_diff_key(options, defaults);
         myConfiguration = [
-            "associations": [],
+            "associations": ArrayData,
             "instance": instance,
             "config": array_diff_key(options, extra),
             "aliasPath": trim(paths["aliasPath"], "."),

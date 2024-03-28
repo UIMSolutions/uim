@@ -65,7 +65,7 @@ class DShadowTableStrategy : ITranslateStrategy
     this(DORMTable aTable, IData[string] configData) {
         tableAlias = table.aliasName();
         [plugin] = pluginSplit(table.registryKey(), true);
-        tableReferenceName = myconfiguration["referenceName"];
+        tableReferenceName = configuration["referenceName"];
 
         myConfiguration += [
             "mainTableAlias": tableAlias,
@@ -73,8 +73,8 @@ class DShadowTableStrategy : ITranslateStrategy
             "hasOneAlias": tableAlias ~ "Translation",
         ];
 
-        if (isset(myconfiguration["tableLocator"])) {
-            _tableLocator = myconfiguration["tableLocator"];
+        if (isset(configuration["tableLocator"])) {
+            _tableLocator = configuration["tableLocator"];
         }
 
         configuration.update(myConfiguration);
@@ -98,9 +98,9 @@ class DShadowTableStrategy : ITranslateStrategy
 
         targetAlias = this.translationTable.aliasName();
         this.table.hasMany(targetAlias, [
-            "className": myconfiguration["translationTable"],
+            "className": configuration["translationTable"],
             "foreignKey": "id",
-            "strategy": myconfiguration["strategy"],
+            "strategy": configuration["strategy"],
             "propertyName": "_i18n",
             "dependent": BooleanData(true),
         ]);
@@ -119,7 +119,7 @@ class DShadowTableStrategy : ITranslateStrategy
         locale = Hash::get(options, "locale", this.getLocale());
         myConfiguration = configuration;
 
-        if (locale == myconfiguration["defaultLocale"]) {
+        if (locale == configuration["defaultLocale"]) {
             return;
         }
 
@@ -129,14 +129,14 @@ class DShadowTableStrategy : ITranslateStrategy
         orderByTranslatedField = this.iterateClause(query, "order", myConfiguration);
         filteredByTranslatedField =
             this.traverseClause(query, "where", myConfiguration) ||
-            myconfiguration["onlyTranslated"] ||
+            configuration["onlyTranslated"] ||
             (options["filterByCurrentLocale"] ?? null);
 
         if (!fieldsAdded && !orderByTranslatedField && !filteredByTranslatedField) {
             return;
         }
 
-        query.contain([myconfiguration["hasOneAlias"]]);
+        query.contain([configuration["hasOneAlias"]]);
 
         query.formatResults(function (results) use (locale) {
             return this.rowMapper(results, locale);
@@ -152,14 +152,14 @@ class DShadowTableStrategy : ITranslateStrategy
     protected void setupHasOneAssociation(string locale, ArrayObject options) {
         myConfiguration = configuration;
 
-        [plugin] = pluginSplit(myconfiguration["translationTable"]);
-        hasOneTargetAlias = plugin ? (plugin ~ "." ~ myconfiguration["hasOneAlias"]) : myconfiguration["hasOneAlias"];
+        [plugin] = pluginSplit(configuration["translationTable"]);
+        hasOneTargetAlias = plugin ? (plugin ~ "." ~ configuration["hasOneAlias"]) : configuration["hasOneAlias"];
         if (!this.getTableLocator().exists(hasOneTargetAlias)) {
             // Load table before hand with fallback class usage enabled
             this.getTableLocator().get(
                 hasOneTargetAlias,
                 [
-                    "className": myconfiguration["translationTable"],
+                    "className": configuration["translationTable"],
                     "allowFallbackClass": BooleanData(true),
                 ]
             );
@@ -168,16 +168,16 @@ class DShadowTableStrategy : ITranslateStrategy
         if (isset(options["filterByCurrentLocale"])) {
             joinType = options["filterByCurrentLocale"] ? "INNER" : "LEFT";
         } else {
-            joinType = myconfiguration["onlyTranslated"] ? "INNER" : "LEFT";
+            joinType = configuration["onlyTranslated"] ? "INNER" : "LEFT";
         }
 
-        this.table.hasOne(myconfiguration["hasOneAlias"], [
+        this.table.hasOne(configuration["hasOneAlias"], [
             "foreignKey": ["id"],
             "joinType": joinType,
             "propertyName": "translation",
-            "className": myconfiguration["translationTable"],
+            "className": configuration["translationTable"],
             "conditions": [
-                myconfiguration["hasOneAlias"] ~ ".locale": locale,
+                configuration["hasOneAlias"] ~ ".locale": locale,
             ],
         ]);
     }
@@ -208,17 +208,17 @@ class DShadowTableStrategy : ITranslateStrategy
             return true;
         }
 
-        alias = myconfiguration["mainTableAlias"];
+        alias = configuration["mainTableAlias"];
         joinRequired = false;
         foreach (this.translatedFields() as field) {
             if (array_intersect(select, [field, "alias.field"])) {
                 joinRequired = true;
-                query.select(query.aliasField(field, myconfiguration["hasOneAlias"]));
+                query.select(query.aliasField(field, configuration["hasOneAlias"]));
             }
         }
 
         if (joinRequired) {
-            query.select(query.aliasField("locale", myconfiguration["hasOneAlias"]));
+            query.select(query.aliasField("locale", configuration["hasOneAlias"]));
         }
 
         return joinRequired;
@@ -242,9 +242,9 @@ class DShadowTableStrategy : ITranslateStrategy
             return false;
         }
 
-        alias = myconfiguration["hasOneAlias"];
+        alias = configuration["hasOneAlias"];
         fields = this.translatedFields();
-        mainTableAlias = myconfiguration["mainTableAlias"];
+        mainTableAlias = configuration["mainTableAlias"];
         mainTableFields = this.mainFields();
         joinRequired = false;
 
@@ -287,9 +287,9 @@ class DShadowTableStrategy : ITranslateStrategy
             return false;
         }
 
-        IData alias = myconfiguration["hasOneAlias"];
+        IData alias = configuration["hasOneAlias"];
         fields = this.translatedFields();
-        mainTableAlias = myconfiguration["mainTableAlias"];
+        mainTableAlias = configuration["mainTableAlias"];
         mainTableFields = this.mainFields();
         joinRequired = false;
 

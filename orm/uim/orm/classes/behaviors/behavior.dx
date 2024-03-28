@@ -3,95 +3,7 @@ import uim.orm;
 
 @safe:
 /**
- * Base class for behaviors.
- *
- * Behaviors allow you to simulate mixins, and create
- * reusable blocks of application logic, that can be reused across
- * several models. Behaviors also provide a way to hook into model
- * callbacks and augment their behavior.
- *
- * ### Mixin methods
- *
- * Behaviors can provide mixin like features by declaring public
- * methods. These methods will be accessible on the tables the
- * behavior has been added to.
- *
- * ```
- * auto doSomething(myarg1, myarg2) {
- *  // do something
- * }
- * ```
- *
- * Would be called like `mytable.doSomething(myarg1, myarg2);`.
- *
- * ### Callback methods
- *
- * Behaviors can listen to any events fired on a Table. By default,
- * UIM provides a number of lifecycle events your behaviors can
- * listen to:
- *
- * - `beforeFind(IEvent myevent, SelectQuery myquery, ArrayObject options, boolean myprimary)`
- *  Fired before each find operation. By stopping the event and supplying a
- *  return value you can bypass the find operation entirely. Any changes done
- *  to the myquery instance will be retained for the rest of the find. The
- *  myprimary parameter indicates whether this is the root query,
- *  or an associated query.
- *
- * - `buildValidator(IEvent myevent, Validator myvalidator, string myname)`
- *  Fired when the validator object identified by myname is being built. You can use this
- *  callback to add validation rules or add validation providers.
- *
- * - `buildRules(IEvent myevent, RulesChecker myrules)`
- *  Fired when the rules checking object for the table is being built. You can use this
- *  callback to add more rules to the set.
- *
- * - `beforeRules(IEvent myevent, IEntity myentity, ArrayObject options, myoperation)`
- *  Fired before an entity is validated using by a rules checker. By stopping this event,
- *  you can return the final value of the rules checking operation.
- *
- * - `afterRules(IEvent myevent, IEntity myentity, ArrayObject options, bool result, myoperation)`
- *  Fired after the rules have been checked on the entity. By stopping this event,
- *  you can return the final value of the rules checking operation.
- *
- * - `beforeSave(IEvent myevent, IEntity myentity, ArrayObject options)`
- *  Fired before each entity is saved. Stopping this event will abort the save
- *  operation. When the event is stopped the result of the event will be returned.
- *
- * - `afterSave(IEvent myevent, IEntity myentity, ArrayObject options)`
- *  Fired after an entity is saved.
- *
- * - `beforeDelete_(IEvent myevent, IEntity myentity, ArrayObject options)`
- *  Fired before an entity is deleted. By stopping this event you will abort
- *  the delete operation.
- *
- * - `afterDelete_(IEvent myevent, IEntity myentity, ArrayObject options)`
- *  Fired after an entity has been deleted.
- *
- * In addition to the core events, behaviors can respond to any
- * event fired from your Table classes including custom application
- * specific ones.
- *
- * You can set the priority of a behaviors callbacks by using the
- * `priority` setting when attaching a behavior. This will set the
- * priority for all the callbacks a behavior provides.
- *
- * ### Finder methods
- *
- * Behaviors can provide finder methods that hook into a Table"s
- * find() method. Custom finders are a great way to provide preset
- * queries that relate to your behavior. For example a SluggableBehavior
- * could provide a find("slugged") finder. Behavior finders
- * are implemented the same as other finders. Any method
- * starting with `find` will be setup as a finder. Your finder
- * methods should expect the following arguments:
- *
- * ```
- * findSlugged(SelectQuery myquery, IData[string] options)
- * ```
- *
- * @see \UIM\ORM\Table.addBehavior()
- * @see \UIM\Event\EventManager
- */
+ *  */
 class DBehavior : IEventListener {
     use InstanceConfigTemplate();
 
@@ -176,7 +88,7 @@ class DBehavior : IEventListener {
         }
         if (configuration.hasKey(aKey) && configuration[aKey] == []) {
             configuration.update(aKey, [], false);
-            unset(configuration[aKey]);
+            configuration.remove(aKey]);
 
             return configData;
         }
@@ -188,7 +100,7 @@ class DBehavior : IEventListener {
             }
         }
         configuration.update(aKey, array_flip(myindexedCustom), false);
-        unset(configuration[aKey]);
+        configuration.remove(aKey]);
 
         return configData;
     }

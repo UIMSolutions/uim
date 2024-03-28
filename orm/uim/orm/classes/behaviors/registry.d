@@ -112,7 +112,7 @@ class DBehaviorRegistry : ObjectRegistry!DBehavior {
     protected Behavior _create(class, string anAlias, IData myConfiguration) {
         /** @var DORMBehavior instance * /
         instance = new class(_table, myConfiguration);
-        enable = myconfiguration["enabled"] ?? true;
+        enable = configuration["enabled"] ?? true;
         if (enable) {
             this.getEventManager().on(instance);
         }

@@ -205,7 +205,7 @@ class DBehavior : IEventListener {
             }
         }
         configuration.update(key, array_flip(indexedCustom), false);
-        unset(configuration[key]);
+        configuration.remove(key]);
 
         return myConfiguration;
     }

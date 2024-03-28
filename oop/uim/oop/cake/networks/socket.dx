@@ -194,7 +194,7 @@ class DSocket {
         if (!empty(configuration["context/ssl/verify_host"])) {
             configuration["context/ssl/CN_match"] = hostName;
         }
-        unset(configuration["context/ssl/verify_host"]);
+        configuration.remove("context/ssl/verify_host"]);
     }
 
     

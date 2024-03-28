@@ -214,7 +214,7 @@ template InstanceConfigTemplate {
      */
     protected void _configDelete(string keyToDelete) {
         if (!keyToDelete.has(".")) {
-            unset(configuration.data(keyToDelete));
+            configuration.remove(keyToDelete);
 
             return;
         }

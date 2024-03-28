@@ -19,7 +19,7 @@ class DTableLocator : DAbstractLocator : ILocator {
      *
      * @var array<string, array|null>
      */
-    protected array myconfiguration = [];
+    protected array configuration = [];
 
     /**
      * Instances that belong to the registry.

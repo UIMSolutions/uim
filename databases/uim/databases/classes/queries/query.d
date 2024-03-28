@@ -810,7 +810,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      * @param array  someValues Array of values
       /
     auto whereInList(string afield, array  someValues, IData[string] options = null) {
-        options["types"] = IData.emptyArray;
+        options["types"] = ArrayData;
         options["allowEmpty"] = IData(false);
 
         if (options["allowEmpty"].get!bool && !someValues) {
@@ -833,7 +833,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      * /
     auto whereNotInList(string afield, array someValues, IData[string] options = null) {
         auto options = options.update([
-            "types": IData.emptyArray,
+            "types": ArrayData,
             "allowEmpty": IData(false)
         ];
 
@@ -858,7 +858,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      * /
     auto whereNotInListOrNull(string afield, array  someValues, IData[string] options = null) {
         auto options = options.update() [
-            "types": IData.emptyArray,
+            "types": ArrayData,
             "allowEmpty": IData(false),
         ];
 

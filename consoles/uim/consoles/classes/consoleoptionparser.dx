@@ -281,7 +281,7 @@ class DConsoleOptionParser {
                 "default": null,
                 "boolean": IData(false),
                 "multiple": IData(false),
-                "choices": IData.emptyArray,
+                "choices": ArrayData,
                 "required": IData(false),
                 "prompt": null,
             ];

@@ -17,7 +17,7 @@ class DFlashMessage {
         "key": IData("flash"),
         "element": IData("default"),
         "plugin": null,
-        "params": IData.emptyArray,
+        "params": ArrayData,
         "clear": IData(false),
         "duplicate": IData(true),
     ];

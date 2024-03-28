@@ -17,7 +17,7 @@ class DMultiCheckboxWidget : DWidget {
     use IdGeneratorTrait;
 
     protected IData[string] _defaultData = [
-        "name": "",
+        "name": StringData(""),
         "escape": BooleanData(true),
         "options": ArrayData,
         "disabled": null,

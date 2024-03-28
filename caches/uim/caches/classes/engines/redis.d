@@ -4,7 +4,40 @@ import uim.caches;
 
 @safe:
 // Redis storage engine for cache.
-class DRedisEngine : DCacheEngine {
+class DRedisCacheEngine : DCacheEngine {
+    mixin(CacheEngineThis!("Redis")); 
+
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        if (!extension_loaded("redis")) {
+            throw new UimException("The `redis` extension must be enabled to use RedisEngine.");
+        }
+        
+        if (auto host = initData.get("host", null)) {
+            initData["server"] = host;
+        }
+
+        Configuration.updateDefaults([
+            "database": IntegerData(0),
+            "duration": IData(3600),
+            "groups": ArrayData,
+            "password": IData(false),
+            "persistent": IData(true),
+            "port": IData(6379),
+            "prefix": IData("uim_"),
+            "host": null,
+            "server": IData("127.0.0.1"),
+            "timeout": IntegerData(0),
+            "unix_socket": BooleanData(false),
+            "scanCount": IData(10)
+        ]);
+
+        return _connect();
+    }
+
     // Redis wrapper.
     /*
     protected Redis _redis;
@@ -44,16 +77,16 @@ class DRedisEngine : DCacheEngine {
         }
 
         Configuration.updateDefaults([
-        "database": IData(0),
+        "database": IntegerData(0),
         "duration": IData(3600),
-        "groups": IData.emptyArray,
+        "groups": ArrayData,
         "password": IData(false),
         "persistent": IData(true),
         "port": IData(6379),
         "prefix": IData("uim_"),
         "host": null,
         "server": IData("127.0.0.1"),
-        "timeout": IData(0),
+        "timeout": IntegerData(0),
         "unix_socket": BooleanData(false),
         "scanCount": IData(10)
     ]);
@@ -316,3 +349,4 @@ class DRedisEngine : DCacheEngine {
         }
     } */
 }
+    mixin(CacheEngineCalls!("Redis")); 

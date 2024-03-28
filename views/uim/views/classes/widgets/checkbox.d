@@ -16,7 +16,7 @@ class DCheckboxWidget : DWidget {
     /* 
     // Data defaults.
     protected IData[string] _defaultData = [
-        "name": "",
+        "name": StringData(""),
         "value": 1,
         "val": null,
         "disabled": BooleanData(false),

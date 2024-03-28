@@ -71,7 +71,7 @@ class PoFileParser {
         }
 
         IData defaultItem = IData.emptyObject;
-        defaultItem["ids"] = IData.emptyArray;
+        defaultItem["ids"] = ArrayData;
         defaultItem["translated"] = false;
 
         anItem = defaultItem.clone;

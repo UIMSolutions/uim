@@ -26,7 +26,7 @@ class HttpsEnforcerMiddleware { // }: IMiddleware {
     protected IData[string] configData = [
         "redirect": IData(true),
         "statusCode": IData(301),
-        "headers": IData.emptyArray,
+        "headers": ArrayData,
         "disableOnDebug": IData(true),
         "trustedProxies": null,
         "hsts": null,

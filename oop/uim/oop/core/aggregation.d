@@ -45,7 +45,7 @@ unittest {
 		assert(agg.clone.className == "DAggregation");
 
 		ICloneable agg2 = Aggregation();
-		assert((cast(DObject)agg2).className == "DAggregation");
-		assert((cast(DObject)agg2).classinfo.create.className == "DAggregation");
+		assert((cast(Object)agg2).className == "DAggregation");
+		assert((cast(Object)agg2).classinfo.create.className == "DAggregation");
 		assert((cast(DOOPElement)agg2).clone.className == "DAggregation");
 }

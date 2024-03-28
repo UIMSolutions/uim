@@ -3,7 +3,7 @@ module uim.oop.exceptions.registry;
 import uim.oop;
 
 @safe:
-class DExceptionRegistry : DObjectRegistry!UimException{
+class DExceptionRegistry : ObjectRegistry!UimException{
   static DExceptionRegistry registry; 
 }
 auto ExceptionRegistry() { // Singleton

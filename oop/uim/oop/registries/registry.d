@@ -9,8 +9,8 @@ import uim.oop;
 
 @safe:
 
-class DObjectRegistry(T : Object) {
-	private static DObjectRegistry _instance;
+class ObjectRegistry(T : Object) {
+	private static ObjectRegistry _instance;
 	private T[string] _entries;
 	private T _nullValue;
 
@@ -18,9 +18,9 @@ class DObjectRegistry(T : Object) {
 		// 
 	}
 
-	public static DObjectRegistry getInstance() {
+	public static ObjectRegistry getInstance() {
 		if (_instance is null) {
-			_instance = new DObjectRegistry;
+			_instance = new ObjectRegistry;
 		}
 		return _instance;
 	}

@@ -9,11 +9,11 @@ import uim.oop;
 
 @safe:
 
-class DArrayObj : DObj {
-	DObj[] _objs;
+class DArrayObj : Obj {
+	Obj[] _objs;
 
-	mixin(BoolProperty!"sorted");
-	mixin(BoolProperty!"uniqued");
+	mixin(TProperty!("bool", "isSorted"));
+	mixin(TProperty!("bool", "isUniqued"));
 
 	this() {
 		super();
@@ -21,8 +21,8 @@ class DArrayObj : DObj {
 
 	this(bool sortedMode, bool uniqueMode) {
 		this();
-		this.sorted = sortedMode;
-		this.uniqued = uniqueMode;
+		this.isSorted = sortedMode;
+		this.isUniqued = uniqueMode;
 	}
 
 	size_t length() {
@@ -82,9 +82,9 @@ auto ArrayObj(bool sortedMode, bool uniqueMode) {
 version (test_uim_oop) {
 	unittest {
 		assert(ArrayObj.empty);
-		assert(ArrayObj(true, true).sorted);
-		assert(!ArrayObj(false, true).sorted);
-		assert(ArrayObj(true, true).uniqued);
-		assert(!ArrayObj(true, false).uniqued);
+		assert(ArrayObj(true, true).isSorted);
+		assert(!ArrayObj(false, true).isSorted);
+		assert(ArrayObj(true, true).isUniqued);
+		assert(!ArrayObj(true, false).isUniqued);
 	}
 }

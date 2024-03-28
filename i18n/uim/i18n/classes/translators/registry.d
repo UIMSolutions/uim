@@ -8,7 +8,7 @@ import uim.i18n;
  * Constructs and stores instances of translators that can be
  * retrieved by name and locale.
  */
-class DTranslatorRegistry : DObjectRegistry!DTranslator {
+class DTranslatorRegistry : ObjectRegistry!DTranslator {
     static DTranslatorRegistry registry;
   
     // Fallback loader name.

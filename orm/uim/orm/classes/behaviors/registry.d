@@ -17,7 +17,7 @@ import uim.orm;
  *
  * @: DORMCore\ObjectRegistry<DORMBehavior>
  */
-class DBehaviorRegistry : DObjectRegistry!DBehavior {
+class DBehaviorRegistry : ObjectRegistry!DBehavior {
     static DBehaviorRegistry registry;
 
 

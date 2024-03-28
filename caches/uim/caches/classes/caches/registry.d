@@ -11,7 +11,7 @@ import uim.caches;
  *
  * @extends \UIM\Core\ObjectRegistry<\UIM\Cache\CacheEngine>
  */
-class DCacheRegistry : DObjectRegistry!DCache {
+class DCacheRegistry : ObjectRegistry!DCache {
     static DCacheRegistry registry;
 
   /*

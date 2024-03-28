@@ -18,13 +18,13 @@ class DMultiCheckboxWidget : DWidget {
 
     protected IData[string] _defaultData = [
         "name": "",
-        "escape": true,
+        "escape": BooleanData(true),
         "options": [],
         "disabled": null,
         "val": null,
         "idPrefix": null,
         "templateVars": [],
-        "label": true,
+        "label": BooleanData(true),
     ];
 
     /**

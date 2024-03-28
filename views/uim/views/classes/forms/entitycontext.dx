@@ -164,7 +164,7 @@ class DEntityContext : IContext {
     IData val(string fieldPath, IData[string] options  = null) {
         options += [
             "default": null,
-            "schemaDefault": true,
+            "schemaDefault": BooleanData(true),
         ];
 
         if (isEmpty(_context["entity"])) {

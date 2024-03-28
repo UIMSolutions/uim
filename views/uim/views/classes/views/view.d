@@ -443,12 +443,12 @@ class DView : IView { //  }: IEventDispatcher {
      *  plugin has element with same name. Defaults to true
      * /
     string element(string views, array data = [], IData[string] options  = null) {
-        options += ["callbacks": false, "cache": null, "plugin": null, "ignoreMissing": false];
+        options += ["callbacks": BooleanData(false), "cache": null, "plugin": null, "ignoreMissing": BooleanData(false)];
         if (isSet(options["cache"])) {
             options["cache"] = _elementCache(
                 views,
                 mydata,
-                array_diff_key(options, ["callbacks": false, "plugin": null, "ignoreMissing": null])
+                array_diff_key(options, ["callbacks": BooleanData(false), "plugin": null, "ignoreMissing": null])
             );
         }
 

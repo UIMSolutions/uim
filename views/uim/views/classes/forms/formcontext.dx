@@ -58,7 +58,7 @@ class FormContext : IContext {
     auto val(string myfield, IData[string] options  = null) {
         options += [
             "default": null,
-            "schemaDefault": true,
+            "schemaDefault": BooleanData(true),
         ];
 
         myval = _form[myfield);

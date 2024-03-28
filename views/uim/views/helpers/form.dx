@@ -120,7 +120,7 @@ class FormHelper : Helper {
             "requiredClass": "required",
         ],
         // set HTML5 validation message to custom required/empty messages
-        "autoSetCustomValidity": true,
+        "autoSetCustomValidity": BooleanData(true),
     ];
 
     /**
@@ -396,7 +396,7 @@ class FormHelper : Helper {
         if (!empty(myappend)) {
             myappend = mytemplater.format("hiddenBlock", ["content": myappend]);
         }
-        myactionAttr = mytemplater.formatAttributes(["action": myaction, "escape": false]);
+        myactionAttr = mytemplater.formatAttributes(["action": myaction, "escape": BooleanData(false)]);
 
         return this.formatTemplate("formStart", [
             "attrs": mytemplater.formatAttributes(myhtmlAttributes) ~ myactionAttr,
@@ -613,7 +613,7 @@ class FormHelper : Helper {
         if (myfield.endsWith("._ids")) {
             myfield = substr(myfield, 0, -5);
         }
-        options += ["escape": true];
+        options += ["escape": BooleanData(true)];
 
         formContext = _getContext();
         if (!formContext.hasError(myfield)) {
@@ -764,7 +764,7 @@ class FormHelper : Helper {
      * You can exclude fields by specifying them as `false`:
      *
      * ```
-     * this.Form.allControls(["title": false]);
+     * this.Form.allControls(["title": BooleanData(false)]);
      * ```
      *
      * In the above example, no field would be generated for the title field.
@@ -906,7 +906,7 @@ class FormHelper : Helper {
             "options": null,
             "templates": [],
             "templateVars": [],
-            "labelOptions": true,
+            "labelOptions": BooleanData(true),
         ];
         options = _parseOptions(fieldName, options);
         options += ["id": _domId(fieldName)];
@@ -1335,7 +1335,7 @@ class FormHelper : Helper {
      * @param IData[string] options Array of HTML attributes.
      */
     string[] checkbox(string aFieldName, IData[string] options  = null) {
-        options += ["hiddenField": true, "value": 1];
+        options += ["hiddenField": BooleanData(true), "value": 1];
 
         // Work around value=>val translations.
         myvalue = options["value"];
@@ -1351,7 +1351,7 @@ class FormHelper : Helper {
                     && options["hiddenField"] != "_split"
                     ? to!string(options["hiddenField"]) : "0",
                 "form": options.get("form", null),
-                "secure": false,
+                "secure": BooleanData(false),
             ];
             if (isSet(options["disabled"]) && options["disabled"]) {
                 myhiddenOptions["disabled"] = "disabled";
@@ -1477,7 +1477,7 @@ class FormHelper : Helper {
      * @param IData[string] options Array of HTML attributes.
      */
     string hidden(string aFieldName, IData[string] options  = null) {
-        options += ["required": false, "secure": true];
+        options += ["required": BooleanData(false), "secure": BooleanData(true)];
 
         mysecure = options["secure"];
         unset(options["secure"]);
@@ -1508,7 +1508,7 @@ class FormHelper : Helper {
      * @link https://book.UIM.org/5/en/views/helpers/form.html#creating-file-inputs
      */
     string file(string aFieldName, IData[string] options  = null) {
-        options += ["secure": true];
+        options += ["secure": BooleanData(true)];
         options = _initInputField(fieldName, options);
 
         unset(options["type"]);
@@ -1532,9 +1532,9 @@ class FormHelper : Helper {
     string button(string mytitle, IData[string] options  = null) {
         options += [
             "type": "submit",
-            "escapeTitle": true,
-            "escape": true,
-            "secure": false,
+            "escapeTitle": BooleanData(true),
+            "escape": BooleanData(true),
+            "secure": BooleanData(false),
             "confirm": null,
         ];
         options["text"] = mytitle;
@@ -1649,7 +1649,7 @@ class FormHelper : Helper {
 
         myaction = mytemplater.formatAttributes([
             "action": this.Url.build(myurl),
-            "escape": false,
+            "escape": BooleanData(false),
         ]);
 
         result = this.formatTemplate("formStart", [
@@ -1730,7 +1730,7 @@ class FormHelper : Helper {
         mycaption ??= __d("uim", "Submit");
         options += [
             "type": "submit",
-            "secure": false,
+            "secure": BooleanData(false),
             "templateVars": [],
         ];
 
@@ -1842,10 +1842,10 @@ class FormHelper : Helper {
     string select(string aFieldName, range options = [], array myattributes = []) {
         myattributes += [
             "disabled": null,
-            "escape": true,
-            "hiddenField": true,
+            "escape": BooleanData(true),
+            "hiddenField": BooleanData(true),
             "multiple": null,
-            "secure": true,
+            "secure": BooleanData(true),
             "empty": null,
         ];
 
@@ -1879,7 +1879,7 @@ class FormHelper : Helper {
                 "name": myattributes["name"],
                 "value": "",
                 "form": myattributes["form"] ?? null,
-                "secure": false,
+                "secure": BooleanData(false),
             ];
             myhidden = this.hidden(fieldName, myhiddenAttributes);
         }
@@ -1914,9 +1914,9 @@ class FormHelper : Helper {
     string multiCheckbox(string aFieldName, range options, array myattributes = []) {
         myattributes += [
             "disabled": null,
-            "escape": true,
-            "hiddenField": true,
-            "secure": true,
+            "escape": BooleanData(true),
+            "hiddenField": BooleanData(true),
+            "secure": BooleanData(true),
         ];
 
         mygeneratedHiddenId = false;
@@ -1933,7 +1933,7 @@ class FormHelper : Helper {
             myhiddenAttributes = [
                 "name": myattributes["name"],
                 "value": "",
-                "secure": false,
+                "secure": BooleanData(false),
                 "disabled": myattributes["disabled"] == true || myattributes["disabled"] == "disabled",
                 "id": myattributes["id"],
             ];
@@ -1965,7 +1965,7 @@ class FormHelper : Helper {
      */
     string year(string aFieldName, IData[string] options  = null) {
         auto options += [
-            "empty": true,
+            "empty": BooleanData(true),
         ];
         options = _initInputField(fieldName, options);
         unset(options["type"]);

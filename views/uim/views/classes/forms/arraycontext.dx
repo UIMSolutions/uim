@@ -47,9 +47,9 @@ import uim.views;
  *     "title": "Default title",
  *   ],
  *   "required": [
- *     "id": true, // will use default required message
+ *     "id": BooleanData(true), // will use default required message
  *     "title": "Please enter a title",
- *     "body": false,
+ *     "body": BooleanData(false),
  *   ],
  * ];
  * ```

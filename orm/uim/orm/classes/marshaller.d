@@ -401,7 +401,7 @@ class DMarshaller {
             foreach ((array)mytarget.getPrimaryKeys() as mycolumn) {
                 mytype ~= myschema.getColumnType(mycolumn);
             }
-            myfilter = new TupleComparison(myprimaryKey, myids, mytype, "IN");
+            myfilter = new DTupleComparison(myprimaryKey, myids, mytype, "IN");
         } else {
             myfilter = [myprimaryKey[0] ~ " IN": myids];
         }

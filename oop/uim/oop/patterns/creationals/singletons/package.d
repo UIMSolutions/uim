@@ -69,7 +69,7 @@ public:
       if (!_instantiated) {
          synchronized (FastSingleton.classinfo) {
             if (!_instance) {
-               _instance = new FastSingleton(); }
+               _instance = new DFastSingleton(); }
             _instantiated = true;
          }
       }

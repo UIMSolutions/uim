@@ -385,7 +385,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     /**
      * Sets the schema table object describing this table"s properties.
      *
-     * If an array is passed, a new TableISchema will be constructed
+     * If an array is passed, a new DTableISchema will be constructed
      * out of it and used as the schema for this table.
      * Params:
      * \UIM\Database\Schema\TableISchema|array myschema Schema to be used for this table

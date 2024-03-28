@@ -381,7 +381,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      *        ];
      *
      *        if (myquery.isHydrationEnabled()) {
-     *            myrow["foo"] = new Foo(mydata)
+     *            myrow["foo"] = new DFoo(mydata)
      *        } else {
      *            myrow["foo"] = mydata;
      *        }
@@ -1162,7 +1162,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
         myclone.offset(null);
         myclone.mapReduce(null, null, true);
         myclone.formatResults(null, self.OVERWRITE);
-        myclone.setSelectTypeMap(new TypeMap());
+        myclone.setSelectTypeMap(new DTypeMap());
         myclone.decorateResults(null, true);
 
         return myclone;

@@ -14,7 +14,7 @@ public interface PizzaIngredientFactory {
 
 public class NYPizzaIngredientFactory : PizzaIngredientFactory {
 	public Dough createDough() {
-		return new ThinDough();
+		return new DThinDough();
 	}
 
 	public Sauce createSauce() {
@@ -25,21 +25,21 @@ public class NYPizzaIngredientFactory : PizzaIngredientFactory {
 		return new DReggianoCheese(); }
 
 	public Clam createClam() {
-		return new FreshClam(); }
+		return new DFreshClam(); }
 }
 
 public class DChicagoPizzaIngredientFactory : PizzaIngredientFactory {
 	public Dough createDough() {
-		return new ThickDough(); }
+		return new DThickDough(); }
 	
 	public Sauce createSauce() {
-		return new TomateSauce(); }
+		return new DTomateSauce(); }
 	
 	public Cheese createCheese() {
 		return new MozzarellaCheese(); }
 	
 	public Clam createClam() {
-		return new FreezeClam(); }
+		return new DFreezeClam(); }
 }
 
 import std.stdio;

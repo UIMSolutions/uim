@@ -303,7 +303,7 @@ class DSelectLoader {
             }
         }
 
-        return new TupleComparison(keys, filter, types, operator);
+        return new DTupleComparison(keys, filter, types, operator);
     }
 
     /**

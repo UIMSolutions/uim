@@ -266,7 +266,7 @@ class DSelectLoader {
             .filter!(key => isSet(defaults[key]))
             .each!(key => types ~= defaults[key]);
         }
-        return new TupleComparison(someKeys, filter, types, operator);
+        return new DTupleComparison(someKeys, filter, types, operator);
     }
     
     /**

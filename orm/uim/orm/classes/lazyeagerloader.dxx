@@ -80,7 +80,7 @@ class LazyEagerLoader
                 types = array_intersect_key(q.getDefaultTypes(), array_flip(primaryKeys));
                 primaryKeys = array_map([source, "aliasField"], primaryKeys);
 
-                return new TupleComparison(primaryKeys, keys.toList(), types, "IN");
+                return new DTupleComparison(primaryKeys, keys.toList(), types, "IN");
             })
             .enableAutoFields()
             .contain(contain);

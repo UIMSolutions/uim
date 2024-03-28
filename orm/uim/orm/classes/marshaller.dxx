@@ -465,7 +465,7 @@ class Marshaller
             foreach ((array)target.getPrimaryKeys() as column) {
                 type[] = schema.getColumnType(column);
             }
-            filter = new TupleComparison(primaryKeys, ids, type, "IN");
+            filter = new DTupleComparison(primaryKeys, ids, type, "IN");
         } else {
             filter = [primaryKeys[0] ~ " IN": ids];
         }

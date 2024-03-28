@@ -51,11 +51,10 @@ class DMemcachedEngine : DCacheEngine {
       "options": ArrayData,
     ]);
     */
+    return true;
   }
   // memcached wrapper.
   /* protected Memcached _memcached;
-
-
 
   /**
      * List of available serializer engines

@@ -32,7 +32,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      */
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
-        setConfigurationData(initData);
+        configuration.data(initData);
 
         /**
         * The default cache configuration is overridden in most cache adapters. These are

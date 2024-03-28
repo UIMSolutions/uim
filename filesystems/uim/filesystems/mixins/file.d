@@ -1,5 +1,5 @@
 /***********************************************************************************
-*	Copyright: ©2015-2024 Ozan Nurettin Süel (sicherheitsschmiede)                   *
+*	Copyright: © 2015-2024 Ozan Nurettin Süel (sicherheitsschmiede)                   *
 *	License  : Licensed under Apache 2 [https://apache.org/licenses/LICENSE-2.0.txt] *
 *	Author   : Ozan Nurettin Süel (Sicherheitsschmiede)										           * 
 ***********************************************************************************/
@@ -9,8 +9,10 @@ import uim.filesystems;
 
 @safe:
 string fileThis(string aName) {
+  string fullName = shortName~"File";
+
   return `
-this() { super(); this.name("`~aName~`"); }
+this() { super(); this.name("`~fullName~`"); }
 
 this(IFilesystem aFilesystem) { this(); this.filesystem(aFilesystem); };
 this(string[] aPath) { this(); this.path(aPath); };
@@ -27,19 +29,20 @@ template FileThis(string aName) {
   const char[] FileThis = fileThis(aName);
 }
 
-string fileCalls(string shortName, string className = null) {
-  string clName = className.length > 0 ? className : "D"~shortName;
+string fileCalls(string shortName) {
+  string fullName = shortName~"File";
+
   return `
-auto `~shortName~`() { return new `~clName~`; }
+auto `~fullName~`() { return new D`~fullName~`; }
 
-auto `~shortName~`(IFilesystem aFilesystem) { return new `~clName~`(aFilesystem); };
-auto `~shortName~`(string[] aPath) { return new `~clName~`(aPath); };
-auto `~shortName~`(string aName) { return new `~clName~`(aName); };
+auto `~fullName~`(IFilesystem aFilesystem) { return new D`~fullName~`(aFilesystem); };
+auto `~fullName~`(string[] aPath) { return new D`~fullName~`(aPath); };
+auto `~fullName~`(string aName) { return new D`~fullName~`(aName); };
 
-auto `~shortName~`(IFilesystem aFilesystem, string[] aPath) { return new `~clName~`(aFilesystem, aPath); };
-auto `~shortName~`(IFilesystem aFilesystem, string aName) { return new `~clName~`(aFilesystem, aName); };
+auto `~shortfullNamefullNameName~`(IFilesystem aFilesystem, string[] aPath) { return new D`~fullName~`(aFilesystem, aPath); };
+auto `~fullName~`(IFilesystem aFilesystem, string aName) { return new D`~fullName~`(aFilesystem, aName); };
 
-auto `~shortName~`(IFilesystem aFilesystem, string[] aPath, string aName) { return new `~clName~`(aFilesystem, aPath, aName); };
+auto `~fullName~`(IFilesystem aFilesystem, string[] aPath, string aName) { return new D`~fullName~`(aFilesystem, aPath, aName); };
   `;
 }
 

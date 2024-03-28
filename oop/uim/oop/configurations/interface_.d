@@ -9,11 +9,11 @@ interface IConfiguration : INamed {
     // #region defaults
         bool hasDefault(string key);
 
+        void updateDefaults(IData[string] newData);
         void updateDefault(string key, IData newData);
 
-        void updateDefaults(IData[string] newData);
-
         void mergeDefaults(IData[string] newData);
+        void mergeDefault(string key, IData newData);
     // #endregion defaults
 
     bool hasAnyKeys(string[] keys...);

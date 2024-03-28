@@ -15,37 +15,40 @@ import uim.oop;
 } */
 
 class DAggregation : DOOPElement {
-	mixin(ThisElement!()); 
+	mixin(ThisElement!());
 
-	this(string newName, string newDataType, bool newMultiple = false, bool newDefaultAgg = false) { 
-		super(newName); 
+	this(string newName, string newDataType, bool newMultiple = false, bool newDefaultAgg = false) {
+		super(newName);
 		_datatype = newDataType;
-		_isMultiple = newMultiple; 
-		_isDefault = newDefaultAgg; 
+		_isMultiple = newMultiple;
+		_isDefault = newDefaultAgg;
 	}
 
 	mixin(TProperty!("string", "datatype"));
 	mixin(TProperty!("bool", "isMultiple"));
 	mixin(TProperty!("bool", "isDefault"));
 
-    mixin CloneableTemplate;
+	mixin CloneableTemplate;
 }
-mixin(ShortCutElement!("Aggregation", "DAggregation")); 
+
+mixin(ShortCutElement!("Aggregation", "DAggregation"));
 
 unittest {
-		assert(Aggregation("Werte").name == "Werte");
-		assert(Aggregation("Werte").name("Anderes").name == "Anderes");
+	auto agg = Aggregation("Werte");
+	assert(agg.name == "Werte");
+	agg.name("Anderes");
+	assert(agg.name == "Anderes");
 
-		assert(Aggregation().className == "DAggregation");
-		assert(Aggregation().create.className == "DAggregation");
-		assert(Aggregation().clone.className == "DAggregation");
-		
-		DOOPElement agg = Aggregation();
-		assert(agg.className == "DAggregation");
-		assert(agg.clone.className == "DAggregation");
+	assert(agg.className == "DAggregation");
+	assert(agg.create.className == "DAggregation");
+	assert(agg.clone.className == "DAggregation");
 
-		ICloneable agg2 = Aggregation();
-		assert((cast(Object)agg2).className == "DAggregation");
-		assert((cast(Object)agg2).classinfo.create.className == "DAggregation");
-		assert((cast(DOOPElement)agg2).clone.className == "DAggregation");
+	DOOPElement agg1 = Aggregation();
+	assert(agg1.className == "DAggregation");
+	assert(agg1.clone.className == "DAggregation");
+
+	ICloneable agg2 = Aggregation();
+	assert((cast(Object) agg2).className == "DAggregation");
+	assert((cast(Object) agg2).classinfo.create.className == "DAggregation");
+	assert((cast(DOOPElement) agg2).clone.className == "DAggregation");
 }

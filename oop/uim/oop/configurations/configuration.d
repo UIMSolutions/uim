@@ -23,11 +23,19 @@ abstract class DConfiguration : IConfiguration {
     // #region defaultData
         abstract bool hasDefault(string key);
 
+        override void updateDefaults(IData[string] newData) {
+            newData.byKeyValue
+                .each!(kv => updateDefault(kv.key, kv.value));
+        }
+
         abstract void updateDefault(string key, IData newData);
 
-        abstract void updateDefaults(IData[string] newData);
+        override void mergeDefaults(IData[string] newData) {
+            newData.byKeyValue
+                .each!(kv => mergeDefault(kv.key, kv.value));
+        }
 
-        abstract void mergeDefaults(IData[string] newData); 
+        abstract void mergeDefault(string key, IData newData);
     // #endregion defaultData
 
     IData[string] data() {

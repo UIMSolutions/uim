@@ -16,66 +16,67 @@ class DMemoryConfiguration : DConfiguration {
     }
 
     // #region defaultData
-        protected IData[string] _defaultData;
+    protected IData[string] _defaultData;
 
-        override bool hasDefault(string key) {
-            return (key in _defaultData) ? true : false; 
+    override bool hasDefault(string path) {
+        return (path in _defaultData) ? true : false;
+    }
+
+    override void updateDefaults(IData[string] dataArray) {
+        dataArray.byKeyValue
+            .each!(kv => updateDefault(kv.key, kv.value));
+    }
+
+    override void updateDefault(string path, IData data) {
+        _defaultData[path] = data;
+    }
+
+    override void mergeDefaults(IData[string] dataArray) {
+        dataArray.byKeyValue
+            .each!(kv => mergeDefault(kv.key, kv.value));
+    }
+
+    override void mergeDefault(string path, IData data) {
+        if (!hasDefault(path)) {
+            _defaultData[path] = data;
         }
-
-        override void updateDefaults(IData[string] newData) {
-            newData.byKeyValue
-                .each!(kv => updateDefault(kv.key, kv.value));
-        }
-
-        override void updateDefault(string key, IData newData) {
-            _defaultData[key] = newData;
-        }
-
-        override void mergeDefaults(IData[string] newData) {
-            newData.byKeyValue
-                .each!(kv => mergeDefault(kv.key, kv.value));
-        }
-
-        override void mergeDefault(string key, IData newData) {
-            newData.byKeyValue
-                .filter!(kv => !hasDefault(kv.key))
-                .each!(kv => mergeDefault(kv.key, kv.value));
-        }    
+    }
     // #endregion defaultData
 
     // #region Data
-        protected IData[string] _data;
+    protected IData[string] _data;
 
-        override IData[string] data() {
-            return _data;
-        }
-        override void data(IData[string] newData) {
-            _data = newData;
-        }
+    override IData[string] data() {
+        return _data;
+    }
 
-        alias hasAnyKeys = DConfiguration.hasAnyKeys;
-        override bool hasAnyKeys(string[] keys) {
-            return keys.any!(key => hasKey(key));
-        }
+    override void data(IData[string] dataArray) {
+        _data = dataArray;
+    }
 
-        alias hasAllKeys = DConfiguration.hasAllKeys;
-        override bool hasAllKeys(string[] keys) {
-            return keys.all!(key => hasKey(key));
-        }
+    alias hasAnyKeys = DConfiguration.hasAnyKeys;
+    override bool hasAnyKeys(string[] keys) {
+        return keys.any!(key => hasKey(key));
+    }
 
-        override bool hasKey(string key) {
-            return key in _data ? true : false;
-        }
+    alias hasAllKeys = DConfiguration.hasAllKeys;
+    override bool hasAllKeys(string[] keys) {
+        return keys.all!(key => hasKey(key));
+    }
 
-        alias hasAnyValues = DConfiguration.hasAnyValues;
-        override bool hasAnyValues(string[] values) {
-            return values.any!(value => hasValue(value));
-        }
+    override bool hasKey(string key) {
+        return key in _data ? true : false;
+    }
 
-        alias hasAllValues = DConfiguration.hasAllValues;
-        override bool hasAllValues(string[] values) {
-            return values.all!(value => hasValue(value));
-        }
+    alias hasAnyValues = DConfiguration.hasAnyValues;
+    override bool hasAnyValues(string[] values) {
+        return values.any!(value => hasValue(value));
+    }
+
+    alias hasAllValues = DConfiguration.hasAllValues;
+    override bool hasAllValues(string[] values) {
+        return values.all!(value => hasValue(value));
+    }
     // #region Data
 
     override bool hasValue(string value) {
@@ -89,13 +90,12 @@ class DMemoryConfiguration : DConfiguration {
 
     override IData[string] get(string[] keys, bool compressMode = true) {
         IData[string] results;
-        
+
         keys.each!((key) {
             auto result = get(key);
             if (result is null && !compressMode) {
                 results[key] = result;
-            }
-            else { // compressmode => no nulls
+            } else { // compressmode => no nulls
                 results[key] = result;
             }
         });
@@ -107,18 +107,20 @@ class DMemoryConfiguration : DConfiguration {
         return _data.get(path, _defaultData.get(path, null));
     }
 
-    override void set(string key, IData newData) {
-        _data[key] = newData;
+    override void set(string key, IData data) {
+        _data[key] = data;
     }
 
-    override void update(string path, IData newData) {
-        set(path, newData);
+    override void update(string path, IData data) {
+        set(path, data);
     }
 
-    override void merge(string path, IData newData) {
-        if (hasPath(path)) { return; }
+    override void merge(string path, IData data) {
+        if (hasPath(path)) {
+            return;
+        }
 
-        set(path, newData);
+        set(path, data);
     }
 
     override void remove(string path) {

@@ -24,7 +24,7 @@ class DXmlConfiguration : DFileConfiguration {
             // TODO
         }
 
-         override void mergeDefault(string key, IData newData) {
+        override void mergeDefault(string key, IData newData) {
             // TODO
         }
     // #endregion defaultData

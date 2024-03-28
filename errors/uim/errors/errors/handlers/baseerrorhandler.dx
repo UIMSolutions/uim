@@ -8,9 +8,6 @@ module errors.uim.errors.errors.handlers.baseerrorhandler;
 @safe:
 import uim.errors;
 
-/* use Psr\Http\messages.IServerRequest;
- */
-
 /**
  * Base error handler that provides logic common to the CLI + web
  * error/exception handlers.
@@ -21,11 +18,6 @@ import uim.errors;
 abstract class DERRErrorHandler {
     // mixin InstanceConfigTemplate;
 /*
-    this() {
-      initialize;
-
-      
-    }
 
     bool initialize() {}
       _defaultConfig = IData.emptyObject;

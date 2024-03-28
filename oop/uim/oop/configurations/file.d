@@ -24,11 +24,7 @@ class DFileConfiguration : DConfiguration {
             // TODO
         }
 
-        override void updateDefaults(IData[string] newData) {
-            // TODO
-        }
-
-        override void mergeDefaults(IData[string] newData) {
+        override void mergeDefault(string key, IData newData) {
             // TODO
         }
     // #endregion defaultData
@@ -40,15 +36,6 @@ class DFileConfiguration : DConfiguration {
     override void set(string path, IData newData) {
 
     }
-
-    override void setDefault(string key, IData newData) {
-        // TODO
-    }
-
-    override void updateDefaults(IData[string] newData) {
-        // TODO
-    }
-    // #endregion defaultData
 
     override void update(string path, IData newData) {
         // TODO 

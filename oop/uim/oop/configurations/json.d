@@ -24,11 +24,7 @@ class DJsonConfiguration : DConfiguration {
             // TODO
         }
 
-        override void updateDefaults(IData[string] newData) {
-            // TODO
-        }
-
-        override void mergeDefaults(IData[string] newData) {
+        override void mergeDefault(string key, IData newData) {
             // TODO
         }
     // #endregion defaultData

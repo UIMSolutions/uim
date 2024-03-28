@@ -69,8 +69,10 @@ unittest {
   assert(element.fullname == "uim.oop.DOOPElement");
   assert(element.fullpath == "uim/oop/DOOPElement");
 
-  assert(OOPElement("test").name == "test");
-  assert(OOPElement("test").name("test2").name == "test2");
+  element = OOPElement("test");
+  assert(element.name == "test");
+  element.name("test2");
+  assert(element.name == "test2");
 
   assert(element.create.className == "DOOPElement");
   assert(element.clone.className == "DOOPElement"); 

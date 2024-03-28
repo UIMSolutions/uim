@@ -188,7 +188,7 @@ class DateTime /* : Chronos, IDataSerializable, Stringable */ {
     }
     
     /**
-     * Returns a new Time object after parsing the provided time string based on
+     * Returns a new DTime object after parsing the provided time string based on
      * the passed or configured date time format. This method is locale dependent,
      * Any string that is passed to this auto will be interpreted as a locale
      * dependent string.
@@ -231,7 +231,7 @@ class DateTime /* : Chronos, IDataSerializable, Stringable */ {
     }
     
     /**
-     * Returns a new Time object after parsing the provided date string based on
+     * Returns a new DTime object after parsing the provided date string based on
      * the passed or configured date time format. This method is locale dependent,
      * Any string that is passed to this auto will be interpreted as a locale
      * dependent string.
@@ -262,7 +262,7 @@ class DateTime /* : Chronos, IDataSerializable, Stringable */ {
     }
     
     /**
-     * Returns a new Time object after parsing the provided time string based on
+     * Returns a new DTime object after parsing the provided time string based on
      * the passed or configured date time format. This method is locale dependent,
      * Any string that is passed to this auto will be interpreted as a locale
      * dependent string.
@@ -339,7 +339,7 @@ class DateTime /* : Chronos, IDataSerializable, Stringable */ {
      * ### Examples
      *
      * ```
-     * time = new Time("2014-04-20 22:10");
+     * time = new DTime("2014-04-20 22:10");
      * time.i18nFormat(null, null, "de-DE");
      * time.i18nFormat(\IntlDateFormatter.FULL, "Europe/Berlin", "de-DE");
      * ```

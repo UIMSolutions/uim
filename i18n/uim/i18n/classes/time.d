@@ -96,7 +96,7 @@ class DTime { // : ChronosTime, IDataSerializable, Stringable {
     }
     
     /**
-     * Returns a new Time object after parsing the provided time string based on
+     * Returns a new DTime object after parsing the provided time string based on
      * the passed or configured date time format. This method is locale dependent,
      * Any string that is passed to this auto will be interpreted as a locale
      * dependent string.
@@ -134,7 +134,7 @@ class DTime { // : ChronosTime, IDataSerializable, Stringable {
      * ### Examples
      *
      * ```
-     * time = new Time("23:10:10");
+     * time = new DTime("23:10:10");
      * time.i18nFormat();
      * time.i18nFormat(\IntlDateFormatter.FULL);
      * time.i18nFormat("HH":'mm":`ss");
@@ -151,7 +151,7 @@ class DTime { // : ChronosTime, IDataSerializable, Stringable {
      * ### Examples
      *
      * ```
-     * time = new Time("2014-04-20");
+     * time = new DTime("2014-04-20");
      * time.i18nFormat("de-DE");
      * time.i18nFormat(\IntlDateFormatter.FULL, "de-DE");
      * ```

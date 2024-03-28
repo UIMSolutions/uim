@@ -71,7 +71,7 @@ class DRequest { // }: Message, IRequest {
      * /
     protected void setContent(string[] requestBody) {
         if (isArray(content)) {
-            formData = new FormData();
+            formData = new DFormData();
             formData.addMany(requestBody);
             /** @phpstan-var array<non-empty-string, non-empty-string>  aHeaders *
             /

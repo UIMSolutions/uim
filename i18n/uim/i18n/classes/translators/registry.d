@@ -168,7 +168,7 @@ class DTranslatorRegistry : ObjectRegistry!DTranslator {
         }
         formatter = this.formatters.get(catalog.formatterName());
 
-        return new Translator(localName, catalog, formatter, fallback);
+        return new DTranslator(localName, catalog, formatter, fallback);
     }
     
     /**

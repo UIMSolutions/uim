@@ -254,7 +254,7 @@ class DServerRequest { // }: IServerRequest {
         this.query = configData["query"];
         this.params = configData["params"];
         this.session = configData["session"];
-        this.flash = new FlashMessage(this.session);
+        this.flash = new DFlashMessage(this.session);
     }
     
     /**

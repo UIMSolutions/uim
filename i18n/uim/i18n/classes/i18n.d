@@ -37,9 +37,9 @@ class DI18n {
         if (!_collection.isNull) {
             return _collection;
         }
-        _collection = new TranslatorRegistry(
+        _collection = new DTranslatorRegistry(
             new DPackageLocator(),
-            new FormatterLocator([
+            new DFormatterLocator([
                 "default": IcuFormatter.classname,
                 "sprintf": PrintFormatter.classname,
             ]),

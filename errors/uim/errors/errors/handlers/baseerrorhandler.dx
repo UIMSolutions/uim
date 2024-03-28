@@ -227,7 +227,7 @@ abstract class DERRErrorHandler {
         ];
         _logError(LOG_ERR, data);
 
-        this.handleException(new FatalErrorException(description, 500, file, line));
+        this.handleException(new DFatalErrorException(description, 500, file, line));
 
         return true;
     }

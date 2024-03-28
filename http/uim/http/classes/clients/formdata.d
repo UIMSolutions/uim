@@ -42,7 +42,7 @@ class DFormData { // }: Countable, Stringable {
      * @param string avalue The value to add.
      * /
     FormDataPart newPart(string aName, string avalue) {
-        return new FormDataPart(name, aValue);
+        return new DFormDataPart(name, aValue);
     }
     
     /**

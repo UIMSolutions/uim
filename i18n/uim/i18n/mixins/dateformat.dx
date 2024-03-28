@@ -71,7 +71,7 @@ template DateFormatTrait() {
     }
     
     /**
-     * Returns a new Time object after parsing the provided time string based on
+     * Returns a new DTime object after parsing the provided time string based on
      * the passed or configured date time format. This method is locale dependent,
      * Any string that is passed to this auto will be interpreted as a locale
      * dependent string.

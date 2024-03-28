@@ -33,7 +33,7 @@ class DWidget : IWidget {
 
   bool initialize(IData[string] initData = null) {
     configuration(MemoryConfiguration);
-    setConfigurationData(initData);
+    configuration.data(initData);
     // TODO mergeConfigurationData([
     // TODO   "name": StringData(),
     // TODO   // "val": NullData(null),

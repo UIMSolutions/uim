@@ -42,7 +42,7 @@ class Helper : IEventListener {
     }
 
     configuration(MemoryConfiguration);
-    setConfigurationData(initData);
+    configuration.data(initData);
 
     return true;
   }

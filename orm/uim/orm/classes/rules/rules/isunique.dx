@@ -22,7 +22,7 @@ class DIsUnique {
      * @var array<string, mixed>
      */
     protected _options = [
-        "allowMultipleNulls": false,
+        "allowMultipleNulls": BooleanData(false),
     ];
 
     /**

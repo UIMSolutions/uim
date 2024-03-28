@@ -1373,8 +1373,8 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         IData[string] optionData = null
     ) {
         options = new ArrayObject(options ~ [
-            "atomic": true,
-            "defaults": true,
+            "atomic": BooleanData(true),
+            "defaults": BooleanData(true),
         ]);
 
         myentity = _executeTransaction(
@@ -1618,13 +1618,13 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      *  "associated": [
      *    "Employees": [
      *      "associated": ["Addresses"],
-     *      "checkRules": false
+     *      "checkRules": BooleanData(false)
      *    ]
      *  ]
      * ]);
      *
      * // Save no associations
-     * myarticles.save(myentity, ["associated": false]);
+     * myarticles.save(myentity, ["associated": BooleanData(false)]);
      * ```
      * Params:
      * \UIM\Datasource\IEntity myentity the entity to be saved
@@ -1635,12 +1635,12 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         IData[string] optionData = null
     ) {
         options = new ArrayObject(options ~ [
-            "atomic": true,
-            "associated": true,
-            "checkRules": true,
-            "checkExisting": true,
-            "_primary": true,
-            "_cleanOnSuccess": true,
+            "atomic": BooleanData(true),
+            "associated": BooleanData(true),
+            "checkRules": BooleanData(true),
+            "checkExisting": BooleanData(true),
+            "_primary": BooleanData(true),
+            "_cleanOnSuccess": BooleanData(true),
         ]);
 
         if (myentity.hasErrors((bool)options["associated"])) {
@@ -1726,7 +1726,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
             this,
             myentity,
             options["associated"],
-            ["_primary": false] + options.getArrayCopy()
+            ["_primary": BooleanData(false)] + options.getArrayCopy()
         );
 
         if (!mysaved && options["atomic"]) {
@@ -1762,7 +1762,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
             this,
             myentity,
             options["associated"],
-            ["_primary": false] + options.getArrayCopy()
+            ["_primary": BooleanData(false)] + options.getArrayCopy()
         );
 
         if (!mysuccess && options["atomic"]) {
@@ -1831,7 +1831,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         mysuccess = false;
         if (mystatement.rowCount() != 0) {
             mysuccess = myentity;
-            myentity.set(myfilteredKeys, ["guard": false]);
+            myentity.set(myfilteredKeys, ["guard": BooleanData(false)]);
             myschema = this.getSchema();
             mydriver = this.getConnection().getDriver();
             foreach (aKey: myv; myprimary ) {
@@ -1954,9 +1954,9 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     ): range {
         options = new ArrayObject(
             options ~ [
-                "atomic": true,
-                "checkRules": true,
-                "_primary": true,
+                "atomic": BooleanData(true),
+                "checkRules": BooleanData(true),
+                "_primary": BooleanData(true),
             ]
         );
         options["_cleanOnSuccess"] = false;
@@ -2052,9 +2052,9 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
          */
     bool delete_(IEntity myentity, IData[string] optionData = null) {
         options = new ArrayObject(options ~ [
-            "atomic": true,
-            "checkRules": true,
-            "_primary": true,
+            "atomic": BooleanData(true),
+            "checkRules": BooleanData(true),
+            "_primary": BooleanData(true),
         ]);
 
         mysuccess = _executeTransaction(
@@ -2116,9 +2116,9 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      */
     protected IEntity _deleteMany(Range myentities, IData[string] optionData = null) {
         options = new ArrayObject(options ~ [
-                "atomic": true,
-                "checkRules": true,
-                "_primary": true,
+                "atomic": BooleanData(true),
+                "checkRules": BooleanData(true),
+                "_primary": BooleanData(true),
             ]);
 
         myfailed = _executeTransaction(function () use (myentities, options) {
@@ -2188,7 +2188,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         }
         mysuccess = _associations.cascadeDelete_(
             myentity,
-            ["_primary": false] + options.getArrayCopy()
+            ["_primary": BooleanData(false)] + options.getArrayCopy()
         );
         if (!mysuccess) {
             return mysuccess;
@@ -2460,7 +2460,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * ```
      * myarticle = this.Articles.newEntity(
      *  this.request[),
-     *  ["accessibleFields": ["protected_field": true]]
+     *  ["accessibleFields": ["protected_field": BooleanData(true)]]
      * );
      * ```
      *
@@ -2471,7 +2471,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * ```
      * myarticle = this.Articles.newEntity(
      *  this.request[),
-     *  ["validate": false]
+     *  ["validate": BooleanData(false)]
      * );
      * ```
      *
@@ -2550,7 +2550,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * ```
      * myarticle = this.Articles.patchEntity(myarticle, this.request[), [
      *  "associated": [
-     *    "Tags": ["accessibleFields": ["*": true]]
+     *    "Tags": ["accessibleFields": ["*": BooleanData(true)]]
      *  ]
      * ]);
      * ```
@@ -2561,7 +2561,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      *
      * ```
      * myarticle = this.patchEntity(myarticle, this.request[),[
-     * "validate": false
+     * "validate": BooleanData(false)
      * ]);
      * ```
      *
@@ -2660,7 +2660,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         myentity = new DORMEntity(
             mycontext["data"],
             [
-                "useSetters": false,
+                "useSetters": BooleanData(false),
                 "markNew": mycontext["newRecord"],
                 "source": this.registryKey(),
             ]

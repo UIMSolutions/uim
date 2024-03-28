@@ -38,7 +38,7 @@ class DExistsIn {
      *    Notice: allowNullableNulls cannot pass by database columns set to `NOT NULL`.
       * /
     this(string[] myfields, Table|Association|string myrepository, IData[string] optionData = null) {
-        options += ["allowNullableNulls": false];
+        options += ["allowNullableNulls": BooleanData(false)];
        _options = options;
 
        _fields = (array)myfields;

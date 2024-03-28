@@ -12,7 +12,7 @@ class DIsUnique {
 
     // The unique check options
     protected IData[string] _options = [
-        "allowMultipleNulls": true,
+        "allowMultipleNulls": BooleanData(true),
     ];
 
     /**

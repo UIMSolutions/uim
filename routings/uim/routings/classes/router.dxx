@@ -681,8 +681,8 @@ class DRouter {
         }
         myurl += parseRoutePath(myurl["_path"]);
         myurl += [
-            "plugin": false,
-            "prefix": false,
+            "plugin": BooleanData(false),
+            "prefix": BooleanData(false),
         ];
         unset(myurl["_path"]);
 

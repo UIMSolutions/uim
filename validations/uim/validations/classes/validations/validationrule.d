@@ -75,7 +75,7 @@ class DValidationRule {
      * - field: The name of the field that is being processed
      * /
     string[] process(IData aValue, array myproviders, array mycontext = []) {
-        mycontext += ["data": [], "newRecord": true, "providers": myproviders];
+        mycontext += ["data": [], "newRecord": BooleanData(true), "providers": myproviders];
 
         if (_skip(mycontext)) {
             return true;

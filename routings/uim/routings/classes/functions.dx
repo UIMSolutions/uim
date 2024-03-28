@@ -14,8 +14,8 @@ import uim.routings;
 array urlArray(string aPath, array params = []) {
     url = Router.parseRoutePath(somePath);
     url += [
-        "plugin": false,
-        "prefix": false,
+        "plugin": BooleanData(false),
+        "prefix": BooleanData(false),
     ];
 
     return url + params;

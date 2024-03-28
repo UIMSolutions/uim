@@ -156,7 +156,7 @@ class DRoute {
      *
      * ```
      * // remove a persistent "date" parameter
-     * Router.url(["date": false", ...]);
+     * Router.url(["date": BooleanData(false)", ...]);
      * ```
      * Params:
      * array routingss The names of the parameters that should be passed.

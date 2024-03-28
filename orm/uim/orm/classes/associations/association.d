@@ -266,7 +266,7 @@ function getTarget() : Table {
                 errorMessage ~= "You can\"t have an association of the same name with a different target ";
                 errorMessage ~= ""c lassName" option anywhere in your app.";
 
-                throw new RuntimeException(sprintf(
+                throw new DRuntimeException(sprintf(
                         errorMessage,
                         _sourceTable == null ? "null" : get_class(_sourceTable),
                         this.getName(),
@@ -577,7 +577,7 @@ void attachTo(Query query, IData[string] optionData = null) {
     if (!empty(options["queryBuilder"])) {
         dummy = options["queryBuilder"](dummy);
         if (!(dummy instanceof Query)) {
-            throw new RuntimeException(sprintf(
+            throw new DRuntimeException(sprintf(
                     "Query builder for association '%s' did not return a query",
                     this.getName()
             ));
@@ -589,7 +589,7 @@ void attachTo(Query query, IData[string] optionData = null) {
         _strategy == STRATEGY_JOIN &&
         dummy.getContain()
         ) {
-        throw new RuntimeException(
+        throw new DRuntimeException(
             "`{this.getName()}` association cannot contain() associations when using JOIN strategy."
         );
     }
@@ -831,7 +831,7 @@ protected void _formatAssociationResults(Query query, Query surrogate, IData[str
         foreach (formatters as callable) {
             extracted = callable(extracted, query);
             if (!extracted instanceof IResultSet) {
-                extracted = new ResultSetDecorator(extracted);
+                extracted = new DResultSetDecorator(extracted);
             }
         }
 
@@ -914,7 +914,7 @@ protected array _joinCondition(IData[string] optionData) {
                 table = this.getSource().getTable();
             }
             msg = "The '%s' table does not define a primary key, and cannot have join conditions generated.";
-            throw new RuntimeException(sprintf(msg, table));
+            throw new DRuntimeException(sprintf(msg, table));
         }
 
         msg = "Cannot match provided foreignKeys for '%s', got "( % s) " but expected foreign key for "(
@@ -922,7 +922,7 @@ protected array _joinCondition(IData[string] optionData) {
             
 
                 % s) "";
-        throw new RuntimeException(sprintf(
+        throw new DRuntimeException(sprintf(
                 msg,
                 _name,
                 implode(", ", foreignKeys),

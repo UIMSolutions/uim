@@ -146,7 +146,7 @@ class DSelectWithPivotLoader : DSelectLoader {
 
         foreach (fetchQuery.all() as result) {
             if (!isset(result[this.junctionProperty])) {
-                throw new RuntimeException(sprintf(
+                throw new DRuntimeException(sprintf(
                     "'%s' is missing from the belongsToMany results. Results cannot be created.",
                     this.junctionProperty
                 ));

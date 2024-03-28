@@ -1005,7 +1005,7 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
      * /
     function cache(key, myConfiguration = "default") {
         if (_type != "select" && _type != null) {
-            throw new RuntimeException("You cannot cache the results of non-select queries.");
+            throw new DRuntimeException("You cannot cache the results of non-select queries.");
         }
 
         return _cache(key, myConfiguration);
@@ -1020,7 +1020,7 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
     function all(): IResultSet
     {
         if (_type != "select" && _type != null) {
-            throw new RuntimeException(
+            throw new DRuntimeException(
                 "You cannot call all() on a non-select query. Use execute() instead."
             );
         }
@@ -1073,7 +1073,7 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
 
         statement = this.getEagerLoader().loadExternal(this, this.execute());
 
-        return new ResultSet(this, statement);
+        return new DResultSet(this, statement);
     }
 
     /**

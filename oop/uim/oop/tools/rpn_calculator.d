@@ -35,7 +35,7 @@ class DRPNCalculator {
 version(test_uim_oop) { unittest {
     writeln("\nRPNCalculator Demo");
 
-    auto calculator = new RPNCalculator;
+    auto calculator = new DRPNCalculator;
     writeln("2 3 + is ", calculator.calc("2 3 +"));
     writeln("2 3 + 2 3 * * is ", calculator.calc("2 3 + 2 3 * *"));
 }}

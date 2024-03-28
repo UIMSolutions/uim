@@ -106,7 +106,7 @@ class DTableLocator : DAbstractLocator, ILocator {
         }
 
         if (isset(this.instances[alias])) {
-            throw new RuntimeException(sprintf(
+            throw new DRuntimeException(sprintf(
                 "You cannot configure '%s', it has already been constructed.",
                 alias
             ));

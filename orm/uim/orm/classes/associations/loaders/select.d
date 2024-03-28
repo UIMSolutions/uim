@@ -321,7 +321,7 @@ class DSelectLoader {
         if (options["foreignKey"] == false && this.associationType == Association::ONE_TO_MANY) {
             msg = "Cannot have foreignKey = false for hasMany associations~ " ~
                    "You must provide a foreignKey column.";
-            throw new RuntimeException(msg);
+            throw new DRuntimeException(msg);
         }
 
         keys = in_array(this.associationType, [Association::ONE_TO_ONE, Association::ONE_TO_MANY], true) ?

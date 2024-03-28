@@ -468,7 +468,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
         myentity = this.first();
         if (!myentity) {
             mytable = this.getRepository();
-            throw new RecordNotFoundException(
+            throw new DRecordNotFoundException(
                 "Record not found in table `%s`.",
                 .format(mytable.getTable()
             ));
@@ -1351,7 +1351,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * Get resultset factory.
      * /
     protected ResultSetFactory resultSetFactory() {
-        return this.resultSetFactory ??= new ResultSetFactory();
+        return this.resultSetFactory ??= new DResultSetFactory();
     }
     
     /**

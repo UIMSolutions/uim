@@ -239,7 +239,7 @@ class Marshaller
         }
 
         if (validator == null) {
-            throw new RuntimeException(
+            throw new DRuntimeException(
                 sprintf("validate must be a boolean, a string or an object. Got %s.", getTypeName(options["validate"]))
             );
         }

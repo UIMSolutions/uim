@@ -340,7 +340,7 @@ class DBehavior : IEventListener {
             "methods": [],
         ];
 
-        myreflection = new ReflectionClass(myclass);
+        myreflection = new DReflectionClass(myclass);
 
         foreach (myreflection.getMethods(ReflectionMethod.IS_PUBLIC) as mymethod) {
             mymethodName = mymethod.name;

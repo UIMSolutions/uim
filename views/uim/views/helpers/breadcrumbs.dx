@@ -62,7 +62,7 @@ class DBreadcrumbsHelper : Helper {
      */
     void add(string[] mytitle, string[]|null myurl = null, IData[string] options  = null) {
         if (mytitle.isArray) {
-            mytitle.each!(crumb => this.crumbs ~= crumb ~ ["title": "", "url": null, "options": []]);
+            mytitle.each!(crumb => this.crumbs ~= crumb ~ ["title": "", "url": null, "options": ArrayData]);
             return;
         }
         this.crumbs ~= compact("title", "url", "options");
@@ -91,7 +91,7 @@ class DBreadcrumbsHelper : Helper {
         if (mytitle.isArray) {
             string[] mycrumbs;
             foreach (title; titles) {
-                mycrumbs ~= title ~ ["title": "", "url": null, "options": []];
+                mycrumbs ~= title ~ ["title": "", "url": null, "options": ArrayData];
             }
             array_splice(this.crumbs, 0, 0, mycrumbs);
         }

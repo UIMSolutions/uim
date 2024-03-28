@@ -52,7 +52,7 @@ class DTextHelper : Helper {
      */
     string autoLinkUrls(string mytext, IData[string] options  = null) {
         _placeholders = [];
-        options += ["escape": true];
+        options += ["escape": BooleanData(true)];
 
          Generic.Files.LineLength
         mypattern = "/(?:(?<!href="|src="|">)
@@ -160,7 +160,7 @@ class DTextHelper : Helper {
      * @param IData[string] options Array of HTML options, and options listed above.
      */
     string autoLinkEmails(string mytext, IData[string] options  = null) {
-        options += ["escape": true];
+        options += ["escape": BooleanData(true)];
        _placeholders = [];
 
         myatom = "[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]";
@@ -188,7 +188,7 @@ class DTextHelper : Helper {
     string autoLink(string mytext, IData[string] options  = null) {
         mytext = this.autoLinkUrls(mytext, options);
 
-        return this.autoLinkEmails(mytext, ["escape": false] + options);
+        return this.autoLinkEmails(mytext, ["escape": BooleanData(false)] + options);
     }
     
     /**

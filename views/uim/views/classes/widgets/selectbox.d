@@ -228,7 +228,7 @@ class DSelectBoxWidget : DWidget {
             myoptAttrs = [
                 "value": kv.key,
                 "text": kv.value,
-                "templateVars": [],
+                "templateVars": ArrayData,
             ];
             if (isArray(kv.value) && isSet(kv.value["text"], kv.value["value"])) {
                 /** @var IData[string] myoptAttrs * /

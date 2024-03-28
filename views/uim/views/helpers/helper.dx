@@ -69,7 +69,7 @@ class Helper : IEventListener {
             return this.helperInstances[propertyName];
         }
         if (isSet(this.helpers[propertyName])) {
-            helperSettings = ["enabled": false] + this.helpers[propertyName];
+            helperSettings = ["enabled": BooleanData(false)] + this.helpers[propertyName];
 
             return this.helperInstances[propertyName] = _View.loadHelper(propertyName, helperSettings);
         }

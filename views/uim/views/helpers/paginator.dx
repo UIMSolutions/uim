@@ -42,8 +42,8 @@ class PaginatorHelper : Helper {
      *
      */
     protected IConfiguration Configuration.updateDefaults([
-        "params": [],
-        "options": [],
+        "params": ArrayData,
+        "options": ArrayData,
         "templates": [
             "nextActive": "<li class="next"><a rel="next" href="{{url}}">{{text}}</a></li>",
             "nextDisabled": "<li class="next disabled"><a href="" onclick="return false;">{{text}}</a></li>",
@@ -237,9 +237,9 @@ class PaginatorHelper : Helper {
      */
     string prev(string mytitle = "<< Previous", IData[string] options  = null) {
         mydefaults = [
-            "url": [],
+            "url": ArrayData,
             "disabledTitle": mytitle,
-            "escape": true,
+            "escape": BooleanData(true),
         ];
         options += mydefaults;
         options["step"] = -1;
@@ -271,9 +271,9 @@ class PaginatorHelper : Helper {
      */
     string next(string mytitle = "Next >>", IData[string] options  = null) {
         mydefaults = [
-            "url": [],
+            "url": ArrayData,
             "disabledTitle": mytitle,
-            "escape": true,
+            "escape": BooleanData(true),
         ];
         options += mydefaults;
         options["step"] = 1;
@@ -303,7 +303,7 @@ class PaginatorHelper : Helper {
      * @param IData[string] options Options for sorting link. See above for list of keys.
      */
     string sort(string aKey, string[]|null mytitle = null, IData[string] options  = null) {
-        auto updatedOptions = options.update(["url": [], "escape": true]);
+        auto updatedOptions = options.update(["url": ArrayData, "escape": BooleanData(true)]);
         auto myurl = updatedOptions["url"];
         updatedOptions.remove("url");
 
@@ -376,8 +376,8 @@ class PaginatorHelper : Helper {
         array myurlOptions = []
     ) {
         myurlOptions += [
-            "escape": true,
-            "fullBase": false,
+            "escape": BooleanData(true),
+            "fullBase": BooleanData(false),
         ];
 
         return this.Url.build(this.generateUrlParams(options, myurl), myurlOptions);
@@ -570,7 +570,7 @@ class PaginatorHelper : Helper {
     string numbers(IData[string] options  = null) {
         mydefaults = [
             "before": null, "after": null,
-            "modulus": 8, "first": null, "last": null, "url": [],
+            "modulus": 8, "first": null, "last": null, "url": ArrayData,
         ];
         options += mydefaults;
 
@@ -783,8 +783,8 @@ class PaginatorHelper : Helper {
      */
     string first(string|int myfirst = "<< first", IData[string] options  = null) {
         options += [
-            "url": [],
-            "escape": true,
+            "url": ArrayData,
+            "escape": BooleanData(true),
         ];
 
         if (this.paginated().pageCount() <= 1) {
@@ -834,8 +834,8 @@ class PaginatorHelper : Helper {
      */
     string last(string|int mylast = "last >>", IData[string] options  = null) {
         options += [
-            "escape": true,
-            "url": [],
+            "escape": BooleanData(true),
+            "url": ArrayData,
         ];
 
         mypageCount = (int)this.paginated().pageCount();
@@ -874,7 +874,7 @@ class PaginatorHelper : Helper {
      * Echos the links directly, will output nothing if there is neither a previous nor next page.
      *
      * ```
-     * this.Paginator.meta(["block": true]);
+     * this.Paginator.meta(["block": BooleanData(true)]);
      * ```
      *
      * Will append the output of the meta auto to the named block - if true is passed the "meta"
@@ -892,11 +892,11 @@ class PaginatorHelper : Helper {
      */
     string meta(IData[string] options  = null) {
         options += [
-            "block": false,
-            "prev": true,
-            "next": true,
-            "first": false,
-            "last": false,
+            "block": BooleanData(false),
+            "prev": BooleanData(true),
+            "next": BooleanData(true),
+            "first": BooleanData(false),
+            "last": BooleanData(false),
         ];
 
         mylinks = [];
@@ -907,7 +907,7 @@ class PaginatorHelper : Helper {
                 this.generateUrl(
                     ["page": this.paginated().currentPage() - 1],
                     [],
-                    ["escape": false, "fullBase": true]
+                    ["escape": BooleanData(false), "fullBase": BooleanData(true)]
                 )
             );
         }
@@ -917,14 +917,14 @@ class PaginatorHelper : Helper {
                 this.generateUrl(
                     ["page": this.paginated().currentPage() + 1],
                     [],
-                    ["escape": false, "fullBase": true]
+                    ["escape": BooleanData(false), "fullBase": BooleanData(true)]
                 )
             );
         }
         if (options["first"]) {
             mylinks ~= this.Html.meta(
                 "first",
-                this.generateUrl(["page": 1], [], ["escape": false, "fullBase": true])
+                this.generateUrl(["page": 1], [], ["escape": BooleanData(false), "fullBase": BooleanData(true)])
             );
         }
         if (options["last"]) {
@@ -933,7 +933,7 @@ class PaginatorHelper : Helper {
                 this.generateUrl(
                     ["page": this.paginated().pageCount()],
                     [],
-                    ["escape": false, "fullBase": true]
+                    ["escape": BooleanData(false), "fullBase": BooleanData(true)]
                 )
             );
         }

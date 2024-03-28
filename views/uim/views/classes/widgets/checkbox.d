@@ -19,8 +19,8 @@ class DCheckboxWidget : DWidget {
         "name": "",
         "value": 1,
         "val": null,
-        "disabled": false,
-        "templateVars": [],
+        "disabled": BooleanData(false),
+        "templateVars": ArrayData,
     ];
 
     /**

@@ -904,8 +904,8 @@ class FormHelper : Helper {
             "error": null,
             "required": null,
             "options": null,
-            "templates": [],
-            "templateVars": [],
+            "templates": ArrayData,
+            "templateVars": ArrayData,
             "labelOptions": BooleanData(true),
         ];
         options = _parseOptions(fieldName, options);
@@ -1200,7 +1200,7 @@ class FormHelper : Helper {
      */
     protected IData[string] _magicOptions(string aFieldName, IData[string] options, bool myallowOverride) {
         options += [
-            "templateVars": [],
+            "templateVars": ArrayData,
         ];
 
         options = this.setRequiredAndCustomValidity(fieldName, options);
@@ -1731,7 +1731,7 @@ class FormHelper : Helper {
         options += [
             "type": "submit",
             "secure": BooleanData(false),
-            "templateVars": [],
+            "templateVars": ArrayData,
         ];
 
         if (isSet(options["name"]) && this.formProtector) {

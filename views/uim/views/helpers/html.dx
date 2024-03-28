@@ -72,7 +72,7 @@ class HtmlHelper : Helper {
      * Append the meta tag to custom view block "meta":
      *
      * ```
-     * this.Html.meta("description", "A great page", ["block": true]);
+     * this.Html.meta("description", "A great page", ["block": BooleanData(true)]);
      * ```
      *
      * Append the meta tag to custom view block:
@@ -291,7 +291,7 @@ class HtmlHelper : Helper {
      * Add the stylesheet to view block "css":
      *
      * ```
-     * this.Html.css("styles.css", ["block": true]);
+     * this.Html.css("styles.css", ["block": BooleanData(true)]);
      * ```
      *
      * Add the stylesheet to a custom block:
@@ -416,7 +416,7 @@ class HtmlHelper : Helper {
     string script(string[] myurl, IData[string] htmlAtributes = null) {
         mydefaults = [
             "block": null,
-            "once": true,
+            "once": BooleanData(true),
             "nonce": _View.getRequest().getAttribute("cspScriptNonce"),
         ];
         htmlAtributes += mydefaults;
@@ -816,7 +816,7 @@ class HtmlHelper : Helper {
      * Using an audio file:
      *
      * ```
-     * writeln(this.Html.media("audio.mp3", ["fullBase": true]);
+     * writeln(this.Html.media("audio.mp3", ["fullBase": BooleanData(true)]);
      * ```
      *
      * Outputs:

@@ -10,7 +10,7 @@ import uim.datasources.IResultSet;
 /**
  * This class is used to handle automatic model data pagination.
  */
-class NumericPaginator : PaginatorInterface
+class DNumericPaginator : PaginatorInterface
 {
     mixin InstanceConfigTemplate;
 

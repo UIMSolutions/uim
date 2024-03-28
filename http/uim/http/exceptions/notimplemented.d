@@ -5,7 +5,7 @@ import uim.http;
 @safe:
 
 // Not Implemented Exception - used when an API method is not implemented
-class NotImplementedException : DHttpException {
+class DNotImplementedException : DHttpException {
  
     protected string _messageTemplate = "%s is not implemented.";
  

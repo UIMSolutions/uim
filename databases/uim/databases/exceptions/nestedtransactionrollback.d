@@ -9,7 +9,7 @@ module uim.databases.exceptions.nestedtransactionrollback;
 import uim.databases;
 
 // Class NestedTransactionRollbackException
-class NestedTransactionRollbackException : DDatabaseException {
+class DNestedTransactionRollbackException : DDatabaseException {
   // TODO 
   /* this(string message = null, int statusCode = 500, Throwable previousException = null) {
     if (message.isNull) {

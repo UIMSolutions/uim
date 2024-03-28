@@ -10,7 +10,7 @@ import uim.collections;
  *
  * @template-implements \RecursiveIterator<mixed, mixed>
  */
-class NestIterator : DCollection, RecursiveIterator {
+class DNestIterator : DCollection, RecursiveIterator {
     // The name of the property that contains the nested items for each element
     protected string _nestKey;
 

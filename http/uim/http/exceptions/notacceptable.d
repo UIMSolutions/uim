@@ -5,7 +5,7 @@ import uim.http;
 @safe:
 
 // Represents an HTTP 406 error.
-class NotAcceptableException : DHttpException {
+class DNotAcceptableException : DHttpException {
  
     protected int _defaultCode = 406;
 

@@ -5,7 +5,7 @@ import uim.http;
 @safe:
 
 // Represents an HTTP 404 error.
-class NotFoundException : DHttpException {
+class DNotFoundException : DHttpException {
  
     protected int _defaultCode = 404;
     /* 

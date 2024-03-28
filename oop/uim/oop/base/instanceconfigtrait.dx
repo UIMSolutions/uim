@@ -59,7 +59,7 @@ template InstanceConfigTemplate {
      * Reading the whole config:
      *
      * ```
-     * this.getConfig();
+     * this.configuration.data;
      * ```
      *
      * Reading a specific value:

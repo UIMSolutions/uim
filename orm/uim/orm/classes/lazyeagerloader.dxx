@@ -86,7 +86,7 @@ class LazyEagerLoader
             .contain(contain);
 
         foreach (query.getEagerLoader().attachableAssociations(source) as loadable) {
-            myConfiguration = loadable.getConfig();
+            myConfiguration = loadable.configuration.data;
             myconfiguration["includeFields"] = true;
             loadable.configuration.update(myConfiguration);
         }

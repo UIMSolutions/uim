@@ -175,7 +175,7 @@ class DEagerLoadable {
      * the records.
      *
      */
-    IData[string] getConfig() {
+    IData[string] configuration.data {
         return configuration;
     }
     
@@ -207,13 +207,15 @@ class DEagerLoadable {
      * Returns a representation of this object that can be passed to
      * UIM\ORM\EagerLoader.contain()
      */
-    array<string, array asContainArray() {
+    IData[string] asContainArray() {
         auto myassociations = _associations
             .map!(association => association.asContainArray()).array;
-        configData = configuration;
+        
+        auto configData = configuration.data;
         if (_forMatching !isNull) {
-            configData = ["matching": _forMatching] + configData;
+            configData = configData.merge(["matching": _forMatching]);
         }
+
         return [
            _name: [
                 "associations": myassociations,

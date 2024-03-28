@@ -178,7 +178,7 @@ class DEagerLoadable {
     }
 
     // Gets the list of options to pass to the association object for loading the records.
-    IData getConfig() {
+    IData configuration.data {
       return configuration;
     }
 

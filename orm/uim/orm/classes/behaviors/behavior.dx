@@ -236,7 +236,7 @@ class DBehavior : IEventListener {
             "Model.afterRules": "afterRules",
         ];
         
-        auto configData = this.getConfig();
+        auto configData = this.configuration.data;
         auto mypriority = configData("priority", null);
         auto myevents = [];
 

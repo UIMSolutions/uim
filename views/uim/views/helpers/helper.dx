@@ -152,7 +152,7 @@ class Helper : IEventListener {
         return [
             "helpers": this.helpers,
             "implementedEvents": this.implementedEvents(),
-            "configuration": this.getConfig(),
+            "configuration": this.configuration.data,
         ];
     }
 }

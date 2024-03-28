@@ -384,7 +384,7 @@ class DEagerLoader
         processed = null;
         do {
             foreach (attachable as alias: loadable) {
-                myConfiguration = loadable.getConfig() + [
+                myConfiguration = loadable.configuration.data + [
                     "aliasPath": loadable.aliasPath(),
                     "propertyPath": loadable.propertyPath(),
                     "includeFields": includeFields,
@@ -525,7 +525,7 @@ class DEagerLoader
      * @param DORMEagerLoadable loadable The association config
      */
     protected void _correctStrategy(EagerLoadable loadable) {
-        myConfiguration = loadable.getConfig();
+        myConfiguration = loadable.configuration.data;
         currentStrategy = myconfiguration["strategy"] ??
             "join";
 
@@ -600,7 +600,7 @@ class DEagerLoader
         foreach (external as meta) {
             contain = meta.associations();
             instance = meta.instance();
-            myConfiguration = meta.getConfig();
+            myConfiguration = meta.configuration.data;
             alias = instance.getSource().aliasName();
             path = meta.aliasPath();
 
@@ -738,7 +738,7 @@ class DEagerLoader
         collectKeys = null;
         foreach (external as meta) {
             instance = meta.instance();
-            if (!instance.requiresKeys(meta.getConfig())) {
+            if (!instance.requiresKeys(meta.configuration.data)) {
                 continue;
             }
 

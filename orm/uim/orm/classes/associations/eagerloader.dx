@@ -319,7 +319,7 @@ class DEagerLoader {
         myprocessed = [];
         do {
             foreach (myattachable as myalias: myloadable) {
-                configData = myloadable.getConfig() ~ [
+                configData = myloadable.configuration.data ~ [
                     "aliasPath": myloadable.aliasPath(),
                     "propertyPath": myloadable.propertyPath(),
                     "includeFields": myincludeFields,
@@ -450,7 +450,7 @@ class DEagerLoader {
      * \UIM\ORM\EagerLoadable myloadable The association config.
      */
     protected void _correctStrategy(EagerLoadable myloadable) {
-        configData = myloadable.getConfig();
+        configData = myloadable.configuration.data;
         mycurrentStrategy = configData("strategy"] ??
             "join";
 
@@ -512,7 +512,7 @@ class DEagerLoader {
         foreach (mymeta; myexternal) {
             mycontain = mymeta.associations();
             myinstance = mymeta.instance();
-            configData = mymeta.getConfig();
+            auto configData = mymeta.configuration.data();
             myalias = myinstance.getSource().aliasName();
             mypath = mymeta.aliasPath();
 
@@ -536,12 +536,12 @@ class DEagerLoader {
             }
             someKeys = mycollected[mypath][myalias] ?? null;
             mycallback = myinstance.eagerLoader(
-                configData ~ [
+                configData.update([
                     "query": myquery,
                     "contain": mycontain,
                     "keys": someKeys,
                     "nestKey": mymeta.aliasPath(),
-                ]
+                ])
             );
             results = array_map(mycallback, results);
         }
@@ -646,7 +646,7 @@ class DEagerLoader {
         mycollectKeys = [];
         foreach (myexternal as mymeta) {
             myinstance = mymeta.instance();
-            if (!myinstance.requiresKeys(mymeta.getConfig())) {
+            if (!myinstance.requiresKeys(mymeta.configuration.data)) {
                 continue;
             }
             mysource = myinstance.getSource();

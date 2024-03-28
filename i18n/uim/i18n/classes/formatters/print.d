@@ -8,7 +8,7 @@ import uim.i18n;
  * A formatter that will interpolate variables using sprintf and
  * select the correct plural form when required
  */
-class PrintFormatter : DI18NFormatter {
+class DPrintFormatter : DI18NFormatter {
     // Returns a string with all passed variables interpolated into the original message. 
     /* string format(string messageLocale, string messageToTranslate, string[] tokenValues) {
         return messageToTranslate.format(tokenValues);

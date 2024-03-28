@@ -5,7 +5,7 @@ import uim.i18n;
 @safe:
 
 // A ServiceLocator implementation for loading and retaining catalog objects.
-class PackageLocator {
+class DPackageLocator {
   // Initialization
   bool initialize(IData[string] initData = null) {
     // TODO configuration(MemoryConfiguration);

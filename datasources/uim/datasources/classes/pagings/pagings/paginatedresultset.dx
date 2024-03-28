@@ -10,7 +10,7 @@ import uim.datasources;
  * @template-extends \IteratorIterator<mixed, mixed, \Traversable<mixed>>
  * @template T
  */
-class PaginatedResultSet : IteratorIterator : IDataSerializable, IPaginated {
+class DPaginatedResultSet : IteratorIterator : IDataSerializable, IPaginated {
     // Paging params.
     protected array params = [];
 

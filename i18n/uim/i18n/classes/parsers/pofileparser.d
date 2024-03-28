@@ -5,7 +5,7 @@ import uim.i18n;
 @safe:
 
 // Parses file in PO format
-class PoFileParser {
+class DPoFileParser {
     mixin TConfigurable!();
 
     this() {

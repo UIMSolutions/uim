@@ -18,7 +18,7 @@ import uim.commands;
  * });
  * ```
  */
-class ProgressHelper { // } : Helper {
+class DProgressHelper { // } : Helper {
       mixin TConfigurable!();
 
     this() {

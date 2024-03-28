@@ -8,7 +8,7 @@ import uim.i18n;
  * Utility class used to determine the plural number to be used for a variable
  * base on the locale.
  */
-class PluralRules {
+class DPluralRules {
     mixin TConfigurable!();
 
     this() {

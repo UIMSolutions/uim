@@ -9,7 +9,7 @@ module uim.errors.debugs.nodes;
 import uim.errors;
 
 // Dump node for object properties.
-class PropertyNode : IERRNode {
+class DPropertyNode : IERRNode {
   private string myName;
 
   private string _visibility;

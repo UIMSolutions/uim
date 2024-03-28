@@ -4,7 +4,7 @@ import uim.i18n;
 
 @safe:
 // Message in PO format
-class PoMessage {
+class DPoMessage {
     mixin TConfigurable!();
 
     this() {

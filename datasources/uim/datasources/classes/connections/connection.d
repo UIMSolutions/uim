@@ -7,6 +7,10 @@ import uim.datasources;
 class DDBConnection : IDataSourceConnection {
   mixin TConfigurable!();
 
+  this() {
+    initialize;
+  }
+  
   // Hook method
   bool initialize(IData[string] initData = null) {
 

@@ -26,7 +26,29 @@ import uim.errors;
 class DExceptionTrap {
     /* 
     use EventDispatcherTrait;
-    mixin InstanceConfigTemplate;
+        mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    this(string name) {
+        this().name(name);
+    }
+
+    // Hook method
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
 
     /**
      * Configuration options. Generally these will be defined in your config/app.php

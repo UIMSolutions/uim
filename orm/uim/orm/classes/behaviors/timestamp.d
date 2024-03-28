@@ -47,7 +47,7 @@ class DTimestampBehavior : DBehavior {
     }
 
     // Current timestamp
-    protected DateTime my_ts = null;
+    protected DateTime my_ts;
 
     /**
      * There is only one event handler, it can be configured to be called for any event

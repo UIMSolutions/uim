@@ -223,7 +223,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     result.versionOn(now);
     result.modifiedOn(result.versionOn);
     result.versionBy(user);
-    return cast(DO) result; */
+    return cast(O) result; */
   }
 
   /* TODO [] versions() {

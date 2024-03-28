@@ -18,7 +18,7 @@ import uim.oop;
 class DListx(T = DOOPObject) : ICollection {
 	this() {}
 	T item(size_t index) { return null; } 
-	O item(this O)(size_t index, T value) { return cast(DO)this; } 
+	O item(this O)(size_t index, T value) { return cast(O)this; } 
 } */
 // TODO: error with auto List() { return new DList(); }
 

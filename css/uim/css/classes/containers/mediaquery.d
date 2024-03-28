@@ -22,14 +22,14 @@ class DCSSMediaQuery {
 
   O rule(this O)(string selector, string properties) {
     _rules[selector] = properties;
-    return cast(DO)this; }
+    return cast(O)this; }
   version(test_uim_css) { unittest {
       /// TODO
     }}
 
   O removeRule(this O)(string selector) {
     _rules.remove(selector); 
-    return cast(DO)this; }
+    return cast(O)this; }
   version(test_uim_css) { unittest {
       /// TODO
     }}
@@ -42,7 +42,7 @@ class DCSSMediaQuery {
 
   O opIndexAssign(this O)(string selector, string properties) {
     rule(selector, properties);
-    return cast(DO)this; }
+    return cast(O)this; }
   version(test_uim_css) { unittest {
       /// TODO
     }}

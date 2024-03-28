@@ -15,6 +15,6 @@ unittest {
 
 @safe:
 class DMemoryLink : DLink {
-  mixin(LinkThis!("MemoryLink"));
+  mixin(LinkThis!("Memory"));
 }
-mixin(LinkCalls!("MemoryLink"));
+mixin(LinkCalls!("Memory"));

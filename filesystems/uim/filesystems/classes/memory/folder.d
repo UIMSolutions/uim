@@ -15,6 +15,6 @@ unittest {
 
 @safe:
 class DMemoryFolder : DFolder {
-  mixin(FolderThis!("MemoryFolder"));
+  mixin(FolderThis!("Memory"));
 }
-mixin(FolderCalls!("MemoryFolder"));
+mixin(FolderCalls!("Memory"));

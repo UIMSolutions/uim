@@ -15,7 +15,7 @@ unittest {
 
 @safe:
 class DMemoryFilesystem : DFilesystem {
-  mixin(FilesystemThis!("MemoryFilesystem"));
+  mixin(FilesystemThis!("Memory"));
 
   override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) {
@@ -173,7 +173,7 @@ class DMemoryFilesystem : DFilesystem {
     }
   // #endregion Links
 }
-mixin(FilesystemCalls!("MemoryFilesystem"));
+mixin(FilesystemCalls!("Memory"));
 
 unittest {
   auto fs = MemoryFilesystem;

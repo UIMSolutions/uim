@@ -45,7 +45,7 @@ class DLink : DFilesystemEntry, ILink {
 	}
 }
 
-mixin(FolderCalls!("Link"));
+// mixin(FolderCalls!("Link"));
 
 unittest {
 	assert(Link, "Could not create LInk");

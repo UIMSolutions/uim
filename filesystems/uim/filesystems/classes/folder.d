@@ -108,7 +108,7 @@ class DFolder : DFilesystemEntry, IFolder, IFolderManager, IFileManager, ILinkMa
     return this.className~": "~name;
   }
 }
-mixin(FolderCalls!("Folder"));
+// mixin(FolderCalls!("Folder"));
 
 unittest {
 	assert(Folder(), "Could not create file object");

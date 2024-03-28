@@ -9,7 +9,7 @@ import uim.filesystems;
 
 @safe:
 class DLinuxFolder : DFolder {
-  mixin(FolderThis!("LinuxFolder"));
+  mixin(FolderThis!("Linux"));
 
 	override bool exists() {
     version(testUimFilesystems) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
@@ -244,7 +244,7 @@ class DLinuxFolder : DFolder {
 		// #endregion Delete
 	// #region File
 }
-mixin(FolderCalls!("LinuxFolder"));
+mixin(FolderCalls!("Linux"));
 
 version(testUimFilesystems) { 
 unittest {

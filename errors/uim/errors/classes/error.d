@@ -10,7 +10,7 @@ import uim.errors;
 
 // Error base class for UIM applications
 class DError {
-      mixin TConfigurable!();
+    mixin TConfigurable!();
 
     this() {
         initialize;
@@ -24,49 +24,49 @@ class DError {
         configuration(MemoryConfiguration);
         setConfigurationData(initData);
 
-levelMap = [
-      E_PARSE: "error",
-      E_ERROR: "error",
-      E_CORE_ERROR: "error",
-      E_COMPILE_ERROR: "error",
-      E_USER_ERROR: "error",
-      E_WARNING: "warning",
-      E_USER_WARNING: "warning",
-      E_COMPILE_WARNING: "warning",
-      E_RECOVERABLE_ERROR: "warning",
-      E_NOTICE: "notice",
-      E_USER_NOTICE: "notice",
-      E_STRICT: "strict",
-      E_DEPRECATED: "deprecated",
-      E_USER_DEPRECATED: "deprecated",
-  ];
+        levelMap = [
+            E_PARSE: "error",
+            E_ERROR: "error",
+            E_CORE_ERROR: "error",
+            E_COMPILE_ERROR: "error",
+            E_USER_ERROR: "error",
+            E_WARNING: "warning",
+            E_USER_WARNING: "warning",
+            E_COMPILE_WARNING: "warning",
+            E_RECOVERABLE_ERROR: "warning",
+            E_NOTICE: "notice",
+            E_USER_NOTICE: "notice",
+            E_STRICT: "strict",
+            E_DEPRECATED: "deprecated",
+            E_USER_DEPRECATED: "deprecated",
+        ];
 
-  _logMap = [
-      "error": LOG_ERR,
-      "warning": LOG_WARNING,
-      "notice": LOG_NOTICE,
-      "strict": LOG_NOTICE,
-      "deprecated": LOG_NOTICE,
-  ];
+        _logMap = [
+            "error": LOG_ERR,
+            "warning": LOG_WARNING,
+            "notice": LOG_NOTICE,
+            "strict": LOG_NOTICE,
+            "deprecated": LOG_NOTICE,
+        ];
 
         return true;
     }
 
     mixin(TProperty!("string", "name"));
 
-mixin(OProperty!("int", "code"));
+    mixin(OProperty!("int", "code"));
 
-  mixin(OProperty!("string", "message"));
+    mixin(OProperty!("string", "message"));
 
-  mixin(OProperty!("string", "filename"));
+    mixin(OProperty!("string", "filename"));
 
-  mixin(OProperty!("int", "lineNumber"));
+    mixin(OProperty!("int", "lineNumber"));
 
-  mixin(OProperty!("int[string][]", "trace"));
+    mixin(OProperty!("int[string][]", "trace"));
 
-  protected string[int] levelMap;
+    protected string[int] levelMap;
 
-  private int[string] _logMap;
+    private int[string] _logMap;
 
     this(
         int newErrorCode,
@@ -77,11 +77,10 @@ mixin(OProperty!("int", "code"));
     ) {
         this.code(newErrorCode);
         this.message(newErrorMessage);
-          this.filename(newErrorFilename);
-          this.lineNumber(newLineNumber);
-          this.trace(traceData);
+        this.filename(newErrorFilename);
+        this.lineNumber(newLineNumber);
+        this.trace(traceData);
     }
-
 
     // Get the mapped LOG_ constant.
     int getLogLevel() {
@@ -92,13 +91,13 @@ mixin(OProperty!("int", "code"));
 
     // Get the error code label
     string label() {
-      return levelMap.get(this.code, "error");
+        return levelMap.get(this.code, "error");
     }
 
     // Get the stacktrace as a string.
     string getTraceAsString() {
-      return this.trace.map!(entry => 
-            "{frame["reference"]} {frame["file"]}, line {frame["line"]}")
+        return this.trace.map!(entry =>
+                `{frame["reference"]} {frame["file"]}, line {frame["line"]}`)
             .join("\n"); // TODOD
-    } 
+    }
 }

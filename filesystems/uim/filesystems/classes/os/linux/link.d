@@ -9,9 +9,9 @@ import uim.filesystems;
 
 @safe:
 class DLinuxLink : DLink {
-  mixin(LinkThis!("LinuxLink"));
+  mixin(LinkThis!("Linux"));
 }
-mixin(LinkCalls!("LinuxLink"));
+mixin(LinkCalls!("Linux"));
 
 	version(testUimFilesystems) { 
 unittest {

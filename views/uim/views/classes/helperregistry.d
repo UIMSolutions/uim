@@ -76,7 +76,7 @@ class HelperRegistry { // }: ObjectRegistry : IEventDispatcher {
      *
      * Part of the template method for UIM\Core\ObjectRegistry.load()
      * Params:
-     * string myclass Partial classname to resolve.
+     * string myclass DPartial classname to resolve.
      * /
     protected string _resolveClassName(string myclass) {
         return App.className(myclass, "View/Helper", "Helper");

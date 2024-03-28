@@ -6,123 +6,135 @@
 module uim.oop.patterns.filters;
 
 import uim.oop;
+
 @safe:
 
 class DPerson {
   this(string name, string gender, string maritalStatus) {
     _name = name;
     _gender = gender;
-    _maritalStatus = maritalStatus;		
+    _maritalStatus = maritalStatus;
   }
 
   private string _name;
-  @property string name() { return _name; }
+  @property string name() {
+    return _name;
+  }
 
   private string _gender;
-  @property string gender() { return _gender; }
+  @property string gender() {
+    return _gender;
+  }
 
   private string _maritalStatus;
-  @property string maritalStatus() { return _maritalStatus; }	
+  @property string maritalStatus() {
+    return _maritalStatus;
+  }
 }
 
 interface ICriteria {
-  Person[] meetCriteria(Person[] persons);
+  DPerson[] meetCriteria(DPerson[] persons);
 }
 
 class DCriteriaMale : ICriteria {
-  override Person[] meetCriteria(Person[] persons) {
+  override DPerson[] meetCriteria(DPerson[] persons) {
     return persons.filter!(a => a.gender.toLower == "male").array;
   }
 }
 
 class DCriteriaFemale : ICriteria {
-  override Person[] meetCriteria(Person[] persons) {
+  override DPerson[] meetCriteria(DPerson[] persons) {
     return persons.filter!(a => a.gender.toLower == "female").array;
   }
 }
 
- class DCriteriaSingle : ICriteria {
-   override Person[] meetCriteria(Person[] persons) {
-      return persons.filter!(a => a.maritalStatus.toLower == "single").array;
-   }
+class DCriteriaSingle : ICriteria {
+  override DPerson[] meetCriteria(DPerson[] persons) {
+    return persons.filter!(a => a.maritalStatus.toLower == "single").array;
+  }
 }
 
- class DAndCriteria : ICriteria {
-   private ICriteria _criteria;
-   private ICriteria _otherCriteria;
+class DAndCriteria : ICriteria {
+  private ICriteria _criteria;
+  private ICriteria _otherCriteria;
 
-    this(ICriteria criteria, ICriteria otherCriteria) {
-      _criteria = criteria;
-      _otherCriteria = otherCriteria; 
-   }
+  this(ICriteria criteria, ICriteria otherCriteria) {
+    _criteria = criteria;
+    _otherCriteria = otherCriteria;
+  }
 
-   override Person[] meetCriteria(Person[] persons) {
-      return _otherCriteria.meetCriteria(
-        _criteria.meetCriteria(persons));
-   }
+  override DPerson[] meetCriteria(DPerson[] persons) {
+    return _otherCriteria.meetCriteria(
+      _criteria.meetCriteria(persons));
+  }
 }
 
- class OrCriteria : ICriteria {
-   private ICriteria _criteria;
-   private ICriteria _otherCriteria;
+class OrCriteria : ICriteria {
+  private ICriteria _criteria;
+  private ICriteria _otherCriteria;
 
-    this(ICriteria criteria, ICriteria otherCriteria) {
-      _criteria = criteria;
-      _otherCriteria = otherCriteria; 
-   }
+  this(ICriteria criteria, ICriteria otherCriteria) {
+    _criteria = criteria;
+    _otherCriteria = otherCriteria;
+  }
 
-  override Person[] meetCriteria(Person[] persons) {
-    Person[] firstCriteriaItems = _criteria.meetCriteria(persons);
-    Person[] otherCriteriaItems = _otherCriteria.meetCriteria(persons);
+  override DPerson[] meetCriteria(DPerson[] persons) {
+    DPerson[] firstCriteriaItems = _criteria.meetCriteria(persons);
+    DPerson[] otherCriteriaItems = _otherCriteria.meetCriteria(persons);
 
     return otherCriteriaItems
-      .filter!(person => !firstCriteriaItems.hasPerson(person)) 
+      .filter!(person => !firstCriteriaItems.hasPerson(person))
       .array;
   }
 }
 
-void printPersons(Person[] persons) {
+void printPersons(DPerson[] persons) {
   persons
-    .each!(person => 
-      writeln(
-        "Person : [ Name : ", person.name, 
-        ", Gender : ", person.gender, 
-        ", Marital Status : ", person.maritalStatus, 
-        " ]"
-      )
+    .each!(person =>
+        writeln(
+          "Person : [ Name : ", person.name,
+          ", Gender : ", person.gender,
+          ", Marital Status : ", person.maritalStatus,
+          " ]"
+        )
     );
-} 
+}
 
-bool hasPerson(Person[] persons, Person person) {
-  foreach(p; persons) if (p is person) { return true; }
+bool hasPerson(DPerson[] persons, DPerson person) {
+  foreach (p; persons)
+    if (p is person) {
+      return true;
+    }
   return false;
 }
 
-version(test_uim_oop) { unittest {
-    Person[] persons;
+version (test_uim_oop) {
+  unittest {
+    DPerson[] persons;
 
-  persons ~= (new DPerson("Robert","Male", "Single"));
-  persons ~= (new DPerson("John", "Male", "Married"));
-  persons ~= (new DPerson("Laura", "Female", "Married"));
-  persons ~= (new DPerson("Diana", "Female", "Single"));
-  persons ~= (new DPerson("Mike", "Male", "Single"));
-  persons ~= (new DPerson("Bobby", "Male", "Single"));
+    persons ~= (new DPerson("Robert", "Male", "Single"));
+    persons ~= (new DPerson("John", "Male", "Married"));
+    persons ~= (new DPerson("Laura", "Female", "Married"));
+    persons ~= (new DPerson("Diana", "Female", "Single"));
+    persons ~= (new DPerson("Mike", "Male", "Single"));
+    persons ~= (new DPerson("Bobby", "Male", "Single"));
 
-  ICriteria male = new DCriteriaMale();
-  ICriteria female = new DCriteriaFemale();
-  ICriteria single = new DCriteriaSingle();
-  ICriteria singleMale = new AndCriteria(single, male);
-  ICriteria singleOrFemale = new DOrCriteria(single, female);
+    ICriteria male = new DCriteriaMale();
+    ICriteria female = new DCriteriaFemale();
+    ICriteria single = new DCriteriaSingle();
+    ICriteria singleMale = new AndCriteria(single, male);
+    ICriteria singleOrFemale = new DOrCriteria(single, female);
 
-  writeln("Males: ");
-  printPersons(male.meetCriteria(persons));
+    writeln("Males: ");
+    printPersons(male.meetCriteria(persons));
 
-  writeln("\nFemales: ");
-  printPersons(female.meetCriteria(persons));
+    writeln("\nFemales: ");
+    printPersons(female.meetCriteria(persons));
 
-  writeln("\nSingle Males: ");
-  printPersons(singleMale.meetCriteria(persons));
+    writeln("\nSingle Males: ");
+    printPersons(singleMale.meetCriteria(persons));
 
-  writeln("\nSingle Or Females: ");
-  printPersons(singleOrFemale.meetCriteria(persons));
-}}
+    writeln("\nSingle Or Females: ");
+    printPersons(singleOrFemale.meetCriteria(persons));
+  }
+}

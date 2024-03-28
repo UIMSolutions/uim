@@ -55,7 +55,8 @@ class DRedisCacheEngine : DCacheEngine {
             "scanCount": IntegerData(10)
         ]);
 
-        return _connect();
+        return true;
+        // TODO return _connect();
     }
 
     // Redis wrapper.

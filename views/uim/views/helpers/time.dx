@@ -17,7 +17,7 @@ class DTimeHelper : Helper {
     
     use StringTemplateTrait;
 
-    protected IConfiguration Configuration.updateDefaults([
+    protected IConfiguration configuration.updateDefaults([
                 "outputTimezone": null,
     ];
 

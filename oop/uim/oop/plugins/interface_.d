@@ -1,15 +1,13 @@
-module uim.oop.interfaces.plugin;
+module uim.oop.plugins.interface_;
 
 import uim.oop;
 
 @safe:
 
 // Plugin Interface
-interface IPlugin {
-    // Get the name of this plugin.
-    string name();
-
+interface IPlugin : INamed {
     // Get the filesystem path to this plugin
+    /*
     string getPath();
 
     // Get the filesystem path to configuration for this plugin
@@ -31,7 +29,7 @@ interface IPlugin {
      * plugin dependencies, or attach events.
      * Params:
      * \UIM\Core\IPluginApplication app The host application
-     */
+     * /
     void bootstrap(IPluginApplication app);
 
     // Add console commands for the plugin.
@@ -45,7 +43,7 @@ interface IPlugin {
      *
      * The default implementation of this method will include the `config/routes.d` in the plugin if it exists. You
      * can override this method to replace that behavior.
-     */
+     * /
     // TODO void routes(RouteBuilder routes);
 
     // Register plugin services to the application`s container
@@ -59,4 +57,5 @@ interface IPlugin {
 
     // Check if the named hook is enabled
     bool isEnabled(string hookName);
+    */
 }

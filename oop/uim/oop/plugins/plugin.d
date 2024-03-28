@@ -8,20 +8,33 @@ import uim.oop;
  *
  * It also can retrieve plugin paths and load their bootstrap and routes files.
  */
-class DPlugin {
+class DPlugin : IPlugin {
+    mixin TConfigurable!();
+
     this() {
         initialize;
     }
 
-  	bool initialize() {
-		return true;
-	}
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
 
     // List of valid hooks.
-    const string[] VALID_HOOKS = ["bootstrap", "console", "middleware", "routes", "services"];
+    const string[] VALID_HOOKS = [
+        "bootstrap", "console", "middleware", "routes", "services"
+    ];
 
     // Holds a list of all loaded plugins and their configuration
-    protected static PluginCollection plugins = null;
+    protected static DPluginCollection plugins = null;
 
     // Returns the filesystem path for a plugin
     /* static string path(string pluginName) {
@@ -43,7 +56,7 @@ class DPlugin {
 
         return plugin.getConfigPath();
     }
-    */ 
+    */
 
     // Returns the filesystem path for plugin`s folder containing template files.
     // TODO 
@@ -69,7 +82,7 @@ class DPlugin {
 
         return names;
     } */
-    
+
     /**
      * Get the shared plugin collection.
      *

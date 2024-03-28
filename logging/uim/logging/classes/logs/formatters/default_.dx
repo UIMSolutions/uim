@@ -6,7 +6,7 @@ class DefaultFormatter : DAbstractFormatter {
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
     
-        defaultConfiguration.update([
+        donfiguration.updateDefaults([
             "dateFormat": "Y-m-d H:i:s",
             "includeTags": BooleanData(false),
             "includeDate": BooleanData(true),

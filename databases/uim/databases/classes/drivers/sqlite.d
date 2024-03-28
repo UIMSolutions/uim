@@ -8,24 +8,22 @@ class DSqliteDriver : DDriver {
     mixin(DriverThis!("Sqlite"));
 
     override bool initialize(IData[string] initData = null) {
-        IData[string] baseData = [
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        // `mask` The mask used for created database
+        configuration.merge([
             "persistent": BooleanData(false),
             "username": StringData,
             "password": StringData,
             "database": StringData(":memory:"),
-            "encoding": StringData("utf8"),
-            /* "mask": 0644,
+            "encoding": StringData("utf8"), /* "mask": 0644,
             "cache": null,
             "mode": null,
             "flags": ArrayData,
-            "init": ArrayData, */
-        ];
-
-        if (!super.initialize(baseData)) {
-            return false;
-        }
-
-        updateConfiguration(initData);
+            "init": ArrayData */
+        ]);
 
         startQuote("\"");
         endQuote("\"");
@@ -47,11 +45,7 @@ class DSqliteDriver : DDriver {
 
     protected const STATEMENT_CLASS = SqliteStatement.classname;
 
-    /**
-     * Base configuration settings for Sqlite driver
-     *
-     * - `mask` The mask used for created database
-     * /
+
 
     // Whether the connected server supports window functions
     protected bool _supportsWindowFunctions = null;
@@ -229,4 +223,5 @@ class DSqliteDriver : DDriver {
                 break;
         }
     } */
+
 }

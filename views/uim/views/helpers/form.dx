@@ -30,7 +30,7 @@ class FormHelper : Helper {
     // Default config for the helper.
     protected IConfiguration configuration.updateDefaults([
         "idPrefix": null,
-        "errorClass": "form-error",
+        "errorClass": StringData("form-error"),
         "typeMap": [
             "string": "text",
             "text": "textarea",

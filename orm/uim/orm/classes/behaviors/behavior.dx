@@ -20,14 +20,6 @@ class DBehavior : IEventListener {
     protected static array my_reflectionCache = [];
 
     /**
-     * Default configuration
-     *
-     * These are merged with user-provided configuration when the behavior is used.
-     *
-     */
-    protected IData[string] _defaultConfigData;
-
-    /**
      * Constructor
      *
      * Merges config with the default and store in the config property

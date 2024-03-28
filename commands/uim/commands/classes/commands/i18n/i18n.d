@@ -6,13 +6,15 @@ import uim.commands;
 
 // Command for interactive I18N management.
 class DI18nCommand : DCommand {
-  mixin(CommandThis!("I18n"));
+    mixin(CommandThis!("I18n"));
 
-  	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        return true;
+    }
 
     /*
     // Execute interactive mode
@@ -60,4 +62,5 @@ class DI18nCommand : DCommand {
         return aParser;
     } */
 }
+
 mixin(CommandCalls!("I18n"));

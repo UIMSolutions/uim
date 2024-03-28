@@ -76,7 +76,7 @@ class DModel : IModel {
     * Default config
     * These are merged with user-provided config when the component is used.
     */
-  mixin(TProperty!("IData[string]", "defaultConfig"));
+  // TODO mixin(TProperty!("IData[string]", "defaultConfig"));
 
   // Configuration of mvcobject
   mixin(TProperty!("Json", "config"));

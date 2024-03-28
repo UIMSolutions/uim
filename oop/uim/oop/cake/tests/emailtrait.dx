@@ -37,7 +37,7 @@ template EmailTemplate {
     
     // Asserts that no emails were sent
     void assertNoMailSent(string message= null) {
-        this.assertThat(null, new NoMailSent(), message);
+        this.assertThat(null, new DNoMailSent(), message);
     }
     
     // Asserts an email at a specific index was sent to an address

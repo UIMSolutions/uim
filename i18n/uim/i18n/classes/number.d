@@ -8,7 +8,7 @@ import uim.i18n;
  * Number helper library.
  * Methods to make numbers more readable.
  */
-class Number {
+class DNumber {
     mixin TConfigurable!();
 
     this() {
@@ -203,7 +203,7 @@ class Number {
     static string getDefaultCurrency() {
         if (_defaultCurrency.isNull) {
             locale = ini_get("intl.default_locale") ?: DEFAULT_LOCALE;
-            formatter = new NumberFormatter(locale, NumberFormatter.CURRENCY);
+            formatter = new DNumberFormatter(locale, NumberFormatter.CURRENCY);
             _defaultCurrency = formatter.getTextAttribute(NumberFormatter.CURRENCY_CODE);
         }
         return _defaultCurrency;
@@ -273,7 +273,7 @@ class Number {
             }
         }
         if (!_formatters[locale].isSet(type)) {
-            _formatters[locale][type] = new NumberFormatter(locale, type);
+            _formatters[locale][type] = new DNumberFormatter(locale, type);
         }
         /** @var \NumberFormatter formatter * /
         formatter = _formatters[locale][type];
@@ -291,7 +291,7 @@ class Number {
      * /
     static void config(string alocale, int type = NumberFormatter.DECIMAL, IData[string] options = null) {
         _formatters[locale][type] = _setAttributes(
-            new NumberFormatter(locale, type),
+            new DNumberFormatter(locale, type),
             options
         );
     }

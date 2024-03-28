@@ -58,6 +58,6 @@ class DUnfoldIterator : IteratorIterator, RecursiveIterator {
         auto key = this.key();
         auto unfolder = _unfolder;
 
-        return new NoChildrenIterator(unfolder(current, key, _innerIterator));
+        return new DNoChildrenIterator(unfolder(current, key, _innerIterator));
     }
 }

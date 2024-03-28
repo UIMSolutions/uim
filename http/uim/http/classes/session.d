@@ -458,7 +458,7 @@ class DSession {
      * Used to write new data to _SESSION, since PHP doesn`t like us setting the _SESSION var itself.
      * Params:
      * array old Set of old variables: values
-     * @param array new New set of variable: value
+     * @param array new DNew set of variable: value
      * /
     protected void _overwrite(array & old, arraynew) {
         ) {

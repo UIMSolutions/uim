@@ -542,7 +542,7 @@ template CollectionTemplate {
         }
 
         return new DTreeIterator(
-            new NestIterator(this, mynestingKey),
+            new DNestIterator(this, mynestingKey),
             myorder
         );
     }

@@ -224,7 +224,7 @@ class DStream { // }: IAdapter {
         fclose(_stream);
 
         if (timedOut) {
-            throw new NetworkException("Connection timed out " ~ url, request);
+            throw new DNetworkException("Connection timed out " ~ url, request);
         }
          aHeaders = meta["wrapper_data"];
         if (isSet( aHeaders["headers"]) && isArray( aHeaders["headers"])) {

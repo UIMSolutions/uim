@@ -38,7 +38,7 @@ class DCurl { // }: IAdapter {
             if (in_array(errorCode, errorNumbers, true)) {
                 throw new DRequestException(message, request);
             }
-            throw new NetworkException(message, request);
+            throw new DNetworkException(message, request);
         }
         responses = this.createResponse(ch, body);
         curl_close(ch);

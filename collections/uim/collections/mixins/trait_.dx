@@ -629,7 +629,7 @@ trait CollectionTrait {
         }
 
         return new DTreeIterator(
-            new NestIterator(this, nestingKey),
+            new DNestIterator(this, nestingKey),
              order
         );
     }

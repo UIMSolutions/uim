@@ -29,7 +29,7 @@ class DStubConsoleInput : ConsoleInput {
 
         if (!this.replies.isSet(_currentIndex)) {
             total = count(this.replies);
-            formatter = new NumberFormatter("en", NumberFormatter.ORDINAL);
+            formatter = new DNumberFormatter("en", NumberFormatter.ORDINAL);
             nth = formatter.format(_currentIndex + 1);
 
             replies = join(", ", this.replies);

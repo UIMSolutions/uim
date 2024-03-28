@@ -82,9 +82,9 @@ class DExceptionTrap {
 
   bool initialize(IData[string] initData = null) {
     IData[string] defaultData = [
-      "exceptionRenderer": IData(null),
+      "exceptionRenderer": null,
       "logger": IData(ErrorLogger.classname),
-      "stderr": IData(null),
+      "stderr": null,
       "log": IData(true),
       "skipLog": IData.emptyArray,
       "trace": IData(false),

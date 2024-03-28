@@ -18,7 +18,7 @@ class DSubjectFilterDecorator : DAbstractDecorator {
     IData __invoke() {
         auto someArguments = func_get_args();
         if (!this.canTrigger(someArguments[0])) {
-            return IData(null);
+            return null;
         }
         return _call(someArguments);
     }

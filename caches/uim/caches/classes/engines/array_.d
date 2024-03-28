@@ -40,7 +40,7 @@ class DArrayEngine : DCacheEngine {
   } * / 
 
   // Read a key from the cache
-  override IData get(string dataId, IData defaultValue = IData(null)) {
+  override IData get(string dataId, IData defaultValue = null) {
     auto key = _key(dataId);
     if (!_cachedData.isSet(key)) {
       return defaultValue;

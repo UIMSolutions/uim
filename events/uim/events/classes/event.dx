@@ -37,7 +37,7 @@ class DEvent : IEvent {
      *  with this event to it can be read by listeners.
      * @psalm-param TSubject|null subject
      */
-    this(string aName, IEventObject subject = null, IData data = IData(null)) {
+    this(string aName, IEventObject subject = null, IData data = null) {
         _name = aName;
         _subject = subject;
         _data = data;

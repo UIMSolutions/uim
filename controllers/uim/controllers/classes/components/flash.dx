@@ -77,7 +77,7 @@ class DFlashComponent : DComponent {
      * string|null aKey The key to get or null for the whole config.
      * @param IData defaultValue The return value when the key does not exist.
      */
-    IData getConfig(string aKey = null, IData defaultValue = IData(null)) {
+    IData getConfig(string aKey = null, IData defaultValue = null) {
         return this.flash().getConfig(aKey,  default);
     }
     

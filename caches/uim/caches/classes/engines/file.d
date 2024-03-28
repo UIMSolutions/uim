@@ -115,7 +115,7 @@ class DFileCacheEngine : DCacheEngine {
      * Params:
      * @param IData defaultValue Default value to return if the key does not exist.
      * /
-    IData get(string dataId, IData defaultValue = IData(null)) {
+    IData get(string dataId, IData defaultValue = null) {
         auto key = _key(dataId);
 
         if (!_init || _setKey(key) == false) {

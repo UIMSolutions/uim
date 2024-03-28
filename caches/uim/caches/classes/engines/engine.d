@@ -183,7 +183,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * @param IData mydefault Default value to return if the key does not exist.
      */
     IData get(string aKey, IData mydefault = null) {
-        return IData(null);
+        return null;
     }
 
     /**

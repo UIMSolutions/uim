@@ -51,7 +51,7 @@ class DRedisEngine : DCacheEngine {
         "persistent": IData(true),
         "port": IData(6379),
         "prefix": IData("uim_"),
-        "host": IData(null),
+        "host": null,
         "server": IData("127.0.0.1"),
         "timeout": IData(0),
         "unix_socket": false,
@@ -123,7 +123,7 @@ class DRedisEngine : DCacheEngine {
      * string aKey Identifier for the data
      * @param IData defaultValue Default value to return if the key does not exist.
      * /
-    IData get(string aKey, IData defaultValue = IData(null)) {
+    IData get(string aKey, IData defaultValue = null) {
         aValue = _redis.get(_key(aKey));
         if (aValue == false) {
             return defaultValue;

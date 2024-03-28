@@ -62,7 +62,7 @@ class DFactoryLocator {
      * /
     static function get(string type) {
         if ("Table"  !in _modelFactories)) {
-            _modelFactories["Table"] = new TableLocator();
+            _modelFactories["Table"] = new DTableLocator();
         }
 
         if (!isset(_modelFactories[type])) {

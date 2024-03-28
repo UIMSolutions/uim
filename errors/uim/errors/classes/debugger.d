@@ -478,7 +478,7 @@ class DDebugger {
      * @param int maxDepth The depth to output to. Defaults to 3.
      * /
     static string exportVarAsPlainText(IData var, int maxDepth = 3) {
-        return (new TextFormatter()).dump(
+        return (new DTextFormatter()).dump(
             export(var, new DebugContext(maxDepth))
         );
     }

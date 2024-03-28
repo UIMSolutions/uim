@@ -30,7 +30,7 @@ template CollectionTemplate {
             return (bool)myv;
         };
 
-        return new FilterIterator(this.unwrap(), mycallback);
+        return new DFilterIterator(this.unwrap(), mycallback);
     }
  
     ICollection reject(?callable aCallback = null) {
@@ -38,7 +38,7 @@ template CollectionTemplate {
             return (bool)myv;
         };
 
-        return new FilterIterator(this.unwrap(), fn (myvalue, aKey, myitems): 
+        return new DFilterIterator(this.unwrap(), fn (myvalue, aKey, myitems): 
         !mycallback(myvalue, aKey, myitems));
     }
  
@@ -541,7 +541,7 @@ template CollectionTemplate {
             myorder = mymodes[myorder];
         }
 
-        return new TreeIterator(
+        return new DTreeIterator(
             new NestIterator(this, mynestingKey),
             myorder
         );

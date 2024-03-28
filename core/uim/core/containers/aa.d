@@ -33,9 +33,9 @@ unittest {
   class DTest {
   }
 
-  auto a = new Test;
-  auto b = new Test;
-  auto c = new Test;
+  auto a = new DTest;
+  auto b = new DTest;
+  auto c = new DTest;
   assert([1: a, 2: b, 3: c].getKeys(true) == [1, 2, 3]);
 }
 

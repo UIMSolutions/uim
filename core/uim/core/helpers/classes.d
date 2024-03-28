@@ -45,7 +45,7 @@ unittest {
             return cast(O)this.classinfo.create;
         }
     }
-    auto test = new Test;
+    auto test = new DTest;
     assert(test.className == "Test");
     assert(test.stringof == "test");
 
@@ -55,15 +55,15 @@ unittest {
     class DTest2 : Test1 {
     }
 
-    assert((new Test1).className == "Test1");
-    assert((new Test2).className == "Test2");
+    assert((new DTest1).className == "Test1");
+    assert((new DTest2).className == "Test2");
     
-    writeln((new Test2).classinfo);
-    writeln("Base:", (new Test2).classinfo.base);
-    writeln("Name:", (new Test2).classinfo.name);
-    writeln("ClassName:", (new Test2).className);
-    writeln("fullClassname:", (new Test2).classFullname);
-    writeln("Interfaces:", (new Test).classinfo.interfaces);
+    writeln((new DTest2).classinfo);
+    writeln("Base:", (new DTest2).classinfo.base);
+    writeln("Name:", (new DTest2).classinfo.name);
+    writeln("ClassName:", (new DTest2).className);
+    writeln("fullClassname:", (new DTest2).classFullname);
+    writeln("Interfaces:", (new DTest).classinfo.interfaces);
 
     Object result;
     Test2 function(string) fn;
@@ -71,9 +71,9 @@ unittest {
     () @trusted { result = Object.factory(name); }();
     debug writeln(result.className);
     /* debug writeln(x("uim.core.helpers.classes.tt"));*/
-    debug writeln((new Test2).classinfo.create); 
-    auto cl = (new Test2).classinfo;
+    debug writeln((new DTest2).classinfo.create); 
+    auto cl = (new DTest2).classinfo;
     debug writeln(cl.create);
 
-    debug writeln((new Test2).create);
+    debug writeln((new DTest2).create);
 }

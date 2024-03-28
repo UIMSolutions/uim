@@ -56,7 +56,7 @@ class DWhenThenExpression : IExpression {
      * value.
      */
     this(TypeMap typeMap = null) {
-       _typeMap = typeMap ?? new TypeMap();
+       _typeMap = typeMap ?? new DTypeMap();
     }
     
     /**

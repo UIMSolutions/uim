@@ -56,13 +56,13 @@ trait CollectionTrait {
             };
         }
 
-        return new FilterIterator(this.unwrap(), callback);
+        return new DFilterIterator(this.unwrap(), callback);
     }
 
 
     function reject(callable callback): ICollection
     {
-        return new FilterIterator(this.unwrap(), function ( key, value, items) use (callback) {
+        return new DFilterIterator(this.unwrap(), function ( key, value, items) use (callback) {
             return !callback( key, value, items);
         });
     }
@@ -628,7 +628,7 @@ trait CollectionTrait {
              order = modes[ order];
         }
 
-        return new TreeIterator(
+        return new DTreeIterator(
             new NestIterator(this, nestingKey),
              order
         );

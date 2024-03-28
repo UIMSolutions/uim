@@ -141,7 +141,7 @@ interface IDriver : INamed {
     QueryCompiler newCompiler();
 
     /**
-     * Constructs new TableSchema.
+     * Constructs new DTableSchema.
      *
      * @param string myTable The table name.
      * @param array columns The list of columns for the schema.

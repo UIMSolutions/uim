@@ -166,7 +166,7 @@ class Helper : IEventListener {
      * IData[string] helperSettings The configuration settings provided to this helper.
      */
     bool initialize(IData[string] initData = null) {
-       _defaultConfig = IData .emptyObject;
+      
     }
     
     // Returns an array that can be used to describe the internal state of this object.

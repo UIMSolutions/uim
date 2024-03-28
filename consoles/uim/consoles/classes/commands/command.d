@@ -38,8 +38,6 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
         return true;
     }
 
-    mixin(TProperty!("string", "name"));
-
     //  @use \UIM\Event\EventDispatcherTrait<\UIM\Command\Command>
     // mixin EventDispatcherTemplate();
 

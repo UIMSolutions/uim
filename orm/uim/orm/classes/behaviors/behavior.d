@@ -100,7 +100,22 @@ import uim.orm;
  * @see DORMevents.EventManager
  */
 class DBehavior { // }: IEventListener {
-    mixin TConfigurable!(); 
+    mixin TConfigurable!();
+
+    this() {
+        super();
+        this.name("Behavior");
+    }
+
+    this(IData[string] initData) {
+        super(initData);
+        this.name("Behavior");
+    }
+
+    this(string name) {
+        super();
+        this.name(name);
+    }
 
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
@@ -111,15 +126,9 @@ class DBehavior { // }: IEventListener {
 
     mixin(TProperty!("string", "name"));
 
-    /*
-    mixin InstanceConfigTemplate;
-
     /**
      * Table instance.
-     *
-     * @var DORMTable
-     * /
-    protected _table;
+    protected DORMTable _table;
 
     /**
      * Reflection method cache for behaviors.
@@ -130,15 +139,6 @@ class DBehavior { // }: IEventListener {
      * @var array<string, array>
      * /
     protected static _reflectionCache = null;
-
-    /**
-     * Default configuration
-     *
-     * These are merged with user-provided configuration when the behavior is used.
-     *
-     * @var array<string, mixed>
-     * /
-    protected _defaultConfig = null;
 
     /**
      * Constructor

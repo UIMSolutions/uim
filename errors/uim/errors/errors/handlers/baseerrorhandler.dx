@@ -16,7 +16,7 @@ import uim.errors;
  * the errors in their environment.
  */
 abstract class DERRErrorHandler {
-    //     mixin TConfigurable!();
+    mixin TConfigurable!();
 
     this() {
         initialize;
@@ -34,23 +34,17 @@ abstract class DERRErrorHandler {
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
+    configuration.updateDefaults([
+        "log": true,
+        "trace": false,
+        "skipLog": ArrayData,
+        "errorLogger": "ErrorLogger::class"
+    ]);
 
         return true;
     }
 
     mixin(TProperty!("string", "name"));
-/*
-
-    bool initialize() {}
-      _defaultConfig = IData.emptyObject;
-      _defaultConfig["log"] = true;
-      _defaultConfig["trace"] = false;
-      _defaultConfig["skipLog"] = Jso.emptyArray;
-      _defaultConfig["errorLogger"] = "ErrorLogger::class";
-    }
-
-    // Options to use for the Error handling.
-    protected IData _defaultConfig;
 
     protected bool _handled = false;
 

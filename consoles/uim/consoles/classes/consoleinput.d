@@ -25,6 +25,7 @@ class DConsoleInput {
 
     mixin(TProperty!("string", "name"));
 
+    /*
     // Input value.
     protected resource _input;
 
@@ -34,7 +35,7 @@ class DConsoleInput {
      * 1. Readline support must be enabled.
      * 2. Handle we are attached to must be stdin.
      * Allows rich editing with arrow keys and history when inputting a string.
-     */
+     * /
     protected bool _canReadline;
 
     this(string streamLocation = "uim://stdin") {
@@ -80,5 +81,7 @@ class DConsoleInput {
                 throw new DConsoleException(error);
             }
             return readyFds > 0;
-        }
+        } 
     }
+    */
+}

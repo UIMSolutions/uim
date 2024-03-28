@@ -5,15 +5,29 @@ import uim.logging;
 @safe:
 
 abstract class DAbstractFormatter {
-    use InstanceConfigTemplate();
+    mixin TConfigurable!();
 
-    protected IData[string] _defaultConfigData;
-
-    this(IData[string] configData = null) {
-        _defaultConfigData = IData.emptyObject;
-
-        configuration.update(configData);
+    this() {
+        initialize;
     }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    this(string name) {
+        this().name(name);
+    }
+
+    // Hook method
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
     
     // Formats message.
     abstract string format(IData loggingLevel, string loggingMessage, IData[string] loggingData = null);

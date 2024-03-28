@@ -38,12 +38,12 @@ class DFormProtectionComponent : DComponent {
      *  failure. Must be a valid Closure. Unset by default in which case
      *  exception is thrown on validation failure.
      */
-    _defaultConfigData = [
+    configuration.updateDefaults([
         "validate": BooleanData(true),
         "unlockedFields": ArrayData,
         "unlockedActions": ArrayData,
         "validationFailureCallback": null,
-    ];
+    ]);
 
     return true;
   }

@@ -156,9 +156,6 @@ class DView : IView { //  }: IEventDispatcher {
         "layoutPath", "templatePath", "plugin",
     ];
 
-    // Default custom config options.
-    protected IConfiguration _defaultConfiguration;
-
     // Holds an array of paths.
     protected string[] my_paths = [];
 
@@ -256,7 +253,7 @@ class DView : IView { //  }: IEventDispatcher {
      * Helpers can be added using {@link addHelper()} method.
      * /
     bool initialize(IData[string] myConfiguration = null) {
-       _defaultConfigData = IData .emptyObject;
+       
     }
 
     // Set the response content-type based on the view"s contentType()

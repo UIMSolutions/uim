@@ -153,7 +153,7 @@ class DBehavior : IEventListener {
      */
 
     bool initialize(IData[string] initData = null) {
-       _defaultConfig = IData .emptyObject;
+      
     }
     
     /**

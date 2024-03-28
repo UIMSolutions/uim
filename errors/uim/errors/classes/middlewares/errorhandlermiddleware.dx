@@ -59,12 +59,12 @@ class DErrorHandlerMiddleware : IMiddleware {
      *
      * @var array<string, mixed>
      */
-    protected STRINGAA _defaultConfig = [
+    configuration.updateDefaults([
         "skipLog":[],
         "log":true,
         "trace":false,
         "exceptionRenderer":ExceptionRenderer::class,
-    ];
+    ]);
 
     /**
      * Error handler instance.

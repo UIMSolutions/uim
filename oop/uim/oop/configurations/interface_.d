@@ -6,6 +6,16 @@ import uim.oop;
 interface IConfiguration : INamed {
     mixin(IProperty!("IData[string]", "data"));
 
+    // #region defaults
+        bool hasDefault(string key);
+
+        void updateDefault(string key, IData newData);
+
+        void updateDefaults(IData[string] newData);
+
+        void mergeDefaults(IData[string] newData);
+    // #endregion defaults
+
     bool hasAnyKeys(string[] keys...);
     bool hasAnyKeys(string[] keys);
 

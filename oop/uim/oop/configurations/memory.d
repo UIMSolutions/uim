@@ -18,14 +18,29 @@ class DMemoryConfiguration : DConfiguration {
     // #region defaultData
         protected IData[string] _defaultData;
 
-        override void setDefault(string key, IData newData) {
-            _defaultData[key] = newData;
+        override bool hasDefault(string key) {
+            return (key in _defaultData) ? true : false; 
         }
 
         override void updateDefaults(IData[string] newData) {
             newData.byKeyValue
-                .each!(kv => setDefault(kv.key, kv.value));
+                .each!(kv => updateDefault(kv.key, kv.value));
         }
+
+        override void updateDefault(string key, IData newData) {
+            _defaultData[key] = newData;
+        }
+
+        override void mergeDefaults(IData[string] newData) {
+            newData.byKeyValue
+                .each!(kv => mergeDefault(kv.key, kv.value));
+        }
+
+        override void mergeDefault(string key, IData newData) {
+            newData.byKeyValue
+                .filter!(kv => !hasDefault(kv.key))
+                .each!(kv => mergeDefault(kv.key, kv.value));
+        }    
     // #endregion defaultData
 
     // #region Data

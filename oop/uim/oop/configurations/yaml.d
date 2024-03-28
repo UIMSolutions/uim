@@ -15,11 +15,15 @@ class DYamlConfiguration : DFileConfiguration {
     }
     
     // #region defaultData
-        override void setDefault(string path, IData newData) {
+        override bool hasDefault(string key) {
+            return false; // TODO
+        }
+
+        override void updateDefault(string key, IData newData) {
             // TODO
         }
 
-        override void updateDefaults(IData[string] newData) {
+        override void mergeDefault(string key, IData newData) {
             // TODO
         }
     // #endregion defaultData

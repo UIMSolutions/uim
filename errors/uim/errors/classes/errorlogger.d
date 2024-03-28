@@ -4,31 +4,36 @@ import uim.errors;
 
 @safe:
 
-/**
- * Log errors and unhandled exceptions to `UIM\Log\Log`
- */
-class DErrorLogger { // }: IErrorLogger {
-    /*
-    use InstanceConfigTemplate();
+// Log errors and unhandled exceptions to `UIM\Log\Log`
+class DErrorLogger : IErrorLogger {
+ mixin TConfigurable!();
 
-    /**
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        setConfigurationData(initData);
+        setConfigurationDe
+        /**
      * Default configuration values.
-     *
      * - `trace` Should error logs include stack traces?
-     *
      * /
     protected IData[string] _defaultConfigData = [
         "trace": false,
     ];
+        return true;
+    }
 
-    /**
-     * Constructor
-     * Params:
-     * IData[string] configData Config array.
-     * /
     this(IData[string] configData = null) {
         this.setConfig(configData);
     }
+
   /*
     void logError(UimError error, ?IServerRequest serverRequest = null, bool  anIncludeTrace = false) {
         auto errorMessage = error.getMessage();

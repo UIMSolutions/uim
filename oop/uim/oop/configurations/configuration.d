@@ -21,11 +21,13 @@ abstract class DConfiguration : IConfiguration {
     mixin(TProperty!("string", "separator"));
 
     // #region defaultData
-        protected IData[string] _defaultData;
+        abstract bool hasDefault(string key);
 
-        abstract void setDefault(string path, IData newData); 
+        abstract void updateDefault(string key, IData newData);
 
-        abstract void updateDefaults(IData[string] newData); 
+        abstract void updateDefaults(IData[string] newData);
+
+        abstract void mergeDefaults(IData[string] newData); 
     // #endregion defaultData
 
     IData[string] data() {

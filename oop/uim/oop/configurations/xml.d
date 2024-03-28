@@ -16,13 +16,17 @@ class DXmlConfiguration : DFileConfiguration {
     }
 
     // #region defaultData
-    override void setDefault(string key, IData newData) {
-        // TODO
-    }
+        override bool hasDefault(string key) {
+            return false; // TODO
+        }
 
-    override void updateDefaults(IData[string] newData) {
-        // TODO
-    }
+        override void updateDefault(string key, IData newData) {
+            // TODO
+        }
+
+         override void mergeDefault(string key, IData newData) {
+            // TODO
+        }
     // #endregion defaultData
 
     override string[] allPaths() {

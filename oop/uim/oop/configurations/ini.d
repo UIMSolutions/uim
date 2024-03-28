@@ -16,11 +16,19 @@ class DIniConfiguration : DConfiguration {
     }
 
     // #region defaultData
-        override void setDefault(string key, IData newData) {
+        override bool hasDefault(string key) {
+            return false; // TODO
+        }
+
+        override void updateDefault(string key, IData newData) {
             // TODO
         }
 
         override void updateDefaults(IData[string] newData) {
+            // TODO
+        }
+
+        override void mergeDefaults(IData[string] newData) {
             // TODO
         }
     // #endregion defaultData

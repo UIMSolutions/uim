@@ -16,6 +16,22 @@ class DFileConfiguration : DConfiguration {
     }
 
     // #region defaultData
+        override bool hasDefault(string key) {
+            return false; // TODO
+        }
+
+        override void updateDefault(string key, IData newData) {
+            // TODO
+        }
+
+        override void updateDefaults(IData[string] newData) {
+            // TODO
+        }
+
+        override void mergeDefaults(IData[string] newData) {
+            // TODO
+        }
+    // #endregion defaultData
 
     override string[] allPaths() {
         return null; //TODO

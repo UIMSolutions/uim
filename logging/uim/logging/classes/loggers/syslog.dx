@@ -33,7 +33,7 @@ class DSysLogger : Logger {
      * ```
      *
      */
-    protected IConfiguration Configuration.updateDefaults([
+    protected IConfiguration configuration.updateDefaults([
         "levels": ArrayData,
         "scopes": ArrayData,
         "flag": LOG_ODELAY,

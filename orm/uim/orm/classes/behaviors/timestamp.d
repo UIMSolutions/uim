@@ -19,7 +19,7 @@ class DTimestampBehavior : DBehavior {
      * and call setTimestamp() on the behavior class before use.
      *
      * /
-    protected IData[string] Configuration.updateDefaults([
+    protected IData[string] configuration.updateDefaults([
         "implementedFinders": ArrayData,
         "implementedMethods": [
             "timestamp": "timestamp",

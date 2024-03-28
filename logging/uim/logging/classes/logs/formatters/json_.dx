@@ -1,7 +1,7 @@
 module uim.logs.Formatter;
 
 class DIDataFormatter : DAbstractFormatter {
-    protected IData[string] Configuration.updateDefaults([
+    protected IData[string] configuration.updateDefaults([
         "dateFormat": DATE_ATOM,
         "flags": IData_UNESCAPED_UNICODE | IData_UNESCAPED_SLASHES,
         "appendNewline": BooleanData(true),

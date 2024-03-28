@@ -4,7 +4,7 @@ class DIDataFormatter : DAbstractFormatter {
     protected IData[string] Configuration.updateDefaults([
         "dateFormat": DATE_ATOM,
         "flags": IData_UNESCAPED_UNICODE | IData_UNESCAPED_SLASHES,
-        "appendNewline": true,
+        "appendNewline": BooleanData(true),
     ];
 
     // configData - Formatter config

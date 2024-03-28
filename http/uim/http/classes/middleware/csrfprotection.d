@@ -39,8 +39,8 @@ class DCsrfProtectionMiddleware { // }: IMiddleware {
     protected IData _config = [
         "cookieName": "csrfToken",
         "expiry": 0,
-        "secure": false,
-        "httponly": false,
+        "secure": BooleanData(false),
+        "httponly": BooleanData(false),
         "samesite": null,
         "field": "_csrfToken",
     ];

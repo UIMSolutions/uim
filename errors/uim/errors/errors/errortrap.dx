@@ -39,9 +39,9 @@ class DErrorTrap {
     protected _defaultConfig = [
         "errorLevel": E_ALL,
         "errorRenderer": null,
-        "log": true,
+        "log": BooleanData(true),
         "logger": ErrorLogger::class,
-        "trace": false,
+        "trace": BooleanData(false),
     ];
 
     /**

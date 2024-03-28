@@ -8,8 +8,8 @@ class DefaultFormatter : DAbstractFormatter {
     
         defaultConfiguration.update([
             "dateFormat": "Y-m-d H:i:s",
-            "includeTags": false,
-            "includeDate": true,
+            "includeTags": BooleanData(false),
+            "includeDate": BooleanData(true),
         ]);
 		
 		return true;

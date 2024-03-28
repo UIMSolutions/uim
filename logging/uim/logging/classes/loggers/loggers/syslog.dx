@@ -41,7 +41,7 @@ class DSysLogger : Logger {
         "facility": LOG_USER,
         "formatter": [
             "className": DefaultFormatter.classname,
-            "includeDate": false,
+            "includeDate": BooleanData(false),
         ],
     ];
 

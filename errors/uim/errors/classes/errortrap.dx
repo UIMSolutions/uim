@@ -35,9 +35,9 @@ class DErrorTrap {
     protected IData[string] _defaultConfigData = [
         "errorLevel": E_ALL,
         "errorRenderer": null,
-        "log": true,
+        "log": BooleanData(true),
         "logger": ErrorLogger.classname,
-        "trace": false,
+        "trace": BooleanData(false),
     ];
 
     this(IData[string] options = null) {

@@ -46,7 +46,7 @@ mixin TConfigurable!();
      * @var array<string, mixed>
      * /
     protected _defaultConfig = [
-        "trace": false,
+        "trace": BooleanData(false),
     ];
 
     /**

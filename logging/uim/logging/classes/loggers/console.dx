@@ -15,7 +15,7 @@ class DConsoleLog : BaseLog {
         "outputAs": null,
         "formatter": [
             "className": DefaultFormatter.classname,
-            "includeTags": true,
+            "includeTags": BooleanData(true),
         ],
     ];
 

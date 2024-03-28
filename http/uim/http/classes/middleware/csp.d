@@ -24,8 +24,8 @@ class DCspMiddleware { // }: IMiddleware {
 
     // Configuration options.
     protected IData[string] _defaultConfigData = [
-        "scriptNonce": false,
-        "styleNonce": false,
+        "scriptNonce": BooleanData(false),
+        "styleNonce": BooleanData(false),
     ];
 
     /**

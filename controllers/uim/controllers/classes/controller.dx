@@ -169,7 +169,7 @@ class DController : IEventListener, IEventDispatcher {
             this.name = substr(name, 0, -10);
         }
         this.setRequest( request);
-        this.response = new Response();
+        this.response = new DResponse();
 
         if (eventManager !isNull) {
             this.setEventManager(eventManager);
@@ -622,12 +622,12 @@ class DController : IEventListener, IEventDispatcher {
      * string aaction The action to check.
      */
     bool isAction(string actionName) {
-         baseClass = new ReflectionClass(self.classname);
+         baseClass = new DReflectionClass(self.classname);
         if ( baseClass.hasMethod(actionName)) {
             return false;
         }
         try {
-             method = new ReflectionMethod(this, actionName);
+             method = new DReflectionMethod(this, actionName);
         } catch (ReflectionException) {
             return false;
         }

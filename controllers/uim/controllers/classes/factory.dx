@@ -48,7 +48,7 @@ class DControllerFactory : IControllerFactory, IRequestHandler {
         if (className.isNull) {
             throw this.missingController( request);
         }
-        auto myreflection = new ReflectionClass(className);
+        auto myreflection = new DReflectionClass(className);
         if ( reflection.isAbstract()) {
             throw this.missingController( request);
         }
@@ -74,7 +74,7 @@ class DControllerFactory : IControllerFactory, IRequestHandler {
 
         if ( middlewares) {
              middlewareQueue = new MiddlewareQueue( middlewares, this.container);
-             runner = new Runner();
+             runner = new DRunner();
 
             return  runner.run( middlewareQueue, controller.getRequest(), this);
         }
@@ -117,7 +117,7 @@ class DControllerFactory : IControllerFactory, IRequestHandler {
      */
     protected array getActionArgs(Closure action, array passedParams) {
          resolved = [];
-        function = new ReflectionFunction(action);
+        function = new DReflectionFunction(action);
         foreach (parameter; function.getParameters()) {
             type = parameter.getType();
 

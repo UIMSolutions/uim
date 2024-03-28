@@ -78,7 +78,7 @@ template CollectionTemplate {
     }
  
     ICollection map(callable aCallback) {
-        return new ReplaceIterator(this.unwrap(), mycallback);
+        return new DReplaceIterator(this.unwrap(), mycallback);
     }
  
     IData reduce(callable aCallback, IData myinitial = null) {
@@ -560,7 +560,7 @@ template CollectionTemplate {
         };
 
         return this.newCollection(
-            new RecursiveIteratorIterator(
+            new DRecursiveIteratorIterator(
                 new UnfoldIterator(this.unwrap(), mycallback),
                 RecursiveIteratorIterator.LEAVES_ONLY
             )

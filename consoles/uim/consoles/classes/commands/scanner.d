@@ -106,7 +106,7 @@ class DCommandScanner {
             if (!isSubclass_of(className, ICommand.classname)) {
                 continue;
             }
-            reflection = new ReflectionClass(className);
+            reflection = new DReflectionClass(className);
             if (reflection.isAbstract()) {
                 continue;
             }

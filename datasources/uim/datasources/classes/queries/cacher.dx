@@ -42,12 +42,12 @@ class QueryCacher
      */
     this(key, myConfiguration) {
         if (!key.isString && !(key instanceof Closure)) {
-            throw new RuntimeException("Cache keys must be strings or callables.");
+            throw new DRuntimeException("Cache keys must be strings or callables.");
         }
         _key = key;
 
         if (!(myConfiguration.isString && !(myConfiguration instanceof ICache)) {
-            throw new RuntimeException("Cache configs must be strings or \Psr\SimpleCache\ICache instances.");
+            throw new DRuntimeException("Cache configs must be strings or \Psr\SimpleCache\ICache instances.");
         }
         configuration = myConfiguration;
     }
@@ -97,7 +97,7 @@ class QueryCacher
         key = func(query);
         if (!key.isString) {
             msg = sprintf("Cache key functions must return a string. Got %s.", var_export(key, true));
-            throw new RuntimeException(msg);
+            throw new DRuntimeException(msg);
         }
 
         return key;

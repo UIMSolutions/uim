@@ -33,7 +33,7 @@ abstract class DAbstractLocator : ILocator {
 
         if (this.instances.isSet(alias)) {
             if (!empty(storeOptions) && isset(this.options[alias]) && this.options[alias] != storeOptions) {
-                throw new RuntimeException(sprintf(
+                throw new DRuntimeException(sprintf(
                     "You cannot configure '%s', it already exists in the registry.",
                     alias
                 ));

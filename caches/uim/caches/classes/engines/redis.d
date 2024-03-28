@@ -64,7 +64,7 @@ class DRedisEngine : DCacheEngine {
     // Connects to a Redis server
     protected bool _connect() {
         try {
-           _redis = new Redis();
+           _redis = new DRedis();
             if (!configuration["unix_socket"].isEmpty) {
                 result = _redis.connect(configuration["unix_socket"]);
             } elseif (configuration["persistent"].isEmpty) {

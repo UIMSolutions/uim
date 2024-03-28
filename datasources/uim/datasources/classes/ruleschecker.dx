@@ -265,7 +265,7 @@ class DRulesChecker {
             name = null;
         }
         if (!cast(RuleInvoker)rule)) {
-            rule = new RuleInvoker(rule, name, options);
+            rule = new DRuleInvoker(rule, name, options);
         } else {
             rule.setOptions(options).name(name);
         }

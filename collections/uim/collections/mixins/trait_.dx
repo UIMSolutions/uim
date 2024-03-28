@@ -102,7 +102,7 @@ trait CollectionTrait {
 
 
     ICollection map(callable callback) {
-        return new ReplaceIterator(this.unwrap(), callback);
+        return new DReplaceIterator(this.unwrap(), callback);
     }
 
 
@@ -620,7 +620,7 @@ trait CollectionTrait {
             ];
 
             if (!modes.isSet( order)) {
-                throw new RuntimeException(sprintf(
+                throw new DRuntimeException(sprintf(
                     "Invalid direction `%s` provided. Must be one of: "desc", "asc", "leaves"",
                      order
                 ));
@@ -654,7 +654,7 @@ trait CollectionTrait {
         }
 
         return this.newCollection(
-            new RecursiveIteratorIterator(
+            new DRecursiveIteratorIterator(
                 new UnfoldIterator(this.unwrap(), callback),
                 RecursiveIteratorIterator::LEAVES_ONLY
             )

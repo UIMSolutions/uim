@@ -183,12 +183,12 @@ class DFileCacheEngine : DCacheEngine {
 
         _clearDirectory(configuration["path"]);
 
-        mydirectory = new RecursiveDirectoryIterator(
+        mydirectory = new DRecursiveDirectoryIterator(
             configuration["path"],
             FilesystemIterator.SKIP_DOTS
         );
         /** @var \RecursiveDirectoryIterator<\SplFileInfo> myiterator Coerce for phpstan/psalm * /
-        auto myIterator = new RecursiveIteratorIterator(
+        auto myIterator = new DRecursiveIteratorIterator(
             mydirectory,
             RecursiveIteratorIterator.SELF_FIRST
         );
@@ -349,8 +349,8 @@ class DFileCacheEngine : DCacheEngine {
 
         auto myprefix = to!string( configuration["prefix"]);
 
-        auto mydirectoryIterator = new RecursiveDirectoryIterator(configuration["path"]);
-        auto mycontents = new RecursiveIteratorIterator(
+        auto mydirectoryIterator = new DRecursiveDirectoryIterator(configuration["path"]);
+        auto mycontents = new DRecursiveIteratorIterator(
             mydirectoryIterator,
             RecursiveIteratorIterator.CHILD_FIRST
         );

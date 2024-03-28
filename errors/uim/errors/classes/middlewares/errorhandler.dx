@@ -27,7 +27,7 @@ class DErrorHandlerMiddleware : IMiddleware {
      * This class will pass its configuration onto the ExceptionTrap
      * class if you are using the array style constructor.
      */
-    protected IData[string] _defaultConfigData = [
+    configuration.updateDefaults([
         "exceptionRenderer": WebExceptionRenderer.classname,
     ];
 

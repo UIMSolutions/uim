@@ -47,7 +47,7 @@ Customizing the Entity class DA Table Uses
 
 By default table objects use an entity class based on naming conventions. For example if your table class is called ArticlesTable the entity would be Article. If the table class was PurchaseOrdersTable the entity would be PurchaseOrder. If however, you want to use an entity that doesn’t follow the conventions you can use the setEntityClass() method to change things up:
 
-class PurchaseOrdersTable : DORMTable {
+class DPurchaseOrdersTable : DORMTable {
     bool initialize(IData[string] myConfiguration) {
         this->setEntityClass("App\Model\Entity\PO");
     }

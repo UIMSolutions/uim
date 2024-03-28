@@ -76,7 +76,7 @@ class DClient { // }: IClient {
   /* 
   mixin InstanceConfigTemplate();
 
-  protected IData[string] _defaultConfigData = [
+  configuration.updateDefaults([
     "auth": null,
     "adapter": null,
     "host": null,

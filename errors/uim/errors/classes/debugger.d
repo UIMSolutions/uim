@@ -17,7 +17,7 @@ class DDebugger {
     mixin InstanceConfigTemplate();
 
     // Default configuration
-    protected IData[string] _defaultConfigData = [
+    configuration.updateDefaults([
         "outputMask": ArrayData,
         "exportFormatter": null,
         "editor": "phpstorm",

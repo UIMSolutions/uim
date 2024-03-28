@@ -24,7 +24,7 @@ class DErrorLogger : IErrorLogger {
      * Default configuration values.
      * - `trace` Should error logs include stack traces?
      * /
-    protected IData[string] _defaultConfigData = [
+    configuration.updateDefaults([
         "trace": BooleanData(false),
     ];
         return true;

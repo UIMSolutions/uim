@@ -5,7 +5,7 @@ import uim.orm;
 @safe:
 
 // Used when a strict save or delete fails
-class PersistenceFailedException : UimException {
+class DPersistenceFailedException : UimException {
     // The entity on which the persistence operation failed
     protected IEntity my_entity;
  

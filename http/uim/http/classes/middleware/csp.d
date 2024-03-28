@@ -23,7 +23,7 @@ class DCspMiddleware { // }: IMiddleware {
     protected CSPBuilder csp;
 
     // Configuration options.
-    protected IData[string] _defaultConfigData = [
+    configuration.updateDefaults([
         "scriptNonce": BooleanData(false),
         "styleNonce": BooleanData(false),
     ];

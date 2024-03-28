@@ -13,7 +13,7 @@ class DFlashMessage {
     use InstanceConfigTemplate();
 
     // Default configuration
-    protected IData[string] _defaultConfigData = [
+    configuration.updateDefaults([
         "key": StringData("flash"),
         "element": StringData("default"),
         "plugin": null,

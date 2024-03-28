@@ -39,16 +39,16 @@ class DMemcachedEngine : DCacheEngine {
     Configuration.updateDefaults([
       "compress": BooleanData(false),
       "duration": 3600,
-      "groups": [],
+      "groups": ArrayData,
       "host": null,
-      "username": null,
+      "username": StringData,
       "password": null,
       "persistent": null,
       "port": null,
       "prefix": "uim_",
       "serialize": "d",
       "servers": ["127.0.0.1"],
-      "options": [],
+      "options": ArrayData,
     ]);
     */
   }

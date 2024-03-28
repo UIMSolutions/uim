@@ -17,8 +17,8 @@ class DSqliteDriver : DDriver {
             /* "mask": 0644,
             "cache": null,
             "mode": null,
-            "flags": [],
-            "init": [], */
+            "flags": ArrayData,
+            "init": ArrayData, */
         ];
 
         if (!super.initialize(baseData)) {

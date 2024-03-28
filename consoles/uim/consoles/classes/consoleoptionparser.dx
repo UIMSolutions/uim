@@ -348,7 +348,7 @@ class DConsoleOptionParser {
                 "help": "",
                 "index": count(_args),
                 "required": BooleanData(false),
-                "choices": [],
+                "choices": ArrayData,
             ];
             options = params + defaults;
              anIndex = options["index"];

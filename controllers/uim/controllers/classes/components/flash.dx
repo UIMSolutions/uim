@@ -19,7 +19,7 @@ class DFlashComponent : DComponent {
     protected IData[string] _defaultConfigData = [
         "key": "flash",
         "element": "default",
-        "params": [],
+        "params": ArrayData,
         "clear": BooleanData(false),
         "duplicate": BooleanData(true),
     ];

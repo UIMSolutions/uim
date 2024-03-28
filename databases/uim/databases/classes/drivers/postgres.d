@@ -21,8 +21,8 @@ class DPostgresDriver : DDriver {
             "port": 5432,
             "encoding": "utf8",
             "timezone": null,
-            "flags": [],
-            "init": [],
+            "flags": ArrayData,
+            "init": ArrayData,
         ];
 */
         // String used to start a database identifier quoting to make it safe

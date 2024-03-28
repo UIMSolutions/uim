@@ -36,8 +36,8 @@ class DFormProtectionComponent : DComponent {
      */
     protected IData[string] _defaultConfigData = [
         "validate": BooleanData(true),
-        "unlockedFields": [],
-        "unlockedActions": [],
+        "unlockedFields": ArrayData,
+        "unlockedActions": ArrayData,
         "validationFailureCallback": null,
     ];
 

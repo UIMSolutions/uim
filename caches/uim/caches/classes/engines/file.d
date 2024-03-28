@@ -50,7 +50,7 @@ class DFileCacheEngine : DCacheEngine {
 
         /* Configuration.updateDefaults([
             "duration": 3600,
-            "groups": [],
+            "groups": ArrayData,
             "lock": BooleanData(true),
             "mask": std.conv.octal!"664",
             "dirMask": std.conv.octal!"770",

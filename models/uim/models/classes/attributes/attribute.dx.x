@@ -17,7 +17,7 @@ class DAttribute : /* DEntity,  */IAttribute {
 
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
-        setConfigurationData(initData);
+        configuration.data(initData);
         
         return true;
     }

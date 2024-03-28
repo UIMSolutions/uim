@@ -13,7 +13,7 @@ class DSocket {
     mixin InstanceConfigTemplate();
 
     // Default configuration settings for the socket connection
-    protected IData[string] _defaultConfigData = [
+    configuration.updateDefaults([
         "persistent": BooleanData(false),
         "host": "localhost",
         "protocol": "tcp",

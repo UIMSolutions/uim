@@ -6,7 +6,7 @@ import uim.errors;
 
 // Log errors and unhandled exceptions to `UIM\Log\Log`
 class DErrorLogger : IErrorLogger {
- mixin TConfigurable!();
+    mixin TConfigurable!();
 
     this() {
         initialize;
@@ -18,23 +18,16 @@ class DErrorLogger : IErrorLogger {
 
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
-        setConfigurationData(initData);
-        setConfigurationDe
-        /**
-     * Default configuration values.
-     * - `trace` Should error logs include stack traces?
-     * /
-    configuration.updateDefaults([
-        "trace": BooleanData(false),
-    ];
+        configuration.data(initData);
+        configuration.updateDefaults([
+            // `trace` = Should error logs include stack traces?
+            "trace": BooleanData(false),
+        ]);
+        
         return true;
     }
 
-    this(IData[string] configData = null) {
-        this.setConfig(configData);
-    }
-
-  /*
+    /*
     void logError(UimError error, ?IServerRequest serverRequest = null, bool  anIncludeTrace = false) {
         auto errorMessage = error.getMessage();
         if (request) {

@@ -17,7 +17,7 @@ class DPaginator : IPaginator {
         }
 
         configuration(MemoryConfiguration);
-        setConfigurationData(initData);
+        configuration.data(initData);
 
         return true;
     }

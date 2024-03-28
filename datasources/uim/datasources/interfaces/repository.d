@@ -72,10 +72,10 @@ interface IRepository {
      * first load a collection of records and update them.
      * Params:
      * \Closure|string[] afields A hash of field: new value.
-     * @param \Closure|string[]|null conditions Conditions to be used, accepts anything Query.where()
+     * @param \Closure|string[] conditions Conditions to be used, accepts anything Query.where()
      * can take.
      * /
-    int updateAll(Closure|string[] afields, IClosure|string[]|null conditions);
+    int updateAll(Closure|string[] afields, IClosure|string[] conditions);
 
     /**
      * Deletes all records matching the provided conditions.
@@ -87,18 +87,18 @@ interface IRepository {
      * use database foreign keys + ON CASCADE rules if you need cascading deletes combined
      * with this method.
      * Params:
-     * \Closure|string[]|null conditions Conditions to be used, accepts anything Query.where()
+     * \Closure|string[] conditions Conditions to be used, accepts anything Query.where()
      * can take.
      * /
-    int deleteAll(Closure|string[]|null conditions);
+    int deleteAll(Closure|string[] conditions);
 
     /**
      * Returns true if there is any record in this repository matching the specified
      * conditions.
      * Params:
-     * \Closure|string[]|null conditions list of conditions to pass to the query
+     * \Closure|string[] conditions list of conditions to pass to the query
      * /
-   bool exists(Closure|string[]|null conditions);
+   bool exists(Closure|string[] conditions);
 
     /**
      * Persists an entity based on the fields that are marked as dirty and

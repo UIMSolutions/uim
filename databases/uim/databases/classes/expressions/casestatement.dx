@@ -265,7 +265,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      * @throws \LogicException In case the callable doesn`t return an instance of
      * `\UIM\Database\Expression\WhenThenExpression`.
      */
-    void when(IData  when, string[]|null type = null) {
+    void when(IData  when, string[] type = null) {
         if (!this.whenBuffer.isNull) {
             throw new LogicException("Cannot call `when()` between `when()` and `then()`.");
         }

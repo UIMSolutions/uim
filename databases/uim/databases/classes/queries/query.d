@@ -742,14 +742,14 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      *
      * If category is `null` - it will actually convert that into `category_id isNull` - if it`s `4` it will convert it into `category_id = 4`
      * Params:
-     * \UIM\Database\IExpression|\Closure|string[]|null conditions The conditions to filter on.
+     * \UIM\Database\IExpression|\Closure|string[] conditions The conditions to filter on.
      * @param STRINGAA types Associative array of type names used to bind values to query
      * @param bool overwrite whether to reset conditions with passed list or not
      * @see \UIM\Database\TypeFactory
      * @see \UIM\Database\Expression\QueryExpression
      * /
     auto where(
-        IExpression|Closure|string[]|null conditions = null,
+        IExpression|Closure|string[] conditions = null,
         array types = [],
         bool overwrite = false
     ) {
@@ -1217,9 +1217,9 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      * expression = aQuery.expr("Table.column = Table2.column"); // Return a raw SQL expression
      * ```
      * Params:
-     * \UIM\Database\IExpression|string[]|null rawExpression A string, array or anything you want wrapped in an expression object
+     * \UIM\Database\IExpression|string[] rawExpression A string, array or anything you want wrapped in an expression object
      * /
-    QueryExpression newExpr(IExpression|string[]|null rawExpression = null) {
+    QueryExpression newExpr(IExpression|string[] rawExpression = null) {
         return this.expr(rawExpression);
     }
     
@@ -1237,9 +1237,9 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      * expression = aQuery.expr("Table.column = Table2.column"); // Return a raw SQL expression
      * ```
      * Params:
-     * \UIM\Database\IExpression|string[]|null rawExpression A string, array or anything you want wrapped in an expression object
+     * \UIM\Database\IExpression|string[] rawExpression A string, array or anything you want wrapped in an expression object
      * /
-    QueryExpression expr(IExpression|string[]|null rawExpression = null) {
+    QueryExpression expr(IExpression|string[] rawExpression = null) {
         expression = new QueryExpression([], this.getTypeMap());
 
         if (rawExpression !isNull) {
@@ -1396,14 +1396,14 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
      * Helper auto used to build conditions by composing QueryExpression objects.
      * Params:
      * string apart Name of the query part to append the new part to
-     * @param \UIM\Database\IExpression|\Closure|string[]|null append Expression or builder auto to append.
+     * @param \UIM\Database\IExpression|\Closure|string[] append Expression or builder auto to append.
      *  to append.
      * @param string aconjunction type of conjunction to be used to operate part
      * @param STRINGAA types Associative array of type names used to bind values to query
      * /
     protected void _conjugate(
         string apart,
-        IExpression|Closure|string[]|null append,
+        IExpression|Closure|string[] append,
         string aconjunction,
         array types
     ) {

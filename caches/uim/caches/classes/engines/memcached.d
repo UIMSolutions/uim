@@ -14,7 +14,7 @@ import uim.caches;
  * Compressed keys can also be incremented/decremented.
  */
 class DMemcachedEngine : DCacheEngine {
-  override bool initialize(IData[string] initData = isNull) {
+  override bool initialize(IData[string] initData = null) {
     /**
      * The default config used unless overridden by runtime configuration
      *

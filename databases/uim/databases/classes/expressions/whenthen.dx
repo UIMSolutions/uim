@@ -78,7 +78,7 @@ class DWhenThenExpression : IExpression {
      * neither a string, nor null.
      * @see CaseStatementExpression.when() for a more detailed usage explanation.
      */
-    void when(object|string[]|float|int|bool  when, string[]|null type = null) {
+    void when(object|string[]|float|int|bool  when, string[] type = null) {
         if (isArray( when)) {
             if (isEmpty( when)) {
                 throw new DInvalidArgumentException("The ` when` argument must be a non-empty array");

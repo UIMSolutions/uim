@@ -80,7 +80,7 @@ class DDebugger {
      * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
      * @throws \UIM\Core\Exception\UimException When trying to set a key that is invalid.
      * /
-    static IData[string] configSettings = nullInstance(string[]|null aKey = null, IData aValue = null, bool merge = true) {
+    static IData[string] configSettings = nullInstance(string[] aKey = null, IData aValue = null, bool merge = true) {
         if (aKey.isNull) {
             return getInstance().getConfig(aKey);
         }

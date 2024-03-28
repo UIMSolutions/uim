@@ -23,13 +23,13 @@ class DRequest { // }: Message, IRequest {
      * @param \Psr\Http\Message\IUri|string aurl The request URL
      * @param string amethod The HTTP method to use.
      * @param array  aHeaders The HTTP headers to set.
-     * @param string[]|null someData The request body to use.
+     * @param string[] someData The request body to use.
      * /
     this(
         IUri|string aurl = "",
         string amethod = self.METHOD_GET,
         array  aHeaders = [],
-        string[]|null someData = null
+        string[] someData = null
     ) {
         this.setMethod(method);
         this.uri = this.createUri(url);

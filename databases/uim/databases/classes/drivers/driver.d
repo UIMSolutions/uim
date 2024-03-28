@@ -16,8 +16,7 @@ class DDriver { // }: IDriver {
     }
 
     this(string name) {
-        this();
-        this.name(name);
+        this().name(name);
     }
 
     // Hook method
@@ -28,13 +27,14 @@ class DDriver { // }: IDriver {
         return true;
     }
 
+    mixin(TProperty!("string", "name"));
+
     // String used to start a database identifier quoting to make it safe
     mixin(TProperty!("string", "startQuote"));
 
     // String used to end a database identifier quoting to make it safe
     mixin(TProperty!("string", "endQuote"));
 
-    mixin(TProperty!("string", "name"));
 
     void connect() {
     }

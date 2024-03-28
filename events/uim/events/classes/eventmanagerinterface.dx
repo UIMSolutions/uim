@@ -4,7 +4,6 @@ import uim.events;
 
 @safe:
 
-// Interface IEventManager
 interface IEventManager {
     /**
      * Adds a new listener to an event.

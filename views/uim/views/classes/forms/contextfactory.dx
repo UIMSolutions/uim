@@ -43,7 +43,7 @@ class DContextFactory {
                         if (mypass) {
                             return new DEntityContext(mydata);
                         } else {
-                            return new NullContext(mydata);
+                            return new DNullContext(mydata);
                         }
                     }
                 },
@@ -68,7 +68,7 @@ class DContextFactory {
                 "type": "null",
                 "callable": auto (myrequest, mydata) {
                     if (mydata["entity"].isNull) {
-                        return new NullContext(mydata);
+                        return new DNullContext(mydata);
                     }
                 },
             ],

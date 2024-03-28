@@ -14,7 +14,7 @@ import uim.views;
  * @method string toPercentage(string|float|int myvalue, int myprecision = 3, IData[string] options  = null) See Number.toPercentage()
  * @method string toReadableSize(string|float|int mysize) See Number.toReadableSize()
  */
-class NumberHelper : Helper {
+class DNumberHelper : Helper {
     mixin(HelperThis!("Number"));
     /**
      * Call methods from UIM\I18n\Number utility class

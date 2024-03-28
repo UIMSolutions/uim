@@ -16,10 +16,18 @@ import uim.consoles;
  * @implements \UIM\Event\IEventDispatcher<\UIM\Command\Command>
  */
 abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
-    mixin TConfigurable!(); 
+    mixin TConfigurable!();
 
     this() {
         initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    this(string name) {
+        this().name(name);
     }
 
     // Hook method
@@ -30,7 +38,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
         return true;
     }
 
-    //mixin configForClass();
+    mixin(TProperty!("string", "name"));
 
     //  @use \UIM\Event\EventDispatcherTrait<\UIM\Command\Command>
     // mixin EventDispatcherTemplate();

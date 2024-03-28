@@ -265,7 +265,7 @@ class DShadowTableStrategy : ITranslateStrategy
             return false;
         }
 
-        alias = myconfiguration["hasOneAlias"];
+        IData alias = myconfiguration["hasOneAlias"];
         fields = this.translatedFields();
         mainTableAlias = myconfiguration["mainTableAlias"];
         mainTableFields = this.mainFields();
@@ -273,7 +273,7 @@ class DShadowTableStrategy : ITranslateStrategy
 
         clause.traverse(
             function (expression) use (fields, alias, mainTableAlias, mainTableFields, &joinRequired) {
-                if (!(expression instanceof FieldInterface)) {
+                if (!(expression instanceof IField)) {
                     return;
                 }
                 field = expression.getField();

@@ -50,9 +50,9 @@ class PluginCollection /* : Iterator, Countable */ { // TODO
      *  ```
      *  [
      *      'Company/TestPluginThree",
-     *      'TestPlugin": ["onlyDebug": true, "onlyCli": true],
-     *      'Nope": ["optional": true],
-     *      'Named": ["routes": false, "bootstrap": false],
+     *      'TestPlugin": ["onlyDebug": BooleanData(true), "onlyCli": BooleanData(true)],
+     *      'Nope": ["optional": BooleanData(true)],
+     *      'Named": ["routes": BooleanData(false), "bootstrap": BooleanData(false)],
      *  ]
      *  ```
      */

@@ -112,7 +112,7 @@ class DBelongsToAssociation : DAssociation {
             (array)this.getForeignKeyss(),
             targetEntity.extract((array)this.getBindingKey())
         );
-        entity.set(properties, ["guard": false]);
+        entity.set(properties, ["guard": BooleanData(false)]);
 
         return entity;
     }

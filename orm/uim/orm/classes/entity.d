@@ -33,10 +33,10 @@ class DORMEntity { // }: IEntity, IInvalidProperty {
      * /
     this(array myproperties = [], IData[string] optionData = null) {
         options += [
-            "useSetters": true,
-            "markClean": false,
+            "useSetters": BooleanData(true),
+            "markClean": BooleanData(false),
             "markNew": null,
-            "guard": false,
+            "guard": BooleanData(false),
             "source": null,
         ];
 

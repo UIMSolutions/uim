@@ -547,7 +547,7 @@ void attachTo(Query query, IData[string] optionData = null) {
     table = target.getTable();
 
     options += [
-        "includeFields": true,
+        "includeFields": BooleanData(true),
         "foreignKeys": this.getForeignKeys(),
         "conditions": [],
         "joinType": this.getJoinType(),

@@ -145,7 +145,7 @@ class LazyEagerLoader
             loaded = results[key];
             foreach (associations as assoc) {
                 property = properties[assoc];
-                object.set(property, loaded.get(property), ["useSetters": false]);
+                object.set(property, loaded.get(property), ["useSetters": BooleanData(false)]);
                 object.setDirty(property, false);
             }
             injected[k] = object;

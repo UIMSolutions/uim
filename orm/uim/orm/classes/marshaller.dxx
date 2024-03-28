@@ -133,14 +133,14 @@ class Marshaller
      *
      * ```
      * result = marshaller.one(data, [
-     *   "associated": ["Tags": ["onlyIds": true]]
+     *   "associated": ["Tags": ["onlyIds": BooleanData(true)]]
      * ]);
      * ```
      *
      * ```
      * result = marshaller.one(data, [
      *   "associated": [
-     *     "Tags": ["accessibleFields": ["*": true]]
+     *     "Tags": ["accessibleFields": ["*": BooleanData(true)]]
      *   ]
      * ]);
      * ```
@@ -255,7 +255,7 @@ class Marshaller
      * @return array An array containing prepared data and options.
      */
     protected function _prepareDataAndOptions(array data, IData[string] optionData) {
-        options += ["validate": true];
+        options += ["validate": BooleanData(true)];
 
         tableName = _table.aliasName();
         if (isset(data[tableName]) && is_array(data[tableName])) {
@@ -499,7 +499,7 @@ class Marshaller
      *
      * ```
      * result = marshaller.merge(entity, data, [
-     *   "associated": ["Tags": ["onlyIds": true]]
+     *   "associated": ["Tags": ["onlyIds": BooleanData(true)]]
      * ]);
      * ```
      *
@@ -803,7 +803,7 @@ class Marshaller
             nested = (array)associated["_joinData"];
         }
 
-        options["accessibleFields"] = ["_joinData": true];
+        options["accessibleFields"] = ["_joinData": BooleanData(true)];
 
         records = this.mergeMany(original, value, options);
         foreach (records as record) {

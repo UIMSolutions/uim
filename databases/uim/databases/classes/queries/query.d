@@ -811,7 +811,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
       /
     auto whereInList(string afield, array  someValues, IData[string] options = null) {
         options["types"] = ArrayData;
-        options["allowEmpty"] = IData(false);
+        options["allowEmpty"] = BooleanData(false);
 
         if (options["allowEmpty"].get!bool && !someValues) {
             return this.where("1=0");
@@ -834,7 +834,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
     auto whereNotInList(string afield, array someValues, IData[string] options = null) {
         auto options = options.update([
             "types": ArrayData,
-            "allowEmpty": IData(false)
+            "allowEmpty": BooleanData(false)
         ];
 
         if (options["allowEmpty"] && !someValues) {
@@ -859,7 +859,7 @@ abstract class DQuery : IQuery { // : IExpression, Stringable {
     auto whereNotInListOrNull(string afield, array  someValues, IData[string] options = null) {
         auto options = options.update() [
             "types": ArrayData,
-            "allowEmpty": IData(false),
+            "allowEmpty": BooleanData(false),
         ];
 
         if (options["allowEmpty"] && !someValues) {

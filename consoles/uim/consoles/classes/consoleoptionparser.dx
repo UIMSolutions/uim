@@ -279,10 +279,10 @@ class DConsoleOptionParser {
                 "short": IData(""),
                 "help": IData(""),
                 "default": null,
-                "boolean": IData(false),
-                "multiple": IData(false),
+                "boolean": BooleanData(false),
+                "multiple": BooleanData(false),
                 "choices": ArrayData,
-                "required": IData(false),
+                "required": BooleanData(false),
                 "prompt": null,
             ];
             behaviorOptions = behaviorOptions.update(defaultValues);

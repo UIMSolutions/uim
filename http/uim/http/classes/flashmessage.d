@@ -18,7 +18,7 @@ class DFlashMessage {
         "element": IData("default"),
         "plugin": null,
         "params": ArrayData,
-        "clear": IData(false),
+        "clear": BooleanData(false),
         "duplicate": IData(true),
     ];
 

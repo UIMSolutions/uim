@@ -87,7 +87,7 @@ class DExceptionTrap {
       "stderr": null,
       "log": IData(true),
       "skipLog": ArrayData,
-      "trace": IData(false),
+      "trace": BooleanData(false),
       "extraFatalErrorMemory": IData(4)
     ];
 

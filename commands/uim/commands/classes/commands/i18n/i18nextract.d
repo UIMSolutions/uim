@@ -281,7 +281,7 @@ class DI18nExtractCommand : DCommand {
         ]);
         aParser.addOption("overwrite", [
             "boolean": IData(true),
-            "default": IData(false),
+            "default": BooleanData(false),
             "help": IData("Always overwrite existing .pot files.")
         ]);
         aParser.addOption("extract-core", [

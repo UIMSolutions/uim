@@ -88,7 +88,7 @@ class DClient { // }: IClient {
     "ssl_verify_peer_name": IData(true),
     "ssl_verify_depth": IData(5),
     "ssl_verify_host": IData(true),
-    "redirect": IData(false),
+    "redirect": BooleanData(false),
     "protocolVersion": IData("1.1"),
   ];
 
@@ -484,7 +484,7 @@ class DClient { // }: IClient {
       "port": IData(null,
       "scheme": IData("http"),
       "basePath": IData(""),
-      "protocolRelative": IData(false),
+      "protocolRelative": BooleanData(false),
     ];
     options = options.update(mydefaults);
 

@@ -277,7 +277,7 @@ class DFreezeClam : IClam {
 version (test_uim_oop) {
 	unittest {
 		writeln("--- DAbstract Factory test ---");
-		DPizzaStore nyStore = new NYPizzaStore();
+		DPizzaStore nyStore = new DNYPizzaStore();
 		DPizzaStore chicagoStore = new DChicagoPizzaStore();
 
 		DPizza pizza = nyStore.orderPizza("cheese");

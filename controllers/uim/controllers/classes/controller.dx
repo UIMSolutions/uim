@@ -522,7 +522,7 @@ class DController : IEventListener, IEventDispatcher {
                     return typeMap[extType];
                 }
             }
-            throw new NotFoundException("View class for `%s` extension not found".format(ext));
+            throw new DNotFoundException("View class for `%s` extension not found".format(ext));
         }
         // Use accept header based negotiation.
         auto contentType = new DContentTypeNegotiation();
@@ -607,7 +607,7 @@ class DController : IEventListener, IEventDispatcher {
                 settingsForPagination
             );
         } catch (PageOutOfBoundsException exception) {
-            throw new NotFoundException(null, null, exception);
+            throw new DNotFoundException(null, null, exception);
         }
         return results;
     }

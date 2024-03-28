@@ -27,7 +27,7 @@ class DRealCustomer : DAbstractCustomer {
     return false; }
 }
 
-class NullCustomer : DAbstractCustomer {
+class DNullCustomer : DAbstractCustomer {
   override string name() {
     return "Not Available in Customer Database"; }
 
@@ -45,7 +45,7 @@ class DCustomerFactory {
         return new DRealCustomer(name);
       }
     }
-    return new NullCustomer();
+    return new DNullCustomer();
   }
 }
 

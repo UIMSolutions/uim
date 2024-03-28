@@ -168,7 +168,7 @@ class Marshaller
         properties = null;
         foreach (data as key: value) {
             if (!empty(errors[key])) {
-                if (entity instanceof InvalidPropertyInterface) {
+                if (entity instanceof IInvalidProperty) {
                     entity.setInvalidField(key, value);
                 }
                 continue;
@@ -533,7 +533,7 @@ class Marshaller
         properties = null;
         foreach (data as key: value) {
             if (!empty(errors[key])) {
-                if (entity instanceof InvalidPropertyInterface) {
+                if (entity instanceof IInvalidProperty) {
                     entity.setInvalidField(key, value);
                 }
                 continue;

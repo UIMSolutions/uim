@@ -199,7 +199,7 @@ class DHasManyAssociation : DAssociation {
 
             if (!empty(options["atomic"])) {
                 original[k].setErrors(entity.getErrors());
-                if (entity instanceof InvalidPropertyInterface) {
+                if (entity instanceof IInvalidProperty) {
                     original[k].setInvalid(entity.getInvalid());
                 }
 

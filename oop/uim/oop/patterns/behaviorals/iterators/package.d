@@ -18,14 +18,14 @@ interface IContainer {
   Iterator iterator();
 }
 
-/// Create concrete class implementing the Container interface. This class has inner class NameIterator implementing the Iterator interface.
-class NameRepository : IContainer {
+/// Create concrete class implementing the Container interface. This class has inner class DNameIterator implementing the Iterator interface.
+class DNameRepository : IContainer {
   string[] names = ["Robert" , "John" ,"Julie" , "Lora"];
 
   override Iterator iterator() {
-    return new NameIterator(); }
+    return new DNameIterator(); }
 
-  private class NameIterator : Iterator {
+  private class DNameIterator : Iterator {
     size_t _index;
 
     override bool hasNext() {
@@ -40,7 +40,7 @@ class NameRepository : IContainer {
 version(test_uim_oop) { unittest {
   writeln("IteratorPatternDemo"); 
   
-  NameRepository namesRepository = new NameRepository();
+  NameRepository namesRepository = new DNameRepository();
 
   for(Iterator iter = namesRepository.iterator(); iter.hasNext();) {
     string name = to!string(iter.next());

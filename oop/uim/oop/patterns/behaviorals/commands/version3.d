@@ -14,7 +14,7 @@ public interface IXCommand {
 }
 
 
-public class NoXCommand : IXCommand {
+public class DNoXCommand : IXCommand {
 	void execute() {
 	}
 
@@ -260,7 +260,7 @@ public:
 		onCommands = new DCommand[7];
 		offCommands = new DCommand[7];
 
-		Command noCommand = new NoCommand();
+		Command noCommand = new DNoCommand();
 
 		for (size_t i = 0; i < 7; i++) {
 			onCommands[i] = noCommand;

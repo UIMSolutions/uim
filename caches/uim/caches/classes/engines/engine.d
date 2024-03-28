@@ -34,6 +34,19 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         configuration(MemoryConfiguration);
         setConfigurationData(initData);
 
+        /**
+        * The default cache configuration is overridden in most cache adapters. These are
+        * the keys that are common to all adapters. If overridden, this property is not used.
+        *
+        * - `duration` Specify how long items in this cache configuration last.
+        * - `groups` List of groups or "tags" associated to every key stored in this config.
+        *   handy for deleting a complete group from cache.
+        * - `prefix` Prefix appended to all entries. Good for when you need to share a keyspace
+        *   with either another cache config or another application.
+        * - `warnOnWriteFailures` Some engines, such as ApcuEngine, may raise warnings on
+        *   write failures.
+        */
+        
         /* if (configuration.hasKey("groups")) {
             configuration["groups"].sort;
             _groupPrefix = str_repeat("%s_", configuration["groups"].count);
@@ -55,20 +68,6 @@ abstract class DCacheEngine : ICache, ICacheEngine {
 
     protected const string CHECK_KEY = "key";
     protected const string CHECK_VALUE = "value";
-
-    /**
-     * The default cache configuration is overridden in most cache adapters. These are
-     * the keys that are common to all adapters. If overridden, this property is not used.
-     *
-     * - `duration` Specify how long items in this cache configuration last.
-     * - `groups` List of groups or "tags" associated to every key stored in this config.
-     *   handy for deleting a complete group from cache.
-     * - `prefix` Prefix appended to all entries. Good for when you need to share a keyspace
-     *   with either another cache config or another application.
-     * - `warnOnWriteFailures` Some engines, such as ApcuEngine, may raise warnings on
-     *   write failures.
-     */
-    protected IData[string] _defaultConfigData;
 
     /**
      * Contains the compiled string with all group
@@ -257,7 +256,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * and returns the `group value` for each of them, this is
      * the token representing each group in the cache key
      */
-    string[] groups()  {
+    string[] groups() {
         return null; // return configuration["groups"];
     }
 

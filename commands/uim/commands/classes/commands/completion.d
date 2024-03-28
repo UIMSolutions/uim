@@ -43,7 +43,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
             ]);
         aParser.addArgument("command", [
                 "help": "The command name to get information on.",
-                "required": false,
+                "required": BooleanData(false),
             ]);
         aParser.addArgument("subcommand", [
                 "help": "The sub-command related to command to get information on.",

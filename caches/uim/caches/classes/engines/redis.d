@@ -54,7 +54,7 @@ class DRedisEngine : DCacheEngine {
         "host": null,
         "server": IData("127.0.0.1"),
         "timeout": IData(0),
-        "unix_socket": false,
+        "unix_socket": BooleanData(false),
         "scanCount": IData(10)
     ]);
     

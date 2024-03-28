@@ -45,7 +45,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
             "required": false,
         ]).addOption("overwrite", [
             "help": "Overwrite existing symlink / folder / files.",
-            "default": false,
+            "default": BooleanData(false),
             "boolean": true,
         ]);
 

@@ -902,7 +902,7 @@ interface ICollection {
      * Get elements until the first unapproved message is found:
      *
      * ```
-     * comments = (new DCollection(comments)).stopWhen(["is_approved": false]);
+     * comments = (new DCollection(comments)).stopWhen(["is_approved": BooleanData(false)]);
      * ```
      *
      * @param callable|array condition the method that will receive each of the elements and

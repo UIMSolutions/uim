@@ -201,7 +201,7 @@ class DI18nExtractCommand : DCommand {
 
         if (isEmpty(_translations[ domain][ msgid][context])) {
            _translations[ domain][ msgid][context] = [
-                "msgid_plural": false,
+                "msgid_plural": BooleanData(false),
             ];
         }
         if (isSet(details["msgid_plural"])) {

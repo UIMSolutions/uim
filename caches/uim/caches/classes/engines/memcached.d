@@ -14,10 +14,8 @@ import uim.caches;
  * Compressed keys can also be incremented/decremented.
  */
 class DMemcachedEngine : DCacheEngine {
-  // memcached wrapper.
-  /* protected Memcached _memcached;
-
-  /**
+    override bool initialize(IData[string] initData = isNull) {
+    /**
      * The default config used unless overridden by runtime configuration
      *
      * - `compress` Whether to compress data
@@ -38,7 +36,24 @@ class DMemcachedEngine : DCacheEngine {
      * - `options` - Additional options for the memcached client. Should be an array of option: value.
      *   Use the \Memcached.OPT_* constants as keys.
      * /
-  protected IData[string] _defaultConfigData;
+    Configuration.updateDefaults([
+      "compress": BooleanData(false),
+      "duration": 3600,
+      "groups": [],
+      "host": null,
+      "username": null,
+      "password": null,
+      "persistent": null,
+      "port": null,
+      "prefix": "uim_",
+      "serialize": "d",
+      "servers": ["127.0.0.1"],
+      "options": [],
+    ]);
+  // memcached wrapper.
+  /* protected Memcached _memcached;
+
+
 
   /**
      * List of available serializer engines
@@ -57,21 +72,7 @@ h     * /
      * configData - array of setting for the engine
      * /
 
-  bool initialize(IData[string] initData = isNull) {
-    Configuration.updateDefaults([
-      "compress": false,
-      "duration": 3600,
-      "groups": [],
-      "host": null,
-      "username": null,
-      "password": null,
-      "persistent": null,
-      "port": null,
-      "prefix": "uim_",
-      "serialize": "d",
-      "servers": ["127.0.0.1"],
-      "options": [],
-    ]);
+
 
     if (!extension_loaded("memcached")) {
       throw new UimException("The `memcached` extension must be enabled to use MemcachedEngine.");

@@ -14,40 +14,26 @@ import uim.caches;
 class DFileCacheEngine : DCacheEngine {
     mixin(CacheEngineThis!("File"));
 
-    /*
-    // Instance of SplFileObject class
-    protected SplFileObject my_File;
-
-    /**
-     * The default config used unless overridden by runtime configuration
-     *
-     * - `duration` Specify how long items in this cache configuration last.
-     * - `groups` List of groups or "tags" associated to every key stored in this config.
-     *   handy for deleting a complete group from cache.
-     * - `lock` Used by FileCache. Should files be locked before writing to them?
-     * - `mask` The mask used for created files
-     * - `dirMask` The mask used for created folders
-     * - `path` Path to where cachefiles should be saved. Defaults to system"s temp dir.
-     * - `prefix` Prepended to all entries. Good for when you need to share a keyspace
-     *   with either another cache config or another application.
-     *   cache.gc from ever being called automatically.
-     * - `serialize` Should cache objects be serialized first.
-     * /
-
-    // True unless FileEngine.__active(); fails
-    protected bool my_init = true;
-
-    /**
-     * Initialize File Cache Engine
-     *
-     * Called automatically by the cache frontend.
-     * configData - array of setting for the engine
-     * /
     override bool initialize(IData[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
 
+        /**
+        * The default config used unless overridden by runtime configuration
+        *
+        * - `duration` Specify how long items in this cache configuration last.
+        * - `groups` List of groups or "tags" associated to every key stored in this config.
+        *   handy for deleting a complete group from cache.
+        * - `lock` Used by FileCache. Should files be locked before writing to them?
+        * - `mask` The mask used for created files
+        * - `dirMask` The mask used for created folders
+        * - `path` Path to where cachefiles should be saved. Defaults to system"s temp dir.
+        * - `prefix` Prepended to all entries. Good for when you need to share a keyspace
+        *   with either another cache config or another application.
+        *   cache.gc from ever being called automatically.
+        * - `serialize` Should cache objects be serialized first.
+        * /
         /* configuration.updateDefaults([
             "duration": 3600,
             "groups": ArrayData,
@@ -66,8 +52,18 @@ class DFileCacheEngine : DCacheEngine {
         if (_groupPrefix) {
             _groupPrefix = _groupPrefix.replace("_", DIRECTORY_SEPARATOR);
         } * /
-        return _active();
+        return _active(); */
+        return true; 
+        
     }
+    /*
+    // Instance of SplFileObject class
+    protected SplFileObject my_File;
+
+    // True unless FileEngine.__active(); fails
+    protected bool my_init = true;
+
+    
 
     /**
      * Write data for key into cache

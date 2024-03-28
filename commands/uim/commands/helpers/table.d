@@ -9,32 +9,29 @@ import uim.commands;
  * from 2 dimensional array data.
  */
 class DTableHelper { // }: Helper {
-      mixin TConfigurable!();
+  mixin TConfigurable!();
 
-    this() {
-        initialize;
-    }
+  this() {
+    initialize;
+  }
 
-    this(IData[string] initData) {
-        initialize(initData);
-    }
+  this(IData[string] initData) {
+    this.initialize(initData);
+  }
 
-    bool initialize(IData[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
-
-        return true;
-    }
-
-    mixin(TProperty!("string", "name"));
-
-  // Default config for this helper.
-  /*
-  protected IData[string] configuration.updateDefaults([
+  bool initialize(IData[string] initData = null) {
+    configuration(MemoryConfiguration);
+    configuration.updateDefaults([
       "headers": BooleanData(true),
       "rowSeparator": BooleanData(false),
-      "headerStyle": "info",
+      "headerStyle": StringData("info")
     ]);
+    configuration.data(initData);
+
+    return true;
+  }
+
+  mixin(TProperty!("string", "name"));
 
   /**
      * Calculate the column widths

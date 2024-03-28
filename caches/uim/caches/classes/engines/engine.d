@@ -20,16 +20,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         this();
         this.name(newName);
     }
-    // TOD use InstanceConfigTrait;
 
-    /**
-     * Initialize the cache engine
-     *
-     * Called automatically by the cache frontend. Merge the runtime config with the defaults
-     * before use.
-     *
-     * configData - Associative array of parameters for the engine
-     */
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
@@ -53,13 +44,14 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         }
         if (!configuration.isNumeric("duration")) {
             configuration["duration"] = configuration["duration"].toTime - time();
-        }
+        }*/
+        
         configuration.updateDefaults([
-            "duration": IntData(3600),
+            "duration": IntegerData(3600),
             "groups": ArrayData,
             "prefix": StringData("uim_"),
-            "warnOnWriteFailures": BoolData(true),
-        ]); */
+            "warnOnWriteFailures": BooleanData(true),
+        ]); 
 
         return true;
     }

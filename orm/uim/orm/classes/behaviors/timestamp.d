@@ -5,7 +5,11 @@ import uim.orm;
 @safe:
 
 class DTimestampBehavior : DBehavior {
-    /**
+    mixin(BehaviorThis!("Timestamp"));
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        /**
      * Default config
      *
      * These are merged with user-provided config when the behavior is used.
@@ -32,31 +36,18 @@ class DTimestampBehavior : DBehavior {
             ],
         ],
         "refreshTimestamp": BooleanData(true),
-    ]);
+    ]);* /
+        if (configuration.hasKey("events")) {
+            configuration.update("events", configData("events"), false);
+        } */
+        configuration.data(initData);
+
+        return true;
+    }
 
     // Current timestamp
     protected DateTime my_ts = null;
 
-    /**
-     * Initialize hook
-     *
-     * If events are specified - do *not* merge them with existing events,
-     * overwrite the events to listen on
-     * Params:
-     * IData[string] configData The config for this behavior.
-     * /
-    override bool initialize(IData[string] initData = null) {
-         if (!super.initialize(initData)) {
-            return false;
-        }
-
-        if (configuration.hasKey("events")) {
-            configuration.update("events", configData("events"), false);
-        }
-
-        return true
-    }
-    
     /**
      * There is only one event handler, it can be configured to be called for any event
      * Params:

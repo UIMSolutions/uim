@@ -26,7 +26,7 @@ import uim.orm;
  *     "Users": [
  *         "posts_published": [
  *             "conditions": [
- *                 "published": true
+ *                 "published": BooleanData(true)
  *             ]
  *         ]
  *     ]
@@ -52,7 +52,7 @@ import uim.orm;
  *     "Users": [
  *         "posts_published": function (IEvent event, IEntity anEntity, DORMTable aTable) {
  *             query = table.find("all").where([
- *                 "published": true,
+ *                 "published": BooleanData(true),
  *                 "user_id": entity.get("user_id")
  *             ]);
  *             return query.count();
@@ -69,7 +69,7 @@ import uim.orm;
  * [
  *     "Users": [
  *         "posts_published": [
- *             "ignoreDirty": true
+ *             "ignoreDirty": BooleanData(true)
  *         ]
  *     ]
  * ]
@@ -79,7 +79,7 @@ import uim.orm;
  * to your save operation:
  *
  * ```
- * this.Articles.save(article, ["ignoreCounterCache": true]);
+ * this.Articles.save(article, ["ignoreCounterCache": BooleanData(true)]);
  * ```
  */
 class DCounterCacheBehavior : DBehavior {

@@ -169,7 +169,7 @@ class DBelongsToMany : DAssociation {
 
             configData = [];
             if (!aTableLocator.exists(aTableAlias)) {
-                configData = ["table": aTableName, "allowFallbackClass": true];
+                configData = ["table": aTableName, "allowFallbackClass": BooleanData(true)];
 
                 // Propagate the connection if we"ll get an auto-model
                 if (!App.className(aTableAlias, "Model/Table", "Table")) {
@@ -352,7 +352,7 @@ class DBelongsToMany : DAssociation {
         newOptions += [
             "conditions": cond,
             "includeFields":  anIncludeFields,
-            "foreignKey": false,
+            "foreignKey": BooleanData(false),
         ];
         assoc.attachTo(aQuery, newOptions);
         aQuery.getEagerLoader().addToJoinsMap(junction.aliasName(), assoc, true);
@@ -634,7 +634,7 @@ class DBelongsToMany : DAssociation {
         foreach (anException; targetEntities) {
             auto joint =  anException.get(jointProperty);
             if (!joint || !(cast(IEntity)joint)) {
-                joint = new DORMEntityClass([], ["markNew": true, "source": junctionRegistryAlias]);
+                joint = new DORMEntityClass([], ["markNew": BooleanData(true), "source": junctionRegistryAlias]);
             }
             auto sourceKeys = array_combine(foreignKey, sourceEntity.extract(bindingKey));
             auto targetKeys = array_combine(assocForeignKey,  anException.extract(targetBindingKey));
@@ -649,7 +649,7 @@ class DBelongsToMany : DAssociation {
             if (changedKeys) {
                 joint.setNew(true);
                 joint.unset(junction.getPrimaryKeys())
-                    .set(array_merge(sourceKeys, targetKeys), ["guard": false]);
+                    .set(array_merge(sourceKeys, targetKeys), ["guard": BooleanData(false)]);
             }
             saved = junction.save(joint, options);
 
@@ -745,7 +745,7 @@ class DBelongsToMany : DAssociation {
                 "cleanProperty": options,
             ];
         } else {
-            options += ["cleanProperty": true];
+            options += ["cleanProperty": BooleanData(true)];
         }
        _checkPersistenceStatus(sourceEntity, targetEntities);
          aProperty = this.getProperty();

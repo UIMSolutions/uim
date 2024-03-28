@@ -160,7 +160,7 @@ class HasMany : DAssociation {
                 entity = clone entity;
             }
             if (foreignKeyReference != entity.extract(foreignKey)) {
-                entity.set(foreignKeyReference, ["guard": false]);
+                entity.set(foreignKeyReference, ["guard": BooleanData(false)]);
             }
             if (aTable.save(entity, options)) {
                 entities[myKey] = entity;
@@ -274,7 +274,7 @@ class HasMany : DAssociation {
                 "cleanProperty": options,
             ];
         } else {
-            options += ["cleanProperty": true];
+            options += ["cleanProperty": BooleanData(true)];
         }
         if (count(targetEntities) == 0) {
             return;

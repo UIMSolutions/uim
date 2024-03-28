@@ -77,7 +77,7 @@ class HasOne : DAssociation {
             foreignKeys,
             entity.extract((array)this.getBindingKey())
         );
-        targetEntity.set(properties, ["guard": false]);
+        targetEntity.set(properties, ["guard": BooleanData(false)]);
 
         if (!this.getTarget().save(targetEntity, options)) {
             targetEntity.unset(properties.keys);

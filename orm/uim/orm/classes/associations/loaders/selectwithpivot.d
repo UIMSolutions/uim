@@ -96,7 +96,7 @@ class DSelectWithPivotLoader : DSelectLoader {
 
         assoc.attachTo(query, [
             "aliasPath": assoc.aliasName(),
-            "includeFields": false,
+            "includeFields": BooleanData(false),
             "propertyPath": this.junctionProperty,
         ]);
         query.getTypeMap().addDefaults(types);

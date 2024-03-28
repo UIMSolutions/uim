@@ -71,13 +71,6 @@ class DComponent : IEventListener {
     // Other Components this component uses.
     protected array components = [];
 
-    /**
-     * Default config
-     *
-     * These are merged with user-provided config when the component is used.
-     */
-    protected IData[string] _defaultConfigData;
-
     // Loaded component instances.
     protected Component[string] componentInstances = [];
 
@@ -104,17 +97,7 @@ class DComponent : IEventListener {
         return _registry.getController();
     }
     
-    /**
-     * Constructor hook method.
-     *
-     * Implement this method to avoid having to overwrite
-     * the constructor and call parent.
-     *
-     * configData = The configuration settings provided to this component.
-     */
-       bool initialize(IData[string] initData = null) {
-       _defaultConfig = IData .emptyObject;
-    }
+
     
     /**
      * Magic method for lazy loading components.
@@ -128,7 +111,7 @@ class DComponent : IEventListener {
             return this.componentInstances[componentName];
         }
         if (isSet(this.components[componentName])) {
-            configData = this.components[componentName] ~ ["enabled": false];
+            configData = this.components[componentName] ~ ["enabled": BooleanData(false)];
 
             return this.componentInstances[componentName] = _registry.load(
                 componentName,

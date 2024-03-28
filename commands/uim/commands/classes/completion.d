@@ -47,7 +47,7 @@ class DCompletionCommand : DCommand { // }, ICommandCollectionAware {
             ]);
         aParser.addArgument("subcommand", [
                 "help": "The sub-command related to command to get information on.",
-                "required": false,
+                "required": BooleanData(false),
             ]);
         aParser.setEpilog(
             [

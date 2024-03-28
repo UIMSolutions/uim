@@ -42,7 +42,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
             "symlink (copy as fallback) plugin assets to app\`s webroot.",
         ]).addArgument("name", [
             "help": "A specific plugin you want to symlink assets for.",
-            "required": false,
+            "required": BooleanData(false),
         ]).addOption("overwrite", [
             "help": "Overwrite existing symlink / folder / files.",
             "default": BooleanData(false),

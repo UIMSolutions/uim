@@ -45,7 +45,7 @@ class DPluginAssetsCopyCommand : DCommand {
             "Copy plugin assets to app\`s webroot.",
         ]).addArgument("name", [
             "help": "A specific plugin you want to copy assets for.",
-            "required": false,
+            "required": BooleanData(false),
         ]).addOption("overwrite", [
             "help": "Overwrite existing symlink / folder / files.",
             "default": BooleanData(false),

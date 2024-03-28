@@ -48,7 +48,7 @@ import uim.consoles;
  * declare arguments as optional, by setting the required param to false.
  *
  * ```
- *  aParser.addArgument("model", ["required": false]);
+ *  aParser.addArgument("model", ["required": BooleanData(false)]);
  * ```
  *
  * ### Providing Help text
@@ -347,7 +347,7 @@ class DConsoleOptionParser {
                 "name": name,
                 "help": "",
                 "index": count(_args),
-                "required": false,
+                "required": BooleanData(false),
                 "choices": [],
             ];
             options = params + defaults;

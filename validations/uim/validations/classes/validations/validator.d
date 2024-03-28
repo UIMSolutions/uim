@@ -249,7 +249,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         if (myname != "default") {
             return null;
         }
-       _providers[myname] = new RulesProvider();
+       _providers[myname] = new DRulesProvider();
 
         return _providers[myname];
     }

@@ -105,7 +105,7 @@ abstract class DCell { // }: IEventDispatcher, Stringable {
         }
         myrender = auto () use (mytemplate) {
             try {
-                myreflect = new ReflectionMethod(this, this.action);
+                myreflect = new DReflectionMethod(this, this.action);
                 myreflect.invokeArgs(this, this.args);
             } catch (ReflectionException mye) {
                 throw new BadMethodCallException(

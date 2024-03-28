@@ -640,7 +640,7 @@ class DValidation {
         }
         mybackingType = null;
         try {
-            myreflectionEnum = new ReflectionEnum(myenumClassName);
+            myreflectionEnum = new DReflectionEnum(myenumClassName);
             mybackingType = myreflectionEnum.getBackingType();
         } catch (ReflectionException) {
         }

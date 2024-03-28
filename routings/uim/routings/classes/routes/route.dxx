@@ -11,7 +11,7 @@ import uim.routings;
  * Not normally created as a standalone. Use Router.connect() to create
  * Routes for your application.
  */
-class Route {
+class DRoute {
     /**
      * An array of named segments in a Route.
      * `/{controller}/{action}/{id}` has 3 key elements

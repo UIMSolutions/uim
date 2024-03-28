@@ -52,7 +52,7 @@ class DContextFactory {
                 "type": "form",
                 "callable": auto (myrequest, mydata) {
                     if (cast(Form)mydata["entity"]) {
-                        return new FormContext(mydata);
+                        return new DFormContext(mydata);
                     }
                 },
             ],

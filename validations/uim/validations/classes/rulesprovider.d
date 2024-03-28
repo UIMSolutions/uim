@@ -27,7 +27,7 @@ class DRulesProvider {
      * /
     this(object|string myclass = Validation.classname) {
        _class = myclass;
-       _reflection = new ReflectionClass(myclass);
+       _reflection = new DReflectionClass(myclass);
     }
     
     /**

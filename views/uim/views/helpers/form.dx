@@ -569,7 +569,7 @@ class FormHelper : Helper {
         auto mysession = _View.getRequest().getSession();
         mysession.start();
 
-        return new FormProtector(
+        return new DFormProtector(
             myformTokenData
         );
     }

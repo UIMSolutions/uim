@@ -133,7 +133,7 @@ class DWidgetLocator {
             throw new DInvalidArgumentException("Unable to locate widget class `%s`.".format(myclass));
         }
         if (count(configData)) {
-            myreflection = new ReflectionClass(myclassName);
+            myreflection = new DReflectionClass(myclassName);
             myarguments = [_stringTemplate];
             foreach (configData as myrequirement) {
                 if (myrequirement == "_view") {

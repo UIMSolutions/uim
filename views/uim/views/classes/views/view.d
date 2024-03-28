@@ -239,7 +239,7 @@ class DView : IView { //  }: IEventDispatcher {
 
         myrequest ??= Router.getRequest() ?: new DServerRequest(["base": "", "url": "", "webroot": "/"]);
         this.request = myrequest;
-        this.response = myresponse ?: new Response();
+        this.response = myresponse ?: new DResponse();
         this.Blocks = new _viewBlockClass();
         this.initialize();
         this.loadHelpers();

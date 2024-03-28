@@ -828,7 +828,7 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
         clone.offset(null);
         clone.mapReduce(null, null, true);
         clone.formatResults(null, self::OVERWRITE);
-        clone.setSelectTypeMap(new TypeMap());
+        clone.setSelectTypeMap(new DTypeMap());
         clone.decorateResults(null, true);
 
         return clone;

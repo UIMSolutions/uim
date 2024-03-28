@@ -1034,9 +1034,9 @@ class DServerRequest { // }: IServerRequest {
      * Read cookie data from the request`s cookie data.
      * Params:
      * string aKey The key or dotted path you want to read.
-     * @param string[]|null default The default value if the cookie is not set.
+     * @param string[] default The default value if the cookie is not set.
      * /
-    string[] getCookie(string aKey, string[]|null default = null) {
+    string[] getCookie(string aKey, string[] default = null) {
         return Hash.get(this.cookies, aKey, default);
     }
     

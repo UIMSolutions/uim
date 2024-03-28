@@ -30,7 +30,7 @@ class DRulesChecker { // }: BaseRulesChecker {
      * @param IData[string]|string mymessage The error message to show in case the rule does not pass. Can
      *  also be an array of options. When an array, the "message" key can be used to provide a message.
      * /
-    RuleInvoker isUnique(array myfields, string[]|null mymessage = null) {
+    RuleInvoker isUnique(array myfields, string[] mymessage = null) {
         options = isArray(mymessage) ? mymessage : ["message": mymessage];
         mymessage = options["message"] ?? null;
         options.remove("message");
@@ -74,7 +74,7 @@ class DRulesChecker { // }: BaseRulesChecker {
     RuleInvoker existsIn(
         string[] myfield,
         Table|Association|string mytable,
-        string[]|null mymessage = null
+        string[] mymessage = null
     ) {
         options = [];
         if (mymessage.isArray) {

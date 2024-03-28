@@ -15,7 +15,7 @@ class HasMany : DAssociation {
      *
      * @var \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string
      */
-    protected IExpression|Closure|string[]|null _sort = null;
+    protected IExpression|Closure|string[] _sort = null;
 
     // The type of join to be used when adding the association to a query
     protected string _joinType = SelectQuery.JOIN_TYPE_INNER;
@@ -513,7 +513,7 @@ class HasMany : DAssociation {
     /**
      * Gets the sort order in which target records should be returned.
      */
-    IExpression|Closure|string[]|null getSort() {
+    IExpression|Closure|string[] getSort() {
         return _sort;
     }
  

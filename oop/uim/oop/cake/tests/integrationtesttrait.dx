@@ -645,12 +645,12 @@ template IntegrationTestTemplate {
     /**
      * Asserts that the Location header is correct. Comparison is made against a full URL.
      * Params:
-     * string[]|null url The URL you expected the client to go to. This
+     * string[] url The URL you expected the client to go to. This
      *  can either be a string URL or an array compatible with Router.url(). Use null to
      *  simply check for the existence of this header.
      * @param string amessage The failure message that will be appended to the generated message.
      */
-    void assertRedirect(string[]|null url = null, string failureMessage= null)) {
+    void assertRedirect(string[] url = null, string failureMessage= null)) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
         }
@@ -670,12 +670,12 @@ template IntegrationTestTemplate {
     /**
      * Asserts that the Location header is correct. Comparison is made against exactly the URL provided.
      * Params:
-     * string[]|null url The URL you expected the client to go to. This
+     * string[] url The URL you expected the client to go to. This
      *  can either be a string URL or an array compatible with Router.url(). Use null to
      *  simply check for the existence of this header.
      * @param string amessage The failure message that will be appended to the generated message.
      */
-    void assertRedirectEquals(string[]|null url = null, string failureMessage = null) {
+    void assertRedirectEquals(string[] url = null, string failureMessage = null) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
         }

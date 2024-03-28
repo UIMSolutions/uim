@@ -40,9 +40,9 @@ class DSelectLoader {
     /**
      * The sorting options for loading the association
      *
-     * @var \UIM\Database\IExpression|\Closure|string[]|null
+     * @var \UIM\Database\IExpression|\Closure|string[]
      */
-    protected IExpression|Closure|string[]|null sort = null;
+    protected IExpression|Closure|string[] sort = null;
 
     /**
      * Copies the options array to properties in this class. The keys in the array correspond

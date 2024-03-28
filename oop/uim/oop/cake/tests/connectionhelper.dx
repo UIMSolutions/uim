@@ -55,7 +55,7 @@ class DConnectionHelper {
      * Drops all tables.
      * Params:
      * string aconnectionName Connection name
-     * @param string[]|null aTables List of tables names or null for all.
+     * @param string[] aTables List of tables names or null for all.
      */
     void dropTables(string aconnectionName, string[] aTables = null) {
         aConnection = ConnectionManager.get(aConnectionName);
@@ -82,7 +82,7 @@ class DConnectionHelper {
      * Truncates all tables.
      * Params:
      * string aconnectionName Connection name
-     * @param string[]|null aTables List of tables names or null for all.
+     * @param string[] aTables List of tables names or null for all.
      */
     void truncateTables(string aconnectionName, array aTables = null) {
         aConnection = ConnectionManager.get(aConnectionName);

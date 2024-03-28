@@ -84,11 +84,11 @@ class DRulesChecker {
      * Params:
      * callable rule A callable auto or object that will return whether
      * the entity is valid or not.
-     * @param string[]|null name The alias for a rule, or an array of options.
+     * @param string[] name The alias for a rule, or an array of options.
      * @param IData[string] optionData List of extra options to pass to the rule callable as
      * second argument.
      */
-    void add(callable rule, string[]|null name = null, IData[string] optionData = null) {
+    void add(callable rule, string[] name = null, IData[string] optionData = null) {
        _rules ~= _addError(rule, name, options);
     }
     
@@ -105,11 +105,11 @@ class DRulesChecker {
      * Params:
      * callable rule A callable auto or object that will return whether
      * the entity is valid or not.
-     * @param string[]|null name The alias for a rule or an array of options.
+     * @param string[] name The alias for a rule or an array of options.
      * @param IData[string] optionData List of extra options to pass to the rule callable as
      * second argument.
      */
-    void addCreate(callable rule, string[]|null name = null, IData[string] optionData = null) {
+    void addCreate(callable rule, string[] name = null, IData[string] optionData = null) {
        _createRules ~= _addError(rule, name, options);
     }
 <<<<<<< HEAD
@@ -130,11 +130,11 @@ class DRulesChecker {
      * Params:
      * callable rule A callable auto or object that will return whether
      * the entity is valid or not.
-     * @param string[]|null name The alias for a rule, or an array of options.
+     * @param string[] name The alias for a rule, or an array of options.
      * @param IData[string] optionData List of extra options to pass to the rule callable as
      * second argument.
      */
-    auto addUpdate(callable rule, string[]|null name = null, IData[string] optionData = null) {
+    auto addUpdate(callable rule, string[] name = null, IData[string] optionData = null) {
        _updateRules ~= _addError(rule, name, options);
 
         return this;
@@ -157,11 +157,11 @@ class DRulesChecker {
      * Params:
      * callable rule A callable auto or object that will return whether
      * the entity is valid or not.
-     * @param string[]|null name The alias for a rule, or an array of options.
+     * @param string[] name The alias for a rule, or an array of options.
      * @param IData[string] optionData List of extra options to pass to the rule callable as
      * second argument.
      */
-    auto addDelete_(callable rule, string[]|null name = null, IData[string] optionData = null) {
+    auto addDelete_(callable rule, string[] name = null, IData[string] optionData = null) {
        _deleteRules ~= _addError(rule, name, options);
 
         return this;
@@ -256,10 +256,10 @@ class DRulesChecker {
      * property in the entity is marked as invalid.
      * Params:
      * \UIM\Datasource\RuleInvoker|callable rule The rule to decorate
-     * @param string[]|null name The alias for a rule or an array of options
+     * @param string[] name The alias for a rule or an array of options
      * @param IData[string] optionData The options containing the error message and field.
      */
-    protected RuleInvoker _addError(callable rule, string[]|null name = null, IData[string] optionData = null) {
+    protected RuleInvoker _addError(callable rule, string[] name = null, IData[string] optionData = null) {
         if (isArray(name)) {
             options = name;
             name = null;

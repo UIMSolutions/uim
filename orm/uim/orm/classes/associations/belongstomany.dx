@@ -50,7 +50,7 @@ class DBelongsToMany : DAssociation {
      *
      * @var string[]|string
      */
-    protected string[]|null _targetForeignKey = null;
+    protected string[] _targetForeignKey = null;
 
     /**
      * The table instance for the junction relation.
@@ -90,7 +90,7 @@ class DBelongsToMany : DAssociation {
      *
      * @var \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string
      */
-    protected IExpression|Closure|string[]|null _sort = null;
+    protected IExpression|Closure|string[] _sort = null;
 
     /**
      * Sets the name of the field representing the foreign key to the target table.
@@ -138,7 +138,7 @@ class DBelongsToMany : DAssociation {
     /**
      * Gets the sort order in which target records should be returned.
      */
-    IExpression|Closure|string[]|null getSort() {
+    IExpression|Closure|string[] getSort() {
         return _sort;
     }
  
@@ -862,7 +862,7 @@ class DBelongsToMany : DAssociation {
      * @param IData ...someArguments Arguments that match up to finder-specific parameters
      * @see \UIM\ORM\Table.find()
      */
-    SelectQuery find(string[]|null type = null, IData ...someArguments) {
+    SelectQuery find(string[] type = null, IData ...someArguments) {
         type = type ?: this.getFinder();
         [type, opts] = _extractFinder(type);
 

@@ -370,8 +370,8 @@ class Hash {
      */
     static array combine(
         array data,
-        string[]|null mykeyPath,
-        string[]|null myvaluePath = null,
+        string[] mykeyPath,
+        string[] myvaluePath = null,
         string mygroupPath = null
     ) {
         if (isEmpty(mydata)) {

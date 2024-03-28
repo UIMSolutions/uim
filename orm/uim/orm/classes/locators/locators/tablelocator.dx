@@ -49,7 +49,7 @@ class DTableLocator : DAbstractLocator : ILocator {
     /**
      * Constructor.
      * Params:
-     * string[]|null mylocations Locations where tables should be looked for.
+     * string[] mylocations Locations where tables should be looked for.
      *  If none provided, the default `Model\Table` under your app"s namespace is used.
      */
     this(array mylocations = null, ?QueryFactory myqueryFactory = null) {

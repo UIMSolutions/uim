@@ -1,4 +1,4 @@
-[![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-views.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-views.yml) [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-forms.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-forms.yml) [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 An **HTML form** is a fundamental component used to collect user input on a web page. It allows users to submit data to a server for processing.
 

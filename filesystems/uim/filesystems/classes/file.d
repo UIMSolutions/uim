@@ -86,7 +86,7 @@ class DFile : DFilesystemEntry, IFile {
 	}
 	// #endregion Properties
 
-	void[] readData(size_t dataSitze = size_t.max) {
+	void[] readContent(size_t dataSitze = size_t.max) {
 		version (testUimFilesystems) {
 			debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
 		}
@@ -94,22 +94,22 @@ class DFile : DFilesystemEntry, IFile {
 		return (hasFilesystem ? filesystem.readFromFile(path, name, dataSitze) : null);
 	}
 
-	void writeData(const void[] data) {
+	void writeContent(const void[] content) {
 		version (testUimFilesystems) {
 			debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
 		}
 
 		if (hasFilesystem)
-			filesystem.writeToFile(path, name, data);
+			filesystem.writeToFile(path, name, content);
 	}
 
-	void appendData(const void[] data) {
+	void appendContent(const void[] content) {
 		version (testUimFilesystems) {
 			debug writeln("\n", __MODULE__ ~ ":" ~ __PRETTY_FUNCTION__);
 		}
 
 		if (hasFilesystem)
-			filesystem.appendToFile(path, name, data);
+			filesystem.appendToFile(path, name, content);
 	}
 
 	string readText() {

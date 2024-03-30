@@ -33,7 +33,7 @@ version(testUimFilesystems) {
 
 		IFile aFile = myFilesystem.createFile(["LinuxFile", "file"], "file"~to!string(uniform(0, 1000)));
 		int[] a = [1, 2, 3];
-		aFile.appendData(a);
+		aFile.appendContent(a);
 		const data = aFile.readData;
 		const results =  (() @trusted => cast(int[])data)();  
 		writeln(results);

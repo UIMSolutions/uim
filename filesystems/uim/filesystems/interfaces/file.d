@@ -33,9 +33,9 @@ interface IFile : IFilesystemEntry {
 	// #endregion Properties
 
 	// #region Methods
-		void writeData(const void[] data);
-		void[] readData(size_t dataSize = size_t.max);
-		void appendData(const void[] data);
+		void writeContent(const void[] content);
+		void[] readContent(size_t contentSize = size_t.max);
+		void appendContent(const void[] content);
 	
 		string readText();
 		void writeText(string aText);

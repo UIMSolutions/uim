@@ -12,13 +12,13 @@ class DSqlserverDriver : DDriver {
 		if (!super.initialize(initData)) { return false; }
 
         configuration.update([
-        "host": "localhost\SQLEXPRESS",
+        "host": "localhost\\SQLEXPRESS",
         "username": "",
         "password": "",
         "database": "uim",
         "port": "",
         // PDO.SQLSRV_ENCODING_UTF8
-        "encoding": 65001,
+        "encoding": IntegerData(65001),
         "flags": ArrayData,
         "init": ArrayData,
         "settings": ArrayData,
@@ -30,10 +30,10 @@ class DSqlserverDriver : DDriver {
         "multiSubnetFailover": NullData,
         "encrypt": NullData,
         "trustServerCertificate": NullData,
-    ];
+    ]);
 
-        _startQuote = "[";
-        _endQuote = "]";
+        startQuote("[");
+        endQuote("]");
 
 		return true;
 	}

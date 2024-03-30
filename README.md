@@ -3,4 +3,5 @@
 # uim
 uim (Short for UI Manufaktur) is a library and framework for creating web business applications.
 Contains
-* uim-core [![D](https://github.com/UIMSolutions/uim/actions/workflows/uim- core.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-core.yml)
+* uim-core 
+[![D](https://github.com/UIMSolutions/uim/actions/workflows/uim- core.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-core.yml)

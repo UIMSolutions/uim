@@ -1,5 +1,5 @@
 name "jsonbases"
-description "Data Models and Data Management"
+description "D-Lib for json databases"
 homepage "https://www.sicherheitsschmiede.de/"
 license "Apache-2.0"
 copyright "Copyright © 2015-2024, Ozan Nurettin Süel"

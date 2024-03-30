@@ -4,7 +4,7 @@ license "Apache-2.0"
 copyright "Copyright © 2015-2024, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
-description "D-Library for console management"
+description "D-Library for using consoles"
 dependency "arsd-official" version="~>11.2.3"
 dependency "colored" version="~>0.0.31"
 dependency "dlib" version="~>1.2.1"

@@ -45,8 +45,9 @@ override void set(string path, IData newData) {
         // TODO 
     }
 
-    override void remove(string path) {
+    override IConfiguration remove(string path) {
         // TODO 
+        return this;
     }
 }
 

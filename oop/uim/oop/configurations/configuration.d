@@ -131,12 +131,13 @@ abstract class DConfiguration : IConfiguration {
 
     abstract void update(string path, IData newData);
 
-    void merge(IData[string] newData, string[] paths = null) {
-        if (paths is null) {
-            paths.each!(path => merge(path, newData[path]));
+    void merge(IData[string] newData, string[] validPaths = null) {
+        if (validPaths is null) {
+            newData.keys.each!(path => merge(path, newData[path]));
         }
         else {
-            paths.filter!(path => path in newData)
+            validPaths
+                .filter!(path => path in newData)
                 .each!(path => merge(path, newData[path]));
         }
     }
@@ -147,10 +148,11 @@ abstract class DConfiguration : IConfiguration {
         remove(allPaths);        
     }
 
-    void remove(string[] paths) {
+    IConfiguration remove(string[] paths) {
         paths.each!(path => remove(path));
+        return this;
     }
 
-    abstract void remove(string path);
+    abstract IConfiguration remove(string path);
 }
 

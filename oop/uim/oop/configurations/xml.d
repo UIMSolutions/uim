@@ -45,8 +45,9 @@ class DXmlConfiguration : DFileConfiguration {
         // TODO 
     }
 
-    override void remove(string path) {
+    override IConfiguration remove(string path) {
         // TODO 
+        return this;
     }
 }
 

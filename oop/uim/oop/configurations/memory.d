@@ -123,8 +123,9 @@ class DMemoryConfiguration : DConfiguration {
         set(path, data);
     }
 
-    override void remove(string path) {
+    override IConfiguration remove(string path) {
         _data.remove(path);
+        return this;
     }
 }
 

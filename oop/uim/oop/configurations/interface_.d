@@ -44,5 +44,5 @@ interface IConfiguration : INamed {
     void merge(IData[string] newData, string[] validPaths = null);
     void merge(string path, IData newData);
 
-    void remove(string[] keys);
+    IConfiguration remove(string[] keys);
 }

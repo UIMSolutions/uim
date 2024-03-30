@@ -41,42 +41,42 @@ unittest {
         O create(this O)();
     };
 
-    class DTest : ITest {
+    class Test : ITest {
         O create(this O)() {
             return cast(O) this.classinfo.create;
         }
     }
 
-    auto test = new DTest;
+    auto test = new Test;
     assert(test.className == "Test");
     assert(test.stringof == "test");
 
-    class DTest1 : DTest {
+    class Test1 : Test {
 
     }
 
-    class DTest2 : DTest1 {
+    class Test2 : Test1 {
     }
 
-    assert((new DTest1).className == "Test1");
-    assert((new DTest2).className == "Test2");
+    assert((new Test1).className == "Test1");
+    assert((new Test2).className == "Test2");
 
-    writeln((new DTest2).classinfo);
-    writeln("Base:", (new DTest2).classinfo.base);
-    writeln("Name:", (new DTest2).classinfo.name);
-    writeln("ClassName:", (new DTest2).className);
-    writeln("fullClassname:", (new DTest2).classFullname);
-    writeln("Interfaces:", (new DTest).classinfo.interfaces);
+    writeln((new Test2).classinfo);
+    writeln("Base:", (new Test2).classinfo.base);
+    writeln("Name:", (new Test2).classinfo.name);
+    writeln("ClassName:", (new Test2).className);
+    writeln("fullClassname:", (new Test2).classFullname);
+    writeln("Interfaces:", (new Test).classinfo.interfaces);
 
     Object result;
-    DTest2 function(string) fn;
+    Test2 function(string) fn;
     string name = "uim.core.helpers.classes.tt";
     () @trusted { result = Object.factory(name); }();
     debug writeln(result.className);
     /* debug writeln(x("uim.core.helpers.classes.tt"));*/
-    debug writeln((new DTest2).classinfo.create);
-    auto cl = (new DTest2).classinfo;
+    debug writeln((new Test2).classinfo.create);
+    auto cl = (new Test2).classinfo;
     debug writeln(cl.create);
 
-    debug writeln((new DTest2).create);
+    debug writeln((new Test2).create);
 }

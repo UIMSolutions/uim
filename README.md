@@ -11,3 +11,5 @@ Contains
 [![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-databases.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-databases.yml)
 * uim-datasources
 [![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-datasources.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-datasources.yml)
+* uim-forms
+[![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-forms.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-forms.yml)

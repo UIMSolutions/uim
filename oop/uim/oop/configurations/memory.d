@@ -18,9 +18,16 @@ class DMemoryConfiguration : DConfiguration {
     // #region defaultData
     protected IData[string] _defaultData;
 
+    /** 
+     * override bool hasDefault(string path)
+     * Params:
+     *   path = name or path to data object. Could be nested
+     * Returns: true if has data or false if not
+     */
     override bool hasDefault(string path) {
         return (path in _defaultData) ? true : false;
     }
+    /// 
 
     override void updateDefaults(IData[string] dataArray) {
         dataArray.byKeyValue
@@ -54,18 +61,18 @@ class DMemoryConfiguration : DConfiguration {
         _data = dataArray;
     }
 
-    alias hasAnyKeys = DConfiguration.hasAnyKeys;
-    override bool hasAnyKeys(string[] keys) {
-        return keys.any!(key => hasKey(key));
+    alias hasAnyPaths = DConfiguration.hasAnyPaths;
+    override bool hasAnyPaths(string[] paths) {
+        return paths.any!(path => hasPath(path));
     }
 
-    alias hasAllKeys = DConfiguration.hasAllKeys;
-    override bool hasAllKeys(string[] keys) {
-        return keys.all!(key => hasKey(key));
+    alias hasAllPaths = DConfiguration.hasAllPaths;
+    override bool hasAllPaths(string[] paths) {
+        return paths.all!(path => hasPath(path));
     }
 
-    override bool hasKey(string key) {
-        return key in _data ? true : false;
+    override bool hasPath(string path) {
+        return path in _data ? true : false;
     }
 
     alias hasAnyValues = DConfiguration.hasAnyValues;
@@ -88,15 +95,15 @@ class DMemoryConfiguration : DConfiguration {
         return _data.keys;
     }
 
-    override IData[string] get(string[] keys, bool compressMode = true) {
+    override IData[string] get(string[] paths, bool compressMode = true) {
         IData[string] results;
 
-        keys.each!((key) {
-            auto result = get(key);
+        paths.each!((path) {
+            auto result = get(path);
             if (result is null && !compressMode) {
-                results[key] = result;
+                results[path] = result;
             } else { // compressmode => no nulls
-                results[key] = result;
+                results[path] = result;
             }
         });
 
@@ -107,8 +114,8 @@ class DMemoryConfiguration : DConfiguration {
         return _data.get(path, _defaultData.get(path, null));
     }
 
-    override void set(string key, IData data) {
-        _data[key] = data;
+    override void set(string path, IData data) {
+        _data[path] = data;
     }
 
     override void update(string path, IData data) {

@@ -21,21 +21,21 @@ abstract class DConfiguration : IConfiguration {
     mixin(TProperty!("string", "separator"));
 
     // #region defaultData
-        abstract bool hasDefault(string key);
+        abstract bool hasDefault(string path);
 
         override void updateDefaults(IData[string] newData) {
             newData.byKeyValue
                 .each!(kv => updateDefault(kv.key, kv.value));
         }
 
-        abstract void updateDefault(string key, IData newData);
+        abstract void updateDefault(string path, IData newData);
 
         override void mergeDefaults(IData[string] newData) {
             newData.byKeyValue
                 .each!(kv => mergeDefault(kv.key, kv.value));
         }
 
-        abstract void mergeDefault(string key, IData newData);
+        abstract void mergeDefault(string path, IData newData);
     // #endregion defaultData
 
     IData[string] data() {

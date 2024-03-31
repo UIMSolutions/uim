@@ -7,22 +7,22 @@ interface IConfiguration : INamed {
     mixin(IProperty!("IData[string]", "data"));
 
     // #region defaults
-        bool hasDefault(string key);
+        bool hasDefault(string path);
 
         void updateDefaults(IData[string] newData);
-        void updateDefault(string key, IData newData);
+        void updateDefault(string path, IData newData);
 
         void mergeDefaults(IData[string] newData);
-        void mergeDefault(string key, IData newData);
+        void mergeDefault(string path, IData newData);
     // #endregion defaults
 
-    bool hasAnyKeys(string[] keys...);
-    bool hasAnyKeys(string[] keys);
+    bool hasAnyPaths(string[] paths...);
+    bool hasAnyPaths(string[] paths);
 
-    bool hasAllKeys(string[] keys...);
-    bool hasAllKeys(string[] keys);
+    bool hasAllPaths(string[] paths...);
+    bool hasAllPaths(string[] paths);
     
-    bool hasKey(string key);
+    bool hasPath(string path);
 
     bool hasAnyValues(string[] values...);
     bool hasAnyValues(string[] values);
@@ -32,11 +32,11 @@ interface IConfiguration : INamed {
     
     bool hasValue(string value);
 
-    // IData get(string key);
-    // IData[string] get(string[] keys, bool compressMode = true);
+    // IData get(string path);
+    // IData[string] get(string[] paths, bool compressMode = true);
 
-    // void set(string key, IData newData);
-    // void set(string[] keys, IData[string] newData);
+    // void set(string path, IData newData);
+    // void set(string[] paths, IData[string] newData);
 
     void update(IData[string] newData, string[] validPaths = null);
     void update(string path, IData newData);
@@ -44,5 +44,5 @@ interface IConfiguration : INamed {
     void merge(IData[string] newData, string[] validPaths = null);
     void merge(string path, IData newData);
 
-    IConfiguration remove(string[] keys);
+    IConfiguration remove(string[] paths);
 }

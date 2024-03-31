@@ -16,17 +16,17 @@ class DJsonConfiguration : DConfiguration {
     }
 
     // #region defaultData
-        override bool hasDefault(string key) {
-            return false; // TODO
-        }
+    override bool hasDefault(string key) {
+        return false; // TODO
+    }
 
-        override void updateDefault(string key, IData newData) {
-            // TODO
-        }
+    override void updateDefault(string key, IData newData) {
+        // TODO
+    }
 
-        override void mergeDefault(string key, IData newData) {
-            // TODO
-        }
+    override void mergeDefault(string key, IData newData) {
+        // TODO
+    }
     // #endregion defaultData
 
     override string[] allPaths() {
@@ -34,11 +34,11 @@ class DJsonConfiguration : DConfiguration {
     }
 
     override void set(string path, IData newData) {
-        
+
     }
 
-        override void update(string path, IData newData) {
-        // TODO 
+    override void update(string path, IData newData) {
+        // _json.hasPath()
     }
 
     override void merge(string path, IData newData) {

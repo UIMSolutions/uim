@@ -8,7 +8,7 @@ import uim.i18n;
  * : the built-in DateTime class to provide handy methods and locale-aware
  * formatting helpers.
  */
-class DateTime /* : Chronos, IDataSerializable, Stringable */ {
+class DateTime /* : Chronos, IDataSerializable */ {
     mixin TConfigurable!();
 
     this() { initialize; }

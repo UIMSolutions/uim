@@ -16,7 +16,7 @@ import uim.datasources;
  * @property IData  anId Alias for commonly used primary key.
  * @template-extends \ArrayAccess<string, mixed>
  */
-interface IDatasourceEntity { // : ArrayAccess, IDataSerializable, Stringable
+interface IDatasourceEntity { // : ArrayAccess, IDataSerializable
    /**
      * Sets hidden fields.
      *

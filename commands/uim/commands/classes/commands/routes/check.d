@@ -27,7 +27,7 @@ class DRoutesCheckCommand : DCommand {
     try {
       auto request = new DServerRequest(["url": url]);
       auto route = Router.parseRequest(request);
-      auto name = null;
+      string name = null;
       foreach (myRoute; Router.routes()) {
         if (myRoute.match(route)) {
           name = myRoute.options["_name"] ?  ? myRoute.name;

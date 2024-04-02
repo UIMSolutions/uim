@@ -9,7 +9,7 @@ import uim.views;
  *
  * @implements \UIM\Event\IEventDispatcher<\UIM\View\View>
  */
-abstract class DCell { // }: IEventDispatcher, Stringable {
+abstract class DCell { // }: IEventDispatcher {
     // Constant for folder name containing cell templates.
     const string TEMPLATE_FOLDER = "cell";
 

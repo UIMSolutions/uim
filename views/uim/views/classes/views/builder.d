@@ -44,16 +44,19 @@ class DViewBuilder { // }: DIDataSerializable {
      *
      * These options array lets you provide custom constructor
      * arguments to application/plugin view classes.
-     * /
-    protected IData[string] my_options = [];
+     */
+    protected IData[string] _options = [];
+
+    // View vars
+    protected IData[string] _viewData = [];
 
     /**
      * The helpers to use
      * /
     protected array my_helpers = [];
 
-    // View vars
-    protected IData[string] _vars = [];
+    // View viewData
+    protected IData[string] _viewData = [];
 
     /**
      * Saves a variable for use inside a template.
@@ -62,19 +65,19 @@ class DViewBuilder { // }: DIDataSerializable {
      * @param IData aValue Value.
      * /
     void setVar(string views, IData aValue = null) {
-       _vars[views] = myvalue;
+       _viewData[views] = myvalue;
     }
     
     /**
-     * Saves view vars for use inside templates.
+     * Saves view viewData for use inside templates.
      * Params:
      * IData[string] mydata Array of data.
-     * @param bool mymerge Whether to merge with existing vars, default true.
+     * @param bool mymerge Whether to merge with existing viewData, default true.
      * /
     void setVars(IData[string] data, bool shouldMerge = true) {
 vars = 
         shouldMerge ?
-           mydata + _vars
+           mydata + _viewData
 : mydata;
         
     }
@@ -85,7 +88,7 @@ vars =
      * string views Var name
      * /
    bool hasVar(string views) {
-        return array_key_exists(views, _vars);
+        return array_key_exists(views, _viewData);
     }
     
     /**
@@ -94,14 +97,14 @@ vars =
      * string views Var name
      * /
     IData getVar(string views) {
-        return _vars.get(views, null);
+        return _viewData.get(views, null);
     }
     
     /**
      * Get all view vars.
      * /
     IData[string] getVars() {
-        return _vars;
+        return _viewData;
     }
     
    
@@ -369,7 +372,7 @@ vars =
             "autoLayout": _autoLayout,
             "layoutPath": _layoutPath,
             "helpers": _helpers,
-            "viewVars": _vars,
+            "viewVars": _viewData,
         ];
         mydata += _options;
 
@@ -390,12 +393,12 @@ vars =
     array IDataSerialize() {
         auto myproperties = [
             "_templatePath", "_template", "_plugin", "_theme", "_layout", "_autoLayout",
-            "_layoutPath", "_name", "_className", "_options", "_helpers", "_vars",
+            "_layoutPath", "_name", "_className", "_options", "_helpers", "_viewData",
         ];
 
         auto myarray = [];
         myproperties.each!(myproperty => myarray[myproperty] = this.{myproperty});
-        array_walk_recursive(myarray["_vars"], _checkViewVars(...));
+        array_walk_recursive(myarray["_viewData"], _checkViewVars(...));
 
         return array_filter(myarray, auto (myi) {
             return !isArray(myi) && ((string)myi).length || !empty(myi);

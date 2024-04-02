@@ -97,13 +97,7 @@ class DViewBlock {
 
     }
     
-    /**
-     * Set the content for a block. This will overwrite any
-     * existing content.
-     * Params:
-     * string views Name of the block
-     * @param IData aValue The content for the block. Value will be type cast to string.
-     */
+    // Set the content for a block. This will overwrite any existing content.
     void set(string blockName, IData blockData) {
        set(blockName, blockData.toString);
     }
@@ -113,8 +107,8 @@ class DViewBlock {
     }
     
     // Get the content for a block.
-    string get(string blockName, string mydefault = "") {
-        return _blocks.get(blockName, mydefault);
+    string get(string blockName, string defaultContent = "") {
+        return _blocks.get(blockName, defaultContent);
     }
     
     //Check if a block exists

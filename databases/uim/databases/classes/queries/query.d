@@ -12,7 +12,7 @@ class DDBQuery {
  * for dynamically constructing each query part, execute it and transform it
  * to a specific SQL dialect.
  */
-abstract class DQuery : IQuery { // : IExpression, Stringable {
+abstract class DQuery : IQuery { // : IExpression {
     mixin TConfigurable!(); 
     // Hook method
     bool initialize(IData[string] initData = null) {

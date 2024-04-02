@@ -11,7 +11,7 @@ import uim.http;
  * Used by Http\Client to upload POST/PUT data
  * and files.
  */
-class DFormData { // }: Countable, Stringable {
+class DFormData { // }: Countable {
     // Boundary marker.
     protected string _boundary = "";
 

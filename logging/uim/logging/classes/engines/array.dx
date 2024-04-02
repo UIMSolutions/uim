@@ -11,10 +11,14 @@ import uim.logging;
  */
 @safe:
 class DArrayLogEngine : DLogEngine {
-  mixin(LogEngineThis!("ArrayLogEngine"));
+  mixin(LogEngineThis!("Array"));
 
   override bool initialize(IData[string] initData = null) {
-    super.initialize(configSettings);
+if (!super.initialize(configSettings)) {
+return false;
+}
+
+return true;
   }
 }
-mixin(LogEngineCalls!("ArrayLogEngine"));
+mixin(LogEngineCalls!("Array"));

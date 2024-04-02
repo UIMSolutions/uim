@@ -65,6 +65,6 @@ trait ViewVarsTrait {
         } else {
             mydata = [views: myvalue];
         }
-        this.viewBuilder().setVars(mydata);
+        this.viewBuilder().setData(mydata);
     }
 } */

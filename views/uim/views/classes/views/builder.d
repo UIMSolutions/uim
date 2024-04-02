@@ -47,16 +47,58 @@ class DViewBuilder { // }: DIDataSerializable {
      */
     protected IData[string] _options = [];
 
-    // View vars
-    protected IData[string] _viewData = [];
+
+    // View viewData
+    protected IData[string] _viewData;
+
+    // #region View Variables
+        // View variables
+        protected IData[string] _viewVariables = [];
+
+        // Get all view variables
+        @property IData[string] viewVariables() {
+            return _viewVariables;
+        }
+
+        void viewVariables(IData[string] newVariables) {
+            _viewVariables = newVariables;
+        }
+
+        // Get view variable
+        IData viewVariable(string varName) {
+            return _viewVariables.get(varName, null);
+        }
+
+        // Get view variable
+        IData viewVariable(string varName) {
+            return _viewVariables.get(varName, null);
+        }
+
+        // Get view variable
+        void viewVariable(string varName, IData newData) {
+            return _viewVariables[varName] = newData;
+        }
+    // #endregion View Variables
+            
+        /**
+     * Saves view viewData for use inside templates.
+     * Params:
+     * IData[string] mydata Array of data.
+     * @param bool mymerge Whether to merge with existing viewData, default true.
+     * /
+    void setData(IData[string] data, bool shouldMerge = true) {
+vars = 
+        shouldMerge ?
+           mydata + _viewData
+: mydata;
+        
+    }
 
     /**
      * The helpers to use
      * /
     protected array my_helpers = [];
 
-    // View viewData
-    protected IData[string] _viewData = [];
 
     /**
      * Saves a variable for use inside a template.
@@ -64,24 +106,10 @@ class DViewBuilder { // }: DIDataSerializable {
      * string views A string or an array of data.
      * @param IData aValue Value.
      * /
-    void setVar(string views, IData aValue = null) {
+    void setData(string views, IData aValue = null) {
        _viewData[views] = myvalue;
     }
-    
-    /**
-     * Saves view viewData for use inside templates.
-     * Params:
-     * IData[string] mydata Array of data.
-     * @param bool mymerge Whether to merge with existing viewData, default true.
-     * /
-    void setVars(IData[string] data, bool shouldMerge = true) {
-vars = 
-        shouldMerge ?
-           mydata + _viewData
-: mydata;
         
-    }
-    
     /**
      * Check if view var is set.
      * Params:
@@ -90,24 +118,7 @@ vars =
    bool hasVar(string views) {
         return array_key_exists(views, _viewData);
     }
-    
-    /**
-     * Get view var
-     * Params:
-     * string views Var name
-     * /
-    IData getVar(string views) {
-        return _viewData.get(views, null);
-    }
-    
-    /**
-     * Get all view vars.
-     * /
-    IData[string] getVars() {
-        return _viewData;
-    }
-    
-   
+       
     // Gets path for template files.
     mixin(TProperty!("string", "templateFilePath"));
     

@@ -16,7 +16,7 @@ trait ViewVarsTrait {
      *
      * @var \UIM\View\ViewBuilder|null
      * /
-    protected ViewBuilder my_viewBuilder = null;
+    protected IViewBuilder my_viewBuilder = null;
 
     // Get the view builder being used.
     ViewBuilder viewBuilder() {

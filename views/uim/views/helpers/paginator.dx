@@ -73,7 +73,7 @@ class DPaginatorHelper : Helper {
      * \UIM\View\View myview The View this helper is being attached to.
      * @param IData[string] configData Configuration settings for the helper.
      */
-    this(View myview, IData[string] configData = null) {
+    this(IView myview, IData[string] configData = null) {
         super(myview, configData);
 
         myquery = _View.getRequest().getQueryParams();

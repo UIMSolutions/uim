@@ -64,6 +64,12 @@ class DView : IView { //  }: IEventDispatcher {
 
     mixin(TProperty!("string", "name"));
 
+    // The name of the plugin.
+    protected string _plugin = null;
+
+    // Name of the controller that created the View if any.
+    protected string _viewControllerName = "";
+
     /* 
     use CellTrait {
         cell as public;
@@ -73,20 +79,13 @@ class DView : IView { //  }: IEventDispatcher {
      * @use \UIM\Event\EventDispatcherTrait<\UIM\View\View>
      * /
     use EventDispatcherTrait;
-    mixin InstanceConfigTemplate;
     use LogTrait;
 
     // Helpers collection
     protected HelperRegistry my_helpers = null;
 
     // ViewBlock instance.
-    protected ViewBlock myBlocks;
-
-    // The name of the plugin.
-    protected string myplugin = null;
-
-    // Name of the controller that created the View if any.
-    protected string views = "";
+    protected IViewBlock myBlocks;
 
     // A configuration array for helpers to be loaded.
     protected IData[string][string] myhelpers = [];
@@ -421,8 +420,8 @@ class DView : IView { //  }: IEventDispatcher {
      * This realizes the concept of Elements, (or "partial layouts") and the myparams array is used to send
      * data to be used in the element. Elements can be cached improving performance by using the `cache` option.
      * Params:
-     * string views Name of template file in the `templates/element/` folder,
-     *  or `MyPlugin.template` to use the template element from MyPlugin. If the element
+     * string templatefilename Name of template file in the `templates/element/` folder,
+     *  or `_plugin.template` to use the template element from _plugin. If the element
      *  is not found in the plugin, the normal view path cascade will be searched.
      * @param array data Array of data to be made available to the rendered view (i.e. the Element)
      * @param IData[string] options Array of options. Possible keys are:
@@ -439,18 +438,18 @@ class DView : IView { //  }: IEventDispatcher {
      * - `plugin` - setting to false will force to use the application"s element from plugin templates, when the
      *  plugin has element with same name. Defaults to true
      * /
-    string element(string views, array data = [], IData[string] options  = null) {
+    string element(string templatefilename, array data = [], IData[string] options  = null) {
         options += ["callbacks": BooleanData(false), "cache": null, "plugin": null, "ignoreMissing": BooleanData(false)];
         if (isSet(options["cache"])) {
             options["cache"] = _elementCache(
-                views,
+                templatefilename,
                 mydata,
                 array_diff_key(options, ["callbacks": BooleanData(false), "plugin": null, "ignoreMissing": null])
             );
         }
 
-        bool mypluginCheck = options["plugin"] != false;
-        auto myfile = _getElementFileName(views, mypluginCheck);
+        bool _pluginCheck = options["plugin"] != false;
+        auto myfile = _getElementFileName(templatefilename, _pluginCheck);
         if (myfile && options["cache"]) {
             return this.cache(void () use (myfile, mydata, options) {
                 writeln(_renderElement(myfile, mydata, options);
@@ -462,9 +461,9 @@ class DView : IView { //  }: IEventDispatcher {
         if (options["ignoreMissing"]) {
             return "";
         }
-        [myplugin, myelementName] = this.pluginSplit(views, mypluginCheck);
-        auto mypaths = iterator_to_array(this.getElementPaths(myplugin));
-        throw new MissingElementException([views ~ _ext, myelementName ~ _ext], mypaths);
+        [_plugin, myelementName] = this.pluginSplit(templatefilename, _pluginCheck);
+        auto mypaths = iterator_to_array(this.getElementPaths(_plugin));
+        throw new MissingElementException([templatefilename ~ _ext, myelementName ~ _ext], mypaths);
     }
 
     /**
@@ -508,12 +507,12 @@ class DView : IView { //  }: IEventDispatcher {
     /**
      * Checks if an element exists
      * Params:
-     * string views Name of template file in the `templates/element/` folder,
-     *  or `MyPlugin.template` to check the template element from MyPlugin. If the element
+     * string templatefilename Name of template file in the `templates/element/` folder,
+     *  or `_plugin.template` to check the template element from _plugin. If the element
      *  is not found in the plugin, the normal view path cascade will be searched.
      * /
-    bool elementExists(string views) {
-        return (bool)_getElementFileName(views);
+    bool elementExists(string templatefilename) {
+        return (bool)_getElementFileName(templatefilename);
     }
     
     /**
@@ -639,11 +638,9 @@ class DView : IView { //  }: IEventDispatcher {
         this.viewVars = mydata + this.viewVars;
     }
 
-    /**
-     * Get the names of all the existing blocks.
-     * /
+    // Get the names of all the existing blocks.
     string[] blocks() {
-        return this.Blocks.keys();
+        return _blocks.keys;
     }
 
     /**
@@ -763,8 +760,8 @@ class DView : IView { //  }: IEventDispatcher {
             case TYPE_ELEMENT:
                 myparent = _getElementFileName(views);
                 if (!myparent) {
-                    [myplugin, views] = this.pluginSplit(views);
-                    mypaths = _paths(myplugin);
+                    [_plugin, views] = this.pluginSplit(views);
+                    mypaths = _paths(_plugin);
                     mydefaultPath = mypaths[0] ~ TYPE_ELEMENT ~ DIRECTORY_SEPARATOR;
                     throw new LogicException(
                         "You cannot extend an element which does not exist (%s).".format(mydefaultPath ~ views ~ _ext
@@ -891,8 +888,8 @@ class DView : IView { //  }: IEventDispatcher {
      * @param IData[string] configData Config.
      * /
     protected void addHelper(string myhelper, IData[string] configData = null) {
-        [myplugin, views] = pluginSplit(myhelper);
-        if (myplugin) {
+        [_plugin, views] = pluginSplit(myhelper);
+        if (_plugin) {
             configuration["className"] = myhelper;
         }
         this.helpers[views] = configData;
@@ -981,7 +978,7 @@ class DView : IView { //  }: IEventDispatcher {
         if (views.isEmpty) {
             throw new UimException("Template name not provided");
         }
-        [myplugin, views] = this.pluginSplit(views);
+        [_plugin, views] = this.pluginSplit(views);
         views = views.replace("/", DIRECTORY_SEPARATOR);
 
         if (!views.has(DIRECTORY_SEPARATOR) && views != "" && !views.startWith(".")) {
@@ -989,14 +986,14 @@ class DView : IView { //  }: IEventDispatcher {
         } elseif (views.has(DIRECTORY_SEPARATOR)) {
             if (views[0] == DIRECTORY_SEPARATOR || views[1] == ":") {
                 views = trim(views, DIRECTORY_SEPARATOR);
-            } elseif (!myplugin || this.templatePath != this.name) {
+            } elseif (!_plugin || this.templatePath != this.name) {
                 views = mytemplatePath ~ mysubDir ~ views;
             } else {
                 views = mysubDir ~ views;
             }
         }
         views ~= _ext;
-        mypaths = _paths(myplugin);
+        mypaths = _paths(_plugin);
         foreach (mypaths as mypath) {
             if (isFile(mypath ~ views)) {
                 return _checkFilePath(mypath ~ views, mypath);
@@ -1045,16 +1042,16 @@ class DView : IView { //  }: IEventDispatcher {
      * @param bool myfallback If true uses the plugin set in the current Request when parsed plugin is not loaded
      * /
     array pluginSplit(string views, bool myfallback = true) {
-        myplugin = null;
+        _plugin = null;
         [myfirst, mysecond] = pluginSplit(views);
         if (myfirst && Plugin.isLoaded(myfirst)) {
             views = mysecond;
-            myplugin = myfirst;
+            _plugin = myfirst;
         }
-        if (isSet(this.plugin) && !myplugin && myfallback) {
-            myplugin = this.plugin;
+        if (isSet(this.plugin) && !_plugin && myfallback) {
+            _plugin = this.plugin;
         }
-        return [myplugin, views];
+        return [_plugin, views];
     }
     
     /**
@@ -1072,31 +1069,31 @@ class DView : IView { //  }: IEventDispatcher {
             }
             views = this.layout;
         }
-        [myplugin, views] = this.pluginSplit(views);
+        [_plugin, views] = this.pluginSplit(views);
         views ~= _ext;
 
-        foreach (this.getLayoutPaths(myplugin) as mypath) {
+        foreach (this.getLayoutPaths(_plugin) as mypath) {
             if (isFile(mypath ~ views)) {
                 return _checkFilePath(mypath ~ views, mypath);
             }
         }
-        mypaths = iterator_to_array(this.getLayoutPaths(myplugin));
+        mypaths = iterator_to_array(this.getLayoutPaths(_plugin));
         throw new MissingLayoutException(views, mypaths);
     }
     
     /**
      * Get an iterator for layout paths.
      * Params:
-     * string|null myplugin The plugin to fetch paths for.
+     * string|null _plugin The plugin to fetch paths for.
      * /
-    protected Generator getLayoutPaths(string myplugin) {
+    protected Generator getLayoutPaths(string _plugin) {
         mysubDir = "";
         if (this.layoutPath) {
             mysubDir = this.layoutPath ~ DIRECTORY_SEPARATOR;
         }
         mylayoutPaths = _getSubPaths(TYPE_LAYOUT ~ DIRECTORY_SEPARATOR ~ mysubDir);
 
-        foreach (_paths(myplugin) as mypath) {
+        foreach (_paths(_plugin) as mypath) {
             foreach (mylayoutPaths as mylayoutPath) {
                 yield mypath ~ mylayoutPath;
             }
@@ -1107,14 +1104,14 @@ class DView : IView { //  }: IEventDispatcher {
      * Finds an element filename, returns false on failure.
      * Params:
      * string views The name of the element to find.
-     * @param bool mypluginCheck - if false will ignore the request"s plugin if parsed plugin is not loaded
+     * @param bool _pluginCheck - if false will ignore the request"s plugin if parsed plugin is not loaded
      * /
     protected string|int|false _getElementFileName(string views, bool shouldCheckPlugin = true)|false
     {
-        [myplugin, views] = this.pluginSplit(views, shouldCheckPlugin);
+        [_plugin, views] = this.pluginSplit(views, shouldCheckPlugin);
 
         views ~= _ext;
-        foreach (this.getElementPaths(myplugin) as mypath) {
+        foreach (this.getElementPaths(_plugin) as mypath) {
             if (isFile(mypath ~ views)) {
                 return mypath ~ views;
             }
@@ -1125,11 +1122,11 @@ class DView : IView { //  }: IEventDispatcher {
     /**
      * Get an iterator for element paths.
      * Params:
-     * string|null myplugin The plugin to fetch paths for.
+     * string|null _plugin The plugin to fetch paths for.
      * /
-    protected Generator getElementPaths(string myplugin) {
+    protected Generator getElementPaths(string _plugin) {
         myelementPaths = _getSubPaths(TYPE_ELEMENT);
-        foreach (_paths(myplugin) as mypath) {
+        foreach (_paths(_plugin) as mypath) {
             foreach (myelementPaths as mysubdir) {
                 yield mypath ~ mysubdir ~ DIRECTORY_SEPARATOR;
             }
@@ -1166,51 +1163,51 @@ class DView : IView { //  }: IEventDispatcher {
     /**
      * Return all possible paths to find view files in order
      * Params:
-     * string|null myplugin Optional plugin name to scan for view files.
+     * string|null _plugin Optional plugin name to scan for view files.
      * @param bool mycached Set to false to force a refresh of view paths. Default true.
      * /
-    protected string[] _paths(string myplugin = null, bool mycached = true) {
+    protected string[] _paths(string _plugin = null, bool mycached = true) {
         if (mycached == true) {
-            if (myplugin.isNull && !empty(_paths)) {
+            if (_plugin.isNull && !empty(_paths)) {
                 return _paths;
             }
-            if (myplugin !isNull && isSet(_pathsForPlugin[myplugin])) {
-                return _pathsForPlugin[myplugin];
+            if (_plugin !isNull && isSet(_pathsForPlugin[_plugin])) {
+                return _pathsForPlugin[_plugin];
             }
         }
         mytemplatePaths = App.path(NAME_TEMPLATE);
-        mypluginPaths = mythemePaths = [];
-        if (!empty(myplugin)) {
+        _pluginPaths = mythemePaths = [];
+        if (!empty(_plugin)) {
             foreach (mytemplatePaths as mytemplatePath) {
-                mypluginPaths ~= mytemplatePath
+                _pluginPaths ~= mytemplatePath
                     ~ PLUGIN_TEMPLATE_FOLDER
                     ~ DIRECTORY_SEPARATOR
-                    ~ myplugin
+                    ~ _plugin
                     ~ DIRECTORY_SEPARATOR;
             }
-            mypluginPaths ~= Plugin.templatePath(myplugin);
+            _pluginPaths ~= Plugin.templatePath(_plugin);
         }
         if (!empty(this.theme)) {
             mythemePath = Plugin.templatePath(Inflector.camelize(this.theme));
 
-            if (myplugin) {
+            if (_plugin) {
                 mythemePaths ~= mythemePath
                     ~ PLUGIN_TEMPLATE_FOLDER
                     ~ DIRECTORY_SEPARATOR
-                    ~ myplugin
+                    ~ _plugin
                     ~ DIRECTORY_SEPARATOR;
             }
             mythemePaths ~= mythemePath;
         }
         mypaths = array_merge(
             mythemePaths,
-            mypluginPaths,
+            _pluginPaths,
             mytemplatePaths,
             App.core("templates")
         );
 
-        if (myplugin !isNull) {
-            return _pathsForPlugin[myplugin] = mypaths;
+        if (_plugin !isNull) {
+            return _pathsForPlugin[_plugin] = mypaths;
         }
         return _paths = mypaths;
     }
@@ -1230,10 +1227,10 @@ class DView : IView { //  }: IEventDispatcher {
 
             return mycache;
         }
-        [myplugin, views] = this.pluginSplit(views);
+        [_plugin, views] = this.pluginSplit(views);
 
-        string mypluginKey = !myplugin.isNull
-            ? Inflector.underscore(myplugin).replace("/", "_")
+        string _pluginKey = !_plugin.isNull
+            ? Inflector.underscore(_plugin).replace("/", "_")
             : null;
 
         myelementKey = str_replace(["\\", "/"], "_", views);
@@ -1241,7 +1238,7 @@ class DView : IView { //  }: IEventDispatcher {
         mycache = options["cache"];
         options.remove("cache");
         someKeys = array_merge(
-            [mypluginKey, myelementKey],
+            [_pluginKey, myelementKey],
             options.keys,
             mydata.keys
         );

@@ -16,7 +16,7 @@ class DNullEngine : DCacheEngine {
   }
 
 /*
-  /* bool set(string aKey, IData aValue, DateInterval | int | null aTtl = null) {
+  bool set(string aKey, IData aValue, DateInterval | int | null aTtl = null) {
     return true;
   }
 

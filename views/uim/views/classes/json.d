@@ -100,13 +100,14 @@ class DIDataView : DSerializedView {
                     return result;}
 
                     protected string _serialize(string[] myserialize) {
-                        mydata = _dataToSerialize(myserialize); myIDataOptions = configurationData.isSet("IDataOptions")
-                            ?  ? IData_HEX_TAG | IData_HEX_APOS | IData_HEX_AMP | IData_HEX_QUOT | IData_PARTIAL_OUTPUT_ON_ERROR;
-                        if (myIDataOptions == false) {
-                            myIDataOptions = 0;}
-                            myIDataOptions |= IData_THROW_ON_ERROR; if (Configure.read("debug")) {
-                                myIDataOptions |= IData_PRETTY_PRINT;}
-                                return to!string(IData_encode(mydata, myIDataOptions));
+                        mydata = _dataToSerialize(myserialize); 
+                        dataOptions = configurationData.ifNull("IDataOptions", 
+                            IData_HEX_TAG | IData_HEX_APOS | IData_HEX_AMP | IData_HEX_QUOT | IData_PARTIAL_OUTPUT_ON_ERROR);
+                        if (dataOptions == false) {
+                            dataOptions = 0;}
+                            dataOptions |= IData_THROW_ON_ERROR; if (Configure.read("debug")) {
+                                dataOptions |= IData_PRETTY_PRINT;}
+                                return to!string(IData_encode(mydata, dataOptions));
                             }
 
                             /**
@@ -117,14 +118,16 @@ class DIDataView : DSerializedView {
     protected IData _dataToSerialize(string[] myserialize) {
         if (myserialize.isArray) {
             mydata = []; 
-            foreach (myserialize as myalias : aKey) {
-                if (isNumeric(myalias)) {
-                    myalias = aKey;}
-                    if (array_key_exists(aKey, this.viewVars)) {
-                        mydata[myalias] = this.viewVars[aKey];
+            foreach (myalias : aKey, 
+            myserialize.byKeyValue.each!((aliasKey) {
+                if (isNumeric(aliasKey.key)) {
+                    aliasKey.key = aliasKey.value;}
+                    if (array_key_exists(aliasKey.value, this.viewVars)) {
+                        mydata[aliasKey.key] = this.viewVars[aliasKey.value];
                     }
                 }
-                return !empty(mydata) ? mydata : null;}
-                return this.viewVars[myserialize] ?  ? null;
-            } */
+            return !mydata.isEmpty ? mydata : null;
+            }
+        return viewVars.get(myserialize, null);
+    } */
 }

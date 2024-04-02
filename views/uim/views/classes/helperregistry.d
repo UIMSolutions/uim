@@ -12,20 +12,20 @@ import uim.views;
  * @implements \UIM\Event\IEventDispatcher<\UIM\View\View>
  */
 class HelperRegistry { // }: ObjectRegistry : IEventDispatcher {
+    // View object to use when making helpers.
+    protected IView _view;
+
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\View\View>
      * /
     use EventDispatcherTrait;
-
-    // View object to use when making helpers.
-    protected View _view;
 
     /**
      * Constructor
      * Params:
      * \UIM\View\View myview View object.
      * /
-    this(View myview) {
+    this(IView myview) {
        _view = myview;
         this.setEventManager(myview.getEventManager());
     }

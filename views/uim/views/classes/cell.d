@@ -10,6 +10,18 @@ import uim.views;
  * @implements \UIM\Event\IEventDispatcher<\UIM\View\View>
  */
 abstract class DCell { // }: IEventDispatcher, Stringable {
+    // Constant for folder name containing cell templates.
+    const string TEMPLATE_FOLDER = "cell";
+
+    // The cell"s action to invoke.
+    protected string _action;
+
+    /**
+     * Instance of the View created during rendering. Won"t be set until after
+     * Cell.__toString()/render() is called.
+     */
+    protected IView _view;
+
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\View\View>
      * /
@@ -17,14 +29,7 @@ abstract class DCell { // }: IEventDispatcher, Stringable {
     use LocatorAwareTrait;
     use ViewVarsTrait;
 
-    // Constant for folder name containing cell templates.
-    const string TEMPLATE_FOLDER = "cell";
 
-    /**
-     * Instance of the View created during rendering. Won"t be set until after
-     * Cell.__toString()/render() is called.
-     * /
-    protected View _view;
 
     /**
      * An instance of a UIM\Http\ServerRequest object that contains information about the current request.
@@ -35,9 +40,6 @@ abstract class DCell { // }: IEventDispatcher, Stringable {
 
     // An instance of a Response object that contains information about the impending response
     protected Response myresponse;
-
-    // The cell"s action to invoke.
-    protected string myaction;
 
     // Arguments to pass to cell"s action.
     protected array myargs = [];
@@ -95,29 +97,27 @@ abstract class DCell { // }: IEventDispatcher, Stringable {
     /**
      * Render the cell.
      * Params:
-     * string|null mytemplate Custom template name to render. If not provided (null), the last
+     * string|null templateName Custom template name to render. If not provided (null), the last
      * value will be used. This value is automatically set by `CellTrait.cell()`.
      * /
-    string render(string mytemplate = null) {
+    string render(string templateName = null) {
         mycache = [];
         if (_cache) {
-            mycache = _cacheConfig(this.action, mytemplate);
+            mycache = _cacheConfig(_action, templateName);
         }
-        myrender = auto () use (mytemplate) {
+        myrender = auto () use (templateName) {
             try {
-                myreflect = new DReflectionMethod(this, this.action);
+                myreflect = new DReflectionMethod(this, _action);
                 myreflect.invokeArgs(this, this.args);
             } catch (ReflectionException mye) {
                 throw new BadMethodCallException(
                     "Class `%s` does not have a `%s` method."
-                    .format(class,
-                    this.action
-                ));
+                    .format(class, _action));
             }
             mybuilder = this.viewBuilder();
 
-            if (mytemplate !isNull) {
-                mybuilder.setTemplate(mytemplate);
+            if (templateName !isNull) {
+                mybuilder.setTemplate(templateName);
             }
             myclassName = class;
             viewsPrefix = "\View\Cell\\";
@@ -129,11 +129,11 @@ abstract class DCell { // }: IEventDispatcher, Stringable {
                     TEMPLATE_FOLDER ~ DIRECTORY_SEPARATOR ~ views.replace("\\", DIRECTORY_SEPARATOR)
                 );
             }
-            mytemplate = mybuilder.getTemplate();
+            templateName = mybuilder.getTemplate();
 
             myview = this.createView();
             try {
-                return myview.render(mytemplate, false);
+                return myview.render(templateName, false);
             } catch (MissingTemplateException mye) {
                 myattributes = mye.getAttributes();
                 throw new MissingCellTemplateException(
@@ -146,26 +146,23 @@ abstract class DCell { // }: IEventDispatcher, Stringable {
             }
         };
 
-        if (mycache) {
-            return Cache.remember(mycache["key"], myrender, mycache["config"]);
-        }
-        return myrender();
+        return mycache 
+            ? Cache.remember(mycache["key"], myrender, mycache["config"])
+            : myrender();
     }
     
     /**
      * Generate the cache key to use for this cell.
      *
      * If the key is undefined, the cell class DAnd action name will be used.
-     * Params:
-     * string myaction The action invoked.
-     * @param string|null mytemplate The name of the template to be rendered.
+     * @param string|null templateName The name of the template to be rendered.
      * /
-    protected array _cacheConfig(string myaction, string mytemplate = null) {
+    protected array _cacheConfig(string invokedaction, string templateName = null) {
         if (_cache.isEmpty) {
             return null;
         }
-        mytemplate = mytemplate ?: "default";
-        string key = "cell_" ~ Inflector.underscore(class) ~ "_" ~ myaction ~ "_" ~ mytemplate;
+        templateName = templateName ?: "default";
+        string key = "cell_" ~ Inflector.underscore(class) ~ "_" ~ invokedaction ~ "_" ~ templateName;
         string aKey = key.replace("\\", "_");
         mydefault = [
             "config": "default",
@@ -188,32 +185,25 @@ abstract class DCell { // }: IEventDispatcher, Stringable {
     override string toString() {
         try {
             return this.render();
-        } catch (Exception mye) {
+        } catch (Exception exception) {
             trigger_error(
-                "Could not render cell - %s [%s, line %d]".format(
-                mye.getMessage(),
-                mye.getFile(),
-                mye.getLine()
-            ), E_USER_WARNING);
+                "Could not render cell - %s [%s, line %d]"
+                .format(exception.getMessage(), exception.getFile(), exception.getLine()), 
+                E_USER_WARNING);
 
             return "";
-        /** @phpstan-ignore-next-line * /
-        } catch (Error mye) {
+        } catch (DError error) {
             throw new DError(
-                "Could not render cell - %s [%s, line %d]".format(
-                mye.getMessage(),
-                mye.getFile(),
-                mye.getLine()
-            ), 0, mye);
+                "Could not render cell - %s [%s, line %d]"
+                .format(error.getMessage(), error.getFile(), error.getLine()), 
+                0, error);
         }
     }
     
-    /**
-     * Debug info.
-     * /
+    // Debug info.
     IData[string] debugInfo() {
         return [
-            "action": this.action,
+            "action": _action,
             "args": this.args,
             "request": this.request,
             "response": this.response,

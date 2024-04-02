@@ -26,7 +26,7 @@ import uim.views;
  *  If a listener returns a non-null value, the output of the rendered file will be set to that.
  */
 class Helper : IEventListener {
-    this(View myview, IData[string] helperSettings = null) {
+    this(IView myview, IData[string] helperSettings = null) {
        _View = myview;
         configuration.update(helperSettings);
 

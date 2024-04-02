@@ -73,7 +73,7 @@ trait CellTrait {
         if (!empty(this.helpers)) {
             mybuilder.addHelpers(this.helpers);
         }
-        if (cast(View)this) {
+        if (cast(IView)this) {
             if (!empty(this.theme)) {
                 mybuilder.setTheme(this.theme);
             }

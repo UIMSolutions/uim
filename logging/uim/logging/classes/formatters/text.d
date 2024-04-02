@@ -4,4 +4,6 @@ import uim.logging;
 
 @safe:
 class DTextLogFormatter : DLogFormatter {
+mixin(LogFormatterThis!("Text"));
 }
+mixin(LogFormatterCalls!("Text"));

@@ -1,10 +1,10 @@
-name "networks"
+name "mails"
 homepage "https://www.sicherheitsschmiede.de/"
 license "Apache-2.0"
 copyright "Copyright © 2015-2024, Ozan Nurettin Süel"
 authors "Ozan Nurettin Süel"
 
-description "D-Library for creating and managing networks"
+description "D-Library for creating and managing mails"
 dependency "arsd-official" version="~>11.2.3"
 dependency "colored" version="~>0.0.31"
 dependency "dlib" version="~>1.2.1"
@@ -20,4 +20,4 @@ targetType "library"
 sourcePaths "."
 importPaths "."
 
-targetName "uim-networks"
+targetName "uim-mails"

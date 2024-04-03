@@ -1,4 +1,4 @@
-module uim.oop.cake.mailers.message;
+module uim.mails.classes.message;
 
 import uim.oop;
 
@@ -11,7 +11,7 @@ import uim.oop;
  * on the standard outlined in https://www.rfc-editor.org/rfc/rfc2822.txt
  */
 class DMessage { //: IDataSerializable {
-        mixin TConfigurable!();
+    mixin TConfigurable!();
 
     this() {
         initialize;
@@ -32,23 +32,23 @@ class DMessage { //: IDataSerializable {
 
         _emailFormatAvailable = [MESSAGE_TEXT, MESSAGE_HTML, MESSAGE_BOTH];
         _transferEncodingAvailable = [
-        "7bit",
-        "8bit",
-        "base64",
-        "binary",
-        "quoted-printable",
+            "7bit",
+            "8bit",
+            "base64",
+            "binary",
+            "quoted-printable",
         ];
-         _charset = "utf-8";
+        _charset = "utf-8";
 
         return true;
     }
 
     mixin(TProperty!("string", "name"));
-    
+
     // Line length - no should more - RFC 2822 - 2.1.
     const int LINE_LENGTH_SHOULD = 78;
 
-   // Line length - no must more - RFC 2822 - 2.1.1
+    // Line length - no must more - RFC 2822 - 2.1.1
     const int LINE_LENGTH_MUST = 998;
 
     // Type of message - HTML
@@ -61,7 +61,7 @@ class DMessage { //: IDataSerializable {
     const string MESSAGE_BOTH = "both";
 
     // Holds the regex pattern for email validation
-    // const string EMAIL_PATTERN = "/^((?:[\p{L}0-9.!#%&\"*+\/=?^_`{|}~-]+)*@[\p{L}0-9-._]+)/ui";
+    const string EMAIL_PATTERN = ""; //TODO  = "/^((?:[\p{L}0-9.!#%&\"*+\/=?^_`{|}~-]+)*@[\p{L}0-9-._]+)/ui";
 
     // Message ID
     protected string _messageId;
@@ -75,8 +75,10 @@ class DMessage { //: IDataSerializable {
     // The subject of the email
     protected string _subject;
 
-        // Available formats to be sent.
-    protected string[] _emailFormatAvailable = [self.MESSAGE_TEXT, self.MESSAGE_HTML, self.MESSAGE_BOTH];
+    // Available formats to be sent.
+    protected string[] _emailFormatAvailable = [
+        MESSAGE_TEXT, MESSAGE_HTML, MESSAGE_BOTH
+    ];
 
     // What format should the email be sent in
     protected string _emailFormat = MESSAGE_TEXT;
@@ -103,7 +105,27 @@ class DMessage { //: IDataSerializable {
     protected string _appCharset;
 
     // If set, boundary to use for multipart mime messages
-    protected string _boundary;    /* 
+    protected string _boundary;
+
+    /**
+     * 8Bit character sets
+     * /
+    protected string[] charset8bit = ["UTF-8", "SHIFT_JIS"];
+
+    // Define Content-Type charset name
+    protected STRINGAA contentTypeCharset = [
+        "ISO-2022-JP-MS": "ISO-2022-JP",
+    ];
+
+    /**
+     * Regex for email validation
+     *
+     * If null, filter_var() will be used. Use the emailPattern() method
+     * to set a custom pattern."
+     */
+    protected string aemailPattern = EMAIL_PATTERN;
+
+    /* 
     // Recipient of the email
     protected array to = [];
 
@@ -177,26 +199,6 @@ class DMessage { //: IDataSerializable {
      * @var int
      * /
     protected int priority = null;
-
-    /**
-     * 8Bit character sets
-     * /
-    protected string[] charset8bit = ["UTF-8", "SHIFT_JIS"];
-
-    /**
-     * Define Content-Type charset name
-     * /
-    protected STRINGAA contentTypeCharset = [
-        "ISO-2022-JP-MS": "ISO-2022-JP",
-    ];
-
-    /**
-     * Regex for email validation
-     *
-     * If null, filter_var() will be used. Use the emailPattern() method
-     * to set a custom pattern."
-     */
-    protected string aemailPattern = self.EMAIL_PATTERN;
 
     /**
      * Properties that could be serialized

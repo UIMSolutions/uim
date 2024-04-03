@@ -1,4 +1,4 @@
-module mails copy.uim.mails.exceptions.exception;
+module uim.mails.exceptions.exception;
 
 import uim.mails;
 

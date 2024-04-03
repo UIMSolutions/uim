@@ -1,2 +1,2 @@
-module mails copy.uim.mails.interfaces;
+module uim.mails.interfaces;
 

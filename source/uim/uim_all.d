@@ -44,8 +44,10 @@ public {
     import uim.jsonbases;
     import uim.languages;
     import uim.logging;
+    import uim.mails;
     import uim.models;
     import uim.mvc;
+    import uim.networks;
     import uim.neurals;
     import uim.orm;
     import uim.routings;

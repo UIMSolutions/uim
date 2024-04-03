@@ -1,2 +1,2 @@
-module mails copy.uim.mails.helpers;
+module uim.mails.helpers;
 

@@ -1,4 +1,4 @@
-module uim.oop.Mailer;
+module uim.oop.cake.mailers.message;
 
 import uim.oop;
 
@@ -10,7 +10,7 @@ import uim.oop;
  * This class is used for sending Internet Message Format based
  * on the standard outlined in https://www.rfc-editor.org/rfc/rfc2822.txt
  */
-class DMessage : IDataSerializable {
+class DMessage { //: IDataSerializable {
         mixin TConfigurable!();
 
     this() {
@@ -29,6 +29,16 @@ class DMessage : IDataSerializable {
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
+
+        _emailFormatAvailable = [MESSAGE_TEXT, MESSAGE_HTML, MESSAGE_BOTH];
+        _transferEncodingAvailable = [
+        "7bit",
+        "8bit",
+        "base64",
+        "binary",
+        "quoted-printable",
+        ];
+         _charset = "utf-8";
 
         return true;
     }
@@ -51,8 +61,49 @@ class DMessage : IDataSerializable {
     const string MESSAGE_BOTH = "both";
 
     // Holds the regex pattern for email validation
-    const string EMAIL_PATTERN = "/^((?:[\p{L}0-9.!#%&\"*+\/=?^_`{|}~-]+)*@[\p{L}0-9-._]+)/ui";
+    // const string EMAIL_PATTERN = "/^((?:[\p{L}0-9.!#%&\"*+\/=?^_`{|}~-]+)*@[\p{L}0-9-._]+)/ui";
 
+    // Message ID
+    protected string _messageId;
+
+    /**
+     * Domain for messageId generation.
+     * Needs to be manually set for CLI mailing as enviroment("HTTP_HOST") is empty
+     */
+    protected string _domain;
+
+    // The subject of the email
+    protected string _subject;
+
+        // Available formats to be sent.
+    protected string[] _emailFormatAvailable = [self.MESSAGE_TEXT, self.MESSAGE_HTML, self.MESSAGE_BOTH];
+
+    // What format should the email be sent in
+    protected string _emailFormat = MESSAGE_TEXT;
+
+    // Charset the email body is sent in
+    protected string _charset;
+
+    /**
+     * Charset the email header is sent in
+     * If null, the charset property will be used as default
+     */
+    protected string _headerCharset;
+
+    /**
+     * The email transfer encoding used.
+     * If null, the charset property is used for determined the transfer encoding.
+     */
+    protected string _transferEncoding;
+
+    // Available encoding to be set for transfer.
+    protected string[] _transferEncodingAvailable;
+
+    // The application wide charset, used to encode headers and body
+    protected string _appCharset;
+
+    // If set, boundary to use for multipart mime messages
+    protected string _boundary;    /* 
     // Recipient of the email
     protected array to = [];
 
@@ -73,7 +124,7 @@ class DMessage : IDataSerializable {
      * - Remote mailserver down
      * - Remote user has exceeded his quota
      * - Unknown user
-     */
+     * /
     protected array resultPath = [];
 
     /**
@@ -81,7 +132,7 @@ class DMessage : IDataSerializable {
      *
      * List of email"s that should receive a copy of the email.
      * The Recipient WILL be able to see this list
-     */
+      * /
     protected array cc = [];
 
     /**
@@ -89,25 +140,14 @@ class DMessage : IDataSerializable {
      *
      * List of email"s that should receive a copy of the email.
      * The Recipient WILL NOT be able to see this list
-     */
+     * /
     protected array bcc = [];
 
-    // Message ID
-    protected string messageId;
-
-    /**
-     * Domain for messageId generation.
-     * Needs to be manually set for CLI mailing as enviroment("HTTP_HOST") is empty
-     */
-    protected string adomain = "";
-
-    // The subject of the email
-    protected string asubject = "";
 
     /**
      * Associative array of a user defined headers
      * Keys will be prefixed "X-" as per RFC2822 Section 4.7.5
-     */
+     * /
     protected array  aHeaders = [];
 
     // Text message
@@ -119,42 +159,7 @@ class DMessage : IDataSerializable {
     // Final message to send
     protected array message = [];
 
-    // Available formats to be sent.
-    protected string[] emailFormatAvailable = [self.MESSAGE_TEXT, self.MESSAGE_HTML, self.MESSAGE_BOTH];
-
-    // What format should the email be sent in
-    protected string aemailFormat = self.MESSAGE_TEXT;
-
-    // Charset the email body is sent in
-    protected string acharset = "utf-8";
-
-    /**
-     * Charset the email header is sent in
-     * If null, the charset property will be used as default
-     */
-    protected string aheaderCharset = null;
-
-    /**
-     * The email transfer encoding used.
-     * If null, the charset property is used for determined the transfer encoding.
-     */
-    protected string atransferEncoding = null;
-
-    /**
-     * Available encoding to be set for transfer.
-     */
-    protected string[] transferEncodingAvailable = [
-        "7bit",
-        "8bit",
-        "base64",
-        "binary",
-        "quoted-printable",
-    ];
-
-    /**
-     * The application wide charset, used to encode headers and body
-     */
-    protected string aappCharset = null;
+ 
 
     /**
      * List of files that should be attached to the email.
@@ -162,29 +167,25 @@ class DMessage : IDataSerializable {
      * Only absolute paths
      *
      * @var array<string, array>
-     */
+     * /
     protected array attachments = [];
 
-    /**
-     * If set, boundary to use for multipart mime messages
-     */
-    protected string aboundary = null;
 
     /**
      * Contains the optional priority of the email.
      *
      * @var int
-     */
+     * /
     protected int priority = null;
 
     /**
      * 8Bit character sets
-     */
+     * /
     protected string[] charset8bit = ["UTF-8", "SHIFT_JIS"];
 
     /**
      * Define Content-Type charset name
-     */
+     * /
     protected STRINGAA contentTypeCharset = [
         "ISO-2022-JP-MS": "ISO-2022-JP",
     ];
@@ -199,7 +200,7 @@ class DMessage : IDataSerializable {
 
     /**
      * Properties that could be serialized
-     */
+     * /
     protected string[] serializableProperties = [
         "to", "from", "sender", "replyTo", "cc", "bcc", "subject",
         "returnPath", "readReceipt", "emailFormat", "emailPattern", "domain",
@@ -211,7 +212,7 @@ class DMessage : IDataSerializable {
      * Constructor
      * Params:
      * array<string,mixed>|null configData Array of configs, or string to load configs from app.d
-     */
+     * /
     this(IData[string] configData = null) {
         this.appCharset = Configure.read("App.encoding");
         if (this.appCharset !isNull) {
@@ -233,7 +234,7 @@ class DMessage : IDataSerializable {
      *  Array with email as key, name as value or email as value (without name)
      * @param string name Name
      * @return this
-     */
+     * /
     auto setFrom(string[] aemail, string aName = null) {
         return this.setEmailSingle("from", email, aName, "From requires only 1 email address.");
     }
@@ -252,14 +253,14 @@ class DMessage : IDataSerializable {
      * @return this
      * @throws \InvalidArgumentException
      * @link https://tools.ietf.org/html/rfc2822.html#section-3.6.2
-     */
+     * /
     auto setSender(string[] aemail, string aName = null) {
         return this.setEmailSingle("sender", email, name, "Sender requires only 1 email address.");
     }
     
     /**
      * Gets the "sender" address. See RFC link below for full explanation.
-     */
+     * /
     array getSender() {
         return this.sender;
     }
@@ -272,7 +273,7 @@ class DMessage : IDataSerializable {
      * @param string name Name
      * @return this
      * @throws \InvalidArgumentException
-     */
+    * /
     auto setReplyTo(string[] aemail, string aName = null) {
         return this.setEmail("replyTo", email, name);
     }
@@ -280,21 +281,21 @@ class DMessage : IDataSerializable {
     /**
      * Gets "Reply-To" address.
      *
-     */
+      * /
     array getReplyTo() {
         return this.replyTo;
     }
     
     /**
      * Add "Reply-To" address.
-     */
+     * /
     auto addReplyTo(string[] email, string name = null) {
         return this.addEmail("replyTo", email, name);
     }
     
     /**
      * Sets Read Receipt (Disposition-Notification-To header).
-     */
+     * /
     void setReadReceipt(string[] email, string name = null) {
         return this.setEmailSingle(
             "readReceipt",
@@ -306,7 +307,7 @@ class DMessage : IDataSerializable {
     
     /**
      * Gets Read Receipt (Disposition-Notification-To header).
-     */
+     * /
     array getReadReceipt() {
         return this.readReceipt;
     }
@@ -319,14 +320,14 @@ class DMessage : IDataSerializable {
      * @param string name Name
      * @return this
      * @throws \InvalidArgumentException
-     */
+     * /
     auto setReturnPath(string[] aemail, string aName = null) {
         return this.setEmailSingle("returnPath", email, name, "Return-Path requires only 1 email address.");
     }
     
     /**
      * Gets return path.
-     */
+     * /
     array getReturnPath() {
         return this.returnPath;
     }
@@ -337,14 +338,14 @@ class DMessage : IDataSerializable {
      * string[] aemail String with email,
      *  Array with email as key, name as value or email as value (without name)
      * @param string name Name
-     */
+     * /
     auto setTo(string[] aemail, string aName = null) {
         return this.setEmail("to", email, name);
     }
     
     /**
      * Gets "to" address
-     */
+     * /
     array getTo() {
         return this.to;
     }
@@ -355,7 +356,7 @@ class DMessage : IDataSerializable {
      * string[] aemail String with email,
      *  Array with email as key, name as value or email as value (without name)
      * @param string name Name
-     */
+     * /
     auto addTo(string[] aemail, string aName = null) {
         return this.addEmail("to", email, name);
     }
@@ -366,7 +367,7 @@ class DMessage : IDataSerializable {
      * string[] aemail String with email,
      *  Array with email as key, name as value or email as value (without name)
      * @param string name Name
-     */
+     * /
     auto setCc(string[] aemail, string aName = null) {
         return this.setEmail("cc", email, name);
     }
@@ -374,7 +375,7 @@ class DMessage : IDataSerializable {
     /**
      * Gets "cc" address.
      *
-     */
+     * /
     array getCc() {
         return this.cc;
     }
@@ -385,7 +386,7 @@ class DMessage : IDataSerializable {
      * string[] aemail String with email,
      *  Array with email as key, name as value or email as value (without name)
      * @param string name Name
-     */
+     * /
     auto addCc(string[] aemail, string aName = null) {
         return this.addEmail("cc", email, name);
     }
@@ -396,7 +397,7 @@ class DMessage : IDataSerializable {
      * string[] aemail String with email,
      *  Array with email as key, name as value or email as value (without name)
      * @param string name Name
-     */
+     * /
     auto setBcc(string[] aemail, string aName = null) {
         return this.setEmail("bcc", email, name);
     }
@@ -404,7 +405,7 @@ class DMessage : IDataSerializable {
     /**
      * Gets "bcc" address.
      *
-     */
+     * /
     array getBcc() {
         return this.bcc;
     }
@@ -415,7 +416,7 @@ class DMessage : IDataSerializable {
      * string[] aemail String with email,
      *  Array with email as key, name as value or email as value (without name)
      * @param string name Name
-     */
+     * /
     auto addBcc(string[] aemail, string aName = null) {
         return this.addEmail("bcc", email, name);
     }
@@ -426,7 +427,7 @@ class DMessage : IDataSerializable {
      * HeaderCharset setter.
      * Params:
      * string charset Character set.
-     */
+     * /
     void setHeaderCharset(string charset) {
         this.headerCharset = charset;
     }
@@ -442,7 +443,7 @@ class DMessage : IDataSerializable {
      * string encoding Encoding set.
      * @return this
      * @throws \InvalidArgumentException
-     */
+     * /
     auto setTransferEncoding(string aencoding) {
         if (encoding !isNull) {
             encoding = encoding.toLower;
@@ -460,7 +461,7 @@ class DMessage : IDataSerializable {
     
     /**
      * TransferEncoding getter.
-     */
+     * /
     string getTransferEncoding() {
         return this.transferEncoding;
     }
@@ -470,7 +471,7 @@ class DMessage : IDataSerializable {
      * Params:
      * string regex The pattern to use for email address validation,
      *  null to unset the pattern and make use of filter_var() instead.
-     */
+     * /
     auto setEmailPattern(string aregex) {
         this.emailPattern = regex;
 
@@ -479,7 +480,7 @@ class DMessage : IDataSerializable {
     
     /**
      * EmailPattern setter/getter
-     */
+     * /
     string getEmailPattern() {
         return this.emailPattern;
     }
@@ -491,7 +492,7 @@ class DMessage : IDataSerializable {
      * @param string[] aemail String with email,
      *  Array with email as key, name as value or email as value (without name)
      * @param string name Name
-     */
+     * /
     protected void setEmail(string avarName, string[] aemail, string aName) {
         if (!isArray(email)) {
             this.validateEmail(email, varName);
@@ -515,7 +516,7 @@ class DMessage : IDataSerializable {
      * Params:
      * string aemail Email address to validate
      * @param string acontext Which property was set
-     */
+     * /
     protected void validateEmail(string emailAddress, string acontext) {
         if (this.emailPattern.isNull) {
             if (filter_var(emailAddress, FILTER_VALIDATE_EMAIL)) {
@@ -539,7 +540,7 @@ class DMessage : IDataSerializable {
      *  Array with email as key, name as value or email as value (without name)
      * @param string name Name
      * @param string athrowMessage Exception message
-     */
+     * /
     protected void setEmailSingle(string avarName, string[] aemail, string aName, string exceptionMessage) {
         if (email == []) {
             this.{varName} = email;
@@ -561,7 +562,7 @@ class DMessage : IDataSerializable {
      * @param string[] aemail String with email,
      *  Array with email as key, name as value or email as value (without name)
      * @param string name Name
-     */
+     * /
     protected void addEmail(string avarName, STRINGAA emailValue, string aName) {
         if (!isArray(emailValue)) {
             this.validateEmail(emailValue, varName);
@@ -586,7 +587,7 @@ class DMessage : IDataSerializable {
      * Sets subject.
      * Params:
      * string asubject Subject string.
-     */
+     * /
     auto setSubject(string asubject) {
         this.subject = this.encodeForHeader(subject);
 
@@ -595,14 +596,14 @@ class DMessage : IDataSerializable {
     
     /**
      * Gets subject.
-     */
+     * /
     string subject() {
         return this.subject;
     }
     
     /**
      * Get original subject without encoding
-     */
+     * /
     string getOriginalSubject() {
         return this.decodeForHeader(this.subject);
     }
@@ -611,7 +612,7 @@ class DMessage : IDataSerializable {
      * Sets headers for the message
      * Params:
      * array  aHeaders Associative array containing headers to be set.
-     */
+     * /
     auto setHeaders(array  aHeaders) {
         this.headers =  aHeaders;
 
@@ -622,7 +623,7 @@ class DMessage : IDataSerializable {
      * Add header for the message
      * Params:
      * array  aHeaders Headers to set.
-     */
+     * /
     auto addHeaders(array  aHeaders) {
         this.headers = Hash.merge(this.headers,  aHeaders);
 
@@ -644,7 +645,7 @@ class DMessage : IDataSerializable {
      * - `subject`
      * Params:
      * string[] anInclude List of headers.
-     */
+     * /
     string[] getHeaders(array  anInclude = []) {
         this.createBoundary();
 
@@ -724,7 +725,7 @@ class DMessage : IDataSerializable {
      * string[] anInclude List of headers.
      * @param string aeol End of line string for concatenating headers.
      * @param \Closure|null aCallback Callback to run each header value through before stringifying.
-     */
+     * /
     string getHeadersString(array  anInclude = [], string aeol = "\r\n", ?Closure aCallback = null) {
         auto lines = this.getHeaders(anInclude);
 
@@ -752,7 +753,7 @@ class DMessage : IDataSerializable {
      * in address header fields.
      * Params:
      * array address Addresses to format.
-     */
+     * /
     protected array formatAddress(array address) {
         auto result;
         foreach (address as email: alias) {
@@ -773,7 +774,7 @@ class DMessage : IDataSerializable {
      * Sets email format.
      * Params:
      * string aformat Formatting string.
-     */
+     * /
     void setEmailFormat(string aformat) {
         if (!in_array(aformat, this.emailFormatAvailable, true)) {
             throw new DInvalidArgumentException("Format not available.");
@@ -801,7 +802,7 @@ class DMessage : IDataSerializable {
      * Params:
      * string|bool message True to generate a new Message-ID, False to ignore (not send in email),
      *  String to set as Message-ID.
-     */
+     * /
     void setMessageId(bool message) {
             this.messageId = message;
         // TODO
@@ -827,7 +828,7 @@ class DMessage : IDataSerializable {
      * Domain as top level (the part after @).
      * Params:
      * string adomain Manually set the domain for CLI mailing.
-     */
+     * /
     auto setDomain(string adomain) {
         this.domain = domain;
 
@@ -883,7 +884,7 @@ class DMessage : IDataSerializable {
      *
      * The `contentDisposition` key allows you to disable the `Content-Disposition` header, this can improve
      * attachment compatibility with outlook email clients.
-     */
+     * /
     void setAttachments(DirEntry[string] fileAttachments) {
         auto attach = [];
         foreach (attName; dirEntry; fileAttachments) {
@@ -947,7 +948,7 @@ class DMessage : IDataSerializable {
      * @return this
      * @throws \InvalidArgumentException
      * @see \UIM\Mailer\Email.setAttachments()
-     */
+     * /
     void addAttachments(array attachments) {
         current = this.attachments;
         this.setAttachments(attachments);
@@ -957,7 +958,7 @@ class DMessage : IDataSerializable {
     /**
      * Get generated message body as array.
      *
-     */
+     * /
     array getBody() {
         if (isEmpty(this.message)) {
             this.message = this.generateMessage();
@@ -974,7 +975,7 @@ class DMessage : IDataSerializable {
     
     /**
      * Create unique boundary identifier
-     */
+     * /
     protected void createBoundary() {
         if (
             this.boundary.isNull &&
@@ -1071,7 +1072,7 @@ class DMessage : IDataSerializable {
      * Attach non-embedded files by adding file contents inside boundaries.
      * Params:
      * string boundary Boundary to use. If null, will default to this.boundary
-     */
+     * /
     protected string[] attachFiles(string aboundary = null) {
         boundary ??= this.boundary;
 
@@ -1105,7 +1106,7 @@ class DMessage : IDataSerializable {
      * Attach inline/embedded files to the message.
      * Params:
      * string boundary Boundary to use. If null, will default to this.boundary
-     */
+     * /
     protected string[] attachInlineFiles(string aboundary = null) {
         auto boundary = boundary ? baoundry :  this.boundary;
 
@@ -1132,7 +1133,7 @@ class DMessage : IDataSerializable {
      * Sets priority.
      * Params:
      * int priority 1 (highest) to 5 (lowest)
-     */
+     * /
     auto setPriority(int priority) {
         this.priority = priority;
 
@@ -1148,7 +1149,7 @@ class DMessage : IDataSerializable {
      * Sets the configuration for this instance.
      *
      * configData - Config array.
-     */
+     * /
     auto setConfig(IData[string] configData = null) {
         string[] simpleMethods = [
             "from", "sender", "to", "replyTo", "readReceipt", "returnPath",
@@ -1171,7 +1172,7 @@ class DMessage : IDataSerializable {
      * Params:
      * STRINGAA content Content array with keys "text" and/or "html" with
      *  content string of respective type.
-     */
+     * /
     auto setBody(array content) {
         foreach (content as type: text) {
             if (!in_array(type, this.emailFormatAvailable, true)) {
@@ -1198,7 +1199,7 @@ class DMessage : IDataSerializable {
      * Set text body for message.
      * Params:
      * string acontent Content string
-     */
+     * /
     auto setBodyText(string acontent) {
         this.setBody([MESSAGE_TEXT: content]);
 
@@ -1209,7 +1210,7 @@ class DMessage : IDataSerializable {
      * Set HTML body for message.
      * Params:
      * string acontent Content string
-     */
+     * /
     auto setBodyHtml(string acontent) {
         this.setBody([MESSAGE_HTML: content]);
 
@@ -1218,14 +1219,14 @@ class DMessage : IDataSerializable {
     
     /**
      * Get text body of message.
-     */
+     * /
     string getBodyText() {
         return this.textMessage;
     }
     
     /**
      * Get HTML body of message.
-     */
+     * /
     string getBodyHtml() {
         return this.htmlMessage;
     }
@@ -1236,7 +1237,7 @@ class DMessage : IDataSerializable {
      * Params:
      * string atext The text to be converted
      * @param string acharset the target encoding
-     */
+     * /
     protected string encodeString(string atext, string acharset) {
         if (this.appCharset == charset) {
             return text;
@@ -1252,7 +1253,7 @@ class DMessage : IDataSerializable {
      * Params:
      * string message Message to wrap
      * @param int wrapLength The line length
-     */
+     * /
     protected string[] wrap(string amessage = null, int wrapLength = self.LINE_LENGTH_MUST) {
         if (message.isNull || message.isEmpty) {
             return [""];
@@ -1386,7 +1387,7 @@ class DMessage : IDataSerializable {
      * Encode the specified string using the current charset
      * Params:
      * string atext String to encode
-     */
+     * /
     protected string encodeForHeader(string textToEncode) {
         if (this.appCharset.isNull) {
             return textToEncode;
@@ -1403,7 +1404,7 @@ class DMessage : IDataSerializable {
      * Decode the specified string
      * Params:
      * string atext String to decode
-     */
+     * /
     protected string decodeForHeader(string textToEncode) {
         if (this.appCharset.isNull) {
             return textToEncode;
@@ -1421,7 +1422,7 @@ class DMessage : IDataSerializable {
      * Params:
      * \Psr\Http\Message\IUploadedFile|string afile The absolute path to the file to read
      *  or IUploadedFile instance.
-     */
+     * /
     protected string readFile(IUploadedFile|string afile) {
         if (isString(file)) {
             content = (string)file_get_contents(file);
@@ -1434,7 +1435,7 @@ class DMessage : IDataSerializable {
     /**
      * Return the Content-Transfer Encoding value based
      * on the set transferEncoding or set charset.
-     */
+     * /
     string getContentTransferEncoding() {
         if (this.transferEncoding) {
             return this.transferEncoding;
@@ -1451,7 +1452,7 @@ class DMessage : IDataSerializable {
      *
      * Checks fallback/compatibility types which include workarounds
      * for legacy japanese character sets.
-     */
+     * /
     string getContentTypeCharset() {
         charset = strtoupper(this.charset);
         if (array_key_exists(charset, this.contentTypeCharset)) {
@@ -1466,7 +1467,7 @@ class DMessage : IDataSerializable {
      *
      * @return array Serializable array of configuration properties.
      * @throws \Exception When a view var object can not be properly serialized.
-     */
+     * /
     array IDataSerialize() {
         array = [];
         foreach (this.serializableProperties as  aProperty) {
@@ -1488,7 +1489,7 @@ class DMessage : IDataSerializable {
      * Configures an email instance object from serialized config.
      *
      * configData - Email configuration array.
-     */
+     * /
     void createFromArray(IData[string] configData = null) {
         foreach (configData as  aProperty: aValue) {
             this.{ aProperty} = aValue;
@@ -1498,7 +1499,7 @@ class DMessage : IDataSerializable {
     /**
      * Magic method used for serializing the Message object.
      *
-     */
+     * /
     array __serialize() {
         array = this.IDataSerialize();
         array_walk_recursive(array, void (& anItem, aKey) {
@@ -1514,8 +1515,8 @@ class DMessage : IDataSerializable {
      * Magic method used to rebuild the Message object.
      * Params:
      * array data Data array.
-     */
+     * /
     void __unserialize(array data) {
         this.createFromArray(someData);
-    }
+    } */
 }

@@ -1,4 +1,4 @@
-module uim.oop.networks\Exception;
+module oop.uim.oop.cake.networks.exceptions.socketexception;
 
 import uim.oop;
 

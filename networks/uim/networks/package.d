@@ -3,7 +3,7 @@
   License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
   Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.sites;
+module uim.networks;
 
 mixin(ImportPhobos!());
 
@@ -19,11 +19,11 @@ public { // Required uim libraries
   import uim.models;
 }
 
-public { // uim.sites packages
-  import uim.sites.classes;
-  import uim.sites.exceptions;
-  import uim.sites.interfaces;
-  import uim.sites.helpers;
-  import uim.sites.mixins;
-  import uim.sites.tests; 
+public { // uim.networks packages
+  import uim.networks.classes;
+  import uim.networks.exceptions;
+  import uim.networks.interfaces;
+  import uim.networks.helpers;
+  import uim.networks.mixins;
+  import uim.networks.tests; 
 }

@@ -1,2 +1,2 @@
-module uim.sites.interfaces;
+module uim.networks.interfaces;
 

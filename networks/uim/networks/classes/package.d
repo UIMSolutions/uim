@@ -1,2 +1,2 @@
-module uim.sites.classes;
+module uim.networks.classes;
 

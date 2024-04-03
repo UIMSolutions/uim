@@ -1,2 +1,2 @@
-module uim.sites.exceptions;
+module uim.networks.exceptions;
 

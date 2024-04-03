@@ -1,1 +1,1 @@
-# Package 📦 uim.sites.helpers
+# Package 📦 uim.networks.helpers

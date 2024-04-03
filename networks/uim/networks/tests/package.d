@@ -1,2 +1,2 @@
-module uim.sites.tests;
+module uim.networks.tests;
 

@@ -1,12 +1,12 @@
-module uim.sites.uim.sites.exceptions.exception;
+module uim.networks.uim.networks.exceptions.exception;
 
-import uim.sites;
+import uim.networks;
 
 @safe:
 
-// Base Sites exception.
-class DSitesException : UimException {
-  mixin(ExceptionThis!("Sites"));
+// Base Networks exception.
+class DNetworksException : UimException {
+  mixin(ExceptionThis!("Networks"));
 
   override bool initialize(IData[string] initData = null) {
     if (!super.initialize(initData)) {
@@ -14,9 +14,9 @@ class DSitesException : UimException {
     }
 
     this
-      .messageTemplate("Error in libary uim-sites");
+      .messageTemplate("Error in libary uim-networks");
 
     return true;
   }
 }
-mixin(ExceptionCalls!("Sites"));
+mixin(ExceptionCalls!("Networks"));

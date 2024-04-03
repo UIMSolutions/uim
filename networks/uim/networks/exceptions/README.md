@@ -1,1 +1,1 @@
-# Package 📦 uim.sites.exceptions
+# Package 📦 uim.networks.exceptions

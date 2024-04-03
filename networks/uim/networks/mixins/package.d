@@ -1,2 +1,2 @@
-module uim.sites.mixins;
+module uim.networks.mixins;
 

@@ -1,1 +1,1 @@
-# Package 📦 uim.sites.interfaces
+# Package 📦 uim.networks.interfaces

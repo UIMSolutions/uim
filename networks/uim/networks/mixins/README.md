@@ -1,1 +1,1 @@
-# Package 📦 uim.sites.mixins
+# Package 📦 uim.networks.mixins

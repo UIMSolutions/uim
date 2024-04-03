@@ -1,1 +1,1 @@
-# Package 📦 uim.sites.tests
+# Package 📦 uim.networks.tests

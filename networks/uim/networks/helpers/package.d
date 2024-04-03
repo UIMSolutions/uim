@@ -1,2 +1,2 @@
-module uim.sites.helpers;
+module uim.networks.helpers;
 

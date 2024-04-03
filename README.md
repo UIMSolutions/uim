@@ -7,9 +7,13 @@ Contains
 [![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-core.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-core.yml)
 * uim-oop
 [![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-oop.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-oop.yml)
+* uim-css 
+[![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-css.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-css.yml)
 * uim-databases 
 [![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-databases.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-databases.yml)
 * uim-datasources
 [![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-datasources.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-datasources.yml)
+* uim-errors 
+[![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-errors.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-errors.yml)
 * uim-forms
 [![D](https://github.com/UIMSolutions/uim/actions/workflows/uim-forms.yml/badge.svg)](https://github.com/UIMSolutions/uim/actions/workflows/uim-forms.yml)

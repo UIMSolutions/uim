@@ -9,6 +9,8 @@ import uim.i18n;
  * retrieved by name and locale.
  */
 class DTranslatorRegistry : DObjectRegistry!DTranslator {
+        this() {}
+
     // Fallback loader name.
     const string FALLBACK_LOADER = "_fallback";
 

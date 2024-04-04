@@ -12,6 +12,8 @@ import uim.caches;
  * @extends \UIM\Core\ObjectRegistry<\UIM\Cache\CacheEngine>
  */
 class DCacheRegistry : DObjectRegistry!DCache {
+      this() {}
+
   /*
 }: ObjectRegistry {
   // Resolve a cache engine classname.

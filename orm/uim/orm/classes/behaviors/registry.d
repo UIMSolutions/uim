@@ -18,6 +18,8 @@ import uim.orm;
  * @: DORMCore\ObjectRegistry<DORMBehavior>
  */
 class DBehaviorRegistry : DObjectRegistry!DBehavior {
+        this() {}
+
     // }: ObjectRegistry, IEventDispatcher {
     /* 
     use EventDispatcherTrait;

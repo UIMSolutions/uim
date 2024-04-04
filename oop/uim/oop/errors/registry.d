@@ -4,6 +4,7 @@ import uim.oop;
 
 @safe:
 class DErrorRegistry : DObjectRegistry!DError{
+    this() {}
 }
 auto errorRegistry() { // Singleton
   return 

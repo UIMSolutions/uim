@@ -3,18 +3,14 @@ module uim.oop.exceptions.registry;
 import uim.oop;
 
 @safe:
-class DExceptionRegistry : ObjectRegistry!UimException{
-  static DExceptionRegistry registry; 
+class DExceptionRegistry : DObjectRegistry!UimException{
 }
 auto ExceptionRegistry() { // Singleton
-  if (!DExceptionRegistry.registry) {
-    DExceptionRegistry.registry = new DExceptionRegistry; 
-  }
   return 
-    DExceptionRegistry.registry;
+    DExceptionRegistry.instance;
 }
 
 version(test_uim_mvc) { unittest {
-  assert(ExceptionRegistry.register("mvc_exceptioncomponent",  Exception).paths == ["mvc_exceptioncomponent"]);
-  assert(ExceptionRegistry.register("mvc_exceptioncomponent2", Exception).paths.length == 2);
+  assert(ExceptionRegistry.instance("mvc_exceptioncomponent",  Exception).paths == ["mvc_exceptioncomponent"]);
+  assert(ExceptionRegistry.instance("mvc_exceptioncomponent2", Exception).paths.length == 2);
 }}

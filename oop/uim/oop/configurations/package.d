@@ -12,4 +12,6 @@ public { // Modules
     import uim.oop.configurations.mixin_;
     import uim.oop.configurations.xml;
     import uim.oop.configurations.yaml;
+    
+    import uim.oop.configurations.tests;
 }

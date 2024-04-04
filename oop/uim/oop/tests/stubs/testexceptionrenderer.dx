@@ -1,0 +1,38 @@
+module uim.oop.TestSuite\Stub;
+
+import uim.oop;
+
+@safe:
+
+/**
+ * Test Exception Renderer.
+ *
+ * Use this class if you want to re-throw exceptions that would otherwise be
+ * caught by the ErrorHandlerMiddleware. This is useful while debugging or
+ * writing integration test cases.
+ *
+ * @see \UIM\TestSuite\IntegrationTestCase.disableErrorHandlerMiddleware()
+ * @internal
+ */
+class DTestExceptionRenderer : IExceptionRenderer {
+    /**
+     * Simply rethrow the given exception
+     * Params:
+     * \Throwable myexception Exception.
+     */
+    this(Throwable myexception) {
+        throw myexception;
+    }
+ 
+    IResponse render() {
+        throw new LogicException("You cannot use this class to render exceptions.");
+    }
+    
+    /**
+     * Part of upcoming interface requirements
+     * Params:
+     * \Psr\Http\Message\IResponse|string myoutput The output or response to send.
+     */
+    void write(IResponse|string myoutput) {
+    }
+}

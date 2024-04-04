@@ -14,8 +14,7 @@ class DObjectRegistry(T : Object) {
 	private T[string] _entries;
 	private T _nullValue;
 
-	private this() {
-		// 
+	this() {
 	}
 
 	public static DObjectRegistry!T instance() {

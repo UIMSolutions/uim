@@ -1,6 +1,6 @@
 module uim.networks.exceptions.socket;
 
-import uim.oop;
+import uim.networks;
 
 @safe:
 

@@ -1,11 +1,10 @@
- module logging.uim.logging.classes.formatters.html;
+module logging.uim.logging.classes.formatters.json;
 
 import uim.logging;
 
 @safe:
-
-class DHtmlLogFormatter : DLogFormatter {
-  mixin(LogFormatterThis!("Html"));
+class DJsonLogFormatter : DLogFormatter {
+  mixin(LogFormatterThis!("Json"));
 
   override bool initialize(IData[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
@@ -13,4 +12,4 @@ class DHtmlLogFormatter : DLogFormatter {
     return true;
   }
 }
-mixin(LogFormatterCalls!("Html"));
+mixin(LogFormatterCalls!("Json"));

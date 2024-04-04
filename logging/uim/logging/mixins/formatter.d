@@ -1,7 +1,7 @@
 module uim.logging.mixins.formatter;
 
-string formatterThis(string name) {
-    string fullName = name ~ "Formatter";
+string logFormatterThis(string name) {
+    string fullName = name ~ "LogFormatter";
     return `
     this() {
         super(); this.name("`
@@ -16,12 +16,12 @@ string formatterThis(string name) {
     `;
 }
 
-template FormatterThis(string name) {
-    const char[] FormatterThis = formatterThis(name);
+template LogFormatterThis(string name) {
+    const char[] LogFormatterThis = logFormatterThis(name);
 }
 
-string formatterCalls(string name) {
-    string fullName = name ~ "Formatter";
+string logFormatterCalls(string name) {
+    string fullName = name ~ "LogFormatter";
     return `
     auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
     auto `~ fullName ~ `(IData[string] initData) { return new D` ~ fullName ~ `(initData);}
@@ -29,6 +29,6 @@ string formatterCalls(string name) {
     `;
 }
 
-template FormatterCalls(string name) {
-    const char[] FormatterCalls = formatterCalls(name);
+template LogFormatterCalls(string name) {
+    const char[] LogFormatterCalls = logFormatterCalls(name);
 }

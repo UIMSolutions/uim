@@ -1,4 +1,4 @@
-module uim.networks.uim.networks.exceptions.exception;
+module uim.networks.exceptions.exception;
 
 import uim.networks;
 

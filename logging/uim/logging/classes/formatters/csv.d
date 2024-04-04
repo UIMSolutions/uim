@@ -1,11 +1,10 @@
- module logging.uim.logging.classes.formatters.html;
+module uim.logging.classes.formatters.csv;
 
 import uim.logging;
 
 @safe:
-
-class DHtmlLogFormatter : DLogFormatter {
-  mixin(LogFormatterThis!("Html"));
+class DCsvLogFormatter : DLogFormatter {
+  mixin(LogFormatterThis!("Csv"));
 
   override bool initialize(IData[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
@@ -13,4 +12,5 @@ class DHtmlLogFormatter : DLogFormatter {
     return true;
   }
 }
-mixin(LogFormatterCalls!("Html"));
+mixin(LogFormatterCalls!("Csv"));
+

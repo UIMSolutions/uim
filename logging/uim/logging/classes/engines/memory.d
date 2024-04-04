@@ -14,11 +14,12 @@ class DMemoryLogEngine : DLogEngine {
   mixin(LogEngineThis!("Memory"));
 
   override bool initialize(IData[string] initData = null) {
-if (!super.initialize(configSettings)) {
-return false;
-}
+    if (!super.initialize(initData)) {
+      return false;
+    }
 
-return true;
+    return true;
   }
 }
+
 mixin(LogEngineCalls!("Memory"));

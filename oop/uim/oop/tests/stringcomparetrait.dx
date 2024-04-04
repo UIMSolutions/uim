@@ -1,0 +1,45 @@
+module uim.oop.TestSuite;
+
+import uim.oop;
+
+@safe:
+
+/**
+ * Compare a string to the contents of a file
+ *
+ * Implementing objects are expected to modify the ` _compareBasePath` property
+ * before use.
+ */
+mixin template StringCompareTemplate() {
+    /**
+     * The base path for output comparisons
+     *
+     * Must be initialized before use
+     */
+    protected string _compareBasePath;
+
+    /**
+     * Update comparisons to match test changes
+     *
+     * Initialized with the env variable UPDATE_TEST_COMPARISON_FILES
+     */
+    protected bool _updateComparisons;
+
+    /**
+     * Compare the result to the contents of the file
+     * Params:
+     * string aPath partial path to test comparison file
+     */
+    void assertSameAsFile(string aPath, string testResult) {
+        if (!file_exists(somePath)) {
+            somePath = _compareBasePath ~ somePath;
+        }
+       _updateComparisons ??= enviroment("UPDATE_TEST_COMPARISON_FILES") ?: false;
+
+        if (_updateComparisons) {
+            file_put_contents(somePath, result);
+        }
+        expected = file_get_contents(somePath);
+        this.assertTextEquals(expected, result, "Content does not match file " ~ somePath);
+    }
+}

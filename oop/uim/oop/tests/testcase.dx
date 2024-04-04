@@ -1,0 +1,938 @@
+module uim.oop.TestSuite;
+
+import uim.oop;
+
+@safe:
+
+abstract class DTestCase : BaseTestCase {
+    mixin LocatorAwareTemplate();
+    mixin PHPUnitConsecutiveTemplate();
+
+    /**
+     * Fixtures used by this test case.
+     */
+    protected string[] myfixtures = [];
+
+    /**
+     * @var \UIM\TestSuite\Fixture\IFixtureStrategy|null
+     */
+    protected IFixtureStrategy myfixtureStrategy = null;
+
+    // Configure values to restore at end of test.
+    protected array my_configure = [];
+
+    private PhpError my_capturedError = null;
+
+    /**
+     * Overrides SimpleTestCase.skipIf to provide a boolean return value
+     * Params:
+     * bool myshouldSkip Whether the test should be skipped.
+     * @param string mymessage The message to display.
+     */
+   bool skipIf(bool myshouldSkip, string mymessage = null) {
+        if (myshouldSkip) {
+            this.markTestSkipped(mymessage);
+        }
+        return myshouldSkip;
+    }
+    
+    /**
+     * Helper method for tests that needs to use error_reporting()
+     * Params:
+     * int myerrorLevel value of error_reporting() that needs to use
+     * @param callable mycallable callable auto that will receive asserts
+     */
+    void withErrorReporting(int myerrorLevel, callable mycallable) {
+        mydefault = error_reporting();
+        error_reporting(myerrorLevel);
+        try {
+            mycallable();
+        } finally {
+            error_reporting(mydefault);
+        }
+    }
+    
+    /**
+     * Capture errors from mycallable so that you can do assertions on the error.
+     *
+     * If no error is captured an assertion will fail.
+     * Params:
+     * int myerrorLevel The value of error_reporting() to use.
+     * @param \Closure mycallable A closure to capture errors from.
+     */
+    PhpError captureError(int myerrorLevel, Closure mycallable) {
+        mydefault = error_reporting();
+        error_reporting(myerrorLevel);
+
+       _capturedError = null;
+        set_error_handler(
+            auto (int mycode, string mydescription, string myfile, int myline) {
+                mytrace = Debugger.trace(["start": 1, "format": "points"]);
+                assert(isArray(mytrace));
+               _capturedError = new DPhpError(mycode, mydescription, myfile, myline, mytrace);
+
+                return true;
+            },
+            myerrorLevel
+        );
+
+        try {
+            mycallable();
+        } finally {
+            restore_error_handler();
+            error_reporting(mydefault);
+        }
+        if (_capturedError.isNull) {
+            this.fail("No error was captured");
+        }
+        /** @var \UIM\Error\PhpError _capturedError */
+        return _capturedError;
+    }
+    
+    /**
+     * Helper method for check deprecation methods
+     * Params:
+     * \Closure mycallable callable auto that will receive asserts
+     */
+    void deprecated(Closure mycallable) {
+        auto myduplicate = Configure.read("Error.allowDuplicateDeprecations");
+        Configure.write("Error.allowDuplicateDeprecations", true);
+        /** @var bool mydeprecation Expand type for psalm */
+        auto mydeprecation = false;
+
+        mypreviousHandler = set_error_handler(
+            auto (mycode, mymessage, myfile, myline, mycontext = null) use (&mypreviousHandler, &mydeprecation) {
+                if (mycode == E_USER_DEPRECATED) {
+                    mydeprecation = true;
+
+                    return true;
+                }
+                if (mypreviousHandler) {
+                    return mypreviousHandler(mycode, mymessage, myfile, myline, mycontext);
+                }
+                return false;
+            }
+        );
+        try {
+            mycallable();
+        } finally {
+            restore_error_handler();
+            if (myduplicate != Configure.read("Error.allowDuplicateDeprecations")) {
+                Configure.write("Error.allowDuplicateDeprecations", myduplicate);
+            }
+        }
+        this.assertTrue(mydeprecation, "Should have at least one deprecation warning");
+    }
+    
+    /**
+     * Setup the test case, backup the static object values so they can be restored.
+     * Specifically backs up the contents of Configure and paths in App if they have
+     * not already been backed up.
+     */
+    protected void setUp() {
+        super.setUp();
+        this.setupFixtures();
+
+        if (!_configure) {
+           _configure = Configure.read();
+        }
+        if (class_exists(Router.class, false)) {
+            Router.reload();
+        }
+        EventManager.instance(new DEventManager());
+    }
+    
+    /**
+     * teardown any static object changes and restore them.
+     */
+    protected void tearDown() {
+        super.tearDown();
+        this.teardownFixtures();
+
+        if (_configure) {
+            Configure.clear();
+            Configure.write(_configure);
+        }
+        this.getTableLocator().clear();
+       _configure = [];
+       _tableLocator = null;
+        if (class_exists(Mockery.classname)) {
+            Mockery.close();
+        }
+    }
+    
+    /**
+     * Initialized and loads any use fixtures.
+     */
+    protected void setupFixtures() {
+        myfixtureNames = this.getFixtures();
+
+        this.fixtureStrategy = this.getFixtureStrategy();
+        this.fixtureStrategy.setupTest(myfixtureNames);
+    }
+    
+    /**
+     * Unloads any use fixtures.
+     */
+    protected void teardownFixtures() {
+        if (this.fixtureStrategy) {
+            this.fixtureStrategy.teardownTest();
+            this.fixtureStrategy = null;
+        }
+    }
+    
+    /**
+     * Returns fixture strategy used by these tests.
+     */
+    protected IFixtureStrategy getFixtureStrategy() {
+        return new DTruncateStrategy();
+    }
+    
+    /**
+     * Load routes for the application.
+     *
+     * If no application class DCan be found an exception will be raised.
+     * Routes for plugins will *not* be loaded. Use `loadPlugins()` or use
+     * `UIM\TestSuite\IntegrationTestCaseTrait` to better simulate all routes
+     * and plugins being loaded.
+     * Params:
+     * array|null myappArgs Constructor parameters for the application class.
+     */
+    void loadRoutes(array myappArgs = null) {
+        myappArgs ??= [rtrim(CONFIG, DIRECTORY_SEPARATOR)];
+        /** @var class-string myclassName */
+        myclassName = Configure.read("App.namespace") ~ "\\Application";
+        try {
+            myreflect = new DReflectionClass(myclassName);
+            myapp = myreflect.newInstanceArgs(myappArgs);
+            assert(cast(IRoutingApplication)myapp);
+        } catch (ReflectionException  anException) {
+            throw new LogicException("Cannot load `%s` to load routes from.".format(className), 0,  anException);
+        }
+        builder = Router.createRouteBuilder("/");
+        app.routes(builder);
+    }
+    
+    /**
+     * Load plugins into a simulated application.
+     *
+     * Useful to test how plugins being loaded/not loaded interact with other
+     * elements in UIM or applications.
+     * Params:
+     * IData[string] plugins List of Plugins to load.
+     */
+    BaseApplication loadPlugins(array plugins = []) {
+        /**
+         * @psalm-suppress MissingTemplateParam
+         */
+        app = new class (""): BaseApplication
+        {
+            /**
+             * @param \UIM\Http\MiddlewareQueue middlewareQueue
+             */
+            MiddlewareQueue middleware(MiddlewareQueue middlewareQueue): 
+            {
+                return middlewareQueue;
+            }
+        };
+
+        foreach (plugins as pluginName: configData) {
+            if (configData.isArray) {
+                app.addPlugin(pluginName, configData);
+            } else {
+                app.addPlugin(configData);
+            }
+        }
+        app.pluginBootstrap();
+        builder = Router.createRouteBuilder("/");
+        app.pluginRoutes(builder);
+
+        return app;
+    }
+    
+    /**
+     * Remove plugins from the global plugin collection.
+     *
+     * Useful in test case teardown methods.
+     * Params:
+     * string[] pluginNames A list of plugins you want to remove.
+     */
+    void removePlugins(array pluginNames = []) {
+        auto pluginCollection = Plugin.getCollection();
+        pluginNames.each!(name => pluginCollection.remove(name));
+    }
+    
+    /**
+     * Clear all plugins from the global plugin collection.
+     *
+     * Useful in test case teardown methods.
+     */
+    void clearPlugins() {
+        Plugin.getCollection().clear();
+    }
+    
+    /**
+     * Asserts that a global event was fired. You must track events in your event manager for this assertion to work
+     * Params:
+     * string aName Event name
+     * @param \UIM\Event\EventManager|null eventManager Event manager to check, defaults to global event manager
+     * @param string amessage Assertion failure message
+     */
+    void assertEventFired(string aName, ?EventManager eventManager = null, string amessage= null) {
+        if (!eventManager) {
+            eventManager = EventManager.instance();
+        }
+        this.assertThat(name, new DEventFired(eventManager), message);
+    }
+    
+    /**
+     * Asserts an event was fired with data
+     *
+     * If a third argument is passed, that value is used to compare with the value in someDataKey
+     * Params:
+     * string aName Event name
+     * @param string adataKey Data key
+     * @param IData someDataValue Data value
+     * @param \UIM\Event\EventManager|null eventManager Event manager to check, defaults to global event manager
+     * @param string amessage Assertion failure message
+     */
+    void assertEventFiredWith(
+        string aName, string adataKey, IData someDataValue,
+        ?EventManager eventManager = null,
+        string amessage = null
+    ) {
+        if (!eventManager) {
+            eventManager = EventManager.instance();
+        }
+        this.assertThat(name, new DEventFiredWith(eventManager, someDataKey, someDataValue), message);
+    }
+    
+    /**
+     * Assert text equality, ignoring differences in newlines.
+     * Helpful for doing cross platform tests of blocks of text.
+     * Params:
+     * string aexpected The expected value.
+     * @param string aresult The actual value.
+     * @param string amessage The message to use for failure.
+     */
+    void assertTextNotEquals(string expectedValue, string aresult, string amessage= null) {
+        expectedValue = expectedValue.replace(["\r\n", "\r"], "\n");
+        result = result.replace(["\r\n", "\r"], "\n");
+        this.assertNotEquals(expectedValue, result, message);
+    }
+    
+    /**
+     * Assert text equality, ignoring differences in newlines.
+     * Helpful for doing cross platform tests of blocks of text.
+     * Params:
+     * string aexpected The expected value.
+     * @param string aresult The actual value.
+     * @param string amessage The message to use for failure.
+     */
+    void assertTextEquals(string aexpected, string aresult, string amessage= null) {
+        expected = str_replace(["\r\n", "\r"], "\n", expected);
+        result = result.replace(["\r\n", "\r"], "\n");
+        this.assertEquals(expected, result, message);
+    }
+    
+    /**
+     * Asserts that a string starts with a given prefix, ignoring differences in newlines.
+     * Helpful for doing cross platform tests of blocks of text.
+     * Params:
+     * string prefixToCheck The prefix to check for.
+     * @param string textToSearch The string to search in.
+     * @param string amessage The message to use for failure.
+     */
+    void assertTextStartsWith(string prefixToCheck, string textToSearch, string amessage = null) {
+        prefixToCheck = str_replace(["\r\n", "\r"], "\n", prefixToCheck);
+        textToSearch = textToSearch.replace(["\r\n", "\r"], "\n");
+        this.assertNotEmpty(prefixToCheck);
+        this.assertStringStartsWith(prefixToCheck, textToSearch, message);
+    }
+    
+    /**
+     * Asserts that a string starts not with a given prefix, ignoring differences in newlines.
+     * Helpful for doing cross platform tests of blocks of text.
+     * Params:
+     * string prefixToCheck The prefix to not find.
+     * @param string textToSearch The string to search.
+     * @param string amessage The message to use for failure.
+     */
+    void assertTextStartsNotWith(string prefixToCheck, string textToSearch, string amessage = null) {
+        prefixToCheck = str_replace(["\r\n", "\r"], "\n", prefixToCheck);
+        string = str_replace(["\r\n", "\r"], "\n", string);
+        this.assertNotEmpty(prefixToCheck);
+        this.assertStringStartsNotWith(prefixToCheck, string, message);
+    }
+    
+    /**
+     * Asserts that a string ends with a given prefix, ignoring differences in newlines.
+     * Helpful for doing cross platform tests of blocks of text.
+     * Params:
+     * string asuffix The suffix to find.
+     * @param string textToSearch The string to search.
+     * @param string amessage The message to use for failure.
+     */
+    void assertTextEndsWith(string asuffix, string textToSearch, string amessage = null) {
+        suffix = suffixstr_replace(["\r\n", "\r"], "\n");
+        string = .replace(["\r\n", "\r"], "\n", string);
+        this.assertNotEmpty(suffix);
+        this.assertStringEndsWith(suffix, string, message);
+    }
+    
+    /**
+     * Asserts that a string ends not with a given prefix, ignoring differences in newlines.
+     * Helpful for doing cross platform tests of blocks of text.
+     * Params:
+     * string asuffix The suffix to not find.
+     * @param string textToSearch The string to search.
+     * @param string amessage The message to use for failure.
+     */
+    void assertTextEndsNotWith(string asuffix, string searchText, string amessage = null) {
+        suffix = suffix..replace(["\r\n", "\r"], "\n");
+        searchText = replace(["\r\n", "\r"], "\n", searchText);
+        this.assertNotEmpty(suffix);
+        this.assertStringEndsNotWith(suffix, searchText, message);
+    }
+    
+    /**
+     * Assert that a string contains another string, ignoring differences in newlines.
+     * Helpful for doing cross platform tests of blocks of text.
+     * Params:
+     * string aneedle The string to search for.
+     * @param string ahaystack The string to search through.
+     * @param string amessage The message to display on failure.
+     * @param bool  anIgnoreCase Whether the search should be case-sensitive.
+     */
+    void assertTextContains(
+        string aneedle,
+        string ahaystack,
+        string amessage = "",
+        bool  anIgnoreCase = false
+    ) {
+        needle = needle.replace(["\r\n", "\r"], "\n");
+        haystack = str_replace(["\r\n", "\r"], "\n", haystack);
+
+        if (anIgnoreCase) {
+            this.assertStringContainsStringIgnoringCase(needle, haystack, message);
+        } else {
+            this.assertStringContainsString(needle, haystack, message);
+        }
+    }
+    
+    /**
+     * Assert that a text doesn"t contain another text, ignoring differences in newlines.
+     * Helpful for doing cross platform tests of blocks of text.
+     * Params:
+     * string aneedle The string to search for.
+     * @param string ahaystack The string to search through.
+     * @param string amessage The message to display on failure.
+     * @param bool  anIgnoreCase Whether the search should be case-sensitive.
+     */
+    void assertTextNotContains(
+        string aneedle,
+        string ahaystack,
+        string amessage = "",
+        bool  anIgnoreCase = false
+    ) {
+        needle = needle.replace(["\r\n", "\r"], "\n");
+        haystack = str_replace(["\r\n", "\r"], "\n", haystack);
+
+        if (anIgnoreCase) {
+            this.assertStringNotContainsStringIgnoringCase(needle, haystack, message);
+        } else {
+            this.assertStringNotContainsString(needle, haystack, message);
+        }
+    }
+    
+    /**
+     * Assert that a string matches SQL with db-specific characters like quotes removed.
+     * Params:
+     * string aexpected The expected sql
+     */
+    void assertEqualsSql(
+        string expectedSql,
+        string sqlToCompare,
+        string messageOnFailure = ""
+    ) {
+        this.assertEquals(expectedSql, preg_replace("/[`\[\]]/", "", sqlToCompare), messageOnFailure);
+    }
+    
+    /**
+     * Assertion for comparing a regex pattern against a query having its identifiers
+     * quoted. It accepts queries quoted with the characters `<` and `>`. If the third
+     * parameter is set to true, it will alter the pattern to both accept quoted and
+     * unquoted queries
+     * Params:
+     * string apattern The expected sql pattern
+     * @param string aactual The sql to compare
+     * @param bool optional Whether quote characters (marked with <>) are optional
+     */
+    void assertRegExpSql(string apattern, string aactual, bool isQuoteOptional = false) {
+        isQuoteOptional = isQuoteOptional ? "?" : "";
+         somePattern = somePattern.replace("<", "[`\"\[]" ~ isQuoteOptional);
+         somePattern = somePattern.replace(">", "[`\"\]]" ~ isQuoteOptional);
+        this.assertMatchesRegularExpression("#" ~  somePattern ~ "#", actual);
+    }
+    
+    /**
+     * Asserts HTML tags.
+     *
+     * Takes an array expected and generates a regex from it to match the provided string.
+     * Samples for expected:
+     *
+     * Checks for an input tag with a name attribute (contains any non-empty value) and an id
+     * attribute that contains "my-input":
+     *
+     * ```
+     * ["input": ["name", "id": "my-input"]]
+     * ```
+     *
+     * Checks for two p elements with some text in them:
+     *
+     * ```
+     * [
+     *  ["p": BooleanData(true)],
+     *  "textA",
+     *  "/p",
+     *  ["p": BooleanData(true)],
+     *  "textB",
+     *  "/p"
+     * ]
+     * ```
+     *
+     * You can also specify a pattern expression as part of the attribute values, or the tag
+     * being defined, if you prepend the value with preg: and enclose it with slashes, like so:
+     *
+     * ```
+     * [
+     *  ["input": ["name", "id": "preg:/FieldName\d+/"]],
+     *  "preg:/My\s+field/"
+     * ]
+     * ```
+     *
+     * Important: This bool is very forgiving about whitespace and also accepts any
+     * permutation of attribute order. It will also allow whitespace between specified tags.
+     * Params:
+     * array expected An array, see above
+     * @param string mlText An HTML/XHTML/XML string
+     * @param bool fullDebug Whether more verbose output should be used.
+     */
+   bool assertHtml(array expected, string mlText, bool fullDebug = false) {
+        regex = [];
+        normalized = [];
+        foreach (expected as aKey: val) {
+            if (!isNumeric(aKey)) {
+                normalized ~= [aKey: val];
+            } else {
+                normalized ~= val;
+            }
+        }
+         anI = 0;
+        foreach (normalized as tags) {
+            if (!isArray(tags)) {
+                tags = to!string(tags);
+            }
+             anI++;
+            if (isString(tags) && tags[0] == "<") {
+                tags = [substr(tags, 1): []];
+            } else if (isString(tags)) {
+                tagsTrimmed = preg_replace("/\s+/m", "", tags);
+
+                if (preg_match("/^\*?\//", tags, match) && tagsTrimmed != "//") {
+                    prefix = ["", ""];
+
+                    if (match[0] == "*/") {
+                        prefix = ["Anything, ", ".*?"];
+                    }
+                    regex ~= [
+                        "%sClose %s tag".format(prefix[0], substr(tags, match[0].length)),
+                        "%s\s*<[\s]*\/[\s]*%s[\s]*>[\n\r]*".format(prefix[1], substr(tags, match[0].length)),
+                         anI,
+                    ];
+                    continue;
+                }
+                if (!empty(tags) && preg_match("/^preg\:\/(.+)\//i", tags, matches)) {
+                    tags = matches[1];
+                    type = "Regex matches";
+                } else {
+                    tags = "\s*" ~ preg_quote(tags, "/");
+                    type = "Text equals";
+                }
+                regex ~= [
+                    "%s `%s`".format(type, tags),
+                    tags,
+                     anI,
+                ];
+                continue;
+            }
+            foreach (tags as tag: attributes) {
+                regex ~= [
+                    "Open %s tag".format(tag),
+                    "[\s]*<%s".format(preg_quote(tag, "/")),
+                     anI,
+                ];
+                if (attributes == true) {
+                    attributes = [];
+                }
+                attrs = [];
+                explanations = [];
+                 anI = 1;
+                foreach (attributes as attr: val) {
+                    if (isNumeric(attr) && preg_match("/^preg\:\/(.+)\//i", to!string(val), matches)) {
+                        attrs ~= matches[1];
+                        explanations ~= "Regex `%s` matches".format(matches[1]);
+                        continue;
+                    }
+                    val = to!string(val);
+
+                    quotes = "["\"]";
+                    if (isNumeric(attr)) {
+                        attr = val;
+                        val = ".+?";
+                        explanations ~= "Attribute `%s` present".format(attr);
+                    } else if (!empty(val) && preg_match("/^preg\:\/(.+)\//i", val, matches)) {
+                        val = str_replace(
+                            [".*", ".+"],
+                            [".*?", ".+?"],
+                            matches[1]
+                        );
+                        quotes = val != matches[1] ? "["\"]" : "["\"]?";
+
+                        explanations ~= "Attribute `%s` matches `%s`".format(attr, val);
+                    } else {
+                        explanations ~= "Attribute `%s` == `%s`".format(attr, val);
+                        val = preg_quote(val, "/");
+                    }
+                    attrs ~= "[\s]+" ~ preg_quote(attr, "/") ~ "=" ~ quotes ~ val ~ quotes;
+                     anI++;
+                }
+                if (attrs) {
+                    regex ~= [
+                        "explains": explanations,
+                        "attrs": attrs,
+                    ];
+                }
+                regex ~= [
+                    "End %s tag".format(tag),
+                    "[\s]*\/?[\s]*>[\n\r]*",
+                     anI,
+                ];
+            }
+        }
+        foreach (anI: assertion; regex) {
+            matches = false;
+            if (isSet(assertion["attrs"])) {
+                // IData[string] assertion
+                mlText = _assertAttributes(assertion, mlText, fullDebug, regex);
+                if (fullDebug == true && mlText == false) {
+                    debug(mlText, true);
+                    debug(regex, true);
+                }
+                continue;
+            }
+            // If "attrs" is not present then the array is just a regular int-offset one
+            /**
+             * @var array<int, mixed> assertion
+             */
+            [description, someExpressions,  anItemNum] = assertion;
+            
+            string expression;
+            (array)someExpressions.each!((expression) {
+                string expression = "/^%s/s".format(expression);
+                if (mlText && preg_match(expression, mlText, match)) {
+                    matches = true;
+                    mlText = substr(mlText, match[0].length);
+                    break;
+                }
+            });
+
+            if (!matches) {
+                if (fullDebug == true) {
+                    debug(mlText);
+                    debug(regex);
+                }
+                this.assertMatchesRegularExpression(
+                    expression,
+                    to!string(mlText),
+                    "Item #%d / regex #%d failed: %s".format(anItemNum,  anI, description)
+                );
+
+                return false;
+            }
+        }
+        this.assertTrue(true, "%s");
+
+        return true;
+    }
+    
+    /**
+     * Check the attributes as part of an assertTags() check.
+     * Params:
+     * IData[string] assertions Assertions to run.
+     * @param string mlTextToCheck The HTML string to check.
+     * @param bool fullDebug Whether more verbose output should be used.
+     * @param string[] aregex Full regexp from `assertHtml`
+     */
+    protected string _assertAttributes(
+        array assertions,
+        string mlTextToCheck,
+        bool fullDebug = false,
+        string[] aregex = ""
+    ) {
+        asserts = assertions["attrs"];
+        explains = assertions["explains"];
+        do {
+            matches = false;
+            j = null;
+            foreach (j: assert; asserts) {
+                if (preg_match("/^%s/s".format(assert), string, match)) {
+                    matches = true;
+                    string = substr(string, match[0].length);
+                    array_splice(asserts, j, 1);
+                    array_splice(explains, j, 1);
+                    break;
+                }
+            }
+            if (matches == false) {
+                if (fullDebug == true) {
+                    debug(string);
+                    debug(regex);
+                }
+                this.assertTrue(false, "Attribute did not match. Was expecting " ~ explains[j]);
+            }
+            len = count(asserts);
+        } while (len > 0);
+
+        return string;
+    }
+    
+    /**
+     * Normalize a path for comparison.
+     * Params:
+     * string aPath Path separated by "/" slash.
+     */
+    protected string _normalizePath(string aPath) {
+        return str_replace("/", DIRECTORY_SEPARATOR, somePath);
+    }
+// phpcs:disable
+
+    /**
+     * Compatibility auto to test if a value is between an acceptable range.
+     * Params:
+     * float expected
+     * @param float result
+     * @param float margin the rage of acceptation
+     * @param string amessage the text to display if the assertion is not correct
+     */
+    protected static void assertWithinRange(expected, result, margin, string message = null) {
+        upper = result + margin;
+        lower = result - margin;
+        assertTrue((expected <= upper) && (expected >= lower), message);
+    }
+    
+    /**
+     * Compatibility auto to test if a value is not between an acceptable range.
+     * Params:
+     * float expected
+     * @param float result
+     * @param float margin the rage of acceptation
+     * @param string amessage the text to display if the assertion is not correct
+     */
+    protected static void assertNotWithinRange(float expected, float result, float margin, string message = null) {
+        upper = result + margin;
+        lower = result - margin;
+        assertTrue((expected > upper) || (expected < lower), message);
+    }
+    
+    /**
+     * Compatibility auto to test paths.
+     * Params:
+     * string aexpected
+     * @param string aresult
+     * @param string amessage the text to display if the assertion is not correct
+     */
+    protected static auto assertPathEquals(expected, result, string message = null) {
+        expected = str_replace(DIRECTORY_SEPARATOR, "/", expected);
+        result = str_replace(DIRECTORY_SEPARATOR, "/", result);
+        assertEquals(expected, result, message);
+    }
+    
+    /**
+     * Compatibility auto for skipping.
+     * Params:
+     * bool condition Condition to trigger skipping
+     * @param string amessage Message for skip
+     */
+    protected bool skipUnless(condition, message = null) {
+        if (!condition) {
+            this.markTestSkipped(message);
+        }
+        return condition;
+    }
+// phpcs:enable
+
+    /**
+     * Mock a model, maintain fixtures and table association
+     * Params:
+     * string aalias The model to get a mock for.
+     * @param string[] someMethods The list of methods to mock
+     * @param IData[string] options The config data for the mock"s constructor.
+     * @throws \UIM\ORM\Exception\MissingTableClassException
+     */
+    Table|MockObject getMockForModel(string aalias, array  someMethods = [], IData[string] options = null) {
+        auto className = _getTableClassName(alias, options);
+        auto aConnectionName = className.defaultConnectionName();
+        auto aConnection = ConnectionManager.get(aConnectionName);
+
+        auto locator = this.getTableLocator();
+
+        [, baseClass] = pluginSplit(alias);
+        options.update(["alias": baseClass, "connection": aConnection]);
+        options += locator.getConfig(alias);
+        reflection = new DReflectionClass(className);
+         classNameMethods = array_map(function (method) {
+            return method.name;
+        }, reflection.getMethods());
+
+        existingMethods = array_intersect(classNameMethods,  someMethods);
+        nonExistingMethods = array_diff( someMethods, existingMethods);
+
+        builder = this.getMockBuilder(className)
+            .setConstructorArgs([options]);
+
+        if (existingMethods || !nonExistingMethods) {
+            builder.onlyMethods(existingMethods);
+        }
+        if (nonExistingMethods) {
+            trigger_error("Adding non existent methods to your model " ~
+                "via testing will not work in future PHPUnit versions.", E_USER_DEPRECATED);
+            builder.addMethods(nonExistingMethods);
+        }
+        /** @var \UIM\ORM\Table mock */
+        mock = builder.getMock();
+
+        if (isEmpty(options["entityClass"]) && mock.getEntityClass() == Entity.classname) {
+            string[] someParts = split("\\",  className);
+            entityAlias = Inflector.classify(Inflector.underscore(substr(array_pop(someParts), 0, -5)));
+            entityClass = array_slice(someParts, 0, -1).join("\\") ~ "\\Entity\\" ~ entityAlias;
+            if (class_exists(entityClass)) {
+                mock.setEntityClass(entityClass);
+            }
+        }
+        if (stripos(mock.getTable(), "mock") == 0) {
+            mock.setTable(Inflector.tableize(baseClass));
+        }
+        locator.set(baseClass, mock);
+        locator.set(alias, mock);
+
+        return mock;
+    }
+    
+    /**
+     * Gets the class name for the table.
+     * Params:
+     * string aalias The model to get a mock for.
+     * @param IData[string] options The config data for the mock"s constructor.
+     */
+    protected string _getTableClassName(string aalias, IData[string] options = null) {
+        if (isEmpty(options["className"])) {
+             className = Inflector.camelize(alias);
+            /** @var class-string<\UIM\ORM\Table>|null  className */
+             className = App.className(className, "Model/Table", "Table");
+            if (!className) {
+                throw new MissingTableClassException([alias]);
+            }
+            options["className"] = className;
+        }
+        return options["className"];
+    }
+    
+    /**
+     * Set the app namespace
+     * Params:
+     * string aappNamespace The app namespace, defaults to "TestApp".
+     */
+    static string setAppNamespace(string aappNamespace = "TestApp") {
+        previous = Configure.read("App.namespace");
+        Configure.write("App.namespace", appNamespace);
+
+        return previous;
+    }
+    
+    /**
+     * Adds a fixture to this test case.
+     *
+     * Examples:
+     * - core.Tags
+     * - app.MyRecords
+     * - plugin.MyPluginName.MyModelName
+     *
+     * Use this method inside your test cases" {@link getFixtures()} method
+     * to build up the fixture list.
+     * Params:
+     * string afixture Fixture
+
+     */
+    protected void addFixture(string afixture) {
+        this.fixtures ~= fixture;
+    }
+    
+    /**
+     * Get the fixtures this test should use.
+     */
+    string[] getFixtures() {
+        return this.fixtures;
+    }
+    
+    /**
+     * @param string aregex A regex to match against the warning message
+     * @param \Closure aCallable Callable which should trigger the warning
+     */
+    void expectNoticeMessageMatches(string aregex, Closure aCallable) {
+        this.expectErrorHandlerMessageMatches(regex, aCallable, E_USER_NOTICE);
+    }
+    
+    /**
+     * @param string aregex A regex to match against the deprecation message
+     * @param \Closure aCallable Callable which should trigger the warning
+     */
+    void expectDeprecationMessageMatches(string aregex, Closure aCallable) {
+        this.expectErrorHandlerMessageMatches(regex, aCallable, E_USER_DEPRECATED);
+    }
+    
+    /**
+     * @param string aregex A regex to match against the warning message
+     * @param \Closure aCallable Callable which should trigger the warning
+     */
+    void expectWarningMessageMatches(string aregex, Closure aCallable) {
+        this.expectErrorHandlerMessageMatches(regex, aCallable, E_USER_WARNING);
+    }
+    
+    /**
+     * @param string aregex A regex to match against the error message
+     * @param \Closure aCallable Callable which should trigger the warning
+     */
+    void expectErrorMessageMatches(string aregex, Closure aCallable) {
+        this.expectErrorHandlerMessageMatches(regex, aCallable, E_ERROR | E_USER_ERROR);
+    }
+    
+    /**
+     * @param string aregex A regex to match against the warning message
+     * @param \Closure aCallable Callable which should trigger the warning
+     * @param int errorLevel The error level to listen to
+     */
+    protected void expectErrorHandlerMessageMatches(string aregex, Closure aCallable, int errorLevel) {
+        set_error_handler(static auto (int errno, string aerrstr): never {
+            throw new DException(errstr, errno);
+        }, errorLevel);
+
+        this.expectException(Exception.classname);
+        this.expectExceptionMessageMatches(regex);
+        try {
+            aCallable();
+        } finally {
+            restore_error_handler();
+        }
+    }
+}

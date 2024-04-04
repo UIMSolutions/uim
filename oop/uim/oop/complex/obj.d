@@ -13,6 +13,6 @@ class DOOPComplexObj : DOOPObject {
 auto OOPComplexObj() { return new DOOPComplexObj; }
 
 version(test_uim_oop) { unittest {
-		/// TODO
+		// TODO
 	}}
 

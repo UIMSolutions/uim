@@ -50,3 +50,7 @@ class DYamlConfiguration : DFileConfiguration {
     }
 }
 mixin(ConfigurationCalls!("Yaml"));
+
+unittest {
+    testConfiguration(MemoryConfiguration);
+}

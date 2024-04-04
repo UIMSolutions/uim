@@ -4,6 +4,3 @@
 *	Author   : Ozan Nurettin Süel (Sicherheitsschmiede)										           * 
 ***********************************************************************************/
 module uim.oop.base;
-
-import uim.oop;
-@safe:

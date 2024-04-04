@@ -16,28 +16,28 @@ class DIniConfiguration : DConfiguration {
     }
 
     // #region defaultData
-        override bool hasDefault(string key) {
-            return false; // TODO
-        }
+    override bool hasDefault(string key) {
+        return false; // TODO
+    }
 
-        override void updateDefault(string key, IData newData) {
-            // TODO
-        }
+    override void updateDefault(string key, IData newData) {
+        // TODO
+    }
 
-        override void mergeDefault(string key, IData newData) {
-            // TODO
-        }
+    override void mergeDefault(string key, IData newData) {
+        // TODO
+    }
     // #endregion defaultData
 
     override string[] allPaths() {
         return null; //TODO
     }
 
-override void set(string path, IData newData) {
-        
+    override void set(string path, IData newData) {
+
     }
 
-        override void update(string path, IData newData) {
+    override void update(string path, IData newData) {
         // TODO 
     }
 
@@ -52,3 +52,7 @@ override void set(string path, IData newData) {
 }
 
 mixin(ConfigurationCalls!("Ini"));
+
+unittest {
+    testConfiguration(MemoryConfiguration);
+}

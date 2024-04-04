@@ -52,3 +52,7 @@ class DJsonConfiguration : DConfiguration {
 }
 
 mixin(ConfigurationCalls!("Json"));
+
+unittest {
+    testConfiguration(MemoryConfiguration);
+}

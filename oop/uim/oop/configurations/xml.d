@@ -52,3 +52,7 @@ class DXmlConfiguration : DFileConfiguration {
 }
 
 mixin(ConfigurationCalls!("Xml"));
+
+unittest {
+    testConfiguration(MemoryConfiguration);
+}

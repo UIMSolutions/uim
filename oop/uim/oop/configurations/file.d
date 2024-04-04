@@ -52,3 +52,8 @@ class DFileConfiguration : DConfiguration {
 }
 
 mixin(ConfigurationCalls!("File"));
+
+unittest {
+    testConfiguration(MemoryConfiguration);
+}
+

@@ -45,7 +45,7 @@ class DViewBuilder { // }: DIDataSerializable {
      * These options array lets you provide custom constructor
      * arguments to application/plugin view classes.
      */
-    protected IData[string] _options = [];
+    protected IData[string] _options;
 
 
     // View viewData
@@ -53,7 +53,7 @@ class DViewBuilder { // }: DIDataSerializable {
 
     // #region View Variables
         // View variables
-        protected IData[string] _viewVariables = [];
+        protected IData[string] _viewVariables;
 
         // Get all view variables
         @property IData[string] viewVariables() {
@@ -70,13 +70,8 @@ class DViewBuilder { // }: DIDataSerializable {
         }
 
         // Get view variable
-        IData viewVariable(string varName) {
-            return _viewVariables.get(varName, null);
-        }
-
-        // Get view variable
         void viewVariable(string varName, IData newData) {
-            return _viewVariables[varName] = newData;
+            _viewVariables[varName] = newData;
         }
     // #endregion View Variables
             

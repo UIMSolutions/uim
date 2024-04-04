@@ -11,9 +11,7 @@ import uim.caches;
  *
  * @extends \UIM\Core\ObjectRegistry<\UIM\Cache\CacheEngine>
  */
-class DCacheRegistry : ObjectRegistry!DCache {
-    static DCacheRegistry registry;
-
+class DCacheRegistry : DObjectRegistry!DCache {
   /*
 }: ObjectRegistry {
   // Resolve a cache engine classname.
@@ -61,8 +59,5 @@ class DCacheRegistry : ObjectRegistry!DCache {
   } */ 
 }
 auto CacheRegistry() { // Singleton
-  if (!DCacheRegistry.registry) {
-    DCacheRegistry.registry = new DCacheRegistry;
-  }
-  return DCacheRegistry.registry;
+  return DCacheRegistry.instance;
 }

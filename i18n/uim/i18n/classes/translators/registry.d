@@ -8,9 +8,7 @@ import uim.i18n;
  * Constructs and stores instances of translators that can be
  * retrieved by name and locale.
  */
-class DTranslatorRegistry : ObjectRegistry!DTranslator {
-    static DTranslatorRegistry registry;
-  
+class DTranslatorRegistry : DObjectRegistry!DTranslator {
     // Fallback loader name.
     const string FALLBACK_LOADER = "_fallback";
 
@@ -182,9 +180,9 @@ class DTranslatorRegistry : ObjectRegistry!DTranslator {
      * @param callable loader A callable object that should return a ICatalog
      */
     void registerLoader(string catalogName, ILoader loader) {
-       //_loaders[catalogName] = loader;
+        //_loaders[catalogName] = loader;
     }
-    
+
     /**
      * Sets the name of the default messages formatter to use for future
      * translator instances.
@@ -232,9 +230,7 @@ class DTranslatorRegistry : ObjectRegistry!DTranslator {
         };
     } */
 }
-  auto TranslatorRegistry() { // Singleton
-    if (!DTranslatorRegistry.registry) {
-      DTranslatorRegistry.registry = new DTranslatorRegistry;
-    }
-    return DTranslatorRegistry.registry;
-  }
+
+auto TranslatorRegistry() { // Singleton
+    return DTranslatorRegistry.instance;
+}

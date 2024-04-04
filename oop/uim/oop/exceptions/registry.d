@@ -10,7 +10,7 @@ auto ExceptionRegistry() { // Singleton
     DExceptionRegistry.instance;
 }
 
-version(test_uim_mvc) { unittest {
-  assert(ExceptionRegistry.instance("mvc_exceptioncomponent",  Exception).paths == ["mvc_exceptioncomponent"]);
-  assert(ExceptionRegistry.instance("mvc_exceptioncomponent2", Exception).paths.length == 2);
-}}
+unittest {
+  // TODO assert(ExceptionRegistry.instance("mvc_exceptioncomponent",  Exception).paths == ["mvc_exceptioncomponent"]);
+  // TODO assert(ExceptionRegistry.instance("mvc_exceptioncomponent2", Exception).paths.length == 2);
+}

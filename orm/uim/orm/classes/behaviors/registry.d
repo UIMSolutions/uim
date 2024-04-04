@@ -17,9 +17,7 @@ import uim.orm;
  *
  * @: DORMCore\ObjectRegistry<DORMBehavior>
  */
-class DBehaviorRegistry : ObjectRegistry!DBehavior {
-    static DBehaviorRegistry registry;
-
+class DBehaviorRegistry : DObjectRegistry!DBehavior {
     // }: ObjectRegistry, IEventDispatcher {
     /* 
     use EventDispatcherTrait;
@@ -243,8 +241,5 @@ class DBehaviorRegistry : ObjectRegistry!DBehavior {
     } */
 }
   auto BehaviorRegistry() { // Singleton
-    if (!DBehaviorRegistry.registry) {
-      DBehaviorRegistry.registry = new DBehaviorRegistry;
-    }
-    return DBehaviorRegistry.registry;
+    return DBehaviorRegistry.instance;
   }

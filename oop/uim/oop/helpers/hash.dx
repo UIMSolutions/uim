@@ -1,0 +1,1083 @@
+module uim.oop.utilities;
+
+import uim.oop;
+
+@safe:
+
+/**
+ * Library of array functions for manipulating and extracting data
+ * from arrays or "sets" of data.
+ *
+ * `Hash` provides an improved interface, more consistent and
+ * predictable set of features over `Set`. While it lacks the spotty
+ * support for pseudo Xpath, its more fully featured dot notation provides
+ * similar features in a more consistent implementation.
+ */
+class Hash {
+    /**
+     * Get a single value specified by mypath out of mydata.
+     * Does not support the full dot notation feature set,
+     * but is faster for simple read operations.
+     * Params:
+     * \ArrayAccess|array data Array of data or object implementing
+     *  \ArrayAccess interface to operate on.
+     * @param string[]|string|int mypath The path being searched for. Either a dot
+     *  separated string, or an array of path segments.
+     * @param IData mydefault The return value when the path does not exist
+     */
+    // TODO static IData get(ArrayAccess data, string[] mypath, IData mydefault = null) {
+
+    static IData get(array data, string[] mypath, IData mydefault = null) {
+        if (mydata.isEmpty || mypath.isNull) {
+            return mydefault;
+        }
+        if (isString(mypath) || isInt(mypath)) {
+            string[] myparts = to!string(mypath.split("."));
+        } else {
+            myparts = mypath;
+        }
+        switch (count(myparts)) {
+            case 1:
+                return mydata[myparts[0]] ?? mydefault;
+            case 2:
+                return mydata[myparts[0]][myparts[1]] ?? mydefault;
+            case 3:
+                return mydata[myparts[0]][myparts[1]][myparts[2]] ?? mydefault;
+            default:
+                myparts.each!((key) {
+                    if ((isArray(mydata) || cast(ArrayAccess)mydata) && isSet(mydata[aKey])) {
+                        mydata = mydata[aKey];
+                    } else {
+                        return mydefault;
+                    }
+                });
+        }
+        return mydata;
+    }
+    
+    /**
+     * Gets the values from an array matching the mypath expression.
+     * The path expression is a dot separated expression, that can contain a set
+     * of patterns and expressions:
+     *
+     * - `{n}` Matches any numeric key, or integer.
+     * - `{s}` Matches any string key.
+     * - `{*}` Matches any value.
+     * - `Foo` Matches any key with the exact same value.
+     *
+     * There are a number of attribute operators:
+     *
+     * - `=`, `!=` Equality.
+     * - `>`, `<`, `>=`, `<=` Value comparison.
+     * - `=/.../` Regular expression pattern match.
+     *
+     * Given a set of User array data, from a `myusersTable.find("all")` call:
+     *
+     * - `1.User.name` Get the name of the user at index 1.
+     * - `{n}.User.name` Get the name of every user in the set of users.
+     * - `{n}.User[id].name` Get the name of every user with an id key.
+     * - `{n}.User[id>=2].name` Get the name of every user with an id key greater than or equal to 2.
+     * - `{n}.User[username=/^paul/]` Get User elements with username matching `^paul`.
+     * - `{n}.User[id=1].name` Get the Users name with id matching `1`.
+     * Params:
+     * \ArrayAccess|array data The data to extract from.
+     * @param string mypath The path to extract.
+     */
+    static ArrayAccess|array extract(ArrayAccess|array data, string mypath) {
+        if (isEmpty(mypath)) {
+            return mydata;
+        }
+        // Simple paths.
+        if (!preg_match("/[{\[]/", mypath)) {
+            mydata = get(mydata, mypath);
+            if (mydata !isNull && !(isArray(mydata) || cast(ArrayAccess)mydata)) {
+                return [mydata];
+            }
+            return !mydata.isNull ? (array)mydata : [];
+        }
+
+        myTokens = !mypath.has("[")
+            ? split(".", mypath)
+            : Text.tokenize(mypath, ".", "[", "]");
+        my_key = "__set_item__";
+
+        mycontext = [my_key: [mydata]];
+
+        mytokens.each!((token) {
+            auto mynext = [];
+            [mytoken, myconditions] = self._splitConditions(mytoken);
+
+            mycontext[my_key].each!((item) {
+                if (isObject(item) && method_exists(item, "toArray")) {
+                    myitem = myitem.toArray();
+                }
+                item.byKeyValue
+                    .filter!(kv => _matchToken(kv.key, mytoken))
+                    .each!(kv => mynext ~= kv.value);
+            });
+
+            // Filter for attributes.
+            if (myconditions) {
+                myfilter = [];
+                mynext
+                    .filter!(item => (isArray(item) || cast(ArrayAccess)item) && _matches(item, myconditions))
+                    .each!(item => myfilter ~= item);
+                
+                mynext = myfilter;
+            }
+            mycontext = [my_key: mynext];
+        });
+
+        return mycontext[my_key];
+    }
+    
+    /**
+     * Split token conditions
+     * Params:
+     * string mytoken the token being split.
+     */
+    protected static array _splitConditions(string mytoken) {
+        auto myconditions = false;
+        auto myposition = mytoken.indexOf("[");
+        if (myposition == -1) {
+            myconditions = substr(mytoken, myposition);
+            mytoken = substr(mytoken, 0, myposition);
+        }
+        return [mytoken, myconditions];
+    }
+    
+    /**
+     * Check a key against a token.
+     * Params:
+     * string aKey The key in the array being searched.
+     * @param string mytoken The token being matched.
+     */
+    protected static bool _matchToken(string aKey, string mytoken) {
+        return match (mytoken) {
+            "{n}": isNumeric(aKey),
+            "{s}": isString(aKey),
+            "{*}": BooleanData(true),
+            default: isNumeric(mytoken) ? (aKey == mytoken): aKey == mytoken,
+        };
+    }
+    
+    /**
+     * Checks whether mydata matches the attribute patterns
+     * Params:
+     * \ArrayAccess|array data Array of data to match.
+     * @param string myselector The patterns to match.
+     */
+    protected static bool _matches(ArrayAccess|array data, string myselector) {
+        preg_match_all(
+            "/(\[(?P<attr>[^=><!]+?) (\s* (?P<op>[><!]?[=]|[><]) \s* (?P<val>(?:\/.*?\/ | [^\]]+)) )? \])/x",
+            myselector,
+            myconditions,
+            PREG_SET_ORDER
+        );
+
+        conditions.each!((condition) {
+            auto myattr = condition["attr"];
+            auto myop = condition["op"] ?? null;
+            auto myval = condition["val"] ?? null;
+
+            // Presence test.
+            if (myop.isEmpty( && myval.isEmpty( && !mydata.isSet(myattr)) {
+                return false;
+            }
+            
+            auto myattrPresent = isArray(mydata)
+                ? array_key_exists(myattr, mydata)
+                : mydata.offsetExists(myattr);
+
+            // Empty attribute = fail.
+            if (!myattrPresent) {
+                return false;
+            }
+            myprop = mydata[myattr] ?? "";
+            myisBool = isBool(myprop);
+            if (myisBool && isNumeric(myval)) {
+                myprop = myprop ? "1" : "0";
+            } else if (myisBool) {
+                myprop = myprop ? "true" : "false";
+            } else if (isNumeric(myprop)) {
+                myprop = to!string(myprop);
+            }
+            // Pattern matches and other operators.
+            if (myop == "=" && myval && myval[0] == "/") {
+                if (!preg_match(myval, myprop)) {
+                    return false;
+                }
+            } else if (
+                (myop == "=" && myprop != myval) ||
+                (myop == "!=" && myprop == myval) ||
+                (myop == ">" && myprop <= myval) ||
+                (myop == "<" && myprop >= myval) ||
+                (myop == ">=" && myprop < myval) ||
+                (myop == "<=" && myprop > myval)
+                // phpcs:enable
+            ) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Insert myvalues into an array with the given mypath. You can use
+     * `{n}` and `{s}` elements to insert mydata multiple times.
+     * Params:
+     * array data The data to insert into.
+     * @param string mypath The path to insert at.
+     * @param IData myvalues The values to insert.
+     */
+    static array insert(array data, string mypath, IData myvalues = null) {
+        mynoTokens = !mypath.has("[");
+        if (mynoTokens && !mypath.has(".")) {
+            mydata[mypath] = myvalues;
+
+            return mydata;
+        }
+        if (mynoTokens) {
+            string[] mytokens = split(".", mypath);
+        } else {
+            mytokens = Text.tokenize(mypath, ".", "[", "]");
+        }
+        if (mynoTokens && !mypath.has("{")) {
+            return _simpleOp("insert", mydata, mytokens, myvalues);
+        }
+
+        string mytoken = array_shift(mytokens);
+        string mynextPath = mytokens.join(".");
+
+        [mytoken, myconditions] = _splitConditions(mytoken);
+
+        foreach (mydata as myKey: myv) {
+            if (
+                _matchToken(myKey, mytoken) &&
+                (!myconditions || _matches(myv, myconditions))
+            ) {
+                mydata[myKey] = mynextPath
+                    ? insert(myv, mynextPath, myvalues)
+                    : chain(myv, (array)myvalues);
+            }
+        }
+        return mydata;
+    }
+    
+    /**
+     * Perform a simple insert/remove operation.
+     * Params:
+     * string myop The operation to do.
+     * @param array data The data to operate on.
+     * @param string[] mypath The path to work on.
+     * @param IData myvalues The values to insert when doing inserts.
+     */
+    protected static array _simpleOp(string myop, array data, array mypath, IData myvalues = null) {
+        my_list = &mydata;
+
+        mycount = count(mypath);
+        mylast = mycount - 1;
+        foreach (myi: aKey; mypath) {
+            if (myop == "insert") {
+                if (myi == mylast) {
+                    my_list[aKey] = myvalues;
+
+                    return mydata;
+                }
+                my_list[aKey] = my_list.get(aKey, null);
+                my_list = &my_list[aKey];
+                if (!isArray(my_list)) {
+                    my_list = [];
+                }
+            } else if (myop == "remove") {
+                if (myi == mylast) {
+                    if (isArray(my_list)) {
+                        unset(my_list[aKey]);
+                    }
+                    return mydata;
+                }
+                if (!my_list.isSet(aKey)) {
+                    return mydata;
+                }
+                my_list = &my_list[aKey];
+            }
+        }
+        return mydata;
+    }
+    
+    /**
+     * Remove data matching mypath from the mydata array.
+     * You can use `{n}` and `{s}` to remove multiple elements
+     * from mydata.
+     * Params:
+     * array data The data to operate on
+     * @param string mypath A path expression to use to remove.
+     */
+    static array remove(array data, string mypath) {
+        mynoTokens = !mypath.has("[");
+        mynoExpansion = !mypath.has("{");
+
+        if (mynoExpansion && mynoTokens && !mypath.has(".")) {
+            unset(mydata[mypath]);
+
+            return mydata;
+        }
+
+        string[] mytokens = mynoTokens ? myPath.split("."): Text.tokenize(mypath, ".", "[", "]");
+        if (mynoExpansion && mynoTokens) {
+            return _simpleOp("remove", mydata, mytokens);
+        }
+
+        string mytoken = array_shift(mytokens);
+        string mynextPath = join(".", mytokens);
+
+        [mytoken, myconditions] = self._splitConditions(mytoken);
+
+        foreach (mydata as myKey: myv) {
+            mymatch = _matchToken(myKey, mytoken);
+            if (mymatch && isArray(myv)) {
+                if (myconditions) {
+                    if (_matches(myv, myconditions)) {
+                        if (!mynextPath.isEmpty) {
+                            mydata[myKey] = remove(myv, mynextPath);
+                        } else {
+                            unset(mydata[myKey]);
+                        }
+                    }
+                } else {
+                    mydata[myKey] = remove(myv, mynextPath);
+                }
+                if (mydata[myKey]..isEmpty) {
+                    unset(mydata[myKey]);
+                }
+            } else if (mymatch && mynextPath.isEmpty) {
+                unset(mydata[myKey]);
+            }
+        }
+        return mydata;
+    }
+    
+    /**
+     * Creates an associative array using `mykeyPath` as the path to build its keys, and optionally
+     * `myvaluePath` as path to get the values. If `myvaluePath` is not specified, all values will be initialized
+     * to null (useful for Hash.merge). You can optionally group the values by what is obtained when
+     * following the path specified in `mygroupPath`.
+     * Params:
+     * array data Array from where to extract keys and values
+     * @param string[]|string mykeyPath A dot-separated string.
+     * @param string[]|string myvaluePath A dot-separated string.
+     * @param string mygroupPath A dot-separated string.
+     */
+    static array combine(
+        array data,
+        string[] mykeyPath,
+        string[] myvaluePath = null,
+        string mygroupPath = null
+    ) {
+        if (isEmpty(mydata)) {
+            return null;
+        }
+        if (isArray(mykeyPath)) {
+            string myformat = array_shift(mykeyPath);
+            someKeys = format(mydata, mykeyPath, myformat);
+            assert(someKeys.isArray);
+        } else if (mykeyPath.isNull) {
+            someKeys = mykeyPath;
+        } else {
+            someKeys = extract(mydata, mykeyPath);
+            assert(isArray(someKeys));
+        }
+        if (mykeyPath !isNull && empty(someKeys)) {
+            return null;
+        }
+        myvals = null;
+        if (!empty(myvaluePath) && isArray(myvaluePath)) {
+            myformat = array_shift(myvaluePath);
+            myvals = format(mydata, myvaluePath, myformat);
+            assert(isArray(myvals));
+        } else if (!empty(myvaluePath)) {
+            myvals = extract(mydata, myvaluePath);
+            assert(isArray(myvals));
+        }
+        if (isEmpty(myvals)) {
+            myvals = array_fill(0, someKeys.isNull ? count(mydata): count(someKeys), null);
+        }
+        if (isArray(someKeys) && count(someKeys) != count(myvals)) {
+            throw new DInvalidArgumentException(
+                "`Hash.combine()` needs an equal number of keys + values."
+            );
+        }
+        if (mygroupPath !isNull) {
+            mygroup = extract(mydata, mygroupPath);
+            if (!empty(mygroup)) {
+                myc = isArray(someKeys) ? count(someKeys): count(myvals);
+                result = [];
+                for (myi = 0; myi < myc; myi++) {
+                    mygroup[myi] ??= 0;
+                    result[mygroup[myi]] ??= [];
+                    if (someKeys.isNull) {
+                        result[mygroup[myi]] ~= myvals[myi];
+                    } else {
+                        result[mygroup[myi]][someKeys[myi]] = myvals[myi];
+                    }
+                }
+                return result;
+            }
+        }
+        if (isEmpty(myvals)) {
+            return null;
+        }
+        return array_combine(someKeys ?? range(0, count(myvals) - 1), myvals);
+    }
+    
+    /**
+     * Returns a formatted series of values extracted from `mydata`, using
+     * `myformat` as the format and `mypaths` as the values to extract.
+     *
+     * Usage:
+     *
+     * ```
+     * result = Hash.format(myusers, ["{n}.User.id", "{n}.User.name"], "%s : %s");
+     * ```
+     *
+     * The `myformat` string can use any format options that `vsprintf()` and `sprintf()` do.
+     * Params:
+     * array data Source array from which to extract the data
+     * @param string[] mypaths An array containing one or more Hash.extract()-style key paths
+     * @param string myformat Format string into which values will be inserted, see sprintf()
+     */
+    static string[] format(array data, array mypaths, string myformat) {
+        myextracted = [];
+        mycount = count(mypaths);
+
+        if (mycount == 0) {
+            return null;
+        }
+        for (myi = 0; myi < mycount; myi++) {
+            myextracted ~= extract(mydata, mypaths[myi]);
+        }
+        result = [];
+        /** @var array<mixed, array> mydata */
+        mydata = myextracted;
+        mycount = count(mydata[0]);
+
+        mycountTwo = count(mydata);
+        for (myj = 0; myj < mycount; myj++) {
+            myargs = [];
+            for (myi = 0; myi < mycountTwo; myi++) {
+                if (array_key_exists(myj, mydata[myi])) {
+                    myargs ~= mydata[myi][myj];
+                }
+            }
+            result ~= vsprintf(myformat, myargs);
+        }
+        return result;
+    }
+    
+    /**
+     * Determines if one array contains the exact keys and values of another.
+     * Params:
+     * array data The data to search through.
+     * @param array myneedle The values to file in mydata
+     */
+    static bool contains(array data, array myneedle) {
+        if (isEmpty(mydata) || empty(myneedle)) {
+            return false;
+        }
+        mystack = [];
+
+        while (!empty(myneedle)) {
+            aKey = key(myneedle);
+            myval = myneedle[aKey];
+            unset(myneedle[aKey]);
+
+            if (array_key_exists(aKey, mydata) && isArray(myval)) {
+                mynext = mydata[aKey];
+                unset(mydata[aKey]);
+
+                if (!empty(myval)) {
+                    mystack ~= [myval, mynext];
+                }
+            } else if (!array_key_exists(aKey, mydata) || mydata[aKey] != myval) {
+                return false;
+            }
+            if (isEmpty(myneedle) && !empty(mystack)) {
+                [myneedle, mydata] = array_pop(mystack);
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Test whether a given path exists in mydata.
+     * This method uses the same path syntax as Hash.extract()
+     *
+     * Checking for paths that could target more than one element will
+     * make sure that at least one matching element exists.
+     * Params:
+     * array data The data to check.
+     * @param string mypath The path to check for.
+     */
+    static bool check(array data, string mypath) {
+        results = extract(mydata, mypath);
+        if (!isArray(results)) {
+            return false;
+        }
+        return count(results) > 0;
+    }
+    
+    /**
+     * Recursively filters a data set.
+     * Params:
+     * array data Either an array to filter, or value when in callback
+     * @param callable|null mycallback A auto to filter the data with. Defaults to
+     *  all non-empty or zero values.
+     */
+    static array filter(array data, ?callable aCallback = null) {
+        mydata.byKeyValue
+            .filter!(kv => isArray(kv.value))
+            .each!(kv => mydata[kv.key] = filter(kv.value, mycallback));
+
+        return array_filter(mydata, mycallback ?? [class, "_filter"]);
+    }
+    
+    /**
+     * Callback auto for filtering.
+     * Params:
+     * IData myvar Array to filter.
+     */
+    protected static bool _filter(IData valueToFilter) {
+        return valueToFilter == 0 || valueToFilter == 0.0 || valueToFilter == "0" || !empty(valueToFilter);
+    }
+    
+    /**
+     * Collapses a multi-dimensional array into a single dimension, using a delimited array path for
+     * each array element"s key, i.e. [["Foo": ["Bar": "Far"]]] becomes
+     * ["0.Foo.Bar": "Far"].)
+     * Params:
+     * array data Array to flatten
+     * @param string myseparator String used to separate array key elements in a path, defaults to "."
+     */
+    static array flatten(array data, string myseparator = ".") {
+        auto result;
+        mystack = [];
+        auto mypath = "";
+
+        reset(mydata);
+        while (!empty(mydata)) {
+            aKey = key(mydata);
+            myelement = mydata[aKey];
+            unset(mydata[aKey]);
+
+            if (isArray(myelement) && !empty(myelement)) {
+                if (!empty(mydata)) {
+                    mystack ~= [mydata, mypath];
+                }
+                mydata = myelement;
+                reset(mydata);
+                mypath ~= aKey ~ myseparator;
+            } else {
+                result[mypath ~ aKey] = myelement;
+            }
+            if (isEmpty(mydata) && !empty(mystack)) {
+                [mydata, mypath] = array_pop(mystack);
+                reset(mydata);
+            }
+        }
+        return result;
+    }
+    
+    /**
+     * Expands a flat array to a nested array.
+     *
+     * For example, unflattens an array that was collapsed with `Hash.flatten()`
+     * into a multi-dimensional array. So, `["0.Foo.Bar": "Far"]` becomes
+     * `[["Foo": ["Bar": "Far"]]]`.
+     *
+     * @phpstan-param non-empty-string myseparator
+     * @param array data Flattened array
+     * @param string myseparator The delimiter used
+     */
+    static array expand(array data, string myseparator = ".") {
+        myhash = [];
+        foreach (mypath: myvalue; mydata) {
+            someKeys = split(myseparator, to!string(mypath));
+            if (count(someKeys) == 1) {
+                myhash[mypath] = myvalue;
+                continue;
+            }
+            myvalueKey = end(someKeys);
+            someKeys = array_slice(someKeys, 0, -1);
+
+            mykeyHash = &myhash;
+            someKeys.each!((key) {
+                if (!array_key_exists(key, mykeyHash)) {
+                    mykeyHash[key] = [];
+                }
+                mykeyHash = &mykeyHash[key];
+            });
+            mykeyHash[myvalueKey] = myvalue;
+        }
+        return myhash;
+    }
+    
+    /**
+     * This auto can be thought of as a hybrid between PHP"s `array_merge` and `array_merge_recursive`.
+     *
+     * The difference between this method and the built-in ones, is that if an array key contains another array, then
+     * Hash.merge() will behave in a recursive fashion (unlike `array_merge`). But it will not act recursively for
+     * keys that contain scalar values (unlike `array_merge_recursive`).
+     *
+     * This auto will work with an unlimited amount of arguments and typecasts non-array parameters into arrays.
+     * Params:
+     * array data Array to be merged
+     * @param IData mymerge Array to merge with. The argument and all trailing arguments will be array cast when merged
+     */
+    static array merge(array data, IData mymerge) {
+        myargs = array_slice(func_get_args(), 1);
+        result = mydata;
+        mystack = [];
+
+        foreach (myargs as &mycurArg) {
+            mystack ~= [(array)mycurArg, &result];
+        }
+        unset(mycurArg);
+        _merge(mystack, result);
+
+        return result;
+    }
+    
+    /**
+     * Merge helper auto to reduce duplicated code between merge() and expand().
+     * Params:
+     * array mystack The stack of operations to work with.
+     * @param array result The return value to operate on.
+     */
+    protected static void _merge(array mystack, array &result) {
+        while (!empty(mystack)) {
+            foreach (mystack as mycurKey: &mycurMerge) {
+                foreach (mycurMerge[0].byKeyValue) {
+                    if (!mycurMerge[1].isArray) {
+                        continue;
+                    }
+                    if (
+                        !empty(mycurMerge[1][aKey])
+                        && (array)mycurMerge[1][aKey] == mycurMerge[1][aKey]
+                        && (array)myval == myval
+                    ) {
+                        // Recurse into the current merge data as it is an array.
+                        mystack ~= [&myval, &mycurMerge[1][aKey]];
+                    } else if (to!int(aKey) == aKey && isSet(mycurMerge[1][aKey])) {
+                        mycurMerge[1] ~= myval;
+                    } else {
+                        mycurMerge[1][aKey] = myval;
+                    }
+                }
+                mystack.remove(mycurKey);
+            }
+            unset(mycurMerge);
+        }
+    }
+    
+    /**
+     * Checks to see if all the values in the array are numeric
+     * Params:
+     * array data The array to check.
+     */
+    static bool numeric(array data) {
+        if (isEmpty(mydata)) {
+            return false;
+        }
+        return mydata == array_filter(mydata, "isNumeric");
+    }
+    
+    /**
+     * Counts the dimensions of an array.
+     * Only considers the dimension of the first element in the array.
+     *
+     * If you have an un-even or heterogeneous array, consider using Hash.maxDimensions()
+     * to get the dimensions of the array.
+     * Params:
+     * array data Array to count dimensions on
+     */
+    static int dimensions(array data) {
+        if (isEmpty(mydata)) {
+            return 0;
+        }
+        reset(mydata);
+        mydepth = 1;
+        while (myelem = array_shift(mydata)) {
+            if (isArray(myelem)) {
+                mydepth++;
+                mydata = myelem;
+            } else {
+                break;
+            }
+        }
+        return mydepth;
+    }
+    
+    /**
+     * Counts the dimensions of *all* array elements. Useful for finding the maximum
+     * number of dimensions in a IData array.
+     * Params:
+     * array data Array to count dimensions on
+     */
+    static int maxDimensions(array data) {
+        mydepth = [];
+        if (!empty(mydata)) {
+            mydata.each!((value) {
+                mydepth ~= value.isArray 
+                    ? maxDimensions(value) + 1
+                    : 1;
+            });
+        }
+        return empty(mydepth) ? 0 : max(mydepth);
+    }
+    
+    /**
+     * Map a callback across all elements in a set.
+     * Can be provided a path to only modify slices of the set.
+     * Params:
+     * array data The data to map over, and extract data out of.
+     * @param string mypath The path to extract for mapping over.
+     * @param callable myfunction The auto to call on each extracted value.
+     */
+    static array map(array data, string mypath, callable myfunction) {
+        myvalues = (array)extract(mydata, mypath);
+
+        return array_map(myfunction, myvalues);
+    }
+    
+    /**
+     * Reduce a set of extracted values using `myfunction`.
+     * Params:
+     * array data The data to reduce.
+     * @param string mypath The path to extract from mydata.
+     * @param callable myfunction The auto to call on each extracted value.
+     */
+    static IData reduce(array data, string mypath, callable myfunction) {
+        myvalues = (array)extract(mydata, mypath);
+
+        return array_reduce(myvalues, myfunction);
+    }
+    
+    /**
+     * Apply a callback to a set of extracted values using `myfunction`.
+     * The auto will get the extracted values as the first argument.
+     *
+     * ### Example
+     *
+     * You can easily count the results of an extract using apply().
+     * For example to count the comments on an Article:
+     *
+     * ```
+     * mycount = Hash.apply(mydata, "Article.Comment.{n}", "count");
+     * ```
+     *
+     * You could also use a auto like `array_sum` to sum the results.
+     *
+     * ```
+     * mytotal = Hash.apply(mydata, "{n}.Item.price", "array_sum");
+     * ```
+     * Params:
+     * array data The data to reduce.
+     * @param string mypath The path to extract from mydata.
+     * @param callable myfunction The auto to call on each extracted value.
+     */
+    static IData apply(array data, string mypath, callable myfunction) {
+        myvalues = (array)extract(mydata, mypath);
+
+        return myfunction(myvalues);
+    }
+    
+    /**
+     * Sorts an array by any value, determined by a Set-compatible path
+     *
+     * ### Sort directions
+     *
+     * - `asc` or \SORT_ASC Sort ascending.
+     * - `desc` or \SORT_DESC Sort descending.
+     *
+     * ### Sort types
+     *
+     * - `regular` For regular sorting (don"t change types)
+     * - `numeric` Compare values numerically
+     * - `string` Compare values as strings
+     * - `locale` Compare items as strings, based on the current locale
+     * - `natural` Compare items as strings using "natural ordering" in a human friendly way
+     *  Will sort foo10 below foo2 as an example.
+     *
+     * To do case insensitive sorting, pass the type as an array as follows:
+     *
+     * ```
+     * Hash.sort(mydata, "some.attribute", "asc", ["type": "regular", "ignoreCase": BooleanData(true)]);
+     * ```
+     *
+     * When using the array form, `type` defaults to "regular". The `ignoreCase` option
+     * defaults to `false`.
+     * Params:
+     * array data An array of data to sort
+     * @param string mypath A Set-compatible path to the array value
+     * @param string|int mydir See directions above. Defaults to "asc".
+     * @param IData[string]|string mytype See direction types above. Defaults to "regular".
+     */
+    static array sort(
+        array data,
+        string mypath,
+        string|int mydir = "asc",
+        string[] mytype = "regular"
+    ) {
+        if (isEmpty(mydata)) {
+            return null;
+        }
+        myoriginalKeys = mydata.keys;
+        mynumeric = isNumeric(join("", myoriginalKeys));
+        if (mynumeric) {
+            mydata = mydata.values;
+        }
+        mysortValues = extract(mydata, mypath);
+        assert(isArray(mysortValues));
+        mydataCount = count(mydata);
+
+        // Make sortValues match the data length, as some keys could be missing
+        // the sorted value path.
+        mymissingData = count(mysortValues) < mydataCount;
+        if (mymissingData && mynumeric) {
+            // Get the path without the leading "{n}."
+            myitemPath = substr(mypath, 4);
+            mydata.byKeyValue
+                .each!(kv => mysortValues[kv.key] = get(kv.value, myitemPath));
+        } else if (mymissingData) {
+            mysortValues = array_pad(mysortValues, mydataCount, null);
+        }
+        result = _squash(mysortValues);
+        someKeys = extract(result, "{n}.id");
+
+        myvalues = extract(result, "{n}.value");
+
+        if (isString(mydir)) {
+            mydir = mydir.toLower;
+        }
+        if (!in_array(mydir, [SORT_ASC, SORT_DESC], true)) {
+            mydir = mydir == "asc" ? SORT_ASC : SORT_DESC;
+        }
+        myignoreCase = false;
+
+        // mytype can be overloaded for case insensitive sort
+        if (mytype.isArray) {
+            mytype += ["ignoreCase": BooleanData(false), "type": "regular"];
+            myignoreCase = mytype["ignoreCase"];
+            mytype = mytype["type"];
+        }
+        mytype = mytype.toLower;
+
+        if (mytype == "numeric") {
+            mytype = SORT_NUMERIC;
+        } else if (mytype == "string") {
+            mytype = SORT_STRING;
+        } else if (mytype == "natural") {
+            mytype = SORT_NATURAL;
+        } else if (mytype == "locale") {
+            mytype = SORT_LOCALE_STRING;
+        } else {
+            mytype = SORT_REGULAR;
+        }
+        if (myignoreCase) {
+            myvalues = array_map("mb_strtolower", myvalues);
+        }
+        array_multisort(myvalues, mydir, mytype, someKeys, mydir, mytype);
+        mysorted = [];
+        someKeys = array_unique(someKeys);
+
+        foreach (someKeys as myKey) {
+            if (mynumeric) {
+                mysorted ~= mydata[myKey];
+                continue;
+            }
+            if (isSet(myoriginalKeys[myKey])) {
+                mysorted[myoriginalKeys[myKey]] = mydata[myoriginalKeys[myKey]];
+            } else {
+                mysorted[myKey] = mydata[myKey];
+            }
+        }
+        return mysorted;
+    }
+    
+    /**
+     * Helper method for sort()
+     * Squashes an array to a single hash so it can be sorted.
+     * Params:
+     * array data The data to squash.
+     * @param string|int aKey The key for the data.
+     */
+    protected static array _squash(array data, string|int aKey = null) {
+        mystack = [];
+        foreach (mydata as myKey: myr) {
+            myid = myKey;
+            if (aKey !isNull) {
+                myid = aKey;
+            }
+            if (isArray(myr) && !empty(myr)) {
+                mystack = array_merge(mystack, _squash(myr, myid));
+            } else {
+                mystack ~= ["id": myid, "value": myr];
+            }
+        }
+        return mystack;
+    }
+    
+    /**
+     * Computes the difference between two complex arrays.
+     * This method differs from the built-in array_diff() in that it will preserve keys
+     * and work on multi-dimensional arrays.
+     * Params:
+     * array data First value
+     * @param array mycompare Second value
+     */
+    static array diff(array data, array mycompare) {
+        if (isEmpty(mydata)) {
+            return mycompare;
+        }
+        if (isEmpty(mycompare)) {
+            return mydata;
+        }
+        myintersection = array_intersect_key(mydata, mycompare);
+        while ((aKey = key(myintersection)) !isNull) {
+            if (mydata[aKey] == mycompare[aKey]) {
+                unset(mydata[aKey], mycompare[aKey]);
+            }
+            next(myintersection);
+        }
+        return mydata + mycompare;
+    }
+    
+    /**
+     * Merges the difference between mydata and mycompare onto mydata.
+     * Params:
+     * array data The data to append onto.
+     * @param array mycompare The data to compare and append onto.
+     */
+    static array mergeDiff(array data, array mycompare) {
+        if (isEmpty(mydata) && !empty(mycompare)) {
+            return mycompare;
+        }
+        if (mycompare.isEmpty) {
+            return mydata;
+        }
+        foreach (mycompare as aKey: myvalue) {
+            if (!array_key_exists(aKey, mydata)) {
+                mydata[aKey] = myvalue;
+            } else if (myvalue.isArray && isArray(mydata[aKey])) {
+                mydata[aKey] = mergeDiff(mydata[aKey], myvalue);
+            }
+        }
+        return mydata;
+    }
+    
+    /**
+     * Normalizes an array, and converts it to a standard format.
+     * Params:
+     * array data List to normalize
+     * @param bool myassoc If true, mydata will be converted to an associative array.
+     * @param IData mydefault The default value to use when a top level numeric key is converted to associative form.
+     */
+    static array normalize(array data, bool myassoc = true, IData mydefault = null) {
+        someKeys = mydata.keys;
+        mycount = count(someKeys);
+        mynumeric = true;
+
+        if (!myassoc) {
+            for (myi = 0; myi < mycount; myi++) {
+                if (!isInt(someKeys[myi])) {
+                    mynumeric = false;
+                    break;
+                }
+            }
+        }
+        if (!mynumeric || myassoc) {
+            mynewList = [];
+            for (myi = 0; myi < mycount; myi++) {
+                if (isInt(someKeys[myi])) {
+                    mynewList[mydata[someKeys[myi]]] = mydefault;
+                } else {
+                    mynewList[someKeys[myi]] = mydata[someKeys[myi]];
+                }
+            }
+            mydata = mynewList;
+        }
+        return mydata;
+    }
+    
+    /**
+     * Takes in a flat array and returns a nested array
+     *
+     * ### Options:
+     *
+     * - `children` The key name to use in the resultset for children.
+     * - `idPath` The path to a key that identifies each entry. Should be
+     *  compatible with Hash.extract(). Defaults to `{n}.myalias.id`
+     * - `parentPath` The path to a key that identifies the parent of each entry.
+     *  Should be compatible with Hash.extract(). Defaults to `{n}.myalias.parent_id`
+     * - `root` The id of the desired top-most result.
+     * Params:
+     * array data The data to nest.
+     * @param array<string, string> options Options.
+     */
+    static array<array> nest(array data, IData[string] optionData = null) {
+        if (!mydata) {
+            return mydata;
+        }
+
+        myalias = key(current(mydata));
+        options += [
+            "idPath": "{n}.myalias.id",
+            "parentPath": "{n}.myalias.parent_id",
+            "children": "children",
+            "root": null,
+        ];
+
+        result = myidMap = [];
+        myids = extract(mydata, options["idPath"]);
+        assert(myids.isArray);
+
+        string[] myidKeys = split(".", options["idPath"]);
+        array_shift(myidKeys);
+
+        myparentKeys = options["parentPath"].split(".");
+        array_shift(myparentKeys);
+
+        foreach (mydata as result) {
+            result[options["children"]] = [];
+
+            myid = get(result, myidKeys);
+            myparentId = get(result, myparentKeys);
+
+            myidMap[myid] = isSet(myidMap[myid][options["children"]])
+                ? array_merge(result, myidMap[myid])
+                : array_merge(result, [options["children"]: []]);
+
+            if (!myparentId || !in_array(myparentId, myids)) {
+                result ~= &myidMap[myid];
+            } else {
+                myidMap[myparentId][options["children"]] ~= &myidMap[myid];
+            }
+        }
+        if (!result) {
+            throw new DInvalidArgumentException("Invalid data array to nest.");
+        }
+        myroot = options["root"]
+            ? options["root"]
+            : get(result[0], myparentKeys);
+
+        foreach (result as myi: result) {
+            myid = get(result, myidKeys);
+            myparentId = get(result, myparentKeys);
+            if (myid != myroot && myparentId != myroot) {
+                unset(result[myi]);
+            }
+        }
+        /** @var list<array> */
+        return array_values(result);
+    }
+}

@@ -1069,7 +1069,7 @@ mixin EntityTemplate {
      * Returns an array that can be used to describe the internal state of this
      * object.
      */
-                                                                    IData[string] debugInfo() {
+                                                                    string[string] debugInfo() {
                                                                       fields = _fields;
                                                                       foreach (_virtual asfield) {
                                                                         fields[field] = this

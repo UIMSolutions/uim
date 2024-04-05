@@ -13,7 +13,7 @@ import uim.datasources;
  */
 class DResultSetDecorator : Collection, IResultSet {
  
-    IData[string] debugInfo() {
+    string[string] debugInfo() {
         parentInfo = super.__debugInfo();
         aLimit = Configure.read("App.ResultSetDebugLimit", 10);
 

@@ -149,7 +149,7 @@ class DComponent : IEventListener {
     }
     
     // Returns an array that can be used to describe the internal state of this object.
-    IData[string] debugInfo() {
+    string[string] debugInfo() {
         return [
             "components": this.components,
             "implementedEvents": this.implementedEvents(),

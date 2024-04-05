@@ -1,4 +1,4 @@
-module uim.cake.Form;
+module uim.forms.classes.forms.formprotector;
 
 import uim.forms;
 
@@ -13,8 +13,9 @@ import uim.forms;
  * - Values of hidden inputs have not been changed.
  *
  * @internal
- */
-class FormProtector {
+ * /
+class DFormProtector {
+    /*
     // Fields list.
     protected array fields = [];
 
@@ -30,7 +31,7 @@ class FormProtector {
      * IData formData Form data.
      * @param string aurl URL form was POSTed to.
      * @param string asessionId Session id for hash generation.
-     */
+     * /
     bool validate(IData formData, string aurl, string asessionId) {
         this.debugMessage = null;
 
@@ -62,7 +63,7 @@ class FormProtector {
      * Construct.
      * Params:
      * IData[string] someData Data array, can contain key `unlockedFields` with list of unlocked fields.
-     */
+     * /
     this(IData[string] data = []) {
         if (!empty(someData["unlockedFields"])) {
             this.unlockedFields = someData["unlockedFields"];
@@ -77,7 +78,7 @@ class FormProtector {
      * @param bool lock Whether this field should be part of the validation
      *  or excluded as part of the unlockedFields. Default `true`.
      * @param IData aValue Field value, if value should not be tampered with.
-     */
+     * /
     auto addField(string[] afield, bool lock = true, IData aValue = null) {
         if (isString(field)) {
             field = this.getFieldNameArray(field);
@@ -118,7 +119,7 @@ class FormProtector {
      * fieldname parts like ["Model", "field"] is returned.
      * Params:
      * string aName The form inputs name attribute.
-     */
+     * /
     protected string[] getFieldNameArray(string aName) {
         if (isEmpty(name) && name != "0") {
             return null;
@@ -141,7 +142,7 @@ class FormProtector {
      * Unlocked fields are not included in the field hash.
      * Params:
      * string aName The dot separated name for the field.
-     */
+     * /
     auto unlockField(string aName) {
         if (!in_array(name, this.unlockedFields, true)) {
             this.unlockedFields ~= name;
@@ -157,7 +158,7 @@ class FormProtector {
     
     /**
      * Get validation error message.
-     */
+     * /
     string getError() {
         return this.debugMessage;
     }
@@ -166,7 +167,7 @@ class FormProtector {
      * Extract token from data.
      * Params:
      * IData formData Data to validate.
-     */
+     * /
     protected string extractToken(IData formData) {
         if (!isArray(formData)) {
             this.debugMessage = "Request data is not an array.";
@@ -214,7 +215,7 @@ class FormProtector {
     
     /**
      * Return hash parts for the token generation
-     */
+     * /
     protected array[string] extractHashParts(array formData) {
         auti fields = this.extractFields(formData);
         unlockedFields = this.sortedUnlockedFields(formData);
@@ -229,7 +230,7 @@ class FormProtector {
      * Return the fields list for the hash calculation
      * Params:
      * array formData Data array
-     */
+     * /
     protected array extractFields(array formData) {
         auto locked = "";
         auto token = urldecode(formData["_Token"]["fields"]);
@@ -266,7 +267,7 @@ class FormProtector {
             )
         );
 
-        /** @var string aKey */
+        /** @var string aKey * /
         foreach (anI: aKey; fieldList) {
              isLocked = in_array(aKey, locked, true);
 
@@ -298,7 +299,7 @@ class FormProtector {
      * Get the sorted unlocked string
      * Params:
      * array formData Data array
-     */
+     * /
     protected string[] sortedUnlockedFields(array formData) {
         unlocked = urldecode(formData["_Token"]["unlocked"]);
         if (isEmpty(unlocked)) {
@@ -316,7 +317,7 @@ class FormProtector {
      * Params:
      * string aurl Form URL.
      * @param string asessionId Session Id.
-     */
+     * /
     STRINGAA buildTokenData(string aurl = "", string asessionId= null) {
         auto fields = this.fields;
         auto unlockedFields = this.unlockedFields;
@@ -358,7 +359,7 @@ class FormProtector {
      * @param string[] unlockedFields Unlocked fields.
      * @param string aurl Form URL.
      * @param string asessionId Session Id.
-     */
+     * /
     protected string generateHash(array fields, array unlockedFields, string aurl, string asessionId) {
         hashParts = [
             url,
@@ -375,7 +376,7 @@ class FormProtector {
      * Params:
      * array formData Data.
      * @param array hashParts Elements used to generate the Token hash
-     */
+     * /
     protected string debugTokenNotMatching(array formData, array hashParts) {
         messages = [];
         if (!isSet(formData["_Token"]["debug"])) {
@@ -424,7 +425,7 @@ class FormProtector {
      * @param string astringKeyMessage Message string if tampered found in
      * data fields indexed by string (protected).
      * @param string amissingMessage Message string if missing field
-     */
+     * /
     protected string[] debugCheckFields(
         array someDataFields,
         array expectedFields = [],
@@ -449,7 +450,7 @@ class FormProtector {
      * @param string aintKeyMessage Message string if unexpected found in data fields indexed by int (not protected)
      * @param string astringKeyMessage Message string if tampered found in
      *  data fields indexed by string (protected)
-     */
+     * /
     protected string[] matchExistingFields(
         array someDataFields,
         array &expectedFields,
@@ -481,7 +482,7 @@ class FormProtector {
      * Params:
      * array expectedFields Expected fields
      * @param string amissingMessage Message template
-     */
+     * /
     protected string debugExpectedFields(array expectedFields = [], string amissingMessage= null) {
         if (count(expectedFields) == 0) {
             return null;
@@ -499,11 +500,11 @@ class FormProtector {
     }
     
     // Return debug info
-    IData[string] debugInfo() {
+    string[string] debugInfo() {
         return [
             "fields": this.fields,
             "unlockedFields": this.unlockedFields,
             "debugMessage": this.debugMessage,
         ];
-    }
+    } */
 }

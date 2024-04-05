@@ -36,20 +36,33 @@ class DForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
     // The schema used by this form.
     protected DSchema _schema = null;
 
+    // Set the schema for this form.
+    void setSchema(DSchema newSchema) {
+       _schema = newSchema;
+    }
+
+    /**
+     * Get the schema for this form.
+     *
+     * This method will call `_buildSchema()` when the schema
+     * is first built. This hook method lets you configure the
+     * schema or load a pre-defined one.
+     * /
+    DSchema getSchema() {
+       return !_schema.isNull ? _schema : _buildSchema(new _schemaClass());
+    } */
+
+    // Form`s data.
+    protected IData[string] _data;
+
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\Form\Form>
      * /
     use EventDispatcherTemplate();
     use ValidatorAwareTemplate();
 
-
-
-
     // The errors if any
     protected array _errors = [];
-
-    // Form`s data.
-    protected array _data = [];
 
     /**
      * Constructor
@@ -80,21 +93,9 @@ class DForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
         return null;
     }
 
-    // Set the schema for this form.
-    void setSchema(Schema tableSchema) {
-       _schema = tableSchema;
-    }
 
-    /**
-     * Get the schema for this form.
-     *
-     * This method will call `_buildSchema()` when the schema
-     * is first built. This hook method lets you configure the
-     * schema or load a pre-defined one.
-     * /
-    DSchema getSchema() {
-       return !_schema.isNull ? _schema : _buildSchema(new _schemaClass());
-    }
+
+
     
     /**
      * A hook method intended to be implemented by subclasses.
@@ -226,7 +227,7 @@ class DForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
     }
 
     // Get the printable version of a Form instance.
-    IData[string] debugInfo() {
+    string[string] debugInfo() {
         special = [
             '_schema": this.getSchema().__debugInfo(),
             '_errors": this.getErrors(),

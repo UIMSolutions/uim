@@ -1455,7 +1455,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
         super._isDirty();
     }
  
-    IData[string] debugInfo() {
+    string[string] debugInfo() {
         myeagerLoader = this.getEagerLoader();
 
         return super.__debugInfo() ~ [

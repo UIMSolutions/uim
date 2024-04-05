@@ -201,7 +201,7 @@ abstract class DCell { // }: IEventDispatcher {
     }
     
     // Debug info.
-    IData[string] debugInfo() {
+    string[string] debugInfo() {
         return [
             "action": _action,
             "args": this.args,

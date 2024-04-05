@@ -2780,7 +2780,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     /**
      * Returns an array that can be used to describe the internal state of this object.
      */
-    IData[string] debugInfo() {
+    string[string] debugInfo() {
         myconn = this.getConnection();
 
         return [

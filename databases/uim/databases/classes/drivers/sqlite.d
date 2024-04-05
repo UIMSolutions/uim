@@ -41,7 +41,7 @@ class DSqliteDriver : DDriver {
     }
 
     /*
-    use TupleComparisonTranslatorTrait;
+    use TupleComparisonTranslatorTemplate;
 
     protected const STATEMENT_CLASS = SqliteStatement.classname;
 

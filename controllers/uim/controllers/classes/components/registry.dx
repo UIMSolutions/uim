@@ -15,7 +15,7 @@ import uim.controllers;
  */
 class DComponentRegistry : ObjectRegistry, IEventDispatcher {
     // @use \UIM\Event\EventDispatcherTrait<TSubject>
-    use EventDispatcherTrait;
+    use EventDispatcherTemplate;
 
     // The controller that this collection is associated with.
     protected Controller _controller;

@@ -54,10 +54,10 @@ class DController : IEventListener, IEventDispatcher {
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\Controller\Controller>
      */
-    use EventDispatcherTrait;
-    use LocatorAwareTrait;
-    use LogTrait;
-    use ViewVarsTrait;
+    use EventDispatcherTemplate;
+    use LocatorAwareTemplate;
+    use LogTemplate;
+    use ViewVarsTemplate;
 
     /**
      * The name of this controller. Controller names are plural, named after the model they manipulate.

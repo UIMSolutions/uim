@@ -11,7 +11,7 @@ import uim.collections;
 
 // Offers a handful of methods to manipulate iterators
 mixin template CollectionTemplate() {
-    // mixin ExtractTrait;
+    // mixin ExtractTemplate;
 
     /**
      * Returns a new DCollection.

@@ -25,8 +25,8 @@ class DBetweenExpression : IExpression, IField {
 
     mixin(TProperty!("string", "name"));
 
-    use ExpressionTypeCasterTrait;
-    use FieldTrait;
+    use ExpressionTypeCasterTemplate;
+    use FieldTemplate;
 
     // The first value in the expression
     protected IData _from;

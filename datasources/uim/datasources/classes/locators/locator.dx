@@ -8,7 +8,6 @@ module uim.datasources.locators.locator;
 @safe:
 import uim.datasources;
 
-// 
 // Provides an abstract registry/factory for repository objects.
 abstract class DAbstractLocator : ILocator {
     /**

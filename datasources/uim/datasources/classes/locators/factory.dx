@@ -8,8 +8,6 @@ module uim.datasources.locators.factory;
 @safe:
 import uim.datasources;
 
-// 
-
 class DFactoryLocator {
     // A list of model factory functions.
     protected static ILocator[string] _modelFactories = [];

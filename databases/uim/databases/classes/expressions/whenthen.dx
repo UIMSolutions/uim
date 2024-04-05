@@ -8,8 +8,8 @@ import uim.databases;
  * Represents a SQL when/then clause with a fluid API
  */
 class DWhenThenExpression : IExpression {
-    use CaseExpressionTemplate;
-    use ExpressionTypeCasterTemplate;
+    mixin CaseExpressionTemplate;
+    mixin ExpressionTypeCasterTemplate;
 
     /**
      * The names of the clauses that are valid for use with the

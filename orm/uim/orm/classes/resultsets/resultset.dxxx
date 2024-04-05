@@ -9,8 +9,6 @@ import uim.orm;
 
 @safe:
 
-use SplFixedArray;
-
 /**
  * Represents the results obtained after executing a query for a specific table
  * This object is responsible for correctly nesting result keys reported from
@@ -18,7 +16,7 @@ use SplFixedArray;
  * queries required for eager loading external associations.
  */
 class DResultSet : IResultSet {
-    use CollectionTemplate;
+    mixin CollectionTemplate;
 
     // Database statement holding the results
     protected DDBStatementInterface _statement;

@@ -4,9 +4,6 @@ import uim.orm;
 
 @safe:
 
-use ArrayObject;
-
-
 /**
  * Contains logic to convert array data into entities.
  *
@@ -19,7 +16,7 @@ use ArrayObject;
  */
 class Marshaller
 {
-    use AssociationsNormalizerTemplate;
+    mixin AssociationsNormalizerTemplate;
 
     /**
      * The table instance this marshaller is for.

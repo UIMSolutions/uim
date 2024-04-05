@@ -13,7 +13,7 @@ import uim.views;
 class DRadioWidget : DWidget {
     mixin(WidgetThis!("Radio"));
     /*
-    use IdGeneratorTemplate; * 
+    mixin IdGeneratorTemplate; * 
 
     // Data defaults.
     protected IData[string] _defaultData = [

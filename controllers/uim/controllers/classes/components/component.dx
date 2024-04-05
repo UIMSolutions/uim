@@ -62,8 +62,8 @@ class DComponent : IEventListener {
 
     mixin(TProperty!("string", "name"));
 
-    use InstanceConfigTemplate;
-    use LogTemplate;
+    mixin InstanceConfigTemplate;
+    mixin LogTemplate;
 
     // Component registry class used to lazy load components.
     protected ComponentRegistry _registry;

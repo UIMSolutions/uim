@@ -1,4 +1,4 @@
-module uim.events.Event;
+module uim.events.interfaces.eventdispatcher;
 
 import uim.events;
 
@@ -27,7 +27,7 @@ interface IEventDispatcher {
      * @param TSubject|null subject The object that this event applies to
      * (this by default).
      * @return \UIM\Event\IEvent<TSubject>
-     */
+     * /
     IEvent dispatchEvent(string aName, array data = [], ?object subject = null);
 
     /**
@@ -37,13 +37,14 @@ interface IEventDispatcher {
      * object events, or create your own events and trigger them at will.
      * Params:
      * \UIM\Event\IEventManager eventManager the eventManager to set
-     */
+     * /
     auto setEventManager(IEventManager eventManager);
 
     /**
      * Returns the UIM\Event\EventManager manager instance for this object.
      *
      * @return \UIM\Event\IEventManager
-     */
+     * /
     auto getEventManager(): IEventManager;
+    */
 }

@@ -127,7 +127,7 @@ class DConsoleOutput {
      * Params:
      * resource|string astream The identifier of the stream to write output to.
      * @throws \UIM\Console\Exception\ConsoleException If the given stream is not a valid resource.
-     */
+     * /
     this(string streamIdentifier = "uim://stdout") {
         auto fileStream = fopen(streamIdentifier, "wb");
         if (!isResource(fileStream)) {
@@ -161,7 +161,7 @@ class DConsoleOutput {
      * Params:
      * string[]|string amessage A string or an array of strings to output
      * @param int newlines Number of newlines to append
-     */
+     * /
     int write(string[] amessage, int newlines = 1) {
         if (isArray(message)) {
             message = join(LF, message);
@@ -173,13 +173,13 @@ class DConsoleOutput {
      * Apply styling to text.
      * Params:
      * string atext Text with styling tags.
-     */
+     * /
     string styleText(string atext) {
         if (_outputAs == RAW) {
             return text;
         }
         if (_outputAs != PLAIN) {
-            /** @var \Closure replaceTags */
+            /** @var \Closure replaceTags * /
             replaceTags = _replaceTags(...);
 
             output = preg_replace_callback(
@@ -201,7 +201,7 @@ class DConsoleOutput {
      * Replace tags with color codes.
      *
      * matchesToReplace - Array of matches to replace.
-     */
+     * /
     protected string _replaceTags(STRINGAA matchesToReplace) {
         style = this.getStyle(matchesToReplace["tag"]);
         if (style.isEmpty) {
@@ -226,14 +226,14 @@ class DConsoleOutput {
      * Writes a message to the output stream.
      * Params:
      * string amessage Message to write.
-     */
+     * /
     protected int _write(string amessage) {
         return to!int(fwrite(_output, message));
     }
     
     /**
      * Gets the current styles offered
-     */
+     * /
     array getStyle(string styleName) {
         return _styles.get(styleName, null);
     }
@@ -255,7 +255,7 @@ class DConsoleOutput {
      * Params:
      * string astyle The style to set.
      * @param array definition The array definition of the style to change or create..
-     */
+     * /
     void setStyle(string astyle, array definition) {
         if (!definition) {
             _styles.remove(style);
@@ -280,7 +280,7 @@ class DConsoleOutput {
      * Params:
      * int type The output type to use. Should be one of the class DConstants.
      * @throws \InvalidArgumentException in case of a not supported output type.
-     */
+     * /
     void setOutputAs(int type) {
         if (!in_array(type, [self.RAW, self.PLAIN, self.COLOR], true)) {
             throw new DInvalidArgumentException("Invalid output type `%s`.".format(type));
@@ -290,9 +290,9 @@ class DConsoleOutput {
     
     // Clean up and close handles
     auto __destruct() {
-        /** @psalm-suppress RedundantCondition */
+        /** @psalm-suppress RedundantCondition * /
         if (isResource(_output)) {
             fclose(_output);
         }
-    }
+    } */
 }

@@ -43,7 +43,7 @@ class DConsoleInputOption {
     protected bool _isBooleanOption;
 
     // Default value for the option
-    protected string|bool|null _default = null;
+    // TODO protected string|bool|null _default = null;
 
     // Can the option accept multiple value definition.
     protected bool _multiple;
@@ -70,7 +70,7 @@ class DConsoleInputOption {
      * @param bool isRequired Whether this option is required or not.
      * @param string prompt The prompt string.
      * @throws \UIM\Console\Exception\ConsoleException
-     */
+     * /
     this(
         string aName,
         string ashort = "",
@@ -111,7 +111,7 @@ class DConsoleInputOption {
     
     /**
      * Get the value of the name attribute.
-     */
+     * /
     string name() {
         return _name;
     }
@@ -125,7 +125,7 @@ class DConsoleInputOption {
      * Generate the help for this this option.
      * Params:
      * int width The width to make the name of the option.
-     */
+     * /
     string help(int width = 0) {
         string default;
         if (_default && _default != true) {
@@ -193,7 +193,7 @@ class DConsoleInputOption {
      * Check that a value is a valid choice for this option.
      * Params:
      * string|bool aValue The choice to validate.
-     */
+     * /
     bool validChoice(string|bool aValue) {
         if (_choices.isEmpty) {
             return true;
@@ -240,5 +240,5 @@ class DConsoleInputOption {
         choices = option.addChild("choices");
         _choices.each!(valid => choices.addChild("choice", valid));
         return parent;
-    }
+    } */
 }

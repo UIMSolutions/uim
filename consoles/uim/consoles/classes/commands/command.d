@@ -19,7 +19,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
     mixin TConfigurable!();
     //  @use \UIM\Event\EventDispatcherTrait<\UIM\Command\Command>
     mixin TEventDispatcher;
-    mixin ValidatorAwareTemplate();
+    mixin TValidatorAware;
 
     this() {
         initialize;

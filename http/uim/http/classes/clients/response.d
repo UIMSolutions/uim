@@ -63,8 +63,8 @@ import uim.http;
  * ```
  */
 class DResponse { // }: Message : IResponse {
-    /* 
     use MessageTemplate();
+    /* 
 
     /**
      * The status code of the response.

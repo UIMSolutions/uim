@@ -18,7 +18,7 @@ class DPluginAssetsCopyCommand : DCommand {
         return "plugin-assets copy";
     }
 
-    /* mixin PluginAssetsTemplate();
+    /* mixin TPluginAssets;
 
     /**
      * Copying plugin assets to app`s webroot. For vendor namespaced plugin,

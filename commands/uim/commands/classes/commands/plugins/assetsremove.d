@@ -8,6 +8,8 @@ import uim.commands;
 class DPluginAssetsRemoveCommand : DCommand {
    mixin(CommandThis!("PluginAssetsRemove"));
 
+    mixin TPluginAssets;
+
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		
@@ -18,7 +20,6 @@ class DPluginAssetsRemoveCommand : DCommand {
         return "plugin-assets remove";
     }
 
-    /* mixin PluginAssetsTemplate();
 
     // Remove plugin assets from app`s webroot.
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {

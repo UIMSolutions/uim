@@ -105,7 +105,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      */
     mixin TEventDispatcher();
     mixin TRulesAware();
-    mixin ValidatorAwareTemplate();
+    mixin TValidatorAware;
 
     // Name of default validation set.
     const string DEFAULT_VALIDATOR = "default";

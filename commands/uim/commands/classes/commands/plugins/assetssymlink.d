@@ -19,7 +19,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
     }
 
     /* 
-    mixin PluginAssetsTemplate();
+    mixin TPluginAssets;
 
     /**
      * Attempt to symlink plugin assets to app`s webroot. If symlinking fails it

@@ -73,8 +73,8 @@ import uim.http;
  * UIM comes with built-in support for basic authentication.
  */
 class DClient { // }: IClient {
-  /* 
   mixin InstanceConfigTemplate();
+  /* 
 
   configuration.updateDefaults([
     "auth": null,

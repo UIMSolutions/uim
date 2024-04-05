@@ -13,8 +13,8 @@ import uim.errors;
  * @link https://book.UIM.org/5/en/development/debugging.html#namespace-UIM\Error
  */
 class DDebugger {
-    /*
     mixin InstanceConfigTemplate();
+    /*
 
     // Default configuration
     configuration.updateDefaults([

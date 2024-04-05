@@ -8,8 +8,8 @@ import uim.http;
  * DatabaseSession provides methods to be used with Session.
  */
 class DatabaseSession { // }: SessionHandler {
+    mixin LocatorAwareTemplate();
     /* 
-    use LocatorAwareTemplate();
 
     // Reference to the table handling the session data
     protected Table _table;

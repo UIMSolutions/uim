@@ -11,8 +11,7 @@ import uim.http;
  * for making requests.
  */
 class DRequest { // }: Message, IRequest {
-    /* 
-    use RequestTemplate();
+    mixin RequestTemplate();
 
     /**
      * Constructor

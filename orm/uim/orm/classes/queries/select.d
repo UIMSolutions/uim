@@ -15,7 +15,7 @@ import uim.orm;
  */
 class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
     /* 
-    mixin CommonQueryTemplate();
+    mixin CommonTQuery();
 
     // Indicates that the operation should append to the list
     const int APPEND = 0;

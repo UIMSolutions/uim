@@ -6,7 +6,7 @@ import uim.orm;
 
 class DeleteQuery : DQuery {
     /*
-    mixin CommonQueryTemplate();
+    mixin CommonTQuery();
 
     this(Table mytable) {
         super(table.getConnection());

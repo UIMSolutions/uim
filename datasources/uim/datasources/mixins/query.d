@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.datasources.trait_;
+module uim.datasources.mixins.query;
 
 @safe:
 import uim.datasources;
@@ -12,12 +12,12 @@ import uim.datasources;
  * Contains the characteristics for an object that is attached to a repository and
  * can retrieve results based on any criteria.
  */
-mixin template QueryTemplate() {
+mixin template TQuery() {
     /**
      * Instance of a table object this query is bound to
      *
      * @var uim.datasources.IRepository
-     */
+     * /
     protected _repository;
 
     /**
@@ -27,7 +27,7 @@ mixin template QueryTemplate() {
      *
      * @var iterable|null
      * @see uim.datasources.QueryTrait::setResult()
-     */
+     * /
     protected _results;
 
     /**
@@ -35,7 +35,7 @@ mixin template QueryTemplate() {
      * result
      *
      * @var array
-     */
+     * /
     protected _mapReduce = null;
 
     /**
@@ -43,14 +43,14 @@ mixin template QueryTemplate() {
      * results when fetched
      *
      * @var array<callable>
-     */
+     * /
     protected _formatters = null;
 
     /**
      * A query cacher instance if this query has caching enabled.
      *
      * @var uim.datasources.QueryCacher|null
-     */
+     * /
     protected _cache;
 
     /**
@@ -58,12 +58,12 @@ mixin template QueryTemplate() {
      * by any method in this class.
      *
      * @var array
-     */
+     * /
     protected _options = null;
 
     /**
      * Whether the query is standalone or the product of an eager load operation.
-     */
+     * /
     protected bool _eagerLoaded = false;
 
     /**
@@ -72,7 +72,7 @@ mixin template QueryTemplate() {
      *
      * @param uim.Datasource\IRepository|uim.orm.Table repository The default table object to use
      * @return this
-     */
+     * /
     function repository(IRepository repository) {
         _repository = repository;
 
@@ -84,7 +84,7 @@ mixin template QueryTemplate() {
      * that is, the table that will appear in the from clause.
      *
      * @return uim.Datasource\IRepository
-     */
+     * /
     function getRepository(): IRepository
     {
         return _repository;
@@ -101,7 +101,7 @@ mixin template QueryTemplate() {
      *
      * @param range results The results this query should return.
      * @return this
-     */
+     * /
     function setResult(Range results) {
         _results = results;
 
@@ -116,7 +116,7 @@ mixin template QueryTemplate() {
      *
      * @return uim.Datasource\IResultSet
      * @psalm-suppress ImplementedReturnTypeMismatch
-     */
+     * /
     #[\ReturnTypeWillChange]
     function getIterator() {
         return this.all();
@@ -157,7 +157,7 @@ mixin template QueryTemplate() {
      * @param \Psr\SimpleCache\ICache|string myConfiguration Either the name of the cache config to use, or
      *   a cache engine instance.
      * @return this
-     */
+     * /
     function cache(key, myConfiguration = "default") {
         if (key == false) {
             _cache = null;
@@ -171,7 +171,7 @@ mixin template QueryTemplate() {
 
     /**
      * Returns the current configured query `_eagerLoaded` value
-     */
+     * /
     bool isEagerLoaded() {
         return _eagerLoaded;
     }
@@ -182,7 +182,7 @@ mixin template QueryTemplate() {
      *
      * @param bool value Whether to eager load.
      * @return this
-     */
+     * /
     function eagerLoaded(bool value) {
         _eagerLoaded = value;
 
@@ -199,7 +199,7 @@ mixin template QueryTemplate() {
      *
      * @param string field The field to alias
      * @param string|null alias the alias used to prefix the field
-     */
+     * /
     STRINGAA aliasField(string field, string alias = null) {
         if (strpos(field, ".") == false) {
             alias = alias ?: this.getRepository().aliasName();
@@ -220,7 +220,7 @@ mixin template QueryTemplate() {
      *
      * @param array fields The fields to alias
      * @param string|null defaultAlias The default alias
-     */
+     * /
     STRINGAA aliasFields(array fields, string defaultAlias = null) {
         aliased = null;
         foreach (fields as alias: field) {
@@ -244,7 +244,7 @@ mixin template QueryTemplate() {
      * on Cake\collections.Collection.
      *
      * @return uim.Datasource\IResultSet
-     */
+     * /
     function all(): IResultSet
     {
         if (_results != null) {
@@ -268,7 +268,7 @@ mixin template QueryTemplate() {
 
     /**
      * Returns an array representation of the results after executing the query.
-     */
+     * /
     array toArray() {
         return this.all().toArray();
     }
@@ -288,7 +288,7 @@ mixin template QueryTemplate() {
      * @param bool canOverwrite Set to true to overwrite existing map + reduce functions.
      * @return this
      * @see uim.collections.Iterator\MapReduce for details on how to use emit data to the map reducer.
-     */
+     * /
     function mapReduce(?callable mapper = null, ?callable reducer = null, bool canOverwrite = false) {
         if (canOverwrite) {
             _mapReduce = null;
@@ -307,7 +307,7 @@ mixin template QueryTemplate() {
 
     /**
      * Returns the list of previously registered map reduce routines.
-     */
+     * /
     array getMapReducers() {
         return _mapReduce;
     }
@@ -403,7 +403,7 @@ mixin template QueryTemplate() {
      * @param int|bool mode Whether to overwrite, append or prepend the formatter.
      * @return this
      * @throws \InvalidArgumentException
-     */
+     * /
     function formatResults(?callable formatter = null, mode = self::APPEND) {
         if (mode == self::OVERWRITE) {
             _formatters = null;
@@ -431,7 +431,7 @@ mixin template QueryTemplate() {
      * Returns the list of previously registered format routines.
      *
      * @return array<callable>
-     */
+     * /
     function getResultFormatters() {
         return _formatters;
     }
@@ -447,7 +447,7 @@ mixin template QueryTemplate() {
      * ```
      *
      * @return uim.Datasource\IEntity|array|null The first result from the ResultSet.
-     */
+     * /
     function first() {
         if (_isDirty) {
             this.limit(1);
@@ -461,7 +461,7 @@ mixin template QueryTemplate() {
      *
      * @throws uim.Datasource\exceptions.RecordNotFoundException When there is no first record.
      * @return uim.Datasource\IEntity|array The first result from the ResultSet.
-     */
+     * /
     function firstOrFail() {
         entity = this.first();
         if (!entity) {
@@ -490,7 +490,7 @@ mixin template QueryTemplate() {
      * be processed by this class DAnd not returned by this function
      * @return array
      * @see applyOptions()
-     */
+     * /
     array getOptions() {
         return _options;
     }
@@ -502,7 +502,7 @@ mixin template QueryTemplate() {
      * @param array arguments list of arguments for the method to call
      * @return mixed
      * @throws \BadMethodCallException if no such method exists in result set
-     */
+     * /
     function __call(string method, array arguments) {
         resultSetClass = _decoratorClass();
         if (hasAllValues(method, get_class_methods(resultSetClass), true)) {
@@ -528,14 +528,14 @@ mixin template QueryTemplate() {
      *
      * @param array<string, mixed> options the options to be applied
      * @return this
-     */
+     * /
     abstract function applyOptions(IData[string] optionData);
 
     /**
      * Executes this query and returns a traversable object containing the results
      *
      * @return uim.Datasource\IResultSet
-     */
+     * /
     abstract protected function _execute(): IResultSet;
 
     /**
@@ -543,7 +543,7 @@ mixin template QueryTemplate() {
      *
      * @param \Traversable result Original results
      * @return uim.Datasource\IResultSet
-     */
+     * /
     protected function _decorateResults(Traversable result): IResultSet
     {
         decorator = _decoratorClass();
@@ -571,8 +571,8 @@ mixin template QueryTemplate() {
      *
      * @return string
      * @psalm-return class-string<uim.Datasource\IResultSet>
-     */
+     * /
     protected string _decoratorClass() {
         return ResultSetDecorator::class;
-    }
+    } */
 }

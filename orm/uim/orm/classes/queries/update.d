@@ -5,7 +5,7 @@ import uim.orm;
 @safe:
 
 class DUpdateQuery : DQuery {
-    // mixin CommonQueryTemplate();
+    // mixin CommonTQuery();
 
     /**
      * Constructor

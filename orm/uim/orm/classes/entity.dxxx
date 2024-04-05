@@ -9,7 +9,7 @@ import uim.orm;
  * methods for retrieving and storing properties associated in this row.
  */
 class DEntity : IEntity, IInvalidProperty {
-    use EntityTemplate;
+    use TEntity;
 
     /**
      * Initializes the internal properties of this entity out of the

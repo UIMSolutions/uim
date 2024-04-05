@@ -10,7 +10,7 @@ import uim.orm;
  */
 class DORMEntity { // }: IEntity, IInvalidProperty {
     /* 
-    mixin EntityTemplate();
+    mixin TEntity();
 
     /**
      * Initializes the internal properties of this entity out of the

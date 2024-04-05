@@ -5,7 +5,7 @@ import uim.css;
 @safe:
 
 bool testCss(ICss cssToTest) {
-    assert(!cssToTest.isNull, "In testCss: cssToTest is null");
+    assert(cssToTest !is null, "In testCss: cssToTest is null");
     
     return true;
 }

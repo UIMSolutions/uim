@@ -22,13 +22,11 @@ class DWidget : IWidget {
   }
 
   this(DStringTemplate newTemplate) {
-    this();
-    this.stringTemplate(newTemplate);
+    this().stringTemplate(newTemplate);
   }
 
   this(string newName) {
-    this();
-    this.name(newName);
+    this().name(newName);
   }
 
   bool initialize(IData[string] initData = null) {

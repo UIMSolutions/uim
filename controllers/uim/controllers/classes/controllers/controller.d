@@ -79,7 +79,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      */
     mixin(TProperty!("string", "name"));
     mixin(TProperty!("string", "pluginName"));
-    mixin(TProperty!("Response", "response"));
+    // TODO mixin(TProperty!("Response", "response"));
 
 
     // View classes for content negotiation.

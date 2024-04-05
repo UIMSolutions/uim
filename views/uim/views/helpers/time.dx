@@ -15,7 +15,7 @@ import uim.views;
 class DTimeHelper : Helper {
     mixin(HelperThis!("Time"));
     
-    mixin StringTemplateTemplate;
+    mixin TStringTemplate;
 
     protected IConfiguration configuration.updateDefaults([
                 "outputTimezone": null,

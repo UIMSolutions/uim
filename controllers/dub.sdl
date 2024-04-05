@@ -17,6 +17,8 @@ dependency "uim:oop" path="../"
 dependency "uim:events" path="../"
 dependency "uim:logging" path="../"
 dependency "uim:models" path="../"
+dependency "uim:orm" path="../"
+dependency "uim:views" path="../"
 
 targetType "library"
 

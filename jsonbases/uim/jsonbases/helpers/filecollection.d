@@ -19,7 +19,7 @@ IFolder idFolder(IFolder aFolder, string anId) {
   version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
 
   // Preconditions
-  if (aFolder.isNull || // Empty parameter 
+  if (aFolder is null || // Empty parameter 
       !aFolder.exists || // Folder not found
       !anId.isUUID) // Wrong UUID-Format 
       { return null; }

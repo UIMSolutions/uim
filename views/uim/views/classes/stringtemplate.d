@@ -11,7 +11,7 @@ import uim.views;
  * Used by several helpers to provide simple flexible templates
  * for generating HTML and other content.
  */
-class DStringTemplate() {
+class DStringTemplate {
     mixin TConfigurable!();
 
     this() {

@@ -9,8 +9,8 @@ import uim.views;
  *
  * Once collected context data can be passed to another object.
  * This is done in Controller, TemplateTask and View for example.
- * /
-trait ViewVarsTrait {
+ */
+mixin template ViewVarsTrait {
     /**
      * The view builder instance being used.
      *

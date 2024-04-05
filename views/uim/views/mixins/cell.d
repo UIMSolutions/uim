@@ -6,7 +6,7 @@ import uim.views;
 
 // Provides cell() method for usage in Controller and View classes.
 /*
-trait CellTrait {
+mixin template CellTrait {
     /**
      * Renders the given cell.
      *

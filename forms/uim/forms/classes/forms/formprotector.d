@@ -13,17 +13,22 @@ import uim.forms;
  * - Values of hidden inputs have not been changed.
  *
  * @internal
- * /
+ */
 class DFormProtector {
+    // Unlocked fields.
+    protected string[] unlockedFields;
+
+    // Error message providing detail for failed validation.
+    protected string _debugMessage;
+
+    // Get validation error message.
+    string getError() {
+        return _debugMessage;
+    }
+    
     /*
     // Fields list.
     protected array fields = [];
-
-    // Unlocked fields.
-    protected string[] unlockedFields = [];
-
-    // Error message providing detail for failed validation.
-    protected string adebugMessage = null;
 
     /**
      * Validate submitted form data.
@@ -156,12 +161,7 @@ class DFormProtector {
         return this;
     }
     
-    /**
-     * Get validation error message.
-     * /
-    string getError() {
-        return this.debugMessage;
-    }
+
     
     /**
      * Extract token from data.

@@ -7,11 +7,11 @@ import uim.views;
 /* * Adds string template functionality to any class by providing methods to
  * load and parse string templates.
  *
- * This trait requires the implementing class to provide a `config()`
+ * This mixin template requires the implementing class to provide a `config()`
  * method for reading/updating templates. An implementation of this method
  * is provided by `UIM\Core\InstanceConfigTrait`
  * /
-trait StringTemplateTrait {
+mixin template StringTemplateTrait {
     // StringTemplate instance.
     protected DStringTemplate _templater = null;
 

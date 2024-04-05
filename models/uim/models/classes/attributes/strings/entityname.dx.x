@@ -9,7 +9,7 @@ import uim.models;
 
 @safe:
 
-/* Type for trait parameters that take entity names as values
+/* Type for mixin template parameters that take entity names as values
 is.dataFormat.character
 is.dataFormat.big
 is.dataFormat.array

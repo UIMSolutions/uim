@@ -5,7 +5,7 @@
 **********************************************************************************************************/
 module uim.models.classes.attributes.strings.attributename;
 
-// Type for trait parameters that take attribute names as values
+// Type for mixin template parameters that take attribute names as values
 
 import uim.models;
 
@@ -17,7 +17,7 @@ class DAttributeNameAttribute : DStringAttribute {
 attributeName
 Description
 
-Type for trait parameters that take attribute names as values
+Type for mixin template parameters that take attribute names as values
 
 Inheritance
 any <- char <- string <- attributeName

@@ -5,7 +5,7 @@ import uim.orm;
 @safe:
 
 // Contains method for setting and accessing ILocatorinstance
-trait LocatorAwareTrait {
+mixin template LocatorAwareTrait {
     // This object"s default table alias.
     protected string defaultTable = null;
 

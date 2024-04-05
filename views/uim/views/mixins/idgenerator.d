@@ -5,10 +5,10 @@ import uim.views;
 @safe:
 
 /**
- * A trait that provides id generating methods to be
+ * A mixin template that provides id generating methods to be
  * used in various widget classes.
  * /
-trait IdGeneratorTrait {
+mixin template IdGeneratorTrait {
     /**
      * Prefix for id attribute.
      * /

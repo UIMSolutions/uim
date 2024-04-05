@@ -9,7 +9,7 @@ module uim.orm.classes.associations.associationsnormalizertrait;
  * Contains methods for parsing the associated tables array that is typically
  * passed to a save operation
  * /
-trait AssociationsNormalizerTrait
+mixin template AssociationsNormalizerTrait
 {
     /**
      * Returns an array out of the original passed associations list where dot notation

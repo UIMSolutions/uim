@@ -5,14 +5,14 @@ import uim.validations;
 @safe:
 
 /**
- * A trait that provides methods for building and
+ * A mixin template that provides methods for building and
  * interacting with Validators.
  *
- * This trait is useful when building ORM like features where
+ * This mixin template is useful when building ORM like features where
  * the implementing class wants to build and customize a variety
  * of validator instances.
  *
- * This trait expects that classes including it define three constants:
+ * This mixin template expects that classes including it define three constants:
  *
  * - `DEFAULT_VALIDATOR` - The default validator name.
  * - `VALIDATOR_PROVIDER_NAME ` - The provider name the including class is assigned
@@ -23,7 +23,7 @@ import uim.validations;
  * If the including class DAlso : events the `Model.buildValidator` event
  * will be triggered when validators are created.
  * /
-trait ValidatorAwareTrait {
+mixin template ValidatorAwareTrait {
     // Validator class.
     protected string my_validatorClass = Validator.classname;
 

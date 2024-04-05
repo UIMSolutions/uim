@@ -3,7 +3,7 @@ import uim.i18n;
 
 @safe:
 /**
- * Trait for date formatting methods shared by both Time & Date.
+ * mixin template for date formatting methods shared by both Time & Date.
  *
  * This template expects that the implementing class define _toStringFormat.
  */

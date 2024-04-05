@@ -4,7 +4,7 @@ import uim.oop;
 
 @safe:
 
-// Trait providing utility methods for file based config engines.
+// mixin template providing utility methods for file based config engines.
 template FileConfigTemplate {
     // The path this engine finds files on.
     protected string _path = "";

@@ -63,7 +63,7 @@ import uim.http;
  * ```
  */
 class DResponse { // }: Message : IResponse {
-    use MessageTemplate();
+    mixin MessageTemplate();
     /* 
 
     /**

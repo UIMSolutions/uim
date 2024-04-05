@@ -20,31 +20,7 @@ import uim.errors;
  * If undefined, an ExceptionRenderer will be selected based on the current SAPI (CLI or Web).
  */
 class DExceptionTrap {
-    mixin TConfigurable!();
-    // @use \UIM\Event\EventDispatcherTrait<\UIM\Error\ExceptionTrap>
-    mixin TEventDispatcher;
-    
-    this() {
-        initialize;
-    }
-
-    this(IData[string] initData) {
-        initialize(initData);
-    }
-
-    this(string name) {
-        this().name(name);
-    }
-
-    // Hook method
-    bool initialize(IData[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
-
-        return true;
-    }
-
-    mixin(TProperty!("string", "name"));
+    mixin TRequest;
 
     /**
      * Configuration options. Generally these will be defined in your config/app.d

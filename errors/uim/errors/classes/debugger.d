@@ -13,7 +13,29 @@ import uim.errors;
  * @link https://book.UIM.org/5/en/development/debugging.html#namespace-UIM\Error
  */
 class DDebugger {
-    mixin InstanceConfigTemplate();
+    mixin TConfigurable!();
+    
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    this(string name) {
+        this().name(name);
+    }
+
+    // Hook method
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
     /*
 
     // Default configuration

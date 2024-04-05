@@ -14,7 +14,7 @@ import uim.oop;
  * that mock objects create.
  */
 template IntegrationTestTemplate() {
-    mixin CookieCryptTemplate();
+    mixin TCookieCrypt;
     mixin ContainerStubTemplate();
 
     // The data used to build the next request.

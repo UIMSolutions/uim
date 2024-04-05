@@ -12,8 +12,29 @@ import uim.http;
  * - `styleNonce` Enable to have a nonce policy added to the style-src directive.
  */
 class DCspMiddleware { // }: IMiddleware {
-    /* 
-    mixin InstanceConfigTemplate();
+    mixin TConfigurable!();
+    
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    this(string name) {
+        this().name(name);
+    }
+
+    // Hook method
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
 
     /**
      * CSP Builder

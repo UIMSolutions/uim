@@ -4,7 +4,29 @@ import uim.orm;
 @safe:
 
 class DBehavior : IEventListener {
-    use InstanceConfigTemplate();
+    mixin TConfigurable!();
+    
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    this(string name) {
+        this().name(name);
+    }
+
+    // Hook method
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
 
     // Table instance.
     protected Table my_table;

@@ -9,7 +9,29 @@ import uim.http;
  * to the session, to be rendered in a view with the FlashHelper.
  */
 class DFlashMessage {
-    use InstanceConfigTemplate();
+    mixin TConfigurable!();
+    
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    this(string name) {
+        this().name(name);
+    }
+
+    // Hook method
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
     /* 
 
     // Default configuration

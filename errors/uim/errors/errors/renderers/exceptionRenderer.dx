@@ -100,7 +100,7 @@ class DExceptionRenderer : IExceptionRenderer
      * This method returns the built in `ErrorController` normally, or if an error is repeated
      * a bare controller will be used.
      *
-     * @return uim.cake.controllers.Controller
+     * @return uim.controllers.Controller
      * @triggers Controller.startup controller
      */
     protected Controller _getController() {

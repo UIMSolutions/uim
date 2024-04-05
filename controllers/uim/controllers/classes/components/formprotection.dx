@@ -1,4 +1,4 @@
-module uim.cake.controllerss.components.formprotection;
+module uim.controllers.components.formprotection;
 
 import uim.controllers;
 
@@ -17,34 +17,35 @@ import uim.controllers;
 class DFormProtectionComponent : DComponent {  
     mixin(ComponentThis!("FormProtection"));
 
-  override bool initialize(IData[string] initData = null) {
-    if (!super.initialize(initData)) {
-      return false;
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+        return false;
+        }
+
+        /**
+        * Default config
+        *
+        * - `validate` - Whether to validate request body / data. Set to false to disable
+        *  for data coming from 3rd party services, etc.
+        * - `unlockedFields` - Form fields to exclude from validation. Fields can
+        *  be unlocked either in the Component, or with FormHelper.unlockField().
+        *  Fields that have been unlocked are not required to be part of the POST
+        *  and hidden unlocked fields do not have their values checked.
+        * - `unlockedActions` - Actions to exclude from POST validation checks.
+        * - `validationFailureCallback` - Callback to call in case of validation
+        *  failure. Must be a valid Closure. Unset by default in which case
+        *  exception is thrown on validation failure.
+        */
+        configuration.updateDefaults([
+            "validate": BooleanData(true),
+            "unlockedFields": ArrayData,
+            "unlockedActions": ArrayData,
+            "validationFailureCallback": NullData,
+        ]);
+
+        return true;
     }
-
-    /**
-     * Default config
-     *
-     * - `validate` - Whether to validate request body / data. Set to false to disable
-     *  for data coming from 3rd party services, etc.
-     * - `unlockedFields` - Form fields to exclude from validation. Fields can
-     *  be unlocked either in the Component, or with FormHelper.unlockField().
-     *  Fields that have been unlocked are not required to be part of the POST
-     *  and hidden unlocked fields do not have their values checked.
-     * - `unlockedActions` - Actions to exclude from POST validation checks.
-     * - `validationFailureCallback` - Callback to call in case of validation
-     *  failure. Must be a valid Closure. Unset by default in which case
-     *  exception is thrown on validation failure.
-     */
-    configuration.updateDefaults([
-        "validate": BooleanData(true),
-        "unlockedFields": ArrayData,
-        "unlockedActions": ArrayData,
-        "validationFailureCallback": NullData,
-    ]);
-
-    return true;
-  }
+    
     // Default message used for exceptions thrown.
     const string DEFAULT_EXCEPTION_MESSAGE = "Form tampering protection token validation failed.";
 

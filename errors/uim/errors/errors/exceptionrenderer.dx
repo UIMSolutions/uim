@@ -37,7 +37,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
     /**
      * Controller instance.
      *
-     * @var uim.cake.controllers.Controller
+     * @var uim.controllers.Controller
      * /
     protected controller;
 
@@ -100,7 +100,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
      * This method returns the built in `ErrorController` normally, or if an error is repeated
      * a bare controller will be used.
      *
-     * @return uim.cake.controllers.Controller
+     * @return uim.controllers.Controller
      * @triggers Controller.startup controller
      * /
     protected Controller _getController() {
@@ -131,7 +131,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
                 myClass = App::className("Error", "Controller", "Controller");
             }
 
-            /** @var uim.cake.controllers.Controller controller * /
+            /** @var uim.controllers.Controller controller * /
             controller = new myClass(myRequest);
             controller.startupProcess();
         } catch (Throwable e) {

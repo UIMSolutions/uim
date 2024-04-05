@@ -129,7 +129,7 @@ class DMapReduce { // }: IteratorAggregate {
             throw new LogicException("No reducer auto was provided");
         }
         auto myReducer = _reducer;
-        if (!myReducer.isNull) {
+        if (!myReducer is null) {
             _intermediate.byKeyValue.each!(kv => myReducer(kv.value, kv.key, this));
         }
        _intermediate = null;

@@ -77,7 +77,7 @@ class DConsoleInput {
                 return true;});
             readyFds = stream_select(readFds, writeFds, errorFds, timeToWait);
             restore_error_handler();
-            if (!error.isNull) {
+            if (!error is null) {
                 throw new DConsoleException(error);
             }
             return readyFds > 0;

@@ -62,7 +62,7 @@ class DArrayEngine : DCacheEngine {
      * Increments the value of an integer cached key
      * @param int anOffset How much to addValue  */
   /* int increment(string dataId, int addValue = 1) | false {
-    if (get(dataId).isNull) {
+    if (get(dataId) is null) {
       this.set(dataId, 0);
     }
 
@@ -77,7 +77,7 @@ class DArrayEngine : DCacheEngine {
      * @param int anOffset How much to subValue
      */
   /* int decrement(string dataId, int subValue = 1) | false {
-    if (get(dataId).isNull) {
+    if (get(dataId) is null) {
       this.set(dataId, 0);
     }
     auto key = _key(dataId);

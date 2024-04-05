@@ -129,7 +129,7 @@ class DCommandRunner { // }: IEventDispatcher {
         auto command = this.getCommand(aConsoleIo, myCommands, name);
         
         auto result = this.runCommand(command, argv,  aConsoleIo);
-        if (result.isNull) {
+        if (result is null) {
             return ICommand.CODE_SUCCESS;
         }
         if (result >= 0 && result <= 255) {

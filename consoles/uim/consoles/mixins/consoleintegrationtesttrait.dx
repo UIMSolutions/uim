@@ -43,7 +43,7 @@ mixin template ConsoleIntegrationTestTemplate() {
 
        _out ??= new DStubConsoleOutput();
        _err ??= new DStubConsoleOutput();
-        if (_in.isNull) {
+        if (_in is null) {
            _in = new DStubConsoleInput(anInput);
         } else if (anInput) {
             throw new DInvalidArgumentException(

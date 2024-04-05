@@ -226,7 +226,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * /
     bool add(string aKey, IData aValue) {
         mycachedValue = get(aKey);
-        if (mycachedValue.isNull) {
+        if (mycachedValue is null) {
             return this.set(aKey, myvalue);
         }
         return false;
@@ -290,7 +290,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      *  driver"s default duration will be used.
      */
     /* protected int duration(DateInterval|int myttl) {
-        if (myttl.isNull) {
+        if (myttl is null) {
             return configuration["duration"];
         }
         if (isInt(myttl)) {

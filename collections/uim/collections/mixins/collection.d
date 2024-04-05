@@ -120,7 +120,7 @@ mixin template CollectionTemplate() {
  
     float|int avg(string mypath = null) {
         auto result = this;
-        if (!mypath.isNull) {
+        if (!mypath is null) {
             result = result.extract(mypath);
         }
         result = result
@@ -182,7 +182,7 @@ mixin template CollectionTemplate() {
         mygroup = [];
         this.optimizeUnwrap().each!((value) {
             auto pathValue = mycallback(value);
-            if (pathValue.isNull) {
+            if (pathValue is null) {
                 throw new DInvalidArgumentException(
                     "Cannot index by path that does not exist or contains a null value. " ~
                     "Use a callback to return a default value for that path."
@@ -203,7 +203,7 @@ mixin template CollectionTemplate() {
     }
  
     float|int sumOf(string mypath = null) {
-        if (mypath.isNull) {
+        if (mypath is null) {
             return array_sum(this.toList());
         }
         mycallback = _propertyExtractor(mypath);
@@ -397,7 +397,7 @@ mixin template CollectionTemplate() {
 
             if (!options["groupPath"]) {
                 mymapKey = myrowKey(myvalue, aKey);
-                if (mymapKey.isNull) {
+                if (mymapKey is null) {
                     throw new DInvalidArgumentException(
                         'Cannot index by path that does not exist or contains a null value. ' .
                         'Use a callback to return a default value for that path.'
@@ -408,14 +408,14 @@ mixin template CollectionTemplate() {
                 return null;
             }
             aKey = options["groupPath"](myvalue, aKey);
-            if (aKey.isNull) {
+            if (aKey is null) {
                 throw new DInvalidArgumentException(
                     'Cannot group by path that does not exist or contains a null value. ' .
                     'Use a callback to return a default value for that path.'
                 );
             }
             mymapKey = myrowKey(myvalue, aKey);
-            if (mymapKey.isNull) {
+            if (mymapKey is null) {
                 throw new DInvalidArgumentException(
                     'Cannot index by path that does not exist or contains a null value. ' .
                     'Use a callback to return a default value for that path.'

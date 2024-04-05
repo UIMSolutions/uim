@@ -5,7 +5,7 @@ import uim.consoles;
 @safe:
 
 bool testConsole(IConsole consoleToTest) {
-    assert(!consoleToTest.isNull, "In testConsole: consoleToTest is null");
+    assert(consoleToTest !is null, "In testConsole: consoleToTest is null");
     
     return true;
 }

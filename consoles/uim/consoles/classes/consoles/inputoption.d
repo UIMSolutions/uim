@@ -28,10 +28,8 @@ class DConsoleInputOption {
         return true;
     }
 
-    mixin(TProperty!("string", "name"));
-
     // Name of the option
-    protected string _name;
+    mixin(TProperty!("string", "name"));
 
     // Short (1 character) alias for the option.
     protected string _short;

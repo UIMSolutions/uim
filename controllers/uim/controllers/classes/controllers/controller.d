@@ -1,4 +1,4 @@
-module controllers.uim.controllers.classes.controllers.controller;
+module uim.controllers.classes.controllers.controller;
 
 import uim.controllers;
 
@@ -54,11 +54,10 @@ class DController : IController { // IEventListener, IEventDispatcher {
     mixin TConfigurable!();
     // @use \UIM\Event\EventDispatcherTrait<\UIM\Core\IConsoleApplication>
     mixin EventDispatcherTemplate;
-    // @use \UIM\Event\EventDispatcherTrait<\UIM\Controller\Controller>
-    mixin EventDispatcherTemplate;
     mixin LocatorAwareTemplate;
     mixin LogTemplate;
     mixin ViewVarsTemplate;
+
     this() {
         initialize;
     }

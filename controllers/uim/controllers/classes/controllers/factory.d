@@ -1,4 +1,4 @@
-module controllers.uim.controllers.classes.controllers.factory;
+module uim.controllers.classes.controllers.factory;
 
 import uim.controllers;
 

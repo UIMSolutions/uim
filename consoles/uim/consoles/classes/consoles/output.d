@@ -61,7 +61,7 @@ class DConsoleOutput {
     const int COLOR = 2;
 
     // Constant for a newline.
-    const string LF; // TODO = D_EOL;
+    const string LF = ""; // TODO = D_EOL;
 
     // File handle for output.
     // TODO protected resource _output;

@@ -14,7 +14,8 @@ import uim.orm;
  * @implements \UIM\Datasource\IResultSet<T>
  */
 class DResultSet : IResultSet {
-        mixin TConfigurable!();
+    mixin TConfigurable!;
+    mixin CollectionTemplate;
 
     this() {
         initialize;
@@ -37,7 +38,6 @@ class DResultSet : IResultSet {
     }
 
     mixin(TProperty!("string", "name"));
-    mixin CollectionTemplate();
 
     // Points to the next record number that should be fetched
     protected int my_index = 0;

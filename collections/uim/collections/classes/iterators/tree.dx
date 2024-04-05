@@ -11,7 +11,7 @@ import uim.collections;
  * @template-extends \RecursiveIteratorIterator<\RecursiveIterator>
  */
 class DTreeIterator : RecursiveIteratorIterator, ICollection {
-    mixin CollectionTemplate();
+    mixin CollectionTemplate;
 
     // The iteration mode
     protected int _mode;

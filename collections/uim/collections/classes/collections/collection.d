@@ -16,6 +16,8 @@ import uim.collections;
  * @template-extends \IteratorIterator<mixed, mixed, \Traversable<mixed>>
  */
 class DCollection : /* IteratorIterator, */ ICollection {
+  mixin CollectionTemplate;
+
   protected IData[] _items;
 
   this() {}
@@ -27,7 +29,6 @@ class DCollection : /* IteratorIterator, */ ICollection {
 	bool initialize(IData[string] initData = null) {
 		return true;
 	}
-  // mixin CollectionTemplate();
 
   /* this(Range someItems) {
     if (someItems.isArray) {

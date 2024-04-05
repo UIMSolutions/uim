@@ -1,4 +1,9 @@
-module uim.collections;
+/*********************************************************************************************************
+  Copyright: © 2015-2024 Ozan Nurettin Süel (Sicherheitsschmiede)                                        
+  License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
+  Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
+**********************************************************************************************************/
+module collections.uim.collections.mixins.extract;
 
 import uim.collections;
 
@@ -9,14 +14,14 @@ import uim.collections;
  * from an array or object.
  */
 mixin template ExtractTemplate() {
-    /**
+     /**
      * Returns a callable that can be used to extract a property or column from
      * an array or object based on a dot separated path.
      * Params:
      * string aPath A dot separated path of column to follow
      * so that the final one can be returned or a callable that will take care
      * of doing that.
-     */
+     * /
     protected Closure _propertyExtractor(string columnPath) {
         if (!isString(somePath)) {
             return somePath(...);
@@ -42,7 +47,7 @@ mixin template ExtractTemplate() {
      * Params:
      * \ArrayAccess<string|int, mixed>|array data Data.
      * string[] someParts Path to extract from.
-     */
+     * /
     protected IData _extract(ArrayAccess|array data, string[] someParts) {
         auto aValue = null;
         bool isCollectionTransform = false;
@@ -78,7 +83,7 @@ mixin template ExtractTemplate() {
      * Params:
      * \ArrayAccess<string|int, mixed>|array data Data.
      * @param string[] someParts Path to extract from.
-     */
+     * /
     protected IData _simpleExtract(ArrayAccess|array data, array someParts) {
         auto value = null;
         someParts
@@ -98,7 +103,7 @@ mixin template ExtractTemplate() {
      * array conditions A key-value list of conditions to match where the
      * key is the property path to get from the current item and the value is the
      * value to be compared the item with.
-     */
+     * /
     protected Closure _createMatcherFilter(array conditions) {
          someMatchers = [];
         foreach (aProperty, aValue; conditions) {
@@ -115,5 +120,5 @@ mixin template ExtractTemplate() {
             }
             return true;
         };
-    }
+    } */
 }

@@ -11,7 +11,7 @@ import uim.collections;
  * @template-extends \RecursiveIteratorIterator<\RecursiveIterator>
  */
 class DTreePrinter : RecursiveIteratorIterator, ICollection {
-  use CollectionTemplate();
+  mixin CollectionTemplate;
 
   // A callable to generate the iteration key
   protected callable _key;

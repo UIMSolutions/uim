@@ -1,12 +1,12 @@
-module uim.collections;
+module uim.collections.mixins.collection;
 
 import uim.collections;
 
 @safe:
 
 // Offers a handful of methods to manipulate iterators
-template CollectionTemplate() {
-    mixin ExtractTemplate();
+mixin template CollectionTemplate() {
+    mixin ExtractTemplate;
 
     /**
      * Returns a new DCollection.
@@ -15,7 +15,7 @@ template CollectionTemplate() {
      * type of returned collection interface
      * Params:
      * IData ...myargs Constructor arguments.
-     */
+     * /
     protected ICollection newCollection(IData ...myargs) {
         return new DCollection(...myargs);
     }
@@ -331,7 +331,7 @@ template CollectionTemplate() {
              * - result = myhead + mytail = [6, 7, 8, 9]
              *
              * The logic above applies to collections of any size.
-             */
+              * /
 
             foreach (myiterator as myKey: myitem) {
                 result[mybucket] = [myKey, myitem];
@@ -584,7 +584,7 @@ template CollectionTemplate() {
         } else {
             myitems = [myitems];
         }
-        /** @var callable aCallback */
+        /** @var callable aCallback * /
         return new DZipIterator(chain([this.unwrap()], myitems), mycallback);
     }
  
@@ -651,7 +651,7 @@ template CollectionTemplate() {
      * callable|null myoperation A callable that allows you to customize the product result.
      * @param callable|null myfilter A filtering callback that must return true for a result to be part
      *  of the final results.
-     */
+     * /
     ICollection cartesianProduct(?callable myoperation = null, ?callable myfilter = null) {
         if (this.isEmpty) {
             return this.newCollection([]);
@@ -679,7 +679,7 @@ template CollectionTemplate() {
 
         while (!(mychangeIndex == 0 && mycurrentIndexes[0] == mycollectionArraysCounts[0])) {
             mycurrentCombination = array_map(function (myvalue, someKeys, myindex) {
-                /** @psalm-suppress InvalidArrayOffset */
+                /** @psalm-suppress InvalidArrayOffset * /
                 return myvalue[someKeys[myindex]];
             }, mycollectionArrays, mycollectionArraysKeys, mycurrentIndexes);
 
@@ -688,7 +688,7 @@ template CollectionTemplate() {
             }
             mycurrentIndexes[mylastIndex]++;
 
-            /** @psalm-suppress InvalidArrayOffset */
+            /** @psalm-suppress InvalidArrayOffset * /
             for (
                 mychangeIndex = mylastIndex;
                 mycurrentIndexes[mychangeIndex] == mycollectionArraysCounts[mychangeIndex] && mychangeIndex > 0;
@@ -733,7 +733,7 @@ template CollectionTemplate() {
     /**
      * Unwraps this iterator and returns the simplest
      * traversable that can be used for getting the data out
-     */
+     * /
     protected Iterator[] optimizeUnwrap() {
         myiterator = this.unwrap();
 
@@ -741,5 +741,5 @@ template CollectionTemplate() {
             myiterator = myiterator.getArrayCopy();
         }
         return myiterator;
-    }
+    } */
 }

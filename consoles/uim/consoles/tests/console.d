@@ -1,11 +1,11 @@
 module uim.consoles.tests.console;
 
-import uim.commands;
+import uim.consoles;
 
 @safe:
 
-bool testCommand(ICommand commandToTest) {
-    assert(!commandToTest.isNull, "In testCommand: commandToTest is null");
+bool testConsole(IConsole consoleToTest) {
+    assert(!consoleToTest.isNull, "In testConsole: consoleToTest is null");
     
     return true;
 }

@@ -1,4 +1,4 @@
-module uim.consoles.classes.consoleoutput;
+module consoles.uim.consoles.classes.consoles.consoleoutput;
 
 import uim.consoles;
 

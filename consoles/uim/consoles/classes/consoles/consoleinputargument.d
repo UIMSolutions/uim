@@ -1,4 +1,4 @@
-module uim.consoles.classes.consoleinputargument;
+module consoles.uim.consoles.classes.consoles.consoleinputargument;
 
 import uim.consoles;
 
@@ -49,14 +49,14 @@ class DConsoleInputArgument {
      * @param string ahelp The help text for this option
      * @param bool required Whether this argument is required. Missing required args will trigger exceptions
      * @param string[] choices Valid choices for this option.
-     */
+     * /
     this(string[] aName, string ahelp = "", bool required = false, string[] optionChoices = []) {
         if (isArray(name) && isSet(name["name"])) {
             foreach (aKey: aValue; name) {
                 this.{"_" ~ aKey} = aValue;
             }
         } else {
-            /** @var string aName */
+            /** @var string aName * /
            _name = name;
            _help = help;
            _required = required;
@@ -73,7 +73,7 @@ class DConsoleInputArgument {
      * Checks if this argument is equal to another argument.
      * Params:
      * \UIM\Console\ConsoleInputArgument argument ConsoleInputArgument to compare to.
-     */
+     * /
     bool isEqualTo(ConsoleInputArgument argument) {
         return this.name() == argument.name() &&
             this.usage() == argument.usage();
@@ -83,7 +83,7 @@ class DConsoleInputArgument {
      * Generate the help for this argument.
      * Params:
      * int width The width to make the name of the option.
-     */
+     * /
     string help(int width = 0) {
         name = _name;
         if (name.length < width) {
@@ -141,5 +141,5 @@ class DConsoleInputArgument {
         auto choices = option.addChild("choices");
         choices.each!(valid => choices.addChild("choice", valid));
         return parentElement;
-    }
+    } */
 }

@@ -1,4 +1,4 @@
-module uim.consoles.classes.consoleoptionparser;
+module consoles.uim.consoles.classes.consoles.consoleoptionparser;
 
 import uim.consoles;
 

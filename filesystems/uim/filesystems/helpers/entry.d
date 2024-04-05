@@ -9,9 +9,6 @@ unittest {
 }
 
 @safe:
-bool isNull(IFilesystemEntry anEntry) {
-	return (anEntry is null);
-}
 
 string debugInfo(IFilesystemEntry anEntry) {
   if (anEntry is null) { return "entry is missing (null)."; }

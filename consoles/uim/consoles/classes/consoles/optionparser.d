@@ -86,19 +86,19 @@ class DConsoleOptionParser {
     protected string _epilog = "";
 
     // Option definitions.
-    protected ConsoleInputOption[string] _options = [];
+    protected DConsoleInputOption[string] _options;
 
     // Map of short ~ long options, generated when using addOption()
-    protected STRINGAA _shortOptions = [];
+    protected STRINGAA _shortOptions;
 
     //  Positional argument definitions.
-    protected ConsoleInputArgument[] _args = [];
+    protected DConsoleInputArgument[] _args;
 
     // Command name.
     protected string _command = "";
 
     // Array of args (argv).
-    protected array _tokens = [];
+    // TODO protected array _token;
 
     // Root alias used in help output
     protected string _rootName = "uim";
@@ -109,8 +109,8 @@ class DConsoleOptionParser {
      * string acommand The command name this parser is for. The command name is used for generating help.
      * @param bool defaultOptions Whether you want the verbose and quiet options set. Setting
      * this to false will prevent the addition of `--verbose` & `--quiet` options.
-     */
-    this(string acommand = "", bool defaultOptions = true) {
+     * /
+    this(string newCommand = "", bool defaultOptions = true) {
         this.setCommand(command);
 
         this.addOption("help", [

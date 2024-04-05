@@ -61,13 +61,13 @@ class DConsoleOutput {
     const int COLOR = 2;
 
     // Constant for a newline.
-    const string LF = D_EOL;
+    const string LF; // TODO = D_EOL;
 
     // File handle for output.
-    protected resource _output;
+    // TODO protected resource _output;
 
     // The current output type.
-    protected int _outputAs = self.COLOR;
+    protected int _outputAs = COLOR;
 
     // text colors used in colored output.
     protected static int[string] _foregroundColors = [

@@ -176,10 +176,6 @@ class DTest {
   mixin(OProperty!("string", "name"));
 }
 
-bool isNull(DTest aValue) {
-  return aValue is null;
-}
-
 unittest {
   auto list = List!DTest;
   list.add(new DTest("1"));

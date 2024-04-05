@@ -35,7 +35,7 @@ class DCommandRunner { // }: IEventDispatcher {
     protected IConsoleApplication _app;
 
     // The application console commands are being run for.
-    protected ICommandFactory _factory = null;
+    protected DCommandFactory _factory = null;
 
     // The root command name. 
     protected string _rootCommandName = "uim";

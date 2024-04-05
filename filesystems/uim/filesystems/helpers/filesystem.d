@@ -12,7 +12,3 @@ unittest {
 string workingDirectory() {
 	return () @trusted { return std.file.getcwd(); }();
 }
-
-bool isNull(IFilesystem aFilesystem) {
-	return (aFilesystem is null);
-}

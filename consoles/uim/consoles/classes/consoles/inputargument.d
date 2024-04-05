@@ -28,10 +28,8 @@ class DConsoleInputArgument {
         return true;
     }
 
-    mixin(TProperty!("string", "name"));
-
     // Name of the argument.
-    protected string _name;
+    mixin(TProperty!("string", "name"));
 
     // Help string
     protected string _help;
@@ -62,11 +60,6 @@ class DConsoleInputArgument {
            _required = required;
            _choices = optionChoices;
         }
-    }
-    
-    // Get the value of the name attribute.
-    string name() {
-        return _name;
     }
     
     /**

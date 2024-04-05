@@ -10,6 +10,7 @@ bool isSubclassOf(C, B)(C aClass, B aBaseClass) {
 bool isNull(Object instance) {
     return (instance is null);
 }
+
 /* Found in web:
 bool isNull(T)(T value) if (is(T == class) || isPointer!T) {
 	return value is null;

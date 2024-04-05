@@ -19,6 +19,7 @@ public { // uim libraries
   import uim.core;
   import uim.oop;
   import uim.models;
+  import uim.events;
 }
 
 public { // uim.filesystem libraries

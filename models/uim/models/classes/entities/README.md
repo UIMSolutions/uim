@@ -1,5 +1,9 @@
 # Package 📦 uim.models.classes.elements
 
+## Packages
+
+## Modules
+
 In **programming**, an **entity** refers to a specific object or concept that holds information or data.
 
 **Definition**:

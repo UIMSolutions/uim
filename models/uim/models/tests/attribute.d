@@ -1,4 +1,4 @@
-module uim.models.tests.attribute;
+st..module uim.models.tests.attribute;
 
 import uim.models;
 @safe:

@@ -1,5 +1,9 @@
 # Package 📦 uim.models.classes.elements
 
+## Packages
+
+## Modules
+
 Elements are **Plain Old Data (POD)** objects. PODs are a concept commonly used in programming.
 
 **Definition**:
@@ -33,5 +37,5 @@ _Contains no packages_
 
 Modules:
 
-- uim.models.classes.elements.element  
+- uim.models.classes.elements.element
   Contains class DElement(Element)

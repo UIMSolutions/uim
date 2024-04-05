@@ -1,1 +1,5 @@
-# uim.models.classes.exceptions
+# Package 📦 uim.models.classes.exceptions
+
+## Packages
+
+## Modules

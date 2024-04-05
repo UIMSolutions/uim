@@ -15,7 +15,7 @@ import uim.controllers;
  */
 class DComponentRegistry : ObjectRegistry, IEventDispatcher {
     // @use \UIM\Event\EventDispatcherTrait<TSubject>
-    use EventDispatcherTemplate;
+    mixin EventDispatcherTemplate;
 
     // The controller that this collection is associated with.
     protected Controller _controller;
@@ -25,13 +25,13 @@ class DComponentRegistry : ObjectRegistry, IEventDispatcher {
      * Params:
      * \UIM\Controller\Controller controller Controller instance.
      */
-    this(Controller controller) {
+    this(IController controller) {
        _Controller = controller;
         this.setEventManager(controller.getEventManager());
     }
     
     // Get the controller associated with the collection.
-    Controller getController() {
+    IController getController() {
         return _Controller;
     }
     

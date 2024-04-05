@@ -1,4 +1,4 @@
-module uim.controllers.classes.controllers.controller;
+module controllers.uim.controllers.classes.controllers.controller;
 
 import uim.controllers;
 
@@ -50,33 +50,50 @@ import uim.controllers;
  * @link https://book.UIM.org/5/en/controllers.html
  * @implements \UIM\Event\IEventDispatcher<\UIM\Controller\Controller>
  */
-class DController : IEventListener, IEventDispatcher {
-    /**
-     * @use \UIM\Event\EventDispatcherTrait<\UIM\Controller\Controller>
-     */
+class DController : IController { // IEventListener, IEventDispatcher {    
+    mixin TConfigurable!();
+    // @use \UIM\Event\EventDispatcherTrait<\UIM\Core\IConsoleApplication>
+    mixin EventDispatcherTemplate;
+    // @use \UIM\Event\EventDispatcherTrait<\UIM\Controller\Controller>
     mixin EventDispatcherTemplate;
     mixin LocatorAwareTemplate;
     mixin LogTemplate;
     mixin ViewVarsTemplate;
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
+
+        return true;
+    }
 
     /**
      * The name of this controller. Controller names are plural, named after the model they manipulate.
      * Set automatically using conventions in Controller.__construct().
      */
-    protected string aName;
+    mixin(TProperty!("string", "name"));
+    mixin(TProperty!("string", "pluginName"));
+    mixin(TProperty!("Response", "response"));
 
     /**
      * An instance of a \UIM\Http\ServerRequest object that contains information about the current request.
      * This object contains all the information about a request and several methods for reading
      * additional information about the request.
-     */
+     * /
     protected ServerRequest serverRequest;
 
     /**
      * An instance of a Response object that contains information about the impending response
      *
      * @link https://book.UIM.org/5/en/controllers/request-response.html#response
-     */
+     * /
     protected Response response;
 
     /**
@@ -94,7 +111,7 @@ class DController : IEventListener, IEventDispatcher {
      * - `className` - The paginator class to use. Defaults to `UIM\Datasource\Paging\NumericPaginator.classname`.
      *
      * @see \UIM\Datasource\Paging\NumericPaginator
-     */
+     * /
     protected IData[string] paginate = [];
 
     // Set to true to automatically render the view after action logic.
@@ -104,12 +121,9 @@ class DController : IEventListener, IEventDispatcher {
      * Instance of ComponentRegistry used to create Components
      *
      * @var \UIM\Controller\ComponentRegistry|null
-     */
+     * /
     protected ComponentRegistry _components = null;
 
-    mixin(TProperty!("string", "name"));
-    mixin(TProperty!("string", "pluginName"));
-    mixin(TProperty!("Response", "response"));
 
 // Gets the request instance.
     @property ServerRequest request() {
@@ -124,7 +138,7 @@ class DController : IEventListener, IEventDispatcher {
      * - this.request - To the  request parameter
      * Params:
      * \UIM\Http\ServerRequest serverRequest Request instance.
-     */
+     * /
     void setRequest(ServerRequest serverRequest) {
         _request = serverRequest;
         _pluginName = serverRequest.getParam("plugin");
@@ -134,7 +148,7 @@ class DController : IEventListener, IEventDispatcher {
      * Middlewares list.
      *
      * @psalm-var array<int, array{middleware:\Psr\Http\Server\IMiddleware|\Closure|string, options:array{only?: string[], except?: string[]}}>
-     */
+     * /
     protected array  middlewares = [];
 
     // View classes for content negotiation.
@@ -150,7 +164,7 @@ class DController : IEventListener, IEventDispatcher {
      *  but expect that features that use the request parameters will not work.
      * @param string|null name Override the name useful in testing when using mocks.
      * @param \UIM\Event\IEventManager|null eventManager The event manager. Defaults to a new instance.
-     */
+     * /
     this(
         ServerRequest serverRequest,
         string aName = null,
@@ -207,7 +221,7 @@ class DController : IEventListener, IEventDispatcher {
      * Params:
      * string aName The name of the component to load.
      * configData - The config for the component.
-     */
+     * /
     Component loadComponent(string componentName, IData[string] configData = null) {
         return this.components().load(componentName, configData);
     }
@@ -225,10 +239,10 @@ class DController : IEventListener, IEventDispatcher {
             }
         }
         if (this.components().has(propertyName)) {
-            /** @var \UIM\Controller\Component */
+            /** @var \UIM\Controller\Component   * /
             return this.components().get(propertyName);
         }
-        /** @var array<int, IData[string]> trace */
+        /** @var array<int, IData[string]> trace * /
         trace = debug_backtrace();
         someParts = split("\\", class);
         trigger_error(
@@ -282,7 +296,7 @@ class DController : IEventListener, IEventDispatcher {
      * Params:
      * \Closure action The action closure.
      * @param array someArguments The arguments to be passed when invoking action.
-     */
+     * /
     void invokeAction(Closure action, array someArguments) {
         result = action(...someArguments);
         if (result !isNull) {
@@ -307,7 +321,7 @@ class DController : IEventListener, IEventDispatcher {
      * @param IData[string] options Valid options:
      * - `only`: (string[]) Only run the middleware for specified actions.
      * - `except`: (string[]) Run the middleware for all actions except the specified ones.
-     */
+     * /
     void middleware(IMiddleware amiddleware, IData[string] options = null) {
         // TODO
     }
@@ -348,7 +362,7 @@ class DController : IEventListener, IEventDispatcher {
     /**
      * Returns a list of all events that will fire in the controller during its lifecycle.
      * You can override this auto to add your own listener callbacks
-     */
+     * /
     IEvents[] implementedEvents() {
         return [
             "Controller.initialize": "beforeFilter",
@@ -365,7 +379,7 @@ class DController : IEventListener, IEventDispatcher {
      * - Initializes components, which fires their `initialize` callback
      * - Calls the controller `beforeFilter`.
      * - triggers Component `startup` methods.
-     */
+     * /
     IResponse startupProcess() {
         result = this.dispatchEvent("Controller.initialize").getResult();
         if (cast(IResponse)result) { return result; }
@@ -382,7 +396,7 @@ class DController : IEventListener, IEventDispatcher {
      *
      * - triggers the component `shutdown` callback.
      * - calls the Controller`s `afterFilter` method.
-     */
+     * /
     IResponse shutdownProcess() {
         result = this.dispatchEvent("Controller.shutdown").getResult();
         if (cast(IResponse)result) {
@@ -397,7 +411,7 @@ class DController : IEventListener, IEventDispatcher {
      * \Psr\Http\Message\IUri|string[] aurl A string, array-based URL or IUri instance.
      * @param int status HTTP status code. Defaults to `302`.
      * @link https://book.UIM.org/5/en/controllers.html#Controller.redirect
-     */
+     * /
     Response redirect(IUri|string[] aurl, int status = 302) {
         this.autoRender = false;
 
@@ -432,7 +446,7 @@ class DController : IEventListener, IEventDispatcher {
      * @param string|null  layout Layout to use
      * returns A response object containing the rendered view.
      * @link https://book.UIM.org/5/en/controllers.html#rendering-a-view
-     */
+     * /
     Response render(string atemplate = null, string alayout = null) {
          builder = this.viewBuilder();
         if (! builder.getTemplatePath()) {
@@ -472,7 +486,7 @@ class DController : IEventListener, IEventDispatcher {
      * to participate in negotiation.
      *
      * @see UIM\Http\ContentTypeNegotiation
-     */
+     * /
     string[] viewClasses() {
         return this.viewClasses;
     }
@@ -484,7 +498,7 @@ class DController : IEventListener, IEventDispatcher {
      * to participate in negotiation.
      * Params:
      * array  viewClasses View classes list.
-     */
+     * /
     void addViewClasses(array  viewClasses) {
         this.viewClasses = array_merge(this.viewClasses,  viewClasses);
     }
@@ -492,7 +506,7 @@ class DController : IEventListener, IEventDispatcher {
     /**
      * Use the view classes defined on this controller to view
      * selection based on content-type negotiation.
-     */
+     * /
     protected string chooseViewClass() {
         auto possibleViewClasses = this.viewClasses();
         if (possibleViewClasses.isEmpty) {
@@ -553,7 +567,7 @@ class DController : IEventListener, IEventDispatcher {
      * @param bool  local If false, do not restrict referring URLs to local server.
      *  Careful with trusting external sources.
      * returns Referring URL
-     */
+     * /
     string referer(string[]  default = "/", bool  local = true) {
          referer = this.request.referer( local);
         if ( referer !isNull) {
@@ -581,7 +595,7 @@ class DController : IEventListener, IEventDispatcher {
      * Params:
      * \UIM\Datasource\IRepository|\UIM\Datasource\IQuery|string|null  object Table to paginate
      * (e.g: Table instance, "TableName' or a Query object)
-     */
+     * /
     IPaginated paginate(
         IRepository|IQuery|string|null  object = null,
         IData[string] settingsForPagination = null
@@ -620,7 +634,7 @@ class DController : IEventListener, IEventDispatcher {
      * and allows all methods on all subclasses of this class.
      * Params:
      * string aaction The action to check.
-     */
+     * /
     bool isAction(string actionName) {
          baseClass = new DReflectionClass(self.classname);
         if ( baseClass.hasMethod(actionName)) {
@@ -639,7 +653,7 @@ class DController : IEventListener, IEventDispatcher {
      * or perform logic that needs to happen before each controller action.
      * Params:
      * \UIM\Event\IEvent<\UIM\Controller\Controller> event An Event instance
-     */
+     * /
     Response|null|void beforeFilter(IEvent event) {
     }
     
@@ -648,7 +662,7 @@ class DController : IEventListener, IEventDispatcher {
      * to perform logic or set view variables that are required on every request.
      * Params:
      * \UIM\Event\IEvent<\UIM\Controller\Controller> event An Event instance
-     */
+     * /
     Response beforeRender(IEvent event) {
     }
     
@@ -664,15 +678,15 @@ class DController : IEventListener, IEventDispatcher {
      * \UIM\Event\IEvent<\UIM\Controller\Controller> event An Event instance
      * @param \Psr\Http\Message\IUri|string[] aurl A string or array-based URL pointing to another location within the app,
      *    or an absolute URL
-     */
+     * /
     Response beforeRedirect(IEvent event, IUri|string[] aurl, Response response) {
         return null; 
     }
     
     /**
      * Called after the controller action is run and rendered.
-     */
+     * /
     Response afterFilter(IEvent event) {
         return null; 
-    }
+    } */
 }

@@ -18,7 +18,7 @@ class HelperRegistry { // }: ObjectRegistry : IEventDispatcher {
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\View\View>
      * /
-    use EventDispatcherTemplate;
+    mixin EventDispatcherTemplate;
 
     /**
      * Constructor

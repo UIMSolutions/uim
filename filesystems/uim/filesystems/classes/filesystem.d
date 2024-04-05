@@ -214,7 +214,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
   // #endregion isLink
 
   // #region Entry Management
-  mixin EntryManagerTemplate!();
+  mixin EntryManagerTemplate;
 
   bool isHidden(string aPath) {
     if (aPath.isEmpty) {

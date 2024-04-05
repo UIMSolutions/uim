@@ -22,7 +22,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
 
     // }: ObjectRegistry, IEventDispatcher {
     /* 
-    use EventDispatcherTemplate;
+    mixin EventDispatcherTemplate;
 
     // The table using this registry.
     protected DORMTable _table;

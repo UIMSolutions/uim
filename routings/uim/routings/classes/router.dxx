@@ -122,7 +122,7 @@ class DRouter {
      * string myrouteclass DClass name.
      */
     static string defaultRouteClass(string className = null) {
-        if (className.isNull) {
+        if (className is null) {
             return my_defaultRouteClass;
         }
         my_defaultRouteClass = className;
@@ -614,7 +614,7 @@ class DRouter {
      */
     static string[] extensions(string[] myextensions = null, bool mymerge = true) {
         mycollection = my_collection;
-        if (myextensions.isNull) {
+        if (myextensions is null) {
             return array_unique(chain(my_defaultExtensions, mycollection.getExtensions()));
         }
         myextensions = (array)myextensions;

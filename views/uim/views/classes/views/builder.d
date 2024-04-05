@@ -365,7 +365,7 @@ vars =
         } else {
             myclassName = App.className(myclassName, "View", "View");
         }
-        if (myclassName.isNull) {
+        if (myclassName is null) {
             throw new MissingViewException(["class": _className]);
         }
         mydata = [

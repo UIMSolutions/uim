@@ -197,7 +197,7 @@ class DForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
 
     // Get field data.
     IData getData(string fieldName = null) {
-        if (fieldName.isNull) {
+        if (fieldName is null) {
             return _data; // null - get all Data
         }
 

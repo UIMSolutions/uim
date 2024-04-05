@@ -42,7 +42,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
                 middleware = this.container.get(middleware);
             } else {
                 string className = App.className(middleware, "Middleware", "Middleware");
-                if (className.isNull) {
+                if (className is null) {
                     throw new DInvalidArgumentException(
                         "Middleware `%s` was not found."
                         .format(middleware

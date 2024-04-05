@@ -278,7 +278,7 @@ class DData : IData {
 version (test_uim_models) {
   unittest {
     void value = new DData;
-    assert(!value.isNull);
+    assert(!value is null);
     assert(!value.isString);
     assert(!value.isInteger);
     assert(!value.isBoolean);

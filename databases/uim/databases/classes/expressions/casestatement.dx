@@ -266,7 +266,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      * `\UIM\Database\Expression\WhenThenExpression`.
      */
     void when(IData  when, string[] type = null) {
-        if (!this.whenBuffer.isNull) {
+        if (!this.whenBuffer is null) {
             throw new LogicException("Cannot call `when()` between `when()` and `then()`.");
         }
         if (cast(Closure) when) {
@@ -342,7 +342,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      * instance of `\UIM\Database\Expression\WhenThenExpression`.
      */
     void then(IData result, string atype = null) {
-        if (this.whenBuffer.isNull) {
+        if (this.whenBuffer is null) {
             throw new LogicException("Cannot call `then()` before `when()`.");
         }
          whenThen = (new WhenThenExpression(this.getTypeMap()))
@@ -366,7 +366,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      * instance of `\UIM\Database\IExpression`, or `null`.
      */
     void else(IData result, string atype = null) {
-        if (!this.whenBuffer.isNull) {
+        if (!this.whenBuffer is null) {
             throw new LogicException("Cannot call `else()` between `when()` and `then()`.");
         }
         if (
@@ -456,7 +456,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
     }
  
     string sql(ValueBinder aBinder) {
-        if (!this.whenBuffer.isNull) {
+        if (!this.whenBuffer is null) {
             throw new LogicException("Case expression has incomplete when clause. Missing `then()` after `when()`.");
         }
         if (this.when.isEmpty) {

@@ -129,7 +129,7 @@ class DWidgetLocator {
         }
         myclass = array_shift(configData);
         myclassName = App.className(myclass, "View/Widget", "Widget");
-        if (myclassName.isNull) {
+        if (myclassName is null) {
             throw new DInvalidArgumentException("Unable to locate widget class `%s`.".format(myclass));
         }
         if (count(configData)) {

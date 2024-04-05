@@ -1104,7 +1104,7 @@ template IntegrationTestTemplate() {
         if (cast(DException)_exception) {
             message ~= this.extractExceptionMessage(_exception);
         }
-        if (_controller.isNull) {
+        if (_controller is null) {
             return message;
         }
         error = _controller.viewBuilder().getVar("error");

@@ -115,7 +115,7 @@ class HtmlHelper : Helper {
                 "last": ["rel": "last", "link": mycontent],
             ];
 
-            if (mytype == "icon" && mycontent.isNull) {
+            if (mytype == "icon" && mycontent is null) {
                 mytypes["icon"]["link"] = "favicon.ico";
             }
             if (isSet(mytypes[mytype])) {
@@ -799,7 +799,7 @@ class HtmlHelper : Helper {
             htmlAtributes["class"] = myclass;
         }
         mytag = "para";
-        if (mytext.isNull) {
+        if (mytext is null) {
             mytag = "parastart";
         }
         return this.formatTemplate(mytag, [
@@ -906,7 +906,7 @@ class HtmlHelper : Helper {
             /** @psalm-suppress PossiblyNullArgument */
             htmlAtributes["src"] = this.Url.assetUrl(mypath, htmlAtributes);
         }
-        if (mytag.isNull) {
+        if (mytag is null) {
             if (mypath.isArray) {
                 mymimeType = mypath[0]["type"];
             } else {

@@ -271,7 +271,7 @@ class Xml {
                                     if (isBool(myValue)) {
                                         myValue = to!int(myValue);
                                     }
-                                    else if(myValue.isNull) {
+                                    else if(myValue is null) {
                                         myValue = "";
                                     }
                                     if (aKey.has("xmlns:")) {
@@ -333,7 +333,7 @@ class Xml {
                         ];
 
                         auto dataKey = mydata.get("key", null);
-                        if (dataKey.isNull) {
+                        if (dataKey is null) {
                             return;
                         }
 
@@ -383,7 +383,7 @@ class Xml {
                         if (cast(DOMNode) myobj) {
                             myobj = simplexml_import_dom(myobj);
                         }
-                        if (myobj.isNull) {
+                        if (myobj is null) {
                             throw new XmlException("Failed converting DOMNode to SimpleXMLElement");
                         }
                         auto result;

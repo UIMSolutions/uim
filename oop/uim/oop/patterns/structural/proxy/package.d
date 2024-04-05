@@ -42,7 +42,7 @@ import uim.oop;
    }
 
    override void display() {
-      if(realImage.isNull) {
+      if(realImage is null) {
          realImage = new DRealImage(fileName);
       }
       realImage.display();

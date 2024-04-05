@@ -38,7 +38,7 @@ class MoFileParser {
      * /
     array parse(string filetoParsed) {
         auto stream = fopen(filetoParsed, "rb");
-        if (stream.isNull) {
+        if (stream is null) {
             throw new UimException("Cannot open resource `%s`".format(filetoParsed));
         }
         

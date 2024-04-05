@@ -128,7 +128,7 @@ template JsonCollectionManagerTemplate() {
       version(testUimJsonbase) { debug writeln("\n", __MODULE__~":"~__PRETTY_FUNCTION__); }
 
       // Preconditions
-      if (aName.isEmpty || aCollection.isNull) { 
+      if (aName.isEmpty || aCollection is null) { 
       return false; 
     }
 

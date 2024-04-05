@@ -140,7 +140,7 @@ class DDateTimeWidget : DWidget {
         ChronosDate|ChronosTime|IDateTime|string|int myvalue,
         IData[string] options
     ) {
-        if (myvalue == "" || myvalue.isNull) {
+        if (myvalue == "" || myvalue is null) {
             return "";
         }
         try {

@@ -23,7 +23,7 @@ class DEventFired : Constraint {
     this(EventManager eventManager) {
        _eventManager = eventManager;
 
-        if (_eventManager.getEventList().isNull) {
+        if (_eventManager.getEventList() is null) {
             throw new AssertionFailedError(
                 "The event manager you are asserting against is not configured to track events."
             );

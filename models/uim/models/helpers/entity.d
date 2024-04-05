@@ -9,8 +9,8 @@ bool isNull(IEntity anEntity) {
 
 unittest {
   /* IEntity entity;
-  assert(entity.isNull); 
+  assert(entity is null); 
 
   // entity = new DEntity;
-  assert(!entity.isNull); */
+  assert(!entity is null); */
 }

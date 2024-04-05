@@ -50,7 +50,7 @@ class DBetweenExpression : IExpression, IField {
      * @param string|null type The data type name to bind the values with.
      */
     this(IExpression|string afield, IData from, IData to, string atype = null) {
-        if (!type.isNull) {
+        if (!type is null) {
             from = _castToExpression(from, type);
             to = _castToExpression(to, type);
         }

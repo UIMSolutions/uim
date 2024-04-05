@@ -34,7 +34,7 @@ class DI18n {
      * or to configure some aspect of future translations that are not yet constructed.
      * /
     static TranslatorRegistry translators() {
-        if (!_collection.isNull) {
+        if (!_collection is null) {
             return _collection;
         }
         _collection = new DTranslatorRegistry(
@@ -114,7 +114,7 @@ class DI18n {
             translators.setLocale(translatorlocale);
         }
         translator = translators.get(domainname);
-        if (translator.isNull) {
+        if (translator is null) {
             throw new DI18nException(
                 "Translator for domain `%s` could not be found.".format(domainname));
         }

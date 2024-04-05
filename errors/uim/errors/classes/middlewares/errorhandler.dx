@@ -96,7 +96,7 @@ class DErrorHandlerMiddleware : IMiddleware {
 
         response = event.getResult();
         try {
-            if (response.isNull) {
+            if (response is null) {
                 response = renderer.render();
             }
             if (isString(response)) {
@@ -139,7 +139,7 @@ class DErrorHandlerMiddleware : IMiddleware {
      * Get a exception trap instance
      */
     protected ExceptionTrap getExceptionTrap() {
-        if (this.exceptionTrap.isNull) {
+        if (this.exceptionTrap is null) {
             /** @var class-string<\UIM\Error\ExceptionTrap>  className */
              className = App.className("ExceptionTrap", "Error");
             this.exceptionTrap = new className(this.configuration.data);

@@ -96,7 +96,7 @@ template CookieCryptTemplate() {
         if (myencrypt == "aes") {
             myvalue = Security.decrypt(myvalue, aKey);
         }
-        if (myvalue.isNull) {
+        if (myvalue is null) {
             return "";
         }
         return _split(myvalue);

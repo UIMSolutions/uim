@@ -12,7 +12,7 @@ import uim.databases;
 class DNestedTransactionRollbackException : DDatabaseException {
   // TODO 
   /* this(string message = null, int statusCode = 500, Throwable previousException = null) {
-    if (message.isNull) {
+    if (message is null) {
       message = "Cannot commit transaction - rollback() has been already called in the nested transaction";
     }
     super(message, statusCode, previousException);

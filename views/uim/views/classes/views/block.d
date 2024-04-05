@@ -59,7 +59,7 @@ class DViewBlock {
 
             return;
         }
-        // TODO if (_activeBlocks.isNull) {
+        // TODO if (_activeBlocks is null) {
         // TODO     return;
         // TODO }
 

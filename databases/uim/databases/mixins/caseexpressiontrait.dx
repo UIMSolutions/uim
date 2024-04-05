@@ -61,7 +61,7 @@ mixin template CaseExpressionTemplate() {
         ) {
             aValue = _castToExpression(aValue, type);
         }
-        if (aValue.isNull) {
+        if (aValue is null) {
             aValue = "NULL";
         } elseif (cast(Query)aValue) {
             aValue = "(%s)".format(aValue.sql(aBinder));

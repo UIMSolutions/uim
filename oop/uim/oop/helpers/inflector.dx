@@ -310,7 +310,7 @@ class DInflector {
     string mycacheKey = __FUNCTION__ ~ mydelimiter;
 
     string result = _cache(mycacheKey, mystring);
-    if (result.isNull) {
+    if (result is null) {
       result = humanize(mystring, mydelimiter)..replace(" ", "");
       static._cache(mycacheKey, mystring, result);
     }

@@ -213,7 +213,7 @@ class DEntityContext : IContext {
      */
     protected IData _schemaDefault(array myparts) {
         mytable = _getTable(myparts);
-        if (mytable.isNull) {
+        if (mytable is null) {
             return null;
         }
         myfield = end(myparts);
@@ -253,7 +253,7 @@ class DEntityContext : IContext {
      * or null to get the entity passed in constructor context.
      */
     IEntity|iterable|null entity(array mypath = null) {
-        if (mypath.isNull) {
+        if (mypath is null) {
             return _context["entity"];
         }
         myoneElement = count(mypath) == 1;
@@ -305,7 +305,7 @@ class DEntityContext : IContext {
      * or null to get the entity passed in constructor context.
      */
     protected array leafEntity(array mypath = null) {
-        if (mypath.isNull) {
+        if (mypath is null) {
             return _context["entity"];
         }
         auto myoneElement = count(mypath) == 1;
@@ -525,7 +525,7 @@ class DEntityContext : IContext {
                 myassociationCollection = mytable.associations();
                 myassoc = myassociationCollection.getByProperty(mypart);
             }
-            if (myassoc.isNull) {
+            if (myassoc is null) {
                 if (myfallback) {
                     break;
                 }

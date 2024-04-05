@@ -53,7 +53,7 @@ class DTableLocator : DAbstractLocator : ILocator {
      *  If none provided, the default `Model\Table` under your app"s namespace is used.
      */
     this(array mylocations = null, ?QueryFactory myqueryFactory = null) {
-        if (mylocations.isNull) {
+        if (mylocations is null) {
             mylocations = [
                 "Model/Table",
             ];
@@ -105,7 +105,7 @@ class DTableLocator : DAbstractLocator : ILocator {
     }
  
     array getConfig(string myalias = null) {
-        if (myalias.isNull) {
+        if (myalias is null) {
             return configuration;
         }
         return configuration.data(myalias] ?? [];
@@ -222,7 +222,7 @@ class DTableLocator : DAbstractLocator : ILocator {
         }
         foreach (location; this.locations) {
             myclass = App.className(options["className"], location, "Table");
-            if (!myclass.isNull) {
+            if (!myclass is null) {
                 return myclass;
             }
         }

@@ -101,10 +101,10 @@ class DAggregateExpression : DFunctionExpression, IWindow {
     }
     string sql(ValueBinder aBinder) {
         string result = super.sql(aBinder);
-        if (!this.filter.isNull) {
+        if (!this.filter is null) {
             result ~= " FILTER (WHERE " ~ this.filter.sql(aBinder) ~ ")";
         }
-        if (!this.window.isNull) {
+        if (!this.window is null) {
             result ~= this.window.isNamedOnly() 
                 ? " OVER " ~ this.window.sql(aBinder)
                 : " OVER (" ~ this.window.sql(aBinder) ~ ")";
@@ -114,11 +114,11 @@ class DAggregateExpression : DFunctionExpression, IWindow {
  
     void traverse(Closure aCallback) {
         super.traverse(aCallback);
-        if (!this.filter.isNull) {
+        if (!this.filter is null) {
             aCallback(this.filter);
             this.filter.traverse(aCallback);
         }
-        if (!this.window.isNull) {
+        if (!this.window is null) {
             aCallback(this.window);
             this.window.traverse(aCallback);
         }
@@ -126,7 +126,7 @@ class DAggregateExpression : DFunctionExpression, IWindow {
  
     size_t count() {
         size_t result = super.count();
-        if (!this.window.isNull) {
+        if (!this.window is null) {
             result = result + 1;
         }
         return result;
@@ -135,7 +135,7 @@ class DAggregateExpression : DFunctionExpression, IWindow {
     // Clone this object and its subtree of expressions.
     void __clone() {
         super.__clone();
-        if (!this.filter.isNull) {
+        if (!this.filter is null) {
             this.filter = clone this.filter;
         }
         if (this.window !isNull) {

@@ -82,7 +82,7 @@ abstract class DTestCase : BaseTestCase {
             restore_error_handler();
             error_reporting(mydefault);
         }
-        if (_capturedError.isNull) {
+        if (_capturedError is null) {
             this.fail("No error was captured");
         }
         /** @var \UIM\Error\PhpError _capturedError */

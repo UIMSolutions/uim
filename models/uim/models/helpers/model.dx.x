@@ -8,10 +8,10 @@ bool isNull(DModel aModel) {
 }
 unittest {
   DModel model;
-  assert(model.isNull); 
+  assert(model is null); 
 
   model = new DModel;
-  assert(!model.isNull); 
+  assert(!model is null); 
 }
 
 bool isNull(IModel aModel) {
@@ -19,8 +19,8 @@ bool isNull(IModel aModel) {
 }
 unittest {
   IModel model;
-  assert(model.isNull); 
+  assert(model is null); 
 
   model = new DModel;
-  assert(!model.isNull); 
+  assert(!model is null); 
 }

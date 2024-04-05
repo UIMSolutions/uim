@@ -263,7 +263,7 @@ class FormHelper : Helper {
      * @param array mycontexts An array of context providers.
      */
     DContextFactory contextFactory(?ContextFactory myinstance = null, array mycontexts = []) {
-        if (myinstance.isNull) {
+        if (myinstance is null) {
             return _contextFactory ??= DContextFactory.createWithDefaults(mycontexts);
         }
        _contextFactory = myinstance;
@@ -576,7 +576,7 @@ class FormHelper : Helper {
     
     // Get form protector instance.
     FormProtector getFormProtector() {
-        if (this.formProtector.isNull) {
+        if (this.formProtector is null) {
             throw new UimException(
                 "`FormProtector` instance has not been created. Ensure you have loaded the `FormProtectionComponent`"
                 ~ " in your controller and called `FormHelper.create()` before calling `FormHelper.unlockField()`."
@@ -717,7 +717,7 @@ class FormHelper : Helper {
      * @param IData[string] options An array of HTML attributes.
      */
     string label(string aFieldName, string mytext = null, IData[string] options  = null) {
-        if (mytext.isNull) {
+        if (mytext is null) {
             mytext = fieldName;
             if (mytext.endsWith("._ids")) {
                 mytext = substr(mytext, 0, -5);
@@ -1058,7 +1058,7 @@ class FormHelper : Helper {
             case "radio":
             case "multicheckbox":
                 myopts = options["options"];
-                if (myopts.isNull) {
+                if (myopts is null) {
                     myopts = [];
                 }
                 unset(options["options"]);
@@ -2335,7 +2335,7 @@ class FormHelper : Helper {
         foreach (myvaluesSource; this.getValueSources()) {
             if (myvaluesSource == "context") {
                 auto contextValue = _getContext().val(fieldName, options);
-                if (!contextValue.isNull) {
+                if (!contextValue is null) {
                     return contextValue;
                 }
             }

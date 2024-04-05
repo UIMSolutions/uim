@@ -39,7 +39,7 @@ class DRequest { // }: Message, IRequest {
         ];
         this.addHeaders( aHeaders);
 
-        if (someData.isNull) {
+        if (someData is null) {
             this.stream = new DStream("php://memory", "rw");
         } else {
             this.setContent(someData);

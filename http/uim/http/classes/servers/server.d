@@ -76,7 +76,7 @@ class DServer { // }: IEventDispatcher {
 
         request = request ?: ServerRequestFactory.fromGlobals();
 
-        if (middlewareQueue.isNull) {
+        if (middlewareQueue is null) {
             if (cast(IContainerApplication)this.app) {
                 middlewareQueue = new MiddlewareQueue([], this.app.getContainer());
             } else {

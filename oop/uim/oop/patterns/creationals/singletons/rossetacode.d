@@ -19,9 +19,9 @@ import core.thread.osthread;
   private static Dealer me ;
   static Dealer Instance() {
     writefln("   Calling Dealer... ") ;
-    if(me.isNull) // Double Checked Lock
+    if(me is null) // Double Checked Lock
       synchronized  // this part of code can only be executed by one thread a time
-        if(me.isNull) 
+        if(me is null) 
           me = new Dealer ;     
     return me ;
   }

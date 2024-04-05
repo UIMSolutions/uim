@@ -10,11 +10,9 @@ import uim.core;
 @safe:
 // #region Properties
 string[] keys(Json anObject) {
-  if (anObject.isNull) {
-    return null;
-  }
-
-  return anObject.byKeyValue.map!(kv => kv.key).array;
+ return !anObject.isNull 
+  ? anObject.byKeyValue.map!(kv => kv.key).array
+  : null;
 }
 // #endregion Properties
 
@@ -82,9 +80,9 @@ bool isNull(Json aJson) {
 }
 
 unittest {
-  assert(Json(null).isNull);
-  assert(!Json.emptyObject.isNull);
-  assert(!Json.emptyArray.isNull);
+  assert(Json(null) is null);
+  assert(!Json.emptyObject is null);
+  assert(!Json.emptyArray is null);
 }
 
 bool isString(Json aJson) {

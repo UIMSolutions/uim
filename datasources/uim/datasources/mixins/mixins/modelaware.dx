@@ -39,7 +39,7 @@ template ModelAwareTemplate() {
      * string aName Class name.
      */
     protected void _setModelClass(string aName) {
-        if (this.modelClass.isNull) {
+        if (this.modelClass is null) {
             this.modelClass = aName;
         }
     }

@@ -274,7 +274,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
         if (_cache) {
             results = _cache.fetch(this);
         }
-        if (results.isNull) {
+        if (results is null) {
             results = _decorateResults(_execute());
             if (_cache) {
                _cache.store(this, results);
@@ -311,7 +311,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
         if (myoverwrite) {
            _mapReduce = [];
         }
-        if (mymapper.isNull) {
+        if (mymapper is null) {
             if (!myoverwrite) {
                 throw new DInvalidArgumentException("mymapper can be null only when myoverwrite is true.");
             }
@@ -421,7 +421,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
         if (mymode == self.OVERWRITE) {
            _formatters = [];
         }
-        if (myformatter.isNull) {
+        if (myformatter is null) {
             if (mymode != self.OVERWRITE) {
                 throw new DInvalidArgumentException("myformatter can be null only when mymode is overwrite.");
             }
@@ -896,7 +896,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
             myassociation = mytable.getAssociation(myname);
             mytarget = myassociation.getTarget();
             myprimary = (array)mytarget.getPrimaryKeys();
-            if (isEmpty(myprimary) || mytypeMap.type(mytarget.aliasField(myprimary[0])).isNull) {
+            if (isEmpty(myprimary) || mytypeMap.type(mytarget.aliasField(myprimary[0])) is null) {
                 this.addDefaultTypes(mytarget);
             }
             if (!empty(mynested)) {

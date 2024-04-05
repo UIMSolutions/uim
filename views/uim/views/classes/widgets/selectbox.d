@@ -264,7 +264,7 @@ class DSelectBoxWidget : DWidget {
      * @param IData myselected The selected values.
      * /
     protected bool _isSelected(string keyToTest, IData myselected) {
-        if (myselected.isNull) {
+        if (myselected is null) {
             return false;
         }
         if (!myselected.isArray) {
@@ -284,7 +284,7 @@ class DSelectBoxWidget : DWidget {
      * @param string[] mydisabled The disabled values.
      * /
     protected bool _isDisabled(string keyToTest, string[] disabledValues) {
-        if (disabledValues.isNull) {
+        if (disabledValues is null) {
             return false;
         }
 

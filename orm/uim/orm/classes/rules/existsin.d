@@ -91,7 +91,7 @@ class DExistsIn {
         if (_options["allowNullableNulls"]) {
             myschema = mysource.getSchema();
             foreach (myfields as myi: myfield) {
-                if (myschema.getColumn(myfield) && myschema.isNullable(myfield) && myentity.get(myfield).isNull) {
+                if (myschema.getColumn(myfield) && myschema.isNullable(myfield) && myentity.get(myfield) is null) {
                     unset(mybindingKey[myi], myfields[myi]);
                 }
             }
@@ -117,7 +117,7 @@ class DExistsIn {
     protected bool _fieldsAreNull(IEntity entityToCheck, Table mysource) {
         auto schema = mysource.getSchema();
         auto mynulls = _fields
-            .filter!(field => schema.getColumn(field) && schema.isNullable(field) && entityToCheck.get(field).isNull)
+            .filter!(field => schema.getColumn(field) && schema.isNullable(field) && entityToCheck.get(field) is null)
             .length;
 
         return mynulls == count(_fields);

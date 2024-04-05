@@ -116,7 +116,7 @@ class DNumberData : DScalarData {
   mixin(ScalarOpEquals!(["float", "double"]));
 
   override bool isEqual(IData checkData) {
-    if (checkData.isNull) {
+    if (checkData is null) {
       return false;
     }
 

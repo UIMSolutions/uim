@@ -181,7 +181,7 @@ class DRoute {
      * and populates this.names with the named routing elements.
      */
     string compile() {
-        if (_compiledRoute.isNull) {
+        if (_compiledRoute is null) {
            _writeRoute();
         }
         assert(_compiledRoute !isNull);
@@ -273,7 +273,7 @@ class DRoute {
             } else if (isSet(this.defaults[aKey])) {
                 myvalue = this.defaults[aKey];
             }
-            if (myvalue.isNull) {
+            if (myvalue is null) {
                 continue;
             }
             if (myvalue == true || myvalue == false) {

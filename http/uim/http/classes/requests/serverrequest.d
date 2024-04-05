@@ -242,7 +242,7 @@ class DServerRequest { // }: IServerRequest {
         this.stream = stream;
 
         post = configData["post"];
-        if (!(isArray(post) || isObject(post) || post.isNull)) {
+        if (!(isArray(post) || isObject(post) || post is null)) {
             throw new DInvalidArgumentException(
                 "`post` key must be an array, object or null. " ~ 
                 " Got `%s` instead."
@@ -474,7 +474,7 @@ class DServerRequest { // }: IServerRequest {
             options = array_merge(options, exclude);
         }
         accepted = content.preferredType(this, options);
-        if (accepted.isNull) {
+        if (accepted is null) {
             return false;
         }
         if (exclude && in_array(accepted, exclude, true)) {
@@ -682,7 +682,7 @@ class DServerRequest { // }: IServerRequest {
             if (kv.key.startWith("CONTENT_")) {
                 name = kv.key;
             }
-            if (!name.isNull) {
+            if (!name is null) {
                 name = name.toLower.replace("_", " ");
                 name = ucwords(name).replace(" ", "-");
                 result[name] = (array)kv.value;
@@ -983,7 +983,7 @@ class DServerRequest { // }: IServerRequest {
      * @param IData defaultValue The default value if the named parameter is not set, and name is not null.
      * /
     IData getQuery(string aName = null, IData defaultValue = null) {
-        if (name.isNull) {
+        if (name is null) {
             return this.query;
         }
         return Hash.get(this.query, name, default);
@@ -1021,7 +1021,7 @@ class DServerRequest { // }: IServerRequest {
      * @param IData defaultValue The default data.
      * /
     IData getData(string aName = null, IData defaultValue = null) {
-        if (name.isNull) {
+        if (name is null) {
             return this.data;
         }
         if (!isArray(this.data)) {
@@ -1509,7 +1509,7 @@ class DServerRequest { // }: IServerRequest {
     
     // Get the path of current request.
     string getPath() {
-        if (this.requestTarget.isNull) {
+        if (this.requestTarget is null) {
             return this.uri.getPath();
         }
         [somePath] = split("?", this.requestTarget);

@@ -196,7 +196,7 @@ class DNumericPaginator : IPaginator {
         if (cast(IQuery)target) {
             aQuery = target;
             target = aQuery.getRepository();
-            if (target.isNull) {
+            if (target is null) {
                 throw new UimException("No repository set for query.");
             }
         }
@@ -247,7 +247,7 @@ class DNumericPaginator : IPaginator {
             ["order": null, "page": null, "limit": null],
         );
 
-        if (aQuery.isNull) {
+        if (aQuery is null) {
             someArguments = [];
             type = !empty(options["finder"]) ? options["finder"] : "all";
             if (isArray(type)) {
@@ -379,7 +379,7 @@ class DNumericPaginator : IPaginator {
      */
     protected void addPrevNextParams(array data) {
         this.pagingParams["hasPrevPage"] = this.pagingParams["currentPage"] > 1;
-        if (this.pagingParams["totalCount"].isNull) {
+        if (this.pagingParams["totalCount"] is null) {
             this.pagingParams["hasNextPage"] = true;
         } else {
             this.pagingParams["hasNextPage"] = this.pagingParams["totalCount"]

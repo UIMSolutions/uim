@@ -280,7 +280,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * This can include the database schema name if set using `setTable()`.
      */
     string getTable() {
-        if (_table.isNull) {
+        if (_table is null) {
             mytable = namespaceSplit(class);
             mytable = substr(to!string(end(mytable)), 0, -5) ?: _alias;
             if (!mytable) {
@@ -304,7 +304,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     
     // Returns the table alias.
     string aliasName() {
-        if (_alias.isNull) {
+        if (_alias is null) {
             myalias = namespaceSplit(class);
             myalias = substr(to!string(end(myalias), 0, -5)) ?: _table;
             if (!myalias) {
@@ -370,7 +370,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     
     // Returns the schema table object describing this table"s properties.
     TableISchema getSchema() {
-        if (_schema.isNull) {
+        if (_schema is null) {
            _schema = this.getConnection()
                 .getSchemaCollection()
                 .describe(this.getTable());
@@ -416,7 +416,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * queries fit into the max length allowed by database driver.
      */
     protected void checkAliasLengths() {
-        if (_schema.isNull) {
+        if (_schema is null) {
             throw new DatabaseException(
                 "Unable to check max alias lengths for `%s` without schema."
                 .format(this.aliasName()
@@ -424,7 +424,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         }
         
         auto maxLength = this.getConnection().getDriver().getMaxAliasLength();
-        if (maxLength.isNull) {
+        if (maxLength is null) {
             return;
         }
         string aliasName = this.aliasName();
@@ -469,7 +469,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     
     // Returns the primary key field name.
     string[]|string getPrimaryKeys() {
-        if (_primaryKey.isNull) {
+        if (_primaryKey is null) {
             aKey = this.getSchema().getPrimaryKeys();
             if (count(aKey) == 1) {
                 aKey = aKey[0];
@@ -553,7 +553,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     auto setEntityClass(string myname) {
         /** @var class-string<\UIM\Datasource\IEntity>|null myclass */
         myclass = App.className(myname, "Model/Entity");
-        if (myclass.isNull) {
+        if (myclass is null) {
             throw new MissingEntityException([myname]);
         }
        _entityClass = myclass;
@@ -1252,7 +1252,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         Closure|string mycacheKey = null,
         IData ...myargs
     ) {
-        if (myprimaryKey.isNull) {
+        if (myprimaryKey is null) {
             throw new DInvalidPrimaryKeyException(
                 "Record not found in table `%s` with primary key `[NULL]`."
                 .format(this.getTable()
@@ -1710,7 +1710,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
 
         if (myevent.isStopped()) {
             result = myevent.getResult();
-            if (result.isNull) {
+            if (result is null) {
                 return false;
             }
             if (result != false) {
@@ -2654,7 +2654,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * @return bool True if the value is unique, or false if a non-scalar, non-unique value was given.
      */
     bool validateUnique(IData aValue, IData[string] options, array mycontext = null) {
-        if (mycontext.isNull) {
+        if (mycontext is null) {
             mycontext = options;
         }
         myentity = new DORMEntity(

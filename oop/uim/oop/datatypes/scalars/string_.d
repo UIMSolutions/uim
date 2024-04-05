@@ -64,7 +64,7 @@ class DStringData : DScalarData {
   /* property void value(DStringData newValue) {
     if (newValue) {
       isNullable(newValue.isNullable);
-      isNull(newValue.isNull);
+      isNull(newValue is null);
       set(newValue.value());
     }
   } */

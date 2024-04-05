@@ -97,11 +97,11 @@ class DPoFileParser {
     PoMessage parseByLine(string line, IData[] messages, PoMessage message) {
         string line = strip(line);
 
-        if (line.isEmpty && message.isNull) {
+        if (line.isEmpty && message is null) {
             return null;
         }
 
-        if (!line.isEmpty && message.isNull) {
+        if (!line.isEmpty && message is null) {
             message = new DPoMessage;
         }
 
@@ -202,7 +202,7 @@ class DPoFileParser {
             plurals = array_map("stripcslashes", plurals);
             aKey = stripcslashes(ids["plural"]);
 
-            if (!context.isNull) {
+            if (!context is null) {
                 messages[Translator.PLURAL_PREFIX ~ aKey]["_context"][context] = plurals;
             } else {
                 messages[Translator.PLURAL_PREFIX ~ aKey]["_context"][""] = plurals;

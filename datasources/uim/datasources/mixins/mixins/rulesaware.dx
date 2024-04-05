@@ -68,7 +68,7 @@ mixin RulesAwareTemplate() {
      * needs to be fetched from relevant datasources.
      */
     RulesChecker rulesChecker() {
-        if (!_rulesChecker.isNull) {
+        if (!_rulesChecker is null) {
             return _rulesChecker;
         }
         /** @var class-string<\UIM\Datasource\RulesChecker>  className */

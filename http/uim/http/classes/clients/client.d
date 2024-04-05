@@ -142,7 +142,7 @@ class DClient { // }: IClient {
     this.setConfig(configData);
 
     myadapter = configuration["adapter"];
-    if (myadapter.isNull) {
+    if (myadapter is null) {
       myadapter = Curl.classname;
 
       if (!extension_loaded("curl")) {

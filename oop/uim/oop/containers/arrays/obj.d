@@ -50,7 +50,7 @@ class DArrayObj : Obj {
 				}
 			}
 		}
-		_objs = _objs.filter!(obj => !obj.isNull).array;
+		_objs = _objs.filter!(obj => !obj is null).array;
 
 		return cast(O) this;
 	}

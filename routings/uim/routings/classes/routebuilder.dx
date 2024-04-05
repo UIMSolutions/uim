@@ -601,7 +601,7 @@ class DRouteBuilder {
         if (isString(myroute)) {
             /** @var class-string<\UIM\Routing\Route\Route>|null myrouteClass */
             myrouteClass = App.className(options["routeClass"], "Routing/Route");
-            if (myrouteClass.isNull) {
+            if (myrouteClass is null) {
                 throw new DInvalidArgumentException(
                     "Cannot find route class %s".format(options["routeClass"])
                 );
@@ -781,7 +781,7 @@ class DRouteBuilder {
             mycallback = myparams;
             myparams = [];
         }
-        if (mycallback.isNull) {
+        if (mycallback is null) {
             throw new DInvalidArgumentException("Need a valid Closure to connect routes.");
         }
         if (_path != "/") {

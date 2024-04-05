@@ -589,14 +589,14 @@ class DQueryExpression : IExpression, Countable {
         if (typeMultiple) {
             aValue = cast(IExpression)aValue  ? aValue : (array)aValue;
         }
-        if ( operator == "IS' && aValue.isNull) {
+        if ( operator == "IS' && aValue is null) {
             return new UnaryExpression(
                 'isNull",
                 new DIdentifierExpression(expression),
                 UnaryExpression.POSTFIX
             );
         }
-        if ( operator == "IS NOT" && aValue.isNull) {
+        if ( operator == "IS NOT" && aValue is null) {
             return new UnaryExpression(
                 "IS NOT NULL",
                 new DIdentifierExpression(expression),

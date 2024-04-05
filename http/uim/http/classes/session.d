@@ -213,7 +213,7 @@ class DSession {
         !SessionHandler | string | null className = null,
         IData[string] options = null
     ) {
-        if (className.isNull) {
+        if (className is null) {
             return _engine;
         }
         if (cast(!SessionHandler) className) {
@@ -221,7 +221,7 @@ class DSession {
         }
         /** @var class-string<\!SessionHandler>|null  className * /
         className = App.className(className, "Http/Session");
-        if (className.isNull) {
+        if (className is null) {
             throw new DInvalidArgumentException(
                 "The class `%s` does not exist and cannot be used as a session engine"
                     .format(className)
@@ -341,7 +341,7 @@ class DSession {
         if (!isSet(_SESSION)) {
             return false;
         }
-        if (name.isNull) {
+        if (name is null) {
             return (bool) _SESSION;
         }
         return Hash.get(_SESSION, name) !isNull;
@@ -360,7 +360,7 @@ class DSession {
         if (!isSet(_SESSION)) {
             return default;
         }
-        if (name.isNull) {
+        if (name is null) {
             return _SESSION ? _SESSION : [];
         }
         return Hash.get(_SESSION, name, default);

@@ -90,7 +90,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
     ICookie get(string aName) {
         cookie = __get(name);
 
-        if (cookie.isNull) {
+        if (cookie is null) {
             throw new DInvalidArgumentException(
                 
                     "Cookie `%s` not found. Use `has()` to check first for existence."

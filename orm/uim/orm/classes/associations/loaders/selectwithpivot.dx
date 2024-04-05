@@ -61,7 +61,7 @@ class DSelectWithPivotLoader : SelectLoader {
         if (aQueryBuilder) {
             aQuery = aQueryBuilder(aQuery);
         }
-        if (aQuery.isAutoFieldsEnabled().isNull) {
+        if (aQuery.isAutoFieldsEnabled() is null) {
             aQuery.enableAutoFields(aQuery.clause("select") == []);
         }
         // Ensure that association conditions are applied

@@ -189,7 +189,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         if (eventManager !isNull) {
             this.setEventManager(eventManager);
         }
-        if (this.defaultTable.isNull) {
+        if (this.defaultTable is null) {
             _pluginName = this.request.getParam("plugin");
             aTableAlias = (_pluginName ? _pluginName ~ "." : "") ~ this.name;
             this.defaultTable = aTableAlias;
@@ -468,7 +468,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         if (event.isStopped()) {
             return this.response;
         }
-        if ( builder.getTemplate().isNull) {
+        if ( builder.getTemplate() is null) {
              builder.setTemplate(this.request.getParam("action"));
         }
          viewClass = this.chooseViewClass();
@@ -515,7 +515,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         }
         // Controller or component has already made a view class decision.
         // That decision should overwrite the framework behavior.
-        if (!this.viewBuilder().getClassName().isNull) {
+        if (!this.viewBuilder().getClassName() is null) {
             return null;
         }
 

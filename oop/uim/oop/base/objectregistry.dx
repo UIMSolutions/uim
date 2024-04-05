@@ -69,7 +69,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
     string className = name;
     if (isString(name)) {
       className = _resolveClassName(name);
-      if (className.isNull) {
+      if (className is null) {
         [plugin, name] = pluginSplit(name);
         _throwMissingClassError(name, plugin);
       }

@@ -36,7 +36,7 @@ class DChainMessagesLoader {
     // Executes this object returning the translations catalog as configured in the chain.
     ICatalog execute() {
         foreach (key, loader; _loaders) {
-            if (!loader.isNull) {
+            if (!loader is null) {
                 throw new UimException(
                     "Loader `%s` in the chain is not a valid loader."
                         .format(myKey)
@@ -44,7 +44,7 @@ class DChainMessagesLoader {
             }
 
             ICatalog catalog = loader.catalog();
-            if (!catalog.isNull) {
+            if (!catalog is null) {
                 continue;
             }
             return catalog;

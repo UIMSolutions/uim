@@ -163,7 +163,7 @@ class DBelongsToMany : DAssociation {
         aTableLocator = this.getTableLocator();
         if (aTable.isNull && isSet(_through)) {
             aTable = _through;
-        } else if (aTable.isNull) {
+        } else if (aTable is null) {
             aTableName = _junctionTableName();
             aTableAlias = Inflector.camelize(aTableName);
 
@@ -887,7 +887,7 @@ class DBelongsToMany : DAssociation {
      */
     protected SelectQuery _appendJunctionJoin(SelectQuery aQuery, array conditions = null) {
         junctionTable = this.junction();
-        if (conditions.isNull) {
+        if (conditions is null) {
             belongsTo = junctionTable.getAssociation(this.getTarget().aliasName());
             conditions = belongsTo._joinCondition([
                 "foreignKey": this.getTargetForeignKey(),
@@ -1217,7 +1217,7 @@ class DBelongsToMany : DAssociation {
      * string name The name of the junction table.
      */
     protected string _junctionTableName(string tableName = null) {
-        if (tableName.isNull) {
+        if (tableName is null) {
             if (_junctionTableName.isEmpty) {
                 string[] tablesNames = array_map("UIM\Utility\Inflector.underscore", [
                     this.getSource().getTable(),

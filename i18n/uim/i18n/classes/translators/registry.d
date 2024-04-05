@@ -128,7 +128,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
         if (isSet(this.registry[catalogName][localName])) {
             return this.registry[catalogName][localName];
         }
-        if (_cacher.isNull) {
+        if (_cacher is null) {
             return this.registry[catalogName][localName] = _getTranslator(catalogName, locale);
         }
         // Cache keys cannot contain / if they go to file engine.
@@ -163,7 +163,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     protected Translator createInstance(string catalogName, string localName = null) {
         ICatalog catalog = this.catalogs.get(catalogName, localname);
         auto fallback = catalog.fallback();
-        if (!fallback.isNull) {
+        if (!fallback is null) {
             fallback = get(fallback, localname);
         }
         formatter = this.formatters.get(catalog.formatterName());
@@ -192,7 +192,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
      * If called with no arguments, it will return the currently configured value.
      * /
     string defaultFormatter(string formatterName = null) {
-        if (formatterName.isNull) {
+        if (formatterName is null) {
             return _defaultFormatter;
         }
         return _defaultFormatter = formatterName;

@@ -208,7 +208,7 @@ class DMultiCheckboxWidget : DWidget {
      * @param string[]|string|int|false|null myselected The selected values.
      * /
     protected bool _isSelected(string aKey, string[]|int|false|null myselected) {
-        if (myselected.isNull) {
+        if (myselected is null) {
             return false;
         }
         if (!myselected.isArray) {

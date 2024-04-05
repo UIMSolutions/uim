@@ -368,7 +368,7 @@ class DTimeHelper : Helper {
         string|false myinvalid = false,
         DateTimeZone|string|null mytimezone = null
     ) {
-        if (mydate.isNull) {
+        if (mydate is null) {
             return myinvalid;
         }
         mytimezone = _getTimezone(mytimezone);

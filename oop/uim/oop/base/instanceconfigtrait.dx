@@ -99,7 +99,7 @@ template InstanceConfigTemplate() {
      */
     IData getConfigOrFail(string keyToGet) {
         configData = this.getConfig(keyToGet);
-        if (configData.isNull) {
+        if (configData is null) {
             throw new DInvalidArgumentException(
                 "Expected configuration `%s` not found.".format(keyToGet));
         }
@@ -141,7 +141,7 @@ template InstanceConfigTemplate() {
     
     // Reads a config key.
     protected IData _configRead(string keyToRead) {
-        if (keyToRead.isNull) {
+        if (keyToRead is null) {
             return _config;
         }
         if (!keyToRead.has(".")) {
@@ -169,7 +169,7 @@ template InstanceConfigTemplate() {
      * @throws \UIM\Core\Exception\UimException if attempting to clobber existing config
      */
     protected void _configWrite(string[] keyToWrite, IData aValue, string|bool merge = false) {
-        if (isString(keyToWrite) && aValue.isNull) {
+        if (isString(keyToWrite) && aValue is null) {
            _configDelete(keyToWrite);
 
             return;

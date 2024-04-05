@@ -38,7 +38,7 @@ abstract class Logger /* : DAbstractLogger */ {
     this(IData[string] configData = null) {
         configuration.update(configData);
 
-        if (!configuration["scopes").isNull) {
+        if (!configuration["scopes") is null) {
            configuration["scopes", configuration["scopes").toArray);
         }
         configuration["levels", configuration["levels").toArray);

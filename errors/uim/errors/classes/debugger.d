@@ -77,7 +77,7 @@ class DDebugger {
      * @throws \UIM\Core\Exception\UimException When trying to set a key that is invalid.
      * /
     static IData[string] configSettings = nullInstance(string[] aKey = null, IData aValue = null, bool merge = true) {
-        if (aKey.isNull) {
+        if (aKey is null) {
             return getInstance().getConfig(aKey);
         }
         if (isArray(aKey) || func_num_args() >= 2) {
@@ -194,7 +194,7 @@ class DDebugger {
      * @param ?\Throwable parent The parent exception to compare frames with.
      * /
     static array getUniqueFrames(Throwable exception, Throwable parent) {
-        if (parent.isNull) {
+        if (parent is null) {
             return exception.getTrace();
         }
         parentFrames = parent.getTrace();

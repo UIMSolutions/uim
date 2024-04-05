@@ -76,7 +76,7 @@ class DSessionCsrfProtectionMiddleware { // }: IMiddleware {
             throw new UimException("You must have a `session` attribute to use session based CSRF tokens");
         }
         token = session.read(configuration["key"]);
-        if (token.isNull) {
+        if (token is null) {
             token = this.createToken();
             session.write(configuration["key"], token);
         }

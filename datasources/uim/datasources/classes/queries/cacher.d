@@ -1,4 +1,4 @@
-module datasources.uim.datasources.classes.queries.cacher;
+module uim.datasources.classes.queries.cacher;
 
 import uim.datasources;
 
@@ -13,6 +13,7 @@ import uim.datasources;
  * @see \UIM\Datasource\QueryTrait.cache() for the interface.
  */
 class DQueryCacher {
+    /* 
     // The key or auto to generate a key
     protected Closure|string _key;
 

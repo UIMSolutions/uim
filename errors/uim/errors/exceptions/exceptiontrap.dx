@@ -23,7 +23,7 @@ class DExceptionTrap {
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\Error\ExceptionTrap>
      */
-    use EventDispatcherTemplate();
+    use TEventDispatcher();
     use InstanceConfigTemplate();
 
     /**

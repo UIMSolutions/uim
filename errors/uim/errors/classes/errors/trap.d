@@ -1,5 +1,4 @@
-
-module uim.errors;
+module uim.errors.classes.errors.trap;
 
 import uim.errors;
 
@@ -15,17 +14,21 @@ import uim.errors;
  * one of the default implementations will be chosen based on the PHP SAPI.
  */
 class DErrorTrap {
-    /**
-     * @use \UIM\Event\EventDispatcherTrait<\UIM\Error\ErrorTrap>
-     */
-    use EventDispatcherTemplate();
-    use InstanceConfigTemplate();
+    mixin TConfigurable;
+    // @use \UIM\Event\EventDispatcherTrait<\UIM\Error\ErrorTrap>
+    mixin TEventDispatcher;
 
+    this() {
+        initialize;
+    }
 
-        override bool initialize(IData[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
 
         /**
         * Configuration options. Generally these are defined in config/app.d
@@ -35,8 +38,7 @@ class DErrorTrap {
         *  to choosing between Html and Console based on the SAPI.
         * - `log` - boolean - Whether or not you want errors logged.
         * - `logger` - string - The class name of the error logger to use.
-        * - `trace` - boolean - Whether or not backtraces should be included in
-        *  logged errors.
+        * - `trace` - boolean - Whether or not backtraces should be included in logged errors.
         */
         configuration.updateDefaults([
             "errorLevel": E_ALL,
@@ -47,23 +49,22 @@ class DErrorTrap {
         ]);
 
         return true;
-        }
-
-    this(IData[string] options = null) {
-        this.setConfig(options);
     }
-    
+
+    mixin(TProperty!("string", "name"));
+
+    /*
     // Choose an error renderer based on config or the SAPI
     protected string chooseErrorRenderer() {
         configData = _configData.isSet("errorRenderer");
         if (configData !isNull) {
             return configData;
         }
-        /** @var class-string<\UIM\Error\IErrorRenderer> */
-        return UIM_SAPI == "cli" ? ConsoleErrorRenderer.classname : HtmlErrorRenderer.classname;
-    }
-    
-    /**
+        /** @var class-string<\UIM\Error\IErrorRenderer> * /
+    return UIM_SAPI == "cli" ? ConsoleErrorRenderer.classname : HtmlErrorRenderer.classname;
+}
+
+/**
      * Attach this ErrorTrap to PHP`s default error handler.
      *
      * This will replace the existing error handler, and the
@@ -71,7 +72,7 @@ class DErrorTrap {
      *
      * This method will also set the global error level
      * via error_reporting().
-     */
+     * /
     void register() {
         auto level = configuration.getInteger("errorLevel", -1);
         error_reporting(level);
@@ -91,7 +92,7 @@ class DErrorTrap {
      * @param string adescription Error description
      * @param string file File on which error occurred
      * @param int line Line that triggered the error
-     */
+     * /
     bool handleError(
         int errorCode,
         string adescription,
@@ -141,7 +142,7 @@ class DErrorTrap {
      * Logging helper method.
      * Params:
      * \UIM\Error\UimError error The error object to log.
-     */
+     * /
     protected void logError(UimError error) {
         if (!configuration["log")) {
             return;
@@ -151,7 +152,7 @@ class DErrorTrap {
     
     /**
      * Get an instance of the renderer.
-     */
+     * /
     IErrorRenderer renderer() {
         string className = _configData.get("errorRenderer", this.chooseErrorRenderer());
 
@@ -162,5 +163,5 @@ class DErrorTrap {
     IErrorLogger logger() {
         string className = configData.get("logger", defaultconfiguration["logger"));
         return new className(_config);
-    }
+    } */
 }

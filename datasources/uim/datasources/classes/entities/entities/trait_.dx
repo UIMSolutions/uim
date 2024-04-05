@@ -15,7 +15,7 @@ se InvalidArgumentException;
  * An entity represents a single result row from a repository. It exposes the
  * methods for retrieving and storing fields associated in this row.
  */
-trait EntityTrait
+mixin template EntityTrait
 {
     /**
      * Holds all fields and their values for this entity.

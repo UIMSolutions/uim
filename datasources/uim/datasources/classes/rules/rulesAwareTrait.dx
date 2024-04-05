@@ -12,7 +12,7 @@ use ArrayObject;
 import uim.events.IEventDispatcher;
 
 /**
- * A trait that allows a class to build and apply application.
+ * A mixin template that allows a class to build and apply application.
  * rules.
  *
  * If the implementing class DAlso : EventAwareTrait, then
@@ -21,7 +21,7 @@ import uim.events.IEventDispatcher;
  * The implementing class is expected to define the `RULES_CLASS` constant
  * if they need to customize which class is used for rules objects.
  */
-trait RulesAwareTrait
+mixin template RulesAwareTrait
 {
     /**
      * The domain rules to be applied to entities saved by this table

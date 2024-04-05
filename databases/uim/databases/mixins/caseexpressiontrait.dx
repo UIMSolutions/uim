@@ -5,11 +5,11 @@ import uim.databases;
 @safe:
 
 /**
- * Trait that holds shared functionality for case related expressions.
+ * mixin template that holds shared functionality for case related expressions.
  *
  * @internal
  */
-trait CaseExpressionTrait {
+mixin template CaseExpressionTrait {
     /**
      * Infers the abstract type for the given value.
      * Params:

@@ -354,15 +354,15 @@ foreach (article->comments as comment) {
 
 Creating Re-usable Code with Traits
 
-You may find yourself needing the same logic in multiple entity classes. PHP’s traits are a great fit for this. You can put your application’s traits in src/Model/Entity. By convention traits in CakePHP are suffixed with Trait so they can be discernible from classes or interfaces. Traits are often a good complement to behaviors, allowing you to provide functionality for the table and entity objects.
+You may find yourself needing the same logic in multiple entity classes. PHP’s traits are a great fit for this. You can put your application’s traits in src/Model/Entity. By convention traits in CakePHP are suffixed with mixin template so they can be discernible from classes or interfaces. Traits are often a good complement to behaviors, allowing you to provide functionality for the table and entity objects.
 
-For example if we had SoftDeletable plugin, it could provide a trait. This trait could give methods for marking entities as ‘deleted’, the method softDelete could be provided by a trait:
+For example if we had SoftDeletable plugin, it could provide a trait. This mixin template could give methods for marking entities as ‘deleted’, the method softDelete could be provided by a trait:
 
 // SoftDelete/Model/Entity/SoftDeleteTrait.php
 
 namespace SoftDelete\Model\Entity;
 
-trait SoftDeleteTrait
+mixin template SoftDeleteTrait
 {
     public function softDelete_()
     {
@@ -370,7 +370,7 @@ trait SoftDeleteTrait
     }
 }
 
-You could then use this trait in your entity class by importing it and including it:
+You could then use this mixin template in your entity class by importing it and including it:
 
 namespace App\Model\Entity;
 

@@ -18,7 +18,7 @@ import uim.datasources.exceptions.RecordNotFoundException;
  * Contains the characteristics for an object that is attached to a repository and
  * can retrieve results based on any criteria.
  */
-trait QueryTrait
+mixin template QueryTrait
 {
     /**
      * Instance of a table object this query is bound to

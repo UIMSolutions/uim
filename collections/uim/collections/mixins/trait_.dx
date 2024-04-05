@@ -21,13 +21,13 @@ use RecursiveIteratorIterator;
  */
 
 // Offers a handful of methods to manipulate iterators
-trait CollectionTrait {
+mixin template CollectionTrait {
     // use ExtractTrait;
 
     /**
      * Returns a new DCollection.
      *
-     * Allows classes which use this trait to determine their own
+     * Allows classes which use this mixin template to determine their own
      * type of returned collection interface
      *
      * @param mixed ...args Constructor arguments.

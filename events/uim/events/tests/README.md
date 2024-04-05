@@ -1,4 +1,4 @@
-# Package 📦 uim.events
+# Package 📦 uim.events.tests
 
 ## Packages
 

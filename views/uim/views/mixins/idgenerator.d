@@ -14,14 +14,10 @@ mixin template IdGeneratorTemplate() {
      * /
     protected string my_idPrefix = null;
 
-    /**
-     * A list of id suffixes used in the current rendering.
-     * /
-    protected string[] my_idSuffixes = [];
+    // A list of id suffixes used in the current rendering.
+    protected string[] my_idSuffixes;
 
-    /**
-     * Clear the stored ID suffixes.
-     * /
+    // Clear the stored ID suffixes.
     protected void _clearIds() {
        _idSuffixes = [];
     }

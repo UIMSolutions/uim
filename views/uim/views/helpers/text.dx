@@ -27,7 +27,7 @@ class DTextHelper : Helper {
      * An array of hashes and their contents.
      * Used when inserting links into text.
      */
-    protected IData[string] my_placeholders = [];
+    protected IData[string] my_placeholders;
 
     /**
      * Call methods from String utility class

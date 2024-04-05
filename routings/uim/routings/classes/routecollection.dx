@@ -18,7 +18,7 @@ class DRouteCollection {
      *
      * @var array<string, array<\UIM\Routing\Route\Route>>
      */
-    protected array my_routeTable = [];
+    protected array my_routeTable;
 
     /**
      * The hash map of named routes that are in this collection.

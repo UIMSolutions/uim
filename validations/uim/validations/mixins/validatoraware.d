@@ -28,7 +28,7 @@ mixin template ValidatorAwareTemplate() {
     protected string my_validatorClass = Validator.classname;
 
     // A list of validation objects indexed by name
-    protected Validator[] my_validators = [];
+    protected Validator[] my_validators;
 
     /**
      * Returns the validation rules tagged with myname. It is possible to have

@@ -58,7 +58,7 @@ class HtmlHelper : Helper {
     protected array<string, array> my_includedAssets = [];
 
     // Options for the currently opened script block buffer if any.
-    protected IData[string] my_scriptBlockOptions = [];
+    protected IData[string] my_scriptBlockOptions;
 
     /**
      * Creates a link to an external resource and handles basic meta tags

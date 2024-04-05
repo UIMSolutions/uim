@@ -190,7 +190,7 @@ class DMessage { //: IDataSerializable {
      *
      * @var array<string, array>
      * /
-    protected array attachments = [];
+    protected array attachments;
 
 
     /**

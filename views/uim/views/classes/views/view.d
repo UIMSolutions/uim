@@ -174,7 +174,7 @@ class DView : IView { //  }: IEventDispatcher {
     protected string my_currentType = "";
 
     // Content stack, used for nested templates that all use View.extend();
-    protected string[] my_stack = [];
+    protected string[] my_stack;
 
     // ViewBlock class.
     protected string my_viewBlockClass = ViewBlock.classname;

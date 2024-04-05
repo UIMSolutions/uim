@@ -1,4 +1,4 @@
-module uim.events.event.decorators.subjectfilter;
+module events.uim.events.classes.decorators.subjectfilter;
 
 import uim.events;
 
@@ -13,8 +13,8 @@ import uim.events;
  * The `allowedSubject` option can be a list of class names, if you want
  * to check multiple classes.
  */
-class DSubjectFilterDecorator : DAbstractDecorator {
- 
+class DSubjectFilterDecorator : DDecorator {
+    /* 
     IData __invoke() {
         auto someArguments = func_get_args();
         if (!this.canTrigger(someArguments[0])) {
@@ -39,5 +39,5 @@ class DSubjectFilterDecorator : DAbstractDecorator {
         }
 
         return in_array(subject.class, _options["allowedSubject"], true);
-    }
+    } */
 }

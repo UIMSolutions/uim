@@ -23,7 +23,7 @@ import uim.validations;
  * If the including class DAlso : events the `Model.buildValidator` event
  * will be triggered when validators are created.
  * /
-mixin template ValidatorAwareTemplate {
+mixin template ValidatorAwareTemplate() {
     // Validator class.
     protected string my_validatorClass = Validator.classname;
 

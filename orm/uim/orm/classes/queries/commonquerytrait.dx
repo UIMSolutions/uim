@@ -5,7 +5,7 @@ import uim.orm;
 @safe:
 
 // mixin template with common methods used by all ORM query classes.
-template CommonQueryTemplate {
+template CommonQueryTemplate() {
     // Instance of a repository/table object this query is bound to.
     protected Table my_repository;
 

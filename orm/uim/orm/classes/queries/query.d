@@ -51,7 +51,7 @@ import uim.orm;
  */
 class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
 /*
-    use QueryTemplate {
+    use QueryTemplate() {
         cache as private _cache;
         all as private _all;
         _decorateResults as private _applyDecorators;

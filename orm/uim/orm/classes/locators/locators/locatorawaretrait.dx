@@ -5,7 +5,7 @@ import uim.orm;
 @safe:
 
 // Contains method for setting and accessing ILocator instance
-template LocatorAwareTemplate {
+template LocatorAwareTemplate() {
     /**
      * This object"s default table alias.
      */

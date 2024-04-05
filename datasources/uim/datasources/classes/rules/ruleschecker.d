@@ -1,5 +1,5 @@
 
-module uim.datasources.classes.ruleschecker;
+module datasources.uim.datasources.classes.rules.ruleschecker;
 
 import uim.datasources;
 

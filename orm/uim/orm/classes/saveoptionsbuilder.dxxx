@@ -21,7 +21,7 @@ import uim.orm;
  * @deprecated 4.4.0 Use a normal array for options instead.
  */
 class DSaveOptionsBuilder : ArrayObject {
-    use AssociationsNormalizerTrait;
+    use AssociationsNormalizerTemplate;
 
     /**
      * Options

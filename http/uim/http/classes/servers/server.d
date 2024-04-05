@@ -37,7 +37,7 @@ class DServer { // }: IEventDispatcher {
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\Core\IHttpApplication>
      * /
-    use EventDispatcherTrait;
+    use EventDispatcherTemplate;
 
     protected IHttpApplication _app;
 

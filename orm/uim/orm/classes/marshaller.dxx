@@ -19,7 +19,7 @@ use ArrayObject;
  */
 class Marshaller
 {
-    use AssociationsNormalizerTrait;
+    use AssociationsNormalizerTemplate;
 
     /**
      * The table instance this marshaller is for.

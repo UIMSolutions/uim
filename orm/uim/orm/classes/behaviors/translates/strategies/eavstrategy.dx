@@ -55,8 +55,8 @@ configuration.updateDefaults([
     mixin(TProperty!("string", "name"));
     
     /*
-    use LocatorAwareTrait;
-    use TranslateStrategyTrait;
+    use LocatorAwareTemplate;
+    use TranslateStrategyTemplate;
 
   
 

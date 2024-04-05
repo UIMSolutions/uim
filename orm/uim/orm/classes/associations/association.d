@@ -82,8 +82,8 @@ class DAssociation : IAssociation {
     protected string _strategy = STRATEGY_JOIN;
 
 /* 
-    // TODO use ConventionsTrait;
-    // TODO use LocatorAwareTrait;
+    // TODO use ConventionsTemplate;
+    // TODO use LocatorAwareTemplate;
 
     // Name given to the association, it usually represents the alias assigned to the target associated table
 

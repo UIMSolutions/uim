@@ -16,8 +16,8 @@ import uim.orm;
  * ordering operations around saving and deleting.
  */
 class DAssociationCollection { // }: IteratorAggregate {
-    /* use AssociationsNormalizerTrait;
-    use LocatorAwareTrait;
+    /* use AssociationsNormalizerTemplate;
+    use LocatorAwareTemplate;
 
     // Stored associations
     protected DORMAssociation[] _items;

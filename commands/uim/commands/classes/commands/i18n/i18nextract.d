@@ -19,10 +19,10 @@ class DI18nExtractCommand : DCommand {
     }
     
     // Paths to use when looking for strings
-    protected string[] _paths = [];
+    protected string[] _paths;
 
     // Files from where to extract
-    protected string[] _files = [];
+    protected string[] _files;
 
     // Merge all domain strings into the default.pot file
     protected bool _merge = false;

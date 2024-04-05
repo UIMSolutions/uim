@@ -82,6 +82,10 @@ class DController : IController { // IEventListener, IEventDispatcher {
     mixin(TProperty!("string", "pluginName"));
     mixin(TProperty!("Response", "response"));
 
+
+    // View classes for content negotiation.
+    protected string[] _viewClasses;
+
     /**
      * An instance of a \UIM\Http\ServerRequest object that contains information about the current request.
      * This object contains all the information about a request and several methods for reading
@@ -112,7 +116,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      *
      * @see \UIM\Datasource\Paging\NumericPaginator
      * /
-    protected IData[string] paginate = [];
+    protected IData[string] paginate;
 
     // Set to true to automatically render the view after action logic.
     protected bool autoRender = true;
@@ -151,8 +155,6 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * /
     protected array  middlewares = [];
 
-    // View classes for content negotiation.
-    protected string[]  viewClasses = [];
 
     /**
      * Constructor.

@@ -43,7 +43,7 @@ class DRulesChecker {
     const string DELETE = "delete";
 
     // The list of rules to be checked on both create and update operations
-    protected RuleInvoker[] _rules = [];
+    protected RuleInvoker[] _rules;
 
     // The list of rules to check during create operations
     protected RuleInvoker[] _createRules = [];

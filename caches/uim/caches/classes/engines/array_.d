@@ -98,7 +98,7 @@ class DArrayEngine : DCacheEngine {
      * Delete all keys from the cache. This will clear every cache config using APC.
      * /
   override bool clear() {
-    _cachedData = [];
+    _cachedData = null;
 
     return true;
   }

@@ -189,7 +189,7 @@ class DNumericPaginator : IPaginator {
      */
     IPaginated paginate(
         IData target,
-        array requestParameters = [],
+        array requestParameters,
         array settingsForPagination = []
     ) {
         aQuery = null;

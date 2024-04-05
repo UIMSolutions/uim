@@ -47,7 +47,7 @@ class DComparisonExpression : IExpression, IField {
      * A cached list of IExpression objects that were
      * found in the value for this expression.
      */
-    protected IExpression[] _valueExpressions = [];
+    protected IExpression[] _valueExpressions;
 
     /**
      * Constructor

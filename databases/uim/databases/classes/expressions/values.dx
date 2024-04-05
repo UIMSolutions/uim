@@ -15,10 +15,10 @@ class DValuesExpression : IExpression {
     mixin TypeMapTemplate;
 
     // Array of values to insert.
-    protected array _values = [];
+    protected array _values;
 
     // List of columns to ensure are part of the insert.
-    protected array _columns = [];
+    protected array _columns;
 
     // The Query object to use as a values expression
     protected Query _query = null;

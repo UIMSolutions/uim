@@ -132,7 +132,7 @@ class DMapReduce { // }: IteratorAggregate {
         if (!myReducer.isNull) {
             _intermediate.byKeyValue.each!(kv => myReducer(kv.value, kv.key, this));
         }
-       _intermediate = [];
+       _intermediate = null;
        _executed = true;
     } */
 }

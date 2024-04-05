@@ -9,7 +9,7 @@ import uim.databases;
 class DWindowExpression : IExpression, IWindow {
     protected IdentifierExpression  myname;
 
-    protected IExpression mypartitions = [];
+    protected IExpression mypartitions;
 
     protected DOrderByExpression myorder = null;
 

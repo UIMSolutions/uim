@@ -35,7 +35,7 @@ mixin template EntityTemplate() {
      * Holds a list of the fields that were modified or added after this object
      * was originally created.
      */
-  protected bool[] _isDirty = [];
+  protected bool[] _isDirty;
 
   /**
      * Holds a cached list of getters/setters per class

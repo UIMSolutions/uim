@@ -293,7 +293,7 @@ IData get(string aKey, IData mydefault = null) {
      * @param IData mydefault Default value to return for keys that do not exist.
      * /
 IData[string] getMultiple(string[] someKeys, IData mydefault = null) {
-  mycacheKeys = [];
+  mycacheKeys = null;
   someKeys.each!(key => mycacheKeys[key] = _key(key));
   myvalues = _Memcached.getMulti(mycacheKeys);
   

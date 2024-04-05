@@ -1,4 +1,4 @@
-module uim.events.event.decorators.decorator;
+module events.uim.events.classes.decorators.decorator;
 
 import uim.events;
 

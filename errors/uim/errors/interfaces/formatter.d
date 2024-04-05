@@ -8,8 +8,8 @@ import uim.errors;
  * Interface for formatters used by Debugger-
  *****************************************************************************/
 interface IErrorFormatter {
-    // Convert a tree of INode objects into a plain text string.
-    // TODO string dump(INode nodeToDump);
+    // Convert a tree of IErrorNode objects into a plain text string.
+    // TODO string dump(IErrorNode nodeToDump);
 
     /*************************************************************************
      * Output a dump wrapper with location context.

@@ -7,7 +7,7 @@ import uim.errors;
 /*
  * Debug node for special messages like errors or recursion warnings.
  */
-class DSpecialNode : INode {
+class DSpecialNode : IErrorNode {
   private string avalue;
 
   /**

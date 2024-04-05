@@ -1,4 +1,4 @@
-module events.uim.events.classes.events.event;
+module uim.events.classes.events.event;
 
 import uim.events;
 

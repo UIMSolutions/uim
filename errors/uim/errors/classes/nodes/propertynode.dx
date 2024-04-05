@@ -5,12 +5,12 @@ import uim.errors;
 @safe:
 
 // Dump node for object properties.
-class DPropertyNode : INode {
+class DPropertyNode : IErrorNode {
     private string _name;
 
     private string _visibility;
 
-    private INode _value;
+    private IErrorNode _value;
 
     /**
      * Constructor
@@ -19,14 +19,14 @@ class DPropertyNode : INode {
      * visibility    = The visibility of the property.
      * propertyValue =  The property value node.
      */
-    this(string propertyName, string visibility, INode propertyValue) {
+    this(string propertyName, string visibility, IErrorNode propertyValue) {
         _name = propertyName;
         _visibility = visibility;
         _value = propertyValue;
     }
     
     // Get the value
-    INode getValue() {
+    IErrorNode getValue() {
         return this.value;
     }
     

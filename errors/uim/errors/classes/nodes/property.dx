@@ -9,12 +9,12 @@ module uim.errors.debugs.nodes;
 import uim.errors;
 
 // Dump node for object properties.
-class DPropertyNode : IERRNode {
+class DPropertyNode : IErrorNode {
   private string myName;
 
   private string _visibility;
 
-  private IERRNode _propertyValue;
+  private IErrorNode _propertyValue;
 
   /**
     * Constructor
@@ -23,7 +23,7 @@ class DPropertyNode : IERRNode {
     * theVisibility - The visibility of the property.
     * theValue - The property value node.
     */
-  this(string theName, string theVisibility, IERRNode theValue) {
+  this(string theName, string theVisibility, IErrorNode theValue) {
     _name = theName;
     _visibility = theVisibility;
     _propertyValue = theValue;
@@ -32,7 +32,7 @@ class DPropertyNode : IERRNode {
   /**
     * Get the value
     *
-    * @return uim.errors.debugs.IERRNode
+    * @return uim.errors.debugs.IErrorNode
     */
   string value() {
     return _propertyValue.value;
@@ -48,7 +48,7 @@ class DPropertyNode : IERRNode {
     return _name;
   }
 
-  IERRNode[] children() {
+  IErrorNode[] children() {
     return [this._propertyValue];
   }
 }

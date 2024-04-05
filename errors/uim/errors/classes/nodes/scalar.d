@@ -5,7 +5,7 @@ import uim.errors;
 @safe:
 
 // Dump node for scalar values.
-class DScalarNode : INode {
+class DScalarNode : IErrorNode {
 
     // Type of scalar data
     private string _type;
@@ -28,7 +28,7 @@ class DScalarNode : INode {
         return _value;
     }
  
-     INode[] getChildren() {
+     IErrorNode[] getChildren() {
         return null;
     }
 }

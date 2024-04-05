@@ -11,7 +11,7 @@ import uim.errors;
  * a reference node can be used after an object has been seen the
  * first time.
  */
-class DReferenceNode : INode {
+class DReferenceNode : IErrorNode {
     private string className;
 
     private int  anId;

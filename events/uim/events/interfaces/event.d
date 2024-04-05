@@ -9,10 +9,11 @@ import uim.events;
  * payload. The name can be any string that uniquely identifies the event across the application, while the subject
  * represents the object that the event applies to.
  */
-interface IEvent {
+interface IEvent : INamed {
   // Returns the name of this event. This is usually used as the event identifier.
   string name();
 
+  /* 
   // Returns the subject of this event.
   IEventObject subject();
 
@@ -34,4 +35,5 @@ interface IEvent {
 
   // Assigns a value to the data/payload of this event.
   IEvent data(string[] dataKeys, IData aValue);
+  */
 }

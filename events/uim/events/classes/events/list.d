@@ -1,4 +1,4 @@
-module uim.events.Event;
+module uim.events.classes.events.list;
 
 import uim.events;
 
@@ -8,10 +8,10 @@ import uim.events;
  *
  * @template-implements \ArrayAccess<int, \UIM\Event\IEvent>
  */
-class DEventList : ArrayAccess, Countable {
+class DEventList { // }: ArrayAccess, Countable {
     /**
      * Events list
-     */
+     * /
     protected IEvent<object>[] _events = [];
 
     // Empties the list of dispatched events.
@@ -23,7 +23,7 @@ class DEventList : ArrayAccess, Countable {
      * Adds an event to the list when event listing is enabled.
      * Params:
      * \UIM\Event\IEvent<object> event An event to the list of dispatched events.
-     */
+     * /
     void add(IEvent event) {
        _events ~= event;
     }
@@ -34,7 +34,7 @@ class DEventList : ArrayAccess, Countable {
      * @link https://secure.php.net/manual/en/arrayaccess.offsetexists.php
      * @param IData  anOffset An offset to check for.
      * @return bool True on success or false on failure.
-     */
+     * /
     bool offsetExists(IData anOffset) {
         return isSet(_events[anOffset]);
     }
@@ -45,7 +45,7 @@ class DEventList : ArrayAccess, Countable {
      * @link https://secure.php.net/manual/en/arrayaccess.offsetget.php
      * @param IData  anOffset The offset to retrieve.
      * @return \UIM\Event\IEvent<object>|null
-     */
+     * /
     IEvent offsetGet(IData anOffset) {
         if (!this.offsetExists(anOffset)) {
             return null;
@@ -59,7 +59,7 @@ class DEventList : ArrayAccess, Countable {
      * @link https://secure.php.net/manual/en/arrayaccess.offsetset.php
      * @param IData  anOffset The offset to assign the value to.
      * @param IData aValue The value to set.
-     */
+     * /
     void offsetSet(IData anOffset, IData aValue) {
        _events[anOffset] = aValue;
     }
@@ -69,7 +69,7 @@ class DEventList : ArrayAccess, Countable {
      *
      * @link https://secure.php.net/manual/en/arrayaccess.offsetunset.php
      * @param IData  anOffset The offset to unset.
-     */
+     * /
     void offsetUnset(IData  anOffset) {
         unset(_events[anOffset]);
     }
@@ -79,7 +79,7 @@ class DEventList : ArrayAccess, Countable {
      *
      * @link https://secure.php.net/manual/en/countable.count.php
      * @return int The custom count as an integer.
-     */
+     * /
     size_t count() {
         return count(_events);
     }
@@ -88,7 +88,7 @@ class DEventList : ArrayAccess, Countable {
      * Checks if an event is in the list.
      * Params:
      * string aName Event name.
-     */
+     * /
     bool hasEvent(string aName) {
         foreach (event; _events) {
             if (event.name == name) {
@@ -96,5 +96,5 @@ class DEventList : ArrayAccess, Countable {
             }
         }
         return false;
-    }
+    } */
 }

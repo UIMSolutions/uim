@@ -7,7 +7,7 @@ import uim.http;
 /*
  * Define mock responses and have mocks automatically cleared.
  * /
-template HttpClientTemplate {
+template HttpClientTemplate() {
     /**
      * Resets mocked responses
      *

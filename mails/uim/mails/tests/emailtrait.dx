@@ -11,7 +11,7 @@ import uim.oop;
  * with TestEmailTransport which is used for making assertions and will *not* actually
  * send emails.
  */
-template EmailTemplate {
+template EmailTemplate() {
     /**
      * Replaces all transports with the test transport during test setup
      *

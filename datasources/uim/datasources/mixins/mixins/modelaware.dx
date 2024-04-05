@@ -11,7 +11,7 @@ import uim.datasources;
  * Example users of this template are {@link \UIM\Controller\Controller} and
  * {@link \UIM\Command\Command}.
  */
-template ModelAwareTemplate {
+template ModelAwareTemplate() {
     /**
      * This object`s primary model class name. Should be a plural form.
      * UIM will not inflect the name.

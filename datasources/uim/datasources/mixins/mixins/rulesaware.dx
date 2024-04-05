@@ -14,7 +14,7 @@ import uim.datasources;
  * The implementing class is expected to define the `RULES_CLASS` constant
  * if they need to customize which class is used for rules objects.
  */
-mixin RulesAwareTemplate {
+mixin RulesAwareTemplate() {
     // The domain rules to be applied to entities saved by this table
     protected RulesChecker _rulesChecker = null;
 

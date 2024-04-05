@@ -555,11 +555,11 @@ class DDebugger {
     /**
      * Get the configured export formatter or infer one based on the environment.
      *
-     * @return uim.errors.debugs.IFormatter
+     * @return uim.errors.debugs.IErrorFormatter
      * @unstable This method is not stable and may change in the future.
      * @since 4.1.0
      * /
-    function getExportFormatter(): IFormatter
+    function getExportFormatter(): IErrorFormatter
     {
         instance = getInstance();
         aClassName = instance.getConfig('exportFormatter');
@@ -573,9 +573,9 @@ class DDebugger {
             }
         }
         instance = new aClassName();
-        if (!instance instanceof IFormatter) {
+        if (!instance instanceof IErrorFormatter) {
             throw new DRuntimeException(
-                "The `{aClassName}` formatter does not implement " ~ IFormatter::class
+                "The `{aClassName}` formatter does not implement " ~ IErrorFormatter::class
             );
         }
 

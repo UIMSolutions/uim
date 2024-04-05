@@ -7,7 +7,7 @@ import uim.errors;
 /******************************************************************************
  * Interface for formatters used by Debugger-
  *****************************************************************************/
-interface IFormatter {
+interface IErrorFormatter {
     // Convert a tree of INode objects into a plain text string.
     // TODO string dump(INode nodeToDump);
 

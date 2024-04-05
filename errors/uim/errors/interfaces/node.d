@@ -1,4 +1,4 @@
-module uim.errors.classes.nodes.interface_;
+module uim.errors.interfaces.node;
 
 import uim.errors;
 

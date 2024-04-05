@@ -1,4 +1,4 @@
-module uim.errors\Debug;
+module uim.errors.classes.nodes.special;
 
 import uim.errors;
 

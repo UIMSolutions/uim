@@ -1,4 +1,4 @@
-module datasources.uim.datasources.mixins.modelaware;
+module uim.datasources.mixins.modelaware;
 
 import uim.datasources;
 

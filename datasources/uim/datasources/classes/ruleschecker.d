@@ -1,5 +1,5 @@
 
-module uim.datasources;
+module uim.datasources.classes.ruleschecker;
 
 import uim.datasources;
 
@@ -27,11 +27,29 @@ import uim.datasources;
  * RulesChecker.checkDelete_().
  */
 class DRulesChecker {
-  	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
+    mixin TConfigurable!();
+
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    this(string name) {
+        this().name(name);
+    }
+
+    // Hook method
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
 
     // Indicates that the checking rules to apply are those used for creating entities
     const string CREATE = "create";
@@ -42,6 +60,7 @@ class DRulesChecker {
     // Indicates that the checking rules to apply are those used for deleting entities
     const string DELETE = "delete";
 
+    /* 
     // The list of rules to be checked on both create and update operations
     protected RuleInvoker[] _rules;
 
@@ -64,7 +83,7 @@ class DRulesChecker {
      * Constructor. Takes the options to be passed to all rules.
      * Params:
      * IData[string] optionData The options to pass to every rule
-     */
+     * /
     this(IData[string] optionData = null) {
        _options = options;
        _useI18n = function_exists("\UIM\I18n\__d");
@@ -87,7 +106,7 @@ class DRulesChecker {
      * @param string[] name The alias for a rule, or an array of options.
      * @param IData[string] optionData List of extra options to pass to the rule callable as
      * second argument.
-     */
+     * /
     void add(callable rule, string[] name = null, IData[string] options = null) {
        _rules ~= _addError(rule, name, options);
     }
@@ -108,15 +127,11 @@ class DRulesChecker {
      * @param string[] name The alias for a rule or an array of options.
      * @param IData[string] optionData List of extra options to pass to the rule callable as
      * second argument.
-     */
+     * /
     void addCreate(callable rule, string[] name = null, IData[string] optionData = null) {
        _createRules ~= _addError(rule, name, options);
     }
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> 74a7b6400cdc9ef55c74d50ddcb3fb9c29d1e0bf
     /**
      * Adds a rule that will be applied to the entity on update operations.
      *
@@ -133,17 +148,13 @@ class DRulesChecker {
      * @param string[] name The alias for a rule, or an array of options.
      * @param IData[string] optionData List of extra options to pass to the rule callable as
      * second argument.
-     */
+     * /
     auto addUpdate(callable rule, string[] name = null, IData[string] optionData = null) {
        _updateRules ~= _addError(rule, name, options);
 
         return this;
     }
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> 74a7b6400cdc9ef55c74d50ddcb3fb9c29d1e0bf
     /**
      * Adds a rule that will be applied to the entity on delete operations.
      *
@@ -160,7 +171,7 @@ class DRulesChecker {
      * @param string[] name The alias for a rule, or an array of options.
      * @param IData[string] optionData List of extra options to pass to the rule callable as
      * second argument.
-     */
+     * /
     auto addDelete_(callable rule, string[] name = null, IData[string] optionData = null) {
        _deleteRules ~= _addError(rule, name, options);
 
@@ -176,7 +187,7 @@ class DRulesChecker {
      * @param string amode Either 'create, "update' or 'delete'.
      * @param IData[string] optionData Extra options to pass to checker functions.
      * @throws \InvalidArgumentException if an invalid mode is passed.
-     */
+     * /
     bool check(IEntity entity, string amode, IData[string] optionData = null) {
         if (mode == self.CREATE) {
             return this.checkCreate(entity, options);
@@ -189,48 +200,36 @@ class DRulesChecker {
         }
         throw new DInvalidArgumentException("Wrong checking mode: " ~ mode);
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> 74a7b6400cdc9ef55c74d50ddcb3fb9c29d1e0bf
     /**
      * Runs each of the rules by passing the provided entity and returns true if all
      * of them pass. The rules selected will be only those specified to be run on 'create'
      * Params:
      * \UIM\Datasource\IEntity entity The entity to check for validity.
      * @param IData[string] optionData Extra options to pass to checker functions.
-     */
+     * /
    bool checkCreate(IEntity entity, IData[string] optionData = null) {
         return _checkRules(entity, options, array_merge(_rules, _createRules));
     }
-<<<<<<< HEAD
     
-=======
-
->>>>>>> 74a7b6400cdc9ef55c74d50ddcb3fb9c29d1e0bf
     /**
      * Runs each of the rules by passing the provided entity and returns true if all
      * of them pass. The rules selected will be only those specified to be run on 'update'
      * Params:
      * \UIM\Datasource\IEntity entity The entity to check for validity.
      * @param IData[string] optionData Extra options to pass to checker functions.
-     */
+     * /
    bool checkUpdate(IEntity entity, IData[string] optionData = null) {
         return _checkRules(entity, options, chain(_rules, _updateRules));
     }
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> 74a7b6400cdc9ef55c74d50ddcb3fb9c29d1e0bf
     /**
      * Runs each of the rules by passing the provided entity and returns true if all
      * of them pass. The rules selected will be only those specified to be run on 'delete'
      * Params:
      * \UIM\Datasource\IEntity entity The entity to check for validity.
      * @param IData[string] optionData Extra options to pass to checker functions.
-     */
+     * /
     bool checkDelete_(IEntity entity, IData[string] optionData = null) {
         return _checkRules(entity, options, _deleteRules);
     }
@@ -242,7 +241,7 @@ class DRulesChecker {
      * \UIM\Datasource\IEntity entity The entity to check for validity.
      * @param IData[string] optionData Extra options to pass to checker functions.
      * @param array<\UIM\Datasource\RuleInvoker> rules The list of rules that must be checked.
-     */
+     * /
     protected bool _checkRules(IEntity entity, IData[string] optionData = null, array rules = []) {
         success = true;
         options += _options;
@@ -258,7 +257,7 @@ class DRulesChecker {
      * \UIM\Datasource\RuleInvoker|callable rule The rule to decorate
      * @param string[] name The alias for a rule or an array of options
      * @param IData[string] optionData The options containing the error message and field.
-     */
+     * /
     protected RuleInvoker _addError(callable rule, string[] name = null, IData[string] optionData = null) {
         if (isArray(name)) {
             options = name;
@@ -270,5 +269,5 @@ class DRulesChecker {
             rule.setOptions(options).name(name);
         }
         return rule;
-    }
+    } */
 }

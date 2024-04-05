@@ -1,16 +1,16 @@
-module uim.datasources;
+module uim.datasources.classes.connections.registry;
 
 import uim.datasources;
 
 @safe:
 
 // A registry object for connection instances.
-class DConnectionRegistry : ObjectRegistry {
+class DConnectionRegistry : DObjectRegistry!IConnection {
     /**
      * Resolve a datasource classname.
      *
      * Part of the template method for UIM\Core\ObjectRegistry.load()
-     */
+     * /
     protected string _resolveClassName(string className) {
         return App.className(className, "Datasource");
     }
@@ -21,7 +21,7 @@ class DConnectionRegistry : ObjectRegistry {
      * Part of the template method for UIM\Core\ObjectRegistry.load()
      * Params:
      * @param string plugin The plugin the datasource is missing in.
-     */
+     * /
     protected void _throwMissingClassError(string className, string aplugin) {
         throw new MissingDatasourceException([
             "class":  className,
@@ -36,7 +36,7 @@ class DConnectionRegistry : ObjectRegistry {
      *
      * If a closure is passed as first argument, The returned value of this
      * auto will be the result from calling the closure.
-     */
+     * /
     protected IConnection _create(string className, string objectAlias, IData[string] configData) {
         configData.remove("className");
 
@@ -51,5 +51,6 @@ class DConnectionRegistry : ObjectRegistry {
     // Remove a single adapter from the registry.
     void unload(string adapterName) {
         unset(_loaded[adapterName]);
-    }
+    } */
 }
+auto ConnectionRegistry() { return new DConnectionRegistry; }

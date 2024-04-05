@@ -1,4 +1,4 @@
-module errors.uim.errors.classes.formatters.console;
+module uim.errors.classes.formatters.console;
 
 import uim.errors;
 

@@ -12,7 +12,7 @@ import uim.consoles;
 class DCommandRunner { // }: IEventDispatcher {
     mixin TConfigurable!();
     // @use \UIM\Event\EventDispatcherTrait<\UIM\Core\IConsoleApplication>
-    mixin EventDispatcherTemplate;
+    mixin TEventDispatcher;
 
     this() {
         initialize;

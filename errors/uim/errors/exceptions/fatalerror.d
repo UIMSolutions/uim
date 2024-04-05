@@ -1,12 +1,21 @@
-module uim.errors.exceptions.fatalerrorexception;
+module uim.errors.exceptions.fatalerror;
 
 import uim.errors;
 
-
-/**
- * Represents a fatal error
- */
+// Represents a fatal error
 class DFatalErrorException : UimException {
+    mixin(ExceptionThis!("FatalError"));
+
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        this
+            .messageTemplate("FatalError");
+
+        return true;
+    }
     /**
      * Constructor
      *
@@ -32,3 +41,4 @@ class DFatalErrorException : UimException {
         }
     } */
 }
+mixin(ExceptionCalls!("FatalError"));

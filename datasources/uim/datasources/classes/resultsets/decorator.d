@@ -8,9 +8,6 @@ module uim.datasources.classes.resultsets.decorator;
 @safe:
 import uim.datasources;
 
-import uim.collections.Collection;
-use Countable;
-
 /**
  * Generic ResultSet decorator. This will make any traversable object appear to
  * be a database result

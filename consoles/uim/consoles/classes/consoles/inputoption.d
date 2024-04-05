@@ -1,4 +1,4 @@
-module consoles.uim.consoles.classes.consoles.consoleinputoption;
+module uim.consoles.classes.consoles.inputoption;
 
 import uim.consoles;
 

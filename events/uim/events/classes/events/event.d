@@ -1,4 +1,4 @@
-module uim.events.classes.event;
+module events.uim.events.classes.events.event;
 
 import uim.events;
 
@@ -36,7 +36,7 @@ class DEvent : IEvent {
      * @param array data any value you wish to be transported
      *  with this event to it can be read by listeners.
      * @psalm-param TSubject|null subject
-     */
+     * /
     this(string aName, IEventObject subject = null, IData data = null) {
         _name = aName;
         _subject = subject;
@@ -93,4 +93,5 @@ class DEvent : IEvent {
         }
     }
     // #endregion data handling
+    */
 }

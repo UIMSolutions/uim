@@ -3,9 +3,6 @@ module uim.events.Event;
 import uim.events;
 
 @safe:
-/*
-use ArrayAccess;
-use Countable; */
 /**
  * The Event List
  *

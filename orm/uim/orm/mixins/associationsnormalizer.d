@@ -1,4 +1,4 @@
-module uim.orm.uim.orm.mixins.associationsnormalizertrait;
+module uim.orm.mixins.associationsnormalizer;
 
 import uim.orm;
 
@@ -8,13 +8,13 @@ import uim.orm;
  * Contains methods for parsing the associated tables array that is typically
  * passed to a save operation
  */
-template AssociationsNormalizerTemplate() {
+mixin template AssociationsNormalizerTemplate() {
     /**
      * Returns an array out of the original passed associations list where dot notation
      * is transformed into nested arrays so that they can be parsed by other routines
      * Params:
      * string[] myassociations The array of included associations.
-     */
+     * /
     protected array _normalizeAssociations(string[] myassociations) {
         auto result;
         foreach ((array)myassociations as mytable: options) {
@@ -47,5 +47,5 @@ template AssociationsNormalizerTemplate() {
             mypointer["associated"][mytable] = options + mypointer["associated"][mytable];
         }
         return result["associated"] ?? result;
-    }
+    } */
 }

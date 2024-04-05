@@ -41,6 +41,9 @@ import uim.views;
  */
 class DView : IView { //  }: IEventDispatcher {
     mixin TConfigurable!();
+    // @use \UIM\Event\EventDispatcherTrait<\UIM\View\View>
+    mixin EventDispatcherTemplate;
+    mixin LogTemplate;
 
     this() {
         initialize;
@@ -75,12 +78,6 @@ class DView : IView { //  }: IEventDispatcher {
         cell as public;
     }
     
-    /**
-     * @use \UIM\Event\EventDispatcherTrait<\UIM\View\View>
-     * /
-    mixin EventDispatcherTemplate;
-    mixin LogTemplate;
-
     // Helpers collection
     protected HelperRegistry my_helpers = null;
 

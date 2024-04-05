@@ -17,6 +17,7 @@ public { // Required uim libraries
   import uim.oop;
   // import uim.filesystems;
   import uim.models;
+  import uim.orm;
 }
 
 public { // uim.commands packages

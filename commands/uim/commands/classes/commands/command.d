@@ -7,6 +7,8 @@ import uim.commands;
 // Base class for commands
 class DCommand : ICommand {
     mixin TConfigurable!();
+    mixin LocatorAwareTemplate;
+    mixin LogTemplate;
 
     this() {
         initialize;
@@ -24,9 +26,6 @@ class DCommand : ICommand {
     }
 
     mixin(TProperty!("string", "name"));
-
-    //TODO mixin LocatorAwareTemplate();
-    //TODO mixin LogTemplate();
 
     // Implement this method with your command`s logic.
     int execute(IData[string] arguments, IConsoleIo aConsoleIo) {

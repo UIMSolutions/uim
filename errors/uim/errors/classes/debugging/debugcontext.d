@@ -3,12 +3,10 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.errors.debugs;
+module uim.errors.classes.debugging.debugcontext;
 
 @safe:
 import uim.errors;
-
-// use SplObjectStorage;
 
 /**
  * DContext tracking for Debugger::exportVar()
@@ -23,13 +21,14 @@ class DebugContext {
 
     private int _depth = 0;
 
+    /* 
     private SplObjectStorage _refs;
 
     /**
      * Constructor
      *
      * @param int maxDepth The desired depth of dump output.
-     */
+     * /
     this(int aMaxDepth) {
         _maxDepth = aMaxDepth;
         _refs = new DSplObjectStorage();
@@ -39,7 +38,7 @@ class DebugContext {
      * Return a clone with increased depth.
      *
      * @return static
-     */
+     * /
     function withAddedDepth() {
         new = clone this;
         new.depth += 1;
@@ -60,7 +59,7 @@ class DebugContext {
      *
      * @param object object The object to get a reference for.
      * @return int
-     */
+     * /
     int getReferenceId(object object) {
       if (this.refs.contains(object)) {
           return this.refs[object];
@@ -75,8 +74,8 @@ class DebugContext {
      * Check whether an object has been seen before.
      *
      * @param object object The object to get a reference for.
-     */
+     * /
     bool hasReference(object object) {
         return this.refs.contains(object);
-    }
+    } */
 }

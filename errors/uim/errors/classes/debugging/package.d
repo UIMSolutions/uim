@@ -6,7 +6,9 @@
 **********************************************************************************************************/
 module uim.errors.classes.debugging;
 
-// TODO public import uim.errors.classes.debugging.debugcontext;
+public {
+	import uim.errors.classes.debugging.debugcontext;
+}
 
 public {
 	import uim.errors.classes.debugging.formatters;

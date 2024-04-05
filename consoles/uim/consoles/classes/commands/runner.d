@@ -11,6 +11,8 @@ import uim.consoles;
  */
 class DCommandRunner { // }: IEventDispatcher {
     mixin TConfigurable!();
+    // @use \UIM\Event\EventDispatcherTrait<\UIM\Core\IConsoleApplication>
+    mixin EventDispatcherTemplate;
 
     this() {
         initialize;
@@ -29,11 +31,6 @@ class DCommandRunner { // }: IEventDispatcher {
 
     mixin(TProperty!("string", "name"));
     
-    /**
-     * @use \UIM\Event\EventDispatcherTrait<\UIM\Core\IConsoleApplication>
-     * /
-    mixin EventDispatcherTemplate();
-
     // The application console commands are being run for.
     protected IConsoleApplication _app;
 

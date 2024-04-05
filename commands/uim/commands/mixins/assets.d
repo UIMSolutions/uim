@@ -7,10 +7,11 @@ import uim.commands;
 /* * template for symlinking / copying plugin assets to app"s webroot.
  *
  * @internal
- * /
+ */
 mixin template PluginAssetsTemplate() {
     protected IData [string] arguments;
 
+    /*
     // Console IO
     protected IConsoleIo aConsoleIo;
 
@@ -208,6 +209,5 @@ mixin template PluginAssetsTemplate() {
         this.io.writeErrorMessages("Error copying assets to directory " ~ destination);
 
         return false;
-    }
+    } */
 }
-*/

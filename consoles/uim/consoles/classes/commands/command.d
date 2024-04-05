@@ -17,6 +17,8 @@ import uim.consoles;
  */
 abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
     mixin TConfigurable!();
+    //  @use \UIM\Event\EventDispatcherTrait<\UIM\Command\Command>
+    mixin EventDispatcherTemplate;
 
     this() {
         initialize;
@@ -37,9 +39,6 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
 
         return true;
     }
-
-    //  @use \UIM\Event\EventDispatcherTrait<\UIM\Command\Command>
-    // mixin EventDispatcherTemplate();
 
     // The name of this command.
     protected string _name = "unknown command";

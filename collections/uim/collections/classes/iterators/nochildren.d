@@ -1,4 +1,4 @@
-module uim.collectionss.iterators.nochildren;
+module uim.collections.classes.iterators.nochildren;
 
 import uim.collections;
 
@@ -11,7 +11,7 @@ import uim.collections;
  *
  * @template-implements \RecursiveIterator<mixed, mixed>
  */
-class DNoChildrenIterator : DCollection, RecursiveIterator {
+class DNoChildrenIterator : DCollection { // }, RecursiveIterator {
   // Returns false as there are no children iterators in this collection
   bool hasChildren() {
     return false;
@@ -19,8 +19,8 @@ class DNoChildrenIterator : DCollection, RecursiveIterator {
 
   /**
      * Returns a self instance without any elements.
-     */
+     * /
   RecursiveIterator getChildren() {
     return new static([]);
-  }
+  } */
 }

@@ -5,7 +5,7 @@ import uim.errors;
 @safe:
 
 /*
- * Interface for Debugs
+ * Interface for Debug Nodes
  * Provides methods to look at contained value and iterate child nodes in the tree.
  */
 interface INode {

@@ -1,5 +1,5 @@
 <style>
-    .cake-debug {
+    .uim-debug {
         --color-bg: #ecece9;
         --color-highlight-bg: #fcf8e3;
         --color-control-bg: hsla(0, 0%, 50%, 0.2);
@@ -24,25 +24,25 @@
         margin-bottom: 10px;
         position: relative;
     }
-    .cake-debug:last-child {
+    .uim-debug:last-child {
         margin-bottom: 0;
     }
-    .cake-debug-object {
+    .uim-debug-object {
         display: inline;
     }
-    .cake-debug-object[data-highlighted=true],
-    .cake-debug-object[data-highlighted=true] samp {
+    .uim-debug-object[data-highlighted=true],
+    .uim-debug-object[data-highlighted=true] samp {
         background: var(--color-highlight-bg);
     }
     /*   Array item container and each items are blocks so
     nesting works.
     */
-    .cake-debug-object-props,
-    .cake-debug-array-items {
+    .uim-debug-object-props,
+    .uim-debug-array-items {
         display: block;
     }
-    .cake-debug-prop,
-    .cake-debug-array-item {
+    .uim-debug-prop,
+    .uim-debug-array-item {
         display: block;
         padding-left: var(--indent);
         min-height: 18px;
@@ -52,7 +52,7 @@
     [data-hidden=true] {
         display: none;
     }
-    .cake-debug-collapse {
+    .uim-debug-collapse {
         display: inline-block;
         width: 14px;
         height: 14px;
@@ -66,11 +66,11 @@
         background-position: 2px 1px;
         background-repeat: no-repeat;
     }
-    .cake-debug-collapse[data-open=true] {
+    .uim-debug-collapse[data-open=true] {
         transform: rotate(90deg);
     }
     /* Copy button */
-    .cake-debug-copy {
+    .uim-debug-copy {
         position: absolute;
         top: 0;
         right: 0;
@@ -80,34 +80,34 @@
         border-radius: 0 0 0 3px;
     }
     /* Textual elements */
-    .cake-debug-class {
+    .uim-debug-class {
         color: var(--color-cyan);
     }
-    .cake-debug-property {
+    .uim-debug-property {
         color: var(--color-dark-grey);
     }
-    .cake-debug-visibility {
+    .uim-debug-visibility {
         color: var(--color-violet);
     }
-    .cake-debug-punct {
+    .uim-debug-punct {
         color: var(--color-grey);
     }
-    .cake-debug-string {
+    .uim-debug-string {
         color: var(--color-green);
         white-space: pre-wrap;
     }
-    .cake-debug-number {
+    .uim-debug-number {
         color: var(--color-blue);
         font-weight: bold;
     }
-    .cake-debug-const {
+    .uim-debug-const {
         color: var(--color-orange);
         font-weight: bold;
     }
-    .cake-debug-ref {
+    .uim-debug-ref {
         color: var(--color-red);
     }
-    .cake-debug-special {
+    .uim-debug-special {
         color: var(--color-red);
         font-style: italic;
     }
@@ -116,11 +116,11 @@
     (function (win, doc) {
 
         auto initialize() {
-            createCollapsibles(doc.querySelectorAll(".cake-debug-array-items"));
-            createCollapsibles(doc.querySelectorAll(".cake-debug-object-props"));
-            attachRefEvents(doc.querySelectorAll(".cake-debug"));
-            openBlocks(doc.querySelectorAll(".cake-debug[data-open-all="true"]"));
-            attachCopyButton(doc.querySelectorAll(".cake-debug"));
+            createCollapsibles(doc.querySelectorAll(".uim-debug-array-items"));
+            createCollapsibles(doc.querySelectorAll(".uim-debug-object-props"));
+            attachRefEvents(doc.querySelectorAll(".uim-debug"));
+            openBlocks(doc.querySelectorAll(".uim-debug[data-open-all="true"]"));
+            attachCopyButton(doc.querySelectorAll(".uim-debug"));
         }
         // Add a name on window so DebugKit can add controls to dump blocks
         win.__cakeDebugBlockInit = initialize;
@@ -130,7 +130,7 @@
          */
         auto openBlocks(blocks) {
             blocks.forEach(function (block) {
-                block.querySelectorAll(".cake-debug-collapse[data-open="false"]").forEach(function (el) {
+                block.querySelectorAll(".uim-debug-collapse[data-open="false"]").forEach(function (el) {
                     el.click();
                 });
             });
@@ -172,7 +172,7 @@
          */
         auto attachRefEvents(nodes) {
             nodes.forEach(function (container) {
-                let refLinks = container.querySelectorAll(".cake-debug-ref");
+                let refLinks = container.querySelectorAll(".uim-debug-ref");
                 refLinks.forEach(function (ref) {
                     ref.addEventListener("click", auto (event) {
                         event.preventDefault();
@@ -185,11 +185,11 @@
         }
         auto openPath(container, target) {
             // Open the target element
-            let expander = target.querySelector(".cake-debug-collapse");
+            let expander = target.querySelector(".uim-debug-collapse");
             if (expander.dataset.open == "false") {
                 expander.click();
             }
-            container.querySelectorAll(".cake-debug-object").forEach(function (el) {
+            container.querySelectorAll(".uim-debug-object").forEach(function (el) {
                 el.dataset.highlighted = "false";
             })
             target.dataset.highlighted = "true";
@@ -202,7 +202,7 @@
                     break;
                 }
                 if (parent.classList.contains("cake-debug-object") || parent.classList.contains("cake-debug-array")) {
-                    expander = parent.querySelector(".cake-debug-collapse");
+                    expander = parent.querySelector(".uim-debug-collapse");
                     if (expander.dataset.open == "false") {
                         expander.click();
                     }

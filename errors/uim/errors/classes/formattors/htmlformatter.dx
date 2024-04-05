@@ -1,15 +1,4 @@
-
-/**
-
-
- *
-
- *
-
-
- * @since         4.1.0
-
- */module uim.errors\Debug;
+module uim.errors\Debug;
 
 
 use auto UIM\Core\h;

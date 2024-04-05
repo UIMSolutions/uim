@@ -1,4 +1,4 @@
-module uim.collections.iterators.nest;
+module uim.collections.classes.iterators.nest;
 
 import uim.collections;
 
@@ -10,7 +10,7 @@ import uim.collections;
  *
  * @template-implements \RecursiveIterator<mixed, mixed>
  */
-class DNestIterator : DCollection, RecursiveIterator {
+class DNestIterator : DCollection {// }, RecursiveIterator {
     // The name of the property that contains the nested items for each element
     protected string _nestKey;
 
@@ -20,7 +20,7 @@ class DNestIterator : DCollection, RecursiveIterator {
      * range someItems Collection items.
      * @param string anestKey the property that contains the nested items
      * If a callable is passed, it should return the childrens for the passed item
-     */
+     * /
     this(Range someItems, callable | string mynestKey) {
         super(someItems);
        _nestKey = nestKey;
@@ -36,7 +36,7 @@ class DNestIterator : DCollection, RecursiveIterator {
     /**
      * Returns true if there is an array or a traversable object stored under the
      * configured nestKey for the current item
-     */
+     * /
     bool hasChildren() {
         auto myProperty = _propertyExtractor(_nestKey);
         auto myChildren = myProperty(this.current());
@@ -45,5 +45,5 @@ class DNestIterator : DCollection, RecursiveIterator {
             return !myChildren.isEmpty;
         }
         return cast(Traversable)myChildren;
-    }
+    } */
 }

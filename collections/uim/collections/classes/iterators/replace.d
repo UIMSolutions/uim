@@ -1,4 +1,4 @@
-module uim.collections.iterators;
+module uim.collections.classes.iterators.replace;
 
 import uim.collections;
 
@@ -9,6 +9,7 @@ import uim.collections;
  * by converting them using a callback function.
  */
 class DReplaceIterator : DCollection {
+  /*
   // The callback auto to be used to transform values
   protected callable _callback;
 
@@ -25,7 +26,7 @@ class DReplaceIterator : DCollection {
      * Params:
      * range someItems The items to be filtered.
      * @param callable aCallback Callback.
-     */
+     * /
   this(Range someItems, callableaCallback) {
    _callback = aCallback;
   super(someItems);
@@ -58,5 +59,5 @@ class DReplaceIterator : DCollection {
       .each!(kv => res[kv.key] = aCallback(kv.value, kv.key,  anIterator));
     
     return new DArrayIterator(res);
-  }
+  } */
 }

@@ -9,7 +9,7 @@ import uim.databases;
  *
  * @internal
  * /
-mixin template CaseExpressionTemplate {
+mixin template CaseExpressionTemplate() {
     /**
      * Infers the abstract type for the given value.
      * Params:

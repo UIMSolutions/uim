@@ -3,7 +3,7 @@
 *	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  *
 *	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      *
 **********************************************************************************************************/
-module uim.datasources.connections.manager;
+module uim.datasources.classes.connections.manager;
 
 @safe:
 import uim.datasources;
@@ -15,22 +15,19 @@ import uim.datasources;
  * a registry for the connections defined in an application.
  */
 class DConnectionManager {
-    override bool initialize(IData[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
-
+    bool initialize(IData[string] initData = null) {
         // An array mapping url schemes to fully qualified driver class names
-        _dsnClassMap = [
+        /* _dsnClassMap = [
             "mysql": Mysql.classname,
             "postgres": Postgres.classname,
             "sqlite": Sqlite.classname,
             "sqlserver": Sqlserver.classname,
-        ];
+        ]; */
 
         return true;
     }
 
+    /*
     mixin template StaticConfigTemplate() {
         setConfig as protected _setConfig;
         parseDsn as protected _parseDsn;
@@ -164,7 +161,7 @@ class DConnectionManager {
         if (empty(configuration[name])) {
             throw new MissingDatasourceConfigException(["name": name]);
         }
-        /** @psalm-suppress RedundantPropertyInitializationCheck */
+        /** @psalm-suppress RedundantPropertyInitializationCheck  * /
         if (!isset(_registry)) {
             _registry = new DConnectionRegistry();
         }
@@ -174,7 +171,7 @@ class DConnectionManager {
         }
         
         ?  ? _registry.load(name, configuration[name]);
-    }
+    } 
 }
 /**
      * Parses a DSN into a valid connection configuration
@@ -199,7 +196,7 @@ class DConnectionManager {
      * Note that query-string arguments are also parsed and set as values in the returned configuration.
      * Params:
      * string adsn The DSN string to convert to a configuration array
-     */
+     * /
 static IData[string] parseDsn(string adsn) {
     configData = _parseDsn(dsn);
 
@@ -232,7 +229,7 @@ static IData[string] parseDsn(string adsn) {
      * Params:
      * string asource The existing connection to alias.
      * @param string aalias The alias name that resolves to `source`.
-     */
+     * /
             static void alias(string asource, string connectionAlias) {
                 _connectionAliases[connectionAlias] = source;}
 
@@ -243,7 +240,7 @@ static IData[string] parseDsn(string adsn) {
      * connection may fail if there is no other connection with that name.
      * Params:
      * string aalias The connection alias to drop
-     */
+     * /
                 static void dropAlias(string aalias) {
                     unset(_connectionAliases[alias]);}
 
@@ -261,7 +258,7 @@ static IData[string] parseDsn(string adsn) {
      * Params:
      * string connectionName The connection name.
      * @param bool useAliases Whether connection aliases are used
-     */
+     * /
                         static IConnection get(string connectionName, bool useAliases = true) {
                             if (useAliases && isSet(_connectionAliases[connectionName])) {
                                 connectionName = _connectionAliases[connectionName];
@@ -275,5 +272,5 @@ static IData[string] parseDsn(string adsn) {
                                             connectionName
                                         }
                                      ?  ? _registry.load(connectionName, configuration.data(
-                                        connectionName]); }
-                                }
+                                        connectionName]); }*/
+}

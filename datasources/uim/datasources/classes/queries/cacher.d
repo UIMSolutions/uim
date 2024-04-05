@@ -1,4 +1,4 @@
-module uim.datasources;
+module datasources.uim.datasources.classes.queries.cacher;
 
 import uim.datasources;
 

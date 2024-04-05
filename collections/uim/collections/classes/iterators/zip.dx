@@ -27,7 +27,7 @@ import uim.collections;
  * ```
  */
 class DZipIterator : ICollection {
-    use CollectionTemplate();
+    mixin CollectionTemplate();
 
     protected MultipleIterator multipleIterator;
 

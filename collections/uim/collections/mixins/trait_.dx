@@ -8,21 +8,10 @@ module uim.collections;
 import uim.collections;
 
 @safe:
-;
-
-/* use AppendIterator;
-
-use Countable;
-
-use LimitIterator;
-
-use OuterIterator;
-use RecursiveIteratorIterator;
- */
 
 // Offers a handful of methods to manipulate iterators
 mixin template CollectionTemplate() {
-    // use ExtractTrait;
+    // mixin ExtractTrait;
 
     /**
      * Returns a new DCollection.

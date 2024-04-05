@@ -21,7 +21,7 @@ class Date { // }: ChronosDate, IDataSerializable {
     mixin(TProperty!("string", "name"));
 
     /*
-    // TODO mixin DateFormatTemplate();
+    // TODO mixin TDateFormat;
 
     /**
      * The format to use when formatting a time using `UIM\I18n\Date.i18nFormat()`

@@ -12,7 +12,7 @@ import uim.consoles;
  * full application context.
  */
 mixin template ConsoleIntegrationTestTemplate() {
-    mixin ContainerStubTemplate();
+    mixin TContainerStub;
 
     // Last exit code
     protected int _exitCode;

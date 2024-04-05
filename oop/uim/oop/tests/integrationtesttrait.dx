@@ -15,7 +15,7 @@ import uim.oop;
  */
 template IntegrationTestTemplate() {
     mixin TCookieCrypt;
-    mixin ContainerStubTemplate();
+    mixin TContainerStub;
 
     // The data used to build the next request.
     protected array _request = [];

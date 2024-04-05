@@ -16,7 +16,7 @@ import uim.errors;
 class DErrorTrap {
     mixin TConfigurable;
     // @use \UIM\Event\EventDispatcherTrait<\UIM\Error\ErrorTrap>
-    mixin TEventDispatcher;
+    // TODO mixin TEventDispatcher;
 
     this() {
         initialize;

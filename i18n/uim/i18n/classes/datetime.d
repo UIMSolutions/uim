@@ -10,7 +10,7 @@ import uim.i18n;
  */
 class DateTime /* : Chronos, IDataSerializable */ {
     mixin TConfigurable!();
-    mixin DateFormatTemplate();
+    mixin TDateFormat;
 
     this() { initialize; }
 

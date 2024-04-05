@@ -11,6 +11,7 @@ import uim.i18n;
  */
 class DTime { // : ChronosTime, IDataSerializable {
     mixin TConfigurable!();
+    mixin TDateFormat;
 
     this() {
         initialize;
@@ -22,7 +23,6 @@ class DTime { // : ChronosTime, IDataSerializable {
         
         return true;
     }
-    // use DateFormatTemplate();
 
     /**
      * The format to use when formatting a time using `UIM\I18n\Time.i18nFormat()`

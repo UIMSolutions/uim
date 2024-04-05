@@ -9,7 +9,7 @@ module uim.errors.debugs.nodes;
 import uim.errors;
 
 // Dump node for objects/class instances.
-class DClassNode : IERRNode {
+class DClassNode : IErrorNode {
   private string _className;
 
   private int _id;
@@ -47,7 +47,7 @@ class DClassNode : IERRNode {
   }
 
   // Get property nodes
-  IERRNode[] children() {
+  IErrorNode[] children() {
     return _properties;
   }
 }

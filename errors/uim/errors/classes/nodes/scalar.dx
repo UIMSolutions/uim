@@ -11,7 +11,7 @@ import uim.errors;
 /**
  * Dump node for scalar values.
  */
-class DScalarNode : IERRNode {
+class DScalarNode : IErrorNode {
   private string _nodeType;
 
   private string myStringValue;
@@ -57,7 +57,7 @@ class DScalarNode : IERRNode {
     return this.value;
   }
 
-  IERRNode[] getChildren() {
+  IErrorNode[] getChildren() {
     return []; // No children
   }
 }

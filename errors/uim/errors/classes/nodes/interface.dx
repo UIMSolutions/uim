@@ -12,10 +12,10 @@ import uim.errors;
  * Interface for Debugs
  * Provides methods to look at contained value and iterate child nodes in the tree.
  */
-interface IERRNode {
+interface IErrorNode {
   // Get the contained value.
   string value();
 
   // Get the child nodes of this node.
-  IERRNode[] children();
+  IErrorNode[] children();
 }

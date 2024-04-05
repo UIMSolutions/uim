@@ -9,9 +9,9 @@ module uim.errors.debugs.nodes.arrayitem;
 import uim.errors;
 
 // Dump node for Array Items.
-class DERRArrayItemNode : IERRNode {
-  private IERRNode _key;
-  private IERRNode _value;
+class DERRArrayItemNode : IErrorNode {
+  private IErrorNode _key;
+  private IErrorNode _value;
 
   /**
     * Constructor
@@ -19,22 +19,22 @@ class DERRArrayItemNode : IERRNode {
     * aKey - The node for the item key
     * aValue - The node for the array value
     */
-  this(IERRNode aKey, IERRNode aValue) {
+  this(IErrorNode aKey, IErrorNode aValue) {
       _key = aKey;
       _value = myValue;
   }
 
   // Get value
-  @property IERRNode value() {
+  @property IErrorNode value() {
     return _value;
   }
 
   // Get the key
-  @property IERRNode key() {
+  @property IErrorNode key() {
     return _key;
   }
 
-  IERRNode[] getChildren() {
+  IErrorNode[] getChildren() {
     return [this.value];
   }
 }

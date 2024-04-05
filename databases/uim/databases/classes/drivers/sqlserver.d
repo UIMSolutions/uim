@@ -5,6 +5,7 @@ import uim.databases;
 @safe:
 
 class DSqlserverDriver : DDriver {
+    mixin TTupleComparisonTranslator;
     mixin(DriverThis!("Sqlserver"));
     
     
@@ -38,7 +39,6 @@ class DSqlserverDriver : DDriver {
 		return true;
 	}
 /*
-    mixin TupleComparisonTranslatorTemplate();
 
     protected const MAX_ALIAS_LENGTH = 128;
  

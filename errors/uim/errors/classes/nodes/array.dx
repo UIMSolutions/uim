@@ -9,8 +9,8 @@ module uim.errors.debugs.nodes.array;
 import uim.errors;
 
 // Dump node for Array values.
-class DERRArrayNode : IERRNode {
-  private IERRNode[] _items;
+class DERRArrayNode : IErrorNode {
+  private IErrorNode[] _items;
 
   /**
     * Constructor
@@ -37,7 +37,7 @@ class DERRArrayNode : IERRNode {
   }
 
   // Get Item nodes
-  IERRNode[] children() {
+  IErrorNode[] children() {
     return _items;
   }
 }

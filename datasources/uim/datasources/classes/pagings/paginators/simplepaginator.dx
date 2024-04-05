@@ -1,12 +1,4 @@
-
-
-
- *
-
-
- * @since         3.9.0
-
- */module uim.datasources.Paging;
+module uim.datasources.Paging;
 
 import uim.datasources.IQuery;
 

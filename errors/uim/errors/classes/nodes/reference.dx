@@ -15,7 +15,7 @@ import uim.errors;
  * a reference node can be used after an object has been seen the
  * first time.
  */
-class DReferenceNode : IERRNode {
+class DReferenceNode : IErrorNode {
   /**
     * Constructor
     *
@@ -41,7 +41,7 @@ class DReferenceNode : IERRNode {
     }
   // #endregion fields
 
-  IERRNode[] getChildren() {
+  IErrorNode[] getChildren() {
       return [];
   }
 }

@@ -11,7 +11,7 @@ import uim.errors;
 /**
  * Debug node for special messages like errors or recursion warnings.
  */
-class DSpecialNode : IERRNode {
+class DSpecialNode : IErrorNode {
     /**
      * @var string
      */
@@ -34,7 +34,7 @@ class DSpecialNode : IERRNode {
     }
 
 
-    IERRNode[] getChildren() {
+    IErrorNode[] getChildren() {
         return [];
     }
 }

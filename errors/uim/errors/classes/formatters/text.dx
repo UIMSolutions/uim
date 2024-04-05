@@ -30,24 +30,24 @@ class DTextFormatter : IErrorFormatter {
   }
 
   /**
-    * Convert a tree of IERRNode objects into a plain text string.
+    * Convert a tree of IErrorNode objects into a plain text string.
     *
     * aNode - The node tree to dump.
     */
-  string dump(IERRNode aNode) {
+  string dump(IErrorNode aNode) {
     auto myIndent = 0;
     
     return this.export(aNode, myIndent);
   }
 
   /**
-    * Convert a tree of IERRNode objects into a plain text string.
+    * Convert a tree of IErrorNode objects into a plain text string.
     *
     * aNode - The node tree to dump.
     * anIndent - The current indentation level.
     * return resulting plain text
     */
-  protected string export(IERRNode aNode, int anIndent) {
+  protected string export(IErrorNode aNode, int anIndent) {
     if (auto scalarNode = cast(DScalarNode)aNode) {
       switch (scalarNode.nodeType()) {
         case "bool":

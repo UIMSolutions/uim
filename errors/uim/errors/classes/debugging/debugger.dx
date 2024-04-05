@@ -702,10 +702,10 @@ class DDebugger {
                     // Likely recursion, so we increase depth.
                     node = export(val, context.withAddedDepth());
                 }
-                items ~= new DERRArrayItemNode(export(key, context), node);
+                items ~= new DArrayItemErrorNode(export(key, context), node);
             }
         } else {
-            items ~= new DERRArrayItemNode(
+            items ~= new DArrayItemErrorNode(
                 new DScalarNode('string', ''),
                 new DSpecialNode('[maximum depth reached]')
             );

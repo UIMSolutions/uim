@@ -9,7 +9,7 @@ module uim.errors.classes.nodes.arrayitem;
 import uim.errors;
 
 // Dump node for Array Items.
-class DERRArrayItemNode : IErrorNode {
+class DArrayItemErrorNode : IErrorNode {
   private IErrorNode _key;
   private IErrorNode _value;
 

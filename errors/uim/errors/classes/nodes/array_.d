@@ -9,7 +9,7 @@ module errors.uim.errors.classes.nodes.array_;
 import uim.errors;
 
 // Dump node for Array values.
-class DERRArrayNode : IErrorNode {
+class DArrayErrorNode : IErrorNode {
   private IErrorNode[] _items;
 
   /**
@@ -17,17 +17,17 @@ class DERRArrayNode : IErrorNode {
     *
     * someItems - The items for the array
     */
-  this(DERRArrayItemNode[] nodes = null) {
+  this(DArrayItemErrorNode[] nodes = null) {
     _items = [];
     this.add(nodes);
   }
 
   // Add nodes
-  void add(DERRArrayItemNode[] nodes...) {
+  void add(DArrayItemErrorNode[] nodes...) {
     this.add(nodes);
   }
 
-  void add(DERRArrayItemNode[] nodes) {
+  void add(DArrayItemErrorNode[] nodes) {
     foreach (myItem; nodes) { _items ~= myItem; }
   }
 

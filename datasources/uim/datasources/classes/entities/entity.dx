@@ -15,7 +15,7 @@ import uim.datasources;
 class DDBEntity : IDatasourceEntity { //}, IInvalidProperty {
     mixin TConfigurable!(); 
 
-    // use EntityTrait;
+    // use EntityTemplate;
 
     // Holds all fields and their values for this entity.
     protected IData[string] _fields;

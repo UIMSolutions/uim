@@ -20,7 +20,7 @@ import uim.errors;
  */
 class DErrorTrap {
     /* 
-    use EventDispatcherTrait;
+    use EventDispatcherTemplate;
         mixin TConfigurable!();
 
     this() {

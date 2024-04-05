@@ -11,8 +11,8 @@ import uim.databases;
  * values correctly into the statement.
  */
 class DValuesExpression : IExpression {
-    mixin ExpressionTypeCasterTrait;
-    mixin TypeMapTrait;
+    mixin ExpressionTypeCasterTemplate;
+    mixin TypeMapTemplate;
 
     // Array of values to insert.
     protected array _values = [];

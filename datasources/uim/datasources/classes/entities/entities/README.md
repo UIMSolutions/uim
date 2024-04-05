@@ -41,7 +41,7 @@ article = new Article([
 
 The preferred way of getting new entities is using the newEmptyEntity() method from the Table objects:
 
-use Cake\ORM\Locator\LocatorAwareTrait;
+use Cake\ORM\Locator\LocatorAwareTemplate;
 
 article = this->fetchTable('Articles')->newEmptyEntity();
 
@@ -375,11 +375,11 @@ You could then use this mixin template in your entity class by importing it and 
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
-use SoftDelete\Model\Entity\SoftDeleteTrait;
+use SoftDelete\Model\Entity\SoftDeleteTemplate;
 
 class DArticle extends Entity
 {
-    use SoftDeleteTrait;
+    use SoftDeleteTemplate;
 }
 
 Converting to Arrays/IData

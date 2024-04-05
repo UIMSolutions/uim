@@ -1,7 +1,7 @@
 module uim.datasources.Paging;
 
 import uim.core.exceptions.UIMException;
-import uim.core.InstanceConfigTrait;
+import uim.core.InstanceConfigTemplate;
 import uim.datasources.Paging\exceptions.PageOutOfBoundsException;
 import uim.datasources.IQuery;
 import uim.datasources.IRepository;

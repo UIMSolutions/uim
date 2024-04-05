@@ -31,7 +31,7 @@ class DForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
     const string BUILD_VALIDATOR_EVENT = "Form.buildValidator";
 
     // DSchema class.
-    protected string _schemaClassname = DSchema.classname;
+    protected string _schemaClassname; //TODO = Schema.className;
     
     // The schema used by this form.
     protected DSchema _schema = null;

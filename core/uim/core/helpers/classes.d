@@ -32,10 +32,6 @@ string className(Object instance) {
     return instance.classinfo.baseName;
 }
 
-class tt() {
-
-}
-
 unittest {
     interface ITest {
         O create(this O)();

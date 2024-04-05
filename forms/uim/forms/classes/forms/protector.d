@@ -1,4 +1,4 @@
-module uim.forms.classes.forms.formprotector;
+module uim.forms.classes.forms.protector;
 
 import uim.forms;
 

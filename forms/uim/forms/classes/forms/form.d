@@ -20,15 +20,41 @@ import uim.forms;
  *
  * @implements \UIM\Event\IEventDispatcher<\UIM\Form\Form>
  */
-class DForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
-    // Name of default validation set.
-    const string DEFAULT_VALIDATOR = "default";
+class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
+    mixin TConfigurable!();
 
-    // The alias this object is assigned to validators as.
-    const string VALIDATOR_PROVIDER_NAME = "form";
+    this() {
+        initialize;
+    }
 
-    // The name of the event dispatched when a validator has been built.
-    const string BUILD_VALIDATOR_EVENT = "Form.buildValidator";
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    this(string newName) {
+        this();
+        this.name(newName);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
+
+    // #region Constants
+        // Name of default validation set.
+        const string DEFAULT_VALIDATOR = "default";
+
+        // The alias this object is assigned to validators as.
+        const string VALIDATOR_PROVIDER_NAME = "form";
+
+        // The name of the event dispatched when a validator has been built.
+        const string BUILD_VALIDATOR_EVENT = "Form.buildValidator";
+    // #endregion Constants
 
     // DSchema class.
     protected string _schemaClassname; //TODO = Schema.className;

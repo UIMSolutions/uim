@@ -78,8 +78,8 @@ class DView : IView { //  }: IEventDispatcher {
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\View\View>
      * /
-    use EventDispatcherTrait;
-    use LogTrait;
+    use EventDispatcherTemplate;
+    use LogTemplate;
 
     // Helpers collection
     protected HelperRegistry my_helpers = null;

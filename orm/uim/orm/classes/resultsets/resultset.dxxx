@@ -18,7 +18,7 @@ use SplFixedArray;
  * queries required for eager loading external associations.
  */
 class DResultSet : IResultSet {
-    use CollectionTrait;
+    use CollectionTemplate;
 
     // Database statement holding the results
     protected DDBStatementInterface _statement;

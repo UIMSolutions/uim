@@ -14,7 +14,7 @@ import uim.views;
  */
 class HtmlHelper : Helper {
     mixin(HelperThis!("Html"));
-    // TODO use StringTemplateTrait;
+    // TODO use StringTemplateTemplate;
 
     // List of helpers used by this helper
     protected array myhelpers = ["Url"];

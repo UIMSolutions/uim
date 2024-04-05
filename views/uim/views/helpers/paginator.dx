@@ -17,7 +17,7 @@ import uim.views;
  */
 class DPaginatorHelper : Helper {
     mixin(HelperThis!("Paginator"));
-   // TODO use StringTemplateTrait;
+   // TODO use StringTemplateTemplate;
 
     // List of helpers used by this helper
     protected array myhelpers = ["Url", "Number", "Html", "Form"];

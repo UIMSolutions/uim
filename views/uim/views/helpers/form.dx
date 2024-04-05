@@ -21,8 +21,8 @@ import uim.views;
 class FormHelper : Helper {
     mixin(HelperThis!("Form"));
     
-    // TODO use IdGeneratorTrait;
-    // TODO use StringTemplateTrait;
+    // TODO use IdGeneratorTemplate;
+    // TODO use StringTemplateTemplate;
 
     // Other helpers used by FormHelper
     protected array myhelpers = ["Url", "Html"];

@@ -1,4 +1,4 @@
-module uim.controllers.classes.factory;
+module controllers.uim.controllers.classes.controllers.factory;
 
 import uim.controllers;
 
@@ -9,7 +9,7 @@ import uim.controllers;
  *
  * @implements \UIM\Http\IControllerFactory<\UIM\Controller\Controller>
  */
-class DControllerFactory : IControllerFactory, IRequestHandler {
+class DControllerFactory { // }: IControllerFactory, IRequestHandler {
     mixin TConfigurable!();
 
     this() {
@@ -28,6 +28,8 @@ class DControllerFactory : IControllerFactory, IRequestHandler {
     }
 
     mixin(TProperty!("string", "name"));
+
+    /* 
     // \UIM\Core\IContainer
     protected IContainer container;
 
@@ -41,7 +43,7 @@ class DControllerFactory : IControllerFactory, IRequestHandler {
      * Create a controller for a given request.
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request to build a controller for.
-     */
+     * /
     Controller create(IServerRequest serverRequest) {
         assert(cast(DServerRequest) request);
         auto className = this.getControllerClass( request);
@@ -66,7 +68,7 @@ class DControllerFactory : IControllerFactory, IRequestHandler {
      * Invoke a controller`s action and wrapping methods.
      * Params:
      * \UIM\Controller\Controller controller The controller to invoke.
-     */
+     * /
     IResponse invoke(IData controller) {
         this.controller = controller;
 
@@ -85,7 +87,7 @@ class DControllerFactory : IControllerFactory, IRequestHandler {
      * Invoke the action.
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest Request instance.
-     */
+     * /
     IResponse handle(IServerRequest serverRequest) {
         assert(cast(DServerRequest) request);
         controller = this.controller;
@@ -114,7 +116,7 @@ class DControllerFactory : IControllerFactory, IRequestHandler {
      * Params:
      * \Closure action Controller action.
      * @param array passedParams Params passed by the router.
-     */
+     * /
     protected array getActionArgs(Closure action, array passedParams) {
          resolved = [];
         function = new DReflectionFunction(action);
@@ -199,7 +201,7 @@ class DControllerFactory : IControllerFactory, IRequestHandler {
      * Params:
      * string aargument Argument to coerce
      * @param \ReflectionNamedType type Parameter type
-     */
+     * /
     protected string[]|float|int|bool|null coerceStringToType(string aargument, ReflectionNamedType type) {
         return match (type.name) {
             "string": argument,
@@ -215,7 +217,7 @@ class DControllerFactory : IControllerFactory, IRequestHandler {
      * Determine the controller class name based on current request and controller param
      * Params:
      * \UIM\Http\ServerRequest serverRequest The request to build a controller for.
-     */
+     * /
     string getControllerClass(ServerRequest serverRequest) {
         pluginPath = "";
         namespace = "Controller";
@@ -240,7 +242,7 @@ class DControllerFactory : IControllerFactory, IRequestHandler {
         ) {
             throw this.missingController( request);
         }
-        /** @var class-string<\UIM\Controller\Controller>|null */
+        /** @var class-string<\UIM\Controller\Controller>|null * /
         return App.className(pluginPath ~ controller, namespace, "Controller");
     }
     
@@ -248,7 +250,7 @@ class DControllerFactory : IControllerFactory, IRequestHandler {
      * Throws an exception when a controller is missing.
      * Params:
      * \UIM\Http\ServerRequest serverRequest The request.
-     */
+     * /
     protected MissingControllerException missingController(ServerRequest serverRequest) {
         return new MissingControllerException([
             "controller":  request.getParam("controller"),
@@ -256,10 +258,5 @@ class DControllerFactory : IControllerFactory, IRequestHandler {
             "prefix":  request.getParam("prefix"),
             "_ext":  request.getParam("_ext"),
         ]);
-    }
+    } */
 }
-
-class_alias(
-    'UIM\Controller\ControllerFactory",
-    'UIM\Http\ControllerFactory'
-);

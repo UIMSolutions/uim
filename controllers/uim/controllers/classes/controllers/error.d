@@ -1,4 +1,4 @@
-module uim.controllers.classes.error;
+module uim.controllers.classes.controllers.error;
 
 import uim.controllers;
 
@@ -10,15 +10,23 @@ import uim.controllers;
  * Controller used by ErrorHandler to render error views.
  */
 class DErrorController : DController {
+    mixin(ControllerThis!("Error"));
+
+    // Initialization hook method.
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData))  {
+            return false;
+        }
+
+        return true;
+    }
+
+    /* 
     // Get alternate view classes that can be used in content-type negotiation.
     string[] viewClasses() {
         return [IDataView.classname];
     }
     
-    // Initialization hook method.
-    bool initialize(IData[string] initData = null) {
-        super.initialize(initData);
-    }
 
     // beforeRender callback.
     Response beforeRender(IEvent anEvent) {
@@ -35,5 +43,5 @@ class DErrorController : DController {
 
         viewBuilder.templatePath(templatePath);
         return null;
-    }
+    } */
 }

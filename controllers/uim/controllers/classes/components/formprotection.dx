@@ -4,8 +4,6 @@ import uim.controllers;
 
 @safe:
 
-/*
-
 /**
  * Protects against form tampering. It ensures that:
  *

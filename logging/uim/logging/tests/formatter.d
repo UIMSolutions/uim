@@ -4,8 +4,8 @@ import uim.logging;
 
 @safe:
 
-bool testCommand(ICommand commandToTest) {
-    assert(!commandToTest.isNull, "In testCommand: commandToTest is null");
+bool testLogFormatter(ILogFormatter logFormatterToTest) {
+    assert(logFormatterToTest !is null, "In testLogFormatter: logFormatterToTest is null");
     
     return true;
 }

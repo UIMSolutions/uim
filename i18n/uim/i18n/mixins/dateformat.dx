@@ -7,7 +7,7 @@ import uim.i18n;
  *
  * This template expects that the implementing class define _toStringFormat.
  */
-template DateFormatTrait() {
+mixin template DateFormatTemplate() {
     // In-memory cache of date formatters
     protected static IntlDateFormatter[string] formatters = [];
 

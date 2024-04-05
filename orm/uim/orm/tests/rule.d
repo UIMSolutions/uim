@@ -5,7 +5,7 @@ import uim.orm;
 @safe:
 
 bool testRule(IRule ruleToTest) {
-    assert(!ruleToTest.isNull, "In testRule: ruleToTest is null");
+    assert(ruleToTest !is null, "In testRule: ruleToTest is null");
     
     return true;
 }

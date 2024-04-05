@@ -13,8 +13,11 @@ dependency "vibe-d" version="~>0.10.0"
 
 dependency "uim:core" path="../"
 dependency "uim:oop" path="../"
-dependency "uim:models" path="../"
+
 dependency "uim:events" path="../"
+dependency "uim:logging" path="../"
+dependency "uim:models" path="../"
+
 targetType "library"
 
 sourcePaths "."

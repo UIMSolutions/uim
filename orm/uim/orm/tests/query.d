@@ -5,7 +5,7 @@ import uim.orm;
 @safe:
 
 bool testQuery(IQuery queryToTest) {
-    assert(!queryToTest.isNull, "In testQuery: queryToTest is null");
+    assert(queryToTest !is null, "In testQuery: queryToTest is null");
     
     return true;
 }

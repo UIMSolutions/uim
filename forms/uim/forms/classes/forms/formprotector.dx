@@ -1,6 +1,6 @@
 module uim.cake.Form;
 
-import uim.cake;
+import uim.forms;
 
 @safe:
 

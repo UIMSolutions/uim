@@ -347,7 +347,7 @@ pure bool isValues(T, S)(T[S] base, T[S] values) {
     assert(!["a": 1, "b": 2].isValues(["a": 1, "c": 2]));
   }
 
-V[K] merge(K, V)(V[K] sourceValues, V[K] mergeValues, bool overwrite = true) {
+V[K] merge(K, V)(V[K] sourceValues, V[K] mergeValues, bool overwrite = false) {
   auto result = sourceValues.dup;
   if (mergeValues is null)
     return result;
@@ -404,12 +404,23 @@ V[K] setValues(K, V)(V[K] target, V[K] someValues) {
   /// 
   /// Params:
   ///   updated new array
-  V[K] update(K, V)(V[K] origin, V[K] updates) {
-    V[K] updated = origin.dup;
-    updates.byKeyValue
-      .each!(kv => updated[kv.key] = kv.value);
+  V[K] update(K, V)(V[K] originalValues, V[K] updates) {
+    V[K] updatedValues = originalValues.dup;
+    updatedValues.byKeyValue
+      .each!(kv => updatedValues[kv.key] = kv.value);
 
-    return updated;
+    return updatedValues;
+  }
+  ///
+  unittest {
+    // TODO 
+  }
+
+  V[K] update(K, V)(V[K] originalValues, K key, v newValue) {
+    V[K] updatedValues = originalValues.dup;
+    updatedValues[key] = newValue;
+
+    return updatedValues;
   }
   ///
   unittest {

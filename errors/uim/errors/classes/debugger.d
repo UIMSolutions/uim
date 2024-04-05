@@ -418,7 +418,7 @@ class DDebugger {
     /**
      * Get the configured export formatter or infer one based on the environment.
      * /
-    IFormatter getExportFormatter() {
+    IErrorFormatter getExportFormatter() {
          anInstance = getInstance();
          className =  anInstance.getConfig("exportFormatter");
         if (!className) {
@@ -431,10 +431,10 @@ class DDebugger {
             }
         }
          anInstance = new className();
-        if (!cast(IFormatter)anInstance ) {
+        if (!cast(IErrorFormatter)anInstance ) {
             throw new UimException(
                 "The `%s` formatter does not implement `%s`."
-                .format(className, IFormatter.classname)
+                .format(className, IErrorFormatter.classname)
             );
         }
         return anInstance;

@@ -13,7 +13,7 @@ import uim.errors;
  *
  * @unstable This interface is not stable and may change in the future.
  */
-interface IFormatter {
+interface IErrorFormatter {
     /**
      * Convert a tree of IERRNode objects into a plain text string.
      * aNode - The node tree to dump.

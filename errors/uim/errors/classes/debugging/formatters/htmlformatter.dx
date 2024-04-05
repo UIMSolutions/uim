@@ -14,7 +14,7 @@ import uim.errors;
  *
  * @internal
  */
-class HtmlFormatter : IFormatter {
+class HtmlFormatter : IErrorFormatter {
     protected static bool outputHeader = false;
 
     /**

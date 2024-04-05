@@ -31,7 +31,7 @@ class DConnectionManager {
         return true;
     }
 
-    use StaticConfigTrait {
+    use StaticConfigTemplate {
         setConfig as protected _setConfig;
         parseDsn as protected _parseDsn;
     }

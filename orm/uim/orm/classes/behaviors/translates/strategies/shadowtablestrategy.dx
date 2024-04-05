@@ -45,7 +45,7 @@ class DShadowTableStrategy : ITranslateStrategy
 
     mixin(TProperty!("string", "name"));
     use LocatorAwareTrait;
-    use TranslateStrategyTrait {
+    use TranslateStrategyTemplate {
         buildMarshalMap as private _buildMarshalMap;
     }
 

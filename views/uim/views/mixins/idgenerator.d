@@ -8,7 +8,7 @@ import uim.views;
  * A mixin template that provides id generating methods to be
  * used in various widget classes.
  * /
-mixin template IdGeneratorTrait {
+mixin template IdGeneratorTemplate {
     /**
      * Prefix for id attribute.
      * /

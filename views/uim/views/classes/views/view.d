@@ -71,7 +71,7 @@ class DView : IView { //  }: IEventDispatcher {
     protected string _viewControllerName = "";
 
     /* 
-    use CellTrait {
+    use CellTemplate {
         cell as public;
     }
     

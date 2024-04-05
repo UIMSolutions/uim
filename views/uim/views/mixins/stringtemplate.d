@@ -11,7 +11,7 @@ import uim.views;
  * method for reading/updating templates. An implementation of this method
  * is provided by `UIM\Core\InstanceConfigTrait`
  * /
-mixin template StringTemplateTrait {
+mixin template StringTemplateTemplate {
     // StringTemplate instance.
     protected DStringTemplate _templater = null;
 

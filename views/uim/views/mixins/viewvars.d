@@ -10,17 +10,13 @@ import uim.views;
  * Once collected context data can be passed to another object.
  * This is done in Controller, TemplateTask and View for example.
  */
-mixin template ViewVarsTrait {
-    /**
-     * The view builder instance being used.
-     *
-     * @var \UIM\View\ViewBuilder|null
-     * /
-    protected IViewBuilder my_viewBuilder = null;
+mixin template ViewVarsTemplate {
+    // The view builder instance being used.
+    protected DViewBuilder _viewBuilder = null;
 
     // Get the view builder being used.
-    ViewBuilder viewBuilder() {
-        return _viewBuilder ??= new DViewBuilder();
+    DViewBuilder viewBuilder() {
+        return !_viewBuilder.isNull ? _viewBuilder : new DViewBuilder();
     }
     
     /**
@@ -66,5 +62,5 @@ mixin template ViewVarsTrait {
             mydata = [views: myvalue];
         }
         this.viewBuilder().setData(mydata);
-    }
-} */
+    } */
+} 

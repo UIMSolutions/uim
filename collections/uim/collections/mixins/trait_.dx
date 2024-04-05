@@ -21,7 +21,7 @@ use RecursiveIteratorIterator;
  */
 
 // Offers a handful of methods to manipulate iterators
-mixin template CollectionTrait {
+mixin template CollectionTemplate {
     // use ExtractTrait;
 
     /**

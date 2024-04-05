@@ -1,4 +1,4 @@
-module uim.cake.error.debugs.arraynode;
+module uim.errors.debugs.arraynode;
 
 import uim.errors;
 

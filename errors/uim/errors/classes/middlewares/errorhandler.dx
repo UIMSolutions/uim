@@ -1,4 +1,4 @@
-module uim.cake.error.middlewares.errorhandler;
+module uim.errors.middlewares.errorhandler;
 
 import uim.errors;
 

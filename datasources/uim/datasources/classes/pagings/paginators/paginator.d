@@ -3,14 +3,14 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.datasources.paginators.paginator;
+module uim.datasources.classes.pagings.paginators.paginator;
 
 @safe:
 import uim.datasources;
 
 // This class is used to handle automatic model data pagination.
 class DPaginator : IPaginator {
-    //     mixin TConfigurable!();
+    mixin TConfigurable!();
 
     this() {
         initialize;
@@ -665,5 +665,5 @@ class DPaginator : IPaginator {
         options["limit"] = max(min(options["limit"], options["maxLimit"]), 1);
 
         return options;
-    }*/
+    } */
 }

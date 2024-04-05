@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.datasources.locators.locator;
+module uim.datasources.classes.locators.locator;
 
 @safe:
 import uim.datasources;
@@ -14,7 +14,7 @@ abstract class DAbstractLocator : ILocator {
      * Instances that belong to the registry.
      *
      * @var array<string, uim.Datasource\>
-     */
+     * /
     protected IRepository[string] instances;
 
     // Contains a list of options that were passed to get() method.
@@ -25,7 +25,7 @@ abstract class DAbstractLocator : ILocator {
      *
      * @param string alias The alias name you want to get.
      * @param array<string, mixed> options The options you want to build the table with.
-     */
+     * /
     IRepository get(string alias, IData[string] optionData = null) {
         auto storeOptions = options;
         storeOptions.remove("allowFallbackClass");
@@ -52,7 +52,7 @@ abstract class DAbstractLocator : ILocator {
      * @param string alias Repository alias.
      * @param array<string, mixed> options The options you want to build the instance with.
      * @return uim.Datasource\
-     */
+     * /
     abstract protected IRepository createInstance(string alias, IData[string] optionData);
 
 
@@ -77,5 +77,5 @@ abstract class DAbstractLocator : ILocator {
     void clear() {
         this.instances = null;
         this.options = null;
-    }
+    } */
 }

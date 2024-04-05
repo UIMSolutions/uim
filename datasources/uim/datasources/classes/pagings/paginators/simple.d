@@ -1,14 +1,6 @@
+module uim.datasources.classes.pagings.paginators.simple;
 
-
-
- *
-
-
- * @since         3.9.0
-
- */module uim.datasources.Paging;
-
-import uim.datasources.IQuery;
+import uim.datasources;
 
 /**
  * Simplified paginator which avoids potentially expensives queries
@@ -18,23 +10,15 @@ import uim.datasources.IQuery;
  * Instead use only the prev/next pagination controls, and handle 404 errors
  * when pagination goes past the available result set.
  */
-class DSimplePaginator : NumericPaginator
-{
+class DSimplePaginator : DNumericPaginator {
     /**
      * Simple pagination does not perform any count query, so this method returns `null`.
      *
      * @param uim.Datasource\IQuery query Query instance.
      * @param array data Pagination data.
      * @return int|null
-     */
-    protected Nullable!int getCount(IQuery query, array data) {
-        return null;
-    }
+     * /
+    protected int count(IQuery query, array data) {
+        return 0;
+    } */
 }
-
-
-class_alias(
-    "Cake\Datasource\Paging\SimplePaginator",
-    "Cake\Datasource\SimplePaginator"
-);
-

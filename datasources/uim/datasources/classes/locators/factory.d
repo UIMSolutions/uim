@@ -3,14 +3,15 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.datasources.locators.factory;
+module uim.datasources.classes.locators.factory;
+
+import uim.datasources;
 
 @safe:
-import uim.datasources;
 
 class DFactoryLocator {
     // A list of model factory functions.
-    protected static ILocator[string] _modelFactories = [];
+    protected static ILocator[string] _modelFactories;
 
     /**
      * Register a callable to generate repositories of a given type.
@@ -71,5 +72,5 @@ class DFactoryLocator {
         }
 
         return _modelFactories[type];
-    }
+    } */
 }

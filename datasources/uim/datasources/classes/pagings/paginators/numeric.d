@@ -1,11 +1,9 @@
-module uim.datasources.Paging;
+module uim.datasources.classes.pagings.paginators.numeric;
 
-import uim.core.exceptions.UIMException;
-import uim.core.InstanceConfigTemplate;
-import uim.datasources.Paging\exceptions.PageOutOfBoundsException;
-import uim.datasources.IQuery;
-import uim.datasources.IRepository;
-import uim.datasources.IResultSet;
+import uim.datasources;
+
+@safe:
+
 
 /**
  * This class is used to handle automatic model data pagination.
@@ -49,19 +47,19 @@ class DNumericPaginator : IPaginator {
      *   over pagination, be careful with what you permit.
      *
      * @var array<string, mixed>
-     */
+     * /
     protected configuration.updateDefaults([
         "page": 1,
         "limit": 20,
         "maxLimit": 100,
         "allowedParameters": ["limit", "sort", "page", "direction"],
-    ];
+    ]);
 
     /**
      * Paging params after pagination operation is done.
      *
      * @var array<string, array>
-     */
+     * /
     protected _pagingParams = null;
 
     /**
@@ -169,7 +167,7 @@ class DNumericPaginator : IPaginator {
      * @param array settings The settings/configuration used for pagination.
      * @return uim.Datasource\IResultSet Query results
      * @throws uim.Datasource\Paging\exceptions.PageOutOfBoundsException
-     */
+     * /
     function paginate(object object, array params = null, array settings = null): IResultSet
     {
         query = null;
@@ -209,7 +207,7 @@ class DNumericPaginator : IPaginator {
      * @param uim.Datasource\IQuery|null query Query Instance.
      * @param array<string, mixed> data Pagination data.
      * @return uim.Datasource\IQuery
-     */
+     * /
     protected function getQuery(IRepository object, ?IQuery query, array data): IQuery
     {
         if (query == null) {
@@ -227,7 +225,7 @@ class DNumericPaginator : IPaginator {
      * @param uim.Datasource\IQuery query Query instance.
      * @param array data Pagination data.
      * @return int|null
-     */
+     * /
     protected Nullable!int getCount(IQuery query, array data) {
         return query.count();
     }
@@ -239,7 +237,7 @@ class DNumericPaginator : IPaginator {
      * @param array<string, mixed> params Request params
      * @param array<string, mixed> settings The settings/configuration used for pagination.
      * @return array Array with keys "defaults", "options" and "finder"
-     */
+     * /
     protected array extractData(IRepository object, array params, array settings) {
         alias = object.aliasName();
         defaults = this.getDefaults(alias, settings);
@@ -260,7 +258,7 @@ class DNumericPaginator : IPaginator {
      * @param array<string, mixed> data Paginator data containing keys "options",
      *   "count", "defaults", "finder", "numResults".
      * @return array<string, mixed> Paging params.
-     */
+     * /
     protected array buildParams(array data) {
         limit = data["options"]["limit"];
 
@@ -292,7 +290,7 @@ class DNumericPaginator : IPaginator {
      * @param array<string, mixed> params Paging params.
      * @param array data Paginator data.
      * @return array<string, mixed> Updated params.
-     */
+     * /
     protected array addPageCountParams(array params, array data) {
         page = params["page"];
         pageCount = 0;
@@ -316,7 +314,7 @@ class DNumericPaginator : IPaginator {
      * @param array<string, mixed> params Paging params.
      * @param array data Paginator data.
      * @return array<string, mixed> Updated params.
-     */
+     * /
     protected array addStartEndParams(array params, array data) {
         start = end = 0;
 
@@ -337,7 +335,7 @@ class DNumericPaginator : IPaginator {
      * @param array<string, mixed> params Paginator params.
      * @param array data Paging data.
      * @return array<string, mixed> Updated params.
-     */
+     * /
     protected array addPrevNextParams(array params, array data) {
         params["prevPage"] = params["page"] > 1;
         if (params["count"] == null) {
@@ -355,7 +353,7 @@ class DNumericPaginator : IPaginator {
      * @param array<string, mixed> params Paginator params.
      * @param array data Paging data.
      * @return array<string, mixed> Updated params.
-     */
+     * /
     protected array addSortingParams(array params, array data) {
         defaults = data["defaults"];
         order = (array)data["options"]["order"];
@@ -383,7 +381,7 @@ class DNumericPaginator : IPaginator {
      * @param array<string, mixed> options the pagination options.
      * @return array An array containing in the first position the finder name
      *   and in the second the options to be passed to it.
-     */
+     * /
     protected array _extractFinder(IData[string] optionData) {
         type = !empty(options["finder"]) ? options["finder"] : "all";
         unset(options["finder"], options["maxLimit"]);
@@ -400,7 +398,7 @@ class DNumericPaginator : IPaginator {
      * Get paging params after pagination operation.
      *
      * @return array<string, array>
-     */
+     * /
     array getPagingParams() {
         return _pagingParams;
     }
@@ -408,7 +406,7 @@ class DNumericPaginator : IPaginator {
     /**
      * Shim method for reading the deprecated whitelist or allowedParameters options
      *
-     */
+     * /
     protected string[] getAllowedParameters() {
         allowed = this.getConfig("allowedParameters");
         if (!allowed) {
@@ -429,7 +427,7 @@ class DNumericPaginator : IPaginator {
      *
      * @param array<string, mixed> myConfiguration The configuration data to coalesce and emit warnings on.
      * @return array<string>|null
-     */
+     * /
     protected string[] getSortableFields(IData myConfiguration): ?array
     {
         allowed = configuration["sortableFields"] ?? null;
@@ -459,7 +457,7 @@ class DNumericPaginator : IPaginator {
      * @param array<string, mixed> params Request params.
      * @param array settings The settings to merge with the request data.
      * @return array<string, mixed> Array of merged options.
-     */
+     * /
     array mergeOptions(array params, array settings) {
         if (!empty(settings["scope"])) {
             scope = settings["scope"];
@@ -476,21 +474,21 @@ class DNumericPaginator : IPaginator {
      * Get the settings for a model. If there are no settings for a specific
      * repository, the general settings will be used.
      *
-     * @param string modelAlias Model name to get settings for.
+     * @param string alias Model name to get settings for.
      * @param array<string, mixed> settings The settings which is used for combining.
      * @return array<string, mixed> An array of pagination settings for a model,
      *   or the general settings.
-     */
-    array getDefaults(string modelAlias, array settings) {
-        if (settings.isSet(modelAlias)) {
-            settings = settings[modelAlias];
+     * /
+    array getDefaults(string alias, array settings) {
+        if (isset(settings[alias])) {
+            settings = settings[alias];
         }
 
-        configuration.updateDefaults("whitelist"] = this.getAllowedParameters();
-        configuration.updateDefaults("allowedParameters"] = this.getAllowedParameters();
+        defaults = this.configuration.data;
+        defaults["whitelist"] = defaults["allowedParameters"] = this.getAllowedParameters();
 
         maxLimit = settings["maxLimit"] ?? defaults["maxLimit"];
-        limit = settings.ifNull("limit", defaults["limit"]);
+        limit = settings["limit"] ?? defaults["limit"];
 
         if (limit > maxLimit) {
             limit = maxLimit;
@@ -527,18 +525,18 @@ class DNumericPaginator : IPaginator {
      * @param array<string, mixed> options The pagination options being used for this request.
      * @return array<string, mixed> An array of options with sort + direction removed and
      *   replaced with order if possible.
-     */
+     * /
     array validateSort(IRepository object, IData[string] optionData) {
-        if (isset(options["sort"])) {
+        if (options.isSet("sort")) {
             auto direction = null;
-            if (options.isSet("direction")) {
-                direction = options["direction"].toLower;
+            if (isset(options["direction"])) {
+                direction = strtolower(options["direction"]);
             }
             if (!hasAllValues(direction, ["asc", "desc"], true)) {
                 direction = "asc";
             }
 
-            order = isset(options["order"]) && (options["order"].isArray ? options["order"] : [];
+            order = isset(options["order"]) && is_array(options["order"]) ? options["order"] : [];
             if (order && options["sort"] && strpos(options["sort"], ".") == false) {
                 order = _removeAliases(order, object.aliasName());
             }
@@ -549,10 +547,10 @@ class DNumericPaginator : IPaginator {
         }
         unset(options["direction"]);
 
-        if (options["order"].isEmpty) {
+        if (empty(options["order"])) {
             options["order"] = null;
         }
-        if (!is_array(options["order"])) {
+        if (!(options["order"].isArray) {
             return options;
         }
 
@@ -574,7 +572,7 @@ class DNumericPaginator : IPaginator {
         if (
             options["sort"] == null
             && count(options["order"]) >= 1
-            && !key(options["order"]).isNumeric
+            && !key(options["order"].isNumeric)
         ) {
             options["sort"] = key(options["order"]);
         }
@@ -590,7 +588,7 @@ class DNumericPaginator : IPaginator {
      * @param array<string, mixed> fields Current fields
      * @param string model Current model alias
      * @return array<string, mixed> fields Unaliased fields where applicable
-     */
+     * /
     protected array _removeAliases(array fields, string model) {
         result = null;
         foreach (fields as field: sort) {
@@ -619,7 +617,7 @@ class DNumericPaginator : IPaginator {
      * @param array order DOrder array.
      * @param bool allowed Whether the field was allowed.
      * @return array Final order array.
-     */
+     * /
     protected array _prefix(IRepository object, array order, bool allowed = false) {
         tableAlias = object.aliasName();
         tableOrder = null;
@@ -657,7 +655,7 @@ class DNumericPaginator : IPaginator {
      *
      * @param array<string, mixed> options An array of options with a limit key to be checked.
      * @return array<string, mixed> An array of options for pagination.
-     */
+     * /
     array checkLimit(IData[string] optionData) {
         options["limit"] = (int)options["limit"];
         if (options["limit"] < 1) {
@@ -666,12 +664,7 @@ class DNumericPaginator : IPaginator {
         options["limit"] = max(min(options["limit"], options["maxLimit"]), 1);
 
         return options;
-    }
+    } */
 }
 
-
-class_alias(
-    "Cake\Datasource\Paging\NumericPaginator",
-    "Cake\Datasource\Paginator"
-);
 

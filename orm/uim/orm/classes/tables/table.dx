@@ -103,7 +103,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\ORM\Table>
      */
-    mixin EventDispatcherTemplate();
+    mixin TEventDispatcher();
     mixin TRulesAware();
     mixin ValidatorAwareTemplate();
 

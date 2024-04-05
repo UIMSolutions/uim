@@ -42,7 +42,7 @@ import uim.views;
 class DView : IView { //  }: IEventDispatcher {
     mixin TConfigurable!();
     // @use \UIM\Event\EventDispatcherTrait<\UIM\View\View>
-    mixin EventDispatcherTemplate;
+    mixin TEventDispatcher;
     mixin LogTemplate;
 
     this() {

@@ -55,11 +55,7 @@ class DForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
     // Form`s data.
     protected IData[string] _data;
 
-    /**
-     * @use \UIM\Event\EventDispatcherTrait<\UIM\Form\Form>
-     * /
-    use EventDispatcherTemplate();
-    use ValidatorAwareTemplate();
+
 
     // The errors if any
     protected array _errors = [];

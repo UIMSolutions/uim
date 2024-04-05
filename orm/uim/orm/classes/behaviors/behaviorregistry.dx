@@ -27,7 +27,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\ORM\Table>
      */
-    mixin EventDispatcherTemplate();
+    mixin TEventDispatcher();
 
     // The table using this registry.
     protected Table my_table;

@@ -25,7 +25,7 @@ abstract class DCell { // }: IEventDispatcher {
     /**
      * @use \UIM\Event\EventDispatcherTrait<\UIM\View\View>
      * /
-    mixin EventDispatcherTemplate;
+    mixin TEventDispatcher;
     mixin LocatorAwareTemplate;
     mixin ViewVarsTemplate;
 

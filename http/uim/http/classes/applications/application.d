@@ -31,7 +31,7 @@ class DApplication {
     /**
      * @use \UIM\Event\EventDispatcherTrait<TSubject>
      * /
-    mixin EventDispatcherTemplate();
+    mixin TEventDispatcher();
 
     // Contains the path of the config directory
     protected string configDataDir;

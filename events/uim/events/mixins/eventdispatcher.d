@@ -9,7 +9,7 @@ import uim.events;
  *
  * @template TSubject of object
  */
-mixin template EventDispatcherTemplate() {
+mixin template TEventDispatcher() {
     /**
      * Instance of the UIM\Event\EventManager this object is using
      * to dispatch inner events.

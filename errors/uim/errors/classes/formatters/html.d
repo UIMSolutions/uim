@@ -62,11 +62,11 @@ class DHtmlErrorFormatter : IErrorFormatter {
     }
     
     /**
-     * Convert a tree of INode objects into HTML
+     * Convert a tree of IErrorNode objects into HTML
      * Params:
-     * \UIM\Error\Debug\INode node The node tree to dump.
+     * \UIM\Error\Debug\IErrorNode node The node tree to dump.
      * /
-    string dump(INode nodeToDump) {
+    string dump(IErrorNode nodeToDump) {
         html = this.export(node, 0);
         head = "";
         if (!outputHeader) {
@@ -77,12 +77,12 @@ class DHtmlErrorFormatter : IErrorFormatter {
     }
     
     /**
-     * Convert a tree of INode objects into HTML
+     * Convert a tree of IErrorNode objects into HTML
      * Params:
-     * \UIM\Error\Debug\INode var The node tree to dump.
+     * \UIM\Error\Debug\IErrorNode var The node tree to dump.
      * @param int  anIndent The current indentation level.
      * /
-    protected string export(INode var, int  anIndent) {
+    protected string export(IErrorNode var, int  anIndent) {
         if (cast(DScalarNode)var) {
             return match (var.getType()) {
                 "bool": this.style("const", var.getValue() ? "true" : "false"),

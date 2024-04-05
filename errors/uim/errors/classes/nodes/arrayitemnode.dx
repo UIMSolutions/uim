@@ -7,29 +7,29 @@ import uim.errors;
 /******************************************************************************
  * Dump node for Array Items.
  ******************************************************************************/
-class DArrayItemNode : INode {
-    private INode _key;
+class DArrayItemNode : IErrorNode {
+    private IErrorNode _key;
 
-    private INode _value;
+    private IErrorNode _value;
 
     /**
      * Constructor
      * Params:
-     * \UIM\Error\Debug\INode aKey The node for the item key
-     * @param \UIM\Error\Debug\INode aValue The node for the array value
+     * \UIM\Error\Debug\IErrorNode aKey The node for the item key
+     * @param \UIM\Error\Debug\IErrorNode aValue The node for the array value
      */
-    this(INode aKey, INode aValue) {
+    this(IErrorNode aKey, IErrorNode aValue) {
         _key = aKey;
         _value = aValue;
     }
     
     // Get the value
-    INode getValue() {
+    IErrorNode getValue() {
         return _value;
     }
     
     // Get the key
-    INode getKey() {
+    IErrorNode getKey() {
         return _key;
     }
  

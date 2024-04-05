@@ -510,7 +510,7 @@ class DDebugger {
      * IData var Variable to convert.
      * @param int maxDepth The depth to generate nodes to. Defaults to 3.
      * /
-    static INode exportVarAsNodes(IData var, int maxDepth = 3) {
+    static IErrorNode exportVarAsNodes(IData var, int maxDepth = 3) {
         return export(var, new DebugContext(maxDepth));
     }
     
@@ -520,7 +520,7 @@ class DDebugger {
      * IData var The variable to dump.
      * @param \UIM\Error\Debug\DebugContext context Dump context
      * /
-    protected static INode export(IData var, DebugContext context) {
+    protected static IErrorNode export(IData var, DebugContext context) {
         string type = getType(var);
 
         if (type.startWith("resource ")) {
@@ -586,7 +586,7 @@ class DDebugger {
      * object var Object to convert.
      * @param \UIM\Error\Debug\DebugContext context The dump context.
      * /
-    protected static INode exportObject(object var, DebugContext context) {
+    protected static IErrorNode exportObject(object var, DebugContext context) {
          isRef = context.hasReference(var);
         refNum = context.getReferenceId(var);
 

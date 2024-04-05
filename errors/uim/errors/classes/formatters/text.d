@@ -30,23 +30,23 @@ TEXT;
     }
     
     /**
-     * Convert a tree of INode objects into a plain text string.
+     * Convert a tree of IErrorNode objects into a plain text string.
      * Params:
-     * \UIM\Error\Debug\INode node The node tree to dump.
+     * \UIM\Error\Debug\IErrorNode node The node tree to dump.
      * /
-    string dump(INode nodeToDump) {
+    string dump(IErrorNode nodeToDump) {
         indentSize = 0;
 
         return this.export(node, indentSize);
     }
     
     /**
-     * Convert a tree of INode objects into a plain text string.
+     * Convert a tree of IErrorNode objects into a plain text string.
      * Params:
-     * \UIM\Error\Debug\INode nodeToDump The node tree to dump.
+     * \UIM\Error\Debug\IErrorNode nodeToDump The node tree to dump.
      * @param int indentSize The current indentation level.
      * /
-    protected string export(INode nodeToDump, int indentSize) {
+    protected string export(IErrorNode nodeToDump, int indentSize) {
         if (cast(DScalarNode)nodeToDump) {
             return match (nodeToDump.getType()) {
                 "bool": nodeToDump.getValue() ? "true" : "false",

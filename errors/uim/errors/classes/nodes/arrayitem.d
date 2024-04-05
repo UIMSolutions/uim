@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.errors.debugs.nodes.arrayitem;
+module uim.errors.classes.nodes.arrayitem;
 
 @safe:
 import uim.errors;

@@ -631,9 +631,9 @@ class DDebugger {
      *
      * @param mixed var Variable to convert.
      * @param int maxDepth The depth to generate nodes to. Defaults to 3.
-     * @return uim.errors.debugs.IERRNode The root node of the tree.
+     * @return uim.errors.debugs.IErrorNode The root node of the tree.
      * /
-    static function exportVarAsNodes(var, int maxDepth = 3): IERRNode
+    static function exportVarAsNodes(var, int maxDepth = 3): IErrorNode
     {
         return export(var, new DebugContext(maxDepth));
     }
@@ -643,9 +643,9 @@ class DDebugger {
      *
      * @param mixed var The variable to dump.
      * @param uim.errors.debugs.DebugContext context Dump context
-     * @return uim.errors.debugs.IERRNode The dumped variable.
+     * @return uim.errors.debugs.IErrorNode The dumped variable.
      * /
-    protected static function export(var, DebugContext context): IERRNode
+    protected static function export(var, DebugContext context): IErrorNode
     {
         type = getType(var);
         switch (type) {
@@ -719,10 +719,10 @@ class DDebugger {
      *
      * @param object var Object to convert.
      * @param uim.errors.debugs.DebugContext context The dump context.
-     * @return uim.errors.debugs.IERRNode
+     * @return uim.errors.debugs.IErrorNode
      * @see uim.errors.Debugger::exportVar()
      * /
-    protected static function exportObject(object var, DebugContext context): IERRNode
+    protected static function exportObject(object var, DebugContext context): IErrorNode
     {
         isRef = context.hasReference(var);
         refNum = context.getReferenceId(var);

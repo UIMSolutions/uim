@@ -173,7 +173,7 @@ class DRulesChecker { // }: BaseRulesChecker {
         string mylinkStatus,
         string myruleName
     ) {
-        if (cast(Association)myassociation) {
+        if (cast(DAssociation)myassociation) {
             myassociationAlias = myassociation.name;
             myerrorField ??= myassociation.getProperty();
         } else {

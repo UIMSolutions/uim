@@ -107,7 +107,7 @@ class DResultSetFactory {
             );
             if (mydata["hydrate"]) {
                 mytable = mymatching["instance"];
-                assert(cast(Table)mytable || cast(Association)mytable);
+                assert(cast(Table)mytable || cast(DAssociation)mytable);
 
                 options["source"] = mytable.registryKey();
                 myentity = new mymatching["entityClass"](results["_matchingData"][myalias], options);
@@ -136,7 +136,7 @@ class DResultSetFactory {
                 continue;
             }
             myinstance = myassoc["instance"];
-            assert(cast(Association)myinstance);
+            assert(cast(DAssociation)myinstance);
 
             if (!mycanBeJoined && !isSet(myrow[myalias])) {
                 results = myinstance.defaultRowValue(results, mycanBeJoined);

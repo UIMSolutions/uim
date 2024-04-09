@@ -777,7 +777,7 @@ class DRouteBuilder {
      *  Only required when myparams is defined.
      */
     void scope(string mypath, Closure|array myparams, ?Closure mycallback = null) {
-        if (cast(Closure)myparams) {
+        if (cast(DClosure)myparams) {
             mycallback = myparams;
             myparams = [];
         }

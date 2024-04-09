@@ -389,7 +389,7 @@ template IntegrationTestTemplate() {
     void controllerSpy(IEvent event, ?Controller controller = null) {
         if (!controller) {
             controller = event.getSubject();
-            assert(cast(Controller)controller);
+            assert(cast(DController)controller);
         }
        _controller = controller;
         events = controller.getEventManager();

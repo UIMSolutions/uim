@@ -66,7 +66,7 @@ class DExistsIn {
         }
         myfields = _fields;
         mysource = mytarget = _repository;
-        if (cast(Association)mytarget) {
+        if (cast(DAssociation)mytarget) {
             mybindingKey = (array)mytarget.getBindingKey();
             myrealTarget = mytarget.getTarget();
         } else {
@@ -79,7 +79,7 @@ class DExistsIn {
         if (!empty(options["repository"])) {
             mysource = options["repository"];
         }
-        if (cast(Association)mysource) {
+        if (cast(DAssociation)mysource) {
             mysource = mysource.getSource();
         }
         if (!myentity.extract(_fields, true)) {

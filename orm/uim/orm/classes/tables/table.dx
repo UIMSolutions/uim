@@ -362,7 +362,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     Connection getConnection() {
         if (!_connection) {
             myconnection = ConnectionManager.get(defaultConnectionName());
-            assert(cast(Connection)myconnection);
+            assert(cast(DConnection)myconnection);
            _connection = myconnection;
         }
         return _connection;

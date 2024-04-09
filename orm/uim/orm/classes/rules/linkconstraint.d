@@ -57,7 +57,7 @@ class LinkConstraint {
             );
         }
         myassociation = _association;
-        if (!cast(Association)myassociation) {
+        if (!cast(DAssociation)myassociation) {
             myassociation = mytable.getAssociation(myassociation);
         }
         mycount = _countLinks(myassociation, myentity);

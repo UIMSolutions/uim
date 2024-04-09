@@ -42,7 +42,7 @@ class DConnectionHelper {
             aConnection = ConnectionManager.get(aConnection);
             string message = "--Starting test run " ~ date("Y-m-d H:i:s");
             if (
-                cast(Connection)aConnection &&
+                cast(DConnection)aConnection &&
                 aConnection.getDriver().log(message) == false
             ) {
                 aConnection.getDriver().setLogger(new QueryLogger());
@@ -59,7 +59,7 @@ class DConnectionHelper {
      */
     void dropTables(string aconnectionName, string[] aTables = null) {
         aConnection = ConnectionManager.get(aConnectionName);
-        assert(cast(Connection)aConnection);
+        assert(cast(DConnection)aConnection);
         collection = aConnection.getSchemaCollection();
         allTables = collection.listTablesWithoutViews();
 
@@ -86,7 +86,7 @@ class DConnectionHelper {
      */
     void truncateTables(string aconnectionName, array aTables = null) {
         aConnection = ConnectionManager.get(aConnectionName);
-        assert(cast(Connection)aConnection);
+        assert(cast(DConnection)aConnection);
         collection = aConnection.getSchemaCollection();
 
         allTables = collection.listTablesWithoutViews();

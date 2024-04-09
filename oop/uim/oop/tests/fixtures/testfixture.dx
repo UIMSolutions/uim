@@ -71,7 +71,7 @@ class DTestFixture : IFixture {
     // Build fixture schema directly from the datasource
     protected void _schemaFromReflection() {
         db = ConnectionManager.get(this.connection());
-        assert(cast(Connection)db);
+        assert(cast(DConnection)db);
         try {
             name = Inflector.camelize(this.table);
             ormTable = this.fetchTable(name, ["connection": db]);
@@ -94,7 +94,7 @@ class DTestFixture : IFixture {
     }
  
     bool insert(IConnection aConnection) {
-        assert(cast(Connection)aConnection);
+        assert(cast(DConnection)aConnection);
         if (!empty(this.records)) {
             [fields,  someValues, types] = _getRecords();
             aQuery = aConnection.insertQuery()
@@ -128,7 +128,7 @@ class DTestFixture : IFixture {
     }
  
     bool truncate(IConnection aConnection) {
-        assert(cast(Connection)aConnection);
+        assert(cast(DConnection)aConnection);
         auto sql = _schema.truncateSql(aConnection);
         sql.each!(statement => aConnection.execute(statement));
         return true;

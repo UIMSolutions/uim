@@ -25,7 +25,7 @@ class DCacheClearGroupCommand : DCommand {
      * @see https://book.UIM.org/5/en/console-commands/option-parsers.html
      * @param \UIM\Console\DConsoleOptionParser buildOptionParser  aParser The parser to be defined
      * /
-  DConsoleOptionParser buildOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToDefine) {
+  DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToDefine) {
     auto definedParser = super.buildOptionParser(parserToDefine);
     definedParser.description("Clear all data in a single cache group.");
     definedParser.addArgument("group", [

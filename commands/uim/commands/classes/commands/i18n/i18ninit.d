@@ -66,7 +66,7 @@ class DI18nInitCommand : DCommand {
      * Params:
      * \UIM\Console\DConsoleOptionParser buildOptionParser  aParser The parser to update
      * /
-    DConsoleOptionParser buildOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser  aParser) {
+    DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser  aParser) {
          aParser.description("Initialize a language PO file from the POT file")
            .addOption("plugin", [
                "help": "The plugin to create a PO file in.",

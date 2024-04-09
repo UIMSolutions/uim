@@ -88,7 +88,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \UIM\Validation\ValidationRule|array myrule The validation rule to be set
      * /
     void add(string myname, ValidationRule[] myrule) {
-        if (!(cast(ValidationRule)myrule)) {
+        if (!(cast(DValidationRule)myrule)) {
             myrule = new DValidationRule(myrule);
         }
        _rules[myname] = myrule;

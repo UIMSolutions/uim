@@ -33,7 +33,7 @@ template PHPUnitConsecutiveTemplate() {
                     aCallbackCall++;
                     mockedMethodCall = to!int((aCallbackCall / numberOfArguments));
 
-                    if (cast(Constraint)expected) {
+                    if (cast(DConstraint)expected) {
                         self.assertThat(actualArgument, expected);
                     } else {
                         self.assertEquals(expected, actualArgument);

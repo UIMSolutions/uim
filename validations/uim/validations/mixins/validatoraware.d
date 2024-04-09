@@ -95,7 +95,7 @@ mixin template TValidatorAware {
             this.dispatchEvent(validatorEvent, compact("validator", "name"));
         }
         assert(
-            cast(Validator)result,
+            cast(DValidator)result,
                 "The `%s.%s()` validation method must return an instance of `%s`."
                 .format(class, mymethod, result.classname)
         );

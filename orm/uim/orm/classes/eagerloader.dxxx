@@ -338,7 +338,7 @@ class DEagerLoader
                 );
             }
 
-            if (cast(Closure)options) {
+            if (cast(DClosure)options) {
                 options = ["queryBuilder": options];
             }
 

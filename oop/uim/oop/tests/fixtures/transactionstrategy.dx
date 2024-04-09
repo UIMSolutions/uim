@@ -51,7 +51,7 @@ class DTransactionStrategy : IFixtureStrategy {
         this.fixtures = this.helper.loadFixtures(fixtureNames);
 
         this.helper.runPerConnection(void (aConnection) {
-            if (cast(Connection)aConnection) {
+            if (cast(DConnection)aConnection) {
                 assert(
                     aConnection.inTransaction() == false,
                     "Cannot start transaction strategy inside a transaction. " .

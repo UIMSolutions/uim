@@ -309,7 +309,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \UIM\Validation\ValidationSet|array myrules set of rules to apply to field
      * /
     void offsetSet(string fieldName, IData myrules) {
-        if (!cast(ValidationSet)myrules) {
+        if (!cast(DValidationSet)myrules) {
             myset = new DValidationSet();
             foreach (myrules as myname: myrule) {
                 myset.add(myname, myrule);

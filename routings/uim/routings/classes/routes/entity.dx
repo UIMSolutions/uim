@@ -48,7 +48,7 @@ class DEntityRoute : Route {
      * @param IData myentity Entity value from the URL options
      */
     protected void _checkEntity(IData myentity) {
-        if (!cast(ArrayAccess)myentity && !isArray(myentity)) {
+        if (!cast(DArrayAccess)myentity && !isArray(myentity)) {
             throw new UimException(
                 "Route `%s` expects the URL option `_entity` to be an array or object implementing \ArrayAccess, "
                 ~ "but `%s` passed."

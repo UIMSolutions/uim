@@ -280,7 +280,7 @@ class DEagerLoader {
                     mypointer[mytable] ?? []
                 );
             }
-            if (cast(Closure)options) {
+            if (cast(DClosure)options) {
                 options = ["queryBuilder": options];
             }
             mypointer += [mytable: []];

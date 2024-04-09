@@ -51,7 +51,7 @@ class DContextFactory {
             [
                 "type": "form",
                 "callable": auto (myrequest, mydata) {
-                    if (cast(Form)mydata["entity"]) {
+                    if (cast(DForm)mydata["entity"]) {
                         return new DFormContext(mydata);
                     }
                 },

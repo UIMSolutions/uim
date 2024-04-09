@@ -1,4 +1,4 @@
-module commands.uim.commands.classes.commands.plugins.loaded_;
+module uim.commands.classes.commands.plugins.loaded;
 
 import uim.commands;
 

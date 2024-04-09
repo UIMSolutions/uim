@@ -19,6 +19,7 @@ public { // Required uim libraries
   import uim.logging;
   import uim.models;
   import uim.orm;
+  import uim.consoles;
 }
 
 public { // uim.commands packages

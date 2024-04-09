@@ -1,4 +1,4 @@
-module uim.commands.classes.commands.plugins.pluginunload_;
+module commands.uim.commands.classes.commands.plugins.unload;
 
 import uim.commands;
 

@@ -56,7 +56,7 @@ import uim.consoles;
  * By providing help text for your positional arguments and named arguments, the DConsoleOptionParser buildOptionParser
  * can generate a help display for you. You can view the help for shells by using the `--help` or `-h` switch.
  */
-class DConsoleOptionParser buildOptionParser {
+class DConsoleOptionParser {
     mixin TConfigurable!();
 
     this() {

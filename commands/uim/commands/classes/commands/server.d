@@ -98,8 +98,6 @@ class DServerCommand : DCommand {
     
     /**
      * Hook method for defining this command`s option parser.
-     * Params:
-     * \UIM\Console\DConsoleOptionParser buildOptionParser  aParser The option parser to update
      * /
     DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
         with (parserToUpdate) {

@@ -22,5 +22,4 @@ class DVersionCommand : DCommand {
     return 0; //TODO CODE_SUCCESS;
   }
 }
-
 mixin(CommandCalls!("Version"));

@@ -8,7 +8,7 @@ import uim.commands;
  *
  * @internal
  */
-mixin template PluginAssetsTemplate() {
+mixin template TPluginAssets() {
     protected IData [string] arguments;
 
     /*

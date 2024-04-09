@@ -77,7 +77,7 @@ class DConsoleOptionParser {
     mixin(TProperty!("string", "name"));
 
     // Description text - displays before options when help is generated
-    protected string _description = "";
+    mixin(TProperty!("string[]", "_description"));
 
     /**
      * Epilog text - displays after options when help is generated
@@ -102,6 +102,10 @@ class DConsoleOptionParser {
 
     // Root alias used in help output
     protected string _rootName = "uim";
+    // Set the root name used in the HelpFormatter
+    @property rootName(string aName) {
+        _rootName = name;
+    }
 
     /**
      * Construct an OptionParser so you can define its behavior
@@ -516,16 +520,7 @@ class DConsoleOptionParser {
         throw new DConsoleException("Invalid format. Output format can be text or xml.");
     }
     
-    /**
-     * Set the root name used in the HelpFormatter
-     * Params:
-     * string aName The root command name
-     * /
-    auto setRootName(string aName) {
-        _rootName = name;
 
-        return this;
-    }
     
     /**
      * Parse the value for a long option out of _tokens. Will handle

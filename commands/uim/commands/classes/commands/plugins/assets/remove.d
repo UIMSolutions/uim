@@ -1,4 +1,4 @@
-module uim.commands.classes.commands.plugins.assetsremove;
+module uim.commands.classes.commands.plugins.assets.assetsremove;
 
 import uim.commands;
 
@@ -44,13 +44,13 @@ class DPluginAssetsRemoveCommand : DCommand {
     }
 
     // Get the option parser.
-    ConsoleOptionParser buildOptionParser(ConsoleOptionParser aParser) {
+    DConsoleOptionParser buildOptionParser(DConsoleOptionParser aParser) {
         aParser.description([
-            "Remove plugin assets from app\`s webroot.",
+            "Remove plugin assets from app`s webroot."
         ]);
-        aParser.addArgument("name", [
+        aParser.addArgument("name", [ 
             "help": StringData("A specific plugin you want to remove."),
-            "required": BooleanData(false),
+            "required": BooleanData(false)
         ]);
 
         return aParser;

@@ -1,4 +1,4 @@
-module uim.commands.classes.commands.plugins.assetscopy;
+module uim.commands.classes.commands.plugins.assets.copy;
 
 import uim.commands;
 

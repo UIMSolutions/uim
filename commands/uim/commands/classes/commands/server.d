@@ -101,23 +101,29 @@ class DServerCommand : DCommand {
      * Params:
      * \UIM\Console\ConsoleOptionParser  aParser The option parser to update
      * /
-    ConsoleOptionParser buildOptionParser(ConsoleOptionParser  aParser) {
-         aParser.description([
-            "PHP Built-in Server for UIM",
-            "<warning>[WARN] Don\'t use this in a production environment</warning>",
-        ]).addOption("host", [
-            "short": 'H",
-            "help": `serverHost",
-        ]).addOption("port", [
-            "short": 'p",
-            "help": 'ListenPort",
-        ]).addOption("ini_path", [
-            "short": 'I",
-            "help": 'php.ini path",
-        ]).addOption("document_root", [
-            "short": 'd",
-            "help": 'DocumentRoot",
-        ]);
+    DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
+        with (parserToUpdate) {
+            description([
+                "PHP Built-in Server for UIM",
+                "<warning>[WARN] Don\'t use this in a production environment</warning>",
+            ]);
+            addOption("host", [
+                "short": 'H",
+                "help": `serverHost",
+            ]);
+            addOption("port", [
+                "short": 'p",
+                "help": 'ListenPort",
+            ]);
+            addOption("ini_path", [
+                "short": 'I",
+                "help": 'php.ini path",
+            ]);
+            addOption("document_root", [
+                "short": 'd",
+                "help": 'DocumentRoot",
+            ]);
+        }
 
         return aParser;
     } */

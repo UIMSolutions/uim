@@ -1,4 +1,4 @@
-module uim.commands.classes.commands.plugins.assetssymlink;
+module uim.commands.classes.commands.plugins.assets.symlink;
 
 import uim.commands;
 

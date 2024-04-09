@@ -88,9 +88,9 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      *
      * You can override buildOptionParser() to define your options & arguments.
      * /
-    ConsoleOptionParser getOptionParser() {
+    DConsoleOptionParser buildOptionParser getOptionParser() {
         [root, name] = split(" ", this.name, 2);
-        aParser = new DConsoleOptionParser(name);
+        aParser = new DConsoleOptionParser buildOptionParser(name);
         aParser.setRootName(root);
         aParser.description(getDescription());
 
@@ -102,9 +102,9 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
     /**
      * Hook method for defining this command`s option parser.
      * Params:
-     * \UIM\Console\ConsoleOptionParser parserToDefine The parser to be defined
+     * \UIM\Console\DConsoleOptionParser buildOptionParser parserToDefine The parser to be defined
      * /
-    protected ConsoleOptionParser buildOptionParser(ConsoleOptionParser parserToDefine) {
+    protected DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToDefine) {
         return parserToDefine;
     }
 
@@ -150,11 +150,11 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
     /**
      * Output help content
      * Params:
-     * \UIM\Console\ConsoleOptionParser  aParser The option parser.
+     * \UIM\Console\DConsoleOptionParser buildOptionParser  aParser The option parser.
      * @param \UIM\Console\Arguments someArguments The command arguments.
      * @param \UIM\Console\IConsoleIo aConsoleIo The console io
      * /
-    protected void displayHelp(ConsoleOptionParser aParser, Arguments someArguments, IConsoleIo aConsoleIo) {
+    protected void displayHelp(DConsoleOptionParser buildOptionParser aParser, Arguments someArguments, IConsoleIo aConsoleIo) {
         format = "text";
         if (someArguments.getArgumentAt(0) == "xml") {
             format = "xml";

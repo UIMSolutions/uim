@@ -6,9 +6,9 @@ import uim.consoles;
 
 /**
  * An object to represent a single argument used in the command line.
- * ConsoleOptionParser creates these when you use addArgument()
+ * DConsoleOptionParser buildOptionParser creates these when you use addArgument()
  *
- * @see \UIM\Console\ConsoleOptionParser.addArgument()
+ * @see \UIM\Console\DConsoleOptionParser buildOptionParser.addArgument()
  */
 class DConsoleInputArgument {
     mixin TConfigurable!();

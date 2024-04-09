@@ -53,10 +53,10 @@ import uim.consoles;
  *
  * ### Providing Help text
  *
- * By providing help text for your positional arguments and named arguments, the ConsoleOptionParser
+ * By providing help text for your positional arguments and named arguments, the DConsoleOptionParser buildOptionParser
  * can generate a help display for you. You can view the help for shells by using the `--help` or `-h` switch.
  */
-class DConsoleOptionParser {
+class DConsoleOptionParser buildOptionParser {
     mixin TConfigurable!();
 
     this() {
@@ -81,7 +81,7 @@ class DConsoleOptionParser {
 
     /**
      * Epilog text - displays after options when help is generated
-     * @see \UIM\Console\ConsoleOptionParser.epilog()
+     * @see \UIM\Console\DConsoleOptionParser buildOptionParser.epilog()
      */
     protected string _epilog = "";
 
@@ -196,10 +196,10 @@ class DConsoleOptionParser {
     /**
      * Get or set the command name for shell/task.
      * Params:
-     * \UIM\Console\ConsoleOptionParser|array spec ConsoleOptionParser or spec to merge with.
+     * \UIM\Console\DConsoleOptionParser buildOptionParser|array spec DConsoleOptionParser buildOptionParser or spec to merge with.
      * /
-    void merge(ConsoleOptionParser|array spec) {
-        if (cast(ConsoleOptionParser)spec) {
+    void merge(DConsoleOptionParser buildOptionParser|array spec) {
+        if (cast(DConsoleOptionParser buildOptionParser)spec) {
             spec = spec.toArray();
         }
         if (!spec["arguments"].isEmpty) {
@@ -376,7 +376,7 @@ class DConsoleOptionParser {
      * The keys are used as the argument names, and the values as params for the argument.
      * Params:
      * array<string, IData[string]|\UIM\Console\ConsoleInputArgument> someArguments Array of arguments to add.
-     * @see \UIM\Console\ConsoleOptionParser.addArgument()
+     * @see \UIM\Console\DConsoleOptionParser buildOptionParser.addArgument()
      * /
     void addArguments(array someArguments) {
         foreach (name: params; someArguments) {
@@ -393,7 +393,7 @@ class DConsoleOptionParser {
      * The keys are used as option names, and the values as params for the option.
      * Params:
      * IData[string] optionsToAdd Array of options to add.
-     * @see \UIM\Console\ConsoleOptionParser.addOption()
+     * @see \UIM\Console\DConsoleOptionParser buildOptionParser.addOption()
      * /
     void addOptions(IData[string] optionsToAdd = null) {
         foreach (name: params; optionsToAdd) {

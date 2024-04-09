@@ -6,9 +6,9 @@ import uim.consoles;
 
 /**
  * An object to represent a single option used in the command line.
- * ConsoleOptionParser creates these when you use addOption()
+ * DConsoleOptionParser buildOptionParser creates these when you use addOption()
  *
- * @see \UIM\Console\ConsoleOptionParser.addOption()
+ * @see \UIM\Console\DConsoleOptionParser buildOptionParser.addOption()
  */
 class DConsoleInputOption {
     mixin TConfigurable!();

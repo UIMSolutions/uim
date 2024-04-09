@@ -54,7 +54,7 @@ class DRoutesGenerateCommand : DCommand {
     return result;
   }
 
-  ConsoleOptionParser buildOptionParser(ConsoleOptionParser parserToUpdate) {
+  DConsoleOptionParser buildOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToUpdate) {
     parserToUpdate.description(
       "Check a routing array against the routes. "."Will output the URL if there is a match." ~ "\n\n" ~
         "Routing parameters should be supplied in a key:value format. " ~

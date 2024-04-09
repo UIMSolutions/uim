@@ -23,7 +23,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
     }
 
     // Gets the option parser instance and configures it.
-    ConsoleOptionParser buildOptionParser(ConsoleOptionParser aConsoleParser) {
+    DConsoleOptionParser buildOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser aConsoleParser) {
         STRINGAA modes = [
             "commands": "Output a list of available commands",
             "subcommands": "Output a list of available sub-commands for a command",

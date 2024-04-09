@@ -43,9 +43,9 @@ class DSchemacacheClearCommand : DCommand {
 
   /**
      * Get the option parser.
-     * @param \UIM\Console\ConsoleOptionParser  aParser The option parser to update
+     * @param \UIM\Console\DConsoleOptionParser buildOptionParser  aParser The option parser to update
      * /
-  ConsoleOptionParser buildOptionParser(ConsoleOptionParser parserToUpdate) {
+  DConsoleOptionParser buildOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToUpdate) {
     parserToUpdate.description(
       "Clear all metadata caches for the connection. If a table name is provided, only that table will be removed."
     )

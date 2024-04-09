@@ -240,9 +240,9 @@ class DI18nExtractCommand : DCommand {
     /**
      * Gets the option parser instance and configures it.
      * Params:
-     * \UIM\Console\ConsoleOptionParser  aParser The parser to configure
+     * \UIM\Console\DConsoleOptionParser buildOptionParser  aParser The parser to configure
      * /
-    ConsoleOptionParser buildOptionParser(ConsoleOptionParser  aParser) {
+    DConsoleOptionParser buildOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser  aParser) {
          aParser.description(
             "Extract i18n POT files from application source files. " ~
             "source files are parsed and string literal format strings " ~

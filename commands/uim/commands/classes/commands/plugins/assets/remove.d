@@ -1,4 +1,4 @@
-module uim.commands.classes.commands.plugins.assets.assetsremove;
+module uim.commands.classes.commands.plugins.assets.remove;
 
 import uim.commands;
 
@@ -6,23 +6,24 @@ import uim.commands;
 
 // Command for removing plugin assets from app`s webroot.
 class DPluginAssetsRemoveCommand : DCommand {
-   mixin(CommandThis!("PluginAssetsRemove"));
+    mixin(CommandThis!("PluginAssetsRemove"));
 
     mixin TPluginAssets;
 
-  	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
-    static string defaultName() {
-        return "plugin-assets remove";
+        return true;
     }
 
+    static string defaultName() {
+        return "plugin-assets-remove";
+    }
 
     // Remove plugin assets from app`s webroot.
-  int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+    override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         this.io = aConsoleIo;
         this.args = commandArguments;
 
@@ -44,16 +45,17 @@ class DPluginAssetsRemoveCommand : DCommand {
     }
 
     // Get the option parser.
-    DConsoleOptionParser buildOptionParser(DConsoleOptionParser aParser) {
-        aParser.description([
-            "Remove plugin assets from app`s webroot."
-        ]);
-        aParser.addArgument("name", [ 
-            "help": StringData("A specific plugin you want to remove."),
-            "required": BooleanData(false)
-        ]);
+    DDConsoleOptionParser buildOptionParser buildOptionParser(DDConsoleOptionParser buildOptionParser parserToUpdate) {
+        parserToUpdate.description([
+                "Remove plugin assets from app`s webroot."
+            ]);
+        parserToUpdate.addArgument("name", [
+                "help": StringData("A specific plugin you want to remove."),
+                "required": BooleanData(false)
+            ]);
 
-        return aParser;
-    } 
+        return parserToUpdate;
+    }
 }
+
 mixin(CommandCalls!("PluginAssetsRemove"));

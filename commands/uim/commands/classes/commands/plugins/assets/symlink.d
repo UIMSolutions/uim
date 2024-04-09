@@ -6,20 +6,21 @@ import uim.commands;
 
 // Command for symlinking / copying plugin assets to app`s webroot.
 class DPluginAssetsSymlinkCommand : DCommand {
-   mixin(CommandThis!("PluginAssetsSymlink"));
+    mixin(CommandThis!("PluginAssetsSymlink"));
 
-  	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
+    mixin TPluginAssets;
 
-    static string defaultName() {
-        return "plugin-assets symlink";
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        return true;
     }
 
-    /* 
-    mixin TPluginAssets;
+    static string defaultName() {
+        return "plugin-assets-symlink";
+    }
 
     /**
      * Attempt to symlink plugin assets to app`s webroot. If symlinking fails it
@@ -37,7 +38,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
         return CODE_SUCCESS;
     }
 
-    ConsoleOptionParser buildOptionParser(ConsoleOptionParser parserToUpdate) {
+    DConsoleOptionParser buildOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToUpdate) {
         parserToUpdate.description([
             "symlink (copy as fallback) plugin assets to app\`s webroot.",
         ]).addArgument("name", [
@@ -52,5 +53,5 @@ class DPluginAssetsSymlinkCommand : DCommand {
         return parserToUpdate;
     } */
 }
-mixin(CommandCalls!("PluginAssetsSymlink"));
 
+mixin(CommandCalls!("PluginAssetsSymlink"));

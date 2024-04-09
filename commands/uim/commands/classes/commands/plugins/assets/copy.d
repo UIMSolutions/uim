@@ -15,7 +15,7 @@ class DPluginAssetsCopyCommand : DCommand {
 	}
 
     static string defaultName() {
-        return "plugin-assets copy";
+        return "plugin-assets-copy";
     }
 
     /* mixin TPluginAssets;
@@ -24,7 +24,7 @@ class DPluginAssetsCopyCommand : DCommand {
      * Copying plugin assets to app`s webroot. For vendor namespaced plugin,
      * parent folder for vendor name are created if required.
      * /
-  int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+    int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         this.io = aConsoleIo;
         this.args = commandArguments;
 
@@ -38,9 +38,9 @@ class DPluginAssetsCopyCommand : DCommand {
     /**
      * Get the option parser.
      * Params:
-     * \UIM\Console\ConsoleOptionParser parserToUpdate The option parser to update
+     * \UIM\Console\DConsoleOptionParser buildOptionParser parserToUpdate The option parser to update
      * /
-    ConsoleOptionParser buildOptionParser(ConsoleOptionParser parserToUpdate){
+    DConsoleOptionParser buildOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToUpdate){
         parserToUpdate.description([
             "Copy plugin assets to app\`s webroot.",
         ]).addArgument("name", [

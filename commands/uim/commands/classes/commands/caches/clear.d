@@ -24,10 +24,10 @@ class DCacheClearCommand : DCommand {
      * Hook method for defining this command`s option parser.
      *
      * @see https://book.UIM.org/5/en/console-commands/option-parsers.html
-     * aConsoleOptionParser - The parser to be defined
+     * aDConsoleOptionParser buildOptionParser - The parser to be defined
      * returns - The built parser.
      * /
-  ConsoleOptionParser buildOptionParser(ConsoleOptionParser parserToBeDefined) {
+  DConsoleOptionParser buildOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToBeDefined) {
     auto myParser = super.buildOptionParser(parserToBeDefined);
     myParser.description("Clear all data in a single cache engine");
     myParser.addArgument("engine", [

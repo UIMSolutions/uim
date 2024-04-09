@@ -99,9 +99,9 @@ class DServerCommand : DCommand {
     /**
      * Hook method for defining this command`s option parser.
      * Params:
-     * \UIM\Console\ConsoleOptionParser  aParser The option parser to update
+     * \UIM\Console\DConsoleOptionParser buildOptionParser  aParser The option parser to update
      * /
-    DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
+    DDConsoleOptionParser buildOptionParser buildOptionParser(DDConsoleOptionParser buildOptionParser parserToUpdate) {
         with (parserToUpdate) {
             description([
                 "PHP Built-in Server for UIM",

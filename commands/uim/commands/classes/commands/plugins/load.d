@@ -25,7 +25,6 @@ class DPluginLoadCommand : DCommand {
     //  Config file
     protected string configDataFile;
 
-
     /* 
     int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         auto plugin = to!string(commandArguments.getArgument("plugin"));
@@ -85,7 +84,7 @@ class DPluginLoadCommand : DCommand {
         : CODE_ERROR;
 }
 
-ConsoleOptionParser buildOptionParser(ConsoleOptionParser aParser) {
+DConsoleOptionParser buildOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser aParser) {
     with (aParser) {
         description([
             "Command for loading plugins.",

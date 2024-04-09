@@ -32,7 +32,7 @@ class DPluginLoadedCommand : DCommand {
     
     /**
      * Get the option parser.
-    ConsoleOptionParser buildOptionParser(ConsoleOptionParser parserToUpdate) {
+    DConsoleOptionParser buildOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToUpdate) {
         parserToUpdate.description("Displays all currently loaded plugins.");
 
         return parserToUpdate;

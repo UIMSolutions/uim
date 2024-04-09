@@ -23,9 +23,9 @@ class DCacheClearallCommand : DCommand {
      * Hook method for defining this command`s option parser.
      *
      * @see https://book.UIM.org/5/en/console-commands/option-parsers.html
-     * @param \UIM\Console\ConsoleOptionParser  aParser The parser to be defined
+     * @param \UIM\Console\DConsoleOptionParser buildOptionParser  aParser The parser to be defined
      * /
-  ConsoleOptionParser buildOptionParser(ConsoleOptionParser parserToBeDefined) {
+  DConsoleOptionParser buildOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToBeDefined) {
     auto result = super.buildOptionParser(parserToBeDefined);
     result.description("Clear all data in all configured cache engines.");
 

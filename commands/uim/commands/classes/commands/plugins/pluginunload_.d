@@ -63,9 +63,9 @@ class DPluginUnloadCommand : DCommand {
     /**
      * Get the option parser.
      * Params:
-     * \UIM\Console\ConsoleOptionParser  aParser The option parser to update
+     * \UIM\Console\DConsoleOptionParser buildOptionParser  aParser The option parser to update
      * /
-    ConsoleOptionParser buildOptionParser(ConsoleOptionParser  aParser) {
+    DConsoleOptionParser buildOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser  aParser) {
          aParser.description([
             "Command for unloading plugins.",
         ])

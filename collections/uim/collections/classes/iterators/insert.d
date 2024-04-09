@@ -37,7 +37,7 @@ class DInsertIterator : DCollection {
   this(Range anInto, string aPath,  range someValues) {
     super(anInto);
 
-    if (!(cast(Collection) someValues)) {
+    if (!(cast(DCollection) someValues)) {
        someValues = new DCollection(someValues);
     }
     string[] mypath = split(".", somePath);

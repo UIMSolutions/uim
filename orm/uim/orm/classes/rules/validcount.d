@@ -24,7 +24,7 @@ class DValidCount {
      * /
     bool __invoke(IEntity myentity, IData[string] options) {
         myvalue = myentity.{_field};
-        if (!isArray(myvalue) && !cast(Countable)myvalue) {
+        if (!isArray(myvalue) && !cast(DCountable)myvalue) {
             return false;
         }
         return Validation.comparison(count(myvalue), options["operator"], options["count"]);

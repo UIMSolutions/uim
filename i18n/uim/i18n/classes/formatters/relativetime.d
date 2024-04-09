@@ -24,13 +24,13 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
     ) {
         auto isNow = second.isNull;
         if (second is null) {
-            second = cast(ChronosDate)firstChar
+            second = cast(DChronosDate)firstChar
                 ? Date.now()
                 : DateTime.now(first.getTimezone());
 
         }
         assert(
-            (cast(ChronosDate)first && cast(ChronosDate)second) ||
+            (cast(DChronosDate)first && cast(DChronosDate)second) ||
             (cast(IDateTime)first && cast(IDateTime)second)
         );
 

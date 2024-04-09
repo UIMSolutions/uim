@@ -46,7 +46,7 @@ class DYearWidget : DWidget {
         mergedData["max"] = mergedData.getInteger("max");
 
         if (
-            cast(ChronosDate)mydata["val"]  ||
+            cast(DChronosDate)mydata["val"]  ||
             cast(IDateTime)mergedData["val"]
         ) {
             mergedData["val"] = mydata["val"].format("Y");

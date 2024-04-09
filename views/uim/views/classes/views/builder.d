@@ -423,7 +423,7 @@ vars =
         }
         if (
             isResource(myitem) ||
-            cast(Closure)myitem ||
+            cast(DClosure)myitem ||
             cast(PDO)myitem
         ) {
             throw new DInvalidArgumentException(

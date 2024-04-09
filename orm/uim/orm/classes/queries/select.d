@@ -852,7 +852,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
             this.clearContain();
         }
         myqueryBuilder = null;
-        if (cast(Closure)myoverride) {
+        if (cast(DClosure)myoverride) {
             myqueryBuilder = myoverride;
         }
         if (myassociations) {

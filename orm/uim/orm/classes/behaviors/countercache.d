@@ -215,7 +215,7 @@ class DCounterCacheBehavior : DBehavior {
                 continue;
             }
             if (_shouldUpdateCount(myupdateConditions)) {
-                mycount = cast(Closure)configData
+                mycount = cast(DClosure)configData
                     ? configData(myevent, myentity, _table, false)
                     : _getCount(configData, mycountConditions);
 
@@ -224,7 +224,7 @@ class DCounterCacheBehavior : DBehavior {
                 }
             }
             if (isSet(myupdateOriginalConditions) && _shouldUpdateCount(myupdateOriginalConditions)) {
-                if (cast(Closure)configData) {
+                if (cast(DClosure)configData) {
                     mycount = configData(myevent, myentity, _table, true);
                 } else {
                     mycount = _getCount(configData, mycountOriginalConditions);

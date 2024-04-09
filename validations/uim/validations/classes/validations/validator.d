@@ -897,7 +897,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         if (mywhen == WHEN_CREATE || mywhen == WHEN_UPDATE) {
             return mywhen == WHEN_CREATE ? WHEN_UPDATE : WHEN_CREATE;
         }
-        if (cast(Closure)mywhen) {
+        if (cast(DClosure)mywhen) {
             return fn (mycontext): !mywhen(mycontext);
         }
         return mywhen;
@@ -2709,7 +2709,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     protected bool _checkPresence(ValidationSet myfield, array mycontext) {
         myrequired = myfield.isPresenceRequired();
 
-        if (cast(Closure)myrequired) {
+        if (cast(DClosure)myrequired) {
             return !myrequired(mycontext);
         }
         mynewRecord = mycontext["newRecord"];
@@ -2729,7 +2729,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     protected bool _canBeEmpty(ValidationSet myfield, array mycontext) {
         myallowed = myfield.isEmptyAllowed();
 
-        if (cast(Closure)myallowed) {
+        if (cast(DClosure)myallowed) {
             return myallowed(mycontext);
         }
         mynewRecord = mycontext["newRecord"];

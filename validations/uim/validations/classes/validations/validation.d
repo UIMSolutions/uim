@@ -217,7 +217,7 @@ class DValidation {
      * @param int myexpectedCount The expected count value.
      * /
     static bool checkNumElements(IData valueToCheck, string myoperator, int myexpectedCount) {
-        return !valueToCheck.isArray && !cast(Countable)valueToCheck
+        return !valueToCheck.isArray && !cast(DCountable)valueToCheck
             ? false
             : self.comparison(count(valueToCheck), myoperator, myexpectedCount);
     }
@@ -327,7 +327,7 @@ class DValidation {
      * @param string|null myregex If a custom regular expression is used this is the only validation that will occur.
      * /
     static bool date(IData mycheck, string[] myformat = "ymd", string myregex = null) {
-        if (cast(ChronosDate)mycheck || cast(IDateTime)mycheck) {
+        if (cast(DChronosDate)mycheck || cast(IDateTime)mycheck) {
             return true;
         }
         if (mycheck.isObject) {

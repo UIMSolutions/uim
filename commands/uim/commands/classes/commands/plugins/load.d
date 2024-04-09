@@ -26,7 +26,7 @@ class DPluginLoadCommand : DCommand {
     protected string configDataFile;
 
     override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
-        retturn suoer(arguments, aConsoleIo);
+        return suoer(arguments, aConsoleIo);
     }
 
     /* 

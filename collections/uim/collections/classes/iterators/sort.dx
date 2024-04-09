@@ -55,8 +55,8 @@ class DSortIterator : DCollection {
     foreach (aKey, val; someItems) {
       auto callbackValue = aCallback( val);
       auto isDateTime =
-        cast(ChronosDate)callbackValue ||
-        cast(ChronosTime)callbackValue ||
+        cast(DChronosDate)callbackValue ||
+        cast(DChronosTime)callbackValue ||
         cast(IDateTime)callbackValue;
 
       if (isDateTime &&  sortType == SORT_NUMERIC) {

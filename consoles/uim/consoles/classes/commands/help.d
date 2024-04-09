@@ -17,7 +17,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     // Main auto Prints out the list of commands.
     int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         auto myCommands = this.commands.getIterator();
-        if (cast(ArrayIterator)myCommands) {
+        if (cast(DArrayIterator)myCommands) {
             myCommands.ksort();
         }
         if (commandArguments.getOption("xml")) {

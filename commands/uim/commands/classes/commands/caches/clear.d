@@ -48,7 +48,7 @@ class DCacheClearCommand : DCommand {
 
       auto engine = Cache.pool(engineName);
       Cache.clear(engineName);
-      if (cast(ApcuEngine)engine) {
+      if (cast(DApcuEngine)engine) {
         aConsoleIo.warning("ApcuEngine detected: Cleared {engineName} CLI cache successfully " ~
             "but {engineName} web cache must be cleared separately.");
       } else {

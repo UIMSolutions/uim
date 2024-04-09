@@ -71,7 +71,7 @@ class DCommonTableExpression : IExpression {
     void query(IExpression|Closure aQuery) {
     }
     void query(IExpression|Closure aQuery) {
-        if (cast(Closure)aQuery) {
+        if (cast(DClosure)aQuery) {
             aQuery = aQuery();
             if (!(cast(IExpression)aQuery)) {
                 throw new DatabaseException(

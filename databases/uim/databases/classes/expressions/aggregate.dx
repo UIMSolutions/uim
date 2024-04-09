@@ -28,7 +28,7 @@ class DAggregateExpression : DFunctionExpression, IWindow {
     void filter(IExpression|Closure|string[] aconditions, STRINGAA typeNames = []) {
         this.filter ??= new QueryExpression();
 
-        if (cast(Closure)conditions ) {
+        if (cast(DClosure)conditions ) {
             conditions = conditions(new QueryExpression());
         }
         this.filter.add(conditions, typeNames);

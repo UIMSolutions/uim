@@ -103,7 +103,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
             if (
                 aValue !isNull &&
                 !isScalar(aValue) &&
-                !(isObject(aValue) && !(cast(Closure)aValue))
+                !(isObject(aValue) && !(cast(DClosure)aValue))
             ) {
                 throw new DInvalidArgumentException(
                     "The `aValue` argument must be either `null`, a scalar value, an object, " .
@@ -269,7 +269,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
         if (!this.whenBuffer is null) {
             throw new LogicException("Cannot call `when()` between `when()` and `then()`.");
         }
-        if (cast(Closure) when) {
+        if (cast(DClosure) when) {
              when =  when(new WhenThenExpression(this.getTypeMap()));
             if (!(cast(WhenThenExpression) when )) {
                 throw new LogicException(
@@ -372,7 +372,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
         if (
             !result.isNull &&
             !isScalar(result) &&
-            !(isObject(result) && !(cast(Closure)result))
+            !(isObject(result) && !(cast(DClosure)result))
         ) {
             throw new DInvalidArgumentException(
                 "The `result` argument must be either `null`, a scalar value, an object, " .

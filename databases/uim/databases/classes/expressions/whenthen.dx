@@ -133,7 +133,7 @@ class DWhenThenExpression : IExpression {
         if (
             result !isNull &&
             !isScalar(result) &&
-            !(isObject(result) && !(cast(Closure)result))
+            !(isObject(result) && !(cast(DClosure)result))
         ) {
             throw new DInvalidArgumentException(
                 "The `result` argument must be either `null`, a scalar value, an object, " ~

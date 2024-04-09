@@ -354,7 +354,7 @@ class DQueryExpression : IExpression, Countable {
      * values that are being passed. Used for correctly binding values to statements.
      * /
     static and(IExpression|Closure|string[] aconditions, STRINGAA passedTypes = null) {
-        if (cast(Closure)conditions) {
+        if (cast(DClosure)conditions) {
             return conditions(new static([], this.getTypeMap().setTypes(passedTypes)));
         }
         return new static(conditions, this.getTypeMap().setTypes(passedTypes));
@@ -369,7 +369,7 @@ class DQueryExpression : IExpression, Countable {
      * values that are being passed. Used for correctly binding values to statements.
      * /
     static or(IExpression|Closure|string[] aconditions, STRINGAA passedTypes = []) {
-        if (cast(Closure)conditions) {
+        if (cast(DClosure)conditions) {
             return conditions(new static([], this.getTypeMap().setTypes(passedTypes), "OR"));
         }
         return new static(conditions, this.getTypeMap().setTypes(passedTypes), "OR");
@@ -500,7 +500,7 @@ class DQueryExpression : IExpression, Countable {
         foreach (myKey: c; conditions) {
             numericKey = isNumeric(myKey);
 
-            if (cast(Closure)c) {
+            if (cast(DClosure)c) {
                 expr = new static([], typeMap);
                 c = c(expr, this);
             }
@@ -514,7 +514,7 @@ class DQueryExpression : IExpression, Countable {
                  isOperator = in_array(normalizedKey,  operators);
                  isNot = normalizedKey == "not";
             }
-            if ((isOperator ||  isNot) && (isArray || cast(Countable)c) && count(c) == 0) {
+            if ((isOperator ||  isNot) && (isArray || cast(DCountable)c) && count(c) == 0) {
                 continue;
             }
             if (numericKey && cast(IExpression)c ) {

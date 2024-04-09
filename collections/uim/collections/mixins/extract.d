@@ -33,7 +33,7 @@ mixin template ExtractTemplate() {
                 : _extract(anElement, someParts);
         }
         return auto (anElement) use (someParts) {
-            if (!isArray(anElement) && !cast(ArrayAccess)anElement) {
+            if (!isArray(anElement) && !cast(DArrayAccess)anElement) {
                 return null;
             }
             return _simpleExtract(anElement, someParts);

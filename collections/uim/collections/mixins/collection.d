@@ -483,7 +483,7 @@ mixin template CollectionTemplate() {
  
     array toArray(bool mykeepKeys = true) {
         myiterator = this.unwrap();
-        if (cast(ArrayIterator)myiterator) {
+        if (cast(DArrayIterator)myiterator) {
             myitems = myiterator.getArrayCopy();
 
             return mykeepKeys ? myitems : array_values(myitems);

@@ -139,7 +139,7 @@ class DApplication {
         // Only load routes if the router is empty
         if (!Router.routes()) {
             result = require this.configDir ~ "routes.d";
-            if (cast(Closure)result) {
+            if (cast(DClosure)result) {
                 result(routes);
             }
         }

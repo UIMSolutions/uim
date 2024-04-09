@@ -61,7 +61,7 @@ class DCspMiddleware { // }: IMiddleware {
         }
         this.setConfig(configData);
 
-        if (!cast(CSPBuilder)csp) {
+        if (!cast(DCSPBuilder)csp) {
             csp = new DCSPBuilder(csp);
         }
         this.csp = csp;

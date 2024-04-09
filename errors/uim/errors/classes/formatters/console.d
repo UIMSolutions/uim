@@ -101,7 +101,7 @@ class DConsoleFormatter : IErrorFormatter {
         if (cast(ArrayNode)var) {
             return this.exportArray(var,  anIndent + 1);
         }
-        if (cast(ClassNode)var || cast(ReferenceNode)var) {
+        if (cast(DClassNode)var || cast(ReferenceNode)var) {
             return this.exportObject(var,  anIndent + 1);
         }
         if (cast(DSpecialNode)var) {

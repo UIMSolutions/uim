@@ -29,7 +29,7 @@ class DMockAdapter { //}: IAdapter {
      * @param IData[string] options See above.
      * /
     void addResponse(IRequest request, Response response, IData[string] options = null) {
-        if (isSet(options["match"]) && !(cast(Closure)options["match"])) {
+        if (isSet(options["match"]) && !(cast(DClosure)options["match"])) {
             type = get_debug_type(options["match"]);
             throw new DInvalidArgumentException(
                 "The `match` option must be a `Closure`. Got `%s`."

@@ -437,7 +437,7 @@ class DServerRequest { // }: IServerRequest {
      * /
     protected bool _is(string atype, array someArguments) {
         auto detect = _detectors[type];
-        if (cast(Closure)detect) {
+        if (cast(DClosure)detect) {
             array_unshift(someArguments, this);
 
             return detect(...someArguments);
@@ -492,7 +492,7 @@ class DServerRequest { // }: IServerRequest {
         foreach (detect["header"] as  aHeader: aValue) {
              aHeader = this.getEnvironmentData("http_" ~  aHeader);
             if ( aHeader !isNull) {
-                if (cast(Closure)aValue) {
+                if (cast(DClosure)aValue) {
                     return aValue( aHeader);
                 }
                 return aHeader == aValue;
@@ -636,7 +636,7 @@ class DServerRequest { // }: IServerRequest {
      * /
     static void addDetector(string aName, Closure|array detector) {
         name = name.toLower;
-        if (cast(Closure)detector) {
+        if (cast(DClosure)detector) {
             _detectors[name] = detector;
 
             return;

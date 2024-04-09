@@ -258,7 +258,7 @@ class Date { // }: ChronosDate, IDataSerializable {
     
     // Returns a string that should be serialized when converting this object to IData
     string IDataSerialize() {
-        if (cast(Closure)_IDataEncodeFormat) {
+        if (cast(DClosure)_IDataEncodeFormat) {
             return call_user_func(_IDataEncodeFormat, this);
         }
         return this.i18nFormat(_IDataEncodeFormat);

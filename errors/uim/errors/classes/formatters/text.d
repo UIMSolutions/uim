@@ -58,7 +58,7 @@ TEXT;
         if (cast(ArrayNode)nodeToDump) {
             return this.exportArray(nodeToDump, indentSize + 1);
         }
-        if (cast(ClassNode)nodeToDump || cast(ReferenceNode)nodeToDump) {
+        if (cast(DClassNode)nodeToDump || cast(ReferenceNode)nodeToDump) {
             return this.exportObject(nodeToDump, indentSize + 1);
         }
         if (cast(DSpecialNode)nodeToDump ) {

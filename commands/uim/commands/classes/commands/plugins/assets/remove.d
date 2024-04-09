@@ -45,7 +45,7 @@ class DPluginAssetsRemoveCommand : DCommand {
     }
 
     // Get the option parser.
-    DDConsoleOptionParser buildOptionParser(DDConsoleOptionParser buildOptionParser parserToUpdate) {
+    DDConsoleOptionParser buildOptionParser(DDConsoleOptionParser parserToUpdate) {
         parserToUpdate.description([
                 "Remove plugin assets from app`s webroot."
             ]);

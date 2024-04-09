@@ -38,9 +38,9 @@ class DPluginAssetsCopyCommand : DCommand {
     /**
      * Get the option parser.
      * Params:
-     * \UIM\Console\DConsoleOptionParser buildOptionParser parserToUpdate The option parser to update
+     * \UIM\Console\DConsoleOptionParser parserToUpdate The option parser to update
      * /
-    DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToUpdate){
+    DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate){
         parserToUpdate.description([
             "Copy plugin assets to app\`s webroot.",
         ]).addArgument("name", [

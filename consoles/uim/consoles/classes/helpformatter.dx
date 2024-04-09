@@ -6,7 +6,7 @@ import uim.consoles;
 
 /**
  * HelpFormatter formats help for console shells. Can format to either
- * text or XML formats. Uses ConsoleOptionParser methods to generate help.
+ * text or XML formats. Uses DConsoleOptionParser buildOptionParser methods to generate help.
  *
  * Generally not directly used. Using myParser.help(command, "xml"); is usually
  * how you would access help. Or via the `--help=xml` option on the command line.
@@ -39,7 +39,7 @@ class DHelpFormatter {
     protected int _maxOptions = 6;
 
     // Option parser.
-    protected ConsoleOptionParser _parser;
+    protected DConsoleOptionParser buildOptionParser _parser;
 
     // Alias to display in the output.
     protected string _alias = "uim";
@@ -47,9 +47,9 @@ class DHelpFormatter {
     /**
      * Build the help formatter for an OptionParser
      * Params:
-     * \UIM\Console\ConsoleOptionParser myParser The option parser help is being generated for.
+     * \UIM\Console\DConsoleOptionParser buildOptionParser myParser The option parser help is being generated for.
      */
-    this(ConsoleOptionParser myParser) {
+    this(DConsoleOptionParser buildOptionParser myParser) {
        _parser = myParser;
     }
 

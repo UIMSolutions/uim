@@ -9,7 +9,7 @@ import uim.datasources;
 
 @safe:
 // Used when a datasource cannot be found.
-class DDSOMissingDatasourceException : DDatasourcesException {
+class DDSOMissingDatasourceException : DDatasourceException {
 	mixin(ExceptionThis!("DSOMissingDatasource"));
 
     override bool initialize(IData[string] initData = null) {

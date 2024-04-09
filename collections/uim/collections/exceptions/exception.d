@@ -1,4 +1,4 @@
-module uim.collections.uim.collections.exceptions.exception;
+module uim.collections.exceptions.exception;
 
 import uim.collections;
 

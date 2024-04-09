@@ -9,7 +9,7 @@ module uim.datasources.exceptions.missingmodel;
 import uim.datasources;
 
 // Used when a model cannot be found.
-class DDSOMissingModelException : DDatasourcesException {
+class DDSOMissingModelException : DDatasourceException {
 	mixin(ExceptionThis!("DSOMissingModel"));
 
     override bool initialize(IData[string] initData = null) {

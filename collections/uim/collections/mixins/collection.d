@@ -254,7 +254,7 @@ mixin template CollectionTemplate() {
         if (isArray(myiterator)) {
             return array_pop(myiterator);
         }
-        if (cast(Countable)myiterator) {
+        if (cast(DCountable)myiterator) {
             mycount = count(myiterator);
             if (mycount == 0) {
                 return null;
@@ -272,7 +272,7 @@ mixin template CollectionTemplate() {
         if (isArray(myiterator)) {
             return this.newCollection(array_slice(myiterator, mylength * -1));
         }
-        if (cast(Countable)myiterator) {
+        if (cast(DCountable)myiterator) {
             mycount = count(myiterator);
 
             if (mycount == 0) {

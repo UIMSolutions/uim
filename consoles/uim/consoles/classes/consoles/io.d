@@ -460,7 +460,7 @@ class DConsoleIo {
         // we don`t add a redundant one.
         foreach ( loggerName; Log.configured()) {
             log = Log.engine( loggerName);
-            if (cast(ConsoleLog) log ) {
+            if (cast(DConsoleLog) log ) {
                 return;
             }
         }

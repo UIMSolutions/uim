@@ -288,10 +288,10 @@ abstract class DQuery : IQuery { // : IExpression {
         if (overwrite) {
            _parts["with"] = [];
         }
-        if (cast(Closure)cte) {
+        if (cast(DClosure)cte) {
             aQuery = this.getConnection().selectQuery();
             cte = cte(new DCommonTableExpression(), aQuery);
-            if (!(cast(CommonTableExpression)cte)) {
+            if (!(cast(DCommonTableExpression)cte)) {
                 throw new UimException(
                     'You must return a `CommonTableExpression` from a Closure passed to `with()`.'
                 );
@@ -464,7 +464,7 @@ abstract class DQuery : IQuery { // : IExpression {
             if (!isArray(t)) {
                 t = ["table": t, "conditions": this.newExpr()];
             }
-            if (cast(Closure)t["conditions"]) {
+            if (cast(DClosure)t["conditions"]) {
                 t["conditions"] = t["conditions"](this.newExpr(), this);
             }
             if (!cast(IExpression)t["conditions"]) {
@@ -1029,7 +1029,7 @@ abstract class DQuery : IQuery { // : IExpression {
         if (!field) {
             return this;
         }
-        if (cast(Closure)field) {
+        if (cast(DClosure)field) {
             field = field(this.newExpr(), this);
         }
         if (!_parts["order"]) {
@@ -1413,7 +1413,7 @@ abstract class DQuery : IQuery { // : IExpression {
 
             return;
         }
-        if (cast(Closure)append) {
+        if (cast(DClosure)append) {
             append = append(this.newExpr(), this);
         }
         if (expression.getConjunction() == conjunction) {

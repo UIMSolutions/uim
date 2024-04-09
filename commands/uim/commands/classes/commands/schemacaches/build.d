@@ -29,7 +29,7 @@ class DSchemacacheBuildCommand : DCommand {
         SchemaCache schemaCache;
         try {
             aConnection = ConnectionManager.get(to!string(commandArguments.getOption("connection")));
-            assert(cast(Connection)aConnection);
+            assert(cast(DConnection)aConnection);
 
             schemaCache = new DSchemaCache(aConnection);
         } catch (RuntimeException  anException) {

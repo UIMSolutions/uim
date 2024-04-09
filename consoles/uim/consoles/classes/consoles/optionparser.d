@@ -343,7 +343,7 @@ class DConsoleOptionParser {
     }
     
     void addArgument(ConsoleInputArgument|string aName, array params = []) {
-        if (cast(ConsoleInputArgument)name) {
+        if (cast(DConsoleInputArgument)name) {
             arg = name;
              anIndex = count(_args);
         } else {
@@ -380,7 +380,7 @@ class DConsoleOptionParser {
      * /
     void addArguments(array someArguments) {
         foreach (name: params; someArguments) {
-            if (cast(ConsoleInputArgument)params) {
+            if (cast(DConsoleInputArgument)params) {
                 name = params;
                 params = [];
             }
@@ -397,7 +397,7 @@ class DConsoleOptionParser {
      * /
     void addOptions(IData[string] optionsToAdd = null) {
         foreach (name: params; optionsToAdd) {
-            if (cast(ConsoleInputOption)params) {
+            if (cast(DConsoleInputOption)params) {
                 name = params;
                 params = [];
             }

@@ -116,7 +116,7 @@ class DCache : ICache {
                 ), 0, mye);
             }
             myfallbackEngine = pool(configuration["fallback"]).clone;
-            assert(cast(CacheEngine)myfallbackEngine);
+            assert(cast(DCacheEngine)myfallbackEngine);
 
             mynewConfig = configuration.update([
                     "groups": ArrayData, 
@@ -129,7 +129,7 @@ class DCache : ICache {
             }
             myRegistry.set(configName, myfallbackEngine);
         }
-        if (cast(CacheEngine)configuration["className"]) {
+        if (cast(DCacheEngine)configuration["className"]) {
             configData = configuration["className"].configuration.data;
         }
         if (!configuration.isEmpty("groups")) {

@@ -43,7 +43,7 @@ class DConnectionRegistry : DObjectRegistry!IConnection {
         return new className(configData);
     }
     protected IConnection _create(Object className, string objectAlias, IData[string] configData) {
-        return cast(Closure)className 
+        return cast(DClosure)className 
             ? className(objectAlias)
             : className;
     }

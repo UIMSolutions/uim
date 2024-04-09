@@ -14,6 +14,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
 		return true;
 	}
 
+    
     /* 
     protected CommandCollection _commands;
 

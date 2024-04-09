@@ -27,7 +27,7 @@ mixin template CaseExpressionTemplate() {
             type = "float";
         } elseif (isBool(aValue)) {
             type = "boolean";
-        } elseif (cast(ChronosDate)aValue) {
+        } elseif (cast(DChronosDate)aValue) {
             type = "date";
         } elseif (cast(IDateTime)aValue) {
             type = "datetime";

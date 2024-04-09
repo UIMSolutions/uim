@@ -43,7 +43,7 @@ class DSchemacacheBuildCommand : DCommand {
     }
     
     // Get the option parser.
-    DConsoleOptionParser buildOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToUpdate) {
+    DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToUpdate) {
         parserToUpdate.description(
             "Build all metadata caches for the connection. If a " ~
             "table name is provided, only that table will be cached."

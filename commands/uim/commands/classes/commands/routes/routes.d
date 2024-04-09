@@ -95,7 +95,7 @@ class DRoutesCommand : DCommand {
         return CODE_SUCCESS;
     }
 
-    DConsoleOptionParser buildOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser  aParser) {
+    DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser  aParser) {
          aParser
             .description("Get the list of routes connected in this application.")
             .addOption("sort", [
@@ -168,7 +168,7 @@ class DRoutesCommand : DCommand {
         return CODE_SUCCESS;
     }
 
-    DConsoleOptionParser buildOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser  aParser) {
+    DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser  aParser) {
          aParser
             .description("Get the list of routes connected in this application.")
             .addOption("sort", [

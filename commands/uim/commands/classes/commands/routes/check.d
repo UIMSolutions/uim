@@ -59,7 +59,7 @@ class DRoutesCheckCommand : DCommand {
     return CODE_SUCCESS;
   }
 
-  ConsoleOptionParser buildOptionParser(ConsoleOptionParser parserToUpdate) {
+  DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToUpdate) {
     parserToUpdate.description(
       "Check a URL string against the routes. " ~
         "Will output the routing parameters the route resolves to."

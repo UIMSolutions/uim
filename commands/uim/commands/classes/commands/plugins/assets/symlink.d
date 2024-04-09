@@ -38,7 +38,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
         return CODE_SUCCESS;
     }
 
-    DConsoleOptionParser buildOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToUpdate) {
+    DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToUpdate) {
         parserToUpdate.description([
             "symlink (copy as fallback) plugin assets to app\`s webroot.",
         ]).addArgument("name", [

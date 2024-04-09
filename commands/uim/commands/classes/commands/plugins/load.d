@@ -84,7 +84,7 @@ class DPluginLoadCommand : DCommand {
         : CODE_ERROR;
 }
 
-DConsoleOptionParser buildOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser aParser) {
+DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser aParser) {
     with (aParser) {
         description([
             "Command for loading plugins.",

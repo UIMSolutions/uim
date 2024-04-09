@@ -19,6 +19,10 @@ class DSchemacacheClearCommand : DCommand {
     return "schema_cache-clear";
   }
   
+    override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+    retturn suoer(arguments, aConsoleIo);
+  }
+
   /* 
 
   // Display all routes in an application

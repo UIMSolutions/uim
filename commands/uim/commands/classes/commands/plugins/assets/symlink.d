@@ -22,12 +22,16 @@ class DPluginAssetsSymlinkCommand : DCommand {
         return "plugin-assets-symlink";
     }
 
+    override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+        retturn suoer(arguments, aConsoleIo);
+    }
+
     /**
      * Attempt to symlink plugin assets to app`s webroot. If symlinking fails it
      * fallbacks to copying the assets. For vendor namespaced plugin, parent folder
      * for vendor name are created if required.
      * /
-  int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+    int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         this.io = aConsoleIo;
         this.args = commandArguments;
 

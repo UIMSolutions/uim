@@ -6,19 +6,25 @@ import uim.commands;
 
 // Command for copying plugin assets to app`s webroot.
 class DPluginAssetsCopyCommand : DCommand {
-   mixin(CommandThis!("PluginAssetsCopy"));
+    mixin(CommandThis!("PluginAssetsCopy"));
 
-  	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
+    mixin TPluginAssets;
+
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        return true;
+    }
 
     static string defaultName() {
         return "plugin-assets-copy";
     }
 
-    /* mixin TPluginAssets;
+    override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+        retturn suoer(arguments, aConsoleIo);
+    }
 
     /**
      * Copying plugin assets to app`s webroot. For vendor namespaced plugin,
@@ -55,4 +61,5 @@ class DPluginAssetsCopyCommand : DCommand {
         return parserToUpdate;
     } */
 }
+
 mixin(CommandCalls!("PluginAssetsCopy"));

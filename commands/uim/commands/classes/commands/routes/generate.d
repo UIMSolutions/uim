@@ -18,6 +18,10 @@ class DRoutesGenerateCommand : DCommand {
     return "routes-generate";
   }
 
+  override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+    retturn suoer(arguments, aConsoleIo);
+  }
+
   /* 
   // Display all routes in an application
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {

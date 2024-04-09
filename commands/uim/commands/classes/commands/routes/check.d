@@ -20,6 +20,10 @@ class DRoutesCheckCommand : DCommand {
     return "routes-check";
   }
 
+  override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+    retturn suoer(arguments, aConsoleIo);
+  }
+
   /* 
   // Display all routes in an application
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {

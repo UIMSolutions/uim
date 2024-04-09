@@ -6,21 +6,27 @@ import uim.commands;
 
 // Command for unloading plugins.
 class DPluginUnloadCommand : DCommand {
-   mixin(CommandThis!("PluginUnload"));
+    mixin(CommandThis!("PluginUnload"));
 
-  	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        return true;
+    }
 
     // TODO protected string configDataFile = CONFIG ~ "plugins.d";
- 
+
     static string defaultName() {
         return "plugin-unload";
     }
 
-/* 
+    override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+        retturn suoer(arguments, aConsoleIo);
+    }
+
+    /* 
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         auto plugin = to!string(commandArguments.getArgument("plugin"));
 
@@ -77,4 +83,5 @@ class DPluginUnloadCommand : DCommand {
         return aParser;
     } */
 }
+
 mixin(CommandCalls!("PluginUnload"));

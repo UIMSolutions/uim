@@ -18,6 +18,10 @@ class DPluginLoadedCommand : DCommand {
         return "plugin-loaded";
     }
     
+        override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+        retturn suoer(arguments, aConsoleIo);
+    }
+
     /* 
     //  Displays all currently loaded plugins.
      * Params:

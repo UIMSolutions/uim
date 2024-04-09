@@ -25,6 +25,10 @@ class DPluginLoadCommand : DCommand {
     //  Config file
     protected string configDataFile;
 
+    override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+        retturn suoer(arguments, aConsoleIo);
+    }
+
     /* 
     int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         auto plugin = to!string(commandArguments.getArgument("plugin"));

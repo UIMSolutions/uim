@@ -19,6 +19,10 @@ class DSchemacacheBuildCommand : DCommand {
         return "schema_cache-build";
     }
     
+      override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+    retturn suoer(arguments, aConsoleIo);
+  }
+
     /* 
     // Display all routes in an application
     int execute(IData[string] arguments, IConsoleIo aConsoleIo) {

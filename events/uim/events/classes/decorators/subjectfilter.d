@@ -1,4 +1,4 @@
-module events.uim.events.classes.decorators.subjectfilter;
+module uim.events.classes.decorators.subjectfilter;
 
 import uim.events;
 

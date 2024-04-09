@@ -47,12 +47,13 @@ class DPluginAssetsRemoveCommand : DCommand {
     ConsoleOptionParser buildOptionParser(ConsoleOptionParser aParser) {
         aParser.description([
             "Remove plugin assets from app\`s webroot.",
-        ]).addArgument("name", [
-            "help": "A specific plugin you want to remove.",
+        ]);
+        aParser.addArgument("name", [
+            "help": StringData("A specific plugin you want to remove."),
             "required": BooleanData(false),
         ]);
 
         return aParser;
-    } */
+    } 
 }
 mixin(CommandCalls!("PluginAssetsRemove"));

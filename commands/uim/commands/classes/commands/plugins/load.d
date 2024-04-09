@@ -13,6 +13,8 @@ class DPluginLoadCommand : DCommand {
             return false;
         }
 
+        configDataFile = CONFIG ~ "plugins.d";
+        
         return true;
     }
 
@@ -20,9 +22,9 @@ class DPluginLoadCommand : DCommand {
         return "plugin-load";
     }
 
-    /*
     //  Config file
-    protected string configDataFile = CONFIG ~ "plugins.d";
+    protected string configDataFile;
+
 
     /* 
     int execute(IData[string] arguments, IConsoleIo aConsoleIo) {

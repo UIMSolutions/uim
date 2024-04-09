@@ -5,8 +5,16 @@ import uim.events;
 @safe:
 
 class DEvent : IEvent {
+    this() {
+        this.name(this.className);
+    }
+
+    this(string name) {
+        this.name(name);
+    }
+
     // Name of the event
-    protected string _name;
+    mixin(TProperty!("string", "name"));
 
     // The object this event applies to (usually the same object that generates the event)
     protected IEventObject _subject = null;
@@ -15,10 +23,21 @@ class DEvent : IEvent {
     protected IData _data;
 
     // Property used to retain the result value of the event listeners
-    protected IData result = null;
+    // Get/Set the result value of the event listeners
+    mixin(TProperty!("IData", "result"));
 
     // Flags an event as stopped or not, default is false
     protected bool _stopped = false;
+
+    // Stops the event from being used anymore
+    void stopPropagation() {
+        _stopped = true;
+    }
+
+    // Check if the event is stopped
+    bool isStopped() {
+        return _stopped;
+    }
 
     /**
      * Constructor
@@ -43,11 +62,6 @@ class DEvent : IEvent {
         _data = data;
     }
 
-    // Returns the name of this event. This is usually used as the event identifier
-    @property string name() {
-        return _name;
-    }
-
     // Returns the subject of this event
     IEventObject getSubject() {
         if (_subject is null) {
@@ -56,18 +70,7 @@ class DEvent : IEvent {
         return _subject;
     }
 
-    // Stops the event from being used anymore
-    void stopPropagation() {
-        _stopped = true;
-    }
 
-    // Check if the event is stopped
-    bool isStopped() {
-        return _stopped;
-    }
-
-    // Get/Set the result value of the event listeners
-    mixin(TProperty!("IData", "result"));
 
     // #region data handling
     IData opIndex(string key) {

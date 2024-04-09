@@ -1,5 +1,30 @@
 module uim.events.mixins.event;
 
-import uim.events;
+string eventThis(string name) {
+    string fullName = name ~ "Event";
+    return `
+    this() {
+        super(); this.name("`
+        ~ fullName ~ `");
+    }
+    this(string name) {
+        super(); this.name(name);
+    }
+    `;
+}
 
-@safe:
+template EventThis(string name) {
+    const char[] EventThis = eventThis(name);
+}
+
+string eventCalls(string name) {
+    string fullName = name ~ "Event";
+    return `
+    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
+    auto `~ fullName ~ `(string name) { return new D` ~ fullName ~ `(name); }
+    `;
+}
+
+template EventCalls(string name) {
+    const char[] EventCalls = eventCalls(name);
+}

@@ -1,4 +1,4 @@
-module events.uim.events.interfaces.eventmanager;
+module uim.events.interfaces.eventmanager;
 
 import uim.events;
 

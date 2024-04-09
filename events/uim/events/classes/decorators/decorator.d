@@ -1,11 +1,11 @@
-module events.uim.events.classes.decorators.decorator;
+module uim.events.classes.decorators.decorator;
 
 import uim.events;
 
 @safe:
 
 // Common base class for event decorator subclasses.
-abstract class DDecorator {
+abstract class DDecorator : IDecorator {
     /* 
     // Callable
     protected callable  _callable;

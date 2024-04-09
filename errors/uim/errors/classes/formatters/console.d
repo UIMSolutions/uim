@@ -98,7 +98,7 @@ class DConsoleFormatter : IErrorFormatter {
                 default: "({var.getType()}) {var.getValue()}",
             };
         }
-        if (cast(ArrayNode)var) {
+        if (cast(DArrayNode)var) {
             return this.exportArray(var,  anIndent + 1);
         }
         if (cast(DClassNode)var || cast(ReferenceNode)var) {

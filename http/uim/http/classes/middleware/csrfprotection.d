@@ -283,7 +283,7 @@ class DCsrfProtectionMiddleware { // }: IMiddleware {
             throw exception;
         }
         body = request.getParsedBody();
-        if (isArray(body) || cast(ArrayAccess)body) {
+        if (isArray(body) || cast(DArrayAccess)body) {
             post = to!string(Hash.get(body, configuration["field"]));
             post = this.unsaltToken(post);
             if (hash_equals(post, cookie)) {

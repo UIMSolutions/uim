@@ -40,7 +40,7 @@ class DWindowExpression : IExpression, IWindow {
         if (!mypartitions) {
             return;
         }
-        if (cast(Closure)mypartitions) {
+        if (cast(DClosure)mypartitions) {
              mypartitions = mypartitions(new QueryExpression([], [], ""));
         }
         if (!isArray(mypartitions)) {
@@ -64,7 +64,7 @@ class DWindowExpression : IExpression, IWindow {
         }
         this.order ??= new DOrderByExpression();
 
-        if (cast(Closure)myfields) {
+        if (cast(DClosure)myfields) {
              myfields = myfields(new QueryExpression([], [], ""));
         }
         this.order.add(myfields);

@@ -55,7 +55,7 @@ TEXT;
                 default: "({nodeToDump.getType()}) {nodeToDump.getValue()}",
             };
         }
-        if (cast(ArrayNode)nodeToDump) {
+        if (cast(DArrayNode)nodeToDump) {
             return this.exportArray(nodeToDump, indentSize + 1);
         }
         if (cast(DClassNode)nodeToDump || cast(ReferenceNode)nodeToDump) {

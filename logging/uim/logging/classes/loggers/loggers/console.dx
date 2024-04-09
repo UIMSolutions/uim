@@ -40,7 +40,7 @@ class DConsoleLog : BaseLog {
         super(configData);
 
         configData = configuration;
-        if (cast(ConsoleOutput)configuration["stream"]) {
+        if (cast(DConsoleOutput)configuration["stream"]) {
            _output = configuration["stream"];
         }  else if (isString(configuration["stream"])) {
            _output = new DConsoleOutput(configuration["stream"]);

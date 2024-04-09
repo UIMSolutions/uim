@@ -11,16 +11,11 @@ import uim.errors;
 class DHtmlErrorFormatter : IErrorFormatter {
     protected static bool outputHeader = false;
 
-    /**
-     * Random id so that HTML ids are not shared between dump outputs.
-     * /
-    protected string aid;
+    // Random id so that HTML ids are not shared between dump outputs.
+    protected string _id;
 
-    /**
-     * Constructor.
-     * /
     this() {
-        this.id = uniqid("", true);
+        id = uniqid("", true);
     }
     
     /**
@@ -93,7 +88,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
                 default: "({var.getType()}) {var.getValue()}",
             };
         }
-        if (cast(ArrayNode)var) {
+        if (cast(DArrayNode)var) {
             return this.exportArray(var,  anIndent + 1);
         }
         if (cast(DClassNode)var || cast(ReferenceNode)var) {
@@ -111,7 +106,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * \UIM\Error\Debug\ArrayNode var The array to export.
      * @param int  anIndent The current indentation level.
      * /
-    protected string exportArray(ArrayNode var, int  anIndent) {
+    protected string exportArray(ArrayNode tvar, int  anIndent) {
         open = "<span class="cake-debug-array">' .
             this.style("punct", "[") .
             '<samp class="cake-debug-array-items">";

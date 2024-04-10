@@ -54,7 +54,7 @@ class MiddlewareDispatcher {
     }
     
     // Create a PSR7 request from the request spec.
-    protected ServerRequest _createRequest(IData[string] spec) {
+    protected IServerRequest _createRequest(IData[string] spec) {
         if (spec.isSet("input")) {
             spec["post"] = [];
             spec["environment"]["CAKEUIM_INPUT"] = spec["input"];

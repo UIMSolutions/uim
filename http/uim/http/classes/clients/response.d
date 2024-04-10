@@ -88,7 +88,7 @@ class DResponse { // }: Message : IResponse {
      *
      * @var \SimpleXMLElement|null
      * /
-    protected SimpleXMLElement _xml = null;
+    protected ISimpleXMLElement _xml = null;
 
     /**
      * Cached decoded IData data.
@@ -326,7 +326,7 @@ class DResponse { // }: Message : IResponse {
     }
     
     // Get the response body as XML decoded data.
-    protected SimpleXMLElement _getXml() {
+    protected ISimpleXMLElement _getXml() {
         if (_xml !isNull) {
             return _xml;
         }

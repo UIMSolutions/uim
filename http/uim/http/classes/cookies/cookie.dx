@@ -26,7 +26,7 @@ class DCookie : ICookie {
     protected bool isHttpOnly = false;
 
     // Samesite
-    protected SameSiteEnum sameSite = null;
+    protected ISameSiteEnum sameSite = null;
 
     // Default attributes for a cookie.
     protected static @var IData[string] defaultAttributes = [

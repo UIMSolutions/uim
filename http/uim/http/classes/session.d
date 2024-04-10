@@ -20,7 +20,7 @@ import uim.http;
 class DSession {
     /* 
     // The Session handler instance used as an engine for persisting the session data.
-    protected SessionHandler _engine = null;
+    protected ISessionHandler _engine = null;
 
     // Indicates whether the sessions has already started
     protected bool _started = false;
@@ -235,7 +235,7 @@ class DSession {
      * Params:
      * \!SessionHandler handler The handler to set
      * /
-    protected SessionHandler setEngine(!SessionHandlerhandler) : ! {
+    protected ISessionHandler setEngine(!SessionHandlerhandler) : ! {
         if (!headers_sent() && session_status() != UIM_SESSION_ACTIVE) {
             session_set_save_handler(handler, false);
         }

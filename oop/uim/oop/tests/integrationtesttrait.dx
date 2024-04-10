@@ -60,7 +60,7 @@ template IntegrationTestTemplate() {
     /**
      * The session instance from the last request
      */
-    protected Session _requestSession = null;
+    protected ISession _requestSession = null;
 
     /**
      * Boolean flag for whether the request should have

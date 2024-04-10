@@ -336,7 +336,7 @@ class DResponse : IResponse {
     /**
      * File object for file to be read out as response
      */
-    protected SplFileInfo _file = null;
+    protected ISplFileInfo _file = null;
 
     /**
      * File range. Used for requesting ranges of files.
@@ -1239,7 +1239,7 @@ class DResponse : IResponse {
      * string aPath The path to the file.
      * @throws \UIM\Http\Exception\NotFoundException
      */
-    protected SplFileInfo validateFile(string aPath) {
+    protected ISplFileInfo validateFile(string aPath) {
         if (somePath.has("../") || somePath.has("..\\")) {
             throw new DNotFoundException(__d("uim", "The requested file contains `..` and will not be read."));
         }

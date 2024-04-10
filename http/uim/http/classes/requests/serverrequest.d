@@ -123,7 +123,7 @@ class DServerRequest { // }: IServerRequest {
      *
      * @var \UIM\Http\Session
      * /
-    protected Session session;
+    protected ISession session;
 
     /**
      * Instance of a FlashMessage object relative to this request

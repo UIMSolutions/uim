@@ -44,7 +44,7 @@ class DFlashMessage {
         "duplicate": BooleanData(true),
     ];
 
-    protected Session _session;
+    protected ISession _session;
 
     this(Session session, IData[string] configData = null) {
         _session = session;

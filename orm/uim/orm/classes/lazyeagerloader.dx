@@ -47,7 +47,7 @@ class LazyEagerLoader {
      * @param array mycontain The associations to be loaded
      * @param \UIM\ORM\Table mysource The table to use for fetching the top level entities
      */
-    protected SelectQuery _getQuery(IEntity[] myentities, array mycontain, Table mysource)SelectQuery {
+    protected ISelectQuery _getQuery(IEntity[] myentities, array mycontain, Table mysource)SelectQuery {
         auto myprimaryKey = mysource.getPrimaryKeys();
         auto mymethod = isString(myprimaryKey) ? "get" : "extract";
 

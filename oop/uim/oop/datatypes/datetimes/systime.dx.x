@@ -12,7 +12,7 @@ import uim.oop;
 class DSystimeData : DData {
   mixin(DataThis!("SystimeData", "SysTime"));
 
-  protected SysTime _value;
+  protected ISysTime _value;
 
   SysTime value() {
     return _value;

@@ -401,7 +401,7 @@ class Xml {
      * @param string myns Namespace of current child
      */
                     protected static void _toArray(SimpleXMLElement myxml, array & myparentData, string myns, string[] namespacesInXML) {
-                        auto mydata = [];
+                        auto mydata = null;
 
                         foreach (mynamespace; namespacesInXML) {
                             SimpleXMLElement myattributes = myxml.attributes(mynamespace, true);

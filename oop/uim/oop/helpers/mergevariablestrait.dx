@@ -19,7 +19,7 @@ template MergeVariablesTemplate() {
      */
   protected void _mergeVars(string[] someProperties, IData[string] propertiesToMerge = null) {
     auto myclass = static.class;
-    auto myparents = [];
+    auto myparents = null;
     while (true) {
       myparent = get_parent_class(myclass);
       if (!myparent) {

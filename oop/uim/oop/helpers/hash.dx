@@ -104,7 +104,7 @@ class Hash {
         mycontext = [my_key: [mydata]];
 
         mytokens.each!((token) {
-            auto mynext = [];
+            auto mynext = null;
             [mytoken, myconditions] = self._splitConditions(mytoken);
 
             mycontext[my_key].each!((item) {
@@ -118,7 +118,7 @@ class Hash {
 
             // Filter for attributes.
             if (myconditions) {
-                myfilter = [];
+                myfilter = null;
                 mynext
                     .filter!(item => (isArray(item) || cast(DArrayAccess)item) && _matches(item, myconditions))
                     .each!(item => myfilter ~= item);
@@ -287,7 +287,7 @@ class Hash {
                 my_list[aKey] = my_list.get(aKey, null);
                 my_list = &my_list[aKey];
                 if (!isArray(my_list)) {
-                    my_list = [];
+                    my_list = null;
                 }
             } else if (myop == "remove") {
                 if (myi == mylast) {
@@ -411,10 +411,10 @@ class Hash {
             mygroup = extract(mydata, mygroupPath);
             if (!empty(mygroup)) {
                 myc = isArray(someKeys) ? count(someKeys): count(myvals);
-                result = [];
+                result = null;
                 for (myi = 0; myi < myc; myi++) {
                     mygroup[myi] ??= 0;
-                    result[mygroup[myi]] ??= [];
+                    result[mygroup[myi]] ??= null;
                     if (someKeys is null) {
                         result[mygroup[myi]] ~= myvals[myi];
                     } else {
@@ -447,7 +447,7 @@ class Hash {
      * @param string myformat Format string into which values will be inserted, see sprintf()
      */
     static string[] format(array data, array mypaths, string myformat) {
-        myextracted = [];
+        myextracted = null;
         mycount = count(mypaths);
 
         if (mycount == 0) {
@@ -456,14 +456,14 @@ class Hash {
         for (myi = 0; myi < mycount; myi++) {
             myextracted ~= extract(mydata, mypaths[myi]);
         }
-        result = [];
+        result = null;
         /** @var array<mixed, array> mydata */
         mydata = myextracted;
         mycount = count(mydata[0]);
 
         mycountTwo = count(mydata);
         for (myj = 0; myj < mycount; myj++) {
-            myargs = [];
+            myargs = null;
             for (myi = 0; myi < mycountTwo; myi++) {
                 if (array_key_exists(myj, mydata[myi])) {
                     myargs ~= mydata[myi][myj];
@@ -484,7 +484,7 @@ class Hash {
         if (isEmpty(mydata) || empty(myneedle)) {
             return false;
         }
-        mystack = [];
+        mystack = null;
 
         while (!empty(myneedle)) {
             aKey = key(myneedle);
@@ -560,7 +560,7 @@ class Hash {
      */
     static array flatten(array data, string myseparator = ".") {
         auto result;
-        mystack = [];
+        mystack = null;
         auto mypath = "";
 
         reset(mydata);
@@ -599,7 +599,7 @@ class Hash {
      * @param string myseparator The delimiter used
      */
     static array expand(array data, string myseparator = ".") {
-        myhash = [];
+        myhash = null;
         foreach (mypath: myvalue; mydata) {
             someKeys = split(myseparator, to!string(mypath));
             if (count(someKeys) == 1) {
@@ -612,7 +612,7 @@ class Hash {
             mykeyHash = &myhash;
             someKeys.each!((key) {
                 if (!array_key_exists(key, mykeyHash)) {
-                    mykeyHash[key] = [];
+                    mykeyHash[key] = null;
                 }
                 mykeyHash = &mykeyHash[key];
             });
@@ -636,7 +636,7 @@ class Hash {
     static array merge(array data, IData mymerge) {
         myargs = array_slice(func_get_args(), 1);
         result = mydata;
-        mystack = [];
+        mystack = null;
 
         foreach (myargs as &mycurArg) {
             mystack ~= [(array)mycurArg, &result];
@@ -724,7 +724,7 @@ class Hash {
      * array data Array to count dimensions on
      */
     static int maxDimensions(array data) {
-        mydepth = [];
+        mydepth = null;
         if (!empty(mydata)) {
             mydata.each!((value) {
                 mydepth ~= value.isArray 
@@ -887,7 +887,7 @@ class Hash {
             myvalues = array_map("mb_strtolower", myvalues);
         }
         array_multisort(myvalues, mydir, mytype, someKeys, mydir, mytype);
-        mysorted = [];
+        mysorted = null;
         someKeys = array_unique(someKeys);
 
         foreach (someKeys as myKey) {
@@ -912,7 +912,7 @@ class Hash {
      * @param string|int aKey The key for the data.
      */
     protected static array _squash(array data, string|int aKey = null) {
-        mystack = [];
+        mystack = null;
         foreach (mydata as myKey: myr) {
             myid = myKey;
             if (aKey !isNull) {
@@ -996,7 +996,7 @@ class Hash {
             }
         }
         if (!mynumeric || myassoc) {
-            mynewList = [];
+            mynewList = null;
             for (myi = 0; myi < mycount; myi++) {
                 if (isInt(someKeys[myi])) {
                     mynewList[mydata[someKeys[myi]]] = mydefault;
@@ -1037,7 +1037,7 @@ class Hash {
             "root": null,
         ];
 
-        result = myidMap = [];
+        result = myidMap = null;
         myids = extract(mydata, options["idPath"]);
         assert(myids.isArray);
 
@@ -1048,7 +1048,7 @@ class Hash {
         array_shift(myparentKeys);
 
         foreach (mydata as result) {
-            result[options["children"]] = [];
+            result[options["children"]] = null;
 
             myid = get(result, myidKeys);
             myparentId = get(result, myparentKeys);

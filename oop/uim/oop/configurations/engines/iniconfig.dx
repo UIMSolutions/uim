@@ -81,7 +81,7 @@ class DIniConfig : IConfigEngine {
         if (_section && isSet(contents[_section])) {
              someValues = _parseNestedValues(contents[_section]);
         } else {
-             someValues = [];
+             someValues = null;
             foreach (section: attribs; contents) {
                 if (isArray(attribs)) {
                      someValues[section] = _parseNestedValues(attribs);

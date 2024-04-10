@@ -73,7 +73,7 @@ class DText {
         auto depth = 0;
         auto offset = 0;
         string mybuffer;
-        results = [];
+        results = null;
         mylength = mydata.length;
         myopen = false;
 
@@ -370,7 +370,7 @@ class DText {
      * @param bool mycut If the cut is set to true, the string is always wrapped at the specified width.
      */
     protected static string _wordWrap(string textToFormat, int mywidth = 72, string mybreak = "\n", bool mycut = false) {
-        myparts = [];
+        myparts = null;
         if (mycut) {
             while (mb_strlen(textToFormat) > 0) {
                 mypart = mb_substr(textToFormat, 0, mywidth);
@@ -432,8 +432,8 @@ class DText {
         optionData = optionData.add(defaultData);
 
         if (isArray(myphrase)) {
-            myreplace = [];
-            mywith = [];
+            myreplace = null;
+            mywith = null;
 
             foreach (myphrase as aKey: mysegment) {
                 mysegment = "(" ~ preg_quote(mysegment, "|") ~ ")";
@@ -524,7 +524,7 @@ class DText {
 
             mytruncateLength = 0;
             mytotalLength = 0;
-            myopenTags = [];
+            myopenTags = null;
             mytruncate = "";
 
             preg_match_all("/(<\/?([\w+]+)[^>]*>)?([^<>]*)/", textToTruncate, mytags, PREG_SET_ORDER);
@@ -817,9 +817,9 @@ class DText {
      * string mystring String to convert.
      */
     static int[] utf8(string mystring) {
-        auto mymap = [];
+        auto mymap = null;
 
-        auto myvalues = [];
+        auto myvalues = null;
         auto myfind = 1;
         auto mylength = mystring.length;
 
@@ -839,7 +839,7 @@ class DText {
                         ? ((myvalues[0] % 16) * 4096) + ((myvalues[1] % 64) * 64) + (myvalues[2] % 64)
                         : ((myvalues[0] % 32) * 64) + (myvalues[1] % 64);
 
-                    myvalues = [];
+                    myvalues = null;
                     myfind = 1;
                 }
             }

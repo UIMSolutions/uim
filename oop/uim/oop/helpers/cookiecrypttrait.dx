@@ -64,7 +64,7 @@ template CookieCryptTemplate() {
             return _decode(myvalues, mymode, aKey);
         }
         
-        auto result = [];
+        auto result = null;
         myvalues.each!(nameValue => result[nameValue.key] = _decode(nameValue.value, mymode, aKey));
         return result;
     }
@@ -122,7 +122,7 @@ template CookieCryptTemplate() {
         if (myfirst == "{" || myfirst == "[") {
             return IData_decode(mystring, true) ?? mystring;
         }
-        myarray = [];
+        myarray = null;
         foreach (mypair; split(",", mystring)) {
             string[] aKey = split("|", mypair);
             if (!isSet(aKey[1])) {

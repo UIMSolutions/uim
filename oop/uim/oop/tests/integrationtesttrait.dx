@@ -18,7 +18,7 @@ template IntegrationTestTemplate() {
     mixin TContainerStub;
 
     // The data used to build the next request.
-    protected array _request = [];
+    protected array _request = null;
 
     /**
      * The response for the most recent request.
@@ -35,12 +35,12 @@ template IntegrationTestTemplate() {
     /**
      * Session data to use in the next request.
      */
-    protected array _session = [];
+    protected array _session = null;
 
     /**
      * Cookie data to use in the next request.
      */
-    protected array _cookie = [];
+    protected array _cookie = null;
 
     /**
      * The controller used in the last request.
@@ -83,7 +83,7 @@ template IntegrationTestTemplate() {
     /**
      * Stored flash messages before render
      */
-    protected array _flashMessages = [];
+    protected array _flashMessages = null;
 
     /**
      * @var string
@@ -93,7 +93,7 @@ template IntegrationTestTemplate() {
     /**
      * List of fields that are excluded from field validation.
      */
-    protected string[] _unlockedFields = [];
+    protected string[] _unlockedFields = null;
 
     /**
      * The name that will be used when retrieving the csrf token.
@@ -106,9 +106,9 @@ template IntegrationTestTemplate() {
      * @after
      */
     auto cleanup() {
-       _request = [];
-       _session = [];
-       _cookie = [];
+       _request = null;
+       _session = null;
+       _cookie = null;
        _response = null;
        _exception = null;
        _controller = null;
@@ -118,7 +118,7 @@ template IntegrationTestTemplate() {
        _securityToken = false;
        _csrfToken = false;
        _retainFlashMessages = false;
-       _flashMessages = [];
+       _flashMessages = null;
     }
     
     /**
@@ -579,7 +579,7 @@ template IntegrationTestTemplate() {
         somePath = anUri.getPath();
         aQuery = anUri.getQuery();
 
-        hostData = [];
+        hostData = null;
         if (anUri.getHost()) {
             hostData["host"] = anUri.getHost();
         }

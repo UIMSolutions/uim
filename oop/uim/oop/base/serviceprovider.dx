@@ -17,7 +17,7 @@ abstract class DServiceProvider : DAbstractServiceProvider, IBootableServiceProv
      * List of ids of services this provider provides.
      * @see ServiceProvider.provides()
      */
-    protected string[] provides = [];
+    protected string[] provides = null;
 
     /**
      * Get the container.

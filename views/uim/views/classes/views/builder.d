@@ -25,6 +25,16 @@ class DViewBuilder { // }: DIDataSerializable {
 
     // The layout name to render.
     protected string _layout = null;
+    /**
+     * Sets the name of the layout file to render the view inside of.
+     * The name specified is the filename of the layout in `templates/layout/`
+     * without the .d extension.
+     * Params:
+     * string|null views Layout file name to set.
+     */
+    void setLayout(string fileName) {
+       _layout = fileName;
+    }
 
     // Whether autoLayout should be enabled.
     protected bool _autoLayout = true;
@@ -255,18 +265,6 @@ vars =
         return _template;
     }
     
-    /**
-     * Sets the name of the layout file to render the view inside of.
-     * The name specified is the filename of the layout in `templates/layout/`
-     * without the .d extension.
-     * Params:
-     * string|null views Layout file name to set.
-     * /
-    auto setLayout(string views) {
-       _layout = views;
-
-        return this;
-    }
     
     // Gets the name of the layout file to render the view inside.
     string getLayout() {

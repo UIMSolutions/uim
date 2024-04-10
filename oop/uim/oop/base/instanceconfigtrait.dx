@@ -24,19 +24,19 @@ template InstanceConfigTemplate() {
      * Setting a specific value:
      *
      * ```
-     * this.setConfig("key", aValue);
+     * configuration.update("key", aValue);
      * ```
      *
      * Setting a nested value:
      *
      * ```
-     * this.setConfig("some.nested.key", aValue);
+     * configuration.update("some.nested.key", aValue);
      * ```
      *
      * Updating multiple config settings at the same time:
      *
      * ```
-     * this.setConfig(["one": 'value", "another": 'value"]);
+     * configuration.update(["one": 'value", "another": 'value"]);
      * ```
      * Params:
      * IData[string]|string keyToSet The key to set, or a complete array of configs.

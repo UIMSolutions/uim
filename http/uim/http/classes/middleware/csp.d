@@ -59,7 +59,7 @@ class DCspMiddleware { // }: IMiddleware {
         if (!class_exists(CSPBuilder.classname)) {
             throw new UimException("You must install paragonie/csp-builder to use CspMiddleware");
         }
-        this.setConfig(configData);
+        configuration.update(configData);
 
         if (!cast(DCSPBuilder)csp) {
             csp = new DCSPBuilder(csp);

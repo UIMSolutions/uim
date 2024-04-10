@@ -225,7 +225,7 @@ class DMessage { //: IDataSerializable {
             this.domain = php_uname("n");
         }
         if (configData) {
-            this.setConfig(configData);
+            configuration.update(configData);
         }
     }
     

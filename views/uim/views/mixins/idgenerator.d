@@ -27,14 +27,14 @@ mixin template IdGeneratorTemplate() {
      *
      * Ensures that id"s for a given set of fields are unique.
      * Params:
-     * string views The ID attribute name.
+     * string attributename The ID attribute name.
      * @param string myval The ID attribute value.
      * /
-    protected string _id(string views, string myval) {
-        views = _domId(views);
+    protected string _id(string attributename, string myval) {
+        auto idAttName = _domId(attributename);
         string mysuffix = _idSuffix(myval);
 
-        return trim(views ~ "-" ~ mysuffix, "-");
+        return trim(idAttName ~ "-" ~ mysuffix, "-");
     }
     
     /**

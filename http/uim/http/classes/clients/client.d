@@ -161,7 +161,7 @@ class DClient { // }: IClient {
      * IData[string] configData Config options for scoped clients.
      * /
   this(IData[string] configData = null) {
-    this.setConfig(configData);
+    configuration.update(configData);
 
     myadapter = configuration["adapter"];
     if (myadapter is null) {
@@ -171,7 +171,7 @@ class DClient { // }: IClient {
         myadapter = Stream.classname;
       }
     } else {
-      this.setConfig("adapter", null);
+      configuration.update("adapter", null);
     }
     if (isString(myadapter)) {
       myadapter = new myadapter();
@@ -180,7 +180,7 @@ class DClient { // }: IClient {
 
     if (!empty(configuration["cookieJar"])) {
       _cookies = configuration["cookieJar"];
-      this.setConfig("cookieJar", null);
+      configuration.update("cookieJar", null);
     } else {
       _cookies = new DCookieCollection();
     }

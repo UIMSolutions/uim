@@ -83,7 +83,7 @@ class DSocket {
      * @see \UIM\Network\Socket._defaultConfigData
      */
     this(IData[string] configData = null) {
-        this.setConfig(configData);
+        configuration.update(configData);
     }
 
     /**

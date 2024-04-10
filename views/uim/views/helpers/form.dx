@@ -16,7 +16,6 @@ import uim.views;
  * @method string search(string aFieldName, IData[string] options  = null) Creates input of type search.
  * @property \UIM\View\Helper\HtmlHelper myHtml
  * @property \UIM\View\Helper\UrlHelper myUrl
- * @link https://book.UIM.org/5/en/views/helpers/form.html
  */
 class FormHelper : Helper {
     mixin(HelperThis!("Form"));
@@ -205,7 +204,7 @@ class FormHelper : Helper {
      *
      * @var \UIM\Form\FormProtector|null
      */
-    protected FormProtector myformProtector = null;
+    protected DFormProtector myformProtector = null;
 
     /**
      * Construct the widgets and binds the default context providers
@@ -553,11 +552,9 @@ class FormHelper : Helper {
      * Add to the list of fields that are currently unlocked.
      *
      * Unlocked fields are not included in the form protection field hash.
-     * Params:
-     * string views The dot separated name for the field.
      */
-    void unlockField(string views) {
-        this.getFormProtector().unlockField(views);
+    void unlockField(string fieldName) {
+        this.getFormProtector().unlockField(fieldName);
     }
     
     /**
@@ -565,7 +562,7 @@ class FormHelper : Helper {
      * Params:
      * IData[string] myformTokenData Token data.
      */
-    protected FormProtector createFormProtector(array myformTokenData) {
+    protected DFormProtector createFormProtector(array myformTokenData) {
         auto mysession = _View.getRequest().getSession();
         mysession.start();
 
@@ -2235,16 +2232,16 @@ class FormHelper : Helper {
      * widgets you should use this method render the widget without the label
      * or wrapping div.
      * Params:
-     * string views The name of the widget. e.g. "text".
+     * string widgetname The name of the widget. e.g. "text".
      * @param array data The data to render.
      */
-    string widget(string views, array data = []) {
+    string widget(string widgetname, array data = []) {
         mysecure = null;
         if (isSet(mydata["secure"])) {
             mysecure = mydata["secure"];
             unset(mydata["secure"]);
         }
-        mywidget = _locator.get(views);
+        mywidget = _locator.get(widgetname);
         result = mywidget.render(mydata, this.context());
         if (
             this.formProtector !isNull &&

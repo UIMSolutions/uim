@@ -68,10 +68,19 @@ class DView : IView { //  }: IEventDispatcher {
     mixin(TProperty!("string", "name"));
 
     // The name of the plugin.
-    protected string _plugin = null;
+    mixin(TProperty!("string", "plugin"));
 
     // Name of the controller that created the View if any.
     protected string _viewControllerName = "";
+
+    // Retrieve the current template type
+    protected string _currentType;
+    @property string currentType() {
+        return _currentType;
+    }
+
+    // File extension. Defaults to ".d".
+    protected string _ext = ".d";
 
     /* 
     use CellTemplate() {
@@ -115,8 +124,6 @@ class DView : IView { //  }: IEventDispatcher {
     // An array of variables
     protected IData[string] _viewVars;
 
-    // File extension. Defaults to ".d".
-    protected string my_ext = ".d";
 
     /**
      * Sub-directory for this template file. This is often used for extension based routing.
@@ -446,14 +453,14 @@ class DView : IView { //  }: IEventDispatcher {
         }
 
         bool _pluginCheck = options["plugin"] != false;
-        auto myfile = _getElementFileName(templatefilename, _pluginCheck);
-        if (myfile && options["cache"]) {
-            return this.cache(void () use (myfile, mydata, options) {
-                writeln(_renderElement(myfile, mydata, options);
+        auto filepath = _getElementFileName(templatefilename, _pluginCheck);
+        if (filepath && options["cache"]) {
+            return this.cache(void () use (filepath, mydata, options) {
+                writeln(_renderElement(filepath, mydata, options);
             }, options["cache"]);
         }
-        if (myfile) {
-            return _renderElement(myfile, mydata, options);
+        if (filepath) {
+            return _renderElement(filepath, mydata, options);
         }
         if (options["ignoreMissing"]) {
             return "";
@@ -662,8 +669,8 @@ class DView : IView { //  }: IEventDispatcher {
      * Params:
      * string views The name of the block to capture for.
      * /
-    void start(string views) {
-        this.Blocks.start(views);
+    void start(string blockName) {
+        _blocks.start(blockName);
     }
 
     /**
@@ -675,8 +682,8 @@ class DView : IView { //  }: IEventDispatcher {
      * @param IData aValue The content for the block. Value will be type cast
      *  to string.
      * /
-    void append(string views, IData aValue = null) {
-        this.Blocks.concat(views, myvalue);
+    void append(string blockName, IData aValue = null) {
+        _blocks.concat(blockName, myvalue);
     }
     
     /**
@@ -688,20 +695,19 @@ class DView : IView { //  }: IEventDispatcher {
      * @param IData aValue The content for the block. Value will be type cast
      *  to string.
      * /
-    void prepend(string views, IData aValue) {
-        this.Blocks.concat(views, myvalue, ViewBlock.PREPEND);
+    void prepend(string blockName, IData aValue) {
+        _blocks.concat(blockName, myvalue, ViewBlock.PREPEND);
     }
 
     /**
      * Set the content for a block. This will overwrite any
      * existing content.
      * Params:
-     * string views Name of the block
      * @param IData aValue The content for the block. Value will be type cast
      *  to string.
      * /
-    void assign(string views, IData aValue) {
-        this.Blocks.set(views, myvalue);
+    void assign(string blockName, IData aValue) {
+        this.Blocks.set(blockName, myvalue);
     }
 
     /**
@@ -717,29 +723,19 @@ class DView : IView { //  }: IEventDispatcher {
     /**
      * Fetch the content for a block. If a block is
      * empty or undefined "" will be returned.
-     * Params:
-     * string views Name of the block
-     * @param string mydefault Default text
      * /
-    string fetch(string views, string mydefault = "") {
-        return this.Blocks.get(views, mydefault);
+    string fetch(string blockName, string defaultText = null) {
+        return _blocks.get(blockName, defaultText);
     }
 
-    /**
-     * End a capturing block. The compliment to View.start()
-     * /
-
+    // End a capturing block. The compliment to View.start()
     void end() {
         this.Blocks.end();
     }
 
-    /**
-     * Check if a block exists
-     * Params:
-     * string views Name of the block
-     * /
-   bool exists(string views) {
-        return this.Blocks.exists(views);
+    // Check if a block exists
+   bool exists(string blockName) {
+        return _blocks.exists(blockName);
     }
 
     /**
@@ -782,18 +778,10 @@ class DView : IView { //  }: IEventDispatcher {
         return this;
     }
 
-    // Retrieve the current template type
-    string getCurrentType() {
-        return _currentType;
-    }
 
-    /**
-     * Magic accessor for helpers.
-     * Params:
-     * string views Name of the attribute to get.
-     * /
-    Helper __get(string views) {
-        return this.helpers().{views};
+    // Magic accessor for helpers.
+    Helper __get(string attributeName) {
+        return this.helpers().{attributeName};
     }
 
     /**
@@ -920,24 +908,7 @@ class DView : IView { //  }: IEventDispatcher {
     @property string name() {
         return _name;
     }
-    
-    /**
-     * Returns the plugin name.
-     * /
-    string pluginName() {
-        return this.plugin;
-    }
-    
-    /**
-     * Sets the plugin name.
-     * Params:
-     * string|null views Plugin name.
-     * @return this    
-     * /
-    void setPlugin(string views) {
-        this.plugin = views;
-    }
-    
+        
     /**
      * Set The cache configuration View will use to store cached elements
      * Params:
@@ -999,13 +970,9 @@ class DView : IView { //  }: IEventDispatcher {
         throw new MissingTemplateException(views, mypaths);
     }
     
-    /**
-     * Change the name of a view template file into underscored format.
-     * Params:
-     * string views Name of file which should be inflected.
-     * /
-    protected string _inflectTemplateFileName(string views) {
-        return Inflector.underscore(views);
+    // Change the name of a view template file into underscored format.
+    protected string _inflectTemplateFileName(string filename) {
+        return Inflector.underscore(filename);
     }
     
     /**
@@ -1014,18 +981,18 @@ class DView : IView { //  }: IEventDispatcher {
      * Only paths that contain `..` will be checked, as they are the ones most likely to
      * have the ability to resolve to files outside of the template paths.
      * Params:
-     * string myfile The path to the template file.
-     * @param string mypath Base path that myfile should be inside of.
+     * string filepath The path to the template file.
+     * @param string mypath Base path that filepath should be inside of.
      * /
-    protected string _checkFilePath(string myfile, string mypath) {
-        if (!myfile.has("..")) {
-            return myfile;
+    protected string _checkFilePath(string filepath, string mypath) {
+        if (!filepath.has("..")) {
+            return filepath;
         }
-        string myabsolute = realpath(myfile);
+        string myabsolute = realpath(filepath);
         if (myabsolute == false || !myabsolute.startWith(mypath)) {
             throw new DInvalidArgumentException(
                 "Cannot use `%s` as a template, it is not within any view template path."
-                .format(myfile));
+                .format(filepath));
         }
         return myabsolute;
     }
@@ -1100,17 +1067,17 @@ class DView : IView { //  }: IEventDispatcher {
     /**
      * Finds an element filename, returns false on failure.
      * Params:
-     * string views The name of the element to find.
+     * string elementname The name of the element to find.
      * @param bool _pluginCheck - if false will ignore the request"s plugin if parsed plugin is not loaded
      * /
-    protected string|int|false _getElementFileName(string views, bool shouldCheckPlugin = true)|false
+    protected string|int|false _getElementFileName(string elementname, bool shouldCheckPlugin = true)|false
     {
-        [_plugin, views] = this.pluginSplit(views, shouldCheckPlugin);
+        [_plugin, elementname] = this.pluginSplit(elementname, shouldCheckPlugin);
 
-        views ~= _ext;
+        elementname ~= _ext;
         foreach (this.getElementPaths(_plugin) as mypath) {
-            if (isFile(mypath ~ views)) {
-                return mypath ~ views;
+            if (isFile(mypath ~ elementname)) {
+                return mypath ~ elementname;
             }
         }
         return false;
@@ -1212,11 +1179,11 @@ class DView : IView { //  }: IEventDispatcher {
     /**
      * Generate the cache configuration options for an element.
      * Params:
-     * string views Element name
+     * string elementname Element name
      * @param array data Data
      * @param IData[string] options Element options
      * /
-    protected array _elementCache(string views, array data, IData[string] options) {
+    protected array _elementCache(string elementname, array data, IData[string] options) {
         if (isSet(options["cache"]["key"], options["cache"]["config"])) {
             /** @psalm-var array{key:string, config:string} mycache * /
             mycache = options["cache"];
@@ -1224,13 +1191,13 @@ class DView : IView { //  }: IEventDispatcher {
 
             return mycache;
         }
-        [_plugin, views] = this.pluginSplit(views);
+        [_plugin, elementname] = this.pluginSplit(elementname);
 
         string _pluginKey = !_plugin.isNull
             ? Inflector.underscore(_plugin).replace("/", "_")
             : null;
 
-        myelementKey = str_replace(["\\", "/"], "_", views);
+        myelementKey = str_replace(["\\", "/"], "_", elementname);
 
         mycache = options["cache"];
         options.remove("cache");
@@ -1255,24 +1222,24 @@ class DView : IView { //  }: IEventDispatcher {
      * Renders an element and fires the before and afterRender callbacks for it
      * and writes to the cache if a cache is used
      * Params:
-     * string myfile Element file path
+     * string filepath Element file path
      * @param array data Data to render
      * @param IData[string] options Element options
-     * @triggers View.beforeRender this, [myfile]
-     * @triggers View.afterRender this, [myfile, myelement]
+     * @triggers View.beforeRender this, [filepath]
+     * @triggers View.afterRender this, [filepath, myelement]
      * /
-    protected string _renderElement(string myfile, array data, IData[string] options) {
+    protected string _renderElement(string filepath, array data, IData[string] options) {
         mycurrent = _current;
         myrestore = _currentType;
        _currentType = TYPE_ELEMENT;
 
         if (options["callbacks"]) {
-            this.dispatchEvent("View.beforeRender", [myfile]);
+            this.dispatchEvent("View.beforeRender", [filepath]);
         }
-        myelement = _render(myfile, array_merge(this.viewVars, mydata));
+        myelement = _render(filepath, array_merge(this.viewVars, mydata));
 
         if (options["callbacks"]) {
-            this.dispatchEvent("View.afterRender", [myfile, myelement]);
+            this.dispatchEvent("View.afterRender", [filepath, myelement]);
         }
        _currentType = myrestore;
        _current = mycurrent;

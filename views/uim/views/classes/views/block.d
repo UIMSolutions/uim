@@ -37,8 +37,7 @@ class DViewBlock {
      * You can end capturing blocks using View.end(). Blocks can be output
      * using View.get();
      * Params:
-     * string views The name of the block to capture for.
-     * @param string mymode If ViewBlock.OVERRIDE existing content will be overridden by new content.
+     * @param string blockMode If ViewBlock.OVERRIDE existing content will be overridden by new content.
      *  If ViewBlock.APPEND content will be appended to existing content.
      *  If ViewBlock.PREPEND it will be prepended.
      * @throws \UIM\Core\Exception\UimException When starting a block twice

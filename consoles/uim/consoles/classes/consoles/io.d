@@ -42,13 +42,13 @@ class DConsoleIo {
 
     /*
     // The output stream
-    protected ConsoleOutput _out;
+    protected DConsoleOutput _out;
 
     // The error stream
-    protected ConsoleOutput _err;
+    protected DConsoleOutput _err;
 
     // The input stream
-    protected ConsoleInput _in;
+    protected DConsoleInput _in;
 
     // The helper registry.
     protected HelperRegistry _helpers;

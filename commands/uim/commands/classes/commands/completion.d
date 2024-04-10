@@ -14,9 +14,9 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
 		return true;
 	}
 
-    
+
     /* 
-    protected CommandCollection _commands;
+    protected DCommandCollection _commands;
 
     // Set the command collection used to get completion data on.
     void setCommandCollection(CommandCollection aCommandCollection) {

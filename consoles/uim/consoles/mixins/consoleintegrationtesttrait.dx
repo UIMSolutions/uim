@@ -186,7 +186,7 @@ mixin template ConsoleIntegrationTestTemplate() {
     }
     
     // Builds the appropriate command dispatcher
-    protected CommandRunner makeRunner() {
+    protected DCommandRunner makeRunner() {
         auto myAapp = this.createApp();
         assert(cast(IConsoleApplication)myAapp);
 

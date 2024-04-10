@@ -32,7 +32,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
      * catalogs where none can be found for the combination of translator
      * name and locale.
      * /
-    protected callable[] _loaders = [];
+    protected callable[] _loaders = null;
 
     /**
      * The name of the default formatter to use for newly created

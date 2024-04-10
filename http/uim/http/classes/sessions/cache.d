@@ -14,7 +14,7 @@ use !SessionHandler;
 class DCacheSession { // }: !SessionHandler {
     /* 
     // Options for this session engine
-    protected IData[string] _options = [];
+    protected IData[string] _options = null;
 
     /**
      * Constructor.

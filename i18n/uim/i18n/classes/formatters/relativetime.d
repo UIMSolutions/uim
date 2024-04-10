@@ -180,7 +180,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
 
         // If more than a week, then take into account the length of months
         if (diff >= 604800) {
-            future = [];
+            future = null;
             [
                 future["H"],
                 future["i"],
@@ -190,7 +190,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
                 future["Y"],
             ] = split("/", date("H/i/s/d/m/Y", futureTime));
 
-            past = [];
+            past = null;
             [
                 past["H"],
                 past["i"],
@@ -316,7 +316,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         diffData = _diffData(futureTime, pastTime, backwards, options);
         [fNum, fWord, years, months, weeks, days] = array_values(diffData);
 
-        relativeDate = [];
+        relativeDate = null;
         if (fNum >= 1 && years > 0) {
             relativeDate ~= __dn("uim", "{0} year", "{0} years", years, years);
         }
@@ -373,7 +373,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         ];
         if (isString(options["accuracy"])) {
             accuracy = options["accuracy"];
-            options["accuracy"] = [];
+            options["accuracy"] = null;
             className.wordAccuracy.byKeyValue
                 .each!(keyLevel => options["accuracy"][keyLevel.key] = accuracy);
 

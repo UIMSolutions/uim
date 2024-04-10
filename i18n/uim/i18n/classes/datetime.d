@@ -483,7 +483,7 @@ class DateTime /* : Chronos, IDataSerializable */ {
             }
         }
         if (anGroup) {
-             anGroupedIdentifiers = [];
+             anGroupedIdentifiers = null;
             now = time();
             before = options["before"];
             after = options["after"];

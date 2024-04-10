@@ -79,7 +79,7 @@ abstract class Logger /* : DAbstractLogger */ {
                 options = formatter;
             } else {
                 className = formatter;
-                auto options = [];
+                auto options = null;
             }
             formatter = new className(options);
         }
@@ -115,7 +115,7 @@ abstract class Logger /* : DAbstractLogger */ {
             return formattedMessage;
         }
         placeholders = array_intersect(matches[1], context.keys);
-        replacements = [];
+        replacements = null;
         IDataFlags = IData_THROW_ON_ERROR | IData_UNESCAPED_UNICODE;
 
         foreach (aKey; placeholders) {

@@ -129,7 +129,7 @@ class DMessagesFileLoader {
             locale["language"],
         ];
 
-        searchPaths = [];
+        searchPaths = null;
         if (_plugin && Plugin.isLoaded(_plugin)) {
             basePath = App.path("locales", _plugin)[0];
             searchPaths = folders.map!(folder => basePath ~ folder ~ DIRECTORY_SEPARATOR).array;

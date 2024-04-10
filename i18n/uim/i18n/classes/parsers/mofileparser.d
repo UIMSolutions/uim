@@ -66,7 +66,7 @@ class MoFileParser {
         // Offset to start of translations
         fread(stream, 8);
 
-        messages = [];
+        messages = null;
         for (anI = 0; anI < count; anI++) {
             pluralId = null;
             context = null;

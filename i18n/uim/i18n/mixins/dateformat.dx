@@ -9,7 +9,7 @@ import uim.i18n;
  */
 mixin template DateFormatTemplate() {
     // In-memory cache of date formatters
-    protected static IntlDateFormatter[string] formatters = [];
+    protected static IntlDateFormatter[string] formatters = null;
 
     /**
      * Returns a translated and localized date string.

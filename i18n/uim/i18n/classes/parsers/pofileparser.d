@@ -76,7 +76,7 @@ class DPoFileParser {
 
         anItem = defaultItem.clone;
 
-        string[int] stage = [];
+        string[int] stage = null;
         
         PoMessage message;
         PoMessage[] messages = file.byLine.each!((line) {

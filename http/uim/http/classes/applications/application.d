@@ -37,7 +37,7 @@ class DApplication {
     protected string configDataDir;
 
     // Plugin Collection
-    protected PluginCollection plugins;
+    protected IPluginCollection plugins;
 
     /**
      * Controller factory

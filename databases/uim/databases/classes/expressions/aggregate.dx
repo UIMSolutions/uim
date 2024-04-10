@@ -12,7 +12,7 @@ import uim.databases;
  * explicitly told otherwise.
  */
 class DAggregateExpression : DFunctionExpression, IWindow {
-    protected QueryExpression filter = null;
+    protected IQueryExpression filter = null;
 
     protected DWindowExpression  window = null;
 

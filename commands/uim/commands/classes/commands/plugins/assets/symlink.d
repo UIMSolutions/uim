@@ -26,6 +26,25 @@ class DPluginAssetsSymlinkCommand : DCommand {
         return super.execute(arguments, aConsoleIo);
     }
 
+    DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
+        parserToUpdate.description([
+            "symlink (copy as fallback) plugin assets to app\`s webroot.",
+        ]);
+        
+        parserToUpdate.addArgument("name", [
+            "help": "A specific plugin you want to symlink assets for.",
+            "required": BooleanData(false),
+        ]);
+        
+        parserToUpdate.addOption("overwrite", [
+            "help": "Overwrite existing symlink / folder / files.",
+            "default": BooleanData(false),
+            "boolean": BooleanData(true),
+        ]);
+
+        return parserToUpdate;
+    }
+    
     /**
      * Attempt to symlink plugin assets to app`s webroot. If symlinking fails it
      * fallbacks to copying the assets. For vendor namespaced plugin, parent folder
@@ -42,20 +61,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
         return CODE_SUCCESS;
     }
 
-    DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
-        parserToUpdate.description([
-            "symlink (copy as fallback) plugin assets to app\`s webroot.",
-        ]).addArgument("name", [
-            "help": "A specific plugin you want to symlink assets for.",
-            "required": BooleanData(false),
-        ]).addOption("overwrite", [
-            "help": "Overwrite existing symlink / folder / files.",
-            "default": BooleanData(false),
-            "boolean": BooleanData(true),
-        ]);
-
-        return parserToUpdate;
-    } */
+ */
 }
 
 mixin(CommandCalls!("PluginAssetsSymlink"));

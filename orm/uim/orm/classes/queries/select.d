@@ -105,7 +105,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      *
      * @var \UIM\Datasource\QueryCacher|null
      * /
-    protected QueryCacher my_cache = null;
+    protected IQueryCacher my_cache = null;
 
     /**
      * Holds any custom options passed using applyOptions that could not be processed

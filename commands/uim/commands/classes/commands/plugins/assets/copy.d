@@ -26,6 +26,26 @@ class DPluginAssetsCopyCommand : DCommand {
         return super.execute(arguments, aConsoleIo);
     }
 
+    // Get the option parser.
+    override DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate){
+        parserToUpdate.description([
+            "Copy plugin assets to app\`s webroot.",
+        ]);
+
+        parserToUpdate.addArgument("name", [
+            "help": "A specific plugin you want to copy assets for.",
+            "required": BooleanData(false),
+        ]);
+        
+        parserToUpdate.addOption("overwrite", [
+            "help": "Overwrite existing symlink / folder / files.",
+            "default": BooleanData(false),
+            "boolean": BooleanData(true),
+        ]);
+
+        return parserToUpdate;
+    } 
+
     /**
      * Copying plugin assets to app`s webroot. For vendor namespaced plugin,
      * parent folder for vendor name are created if required.
@@ -39,27 +59,7 @@ class DPluginAssetsCopyCommand : DCommand {
        _process(_list(name), true, shouldOverwrite);
 
         return CODE_SUCCESS;
-    }
-    
-    /**
-     * Get the option parser.
-     * Params:
-     * \UIM\Console\DConsoleOptionParser parserToUpdate The option parser to update
-     * /
-    DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate){
-        parserToUpdate.description([
-            "Copy plugin assets to app\`s webroot.",
-        ]).addArgument("name", [
-            "help": "A specific plugin you want to copy assets for.",
-            "required": BooleanData(false),
-        ]).addOption("overwrite", [
-            "help": "Overwrite existing symlink / folder / files.",
-            "default": BooleanData(false),
-            "boolean": BooleanData(true),
-        ]);
-
-        return parserToUpdate;
-    } */
+    } */ 
 }
 
 mixin(CommandCalls!("PluginAssetsCopy"));

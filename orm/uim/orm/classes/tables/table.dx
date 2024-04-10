@@ -155,7 +155,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     // Registry key used to create this table object
     protected string my_registryAlias = null;
 
-    protected QueryFactory myqueryFactory;
+    protected IQueryFactory myqueryFactory;
 
     /**
      * Initializes a new instance

@@ -21,7 +21,7 @@ class DValuesExpression : IExpression {
     protected array _columns;
 
     // The Query object to use as a values expression
-    protected Query _query = null;
+    protected IQuery _query = null;
 
     // Whether values have been casted to expression already.
     protected bool _castedExpressions = false;

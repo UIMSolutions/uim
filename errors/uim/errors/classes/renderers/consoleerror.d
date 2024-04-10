@@ -11,7 +11,7 @@ import uim.errors;
  */
 class DConsoleErrorRenderer { // }: IErrorRenderer {
     /*
-    protected ConsoleOutput output;
+    protected DConsoleOutput output;
 
     protected bool trace = false;
 

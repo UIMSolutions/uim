@@ -34,7 +34,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      *
      * @var \UIM\Controller\Controller
      * /
-    protected Controller controller;
+    protected DController controller;
 
     /**
      * Template to render for {@link \UIM\Core\Exception\UimException}
@@ -95,7 +95,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * This method returns the built in `ErrorController` normally, or if an error is repeated
      * a bare controller will be used.
      * /
-    protected Controller _getController() {
+    protected DController _getController() {
         request = this.request;
         routerRequest = Router.getRequest();
         // Fallback to the request in the router or make a new one from

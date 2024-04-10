@@ -103,7 +103,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
      * @return uim.controllers.Controller
      * @triggers Controller.startup controller
      * /
-    protected Controller _getController() {
+    protected DController _getController() {
         myRequest = this.request;
         routerRequest = Router::getRequest();
         // Fallback to the request in the router or make a new one from

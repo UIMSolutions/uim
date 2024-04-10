@@ -88,13 +88,13 @@ class DComponent : IEventListener {
 
 
     // Component registry class used to lazy load components.
-    protected ComponentRegistry _registry;
+    protected DComponentRegistry _registry;
 
     // Other Components this component uses.
     protected array components = [];
 
     // Loaded component instances.
-    protected Component[string] componentInstances = [];
+    protected DComponent[string] componentInstances = [];
 
     /**
      * Constructor

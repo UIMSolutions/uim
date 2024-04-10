@@ -55,7 +55,7 @@ class DExceptionTrap {
      * Callbacks are invoked for each error that is handled.
      * Callbacks are invoked in the order they are attached.
      * /
-    protected Closure[] aCallbacks;
+    protected DClosure[] aCallbacks;
 
     /**
      * The currently registered global exception handler

@@ -76,7 +76,7 @@ class DResponse { // }: Message : IResponse {
      *
      * @var \UIM\Http\Cookie\CookieCollection|null
      * /
-    protected CookieCollection cookies = null;
+    protected DCookieCollection cookies = null;
 
     /**
      * The reason phrase for the status code
@@ -289,7 +289,7 @@ class DResponse { // }: Message : IResponse {
     /**
      * Lazily build the CookieCollection and cookie objects from the response header
      * /
-    protected CookieCollection buildCookieCollection() {
+    protected DCookieCollection buildCookieCollection() {
         this.cookies ??= CookieCollection.createFromHeader(this.getHeader("Set-Cookie"));
 
         return this.cookies;

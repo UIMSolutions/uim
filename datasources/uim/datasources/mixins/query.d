@@ -13,12 +13,8 @@ import uim.datasources;
  * can retrieve results based on any criteria.
  */
 mixin template TQuery() {
-    /**
-     * Instance of a table object this query is bound to
-     *
-     * @var uim.datasources.IRepository
-     * /
-    protected _repository;
+    // Instance of a table object this query is bound to
+    protected IRepository _repository;
 
     /**
      * A ResultSet.
@@ -30,21 +26,14 @@ mixin template TQuery() {
      * /
     protected _results;
 
-    /**
-     * List of map-reduce routines that should be applied over the query
-     * result
-     *
-     * @var array
-     * /
-    protected _mapReduce = null;
+    // List of map-reduce routines that should be applied over the query result
+    protected IData[string] _mapReduce = null;
 
     /**
      * List of formatter classes or callbacks that will post-process the
      * results when fetched
-     *
-     * @var array<callable>
      * /
-    protected _formatters = null;
+    protected callable[] _formatters = null;
 
     /**
      * A query cacher instance if this query has caching enabled.
@@ -56,10 +45,8 @@ mixin template TQuery() {
     /**
      * Holds any custom options passed using applyOptions that could not be processed
      * by any method in this class.
-     *
-     * @var array
      * /
-    protected _options = null;
+    protected IData[string] _options = null;
 
     /**
      * Whether the query is standalone or the product of an eager load operation.

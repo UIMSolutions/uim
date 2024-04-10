@@ -16,19 +16,11 @@ se InvalidArgumentException;
  * methods for retrieving and storing fields associated in this row.
  */
 mixin template EntityTemplate() {
-    /**
-     * Holds all fields and their values for this entity.
-     *
-     * @var array<string, mixed>
-     */
-    protected _fields = null;
+    // Holds all fields and their values for this entity.
+    protected IData[string] _fields = null;
 
-    /**
-     * Holds all fields that have been changed and their original values for this entity.
-     *
-     * @var array<string, mixed>
-     */
-    protected _original = null;
+    // Holds all fields that have been changed and their original values for this entity.
+    protected IData[string] _original = null;
 
     /**
      * List of field names that should **not** be included in IData or Array

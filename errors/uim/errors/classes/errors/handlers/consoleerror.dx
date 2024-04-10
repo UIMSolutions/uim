@@ -13,12 +13,8 @@ import uim.errors;
  * exception that occurred and the stack trace of the error.
  */
 class DConsoleErrorHandler { // } : DERRErrorHandler {
-    /**
-     * Standard error stream.
-     *
-     * @var DCONConsoleOutput
-     * /
-    protected _stderr;
+    // Standard error stream.
+    protected DCONConsoleOutput _stderr;
 
     /**
      * Constructor

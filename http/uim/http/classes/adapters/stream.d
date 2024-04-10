@@ -18,14 +18,10 @@ class DStream { // }: IAdapter {
      * /
     protected _context;
 
-    /**
-     * Array of options/content for the HTTP stream context.
-     * /
+    // Array of options/content for the HTTP stream context.
     protected IData[string] _contextOptions = null;
 
-    /**
-     * Array of options/content for the SSL stream context.
-     * /
+    // Array of options/content for the SSL stream context.
     protected IData[string] _sslContextOptions = null;
 
     /**

@@ -30,29 +30,19 @@ class DHasManyAssociation : DAssociation {
      * /
     protected string _joinType = Query::JOIN_TYPE_INNER;
 
-    /**
-     * The strategy name to be used to fetch associated records.
-     * /
+    // The strategy name to be used to fetch associated records.
     protected string _strategy = self::STRATEGY_SELECT;
 
-    /**
-     * Valid strategies for this type of association
-     *
-     * @var array<string>
-     * /
-    protected _validStrategies = [
+    // Valid strategies for this type of association
+    protected string[] _validStrategies = [
         self::STRATEGY_SELECT,
         self::STRATEGY_SUBQUERY,
     ];
 
-    /**
-     * Saving strategy that will only append to the links set
-     * /
+    // Saving strategy that will only append to the links set
     const string SAVE_APPEND = "append";
 
-    /**
-     * Saving strategy that will replace the links with the provided set
-     * /
+    // Saving strategy that will replace the links with the provided set
     const string SAVE_REPLACE = "replace";
 
     /**

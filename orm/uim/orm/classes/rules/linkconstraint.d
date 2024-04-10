@@ -5,7 +5,7 @@ import uim.orm;
 @safe:
 
 // Checks whether links to a given association exist / do not exist.
-class LinkConstraint {
+class DLinkConstraint {
     // Status that requires a link to be present.
     const string STATUS_LINKED = "linked";
 

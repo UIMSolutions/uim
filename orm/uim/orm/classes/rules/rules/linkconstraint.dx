@@ -12,7 +12,7 @@ import uim.orm;
 /**
  * Checks whether links to a given association exist / do not exist.
  */
-class LinkConstraint
+class DLinkConstraint
 {
     /**
      * Status that requires a link to be present.

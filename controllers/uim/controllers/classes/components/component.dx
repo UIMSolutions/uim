@@ -103,7 +103,7 @@ class DComponent : IEventListener {
      * this component can use to lazy load its components.
      * configData = Array of configuration settings.
      */
-    this(ComponentRegistry  registry, IData[string] configData = null) {
+    this(IComponentRegistry  registry, IData[string] configData = null) {
        _registry =  registry;
 
         this.setConfig(configData);

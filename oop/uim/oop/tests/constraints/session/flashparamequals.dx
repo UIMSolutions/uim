@@ -26,7 +26,7 @@ class DFlashParamEquals : Constraint {
      * @param string aparam Param to check
      * @param int at Expected index
      */
-    this(Session session, string aKey, string aparam, int at = null) {
+    this(ISession session, string aKey, string aparam, int at = null) {
         if (!session) {
             string message = "There is no stored session data. Perhaps you need to run a request?";
             message ~= " Additionally, ensure `this.enableRetainFlashMessages()` has been enabled for the test.";

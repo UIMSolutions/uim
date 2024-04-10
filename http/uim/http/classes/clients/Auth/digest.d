@@ -54,7 +54,7 @@ class DDigest {
      * \UIM\Http\Client client Http client object.
      * @param array|null options Options list.
      * /
-    this(Client httpClient, IData[string] options = null) {
+    this(IClient httpClient, IData[string] options = null) {
        _client = httpClient;
     }
     

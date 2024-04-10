@@ -96,7 +96,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * \UIM\Database\Connection aConnection The connection
      * object to be used for transforming and executing this query
      * /
-    this(Connection aConnection) {
+    this(IConnection aConnection) {
         this.setConnection(aConnection);
     }
     

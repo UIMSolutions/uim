@@ -27,7 +27,7 @@ class DQueryCacher {
      * @param \Psr\SimpleCache\ICache|string configData The cache config name or cache engine instance.
      * @throws \RuntimeException
      * /
-    this(Closure|string aKey, ICache|string configData) {
+    this(IClosure|string aKey, ICache|string configData) {
        _key = aKey;
        configuration = configData;
     }

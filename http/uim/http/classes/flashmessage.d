@@ -46,7 +46,7 @@ class DFlashMessage {
 
     protected ISession _session;
 
-    this(Session session, IData[string] configData = null) {
+    this(ISession session, IData[string] configData = null) {
         _session = session;
         this.setConfig(configData);
     }

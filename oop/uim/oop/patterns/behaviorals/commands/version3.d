@@ -155,7 +155,7 @@ private:
 	int previousSpeed;
 
 public:
-	this(CeilingFan ceilingFan) {
+	this(ICeilingFan ceilingFan) {
 		this.ceilingFan = ceilingFan; }
 
 	void execute() {
@@ -197,7 +197,7 @@ private:
 	int previousSpeed;
 	
 public:
-	this(CeilingFan ceilingFan) {
+	this(ICeilingFan ceilingFan) {
 		this.ceilingFan = ceilingFan; }
 	
 	void execute() {
@@ -238,7 +238,7 @@ public class MacroCommand : IXCommand {
 	private Command[] commands;
 
 public:
-	this(Command[] commands) {
+	this(ICommand[] commands) {
 		this.commands = commands; }
 
 	void execute() {

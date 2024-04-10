@@ -131,7 +131,7 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
      * @param DORMdatabases.Connection connection The connection object
      * @param DORMDORMTable aTable The table this query is starting on
      * /
-    this(Connection aConnection, DORMTable aTable) {
+    this(IConnection aConnection, DORMTable aTable) {
         super(aConnection);
         this.repository(aTable);
 

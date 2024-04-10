@@ -13,7 +13,7 @@ import uim.http;
 class DBodyParserMiddleware { // }: IMiddleware {
     /*
     // Registered Parsers
-    protected Closure[] aParsers = [];
+    protected DClosure[] aParsers = [];
 
     // The HTTP methods to parse data on.
     protected string[] someMethods = ["PUT", "POST", "PATCH", "DELETE"];

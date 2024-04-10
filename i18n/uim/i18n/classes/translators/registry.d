@@ -21,7 +21,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     protected string _localeName = null;
 
     // A catalog locator.
-    //protected CatalogLocator _catalogs;
+    //protected DCatalogLocator _catalogs;
 
     // A formatter locator.
     // protected FormatterLocator _formatters;

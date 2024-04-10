@@ -20,7 +20,7 @@ class DConsoleLog : BaseLog {
     ];
 
     // Output stream
-    protected ConsoleOutput _output;
+    protected DConsoleOutput _output;
 
     /**
      * Constructs a new DConsole Logger.

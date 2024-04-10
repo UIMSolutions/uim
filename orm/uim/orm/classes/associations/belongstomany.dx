@@ -804,7 +804,7 @@ class DBelongsToMany : DAssociation {
      * Any string expressions, or expression objects will
      * also be returned in this list.
      */
-    protected Closure[] targetConditions() {
+    protected DClosure[] targetConditions() {
         if (_targetConditions !isNull) {
             return _targetConditions;
         }

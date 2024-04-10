@@ -361,7 +361,7 @@ class DResponse : IResponse {
      *
      * @var \UIM\Http\Cookie\CookieCollection
      */
-    protected CookieCollection _cookies;
+    protected DCookieCollection _cookies;
 
     // Reason Phrase
     protected string _reasonPhrase = "OK";

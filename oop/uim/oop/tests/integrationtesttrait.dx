@@ -45,7 +45,7 @@ template IntegrationTestTemplate() {
     /**
      * The controller used in the last request.
      */
-    protected Controller _controller = null;
+    protected DController _controller = null;
 
     /**
      * The last rendered view

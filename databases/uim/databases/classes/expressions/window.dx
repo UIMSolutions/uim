@@ -11,7 +11,7 @@ class DWindowExpression : IExpression, IWindow {
 
     protected IExpression mypartitions;
 
-    protected DOrderByExpression myorder = null;
+    protected IOrderByExpression myorder = null;
 
     protected array myframe = null;
 

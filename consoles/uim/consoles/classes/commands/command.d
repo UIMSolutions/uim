@@ -104,7 +104,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * Params:
      * \UIM\Console\DConsoleOptionParser buildOptionParser parserToDefine The parser to be defined
      * /
-    protected DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToDefine) {
+    protected IConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToDefine) {
         return parserToDefine;
     }
 

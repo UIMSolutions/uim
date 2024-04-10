@@ -33,7 +33,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
     // \UIM\Core\IContainer
     protected IContainer container;
 
-    protected DController controller;
+    protected IController controller;
 
     this(IContainer container) {
         this.container = container;

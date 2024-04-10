@@ -86,13 +86,13 @@ class DConsoleOptionParser {
     protected string _epilog = "";
 
     // Option definitions.
-    protected DConsoleInputOption[string] _options;
+    protected IConsoleInputOption[string] _options;
 
     // Map of short ~ long options, generated when using addOption()
     protected STRINGAA _shortOptions;
 
     //  Positional argument definitions.
-    protected DConsoleInputArgument[] _args;
+    protected IConsoleInputArgument[] _args;
 
     // Command name.
     protected string _command = "";

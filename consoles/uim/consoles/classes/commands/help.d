@@ -155,7 +155,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     }
     
     // Gets the option parser instance and configures it.
-    protected DConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToBuild) {
+    protected IConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToBuild) {
         parserToBuild.description("Get the list of available commands for this application.");
 
         auto addOption = IData.emptyObject;

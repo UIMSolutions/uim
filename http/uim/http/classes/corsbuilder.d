@@ -28,7 +28,7 @@ class DCorsBuilder {
     protected bool _isSsl;
 
     // The headers that have been queued so far.
-    protected IData[string] _headers = [];
+    protected IData[string] _headers = null;
 
     /**
      * Constructor.

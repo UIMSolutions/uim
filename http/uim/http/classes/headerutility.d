@@ -56,7 +56,7 @@ class HeaderUtility {
      * string aheader The header value to parse
      * /
     static string[][string] parseAccept(string aheader) {
-        accept = [];
+        accept = null;
         if (!aHeader) {
             return accept;
         }
@@ -77,7 +77,7 @@ class HeaderUtility {
                 }
             }
             if (!isSet(accept[prefValue])) {
-                accept[prefValue] = [];
+                accept[prefValue] = null;
             }
             if (prefValue) {
                 accept[prefValue] ~= aValue;

@@ -21,12 +21,12 @@ class DStream { // }: IAdapter {
     /**
      * Array of options/content for the HTTP stream context.
      * /
-    protected IData[string] _contextOptions = [];
+    protected IData[string] _contextOptions = null;
 
     /**
      * Array of options/content for the SSL stream context.
      * /
-    protected IData[string] _sslContextOptions = [];
+    protected IData[string] _sslContextOptions = null;
 
     /**
      * The stream resource.
@@ -38,14 +38,14 @@ class DStream { // }: IAdapter {
     /**
      * Connection error list.
      * /
-    protected array _connectionErrors = [];
+    protected array _connectionErrors = null;
 
     array send(IRequest request, IData[string] options = null) {
        _stream = null;
        _context = null;
-       _contextOptions = [];
-       _sslContextOptions = [];
-       _connectionErrors = [];
+       _contextOptions = null;
+       _sslContextOptions = null;
+       _connectionErrors = null;
 
        _buildContext(request, options);
 
@@ -62,7 +62,7 @@ class DStream { // }: IAdapter {
      * @param string acontent The response content.
      * /
     Response[] createResponses(array  aHeaders, string acontent) {
-         anIndexes = responses = [];
+         anIndexes = responses = null;
         foreach ( aHeaders as  anI:  aHeader) {
             if (strtoupper(substr( aHeader, 0, 5)) == "HTTP/") {
                  anIndexes ~=  anI;
@@ -111,7 +111,7 @@ class DStream { // }: IAdapter {
      * @param IData[string] options Array of options to use.
      * /
     protected void _buildHeaders(IRequest request, IData[string] options = null) {
-         aHeaders = [];
+         aHeaders = null;
         foreach (request.getHeaders() as name:  someValues) {
              aHeaders ~= "%s: %s".format(name, join(", ",  someValues));
         }

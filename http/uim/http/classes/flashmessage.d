@@ -86,7 +86,7 @@ class DFlashMessage {
             ? plugin ~ ".flash/" ~ anElement
             : "flash/" ~ anElement;
 
-        auto messages = [];
+        auto messages = null;
         if (!options["clear"]) {
             messages = (array)this.session.read("Flash." ~ options["key"]);
         }

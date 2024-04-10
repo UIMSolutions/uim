@@ -275,7 +275,7 @@ class DSession {
             return true;
         }
         if (_isCLI) {
-            _SESSION = [];
+            _SESSION = null;
             this.id("cli");
 
             return _started = true;
@@ -479,7 +479,7 @@ class DSession {
             if (!_isCLI && session_status() == UIM_SESSION_ACTIVE) {
                 session_destroy();
             }
-            _SESSION = [];
+            _SESSION = null;
             _started = false;
         }
 
@@ -491,7 +491,7 @@ class DSession {
      * bool renew DIf session should be renewed, as well. Defaults to false.
      * /
         void clear(boolrenew = false) {
-            _SESSION = [];
+            _SESSION = null;
             if (renew) {
                 this.renew();
             }

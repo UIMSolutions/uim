@@ -23,7 +23,7 @@ class DFormData { // }: Countable {
 
     /* 
     // The parts in the form data.
-    protected DFFFFFFFormDataPart[] _parts = [];
+    protected DFFFFFFFormDataPart[] _parts = null;
 
     // Get the boundary marker
     string boundary() {
@@ -188,7 +188,7 @@ class DFormData { // }: Countable {
             result ~= "--%s--\r\n".format(boundary);
             return result;
         }
-        someData = [];
+        someData = null;
         _parts.each!(part => someData[part.name()] = part.value());
         return http_build_query(someData);
     } */

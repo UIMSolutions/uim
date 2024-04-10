@@ -85,7 +85,7 @@ class DContentTypeNegotiation {
      * /
     string[] acceptedLanguages(IRequest request) {
         auto raw = this.parseAcceptLanguage(request);
-        auto accept = [];
+        auto accept = null;
         foreach (languages; raw) {
             foreach (languages as &lang) {
                 if (lang.has("_")) {

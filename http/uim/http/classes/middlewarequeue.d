@@ -15,7 +15,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      *
      * @var array<int, mixed>
      * /
-    protected IData[int] queue = [];
+    protected IData[int] queue = null;
 
     protected IContainer container;
 

@@ -105,7 +105,7 @@ mixin template ExtractTemplate() {
      * value to be compared the item with.
      * /
     protected IClosure _createMatcherFilter(array conditions) {
-         someMatchers = [];
+         someMatchers = null;
         foreach (aProperty, aValue; conditions) {
              anExtractor = _propertyExtractor(aProperty);
              someMatchers ~= auto ( v) use (anExtractor, aValue) {

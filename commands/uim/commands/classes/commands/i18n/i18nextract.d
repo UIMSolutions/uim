@@ -31,20 +31,20 @@ class DI18nExtractCommand : DCommand {
     protected string _file = "";
 
     // Contains all content waiting to be written
-    // TODO protected IData _storage = [];
+    // TODO protected IData _storage = null;
 
     /* 
     // Extracted tokens
-    protected array _tokens = [];
+    protected array _tokens = null;
 
     //  Extracted strings indexed by domain.
-    protected IData[string] _translations = [];
+    protected IData[string] _translations = null;
 
     // Destination path
     protected string _output = "";
 
     // An array of directories to exclude.
-    protected string[] _exclude = [];
+    protected string[] _exclude = null;
 
     // Holds whether this call should extract the UIM Lib messages
     protected bool _extractCore = false;
@@ -227,8 +227,8 @@ class DI18nExtractCommand : DCommand {
        _extractTokens(commandArguments,  aConsoleIo);
        _buildFiles(commandArguments);
        _writeFiles(commandArguments,  aConsoleIo);
-       _paths = _files = _storage = [];
-       _translations = _tokens = [];
+       _paths = _files = _storage = null;
+       _translations = _tokens = null;
          aConsoleIo.writeln();
         if (_countMarkerError) {
              aConsoleIo.writeErrorMessages("{_countMarkerError} marker error(s) detected.");
@@ -437,7 +437,7 @@ class DI18nExtractCommand : DCommand {
                     
                     string aHeader = "";
                     if (!commandArguments.getOption("no-location")) {
-                        auto occurrences = [];
+                        auto occurrences = null;
                         foreach (file: lines; files) {
                             array_unique( lines)
                                 .each!(line => occurrences ~= file ~ ":" ~ line);
@@ -478,7 +478,7 @@ class DI18nExtractCommand : DCommand {
      * @param string asentence The sentence to store.
      *  /
     protected void _store(string adomain, string aheader, string asentence) {
-       _storage[ domain] ??= [];
+       _storage[ domain] ??= null;
 
         if (!isSet(_storage[ domain][sentence])) {
            _storage[ domain][sentence] =  aHeader;
@@ -592,7 +592,7 @@ class DI18nExtractCommand : DCommand {
      * @param int target Number of strings to extract
      * /
     protected string[] _getStrings(int &position, int target) {
-        string[] strings = [];
+        string[] strings = null;
         count = 0;
         while (
             count < target
@@ -679,7 +679,7 @@ class DI18nExtractCommand : DCommand {
     protected void _searchFiles() {
          somePattern = false;
         if (!empty(_exclude)) {
-            exclude = [];
+            exclude = null;
             foreach (anException; _exclude) {
                 if (DIRECTORY_SEPARATOR != "\\" &&  anException[0] != DIRECTORY_SEPARATOR) {
                      anException = DIRECTORY_SEPARATOR ~  anException;

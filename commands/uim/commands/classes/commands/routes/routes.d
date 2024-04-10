@@ -26,7 +26,7 @@ class DRoutesCommand : DCommand {
              aHeader ~= "Defaults";
         }
         auto myavailableRoutes = Router.routes();
-        output =  someDuplicateRoutesCounter = [];
+        output =  someDuplicateRoutesCounter = null;
 
         someAvailableRoutes.each!((route) {
              someMethods = isSet(route.defaults["_method"]) ? (array)route.defaults["_method"] : [""];
@@ -65,7 +65,7 @@ class DRoutesCommand : DCommand {
          aConsoleIo.helper("table").output( output);
          aConsoleIo.writeln();
 
-         someDuplicateRoutes = [];
+         someDuplicateRoutes = null;
 
         foreach (myRoute;  someAvailableRoutes) {
             string[] someMethods = isSet(myRoute.defaults["_method"]) ? (array)myRoute.defaults["_method"] : [""];
@@ -138,7 +138,7 @@ class DRoutesCommand : DCommand {
          aConsoleIo.helper("table").output( output);
          aConsoleIo.writeln();
 
-         someDuplicateRoutes = [];
+         someDuplicateRoutes = null;
 
         foreach (myRoute;  someAvailableRoutes) {
             string[] someMethods = isSet(myRoute.defaults["_method"]) ? (array)myRoute.defaults["_method"] : [""];

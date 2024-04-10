@@ -162,7 +162,7 @@ mixin template TCollection() {
  
     ICollection groupBy(string mypath) {
         mycallback = _propertyExtractor(mypath);
-        auto mygroups = [];
+        auto mygroups = null;
         this.optimizeUnwrap().each!((value) {
             if (auto pathValue = mycallback(value)) {
                 mygroups[pathValue] ~= value;
@@ -179,7 +179,7 @@ mixin template TCollection() {
  
     ICollection indexBy(string mypath) {
         mycallback = _propertyExtractor(mypath);
-        mygroup = [];
+        mygroup = null;
         this.optimizeUnwrap().each!((value) {
             auto pathValue = mycallback(value);
             if (pathValue is null) {
@@ -442,13 +442,13 @@ mixin template TCollection() {
         string myparentPath,
         string mynestingKey = "children"
     ) {
-        auto myparents = [];
+        auto myparents = null;
         auto myidPath = _propertyExtractor(myidPath);
         auto myparentPath = _propertyExtractor(myparentPath);
         auto myisObject = true;
 
        auto mymapper = void (myrow, aKey, MapReduce mymapReduce) use (&myparents, myidPath, myparentPath, mynestingKey) {
-            myrow[mynestingKey] = [];
+            myrow[mynestingKey] = null;
             myid = myidPath(myrow, aKey);
             myparentId = myparentPath(myrow, aKey);
             myparents[myid] = &myrow;
@@ -656,9 +656,9 @@ mixin template TCollection() {
         if (this.isEmpty) {
             return this.newCollection([]);
         }
-        auto mycollectionArrays = [];
-        auto mycollectionArraysKeys = [];
-        auto mycollectionArraysCounts = [];
+        auto mycollectionArrays = null;
+        auto mycollectionArraysKeys = null;
+        auto mycollectionArraysCounts = null;
 
         this.toList().each!((value) {
             auto valueCount = count(value);

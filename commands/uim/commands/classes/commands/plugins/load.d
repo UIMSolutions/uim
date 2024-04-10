@@ -32,7 +32,7 @@ class DPluginLoadCommand : DCommand {
     /* 
     int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         auto plugin = to!string(commandArguments.getArgument("plugin"));
-        auto options = [];
+        auto options = null;
         if (commandArguments.getOption("only-debug")) {
             options["onlyDebug"] = true;
         }

@@ -24,8 +24,8 @@ class DUniqueIterator : DCollection {
         if (!cast(Iterator)someItems) {
             someItems = new DCollection(someItems);
         }
-        auto myunique = [];
-        auto myuniqueValues = [];
+        auto myunique = null;
+        auto myuniqueValues = null;
         someItems.byKeyValue
             .each!((kv) {
                 auto compareValue = aCallback(kv.value, kv.key);

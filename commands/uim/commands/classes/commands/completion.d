@@ -76,7 +76,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
 
     // Get the list of defined commands.
     protected int getCommands(IData [string] arguments, IConsoleIo aConsoleIo) {
-        auto options = [];
+        auto options = null;
         foreach (aKey, aValue; this.commands) {
             string[] someParts = split(" ", aKey);
             options ~= someParts[0];
@@ -94,7 +94,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
         if (commandName.isNull || commandName.isEmpty) {
             return CODE_SUCCESS;
         }
-        auto options = [];
+        auto options = null;
         this.commands.byKeyValue
             .each!((kv) {
             string[] someParts = kv.key.split(" ");
@@ -119,7 +119,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
         auto commandName = commandArguments.getArgument("command");
         auto subcommand = commandArguments.getArgument("subcommand");
 
-        auto options = [];
+        auto options = null;
         foreach (this.commands as aKey : aValue) {
             string[] someParts = split(" ", aKey);
             if (someParts[0] != commandName) {

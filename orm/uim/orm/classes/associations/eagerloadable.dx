@@ -23,7 +23,7 @@ class DEagerLoadable {
     protected IAssociation my_instance = null;
 
     // A list of options to pass to the association object for loading the records.
-    protected IData[string] configuration = [];
+    protected IData[string] configuration = null;
 
     /**
      * A dotted separated string representing the path of associations

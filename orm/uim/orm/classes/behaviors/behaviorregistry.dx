@@ -33,10 +33,10 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
     protected ITable my_table;
 
     // Method mappings.
-    protected array[string] my_methodMap = [];
+    protected array[string] my_methodMap = null;
 
     // Finder method mappings.
-    protected array[string] my_finderMap = [];
+    protected array[string] my_finderMap = null;
 
 
 

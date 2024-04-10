@@ -39,7 +39,7 @@ class DBehavior : IEventListener {
      *
      * @var array<string, array>
      * /
-    protected static array my_reflectionCache = [];
+    protected static array my_reflectionCache = null;
 
     /**
      * Constructor
@@ -161,7 +161,7 @@ class DBehavior : IEventListener {
         
         auto configData = this.configuration.data;
         auto mypriority = configData("priority", null);
-        auto myevents = [];
+        auto myevents = null;
 
         myeventMap.byKeyValue
             .filter!(eventMethod => method_exists(this, eventMethod.value))
@@ -242,7 +242,7 @@ class DBehavior : IEventListener {
             return self.my_reflectionCache[myclass];
         }
         myevents = this.implementedEvents();
-        myeventMethods = [];
+        myeventMethods = null;
         foreach (myevents as mybinding) {
             if (isArray(mybinding) && isSet(mybinding["callable"])) {
                 mycallable = mybinding["callable"];

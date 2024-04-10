@@ -92,13 +92,13 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * List of map-reduce routines that should be applied over the query
      * result
      * /
-    protected array my_mapReduce = [];
+    protected array my_mapReduce = null;
 
     /**
      * List of formatter classes or callbacks that will post-process the
      * results when fetched
      * /
-    protected DClosure[] my_formatters = [];
+    protected DClosure[] my_formatters = null;
 
     /**
      * A query cacher instance if this query has caching enabled.
@@ -111,7 +111,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * Holds any custom options passed using applyOptions that could not be processed
      * by any method in this class.
      * /
-    protected array my_options = [];
+    protected array my_options = null;
 
     /**
      * Constructor
@@ -243,7 +243,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * @param string mydefaultAlias The default alias
      * /
     STRINGAA aliasFields(array myfields, string mydefaultAlias = null) {
-        myaliased = [];
+        myaliased = null;
         foreach (myfields as myalias: myfield) {
             if (isNumeric(myalias) && isString(myfield)) {
                 myaliased += this.aliasField(myfield, mydefaultAlias);
@@ -309,7 +309,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * /
     void mapReduce(?Closure mymapper = null, ?Closure myreducer = null, bool myoverwrite = false) {
         if (myoverwrite) {
-           _mapReduce = [];
+           _mapReduce = null;
         }
         if (mymapper is null) {
             if (!myoverwrite) {
@@ -419,7 +419,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * /
     void formatResults(?Closure myformatter = null, int|bool mymode = self.APPEND) {
         if (mymode == self.OVERWRITE) {
-           _formatters = [];
+           _formatters = null;
         }
         if (myformatter is null) {
             if (mymode != self.OVERWRITE) {
@@ -1406,7 +1406,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
     protected void _addDefaultSelectTypes() {
         mytypeMap = this.getTypeMap().getDefaults();
         myselect = this.clause("select");
-        mytypes = [];
+        mytypes = null;
 
         foreach (myselect as myalias: myvalue) {
             if (cast(ITypedResult)myvalue instanceof ) {

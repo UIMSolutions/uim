@@ -89,7 +89,7 @@ class DCounterCacheBehavior : DBehavior {
      * @var array<string, array<string, bool>>
      * /
     // Store the fields which should be ignored
-    protected bool[string][string] my_ignoreDirty = [];
+    protected bool[string][string] my_ignoreDirty = null;
 
     /**
      * beforeSave callback.
@@ -140,7 +140,7 @@ class DCounterCacheBehavior : DBehavior {
             return;
         }
        _processAssociations(myevent, myentity);
-       _ignoreDirty = [];
+       _ignoreDirty = null;
     }
     
     /**
@@ -206,7 +206,7 @@ class DCounterCacheBehavior : DBehavior {
         foreach (mysettings as myfield: configData) {
             if (isInt(myfield)) {
                 myfield = configData;
-                configData = [];
+                configData = null;
             }
             if (
                 isSet(_ignoreDirty[myassoc.getTarget().registryKey()][myfield]) &&

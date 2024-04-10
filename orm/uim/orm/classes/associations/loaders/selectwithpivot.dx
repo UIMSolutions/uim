@@ -69,7 +69,7 @@ class DSelectWithPivotLoader : SelectLoader {
 
         tempName = this.alias ~ "_CJoin";
         tableSchema = assoc.getSchema();
-        joinFields = types = [];
+        joinFields = types = null;
 
         foreach (tableSchema.typeMap() as f: type) {
             aKey = tempName ~ "__" ~ f;
@@ -123,7 +123,7 @@ class DSelectWithPivotLoader : SelectLoader {
      * @param IData[string] options The options passed to the eager loader
      */
     protected IData[string] _buildResultMap(SelectQuery fetchQuery, IData[string] options = null) {
-        resultMap = [];
+        resultMap = null;
         aKey = (array)options["foreignKey"];
 
         foreach (fetchQuery.all() as result) {
@@ -133,7 +133,7 @@ class DSelectWithPivotLoader : SelectLoader {
                     .format(this.junctionProperty
                 ));
             }
-             someValues = [];
+             someValues = null;
             foreach (aKey as myKey) {
                  someValues ~= result[this.junctionProperty][myKey];
             }

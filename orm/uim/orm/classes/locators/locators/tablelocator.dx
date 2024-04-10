@@ -12,19 +12,19 @@ class DTableLocator : DAbstractLocator : ILocator {
     /**
      * Contains a list of locations where table classes should be looked for.
      */
-    protected string[] mylocations = [];
+    protected string[] mylocations = null;
 
     /**
      * Configuration for aliases.
      *
      * @var array<string, array|null>
      */
-    protected array configuration = [];
+    protected array configuration = null;
 
     /**
      * Instances that belong to the registry.
      */
-    protected ITable[string] myinstances = [];
+    protected ITable[string] myinstances = null;
 
     /**
      * Contains a list of Table objects that were created out of the
@@ -32,7 +32,7 @@ class DTableLocator : DAbstractLocator : ILocator {
      *
      * @var array<\UIM\ORM\Table>
      */
-    protected array my_fallbacked = [];
+    protected array my_fallbacked = null;
 
     /**
      * Fallback class to use
@@ -248,8 +248,8 @@ class DTableLocator : DAbstractLocator : ILocator {
     void clear() {
         super.clear();
 
-       _fallbacked = [];
-       configuration = [];
+       _fallbacked = null;
+       configuration = null;
     }
     
     /**

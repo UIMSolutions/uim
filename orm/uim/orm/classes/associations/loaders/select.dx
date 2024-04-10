@@ -99,7 +99,7 @@ class DSelectLoader {
         filter = options["keys"];
         useSubquery = options["strategy"] == Association.STRATEGY_SUBQUERY;
         finder = this.finder;
-        options["fields"] ??= [];
+        options["fields"] ??= null;
 
         aQuery = finder();
         assert(cast(DSelectQuery)aQuery);
@@ -205,7 +205,7 @@ class DSelectLoader {
      * @param \UIM\ORM\Query\SelectQuery subquery The Subquery to use for filtering
      */
     protected ISelectQuery _addFilteringJoin(SelectQuery aQuery, string[] aKey, SelectQuery subquery) {
-        filter = [];
+        filter = null;
         aliasedTable = this.sourceAlias;
 
         foreach (subquery.clause("select") as aliasedField: field) {
@@ -260,7 +260,7 @@ class DSelectLoader {
         IData filter,
         string aoperator
     ) {
-        types = [];
+        types = null;
         defaults = aQuery.getDefaultTypes();
         someKeys
             .filter!(key => isSet(defaults[key]))
@@ -277,7 +277,7 @@ class DSelectLoader {
      * @throws \UIM\Database\Exception\DatabaseException
      */
     protected string[]|string _linkField(IData[string] options = null) {
-        auto links = [];
+        auto links = null;
         auto name = this.alias;
 
         if (options["foreignKey"] == false && this.associationType == Association.ONE_TO_MANY) {
@@ -362,7 +362,7 @@ class DSelectLoader {
      * @param IData[string] options The options passed to the eager loader
      */
     protected IData[string] _buildResultMap(SelectQuery fetchQuery, IData[string] options = null) {
-        resultMap = [];
+        resultMap = null;
         singleResult = in_array(this.associationType, [Association.MANY_TO_ONE, Association.ONE_TO_ONE], true);
         someKeys = in_array(this.associationType, [Association.ONE_TO_ONE, Association.ONE_TO_MANY], true) ?
             this.foreignKey :
@@ -370,7 +370,7 @@ class DSelectLoader {
         aKey = (array)someKeys;
 
         foreach (fetchQuery.all() as result) {
-             someValues = [];
+             someValues = null;
             foreach (aKey as myKey) {
                  someValues ~= result[myKey];
             }
@@ -398,7 +398,7 @@ class DSelectLoader {
             this.foreignKey :
             this.bindingKey;
 
-        sourceKeys = [];
+        sourceKeys = null;
         foreach ((array)someKeys as aKey) {
             f = fetchQuery.aliasField(aKey, this.sourceAlias);
             sourceKeys ~= to!string(key(f));

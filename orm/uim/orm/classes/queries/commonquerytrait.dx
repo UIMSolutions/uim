@@ -22,7 +22,7 @@ template CommonTQuery() {
     void addDefaultTypes(Table mytable) {
         myalias = mytable.aliasName();
         mymap = mytable.getSchema().typeMap();
-        myfields = [];
+        myfields = null;
         foreach (mymap as myf: mytype) {
             myfields[myf] = myfields[myalias ~ "." ~ myf] = myfields[myalias ~ "__" ~ myf] = mytype;
         }

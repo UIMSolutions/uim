@@ -15,7 +15,7 @@ class DEagerLoader {
      * Nested array describing the association to be fetched
      * and the options to apply for each of them, if any
      */
-    protected IData[string] my_containments = [];
+    protected IData[string] my_containments = null;
 
     /**
      * Contains a nested array with the compiled containments tree
@@ -44,16 +44,16 @@ class DEagerLoader {
     ];
 
     // A list of associations that should be loaded with a separate query.
-    protected DEagerLoadable<> my_loadExternal = [];
+    protected DEagerLoadable<> my_loadExternal = null;
 
     // Contains a list of the association names that are to be eagerly loaded.
-    protected array my_aliasList = [];
+    protected array my_aliasList = null;
 
     // Another EagerLoader instance that will be used for "matching" associations.
     protected DEagerLoader my_matching = null;
 
     // A map of table aliases pointing to the association objects they represent for the query.
-    protected array<string, \UIM\ORM\EagerLoadable> my_joinsMap = [];
+    protected array<string, \UIM\ORM\EagerLoadable> my_joinsMap = null;
 
     /**
      * Controls whether fields from associated tables will be eagerly loaded.
@@ -103,8 +103,8 @@ class DEagerLoader {
         myassociations = (array)myassociations;
         myassociations = _reformatContain(myassociations, _containments);
        _normalized = null;
-       _loadExternal = [];
-       _aliasList = [];
+       _loadExternal = null;
+       _aliasList = null;
 
         return _containments = myassociations;
     }
@@ -126,10 +126,10 @@ class DEagerLoader {
      * added via matching().
      */
     void clearContain() {
-       _containments = [];
+       _containments = null;
        _normalized = null;
-       _loadExternal = [];
-       _aliasList = [];
+       _loadExternal = null;
+       _aliasList = null;
     }
     
     /**
@@ -181,7 +181,7 @@ class DEagerLoader {
         options += ["joinType": SelectQuery.JOIN_TYPE_INNER];
         mysharedOptions = ["negateMatch": BooleanData(false), "matching": BooleanData(true)] + options;
 
-        mycontains = [];
+        mycontains = null;
         mynested = &mycontains;
         myassociationPath.split(".").each!((association) {
             // Add contain to parent contain using association name as key
@@ -220,7 +220,7 @@ class DEagerLoader {
         if (_normalized !isNull || empty(_containments)) {
             return (array)_normalized;
         }
-        mycontain = [];
+        mycontain = null;
         foreach (_containments as myalias: options) {
             if (!empty(options["instance"])) {
                 mycontain = _containments;
@@ -252,7 +252,7 @@ class DEagerLoader {
             mypointer = &result;
             if (isInt(mytable)) {
                 mytable = options;
-                options = [];
+                options = null;
             }
             if (cast8EagerLoadable)options) {
                 options = options.asContainArray();
@@ -316,7 +316,7 @@ class DEagerLoader {
             return;
         }
         myattachable = this.attachableAssociations(myrepository);
-        myprocessed = [];
+        myprocessed = null;
         do {
             foreach (myattachable as myalias: myloadable) {
                 configData = myloadable.configuration.data ~ [
@@ -344,7 +344,7 @@ class DEagerLoader {
         mycontain = this.normalized(myrepository);
         mymatching = _matching ? _matching.normalized(myrepository): [];
        _fixStrategies();
-       _loadExternal = [];
+       _loadExternal = null;
 
         return _resolveJoins(mycontain, mymatching);
     }
@@ -563,7 +563,7 @@ class DEagerLoader {
      * will be normalized.
      */
     array associationsMap(Table mytable) {
-        mymap = [];
+        mymap = null;
 
         if (!this.getMatching() && !this.getContain() && empty(_joinsMap)) {
             return mymap;
@@ -643,7 +643,7 @@ class DEagerLoader {
      * @param array results Results array.
      */
     protected array _collectKeys(array myexternal, SelectQuery myquery, array results) {
-        mycollectKeys = [];
+        mycollectKeys = null;
         foreach (myexternal as mymeta) {
             myinstance = mymeta.instance();
             if (!myinstance.requiresKeys(mymeta.configuration.data)) {
@@ -674,7 +674,7 @@ class DEagerLoader {
      * @param array<string, array> mycollectKeys The keys to collect.
      */
     protected array _groupKeys(array results, array mycollectKeys) {
-        someKeys = [];
+        someKeys = null;
         foreach (result; results) {
             foreach (mynestKey: myparts; mycollectKeys) {
                 if (myparts[2] == true) {
@@ -685,7 +685,7 @@ class DEagerLoader {
                     // Assign empty array to avoid not found association when optional.
                     if (!isSet(result[myparts[1][0]])) {
                         if (!isSet(someKeys[mynestKey][myparts[0]])) {
-                            someKeys[mynestKey][myparts[0]] = [];
+                            someKeys[mynestKey][myparts[0]] = null;
                         }
                     } else {
                         myvalue = result[myparts[1][0]];

@@ -38,7 +38,7 @@ class DBreadcrumbsHelper : Helper {
      *
      * @var array
      */
-    protected array mycrumbs = [];
+    protected array mycrumbs = null;
 
     /**
      * Add a crumb to the end of the trail.
@@ -200,7 +200,7 @@ class DBreadcrumbsHelper : Helper {
     
     // Removes all existing crumbs.
     auto reset() {
-        this.crumbs = [];
+        this.crumbs = null;
 
         return this;
     }
@@ -246,7 +246,7 @@ class DBreadcrumbsHelper : Helper {
             mytitle = mycrumb["title"];
             options = mycrumb["options"];
 
-            optionsLink = [];
+            optionsLink = null;
             if (isSet(options["innerAttrs"])) {
                 optionsLink = options["innerAttrs"];
                 options.remove("innerAttrs");

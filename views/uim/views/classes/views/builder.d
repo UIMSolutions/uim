@@ -102,7 +102,7 @@ vars =
     /**
      * The helpers to use
      * /
-    protected array my_helpers = [];
+    protected array my_helpers = null;
 
 
     /**
@@ -201,7 +201,7 @@ vars =
             .each((helperConfigData) {
                 if (isInt(helperConfigData.key)) {
                     auto myhelper = helperConfigData.value;
-                    helperConfigData.value = [];
+                    helperConfigData.value = null;
                 }
                 this.addHelper(myhelper, helperConfigData.value);
             });
@@ -213,12 +213,12 @@ vars =
      * array myhelpers Helpers to use.
      * /
     auto setHelpers(array myhelpers) {
-       _helpers = [];
+       _helpers = null;
 
         foreach (myhelpers as myhelper: configData) {
             if (isInt(myhelper)) {
                 myhelper = configData;
-                configData = [];
+                configData = null;
             }
             this.addHelper(myhelper, configData);
         }
@@ -394,7 +394,7 @@ vars =
             "_layoutPath", "_name", "_className", "_options", "_helpers", "_viewData",
         ];
 
-        auto myarray = [];
+        auto myarray = null;
         myproperties.each!(myproperty => myarray[myproperty] = this.{myproperty});
         array_walk_recursive(myarray["_viewData"], _checkViewVars(...));
 

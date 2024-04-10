@@ -571,7 +571,7 @@ class DEntityContext : IContext {
      * string fieldPath A dot separated path to check errors on.
      */
     bool hasError(string fieldPath) {
-        return this.error(fieldPath) != [];
+        return this.error(fieldPath) != null;
     }
     
     /**

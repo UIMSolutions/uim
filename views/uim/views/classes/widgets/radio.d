@@ -131,7 +131,7 @@ class DRadioWidget : DWidget {
 
         myradio["name"] = options["name"];
 
-        myradio["templateVars"] ??= [];
+        myradio["templateVars"] ??= null;
         if (!empty(options["templateVars"])) {
             myradio["templateVars"] = array_merge(options["templateVars"], myradio["templateVars"]);
         }

@@ -110,7 +110,7 @@ class DMultiCheckboxWidget : DWidget {
      * returns An array of rendered inputs.
      * /
     protected string[] _renderInputs(array data, IContext mycontext) {
-        result = [];
+        result = null;
         mydata["options"].byKeyValue
             .each!(kv => 
             // Grouped inputs in a fieldset.

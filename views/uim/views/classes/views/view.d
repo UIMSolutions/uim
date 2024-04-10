@@ -43,7 +43,7 @@ class DView : IView { //  }: IEventDispatcher {
     mixin TConfigurable!();
     // @use \UIM\Event\EventDispatcherTrait<\UIM\View\View>
     mixin TEventDispatcher;
-    mixin LogTemplate;
+    mixin TLog;
 
     this() {
         initialize;
@@ -94,7 +94,7 @@ class DView : IView { //  }: IEventDispatcher {
     protected IViewBlock myBlocks;
 
     // A configuration array for helpers to be loaded.
-    protected IData[string][string] myhelpers = [];
+    protected IData[string][string] myhelpers = null;
 
     // The name of the subfolder containing templates for this View.
     protected string mytemplatePath = "";
@@ -160,13 +160,13 @@ class DView : IView { //  }: IEventDispatcher {
     ];
 
     // Holds an array of paths.
-    protected string[] my_paths = [];
+    protected string[] my_paths = null;
 
     // Holds an array of plugin paths.
-    protected array<string[] my_pathsForPlugin = [];
+    protected array<string[] my_pathsForPlugin = null;
 
     // The names of views and their parents used with View.extend();
-    protected string[] my_parents = [];
+    protected string[] my_parents = null;
 
     // The currently rendering view file. Used for resolving parent files.
     protected string my_current = "";
@@ -1140,7 +1140,7 @@ class DView : IView { //  }: IEventDispatcher {
             }
         }
         mytemplatePaths = App.path(NAME_TEMPLATE);
-        _pluginPaths = mythemePaths = [];
+        _pluginPaths = mythemePaths = null;
         if (!empty(_plugin)) {
             foreach (mytemplatePaths as mytemplatePath) {
                 _pluginPaths ~= mytemplatePath

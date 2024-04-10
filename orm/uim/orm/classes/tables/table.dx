@@ -392,7 +392,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      */
     auto setSchema(TableISchema|array myschema) {
         if (isArray(myschema)) {
-            auto constraints = [];
+            auto constraints = null;
 
             if (myschema.isSet("_constraints")) {
                 constraints = myschema["_constraints"];
@@ -609,7 +609,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         foreach (mybehaviors as myname: options) {
             if (isInt(myname)) {
                 myname = options;
-                options = [];
+                options = null;
             }
             this.addBehavior(myname, options);
         }
@@ -773,7 +773,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
             foreach (mytables as myassociated: options) {
                 if (isNumeric(myassociated)) {
                     myassociated = options;
-                    options = [];
+                    options = null;
                 }
                 this.{myassocType}(myassociated, options);
             }
@@ -1695,7 +1695,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
 
         if (options["checkExisting"] && myprimaryColumns && myentity.isNew() && myentity.has(myprimaryColumns)) {
             myalias = this.aliasName();
-            myconditions = [];
+            myconditions = null;
             foreach (myentity.extract(myprimaryColumns) as myKey: myv) {
                 myconditions["myalias.myKey"] = myv;
             }
@@ -2302,7 +2302,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
             reset(myparams);
 
             if (mylastParam == false || !mylastParam.isVariadic()) {
-                myparamNames = [];
+                myparamNames = null;
                 foreach (myparams as myparam) {
                     myparamNames ~= myparam.name;
                 }
@@ -2335,7 +2335,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
         myhasAnd = myfields.has("_and_");
 
         mymakeConditions = auto (myfields, myargs) {
-            myconditions = [];
+            myconditions = null;
             if (count(myargs) < count(myfields)) {
                 throw new BadMethodCallException(sprintf(
                     "Not enough arguments for magic finder. Got %s required %s",
@@ -2721,7 +2721,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
             "Model.beforeRules": "beforeRules",
             "Model.afterRules": "afterRules",
         ];
-        myevents = [];
+        myevents = null;
 
         foreach (myeventMap as myevent: mymethod) {
             if (!method_exists(this, mymethod)) {

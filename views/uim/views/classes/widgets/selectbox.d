@@ -175,7 +175,7 @@ class DSelectBoxWidget : DWidget {
         bool myescape
     ) {
         myopts = myoptgroup;
-        myattrs = [];
+        myattrs = null;
         if (isSet(myoptgroup["options"], myoptgroup["text"])) {
             myopts = myoptgroup["options"];
             mylabel = myoptgroup["text"];
@@ -209,7 +209,7 @@ class DSelectBoxWidget : DWidget {
         array mytemplateVars,
         bool myescape
     ) {
-        result = [];
+        result = null;
         options.byKeyValue
             .each!((kv) {
             // Option groups
@@ -235,7 +235,7 @@ class DSelectBoxWidget : DWidget {
                 myoptAttrs = kv.value;
                 kv.key = myoptAttrs["value"];
             }
-            myoptAttrs["templateVars"] ??= [];
+            myoptAttrs["templateVars"] ??= null;
             if (_isSelected(to!string(kv.key), myselected)) {
                 myoptAttrs["selected"] = true;
             }

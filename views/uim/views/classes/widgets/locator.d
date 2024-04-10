@@ -22,7 +22,7 @@ import uim.views;
 class DWidgetLocator {
     /* 
     // Array of widgets + widget configuration.
-    protected array my_widgets = [];
+    protected array my_widgets = null;
 
     // Templates to use.
     protected DStringTemplate _stringTemplate;
@@ -75,7 +75,7 @@ class DWidgetLocator {
      * array mywidgets Array of widgets to use.
      * /
     void add(array mywidgets) {
-        auto myfiles = [];
+        auto myfiles = null;
 
         foreach (aKey: mywidget; mywidgets) {
             if (isInt(aKey)) {

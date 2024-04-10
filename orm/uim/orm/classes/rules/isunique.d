@@ -54,7 +54,7 @@ class DIsUnique {
     
     // Add a model aliasToAdd to all the keys in a set of conditions.
     protected IData[string] _alias(string myalias, array aliasConditions) {
-        auto myaliased = [];
+        auto myaliased = null;
         aliasConditions.byKeyValue
             .each!(kv => myaliased["aliasToAdd.aKey IS"] = kv.value);
         return myaliased;

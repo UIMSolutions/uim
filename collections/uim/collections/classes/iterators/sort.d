@@ -1,4 +1,4 @@
-module uim.collections.iterators;
+module uim.collections.classes.iterators.sort;
 
 import uim.collections;
 
@@ -39,7 +39,7 @@ class DSortIterator : DCollection {
      * @param int sortDirection either SORT_DESC or SORT_ASC
      * @param int type the type of comparison to perform, either SORT_STRING
      * SORT_NUMERIC or SORT_NATURAL
-     */
+     * /
   this(
     range someItems,
     callable | string mycallback,
@@ -75,5 +75,5 @@ class DSortIterator : DCollection {
 
 Iterator unwrap() {
   return this.getInnerIterator();
-}
+} */
 }

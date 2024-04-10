@@ -1,4 +1,4 @@
-module uim.collections.iterators;
+module uim.collections.classes.iterators.stoppable;
 
 import uim.collections;
 
@@ -16,7 +16,7 @@ class DStoppableIterator : DCollection {
   /**
      * The condition to evaluate for each item of the collection
      *
-          */
+          * /
   protected callable _condition;
 
   // A reference to the internal iterator this object is wrapping.
@@ -33,7 +33,7 @@ class DStoppableIterator : DCollection {
      * @param callable condition A auto that will be called for each item in
      * the collection, if the result evaluates to false, no more items will be
      * yielded from this iterator.
-     */
+     * /
   this(Range someItems, callablecondition) {
     _condition = condition;
     super(someItems);
@@ -43,7 +43,7 @@ class DStoppableIterator : DCollection {
   /**
      * Evaluates the condition and returns its result, this controls
      * whether more results will be yielded.
-     */
+     * /
   bool valid() {
     if (!super.valid()) {
       return false;
@@ -78,5 +78,5 @@ class DStoppableIterator : DCollection {
       res[myKey] = v;
     }
     return new DArrayIterator(res);
-  }
+  } */
 }

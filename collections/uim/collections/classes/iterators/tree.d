@@ -1,4 +1,4 @@
-module uim.collections.iterators;
+module uim.collections.classes.iterators.tree;
 
 import uim.collections;
 
@@ -10,8 +10,8 @@ import uim.collections;
  *
  * @template-extends \RecursiveIteratorIterator<\RecursiveIterator>
  */
-class DTreeIterator : RecursiveIteratorIterator, ICollection {
-    mixin CollectionTemplate;
+class DTreeIterator { /* }: RecursiveIteratorIterator, ICollection {
+    mixin TCollection;
 
     // The iteration mode
     protected int _mode;
@@ -20,7 +20,7 @@ class DTreeIterator : RecursiveIteratorIterator, ICollection {
      * Constructor
      * Params:
      * \RecursiveIterator<mixed, mixed>  someItems The iterator to flatten.
-     */
+     * /
     this(
         RecursiveIterator  someItems,
         int iteratorMode = RecursiveIteratorIterator.SELF_FIRST,
@@ -66,8 +66,8 @@ class DTreeIterator : RecursiveIteratorIterator, ICollection {
      * callable returning the key value.
      * @param string aspacer The string to use for prefixing the values according to
      * their depth in the tree
-     */
-    TreePrinter printer(
+     * /
+    DTreePrinter printer(
         string avaluePath,
         string keyPath = null,
         string aspacer = "__"
@@ -78,7 +78,7 @@ class DTreeIterator : RecursiveIteratorIterator, ICollection {
                 return counter++;
             };
         }
-        /** @var \RecursiveIterator  anIterator */
+        /** @var \RecursiveIterator  anIterator * /
         auto myIterator = this.getInnerIterator();
 
         return new DTreePrinter(

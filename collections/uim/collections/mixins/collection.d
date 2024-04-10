@@ -5,7 +5,7 @@ import uim.collections;
 @safe:
 
 // Offers a handful of methods to manipulate iterators
-mixin template CollectionTemplate() {
+mixin template TCollection() {
     mixin ExtractTemplate;
 
     /**

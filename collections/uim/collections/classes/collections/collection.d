@@ -16,7 +16,7 @@ import uim.collections;
  * @template-extends \IteratorIterator<mixed, mixed, \Traversable<mixed>>
  */
 class DCollection : /* IteratorIterator, */ ICollection {
-  mixin CollectionTemplate;
+  mixin TCollection;
 
   protected IData[] _items;
 

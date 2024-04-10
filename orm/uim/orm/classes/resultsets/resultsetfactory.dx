@@ -57,7 +57,7 @@ class DResultSetFactory {
             .indexBy("nestKey")
             .toArray();
 
-        myfields = [];
+        myfields = null;
         myquery.clause("select").each!((keyField) {
             string key = trim(keyField.key, "[]");
 
@@ -91,7 +91,7 @@ class DResultSetFactory {
      * @param array data Array containing table and query metadata
      */
     protected IEntity|array groupResult(array myrow, IData[string] metadata) {
-        results = mypresentAliases = [];
+        results = mypresentAliases = null;
         metadata.addData([
             "useSetters": BoolData(false),
             "markClean": BoolData(true),
@@ -124,7 +124,7 @@ class DResultSetFactory {
         // If the default table is not in the results, set
         // it to an empty array so that any contained
         // associations hydrate correctly.
-        results[mydata["primaryAlias"]] ??= [];
+        results[mydata["primaryAlias"]] ??= null;
 
         unset(mypresentAliases[mydata["primaryAlias"]]);
 

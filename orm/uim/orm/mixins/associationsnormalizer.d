@@ -22,7 +22,7 @@ mixin template AssociationsNormalizerTemplate() {
 
             if (mytable.isInt) {
                 mytable = options;
-                options = [];
+                options = null;
             }
             if (!my.has(e, ".")) {
                 result[mytable] = options;

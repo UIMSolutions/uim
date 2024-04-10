@@ -72,7 +72,7 @@ class DAssetMiddleware : IMiddleware {
      */
     protected string _getAssetFile(string aurl) {
         string[] someParts = split("/", ltrim(url, "/"));
-        pluginPart = [];
+        pluginPart = null;
         for (anI = 0;  anI < 2;  anI++) {
             if (!isSet(someParts[anI])) {
                 break;

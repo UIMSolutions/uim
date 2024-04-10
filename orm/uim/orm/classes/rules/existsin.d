@@ -22,7 +22,7 @@ class DExistsIn {
     /**
      * Options for the constructor
      * /
-    protected IData[string] my_options = [];
+    protected IData[string] my_options = null;
 
     /**
      * Constructor.

@@ -63,7 +63,7 @@ class DRouteBuilder {
      * The list of middleware that routes in this builder get
      * added during construction.
      */
-    protected string[] mymiddleware = [];
+    protected string[] mymiddleware = null;
 
     /**
      * Constructor
@@ -275,7 +275,7 @@ class DRouteBuilder {
     auto resources(string routings, Closure|IData[string] optionData = null, ?Closure mycallback = null) {
         if (!options.isArray) {
             mycallback = options;
-            options = [];
+            options = null;
         }
         options += [
             "connectOptions": ArrayData,
@@ -706,7 +706,7 @@ class DRouteBuilder {
     void prefix(string routings, Closure|array myparams = [], ?Closure mycallback = null) {
         if (!myparams.isArray) {
             mycallback = myparams;
-            myparams = [];
+            myparams = null;
         }
         
         string mypath = "/" ~ Inflector.dasherize(routings);
@@ -749,7 +749,7 @@ class DRouteBuilder {
     auto plugin(string routings, Closure|IData[string] optionData = null, ?Closure mycallback = null) {
         if (!isArray(options)) {
             mycallback = options;
-            options = [];
+            options = null;
         }
         mypath = options["path"] ?? "/" ~ Inflector.dasherize(routings);
         unset(options["path"]);
@@ -779,7 +779,7 @@ class DRouteBuilder {
     void scope(string mypath, Closure|array myparams, ?Closure mycallback = null) {
         if (cast(DClosure)myparams) {
             mycallback = myparams;
-            myparams = [];
+            myparams = null;
         }
         if (mycallback is null) {
             throw new DInvalidArgumentException("Need a valid Closure to connect routes.");

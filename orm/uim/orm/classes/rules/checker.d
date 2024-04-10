@@ -76,7 +76,7 @@ class DRulesChecker { // }: BaseRulesChecker {
         Table|Association|string mytable,
         string[] mymessage = null
     ) {
-        options = [];
+        options = null;
         if (mymessage.isArray) {
             options = mymessage ~ ["message": null];
             mymessage = options["message"];

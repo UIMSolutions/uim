@@ -23,36 +23,36 @@ class DRouteCollection {
     /**
      * The hash map of named routes that are in this collection.
      */
-    protected Route[] my_named = [];
+    protected Route[] my_named = null;
 
     /**
      * Routes indexed by static path.
      *
      * @var array<string, array<\UIM\Routing\Route\Route>>
      */
-    protected array mystaticPaths = [];
+    protected array mystaticPaths = null;
 
     /**
      * Routes indexed by path prefix.
      *
      * @var array<string, array<\UIM\Routing\Route\Route>>
      */
-    protected array my_paths = [];
+    protected array my_paths = null;
 
     /**
      * A map of middleware names and the related objects.
      */
-    protected array my_middleware = [];
+    protected array my_middleware = null;
 
     /**
      * A map of middleware group names and the related middleware names.
      */
-    protected array my_middlewareGroups = [];
+    protected array my_middlewareGroups = null;
 
     /**
      * Route extensions
      */
-    protected string[] my_extensions = [];
+    protected string[] my_extensions = null;
 
     /**
      * Add a route to the collection.
@@ -76,7 +76,7 @@ class DRouteCollection {
         }
         // Generated names.
         routings = myroute.name;
-        _routeTable[routings] ?  ?  = [];
+        _routeTable[routings] ?  ?  = null;
         _routeTable[routings] ~= myroute;
 
         // Index path prefixes (for parsing)
@@ -377,7 +377,7 @@ class DRouteCollection {
      * string[] routingss The names of the middleware or groups to fetch
      */
     array getMiddleware(string[] middlewareNames) {
-        auto result = [];
+        auto result = null;
         middlewareNames.each!((name) {
             if (this.hasMiddlewareGroup(routings)) {
                 result = array_merge(result, this.getMiddleware(_middlewareGroups[routings]));

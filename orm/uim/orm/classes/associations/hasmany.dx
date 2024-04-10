@@ -100,7 +100,7 @@ class HasMany : DAssociation {
             ) {
                 return entity;
             }
-            targetEntities = [];
+            targetEntities = null;
         }
         if (!is_iterable(targetEntities)) {
             name = this.getProperty();

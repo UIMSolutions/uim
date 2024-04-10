@@ -167,7 +167,7 @@ class DBelongsToMany : DAssociation {
             aTableName = _junctionTableName();
             aTableAlias = Inflector.camelize(aTableName);
 
-            configData = [];
+            configData = null;
             if (!aTableLocator.exists(aTableAlias)) {
                 configData = ["table": aTableName, "allowFallbackClass": BooleanData(true)];
 
@@ -450,7 +450,7 @@ class DBelongsToMany : DAssociation {
         /** @var string[] foreignKeys */
         foreignKeys = (array)this.getForeignKeys();
         bindingKeys = (array)this.getBindingKey();
-        conditions = [];
+        conditions = null;
 
         if (bindingKeys) {
             conditions = array_combine(foreignKeys, entity.extract(bindingKeys));
@@ -539,7 +539,7 @@ class DBelongsToMany : DAssociation {
             return entity;
         }
         if (isEmpty) {
-            targetEntity = [];
+            targetEntity = null;
         }
         if (strategy == self.SAVE_APPEND) {
             return _saveTarget(entity, targetEntity, options);
@@ -576,7 +576,7 @@ class DBelongsToMany : DAssociation {
         }
         aTable = this.getTarget();
         original = entities;
-        persisted = [];
+        persisted = null;
 
         foreach (myKe, entity; entities) {
             if (!(cast(IEntity)entity)) {
@@ -812,7 +812,7 @@ class DBelongsToMany : DAssociation {
         if (!isArray(conditions)) {
             return conditions;
         }
-        matching = [];
+        matching = null;
         string aliasName = this.aliasName() ~ ".";
         conditions.byKeyValue.each!((fieldValue) { 
             if (isString(fieldValue.key) && fieldValue.key.startWith(aliasName)) {
@@ -829,7 +829,7 @@ class DBelongsToMany : DAssociation {
         if (_junctionConditions !isNull) {
             return _junctionConditions;
         }
-        matching = [];
+        matching = null;
         conditions = this.getConditions();
         if (!isArray(conditions)) {
             return matching;
@@ -981,7 +981,7 @@ class DBelongsToMany : DAssociation {
                 junctionPrimaryKey = (array)junction.getPrimaryKeys();
                 junctionQueryAlias = junction.aliasName() ~ "__matches";
 
-                someKeys = matchesConditions = [];
+                someKeys = matchesConditions = null;
                 // string aKey */
                 foreach (aKey; array_merge(assocForeignKey, junctionPrimaryKey)) {
                     aliased = junction.aliasField(aKey);
@@ -1055,7 +1055,7 @@ class DBelongsToMany : DAssociation {
         assocForeignKey = (array)belongsTo.getForeignKeys();
 
         someKeys = array_merge(foreignKey, assocForeignKey);
-        deletes = unmatchedEntityKeys = present = [];
+        deletes = unmatchedEntityKeys = present = null;
 
         foreach (jointEntities as  anI: entity) {
             unmatchedEntityKeys[anI] = entity.extract(someKeys);
@@ -1154,7 +1154,7 @@ class DBelongsToMany : DAssociation {
         primary = (array)target.getPrimaryKeys();
 
         auto result;
-        missing = [];
+        missing = null;
 
         foreach (targetEntities as entity) {
             if (!(cast(IEntity)entity)) {
@@ -1184,7 +1184,7 @@ class DBelongsToMany : DAssociation {
         }, assocForeignKey);
         sourceKey = sourceEntity.extract((array)source.getPrimaryKeys());
 
-        unions = [];
+        unions = null;
         foreach (missing as aKey) {
             unions ~= hasMany.find()
                 .where(array_combine(foreignKey, sourceKey))

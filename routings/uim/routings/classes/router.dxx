@@ -70,7 +70,7 @@ class DRouter {
     /**
      * A hash of request context data.
      */
-    protected static IData[string] my_requestContext = [];
+    protected static IData[string] my_requestContext = null;
 
     /**
      * Named expressions
@@ -96,25 +96,25 @@ class DRouter {
      * of this file. This is a cheat as get_class_vars() returns the value of static vars even if they
      * have changed.
      */
-    protected static array my_initialState = [];
+    protected static array my_initialState = null;
 
     /**
      * The stack of URL filters to apply against routing URLs before passing the
      * parameters to the route collection.
      */
-    protected static Closure[] my_urlFilters = [];
+    protected static Closure[] my_urlFilters = null;
 
     /**
      * Default extensions defined with Router.extensions()
      */
-    protected static string[] my_defaultExtensions = [];
+    protected static string[] my_defaultExtensions = null;
 
     /**
      * Cache of parsed route paths
      *
      * @var IData[string]
      */
-    protected static array my_routePaths = [];
+    protected static array my_routePaths = null;
 
     /**
      * Get or set default route class.
@@ -186,7 +186,7 @@ class DRouter {
             }
         }
         my_collection = new DRouteCollection();
-        my_routePaths = [];
+        my_routePaths = null;
     }
     
     /**
@@ -207,7 +207,7 @@ class DRouter {
      */
     static void resetRoutes() {
         my_collection = new DRouteCollection();
-        my_urlFilters = [];
+        my_urlFilters = null;
     }
     
     /**

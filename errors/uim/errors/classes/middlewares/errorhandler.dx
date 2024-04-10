@@ -53,7 +53,7 @@ class DErrorHandlerMiddleware : IMiddleware {
         "exceptionRenderer": WebExceptionRenderer.classname,
     ];
 
-    protected DExceptionTrap _exceptionTrap = null;
+    protected IExceptionTrap _exceptionTrap = null;
 
     protected IRoutingApplication app = null;
 
@@ -147,9 +147,7 @@ class DErrorHandlerMiddleware : IMiddleware {
         );
     }
     
-    /**
-     * Handle internal errors.
-     */
+    // Handle internal errors.
     protected IResponse handleInternalError() {
         return new DResponse([
             'body": 'An Internal Server Error Occurred",
@@ -157,10 +155,8 @@ class DErrorHandlerMiddleware : IMiddleware {
         ]);
     }
     
-    /**
-     * Get a exception trap instance
-     */
-    protected DExceptionTrap getExceptionTrap() {
+    // Get a exception trap instance
+    protected IExceptionTrap getExceptionTrap() {
         if (this.exceptionTrap is null) {
             /** @var class-string<\UIM\Error\ExceptionTrap>  className */
              className = App.className("ExceptionTrap", "Error");
@@ -169,9 +165,7 @@ class DErrorHandlerMiddleware : IMiddleware {
         return this.exceptionTrap;
     }
     
-    /**
-     * Ensure that the application`s routes are loaded.
-     */
+    // Ensure that the application`s routes are loaded.
     protected void loadRoutes() {
         if (
             !(cast(IRoutingApplication)this.app) || Router.routes()

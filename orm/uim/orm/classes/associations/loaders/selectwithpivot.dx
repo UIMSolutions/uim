@@ -47,7 +47,7 @@ class DSelectWithPivotLoader : SelectLoader {
      * Params:
      * IData[string] options options accepted by eagerLoader()
      */
-    protected SelectQuery _buildQuery(IData[string] options = null) {
+    protected ISelectQuery _buildQuery(IData[string] options = null) {
         name = this.junctionAssociationName;
         assoc = this.junctionAssoc;
         aQueryBuilder = false;

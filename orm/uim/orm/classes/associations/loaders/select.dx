@@ -94,7 +94,7 @@ class DSelectLoader {
      * Params:
      * IData[string] options options accepted by eagerLoader()
      */
-    protected SelectQuery _buildQuery(IData[string] options = null) {
+    protected ISelectQuery _buildQuery(IData[string] options = null) {
         aKey = _linkField(options);
         filter = options["keys"];
         useSubquery = options["strategy"] == Association.STRATEGY_SUBQUERY;
@@ -204,7 +204,7 @@ class DSelectLoader {
      * @param string[]|string aKey the fields that should be used for filtering
      * @param \UIM\ORM\Query\SelectQuery subquery The Subquery to use for filtering
      */
-    protected SelectQuery _addFilteringJoin(SelectQuery aQuery, string[] aKey, SelectQuery subquery) {
+    protected ISelectQuery _addFilteringJoin(SelectQuery aQuery, string[] aKey, SelectQuery subquery) {
         filter = [];
         aliasedTable = this.sourceAlias;
 
@@ -237,7 +237,7 @@ class DSelectLoader {
      * @param string[]|string aKey The fields that should be used for filtering
      * @param IData filter The value that should be used to match for aKey
      */
-    protected SelectQuery _addFilteringCondition(SelectQuery aQuery, string[] aKey, IData filterValue) {
+    protected ISelectQuery _addFilteringCondition(SelectQuery aQuery, string[] aKey, IData filterValue) {
         IData[string] conditions = isArray(aKey) 
             ? _createTupleCondition(aQuery, aKey, filterValue, "IN")
             : conditions = [aKey ~ " IN": filterValue];
@@ -304,7 +304,7 @@ class DSelectLoader {
      * Params:
      * \UIM\ORM\Query\SelectQuery aQuery the original query used to load source records
      */
-    protected SelectQuery _buildSubquery(SelectQuery aQuery) {
+    protected ISelectQuery _buildSubquery(SelectQuery aQuery) {
         filterQuery = clone aQuery;
         filterQuery.disableAutoFields();
         filterQuery.mapReduce(null, null, true);

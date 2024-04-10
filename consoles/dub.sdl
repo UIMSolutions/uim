@@ -15,6 +15,7 @@ dependency "uim:core" path="../"
 dependency "uim:oop" path="../"
 dependency "uim:models" path="../"
 dependency "uim:events" path="../"
+dependency "uim:validations" path="../"
 targetType "library"
 
 sourcePaths "."

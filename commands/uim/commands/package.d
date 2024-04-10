@@ -20,6 +20,7 @@ public { // Required uim libraries
   import uim.models;
   import uim.orm;
   import uim.consoles;
+  import uim.validations;
 }
 
 public { // uim.commands packages

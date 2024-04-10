@@ -1,4 +1,4 @@
-module collections.uim.collections.classes.treeprinter;
+module uim.collections.classes.treeprinter;
 
 import uim.collections;
 

@@ -1,11 +1,11 @@
-module uim.commands.plugins;
+module uim.commands.classes.commands.plugins;
 
 public {
-    import uim.commands.plugins.assets;
+    import uim.commands.classes.commands.plugins.assets;
 }
 
 public {
-    import uim.commands.plugins.load;
-    import uim.commands.plugins.loaded;
-    import uim.commands.plugins.unload;
+    import uim.commands.classes.commands.plugins.load;
+    import uim.commands.classes.commands.plugins.loaded;
+    import uim.commands.classes.commands.plugins.unload;
 }

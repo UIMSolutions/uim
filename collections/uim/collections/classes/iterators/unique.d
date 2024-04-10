@@ -1,4 +1,4 @@
-module collections.uim.collections.classes.iterators.unique;
+module uim.collections.classes.iterators.unique;
 
 import uim.collections;
 

@@ -17,6 +17,7 @@ dependency "uim:models" path="../"
 dependency "uim:logging" path="../"
 dependency "uim:orm" path="../"
 dependency "uim:consoles" path="../"
+dependency "uim:validations" path="../"
 targetType "library"
 
 sourcePaths "."

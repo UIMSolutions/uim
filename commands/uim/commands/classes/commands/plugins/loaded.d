@@ -6,20 +6,22 @@ import uim.commands;
 
 // Displays all currently loaded plugins.
 class DPluginLoadedCommand : DCommand {
-   mixin(CommandThis!("PluginLoaded"));
+    mixin(CommandThis!("PluginLoaded"));
 
-  	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        return true;
+    }
 
     static string defaultName() {
         return "plugin-loaded";
     }
-    
-        override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
-        return suoer(arguments, aConsoleIo);
+
+    override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+        return super.execute(arguments, aConsoleIo);
     }
 
     /* 
@@ -42,4 +44,5 @@ class DPluginLoadedCommand : DCommand {
         return parserToUpdate;
     } */
 }
+
 mixin(CommandCalls!("PluginLoaded"));

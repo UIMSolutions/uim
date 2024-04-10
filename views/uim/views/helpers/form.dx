@@ -159,7 +159,7 @@ class FormHelper : Helper {
      *
      * @var \UIM\View\Widget\WidgetLocator
      */
-    protected WidgetLocator my_locator;
+    protected DWidgetLocator my_locator;
 
     /**
      * DContext for the current form.

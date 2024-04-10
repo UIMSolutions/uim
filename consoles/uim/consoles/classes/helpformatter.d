@@ -40,7 +40,7 @@ class DHelpFormatter {
     protected int _maxOptions = 6;
 
     // Option parser.
-    protected IConsoleOptionParser buildOptionParser _parser;
+    protected IConsoleOptionParser _parser;
 
     // Alias to display in the output.
     protected string _alias = "uim";

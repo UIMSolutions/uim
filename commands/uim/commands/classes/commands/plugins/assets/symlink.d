@@ -23,7 +23,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
     }
 
     override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
-        return suoer(arguments, aConsoleIo);
+        return super.execute(arguments, aConsoleIo);
     }
 
     /**

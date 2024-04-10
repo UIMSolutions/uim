@@ -21,7 +21,7 @@ class DClosureDecoratorMiddleware { // }: IMiddleware {
     /**
      * A Closure.
      * /
-    protected DClosure aCallable;
+    protected IClosure aCallable;
 
     /**
      * Constructor

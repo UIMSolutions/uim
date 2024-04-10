@@ -10,7 +10,7 @@ import uim.models;
 
 mixin template ModelContainerTemplate() {
   // #region modelContainer
-  protected DModelContainer _modelContainer;  
+  protected IModelContainer _modelContainer;  
   DModelContainer modelContainer() {
     if (_modelContainer) return _modelContainer;
     return (_manager ? manager.modelContainer : null); 

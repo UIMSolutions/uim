@@ -37,7 +37,7 @@ class DElementData : DData {
     _value = newValue;
   }
 
-  protected DElement _value;
+  protected IElement _value;
   DElement opCall() {
     return get();
   }

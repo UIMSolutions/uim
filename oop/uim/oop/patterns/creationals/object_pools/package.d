@@ -82,7 +82,7 @@ class DConnectionPool : ObjectPool!Connection {
     this.pwd = pwd;
   }
 
-  override protected DConnection create() {
+  override protected IConnection create() {
     return new DConnection;
   }
 

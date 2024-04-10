@@ -54,7 +54,7 @@ class DReplaceIterator : DCollection {
     // Let`s do that for performance gains
 
     aCallback = _callback;
-    auto res = [];
+    auto res = null;
     anIterator.byKeyValue
       .each!(kv => res[kv.key] = aCallback(kv.value, kv.key,  anIterator));
     

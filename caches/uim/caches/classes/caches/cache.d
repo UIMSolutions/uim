@@ -62,7 +62,7 @@ class DCache : ICache {
     protected static bool _enabled = true;
 
     // Group to Config mapping
-    protected static IData my_groups = [];
+    protected static IData my_groups = null;
 
     // Cache Registry used for creating and using cache adapters.
     // protected static DCacheRegistry _registry;

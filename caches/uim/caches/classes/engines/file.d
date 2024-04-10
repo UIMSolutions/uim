@@ -188,7 +188,7 @@ class DFileCacheEngine : DCacheEngine {
             mydirectory,
             RecursiveIteratorIterator.SELF_FIRST
         );
-        mycleared = [];
+        mycleared = null;
         foreach (myfileInfo; myiterator) {
             if (myfileInfo.isFile()) {
                 unset(myfileInfo);

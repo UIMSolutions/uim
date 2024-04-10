@@ -263,7 +263,7 @@ bool set(string aKey, IData aValue, DateInterval | int | null myttl = null) {
      *  for it or let the driver take care of that.
      * /
 bool setMultiple(Range myvalues, DateInterval | int | null myttl = null) {
-  auto cacheData = [];
+  auto cacheData = null;
   myvalues.byKeyValue
     .each!(kv => cacheData[_key(kv.key)] = kv.value);
   auto duration = this.duration(myttl);

@@ -52,7 +52,7 @@ class DFilterIterator : DCollection {
         // ArrayIterator can be traversed strictly.
         // Let`s do that for performance gains
         auto mycallback = _callback;
-        auto myres = [];
+        auto myres = null;
 
         myiterator.byKeyValue
             .filter!(kv => mycallback(kv.value, kv.key, myiterator)) {

@@ -69,7 +69,7 @@ class DStoppableIterator : DCollection {
     // Let`s do that for performance gains
 
     aCallback = _condition;
-    res = [];
+    res = null;
 
     foreach (myKey, v; anIterator) {
       if (aCallback( v, myKey,  anIterator)) {

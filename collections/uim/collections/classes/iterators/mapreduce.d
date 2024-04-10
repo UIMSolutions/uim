@@ -15,7 +15,7 @@ import uim.collections;
 class DMapReduce { // }: IteratorAggregate {
     /* 
     // Holds the shuffled results that were emitted from the map phase
-    protected array _intermediate = [];
+    protected array _intermediate = null;
 
     // Holds the results as emitted during the reduce phase
     protected array _auto result;

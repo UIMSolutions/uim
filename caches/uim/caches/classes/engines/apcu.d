@@ -136,7 +136,7 @@ class DApcuEngine : DCacheEngine {
       });
       ksort(mygroups);
     }
-    auto results = [];
+    auto results = null;
     auto groupValues = mygroups.values;
     foreach (myi : mygroup; configuration["groups"]) {
       results ~= mygroup ~ groupValues[myi];

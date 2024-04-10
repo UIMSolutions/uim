@@ -51,7 +51,7 @@ class DSortIterator : DCollection {
     }
 
     auto aCallback = _propertyExtractor(aCallback);
-    auto myResults = [];
+    auto myResults = null;
     foreach (aKey, val; someItems) {
       auto callbackValue = aCallback( val);
       auto isDateTime =

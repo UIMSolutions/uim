@@ -12,7 +12,7 @@ class DatabaseSession { // }: SessionHandler {
     /* 
 
     // Reference to the table handling the session data
-    protected Table _table;
+    protected DTable _table;
 
     // Number of seconds to mark the session as expired
     protected int _timeout;

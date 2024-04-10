@@ -25,7 +25,7 @@ class DBelongsToMany : DAssociation {
     protected string _strategy = self.STRATEGY_SELECT;
 
     // Junction table instance
-    protected Table _junctionTable;
+    protected ITable _junctionTable;
 
     // Junction table name
     protected string _junctionTableName;
@@ -57,7 +57,7 @@ class DBelongsToMany : DAssociation {
      *
      * @var \UIM\ORM\Table|string
      */
-    protected Table|string _through;
+    protected ITable|string _through;
 
     /**
      * Valid strategies for this type of association

@@ -144,7 +144,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     }
     
     // Gets a translator from the registry by catalog for a locale.
-    protected Translator _getTranslator(string catalogName, string localName) {
+    protected ITranslator _getTranslator(string catalogName, string localName) {
         if (this.catalogs.has(catalogName, localName)) {
             return this.createInstance(catalogName, localname);
         }
@@ -160,7 +160,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     }
     
     // Create translator instance.
-    protected Translator createInstance(string catalogName, string localName = null) {
+    protected ITranslator createInstance(string catalogName, string localName = null) {
         ICatalog catalog = this.catalogs.get(catalogName, localname);
         auto fallback = catalog.fallback();
         if (!fallback is null) {

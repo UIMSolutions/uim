@@ -1,4 +1,4 @@
-module uim.collections.iterators;
+module collections.uim.collections.classes.treeprinter;
 
 import uim.collections;
 
@@ -10,7 +10,7 @@ import uim.collections;
  *
  * @template-extends \RecursiveIteratorIterator<\RecursiveIterator>
  */
-class DTreePrinter : RecursiveIteratorIterator, ICollection {
+class DTreePrinter { /* }: RecursiveIteratorIterator, ICollection {
   mixin TCollection;
 
   // A callable to generate the iteration key
@@ -36,7 +36,7 @@ class DTreePrinter : RecursiveIteratorIterator, ICollection {
      * @param string aspacer The string to use for prefixing the values according to
      * their depth in the tree.
      * @param int mode Iterator mode.
-     */
+     * /
   this(
     IRecursiveIterator someItems,
     callable | string myvaluePath,
@@ -78,5 +78,5 @@ class DTreePrinter : RecursiveIteratorIterator, ICollection {
       return _current;
     }
     return _current = super.current();
-  }
+  } */ 
 }

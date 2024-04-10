@@ -88,5 +88,5 @@ class DTreeIterator { /* }: RecursiveIteratorIterator, ICollection {
             spacer,
            _mode
         );
-    }
+    } */
 }

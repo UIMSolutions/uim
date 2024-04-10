@@ -32,7 +32,7 @@ class DMultiCheckboxWidget : DWidget {
      *
      * @var \UIM\View\Widget\LabelWidget
      * /
-    protected LabelWidget my_label;
+    protected ILabelWidget my_label;
 
     /**
      * Render multi-checkbox widget.

@@ -6,4 +6,13 @@ public {
     import uim.collections.classes.iterators.filter;
     import uim.collections.classes.iterators.insert;
     import uim.collections.classes.iterators.mapreduce;
+    import uim.collections.classes.iterators.nest;
+    import uim.collections.classes.iterators.nochildren;
+    import uim.collections.classes.iterators.replace;
+    import uim.collections.classes.iterators.sort;
+    import uim.collections.classes.iterators.stoppable;
+    import uim.collections.classes.iterators.tree;
+    import uim.collections.classes.iterators.unfold;
+    import uim.collections.classes.iterators.unique;
+    import uim.collections.classes.iterators.zip;
 }

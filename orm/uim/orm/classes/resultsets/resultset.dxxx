@@ -16,7 +16,7 @@ import uim.orm;
  * queries required for eager loading external associations.
  */
 class DResultSet : IResultSet {
-    mixin CollectionTemplate;
+    mixin TCollection;
 
     // Database statement holding the results
     protected DDBStatementInterface _statement;

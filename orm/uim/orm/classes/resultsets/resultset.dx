@@ -15,7 +15,7 @@ import uim.orm;
  */
 class DResultSet : IResultSet {
     mixin TConfigurable!;
-    mixin CollectionTemplate;
+    mixin TCollection;
 
     this() {
         initialize;

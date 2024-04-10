@@ -90,7 +90,7 @@ class FunctionExpression : QueryExpression, ITypedResult {
     }
  
     string sql(ValueBinder aBinder) {
-        someParts = [];
+        someParts = null;
         foreach (condition; _conditions) {
             if (cast(Query)condition) {
                 condition = "(%s)".format(condition.sql(aBinder));

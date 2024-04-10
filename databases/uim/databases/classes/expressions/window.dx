@@ -121,12 +121,12 @@ class DWindowExpression : IExpression, IWindow {
     }
  
     string sql(ValueBinder  mybinder) {
-        auto myclauses = [];
+        auto myclauses = null;
         if (this.name.getIdentifier()) {
              myclauses ~= this.name.sql(mybinder);
         }
         if (this.partitions) {
-            auto myexpressions = [];
+            auto myexpressions = null;
             this.partitions.each!(partition => myexpressions ~= partition.sql(mybinder));
              myclauses ~= "PARTITION BY " ~ join(", ",  myexpressions);
         }

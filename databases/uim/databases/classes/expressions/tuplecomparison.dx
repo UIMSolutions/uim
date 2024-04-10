@@ -92,7 +92,7 @@ class DTupleComparison : ComparisonExpression {
                     type = this.types; isMultiOperation = this.isMulti(); if (isEmpty(type)) {
                         type = null;}
                         if (isMultiOperation) {
-                            string[] bound = []; aValue.byKeyValue
+                            string[] bound = null; aValue.byKeyValue
                                 .each!((kv) {
                                     auto valType = type && isSet(type[myKey]) ? type[myKey] : type;
                                     assert( valType.isNull || isScalar( valType));

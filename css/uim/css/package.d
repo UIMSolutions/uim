@@ -258,7 +258,7 @@ public { // Modules
 	}		
 	override string toString() {
 		string result = _properties.join(";");
-		_properties = [];
+		_properties = null;
 		return result;
 	}
 }

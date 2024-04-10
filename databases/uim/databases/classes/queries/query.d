@@ -286,7 +286,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * /
     void with(CommonTableExpression|Closure cte, bool overwrite = false) {
         if (overwrite) {
-           _parts["with"] = [];
+           _parts["with"] = null;
         }
         if (cast(DClosure)cte) {
             aQuery = this.getConnection().selectQuery();
@@ -324,7 +324,7 @@ abstract class DQuery : IQuery { // : IExpression {
     void modifier(IExpression|string[] amodifiers, bool overwrite = false) {
        _isDirty();
         if (overwrite) {
-           _parts["modifier"] = [];
+           _parts["modifier"] = null;
         }
         if (!isArray(someModifiers)) {
             someModifiers = [someModifiers];
@@ -458,7 +458,7 @@ abstract class DQuery : IQuery { // : IExpression {
         if (isString(aTables) || isSet(aTables["table"])) {
             aTables = [aTables];
         }
-         joins = [];
+         joins = null;
          anI = count(_parts["join"]);
         foreach (alias, t; aTables) {
             if (!isArray(t)) {
@@ -1475,7 +1475,7 @@ abstract class DQuery : IQuery { // : IExpression {
     // Returns an array that can be used to describe the internal state of this object.
     string[string] debugInfo() {
         auto mySql = "SQL could not be generated for this query as it is incomplete.";
-        params = [];
+        params = null;
         try {
             set_error_handler(
                 void (errno, errstr) {
@@ -1487,7 +1487,7 @@ abstract class DQuery : IQuery { // : IExpression {
             params = this.getValueBinder().bindings();
         } catch (Throwable  anException) {
             mySql = "SQL could not be generated for this query as it is incomplete.";
-            params = [];
+            params = null;
         } finally {
             restore_error_handler();
 

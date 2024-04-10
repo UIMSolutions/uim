@@ -34,7 +34,7 @@ class DConnectionManager {
     }
 
     // A map of connection aliases.
-    protected static STRINGAA _connectionAliases = [];
+    protected static STRINGAA _connectionAliases = null;
 
     // An array mapping url schemes to fully qualified driver class names
     protected static STRINGAA _dsnClassMap;

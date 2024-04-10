@@ -22,7 +22,7 @@ class DQueryExpression : IExpression, Countable {
      * A list of strings or other expression objects that represent the "branches" of
      * the expression tree. For example one key of the array might look like "sum > :value"
      */
-    protected array _conditions = [];
+    protected array _conditions = null;
 
     /**
      * Constructor. A new expression object can be created without any params and
@@ -421,7 +421,7 @@ class DQueryExpression : IExpression, Countable {
         }
         conjunction = _conjunction;
         template =  len == 1 ? "%s' : '(%s)";
-        someParts = [];
+        someParts = null;
         foreach (_conditions as part) {
             if (cast(Query)part) {
                 part = "(" ~ part.sql(aBinder) ~ ")";
@@ -459,7 +459,7 @@ class DQueryExpression : IExpression, Countable {
      * \Closure aCallback The callback to run for each part
      */
     void iterateParts(Closure aCallback) {
-        someParts = [];
+        someParts = null;
         foreach (myKey: c; _conditions) {
             aKey = &myKey;
             part = aCallback(c, aKey);

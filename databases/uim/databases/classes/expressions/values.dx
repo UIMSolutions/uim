@@ -117,16 +117,16 @@ class DValuesExpression : IExpression {
         
         auto colNames = _columnNames();
          defaults = array_fill_keys(colNames, null);
-        placeholders = [];
+        placeholders = null;
 
-        types = [];
+        types = null;
         typeMap = this.getTypeMap();
          defaults.byKeyValue
             .each!(kv => types[kv.key] = typeMap.type(kv.key));
 
         foreach (row; _values ) {
             row +=  defaults;
-            rowPlaceholders = [];
+            rowPlaceholders = null;
 
             foreach (column; colNames) {
                 auto aValue = row[column];
@@ -174,7 +174,7 @@ class DValuesExpression : IExpression {
     
     // Converts values that need to be casted to expressions
     protected void _processExpressions() {
-        auto types = [];
+        auto types = null;
         auto typeMap = this.getTypeMap();
 
         auto someColumns = _columnNames();

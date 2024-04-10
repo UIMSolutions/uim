@@ -362,7 +362,7 @@ class DSqlserverDriver : DDriver {
                 expression.name("DATEPART").setConjunction(" ,");
                 break;
             case "DATE_ADD":
-                params = [];
+                params = null;
                  visitor = auto (p, aKey) use (&params) {
                     if (aKey == 0) {
                         params[2] = p;
@@ -393,7 +393,7 @@ class DSqlserverDriver : DDriver {
             case "SUBSTR":
                 expression.name("SUBSTRING");
                 if (count(expression) < 4) {
-                    params = [];
+                    params = null;
                     expression
                         .iterateParts(function (p) use (&params) {
                             return params ~= p;

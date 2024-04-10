@@ -88,7 +88,7 @@ class DSqliteDriver : DDriver {
             chmodFile = !file_exists(configuration["database"]);
         }
         
-        string[] params = [];
+        string[] params = null;
         if (configuration["cache"]) {
             params ~= "cache=" ~ configuration["cache"];
         }

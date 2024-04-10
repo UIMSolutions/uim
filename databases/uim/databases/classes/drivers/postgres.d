@@ -118,7 +118,7 @@ bool supports(DriverFeaturesfeature) {
     };
 }
 
-protected SelectQuery _transformDistinct(SelectQuery aQuery) {
+protected ISelectQuery _transformDistinct(SelectQuery aQuery) {
     return aQuery;
 }
 

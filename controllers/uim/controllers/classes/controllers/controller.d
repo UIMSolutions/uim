@@ -90,7 +90,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * This object contains all the information about a request and several methods for reading
      * additional information about the request.
      * /
-    protected ServerRequest serverRequest;
+    protected IServerRequest serverRequest;
 
     /**
      * An instance of a Response object that contains information about the impending response

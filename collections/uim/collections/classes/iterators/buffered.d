@@ -14,7 +14,7 @@ class DBufferedIterator : DCollection { // }, Countable {
     }
   /*
   // The in-memory cache containing results from previous iterators
-  protected SplDoublyLinkedList _buffer;
+  protected ISplDoublyLinkedList _buffer;
 
   // Points to the next record number that should be fetched
   protected int _index = 0;

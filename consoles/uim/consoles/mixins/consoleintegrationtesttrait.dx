@@ -20,15 +20,15 @@ mixin template ConsoleIntegrationTestTemplate() {
     /**
      * Console output stub
      */
-    protected StubConsoleOutput _out = null;
+    protected IStubConsoleOutput _out = null;
 
     /**
      * Console error output stub
      */
-    protected StubConsoleOutput _err = null;
+    protected IStubConsoleOutput _err = null;
 
     // Console input mock
-    protected StubConsoleInput _in = null;
+    protected IStubConsoleInput _in = null;
 
     /**
      * Runs CLI integration test

@@ -184,7 +184,7 @@ class DSqlserverDriver : DDriver {
         return new DSqlserverCompiler();
     }
  
-    protected SelectQuery _selectQueryTranslator(SelectQuery aQuery) {
+    protected ISelectQuery _selectQueryTranslator(SelectQuery aQuery) {
         aLimit = aQuery.clause("limit");
          anOffset = aQuery.clause("offset");
 
@@ -210,7 +210,7 @@ class DSqlserverDriver : DDriver {
      * @param int aLimit The number of rows to fetch.
      * @param int  anOffset The number of rows to offset.
      * /
-    protected SelectQuery _pagingSubquery(SelectQuery  original, int aLimit, int anOffset) {
+    protected ISelectQuery _pagingSubquery(SelectQuery  original, int aLimit, int anOffset) {
         auto field = "_cake_paging_._cake_page_rownum_";
 
         if ( original.clause("order")) {
@@ -269,7 +269,7 @@ class DSqlserverDriver : DDriver {
         return  outer;
     }
  
-    protected SelectQuery _transformDistinct(SelectQuery aQuery) {
+    protected ISelectQuery _transformDistinct(SelectQuery aQuery) {
         if (!isArray(aQuery.clause("distinct"))) {
             return aQuery;
         }

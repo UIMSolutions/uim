@@ -17,7 +17,7 @@ class LinkConstraint {
      *
      * @var \UIM\ORM\Association|string
      * /
-    protected Association|string my_association;
+    protected IAssociation|string my_association;
 
     /**
      * The link status that is required to be present in order for the check to succeed.

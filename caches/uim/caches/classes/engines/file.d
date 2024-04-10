@@ -58,7 +58,7 @@ class DFileCacheEngine : DCacheEngine {
     }
     /*
     // Instance of SplFileObject class
-    protected SplFileObject my_File;
+    protected ISplFileObject my_File;
 
     // True unless FileEngine.__active(); fails
     protected bool my_init = true;

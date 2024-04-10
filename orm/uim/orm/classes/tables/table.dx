@@ -144,7 +144,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     protected string[] my_displayField = null;
 
     // The associations container for this Table.
-    protected AssociationCollection my_associations;
+    protected IAssociationCollection my_associations;
 
     // BehaviorRegistry for this table
     protected BehaviorRegistry my_behaviors;
@@ -719,7 +719,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * Params:
      * string myname The alias used for the association.
      */
-    protected Association findAssociation(string myname) {
+    protected IAssociation findAssociation(string myname) {
         if (!myname.has(".")) {
             return _associations.get(myname);
         }

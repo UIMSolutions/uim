@@ -52,7 +52,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      *
      * @var \UIM\Http\ServerRequest|null
      * /
-    protected ServerRequest serverRequest;
+    protected IServerRequest serverRequest;
 
     /**
      * Map of exceptions to http status codes.

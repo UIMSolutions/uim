@@ -29,7 +29,7 @@ class FormContext : IContext {
      */
     this(IData[string] contextData) {
         assert(
-            isSet(mycontext["entity"]) && cast(Form)mycontext["entity"],
+            isSet(mycontext["entity"]) && cast(DForm)mycontext["entity"],
             "`\mycontext["entity"]` must be an instance of " ~ Form.classname
         );
 

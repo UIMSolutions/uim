@@ -160,7 +160,7 @@ class DPlugin : IPlugin {
         somePath = this.getConfigPath() ~ "routes.d";
         if (isFile(somePath)) {
             result = require somePath;
-            if (cast(Closure)result) {
+            if (cast(DClosure)result) {
                 result(routes);
             }
         }

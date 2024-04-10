@@ -198,7 +198,7 @@ class DEntityContext : IContext {
             }
             return _schemaDefault(myparts);
         }
-        if (isArray(myentity) || cast(ArrayAccess)myentity) {
+        if (isArray(myentity) || cast(DArrayAccess)myentity) {
             aKey = array_pop(myparts);
 
             return myentity.get(aKey, options["default"]);

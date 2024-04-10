@@ -309,7 +309,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param \UIM\Validation\ValidationSet|array myrules set of rules to apply to field
      * /
     void offsetSet(string fieldName, IData myrules) {
-        if (!cast(DValidationSet)myrules) {
+        if (!cast(ValidationSet)myrules) {
             myset = new DValidationSet();
             foreach (myrules as myname: myrule) {
                 myset.add(myname, myrule);
@@ -897,7 +897,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         if (mywhen == WHEN_CREATE || mywhen == WHEN_UPDATE) {
             return mywhen == WHEN_CREATE ? WHEN_UPDATE : WHEN_CREATE;
         }
-        if (cast(DClosure)mywhen) {
+        if (cast(Closure)mywhen) {
             return fn (mycontext): !mywhen(mycontext);
         }
         return mywhen;
@@ -2709,7 +2709,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     protected bool _checkPresence(ValidationSet myfield, array mycontext) {
         myrequired = myfield.isPresenceRequired();
 
-        if (cast(DClosure)myrequired) {
+        if (cast(Closure)myrequired) {
             return !myrequired(mycontext);
         }
         mynewRecord = mycontext["newRecord"];
@@ -2729,7 +2729,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     protected bool _canBeEmpty(ValidationSet myfield, array mycontext) {
         myallowed = myfield.isEmptyAllowed();
 
-        if (cast(DClosure)myallowed) {
+        if (cast(Closure)myallowed) {
             return myallowed(mycontext);
         }
         mynewRecord = mycontext["newRecord"];

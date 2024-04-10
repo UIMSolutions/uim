@@ -45,7 +45,7 @@ class Hash {
                 return mydata[myparts[0]][myparts[1]][myparts[2]] ?? mydefault;
             default:
                 myparts.each!((key) {
-                    if ((isArray(mydata) || cast(ArrayAccess)mydata) && isSet(mydata[aKey])) {
+                    if ((isArray(mydata) || cast(DArrayAccess)mydata) && isSet(mydata[aKey])) {
                         mydata = mydata[aKey];
                     } else {
                         return mydefault;
@@ -90,7 +90,7 @@ class Hash {
         // Simple paths.
         if (!preg_match("/[{\[]/", mypath)) {
             mydata = get(mydata, mypath);
-            if (mydata !isNull && !(isArray(mydata) || cast(ArrayAccess)mydata)) {
+            if (mydata !isNull && !(isArray(mydata) || cast(DArrayAccess)mydata)) {
                 return [mydata];
             }
             return !mydata.isNull ? (array)mydata : [];
@@ -120,7 +120,7 @@ class Hash {
             if (myconditions) {
                 myfilter = [];
                 mynext
-                    .filter!(item => (isArray(item) || cast(ArrayAccess)item) && _matches(item, myconditions))
+                    .filter!(item => (isArray(item) || cast(DArrayAccess)item) && _matches(item, myconditions))
                     .each!(item => myfilter ~= item);
                 
                 mynext = myfilter;

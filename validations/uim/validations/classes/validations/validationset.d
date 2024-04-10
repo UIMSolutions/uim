@@ -22,9 +22,7 @@ class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
      * /
     protected my_validatePresent = false;
 
-    /**
-     * Denotes if a field is allowed to be empty
-     * /
+    // Denotes if a field is allowed to be empty
     protected callable|string|bool my_allowEmpty = false;
 
     /**

@@ -17,10 +17,34 @@ import uim.errors;
  * @internal
  */
 class DebugContext {
-    private int _maxDepth;
+    mixin TConfigurable!();
+    
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
+
+    private int _maxDepth = 0;
 
     private int _depth = 0;
 
+    // Get the remaining depth levels
+    int remainingDepth() {
+      return t_maxDepth - _depth;
+    }
+    
     /* 
     private SplObjectStorage _refs;
 
@@ -46,10 +70,6 @@ class DebugContext {
         return new;
     }
 
-    // Get the remaining depth levels
-    int remainingDepth() {
-      return t_maxDepth - _depth;
-    }
 
     /**
      * Get the reference ID for an object.

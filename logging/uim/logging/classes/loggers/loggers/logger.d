@@ -110,7 +110,7 @@ abstract class Logger /* : DAbstractLogger */ {
                 replacements["{" ~ aKey ~ "}"] = IData_encode(aValue, IDataFlags);
                 continue;
             }
-            if (cast(ArrayObject)aValue) {
+            if (cast(DArrayObject)aValue) {
                 replacements["{" ~ aKey ~ "}"] = IData_encode(aValue.getArrayCopy(), IDataFlags);
                 continue;
             }

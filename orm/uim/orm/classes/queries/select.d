@@ -661,7 +661,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
         IExpression|Table|Association|Closure|string[]|float|int myfields = [],
         bool myoverwrite = false
     ) {
-        if (cast(Association)myfields) {
+        if (cast(DAssociation)myfields) {
             myfields = myfields.getTarget();
         }
         if (cast(Table)myfields) {
@@ -704,7 +704,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * @param bool myoverwrite Whether to reset/remove previous selected fields
      * /
     auto selectAllExcept(Table|Association mytable, array myexcludedFields, bool myoverwrite = false) {
-        if (cast(Association)mytable) {
+        if (cast(DAssociation)mytable) {
             mytable = mytable.getTarget();
         }
         myfields = array_diff(mytable.getSchema().columns(), myexcludedFields);

@@ -24,7 +24,7 @@ class DEventManager { // }: IEventManager {
     protected bool _isGlobal = false;
 
     // The event list object.
-    protected EventList _eventList = null;
+    protected DEventList _eventList = null;
 
     // Enables automatic adding of events to the event list object if it is present.
     protected bool _canAddEvents = false;

@@ -1,2 +1,2 @@
-module uim.consoles.interfaces.DConsoleOptionParser buildOptionParser;
+module uim.consoles.interfaces.consoleoptionparser;
 

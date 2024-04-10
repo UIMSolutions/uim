@@ -53,7 +53,7 @@ class DErrorHandlerMiddleware : IMiddleware {
         "exceptionRenderer": WebExceptionRenderer.classname,
     ];
 
-    protected ExceptionTrap _exceptionTrap = null;
+    protected DExceptionTrap _exceptionTrap = null;
 
     protected IRoutingApplication app = null;
 
@@ -160,7 +160,7 @@ class DErrorHandlerMiddleware : IMiddleware {
     /**
      * Get a exception trap instance
      */
-    protected ExceptionTrap getExceptionTrap() {
+    protected DExceptionTrap getExceptionTrap() {
         if (this.exceptionTrap is null) {
             /** @var class-string<\UIM\Error\ExceptionTrap>  className */
              className = App.className("ExceptionTrap", "Error");

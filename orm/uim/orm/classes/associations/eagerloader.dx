@@ -23,7 +23,7 @@ class DEagerLoader {
      *
      * @var \UIM\ORM\EagerLoadable|array<\UIM\ORM\EagerLoadable>|null
      */
-    protected EagerLoadable|array|null my_normalized = null;
+    protected DEagerLoadable|array|null my_normalized = null;
 
     /**
      * List of options accepted by associations in contain()
@@ -44,13 +44,13 @@ class DEagerLoader {
     ];
 
     // A list of associations that should be loaded with a separate query.
-    protected EagerLoadable<> my_loadExternal = [];
+    protected DEagerLoadable<> my_loadExternal = [];
 
     // Contains a list of the association names that are to be eagerly loaded.
     protected array my_aliasList = [];
 
     // Another EagerLoader instance that will be used for "matching" associations.
-    protected EagerLoader my_matching = null;
+    protected DEagerLoader my_matching = null;
 
     // A map of table aliases pointing to the association objects they represent for the query.
     protected array<string, \UIM\ORM\EagerLoadable> my_joinsMap = [];
@@ -377,7 +377,7 @@ class DEagerLoader {
      * chain of associations to be loaded. The second value is the path to follow in
      * entities" properties to fetch a record of the corresponding association.
      */
-    protected EagerLoadable _normalizeContain(Table myparent, string myalias, IData[string] options, array mypaths) {
+    protected DEagerLoadable _normalizeContain(Table myparent, string myalias, IData[string] options, array mypaths) {
         mydefaults = _containOptions;
         myinstance = myparent.getAssociation(myalias);
 
@@ -469,7 +469,7 @@ class DEagerLoader {
      * array<\UIM\ORM\EagerLoadable> myassociations List of associations from which to obtain joins.
      * @param array<\UIM\ORM\EagerLoadable> mymatching List of associations that should be forcibly joined.
      */
-    protected EagerLoadable[] _resolveJoins(array myassociations, array mymatching = []) {
+    protected DEagerLoadable[] _resolveJoins(array myassociations, array mymatching = []) {
         auto result;
         foreach (mymatching as mytable: myloadable) {
             result[mytable] = myloadable;
@@ -584,7 +584,7 @@ class DEagerLoader {
      * @param array<\UIM\ORM\> mylevel An array of EagerLoadable instances.
      * @param bool mymatching Whether it is an association loaded through `matching()`.
      */
-    protected EagerLoadable[] _buildAssociationsMap(array mymap, array mylevel, bool mymatching = false) {
+    protected DEagerLoadable[] _buildAssociationsMap(array mymap, array mylevel, bool mymatching = false) {
         foreach (mylevel as myassoc: mymeta) {
             mycanBeJoined = mymeta.canBeJoined();
             myinstance = mymeta.instance();

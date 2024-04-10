@@ -11,7 +11,7 @@ import uim.oop;
  */
 class DEventFiredWith : Constraint {
     // Array of fired events
-    protected EventManager _eventManager;
+    protected DEventManager _eventManager;
 
     // Event data key
     protected string _dataKey;

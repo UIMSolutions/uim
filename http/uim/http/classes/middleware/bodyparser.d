@@ -11,12 +11,26 @@ import uim.http;
  * You can also add your own request body parsers using the `addParser()` method.
  */
 class DBodyParserMiddleware { // }: IMiddleware {
+    // The HTTP methods to parse data on.
+    protected string[] someMethods = ["PUT", "POST", "PATCH", "DELETE"];
+    /**
+     * Set the HTTP methods to parse request bodies on.
+     * Params:
+     * string[] someMethods The methods to parse data on.
+     * /
+    void setMethods(string[] methodsToParseData) {
+        this.methods = methodsToParseData;
+    }
+    
+    // Get the HTTP methods to parse request bodies on.
+    string[] getMethods() {
+        return this.methods;
+    }
     /*
     // Registered Parsers
     protected DClosure[] aParsers = [];
 
-    // The HTTP methods to parse data on.
-    protected string[] someMethods = ["PUT", "POST", "PATCH", "DELETE"];
+
 
     /**
      * Constructor
@@ -49,19 +63,7 @@ class DBodyParserMiddleware { // }: IMiddleware {
         }
     }
     
-    /**
-     * Set the HTTP methods to parse request bodies on.
-     * Params:
-     * string[] someMethods The methods to parse data on.
-     * /
-    void setMethods(string[] methodsToParseData) {
-        this.methods = methodsToParseData;
-    }
-    
-    // Get the HTTP methods to parse request bodies on.
-    string[] getMethods() {
-        return this.methods;
-    }
+
     
     /**
      * Add a parser.

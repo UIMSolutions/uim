@@ -392,7 +392,7 @@ class DSelectLoader {
      * the corresponding target table results as value.
      * @param IData[string] options The options passed to the eagerLoader method
      */
-    protected Closure _resultInjector(SelectQuery fetchQuery, array resultMap, IData[string] options = null): Closure
+    protected DClosure _resultInjector(SelectQuery fetchQuery, array resultMap, IData[string] options = null): Closure
     {
         someKeys = this.associationType == Association.MANY_TO_ONE ?
             this.foreignKey :
@@ -426,7 +426,7 @@ class DSelectLoader {
      * @param string[] sourceKeys An array with aliased keys to match
      * @param string anestKey The key under which results should be nested
      */
-    protected Closure _multiKeysInjector(array resultMap, array sourceKeys, string anestKey) {
+    protected DClosure _multiKeysInjector(array resultMap, array sourceKeys, string anestKey) {
         return auto (row) use (resultMap, sourceKeys, nestKey) {
             string[] someValues = sourceKeys
                 .map!(key => row[aKey]);

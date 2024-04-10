@@ -17,7 +17,7 @@ class DEagerLoadable {
     protected string my_name;
 
     // A list of other associations to load from this level.
-    protected EagerLoadable[] my_associations;
+    protected DEagerLoadable[] my_associations;
 
     // The Association class instance to use for loading the records.
     protected Association my_instance = null;

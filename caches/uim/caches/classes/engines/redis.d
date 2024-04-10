@@ -61,7 +61,7 @@ class DRedisCacheEngine : DCacheEngine {
 
     // Redis wrapper.
     /*
-    protected Redis _redis;
+    protected IRedis _redis;
     
     // Connects to a Redis server
     protected bool _connect() {

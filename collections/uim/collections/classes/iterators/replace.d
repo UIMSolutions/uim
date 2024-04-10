@@ -14,7 +14,7 @@ class DReplaceIterator : DCollection {
   protected callable _callback;
 
   // A reference to the internal iterator this object is wrapping.
-  protected DTraversable _innerIterator;
+  protected ITraversable _innerIterator;
 
   /**
      * Creates an iterator from another iterator that will modify each of the values

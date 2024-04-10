@@ -24,7 +24,7 @@ class DUnfoldIterator : IteratorIterator, RecursiveIterator {
     /**
      * A reference to the internal iterator this object is wrapping.
      */
-    protected DTraversable _innerIterator;
+    protected ITraversable _innerIterator;
 
     /**
      * Creates the iterator that will generate child iterators from each of the

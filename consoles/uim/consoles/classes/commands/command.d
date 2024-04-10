@@ -108,8 +108,6 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
         return parserToDefine;
     }
 
- 
-
     int run(array argv, IConsoleIo aConsoleIo) {
         this.initialize();
 

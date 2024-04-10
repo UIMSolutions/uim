@@ -22,7 +22,7 @@ mixin template ExtractTemplate() {
      * so that the final one can be returned or a callable that will take care
      * of doing that.
      * /
-    protected DClosure _propertyExtractor(string columnPath) {
+    protected IClosure _propertyExtractor(string columnPath) {
         if (!isString(somePath)) {
             return somePath(...);
         }
@@ -104,7 +104,7 @@ mixin template ExtractTemplate() {
      * key is the property path to get from the current item and the value is the
      * value to be compared the item with.
      * /
-    protected DClosure _createMatcherFilter(array conditions) {
+    protected IClosure _createMatcherFilter(array conditions) {
          someMatchers = [];
         foreach (aProperty, aValue; conditions) {
              anExtractor = _propertyExtractor(aProperty);

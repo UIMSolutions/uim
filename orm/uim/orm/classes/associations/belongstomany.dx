@@ -885,7 +885,7 @@ class DBelongsToMany : DAssociation {
      * \UIM\ORM\Query\SelectQuery aQuery The query to append.
      * @param array|null conditions The query conditions to use.
      */
-    protected SelectQuery _appendJunctionJoin(SelectQuery aQuery, array conditions = null) {
+    protected ISelectQuery _appendJunctionJoin(SelectQuery aQuery, array conditions = null) {
         junctionTable = this.junction();
         if (conditions is null) {
             belongsTo = junctionTable.getAssociation(this.getTarget().aliasName());

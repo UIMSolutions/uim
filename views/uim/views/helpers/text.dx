@@ -51,7 +51,7 @@ class DTextHelper : Helper {
      * @param IData[string] options Array of HTML options, and options listed above.
      */
     string autoLinkUrls(string mytext, IData[string] options  = null) {
-        _placeholders = [];
+        _placeholders = null;
         options += ["escape": BooleanData(true)];
 
          Generic.Files.LineLength
@@ -121,7 +121,7 @@ class DTextHelper : Helper {
      * @param IData[string] myhtmlOptions The options for the generated links.
      */
     protected string _linkUrls(string mytext, array myhtmlOptions) {
-        myreplace = [];
+        myreplace = null;
         foreach (_placeholders as myhash: mycontent) {
             mylink = myurl = mycontent["content"];
             myenvelope = mycontent["envelope"];
@@ -140,7 +140,7 @@ class DTextHelper : Helper {
      * @param IData[string] options An array of options to use for the HTML.
      */
     protected string _linkEmails(string mytext, IData[string] options) {
-        myreplace = [];
+        myreplace = null;
         foreach (_placeholders as myhash: mycontent) {
             myurl = mycontent["content"];
             myenvelope = mycontent["envelope"];
@@ -161,7 +161,7 @@ class DTextHelper : Helper {
      */
     string autoLinkEmails(string mytext, IData[string] options  = null) {
         options += ["escape": BooleanData(true)];
-       _placeholders = [];
+       _placeholders = null;
 
         myatom = "[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]";
         mytext = preg_replace_callback(

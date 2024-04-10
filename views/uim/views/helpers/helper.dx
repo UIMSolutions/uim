@@ -72,13 +72,13 @@ class Helper : IEventListener {
     mixin(TProperty!("string", "name"));
 
     // List of helpers used by this helper
-    protected array myhelpers = [];
+    protected array myhelpers = null;
 
     // Default config for this helper.
     protected IConfiguration _defaultConfiguration;
 
     // Loaded helper instances.
-    protected Helper[string] myhelperInstances = [];
+    protected Helper[string] myhelperInstances = null;
 
     // The View instance this helper is attached to
     protected IView _view;
@@ -150,7 +150,7 @@ class Helper : IEventListener {
             "View.afterLayout": "afterLayout",
         ];
 
-        auto myevents = [];
+        auto myevents = null;
         myeventMap.byKeyValue
             .filter!(eventMethod => method_exists(this, eventMethod.value))
             .each!(eventMethod => myevents[eventMethod.key] = eventMethod.value);

@@ -19,7 +19,7 @@ mixin template IdGeneratorTemplate() {
 
     // Clear the stored ID suffixes.
     protected void _clearIds() {
-       _idSuffixes = [];
+       _idSuffixes = null;
     }
     
     /**

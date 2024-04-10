@@ -140,7 +140,7 @@ class DPaginatorHelper : Helper {
         }
        configuration["options"] = array_filter(options + configuration["options"]);
         if (configuration.isEmpty("options/url"))) {
-           configuration["options/url"] = [];
+           configuration["options/url"] = null;
         }
     }
     
@@ -436,7 +436,7 @@ class DPaginatorHelper : Helper {
         if (!empty(mybaseUrl)) {
             myurl = Hash.merge(myurl, mybaseUrl);
         }
-        myurl["?"] ??= [];
+        myurl["?"] ??= null;
 
         if (!empty(configuration["options"]["routePlaceholders"])) {
             myplaceholders = array_flip(configuration["options"]["routePlaceholders"]);
@@ -899,7 +899,7 @@ class DPaginatorHelper : Helper {
             "last": BooleanData(false),
         ];
 
-        mylinks = [];
+        mylinks = null;
 
         if (options["prev"] && this.hasPrev()) {
             mylinks ~= this.Html.meta(

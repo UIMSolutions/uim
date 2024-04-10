@@ -303,7 +303,7 @@ class FormHelper : Helper {
             this.context(formContext);
         } else {
             if (options.isEmpty("context")) {
-                options["context"] = [];
+                options["context"] = null;
             }
             options["context"]["entity"] = formContext;
             formContext = _getContext(options["context"]);
@@ -346,7 +346,7 @@ class FormHelper : Helper {
        _lastAction(myurl);
         unset(options["url"], options["idPrefix"]);
 
-        myhtmlAttributes = [];
+        myhtmlAttributes = null;
         switch (options["type"].toLower) {
             case "get":
                 myhtmlAttributes["method"] = "get";
@@ -619,7 +619,7 @@ class FormHelper : Helper {
         myerror = formContext.error(myfield);
 
         if (mytext.isArray) {
-            mytmp = [];
+            mytmp = null;
             foreach (myerror as myKey: mye) {
                 if (isSet(mytext[myKey])) {
                     mytmp ~= mytext[myKey];
@@ -640,7 +640,7 @@ class FormHelper : Helper {
         }
         if (isArray(myerror)) {
             if (count(myerror) > 1) {
-                myerrorText = [];
+                myerrorText = null;
                 foreach (myerror as myerr) {
                     myerrorText ~= this.formatTemplate("errorItem", ["text": myerr]);
                 }
@@ -1056,7 +1056,7 @@ class FormHelper : Helper {
             case "multicheckbox":
                 myopts = options["options"];
                 if (myopts is null) {
-                    myopts = [];
+                    myopts = null;
                 }
                 unset(options["options"]);
 
@@ -1178,7 +1178,7 @@ class FormHelper : Helper {
     protected array<int|string, string> enumOptions(string enumClassname) {
         assert(isSubclass_of(enumClassname, BackedEnum.classname));
 
-        myvalues = [];
+        myvalues = null;
         /** @var \BackedEnum mycase */
         foreach (mycase; enumClassname.cases()) {
             myhasLabel = cast(IEnumLabel)mycase || method_exists(mycase, "label");
@@ -1663,7 +1663,7 @@ class FormHelper : Helper {
             this.formProtector = this.createFormProtector(myformTokenData);
         }
         
-        auto myfields = [];
+        auto myfields = null;
         if (isSet(options["data"]) && isArray(options["data"])) {
             Hash.flatten(options["data"]).each!((kv) {
                 myfields[kv.key] = kv.value;
@@ -2146,7 +2146,7 @@ class FormHelper : Helper {
             // Simple list options
             myfirst = options["options"][options["options"].keys[0]];
             if (isScalar(myfirst)) {
-                return array_diff(options["options"], options["disabled"]) == [];
+                return array_diff(options["options"], options["disabled"]) == null;
             }
             // Complex option types
             if (isArray(myfirst)) {

@@ -1,4 +1,4 @@
-module uim.controllers.components.flash;
+module controllers.uim.controllers.classes.components.flash;
 
 import uim.controllers;
 

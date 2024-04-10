@@ -1,4 +1,4 @@
-module uim.consoles\TestSuite;
+module uim.consoles.tests.stubconsoleinput;
 
 import uim.consoles;
 

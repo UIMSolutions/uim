@@ -104,7 +104,7 @@ class DEncryptedCookieMiddleware { // : IMiddleware {
     
     // Encode cookies from a response`s Set-Cookie header
     protected IResponse encodeSetCookieHeader(IResponse response) {
-        auto aHeader = [];
+        auto aHeader = null;
         auto cookies = CookieCollection.createFromHeader(response.getHeader("Set-Cookie"));
         cookies.each!((cookie) {
             if (in_array(cookie.name, this.cookieNames, true)) {

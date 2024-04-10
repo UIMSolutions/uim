@@ -98,7 +98,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
             override &&
             !in_array(request.getMethod(), ["PUT", "POST", "DELETE", "PATCH"], true)
         ) {
-            parsedBody = [];
+            parsedBody = null;
         }
         return request.withParsedBody(parsedBody);
     }

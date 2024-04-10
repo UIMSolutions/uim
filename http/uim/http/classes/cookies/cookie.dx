@@ -227,7 +227,7 @@ class DCookie : ICookie {
 
             aValue = _flatten(aValue);
         }
-        aHeaderValue = [];
+        aHeaderValue = null;
         aHeaderValue ~= "%s=%s".format(this.name, rawurlencode(aValue));
 
         if (this.expiresAt) {
@@ -561,7 +561,7 @@ class DCookie : ICookie {
         if (first == "{" || first == "[") {
             return IData_decode(string, true) ?? string;
         }
-        array = [];
+        array = null;
         foreach (split(",", string) as pair) {
             string[] aKey = split("|", pair);
             if (!isSet(aKey[1])) {

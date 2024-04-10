@@ -255,14 +255,14 @@ class DOauth
         aQuery = parse_url((string)request.getUri(), UIM_URL_QUERY);
         parse_str((string)aQuery, aQueryArgs);
 
-        post = [];
+        post = null;
         string contentType = request.getHeaderLine("Content-Type");
         if (contentType.isEmpty || contentType == "application/x-www-form-urlencoded") {
             parse_str(to!string(request.getBody()), post);
         }
         someArguments = chain(aQueryArgs, oauthValues, post);
         pairs = _normalizeData(someArguments);
-        someData = [];
+        someData = null;
         foreach (pairs as pair) {
             someData ~= join("=", pair);
         }
@@ -279,7 +279,7 @@ class DOauth
      * @see https://tools.ietf.org/html/rfc5849#section-3.4.1.3.2
      * /
     protected array _normalizeData(array someArguments, string aPath= null) {
-        someData = [];
+        someData = null;
         foreach (someArguments as aKey: aValue) {
             if (somePath) {
                 // Fold string keys with [].

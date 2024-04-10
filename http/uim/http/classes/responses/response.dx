@@ -343,7 +343,7 @@ class DResponse : IResponse {
      *
      * @var array<int>
      */
-    protected array _fileRange = [];
+    protected array _fileRange = null;
 
     /**
      * The charset the response body is encoded with
@@ -354,7 +354,7 @@ class DResponse : IResponse {
      * Holds all the cache directives that will be converted
      * into headers when sending the request
      */
-    protected IData[string] _cacheDirectives = [];
+    protected IData[string] _cacheDirectives = null;
 
     /**
      * Collection of cookies to send to the client

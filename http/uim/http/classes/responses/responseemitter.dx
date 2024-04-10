@@ -135,7 +135,7 @@ class DResponseEmitter {
      * \Psr\Http\Message\IResponse response The response to emit
      */
     protected void emitHeaders(IResponse response) {
-        auto cookies = [];
+        auto cookies = null;
         if (cast(Response)response) {
             cookies = iterator_to_array(response.getCookieCollection());
         }

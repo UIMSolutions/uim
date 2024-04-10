@@ -29,24 +29,24 @@ class DServerRequest { // }: IServerRequest {
      *
      * @var object|array|null
      * /
-    protected object|array|null someData = [];
+    protected object|array|null someData = null;
 
     /**
      * Array of query string arguments
      *
      * @var array
      * /
-    protected array aQuery = [];
+    protected array aQuery = null;
 
     /**
      * Array of cookie data.
      * /
-    protected IData[string] cookies = [];
+    protected IData[string] cookies = null;
 
     /**
      * Array of environment data.
      * /
-    protected IData[string] _environment = [];
+    protected IData[string] _environment = null;
 
     /**
      * Base URL path.
@@ -68,7 +68,7 @@ class DServerRequest { // }: IServerRequest {
     /**
      * Trusted proxies list
      * /
-    protected string[] trustedProxies = [];
+    protected string[] trustedProxies = null;
 
     /**
      * The built in detectors used with `is()` can be modified with `addDetector()`.
@@ -102,7 +102,7 @@ class DServerRequest { // }: IServerRequest {
      *
      * @var array<string, bool>
      * /
-    protected array _detectorCache = [];
+    protected array _detectorCache = null;
 
     /**
      * Request body stream. Contains php://input unless `input` constructor option is used.
@@ -135,7 +135,7 @@ class DServerRequest { // }: IServerRequest {
     /**
      * Store the additional attributes attached to the request.
      * /
-    protected IData[string] attributes = [];
+    protected IData[string] attributes = null;
 
     /**
      * A list of properties that emulated by the PSR7 attribute methods.
@@ -147,7 +147,7 @@ class DServerRequest { // }: IServerRequest {
      *
      * @var array
      * /
-    protected array uploadedFiles = [];
+    protected array uploadedFiles = null;
 
     /**
      * The HTTP protocol version used.
@@ -426,7 +426,7 @@ class DServerRequest { // }: IServerRequest {
     
     // Clears the instance detector cache, used by the is() function
     void clearDetectorCache() {
-       _detectorCache = [];
+       _detectorCache = null;
     }
     
     /**
@@ -672,7 +672,7 @@ class DServerRequest { // }: IServerRequest {
      * the headers.
      * /
     STRINGAA getHeaders() {
-        STRINGAA result = [];
+        STRINGAA result = null;
         _environment.byKeyValue
             .each!((kv) => {
             string name = null;
@@ -754,7 +754,7 @@ class DServerRequest { // }: IServerRequest {
     {
         new = clone this;
         name = this.normalizeHeaderName(name);
-        existing = [];
+        existing = null;
         if (isSet(new._environment[name])) {
             existing = (array)new._environment[name];
         }
@@ -938,7 +938,7 @@ class DServerRequest { // }: IServerRequest {
         if (type) {
             return content.preferredType(this, [type]) !isNull;
         }
-        accept = [];
+        accept = null;
         foreach (content.parseAccept(this) as types) {
             accept = array_merge(accept, types);
         }
@@ -1065,7 +1065,7 @@ class DServerRequest { // }: IServerRequest {
      * /
     static withCookieCollection(CookieCollection cookies) {
         new = clone this;
-         someValues = [];
+         someValues = null;
         foreach (cookies as cookie) {
              someValues[cookie.name] = cookie.getValue();
         }

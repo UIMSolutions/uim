@@ -36,7 +36,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * @param IData[string] defaults The defaults attributes.
      * /
     static auto createFromHeader(string[] headerValues, IData[string] defaultAttributes = null) {
-        cookies = [];
+        cookies = null;
         headerValues.each!((value) {
             try {
                 cookies ~= Cookie.createFromHeaderString(value, defaultAttributes);
@@ -54,7 +54,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * /
     static static createFromServerRequest(IServerRequest serverRequest) {
         someData = request.getCookieParams();
-        cookies = [];
+        cookies = null;
         foreach (someData as name: aValue) {
             cookies ~= new DCookie((string)name, aValue);
         }
@@ -194,7 +194,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
             anUri.getPath() ?: '/'
         );
         cookies = extraCookies + cookies;
-        cookiePairs = [];
+        cookiePairs = null;
         foreach (cookies as aKey: aValue) {
             cookie = "%s=%s".format(rawurlencode((string)aKey), rawurlencode(aValue));
             size = cookie.length;

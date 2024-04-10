@@ -65,16 +65,16 @@ class DRulesChecker {
     protected RuleInvoker[] _rules;
 
     // The list of rules to check during create operations
-    protected RuleInvoker[] _createRules = [];
+    protected RuleInvoker[] _createRules = null;
 
     // The list of rules to check during update operations
-    protected RuleInvoker[] _updateRules = [];
+    protected RuleInvoker[] _updateRules = null;
 
     // The list of rules to check during delete operations
-    protected RuleInvoker[] _deleteRules = [];
+    protected RuleInvoker[] _deleteRules = null;
 
     // List of options to pass to every callable rule
-    protected array _options = [];
+    protected array _options = null;
 
     // Whether to use I18n functions for translating default error messages
     protected bool _useI18n = false;

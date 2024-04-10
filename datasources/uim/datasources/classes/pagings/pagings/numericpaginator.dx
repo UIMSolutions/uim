@@ -248,7 +248,7 @@ class DNumericPaginator : IPaginator {
         );
 
         if (aQuery is null) {
-            someArguments = [];
+            someArguments = null;
             type = !empty(options["finder"]) ? options["finder"] : "all";
             if (isArray(type)) {
                 someArguments = (array)current(type);
@@ -502,7 +502,7 @@ class DNumericPaginator : IPaginator {
         unset(options["direction"]);
 
         if (isEmpty(options["order"])) {
-            options["order"] = [];
+            options["order"] = null;
         }
         if (!isArray(options["order"])) {
             return options;
@@ -512,7 +512,7 @@ class DNumericPaginator : IPaginator {
             field = key(options["order"]);
             sortAllowed = in_array(field, options["sortableFields"], true);
             if (!sortAllowed) {
-                options["order"] = [];
+                options["order"] = null;
                 options["sort"] = null;
 
                 return options;
@@ -569,7 +569,7 @@ class DNumericPaginator : IPaginator {
      */
     protected array _prefix(IRepository object, array order, bool allowed = false) {
         aTableAlias = object.aliasName();
-        aTableOrder = [];
+        aTableOrder = null;
         foreach ( order as aKey: aValue) {
             if (isNumeric(aKey)) {
                 aTableOrder ~= aValue;

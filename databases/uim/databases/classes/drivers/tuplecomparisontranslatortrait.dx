@@ -60,7 +60,7 @@ mixin template TupleComparisonTranslatorTemplate() {
             /** @var STRINGAA typeMap */
             typeMap = array_combine(fields, myType) ?  : [];
         } else {
-            typeMap = [];
+            typeMap = null;
         }
         surrogate = aQuery.getConnection()
             .selectQuery()
@@ -71,7 +71,7 @@ mixin template TupleComparisonTranslatorTemplate() {
         }
         conditions = ["OR": ArrayData];
         aValue.each!((tuple) {
-            auto items = []; foreach (anI : value2; tuple.values) {
+            auto items = null; foreach (anI : value2; tuple.values) {
                 items ~= [fields[anI]: value2];}
                 conditions["OR"] ~= items;});
                 surrogate.where(conditions, typeMap);

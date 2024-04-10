@@ -52,7 +52,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
     protected string avalueType = null;
 
     // The `WHEN ... THEN ...` expressions.
-    protected DWhenThenExpression[]  when = [];
+    protected DWhenThenExpression[]  when = null;
 
     /**
      * Buffer that holds values and types for use with `then()`.
@@ -402,7 +402,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
             return this.returnType;
         }
         
-        auto types = [];
+        auto types = null;
         foreach ( when; this.when as) {
             type =  when.getResultType();
             if (type !isNull) {

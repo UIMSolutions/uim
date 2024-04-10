@@ -60,7 +60,7 @@ abstract class DAbstractLocator : ILocator {
     }
  
     void clear() {
-        this.instances = [];
-        this.options = [];
+        this.instances = null;
+        this.options = null;
     }
 }

@@ -120,7 +120,7 @@ class DConsoleFormatter : IErrorFormatter {
          result = this.style("punct", "[");
         break = "\n" ~ str_repeat("  ",  anIndent);
         end = "\n" ~ str_repeat("  ",  anIndent - 1);
-        vars = [];
+        vars = null;
 
         auto arrow = this.style("punct", ": ");
         arrayToExport.getChildren().each!((item) {
@@ -142,7 +142,7 @@ class DConsoleFormatter : IErrorFormatter {
      * @param int  anIndent Current indentation level.
      * /
     protected string exportObject(ClassNode|ReferenceNode var, int  anIndent) {
-        props = [];
+        props = null;
 
         if (cast(ReferenceNode)var) {
             return this.style("punct", "object(") ~

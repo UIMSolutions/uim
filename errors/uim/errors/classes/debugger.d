@@ -57,7 +57,7 @@ class DDebugger {
     ];
 
     //Holds current output data when outputFormat is false.
-    protected array _data = [];
+    protected array _data = null;
 
     this() {
         docRef = ini_get("docref_root");
@@ -78,7 +78,7 @@ class DDebugger {
      * /
     static static getInstance(string className = null) {
         /** @var array<int, static>  anInstance * /
-        static  anInstance = [];
+        static  anInstance = null;
         if (className) {
             if (!anInstance || strtolower(className) != get_class(anInstance[0]).toLower) {
                  anInstance[0] = new className();
@@ -303,7 +303,7 @@ class DDebugger {
         options = Hash.merge(defaults, options);
 
         count = count(backtrace) + 1;
-        back = [];
+        back = null;
 
         for (anI = options["start"];  anI < count &&  anI < options["depth"];  anI++) {
             frame = ["file": "[main]", "line": ""];
@@ -315,7 +315,7 @@ class DDebugger {
                 signature = frame["class"] ~ frame["type"] ~ frame["function"];
                 reference = signature ~ "(";
                 if (options["args"] && isSet(frame["args"])) {
-                    someArguments = [];
+                    someArguments = null;
                     foreach (frame["args"] as arg) {
                         someArguments ~= Debugger.exportVar(arg);
                     }
@@ -384,7 +384,7 @@ class DDebugger {
      * @param int context Number of lines of context to extract above and below line.
      * /
     static string[] excerpt(string afile, int line, int context = 2) {
-        lines = [];
+        lines = null;
         if (!file_exists(file)) {
             return null;
         }
@@ -554,7 +554,7 @@ class DDebugger {
      * @return \UIM\Error\Debug\ArrayNode Exported array.
      * /
     protected static ArrayNode exportArray(array var, DebugContext context) {
-        someItems = [];
+        someItems = null;
 
         remaining = context.remainingDepth();
         if (remaining >= 0) {

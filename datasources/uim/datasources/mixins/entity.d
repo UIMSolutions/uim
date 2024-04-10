@@ -42,26 +42,26 @@ template DatasourceEntityCalls(string name) {
 * /
 mixin template TEntity() {
   // Holds all fields and their values for this entity.
-  protected IData[string] _fields = [];
+  protected IData[string] _fields = null;
 
   // Holds all fields that have been changed and their original values for this entity.
-  protected IData _original = [];
+  protected IData _original = null;
 
   // Holds all fields that have been initially set on instantiation, or after marking as clean
-  protected string[] _originalFields = [];
+  protected string[] _originalFields = null;
 
   /**
      * List of field names that should **not** be included in IData or Array
      * representations of this Entity.
     * /
-  protected string[] _hidden = [];
+  protected string[] _hidden = null;
 
   /**
      * List of computed or virtual fields that **should** be included in IData or array
      * representations of this Entity. If a field is present in both _hidden and _virtual
      * the field will **not** be in the array/IData versions of the entity.
     * /
-  protected string[] _virtual = [];
+  protected string[] _virtual = null;
 
   /**
      * Holds a list of the fields that were modified or added after this object
@@ -74,7 +74,7 @@ mixin template TEntity() {
      *
      * @var array<string, array<string, STRINGAA>>
     * /
-  protected static array _accessors = [];
+  protected static array _accessors = null;
 
   /**
      * Indicates whether this entity is yet to be persisted.
@@ -511,7 +511,7 @@ mixin template TEntity() {
     foreach (this.getVisible() asfield) {
       aValue = get(field);
       if (isArray(aValue)) {
-        result[field] = [];
+        result[field] = null;
         aValue.byKeyValue
           .each!(keyEntity => result[field][keyEntity.key] = cast(IEntity) keyEntity.value
               ? entity.toArray() : entity);
@@ -735,9 +735,9 @@ mixin template TEntity() {
     * /
     void clean() {
       _isDirty = false;
-      _fieldErrors = [];
-      _invalidFields = [];
-      _original = [];
+      _fieldErrors = null;
+      _invalidFields = null;
+      _original = null;
       this.setOriginalField(_fields.keys, false);
     }
 

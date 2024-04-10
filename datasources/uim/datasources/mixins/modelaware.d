@@ -26,7 +26,7 @@ mixin template TModelAware() {
     protected string amodelClass = null;
 
     // A list of overridden model factory functions.
-    protected ILocator[] _modelFactories = [];
+    protected ILocator[] _modelFactories = null;
 
     // The model type to use.
     protected string _modelType = "Table";
@@ -66,7 +66,7 @@ mixin template TModelAware() {
         }
         modelType ??= this.getModelType();
 
-        auto options = [];
+        auto options = null;
         if (strpos(modelClass, "\\") == false) {
             [, alias] = pluginSplit(modelClass, true);
         } else {

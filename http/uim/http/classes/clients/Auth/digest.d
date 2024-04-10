@@ -37,7 +37,7 @@ class DDigest {
     ];
 
     // Instance of UIM\Http\Client
-    protected DClient _client;
+    protected IClient _client;
 
     // Algorithm
     protected string aalgorithm;

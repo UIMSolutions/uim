@@ -60,7 +60,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
     protected string _schemaClassname; //TODO = Schema.className;
     
     // The schema used by this form.
-    protected DSchema _schema = null;
+    protected ISchema _schema = null;
 
     // Set the schema for this form.
     void setSchema(DSchema newSchema) {
@@ -128,7 +128,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
      * Params:
      * \UIM\Form\Schema tableSchema The schema to customize.
      * /
-    protected DSchema _buildSchema(Schema tableSchema) {
+    protected ISchema _buildSchema(Schema tableSchema) {
         return tableSchema;
     }
     

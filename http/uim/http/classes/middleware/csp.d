@@ -41,7 +41,7 @@ class DCspMiddleware { // }: IMiddleware {
      *
      * @var \ParagonIE\CSPBuilder\CSPBuilder csp CSP Builder or config array
      * /
-    protected DCSPBuilder csp;
+    protected ICSPBuilder csp;
 
     // Configuration options.
     configuration.updateDefaults([

@@ -120,7 +120,7 @@ class DClient { // }: IClient {
      * Cookies are indexed by the cookie`s domain or
      * request host name.
      * /
-  protected DCookieCollection my_cookies;
+  protected ICookieCollection my_cookies;
 
   // Mock adapter for stubbing requests in tests.
   protected static MockAdapter my_mockAdapter = null;

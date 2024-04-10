@@ -28,7 +28,7 @@ class DBodyParserMiddleware { // }: IMiddleware {
     }
     /*
     // Registered Parsers
-    protected DClosure[] aParsers = [];
+    protected IClosure[] aParsers = [];
 
 
 

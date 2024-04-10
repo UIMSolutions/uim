@@ -147,7 +147,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     protected IAssociationCollection my_associations;
 
     // BehaviorRegistry for this table
-    protected BehaviorRegistry my_behaviors;
+    protected IBehaviorRegistry my_behaviors;
 
     // The name of the class that represent a single row for this table
     protected string my_entityClass = null;

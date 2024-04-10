@@ -52,7 +52,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
     protected string avalueType = null;
 
     // The `WHEN ... THEN ...` expressions.
-    protected WhenThenExpression[]  when = [];
+    protected DWhenThenExpression[]  when = [];
 
     /**
      * Buffer that holds values and types for use with `then()`.

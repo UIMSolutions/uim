@@ -1,4 +1,4 @@
-module uim.consoles.classes.helpformatter;
+module consoles.uim.consoles.classes.helpformatter;
 
 import uim.consoles;
 
@@ -32,6 +32,7 @@ class DHelpFormatter {
     }
 
     mixin(TProperty!("string", "name"));
+
     // The maximum number of arguments shown when generating usage.
     protected int _maxArgs = 6;
 
@@ -48,7 +49,7 @@ class DHelpFormatter {
      * Build the help formatter for an OptionParser
      * Params:
      * \UIM\Console\DConsoleOptionParser buildOptionParser myParser The option parser help is being generated for.
-     */
+     * /
     this(DConsoleOptionParser buildOptionParser myParser) {
        _parser = myParser;
     }
@@ -109,7 +110,7 @@ class DHelpFormatter {
      * Generate the usage for a shell based on its arguments and options.
      * Usage strings favor short options over the long ones. and optional args will
      * be indicated with []
-     */
+     * /
     protected string _generateUsage() {
         string[] usage = [_alias ~ " " ~ _parser.getCommand()];
         auto options = _parser.options()
@@ -136,7 +137,7 @@ class DHelpFormatter {
      * Iterate over a collection and find the longest named thing.
      * Params:
      * array<\UIM\Console\ConsoleInputOption|\UIM\Console\> collection The collection to find a max length of.
-     */
+     * /
     protected int _getMaxLength(ConsoleInputArgument[] collection) {
         int result = 0;
         collection
@@ -148,7 +149,7 @@ class DHelpFormatter {
      * Get the help as an XML string.
      * Params:
      * bool string Return the SimpleXml object or a string. Defaults to true.
-     */
+     * /
     SimpleXMLElement|string xml(bool string = true) {
         auto myParser = _parser;
         xml = new DSimpleXMLElement("<shell></shell>");
@@ -165,5 +166,5 @@ class DHelpFormatter {
 
         return string ? to!string($xml.asXML()#)
             : xml;
-    }
+    } */
 }

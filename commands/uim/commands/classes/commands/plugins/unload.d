@@ -23,7 +23,7 @@ class DPluginUnloadCommand : DCommand {
     }
 
     override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
-        return suoer(arguments, aConsoleIo);
+        return suoer.execute(arguments, aConsoleIo);
     }
 
     /* 

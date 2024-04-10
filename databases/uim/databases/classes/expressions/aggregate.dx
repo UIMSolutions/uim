@@ -14,7 +14,7 @@ import uim.databases;
 class DAggregateExpression : DFunctionExpression, IWindow {
     protected QueryExpression filter = null;
 
-    protected WindowExpression  window = null;
+    protected DWindowExpression  window = null;
 
     /**
      * Adds conditions to the FILTER clause. The conditions are the same format as
@@ -96,7 +96,7 @@ class DAggregateExpression : DFunctionExpression, IWindow {
     /**
      * Returns or creates WindowExpression for function.
      */
-    protected WindowExpression getWindow() {
+    protected DWindowExpression getWindow() {
         return this.window ??= new WindowExpression();
     }
     string sql(ValueBinder aBinder) {

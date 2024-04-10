@@ -49,7 +49,7 @@ class DSocket {
     protected boolconnected = false;
 
     // This variable contains an array with the last error number (num) and string (str)
-    protected IData[string]lastError = [];
+    protected IData[string]lastError = null;
 
     // True if the socket stream is encrypted after a {@link \UIM\Network\Socket.enableCrypto()} call
     protected boolencrypted = false;
@@ -74,7 +74,7 @@ class DSocket {
      * Used to capture connection warnings which can happen when there are
      * SSL errors for example.
      */
-    protected string[] _connectionErrors = [];
+    protected string[] _connectionErrors = null;
 
     /**
      * Constructor.
@@ -401,7 +401,7 @@ class DSocket {
      */
         void reset(arraystate = null) {
             if (state.isEmpty) {
-                static anInitialState = [];
+                static anInitialState = null;
                 if (isEmpty(anInitialState)) {
                     anInitialState = get_class_vars(self.classname);
                 }

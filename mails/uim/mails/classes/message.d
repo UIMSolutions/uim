@@ -127,19 +127,19 @@ class DMessage { //: IDataSerializable {
 
     /* 
     // Recipient of the email
-    protected array to = [];
+    protected array to = null;
 
     // The mail which the email is sent fro
-    protected array from = [];
+    protected array from = null;
 
     // The sender email
-    protected array sender = [];
+    protected array sender = null;
 
     // List of email(s) that the recipient will reply to
-    protected array replyTo = [];
+    protected array replyTo = null;
 
     // The read receipt emai
-    protected array readReceipt = [];
+    protected array readReceipt = null;
 
     /**
      * The mail that will be used in case of any errors like
@@ -147,7 +147,7 @@ class DMessage { //: IDataSerializable {
      * - Remote user has exceeded his quota
      * - Unknown user
      * /
-    protected array resultPath = [];
+    protected array resultPath = null;
 
     /**
      * Carbon Copy
@@ -155,7 +155,7 @@ class DMessage { //: IDataSerializable {
      * List of email"s that should receive a copy of the email.
      * The Recipient WILL be able to see this list
       * /
-    protected array cc = [];
+    protected array cc = null;
 
     /**
      * Blind Carbon Copy
@@ -163,14 +163,14 @@ class DMessage { //: IDataSerializable {
      * List of email"s that should receive a copy of the email.
      * The Recipient WILL NOT be able to see this list
      * /
-    protected array bcc = [];
+    protected array bcc = null;
 
 
     /**
      * Associative array of a user defined headers
      * Keys will be prefixed "X-" as per RFC2822 Section 4.7.5
      * /
-    protected array  aHeaders = [];
+    protected array  aHeaders = null;
 
     // Text message
     protected string atextMessage = "";
@@ -179,7 +179,7 @@ class DMessage { //: IDataSerializable {
     protected string ahtmlMessage = "";
 
     // Final message to send
-    protected array message = [];
+    protected array message = null;
 
  
 
@@ -502,7 +502,7 @@ class DMessage { //: IDataSerializable {
 
             return;
         }
-        list = [];
+        list = null;
         email.byKeyValue.each!((kv) {
             if (isInt(kv.key)) {
                 kv.key = kv.value;
@@ -573,7 +573,7 @@ class DMessage { //: IDataSerializable {
 
             return;
         }
-        list = [];
+        list = null;
         emailValue.byKeyValue
             .each!((kv) {
                 if (isInt(aKey)) {
@@ -663,7 +663,7 @@ class DMessage { //: IDataSerializable {
         );
          anInclude += defaults;
 
-         aHeaders = [];
+         aHeaders = null;
         relation = [
             "from": "From",
             "replyTo": "Reply-To",
@@ -735,7 +735,7 @@ class DMessage { //: IDataSerializable {
             lines = array_map(aCallback, lines);
         }
         
-        auto aHeaders = [];
+        auto aHeaders = null;
         foreach (aKey: aValue; lines) {
             if (isEmpty(aValue) && aValue != "0") {
                 continue;
@@ -888,7 +888,7 @@ class DMessage { //: IDataSerializable {
      * attachment compatibility with outlook email clients.
      * /
     void setAttachments(DirEntry[string] fileAttachments) {
-        auto attach = [];
+        auto attach = null;
         foreach (attName; dirEntry; fileAttachments) {
             if (!isArray(dirEntry)) {
                 dirEntry = ["file": dirEntry];
@@ -1078,7 +1078,7 @@ class DMessage { //: IDataSerializable {
     protected string[] attachFiles(string aboundary = null) {
         boundary ??= this.boundary;
 
-        message = [];
+        message = null;
         foreach (this.attachments as filename: dirEntry) {
             if (!empty(dirEntry["contentId"])) {
                 continue;
@@ -1112,7 +1112,7 @@ class DMessage { //: IDataSerializable {
     protected string[] attachInlineFiles(string aboundary = null) {
         auto boundary = boundary ? baoundry :  this.boundary;
 
-        auto message = [];
+        auto message = null;
         foreach (this.getAttachments() as filename: dirEntry) {
             if (isEmpty(dirEntry["contentId"])) {
                 continue;
@@ -1192,7 +1192,7 @@ class DMessage { //: IDataSerializable {
             this. aProperty = text;
         }
         this.boundary = null;
-        this.message = [];
+        this.message = null;
 
         return this;
     }
@@ -1262,7 +1262,7 @@ class DMessage { //: IDataSerializable {
         }
         message = message.replace(["\r\n", "\r"], "\n");
         string[] lines = split("\n", message);
-        formatted = [];
+        formatted = null;
         cut = (wrapLength == LINE_LENGTH_MUST);
 
         foreach (lines as line) {
@@ -1360,26 +1360,26 @@ class DMessage { //: IDataSerializable {
     
     // Reset all the internal variables to be able to send out a new email.
     auto reset() {
-        _to = [];
-        _from = [];
-        _sender = [];
-        _replyTo = [];
-        _readReceipt = [];
-        _returnPath = [];
-        _cc = [];
-        _bcc = [];
+        _to = null;
+        _from = null;
+        _sender = null;
+        _replyTo = null;
+        _readReceipt = null;
+        _returnPath = null;
+        _cc = null;
+        _bcc = null;
         _messageId = true;
         _subject = "";
-        _headers = [];
+        _headers = null;
         _textMessage = "";
         _htmlMessage = "";
-        _message = [];
+        _message = null;
         _emailFormat = MESSAGE_TEXT;
         _priority = null;
         _charset = "utf-8";
         _headerCharset = null;
         _transferEncoding = null;
-        _attachments = [];
+        _attachments = null;
         _emailPattern = EMAIL_PATTERN;
 
         return this;
@@ -1471,7 +1471,7 @@ class DMessage { //: IDataSerializable {
      * @throws \Exception When a view var object can not be properly serialized.
      * /
     array IDataSerialize() {
-        array = [];
+        array = null;
         foreach (this.serializableProperties as  aProperty) {
             array[aProperty] = this.{ aProperty};
         }

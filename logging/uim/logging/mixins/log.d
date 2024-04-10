@@ -4,7 +4,7 @@ import uim.logging;
 
 @safe:
 // Template providing an object short-cut method to logging.
-mixin template LogTemplate() {
+mixin template TLog() {
     /**
      * Convenience method to write a message to Log. See Log.write()
      * for more information on writing to logs.

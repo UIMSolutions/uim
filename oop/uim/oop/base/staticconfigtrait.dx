@@ -17,7 +17,7 @@ template StaticConfigTemplate() {
      *
      * @var array<string|int, IData[string]>
      */
-    protected static array _config = [];
+    protected static array _config = null;
 
     /**
      * This method can be used to define configuration adapters for an application.
@@ -206,7 +206,7 @@ REGEXP;
         if (!parsed) {
             throw new DInvalidArgumentException("The DSN string `%s` could not be parsed.".format(dsn));
         }
-        exists = [];d
+        exists = null;d
         /**
          * @var string|int myKey
          */

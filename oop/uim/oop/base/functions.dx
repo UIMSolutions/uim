@@ -25,7 +25,7 @@ if (!function_exists("UIM\Core\h")) {
         if (isString(text)) {
             //optimize for strings
         } else if (isArray(text)) {
-            texts = [];
+            texts = null;
             foreach (myKey: t; text).byKeyValu {
                 texts[myKey] = htmlAttribEscape(t, double, charset);
             }
@@ -247,7 +247,7 @@ if (!function_exists("UIM\Core\deprecationWarning")) {
                     relative
                 );
         }
-        static errors = [];
+        static errors = null;
         checksum = md5(message);
         
         bool isDuplicate = (bool)Configure.read("Error.allowDuplicateDeprecations", false);

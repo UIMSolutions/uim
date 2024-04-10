@@ -24,7 +24,7 @@ import uim.oop;
  */
 abstract class ObjectRegistry : Countable, IteratorAggregate {
   // Map of loaded objects.
-  protected Object[string] _loaded = [];
+  protected Object[string] _loaded = null;
 
   /**
      * Loads/constructs an object instance.
@@ -200,11 +200,11 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
      * array objects Array of child objects to normalize.
      */
   array < string, array > normalizeArray(Object[] objects) {
-    normal = [];
+    normal = null;
     foreach (objectName, configData; objects) {
       if (isInt(objectName)) {
         objectName = configData;
-        configData = [];
+        configData = null;
       }
 
       [plugin, name] = pluginSplit(objectName);

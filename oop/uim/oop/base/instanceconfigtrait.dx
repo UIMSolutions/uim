@@ -11,7 +11,7 @@ import uim.oop;
  */
 template InstanceConfigTemplate() {
     // Runtime config
-    protected IData[string] _config = [];
+    protected IData[string] _config = null;
 
     // Whether the config property has already been configured with defaults
     protected bool _configInitialized = false;

@@ -5,7 +5,7 @@ module uim.Log;
  *
  * @extends \UIM\Core\ObjectRegistry<\Psr\Log\ILogger>
  */
-class LogEngineRegistry : ObjectRegistry {
+class DLogEngineRegistry : ObjectRegistry {
     /**
      * Resolve a logger classname.
      *

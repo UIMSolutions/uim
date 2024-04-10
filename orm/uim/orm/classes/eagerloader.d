@@ -1,11 +1,8 @@
-module uim.orm;
+module uim.orm.classes.eagerloader;
 
 import uim.orm;
 
 @safe:
-
-/
-
 
 /**
  * Exposes the methods for storing the associations that should be eager loaded
@@ -13,14 +10,13 @@ import uim.orm;
  * required joins and decorating the results so that those associations can be
  * part of the result set.
  */
-class DEagerLoader
-{
+class DEagerLoader {
     /**
      * Nested array describing the association to be fetched
      * and the options to apply for each of them, if any
      *
      * @var array<string, mixed>
-     */
+     * /
     protected _containments = null;
 
     /**
@@ -28,7 +24,7 @@ class DEagerLoader
      * This is a normalized version of the user provided containments array.
      *
      * @var DORMEagerLoadable|array<DORMEagerLoadable>|null
-     */
+     * /
     protected _normalized;
 
     /**
@@ -36,7 +32,7 @@ class DEagerLoader
      * index by key for faster access
      *
      * @var array<string, int>
-     */
+     * /
     protected _containOptions = [
         "associations": 1,
         "foreignKey": 1,
@@ -55,21 +51,21 @@ class DEagerLoader
      * A list of associations that should be loaded with a separate query
      *
      * @var array<DORMEagerLoadable>
-     */
+     * /
     protected _loadExternal = null;
 
     /**
      * Contains a list of the association names that are to be eagerly loaded
      *
      * @var array
-     */
+     * /
     protected _aliasList = null;
 
     /**
      * Another EagerLoader instance that will be used for "matching" associations.
      *
      * @var DORMEagerLoader|null
-     */
+     * /
     protected _matching;
 
     /**
@@ -77,14 +73,14 @@ class DEagerLoader
      * for the query.
      *
      * @var array<string, DORMEagerLoadable>
-     */
+     * /
     protected _joinsMap = null;
 
     /**
      * Controls whether fields from associated tables
      * will be eagerly loaded. When set to false, no fields will
      * be loaded from associations.
-     */
+     * /
     protected bool _autoFields = true;
 
     /**
@@ -114,7 +110,7 @@ class DEagerLoader
      * @param callable|null queryBuilder The query builder callable
      * @return array Containments.
      * @throws \InvalidArgumentException When using queryBuilder with an array of associations
-     */
+     * /
     array contain(associations, ?callable queryBuilder = null) {
         if (queryBuilder) {
             if (!(associations.isString) {
@@ -146,7 +142,7 @@ class DEagerLoader
      * Table API.
      *
      * @return array Containments.
-     */
+     * /
     array getContain() {
         return _containments;
     }
@@ -156,7 +152,7 @@ class DEagerLoader
      *
      * This will reset/clear out any contained associations that were not
      * added via matching().
-     */
+     * /
     void clearContain() {
         _containments = null;
         _normalized = null;
@@ -169,7 +165,7 @@ class DEagerLoader
      *
      * @param bool enable The value to set.
      * @return this
-     */
+     * /
     function enableAutoFields(bool enable = true) {
         _autoFields = enable;
 
@@ -180,7 +176,7 @@ class DEagerLoader
      * Disable auto loading fields of contained associations.
      *
      * @return this
-     */
+     * /
     function disableAutoFields() {
         _autoFields = false;
 
@@ -191,7 +187,7 @@ class DEagerLoader
      * Gets whether contained associations will load fields automatically.
      *
      * @return bool The current value.
-     */
+     * /
     bool isAutoFieldsEnabled() {
         return _autoFields;
     }
@@ -214,7 +210,7 @@ class DEagerLoader
      * options to the filtering query
      * @param array<string, mixed> options Extra options for the association matching.
      * @return this
-     */
+     * /
     function setMatching(string associationPath, ?callable builder = null, IData[string] optionData = null) {
         if (_matching == null) {
             _matching = new static();
@@ -243,7 +239,7 @@ class DEagerLoader
      * Returns the current tree of associations to be matched.
      *
      * @return array The resulting containments array
-     */
+     * /
     array getMatching() {
         if (_matching == null) {
             _matching = new static();
@@ -266,7 +262,7 @@ class DEagerLoader
      *
      * @param DORMTable repository The table containing the association that
      * will be normalized
-     */
+     * /
     array normalized(Table repository) {
         if (_normalized != null || empty(_containments)) {
             return (array)_normalized;
@@ -297,7 +293,7 @@ class DEagerLoader
      * @param array associations user provided containments array
      * @param array original The original containments array to merge
      * with the new one
-     */
+     * /
     protected array _reformatContain(array associations, array original) {
         result = original;
 
@@ -353,7 +349,7 @@ class DEagerLoader
             }
 
             if (!(options.isArray) {
-                /** @psalm-suppress InvalidArrayOffset */
+                /** @psalm-suppress InvalidArrayOffset * /
                 options = [options: []];
             }
 
@@ -374,7 +370,7 @@ class DEagerLoader
      * @param bool includeFields whether to append all fields from the associations
      * to the passed query. This can be overridden according to the settings defined
      * per association in the containments array
-     */
+     * /
     void attachAssociations(Query query, Table repository, bool includeFields) {
         if (empty(_containments) && _matching == null) {
             return;
@@ -406,7 +402,7 @@ class DEagerLoader
      * @param DORMTable repository The table containing the associations to be
      * attached
      * @return array<DORMEagerLoadable>
-     */
+     * /
     array attachableAssociations(Table repository) {
         contain = this.normalized(repository);
         matching = _matching ? _matching.normalized(repository) : [];
@@ -423,7 +419,7 @@ class DEagerLoader
      * @param DORMTable repository The table containing the associations
      * to be loaded
      * @return array<DORMEagerLoadable>
-     */
+     * /
     array externalAssociations(Table repository) {
         if (_loadExternal) {
             return _loadExternal;
@@ -447,7 +443,7 @@ class DEagerLoader
      * entities" properties to fetch a record of the corresponding association.
      * @return DORMEagerLoadable Object with normalized associations
      * @throws \InvalidArgumentException When containments refer to associations that do not exist.
-     */
+     * /
     protected function _normalizeContain(Table parent, string anAliasName, IData[string] optionData, array paths): EagerLoadable
     {
         defaults = _containOptions;
@@ -501,14 +497,14 @@ class DEagerLoader
      *
      * This function operates on the array references that were generated by the
      * _normalizeContain() function.
-     */
+     * /
     protected void _fixStrategies() {
         foreach (_aliasList as aliases) {
             foreach (aliases as configs) {
                 if (count(configs) < 2) {
                     continue;
                 }
-                /** @var DORMEagerLoadable loadable */
+                /** @var DORMEagerLoadable loadable * /
                 foreach (configs as loadable) {
                     if (strpos(loadable.aliasPath(), ".")) {
                         _correctStrategy(loadable);
@@ -523,7 +519,7 @@ class DEagerLoader
      * under the same direct associations chain
      *
      * @param DORMEagerLoadable loadable The association config
-     */
+     * /
     protected void _correctStrategy(EagerLoadable loadable) {
         myConfiguration = loadable.configuration.data;
         currentStrategy = configuration["strategy"] ??
@@ -545,7 +541,7 @@ class DEagerLoader
      * @param array<DORMEagerLoadable> associations list of associations from which to obtain joins.
      * @param array<DORMEagerLoadable> matching list of associations that should be forcibly joined.
      * @return array<DORMEagerLoadable>
-     */
+     * /
     protected array _resolveJoins(array associations, array matching = null) {
         result = null;
         foreach (matching as table: loadable) {
@@ -580,7 +576,7 @@ class DEagerLoader
      * @param DORMdatabases.StatementInterface statement The statement created after executing the query
      * @return DORMdatabases.StatementInterface statement modified statement with extra loaders
      * @throws \RuntimeException
-     */
+     * /
     function loadExternal(Query query, StatementInterface statement): StatementInterface
     {
         table = query.getRepository();
@@ -652,7 +648,7 @@ class DEagerLoader
      *
      * @param DORMDORMTable aTable The table containing the association that
      * will be normalized
-     */
+     * /
     array associationsMap(DORMTable aTable) {
         map = null;
 
@@ -660,7 +656,7 @@ class DEagerLoader
             return map;
         }
 
-        /** @psalm-suppress PossiblyNullReference */
+        /** @psalm-suppress PossiblyNullReference * /
         map = _buildAssociationsMap(map, _matching.normalized(table), true);
         map = _buildAssociationsMap(map, this.normalized(table));
 
@@ -674,7 +670,7 @@ class DEagerLoader
      * @param array map An initial array for the map.
      * @param array<DORMEagerLoadable> level An array of EagerLoadable instances.
      * @param bool matching Whether it is an association loaded through `matching()`.
-     */
+     * /
     protected array _buildAssociationsMap(array map, array level, bool matching = false) {
         foreach (level as assoc: meta) {
             canBeJoined = meta.canBeJoined();
@@ -710,7 +706,7 @@ class DEagerLoader
      * "matching" association.
      * @param string|null targetProperty The property name where the results of the join should be nested at.
      * If not passed, the default property for the association will be used.
-     */
+     * /
     void addToJoinsMap(
         string anAliasName,
         Association assoc,
@@ -733,7 +729,7 @@ class DEagerLoader
      * @param array<DORMEagerLoadable> external the list of external associations to be loaded
      * @param DORMQuery query The query from which the results where generated
      * @param DORMdatabases.StatementInterface statement The statement to work on
-     */
+     * /
     protected array _collectKeys(array external, Query query, statement) {
         collectKeys = null;
         foreach (external as meta) {
@@ -771,7 +767,7 @@ class DEagerLoader
      *
      * @param DORMdatabases.Statement\BufferedStatement statement The statement to read from.
      * @param array<string, array> collectKeys The keys to collect
-     */
+     * /
     protected array _groupKeys(BufferedStatement statement, array collectKeys) {
         keys = null;
         foreach ((statement.fetchAll("assoc") ?: []) as result) {
@@ -808,10 +804,10 @@ class DEagerLoader
 
     /**
      * Handles cloning eager loaders and eager loadables.
-     */
+     * /
     void __clone() {
         if (_matching) {
             _matching = clone _matching;
         }
-    }
+    } */
 }

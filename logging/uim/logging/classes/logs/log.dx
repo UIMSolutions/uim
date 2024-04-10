@@ -88,7 +88,7 @@ import uim.logging;
  * application. By using scopes you can control logging for each part
  * of your application and also use standard log levels.
  */
-class Log {
+class DLog {
     mixin template StaticConfigTemplate() {
         setConfig as protected _setConfig;
     }

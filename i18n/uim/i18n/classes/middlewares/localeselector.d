@@ -8,7 +8,7 @@ import uim.i18n;
  * Sets the runtime default locale for the request based on the
  * Accept-Language header. The default will only be set if it matches the list of passed valid locales.
  */
-class LocaleSelectorMiddleware : D18NMiddleware {
+class DLocaleSelectorMiddleware : D18NMiddleware {
     // List of valid locales for the request
     protected string[] _locales;
 

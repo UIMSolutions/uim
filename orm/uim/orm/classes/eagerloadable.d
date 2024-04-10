@@ -3,7 +3,7 @@
   License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
   Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.orm.eagerloadable;
+module uim.orm.classes.eagerloadable;
 
 /**
  * Represents a single level in the associations tree to be eagerly loaded
@@ -15,23 +15,28 @@ module uim.orm.eagerloadable;
  */
 class DEagerLoadable {
     // The name of the association to load.
+    protected string _name;
 
+    /*
     // A list of other associations to load from this level.
-    protected IORMEagerLoadable[] _associations = null;
+    protected DORMEagerLoadable[] _associations = null;
 
     // The Association class instance to use for loading the records.
-    protected IORMAssociation _instance;
+    /*
+     * @var DORMAssociation|null
+     * /
+    protected _instance;
 
     // A list of options to pass to the association object for loading
      * the records.
      *
      * @var array<string, mixed>
-     */
+     * /
     protected configuration = null;
 
     // A dotted separated string representing the path of associations
      * that should be followed to fetch this level.
-     */
+     * /
     protected string _aliasPath;
 
     /**
@@ -46,18 +51,18 @@ class DEagerLoadable {
      *
      * The property path of `country` will be `author.company`
      *
-     */
+     * /
     protected string _propertyPath;
 
     // Whether this level can be fetched using a join.
-     */
+     * /
     protected bool _canBeJoined = false;
 
     // Whether this level was meant for a "matching" fetch
      * operation
      *
      * @var bool|null
-     */
+     * /
     protected _forMatching;
 
     /**
@@ -72,7 +77,7 @@ class DEagerLoadable {
      *
      * The target property of `country` will be just `country`
      *
-     */
+     * /
     protected string _targetProperty;
 
     /**
@@ -92,7 +97,7 @@ class DEagerLoadable {
      *
      * @param string aName The Association name.
      * @param array<string, mixed> myConfiguration The list of properties to set.
-     */
+     * /
     this(string aName, IData[string] configData) {
         _name = name;
         allowed = [
@@ -111,7 +116,7 @@ class DEagerLoadable {
      *
      * @param string aName The association name.
      * @param DORMEagerLoadable association The association to load.
-     */
+     * /
     void addAssociation(string aName, EagerLoadable association) {
         _associations[name] = association;
     }
@@ -147,7 +152,7 @@ class DEagerLoadable {
      *
      * The property path of `country` will be `author.company`
      *
-     */
+     * /
     string propertyPath() {
         return _propertyPath;
     }
@@ -170,8 +175,8 @@ class DEagerLoadable {
      *
      * @param array<string, mixed> myConfiguration The value to set.
      * @return this
-     */
-    void configuration.update(IData myConfiguration) {
+     * /
+    auto configuration.update(IData myConfiguration) {
         configuration = myConfiguration;
 
         return this;
@@ -187,7 +192,7 @@ class DEagerLoadable {
      * "matching" fetch operation.
      *
      * @return bool|null
-     */
+     * /
     bool forMatching() {
         return _forMatching;
     }
@@ -204,7 +209,7 @@ class DEagerLoadable {
      *
      * The target property of `country` will be just `country`
      *
-     */
+     * /
     string targetProperty() {
         return _targetProperty;
     }
@@ -214,7 +219,7 @@ class DEagerLoadable {
      * Cake\orm.EagerLoader::contain()
      *
      * @return array<string, array>
-     */
+     * /
     array asContainArray() {
         associations = null;
         foreach (_associations as assoc) {
@@ -233,12 +238,10 @@ class DEagerLoadable {
         ];
     }
 
-    /**
-     * Handles cloning eager loadables.
-     */
+    // Handles cloning eager loadables.
     void __clone() {
         foreach (_associations as i: DAssociation) {
             _associations[i] = clone association;
         }
-    }
+    }*/ 
 }

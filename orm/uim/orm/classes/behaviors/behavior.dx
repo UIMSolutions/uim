@@ -29,7 +29,7 @@ class DBehavior : IEventListener {
     mixin(TProperty!("string", "name"));
 
     // Table instance.
-    protected Table my_table;
+    protected ITable my_table;
 
     /**
      * Reflection method cache for behaviors.

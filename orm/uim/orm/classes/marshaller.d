@@ -19,7 +19,7 @@ class DMarshaller {
     mixin AssociationsNormalizerTemplate();
 
     // The table instance this marshaller is for.
-    protected Table my_table;
+    protected ITable my_table;
 
     /**
      * Constructor.

@@ -132,10 +132,10 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     protected string my_alias = null;
 
     // Connection instance
-    protected Connection my_connection = null;
+    protected DConnection my_connection = null;
 
     // The schema object containing a description of this table fields
-    protected TableISchema my_schema = null;
+    protected ITableISchema my_schema = null;
 
     // The name of the field that represents the primary key in the table
     protected string[] my_primaryKey = null;

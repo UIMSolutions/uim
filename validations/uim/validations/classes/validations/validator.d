@@ -893,7 +893,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *  Closure is passed then the field will allowed to be empty only when
      *  the callback returns false.
      * /
-    protected Closure|string|bool invertWhenClause(Closure|string|bool mywhen) {
+    protected DClosure|string|bool invertWhenClause(Closure|string|bool mywhen) {
         if (mywhen == WHEN_CREATE || mywhen == WHEN_UPDATE) {
             return mywhen == WHEN_CREATE ? WHEN_UPDATE : WHEN_CREATE;
         }

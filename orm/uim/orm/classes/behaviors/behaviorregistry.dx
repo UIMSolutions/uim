@@ -30,7 +30,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
     mixin TEventDispatcher();
 
     // The table using this registry.
-    protected Table my_table;
+    protected ITable my_table;
 
     // Method mappings.
     protected array[string] my_methodMap = [];

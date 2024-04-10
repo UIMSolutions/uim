@@ -480,7 +480,7 @@ class DSelectLoader {
      * someSourceKeys - An array with aliased keys to match
      * @param string nestKey The key under which results should be nested
      * /
-    protected Closure _multiKeysInjector(array resultMap, string[] someSourceKeys, string nestKey) {
+    protected DClosure _multiKeysInjector(array resultMap, string[] someSourceKeys, string nestKey) {
         return function (row) use (resultMap, someSourceKeys, nestKey) {
             values = null;
             foreach (someSourceKeys as key) {

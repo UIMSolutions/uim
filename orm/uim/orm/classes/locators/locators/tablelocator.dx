@@ -24,7 +24,7 @@ class DTableLocator : DAbstractLocator : ILocator {
     /**
      * Instances that belong to the registry.
      */
-    protected Table[string] myinstances = [];
+    protected ITable[string] myinstances = [];
 
     /**
      * Contains a list of Table objects that were created out of the
@@ -230,7 +230,7 @@ class DTableLocator : DAbstractLocator : ILocator {
     }
     
     // Wrapper for creating table instances
-    protected Table _create(IData[string] options) {
+    protected ITable _create(IData[string] options) {
         auto myclass = options["className"];
         return new myclass(options);
     }

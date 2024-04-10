@@ -48,13 +48,13 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * A callback used to calculate the total amount of
      * records this query will match when not using `limit`
      * /
-    protected Closure my_counter = null;
+    protected DClosure my_counter = null;
 
     /**
      * Instance of a class responsible for storing association containments and
      * for eager loading them when this query is executed
      * /
-    protected EagerLoader my_eagerLoader = null;
+    protected DEagerLoader my_eagerLoader = null;
 
     /**
      * Whether the query is standalone or the product of an eager load operation.
@@ -98,7 +98,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * List of formatter classes or callbacks that will post-process the
      * results when fetched
      * /
-    protected Closure[] my_formatters = [];
+    protected DClosure[] my_formatters = [];
 
     /**
      * A query cacher instance if this query has caching enabled.

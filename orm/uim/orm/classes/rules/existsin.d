@@ -17,7 +17,7 @@ class DExistsIn {
      *
      * @var \UIM\ORM\Table|\UIM\ORM\Association|string
      * /
-    protected Table|Association|string my_repository;
+    protected ITable|Association|string my_repository;
 
     /**
      * Options for the constructor

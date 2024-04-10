@@ -1,4 +1,4 @@
-module uim.datasources.classes.connections.registry;
+module datasources.uim.datasources.classes.connections.connectionregistry;
 
 import uim.datasources;
 
@@ -54,3 +54,6 @@ class DConnectionRegistry : DObjectRegistry!IConnection {
     } */
 }
 auto ConnectionRegistry() { return new DConnectionRegistry; }
+
+
+    

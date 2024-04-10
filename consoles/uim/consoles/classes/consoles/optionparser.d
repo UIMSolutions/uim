@@ -81,7 +81,7 @@ class DConsoleOptionParser {
     mixin(TProperty!("string", "_description"));
 
     // Sets the description text for shell/task.
-    @property void description(string[] descriptionTexts...) {
+    void description(string[] descriptionTexts...) {
         description(descriptionTexts.dup);
     }
 

@@ -13,7 +13,7 @@ class DClassNode : IErrorNode {
     private int  anId;
 
     /* 
-    private PropertyNode[] properties = [];
+    private PropertyNode[] properties = null;
 
     /**
      * Constructor

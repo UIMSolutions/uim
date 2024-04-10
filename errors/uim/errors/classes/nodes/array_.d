@@ -18,7 +18,7 @@ class DArrayErrorNode : IErrorNode {
     * someItems - The items for the array
     */
   this(DArrayItemErrorNode[] nodes = null) {
-    _items = [];
+    _items = null;
     this.add(nodes);
   }
 

@@ -28,7 +28,7 @@ class DFormProtector {
     
     /*
     // Fields list.
-    protected array fields = [];
+    protected array fields = null;
 
     /**
      * Validate submitted form data.
@@ -246,7 +246,7 @@ class DFormProtector {
 
         fields = Hash.flatten(formData);
         fieldList = fields.keys;
-        multi = lockedFields = [];
+        multi = lockedFields = null;
          isUnlocked = false;
 
         foreach (fieldList as  anI: aKey) {
@@ -322,7 +322,7 @@ class DFormProtector {
         auto fields = this.fields;
         auto unlockedFields = this.unlockedFields;
 
-        auto locked = [];
+        auto locked = null;
         fields.byKeyValue
             .each!((kv) {
                 if (isNumeric(kv.value)) {
@@ -378,7 +378,7 @@ class DFormProtector {
      * @param array hashParts Elements used to generate the Token hash
      * /
     protected string debugTokenNotMatching(array formData, array hashParts) {
-        messages = [];
+        messages = null;
         if (!isSet(formData["_Token"]["debug"])) {
             return "Form protection debug token not found.";
         }
@@ -457,7 +457,7 @@ class DFormProtector {
         string aintKeyMessage,
         string astringKeyMessage
     ) {
-        messages = [];
+        messages = null;
         foreach (someDataFields as aKey: aValue) {
             if (isInt(aKey)) {
                 foundKey = array_search(aValue, expectedFields, true);

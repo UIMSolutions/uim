@@ -35,7 +35,7 @@ class HtmlErrorRenderer { // }: IErrorRenderer {
         toggle = this.renderToggle(errorMessage,  anId, "trace");
         codeToggle = this.renderToggle("Code",  anId, "code");
 
-        excerpt = [];
+        excerpt = null;
         if (file && line) {
             excerpt = Debugger.excerpt(file, line, 1);
         }

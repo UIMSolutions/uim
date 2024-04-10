@@ -110,7 +110,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
         open = "<span class="cake-debug-array">' .
             this.style("punct", "[") .
             '<samp class="cake-debug-array-items">";
-        vars = [];
+        vars = null;
         break = "\n" ~ str_repeat("  ",  anIndent);
         endBreak = "\n" ~ str_repeat("  ",  anIndent - 1);
 
@@ -161,7 +161,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
             this.style("punct", " {") .
             '<samp class="cake-debug-object-props">";
 
-        props = [];
+        props = null;
         foreach (var.getChildren() as  aProperty) {
             arrow = this.style("punct", ": ");
             visibility =  aProperty.getVisibility();

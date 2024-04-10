@@ -18,7 +18,7 @@ class DEventManager { // }: IEventManager {
     protected static EventManager _generalManager = null;
 
     // List of listener callbacks associated to
-    protected array _listeners = [];
+    protected array _listeners = null;
 
     // Internal flag to distinguish a common manager from the singleton
     protected bool _isGlobal = false;
@@ -190,7 +190,7 @@ class DEventManager { // }: IEventManager {
 <<<<<<< HEAD
     protected array normalizeHandler(IEventListener subscriber, Closure|array|string ahandler) {
         callable = handler;
-        settings = [];
+        settings = null;
 
         if (isArray(handler)) {
             callable = handler["callable"];
@@ -252,7 +252,7 @@ class DEventManager { // }: IEventManager {
     }
  
     array listeners(string aeventKey) {
-        localListeners = [];
+        localListeners = null;
         if (!_isGlobal) {
             localListeners = this.prioritisedListeners(eventKey);
             localListeners = empty(localListeners) ? [] : localListeners;
@@ -366,7 +366,7 @@ class DEventManager { // }: IEventManager {
     string[string] debugInfo() {
         properties = get_object_vars(this);
         properties["_generalManager"] = "(object) EventManager";
-        properties["_listeners"] = [];
+        properties["_listeners"] = null;
         foreach (_listeners as aKey: priorities) {
             listenerCount = 0;
             foreach (priorities as listeners) {

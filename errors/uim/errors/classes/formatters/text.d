@@ -77,7 +77,7 @@ TEXT;
         auto result = "[";
         auto mybreak = "\n" ~ str_repeat("  ", indentSize);
         auto myend = "\n" ~ str_repeat("  ", indentSize - 1);
-        auto myvars = [];
+        auto myvars = null;
 
         foreach (anItem; nodeToExport.getChildren()) {
             auto val =  anItem.getValue();

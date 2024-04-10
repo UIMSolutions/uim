@@ -18,7 +18,7 @@ IData debug(IData var, bool showHtml = null, bool showFrom = true):
     if (!Configure.read("debug")) {
         return var;
     }
-    location = [];
+    location = null;
     if (showFrom) {
         trace = Debugger.trace(["start": 0, "depth": 1, "format": "array"]);
         if (isSet(trace[0]["line"]) && isSet(trace[0]["file"])) {

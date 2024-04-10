@@ -12,11 +12,11 @@ class DEventList { // }: ArrayAccess, Countable {
     /**
      * Events list
      * /
-    protected IEvent<object>[] _events = [];
+    protected IEvent<object>[] _events = null;
 
     // Empties the list of dispatched events.
     void flush() {
-       _events = [];
+       _events = null;
     }
     
     /**

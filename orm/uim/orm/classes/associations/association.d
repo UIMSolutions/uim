@@ -109,10 +109,10 @@ class DAssociation : IAssociation {
     protected bool _cascadeCallbacks = false;
 
     // Source table instance
-    protected DORMTable _sourceTable;
+    protected IORMTable _sourceTable;
 
     // Target table instance
-    protected DORMTable _targetTable;
+    protected IORMTable _targetTable;
 
     /**
      * The type of join to be used when adding the association to a query

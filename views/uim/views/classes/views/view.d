@@ -132,7 +132,7 @@ class DView : IView { //  }: IEventDispatcher {
      * This object contains all the information about a request and several methods for reading
      * additional information about the request.
      * /
-    protected ServerRequest myrequest;
+    protected IServerRequest myrequest;
 
     // Reference to the Response object
     protected Response myresponse;

@@ -36,7 +36,7 @@ abstract class DCell { // }: IEventDispatcher {
      * This object contains all the information about a request and several methods for reading
      * additional information about the request.
      * /
-    protected ServerRequest myrequest;
+    protected IServerRequest myrequest;
 
     // An instance of a Response object that contains information about the impending response
     protected Response myresponse;

@@ -13,7 +13,7 @@ class DEventFired : Constraint {
     /**
      * Array of fired events
      */
-    protected DEventManager _eventManager;
+    protected IEventManager _eventManager;
 
     /**
      * Constructor

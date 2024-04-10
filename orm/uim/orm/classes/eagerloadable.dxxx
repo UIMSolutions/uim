@@ -17,10 +17,10 @@ class DEagerLoadable {
     // The name of the association to load.
 
     // A list of other associations to load from this level.
-    protected DORMEagerLoadable[] _associations = null;
+    protected IORMEagerLoadable[] _associations = null;
 
     // The Association class instance to use for loading the records.
-    protected DORMAssociation _instance;
+    protected IORMAssociation _instance;
 
     // A list of options to pass to the association object for loading
      * the records.

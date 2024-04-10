@@ -18,7 +18,7 @@ use InvalidArgumentException;
  * for that instead.
  */
 class DSchemaLoader {
-    protected DConnectionHelper helper;
+    protected IConnectionHelper helper;
 
     this() {
         this.helper = new DConnectionHelper();

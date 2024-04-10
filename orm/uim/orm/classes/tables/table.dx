@@ -1435,7 +1435,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * Params:
      * \UIM\ORM\Query\SelectQuery|callable|array mysearch The criteria to find existing records by.
      */
-    protected SelectQuery _getFindOrCreateQuery(SelectQuery|callable|array mysearch) {
+    protected ISelectQuery _getFindOrCreateQuery(SelectQuery|callable|array mysearch) {
         if (isCallable(mysearch)) {
             myquery = this.find();
             mysearch(myquery);
@@ -2320,7 +2320,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * string mymethod The method name that was fired.
      * @param array myargs List of arguments passed to the function.
      */
-    protected SelectQuery _dynamicFinder(string mymethod, array myargs) {
+    protected ISelectQuery _dynamicFinder(string mymethod, array myargs) {
         mymethod = Inflector.underscore(mymethod);
         preg_match("/^find_([\w]+)_by_/", mymethod, mymatches);
         if (isEmpty(mymatches)) {

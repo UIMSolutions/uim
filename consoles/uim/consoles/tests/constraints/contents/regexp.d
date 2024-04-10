@@ -1,4 +1,4 @@
-module uim.consoles\TestSuite\Constraint;
+module consoles.uim.consoles.tests.constraints.contents.regexp;
 
 import uim.consoles;
 
@@ -29,9 +29,3 @@ class DContentsRegExp : DContentsBase {
     }
 }
 
-// uimcs:disable
-class_alias(
-    'UIM\Console\TestSuite\Constraint\ContentsRegExp",
-    'UIM\TestSuite\Constraint\Console\ContentsRegExp'
-);
-// uimcs:enable

@@ -1,4 +1,4 @@
-module uim.consoles\TestSuite\Constraint;
+module consoles.uim.consoles.tests.constraints.exitcode;
 
 import uim.consoles;
 

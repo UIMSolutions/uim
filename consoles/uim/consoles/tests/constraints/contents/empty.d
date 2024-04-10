@@ -1,4 +1,4 @@
-module uim.consoles\TestSuite\Constraint;
+module consoles.uim.consoles.tests.constraints.contents.empty;
 
 import uim.consoles;
 

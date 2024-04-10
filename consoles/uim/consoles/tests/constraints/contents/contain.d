@@ -1,4 +1,4 @@
-module uim.consoles\TestSuite\Constraint;
+module consoles.uim.consoles.tests.constraints.contents.contain;
 
 import uim.consoles;
 
@@ -13,7 +13,7 @@ class DContentsContain : DContentsBase {
      * Checks if contents contain expected
      * Params:
      * IData other Expected
-     */
+     * /
    bool matches(IData other) {
         return mb_strpos(this.contents, other) != false;
     }
@@ -22,12 +22,5 @@ class DContentsContain : DContentsBase {
     string toString() {
         return "is in %s," ~ D_EOL ~ "actual result:" ~ D_EOL ~ "`%s`"
         .format(this.output, this.contents);
-    }
+    } */
 }
-
-// uimcs:disable
-class_alias(
-    "UIM\Console\TestSuite\Constraint\ContentsContain",
-    "UIM\TestSuite\Constraint\Console\ContentsContain'
-);
-// uimcs:enable

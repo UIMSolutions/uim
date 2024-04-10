@@ -24,14 +24,8 @@ class DPersistenceFailedException : DORMException {
 }
 
 mixin(ExceptionCalls!("PersistenceFailed"));		
-    // TODO
-    /**
-     * The entity on which the persistence operation failed
-     *
-     * @var DORMdatasources.IEntity
-     * /
-    protected _entity;
-
+    // The entity on which the persistence operation failed
+    protected IEntity _entity;
 
     protected _messageTemplate = "Entity %s failure.";
 

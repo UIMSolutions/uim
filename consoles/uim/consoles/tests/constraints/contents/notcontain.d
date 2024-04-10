@@ -1,4 +1,4 @@
-module uim.consoles\TestSuite\Constraint;
+module consoles.uim.consoles.tests.constraints.contents.notcontain;
 
 import uim.consoles;
 
@@ -13,7 +13,7 @@ class DContentsNotContain : DContentsBase {
      * Checks if contents contain expected
      * Params:
      * IData other Expected
-     */
+      * /
     bool matches(IData other) {
         return mb_strpos(this.contents, other) == false;
     }
@@ -21,12 +21,5 @@ class DContentsNotContain : DContentsBase {
     // Assertion message
     string toString() {
         return "is not in %s".format(this.output);
-    }
+    } */
 }
-
-// uimcs:disable
-class_alias(
-    'UIM\Console\TestSuite\Constraint\ContentsNotContain",
-    'UIM\TestSuite\Constraint\Console\ContentsNotContain'
-);
-// uimcs:enable

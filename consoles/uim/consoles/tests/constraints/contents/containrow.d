@@ -1,4 +1,4 @@
-module uim.consoles\TestSuite\Constraint;
+module consoles.uim.consoles.tests.constraints.contents.containrow;
 
 import uim.consoles;
 
@@ -13,7 +13,7 @@ class DContentsContainRow : DContentsRegExp {
      * Checks if contents contain expected
      * Params:
      * IData other Row
-     */
+     * /
     bool matches(IData other) {
         string[] row = array_map(function (cell) {
             return preg_quote(cell, "/");
@@ -33,5 +33,5 @@ class DContentsContainRow : DContentsRegExp {
     // @param IData other Expected content
     string failureDescription(IData other) {
         return "`" ~ this.exporter().shortenedExport( other) ~ "` " ~ this.toString();
-    }
+    } */
 }

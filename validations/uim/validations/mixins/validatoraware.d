@@ -22,13 +22,14 @@ import uim.validations;
  *
  * If the including class DAlso : events the `Model.buildValidator` event
  * will be triggered when validators are created.
- * /
+ */
 mixin template TValidatorAware {
+    /*
     // Validator class.
     protected string my_validatorClass = Validator.classname;
 
     // A list of validation objects indexed by name
-    protected Validator[] my_validators;
+    protected IValidator[] my_validators;
 
     /**
      * Returns the validation rules tagged with myname. It is possible to have
@@ -80,7 +81,7 @@ mixin template TValidatorAware {
      * Params:
      * string myname The name of the validation set to create.
      * /
-    protected Validator createValidator(string validationSetName) {
+    protected IValidator createValidator(string validationSetName) {
         auto mymethod = "validation" ~ ucfirst(validationSetName);
         if (!this.validationMethodExists(mymethod)) {
             mymessage = "The `%s.%s()` validation method does not exists.".format(class, mymethod);
@@ -156,5 +157,5 @@ mixin template TValidatorAware {
      * /
     Validator validationDefault(Validator myvalidator) {
         return myvalidator;
-    }
-} */
+    } */
+} 

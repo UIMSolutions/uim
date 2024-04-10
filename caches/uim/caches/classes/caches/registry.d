@@ -44,7 +44,7 @@ class DCacheRegistry : DObjectRegistry!DCache {
      * @param string aalias The alias of the object.
      * configData - An array of settings to use for the cache engine.
      */
-  /* protected DCacheEngine _create(object | string className, string myalias, IData[string] initData) {
+  /* protected ICacheEngine _create(object | string className, string myalias, IData[string] initData) {
     CacheEngine result = isObject(className) ? className : new className(initData);
     initData.remove("className");
 

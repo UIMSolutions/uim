@@ -85,7 +85,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * The object responsible for generating query placeholders and temporarily store values
      * associated to each of those.
      * /
-    protected ValueBinder _valueBinder;
+    protected IValueBinder _valueBinder;
 
     // Instance of functions builder object used for generating arbitrary SQL functions.
     protected FunctionsBuilder _functionsBuilder;

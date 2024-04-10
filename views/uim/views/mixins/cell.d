@@ -35,7 +35,7 @@ mixin template CellTemplate() {
      *   `cell("TagCloud.smallList", ["a1": "v1", "a2": "v2"])` maps to `View\Cell\TagCloud.smallList(v1, v2)`
      * @param IData[string] options Options for Cell"s constructor
      * /
-    protected Cell cell(string mycell, array data = [], IData[string] options  = null) {
+    protected DCell cell(string mycell, array data = [], IData[string] options  = null) {
         string[] myparts = mycell.split(".");
 
             [mypluginAndCell, myaction] = count(myparts) == 2 
@@ -61,7 +61,7 @@ mixin template CellTemplate() {
      * @param string|null myplugin The plugin name.
      * @param IData[string] options The constructor options for the cell.
      * /
-    protected Cell _createCell(string myclassName, string myaction, string myplugin, IData[string] options) {
+    protected DCell _createCell(string myclassName, string myaction, string myplugin, IData[string] options) {
         Cell myinstance = new myclassName(this.request, this.response, this.getEventManager(), options);
 
         mybuilder = myinstance.viewBuilder();

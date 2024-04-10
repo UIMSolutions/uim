@@ -40,10 +40,10 @@ class DEntityContext : IContext {
     protected bool my_isCollection = false;
 
     // A dictionary of tables
-    protected Table[] my_tables = [];
+    protected ITable[] my_tables = null;
 
     // Dictionary of validators.
-    protected Validator[] my_validator = [];
+    protected IValidator[] my_validator = null;
 
     /**
      * Constructor.
@@ -73,7 +73,7 @@ class DEntityContext : IContext {
      * like arrays, Collection objects and ResultSets.
      */
     protected void _prepare() {
-        mytable = _context["table"];
+        auto mytable = _context["table"];
 
         /** @var \UIM\Datasource\IEntity|iterable<\UIM\Datasource\IEntity|array> myentity */
         myentity = _context["entity"];
@@ -457,7 +457,7 @@ class DEntityContext : IContext {
      * Params:
      * array myparts Each one of the parts in a path for a field name
      */
-    protected Validator _getValidator(array myparts) {
+    protected IValidator _getValidator(array myparts) {
         mykeyParts = array_filter(array_slice(myparts, 0, -1), auto (mypart) {
             return !isNumeric(mypart);
         });
@@ -497,7 +497,7 @@ class DEntityContext : IContext {
      * @param bool myfallback Whether to fallback to the last found table
      * when a nonexistent field/property is being encountered.
      */
-    protected Table _getTable(IEntity|string[] myparts, bool myfallback = true) {
+    protected ITable _getTable(IEntity|string[] myparts, bool myfallback = true) {
         if (!isArray(myparts) || count(myparts) == 1) {
             return _tables[_rootName];
         }

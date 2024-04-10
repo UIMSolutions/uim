@@ -13,7 +13,7 @@ import uim.validations;
  */ 
 class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
     // Holds the ValidationRule objects
-    // TODO protected IValidationRule[] my_rules = [];
+    // TODO protected IValidationRule[] my_rules = null;
 
     /**
      * Denotes whether the fieldname key must be present in data array

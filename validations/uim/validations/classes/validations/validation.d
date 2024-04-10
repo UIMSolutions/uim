@@ -57,7 +57,7 @@ class DValidation {
      * Holds an array of errors messages set in this class.
      * These are used for debugging purposes
      * /
-    static array myerrors = [];
+    static array myerrors = null;
 
     /**
      * Checks that a string contains something other than whitespace
@@ -1377,7 +1377,7 @@ class DValidation {
         mycheckInt = intval(substr(valueToCheck, 2, 2));
         myaccount = substr(valueToCheck, 4);
         mysearch = range("A", "Z");
-        myreplace = [];
+        myreplace = null;
         foreach (range(10, 35) as mytmp) {
             myreplace ~= strval(mytmp);
         }
@@ -1471,6 +1471,6 @@ class DValidation {
      * Reset internal variables for another validation run.
      * /
     protected static void _reset() {
-        myerrors = [];
+        myerrors = null;
     } */
 }

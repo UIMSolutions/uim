@@ -16,7 +16,7 @@ class DRoute {
      * An array of named segments in a Route.
      * `/{controller}/{action}/{id}` has 3 key elements
      */
-    array someKeys = [];
+    array someKeys = null;
 
     // An array of additional parameters for the Route.
     IData[string] optionData = null;
@@ -37,10 +37,10 @@ class DRoute {
     protected string my_name = null;
 
     // List of connected extensions for this route.
-    protected string[] my_extensions = [];
+    protected string[] my_extensions = null;
 
     // List of middleware that should be applied.
-    protected array mymiddleware = [];
+    protected array mymiddleware = null;
 
     // Valid HTTP methods.
     const string[] VALID_METHODS = ["GET", "PUT", "POST", "PATCH", "DELETE", "OPTIONS", "HEAD"];
@@ -198,13 +198,13 @@ class DRoute {
     protected void _writeRoute() {
         if (this.template.isEmpty || (this.template == "/")) {
            _compiledRoute = "#^/*my#";
-            this.keys = [];
+            this.keys = null;
 
             return;
         }
 
         auto myroute = this.template;
-        auto routingss = myrouteParams = [];
+        auto routingss = myrouteParams = null;
         auto myparsed = preg_quote(this.template, "#");
 
         preg_match_all(PLACEHOLDER_REGEX, myroute, routingsdElements, PREG_OFFSET_CAPTURE | PREG_SET_ORDER);
@@ -338,7 +338,7 @@ class DRoute {
         for (myi = 0; myi <= mycount; myi++) {
             unset(myroute[myi]);
         }
-        myroute["pass"] = [];
+        myroute["pass"] = null;
 
         // Assign defaults, set passed args to pass
         foreach (this.defaults as aKey: myvalue) {
@@ -424,7 +424,7 @@ class DRoute {
      * @param array mycontext The current route context, which should contain controller/action keys.
      */
     protected string[] _parseArgs(string myargs, array mycontext) {
-        mypass = [];
+        mypass = null;
         string[] myargs = split("/", myargs);
         myurldecode = this.options["_urldecode"] ?? true;
 
@@ -548,7 +548,7 @@ class DRoute {
         if (array_intersect_key(mykeyNames, myurl) != mykeyNames) {
             return null;
         }
-        mypass = [];
+        mypass = null;
         foreach (myurl as aKey: myvalue) {
             // If the key is a routed key, it"s not different yet.
             if (array_key_exists(aKey, mykeyNames)) {
@@ -627,7 +627,7 @@ class DRoute {
         mypass = join("/", mypass);
         result = this.template;
 
-        mysearch = myreplace = [];
+        mysearch = myreplace = null;
         this.keys.each!((key) {
             if (!array_key_exists(key, myparams)) {
                 throw new DInvalidArgumentException(

@@ -50,7 +50,7 @@ class DRoutingMiddleware : IMiddleware {
             assert(cast(DServerRequest)serverRequest);
             Router.setRequest(serverRequest);
             params = (array)serverRequest.getAttribute("params", []);
-            middleware = [];
+            middleware = null;
             if (isEmpty(params["controller"])) {
                 params = Router.parseRequest(serverRequest) + params;
                 if (isSet(params["_middleware"])) {

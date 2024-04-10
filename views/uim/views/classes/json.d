@@ -117,7 +117,7 @@ class DIDataView : DSerializedView {
      * /
     protected IData _dataToSerialize(string[] myserialize) {
         if (myserialize.isArray) {
-            mydata = []; 
+            mydata = null; 
             foreach (myalias : aKey, 
             myserialize.byKeyValue.each!((aliasKey) {
                 if (isNumeric(aliasKey.key)) {

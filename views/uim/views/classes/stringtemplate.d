@@ -301,7 +301,7 @@ class DStringTemplate {
             myclass = Hash.get(myinput, myuseIndex, []);
         } else {
             myclass = myinput;
-            myinput = [];
+            myinput = null;
         }
         // Convert and sanitise the inputs
         if (!myclass.isArray) {

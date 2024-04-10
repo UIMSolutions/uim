@@ -89,7 +89,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * @var array<string, \UIM\Validation\ValidationSet>
      * /
-    protected array my_fields = [];
+    protected array my_fields = null;
 
     /**
      * An associative array of objects or classes containing methods
@@ -98,7 +98,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @var array<string, object|string>
      * @psalm-var array<string, object|class-string>
      * /
-    protected array my_providers = [];
+    protected array my_providers = null;
 
     /**
      * An associative array of objects or classes used as a default provider list
@@ -106,27 +106,27 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @var array<string, object|string>
      * @psalm-var array<string, object|class-string>
      * /
-    protected static array my_defaultProviders = [];
+    protected static array my_defaultProviders = null;
 
     /**
      * Contains the validation messages associated with checking the presence
      * for each corresponding field.
      * /
-    protected STRINGAA my_presenceMessages = [];
+    protected STRINGAA my_presenceMessages = null;
 
     // Whether to use I18n functions for translating default error messages
     protected bool my_useI18n = false;
 
     // Contains the validation messages associated with checking the emptiness
     // for each corresponding field.
-    protected STRINGAA my_allowEmptyMessages = [];
+    protected STRINGAA my_allowEmptyMessages = null;
 
     /**
      * Contains the flags which specify what is empty for each corresponding field.
      *
      * @var array<string, int>
      * /
-    protected array my_allowEmptyFlags = [];
+    protected array my_allowEmptyFlags = null;
 
     /**
      * Whether to apply last flag to generated rule(s).
@@ -157,7 +157,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param bool mynewRecord whether the data to be validated is new or to be updated.
      * /
     array<array> validate(array data, bool mynewRecord = true) {
-        myerrors = [];
+        myerrors = null;
 
         foreach (_fields as myname: myfield) {
             myname = to!string(myname);
@@ -470,7 +470,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 myvalidator.setProvider(name, myprovider);
             });
 
-            auto myerrors = [];
+            auto myerrors = null;
             foreach (myvalue as myi: myrow) {
                 if (!isArray(myrow)) {
                     return false;
@@ -878,7 +878,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     ) {
         if (!mysettings.isArray) {
             myfieldName = (string)mysettings;
-            mysettings = [];
+            mysettings = null;
         }
         mysettings += mydefaults;
 
@@ -2612,7 +2612,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * /
     bool isEmptyAllowed(string fieldName, bool mynewRecord) {
         myproviders = _providers;
-        mydata = [];
+        mydata = null;
         mycontext = compact("data", "newRecord", "field", "providers");
 
         return _canBeEmpty(this.field(fieldName), mycontext);
@@ -2627,7 +2627,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * /
     bool isPresenceRequired(string fieldName, bool mynewRecord) {
         myproviders = _providers;
-        mydata = [];
+        mydata = null;
         mycontext = compact("data", "newRecord", "field", "providers");
 
         return !_checkPresence(this.field(fieldName), mycontext);
@@ -2794,7 +2794,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param bool mynewRecord whether is it a new record or an existing one
      * /
     protected IData[string] _processRules(string myfield, ValidationSet myrules, array data, bool mynewRecord) {
-        myerrors = [];
+        myerrors = null;
         // Loading default provider in case there is none
         this.getProvider("default");
 
@@ -2827,7 +2827,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Get the printable version of this object.
      * /
     string[string] debugInfo() {
-        myfields = [];
+        myfields = null;
         foreach (_fields as myname: myfieldSet) {
             myfields[myname] = [
                 "isPresenceRequired": myfieldSet.isPresenceRequired(),

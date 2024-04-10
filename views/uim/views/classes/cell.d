@@ -42,14 +42,14 @@ abstract class DCell { // }: IEventDispatcher {
     protected Response myresponse;
 
     // Arguments to pass to cell"s action.
-    protected array myargs = [];
+    protected array myargs = null;
 
     /**
      * List of valid options (constructor"s fourth arguments)
      * Override this property in subclasses to allow
      * which options you want set as properties in your Cell.
      * /
-    protected string[] my_validCellOptions = [];
+    protected string[] my_validCellOptions = null;
 
     // Caching setup.
     protected array|bool my_cache = false;
@@ -101,7 +101,7 @@ abstract class DCell { // }: IEventDispatcher {
      * value will be used. This value is automatically set by `CellTrait.cell()`.
      * /
     string render(string templateName = null) {
-        mycache = [];
+        mycache = null;
         if (_cache) {
             mycache = _cacheConfig(_action, templateName);
         }

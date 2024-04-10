@@ -72,7 +72,7 @@ class DErrorTrap {
      * @param array<string, mixed> options An options array. See _defaultConfig.
      * /
     this(IData[string] optionData = null) {
-        this.setConfig(options);
+        configuration.update(options);
     }
 
     /**
@@ -210,7 +210,7 @@ class DErrorTrap {
         oldConfig = this.getConfig("errorLogger");
         if (oldConfig != null) {
             deprecationWarning("The `errorLogger` configuration key is deprecated. Use `logger` instead.");
-            this.setConfig(["logger": oldConfig, "errorLogger": null]);
+            configuration.update(["logger": oldConfig, "errorLogger": null]);
         }
 
         /** @var class-string<uim.errors.IErrorLogger> aClassName * /

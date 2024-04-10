@@ -68,7 +68,7 @@ class DDebugger {
             define("E_RECOVERABLE_ERROR", 4096);
         }
         aConfig = array_intersect_key((array)Configure.read("Debugger"), _defaultConfigData);
-        this.setConfig(aConfig);
+        configuration.update(aConfig);
     }
     
     /**

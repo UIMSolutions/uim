@@ -86,7 +86,7 @@ class DErrorHandler { // }: DERRErrorHandler
             "exceptionRenderer": ExceptionRenderer::class,
         ];
 
-        this.setConfig(aConfig);
+        configuration.update(aConfig);
     }
 
     /**

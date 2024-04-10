@@ -28,7 +28,7 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
     this(IData aConfig = null) {
         super();
 
-        this.setConfig(aConfig);
+        configuration.update(aConfig);
         _stderr = _config["stderr"];
     }
 

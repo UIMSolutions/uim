@@ -116,7 +116,7 @@ class DExceptionTrap {
      * @param array<string, mixed> options An options array. See _defaultConfig.
      * /
     this(IData[string] optionData = null) {
-        this.setConfig(options);
+        configuration.update(options);
     }
 
     /**

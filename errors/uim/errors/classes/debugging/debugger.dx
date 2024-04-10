@@ -139,7 +139,7 @@ class DDebugger {
         }
 
         aConfig = array_intersect_key((array)Configure::read('Debugger'), _defaultConfig);
-        this.setConfig(aConfig);
+        configuration.update(aConfig);
 
         e = '<pre class="cake-error">';
         e ~= '<a href="javascript:void(0);" onclick="document.getElementById(\'{:id}-trace\')';
@@ -277,7 +277,7 @@ class DDebugger {
             known = implode(', ', instance.editors.keys);
             throw new DRuntimeException("Unknown editor `{name}`. Known editors are {known}");
         }
-        instance.setConfig('editor', name);
+        instance.configuration.update("editor", name);
     }
 
     /**

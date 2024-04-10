@@ -106,7 +106,7 @@ class DComponent : IEventListener {
     this(IComponentRegistry  registry, IData[string] configData = null) {
        _registry =  registry;
 
-        this.setConfig(configData);
+        configuration.update(configData);
 
         if (this.components) {
             this.components =  registry.normalizeArray(this.components);

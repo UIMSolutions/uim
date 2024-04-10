@@ -95,7 +95,7 @@ class DErrorHandlerMiddleware : IMiddleware {
         }
 
         if ((myErrorHandler.isArray) {
-            this.setConfig(myErrorHandler);
+            configuration.update(myErrorHandler);
 
             return;
         }

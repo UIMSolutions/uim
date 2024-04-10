@@ -71,7 +71,7 @@ class DErrorHandlerMiddleware : IMiddleware {
             ini_set("zend.exception_ignore_args", "0");
         }
         if (isArray(configData)) {
-            this.setConfig(configData);
+            configuration.update(configData);
 
             return;
         }

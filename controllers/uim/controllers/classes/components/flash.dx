@@ -60,7 +60,7 @@ class DFlashComponent : DComponent {
     }
     
     // Get flash message utility instance.
-    protected FlashMessage flash() {
+    protected DFlashMessage flash() {
         return this.getController().getRequest().getFlash();
     }
     

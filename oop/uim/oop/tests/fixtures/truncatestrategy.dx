@@ -6,7 +6,7 @@ import uim.oop;
 
 // Fixture strategy that truncates all fixture ables at the end of test.
 class DTruncateStrategy : IFixtureStrategy {
-    protected FixtureHelper _helper;
+    protected DFixtureHelper _helper;
 
     protected IFixture _fixtures;
 

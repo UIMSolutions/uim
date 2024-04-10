@@ -88,7 +88,7 @@ abstract class DQuery : IQuery { // : IExpression {
     protected IValueBinder _valueBinder;
 
     // Instance of functions builder object used for generating arbitrary SQL functions.
-    protected FunctionsBuilder _functionsBuilder;
+    protected DFunctionsBuilder _functionsBuilder;
 
     /**
      * Constructor.

@@ -24,7 +24,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     //protected ICatalogLocator _catalogs;
 
     // A formatter locator.
-    // protected FormatterLocator _formatters;
+    // protected DFormatterLocator _formatters;
 
     /**
      * A list of loader functions indexed by domain name. Loaders are

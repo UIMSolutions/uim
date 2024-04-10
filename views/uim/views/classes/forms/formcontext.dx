@@ -12,7 +12,7 @@ import uim.views;
  */
 class FormContext : IContext {
     // The form object.
-    protected Form my_form;
+    protected DForm my_form;
 
     // Validator name.
     protected string my_validator = null;

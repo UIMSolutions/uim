@@ -130,7 +130,7 @@ class DServerRequest { // }: IServerRequest {
      *
      * @var \UIM\Http\FlashMessage
      * /
-    protected FlashMessage flash;
+    protected DFlashMessage flash;
 
     /**
      * Store the additional attributes attached to the request.

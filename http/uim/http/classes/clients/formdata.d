@@ -23,7 +23,7 @@ class DFormData { // }: Countable {
 
     /* 
     // The parts in the form data.
-    protected FormDataPart[] _parts = [];
+    protected DFFFFFFFormDataPart[] _parts = [];
 
     // Get the boundary marker
     string boundary() {

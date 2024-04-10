@@ -36,7 +36,7 @@ class DTransactionStrategy : IFixtureStrategy {
 
     mixin(TProperty!("string", "name"));
     
-    protected FixtureHelper helper;
+    protected DFixtureHelper helper;
 
     protected IFixture[] fixtures;
 

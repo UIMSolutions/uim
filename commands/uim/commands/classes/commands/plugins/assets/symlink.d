@@ -27,9 +27,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
     }
 
     DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
-        parserToUpdate.description([
-            "symlink (copy as fallback) plugin assets to app\`s webroot.",
-        ]);
+        parserToUpdate.description("symlink (copy as fallback) plugin assets to app`s webroot.");
         
         parserToUpdate.addArgument("name", [
             "help": "A specific plugin you want to symlink assets for.",
@@ -44,7 +42,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
 
         return parserToUpdate;
     }
-    
+
     /**
      * Attempt to symlink plugin assets to app`s webroot. If symlinking fails it
      * fallbacks to copying the assets. For vendor namespaced plugin, parent folder

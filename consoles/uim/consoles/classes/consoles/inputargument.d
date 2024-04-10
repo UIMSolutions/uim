@@ -36,6 +36,10 @@ class DConsoleInputArgument {
 
     // Is this option required?
     protected bool _required;
+    // Check if this argument is a required argument
+    bool isRequired() {
+        return _required;
+    }
 
     // An array of valid choices for this argument.
     protected string[] _choices;
@@ -78,37 +82,33 @@ class DConsoleInputArgument {
      * int width The width to make the name of the option.
      * /
     string help(int width = 0) {
-        name = _name;
-        if (name.length < width) {
-            name = str_pad(name, width, " ");
+        auto helpName = _name;
+        if (helpName.length < width) {
+            helpName = str_pad(helpName, width, " ");
         }
         optional = "";
-        if (!this.isRequired()) {
+        if (!isRequired()) {
             optional = " <comment>(optional)</comment>";
         }
         if (_choices) {
             optional ~= " <comment>(choices: %s)</comment>".format(join("|", _choices));
         }
-        return "%s%s%s".format(name, _help, optional);
+        return "%s%s%s".format(helpName, _help, optional);
     }
     
     // Get the usage value for this argument
     string usage() {
-        string name = _name;
+        string usageName = _name;
         if (_choices) {
-            name = _choices.join("|");
+            usageName = _choices.join("|");
         }
-        name = "<" ~ name ~ ">";
-        if (!this.isRequired()) {
-            name = "[" ~ name ~ "]";
+        usageName = "<" ~ usageName ~ ">";
+        if (!isRequired()) {
+            usageName = "[" ~ usageName ~ "]";
         }
-        return name;
+        return usageName;
     }
     
-    // Check if this argument is a required argument
-    bool isRequired() {
-        return _required;
-    }
     
     // Check that aValue is a valid choice for this argument.
     bool validChoice(string choiceToValidate) {

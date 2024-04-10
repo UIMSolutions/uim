@@ -76,14 +76,46 @@ class DConsoleOptionParser {
 
     mixin(TProperty!("string", "name"));
 
+    // #region description
     // Description text - displays before options when help is generated
-    mixin(TProperty!("string[]", "_description"));
+    mixin(TProperty!("string", "_description"));
 
-    /**
-     * Epilog text - displays after options when help is generated
-     * @see \UIM\Console\DConsoleOptionParser buildOptionParser.epilog()
-     */
-    protected string _epilog = "";
+    // Sets the description text for shell/task.
+    @property void description(string[] descriptionTexts...) {
+        description(descriptionTexts.dup);
+    }
+
+    @property void description(string[] descriptionTexts) {
+        description(descriptionTexts.join("\n"));
+    }
+    // #endregion description
+
+    void addArgument(string argName, IData[string] params = null) {
+        IData[string] defaultOptions = [
+            "name": StringData(argName),
+            "help": StringData(""),
+            "index": LongData(count(_args)),
+            "required": BooleanData(false),
+            "choices": ArrayData,
+        ];
+
+        auto newParams = params.merge(defaultOptions);
+        auto anIndex = newParams["index"];
+        newParams.remove("index");
+        auto inputArgument = new DConsoleInputArgument(newParams);
+
+        _args.each!((a) {
+            if (a.isEqualTo(inputArgument)) {
+                return;
+            }
+            if (!options.isEmpty("required") && !a.isRequired()) {
+                throw new LogicException("A required argument cannot follow an optional one");
+            }
+        });
+
+        _args[anIndex] = arg;
+        ksort(_args);
+    }
 
     // Option definitions.
     protected DConsoleInputOption[string] _options;
@@ -105,6 +137,21 @@ class DConsoleOptionParser {
     // Set the root name used in the HelpFormatter
     @property rootName(string aName) {
         _rootName = name;
+    }
+
+    /**
+     * Sets an epilog to the parser. The epilog is added to the end of
+     * the options and arguments listing when help is generated. */
+    auto epilog(string[] epilogTexts...) {
+        return epilog(epilogTexts.dup);
+    }
+    void epilog(string[] texts) {
+       _epilog = texts.join("\n");
+    }
+    
+    // Gets the epilog.
+    @property string epilog() {
+        return _epilog;
     }
 
     /**
@@ -225,36 +272,7 @@ class DConsoleOptionParser {
     string getCommand() {
         return _command;
     }
-
-    // Sets the description text for shell/task.
-    @property void description(string[] descriptionTexts...) {
-        description(descriptionTexts.dup);
-    }
-
-    @property void description(string[] descriptionTexts) {
-       _description = descriptionTexts.join("\n");
-    }
-    
-    // Gets the description text for shell/task.
-    @property string description() {
-        return _description;
-    }
-    
-    /**
-     * Sets an epilog to the parser. The epilog is added to the end of
-     * the options and arguments listing when help is generated. * /
-    auto setEpilog(string[] epilogTexts...) {
-        return setEpilog(epilogTexts.dup);
-    }
-    void setEpilog(string[] epilogTexts) {
-       _epilog = epilogTexts.join("\n");
-    }
-    
-    // Gets the epilog.
-    string getEpilog() {
-        return _epilog;
-    }
-    
+        
     /**
      * Add an option to the option parser. Options allow you to define optional or required
      * parameters for your console application. Options are defined by the parameters they use.
@@ -343,33 +361,7 @@ class DConsoleOptionParser {
     }
     
     void addArgument(ConsoleInputArgument|string aName, array params = []) {
-        if (cast(DConsoleInputArgument)name) {
-            arg = name;
-             anIndex = count(_args);
-        } else {
-            IData[string] defaults = [
-                "name": name,
-                "help": "",
-                "index": count(_args),
-                "required": BooleanData(false),
-                "choices": ArrayData,
-            ];
-            options = params + defaults;
-             anIndex = options["index"];
-            options.remove("index");
-            arg = new DConsoleInputArgument(options);
-        }
-        foreach (a; _args) {
-            if (a.isEqualTo(arg)) {
-                return;
-            }
-            if (!empty(options["required"]) && !a.isRequired()) {
-                throw new LogicException("A required argument cannot follow an optional one");
-            }
-        }
-       _args[anIndex] = arg;
-        ksort(_args);
-    }
+
     
     /**
      * Add multiple arguments at once. Take an array of argument definitions.

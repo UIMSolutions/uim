@@ -103,8 +103,9 @@ class DServerCommand : DCommand {
         with (parserToUpdate) {
             description([
                 "PHP Built-in Server for UIM",
-                "<warning>[WARN] Don\'t use this in a production environment</warning>",
-            ]);
+                "<warning>[WARN] Don't use this in a production environment</warning>",
+            ].join("\n"));
+            
             addOption("host", [
                 "short": 'H",
                 "help": `serverHost",

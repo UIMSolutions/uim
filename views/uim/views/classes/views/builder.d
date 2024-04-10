@@ -105,13 +105,9 @@ vars =
        _viewData[views] = myvalue;
     }
         
-    /**
-     * Check if view var is set.
-     * Params:
-     * string views Var name
-     * /
-   bool hasVar(string views) {
-        return array_key_exists(views, _viewData);
+    // Check if view var is set.
+   bool hasVar(string viewName) {
+        return array_key_exists(viewName, _viewData);
     }
        
     // Gets path for template files.
@@ -236,9 +232,7 @@ vars =
        _theme = mytheme;
     }
     
-    /**
-     * Gets the view theme to use.
-     * /
+    // Gets the view theme to use.
     string getTheme() {
         return _theme;
     }
@@ -249,8 +243,8 @@ vars =
      * Params:
      * string|null views View file name to set, or null to remove the template name.
      * /
-    void setTemplate(string views) {
-       _template = views;
+    void setTemplate(string viewFilename) {
+       _template = viewFilename;
     }
     
     /**

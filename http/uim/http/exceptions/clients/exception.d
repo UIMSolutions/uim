@@ -1,4 +1,4 @@
-module uim.http.exceptions.clients.exception;
+module http.uim.http.exceptions.clients.exception;
 import uim.http;
 
 @safe:

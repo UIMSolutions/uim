@@ -1,4 +1,4 @@
-module source.uim.http.exceptions.clients.missingresponse;
+module http.uim.http.exceptions.clients.missingresponse;
 
 
 /**

@@ -38,7 +38,7 @@ class DMarshaller {
      * @throws \InvalidArgumentException When associations do not exist.
      * /
     protected array _buildPropertyMap(array data, IData[string] options) {
-        auto mymap = [];
+        auto mymap = null;
         auto tableSchema = _table.getSchema();
 
         // Is a concrete column?
@@ -55,7 +55,7 @@ class DMarshaller {
         foreach (myinclude as aKey: mynested) {
             if (isInt(aKey) && isScalar(mynested)) {
                 aKey = mynested;
-                mynested = [];
+                mynested = null;
             }
             // If the key is not a special field like _ids or _joinData
             // it is a missing association that we should error on.
@@ -149,7 +149,7 @@ class DMarshaller {
 
         options["isMerge"] = false;
         mypropertyMap = _buildPropertyMap(mydata, options);
-        myproperties = [];
+        myproperties = null;
         /**
          * @var string aKey
          * /
@@ -284,7 +284,7 @@ class DMarshaller {
      * @param IData[string] options List of options
      * /
     IEntity[] many(array data, IData[string] optionData = null) {
-        myoutput = [];
+        myoutput = null;
         foreach (mydata as myrecord) {
             if (!isArray(myrecord)) {
                 continue;
@@ -310,7 +310,7 @@ class DMarshaller {
         auto mydata = mydata.values;
         auto mytarget = myassoc.getTarget();
         auto myprimaryKey = array_flip((array)mytarget.getPrimaryKeys());
-        auto myrecords = myconditions = [];
+        auto myrecords = myconditions = null;
         auto myprimaryCount = count(myprimaryKey);
 
         foreach (index: myrow; mydata) {
@@ -320,7 +320,7 @@ class DMarshaller {
             if (array_intersect_key(myprimaryKey, myrow) == myprimaryKey) {
                 someKeys = array_intersect_key(myrow, myprimaryKey);
                 if (count(someKeys) == myprimaryCount) {
-                    myrowConditions = [];
+                    myrowConditions = null;
                     foreach (someKeys as aKey: myvalue) {
                         myrowConditions[][mytarget.aliasField(aKey)] = myvalue;
                     }
@@ -341,7 +341,7 @@ class DMarshaller {
 
             mykeyFields = myprimaryKey.keys;
 
-            myexisting = [];
+            myexisting = null;
             results.each!((row) {
                 auto myKey = join(";", row.extract(mykeyFields));
                 myexisting[myKey] = row;
@@ -362,7 +362,7 @@ class DMarshaller {
         }
         myjointMarshaller = myassoc.junction().marshaller();
 
-        mynested = [];
+        mynested = null;
         if (isSet(myassociated["_joinData"])) {
             mynested = (array)myassociated["_joinData"];
         }
@@ -396,7 +396,7 @@ class DMarshaller {
             if (!isArray(myfirst) || count(myfirst) != count(myprimaryKey)) {
                 return null;
             }
-            mytype = [];
+            mytype = null;
             myschema = mytarget.getSchema();
             foreach ((array)mytarget.getPrimaryKeys() as mycolumn) {
                 mytype ~= myschema.getColumnType(mycolumn);
@@ -446,7 +446,7 @@ class DMarshaller {
         [mydata, options] = _prepareDataAndOptions(mydata, options);
 
         myisNew = myentity.isNew();
-        someKeys = [];
+        someKeys = null;
 
         if (!myisNew) {
             someKeys = myentity.extract((array)_table.getPrimaryKeys());
@@ -459,7 +459,7 @@ class DMarshaller {
         myerrors = _validate(mydata + someKeys, options["validate"], myisNew);
         options["isMerge"] = true;
         mypropertyMap = _buildPropertyMap(mydata, options);
-        myproperties = [];
+        myproperties = null;
 
         // @var string aKey
         foreach (aKey, myvalue; mydata) {
@@ -570,7 +570,7 @@ class DMarshaller {
 
         mynew = myindexed[""] ?? [];
         unset(myindexed[""]);
-        myoutput = [];
+        myoutput = null;
 
         foreach (myentity; myentities) {
             if (!(cast(IEntity)myentity)) {
@@ -704,7 +704,7 @@ class DMarshaller {
      * /
     protected IEntity[] _mergeJoinData(array myoriginal, BelongsToMany myassoc, array myvalue, IData[string] options) {
         myassociated = options["associated"] ?? [];
-        myextra = [];
+        myextra = null;
         foreach (myoriginal as myentity) {
             // Mark joinData as accessible so we can marshal it properly.
             myentity.setAccess("_joinData", true);
@@ -717,7 +717,7 @@ class DMarshaller {
         myjoint = myassoc.junction();
         mymarshaller = myjoint.marshaller();
 
-        mynested = [];
+        mynested = null;
         if (isSet(myassociated["_joinData"])) {
             mynested = (array)myassociated["_joinData"];
         }

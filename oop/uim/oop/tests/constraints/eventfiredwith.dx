@@ -45,7 +45,7 @@ class DEventFiredWith : Constraint {
      * @throws \PHPUnit\Framework\AssertionFailedError
      */
     bool matches(IData expectedOther) {
-        firedEvents = [];
+        firedEvents = null;
         list = _eventManager.getEventList();
         if (list !isNull) {
             totalEvents = count(list);

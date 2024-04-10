@@ -8,9 +8,9 @@ import uim.oop;
 class DFixtureHelper {
     // Finds fixtures from their TestCase names such as "core.Articles".
     IFixture[] loadFixtures(string[] fixtureNames) {
-        static cachedFixtures = [];
+        static cachedFixtures = null;
 
-        fixtures = [];
+        fixtures = null;
         foreach (fixtureNames as fixtureName) {
             if (fixtureName.has(".")) {
                 [type, somePathName] = split(".", fixtureName, 2);
@@ -78,7 +78,7 @@ class DFixtureHelper {
      * @param array<\UIM\Datasource\IFixture> fixtures Test fixtures
      */
     void runPerConnection(Closure aCallback, array fixtures) {
-        auto anGroups = [];
+        auto anGroups = null;
         fixtures
             .each!(fixture => anGroups[fixture.connection()] ~= fixture);
 
@@ -180,8 +180,8 @@ class DFixtureHelper {
      * @param array<\UIM\Datasource\IFixture> fixtures Database fixtures
      */
     protected array sortByConstraint(Connection aConnection, array fixtures) {
-        constrained = [];
-        unconstrained = [];
+        constrained = null;
+        unconstrained = null;
         fixtures.each((fixture) {
             references = this.getForeignReferences(aConnection, fixture);
             if (references) {
@@ -210,7 +210,7 @@ class DFixtureHelper {
      */
     protected string[] getForeignReferences(Connection aConnection, IFixture fixture) {
         /** @var array<string, \UIM\Database\Schema\TableISchema> schemas */
-        static schemas = [];
+        static schemas = null;
 
         // Get and cache off the schema since TestFixture generates a fake schema based on fields
         aTableName = fixture.sourceName();
@@ -219,7 +219,7 @@ class DFixtureHelper {
         }
         tableSchema = schemas[aTableName];
 
-        references = [];
+        references = null;
         foreach (tableSchema.constraints() as constraintName) {
             constraint = tableSchema.getConstraint(constraintName);
 

@@ -11,7 +11,7 @@ abstract class DTestCase : BaseTestCase {
     /**
      * Fixtures used by this test case.
      */
-    protected string[] myfixtures = [];
+    protected string[] myfixtures = null;
 
     /**
      * @var \UIM\TestSuite\Fixture\IFixtureStrategy|null
@@ -19,7 +19,7 @@ abstract class DTestCase : BaseTestCase {
     protected IFixtureStrategy myfixtureStrategy = null;
 
     // Configure values to restore at end of test.
-    protected array my_configure = [];
+    protected array my_configure = null;
 
     private PhpError my_capturedError = null;
 
@@ -154,7 +154,7 @@ abstract class DTestCase : BaseTestCase {
             Configure.write(_configure);
         }
         this.getTableLocator().clear();
-       _configure = [];
+       _configure = null;
        _tableLocator = null;
         if (class_exists(Mockery.classname)) {
             Mockery.close();
@@ -519,8 +519,8 @@ abstract class DTestCase : BaseTestCase {
      * @param bool fullDebug Whether more verbose output should be used.
      */
    bool assertHtml(array expected, string mlText, bool fullDebug = false) {
-        regex = [];
-        normalized = [];
+        regex = null;
+        normalized = null;
         foreach (expected as aKey: val) {
             if (!isNumeric(aKey)) {
                 normalized ~= [aKey: val];
@@ -573,10 +573,10 @@ abstract class DTestCase : BaseTestCase {
                      anI,
                 ];
                 if (attributes == true) {
-                    attributes = [];
+                    attributes = null;
                 }
-                attrs = [];
-                explanations = [];
+                attrs = null;
+                explanations = null;
                  anI = 1;
                 foreach (attributes as attr: val) {
                     if (isNumeric(attr) && preg_match("/^preg\:\/(.+)\//i", to!string(val), matches)) {

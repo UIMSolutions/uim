@@ -15,7 +15,7 @@ class DTestFixture : IFixture {
     string fullTableName = "";
 
     // Fixture records to be inserted.
-    array records = [];
+    array records = null;
 
     /**
      * The schema for this fixture.
@@ -109,9 +109,9 @@ class DTestFixture : IFixture {
     
     // Converts the internal records into data used to generate a query.
     protected array _getRecords() {
-        auto fields = [];
-        auto someValues = [];
-        auto types = [];
+        auto fields = null;
+        auto someValues = null;
+        auto types = null;
         auto someColumns = _schema.columns();
         this.records.each!(record => fields = chain(fields, array_intersect(record.keys, someColumns)));
 

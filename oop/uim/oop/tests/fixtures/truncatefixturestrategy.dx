@@ -8,7 +8,7 @@ import uim.oop;
 class DTruncateFixtureStrategy : IFixtureStrategy {
     protected DFixtureHelper helper;
 
-    protected IFixture[] fixtures = [];
+    protected IFixture[] fixtures = null;
 
     this() {
         this.helper = new DFixtureHelper();

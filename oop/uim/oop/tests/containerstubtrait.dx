@@ -24,7 +24,7 @@ template ContainerStubTemplate() {
     protected array _appArgs = null;
 
     // The collection of container services.
-    private array containerServices = [];
+    private array containerServices = null;
 
     /**
      * Configure the application class to use in integration tests.

@@ -78,7 +78,7 @@ class DBelongsTo : DAssociation {
      * IData[string] options list of options passed to attachTo method
      */
     protected IdentifierExpression[] _joinCondition(IData[string] options = null) {
-        auto myConditions = [];
+        auto myConditions = null;
         auto mytAlias = _name;
         auto mysAlias = _sourceTable.aliasName();
         auto myforeignKey = (array)options["foreignKey"];

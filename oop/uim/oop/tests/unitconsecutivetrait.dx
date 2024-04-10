@@ -13,7 +13,7 @@ template PHPUnitConsecutiveTemplate() {
         allConsecutiveCallsArguments = [firstCallArguments, ...consecutiveCallsArguments];
 
         numberOfArguments = count(firstCallArguments);
-        argumentList = [];
+        argumentList = null;
         for (argumentPosition = 0; argumentPosition < numberOfArguments; argumentPosition++) {
             argumentList[argumentPosition] = array_column(allConsecutiveCallsArguments, argumentPosition);
         }

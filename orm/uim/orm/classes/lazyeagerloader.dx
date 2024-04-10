@@ -87,7 +87,7 @@ class LazyEagerLoader {
      * @param string[] myassociations The name of the top level associations
      */
     protected string[] _getPropertyMap(Table mysource, array myassociations) {
-        auto propertyMap = [];
+        auto propertyMap = null;
         auto mycontainer = mysource.associations();
         foreach (myassociations as myassoc) {
             myassociation = mycontainer.get(myassoc);
@@ -111,7 +111,7 @@ class LazyEagerLoader {
         array myassociations,
         Table mysource
     ) {
-        myinjected = [];
+        myinjected = null;
         myproperties = _getPropertyMap(mysource, myassociations);
         myprimaryKey = (array)mysource.getPrimaryKeys();
         /** @var array<\UIM\Datasource\IEntity> results */

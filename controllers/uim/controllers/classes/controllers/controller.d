@@ -55,7 +55,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
     // @use \UIM\Event\EventDispatcherTrait<\UIM\Core\IConsoleApplication>
     mixin TEventDispatcher;
     mixin LocatorAwareTemplate;
-    mixin LogTemplate;
+    mixin TLog;
     mixin ViewVarsTemplate;
 
     this() {
@@ -152,7 +152,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      *
      * @psalm-var array<int, array{middleware:\Psr\Http\Server\IMiddleware|\Closure|string, options:array{only?: string[], except?: string[]}}>
      * /
-    protected array  middlewares = [];
+    protected array  middlewares = null;
 
 
     /**
@@ -338,7 +338,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
 
     // Get middleware to be applied for this controller.
     array getMiddlewares() {
-        auto  matching = [];
+        auto  matching = null;
         auto requestAction = this.request.getParam("action");
 
         foreach (this.middlewares as  middleware) {
@@ -519,7 +519,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
             return null;
         }
 
-        auto typeMap = [];
+        auto typeMap = null;
         foreach (className; possibleViewClasses) {
              viewContentType = className.contentType();
             if ( viewContentType && !typeMap.isSet( viewContentType)) {

@@ -207,7 +207,7 @@ class DConsoleOutput {
         if (style.isEmpty) {
             return "<" ~ matchesToReplace["tag"] ~ ">" ~ matchesToReplace["text"] ~ "</" ~ matchesToReplace["tag"] ~ ">";
         }
-        styleInfo = [];
+        styleInfo = null;
         if (!style["text"].isEmpty) && isSet(_foregroundColors[style["text"]])) {
             styleInfo ~= _foregroundColors[style["text"]];
         }

@@ -374,7 +374,7 @@ class DConsoleOptionParser {
         foreach (name: params; someArguments) {
             if (cast(DConsoleInputArgument)params) {
                 name = params;
-                params = [];
+                params = null;
             }
             this.addArgument(name, params);
         }
@@ -391,7 +391,7 @@ class DConsoleOptionParser {
         foreach (name: params; optionsToAdd) {
             if (cast(DConsoleInputOption)params) {
                 name = params;
-                params = [];
+                params = null;
             }
             this.addOption(name, params);
         }
@@ -420,7 +420,7 @@ class DConsoleOptionParser {
      * @param \UIM\Console\ConsoleIo|null  aConsoleIo A ConsoleIo instance or null. If null prompt options will error.
      * /
     array parse(array argv, IConsoleIo aConsoleIo = null) {
-        params = someArguments = [];
+        params = someArguments = null;
        _tokens = argv;
 
         afterDoubleDash = false;

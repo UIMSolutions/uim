@@ -1,4 +1,4 @@
-module uim.cake.controllers;
+module uim.controllers.classes.components.component;
 
 import uim.controllers;
 
@@ -43,8 +43,9 @@ import uim.controllers;
  * @see \UIM\Controller\Controller.components
  */
 class DComponent : IEventListener {
-   mixin TConfigurable!();
-    
+    mixin TConfigurable!();
+    mixin TLog;
+
     this() {
         initialize;
     }
@@ -66,35 +67,15 @@ class DComponent : IEventListener {
     }
 
     mixin(TProperty!("string", "name"));
-    mixin LogTemplate;
-    
-    this() {
-        initialize;
-    }
-
-    this(IData[string] initData) {
-        initialize(initData);
-    }
-
-    bool initialize(IData[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
-
-        return true;
-    }
-
-    mixin(TProperty!("string", "name"));
-
-
 
     // Component registry class used to lazy load components.
     protected IComponentRegistry _registry;
 
     // Other Components this component uses.
-    protected array components = [];
+    // TODO protected array components = null;
 
     // Loaded component instances.
-    protected IComponent[string] componentInstances = [];
+    protected IComponent[string] componentInstances = null;
 
     /**
      * Constructor
@@ -103,24 +84,22 @@ class DComponent : IEventListener {
      * this component can use to lazy load its components.
      * configData = Array of configuration settings.
      */
-    this(IComponentRegistry  registry, IData[string] configData = null) {
-       _registry =  registry;
+    this(IComponentRegistry registry, IData[string] configData = null) {
+        _registry = registry;
 
         configuration.update(configData);
 
         if (this.components) {
-            this.components =  registry.normalizeArray(this.components);
+            this.components = registry.normalizeArray(this.components);
         }
         this.initialize(configData);
     }
-    
+
     // Get the controller this component is bound to.
     Controller getController() {
         return _registry.getController();
     }
-    
 
-    
     /**
      * Magic method for lazy loading components.
      * Returns A Component object or null.
@@ -133,7 +112,9 @@ class DComponent : IEventListener {
             return this.componentInstances[componentName];
         }
         if (isSet(this.components[componentName])) {
-            configData = this.components[componentName] ~ ["enabled": BooleanData(false)];
+            configData = this.components[componentName] ~ [
+                "enabled": BooleanData(false)
+            ];
 
             return this.componentInstances[componentName] = _registry.load(
                 componentName,
@@ -142,7 +123,7 @@ class DComponent : IEventListener {
         }
         return null;
     }
-    
+
     /**
      * Get the Controller callbacks this Component is interested in.
      *
@@ -169,7 +150,7 @@ class DComponent : IEventListener {
 
         return myEvents;
     }
-    
+
     // Returns an array that can be used to describe the internal state of this object.
     string[string] debugInfo() {
         return [

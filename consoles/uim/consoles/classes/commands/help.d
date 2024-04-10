@@ -35,7 +35,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
      * @param iterable<string, string|object> commands The command collection to output.
      * /
     protected void asText(IConsoleIo aConsoleIo, STRINGAA commands) {
-        string[][string] myInvert = [];
+        string[][string] myInvert = null;
         foreach (name, className; commands) {
             /* if (isObject(className)) {
                  className = className.class;
@@ -44,7 +44,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
             myInvert[className] ~= name;
         }
         
-        auto anGrouped = [];
+        auto anGrouped = null;
         auto plugins = Plugin.loaded();
         foreach (className, names; myInvert) {
             preg_match("/^(.+)\\\\Command\\\\/",  className, matches);

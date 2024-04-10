@@ -94,7 +94,7 @@ class DCommandScanner {
         /** @var array<\SplFileInfo> files * /
         files = fs.find(somePath,  classNamePattern);
 
-        commands = [];
+        commands = null;
         foreach (fileInfo; files) {
             auto file = fileInfo.getFilename();
 

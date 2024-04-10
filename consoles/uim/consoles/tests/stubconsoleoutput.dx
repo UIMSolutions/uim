@@ -19,7 +19,7 @@ import uim.consoles;
  */
 class DStubConsoleOutput : DConsoleOutput {
     // Buffered messages.
-    protected string[] _out = [];
+    protected string[] _out = null;
 
     /**
      * Write output to the buffer.

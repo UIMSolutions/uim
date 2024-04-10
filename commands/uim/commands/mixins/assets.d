@@ -25,7 +25,7 @@ mixin template TPluginAssets() {
         pluginsList = pluginName.isNull
             ? Plugin.loaded()
             : [pluginName];
-        plugins = [];
+        plugins = null;
 
         foreach (plugin; pluginsList) {
             auto somePath = Plugin.path(plugin) ~ "webroot";

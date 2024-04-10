@@ -200,7 +200,7 @@ mixin template ConsoleIntegrationTestTemplate() {
      */
     protected string[] commandStringToArgs(string acommand) {
         size_t charCount = command.length;
-        string[] argv = [];
+        string[] argv = null;
         string argument;
          anInDQuote = false;
          anInSQuote = false;

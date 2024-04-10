@@ -118,7 +118,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * @param array passedParams Params passed by the router.
      * /
     protected array getActionArgs(Closure action, array passedParams) {
-         resolved = [];
+         resolved = null;
         function = new DReflectionFunction(action);
         foreach (parameter; function.getParameters()) {
             type = parameter.getType();

@@ -1,4 +1,4 @@
-module databases.uim.databases.classes.expressions.whenthen;
+module uim.databases.classes.expressions.whenthen;
 
 import uim.databases;
 

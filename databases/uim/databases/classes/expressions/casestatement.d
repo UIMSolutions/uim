@@ -1,4 +1,4 @@
-module databases.uim.databases.classes.expressions.casestatement;
+module uim.databases.classes.expressions.casestatement;
 
 import uim.databases;
 

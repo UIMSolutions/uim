@@ -1,4 +1,4 @@
-module controllers.uim.controllers.classes.components.checkhttpcache;
+module uim.controllers.classes.components.checkhttpcache;
 
 import uim.controllers;
 

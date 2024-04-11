@@ -1,4 +1,4 @@
-module databases.uim.databases.classes.expressions.unary;
+module uim.databases.classes.expressions.unary;
 
 import uim.databases;
 

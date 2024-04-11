@@ -61,7 +61,7 @@ class DBetweenExpression : IExpression, IField {
        _type = type;
     }
  
-    string sql(ValueBinder aValueBinder) {
+    string sql(DValueBinder aValueBinder) {
         auto someParts = [
             "from": _from,
             "to": _to,

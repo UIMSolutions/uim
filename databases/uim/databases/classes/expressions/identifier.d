@@ -45,7 +45,7 @@ class DIdentifierExpression : IExpression {
     mixin(TProperty!("string", "collation"));
 
     /* 
-    string sql(ValueBinder aBinder) {
+    string sql(DValueBinder aBinder) {
         string sql = _identifier;
         if (this.collation) {
             sql ~= " COLLATE " ~ this.collation;

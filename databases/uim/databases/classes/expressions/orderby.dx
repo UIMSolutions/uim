@@ -20,7 +20,7 @@ class DOrderByExpression : DQueryExpression {
     ) {
         super(conditions, types, aConjunction);
     }
-    string sql(ValueBinder aBinder) {
+    string sql(DValueBinder aBinder) {
         string[] sqlOrders;
         foreach (myKey:  direction; _conditions) {
             if (cast(IExpression) direction ) {

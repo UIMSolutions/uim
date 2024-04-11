@@ -89,7 +89,7 @@ class DFunctionExpression : QueryExpression, ITypedResult {
             put(_conditions, ["value": condition, "type": type]);
     }
  
-    string sql(ValueBinder aBinder) {
+    string sql(DValueBinder aBinder) {
         someParts = null;
         foreach (condition; _conditions) {
             if (cast(Query)condition) {

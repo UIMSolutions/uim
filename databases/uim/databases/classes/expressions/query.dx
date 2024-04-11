@@ -414,7 +414,7 @@ class DQueryExpression : IExpression, Countable {
 
         return this.eq( wrapIdentifier( leftField),  wrapIdentifier(rightField));
     }
-    string sql(ValueBinder aBinder) {
+    string sql(DValueBinder aBinder) {
          len = this.count();
         if ( len == 0) {
             return "";

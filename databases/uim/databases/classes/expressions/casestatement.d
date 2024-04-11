@@ -455,7 +455,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
         return this.{clause};
     }
  
-    string sql(ValueBinder aBinder) {
+    string sql(DValueBinder aBinder) {
         if (!this.whenBuffer is null) {
             throw new LogicException("Case expression has incomplete when clause. Missing `then()` after `when()`.");
         }

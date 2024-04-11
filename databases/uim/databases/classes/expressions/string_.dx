@@ -25,7 +25,7 @@ class DStringExpression : IExpression {
         return this.collation;
     }
  
-    string sql(ValueBinder aBinder) {
+    string sql(DValueBinder aBinder) {
         auto placeholder = aBinder.placeholder("c");
         aBinder.bind(placeholder, this.string, "string");
 

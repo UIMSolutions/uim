@@ -98,7 +98,7 @@ class DComparisonExpression : IExpression, IField {
         return _operator;
     }
  
-    string sql(ValueBinder aBinder) {
+    string sql(DValueBinder aBinder) {
         auto field = _field;
 
         if (cast(IExpression)field ) {
@@ -146,7 +146,7 @@ class DComparisonExpression : IExpression, IField {
      * Params:
      * \UIM\Database\ValueBinder aBinder The value binder to use.
      * /
-    protected array _stringExpression(ValueBinder valueBinder) {
+    protected array _stringExpression(DValueBinder valueBinder) {
         auto template = "%s ";
 
         if (cast(IExpression)_field  && !cast(IdentifierExpression)_field) {

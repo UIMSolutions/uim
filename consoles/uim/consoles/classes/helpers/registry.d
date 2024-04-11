@@ -67,11 +67,11 @@ class DHelperRegistry { // }: ObjectRegistry {
      * \UIM\Console\Helper|class-string<\UIM\Console\Helper> className The classname to create.
      * configData - An array of settings to use for the helper.
      * /
-    protected Helper _create(object obj, string helperAlias, IData[string] configData) {
+    protected DHelper _create(object obj, string helperAlias, IData[string] configData) {
         return obj;
     }
 
-    protected Helper _create(string className, string helperAlias, IData[string] configData) {
+    protected DHelper _create(string className, string helperAlias, IData[string] configData) {
         return new className(_io, configData);
     } */
 }

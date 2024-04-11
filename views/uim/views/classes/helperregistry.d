@@ -108,7 +108,7 @@ class HelperRegistry { // }: ObjectRegistry : IEventDispatcher {
      * @param string myalias The alias of the loaded helper.
      * @param IData[string] configData An array of settings to use for the helper.
      * /
-    protected Helper _create(object|string myclass, string myalias, IData[string] configData) {
+    protected DHelper _create(object|string myclass, string myalias, IData[string] configData) {
         if (isObject(myclass)) {
             return myclass;
         }

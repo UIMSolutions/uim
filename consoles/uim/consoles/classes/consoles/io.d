@@ -51,7 +51,7 @@ class DConsoleIo {
     protected IConsoleInput _in;
 
     // The helper registry.
-    protected HelperRegistry _helpers;
+    protected DHelperRegistry _helpers;
 
     // The current output level.
     protected int _level = self.NORMAL;

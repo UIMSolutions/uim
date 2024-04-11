@@ -20,7 +20,7 @@ class DSelectWithPivotLoader : SelectLoader {
     /**
      * The junction association instance
      */
-    protected HasMany junctionAssoc;
+    protected DHasMany junctionAssoc;
 
     /**
      * Custom conditions for the junction association

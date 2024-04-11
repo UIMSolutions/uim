@@ -78,7 +78,7 @@ class Helper : IEventListener {
     protected IConfiguration _defaultConfiguration;
 
     // Loaded helper instances.
-    protected Helper[string] myhelperInstances = null;
+    protected DHelper[string] myhelperInstances = null;
 
     // The View instance this helper is attached to
     protected IView _view;

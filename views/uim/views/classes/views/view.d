@@ -88,7 +88,7 @@ class DView : IView { //  }: IEventDispatcher {
     }
     
     // Helpers collection
-    protected HelperRegistry my_helpers = null;
+    protected DHelperRegistry my_helpers = null;
 
     // ViewBlock instance.
     protected IViewBlock myBlocks;

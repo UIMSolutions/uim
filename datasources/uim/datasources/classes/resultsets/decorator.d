@@ -27,5 +27,14 @@ class DResultSetDecorator : DCollection { // }: IResultSet
         }
 
         return count(this.toArray());
-    } */
+    } 
+    
+    string[string] debugInfo() {
+        parentInfo = super.__debugInfo();
+        aLimit = Configure.read("App.ResultSetDebugLimit", 10);
+
+        return chain(parentInfo, ["items": this.take(aLimit).toArray()]);
+    }
+    
+    */
 }

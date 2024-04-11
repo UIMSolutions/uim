@@ -5,5 +5,5 @@ import uim.datasources;
 @safe:
 
 // Describes how a collection of datasource results should look like
-interface IResultSet { // }: ICollection {
+interface IResultSet { // }: ICollection, Countable, Serializable
 }

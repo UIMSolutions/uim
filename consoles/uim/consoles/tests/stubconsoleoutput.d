@@ -1,4 +1,4 @@
-module uim.consoles\TestSuite;
+module uim.consoles.tests.stubconsoleoutputx;
 
 import uim.consoles;
 
@@ -21,12 +21,13 @@ class DStubConsoleOutput : DConsoleOutput {
     // Buffered messages.
     protected string[] _out = null;
 
+    /* 
     /**
      * Write output to the buffer.
      * Params:
      * string[]|string amessage A string or an array of strings to output
      * @param int newlines Number of newlines to append
-     */
+     * /
     int write(string[] amessage, int newlines = 1) {
         (array) message.each!(line => _out ~= line);
 
@@ -46,5 +47,5 @@ class DStubConsoleOutput : DConsoleOutput {
     // Get the output as a string
     string output() {
         return _out.join("\n");
-    }
+    } */
 }

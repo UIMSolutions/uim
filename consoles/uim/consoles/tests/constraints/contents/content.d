@@ -1,4 +1,4 @@
-module consoles.uim.consoles.tests.constraints.contents.content;
+module uim.consoles.tests.constraints.contents.content;
 
 import uim.consoles;
 

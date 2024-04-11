@@ -1,12 +1,12 @@
-module consoles.uim.consoles.tests;
+module uim.consoles.tests;
 
 public {
-    import consoles.uim.consoles.tests.contraints;
+    import uim.consoles.tests.constraints;
 }
 
 public {
-    import consoles.uim.consoles.tests.command;
-    import consoles.uim.consoles.tests.console;
-    import consoles.uim.consoles.tests.stubconsoleinput;
-    import consoles.uim.consoles.tests.stubconsoleoutput;
+    import uim.consoles.tests.command;
+    import uim.consoles.tests.console;
+    import uim.consoles.tests.stubconsoleinput;
+    import uim.consoles.tests.stubconsoleoutput;
 }

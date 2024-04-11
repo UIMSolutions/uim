@@ -10,7 +10,7 @@ import uim.consoles;
  * @internal
  */
 class DExitCode : DConstraint {
-    private int _exitCode = null;
+    private int _exitCode = 0;
 
     this(int exitCode) {
         _exitCode = exitCode;
@@ -20,7 +20,7 @@ class DExitCode : DConstraint {
      * Checks if event is in fired array
      * Params:
      * IData other Constraint check
-     */
+     * /
    bool matches(IData other) {
         return other == this.exitCode;
     }
@@ -34,9 +34,9 @@ class DExitCode : DConstraint {
      * Returns the description of the failure.
      * Params:
      * IData other Expected
-     */
+     * /
     string failureDescription(IData other) {
         return "`" ~ other ~ "` " ~ this.toString();
-    }
+    } */
 }
 

@@ -1,4 +1,4 @@
-module consoles.uim.consoles.classes.helpformatter;
+module uim.consoles.classes.helpformatter;
 
 import uim.consoles;
 

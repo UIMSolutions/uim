@@ -17,6 +17,7 @@ class DStubConsoleInput : DConsoleInput {
     // Current message index
     protected size_t _currentIndex = -1;
 
+    /* 
     this(string[] repliesForRead) {
         super();
 
@@ -44,6 +45,6 @@ class DStubConsoleInput : DConsoleInput {
     //  Check if data is available on stdin
     bool dataAvailable(int timeToWait = 0) {
         return true;
-    }
+    } */
 }
 

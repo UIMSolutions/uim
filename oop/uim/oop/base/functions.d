@@ -4,6 +4,7 @@ import uim.oop;
 
 @safe:
 
+/*
 if (!defined("DS")) {
     // Defines DS as short form of DIRECTORY_SEPARATOR.
     define("DS", DIRECTORY_SEPARATOR);
@@ -20,7 +21,7 @@ if (!function_exists("UIM\Core\h")) {
      * @param bool double Encode existing html entities.
      * @param string charset Character set to use when escaping.
      *  Defaults to config value in `mb_internal_encoding()` or 'UTF-8'.
-     */
+     * /
     IData htmlAttribEscape(IData text, bool double = true, string acharset = null) {
         if (isString(text)) {
             //optimize for strings
@@ -56,14 +57,14 @@ if (!function_exists("UIM\Core\pluginSplit")) {
      * string aName The name you want to plugin split.
      * @param bool dotAppend Set to true if you want the plugin to have a '.' appended to it.
      * @param string plugin Optional default plugin to use if no plugin is found. Defaults to null.
-     */
+     * /
     array pluginSplit(string aName, bool dotAppend = false, string aplugin = null) {
         if (name.has(".")) {
             string[] someParts = split(".", name, 2);
             if (dotAppend) {
                 someParts[0] ~= ".";
             }
-            /** @psalm-var array{string, string}*/
+            /** @psalm-var array{string, string}* /
             return someParts;
         }
         return [plugin, name];
@@ -75,7 +76,7 @@ if (!function_exists("UIM\Core\namespaceSplit")) {
      * Split the namespace from the classname.
      *
      * Commonly used like `list(namespace,  className) = namespaceSplit(className);`.
-     */
+     * /
     string[] namespaceSplit(string className) {
         pos = strrpos(className, "\\");
         if (pos == false) {
@@ -95,7 +96,7 @@ if (!function_exists("UIM\Core\pr")) {
      * This auto returns the same variable that was passed.
      * Params:
      * IData var Variable to print out.
-     */
+     * /
     IData pr(IData var) {
         if (!Configure.read("debug")) {
             return var;
@@ -117,7 +118,7 @@ if (!function_exists("UIM\Core\pj")) {
      * This auto returns the same variable that was passed.
      * Params:
      * IData var Variable to print out.
-     */
+     * /
     IData pj(IData var) {
         if (!Configure.read("debug")) {
             return var;
@@ -139,7 +140,7 @@ if (!function_exists("UIM\Core\env")) {
      * Params:
      * string aKey Environment variable name.
      * @param string|bool|null default Specify a default value in case the environment variable is not defined.
-     */
+     * /
     string|float|int|bool|null enviroment(string aKey, string|float|int|bool|null default = null) {
         if (aKey == "HTTPS") {
             if (isSet(_SERVER["HTTPS"])) {
@@ -185,7 +186,7 @@ if (!function_exists("UIM\Core\env")) {
 if (!function_exists("UIM\Core\triggerWarning")) {
     /**
      * Triggers an E_USER_WARNING.
-     */
+     * /
     void triggerWarning(string warningMessage) {
         auto trace = debug_backtrace();
         string outMessage = warningMessage;
@@ -211,7 +212,7 @@ if (!function_exists("UIM\Core\deprecationWarning")) {
      * @param string amessage The message to output as a deprecation warning.
      * @param int stackFrame The stack frame to include in the error. Defaults to 1
      *  as that should point to application/plugin code.
-     */
+     * /
     void deprecationWarning(string aversion, string amessage, int stackFrame = 1) {
         if (!(error_reporting() & E_USER_DEPRECATED)) {
             return;
@@ -259,4 +260,4 @@ if (!function_exists("UIM\Core\deprecationWarning")) {
         }
         trigger_error(message, E_USER_DEPRECATED);
     }
-}
+} */

@@ -1,4 +1,4 @@
-module uim.oop.core;
+module oop.uim.oop.mixins.conventions;
 
 import uim.oop;
 

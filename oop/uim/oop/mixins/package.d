@@ -14,6 +14,13 @@ public {
 	import uim.oop.mixins.valuemap;
 }
 
+public {
+	import uim.oop.mixins.cloneable;
+	import uim.oop.mixins.exception;
+	import uim.oop.mixins.properties;
+	import uim.oop.mixins.valuemap;
+}
+
 
 template ThisElement() {
 	const char[] ThisElement = `

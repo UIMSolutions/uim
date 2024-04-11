@@ -51,7 +51,7 @@ class DPlugin : IPlugin {
      * Constructor
      * Params:
      * IData[string] options Options
-     */
+     * /
     this(IData[string] options = null) {
         foreach (aKey; VALID_HOOKS) {
             if (isSet(options[aKey])) {
@@ -146,7 +146,7 @@ class DPlugin : IPlugin {
      * Params:
      * string aHook The hook name to check
      * @throws \InvalidArgumentException on invalid hooks
-     */
+     * /
     protected void checkHook(string aHook) {
         if (!in_array(aHook, VALID_HOOKS, true)) {
             throw new DInvalidArgumentException(
@@ -183,5 +183,5 @@ class DPlugin : IPlugin {
     
     // Register container services for this plugin.
     void services(IContainer containerWithServices) {
-    }
+    } */
 }

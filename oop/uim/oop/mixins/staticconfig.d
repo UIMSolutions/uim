@@ -1,4 +1,4 @@
-module uim.oop.base.staticconfigtrait;
+module oop.uim.oop.mixins.staticconfig;
 
 import uim.oop;
 

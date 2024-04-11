@@ -5,7 +5,7 @@ import uim.oop;
 @safe:
 
 // Dependency Injection container
-class DContainer : LeagueContainer, IContainer {
+class DContainer : DLeagueContainer, IContainer {
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		

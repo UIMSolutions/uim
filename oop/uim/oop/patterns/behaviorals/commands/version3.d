@@ -23,7 +23,7 @@ public class DNoXCommand : IXCommand {
 }
 
 
-public class LightOnXCommand : IXCommand {
+public class DLightOnXCommand : IXCommand {
 private:
 	Light light;
 
@@ -38,7 +38,7 @@ public:
 		light.off(); }
 }
 
-public class LightOffCommand : IXCommand {
+public class DLightOffCommand : IXCommand {
 private:
 	Light light;
 	
@@ -53,7 +53,7 @@ public:
 		light.on(); }
 }
 
-class Light {
+class DLight {
 	private string location;
 
 	this(string location) {

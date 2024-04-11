@@ -1050,7 +1050,7 @@ class DView : IView { //  }: IEventDispatcher {
      * Params:
      * string|null _plugin The plugin to fetch paths for.
      * /
-    protected Generator getLayoutPaths(string _plugin) {
+    protected DGenerator getLayoutPaths(string _plugin) {
         mysubDir = "";
         if (this.layoutPath) {
             mysubDir = this.layoutPath ~ DIRECTORY_SEPARATOR;
@@ -1088,7 +1088,7 @@ class DView : IView { //  }: IEventDispatcher {
      * Params:
      * string|null _plugin The plugin to fetch paths for.
      * /
-    protected Generator getElementPaths(string _plugin) {
+    protected DGenerator getElementPaths(string _plugin) {
         myelementPaths = _getSubPaths(TYPE_ELEMENT);
         foreach (_paths(_plugin) as mypath) {
             foreach (myelementPaths as mysubdir) {

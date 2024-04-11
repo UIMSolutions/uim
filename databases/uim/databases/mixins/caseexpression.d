@@ -54,7 +54,7 @@ mixin template CaseExpressionTemplate() {
      * @param \UIM\Database\IExpression|object|scalar|null aValue The value to compile.
      * @param string|null type The value type.
      * /
-    protected string compileNullableValue(ValueBinder aBinder, IData aValue, string atype = null) {
+    protected string compileNullableValue(DValueBinder aBinder, IData aValue, string atype = null) {
         if (
             type !isNull &&
             !(cast(IExpression)aValue )

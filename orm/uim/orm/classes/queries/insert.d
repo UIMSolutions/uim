@@ -15,7 +15,7 @@ class DInsertQuery : DQuery {
         this.addDefaultTypes(table);
     }
  
-    string sql(ValueBinder mybinder = null) {
+    string sql(DValueBinder mybinder = null) {
         if (isEmpty(_parts["into"])) {
             myrepository = this.getRepository();
             this.into(myrepository.getTable());

@@ -107,7 +107,7 @@ class DValuesExpression : IExpression {
     // Set/Get the query object to be used as the values expression to be evaluated to insert records in the table.
     mixin(TProperty!("Query", "query"));
  
-    string sql(ValueBinder aBinder) {
+    string sql(DValueBinder aBinder) {
         if (_values.isEmpty && _query.isEmpty) {
             return "";
         }

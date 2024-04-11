@@ -34,7 +34,7 @@ class DUnaryExpression : IExpression {
         _position = position;
     }
 
-    string sql(ValueBinder aBinder) {
+    string sql(DValueBinder aBinder) {
         auto operand = _value;
         if (cast(IExpression) operand) {
             operand = operand.sql(aBinder);

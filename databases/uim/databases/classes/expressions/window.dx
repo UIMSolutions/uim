@@ -120,7 +120,7 @@ class DWindowExpression : IExpression, IWindow {
         return this;
     }
  
-    string sql(ValueBinder  mybinder) {
+    string sql(DValueBinder  mybinder) {
         auto myclauses = null;
         if (this.name.getIdentifier()) {
              myclauses ~= this.name.sql(mybinder);

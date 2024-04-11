@@ -19,7 +19,7 @@ class DUpdateQuery : DQuery {
         this.addDefaultTypes(aTable);
     }
  
-    string sql(ValueBinder mybinder = null) {
+    string sql(DValueBinder mybinder = null) {
         if (!_parts.isSet("update") || _parts["update"].isEmpty) {
             myrepository = this.getRepository();
             this.update(myrepository.getTable());

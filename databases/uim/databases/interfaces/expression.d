@@ -7,7 +7,7 @@ import uim.databases;
 // An interface used by Expression objects.
 interface IExpression {
     // Converts the Node into a SQL string fragment.
-    // TODO string sql(ValueBinder parameterBinder);
+    // TODO string sql(DValueBinder parameterBinder);
 
     /**
      * Iterates over each part of the expression recursively for every

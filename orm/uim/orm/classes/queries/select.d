@@ -1322,7 +1322,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
         }
     }
  
-    string sql(ValueBinder mybinder = null) {
+    string sql(DValueBinder mybinder = null) {
         this.triggerBeforeFind();
 
        _transformQuery();

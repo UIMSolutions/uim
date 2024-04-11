@@ -1,4 +1,4 @@
-module uim.databases.expressions.window;
+module databases.uim.databases.classes.expressions.window;
 
 import uim.databases;
 

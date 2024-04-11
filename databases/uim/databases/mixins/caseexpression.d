@@ -8,7 +8,7 @@ import uim.databases;
  * mixin template that holds shared functionality for case related expressions.
  *
  * @internal
- * /
+ */
 mixin template TCaseExpression() {
     /**
      * Infers the abstract type for the given value.
@@ -73,6 +73,5 @@ mixin template TCaseExpression() {
             aValue = placeholder;
         }
         return aValue;
-    }
+    } */
 }
-*/

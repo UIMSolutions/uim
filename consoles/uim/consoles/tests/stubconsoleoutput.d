@@ -1,4 +1,4 @@
-module uim.consoles.tests.stubconsoleoutputx;
+module uim.consoles.tests.stubconsoleoutput;
 
 import uim.consoles;
 

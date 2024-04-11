@@ -1,4 +1,4 @@
-module consoles.uim.consoles.tests.constraints.contents.notcontain;
+module uim.consoles.tests.constraints.contents.notcontain;
 
 import uim.consoles;
 

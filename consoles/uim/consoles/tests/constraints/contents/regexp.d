@@ -1,4 +1,4 @@
-module consoles.uim.consoles.tests.constraints.contents.regexp;
+module uim.consoles.tests.constraints.contents.regexp;
 
 import uim.consoles;
 

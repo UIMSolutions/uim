@@ -1,4 +1,4 @@
-module uim.databases.classes.expressions.identifier;
+module databases.uim.databases.classes.expressions.identifier;
 
 import uim.databases;
 
@@ -44,6 +44,7 @@ class DIdentifierExpression : IExpression {
     // Gets/Sets the identifier collation.
     mixin(TProperty!("string", "collation"));
 
+    /* 
     string sql(ValueBinder aBinder) {
         string sql = _identifier;
         if (this.collation) {

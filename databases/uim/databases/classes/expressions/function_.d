@@ -1,4 +1,4 @@
-module uim.databases.classes.expressions.function_x;
+module databases.uim.databases.classes.expressions.function_;
 
 import uim.databases;
 
@@ -11,8 +11,8 @@ import uim.databases;
  * explicitly told otherwise.
  */
 class DFunctionExpression : QueryExpression, ITypedResult {
-    use ExpressionTypeCasterTemplate;
-    use TypedResultTemplate;
+    mixin ExpressionTypeCasterTemplate;
+    mixin TypedResultTemplate;
 
     // The name of the auto to be constructed when generating the SQL string
     mixin(TPropperty!("string", "name"));
@@ -41,7 +41,7 @@ class DFunctionExpression : QueryExpression, ITypedResult {
      * @param STRINGAA|array<string|null> types Associative array of types to be associated with the
      * passed arguments
      * @param string resultType The return type of this expression
-     */
+     * /
     this(string aName, array params = [], array types = [], string resultType = "string") {
        _name = name;
        _returnType = resultType;
@@ -59,7 +59,7 @@ class DFunctionExpression : QueryExpression, ITypedResult {
      * @see \UIM\Database\Expression\FunctionExpression.__construct() for more details.
 
      * @psalm-suppress MoreSpecificImplementedParamType
-     */
+     * /
     void add(IExpression|string[] aconditions, array types = [], bool prepend = false) {
         put = prepend ? "array_unshift' : 'array_push";
         typeMap = this.getTypeMap().setTypes(types);
@@ -112,8 +112,8 @@ class DFunctionExpression : QueryExpression, ITypedResult {
     /**
      * The name of the bool is in itself an expression to generate, thus
      * always adding 1 to the amount of expressions stored in this object.
-     */
+     * /
     size_t count() {
         return 1 + count(_conditions);
-    }
+    } */
 }

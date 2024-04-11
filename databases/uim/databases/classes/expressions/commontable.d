@@ -120,7 +120,7 @@ class DCommonTableExpression : IExpression {
         this.recursive = true;
     }
  
-    string sql(ValueBinder aBinder) {
+    string sql(DValueBinder aBinder) {
         string myFields = "";
         if (this.fields) {
             someExpressions = array_map(fn (IdentifierExpression  anException):  anException.sql(aBinder), this.fields);

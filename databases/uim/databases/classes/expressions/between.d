@@ -25,8 +25,9 @@ class DBetweenExpression : IExpression, IField {
 
     mixin(TProperty!("string", "name"));
 
-    use ExpressionTypeCasterTemplate;
-    use FieldTemplate;
+    /* 
+    mixin ExpressionTypeCasterTemplate;
+    mixin FieldTemplate;
 
     // The first value in the expression
     protected IData _from;
@@ -35,7 +36,7 @@ class DBetweenExpression : IExpression, IField {
      * The second value in the expression
      *
      * @var mixed
-     */
+     * /
     protected IData _to;
 
     // The data type for the from and to arguments
@@ -48,7 +49,7 @@ class DBetweenExpression : IExpression, IField {
      * @param IData from The initial value of the range.
      * @param IData to The ending value in the comparison range.
      * @param string|null type The data type name to bind the values with.
-     */
+     * /
     this(IExpression|string afield, IData from, IData to, string atype = null) {
         if (!type is null) {
             from = _castToExpression(from, type);
@@ -94,7 +95,7 @@ class DBetweenExpression : IExpression, IField {
      * IData aValue The value to bind
      * @param \UIM\Database\ValueBinder aValueBinder The value binder to use
      * @param string atype The type of aValue
-     */
+     * /
     protected string _bindValue(IData aValue, ValueBinder aValueBinder, string atype) {
         placeholder = aValueBinder.placeholder("c");
         aValueBinder.bind(placeholder, aValue, type);
@@ -107,5 +108,5 @@ class DBetweenExpression : IExpression, IField {
         ["_field", "_from", "_to"]
             .filter!(part => cast(IExpression)this.{part})
             .each!(part => this.{part} = clone this.{part});
-    }
+    } */
 }

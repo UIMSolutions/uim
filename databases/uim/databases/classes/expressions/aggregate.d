@@ -1,4 +1,4 @@
-module uim.databases.classes.expressions.aggregatex;
+module databases.uim.databases.classes.expressions.aggregate;
 
 import uim.databases;
 
@@ -12,6 +12,7 @@ import uim.databases;
  * explicitly told otherwise.
  */
 class DAggregateExpression : DFunctionExpression, IWindow {
+    /* 
     protected IQueryExpression filter = null;
 
     protected DWindowExpression  window = null;
@@ -24,7 +25,7 @@ class DAggregateExpression : DFunctionExpression, IWindow {
      * typeNames Associative array of type names used to bind values to query
 
      * @see \UIM\Database\Query.where()
-     */
+     * /
     void filter(IExpression|Closure|string[] aconditions, STRINGAA typeNames = []) {
         this.filter ??= new QueryExpression();
 
@@ -38,7 +39,7 @@ class DAggregateExpression : DFunctionExpression, IWindow {
      * Adds an empty `OVER()` window expression or a named window epression.
      * Params:
      * string|null windowName Window name
-     */
+     * /
     void over(string windowName = null) {
         auto  window = this.getWindow();
         if (!windowName.isEmpty) {
@@ -95,11 +96,11 @@ class DAggregateExpression : DFunctionExpression, IWindow {
 
     /**
      * Returns or creates WindowExpression for function.
-     */
+     * /
     protected DWindowExpression getWindow() {
         return this.window ??= new WindowExpression();
     }
-    string sql(ValueBinder aBinder) {
+    string sql(DValueBinder aBinder) {
         string result = super.sql(aBinder);
         if (!this.filter is null) {
             result ~= " FILTER (WHERE " ~ this.filter.sql(aBinder) ~ ")";
@@ -141,5 +142,5 @@ class DAggregateExpression : DFunctionExpression, IWindow {
         if (this.window !isNull) {
             this.window = clone this.window;
         }
-    }
+    } */
 }

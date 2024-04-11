@@ -10,7 +10,7 @@ import uim.views;
  * After setting messages in your controllers with FlashComponent, you can use
  * this class to output your flash messages in your views.
  */
-class FlashHelper : Helper {
+class DFlashHelper : Helper {
     mixin(HelperThis!("Flash"));
     /**
      * Used to render the message set in FlashComponent.set()

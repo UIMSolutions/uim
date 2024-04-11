@@ -11,7 +11,7 @@ import uim.views;
  * @extends \UIM\Core\ObjectRegistry<\UIM\View\Helper>
  * @implements \UIM\Event\IEventDispatcher<\UIM\View\View>
  */
-class HelperRegistry { // }: ObjectRegistry : IEventDispatcher {
+class DHelperRegistry { // }: ObjectRegistry : IEventDispatcher {
     // View object to use when making helpers.
     protected IView _view;
 

@@ -71,6 +71,7 @@ class DError {
 
     private int[string] _logMap;
 
+    /*
     this(
         int newErrorCode,
         string newErrorMessage,
@@ -102,5 +103,5 @@ class DError {
         return this.trace.map!(entry =>
                 `{frame["reference"]} {frame["file"]}, line {frame["line"]}`)
             .join("\n"); // TODOD
-    }
+    } */
 }

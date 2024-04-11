@@ -1,3 +1,5 @@
+module errors.uim.errors.classes.debugging.debugger;
+
 /*********************************************************************************************************
 	Copyright: © 2015-2024 Ozan Nurettin Süel (Sicherheitsschmiede)                                        
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
@@ -17,8 +19,7 @@ import uim.errors;
  * @link https://book.cakephp.org/4/en/development/debugging.html#namespace-Cake\Error
  */
 class DDebugger {
-    /*
-        mixin TConfigurable!();
+    mixin TConfigurable!();
 
     this() {
         initialize;
@@ -37,19 +38,20 @@ class DDebugger {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
-     configuration.updateDefaults([
-        'outputMask': [],
-        'exportFormatter': null,
-        'editor': 'phpstorm',
-    ]);
+        configuration.updateDefaults([
+            "outputMask": [],
+            "exportFormatter": null,
+            "editor": "phpstorm"
+        ]);
 
         return true;
     }
 
     mixin(TProperty!("string", "name"));
 
+    /*
     // The current output format.
-    protected string _outputFormat = 'js';
+    protected string _outputFormat = "js";
 
     /**
      * Templates used when generating trace or error strings. Can be global or indexed by the format
@@ -58,19 +60,19 @@ class DDebugger {
      * @var array<string, array<string, mixed>>
      * /
     protected _stringTemplate = [
-        'log': [
+        "log": [
             // These templates are not actually used, as Debugger::log() is called instead.
-            'trace': '{:reference} - {:path}, line {:line}',
-            'error': '{:error} ({:code}): {:description} in [{:file}, line {:line}]',
+            "trace": "{:reference} - {:path}, line {:line}",
+            "error": "{:error} ({:code}): {:description} in [{:file}, line {:line}]",
         ],
-        'js': [
-            'error': '',
-            'info': '',
-            'trace': '<pre class="stack-trace">{:trace}</pre>',
-            'code': '',
-            'context': '',
-            'links': [],
-            'escapeContext': true,
+        "js": [
+            "error": '',
+            "info": '',
+            "trace": '<pre class="stack-trace">{:trace}</pre>',
+            "code": '',
+            "context": '',
+            "links": [],
+            "escapeContext": true,
         ],
         'html': [
             'trace': '<pre class="cake-error trace"><b>Trace</b> <p>{:trace}</p></pre>',

@@ -25,30 +25,29 @@ import uim.safe;
  * Using a subclass of ExceptionRenderer gives you full control over how Exceptions are rendered, you
  * can configure your class in your config/app.php.
  */
-class DExceptionRenderer : IExceptionRenderer
-{
+class DExceptionRenderer : IExceptionRenderer {
     /**
      * The exception being handled.
      *
      * @var \Throwable
-     */
+     * /
     protected myError;
 
     /**
      * Controller instance.
      *
      * var DCONController
-     */
+     * /
     protected controller;
 
     /**
      * Template to render for {@link uim.cake.Core\exceptions.UIMException}
-     */
+     * /
     protected string myTemplate = "";
 
     /**
      * The method corresponding to the Exception this object is for.
-     */
+     * /
     protected string method = "";
 
     /**
@@ -56,7 +55,7 @@ class DExceptionRenderer : IExceptionRenderer
      * the error.
      *
      * var DHTP.ServerRequest|null
-     */
+     * /
     protected myRequest;
 
     /**
@@ -67,7 +66,7 @@ class DExceptionRenderer : IExceptionRenderer
      *
      * @var array<string, int>
      * @psalm-var array<class-string<\Throwable>, int>
-     */
+     * /
     protected myExceptionHttpCodes = [
         // Controller exceptions
         InvalidParameterException::class: 404,
@@ -87,7 +86,7 @@ class DExceptionRenderer : IExceptionRenderer
      * @param \Throwable myException Exception.
      * @param uim.cake.http.ServerRequest|null myRequest The request if this is set it will be used
      *   instead of creating a new one.
-     */
+     * /
     this(Throwable myException, ?ServerRequest myRequest = null) {
         this.error = myException;
         this.request = myRequest;
@@ -102,7 +101,7 @@ class DExceptionRenderer : IExceptionRenderer
      *
      * @return uim.controllers.Controller
      * @triggers Controller.startup controller
-     */
+     * /
     protected IController _getController() {
         myRequest = this.request;
         routerRequest = Router::getRequest();
@@ -127,11 +126,11 @@ class DExceptionRenderer : IExceptionRenderer
             myClass = factory.getControllerClass(myRequest.withAttribute("params", myParams));
 
             if (!myClass) {
-                /** @var string myClass */
+                /** @var string myClass * /
                 myClass = App::className("Error", "Controller", "Controller");
             }
 
-            /** var DCONController controller */
+            /** var DCONController controller * /
             controller = new myClass(myRequest);
             controller.startupProcess();
         } catch (Throwable e) {
@@ -160,7 +159,7 @@ class DExceptionRenderer : IExceptionRenderer
      * Clear output buffers so error pages display properly.
      *
      * @return void
-     */
+     * /
     protected void clearOutput() {
         if (hasAllValues(PHP_SAPI, ["cli", "phpdbg"])) {
             return;
@@ -174,7 +173,7 @@ class DExceptionRenderer : IExceptionRenderer
      * Renders the response for the exception.
      *
      * @return The response to be sent.
-     */
+     * /
     IResponse render() {
         myException = this.error;
         code = this.getHttpCode(myException);
@@ -191,7 +190,7 @@ class DExceptionRenderer : IExceptionRenderer
         response = this.controller.getResponse();
 
         if (myException instanceof UIMException) {
-            /** @psalm-suppress DeprecatedMethod */
+            /** @psalm-suppress DeprecatedMethod * /
             foreach ((array)myException.responseHeader() as myKey: myValue) {
                 response = response.withHeader(myKey, myValue);
             }
@@ -245,7 +244,7 @@ class DExceptionRenderer : IExceptionRenderer
      * @param string method The method name to invoke.
      * @param \Throwable myException The exception to render.
      * @return uim.cake.http.Response The response to send.
-     */
+     * /
     protected Response _customMethod(string method, Throwable myException) {
         myResult = this.{method}(myException);
         _shutdown();
@@ -261,7 +260,7 @@ class DExceptionRenderer : IExceptionRenderer
      *
      * @param \Throwable myException Exception instance.
      * @return string
-     */
+     * /
     protected string _method(Throwable myException) {
         [, baseClass] = moduleSplit(get_class(myException));
 
@@ -281,7 +280,7 @@ class DExceptionRenderer : IExceptionRenderer
      * @param \Throwable myException Exception.
      * @param int code Error code.
      * @return string Error message
-     */
+     * /
     protected string _message(Throwable myException, int code) {
         myMessage = myException.getMessage();
 
@@ -306,7 +305,7 @@ class DExceptionRenderer : IExceptionRenderer
      * @param string method Method name.
      * @param int code Error code.
      * @return string Template name
-     */
+     * /
     protected string _template(Throwable myException, string method, int code) {
         if (myException instanceof HttpException || !Configure::read("debug")) {
             return this.template = code < 500 ? "error400" : "error500";
@@ -324,7 +323,7 @@ class DExceptionRenderer : IExceptionRenderer
      *
      * @param \Throwable myException Exception.
      * @return int A valid HTTP status code.
-     */
+     * /
     protected int getHttpCode(Throwable myException) {
         if (myException instanceof HttpException) {
             return myException.getCode();
@@ -338,7 +337,7 @@ class DExceptionRenderer : IExceptionRenderer
      *
      * @param string myTemplate The template to render.
      * @return uim.cake.http.Response A response object that can be sent.
-     */
+     * /
     protected Response _outputMessage(string myTemplate) {
         try {
             this.controller.render(myTemplate);
@@ -372,7 +371,7 @@ class DExceptionRenderer : IExceptionRenderer
      *
      * @param string myTemplate The template to render.
      * @return uim.cake.http.Response A response object that can be sent.
-     */
+     * /
     protected Response _outputMessageSafe(string myTemplate) {
         myBuilder = this.controller.viewBuilder();
         myBuilder
@@ -395,7 +394,7 @@ class DExceptionRenderer : IExceptionRenderer
      * Triggers the afterFilter and afterDispatch events.
      *
      * @return uim.cake.http.Response The response to serve.
-     */
+     * /
     protected Response _shutdown() {
         this.controller.dispatchEvent("Controller.shutdown");
 
@@ -407,7 +406,7 @@ class DExceptionRenderer : IExceptionRenderer
      * object.
      *
      * @return array<string, mixed>
-     */
+     * /
     array __debugInfo() {
         return [
             "error":this.error,
@@ -416,5 +415,5 @@ class DExceptionRenderer : IExceptionRenderer
             "template":this.template,
             "method":this.method,
         ];
-    }
+    } */
 }

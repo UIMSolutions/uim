@@ -14,7 +14,7 @@ import uim.errors;
  * Default output renderer for non CLI SAPI.
  */
 class DHtmlErrorRenderer : IErrorRenderer {
-
+    /* 
     void write(string outText) {
         // Output to stdout which is the server response.
         writeln(outText);
@@ -66,7 +66,7 @@ HTML;
      * @param string id The error id scope.
      * @param string suffix The element selector.
      * @return string
-     */
+     * /
     private string renderToggle(string text, string id, string suffix) {
         selector = id ~ "-" ~ suffix;
 
@@ -79,5 +79,5 @@ HTML;
 </a>
 HTML;
         
-    }
+    } */
 }

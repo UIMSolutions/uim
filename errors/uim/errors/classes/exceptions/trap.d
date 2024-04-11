@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.errors.errors.exceptiontrap;
+module errors.uim.errors.classes.exceptions.trap;
 
 @safe:
 import uim.errors;
@@ -43,6 +43,7 @@ class DExceptionTrap {
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
+    }
 
  /**
      * Configuration options. Generally these will be defined in your config/app.php
@@ -82,8 +83,6 @@ class DExceptionTrap {
     }
 
     mixin(TProperty!("string", "name"));
-
-   
 
     /**
      * A list of handling callbacks.

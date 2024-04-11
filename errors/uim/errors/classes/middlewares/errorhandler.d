@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.errorss.Middleware;
+module errors.uim.errors.classes.middlewares.errorhandler;
 
 @safe:
 import uim.errors;
@@ -58,7 +58,7 @@ class DErrorHandlerMiddleware : IMiddleware {
      *   Defaults to uim.errorss.ExceptionRenderer
      *
      * @var array<string, mixed>
-     */
+     * /
     configuration.updateDefaults([
         "skipLog":[],
         "log":true,
@@ -70,7 +70,7 @@ class DErrorHandlerMiddleware : IMiddleware {
      * Error handler instance.
      *
      * var DERRErrorHandler|null
-     */
+     * /
     protected myErrorHandler;
 
     /**
@@ -79,7 +79,7 @@ class DErrorHandlerMiddleware : IMiddleware {
      * @param uim.errorss.ErrorHandler|array myErrorHandler The error handler instance
      *  or config array.
      * @throws \InvalidArgumentException
-     */
+     * /
     this(myErrorHandler = null) {
         if (func_num_args() > 1) {
             deprecationWarning(
@@ -116,7 +116,7 @@ class DErrorHandlerMiddleware : IMiddleware {
      * @param \Psr\Http\messages.IServerRequest myRequest The request.
      * @param \Psr\Http\servers.IRequestHandler handler The request handler.
      * @return \Psr\Http\messages.IResponse A response.
-     */
+     * /
     IResponse process(IServerRequest myRequest, IRequestHandler handler) {
         try {
             return handler.handle(myRequest);
@@ -133,7 +133,7 @@ class DErrorHandlerMiddleware : IMiddleware {
      * @param \Throwable myException The exception to handle.
      * @param \Psr\Http\messages.IServerRequest myRequest The request.
      * @return \Psr\Http\messages.IResponse A response
-     */
+     * /
     IResponse handleException(Throwable myException, IServerRequest myRequest) {
         myErrorHandler = this.getErrorHandler();
         renderer = myErrorHandler.getRenderer(myException, myRequest);
@@ -154,7 +154,7 @@ class DErrorHandlerMiddleware : IMiddleware {
      *
      * @param uim.cake.http.exceptions.RedirectException myException The exception to handle
      * @return \Psr\Http\messages.IResponse Response created from the redirect.
-     */
+     * /
     IResponse handleRedirect(RedirectException myException) {
         return new DRedirectResponse(
             myException.getMessage(),
@@ -167,7 +167,7 @@ class DErrorHandlerMiddleware : IMiddleware {
      * Handle internal errors.
      *
      * @return \Psr\Http\messages.IResponse A response
-     */
+     * /
     protected IResponse handleInternalError() {
         response = new DResponse(["body":"An Internal Server Error Occurred"]);
 
@@ -178,15 +178,15 @@ class DErrorHandlerMiddleware : IMiddleware {
      * Get a error handler instance
      *
      * @return uim.errorss.ErrorHandler The error handler.
-     */
+     * /
     protected auto getErrorHandler(): ErrorHandler
     {
         if (this.errorHandler is null) {
-            /** @var class-string<uim.errorss.ErrorHandler> myClassName */
+            /** @var class-string<uim.errorss.ErrorHandler> myClassName * /
             myClassName = App::className("ErrorHandler", "Error");
             this.errorHandler = new myClassName(this.configuration.data);
         }
 
         return this.errorHandler;
-    }
+    } */
 }

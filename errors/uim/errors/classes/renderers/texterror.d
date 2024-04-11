@@ -1,4 +1,4 @@
-module errors.uim.errors.classes.renderers.texterror;
+module uim.errors.classes.renderers.texterror;
 
 import uim.errors;
 

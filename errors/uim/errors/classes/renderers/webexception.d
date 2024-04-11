@@ -1,4 +1,4 @@
-module errors.uim.errors.classes.renderers.webexception;
+module uim.errors.classes.renderers.webexception;
 
 import uim.errors;
 

@@ -26,7 +26,7 @@ class DBetweenExpression : IExpression, IField {
     mixin(TProperty!("string", "name"));
 
     /* 
-    mixin ExpressionTypeCasterTemplate;
+    mixin TExpressionTypeCaster;
     mixin FieldTemplate;
 
     // The first value in the expression

@@ -25,6 +25,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
 
     mixin(TProperty!("string", "name"));
 
+    /* 
     mixin TCaseExpression;
     mixin TExpressionTypeCaster;
     mixin TTypeMap;
@@ -43,12 +44,12 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      * The case value.
      *
      * @var \UIM\Database\IExpression|object|scalar|null
-     */
+     * /
     protected IData aValue = null;
 
     /**
      * The case value type.
-     */
+     * /
     protected string avalueType = null;
 
     // The `WHEN ... THEN ...` expressions.
@@ -58,24 +59,24 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      * Buffer that holds values and types for use with `then()`.
      *
      * @var array|null
-     */
+     * /
     protected array  whenBuffer = null;
 
     /**
      * The else part result value.
      *
      * @var \UIM\Database\IExpression|object|scalar|null
-     */
+     * /
     protected IData else = null;
 
     /**
      * The else part result type.
-     */
+     * /
     protected string aelseType = null;
 
     /**
      * The return type.
-     */
+     * /
     protected string resultType = null;
 
     /**
@@ -97,7 +98,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      * \UIM\Database\IExpression|object|scalar|null aValue The case value.
      * @param string|null type The case value type. If no type is provided, the type will be tried to be inferred
      * from the value.
-     */
+     * /
     this(IData aValue = null, string atype = null) {
         if (func_num_args() > 0) {
             if (
@@ -264,7 +265,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      * @throws \LogicException In case this a closing `then()` call is required before calling this method.
      * @throws \LogicException In case the callable doesn`t return an instance of
      * `\UIM\Database\Expression\WhenThenExpression`.
-     */
+     * /
     void when(IData  when, string[] type = null) {
         if (!this.whenBuffer is null) {
             throw new LogicException("Cannot call `when()` between `when()` and `then()`.");
@@ -340,7 +341,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
 
      * @throws \LogicException In case `when()` wasn`t previously called with a value other than a closure or an
      * instance of `\UIM\Database\Expression\WhenThenExpression`.
-     */
+     * /
     void then(IData result, string atype = null) {
         if (this.whenBuffer is null) {
             throw new LogicException("Cannot call `then()` before `when()`.");
@@ -364,7 +365,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      * @throws \LogicException In case a closing `then()` call is required before calling this method.
      * @throws \InvalidArgumentException In case the `result` argument is neither a scalar value, nor an object, an
      * instance of `\UIM\Database\IExpression`, or `null`.
-     */
+     * /
     void else(IData result, string atype = null) {
         if (!this.whenBuffer is null) {
             throw new LogicException("Cannot call `else()` between `when()` and `then()`.");
@@ -396,7 +397,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      * for this to work, otherwise the type will default to `string`.
 
      * @see CaseStatementExpression.then()
-     */
+     * /
     string getReturnType() {
         if (this.returnType !isNull) {
             return this.returnType;
@@ -427,7 +428,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      * result types of the `then()` and `else() `calls.
      * Params:
      * string atype The type name to use.
-     */
+     * /
     void setReturnType(string atype) {
         this.returnType = type;
     }
@@ -444,7 +445,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
      * * `else`: The `ELSE` result value.
      * Params:
      * string aclause The name of the clause to obtain.
-     */
+     * /
     IExpression|object|array<\UIM\Database\Expression\WhenThenExpression>|scalar|null clause(string aclause) {
         if (!in_array(clause, this.validClauseNames, true)) {
             throw new DInvalidArgumentException(
@@ -511,5 +512,5 @@ class DCaseStatementExpression : IExpression, ITypedResult {
         if (cast(IExpression)this.else ) {
             this.else = clone this.else;
         }
-    }
+    } */
 }

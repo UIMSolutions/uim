@@ -11,7 +11,7 @@ import uim.databases;
  * explicitly told otherwise.
  */
 class DFunctionExpression : QueryExpression, ITypedResult {
-    mixin ExpressionTypeCasterTemplate;
+    mixin TExpressionTypeCaster;
     mixin TypedResultTemplate;
 
     // The name of the auto to be constructed when generating the SQL string

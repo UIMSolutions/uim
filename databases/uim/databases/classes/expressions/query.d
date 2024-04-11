@@ -10,7 +10,7 @@ import uim.databases;
  * and will contain a correctly parenthesized and nested expression.
  */
 class DQueryExpression : IExpression, Countable {
-    mixin TypeMapTemplate;
+    mixin TTypeMap;
 
     /**
      * String to be used for joining each of the internal expressions

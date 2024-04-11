@@ -22,7 +22,7 @@ abstract class DQuery : IQuery { // : IExpression {
         return true;
     }
     
-        // use TypeMapTemplate;
+        // use TTypeMap;
 
     const string JOIN_TYPE_INNER = "INNER";
 

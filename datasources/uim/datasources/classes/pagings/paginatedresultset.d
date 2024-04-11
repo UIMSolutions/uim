@@ -1,4 +1,4 @@
-module uim.datasources\Paging;
+module datasources.uim.datasources.classes.pagings.paginatedresultset;
 
 import uim.datasources;
 

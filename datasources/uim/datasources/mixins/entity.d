@@ -5,11 +5,11 @@ import uim.datasources;
 @safe:
 
 string datasourceEntityThis(string name) {
-    string fullName = name ~ "DatasourceEntity";
-    return `
+  string fullName = name ~ "DatasourceEntity";
+  return `
     this() {
         super(); this.name("`
-        ~ fullName ~ `");
+    ~ fullName ~ `");
     }
     this(string name) {
         super(); this.name(name);
@@ -18,28 +18,27 @@ string datasourceEntityThis(string name) {
 }
 
 template DatasourceEntityThis(string name) {
-    const char[] DatasourceEntityThis = datasourceEntityThis(name);
+  const char[] DatasourceEntityThis = datasourceEntityThis(name);
 }
 
 string datasourceEntityCalls(string name) {
-    string fullName = name ~ "DatasourceEntity";
-    return `
-    auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
-    auto `~ fullName ~ `(string name) { return new D` ~ fullName ~ `(name); }
+  string fullName = name ~ "DatasourceEntity";
+  return `
+    auto `
+    ~ fullName ~ `() { return new D` ~ fullName ~ `();}
+    auto `
+    ~ fullName ~ `(string name) { return new D` ~ fullName ~ `(name); }
     `;
 }
 
 template DatasourceEntityCalls(string name) {
-    const char[] DatasourceEntityCalls = datasourceEntityCalls(name);
+  const char[] DatasourceEntityCalls = datasourceEntityCalls(name);
 }
-
-
-
 
 /**
  * An entity represents a single result row from a repository. It exposes the
  * methods for retrieving and storing fields associated in this row.
-* /
+*/
 mixin template TEntity() {
   // Holds all fields and their values for this entity.
   protected IData[string] _fields = null;
@@ -1120,3 +1119,4 @@ mixin template TEntity() {
                                                                         ];}
                                                                       }
 */
+}

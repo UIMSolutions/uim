@@ -1,4 +1,4 @@
-module databases.uim.databases.classes.expressions.identifier;
+module uim.databases.classes.expressions.identifier;
 
 import uim.databases;
 

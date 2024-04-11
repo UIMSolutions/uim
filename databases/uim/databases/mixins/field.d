@@ -1,4 +1,4 @@
-module databases.uim.databases.mixins.field;
+module uim.databases.mixins.field;
 
 import uim.databases;
 

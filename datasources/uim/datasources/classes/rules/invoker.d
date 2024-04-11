@@ -1,4 +1,4 @@
-module datasources.uim.datasources.classes.rules.invoker;
+module uim.datasources.classes.rules.invoker;
 
 import uim.datasources;
 

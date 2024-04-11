@@ -1,4 +1,4 @@
-module databases.uim.databases.interfaces.field;
+module uim.databases.interfaces.field;
 
 import uim.databases;
 

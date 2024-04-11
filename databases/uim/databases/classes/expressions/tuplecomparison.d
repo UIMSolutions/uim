@@ -1,4 +1,4 @@
-module databases.uim.databases.classes.expressions.tuplecomparison;
+module uim.databases.classes.expressions.tuplecomparison;
 
 import uim.databases;
 

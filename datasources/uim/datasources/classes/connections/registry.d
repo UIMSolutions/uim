@@ -1,4 +1,4 @@
-module datasources.uim.datasources.classes.connections.connectionregistry;
+module uim.datasources.classes.connections.connectionregistry;
 
 import uim.datasources;
 

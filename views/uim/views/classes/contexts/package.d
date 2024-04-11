@@ -1,2 +1,2 @@
-module views.uim.views.classes.contexts;
+module uim.views.classes.contexts;
 

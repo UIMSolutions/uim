@@ -1,4 +1,4 @@
-module views.uim.views.helpers.breadcrumbs;
+module uim.views.helpers.breadcrumbs;
 
 import uim.views;
 

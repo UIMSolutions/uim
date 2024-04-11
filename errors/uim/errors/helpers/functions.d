@@ -1,4 +1,4 @@
-module errors.uim.errors.helpers.functions;
+module uim.errors.helpers.functions;
 
 //phpcs:disable PSR1.Files.SideEffectsmodule uim.errors;
 

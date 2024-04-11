@@ -26,7 +26,7 @@ class DWindowExpression : IExpression, IWindow {
      *
      * These window expressions only specify a named window and do not
      * specify their own partitions, frame or order.
-     */
+     * /
     bool isNamedOnly() {
         return this.name.getIdentifier() && (!this.partitions && !this.frame && !this.order);
     }
@@ -186,7 +186,7 @@ class DWindowExpression : IExpression, IWindow {
      * \UIM\Database\ValueBinder  mybinder Value binder
      * @param \UIM\Database\IExpression|string|int  myoffset Frame offset
      * @param string mydirection Frame offset direction
-     */
+     * /
     protected string buildOffsetSql(
         ValueBinder  mybinder,
         IExpression|string|int  myoffset,
@@ -207,7 +207,7 @@ class DWindowExpression : IExpression, IWindow {
     
     /**
      * Clone this object and its subtree of expressions.
-     */
+     * /
     void __clone() {
         this.name = clone this.name;
         foreach (this.partitions as  myi:  mypartition) {
@@ -216,5 +216,5 @@ class DWindowExpression : IExpression, IWindow {
         if (this.order !isNull) {
             this.order = clone this.order;
         }
-    }
+    } */
 }

@@ -31,7 +31,7 @@ class DValuesExpression : IExpression {
      * Params:
      * array someColumns The list of columns that are going to be part of the values.
      * @param \UIM\Database\TypeMap typeMap A dictionary of column ~ type names
-     */
+     * /
     this(array someColumns, TypeMap typeMap) {
        _columns = someColumns;
         this.setTypeMap(typeMap);
@@ -43,7 +43,7 @@ class DValuesExpression : IExpression {
      * \UIM\Database\Query|array  someValues Array of data to append into the insert, or
      *  a query for doing INSERT INTO .. SELECT style commands
      * @throws \UIM\Database\Exception\DatabaseException When mixing array + Query data types.
-     */
+     * /
     void add(Query|array  someValues) {
         if (
             (count(_values) && cast(Query)someValues) ||
@@ -66,7 +66,7 @@ class DValuesExpression : IExpression {
      * Sets the columns to be inserted.
      * Params:
      * array someColumns Array with columns to be inserted.
-     */
+     * /
     void setColumns(array someColumns) {
        _columns = someColumns;
        _castedExpressions = false;
@@ -82,7 +82,7 @@ class DValuesExpression : IExpression {
      *
      * Because column names could be identifier quoted, we
      * need to strip the identifiers off of the columns.
-     */
+     * /
     protected array _columnNames() {
         auto someColumns = _columns
             .map!(col => isString(col) ? trim(col, "`[]'") : col);
@@ -190,10 +190,10 @@ class DValuesExpression : IExpression {
         foreach (_values as row:  someValues) {
             types.byKeyValue
                 .each!(col: type)
-                /** @var \UIM\Database\Type\IExpressionType type */
+                /** @var \UIM\Database\Type\IExpressionType type * /
                _values[row][col] = type.toExpression(someValues[col]);
             }
         }
        _castedExpressions = true;
-    }
+    } */
 }

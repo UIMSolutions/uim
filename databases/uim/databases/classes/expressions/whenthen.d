@@ -14,7 +14,7 @@ class DWhenThenExpression : IExpression {
     /**
      * The names of the clauses that are valid for use with the
      * `clause()` method.
-     */
+     * /
     protected string[]  validClauseNames = [
         "when",
         "then",
@@ -27,7 +27,7 @@ class DWhenThenExpression : IExpression {
      * Then `WHEN` value.
      *
      * @var \UIM\Database\IExpression|object|scalar|null
-     */
+     * /
     protected IData  when = null;
 
     // The `WHEN` value type.
@@ -37,13 +37,13 @@ class DWhenThenExpression : IExpression {
      * The `THEN` value.
      *
      * @var \UIM\Database\IExpression|object|scalar|null
-     */
+     * /
     protected IData then = null;
 
     /**
      * Whether the `THEN` value has been defined, eg whether `then()`
      * has been invoked.
-     */
+     * /
     protected bool $hasThenBeenDefined = false;
 
     // The `THEN` result type.
@@ -54,7 +54,7 @@ class DWhenThenExpression : IExpression {
      * Params:
      * \UIM\Database\TypeMap|null typeMap The type map to use when using an array of conditions for the `WHEN`
      * value.
-     */
+     * /
     this(TypeMap typeMap = null) {
        _typeMap = typeMap ?? new DTypeMap();
     }
@@ -77,7 +77,7 @@ class DWhenThenExpression : IExpression {
      * @throws \InvalidArgumentException In case the ` when` argument is a non-array value, and the `type` argument is
      * neither a string, nor null.
      * @see CaseStatementExpression.when() for a more detailed usage explanation.
-     */
+     * /
     void when(object|string[]|float|int|bool  when, string[] type = null) {
         if (isArray( when)) {
             if (isEmpty( when)) {
@@ -128,7 +128,7 @@ class DWhenThenExpression : IExpression {
      * \UIM\Database\IExpression|object|scalar|null result The result value.
      * @param string|null type The result type. If no type is provided, the type will be inferred from the given
      * result value.
-     */
+     * /
     void then(IData result, string atype = null) {
         if (
             result !isNull &&
@@ -152,7 +152,7 @@ class DWhenThenExpression : IExpression {
     /**
      * Returns the expression`s result value type.
      * @see WhenThenExpression.then()
-     */
+     * /
     string getResultType() {
         return this.thenType;
     }
@@ -168,7 +168,7 @@ class DWhenThenExpression : IExpression {
      * * `then`: The `THEN` result value.
      * Params:
      * string aclause The name of the clause to obtain.
-     */
+     * /
     IExpression|object|scalar|null clause(string aclause) {
         if (!in_array(clause, this.validClauseNames, true)) {
             throw new DInvalidArgumentException(                
@@ -230,5 +230,5 @@ class DWhenThenExpression : IExpression {
         if (cast(IExpression)this.then ) {
             this.then = clone this.then;
         }
-    }
+    } */
 }

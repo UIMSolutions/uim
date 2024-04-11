@@ -27,7 +27,7 @@ class DUnaryExpression : IExpression {
      * string expressionOperator The operator to used for the expression
      * @param IData aValue the value to use as the operand for the expression
      * @param int position either UnaryExpression.PREFIX or UnaryExpression.POSTFIX
-     */
+     * /
     this(string expressionOperator, IData aValue, intposition = self.PREFIX) {
         _operator = expressionOperator;
         _value = aValue;
@@ -57,5 +57,5 @@ class DUnaryExpression : IExpression {
         if (cast(IExpression) _value) {
             _value = clone _value;
         }
-    }
+    } */
 }

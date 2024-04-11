@@ -1,4 +1,4 @@
-module uim.databases.Expression;
+module uim.databases.interfaces.window;
 
 import uim.databases;
 
@@ -20,14 +20,14 @@ interface IWindow {
      * Adds one or more partition expressions to the window.
      * Params:
      * \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string apartitions Partition expressions
-     */
+     * /
     auto partition(IExpression|Closure|string[] apartitions);
 
     /**
      * Adds one or more order by clauses to the window.
      * Params:
      * \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string afields DOrder expressions
-     */
+     * /
     auto orderBy(IExpression|Closure|string[] afields);
 
     /**
@@ -49,7 +49,7 @@ interface IWindow {
      * \UIM\Database\IExpression|string|int start Frame start
      * @param \UIM\Database\IExpression|string|int end Frame end
      * If not passed in, only frame start SQL will be generated.
-     */
+     * /
     auto range(IExpression|string|int start, IExpression|string|int end = 0);
 
     /**
@@ -60,7 +60,7 @@ interface IWindow {
      * int start Frame start
      * @param int end Frame end
      * If not passed in, only frame start SQL will be generated.
-     */
+     * /
     auto rows(int start, int end = 0);
 
     /**
@@ -71,7 +71,7 @@ interface IWindow {
      * int start Frame start
      * @param int end Frame end
      * If not passed in, only frame start SQL will be generated.
-     */
+     * /
     auto groups(int start, int end = 0);
 
     /**
@@ -91,7 +91,7 @@ interface IWindow {
      * @param string astartDirection Frame start direction
      * @param \UIM\Database\IExpression|string|int endOffset Frame end offset
      * @param string aendDirection Frame end direction
-     */
+     * /
     void frame(
         string atype,
         IExpression|string|int startOffset,
@@ -105,9 +105,11 @@ interface IWindow {
 
     /**
      * Adds group frame exclusion.
-     */
+     * /
     auto excludeGroup();
 
     // Adds ties frame exclusion.
     auto excludeTies();
+
+    */
 }

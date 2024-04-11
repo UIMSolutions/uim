@@ -1,4 +1,4 @@
-module uim.databases.Driver;
+module uim.databases.mixins.tuplecomparisontranslator;
 
 import uim.databases;
 
@@ -27,7 +27,7 @@ mixin template TupleComparisonTranslatorTemplate() {
      * Params:
      * \UIM\Database\Expression\TupleComparison expression The expression to transform
      * @param \UIM\Database\Query aQuery The query to update.
-     */
+     * /
     protected void _transformTupleComparison(TupleComparisonexpression, Query aQuery) {
         fields = expression.getFieldNames();
 
@@ -57,7 +57,7 @@ mixin template TupleComparisonTranslatorTemplate() {
         }
         auto myType = expression.getType();
         if (myType) {
-            /** @var STRINGAA typeMap */
+            /** @var STRINGAA typeMap * /
             typeMap = array_combine(fields, myType) ?  : [];
         } else {
             typeMap = null;
@@ -79,5 +79,6 @@ mixin template TupleComparisonTranslatorTemplate() {
                 expression.setFieldNames(true);
                 expression.setValue(surrogate);
                 expression.setOperator("=");
-            }
-        }
+            } 
+        } */
+}

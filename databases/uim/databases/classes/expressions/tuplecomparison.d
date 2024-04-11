@@ -1,4 +1,4 @@
-module uim.databases.Expression;
+module databases.uim.databases.classes.expressions.tuplecomparison;
 
 import uim.databases;
 
@@ -8,7 +8,7 @@ import uim.databases;
  * This expression represents SQL fragments that are used for comparing one tuple
  * to another, one tuple to a set of other tuples or one tuple to an expression
  */
-class DTupleComparison : ComparisonExpression {
+class DTupleComparison : DComparisonExpression {
     /**
      * The type to be used for casting the value to a database representation
      */
@@ -22,7 +22,7 @@ class DTupleComparison : ComparisonExpression {
      * @param array<string|null> types the types names to use for casting each of the values, only
      * one type per position in the value array in needed
      * @param string aconjunction the operator used for comparing field and value
-     */
+     * /
     this(
         IExpression | string[] afields,
         IExpression | array someValues,
@@ -37,7 +37,7 @@ class DTupleComparison : ComparisonExpression {
 
     /**
      * Returns the type to be used for casting the value to a database representation
-     */
+     * /
     string[] getType() {
         return this.types;
     }
@@ -46,7 +46,7 @@ class DTupleComparison : ComparisonExpression {
      * Sets the value
      * Params:
      * IData aValue The value to compare
-     */
+     * /
     void setValue(IData aValue) {
         if (this.isMulti()) {
             if (isArray(aValue) && !isArray(current(aValue))) {
@@ -82,7 +82,7 @@ class DTupleComparison : ComparisonExpression {
      * for the SQL version of this expression
      * Params:
      * \UIM\Database\ValueBinder aBinder The value binder to convert expressions with.
-     */
+     * /
     protected string _stringifyValues(DValueBinder aBinder) {
         string[] someValues; someParts = this.getValue(); if (cast(IExpression) someParts) {
             return someParts.sql(aBinder);}
@@ -133,7 +133,7 @@ class DTupleComparison : ComparisonExpression {
      * Params:
      * IData aValue The value to traverse
      * @param \Closure aCallback The callback to use when traversing
-     */
+     * /
                                                 protected void _traverseValue(
                                                     IData aValue, IClosure aCallback) {
                                                     if (cast(IExpression) aValue) {
@@ -145,5 +145,5 @@ class DTupleComparison : ComparisonExpression {
                                                     bool isMulti() {
                                                         return in_array(_operator.toLower, [
                                                                 "in", "not in"
-                                                            ]);}
-                                                    }
+                                                            ]);} */
+}

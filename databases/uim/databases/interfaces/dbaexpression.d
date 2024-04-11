@@ -17,7 +17,7 @@ interface IDBAExpression {
      *
      * @param uim.databases.ValueBinder aBinder Parameter binder
      */
-    // TODO string sql(ValueBinder aBinder);
+    // TODO string sql(DValueBinder aBinder);
 
     /**
      * Iterates over each part of the expression recursively for every

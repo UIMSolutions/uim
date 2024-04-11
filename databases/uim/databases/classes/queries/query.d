@@ -184,7 +184,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * \UIM\Database\ValueBinder|null aBinder Value binder that generates parameter placeholders
      * /
-    string sql(ValueBinder aBinder = null) {
+    string sql(DValueBinder aBinder = null) {
         if (!aBinder) {
             aBinder = this.getValueBinder();
             aBinder.resetCount();
@@ -1386,7 +1386,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * \UIM\Database\ValueBinder|null aBinder The binder or null to disable binding.
      * /
-    auto setValueBinder(ValueBinder aBinder) {
+    auto setValueBinder(DValueBinder aBinder) {
        _valueBinder = aBinder;
 
         return this;

@@ -179,7 +179,7 @@ class DWhenThenExpression : IExpression {
         return this.{clause};
     }
  
-    string sql(ValueBinder aBinder) {
+    string sql(DValueBinder aBinder) {
         if (this.when is null) {
             throw new LogicException("Case expression has incomplete when clause. Missing `when()`.");
         }

@@ -1,4 +1,4 @@
-module orm.uim.orm.classes.lazyeagerloader;
+module uim.orm.classes.lazyeagerloader;
 
 import uim.orm;
 

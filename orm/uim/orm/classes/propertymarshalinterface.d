@@ -1,4 +1,4 @@
-module uim.orm;
+module uim.orm.classes.propertymarshalinterface;
 /**
  * Behaviors implementing this interface can participate in entity marshalling.
  *

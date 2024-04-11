@@ -63,7 +63,7 @@ class OctalObserver : DObserver{
   }
 }
 
-class HexaObserver : DObserver{
+class DHexaObserver : DObserver{
 
   this(DSubject subject) {
     _subject = subject;

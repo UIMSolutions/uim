@@ -56,7 +56,7 @@ class Dispatcher {
 }
 
 /// Create FrontController
-class FrontController {
+class DFrontController {
    private Dispatcher _dispatcher;
 
    this() {

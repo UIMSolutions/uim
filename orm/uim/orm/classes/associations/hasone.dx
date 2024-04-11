@@ -10,7 +10,7 @@ import uim.orm;
  *
  * An example of a HasOne association would be User has one Profile.
  */
-class HasOne : DAssociation {
+class DHasOne : DAssociation {
     // Valid strategies for this type of association
     protected string[] _validStrategies = [
         STRATEGY_JOIN,

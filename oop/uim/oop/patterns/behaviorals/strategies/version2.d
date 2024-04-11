@@ -13,7 +13,7 @@ public:
     void execute();
 }
 
-class FirstStrategy : Strategy {
+class DFirstStrategy : Strategy {
 protected:
     string strategyName = "First strategy";
 public:

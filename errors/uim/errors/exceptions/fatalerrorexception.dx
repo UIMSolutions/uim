@@ -5,7 +5,7 @@ import uim.errors;
 @safe:
 
 // Represents a fatal error
-class FatalErrorException : UimException {
+class DFatalErrorException : UimException {
     /**
      * Constructor
      * Params:

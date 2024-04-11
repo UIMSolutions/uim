@@ -9,7 +9,7 @@ import uim.i18n;
  *
  * @internal
  */
-class FormatterLocator {
+class DFormatterLocator {
     // A registry to retain formatter objects.
     protected II18NFormatter[string] registry = null;
 

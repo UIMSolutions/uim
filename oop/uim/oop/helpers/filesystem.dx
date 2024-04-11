@@ -12,7 +12,7 @@ import uim.oop;
  *
  * @internal
  */
-class Filesystem {
+class DFilesystem {
     // Directory type constant
     const string TYPE_DIR = "dir";
 

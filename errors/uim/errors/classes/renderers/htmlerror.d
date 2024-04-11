@@ -9,7 +9,7 @@ import uim.errors;
  *
  * Default output renderer for non CLI SAPI.
  */
-class HtmlErrorRenderer { // }: IErrorRenderer {
+class DHtmlErrorRenderer { // }: IErrorRenderer {
     /* 
     void write(string aout) {
         // Output to stdout which is the server response.

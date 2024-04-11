@@ -1,4 +1,4 @@
-module uim.databases.Expression;
+module uim.databases.classes.expressions.commontable;
 
 import uim.databases;
 
@@ -39,6 +39,7 @@ class DCommonTableExpression : IExpression {
     // Whether the CTE is recursive.
     protected bool recursive = false;
 
+    /*
     this(string cteName = "", IExpression cteQuery = null) {
        _cteName = new DIdentifierExpression(cteName);
         if (cteQuery) {
@@ -58,7 +59,7 @@ class DCommonTableExpression : IExpression {
      *
      * This is the named you used to reference the expression
      * in select, insert, etc queries.
-     */
+     * /
     void name(string cteName) {
         _name = new DIdentifierExpression(cteName);
     }
@@ -67,7 +68,7 @@ class DCommonTableExpression : IExpression {
      * Sets the query for this CTE.
      * Params:
      * \UIM\Database\IExpression|\Closure aQuery CTE query
-     */
+     * /
     void query(IExpression|Closure aQuery) {
     }
     void query(IExpression|Closure aQuery) {
@@ -86,16 +87,16 @@ class DCommonTableExpression : IExpression {
      * Adds one or more fields (arguments) to the CTE.
      * Params:
      * \UIM\Database\Expression\IdentifierExpression|array<\UIM\Database\Expression\IdentifierExpression>|string[]|string afields Field names
-     */
+     * /
     void field(IdentifierExpression|string[] afields) {
         auto fields = (array)fields;
-        /** @var array<string|\UIM\Database\Expression\IdentifierExpression> fields */
+        /** @var array<string|\UIM\Database\Expression\IdentifierExpression> fields * /
         fields.each!((field) {
             if (!(cast(IdentifierExpression)field)) {
                 field = new DIdentifierExpression(field);
             }
         });
-        /** @var array<\UIM\Database\Expression\IdentifierExpression>  mergedFields */
+        /** @var array<\UIM\Database\Expression\IdentifierExpression>  mergedFields * /
         this.fields = chain(this.fields, fields);
     }
 
@@ -158,5 +159,5 @@ class DCommonTableExpression : IExpression {
         foreach (aKey: field; this.fields) {
             this.fields[aKey] = clone field;
         }
-    }
+    } */
 }

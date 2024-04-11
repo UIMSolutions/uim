@@ -19,7 +19,7 @@ class DContentsRegExp : DContentsBase {
     }
     
     // Assertion message
-    string toString() {
+    overridestring toString() {
         return "PCRE pattern found in %s".format(this.output);
     }
     

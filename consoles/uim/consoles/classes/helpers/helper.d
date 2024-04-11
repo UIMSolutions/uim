@@ -11,7 +11,7 @@ import uim.consoles;
  * of Console output logic. For example creating tables,
  * progress bars or ascii art.
  */
-abstract class Helper {
+abstract class DHelper {
     mixin TConfigurable!(); 
 
     this() {

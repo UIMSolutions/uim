@@ -10,7 +10,7 @@ import uim.databases;
  * For security reasons, all params passed are quoted by default unless
  * explicitly told otherwise.
  */
-class FunctionExpression : QueryExpression, ITypedResult {
+class DFunctionExpression : QueryExpression, ITypedResult {
     use ExpressionTypeCasterTemplate;
     use TypedResultTemplate;
 

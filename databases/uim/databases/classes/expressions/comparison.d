@@ -1,4 +1,4 @@
-module uim.databases.Expression;
+module uim.databases.classes.expressions.comparison;
 
 import uim.databases;
 
@@ -46,7 +46,7 @@ class DComparisonExpression : IExpression, IField {
     /**
      * A cached list of IExpression objects that were
      * found in the value for this expression.
-     */
+     * /
     protected IExpression[] _valueExpressions;
 
     /**
@@ -54,7 +54,7 @@ class DComparisonExpression : IExpression, IField {
      * Params:
      * \UIM\Database\IExpression|string afield the field name to compare to a value
      * @param IData aValue The value to be used in comparison
-     */
+     * /
     this(
         IExpression|string afield,
         IData aValue,
@@ -71,7 +71,7 @@ class DComparisonExpression : IExpression, IField {
      * Sets the value
      * Params:
      * IData aValue The value to compare
-     */
+     * /
     void setValue(IData aValue) {
         aValue = _castToExpression(aValue, _type);
 
@@ -145,7 +145,7 @@ class DComparisonExpression : IExpression, IField {
      * with the placeholder aBinder
      * Params:
      * \UIM\Database\ValueBinder aBinder The value binder to use.
-     */
+     * /
     protected array _stringExpression(ValueBinder valueBinder) {
         auto template = "%s ";
 
@@ -181,7 +181,7 @@ class DComparisonExpression : IExpression, IField {
      * IData aValue The value to bind
      * @param \UIM\Database\ValueBinder valueBinder The value binder to use
      * @param string|null type The type of aValue
-     */
+     * /
     protected string _bindValue(IData aValue, ValueBinder valueBinder, string valueType = null) {
         auto placeholder = valueBinder.placeholder("c");
         valueBinder.bind(placeholder, valueBinder, valueType);
@@ -196,7 +196,7 @@ class DComparisonExpression : IExpression, IField {
      * range aValue the value to flatten
      * @param \UIM\Database\ValueBinder aBinder The value binder to use
      * @param string|null type the type to cast values to
-     */
+     * /
     protected string _flattenValue(Range aValue, ValueBinder aBinder, string atype = null) {
         STRINGAA someParts;
         if (isArray(aValue)) {
@@ -219,7 +219,7 @@ class DComparisonExpression : IExpression, IField {
      * position.
      * Params:
      * \UIM\Database\IExpression|range  someValues The rows to insert
-     */
+     * /
     protected array _collectExpressions(IExpression|range  someValues) {
         if (cast(IExpression)someValues ) {
             return [someValues, []];
@@ -243,5 +243,5 @@ class DComparisonExpression : IExpression, IField {
             });
 
         return [result, someExpressions];
-    }
+    } */
 }

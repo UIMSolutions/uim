@@ -5,7 +5,7 @@ import uim.http;
 @safe:
 
 // Provides helper methods related to HTTP headers
-class HeaderUtility {
+class DHeaderUtility {
     /**
      * Get an array representation of the HTTP Link header values.
      * Params:

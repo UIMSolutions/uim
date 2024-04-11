@@ -1,4 +1,4 @@
-module uim.consoles.mixins.consoleintegrationtesttrait;
+module uim.consoles.mixins.consoleintegrationtest;
 
 import uim.consoles;
 
@@ -11,7 +11,7 @@ import uim.consoles;
  * Enables you to call commands/shells with a
  * full application context.
  */
-mixin template ConsoleIntegrationTestTemplate() {
+mixin template TConsoleIntegrationTestTemplate() {
     mixin TContainerStub;
 
     // Last exit code
@@ -19,12 +19,12 @@ mixin template ConsoleIntegrationTestTemplate() {
 
     /**
      * Console output stub
-     */
+      * /
     protected IStubConsoleOutput _out = null;
 
     /**
      * Console error output stub
-     */
+     * /
     protected IStubConsoleOutput _err = null;
 
     // Console input mock
@@ -37,7 +37,7 @@ mixin template ConsoleIntegrationTestTemplate() {
      * @param array  anInput Input values to pass to an interactive shell
      * @throws \UIM\Console\TestSuite\MissingConsoleInputException
      * @throws \InvalidArgumentException
-     */
+     * /
     void exec(string acommand, array  anInput = []) {
         runner = this.makeRunner();
 
@@ -71,7 +71,7 @@ mixin template ConsoleIntegrationTestTemplate() {
      *
      * @after
      * @psalm-suppress PossiblyNullPropertyAssignmentValue
-     */
+     * /
     auto cleanupConsoleTrait() {
        _exitCode = null;
        _out = null;
@@ -84,7 +84,7 @@ mixin template ConsoleIntegrationTestTemplate() {
      * Params:
      * int expected Expected exit code
      * @param string amessage Failure message
-     */
+     * /
     void assertExitCode(int expected, string amessage= null) {
         this.assertThat(expected, new DExitCode(_exitCode), message);
     }
@@ -93,7 +93,7 @@ mixin template ConsoleIntegrationTestTemplate() {
      * Asserts shell exited with the Command.CODE_SUCCESS
      * Params:
      * string amessage Failure message
-     */
+     * /
     void assertExitSuccess(string amessage= null) {
         this.assertThat(Command.CODE_SUCCESS, new DExitCode(_exitCode), message);
     }
@@ -102,7 +102,7 @@ mixin template ConsoleIntegrationTestTemplate() {
      * Asserts shell exited with Command.CODE_ERROR
      * Params:
      * string amessage Failure message
-     */
+     * /
     void assertExitError(string amessage = null) {
         this.assertThat(Command.CODE_ERROR, new DExitCode(_exitCode), message);
     }
@@ -111,7 +111,7 @@ mixin template ConsoleIntegrationTestTemplate() {
      * Asserts that `stdout` is empty
      * Params:
      * string amessage The message to output when the assertion fails.
-     */
+     * /
     void assertOutputEmpty(string amessage = null) {
         this.assertThat(null, new DContentsEmpty(_out.messages(), "output"), message);
     }
@@ -121,7 +121,7 @@ mixin template ConsoleIntegrationTestTemplate() {
      * Params:
      * string aexpected Expected output
      * @param string amessage Failure message
-     */
+     * /
     void assertOutputContains(string aexpected, string message = null) {
         this.assertThat(expected, new DContentsContain(_out.messages(), "output"), message);
     }
@@ -131,7 +131,7 @@ mixin template ConsoleIntegrationTestTemplate() {
      * Params:
      * string aexpected Expected output
      * @param string amessage Failure message
-     */
+     * /
     void assertOutputNotContains(string aexpected, string amessage= null) {
         this.assertThat(expected, new DContentsNotContain(_out.messages(), "output"), message);
     }
@@ -141,7 +141,7 @@ mixin template ConsoleIntegrationTestTemplate() {
      * Params:
      * string apattern Expected pattern
      * @param string amessage Failure message
-     */
+     * /
     void assertOutputRegExp(string apattern, string amessage = null) {
         this.assertThat(somePattern, new DContentsRegExp(_out.messages(), "output"), message);
     }
@@ -151,7 +151,7 @@ mixin template ConsoleIntegrationTestTemplate() {
      * Params:
      * array row Row of cells to ensure exist in the output.
      * @param string amessage Failure message.
-     */
+     * /
     protected void assertOutputContainsRows(array row, string amessage = null) {
         this.assertThat(row, new DContentsContainRow(_out.messages(), "output"), message);
     }
@@ -161,7 +161,7 @@ mixin template ConsoleIntegrationTestTemplate() {
      * Params:
      * string aexpected Expected output
      * @param string amessage Failure message
-     */
+     * /
     void assertErrorContains(string aexpected, string amessage = null) {
         this.assertThat(expected, new DContentsContain(_err.messages(), "error output"), message);
     }
@@ -171,7 +171,7 @@ mixin template ConsoleIntegrationTestTemplate() {
      * Params:
      * string apattern Expected pattern
      * @param string amessage Failure message
-     */
+     * /
     void assertErrorRegExp(string apattern, string amessage = null) {
         this.assertThat(somePattern, new DContentsRegExp(_err.messages(), "error output"), message);
     }
@@ -180,7 +180,7 @@ mixin template ConsoleIntegrationTestTemplate() {
      * Asserts that `stderr` is empty
      * Params:
      * string amessage The message to output when the assertion fails.
-     */
+     * /
     void assertErrorEmpty(string amessage = null)l) {
         this.assertThat(null, new DContentsEmpty(_err.messages(), "error output"), message);
     }
@@ -197,7 +197,7 @@ mixin template ConsoleIntegrationTestTemplate() {
      * Creates an argv array from a command string
      * Params:
      * string acommand Command string
-     */
+     * /
     protected string[] commandStringToArgs(string acommand) {
         size_t charCount = command.length;
         string[] argv = null;
@@ -240,6 +240,6 @@ mixin template ConsoleIntegrationTestTemplate() {
         argv ~= argument;
 
         return argv;
-    }
+    } */
 }
 

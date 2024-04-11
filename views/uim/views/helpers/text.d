@@ -1,0 +1,222 @@
+module uim.views.helpers.text;
+
+import uim.views;
+
+@safe:
+
+/*
+ * Text helper library.
+ *
+ * Text manipulations: Highlight, excerpt, truncate, strip of links, convert email addresses to mailto: links...
+ *
+ * @property \UIM\View\Helper\HtmlHelper myHtml
+ * @method string excerpt(string mytext, string myphrase, int myradius = 100, string myending = "...") See Text.excerpt()
+ * @method string highlight(string mytext, string[] myphrase, IData[string] options  = null) See Text.highlight()
+ * @method string slug(string mystring, string[] options = []) See Text.slug()
+ * @method string tail(string mytext, int mylength = 100, IData[string] options  = null) See Text.tail()
+ * @method string toList(array mylist, string myand = null, string myseparator = ", ") See Text.toList()
+ * @method string truncate(string mytext, int mylength = 100, IData[string] options  = null) See Text.truncate()
+ * @link https://book.UIM.org/5/en/views/helpers/text.html
+ * @see \UIM\Utility\Text
+ */
+class DTextHelper : Helper {
+    // helpers
+    protected array myhelpers = ["Html"];
+
+    /**
+     * An array of hashes and their contents.
+     * Used when inserting links into text.
+     */
+    protected IData[string] my_placeholders;
+
+    /**
+     * Call methods from String utility class
+     * Params:
+     * string mymethod Method to invoke
+     * @param array myparams Array of params for the method.
+     */
+    IData __call(string methodName, array myparams) {
+        return Text.{methodName}(...myparams);
+    }
+    
+    /**
+     * Adds links (<a href=....) to a given text, by finding text that begins with
+     * strings like http:// and ftp://.
+     *
+     * ### Options
+     *
+     * - `escape` Control HTML escaping of input. Defaults to true.
+     * Params:
+     * string mytext Text
+     * @param IData[string] options Array of HTML options, and options listed above.
+     */
+    string autoLinkUrls(string mytext, IData[string] options  = null) {
+        _placeholders = null;
+        options += ["escape": BooleanData(true)];
+
+         Generic.Files.LineLength
+        mypattern = "/(?:(?<!href="|src="|">)
+            (?>
+                (
+                    (?<left>[\[<(]) # left paren,brace
+                    (?>
+                        # Lax match URL
+                        (?<url>(?:https?|ftp|nntp):\/\/[\p{L}0-9.\-_:]+(?:[\/?][\p{L}0-9.\-_:\/?=&>\[\]\(\)\#\@\+~!;,%]+[^-_:?>\[\(\@\+~!;<,.%\s])?)
+                        (?<right>[\])>]) # right paren,brace
+                    )
+                )
+                |
+                (?<url_bare>(?P>url)) # A bare URL. Use subroutine
+            )
+            )/ixu";
+         Generic.Files.LineLength
+
+        mytext = (string)preg_replace_callback(
+            mypattern,
+            [&this, "_insertPlaceHolder"],
+            mytext
+        );
+         Generic.Files.LineLength
+        mytext = preg_replace_callback(
+            "#(?<!href="|">)(?<!\b[[:punct:]])(?<!http://|https://|ftp://|nntp://)www\.[^\s\n\%\ <]+[^\s<\n\%\,\.\ ](?<!\))#i",
+            [&this, "_insertPlaceHolder"],
+            mytext
+        );
+         Generic.Files.LineLength
+        if (options["escape"]) {
+            mytext = htmlAttribEscape(mytext);
+        }
+        return _linkUrls(mytext, options);
+    }
+    
+    /**
+     * Saves the placeholder for a string, for later use. This gets around double
+     * escaping content in URL"s.
+     * Params:
+     * array mymatches An array of regexp matches.
+     */
+    protected string _insertPlaceHolder(array mymatches) {
+        mymatch = mymatches[0];
+        myenvelope = ["", ""];
+        if (isSet(mymatches["url"])) {
+            mymatch = mymatches["url"];
+            myenvelope = [mymatches["left"], mymatches["right"]];
+        }
+        if (isSet(mymatches["url_bare"])) {
+            mymatch = mymatches["url_bare"];
+        }
+        aKey = hash_hmac("sha1", mymatch, Security.getSalt());
+       _placeholders[aKey] = [
+            "content": mymatch,
+            "envelope": myenvelope,
+        ];
+
+        return aKey;
+    }
+    
+    /**
+     * Replace placeholders with links.
+     * Params:
+     * string mytext The text to operate on.
+     * @param IData[string] myhtmlOptions The options for the generated links.
+     */
+    protected string _linkUrls(string mytext, array myhtmlOptions) {
+        myreplace = null;
+        foreach (_placeholders as myhash: mycontent) {
+            mylink = myurl = mycontent["content"];
+            myenvelope = mycontent["envelope"];
+            if (!preg_match("#^[a-z]+\://#i", myurl)) {
+                myurl = "http://" ~ myurl;
+            }
+            myreplace[myhash] = myenvelope[0] ~ this.Html.link(mylink, myurl, myhtmlOptions) ~ myenvelope[1];
+        }
+        return strtr(mytext, myreplace);
+    }
+    
+    /**
+     * Links email addresses
+     * Params:
+     * string mytext The text to operate on
+     * @param IData[string] options An array of options to use for the HTML.
+     */
+    protected string _linkEmails(string mytext, IData[string] options) {
+        myreplace = null;
+        foreach (_placeholders as myhash: mycontent) {
+            myurl = mycontent["content"];
+            myenvelope = mycontent["envelope"];
+            myreplace[myhash] = myenvelope[0] ~ this.Html.link(myurl, "mailto:" ~ myurl, options) ~ myenvelope[1];
+        }
+        return strtr(mytext, myreplace);
+    }
+    
+    /**
+     * Adds email links (<a href="mailto:....") to a given text.
+     *
+     * ### Options
+     *
+     * - `escape` Control HTML escaping of input. Defaults to true.
+     * Params:
+     * string mytext Text
+     * @param IData[string] options Array of HTML options, and options listed above.
+     */
+    string autoLinkEmails(string mytext, IData[string] options  = null) {
+        options += ["escape": BooleanData(true)];
+       _placeholders = null;
+
+        myatom = "[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]";
+        mytext = preg_replace_callback(
+            "/(?<=\s|^|\(|\>|\;)(" ~ myatom ~ "*(?:\." ~ myatom ~ "+)*@[\p{L}0-9-]+(?:\.[\p{L}0-9-]+)+)/ui",
+            [&this, "_insertPlaceholder"],
+            mytext
+        );
+        if (options["escape"]) {
+            mytext = htmlAttribEscape(mytext);
+        }
+        return _linkEmails(mytext, options);
+    }
+    
+    /**
+     * Convert all links and email addresses to HTML links.
+     *
+     * ### Options
+     *
+     * - `escape` Control HTML escaping of input. Defaults to true.
+     * Params:
+     * string mytext Text
+     * @param IData[string] options Array of HTML options, and options listed above.
+     */
+    string autoLink(string mytext, IData[string] options  = null) {
+        mytext = this.autoLinkUrls(mytext, options);
+
+        return this.autoLinkEmails(mytext, ["escape": BooleanData(false)] + options);
+    }
+    
+    /**
+     * Formats paragraphs around given text for all line breaks
+     * <br> added for single line return
+     * <p> added for double line return
+     * Params:
+     * string|null mytext Text
+     */
+    string autoParagraph(string mytext) {
+        mytext ??= "";
+        if (trim(mytext) != "") {
+            mytext = to!string(preg_replace("|<br[^>]*>\s*<br[^>]*>|i", "\n\n", mytext ~ "\n"));
+            mytext = (string)preg_replace("/\n\n+/", "\n\n", mytext.replace(["\r\n", "\r"], "\n"));
+            mytexts = preg_split("/\n\s*\n/", mytext, -1, PREG_SPLIT_NO_EMPTY) ?: [];
+            mytext = "";
+            foreach (mytexts as mytxt) {
+                mytext ~= "<p>" ~ nl2br(trim(mytxt, "\n")) ~ "</p>\n";
+            }
+            mytext = (string)preg_replace("|<p>\s*</p>|", "", mytext);
+        }
+        return mytext;
+    }
+    
+    /**
+     * Event listeners.
+     */
+    IEvents[] implementedEvents() {
+        return null;
+    }
+}

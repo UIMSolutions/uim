@@ -306,7 +306,7 @@ class DBehavior : IEventListener {
      * @throws \ReflectionException
      * /
     array implementedFinders() {
-        methods = this.getConfig("implementedFinders");
+        methods = this.configuration.get("implementedFinders");
         if (isset(methods)) {
             return methods;
         }
@@ -337,7 +337,7 @@ class DBehavior : IEventListener {
      * @throws \ReflectionException
      * /
     array implementedMethods() {
-        methods = this.getConfig("implementedMethods");
+        methods = this.configuration.get("implementedMethods");
         if (isset(methods)) {
             return methods;
         }

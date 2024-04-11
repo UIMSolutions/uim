@@ -193,7 +193,7 @@ class DTreeBehavior : DBehavior {
                         .gte(configuration["leftField"], left + 1)
                         .lte(configuration["leftField"], right - 1);
                 });
-            if (this.getConfig("cascadeCallbacks")) {
+            if (this.configuration.get("cascadeCallbacks")) {
                 entities = query.toArray();
                 foreach (entities as entityToDelete) {
                     _table.delete_(entityToDelete, ["atomic": BooleanData(false)]);
@@ -452,11 +452,11 @@ class DTreeBehavior : DBehavior {
      * /
     function findTreeList(Query query, IData[string] optionData): Query
     {
-        left = _table.aliasField(this.getConfig("left"));
+        left = _table.aliasField(this.configuration.get("left"));
 
         results = _scope(query)
             .find("threaded", [
-                "parentField": this.getConfig("parent"),
+                "parentField": this.configuration.get("parent"),
                 "order": [left: "ASC"],
             ]);
 
@@ -881,7 +881,7 @@ class DTreeBehavior : DBehavior {
      * /
     protected function _scope(Query query): Query
     {
-        scope = this.getConfig("scope");
+        scope = this.configuration.get("scope");
 
         if ((scope.isArray) {
             return query.where(scope);

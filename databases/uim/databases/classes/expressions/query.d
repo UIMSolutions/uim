@@ -1,4 +1,4 @@
-module uim.databases.Expression;
+module uim.databases.classes.expressions.query;
 
 import uim.databases;
 
@@ -38,7 +38,7 @@ class DQueryExpression : IExpression, Countable {
      * @param string aconjunction the glue that will join all the string conditions at this
      * level of the expression tree. For example "AND", "OR", "XOR"...
      * @see \UIM\Database\Expression\QueryExpression.add() for more details on conditions and types
-     */
+     * /
     this(
         IExpression|string[] aconditions = [],
         TypeMap|array types = [],
@@ -79,7 +79,7 @@ class DQueryExpression : IExpression, Countable {
      * @param array<int|string, string> types Associative array of fields pointing to the type of the
      * values that are being passed. Used for correctly binding values to statements.
      * @see \UIM\Database\Query.where() for examples on conditions
-     */
+     * /
     void add(IExpression|string[] aconditions, array types = []) {
         if (isString(conditions) || cast(IExpression)conditions ) {
            _conditions ~= conditions;
@@ -96,7 +96,7 @@ class DQueryExpression : IExpression, Countable {
      * @param IData aValue The value to be bound to field for comparison
      * If it is suffixed with "[]" and the value is an array then multiple placeholders
      * will be created, one per each value in the array.
-     */
+     * /
     auto eq(IExpression|string afield, IData aValue, string typeName = null) {
         typeName = typeName.ifEmpty(_calculateType(field));
 
@@ -111,7 +111,7 @@ class DQueryExpression : IExpression, Countable {
      * @param string|null type the type name for aValue as configured using the Type map.
      * If it is suffixed with "[]" and the value is an array then multiple placeholders
      * will be created, one per each value in the array.
-     */
+     * /
     auto notEq(IExpression|string afield, IData aValue, string atype = null) {
         auto type ??= _calculateType(field);
 
@@ -124,7 +124,7 @@ class DQueryExpression : IExpression, Countable {
      * \UIM\Database\IExpression|string afield Database field to be compared against value
      * @param IData aValue The value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
-     */
+     * /
     auto gt(IExpression|string afield, IData aValue, string atype = null) {
         auto type ??= _calculateType(field);
 
@@ -137,7 +137,7 @@ class DQueryExpression : IExpression, Countable {
      * \UIM\Database\IExpression|string afield Database field to be compared against value
      * @param IData aValue The value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
-     */
+     * /
     auto lt(IExpression|string afield, IData aValue, string atype = null) {
         type ??= _calculateType(field);
 
@@ -150,7 +150,7 @@ class DQueryExpression : IExpression, Countable {
      * \UIM\Database\IExpression|string afield Database field to be compared against value
      * @param IData aValue The value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
-     */
+     * /
     auto gte(IExpression|string afield, IData aValue, string atype = null) {
         type ??= _calculateType(field);
 
@@ -163,7 +163,7 @@ class DQueryExpression : IExpression, Countable {
      * \UIM\Database\IExpression|string afield Database field to be compared against value
      * @param IData aValue The value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
-     */
+     * /
     auto lte(IExpression|string afield, IData aValue, string atype = null) {
         type ??= _calculateType(field);
 
@@ -175,7 +175,7 @@ class DQueryExpression : IExpression, Countable {
      * Params:
      * \UIM\Database\IExpression|string afield database field to be
      * tested for null
-     */
+     * /
     auto isNull(IExpression|string afield) {
         if (!(cast(IExpression)field )) {
             field = new DIdentifierExpression(field);
@@ -187,7 +187,7 @@ class DQueryExpression : IExpression, Countable {
      * Adds a new condition to the expression object in the form "field IS NOT NULL".
      * Params:
      * \UIM\Database\IExpression|string afield database field to be tested for not null
-     */
+     * /
     auto isNotNull(IExpression|string afield) {
         if (!(cast(IExpression)field)) {
             field = new DIdentifierExpression(field);
@@ -201,7 +201,7 @@ class DQueryExpression : IExpression, Countable {
      * \UIM\Database\IExpression|string afield Database field to be compared against value
      * @param IData aValue The value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
-     */
+     * /
     auto like(IExpression|string afield, IData aValue, string atype = null) {
         type ??= _calculateType(field);
 
@@ -214,7 +214,7 @@ class DQueryExpression : IExpression, Countable {
      * \UIM\Database\IExpression|string afield Database field to be compared against value
      * @param IData aValue The value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
-     */
+     * /
     auto notLike(IExpression|string afield, IData aValue, string atype = null) {
         type ??= _calculateType(field);
 
@@ -228,7 +228,7 @@ class DQueryExpression : IExpression, Countable {
      * \UIM\Database\IExpression|string afield Database field to be compared against value
      * @param \UIM\Database\IExpression|string[] avalues the value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
-     */
+     * /
     auto in(
         IExpression|string afield,
         IExpression|string[] avalues,
@@ -261,7 +261,7 @@ class DQueryExpression : IExpression, Countable {
      * \UIM\Database\IExpression|object|scalar|null aValue The case value.
      * @param string|null type The case value type. If no type is provided, the type will be tried to be inferred
      * from the value.
-     */
+     * /
     CaseStatementExpression case(IData aValue = null, string atype = null) {
         auto caseExpression = (func_num_args() > 0) 
             ? new DCaseStatementExpression(aValue, type);
@@ -277,7 +277,7 @@ class DQueryExpression : IExpression, Countable {
      * \UIM\Database\IExpression|string afield Database field to be compared against value
      * @param \UIM\Database\IExpression|string[] avalues the value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
-     */
+     * /
     auto notIn(
         IExpression|string afield,
         IExpression|string[] avalues,
@@ -298,7 +298,7 @@ class DQueryExpression : IExpression, Countable {
      * \UIM\Database\IExpression|string afield Database field to be compared against value
      * @param \UIM\Database\IExpression|string[] avalues the value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
-     */
+     * /
     auto notInOrNull(
         IExpression|string afield,
         IExpression|string[] avalues,
@@ -316,7 +316,7 @@ class DQueryExpression : IExpression, Countable {
      * Adds a new condition to the expression object in the form "EXISTS (...)".
      * Params:
      * \UIM\Database\IExpression expression the inner query
-     */
+     * /
     auto exists(IExpression expression) {
         return this.add(new UnaryExpression("EXISTS", expression, UnaryExpression.PREFIX));
     }
@@ -325,7 +325,7 @@ class DQueryExpression : IExpression, Countable {
      * Adds a new condition to the expression object in the form "NOT EXISTS (...)".
      * Params:
      * \UIM\Database\IExpression expression the inner query
-     */
+     * /
     auto notExists(IExpression expression) {
         return this.add(new UnaryExpression("NOT EXISTS", expression, UnaryExpression.PREFIX));
     }
@@ -338,7 +338,7 @@ class DQueryExpression : IExpression, Countable {
      * @param IData from The initial value of the range.
      * @param IData to The ending value in the comparison range.
      * @param string|null type the type name for aValue as configured using the Type map.
-     */
+     * /
     auto between(IExpression|string afield, IData from, IData to, string atype = null) {
         type ??= _calculateType(field);
 
@@ -384,7 +384,7 @@ class DQueryExpression : IExpression, Countable {
      * \UIM\Database\IExpression|\Closure|string[] aconditions to be added and negated
      * passedTypes Associative array of fields pointing to the type of the
      * values that are being passed. Used for correctly binding values to statements.
-     */
+     * /
     auto not(IExpression|Closure|string[] aconditions, STRINGAA passedTypes = []) {
         return this.add(["NOT": conditions], passedTypes);
     }
@@ -393,7 +393,7 @@ class DQueryExpression : IExpression, Countable {
      * Returns the number of internal conditions that are stored in this expression.
      * Useful to determine if this expression object is void or it will generate
      * a non-empty string when compiled
-     */
+     * /
     size_t count() {
         return count(_conditions);
     }
@@ -403,7 +403,7 @@ class DQueryExpression : IExpression, Countable {
      * Params:
      * string aleftField Left join condition field name.
      * @param string arightField Right join condition field name.
-     */
+     * /
     auto equalFields(string aleftField, string arightField) {
          wrapIdentifier = auto (field) {
             if (cast(IExpression)field ) {
@@ -457,7 +457,7 @@ class DQueryExpression : IExpression, Countable {
      * modified part is stored.
      * Params:
      * \Closure aCallback The callback to run for each part
-     */
+     * /
     void iterateParts(Closure aCallback) {
         someParts = null;
         foreach (myKey: c; _conditions) {
@@ -473,7 +473,7 @@ class DQueryExpression : IExpression, Countable {
     /**
      * Returns true if this expression contains any other nested
      * IExpression objects
-     */
+     * /
     bool hasNestedExpression() {
         foreach (condition; _conditions) {
             if (cast(IExpression)condition ) {
@@ -491,7 +491,7 @@ class DQueryExpression : IExpression, Countable {
      * Params:
      * array conditions list of conditions to be stored in this object
      * fieldTypes list of types associated on fields referenced in conditions
-     */
+     * /
     protected void _addConditions(array conditions, STRINGAA fieldTypes) {
          operators = ["and", "or", "xor"];
 
@@ -549,7 +549,7 @@ class DQueryExpression : IExpression, Countable {
      * string acondition The value from which the actual field and operator will
      * be extracted.
      * @param IData aValue The value to be bound to a placeholder for the field
-     */
+     * /
     protected IExpression|string _parseCondition(string acondition, IData aValue) {
         expression = trim(condition);
          operator = "=";
@@ -621,7 +621,7 @@ class DQueryExpression : IExpression, Countable {
      * Returns the type name for the passed field if it was stored in the typeMap
      * Params:
      * \UIM\Database\IExpression|string afield The field name to get a type for.
-     */
+     * /
     protected string _calculateType(IExpression|string afield) {
         field = cast(IdentifierExpression)field ? field.getIdentifier() : field;
         if (!isString(field)) {
@@ -637,5 +637,5 @@ class DQueryExpression : IExpression, Countable {
                _conditions[anI] = clone condition;
             }
         }
-    }
+    } */
 }

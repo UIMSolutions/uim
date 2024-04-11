@@ -100,12 +100,12 @@ class DDebugger {
      * /
     static IData[string] configSettings = nullInstance(string[] aKey = null, IData aValue = null, bool merge = true) {
         if (aKey is null) {
-            return getInstance().getConfig(aKey);
+            return getInstance().configuration.get(aKey);
         }
         if (isArray(aKey) || func_num_args() >= 2) {
             return getInstance().setConfig(aKey, aValue, merge);
         }
-        return getInstance().getConfig(aKey);
+        return getInstance().configuration.get(aKey);
     }
     
     // Reads the current output masking.
@@ -167,7 +167,7 @@ class DDebugger {
      * /
     static string editorUrl(string afile, int line) {
          anInstance = getInstance();
-        editor =  anInstance.getConfig("editor");
+        editor =  anInstance.configuration.get("editor");
         if (!anInstance.editors.isSet(editor)) {
             throw new DInvalidArgumentException(
                 "Cannot format editor URL `%s` is not a known editor."
@@ -442,7 +442,7 @@ class DDebugger {
      * /
     IErrorFormatter getExportFormatter() {
          anInstance = getInstance();
-         className =  anInstance.getConfig("exportFormatter");
+         className =  anInstance.configuration.get("exportFormatter");
         if (!className) {
             if (ConsoleFormatter.environmentMatches()) {
                  className = ConsoleFormatter.classname;
@@ -689,7 +689,7 @@ class DDebugger {
         debugger = getInstance();
         restore = null;
         if (showHtml !isNull) {
-            restore = debugger.getConfig("exportFormatter");
+            restore = debugger.configuration.get("exportFormatter");
             debugger.setConfig("exportFormatter", showHtml ? HtmlFormatter.classname : TextFormatter.classname);
         }
         contents = exportVar(var, 25);

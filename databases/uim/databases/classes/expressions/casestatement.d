@@ -25,9 +25,9 @@ class DCaseStatementExpression : IExpression, ITypedResult {
 
     mixin(TProperty!("string", "name"));
 
-    mixin CaseExpressionTemplate;
-    mixin ExpressionTypeCasterTemplate;
-    mixin TypeMapTemplate;
+    mixin TCaseExpression;
+    mixin TExpressionTypeCaster;
+    mixin TTypeMap;
 
     // The names of the clauses that are valid for use with the `clause()` method.
     protected string[]  validClauseNames = [

@@ -21,14 +21,14 @@ class DFlashComponent : DComponent {
         }
 
         configuration.updateDefaults([
-        "key": "flash",
-        "element": "default",
-        "params": ArrayData,
-        "clear": BooleanData(false),
-        "duplicate": BooleanData(true),
-    ])
+            "key": StringData("flash"),
+            "element": StringData("default"),
+            "params": ArrayData,
+            "clear": BooleanData(false),
+            "duplicate": BooleanData(true)
+        ]);
 
-    return true;
+        return true;
     }
 
     /**
@@ -51,19 +51,19 @@ class DFlashComponent : DComponent {
      *  in params.
      * @param IData[string] options An array of options
      */
-    void set(Throwable|string amessage, IData[string] options = null) {
-        if (cast(Throwable)aMessage) {
-            this.flash().setExceptionMessage( message, options);
+    void set(Throwable | string amessage, IData[string] options = null) {
+        if (cast(Throwable) aMessage) {
+            this.flash().setExceptionMessage(message, options);
         } else {
-            this.flash().set( message, options);
+            this.flash().set(message, options);
         }
     }
-    
+
     // Get flash message utility instance.
     protected DFlashMessage flash() {
         return this.getController().getRequest().getFlash();
     }
-    
+
     /**
      * Proxy method to FlashMessage instance.
      * Params:
@@ -72,12 +72,13 @@ class DFlashComponent : DComponent {
 
      * @throws \UIM\Core\Exception\UimException When trying to set a key that is invalid.
      */
-    void setConfig(string[] aKey, IData valueToSet = null, bool  merge = true) {
+    void setConfig(string[] aKey, IData valueToSet = null, bool merge = true) {
     }
-    void setConfig(string[] aKey, IData valueToSet = null, bool  merge = true) {
-        this.flash().setConfig(aKey, valueToSet,  merge);
+
+    void setConfig(string[] aKey, IData valueToSet = null, bool merge = true) {
+        this.flash().setConfig(aKey, valueToSet, merge);
     }
-    
+
     /**
      * Proxy method to FlashMessage instance.
      * Params:
@@ -85,9 +86,9 @@ class DFlashComponent : DComponent {
      * @param IData defaultValue The return value when the key does not exist.
      */
     IData getConfig(string aKey = null, IData defaultValue = null) {
-        return this.flash().getConfig(aKey,  default);
+        return this.flash().configuration.get(aKey, default);
     }
-    
+
     /**
      * Proxy method to FlashMessage instance.
     IData getConfigOrFail(string aKey) {
@@ -102,7 +103,7 @@ class DFlashComponent : DComponent {
     void configShallow(string[] aKey, IData aValue = null) {
         this.flash().configShallow(aKey, aValue);
     }
-    
+
     /**
      * Magic method for verbose flash methods based on element names.
      *
@@ -134,10 +135,12 @@ class DFlashComponent : DComponent {
 
         if (!someArguments[1].isEmpty) {
             if (!empty(someArguments[1]["plugin"])) {
-                options = ["element": someArguments[1]["plugin"] ~ "." ~ anElement];
+                options = [
+                    "element": someArguments[1]["plugin"] ~ "." ~ anElement
+                ];
                 someArguments[1].remove("plugin");
             }
-            options += (array)someArguments[1];
+            options += (array) someArguments[1];
         }
         this.set(someArguments[0], options);
     }

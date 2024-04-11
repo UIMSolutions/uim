@@ -408,11 +408,11 @@ class DNumericPaginator : IPaginator {
      *
      * /
     protected string[] getAllowedParameters() {
-        allowed = this.getConfig("allowedParameters");
+        allowed = this.configuration.get("allowedParameters");
         if (!allowed) {
             allowed = null;
         }
-        whitelist = this.getConfig("whitelist");
+        whitelist = this.configuration.get("whitelist");
         if (whitelist) {
             deprecationWarning("The `whitelist` option is deprecated. Use the `allowedParameters` option instead.");
 

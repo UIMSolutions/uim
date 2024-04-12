@@ -1,4 +1,4 @@
-module uim.oop.core\Configure\Engine;
+module uim.oop.configurations.engines.jsonconfig;
 
 import uim.oop;
 
@@ -22,8 +22,9 @@ import uim.oop;
  * }
  * ```
  */
-class DIDataConfig : IConfigEngine {
-  	override bool initialize(IData[string] initData = null) {
+class DJsonConfig : IConfigEngine {
+  	/*alias Alias = ;
+    override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		
 		return true;
@@ -31,13 +32,13 @@ class DIDataConfig : IConfigEngine {
     mixin FileConfigTemplate();
 
     // File extension.
-    protected string _extension = ".IData";
+    protected string _extension = ".json";
 
     /**
      * Constructor for IData[string] configSettings = null file reading.
      * Params:
      * string somePath The path to read config files from. Defaults to CONFIG.
-     */
+     * /
     this(string pathToConfig = null) {
        _path = !pathToConfig.isEmpty ? pathToConfig : CONFIG;
     }
@@ -50,7 +51,7 @@ class DIDataConfig : IConfigEngine {
      * Params:
      * string aKey The identifier to read from. If the key has a ~ it will be treated
      *  as a plugin prefix.
-     */
+     * /
     array read(string aKey) {
         auto file = _getFilePath(aKey, true);
 
@@ -81,10 +82,10 @@ class DIDataConfig : IConfigEngine {
      * string aKey The identifier to write to. If the key has a ~ it will
      * be treated as a plugin prefix.
      * @param array data Data to dump.
-         */
+         * /
     bool dump(string dataId, array data) {
         auto filename = _getFilePath(dataId);
 
         return file_put_contents(filename, IData_encode(someData, IData_PRETTY_PRINT)) > 0;
-    }
+    } */
 }

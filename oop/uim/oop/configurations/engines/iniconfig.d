@@ -1,4 +1,4 @@
-module uim.oop.core\Configure\Engine;
+module uim.oop.configurations.engines.iniconfigx;
 
 import uim.oop;
 
@@ -38,6 +38,7 @@ import uim.oop;
  * @see https://secure.d.net/parse_ini_file
  */
 class DIniConfig : IConfigEngine {
+    /*
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		
@@ -59,7 +60,7 @@ class DIniConfig : IConfigEngine {
      * string somePath Path to load ini config files from. Defaults to CONFIG.
      * @param string section Only get one section, leave null to parse and fetch
      *    all sections in the ini file.
-     */
+     * /
     this(string aPath = null, string asection = null) {
        _path = somePath ? somePath : CONFIG;
        _section = section;
@@ -70,7 +71,7 @@ class DIniConfig : IConfigEngine {
      * Params:
      * string aKey The identifier to read from. If the key has a ~ it will be treated
      * as a plugin prefix. The chosen file must be on the engine`s path.
-     */
+     * /
     array read(string aKey) {
         file = _getFilePath(aKey, true);
 
@@ -98,7 +99,7 @@ class DIniConfig : IConfigEngine {
      * parses nested values out of keys.
      * Params:
      * array  someValues Values to be exploded.
-     */
+     * /
     protected array _parseNestedValues(array  someValues) {
         someValues.byKeyValue
             .each!((kv) {
@@ -124,7 +125,7 @@ class DIniConfig : IConfigEngine {
      * string aKey The identifier to write to. If the key has a ~ it will be treated
      * as a plugin prefix.
      * @param array data The data to convert to ini file.
-     */
+     * /
     bool dump(string key, array data) {
         auto result;
         someData.byKeyValue
@@ -152,7 +153,7 @@ class DIniConfig : IConfigEngine {
      * Converts a value into the ini equivalent
      * Params:
      * IData aValue Value to export.
-     */
+     * /
     protected string _value(IData valueToExport) {
         return match (aValue) {
             null: "null",
@@ -160,5 +161,5 @@ class DIniConfig : IConfigEngine {
             false: "false",
             default: to!string(valueToExport)
         };
-    }
+    } */
 }

@@ -1,4 +1,4 @@
-module source.uim.oop.core.configures.engines.dconfig;
+module uim.oop.configurations.engines.dconfig;
 
 import uim.oop;
 
@@ -34,6 +34,7 @@ class DConfig : IConfigEngine {
     // File extension.
     protected string _extension = ".d";
 
+    /*
     this(string pathToConfigFiles = null) {
        _path = pathToConfigFiles ?? CONFIG;
     }
@@ -46,7 +47,7 @@ class DConfig : IConfigEngine {
      * Params:
      * string aKey The identifier to read from. If the key has a ~ it will be treated
      * as a plugin prefix.
-     */
+     * /
     array read(string aKey) {
         auto file = _getFilePath(aKey, true);
 
@@ -63,11 +64,11 @@ class DConfig : IConfigEngine {
      * Params:
      * string aKey The identifier to write to. If the key has a ~ it will be treated
      * as a plugin prefix.
-         */
+         * /
     bool dump(string aKey, IData[] dataToDump) {
         string contents = "" ~ "\n" ~ "return " ~ var_export(dataToDump, true) ~ ";";
 
         string filename = _getFilePath(aKey);
         return file_put_contents(filename, contents) > 0;
-    }
+    } */
 }

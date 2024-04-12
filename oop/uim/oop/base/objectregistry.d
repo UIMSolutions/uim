@@ -48,7 +48,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
      * Params:
      * string aName The name/class of the object to load.
      * configData - Additional settings to use when loading the object.
-     */
+     * /
   Object load(string objectName, IData[string] configData = null) {
     string myObjectName;
     if (configuration.hasKey("className")) {
@@ -95,7 +95,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
      * string aName The name of the alias in the registry.
      * configData - The config data for the new instance.
      * @throws \UIM\Core\Exception\UimException When a duplicate is found.
-     */
+     * /
   protected void _checkDuplicate(string aliasName, IData[string] configData) {
     auto existing = _loaded[aliasName];
     if (existing is null) {
@@ -151,7 +151,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
      * Params:
      * object|string className The class to build.
      * configData - The Configuration settings for construction
-     */
+     * /
   abstract protected object _create(object objInstance, string aliasName, IData[string] configData);
   abstract protected object _create(string className, string aliasName, IData[string] configData);
 
@@ -198,7 +198,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
      * lazy loading easier.
      * Params:
      * array objects Array of child objects to normalize.
-     */
+     * /
   array < string, array > normalizeArray(Object[] objects) {
     normal = null;
     foreach (objectName, configData; objects) {
@@ -219,7 +219,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
   /**
      * Clear loaded instances in the registry.
      * If the registry subclass has an event manager, the objects will be detached from events as well.
-     */
+     * /
   void reset() {
     _loaded.keys
       .each!(key => this.unload(key));
@@ -228,7 +228,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
   /**
      * Set an object directly into the registry by name.
      * If this collection : events, the passed object will be attached into the event manager
-     */
+     * /
   void set(string objectName, objectobject) {
     [, objName] = pluginSplit(objectName); // Just call unload if the object was loaded before
     if (array_key_exists(objectName, _loaded)) {
@@ -246,7 +246,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
      * If this registry has an event manager, the object will be detached from any events as well.
      * Params:
      * string aName The name of the object to remove from the registry.
-     */
+     * /
   void unload(string aName) {
     if (_loaded[name].isEmpty) {
       [plugin, name] = pluginSplit(name);
@@ -272,12 +272,12 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
 
   /**
      * Debug friendly object properties.
-     */
+     * /
   string[string] debugInfo() {
     properties = get_object_vars(this);
     if (isSet(properties["_loaded"])) {
       properties["_loaded"] = properties["_loaded"].keys;
     }
     return properties;
-  }
+  } */
 }

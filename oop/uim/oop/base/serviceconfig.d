@@ -1,4 +1,4 @@
-module uim.oop.base.serviceconfig;
+module oop.uim.oop.base.serviceconfig;
 
 import uim.oop;
 

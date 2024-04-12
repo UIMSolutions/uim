@@ -1,4 +1,4 @@
-module oop.uim.oop.base.configure;
+module uim.oop.base.configure;
 
 import uim.oop;
 
@@ -404,5 +404,5 @@ static string[] configured() {
     // Clear all values stored in Configure.
     static void clear() {
         _values = null;
-    }
-} */
+    } */
+} 

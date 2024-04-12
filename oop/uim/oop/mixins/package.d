@@ -8,19 +8,20 @@ module uim.oop.mixins;
 import uim.oop;
 
 public {
-	import uim.oop.mixins.cloneable;
-	import uim.oop.mixins.exception;
 	import uim.oop.mixins.properties;
-	import uim.oop.mixins.valuemap;
 }
 
 public {
 	import uim.oop.mixins.cloneable;
+	import uim.oop.mixins.conventions;
+	import uim.oop.mixins.cookiecrypt;
+	import uim.oop.mixins.element;
 	import uim.oop.mixins.exception;
-	import uim.oop.mixins.properties;
+	import uim.oop.mixins.fileconfig;
+	import uim.oop.mixins.mergevariables;
+	import uim.oop.mixins.staticconfig;
 	import uim.oop.mixins.valuemap;
 }
-
 
 template ThisElement() {
 	const char[] ThisElement = `

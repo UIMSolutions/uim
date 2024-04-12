@@ -42,7 +42,7 @@ template InstanceConfigTemplate() {
      * IData[string]|string keyToSet The key to set, or a complete array of configs.
      * @param mixed|null aValue The value to set.
      * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
-     */
+     * /
     void setConfig(string[] keyToSet, IData aValue = null, bool shouldMerge = true) {
         if (!_configInitialized) {
            _config = _defaultConfigData;
@@ -81,7 +81,7 @@ template InstanceConfigTemplate() {
      * ```
      * Params:
      * @param IData defaultValue The return value when the key does not exist.
-     */
+     * /
     IData getConfig(string keyToGet = null, IData defaultData = null) {
         if (!_configInitialized) {
            _config = _defaultConfigData;
@@ -96,7 +96,7 @@ template InstanceConfigTemplate() {
      * The config value for this key must exist, it can never be null.
      * Params:
      * string keyToGet The key to get.
-     */
+     * /
     IData getConfigOrFail(string keyToGet) {
         configData = this.getConfig(keyToGet);
         if (configData is null) {
@@ -130,7 +130,7 @@ template InstanceConfigTemplate() {
      * Params:
      * IData[string]|string keyToSet The key to set, or a complete array of configs.
      * @param mixed|null aValue The value to set.
-     */
+     * /
     void configShallow(string[] keyToSet, IData aValue = null) {
         if (!_configInitialized) {
            _config = _defaultConfigData;
@@ -167,7 +167,7 @@ template InstanceConfigTemplate() {
      * @param string|bool merge True to merge recursively, "shallow' for simple merge,
      *  false to overwrite, defaults to false.
      * @throws \UIM\Core\Exception\UimException if attempting to clobber existing config
-     */
+     * /
     protected void _configWrite(string[] keyToWrite, IData aValue, string|bool merge = false) {
         if (isString(keyToWrite) && aValue is null) {
            _configDelete(keyToWrite);
@@ -211,7 +211,7 @@ template InstanceConfigTemplate() {
      * Params:
      * string keyToDelete Key to delete.
      * @throws \UIM\Core\Exception\UimException if attempting to clobber existing config
-     */
+     * /
     protected void _configDelete(string keyToDelete) {
         if (!keyToDelete.has(".")) {
             configuration.remove(keyToDelete);
@@ -236,5 +236,5 @@ template InstanceConfigTemplate() {
             }
             update = &update[myKey];
         }
-    }
+    } */
 }

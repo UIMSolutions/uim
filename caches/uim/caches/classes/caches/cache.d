@@ -46,7 +46,7 @@ import uim.caches;
  * @see config/app.d for configuration settings
  */
 class DCache : ICache {
-    // use TStaticConfig;
+    // mixin TStaticConfig;
 
     // An array mapping URL schemes to fully qualified caching engine class names.
     protected static STRINGAA _dsnClassMap; /* = [

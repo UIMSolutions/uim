@@ -1,4 +1,4 @@
-module uim.oop.core\TestSuite;
+module uim.oop.tests.containerstub;
 
 import uim.oop;
 
@@ -20,7 +20,7 @@ template ContainerStubTemplate() {
 
     /**
      * The customized application constructor arguments.
-     */
+     * /
     protected array _appArgs = null;
 
     // The collection of container services.
@@ -31,7 +31,7 @@ template ContainerStubTemplate() {
      * Params:
      * @param array|null constructorArgs The constructor arguments for your application class.
      * @psalm-param class-string<\UIM\Core\IHttpApplication>|class-string<\UIM\Core\IConsoleApplication>  className
-     */
+     * /
     void configApplication(string className, array constructorArgs) {
        _appClass = className;
        _appArgs = constructorArgs;
@@ -40,7 +40,7 @@ template ContainerStubTemplate() {
     /**
      * Create an application instance.
      * Uses the configuration set in `configApplication()`.
-     */
+     * /
     protected IHttpApplication|IConsoleApplication createApp() {
         appClass = _appClass
             ? _appClass
@@ -66,7 +66,7 @@ template ContainerStubTemplate() {
      * auto will be used to create mocked services.
      * Params:
      * @param \Closure factory The factory auto for mocked services.
-     */
+     * /
     void mockService(string className, Closure factory) {
         this.containerServices[className] = factory;
     }
@@ -82,7 +82,7 @@ template ContainerStubTemplate() {
      * If any mocked services are defined, the application`s container
      * will be replaced with one containing mocks. The original
      * container will be set as a delegate to the mock container.
-     */
+     * /
     void modifyContainer(IEvent anEvent, IContainer containerToWrap) {
         if (isEmpty(this.containerServices)) {
             return;
@@ -106,17 +106,11 @@ template ContainerStubTemplate() {
      * up application class DConfiguration.
      *
      * @after
-     */
+     * /
     void cleanupContainer() {
        _appArgs = null;
        _appClass = null;
         l__containerServices = null;
-    }
+    } */
 }
 
-// phpcs:disable
-class_alias(
-    'UIM\Core\TestSuite\ContainerStubTrait",
-    'UIM\TestSuite\ContainerStubTrait'
-);
-// phpcs:enable

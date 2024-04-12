@@ -1,4 +1,4 @@
-module oop.uim.oop.mixins.mergevariables;
+module uim.oop.mixins.mergevariables;
 
 import uim.oop;
 
@@ -16,7 +16,7 @@ template MergeVariablesTemplate() {
      * Params:
      * string[] myproperties An array of properties and the merge strategy for them.
      * @param IData[string] options The options to use when merging properties.
-     */
+     * /
   protected void _mergeVars(string[] someProperties, IData[string] propertiesToMerge = null) {
     auto myclass = static.class;
     auto myparents = null;
@@ -45,7 +45,7 @@ template MergeVariablesTemplate() {
      * string aProperty The name of the property being merged.
      * @param string[] myparentClasses An array of classes you want to merge with.
      * @param IData[string] options Options for merging the property, see _mergeVars()
-     */
+     * /
   protected void _mergeProperty(string aProperty, array myparentClasses, array someOptions) {
     mythisValue = this.{aProperty
     };
@@ -80,7 +80,7 @@ template MergeVariablesTemplate() {
      * array mycurrent The current merged value.
      * @param array myparent The parent class" value.
      * @param bool isAssoc Whether the merging should be done in associative mode.
-     */
+     * /
   protected array _mergePropertyData(array mycurrent, array myparent, bool isAssoc) {
     if (!isAssoc) {
       return chain(myparent, mycurrent);
@@ -92,5 +92,5 @@ template MergeVariablesTemplate() {
       }
     }
     return mycurrent;
-  }
+  } */
 }

@@ -1,4 +1,4 @@
-module uim.oop.TestSuite\Constraint\View;
+module uim.oop.tests.constraints.views.templatefileequals;
 
 import uim.oop;
 
@@ -15,7 +15,7 @@ class DTemplateFileEquals : Constraint {
      * Constructor
      * Params:
      * string afilename Template file name
-     */
+     * /
     this(string templateFilename) {
         this.filename = templateFilename;
     }
@@ -24,7 +24,7 @@ class DTemplateFileEquals : Constraint {
      * Checks assertion
      * Params:
      * IData other Expected filename
-     */
+     * /
    bool matches(IData expectedOther) {
         return this.filename.has(other);
     }
@@ -32,5 +32,5 @@ class DTemplateFileEquals : Constraint {
     // Assertion message
     override string toString() {
         return "equals template file `%s`".format(this.filename);
-    }
+    } */
 }

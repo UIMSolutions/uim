@@ -1,4 +1,4 @@
-module uim.oop.TestSuite\Fixture;
+module uim.oop.tests.fixtures.schemaloader;
 
 import uim.oop;
 
@@ -18,6 +18,7 @@ use InvalidArgumentException;
  * for that instead.
  */
 class DSchemaLoader {
+    /* 
     protected IConnectionHelper helper;
 
     this() {
@@ -31,7 +32,7 @@ class DSchemaLoader {
      * @param string aconnectionName Connection name
      * @param bool dropTables Drop all tables prior to loading schema files
      * @param bool truncateTables Truncate all tables after loading schema files
-     */
+     * /
     void loadSqlFiles(
         string[] aPaths,
         string aconnectionName = "test",
@@ -47,7 +48,7 @@ class DSchemaLoader {
         if (dropTables) {
             this.helper.dropTables(aConnectionName);
         }
-        /** @var \UIM\Database\Connection aConnection */
+        /** @var \UIM\Database\Connection aConnection * /
         aConnection = ConnectionManager.get(aConnectionName);
         files.each!((file) {
             if (!file_exists(file)) {
@@ -121,7 +122,7 @@ class DSchemaLoader {
      * string afile Schema file
      * @param string aconnectionName Connection name
      * @throws \InvalidArgumentException For missing table name(s).
-     */
+     * /
     void loadInternalFile(string afile, string aconnectionName = "test") {
         // Don"t reload schema when we are in a separate process state.
         if (isSet(GLOBALS["__PHPUNIT_BOOTSTRAP"])) {
@@ -133,7 +134,7 @@ class DSchemaLoader {
 
         /**
          * @var \UIM\Database\Connection aConnection
-         */
+         * /
         aConnection = ConnectionManager.get(aConnectionName);
         aConnection.disableConstraints(void (Connection aConnection) use (aTables) {
             foreach (aTables as aTableName: aTable) {
@@ -159,5 +160,5 @@ class DSchemaLoader {
                 tableSchema.createSql(aConnection).each!(sql => aConnection.execute(sql));
             }
         });
-    }
+    } */
 }

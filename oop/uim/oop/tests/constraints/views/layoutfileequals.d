@@ -1,4 +1,4 @@
-module oop.uim.oop.tests.constraints.views.layoutfileequal;
+module uim.oop.tests.constraints.views.layoutfileequals;
 /**
  * LayoutFileEquals
  *
@@ -6,7 +6,8 @@ module oop.uim.oop.tests.constraints.views.layoutfileequal;
  */
 class DLayoutFileEquals : DTemplateFileEquals {
     // Assertion message
+    /* 
     override string toString() {
         return "equals layout file `%s`".format(this.filename);
-    }
+    } */
 }

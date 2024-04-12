@@ -1,4 +1,4 @@
-module uim.oop.TestSuite\Constraint;
+module uim.oop.tests.constraints.eventfired;
 
 import uim.oop;
 
@@ -12,14 +12,14 @@ import uim.oop;
 class DEventFired : Constraint {
     /**
      * Array of fired events
-     */
+     * /
     protected IEventManager _eventManager;
 
     /**
      * Constructor
      * Params:
      * \UIM\Event\EventManager eventManager Event manager to check
-     */
+     * /
     this(EventManager eventManager) {
        _eventManager = eventManager;
 
@@ -34,7 +34,7 @@ class DEventFired : Constraint {
      * Checks if event is in fired array
      * Params:
      * IData other Constraint check
-     */
+     * /
    bool matches(IData expectedOther) {
         list = _eventManager.getEventList();
 
@@ -42,8 +42,8 @@ class DEventFired : Constraint {
     }
     
     // Assertion message string
-     */
+     * /
     override string toString() {
         return "was fired";
-    }
+    } */
 }

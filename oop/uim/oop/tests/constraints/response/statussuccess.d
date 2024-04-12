@@ -1,4 +1,4 @@
-module uim.oop.TestSuite\Constraint\Response;
+module oop.uim.oop.tests.constraints.response.statussuccess;
 
 import uim.oop;
 

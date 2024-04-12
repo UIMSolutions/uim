@@ -1,4 +1,4 @@
-module uim.oop.TestSuite\Constraint;
+module oop.uim.oop.tests.constraints.eventfiredwithx;
 
 import uim.oop;
 
@@ -9,7 +9,8 @@ import uim.oop;
  *
  * @internal
  */
-class DEventFiredWith : Constraint {
+class DEventFiredWith : DConstraint {
+    /*
     // Array of fired events
     protected IEventManager _eventManager;
 
@@ -25,7 +26,7 @@ class DEventFiredWith : Constraint {
      * \UIM\Event\EventManager eventManager Event manager to check
      * @param string dataKey Data key
      * @param IData someDataValue Data value
-     */
+     * /
     this(EventManager eventManager, string dataKey, IData someDataValue) {
        _eventManager = eventManager;
        _dataKey = dataKey;
@@ -43,7 +44,7 @@ class DEventFiredWith : Constraint {
      * Params:
      * IData other Constraint check
      * @throws \PHPUnit\Framework\AssertionFailedError
-     */
+     * /
     bool matches(IData expectedOther) {
         firedEvents = null;
         list = _eventManager.getEventList();
@@ -62,7 +63,7 @@ class DEventFiredWith : Constraint {
         if (!array_key_exists(other, eventGroup)) {
             return false;
         }
-        /** @var array<\UIM\Event\IEvent<object>> events */
+        /** @var array<\UIM\Event\IEvent<object>> events * /
         events = eventGroup[other];
 
         if (count(events) > 1) {
@@ -83,5 +84,5 @@ class DEventFiredWith : Constraint {
     // Assertion message string
     override string toString() {
         return "was fired with " ~ _dataKey ~ " matching " ~ to!string(_dataValue);
-    }
+    } */
 }

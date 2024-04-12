@@ -1,4 +1,4 @@
-module oop.uim.oop.mixins.cookiecrypt;
+module uim.oop.mixins.cookiecrypt;
 
 import uim.oop;
 
@@ -131,5 +131,5 @@ template CookieCryptTemplate() {
             myarray[aKey[0]] = aKey[1];
         }
         return myarray;
-    }
+    } */
 }

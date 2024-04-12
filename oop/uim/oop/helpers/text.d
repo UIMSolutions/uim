@@ -8,17 +8,17 @@ import uim.oop;
 class DText {
     /**
      * Default transliterator.
-     */
+     * /
     protected static Transliterator my_defaultTransliterator = null;
 
     /**
      * Default transliterator id string.
-     */
+     * /
     protected static string my_defaultTransliteratorId = "Any-Latin; Latin-ASCII; [\u0080-\u7fff] remove";
 
     /**
      * Default HTML tags which must not be counted for truncating text.
-     */
+     * /
     protected static string[] my_defaultHtmlNoCount = [
         "style",
         "script",
@@ -34,7 +34,7 @@ class DText {
      * "unguessable" URL identifiers. Instead, you should use {@link \UIM\Utility\Security.randomBytes()}` for that.
      *
      * @see https://www.ietf.org/rfc/rfc4122.txt
-     */
+     * /
     static string uuid() {
         return 
             "%04x%04x-%04x-%04x-%04x-%04x%04x%04x".format(
@@ -64,7 +64,7 @@ class DText {
      * @param string myseparator The token to split the data on.
      * @param string myleftBound The left boundary to ignore separators in.
      * @param string myrightBound The right boundary to ignore separators in.
-     */
+     * /
     static string[] tokenize(string data, string separator = ",", string leftBound = "(", string rightBound = ")") {
         if (data.isEmpty) {
             return null;
@@ -155,7 +155,7 @@ class DText {
      * @param array data A key: val array where each key stands for a placeholder variable name
      *    to be replaced with val
      * @param IData[string] options An array of options, see description above
-     */
+     * /
     static string insert(string mystr, array data, IData[string] optionData = null) {
         IData[string] defaultData = [
             "before": ":", 
@@ -180,7 +180,7 @@ class DText {
         }
         mydataKeys = mydata.keys;
         myhashKeys = array_map("md5", mydataKeys);
-        /** @var STRINGAA mytempData */
+        /** @var STRINGAA mytempData * /
         mytempData = array_combine(mydataKeys, myhashKeys);
         krsort(mytempData);
 
@@ -188,7 +188,7 @@ class DText {
             aKey = myformat.format(preg_quote(aKey, "/"));
             mystr = (string)preg_replace(aKey, myhashVal, mystr));
         }
-        /** @var IData[string] mydataReplacements */
+        /** @var IData[string] mydataReplacements * /
         mydataReplacements = array_combine(myhashKeys, array_values(mydata));
         foreach (mytmpHash, mytmpValue; mydataReplacements) {
             mytmpValue = mytmpValue.isArray ? "" : mytmpValue.toString;
@@ -208,7 +208,7 @@ class DText {
      * Params:
      * string mystr String to clean.
      * @param IData[string] options Options list.
-     */
+     * /
     static string cleanInsert(string mystr, IData[string] options) {
         myclean = options["clean"];
         if (!myclean) {
@@ -276,7 +276,7 @@ class DText {
      * Params:
      * string textToFormat The text to format.
      * @param IData[string]|int options Array of options to use, or an integer to wrap the text to.
-     */
+     * /
     static string wrap(string textToFormat, array|int options = []) {
         if (isNumeric(options)) {
             options = ["width": options];
@@ -314,7 +314,7 @@ class DText {
      * Params:
      * string textToFormat The text to format.
      * @param IData[string]|int options Array of options to use, or an integer to wrap the text to.
-     */
+     * /
     static string wrapBlock(string textToFormat, array|int options = []) {
         if (isNumeric(options)) {
             options = ["width": options];
@@ -353,7 +353,7 @@ class DText {
      * @param int mywidth The width to wrap to. Defaults to 72.
      * @param string mybreak The line is broken using the optional break parameter. Defaults to "\n".
      * @param bool mycut If the cut is set to true, the string is always wrapped at the specified width.
-     */
+     * /
     static string wordWrap(string textToFormat, int mywidth = 72, string mybreak = "\n", bool mycut = false) {
         myparagraphs = split(mybreak, textToFormat);
         myparagraphs.each(ref paragraph => paragraph = _wordWrap(paragraph, mywidth, mybreak, mycut));
@@ -368,7 +368,7 @@ class DText {
      * @param int mywidth The width to wrap to. Defaults to 72.
      * @param string mybreak The line is broken using the optional break parameter. Defaults to "\n".
      * @param bool mycut If the cut is set to true, the string is always wrapped at the specified width.
-     */
+     * /
     protected static string _wordWrap(string textToFormat, int mywidth = 72, string mybreak = "\n", bool mycut = false) {
         myparts = null;
         if (mycut) {
@@ -418,7 +418,7 @@ class DText {
      * string searchText Text to search the phrase in.
      * @param string[]|string myphrase The phrase or phrases that will be searched.
      * @param IData[string] options An array of HTML attributes and options.
-     */
+     * /
     static string highlight(string searchText, string[] myphrase, IData[string] optionData = null) {
         if (isEmpty(myphrase)) {
             return searchText;
@@ -471,7 +471,7 @@ class DText {
      * string textToTruncate String to truncate.
      * @param int mylength Length of returned string, including ellipsis.
      * @param IData[string] options An array of options.
-     */
+     * /
     static string tail(string textToTruncate, int mylength = 100, IData[string] optionData = null) {
         mydefault = [
             "ellipsis": "...", "exact": BooleanData(true),
@@ -506,7 +506,7 @@ class DText {
      * string textToTruncate String to truncate.
      * @param int mylength Length of returned string, including ellipsis.
      * @param IData[string] options An array of HTML attributes and options.
-     */
+     * /
     static string truncate(string textToTruncate, int mylength = 100, IData[string] optionData = null) {
         mydefault = [
             "ellipsis": "...", "exact": BooleanData(true), "html": BooleanData(false), "trimWidth": BooleanData(false),
@@ -598,7 +598,7 @@ class DText {
      * string textToTruncate String to truncate.
      * @param int mylength Length of returned string, including ellipsis.
      * @param IData[string] options An array of HTML attributes and options.
-     */
+     * /
     static string truncateByWidth(string textToTruncate, int mylength = 100, IData[string] optionData = null) {
         return truncate(textToTruncate, mylength, ["trimWidth": BooleanData(true)] + options);
     }
@@ -613,7 +613,7 @@ class DText {
      * Params:
      * string textToCheck The string being checked for length
      * @param IData[string] options An array of options.
-     */
+     * /
     protected static int _strlen(string textToCheck, IData[string] options) {
         if (isEmpty(options["trimWidth"])) {
             mystrlen = "mb_strlen";
@@ -650,7 +650,7 @@ class DText {
      * @param int mystart The position to begin extracting.
      * @param int mylength The desired length.
      * @param IData[string] options An array of options.
-     */
+     * /
     protected static string _substr(string inputText, int mystart, int mylength, IData[string] options) {
         auto mySustr = isEmpty(options["trimWidth"])
             ? "mb_substr" : "mb_strimwidth";
@@ -723,7 +723,7 @@ class DText {
      * Removes the last word from the input text.
      * Params:
      * string inputText The input text
-     */
+     * /
     protected static string _removeLastWord(string inputText) {
         myspacepos = mb_strrpos(inputText, " ");
 
@@ -748,7 +748,7 @@ class DText {
      * @param string myphrase Phrase that will be searched for
      * @param int myradius The amount of characters that will be returned on each side of the founded phrase
      * @param string myellipsis Ending that will be appended
-     */
+     * /
     static string excerpt(string searchText, string myphrase, int myradius = 100, string myellipsis = "...") {
         if (isEmpty(searchText) || empty(myphrase)) {
             return truncate(searchText, myradius * 2, ["ellipsis": myellipsis]);
@@ -784,7 +784,7 @@ class DText {
      * string[] mylist The list to be joined.
      * @param string myand The word used to join the last and second last items together with. Defaults to "and".
      * @param string myseparator The separator used to join all the other items together. Defaults to ", ".
-     */
+     * /
     static string toList(string[] mylist, string myand = null, string myseparator = ", ") {
         string myand ??= __d("uim", "and");
         if (count(mylist) > 1) {
@@ -797,7 +797,7 @@ class DText {
      * Check if the string contain multibyte characters
      * Params:
      * string mystring value to test
-     */
+     * /
     static bool isMultibyte(string valueToTest) {
         mylength = valueToTest.length;
 
@@ -815,7 +815,7 @@ class DText {
      * to the decimal value of the character
      * Params:
      * string mystring String to convert.
-     */
+     * /
     static int[] utf8(string mystring) {
         auto mymap = null;
 
@@ -871,7 +871,7 @@ class DText {
      * Params:
      * string mysize Size in human readable string like "5MB", "5M", "500B", "50kb" etc.
      * @param IData mydefault Value to be returned when invalid size was used, for example "Unknown type"
-     */
+     * /
     static IData parseFileSize(string mysize, IData mydefault = false) {
         if (ctype_digit(mysize)) {
             return (int)mysize;
@@ -902,7 +902,7 @@ class DText {
     
     /**
      * Get the default transliterator.
-     */
+     * /
     static Transliterator getTransliterator() {
         return my_defaultTransliterator;
     }
@@ -911,14 +911,14 @@ class DText {
      * Set the default transliterator.
      * Params:
      * \Transliterator mytransliterator A `Transliterator` instance.
-     */
+     * /
     static void setTransliterator(Transliterator mytransliterator) {
         my_defaultTransliterator = mytransliterator;
     }
     
     /**
      * Get default transliterator identifier string.
-     */
+     * /
     static string getTransliteratorId() {
         return my_defaultTransliteratorId;
     }
@@ -927,7 +927,7 @@ class DText {
      * Set default transliterator identifier string.
      * Params:
      * string mytransliteratorId Transliterator identifier.
-     */
+     * /
     static void setTransliteratorId(string mytransliteratorId) {
         mytransliterator = transliterator_create(mytransliteratorId);
         if (mytransliterator is null) {
@@ -945,7 +945,7 @@ class DText {
      *  instance, or a transliterator identifier string. If `null`, the default
      *  transliterator (identifier) set via `setTransliteratorId()` or
      *  `setTransliterator()` will be used.
-     */
+     * /
     static string transliterate(string mystring, Transliterator|string mytransliterator = null) {
         if (isEmpty(mytransliterator)) {
             mytransliterator = my_defaultTransliterator ?: my_defaultTransliteratorId;
@@ -974,7 +974,7 @@ class DText {
      * string mystring the string you want to slug
      * @param IData[string]|string options If string it will be use as replacement character
      *  or an array of options.
-     */
+     * /
     static string slug(string mystring, string[] options = []) {
         if (isString(options)) {
             options = ["replacement": options];
@@ -1001,5 +1001,5 @@ class DText {
             mymap["/[%s]+/mu".format(myquotedReplacement)] = options["replacement"];
         }
         return (string)preg_replace(mymap.keys, mymap, mystring);
-    }
+    } */
 }

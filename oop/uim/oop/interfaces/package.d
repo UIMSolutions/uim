@@ -20,6 +20,8 @@ public {
 	import uim.oop.interfaces.enumeration;
 	import uim.oop.interfaces.error;
 	import uim.oop.interfaces.exception;
+	import uim.oop.interfaces.fixturestrategy;
+	import uim.oop.interfaces.httpapplication;
 	import uim.oop.interfaces.iterable;
 	import uim.oop.interfaces.map;
 	import uim.oop.interfaces.named;

@@ -1,11 +1,11 @@
-module oop.uim.oop.mixins.fileconfigtrait;
+module uim.oop.mixins.fileconfig;
 
 import uim.oop;
 
 @safe:
 
 // mixin template providing utility methods for file based config engines.
-mixin template FileConfigTemplate() {
+mixin template TFileConfig() {
     // The path this engine finds files on.
     protected string _path = "";
 

@@ -28,7 +28,7 @@ class DConnectionManager {
     }
 
     /*
-    mixin template StaticConfigTemplate() {
+    mixin template TStaticConfig() {
         setConfig as protected _setConfig;
         parseDsn as protected _parseDsn;
     }

@@ -1,4 +1,4 @@
-module uim.oop.utilities;
+module oop.uim.oop.mixins.mergevariables;
 
 import uim.oop;
 

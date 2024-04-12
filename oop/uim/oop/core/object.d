@@ -6,7 +6,6 @@
 module uim.oop.core.object;
 
 @safe:
-import std.conv;
 import uim.oop;
 
 class Obj {

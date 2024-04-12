@@ -29,6 +29,7 @@ import uim.oop;
  * @see \UIM\Core\Configure.load() for how to load custom configuration files.
  */
 class DConfig : IConfigEngine {
+    /* 
     mixin FileConfigTemplate();
 
     // File extension.

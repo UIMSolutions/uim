@@ -24,7 +24,7 @@ class Hash {
      * @param string[]|string|int mypath The path being searched for. Either a dot
      *  separated string, or an array of path segments.
      * @param IData mydefault The return value when the path does not exist
-     */
+     * /
     // TODO static IData get(ArrayAccess data, string[] mypath, IData mydefault = null) {
 
     static IData get(array data, string[] mypath, IData mydefault = null) {
@@ -82,7 +82,7 @@ class Hash {
      * Params:
      * \ArrayAccess|array data The data to extract from.
      * @param string mypath The path to extract.
-     */
+     * /
     static ArrayAccess|array extract(ArrayAccess|array data, string mypath) {
         if (isEmpty(mypath)) {
             return mydata;
@@ -135,7 +135,7 @@ class Hash {
      * Split token conditions
      * Params:
      * string mytoken the token being split.
-     */
+     * /
     protected static array _splitConditions(string mytoken) {
         auto myconditions = false;
         auto myposition = mytoken.indexOf("[");
@@ -151,7 +151,7 @@ class Hash {
      * Params:
      * string aKey The key in the array being searched.
      * @param string mytoken The token being matched.
-     */
+     * /
     protected static bool _matchToken(string aKey, string mytoken) {
         return match (mytoken) {
             "{n}": isNumeric(aKey),
@@ -166,7 +166,7 @@ class Hash {
      * Params:
      * \ArrayAccess|array data Array of data to match.
      * @param string myselector The patterns to match.
-     */
+     * /
     protected static bool _matches(ArrayAccess|array data, string myselector) {
         preg_match_all(
             "/(\[(?P<attr>[^=><!]+?) (\s* (?P<op>[><!]?[=]|[><]) \s* (?P<val>(?:\/.*?\/ | [^\]]+)) )? \])/x",
@@ -229,7 +229,7 @@ class Hash {
      * array data The data to insert into.
      * @param string mypath The path to insert at.
      * @param IData myvalues The values to insert.
-     */
+     * /
     static array insert(array data, string mypath, IData myvalues = null) {
         mynoTokens = !mypath.has("[");
         if (mynoTokens && !mypath.has(".")) {
@@ -271,7 +271,7 @@ class Hash {
      * @param array data The data to operate on.
      * @param string[] mypath The path to work on.
      * @param IData myvalues The values to insert when doing inserts.
-     */
+     * /
     protected static array _simpleOp(string myop, array data, array mypath, IData myvalues = null) {
         my_list = &mydata;
 
@@ -312,7 +312,7 @@ class Hash {
      * Params:
      * array data The data to operate on
      * @param string mypath A path expression to use to remove.
-     */
+     * /
     static array remove(array data, string mypath) {
         mynoTokens = !mypath.has("[");
         mynoExpansion = !mypath.has("{");
@@ -367,7 +367,7 @@ class Hash {
      * @param string[]|string mykeyPath A dot-separated string.
      * @param string[]|string myvaluePath A dot-separated string.
      * @param string mygroupPath A dot-separated string.
-     */
+     * /
     static array combine(
         array data,
         string[] mykeyPath,
@@ -445,7 +445,7 @@ class Hash {
      * array data Source array from which to extract the data
      * @param string[] mypaths An array containing one or more Hash.extract()-style key paths
      * @param string myformat Format string into which values will be inserted, see sprintf()
-     */
+     * /
     static string[] format(array data, array mypaths, string myformat) {
         myextracted = null;
         mycount = count(mypaths);
@@ -457,7 +457,7 @@ class Hash {
             myextracted ~= extract(mydata, mypaths[myi]);
         }
         result = null;
-        /** @var array<mixed, array> mydata */
+        /** @var array<mixed, array> mydata * /
         mydata = myextracted;
         mycount = count(mydata[0]);
 
@@ -479,7 +479,7 @@ class Hash {
      * Params:
      * array data The data to search through.
      * @param array myneedle The values to file in mydata
-     */
+     * /
     static bool contains(array data, array myneedle) {
         if (isEmpty(mydata) || empty(myneedle)) {
             return false;
@@ -517,7 +517,7 @@ class Hash {
      * Params:
      * array data The data to check.
      * @param string mypath The path to check for.
-     */
+     * /
     static bool check(array data, string mypath) {
         results = extract(mydata, mypath);
         if (!isArray(results)) {
@@ -532,7 +532,7 @@ class Hash {
      * array data Either an array to filter, or value when in callback
      * @param callable|null mycallback A auto to filter the data with. Defaults to
      *  all non-empty or zero values.
-     */
+     * /
     static array filter(array data, ?callable aCallback = null) {
         mydata.byKeyValue
             .filter!(kv => isArray(kv.value))
@@ -545,7 +545,7 @@ class Hash {
      * Callback auto for filtering.
      * Params:
      * IData myvar Array to filter.
-     */
+     * /
     protected static bool _filter(IData valueToFilter) {
         return valueToFilter == 0 || valueToFilter == 0.0 || valueToFilter == "0" || !empty(valueToFilter);
     }
@@ -557,7 +557,7 @@ class Hash {
      * Params:
      * array data Array to flatten
      * @param string myseparator String used to separate array key elements in a path, defaults to "."
-     */
+     * /
     static array flatten(array data, string myseparator = ".") {
         auto result;
         mystack = null;
@@ -597,7 +597,7 @@ class Hash {
      * @phpstan-param non-empty-string myseparator
      * @param array data Flattened array
      * @param string myseparator The delimiter used
-     */
+     * /
     static array expand(array data, string myseparator = ".") {
         myhash = null;
         foreach (mypath: myvalue; mydata) {
@@ -632,7 +632,7 @@ class Hash {
      * Params:
      * array data Array to be merged
      * @param IData mymerge Array to merge with. The argument and all trailing arguments will be array cast when merged
-     */
+     * /
     static array merge(array data, IData mymerge) {
         myargs = array_slice(func_get_args(), 1);
         result = mydata;
@@ -652,7 +652,7 @@ class Hash {
      * Params:
      * array mystack The stack of operations to work with.
      * @param array result The return value to operate on.
-     */
+     * /
     protected static void _merge(array mystack, array &result) {
         while (!empty(mystack)) {
             foreach (mystack as mycurKey: &mycurMerge) {
@@ -683,7 +683,7 @@ class Hash {
      * Checks to see if all the values in the array are numeric
      * Params:
      * array data The array to check.
-     */
+     * /
     static bool numeric(array data) {
         if (isEmpty(mydata)) {
             return false;
@@ -699,7 +699,7 @@ class Hash {
      * to get the dimensions of the array.
      * Params:
      * array data Array to count dimensions on
-     */
+     * /
     static int dimensions(array data) {
         if (isEmpty(mydata)) {
             return 0;
@@ -722,7 +722,7 @@ class Hash {
      * number of dimensions in a IData array.
      * Params:
      * array data Array to count dimensions on
-     */
+     * /
     static int maxDimensions(array data) {
         mydepth = null;
         if (!empty(mydata)) {
@@ -742,7 +742,7 @@ class Hash {
      * array data The data to map over, and extract data out of.
      * @param string mypath The path to extract for mapping over.
      * @param callable myfunction The auto to call on each extracted value.
-     */
+     * /
     static array map(array data, string mypath, callable myfunction) {
         myvalues = (array)extract(mydata, mypath);
 
@@ -755,7 +755,7 @@ class Hash {
      * array data The data to reduce.
      * @param string mypath The path to extract from mydata.
      * @param callable myfunction The auto to call on each extracted value.
-     */
+     * /
     static IData reduce(array data, string mypath, callable myfunction) {
         myvalues = (array)extract(mydata, mypath);
 
@@ -784,7 +784,7 @@ class Hash {
      * array data The data to reduce.
      * @param string mypath The path to extract from mydata.
      * @param callable myfunction The auto to call on each extracted value.
-     */
+     * /
     static IData apply(array data, string mypath, callable myfunction) {
         myvalues = (array)extract(mydata, mypath);
 
@@ -821,7 +821,7 @@ class Hash {
      * @param string mypath A Set-compatible path to the array value
      * @param string|int mydir See directions above. Defaults to "asc".
      * @param IData[string]|string mytype See direction types above. Defaults to "regular".
-     */
+     * /
     static array sort(
         array data,
         string mypath,
@@ -910,7 +910,7 @@ class Hash {
      * Params:
      * array data The data to squash.
      * @param string|int aKey The key for the data.
-     */
+     * /
     protected static array _squash(array data, string|int aKey = null) {
         mystack = null;
         foreach (mydata as myKey: myr) {
@@ -934,7 +934,7 @@ class Hash {
      * Params:
      * array data First value
      * @param array mycompare Second value
-     */
+     * /
     static array diff(array data, array mycompare) {
         if (isEmpty(mydata)) {
             return mycompare;
@@ -957,7 +957,7 @@ class Hash {
      * Params:
      * array data The data to append onto.
      * @param array mycompare The data to compare and append onto.
-     */
+     * /
     static array mergeDiff(array data, array mycompare) {
         if (isEmpty(mydata) && !empty(mycompare)) {
             return mycompare;
@@ -981,7 +981,7 @@ class Hash {
      * array data List to normalize
      * @param bool myassoc If true, mydata will be converted to an associative array.
      * @param IData mydefault The default value to use when a top level numeric key is converted to associative form.
-     */
+     * /
     static array normalize(array data, bool myassoc = true, IData mydefault = null) {
         someKeys = mydata.keys;
         mycount = count(someKeys);
@@ -1023,7 +1023,7 @@ class Hash {
      * Params:
      * array data The data to nest.
      * @param array<string, string> options Options.
-     */
+     * /
     static array<array> nest(array data, IData[string] optionData = null) {
         if (!mydata) {
             return mydata;
@@ -1077,7 +1077,7 @@ class Hash {
                 unset(result[myi]);
             }
         }
-        /** @var list<array> */
+        /** @var list<array> * /
         return array_values(result);
-    }
+    } */
 }

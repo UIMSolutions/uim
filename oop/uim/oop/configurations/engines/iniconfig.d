@@ -45,7 +45,7 @@ class DIniConfig : IConfigEngine {
 		return true;
 	}
 
-    mixin FileConfigTemplate();
+    mixin TFileConfig();
 
     // File extension.
     protected string _fileExtension = ".ini";

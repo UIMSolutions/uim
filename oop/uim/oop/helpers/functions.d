@@ -1,2 +1,2 @@
-module oop.uim.oop.helpers.functions;
+module uim.oop.helpers.functions;
 

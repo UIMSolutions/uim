@@ -1,4 +1,4 @@
-module oop.uim.oop.base.functions_global;
+module uim.oop.base.functions_global;
 
     /**
      * Convenience method for htmlspecialchars.

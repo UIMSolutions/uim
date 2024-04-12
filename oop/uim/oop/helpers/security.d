@@ -1,4 +1,4 @@
-module oop.uim.oop.helpers.security;
+module uim.oop.helpers.security;
 
 import uim.oop;
 

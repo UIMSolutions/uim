@@ -29,7 +29,7 @@ class DJsonConfig : IConfigEngine {
 		
 		return true;
 	}
-    mixin FileConfigTemplate();
+    mixin TFileConfig();
 
     // File extension.
     protected string _extension = ".json";

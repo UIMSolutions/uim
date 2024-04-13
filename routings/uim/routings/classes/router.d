@@ -635,7 +635,7 @@ class DRouter {
             "routeClass": defaultRouteClass(),
             "extensions": my_defaultExtensions,
         ];
-        options += mydefaults;
+        options = options.updatemydefaults;
 
         return new DRouteBuilder(my_collection, mypath, [], [
             "routeClass": options["routeClass"],

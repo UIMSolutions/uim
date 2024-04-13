@@ -43,7 +43,7 @@ class DNumberHelper : Helper {
      */
     string format(string|float|int mynumber, IData[string] options  = null) {
         auto formattedNumber = Number.format(mynumber, options);
-        auto options += ["escape": BooleanData(true)];
+        auto options = options.update["escape": BooleanData(true)];
 
         return options["escape"] ? htmlAttribEscape(formattedNumber) : formattedNumber;
     }
@@ -73,7 +73,7 @@ class DNumberHelper : Helper {
      */
     string currency(string|float mynumber, string mycurrency = null, IData[string] options  = null) {
         auto formattedCurrency = Number.currency(mynumber, mycurrency, options);
-        auto options += ["escape": BooleanData(true)];
+        auto options = options.update["escape": BooleanData(true)];
 
         return options["escape"] ? htmlAttribEscape(formattedCurrency) : formattedCurrency;
     }
@@ -95,7 +95,7 @@ class DNumberHelper : Helper {
      */
     string formatDelta(string|float myvalue, IData[string] options  = null) {
         myformatted = Number.formatDelta(myvalue, options);
-        options += ["escape": BooleanData(true)];
+        options = options.update["escape": BooleanData(true)];
 
         return options["escape"] ? htmlAttribEscape(myformatted): myformatted;
     }

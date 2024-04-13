@@ -311,7 +311,7 @@ class DFormHelper : Helper {
         }
         myisCreate = formContext.isCreate();
 
-        options += [
+        options = options.update[
             "type": myisCreate ? "post" : "put",
             "url": null,
             "encoding": Configure.read("App.encoding").toLower,
@@ -610,7 +610,7 @@ class DFormHelper : Helper {
         if (myfield.endsWith("._ids")) {
             myfield = substr(myfield, 0, -5);
         }
-        options += ["escape": BooleanData(true)];
+        options = options.update["escape": BooleanData(true)];
 
         formContext = _getContext();
         if (!formContext.hasError(myfield)) {
@@ -895,7 +895,7 @@ class DFormHelper : Helper {
      * @param IData[string] options Each type of input takes different options.
      */
     string control(string aFieldName, IData[string] options  = null) {
-        options += [
+        options = options.update[
             "type": null,
             "label": null,
             "error": null,
@@ -906,7 +906,7 @@ class DFormHelper : Helper {
             "labelOptions": BooleanData(true),
         ];
         options = _parseOptions(fieldName, options);
-        options += ["id": _domId(fieldName)];
+        options = options.update["id": _domId(fieldName)];
 
         mytemplater = this.templater();
         mynewTemplates = options["templates"];
@@ -922,7 +922,7 @@ class DFormHelper : Helper {
         // Multiple checkboxes can"t have aria generated for them at this layer.
         if (options["type"] != "hidden" && (options["type"] != "select" && !options.isSet("multiple"))) {
             myisFieldError = this.isFieldError(fieldName);
-            options += [
+            options = options.update[
                 "aria-required": options["required"] ? "true" : null,
                 "aria-invalid": myisFieldError ? "true" : null,
             ];
@@ -932,12 +932,12 @@ class DFormHelper : Helper {
                 mytemplater.get("error").has("{{id}}") &&
                 mytemplater.get("inputContainerError").has("{{error}}")
             ) {
-                options += [
+                options = options.update[
                    "aria-describedby": myisFieldError ? _domId(fieldName) ~ "-error" : null,
                 ];
             }
             if (isSet(options["placeholder"]) && options["label"] == false) {
-                options += [
+                options = options.update[
                     "aria-label": options["placeholder"],
                 ];
             }
@@ -1196,7 +1196,7 @@ class DFormHelper : Helper {
      * overwrite the "type" key in options.
      */
     protected IData[string] _magicOptions(string aFieldName, IData[string] options, bool myallowOverride) {
-        options += [
+        options = options.update[
             "templateVars": ArrayData,
         ];
 
@@ -1289,7 +1289,7 @@ class DFormHelper : Helper {
      * @param IData[string]|string|null mylabel Label text or array with label attributes.
      */
     protected string _inputLabel(string fieldName, string labelText = null, STRINGAA labelAttributes = null, IData[string] labelOptions = null) {
-        IData[string] options += ["id": null, "input": null, "nestedInput": BooleanData(false), "templateVars": ArrayData];
+        IData[string] options = options.update["id": null, "input": null, "nestedInput": BooleanData(false), "templateVars": ArrayData];
         STRINGAA mylabelAttributes = ["templateVars": labelOptions["templateVars"]];
         if (isArray(mylabel)) {
             mylabelText = null;
@@ -1332,7 +1332,7 @@ class DFormHelper : Helper {
      * @param IData[string] options Array of HTML attributes.
      */
     string[] checkbox(string aFieldName, IData[string] options  = null) {
-        options += ["hiddenField": BooleanData(true), "value": 1];
+        options = options.update["hiddenField": BooleanData(true), "value": 1];
 
         // Work around value=>val translations.
         myvalue = options["value"];
@@ -1474,7 +1474,7 @@ class DFormHelper : Helper {
      * @param IData[string] options Array of HTML attributes.
      */
     string hidden(string aFieldName, IData[string] options  = null) {
-        options += ["required": BooleanData(false), "secure": BooleanData(true)];
+        options = options.update["required": BooleanData(false), "secure": BooleanData(true)];
 
         mysecure = options["secure"];
         unset(options["secure"]);
@@ -1505,7 +1505,7 @@ class DFormHelper : Helper {
      * @link https://book.UIM.org/5/en/views/helpers/form.html#creating-file-inputs
      */
     string file(string aFieldName, IData[string] options  = null) {
-        options += ["secure": BooleanData(true)];
+        options = options.update["secure": BooleanData(true)];
         options = _initInputField(fieldName, options);
 
         unset(options["type"]);
@@ -1527,7 +1527,7 @@ class DFormHelper : Helper {
      * @param IData[string] options Array of options and HTML attributes.
      */
     string button(string mytitle, IData[string] options  = null) {
-        options += [
+        options = options.update[
             "type": "submit",
             "escapeTitle": BooleanData(true),
             "escape": BooleanData(true),
@@ -1618,7 +1618,7 @@ class DFormHelper : Helper {
      * @param IData[string] options Array of HTML attributes.
      */
     string postLink(string mytitle, string[] myurl = null, IData[string] options  = null) {
-        options += ["block": null, "confirm": null];
+        options = options.update["block": null, "confirm": null];
 
         myrequestMethod = "POST";
         if (!empty(options["method"])) {
@@ -1725,7 +1725,7 @@ class DFormHelper : Helper {
      */
     string submit(string mycaption = null, IData[string] options  = null) {
         mycaption ??= __d("uim", "Submit");
-        options += [
+        options = options.update[
             "type": "submit",
             "secure": BooleanData(false),
             "templateVars": ArrayData,
@@ -1961,7 +1961,7 @@ class DFormHelper : Helper {
      * @param IData[string] options Options & attributes for the select elements.
      */
     string year(string aFieldName, IData[string] options  = null) {
-        auto options += [
+        auto options = options.update[
             "empty": BooleanData(true),
         ];
         options = _initInputField(fieldName, options);
@@ -1981,7 +1981,7 @@ class DFormHelper : Helper {
      * @param IData[string] options Array of options or HTML attributes.
      */
     string month(string aFieldName, IData[string] options  = null) {
-        options += [
+        options = options.update[
             "value": null,
         ];
 
@@ -2003,7 +2003,7 @@ class DFormHelper : Helper {
      * @param IData[string] options Array of options or HTML attributes.
      */
     string dateTime(string aFieldName, IData[string] options  = null) {
-        options += [
+        options = options.update[
             "value": null,
         ];
         options = _initInputField(fieldName, options);
@@ -2024,7 +2024,7 @@ class DFormHelper : Helper {
      * @param IData[string] options Array of options or HTML attributes.
      */
     string time(string aFieldName, IData[string] options  = null) {
-        options += [
+        options = options.update[
             "value": null,
         ];
         options = _initInputField(fieldName, options);
@@ -2044,7 +2044,7 @@ class DFormHelper : Helper {
      * @param IData[string] options Array of options or HTML attributes.
      */
     string date(string aFieldName, IData[string] options  = null) {
-        options += [
+        options = options.update[
             "value": null,
         ];
 
@@ -2078,7 +2078,7 @@ class DFormHelper : Helper {
      * @param IData[string]|string[] options Array of options to append options into.
      */
     protected IData[string] _initInputField(string myfield, IData[string] options  = null) {
-        options += ["fieldName": myfield];
+        options = options.update["fieldName": myfield];
 
         if (!options.isSet("secure")) {
             options["secure"] = _View.getRequest().getAttribute("formTokenData").isNull ? false : true;

@@ -443,7 +443,7 @@ class DView : IView { //  }: IEventDispatcher {
      *  plugin has element with same name. Defaults to true
      * /
     string element(string templatefilename, array data = [], IData[string] options  = null) {
-        options += ["callbacks": BooleanData(false), "cache": null, "plugin": null, "ignoreMissing": BooleanData(false)];
+        options = options.update["callbacks": BooleanData(false), "cache": null, "plugin": null, "ignoreMissing": BooleanData(false)];
         if (isSet(options["cache"])) {
             options["cache"] = _elementCache(
                 templatefilename,
@@ -482,7 +482,7 @@ class DView : IView { //  }: IEventDispatcher {
      * callable myblock The block of code that you want to cache the output of.
      * /
     string cache(callable myblock, IData[string] options  = null) {
-        IData[string] options += ["key": "", "config": this.elementCache];
+        IData[string] options = options.update["key": "", "config": this.elementCache];
         if (options["key"].isEmpty) {
             throw new DInvalidArgumentException("Cannot cache content with an empty key");
         }

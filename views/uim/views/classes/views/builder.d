@@ -297,7 +297,7 @@ vars =
      * /
     auto setOptions(IData[string] options, bool mymerge = true) {
         if (mymerge) {
-            options += _options;
+            options = options.update_options;
         }
        _options = options;
 

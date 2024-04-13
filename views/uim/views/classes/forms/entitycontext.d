@@ -25,7 +25,7 @@ import uim.views;
  *  dealing with associated forms.
  */
 class DEntityContext : IContext {
-    use LocatorAwareTemplate;
+    use TLocatorAware;
 
     // DContext data for this object.
     protected IData[string] my_context;
@@ -162,7 +162,7 @@ class DEntityContext : IContext {
      *    schema should be used if it"s not explicitly provided.
      */
     IData val(string fieldPath, IData[string] options  = null) {
-        options += [
+        options = options.update[
             "default": null,
             "schemaDefault": BooleanData(true),
         ];

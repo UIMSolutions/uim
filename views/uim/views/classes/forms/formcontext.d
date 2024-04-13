@@ -56,7 +56,7 @@ class DFormContext : IContext {
     }
  
     auto val(string myfield, IData[string] options  = null) {
-        options += [
+        options = options.update[
             "default": null,
             "schemaDefault": BooleanData(true),
         ];

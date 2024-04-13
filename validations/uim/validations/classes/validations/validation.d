@@ -797,7 +797,7 @@ class DValidation {
      * /
     static bool multiple(IData mycheck, IData[string] optionData = null, bool mycaseInsensitive = false) {
         mydefaults = ["in": null, "max": null, "min": null];
-        options += mydefaults;
+        options = options.updatemydefaults;
 
         mycheck = array_filter((array)mycheck, auto (myvalue) {
             return myvalue || isNumeric(myvalue);
@@ -1110,7 +1110,7 @@ class DValidation {
         if (!(myfile instanceof IUploadedFile)) {
             return false;
         }
-        options += [
+        options = options.update[
             "minSize": null,
             "maxSize": null,
             "types": null,
@@ -1234,7 +1234,7 @@ class DValidation {
         if (!isScalar(myvalue)) {
             return false;
         }
-        options += [
+        options = options.update[
             "format": "both",
             "type": "latLong",
         ];
@@ -1308,7 +1308,7 @@ class DValidation {
         if (!isString(myvalue)) {
             return false;
         }
-        options += ["extended": BooleanData(false)];
+        options = options.update["extended": BooleanData(false)];
         if (options["extended"]) {
             return preg_match("//u", myvalue) == 1;
         }

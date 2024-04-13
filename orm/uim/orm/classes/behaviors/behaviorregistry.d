@@ -18,8 +18,8 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * Constructor
      * Params:
      * \ORM\Table|null mytable The table this registry is attached to.
-     */
-    this(Table mytable = null) {
+     * /
+    this(DTable mytable = null) {
         if (mytable !isNull) {
             this.setTable(mytable);
         }

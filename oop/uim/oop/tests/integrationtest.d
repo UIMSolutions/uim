@@ -347,7 +347,7 @@ template IntegrationTestTemplate() {
      * string[] aurl The URL
      * @param string amethod The HTTP method
      * @param string[] adata The request data.
-     * @throws \PHPUnit\Exception|\Throwable
+     * @throws \Unit\Exception|\Throwable
      * /
     protected void _sendRequest(string[] aurl, string amethod, string[] adata = []) {
         dispatcher = _makeDispatcher();
@@ -361,7 +361,7 @@ template IntegrationTestTemplate() {
                _requestSession.write("Flash", _flashMessages);
             }
            _response = response;
-        } catch (PHPUnitException | DatabaseException  anException) {
+        } catch (UnitException | DatabaseException  anException) {
             throw  anException;
         } catch (Throwable  anException) {
            _exception =  anException;

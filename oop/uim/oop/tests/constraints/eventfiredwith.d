@@ -43,7 +43,7 @@ class DEventFiredWith : DConstraint {
      * Checks if event is in fired array
      * Params:
      * IData other Constraint check
-     * @throws \PHPUnit\Framework\AssertionFailedError
+     * @throws \Unit\Framework\AssertionFailedError
      * /
     bool matches(IData expectedOther) {
         firedEvents = null;

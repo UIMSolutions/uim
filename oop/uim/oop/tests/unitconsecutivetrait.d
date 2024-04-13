@@ -8,7 +8,7 @@ mixin template TUnitConsecutive() {
     /**
      * @param array firstCallArguments The call arguments
      * @param array ...consecutiveCallsArguments Additional arguments
-     */
+     * /
     static iterable withConsecutive(array firstCallArguments, array ...consecutiveCallsArguments) {
         allConsecutiveCallsArguments = [firstCallArguments, ...consecutiveCallsArguments];
 
@@ -42,5 +42,5 @@ mixin template TUnitConsecutive() {
                 },
             );
         }
-    }
+    } */ 
 }

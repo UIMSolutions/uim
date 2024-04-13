@@ -807,7 +807,7 @@ abstract class DTestCase : DBaseTestCase {
         }
         if (nonExistingMethods) {
             trigger_error("Adding non existent methods to your model " ~
-                "via testing will not work in future PHPUnit versions.", E_USER_DEPRECATED);
+                "via testing will not work in future Unit versions.", E_USER_DEPRECATED);
             builder.addMethods(nonExistingMethods);
         }
         /** @var \UIM\ORM\Table mock * /

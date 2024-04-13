@@ -1,4 +1,4 @@
-module uim.oop.core;
+module uim.oop.mixins.instanceconfig;
 
 import uim.oop;
 

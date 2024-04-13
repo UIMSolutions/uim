@@ -1,4 +1,4 @@
-module uim.oop.utilities;
+module uim.oop.helpers.textx;
 
 import uim.oop;
 

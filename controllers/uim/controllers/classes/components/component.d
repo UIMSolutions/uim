@@ -134,7 +134,7 @@ class DComponent : IEventListener {
      * Override this method if you need to add non-conventional event listeners.
      * Or if you want components to listen to non-standard events.
      */
-    IEvents[] implementedEvents() {
+    IEvent[] implementedEvents() {
         auto eventMap = [
             "Controller.initialize": "beforeFilter",
             "Controller.startup": "startup",

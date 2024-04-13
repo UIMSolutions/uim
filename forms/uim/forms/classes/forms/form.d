@@ -106,7 +106,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
      *
      * - Form.buildValidator: buildValidator
      * /
-    IEvents[] implementedEvents() {
+    IEvent[] implementedEvents() {
         if (method_exists(this, "buildValidator")) {
             return [
                 self.BUILD_VALIDATOR_EVENT: "buildValidator",

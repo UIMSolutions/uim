@@ -2706,7 +2706,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * - Model.afterRules: afterRules
      *
      * /
-    IEvents[] implementedEvents() {
+    IEvent[] implementedEvents() {
         myeventMap = [
             "Model.beforeMarshal": "beforeMarshal",
             "Model.afterMarshal": "afterMarshal",

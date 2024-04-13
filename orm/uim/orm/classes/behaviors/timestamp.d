@@ -91,7 +91,7 @@ class DTimestampBehavior : DBehavior {
      *
      * The implemented events of this behavior depend on configuration
      * /
-    IEvents[] implementedEvents() {
+    IEvent[] implementedEvents() {
         return array_fill_keys(configuration["events"].keys, "handleEvent");
     }
     

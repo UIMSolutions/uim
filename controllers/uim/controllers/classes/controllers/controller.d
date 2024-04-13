@@ -364,7 +364,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Returns a list of all events that will fire in the controller during its lifecycle.
      * You can override this auto to add your own listener callbacks
      * /
-    IEvents[] implementedEvents() {
+    IEvent[] implementedEvents() {
         return [
             "Controller.initialize": "beforeFilter",
             "Controller.beforeRender": "beforeRender",

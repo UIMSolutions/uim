@@ -106,7 +106,7 @@ class DFormProtectionComponent : DComponent {
     }
 
     // Events supported by this component.
-    IEvents[] implementedEvents() {
+    IEvent[] implementedEvents() {
         return [
             "Controller.startup": "startup",
         ];

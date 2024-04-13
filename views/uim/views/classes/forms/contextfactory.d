@@ -1,4 +1,4 @@
-module uim.views.classes.forms.contextfactorys;
+module uim.views.classes.forms.contextfactory;
 
 import uim.views;
 

@@ -142,7 +142,7 @@ class DBehavior : IEventListener {
      * Or if you want your behavior to listen to non-standard events.
      *
      */
-    IEvents[] implementedEvents() {
+    IEvent[] implementedEvents() {
         myeventMap = [
             "Model.beforeMarshal": "beforeMarshal",
             "Model.afterMarshal": "afterMarshal",

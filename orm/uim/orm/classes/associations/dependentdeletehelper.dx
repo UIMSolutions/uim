@@ -16,7 +16,7 @@ class DependentDeleteHelper {
      *
      * This method does nothing if the association is not dependent.
      * Params:
-     * \UIM\ORM\Association association The association callbacks are being cascaded on.
+     * \ORM\Association association The association callbacks are being cascaded on.
      * @param \UIM\Datasource\IEntity entity The entity that started the cascaded delete.
      * @param IData[string] options The options for the original delete.
      */

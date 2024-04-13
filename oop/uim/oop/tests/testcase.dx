@@ -779,7 +779,7 @@ abstract class DTestCase : DBaseTestCase {
      * string aalias The model to get a mock for.
      * @param string[] someMethods The list of methods to mock
      * @param IData[string] options The config data for the mock"s constructor.
-     * @throws \UIM\ORM\Exception\MissingTableClassException
+     * @throws \ORM\Exception\MissingTableClassException
      * /
     Table|MockObject getMockForModel(string aalias, array  someMethods = [], IData[string] options = null) {
         auto className = _getTableClassName(alias, options);
@@ -810,7 +810,7 @@ abstract class DTestCase : DBaseTestCase {
                 "via testing will not work in future Unit versions.", E_USER_DEPRECATED);
             builder.addMethods(nonExistingMethods);
         }
-        /** @var \UIM\ORM\Table mock * /
+        /** @var \ORM\Table mock * /
         mock = builder.getMock();
 
         if (isEmpty(options["entityClass"]) && mock.getEntityClass() == Entity.classname) {
@@ -839,7 +839,7 @@ abstract class DTestCase : DBaseTestCase {
     protected string _getTableClassName(string aalias, IData[string] options = null) {
         if (isEmpty(options["className"])) {
              className = Inflector.camelize(alias);
-            /** @var class-string<\UIM\ORM\Table>|null  className * /
+            /** @var class-string<\ORM\Table>|null  className * /
              className = App.className(className, "Model/Table", "Table");
             if (!className) {
                 throw new MissingTableClassException([alias]);

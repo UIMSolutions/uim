@@ -20,9 +20,9 @@ class DLazyEagerLoader {
      * Params:
      * \UIM\Datasource\IEntity|array<\UIM\Datasource\IEntity> myentities a single entity or list of entities
      * @param array mycontain A `contain()` compatible array.
-     * @see \UIM\ORM\Query.contain()
-     * @param \UIM\ORM\Table mysource The table to use for fetching the top level entities
-     */
+     * @see \ORM\Query.contain()
+     * @param \ORM\Table mysource The table to use for fetching the top level entities
+     * /
     IEntity[] loadInto(IEntity|array myentities, array mycontain, Table mysource) {
         auto resultSingle = false;
 
@@ -35,7 +35,7 @@ class DLazyEagerLoader {
 
         auto myentities = _injectResults(myentities, myquery, myassociations, mysource);
 
-        /** @var \UIM\Datasource\IEntity|array<\UIM\Datasource\IEntity> */
+        /** @var \UIM\Datasource\IEntity|array<\UIM\Datasource\IEntity> * /
         return resultSingle ? array_shift(myentities): myentities;
     }
     
@@ -44,8 +44,8 @@ class DLazyEagerLoader {
      * associations specified in mycontain.
      * Params:
      * @param array mycontain The associations to be loaded
-     * @param \UIM\ORM\Table mysource The table to use for fetching the top level entities
-     */
+     * @param \ORM\Table mysource The table to use for fetching the top level entities
+     * /
     protected ISelectQuery _getQuery(IEntity[] myentities, array mycontain, Table mysource)SelectQuery {
         auto myprimaryKey = mysource.getPrimaryKeys();
         auto mymethod = isString(myprimaryKey) ? "get" : "extract";
@@ -82,9 +82,9 @@ class DLazyEagerLoader {
      * Returns a map of property names where the association results should be injected
      * in the top level entities.
      * Params:
-     * \UIM\ORM\Table mysource The table having the top level associations
+     * \ORM\Table mysource The table having the top level associations
      * @param string[] myassociations The name of the top level associations
-     */
+     * /
     protected string[] _getPropertyMap(Table mysource, array myassociations) {
         auto propertyMap = null;
         auto mycontainer = mysource.associations();
@@ -100,10 +100,10 @@ class DLazyEagerLoader {
      * entities.
      * Params:
      * array<\UIM\Datasource\IEntity> myentities The original list of entities
-     * @param \UIM\ORM\Query\SelectQuery myquery The query to load results
+     * @param \ORM\Query\SelectQuery myquery The query to load results
      * @param string[] myassociations The top level associations that were loaded
-     * @param \UIM\ORM\Table mysource The table where the entities came from
-     */
+     * @param \ORM\Table mysource The table where the entities came from
+     * /
     protected IEntity[] _injectResults(
         array myentities,
         SelectQuery myquery,
@@ -113,7 +113,7 @@ class DLazyEagerLoader {
         myinjected = null;
         myproperties = _getPropertyMap(mysource, myassociations);
         myprimaryKey = (array)mysource.getPrimaryKeys();
-        /** @var array<\UIM\Datasource\IEntity> results */
+        /** @var array<\UIM\Datasource\IEntity> results * /
         results = myquery
             .all()
             .indexBy(fn (IEntity mye): join(";", mye.extract(myprimaryKey)))
@@ -134,5 +134,5 @@ class DLazyEagerLoader {
             myinjected[myKey] = myobject;
         }
         return myinjected;
-    }
+    } */
 }

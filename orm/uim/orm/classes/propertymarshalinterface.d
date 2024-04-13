@@ -9,7 +9,7 @@ interface IPropertyMarshal {
     /**
      * Build a set of properties that should be included in the marshalling process.
      * Params:
-     * \UIM\ORM\Marshaller mymarshaller The marhshaller of the table the behavior is attached to.
+     * \ORM\Marshaller mymarshaller The marhshaller of the table the behavior is attached to.
      * @param array mymap The property map being built.
      * @param IData[string] options The options array used in the marshalling call.
      */

@@ -48,7 +48,7 @@ class Obj {
 		}
 		return cast(O)this;
 	}
-	O add(this O)(Association anAssociation) {
+	O add(this O)(DAssociation anAssociation) {
 		if (anAssociation) {
 			if (anAssociation.name) _associations[anAssociation.name] = anAssociation;
 		}

@@ -14,7 +14,7 @@ import uim.orm;
  *
  * @internal
  */
-class DependentDeleteHelper {
+class DDependentDeleteHelper {
     /**
      * Cascade a delete to remove dependent records.
      *

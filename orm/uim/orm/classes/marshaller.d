@@ -9,10 +9,10 @@ import uim.orm;
  *
  * Useful when converting request data into entities.
  *
- * @see \UIM\ORM\Table.newEntity()
- * @see \UIM\ORM\Table.newEntities()
- * @see \UIM\ORM\Table.patchEntity()
- * @see \UIM\ORM\Table.patchEntities()
+ * @see \ORM\Table.newEntity()
+ * @see \ORM\Table.newEntities()
+ * @see \ORM\Table.patchEntity()
+ * @see \ORM\Table.patchEntities()
  */
 class DMarshaller {
     /*
@@ -24,7 +24,7 @@ class DMarshaller {
     /**
      * Constructor.
      * Params:
-     * \UIM\ORM\Table mytable The table this marshaller is for.
+     * \ORM\Table mytable The table this marshaller is for.
      * /
     this(Table mytable) {
        _table = mytable;
@@ -231,7 +231,7 @@ class DMarshaller {
     /**
      * Create a new sub-marshaller and marshal the associated data.
      * Params:
-     * \UIM\ORM\Association myassoc The association to marshall
+     * \ORM\Association myassoc The association to marshall
      * @param IData aValue The data to hydrate. If not an array, this method will return null.
      * @param IData[string] options List of options.
      * /
@@ -300,7 +300,7 @@ class DMarshaller {
      * Builds the related entities and handles the special casing
      * for junction table entities.
      * Params:
-     * \UIM\ORM\Association\BelongsToMany myassoc The association to marshal.
+     * \ORM\Association\BelongsToMany myassoc The association to marshal.
      * @param array data The data to convert into entities.
      * @param IData[string] options List of options.
      * /
@@ -379,7 +379,7 @@ class DMarshaller {
     /**
      * Loads a list of belongs to many from ids.
      * Params:
-     * \UIM\ORM\Association myassoc The association class for the belongsToMany association.
+     * \ORM\Association myassoc The association class for the belongsToMany association.
      * @param array myids The list of ids to load.
      * /
     protected IEntity[] _loadAssociatedByIds(Association myassoc, array myids) {
@@ -620,7 +620,7 @@ class DMarshaller {
      * Creates a new sub-marshaller and merges the associated data.
      * Params:
      * \UIM\Datasource\IEntity|array<\UIM\Datasource\IEntity>|null myoriginal The original entity
-     * @param \UIM\ORM\Association myassoc The association to merge
+     * @param \ORM\Association myassoc The association to merge
      * @param IData aValue The array of data to hydrate. If not an array, this method will return null.
      * @param IData[string] options List of options.
      * /
@@ -647,7 +647,7 @@ class DMarshaller {
         if (mytype == Association.MANY_TO_MANY) {
             /**
              * @var array<\UIM\Datasource\IEntity> myoriginal
-             * @var \UIM\ORM\Association\BelongsToMany myassoc
+             * @var \ORM\Association\BelongsToMany myassoc
              * /
             return mymarshaller._mergeBelongsToMany(myoriginal, myassoc, myvalue, options);
         }
@@ -672,7 +672,7 @@ class DMarshaller {
      * association.
      * Params:
      * myoriginal = The original entities list.
-     * @param \UIM\ORM\Association\BelongsToMany myassoc The association to marshall
+     * @param \ORM\Association\BelongsToMany myassoc The association to marshall
      * @param array myvalue The data to hydrate
      * @param IData[string] options List of options.
      * /
@@ -698,7 +698,7 @@ class DMarshaller {
      * Merge the special _joinData property into the entity set.
      * Params:
      * array<\UIM\Datasource\IEntity> myoriginal The original entities list.
-     * @param \UIM\ORM\Association\BelongsToMany myassoc The association to marshall
+     * @param \ORM\Association\BelongsToMany myassoc The association to marshall
      * @param array myvalue The data to hydrate
      * @param IData[string] options List of options.
      * /

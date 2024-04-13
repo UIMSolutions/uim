@@ -28,7 +28,7 @@ class DStock {
 
 /// Create concrete classes implementing the IOrder interface.
 class DBuyStock : IOrder {
-  private DStock _abcStock;
+  protected DStock _abcStock;
 
   this(DStock abcStock) {
     _abcStock = abcStock;
@@ -40,7 +40,7 @@ class DBuyStock : IOrder {
 }
 
 class DSellStock : IOrder {
-  private DStock _abcStock;
+  protected DStock _abcStock;
 
   this(DStock abcStock) {
     _abcStock = abcStock;

@@ -55,7 +55,7 @@ class DBelongsToMany : DAssociation {
     /**
      * The table instance for the junction relation.
      *
-     * @var \UIM\ORM\Table|string
+     * @var \ORM\Table|string
      * /
     protected ITable|string _through;
 
@@ -154,7 +154,7 @@ class DBelongsToMany : DAssociation {
      * Sets the table instance for the junction relation. If no arguments
      * are passed, the current configured table instance is returned
      * Params:
-     * \UIM\ORM\Table|string aTable Name or instance for the join table
+     * \ORM\Table|string aTable Name or instance for the join table
      * /
     Table junction(Table|string aTable = null) {
         if (aTable.isNull && isSet(_junctionTable)) {
@@ -207,9 +207,9 @@ class DBelongsToMany : DAssociation {
      * You can override these generated associations by defining associations
      * with the correct aliases.
      * Params:
-     * \UIM\ORM\Table junction The junction table.
-     * @param \UIM\ORM\Table source The source table.
-     * @param \UIM\ORM\Table target The target table.
+     * \ORM\Table junction The junction table.
+     * @param \ORM\Table source The source table.
+     * @param \ORM\Table target The target table.
      * /
     protected void _generateTargetAssociations(Table junction, Table source, Table target) {
         junctionAlias = junction.aliasName();
@@ -251,8 +251,8 @@ class DBelongsToMany : DAssociation {
      * You can override these generated associations by defining associations
      * with the correct aliases.
      * Params:
-     * \UIM\ORM\Table junction The junction table.
-     * @param \UIM\ORM\Table source The source table.
+     * \ORM\Table junction The junction table.
+     * @param \ORM\Table source The source table.
      * /
     protected void _generateSourceAssociations(Table junction, Table source) {
         junctionAlias = junction.aliasName();
@@ -283,9 +283,9 @@ class DBelongsToMany : DAssociation {
      * You can override these generated associations by defining associations
      * with the correct aliases.
      * Params:
-     * \UIM\ORM\Table junction The junction table.
-     * @param \UIM\ORM\Table source The source table.
-     * @param \UIM\ORM\Table target The target table.
+     * \ORM\Table junction The junction table.
+     * @param \ORM\Table source The source table.
+     * @param \ORM\Table target The target table.
      * /
     protected void _generateJunctionAssociations(Table junction, Table source, Table target) {
         tAlias = target.aliasName();
@@ -330,7 +330,7 @@ class DBelongsToMany : DAssociation {
      * - fields: a list of fields in the target table to include in the result
      * - type: The type of join to be used (e.g. INNER)
      * Params:
-     * \UIM\ORM\Query\SelectQuery aQuery the query to be altered to include the target table data
+     * \ORM\Query\SelectQuery aQuery the query to be altered to include the target table data
      * @param IData[string] options Any extra options or overrides to be taken in account
      * /
     void attachTo(SelectQuery aQuery, IData[string] options = null) {
@@ -481,7 +481,7 @@ class DBelongsToMany : DAssociation {
      * Returns boolean true, as both of the tables "own" rows in the other side
      * of the association via the joint table.
      * Params:
-     * \UIM\ORM\Table side The potential Table with ownership
+     * \ORM\Table side The potential Table with ownership
      * /
     bool isOwningSide(Table side) {
         return true;
@@ -787,7 +787,7 @@ class DBelongsToMany : DAssociation {
     /**
      * Sets the current join table, either the name of the Table instance or the instance itself.
      * Params:
-     * \UIM\ORM\Table|string athrough Name of the Table instance or the instance itself
+     * \ORM\Table|string athrough Name of the Table instance or the instance itself
      * /
     void setThrough(Table|string athrough) {
        _through = through;
@@ -860,7 +860,7 @@ class DBelongsToMany : DAssociation {
      * IData[string]|string type the type of query to perform, if an array is passed,
      *  it will be interpreted as the `options` parameter
      * @param IData ...someArguments Arguments that match up to finder-specific parameters
-     * @see \UIM\ORM\Table.find()
+     * @see \ORM\Table.find()
      * /
     SelectQuery find(string[] type = null, IData ...someArguments) {
         type = type ?: this.getFinder();
@@ -882,7 +882,7 @@ class DBelongsToMany : DAssociation {
     /**
      * Append a join to the junction table.
      * Params:
-     * \UIM\ORM\Query\SelectQuery aQuery The query to append.
+     * \ORM\Query\SelectQuery aQuery The query to append.
      * @param array|null conditions The query conditions to use.
      * /
     protected ISelectQuery _appendJunctionJoin(SelectQuery aQuery, array conditions = null) {
@@ -1035,7 +1035,7 @@ class DBelongsToMany : DAssociation {
      * `existing` and `jointEntities`. This method will return the values from
      * `targetEntities` that were not deleted from calculating the difference.
      * Params:
-     * \UIM\ORM\Query\SelectQuery existing a query for getting existing links
+     * \ORM\Query\SelectQuery existing a query for getting existing links
      * @param array<\UIM\Datasource\IEntity> jointEntities link entities that should be persisted
      * @param array targetEntities entities in target table that are related to
      * the `jointEntities`

@@ -9,7 +9,7 @@ import uim.oop;
  * @internal
  */
 class DTemplateFileEquals : DConstraint {
-    protected string afilename;
+    protected string _filename;
 
     /**
      * Constructor

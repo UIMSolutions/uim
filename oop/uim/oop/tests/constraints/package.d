@@ -7,6 +7,7 @@ public {
 }
 
 public {
+    import uim.oop.tests.constraints.constraint;
     import uim.oop.tests.constraints.eventfired;
     import uim.oop.tests.constraints.eventfiredwith; 
 }

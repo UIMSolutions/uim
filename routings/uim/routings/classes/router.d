@@ -102,7 +102,7 @@ class DRouter {
      * The stack of URL filters to apply against routing URLs before passing the
      * parameters to the route collection.
      */
-    protected static Closure[] my_urlFilters = null;
+    protected static DClosure[] my_urlFilters = null;
 
     /**
      * Default extensions defined with Router.extensions()

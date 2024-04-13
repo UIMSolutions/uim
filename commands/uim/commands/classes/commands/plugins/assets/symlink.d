@@ -27,18 +27,19 @@ class DPluginAssetsSymlinkCommand : DCommand {
     }
 
     DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
-        parserToUpdate.description("symlink (copy as fallback) plugin assets to app`s webroot.");
+        // TODO parserToUpdate.description("symlink (copy as fallback) plugin assets to app`s webroot.");
         
+        /* 
         parserToUpdate.addArgument("name", [
             "help": "A specific plugin you want to symlink assets for.",
             "required": BooleanData(false),
-        ]);
+        ]); */
         
-        parserToUpdate.addOption("overwrite", [
+        /*  TODO parserToUpdate.addOption("overwrite", [
             "help": "Overwrite existing symlink / folder / files.",
             "default": BooleanData(false),
             "boolean": BooleanData(true),
-        ]);
+        ]); */
 
         return parserToUpdate;
     }

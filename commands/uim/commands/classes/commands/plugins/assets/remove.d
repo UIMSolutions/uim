@@ -22,6 +22,7 @@ class DPluginAssetsRemoveCommand : DCommand {
         return "plugin-assets-remove";
     }
 
+    /* 
     // Remove plugin assets from app`s webroot.
     override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         this.io = aConsoleIo;
@@ -54,7 +55,7 @@ class DPluginAssetsRemoveCommand : DCommand {
             ]);
 
         return parserToUpdate;
-    }
+    } */
 }
 
 mixin(CommandCalls!("PluginAssetsRemove"));

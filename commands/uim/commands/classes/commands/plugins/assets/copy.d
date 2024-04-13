@@ -27,9 +27,10 @@ class DPluginAssetsCopyCommand : DCommand {
     }
 
     // Get the option parser.
-    override DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate){
-        parserToUpdate.description("Copy plugin assets to app`s webroot.");
+    /*  TODO override */  DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate){
+        // TODO parserToUpdate.description("Copy plugin assets to app`s webroot.");
 
+        /* 
         parserToUpdate.addArgument("name", [
             "help": "A specific plugin you want to copy assets for.",
             "required": BooleanData(false),
@@ -39,7 +40,7 @@ class DPluginAssetsCopyCommand : DCommand {
             "help": "Overwrite existing symlink / folder / files.",
             "default": BooleanData(false),
             "boolean": BooleanData(true),
-        ]);
+        ]); */
 
         return parserToUpdate;
     } 

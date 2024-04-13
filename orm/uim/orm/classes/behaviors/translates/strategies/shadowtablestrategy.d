@@ -8,7 +8,7 @@ import uim.orm;
  * This class provides a way to translate dynamic data by keeping translations
  * in a separate shadow table where each row corresponds to a row of primary table.
  */
-class DShadowTableStrategy : ITranslateStrategy {
+class DShadowTableStrategy { // TODO }: ITranslateStrategy {
     mixin TConfigurable!();
 
     this() {
@@ -34,7 +34,7 @@ class DShadowTableStrategy : ITranslateStrategy {
             "referencename": StringData,
             "allowEmptyTranslations": BooleanData(true),
             "onlyTranslated": BooleanData(false),
-            "strategy": "subquery",
+            "strategy": StringData("subquery"),
             "tableLocator": NullData,
             "validator": BooleanData(false),
         ]);

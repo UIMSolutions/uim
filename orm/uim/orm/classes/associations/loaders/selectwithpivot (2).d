@@ -10,7 +10,7 @@ import uim.orm;
  *
  * @internal
  */
-class DSelectWithPivotLoader : SelectLoader {
+class DSelectWithPivotLoader : DSelectLoader {
     // The name of the junction association
     protected string _junctionAssociationName;
 

@@ -15,7 +15,7 @@ import uim.orm;
  */
 class DResultSet { // TODO }: IResultSet {
     mixin TConfigurable;
-    mixin TCollection;
+    // TODO mixin TCollection;
 
     this() {
         initialize;
@@ -41,12 +41,15 @@ class DResultSet { // TODO }: IResultSet {
 
     // Points to the next record number that should be fetched
     protected int my_index = 0;
-    /* 
+
+
+    // Holds the count of records in this result set
+    protected int _count = 0;
+    
+        /* 
     // Last record fetched from the statement
     protected IEntity[] my_current;
 
-    // Holds the count of records in this result set
-    protected int my_count = 0;
 
     /**
      * Results that have been fetched or hydrated into the results.

@@ -249,7 +249,7 @@ class DTimeHelper : Helper {
         IData[string] options  = null
     ) {
         myelement = null;
-        options += [
+        options = options.update[
             "element": null,
             "timezone": null,
         ];

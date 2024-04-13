@@ -13,7 +13,7 @@ class DPluginLoadCommand : DCommand {
             return false;
         }
 
-        configDataFile = CONFIG ~ "plugins.d";
+        // TODO configDataFile = CONFIG ~ "plugins.d";
         
         return true;
     }

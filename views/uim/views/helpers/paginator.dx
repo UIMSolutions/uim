@@ -241,7 +241,7 @@ class DPaginatorHelper : Helper {
             "disabledTitle": mytitle,
             "escape": BooleanData(true),
         ];
-        options += mydefaults;
+        options = options.updatemydefaults;
         options["step"] = -1;
 
         mytemplates = [
@@ -275,7 +275,7 @@ class DPaginatorHelper : Helper {
             "disabledTitle": mytitle,
             "escape": BooleanData(true),
         ];
-        options += mydefaults;
+        options = options.updatemydefaults;
         options["step"] = 1;
 
         mytemplates = [
@@ -409,7 +409,7 @@ class DPaginatorHelper : Helper {
         ) {
             mypaging["sortDefault"] = _removeAlias(mypaging["sortDefault"], this.param("alias"));
         }
-        options += array_intersect_key(
+        options = options.updatearray_intersect_key(
             mypaging,
             ["page": null, "limit": null, "sort": null, "direction": null]
         );
@@ -428,7 +428,7 @@ class DPaginatorHelper : Helper {
         if (!empty(mypaging["scope"])) {
             myscope = mypaging["scope"];
             if (isSet(mybaseUrl["?"][myscope]) && isArray(mybaseUrl["?"][myscope])) {
-                options += mybaseUrl["?"][myscope];
+                options = options.updatemybaseUrl["?"][myscope];
                 unset(mybaseUrl["?"][myscope]);
             }
             options = [myscope: options];
@@ -572,7 +572,7 @@ class DPaginatorHelper : Helper {
             "before": null, "after": null,
             "modulus": 8, "first": null, "last": null, "url": ArrayData,
         ];
-        options += mydefaults;
+        options = options.updatemydefaults;
 
         myparams = this.params() ~ ["currentPage": 1];
         if (myparams["pageCount"] <= 1) {
@@ -782,7 +782,7 @@ class DPaginatorHelper : Helper {
      * @param IData[string] options An array of options.
      */
     string first(string|int myfirst = "<< first", IData[string] options  = null) {
-        options += [
+        options = options.update[
             "url": ArrayData,
             "escape": BooleanData(true),
         ];
@@ -833,7 +833,7 @@ class DPaginatorHelper : Helper {
      * @param IData[string] options Array of options
      */
     string last(string|int mylast = "last >>", IData[string] options  = null) {
-        options += [
+        options = options.update[
             "escape": BooleanData(true),
             "url": ArrayData,
         ];
@@ -891,7 +891,7 @@ class DPaginatorHelper : Helper {
      * IData[string] options Array of options
      */
     string meta(IData[string] options  = null) {
-        options += [
+        options = options.update[
             "block": BooleanData(false),
             "prev": BooleanData(true),
             "next": BooleanData(true),

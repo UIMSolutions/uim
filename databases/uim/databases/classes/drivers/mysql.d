@@ -16,28 +16,30 @@ class DMysqlDriver : DDriver {
     protected const string SERVER_TYPE_MARIADB = "mariadb";
 
     override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-            // Base configuration settings for MySQL driver
-        /* _baseConfig.data([
-                "persistent": BoolData(true),
-                "host": StringData("localhost"),
-                "username": StringData("root"),
-                "password": StringData(""),
-                "database": StringData("uim"),
-                "port": StringData("3306"),
-                "flags": ArrayData,
-                "encoding": StringData("utf8mb4"),
-                "timezone": NullData(null),
-                "init": ArrayData,
-            ]); */
-    
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        // Base configuration settings for MySQL driver
+        configuration.merge([
+            "persistent": BoolData(true),
+            "host": StringData("localhost"),
+            "username": StringData("root"),
+            "password": StringData(""),
+            "database": StringData("uim"),
+            "port": StringData("3306"),
+            "flags": ArrayData,
+            "encoding": StringData("utf8mb4"),
+            "timezone": NullData(null),
+            "init": ArrayData,
+        ]);
+
         startQuote("`");
         endQuote("`");
 
-		return true;
-	}
- 
+        return true;
+    }
+
     /**
      * Server type.
      *

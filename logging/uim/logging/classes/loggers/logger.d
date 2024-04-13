@@ -18,15 +18,20 @@ abstract class DLogger /* : DAbstractLogger */ {
         this.name(name); 
     }
 
+    this(IData[string] initData) { 
+        this(); 
+        this.initialize(initData); 
+    }
+
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
         
-            /* configuration.updateDefaults([
-        "levels": ArrayData,
-        "scopes": ArrayData,
-        "formatter": DefaultFormatter.classname,
-    ]; */
+        configuration.updateDefaults([
+            "levels": ArrayData,
+            "scopes": ArrayData,
+            // TODO "formatter": DefaultFormatter.classname
+        ]); 
 
         return true;
     }

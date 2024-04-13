@@ -56,12 +56,12 @@ class DBelongsToMany : DAssociation {
      * The table instance for the junction relation.
      *
      * @var \UIM\ORM\Table|string
-     */
+     * /
     protected ITable|string _through;
 
     /**
      * Valid strategies for this type of association
-     */
+     * /
     protected string[] _validStrategies = [
         self.STRATEGY_SELECT,
         self.STRATEGY_SUBQUERY,
@@ -72,38 +72,38 @@ class DBelongsToMany : DAssociation {
      * on the source table is deleted.
      *
      * Defaults to true for backwards compatibility.
-     */
+     * /
     protected bool _dependent = true;
 
     /**
      * Filtered conditions that reference the target table.
-     */
+     * /
     protected array _targetConditions = null;
 
     /**
      * Filtered conditions that reference the junction table.
-     */
+     * /
     protected array _junctionConditions = null;
 
     /**
      * DOrder in which target records should be returned
      *
      * @var \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string
-     */
+     * /
     protected IExpression|Closure|string[] _sort = null;
 
     /**
      * Sets the name of the field representing the foreign key to the target table.
      * Params:
      * string[]|string aKey the key to be used to link both tables together
-     */
+     * /
     void setTargetForeignKey(string[] aKey) {
        _targetForeignKey = aKey;
     }
     
     /**
      * Gets the name of the field representing the foreign key to the target table.
-     */
+     * /
     string[] getTargetForeignKey() {
         return _targetForeignKey ??= _modelKey(this.getTarget().aliasName());
     }
@@ -112,7 +112,7 @@ class DBelongsToMany : DAssociation {
      * Whether this association can be expressed directly in a query join
      * Params:
      * IData[string] options custom options key that could alter the return value
-     */
+     * /
     bool canBeJoined(IData[string] options = null) {
         return !empty(options["matching"]);
     }
@@ -128,7 +128,7 @@ class DBelongsToMany : DAssociation {
      * Sets the sort order in which target records should be returned.
      * Params:
      * \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string asort A find() compatible order clause
-     */
+     * /
     auto setSort(IExpression|Closure|string[] asort) {
        _sort = sort;
 
@@ -137,7 +137,7 @@ class DBelongsToMany : DAssociation {
     
     /**
      * Gets the sort order in which target records should be returned.
-     */
+     * /
     IExpression|Closure|string[] getSort() {
         return _sort;
     }
@@ -155,7 +155,7 @@ class DBelongsToMany : DAssociation {
      * are passed, the current configured table instance is returned
      * Params:
      * \UIM\ORM\Table|string aTable Name or instance for the join table
-     */
+     * /
     Table junction(Table|string aTable = null) {
         if (aTable.isNull && isSet(_junctionTable)) {
             return _junctionTable;
@@ -210,7 +210,7 @@ class DBelongsToMany : DAssociation {
      * \UIM\ORM\Table junction The junction table.
      * @param \UIM\ORM\Table source The source table.
      * @param \UIM\ORM\Table target The target table.
-     */
+     * /
     protected void _generateTargetAssociations(Table junction, Table source, Table target) {
         junctionAlias = junction.aliasName();
         sAlias = source.aliasName();
@@ -253,7 +253,7 @@ class DBelongsToMany : DAssociation {
      * Params:
      * \UIM\ORM\Table junction The junction table.
      * @param \UIM\ORM\Table source The source table.
-     */
+     * /
     protected void _generateSourceAssociations(Table junction, Table source) {
         junctionAlias = junction.aliasName();
         sAlias = source.aliasName();
@@ -286,7 +286,7 @@ class DBelongsToMany : DAssociation {
      * \UIM\ORM\Table junction The junction table.
      * @param \UIM\ORM\Table source The source table.
      * @param \UIM\ORM\Table target The target table.
-     */
+     * /
     protected void _generateJunctionAssociations(Table junction, Table source, Table target) {
         tAlias = target.aliasName();
         sAlias = source.aliasName();
@@ -332,7 +332,7 @@ class DBelongsToMany : DAssociation {
      * Params:
      * \UIM\ORM\Query\SelectQuery aQuery the query to be altered to include the target table data
      * @param IData[string] options Any extra options or overrides to be taken in account
-     */
+     * /
     void attachTo(SelectQuery aQuery, IData[string] options = null) {
         if (!empty(options["negateMatch"])) {
            _appendNotMatching(aQuery, options);
@@ -399,7 +399,7 @@ class DBelongsToMany : DAssociation {
     
     /**
      * Get the relationship type.
-     */
+     * /
     string type() {
         return self.MANY_TO_MANY;
     }
@@ -408,7 +408,7 @@ class DBelongsToMany : DAssociation {
      * Return false as join conditions are defined in the junction table
      * Params:
      * IData[string] options list of options passed to attachTo method
-     */
+     * /
     protected array _joinCondition(IData[string] options = null) {
         return null;
     }
@@ -442,12 +442,12 @@ class DBelongsToMany : DAssociation {
      * Params:
      * \UIM\Datasource\IEntity entity The entity that started the cascading delete.
      * @param IData[string] options The options for the original delete.
-     */
+     * /
     bool cascadeDelete_(IEntity entity, IData[string] options = null) {
         if (!this.getDependent()) {
             return true;
         }
-        /** @var string[] foreignKeys */
+        /** @var string[] foreignKeys * /
         foreignKeys = (array)this.getForeignKeys();
         bindingKeys = (array)this.getBindingKey();
         conditions = null;
@@ -482,7 +482,7 @@ class DBelongsToMany : DAssociation {
      * of the association via the joint table.
      * Params:
      * \UIM\ORM\Table side The potential Table with ownership
-     */
+     * /
     bool isOwningSide(Table side) {
         return true;
     }
@@ -492,7 +492,7 @@ class DBelongsToMany : DAssociation {
      * Params:
      * string astrategy the strategy name to be used
      * @throws \InvalidArgumentException if an invalid strategy name is passed
-     */
+     * /
     auto setSaveStrategy(string astrategy) {
         if (!in_array(strategy, [self.SAVE_APPEND, self.SAVE_REPLACE], true)) {
             auto message = "Invalid save strategy `%s`".format(strategy);
@@ -505,7 +505,7 @@ class DBelongsToMany : DAssociation {
     
     /**
      * Gets the strategy that should be used for saving.
-     */
+     * /
     string getSaveStrategy() {
         return _saveStrategy;
     }
@@ -529,7 +529,7 @@ class DBelongsToMany : DAssociation {
      * @param IData[string] options options to be passed to the save method in the target table
      * @throws \InvalidArgumentException if the property representing the association
      * in the parent entity cannot be traversed
-     */
+     * /
     IEntity|false saveAssociated(IEntity entity, IData[string] options = null) {
         targetEntity = entity.get(this.getProperty());
         strategy = this.getSaveStrategy();
@@ -561,7 +561,7 @@ class DBelongsToMany : DAssociation {
      * @param IData[string] options list of options accepted by `Table.save()`
      * @throws \InvalidArgumentException if the property representing the association
      * in the parent entity cannot be traversed
-     */
+     * /
     protected IEntity|false _saveTarget(
         IEntity parentEntity,
         array entities,
@@ -618,7 +618,7 @@ class DBelongsToMany : DAssociation {
      * @param array<\UIM\Datasource\IEntity> targetEntities list of entities to link to link to the source entity using the
      * junction table
      * @param IData[string] options list of options accepted by `Table.save()`
-     */
+     * /
     protected bool _saveLinks(IEntity sourceEntity, array targetEntities, IData[string] options = null) {
         auto target = this.getTarget();
         auto junction = this.junction();
@@ -689,7 +689,7 @@ class DBelongsToMany : DAssociation {
      * @param IData[string] options list of options to be passed to the internal `save` call
      * @throws \InvalidArgumentException when any of the values in targetEntities is
      *  detected to not be already persisted
-     */
+     * /
     bool link(IEntity sourceEntity, array targetEntities, IData[string] options = null) {
        _checkPersistenceStatus(sourceEntity, targetEntities);
          aProperty = this.getProperty();
@@ -738,7 +738,7 @@ class DBelongsToMany : DAssociation {
      *  or a `boolean` as `cleanProperty` key shortcut.
      * @throws \InvalidArgumentException If non persisted entities are passed or if
      *  any of them is lacking a primary key value.
-     */
+     * /
     bool unlink(IEntity sourceEntity, array targetEntities, array|bool auto options = []) {
         if (isBool(options)) {
             options = [
@@ -757,12 +757,12 @@ class DBelongsToMany : DAssociation {
             }
         );
 
-        /** @var array<\UIM\Datasource\IEntity> existing */
+        /** @var array<\UIM\Datasource\IEntity> existing * /
         existing = sourceEntity.get(aProperty) ?: [];
         if (!options["cleanProperty"] || empty(existing)) {
             return true;
         }
-        /** @var \SplObjectStorage<\UIM\Datasource\IEntity, null> storage */
+        /** @var \SplObjectStorage<\UIM\Datasource\IEntity, null> storage * /
         storage = new DSplObjectStorage();
         targetEntities.each!(exception => storage.attach(exception));
 
@@ -788,7 +788,7 @@ class DBelongsToMany : DAssociation {
      * Sets the current join table, either the name of the Table instance or the instance itself.
      * Params:
      * \UIM\ORM\Table|string athrough Name of the Table instance or the instance itself
-     */
+     * /
     void setThrough(Table|string athrough) {
        _through = through;
     }
@@ -803,7 +803,7 @@ class DBelongsToMany : DAssociation {
      *
      * Any string expressions, or expression objects will
      * also be returned in this list.
-     */
+     * /
     protected IClosure[] targetConditions() {
         if (_targetConditions !isNull) {
             return _targetConditions;
@@ -861,7 +861,7 @@ class DBelongsToMany : DAssociation {
      *  it will be interpreted as the `options` parameter
      * @param IData ...someArguments Arguments that match up to finder-specific parameters
      * @see \UIM\ORM\Table.find()
-     */
+     * /
     SelectQuery find(string[] type = null, IData ...someArguments) {
         type = type ?: this.getFinder();
         [type, opts] = _extractFinder(type);
@@ -884,7 +884,7 @@ class DBelongsToMany : DAssociation {
      * Params:
      * \UIM\ORM\Query\SelectQuery aQuery The query to append.
      * @param array|null conditions The query conditions to use.
-     */
+     * /
     protected ISelectQuery _appendJunctionJoin(SelectQuery aQuery, array conditions = null) {
         junctionTable = this.junction();
         if (conditions is null) {
@@ -959,7 +959,7 @@ class DBelongsToMany : DAssociation {
      *  when persisting/updating new links, or deleting existing ones
      * @throws \InvalidArgumentException if non persisted entities are passed or if
      *  any of them is lacking a primary key value
-     */
+     * /
     bool replaceLinks(IEntity sourceEntity, array targetEntities, IData[string] options = null) {
         auto bindingKey = (array)this.getBindingKey();
         auto primaryValue = sourceEntity.extract(bindingKey);
@@ -973,7 +973,7 @@ class DBelongsToMany : DAssociation {
                 junction = this.junction();
                 target = this.getTarget();
 
-                /** @var string[] foreignKey */
+                /** @var string[] foreignKey * /
                 foreignKey = (array)this.getForeignKeys();
                 assocForeignKey = (array)junction.getAssociation(target.aliasName()).getForeignKeys();
                 prefixedForeignKey = array_map([junction, "aliasField"], foreignKey);
@@ -982,7 +982,7 @@ class DBelongsToMany : DAssociation {
                 junctionQueryAlias = junction.aliasName() ~ "__matches";
 
                 someKeys = matchesConditions = null;
-                // string aKey */
+                // string aKey * /
                 foreach (aKey; array_merge(assocForeignKey, junctionPrimaryKey)) {
                     aliased = junction.aliasField(aKey);
                     someKeys[aKey] = aliased;
@@ -1014,7 +1014,7 @@ class DBelongsToMany : DAssociation {
                  aProperty = this.getProperty();
 
                 if (count(anInserts)) {
-                    /** @psalm-suppress RedundantConditionGivenDocblockType */
+                    /** @psalm-suppress RedundantConditionGivenDocblockType * /
                      anInserted = array_combine(
                         anInserts.keys,
                         (array)sourceEntity.get(aProperty)
@@ -1040,7 +1040,7 @@ class DBelongsToMany : DAssociation {
      * @param array targetEntities entities in target table that are related to
      * the `jointEntities`
      * @param IData[string] options list of options accepted by `Table.delete_()`
-     */
+     * /
     protected array _diffLinks(
         SelectQuery existing,
         array jointEntities,
@@ -1051,7 +1051,7 @@ class DBelongsToMany : DAssociation {
         target = this.getTarget();
         belongsTo = junction.getAssociation(target.aliasName());
         string[] foreignKey = (array)this.getForeignKeys();
-        /** @var string[] assocForeignKey */
+        /** @var string[] assocForeignKey * /
         assocForeignKey = (array)belongsTo.getForeignKeys();
 
         someKeys = array_merge(foreignKey, assocForeignKey);
@@ -1120,7 +1120,7 @@ class DBelongsToMany : DAssociation {
      *  of this association
      * @param array<\UIM\Datasource\IEntity> targetEntities list of entities belonging to the `target` side
      *  of this association
-     */
+     * /
     protected bool _checkPersistenceStatus(IEntity sourceEntity, array targetEntities) {
         if (sourceEntity.isNew()) {
             error = "Source entity needs to be persisted before links can be created or removed.";
@@ -1145,7 +1145,7 @@ class DBelongsToMany : DAssociation {
      *  association.
      * @throws \InvalidArgumentException if any of the entities is lacking a primary
      *  key value
-     */
+     * /
     protected array _collectJointEntities(IEntity sourceEntity, array targetEntities) {
         target = this.getTarget();
         source = this.getSource();
@@ -1173,7 +1173,7 @@ class DBelongsToMany : DAssociation {
         }
         belongsTo = junction.getAssociation(target.aliasName());
         hasMany = source.getAssociation(junction.aliasName());
-        /** @var string[] foreignKey */
+        /** @var string[] foreignKey * /
         foreignKey = (array)this.getForeignKeys();
         foreignKey = array_map(function (aKey) {
             return aKey ~ " IS";
@@ -1199,7 +1199,7 @@ class DBelongsToMany : DAssociation {
      * Returns the name of the association from the target table to the junction table,
      * this name is used to generate alias in the query and to later on retrieve the
      * results.
-     */
+     * /
     protected string _junctionAssociationName() {
         if (!isSet(_junctionAssociationName)) {
            _junctionAssociationName = this.getTarget()
@@ -1215,7 +1215,7 @@ class DBelongsToMany : DAssociation {
      * name based of the associated tables will be generated if none found.
      * Params:
      * string name The name of the junction table.
-     */
+     * /
     protected string _junctionTableName(string tableName = null) {
         if (tableName is null) {
             if (_junctionTableName.isEmpty) {
@@ -1234,7 +1234,7 @@ class DBelongsToMany : DAssociation {
      * Parse extra options passed in the constructor.
      * Params:
      * IData[string] options original list of options passed in constructor
-     */
+     * /
     protected void _options(IData[string] options = null) {
         if (!empty(options["targetForeignKey"])) {
             this.setTargetForeignKey(options["targetForeignKey"]);
@@ -1251,5 +1251,5 @@ class DBelongsToMany : DAssociation {
         if (isSet(options["sort"])) {
             this.setSort(options["sort"]);
         }
-    }
+    } */
 }

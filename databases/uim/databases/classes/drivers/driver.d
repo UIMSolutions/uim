@@ -39,10 +39,7 @@ class DDriver { // }: IDriver {
     void connect() {
     }
 
-    /**
-     * Returns whether D is able to use this driver for connecting to database
-     * returns true if it is valid to use this driver
-     */
+    // true if it is valid to use this driver
     bool enabled() {
         return false;
     }

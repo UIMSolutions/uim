@@ -157,7 +157,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
             options["className"] = myalias;
         }
         if (isSet(configuration.data(myalias])) {
-            options += configuration.data(myalias];
+            options = options.updateconfiguration.data(myalias];
         }
         myallowFallbackClass = options.get("allowFallbackClass", this.allowFallbackClass);
         myclassName = _getClassName(myalias, options);

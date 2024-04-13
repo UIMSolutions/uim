@@ -245,7 +245,7 @@ class DAsset
      * @param IData[string] options Options array.
      * /
     static string webroot(string afile, IData[string] options = null) {
-        options += ["theme": null];
+        options = options.update["theme": null];
         requestWebroot = requestWebroot();
 
         string[] asset = split("?", file);

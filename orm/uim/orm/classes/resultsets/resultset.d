@@ -13,7 +13,7 @@ import uim.orm;
  * @template T of \UIM\Datasource\IEntity|array
  * @implements \UIM\Datasource\IResultSet<T>
  */
-class DResultSet : IResultSet {
+class DResultSet { // TODO }: IResultSet {
     mixin TConfigurable;
     mixin TCollection;
 

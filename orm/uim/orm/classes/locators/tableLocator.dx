@@ -178,7 +178,7 @@ class DTableLocator : DAbstractLocator, ILocator {
         }
 
         if (configuration.has(alias])) {
-            options += configuration[alias];
+            options = options.updateconfiguration[alias];
         }
 
         allowFallbackClass = options["allowFallbackClass"] ?? this.allowFallbackClass;

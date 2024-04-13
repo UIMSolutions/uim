@@ -17,7 +17,7 @@ import uim.orm;
  * you can use the custom `translations` finder of `TranslateBehavior` that is
  * exposed to the table.
  */
-class DEavStrategy : ITranslateStrategy {
+class DEavStrategy { // TODO }: ITranslateStrategy {
     mixin TConfigurable!();
 
     this() {
@@ -55,8 +55,8 @@ class DEavStrategy : ITranslateStrategy {
     mixin(TProperty!("string", "name"));
 
     /*
-    mixin LocatorAwareTemplate;
-    mixin TranslateStrategyTemplate;
+    mixin TLocatorAware;
+    mixin TTranslateStrategy;
 
   
 

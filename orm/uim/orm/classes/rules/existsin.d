@@ -15,7 +15,7 @@ class DExistsIn {
     /**
      * The repository where the field will be looked for
      *
-     * @var \UIM\ORM\Table|\UIM\ORM\Association|string
+     * @var \ORM\Table|\ORM\Association|string
      * /
     protected ITable|Association|string my_repository;
 
@@ -31,7 +31,7 @@ class DExistsIn {
      * Set to true to accept composite foreign keys where one or more nullable columns are null.
      * Params:
      * string[]|string myfields The field or fields to check existence as primary key.
-     * @param \UIM\ORM\Table|\UIM\ORM\Association|string myrepository The repository where the
+     * @param \ORM\Table|\ORM\Association|string myrepository The repository where the
      * field will be looked for, or the association name for the repository.
      * @param IData[string] options The options that modify the rule"s behavior.
      *    Options "allowNullableNulls" will make the rule pass if given foreign keys are set to `null`.
@@ -112,7 +112,7 @@ class DExistsIn {
      * Checks whether the given entity fields are nullable and null.
      * Params:
      * \UIM\Datasource\IEntity myentity The entity to check.
-     * @param \UIM\ORM\Table mysource The table to use schema from.
+     * @param \ORM\Table mysource The table to use schema from.
      * /
     protected bool _fieldsAreNull(IEntity entityToCheck, Table mysource) {
         auto schema = mysource.getSchema();

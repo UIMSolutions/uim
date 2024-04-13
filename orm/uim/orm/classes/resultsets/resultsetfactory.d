@@ -17,7 +17,7 @@ class DResultSetFactory {
     /**
      * Constructor
      * Params:
-     * \UIM\ORM\Query\SelectQuery<T> myquery Query from where results came.
+     * \ORM\Query\SelectQuery<T> myquery Query from where results came.
      * @param array results Results array.
      */
     ResultSet<array|\UIM\Datasource\IEntity> createResultSet(SelectQuery myquery, array results) {
@@ -33,7 +33,7 @@ class DResultSetFactory {
      * Get repository and it"s associations data for nesting results key and
      * entity hydration.
      * Params:
-     * \UIM\ORM\Query\SelectQuery myquery The query from where to derive the data.
+     * \ORM\Query\SelectQuery myquery The query from where to derive the data.
      */
     protected array collectData(SelectQuery myquery) {
         myprimaryTable = myquery.getRepository();

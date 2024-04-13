@@ -1,4 +1,4 @@
-module uim.orm.behaviors\Translate;
+module uim.orm.classes.behaviors.translates.translatetrait;
 
 import uim.orm;
 
@@ -14,7 +14,7 @@ mixin template TranslateTemplate() {
      *
      * @param string language Language to return entity for.
      * @return DORMDatasource\IEntity|this
-     */
+     * /
     function translation(string language) {
         if (language == get("_locale")) {
             return this;
@@ -43,5 +43,5 @@ mixin template TranslateTemplate() {
         this.setDirty("_translations", true);
 
         return i18n[language];
-    }
+    } */
 }

@@ -37,7 +37,7 @@ interface ILocator : BaseILocator {
      * Set a table instance.
      * Params:
      * string aliasName The alias to set.
-     * @param \UIM\ORM\Table myrepository The table to set.
+     * @param \ORM\Table myrepository The table to set.
      */
     Table set(string aliasName, IRepository myrepository);
 }

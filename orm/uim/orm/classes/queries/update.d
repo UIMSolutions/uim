@@ -10,7 +10,7 @@ class DUpdateQuery : DQuery {
     /**
      * Constructor
      * Params:
-     * \UIM\ORM\Table mytable The table this query is starting on
+     * \ORM\Table mytable The table this query is starting on
      * /
     this(Table aTable) {
         super(aTable.getConnection());

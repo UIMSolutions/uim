@@ -74,7 +74,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
     /**
      * Resultset factory
      *
-     * @var \UIM\ORM\ResultSetFactory<\UIM\Datasource\IEntity|array>
+     * @var \ORM\ResultSetFactory<\UIM\Datasource\IEntity|array>
      * /
     protected ResultSetFactory resultSetFactory;
 
@@ -116,7 +116,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
     /**
      * Constructor
      * Params:
-     * \UIM\ORM\Table mytable The table this query is starting on
+     * \ORM\Table mytable The table this query is starting on
      * /
     this(Table mytable) {
         super(mytable.getConnection());
@@ -653,7 +653,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * all the fields in the schema of the table or the association will be added to
      * the select clause.
      * Params:
-     * \UIM\Database\IExpression|\UIM\ORM\Table|\UIM\ORM\Association|\Closure|string[]|float|int myfields Fields
+     * \UIM\Database\IExpression|\ORM\Table|\ORM\Association|\Closure|string[]|float|int myfields Fields
      * to be added to the list.
      * @param bool myoverwrite whether to reset fields with passed list or not
      * /
@@ -680,7 +680,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      *
      * Use this instead of calling `select()` then `enableAutoFields()` to re-enable auto-fields.
      * Params:
-     * \UIM\Database\IExpression|\UIM\ORM\Table|\UIM\ORM\Association|\Closure|string[]|float|int myfields Fields
+     * \UIM\Database\IExpression|\ORM\Table|\ORM\Association|\Closure|string[]|float|int myfields Fields
      * to be added to the list.
      * /
     auto selectAlso(
@@ -699,7 +699,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * been added to the query by the first. If you need to change the list after the first call,
      * pass overwrite boolean true which will reset the select clause removing all previous additions.
      * Params:
-     * \UIM\ORM\Table|\UIM\ORM\Association mytable The table to use to get an array of columns
+     * \ORM\Table|\ORM\Association mytable The table to use to get an array of columns
      * @param string[] myexcludedFields The un-aliased column names you do not want selected from mytable
      * @param bool myoverwrite Whether to reset/remove previous selected fields
      * /
@@ -718,7 +718,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * Sets the instance of the eager loader class to use for loading associations
      * and storing containments.
      * Params:
-     * \UIM\ORM\EagerLoader myinstance The eager loader to use.
+     * \ORM\EagerLoader myinstance The eager loader to use.
      * /
     auto setEagerLoader(EagerLoader myinstance) {
        _eagerLoader = myinstance;
@@ -883,9 +883,9 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * Used to recursively add contained association column types to
      * the query.
      * Params:
-     * \UIM\ORM\Table mytable The table instance to pluck associations from.
+     * \ORM\Table mytable The table instance to pluck associations from.
      * @param \UIM\Database\TypeMap mytypeMap The typemap to check for columns in.
-     *  This typemap is indirectly mutated via {@link \UIM\ORM\Query\SelectQuery.addDefaultTypes()}
+     *  This typemap is indirectly mutated via {@link \ORM\Query\SelectQuery.addDefaultTypes()}
      * @param array<string, array> myassociations The nested tree of associations to walk.
      * /
     protected void _addAssociationsToTypeMap(Table mytable, TypeMap mytypeMap, array myassociations) {

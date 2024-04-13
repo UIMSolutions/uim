@@ -15,7 +15,7 @@ class DLinkConstraint {
     /**
      * The association that should be checked.
      *
-     * @var \UIM\ORM\Association|string
+     * @var \ORM\Association|string
      * /
     protected IAssociation|string my_association;
 
@@ -27,14 +27,14 @@ class DLinkConstraint {
     /**
      * Constructor.
      * Params:
-     * \UIM\ORM\Association|string myassociation The alias of the association that should be checked.
+     * \ORM\Association|string myassociation The alias of the association that should be checked.
      * @param string myrequiredLinkStatus The link status that is required to be present in order for the check to
      * succeed.
      * /
     this(Association|string myassociation, string myrequiredLinkStatus) {
         if (!in_array(myrequiredLinkStatus, [STATUS_LINKED, STATUS_NOT_LINKED], true)) {
             throw new DInvalidArgumentException(
-                "Argument 2 is expected to match one of the `\UIM\ORM\Rule\LinkConstraint.STATUS_*` constants."
+                "Argument 2 is expected to match one of the `\ORM\Rule\LinkConstraint.STATUS_*` constants."
             );
         }
        _association = myassociation;
@@ -53,7 +53,7 @@ class DLinkConstraint {
         mytable = options["repository"] ?? null;
         if (!(cast(Table)mytable)) {
             throw new DInvalidArgumentException(
-                "Argument 2 is expected to have a `repository` key that holds an instance of `\UIM\ORM\Table`."
+                "Argument 2 is expected to have a `repository` key that holds an instance of `\ORM\Table`."
             );
         }
         myassociation = _association;
@@ -81,7 +81,7 @@ class DLinkConstraint {
      * Alias fields.
      * Params:
      * string[] myfields The fields that should be aliased.
-     * @param \UIM\ORM\Table mysource The object to use for aliasing.
+     * @param \ORM\Table mysource The object to use for aliasing.
      * /
     protected string[] _aliasFields(array myfields, Table mysource) {
         foreach (myfields as aKey: myvalue) {
@@ -110,7 +110,7 @@ class DLinkConstraint {
     /**
      * Count links.
      * Params:
-     * \UIM\ORM\Association myassociation The association for which to count links.
+     * \ORM\Association myassociation The association for which to count links.
      * @param \UIM\Datasource\IEntity myentity The entity involved in the operation.
      * /
     protected int _countLinks(Association myassociation, IEntity myentity) {

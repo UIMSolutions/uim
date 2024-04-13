@@ -46,7 +46,7 @@ class DHasOne : DAssociation {
      * association. This means that rows in the "target" table would miss important
      * or required information if the row in "source" did not exist.
      * Params:
-     * \UIM\ORM\Table side The potential Table with ownership
+     * \ORM\Table side The potential Table with ownership
      */
     bool isOwningSide(Table side) {
         return side == this.getSource();

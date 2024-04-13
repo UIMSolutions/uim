@@ -30,7 +30,7 @@ class DTableLocator : DAbstractLocator : ILocator {
      * Contains a list of Table objects that were created out of the
      * built-in Table class. The list is indexed by table alias
      *
-     * @var array<\UIM\ORM\Table>
+     * @var array<\ORM\Table>
      */
     protected array my_fallbacked = null;
 
@@ -119,7 +119,7 @@ class DTableLocator : DAbstractLocator : ILocator {
      * This is important because table associations are resolved at runtime
      * and cyclic references need to be handled correctly.
      *
-     * The options that can be passed are the same as in {@link \UIM\ORM\Table.__construct()}, but the
+     * The options that can be passed are the same as in {@link \ORM\Table.__construct()}, but the
      * `className` key is also recognized.
      *
      * ### Options
@@ -185,7 +185,7 @@ class DTableLocator : DAbstractLocator : ILocator {
             if (!empty(options["connectionName"])) {
                 myconnectionName = options["connectionName"];
             } else {
-                /** @var \UIM\ORM\Table myclassName */
+                /** @var \ORM\Table myclassName */
                 myclassName = options["className"];
                 myconnectionName = myclassName.defaultConnectionName();
             }
@@ -239,7 +239,7 @@ class DTableLocator : DAbstractLocator : ILocator {
      * Set a Table instance.
      * Params:
      * string myalias The alias to set.
-     * @param \UIM\ORM\Table myrepository The Table to set.
+     * @param \ORM\Table myrepository The Table to set.
      */
     Table set(string myalias, IRepository myrepository) {
         return this.instances[myalias] = myrepository;

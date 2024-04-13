@@ -67,7 +67,7 @@ class DRulesChecker { // }: BaseRulesChecker {
      * Params:
      * string[]|string myfield The field or list of fields to check for existence by
      * primary key lookup in the other table.
-     * @param \UIM\ORM\Table|\UIM\ORM\Association|string mytable The table name where the fields existence will be checked.
+     * @param \ORM\Table|\ORM\Association|string mytable The table name where the fields existence will be checked.
      * @param IData[string]|string mymessage The error message to show in case the rule does not pass. Can
      *  also be an array of options. When an array, the "message" key can be used to provide a message.
      * /
@@ -106,7 +106,7 @@ class DRulesChecker { // }: BaseRulesChecker {
      * On a `Comments` table that has a `belongsTo Articles` association, this check would ensure that comments
      * can only be edited as long as they are associated to an existing article.
      * Params:
-     * \UIM\ORM\Association|string myassociation The association to check for links.
+     * \ORM\Association|string myassociation The association to check for links.
      * @param string myfield The name of the association property. When supplied, this is the name used to set
      * possible errors. When absent, the name is inferred from `myassociation`.
      * @param string mymessage The error message to show in case the rule does not pass.
@@ -137,7 +137,7 @@ class DRulesChecker { // }: BaseRulesChecker {
      * On a `Articles` table that has a `hasMany Comments` association, this check would ensure that articles
      * can only be deleted when no associated comments exist.
      * Params:
-     * \UIM\ORM\Association|string myassociation The association to check for links.
+     * \ORM\Association|string myassociation The association to check for links.
      * @param string myfield The name of the association property. When supplied, this is the name used to set
      * possible errors. When absent, the name is inferred from `myassociation`.
      * @param string mymessage The error message to show in case the rule does not pass.
@@ -159,7 +159,7 @@ class DRulesChecker { // }: BaseRulesChecker {
     /**
      * Adds a link constraint rule.
      * Params:
-     * \UIM\ORM\Association|string myassociation The association to check for links.
+     * \ORM\Association|string myassociation The association to check for links.
      * @param string myerrorField The name of the property to use for setting possible errors. When absent,
      *  the name is inferred from `myassociation`.
      * @param string mymessage The error message to show in case the rule does not pass.

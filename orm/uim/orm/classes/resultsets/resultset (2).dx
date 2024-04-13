@@ -18,6 +18,7 @@ import uim.orm;
 class DResultSet : IResultSet {
     mixin TCollection;
 
+    /* 
     // Database statement holding the results
     protected DDBStatementInterface _statement;
 
@@ -28,7 +29,7 @@ class DResultSet : IResultSet {
      * Last record fetched from the statement
      *
      * @var object|array
-     */
+     * /
     protected _current;
 
     // Default table instance
@@ -36,7 +37,7 @@ class DResultSet : IResultSet {
 
     /**
      * The default table alias
-     */
+     * /
     protected string _defaultAlias;
 
     /**
@@ -44,14 +45,14 @@ class DResultSet : IResultSet {
      * result key.
      *
      * @var array<string, mixed>
-     */
+     * /
     protected _matchingMap = null;
 
     /**
      * List of associations that should be eager loaded.
      *
      * @var array
-     */
+     * /
     protected _containMap = null;
 
     /**
@@ -59,7 +60,7 @@ class DResultSet : IResultSet {
      * their type and the table they belong to
      *
      * @var array<string, mixed>
-     */
+     * /
     protected _map = null;
 
     /**
@@ -67,41 +68,41 @@ class DResultSet : IResultSet {
      * from each of them.
      *
      * @var array<string, mixed>
-     */
+     * /
     protected _matchingMapColumns = null;
 
     /**
      * Results that have been fetched or hydrated into the results.
      *
      * @var \SplFixedArray|array
-     */
+     * /
     protected _results = null;
 
     /**
      * Whether to hydrate results into objects or not
-     */
+     * /
     protected bool _hydrate = true;
 
     /**
      * Tracks value of _autoFields property of query passed to constructor.
      *
      * @var bool|null
-     */
+     * /
     protected _autoFields;
 
     /**
      * The fully namespaced name of the class to use for hydrating results
-     */
+     * /
     protected string _entityClass;
 
     /**
      * Whether to buffer results fetched from the statement
-     */
+     * /
     protected bool _useBuffering = true;
 
     /**
      * Holds the count of records in this result set
-     */
+     * /
     protected int _count;
 
     /**
@@ -110,7 +111,7 @@ class DResultSet : IResultSet {
      * Cached in a property to avoid multiple calls to the same function.
      *
      * @var DDBIDriver
-     */
+     * /
     protected _driver;
 
     /**
@@ -118,7 +119,7 @@ class DResultSet : IResultSet {
      *
      * @param DORMQuery query Query from where results come
      * @param DORMdatabases.StatementInterface statement The statement to fetch from
-     */
+     * /
     this(Query query, StatementInterface statement) {
         repository = query.getRepository();
         _statement = statement;
@@ -144,7 +145,7 @@ class DResultSet : IResultSet {
      * Part of Iterator interface.
      *
      * @return object|array
-     */
+     * /
     #[\ReturnTypeWillChange]
     function current() {
         return _current;
@@ -154,7 +155,7 @@ class DResultSet : IResultSet {
      * Returns the key of the current record in the iterator
      *
      * Part of Iterator interface.
-     */
+     * /
     int key() {
         return _index;
     }
@@ -163,7 +164,7 @@ class DResultSet : IResultSet {
      * Advances the iterator pointer to the next record
      *
      * Part of Iterator interface.
-     */
+     * /
     void next() {
         _index++;
     }
@@ -174,7 +175,7 @@ class DResultSet : IResultSet {
      * Part of Iterator interface.
      *
      * @throws DORMdatabases.exceptions.DatabaseException
-     */
+     * /
     void rewind() {
         if (_index == 0) {
             return;
@@ -193,7 +194,7 @@ class DResultSet : IResultSet {
      * Whether there are more results to be fetched from the iterator
      *
      * Part of Iterator interface.
-     */
+     * /
     bool valid() {
         if (_useBuffering) {
             valid = _index < _count;
@@ -226,7 +227,7 @@ class DResultSet : IResultSet {
      * This method will also close the underlying statement cursor.
      *
      * @return object|array|null
-     */
+     * /
     function first() {
         foreach (this as result) {
             if (_statement != null && !_useBuffering) {
@@ -245,14 +246,14 @@ class DResultSet : IResultSet {
      * Part of Serializable interface.
      *
      * @return string Serialized object
-     */
+     * /
     string serialize() {
         return serialize(__serialize());
     }
 
     /**
      * Serializes a resultset.
-     */
+     * /
     array __serialize() {
         if (!_useBuffering) {
             msg = "You cannot serialize an un-buffered ResultSet~ "
@@ -277,7 +278,7 @@ class DResultSet : IResultSet {
      * Part of Serializable interface.
      *
      * @param string serialized Serialized object
-     */
+     * /
     void unserialize(serialized) {
         __unserialize((array)(unserialize(serialized) ?: []));
     }
@@ -286,7 +287,7 @@ class DResultSet : IResultSet {
      * Unserializes a resultset.
      *
      * @param array data Data array.
-     */
+     * /
     void __unserialize(array data) {
         _results = SplFixedArray::fromArray(data);
         _useBuffering = true;
@@ -297,7 +298,7 @@ class DResultSet : IResultSet {
      * Gives the number of rows in the result set.
      *
      * Part of the Countable interface.
-     */
+     * /
     size_t count() {
         if (_count != null) {
             return _count;
@@ -320,7 +321,7 @@ class DResultSet : IResultSet {
      * when fetching each record
      *
      * @param DORMQuery query The query from where to derive the associations
-     */
+     * /
     protected void _calculateAssociationMap(Query query) {
         map = query.getEagerLoader().associationsMap(_defaultTable);
         _matchingMap = (new DCollection(map))
@@ -339,7 +340,7 @@ class DResultSet : IResultSet {
      * used to hydrate nested result sets more quickly.
      *
      * @param DORMQuery query The query from where to derive the column map
-     */
+     * /
     protected void _calculateColumnMap(Query query) {
         map = null;
         foreach (query.clause("select") as key: field) {
@@ -370,7 +371,7 @@ class DResultSet : IResultSet {
      * seeded results.
      *
      * @return mixed
-     */
+     * /
     protected function _fetchResult() {
         if (_statement == null) {
             return false;
@@ -389,7 +390,7 @@ class DResultSet : IResultSet {
      *
      * @param array row Array containing columns and values or false if there is no results
      * @return DORMDatasource\IEntity|array Results
-     */
+     * /
     protected function _groupResult(array row) {
         defaultAlias = _defaultAlias;
         results = presentAliases = null;
@@ -407,10 +408,10 @@ class DResultSet : IResultSet {
                 array_intersect_key(row, keys)
             );
             if (_hydrate) {
-                /** @var DORMDORMTable aTable */
+                /** @var DORMDORMTable aTable * /
                 table = matching["instance"];
                 options["source"] = table.registryKey();
-                /** @var DORMdatasources.IEntity anEntity */
+                /** @var DORMdatasources.IEntity anEntity * /
                 entity = new matching["entityClass"](results["_matchingData"][alias], options);
                 results["_matchingData"][alias] = entity;
             }
@@ -435,7 +436,7 @@ class DResultSet : IResultSet {
                 continue;
             }
 
-            /** @var DORMAssociation instance */
+            /** @var DORMAssociation instance * /
             instance = assoc["instance"];
 
             if (!assoc["canBeJoined"] && !isset(row[alias])) {
@@ -500,7 +501,7 @@ class DResultSet : IResultSet {
      * object.
      *
      * @return array<string, mixed>
-     */
+     * /
     array __debugInfo() {
         currentIndex = _index;
         // toArray() adjusts the current index, so we have to reset it
@@ -510,5 +511,5 @@ class DResultSet : IResultSet {
         return [
             "items": items,
         ];
-    }
+    } */
 }

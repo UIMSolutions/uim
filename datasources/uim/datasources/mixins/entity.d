@@ -505,7 +505,7 @@ mixin template TEntity() {
      * This method will recursively transform entities assigned to fields
      * into arrays as well.
     * /
-  array toArray() {
+  IData[string] toDataArray() {
     auto result;
     foreach (this.getVisible() asfield) {
       aValue = get(field);

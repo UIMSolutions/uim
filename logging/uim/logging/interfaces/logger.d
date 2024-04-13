@@ -42,7 +42,7 @@ interface ILogger : INamed {
     void debugInfo(string aMessage, STRINGAA aContext = null);
 
     // Logs with an arbitrary level.
-    void log(LogLevels aLevel, string aMessage, STRINGAA aContext = null);
+    void log(LOGLEVELS aLevel, string aMessage, STRINGAA aContext = null);
 */
 
 }

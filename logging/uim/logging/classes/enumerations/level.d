@@ -1,6 +1,6 @@
-module logging.uim.logging.classes.enumerations.level;
+module uim.logging.classes.enumerations.level;
 
-enum LogLevels : string {
+enum LOGLEVELS : string {
   EMERGENCY = "emergency",
   ALERT     = "alert",
   CRITICAL  = "critical",

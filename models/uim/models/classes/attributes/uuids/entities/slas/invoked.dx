@@ -3,43 +3,41 @@
   License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
   Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module uim.models.classes.attributes.strings.timezone;
-
-/* any <- char <- string <- timezone
-Traits
-is.dataFormat.character
-is.dataFormat.big
-is.dataFormat.array
-means.location.timezone */
+module uim.models.classes.attributes.uuids.entities.slas.invoked;
 
 import uim.models;
 
 @safe:
-class DTimezoneAttribute : DStringAttribute {
-  mixin(AttributeThis!("TimezoneAttribute"));
+class DSLAInvokedIdAttribute : DEntityIdAttribute {
+  mixin(AttributeThis!("SLAInvokedIdAttribute"));
 
   // Initialization hook method.
   override bool initialize(IData[string] initData = null) {
-    if (!super.initialize(initData)) { return false; }
+    if (!super.initialize(initData)) {
+      return false;
+    }
 
-   name("timezone");
-      registerPath("timezone");
+    name("slainvokedid");
+    registerPath("slaInvokedId");
 
-      return true;
+    return true;
   }
 }
-mixin(AttributeCalls!("TimezoneAttribute"));
+
+mixin(AttributeCalls!("SLAInvokedIdAttribute"));
 
 ///
 unittest {
-  auto attribute = new DTimezoneAttribute;
-  assert(attribute.name == "timezone");
-  assert(attribute.registerPath == "timezone");
+  auto attribute = new DSLAInvokedIdAttribute;
+  assert(attribute.name == "slainvokedid");
+  assert(attribute.registerPath == "slaInvokedId");
 
   DAttribute generalAttribute = attribute;
-  assert(cast(DStringAttribute)generalAttribute);
-  assert(!cast(DIntegerAttribute)generalAttribute);
+  assert(cast(DSLAInvokedIdAttribute) generalAttribute);
+  assert(cast(DEntityIdAttribute) generalAttribute);
+  assert(cast(DUUIDAttribute) generalAttribute);
+  assert(!cast(DIntegerAttribute) generalAttribute);
 
   // IData value = attribute.createValue();
-  // assert(cast(DStringData)value);
+  // assert(cast(DUUIDData) value);
 }

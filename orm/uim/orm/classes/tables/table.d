@@ -97,11 +97,11 @@ import uim.orm;
  *
  * @see \UIM\Event\EventManager for reference on the events system.
  * @link https://book.UIM.org/5/en/orm/table-objects.html#event-list
- * @implements \UIM\Event\IEventDispatcher<\UIM\ORM\Table>
+ * @implements \UIM\Event\IEventDispatcher<\ORM\Table>
  */
 class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     /**
-     * @use \UIM\Event\EventDispatcherTrait<\UIM\ORM\Table>
+     * @use \UIM\Event\EventDispatcherTrait<\ORM\Table>
      */
     mixin TEventDispatcher();
     mixin TRulesAware();
@@ -548,7 +548,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * Sets the class used to hydrate rows for this table.
      * Params:
      * string myname The name of the class to use
-     * @throws \UIM\ORM\Exception\MissingEntityException when the entity class DCannot be found
+     * @throws \ORM\Exception\MissingEntityException when the entity class DCannot be found
      */
     auto setEntityClass(string myname) {
         /** @var class-string<\UIM\Datasource\IEntity>|null myclass */
@@ -583,7 +583,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * @param IData[string] options The options for the behavior to use.
      * @return this
      * @throws \RuntimeException If a behavior is being reloaded.
-     * @see \UIM\ORM\Behavior
+     * @see \ORM\Behavior
      */
     auto addBehavior(string behaviorName, IData[string] optionData = null) {
        _behaviors.load(behaviorName, options);
@@ -679,7 +679,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * Params:
      * string myname The alias used for the association.
      */
-    Association getAssociation(string myname) {
+    DAssociation getAssociation(string myname) {
         myassociation = this.findAssociation(myname);
         if (!myassociation) {
             myassocations = this.associations().keys();
@@ -763,10 +763,10 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * Params:
      * array myparams Set of associations to bind (indexed by association type)
      * @return this
-     * @see \UIM\ORM\Table.belongsTo()
-     * @see \UIM\ORM\Table.hasOne()
-     * @see \UIM\ORM\Table.hasMany()
-     * @see \UIM\ORM\Table.belongsToMany()
+     * @see \ORM\Table.belongsTo()
+     * @see \ORM\Table.hasOne()
+     * @see \ORM\Table.hasMany()
+     * @see \ORM\Table.belongsToMany()
      */
     auto addAssociations(array myparams) {
         foreach (myparams as myassocType: mytables) {
@@ -813,7 +813,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     BelongsTo belongsTo(string myassociated, IData[string] optionData = null) {
         options += ["sourceTable": this];
 
-        /** @var \UIM\ORM\Association\BelongsTo */
+        /** @var \ORM\Association\BelongsTo */
         return _associations.load(BelongsTo.classname, myassociated, options);
     }
     
@@ -902,7 +902,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     HasMany hasMany(string myassociated, IData[string] optionData = null) {
         options += ["sourceTable": this];
 
-        /** @var \UIM\ORM\Association\HasMany */
+        /** @var \ORM\Association\HasMany */
         return _associations.load(HasMany.classname, myassociated, options);
     }
     
@@ -952,7 +952,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     BelongsToMany belongsToMany(string myassociated, IData[string] optionData = null) {
         options += ["sourceTable": this];
 
-        /** @var \UIM\ORM\Association\BelongsToMany */
+        /** @var \ORM\Association\BelongsToMany */
         return _associations.load(BelongsToMany.classname, myassociated, options);
     }
     
@@ -1047,8 +1047,8 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * By default findAll() applies no query clauses, you can override this
      * method in subclasses to modify how `find("all")` works.
      * Params:
-     * \UIM\ORM\Query\SelectQuery myquery The query to find with
-     * @return \UIM\ORM\Query\SelectQuery The query builder
+     * \ORM\Query\SelectQuery myquery The query to find with
+     * @return \ORM\Query\SelectQuery The query builder
      */
     auto findAll(SelectQuery myquery): SelectQuery
     {
@@ -1119,7 +1119,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * ]
      * ```
      * Params:
-     * \UIM\ORM\Query\SelectQuery myquery The query to find with
+     * \ORM\Query\SelectQuery myquery The query to find with
      */
     SelectQuery findList(
         SelectQuery myquery,
@@ -1176,7 +1176,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * mytable.find("threaded", keyField: "id", parentField: "ancestor_id", nestingKey: "children");
      * ```
      * Params:
-     * \UIM\ORM\Query\SelectQuery myquery The query to find with
+     * \ORM\Query\SelectQuery myquery The query to find with
      * @param \Closure|string[]|string mykeyField The path to the key field.
      * @param \Closure|string[]|string myparentField The path to the parent field.
      * @param string mynestingKey The key to nest children under.
@@ -1348,7 +1348,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * entity will be saved and returned.
      *
      * If your find conditions require custom order, associations or conditions, then the mysearch
-     * parameter can be a callable that takes the Query as the argument, or a \UIM\ORM\Query\SelectQuery object passed
+     * parameter can be a callable that takes the Query as the argument, or a \ORM\Query\SelectQuery object passed
      * as the mysearch parameter. Allowing you to customize the find results.
      *
      * ### Options
@@ -1359,7 +1359,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      *  transaction (default: true)
      * - defaults: Whether to use the search criteria as default values for the new DORMEntity (default: true)
      * Params:
-     * \UIM\ORM\Query\SelectQuery|callable|array mysearch The criteria to find existing
+     * \ORM\Query\SelectQuery|callable|array mysearch The criteria to find existing
      *  records by. Note that when you pass a query object you"ll have to use
      *  the 2nd arg of the method to modify the entity data before saving.
      * @param callable|null mycallback A callback that will be invoked for newly
@@ -1391,14 +1391,14 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     /**
      * Performs the actual find and/or create of an entity based on the passed options.
      * Params:
-     * \UIM\ORM\Query\SelectQuery|callable|array mysearch The criteria to find an existing record by, or a callable tha will
+     * \ORM\Query\SelectQuery|callable|array mysearch The criteria to find an existing record by, or a callable tha will
      *  customize the find query.
      * @param callable|null mycallback A callback that will be invoked for newly
      *  created entities. This callback will be called *before* the entity
      *  is persisted.
      * @param IData[string] options The options to use when saving.
      * @return \UIM\Datasource\IEntity|array An entity.
-     * @throws \UIM\ORM\Exception\PersistenceFailedException When the entity couldn"t be saved
+     * @throws \ORM\Exception\PersistenceFailedException When the entity couldn"t be saved
      * @throws \InvalidArgumentException
      */
     protected IEntity|array _processFindOrCreate(
@@ -1433,7 +1433,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     /**
      * Gets the query object for findOrCreate().
      * Params:
-     * \UIM\ORM\Query\SelectQuery|callable|array mysearch The criteria to find existing records by.
+     * \ORM\Query\SelectQuery|callable|array mysearch The criteria to find existing records by.
      */
     protected ISelectQuery _getFindOrCreateQuery(SelectQuery|callable|array mysearch) {
         if (isCallable(mysearch)) {
@@ -1469,7 +1469,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     /**
      * Creates a new update query
      *
-     * @return \UIM\ORM\Query\UpdateQuery
+     * @return \ORM\Query\UpdateQuery
      */
     auto updateQuery(): UpdateQuery
     {
@@ -1944,7 +1944,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     /**
      * @param iterable<\UIM\Datasource\IEntity> myentities Entities to save.
      * @param IData[string] options Options used when calling Table.save() for each entity.
-     * @throws \UIM\ORM\Exception\PersistenceFailedException If an entity couldn"t be saved.
+     * @throws \ORM\Exception\PersistenceFailedException If an entity couldn"t be saved.
      * @throws \Exception If an entity couldn"t be saved.
      * @return iterable<\UIM\Datasource\IEntity> Entities list.
      */
@@ -2225,7 +2225,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * @internal
      * @template TSubject of \UIM\Datasource\IEntity|array
      * @param string mytype Name of the finder to be called.
-     * @param \UIM\ORM\Query\SelectQuery<TSubject> myquery The query object to apply the finder options to.
+     * @param \ORM\Query\SelectQuery<TSubject> myquery The query object to apply the finder options to.
      * @param IData ...myargs Arguments that match up to finder-specific parameters
      */
     SelectQuery<TSubject> callFinder(string mytype, SelectQuery myquery, IData ...myargs) {
@@ -2247,7 +2247,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * @internal
      * @template TSubject of \UIM\Datasource\IEntity|array
      * @param \Closure mycallable Callable.
-     * @param \UIM\ORM\Query\SelectQuery<TSubject> myquery The query object.
+     * @param \ORM\Query\SelectQuery<TSubject> myquery The query object.
      * @param array myargs Arguments for the callable.
      */
     SelectQuery<TSubject> invokeFinder(Closure mycallable, SelectQuery myquery, array myargs) {
@@ -2392,7 +2392,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * Params:
      * string myproperty the association name
      */
-    Association __get(string myproperty) {
+    DAssociation __get(string myproperty) {
         myassociation = _associations.get(myproperty);
         if (!myassociation) {
             throw new DatabaseException(
@@ -2419,8 +2419,8 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * Override this method if you want a table object to use custom
      * marshalling logic.
      */
-    Marshaller marshaller() {
-        return new Marshaller(this);
+    DMarshaller marshaller() {
+        return new DMarshaller(this);
     }
     
     IEntity newEmptyEntity() {
@@ -2485,7 +2485,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * array data The data to build an entity with.
      * @param IData[string] options A list of options for the object hydration.
      * @return \UIM\Datasource\IEntity
-     * @see \UIM\ORM\Marshaller.one()
+     * @see \ORM\Marshaller.one()
      */
     auto newEntity(array data, IData[string] optionData = null): IEntity
     {
@@ -2734,7 +2734,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     
     /**
  Params:
-     * \UIM\ORM\RulesChecker myrules The rules object to be modified.
+     * \ORM\RulesChecker myrules The rules object to be modified.
      */
     RulesChecker buildRules(RulesChecker myrules) {
         return myrules;
@@ -2767,7 +2767,7 @@ class DTable : IRepository, IEventListener, IEventDispatcher, IValidatorAware {
      * Params:
      * \UIM\Datasource\IEntity|array<\UIM\Datasource\IEntity> myentities a single entity or list of entities
      * @param array mycontain A `contain()` compatible array.
-     * @see \UIM\ORM\Query.contain()
+     * @see \ORM\Query.contain()
      */
     IEntity[] loadInto(IEntity|array myentities, array mycontain) {
         return (new LazyEagerLoader()).loadInto(myentities, mycontain, this);

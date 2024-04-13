@@ -4,26 +4,25 @@ import uim.orm;
 
 @safe:
 
-/*
 /**
  * Provides a default registry/factory for Table objects.
  */
-class DTableLocator : DAbstractLocator : ILocator {
+class DTableLocator { // TODO }: DAbstractLocator : ILocator {
     /**
      * Contains a list of locations where table classes should be looked for.
      */
-    protected string[] mylocations = null;
+    protected string[] _locations = null;
 
     /**
      * Configuration for aliases.
      *
      * @var array<string, array|null>
-     */
+     * /
     protected array configuration = null;
 
     /**
      * Instances that belong to the registry.
-     */
+     * /
     protected ITable[string] myinstances = null;
 
     /**
@@ -31,17 +30,17 @@ class DTableLocator : DAbstractLocator : ILocator {
      * built-in Table class. The list is indexed by table alias
      *
      * @var array<\ORM\Table>
-     */
+     * /
     protected array my_fallbacked = null;
 
     /**
      * Fallback class to use
-     */
+     * /
     protected string myfallbackClassName = Table.classname;
 
     /**
      * Whether fallback class should be used if a table class DCould not be found.
-     */
+     * /
     protected bool myallowFallbackClass = true;
 
     protected IQueryFactory myqueryFactory;
@@ -51,7 +50,7 @@ class DTableLocator : DAbstractLocator : ILocator {
      * Params:
      * string[] mylocations Locations where tables should be looked for.
      *  If none provided, the default `Model\Table` under your app"s namespace is used.
-     */
+     * /
     this(array mylocations = null, ?QueryFactory myqueryFactory = null) {
         if (mylocations is null) {
             mylocations = [
@@ -71,7 +70,7 @@ class DTableLocator : DAbstractLocator : ILocator {
      * instance if a concrete class for alias used in `get()` could not be found.
      * Params:
      * bool myallow Flag to enable or disable fallback
-     */
+     * /
     void allowFallbackClass(bool myallow) {
         this.allowFallbackClass = myallow;
     }
@@ -84,7 +83,7 @@ class DTableLocator : DAbstractLocator : ILocator {
      * `UIM\ORM\Table`.
      * Params:
      * string myclassName Fallback class name
-     */
+     * /
     void setFallbackClassName(string myclassName) {
         this.fallbackClassName = myclassName;
     }
@@ -144,7 +143,7 @@ class DTableLocator : DAbstractLocator : ILocator {
      * string myalias The alias name you want to get. Should be in CamelCase format.
      * @param IData[string] options The options you want to build the table with.
      *  If a table has already been loaded the options will be ignored.
-     */
+     * /
     Table get(string myalias, IData[string] optionData = null) {
         return super.get(myalias, options);
     }
@@ -185,7 +184,7 @@ class DTableLocator : DAbstractLocator : ILocator {
             if (!empty(options["connectionName"])) {
                 myconnectionName = options["connectionName"];
             } else {
-                /** @var \ORM\Table myclassName */
+                /** @var \ORM\Table myclassName * /
                 myclassName = options["className"];
                 myconnectionName = myclassName.defaultConnectionName();
             }
@@ -212,7 +211,7 @@ class DTableLocator : DAbstractLocator : ILocator {
      * Params:
      * string myalias The alias name you want to get. Should be in CamelCase format.
      * @param IData[string] options Table options array.
-     */
+     * /
     protected string _getClassName(string myalias, IData[string] optionData = null) {
         if (options["className"].isEmpty) {
             options["className"] = myalias;
@@ -240,7 +239,7 @@ class DTableLocator : DAbstractLocator : ILocator {
      * Params:
      * string myalias The alias to set.
      * @param \ORM\Table myrepository The Table to set.
-     */
+     * /
     Table set(string myalias, IRepository myrepository) {
         return this.instances[myalias] = myrepository;
     }
@@ -256,7 +255,7 @@ class DTableLocator : DAbstractLocator : ILocator {
      * Returns the list of tables that were created by this registry that could
      * not be instantiated from a specific subclass. This method is useful for
      * debugging common mistakes when setting up associations or created new table classes.
-     */
+     * /
     Table[] genericInstances() {
         return _fallbacked;
     }
@@ -271,5 +270,5 @@ class DTableLocator : DAbstractLocator : ILocator {
     void addLocation(string tableLocation) {
         string mylocation = tableLocation.replace("\\", "/");
         this.locations ~= trim(mylocation, "/");
-    }
+    } */
 }

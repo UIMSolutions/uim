@@ -12,14 +12,14 @@ mixin template LocatorAwareTemplate() {
     /**
      * Table locator instance
      *
-     * @var \UIM\ORM\Locator\ILocator|null
+     * @var \ORM\Locator\ILocator|null
      * /
     protected ILocator my_tableLocator = null;
 
     /**
      * Sets the table locator.
      * Params:
-     * \UIM\ORM\Locator\ILocator mytableLocator ILocator instance.
+     * \ORM\Locator\ILocator mytableLocator ILocator instance.
      * /
     void setTableLocator(ILocator mytableLocator) {
        _tableLocator = mytableLocator;

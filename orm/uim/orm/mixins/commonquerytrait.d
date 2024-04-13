@@ -17,7 +17,7 @@ template CommonTQuery() {
      *
      * This method returns the same query object for chaining.
      * Params:
-     * \UIM\ORM\Table mytable The table to pull types from
+     * \ORM\Table mytable The table to pull types from
      */
     void addDefaultTypes(Table mytable) {
         myalias = mytable.aliasName();

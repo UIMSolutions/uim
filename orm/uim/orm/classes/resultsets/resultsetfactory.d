@@ -19,7 +19,7 @@ class DResultSetFactory {
      * Params:
      * \ORM\Query\SelectQuery<T> myquery Query from where results came.
      * @param array results Results array.
-     */
+     * /
     ResultSet<array|\UIM\Datasource\IEntity> createResultSet(SelectQuery myquery, array results) {
         mydata = this.collectData(myquery);
 
@@ -34,7 +34,7 @@ class DResultSetFactory {
      * entity hydration.
      * Params:
      * \ORM\Query\SelectQuery myquery The query from where to derive the data.
-     */
+     * /
     protected array collectData(SelectQuery myquery) {
         myprimaryTable = myquery.getRepository();
         mydata = [
@@ -89,7 +89,7 @@ class DResultSetFactory {
      * Params:
      * array myrow Array containing columns and values.
      * @param array data Array containing table and query metadata
-     */
+     * /
     protected IEntity|array groupResult(array myrow, IData[string] metadata) {
         results = mypresentAliases = null;
         metadata.addData([
@@ -184,5 +184,5 @@ class DResultSetFactory {
             results = new mydata["entityClass"](results, options);
         }
         return results;
-    }
+    } */
 }

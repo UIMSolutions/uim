@@ -14,7 +14,7 @@ import uim.orm;
  * @see DORMTable::patchEntity()
  * @see DORMTable::patchEntities()
  */
-class Marshaller
+class DMarshaller
 {
     mixin AssociationsNormalizerTemplate;
 

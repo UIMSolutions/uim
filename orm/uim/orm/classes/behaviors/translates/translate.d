@@ -195,7 +195,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * @param array mymap The property map being built.
      * @param IData[string] options The options array used in the marshalling call.
      * /
-    array buildMarshalMap(Marshaller mymarshaller, array mymap, IData[string] options) {
+    array buildMarshalMap(DMarshaller mymarshaller, array mymap, IData[string] options) {
         return this.getStrategy().buildMarshalMap(mymarshaller, mymap, options);
     }
 

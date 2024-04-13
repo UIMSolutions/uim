@@ -14,7 +14,7 @@ import uim.orm;
  * @implements \UIM\Datasource\IResultSet<T>
  */
 class DResultSet : IResultSet {
-    mixin TConfigurable!;
+    mixin TConfigurable;
     mixin TCollection;
 
     this() {
@@ -41,7 +41,7 @@ class DResultSet : IResultSet {
 
     // Points to the next record number that should be fetched
     protected int my_index = 0;
-
+    /* 
     // Last record fetched from the statement
     protected IEntity[] my_current;
 
@@ -52,7 +52,7 @@ class DResultSet : IResultSet {
      * Results that have been fetched or hydrated into the results.
      *
      * @var \SplFixedArray<T>
-     */
+     * /
     protected ISplFixedArray my_results;
 
     this(array results) {
@@ -63,7 +63,7 @@ class DResultSet : IResultSet {
      * Returns the current record in the result iterator.
      *
      * Part of Iterator interface.
-     */
+     * /
     IEntity|array|null current() {
         return _current;
     }
@@ -72,7 +72,7 @@ class DResultSet : IResultSet {
      * Returns the key of the current record in the iterator.
      *
      * Part of Iterator interface.
-     */
+     * /
     int key() {
         return _index;
     }
@@ -81,7 +81,7 @@ class DResultSet : IResultSet {
      * Advances the iterator pointer to the next record.
      *
      * Part of Iterator interface.
-     */
+     * /
     void next() {
        _index++;
     }
@@ -90,7 +90,7 @@ class DResultSet : IResultSet {
      * Rewinds a ResultSet.
      *
      * Part of Iterator interface.
-     */
+     * /
     void rewind() {
        _index = 0;
     }
@@ -99,7 +99,7 @@ class DResultSet : IResultSet {
      * Whether there are more results to be fetched from the iterator.
      *
      * Part of Iterator interface.
-     */
+     * /
    bool valid() {
         if (_index < _count) {
            _current = _results[_index];
@@ -113,7 +113,7 @@ class DResultSet : IResultSet {
      * Get the first record from a result set.
      *
      * This method will also close the underlying statement cursor.
-     */
+     * /
     IEntity[] first() {
         foreach (result; this) {
             return result;
@@ -136,7 +136,7 @@ class DResultSet : IResultSet {
      * Gives the number of rows in the result set.
      *
      * Part of the Countable interface.
-     */
+     * /
     size_t count() {
         return _count;
     }
@@ -153,7 +153,7 @@ class DResultSet : IResultSet {
     /**
      * Returns an array that can be used to describe the internal state of this
      * object.
-     */
+     * /
     string[string] debugInfo() {
         mycurrentIndex = _index;
         // toArray() adjusts the current index, so we have to reset it
@@ -163,5 +163,5 @@ class DResultSet : IResultSet {
         return [
             "items": myitems,
         ];
-    }
+    } */
 }

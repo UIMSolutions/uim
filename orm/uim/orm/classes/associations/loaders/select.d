@@ -74,7 +74,7 @@ class DSelectLoader {
      * /
     function buildEagerLoader(IData[string] optionData): Closure
     {
-        options += _defaultOptions();
+        options = options.update_defaultOptions();
         fetchQuery = _buildQuery(options);
         resultMap = _buildResultMap(fetchQuery, options);
 

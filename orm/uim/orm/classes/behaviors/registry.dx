@@ -13,7 +13,7 @@ import uim.orm;
  * @extends \UIM\Core\ObjectRegistry<\ORM\Behavior>
  * @implements \UIM\Event\IEventDispatcher<\ORM\Table>
  */
-class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
+class DBehaviorRegistry { /* }: ObjectRegistry, IEventDispatcher {
         /**
      * Constructor
      * Params:
@@ -26,7 +26,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
     }
     /**
      * @use \UIM\Event\EventDispatcherTrait<\ORM\Table>
-     */
+     * /
     mixin TEventDispatcher();
 
     // The table using this registry.
@@ -44,7 +44,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * Attaches a table instance to this registry.
      * Params:
      * \ORM\Table mytable The table this registry is attached to.
-     */
+     * /
     void setTable(Table mytable) {
        _table = mytable;
         this.setEventManager(mytable.getEventManager());
@@ -66,9 +66,9 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * Part of the template method for UIM\Core\ObjectRegistry.load()
      * Params:
      * string myclass DPartial classname to resolve.
-     */
+     * /
     protected string|int|false _resolveClassName(string myclass) {
-        /** @var class-string<\ORM\Behavior>|null */
+        /** @var class-string<\ORM\Behavior>|null * /
         return className(myclass);
     }
     
@@ -80,7 +80,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * Params:
      * string myclass DThe classname that is missing.
      * @param string myplugin The plugin the behavior is missing in.
-     */
+     * /
     protected void _throwMissingClassError(string myclass, string myplugin) {
         throw new MissingBehaviorException([
             "class": myclass ~ "Behavior",
@@ -97,7 +97,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * \ORM\Behavior|class-string<\ORM\Behavior> myclass DThe classname that is missing.
      * @param string aliasToObject The alias of the object.
      * configData - An array of config to use for the behavior.
-     */
+     * /
     protected IBehavior _create(object|string myclass, string aliasToObject, IData[string] configData) {
         if (isObject(myclass)) {
             return myclass;
@@ -125,7 +125,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * \ORM\Behavior myinstance The behavior to get methods from.
      * @param string myclass DThe classname that is missing.
      * @param string aliasToObject The alias of the object.
-     */
+     * /
     protected array _getMethods(Behavior myinstance, string myclass, string aliasToObject) {
         myfinders = array_change_key_case(myinstance.implementedFinders());
         mymethods = array_change_key_case(myinstance.implementedMethods());
@@ -163,7 +163,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * with the chosen name.
      * Params:
      * string mymethod The method to check for.
-     */
+     * /
    bool hasMethod(string mymethod) {
         mymethod = mymethod.toLower;
 
@@ -177,7 +177,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * the chosen name.
      * Params:
      * string mymethod The method to check for.
-     */
+     * /
    bool hasFinder(string mymethod) {
         mymethod = mymethod.toLower;
 
@@ -189,7 +189,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * Params:
      * string mymethod The method to invoke.
      * @param array myargs The arguments you want to invoke the method with.
-     */
+     * /
     IData call(string mymethod, array myargs = []) {
         mymethod = mymethod.toLower;
         if (this.hasMethod(mymethod) && this.has(_methodMap[mymethod][0])) {
@@ -211,7 +211,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * @param string mytype The finder type to invoke.
      * @param \ORM\Query\SelectQuery<TSubject> myquery The query object to apply the finder options to.
      * @param IData ...myargs Arguments that match up to finder-specific parameters
-     */
+     * /
     SelectQuery<TSubject> callFinder(string mytype, SelectQuery myquery, IData ...myargs) {
         mytype = mytype.toLower;
 
@@ -224,5 +224,5 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
         throw new BadMethodCallException(
             "Cannot call finder `%s`, it does not belong to any attached behavior.".format(mytype)
         );
-    }
+    } */
 }

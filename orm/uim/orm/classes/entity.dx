@@ -31,7 +31,7 @@ class DEntity : IEntity, IInvalidProperty {
      * @param array<string, mixed> options list of options to use when creating this entity
      */
     this(array properties = null, IData[string] optionData = null) {
-        options += [
+        options = options.update[
             "useSetters": BooleanData(true),
             "markClean": BooleanData(false),
             "markNew": null,

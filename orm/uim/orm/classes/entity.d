@@ -32,7 +32,7 @@ class DORMEntity { // }: IEntity, IInvalidProperty {
      * @param IData[string] options list of options to use when creating this entity
      * /
     this(array myproperties = [], IData[string] optionData = null) {
-        options += [
+        options = options.update[
             "useSetters": BooleanData(true),
             "markClean": BooleanData(false),
             "markNew": null,

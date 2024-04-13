@@ -70,7 +70,7 @@ class DSelectLoader {
      * IData[string] options Same options as `Association.eagerLoader()`
      * /
     Closure buildEagerLoader(IData[string] options = null) {
-        options += _defaultOptions();
+        options = options.update_defaultOptions();
         fetchQuery = _buildQuery(options);
         resultMap = _buildResultMap(fetchQuery, options);
 

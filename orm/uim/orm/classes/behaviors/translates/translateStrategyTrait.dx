@@ -5,7 +5,7 @@ import uim.orm;
 @safe:
 
 // Contains common code needed by TranslateBehavior strategy classes.
-mixin template TranslateStrategyTemplate() {
+mixin template TTranslateStrategy() {
     /**
      * Table instance
      *

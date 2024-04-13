@@ -274,7 +274,7 @@ class DHasMany : DAssociation {
                 "cleanProperty": options,
             ];
         } else {
-            options += ["cleanProperty": BooleanData(true)];
+            options = options.update["cleanProperty": BooleanData(true)];
         }
         if (count(targetEntities) == 0) {
             return;

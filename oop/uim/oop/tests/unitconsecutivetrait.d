@@ -1,10 +1,10 @@
-module source.uim.oop.tests.unitconsecutivetrait;
+module oop.uim.oop.tests.unitconsecutivetrait;
 
 import uim.oop;
 
 @safe:
 
-template PHPUnitConsecutiveTemplate() {
+mixin template TUnitConsecutive() {
     /**
      * @param array firstCallArguments The call arguments
      * @param array ...consecutiveCallsArguments Additional arguments

@@ -1,4 +1,4 @@
-module uim.oop.TestSuite\Constraint\Session;
+module uim.oop.tests.constraints.session.sessionequals;
 
 import uim.oop;
 
@@ -9,14 +9,14 @@ import uim.oop;
  *
  * @internal
  */
-class DSessionEquals : Constraint {
+class DSessionEquals : DConstraint {
     protected string aPath;
 
     /**
      * Constructor
      * Params:
      * string aPath Session Path
-     */
+     * /
     this(string aPath) {
         this.path = somePath;
     }
@@ -25,17 +25,17 @@ class DSessionEquals : Constraint {
      * Compare session value
      * Params:
      * IData other Value to compare with
-     */
+     * /
    bool matches(IData expectedOther) {
         // Server.run calls Session.close at the end of the request.
         // Which means, that we cannot use Session object here to access the session data.
         // Call to Session.read will start new session (and will erase the data).
-        /** @psalm-suppress InvalidScalarArgument */
+        /** @psalm-suppress InvalidScalarArgument * /
         return Hash.get(_SESSION, this.path) == other;
     }
     
     // Assertion message
     override string toString() {
         return "is in session path \"%s\"".format(this.path);
-    }
+    } */ 
 }

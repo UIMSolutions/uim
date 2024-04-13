@@ -1,21 +1,22 @@
-module uim.oop.TestSuite;
+module uim.oop.tests.testcase;
 
 import uim.oop;
 
 @safe:
 
-abstract class DTestCase : BaseTestCase {
+abstract class DTestCase : DBaseTestCase {
+    /* 
     mixin LocatorAwareTemplate();
-    mixin PHPUnitConsecutiveTemplate();
+    mixin TUnitConsecutive();
 
     /**
      * Fixtures used by this test case.
-     */
+     * /
     protected string[] myfixtures = null;
 
     /**
      * @var \UIM\TestSuite\Fixture\IFixtureStrategy|null
-     */
+     * /
     protected IFixtureStrategy myfixtureStrategy = null;
 
     // Configure values to restore at end of test.
@@ -28,7 +29,7 @@ abstract class DTestCase : BaseTestCase {
      * Params:
      * bool myshouldSkip Whether the test should be skipped.
      * @param string mymessage The message to display.
-     */
+     * /
    bool skipIf(bool myshouldSkip, string mymessage = null) {
         if (myshouldSkip) {
             this.markTestSkipped(mymessage);
@@ -41,7 +42,7 @@ abstract class DTestCase : BaseTestCase {
      * Params:
      * int myerrorLevel value of error_reporting() that needs to use
      * @param callable mycallable callable auto that will receive asserts
-     */
+     * /
     void withErrorReporting(int myerrorLevel, callable mycallable) {
         mydefault = error_reporting();
         error_reporting(myerrorLevel);
@@ -59,7 +60,7 @@ abstract class DTestCase : BaseTestCase {
      * Params:
      * int myerrorLevel The value of error_reporting() to use.
      * @param \Closure mycallable A closure to capture errors from.
-     */
+     * /
     PhpError captureError(int myerrorLevel, Closure mycallable) {
         mydefault = error_reporting();
         error_reporting(myerrorLevel);
@@ -85,7 +86,7 @@ abstract class DTestCase : BaseTestCase {
         if (_capturedError is null) {
             this.fail("No error was captured");
         }
-        /** @var \UIM\Error\PhpError _capturedError */
+        /** @var \UIM\Error\PhpError _capturedError * /
         return _capturedError;
     }
     
@@ -93,11 +94,11 @@ abstract class DTestCase : BaseTestCase {
      * Helper method for check deprecation methods
      * Params:
      * \Closure mycallable callable auto that will receive asserts
-     */
+     * /
     void deprecated(Closure mycallable) {
         auto myduplicate = Configure.read("Error.allowDuplicateDeprecations");
         Configure.write("Error.allowDuplicateDeprecations", true);
-        /** @var bool mydeprecation Expand type for psalm */
+        /** @var bool mydeprecation Expand type for psalm * /
         auto mydeprecation = false;
 
         mypreviousHandler = set_error_handler(
@@ -128,7 +129,7 @@ abstract class DTestCase : BaseTestCase {
      * Setup the test case, backup the static object values so they can be restored.
      * Specifically backs up the contents of Configure and paths in App if they have
      * not already been backed up.
-     */
+     * /
     protected void setUp() {
         super.setUp();
         this.setupFixtures();
@@ -144,7 +145,7 @@ abstract class DTestCase : BaseTestCase {
     
     /**
      * teardown any static object changes and restore them.
-     */
+     * /
     protected void tearDown() {
         super.tearDown();
         this.teardownFixtures();
@@ -163,7 +164,7 @@ abstract class DTestCase : BaseTestCase {
     
     /**
      * Initialized and loads any use fixtures.
-     */
+     * /
     protected void setupFixtures() {
         myfixtureNames = this.getFixtures();
 
@@ -173,7 +174,7 @@ abstract class DTestCase : BaseTestCase {
     
     /**
      * Unloads any use fixtures.
-     */
+     * /
     protected void teardownFixtures() {
         if (this.fixtureStrategy) {
             this.fixtureStrategy.teardownTest();
@@ -183,7 +184,7 @@ abstract class DTestCase : BaseTestCase {
     
     /**
      * Returns fixture strategy used by these tests.
-     */
+     * /
     protected IFixtureStrategy getFixtureStrategy() {
         return new DTruncateStrategy();
     }
@@ -197,10 +198,10 @@ abstract class DTestCase : BaseTestCase {
      * and plugins being loaded.
      * Params:
      * array|null myappArgs Constructor parameters for the application class.
-     */
+     * /
     void loadRoutes(array myappArgs = null) {
         myappArgs ??= [rtrim(CONFIG, DIRECTORY_SEPARATOR)];
-        /** @var class-string myclassName */
+        /** @var class-string myclassName * /
         myclassName = Configure.read("App.namespace") ~ "\\Application";
         try {
             myreflect = new DReflectionClass(myclassName);
@@ -220,16 +221,16 @@ abstract class DTestCase : BaseTestCase {
      * elements in UIM or applications.
      * Params:
      * IData[string] plugins List of Plugins to load.
-     */
+     * /
     BaseApplication loadPlugins(array plugins = []) {
         /**
          * @psalm-suppress MissingTemplateParam
-         */
+         * /
         app = new class (""): BaseApplication
         {
             /**
              * @param \UIM\Http\MiddlewareQueue middlewareQueue
-             */
+             * /
             MiddlewareQueue middleware(MiddlewareQueue middlewareQueue): 
             {
                 return middlewareQueue;
@@ -256,7 +257,7 @@ abstract class DTestCase : BaseTestCase {
      * Useful in test case teardown methods.
      * Params:
      * string[] pluginNames A list of plugins you want to remove.
-     */
+     * /
     void removePlugins(array pluginNames = []) {
         auto pluginCollection = Plugin.getCollection();
         pluginNames.each!(name => pluginCollection.remove(name));
@@ -266,7 +267,7 @@ abstract class DTestCase : BaseTestCase {
      * Clear all plugins from the global plugin collection.
      *
      * Useful in test case teardown methods.
-     */
+     * /
     void clearPlugins() {
         Plugin.getCollection().clear();
     }
@@ -277,7 +278,7 @@ abstract class DTestCase : BaseTestCase {
      * string aName Event name
      * @param \UIM\Event\EventManager|null eventManager Event manager to check, defaults to global event manager
      * @param string amessage Assertion failure message
-     */
+     * /
     void assertEventFired(string aName, ?EventManager eventManager = null, string amessage= null) {
         if (!eventManager) {
             eventManager = EventManager.instance();
@@ -295,7 +296,7 @@ abstract class DTestCase : BaseTestCase {
      * @param IData someDataValue Data value
      * @param \UIM\Event\EventManager|null eventManager Event manager to check, defaults to global event manager
      * @param string amessage Assertion failure message
-     */
+     * /
     void assertEventFiredWith(
         string aName, string adataKey, IData someDataValue,
         ?EventManager eventManager = null,
@@ -314,7 +315,7 @@ abstract class DTestCase : BaseTestCase {
      * string aexpected The expected value.
      * @param string aresult The actual value.
      * @param string amessage The message to use for failure.
-     */
+     * /
     void assertTextNotEquals(string expectedValue, string aresult, string amessage= null) {
         expectedValue = expectedValue.replace(["\r\n", "\r"], "\n");
         result = result.replace(["\r\n", "\r"], "\n");
@@ -328,7 +329,7 @@ abstract class DTestCase : BaseTestCase {
      * string aexpected The expected value.
      * @param string aresult The actual value.
      * @param string amessage The message to use for failure.
-     */
+     * /
     void assertTextEquals(string aexpected, string aresult, string amessage= null) {
         expected = str_replace(["\r\n", "\r"], "\n", expected);
         result = result.replace(["\r\n", "\r"], "\n");
@@ -342,7 +343,7 @@ abstract class DTestCase : BaseTestCase {
      * string prefixToCheck The prefix to check for.
      * @param string textToSearch The string to search in.
      * @param string amessage The message to use for failure.
-     */
+     * /
     void assertTextStartsWith(string prefixToCheck, string textToSearch, string amessage = null) {
         prefixToCheck = str_replace(["\r\n", "\r"], "\n", prefixToCheck);
         textToSearch = textToSearch.replace(["\r\n", "\r"], "\n");
@@ -357,7 +358,7 @@ abstract class DTestCase : BaseTestCase {
      * string prefixToCheck The prefix to not find.
      * @param string textToSearch The string to search.
      * @param string amessage The message to use for failure.
-     */
+     * /
     void assertTextStartsNotWith(string prefixToCheck, string textToSearch, string amessage = null) {
         prefixToCheck = str_replace(["\r\n", "\r"], "\n", prefixToCheck);
         string = str_replace(["\r\n", "\r"], "\n", string);
@@ -372,7 +373,7 @@ abstract class DTestCase : BaseTestCase {
      * string asuffix The suffix to find.
      * @param string textToSearch The string to search.
      * @param string amessage The message to use for failure.
-     */
+     * /
     void assertTextEndsWith(string asuffix, string textToSearch, string amessage = null) {
         suffix = suffixstr_replace(["\r\n", "\r"], "\n");
         string = .replace(["\r\n", "\r"], "\n", string);
@@ -387,7 +388,7 @@ abstract class DTestCase : BaseTestCase {
      * string asuffix The suffix to not find.
      * @param string textToSearch The string to search.
      * @param string amessage The message to use for failure.
-     */
+     * /
     void assertTextEndsNotWith(string asuffix, string searchText, string amessage = null) {
         suffix = suffix..replace(["\r\n", "\r"], "\n");
         searchText = replace(["\r\n", "\r"], "\n", searchText);
@@ -403,7 +404,7 @@ abstract class DTestCase : BaseTestCase {
      * @param string ahaystack The string to search through.
      * @param string amessage The message to display on failure.
      * @param bool  anIgnoreCase Whether the search should be case-sensitive.
-     */
+     * /
     void assertTextContains(
         string aneedle,
         string ahaystack,
@@ -428,7 +429,7 @@ abstract class DTestCase : BaseTestCase {
      * @param string ahaystack The string to search through.
      * @param string amessage The message to display on failure.
      * @param bool  anIgnoreCase Whether the search should be case-sensitive.
-     */
+     * /
     void assertTextNotContains(
         string aneedle,
         string ahaystack,
@@ -449,7 +450,7 @@ abstract class DTestCase : BaseTestCase {
      * Assert that a string matches SQL with db-specific characters like quotes removed.
      * Params:
      * string aexpected The expected sql
-     */
+     * /
     void assertEqualsSql(
         string expectedSql,
         string sqlToCompare,
@@ -467,7 +468,7 @@ abstract class DTestCase : BaseTestCase {
      * string apattern The expected sql pattern
      * @param string aactual The sql to compare
      * @param bool optional Whether quote characters (marked with <>) are optional
-     */
+     * /
     void assertRegExpSql(string apattern, string aactual, bool isQuoteOptional = false) {
         isQuoteOptional = isQuoteOptional ? "?" : "";
          somePattern = somePattern.replace("<", "[`\"\[]" ~ isQuoteOptional);
@@ -517,7 +518,7 @@ abstract class DTestCase : BaseTestCase {
      * array expected An array, see above
      * @param string mlText An HTML/XHTML/XML string
      * @param bool fullDebug Whether more verbose output should be used.
-     */
+     * /
    bool assertHtml(array expected, string mlText, bool fullDebug = false) {
         regex = null;
         normalized = null;
@@ -542,7 +543,7 @@ abstract class DTestCase : BaseTestCase {
                 if (preg_match("/^\*?\//", tags, match) && tagsTrimmed != "//") {
                     prefix = ["", ""];
 
-                    if (match[0] == "*/") {
+                    if (match[0] == "* /") {
                         prefix = ["Anything, ", ".*?"];
                     }
                     regex ~= [
@@ -634,7 +635,7 @@ abstract class DTestCase : BaseTestCase {
             // If "attrs" is not present then the array is just a regular int-offset one
             /**
              * @var array<int, mixed> assertion
-             */
+             * /
             [description, someExpressions,  anItemNum] = assertion;
             
             string expression;
@@ -673,7 +674,7 @@ abstract class DTestCase : BaseTestCase {
      * @param string mlTextToCheck The HTML string to check.
      * @param bool fullDebug Whether more verbose output should be used.
      * @param string[] aregex Full regexp from `assertHtml`
-     */
+     * /
     protected string _assertAttributes(
         array assertions,
         string mlTextToCheck,
@@ -711,7 +712,7 @@ abstract class DTestCase : BaseTestCase {
      * Normalize a path for comparison.
      * Params:
      * string aPath Path separated by "/" slash.
-     */
+     * /
     protected string _normalizePath(string aPath) {
         return str_replace("/", DIRECTORY_SEPARATOR, somePath);
     }
@@ -724,7 +725,7 @@ abstract class DTestCase : BaseTestCase {
      * @param float result
      * @param float margin the rage of acceptation
      * @param string amessage the text to display if the assertion is not correct
-     */
+     * /
     protected static void assertWithinRange(expected, result, margin, string message = null) {
         upper = result + margin;
         lower = result - margin;
@@ -738,7 +739,7 @@ abstract class DTestCase : BaseTestCase {
      * @param float result
      * @param float margin the rage of acceptation
      * @param string amessage the text to display if the assertion is not correct
-     */
+     * /
     protected static void assertNotWithinRange(float expected, float result, float margin, string message = null) {
         upper = result + margin;
         lower = result - margin;
@@ -751,7 +752,7 @@ abstract class DTestCase : BaseTestCase {
      * string aexpected
      * @param string aresult
      * @param string amessage the text to display if the assertion is not correct
-     */
+     * /
     protected static auto assertPathEquals(expected, result, string message = null) {
         expected = str_replace(DIRECTORY_SEPARATOR, "/", expected);
         result = str_replace(DIRECTORY_SEPARATOR, "/", result);
@@ -763,7 +764,7 @@ abstract class DTestCase : BaseTestCase {
      * Params:
      * bool condition Condition to trigger skipping
      * @param string amessage Message for skip
-     */
+     * /
     protected bool skipUnless(condition, message = null) {
         if (!condition) {
             this.markTestSkipped(message);
@@ -779,7 +780,7 @@ abstract class DTestCase : BaseTestCase {
      * @param string[] someMethods The list of methods to mock
      * @param IData[string] options The config data for the mock"s constructor.
      * @throws \UIM\ORM\Exception\MissingTableClassException
-     */
+     * /
     Table|MockObject getMockForModel(string aalias, array  someMethods = [], IData[string] options = null) {
         auto className = _getTableClassName(alias, options);
         auto aConnectionName = className.defaultConnectionName();
@@ -809,7 +810,7 @@ abstract class DTestCase : BaseTestCase {
                 "via testing will not work in future PHPUnit versions.", E_USER_DEPRECATED);
             builder.addMethods(nonExistingMethods);
         }
-        /** @var \UIM\ORM\Table mock */
+        /** @var \UIM\ORM\Table mock * /
         mock = builder.getMock();
 
         if (isEmpty(options["entityClass"]) && mock.getEntityClass() == Entity.classname) {
@@ -834,11 +835,11 @@ abstract class DTestCase : BaseTestCase {
      * Params:
      * string aalias The model to get a mock for.
      * @param IData[string] options The config data for the mock"s constructor.
-     */
+     * /
     protected string _getTableClassName(string aalias, IData[string] options = null) {
         if (isEmpty(options["className"])) {
              className = Inflector.camelize(alias);
-            /** @var class-string<\UIM\ORM\Table>|null  className */
+            /** @var class-string<\UIM\ORM\Table>|null  className * /
              className = App.className(className, "Model/Table", "Table");
             if (!className) {
                 throw new MissingTableClassException([alias]);
@@ -852,7 +853,7 @@ abstract class DTestCase : BaseTestCase {
      * Set the app namespace
      * Params:
      * string aappNamespace The app namespace, defaults to "TestApp".
-     */
+     * /
     static string setAppNamespace(string aappNamespace = "TestApp") {
         previous = Configure.read("App.namespace");
         Configure.write("App.namespace", appNamespace);
@@ -873,14 +874,14 @@ abstract class DTestCase : BaseTestCase {
      * Params:
      * string afixture Fixture
 
-     */
+     * /
     protected void addFixture(string afixture) {
         this.fixtures ~= fixture;
     }
     
     /**
      * Get the fixtures this test should use.
-     */
+     * /
     string[] getFixtures() {
         return this.fixtures;
     }
@@ -888,7 +889,7 @@ abstract class DTestCase : BaseTestCase {
     /**
      * @param string aregex A regex to match against the warning message
      * @param \Closure aCallable Callable which should trigger the warning
-     */
+     * /
     void expectNoticeMessageMatches(string aregex, Closure aCallable) {
         this.expectErrorHandlerMessageMatches(regex, aCallable, E_USER_NOTICE);
     }
@@ -896,7 +897,7 @@ abstract class DTestCase : BaseTestCase {
     /**
      * @param string aregex A regex to match against the deprecation message
      * @param \Closure aCallable Callable which should trigger the warning
-     */
+     * /
     void expectDeprecationMessageMatches(string aregex, Closure aCallable) {
         this.expectErrorHandlerMessageMatches(regex, aCallable, E_USER_DEPRECATED);
     }
@@ -904,7 +905,7 @@ abstract class DTestCase : BaseTestCase {
     /**
      * @param string aregex A regex to match against the warning message
      * @param \Closure aCallable Callable which should trigger the warning
-     */
+     * /
     void expectWarningMessageMatches(string aregex, Closure aCallable) {
         this.expectErrorHandlerMessageMatches(regex, aCallable, E_USER_WARNING);
     }
@@ -912,7 +913,7 @@ abstract class DTestCase : BaseTestCase {
     /**
      * @param string aregex A regex to match against the error message
      * @param \Closure aCallable Callable which should trigger the warning
-     */
+     * /
     void expectErrorMessageMatches(string aregex, Closure aCallable) {
         this.expectErrorHandlerMessageMatches(regex, aCallable, E_ERROR | E_USER_ERROR);
     }
@@ -921,7 +922,7 @@ abstract class DTestCase : BaseTestCase {
      * @param string aregex A regex to match against the warning message
      * @param \Closure aCallable Callable which should trigger the warning
      * @param int errorLevel The error level to listen to
-     */
+     * /
     protected void expectErrorHandlerMessageMatches(string aregex, Closure aCallable, int errorLevel) {
         set_error_handler(static auto (int errno, string aerrstr): never {
             throw new DException(errstr, errno);
@@ -934,5 +935,5 @@ abstract class DTestCase : BaseTestCase {
         } finally {
             restore_error_handler();
         }
-    }
+    } */ 
 }

@@ -9,7 +9,7 @@ import uim.oop;
  *
  * @internal
  */
-class DFlashParamEquals : Constraint {
+class DFlashParamEquals : DConstraint {
     protected ISession session;
 
     protected string aKey;

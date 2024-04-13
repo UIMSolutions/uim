@@ -1,4 +1,4 @@
-module uim.oop.TestSuite;
+module uim.oop.tests.testsession;
 
 import uim.oop;
 

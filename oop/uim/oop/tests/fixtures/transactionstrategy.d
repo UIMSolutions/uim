@@ -1,4 +1,4 @@
-module uim.oop.TestSuite\Fixture;
+module uim.oop.tests.fixtures.transactionstrategy;
 
 import uim.oop;
 
@@ -12,6 +12,7 @@ import uim.oop;
  * Any test that calls Connection.rollback(true) will break this strategy.
  */
 class DTransactionStrategy : IFixtureStrategy {
+    /* 
         mixin TConfigurable!();
 
     this() {
@@ -79,5 +80,5 @@ class DTransactionStrategy : IFixtureStrategy {
                 aConnection.rollback(true);
             }
         }, this.fixtures);
-    }
+    } */ 
 }

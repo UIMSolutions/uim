@@ -1,4 +1,4 @@
-module uim.oop.TestSuite\Fixture;
+module uim.oop.tests.fixtures.testfixture;
 
 import uim.oop;
 
@@ -6,6 +6,7 @@ import uim.oop;
 
 // TestFixture is responsible for building and destroying tables to be used during testing.
 class DTestFixture : IFixture {
+    /* 
     mixin LocatorAwareTemplate();
 
     // Fixture Datasource
@@ -22,14 +23,14 @@ class DTestFixture : IFixture {
      *
      * @var \UIM\Database\Schema\TableISchema&\UIM\Database\Schema\ISqlGenerator
      * @psalm-suppress PropertyNotSetInConstructor
-     */
+     * /
     protected ITableISchema&ISqlGenerator _schema;
 
     /**
      * Instantiate the fixture.
      *
      * @throws \UIM\Core\Exception\UimException on invalid datasource usage.
-     */
+     * /
     this() {
         if (!this.connection.isEmpty) {
             aConnection = this.connection;
@@ -59,7 +60,7 @@ class DTestFixture : IFixture {
     
     /**
      * Returns the table name using the fixture class
-     */
+     * /
     protected string _tableFromClass() {
         [,  className] = namespaceSplit(class);
         preg_match("/^(.*)Fixture/",  className, matches);
@@ -137,5 +138,5 @@ class DTestFixture : IFixture {
     // Returns the table schema for this fixture.
     TableISchema&ISqlGenerator getTableSchema() {
         return _schema;
-    }
+    } */ 
 }

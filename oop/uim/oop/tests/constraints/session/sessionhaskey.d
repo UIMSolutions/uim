@@ -1,4 +1,4 @@
-module uim.oop.TestSuite\Constraint\Session;
+module uim.oop.tests.constraints.session.sessionhaskey;
 
 import uim.oop;
 

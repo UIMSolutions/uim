@@ -6,58 +6,34 @@ import uim.logging;
 
 // Base log engine class.
 abstract class DLogger /* : DAbstractLogger */ {   
-     mixin TConfigurable!();
+    mixin TConfigurable!();
 
     this() {
         initialize;
+        this.name("Logger");  
+    }
+
+    this(string name) { 
+        this(); 
+        this.name(name); 
     }
 
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
         
-        return true;
-    }
-    this() { name("Logger"); initialize; }
-    this(string name) { this(); name(name); }
-
-  bool initialize(IData[string] initData = null) {
-    /* configuration.updateDefaults([
+            /* configuration.updateDefaults([
         "levels": ArrayData,
         "scopes": ArrayData,
         "formatter": DefaultFormatter.classname,
     ]; */
-
-    return true;
-  }
-
-/*
-    mixin ConfigForClass;
-
-//         mixin TConfigurable!();
-
-    this() {
-        initialize;
-    }
-
-    this(IData[string] initData) {
-        initialize(initData);
-    }
-
-    this(string name) {
-        this().name(name);
-    }
-
-    // Hook method
-    bool initialize(IData[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
 
         return true;
     }
 
     mixin(TProperty!("string", "name"));
 
+/*
     protected IConfiguration _defaultConfigData; 
     protected IFormatter _formatter;
 

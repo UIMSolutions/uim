@@ -89,6 +89,7 @@ import uim.logging;
  * of your application and also use standard log levels.
  */
 class DLog {
+    /* 
     mixin template TStaticConfig() {
         setConfig as protected _setConfig;
     }

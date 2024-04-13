@@ -1,6 +1,6 @@
 module uim.logs.Formatter;
 
-class DJsonFormatter : DAbstractFormatter {
+class DJsonFormatter { /* }: DAbstractFormatter {
     protected IData[string] configuration.updateDefaults([
         "dateFormat": DATE_ATOM,
         "flags": IData_UNESCAPED_UNICODE | IData_UNESCAPED_SLASHES,
@@ -17,5 +17,5 @@ class DJsonFormatter : DAbstractFormatter {
         auto IData = IData_encode(log, IData_THROW_ON_ERROR | configuration["flags"]);
 
         return configuration["appendNewline"] ? IData ~ "\n" : IData;
-    }
+    } */
 }

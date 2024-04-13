@@ -1,4 +1,4 @@
-module uim.oop.TestSuite;
+module uim.oop.tests.connectionhelper;
 
 import uim.oop;
 
@@ -18,7 +18,7 @@ class DConnectionHelper {
      * to `test_files`.
      *
      * The `default` connection is aliased to `test`.
-     */
+     * /
     void addTestAliases() {
         ConnectionManager.alias("test", "default");
         ConnectionManager.configured()
@@ -35,7 +35,7 @@ class DConnectionHelper {
      * Enables query logging for all database connections.
      * Params:
      * array<int, string>|null aConnections Connection names or null for all.
-     */
+     * /
     void enableQueryLogging(array aConnections = null) {
         aConnections ??= ConnectionManager.configured();
         foreach (aConnections as aConnection) {
@@ -56,7 +56,7 @@ class DConnectionHelper {
      * Params:
      * string aconnectionName Connection name
      * @param string[] aTables List of tables names or null for all.
-     */
+     * /
     void dropTables(string aconnectionName, string[] aTables = null) {
         aConnection = ConnectionManager.get(aConnectionName);
         assert(cast(DConnection)aConnection);
@@ -64,7 +64,7 @@ class DConnectionHelper {
         allTables = collection.listTablesWithoutViews();
 
         aTables = aTables !isNull ? array_intersect(aTables, allTables): allTables;
-        /** @var array<\UIM\Database\Schema\TableSchema> schemas Specify type for psalm */
+        /** @var array<\UIM\Database\Schema\TableSchema> schemas Specify type for psalm * /
         schemas = array_map(fn (aTable): collection.describe(aTable), aTables);
 
         dialect = aConnection.getDriver().schemaDialect();
@@ -83,7 +83,7 @@ class DConnectionHelper {
      * Params:
      * string aconnectionName Connection name
      * @param string[] aTables List of tables names or null for all.
-     */
+     * /
     void truncateTables(string aconnectionName, array aTables = null) {
         aConnection = ConnectionManager.get(aConnectionName);
         assert(cast(DConnection)aConnection);
@@ -91,7 +91,7 @@ class DConnectionHelper {
 
         allTables = collection.listTablesWithoutViews();
         aTables = aTables !isNull ? array_intersect(aTables, allTables): allTables;
-        /** @var array<\UIM\Database\Schema\TableSchema> schemas Specify type for psalm */
+        /** @var array<\UIM\Database\Schema\TableSchema> schemas Specify type for psalm * /
         schemas = array_map(fn (aTable): collection.describe(aTable), aTables);
 
         this.runWithoutConstraints(aConnection, void (Connection aConnection) use (schemas) {
@@ -107,7 +107,7 @@ class DConnectionHelper {
      * Runs callback with constraints disabled correctly per-database
      * Params:
      * \UIM\Database\Connection aConnection Database connection
-     */
+     * /
     void runWithoutConstraints(Connection dbConnection, Closure aCallback) {
         if (dbConnection.getDriver().supports(DriverFeatures.DISABLE_CONSTRAINT_WITHOUT_TRANSACTION)) {
             dbConnection.disableConstraints(fn (Connection aConnection): aCallback(aConnection));
@@ -116,5 +116,5 @@ class DConnectionHelper {
                 dbConnection.disableConstraints(fn (Connection aConnection): aCallback(aConnection));
             });
         }
-    }
+    } */
 }

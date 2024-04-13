@@ -4,12 +4,12 @@ import uim.oop;
 
 @safe:
 
-class DUnitStartedSubscriber : UnitStarted {
+class DUnitStartedSubscriber : DUnitStarted {
     /**
      * Initializes before any tests are run.
      * Params:
      * \Unit\Event\TestSuite\Started event The event
-     */
+     * /
     void notify(Started event) {
         helper = new DConnectionHelper();
         helper.addTestAliases();
@@ -24,5 +24,5 @@ class DUnitStartedSubscriber : UnitStarted {
                 "scopes": ["cake.database.queries"],
             ]);
         }
-    }
+    } */ 
 }

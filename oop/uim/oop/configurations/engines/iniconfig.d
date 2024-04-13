@@ -1,4 +1,4 @@
-module uim.oop.configurations.engines.iniconfigx;
+module uim.oop.configurations.engines.iniconfig;
 
 import uim.oop;
 

@@ -1,4 +1,4 @@
-module uim.logging;
+module uim.logging.classes.logs.log;
 
 import uim.logging;
 
@@ -302,7 +302,7 @@ class DLog {
             level = array_search(level, _levelMap, true);
         }
         if (!in_array(level, _levels, true)) {
-            /** @psalm-suppress PossiblyFalseArgument */
+            /** @psalm-suppress PossiblyFalseArgument * /
             throw new DInvalidArgumentException(
                 "Invalid log level `%s`".format(level));
         }
@@ -315,7 +315,7 @@ class DLog {
 
         registry = getRegistry();
         registry.loaded().each!((streamName) {
-            /** @var \Psr\Log\ILogger logger */
+            /** @var \Psr\Log\ILogger logger * /
             auto logger = registry.{streamName};
             auto levels = scopes = null;
 
@@ -445,5 +445,5 @@ class DLog {
      * /
     static bool info(string amessage, string[] acontext = []) {
         return write(__FUNCTION__, message, context);
-    }
+    } */
 }

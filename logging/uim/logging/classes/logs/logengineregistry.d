@@ -1,18 +1,18 @@
-module uim.Log;
+module uim.logging.classes.logs.logengineregistry;
 
 /**
  * Registry of loaded log engines
  *
  * @extends \UIM\Core\ObjectRegistry<\Psr\Log\ILogger>
  */
-class DLogEngineRegistry : ObjectRegistry {
+class DLogEngineRegistry { /* }: ObjectRegistry {
     /**
      * Resolve a logger classname.
      *
      * Part of the template method for UIM\Core\ObjectRegistry.load()
-     */
+     * /
     protected string _resolveClassName(string className) {
-        /** @var class-string<\Psr\Log\ILogger>|null */
+        /** @var class-string<\Psr\Log\ILogger>|null * /
         return App.className(className, "Log/Engine", "Log");
     }
     
@@ -22,7 +22,7 @@ class DLogEngineRegistry : ObjectRegistry {
      * Part of the template method for UIM\Core\ObjectRegistry.load()
      * Params:
      * @param string plugin The plugin the logger is missing in.
-     */
+     * /
     protected void _throwMissingClassError(string className, string aplugin) {
         throw new UimException("Could not load class `%s`.".format(className));
     }
@@ -35,10 +35,10 @@ class DLogEngineRegistry : ObjectRegistry {
      * \Psr\Log\ILogger|callable|class-string<\Psr\Log\ILogger>  className The classname or object to make.
      * @param string aalias The alias of the object.
      * configData - An array of settings to use for the logger.
-     */
+     * /
     protected ILogger _create(callable|object|string className, string aalias, IData[string] configData) {
         if (isString(className)) {
-            /** @var class-string<\Psr\Log\ILogger>  className */
+            /** @var class-string<\Psr\Log\ILogger>  className * /
             return new className(configData);
         }
         if (isCallable(className)) {
@@ -51,8 +51,8 @@ class DLogEngineRegistry : ObjectRegistry {
      * Remove a single logger from the registry.
      * Params:
      * string aName The logger name.
-     */
+     * /
     void unload(string aName) {
         unset(_loaded[name]);
-    }
+    } */
 }

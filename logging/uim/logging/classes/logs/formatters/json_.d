@@ -1,4 +1,4 @@
-module uim.logs.Formatter;
+module uim.logging.classes.logs.formatters.json_;
 
 class DJsonFormatter { /* }: DAbstractFormatter {
     protected IData[string] configuration.updateDefaults([

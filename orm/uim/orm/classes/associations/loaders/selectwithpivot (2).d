@@ -12,21 +12,21 @@ import uim.orm;
  */
 class DSelectWithPivotLoader : SelectLoader {
     // The name of the junction association
-    protected string ajunctionAssociationName;
+    protected string _junctionAssociationName;
 
     // The property name for the junction association, where its results should be nested at.
-    protected string ajunctionProperty;
+    protected string _junctionProperty;
 
     /**
      * The junction association instance
-     */
+     * /
     protected DHasMany junctionAssoc;
 
     /**
      * Custom conditions for the junction association
      *
      * @var \UIM\Database\IExpression|\Closure|string[]
-     */
+     * /
     protected IExpression|Closure|string[] junctionConditions = null;
 
  
@@ -46,7 +46,7 @@ class DSelectWithPivotLoader : SelectLoader {
      * This is used for eager loading records on the target table based on conditions.
      * Params:
      * IData[string] options options accepted by eagerLoader()
-     */
+     * /
     protected ISelectQuery _buildQuery(IData[string] options = null) {
         name = this.junctionAssociationName;
         assoc = this.junctionAssoc;
@@ -103,7 +103,7 @@ class DSelectWithPivotLoader : SelectLoader {
      * which the filter should be applied
      * Params:
      * IData[string] options the options to use for getting the link field.
-     */
+     * /
     protected string[] _linkField(IData[string] options = null) {
         string associationName = this.junctionAssociationName;
 
@@ -121,7 +121,7 @@ class DSelectWithPivotLoader : SelectLoader {
      * Params:
      * \UIM\ORM\Query\SelectQuery fetchQuery The query to get results from
      * @param IData[string] options The options passed to the eager loader
-     */
+     * /
     protected IData[string] _buildResultMap(SelectQuery fetchQuery, IData[string] options = null) {
         resultMap = null;
         aKey = (array)options["foreignKey"];
@@ -140,5 +140,5 @@ class DSelectWithPivotLoader : SelectLoader {
             resultMap[join(";",  someValues)] ~= result;
         }
         return resultMap;
-    }
+    } */
 }

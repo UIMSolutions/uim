@@ -31,6 +31,7 @@ class DSelectLoader {
      */
     protected string[] abindingKey;
 
+    /* 
     // A callable that will return a query object used for loading the association results
     protected callable  finder;
 
@@ -41,7 +42,7 @@ class DSelectLoader {
      * The sorting options for loading the association
      *
      * @var \UIM\Database\IExpression|\Closure|string[]
-     */
+     * /
     protected IExpression|Closure|string[] sort = null;
 
     /**
@@ -49,7 +50,7 @@ class DSelectLoader {
      * to properties in this class.
      * Params:
      * IData[string] options Properties to be copied to this class
-     */
+     * /
     this(IData[string] options = null) {
         this.alias = options["alias"];
         this.sourceAlias = options["sourceAlias"];
@@ -67,7 +68,7 @@ class DSelectLoader {
      * iterator. The options accepted by this method are the same as `Association.eagerLoader()`
      * Params:
      * IData[string] options Same options as `Association.eagerLoader()`
-     */
+     * /
     Closure buildEagerLoader(IData[string] options = null) {
         options += _defaultOptions();
         fetchQuery = _buildQuery(options);
@@ -93,7 +94,7 @@ class DSelectLoader {
      * the source table
      * Params:
      * IData[string] options options accepted by eagerLoader()
-     */
+     * /
     protected ISelectQuery _buildQuery(IData[string] options = null) {
         aKey = _linkField(options);
         filter = options["keys"];
@@ -151,7 +152,7 @@ class DSelectLoader {
      * Params:
      * string[] afinderData The finder name or an array having the name as key
      * and options as value.
-     */
+     * /
     protected array _extractFinder(string[] afinderData) {
         finderData = (array)finderData;
 
@@ -168,7 +169,7 @@ class DSelectLoader {
      * Params:
      * \UIM\ORM\Query\SelectQuery fetchQuery The association fetching query
      * @param string[] aKey The foreign key fields to check
-     */
+     * /
     protected void _assertFieldsPresent(SelectQuery fetchQuery, array aKey) {
         if (fetchQuery.isAutoFieldsEnabled()) {
             return;
@@ -203,7 +204,7 @@ class DSelectLoader {
      * \UIM\ORM\Query\SelectQuery aQuery Target table"s query
      * @param string[]|string aKey the fields that should be used for filtering
      * @param \UIM\ORM\Query\SelectQuery subquery The Subquery to use for filtering
-     */
+     * /
     protected ISelectQuery _addFilteringJoin(SelectQuery aQuery, string[] aKey, SelectQuery subquery) {
         filter = null;
         aliasedTable = this.sourceAlias;
@@ -236,7 +237,7 @@ class DSelectLoader {
      * \UIM\ORM\Query\SelectQuery aQuery Target table"s query
      * @param string[]|string aKey The fields that should be used for filtering
      * @param IData filter The value that should be used to match for aKey
-     */
+     * /
     protected ISelectQuery _addFilteringCondition(SelectQuery aQuery, string[] aKey, IData filterValue) {
         IData[string] conditions = isArray(aKey) 
             ? _createTupleCondition(aQuery, aKey, filterValue, "IN")
@@ -253,7 +254,7 @@ class DSelectLoader {
      * @param string[] someKeys the fields that should be used for filtering
      * @param IData filter the value that should be used to match for aKey
      * @param string aoperator The operator for comparing the tuples
-     */
+     * /
     protected TupleComparison _createTupleCondition(
         SelectQuery aQuery,
         array someKeys,
@@ -275,7 +276,7 @@ class DSelectLoader {
      * Params:
      * IData[string] options The options for getting the link field.
      * @throws \UIM\Database\Exception\DatabaseException
-     */
+     * /
     protected string[]|string _linkField(IData[string] options = null) {
         auto links = null;
         auto name = this.alias;
@@ -303,7 +304,7 @@ class DSelectLoader {
      * to load records in the source table.
      * Params:
      * \UIM\ORM\Query\SelectQuery aQuery the original query used to load source records
-     */
+     * /
     protected ISelectQuery _buildSubquery(SelectQuery aQuery) {
         filterQuery = clone aQuery;
         filterQuery.disableAutoFields();
@@ -332,7 +333,7 @@ class DSelectLoader {
      * that need to be present to ensure the correct association data is loaded.
      * Params:
      * \UIM\ORM\Query\SelectQuery aQuery The query to get fields from.
-     */
+     * /
     protected array<string, array> _subqueryFields(SelectQuery aQuery) {
         auto someKeys = (array)this.bindingKey;
 
@@ -360,7 +361,7 @@ class DSelectLoader {
      * Params:
      * \UIM\ORM\Query\SelectQuery fetchQuery The query to get results from
      * @param IData[string] options The options passed to the eager loader
-     */
+     * /
     protected IData[string] _buildResultMap(SelectQuery fetchQuery, IData[string] options = null) {
         resultMap = null;
         singleResult = in_array(this.associationType, [Association.MANY_TO_ONE, Association.ONE_TO_ONE], true);
@@ -391,7 +392,7 @@ class DSelectLoader {
      * @param IData[string] resultMap an array with the foreignKey as keys and
      * the corresponding target table results as value.
      * @param IData[string] options The options passed to the eagerLoader method
-     */
+     * /
     protected DClosure _resultInjector(SelectQuery fetchQuery, array resultMap, IData[string] options = null): Closure
     {
         someKeys = this.associationType == Association.MANY_TO_ONE ?
@@ -425,7 +426,7 @@ class DSelectLoader {
      * IData[string] resultMap A keyed arrays containing the target table
      * @param string[] sourceKeys An array with aliased keys to match
      * @param string anestKey The key under which results should be nested
-     */
+     * /
     protected DClosure _multiKeysInjector(array resultMap, array sourceKeys, string anestKey) {
         return auto (row) use (resultMap, sourceKeys, nestKey) {
             string[] someValues = sourceKeys
@@ -437,5 +438,5 @@ class DSelectLoader {
             }
             return row;
         };
-    }
+    } */
 }

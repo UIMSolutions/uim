@@ -1,0 +1,110 @@
+module uim.orm.Association;
+
+import uim.orm;
+
+@safe:
+
+/**
+ * Represents an 1 - 1 relationship where the source side of the relation is
+ * related to only one record in the target table and vice versa.
+ *
+ * An example of a HasOne association would be User has one Profile.
+ */
+class DHasOne : DAssociation {
+    // Valid strategies for this type of association
+    protected string[] _validStrategies = [
+        STRATEGY_JOIN,
+        STRATEGY_SELECT,
+    ];
+ 
+    string[] getForeignKeys() {
+        if (!isSet(_foreignKey)) {
+           _foreignKey = _modelKey(this.getSource().aliasName());
+        }
+        return _foreignKey;
+    }
+
+    /**
+     * Sets the name of the field representing the foreign key to the target table.
+     * Params:
+     * string[]|string|false aKey the key or keys to be used to link both tables together, if set to `false`
+     * no join conditions will be generated automatically.
+     */
+    void setForeignKey(string[]|false aKey) {
+       _foreignKey = aKey;
+    }
+    
+    // Returns default property name based on association name.
+    protected string _propertyName() {
+        [, name] = pluginSplit(_name);
+
+        return Inflector.underscore(Inflector.singularize(name));
+    }
+
+    /**
+     * Returns whether the passed table is the owning side for this
+     * association. This means that rows in the "target" table would miss important
+     * or required information if the row in "source" did not exist.
+     * Params:
+     * \UIM\ORM\Table side The potential Table with ownership
+     */
+    bool isOwningSide(Table side) {
+        return side == this.getSource();
+    }
+    
+    // Get the relationship type.
+    string type() {
+        return self.ONE_TO_ONE;
+    }
+
+    /**
+     * Takes an entity from the source table and looks if there is a field
+     * matching the property name for this association. The found entity will be
+     * saved on the target table for this association by passing supplied
+     * `options`
+     * Params:
+     * \UIM\Datasource\IEntity entity an entity from the source table
+     * @param IData[string] options options to be passed to the save method in the target table
+     */
+    IEntity saveAssociated(IEntity entity, IData[string] options = null) {
+        targetEntity = entity.get(this.getProperty());
+        if (isEmpty(targetEntity) || !(cast(IEntity)targetEntity)) {
+            return entity;
+        }
+
+        string[] foreignKeys = (array)this.getForeignKeys();
+        properties = array_combine(
+            foreignKeys,
+            entity.extract((array)this.getBindingKey())
+        );
+        targetEntity.set(properties, ["guard": BooleanData(false)]);
+
+        if (!this.getTarget().save(targetEntity, options)) {
+            targetEntity.unset(properties.keys);
+
+            return null;
+        }
+        return entity;
+    }
+ 
+    Closure eagerLoader(IData[string] options = null) {
+        auto selectLoader = new DSelectLoader([
+            "alias": this.aliasName(),
+            "sourceAlias": this.getSource().aliasName(),
+            "targetAlias": this.getTarget().aliasName(),
+            "foreignKey": this.getForeignKeys(),
+            "bindingKey": this.getBindingKey(),
+            "strategy": this.getStrategy(),
+            "associationType": this.type(),
+            "finder": this.find(...),
+        ]);
+
+        return selectLoader.buildEagerLoader(options);
+    }
+
+    bool cascadeDelete_(IEntity entity, IData[string] options = null) {
+        auto deleteHelper = new DependentDeleteHelper();
+
+        return deleteHelper.cascadeDelete_(this, entity, options);
+    }
+}

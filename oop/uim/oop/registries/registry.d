@@ -38,13 +38,17 @@ class DObjectRegistry(T : Object) {
 	}
 
 	// #region path
-	bool hasPath(string[] path) {
-		return _entries.hasKey(path.join(_pathSeparator));
-	}
+		bool hasAllPath(string[] paths) {
+			return _entries.hasKey(path.join(_pathSeparator));
+		}
 
-	bool hasPath(string path) {
-		return _entries.hasKey(path);
-	}
+		bool hasPath(string[] path) {
+			return _entries.hasKey(path.join(_pathSeparator));
+		}
+
+		bool hasPath(string path) {
+			return _entries.hasKey(path);
+		}
 	// #endregion path
 
 	// TODO bool hasValue(T value) {

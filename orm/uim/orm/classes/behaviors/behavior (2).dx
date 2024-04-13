@@ -99,7 +99,7 @@ class DBehavior : IEventListener {
         }
         if (configuration.hasKey(aKey) && configuration[aKey] == []) {
             configuration.update(aKey, [], false);
-            configuration.remove(aKey]);
+            configuration.remove(aKey);
 
             return configData;
         }
@@ -111,7 +111,7 @@ class DBehavior : IEventListener {
             }
         }
         configuration.update(aKey, array_flip(myindexedCustom), false);
-        configuration.remove(aKey]);
+        configuration.remove(aKey);
 
         return configData;
     }

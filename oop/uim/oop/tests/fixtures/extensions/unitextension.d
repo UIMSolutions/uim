@@ -1,19 +1,19 @@
-module source.uim.oop.tests.fixtures.extensions.unitextension;
+module uim.oop.tests.fixtures.extensions.unitextension;
 
 import uim.oop;
 
 @safe:
 
-// PHPUnit extension to integrate UIM"s data-only fixtures.
-class DPHPUnitExtension : Extension {
+// Unit extension to integrate UIM"s data-only fixtures.
+class DUnitExtension : Extension {
     /**
-     * @param \PHPUnit\TextUI\Configuration\Configuration configDatauration
-     * @param \PHPUnit\Runner\Extension\Facade facade
-     * @param \PHPUnit\Runner\Extension\ParameterCollection parameters
+     * @param \Unit\TextUI\Configuration\Configuration configDatauration
+     * @param \Unit\Runner\Extension\Facade facade
+     * @param \Unit\Runner\Extension\ParameterCollection parameters
      */
     void bootstrap(Configuration configDatauration, Facade facade, ParameterCollection parameters) {
         facade.registerSubscriber(
-            new DPHPUnitStartedSubscriber()
+            new DUnitStartedSubscriber()
         );
     }
 }

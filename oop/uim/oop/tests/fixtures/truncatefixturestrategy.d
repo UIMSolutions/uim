@@ -1,4 +1,4 @@
-module uim.oop.TestSuite\Fixture;
+module uim.oop.tests.fixtures.truncatefixturestrategy;
 
 import uim.oop;
 
@@ -6,6 +6,7 @@ import uim.oop;
 
 // Fixture strategy that truncates all fixture ables at the end of test.
 class DTruncateFixtureStrategy : IFixtureStrategy {
+    /* 
     protected DFixtureHelper helper;
 
     protected IFixture[] fixtures = null;
@@ -21,5 +22,5 @@ class DTruncateFixtureStrategy : IFixtureStrategy {
  
     void teardownTest() {
         this.helper.truncate(this.fixtures);
-    }
+    } */ 
 }

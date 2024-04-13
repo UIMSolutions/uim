@@ -1,14 +1,14 @@
-module source.uim.oop.tests.fixtures.extensions.unitstartedsubscriber;
+module uim.oop.tests.fixtures.extensions.unitstartedsubscriber;
 
 import uim.oop;
 
 @safe:
 
-class DPHPUnitStartedSubscriber : PHPUnitStarted {
+class DUnitStartedSubscriber : UnitStarted {
     /**
      * Initializes before any tests are run.
      * Params:
-     * \PHPUnit\Event\TestSuite\Started event The event
+     * \Unit\Event\TestSuite\Started event The event
      */
     void notify(Started event) {
         helper = new DConnectionHelper();

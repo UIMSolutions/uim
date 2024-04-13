@@ -1,4 +1,4 @@
-module oop.uim.oop.tests.unitconsecutivetrait;
+module uim.oop.tests.unitconsecutivetrait;
 
 import uim.oop;
 

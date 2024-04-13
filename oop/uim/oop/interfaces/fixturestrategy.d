@@ -1,4 +1,4 @@
-module oop.uim.oop.interfaces.fixturestrategy;
+module uim.oop.interfaces.fixturestrategy;
 
 import uim.oop;
 

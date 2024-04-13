@@ -1,4 +1,4 @@
-module uim.oop.TestSuite\Stub;
+module uim.oop.tests.stubs.testexceptionrenderer;
 
 import uim.oop;
 
@@ -19,7 +19,7 @@ class DTestExceptionRenderer : IExceptionRenderer {
      * Simply rethrow the given exception
      * Params:
      * \Throwable myexception Exception.
-     */
+     * /
     this(Throwable myexception) {
         throw myexception;
     }
@@ -32,7 +32,7 @@ class DTestExceptionRenderer : IExceptionRenderer {
      * Part of upcoming interface requirements
      * Params:
      * \Psr\Http\Message\IResponse|string myoutput The output or response to send.
-     */
+     * /
     void write(IResponse|string myoutput) {
-    }
+    } */ 
 }

@@ -15,7 +15,7 @@ class DCSSRules : DCSSObj {
 
 	O rules(this O)(DCSSRule[] someRules) { _rules ~= someRules; return cast(O)this; }	
 	O rules(this O)(DCSSRules someRules) { _rules ~= someRules.rules; return cast(O)this; }	
-	O rules(this O)(string[string][string] someDeclarations) { 
+	O rules(this O)(STRINGAA[string] someDeclarations) { 
 		foreach(aSelector,aDeclaration; someDeclarations) {
 			this.rule(aSelector, aDeclaration); }
 		return cast(O)this; }
@@ -34,10 +34,10 @@ class DCSSRules : DCSSObj {
 
 	O rule(this O)(DCSSRule aRule) { _rules ~= aRule; return cast(O)this; }
 	O rule(this O)(string aSelector, string name, string value) { _rules~=CSSRule(aSelector, name, value); return cast(O)this; }
-	O rule(this O)(string aSelector, string[string] someDeclarations) { _rules~=CSSRule(aSelector, someDeclarations); return cast(O)this; }
+	O rule(this O)(string aSelector, STRINGAA someDeclarations) { _rules~=CSSRule(aSelector, someDeclarations); return cast(O)this; }
 
 	O opCall(this O)(string aSelector, string name, string value) { _rules~=CSSRule(aSelector, name, value); return cast(O)this; }
-	O opCall(this O)(string aSelector, string[string] someDeclarations) { _rules~=CSSRule(aSelector, someDeclarations); return cast(O)this; }
+	O opCall(this O)(string aSelector, STRINGAA someDeclarations) { _rules~=CSSRule(aSelector, someDeclarations); return cast(O)this; }
 	O opCall(this O)(DCSSRule aRule) { return this.add(aRule); }
 	O opCall(this O)(DCSSRule aRules) { return this.add(aRules); }
 

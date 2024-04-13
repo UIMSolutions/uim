@@ -50,7 +50,7 @@ class DCollection : /* IteratorIterator, */ ICollection {
   }
 
   // Returns an array that can be used to describe the internal state of this object.
-  protected string[string] debugInfo() {
+  protected STRINGAA debugInfo() {
     size_t myCount;
     try {
       myCount = this.count();

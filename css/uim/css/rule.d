@@ -10,7 +10,7 @@ class DCSSRule : DCSSObj {
 	this() { super(); }
 	this(string aSelector) { this().selector(aSelector); }
 	this(string aSelector, string name, string value) { this(aSelector).declaration(name, value); }
-	this(string aSelector, string[string] someDeclarations) { this(aSelector).declarations(someDeclarations); }
+	this(string aSelector, STRINGAA someDeclarations) { this(aSelector).declarations(someDeclarations); }
 
 	override protected void _init() { super._init; }
 
@@ -19,9 +19,9 @@ class DCSSRule : DCSSObj {
 		assert(CSSRule("test") == `test{}`);
 	}}
 
-	string[string] _declarations;
+	STRINGAA _declarations;
 	auto declarations(this O)(){ return _declarations; }
-	O declarations(this O)(string[string] someDeclarations){ foreach(k, v; someDeclarations) this.declaration(k, v); return cast(O)this;}
+	O declarations(this O)(STRINGAA someDeclarations){ foreach(k, v; someDeclarations) this.declaration(k, v); return cast(O)this;}
 
 	string declaration(string name){ return _declarations[name]; }
 	O declaration(this O)(string name, string value){ _declarations[name] = value; return cast(O)this; }
@@ -44,7 +44,7 @@ class DCSSRule : DCSSObj {
 auto CSSRule() { return new DCSSRule(); }
 auto CSSRule(string selector) { return new DCSSRule(selector); }
 auto CSSRule(string selector, string name, string value) { return new DCSSRule(selector, name, value); }
-auto CSSRule(string selector, string[string] someDeclarations) { return new DCSSRule(selector, someDeclarations); }
+auto CSSRule(string selector, STRINGAA someDeclarations) { return new DCSSRule(selector, someDeclarations); }
 
 version(test_uim_css) { unittest {
 	assert(CSSRule("test") == `test{}`);

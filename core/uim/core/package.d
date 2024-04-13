@@ -23,7 +23,7 @@ public {
 }
 
 @safe:
-alias STRINGAA = string[string];
+alias STRINGAA = STRINGAA;
 alias INTAA = int[int];
 alias DOUBLEAA = double[double];
 

@@ -41,7 +41,7 @@ article = new Article([
 
 The preferred way of getting new entities is using the newEmptyEntity() method from the Table objects:
 
-use Cake\ORM\Locator\LocatorAwareTemplate;
+use Cake\ORM\Locator\TLocatorAware;
 
 article = this->fetchTable('Articles')->newEmptyEntity();
 

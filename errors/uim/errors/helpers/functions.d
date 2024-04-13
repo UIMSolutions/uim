@@ -48,7 +48,7 @@ void stackTrace(IData[string] options = null) {
     if (!Configure.read("debug")) {
         return;
     }
-    options += ["start": 0];
+    options = options.update["start": 0];
     options["start"]++;
 
     /** @var string atrace * /

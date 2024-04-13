@@ -244,7 +244,7 @@ class DRulesChecker {
      * /
     protected bool _checkRules(IEntity entity, IData[string] optionData = null, array rules = []) {
         success = true;
-        options += _options;
+        options = options.update_options;
         rules
           .each!(rule => success = rule(entity, options) && success);
         return success;

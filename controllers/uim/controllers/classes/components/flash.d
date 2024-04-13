@@ -140,7 +140,7 @@ class DFlashComponent : DComponent {
                 ];
                 someArguments[1].remove("plugin");
             }
-            options += (array) someArguments[1];
+            options = options.update(array) someArguments[1];
         }
         this.set(someArguments[0], options);
     }

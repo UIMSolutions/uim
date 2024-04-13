@@ -7,7 +7,7 @@ import uim.commands;
 // Base class for commands
 class DCommand : ICommand {
     mixin TConfigurable!();
-    mixin LocatorAwareTemplate;
+    mixin TLocatorAware;
     mixin TLog;
 
     this() {

@@ -54,7 +54,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
     mixin TConfigurable!();
     // @use \UIM\Event\EventDispatcherTrait<\UIM\Core\IConsoleApplication>
     mixin TEventDispatcher;
-    mixin LocatorAwareTemplate;
+    mixin TLocatorAware;
     mixin TLog;
     mixin ViewVarsTemplate;
 

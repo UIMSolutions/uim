@@ -224,7 +224,7 @@ mixin template TEntity() {
     if (!isArray(field)) {
       throw new DInvalidArgumentException("Cannot set an empty field");
     }
-    options += ["setter": BooleanData(true), "guard": guard, "asOriginal": BooleanData(false)];
+    options = options.update["setter": BooleanData(true), "guard": guard, "asOriginal": BooleanData(false)];
 
     if (options["asOriginal"] == true) {
       this.setOriginalField(field.keys);

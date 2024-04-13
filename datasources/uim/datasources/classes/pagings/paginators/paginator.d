@@ -237,7 +237,7 @@ class DPaginator : IPaginator {
         options = this.validateSort(anRepository, options);
         options = this.checkLimit(options);
 
-        options += ["page":1, "scope":null];
+        options = options.update["page":1, "scope":null];
         options["page"] = (int)options["page"] < 1 ? 1 : (int)options["page"];
         [myFinder, options] = _extractFinder(options);
 

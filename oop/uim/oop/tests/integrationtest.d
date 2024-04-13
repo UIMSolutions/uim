@@ -14,6 +14,7 @@ import uim.oop;
  * that mock objects create.
  */
 template IntegrationTestTemplate() {
+    /* 
     mixin TCookieCrypt;
     mixin TContainerStub;
 
@@ -24,87 +25,87 @@ template IntegrationTestTemplate() {
      * The response for the most recent request.
      *
      * @var \Psr\Http\Message\IResponse|null
-     */
+     * /
     protected IResponse _response = null;
 
     /**
      * The exception being thrown if the case.
-     */
+     * /
     protected Throwable _exception = null;
 
     /**
      * Session data to use in the next request.
-     */
+     * /
     protected array _session = null;
 
     /**
      * Cookie data to use in the next request.
-     */
+     * /
     protected array _cookie = null;
 
     /**
      * The controller used in the last request.
-     */
+     * /
     protected IController _controller = null;
 
     /**
      * The last rendered view
-     */
+     * /
     protected string _viewName = null;
 
     /**
      * The last rendered layout
-     */
+     * /
     protected string _layoutName = null;
 
     /**
      * The session instance from the last request
-     */
+     * /
     protected ISession _requestSession = null;
 
     /**
      * Boolean flag for whether the request should have
      * a SecurityComponent token added.
-     */
+     * /
     protected bool _securityToken = false;
 
     /**
      * Boolean flag for whether the request should have
      * a CSRF token added.
-     */
+     * /
     protected bool _csrfToken = false;
 
     /**
      * Boolean flag for whether the request should re-store
      * flash messages
-     */
+     * /
     protected bool _retainFlashMessages = false;
 
     /**
      * Stored flash messages before render
-     */
+     * /
     protected array _flashMessages = null;
 
     /**
      * @var string
-     */
+     * /
     protected string _cookieEncryptionKey = null;
 
     /**
      * List of fields that are excluded from field validation.
-     */
+     * /
     protected string[] _unlockedFields = null;
 
     /**
      * The name that will be used when retrieving the csrf token.
-     */
+     * /
     protected string _csrfKeyName = "csrfToken";
 
     /**
      * Clears the state used for requests.
      *
      * @after
-     */
+     * /
     auto cleanup() {
        _request = null;
        _session = null;
@@ -125,7 +126,7 @@ template IntegrationTestTemplate() {
      * Calling this method will enable a SecurityComponent
      * compatible token to be added to request data. This
      * lets you easily test actions protected by SecurityComponent.
-     */
+     * /
     void enableSecurityToken() {
        _securityToken = true;
     }
@@ -134,7 +135,7 @@ template IntegrationTestTemplate() {
      * Set list of fields that are excluded from field validation.
      * Params:
      * string[] unlockedFields List of fields that are excluded from field validation.
-     */
+     * /
     void setUnlockedFields(array unlockedFields = []) {
        _unlockedFields = unlockedFields;
     }
@@ -146,7 +147,7 @@ template IntegrationTestTemplate() {
      * is enabled. The default parameter names will be used.
      * Params:
      * string acookieName The name of the csrf token cookie.
-     */
+     * /
     void enableCsrfToken(string acookieName = "csrfToken") {
        _csrfToken = true;
        _csrfKeyName = cookieName;
@@ -155,7 +156,7 @@ template IntegrationTestTemplate() {
     /**
      * Calling this method will re-store flash messages into the test session
      * after being removed by the FlashHelper
-     */
+     * /
     void enableRetainFlashMessages() {
        _retainFlashMessages = true;
     }
@@ -170,14 +171,14 @@ template IntegrationTestTemplate() {
      * state.
      * Params:
      * array data The request data to use.
-     */
+     * /
     void configRequest(array data) {
        _request = array_merge_recursive(someData, _request);
     }
     
     /**
      * Sets HTTP headers for the *next* request to be identified as IData request.
-     */
+     * /
     void requestAsIData() {
         this.configRequest([
             "headers": [
@@ -198,7 +199,7 @@ template IntegrationTestTemplate() {
      * the current state.
      * Params:
      * array data The session data to use.
-     */
+     * /
     void session(array data) {
        _session = someData + _session;
     }
@@ -215,14 +216,14 @@ template IntegrationTestTemplate() {
      * Params:
      * string aName The cookie name to use.
      * @param string avalue The value of the cookie.
-     */
+     * /
     void cookie(string aName, string avalue) {
        _cookie[name] = aValue;
     }
     
     /**
      * Returns the encryption key to be used.
-     */
+     * /
     protected string _getCookieEncryptionKey() {
         return _cookieEncryptionKey ?? Security.getSalt();
     }
@@ -238,7 +239,7 @@ template IntegrationTestTemplate() {
      * @param string|false encrypt Encryption mode to use.
      * @param string aKey Encryption key used. Defaults
      *  to Security.salt.
-     */
+     * /
     void cookieEncrypted(
         string aName,
         string[] avalue,
@@ -257,7 +258,7 @@ template IntegrationTestTemplate() {
      * response.
      * Params:
      * string[] aurl The URL to request.
-     */
+     * /
     void get(string[] aurl) {
        _sendRequest(url, "GET");
     }
@@ -271,7 +272,7 @@ template IntegrationTestTemplate() {
      * Params:
      * string[] aurl The URL to request.
      * @param string[] adata The data for the request.
-     */
+     * /
     void post(string[] aurl, string[] adata = []) {
        _sendRequest(url, "POST", someData);
     }
@@ -284,7 +285,7 @@ template IntegrationTestTemplate() {
      * Params:
      * string[] aurl The URL to request.
      * @param string[] adata The data for the request.
-     */
+     * /
     void patch(string[] aurl, string[] adata = []) {
        _sendRequest(url, "PATCH", someData);
     }
@@ -297,7 +298,7 @@ template IntegrationTestTemplate() {
      * Params:
      * string[] aurl The URL to request.
      * @param string[] adata The data for the request.
-     */
+     * /
     void put(string[] aurl, string[] adata = []) {
        _sendRequest(url, "PUT", someData);
     }
@@ -309,7 +310,7 @@ template IntegrationTestTemplate() {
      * a property. You can use various assert methods to check the response.
      * Params:
      * string[] aurl The URL to request.
-     */
+     * /
     void delete(string[] aurl) {
        _sendRequest(url, "DELETE");
     }
@@ -321,7 +322,7 @@ template IntegrationTestTemplate() {
      * a property. You can use various assert methods to check the response.
      * Params:
      * string[] aurl The URL to request.
-     */
+     * /
     void head(string[] aurl) {
        _sendRequest(url, "HEAD");
     }
@@ -333,7 +334,7 @@ template IntegrationTestTemplate() {
      * a property. You can use various assert methods to check the response.
      * Params:
      * string[] aurl The URL to request.
-     */
+     * /
     void options(string[] aurl) {
        _sendRequest(url, "OPTIONS");
     }
@@ -347,7 +348,7 @@ template IntegrationTestTemplate() {
      * @param string amethod The HTTP method
      * @param string[] adata The request data.
      * @throws \PHPUnit\Exception|\Throwable
-     */
+     * /
     protected void _sendRequest(string[] aurl, string amethod, string[] adata = []) {
         dispatcher = _makeDispatcher();
         url = dispatcher.resolveUrl(url);
@@ -371,7 +372,7 @@ template IntegrationTestTemplate() {
     
     /**
      * Get the correct dispatcher instance.
-     */
+     * /
     protected MiddlewareDispatcher _makeDispatcher() {
         EventManager.instance().on("Controller.initialize", this.controllerSpy(...));
         app = this.createApp();
@@ -385,7 +386,7 @@ template IntegrationTestTemplate() {
      * Params:
      * \UIM\Event\IEvent event A dispatcher event.
      * @param \UIM\Controller\Controller|null controller Controller instance.
-     */
+     * /
     void controllerSpy(IEvent event, ?Controller controller = null) {
         if (!controller) {
             controller = event.getSubject();
@@ -422,7 +423,7 @@ template IntegrationTestTemplate() {
      * If that class does not exist, the built-in renderer will be used.
      * Params:
      * \Throwable exceptionToHandle Exception to handle.
-     */
+     * /
     protected void _handleError(Throwable exceptionToHandle) {
          className = Configure.read("Error.exceptionRenderer");
         if (className.isEmpty || !class_exists(className)) {
@@ -439,7 +440,7 @@ template IntegrationTestTemplate() {
      * string aurl The URL
      * @param string amethod The HTTP method
      * @param string[] adata The request data.
-     */
+     * /
     protected array _buildRequest(string aurl, string amethod, string[] adata = []) {
         sessionConfig = (array)Configure.read("Session") ~ [
             "defaults": "php",
@@ -505,7 +506,7 @@ template IntegrationTestTemplate() {
      * Params:
      * string aurl The URL the form is being submitted on.
      * @param array data The request body data.
-     */
+     * /
     protected array _addTokens(string aurl, array data) {
         if (_securityToken == true) {
             fields = array_diff_key(someData, array_flip(_unlockedFields));
@@ -548,7 +549,7 @@ template IntegrationTestTemplate() {
      * the real world
      * Params:
      * array data POST data
-     */
+     * /
     protected array _castToString(array data) {
         someData.byKeyValue
             .each!((kv) {
@@ -573,7 +574,7 @@ template IntegrationTestTemplate() {
      * Creates a valid request url and parameter array more like Request._url()
      * Params:
      * string aurl The URL
-     */
+     * /
     protected array _url(string aurl) {
         anUri = new Uri(url);
         somePath = anUri.getPath();
@@ -591,7 +592,7 @@ template IntegrationTestTemplate() {
     
     /**
      * Get the response body as string
-     */
+     * /
     protected string _getBodyAsString() {
         if (!_response) {
             this.fail("No response set, cannot assert content.");
@@ -605,7 +606,7 @@ template IntegrationTestTemplate() {
      * If the view variable does not exist, null will be returned.
      * Params:
      * string aName The view variable to get.
-     */
+     * /
     IData viewVariable(string aName) {
         return _controller?.viewBuilder().getVar(name);
     }
@@ -637,7 +638,7 @@ template IntegrationTestTemplate() {
      * Params:
      * int code Status code to assert.
      * @param string amessage Custom message for failure.
-     */
+     * /
     void assertResponseCode(int statusCode, string failureMessage = null) {
         this.assertThat(statusCode, new DStatusCode(_response), failureMessage);
     }
@@ -649,7 +650,7 @@ template IntegrationTestTemplate() {
      *  can either be a string URL or an array compatible with Router.url(). Use null to
      *  simply check for the existence of this header.
      * @param string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertRedirect(string[] url = null, string failureMessage= null)) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
@@ -674,7 +675,7 @@ template IntegrationTestTemplate() {
      *  can either be a string URL or an array compatible with Router.url(). Use null to
      *  simply check for the existence of this header.
      * @param string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertRedirectEquals(string[] url = null, string failureMessage = null) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
@@ -693,7 +694,7 @@ template IntegrationTestTemplate() {
      * Params:
      * string aurl The URL you expected the client to go to.
      * @param string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertRedirectContains(string aurl, string message = null) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
@@ -709,7 +710,7 @@ template IntegrationTestTemplate() {
      * Params:
      * string aurl The URL you expected the client to go to.
      * @param string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertRedirectNotContains(string aurl, string amessage = null) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
@@ -723,7 +724,7 @@ template IntegrationTestTemplate() {
      * Asserts that the Location header is not set.
      * Params:
      * string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertNoRedirect(string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(null, new HeaderNotSet(_response, "Location"), verboseMessage);
@@ -735,7 +736,7 @@ template IntegrationTestTemplate() {
      * string aheader The header to check
      * @param string acontent The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertHeader(string aheader, string acontent, string amessage = null) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
@@ -751,7 +752,7 @@ template IntegrationTestTemplate() {
      * string aheader The header to check
      * @param string acontent The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertHeaderContains(string aheader, string acontent, string amessage = null) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
@@ -767,7 +768,7 @@ template IntegrationTestTemplate() {
      * string aheader The header to check
      * @param string acontent The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertHeaderNotContains(string aheader, string acontent, string amessage = null) {
         if (!_response) {
             this.fail("No response set, cannot assert header.");
@@ -782,7 +783,7 @@ template IntegrationTestTemplate() {
      * Params:
      * string atype The content-type to check for.
      * @param string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertContentType(string atype, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(type, new DContentType(_response), verboseMessage);
@@ -793,7 +794,7 @@ template IntegrationTestTemplate() {
      * Params:
      * IData content The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertResponseEquals(IData content, string amessage= null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(content, new BodyEquals(_response), verboseMessage);
@@ -804,7 +805,7 @@ template IntegrationTestTemplate() {
      * Params:
      * IData content The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertResponseNotEquals(IData content, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(content, new BodyNotEquals(_response), verboseMessage);
@@ -816,7 +817,7 @@ template IntegrationTestTemplate() {
      * string acontent The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
      * @param bool  anIgnoreCase A flag to check whether we should ignore case or not.
-     */
+     * /
     void assertResponseContains(string acontent, string amessage = "", bool  anIgnoreCase = false) {
         if (!_response) {
             this.fail("No response set, cannot assert content.");
@@ -831,7 +832,7 @@ template IntegrationTestTemplate() {
      * string acontent The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
      * @param bool  anIgnoreCase A flag to check whether we should ignore case or not.
-     */
+     * /
     void assertResponseNotContains(string acontent, string amessage = "", bool  anIgnoreCase = false) {
         if (!_response) {
             this.fail("No response set, cannot assert content.");
@@ -845,7 +846,7 @@ template IntegrationTestTemplate() {
      * Params:
      * string apattern The pattern to compare against.
      * @param string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertResponseRegExp(string apattern, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(somePattern, new BodyRegExp(_response), verboseMessage);
@@ -856,7 +857,7 @@ template IntegrationTestTemplate() {
      * Params:
      * string apattern The pattern to compare against.
      * @param string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertResponseNotRegExp(string apattern, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(somePattern, new BodyNotRegExp(_response), verboseMessage);
@@ -866,7 +867,7 @@ template IntegrationTestTemplate() {
      * Assert response content is not empty.
      * Params:
      * string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertResponseNotEmpty(string failureMessage = "") {
         this.assertThat(null, new BodyNotEmpty(_response), failureMessage);
     }
@@ -875,7 +876,7 @@ template IntegrationTestTemplate() {
      * Assert response content is empty.
      * Params:
      * string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertResponseEmpty(string amessage = null) {
         this.assertThat(null, new BodyEmpty(_response), message);
     }
@@ -885,7 +886,7 @@ template IntegrationTestTemplate() {
      * Params:
      * string acontent The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertTemplate(string acontent, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(content, new DTemplateFileEquals(_viewName), verboseMessage);
@@ -896,7 +897,7 @@ template IntegrationTestTemplate() {
      * Params:
      * string acontent The content to check for.
      * @param string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertLayout(string acontent, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(content, new LayoutFileEquals(_layoutName), verboseMessage);
@@ -908,7 +909,7 @@ template IntegrationTestTemplate() {
      * IData expected The expected contents.
      * @param string aPath The session data path. Uses Hash.get() compatible notation
      * @param string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertSession(IData expected, string aPath, string message = "") {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(expected, new DSessionEquals(somePath), verboseMessage);
@@ -919,7 +920,7 @@ template IntegrationTestTemplate() {
      * Params:
      * string aPath The session data path. Uses Hash.get() compatible notation.
      * @param string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertSessionHasKey(string aPath, string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(somePath, new DSessionHasKey(somePath), verboseMessage);
@@ -930,7 +931,7 @@ template IntegrationTestTemplate() {
      * Params:
      * string aPath The session data path. Uses Hash.get() compatible notation.
      * @param string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertSessionNotHasKey(string aPath, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(somePath, this.logicalNot(new DSessionHasKey(somePath)), verboseMessage);
@@ -942,7 +943,7 @@ template IntegrationTestTemplate() {
      * string aexpected Expected message
      * @param string aKey Flash key
      * @param string amessage Assertion failure message
-     */
+     * /
     void assertFlashMessage(string aexpected, string aKey = "flash", string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(expected, new DFlashParamEquals(_requestSession, aKey, "message"), verboseMessage);
@@ -955,7 +956,7 @@ template IntegrationTestTemplate() {
      * @param string aexpected Expected message
      * @param string aKey Flash key
      * @param string amessage Assertion failure message
-     */
+     * /
     void assertFlashMessageAt(int at, string aexpected, string aKey = "flash", string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(
@@ -971,7 +972,7 @@ template IntegrationTestTemplate() {
      * string aexpected Expected element name
      * @param string aKey Flash key
      * @param string amessage Assertion failure message
-     */
+     * /
     void assertFlashElement(string aexpected, string aKey = "flash", string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(
@@ -988,7 +989,7 @@ template IntegrationTestTemplate() {
      * @param string aexpected Expected element name
      * @param string aKey Flash key
      * @param string amessage Assertion failure message
-     */
+     * /
     void assertFlashElementAt(int at, string aexpected, string aKey = "flash", string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(
@@ -1004,7 +1005,7 @@ template IntegrationTestTemplate() {
      * IData expected The expected contents.
      * @param string aName The cookie name.
      * @param string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertCookie(IData expected, string aName, string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(name, new DCookieSet(_response), verboseMessage);
@@ -1019,7 +1020,7 @@ template IntegrationTestTemplate() {
      * Params:
      * string aName The cookie name.
      * @param string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertCookieIsSet(string aName, string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(name, new DCookieSet(_response), verboseMessage);
@@ -1030,7 +1031,7 @@ template IntegrationTestTemplate() {
      * Params:
      * string acookie The cookie name to check
      * @param string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertCookieNotSet(string acookie, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(cookie, new DCookieNotSet(_response), verboseMessage);
@@ -1042,7 +1043,7 @@ template IntegrationTestTemplate() {
      * By using this function, exceptions are no longer caught by the ErrorHandlerMiddleware
      * and are instead re-thrown by the TestExceptionRenderer. This can be helpful
      * when trying to diagnose/debug unexpected failures in test cases.
-     */
+     * /
     void disableErrorHandlerMiddleware() {
         Configure.write("Error.exceptionRenderer", TestExceptionRenderer.classname);
     }
@@ -1060,7 +1061,7 @@ template IntegrationTestTemplate() {
      * @param string aKey Encryption key used. Defaults
      *  to Security.salt.
      * @param string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertCookieEncrypted(
         IData expected,
         string aName,
@@ -1083,7 +1084,7 @@ template IntegrationTestTemplate() {
      * Params:
      * string aexpected The absolute file path that should be sent in the response.
      * @param string amessage The failure message that will be appended to the generated message.
-     */
+     * /
     void assertFileResponse(string aexpected, string amessage = "") {
         verboseMessage = this.extractVerboseMessage(message);
         this.assertThat(null, new DFileSent(_response), verboseMessage);
@@ -1099,7 +1100,7 @@ template IntegrationTestTemplate() {
      * Inspect controller to extract possible causes of the failed assertion
      * Params:
      * string amessage Original message to use as a base
-     */
+     * /
     protected string extractVerboseMessage(string message) {
         if (cast(DException)_exception) {
             message ~= this.extractExceptionMessage(_exception);
@@ -1139,7 +1140,7 @@ template IntegrationTestTemplate() {
     }
     
     protected TestSession getSession() {
-        /** @psalm-suppress InvalidScalarArgument */
+        /** @psalm-suppress InvalidScalarArgument * /
         return new DTestSession(_SESSION);
-    }
+    } */
 }

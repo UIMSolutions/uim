@@ -1,4 +1,4 @@
-module uim.oop.TestSuite\Fixture;
+module uim.oop.tests.fixtures.fixturehelper;
 
 import uim.oop;
 
@@ -6,6 +6,7 @@ import uim.oop;
 
 // Helper for managing fixtures.
 class DFixtureHelper {
+    /* 
     // Finds fixtures from their TestCase names such as "core.Articles".
     IFixture[] loadFixtures(string[] fixtureNames) {
         static cachedFixtures = null;
@@ -46,10 +47,10 @@ class DFixtureHelper {
                     additionalPath,
                     name ~ "Fixture",
                 ];
-                /** @var class-string<\UIM\Datasource\IFixture>  className */
+                /** @var class-string<\UIM\Datasource\IFixture>  className * /
                  className = array_filter(nameSegments).join("\\");
             } else {
-                /** @var class-string<\UIM\Datasource\IFixture>  className */
+                /** @var class-string<\UIM\Datasource\IFixture>  className * /
                  className = fixtureName;
             }
             if (isSet(fixtures[className])) {
@@ -76,7 +77,7 @@ class DFixtureHelper {
      * Params:
      * \Closure aCallback Callback run per connection
      * @param array<\UIM\Datasource\IFixture> fixtures Test fixtures
-     */
+     * /
     void runPerConnection(Closure aCallback, array fixtures) {
         auto anGroups = null;
         fixtures
@@ -90,7 +91,7 @@ class DFixtureHelper {
      * Inserts fixture data.
      * Params:
      * array<\UIM\Datasource\IFixture> fixtures Test fixtures
-     */
+     * /
     void insert(array fixtures) {
         this.runPerConnection(void (IConnection aConnection, array  anGroupFixtures) {
             if (cast(DConnection)aConnection) {
@@ -115,7 +116,7 @@ class DFixtureHelper {
      * Params:
      * \UIM\Datasource\IConnection aConnection Fixture connection
      * @param array<\UIM\Datasource\IFixture> fixtures Connection fixtures
-     */
+     * /
     protected void insertConnection(IConnection aConnection, array fixtures) {
         fixtures.each!((fixture) {
             try {
@@ -131,7 +132,7 @@ class DFixtureHelper {
     
     /**
      * Truncates fixture tables.
-     */
+     * /
     void truncate(IFixture[] testFixtures) {
         this.runPerConnection(void (IConnection aConnection, array  anGroupFixtures) {
             if (cast(DConnection)aConnection) {
@@ -159,7 +160,7 @@ class DFixtureHelper {
      * Params:
      * \UIM\Datasource\IConnection aConnection Fixture connection
      * @param array<\UIM\Datasource\IFixture> fixtures Connection fixtures
-     */
+     * /
     protected void truncateConnection(IConnection aConnection, array fixtures) {
         fixtures.each!((fixture) {
             try {
@@ -178,7 +179,7 @@ class DFixtureHelper {
      * Params:
      * \UIM\Database\Connection aConnection Database connection
      * @param array<\UIM\Datasource\IFixture> fixtures Database fixtures
-     */
+     * /
     protected array sortByConstraint(Connection aConnection, array fixtures) {
         constrained = null;
         unconstrained = null;
@@ -207,9 +208,9 @@ class DFixtureHelper {
      * Params:
      * \UIM\Database\Connection aConnection Database connection
      * @param \UIM\Datasource\IFixture fixture Database fixture
-     */
+     * /
     protected string[] getForeignReferences(Connection aConnection, IFixture fixture) {
-        /** @var array<string, \UIM\Database\Schema\TableISchema> schemas */
+        /** @var array<string, \UIM\Database\Schema\TableISchema> schemas * /
         static schemas = null;
 
         // Get and cache off the schema since TestFixture generates a fake schema based on fields
@@ -228,5 +229,5 @@ class DFixtureHelper {
             }
         }
         return references;
-    }
+    } */ 
 }

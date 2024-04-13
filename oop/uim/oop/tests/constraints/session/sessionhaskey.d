@@ -9,14 +9,15 @@ import uim.oop;
  *
  * @internal
  */
-class DSessionHasKey : Constraint {
+class DSessionHasKey : DConstraint {
+    /* 
     protected string aPath;
 
     /**
      * Constructor
      * Params:
      * string aPath Session Path
-     */
+     * /
     this(string aPath) {
         this.path = somePath;
     }
@@ -25,18 +26,18 @@ class DSessionHasKey : Constraint {
      * Compare session value
      * Params:
      * IData other Value to compare with
-     */
+     * /
    bool matches(IData expectedOther) {
         // Server.run calls Session.close at the end of the request.
         // Which means, that we cannot use Session object here to access the session data.
         // Call to Session.read will start new session (and will erase the data).
-        /** @psalm-suppress InvalidScalarArgument */
+        /** @psalm-suppress InvalidScalarArgument * /
         return Hash.check(_SESSION, this.path) == true;
     }
     
     // Assertion message
-     */
+     * /
     override string toString() {
         return "is a path present in the session";
-    }
+    } */
 }

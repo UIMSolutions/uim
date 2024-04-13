@@ -1,4 +1,4 @@
-module oop.uim.oop.tests.constraints.response.statussuccess;
+module uim.oop.tests.constraints.response.statussuccess;
 
 import uim.oop;
 
@@ -8,14 +8,14 @@ import uim.oop;
  *
  * @internal
  */
-class DStatusSuccess : StatusCodeBase {
+class DStatusSuccess : DStatusCodeBase {
     /**
      * @var array<int, int>|int
-     */
+     * /
     protected array|int code = [200, 308];
 
     // Assertion message
     override string toString() {
         return "%d is between 200 and 308".format(this.response.statusCode());
-    }
+    } */
 }

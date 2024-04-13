@@ -1,4 +1,4 @@
-module oop.uim.oop.tests.constraints.eventfiredwithx;
+module uim.oop.tests.constraints.eventfiredwith;
 
 import uim.oop;
 

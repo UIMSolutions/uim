@@ -23,6 +23,7 @@ class DFormHelper : Helper {
     // TODO use IdGeneratorTemplate;
     // TODO use StringTemplateTemplate;
 
+    /* 
     // Other helpers used by FormHelper
     protected array myhelpers = ["Url", "Html"];
 
@@ -126,7 +127,7 @@ class DFormHelper : Helper {
      * Default widgets
      *
      * @var array<string, string[]>
-     */
+     * /
     protected array my_defaultWidgets = [
         "button": ["Button"],
         "checkbox": ["Checkbox"],
@@ -145,37 +146,37 @@ class DFormHelper : Helper {
     /**
      * Constant used internally to skip the securing process,
      * and neither add the field to the hash or to the unlocked fields.
-     */
+     * /
     const string SECURE_SKIP = "skip";
 
     /**
      * Defines the type of form being created. Set by FormHelper.create().
-     */
+     * /
     string myrequestType = null;
 
     /**
      * Locator for input widgets.
      *
      * @var \UIM\View\Widget\WidgetLocator
-     */
+     * /
     protected DWidgetLocator my_locator;
 
     /**
      * DContext for the current form.
      *
      * @var \UIM\View\Form\IContext|null
-     */
+     * /
     protected IContext my_context = null;
 
     /**
      * DContext factory.
-     */
+     * /
     protected DContextFactory my_contextFactory = null;
 
     /**
      * The action attribute value of the last created form.
      * Used to make form/request specific hashes for form tampering protection.
-     */
+     * /
     protected string my_lastAction = "";
 
     /**
@@ -184,26 +185,26 @@ class DFormHelper : Helper {
      * `context` - Corresponds to `IContext` instances.
      * `data` - Corresponds to request data (POST/PUT).
      * `query` - Corresponds to request"s query string.
-     */
+     * /
     protected string[] mysupportedValueSources = ["context", "data", "query"];
 
     /**
      * The default sources.
      *
      * @see FormHelper.mysupportedValueSources for valid values.
-     */
+     * /
     protected string[] my_valueSources = ["data", "context"];
 
     /**
      * Grouped input types.
-     */
+     * /
     protected string[] my_groupedInputTypes = ["radio", "multicheckbox"];
 
     /**
      * Form protector
      *
      * @var \UIM\Form\FormProtector|null
-     */
+     * /
     protected DFormProtector myformProtector = null;
 
     /**
@@ -211,7 +212,7 @@ class DFormHelper : Helper {
      * Params:
      * \UIM\View\View myview The View this helper is being attached to.
      * @param IData[string] configData Configuration settings for the helper.
-     */
+     * /
     this(IView myview, IData[string] configData = null) {
         mylocator = null;
         mywidgets = _defaultWidgets;
@@ -241,7 +242,7 @@ class DFormHelper : Helper {
     
     /**
      * Get the widget locator currently used by the helper.
-     */
+     * /
     WidgetLocator getWidgetLocator() {
         return _locator;
     }
@@ -250,7 +251,7 @@ class DFormHelper : Helper {
      * Set the widget locator the helper will use.
      * Params:
      * \UIM\View\Widget\WidgetLocator myinstance The locator instance to set.
-     */
+     * /
     void setWidgetLocator(WidgetLocator myinstance) {
        _locator = myinstance;
     }
@@ -260,7 +261,7 @@ class DFormHelper : Helper {
      * Params:
      * \UIM\View\Form\ContextFactory|null myinstance The context factory instance to set.
      * @param array mycontexts An array of context providers.
-     */
+     * /
     DContextFactory contextFactory(?ContextFactory myinstance = null, array mycontexts = []) {
         if (myinstance is null) {
             return _contextFactory ??= DContextFactory.createWithDefaults(mycontexts);
@@ -295,7 +296,7 @@ class DFormHelper : Helper {
      *  Can be a IContext instance, ORM entity, ORM resultset, or an
      *  array of meta data. You can use `null` to make a context-less form.
      * @param IData[string] options An array of html attributes and options.
-     */
+     * /
     string create(IData formContext = null, IData[string] options  = null) {
         myappend = "";
 
@@ -408,7 +409,7 @@ class DFormHelper : Helper {
      * Params:
      * \UIM\View\Form\IContext formContext The context object to use.
      * @param IData[string] options An array of options from create()
-     */
+     * /
     protected string[] _formUrl(IContext formContext, IData[string] options) {
         auto myrequest = _View.getRequest();
 
@@ -435,7 +436,7 @@ class DFormHelper : Helper {
      * Correctly store the last created form action URL.
      * Params:
      * string[] myurl The URL of the last form.
-     */
+     * /
     protected void _lastAction(string[] myurl = null) {   myaction = Router.url(myurl, true);
         myquery = parse_url(myaction, PHP_URL_QUERY);
         myquery = myquery ? "?" ~ myquery : "";
@@ -447,7 +448,7 @@ class DFormHelper : Helper {
     /**
      * Return a CSRF input if the request data is present.
      * Used to secure forms in conjunction with CsrfMiddleware.
-     */
+     * /
     protected string _csrfField() {
         myrequest = _View.getRequest();
 
@@ -469,7 +470,7 @@ class DFormHelper : Helper {
      * Params:
      * IData[string] mysecureAttributes Secure attributes which will be passed as HTML attributes
      *  into the hidden input elements generated for the Security Component.
-     */
+     * /
     string end(array mysecureAttributes = []) {
         result = "";
 
@@ -500,7 +501,7 @@ class DFormHelper : Helper {
      *   FormProtector for generating the hash.
      * @param IData[string] mysecureAttributes will be passed as HTML attributes into the hidden
      *   input elements generated for the Security Component.
-     */
+     * /
     string secure(array myfields = [], array mysecureAttributes = []) {
         if (!this.formProtector) {
             return "";
@@ -543,7 +544,7 @@ class DFormHelper : Helper {
     /**
      * Get Session id for FormProtector
      * Must be the same as in FormProtectionComponent
-     */
+     * /
     protected string _getFormProtectorSessionId() {
         return _View.getRequest().getSession().id();
     }
@@ -552,7 +553,7 @@ class DFormHelper : Helper {
      * Add to the list of fields that are currently unlocked.
      *
      * Unlocked fields are not included in the form protection field hash.
-     */
+     * /
     void unlockField(string fieldName) {
         this.getFormProtector().unlockField(fieldName);
     }
@@ -561,7 +562,7 @@ class DFormHelper : Helper {
      * Create FormProtector instance.
      * Params:
      * IData[string] myformTokenData Token data.
-     */
+     * /
     protected DFormProtector createFormProtector(array myformTokenData) {
         auto mysession = _View.getRequest().getSession();
         mysession.start();
@@ -586,7 +587,7 @@ class DFormHelper : Helper {
      * Returns true if there is an error for the given field, otherwise false
      * Params:
      * string myfield This should be "modelname.fieldname"
-     */
+     * /
     bool isFieldError(string myfield) {
         return _getContext().hasError(myfield);
     }
@@ -605,7 +606,7 @@ class DFormHelper : Helper {
      * @param string[] mytext Error message as string or array of messages. If an array,
      *  it should be a hash of key names: messages.
      * @param IData[string] options See above.
-     */
+     * /
     string error(string myfield, string[] mytext = null, IData[string] options  = null) {
         if (myfield.endsWith("._ids")) {
             myfield = substr(myfield, 0, -5);
@@ -712,7 +713,7 @@ class DFormHelper : Helper {
      *  mytext is left undefined the text will be inflected from the
      *  fieldName.
      * @param IData[string] options An array of HTML attributes.
-     */
+     * /
     string label(string aFieldName, string mytext = null, IData[string] options  = null) {
         if (mytext is null) {
             mytext = fieldName;
@@ -775,7 +776,7 @@ class DFormHelper : Helper {
      *   be enabled
      * - `legend` Set to false to disable the legend for the generated control set. Or supply a string
      *   to customize the legend text.
-     */
+     * /
     string allControls(array myfields = [], IData[string] options  = null) {
         mycontext = _getContext();
 
@@ -809,7 +810,7 @@ class DFormHelper : Helper {
      *   If you pass an empty array, the fieldset will be enabled.
      * - `legend` Set to false to disable the legend for the generated input set.
      *   Or supply a string to customize the legend text.
-     */
+     * /
     string controls(array myfields, IData[string] options  = null) {
         myfields = Hash.normalize(myfields);
 
@@ -834,7 +835,7 @@ class DFormHelper : Helper {
      *   be enabled
      * - `legend` Set to false to disable the legend for the generated input set. Or supply a string
      *   to customize the legend text.
-     */
+     * /
     string fieldset(string myfields = "", IData[string] options  = null) {
         mylegend = options["legend"] ?? true;
         myfieldset = options["fieldset"] ?? true;
@@ -893,7 +894,7 @@ class DFormHelper : Helper {
      * Params:
      * string aFieldName This should be "modelname.fieldname"
      * @param IData[string] options Each type of input takes different options.
-     */
+     * /
     string control(string aFieldName, IData[string] options  = null) {
         options = options.update[
             "type": null,
@@ -1006,7 +1007,7 @@ class DFormHelper : Helper {
      * Generates an group template element
      * Params:
      * IData[string] options The options for group template
-     */
+     * /
     protected string _groupTemplate(IData[string] options) {
         mygroupTemplate = options["options"]["type"] ~ "FormGroup";
         if (!this.templater().get(mygroupTemplate)) {
@@ -1024,7 +1025,7 @@ class DFormHelper : Helper {
      * Generates an input container template
      * Params:
      * IData[string] options The options for input container template
-     */
+     * /
     protected string _inputContainerTemplate(IData[string] options) {
         myinputContainerTemplate = options["options"]["type"] ~ "Container" ~ options["errorSuffix"];
         if (!this.templater().get(myinputContainerTemplate)) {
@@ -1045,7 +1046,7 @@ class DFormHelper : Helper {
      * Params:
      * string aFieldName the field name
      * @param IData[string] options The options for the input element
-     */
+     * /
     protected string[] _getInput(string aFieldName, IData[string] options) {
         mylabel = options["labelOptions"];
         options.remove("labelOptions");
@@ -1076,7 +1077,7 @@ class DFormHelper : Helper {
      * Params:
      * string aFieldName The name of the field to parse options for.
      * @param IData[string] options Options list.
-     */
+     * /
     protected IData[string] _parseOptions(string aFieldName, IData[string] options) {
         myneedsMagicType = false;
         if (options.isEmpty("type")) {
@@ -1093,7 +1094,7 @@ class DFormHelper : Helper {
      * Params:
      * string aFieldName the name of the field to guess a type for
      * @param IData[string] options the options passed to the input method
-     */
+     * /
     protected string _inputType(string aFieldName, IData[string] options) {
         mycontext = _getContext();
 
@@ -1129,7 +1130,7 @@ class DFormHelper : Helper {
      * Params:
      * string aFieldName The name of the field to find options for.
      * @param IData[string] options Options list.
-     */
+     * /
     protected IData[string] _optionsOptions(string aFieldName, IData[string] options) {
         if (isSet(options["options"])) {
             return options;
@@ -1174,12 +1175,12 @@ class DFormHelper : Helper {
      * Get map of enum value: label for select/radio options.
      * Params:
      * class-string<\BackedEnum> myenumClass Enum class name.
-     */
+     * /
     protected array<int|string, string> enumOptions(string enumClassname) {
         assert(isSubclass_of(enumClassname, BackedEnum.classname));
 
         myvalues = null;
-        /** @var \BackedEnum mycase */
+        /** @var \BackedEnum mycase * /
         foreach (mycase; enumClassname.cases()) {
             myhasLabel = cast(IEnumLabel)mycase || method_exists(mycase, "label");
             myvalues[mycase.value] = myhasLabel ? mycase.label(): mycase.name;
@@ -1194,7 +1195,7 @@ class DFormHelper : Helper {
      * @param IData[string] options Options list.
      * @param bool myallowOverride Whether it is allowed for this method to
      * overwrite the "type" key in options.
-     */
+     * /
     protected IData[string] _magicOptions(string aFieldName, IData[string] options, bool myallowOverride) {
         options = options.update[
             "templateVars": ArrayData,
@@ -1221,7 +1222,7 @@ class DFormHelper : Helper {
      * Params:
      * string aFieldName The name of the field to generate options for.
      * @param IData[string] options Options list.
-     */
+     * /
     protected IData[string] setRequiredAndCustomValidity(string aFieldName, IData[string] options) {
         mycontext = _getContext();
 
@@ -1250,7 +1251,7 @@ class DFormHelper : Helper {
      * string aFieldName The name of the field to generate label for.
      * @param  options Options list.
      * @return string|false Generated label element or false.
-     */
+     * /
     protected string _getLabel(string aFieldName, IData[string] options) {
         if (options["type"] == "hidden") {
             return null;
@@ -1272,7 +1273,7 @@ class DFormHelper : Helper {
      * string views The name of the option to pull out.
      * @param IData[string] options The array of options you want to extract.
      * @param IData mydefault The default option value
-     */
+     * /
     protected IData _extractOption(string views, IData[string] options, IData mydefault = null) {
         if (array_key_exists(views, options)) {
             return options[views];
@@ -1287,7 +1288,7 @@ class DFormHelper : Helper {
      * used instead of the generated values if present.
      * Params:
      * @param IData[string]|string|null mylabel Label text or array with label attributes.
-     */
+     * /
     protected string _inputLabel(string fieldName, string labelText = null, STRINGAA labelAttributes = null, IData[string] labelOptions = null) {
         IData[string] options = options.update["id": null, "input": null, "nestedInput": BooleanData(false), "templateVars": ArrayData];
         STRINGAA mylabelAttributes = ["templateVars": labelOptions["templateVars"]];
@@ -1330,7 +1331,7 @@ class DFormHelper : Helper {
      * Params:
      * string aFieldName Name of a field, like this "modelname.fieldname"
      * @param IData[string] options Array of HTML attributes.
-     */
+     * /
     string[] checkbox(string aFieldName, IData[string] options  = null) {
         options = options.update["hiddenField": BooleanData(true), "value": 1];
 
@@ -1385,7 +1386,7 @@ class DFormHelper : Helper {
      * string aFieldName Name of a field, like this "modelname.fieldname"
      * @param range options Radio button options array.
      * @param IData[string] myattributes Array of attributes.
-     */
+     * /
     string radio(string aFieldName, range options = [], array myattributes = []) {
         myattributes["options"] = options;
         myattributes["idPrefix"] = _idPrefix;
@@ -1437,7 +1438,7 @@ class DFormHelper : Helper {
      * Params:
      * string mymethod Method name / input type to make.
      * @param array myparams Parameters for the method call
-     */
+     * /
     string|int|false __call(string mymethod, array myparams) {
         if (isEmpty(myparams)) {
             throw new UimException(
@@ -1459,7 +1460,7 @@ class DFormHelper : Helper {
      * Params:
      * string aFieldName Name of a field, in the form "modelname.fieldname"
      * @param IData[string] options Array of HTML attributes, and special options above.
-     */
+     * /
     string textarea(string aFieldName, IData[string] options  = null) {
         options = _initInputField(fieldName, options);
         unset(options["type"]);
@@ -1472,7 +1473,7 @@ class DFormHelper : Helper {
      * Params:
      * string aFieldName Name of a field, in the form of "modelname.fieldname"
      * @param IData[string] options Array of HTML attributes.
-     */
+     * /
     string hidden(string aFieldName, IData[string] options  = null) {
         options = options.update["required": BooleanData(false), "secure": BooleanData(true)];
 
@@ -1503,7 +1504,7 @@ class DFormHelper : Helper {
      * @param IData[string] options Array of HTML attributes.
      * @return string A generated file input.
      * @link https://book.UIM.org/5/en/views/helpers/form.html#creating-file-inputs
-     */
+     * /
     string file(string aFieldName, IData[string] options  = null) {
         options = options.update["secure": BooleanData(true)];
         options = _initInputField(fieldName, options);
@@ -1525,7 +1526,7 @@ class DFormHelper : Helper {
      * Params:
      * string mytitle The button"s caption. Not automatically HTML encoded
      * @param IData[string] options Array of options and HTML attributes.
-     */
+     * /
     string button(string mytitle, IData[string] options  = null) {
         options = options.update[
             "type": "submit",
@@ -1566,7 +1567,7 @@ class DFormHelper : Helper {
      * Params:
      * string mytitle The button"s caption. Not automatically HTML encoded
      * @param string[] myurl URL as string or array
-     */
+     * /
     string postButton(string mytitle, string[] myurl, IData[string] options  = null) {
         auto myformOptions = ["url": myurl];
         if (isSet(options["method"])) {
@@ -1616,7 +1617,7 @@ class DFormHelper : Helper {
      * @param string[] myurl Cake-relative URL or array of URL parameters, or
      *  external URL (starts with http://)
      * @param IData[string] options Array of HTML attributes.
-     */
+     * /
     string postLink(string mytitle, string[] myurl = null, IData[string] options  = null) {
         options = options.update["block": null, "confirm": null];
 
@@ -1722,7 +1723,7 @@ class DFormHelper : Helper {
      * exists, AND the first character is /, image is relative to webroot,
      * OR if the first character is not /, image is relative to webroot/img.
      * @param IData[string] options Array of options. See above.
-     */
+     * /
     string submit(string mycaption = null, IData[string] options  = null) {
         mycaption ??= __d("uim", "Submit");
         options = options.update[
@@ -1835,7 +1836,7 @@ class DFormHelper : Helper {
      * @param range options Array of the OPTION elements (as "value"=>"Text" pairs) to be used in the
      *  SELECT element
      * @param IData[string] myattributes The HTML attributes of the select element.
-     */
+     * /
     string select(string aFieldName, range options = [], array myattributes = []) {
         myattributes += [
             "disabled": null,
@@ -1907,7 +1908,7 @@ class DFormHelper : Helper {
      * @param range options Array of the OPTION elements
      *  (as "value"=>"Text" pairs) to be used in the checkboxes element.
      * @param IData[string] myattributes The HTML attributes of the select element.
-     */
+     * /
     string multiCheckbox(string aFieldName, range options, array myattributes = []) {
         myattributes += [
             "disabled": null,
@@ -1959,7 +1960,7 @@ class DFormHelper : Helper {
      * Params:
      * string aFieldName The field name.
      * @param IData[string] options Options & attributes for the select elements.
-     */
+     * /
     string year(string aFieldName, IData[string] options  = null) {
         auto options = options.update[
             "empty": BooleanData(true),
@@ -1979,7 +1980,7 @@ class DFormHelper : Helper {
      * Params:
      * string aFieldName The field name.
      * @param IData[string] options Array of options or HTML attributes.
-     */
+     * /
     string month(string aFieldName, IData[string] options  = null) {
         options = options.update[
             "value": null,
@@ -2001,7 +2002,7 @@ class DFormHelper : Helper {
      * Params:
      * string aFieldName The field name.
      * @param IData[string] options Array of options or HTML attributes.
-     */
+     * /
     string dateTime(string aFieldName, IData[string] options  = null) {
         options = options.update[
             "value": null,
@@ -2022,7 +2023,7 @@ class DFormHelper : Helper {
      * Params:
      * string aFieldName The field name.
      * @param IData[string] options Array of options or HTML attributes.
-     */
+     * /
     string time(string aFieldName, IData[string] options  = null) {
         options = options.update[
             "value": null,
@@ -2042,7 +2043,7 @@ class DFormHelper : Helper {
      * Params:
      * string aFieldName The field name.
      * @param IData[string] options Array of options or HTML attributes.
-     */
+     * /
     string date(string aFieldName, IData[string] options  = null) {
         options = options.update[
             "value": null,
@@ -2076,7 +2077,7 @@ class DFormHelper : Helper {
      * Params:
      * string myfield Name of the field to initialize options for.
      * @param IData[string]|string[] options Array of options to append options into.
-     */
+     * /
     protected IData[string] _initInputField(string myfield, IData[string] options  = null) {
         options = options.update["fieldName": myfield];
 
@@ -2131,7 +2132,7 @@ class DFormHelper : Helper {
      * Determine if a field is disabled.
      * Params:
      * IData[string] options The option set.
-     */
+     * /
     protected bool _isDisabled(IData[string] options) {
         if (!options.isSet("disabled")) {
             return false;
@@ -2174,7 +2175,7 @@ class DFormHelper : Helper {
      *  can be used to overwrite existing providers.
      * @param callable mycheck A callable that returns an object
      *  when the form context is the correct type.
-     */
+     * /
     void addContextProvider(string mytype, callable mycheck) {
         this.contextFactory().addProvider(mytype, mycheck);
     }
@@ -2186,7 +2187,7 @@ class DFormHelper : Helper {
      * Params:
      * \UIM\View\Form\IContext|null formContext Either the new context when setting, or null to get.
      * @return \UIM\View\Form\IContext The context for the form.
-     */
+     * /
     IContext context(?IContext formContext = null) {
         if (cast(IContext)formContext) {
            _context = formContext;
@@ -2200,7 +2201,7 @@ class DFormHelper : Helper {
      * If no type can be matched a NullContext will be returned.
      * Params:
      * IData mydata The data to get a context provider for.
-     */
+     * /
     protected IContext _getContext(IData mydata = []) {
         if (isSet(_context) && empty(mydata)) {
             return _context;
@@ -2219,7 +2220,7 @@ class DFormHelper : Helper {
      * string views The name of the widget. e.g. "text".
      * @param \UIM\View\Widget\IWidget|string[] myspec Either a string class
      *  name or an object implementing the IWidget.
-     */
+     * /
     void addWidget(string views, IWidget|string[] myspec) {
        _locator.add([views: myspec]);
     }
@@ -2234,7 +2235,7 @@ class DFormHelper : Helper {
      * Params:
      * string widgetname The name of the widget. e.g. "text".
      * @param array data The data to render.
-     */
+     * /
     string widget(string widgetname, array data = []) {
         mysecure = null;
         if (isSet(mydata["secure"])) {
@@ -2260,14 +2261,14 @@ class DFormHelper : Helper {
      * Restores the default values built into FormHelper.
      *
      * This method will not reset any templates set in custom widgets.
-     */
+     * /
     void resetTemplates() {
         this.setTemplates(_defaultconfiguration["templates"]);
     }
     
     /**
      * Event listeners.
-     */
+     * /
     IEvents[] implementedEvents() {
         return null;
     }
@@ -2275,7 +2276,7 @@ class DFormHelper : Helper {
     /**
      * Gets the value sources.
      * Returns a list, but at least one item, of valid sources, such as: `"context"`, `"data"` and `"query"`.
-     */
+     * /
     string[] getValueSources() {
         return _valueSources;
     }
@@ -2285,7 +2286,7 @@ class DFormHelper : Helper {
      * Params:
      * string[] mysources A list of strings identifying a source.
      * @throws \InvalidArgumentException If sources list contains invalid value.
-     */
+     * /
     protected void validateValueSources(array mysources) {
         mydiff = array_diff(mysources, this.supportedValueSources);
 
@@ -2293,14 +2294,8 @@ class DFormHelper : Helper {
             array_walk(mydiff, fn (&myx): myx = "`myx`");
             array_walk(this.supportedValueSources, fn (&myx): myx = "`myx`");
             throw new DInvalidArgumentException(
-<<<<<<< HEAD
-                "Invalid value source(s): %s. Valid values are: %s.".format(
-                join(", ", mydiff),
-                join(", ", this.supportedValueSources)
-=======
                 "Invalid value source(s): %s. Valid values are: %s."
                 .format(join(", ", mydiff), join(", ", this.supportedValueSources)
->>>>>>> a8eca63e3a082caffb32183a18c571cd53fc1ac0
             ));
         }
     }
@@ -2315,7 +2310,7 @@ class DFormHelper : Helper {
      * @param string[]|string mysources A string or a list of strings identifying a source.
      * @return this
      * @throws \InvalidArgumentException If sources list contains invalid value.
-     */
+     * /
     void setValueSources(string[] mysources) {
         mysources = (array)mysources;
 
@@ -2345,5 +2340,5 @@ class DFormHelper : Helper {
             }
         }
         return null;
-    }
+    } */
 }

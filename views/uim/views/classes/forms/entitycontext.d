@@ -579,7 +579,7 @@ class DEntityContext : IContext {
      * Params:
      * string fieldPath A dot separated path to check errors on.
      */
-    array error(string fieldPath) {
+    DError[] errors(string fieldPath) {
         string[] myparts = fieldPath.split(".");
         try {
             /**

@@ -6,10 +6,10 @@ import uim.orm;
 
 // Checks that a list of fields from an entity are unique in the table
 class DIsUnique {
-    /* 
     // The list of fields to check
     protected string[] _fields;
 
+    /* 
     // The unique check options
     protected IData[string] _options = [
         "allowMultipleNulls": BooleanData(true),

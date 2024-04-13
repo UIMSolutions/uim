@@ -37,13 +37,14 @@ import uim.orm;
  * ```
  */
 class DTableRegistry {
+    /* 
     // Returns a singleton instance of ILocator implementation.
     static ILocator getTableLocator() {
-        return FactoryLocator.get("Table");
+        return DFactoryLocator.get("Table");
     }
     
     // Sets singleton instance of ILocator implementation.
     static void setTableLocator(ILocator locatorToUse) {
-        FactoryLocator.add("Table", locatorToUse);
-    }
+        DFactoryLocator.add("Table", locatorToUse);
+    } */
 }

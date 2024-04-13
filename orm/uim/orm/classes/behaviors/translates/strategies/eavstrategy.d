@@ -39,12 +39,12 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
         configuration.updateDefaults([
             "fields": ArrayData,
-            "translationTable": "I18n",
+            "translationTable": StringData("I18n"),
             "defaultLocale": NullData,
             "referencename": StringData,
             "allowEmptyTranslations": BooleanData(true),
             "onlyTranslated": BooleanData(false),
-            "strategy": "subquery",
+            "strategy": StringData("subquery"),
             "tableLocator": NullData,
             "validator": BooleanData(false),
         ]);

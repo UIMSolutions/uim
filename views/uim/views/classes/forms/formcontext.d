@@ -10,40 +10,20 @@ import uim.views;
  * This context provider simply fulfils the interface requirements
  * that FormHelper has and allows access to the form data.
  */
-class DFormContext : IContext {
+class DFormContext : IFormContext {
     // The form object.
     protected DForm my_form;
 
     // Validator name.
     protected string my_validator = null;
 
-    /**
-     * Constructor.
-     * Params:
-     * array mycontext DContext info.
-     *
-     * Keys:
-     *
-     * - `entity` The Form class instance this context is operating on. **(required)**
-     * - `validator` Optional name of the validation method to call on the Form object.
-     */
-    this(IData[string] contextData) {
-        assert(
-            isSet(mycontext["entity"]) && cast(DForm)mycontext["entity"],
-            "`\mycontext["entity"]` must be an instance of " ~ Form.classname
-        );
-
-       _form = mycontext["entity"];
-       _validator = mycontext.get("validator", null);
-    }
- 
    bool initialize(IData[string] initData = null) {
     configuration(MemoryConfiguration);
     configuration.data(initData);
 
     return true;
   }
-    array getPrimaryKeys() {
+    string[] getPrimaryKeys() {
         return null;
     }
  
@@ -54,7 +34,30 @@ class DFormContext : IContext {
     bool isCreate() {
         return true;
     }
+    
+    /**
+     * Constructor.
+     * Params:
+     * array mycontext DContext info.
+     *
+     * Keys:
+     *
+     * - `entity` The Form class instance this context is operating on. **(required)**
+     * - `validator` Optional name of the validation method to call on the Form object.
+     * /
+    this(IData[string] contextData) {
+        assert(
+            isSet(mycontext["entity"]) && cast(DForm)mycontext["entity"],
+            "`\mycontext["entity"]` must be an instance of " ~ Form.classname
+        );
+
+       _form = mycontext["entity"];
+       _validator = mycontext.get("validator", null);
+    }
  
+
+ 
+    /*
     auto val(string myfield, IData[string] options  = null) {
         options = options.update[
             "default": null,
@@ -143,9 +146,10 @@ class DFormContext : IContext {
         myerrors = this.error(myfield);
 
         return count(myerrors) > 0;
-    }
+    } */
  
-    array error(string myfield) {
-        return (array)Hash.get(_form.getErrors(), myfield, []);
-    }
+    DError[] error(string myfield) {
+        return null;
+        // TODO return (array)Hash.get(_form.getErrors(), myfield, []);
+    } 
 }

@@ -6,6 +6,7 @@ import uim.views;
 
 // Factory for getting form context instance based on provided data.
 class DContextFactory {
+    /*
     // DContext providers.
     protected array<string, array> myproviders = null;
 
@@ -14,7 +15,7 @@ class DContextFactory {
      * Params:
      * array myproviders Array of provider callables. Each element should
      *  be of form `["type": "a-string", "callable": ..]`
-     */
+     * /
     this(array myproviders = []) {
         foreach (myproviders as myprovider) {
             this.addProvider(myprovider["type"], myprovider["callable"]);
@@ -89,7 +90,7 @@ class DContextFactory {
      * string typeOfContext The type of context. This key can be used to overwrite existing providers.
      * @param callable mycheck A callable that returns an object
      *  when the form context is the correct type.
-     */
+     * /
     void addProvider(string typeOfContext, callable mycheck) {
         this.providers = [typeOfContext: ["type": typeOfContext, "callable": mycheck]]
             + this.providers;
@@ -102,8 +103,8 @@ class DContextFactory {
      * Params:
      * \UIM\Http\ServerRequest serverRequest Request instance.
      * @param IData[string] mydata The data to get a context provider for.
-     */
-    IContext get(ServerRequest serverRequest, array data = []) {
+     * /
+    IFormContext get(ServerRequest serverRequest, array data = []) {
         mydata += ["entity": null];
 
         foreach (this.providers as myprovider) {
@@ -121,5 +122,5 @@ class DContextFactory {
             ));
         }
         return mycontext;
-    }
+    } */
 }

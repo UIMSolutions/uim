@@ -83,7 +83,7 @@ class DAssociation : IAssociation {
 
 /* 
     // TODO use ConventionsTemplate;
-    // TODO use LocatorAwareTemplate;
+    // TODO use TLocatorAware;
 
     // Name given to the association, it usually represents the alias assigned to the target associated table
 
@@ -546,7 +546,7 @@ void attachTo(Query query, IData[string] optionData = null) {
     target = this.getTarget();
     table = target.getTable();
 
-    options += [
+    options = options.update[
         "includeFields": BooleanData(true),
         "foreignKeys": this.getForeignKeys(),
         "conditions": ArrayData,

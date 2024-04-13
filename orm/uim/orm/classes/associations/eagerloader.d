@@ -179,7 +179,7 @@ class DEagerLoader {
     void setMatching(string myassociationPath, ?Closure mybuilder = null, IData[string] optionData = null) {
        _matching ??= new static();
 
-        options += ["joinType": SelectQuery.JOIN_TYPE_INNER];
+        options = options.update["joinType": SelectQuery.JOIN_TYPE_INNER];
         mysharedOptions = ["negateMatch": BooleanData(false), "matching": BooleanData(true)] + options;
 
         mycontains = null;

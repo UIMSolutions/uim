@@ -49,7 +49,7 @@ class DEagerLoadable {
     protected bool _canBeJoined = false;
 
     // Whether this level was meant for a "matching" fetch operation
-    protected bool _forMatching = null;
+    protected bool _forMatching = false;
 
     /**
      * The property name where the association result should be nested
@@ -63,7 +63,7 @@ class DEagerLoadable {
      *
      * The target property of `country` will be just `country`
      */
-    protected string my_targetProperty = null;
+    protected string _targetProperty = null;
 
     /**
      * Constructor. The configData parameter accepts the following array

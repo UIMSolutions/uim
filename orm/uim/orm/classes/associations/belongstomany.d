@@ -827,7 +827,7 @@ class DBelongsToManyAssociation : DAssociation {
                 "cleanProperty": options,
             ];
         } else {
-            options += ["cleanProperty": BooleanData(true)];
+            options = options.update["cleanProperty": BooleanData(true)];
         }
 
         _checkPersistenceStatus(sourceEntity, targetEntities);

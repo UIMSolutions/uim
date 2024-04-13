@@ -214,7 +214,7 @@ class DMarshaller {
      * @param IData[string] options The options passed to this marshaller.
      * /
     protected array _prepareDataAndOptions(array data, IData[string] options) {
-        options += ["validate": BooleanData(true)];
+        options = options.update["validate": BooleanData(true)];
 
         mytableName = _table.aliasName();
         if (isSet(mydata[mytableName]) && isArray(mydata[mytableName])) {

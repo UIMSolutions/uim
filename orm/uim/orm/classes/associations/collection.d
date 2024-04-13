@@ -17,7 +17,7 @@ import uim.orm;
  */
 class DAssociationCollection { // }: IteratorAggregate {
     /* mixin TAssociationsNormalizer;
-    mixin LocatorAwareTemplate;
+    mixin TLocatorAware;
 
     // Stored associations
     protected DORMAssociation[] _items;

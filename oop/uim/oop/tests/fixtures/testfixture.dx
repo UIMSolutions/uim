@@ -7,7 +7,7 @@ import uim.oop;
 // TestFixture is responsible for building and destroying tables to be used during testing.
 class DTestFixture : IFixture {
     /* 
-    mixin LocatorAwareTemplate();
+    mixin TLocatorAware();
 
     // Fixture Datasource
     string _connectionName = "test";

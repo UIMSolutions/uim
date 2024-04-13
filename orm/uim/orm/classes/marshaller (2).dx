@@ -252,7 +252,7 @@ class DMarshaller
      * @return array An array containing prepared data and options.
      */
     protected function _prepareDataAndOptions(array data, IData[string] optionData) {
-        options += ["validate": BooleanData(true)];
+        options = options.update["validate": BooleanData(true)];
 
         tableName = _table.aliasName();
         if (isset(data[tableName]) && is_array(data[tableName])) {

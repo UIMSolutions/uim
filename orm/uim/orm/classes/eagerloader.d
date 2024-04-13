@@ -216,7 +216,7 @@ class DEagerLoader {
             _matching = new static();
         }
 
-        options += ["joinType": Query::JOIN_TYPE_INNER];
+        options = options.update["joinType": Query::JOIN_TYPE_INNER];
         sharedOptions = ["negateMatch": BooleanData(false), "matching": BooleanData(true)] + options;
 
         contains = null;

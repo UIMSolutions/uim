@@ -80,6 +80,7 @@ class DConsoleOptionParser {
     // Description text - displays before options when help is generated
     mixin(TProperty!("string", "_description"));
 
+    /* 
     // Sets the description text for shell/task.
     void description(string[] descriptionTexts...) {
         description(descriptionTexts.dup);
@@ -141,7 +142,7 @@ class DConsoleOptionParser {
 
     /**
      * Sets an epilog to the parser. The epilog is added to the end of
-     * the options and arguments listing when help is generated. */
+     * the options and arguments listing when help is generated. * /
     auto epilog(string[] epilogTexts...) {
         return epilog(epilogTexts.dup);
     }

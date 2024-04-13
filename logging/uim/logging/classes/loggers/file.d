@@ -26,7 +26,7 @@ class DFileLog : BaseLog {
      *  is made.
      * - `dirMask` The mask used for created folders.
      *
-     */
+     * /
     protected IConfiguration configuration.updateDefaults([
         "path": null,
         "file": null,
@@ -78,7 +78,7 @@ class DFileLog : BaseLog {
      * IData logLevel The severity level of the message being written.
      * @param \string messageToLog The message you want to log.
      * @param array messageContext Additional information about the logged message
-     */
+     * /
     void log(logLevel, string messageToLog, array messageContext = []) {
         string message = this.interpolate(messageToLog, messageContext);
         message = this.formatter.format(logLevel, message, messageContext);
@@ -132,7 +132,7 @@ class DFileLog : BaseLog {
      * Also if `rotate` count is reached oldest file is removed.
      * Params:
      * string logFilename Log file name
-     */
+     * /
     protected bool _rotateFile(string logFilename) {
         string logFilepath = _path ~ logFilename;
         clearstatcache(true, logFilepath);
@@ -155,5 +155,5 @@ class DFileLog : BaseLog {
             }
         }
         return result;
-    }
+    } */
 }

@@ -1,13 +1,13 @@
-module uim.orm.Query;
+module uim.orm.mixins.commonquery;
 
 import uim.orm;
 
 @safe:
 
 // mixin template with common methods used by all ORM query classes.
-template CommonTQuery() {
+mixin template TCommonTQuery() {
     // Instance of a repository/table object this query is bound to.
-    protected ITable my_repository;
+    // protected ITable my_repository;
 
     /**
      * Hints this object to associate the correct types when casting conditions
@@ -18,7 +18,7 @@ template CommonTQuery() {
      * This method returns the same query object for chaining.
      * Params:
      * \ORM\Table mytable The table to pull types from
-     */
+     * /
     void addDefaultTypes(Table mytable) {
         myalias = mytable.aliasName();
         mymap = mytable.getSchema().typeMap();
@@ -34,7 +34,7 @@ template CommonTQuery() {
      * and form the `FROM` clause.
      * Params:
      * \UIM\Datasource\IRepository myrepository The default table object to use
-     */
+     * /
     void setRepository(IRepository myrepository) {
         assert(
             cast(Table)myrepository,
@@ -47,8 +47,8 @@ template CommonTQuery() {
     /**
      * Returns the default repository object that will be used by this query,
      * that is, the table that will appear in the from clause.
-     */
+     * /
     Table getRepository() {
         return _repository;
-    }
+    } */
 }

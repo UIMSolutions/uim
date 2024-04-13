@@ -1,4 +1,4 @@
-module uim.orm;
+module uim.orm.classes.tables.table;
 
 import uim.orm;
 

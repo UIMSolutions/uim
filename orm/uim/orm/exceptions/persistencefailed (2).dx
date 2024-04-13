@@ -19,7 +19,7 @@ class DPersistenceFailedException : UimException {
      *  that are made available in the view, and sprintf()"d into Exception::_messageTemplate
      * @param int|null mycode The code of the error, is also the HTTP status code for the error.
      * @param \Throwable|null myprevious the previous exception.
-     */
+     * /
     this(
         IEntity myentity,
         array|string mymessage,
@@ -43,5 +43,5 @@ class DPersistenceFailedException : UimException {
     // Get the passed in entity
     IEntity getEntity() {
         return _entity;
-    }
+    } */
 }

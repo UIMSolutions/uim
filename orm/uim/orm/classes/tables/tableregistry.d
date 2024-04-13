@@ -1,4 +1,4 @@
-module uim.orm;
+module uim.orm.classes.tables.tableregistry;
 
 import uim.orm;
 

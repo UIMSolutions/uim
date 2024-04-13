@@ -23,7 +23,9 @@ class DPersistenceFailedException : DORMException {
 	}
 }
 
-mixin(ExceptionCalls!("PersistenceFailed"));		
+mixin(ExceptionCalls!("PersistenceFailed"));	
+
+/*
     // The entity on which the persistence operation failed
     protected IEntity _entity;
 

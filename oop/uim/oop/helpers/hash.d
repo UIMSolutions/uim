@@ -1030,7 +1030,7 @@ class Hash {
         }
 
         myalias = key(current(mydata));
-        options += [
+        options = options.update[
             "idPath": "{n}.myalias.id",
             "parentPath": "{n}.myalias.parent_id",
             "children": "children",

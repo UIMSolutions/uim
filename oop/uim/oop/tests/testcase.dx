@@ -6,7 +6,7 @@ import uim.oop;
 
 abstract class DTestCase : DBaseTestCase {
     /* 
-    mixin LocatorAwareTemplate();
+    mixin TLocatorAware();
     mixin TUnitConsecutive();
 
     /**
@@ -790,7 +790,7 @@ abstract class DTestCase : DBaseTestCase {
 
         [, baseClass] = pluginSplit(alias);
         options.update(["alias": baseClass, "connection": aConnection]);
-        options += locator.getConfig(alias);
+        options = options.updatelocator.getConfig(alias);
         reflection = new DReflectionClass(className);
          classNameMethods = array_map(function (method) {
             return method.name;

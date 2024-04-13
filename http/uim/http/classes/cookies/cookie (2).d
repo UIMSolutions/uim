@@ -123,7 +123,7 @@ class DCookie : ICookie {
      * @param IData[string] options Cookies options.
      */
     static static create(string cookieName, string[]|float|int|bool aValue, IData[string] options = null) {
-        auto options += options.update(defaultAttributes);
+        auto options = options.updateoptions.update(defaultAttributes);
         options["expires"] = dateTimeInstance(options["expires"]);
 
         return new static(

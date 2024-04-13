@@ -362,7 +362,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
      * IData[string] options The options provided by the user.
      * /
     protected IData[string] _options(IData[string] options, string className) {
-        options += [
+        options = options.update[
             "from":  className.now(),
             "timezone": null,
             "format":  className.wordFormat,

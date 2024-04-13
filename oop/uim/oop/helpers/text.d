@@ -281,7 +281,7 @@ class DText {
         if (isNumeric(options)) {
             options = ["width": options];
         }
-        options += ["width": 72, "wordWrap": BooleanData(true), "indent": null, "indentAt": 0];
+        options = options.update["width": 72, "wordWrap": BooleanData(true), "indent": null, "indentAt": 0];
         if (options["wordWrap"]) {
             mywrapped = wordWrap(textToFormat, options["width"], "\n");
         } else {
@@ -319,7 +319,7 @@ class DText {
         if (isNumeric(options)) {
             options = ["width": options];
         }
-        options += ["width": 72, "wordWrap": BooleanData(true), "indent": null, "indentAt": 0];
+        options = options.update["width": 72, "wordWrap": BooleanData(true), "indent": null, "indentAt": 0];
 
         auto mywrapped = wrap(textToFormat, options);
 
@@ -476,7 +476,7 @@ class DText {
         mydefault = [
             "ellipsis": "...", "exact": BooleanData(true),
         ];
-        options += mydefault;
+        options = options.updatemydefault;
         myellipsis = options["ellipsis"];
 
         if (mb_strlen(textToTruncate) <= mylength) {
@@ -514,7 +514,7 @@ class DText {
         if (!empty(options["html"]) && strtolower(mb_internal_encoding()) == "utf-8") {
             mydefault["ellipsis"] = "\xe2\x80\xa6";
         }
-        options += mydefault;
+        options = options.updatemydefault;
 
         string myprefix;
         mysuffix = options["ellipsis"];
@@ -979,7 +979,7 @@ class DText {
         if (isString(options)) {
             options = ["replacement": options];
         }
-        options += [
+        options = options.update[
             "replacement": "-",
             "transliteratorId": null,
             "preserve": null,

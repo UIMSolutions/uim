@@ -45,7 +45,7 @@ class DBodyParserMiddleware { // }: IMiddleware {
      * IData[string] options The options to use. See above.
      * /
     this(IData[string] options = null) {
-        options += ["IData": BooleanData(true), "xml": BooleanData(false), "methods": null];
+        options = options.update["IData": BooleanData(true), "xml": BooleanData(false), "methods": null];
         if (options["IData"]) {
             this.addParser(
                 ["application/IData", "text/IData"],

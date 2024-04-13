@@ -83,7 +83,7 @@ class DNumber {
      * @param IData[string] options Options
      * /
     static string toPercentage(string|float|int aValue, int precision = 2, IData[string] options = null) {
-        options += ["multiply": BooleanData(false), "type": NumberFormatter.PERCENT];
+        options = options.update["multiply": BooleanData(false), "type": NumberFormatter.PERCENT];
         if (!options["multiply"]) {
             aValue = (float)aValue / 100;
         }
@@ -107,7 +107,7 @@ class DNumber {
      * /
     static string format(string|float|int aValue, IData[string] options = null) {
         formatter = formatter(options);
-        options += ["before": "", "after": ""];
+        options = options.update["before": "", "after": ""];
 
         return options["before"] ~ formatter.format((float)aValue) ~ options["after"];
     }
@@ -145,7 +145,7 @@ class DNumber {
      * @param IData[string] options Options list.
      * /
     static string formatDelta(string|float|int aValue, IData[string] options = null) {
-        options += ["places": 0];
+        options = options.update["places": 0];
         aValue = number_format((float)aValue, options["places"], ".", "");
         sign = aValue > 0 ? "+" : "";
         options["before"] = isSet(options["before"]) ? options["before"] ~ sign : sign;

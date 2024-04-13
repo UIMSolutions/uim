@@ -464,7 +464,7 @@ class DateTime /* : Chronos, IDataSerializable */ {
             'before": ' - ",
             'after": null,
         ];
-        options += defaults;
+        options = options.updatedefaults;
          anGroup = options["group"];
 
         regex = null;

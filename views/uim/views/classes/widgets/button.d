@@ -31,7 +31,7 @@ class DButtonWidget : DWidget {
      *
      * Any other keys provided in mydata will be converted into HTML attributes.
      */
-    override string render(IData[string] renderData, IContext formContext) {
+    override string render(IData[string] renderData, IFormContext formContext) {
         auto buildData = renderData.update([
             "text": StringData(""),
             "type": StringData("submit"),

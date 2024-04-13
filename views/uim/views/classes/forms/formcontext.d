@@ -11,8 +11,10 @@ import uim.views;
  * that FormHelper has and allows access to the form data.
  */
 class DFormContext : IFormContext {
+    mixin TConfigurable;
+
     // The form object.
-    protected DForm my_form;
+    // TODO protected DForm _form;
 
     // Validator name.
     protected string my_validator = null;

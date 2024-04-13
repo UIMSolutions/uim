@@ -12,6 +12,7 @@ import uim.routings;
  * defines the redirect URL and status code.
  */
 class DRedirectRoute : Route {
+    /* 
     // The location to redirect to.
     array myredirect;
 

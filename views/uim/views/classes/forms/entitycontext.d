@@ -24,11 +24,11 @@ import uim.views;
  *  Defaults to "default". Can be an array of table alias=>validators when
  *  dealing with associated forms.
  */
-class DEntityContext : IContext {
-    use TLocatorAware;
+class DEntityContext : IFormContext {
+    // TODO mixin TLocatorAware;
 
     // DContext data for this object.
-    protected IData[string] my_context;
+    protected IData[string] _context;
 
     // The name of the top level entity/table object.
     protected string _rootName;
@@ -37,26 +37,26 @@ class DEntityContext : IContext {
      * Boolean to track whether the entity is a
      * collection.
      */
-    protected bool my_isCollection = false;
+    protected bool _isCollection = false;
 
     // A dictionary of tables
-    protected ITable[] my_tables = null;
+    // TODO protected ITable[] _tables = null;
 
     // Dictionary of validators.
-    protected IValidator[] my_validator = null;
+    // TODO protected IValidator[] my_validator = null;
 
     /**
      * Constructor.
      * Params:
      * IData[string] mycontext DContext info.
-     */
+     * /
     this(IData[string] contextData) {
-        mycontext += [
-            "entity": null,
-            "table": null,
+        _context = _context.update([
+            "entity": NullData,
+            "table": NullData,
             "validator": ArrayData,
-        ];
-       _context = mycontext;
+        ]);
+
        _prepare();
     }
     

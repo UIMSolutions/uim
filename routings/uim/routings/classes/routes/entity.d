@@ -23,7 +23,7 @@ class DEntityRoute : Route {
      * @param array mycontext An array of the current request context.
      *  Contains information such as the current host, scheme, port, and base
      *  directory.
-     */
+     * /
     string match(array myurl, array mycontext = []) {
         if (isEmpty(_compiledRoute)) {
             this.compile();

@@ -39,7 +39,7 @@ class DLabelWidget : DWidget {
      *
      * All other attributes will be converted into HTML attributes.
      */
-    override string render(IData[string] renderData, IContext formContext) {
+    override string render(IData[string] renderData, IFormContext formContext) {
         auto myData = renderData.merge([
             "text": StringData(""),
             "input": StringData(""),

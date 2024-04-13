@@ -40,7 +40,7 @@ import uim.views;
  * @implements \UIM\Event\IEventDispatcher<\UIM\View\View>
  */
 class DView : IView { //  }: IEventDispatcher {
-    mixin TConfigurable!();
+    mixin TConfigurable;
     // @use \UIM\Event\EventDispatcherTrait<\UIM\View\View>
     mixin TEventDispatcher;
     mixin TLog;

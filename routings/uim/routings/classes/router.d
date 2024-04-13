@@ -20,7 +20,7 @@ class DRouter {
     /**
      * Default route class.
      */
-    protected static string my_defaultRouteClass = Route.classname;
+    protected static string _defaultRouteClass = Route.classname;
 
     /**
      * Contains the base string that will be applied to all generated URLs
@@ -28,7 +28,7 @@ class DRouter {
      *
      * @var string
      */
-    protected static string my_fullBaseUrl = null;
+    protected static string _fullBaseUrl = null;
 
     /**
      * Regular expression for action names

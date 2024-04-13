@@ -25,7 +25,8 @@ import uim.views;
  * - `afterRenderFile(IEvent myevent, myviewFile, mycontent)` - Called after any view fragment is rendered.
  *  If a listener returns a non-null value, the output of the rendered file will be set to that.
  */
-class DHelper : IEventListener {
+class DHelper { // TODO }: IEventListener {
+    /* 
     this(IView myview, IData[string] helperSettings = null) {
        _View = myview;
         configuration.update(helperSettings);
@@ -34,18 +35,9 @@ class DHelper : IEventListener {
             this.helpers = myview.helpers().normalizeArray(this.helpers);
         }
         this.initialize(helperSettings);
-    }
+    }*/
 
-  bool initialize(IData[string] initData = null) {
-    if (!super.initialize(initData)) {
-      return false;
-    }
 
-    configuration(MemoryConfiguration);
-    configuration.data(initData);
-
-    return true;
-  }
 
         mixin TConfigurable!();
 
@@ -62,20 +54,17 @@ class DHelper : IEventListener {
     }
 
     // Hook method
-    bool initialize(IData[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+  bool initialize(IData[string] initData = null) {
+    configuration(MemoryConfiguration);
+    configuration.data(initData);
 
-        return true;
-    }
+    return true;
+  }
 
     mixin(TProperty!("string", "name"));
 
     // List of helpers used by this helper
-    protected array myhelpers = null;
-
-    // Default config for this helper.
-    protected IConfiguration _defaultConfiguration;
+    protected DHelper[] _helpers = null;
 
     // Loaded helper instances.
     protected DHelper[string] myhelperInstances = null;

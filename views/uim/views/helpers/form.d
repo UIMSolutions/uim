@@ -20,6 +20,8 @@ import uim.views;
 class DFormHelper : DHelper {
     mixin(HelperThis!("Form"));
     
+    // mixin TConfigurable;
+
     // TODO use IdGeneratorTemplate;
     // TODO use StringTemplateTemplate;
 

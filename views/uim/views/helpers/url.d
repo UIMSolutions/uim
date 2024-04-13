@@ -5,22 +5,24 @@ import uim.views;
 @safe:
 
 // UrlHelper class for generating URLs.
-class UrlHelper : Helper {
+class UrlHelper : DHelper {
     mixin(HelperThis!("Url"));
+
+    /* 
     protected IConfiguration configuration.updateDefaults([
         "assetUrlClassName": Asset.classname,
     ];
 
     /**
      * Asset URL engine class name
-     */
+     * /
     protected string my_assetUrlClassName;
 
     /**
      * Check proper configuration
      * Params:
      * IData[string] configData The configuration settings provided to this helper.
-     */
+     * /
   	override bool initialize(IData[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		
@@ -28,7 +30,7 @@ class UrlHelper : Helper {
 	}
         myengineClassConfig = configurationData.isSet("assetUrlClassName");
 
-        /** @var class-string<\UIM\Routing\Asset>|null myengineClass */
+        /** @var class-string<\UIM\Routing\Asset>|null myengineClass * /
         myengineClass = App.className(myengineClassConfig, "Routing");
         if (myengineClass is null) {
             throw new UimException("Class for `%s` could not be found.".format(myengineClassConfig));
@@ -49,13 +51,13 @@ class UrlHelper : Helper {
      *   an array of URL parameters. Using an array for URLs will allow you to leverage
      *   the reverse routing features of UIM.
      * @param IData[string] options Array of options.
-     */
+     * /
     string build(string[] myurl = null, IData[string] options  = null) {
         mydefaults = [
             "fullBase": BooleanData(false),
             "escape": BooleanData(true),
         ];
-        options += mydefaults;
+        options = options.updatemydefaults;
 
         myurl = Router.url(myurl, options["fullBase"]);
         if (options["escape"]) {
@@ -77,7 +79,7 @@ class UrlHelper : Helper {
      * @param array myparams An array specifying any additional parameters.
      *  Can be also any special parameters supported by `Router.url()`.
      * @param IData[string] options Array of options.
-     */
+     * /
     string buildFromPath(string mypath, array myparams = [], IData[string] options  = null) {
         return this.build(["_path": mypath] + myparams, options);
     }
@@ -97,9 +99,9 @@ class UrlHelper : Helper {
      *       Set to false to skip timestamp generation.
      *       Set to true to apply timestamps when debug is true. Set to "force" to always
      *       enable timestamping regardless of debug value.
-     */
+     * /
     string image(string mypath, IData[string] options  = null) {
-        options += ["theme": _View.getTheme()];
+        options = options.update["theme": _View.getTheme()];
 
         return htmlAttribEscape(_assetUrlClassName.imageUrl(mypath, options));
     }
@@ -120,9 +122,9 @@ class UrlHelper : Helper {
      *       Set to false to skip timestamp generation.
      *       Set to true to apply timestamps when debug is true. Set to "force" to always
      *       enable timestamping regardless of debug value.
-     */
+     * /
     string css(string mypath, IData[string] options  = null) {
-        options += ["theme": _View.getTheme()];
+        options = options.update["theme": _View.getTheme()];
 
         return htmlAttribEscape(_assetUrlClassName.cssUrl(mypath, options));
     }
@@ -143,9 +145,9 @@ class UrlHelper : Helper {
      *       Set to false to skip timestamp generation.
      *       Set to true to apply timestamps when debug is true. Set to "force" to always
      *       enable timestamping regardless of debug value.
-     */
+     * /
     string script(string mypath, IData[string] options  = null) {
-        options += ["theme": _View.getTheme()];
+        options = options.update["theme": _View.getTheme()];
 
         return htmlAttribEscape(_assetUrlClassName.scriptUrl(mypath, options));
     }
@@ -170,9 +172,9 @@ class UrlHelper : Helper {
      * Params:
      * string mypath Path string or URL array
      * @param IData[string] options Options array.
-     */
+     * /
     string assetUrl(string mypath, IData[string] options  = null) {
-        options += ["theme": _View.getTheme()];
+        options = options.update["theme": _View.getTheme()];
 
         return htmlAttribEscape(_assetUrlClassName.url(mypath, options));
     }
@@ -184,7 +186,7 @@ class UrlHelper : Helper {
      * Params:
      * string mypath The file path to timestamp, the path must be inside `App.wwwRoot` in Configure.
      * @param string|bool mytimestamp If set will overrule the value of `Asset.timestamp` in Configure.
-     */
+     * /
     string assetTimestamp(string mypath, string|bool|null mytimestamp = null) {
         return htmlAttribEscape(_assetUrlClassName.assetTimestamp(mypath, mytimestamp));
     }
@@ -193,7 +195,7 @@ class UrlHelper : Helper {
      * Checks if a file exists when theme is used, if no file is found default location is returned
      * Params:
      * string myfile The file to create a webroot path to.
-     */
+     * /
     string webroot(string myfile) {
         options = ["theme": _View.getTheme()];
 
@@ -203,7 +205,7 @@ class UrlHelper : Helper {
     /**
      * Event listeners.
      */
-    IEvents[] implementedEvents() {
+    IEvent[] implementedEvents() {
         return null;
     }
 }

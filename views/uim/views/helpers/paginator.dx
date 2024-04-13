@@ -15,7 +15,7 @@ import uim.views;
  * @property \UIM\View\Helper\FormHelper myForm
  * @link https://book.UIM.org/5/en/views/helpers/paginator.html
  */
-class DPaginatorHelper : Helper {
+class DPaginatorHelper : DHelper {
     mixin(HelperThis!("Paginator"));
    // TODO use StringTemplateTemplate;
 

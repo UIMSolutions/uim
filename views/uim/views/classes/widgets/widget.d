@@ -60,7 +60,7 @@ class DWidget : IWidget {
      * IData[string] buildData The data to build an input with.
      * @param \UIM\View\Form\IContext mycontext The current form context.
      */
-    string render(IData[string] renderData, IContext formContext) {
+    string render(IData[string] renderData, IFormContext formContext) {
     /* 
     auto mydata = this.mergeDefaults(buildData, formContext);
 

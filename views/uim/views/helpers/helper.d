@@ -140,7 +140,7 @@ class DHelper : IEventListener {
      * Override this method if you need to add non-conventional event listeners.
      * Or if you want helpers to listen to non-standard events.
      * /
-    IEvents[] implementedEvents() {
+    IEvent[] implementedEvents() {
         myeventMap = [
             "View.beforeRenderFile": "beforeRenderFile",
             "View.afterRenderFile": "afterRenderFile",

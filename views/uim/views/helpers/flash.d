@@ -66,7 +66,7 @@ class DFlashHelper : DHelper {
     }
 
     // Event listeners.
-    IEvents[] implementedEvents() {
+    IEvent[] implementedEvents() {
         return null;
     }
 }

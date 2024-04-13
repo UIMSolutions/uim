@@ -996,7 +996,7 @@ class DHtmlHelper : DHelper {
     /**
      * Event listeners.
      */
-    IEvents[] implementedEvents() {
+    IEvent[] implementedEvents() {
         return null;
     } 
 }

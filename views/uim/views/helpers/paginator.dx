@@ -953,7 +953,7 @@ class DPaginatorHelper : Helper {
     /**
      * Event listeners.
      */
-    IEvents[] implementedEvents() {
+    IEvent[] implementedEvents() {
         return null;
     }
     

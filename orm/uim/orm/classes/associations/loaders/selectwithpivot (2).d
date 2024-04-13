@@ -119,7 +119,7 @@ class DSelectWithPivotLoader : SelectLoader {
      * Builds an array containing the results from fetchQuery indexed by
      * the foreignKey value corresponding to this association.
      * Params:
-     * \UIM\ORM\Query\SelectQuery fetchQuery The query to get results from
+     * \ORM\Query\SelectQuery fetchQuery The query to get results from
      * @param IData[string] options The options passed to the eager loader
      * /
     protected IData[string] _buildResultMap(SelectQuery fetchQuery, IData[string] options = null) {

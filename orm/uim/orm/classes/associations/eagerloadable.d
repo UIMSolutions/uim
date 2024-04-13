@@ -46,10 +46,10 @@ class DEagerLoadable {
     protected string _propertyPath = null;
 
     // Whether this level can be fetched using a join.
-    protected bool my_canBeJoined = false;
+    protected bool _canBeJoined = false;
 
     // Whether this level was meant for a "matching" fetch operation
-    protected bool my_forMatching = null;
+    protected bool _forMatching = null;
 
     /**
      * The property name where the association result should be nested
@@ -99,7 +99,7 @@ class DEagerLoadable {
      * Adds a new association to be loaded from this level.
      * Params:
      * string associationName The association name.
-     * @param \UIM\ORM\EagerLoadable myassociation The association to load.
+     * @param \ORM\EagerLoadable myassociation The association to load.
      * /
     void addAssociation(string associationName, EagerLoadable myassociation) {
        _associations[associationName] = myassociation;
@@ -115,7 +115,7 @@ class DEagerLoadable {
     /**
      * Gets the Association class instance to use for loading the records.
      * /
-    Association instance() {
+    DAssociation instance() {
         if (_instance is null) {
             throw new DatabaseException("No instance set.");
         }

@@ -10,14 +10,14 @@ import uim.orm;
  *
  * This class DAlso provides method for checking and dispatching behavior methods.
  *
- * @extends \UIM\Core\ObjectRegistry<\UIM\ORM\Behavior>
- * @implements \UIM\Event\IEventDispatcher<\UIM\ORM\Table>
+ * @extends \UIM\Core\ObjectRegistry<\ORM\Behavior>
+ * @implements \UIM\Event\IEventDispatcher<\ORM\Table>
  */
 class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
         /**
      * Constructor
      * Params:
-     * \UIM\ORM\Table|null mytable The table this registry is attached to.
+     * \ORM\Table|null mytable The table this registry is attached to.
      */
     this(Table mytable = null) {
         if (mytable !isNull) {
@@ -25,7 +25,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
         }
     }
     /**
-     * @use \UIM\Event\EventDispatcherTrait<\UIM\ORM\Table>
+     * @use \UIM\Event\EventDispatcherTrait<\ORM\Table>
      */
     mixin TEventDispatcher();
 
@@ -43,7 +43,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
     /**
      * Attaches a table instance to this registry.
      * Params:
-     * \UIM\ORM\Table mytable The table this registry is attached to.
+     * \ORM\Table mytable The table this registry is attached to.
      */
     void setTable(Table mytable) {
        _table = mytable;
@@ -68,7 +68,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * string myclass DPartial classname to resolve.
      */
     protected string|int|false _resolveClassName(string myclass) {
-        /** @var class-string<\UIM\ORM\Behavior>|null */
+        /** @var class-string<\ORM\Behavior>|null */
         return className(myclass);
     }
     
@@ -94,7 +94,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * Part of the template method for UIM\Core\ObjectRegistry.load()
      * Enabled behaviors will be registered with the event manager.
      * Params:
-     * \UIM\ORM\Behavior|class-string<\UIM\ORM\Behavior> myclass DThe classname that is missing.
+     * \ORM\Behavior|class-string<\ORM\Behavior> myclass DThe classname that is missing.
      * @param string aliasToObject The alias of the object.
      * configData - An array of config to use for the behavior.
      */
@@ -122,7 +122,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * Methods starting with `_` will be ignored, as will methods
      * declared on UIM\ORM\Behavior
      * Params:
-     * \UIM\ORM\Behavior myinstance The behavior to get methods from.
+     * \ORM\Behavior myinstance The behavior to get methods from.
      * @param string myclass DThe classname that is missing.
      * @param string aliasToObject The alias of the object.
      */
@@ -209,7 +209,7 @@ class DBehaviorRegistry : ObjectRegistry, IEventDispatcher {
      * @internal
      * @template TSubject of \UIM\Datasource\IEntity|array
      * @param string mytype The finder type to invoke.
-     * @param \UIM\ORM\Query\SelectQuery<TSubject> myquery The query object to apply the finder options to.
+     * @param \ORM\Query\SelectQuery<TSubject> myquery The query object to apply the finder options to.
      * @param IData ...myargs Arguments that match up to finder-specific parameters
      */
     SelectQuery<TSubject> callFinder(string mytype, SelectQuery myquery, IData ...myargs) {

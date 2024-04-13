@@ -53,7 +53,7 @@ class DHasMany : DAssociation {
      * association. This means that rows in the "target" table would miss important
      * or required information if the row in "source" did not exist.
      * Params:
-     * \UIM\ORM\Table side The potential Table with ownership
+     * \ORM\Table side The potential Table with ownership
      */
     bool isOwningSide(Table side) {
         return side == this.getSource();
@@ -378,7 +378,7 @@ class DHasMany : DAssociation {
      * array foreignKeyReference The foreign key reference defining the link between the
      * target entity, and the parent entity.
      * @param \UIM\Datasource\IEntity entity the entity which should have its associated entities unassigned
-     * @param \UIM\ORM\Table target The associated table
+     * @param \ORM\Table target The associated table
      * @param range remainingEntities Entities that should not be deleted
      * @param IData[string] options list of options accepted by `Table.delete_()`
      */
@@ -423,7 +423,7 @@ class DHasMany : DAssociation {
      * targets and also on foreign key nullability.
      * Params:
      * array foreignKey array of foreign key properties
-     * @param \UIM\ORM\Table target The associated table
+     * @param \ORM\Table target The associated table
      * @param array conditions The conditions that specifies what are the objects to be unlinked
      * @param IData[string] options list of options accepted by `Table.delete_()`
      */
@@ -461,7 +461,7 @@ class DHasMany : DAssociation {
     /**
      * Checks the nullable flag of the foreign key
      * Params:
-     * \UIM\ORM\Table aTable the table containing the foreign key
+     * \ORM\Table aTable the table containing the foreign key
      * @param array properties the list of fields that compose the foreign key
      */
     protected bool _foreignKeyAcceptsNull(Table aTable, array properties) {

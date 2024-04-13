@@ -52,7 +52,7 @@ class DTimestampBehavior : DBehavior {
     /**
      * There is only one event handler, it can be configured to be called for any event
      * Params:
-     * \UIM\Event\IEvent<\UIM\ORM\Table> myevent Event instance.
+     * \UIM\Event\IEvent<\ORM\Table> myevent Event instance.
      * @param \UIM\Datasource\IEntity myentity Entity instance.
      * @throws \UnexpectedValueException if a field"s when value is misdefined
      * /

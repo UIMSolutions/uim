@@ -46,7 +46,7 @@ class DBehavior : IEventListener {
      *
      * Merges config with the default and store in the config property
      * Params:
-     * \UIM\ORM\Table mytable The table this behavior is attached to.
+     * \ORM\Table mytable The table this behavior is attached to.
      * configData - The config for this behavior.
      */
     this(Table mytable, IData[string] configData = null) {

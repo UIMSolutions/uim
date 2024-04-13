@@ -42,14 +42,14 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
    /**
      * Default strategy class name.
      *
-     * @psalm-var class-string<\UIM\ORM\Behavior\Translate\ITranslateStrategy>
+     * @psalm-var class-string<\ORM\Behavior\Translate\ITranslateStrategy>
      * /
     protected static string mydefaultStrategyClass = ShadowTableStrategy.classname;
 
     /**
      * Translation strategy instance.
      *
-     * @var \UIM\ORM\Behavior\Translate\ITranslateStrategy|null
+     * @var \ORM\Behavior\Translate\ITranslateStrategy|null
      * /
     protected ITranslateStrategy mystrategy = null;
 
@@ -76,7 +76,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * - `validator`: The validator that should be used when translation records
      *  are created/modified. Default `null`.
      * Params:
-     * \UIM\ORM\Table mytable The table this behavior is attached to.
+     * \ORM\Table mytable The table this behavior is attached to.
      * @param IData[string] configData The config for this behavior.
      * /
     this(Table mytable, IData[string] configData = null) {
@@ -133,7 +133,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
             configuration,
             ["implementedFinders", "implementedMethods", "strategyClass"]
         );
-        /** @var class-string<\UIM\ORM\Behavior\Translate\ITranslateStrategy> myclassName * /
+        /** @var class-string<\ORM\Behavior\Translate\ITranslateStrategy> myclassName * /
         myclassName = configurationData.isSet("strategyClass", mydefaultStrategyClass);
 
         return new myclassName(_table, configData);
@@ -142,7 +142,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
     /**
      * Set strategy class instance.
      * Params:
-     * \UIM\ORM\Behavior\Translate\ITranslateStrategy mystrategy Strategy class instance.
+     * \ORM\Behavior\Translate\ITranslateStrategy mystrategy Strategy class instance.
      * /
     void setStrategy(ITranslateStrategy mystrategy) {
         this.strategy = mystrategy;
@@ -191,7 +191,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * of translations by setting `"translations": BooleanData(false)` in the options
      * provided to `Table.newEntity()` or `Table.patchEntity()`.
      * Params:
-     * \UIM\ORM\Marshaller mymarshaller The marhshaller of the table the behavior is attached to.
+     * \ORM\Marshaller mymarshaller The marhshaller of the table the behavior is attached to.
      * @param array mymap The property map being built.
      * @param IData[string] options The options array used in the marshalling call.
      * /
@@ -260,7 +260,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * If the `locales` array is not passed, it will bring all translations found
      * for each record.
      * Params:
-     * \UIM\ORM\Query\SelectQuery myquery The original query to modify
+     * \ORM\Query\SelectQuery myquery The original query to modify
      * @param string[] mylocales A list of locales or options with the `locales` key defined
      * /
     SelectQuery findTranslations(SelectQuery myquery, array mylocales = []) {
@@ -299,7 +299,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * the database table the object points at - or as a last resort, the alias
      * of the autotable instance.
      * Params:
-     * \UIM\ORM\Table mytable The table class to get a reference name for.
+     * \ORM\Table mytable The table class to get a reference name for.
      * /
                     protected string referenceName(Table mytable) {
                         myname = namespaceSplit(mytable.classname);

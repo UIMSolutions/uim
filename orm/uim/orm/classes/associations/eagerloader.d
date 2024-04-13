@@ -15,13 +15,19 @@ class DEagerLoader {
      * Nested array describing the association to be fetched
      * and the options to apply for each of them, if any
      */
-    protected IData[string] my_containments = null;
+    protected IData[string] _containments = null;
+
+    /**
+     * Controls whether fields from associated tables will be eagerly loaded.
+     * When set to false, no fields will be loaded from associations.
+     */
+    protected bool _autoFields = true;
 
     /**
      * Contains a nested array with the compiled containments tree
      * This is a normalized version of the user provided containments array.
      *
-     * @var \UIM\ORM\EagerLoadable|array<\UIM\ORM\EagerLoadable>|null
+     * @var \ORM\EagerLoadable|array<\ORM\EagerLoadable>|null
      * /
     protected DEagerLoadable|array|null my_normalized = null;
 
@@ -53,13 +59,8 @@ class DEagerLoader {
     protected DEagerLoader my_matching = null;
 
     // A map of table aliases pointing to the association objects they represent for the query.
-    protected array<string, \UIM\ORM\EagerLoadable> my_joinsMap = null;
+    protected array<string, \ORM\EagerLoadable> my_joinsMap = null;
 
-    /**
-     * Controls whether fields from associated tables will be eagerly loaded.
-     * When set to false, no fields will be loaded from associations.
-     * /
-    protected bool my_autoFields = true;
 
     /**
      * Sets the list of associations that should be eagerly loaded along for a
@@ -206,14 +207,14 @@ class DEagerLoader {
      * loaded for a table. The normalized array will restructure the original array
      * by sorting all associations under one key and special options under another.
      *
-     * Each of the levels of the associations tree will be converted to a {@link \UIM\ORM\EagerLoadable}
+     * Each of the levels of the associations tree will be converted to a {@link \ORM\EagerLoadable}
      * object, that contains all the information required for the association objects
      * to load the information from the database.
      *
      * Additionally, it will set an "instance" key per association containing the
      * association instance from the corresponding source table
      * Params:
-     * \UIM\ORM\Table myrepository The table containing the association that
+     * \ORM\Table myrepository The table containing the association that
      * will be normalized.
      * /
     array normalized(Table myrepository) {
@@ -305,8 +306,8 @@ class DEagerLoader {
      * This method will not modify the query for loading external associations, i.e.
      * those that cannot be loaded without executing a separate query.
      * Params:
-     * \UIM\ORM\Query\SelectQuery myquery The query to be modified.
-     * @param \UIM\ORM\Table myrepository The repository containing the associations
+     * \ORM\Query\SelectQuery myquery The query to be modified.
+     * @param \ORM\Table myrepository The repository containing the associations
      * @param bool myincludeFields whether to append all fields from the associations
      * to the passed query. This can be overridden according to the settings defined
      * per association in the containments array.
@@ -337,7 +338,7 @@ class DEagerLoader {
      * the array keys are the association aliases and the values will contain an array
      * with UIM\ORM\EagerLoadable objects.
      * Params:
-     * \UIM\ORM\Table myrepository The table containing the associations to be
+     * \ORM\Table myrepository The table containing the associations to be
      * attached.
      * /
     EagerLoadable[] attachableAssociations(Table myrepository) {
@@ -351,9 +352,9 @@ class DEagerLoader {
     
     /**
      * Returns an array with the associations that need to be fetched using a
-     * separate query, each array value will contain a {@link \UIM\ORM\EagerLoadable} object.
+     * separate query, each array value will contain a {@link \ORM\EagerLoadable} object.
      * Params:
-     * \UIM\ORM\Table myrepository The table containing the associations
+     * \ORM\Table myrepository The table containing the associations
      * to be loaded.
      * /
     EagerLoadable[] externalAssociations(Table myrepository) {
@@ -369,7 +370,7 @@ class DEagerLoader {
      * Auxiliary auto responsible for fully normalizing deep associations defined
      * using `contain()`.
      * Params:
-     * \UIM\ORM\Table myparent Owning side of the association.
+     * \ORM\Table myparent Owning side of the association.
      * @param string myalias Name of the association to be loaded.
      * @param IData[string] options List of extra options to use for this association.
      * @param IData[string] mypaths An array with two values, the first one is a list of dot
@@ -447,7 +448,7 @@ class DEagerLoader {
      * Changes the association fetching strategy if required because of duplicate
      * under the same direct associations chain.
      * Params:
-     * \UIM\ORM\EagerLoadable myloadable The association config.
+     * \ORM\EagerLoadable myloadable The association config.
      * /
     protected void _correctStrategy(EagerLoadable myloadable) {
         configData = myloadable.configuration.data;
@@ -466,8 +467,8 @@ class DEagerLoader {
      * Helper auto used to compile a list of all associations that can be
      * joined in the query.
      * Params:
-     * array<\UIM\ORM\EagerLoadable> myassociations List of associations from which to obtain joins.
-     * @param array<\UIM\ORM\EagerLoadable> mymatching List of associations that should be forcibly joined.
+     * array<\ORM\EagerLoadable> myassociations List of associations from which to obtain joins.
+     * @param array<\ORM\EagerLoadable> mymatching List of associations that should be forcibly joined.
      * /
     protected DEagerLoadable[] _resolveJoins(array myassociations, array mymatching = []) {
         auto result;
@@ -494,7 +495,7 @@ class DEagerLoader {
     /**
      * Inject data from associations that cannot be joined directly.
      * Params:
-     * \UIM\ORM\Query\SelectQuery myquery The query for which to eager load external.
+     * \ORM\Query\SelectQuery myquery The query for which to eager load external.
      * associations.
      * @param array results Results array.
      * /
@@ -559,7 +560,7 @@ class DEagerLoader {
      * - `nestKey`: A dotted path that can be used to correctly insert the data into the results.
      * - `matching`: Whether it is an association loaded through `matching()`.
      * Params:
-     * \UIM\ORM\Table mytable The table containing the association that
+     * \ORM\Table mytable The table containing the association that
      * will be normalized.
      * /
     array associationsMap(Table mytable) {
@@ -581,7 +582,7 @@ class DEagerLoader {
      * associationsMap() method.
      * Params:
      * array mymap An initial array for the map.
-     * @param array<\UIM\ORM\> mylevel An array of EagerLoadable instances.
+     * @param array<\ORM\> mylevel An array of EagerLoadable instances.
      * @param bool mymatching Whether it is an association loaded through `matching()`.
      * /
     protected DEagerLoadable[] _buildAssociationsMap(array mymap, array mylevel, bool mymatching = false) {
@@ -612,7 +613,7 @@ class DEagerLoader {
      * from such joined table.
      * Params:
      * string myalias The table alias as it appears in the query.
-     * @param \UIM\ORM\Association myassoc The association object the alias represents;
+     * @param \ORM\Association myassoc The association object the alias represents;
      * will be normalized.
      * @param bool myasMatching Whether this join results should be treated as a
      * "matching" association.
@@ -621,7 +622,7 @@ class DEagerLoader {
      * /
     void addToJoinsMap(
         string myalias,
-        Association myassoc,
+        DAssociation myassoc,
         bool myasMatching = false,
         string mytargetProperty = null
     ) {
@@ -638,8 +639,8 @@ class DEagerLoader {
      * Helper auto used to return the keys from the query records that will be used
      * to eagerly load associations.
      * Params:
-     * array<\UIM\ORM\EagerLoadable> myexternal The list of external associations to be loaded.
-     * @param \UIM\ORM\Query\SelectQuery myquery The query from which the results where generated.
+     * array<\ORM\EagerLoadable> myexternal The list of external associations to be loaded.
+     * @param \ORM\Query\SelectQuery myquery The query from which the results where generated.
      * @param array results Results array.
      * /
     protected array _collectKeys(array myexternal, SelectQuery myquery, array results) {

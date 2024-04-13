@@ -167,7 +167,7 @@ class DSelectLoader {
      * has the foreignKey fields selected.
      * If the required fields are missing, throws an exception.
      * Params:
-     * \UIM\ORM\Query\SelectQuery fetchQuery The association fetching query
+     * \ORM\Query\SelectQuery fetchQuery The association fetching query
      * @param string[] aKey The foreign key fields to check
      * /
     protected void _assertFieldsPresent(SelectQuery fetchQuery, array aKey) {
@@ -201,9 +201,9 @@ class DSelectLoader {
      * target table query given a filter key and some filtering values when the
      * filtering needs to be done using a subquery.
      * Params:
-     * \UIM\ORM\Query\SelectQuery aQuery Target table"s query
+     * \ORM\Query\SelectQuery aQuery Target table"s query
      * @param string[]|string aKey the fields that should be used for filtering
-     * @param \UIM\ORM\Query\SelectQuery subquery The Subquery to use for filtering
+     * @param \ORM\Query\SelectQuery subquery The Subquery to use for filtering
      * /
     protected ISelectQuery _addFilteringJoin(SelectQuery aQuery, string[] aKey, SelectQuery subquery) {
         filter = null;
@@ -234,7 +234,7 @@ class DSelectLoader {
      * Appends any conditions required to load the relevant set of records in the
      * target table query given a filter key and some filtering values.
      * Params:
-     * \UIM\ORM\Query\SelectQuery aQuery Target table"s query
+     * \ORM\Query\SelectQuery aQuery Target table"s query
      * @param string[]|string aKey The fields that should be used for filtering
      * @param IData filter The value that should be used to match for aKey
      * /
@@ -250,7 +250,7 @@ class DSelectLoader {
      * Returns a TupleComparison object that can be used for matching all the fields
      * from someKeys with the tuple values in filter using the provided operator.
      * Params:
-     * \UIM\ORM\Query\SelectQuery aQuery Target table"s query
+     * \ORM\Query\SelectQuery aQuery Target table"s query
      * @param string[] someKeys the fields that should be used for filtering
      * @param IData filter the value that should be used to match for aKey
      * @param string aoperator The operator for comparing the tuples
@@ -303,7 +303,7 @@ class DSelectLoader {
      * target table, it is constructed by cloning the original query that was used
      * to load records in the source table.
      * Params:
-     * \UIM\ORM\Query\SelectQuery aQuery the original query used to load source records
+     * \ORM\Query\SelectQuery aQuery the original query used to load source records
      * /
     protected ISelectQuery _buildSubquery(SelectQuery aQuery) {
         filterQuery = clone aQuery;
@@ -332,7 +332,7 @@ class DSelectLoader {
      * those columns are also included as the fields may be calculated or constant values,
      * that need to be present to ensure the correct association data is loaded.
      * Params:
-     * \UIM\ORM\Query\SelectQuery aQuery The query to get fields from.
+     * \ORM\Query\SelectQuery aQuery The query to get fields from.
      * /
     protected array<string, array> _subqueryFields(SelectQuery aQuery) {
         auto someKeys = (array)this.bindingKey;
@@ -359,7 +359,7 @@ class DSelectLoader {
      * Builds an array containing the results from fetchQuery indexed by
      * the foreignKey value corresponding to this association.
      * Params:
-     * \UIM\ORM\Query\SelectQuery fetchQuery The query to get results from
+     * \ORM\Query\SelectQuery fetchQuery The query to get results from
      * @param IData[string] options The options passed to the eager loader
      * /
     protected IData[string] _buildResultMap(SelectQuery fetchQuery, IData[string] options = null) {
@@ -388,7 +388,7 @@ class DSelectLoader {
      * Returns a callable to be used for each row in a query result set
      * for injecting the eager loaded rows
      * Params:
-     * \UIM\ORM\Query\SelectQuery fetchQuery the Query used to fetch results
+     * \ORM\Query\SelectQuery fetchQuery the Query used to fetch results
      * @param IData[string] resultMap an array with the foreignKey as keys and
      * the corresponding target table results as value.
      * @param IData[string] options The options passed to the eagerLoader method

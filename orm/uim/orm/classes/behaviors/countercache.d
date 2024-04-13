@@ -96,7 +96,7 @@ class DCounterCacheBehavior : DBehavior {
      *
      * Check if a field, which should be ignored, is dirty
      * Params:
-     * \UIM\Event\IEvent<\UIM\ORM\Table> myevent The beforeSave event that was fired
+     * \UIM\Event\IEvent<\ORM\Table> myevent The beforeSave event that was fired
      * @param \UIM\Datasource\IEntity myentity The entity that is going to be saved
      * @param \ArrayObject<string, mixed> options The options for the query
      * /
@@ -131,7 +131,7 @@ class DCounterCacheBehavior : DBehavior {
      *
      * Makes sure to update counter cache when a new record is created or updated.
      * Params:
-     * \UIM\Event\IEvent<\UIM\ORM\Table> myevent The afterSave event that was fired.
+     * \UIM\Event\IEvent<\ORM\Table> myevent The afterSave event that was fired.
      * @param \UIM\Datasource\IEntity myentity The entity that was saved.
      * @param \ArrayObject<string, mixed> options The options for the query
      * /
@@ -148,7 +148,7 @@ class DCounterCacheBehavior : DBehavior {
      *
      * Makes sure to update counter cache when a record is deleted.
      * Params:
-     * \UIM\Event\IEvent<\UIM\ORM\Table> myevent The afterDelete event that was fired.
+     * \UIM\Event\IEvent<\ORM\Table> myevent The afterDelete event that was fired.
      * @param \UIM\Datasource\IEntity myentity The entity that was deleted.
      * @param \ArrayObject<string, mixed> options The options for the query
      * /
@@ -162,7 +162,7 @@ class DCounterCacheBehavior : DBehavior {
     /**
      * Iterate all associations and update counter caches.
      * Params:
-     * \UIM\Event\IEvent<\UIM\ORM\Table> myevent Event instance.
+     * \UIM\Event\IEvent<\ORM\Table> myevent Event instance.
      * @param \UIM\Datasource\IEntity myentity Entity.
      * /
     protected void _processAssociations(IEvent myevent, IEntity myentity) {
@@ -175,15 +175,15 @@ class DCounterCacheBehavior : DBehavior {
     /**
      * Updates counter cache for a single association
      * Params:
-     * \UIM\Event\IEvent<\UIM\ORM\Table> myevent Event instance.
+     * \UIM\Event\IEvent<\ORM\Table> myevent Event instance.
      * @param \UIM\Datasource\IEntity myentity Entity
-     * @param \UIM\ORM\Association myassoc The association object
+     * @param \ORM\Association myassoc The association object
      * @param array mysettings The settings for counter cache for this association
      * /
     protected void _processAssociation(
         IEvent myevent,
         IEntity myentity,
-        Association myassoc,
+        DAssociation myassoc,
         array mysettings
     ) {
         /** @var string[] myforeignKeys * /

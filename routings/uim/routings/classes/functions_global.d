@@ -1,5 +1,5 @@
 
-
+/* 
 if (!function_exists("url")) {
     /**
      * Convenience wrapper for Router.url().
@@ -10,7 +10,7 @@ if (!function_exists("url")) {
      *  string or it can be an IUri instance.
      * @param bool full If true, the full base URL will be prepended to the result.
      *  Default is false.
-     */
+     * /
     string url(IUri|string[] url = null, bool full = false) {
         return cakeUrl(url, full);
     }
@@ -23,8 +23,9 @@ if (!function_exists("urlArray")) {
      * string aPath Route path.
      * @param array params An array specifying any additional parameters.
      *  Can be also any special parameters supported by `Router.url()`.
-     */
+     * /
     array URL urlArray(string aPath, array params = []) {
         return cakeUrlArray(somePath, params);
     }
 }
+*/

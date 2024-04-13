@@ -7,7 +7,7 @@ import uim.consoles;
 /* * ContentsContain
  *
  * @internal
- */
+ * /
 class DContentsContain : DContentsBase {
     /**
      * Checks if contents contain expected
@@ -22,5 +22,5 @@ class DContentsContain : DContentsBase {
     string toString() {
         return "is in %s," ~ D_EOL ~ "actual result:" ~ D_EOL ~ "`%s`"
         .format(this.output, this.contents);
-    } */
-}
+    } 
+} */ 

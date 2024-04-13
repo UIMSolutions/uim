@@ -7,7 +7,7 @@ import uim.consoles;
 /* * ContentsNotContain
  *
  * @internal
- */
+ * /
 class DContentsNotContain : DContentsBase {
     /**
      * Checks if contents contain expected
@@ -21,5 +21,5 @@ class DContentsNotContain : DContentsBase {
     // Assertion message
     string toString() {
         return "is not in %s".format(this.output);
-    } */
-}
+    } * /
+} */

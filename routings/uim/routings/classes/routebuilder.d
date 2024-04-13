@@ -12,6 +12,7 @@ import uim.routings;
  */
 class DRouteBuilder {
     // Regular expression for auto increment IDs
+    /* 
     const string ID = "[0-9]+";
 
     // Regular expression for UUIDs
@@ -50,7 +51,7 @@ class DRouteBuilder {
      * The scope parameters if there are any.
      *
      * @var array
-     */
+     * /
     protected array my_params;
 
     // Name prefix for connected routes.
@@ -62,7 +63,7 @@ class DRouteBuilder {
     /**
      * The list of middleware that routes in this builder get
      * added during construction.
-     */
+     * /
     protected string[] mymiddleware = null;
 
     /**
@@ -79,7 +80,7 @@ class DRouteBuilder {
      * @param string mypath The path prefix the scope is for.
      * @param array myparams The scope"s routing parameters.
      * @param IData[string] options Options list.
-     */
+     * /
     this(RouteCollection mycollection, string mypath, array myparams = [], IData[string] optionData = null) {
        _collection = mycollection;
        _path = mypath;
@@ -102,7 +103,7 @@ class DRouteBuilder {
      * Set default route class.
      * Params:
      * string myrouteclass DClass name.
-     */
+     * /
     void setRouteClass(string myrouteClass) {
        _routeClass = myrouteClass;
     }
@@ -119,14 +120,14 @@ class DRouteBuilder {
      * extensions applied. However, setting extensions does not modify existing routes.
      * Params:
      * string[]|string myextensions The extensions to set.
-     */
+     * /
     void setExtensions(string[] myextensions) {
        _extensions = (array)myextensions;
     }
     
     /**
      * Get the extensions in this route builder"s scope.
-     */
+     * /
     string[] getExtensions() {
         return _extensions;
     }
@@ -135,7 +136,7 @@ class DRouteBuilder {
      * Add additional extensions to what is already in current scope
      * Params:
      * string[]|string myextensions One or more extensions to add
-     */
+     * /
     void addExtensions(string[] myextensions) {
         myextensions = array_merge(_extensions, (array)myextensions);
        _extensions = array_unique(myextensions);
@@ -157,7 +158,7 @@ class DRouteBuilder {
     /**
      * Get the parameter names/values for this scope.
      *
-     */
+     * /
     array params() {
         return _params;
     }
@@ -166,7 +167,7 @@ class DRouteBuilder {
      * Checks if there is already a route with a given name.
      * Params:
      * string routings Name.
-     */
+     * /
    bool nameExists(string routings) {
         return array_key_exists(routings, _collection.named());
     }
@@ -178,7 +179,7 @@ class DRouteBuilder {
      * used for routes connected after the prefix is changed.
      * Params:
      * string myvalue Either the value to set or null.
-     */
+     * /
     string namePrefix(string myvalue = null) {
         if (myvalue !isNull) {
            _namePrefix = myvalue;
@@ -271,7 +272,7 @@ class DRouteBuilder {
      * @param \Closure|IData[string] options Options to use when generating REST routes, or a callback.
      * @param \Closure|null mycallback An optional callback to be executed in a nested scope. Nested
      *  scopes inherit the existing path and "id" parameter.
-     */
+     * /
     auto resources(string routings, Closure|IData[string] optionData = null, ?Closure mycallback = null) {
         if (!options.isArray) {
             mycallback = options;
@@ -351,7 +352,7 @@ class DRouteBuilder {
      * @param string[] mytarget An array describing the target route parameters. These parameters
      *  should indicate the plugin, prefix, controller, and action that this route points to.
      * @param string routings The name of the route.
-     */
+     * /
     Route get(string mytemplate, string[] mytarget, string routings = null) {
         return _methodRoute("GET", mytemplate, mytarget, routings);
     }
@@ -363,7 +364,7 @@ class DRouteBuilder {
      * @param string[] mytarget An array describing the target route parameters. These parameters
      *  should indicate the plugin, prefix, controller, and action that this route points to.
      * @param string routings The name of the route.
-     */
+     * /
     Route post(string mytemplate, string[] mytarget, string routings = null) {
         return _methodRoute("POST", mytemplate, mytarget, routings);
     }
@@ -375,7 +376,7 @@ class DRouteBuilder {
      * @param string[] mytarget An array describing the target route parameters. These parameters
      *  should indicate the plugin, prefix, controller, and action that this route points to.
      * @param string routings The name of the route.
-     */
+     * /
     Route put(string mytemplate, string[] mytarget, string routings = null) {
         return _methodRoute("PUT", mytemplate, mytarget, routings);
     }
@@ -387,7 +388,7 @@ class DRouteBuilder {
      * @param string[] mytarget An array describing the target route parameters. These parameters
      *  should indicate the plugin, prefix, controller, and action that this route points to.
      * @param string routings The name of the route.
-     */
+     * /
     Route patch(string mytemplate, string[] mytarget, string routings = null) {
         return _methodRoute("PATCH", mytemplate, mytarget, routings);
     }
@@ -399,7 +400,7 @@ class DRouteBuilder {
      * @param string[] mytarget An array describing the target route parameters. These parameters
      *  should indicate the plugin, prefix, controller, and action that this route points to.
      * @param string routings The name of the route.
-     */
+     * /
     Route delete(string mytemplate, string[] mytarget, string routings = null) {
         return _methodRoute("DELETE", mytemplate, mytarget, routings);
     }
@@ -411,7 +412,7 @@ class DRouteBuilder {
      * @param string[] mytarget An array describing the target route parameters. These parameters
      *  should indicate the plugin, prefix, controller, and action that this route points to.
      * @param string routings The name of the route.
-     */
+     * /
     Route head(string mytemplate, string[] mytarget, string routings = null) {
         return _methodRoute("HEAD", mytemplate, mytarget, routings);
     }
@@ -423,7 +424,7 @@ class DRouteBuilder {
      * @param string[] mytarget An array describing the target route parameters. These parameters
      *  should indicate the plugin, prefix, controller, and action that this route points to.
      * @param string routings The name of the route.
-     */
+     * /
     Route options(string mytemplate, string[] mytarget, string routings = null) {
         return _methodRoute("OPTIONS", mytemplate, mytarget, routings);
     }
@@ -436,7 +437,7 @@ class DRouteBuilder {
      * @param string[] mytarget An array describing the target route parameters. These parameters
      *  should indicate the plugin, prefix, controller, and action that this route points to.
      * @param string routings The name of the route.
-     */
+     * /
     protected Route _methodRoute(string mymethod, string mytemplate, string[] mytarget, string routings) {
         if (routings !isNull) {
             routings = _namePrefix ~ routings;
@@ -464,7 +465,7 @@ class DRouteBuilder {
      * the current RouteBuilder instance.
      * Params:
      * string routings The plugin name
-     */
+     * /
     void loadPlugin(string routings) {
         myplugins = Plugin.getCollection();
         if (!myplugins.has(routings)) {
@@ -557,7 +558,7 @@ class DRouteBuilder {
      *  element should match. Also contains additional parameters such as which routed parameters should be
      *  shifted into the passed arguments, supplying patterns for routing parameters and supplying the name of a
      *  custom routing class.
-     */
+     * /
     Route connect(Route|string myroute, string[] mydefaults = [], IData[string] optionData = null) {
         mydefaults = this.parseDefaults(mydefaults);
         if (isEmpty(options["_ext"])) {
@@ -582,7 +583,7 @@ class DRouteBuilder {
      * Parse the defaults if they"re a string
      * Params:
      * string[] mydefaults Defaults array from the connect() method.
-     */
+     * /
     protected array parseDefaults(string[] mydefaults) {
         if (!isString(mydefaults)) {
             return mydefaults;
@@ -596,10 +597,10 @@ class DRouteBuilder {
      * \UIM\Routing\Route\Route|string myroute The route template or route object.
      * @param array mydefaults Default parameters.
      * @param IData[string] options Additional options parameters.
-     */
+     * /
     protected Route _makeRoute(Route|string myroute, array mydefaults, IData[string] options) {
         if (isString(myroute)) {
-            /** @var class-string<\UIM\Routing\Route\Route>|null myrouteClass */
+            /** @var class-string<\UIM\Routing\Route\Route>|null myrouteClass * /
             myrouteClass = App.className(options["routeClass"], "Routing/Route");
             if (myrouteClass is null) {
                 throw new DInvalidArgumentException(
@@ -664,7 +665,7 @@ class DRouteBuilder {
      * @param IData[string] options An array matching the named elements in the route to regular expressions which that
      *  element should match. Also contains additional parameters such as which routed parameters should be
      *  shifted into the passed arguments. As well as supplying patterns for routing parameters.
-     */
+     * /
     Route redirect(string myroute, string[] myurl, IData[string] optionData = null) {
         options["routeClass"] ??= RedirectRoute.classname;
         if (isString(myurl)) {
@@ -702,7 +703,7 @@ class DRouteBuilder {
      * @param \Closure|array myparams An array of routing defaults to add to each connected route.
      *  If you have no parameters, this argument can be a Closure.
      * @param \Closure|null mycallback The callback to invoke that builds the prefixed routes.
-     */
+     * /
     void prefix(string routings, Closure|array myparams = [], ?Closure mycallback = null) {
         if (!myparams.isArray) {
             mycallback = myparams;
@@ -745,7 +746,7 @@ class DRouteBuilder {
      * @param \Closure|IData[string] options Either the options to use, or a callback to build routes.
      * @param \Closure|null mycallback The callback to invoke that builds the plugin routes
      *  Only required when options is defined.
-     */
+     * /
     auto plugin(string routings, Closure|IData[string] optionData = null, ?Closure mycallback = null) {
         if (!isArray(options)) {
             mycallback = options;
@@ -775,7 +776,7 @@ class DRouteBuilder {
      * @param \Closure|array myparams Either the parameters to add to routes, or a callback.
      * @param \Closure|null mycallback The callback to invoke that builds the plugin routes.
      *  Only required when myparams is defined.
-     */
+     * /
     void scope(string mypath, Closure|array myparams, ?Closure mycallback = null) {
         if (cast(DClosure)myparams) {
             mycallback = myparams;
@@ -810,7 +811,7 @@ class DRouteBuilder {
      * Params:
      * string myrouteClass the route class to use, uses the default routeClass
      *  if not specified
-     */
+     * /
     void fallbacks(string myrouteClass = null) {
         myrouteClass = myrouteClass ?: _routeClass;
         this.connect("/{controller}", ["action": "index"], compact("routeClass"));
@@ -825,7 +826,7 @@ class DRouteBuilder {
      * Params:
      * string routings The name of the middleware. Used when applying middleware to a scope.
      * @param \Psr\Http\Server\IMiddleware|\Closure|string mymiddleware The middleware to register.
-     */
+     * /
     void registerMiddleware(string routings, IMiddleware|Closure|string mymiddleware) {
        _collection.registerMiddleware(routings, mymiddleware);
     }
@@ -836,7 +837,7 @@ class DRouteBuilder {
      * Requires middleware to be registered via `registerMiddleware()`.
      * Params:
      * string ...routingss The names of the middleware to apply to the current scope.
-     */
+     * /
     void applyMiddleware(string ...routingss) {
         foreach (routingss as routings) {
             if (!_collection.middlewareExists(routings)) {
@@ -851,7 +852,7 @@ class DRouteBuilder {
     /**
      * Get the middleware that this builder will apply to routes.
      *
-     */
+     * /
     array getMiddleware() {
         return this.middleware;
     }
@@ -861,10 +862,10 @@ class DRouteBuilder {
      * Params:
      * string routings Name of the middleware group
      * @param string[] mymiddlewareNames Names of the middleware
-     */
+     * /
     auto middlewareGroup(string routings, array mymiddlewareNames) {
        _collection.middlewareGroup(routings, mymiddlewareNames);
 
         return this;
-    }
+    } */
 }

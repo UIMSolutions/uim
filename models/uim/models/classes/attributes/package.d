@@ -9,8 +9,8 @@ import uim.models;
 @safe:
 
 public { 
-	/* // import uim.models.classes.attributes.attribute;
-	// import uim.models.classes.attributes.registry; */
+	// import uim.models.classes.attributes.attribute;
+	// import uim.models.classes.attributes.registry; 
 }
 
 public { 

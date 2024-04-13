@@ -1,4 +1,4 @@
-module uim.oop.TestSuite;
+module uim.mails.tests.emailtrait;
 
 import uim.oop;
 
@@ -11,12 +11,12 @@ import uim.oop;
  * with TestEmailTransport which is used for making assertions and will *not* actually
  * send emails.
  */
-template EmailTemplate() {
+mixin template EmailTemplate() {
     /**
      * Replaces all transports with the test transport during test setup
      *
      * @before
-     */
+     * /
     void setupTransports() {
         TestEmailTransport.replaceAllTransports();
     }
@@ -25,7 +25,7 @@ template EmailTemplate() {
      * Resets transport state
      *
      * @after
-     */
+     * /
     void cleanupEmailTrait() {
         TestEmailTransport.clearMessages();
     }
@@ -51,7 +51,7 @@ template EmailTemplate() {
      * int at Email index
      * @param string aaddress Email address
      * @param string amessage Message
-     */
+     * /
     void assertMailSentFromAt(int at, string aaddress, string amessage= null)) {
         this.assertThat(address, new MailSentFrom(at), message);
     }
@@ -62,7 +62,7 @@ template EmailTemplate() {
      * int at Email index
      * @param string acontents Contents
      * @param string amessage Message
-     */
+     * /
     void assertMailContainsAt(int at, string acontents, string amessage = null) {
         this.assertThat(contents, new MailContains(at), message);
     }
@@ -73,7 +73,7 @@ template EmailTemplate() {
      * int at Email index
      * @param string acontents Contents
      * @param string amessage Message
-     */
+     * /
     void assertMailContainsHtmlAt(int at, string acontents, string amessage = null) {
         this.assertThat(contents, new MailContainsHtml(at), message);
     }
@@ -84,7 +84,7 @@ template EmailTemplate() {
      * int at Email index
      * @param string acontents Contents
      * @param string amessage Message
-     */
+     * /
     void assertMailContainsTextAt(int at, string acontents, string amessage = null) {
         this.assertThat(contents, new MailContainsText(at), message);
     }
@@ -96,7 +96,7 @@ template EmailTemplate() {
      * @param string aexpected Contents
      * @param string aparameter Email getter parameter (e.g. "cc", "bcc")
      * @param string amessage Message
-     */
+     * /
     void assertMailSentWithAt(int at, string aexpected, string aparameter, string amessage= null) {
         this.assertThat(expected, new MailSentWith(at, parameter), message);
     }
@@ -106,7 +106,7 @@ template EmailTemplate() {
      * Params:
      * string aaddress Email address
      * @param string amessage Message
-     */
+     * /
     void assertMailSentTo(string aaddress, string amessage = null) {
         this.assertThat(address, new MailSentTo(), message);
     }
@@ -116,7 +116,7 @@ template EmailTemplate() {
      * Params:
      * string[]|string aaddress Email address
      * @param string amessage Message
-     */
+     * /
     void assertMailSentFrom(string[] aaddress, string amessage = null) {
         this.assertThat(address, new MailSentFrom(), message);
     }
@@ -125,7 +125,7 @@ template EmailTemplate() {
      * Asserts an email contains expected contents
      * Params:
      * string acontents Contents
-     */
+     * /
     void assertMailContains(string acontents, string message = null) {
         this.assertThat(contents, new MailContains(), message);
     }
@@ -136,7 +136,7 @@ template EmailTemplate() {
      * string afilename Filename
      * @param array file Additional file properties
      * @param string amessage Message
-     */
+     * /
     void assertMailContainsAttachment(string afilename, array file = [], string amessage = null) {
         this.assertThat([filename, file], new MailContainsAttachment(), message);
     }
@@ -146,7 +146,7 @@ template EmailTemplate() {
      * Params:
      * string acontents Contents
      * @param string amessage Message
-     */
+     * /
     void assertMailContainsHtml(string acontents, string amessage = null) {
         this.assertThat(contents, new MailContainsHtml(), message);
     }
@@ -156,7 +156,7 @@ template EmailTemplate() {
      * Params:
      * string aexpected Expected text.
      * @param string amessage Message to display if assertion fails.
-     */
+     * /
     void assertMailContainsText(string aexpected, string amessage = "") {
         this.assertThat(expected, new MailContainsText(), message);
     }
@@ -167,7 +167,7 @@ template EmailTemplate() {
      * string aexpected Contents
      * @param string aparameter Email getter parameter (e.g. "cc", "subject")
      * @param string amessage Message
-     */
+     * /
     void assertMailSentWith(string aexpected, string aparameter, string amessage = null) {
         this.assertThat(expected, new MailSentWith(null, parameter), message);
     }
@@ -177,7 +177,7 @@ template EmailTemplate() {
      * Params:
      * string acontents Contents
      * @param string amessage Message
-     */
+     * /
     void assertMailSubjectContains(string acontents, string amessage = null) {
         this.assertThat(contents, new MailSubjectContains(), message);
     }
@@ -188,8 +188,8 @@ template EmailTemplate() {
      * int at Email index
      * @param string acontents Contents
      * @param string amessage Message
-     */
+     * /
     void assertMailSubjectContainsAt(int at, string acontents, string amessage = null) {
         this.assertThat(contents, new MailSubjectContains(at), message);
-    }
+    } */
 }

@@ -5,7 +5,7 @@ import uim.oop;
 @safe:
 
 // Unit extension to integrate UIM"s data-only fixtures.
-class DUnitExtension : Extension {
+class DUnitExtension : DExtension {
     /**
      * @param \Unit\TextUI\Configuration\Configuration configDatauration
      * @param \Unit\Runner\Extension\Facade facade

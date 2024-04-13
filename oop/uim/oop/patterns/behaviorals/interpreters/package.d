@@ -57,14 +57,14 @@ version(test_uim_oop) { unittest {
       writeln("\nInterpreterPatternDemo");
 
    //Rule: Robert and John are male
-   static Expression maleExpression() {
+   static DExpression maleExpression() {
       Expression robert = new DContainsExpression("Robert");
       Expression john = new DContainsExpression("John");
       return new DOrExpression(robert, john);		
    }
 
    //Rule: Julie is a married women
-   static Expression marriedWomanExpression() {
+   static DExpression marriedWomanExpression() {
       Expression julie = new DContainsExpression("Julie");
       Expression married = new DContainsExpression("Married");
       return new AndExpression(julie, married);		

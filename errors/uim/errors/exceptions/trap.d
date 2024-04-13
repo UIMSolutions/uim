@@ -63,7 +63,7 @@ class DExceptionTrap {
      * This is best effort as we can`t know if/when another
      * exception handler is registered.
      * /
-    protected static ExceptionTrap RegisteredTrap;
+    protected static DExceptionTrap RegisteredTrap;
 
     // Track if this trap was removed from the global handler.
     protected bool isDisabled;
@@ -161,7 +161,7 @@ class DExceptionTrap {
      * is mutable and the object returned by this method
      * could be a stale value.
      * /
-    static ExceptionTrap instance(): self
+    static DExceptionTrap instance(): self
     {
         return RegisteredTrap;
     }

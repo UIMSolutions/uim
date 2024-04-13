@@ -40,7 +40,7 @@ class DConnectionManager {
     protected static STRINGAA _dsnClassMap;
 
     // The ConnectionRegistry used by the manager.
-    protected static ConnectionRegistry _registry;
+    protected static DConnectionRegistry _registry;
 
     /**
      * Configure a new connection object.

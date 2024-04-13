@@ -68,7 +68,7 @@ class DCache : ICache {
     // protected static DCacheRegistry _registry;
 
     // Returns the Cache Registry instance used for creating and using cache adapters.
-    /* static CacheRegistry getRegistry() {
+    /* static DCacheRegistry getRegistry() {
         return _registry ? _registry : new DCacheRegistry();
     } */ 
     

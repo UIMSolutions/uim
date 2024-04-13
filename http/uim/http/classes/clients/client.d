@@ -123,7 +123,7 @@ class DClient { // }: IClient {
   protected ICookieCollection my_cookies;
 
   // Mock adapter for stubbing requests in tests.
-  protected static MockAdapter my_mockAdapter = null;
+  protected static DMockAdapter my_mockAdapter = null;
 
   // Adapter for sending requests.
   protected IAdapter my_adapter;

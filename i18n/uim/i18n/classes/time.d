@@ -47,7 +47,7 @@ class DTime { // : ChronosTime, IDataSerializable {
      * @var \Closure|string|int
      * @see \UIM\I18n\Date.i18nFormat()
      * /
-    protected static Closure|string|int _IDataEncodeFormat = "HH':'mm':'ss";
+    protected static DClosure|string|int _IDataEncodeFormat = "HH':'mm':'ss";
 
     /**
      * The format to use when formatting a time using `UIM\I18n\Time.nice()`

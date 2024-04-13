@@ -15,7 +15,7 @@ class DEventManager { // }: IEventManager {
     static int _defaultPriority = 10;
 
     // The globally available instance, used for dispatching events attached from any scope
-    protected static EventManager _generalManager = null;
+    protected static DEventManager _generalManager = null;
 
     // List of listener callbacks associated to
     protected array _listeners = null;

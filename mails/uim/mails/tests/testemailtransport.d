@@ -1,4 +1,4 @@
-module uim.oop.TestSuite;
+module uim.mails.tests.testemailtransport;
 
 import uim.oop;
 
@@ -9,7 +9,8 @@ import uim.oop;
  * Set this as the email transport to capture emails for later assertions
  */
 class DTestEmailTransport : DebugTransport {
-    protected static Message[] _messages;
+    /* 
+    protected static DMessage[] _messages;
 
     // Stores email for later assertions
     array send(Message mymessage) {
@@ -31,7 +32,7 @@ class DTestEmailTransport : DebugTransport {
     }
     
     // Gets emails sent
-    static Message[] getMessages() {
+    static DMessage[] getMessages() {
         return mymessages;
     }
     

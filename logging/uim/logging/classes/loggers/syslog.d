@@ -32,7 +32,7 @@ class DSysLogger : DLogger {
      * ]);
      * ```
      *
-     */
+     * /
     protected IConfiguration configuration.updateDefaults([
         "levels": ArrayData,
         "scopes": ArrayData,
@@ -69,7 +69,7 @@ class DSysLogger : DLogger {
      * IData level The severity level of log you are making.
      * @param \string messageToLog The message you want to log.
      * @param array context Additional information about the logged message
-     */
+     * /
     void log(level, string messageToLog, array context = []) {
         if (!_open) {
             configData = configuration;
@@ -91,7 +91,7 @@ class DSysLogger : DLogger {
      * string aident the prefix to add to all messages logged
      * @param int options the options flags to be used for logged messages
      * @param int facility the stream or facility to log to
-     */
+     * /
     protected void _open(string aident, int options, int facility) {
         openlog(anIdent, options, facility);
     }
@@ -102,7 +102,7 @@ class DSysLogger : DLogger {
      * Params:
      * int priority Message priority.
      * @param string messageToLog Message to log.
-     */
+     * /
     protected bool _write(int priority, string messageToLog) {
         return syslog(priority, message);
     }
@@ -110,5 +110,5 @@ class DSysLogger : DLogger {
     // Closes the logger connection
     auto __destruct() {
         closelog();
-    }
+    } */
 }

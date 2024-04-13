@@ -11,7 +11,7 @@ import uim.logging;
  * in testing where using mocks would be complicated. But can also
  * be used in scenarios where you need to capture logs in application code.
  */
-class DArrayLog : BaseLog {
+class DArrayLog { /* }: DBaseLog {
     protected IConfiguration configuration.updateDefaults([
         "levels": ArrayData,
         "scopes": ArrayData,
@@ -38,5 +38,5 @@ class DArrayLog : BaseLog {
     // Reset internal storage.
     void clear() {
         this.content = null;
-    }
+    } */ 
 }

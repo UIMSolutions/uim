@@ -16,7 +16,7 @@ import uim.orm;
  * ordering operations around saving and deleting.
  */
 class DAssociationCollection { // }: IteratorAggregate {
-    /* mixin AssociationsNormalizerTemplate;
+    /* mixin TAssociationsNormalizer;
     mixin LocatorAwareTemplate;
 
     // Stored associations

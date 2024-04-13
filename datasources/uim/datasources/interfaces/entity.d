@@ -191,7 +191,7 @@ interface IDatasourceEntity { // : ArrayAccess, IDataSerializable
      * *Note* hidden fields are not visible, and will not be output
      * by toArray().
      *  /
-  array toArray();
+  IData[string] toDataArray();
 
   /**
      * Returns an array with the requested fields

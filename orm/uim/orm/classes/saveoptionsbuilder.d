@@ -20,21 +20,21 @@ import uim.orm;
  * @see DORMdatasources.RulesChecker
  * @deprecated 4.4.0 Use a normal array for options instead.
  */
-class DSaveOptionsBuilder : ArrayObject {
-    use AssociationsNormalizerTemplate;
+class DSaveOptionsBuilder { /*}: ArrayObject {
+    mixin TAssociationsNormalizer;
 
     /**
      * Options
      *
      * @var array<string, mixed>
-     */
+     * /
     protected _options = null;
 
     /**
      * Table object.
      *
      * @var DORMTable
-     */
+     * /
     protected _table;
 
     /**
@@ -42,7 +42,7 @@ class DSaveOptionsBuilder : ArrayObject {
      *
      * @param DORMDORMTable aTable A table instance.
      * @param array<string, mixed> options Options to parse when instantiating.
-     */
+     * /
     this(DORMTable aTable, IData[string] optionData = null) {
         _table = table;
         this.parseArrayOptions(options);
@@ -58,7 +58,7 @@ class DSaveOptionsBuilder : ArrayObject {
      * @throws \InvalidArgumentException If a given option key does not exist.
      * @param array<string, mixed> array Options array.
      * @return this
-     */
+     * /
     function parseArrayOptions(array array) {
         foreach (array as key: value) {
             this.{key}(value);
@@ -72,7 +72,7 @@ class DSaveOptionsBuilder : ArrayObject {
      *
      * @param array|string associated String or array of associations.
      * @return this
-     */
+     * /
     function associated(associated) {
         associated = _normalizeAssociations(associated);
         _associated(_table, associated);
@@ -86,7 +86,7 @@ class DSaveOptionsBuilder : ArrayObject {
      *
      * @param DORMDORMTable aTable Table object.
      * @param array associations An associations array.
-     */
+     * /
     protected void _associated(DORMTable aTable, array associations) {
         foreach (associations as key: associated) {
             if (is_int(key)) {
@@ -107,7 +107,7 @@ class DSaveOptionsBuilder : ArrayObject {
      * @throws \RuntimeException If no such association exists for the given table.
      * @param DORMDORMTable aTable Table object.
      * @param string association Association name.
-     */
+     * /
     protected void _checkAssociation(DORMTable aTable, string association) {
         if (!table.associations().has(association)) {
             throw new DRuntimeException(sprintf(
@@ -123,7 +123,7 @@ class DSaveOptionsBuilder : ArrayObject {
      *
      * @param bool guard Guard the properties or not.
      * @return this
-     */
+     * /
     function guard(bool guard) {
         _options["guard"] = guard;
 
@@ -135,7 +135,7 @@ class DSaveOptionsBuilder : ArrayObject {
      *
      * @param string validate Name of the validation rule set to use.
      * @return this
-     */
+     * /
     function validate(string validate) {
         _table.getValidator(validate);
         _options["validate"] = validate;
@@ -148,7 +148,7 @@ class DSaveOptionsBuilder : ArrayObject {
      *
      * @param bool checkExisting Guard the properties or not.
      * @return this
-     */
+     * /
     function checkExisting(bool checkExisting) {
         _options["checkExisting"] = checkExisting;
 
@@ -160,7 +160,7 @@ class DSaveOptionsBuilder : ArrayObject {
      *
      * @param bool checkRules Check the rules or not.
      * @return this
-     */
+     * /
     function checkRules(bool checkRules) {
         _options["checkRules"] = checkRules;
 
@@ -172,7 +172,7 @@ class DSaveOptionsBuilder : ArrayObject {
      *
      * @param bool atomic Atomic or not.
      * @return this
-     */
+     * /
     function atomic(bool atomic) {
         _options["atomic"] = atomic;
 
@@ -181,8 +181,8 @@ class DSaveOptionsBuilder : ArrayObject {
 
     /**
      * @return array<string, mixed>
-     */
-    array toArray() {
+     * /
+    IData[string] toDataArray() {
         return _options;
     }
 
@@ -192,7 +192,7 @@ class DSaveOptionsBuilder : ArrayObject {
      * @param string option Option key.
      * @param mixed value Option value.
      * @return this
-     */
+     * /
     function set(string option, value) {
         if (method_exists(this, option)) {
             return this.{option}(value);
@@ -200,5 +200,5 @@ class DSaveOptionsBuilder : ArrayObject {
         _options[option] = value;
 
         return this;
-    }
+    } */
 }

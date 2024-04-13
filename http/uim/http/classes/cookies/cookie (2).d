@@ -533,7 +533,7 @@ class DCookie : ICookie {
         }
         return options;
     }
-    array toArray() {
+    IData[string] toDataArray() {
         return [
             "name": this.name,
             "value": this.getScalarValue(),

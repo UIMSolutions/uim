@@ -236,7 +236,7 @@ interface IQuery {
     void page(int num, int aLimit = null);
 
     // Returns an array representation of the results after executing the query.
-    array toArray();
+    IData[string] toDataArray();
 
     /**
      * Set the default Table object that will be used by this query

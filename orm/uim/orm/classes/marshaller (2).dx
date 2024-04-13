@@ -16,7 +16,7 @@ import uim.orm;
  */
 class DMarshaller
 {
-    mixin AssociationsNormalizerTemplate;
+    mixin TAssociationsNormalizer;
 
     /**
      * The table instance this marshaller is for.

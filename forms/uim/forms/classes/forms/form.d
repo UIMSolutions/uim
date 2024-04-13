@@ -249,7 +249,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
     }
 
     // Get the printable version of a Form instance.
-    string[string] debugInfo() {
+    STRINGAA debugInfo() {
         special = [
             '_schema": this.getSchema().__debugInfo(),
             '_errors": this.getErrors(),

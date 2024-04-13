@@ -500,7 +500,7 @@ class DFormProtector {
     }
     
     // Return debug info
-    string[string] debugInfo() {
+    STRINGAA debugInfo() {
         return [
             "fields": this.fields,
             "unlockedFields": this.unlockedFields,

@@ -90,7 +90,7 @@ class DResponse : IResponse {
     ];
 
     // Holds type key to mime type mappings for known mime types.
-    protected string[string] _mimeTypes = [
+    protected STRINGAA _mimeTypes = [
         "html": ["text/html", "*/*"],
         "IData": "application/IData",
         "xml": ["application/xml", "text/xml"],
@@ -1307,7 +1307,7 @@ class DResponse : IResponse {
      * Returns an array that can be used to describe the internal state of this
      * object.
      */
-    string[string] debugInfo() {
+    STRINGAA debugInfo() {
         return [
             `status": _status,
             "contentType": this.getType(),

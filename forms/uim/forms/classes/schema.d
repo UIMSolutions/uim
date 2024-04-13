@@ -35,7 +35,7 @@ class DSchema {
     protected STRINGAA[string] _fields;
 
     // The default values for fields.
-    protected string[string] _fieldDefaults = [
+    protected STRINGAA _fieldDefaults = [
         "type": null,
         "length": null,
         "precision": null,
@@ -57,7 +57,7 @@ class DSchema {
         }
 
         // Adds a field to the schema.
-        DSchema addField(string fieldName, string[string] fieldAttributes) {
+        DSchema addField(string fieldName, STRINGAA fieldAttributes) {
             _fields[fieldName] = fieldAttributes.merge(_fieldDefaults);
             return this;
         }
@@ -95,7 +95,7 @@ class DSchema {
         }
 
         // Get the attributes for a given field.
-        string[string] field(string fieldName) {
+        STRINGAA field(string fieldName) {
             return _fields.get(fieldName, null);
         }
 
@@ -106,7 +106,7 @@ class DSchema {
     // #endregion fields
 
     // Get the printable version of this object
-    string[string] debugInfo() {
+    STRINGAA debugInfo() {
         return [
             "_fields": _fields.toString,
         ];

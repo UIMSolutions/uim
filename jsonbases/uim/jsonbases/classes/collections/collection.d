@@ -120,7 +120,7 @@ abstract class DJsonCollection : IJsonCollection {
     size_t count(STRINGAA[] selects, bool allVersions = false) {
       return selects.map!(a => count(a, allVersions)).sum; }
 
-    // Searching based on parameter "select":string[string]
+    // Searching based on parameter "select":STRINGAA
     size_t count(STRINGAA select, bool allVersions = false) {
       return findMany(select, allVersions).length; }
 
@@ -203,7 +203,7 @@ abstract class DJsonCollection : IJsonCollection {
       auto jsons = selects.map!(a => findOne(a, allVersions)).array; 
       return jsons.length > 0 ? jsons[0] : Json(null); }
 
-    // Searching based on parameter "select":string[string]
+    // Searching based on parameter "select":STRINGAA
     Json findOne(STRINGAA select, bool allVersions = false) {
       return Json(null); }
 
@@ -334,7 +334,7 @@ abstract class DJsonCollection : IJsonCollection {
         json["versionNumber"] = versionNumber;
         return removeOne(json); }
 
-      /// RemoveMany by select (string[string])
+      /// RemoveMany by select (STRINGAA)
       bool removeOne(STRINGAA[] selects, bool allVersions = false) {
         return selects.map!(a => removeOne(a, allVersions)).sum > 0; }
 

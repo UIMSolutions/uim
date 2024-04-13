@@ -373,7 +373,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * Returns an array that can be used to describe the internal state of this
      * object.
      * /
-    string[string] debugInfo() {
+    STRINGAA debugInfo() {
         return [
             'error": this.error,
             'request": this.request,

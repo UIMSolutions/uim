@@ -95,7 +95,7 @@ class DateTime /* : Chronos, IDataSerializable */ {
      * The format to use when formatting a time using `DateTime.timeAgoInWords()`
      * and the difference is less than `DateTime.wordEnd`
      * /
-    auto string[string] wordAccuracy = [
+    auto STRINGAA wordAccuracy = [
         "year": "day",
         "month": "day",
         "week": "day",

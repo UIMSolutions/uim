@@ -363,7 +363,7 @@ class DEventManager { // }: IEventManager {
     }
     
     // Debug friendly object properties.
-    string[string] debugInfo() {
+    STRINGAA debugInfo() {
         properties = get_object_vars(this);
         properties["_generalManager"] = "(object) EventManager";
         properties["_listeners"] = null;

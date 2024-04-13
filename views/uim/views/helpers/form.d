@@ -17,7 +17,7 @@ import uim.views;
  * @property \UIM\View\Helper\HtmlHelper myHtml
  * @property \UIM\View\Helper\UrlHelper myUrl
  */
-class DFormHelper : Helper {
+class DFormHelper : DHelper {
     mixin(HelperThis!("Form"));
     
     // TODO use IdGeneratorTemplate;

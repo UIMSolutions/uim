@@ -19,22 +19,21 @@ import uim.views;
  * @link https://book.UIM.org/5/en/views/helpers/text.html
  * @see \UIM\Utility\Text
  */
-class DTextHelper : Helper {
-    // helpers
-    protected array myhelpers = ["Html"];
+class DTextHelper : DHelper {
+    protected string[] _helpers = ["Html"];
 
     /**
      * An array of hashes and their contents.
      * Used when inserting links into text.
      */
-    protected IData[string] my_placeholders;
+    protected IData[string] _placeholders;
 
     /**
      * Call methods from String utility class
      * Params:
      * string mymethod Method to invoke
      * @param array myparams Array of params for the method.
-     */
+     * /
     IData __call(string methodName, array myparams) {
         return Text.{methodName}(...myparams);
     }
@@ -49,7 +48,7 @@ class DTextHelper : Helper {
      * Params:
      * string mytext Text
      * @param IData[string] options Array of HTML options, and options listed above.
-     */
+     * /
     string autoLinkUrls(string mytext, IData[string] options  = null) {
         _placeholders = null;
         options = options.update["escape": BooleanData(true)];
@@ -94,7 +93,7 @@ class DTextHelper : Helper {
      * escaping content in URL"s.
      * Params:
      * array mymatches An array of regexp matches.
-     */
+     * /
     protected string _insertPlaceHolder(array mymatches) {
         mymatch = mymatches[0];
         myenvelope = ["", ""];
@@ -119,7 +118,7 @@ class DTextHelper : Helper {
      * Params:
      * string mytext The text to operate on.
      * @param IData[string] myhtmlOptions The options for the generated links.
-     */
+     * /
     protected string _linkUrls(string mytext, array myhtmlOptions) {
         myreplace = null;
         foreach (_placeholders as myhash: mycontent) {
@@ -138,7 +137,7 @@ class DTextHelper : Helper {
      * Params:
      * string mytext The text to operate on
      * @param IData[string] options An array of options to use for the HTML.
-     */
+     * /
     protected string _linkEmails(string mytext, IData[string] options) {
         myreplace = null;
         foreach (_placeholders as myhash: mycontent) {
@@ -158,7 +157,7 @@ class DTextHelper : Helper {
      * Params:
      * string mytext Text
      * @param IData[string] options Array of HTML options, and options listed above.
-     */
+     * /
     string autoLinkEmails(string mytext, IData[string] options  = null) {
         options = options.update["escape": BooleanData(true)];
        _placeholders = null;
@@ -184,7 +183,7 @@ class DTextHelper : Helper {
      * Params:
      * string mytext Text
      * @param IData[string] options Array of HTML options, and options listed above.
-     */
+     * /
     string autoLink(string mytext, IData[string] options  = null) {
         mytext = this.autoLinkUrls(mytext, options);
 
@@ -197,7 +196,7 @@ class DTextHelper : Helper {
      * <p> added for double line return
      * Params:
      * string|null mytext Text
-     */
+     * /
     string autoParagraph(string mytext) {
         mytext ??= "";
         if (trim(mytext) != "") {

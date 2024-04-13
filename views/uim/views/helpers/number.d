@@ -14,14 +14,14 @@ import uim.views;
  * @method string toPercentage(string|float|int myvalue, int myprecision = 3, IData[string] options  = null) See Number.toPercentage()
  * @method string toReadableSize(string|float|int mysize) See Number.toReadableSize()
  */
-class DNumberHelper : Helper {
+class DNumberHelper : DHelper {
     mixin(HelperThis!("Number"));
     /**
      * Call methods from UIM\I18n\Number utility class
      * Params:
      * string mymethod Method to invoke
      * @param array myparams Array of params for the method.
-     */
+     * /
     IData __call(string mymethod, array myparams) {
         return Number.{mymethod}(...myparams);
     }
@@ -40,7 +40,7 @@ class DNumberHelper : Helper {
      * Params:
      * string|float|int mynumber A floating point number.
      * @param IData[string] options An array with options.
-     */
+     * /
     string format(string|float|int mynumber, IData[string] options  = null) {
         auto formattedNumber = Number.format(mynumber, options);
         auto options = options.update["escape": BooleanData(true)];
@@ -70,7 +70,7 @@ class DNumberHelper : Helper {
      * string|float mynumber Value to format.
      * @param string|null mycurrency International currency name such as "USD", "EUR", "JPY", "CAD"
      * @param IData[string] options Options list.
-     */
+     * /
     string currency(string|float mynumber, string mycurrency = null, IData[string] options  = null) {
         auto formattedCurrency = Number.currency(mynumber, mycurrency, options);
         auto options = options.update["escape": BooleanData(true)];
@@ -92,13 +92,13 @@ class DNumberHelper : Helper {
      * Params:
      * string|float myvalue A floating point number
      * @param IData[string] options Options list.
-     */
+     * /
     string formatDelta(string|float myvalue, IData[string] options  = null) {
         myformatted = Number.formatDelta(myvalue, options);
         options = options.update["escape": BooleanData(true)];
 
         return options["escape"] ? htmlAttribEscape(myformatted): myformatted;
-    }
+    } */
 
     // Event listeners.
     IEvents[] implementedEvents() {

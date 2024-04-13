@@ -1,4 +1,4 @@
-module uim.views.forms;
+module uim.views.classes.forms.entitycontext;
 
 import uim.views;
 
@@ -71,17 +71,17 @@ class DEntityContext : IContext {
      * If no table option is provided, the table name will be derived based on
      * naming conventions. This inference will work with a number of common objects
      * like arrays, Collection objects and ResultSets.
-     */
+     * /
     protected void _prepare() {
         auto mytable = _context["table"];
 
-        /** @var \UIM\Datasource\IEntity|iterable<\UIM\Datasource\IEntity|array> myentity */
+        /** @var \UIM\Datasource\IEntity|iterable<\UIM\Datasource\IEntity|array> myentity * /
         myentity = _context["entity"];
        _isCollection = is_iterable(myentity);
 
         if (mytable.isEmpty) {
             if (_isCollection) {
-                /** @var iterable<\UIM\Datasource\IEntity|array> myentity */
+                /** @var iterable<\UIM\Datasource\IEntity|array> myentity * /
                 foreach (myentity as mye) {
                     myentity = mye;
                     break;
@@ -109,7 +109,7 @@ class DEntityContext : IContext {
      * Get the primary key data for the context.
      *
      * Gets the primary key columns from the root entity"s schema.
-     */
+     * /
     string[] getPrimaryKeys() {
         return (array)_tables[_rootName].getPrimaryKeys();
     }
@@ -133,7 +133,7 @@ class DEntityContext : IContext {
      *
      * If the context is for a collection or array the first object in the
      * collection will be used.
-     */
+     * /
     bool isCreate() {
         myentity = _context["entity"];
         if (is_iterable(myentity)) {
@@ -160,7 +160,7 @@ class DEntityContext : IContext {
      *    entity.
      *  - `schemaDefault`: Boolean indicating whether default value from table
      *    schema should be used if it"s not explicitly provided.
-     */
+     * /
     IData val(string fieldPath, IData[string] options  = null) {
         options = options.update[
             "default": null,
@@ -210,7 +210,7 @@ class DEntityContext : IContext {
      * Get default value from table schema for given entity field.
      * Params:
      * string[] myparts Each one of the parts in a path for a field name
-     */
+     * /
     protected IData _schemaDefault(array myparts) {
         mytable = _getTable(myparts);
         if (mytable is null) {
@@ -230,7 +230,7 @@ class DEntityContext : IContext {
      * Params:
      * IData myvalues The list from which to extract primary keys from
      * @param string[] mypath Each one of the parts in a path for a field name
-     */
+     * /
     protected array _extractMultiple(IData myvalues, array mypath) {
         if (!is_iterable(myvalues)) {
             return null;
@@ -251,7 +251,7 @@ class DEntityContext : IContext {
      * Params:
      * array|null mypath Each one of the parts in a path for a field name
      * or null to get the entity passed in constructor context.
-     */
+     * /
     IEntity|iterable|null entity(array mypath = null) {
         if (mypath is null) {
             return _context["entity"];
@@ -303,7 +303,7 @@ class DEntityContext : IContext {
      * Params:
      * array|null mypath Each one of the parts in a path for a field name
      * or null to get the entity passed in constructor context.
-     */
+     * /
     protected array leafEntity(array mypath = null) {
         if (mypath is null) {
             return _context["entity"];
@@ -356,7 +356,7 @@ class DEntityContext : IContext {
      * Params:
      * IData mytarget The entity/array/collection to fetch myfield from.
      * @param string myfield The next field to fetch.
-     */
+     * /
     protected IData _getProp(IData mytarget, string myfield) {
         if (isArray(mytarget) && isSet(mytarget[myfield])) {
             return mytarget[myfield];
@@ -379,7 +379,7 @@ class DEntityContext : IContext {
      * Check if a field should be marked as required.
      * Params:
      * string myfield The dot separated path to the field you want to check.
-     */
+     * /
     bool isRequired(string myfield): bool
     {
         myparts = split(".", myfield);
@@ -419,7 +419,7 @@ class DEntityContext : IContext {
      * Get field length from validation
      * Params:
      * string fieldPath The dot separated path to the field you want to check.
-     */
+     * /
     int getMaxLength(string fieldPath) {
         string[] myparts = fieldPath.split(".");
         auto myvalidator = _getValidator(myparts);
@@ -442,7 +442,7 @@ class DEntityContext : IContext {
      * Get the field names from the top level entity.
      *
      * If the context is for an array of entities, the 0th index will be used.
-     */
+     * /
     string[] fieldNames() {
         mytable = _getTable("0");
         if (!mytable) {
@@ -456,7 +456,7 @@ class DEntityContext : IContext {
      * conventions.
      * Params:
      * array myparts Each one of the parts in a path for a field name
-     */
+     * /
     protected IValidator _getValidator(array myparts) {
         mykeyParts = array_filter(array_slice(myparts, 0, -1), auto (mypart) {
             return !isNumeric(mypart);
@@ -496,7 +496,7 @@ class DEntityContext : IContext {
      * \UIM\Datasource\IEntity|string[]|string myparts Each one of the parts in a path for a field name
      * @param bool myfallback Whether to fallback to the last found table
      * when a nonexistent field/property is being encountered.
-     */
+     * /
     protected ITable _getTable(IEntity|string[] myparts, bool myfallback = true) {
         if (!isArray(myparts) || count(myparts) == 1) {
             return _tables[_rootName];
@@ -540,7 +540,7 @@ class DEntityContext : IContext {
      * Get the abstract field type for a given field name.
      * Params:
      * string fieldPath A dot separated path to get a schema type for.
-     */
+     * /
     string type(string fieldPath) {
         myparts = split(".", fieldPath);
         mytable = _getTable(myparts);
@@ -552,7 +552,7 @@ class DEntityContext : IContext {
      * Get an associative array of other attributes for a field name.
      * Params:
      * string fieldPath A dot separated path to get additional data on.
-     */
+     * /
     array attributes(string fieldPath) {
         string[] myparts = split(".", fieldPath);
         mytable = _getTable(myparts);
@@ -569,7 +569,7 @@ class DEntityContext : IContext {
      * Check whether a field has an error attached to it
      * Params:
      * string fieldPath A dot separated path to check errors on.
-     */
+     * /
     bool hasError(string fieldPath) {
         return this.error(fieldPath) != null;
     }
@@ -578,14 +578,14 @@ class DEntityContext : IContext {
      * Get the errors for a given field
      * Params:
      * string fieldPath A dot separated path to check errors on.
-     */
+     * /
     DError[] errors(string fieldPath) {
         string[] myparts = fieldPath.split(".");
         try {
             /**
              * @var \UIM\Datasource\IEntity|null myentity
              * @var string[] myremainingParts
-             */
+             * /
             [myentity, myremainingParts] = this.leafEntity(myparts);
         } catch (UimException) {
             return null;
@@ -601,5 +601,5 @@ class DEntityContext : IContext {
             return myentity.getError(array_pop(myparts));
         }
         return null;
-    }
+    } */
 }

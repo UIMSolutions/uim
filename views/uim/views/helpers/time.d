@@ -12,9 +12,10 @@ import uim.views;
  * @link https://book.UIM.org/5/en/views/helpers/time.html
  * @see \UIM\I18n\Time
  */
-class DTimeHelper : Helper {
+class DTimeHelper : DHelper {
     mixin(HelperThis!("Time"));
     
+    /* 
     mixin TStringTemplate;
 
     protected IConfiguration configuration.updateDefaults([
@@ -27,7 +28,7 @@ class DTimeHelper : Helper {
      * Will use the provided timezone, or default output timezone if defined.
      * Params:
      * \DateTimeZone|string|null mytimezone The override timezone if applicable.
-     */
+     * /
     protected DateTimeZone|string|null _getTimezone(DateTimeZone|string|null mytimezone) {
         if (mytimezone) {
             return mytimezone;
@@ -40,7 +41,7 @@ class DTimeHelper : Helper {
      * Params:
      * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     */
+     * /
     DateTime fromString(
         ChronosDate|IDateTime|string|int mydateString,
         DateTimeZone|string|null mytimezone = null
@@ -58,7 +59,7 @@ class DTimeHelper : Helper {
      * \IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
      * @param string|null mylocale Locale string.
-     */
+     * /
     string nice(
         ChronosDate|IDateTime|string|int mydateString = null,
         DateTimeZone|string|null mytimezone = null,
@@ -74,7 +75,7 @@ class DTimeHelper : Helper {
      * Params:
      * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     */
+     * /
     bool isToday(
         ChronosDate|IDateTime|string|int mydateString,
         DateTimeZone|string|null mytimezone = null
@@ -87,7 +88,7 @@ class DTimeHelper : Helper {
      * Params:
      * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     */
+     * /
     bool isFuture(
         ChronosDate|IDateTime|string|int mydateString,
         DateTimeZone|string|null mytimezone = null
@@ -100,7 +101,7 @@ class DTimeHelper : Helper {
      * Params:
      * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     */
+     * /
     bool isPast(
         ChronosDate|IDateTime|string|int mydateString,
         DateTimeZone|string|null mytimezone = null
@@ -113,7 +114,7 @@ class DTimeHelper : Helper {
      * Params:
      * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     */
+     * /
     bool isThisWeek(
         ChronosDate|IDateTime|string|int mydateString,
         DateTimeZone|string|null mytimezone = null
@@ -126,7 +127,7 @@ class DTimeHelper : Helper {
      * Params:
      * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     */
+     * /
     bool isThisMonth(
         ChronosDate|IDateTime|string|int mydateString,
         DateTimeZone|string|null mytimezone = null
@@ -139,7 +140,7 @@ class DTimeHelper : Helper {
      * Params:
      * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     */
+     * /
     bool isThisYear(
         ChronosDate|IDateTime|string|int mydateString,
         DateTimeZone|string|null mytimezone = null
@@ -152,7 +153,7 @@ class DTimeHelper : Helper {
      * Params:
      * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     */
+     * /
     bool wasYesterday(
         ChronosDate|IDateTime|string|int mydateString,
         DateTimeZone|string|null mytimezone = null
@@ -165,7 +166,7 @@ class DTimeHelper : Helper {
      * Params:
      * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     */
+     * /
     bool isTomorrow(
         ChronosDate|IDateTime|string|int mydateString,
         DateTimeZone|string|null mytimezone = null
@@ -178,7 +179,7 @@ class DTimeHelper : Helper {
      * Params:
      * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param bool myrange if true returns a range in Y-m-d format
-     */
+     * /
     string[] toQuarter(
         ChronosDate|IDateTime|string|int mydateString,
         bool myrange = false
@@ -191,7 +192,7 @@ class DTimeHelper : Helper {
      * Params:
      * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     */
+     * /
     string toUnix(
         ChronosDate|IDateTime|string|int mydateString,
         DateTimeZone|string|null mytimezone = null
@@ -204,7 +205,7 @@ class DTimeHelper : Helper {
      * Params:
      * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     */
+     * /
     string toAtom(
         ChronosDate|IDateTime|string|int mydateString,
         DateTimeZone|string|null mytimezone = null
@@ -219,7 +220,7 @@ class DTimeHelper : Helper {
      * Params:
      * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     */
+     * /
     string toRss(
         ChronosDate|IDateTime|string|int mydateString,
         DateTimeZone|string|null mytimezone = null
@@ -243,7 +244,7 @@ class DTimeHelper : Helper {
      * \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateTime UNIX timestamp, strtotime() valid
      *  string or DateTime object.
      * @param IData[string] options Default format if timestamp is used in mydateString
-     */
+     * /
     string timeAgoInWords(
         ChronosDate|IDateTime|string|int mydateTime,
         IData[string] options  = null
@@ -258,7 +259,7 @@ class DTimeHelper : Helper {
             if (cast(DateTime)mydateTime) {
                 mydateTime = clone mydateTime;
             }
-            /** @var \DateTimeImmutable|\DateTime mydateTime */
+            /** @var \DateTimeImmutable|\DateTime mydateTime * /
             mydateTime = mydateTime.setTimezone(options["timezone"]);
             options.remove("timezone");
         }
@@ -297,7 +298,7 @@ class DTimeHelper : Helper {
      *   Example of valid types: 6 hours, 2 days, 1 minute.
      * @param \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     */
+     * /
     bool wasWithinLast(
         string mytimeInterval,
         ChronosDate|IDateTime|string|int mydateString,
@@ -313,7 +314,7 @@ class DTimeHelper : Helper {
      *   Example of valid types: 6 hours, 2 days, 1 minute.
      * @param \UIM\Chronos\ChronosDate|\IDateTime|string|int mydateString UNIX timestamp, strtotime() valid string or DateTime object
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     */
+     * /
     bool isWithinNext(
         string mytimeInterval,
         ChronosDate|IDateTime|string|int mydateString,
@@ -326,7 +327,7 @@ class DTimeHelper : Helper {
      * Returns gmt as a UNIX timestamp.
      * Params:
      * \UIM\Chronos\ChronosDate|\IDateTime|string|int mystring UNIX timestamp, strtotime() valid string or DateTime object
-     */
+     * /
     string gmt(ChronosDate|IDateTime|string|int mystring = null) {
         return (new DateTime(mystring)).toUnixString();
     }
@@ -343,7 +344,7 @@ class DTimeHelper : Helper {
      *  `strtotime()` valid string or DateTime object).
      * @param string|false myinvalid Default value to display on invalid dates
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     */
+     * /
     string|int|false format(
         ChronosDate|IDateTime|string|int mydate,
         string[]|int myformat = null,
@@ -361,7 +362,7 @@ class DTimeHelper : Helper {
      * @param string[]|int myformat Intl compatible format string.
      * @param string|false myinvalid Default value to display on invalid dates
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
-     */
+     * /
     string|int|false i18nFormat(
         ChronosDate|IDateTime|string|int mydate,
         string[]|int myformat = null,

@@ -12,7 +12,7 @@ import uim.views;
  * @property \UIM\View\Helper\UrlHelper myUrl
  * @link https://book.UIM.org/5/en/views/helpers/html.html
  */
-class DHtmlHelper : Helper {
+class DHtmlHelper : DHelper {
     mixin(HelperThis!("Html"));
     // TODO use StringTemplateTemplate;
 

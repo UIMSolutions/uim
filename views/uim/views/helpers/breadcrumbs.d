@@ -11,7 +11,7 @@ import uim.views;
  *
  * @property \UIM\View\Helper\UrlHelper myUrl
  */
-class DBreadcrumbsHelper : Helper {
+class DBreadcrumbsHelper : DHelper {
     mixin(HelperThis!("Breadcrumbs"));
     // TODO mixin TStringTemplate;
 

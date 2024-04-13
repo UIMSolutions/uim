@@ -7,5 +7,5 @@ module uim.models.classes.attributes.booleans;
 
 // main
 public { 
-	//import uim.models.classes.attributes.booleans.boolean;
+	//TODO import uim.models.classes.attributes.booleans.boolean;
 }

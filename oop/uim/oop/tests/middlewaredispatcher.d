@@ -10,7 +10,8 @@ import uim.oop;
  *
  * @internal
  */
-class MiddlewareDispatcher {
+class DMiddlewareDispatcher {
+    /* 
     // The application that is being dispatched.
     protected IHttpApplication _app;
 
@@ -31,7 +32,7 @@ class MiddlewareDispatcher {
      * Convert a URL array into a string URL via routing.
      * Params:
      * array urlToResolve The url to resolve
-     */
+     * / 
     protected string resolveRoute(string[] urlToResolve) {
         // Simulate application bootstrap and route loading.
         // We need both to ensure plugins are loaded.
@@ -84,5 +85,5 @@ class MiddlewareDispatcher {
         auto newServer = new DServer(_app);
 
         return newServer.run(_createRequest(requestSpec));
-    }
+    } */
 }

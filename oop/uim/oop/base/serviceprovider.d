@@ -12,16 +12,16 @@ import uim.oop;
  * improve performance of applications with many services by
  * allowing service registration to be deferred until services are needed.
  */
-abstract class DServiceProvider : DAbstractServiceProvider, IBootableServiceProvider {
+abstract class DServiceProvider { /* : DAbstractServiceProvider, IBootableServiceProvider {
     /**
      * List of ids of services this provider provides.
      * @see ServiceProvider.provides()
-     */
+     * /
     protected string[] provides = null;
 
     /**
      * Get the container.
-     */
+     * /
     IDefinitionContainer getContainer() {
         container = super.getContainer();
 
@@ -40,7 +40,7 @@ abstract class DServiceProvider : DAbstractServiceProvider, IBootableServiceProv
      *
      * This method wraps the league/container auto so users
      * only need to use the UIM bootstrap() interface.
-     */
+     * /
     void boot() {
         this.bootstrap(this.getContainer());
     }
@@ -54,7 +54,7 @@ abstract class DServiceProvider : DAbstractServiceProvider, IBootableServiceProv
      * container.
      * Params:
      * \UIM\Core\IContainer container The container to add services to.
-     */
+     * /
     void bootstrap(IContainer container) {
     }
     
@@ -63,7 +63,7 @@ abstract class DServiceProvider : DAbstractServiceProvider, IBootableServiceProv
      *
      * This method primarily exists as a shim between the interface
      * that league/container has and the one we want to offer in UIM.
-     */
+     * /
     void register() {
         this.services(this.getContainer());
     }
@@ -76,7 +76,7 @@ abstract class DServiceProvider : DAbstractServiceProvider, IBootableServiceProv
      * alias added to this array or it will be ignored.
      * Params:
      * string aid Identifier.
-     */
+     * /
    bool provides(string aid) {
         return in_array(anId, this.provides, true);
     }
@@ -88,6 +88,7 @@ abstract class DServiceProvider : DAbstractServiceProvider, IBootableServiceProv
      * property so that services can be located.
      * Params:
      * \UIM\Core\IContainer container The container to add services to.
-     */
+     * /
     abstract void services(IContainer container);
+    */
 }

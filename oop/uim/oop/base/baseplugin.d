@@ -11,8 +11,7 @@ import uim.oop;
  * include a plugin class in its src root folder.
  */
 class DPlugin : IPlugin {
-  	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
+  	bool initialize(IData[string] initData = null) {
 		
 		return true;
 	}
@@ -45,7 +44,7 @@ class DPlugin : IPlugin {
     protected string atemplatePath = null;
 
     // The name of this plugin
-    protected string _name = null;
+    mixin(TProperty!("string", "name"));
 
     /**
      * Constructor

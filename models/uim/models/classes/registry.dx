@@ -8,7 +8,7 @@ module uim.models.classes.registry;
 import uim.models;
 
 @safe:
-class DModelRegistry : DRegistry!DModel{
+class DModelRegistry : DObjectRegistry!DModel{
   this() {}
 
   static DModelRegistry registry; 

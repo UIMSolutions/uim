@@ -9,7 +9,7 @@ import uim.oop;
 
 @safe:
 
-/*
+
 class DRegistry(T) {
   this() {
   }
@@ -67,10 +67,7 @@ class DRegistry(T) {
   /*   O register(this O)(T newEntry, string name) {
     _entries[name] = newEntry;
     return cast(O)this; }
- * /
-
-
-
+ */
 
   version (test_uim_oop) {
     unittest {
@@ -80,4 +77,3 @@ class DRegistry(T) {
 
 }
 // auto Registry() { return new DRegistry; }
-*/

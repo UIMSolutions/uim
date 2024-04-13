@@ -13,7 +13,7 @@ public {
 }
 
 
-/* class DOOPObjclassRegistry : DRegistry!DOOPObjclass {
+/* class DOOPObjclassRegistry : DObjectRegistry!DOOPObjclass {
   static DOOPObjclassRegistry registry;
 }
 auto ObjclassRegistry() {
@@ -23,7 +23,7 @@ auto ObjclassRegistry() {
   return DOOPObjclassRegistry.registry;
 }
 
-class DOOPAttclassRegistry : DRegistry!DAttribute {
+class DOOPAttclassRegistry : DObjectRegistry!DAttribute {
   static DOOPAttclassRegistry registry;
 }
 auto AttributeRegistry() {
@@ -33,7 +33,7 @@ auto AttributeRegistry() {
   return DOOPAttclassRegistry.registry;
 } */
 
-/* class DOOPAttributeRegistry : DRegistry!DOOPAttribute {
+/* class DOOPAttributeRegistry : DObjectRegistry!DOOPAttribute {
   static DOOPAttributeRegistry registry;
 }
 auto AttributeRegistry() {

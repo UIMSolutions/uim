@@ -13,6 +13,7 @@ class DObjectRegistry(T : Object) {
 	private static DObjectRegistry!T _instance;
 	private T[string] _entries;
 	private T _nullValue;
+	protected string _pathSeparator = "/";
 
 	this() {
 	}
@@ -27,24 +28,24 @@ class DObjectRegistry(T : Object) {
 	size_t length() {
 		return _entries.length;
 	}
-	
+
 	T item(string path) {
 		return _entries.get(path, _nullValue);
 	}
 
-	  T[] allItems() {
-    return _entries.byValue.array;
-  }
+	T[] allItems() {
+		return _entries.byValue.array;
+	}
 
-
-	/// contains entry
+	// #region path
 	bool hasPath(string[] path) {
-		return _entries.hasKey(path.join("/"));
+		return _entries.hasKey(path.join(_pathSeparator));
 	}
 
 	bool hasPath(string path) {
 		return _entries.hasKey(path);
 	}
+	// #endregion path
 
 	// TODO bool hasValue(T value) {
 	// return (entry.registerPath in _entries) ? true : false;
@@ -57,6 +58,10 @@ class DObjectRegistry(T : Object) {
 
 	unittest {
 		// TODO 
+	}
+
+	void add(string[] pathItems, T item) {
+		add(pathItems.join(_pathSeparator), item);
 	}
 
 	void add(string path, T item) {

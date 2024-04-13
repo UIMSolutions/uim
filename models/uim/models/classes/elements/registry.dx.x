@@ -3,7 +3,7 @@ module uim.models.classes.elements.registry;
 import uim.models;
 
 @safe:
-class DElementRegistry : DRegistry!DElement {
+class DElementRegistry : DObjectRegistry!DElement {
   static DElementRegistry registry;
 }
 auto ElementRegistry() { // SIngleton

@@ -31,6 +31,7 @@ abstract class DLogger /* : DAbstractLogger */ {
     return true;
   }
 
+/*
     mixin ConfigForClass;
 
 //         mixin TConfigurable!();
@@ -101,7 +102,7 @@ abstract class DLogger /* : DAbstractLogger */ {
      * Params:
      * \string amessage Formatted message.
      * @param array context DContext for placeholder values.
-     */
+     * /
     protected string interpolate(string formattedMessage, array context = []) {
         if (!formattedMessage.has("{", "}")) {
             return formattedMessage;
@@ -110,7 +111,7 @@ abstract class DLogger /* : DAbstractLogger */ {
             "/(?<!" ~ preg_quote("\\", "/") ~ ")\{([a-z0-9-_]+)\}/i",
             formattedMessage,
             matches
-        ); */
+        ); * /
         if (isEmpty(matches)) {
             return formattedMessage;
         }
@@ -161,7 +162,7 @@ abstract class DLogger /* : DAbstractLogger */ {
             }
             replacements["{" ~ aKey ~ "}"] = "[unhandled value of type %s]".format(get_debug_type(aValue));
         }
-        /** @psalm-suppress InvalidArgument */
+        /** @psalm-suppress InvalidArgument * /
         return formattedMessage.replace(replacements.keys, replacements);
-    }
+    } */
 }

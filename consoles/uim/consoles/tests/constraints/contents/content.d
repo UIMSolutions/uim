@@ -8,7 +8,7 @@ import uim.consoles;
  * Base constraint for content constraints
  *
  * @internal
- */
+ * /
 abstract class DContentsBase : DConstraint {
     protected string _content;
     protected string _output;
@@ -17,5 +17,5 @@ abstract class DContentsBase : DConstraint {
     this(string[] contents, string outputType) {
         _content = join(D_EOL, contents);
         _output = outputType;
-    } */
-}
+    } * /
+} */

@@ -1,10 +1,10 @@
 module uim.consoles.tests.constraints.contents;
 
 public {
-    import uim.consoles.tests.constraints.contents.contain;
-    import uim.consoles.tests.constraints.contents.containrow;
-    import uim.consoles.tests.constraints.contents.content;
-    import uim.consoles.tests.constraints.contents.empty;
-    import uim.consoles.tests.constraints.contents.notcontain;
-    import uim.consoles.tests.constraints.contents.regexp;
+    // TODO import uim.consoles.tests.constraints.contents.contain;
+    // TODO import uim.consoles.tests.constraints.contents.containrow;
+    // TODO import uim.consoles.tests.constraints.contents.content;
+    // TODO import uim.consoles.tests.constraints.contents.empty;
+    // TODO import uim.consoles.tests.constraints.contents.notcontain;
+    // TODO import uim.consoles.tests.constraints.contents.regexp;
 }

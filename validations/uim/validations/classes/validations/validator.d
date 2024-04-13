@@ -2826,7 +2826,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Get the printable version of this object.
      * /
-    string[string] debugInfo() {
+    STRINGAA debugInfo() {
         myfields = null;
         foreach (_fields as myname: myfieldSet) {
             myfields[myname] = [

@@ -154,7 +154,7 @@ class DResultSet : IResultSet {
      * Returns an array that can be used to describe the internal state of this
      * object.
      * /
-    string[string] debugInfo() {
+    STRINGAA debugInfo() {
         mycurrentIndex = _index;
         // toArray() adjusts the current index, so we have to reset it
         myitems = this.toArray();

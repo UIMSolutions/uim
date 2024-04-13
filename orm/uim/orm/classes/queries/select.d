@@ -288,7 +288,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
     /**
      * Returns an array representation of the results after executing the query.
      * /
-    array toArray() {
+    IData[string] toDataArray() {
         return this.all().toArray();
     }
     
@@ -1455,7 +1455,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
         super._isDirty();
     }
  
-    string[string] debugInfo() {
+    STRINGAA debugInfo() {
         myeagerLoader = this.getEagerLoader();
 
         return super.__debugInfo() ~ [

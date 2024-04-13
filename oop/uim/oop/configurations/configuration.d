@@ -99,7 +99,7 @@ abstract class DConfiguration : IConfiguration {
         return null; 
     }
 
-    void set(string[string] values, string[] paths = null) {
+    void set(STRINGAA values, string[] paths = null) {
         set(values.toData, paths);
     }
 

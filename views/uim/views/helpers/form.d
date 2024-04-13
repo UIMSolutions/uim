@@ -1288,9 +1288,9 @@ class DFormHelper : Helper {
      * Params:
      * @param IData[string]|string|null mylabel Label text or array with label attributes.
      */
-    protected string _inputLabel(string fieldName, string labelText = null, string[string] labelAttributes = null, IData[string] labelOptions = null) {
+    protected string _inputLabel(string fieldName, string labelText = null, STRINGAA labelAttributes = null, IData[string] labelOptions = null) {
         IData[string] options += ["id": null, "input": null, "nestedInput": BooleanData(false), "templateVars": ArrayData];
-        string[string] mylabelAttributes = ["templateVars": labelOptions["templateVars"]];
+        STRINGAA mylabelAttributes = ["templateVars": labelOptions["templateVars"]];
         if (isArray(mylabel)) {
             mylabelText = null;
             if (isSet(mylabel["text"])) {

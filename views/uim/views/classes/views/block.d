@@ -20,10 +20,10 @@ class DViewBlock {
     const string PREPEND = "prepend";
 
     // Block content. An array of blocks indexed by name.
-    protected string[string] _blocks;
+    protected STRINGAA _blocks;
 
     // The active blocks being captured.
-    protected string[string] _activeBlocks;
+    protected STRINGAA _activeBlocks;
 
     // Should the currently captured content be discarded on ViewBlock.end()
     protected bool _discardActiveBufferOnEnd = false;
@@ -128,7 +128,7 @@ class DViewBlock {
     }
     
     // Get the unclosed/active blocks. Key is name, value is mode.
-    string[string] unclosedBlocks() {
+    STRINGAA unclosedBlocks() {
         return _activeBlocks;
     }
 }

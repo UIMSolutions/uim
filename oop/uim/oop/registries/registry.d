@@ -10,9 +10,9 @@ import uim.oop;
 @safe:
 
 class DObjectRegistry(T : Object) {
-	private static DObjectRegistry!T _instance;
-	private T[string] _entries;
-	private T _nullValue;
+	protected static DObjectRegistry!T _instance;
+	protected T[string] _entries;
+	protected T _nullValue;
 	protected string _pathSeparator = "/";
 
 	this() {
@@ -29,17 +29,25 @@ class DObjectRegistry(T : Object) {
 		return _entries.length;
 	}
 
-	T item(string path) {
-		return _entries.get(path, _nullValue);
-	}
-
-	T[] allItems() {
-		return _entries.byValue.array;
-	}
-
 	// #region path
-		bool hasAllPath(string[] paths) {
-			return _entries.hasKey(path.join(_pathSeparator));
+		string[] paths() {
+			return _entries.byKey.array;
+		}
+
+		bool hasAnyPaths(string[][] paths) {
+			return paths.any!(path => hasPath(path));
+		}
+
+		bool hasAllPaths(string[][] paths) {
+			return paths.all!(path => hasPath(path));
+		}
+		
+		bool hasAnyPaths(string[] paths) {
+			return paths.any!(path => hasPath(path));
+		}
+
+		bool hasAllPaths(string[] paths) {
+			return paths.all!(path => hasPath(path));
 		}
 
 		bool hasPath(string[] path) {
@@ -51,37 +59,52 @@ class DObjectRegistry(T : Object) {
 		}
 	// #endregion path
 
-	// TODO bool hasValue(T value) {
-	// return (entry.registerPath in _entries) ? true : false;
-	// }
+	// #region entries
+		bool hasAnyEntries(T[] checkEntries) {
+			return checkEntries.any!(checkEntry => hasEntry(checkEntry));
+		}
+
+		bool hasAllEntries(T[] checkEntries) {
+			return checkEntries.all!(checkEntry => hasEntry(checkEntry));
+		}
+
+		bool hasEntry(T checkEntry) {
+			// TODO ERROR return _entries.byValue.any!(entry => entry.isEqual(checkEntry));
+			return false;
+		}
+
+		T entry(string path) {
+			return _entries.get(path, _nullValue);
+		}
+
+		T[] entries() {
+			return _entries.values;
+		}
+	// #endregion entries
 
 	/// Get entry by index
 	T opIndex(string path) {
-		return item(path);
+		return entry(path);
 	}
 
 	unittest {
 		// TODO 
 	}
 
-	void add(string[] pathItems, T item) {
-		add(pathItems.join(_pathSeparator), item);
+	void add(string[] pathEntries, T newEntry) {
+		add(pathEntries.join(_pathSeparator), newEntry);
 	}
 
-	void add(string path, T item) {
-		_entries[path] = item;
+	void add(string path, T newEntry) {
+		_entries[path] = newEntry;
 	}
 
-	void opIndexAssign(string path, T item) {
-		add(path, item);
-	}
-
-	string[] paths() {
-		return _entries.byKey.array;
+	void opIndexAssign(string path, T newEntry) {
+		add(path, newEntry);
 	}
 
 	T remove(string path) {
-		auto selectedEntry = item(path);
+		auto selectedEntry = entry(path);
 		if (selectedEntry) {
 			_entries.remove(path);
 		}

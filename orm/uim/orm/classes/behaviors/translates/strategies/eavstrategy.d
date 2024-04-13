@@ -65,7 +65,7 @@ configuration.updateDefaults([
      *
      * @param DORMDORMTable aTable The table this strategy is attached to.
      * @param array<string, mixed> myConfiguration The config for this strategy.
-     */
+     * /
     this(DORMTable aTable, IData[string] configData) {
         if (configuration.has("tableLocator"])) {
             _tableLocator = configuration["tableLocator"];
@@ -87,7 +87,7 @@ configuration.updateDefaults([
      *
      * Additionally it creates a `i18n` HasMany association that will be
      * used for fetching all translations for each record in the bound table.
-     */
+     * /
     protected void setupAssociations() {
         fields = configuration["fields"];
         table = configuration["translationTable"];
@@ -153,7 +153,7 @@ configuration.updateDefaults([
      * @param DORMevents.IEvent event The beforeFind event that was fired.
      * @param DORMQuery query Query
      * @param \ArrayObject options The options for the query
-     */
+     * /
     void beforeFind(IEvent event, Query query, ArrayObject options) {
         locale = Hash::get(options, "locale", this.getLocale());
 
@@ -216,7 +216,7 @@ configuration.updateDefaults([
      * @param DORMevents.IEvent event The beforeSave event that was fired
      * @param DORMDatasource\IEntity anEntity The entity that is going to be saved
      * @param \ArrayObject options the options passed to the save method
-     */
+     * /
     void beforeSave(IEvent event, IEntity anEntity, ArrayObject options) {
         locale = entity.get("_locale") ?: this.getLocale();
         newOptions = [this.translationTable.aliasName(): ["validate": BooleanData(false)]];
@@ -316,7 +316,7 @@ configuration.updateDefaults([
      * field name is returned for all other fields.
      *
      * @param string field Field name to be aliased.
-     */
+     * /
     string translationField(string field) {
         table = this.table;
         if (this.getLocale() == this.getConfig("defaultLocale")) {
@@ -338,10 +338,10 @@ configuration.updateDefaults([
      * @param DORMDatasource\IResultSet results Results to map.
      * @param string locale Locale string
      * @return DORMcollections.ICollection
-     */
+     * /
     protected function rowMapper(results, locale) {
         return results.map(function (row) use (locale) {
-            /** @var DORMdatasources.IEntity|array|null row */
+            /** @var DORMdatasources.IEntity|array|null row * /
             if (row == null) {
                 return row;
             }
@@ -366,7 +366,7 @@ configuration.updateDefaults([
 
             row["_locale"] = locale;
             if (hydrated) {
-                /** @psalm-suppress PossiblyInvalidMethodCall */
+                /** @psalm-suppress PossiblyInvalidMethodCall * /
                 row.clean();
             }
 
@@ -380,7 +380,7 @@ configuration.updateDefaults([
      *
      * @param DORMDatasource\IResultSet results Results to modify.
      * @return DORMcollections.ICollection
-     */
+     * /
     function groupTranslations(results): ICollection
     {
         return results.map(function (row) {
@@ -419,7 +419,7 @@ configuration.updateDefaults([
      * entity. The result will be put into its `_i18n` property.
      *
      * @param DORMDatasource\IEntity anEntity Entity
-     */
+     * /
     protected void bundleTranslatedFields(entity) {
         translations = (array)entity.get("_translations");
 
@@ -471,7 +471,7 @@ configuration.updateDefaults([
      * to the conditions array.
      *
      * @param array ruleSet An array of array of conditions to be used for finding each
-     */
+     * /
     protected array findExistingTranslations(ruleSet) {
         association = this.table.getAssociation(this.translationTable.aliasName());
 
@@ -490,5 +490,5 @@ configuration.updateDefaults([
         }
 
         return query.all().combine("num", "id").toArray();
-    }
+    } */
 }

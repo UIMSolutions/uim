@@ -6,6 +6,8 @@ import uim.databases;
 
 // An expression object for ORDER BY clauses
 class DOrderByExpression : DQueryExpression {
+    mixin(ExpressionThis!("OrderBy"));
+
     /**
      * Constructor
      * Params:
@@ -58,3 +60,4 @@ class DOrderByExpression : DQueryExpression {
        _conditions = array_merge(_conditions, conditions);
     } */
 }
+mixin(ExpressionCalls!("OrderBy"));

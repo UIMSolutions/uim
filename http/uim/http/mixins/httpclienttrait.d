@@ -4,10 +4,8 @@ import uim.http;
 
 @safe:
 
-/*
- * Define mock responses and have mocks automatically cleared.
- * /
-template HttpClientTemplate() {
+// Define mock responses and have mocks automatically cleared.
+mixin template THttpClient() {
     /**
      * Resets mocked responses
      *
@@ -84,6 +82,6 @@ template HttpClientTemplate() {
      * /
     void mockClientDelete(string aurl, Response response, IData[string] options = null) {
         Client.addMockResponse("DELETE", url, response, options);
-    }
+    } */
 }
-*/
+

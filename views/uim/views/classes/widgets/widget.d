@@ -11,7 +11,7 @@ import uim.views;
  * input elements like hidden, text, email, tel and other types.
  */
 class DWidget : IWidget {
-  mixin TConfigurable!();
+  mixin TConfigurable;
 
   this() {
     initialize;

@@ -641,3 +641,4 @@ class DQueryExpression : DExpression { // }, Countable {
         }
     } */
 }
+mixin(ExpressionCalls!("Query"));

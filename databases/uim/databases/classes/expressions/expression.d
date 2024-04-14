@@ -4,7 +4,7 @@ import uim.databases;
 
 @safe:
 
-class DDBExpression {
+class DExpression {
 mixin TConfigurable;
 
     this() {

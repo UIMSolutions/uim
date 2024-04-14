@@ -11,7 +11,7 @@ import uim.consoles;
  * Enables you to call commands/shells with a
  * full application context.
  */
-mixin template TConsoleIntegrationTestTemplate() {
+mixin template TConsoleIntegrationTest() {
     mixin TContainerStub;
 
     // Last exit code

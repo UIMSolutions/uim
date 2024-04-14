@@ -39,7 +39,7 @@ class DHelper { // TODO }: IEventListener {
 
 
 
-        mixin TConfigurable!();
+        mixin TConfigurable;
 
     this() {
         initialize;

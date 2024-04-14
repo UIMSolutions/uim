@@ -10,12 +10,12 @@ import uim.databases;
  * For security reasons, all params passed are quoted by default unless
  * explicitly told otherwise.
  */
-class DFunctionExpression : QueryExpression, ITypedResult {
+class DFunctionExpression { // TODO }: QueryExpression, ITypedResult {
     mixin TExpressionTypeCaster;
-    mixin TypedResultTemplate;
+    // TODO mixin TypedResultTemplate;
 
     // The name of the auto to be constructed when generating the SQL string
-    mixin(TPropperty!("string", "name"));
+    mixin(TProperty!("string", "name"));
 
     /**
      * Constructor. Takes a name for the auto to be invoked and a list of params

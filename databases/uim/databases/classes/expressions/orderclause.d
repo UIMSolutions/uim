@@ -5,7 +5,7 @@ import uim.databases;
 @safe:
 
 // An expression object for complex ORDER BY clauses
-class DOrderClauseExpression : IExpression, IField {
+class DOrderClauseExpression { // TODO }: IExpression, IField {
   mixin TField;
 
   // The direction of sorting.

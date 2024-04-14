@@ -73,7 +73,7 @@ import uim.http;
  * UIM comes with built-in support for basic authentication.
  */
 class DClient { // }: IClient {
-  mixin TConfigurable!();
+  mixin TConfigurable;
     
     this() {
         initialize;

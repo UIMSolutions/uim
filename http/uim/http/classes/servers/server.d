@@ -11,7 +11,7 @@ import uim.http;
  * @implements \UIM\Event\IEventDispatcher<\UIM\Core\IHttpApplication>
  */
 class DServer { // }: IEventDispatcher {
-        mixin TConfigurable!();
+        mixin TConfigurable;
 
     this() {
         initialize;

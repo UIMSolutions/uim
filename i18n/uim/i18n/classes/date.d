@@ -10,7 +10,7 @@ import uim.i18n;
  * Adds handy methods and locale-aware formatting helpers.
  */
 class Date { // }: ChronosDate, IDataSerializable {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() { initialize; }
 

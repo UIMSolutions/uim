@@ -15,7 +15,7 @@ unittest {
 
 @safe:
 class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
-    mixin TConfigurable!(); 
+    mixin TConfigurable; 
 
   this() {
     initialize;

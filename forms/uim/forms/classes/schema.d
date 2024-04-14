@@ -6,7 +6,7 @@ import uim.forms;
 
 // Contains the schema information for Form instances.
 class DSchema {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

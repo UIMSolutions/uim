@@ -12,7 +12,7 @@ import uim.http;
  * - `styleNonce` Enable to have a nonce policy added to the style-src directive.
  */
 class DCspMiddleware { // }: IMiddleware {
-    mixin TConfigurable!();
+    mixin TConfigurable;
     
     this() {
         initialize;

@@ -9,7 +9,7 @@ import uim.http;
  * to the session, to be rendered in a view with the FlashHelper.
  */
 class DFlashMessage {
-    mixin TConfigurable!();
+    mixin TConfigurable;
     
     this() {
         initialize;

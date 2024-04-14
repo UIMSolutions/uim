@@ -21,7 +21,7 @@ import uim.forms;
  * @implements \UIM\Event\IEventDispatcher<\UIM\Form\Form>
  */
 class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

@@ -9,7 +9,7 @@ import uim.http;
  * that allows the queue to be iterated.
  */
 class DRunner : IRequestHandler {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

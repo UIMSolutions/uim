@@ -32,7 +32,7 @@ import uim.http;
  */
 
 class DCookie : ICookie {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() { initialize; }
 

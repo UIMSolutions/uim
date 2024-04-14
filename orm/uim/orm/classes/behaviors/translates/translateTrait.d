@@ -5,7 +5,7 @@ import uim.orm;
 @safe:
 
 // Contains a translation method aimed to help managing multiple translations for an entity.
-mixin template TranslateTemplate() {
+mixin template TTranslate() {
     /**
      * Returns the entity containing the translated fields for this object and for
      * the specified language. If the translation for the passed language is not

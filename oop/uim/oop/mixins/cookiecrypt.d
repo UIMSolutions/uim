@@ -11,7 +11,7 @@ import uim.oop;
  *
  * @link https://book.UIM.org/5/en/controllers/components/cookie.html
  */
-template CookieCryptTemplate() {
+mixin template TCookieCrypt() {
     // Valid cipher names for encrypted cookies.
     protected string[] my_validCiphers = ["aes"];
 

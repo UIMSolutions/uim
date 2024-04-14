@@ -5,8 +5,8 @@ import uim.views;
 @safe:
 
 // Used when a template file for a cell cannot be found.
-class DMissingCellTemplateException : DMissingTemplateException {
-    mixin(ExceptionThis!("MissingCellTemplate"));
+class DMissingTCellException : DMissingTemplateException {
+    mixin(ExceptionThis!("MissingTCell"));
     
     alias initialize = UimException.initialize;
     override bool initialize(IData[string] initData = null) {
@@ -42,5 +42,5 @@ class DMissingCellTemplateException : DMissingTemplateException {
             ]);
     }
 }
-    mixin(ExceptionCalls!("MissingCellTemplate"));
+    mixin(ExceptionCalls!("MissingTCell"));
 

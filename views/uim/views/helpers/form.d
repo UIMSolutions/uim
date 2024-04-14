@@ -22,7 +22,7 @@ class DFormHelper : DHelper {
     
     // mixin TConfigurable;
 
-    // TODO use IdGeneratorTemplate;
+    // TODO use TIdGenerator;
     // TODO use StringTemplateTemplate;
 
     /**

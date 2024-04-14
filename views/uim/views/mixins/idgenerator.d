@@ -7,8 +7,8 @@ import uim.views;
 /**
  * A mixin template that provides id generating methods to be
  * used in various widget classes.
- * /
-mixin template IdGeneratorTemplate() {
+ */
+mixin template TIdGenerator() {
     /**
      * Prefix for id attribute.
      * /
@@ -67,5 +67,5 @@ mixin template IdGeneratorTemplate() {
             mydomId = _idPrefix ~ "-" ~ mydomId;
         }
         return mydomId;
-    }
-} */
+    } */
+} 

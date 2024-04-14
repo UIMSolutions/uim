@@ -8,7 +8,7 @@ module uim.models.mixins.modelmanager;
 import uim.models;
 @safe:
 
-mixin template ModelContainerTemplate() {
+mixin template TModelContainer() {
   // #region modelContainer
   protected IModelContainer _modelContainer;  
   DModelContainer modelContainer() {

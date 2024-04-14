@@ -144,6 +144,6 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
         if (this.window !isNull) {
             this.window = clone this.window;
         }
-    } */<
+    } */
 }
 mixin(ExpressionCalls!("Aggregate"));

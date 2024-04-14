@@ -5,8 +5,7 @@ import uim.views;
 @safe:
 
 // Provides cell() method for usage in Controller and View classes.
-/*
-mixin template CellTemplate() {
+mixin template TCell() {
     /**
      * Renders the given cell.
      *
@@ -91,5 +90,5 @@ mixin template CellTemplate() {
             }
         }
         return myinstance;
-    }
-} */
+    } */
+} 

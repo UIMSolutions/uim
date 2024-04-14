@@ -14,7 +14,7 @@ class DMultiCheckboxWidget : DWidget {
     mixin(WidgetThis!("MultiCheckbox"));
 
     /* 
-    use IdGeneratorTemplate;
+    use TIdGenerator;
 
     protected IData[string] _defaultData = [
         "name": StringData(""),

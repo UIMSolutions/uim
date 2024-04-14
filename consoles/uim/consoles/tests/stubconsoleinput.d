@@ -37,7 +37,7 @@ class DStubConsoleInput : DConsoleInput {
             
             string message = "There are no more input replies available. This is the {nth} read operation, " .
                 "only {total} replies were set.\nThe provided replies are: {replies}";
-            throw new MissingConsoleInputException(message);
+            throw new DMissingConsoleInputException(message);
         }
         return this.replies[_currentIndex];
     }

@@ -105,7 +105,7 @@ h     * /
       return true;
     }
     // _Memcached = configuration["persistent"]
-    // TODO   ? new Memcached(configuration["persistent"]) : new Memcached();
+    // TODO   ? new DMemcached(configuration["persistent"]) : new DMemcached();
   }
 
   _setOptions();

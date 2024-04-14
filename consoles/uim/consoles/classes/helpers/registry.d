@@ -53,7 +53,7 @@ class DHelperRegistry { // }: ObjectRegistry {
      * and UIM\Core\ObjectRegistry.unload()
      * /
     protected void _throwMissingClassError(string className, string pluginName) {
-        throw new MissingHelperException([
+        throw new DMissingHelperException([
             "class": className,
             "plugin": pluginName,
         ]);

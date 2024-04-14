@@ -958,7 +958,7 @@ interface ICollection {
      * ```
      * items = [1, 2, 3];
      *  decorated = (new DCollection(items)).through(// function (collection) {
-     *      return new MyCustomCollection(collection);
+     *      return new DMyCustomCollection(collection);
      * });
      * ```
      *

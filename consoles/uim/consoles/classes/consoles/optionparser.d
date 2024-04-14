@@ -554,7 +554,7 @@ class DConsoleOptionParser {
             auto options = _shortOptions.byKeyValue
                 .map!(shortLong => shortLong.key ~ " (short for `--"~shortLong.value~"`)");
 
-            throw new MissingOptionException(
+            throw new DMissingOptionException(
                 "Unknown short option `%s`.".format(aKey),
                 aKey, options
             );
@@ -574,7 +574,7 @@ class DConsoleOptionParser {
      * /
     protected IData[string] _parseOption(string aName, IData[string] params) {
         if (!isSet(_options[name])) {
-            throw new MissingOptionException(
+            throw new DMissingOptionException(
                 "Unknown option `%s`.".format(name),
                 name,
                 _options.keys

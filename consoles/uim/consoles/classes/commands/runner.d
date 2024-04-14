@@ -233,7 +233,7 @@ class DCommandRunner { // }: IEventDispatcher {
             name = Inflector.underscore(name);
         }
         if (!commands.has(name)) {
-            throw new MissingOptionException(
+            throw new DMissingOptionException(
                 "Unknown command `{this.root} {name}`. " .
                 "Run `{this.root} --help` to get the list of commands.",
                 name,

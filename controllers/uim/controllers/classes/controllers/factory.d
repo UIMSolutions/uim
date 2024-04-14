@@ -75,7 +75,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
          middlewares = controller.getMiddleware();
 
         if ( middlewares) {
-             middlewareQueue = new MiddlewareQueue( middlewares, this.container);
+             middlewareQueue = new DMiddlewareQueue( middlewares, this.container);
              runner = new DRunner();
 
             return  runner.run( middlewareQueue, controller.getRequest(), this);
@@ -252,7 +252,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * \UIM\Http\ServerRequest serverRequest The request.
      * /
     protected MissingControllerException missingController(ServerRequest serverRequest) {
-        return new MissingControllerException([
+        return new DMissingControllerException([
             "controller":  request.getParam("controller"),
             "plugin":  request.getParam("plugin"),
             "prefix":  request.getParam("prefix"),

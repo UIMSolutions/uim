@@ -282,7 +282,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         action =  request.getParam("action");
 
         if (!this.isAction(action)) {
-            throw new MissingActionException([
+            throw new DMissingActionException([
                 "controller": this.name ~ "Controller",
                 "action":  request.getParam("action"),
                 "prefix":  request.getParam("prefix") ?: "",

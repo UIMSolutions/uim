@@ -55,7 +55,7 @@ class DComponentRegistry : DObjectRegistry!DComponent { // TODO}, IEventDispatch
      * @throws \UIM\Controller\Exception\MissingComponentException
      * /
     protected void _throwMissingClassError(string className, string pluginName) {
-        throw new MissingComponentException([
+        throw new DMissingComponentException([
             "class":  className ~ "Component",
             "plugin": pluginName,
         ]);

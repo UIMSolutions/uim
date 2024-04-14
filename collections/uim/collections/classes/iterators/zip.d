@@ -46,7 +46,7 @@ class DZipIterator : ICollection {
      * @param callable|null aCallable The auto to use for zipping the elements of each iterator.
      * /
     this(array sets, ?callable aCallable = null) {
-        this.multipleIterator = new MultipleIterator(
+        this.multipleIterator = new DMultipleIterator(
             MultipleIterator.MIT_NEED_ALL | MultipleIterator.MIT_KEYS_NUMERIC
         );
 
@@ -94,7 +94,7 @@ class DZipIterator : ICollection {
      * array data Data array.
      * /
     void __unserialize(array data) {
-        this.multipleIterator = new MultipleIterator(
+        this.multipleIterator = new DMultipleIterator(
             MultipleIterator.MIT_NEED_ALL | MultipleIterator.MIT_KEYS_NUMERIC
         );
 

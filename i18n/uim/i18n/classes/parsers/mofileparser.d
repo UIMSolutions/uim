@@ -5,7 +5,7 @@ import uim.i18n;
 @safe:
 // Parses file in MO format
 class MoFileParser {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

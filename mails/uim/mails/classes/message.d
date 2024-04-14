@@ -11,7 +11,7 @@ import uim.oop;
  * on the standard outlined in https://www.rfc-editor.org/rfc/rfc2822.txt
  */
 class DMessage { //: IDataSerializable {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

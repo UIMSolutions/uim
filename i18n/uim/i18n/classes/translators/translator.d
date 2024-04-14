@@ -9,7 +9,7 @@ import uim.i18n;
  * @internal
  */
 class DTranslator : ITranslator {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

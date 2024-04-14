@@ -5,7 +5,7 @@ import uim.logging;
 @safe:
 
 abstract class DAbstractFormatter {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

@@ -5,7 +5,7 @@ import uim.logging;
 @safe:
 // Base log engine class.
 class DLogEngine : ILogEngine {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

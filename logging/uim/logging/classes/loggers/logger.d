@@ -6,7 +6,7 @@ import uim.logging;
 
 // Base log engine class.
 abstract class DLogger /* : DAbstractLogger */ {   
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

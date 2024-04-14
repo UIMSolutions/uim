@@ -6,7 +6,7 @@ import uim.i18n;
 
 // Parses file in PO format
 class DPoFileParser {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

@@ -125,7 +125,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      *
      * @var \UIM\Controller\ComponentRegistry|null
      * /
-    protected IComponentRegistry _components = null;
+    protected DComponentRegistry _components = null;
 
 
 // Gets the request instance.

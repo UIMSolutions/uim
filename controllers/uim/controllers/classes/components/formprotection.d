@@ -1,4 +1,4 @@
-module uim.controllers.components.formprotection;
+module uim.controllers.classes.components.formprotection;
 
 import uim.controllers;
 

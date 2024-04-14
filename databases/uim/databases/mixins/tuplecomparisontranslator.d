@@ -9,7 +9,7 @@ import uim.databases;
  *
  * @internal
  */
-mixin template TupleComparisonTranslatorTemplate() {
+mixin template TTupleComparisonTranslator() {
     /**
      * Receives a TupleExpression and changes it so that it conforms to this
      * SQL dialect.

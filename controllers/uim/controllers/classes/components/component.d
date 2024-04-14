@@ -69,7 +69,7 @@ class DComponent : IEventListener {
     mixin(TProperty!("string", "name"));
 
     // Component registry class used to lazy load components.
-    protected IComponentRegistry _registry;
+    protected DComponentRegistry _registry;
 
     // Other Components this component uses.
     // TODO protected array components = null;
@@ -84,7 +84,7 @@ class DComponent : IEventListener {
      * this component can use to lazy load its components.
      * configData = Array of configuration settings.
      */
-    this(IComponentRegistry registry, IData[string] configData = null) {
+    this(DComponentRegistry registry, IData[string] configData = null) {
         _registry = registry;
 
         configuration.update(configData);
@@ -96,7 +96,7 @@ class DComponent : IEventListener {
     }
 
     // Get the controller this component is bound to.
-    Controller getController() {
+    IController getController() {
         return _registry.getController();
     }
 
@@ -107,7 +107,7 @@ class DComponent : IEventListener {
      * Params:
      * componentName = Name of component to get.
      */
-    Component __get(string componentName) {
+    IComponent __get(string componentName) {
         if (isSet(this.componentInstances[componentName])) {
             return this.componentInstances[componentName];
         }
@@ -152,11 +152,13 @@ class DComponent : IEventListener {
     }
 
     // Returns an array that can be used to describe the internal state of this object.
+    // TODO 
+    /*
     STRINGAA debugInfo() {
         return [
-            "components": this.components,
+            "components": this.components, 
             "implementedEvents": this.implementedEvents(),
             "_config": this.configuration.data,
         ];
-    }
+    } */
 }

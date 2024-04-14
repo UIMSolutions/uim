@@ -1047,7 +1047,7 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
     }
 
 
-    string sql(?ValueBinder aBinder = null) {
+    string sql(?DValueBinder aBinder = null) {
         this.triggerBeforeFind();
 
         _transformQuery();

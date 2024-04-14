@@ -136,7 +136,7 @@ abstract class DCell { // }: IEventDispatcher {
                 return myview.render(templateName, false);
             } catch (MissingTemplateException mye) {
                 myattributes = mye.getAttributes();
-                throw new MissingTCellException(
+                throw new DMissingTCellException(
                     views,
                     myattributes["file"],
                     myattributes["paths"],

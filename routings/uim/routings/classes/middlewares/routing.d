@@ -79,7 +79,7 @@ class DRoutingMiddleware : IMiddleware {
         container = cast(IContainerApplication)this.app
             ? this.app.getContainer()
             : null;
-        middleware = new MiddlewareQueue(matching, container);
+        middleware = new DMiddlewareQueue(matching, container);
         runner = new DRunner();
 
         return runner.run(middleware, request, handler);

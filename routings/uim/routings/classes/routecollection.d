@@ -136,7 +136,7 @@ class DRouteCollection {
                 return myr;
             }
         }
-        throw new MissingRouteException(["url": myurlPath]);
+        throw new DMissingRouteException(["url": myurlPath]);
     }
 
     /**
@@ -237,13 +237,13 @@ class DRouteCollection {
                 if (result) {
                     return result;
                 }
-                throw new MissingRouteException([
+                throw new DMissingRouteException([
                         "url": routings,
                         "context": mycontext,
                         "message": "A named route was found for `{routings}`, but matching failed.",
                     ]);
             }
-            throw new MissingRouteException(["url": routings, "context": mycontext]);
+            throw new DMissingRouteException(["url": routings, "context": mycontext]);
         }
         foreach (routings; _getNames(myurl)) {
             if (_routeTable.isEmpty(routings)) {
@@ -253,7 +253,7 @@ class DRouteCollection {
                 return matchedRoute
             };
         }
-        throw new MissingRouteException(["url": var_export(myurl, true), "context": mycontext]);
+        throw new DMissingRouteException(["url": var_export(myurl, true), "context": mycontext]);
     }
 
     protected string matchRoute(Route routeToCheck, array myurl, array mycontext) {

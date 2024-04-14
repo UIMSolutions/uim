@@ -537,7 +537,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
             /** @var class-string<\UIM\Datasource\IEntity>|null myclass * /
             myclass = App.className(myname, "Model/Entity");
             if (!myclass) {
-                throw new MissingEntityException([myname]);
+                throw new DMissingEntityException([myname]);
             }
            _entityClass = myclass;
         }
@@ -554,7 +554,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
         /** @var class-string<\UIM\Datasource\IEntity>|null myclass * /
         myclass = App.className(myname, "Model/Entity");
         if (myclass is null) {
-            throw new MissingEntityException([myname]);
+            throw new DMissingEntityException([myname]);
         }
        _entityClass = myclass;
 

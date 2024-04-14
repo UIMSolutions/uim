@@ -293,7 +293,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
     }
     
     /**
-     * Register a new MapReduce routine to be executed on top of the database results
+     * Register a new DMapReduce routine to be executed on top of the database results
      *
      * The MapReduce routing will only be run when the query is executed and the first
      * result is attempted to be fetched.
@@ -596,7 +596,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
 
         auto result;
         if (!empty(_mapReduce)) {
-            _mapReduce.each!(functions => result = new MapReduce(result, functions["mapper"], functions["reducer"]));
+            _mapReduce.each!(functions => result = new DMapReduce(result, functions["mapper"], functions["reducer"]));
             result = new mydecorator(result);
         }
         if (!(cast(IResultSet)result)) {

@@ -200,7 +200,7 @@ class DTableLocator : DAbstractLocator, ILocator {
             if (strpos(message, "\\") == false) {
                 message = "for alias " ~ message;
             }
-            throw new MissingTableClassException([message]);
+            throw new DMissingTableClassException([message]);
         }
 
         if (empty(options["connection"])) {

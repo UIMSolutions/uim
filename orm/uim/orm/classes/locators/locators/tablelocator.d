@@ -178,7 +178,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
             if (!mymessage.has("\\")) {
                 mymessage = "for alias " ~ mymessage;
             }
-            throw new MissingTableClassException([mymessage]);
+            throw new DMissingTableClassException([mymessage]);
         }
         if (isEmpty(options["connection"])) {
             if (!empty(options["connectionName"])) {

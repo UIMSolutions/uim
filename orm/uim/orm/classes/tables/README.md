@@ -153,7 +153,7 @@ class ModelInitializeListener implements EventListenerInterface
 and attach the listener to the EventManager as below:
 
 use Cake\Event\EventManager;
-listener = new ModelInitializeListener();
+listener = new DModelInitializeListener();
 EventManager::instance()->attach(listener);
 
 This will call the initializeEvent when any Table class is constructed.

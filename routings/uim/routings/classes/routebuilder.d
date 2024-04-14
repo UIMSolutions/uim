@@ -469,7 +469,7 @@ class DRouteBuilder {
     void loadPlugin(string routings) {
         myplugins = Plugin.getCollection();
         if (!myplugins.has(routings)) {
-            throw new MissingPluginException(["plugin": routings]);
+            throw new DMissingPluginException(["plugin": routings]);
         }
         myplugin = myplugins.get(routings);
         myplugin.routes(this);

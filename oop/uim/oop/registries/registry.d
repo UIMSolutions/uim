@@ -118,11 +118,12 @@ class DObjectRegistry(T : Object) {
 	}
 
     // Create the entry object with the correct settings.
+	/* 
     T create(string path, IData[string] initData = null) {
         return hasPath(path) 
 			? entries(path).clone(initData)
 			: null;
-    }
+    } */
 
 	void clear() {
 		_entries = null;

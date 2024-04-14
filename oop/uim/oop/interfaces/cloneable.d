@@ -9,8 +9,13 @@ import uim.oop;
 
 @safe:
 
+// TODO
+
+interface ICloneable {
+} 
+/*
 interface ICloneable(T) {
   T create();
   T clone(this O)();
   T clone(this O)(IData[string] data);
-}
+} */

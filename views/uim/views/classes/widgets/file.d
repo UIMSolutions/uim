@@ -33,10 +33,10 @@ class DFileWidget : DWidget {
      * ignored.
      *
      * buildData The data to build a file input with.
-     * @param \UIM\View\Form\IContext formContext The current form context.
+     * @param \UIM\View\Form\IFormContext formContext The current form context.
      * return HTML elements.
      * /
-    override string render(IData[string] renderData, IContext formContext) {
+    override string render(IData[string] renderData, IFormContext formContext) {
         buildData = buildData.merge // Todo  this.mergeDefaults(buildData, formContext);
 
         buildData.remove("val");

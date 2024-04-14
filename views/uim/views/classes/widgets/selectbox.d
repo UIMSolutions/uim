@@ -94,7 +94,7 @@ class DSelectBoxWidget : DWidget {
      * You are free to mix each of the forms in the same option set, and
      * nest complex types as required.
      * /
-    string render(IData[string] renderData, IContext mycontext) {
+    string render(IData[string] renderData, IFormContext mycontext) {
         renderData += this.mergeDefaults(renderData, mycontext);
 
         options = _renderContent(renderData);

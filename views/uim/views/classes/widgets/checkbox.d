@@ -36,7 +36,7 @@ class DCheckboxWidget : DWidget {
      *
      * Any other attributes passed in will be treated as HTML attributes.
      * /
-    override string render(IData[string] renderData, IContext formContext) {
+    override string render(IData[string] renderData, IFormContext formContext) {
         renderData += this.mergeDefaults(renderData, formContext);
 
         if (_isChecked(renderData)) {

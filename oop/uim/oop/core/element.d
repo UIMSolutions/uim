@@ -9,7 +9,7 @@ import uim.oop;
 
 @safe:
 
-class DOOPElement : ICloneable {
+class DOOPElement : ICloneable { // TODO !DOOPElement {
   this() {
   }
 

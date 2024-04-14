@@ -14,7 +14,7 @@ import uim.consoles;
  * Xml output is useful for integration with other tools like IDE`s or other build tools.
  */
 class DHelpFormatter {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

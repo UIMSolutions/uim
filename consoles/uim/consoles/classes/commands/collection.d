@@ -6,7 +6,7 @@ import uim.consoles;
 
 // Collection for Commands.
 class DCommandCollection { // : IteratorAggregate, Countable {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

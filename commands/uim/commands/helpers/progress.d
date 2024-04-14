@@ -19,7 +19,7 @@ import uim.commands;
  * ```
  */
 class DProgressHelper { // } : Helper {
-      mixin TConfigurable!();
+      mixin TConfigurable;
 
     this() {
         initialize;

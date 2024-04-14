@@ -9,7 +9,7 @@ import uim.commands;
  * from 2 dimensional array data.
  */
 class DTableHelper { // }: Helper {
-  mixin TConfigurable!();
+  mixin TConfigurable;
 
   this() {
     initialize;

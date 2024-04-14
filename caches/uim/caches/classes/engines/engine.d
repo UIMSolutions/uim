@@ -6,7 +6,7 @@ import uim.caches;
 
 // Storage engine for UIM caching
 abstract class DCacheEngine : ICache, ICacheEngine {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

@@ -11,7 +11,7 @@ import uim.consoles;
  * @internal
  */
 class DCommandScanner {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

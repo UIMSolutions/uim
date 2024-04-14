@@ -6,7 +6,7 @@ import uim.consoles;
 
 // This is a factory for creating Command instances.
 class DCommandFactory { // }: ICommandFactory {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

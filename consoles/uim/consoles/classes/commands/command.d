@@ -16,7 +16,7 @@ import uim.consoles;
  * @implements \UIM\Event\IEventDispatcher<\UIM\Command\Command>
  */
 abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
-    mixin TConfigurable!();
+    mixin TConfigurable;
     //  @use \UIM\Event\EventDispatcherTrait<\UIM\Command\Command>
     mixin TEventDispatcher;
     mixin TValidatorAware;

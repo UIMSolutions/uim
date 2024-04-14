@@ -45,7 +45,7 @@ mixin template TCell() {
         myclassName = App.className(mypluginAndCell, "View/Cell", "Cell");
 
         if (!myclassName) {
-            throw new MissingCellException(["className": mypluginAndCell ~ "Cell"]);
+            throw new DMissingCellException(["className": mypluginAndCell ~ "Cell"]);
         }
         options = ["action": myaction, "args": mydata] + options;
 

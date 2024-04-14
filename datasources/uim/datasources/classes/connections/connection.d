@@ -4,7 +4,7 @@ import uim.datasources;
 
 @safe:
 
-class DDBConnection : IDataSourceConnection {
+class DDatasourceConnection : IDatasourceConnection {
   mixin TConfigurable;
 
   this() {
@@ -24,4 +24,20 @@ class DDBConnection : IDataSourceConnection {
 
   const string ROLE_READ = "read";
 
+  // Get the configuration name for this connection.
+  string configName() {
+    return null;
+  }
+  // Enable/disable query logging
+  void enableQueryLogging(bool shouldEnable = true) {
+  }
+
+  // Disable query logging
+  void disableQueryLogging() {
+  }
+
+  // Check if query logging is enabled.
+  bool isQueryLoggingEnabled() {
+    return false;
+  }
 }

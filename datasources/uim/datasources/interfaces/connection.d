@@ -10,21 +10,15 @@ import uim.datasources;
 @safe:
 
 // This interface defines the methods you can depend on in a connection
-interface IDataSourceConnection { // : ILoggerAware
+interface IDatasourceConnection { // : ILoggerAware
   // Gets the driver instance.
   // object getDriver(string role = self.ROLE_WRITE);
 
   // Get / Set a cacher
   // mixin(IProperty!("ICache", "cacher"));
-/*
+
   // Get the configuration name for this connection.
   string configName();
-
-  // Get the configuration data used to create the connection
-  IData[string] configData();
-
-  // Gets the current logger object 
-  // ILogger getLogger();
 
   // Enable/disable query logging
   void enableQueryLogging(bool shouldEnable = true);
@@ -34,6 +28,14 @@ interface IDataSourceConnection { // : ILoggerAware
 
   // Check if query logging is enabled.
   bool isQueryLoggingEnabled();
+/*
+
+  // Get the configuration data used to create the connection
+  IData[string] configData();
+
+  // Gets the current logger object 
+  // ILogger getLogger();
+
 
   /**
      * Executes a callable function inside a transaction, if any exception occurs

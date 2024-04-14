@@ -8,15 +8,14 @@ import uim.views;
 class UrlHelper : DHelper {
     mixin(HelperThis!("Url"));
 
+    // Asset URL engine class name
+    protected string _assetUrlClassName;
+
     /* 
     protected IConfiguration configuration.updateDefaults([
         "assetUrlClassName": Asset.classname,
     ];
 
-    /**
-     * Asset URL engine class name
-     * /
-    protected string my_assetUrlClassName;
 
     /**
      * Check proper configuration

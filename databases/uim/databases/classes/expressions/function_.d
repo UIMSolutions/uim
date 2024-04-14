@@ -10,8 +10,10 @@ import uim.databases;
  * For security reasons, all params passed are quoted by default unless
  * explicitly told otherwise.
  */
-class DFunctionExpression { // TODO }: QueryExpression, ITypedResult {
-    mixin TExpressionTypeCaster;
+class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResult {
+    mixin(ExpressionThis!("Function"));
+
+    // TODO mixin TExpressionTypeCaster;
     // TODO mixin TypedResultTemplate;
 
     // The name of the auto to be constructed when generating the SQL string
@@ -117,3 +119,4 @@ class DFunctionExpression { // TODO }: QueryExpression, ITypedResult {
         return 1 + count(_conditions);
     } */
 }
+mixin(ExpressionCalls!("Function"));

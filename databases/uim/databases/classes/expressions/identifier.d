@@ -13,25 +13,8 @@ import uim.databases;
  *
  * @see \UIM\Database\Query.identifier()
  */
-class DIdentifierExpression : IExpression {
-    mixin TConfigurable;
-
-    this() {
-        initialize;
-    }
-
-    this(IData[string] initData) {
-        initialize(initData);
-    }
-
-    bool initialize(IData[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
-
-        return true;
-    }
-
-    mixin(TProperty!("string", "name"));
+class DIdentifierExpression : DExpression {
+    mixin(ExpressionThis!("Identifier"));
 
     this(string identifier, string Collation = null) {
         _identifier = anIdentifier;
@@ -56,3 +39,4 @@ class DIdentifierExpression : IExpression {
     void traverse(Closure aCallback) {
     } */
 }
+mixin(ExpressionCalls!("Identifier"));

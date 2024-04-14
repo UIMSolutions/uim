@@ -83,7 +83,7 @@ class DView : IView { //  }: IEventDispatcher {
     protected string _ext = ".d";
 
     /* 
-    use CellTemplate() {
+    use TCell() {
         cell as public;
     }
     

@@ -5,7 +5,9 @@ import uim.databases;
 @safe:
 
 // An expression object for complex ORDER BY clauses
-class DOrderClauseExpression { // TODO }: IExpression, IField {
+class DOrderClauseExpression : DExpression { // TODO }, IField {
+  mixin(ExpressionThis!("OrderClause"));
+
   mixin TField;
 
   // The direction of sorting.
@@ -52,3 +54,4 @@ class DOrderClauseExpression { // TODO }: IExpression, IField {
     }
   } */
 }
+mixin(ExpressionCalls!("OrderClause"));

@@ -9,7 +9,7 @@ import uim.oop;
  *
  * Implementing objects are expected to declare a `_defaultConfigData` property.
  */
-template InstanceConfigTemplate() {
+mixin template TInstanceConfig() {
     // Runtime config
     protected IData[string] _config = null;
 

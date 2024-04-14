@@ -11,7 +11,7 @@ import uim.databases;
  * For security reasons, all params passed are quoted by default unless
  * explicitly told otherwise.
  */
-class DAggregateExpression : DFunctionExpression, IWindow {
+class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
     mixin(ExpressionThis!("Aggregate"));
 
     /* 
@@ -144,6 +144,6 @@ class DAggregateExpression : DFunctionExpression, IWindow {
         if (this.window !isNull) {
             this.window = clone this.window;
         }
-    } */
+    } */<
 }
 mixin(ExpressionCalls!("Aggregate"));

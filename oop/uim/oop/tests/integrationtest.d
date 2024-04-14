@@ -13,7 +13,7 @@ import uim.oop;
  * more of your code easily and avoid some of the maintenance pitfalls
  * that mock objects create.
  */
-template IntegrationTestTemplate() {
+mixin template TIntegrationTest() {
     /* 
     mixin TCookieCrypt;
     mixin TContainerStub;

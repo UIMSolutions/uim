@@ -10,6 +10,7 @@ import uim.databases;
 class DWhenThenExpression : DExpression {
     mixin(ExpressionThis!("WhenThen"));
 
+    /*
     mixin TCaseExpression;
     mixin TExpressionTypeCaster;
 

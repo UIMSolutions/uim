@@ -9,27 +9,10 @@ import uim.databases;
  * involving a field an operator and a value. In its most common form the
  * string representation of a comparison is `field = value`
  */
-class DComparisonExpression : DExpression, IField {
+class DComparisonExpression : DExpression { // TODO}, IField {
     mixin(ExpressionThis!("Comparison"));
 
-    mixin TConfigurable;
-
-    this() {
-        initialize;
-    }
-
-    this(IData[string] initData) {
-        initialize(initData);
-    }
-
-    bool initialize(IData[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
-
-        return true;
-    }
-
-    mixin(TProperty!("string", "name"));
+    /*
     mixin TExpressionTypeCaster;
     mixin TField;
 

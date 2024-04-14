@@ -12,6 +12,7 @@ class DStringExpression : DExpression {
 
     protected string aCollation;
 
+    /*
     this(string newString, string aCollation) {
         _string = newString;
         this.collation(aCollation);

@@ -28,7 +28,7 @@ class DAggregation : DOOPElement {
 	mixin(TProperty!("bool", "isMultiple"));
 	mixin(TProperty!("bool", "isDefault"));
 
-	mixin CloneableTemplate;
+	mixin TCloneable;
 }
 
 mixin(ShortCutElement!("Aggregation", "DAggregation"));

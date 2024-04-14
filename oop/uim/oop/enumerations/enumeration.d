@@ -31,7 +31,7 @@ class DEnumeration(K, V) : IEnumeration, ICloneable {
     }*/ 
     return null;
   } 
-  mixin CloneableTemplate;
+  mixin TCloneable;
 }
 unittest {
   auto enumeration = new DEnumeration!(string, string);

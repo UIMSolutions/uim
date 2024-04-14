@@ -5,7 +5,7 @@ import uim.databases;
 @safe:
 
 // An expression object that represents a SQL BETWEEN snippet
-class DBetweenExpression : IExpression, IField {
+class DBetweenExpression : DExpression { // TODO}, IField {
     mixin(ExpressionThis!("Between"));
 
     mixin TConfigurable;

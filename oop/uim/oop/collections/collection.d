@@ -111,7 +111,7 @@ class DCollection(T) : ICollection, ICloneable {
 	// Returns an array containing all of the elements in this collection; the runtime type of the returned array is that of the specified array.
 	// <T> T[]	toArray(T[] a)
 
-	mixin CloneableTemplate;
+	mixin TCloneable;
 }
 
 auto Collection(T)() {

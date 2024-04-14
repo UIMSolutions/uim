@@ -38,7 +38,7 @@ class DOOPElement : ICloneable {
 		return result;
 	}*/
 
-  mixin CloneableTemplate;
+  mixin TCloneable;
 
   Json toJson() {
     auto result = Json.emptyObject;

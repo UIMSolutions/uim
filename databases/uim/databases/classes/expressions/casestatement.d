@@ -6,6 +6,8 @@ import uim.databases;
 
 // Represents a SQL case statement with a fluid API
 class DCaseStatementExpression : IExpression, ITypedResult {
+    mixin(ExpressionThis!("CaseStatement"));
+
     mixin TConfigurable;
 
     this() {
@@ -514,3 +516,4 @@ class DCaseStatementExpression : IExpression, ITypedResult {
         }
     } */
 }
+mixin(ExpressionCalls!("CaseStatement"));

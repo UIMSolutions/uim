@@ -9,8 +9,10 @@ import uim.databases;
  * expressions that can be compiled by converting this object to string
  * and will contain a correctly parenthesized and nested expression.
  */
-class DQueryExpression : IExpression, Countable {
-    mixin TTypeMap;
+class DQueryExpression : DExpression { // }, Countable {
+    mixin(ExpressionThis!("Query"));
+
+    /* mixin TTypeMap;
 
     /**
      * String to be used for joining each of the internal expressions

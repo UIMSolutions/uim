@@ -12,6 +12,8 @@ import uim.databases;
  * explicitly told otherwise.
  */
 class DAggregateExpression : DFunctionExpression, IWindow {
+    mixin(ExpressionThis!("Aggregate"));
+
     /* 
     protected IQueryExpression filter = null;
 
@@ -144,3 +146,4 @@ class DAggregateExpression : DFunctionExpression, IWindow {
         }
     } */
 }
+mixin(ExpressionCalls!("Aggregate"));

@@ -1,4 +1,4 @@
-module uim.databases.Expression;
+module uim.databases.classes.expressions.between;
 
 import uim.databases;
 
@@ -6,6 +6,8 @@ import uim.databases;
 
 // An expression object that represents a SQL BETWEEN snippet
 class DBetweenExpression : IExpression, IField {
+    mixin(ExpressionThis!("Between"));
+
     mixin TConfigurable;
 
     this() {
@@ -110,3 +112,4 @@ class DBetweenExpression : IExpression, IField {
             .each!(part => this.{part} = clone this.{part});
     } */
 }
+mixin(ExpressionCalls!("Between"));

@@ -9,7 +9,7 @@ import uim.orm;
  * in a separate shadow table where each row corresponds to a row of primary table.
  */
 class DShadowTableStrategy { // TODO }: ITranslateStrategy {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

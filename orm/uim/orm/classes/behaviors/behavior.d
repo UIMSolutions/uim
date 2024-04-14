@@ -100,7 +100,7 @@ import uim.orm;
  * @see DORMevents.EventManager
  */
 class DBehavior : IEventListener {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

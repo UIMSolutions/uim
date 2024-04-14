@@ -12,7 +12,7 @@ import uim.views;
  * for generating HTML and other content.
  */
 class DStringTemplate {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         this.initialize;

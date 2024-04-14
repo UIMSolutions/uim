@@ -18,7 +18,7 @@ import uim.orm;
  * exposed to the table.
  */
 class DEavStrategy { // TODO }: ITranslateStrategy {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

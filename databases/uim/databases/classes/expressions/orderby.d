@@ -1,4 +1,4 @@
-module uim.databases.Expression;
+module uim.databases.classes.expressions.orderby;
 
 import uim.databases;
 

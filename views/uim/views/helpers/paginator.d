@@ -17,7 +17,7 @@ import uim.views;
  */
 class DPaginatorHelper : DHelper {
     mixin(HelperThis!("Paginator"));
-   // TODO use StringTemplateTemplate;
+   // TODO use TStringTemplate;
 
     // Event listeners.
     IEvent[] implementedEvents() {

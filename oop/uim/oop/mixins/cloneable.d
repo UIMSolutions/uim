@@ -1,6 +1,6 @@
 module uim.oop.mixins.cloneable;
 
-mixin template CloneableTemplate() {
+mixin template TCloneable() {
     O create(this O)() {
         O result;
         () @trusted { result = cast(O) this.classinfo.create; }();

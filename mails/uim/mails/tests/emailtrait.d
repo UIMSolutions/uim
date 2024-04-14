@@ -11,7 +11,7 @@ import uim.oop;
  * with TestEmailTransport which is used for making assertions and will *not* actually
  * send emails.
  */
-mixin template EmailTemplate() {
+mixin template TEmail() {
     /**
      * Replaces all transports with the test transport during test setup
      *

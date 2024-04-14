@@ -56,7 +56,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
     mixin TEventDispatcher;
     mixin TLocatorAware;
     mixin TLog;
-    mixin ViewVarsTemplate;
+    mixin TViewVars;
 
     this() {
         initialize;

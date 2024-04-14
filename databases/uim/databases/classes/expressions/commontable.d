@@ -25,10 +25,10 @@ class DCommonTableExpression : IExpression {
 
     mixin(TProperty!("string", "name"));
     // The CTE name.
-    protected IdentifierExpression _cteName;
+    protected DIdentifierExpression _cteName;
 
     // The field names to use for the CTE.
-    protected IdentifierExpression[] _fields;
+    protected DIdentifierExpression[] _fields;
 
     // The CTE query definition.
     protected IExpression aQuery = null;

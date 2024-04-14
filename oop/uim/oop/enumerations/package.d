@@ -8,4 +8,5 @@ module uim.oop.enumerations;
 public {
 	import uim.oop.enumerations.enumeration;
 	import uim.oop.enumerations.filemodes;
+	import uim.oop.enumerations.registry;
 }

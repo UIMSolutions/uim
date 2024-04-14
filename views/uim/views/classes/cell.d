@@ -27,7 +27,7 @@ abstract class DCell { // }: IEventDispatcher {
      * /
     mixin TEventDispatcher;
     mixin TLocatorAware;
-    mixin ViewVarsTemplate;
+    mixin TViewVars;
 
 
 

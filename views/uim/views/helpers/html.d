@@ -14,7 +14,7 @@ import uim.views;
  */
 class DHtmlHelper : DHelper {
     mixin(HelperThis!("Html"));
-    // TODO use StringTemplateTemplate;
+    // TODO use TStringTemplate;
 
     /* 
     // List of helpers used by this helper

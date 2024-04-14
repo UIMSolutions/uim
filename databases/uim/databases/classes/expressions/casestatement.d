@@ -5,27 +5,8 @@ import uim.databases;
 @safe:
 
 // Represents a SQL case statement with a fluid API
-class DCaseStatementExpression : IExpression, ITypedResult {
+class DCaseStatementExpression : DExpression { // }, ITypedResult {
     mixin(ExpressionThis!("CaseStatement"));
-
-    mixin TConfigurable;
-
-    this() {
-        initialize;
-    }
-
-    this(IData[string] initData) {
-        initialize(initData);
-    }
-
-    bool initialize(IData[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
-
-        return true;
-    }
-
-    mixin(TProperty!("string", "name"));
 
     /* 
     mixin TCaseExpression;
@@ -33,7 +14,7 @@ class DCaseStatementExpression : IExpression, ITypedResult {
     mixin TTypeMap;
 
     // The names of the clauses that are valid for use with the `clause()` method.
-    protected string[]  validClauseNames = [
+    protected string[] validClauseNames = [
         "value",
         "when",
         "else",

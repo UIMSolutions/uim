@@ -101,7 +101,7 @@ class DFolder : DFilesystemEntry, IFolder, IFolderManager, IFileManager, ILinkMa
 	// #endregion Methods
 
   mixin TFolderManager!();    
-  mixin FileManagerTemplate!();
+  mixin TFileManager!();
   mixin TLinkManager!();
 
   override string toString() {

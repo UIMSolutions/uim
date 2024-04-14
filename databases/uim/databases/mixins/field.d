@@ -5,7 +5,7 @@ import uim.databases;
 @safe:
 
 // Contains the field property with a getter and a setter for it
-mixin template FieldTemplate() {
+mixin template TField() {
     /**
      * The field name or expression to be used in the left hand side of the operator
      *

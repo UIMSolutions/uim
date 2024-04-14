@@ -27,7 +27,7 @@ class DBetweenExpression : IExpression, IField {
 
     /* 
     mixin TExpressionTypeCaster;
-    mixin FieldTemplate;
+    mixin TField;
 
     // The first value in the expression
     protected IData _from;

@@ -83,7 +83,7 @@ class DComponent { // TODO }: IEventListener {
      * \UIM\Controller\ComponentRegistry  registry A component registry
      * this component can use to lazy load its components.
      * configData = Array of configuration settings.
-     */
+     * /
     this(DComponentRegistry registry, IData[string] configData = null) {
         _registry = registry;
 

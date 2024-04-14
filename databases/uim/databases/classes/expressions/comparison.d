@@ -29,7 +29,7 @@ class DComparisonExpression : IExpression, IField {
 
     mixin(TProperty!("string", "name"));
     mixin TExpressionTypeCaster;
-    mixin FieldTemplate;
+    mixin TField;
 
     // The value to be used in the right hand side of the operation
     protected IData _value;

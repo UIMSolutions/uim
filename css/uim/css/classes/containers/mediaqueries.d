@@ -8,7 +8,7 @@ class DCSSMediaQueries {
     _queries["default"] = CSSMediaQuery;
   }
 
-  protected ICSSMediaQuery[string] _queries;
+  protected DCSSMediaQuery[string] _queries;
 
   auto query(string queryName = null) {
     if (queryName) return _queries.get(queryName, null);

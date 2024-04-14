@@ -17,6 +17,7 @@ import uim.controllers;
  */
 class DCheckHttpCacheComponent : DComponent {
   // Before Render hook
+  /*
   void beforeRender(IEvent beforeRenderEvent) {
     auto controller = this.getController();
     auto controllerResponse = controller.getResponse();
@@ -26,5 +27,5 @@ class DCheckHttpCacheComponent : DComponent {
     }
     controller.setResponse(controllerResponse.withNotModified());
     beforeRenderEvent.stopPropagation();
-  }
+  } */
 }

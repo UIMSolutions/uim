@@ -8,7 +8,7 @@ module uim.filesystems.mixins.filemanager;
 import uim.filesystems;
 
 @safe:
-template FileManagerTemplate() {
+mixin template TFileManager() {
   // #region files
     // #region READ
       // #region hasFiles()

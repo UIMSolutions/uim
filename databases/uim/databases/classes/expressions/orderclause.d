@@ -6,7 +6,7 @@ import uim.databases;
 
 // An expression object for complex ORDER BY clauses
 class DOrderClauseExpression : IExpression, IField {
-  mixin FieldTemplate;
+  mixin TField;
 
   // The direction of sorting.
   protected string _direction;

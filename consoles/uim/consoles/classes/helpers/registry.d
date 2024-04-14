@@ -11,7 +11,7 @@ import uim.consoles;
  * @extends \UIM\Core\ObjectRegistry<\UIM\Console\Helper>
  */
 class DHelperRegistry { // }: ObjectRegistry {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

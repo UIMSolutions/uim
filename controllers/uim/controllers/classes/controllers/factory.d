@@ -10,7 +10,7 @@ import uim.controllers;
  * @implements \UIM\Http\IControllerFactory<\UIM\Controller\Controller>
  */
 class DControllerFactory { // }: IControllerFactory, IRequestHandler {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

@@ -6,7 +6,7 @@ import uim.consoles;
 
 // Object wrapper for interacting with stdin
 class DConsoleInput {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

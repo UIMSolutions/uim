@@ -11,7 +11,7 @@ import uim.consoles;
  * @see \UIM\Console\DConsoleOptionParser buildOptionParser.addArgument()
  */
 class DConsoleInputArgument {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

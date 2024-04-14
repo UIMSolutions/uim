@@ -43,7 +43,7 @@ import uim.controllers;
  * @see \UIM\Controller\Controller.components
  */
 class DComponent { // TODO }: IEventListener {
-    mixin TConfigurable!();
+    mixin TConfigurable;
     mixin TLog;
 
     this() {

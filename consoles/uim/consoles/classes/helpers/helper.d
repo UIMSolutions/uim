@@ -12,7 +12,7 @@ import uim.consoles;
  * progress bars or ascii art.
  */
 abstract class DHelper {
-    mixin TConfigurable!(); 
+    mixin TConfigurable; 
 
     this() {
         initialize;

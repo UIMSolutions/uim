@@ -12,7 +12,7 @@ import uim.consoles;
  * easy to do in unit tests.
  */
 class DConsoleIo {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

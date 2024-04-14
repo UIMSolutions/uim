@@ -32,7 +32,7 @@ import uim.consoles;
  * at this time.
  */
 class DConsoleOutput {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

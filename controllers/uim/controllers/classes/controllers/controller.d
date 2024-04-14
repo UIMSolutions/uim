@@ -51,7 +51,7 @@ import uim.controllers;
  * @implements \UIM\Event\IEventDispatcher<\UIM\Controller\Controller>
  */
 class DController : IController { // IEventListener, IEventDispatcher {    
-    mixin TConfigurable!();
+    mixin TConfigurable;
     // @use \UIM\Event\EventDispatcherTrait<\UIM\Core\IConsoleApplication>
     mixin TEventDispatcher;
     mixin TLocatorAware;

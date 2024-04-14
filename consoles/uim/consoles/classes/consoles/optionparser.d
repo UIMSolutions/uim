@@ -57,7 +57,7 @@ import uim.consoles;
  * can generate a help display for you. You can view the help for shells by using the `--help` or `-h` switch.
  */
 class DConsoleOptionParser {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

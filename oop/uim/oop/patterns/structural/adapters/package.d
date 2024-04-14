@@ -19,7 +19,7 @@ import uim.oop;
 }
 
 /// Create concrete classes implementing the AdvancedMediaPlayer interface.
- class DVlcPlayer : AdvancedMediaPlayer{
+ class VlcPlayer : AdvancedMediaPlayer{
    override  void playVlc(string fileName) {
       writeln("Playing vlc file. Name: ", fileName);		
    }
@@ -48,10 +48,10 @@ import uim.oop;
     this(string audioType) {
    
       if(audioType.toLower == "vlc") {
-         advancedMusicPlayer = new DVlcPlayer();			
+         advancedMusicPlayer = new VlcPlayer();			
          
       } else if (audioType.toLower == "mp4") {
-         advancedMusicPlayer = new DMp4Player();
+         advancedMusicPlayer = new Mp4Player();
       }	
    }
 
@@ -80,7 +80,7 @@ import uim.oop;
       
       //mediaAdapter is providing support to play other file formats
       else if(audioType.toLower == "vlc" || audioType.toLower == "mp4") {
-         mediaAdapter = new DMediaAdapter(audioType);
+         mediaAdapter = new MediaAdapter(audioType);
          mediaAdapter.play(audioType, fileName);
       }
       

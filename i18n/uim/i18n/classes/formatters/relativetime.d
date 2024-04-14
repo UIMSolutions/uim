@@ -13,13 +13,13 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
     /**
      * Get the difference in a human readable format.
      * Params:
-     * \UIM\Chronos\ChronosDate|\IDateTime first The datetime to start with.
-     * @param \UIM\Chronos\ChronosDate|\IDateTime|null second The datetime to compare against.
+     * \UIM\Chronos\DChronosDate|\IDateTime first The datetime to start with.
+     * @param \UIM\Chronos\DChronosDate|\IDateTime|null second The datetime to compare against.
      * @param bool absolute Removes time difference modifiers ago, after, etc.
      * /
     string diffForHumans(
-        /* ChronosDate| * /IDateTime first,
-        /* ChronosDate| * /IDateTime|null second = null,
+        /* DChronosDate| * /IDateTime first,
+        /* DChronosDateeee| * /IDateTime|null second = null,
         bool absolute = false
     ) {
         auto isNow = second.isNull;

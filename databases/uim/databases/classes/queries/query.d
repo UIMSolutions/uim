@@ -12,7 +12,7 @@ import uim.databases;
  */
 abstract class DQuery : IQuery { // : IExpression {
     mixin TConfigurable;
-    mixin TTypeMap;
+    // TODO mixin TTypeMap;
 
     // Hook method
     bool initialize(IData[string] initData = null) {

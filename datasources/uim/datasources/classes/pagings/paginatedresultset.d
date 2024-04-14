@@ -10,7 +10,7 @@ import uim.datasources;
  * @template-extends \IteratorIterator<mixed, mixed, \Traversable<mixed>>
  * @template T
  */
-class DPaginatedResultSet : IteratorIterator : IDataSerializable, IPaginated {
+class DPaginatedResultSet { /* }: IteratorIterator : IDataSerializable, IPaginated {
     // Paging params.
     protected array params = null;
 
@@ -19,7 +19,7 @@ class DPaginatedResultSet : IteratorIterator : IDataSerializable, IPaginated {
      * Params:
      * \Traversable<T> results Resultset instance.
      * @param array params Paging params.
-     */
+     * /
     this(Traversable results, array params) {
         super(results);
 
@@ -32,14 +32,14 @@ class DPaginatedResultSet : IteratorIterator : IDataSerializable, IPaginated {
     
     /**
      * Get paginated items.
-     */
+     * /
     Traversable items() {
         return this.getInnerIterator();
     }
     
     /**
      * Provide data which should be serialized to IData.
-     */
+     * /
     array IDataSerialize() {
         return iterator_to_array(this.items());
     }
@@ -74,5 +74,5 @@ class DPaginatedResultSet : IteratorIterator : IDataSerializable, IPaginated {
  
     array pagingParams() {
         return this.params;
-    }
+    } */
 }

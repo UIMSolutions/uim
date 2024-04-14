@@ -92,7 +92,7 @@ class DHelperRegistry { // }: ObjectRegistry : IEventDispatcher {
      * @param string|null myplugin The plugin the helper is missing in.
      * /
     protected void _throwMissingClassError(string myclass, string myplugin) {
-        throw new MissingHelperException([
+        throw new DMissingHelperException([
             "class": myclass ~ "Helper",
             "plugin": myplugin,
         ]);

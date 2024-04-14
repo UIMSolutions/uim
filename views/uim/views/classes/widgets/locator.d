@@ -63,7 +63,7 @@ class DWidgetLocator {
      *
      * ```
      * myregistry.add([
-     *  "label": new MyLabelWidget(mytemplates),
+     *  "label": new DMyLabelWidget(mytemplates),
      *  "checkbox": ["Fancy.MyCheckbox", "label"]
      * ]);
      * ```

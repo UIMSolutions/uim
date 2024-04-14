@@ -1,11 +1,11 @@
-module uim.datasources.classes.connections.registry;
+module datasources.uim.datasources.classes.entities.registry;
 
 import uim.datasources;
 
 @safe:
 
-// A registry object for connection instances.
-class DConnectionRegistry : DObjectRegistry!IConnection {
+// A registry object for Datasource instances.
+class DDatasourceRegistry : DObjectRegistry!IDatasource {
     /**
      * Resolve a datasource classname.
      *
@@ -29,20 +29,7 @@ class DConnectionRegistry : DObjectRegistry!IConnection {
         ]);
     }
     
-    /**
-     * Create the connection object with the correct settings.
-     *
-     * Part of the template method for UIM\Core\ObjectRegistry.load()
-     *
-     * If a closure is passed as first argument, The returned value of this
-     * auto will be the result from calling the closure.
-     * /
-    protected IConnection _create(string className, string objectAlias, IData[string] configData) {
-        configData.remove("className");
-
-        return new className(configData);
-    }
-    protected IConnection _create(Object className, string objectAlias, IData[string] configData) {
+    protected IDatasource _create(Object className, string objectAlias, IData[string] configData) {
         return cast(DClosure)className 
             ? className(objectAlias)
             : className;
@@ -53,7 +40,7 @@ class DConnectionRegistry : DObjectRegistry!IConnection {
         unset(_loaded[adapterName]);
     } */
 }
-auto ConnectionRegistry() { return new DConnectionRegistry; }
+auto DatasourceRegistry() { return DDatasourceRegistry.instance; }
 
 
     

@@ -8,8 +8,9 @@ module uim.oop.interfaces.cloneable;
 import uim.oop;
 
 @safe:
-interface ICloneable {
-  O create(this O)();
-  O clone(this O)();
-  O clone(this O)(Json data);
+
+interface ICloneable(T) {
+  T create();
+  T clone(this O)();
+  T clone(this O)(IData[string] data);
 }

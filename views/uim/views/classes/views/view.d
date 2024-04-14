@@ -467,7 +467,7 @@ class DView : IView { //  }: IEventDispatcher {
         }
         [_plugin, myelementName] = this.pluginSplit(templatefilename, _pluginCheck);
         auto mypaths = iterator_to_array(this.getElementPaths(_plugin));
-        throw new MissingElementException([templatefilename ~ _ext, myelementName ~ _ext], mypaths);
+        throw new DMissingElementException([templatefilename ~ _ext, myelementName ~ _ext], mypaths);
     }
 
     /**
@@ -967,7 +967,7 @@ class DView : IView { //  }: IEventDispatcher {
                 return _checkFilePath(mypath ~ views, mypath);
             }
         }
-        throw new MissingTemplateException(views, mypaths);
+        throw new DMissingTemplateException(views, mypaths);
     }
     
     // Change the name of a view template file into underscored format.
@@ -1042,7 +1042,7 @@ class DView : IView { //  }: IEventDispatcher {
             }
         }
         mypaths = iterator_to_array(this.getLayoutPaths(_plugin));
-        throw new MissingLayoutException(views, mypaths);
+        throw new DMissingLayoutException(views, mypaths);
     }
     
     /**

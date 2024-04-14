@@ -23,7 +23,7 @@ class DQueryExpression : DExpression { // }, Countable {
     /**
      * A list of strings or other expression objects that represent the "branches" of
      * the expression tree. For example one key of the array might look like "sum > :value"
-     */
+     * /
     protected array _conditions = null;
 
     /**

@@ -16,9 +16,6 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
     // TODO mixin TExpressionTypeCaster;
     // TODO mixin TypedResultTemplate;
 
-    // The name of the auto to be constructed when generating the SQL string
-    mixin(TProperty!("string", "name"));
-
     /**
      * Constructor. Takes a name for the auto to be invoked and a list of params
      * to be passed into the function. Optionally you can pass a list of types to
@@ -44,8 +41,8 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
      * passed arguments
      * @param string resultType The return type of this expression
      * /
-    this(string aName, array params = [], array types = [], string resultType = "string") {
-       _name = name;
+    this(string newName, array params = [], array types = [], string resultType = "string") {
+       this.name(newName);
        _returnType = resultType;
         super(params, types, ",");
     }

@@ -8,7 +8,9 @@ import uim.databases;
  * This expression represents SQL fragments that are used for comparing one tuple
  * to another, one tuple to a set of other tuples or one tuple to an expression
  */
-class DTupleComparison : DComparisonExpression {
+class DTupleComparisonExpression : DComparisonExpression {
+    mixin(ExpressionThis!("TupleComparison"));
+
     /**
      * The type to be used for casting the value to a database representation
      */
@@ -147,3 +149,4 @@ class DTupleComparison : DComparisonExpression {
                                                                 "in", "not in"
                                                             ]);} */
 }
+mixin(ExpressionCalls!("TupleComparison"));

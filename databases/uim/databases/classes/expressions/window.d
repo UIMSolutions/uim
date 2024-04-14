@@ -5,7 +5,10 @@ import uim.databases;
 @safe:
 
 // This represents a SQL window expression used by aggregate and window functions.
-class DWindowExpression { /* }: IExpression, IWindow {
+class DWindowExpression : DExpression { // TODO}, IWindow {
+    mixin(ExpressionThis!("Window"));
+
+    /*
     protected IdentifierExpression  myname;
 
     protected IExpression mypartitions;
@@ -217,3 +220,4 @@ class DWindowExpression { /* }: IExpression, IWindow {
         }
     } */
 }
+mixin(ExpressionCalls!("Window"));

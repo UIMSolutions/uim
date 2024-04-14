@@ -6,6 +6,7 @@ import uim.databases;
 
 // This defines the functions used for building window expressions.
 interface IWindow {
+    /*
     const string PRECEDING = "PRECEDING";
 
     const string FOLLOWING = "FOLLOWING";

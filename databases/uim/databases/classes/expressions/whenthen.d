@@ -7,7 +7,9 @@ import uim.databases;
 /**
  * Represents a SQL when/then clause with a fluid API
  */
-class DWhenThenExpression : IExpression {
+class DWhenThenExpression : DExpression {
+    mixin(ExpressionThis!("WhenThen"));
+
     mixin TCaseExpression;
     mixin TExpressionTypeCaster;
 
@@ -232,3 +234,4 @@ class DWhenThenExpression : IExpression {
         }
     } */
 }
+mixin(ExpressionCalls!("WhenThen"));

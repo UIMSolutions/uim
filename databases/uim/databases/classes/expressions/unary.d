@@ -5,7 +5,9 @@ import uim.databases;
 @safe:
 
 // An expression object that represents an expression with only a single operand.
-class DUnaryExpression : IExpression {
+class DUnaryExpression : DExpression {
+    mixin(ExpressionThis!("Unary"));
+
     // Indicates that the operation is in pre-order
     const int PREFIX = 0;
 

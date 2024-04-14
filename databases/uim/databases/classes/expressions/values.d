@@ -10,7 +10,10 @@ import uim.databases;
  * Helps generate SQL with the correct number of placeholders and bind
  * values correctly into the statement.
  */
-class DValuesExpression : IExpression {
+class DValuesExpression : DExpression {
+    mixin(ExpressionThis!("Values"));
+
+    /*
     mixin TExpressionTypeCaster;
     mixin TTypeMap;
 
@@ -197,3 +200,4 @@ class DValuesExpression : IExpression {
        _castedExpressions = true;
     } */
 }
+mixin(ExpressionCalls!("Values"));

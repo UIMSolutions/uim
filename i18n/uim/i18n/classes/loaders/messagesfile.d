@@ -11,7 +11,7 @@ import uim.i18n;
  * This class is a callable, so it can be used as a catalog loader argument.
  */
 class DMessagesFileLoader {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

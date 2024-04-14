@@ -6,7 +6,7 @@ import uim.i18n;
 
 // A formatter that will interpolate variables using the MessageFormatter class
 class DI18NFormatter : II18NFormatter {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

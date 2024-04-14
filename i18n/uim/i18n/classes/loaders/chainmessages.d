@@ -9,7 +9,7 @@ import uim.i18n;
  * one of them returns a non-empty catalog.
  */
 class DChainMessagesLoader {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

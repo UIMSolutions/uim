@@ -9,7 +9,7 @@ import uim.i18n;
  * Methods to make numbers more readable.
  */
 class DNumber {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

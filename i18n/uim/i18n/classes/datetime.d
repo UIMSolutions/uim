@@ -9,7 +9,7 @@ import uim.i18n;
  * formatting helpers.
  */
 class DateTime /* : Chronos, IDataSerializable */ {
-    mixin TConfigurable!();
+    mixin TConfigurable;
     mixin TDateFormat;
 
     this() { initialize; }

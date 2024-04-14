@@ -9,7 +9,7 @@ import uim.i18n;
  * base on the locale.
  */
 class DPluralRules {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

@@ -6,7 +6,7 @@ import uim.i18n;
 
 // Message Catalog
 class DMessageCatalog : ICatalog {
-    mixin TConfigurable!(); 
+    mixin TConfigurable; 
 
   this() {
     initialize;

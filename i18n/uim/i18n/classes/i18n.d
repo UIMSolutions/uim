@@ -6,7 +6,7 @@ import uim.i18n;
 
 // I18n handles translation of Text and time format strings.
 class DI18n {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

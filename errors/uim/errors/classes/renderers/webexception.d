@@ -233,7 +233,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * string amethod The method name to invoke.
      * @param \Throwable exception The exception to render.
      * /
-    protected Response _customMethod(string amethod, Throwable exception) {
+    protected DResponse _customMethod(string amethod, Throwable exception) {
         result = this.{method}(exception);
        _shutdown();
         if (isString(result)) {
@@ -307,7 +307,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * Params:
      * string atemplate The template to render.
      * /
-    protected Response _outputMessage(string atemplate) {
+    protected DResponse _outputMessage(string atemplate) {
         try {
             this.controller.render(template);
 
@@ -342,7 +342,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * Params:
      * string atemplate The template to render.
      * /
-    protected Response _outputMessageSafe(string atemplate) {
+    protected DResponse _outputMessageSafe(string atemplate) {
         builder = this.controller.viewBuilder();
         builder
             .setHelpers([])
@@ -363,7 +363,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      *
      * Triggers the afterFilter and afterDispatch events.
      * /
-    protected Response _shutdown() {
+    protected DResponse _shutdown() {
         this.controller.dispatchEvent("Controller.shutdown");
 
         return this.controller.getResponse();

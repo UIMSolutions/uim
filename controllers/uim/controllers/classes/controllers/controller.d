@@ -97,7 +97,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      *
      * @link https://book.UIM.org/5/en/controllers/request-response.html#response
      * /
-    protected Response response;
+    protected DResponse response;
 
     /**
      * Pagination settings.

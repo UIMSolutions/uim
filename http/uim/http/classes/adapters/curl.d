@@ -152,7 +152,7 @@ class DCurl { // }: IAdapter {
      * \CurlHandle handle Curl handle
      * @param string aresponseData string The response data from curl_exec
      * /
-    protected REsponse[] createResponse(CurlHandle handle, string aresponseData) {
+    protected DREsponse[] createResponse(CurlHandle handle, string aresponseData) {
          aHeaderSize = curl_getinfo(handle, CURLINFO_HEADER_SIZE);
          aHeaders = trim(substr(responseData, 0,  aHeaderSize));
         body = substr(responseData,  aHeaderSize);

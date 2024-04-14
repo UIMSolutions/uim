@@ -62,16 +62,16 @@ class DRulesChecker {
 
     /* 
     // The list of rules to be checked on both create and update operations
-    protected RuleInvoker[] _rules;
+    protected DRuleInvoker[] _rules;
 
     // The list of rules to check during create operations
-    protected RuleInvoker[] _createRules = null;
+    protected DRuleInvoker[] _createRules = null;
 
     // The list of rules to check during update operations
-    protected RuleInvoker[] _updateRules = null;
+    protected DRuleInvoker[] _updateRules = null;
 
     // The list of rules to check during delete operations
-    protected RuleInvoker[] _deleteRules = null;
+    protected DRuleInvoker[] _deleteRules = null;
 
     // List of options to pass to every callable rule
     protected array _options = null;
@@ -258,7 +258,7 @@ class DRulesChecker {
      * @param string[] name The alias for a rule or an array of options
      * @param IData[string] optionData The options containing the error message and field.
      * /
-    protected RuleInvoker _addError(callable rule, string[] name = null, IData[string] optionData = null) {
+    protected DRuleInvoker _addError(callable rule, string[] name = null, IData[string] optionData = null) {
         if (isArray(name)) {
             options = name;
             name = null;

@@ -68,8 +68,8 @@ class DFormProtectionComponent : DComponent {
      * Token check happens here.
      * Params:
      * \UIM\Event\IEvent<\UIM\Controller\Controller> anEvent An Event instance
-     */
-    Response startup(IEvent anEvent) {
+     * /
+    DResponse startup(IEvent anEvent) {
         auto myrequest = this.getController().getRequest();
         auto mydata =  request.getParsedBody();
         auto myhasData = (someData ||  request. is(["put", "post", "delete", "patch"]));
@@ -120,7 +120,7 @@ class DFormProtectionComponent : DComponent {
      * Params:
      * \UIM\Form\FormProtector formProtector Form Protector instance.
      */
-    protected Response validationFailure(FormProtectorformProtector) {
+    protected DResponse validationFailure(FormProtectorformProtector) {
         auto myException = Configure.read("debug")
             ? new BadRequestException(
                 formProtector.getError()) : new BadRequestException(DEFAULT_EXCEPTION_MESSAGE);
@@ -138,7 +138,7 @@ class DFormProtectionComponent : DComponent {
      * \Closure aCallback Callback
      * @param \UIM\Http\Exception\BadRequestException anException = Exception instance.
      */
-    protected Response executeCallback(Closure aCallback, BadRequestException anException) {
+    protected DResponse executeCallback(Closure aCallback, BadRequestException anException) {
         return aCallback(exception);
     }
 }

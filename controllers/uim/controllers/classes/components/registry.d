@@ -13,7 +13,8 @@ import uim.controllers;
  * @extends \UIM\Core\ObjectRegistry<\UIM\Controller\Component>
  * @implements \UIM\Event\IEventDispatcher<TSubject>
  */
-class DComponentRegistry : ObjectRegistry, IEventDispatcher {
+class DComponentRegistry : DObjectRegistry!DComponent { // TODO}, IEventDispatcher {
+    /*
     // @use \UIM\Event\EventDispatcherTrait<TSubject>
     mixin TEventDispatcher;
 
@@ -24,7 +25,7 @@ class DComponentRegistry : ObjectRegistry, IEventDispatcher {
      * Constructor.
      * Params:
      * \UIM\Controller\Controller controller Controller instance.
-     */
+     * /
     this(IController controller) {
        _Controller = controller;
         this.setEventManager(controller.getEventManager());
@@ -39,9 +40,9 @@ class DComponentRegistry : ObjectRegistry, IEventDispatcher {
      * Resolve a component classname.
      *
      * Part of the template method for {@link \UIM\Core\ObjectRegistry.load()}.
-     */
+     * /
     protected string _resolveClassName(string className) {
-        /** @var class-string<\UIM\Controller\Component>|null */
+        /** @var class-string<\UIM\Controller\Component>|null * /
         return App.className(className, "Controller/Component", "Component");
     }
     
@@ -51,13 +52,12 @@ class DComponentRegistry : ObjectRegistry, IEventDispatcher {
      * Part of the template method for {@link \UIM\Core\ObjectRegistry.load()}
      * and {@link \UIM\Core\ObjectRegistry.unload()}
      * Params:
-     * @param string|null plugin The plugin the component is missing in.
      * @throws \UIM\Controller\Exception\MissingComponentException
-     */
-    protected void _throwMissingClassError(string className, string aplugin) {
+     * /
+    protected void _throwMissingClassError(string className, string pluginName) {
         throw new MissingComponentException([
-            'class":  className ~ "Component",
-            'plugin": plugin,
+            "class":  className ~ "Component",
+            "plugin": pluginName,
         ]);
     }
     
@@ -70,7 +70,7 @@ class DComponentRegistry : ObjectRegistry, IEventDispatcher {
      * \UIM\Controller\Component|class-string<\UIM\Controller\Component>  className The classname to create.
      * @param string aalias The alias of the component.
      * configData - An array of config to use for the component.
-     */
+     * /
     protected IComponent _create(object|string className, string aalias, IData[string] configData = null) {
         if (isObject(className)) {
             return className;
@@ -80,5 +80,5 @@ class DComponentRegistry : ObjectRegistry, IEventDispatcher {
             this.getEventManager().on(anInstance);
         }
         return anInstance;
-    }
+    } */
 }

@@ -17,7 +17,7 @@ import uim.datasources;
 mixin template TRulesAware() {
     /*
     // The domain rules to be applied to entities saved by this table
-    protected RulesChecker _rulesChecker = null;
+    protected DRulesChecker _rulesChecker = null;
 
     /**
      * Returns whether the passed entity complies with all the rules stored in

@@ -235,7 +235,7 @@ class DStream { // }: IAdapter {
      * array  aHeaders Unparsed headers.
      * @param string abody The response body.
      * /
-    protected Response _buildResponse(array  aHeaders, string abody) {
+    protected DResponse _buildResponse(array  aHeaders, string abody) {
         return new DResponse( aHeaders, body);
     }
     

@@ -245,7 +245,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * @param \Throwable myException The exception to render.
      * @return uim.cake.http.Response The response to send.
      * /
-    protected Response _customMethod(string method, Throwable myException) {
+    protected DResponse _customMethod(string method, Throwable myException) {
         myResult = this.{method}(myException);
         _shutdown();
         if (!myResult.isString) {
@@ -338,7 +338,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * @param string myTemplate The template to render.
      * @return uim.cake.http.Response A response object that can be sent.
      * /
-    protected Response _outputMessage(string myTemplate) {
+    protected DResponse _outputMessage(string myTemplate) {
         try {
             this.controller.render(myTemplate);
 
@@ -372,7 +372,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * @param string myTemplate The template to render.
      * @return uim.cake.http.Response A response object that can be sent.
      * /
-    protected Response _outputMessageSafe(string myTemplate) {
+    protected DResponse _outputMessageSafe(string myTemplate) {
         myBuilder = this.controller.viewBuilder();
         myBuilder
             .setHelpers([], false)
@@ -395,7 +395,7 @@ class DExceptionRenderer : IExceptionRenderer {
      *
      * @return uim.cake.http.Response The response to serve.
      * /
-    protected Response _shutdown() {
+    protected DResponse _shutdown() {
         this.controller.dispatchEvent("Controller.shutdown");
 
         return this.controller.getResponse();

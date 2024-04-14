@@ -34,6 +34,9 @@ class DFormHelper : DHelper {
     // Defines the type of form being created. Set by FormHelper.create().
     string _requestType = null;
 
+    // DContext for the current form.
+    protected IFormContext _context = null;
+
     /* 
     // Other helpers used by FormHelper
     protected array myhelpers = ["Url", "Html"];
@@ -162,12 +165,6 @@ class DFormHelper : DHelper {
      * /
     protected DWidgetLocator my_locator;
 
-    /**
-     * DContext for the current form.
-     *
-     * @var \UIM\View\Form\IFormContext|null
-     * /
-    protected IFormContext my_context = null;
 
     /**
      * DContext factory.

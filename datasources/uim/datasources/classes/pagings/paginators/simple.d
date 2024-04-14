@@ -2,6 +2,7 @@ module uim.datasources.classes.pagings.paginators.simple;
 
 import uim.datasources;
 
+@safe:
 /**
  * Simplified paginator which avoids potentially expensives queries
  * to get the total count of records.

@@ -153,11 +153,11 @@ auto OOPMap(K, V)(V[K] values) { return DOOPMap!(K, V)(values); }
 version(test_uim_oop) { unittest {
 	import std.stdio;
 
-	auto map = new MapTempl!(string, string);
+	auto map = new DMapTempl!(string, string);
 	map.items = ["1":"2", "3":"4"];
 	assert(map.items == ["1":"2", "3":"4"]);
 
-	auto map2 = new MapTempl!(int, int);
+	auto map2 = new DMapTempl!(int, int);
 	map2.items = [1:2, 3:5];
 	assert(map2.items == [1:2, 3:5]);
 

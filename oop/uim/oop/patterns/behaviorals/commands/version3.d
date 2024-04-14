@@ -318,8 +318,8 @@ Command[] toCommand(T:Command)(T[] commands) {
 
     Command[] commands1 = [lightOn1, lightOn2, lightOn3, tvOn1, tvOn2].map!(a => cast(Command)a).array;
     Command[] commands2 = [lightOff1, lightOff2, lightOff3, tvOff1, tvOff2].map!(a => cast(Command)a).array;
-    MacroCommand allOn = new MacroCommand(commands1);
-    MacroCommand allOff = new MacroCommand(commands2);
+    MacroCommand allOn = new DMacroCommand(commands1);
+    MacroCommand allOff = new DMacroCommand(commands2);
 
     remoteControl.setCommand(0, lightOn1, lightOff1);
     remoteControl.setCommand(1, lightOn2, lightOff2);

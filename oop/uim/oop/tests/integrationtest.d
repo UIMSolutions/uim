@@ -378,7 +378,7 @@ mixin template TIntegrationTest() {
         app = this.createApp();
         assert(cast(IHttpApplication)app);
 
-        return new MiddlewareDispatcher(app);
+        return new DMiddlewareDispatcher(app);
     }
     
     /**

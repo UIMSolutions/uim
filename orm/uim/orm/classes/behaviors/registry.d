@@ -90,7 +90,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * @throws DORMexceptions.MissingBehaviorException
      * /
     protected void _throwMissingClassError(string aClassName , string plugin) {
-        throw new MissingBehaviorException([
+        throw new DMissingBehaviorException([
             "class": aClassName ~ "Behavior",
             "plugin": plugin,
         ]);

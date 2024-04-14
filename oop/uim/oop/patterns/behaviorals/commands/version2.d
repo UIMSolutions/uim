@@ -36,8 +36,8 @@ public:
 version (test_uim_oop) {
   unittest {
     MoveFileCommand[] commandStack;
-    auto firstCommand = new MoveFileCommand("foo.txt", "bar.txt");
-    auto secondCommand = new MoveFileCommand("bar.txt", "baz.txt");
+    auto firstCommand = new DMoveFileCommand("foo.txt", "bar.txt");
+    auto secondCommand = new DMoveFileCommand("bar.txt", "baz.txt");
     commandStack ~= firstCommand;
     commandStack ~= secondCommand;
     assert(exists("foo.txt") == false);

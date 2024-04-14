@@ -136,7 +136,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
                 return path ~ pluginPath ~ DIRECTORY_SEPARATOR;
             }
         }
-        throw new MissingPluginException(["plugin": pluginName]);
+        throw new DMissingPluginException(["plugin": pluginName]);
 
         */
         return null; // TODO 

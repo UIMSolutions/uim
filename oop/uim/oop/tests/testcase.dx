@@ -842,7 +842,7 @@ abstract class DTestCase : DBaseTestCase {
             /** @var class-string<\ORM\Table>|null  className * /
              className = App.className(className, "Model/Table", "Table");
             if (!className) {
-                throw new MissingTableClassException([alias]);
+                throw new DMissingTableClassException([alias]);
             }
             options["className"] = className;
         }

@@ -51,7 +51,7 @@ import uim.oop;
          advancedMusicPlayer = new DVlcPlayer();			
          
       } else if (audioType.toLower == "mp4") {
-         advancedMusicPlayer = new Mp4Player();
+         advancedMusicPlayer = new DMp4Player();
       }	
    }
 
@@ -80,7 +80,7 @@ import uim.oop;
       
       //mediaAdapter is providing support to play other file formats
       else if(audioType.toLower == "vlc" || audioType.toLower == "mp4") {
-         mediaAdapter = new MediaAdapter(audioType);
+         mediaAdapter = new DMediaAdapter(audioType);
          mediaAdapter.play(audioType, fileName);
       }
       

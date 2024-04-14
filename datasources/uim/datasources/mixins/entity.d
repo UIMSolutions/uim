@@ -281,7 +281,7 @@ mixin template TEntity() {
       return result;
     }
     if (!fieldIsPresent && this.requireFieldPresence) {
-      throw new MissingPropertyException([
+      throw new DMissingPropertyException([
           "property": fieldName,
           "entity": this.classname,
         ]);

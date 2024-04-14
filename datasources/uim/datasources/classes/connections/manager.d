@@ -159,7 +159,7 @@ class DConnectionManager {
             name = _aliasMap[name];
         }
         if (empty(configuration[name])) {
-            throw new MissingDatasourceConfigException(["name": name]);
+            throw new DMissingDatasourceConfigException(["name": name]);
         }
         /** @psalm-suppress RedundantPropertyInitializationCheck  * /
         if (!isset(_registry)) {
@@ -264,7 +264,7 @@ static IData[string] parseDsn(string adsn) {
                                 connectionName = _connectionAliases[connectionName];
                             }
                             if (!isSet(configuration.data(connectionName])) {
-                                    throw new MissingDatasourceConfigException(
+                                    throw new DMissingDatasourceConfigException(
                                         ["name": connectionName]); }
 
                                     _registry ? _registry : new DConnectionRegistry();

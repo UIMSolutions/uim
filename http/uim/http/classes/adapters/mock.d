@@ -82,7 +82,7 @@ class DMockAdapter { //}: IAdapter {
 
             return [mock["response"]];
         }
-        throw new MissingResponseException(["method": method, "url": requestUri]);
+        throw new DMissingResponseException(["method": method, "url": requestUri]);
     }
     
     /**

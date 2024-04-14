@@ -461,7 +461,7 @@ class DClient { // }: IClient {
      * /
   static void addMockResponse(string mymethod, string myurl, Response myresponse, IData[string] options = null) {
     if (!my_mockAdapter) {
-      my_mockAdapter = new MockAdapter();
+      my_mockAdapter = new DMockAdapter();
     }
     myrequest = new DRequest(myurl, mymethod);
     my_mockAdapter.addResponse(myrequest, myresponse, options);

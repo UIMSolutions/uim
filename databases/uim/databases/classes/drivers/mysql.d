@@ -113,7 +113,7 @@ class DMysqlDriver : DDriver {
         if (isSet(_schemaDialect)) {
             return _schemaDialect;
         }
-        return _schemaDialect = new MysqlSchemaDialect(this);
+        return _schemaDialect = new DMysqlSchemaDialect(this);
     }
  
     string schema() {

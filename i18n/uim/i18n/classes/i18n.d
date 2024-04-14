@@ -33,12 +33,12 @@ class DI18n {
      * for getting specific translators based of their name and locale
      * or to configure some aspect of future translations that are not yet constructed.
      * /
-    static TranslatorRegistry translators() {
+    static DTranslatorRegistry translators() {
         if (!_collection is null) {
             return _collection;
         }
         _collection = new DTranslatorRegistry(
-            new DPackageLocator(),
+            new DCatalogLocator(),
             new DFormatterLocator([
                 "default": IcuFormatter.classname,
                 "sprintf": PrintFormatter.classname,
@@ -80,7 +80,7 @@ class DI18n {
      * ```
      * I18n.setTranslator(
      * "default",
-     * new MessagesFileLoader("my_translations", "custom", "po"),
+     * new DMessagesFileLoader("my_translations", "custom", "po"),
      * 'fr_FR'
      * );
      * ```
@@ -144,7 +144,7 @@ class DI18n {
      * use UIM\I18n\MessagesFileLoader;
      * I18n.config("my_domain", auto (name, locale) {
      *     // Load resources/locales/locale/filename.po
-     *     fileLoader = new MessagesFileLoader("filename", locale, "po");
+     *     fileLoader = new DMessagesFileLoader("filename", locale, "po");
      *     return fileLoader();
      * });
      * ```
@@ -154,7 +154,7 @@ class DI18n {
      * ```
      * use UIM\I18n\MessageCatalog;
      * I18n.config("my_domain", auto (name, locale) {
-     *     catalog = new MessageCatalog("default");
+     *     catalog = new DMessageCatalog("default");
      *     messages = (...); // Fetch messages for locale from external service.
      *     catalog.setMessages(message);
      *     catalog.("default");

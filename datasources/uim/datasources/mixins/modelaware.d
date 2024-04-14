@@ -88,7 +88,7 @@ mixin template TModelAware() {
         if (anInstance) {
             return anInstance;
         }
-        throw new MissingModelException([modelClass, modelType]);
+        throw new DMissingModelException([modelClass, modelType]);
     }
     
     /**

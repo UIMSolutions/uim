@@ -19,7 +19,7 @@ abstract class DQuery : IQuery { // : IExpression {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
-        protected IData[string] _parts = [
+        _parts = [
             "comment": NullData,
             "delete": BooleanData(true),
             "update": ArrayData,

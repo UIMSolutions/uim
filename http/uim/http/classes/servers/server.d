@@ -78,9 +78,9 @@ class DServer { // }: IEventDispatcher {
 
         if (middlewareQueue is null) {
             if (cast(IContainerApplication)this.app) {
-                middlewareQueue = new MiddlewareQueue([], this.app.getContainer());
+                middlewareQueue = new DMiddlewareQueue([], this.app.getContainer());
             } else {
-                middlewareQueue = new MiddlewareQueue();
+                middlewareQueue = new DMiddlewareQueue();
             }
         }
         middleware = this.app.middleware(middlewareQueue);

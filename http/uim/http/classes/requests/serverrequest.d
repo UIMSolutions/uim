@@ -1216,7 +1216,7 @@ class DServerRequest { // }: IServerRequest {
             }
         }
         allowed = strtoupper(join(", ",  someMethods));
-         anException = new MethodNotAllowedException();
+         anException = new DMethodNotAllowedException();
          anException.setHeader("Allow", allowed);
         throw  anException;
     }

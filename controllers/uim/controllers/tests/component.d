@@ -1,6 +1,6 @@
-module uim.components.tests.component;
+module uim.controllers.tests.component;
 
-import uim.components; 
+import uim.controllers; 
 
 @safe:
 

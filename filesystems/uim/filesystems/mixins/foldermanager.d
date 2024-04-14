@@ -8,7 +8,7 @@ module uim.filesystems.mixins.foldermanager;
 import uim.filesystems;
 
 @safe:
-template FolderManagerTemplate() {
+mixin template TFolderManager() {
   // #region Folders
     // #region existsFolders() 
       bool existsFolders(string aPath) {

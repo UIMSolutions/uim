@@ -100,9 +100,9 @@ class DFolder : DFilesystemEntry, IFolder, IFolderManager, IFileManager, ILinkMa
 		}
 	// #endregion Methods
 
-  mixin FolderManagerTemplate!();    
+  mixin TFolderManager!();    
   mixin FileManagerTemplate!();
-  mixin LinkManagerTemplate!();
+  mixin TLinkManager!();
 
   override string toString() {
     return this.className~": "~name;

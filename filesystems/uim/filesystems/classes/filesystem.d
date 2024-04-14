@@ -243,7 +243,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
   }
   // #endregion Entry Management
 
-  mixin FolderManagerTemplate!();
+  mixin TFolderManager!();
   mixin FileManagerTemplate!();
 
   void[] readFromFile(string[] aPath, string aFileName, size_t numberOfBytes = size_t.max) {
@@ -308,7 +308,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
     return null;
   }
 
-  mixin LinkManagerTemplate!();
+  mixin TLinkManager!();
 }
 
 // mixin(FilesystemCalls!("Filesystem"));

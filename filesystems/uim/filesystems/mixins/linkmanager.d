@@ -8,7 +8,7 @@ module uim.filesystems.mixins.linkmanager;
 import uim.filesystems;
 
 @safe:
-template LinkManagerTemplate() {
+mixin template TLinkManager() {
   bool existsLinks(string aPath) {
     return this.existsLinks(toPathItems(aPath, pathSeparator));    
   }

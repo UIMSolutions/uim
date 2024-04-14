@@ -1,4 +1,4 @@
-module uim.components.mixins.component;
+module uim.controllers.mixins.component;
 
 string componentThis(string name) {
     string fullName = name ~ "Component";

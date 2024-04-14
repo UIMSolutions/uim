@@ -29,7 +29,7 @@ class DJsonTenant : IJsonTenant, IJsonCollectionManager {
     mixin(TProperty!("IJsonBase", "base"));
   // #endregion Properties
 
-  mixin JsonCollectionManagerTemplate!();
+  mixin TJsonCollectionManager!();
 }
 mixin(JsonTenantCalls!("JsonTenant"));
 

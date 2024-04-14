@@ -3,7 +3,7 @@ module uim.jsonbases.mixins.collectionmanager;
 import uim.jsonbases;
 
 @safe:
-template JsonCollectionManagerTemplate() {
+template TJsonCollectionManager() {
   // #region READ
     // #region hasCollections()
       bool hasCollections(string[] someNames...) {

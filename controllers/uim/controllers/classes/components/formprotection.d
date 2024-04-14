@@ -119,7 +119,7 @@ class DFormProtectionComponent : DComponent {
      * callback by executing the method passing the argument as exception.
      * Params:
      * \UIM\Form\FormProtector formProtector Form Protector instance.
-     */
+     * /
     protected DResponse validationFailure(FormProtectorformProtector) {
         auto myException = Configure.read("debug")
             ? new BadRequestException(
@@ -137,8 +137,8 @@ class DFormProtectionComponent : DComponent {
      * Params:
      * \Closure aCallback Callback
      * @param \UIM\Http\Exception\BadRequestException anException = Exception instance.
-     */
+     * /
     protected DResponse executeCallback(Closure aCallback, BadRequestException anException) {
         return aCallback(exception);
-    }
+    } */
 }

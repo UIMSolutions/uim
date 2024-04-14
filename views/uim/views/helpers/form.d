@@ -25,6 +25,17 @@ class DFormHelper : DHelper {
     // TODO use IdGeneratorTemplate;
     // TODO use StringTemplateTemplate;
 
+    /**
+     * Constant used internally to skip the securing process,
+     * and neither add the field to the hash or to the unlocked fields.
+     * /
+    const string SECURE_SKIP = "skip";
+
+    /**
+     * Defines the type of form being created. Set by FormHelper.create().
+     * /
+    string myrequestType = null;
+
     /* 
     // Other helpers used by FormHelper
     protected array myhelpers = ["Url", "Html"];
@@ -145,16 +156,6 @@ class DFormHelper : DHelper {
         "_default": ["Basic"],
     ];
 
-    /**
-     * Constant used internally to skip the securing process,
-     * and neither add the field to the hash or to the unlocked fields.
-     * /
-    const string SECURE_SKIP = "skip";
-
-    /**
-     * Defines the type of form being created. Set by FormHelper.create().
-     * /
-    string myrequestType = null;
 
     /**
      * Locator for input widgets.

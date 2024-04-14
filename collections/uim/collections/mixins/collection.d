@@ -6,7 +6,7 @@ import uim.collections;
 
 // Offers a handful of methods to manipulate iterators
 mixin template TCollection() {
-    mixin ExtractTemplate;
+    mixin TExtract;
 
     /**
      * Returns a new DCollection.

@@ -142,7 +142,7 @@ class DView : IView { //  }: IEventDispatcher {
     protected IServerRequest myrequest;
 
     // Reference to the Response object
-    protected Response myresponse;
+    protected DResponse myresponse;
 
     /**
      * The Cache configuration View will use to store cached elements. Changing this will change

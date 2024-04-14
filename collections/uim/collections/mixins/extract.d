@@ -13,7 +13,7 @@ import uim.collections;
  * Provides utility protected methods for extracting a property or column
  * from an array or object.
  */
-mixin template ExtractTemplate() {
+mixin template TExtract() {
      /**
      * Returns a callable that can be used to extract a property or column from
      * an array or object based on a dot separated path.

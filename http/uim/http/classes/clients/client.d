@@ -385,16 +385,12 @@ class DClient { // }: IClient {
     return this.send(myrequest, options);
   }
 
-  /**
-     * Does a recursive merge of the parameter with the scope config.
-     * /
+  // Does a recursive merge of the parameter with the scope config.
   protected array _mergeOptions(IData[string] optionsToMerge = null) {
     return Hash.merge(_config, optionsToMerge);
   }
 
-  /**
-     * Sends a PSR-7 request and returns a PSR-7 response.
-     * /
+  // Sends a PSR-7 request and returns a PSR-7 response.
   IResponse sendRequest(IRequest psrRequest) {
     return this.send(psrRequest, _config);
   }

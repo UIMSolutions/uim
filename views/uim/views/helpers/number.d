@@ -16,6 +16,12 @@ import uim.views;
  */
 class DNumberHelper : DHelper {
     mixin(HelperThis!("Number"));
+
+    // Event listeners.
+    IEvent[] implementedEvents() {
+        return null;
+    }
+
     /**
      * Call methods from UIM\I18n\Number utility class
      * Params:
@@ -99,9 +105,4 @@ class DNumberHelper : DHelper {
 
         return options["escape"] ? htmlAttribEscape(myformatted): myformatted;
     } */
-
-    // Event listeners.
-    IEvent[] implementedEvents() {
-        return null;
-    }
 }

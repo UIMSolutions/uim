@@ -50,7 +50,7 @@ class DFlashComponent : DComponent {
      *  of \Throwable the throwable message will be used and code will be set
      *  in params.
      * @param IData[string] options An array of options
-     */
+     * /
     void set(Throwable | string amessage, IData[string] options = null) {
         if (cast(Throwable) aMessage) {
             this.flash().setExceptionMessage(message, options);
@@ -71,7 +71,7 @@ class DFlashComponent : DComponent {
      * @param bool  merge Whether to recursively merge or overwrite existing config, defaults to true.
 
      * @throws \UIM\Core\Exception\UimException When trying to set a key that is invalid.
-     */
+     * /
     void setConfig(string[] aKey, IData valueToSet = null, bool merge = true) {
     }
 
@@ -84,7 +84,7 @@ class DFlashComponent : DComponent {
      * Params:
      * string|null aKey The key to get or null for the whole config.
      * @param IData defaultValue The return value when the key does not exist.
-     */
+     * /
     IData getConfig(string aKey = null, IData defaultValue = null) {
         return this.flash().configuration.get(aKey, default);
     }
@@ -99,7 +99,7 @@ class DFlashComponent : DComponent {
      * Params:
      * IData[string]|string aKey The key to set, or a complete array of configs.
      * @param IData aValue The value to set.
-     */
+     * /
     void configShallow(string[] aKey, IData aValue = null) {
         this.flash().configShallow(aKey, aValue);
     }
@@ -124,7 +124,7 @@ class DFlashComponent : DComponent {
      * string aName Element name to use.
      * @param array someArguments Parameters to pass when calling `FlashComponent.set()`.
      * @throws \UIM\Http\Exception\InternalErrorException If missing the flash message.
-     */
+     * /
     void __call(string elementName, array someArguments) {
         anElement = Inflector.underscore(elementName);
 
@@ -143,5 +143,5 @@ class DFlashComponent : DComponent {
             options = options.update(array) someArguments[1];
         }
         this.set(someArguments[0], options);
-    }
+    } */
 }

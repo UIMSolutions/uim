@@ -27,7 +27,7 @@ import uim.datasources;
  * RulesChecker.checkDelete_().
  */
 class DRulesChecker {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

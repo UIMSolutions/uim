@@ -13,7 +13,7 @@ class DDBQuery {
  * to a specific SQL dialect.
  */
 abstract class DQuery : IQuery { // : IExpression {
-    mixin TConfigurable!(); 
+    mixin TConfigurable; 
     // Hook method
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);

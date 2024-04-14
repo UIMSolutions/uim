@@ -5,7 +5,7 @@ import uim.databases;
 @safe:
 
 class DDBStatement {
-    mixin TConfigurable!(); 
+    mixin TConfigurable; 
 
         // Hook method
     bool initialize(IData[string] initData = null) {

@@ -5,7 +5,7 @@ import uim.datasources;
 @safe:
 
 class DDBConnection : IDataSourceConnection {
-  mixin TConfigurable!();
+  mixin TConfigurable;
 
   this() {
     initialize;

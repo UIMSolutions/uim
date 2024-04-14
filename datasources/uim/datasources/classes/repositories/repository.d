@@ -9,7 +9,7 @@ module uim.datasources.repositories.repository;
 import uim.datasources;
 
 class DDatasourceRepository {
-  mixin TConfigurable!();
+  mixin TConfigurable;
 
   this() {
     initialize;

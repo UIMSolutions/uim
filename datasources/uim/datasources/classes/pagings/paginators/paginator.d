@@ -10,7 +10,7 @@ import uim.datasources;
 
 // This class is used to handle automatic model data pagination.
 class DPaginator : IPaginator {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

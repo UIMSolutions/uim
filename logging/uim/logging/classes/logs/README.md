@@ -38,14 +38,14 @@ It is also possible to create loggers by providing a closure.
 ```php
 Log::configuration.update("special", auto () {
 	// Return any PSR-3 compatible logger
-	return new MyPSR3CompatibleLogger();
+	return new DMyPSR3CompatibleLogger();
 });
 ```
 
 Or by injecting an instance directly:
 
 ```php
-Log::configuration.update("special", new MyPSR3CompatibleLogger());
+Log::configuration.update("special", new DMyPSR3CompatibleLogger());
 ```
 
 You can then use the `Log` class to pass messages to the logging backends:

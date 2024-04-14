@@ -51,21 +51,21 @@ class DMessagesFileLoader {
      * Load and parse resources/locales/fr/validation.po
      *
      * ```
-     * loader = new MessagesFileLoader("validation", "fr_FR", "po");
+     * loader = new DMessagesFileLoader("validation", "fr_FR", "po");
      * catalog = loader();
      * ```
      *
      * Load and parse resources/locales/fr_FR/validation.mo
      *
      * ```
-     * loader = new MessagesFileLoader("validation", "fr_FR", "mo");
+     * loader = new DMessagesFileLoader("validation", "fr_FR", "mo");
      * catalog = loader();
      * ```
      *
      * Load the plugins/MyPlugin/resources/locales/fr/my_plugin.po file:
      *
      * ```
-     * loader = new MessagesFileLoader("my_plugin", "fr_FR", "mo");
+     * loader = new DMessagesFileLoader("my_plugin", "fr_FR", "mo");
      * catalog = loader();
      *
      * Vendor prefixed plugins are expected to use `my_prefix_my_plugin` syntax.
@@ -111,7 +111,7 @@ class DMessagesFileLoader {
 
         auto object = Object.factory(className);
         auto messages = object.parse(file);
-        auto catalog = new MessageCatalog("default");
+        auto catalog = new DMessageCatalog("default");
         auto catalog.setMessages(messages);
 
         return catalog;

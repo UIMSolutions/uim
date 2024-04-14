@@ -49,6 +49,6 @@ class DChainMessagesLoader {
             }
             return catalog;
         }
-        return new MessageCatalog();
+        return new DMessageCatalog();
     } */ 
 }

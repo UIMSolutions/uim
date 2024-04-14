@@ -53,7 +53,7 @@ use UIM\I18n\I18n;
 use UIM\I18n\MessageCatalog;
 
 I18n::translator("animals", "fr_FR", auto () {
-    catalog = new MessageCatalog(
+    catalog = new DMessageCatalog(
         "default", // The formatting strategy (ICU)
         "default", // The fallback domain
     );

@@ -21,5 +21,5 @@ class Map : Obj, IMap {
 }
 
 version(test_uim_oop) { unittest {
-	auto map = new MapObj;
+	auto map = new DMapObj;
 }}

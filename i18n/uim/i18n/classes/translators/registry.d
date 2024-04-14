@@ -8,8 +8,9 @@ import uim.i18n;
  * Constructs and stores instances of translators that can be
  * retrieved by name and locale.
  */
-class DTranslatorRegistry : DObjectRegistry!DTranslator {
-        this() {}
+class DTranslatorRegistry : DObjectRegistry!ITranslator {
+    this() {
+    }
 
     // Fallback loader name.
     const string FALLBACK_LOADER = "_fallback";
@@ -21,18 +22,10 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     protected string _localeName = null;
 
     // A catalog locator.
-    //protected ICatalogLocator _catalogs;
+    protected DCatalogLocator _catalogs;
 
     // A formatter locator.
-    // protected DFormatterLocator _formatters;
-
-    /**
-     * A list of loader functions indexed by domain name. Loaders are
-     * callables that are invoked as a default for building translation
-     * catalogs where none can be found for the combination of translator
-     * name and locale.
-     * /
-    protected callable[] _loaders = null;
+    protected DFormatterLocator _formatters;
 
     /**
      * The name of the default formatter to use for newly created
@@ -43,11 +36,17 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
     // Use fallback-domain for translation loaders.
     protected bool _useFallback = true;
 
-    /**
-     * A CacheEngine object that is used to remember translator across
-     * requests.
-     * /
+    // A CacheEngine object that is used to remember translator across requests.
     protected ICacheEngine _cacher;
+
+    /**
+     * A list of loader functions indexed by domain name. Loaders are
+     * callables that are invoked as a default for building translation
+     * catalogs where none can be found for the combination of translator
+     * name and locale.
+     * /
+    protected callable[] _loaders = null;
+
 
     /**
      * Constructor.
@@ -57,8 +56,8 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
      * @param string localName The default locale code to use.
      * /
     this(
-        CatalogLocator catalogs,
-        FormatterLocator formatters,
+        DCatalogLocator catalogs,
+        DFormatterLocator formatters,
         string localName
     ) {
         _catalogs = catalogs;
@@ -67,8 +66,8 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
 
         this.registerLoader(FALLBACK_LOADER, auto (name, locale) {
             loader = new DChainMessagesLoader([
-                new MessagesFileLoader(name, locale, "mo"),
-                new MessagesFileLoader(name, locale, "po"),
+                new DMessagesFileLoader(name, locale, "mo"),
+                new DMessagesFileLoader(name, locale, "po"),
             ]);
 
             formatter = name == "uim" ? "default" : _defaultFormatter;

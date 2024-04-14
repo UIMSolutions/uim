@@ -802,7 +802,7 @@ class DMessage { //: IDataSerializable {
     /**
      * Sets message ID.
      * Params:
-     * string|bool message True to generate a new Message-ID, False to ignore (not send in email),
+     * string|bool message True to generate a new DMessage-ID, False to ignore (not send in email),
      *  String to set as Message-ID.
      * /
     void setMessageId(bool message) {

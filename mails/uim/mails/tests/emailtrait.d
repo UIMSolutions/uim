@@ -32,7 +32,7 @@ mixin template TEmail() {
     
     // Asserts an expected number of emails were sent
     void assertMailCount(int emailCount, string message= null) {
-        this.assertThat(emailCount, new MailCount(), message);
+        this.assertThat(emailCount, new DMailCount(), message);
     }
     
     // Asserts that no emails were sent
@@ -42,7 +42,7 @@ mixin template TEmail() {
     
     // Asserts an email at a specific index was sent to an address
     void assertMailSentToAt(int emailIndex, string emailAddress, string message = null) {
-        this.assertThat(emailAddress, new MailSentTo(emailIndex), message);
+        this.assertThat(emailAddress, new DMailSentTo(emailIndex), message);
     }
     
     /**
@@ -53,7 +53,7 @@ mixin template TEmail() {
      * @param string amessage Message
      * /
     void assertMailSentFromAt(int at, string aaddress, string amessage= null)) {
-        this.assertThat(address, new MailSentFrom(at), message);
+        this.assertThat(address, new DMailSentFrom(at), message);
     }
     
     /**
@@ -64,7 +64,7 @@ mixin template TEmail() {
      * @param string amessage Message
      * /
     void assertMailContainsAt(int at, string acontents, string amessage = null) {
-        this.assertThat(contents, new MailContains(at), message);
+        this.assertThat(contents, new DMailContains(at), message);
     }
     
     /**
@@ -75,7 +75,7 @@ mixin template TEmail() {
      * @param string amessage Message
      * /
     void assertMailContainsHtmlAt(int at, string acontents, string amessage = null) {
-        this.assertThat(contents, new MailContainsHtml(at), message);
+        this.assertThat(contents, new DMailContainsHtml(at), message);
     }
     
     /**
@@ -86,7 +86,7 @@ mixin template TEmail() {
      * @param string amessage Message
      * /
     void assertMailContainsTextAt(int at, string acontents, string amessage = null) {
-        this.assertThat(contents, new MailContainsText(at), message);
+        this.assertThat(contents, new DMailContainsText(at), message);
     }
     
     /**
@@ -98,7 +98,7 @@ mixin template TEmail() {
      * @param string amessage Message
      * /
     void assertMailSentWithAt(int at, string aexpected, string aparameter, string amessage= null) {
-        this.assertThat(expected, new MailSentWith(at, parameter), message);
+        this.assertThat(expected, new DMailSentWith(at, parameter), message);
     }
     
     /**
@@ -108,7 +108,7 @@ mixin template TEmail() {
      * @param string amessage Message
      * /
     void assertMailSentTo(string aaddress, string amessage = null) {
-        this.assertThat(address, new MailSentTo(), message);
+        this.assertThat(address, new DMailSentTo(), message);
     }
     
     /**
@@ -118,7 +118,7 @@ mixin template TEmail() {
      * @param string amessage Message
      * /
     void assertMailSentFrom(string[] aaddress, string amessage = null) {
-        this.assertThat(address, new MailSentFrom(), message);
+        this.assertThat(address, new DMailSentFrom(), message);
     }
     
     /**
@@ -127,7 +127,7 @@ mixin template TEmail() {
      * string acontents Contents
      * /
     void assertMailContains(string acontents, string message = null) {
-        this.assertThat(contents, new MailContains(), message);
+        this.assertThat(contents, new DMailContains(), message);
     }
     
     /**
@@ -138,7 +138,7 @@ mixin template TEmail() {
      * @param string amessage Message
      * /
     void assertMailContainsAttachment(string afilename, array file = [], string amessage = null) {
-        this.assertThat([filename, file], new MailContainsAttachment(), message);
+        this.assertThat([filename, file], new DMailContainsAttachment(), message);
     }
     
     /**
@@ -148,7 +148,7 @@ mixin template TEmail() {
      * @param string amessage Message
      * /
     void assertMailContainsHtml(string acontents, string amessage = null) {
-        this.assertThat(contents, new MailContainsHtml(), message);
+        this.assertThat(contents, new DMailContainsHtml(), message);
     }
     
     /**
@@ -158,7 +158,7 @@ mixin template TEmail() {
      * @param string amessage Message to display if assertion fails.
      * /
     void assertMailContainsText(string aexpected, string amessage = "") {
-        this.assertThat(expected, new MailContainsText(), message);
+        this.assertThat(expected, new DMailContainsText(), message);
     }
     
     /**
@@ -169,7 +169,7 @@ mixin template TEmail() {
      * @param string amessage Message
      * /
     void assertMailSentWith(string aexpected, string aparameter, string amessage = null) {
-        this.assertThat(expected, new MailSentWith(null, parameter), message);
+        this.assertThat(expected, new DMailSentWith(null, parameter), message);
     }
     
     /**
@@ -179,7 +179,7 @@ mixin template TEmail() {
      * @param string amessage Message
      * /
     void assertMailSubjectContains(string acontents, string amessage = null) {
-        this.assertThat(contents, new MailSubjectContains(), message);
+        this.assertThat(contents, new DMailSubjectContains(), message);
     }
     
     /**
@@ -190,6 +190,6 @@ mixin template TEmail() {
      * @param string amessage Message
      * /
     void assertMailSubjectContainsAt(int at, string acontents, string amessage = null) {
-        this.assertThat(contents, new MailSubjectContains(at), message);
+        this.assertThat(contents, new DMailSubjectContains(at), message);
     } */
 }

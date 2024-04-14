@@ -23,7 +23,7 @@ class DConnectionRegistry : DObjectRegistry!IConnection {
      * @param string plugin The plugin the datasource is missing in.
      * /
     protected void _throwMissingClassError(string className, string aplugin) {
-        throw new MissingDatasourceException([
+        throw new DMissingDatasourceException([
             "class":  className,
             "plugin": plugin,
         ]);

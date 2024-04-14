@@ -177,7 +177,7 @@ class DNumberData : DScalarData {
     return _value;
   }
 
-  mixin DataConvertTemplate;
+  mixin TDataConvert;
 }
 
 mixin(DataCalls!("Number"));

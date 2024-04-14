@@ -171,7 +171,7 @@ class DBooleanData : DScalarData {
     return _value;
   }
 
-  mixin DataConvertTemplate;
+  mixin TDataConvert;
 }
 
 mixin(DataCalls!("Boolean"));

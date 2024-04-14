@@ -37,7 +37,7 @@ template DataCalls(string name) {
   const char[] DataCalls = dataCalls(name);
 }
 
-mixin template DataConvertTemplate() {
+mixin template TDataConvert() {
   alias toJson = DData.toJson;
   override Json toJson() {
     if (isNull)

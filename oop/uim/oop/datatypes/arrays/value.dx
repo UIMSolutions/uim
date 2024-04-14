@@ -34,7 +34,7 @@ class DArrayDataData : DArrayData {
     mixin(DataGetSetTemplate!("null", "IData[]"));
   // #endregion Getter & Setter 
 
-  mixin DataConvertTemplate;
+  mixin TDataConvert;
 */
   alias opEquals = Object.opEquals;
   alias opEquals = DData.opEquals;

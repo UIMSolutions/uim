@@ -8,7 +8,7 @@ module uim.filesystems.mixins.entrymanager;
 import uim.filesystems;
 
 @safe:
-mixin template EntryManagerTemplate() {
+mixin template TEntryManager() {
   bool isHidden(string aPath) {
     return this.isHidden(aPath.split(pathSeparator));    
   }

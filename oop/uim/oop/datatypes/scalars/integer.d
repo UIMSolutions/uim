@@ -312,7 +312,7 @@ class DIntegerData : DScalarData {
     return to!long(_value);
   }
 
-  mixin DataConvertTemplate;
+  mixin TDataConvert;
 }
 
 mixin(DataCalls!("Integer"));

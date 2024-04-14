@@ -42,7 +42,7 @@ import uim.controllers;
  * @link https://book.UIM.org/5/en/controllers/components.html
  * @see \UIM\Controller\Controller.components
  */
-class DComponent : IEventListener {
+class DComponent { // TODO }: IEventListener {
     mixin TConfigurable!();
     mixin TLog;
 
@@ -106,7 +106,7 @@ class DComponent : IEventListener {
      * 
      * Params:
      * componentName = Name of component to get.
-     */
+     * /
     IComponent __get(string componentName) {
         if (isSet(this.componentInstances[componentName])) {
             return this.componentInstances[componentName];
@@ -133,7 +133,7 @@ class DComponent : IEventListener {
      *
      * Override this method if you need to add non-conventional event listeners.
      * Or if you want components to listen to non-standard events.
-     */
+     * /
     IEvent[] implementedEvents() {
         auto eventMap = [
             "Controller.initialize": "beforeFilter",

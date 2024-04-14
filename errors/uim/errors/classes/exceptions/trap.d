@@ -25,7 +25,7 @@ import uim.errors;
  */
 class DExceptionTrap {
     mixin TEventDispatcher;
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

@@ -6,7 +6,7 @@ import uim.errors;
 
 // Log errors and unhandled exceptions to `UIM\Log\Log`
 class DErrorLogger : IErrorLogger {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

@@ -12,7 +12,7 @@ class DOrderByExpression : DQueryExpression {
      * \UIM\Database\IExpression|string[] aconditions The sort columns
      * @param \UIM\Database\TypeMap|STRINGAA types The types for each column.
      * @param string aconjunction The glue used to join conditions together.
-     */
+     * /
     this(
         IExpression|string[] aconditions = [],
         TypeMap|array types = [],
@@ -39,7 +39,7 @@ class DOrderByExpression : DQueryExpression {
      * Params:
      * array conditions list of order by expressions
      * @param array types list of types associated on fields referenced in conditions
-     */
+     * /
     protected void _addConditions(array conditions, array types) {
         foreach ( aKey:  val; conditions) {
             if (
@@ -56,5 +56,5 @@ class DOrderByExpression : DQueryExpression {
             }
         }
        _conditions = array_merge(_conditions, conditions);
-    }
+    } */
 }

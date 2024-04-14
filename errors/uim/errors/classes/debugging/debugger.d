@@ -19,7 +19,7 @@ import uim.errors;
  * @link https://book.cakephp.org/4/en/development/debugging.html#namespace-Cake\Error
  */
 class DDebugger {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

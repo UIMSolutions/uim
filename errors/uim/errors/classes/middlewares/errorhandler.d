@@ -15,7 +15,7 @@ import uim.errors;
  * error pages using the UIM ExceptionRenderer.
  */
 class DErrorHandlerMiddleware : IMiddleware {
-        mixin TConfigurable!();
+        mixin TConfigurable;
 
     this() {
         initialize;

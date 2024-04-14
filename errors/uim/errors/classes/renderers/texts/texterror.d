@@ -14,7 +14,7 @@ import uim.errors;
  * Useful in CLI environments.
  */
 class DTextErrorRenderer { // }: IErrorRenderer {
-      mixin TConfigurable!();
+      mixin TConfigurable;
 
     this() {
         initialize;

@@ -16,7 +16,7 @@ import uim.errors;
  * the errors in their environment.
  */
 abstract class DERRErrorHandler {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

@@ -15,7 +15,7 @@ unittest {
 
 @safe:
 class DFilesystemEntry : IFilesystemEntry {
-    mixin TConfigurable!(); 
+    mixin TConfigurable; 
 
 	this() {
 		initialize;

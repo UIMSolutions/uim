@@ -17,7 +17,7 @@ import uim.errors;
  * @internal
  */
 class DebugContext {
-    mixin TConfigurable!();
+    mixin TConfigurable;
     
     this() {
         initialize;

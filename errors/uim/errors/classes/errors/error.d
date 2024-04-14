@@ -10,7 +10,7 @@ import uim.errors;
 
 // Error base class for UIM applications
 class DError {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

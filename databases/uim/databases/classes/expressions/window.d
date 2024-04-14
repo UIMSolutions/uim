@@ -185,12 +185,12 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
     /**
      * Builds frame offset sql.
      * Params:
-     * \UIM\Database\ValueBinder  mybinder Value binder
+     * \UIM\Database\DValueBinder  mybinder Value binder
      * @param \UIM\Database\IExpression|string|int  myoffset Frame offset
      * @param string mydirection Frame offset direction
      * /
     protected string buildOffsetSql(
-        ValueBinder  mybinder,
+        DValueBinder  mybinder,
         IExpression|string|int  myoffset,
         string mydirection
     ) {

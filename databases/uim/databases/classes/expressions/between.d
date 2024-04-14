@@ -8,25 +8,6 @@ import uim.databases;
 class DBetweenExpression : DExpression { // TODO}, IField {
     mixin(ExpressionThis!("Between"));
 
-    mixin TConfigurable;
-
-    this() {
-        initialize;
-    }
-
-    this(IData[string] initData) {
-        initialize(initData);
-    }
-
-    bool initialize(IData[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
-
-        return true;
-    }
-
-    mixin(TProperty!("string", "name"));
-
     /* 
     mixin TExpressionTypeCaster;
     mixin TField;
@@ -95,10 +76,10 @@ class DBetweenExpression : DExpression { // TODO}, IField {
      * Registers a value in the placeholder generator and returns the generated placeholder
      * Params:
      * IData aValue The value to bind
-     * @param \UIM\Database\ValueBinder aValueBinder The value binder to use
+     * @param \UIM\Database\DValueBinder aValueBinder The value binder to use
      * @param string atype The type of aValue
      * /
-    protected string _bindValue(IData aValue, ValueBinder aValueBinder, string atype) {
+    protected string _bindValue(IData aValue, DValueBinder aValueBinder, string atype) {
         placeholder = aValueBinder.placeholder("c");
         aValueBinder.bind(placeholder, aValue, type);
 

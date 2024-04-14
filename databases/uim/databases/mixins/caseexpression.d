@@ -50,7 +50,7 @@ mixin template TCaseExpression() {
     /**
      * Compiles a nullable value to SQL.
      * Params:
-     * \UIM\Database\ValueBinder aBinder The value binder to use.
+     * \UIM\Database\DValueBinder aBinder The value binder to use.
      * @param \UIM\Database\IExpression|object|scalar|null aValue The value to compile.
      * @param string|null type The value type.
      * /

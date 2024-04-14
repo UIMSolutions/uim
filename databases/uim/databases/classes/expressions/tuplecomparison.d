@@ -83,7 +83,7 @@ class DTupleComparisonExpression : DComparisonExpression {
      * Returns a string with the values as placeholders in a string to be used
      * for the SQL version of this expression
      * Params:
-     * \UIM\Database\ValueBinder aBinder The value binder to convert expressions with.
+     * \UIM\Database\DValueBinder aBinder The value binder to convert expressions with.
      * /
     protected string _stringifyValues(DValueBinder aBinder) {
         string[] someValues; someParts = this.getValue(); if (cast(IExpression) someParts) {
@@ -106,7 +106,7 @@ class DTupleComparisonExpression : DComparisonExpression {
                         }
                         return someValues.join(", ");}
 
-                        protected string _bindValue(IData aValue, ValueBinder aBinder, string atype = null) {
+                        protected string _bindValue(IData aValue, DValueBinder aBinder, string atype = null) {
                             placeholder = aBinder.placeholder("tuple"); aBinder.bind(placeholder, aValue, type);
 
                                 return placeholder;}

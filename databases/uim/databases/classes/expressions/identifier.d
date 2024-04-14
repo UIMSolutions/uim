@@ -4,7 +4,6 @@ import uim.databases;
 
 @safe:
 
-/*
 /**
  * Represents a single identifier name in the database.
  *
@@ -16,9 +15,9 @@ import uim.databases;
 class DIdentifierExpression : DExpression {
     mixin(ExpressionThis!("Identifier"));
 
-    this(string identifier, string Collation = null) {
-        _identifier = anIdentifier;
-        _collation = collation;
+    this(string newIdentifier, string newCollation = null) {
+        this.identifier(newIdentifier);
+        this.collation(newCollation);
     }
 
     // Gets/Sets the identifier this expression represents
@@ -27,15 +26,16 @@ class DIdentifierExpression : DExpression {
     // Gets/Sets the identifier collation.
     mixin(TProperty!("string", "collation"));
 
-    /* 
+    /*
     string sql(DValueBinder aBinder) {
-        string sql = _identifier;
-        if (this.collation) {
-            sql ~= " COLLATE " ~ this.collation;
-        }
-        return sql;
+        string sql = this.identifier;
+        return this.collation
+            ? sql ~ " COLLATE " ~ this.collation
+            : sql;
     }
 
+    // TODO 
+    /*
     void traverse(Closure aCallback) {
     } */
 }

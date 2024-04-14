@@ -15,7 +15,7 @@ interface IDBAExpression {
     /**
      * Converts the Node into a SQL string fragment.
      *
-     * @param uim.databases.ValueBinder aBinder Parameter binder
+     * @param uim.databases.DValueBinder aBinder Parameter binder
      */
     // TODO string sql(DValueBinder aBinder);
 

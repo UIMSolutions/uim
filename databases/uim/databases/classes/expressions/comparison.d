@@ -129,7 +129,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
      * Returns a template and a placeholder for the value after registering it
      * with the placeholder aBinder
      * Params:
-     * \UIM\Database\ValueBinder aBinder The value binder to use.
+     * \UIM\Database\DValueBinder aBinder The value binder to use.
      * /
     protected array _stringExpression(DValueBinder valueBinder) {
         auto template = "%s ";
@@ -164,10 +164,10 @@ class DComparisonExpression : DExpression { // TODO}, IField {
      * Registers a value in the placeholder generator and returns the generated placeholder
      * Params:
      * IData aValue The value to bind
-     * @param \UIM\Database\ValueBinder valueBinder The value binder to use
+     * @param \UIM\Database\DValueBinder valueBinder The value binder to use
      * @param string|null type The type of aValue
      * /
-    protected string _bindValue(IData aValue, ValueBinder valueBinder, string valueType = null) {
+    protected string _bindValue(IData aValue, DValueBinder valueBinder, string valueType = null) {
         auto placeholder = valueBinder.placeholder("c");
         valueBinder.bind(placeholder, valueBinder, valueType);
 
@@ -179,10 +179,10 @@ class DComparisonExpression : DExpression { // TODO}, IField {
      * aBinder and separated by `,`
      * Params:
      * range aValue the value to flatten
-     * @param \UIM\Database\ValueBinder aBinder The value binder to use
+     * @param \UIM\Database\DValueBinder aBinder The value binder to use
      * @param string|null type the type to cast values to
      * /
-    protected string _flattenValue(Range aValue, ValueBinder aBinder, string atype = null) {
+    protected string _flattenValue(Range aValue, DValueBinder aBinder, string atype = null) {
         STRINGAA someParts;
         if (isArray(aValue)) {
             _valueExpressions.byKeyValue

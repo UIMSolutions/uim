@@ -4,8 +4,6 @@ import uim.databases;
 
 @safe:
 
-class DDBQuery {
-
 /**
  * This class represents a Relational database SQL Query. A query can be of
  * different types like select, update, insert and delete. Exposes the methods
@@ -13,16 +11,40 @@ class DDBQuery {
  * to a specific SQL dialect.
  */
 abstract class DQuery : IQuery { // : IExpression {
-    mixin TConfigurable; 
+    mixin TConfigurable;
+    mixin TTypeMap;
+
     // Hook method
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
+        protected IData[string] _parts = [
+            "comment": NullData,
+            "delete": BooleanData(true),
+            "update": ArrayData,
+            "set": ArrayData,
+            "insert": ArrayData,
+            "values": ArrayData,
+            "with": ArrayData,
+            "select": ArrayData,
+            "distinct": BooleanData(false),
+            "modifier": ArrayData,
+            "from": ArrayData,
+            "join": ArrayData,
+            "where": NullData,
+            "group": ArrayData,
+            "having": NullData,
+            "window": ArrayData,
+            "order": NullData,
+            "limit": NullData,
+            "offset": NullData,
+            "union": ArrayData,
+            "epilog": NullData,
+        ];
+
         return true;
     }
-    
-        // use TTypeMap;
 
     const string JOIN_TYPE_INNER = "INNER";
 
@@ -42,35 +64,18 @@ abstract class DQuery : IQuery { // : IExpression {
     protected IConnection _connection;
 
     // Connection role ("read' or "write")
-    protected string aconnectionRole; //  = Connection.ROLE_WRITE;
+    protected string _connectionRole; //  = Connection.ROLE_WRITE;
 
     // Type of this query (select, insert, update, delete).
     protected string _type;
 
+    // Returns the type of this query (select, insert, update, delete)
+    string type() {
+        return _type;
+    }
+
     // List of SQL parts that will be used to build this query.
-    protected IData[string] _parts; /* = [
-        "comment": null,
-        "delete": BooleanData(true),
-        "update": ArrayData,
-        "set": ArrayData,
-        "insert": ArrayData,
-        "values": ArrayData,
-        "with": ArrayData,
-        "select": ArrayData,
-        "distinct": BooleanData(false),
-        "modifier": ArrayData,
-        "from": ArrayData,
-        "join": ArrayData,
-        "where": null,
-        "group": ArrayData,
-        "having": null,
-        "window": ArrayData,
-        "order": null,
-        "limit": null,
-        "offset": null,
-        "union": ArrayData,
-        "epilog": null,
-    ];
+    protected IData[string] _parts;
 
     /**
      * Indicates whether internal state of this query was changed, this is used to
@@ -182,7 +187,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * values when the query is executed, hence it is most suitable to use with
      * prepared statements.
      * Params:
-     * \UIM\Database\ValueBinder|null aBinder Value binder that generates parameter placeholders
+     * \UIM\Database\DValueBinder|null aBinder Value binder that generates parameter placeholders
      * /
     string sql(DValueBinder aBinder = null) {
         if (!aBinder) {
@@ -1367,24 +1372,24 @@ abstract class DQuery : IQuery { // : IExpression {
     }
     
     /**
-     * Returns the currently used ValueBinder instance.
+     * Returns the currently used DValueBinder instance.
      *
-     * A ValueBinder is responsible for generating query placeholders and temporarily
+     * A DValueBinder is responsible for generating query placeholders and temporarily
      * associate values to those placeholders so that they can be passed correctly
      * to the statement object.
      * /
-    ValueBinder getValueBinder() {
+    DValueBinder getValueBinder() {
         return _valueBinder.ifNull(new DValueBinder());
     }
     
     /**
      * Overwrite the current value binder
      *
-     * A ValueBinder is responsible for generating query placeholders and temporarily
+     * A DValueBinder is responsible for generating query placeholders and temporarily
      * associate values to those placeholders so that they can be passed correctly
      * to the statement object.
      * Params:
-     * \UIM\Database\ValueBinder|null aBinder The binder or null to disable binding.
+     * \UIM\Database\DValueBinder|null aBinder The binder or null to disable binding.
      * /
     auto setValueBinder(DValueBinder aBinder) {
        _valueBinder = aBinder;
@@ -1500,5 +1505,4 @@ abstract class DQuery : IQuery { // : IExpression {
             ];
         }
     } */
-    }
 }

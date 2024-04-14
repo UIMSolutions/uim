@@ -14,7 +14,7 @@ import uim.orm;
  * to configure and customize the way interconnected records are retrieved.
  */
 class DAssociation : IAssociation {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;
@@ -82,7 +82,7 @@ class DAssociation : IAssociation {
     protected string _strategy = STRATEGY_JOIN;
 
 /* 
-    // TODO use ConventionsTemplate;
+    // TODO use TConventions;
     // TODO use TLocatorAware;
 
     // Name given to the association, it usually represents the alias assigned to the target associated table

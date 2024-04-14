@@ -5,7 +5,7 @@ import uim.oop;
 @safe:
 
 // Provides methods that allow other classes access to conventions based inflections.
-mixin template ConventionsTemplate() {
+mixin template TConventions() {
     /*
     // Creates a fixture name
     protected string _fixtureName(string modelClassname) {

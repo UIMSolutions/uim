@@ -4,7 +4,7 @@ import uim.orm;
 @safe:
 
 class DBehavior : IEventListener {
-    mixin TConfigurable!();
+    mixin TConfigurable;
     
     this() {
         initialize;

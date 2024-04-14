@@ -9,7 +9,7 @@ import uim.oop;
  * It also can retrieve plugin paths and load their bootstrap and routes files.
  */
 class DPlugin : IPlugin {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

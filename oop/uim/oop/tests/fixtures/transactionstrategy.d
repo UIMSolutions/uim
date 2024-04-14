@@ -13,7 +13,7 @@ import uim.oop;
  */
 class DTransactionStrategy : IFixtureStrategy {
     /* 
-        mixin TConfigurable!();
+        mixin TConfigurable;
 
     this() {
         initialize;

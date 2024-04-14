@@ -5,7 +5,7 @@ import uim.oop;
 @safe:
 
 // Provides features for merging object properties recursively with parent classes.
-template MergeVariablesTemplate() {
+mixin template TMergeVariables() {
   /**
      * Merge the list of myproperties with all parent classes of the current class.
      *

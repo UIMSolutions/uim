@@ -21,7 +21,7 @@ mixin template ModelContainerTemplate() {
   // #endregion modelContainer
 }
 
-mixin template ModelManagerTemplate() {
+mixin template TModelManager() {
   // #region models
     void models(IModel[string] someModels) {
       someModels.byKeyValue.each!(kv => model(kv.key, kv.value));

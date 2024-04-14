@@ -10,7 +10,7 @@ import uim.oop;
  * Core base class for network communication.
  */
 class DSocket {
-    mixin TConfigurable!();
+    mixin TConfigurable;
     
     this() {
         initialize;

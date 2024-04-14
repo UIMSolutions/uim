@@ -34,7 +34,7 @@ class DData : IData {
     return true;
   }
 
-  mixin TConfigurable!();
+  mixin TConfigurable;
 
   // #region properties
   // mixin(TProperty!("DAttribute", "attribute"));

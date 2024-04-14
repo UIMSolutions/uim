@@ -10,7 +10,7 @@ import uim.databases;
  * string representation of a comparison is `field = value`
  */
 class DComparisonExpression : IExpression, IField {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

@@ -6,7 +6,7 @@ import uim.databases;
 
 // Represents a SQL case statement with a fluid API
 class DCaseStatementExpression : IExpression, ITypedResult {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

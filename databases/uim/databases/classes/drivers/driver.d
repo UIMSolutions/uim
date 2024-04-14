@@ -5,7 +5,7 @@ import uim.databases;
 @safe:
 
 class DDriver { // }: IDriver {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

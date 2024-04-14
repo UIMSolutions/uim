@@ -1,4 +1,4 @@
-module uim.databases.Expression;
+module uim.databases.classes.expressions.orderclause;
 
 import uim.databases;
 
@@ -15,7 +15,7 @@ class DOrderClauseExpression : IExpression, IField {
      * Constructor
      * Params:
      * \UIM\Database\IExpression|string afield The field to order on.
-     */
+     * /
   this(IExpression afield, string sortDirection) {
     // TODO
   }
@@ -50,5 +50,5 @@ class DOrderClauseExpression : IExpression, IField {
     if (cast(IExpression) _field) {
       _field = clone _field;
     }
-  }
+  } */
 }

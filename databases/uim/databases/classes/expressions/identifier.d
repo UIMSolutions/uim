@@ -14,7 +14,7 @@ import uim.databases;
  * @see \UIM\Database\Query.identifier()
  */
 class DIdentifierExpression : IExpression {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

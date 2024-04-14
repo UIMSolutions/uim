@@ -6,7 +6,7 @@ import uim.databases;
 
 // An expression that represents a common table expression definition.
 class DCommonTableExpression : IExpression {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

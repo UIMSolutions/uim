@@ -4,7 +4,7 @@ import uim.css;
 @safe:
 
 class DCSSContainer {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

@@ -6,7 +6,7 @@ import uim.databases;
 
 // An expression object that represents a SQL BETWEEN snippet
 class DBetweenExpression : IExpression, IField {
-    mixin TConfigurable!();
+    mixin TConfigurable;
 
     this() {
         initialize;

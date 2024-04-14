@@ -5,7 +5,7 @@ import uim.databases;
 @safe:
 
 class DDBExpression {
-mixin TConfigurable!();
+mixin TConfigurable;
 
     this() {
         initialize;

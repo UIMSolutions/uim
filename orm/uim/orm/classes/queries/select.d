@@ -76,7 +76,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      *
      * @var \ORM\ResultSetFactory<\UIM\Datasource\IEntity|array>
      * /
-    protected ResultSetFactory resultSetFactory;
+    protected DResultSetFactory resultSetFactory;
 
     /**
      * A ResultSet.
@@ -1350,7 +1350,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
     /**
      * Get resultset factory.
      * /
-    protected ResultSetFactory resultSetFactory() {
+    protected DResultSetFactory resultSetFactory() {
         return this.resultSetFactory ??= new DResultSetFactory();
     }
     

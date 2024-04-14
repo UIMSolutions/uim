@@ -41,7 +41,7 @@ class DServer { // }: IEventDispatcher {
 
     protected IHttpApplication _app;
 
-    protected Runner _runner;
+    protected DRunner _runner;
 
     /**
      * Constructor

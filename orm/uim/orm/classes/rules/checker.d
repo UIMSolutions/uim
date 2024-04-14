@@ -166,7 +166,7 @@ class DRulesChecker { // }: BaseRulesChecker {
      * @param string mylinkStatus The ink status required for the check to pass.
      * @param string myruleName The alias/name of the rule.
      * /
-    protected RuleInvoker _addLinkConstraintRule(
+    protected DRuleInvoker _addLinkConstraintRule(
         Association|string myassociation,
         string myerrorField,
         string mymessage,

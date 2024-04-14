@@ -58,7 +58,7 @@ class DRouteBuilder {
     protected string my_namePrefix = "";
 
     // The route collection routes should be added to.
-    protected RouteCollection my_collection;
+    protected DRouteCollection my_collection;
 
     /**
      * The list of middleware that routes in this builder get
@@ -438,7 +438,7 @@ class DRouteBuilder {
      *  should indicate the plugin, prefix, controller, and action that this route points to.
      * @param string routings The name of the route.
      * /
-    protected Route _methodRoute(string mymethod, string mytemplate, string[] mytarget, string routings) {
+    protected DRoute _methodRoute(string mymethod, string mytemplate, string[] mytarget, string routings) {
         if (routings !isNull) {
             routings = _namePrefix ~ routings;
         }
@@ -598,7 +598,7 @@ class DRouteBuilder {
      * @param array mydefaults Default parameters.
      * @param IData[string] options Additional options parameters.
      * /
-    protected Route _makeRoute(Route|string myroute, array mydefaults, IData[string] options) {
+    protected DRoute _makeRoute(Route|string myroute, array mydefaults, IData[string] options) {
         if (isString(myroute)) {
             /** @var class-string<\UIM\Routing\Route\Route>|null myrouteClass * /
             myrouteClass = App.className(options["routeClass"], "Routing/Route");

@@ -374,7 +374,7 @@ class DClient { // }: IClient {
      * @param IData mydata The request body.
      * @param IData[string] options The options to use. Contains auth, proxy, etc.
      * /
-  protected Response _doRequest(string mymethod, string myurl, IData mydata, IData[string] options = null) {
+  protected DResponse _doRequest(string mymethod, string myurl, IData mydata, IData[string] options = null) {
     myrequest = _createRequest(
       mymethod,
       myurl,
@@ -477,7 +477,7 @@ class DClient { // }: IClient {
      * \Psr\Http\Message\IRequest  myrequest The request to send.
      * @param IData[string] options Additional options to use.
      * /
-  protected Response _sendRequest(IRequest myrequest, IData[string] options = null) {
+  protected DResponse _sendRequest(IRequest myrequest, IData[string] options = null) {
     if (my_mockAdapter) {
       myresponses = my_mockAdapter.send(myrequest, options);
     }
@@ -547,7 +547,7 @@ class DClient { // }: IClient {
      * @param IData mydata The request body.
      * @param IData[string] options The options to use. Contains auth, proxy, etc.
      * /
-  protected Request _createRequest(string mymethod, string myurl, IData mydata, IData[string] options = null) {
+  protected DRequest _createRequest(string mymethod, string myurl, IData mydata, IData[string] options = null) {
     /** @var array<non-empty-string, non-empty-string>  myheaders * /
     myheaders = (array)(options["headers"] ?  ? []);
     if (isSet(options["type"])) {
@@ -612,7 +612,7 @@ class DClient { // }: IClient {
      * \UIM\Http\Client\Request  myrequest The request to modify.
      * @param IData[string] options Array of options containing the 'auth' key.
      * /
-  protected Request _addAuthentication(Request myrequest, IData[string] options = null) :  {
+  protected DRequest _addAuthentication(Request myrequest, IData[string] options = null) :  {
     myauth = options["auth"];
     /** @var \UIM\Http\Client\Auth\Basic  myadapter * /
     myadapter = _createAuth(myauth, options);
@@ -629,7 +629,7 @@ class DClient { // }: IClient {
      * \UIM\Http\Client\Request  requestToModify The request to modify.
      * @param IData[string] options Array of options containing the 'proxy' key.
      * /
-  protected Request _addProxy(Request requestToModify, IData[string] options = null) {
+  protected DRequest _addProxy(Request requestToModify, IData[string] options = null) {
     myauth = options["proxy"];
     /** @var \UIM\Http\Client\Auth\Basic  myadapter * /
     myadapter = _createAuth(myauth, options);

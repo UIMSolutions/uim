@@ -23,7 +23,7 @@ class DRouteCollection {
     /**
      * The hash map of named routes that are in this collection.
      */
-    protected Route[] my_named = null;
+    protected DRoute[] my_named = null;
 
     /**
      * Routes indexed by static path.

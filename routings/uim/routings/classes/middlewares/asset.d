@@ -96,7 +96,7 @@ class DAssetMiddleware : IMiddleware {
      * \Psr\Http\Message\IServerRequest serverRequest The request object to use.
      * @param \SplFileInfo file The file wrapper for the file.
      */
-    protected Response deliverAsset(IServerRequest serverRequest, SplFileInfo file) {
+    protected DResponse deliverAsset(IServerRequest serverRequest, SplFileInfo file) {
         auto resource = fopen(file.getPathname(), "rb");
         if (resource == false) {
             throw new UimException("Cannot open resource `%s`".format(file.getPathname()));

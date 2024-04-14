@@ -39,7 +39,7 @@ abstract class DCell { // }: IEventDispatcher {
     protected IServerRequest myrequest;
 
     // An instance of a Response object that contains information about the impending response
-    protected Response myresponse;
+    protected DResponse myresponse;
 
     // Arguments to pass to cell"s action.
     protected array myargs = null;

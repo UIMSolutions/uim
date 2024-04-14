@@ -91,7 +91,7 @@ class DEncryptedCookieMiddleware { // : IMiddleware {
      * Params:
      * \UIM\Http\Response response The response to encode cookies in.
      * /
-    protected Response encodeCookies(Response response) {
+    protected DResponse encodeCookies(Response response) {
         response.getCookieCollection()
             .filter!(cookie => in_array(cookie.name, this.cookieNames, true))
             .each!((cookie) {

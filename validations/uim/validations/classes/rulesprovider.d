@@ -16,7 +16,7 @@ class DRulesProvider {
     protected object|string my_class;
 
     // The proxied class" reflection
-    protected ReflectionClass my_reflection;
+    protected DReflectionClass my_reflection;
 
     /**
      * Constructor, sets the default class to use for calling methods

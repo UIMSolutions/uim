@@ -5,7 +5,7 @@ import uim.datasources;
 @safe:
 
 // A registry object for connection instances.
-class DConnectionRegistry : DObjectRegistry!IConnection {
+class DConnectionRegistry : DObjectRegistry!IDatasourceConnection {
     /**
      * Resolve a datasource classname.
      *

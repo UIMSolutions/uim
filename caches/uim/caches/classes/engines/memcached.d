@@ -54,7 +54,7 @@ class DMemcachedEngine : DCacheEngine {
     return true;
   }
   // memcached wrapper.
-  /* protected Memcached _memcached;
+  /* protected DMemcached _memcached;
 
   /**
      * List of available serializer engines

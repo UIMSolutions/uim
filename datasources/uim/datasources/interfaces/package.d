@@ -7,6 +7,7 @@ module uim.datasources.interfaces;
 
 public {
     import uim.datasources.interfaces.connection;
+    import uim.datasources.interfaces.datasource;
     import uim.datasources.interfaces.entity;
     import uim.datasources.interfaces.fixture;
     import uim.datasources.interfaces.invalidproperty;

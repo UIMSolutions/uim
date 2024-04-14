@@ -30,7 +30,7 @@ class DZipIterator : ICollection {
     /* 
     mixin TCollection;
 
-    protected MultipleIterator multipleIterator;
+    protected DMultipleIterator multipleIterator;
 
     // The auto to use for zipping items together
     protected callable _callback;

@@ -373,7 +373,7 @@ mixin template TIntegrationTest() {
     /**
      * Get the correct dispatcher instance.
      * /
-    protected MiddlewareDispatcher _makeDispatcher() {
+    protected DMiddlewareDispatcher _makeDispatcher() {
         EventManager.instance().on("Controller.initialize", this.controllerSpy(...));
         app = this.createApp();
         assert(cast(IHttpApplication)app);

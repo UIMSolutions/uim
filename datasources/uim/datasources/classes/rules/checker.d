@@ -60,7 +60,6 @@ class DRulesChecker {
     // Indicates that the checking rules to apply are those used for deleting entities
     const string DELETE = "delete";
 
-    /* 
     // The list of rules to be checked on both create and update operations
     protected DRuleInvoker[] _rules;
 
@@ -73,6 +72,7 @@ class DRulesChecker {
     // The list of rules to check during delete operations
     protected DRuleInvoker[] _deleteRules = null;
 
+    /* 
     // List of options to pass to every callable rule
     protected array _options = null;
 

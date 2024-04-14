@@ -13,24 +13,23 @@ interface IPaginated { // : Countable, Traversable {
     int perPage();
 
     // Get Total items counts.
-    int totalCount() ;
+    int totalCount();
 
     // Get total page count.
-    int pageCount() ;
+    int pageCount();
 
     // Get whether there`s a previous page.
-   bool hasPrevPage();
+    bool hasPrevPage();
 
     // Get whether there`s a next page.
-   bool hasNextPage();
+    bool hasNextPage();
 
     // Get paginated items.
     IData[string] items();
 
     // Get paging param.
-    IData[string] pagingParam(string aName) ;
+    IData[string] pagingParam(string aName);
 
     // Get all paging params.
     IData[string] pagingParams();
 }
-

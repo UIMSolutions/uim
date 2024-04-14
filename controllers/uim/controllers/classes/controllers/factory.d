@@ -251,7 +251,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * Params:
      * \UIM\Http\ServerRequest serverRequest The request.
      * /
-    protected MissingControllerException missingController(ServerRequest serverRequest) {
+    protected DMissingControllerException missingController(ServerRequest serverRequest) {
         return new DMissingControllerException([
             "controller":  request.getParam("controller"),
             "plugin":  request.getParam("plugin"),

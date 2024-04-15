@@ -32,19 +32,17 @@ class DConsoleInputOption {
     mixin(TProperty!("string", "name"));
 
     // Short (1 character) alias for the option.
-    protected string _short;
+    protected string _shortAlias;
+    //  Get the value of the short attribute.
+    string shortAlias() {
+        return _shortAlias;
+    }
 
     // Help text for the option.
     protected string _help;
 
-    // Is the option a boolean option. Boolean options do not consume a parameter.
-    protected bool _isBooleanOption;
-
     // Default value for the option
     // TODO protected string|bool|null _default = null;
-
-    // Can the option accept multiple value definition.
-    protected bool _multiple;
 
     // An array of choices for the option.
     protected string[] _choices;
@@ -54,6 +52,24 @@ class DConsoleInputOption {
 
     // Is the option required.
     protected bool _isRequired;
+    // Check if this option is required
+    bool isRequired() {
+        return _isRequired;
+    }
+    
+    // Check if this option is a boolean option
+    // Is the option a boolean option. Boolean options do not consume a parameter.
+    protected bool _isBooleanOption;
+    bool isBoolean() {
+        return _isBooleanOption;
+    }
+    
+    // Check if this option accepts multiple values.
+    // Can the option accept multiple value definition.
+    protected bool _acceptsMultiple;
+    bool acceptsMultiple() {
+        return _acceptsMultiple;
+    }
 
     /**
      * Make a new DInput Option
@@ -71,21 +87,21 @@ class DConsoleInputOption {
      * /
     this(
         string aName,
-        string ashort = "",
+        string newShortAlias = "",
         string ahelp = "",
         bool isBooleanOption = false,
         string|bool|null default = null,
         array choices = [],
-        bool multiple = false,
+        bool acceptsMultiple = false,
         bool isRequired = false,
         string aprompt = null
     ) {
        _name = name;
-       _short = short;
+       _shortAlias = newShortAlias;
        _help = help;
        _isBooleanOption = isBooleanOption;
        _choices = choices;
-       _multiple = multiple;
+       this.acceptsMultiple(acceptsMultiple);
         _isRequired = isRequired;
         this.prompt = prompt;
 
@@ -107,17 +123,7 @@ class DConsoleInputOption {
         }
     }
     
-    /**
-     * Get the value of the name attribute.
-     * /
-    string name() {
-        return _name;
-    }
-    
-    //  Get the value of the short attribute.
-    string short() {
-        return _short;
-    }
+
     
     /**
      * Generate the help for this this option.
@@ -172,20 +178,7 @@ class DConsoleInputOption {
         return _default;
     }
     
-    // Check if this option is required
-    bool isRequired() {
-        return this.required;
-    }
-    
-    // Check if this option is a boolean option
-    bool isBoolean() {
-        return _isBooleanOption;
-    }
-    
-    // Check if this option accepts multiple values.
-    bool acceptsMultiple() {
-        return _multiple;
-    }
+
     
     /**
      * Check that a value is a valid choice for this option.

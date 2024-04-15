@@ -88,7 +88,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
             }
              aConsoleIo.out("");
         }
-        root = this.getRootName();
+        root = this.rootName();
 
         aConsoleIo.out("To run a command, type <info>`{root} command_name [args|options]`</info>");
         aConsoleIo.out("To get help on a specific command, type <info>`{root} command_name --help`</info>", 2);

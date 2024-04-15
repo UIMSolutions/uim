@@ -63,7 +63,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
     }
 
     // Get the root command name.
-    string getRootName() {
+    string rootName() {
         string root = this.name.split(" ").join(); // TODO
 
         return root;

@@ -12,9 +12,10 @@ import uim.datasources;
  * An entity represents a single result row from a repository. It exposes the
  * methods for retrieving and storing properties associated in this row.
  */
-class DDBEntity : IDatasourceEntity { //}, IInvalidProperty {
+class DDatasourceEntity { // TODO }: IDatasourceEntity { //}, IInvalidProperty {
     mixin TConfigurable; 
 
+    /* 
     // use TEntity;
 
     // Holds all fields and their values for this entity.
@@ -34,7 +35,7 @@ class DDBEntity : IDatasourceEntity { //}, IInvalidProperty {
     /*
      * List of computed or virtual fields that should be included in IData or array
      * representations of this Entity. If a field is present in both _hidden and _virtual
-     * the field will not be in the array/IData versions of the entity. */
+     * the field will not be in the array/IData versions of the entity. * /
     protected string[] _virtual = null;
 
     // Holds a list of the fields that were modified or added after this object was originally created.
@@ -58,7 +59,7 @@ class DDBEntity : IDatasourceEntity { //}, IInvalidProperty {
      *
      * @param array<string, mixed> properties hash of properties to set in this entity
      * @param array<string, mixed> options list of options to use when creating this entity
-     */
+     * /
     /* this(array properties = null, IData[string] optionData = null) {
         options = options.update[
             "useSetters": BooleanData(true),

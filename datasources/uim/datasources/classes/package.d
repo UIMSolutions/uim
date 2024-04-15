@@ -2,6 +2,7 @@ module uim.datasources.classes;
 
 public {
     import uim.datasources.classes.connections;
+    import uim.datasources.classes.datasources;
     import uim.datasources.classes.entities;
     import uim.datasources.classes.locators;
     import uim.datasources.classes.pagings;

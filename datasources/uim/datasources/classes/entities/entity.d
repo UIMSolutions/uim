@@ -3,7 +3,7 @@
 	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
 	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
 **********************************************************************************************************/
-module datasources.uim.datasources.classes.entities.entity;
+module uim.datasources.classes.entities.entity;
 
 import uim.datasources;
 

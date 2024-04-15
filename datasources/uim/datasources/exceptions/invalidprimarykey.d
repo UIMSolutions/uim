@@ -9,7 +9,7 @@ import uim.datasources;
 
 @safe:
 // Exception raised when the provided primary key does not match the table primary key
-class DDSOInvalidPrimaryKeyException : DDatasourceException {
+class DDSOInvalidPrimaryKeyException : DDatasourcesException {
 	mixin(ExceptionThis!("DSOInvalidPrimaryKey"));
 
     override bool initialize(IData[string] initData = null) {

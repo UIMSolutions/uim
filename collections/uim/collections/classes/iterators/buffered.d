@@ -12,9 +12,6 @@ class DBufferedIterator : DCollection { // }, Countable {
     this() {
       super();
     }
-  /*
-  // The in-memory cache containing results from previous iterators
-  protected ISplDoublyLinkedList _buffer;
 
   // Points to the next record number that should be fetched
   protected int _index = 0;
@@ -29,7 +26,12 @@ class DBufferedIterator : DCollection { // }, Countable {
   protected bool _started = false;
 
   // Whether the internal iterator has reached its end.
-  protected bool_isFinished = false;
+  protected bool _isFinished = false;
+
+  /*
+  // The in-memory cache containing results from previous iterators
+  protected ISplDoublyLinkedList _buffer;
+
 
   /**
      * Maintains an in-memory cache of the results yielded by the internal

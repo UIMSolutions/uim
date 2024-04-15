@@ -10,7 +10,7 @@ import uim.collections;
  *
  * @template-extends \RecursiveIteratorIterator<\RecursiveIterator>
  */
-class DTreeIterator { /* }: RecursiveIteratorIterator, ICollection {
+class DTreeIterator { // TODO }: RecursiveIteratorIterator, ICollection {
     mixin TCollection;
 
     // The iteration mode

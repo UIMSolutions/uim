@@ -1474,3 +1474,6 @@ class DValidation {
         myerrors = null;
     } */
 }
+unittest {
+    testValidation(new DValidation);
+}

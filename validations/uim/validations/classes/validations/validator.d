@@ -15,40 +15,25 @@ import uim.validations;
  * @template-implements \IteratorAggregate<string, \UIM\Validation\ValidationSet>
  */
 class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
-    /**
-     * By using "create" you can make fields required when records are first created.
-     * /
+    // By using "create" you can make fields required when records are first created.
     const string WHEN_CREATE = "create";
 
-    /**
-     * By using "update", you can make fields required when they are updated.
-     * /
+    // By using "update", you can make fields required when they are updated.
     const string WHEN_UPDATE = "update";
 
-    /**
-     * Used to flag nested rules created with addNested() and addNestedMany()
-     * /
+    // Used to flag nested rules created with addNested() and addNestedMany()
     const string NESTED = "_nested";
 
-    /**
-     * A flag for allowEmptyFor()
-     *
-     * When `null` is given, it will be recognized as empty.
-     * /
+    // A flag for allowEmptyFor()
+    // When `null` is given, it will be recognized as empty.
     const int EMPTY_NULL = 0;
 
-    /**
-     * A flag for allowEmptyFor()
-     *
-     * When an empty string is given, it will be recognized as empty.
-     * /
+    // A flag for allowEmptyFor()
+    // When an empty string is given, it will be recognized as empty.
     const int EMPTY_STRING = 1;
 
-    /**
-     * A flag for allowEmptyFor()
-     *
-     * When an empty array is given, it will be recognized as empty.
-     * /
+    // A flag for allowEmptyFor()
+    // When an empty array is given, it will be recognized as empty.
     const int EMPTY_ARRAY = 2;
 
     /**

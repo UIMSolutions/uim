@@ -1,4 +1,4 @@
-module views.uim.views.tests.view;
+module uim.views.tests.view;
 
 import uim.views;
 

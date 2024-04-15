@@ -5,14 +5,14 @@
 **********************************************************************************************************/
 module uim.datasources.classes.resultsets.decorator;
 
-@safe:
 import uim.datasources;
 
+@safe:
 /**
  * Generic ResultSet decorator. This will make any traversable object appear to
  * be a database result
  */
-class DResultSetDecorator : DCollection { // }: IResultSet
+class DResultSetDecorator { // TODO }: DCollection { // }: IResultSet
     /**
      * Make this object countable.
      *

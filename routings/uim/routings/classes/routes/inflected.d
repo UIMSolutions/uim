@@ -10,7 +10,7 @@ import uim.routings;
  * This route class will transparently inflect the controller and plugin routing
  * parameters, so that requesting `/my_controller` is parsed as `["controller": "MyController"]`
  */
-class DInflectedRoute : Route {
+class DInflectedRoute : DRoute {
     /**
      * Flag for tracking whether the defaults have been inflected.
      *
@@ -18,7 +18,7 @@ class DInflectedRoute : Route {
      * will create.
      *
      * @var array|null
-     */
+     * /
     protected array my_inflectedDefaults = null;
 
     /**
@@ -27,7 +27,7 @@ class DInflectedRoute : Route {
      * Params:
      * string myurl The URL to parse
      * @param string mymethod The HTTP method being matched.
-     */
+     * /
     array parse(string myurl, string mymethod= null) {
         myparams = super.parse(myurl, mymethod);
         if (!myparams) {
@@ -55,7 +55,7 @@ class DInflectedRoute : Route {
      * @param array mycontext An array of the current request context.
      *  Contains information such as the current host, scheme, port, and base
      *  directory.
-     */
+     * /
     string match(array myurl, array mycontext = []) {
         myurl = _underscore(myurl);
         if (_inflectedDefaults is null) {
@@ -76,7 +76,7 @@ class DInflectedRoute : Route {
      * Helper method for underscoring keys in a URL array.
      * Params:
      * array myurl An array of URL keys.
-     */
+     * /
     protected array _underscore(array myurl) {
         if (!empty(myurl["controller"])) {
             myurl["controller"] = Inflector.underscore(myurl["controller"]);
@@ -85,5 +85,5 @@ class DInflectedRoute : Route {
             myurl["plugin"] = Inflector.underscore(myurl["plugin"]);
         }
         return myurl;
-    }
+    } */
 }

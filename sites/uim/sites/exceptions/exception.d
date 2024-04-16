@@ -1,4 +1,4 @@
-module uim.sites.uim.sites.exceptions.exception;
+module uim.sites.exceptions.exception;
 
 import uim.sites;
 

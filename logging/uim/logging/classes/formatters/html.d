@@ -1,4 +1,4 @@
- module logging.uim.logging.classes.formatters.html;
+ module uim.logging.classes.formatters.html;
 
 import uim.logging;
 

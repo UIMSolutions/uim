@@ -1,4 +1,4 @@
-module uim.views.interfaces.widget;
+module uim.views.tests.widget;
 
 import uim.views;
 

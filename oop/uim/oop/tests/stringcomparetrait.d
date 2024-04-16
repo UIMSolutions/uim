@@ -1,4 +1,4 @@
-module oop.uim.oop.tests.stringcomparetrait;
+module uim.oop.tests.stringcomparetrait;
 
 import uim.oop;
 

@@ -1,4 +1,4 @@
-module validations.uim.validations.classes.validations.validator;
+module uim.validations.classes.validations.validator;
 
 import uim.validations;
 

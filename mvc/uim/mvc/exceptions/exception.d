@@ -1,4 +1,4 @@
-module uim.mvc.uim.mvc.exceptions.exception;
+module uim.mvc.exceptions.exception;
 
 import uim.mvc;
 

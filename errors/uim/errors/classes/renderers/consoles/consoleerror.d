@@ -1,59 +1,52 @@
-/*********************************************************************************************************
-	Copyright: © 2015-2024 Ozan Nurettin Süel (Sicherheitsschmiede)                                        
-	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
-	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
-**********************************************************************************************************/
-module uim.errors.classes.renderers.consoles.consoleerror;
+module uim.errors.classes.renderers.consoleerror;
 
-@safe:
 import uim.errors;
 
+@safe:
 
-/**
+/*
  * Plain text error rendering with a stack trace.
  *
- * Writes to STDERR via a Cake\Console\ConsoleOutput instance for console environments
+ * Writes to STDERR via a UIM\Console\ConsoleOutput instance for console environments
  */
-class DERRConsoleErrorRenderer { // }: IERRErrorRenderer {
-  protected IConsoleOutput output;
+class DConsoleErrorRenderer { // }: IErrorRenderer {
+    /*
+    protected IConsoleOutput output;
 
-  protected bool trace = false;
+    protected bool trace = false;
 
-  /**
-    * Constructor.
-    *
-    * ### Options
-    *
-    * - `stderr` - The ConsoleOutput instance to use. Defaults to `php://stderr`
-    * - `trace` - Whether or not stacktraces should be output.
-    *
-    * @param IData aConfig Error handling configuration.
-    * /
-  this(IData aConfig) {
-    this.output = aConfig["stderr"] ?? new DConsoleOutput("php://stderr");
-    this.trace = (bool)(aConfig["trace"] ?? false);
-  }
-
-
-  void write(string outText) {
-    this.output.write(outText);
-  }
-
-
-  string render(DError anError, bool shouldDebug) {
-    trace = "";
-    if (this.trace) {
-      trace = "\n<info>Stack Trace:</info>\n\n" ~ error.getTraceAsString();
+    /**
+     * Constructor.
+     *
+     * ### Options
+     *
+     * - `stderr` - The ConsoleOutput instance to use. Defaults to `php://stderr`
+     * - `trace` - Whether or not stacktraces should be output.
+     * Params:
+     * IData[string] configData Error handling configuration.
+     * /
+    this(IData[string] configData = null) {
+        this.output = configData("stderr"] ?? new DConsoleOutput("php://stderr");
+        this.trace = (bool)(configData("trace"] ?? false);
     }
-
-    return 
-      "<error>%s: %s :: %s</error> on line %s of %s%s".format(
-        error.getLabel(),
-        error.getCode(),
-        error.getMessage(),
-        error.getLine() ?? "",
-        error.getFile() ?? "",
-        trace            
-    );
-  } */
+ 
+    void write(string aout) {
+        this.output.write(result);
+    }
+    
+    string render(UimError error, bool shouldDebug) {
+        string trace = "";
+        if (this.trace) {
+            trace = "\n<info>Stack Trace:</info>\n\n" ~ error.getTraceAsString();
+        }
+        return "<error>%s: %s . %s</error> on line %s of %s%s"
+            .format(
+                error.getLabel(),
+                error.getCode(),
+                error.getMessage(),
+                error.getLine() ?? "",
+                error.getFile() ?? "",
+                trace
+            );
+    } */
 }

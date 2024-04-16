@@ -214,19 +214,19 @@ class DFormHelper : DHelper {
     this(IView myview, IData[string] configData = null) {
         mylocator = null;
         mywidgets = _defaultWidgets;
-        if (isSet(configuration["locator"])) {
-            mylocator = configuration["locator"];
+        if (isSet(configuration.get("locator"])) {
+            mylocator = configuration.get("locator"];
             configuration.remove("locator");
         }
-        if (isSet(configuration["widgets"])) {
-            if (isString(configuration["widgets"])) {
-                configuration["widgets"] = (array)configuration["widgets"];
+        if (isSet(configuration.get("widgets"])) {
+            if (isString(configuration.get("widgets"])) {
+                configuration.get("widgets"] = (array)configuration.get("widgets"];
             }
-            mywidgets = configuration["widgets"] + mywidgets;
+            mywidgets = configuration.get("widgets"] + mywidgets;
             configuration.remove("widgets");
         }
-        if (isSet(configuration["groupedInputTypes"])) {
-           _groupedInputTypes = configuration["groupedInputTypes"];
+        if (isSet(configuration.get("groupedInputTypes"])) {
+           _groupedInputTypes = configuration.get("groupedInputTypes"];
             configuration.remove("groupedInputTypes");
         }
         super(myview, configData);
@@ -1104,7 +1104,7 @@ class DFormHelper : DHelper {
         }
         mytype = "text";
         myinternalType = mycontext.type(fieldName);
-        mymap = configuration["typeMap"];
+        mymap = configuration.get("typeMap"];
         if (myinternalType !isNull && isSet(mymap[myinternalType])) {
             mytype = mymap[myinternalType];
         }
@@ -2117,7 +2117,7 @@ class DFormHelper : DHelper {
             options["val"] = options["val"].value;
         }
         if (mycontext.hasError(myfield)) {
-            options = this.addClass(options, configuration["errorClass"]);
+            options = this.addClass(options, configuration.get("errorClass"]);
         }
         myisDisabled = _isDisabled(options);
         if (myisDisabled) {
@@ -2261,7 +2261,7 @@ class DFormHelper : DHelper {
      * This method will not reset any templates set in custom widgets.
      * /
     void resetTemplates() {
-        this.setTemplates(_defaultconfiguration["templates"]);
+        this.setTemplates(_defaultconfiguration.get("templates"]);
     }
     
     /**

@@ -1,105 +1,105 @@
-/*********************************************************************************************************
-	Copyright: © 2015-2024 Ozan Nurettin Süel (Sicherheitsschmiede)                                        
-	License: Subject to the terms of the Apache 2.0 license, as written in the included LICENSE.txt file.  
-	Authors: Ozan Nurettin Süel (Sicherheitsschmiede)                                                      
-**********************************************************************************************************/
-module uim.errors.classes.renderers.consoles.consoleexception;
+module uim.errors.classes.renderers.consoleexception;
+
+import uim.errors;
 
 @safe:
-import uim.errors;
 
 /**
  * Plain text exception rendering with a stack trace.
  *
  * Useful in CI or plain text environments.
- *
- * @todo 5.0 Implement uim.errors.IExceptionRenderer. This implementation can"t implement
- *  the concrete interface because the return types are not compatible.
  */
-class DConsoleExceptionRenderer {
-  /**
-    * @var \Throwable
-    * /
-  private error;
+class DConsoleExceptionRenderer { // }: IExceptionRenderer {
+    /* 
+    private Throwable error;
 
-  private DCONConsoleOutput output;
+    /**
+     * @var \UIM\Console\ConsoleOutput
+     * /
+    private ConsoleOutput output;
 
-  private bool trace;
+    /**
+     * @var bool
+     * /
+    private bool trace;
 
-  /**
-    * Constructor.
-    *
-    * @param \Throwable error The error to render.
-    * @param \Psr\Http\messages.IServerRequest|null request Not used.
-    * @param IData aConfig Error handling configuration.
-    * /
-  this(Throwable error, ?IServerRequest request, IData aConfig) {
-    this.error = error;
-    this.output = aConfig["stderr"] ?? new DConsoleOutput("php://stderr");
-    this.trace = aConfig["trace"] ?? true;
-  }
-
-  // Render an exception into a plain text message.
-  string render() {
-    auto myExceptions = [this.error];
-    auto myPrevious = this.error.getPrevious();
-    while (myPrevious != null) {
-        myExceptions ~= previous;
-        myPrevious = myPrevious.getPrevious();
+    /**
+     * Constructor.
+     * Params:
+     * \Throwable error The error to render.
+     * @param \Psr\Http\Message\IServerRequest|null request Not used.
+     * @param IData[string] configData Error handling configuration.
+     * /
+    this(Throwable error, ?IServerRequest serverRequest, IData[string] configData) {
+        this.error = error;
+        this.output = configData("stderr"] ?? new DConsoleOutput("php://stderr");
+        this.trace = configData("trace"] ?? true;
     }
-    string[] results;
-    foreach (myIndex, myError; myExceptions) {
-        results = chain(results, this.renderException(myError, i));
-    }
-
-    return results.join("\n");
-  }
-
-  /**
-    * Render an individual exception
-    *
-    * @param \Throwable exception The exception to render.
-    * @param int index Exception index in the chain
-    * /
-  protected string[] renderException(Throwable anException, int anIndex) {
-    string[] results = [
-            "<error>%s[%s] %s</error> in %s on line %s".format(
-              anIndex > 0 ? "Caused by " : "",
-              get_class(anException),
-              anException.getMessage(),
-              anException.getFile(),
-              anException.getLine()
-        );
-    ];
-
-    debug = Configure::read("debug");
-    if (debug && exception instanceof UIMException) {
-        attributes = exception.getAttributes();
-        if (attributes) {
-            results ~= "";
-            results ~= "<info>Exception Attributes</info>";
-            results ~= "";
-            results ~= var_export(exception.getAttributes(), true);
+    
+    // Render an exception into a plain text message.
+    string render() {
+        exceptions = [this.error];
+        previous = this.error.getPrevious();
+        while (previous !isNull) {
+            exceptions ~= previous;
+            previous = previous.getPrevious();
         }
+
+        string[] results;
+        foreach ( anI: error; exceptions) {
+            parent =  anI > 0 ? exceptions[anI - 1] : null;
+            results = chain(result, this.renderException(error, parent));
+        }
+        return results.join("\n");
     }
+    
+    /**
+     * Render an individual exception
+     * Params:
+     * \Throwable exception The exception to render.
+     * @param ?\Throwable parent The Exception index in the chain
+     * /
+    protected array renderException(Throwable exception, Throwable parent) {
+        auto result = [
+                "<error>%s[%s] %s</error> in %s on line %s"
+                .format(
+                    parent ? "Caused by " : "",
+                    exception.classname,
+                    exception.getMessage(),
+                    exception.getFile(),
+                    exception.getLine()
+                ),
+        ];
 
-    if (this.trace) {
-        results ~= "";
-        results ~= "<info>Stack Trace:</info>";
-        results ~= "";
-        results ~= exception.getTraceAsString();
-        results ~= "";
+        debug = Configure.read("debug");
+        if (debug && cast(UimException)exception) {
+            attributes = exception.getAttributes();
+            if (attributes) {
+                result ~= "";
+                result ~= "<info>Exception Attributes</info>";
+                result ~= "";
+                result ~= var_export(exception.getAttributes(), true);
+            }
+        }
+        if (this.trace) {
+            stacktrace = Debugger.getUniqueFrames(exception, parent);
+            result ~= "";
+            result ~= "<info>Stack Trace:</info>";
+            result ~= "";
+            result ~= Debugger.formatTrace(stacktrace, ["format": "text"]);
+            result ~= "";
+        }
+        return result;
     }
-
-    return results;
-  }
-
-  /**
-    * Write output to the output stream
-    *
-    * @param string output The output to print.
-    * /
-  void write(string anOutput) {
-      this.output.write(anOutput); 
-  } */
+    
+    /**
+     * Write output to the output stream
+     * Params:
+     * \Psr\Http\Message\IResponse|string aoutput The output to print.
+     * /
+    void write(IResponse|string aoutput) {
+        if (isString(output)) {
+            this.output.write(output);
+        }
+    } */
 }

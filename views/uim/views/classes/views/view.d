@@ -875,7 +875,7 @@ class DView : IView { //  }: IEventDispatcher {
     protected void addHelper(string myhelper, IData[string] configData = null) {
         [_plugin, views] = pluginSplit(myhelper);
         if (_plugin) {
-            configuration["className"] = myhelper;
+            configuration.get("className"] = myhelper;
         }
         this.helpers[views] = configData;
     }
@@ -1213,7 +1213,7 @@ class DView : IView { //  }: IEventDispatcher {
         if (mycache.isArray) {
             configData = mycache + configData;
         }
-        configuration["key"] = "element_" ~ configuration["key"];
+        configuration.get("key"] = "element_" ~ configuration.get("key"];
 
         return configData;
     }

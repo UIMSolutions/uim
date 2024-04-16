@@ -1,4 +1,4 @@
-module uim.errors.classes.renderers.consoleerror;
+module errors.uim.errors.classes.renderers.consoles.error;
 
 import uim.errors;
 

@@ -114,7 +114,7 @@ class DHelperRegistry { // }: ObjectRegistry : IEventDispatcher {
         }
         myinstance = new myclass(_View, configData);
 
-        if (configuration["enabled"] ?? true) {
+        if (configuration.get("enabled"] ?? true) {
             this.getEventManager().on(myinstance);
         }
         return myinstance;

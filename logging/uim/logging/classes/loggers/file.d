@@ -57,18 +57,18 @@ class DFileLog { /*}: BaseLog {
 
        auto _path = configurationData.isSet("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR);
         if (!isDir(_path)) {
-            mkdir(_path, configuration["dirMask"), true);
+            mkdir(_path, configuration.get("dirMask"), true);
         }
-        if (!configuration["file").isEmpty) {
-           _file = configuration["file");
+        if (!configuration.get("file").isEmpty) {
+           _file = configuration.get("file");
             if (!_file.endsWith(".log")) {
                _file ~= ".log";
             }
         }
-        if (!configuration["size").isEmpty) {
-            _size = isNumeric(configuration["size"))
-                ? to!int(configuration["size"))
-                : Text.parseFileSize(configuration["size"));
+        if (!configuration.get("size").isEmpty) {
+            _size = isNumeric(configuration.get("size"))
+                ? to!int(configuration.get("size"))
+                : Text.parseFileSize(configuration.get("size"));
         }
     }
     
@@ -89,7 +89,7 @@ class DFileLog { /*}: BaseLog {
         }
         
         string filePath = _path ~ filename;
-        IData mask = configuration["mask");
+        IData mask = configuration.get("mask");
         if (!mask) {
             file_put_contents(filePath, message ~ "\n", FILE_APPEND);
 
@@ -141,7 +141,7 @@ class DFileLog { /*}: BaseLog {
             return null;
         }
         
-        size_t rotate = configuration["rotate"];
+        size_t rotate = configuration.get("rotate"];
         result = rotate == 0 
             ? unlink(logFilepath)
             : rename(logFilepath, logFilepath ~ "." ~ time());

@@ -35,16 +35,16 @@ class DLogger : ILogger {
 
         // TODO
         /*
-        if (!configuration["scopes") is null) {
-           configuration["scopes", configuration["scopes").toArray);
+        if (!configuration.get("scopes") is null) {
+           configuration.get("scopes", configuration.get("scopes").toArray);
         }
-        configuration["levels", configuration["levels").toArray);
+        configuration.get("levels", configuration.get("levels").toArray);
 
-        if (!configuration["types").isEmpty && configuration["levels").isEmpty) {
-           configuration["levels", configuration["types").toArray);
+        if (!configuration.get("types").isEmpty && configuration.get("levels").isEmpty) {
+           configuration.get("levels", configuration.get("types").toArray);
         }
 
-        auto formatter = hasconfiguration["formatter") ? configuration["formatter") : DefaultFormatter.classname;
+        auto formatter = hasconfiguration.get("formatter") ? configuration.get("formatter") : DefaultFormatter.classname;
         if (!isObject(formatter)) {
             if (isArray(formatter)) {
                 className = formatter["className"];

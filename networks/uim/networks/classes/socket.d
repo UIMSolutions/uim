@@ -93,20 +93,20 @@ class DSocket {
         if (this.connection) {
             this.disconnect();
         }
-        if (configuration["host"].has("://")) {
-            [configuration["protocol"], configuration["host"]] = split("://", configuration["host"]);
+        if (configuration.get("host"].has("://")) {
+            [configuration.get("protocol"], configuration.get("host"]] = split("://", configuration.get("host"]);
         }
         scheme = null;
-        if (!empty(configuration["protocol"])) {
-            scheme = configuration["protocol"]~"://";
+        if (!empty(configuration.get("protocol"])) {
+            scheme = configuration.get("protocol"]~"://";
         }
-        _setSslContext(configuration["host"));
-        context = !empty(configuration["context"))
-            ? stream_context_create(configuration["context"))
+        _setSslContext(configuration.get("host"));
+        context = !empty(configuration.get("context"))
+            ? stream_context_create(configuration.get("context"))
             : stream_context_create();
 
         connectAs = STREAM_CLIENT_CONNECT;
-        if (configuration["persistent"]) {
+        if (configuration.get("persistent"]) {
             connectAs |= STREAM_CLIENT_PERSISTENT;
         }
         /**
@@ -114,8 +114,8 @@ class DSocket {
          * @phpstan-ignore-next-line
          */
         set_error_handler(_connectionErrorHandler(...));
-        remoteSocketTarget = scheme ~ configuration["host"];
-        port = to!int(configuration["port"]);
+        remoteSocketTarget = scheme ~ configuration.get("host"];
+        port = to!int(configuration.get("port"]);
         if (port > 0) {
             remoteSocketTarget ~= ":" ~ port;
         }
@@ -125,7 +125,7 @@ class DSocket {
             remoteSocketTarget,
             errNum,
             errStr,
-            to!int(configuration["timeout"]),
+            to!int(configuration.get("timeout"]),
             connectAs,
             context
         );
@@ -145,7 +145,7 @@ class DSocket {
         if (this.connected) {
             assert(this.connection!isNull);
 
-            stream_set_timeout(this.connection, (int) configuration["timeout"]);
+            stream_set_timeout(this.connection, (int) configuration.get("timeout"]);
         }
         return this.connected;
     }
@@ -198,22 +198,22 @@ class DSocket {
         
         .each!((kv) {
             string contextKey = substr(kv.key, 4);
-            if (isEmpty(configuration["context/ssl/"~contextKey])) {
-                configuration["context/ssl/"~contextKey] = kv.value;
+            if (isEmpty(configuration.get("context/ssl/"~contextKey])) {
+                configuration.get("context/ssl/"~contextKey] = kv.value;
             }
             unset(configuration.getString(kv.key));
         });
-        if (!isSet(configuration["context/ssl"]["SNI_enabled"])) {
-            configuration["context/ssl/SNI_enabled"] = true;
+        if (!isSet(configuration.get("context/ssl"]["SNI_enabled"])) {
+            configuration.get("context/ssl/SNI_enabled"] = true;
         }
-        if (isEmpty(configuration["context/ssl"]["peer_name"])) {
-            configuration["context/ssl/peer_name"] = hostName;
+        if (isEmpty(configuration.get("context/ssl"]["peer_name"])) {
+            configuration.get("context/ssl/peer_name"] = hostName;
         }
         if (configuration.isEmpty("context/ssl/cafile")) {
-            configuration["context/ssl/cafile"] = CaBundle.getBundledCaBundlePath();
+            configuration.get("context/ssl/cafile"] = CaBundle.getBundledCaBundlePath();
         }
-        if (!empty(configuration["context/ssl/verify_host"])) {
-            configuration["context/ssl/CN_match"] = hostName;
+        if (!empty(configuration.get("context/ssl/verify_host"])) {
+            configuration.get("context/ssl/CN_match"] = hostName;
         }
         configuration.remove("context/ssl/verify_host"]);
     }
@@ -256,8 +256,8 @@ class DSocket {
     
         // Get the host name of the current connection.
         string host() {
-            if (Validation.ip(configuration["host"])) {
-                return to!string(gethostbyaddr(configuration["host"]);
+            if (Validation.ip(configuration.get("host"])) {
+                return to!string(gethostbyaddr(configuration.get("host"]);
             }
             return to!string( gethostbyaddr(this.address()));
         }
@@ -266,20 +266,20 @@ class DSocket {
      * Get the IP address of the current connection.
      */
     string address() {
-        if (Validation.ip(configuration["host"])) {
-            return configuration["host"];
+        if (Validation.ip(configuration.get("host"])) {
+            return configuration.get("host"];
         }
-        return gethostbyname(configuration["host"]);
+        return gethostbyname(configuration.get("host"]);
     }
 
     /**
      * Get all IP addresses associated with the current connection.
      */
     array addresses() {
-        if (Validation.ip(configuration["host"])) {
-            return [configuration["host"]];
+        if (Validation.ip(configuration.get("host"])) {
+            return [configuration.get("host"]];
         }
-        return gethostbynamel(configuration["host"]) ?  : [];
+        return gethostbynamel(configuration.get("host"]) ?  : [];
     }
 
     /**

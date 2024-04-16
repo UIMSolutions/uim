@@ -40,15 +40,15 @@ class DConsoleLog { /* }: BaseLog {
         super(configData);
 
         configData = configuration;
-        if (cast(DConsoleOutput)configuration["stream"]) {
-           _output = configuration["stream"];
-        }  else if (isString(configuration["stream"])) {
-           _output = new DConsoleOutput(configuration["stream"]);
+        if (cast(DConsoleOutput)configuration.get("stream"]) {
+           _output = configuration.get("stream"];
+        }  else if (isString(configuration.get("stream"])) {
+           _output = new DConsoleOutput(configuration.get("stream"]);
         } else {
             throw new DInvalidArgumentException("`stream` not a ConsoleOutput nor string");
         }
-        if (isSet(configuration["outputAs"])) {
-           _output.setOutputAs(configuration["outputAs"]);
+        if (isSet(configuration.get("outputAs"])) {
+           _output.setOutputAs(configuration.get("outputAs"]);
         }
     }
     

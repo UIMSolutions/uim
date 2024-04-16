@@ -22,10 +22,10 @@ class DJsonLogFormatter : DLogFormatter {
 
   /*
       string|int|false format(level, string amessage, array context = []) {
-        auto log = ["date": date(configuration["dateFormat"]), "level": to!string(level), "message": message];
-        auto IData = Json_encode(log, Json_THROW_ON_ERROR | configuration["flags"]);
+        auto log = ["date": date(configuration.get("dateFormat"]), "level": to!string(level), "message": message];
+        auto IData = Json_encode(log, Json_THROW_ON_ERROR | configuration.get("flags"]);
 
-        return configuration["appendNewline"] ? IData ~ "\n" : IData;
+        return configuration.get("appendNewline"] ? IData ~ "\n" : IData;
     } */
 }
 

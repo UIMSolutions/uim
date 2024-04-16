@@ -32,8 +32,8 @@ interface IConfiguration : INamed {
     
     bool hasValue(string value);
 
-    // IData get(string path);
-    // IData[string] get(string[] paths, bool compressMode = true);
+    IData get(string path);
+    IData[string] get(string[] paths, bool compressMode = true);
 
     // void set(string path, IData newData);
     // void set(string[] paths, IData[string] newData);

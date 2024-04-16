@@ -99,6 +99,11 @@ long getLong(IData[string] data, string key, long fallback = 0) {
     return fallback;
 }
 
+string[] getStringArray(IData data) {
+    return null; 
+    //TODO return data.map!(d => d.toString).array;
+}
+
 string[] getStringArray(IData[] data) {
     return data.map!(d => d.toString).array;
 }

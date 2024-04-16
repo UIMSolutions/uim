@@ -73,7 +73,7 @@ class DSysLogger : DLogger {
     void log(level, string messageToLog, array context = []) {
         if (!_open) {
             configData = configuration;
-           _open(configuration.get("prefix"), configuration["flag"], configuration["facility"]);
+           _open(configuration.get("prefix"), configuration.get("flag"], configuration.get("facility"]);
            _open = true;
         }
         priority = LOG_DEBUG;

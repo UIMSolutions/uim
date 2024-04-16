@@ -22,11 +22,11 @@ class DefaultFormatter : DAbstractFormatter {
  
     string format(level, string messageToFormat, array context = []) {
         string result = amessage;
-        result = configuration["includeDate"]
-            ? "%s %s: %s".format((new DateTime()).format(configuration["dateFormat"]), level, messageToFormat)
+        result = configuration.get("includeDate"]
+            ? "%s %s: %s".format((new DateTime()).format(configuration.get("dateFormat"]), level, messageToFormat)
             : "%s: %s".format(level, messageToFormat);
 
-        if (configuration["includeTags"]) {
+        if (configuration.get("includeTags"]) {
             result = "<%s>%s</%s>".format(level, result, level);
         }
         return result;

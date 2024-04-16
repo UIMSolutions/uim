@@ -185,10 +185,10 @@ class DBehavior : IEventListener {
      * @return array A de-duped list of config data.
      * /
     protected array _resolveMethodAliases(string aKey, array defaults, IData myConfiguration) {
-        if (!isset(defaults[key], configuration[key])) {
+        if (!isset(defaults[key], configuration.get(key])) {
             return configuration;
         }
-        if (configuration.has(key) && configuration[key] == []) {
+        if (configuration.has(key) && configuration.get(key] == []) {
             configuration.update(key, [], false);
             configuration.remove(key);
 
@@ -196,7 +196,7 @@ class DBehavior : IEventListener {
         }
 
         indexed = array_flip(defaults[key]);
-        indexedCustom = array_flip(configuration[key]);
+        indexedCustom = array_flip(configuration.get(key]);
         foreach (indexed as method: alias) {
             if (!isset(indexedCustom[method])) {
                 indexedCustom[method] = alias;
@@ -223,7 +223,7 @@ class DBehavior : IEventListener {
                 continue;
             }
 
-            foreach (configuration[key] as method) {
+            foreach (configuration.get(key] as method) {
                 if (!is_callable([this, method])) {
                     throw new UIMException(sprintf(
                         "The method %s is not callable on class %s",
@@ -263,7 +263,7 @@ class DBehavior : IEventListener {
             "Model.afterRules": "afterRules",
         ];
         myConfiguration = configuration;
-        priority = configuration["priority"] ?? null;
+        priority = configuration.get("priority"] ?? null;
         events = null;
 
         foreach (eventMap as event: method) {

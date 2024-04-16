@@ -75,7 +75,7 @@ mixin template TTranslateStrategy() {
     /**
      * Unset empty translations to avoid persistence.
      *
-     * Should only be called if configuration["allowEmptyTranslations"] is false.
+     * Should only be called if configuration.get("allowEmptyTranslations"] is false.
      *
      * @param DORMDatasource\IEntity anEntity The entity to check for empty translations fields inside.
      */
@@ -83,14 +83,14 @@ mixin template TTranslateStrategy() {
         /** @var array<DORMEntity> translations */
         translations = (array)entity.get("_translations");
         foreach (translations as locale: translation) {
-            fields = translation.extract(configuration["fields"], false);
+            fields = translation.extract(configuration.get("fields"], false);
             foreach (fields as field: value) {
                 if (value == null || value == "") {
                     translation.unset(field);
                 }
             }
 
-            translation = translation.extract(configuration["fields"]);
+            translation = translation.extract(configuration.get("fields"]);
 
             // If now, the current locale property is empty,
             // unset it completely.
@@ -135,7 +135,7 @@ mixin template TTranslateStrategy() {
                     translations = null;
                 }
 
-                options["validate"] = configuration["validator"];
+                options["validate"] = configuration.get("validator"];
                 errors = null;
                 foreach (value as language: fields) {
                     if (!isset(translations[language])) {

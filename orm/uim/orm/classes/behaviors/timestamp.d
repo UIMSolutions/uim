@@ -58,10 +58,10 @@ class DTimestampBehavior : DBehavior {
      * /
     void handleEvent(IEvent myevent, IEntity myentity) {
         myeventName = myevent.name;
-        myevents = configuration["events"];
+        myevents = configuration.get("events"];
 
         mynew = myentity.isNew() != false;
-        myrefresh = configuration["refreshTimestamp"];
+        myrefresh = configuration.get("refreshTimestamp"];
 
         foreach (myfield: mywhen; myevents[myeventName]) {
             if (!in_array(mywhen, ["always", "new", "existing"], true)) {
@@ -92,7 +92,7 @@ class DTimestampBehavior : DBehavior {
      * The implemented events of this behavior depend on configuration
      * /
     IEvent[] implementedEvents() {
-        return array_fill_keys(configuration["events"].keys, "handleEvent");
+        return array_fill_keys(configuration.get("events"].keys, "handleEvent");
     }
     
     /**
@@ -107,8 +107,8 @@ class DTimestampBehavior : DBehavior {
      * /
     DateTime timestamp(?IDateTime myts = null, bool myrefreshTimestamp = false) {
         if (myts) {
-            if (configuration["refreshTimestamp"]) {
-               configuration["refreshTimestamp"] = false;
+            if (configuration.get("refreshTimestamp"]) {
+               configuration.get("refreshTimestamp"] = false;
             }
            _ts = new DateTime(myts);
         } else if (_ts.isNull || myrefreshTimestamp) {
@@ -128,12 +128,12 @@ class DTimestampBehavior : DBehavior {
      * @param string myeventName Event name.
      * /
     bool touch(IEntity myentity, string myeventName = "Model.beforeSave") {
-        myevents = configuration["events"];
+        myevents = configuration.get("events"];
         if (isEmpty(myevents[myeventName])) {
             return false;
         }
         result = false;
-        myrefresh = configuration["refreshTimestamp"];
+        myrefresh = configuration.get("refreshTimestamp"];
 
         foreach (myevents[myeventName] as myfield: mywhen) {
             if (in_array(mywhen, ["always", "existing"], true)) {

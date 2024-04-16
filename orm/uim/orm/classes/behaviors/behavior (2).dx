@@ -94,17 +94,17 @@ class DBehavior : IEventListener {
      * configData - The customized method mappings.
      */
     protected array _resolveMethodAliases(string aKey, array mydefaults, IData[string] configData) {
-        if (!isSet(mydefaults[aKey], configuration[aKey])) {
+        if (!isSet(mydefaults[aKey], configuration.get(aKey])) {
             return configData;
         }
-        if (configuration.hasKey(aKey) && configuration[aKey] == []) {
+        if (configuration.hasKey(aKey) && configuration.get(aKey] == []) {
             configuration.update(aKey, [], false);
             configuration.remove(aKey);
 
             return configData;
         }
         myindexed = array_flip(mydefaults[aKey]);
-        myindexedCustom = array_flip(configuration[aKey]);
+        myindexedCustom = array_flip(configuration.get(aKey]);
         foreach (myindexed as mymethod: myalias) {
             if (!isSet(myindexedCustom[mymethod])) {
                 myindexedCustom[mymethod] = myalias;

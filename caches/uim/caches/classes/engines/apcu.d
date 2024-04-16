@@ -103,7 +103,7 @@ class DApcuEngine : DCacheEngine {
      */
   /* bool add(string aKey, IData aValue) {
     auto myKey = _key(aKey);
-    IData duration = configuration["duration");
+    IData duration = configuration.get("duration");
 
     return apcu_add(myKey, myvalue, duration);
   } */ 
@@ -115,13 +115,13 @@ class DApcuEngine : DCacheEngine {
      */
   /* string[] groups() {
     if (_compiledGroupNames.isEmpty) {
-      foreach (mygroup; configuration["groups")) {
+      foreach (mygroup; configuration.get("groups")) {
         _compiledGroupNames ~= configuration.get("prefix") ~ mygroup;
       }
     }
     auto mysuccess = false;
     auto mygroups = apcu_fetch(_compiledGroupNames, mysuccess);
-    if (mysuccess && count(mygroups) != count(configuration["groups"])) {
+    if (mysuccess && count(mygroups) != count(configuration.get("groups"])) {
       _compiledGroupNames.each!((groupname) {
         if (!mygroups.isSet(groupname)) {
           auto myvalue = 1;
@@ -138,7 +138,7 @@ class DApcuEngine : DCacheEngine {
     }
     auto results = null;
     auto groupValues = mygroups.values;
-    foreach (myi : mygroup; configuration["groups"]) {
+    foreach (myi : mygroup; configuration.get("groups"]) {
       results ~= mygroup ~ groupValues[myi];
     }
     return results;

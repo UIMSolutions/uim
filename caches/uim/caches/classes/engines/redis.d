@@ -67,20 +67,20 @@ class DRedisCacheEngine : DCacheEngine {
     protected bool _connect() {
         try {
            _redis = new DRedis();
-            if (!configuration["unix_socket"].isEmpty) {
-                result = _redis.connect(configuration["unix_socket"]);
-            } elseif (configuration["persistent"].isEmpty) {
+            if (!configuration.get("unix_socket"].isEmpty) {
+                result = _redis.connect(configuration.get("unix_socket"]);
+            } elseif (configuration.get("persistent"].isEmpty) {
                 result = _redis.connect(
-                   configuration["server"],
-                    configuration["port"].toInt,
-                    configuration["timeout"].toInt
+                   configuration.get("server"],
+                    configuration.get("port"].toInt,
+                    configuration.get("timeout"].toInt
                 );
             } else {
-                persistentId = configuration["port"] ~ configuration["timeout"] ~ configuration["database"];
+                persistentId = configuration.get("port"] ~ configuration.get("timeout"] ~ configuration.get("database"];
                 result = _redis.pconnect(
-                   configuration["server"],
-                    configuration["port"].toInt,
-                    configuration["timeout"].toInt,
+                   configuration.get("server"],
+                    configuration.get("port"].toInt,
+                    configuration.get("timeout"].toInt,
                     persistentId
                 );
             }
@@ -90,11 +90,11 @@ class DRedisCacheEngine : DCacheEngine {
             }
             return false;
         }
-        if (result && configuration["password"]) {
-            result = _redis.auth(configuration["password"]);
+        if (result && configuration.get("password"]) {
+            result = _redis.auth(configuration.get("password"]);
         }
         if (result) {
-            result = _redis.select((int)configuration["database"]);
+            result = _redis.select((int)configuration.get("database"]);
         }
         return result;
     }
@@ -140,7 +140,7 @@ class DRedisCacheEngine : DCacheEngine {
      * @param int anOffset How much to increment
      * /
     int increment(string aKey, int anOffset = 1) {
-         aDuration = configuration["duration"];
+         aDuration = configuration.get("duration");
         aKey = _key(aKey);
 
         aValue = _redis.incrBy(aKey,  anOffset);
@@ -157,7 +157,7 @@ class DRedisCacheEngine : DCacheEngine {
      * @param int anOffset How much to subtract
      * /
     int|false decrement(string aKey, int anOffset = 1) {
-         aDuration = configuration["duration"];
+         aDuration = configuration.get("duration");
         aKey = _key(aKey);
 
         aValue = _redis.decrBy(aKey,  anOffset);
@@ -197,7 +197,7 @@ class DRedisCacheEngine : DCacheEngine {
         auto  somePattern = configuration.get("prefix") ~ "*";
 
         while (true) {
-            keys = _redis.scan(anIterator,  somePattern, (int)configuration["scanCount"]);
+            keys = _redis.scan(anIterator,  somePattern, (int)configuration.get("scanCount"]);
 
             if (someKeys == false) {
                 break;
@@ -223,7 +223,7 @@ class DRedisCacheEngine : DCacheEngine {
          somePattern = configuration.get("prefix") ~ "*";
 
         while (true) {
-            someKeys = _redis.scan(anIterator,  somePattern, (int)configuration["scanCount"]);
+            someKeys = _redis.scan(anIterator,  somePattern, (int)configuration.get("scanCount"]);
 
             if (someKeys == false) {
                 break;
@@ -244,7 +244,7 @@ class DRedisCacheEngine : DCacheEngine {
      * @param IData aValue Data to be cached.
      * /
     bool add(string aKey, IData aValue) {
-         aDuration = configuration["duration"];
+         aDuration = configuration.get("duration");
         aKey = _key(aKey);
         aValue = this.serialize(aValue);
 
@@ -261,7 +261,7 @@ class DRedisCacheEngine : DCacheEngine {
      * /
     string[] groups() {
         auto result;
-        foreach (configuration["groups"] as  anGroup) {
+        foreach (configuration.get("groups"] as  anGroup) {
             aValue = _redis.get(configuration.get("prefix") ~  anGroup);
             if (!aValue) {
                 aValue = this.serialize(1);
@@ -313,7 +313,7 @@ class DRedisCacheEngine : DCacheEngine {
      * Disconnects from the redis server
      * /
     auto __destruct() {
-        if (isEmpty(configuration["persistent"])) {
+        if (isEmpty(configuration.get("persistent"])) {
            _redis.close();
         }
     } */

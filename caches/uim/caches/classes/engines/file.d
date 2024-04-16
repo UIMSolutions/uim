@@ -45,9 +45,9 @@ class DFileCacheEngine : DCacheEngine {
             "serialize": BooleanData(true),
         ]); * / 
 
-        configuration["path"] = configuration.get("path", sys_get_temp_dir()~DIRECTORY_SEPARATOR ~ "cake_cache" ~ DIRECTORY_SEPARATOR);
-        if (substr(configuration["path"], -1) != DIRECTORY_SEPARATOR) {
-            configuration["path"] ~= DIRECTORY_SEPARATOR;
+        configuration.get("path"] = configuration.get("path", sys_get_temp_dir()~DIRECTORY_SEPARATOR ~ "cake_cache" ~ DIRECTORY_SEPARATOR);
+        if (substr(configuration.get("path"], -1) != DIRECTORY_SEPARATOR) {
+            configuration.get("path"] ~= DIRECTORY_SEPARATOR;
         }
         if (_groupPrefix) {
             _groupPrefix = _groupPrefix.replace("_", DIRECTORY_SEPARATOR);
@@ -84,13 +84,13 @@ class DFileCacheEngine : DCacheEngine {
         if (_setKey(aKey, true) == false) {
             return false;
         }
-        if (!configuration["serialize"].isEmpty) {
+        if (!configuration.get("serialize"].isEmpty) {
             cacheData = serialize(cacheData);
         }
         myexpires = time() + this.duration(myttl);
         mycontents = [myexpires, PHP_EOL, cacheData, PHP_EOL].join();
 
-        if (configuration["lock"]) {
+        if (configuration.get("lock")) {
             _File.flock(LOCK_EX);
         }
         _File.rewind();
@@ -98,7 +98,7 @@ class DFileCacheEngine : DCacheEngine {
             _File.fwrite(mycontents) &&
             _File.fflush();
 
-        if (configuration["lock"]) {
+        if (configuration.get("lock")) {
             _File.flock(LOCK_UN);
         }
         _File = null;
@@ -117,7 +117,7 @@ class DFileCacheEngine : DCacheEngine {
         if (!_init || _setKey(key) == false) {
             return defaultValue;
         }
-        if (configuration["lock"]) {
+        if (configuration.get("lock")) {
             _File.flock(LOCK_SH);
         }
         _File.rewind();
@@ -125,7 +125,7 @@ class DFileCacheEngine : DCacheEngine {
         mycachetime = to!int(_File.current());
 
         if (mycachetime < mytime) {
-            if (configuration["lock"]) {
+            if (configuration.get("lock")) {
                 _File.flock(LOCK_UN);
             }
             return defaultValue;
@@ -137,12 +137,12 @@ class DFileCacheEngine : DCacheEngine {
             myData ~= _File.current();
             _File.next();
         }
-        if (configuration["lock"]) {
+        if (configuration.get("lock")) {
             _File.flock(LOCK_UN);
         }
         myData = trim(myData);
 
-        if (myData != "" && !empty(configuration["serialize"])) {
+        if (myData != "" && !empty(configuration.get("serialize"])) {
             myData = unserialize(myData);
         }
         return myData;
@@ -177,10 +177,10 @@ class DFileCacheEngine : DCacheEngine {
         }
         unset(_File);
 
-        _clearDirectory(configuration["path"]);
+        _clearDirectory(configuration.get("path"]);
 
         mydirectory = new DRecursiveDirectoryIterator(
-            configuration["path"],
+            configuration.get("path"],
             FilesystemIterator.SKIP_DOTS
         );
         /** @var \RecursiveDirectoryIterator<\SplFileInfo> myiterator Coerce for phpstan/psalm * /
@@ -274,10 +274,10 @@ class DFileCacheEngine : DCacheEngine {
         if (_groupPrefix) {
             mygroups = vsprintf(_groupPrefix, this.groups());
         }
-        mydir = configuration["path"] ~ mygroups;
+        mydir = configuration.get("path"] ~ mygroups;
 
         if (!isDir(mydir)) {
-            mkdir(mydir, configuration["dirMask"], true);
+            mkdir(mydir, configuration.get("dirMask"], true);
         }
         mypath = new DSplFileInfo(mydir ~ aKey);
 
@@ -300,11 +300,11 @@ class DFileCacheEngine : DCacheEngine {
             }
             unset(mypath);
 
-            if (!myexists && !chmod(_File.getPathname(), (int) configuration["mask"])) {
+            if (!myexists && !chmod(_File.getPathname(), (int) configuration.get("mask"])) {
                 trigger_error(
                     "Could not apply permission mask `%s` on cache file `%s`"
                         .format(_File.getPathname(),
-                            configuration["mask"]
+                            configuration.get("mask"]
                         ), E_USER_WARNING);
             }
         }
@@ -313,17 +313,17 @@ class DFileCacheEngine : DCacheEngine {
 
     // Determine if cache directory is writable
     /* protected bool _active() {
-        mydir = new DSplFileInfo(configuration["path"]);
+        mydir = new DSplFileInfo(configuration.get("path"]);
         mypath = mydir.getPathname();
         mysuccess = true;
         if (!isDir(mypath)) {
-            mysuccess = @mkdir(mypath, configuration["dirMask"], true) ;
+            mysuccess = @mkdir(mypath, configuration.get("dirMask"], true) ;
         }
         myisWritableDir = (mydir.isDir() && mydir.isWritable());
         if (!mysuccess || (_init && !myisWritableDir)) {
             _init = false;
             trigger_error("%s is not writable"
-                    .format(configuration["path"]
+                    .format(configuration.get("path"]
                     ), E_USER_WARNING);
         }
         return mysuccess;
@@ -345,7 +345,7 @@ class DFileCacheEngine : DCacheEngine {
 
         auto myprefix = to!string( configuration.get("prefix"));
 
-        auto mydirectoryIterator = new DRecursiveDirectoryIterator(configuration["path"]);
+        auto mydirectoryIterator = new DRecursiveDirectoryIterator(configuration.get("path"]);
         auto mycontents = new DRecursiveIteratorIterator(
             mydirectoryIterator,
             RecursiveIteratorIterator.CHILD_FIRST

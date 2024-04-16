@@ -110,7 +110,7 @@ class DArrayEngine : DCacheEngine {
      */
   /* string[] groups() {
     auto result;
-    foreach (myGroup; configuration["groups"]) {
+    foreach (myGroup; configuration.get("groups"]) {
       string key = configuration.getString("prefix") ~ myGroup;
       if (!_cachedData.isSet(key)) {
         _cachedData[aKey] = ["exp": PHP_INT_MAX, "val": 1];
@@ -129,7 +129,7 @@ class DArrayEngine : DCacheEngine {
      * return true if success
      */
   /* bool clearGroup(string aGroup) {
-    string aKey = configuration["prefix").toString ~ aGroup;
+    string aKey = configuration.get("prefix").toString ~ aGroup;
     if (_cachedData.isSet(aKey)) {
       _cachedData[aKey]["val"] += 1;
     }

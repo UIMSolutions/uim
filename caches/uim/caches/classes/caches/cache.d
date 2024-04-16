@@ -106,16 +106,16 @@ class DCache : ICache {
 
                 return;
             }
-            if (configuration["fallback"] == false) {
+            if (configuration.get("fallback"] == false) {
                 throw mye;
             }
-            if (configuration["fallback"] == configName) {
+            if (configuration.get("fallback"] == configName) {
                 throw new DInvalidArgumentException(
                     "`%s` cache configuration cannot fallback to itself."
                     .format(configName
                 ), 0, mye);
             }
-            myfallbackEngine = pool(configuration["fallback"]).clone;
+            myfallbackEngine = pool(configuration.get("fallback"]).clone;
             assert(cast(DCacheEngine)myfallbackEngine);
 
             mynewConfig = configuration.update([
@@ -129,11 +129,11 @@ class DCache : ICache {
             }
             myRegistry.set(configName, myfallbackEngine);
         }
-        if (cast(DCacheEngine)configuration["className"]) {
-            configData = configuration["className"].configuration.data;
+        if (cast(DCacheEngine)configuration.get("className"]) {
+            configData = configuration.get("className"].configuration.data;
         }
         if (!configuration.isEmpty("groups")) {
-            (cast(DArrayData)configuration["groups"]).values.each!((groupName) {
+            (cast(DArrayData)configuration.get("groups"]).values.each!((groupName) {
                 my_groups[groupName] ~= configName;
                 my_groups[groupName] = array_unique(my_groups[groupName]);
                 sort(my_groups[groupName]);

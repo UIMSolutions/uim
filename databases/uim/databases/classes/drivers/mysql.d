@@ -69,37 +69,37 @@ class DMysqlDriver : DDriver {
         }
         auto configData = configuration;
 
-        if (configuration["timezone"] == "UTC") {
-            configuration["timezone"] = "+0:00";
+        if (configuration.get("timezone"] == "UTC") {
+            configuration.get("timezone"] = "+0:00";
         }
-        if (!(configuration["timezone"].isEmpty) {
-            configuration["init"] ~= "SET time_zone = '%s'".format(configuration["timezone"]);
+        if (!(configuration.get("timezone"].isEmpty) {
+            configuration.get("init"] ~= "SET time_zone = '%s'".format(configuration.get("timezone"]);
         }
-        configuration["flags"] += [
-            PDO.ATTR_PERSISTENT: configuration["persistent"],
+        configuration.get("flags"] += [
+            PDO.ATTR_PERSISTENT: configuration.get("persistent"],
             PDO.MYSQL_ATTR_USE_BUFFERED_QUERY: true,
             PDO.ATTR_ERRMODE: PDO.ERRMODE_EXCEPTION,
         ];
 
-        if (!configuration["ssl_key"].isEmpty && !empty(configuration["ssl_cert"])) {
-            configuration["flags"][PDO.MYSQL_ATTR_SSL_KEY] = configuration["ssl_key"];
-            configuration["flags"][PDO.MYSQL_ATTR_SSL_CERT] = configuration["ssl_cert"];
+        if (!configuration.get("ssl_key"].isEmpty && !empty(configuration.get("ssl_cert"])) {
+            configuration.get("flags"][PDO.MYSQL_ATTR_SSL_KEY] = configuration.get("ssl_key"];
+            configuration.get("flags"][PDO.MYSQL_ATTR_SSL_CERT] = configuration.get("ssl_cert"];
         }
-        if (!configuration["ssl_ca"].isEmpty) {
-            configuration["flags"][PDO.MYSQL_ATTR_SSL_CA] = configuration["ssl_ca"];
+        if (!configuration.get("ssl_ca"].isEmpty) {
+            configuration.get("flags"][PDO.MYSQL_ATTR_SSL_CA] = configuration.get("ssl_ca"];
         }
 
-        auto dsn = configuration["unix_socket"].isEmpty
-            ? "mysql:host={configuration["host"]};port={configuration["port"]};dbname={configuration["database"]}"
-            : "mysql:unix_socket={configuration["unix_socket"]};dbname={configuration["database"]}";
+        auto dsn = configuration.get("unix_socket"].isEmpty
+            ? "mysql:host={configuration.get("host"]};port={configuration.get("port"]};dbname={configuration.get("database"]}"
+            : "mysql:unix_socket={configuration.get("unix_socket"]};dbname={configuration.get("database"]}";
         }
-        if (!empty(configuration["encoding"])) {
-            dsn ~= ";charset={configuration["encoding"]}";
+        if (!empty(configuration.get("encoding"])) {
+            dsn ~= ";charset={configuration.get("encoding"]}";
         }
         this.pdo = this.createPdo(dsn, configData);
 
-        if (!configuration["init"].isEmpty) {
-            (array)configuration["init"]
+        if (!configuration.get("init"].isEmpty) {
+            (array)configuration.get("init"]
                 .each!(command => this.pdo.exec(command));
         }
     }
@@ -117,7 +117,7 @@ class DMysqlDriver : DDriver {
     }
  
     string schema() {
-        return configuration["database"];
+        return configuration.get("database"];
     }
     
     /**

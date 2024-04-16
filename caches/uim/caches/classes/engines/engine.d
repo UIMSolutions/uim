@@ -39,11 +39,11 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         */
         
         /* if (configuration.hasKey("groups")) {
-            configuration["groups"].sort;
-            _groupPrefix = str_repeat("%s_", configuration["groups"].count);
+            configuration.get("groups"].sort;
+            _groupPrefix = str_repeat("%s_", configuration.get("groups"].count);
         }
         if (!configuration.isNumeric("duration")) {
-            configuration["duration"] = configuration["duration"].toTime - time();
+            configuration.get("duration") = configuration.get("duration").toTime - time();
         }*/
         
         configuration.updateDefaults([
@@ -249,7 +249,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * the token representing each group in the cache key
      */
     string[] groups() {
-        return null; // return configuration["groups"];
+        return null; // return configuration.get("groups"];
     }
 
     /**
@@ -291,7 +291,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      */
     /* protected int duration(DateInterval|int myttl) {
         if (myttl is null) {
-            return configuration["duration"];
+            return configuration.get("duration");
         }
         if (isInt(myttl)) {
             return myttl;

@@ -1,2 +1,2 @@
-module errors.uim.errors.classes.errors.handlers;
+module uim.errors.classes.errors.handlers;
 

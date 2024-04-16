@@ -1,2 +1,2 @@
-module containers.uim.containers.mixins.container;
+module uim.containers.mixins.container;
 

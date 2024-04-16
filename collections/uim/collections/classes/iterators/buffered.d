@@ -20,8 +20,11 @@ class DBufferedIterator : DCollection { // }, Countable {
   protected IData _current;
 
   // Last key obtained from the inner iterator
-  protected IData _key;
-
+  protected string _key;
+  // Returns the current key in the iterator
+  string key() {
+    return _key;
+  }
   // Whether the internal iterator`s rewind method was already called
   protected bool _started = false;
 
@@ -31,7 +34,6 @@ class DBufferedIterator : DCollection { // }, Countable {
   /*
   // The in-memory cache containing results from previous iterators
   protected ISplDoublyLinkedList _buffer;
-
 
   /**
      * Maintains an in-memory cache of the results yielded by the internal
@@ -44,10 +46,7 @@ class DBufferedIterator : DCollection { // }, Countable {
     super(itemsToBeFiltered);
   }
 
-  // Returns the current key in the iterator
-  string key() {
-    return _key;
-  }
+
 
   // Returns the current record in the iterator
   IData current() {

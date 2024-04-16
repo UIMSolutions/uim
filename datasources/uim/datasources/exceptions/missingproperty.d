@@ -4,7 +4,7 @@ import uim.datasources;
 
 @safe:
 // A required property does not exist for an entity.
-class DDSOMissingPropertyException : DDatasourceException {
+class DDSOMissingPropertyException : DDatasourcesException {
 	mixin(ExceptionThis!("DSOMissingProperty"));
 
     override bool initialize(IData[string] initData = null) {

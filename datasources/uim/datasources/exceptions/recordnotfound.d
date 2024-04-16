@@ -9,7 +9,7 @@ import uim.datasources;
 
 @safe:
 // Exception raised when a particular record was not found
-class DRecordNotFoundException : DDatasourceException {
+class DRecordNotFoundException : DDatasourcesException {
 	mixin(ExceptionThis!("RecordNotFound"));
 
     override bool initialize(IData[string] initData = null) {

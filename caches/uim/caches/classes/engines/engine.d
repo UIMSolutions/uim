@@ -269,7 +269,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         }
 
         // auto newKey = preg_replace("/[\s]+/", "_", aKey);
-        return configuration["prefix"] ~ myPrefix ~ aKey;
+        return configuration.get("prefix") ~ myPrefix ~ aKey;
     }
 
     /**

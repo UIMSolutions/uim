@@ -223,10 +223,10 @@ class DFileCacheEngine : DCacheEngine {
         if (!mydir) {
             return;
         }
-        myprefixLength = configuration["prefix"].length;
+        myprefixLength = configuration.get("prefix").length;
 
         while ((myentry = mydir.read()) != false) {
-            if (substr(myentry, 0, myprefixLength) != configuration["prefix"]) {
+            if (substr(myentry, 0, myprefixLength) != configuration.get("prefix")) {
                 continue;
             }
             try {
@@ -343,7 +343,7 @@ class DFileCacheEngine : DCacheEngine {
     bool clearGroup(string groupName) {
         unset(_File);
 
-        auto myprefix = to!string( configuration["prefix"]);
+        auto myprefix = to!string( configuration.get("prefix"));
 
         auto mydirectoryIterator = new DRecursiveDirectoryIterator(configuration["path"]);
         auto mycontents = new DRecursiveIteratorIterator(

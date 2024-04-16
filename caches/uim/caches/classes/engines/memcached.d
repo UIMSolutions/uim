@@ -347,7 +347,7 @@ bool clear() {
     return false;
   }
   someKeys
-    .filter!(key => key.startsWith(configuration["prefix"]))
+    .filter!(key => key.startsWith(configuration.get("prefix")))
     .each!(key => _Memcached.deleteKey(key));
 
   return true;
@@ -374,7 +374,7 @@ bool add(string aKey, IData aValue) {
   string[] groups() {
   if (_compiledGroupNames.isEmpty) {
     foreach (mygroup; configuration["groups"]) {
-      _compiledGroupNames ~= configuration["prefix"] ~ mygroup;
+      _compiledGroupNames ~= configuration.get("prefix") ~ mygroup;
     }
   }
   mygroups = _Memcached.getMulti(_compiledGroupNames) ?  : [];
@@ -401,6 +401,6 @@ bool add(string aKey, IData aValue) {
      * old values will remain in storage until they expire.
      * /
 bool clearGroup(string groupName) {
-  return (bool) _Memcached.increment(configuration["prefix"] ~ groupName);
+  return (bool) _Memcached.increment(configuration.get("prefix") ~ groupName);
 } */
 }

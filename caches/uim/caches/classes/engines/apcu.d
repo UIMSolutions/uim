@@ -78,7 +78,7 @@ class DApcuEngine : DCacheEngine {
   /* bool clear() {
     if (class_exists(APCUIterator.class, false)) {
       auto myIterator = new APCUIterator(
-        "/^" ~ preg_quote(configuration["prefix"], "/") ~ "/",
+        "/^" ~ preg_quote(configuration.get("prefix"), "/") ~ "/",
         APC_ITER_NONE
       );
       apcu_delete_(myiterator);
@@ -88,7 +88,7 @@ class DApcuEngine : DCacheEngine {
     
     auto mycache = apcu_cache_info(); // Raises warning by itself already
     mycache["cache_list"]
-      .filter!(key => aKey["info"].startsWith(configuration["prefix"]))
+      .filter!(key => aKey["info"].startsWith(configuration.get("prefix")))
       .each!(key => apcu_delete_(aKey["info"]));
     }
     return true;
@@ -116,7 +116,7 @@ class DApcuEngine : DCacheEngine {
   /* string[] groups() {
     if (_compiledGroupNames.isEmpty) {
       foreach (mygroup; configuration["groups")) {
-        _compiledGroupNames ~= configuration["prefix"] ~ mygroup;
+        _compiledGroupNames ~= configuration.get("prefix") ~ mygroup;
       }
     }
     auto mysuccess = false;
@@ -150,7 +150,7 @@ class DApcuEngine : DCacheEngine {
      * /
   override bool clearGroup(string groupName) {
     bool isSuccess = false;
-    apcu_inc(configuration["prefix"] ~ groupName, 1, isSuccess);
+    apcu_inc(configuration.get("prefix") ~ groupName, 1, isSuccess);
 
     return isSuccess;
   } */ 

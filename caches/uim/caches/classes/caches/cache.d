@@ -90,13 +90,13 @@ class DCache : ICache {
     protected static void _buildEngine(string configName) {
         /* auto myRegistry = getRegistry();
 
-        if (isEmpty(configuration[configName]["className"])) {
+        if (isEmpty(configuration.get(configName)["className"])) {
             throw new DInvalidArgumentException(
                 "The `%s` cache configuration does not exist.".format(configName)
             );
         }
         
-        auto configData = configuration[configName];
+        auto configData = configuration.get(configName);
         try {
             myRegistry.load(configName, configData);
         } catch (RuntimeException mye) {

@@ -1,4 +1,4 @@
-module logging.uim.logging.classes.log;
+module uim.logging.classes.log;
 
 import uim.logging;
 
@@ -89,6 +89,13 @@ import uim.logging;
  * of your application and also use standard log levels.
  */
 class DLog {
+    /**
+     * Internal flag for tracking whether configuration has been changed.
+     * /
+    protected static bool _isDirtyConfig = false;
+
+    protected static LogEngineRegistry _registry;
+
     /* 
     mixin template TStaticConfig() {
         setConfig as protected _setConfig;
@@ -103,12 +110,6 @@ class DLog {
         "syslog": Engine\SyslogLog.classname,
     ];
 
-    /**
-     * Internal flag for tracking whether configuration has been changed.
-     * /
-    protected static bool _isDirtyConfig = false;
-
-    protected static LogEngineRegistry _registry;
 
     /**
      * Handled log levels

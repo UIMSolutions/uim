@@ -5,7 +5,7 @@ import uim.logging;
 @safe:
 
 // Base log engine class.
-abstract class DLogger : ILogger {   
+class DLogger : ILogger {   
     mixin TConfigurable;
 
     this() {
@@ -33,17 +33,8 @@ abstract class DLogger : ILogger {
             // TODO "formatter": DefaultFormatter.classname
         ]); 
 
-        return true;
-    }
-
-    mixin(TProperty!("string", "name"));
-
-/*
-    protected IFormatter _formatter;
-
-    this(IData[string] configData = null) {
-        configuration.update(configData);
-
+        // TODO
+        /*
         if (!configuration["scopes") is null) {
            configuration["scopes", configuration["scopes").toArray);
         }
@@ -64,19 +55,26 @@ abstract class DLogger : ILogger {
             }
             formatter = new className(options);
         }
-        _formatter = formatter;
+        _formatter = formatter; 
+        */
+        return true;
     }
-    
+
+    mixin(TProperty!("string", "name"));
+
+    protected ILogFormatter _formatter;
+
     // Get the levels this logger is interested in.
     string[] levels() {
-        return configuration["levels");
+        return configuration.get("levels").getStringArray;
     }
     
     // Get the scopes this logger is interested in.
     string[] scopes() {
-        return configuration["scopes");
+        return configuration.get("scopes").getStringArray;
     }
-    
+
+/*
     /**
      * Replaces placeholders in message string with context values.
      * Params:

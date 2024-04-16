@@ -1,11 +1,11 @@
-module logging.uim.logging.classes.loggers.registry;
+module uim.logging.classes.loggers.registry;
 
-/**
- * Registry of loaded log engines
- *
- * @extends \UIM\Core\ObjectRegistry<\Psr\Log\ILogger>
- */
-class DLogEngineRegistry { /* }: ObjectRegistry {
+import uim.logging;
+
+@safe:
+
+// Registry of loaded log engines
+class DLogEngineRegistry : DObjectRegistry!DLogger {
     /**
      * Resolve a logger classname.
      *

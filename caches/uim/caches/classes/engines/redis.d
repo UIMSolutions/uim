@@ -194,7 +194,7 @@ class DRedisCacheEngine : DCacheEngine {
 
         auto isAllDeleted = true;
         auto  anIterator = null;
-        auto  somePattern = configuration["prefix"] ~ "*";
+        auto  somePattern = configuration.get("prefix") ~ "*";
 
         while (true) {
             keys = _redis.scan(anIterator,  somePattern, (int)configuration["scanCount"]);
@@ -220,7 +220,7 @@ class DRedisCacheEngine : DCacheEngine {
 
         bool isAllDeleted = true;
          anIterator = null;
-         somePattern = configuration["prefix"] ~ "*";
+         somePattern = configuration.get("prefix") ~ "*";
 
         while (true) {
             someKeys = _redis.scan(anIterator,  somePattern, (int)configuration["scanCount"]);
@@ -262,10 +262,10 @@ class DRedisCacheEngine : DCacheEngine {
     string[] groups() {
         auto result;
         foreach (configuration["groups"] as  anGroup) {
-            aValue = _redis.get(configuration["prefix"] ~  anGroup);
+            aValue = _redis.get(configuration.get("prefix") ~  anGroup);
             if (!aValue) {
                 aValue = this.serialize(1);
-               _redis.set(configuration["prefix"] ~  anGroup, aValue);
+               _redis.set(configuration.get("prefix") ~  anGroup, aValue);
             }
             result ~=  anGroup ~ aValue;
         }
@@ -279,7 +279,7 @@ class DRedisCacheEngine : DCacheEngine {
      * string agroup name of the group to be cleared
          * /
     bool clearGroup(string agroup) {
-        return (bool)_redis.incr(configuration["prefix"] ~  anGroup);
+        return (bool)_redis.incr(configuration.get("prefix") ~  anGroup);
     }
     
     /**

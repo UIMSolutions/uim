@@ -1,2 +1,2 @@
-module errors.uim.errors.classes.renderers.html.exception;
+module uim.errors.classes.renderers.html.exception;
 

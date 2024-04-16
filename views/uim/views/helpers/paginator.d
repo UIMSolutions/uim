@@ -141,12 +141,12 @@ class DPaginatorHelper : DHelper {
      * /
     void options(IData[string] optionsForLinks = null) {
         if (!empty(options["paging"])) {
-           configuration["params"] = options["paging"];
+           configuration.get("params"] = options["paging"];
             options.remove("paging");
         }
-       configuration["options"] = array_filter(options + configuration["options"]);
+       configuration.get("options"] = array_filter(options + configuration.get("options"]);
         if (configuration.isEmpty("options/url"))) {
-           configuration["options/url"] = null;
+           configuration.get("options/url"] = null;
         }
     }
     
@@ -430,7 +430,7 @@ class DPaginatorHelper : DHelper {
         ) {
             options["sort"] = options["direction"] = null;
         }
-        mybaseUrl = configuration["options"].get("url", null);
+        mybaseUrl = configuration.get("options"].get("url", null);
         if (!empty(mypaging["scope"])) {
             myscope = mypaging["scope"];
             if (isSet(mybaseUrl["?"][myscope]) && isArray(mybaseUrl["?"][myscope])) {
@@ -444,8 +444,8 @@ class DPaginatorHelper : DHelper {
         }
         myurl["?"] ??= null;
 
-        if (!empty(configuration["options"]["routePlaceholders"])) {
-            myplaceholders = array_flip(configuration["options"]["routePlaceholders"]);
+        if (!empty(configuration.get("options"]["routePlaceholders"])) {
+            myplaceholders = array_flip(configuration.get("options"]["routePlaceholders"]);
             myurl += array_intersect_key(options, myplaceholders);
             myurl["?"] += array_diff_key(options, myplaceholders);
         } else {

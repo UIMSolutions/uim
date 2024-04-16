@@ -1,4 +1,4 @@
-module errors.uim.errors.classes.renderers.html.error;
+module uim.errors.classes.renderers.html.error;
 
 import uim.errors;
 

@@ -51,21 +51,21 @@ class DHttpsEnforcerMiddleware { // }: IMiddleware {
      * @param \Psr\Http\Server\IRequestHandler handler The request handler.
      * /
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
-        if (cast8ServerRequest)request  && isArray(configuration["trustedProxies"])) {
-            request.setTrustedProxies(configuration["trustedProxies"]);
+        if (cast8ServerRequest)request  && isArray(configuration.get("trustedProxies"])) {
+            request.setTrustedProxies(configuration.get("trustedProxies"]);
         }
         if (
             request.getUri().getScheme() == "https"
-            || (configuration["disableOnDebug"]
+            || (configuration.get("disableOnDebug"]
                 && Configure.read("debug"))
         ) {
             response = handler.handle(request);
-            if (configuration["hsts"]) {
+            if (configuration.get("hsts"]) {
                 response = this.addHsts(response);
             }
             return response;
         }
-        if (configuration["redirect"] && request.getMethod() == "GET") {
+        if (configuration.get("redirect"] && request.getMethod() == "GET") {
             auto requestUri = request.getUri().withScheme("https");
             auto requestBase = request.getAttribute("base");
             if (requestBase) {
@@ -73,8 +73,8 @@ class DHttpsEnforcerMiddleware { // }: IMiddleware {
             }
             return new DRedirectResponse(
                 requestUri,
-                configuration["statusCode"],
-                configuration["headers"]
+                configuration.get("statusCode"],
+                configuration.get("headers"]
             );
         }
         throw new BadRequestException(
@@ -88,7 +88,7 @@ class DHttpsEnforcerMiddleware { // }: IMiddleware {
      * \Psr\Http\Message\IResponse response Response
      * /
     protected IResponse addHsts(IResponse response) {
-        configData = configuration["hsts"];
+        configData = configuration.get("hsts"];
         if (!isArray(configData)) {
             throw new UnexpectedValueException("The `hsts` config must be an array.");
         }

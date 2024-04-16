@@ -98,7 +98,7 @@ class DCsrfProtectionMiddleware { // }: IMiddleware {
             );
         }
         cookies = request.getCookieParams();
-        cookieData = Hash.get(cookies, configuration["cookieName"]);
+        cookieData = Hash.get(cookies, configuration.get("cookieName"]);
 
         if (isString(cookieData) && !cookieData.isEmpty) {
             try {
@@ -141,7 +141,7 @@ class DCsrfProtectionMiddleware { // }: IMiddleware {
     protected IServerRequest _unsetTokenField(IServerRequest serverRequest) {
         body = request.getParsedBody();
         if (isArray(body)) {
-            unset(body[configuration["field"]]);
+            unset(body[configuration.get("field"]]);
             request = request.withParsedBody(body);
         }
         return request;
@@ -269,7 +269,7 @@ class DCsrfProtectionMiddleware { // }: IMiddleware {
      * \Psr\Http\Message\IServerRequest serverRequest The request to validate against.
      * /
     protected void _validateToken(IServerRequest serverRequest) {
-        cookie = Hash.get(request.getCookieParams(), configuration["cookieName"]);
+        cookie = Hash.get(request.getCookieParams(), configuration.get("cookieName"]);
 
         if (!cookie || !isString(cookie)) {
             throw new DInvalidCsrfTokenException(__d("uim", "Missing or incorrect CSRF cookie type."));
@@ -284,7 +284,7 @@ class DCsrfProtectionMiddleware { // }: IMiddleware {
         }
         body = request.getParsedBody();
         if (isArray(body) || cast(DArrayAccess)body) {
-            post = to!string(Hash.get(body, configuration["field"]));
+            post = to!string(Hash.get(body, configuration.get("field"]));
             post = this.unsaltToken(post);
             if (hash_equals(post, cookie)) {
                 return;
@@ -309,14 +309,14 @@ class DCsrfProtectionMiddleware { // }: IMiddleware {
      * /
     protected ICookie _createCookie(string avalue, IServerRequest serverRequest) {
         return Cookie.create(
-           configuration["cookieName"],
+           configuration.get("cookieName"],
             aValue,
             [
-                'expires": configuration["expiry"] ?: null,
+                'expires": configuration.get("expiry"] ?: null,
                 'path": request.getAttribute("webroot"),
-                `secure": configuration["secure"],
-                'httponly": configuration["httponly"],
-                `samesite": configuration["samesite"],
+                `secure": configuration.get("secure"],
+                'httponly": configuration.get("httponly"],
+                `samesite": configuration.get("samesite"],
             ]
         );
     } */ 

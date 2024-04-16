@@ -75,10 +75,10 @@ class DSessionCsrfProtectionMiddleware { // }: IMiddleware {
         if (!session || !(cast(DSession)session)) {
             throw new UimException("You must have a `session` attribute to use session based CSRF tokens");
         }
-        token = session.read(configuration["key"]);
+        token = session.read(configuration.get("key"]);
         if (token is null) {
             token = this.createToken();
-            session.write(configuration["key"], token);
+            session.write(configuration.get("key"], token);
         }
         request = request.withAttribute("csrfToken", this.saltToken(token));
 
@@ -161,7 +161,7 @@ class DSessionCsrfProtectionMiddleware { // }: IMiddleware {
     protected IServerRequest unsetTokenField(IServerRequest serverRequest) {
         body = request.getParsedBody();
         if (isArray(body)) {
-            unset(body[configuration["field"]]);
+            unset(body[configuration.get("field"]]);
             request = request.withParsedBody(body);
         }
         return request;
@@ -184,13 +184,13 @@ class DSessionCsrfProtectionMiddleware { // }: IMiddleware {
      * @param \UIM\Http\Session session The session instance.
      * /
     protected void validateToken(IServerRequest serverRequest, Session session) {
-        auto token = session.read(configuration["key"]);
+        auto token = session.read(configuration.get("key"]);
         if (!token || !isString(token)) {
             throw new DInvalidCsrfTokenException(__d("uim", "Missing or incorrect CSRF session key"));
         }
         body = request.getParsedBody();
         if (isArray(body) || cast(DArrayAccess)body) {
-            post = to!string(Hash.get(body, configuration["field"]));
+            post = to!string(Hash.get(body, configuration.get("field"]));
             post = this.unsaltToken(post);
             if (hash_equals(post, token)) {
                 return;

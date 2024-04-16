@@ -82,26 +82,26 @@ class DSqlserverDriver : DDriver {
         string port = configuration.getString("port");
         }
 
-        string dsn = "sqlsrv:Server={configuration["host"]}{port};Database={configuration["database"]};MultipleActiveResultSets=false";
-        dsn ~= !configuration["app"].isNull ? ";APP=%s".format(configuration["app"]) : null;
-        dsn ~= !configuration["connectionPooling"].isNull ? ";ConnectionPooling={configuration["connectionPooling"]}" : null;
-        dsn ~= !configuration["failoverPartner"].isNull ? ";Failover_Partner={configuration["failoverPartner"]}" : null;
-        dsn ~= !configuration["loginTimeout"].isNull ? ";LoginTimeout={configuration["loginTimeout"]}" : null;
-        dsn ~= !configuration["multiSubnetFailover"].isNull ? ";MultiSubnetFailover={configuration["multiSubnetFailover"]}" : null;
-        dsn ~= !configuration["encrypt"].isNull ? ";Encrypt={configuration["encrypt"]}" : null;
-        dsn ~= !configuration["trustServerCertificate"].isNull ? ";TrustServerCertificate={configuration["trustServerCertificate"]}" : null;
+        string dsn = "sqlsrv:Server={configuration.get("host"]}{port};Database={configuration.get("database"]};MultipleActiveResultSets=false";
+        dsn ~= !configuration.get("app"].isNull ? ";APP=%s".format(configuration.get("app"]) : null;
+        dsn ~= !configuration.get("connectionPooling"].isNull ? ";ConnectionPooling={configuration.get("connectionPooling"]}" : null;
+        dsn ~= !configuration.get("failoverPartner"].isNull ? ";Failover_Partner={configuration.get("failoverPartner"]}" : null;
+        dsn ~= !configuration.get("loginTimeout"].isNull ? ";LoginTimeout={configuration.get("loginTimeout"]}" : null;
+        dsn ~= !configuration.get("multiSubnetFailover"].isNull ? ";MultiSubnetFailover={configuration.get("multiSubnetFailover"]}" : null;
+        dsn ~= !configuration.get("encrypt"].isNull ? ";Encrypt={configuration.get("encrypt"]}" : null;
+        dsn ~= !configuration.get("trustServerCertificate"].isNull ? ";TrustServerCertificate={configuration.get("trustServerCertificate"]}" : null;
         
         this.pdo = this.createPdo(dsn, configData);
-        if (!(configuration["init"].isEmpty) {
-            (array)configuration["init"])
+        if (!(configuration.get("init"].isEmpty) {
+            (array)configuration.get("init"])
                 .each!(command => this.pdo.exec(command));
         }
-        if (!configuration["settings"].isEmpty && isArray(configuration["settings"])) {
-            configuration["settings"].byKeyValue
+        if (!configuration.get("settings"].isEmpty && isArray(configuration.get("settings"])) {
+            configuration.get("settings"].byKeyValue
                 .each!(kv => this.pdo.exec("SET %s %s".format(kv.key, kv.value)));
         }
-        if (!empty(configuration["attributes"]) && isArray(configuration["attributes"])) {
-            configuration["attributes"].byKeyValue
+        if (!empty(configuration.get("attributes"]) && isArray(configuration.get("attributes"])) {
+            configuration.get("attributes"].byKeyValue
                 .each(kv => this.pdo.setAttribute(kv.key, kv.value));
         }
     }

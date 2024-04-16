@@ -162,7 +162,7 @@ class DClient { // }: IClient {
   this(IData[string] configData = null) {
     configuration.update(configData);
 
-    myadapter = configuration["adapter"];
+    myadapter = configuration.get("adapter"];
     if (myadapter is null) {
       myadapter = Curl.classname;
 
@@ -177,8 +177,8 @@ class DClient { // }: IClient {
     }
     _adapter = myadapter;
 
-    if (!empty(configuration["cookieJar"])) {
-      _cookies = configuration["cookieJar"];
+    if (!empty(configuration.get("cookieJar"])) {
+      _cookies = configuration.get("cookieJar"];
       configuration.update("cookieJar", null);
     } else {
       _cookies = new DCookieCollection();

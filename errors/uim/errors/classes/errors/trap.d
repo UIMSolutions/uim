@@ -144,10 +144,10 @@ class DErrorTrap {
      * \UIM\Error\UimError error The error object to log.
      * /
     protected void logError(UimError error) {
-        if (!configuration["log")) {
+        if (!configuration.get("log")) {
             return;
         }
-        this.logger().logError(error, Router.getRequest(), configuration["trace"]);
+        this.logger().logError(error, Router.getRequest(), configuration.get("trace"]);
     }
     
     /**
@@ -161,7 +161,7 @@ class DErrorTrap {
     
     // Get an instance of the logger.
     IErrorLogger logger() {
-        string className = configData.get("logger", defaultconfiguration["logger"));
+        string className = configData.get("logger", defaultconfiguration.get("logger"));
         return new className(_config);
     } */
 }

@@ -430,11 +430,11 @@ class DNumericPaginator : IPaginator {
      * /
     protected string[] getSortableFields(IData myConfiguration): ?array
     {
-        allowed = configuration["sortableFields"] ?? null;
+        allowed = configuration.get("sortableFields"] ?? null;
         if (allowed != null) {
             return allowed;
         }
-        deprecated = configuration["sortWhitelist"] ?? null;
+        deprecated = configuration.get("sortWhitelist"] ?? null;
         if (deprecated != null) {
             deprecationWarning("The `sortWhitelist` option is deprecated. Use `sortableFields` instead.");
         }

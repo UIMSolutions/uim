@@ -284,7 +284,7 @@ class DExceptionTrap {
      * @param \Psr\Http\Message\IServerRequest|null serverRequest The optional request
      * /
     void logException(Throwable anException, ?IServerRequest serverRequest = null) {
-        shouldLog = configuration["log"];
+        shouldLog = configuration.get("log"];
         if (shouldLog) {
             foreach (_configData.isSet("skipLog") as  className) {
                 if (cast(className)anException) {
@@ -294,7 +294,7 @@ class DExceptionTrap {
             }
         }
         if (shouldLog) {
-            this.logger().logException(anException, serverRequest, configuration["trace"]);
+            this.logger().logException(anException, serverRequest, configuration.get("trace"]);
         }
     }
     

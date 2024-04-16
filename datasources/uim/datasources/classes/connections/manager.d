@@ -87,13 +87,13 @@ class DConnectionManager {
     static array parseDsn(string myConfiguration) {
         myConfiguration = _parseDsn(myConfiguration);
 
-        if (myConfiguration.isSet("path") && empty(configuration["database"])) {
-            configuration["database"] = substr(configuration["path"], 1);
+        if (myConfiguration.isSet("path") && empty(configuration.get("database"])) {
+            configuration.get("database"] = substr(configuration.get("path"], 1);
         }
 
         if (configuration.isEmpty("driver")) {
-            configuration["driver"] = configuration["className"];
-            configuration["className"] = DConnection.class;
+            configuration.get("driver"] = configuration.get("className"];
+            configuration.get("className"] = DConnection.class;
         }
 
         configuration.remove("path");
@@ -158,7 +158,7 @@ class DConnectionManager {
         if (useAliases && isset(_aliasMap[name])) {
             name = _aliasMap[name];
         }
-        if (empty(configuration[name])) {
+        if (empty(configuration.get(name])) {
             throw new DMissingDatasourceConfigException(["name": name]);
         }
         /** @psalm-suppress RedundantPropertyInitializationCheck  * /
@@ -170,7 +170,7 @@ class DConnectionManager {
             name
         }
         
-        ?  ? _registry.load(name, configuration[name]);
+        ?  ? _registry.load(name, configuration.get(name]);
     } 
 }
 /**

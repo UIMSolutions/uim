@@ -42,7 +42,7 @@ class DFormHelper : DHelper {
     protected array myhelpers = ["Url", "Html"];
 
     // Default config for the helper.
-    protected IConfiguration configuration.updateDefaults([
+    configuration.updateDefaults([
         "idPrefix": null,
         "errorClass": StringData("form-error"),
         "typeMap": [

@@ -1,4 +1,4 @@
-module uim.logging.classes.logs.log;
+module logging.uim.logging.classes.log;
 
 import uim.logging;
 

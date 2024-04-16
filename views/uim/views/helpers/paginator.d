@@ -47,7 +47,7 @@ class DPaginatorHelper : DHelper {
      * Templates: the templates used by this class
      *
      * /
-    protected IConfiguration configuration.updateDefaults([
+    configuration.updateDefaults([
         "params": ArrayData,
         "options": ArrayData,
         "templates": [

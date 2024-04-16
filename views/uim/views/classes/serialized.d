@@ -17,7 +17,7 @@ class DSerializedView : DView {
      *  names. If true all view variables will be serialized. If null or false
      *  normal view template will be rendered.
      * /
-    protected IConfiguration configuration.updateDefaults([
+    configuration.updateDefaults([
         "serialize": null,
     ];
 

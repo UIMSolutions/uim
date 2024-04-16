@@ -18,7 +18,7 @@ class DTimeHelper : DHelper {
     /* 
     mixin TStringTemplate;
 
-    protected IConfiguration configuration.updateDefaults([
+    configuration.updateDefaults([
                 "outputTimezone": null,
     ];
 

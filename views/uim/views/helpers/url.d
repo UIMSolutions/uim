@@ -12,7 +12,7 @@ class UrlHelper : DHelper {
     protected string _assetUrlClassName;
 
     /* 
-    protected IConfiguration configuration.updateDefaults([
+    configuration.updateDefaults([
         "assetUrlClassName": Asset.classname,
     ];
 

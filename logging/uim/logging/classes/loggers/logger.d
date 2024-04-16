@@ -5,7 +5,7 @@ import uim.logging;
 @safe:
 
 // Base log engine class.
-abstract class DLogger /* : DAbstractLogger */ {   
+abstract class DLogger : ILogger {   
     mixin TConfigurable;
 
     this() {

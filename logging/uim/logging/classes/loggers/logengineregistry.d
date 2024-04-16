@@ -1,4 +1,4 @@
-module uim.logging.classes.logs.logengineregistry;
+module logging.uim.logging.classes.loggers.logengineregistry;
 
 /**
  * Registry of loaded log engines

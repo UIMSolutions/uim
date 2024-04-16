@@ -61,7 +61,7 @@ class DIDataView : DSerializedView {
      *  Its value can be a string for single variable name or array for multiple
      *  names. If true all view variables will be serialized. If null or false
      *  normal view template will be rendered.
-     * - `IDataOptions`: Options for IData_encode(). For e.g. `IData_HEX_TAG | IData_HEX_APOS`.
+     * - `IDataOptions`: Options for Json_encode(). For e.g. `Json_HEX_TAG | Json_HEX_APOS`.
      * - `IDatap`: Enables IDataP support and wraps response in callback auto provided in query string.
      *  - Setting it to true enables the default query string parameter "callback".
      *  - Setting it to a string value, uses the provided query string parameter
@@ -102,12 +102,12 @@ class DIDataView : DSerializedView {
                     protected string _serialize(string[] myserialize) {
                         mydata = _dataToSerialize(myserialize); 
                         dataOptions = configurationData.ifNull("IDataOptions", 
-                            IData_HEX_TAG | IData_HEX_APOS | IData_HEX_AMP | IData_HEX_QUOT | IData_PARTIAL_OUTPUT_ON_ERROR);
+                            Json_HEX_TAG | Json_HEX_APOS | Json_HEX_AMP | Json_HEX_QUOT | Json_PARTIAL_OUTPUT_ON_ERROR);
                         if (dataOptions == false) {
                             dataOptions = 0;}
-                            dataOptions |= IData_THROW_ON_ERROR; if (Configure.read("debug")) {
-                                dataOptions |= IData_PRETTY_PRINT;}
-                                return to!string(IData_encode(mydata, dataOptions));
+                            dataOptions |= Json_THROW_ON_ERROR; if (Configure.read("debug")) {
+                                dataOptions |= Json_PRETTY_PRINT;}
+                                return to!string(Json_encode(mydata, dataOptions));
                             }
 
                             /**

@@ -39,7 +39,6 @@ abstract class DLogger : ILogger {
     mixin(TProperty!("string", "name"));
 
 /*
-    protected IConfiguration _defaultConfigData; 
     protected IFormatter _formatter;
 
     this(IData[string] configData = null) {

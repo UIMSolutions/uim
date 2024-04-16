@@ -29,6 +29,7 @@ class DLogFormatter : ILogFormatter {
   mixin(TProperty!("string", "name"));
 
   // Formats message.
-  abstract string format(IData loggingLevel, string loggingMessage, IData[string] loggingData = null);
-
+  string format(IData loggingLevel, string loggingMessage, IData[string] loggingData = null) {
+    return null; 
+  }
 }

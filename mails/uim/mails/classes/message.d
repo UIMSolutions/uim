@@ -25,7 +25,6 @@ class DMessage { //: IDataSerializable {
         this().name(name);
     }
 
-    // Hook method
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
@@ -40,6 +39,20 @@ class DMessage { //: IDataSerializable {
         ];
         _charset = "utf-8";
 
+        // TODO
+        /*
+        this.appCharset = Configure.read("App.encoding");
+        if (this.appCharset !isNull) {
+            this.charset = this.appCharset;
+        }
+        this.domain = (string)preg_replace("/\:\d+/", "", (string)enviroment("HTTP_HOST"));
+        if (isEmpty(this.domain)) {
+            this.domain = php_uname("n");
+        }
+        if (configData) {
+            configuration.update(configData);
+        } */
+        
         return true;
     }
 
@@ -210,24 +223,7 @@ class DMessage { //: IDataSerializable {
         "textMessage", "htmlMessage",
     ];
 
-    /**
-     * Constructor
-     * Params:
-     * array<string,mixed>|null configData Array of configs, or string to load configs from app.d
-     * /
-    this(IData[string] configData = null) {
-        this.appCharset = Configure.read("App.encoding");
-        if (this.appCharset !isNull) {
-            this.charset = this.appCharset;
-        }
-        this.domain = (string)preg_replace("/\:\d+/", "", (string)enviroment("HTTP_HOST"));
-        if (isEmpty(this.domain)) {
-            this.domain = php_uname("n");
-        }
-        if (configData) {
-            configuration.update(configData);
-        }
-    }
+
     
     /**
      * Sets "from" address.

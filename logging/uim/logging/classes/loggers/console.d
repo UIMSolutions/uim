@@ -8,7 +8,7 @@ import uim.logging;
  * Console logging. Writes logs to console output.
  */
 class DConsoleLog { /* }: BaseLog {
-    /* protected IConfiguration configuration.updateDefaults([
+    /* configuration.updateDefaults([
         "stream": "php://stderr",
         "levels": null,
         "scopes": ArrayData,

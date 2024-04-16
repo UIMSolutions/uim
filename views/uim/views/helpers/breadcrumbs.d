@@ -24,7 +24,7 @@ class DBreadcrumbsHelper : DHelper {
      * Default config for the helper.
      *
      * /
-    protected IConfiguration configuration.updateDefaults([
+    configuration.updateDefaults([
         "templates": [
             "wrapper": "<ul{{attrs}}>{{content}}</ul>",
             "item": "<li{{attrs}}><a href="{{url}}"{{innerAttrs}}>{{title}}</a></li>{{separator}}",

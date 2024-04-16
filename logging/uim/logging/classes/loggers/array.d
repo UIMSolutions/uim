@@ -12,7 +12,7 @@ import uim.logging;
  * be used in scenarios where you need to capture logs in application code.
  */
 class DArrayLog { /* }: BaseLog {
-    protected IConfiguration configuration.updateDefaults([
+    configuration.updateDefaults([
         "levels": ArrayData,
         "scopes": ArrayData,
         "formatter": [

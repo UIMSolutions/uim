@@ -74,45 +74,44 @@ import uim.http;
  */
 class DClient { // }: IClient {
   mixin TConfigurable;
-    
-    this() {
-        initialize;
-    }
 
-    this(IData[string] initData) {
-        initialize(initData);
-    }
+  this() {
+    initialize;
+  }
 
-    this(string name) {
-        this().name(name);
-    }
+  this(IData[string] initData) {
+    initialize(initData);
+  }
 
-    // Hook method
-    bool initialize(IData[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+  this(string name) {
+    this().name(name);
+  }
 
-        return true;
-    }
+  // Hook method
+  bool initialize(IData[string] initData = null) {
+    configuration(MemoryConfiguration);
+    configuration.data(initData);
 
-    mixin(TProperty!("string", "name"));
-  /* 
+    configuration.updateDefaults([
+      "auth": NullData,
+      "adapter": NullData,
+      "host": NullData,
+      "port": NullData,
+      "scheme": StringData("http"),
+      "basePath": StringData(""),
+      "timeout": IntegerData(30),
+      "ssl_verify_peer": BooleanData(true),
+      "ssl_verify_peer_name": BooleanData(true),
+      "ssl_verify_depth": IntegerData(5),
+      "ssl_verify_host": BooleanData(true),
+      "redirect": BooleanData(false),
+      "protocolVersion": StringData("1.1"),
+    ]);
 
-  configuration.updateDefaults([
-    "auth": null,
-    "adapter": null,
-    "host": null,
-    "port": null,
-    "scheme": StringData("http"),
-    "basePath": StringData(""),
-    "timeout": IntegerData(30),
-    "ssl_verify_peer": BooleanData(true),
-    "ssl_verify_peer_name": BooleanData(true),
-    "ssl_verify_depth": IntegerData(5),
-    "ssl_verify_host": BooleanData(true),
-    "redirect": BooleanData(false),
-    "protocolVersion": StringData("1.1"),
-  ];
+    return true;
+  }
+
+  mixin(TProperty!("string", "name")); /* 
 
   /**
      * List of cookies from responses made with this client.
@@ -374,7 +373,7 @@ class DClient { // }: IClient {
      * @param IData mydata The request body.
      * @param IData[string] options The options to use. Contains auth, proxy, etc.
      * /
-  protected DResponse _doRequest(string mymethod, string myurl, IData mydata, IData[string] options = null) {
+  protected DClientResponse _doRequest(string mymethod, string myurl, IData mydata, IData[string] options = null) {
     myrequest = _createRequest(
       mymethod,
       myurl,
@@ -473,7 +472,7 @@ class DClient { // }: IClient {
      * \Psr\Http\Message\IRequest  myrequest The request to send.
      * @param IData[string] options Additional options to use.
      * /
-  protected DResponse _sendRequest(IRequest myrequest, IData[string] options = null) {
+  protected DClientResponse _sendRequest(IRequest myrequest, IData[string] options = null) {
     if (my_mockAdapter) {
       myresponses = my_mockAdapter.send(myrequest, options);
     }

@@ -1,4 +1,4 @@
-module http.uim.http.classes.requests.requestfactory;
+module uim.http.classes.requests.requestfactory;
 
 import uim.http;
 

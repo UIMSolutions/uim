@@ -62,7 +62,7 @@ import uim.http;
  * content = response.statusCode();
  * ```
  */
-class DResponse { // }: Message : IResponse {
+class DClientResponse { // }: Message : IResponse {
     mixin TMessage;
     /* 
 

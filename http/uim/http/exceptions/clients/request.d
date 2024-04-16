@@ -1,4 +1,4 @@
-module http.uim.http.exceptions.clients.request;
+module uim.http.exceptions.clients.request;
 
 import uim.http;
 

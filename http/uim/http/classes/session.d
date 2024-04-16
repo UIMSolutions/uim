@@ -334,7 +334,7 @@ class DSession {
      * Params:
      * string name Variable name to check for
      * /
-    bool check(string aName = null) {
+    bool check(string variableName = null) {
         if (_hasSession() && !this.started()) {
             this.start();
         }
@@ -344,7 +344,7 @@ class DSession {
         if (name is null) {
             return (bool) _SESSION;
         }
-        return Hash.get(_SESSION, name) !isNull;
+        return Hash.get(_SESSION, variableName) !isNull;
     }
 
     /**
@@ -376,21 +376,18 @@ class DSession {
         return this.read(sessionName);
     }
 
-    /**
-     * Reads and deletes a variable from session.
-     * Params:
-     * string aName The key to read and remove (or a path as sent to Hash.extract).
-     * /
-    IData consume(string aName) {
-        if (isEmpty(name)) {
+    // Reads and deletes a variable from session.
+    IData consume(string key) {
+        if (isEmpty(key)) {
             return null;
         }
-        aValue = this.read(name);
-        if (aValue!isNull) {
+        
+        IData result = this.read(key);
+        if (!result.isNull) {
             /** @psalm-suppress InvalidScalarArgument * /
-            _overwrite(_SESSION, Hash.remove(_SESSION, name));
+            _overwrite(_SESSION, Hash.remove(_SESSION, key));
         }
-        return aValue;
+        return result;
     }
 
     /**
@@ -485,14 +482,11 @@ class DSession {
 
         /**
      * Clears the session.
-     *
      * Optionally it also clears the session id and renews the session.
-     * Params:
-     * bool renew DIf session should be renewed, as well. Defaults to false.
      * /
-        void clear(boolrenew = false) {
+        void clear(bool shouldRenewed = false) {
             _SESSION = null;
-            if (renew) {
+            if (shouldRenewed) {
                 this.renew();
             }
         }

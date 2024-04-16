@@ -35,11 +35,10 @@ class DCorsBuilder {
      * Params:
      * \Psr\Http\Message\IResponse response The response object to add headers onto.
      * @param string aorigin The request`s Origin header.
-     * @param bool  isSsl Whether the request was over SSL.
      * /
-    this(IResponse aResponse, string anOrigin, bool isSsl = false) {
+    this(IResponse aResponse, string anOrigin, bool isRequestOverSsl = false) {
        _origin = anOrigin;
-       _isSsl = isSsl;
+       _isSsl = isRequestOverSsl;
        _response = aResponse;
     }
     

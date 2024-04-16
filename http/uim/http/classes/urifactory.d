@@ -8,12 +8,7 @@ import uim.http;
  * Factory class for creating uri instances.
  */
 class UriFactory { // }: IUriFactory {
-    /**
-     * Create a new URI.
-     *
-     * uriToParse The URI to parse.
-     * @throws \InvalidArgumentException If the given URI cannot be parsed.
-     * /
+    // Create a new URI.
     IUri createUri(string uriToParse= null) {
         return new Uri(uriToParse);
     }

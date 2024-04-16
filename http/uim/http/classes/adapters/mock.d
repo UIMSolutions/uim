@@ -47,7 +47,6 @@ class DMockAdapter { //}: IAdapter {
      * Find a response if one exists.
      * Params:
      * \Psr\Http\Message\IRequest request The request to match
-     * @param IData[string] options Unused.
      * /
     Response[] send(IRequest request, IData[string] options = null) {
         found = null;

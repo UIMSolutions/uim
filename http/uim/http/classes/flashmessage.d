@@ -127,12 +127,8 @@ class DFlashMessage {
         this.set(message, options);
     }
     
-    /**
-     * Get the messages for given key and remove from session.
-     * Params:
-     * string aKey The key for get messages for.
-     * /
-    array consume(string aKey) {
+    // Get the messages for given key and remove from session.
+    array consume(string messageKey) {
         return this.session.consume("Flash.{aKey}");
     }
     

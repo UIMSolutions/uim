@@ -26,29 +26,23 @@ import uim.errors;
  * can configure your class in your config/app.php.
  */
 class DExceptionRenderer : IExceptionRenderer {
-    /**
+    // Template to render for {@link uim.cake.Core\exceptions.UIMException}
+    protected string myTemplate = "";
+
+    // The method corresponding to the Exception this object is for.
+    protected string method = "";
+    
+        /**
      * The exception being handled.
      *
      * @var \Throwable
      * /
     protected myError;
 
-    /**
-     * Controller instance.
-     *
-     * var DCONController
-     * /
-    protected controller;
+    // Controller instance.
+    protected DCONController controller;
 
-    /**
-     * Template to render for {@link uim.cake.Core\exceptions.UIMException}
-     * /
-    protected string myTemplate = "";
 
-    /**
-     * The method corresponding to the Exception this object is for.
-     * /
-    protected string method = "";
 
     /**
      * If set, this will be request used to create the controller that will render
@@ -255,12 +249,7 @@ class DExceptionRenderer : IExceptionRenderer {
         return this.controller.getResponse().withStringBody(myResult);
     }
 
-    /**
-     * Get method name
-     *
-     * @param \Throwable myException Exception instance.
-     * @return string
-     * /
+    // Get method name
     protected string _method(Throwable myException) {
         [, baseClass] = moduleSplit(get_class(myException));
 

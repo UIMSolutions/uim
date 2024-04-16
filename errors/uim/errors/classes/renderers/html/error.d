@@ -13,7 +13,7 @@ class DHtmlErrorRenderer : IErrorRenderer {
     /* 
     void write(string aout) {
         // Output to stdout which is the server response.
-        writeln( result;
+        writeln(result);
     }
  
     string render(UimError error, bool shouldDebug) {

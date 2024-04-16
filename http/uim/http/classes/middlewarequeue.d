@@ -10,11 +10,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
     // Internal position for iterator.
     protected int position = 0;
 
-    /**
-     * The queue of middlewares.
-     *
-     * @var array<int, mixed>
-     * /
+    // The queue of middlewares.
     protected IData[int] queue = null;
 
     protected IContainer container;

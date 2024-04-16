@@ -37,12 +37,9 @@ class DContentTypeNegotiation {
         return this.parseQualifiers( aHeader);
     }
     
-    /**
-     * Parse a header value into preference: value mapping
-     * @param string aheader The header value to parse
-     * /
-    protected string[][string] parseQualifiers(string aheader) {
-        return HeaderUtility.parseAccept( aHeader);
+    // Parse a header value into preference: value mapping
+    protected string[][string] parseQualifiers(string headerValue) {
+        return HeaderUtility.parseAccept(headerValue);
     }
     
     /**

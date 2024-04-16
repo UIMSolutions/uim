@@ -112,7 +112,7 @@ class DTableLocator : DAbstractLocator, ILocator {
             ));
         }
 
-        configuration[alias] = options;
+        configuration.get(alias] = options;
 
         return this;
     }
@@ -178,7 +178,7 @@ class DTableLocator : DAbstractLocator, ILocator {
         }
 
         if (configuration.has(alias])) {
-            options = options.updateconfiguration[alias];
+            options = options.updateconfiguration.get(alias];
         }
 
         allowFallbackClass = options["allowFallbackClass"] ?? this.allowFallbackClass;

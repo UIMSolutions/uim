@@ -1,2 +1,2 @@
-module errors.uim.errors.classes.renderers.web;
+module uim.errors.classes.renderers.web;
 

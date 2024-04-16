@@ -59,11 +59,11 @@ class DJsonConfig : IConfigEngine {
         if (IDataContent == false) {
             throw new UimException("Cannot read file content of `%s`".format(file));
         }
-         someValues = IData_decode(IDataContent, true);
-        if (IData_last_error() != IData_ERROR_NONE) {
+         someValues = Json_decode(IDataContent, true);
+        if (Json_last_error() != Json_ERROR_NONE) {
             throw new UimException(
                 "Error parsing IData string fetched from config file `%s.IData`: %s"
-                .format(aKey, IData_last_error_msg()
+                .format(aKey, Json_last_error_msg()
             ));
         }
         if (!isArray(someValues)) {
@@ -86,6 +86,6 @@ class DJsonConfig : IConfigEngine {
     bool dump(string dataId, array data) {
         auto filename = _getFilePath(dataId);
 
-        return file_put_contents(filename, IData_encode(someData, IData_PRETTY_PRINT)) > 0;
+        return file_put_contents(filename, Json_encode(someData, Json_PRETTY_PRINT)) > 0;
     } */
 }

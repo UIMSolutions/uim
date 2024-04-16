@@ -98,7 +98,7 @@ abstract class DLogger /* : DAbstractLogger */ {
         }
         placeholders = array_intersect(matches[1], context.keys);
         replacements = null;
-        IDataFlags = IData_THROW_ON_ERROR | IData_UNESCAPED_UNICODE;
+        IDataFlags = Json_THROW_ON_ERROR | Json_UNESCAPED_UNICODE;
 
         foreach (aKey; placeholders) {
             aValue = context[aKey];
@@ -108,15 +108,15 @@ abstract class DLogger /* : DAbstractLogger */ {
                 continue;
             }
             if (isArray(aValue)) {
-                replacements["{" ~ aKey ~ "}"] = IData_encode(aValue, IDataFlags);
+                replacements["{" ~ aKey ~ "}"] = Json_encode(aValue, IDataFlags);
                 continue;
             }
             if (cast(IDataSerializable)aValue) {
-                replacements["{" ~ aKey ~ "}"] = IData_encode(aValue, IDataFlags);
+                replacements["{" ~ aKey ~ "}"] = Json_encode(aValue, IDataFlags);
                 continue;
             }
             if (cast(DArrayObject)aValue) {
-                replacements["{" ~ aKey ~ "}"] = IData_encode(aValue.getArrayCopy(), IDataFlags);
+                replacements["{" ~ aKey ~ "}"] = Json_encode(aValue.getArrayCopy(), IDataFlags);
                 continue;
             }
             if (cast(DSerializable)aValue) {
@@ -125,7 +125,7 @@ abstract class DLogger /* : DAbstractLogger */ {
             }
             if (isObject(aValue)) {
                 if (method_exists(aValue, "toArray")) {
-                    replacements["{" ~ aKey ~ "}"] = IData_encode(aValue.toArray(), IDataFlags);
+                    replacements["{" ~ aKey ~ "}"] = Json_encode(aValue.toArray(), IDataFlags);
                     continue;
                 }
                 if (cast(DSerializable)aValue) {
@@ -137,7 +137,7 @@ abstract class DLogger /* : DAbstractLogger */ {
                     continue;
                 }
                 if (method_exists(aValue, "__debugInfo")) {
-                    replacements["{" ~ aKey ~ "}"] = IData_encode(aValue.__debugInfo(), IDataFlags);
+                    replacements["{" ~ aKey ~ "}"] = Json_encode(aValue.__debugInfo(), IDataFlags);
                     continue;
                 }
             }

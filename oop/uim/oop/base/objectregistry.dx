@@ -131,8 +131,8 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
       .each!(kv => failure =
           " The `%s` key has a value of `%s` but previously had a value of `%s`"
           .format(kv.key,
-            IData_encode(kv.value, IData_THROW_ON_ERROR),
-            IData_encode(existingConfig[kv.key], IData_THROW_ON_ERROR)
+            Json_encode(kv.value, Json_THROW_ON_ERROR),
+            Json_encode(existingConfig[kv.key], Json_THROW_ON_ERROR)
           ));
     if (!failure.isEmpty) {
       throw new UimException(message ~ failure);

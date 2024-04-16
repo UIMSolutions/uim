@@ -112,7 +112,7 @@ if (!function_exists("UIM\Core\pj")) {
     /**
      * IData pretty print convenience function.
      *
-     * In terminals this will act similar to using IData_encode() with IData_PRETTY_PRINT directly, when not run on CLI
+     * In terminals this will act similar to using Json_encode() with Json_PRETTY_PRINT directly, when not run on CLI
      * will also wrap `<pre>` tags around the output of given variable. Similar to pr().
      *
      * This auto returns the same variable that was passed.
@@ -124,8 +124,8 @@ if (!function_exists("UIM\Core\pj")) {
             return var;
         }
         template = UIM_SAPI != "cli' && UIM_SAPI != "phpdbg' ? "<pre class="pj">%s</pre>' : "\n%s\n\n";
-        flags = IData_PRETTY_PRINT | IData_UNESCAPED_UNICODE | IData_UNESCAPED_SLASHES;
-        printf(template, trim(to!string(IData_encode(var, flags))));
+        flags = Json_PRETTY_PRINT | Json_UNESCAPED_UNICODE | Json_UNESCAPED_SLASHES;
+        printf(template, trim(to!string(Json_encode(var, flags))));
 
         return var;
     }

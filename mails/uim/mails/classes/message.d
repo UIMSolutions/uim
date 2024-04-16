@@ -1506,7 +1506,7 @@ class DMessage { //: IDataSerializable {
         array = this.IDataSerialize();
         array_walk_recursive(array, void (& anItem, aKey) {
             if (cast(DSimpleXMLElement)anItem ) {
-                 anItem = IData_decode((string)IData_encode((array) anItem), true);
+                 anItem = Json_decode((string)Json_encode((array) anItem), true);
             }
         });
 

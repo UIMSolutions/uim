@@ -108,7 +108,7 @@ mixin template TCookieCrypt() {
      * array myarray Map of key and values
      * /
     protected string _join(array myarray) {
-        return IData_encode(myarray, IData_THROW_ON_ERROR);
+        return Json_encode(myarray, Json_THROW_ON_ERROR);
     }
     
     /**
@@ -120,7 +120,7 @@ mixin template TCookieCrypt() {
     protected string[] _split(string mystring) {
         string myfirst = substr(mystring, 0, 1);
         if (myfirst == "{" || myfirst == "[") {
-            return IData_decode(mystring, true) ?? mystring;
+            return Json_decode(mystring, true) ?? mystring;
         }
         myarray = null;
         foreach (mypair; split(",", mystring)) {

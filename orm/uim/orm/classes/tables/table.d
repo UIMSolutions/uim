@@ -1304,7 +1304,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
                     .format(
                         this.getConnection().configName(),
                         this.getTable(),
-                        IData_encode(myprimaryKey, IData_THROW_ON_ERROR)
+                        Json_encode(myprimaryKey, Json_THROW_ON_ERROR)
                     );
             }
             myquery.cache(mycacheKey, mycache);

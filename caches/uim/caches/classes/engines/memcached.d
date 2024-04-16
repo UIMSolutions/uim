@@ -356,12 +356,11 @@ bool clear() {
 /**
      * Add a key to the cache if it does not already exist.
      * Params:
-     * string aKey Identifier for the data.
      * @param IData aValue Data to be cached.
      * /
-bool add(string aKey, IData aValue) {
+bool add(string dataId, IData aValue) {
   auto myduration = configuration.get("duration");
-  aKey = _key(aKey);
+  aKey = _key(dataId);
 
   return _Memcached.add(aKey, myvalue, myduration);
 }

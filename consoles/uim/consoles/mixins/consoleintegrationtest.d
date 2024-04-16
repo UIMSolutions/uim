@@ -98,13 +98,9 @@ mixin template TConsoleIntegrationTest() {
         this.assertThat(Command.CODE_SUCCESS, new DExitCode(_exitCode), message);
     }
     
-    /**
-     * Asserts shell exited with Command.CODE_ERROR
-     * Params:
-     * string amessage Failure message
-     * /
-    void assertExitError(string amessage = null) {
-        this.assertThat(Command.CODE_ERROR, new DExitCode(_exitCode), message);
+    // Asserts shell exited with Command.CODE_ERROR
+    void assertExitError(string failureMessage = null) {
+        this.assertThat(Command.CODE_ERROR, new DExitCode(_exitCode), failureMessage);
     }
     
     /**

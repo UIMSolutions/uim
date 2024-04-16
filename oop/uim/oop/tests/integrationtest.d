@@ -720,13 +720,9 @@ mixin template TIntegrationTest() {
         this.assertThat(url, new HeaderNotContains(_response, "Location"), verboseMessage);
     }
     
-    /**
-     * Asserts that the Location header is not set.
-     * Params:
-     * string amessage The failure message that will be appended to the generated message.
-     * /
-    void assertNoRedirect(string amessage = null) {
-        verboseMessage = this.extractVerboseMessage(message);
+    // Asserts that the Location header is not set.
+    void assertNoRedirect(string failureMessage = null) {
+        verboseMessage = this.extractVerboseMessage(failureMessage);
         this.assertThat(null, new HeaderNotSet(_response, "Location"), verboseMessage);
     }
     

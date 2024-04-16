@@ -180,12 +180,10 @@ class DConsoleFormatter : IErrorFormatter {
     
     /**
      * Style text with ANSI escape codes.
-     * Params:
-     * string astyle The style name to use.
      * @param string atext The text to style.
      * /
-    protected string style(string astyle, string atext) {
-        code = this.styles[style];
+    protected string style(string styleToUse, string atext) {
+        auto code = this.styles[styleToUse];
 
         return "\033[{code}m{text}\033[0m";
     } */

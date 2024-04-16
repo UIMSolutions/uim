@@ -68,7 +68,6 @@ class DFileCacheEngine : DCacheEngine {
     /**
      * Write data for key into cache
      * Params:
-     * string aKey Identifier for the data
      * @param IData aValue Data to be cached
      * @param \DateInterval|int myttl Optional. The TTL value of this item. If no value is sent and
      *  the driver supports TTL then the library may set a default value
@@ -269,7 +268,7 @@ class DFileCacheEngine : DCacheEngine {
      * string aKey The key
      * @param bool mycreateKey Whether the key should be created if it doesn"t exists, or not
      * /
-    /* protected bool _setKey(string aKey, bool mycreateKey = false) {
+    /* protected bool _setKey(string key, bool mycreateKey = false) {
         mygroups = null;
         if (_groupPrefix) {
             mygroups = vsprintf(_groupPrefix, this.groups());
@@ -279,7 +278,7 @@ class DFileCacheEngine : DCacheEngine {
         if (!isDir(mydir)) {
             mkdir(mydir, configuration.get("dirMask"], true);
         }
-        mypath = new DSplFileInfo(mydir ~ aKey);
+        mypath = new DSplFileInfo(mydir ~ key);
 
         if (!mycreateKey && !mypath.isFile()) {
             return false;
@@ -287,7 +286,7 @@ class DFileCacheEngine : DCacheEngine {
         /** @psalm-suppress TypeDoesNotContainType * /
         if (
             !isSet(_File) ||
-            _File.getBasename() != aKey ||
+            _File.getBasename() != key ||
             _File.valid() == false
             ) {
             myexists = isFile(mypath.getPathname());
@@ -329,8 +328,8 @@ class DFileCacheEngine : DCacheEngine {
         return mysuccess;
     } * /
 
-    protected string _key(string aKey) {
-        auto newKey = super._key(aKey);
+    protected string _key(string key) {
+        auto newKey = super._key(key);
 
         return rawurlencode(newKey);
     }

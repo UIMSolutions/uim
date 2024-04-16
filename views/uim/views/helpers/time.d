@@ -300,11 +300,11 @@ class DTimeHelper : DHelper {
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
      * /
     bool wasWithinLast(
-        string mytimeInterval,
+        string timeIntervalValue,
         DChronosDate|IDateTime|string|int mydateString,
         DateTimeZone|string|null mytimezone = null
     ) {
-        return (new DateTime(mydateString, mytimezone)).wasWithinLast(mytimeInterval);
+        return (new DateTime(mydateString, mytimezone)).wasWithinLast(timeIntervalValue);
     }
     
     /**
@@ -316,11 +316,11 @@ class DTimeHelper : DHelper {
      * @param \DateTimeZone|string|null mytimezone User"s timezone string or DateTimeZone object
      * /
     bool isWithinNext(
-        string mytimeInterval,
+        string timeIntervalValue,
         DChronosDate|IDateTime|string|int mydateString,
         DateTimeZone|string|null mytimezone = null
     ) {
-        return (new DateTime(mydateString, mytimezone)).isWithinNext(mytimeInterval);
+        return (new DateTime(mydateString, mytimezone)).isWithinNext(timeIntervalValue);
     }
     
     /**

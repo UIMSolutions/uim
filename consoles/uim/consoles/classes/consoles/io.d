@@ -330,11 +330,7 @@ class DConsoleIo {
         this.writeln("", newLinesToAppend);
     }
     
-    /**
-     * Prompts the user for input, and returns it.
-     * Params:
-     * promptText = Prompt text.
-     * /
+    // Prompts the user for input, and returns it.
     string ask(string promptText, string defaultInputValue = null) {
         return _getInput(promptText, null, defaultInputValue);
     }
@@ -360,22 +356,20 @@ class DConsoleIo {
     /**
      * Get defined style.
      * Params:
-     * string astyle The style to get.
      * @see \UIM\Console\ConsoleOutput.getStyle()
      * /
-    array getStyle(string astyle) {
-        return _out.getStyle(style);
+    array getStyle(string styleToGet) {
+        return _out.getStyle(styleToGet);
     }
     
     /**
      * Adds a new output style.
      * Params:
-     * string astyle The style to set.
      * @param array definition The array definition of the style to change or create.
      * @see \UIM\Console\ConsoleOutput.setStyle()
      * /
-    void setStyle(string astyle, array definition) {
-       _out.setStyle(style, definition);
+    void setStyle(string styleToSet, array definition) {
+       _out.setStyle(styleToSet, definition);
     }
     
     /**

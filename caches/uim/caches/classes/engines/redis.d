@@ -167,14 +167,9 @@ class DRedisCacheEngine : DCacheEngine {
         return aValue;
     }
     
-    /**
-     * Delete a key from the cache
-     * Params:
-     * string aKey Identifier for the data
-     * /
+    // Delete a key from the cache
     bool delete_(string dataIdentifier) {
         auto key = _key(dataIdentifier);
-
         return _redis.del(key) > 0;
     }
     

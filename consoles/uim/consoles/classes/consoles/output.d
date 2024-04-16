@@ -228,13 +228,9 @@ class DConsoleOutput {
         return "\033[" ~ join(";", styleInfo) ~ "m" ~ matchesToReplace["text"] ~ "\033[0m";
     }
     
-    /**
-     * Writes a message to the output stream.
-     * Params:
-     * string amessage Message to write.
-     * /
-    protected int _write(string amessage) {
-        return to!int(fwrite(_output, message));
+    // Writes a message to the output stream.
+    protected int _write(string messageToWrite) {
+        return to!int(fwrite(_output, messageToWrite));
     }
     
     /**
@@ -259,16 +255,15 @@ class DConsoleOutput {
      * this.output.setStyle("annoy", []);
      * ```
      * Params:
-     * string astyle The style to set.
      * @param array definition The array definition of the style to change or create..
      * /
-    void setStyle(string astyle, array definition) {
+    void setStyle(string styleToSet, array definition) {
         if (!definition) {
-            _styles.remove(style);
+            _styles.remove(styleToSet);
 
             return;
         }
-        _styles[style] = definition;
+        _styles[styleToSet] = definition;
     }
     
     // Gets all the style definitions.

@@ -10,7 +10,12 @@ import uim.http;
  *
  * This approach and implementation is partly inspired by Aura.Http
  */
-class DStream { // }: IAdapter {
+class DStream { // }: IAdapter {    // Array of options/content for the HTTP stream context.
+    protected IData[string] _contextOptions = null;
+
+    // Array of options/content for the SSL stream context.
+    protected IData[string] _sslContextOptions = null;
+
     /**
      * DContext resource used by the stream API.
      *
@@ -18,11 +23,7 @@ class DStream { // }: IAdapter {
      * /
     protected _context;
 
-    // Array of options/content for the HTTP stream context.
-    protected IData[string] _contextOptions = null;
 
-    // Array of options/content for the SSL stream context.
-    protected IData[string] _sslContextOptions = null;
 
     /**
      * The stream resource.

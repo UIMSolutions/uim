@@ -20,12 +20,11 @@ if (!function_exists("urlArray")) {
     /**
      * Returns an array URL from a route path string.
      * Params:
-     * string aPath Route path.
      * @param array params An array specifying any additional parameters.
      *  Can be also any special parameters supported by `Router.url()`.
      * /
-    array URL urlArray(string aPath, array params = []) {
-        return cakeUrlArray(somePath, params);
+    array URL urlArray(string routePath, array params = []) {
+        return cakeUrlArray(routePath, params);
     }
 }
 */

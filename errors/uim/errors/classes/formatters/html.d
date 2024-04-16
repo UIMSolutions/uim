@@ -198,11 +198,10 @@ class DHtmlErrorFormatter : IErrorFormatter {
     /**
      * Style text with HTML class names
      * Params:
-     * string astyle The style name to use.
      * @param string atext The text to style.
      * /
-    protected string style(string astyle, string atext) {
+    protected string style(string styleToUse, string atext) {
         return "<span class="cake-debug-%s">%s</span>"
-            .format(style, htmlAttribEscape(text));
+            .format(styleToUse, htmlAttribEscape(text));
     } */
 }

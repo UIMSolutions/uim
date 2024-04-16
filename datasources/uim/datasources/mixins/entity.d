@@ -1093,7 +1093,7 @@ mixin template TEntity() {
      * Returns a string representation of this object in a human readable format.
     * /
                                                                     override string toString() {
-                                                                      return to!string(IData_encode(this, IData_PRETTY_PRINT));
+                                                                      return to!string(Json_encode(this, Json_PRETTY_PRINT));
                                                                     }
 
                                                                     /**

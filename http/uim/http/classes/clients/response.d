@@ -317,7 +317,7 @@ class DClientResponse { // }: Message : IResponse {
         if (_IData) {
             return _IData;
         }
-        return _IData = IData_decode(_getBody(), true);
+        return _IData = Json_decode(_getBody(), true);
     }
     
     // Get the response body as XML decoded data.

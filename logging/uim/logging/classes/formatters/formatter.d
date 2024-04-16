@@ -4,20 +4,31 @@ import uim.logging;
 
 @safe:
 class DLogFormatter : ILogFormatter {
-  this(IData[string] initData = null) {
+  mixin TConfigurable;
+
+  this() {
+    initialize;
+  }
+
+  this(IData[string] initData) {
     initialize(initData);
-    this.name("LogFormatter");
   }
 
   this(string name) {
-    this();
-    this.name(name);
+    this().name(name);
+  }
+
+  // Hook method
+  bool initialize(IData[string] initData = null) {
+    configuration(MemoryConfiguration);
+    configuration.data(initData);
+
+    return true;
   }
 
   mixin(TProperty!("string", "name"));
-  mixin(TProperty!("IData[string]", "config"));
 
-  bool initialize(IData[string] initData = null) {
-    return true;
-  }
+  // Formats message.
+  abstract string format(IData loggingLevel, string loggingMessage, IData[string] loggingData = null);
+
 }

@@ -546,7 +546,7 @@ class DCookie : ICookie {
      * array array Map of key and values
      */
     protected string _flatten(array array) {
-        return IData_encode(array, IData_THROW_ON_ERROR);
+        return Json_encode(array, Json_THROW_ON_ERROR);
     }
     
     /**
@@ -559,7 +559,7 @@ class DCookie : ICookie {
         this.isExpanded = true;
         first = substr(string, 0, 1);
         if (first == "{" || first == "[") {
-            return IData_decode(string, true) ?? string;
+            return Json_decode(string, true) ?? string;
         }
         array = null;
         foreach (split(",", string) as pair) {

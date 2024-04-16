@@ -131,8 +131,8 @@ class DBodyParserMiddleware { // }: IMiddleware {
         if (body.isEmpty) {
             return null;
         }
-        decoded = IData_decode(body, true);
-        if (IData_last_error() != IData_ERROR_NONE) {
+        decoded = Json_decode(body, true);
+        if (Json_last_error() != Json_ERROR_NONE) {
             return null;
         }
         return (array)decoded;

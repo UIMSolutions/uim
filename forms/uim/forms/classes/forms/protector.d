@@ -344,7 +344,7 @@ class DFormProtector {
         return [
             "fields": urlencode(fields ~ ":" ~ locked),
             "unlocked": urlencode(join("|", unlockedFields)),
-            "debug": urlencode((string)IData_encode([
+            "debug": urlencode((string)Json_ncode([
                 url,
                 this.fields,
                 this.unlockedFields,
@@ -382,7 +382,7 @@ class DFormProtector {
         if (!isSet(formData["_Token"]["debug"])) {
             return "Form protection debug token not found.";
         }
-        expectedParts = IData_decode(urldecode(formData["_Token"]["debug"]), true);
+        expectedParts = Json_decode(urldecode(formData["_Token"]["debug"]), true);
         if (!isArray(expectedParts) || count(expectedParts) != 3) {
             return "Invalid form protection debug token.";
         }

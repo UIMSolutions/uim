@@ -43,7 +43,7 @@ class DRoutesCommand : DCommand {
 
             if (arguments.getOption("verbose")) {
                 ksort(route.defaults);
-                 anItem ~= IData_encode(route.defaults, IData_THROW_ON_ERROR);
+                 anItem ~= Json_encode(route.defaults, Json_THROW_ON_ERROR);
             }
             output ~=  anItem;
 
@@ -116,7 +116,7 @@ class DRoutesCommand : DCommand {
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
             if (commandArguments.getOption("verbose")) {
                 ksort(route.defaults);
-                 anItem ~= IData_encode(route.defaults, IData_THROW_ON_ERROR);
+                 anItem ~= Json_encode(route.defaults, Json_THROW_ON_ERROR);
             }
             output ~=  anItem;
 

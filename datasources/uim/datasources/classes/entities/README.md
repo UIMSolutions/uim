@@ -392,7 +392,7 @@ array = user->toArray();
 
 // Convert to IData
 // Associations will be converted with IDataSerialize hook as well.
- IData = IData_encode(user);
+ IData = Json_encode(user);
 
 When converting an entity to an IData, the virtual & hidden field lists are applied. Entities are recursively converted to IData as well. This means that if you eager loaded entities and their associations CakePHP will correctly handle converting the associated data into the correct format.
 Exposing Virtual Fields

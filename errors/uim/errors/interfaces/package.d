@@ -5,5 +5,6 @@ public {
     import uim.errors.interfaces.errorrenderer;
     import uim.errors.interfaces.exceptionrenderer;
     import uim.errors.interfaces.formatter;
+    import uim.errors.interfaces.middleware;
     import uim.errors.interfaces.node;
 }

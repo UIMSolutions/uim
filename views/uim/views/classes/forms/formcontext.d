@@ -17,7 +17,7 @@ class DFormContext : IFormContext {
     // TODO protected DForm _form;
 
     // Validator name.
-    protected string my_validator = null;
+    protected string _validatorName = null;
 
    bool initialize(IData[string] initData = null) {
     configuration(MemoryConfiguration);
@@ -54,7 +54,7 @@ class DFormContext : IFormContext {
         );
 
        _form = mycontext["entity"];
-       _validator = mycontext.get("validator", null);
+       _validatorName = mycontext.get("validator", null);
     }
  
 
@@ -86,7 +86,7 @@ class DFormContext : IFormContext {
     }
  
     bool isRequired(string myfield) {
-        auto formValidator = _form.getValidator(_validator);
+        auto formValidator = _form.getValidator(_validatorName);
         if (!formValidator.hasField(myfield)) {
             return null;
         }
@@ -99,7 +99,7 @@ class DFormContext : IFormContext {
     string getRequiredMessage(string myfield) {
         string[] myparts = myfield.split(".");
 
-        auto myvalidator = _form.getValidator(_validator);
+        auto myvalidator = _form.getValidator(_validatorName);
         auto myfieldName = array_pop(myparts);
         if (!myvalidator.hasField(myfieldName)) {
             return null;
@@ -113,7 +113,7 @@ class DFormContext : IFormContext {
     }
  
     int getMaxLength(string myfield) {
-        auto myvalidator = _form.getValidator(_validator);
+        auto myvalidator = _form.getValidator(_validatorName);
         if (!myvalidator.hasField(myfield)) {
             return null;
         }

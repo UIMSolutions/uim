@@ -32,8 +32,8 @@ class DViewBuilder { // }: DIDataSerializable {
      * Params:
      * string|null views Layout file name to set.
      */
-    void setLayout(string fileName) {
-       _layout = fileName;
+    void setLayout(string layoutFilename) {
+       _layout = layoutFilename;
     }
 
     // Whether autoLayout should be enabled.
@@ -60,6 +60,8 @@ class DViewBuilder { // }: DIDataSerializable {
 
     // View viewData
     protected IData[string] _viewData;
+        // Gets path for template files.
+    mixin(TProperty!("string", "templateFilePath"));
 
     // #region View Variables
         // View variables
@@ -85,17 +87,32 @@ class DViewBuilder { // }: DIDataSerializable {
         }
     // #endregion View Variables
             
-        /**
-     * Saves view viewData for use inside templates.
+    // #region Layout
+
+    /**
+     * Sets path for layout files.
      * Params:
-     * IData[string] mydata Array of data.
-     * @param bool mymerge Whether to merge with existing viewData, default true.
+     * string|null mypath Path for layout files.
      * /
+    auto setLayoutPath(string mypath) {
+       _layoutPath = mypath;
+
+        return this;
+    }
+    
+    /**
+     * Gets path for layout files.
+     * /
+    string getLayoutPath() {
+        return _layoutPath;
+    }
+    // #endregion Layout
+
+    // Saves view viewData for use inside templates.
     void setData(IData[string] data, bool shouldMerge = true) {
-vars = 
-        shouldMerge ?
-           mydata + _viewData
-: mydata;
+        vars = shouldMerge ?
+                mydata + _viewData
+                : mydata;
         
     }
 
@@ -120,26 +137,7 @@ vars =
         return array_key_exists(viewName, _viewData);
     }
        
-    // Gets path for template files.
-    mixin(TProperty!("string", "templateFilePath"));
-    
-    /**
-     * Sets path for layout files.
-     * Params:
-     * string|null mypath Path for layout files.
-     * /
-    auto setLayoutPath(string mypath) {
-       _layoutPath = mypath;
 
-        return this;
-    }
-    
-    /**
-     * Gets path for layout files.
-     * /
-    string getLayoutPath() {
-        return _layoutPath;
-    }
     
     /**
      * Turns on or off UIM"s conventional mode of applying layout files.

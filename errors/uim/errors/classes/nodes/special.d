@@ -19,15 +19,13 @@ class DSpecialNode : IErrorNode {
       this.value = aValue;
   }
 
-  /**
-    * Get the message/value
-    */
+  // Get the message/value
   string getValue() {
       return this.value;
   }
 
-
+  /* 
   array getChildren() {
       return null;
-  }
+  } */
 }

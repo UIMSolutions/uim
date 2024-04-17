@@ -56,6 +56,14 @@ class DFileCacheEngine : DCacheEngine {
         return true; 
         
     }
+
+    int decrement(string keyToDecrement, int numberToOffset = 1) {
+        throw new LogicException("Files cannot be atomically decremented.");
+
+    int increment(string keyToIncrement, int numberToOffset = 1) {
+        throw new LogicException("Files cannot be atomically incremented.");
+    }
+    
     /*
     // Instance of SplFileObject class
     protected ISplFileObject my_File;
@@ -147,11 +155,7 @@ class DFileCacheEngine : DCacheEngine {
         return myData;
     }
 
-    /**
-     * Delete a key from the cache
-     * Params:
-     * string aKey Identifier for the data
-     * /
+    // Delete a key from the cache
     bool delete_(string dataId) {
         auto aKey = _key(dataId);
 
@@ -241,25 +245,7 @@ class DFileCacheEngine : DCacheEngine {
         mydir.close();
     }
 
-    /**
-     * Not implemented
-     * Params:
-     * string aKey The key to decrement
-     * @param int anOffset The number to offset
-     * /
-    int decrement(string decrementKey, int anOffset = 1) {
-        throw new LogicException("Files cannot be atomically decremented.");
-    }
 
-    /**
-     * Not implemented
-     * Params:
-     * string aKey The key to increment
-     * @param int anOffset The number to offset
-     * /
-    int increment(string incrementKey, int anOffset = 1) {
-        throw new LogicException("Files cannot be atomically incremented.");
-    }
 
     /**
      * Sets the current cache key this class is managing, and creates a writable SplFileObject

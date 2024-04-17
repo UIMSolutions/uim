@@ -14,8 +14,8 @@ import uim.errors;
  * Traps exceptions and converts them into HTML or content-type appropriate
  * error pages using the UIM ExceptionRenderer.
  */
-class DErrorHandlerMiddleware : IMiddleware {
-        mixin TConfigurable;
+class DErrorHandlerMiddleware : IErrorMiddleware {
+    mixin TConfigurable;
 
     this() {
         initialize;

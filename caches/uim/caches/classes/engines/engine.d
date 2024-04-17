@@ -167,13 +167,8 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         return false;
     }
 
-    /**
-     * Fetches the value for a given key from the cache.
-     * Params:
-     * string aKey The unique key of this item in the cache.
-     * @param IData mydefault Default value to return if the key does not exist.
-     */
-    IData get(string aKey, IData mydefault = null) {
+    // Fetches the value for a given key from the cache.
+    IData get(string itemKey, IData defaultValue = null) {
         return null;
     }
 

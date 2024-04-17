@@ -82,16 +82,36 @@ class DView : IView { //  }: IEventDispatcher {
     // File extension. Defaults to ".d".
     protected string _ext = ".d";
 
+    // #region contentType
+        // Set the response content-type based on the view"s contentType()
+        protected void setContentType() {
+            /* myviewContentType = this.contentType();
+            if (!myviewContentType || myviewContentType == TYPE_MATCH_ALL) {
+                return;
+            }
+            myresponse = this.getResponse();
+            auto myresponseType = myresponse.getHeaderLine("Content-Type");
+            if (myresponseType.isEmpty || myresponseType.startsWith("text/html")) {
+                myresponse = myresponse.withType(myviewContentType);
+            }
+            this.setResponse(myresponse); */
+        }
+
+        // Mime-type this view class renders as.
+        static string contentType() {
+            return "";
+        }
+    // #endregion contentType
     /* 
     use TCell() {
         cell as public;
     }
     
     // Helpers collection
-    protected DHelperRegistry my_helpers = null;
+    protected DHelperRegistry _helpers = null;
 
     // ViewBlock instance.
-    protected IViewBlock myBlocks;
+    protected IViewBlock _blocks;
 
     // A configuration array for helpers to be loaded.
     protected IData[string][string] myhelpers = null;
@@ -259,24 +279,7 @@ class DView : IView { //  }: IEventDispatcher {
        
     }
 
-    // Set the response content-type based on the view"s contentType()
-    protected void setContentType() {
-        myviewContentType = this.contentType();
-        if (!myviewContentType || myviewContentType == TYPE_MATCH_ALL) {
-            return;
-        }
-        myresponse = this.getResponse();
-        auto myresponseType = myresponse.getHeaderLine("Content-Type");
-        if (myresponseType.isEmpty || myresponseType.startsWith("text/html")) {
-            myresponse = myresponse.withType(myviewContentType);
-        }
-        this.setResponse(myresponse);
-    }
 
-    // Mime-type this view class renders as.
-    static string contentType() {
-        return "";
-    }
 
     // Gets the request instance.
     ServerRequest getRequest() {
@@ -321,23 +324,6 @@ class DView : IView { //  }: IEventDispatcher {
         return this;
     }
 
-    // Get path for layout files.
-    string getLayoutPath() {
-        return this.layoutPath;
-    }
-
-    // Set path for layout files.
-    void  setLayoutPath(string path) {
-        this.layoutPath = path;
-    }
-    
-    /**
-     * Returns if UIM"s conventional mode of applying layout files is enabled.
-     * Disabled means that layouts will not be automatically applied to rendered views.
-     * /
-    bool isAutoLayoutEnabled() {
-        return this.autoLayout;
-    }
     
     /**
      * Turns on or off UIM"s conventional mode of applying layout files.

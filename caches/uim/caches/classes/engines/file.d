@@ -46,7 +46,7 @@ class DFileCacheEngine : DCacheEngine {
         ]); 
 
         /* 
-        configuration.get("path"] = configuration.get("path", sys_get_temp_dir()~DIRECTORY_SEPARATOR ~ "cake_cache" ~ DIRECTORY_SEPARATOR);
+        configuration.get("path"] = configuration.get("path", sys_get_temp_dir()~DIRECTORY_SEPARATOR ~ "uim_cache" ~ DIRECTORY_SEPARATOR);
         if (substr(configuration.get("path"], -1) != DIRECTORY_SEPARATOR) {
             configuration.get("path"] ~= DIRECTORY_SEPARATOR;
         }

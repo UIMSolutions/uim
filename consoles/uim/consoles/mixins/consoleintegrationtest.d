@@ -50,7 +50,7 @@ mixin template TConsoleIntegrationTest() {
                 "You can use ` anInput` only if ` _in` property.isNull and will be reset.'
             );
         }
-        someArguments = this.commandStringToArgs("cake command");
+        someArguments = this.commandStringToArgs("uim command");
          aConsoleIo = new DConsoleIo(_out, _err, _in);
 
         try {

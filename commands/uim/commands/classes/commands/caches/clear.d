@@ -32,8 +32,8 @@ class DCacheClearCommand : DCommand {
     myParser.description("Clear all data in a single cache engine");
     myParser.addArgument("engine", [
         "help": "The cache engine to clear." ~
-        "For example, `cake cache clear _cake_model_` will clear the model cache." ~
-        " Use `cake cache list` to list available engines.",
+        "For example, `uim cache clear _uim_model_` will clear the model cache." ~
+        " Use `uim cache list` to list available engines.",
         "required": BooleanData(true),
       ]);
 

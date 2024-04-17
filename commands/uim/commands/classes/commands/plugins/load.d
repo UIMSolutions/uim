@@ -92,7 +92,7 @@ DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
     with (parserToUpdate) {
         description("Command for loading plugins."); 
         addArgument("plugin", [
-            "help": "Name of the plugin to load. Must be in CamelCase format. Example: cake plugin load Example",
+            "help": "Name of the plugin to load. Must be in CamelCase format. Example: uim plugin load Example",
             "required": BooleanData(true),
         ]); 
         addOption("only-debug", [

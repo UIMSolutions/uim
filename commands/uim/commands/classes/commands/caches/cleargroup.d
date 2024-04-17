@@ -29,7 +29,7 @@ class DCacheClearGroupCommand : DCommand {
     auto definedParser = super.buildOptionParser(parserToDefine);
     definedParser.description("Clear all data in a single cache group.");
     definedParser.addArgument("group", [
-        "help": "The cache group to clear. For example, `cake cache clear_group mygroup` will clear "
+        "help": "The cache group to clear. For example, `uim cache clear_group mygroup` will clear "
         ."all cache items belonging to group " mygroup".",
         "required": BooleanData(true),
       ]);

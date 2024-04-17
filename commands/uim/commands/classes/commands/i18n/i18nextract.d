@@ -124,7 +124,7 @@ class DI18nExtractCommand : DCommand {
            _exclude = chain(_exclude, App.path("plugins"));
         }
         if (_extractCore) {
-           _paths ~= CAKE;
+           _paths ~= uim;
         }
         if (commandArguments.hasOption("output")) {
            _output = to!string(commandArguments.getOption("output"));
@@ -541,7 +541,7 @@ class DI18nExtractCommand : DCommand {
      * string adomain Domain
      * /
     protected string _writeHeader(string adomain) {
-        projectIdVersion = domain == "cake' ? "UIM " ~ Configure.currentVersion(): 'PROJECT VERSION";
+        projectIdVersion = domain == "uim' ? "UIM " ~ Configure.currentVersion(): 'PROJECT VERSION";
 
         string result = "# LANGUAGE translation of UIM Application\n";
         result ~= "# Copyright YEAR NAME <EMAIL@ADDRESS>\n";
@@ -647,7 +647,7 @@ class DI18nExtractCommand : DCommand {
      * @param int count Count
      * /
     protected void _markerError(IConsoleIo aConsoleIo, string afile, int lineNumber, string amarker, int count) {
-        if (!_file.has(CAKE_CORE_INCLUDE_PATH)) {
+        if (!_file.has(uim_CORE_INCLUDE_PATH)) {
            _countMarkerError++;
         }
         if (!_markerError) {

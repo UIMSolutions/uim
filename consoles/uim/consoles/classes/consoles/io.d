@@ -435,7 +435,7 @@ class DConsoleIo {
      *
      * Used to enable or disable logging stream output to stdout and stderr
      * If you don`t wish all log output in stdout or stderr
-     * through Cake`s Log class, call this auto with `enable=false`.
+     * through uim`s Log class, call this auto with `enable=false`.
      *
      * If you would like to take full control of how console application logging
      * to stdout works add a logger that uses `'className": 'Console'`. By

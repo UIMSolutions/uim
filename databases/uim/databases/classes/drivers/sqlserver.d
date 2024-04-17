@@ -211,7 +211,7 @@ class DSqlserverDriver : DDriver {
      * @param int  anOffset The number of rows to offset.
      * /
     protected ISelectQuery _pagingSubquery(SelectQuery  original, int aLimit, int anOffset) {
-        auto field = "_cake_paging_._cake_page_rownum_";
+        auto field = "_uim_paging_._uim_page_rownum_";
 
         if ( original.clause("order")) {
             // SQL server does not support column aliases in OVER clauses.  But
@@ -241,14 +241,14 @@ class DSqlserverDriver : DDriver {
 
         auto aQuery = clone  original;
         aQuery.select([
-                "_cake_page_rownum_": new DUnaryExpression("ROW_NUMBER() OVER",  order),
+                "_uim_page_rownum_": new DUnaryExpression("ROW_NUMBER() OVER",  order),
             ]).limit(null)
             .offset(null)
             .orderBy([], true);
 
         auto  outer = aQuery.getConnection().selectQuery();
          outer.select("*")
-            .from(["_cake_paging_": aQuery]);
+            .from(["_uim_paging_": aQuery]);
 
         if (anOffset) {
              outer.where(["field > " ~  anOffset]);
@@ -260,8 +260,8 @@ class DSqlserverDriver : DDriver {
         // Decorate the original query as that is what the
         // end developer will be calling execute() on originally.
          original.decorateResults(function (row) {
-            if (isSet(row["_cake_page_rownum_"])) {
-                unset(row["_cake_page_rownum_"]);
+            if (isSet(row["_uim_page_rownum_"])) {
+                unset(row["_uim_page_rownum_"]);
             }
             return row;
         });
@@ -290,7 +290,7 @@ class DSqlserverDriver : DDriver {
                     .setConjunction(" ");
 
                 return [
-                    "_cake_distinct_pivot_":  over,
+                    "_uim_distinct_pivot_":  over,
                 ];
             })
             .limit(null)
@@ -299,14 +299,14 @@ class DSqlserverDriver : DDriver {
 
          outer = new DSelectQuery(aQuery.getConnection());
          outer.select("*")
-            .from(["_cake_distinct_": aQuery])
-            .where(["_cake_distinct_pivot_": 1]);
+            .from(["_uim_distinct_": aQuery])
+            .where(["_uim_distinct_pivot_": 1]);
 
         // Decorate the original query as that is what the
         // end developer will be calling execute() on originally.
          original.decorateResults(function (row) {
-            if (isSet(row["_cake_distinct_pivot_"])) {
-                unset(row["_cake_distinct_pivot_"]);
+            if (isSet(row["_uim_distinct_pivot_"])) {
+                unset(row["_uim_distinct_pivot_"]);
             }
             return row;
         });

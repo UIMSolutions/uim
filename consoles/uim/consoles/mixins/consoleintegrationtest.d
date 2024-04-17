@@ -61,7 +61,7 @@ mixin template TConsoleIntegrationTest() {
                  anException.setQuestion( messages[count( messages) - 1]);
             }
             throw  anException;
-        } catch (StopException exception) {
+        } catch (DStopException exception) {
            _exitCode = exception.getCode();
         }
     }

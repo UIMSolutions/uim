@@ -6,23 +6,21 @@ import uim.errors;
 
 // Dump node for scalar values.
 class DScalarNode : IErrorNode {
-
-    // Type of scalar data
-    private string _type;
-
-    // Scalar value
-    private IData _value;
-
     this(string newType, IData newValue) {
         _type = newType;
         _value = newValue;
     }
     
+    // Type of scalar data
+    private string _type;
     // Get the type of value
     string getType() {
         return _type;
     }
     
+    // Scalar value
+    private IData _value;
+
     // Get the value
     IData getValue() {
         return _value;

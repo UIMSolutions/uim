@@ -333,7 +333,7 @@ class DBelongsToMany : DAssociation {
      * \ORM\Query\SelectQuery aQuery the query to be altered to include the target table data
      * @param IData[string] options Any extra options or overrides to be taken in account
      * /
-    void attachTo(SelectQuery aQuery, IData[string] options = null) {
+    void attachTo(DSelectQuery aQuery, IData[string] options = null) {
         if (!empty(options["negateMatch"])) {
            _appendNotMatching(aQuery, options);
 
@@ -364,7 +364,7 @@ class DBelongsToMany : DAssociation {
         thisJoin["conditions"].add(assoc._joinCondition(["foreignKey": foreignKey]));
     }
  
-    protected void _appendNotMatching(SelectQuery aQuery, IData[string] options = null) {
+    protected void _appendNotMatching(DSelectQuery aQuery, IData[string] options = null) {
         if (isEmpty(options["negateMatch"])) {
             return;
         }
@@ -885,7 +885,7 @@ class DBelongsToMany : DAssociation {
      * \ORM\Query\SelectQuery aQuery The query to append.
      * @param array|null conditions The query conditions to use.
      * /
-    protected ISelectQuery _appendJunctionJoin(SelectQuery aQuery, array conditions = null) {
+    protected ISelectQuery _appendJunctionJoin(DSelectQuery aQuery, array conditions = null) {
         junctionTable = this.junction();
         if (conditions is null) {
             belongsTo = junctionTable.getAssociation(this.getTarget().aliasName());

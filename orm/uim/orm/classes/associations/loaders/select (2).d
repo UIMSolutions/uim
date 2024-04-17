@@ -170,7 +170,7 @@ class DSelectLoader {
      * \ORM\Query\SelectQuery fetchQuery The association fetching query
      * @param string[] aKey The foreign key fields to check
      * /
-    protected void _assertFieldsPresent(SelectQuery fetchQuery, array aKey) {
+    protected void _assertFieldsPresent(DSelectQuery fetchQuery, array aKey) {
         if (fetchQuery.isAutoFieldsEnabled()) {
             return;
         }
@@ -205,7 +205,7 @@ class DSelectLoader {
      * @param string[]|string aKey the fields that should be used for filtering
      * @param \ORM\Query\SelectQuery subquery The Subquery to use for filtering
      * /
-    protected ISelectQuery _addFilteringJoin(SelectQuery aQuery, string[] aKey, SelectQuery subquery) {
+    protected ISelectQuery _addFilteringJoin(DSelectQuery aQuery, string[] aKey, SelectQuery subquery) {
         filter = null;
         aliasedTable = this.sourceAlias;
 
@@ -238,7 +238,7 @@ class DSelectLoader {
      * @param string[]|string aKey The fields that should be used for filtering
      * @param IData filter The value that should be used to match for aKey
      * /
-    protected ISelectQuery _addFilteringCondition(SelectQuery aQuery, string[] aKey, IData filterValue) {
+    protected ISelectQuery _addFilteringCondition(DSelectQuery aQuery, string[] aKey, IData filterValue) {
         IData[string] conditions = isArray(aKey) 
             ? _createTupleCondition(aQuery, aKey, filterValue, "IN")
             : conditions = [aKey ~ " IN": filterValue];
@@ -305,7 +305,7 @@ class DSelectLoader {
      * Params:
      * \ORM\Query\SelectQuery aQuery the original query used to load source records
      * /
-    protected ISelectQuery _buildSubquery(SelectQuery aQuery) {
+    protected ISelectQuery _buildSubquery(DSelectQuery aQuery) {
         filterQuery = clone aQuery;
         filterQuery.disableAutoFields();
         filterQuery.mapReduce(null, null, true);
@@ -334,7 +334,7 @@ class DSelectLoader {
      * Params:
      * \ORM\Query\SelectQuery aQuery The query to get fields from.
      * /
-    protected array<string, array> _subqueryFields(SelectQuery aQuery) {
+    protected array<string, array> _subqueryFields(DSelectQuery aQuery) {
         auto someKeys = (array)this.bindingKey;
 
         if (this.associationType == Association.MANY_TO_ONE) {
@@ -362,7 +362,7 @@ class DSelectLoader {
      * \ORM\Query\SelectQuery fetchQuery The query to get results from
      * @param IData[string] options The options passed to the eager loader
      * /
-    protected IData[string] _buildResultMap(SelectQuery fetchQuery, IData[string] options = null) {
+    protected IData[string] _buildResultMap(DSelectQuery fetchQuery, IData[string] options = null) {
         resultMap = null;
         singleResult = in_array(this.associationType, [Association.MANY_TO_ONE, Association.ONE_TO_ONE], true);
         someKeys = in_array(this.associationType, [Association.ONE_TO_ONE, Association.ONE_TO_MANY], true) ?
@@ -393,7 +393,7 @@ class DSelectLoader {
      * the corresponding target table results as value.
      * @param IData[string] options The options passed to the eagerLoader method
      * /
-    protected DClosure _resultInjector(SelectQuery fetchQuery, array resultMap, IData[string] options = null): Closure
+    protected DClosure _resultInjector(DSelectQuery fetchQuery, array resultMap, IData[string] options = null): Closure
     {
         someKeys = this.associationType == Association.MANY_TO_ONE ?
             this.foreignKey :

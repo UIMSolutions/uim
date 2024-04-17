@@ -142,7 +142,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Params:
      * \UIM\Http\ServerRequest serverRequest Request instance.
      * /
-    void setRequest(ServerRequest serverRequest) {
+    void setRequest(DServerRequest serverRequest) {
         _request = serverRequest;
         _pluginName = serverRequest.getParam("plugin");
     }

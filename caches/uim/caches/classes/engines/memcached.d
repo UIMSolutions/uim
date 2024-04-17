@@ -50,7 +50,7 @@ class DMemcachedEngine : DCacheEngine {
       "port": NullData,
       "prefix": StringData("uim_"),
       "serialize": StringData("d"),
-      "servers": StringArray(["127.0.0.1"]),
+      // TODO "servers": StringArrayData(["127.0.0.1"]),
       "options": ArrayData,
     ]);
 

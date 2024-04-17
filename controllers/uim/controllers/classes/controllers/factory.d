@@ -202,13 +202,13 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * string aargument Argument to coerce
      * @param \ReflectionNamedType type Parameter type
      * /
-    protected string[]|float|int|bool|null coerceStringToType(string aargument, ReflectionNamedType type) {
+    protected string[]|float|int|bool|null coerceStringToType(string argumentToCoerce, ReflectionNamedType type) {
         return match (type.name) {
-            "string": argument,
-            "float": isNumeric(argument) ? (float)argument : null,
-            "int": filter_var(argument, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE),
-            "bool": argument == "0" ? false : (argument == "1" ? true : null),
-            "array": argument == "" ? [] : split(",", argument),
+            "string": argumentToCoerce,
+            "float": isNumeric(argumentToCoerce) ? (float)argumentToCoerce : null,
+            "int": filter_var(argumentToCoerce, FILTER_VALIDATE_INT, FILTER_NULL_ON_FAILURE),
+            "bool": argumentToCoerce == "0" ? false : (argumentToCoerce == "1" ? true : null),
+            "array": argumentToCoerce == "" ? [] : split(",", argumentToCoerce),
             default: null,
         };
     }
@@ -218,7 +218,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * Params:
      * \UIM\Http\ServerRequest serverRequest The request to build a controller for.
      * /
-    string getControllerClass(ServerRequest serverRequest) {
+    string getControllerClass(DServerRequest serverRequest) {
         pluginPath = "";
         namespace = "Controller";
         controller =  request.getParam("controller", "");

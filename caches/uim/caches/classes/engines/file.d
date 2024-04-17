@@ -33,36 +33,36 @@ class DFileCacheEngine : DCacheEngine {
         *   with either another cache config or another application.
         *   cache.gc from ever being called automatically.
         * - `serialize` Should cache objects be serialized first.
-        * /
-        /* configuration.updateDefaults([
-            "duration": 3600,
+        */
+        configuration.updateDefaults([
+            "duration": IntegerData(3600),
             "groups": ArrayData,
             "lock": BooleanData(true),
-            "mask": std.conv.octal!"664",
-            "dirMask": std.conv.octal!"770",
-            "path": null,
+            // TODO "mask": std.conv.octal!"664",
+            // TODO "dirMask": std.conv.octal!"770",
+            "path": NullData,
             "prefix": StringData("uim_"),
             "serialize": BooleanData(true),
-        ]); * / 
+        ]); 
 
+        /* 
         configuration.get("path"] = configuration.get("path", sys_get_temp_dir()~DIRECTORY_SEPARATOR ~ "cake_cache" ~ DIRECTORY_SEPARATOR);
         if (substr(configuration.get("path"], -1) != DIRECTORY_SEPARATOR) {
             configuration.get("path"] ~= DIRECTORY_SEPARATOR;
         }
         if (_groupPrefix) {
             _groupPrefix = _groupPrefix.replace("_", DIRECTORY_SEPARATOR);
-        } * /
+        } 
         return _active(); */
         return true;
-
     }
 
-    int decrement(string keyToDecrement, int numberToOffset = 1) {
-        throw new LogicException("Files cannot be atomically decremented.");
+    override int decrement(string keyToDecrement, int numberToOffset = 1) {
+        throw new DLogicException("Files cannot be atomically decremented.");
     }
 
-    int increment(string keyToIncrement, int numberToOffset = 1) {
-        throw new LogicException("Files cannot be atomically incremented.");
+    override int increment(string keyToIncrement, int numberToOffset = 1) {
+        throw new DLogicException("Files cannot be atomically incremented.");
     }
 
     // True unless FileEngine.__active(); fails

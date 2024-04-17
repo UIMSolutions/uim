@@ -47,7 +47,7 @@ class DStreamFactory { // }: IStreamFactory {
      *
      * The stream MUST be readable and may be writable.
      * Params:
-     * resource resource The PHP resource to use as the basis for the stream.
+     * resource resource The D resource to use as the basis for the stream.
      * /
     IStream createStreamFromResource(resource) {
         return new DStream(resource);

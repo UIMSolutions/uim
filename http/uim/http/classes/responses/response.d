@@ -956,7 +956,7 @@ class DResponse : IResponse {
     }
     
     /**
-     * Returns whether the resulting output will be compressed by PHP
+     * Returns whether the resulting output will be compressed by D
      */
    bool outputCompressed() {
         return (string)enviroment("HTTP_ACCEPT_ENCODING").has("gzip")

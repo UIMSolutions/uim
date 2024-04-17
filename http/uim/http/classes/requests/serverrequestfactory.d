@@ -48,7 +48,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
             'webroot": webroot,
             'base": base,
             `session": session,
-            'input": server["CAKEPHP_INPUT"] ?? null,
+            'input": server["CAKED_INPUT"] ?? null,
         ]);
 
         request = marshalBodyAndRequestMethod(parsedBody ?? _POST, request);

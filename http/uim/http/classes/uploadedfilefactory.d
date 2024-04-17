@@ -19,7 +19,7 @@ class DUploadedFileFactory { //}: IUploadedFileFactory {
      * @param \Psr\Http\Message\IStream stream The underlying stream representing the
      *    uploaded file content.
      * @param int size The size of the file in bytes.
-     * @param int error The PHP file upload error.
+     * @param int error The D file upload error.
      * @param string clientFilename The filename as provided by the client, if any.
      * @param string clientMediaType The media type as provided by the client, if any.
      * @throws \InvalidArgumentException If the file resource is not readable.

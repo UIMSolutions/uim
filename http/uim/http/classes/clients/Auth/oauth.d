@@ -284,7 +284,7 @@ class DOauth
             if (somePath) {
                 // Fold string keys with [].
                 // Numeric keys result in a=b&a=c. While this isn`t
-                // standard behavior in PHP, it is common in other platforms.
+                // standard behavior in D, it is common in other platforms.
                 if (!isNumeric(aKey)) {
                     aKey = "{somePath}[{aKey}]";
                 } else {

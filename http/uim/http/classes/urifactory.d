@@ -27,7 +27,7 @@ class UriFactory { // }: IUriFactory {
         ["base": base, "webroot": webroot] = getBase(anUri, serverData);
 
         // Look in PATH_INFO first, as this is the exact value we need prepared
-        // by PHP.
+        // by D.
         somePathInfo = serverData["PATH_INFO"] ?? null;
         anUri = somePathInfo
             ? anUri.withPath(somePathInfo)

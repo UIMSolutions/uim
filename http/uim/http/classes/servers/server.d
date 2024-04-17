@@ -111,7 +111,7 @@ class DServer { // }: IEventDispatcher {
     }
     
     /**
-     * Emit the response using the PHP SAPI.
+     * Emit the response using the D SAPI.
      * Params:
      * \Psr\Http\Message\IResponse response The response to emit
      * @param \UIM\Http\ResponseEmitter|null emitter The emitter to use.

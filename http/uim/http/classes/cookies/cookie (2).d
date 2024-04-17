@@ -41,7 +41,7 @@ class DCookie : ICookie {
     /**
      * Constructor
      *
-     * The constructors args are similar to the native PHP `setcookie()` method.
+     * The constructors args are similar to the native D `setcookie()` method.
      * The only difference is the 3rd argument which excepts null or an
      * DateTime or DateTimeImmutable object instead an integer.
      *

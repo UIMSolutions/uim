@@ -76,7 +76,7 @@ mixin template TRulesAware() {
         auto className = defined("RULES_CLASS") ? RULES_CLASS : RulesChecker.classname;
         /**
          * @psalm-suppress ArgumentTypeCoercion
-         * @phpstan-ignore-next-line
+         * @Dstan-ignore-next-line
          * /
         _rulesChecker = this.buildRules(new className(["repository": this]));
         this.dispatchEvent("Model.buildRules", ["rules": _rulesChecker]);

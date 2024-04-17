@@ -42,7 +42,7 @@ class DDebugger {
     configuration.updateDefaults([
         "outputMask": ArrayData,
         "exportFormatter": null,
-        "editor": StringData("phpstorm"),
+        "editor": StringData("Dstorm"),
     ];
 
     // A map of editors to their link templates.
@@ -50,7 +50,7 @@ class DDebugger {
         "atom": "atom://core/open/file?filename={file}&line={line}",
         "emacs": "emacs://open?url=file://{file}&line={line}",
         "macvim": "mvim://open/?url=file://{file}&line={line}",
-        "phpstorm": "phpstorm://open?file={file}&line={line}",
+        "Dstorm": "Dstorm://open?file={file}&line={line}",
         "sublime": "subl://open?url=file://{file}&line={line}",
         "textmate": "txmt://open?url=file://{file}&line={line}",
         "vscode": "vscode://file/{file}:{line}",
@@ -420,7 +420,7 @@ class DDebugger {
      * string astr The string to convert.
      * /
     protected static string _highlight(string astr) {
-        if (function_exists("hphp_log") || function_exists("hphp_gettid")) {
+        if (function_exists("hD_log") || function_exists("hD_gettid")) {
             return htmlentities(str);
         }
         added = false;
@@ -431,7 +431,7 @@ class DDebugger {
         highlight = highlight_string(str, true);
         if (added) {
             highlight = highlight.replace(
-                ["&lt;?php&nbsp;<br/>", "&lt;?php&nbsp;<br />"],
+                ["&lt;?D&nbsp;<br/>", "&lt;?D&nbsp;<br />"],
                 "");
         }
         return highlight;

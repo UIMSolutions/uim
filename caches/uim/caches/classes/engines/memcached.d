@@ -31,8 +31,8 @@ class DMemcachedEngine : DCacheEngine {
      *   the same persistent value will share a single underlying connection.
      * - `prefix` Prepended to all entries. Good for when you need to share a keyspace
      *   with either another cache config or another application.
-     * - `serialize` The serializer engine used to serialize data. Available engines are 'php",
-     *   'igbinary' and 'IData'. Beside 'php", the memcached extension must be compiled with the
+     * - `serialize` The serializer engine used to serialize data. Available engines are 'D",
+     *   'igbinary' and 'IData'. Beside 'D", the memcached extension must be compiled with the
      *   appropriate serializer support.
      * - `servers` String or array of memcached servers. If an array MemcacheEngine will use
      *   them as a pool.

@@ -15,7 +15,7 @@ import uim.errors;
  * Debugger : D's default error handling and gives
  * simpler to use more powerful interfaces.
  *
- * @link https://book.uimphp.org/4/en/development/debugging.html#namespace-uim\Error
+ * @link https://book.uimD.org/4/en/development/debugging.html#namespace-uim\Error
  */
 class DDebugger {
     mixin TConfigurable;
@@ -40,7 +40,7 @@ class DDebugger {
         configuration.updateDefaults([
             "outputMask": [],
             "exportFormatter": null,
-            "editor": "phpstorm"
+            "editor": "Dstorm"
         ]);
 
         return true;
@@ -114,7 +114,7 @@ class DDebugger {
         'atom': 'atom://core/open/file?filename={file}&line={line}',
         'emacs': 'emacs://open?url=file://{file}&line={line}',
         'macvim': 'mvim://open/?url=file://{file}&line={line}',
-        'phpstorm': 'phpstorm://open?file={file}&line={line}',
+        'Dstorm': 'Dstorm://open?file={file}&line={line}',
         'sublime': 'subl://open?url=file://{file}&line={line}',
         'textmate': 'txmt://open?url=file://{file}&line={line}',
         'vscode': 'vscode://file/{file}:{line}',
@@ -133,7 +133,7 @@ class DDebugger {
     this() {
         docRef = ini_get('docref_root');
         if (empty(docRef) && function_exists('ini_set')) {
-            ini_set('docref_root', 'https://secure.php.net/');
+            ini_set('docref_root', 'https://secure.D.net/');
         }
         if (!defined('E_RECOVERABLE_ERROR')) {
             define('E_RECOVERABLE_ERROR', 4096);
@@ -310,7 +310,7 @@ class DDebugger {
      * @param int maxDepth The depth to output to. Defaults to 3.
      * @return void
      * @see uim.errors.Debugger::exportVar()
-     * @link https://book.uimphp.org/4/en/development/debugging.html#outputting-values
+     * @link https://book.uimD.org/4/en/development/debugging.html#outputting-values
      * /
     static void dump(var, int maxDepth = 3) {
         pr(exportVar(var, maxDepth));
@@ -349,7 +349,7 @@ class DDebugger {
      *
      * @param array<string, mixed> options Format for outputting stack trace.
      * @return array|string Formatted stack trace.
-     * @link https://book.uimphp.org/4/en/development/debugging.html#generating-stack-traces
+     * @link https://book.uimD.org/4/en/development/debugging.html#generating-stack-traces
      * /
     static function trace(IData[string] optionData = null) {
         return Debugger::formatTrace(debug_backtrace(), options);
@@ -370,7 +370,7 @@ class DDebugger {
      * @param \Throwable|array backtrace Trace as array or an exception object.
      * @param array<string, mixed> options Format for outputting stack trace.
      * @return array|string Formatted stack trace.
-     * @link https://book.uimphp.org/4/en/development/debugging.html#generating-stack-traces
+     * @link https://book.uimD.org/4/en/development/debugging.html#generating-stack-traces
      * /
     static function formatTrace(backtrace, IData[string] optionData = null) {
         if (backtrace instanceof Throwable) {
@@ -447,7 +447,7 @@ class DDebugger {
 
         /**
          * @psalm-suppress InvalidArgument
-         * @phpstan-ignore-next-line
+         * @Dstan-ignore-next-line
          * /
         return implode("\n", back);
     }
@@ -491,8 +491,8 @@ class DDebugger {
      * @param int line Line number to highlight.
      * @param int context Number of lines of context to extract above and below line.
      * @return array<string> Set of lines highlighted
-     * @see https://secure.php.net/highlight_string
-     * @link https://book.uimphp.org/4/en/development/debugging.html#getting-an-excerpt-from-a-file
+     * @see https://secure.D.net/highlight_string
+     * @link https://book.uimD.org/4/en/development/debugging.html#getting-an-excerpt-from-a-file
      * /
     static string[] excerpt(string file, int line, int context = 2) {
         lines = null;
@@ -533,18 +533,18 @@ class DDebugger {
      * @return string
      * /
     protected static string _highlight(string str) {
-        if (function_exists('hphp_log') || function_exists('hphp_gettid')) {
+        if (function_exists('hD_log') || function_exists('hD_gettid')) {
             return htmlentities(str);
         }
         added = false;
-        if (strpos(str, '<?php') == false) {
+        if (strpos(str, '<?D') == false) {
             added = true;
-            str = "<?php \n" ~ str;
+            str = "<?D \n" ~ str;
         }
         highlight = highlight_string(str, true);
         if (added) {
             highlight = replace(
-                ['&lt;?php&nbsp;<br/>', '&lt;?php&nbsp;<br />'],
+                ['&lt;?D&nbsp;<br/>', '&lt;?D&nbsp;<br />'],
                 '',
                 highlight
             );
@@ -995,7 +995,7 @@ class DDebugger {
         salt = Security::getSalt();
         if (salt == '__SALT__' || strlen(salt) < 32) {
             trigger_error(
-                'Please change the value of `Security.salt` in `ROOT/config/app_local.php` ' .
+                'Please change the value of `Security.salt` in `ROOT/config/app_local.D` ' .
                 'to a random value of at least 32 characters.',
                 E_USER_NOTICE
             );

@@ -9,7 +9,7 @@ Creating Entity Classes
 
 You don’t need to create entity classes to get started with the ORM in uimD. However, if you want to have custom logic in your entities you will need to create classes. By convention entity classes live in src/Model/Entity/. If our application had an articles table we could create the following entity:
 
-// src/Model/Entity/Article.php
+// src/Model/Entity/Article.D
 namespace App\Model\Entity;
 
 use uim\ORM\Entity;
@@ -358,7 +358,7 @@ You may find yourself needing the same logic in multiple entity classes. D’s t
 
 For example if we had SoftDeletable plugin, it could provide a trait. This mixin template could give methods for marking entities as ‘deleted’, the method softDelete could be provided by a trait:
 
-// SoftDelete/Model/Entity/SoftDeleteTrait.php
+// SoftDelete/Model/Entity/SoftDeleteTrait.D
 
 namespace SoftDelete\Model\Entity;
 

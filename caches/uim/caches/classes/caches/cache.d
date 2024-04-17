@@ -38,7 +38,7 @@ import uim.caches;
  *   as it is an easy cache to inspect and manually flush.
  * - `MemcacheEngine` - Uses the PECL.Memcache extension and Memcached for storage.
  *   Fast reads/writes, and benefits from memcache being distributed.
- * - `RedisEngine` - Uses redis and php-redis extension to store cache data.
+ * - `RedisEngine` - Uses redis and D-redis extension to store cache data.
  * - `XcacheEngine` - Uses the Xcache extension, an alternative to APCu.
  *
  * See Cache engine documentation for expected configuration keys.

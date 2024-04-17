@@ -57,7 +57,7 @@ class DSqlserverDriver : DDriver {
      * Please note that the PDO.ATTR_PERSISTENT attribute is not supported by
      * the SQL Server D PDO drivers.  As a result you cannot use the
      * persistent config option when connecting to a SQL Server  (for more
-     * information see: https://github.com/Microsoft/msphpsql/issues/65).
+     * information see: https://github.com/Microsoft/msDsql/issues/65).
      *
      * @throws \InvalidArgumentException if an unsupported setting is in the driver config
      * /

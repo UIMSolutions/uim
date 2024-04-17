@@ -95,7 +95,7 @@ class DRuleInvoker {
              anInvalidValue = entity.{errorField};
             entity.setInvalidField(errorField,  anInvalidValue);
         }
-        /** @phpstan-ignore-next-line * /
+        /** @Dstan-ignore-next-line * /
         return pass == true;
     } */
 }

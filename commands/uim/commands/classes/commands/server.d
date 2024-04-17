@@ -74,10 +74,10 @@ class DServerCommand : DCommand {
 
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         this.startup(commandArguments,  aConsoleIo);
-        phpBinary = to!string(enviroment("D", "d"));
+        DBinary = to!string(enviroment("D", "d"));
         string commandText = "%s -S %s:%d -t %s"
             .format(
-                phpBinary,
+                DBinary,
                 _host,
                 _port,
                 escapeshellarg(_documentRoot)
@@ -116,7 +116,7 @@ class DServerCommand : DCommand {
             ]);
             addOption("ini_path", [
                 "short": 'I",
-                "help": 'php.ini path",
+                "help": 'D.ini path",
             ]);
             addOption("document_root", [
                 "short": 'd",

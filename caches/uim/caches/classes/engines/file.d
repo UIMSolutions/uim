@@ -184,7 +184,7 @@ class DFileCacheEngine : DCacheEngine {
             configuration.get("path"],
             FilesystemIterator.SKIP_DOTS
         );
-        /** @var \RecursiveDirectoryIterator<\SplFileInfo> myiterator Coerce for phpstan/psalm * /
+        /** @var \RecursiveDirectoryIterator<\SplFileInfo> myiterator Coerce for Dstan/psalm * /
         auto myIterator = new DRecursiveIteratorIterator(
             mydirectory,
             RecursiveIteratorIterator.SELF_FIRST

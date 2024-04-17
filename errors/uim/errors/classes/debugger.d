@@ -357,8 +357,8 @@ class DDebugger {
         if (defined("APP") && pathToShorten.startWith(APP)) {
             return pathToShorten.replace(APP, "APP/");
         }
-        if (defined("CAKE_CORE_INCLUDE_PATH") && pathToShorten.startWith(CAKE_CORE_INCLUDE_PATH)) {
-            return pathToShorten.replace(CAKE_CORE_INCLUDE_PATH, "CORE");
+        if (defined("uim_CORE_INCLUDE_PATH") && pathToShorten.startWith(uim_CORE_INCLUDE_PATH)) {
+            return pathToShorten.replace(uim_CORE_INCLUDE_PATH, "CORE");
         }
         return defined("ROOT") && pathToShorten.startWith(ROOT)
             ? pathToShorten.replace(ROOT, "ROOT")

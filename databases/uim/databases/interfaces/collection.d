@@ -29,7 +29,7 @@ interface ICollection {
      * Get the column metadata for a table.
      *
      * Caching will be applied if `cacheMetadata` key is present in the Connection
-     * configuration options. Defaults to _cake_model_ when true.
+     * configuration options. Defaults to _uim_model_ when true.
      *
      * ### Options
      *

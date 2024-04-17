@@ -228,7 +228,7 @@ mixin template TQuery() {
      * and return the ResultSetDecorator object ready for streaming of results.
      *
      * ResultSetDecorator is a traversable object that : the methods found
-     * on Cake\collections.Collection.
+     * on uim\collections.Collection.
      *
      * @return uim.Datasource\IResultSet
      * /

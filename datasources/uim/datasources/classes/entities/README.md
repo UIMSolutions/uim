@@ -1,18 +1,18 @@
 Entities
 
-class DCake\ORM\Entity
+class Duim\ORM\Entity
 
 While Table Objects represent and provide access to a collection of objects, entities represent individual rows or domain objects in your application. Entities contain methods to manipulate and access the data they contain. Fields can also be accessed as properties on the object.
 
 Entities are created for you each time you iterate the query instance returned by find() of a table object or when you call all() or first() method of the query instance.
 Creating Entity Classes
 
-You don’t need to create entity classes to get started with the ORM in CakeD. However, if you want to have custom logic in your entities you will need to create classes. By convention entity classes live in src/Model/Entity/. If our application had an articles table we could create the following entity:
+You don’t need to create entity classes to get started with the ORM in uimD. However, if you want to have custom logic in your entities you will need to create classes. By convention entity classes live in src/Model/Entity/. If our application had an articles table we could create the following entity:
 
 // src/Model/Entity/Article.php
 namespace App\Model\Entity;
 
-use Cake\ORM\Entity;
+use uim\ORM\Entity;
 
 class DArticle extends Entity
 {
@@ -20,7 +20,7 @@ class DArticle extends Entity
 
 Right now this entity doesn’t do very much. However, when we load data from our articles table, we’ll get instances of this class.
 
-If you don’t define an entity class DCakeD will use the basic Entity class.
+If you don’t define an entity class DuimD will use the basic Entity class.
 Creating Entities
 
 Entities can be directly instantiated:
@@ -41,7 +41,7 @@ article = new Article([
 
 The preferred way of getting new entities is using the newEmptyEntity() method from the Table objects:
 
-use Cake\ORM\Locator\TLocatorAware;
+use uim\ORM\Locator\TLocatorAware;
 
 article = this->fetchTable('Articles')->newEmptyEntity();
 
@@ -51,9 +51,9 @@ article = this->fetchTable('Articles')->newEntity([
     'created' => new DateTime('now')
 ]);
 
-article will be an instance of App\Model\Entity\Article or fallback to Cake\ORM\Entity instance if you haven’t created the Article class.
+article will be an instance of App\Model\Entity\Article or fallback to uim\ORM\Entity instance if you haven’t created the Article class.
 
-Prior to CakeD 4.3 you need to use this->getTableLocator->get('Articles') to get the table instance.
+Prior to uimD 4.3 you need to use this->getTableLocator->get('Articles') to get the table instance.
 Accessing Entity Data
 
 Entities provide a few ways to access the data they contain. Most commonly you will access the data in an entity using object notation:
@@ -66,9 +66,9 @@ writeln(article->title;
 
 You can also use the get() and set() methods.
 
-Cake\ORM\Entity::set(field, value = null, array options = null)
+uim\ORM\Entity::set(field, value = null, array options = null)
 
-Cake\ORM\Entity::get(field)
+uim\ORM\Entity::get(field)
 
 For example:
 
@@ -129,7 +129,7 @@ They receive the basic value stored in the _fields array as their only argument.
 
 namespace App\Model\Entity;
 
-use Cake\ORM\Entity;
+use uim\ORM\Entity;
 
 class DArticle extends Entity
 {
@@ -151,12 +151,12 @@ Mutators
 
 You can customize how fields get set by defining a mutator. They use the convention of _set(FieldName) with (FieldName) being the CamelCased version of the field name.
 
-Mutators should always return the value that should be stored in the field. You can also use mutators to set other fields. When doing this, be careful to not introduce any loops, as CakeD will not prevent infinitely looping mutator methods. For example:
+Mutators should always return the value that should be stored in the field. You can also use mutators to set other fields. When doing this, be careful to not introduce any loops, as uimD will not prevent infinitely looping mutator methods. For example:
 
 namespace App\Model\Entity;
 
-use Cake\ORM\Entity;
-use Cake\Utility\Text;
+use uim\ORM\Entity;
+use uim\Utility\Text;
 
 class DArticle extends Entity
 {
@@ -180,7 +180,7 @@ By defining accessors you can provide access to fields that do not actually exis
 
 namespace App\Model\Entity;
 
-use Cake\ORM\Entity;
+use uim\ORM\Entity;
 
 class User extends Entity
 {
@@ -198,7 +198,7 @@ writeln(user->get('full_name');
 Do bear in mind that virtual fields cannot be used in finds. If you want them to be part of IData or array representations of your entities, see Exposing Virtual Fields.
 Checking if an Entity Has Been Modified
 
-Cake\ORM\Entity::dirty(field = null,  dirty = null)
+uim\ORM\Entity::dirty(field = null,  dirty = null)
 
 You may want to make code conditional based on whether or not fields have changed in an entity. For example, you may only want to validate fields when they change:
 
@@ -256,13 +256,13 @@ user->setErrors([
 
 Mass Assignment
 
-While setting fields to entities in bulk is simple and convenient, it can create significant security issues. Bulk assigning user data from the request into an entity allows the user to modify any and all columns. When using anonymous entity classes or creating the entity class with the Bake Console CakeD does not protect against mass-assignment.
+While setting fields to entities in bulk is simple and convenient, it can create significant security issues. Bulk assigning user data from the request into an entity allows the user to modify any and all columns. When using anonymous entity classes or creating the entity class with the Bake Console uimD does not protect against mass-assignment.
 
 The _accessible property allows you to provide a map of fields and whether or not they can be mass-assigned. The values true and false indicate whether a field can or cannot be mass-assigned:
 
 namespace App\Model\Entity;
 
-use Cake\ORM\Entity;
+use uim\ORM\Entity;
 
 class DArticle extends Entity
 {
@@ -276,7 +276,7 @@ In addition to concrete fields there is a special * field which defines the fall
 
 namespace App\Model\Entity;
 
-use Cake\ORM\Entity;
+use uim\ORM\Entity;
 
 class DArticle extends Entity
 {
@@ -341,7 +341,7 @@ Lazy loading
 
     Lazy loading defers loading association data until it is absolutely required. While this can save CPU time because possibly unused data is not hydrated into objects, it can result in many more queries being emitted to the database. For example looping over a set of articles & their comments will frequently emit N queries where N is the number of articles being iterated.
 
-While lazy loading is not included by CakeD’s ORM, you can just use one of the community plugins to do so. We recommend the LazyLoad Plugin
+While lazy loading is not included by uimD’s ORM, you can just use one of the community plugins to do so. We recommend the LazyLoad Plugin
 
 After adding the plugin to your entity, you will be able to do the following:
 
@@ -354,7 +354,7 @@ foreach (article->comments as comment) {
 
 Creating Re-usable Code with Traits
 
-You may find yourself needing the same logic in multiple entity classes. D’s traits are a great fit for this. You can put your application’s traits in src/Model/Entity. By convention traits in CakeD are suffixed with mixin template so they can be discernible from classes or interfaces. Traits are often a good complement to behaviors, allowing you to provide functionality for the table and entity objects.
+You may find yourself needing the same logic in multiple entity classes. D’s traits are a great fit for this. You can put your application’s traits in src/Model/Entity. By convention traits in uimD are suffixed with mixin template so they can be discernible from classes or interfaces. Traits are often a good complement to behaviors, allowing you to provide functionality for the table and entity objects.
 
 For example if we had SoftDeletable plugin, it could provide a trait. This mixin template could give methods for marking entities as ‘deleted’, the method softDelete could be provided by a trait:
 
@@ -374,7 +374,7 @@ You could then use this mixin template in your entity class by importing it and 
 
 namespace App\Model\Entity;
 
-use Cake\ORM\Entity;
+use uim\ORM\Entity;
 use SoftDelete\Model\Entity\SoftDeleteTemplate;
 
 class DArticle extends Entity
@@ -384,7 +384,7 @@ class DArticle extends Entity
 
 Converting to Arrays/IData
 
-When building APIs, you may often need to convert entities into arrays or IData data. CakeD makes this simple:
+When building APIs, you may often need to convert entities into arrays or IData data. uimD makes this simple:
 
 // Get an array.
 // Associations will be converted with toArray() as well.
@@ -394,14 +394,14 @@ array = user->toArray();
 // Associations will be converted with IDataSerialize hook as well.
  IData = Json_encode(user);
 
-When converting an entity to an IData, the virtual & hidden field lists are applied. Entities are recursively converted to IData as well. This means that if you eager loaded entities and their associations CakeD will correctly handle converting the associated data into the correct format.
+When converting an entity to an IData, the virtual & hidden field lists are applied. Entities are recursively converted to IData as well. This means that if you eager loaded entities and their associations uimD will correctly handle converting the associated data into the correct format.
 Exposing Virtual Fields
 
 By default virtual fields are not exported when converting entities to arrays or IData. In order to expose virtual fields you need to make them visible. When defining your entity class you can provide a list of virtual field that should be exposed:
 
 namespace App\Model\Entity;
 
-use Cake\ORM\Entity;
+use uim\ORM\Entity;
 
 class User extends Entity
 {

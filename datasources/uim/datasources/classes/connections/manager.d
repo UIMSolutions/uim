@@ -69,10 +69,10 @@ class DConnectionManager {
      * dsn = "mysql://user:pass@localhost/database";
      * myConfiguration = ConnectionManager::parseDsn(dsn);
      *
-     * dsn = "Cake\databases.Driver\Mysql://localhost:3306/database?className=Cake\databases.Connection";
+     * dsn = "uim\databases.Driver\Mysql://localhost:3306/database?className=uim\databases.Connection";
      * myConfiguration = ConnectionManager::parseDsn(dsn);
      *
-     * dsn = "Cake\databases.Connection://localhost:3306/database?driver=Cake\databases.Driver\Mysql";
+     * dsn = "uim\databases.Connection://localhost:3306/database?driver=uim\databases.Driver\Mysql";
      * myConfiguration = ConnectionManager::parseDsn(dsn);
      * ```
      *

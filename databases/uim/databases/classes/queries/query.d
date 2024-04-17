@@ -413,11 +413,11 @@ abstract class DQuery : IQuery { // : IExpression {
      *    'p": [
      *        'table": 'publishers",
      *        'type": 'INNER",
-     *        'conditions": 'p.id = b.publisher_id AND p.name = "Cake Software Foundation"'
+     *        'conditions": 'p.id = b.publisher_id AND p.name = "uim Software Foundation"'
      *    ]
      * ]);
      * // LEFT JOIN authors a ON a.id = b.author_id
-     * // INNER JOIN publishers p ON p.id = b.publisher_id AND p.name = "Cake Software Foundation"
+     * // INNER JOIN publishers p ON p.id = b.publisher_id AND p.name = "uim Software Foundation"
      * ```
      *
      * ### Using conditions and types

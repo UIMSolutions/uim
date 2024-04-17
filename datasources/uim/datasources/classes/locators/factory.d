@@ -29,7 +29,7 @@ class DFactoryLocator {
         if (is_callable(factory)) {
             deprecationWarning(
                 "Using a callable as a locator has been deprecated."
-                ~ " Use an instance of Cake\Datasource\Locator\ILocatorinstead."
+                ~ " Use an instance of uim\Datasource\Locator\ILocatorinstead."
             );
 
             _modelFactories[type] = factory;
@@ -38,7 +38,7 @@ class DFactoryLocator {
         }
 
         throw new DInvalidArgumentException(sprintf(
-            "`factory` must be an instance of Cake\Datasource\Locator\ILocatoror a callable."
+            "`factory` must be an instance of uim\Datasource\Locator\ILocatoror a callable."
             ~ " Got type `%s` instead.",
             getTypeName(factory)
         ));

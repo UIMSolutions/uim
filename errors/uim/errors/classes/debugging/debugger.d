@@ -15,7 +15,7 @@ import uim.errors;
  * Debugger : D's default error handling and gives
  * simpler to use more powerful interfaces.
  *
- * @link https://book.cakephp.org/4/en/development/debugging.html#namespace-Cake\Error
+ * @link https://book.uimphp.org/4/en/development/debugging.html#namespace-uim\Error
  */
 class DDebugger {
     mixin TConfigurable;
@@ -74,8 +74,8 @@ class DDebugger {
             "escapeContext": true,
         ],
         'html': [
-            'trace': '<pre class="cake-error trace"><b>Trace</b> <p>{:trace}</p></pre>',
-            'context': '<pre class="cake-error context"><b>Context</b> <p>{:context}</p></pre>',
+            'trace': '<pre class="uim-error trace"><b>Trace</b> <p>{:trace}</p></pre>',
+            'context': '<pre class="uim-error context"><b>Context</b> <p>{:context}</p></pre>',
             'escapeContext': true,
         ],
         'txt': [
@@ -142,18 +142,18 @@ class DDebugger {
         aConfig = array_intersect_key((array)Configure::read('Debugger'), _defaultConfig);
         configuration.update(aConfig);
 
-        e = '<pre class="cake-error">';
+        e = '<pre class="uim-error">';
         e ~= '<a href="javascript:void(0);" onclick="document.getElementById(\'{:id}-trace\')';
         e ~= '.style.display = (document.getElementById(\'{:id}-trace\').style.display == ';
         e ~= '\'none\' ? \'\' : \'none\');"><b>{:error}</b> ({:code})</a>: {:description} ';
         e ~= '[<b>{:path}</b>, line <b>{:line}</b>]';
 
-        e ~= '<div id="{:id}-trace" class="cake-stack-trace" style="display: none;">';
+        e ~= '<div id="{:id}-trace" class="uim-stack-trace" style="display: none;">';
         e ~= '{:links}{:info}</div>';
         e ~= '</pre>';
         _stringTemplate['js']['error'] = e;
 
-        t = '<div id="{:id}-trace" class="cake-stack-trace" style="display: none;">';
+        t = '<div id="{:id}-trace" class="uim-stack-trace" style="display: none;">';
         t ~= '{:context}{:code}{:trace}</div>';
         _stringTemplate['js']['info'] = t;
 
@@ -170,17 +170,17 @@ class DDebugger {
 
         _stringTemplate['js']['links'] = links;
 
-        _stringTemplate['js']['context'] = '<pre id="{:id}-context" class="cake-context cake-debug" ';
+        _stringTemplate['js']['context'] = '<pre id="{:id}-context" class="uim-context uim-debug" ';
         _stringTemplate['js']['context'] ~= 'style="display: none;">{:context}</pre>';
 
-        _stringTemplate['js']['code'] = '<pre id="{:id}-code" class="cake-code-dump" ';
+        _stringTemplate['js']['code'] = '<pre id="{:id}-code" class="uim-code-dump" ';
         _stringTemplate['js']['code'] ~= 'style="display: none;">{:code}</pre>';
 
-        e = '<pre class="cake-error"><b>{:error}</b> ({:code}) : {:description} ';
+        e = '<pre class="uim-error"><b>{:error}</b> ({:code}) : {:description} ';
         e ~= '[<b>{:path}</b>, line <b>{:line}]</b></pre>';
         _stringTemplate['html']['error'] = e;
 
-        _stringTemplate['html']['context'] = '<pre class="cake-context cake-debug"><b>Context</b> ';
+        _stringTemplate['html']['context'] = '<pre class="uim-context uim-debug"><b>Context</b> ';
         _stringTemplate['html']['context'] ~= '<p>{:context}</p></pre>';
     }
 
@@ -211,7 +211,7 @@ class DDebugger {
      * @param mixed|null value The value to set.
      * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
      * @return mixed Config value being read, or the object itself on write operations.
-     * @throws uim.cake.Core\exceptions.UIMException When trying to set a key that is invalid.
+     * @throws uim.uim.Core\exceptions.UIMException When trying to set a key that is invalid.
      * /
     static function configInstance(key = null, value = null, bool merge = true) {
         if (key == null) {
@@ -310,7 +310,7 @@ class DDebugger {
      * @param int maxDepth The depth to output to. Defaults to 3.
      * @return void
      * @see uim.errors.Debugger::exportVar()
-     * @link https://book.cakephp.org/4/en/development/debugging.html#outputting-values
+     * @link https://book.uimphp.org/4/en/development/debugging.html#outputting-values
      * /
     static void dump(var, int maxDepth = 3) {
         pr(exportVar(var, maxDepth));
@@ -349,7 +349,7 @@ class DDebugger {
      *
      * @param array<string, mixed> options Format for outputting stack trace.
      * @return array|string Formatted stack trace.
-     * @link https://book.cakephp.org/4/en/development/debugging.html#generating-stack-traces
+     * @link https://book.uimphp.org/4/en/development/debugging.html#generating-stack-traces
      * /
     static function trace(IData[string] optionData = null) {
         return Debugger::formatTrace(debug_backtrace(), options);
@@ -370,7 +370,7 @@ class DDebugger {
      * @param \Throwable|array backtrace Trace as array or an exception object.
      * @param array<string, mixed> options Format for outputting stack trace.
      * @return array|string Formatted stack trace.
-     * @link https://book.cakephp.org/4/en/development/debugging.html#generating-stack-traces
+     * @link https://book.uimphp.org/4/en/development/debugging.html#generating-stack-traces
      * /
     static function formatTrace(backtrace, IData[string] optionData = null) {
         if (backtrace instanceof Throwable) {
@@ -463,8 +463,8 @@ class DDebugger {
         if (defined('APP') && strpos(path, APP) == 0) {
             return replace(APP, 'APP/', path);
         }
-        if (defined('CAKE_CORE_INCLUDE_PATH') && strpos(path, CAKE_CORE_INCLUDE_PATH) == 0) {
-            return replace(CAKE_CORE_INCLUDE_PATH, 'CORE', path);
+        if (defined('uim_CORE_INCLUDE_PATH') && strpos(path, uim_CORE_INCLUDE_PATH) == 0) {
+            return replace(uim_CORE_INCLUDE_PATH, 'CORE', path);
         }
         if (defined('ROOT') && strpos(path, ROOT) == 0) {
             return replace(ROOT, 'ROOT', path);
@@ -492,7 +492,7 @@ class DDebugger {
      * @param int context Number of lines of context to extract above and below line.
      * @return array<string> Set of lines highlighted
      * @see https://secure.php.net/highlight_string
-     * @link https://book.cakephp.org/4/en/development/debugging.html#getting-an-excerpt-from-a-file
+     * @link https://book.uimphp.org/4/en/development/debugging.html#getting-an-excerpt-from-a-file
      * /
     static string[] excerpt(string file, int line, int context = 2) {
         lines = null;
@@ -879,7 +879,7 @@ class DDebugger {
         }
 
         data['trace'] = trace;
-        data['id'] = 'cakeErr' . uniqid();
+        data['id'] = 'uimErr' . uniqid();
         tpl = _stringTemplate[outputFormat] + _stringTemplate['base'];
 
         if (isset(tpl['links'])) {

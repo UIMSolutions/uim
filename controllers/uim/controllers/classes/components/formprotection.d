@@ -75,12 +75,12 @@ class DFormProtectionComponent : DComponent {
         auto myhasData = (someData ||  request. is(["put", "post", "delete", "patch"]));
 
         if (
-            !in_array( request.getParam("action"), _config["unlockedActions"], true)
+            !in_array(request.getParam("action"), _config["unlockedActions"], true)
             && $hasData
             && _config["validate"]
             ) {
             auto sessionId = _getSessionId();
-            auto url = Router.url( request.getRequestTarget());
+            auto url = Router.url(request.getRequestTarget());
 
             auto formProtector = new DFormProtector(_config);
             isValid = formProtector.validate(someData, url, sessionId);
@@ -100,7 +100,7 @@ class DFormProtectionComponent : DComponent {
             someData.remove("_Token");
              request = request.withParsedBody(someData);
         }
-        this.getController().setRequest( request);
+        this.getController().setRequest(request);
 
         return null;
     }

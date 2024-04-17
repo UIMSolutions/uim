@@ -183,7 +183,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
             [, name] = namespaceSplit(class);
             this.name = substr(name, 0, -10);
         }
-        this.setRequest( request);
+        this.setRequest(request);
         this.response = new DResponse();
 
         if (eventManager !isNull) {
@@ -457,8 +457,8 @@ class DController : IController { // IEventListener, IEventDispatcher {
         if (template !isNull) {
              builder.setTemplate(template);
         }
-        if ( layout !isNull) {
-             builder.setLayout( layout);
+        if (layout !isNull) {
+             builder.setLayout(layout);
         }
         event = this.dispatchEvent("Controller.beforeRender");
         if (cast(Response)event.getResult()) {
@@ -467,11 +467,11 @@ class DController : IController { // IEventListener, IEventDispatcher {
         if (event.isStopped()) {
             return this.response;
         }
-        if ( builder.getTemplate() is null) {
+        if (builder.getTemplate() is null) {
              builder.setTemplate(this.request.getParam("action"));
         }
          viewClass = this.chooseViewClass();
-         view = this.createView( viewClass);
+         view = this.createView(viewClass);
 
         contents = view.render();
         response = view.getResponse().withStringBody(contents);
@@ -521,7 +521,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         auto typeMap = null;
         foreach (className; possibleViewClasses) {
              viewContentType = className.contentType();
-            if ( viewContentType && !typeMap.isSet( viewContentType)) {
+            if (viewContentType && !typeMap.isSet(viewContentType)) {
                 typeMap[viewContentType] = className;
             }
         }
@@ -540,7 +540,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         }
         // Use accept header based negotiation.
         auto contentType = new DContentTypeNegotiation();
-        if(auto preferredType = contentType.preferredType( request, typeMap.keys)) {
+        if(auto preferredType = contentType.preferredType(request, typeMap.keys)) {
             return typeMap[preferredType];
         }
         // Use the match-all view if available or null for no decision.
@@ -569,13 +569,13 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * returns Referring URL
      * /
     string referer(string[]  default = "/", bool  local = true) {
-         referer = this.request.referer( local);
-        if ( referer !isNull) {
+         referer = this.request.referer(local);
+        if (referer !isNull) {
             return  referer;
         }
-        url = Router.url( default, ! local);
+        url = Router.url(default, ! local);
          base = this.request.getAttribute("base");
-        if ( local &&  base && url.startsWith( base)) {
+        if (local &&  base && url.startsWith(base)) {
             url = substr(url,  base.length);
             if (url[0] != "/") {
                 url = "/" ~ url;
@@ -600,8 +600,8 @@ class DController : IController { // IEventListener, IEventDispatcher {
         IRepository|IQuery|string|null  object = null,
         IData[string] settingsForPagination = null
     ) {
-        if (!isObject( object)) {
-             object = this.fetchTable( object);
+        if (!isObject(object)) {
+             object = this.fetchTable(object);
         }
         settingsForPagination += this.paginate;
 
@@ -637,7 +637,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * /
     bool isAction(string actionName) {
          baseClass = new DReflectionClass(self.classname);
-        if ( baseClass.hasMethod(actionName)) {
+        if (baseClass.hasMethod(actionName)) {
             return false;
         }
         try {

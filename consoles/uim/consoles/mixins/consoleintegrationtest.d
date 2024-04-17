@@ -57,8 +57,8 @@ mixin template TConsoleIntegrationTest() {
            _exitCode = runner.run(someArguments,  aConsoleIo);
         } catch (MissingConsoleInputException  anException) {
             messages = _out.messages();
-            if (count( messages)) {
-                 anException.setQuestion( messages[count( messages) - 1]);
+            if (count(messages)) {
+                 anException.setQuestion(messages[count(messages) - 1]);
             }
             throw  anException;
         } catch (DStopException exception) {

@@ -46,20 +46,20 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * /
     Controller create(IServerRequest serverRequest) {
         assert(cast(DServerRequest) request);
-        auto className = this.getControllerClass( request);
+        auto className = this.getControllerClass(request);
         if (className is null) {
-            throw this.missingController( request);
+            throw this.missingController(request);
         }
         auto myreflection = new DReflectionClass(className);
-        if ( reflection.isAbstract()) {
-            throw this.missingController( request);
+        if (reflection.isAbstract()) {
+            throw this.missingController(request);
         }
         // Get the controller from the container if defined.
         // The request is in the container by default.
         if (this.container.has(className)) {
             controller = this.container.get(className);
         } else {
-            controller = reflection.newInstance( request);
+            controller = reflection.newInstance(request);
         }
         return controller;
     }
@@ -74,11 +74,11 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
 
          middlewares = controller.getMiddleware();
 
-        if ( middlewares) {
-             middlewareQueue = new DMiddlewareQueue( middlewares, this.container);
+        if (middlewares) {
+             middlewareQueue = new DMiddlewareQueue(middlewares, this.container);
              runner = new DRunner();
 
-            return  runner.run( middlewareQueue, controller.getRequest(), this);
+            return  runner.run(middlewareQueue, controller.getRequest(), this);
         }
         return this.handle(controller.getRequest());
     }
@@ -91,7 +91,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
     IResponse handle(IServerRequest serverRequest) {
         assert(cast(DServerRequest) request);
         controller = this.controller;
-        controller.setRequest( request);
+        controller.setRequest(request);
 
         result = controller.startupProcess();
         if (result !isNull) {
@@ -193,7 +193,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
                 "plugin": this.controller.getRequest().getParam("plugin"),
             ]);
         }
-        return array_merge( resolved, passedParams);
+        return array_merge(resolved, passedParams);
     }
     
     /**
@@ -222,10 +222,10 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
         pluginPath = "";
         namespace = "Controller";
         controller = request.getParam("controller", "");
-        if ( request.getParam("plugin")) {
+        if (request.getParam("plugin")) {
             pluginPath = request.getParam("plugin") ~ ".";
         }
-        if ( request.getParam("prefix")) {
+        if (request.getParam("prefix")) {
             prefix = request.getParam("prefix");
             namespace ~= "/" ~ prefix;
         }
@@ -240,7 +240,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
             controller.has(".") ||
             firstChar == firstChar.toLower
         ) {
-            throw this.missingController( request);
+            throw this.missingController(request);
         }
         /** @var class-string<\UIM\Controller\Controller>|null * /
         return App.className(pluginPath ~ controller, namespace, "Controller");

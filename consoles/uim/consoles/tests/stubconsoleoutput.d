@@ -14,7 +14,7 @@ import uim.consoles;
  * 
  *
  * output = new DStubConsoleOutput();
- * aConsoleIo = new DConsoleIo( output);
+ * aConsoleIo = new DConsoleIo(output);
  * ```
  */
 class DStubConsoleOutput : DConsoleOutput {

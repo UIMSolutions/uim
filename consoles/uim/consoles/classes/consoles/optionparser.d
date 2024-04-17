@@ -182,7 +182,7 @@ class DConsoleOptionParser {
             "boolean": BooleanData(true),
         ]);
 
-        if ( defaultOptions) {
+        if (defaultOptions) {
             this.addOption("verbose", [
                 "short": "v",
                 "help": "Enable verbose output.",
@@ -458,7 +458,7 @@ class DConsoleOptionParser {
             default = option.defaultValue();
 
             useDefault = !isSet(params[name]);
-            if ( default !isNull && useDefault && !isBoolean) {
+            if (default !isNull && useDefault && !isBoolean) {
                 params[name] = default;
             }
             if (isBoolean && useDefault) {
@@ -503,7 +503,7 @@ class DConsoleOptionParser {
         formatter.aliasName(_rootName);
 
         if (format == "text") {
-            return formatter.text( width);
+            return formatter.text(width);
         }
         if (format == "xml") {
             return to!string(formatter.xml());
@@ -540,7 +540,7 @@ class DConsoleOptionParser {
      * @throws \UIM\Console\Exception\ConsoleException When unknown short options are encountered.
      * /
     protected array _parseShortOption(string optionToParse, IData[string] params) {
-        string aKey = substr( option, 1);
+        string aKey = substr(option, 1);
         if (aKey.length > 1) {
             flags = str_split(aKey);
             aKey = flags[0];
@@ -586,10 +586,10 @@ class DConsoleOptionParser {
         } else if (isBoolean) {
             aValue = true;
         } else {
-            aValue = to!string( option.defaultValue());
+            aValue = to!string(option.defaultValue());
         }
         option.validChoice(aValue);
-        if ( option.acceptsMultiple()) {
+        if (option.acceptsMultiple()) {
             params[nameToParse] ~= aValue;
         } else {
             params[nameToParse] = aValue;

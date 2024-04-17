@@ -15,7 +15,7 @@ class DContentsRegExp : DContentsBase {
      * IData other Expected
      */
    bool matches(IData other) {
-        return preg_match( other, this.contents) > 0;
+        return preg_match(other, this.contents) > 0;
     }
     
     // Assertion message

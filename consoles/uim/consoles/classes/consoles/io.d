@@ -98,7 +98,7 @@ class DConsoleIo {
      * int level The current output level.
      * /
     int level(int level = null) {
-        if ( level !isNull) {
+        if (level !isNull) {
            _level = level;
         }
         return _level;
@@ -148,10 +148,10 @@ class DConsoleIo {
      * @param int level The message`s output level, see above.
      * /
     int out(string[] amessage = "", int newLinesToAppend = 1, int level = self.NORMAL) {
-        if ( level > _level) {
+        if (level > _level) {
             return null;
         }
-       _lastWritten = _out.write( message, newLinesToAppend);
+       _lastWritten = _out.write(message, newLinesToAppend);
 
         return _lastWritten;
     }
@@ -187,7 +187,7 @@ class DConsoleIo {
         string messageType = "comment";
         message = this.wrapMessageWithType(messageType, message);
 
-        return this.writeln( message, newLinesToAppend, level);
+        return this.writeln(message, newLinesToAppend, level);
     }
     
     /**
@@ -200,7 +200,7 @@ class DConsoleIo {
         string messageType = "warning";
         message = this.wrapMessageWithType(messageType, message);
 
-        return this.writeErrorMessages( message, newLinesToAppend);
+        return this.writeErrorMessages(message, newLinesToAppend);
     }
     
     /**
@@ -227,7 +227,7 @@ class DConsoleIo {
         string messageType = "success";
         message = this.wrapMessageWithType(messageType, message);
 
-        return this.writeln( message, newLinesToAppend, level);
+        return this.writeln(message, newLinesToAppend, level);
     }
     
     /**
@@ -277,7 +277,7 @@ class DConsoleIo {
         // Output backspaces.
         this.writeln(str_repeat("\x08", size), 0);
 
-        newBytes = (int)this.writeln( message, 0);
+        newBytes = (int)this.writeln(message, 0);
 
         // Fill any remaining bytes with spaces.
         fill = size - newBytes;
@@ -454,8 +454,8 @@ class DConsoleIo {
         }
         // If the application has configured a console logger
         // we don`t add a redundant one.
-        foreach ( loggerName; Log.configured()) {
-            log = Log.engine( loggerName);
+        foreach (loggerName; Log.configured()) {
+            log = Log.engine(loggerName);
             if (cast(DConsoleLog) log ) {
                 return;
             }
@@ -539,8 +539,8 @@ class DConsoleIo {
         try {
             // Create the directory using the current user permissions.
             directory = dirname(somePath);
-            if (!file_exists( directory)) {
-                mkdir( directory, 0777 ^ umask(), true);
+            if (!file_exists(directory)) {
+                mkdir(directory, 0777 ^ umask(), true);
             }
             file = new DSplFileObject(somePath, "w");
         } catch (RuntimeException) {

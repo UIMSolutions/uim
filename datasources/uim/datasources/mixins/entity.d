@@ -52,22 +52,28 @@ mixin template TEntity() {
   /**
      * List of field names that should **not** be included in IData or Array
      * representations of this Entity.
-    * /
+    */
   protected string[] _hidden = null;
 
   /**
      * List of computed or virtual fields that **should** be included in IData or array
      * representations of this Entity. If a field is present in both _hidden and _virtual
      * the field will **not** be in the array/IData versions of the entity.
-    * /
+    */
   protected string[] _virtual = null;
 
   /**
      * Holds a list of the fields that were modified or added after this object
      * was originally created.
-    * /
+    */
   protected bool[] _isDirty;
 
+  // List of errors per field as stored in this object.
+  protected IData[string] _fieldErrors;
+
+  // List of invalid fields and their data for errors upon validation/patching.
+  protected IData[string] _invalidFields;
+  
   /**
      * Holds a cached list of getters/setters per class
      *
@@ -82,11 +88,7 @@ mixin template TEntity() {
     * /
   protected bool _new = true;
 
-  // List of errors per field as stored in this object.
-  protected IData[string] _fieldErrors;
 
-  // List of invalid fields and their data for errors upon validation/patching.
-  protected IData[string] _invalidFields;
 
   /**
      * Map of fields in this entity that can be safely mass assigned, each
@@ -131,14 +133,9 @@ mixin template TEntity() {
     this.set(fieldName, aValue);
   }
 
-  /**
-     * Returns whether this entity contains a field named field
-     * and is not set to null.
-     * Params:
-     * string afield The field to check.
-    * /
-  bool __isSet(string fieldName) {
-    return !get(fieldName).isNull;
+  // Returns whether this entity contains a field named field and is not set to null.
+  bool __isSet(string fieldToCheck) {
+    return !get(fieldToCheck).isNull;
   }
 
   // Removes a field from this entity

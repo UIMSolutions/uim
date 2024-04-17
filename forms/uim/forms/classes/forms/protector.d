@@ -122,18 +122,16 @@ class DFormProtector {
      * Parses the field name to create a dot separated name value for use in
      * field hash. If fieldname is of form Model[field] or Model.field an array of
      * fieldname parts like ["Model", "field"] is returned.
-     * Params:
-     * string aName The form inputs name attribute.
      * /
-    protected string[] getFieldNameArray(string aName) {
-        if (isEmpty(name) && name != "0") {
+    protected string[] getFieldNameArray(string attributeName) {
+        if (isEmpty(attributeName) && attributeName != "0") {
             return null;
         }
-        if (!name.has("[")) {
-            return Hash.filter(split(".", name));
+        if (!attributeName.has("[")) {
+            return Hash.filter(split(".", attributeName));
         }
         
-        string[] someParts = split("[", name);
+        string[] someParts = split("[", attributeName);
         someParts = array_map(function (el) {
             return trim(el, "]");
         }, someParts);
@@ -145,18 +143,16 @@ class DFormProtector {
      * Add to the list of fields that are currently unlocked.
      *
      * Unlocked fields are not included in the field hash.
-     * Params:
-     * string aName The dot separated name for the field.
      * /
-    auto unlockField(string aName) {
+    auto unlockField(string fieldName) { // fieldName - dot separated name
         if (!in_array(name, this.unlockedFields, true)) {
-            this.unlockedFields ~= name;
+            this.unlockedFields ~= fieldName;
         }
-         anIndex = array_search(name, this.fields, true);
+         anIndex = array_search(fieldName, this.fields, true);
         if (anIndex != false) {
             unset(this.fields[anIndex]);
         }
-        unset(this.fields[name]);
+        unset(this.fields[fieldName]);
 
         return this;
     }

@@ -230,10 +230,11 @@ static IData[string] parseDsn(string adsn) {
      * string asource The existing connection to alias.
      * @param string aalias The alias name that resolves to `source`.
      * /
-            static void alias(string asource, string connectionAlias) {
-                _connectionAliases[connectionAlias] = source;}
+    static void alias(string connectionAlias, string sourceAlias) {
+        _connectionAliases[connectionAlias] = sourceAlias;
+    }
 
-                /**
+    /**
      * Drop an alias.
      *
      * Removes an alias from ConnectionManager. Fetching the aliased
@@ -263,14 +264,14 @@ static IData[string] parseDsn(string adsn) {
             connectionName = _connectionAliases[connectionName];
         }
         if (!isSet(configuration.data(connectionName])) {
-                throw new DMissingDatasourceConfigException(
-                    ["name": connectionName]); }
+            throw new DMissingDatasourceConfigException(
+                ["name": connectionName]); }
 
-                _registry ? _registry : new DConnectionRegistry();
-                    return _registry. {
-                        connectionName
-                    }
-                    ?  ? _registry.load(connectionName, configuration.data(
-                    connectionName]); 
+            _registry ? _registry : new DConnectionRegistry();
+                return _registry. {
+                    connectionName
+                }
+                ?  ? _registry.load(connectionName, configuration.data(
+                connectionName]); 
     }*/
 }

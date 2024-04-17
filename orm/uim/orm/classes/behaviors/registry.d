@@ -148,7 +148,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
                     finder,
                     duplicate[0]
                 );
-                throw new LogicException(error);
+                throw new DLogicException(error);
             }
             finders[finder] = [alias, methodName];
         }
@@ -162,7 +162,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
                     method,
                     duplicate[0]
                 );
-                throw new LogicException(error);
+                throw new DLogicException(error);
             }
             methods[myMethodKey] = [alias, methodName];
         }

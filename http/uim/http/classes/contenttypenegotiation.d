@@ -52,9 +52,8 @@ class DContentTypeNegotiation {
      * You can expect null when the request has no Accept header.
      * Params:
      * \Psr\Http\Message\IRequest request The request to use.
-     * string[] supportedChoices The supported content type choices.
      * /
-    string preferredType(IRequest request, string[] supportedChoices = []) {
+    string preferredType(IRequest request, string[] supportedContenttypeChoices = []) {
         auto parsed = this.parseAccept(request);
         if (parsed.isEmpty) {
             return null;
@@ -64,7 +63,7 @@ class DContentTypeNegotiation {
             return preferred[0];
         }
         foreach (acceptTypes; parsed ) {
-            auto common = array_intersect(acceptTypes, supportedChoices);
+            auto common = array_intersect(acceptTypes, supportedContenttypeChoices);
             if (common) {
                 return array_shift(common);
             }

@@ -57,6 +57,7 @@ class DFileCacheEngine : DCacheEngine {
         return true;
     }
 
+    /*
     override int decrement(string keyToDecrement, int numberToOffset = 1) {
         throw new DLogicException("Files cannot be atomically decremented.");
     }
@@ -64,7 +65,8 @@ class DFileCacheEngine : DCacheEngine {
     override int increment(string keyToIncrement, int numberToOffset = 1) {
         throw new DLogicException("Files cannot be atomically incremented.");
     }
-
+    */
+    
     // True unless FileEngine.__active(); fails
     protected bool _init = true;
 

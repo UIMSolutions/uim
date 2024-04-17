@@ -121,12 +121,11 @@ class DFlashComponent : DComponent {
      * use the `warning.d` element under `plugins/PluginName/templates/element/flash/` for
      * rendering the flash message.
      * Params:
-     * string aName Element name to use.
      * @param array someArguments Parameters to pass when calling `FlashComponent.set()`.
      * @throws \UIM\Http\Exception\InternalErrorException If missing the flash message.
      * /
     void __call(string elementName, array someArguments) {
-        anElement = Inflector.underscore(elementName);
+        auto anElement = Inflector.underscore(elementName);
 
         if (count(someArguments) == 0) {
             throw new DInternalErrorException("Flash message missing.");

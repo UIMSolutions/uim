@@ -220,7 +220,6 @@ class DController : IController { // IEventListener, IEventDispatcher {
      *
      * Will result in a `this.Authentication` being a reference to that component.
      * Params:
-     * string aName The name of the component to load.
      * configData - The config for the component.
      * /
     Component loadComponent(string componentName, IData[string] configData = null) {

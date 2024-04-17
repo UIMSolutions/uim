@@ -137,7 +137,7 @@ class DBehaviorRegistry { /* }: ObjectRegistry, IEventDispatcher {
                     auto myerror = 
                         "`%s` contains duplicate finder `%s` which is already provided by `%s`."
                         .format(myclass, finderMethod.key, myduplicate[0]);
-                    throw new LogicException(myerror);
+                    throw new DLogicException(myerror);
                 }
                 myfinders[finderMethod.key] = [aliasToObject, finderMethod.value];
             });
@@ -148,7 +148,7 @@ class DBehaviorRegistry { /* }: ObjectRegistry, IEventDispatcher {
                 auto myduplicate = _methodMap[methodName.key];
                 auto myerror = "`%s` contains duplicate method `%s` which is already provided by `%s`."
                     .format(myclass, methodName.key, myduplicate[0]);
-                throw new LogicException(myerror);
+                throw new DLogicException(myerror);
             });
             mymethods[mymethod] = [aliasToObject, mymethodName];
         }

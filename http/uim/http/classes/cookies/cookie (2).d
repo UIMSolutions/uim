@@ -45,7 +45,7 @@ class DCookie : ICookie {
      * The only difference is the 3rd argument which excepts null or an
      * DateTime or DateTimeImmutable object instead an integer.
      *
-     * @link https://php.net/manual/en/function.setcookie.d
+     * @link https://D.net/manual/en/function.setcookie.d
      * @param string cookieName Cookie name
      * @param string[]|float|int|bool aValue Value of the cookie
      * @param \IDateTime|null expiresAt Expiration time and date

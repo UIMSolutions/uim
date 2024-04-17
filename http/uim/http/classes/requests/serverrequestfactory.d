@@ -35,7 +35,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
         ["uri": anUri, "base": base, "webroot": webroot] = UriFactory.marshalUriAndBaseFromSapi(server);
 
         sessionConfig = (array)Configure.read("Session") ~ [
-            'defaults": 'php",
+            'defaults": 'D",
             'cookiePath": webroot,
         ];
         session = Session.create(sessionConfig);

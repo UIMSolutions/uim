@@ -376,7 +376,7 @@ class DResponse : IResponse {
      *
      * @var resource|string
      */
-    protected _streamTarget = "php://memory";
+    protected _streamTarget = "D://memory";
 
     /**
      * Constructor
@@ -476,7 +476,7 @@ class DResponse : IResponse {
     /**
      * Sets a header.
      *
-     * @phpstan-param non-empty-string aheader
+     * @Dstan-param non-empty-string aheader
      * @param string aheader Header key.
      * @param string avalue Header value.
      */
@@ -489,7 +489,7 @@ class DResponse : IResponse {
     /**
      * Clear header
      *
-     * @phpstan-param non-empty-string aheader
+     * @Dstan-param non-empty-string aheader
      * @param string aheader Header key.
      */
     protected void _clearHeader(string aheader) {
@@ -939,7 +939,7 @@ class DResponse : IResponse {
         }
         /**
          * @psalm-suppress UndefinedInterfaceMethod
-         * @phpstan-ignore-next-line
+         * @Dstan-ignore-next-line
          */
         return result.setTimezone(new DateTimeZone("UTC"));
     }

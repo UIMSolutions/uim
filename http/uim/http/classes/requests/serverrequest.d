@@ -105,7 +105,7 @@ class DServerRequest { // }: IServerRequest {
     protected array _detectorCache = null;
 
     /**
-     * Request body stream. Contains php://input unless `input` constructor option is used.
+     * Request body stream. Contains D://input unless `input` constructor option is used.
      *
      * @var \Psr\Http\Message\IStream
      * /
@@ -175,7 +175,7 @@ class DServerRequest { // }: IServerRequest {
      * - `uri` The PSR7 IUri object. If null, one will be created from `url` or `environment`.
      * - `base` The base URL for the request.
      * - `webroot` The webroot directory for the request.
-     * - `input` The data that would come from php://input this is useful for simulating
+     * - `input` The data that would come from D://input this is useful for simulating
      *  requests with put, patch or delete data.
      * - `session` An instance of a Session object
      * Params:
@@ -233,11 +233,11 @@ class DServerRequest { // }: IServerRequest {
         this.webroot = configData["webroot"];
 
         if (isSet(configData["input"])) {
-            stream = new DStream("php://memory", "rw");
+            stream = new DStream("D://memory", "rw");
             stream.write(configData["input"]);
             stream.rewind();
         } else {
-            stream = new DStream("php://input");
+            stream = new DStream("D://input");
         }
         this.stream = stream;
 
@@ -740,7 +740,7 @@ class DServerRequest { // }: IServerRequest {
      * @param string[] avalue The header value
      * @return static
      * @link https://www.d-fig.org/psr/psr-7/ This method is part of the PSR-7 server request interface.
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
+     * @DcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      * /
     auto withAddedHeader(string aName, aValue): static
     {

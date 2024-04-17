@@ -108,7 +108,7 @@ class DClientResponse { // }: Message : IResponse {
         if (this.getHeaderLine("Content-Encoding") == "gzip") {
             body = _decodeGzipBody(body);
         }
-        stream = new DStream("php://memory", "wb+");
+        stream = new DStream("D://memory", "wb+");
         stream.write(body);
         stream.rewind();
         this.stream = stream;
@@ -161,7 +161,7 @@ class DClientResponse { // }: Message : IResponse {
             }
             [name, aValue] = split(":", aValue, 2);
             aValue = trim(aValue);
-            /** @phpstan-var non-empty-string aName * /
+            /** @Dstan-var non-empty-string aName * /
             string name = trim(name);
             string normalized = name.toLower;
             if (isSet(this.headers[name])) {

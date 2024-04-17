@@ -111,7 +111,7 @@ class DSocket {
         }
         /**
          * @psalm-suppress InvalidArgument
-         * @phpstan-ignore-next-line
+         * @Dstan-ignore-next-line
          */
         set_error_handler(_connectionErrorHandler(...));
         remoteSocketTarget = scheme ~ configuration.get("host"];

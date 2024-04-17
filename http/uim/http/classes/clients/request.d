@@ -18,7 +18,7 @@ class DRequest { // }: Message, IRequest {
      *
      * Provides backwards compatible defaults for some properties.
      *
-     * @phpstan-param array<non-empty-string, non-empty-string>  aHeaders
+     * @Dstan-param array<non-empty-string, non-empty-string>  aHeaders
      * @param \Psr\Http\Message\IUri|string aurl The request URL
      * @param string amethod The HTTP method to use.
      * @param array  aHeaders The HTTP headers to set.
@@ -39,7 +39,7 @@ class DRequest { // }: Message, IRequest {
         this.addHeaders( aHeaders);
 
         if (someData is null) {
-            this.stream = new DStream("php://memory", "rw");
+            this.stream = new DStream("D://memory", "rw");
         } else {
             this.setContent(someData);
         }
@@ -72,13 +72,13 @@ class DRequest { // }: Message, IRequest {
         if (isArray(content)) {
             formData = new DFormData();
             formData.addMany(requestBody);
-            /** @phpstan-var array<non-empty-string, non-empty-string>  aHeaders *
+            /** @Dstan-var array<non-empty-string, non-empty-string>  aHeaders *
             /
              aHeaders = ["Content-Type": formData.contentType()];
             this.addHeaders( aHeaders);
             auto myFormData = (string)formData;
         }
-        stream = new DStream("php://memory", "rw");
+        stream = new DStream("D://memory", "rw");
         stream.write(myFormData);
         this.stream = stream;
     } */

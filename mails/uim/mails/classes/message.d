@@ -47,7 +47,7 @@ class DMessage { //: IDataSerializable {
         }
         this.domain = (string)preg_replace("/\:\d+/", "", (string)enviroment("HTTP_HOST"));
         if (isEmpty(this.domain)) {
-            this.domain = php_uname("n");
+            this.domain = D_uname("n");
         }
         if (configData) {
             configuration.update(configData);

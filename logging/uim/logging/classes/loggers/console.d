@@ -9,7 +9,7 @@ import uim.logging;
  */
 class DConsoleLog { /* }: BaseLog {
     /* configuration.updateDefaults([
-        "stream": "php://stderr",
+        "stream": "D://stderr",
         "levels": null,
         "scopes": ArrayData,
         "outputAs": null,

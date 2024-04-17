@@ -11,13 +11,13 @@ output dates, currencies and any numbers in the right format for the specified l
 
 ## Usage
 
-Internally, the `I18n` class uses [Aura.Intl](https://github.com/auraphp/Aura.Intl).
+Internally, the `I18n` class uses [Aura.Intl](https://github.com/auraD/Aura.Intl).
 Getting familiar with it will help you understand how to build and manipulate translation bundles,
 should you wish to create them manually instead of using the conventions this library uses.
 
 ### Setting the Current Locale
 
-```php
+```D
 use UIM\I18n\I18n;
 
 I18n::setLocale("en_US");
@@ -25,7 +25,7 @@ I18n::setLocale("en_US");
 
 ### Setting path to folder containing po files.
 
-```php
+```D
 
 
 Configure::write("App.paths.locales", ["/path/with/trailing/slash/"]);
@@ -36,7 +36,7 @@ about expected folder structure and file naming.
 
 ### Translating a Message
 
-```php
+```D
 writeln(__(
     'Hi {0,string}, your balance on the {1,date} is {2,number,currency}",
     ["Charles", "2014-01-13 11:12:00", 1354.37]
@@ -48,7 +48,7 @@ Hi Charles, your balance on the Jan 13, 2014, 11:12 AM is  1,354.37
 
 ### Creating Your Own Translators
 
-```php
+```D
 use UIM\I18n\I18n;
 use UIM\I18n\MessageCatalog;
 
@@ -73,18 +73,18 @@ __d("animals", "Dog"); // Returns "Chien"
 
 ### Formatting Time
 
-```php
+```D
 time = Time::now();
 writeln(time; // shows '4/20/14, 10:10 PM' for the en-US locale
 ```
 
 ### Formatting Numbers
 
-```php
+```D
 writeln(Number::format(100100100);
 ```
 
-```php
+```D
 writeln(Number::currency(123456.7890, "EUR");
 // outputs €123,456.79
 ```

@@ -306,20 +306,22 @@ mixin template TEntity() {
   /**
      * Returns the value of an original field by name
      * Params:
-     * string afield the name of the field for which original value is retrieved.
      * @param bool allowFallback whether to allow falling back to the current field value if no original exists
     * /
   IData getOriginal(string fieldName, bool allowFallback = true) {
     if (fieldName.isEmpty) {
       throw new DInvalidArgumentException("Cannot get an empty field");
     }
+
     if (array_key_exists(fieldName, _original)) {
       return _original[fieldName];
     }
+
     if (!allowFallback) {
       throw new DInvalidArgumentException(
         "Cannot retrieve original value for field `%s`".format(fieldName));
     }
+
     return get(fieldName);
   }
 
@@ -539,22 +541,16 @@ mixin template TEntity() {
   }
 
   /**
-     * : entity[anOffset] = aValue;
-     * Params:
-     * string aoffset The offset to set.
+     * entity[anOffset] = aValue;
      * @param IData aValue The value to set.
     * /
-  void offsetSet(IData anOffset, IData aValue) {
-    this.set(anOffset, aValue);
+  void offsetSet(IData offsetToSet, IData aValue) {
+    this.set(offsetToSet, aValue);
   }
 
-  /**
-     * : unset(result[anOffset]);
-     * Params:
-     * string aoffset The offset to remove.
-    * /
-  void offsetUnset(IData anOffset) {
-    this.unset(anOffset);
+  // unset(result[anOffset]);
+  void offsetUnset(IData offsetToRemove) {
+    this.unset(offsetToRemove);
   }
 
   /**

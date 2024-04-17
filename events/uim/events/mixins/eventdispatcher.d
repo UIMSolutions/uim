@@ -46,7 +46,6 @@ mixin template TEventDispatcher() {
      *
      * Returns a dispatched event.
      * Params:
-     * string aName Name of the event.
      * @param array data Any value you wish to be transported with this event to
      * it can be read by listeners.
      * @param TSubject|null subject The object that this event applies to
@@ -56,7 +55,7 @@ mixin template TEventDispatcher() {
     IEvent dispatchEvent(string eventName, array data = [], ?object subject = null) {
         subject ??= this;
 
-        event = new _eventClass(eventName, subject, someData);
+        auto event = new _eventClass(eventName, subject, someData);
         this.getEventManager().dispatch(event);
 
         return event;

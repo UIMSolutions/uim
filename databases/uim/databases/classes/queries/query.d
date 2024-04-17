@@ -805,23 +805,19 @@ abstract class DQuery : IQuery { // : IExpression {
      * This method does allow empty inputs in contrast to where() if you set
      * 'allowEmpty' to true.
      * Be careful about using it without proper sanity checks.
-     *
-     * Options:
-     *
-     * - `types` - Associative array of type names used to bind values to query
-     * - `allowEmpty` - Allow empty array.
-     * Params:
-     * string afield Field
-     * @param array  someValues Array of values
-      /
-    auto whereInList(string afield, array  someValues, IData[string] options = null) {
+     * /
+    auto whereInList(string fieldName, array someValues, IData[string] options = null) {
+        // `types` - Associative array of type names used to bind values to query
         options["types"] = ArrayData;
+
+        // `allowEmpty` - Allow empty array.
         options["allowEmpty"] = BooleanData(false);
 
-        if (options["allowEmpty"].get!bool && !someValues) {
+        if (options["allowEmpty"].toBoolean && !someValues) {
             return this.where("1=0");
         }
-        return this.where([field ~ " IN":  someValues], options["types"]);
+
+        return this.where([fieldName ~ " IN":  someValues], options["types"]);
     }
     
     /**
@@ -832,20 +828,19 @@ abstract class DQuery : IQuery { // : IExpression {
      * 'allowEmpty' to true.
      * Be careful about using it without proper sanity checks.
      * Params:
-     * string afield Field
      * @param array  someValues Array of values
-     * @param IData[string] options Options
      * /
-    auto whereNotInList(string afield, array someValues, IData[string] options = null) {
+    auto whereNotInList(string fieldName, array someValues, IData[string] options = null) {
         auto options = options.update([
             "types": ArrayData,
             "allowEmpty": BooleanData(false)
         ];
 
         if (options["allowEmpty"] && !someValues) {
-            return this.where([field ~ " IS NOT": null]);
+            return this.where([fieldName ~ " IS NOT": null]);
         }
-        return this.where([field ~ " NOT IN":  someValues], options["types"]);
+
+        return this.where([fieldName ~ " NOT IN":  someValues], options["types"]);
     }
     
     /**
@@ -1295,20 +1290,16 @@ abstract class DQuery : IQuery { // : IExpression {
      * - limit: integer or QueryExpression, null when not set
      * - offset: integer or QueryExpression, null when not set
      * - union: array
-     * Params:
-     * string aName name of the clause to be returned
      * /
-    IData clause(string aName) {
-        if (!array_key_exists(name, _parts)) {
+    IData clause(string clauseName) {
+        if (!array_key_exists(clauseName, _parts)) {
             clauses = _parts.keys;
             array_walk(clauses, fn (&$x): $x = "`$x`");
             clauses = join(", ", clauses);
             throw new DInvalidArgumentException(
                 "The `%s` clause is not defined. Valid clauses are: %s."
-                .format(
-                    name,
-                clauses
-            ));
+                .format(clauseName, clauses)
+            );
         }
         return _parts[name];
     }

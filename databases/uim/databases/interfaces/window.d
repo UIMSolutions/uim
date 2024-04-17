@@ -87,14 +87,13 @@ interface IWindow {
      * - `0` - 'CURRENT ROW'
      * - `null` - 'UNBOUNDED'
      * Params:
-     * string atype Frame type
      * @param \UIM\Database\IExpression|string|int startOffset Frame start offset
      * @param string astartDirection Frame start direction
      * @param \UIM\Database\IExpression|string|int endOffset Frame end offset
      * @param string aendDirection Frame end direction
      * /
     void frame(
-        string atype,
+        string frameType,
         IExpression|string|int startOffset,
         string astartDirection,
         IExpression|string|int endOffset,
@@ -104,9 +103,7 @@ interface IWindow {
     // Adds current row frame exclusion.
     auto excludeCurrent();
 
-    /**
-     * Adds group frame exclusion.
-     * /
+    // Adds group frame exclusion.
     auto excludeGroup();
 
     // Adds ties frame exclusion.

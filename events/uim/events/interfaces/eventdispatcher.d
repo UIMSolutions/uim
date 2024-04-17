@@ -21,14 +21,13 @@ interface IEventDispatcher {
      *
      * Returns a dispatched event.
      * Params:
-     * string aName Name of the event.
      * @param array data Any value you wish to be transported with this event to
      * it can be read by listeners.
      * @param TSubject|null subject The object that this event applies to
      * (this by default).
      * @return \UIM\Event\IEvent<TSubject>
      * /
-    IEvent dispatchEvent(string aName, array data = [], ?object subject = null);
+    IEvent dispatchEvent(string eventName, array data = [], ?object subject = null);
 
     /**
      * Sets the UIM\Event\EventManager manager instance for this object.
@@ -40,11 +39,7 @@ interface IEventDispatcher {
      * /
     auto setEventManager(IEventManager eventManager);
 
-    /**
-     * Returns the UIM\Event\EventManager manager instance for this object.
-     *
-     * @return \UIM\Event\IEventManager
-     * /
-    auto getEventManager(): IEventManager;
+    // Returns the UIM\Event\EventManager manager instance for this object.
+    IEventManager getEventManager();
     */
 }

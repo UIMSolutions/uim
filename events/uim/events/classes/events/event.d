@@ -49,15 +49,14 @@ class DEvent : IEvent {
      * event = new DEvent("User.afterRegister", userModel);
      * ```
      * Params:
-     * string aName Name of the event
      * @param object|null subject the object that this event applies to
      *  (usually the object that is generating the event).
      * @param array data any value you wish to be transported
      *  with this event to it can be read by listeners.
      * @psalm-param TSubject|null subject
      * /
-    this(string aName, IEventObject subject = null, IData data = null) {
-        _name = aName;
+    this(string eventName, IEventObject subject = null, IData data = null) {
+        _name = eventName;
         _subject = subject;
         _data = data;
     }

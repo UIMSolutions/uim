@@ -9,10 +9,8 @@ import uim.events;
  * @template-implements \ArrayAccess<int, \UIM\Event\IEvent>
  */
 class DEventList { // }: ArrayAccess, Countable {
-    /**
-     * Events list
-     * /
-    protected IEvent<object>[] _events = null;
+    // Events list
+    protected IEvent[] _events = null;
 
     // Empties the list of dispatched events.
     void flush() {
@@ -84,17 +82,9 @@ class DEventList { // }: ArrayAccess, Countable {
         return count(_events);
     }
     
-    /**
-     * Checks if an event is in the list.
-     * Params:
-     * string aName Event name.
-     * /
-    bool hasEvent(string aName) {
-        foreach (event; _events) {
-            if (event.name == name) {
-                return true;
-            }
-        }
-        return false;
-    } */
+    // Checks if an event is in the list.
+    bool hasEvent(string eventName) {
+        return _events.any!(event => event.name == eventName)
+    }
+    */
 }

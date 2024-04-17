@@ -56,19 +56,17 @@ HTML;
     /**
      * Render a toggle link in the error content.
      * Params:
-     * string atext The text to insert. Assumed to be HTML safe.
      * @param string aid The error id scope.
      * @param string asuffix The element selector.
      * /
-    private string renderToggle(string atext, string aid, string asuffix) {
+    private string renderToggle(string textToInsert, string aid, string asuffix) {
         selector =  anId ~ "-" ~ suffix;
-
         
         return <<<HTML
 <a href="javascript:void(0);"
   onclick="document.getElementById("{selector}").style.display = (document.getElementById("{selector}").style.display == "none' ? "" : 'none")"
 >
-    {text}
+    {textToInsert}
 </a>
 HTML;
         

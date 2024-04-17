@@ -151,11 +151,7 @@ interface IDatasourceEntity { // : ArrayAccess, IDataSerializable
      * /
    void requireFieldPresence(bool aValue = true);
 
-   /**
-     * Returns whether a field has an original value
-     * Params:
-     * string fieldName
-     * /
+   // Returns whether a field has an original value
    bool hasOriginal(string fieldName);
 
    /**

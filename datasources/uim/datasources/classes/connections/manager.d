@@ -238,17 +238,17 @@ static IData[string] parseDsn(string adsn) {
      *
      * Removes an alias from ConnectionManager. Fetching the aliased
      * connection may fail if there is no other connection with that name.
-     * Params:
-     * string aalias The connection alias to drop
      * /
-                static void dropAlias(string aalias) {
-                    unset(_connectionAliases[alias]);}
+    static void dropAlias(string connectionAlias) {
+        unset(_connectionAliases[connectionAlias]);
+    }
 
-                    // Returns the current connection aliases and what they alias.
-                    static STRINGAA aliases() {
-                        return _connectionAliases;}
+    // Returns the current connection aliases and what they alias.
+    static STRINGAA aliases() {
+        return _connectionAliases;
+    }
 
-                        /**
+    /**
      * Get a connection.
      *
      * If the connection has not been constructed an instance will be added
@@ -256,21 +256,21 @@ static IData[string] parseDsn(string adsn) {
      * defined. If you want the original unaliased connections pass `false`
      * as second parameter.
      * Params:
-     * string connectionName The connection name.
      * @param bool useAliases Whether connection aliases are used
      * /
-                        static IConnection get(string connectionName, bool useAliases = true) {
-                            if (useAliases && isSet(_connectionAliases[connectionName])) {
-                                connectionName = _connectionAliases[connectionName];
-                            }
-                            if (!isSet(configuration.data(connectionName])) {
-                                    throw new DMissingDatasourceConfigException(
-                                        ["name": connectionName]); }
+    static IConnection get(string connectionName, bool useAliases = true) {
+        if (useAliases && isSet(_connectionAliases[connectionName])) {
+            connectionName = _connectionAliases[connectionName];
+        }
+        if (!isSet(configuration.data(connectionName])) {
+                throw new DMissingDatasourceConfigException(
+                    ["name": connectionName]); }
 
-                                    _registry ? _registry : new DConnectionRegistry();
-                                        return _registry. {
-                                            connectionName
-                                        }
-                                     ?  ? _registry.load(connectionName, configuration.data(
-                                        connectionName]); }*/
+                _registry ? _registry : new DConnectionRegistry();
+                    return _registry. {
+                        connectionName
+                    }
+                    ?  ? _registry.load(connectionName, configuration.data(
+                    connectionName]); 
+    }*/
 }

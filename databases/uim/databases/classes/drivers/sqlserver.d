@@ -241,7 +241,7 @@ class DSqlserverDriver : DDriver {
 
         auto aQuery = clone  original;
         aQuery.select([
-                "_cake_page_rownum_": new UnaryExpression("ROW_NUMBER() OVER",  order),
+                "_cake_page_rownum_": new DUnaryExpression("ROW_NUMBER() OVER",  order),
             ]).limit(null)
             .offset(null)
             .orderBy([], true);

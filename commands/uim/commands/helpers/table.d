@@ -97,7 +97,7 @@ class DTableHelper { // }: Helper {
           }
           if (column != "" && preg_match("#(.*)<text-right>.+</text-right>(.*)#", column, matches)) {
             if ( matches[1] != "" || ! matches[2].isEmpty) {
-              throw new UnexpectedValueException(
+              throw new DUnexpectedValueException(
                 "You cannot include text before or after the text-right tag.");
             }
             column = column.replace(["<text-right>", "</text-right>"], "");

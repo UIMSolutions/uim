@@ -25,7 +25,7 @@ class DTestExceptionRenderer : IExceptionRenderer {
     }
  
     IResponse render() {
-        throw new LogicException("You cannot use this class to render exceptions.");
+        throw new DLogicException("You cannot use this class to render exceptions.");
     }
     
     /**

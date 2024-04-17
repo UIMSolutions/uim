@@ -47,7 +47,7 @@ mixin template TCollection() {
             return myv;
         };
 
-        return new UniqueIterator(this.unwrap(), mycallback);
+        return new DUniqueIterator(this.unwrap(), mycallback);
     }
  
     bool every(callable aCallback) {
@@ -561,7 +561,7 @@ mixin template TCollection() {
 
         return this.newCollection(
             new DRecursiveIteratorIterator(
-                new UnfoldIterator(this.unwrap(), mycallback),
+                new DUnfoldIterator(this.unwrap(), mycallback),
                 RecursiveIteratorIterator.LEAVES_ONLY
             )
         );

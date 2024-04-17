@@ -94,7 +94,7 @@ class DSelectWithPivotLoader : DSelectLoader {
         return aQuery;
     }
  
-    protected void _assertFieldsPresent(SelectQuery fetchQuery, array aKey) {
+    protected void _assertFieldsPresent(DSelectQuery fetchQuery, array aKey) {
         // _buildQuery() manually adds in required fields from junction table
     }
     
@@ -122,7 +122,7 @@ class DSelectWithPivotLoader : DSelectLoader {
      * \ORM\Query\SelectQuery fetchQuery The query to get results from
      * @param IData[string] options The options passed to the eager loader
      * /
-    protected IData[string] _buildResultMap(SelectQuery fetchQuery, IData[string] options = null) {
+    protected IData[string] _buildResultMap(DSelectQuery fetchQuery, IData[string] options = null) {
         resultMap = null;
         aKey = (array)options["foreignKey"];
 

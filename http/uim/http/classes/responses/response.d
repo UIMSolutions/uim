@@ -1224,7 +1224,7 @@ class DResponse : IResponse {
      * Convenience method to set a string into the response body
      * Params:
      * string|null string The string to be sent
-     */
+     * /
     static withStringBody(string astring) {
         new = clone this;
         new._createStream();
@@ -1237,7 +1237,7 @@ class DResponse : IResponse {
      * Validate a file path is a valid response body.
      * Params:
      * @throws \UIM\Http\Exception\NotFoundException
-     */
+     * /
     protected ISplFileInfo validateFile(string filePath) {
         if (filePath.has("../") || somefilePathPath.has("..\\")) {
             throw new DNotFoundException(__d("uim", "The requested file contains `..` and will not be read."));

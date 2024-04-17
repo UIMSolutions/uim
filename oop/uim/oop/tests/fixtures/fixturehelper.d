@@ -54,10 +54,10 @@ class DFixtureHelper {
                  className = fixtureName;
             }
             if (isSet(fixtures[className])) {
-                throw new UnexpectedValueException("Found duplicate fixture `%s`.".format(fixtureName));
+                throw new DUnexpectedValueException("Found duplicate fixture `%s`.".format(fixtureName));
             }
             if (!class_exists(className)) {
-                throw new UnexpectedValueException("Could not find fixture `%s`.".format(fixtureName));
+                throw new DUnexpectedValueException("Could not find fixture `%s`.".format(fixtureName));
             }
             if (!cachedFixtures.isSet(className)) {
                 cachedFixtures[className] = new className();

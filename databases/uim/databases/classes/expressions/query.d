@@ -182,7 +182,7 @@ class DQueryExpression : DExpression { // }, Countable {
         if (!(cast(IExpression)field )) {
             field = new DIdentifierExpression(field);
         }
-        return this.add(new UnaryExpression("isNull", field, UnaryExpression.POSTFIX));
+        return this.add(new DUnaryExpression("isNull", field, UnaryExpression.POSTFIX));
     }
     
     /**
@@ -194,7 +194,7 @@ class DQueryExpression : DExpression { // }, Countable {
         if (!(cast(IExpression)field)) {
             field = new DIdentifierExpression(field);
         }
-        return this.add(new UnaryExpression("IS NOT NULL", field, UnaryExpression.POSTFIX));
+        return this.add(new DUnaryExpression("IS NOT NULL", field, UnaryExpression.POSTFIX));
     }
     
     /**
@@ -320,7 +320,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * \UIM\Database\IExpression expression the inner query
      * /
     auto exists(IExpression expression) {
-        return this.add(new UnaryExpression("EXISTS", expression, UnaryExpression.PREFIX));
+        return this.add(new DUnaryExpression("EXISTS", expression, UnaryExpression.PREFIX));
     }
     
     /**
@@ -329,7 +329,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * \UIM\Database\IExpression expression the inner query
      * /
     auto notExists(IExpression expression) {
-        return this.add(new UnaryExpression("NOT EXISTS", expression, UnaryExpression.PREFIX));
+        return this.add(new DUnaryExpression("NOT EXISTS", expression, UnaryExpression.PREFIX));
     }
     
     /**
@@ -532,7 +532,7 @@ class DQueryExpression : DExpression { // }, Countable {
                 continue;
             }
             if (isNot) {
-               _conditions ~= new UnaryExpression("NOT", new static(c, typeMap));
+               _conditions ~= new DUnaryExpression("NOT", new static(c, typeMap));
                 continue;
             }
             if (!numericKey) {
@@ -592,14 +592,14 @@ class DQueryExpression : DExpression { // }, Countable {
             aValue = cast(IExpression)aValue  ? aValue : (array)aValue;
         }
         if ( operator == "IS' && aValue is null) {
-            return new UnaryExpression(
+            return new DUnaryExpression(
                 'isNull",
                 new DIdentifierExpression(expression),
                 UnaryExpression.POSTFIX
             );
         }
         if ( operator == "IS NOT" && aValue is null) {
-            return new UnaryExpression(
+            return new DUnaryExpression(
                 "IS NOT NULL",
                 new DIdentifierExpression(expression),
                 UnaryExpression.POSTFIX

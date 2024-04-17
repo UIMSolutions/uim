@@ -62,7 +62,7 @@ mixin template TModelAware() {
     IRepository fetchModel(string amodelClass = null, string amodelType = null) {
         modelClass ??= this.modelClass;
         if (isEmpty(modelClass)) {
-            throw new UnexpectedValueException("Default modelClass is empty");
+            throw new DUnexpectedValueException("Default modelClass is empty");
         }
         modelType ??= this.getModelType();
 

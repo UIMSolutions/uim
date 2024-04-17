@@ -90,7 +90,7 @@ class DHttpsEnforcerMiddleware { // }: IMiddleware {
     protected IResponse addHsts(IResponse response) {
         configData = configuration.get("hsts"];
         if (!isArray(configData)) {
-            throw new UnexpectedValueException("The `hsts` config must be an array.");
+            throw new DUnexpectedValueException("The `hsts` config must be an array.");
         }
         aValue = "max-age=" ~ configData("maxAge"];
         if (configData("includeSubDomains"] ?? false) {

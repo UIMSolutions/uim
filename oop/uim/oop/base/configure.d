@@ -73,7 +73,7 @@ class DConfigure {
             }
             if (configuration.hasKey("debug") && UIM_SAPI != "cli' && ini_get(" zend.assertions") == " - 1 ") {
                 trigger_error(
-                    'You should set `zend.assertions` to `1` in your php.ini for your development environment.",
+                    'You should set `zend.assertions` to `1` in your D.ini for your development environment.",
                 E_USER_WARNING
                 );
         }

@@ -348,7 +348,7 @@ class DText {
     /**
      * Unicode and newline aware version of wordwrap.
      *
-     * @phpstan-param non-empty-string mybreak
+     * @Dstan-param non-empty-string mybreak
      * @param string textToFormat The text to format.
      * @param int mywidth The width to wrap to. Defaults to 72.
      * @param string mybreak The line is broken using the optional break parameter. Defaults to "\n".

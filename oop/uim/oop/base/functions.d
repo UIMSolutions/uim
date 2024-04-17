@@ -101,7 +101,7 @@ if (!function_exists("UIM\Core\pr")) {
         if (!Configure.read("debug")) {
             return var;
         }
-        template = UIM_SAPI != "cli' && UIM_SAPI != "phpdbg' ? "<pre class="pr">%s</pre>' : "\n%s\n\n";
+        template = UIM_SAPI != "cli' && UIM_SAPI != "Ddbg' ? "<pre class="pr">%s</pre>' : "\n%s\n\n";
         printf(template, trim(print_r(var, true)));
 
         return var;
@@ -123,7 +123,7 @@ if (!function_exists("UIM\Core\pj")) {
         if (!Configure.read("debug")) {
             return var;
         }
-        template = UIM_SAPI != "cli' && UIM_SAPI != "phpdbg' ? "<pre class="pj">%s</pre>' : "\n%s\n\n";
+        template = UIM_SAPI != "cli' && UIM_SAPI != "Ddbg' ? "<pre class="pj">%s</pre>' : "\n%s\n\n";
         flags = Json_PRETTY_PRINT | Json_UNESCAPED_UNICODE | Json_UNESCAPED_SLASHES;
         printf(template, trim(to!string(Json_encode(var, flags))));
 

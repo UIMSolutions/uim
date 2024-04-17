@@ -214,7 +214,7 @@ class Hash {
                 (myop == "<" && myprop >= myval) ||
                 (myop == ">=" && myprop < myval) ||
                 (myop == "<=" && myprop > myval)
-                // phpcs:enable
+                // Dcs:enable
             ) {
                 return false;
             }
@@ -594,7 +594,7 @@ class Hash {
      * into a multi-dimensional array. So, `["0.Foo.Bar": "Far"]` becomes
      * `[["Foo": ["Bar": "Far"]]]`.
      *
-     * @phpstan-param non-empty-string myseparator
+     * @Dstan-param non-empty-string myseparator
      * @param array data Flattened array
      * @param string myseparator The delimiter used
      * /

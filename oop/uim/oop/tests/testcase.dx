@@ -716,7 +716,7 @@ abstract class DTestCase : DBaseTestCase {
     protected string _normalizePath(string aPath) {
         return str_replace("/", DIRECTORY_SEPARATOR, somePath);
     }
-// phpcs:disable
+// Dcs:disable
 
     /**
      * Compatibility auto to test if a value is between an acceptable range.
@@ -771,7 +771,7 @@ abstract class DTestCase : DBaseTestCase {
         }
         return condition;
     }
-// phpcs:enable
+// Dcs:enable
 
     /**
      * Mock a model, maintain fixtures and table association

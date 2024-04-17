@@ -41,7 +41,7 @@ class DSchemaLoader {
     ) {
         files = (array)somePaths;
 
-        // Don"t create schema if we are in a phpunit separate process test method.
+        // Don"t create schema if we are in a Dunit separate process test method.
         if (isSet(GLOBALS["__DUNIT_BOOTSTRAP"])) {
             return;
         }

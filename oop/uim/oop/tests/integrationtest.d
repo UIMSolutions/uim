@@ -443,7 +443,7 @@ mixin template TIntegrationTest() {
      * /
     protected array _buildRequest(string aurl, string amethod, string[] adata = []) {
         sessionConfig = (array)Configure.read("Session") ~ [
-            "defaults": "php",
+            "defaults": "D",
         ];
         session = Session.create(sessionConfig);
         [url, aQuery, hostInfo] = _url(url);

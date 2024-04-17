@@ -64,7 +64,7 @@ class DMiddlewareDispatcher {
             chain(_SERVER, ["REQUEST_URI": spec["url"]]),
             spec["environment"]
         );
-        if (environment["UIM_SELF"].has("phpunit")) {
+        if (environment["UIM_SELF"].has("Dunit")) {
             environment["UIM_SELF"] = "/";
         }
         request = ServerRequestFactory.fromGlobals(

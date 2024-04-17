@@ -114,7 +114,7 @@ template TStaticConfig() {
         if (!isSet(configuration.data(configData])) {
             return false;
         }
-        /** @phpstan-ignore-next-line * /
+        /** @Dstan-ignore-next-line * /
         if (isSet(_registry)) {
             _registry.unload(configData);
         }

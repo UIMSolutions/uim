@@ -117,7 +117,7 @@ class DFilesystem {
             return;
         }
         myold = umask(0);
-        // phpcs:ignore
+        // Dcs:ignore
         if (!@mkdir(mydir, mymode, true)) {
             umask(myold);
             throw new UimException("Failed to create directory `%s`".format(mydir));
@@ -148,12 +148,12 @@ class DFilesystem {
         myiterator.each!((fileInfo) {
             myisWindowsLink = DIRECTORY_SEPARATOR == "\\" && fileInfo.getType() == "link";
             if (fileInfo.getType() == self.TYPE_DIR || myisWindowsLink) {
-                // phpcs:ignore
+                // Dcs:ignore
                 result = result && @rmdir(fileInfo.getPathname());
                 unset(fileInfo);
                 continue;
             }
-            // phpcs:ignore
+            // Dcs:ignore
             result = result && @unlink(fileInfo.getPathname());
             // possible inner iterators need to be unset too in order for locks on parents to be released
             unset(fileInfo);
@@ -162,7 +162,7 @@ class DFilesystem {
         // which could otherwise make `rmdir()` fail
         unset(myiterator);
 
-        // phpcs:ignore
+        // Dcs:ignore
         return result && @rmdir(mypath);
     }
     

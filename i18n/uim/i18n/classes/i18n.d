@@ -172,7 +172,7 @@ class DI18n {
     
     /**
      * Sets the default locale to use for future translator instances.
-     * This also affects the `intl.default_locale` PHP setting.
+     * This also affects the `intl.default_locale` D setting.
      * Params:
      * string alocale The name of the locale to set as default.
       /
@@ -186,7 +186,7 @@ class DI18n {
     
     /**
      * Will return the currently configure locale as stored in the
-     * `intl.default_locale` PHP setting.
+     * `intl.default_locale` D setting.
      * /
     static string getLocale() {
         getDefaultLocale();
@@ -202,7 +202,7 @@ class DI18n {
      * Returns the default locale.
      *
      * This returns the default locale before any modifications, i.e.
-     * the value as stored in the `intl.default_locale` PHP setting before
+     * the value as stored in the `intl.default_locale` D setting before
      * any manipulation by this class.
     * /
     static string getDefaultLocale() {

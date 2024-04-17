@@ -65,7 +65,7 @@ class DTimestampBehavior : DBehavior {
 
         foreach (myfield: mywhen; myevents[myeventName]) {
             if (!in_array(mywhen, ["always", "new", "existing"], true)) {
-                throw new UnexpectedValueException(
+                throw new DUnexpectedValueException(
                     "When should be one of "always", "new" or "existing". The passed value `%s` is invalid."
                     .format(mywhen
                 ));

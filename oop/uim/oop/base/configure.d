@@ -284,7 +284,7 @@ static string[] configured() {
     /**
      * Dump data currently in Configure into aKey. The serialization format
      * is decided by the config engine attached as configData. For example, if the
-     * "default" adapter is a PhpConfig, the generated file will be a PHP
+     * "default" adapter is a PhpConfig, the generated file will be a D
      * configuration file loadable by the PhpConfig.
      *
      * ### Usage

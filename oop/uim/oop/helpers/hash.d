@@ -622,7 +622,7 @@ class Hash {
     }
     
     /**
-     * This auto can be thought of as a hybrid between PHP"s `array_merge` and `array_merge_recursive`.
+     * This auto can be thought of as a hybrid between D"s `array_merge` and `array_merge_recursive`.
      *
      * The difference between this method and the built-in ones, is that if an array key contains another array, then
      * Hash.merge() will behave in a recursive fashion (unlike `array_merge`). But it will not act recursively for

@@ -201,7 +201,7 @@ class DRulesChecker { // }: BaseRulesChecker {
                     .format(myassociationAlias);
             }
         }
-        myrule = new LinkConstraint(
+        myrule = new DLinkConstraint(
             myassociation,
             mylinkStatus
         );

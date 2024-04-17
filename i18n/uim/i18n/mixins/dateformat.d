@@ -13,7 +13,7 @@ mixin template TDateFormat() {
 
     /**
      * Returns a translated and localized date string.
-     * : what IntlDateFormatter.formatObject() is in PHP 5.5+
+     * : what IntlDateFormatter.formatObject() is in D 5.5+
      * Params:
      * \IDateTime date Date.
      * @param array<int>|string aformat Format.

@@ -42,7 +42,7 @@ class DSchemaLoader {
         files = (array)somePaths;
 
         // Don"t create schema if we are in a phpunit separate process test method.
-        if (isSet(GLOBALS["__PHPUNIT_BOOTSTRAP"])) {
+        if (isSet(GLOBALS["__DUNIT_BOOTSTRAP"])) {
             return;
         }
         if (dropTables) {
@@ -125,7 +125,7 @@ class DSchemaLoader {
      * /
     void loadInternalFile(string afile, string aconnectionName = "test") {
         // Don"t reload schema when we are in a separate process state.
-        if (isSet(GLOBALS["__PHPUNIT_BOOTSTRAP"])) {
+        if (isSet(GLOBALS["__DUNIT_BOOTSTRAP"])) {
             return;
         }
         this.helper.dropTables(aConnectionName);

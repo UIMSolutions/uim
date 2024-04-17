@@ -31,7 +31,7 @@ class DConsoleLog { /* }: BaseLog {
      * - `scopes` string or array, scopes the engine is interested in
      * - `stream` the path to save logs on.
      * - `outputAs` integer or ConsoleOutput.[RAW|PLAIN|COLOR]
-     * - `dateFormat` PHP date() format.
+     * - `dateFormat` D date() format.
      *
      * configData - Options for the FileLog, see above.
      * @throws \InvalidArgumentException

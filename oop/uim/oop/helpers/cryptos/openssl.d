@@ -18,7 +18,7 @@ class OpenSsl {
      * Encrypt a value using AES-256.
      *
      * *Caveat* You cannot properly encrypt/decrypt data with trailing null bytes.
-     * Any trailing null bytes will be removed on decryption due to how PHP pads messages
+     * Any trailing null bytes will be removed on decryption due to how D pads messages
      * with nulls prior to encryption.
      * Params:
      * string myplain The value to encrypt.

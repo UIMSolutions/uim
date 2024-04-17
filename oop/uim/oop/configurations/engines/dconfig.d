@@ -5,8 +5,8 @@ import uim.oop;
 @safe:
 
 /**
- * PHP engine allows Configure to load configuration values from
- * files containing simple PHP arrays.
+ * D engine allows Configure to load configuration values from
+ * files containing simple D arrays.
  *
  * Files compatible with PhpConfig should return an array that
  * contains all the configuration data contained in the file.
@@ -60,7 +60,7 @@ class DConfig : IConfigEngine {
     }
     
     /**
-     * Converts the provided someData into a string of PHP code that can
+     * Converts the provided someData into a string of D code that can
      * be used saved into a file and loaded later.
      * Params:
      * string aKey The identifier to write to. If the key has a ~ it will be treated

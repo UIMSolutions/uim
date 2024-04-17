@@ -522,7 +522,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         foreach (className; possibleViewClasses) {
              viewContentType = className.contentType();
             if ( viewContentType && !typeMap.isSet( viewContentType)) {
-                typeMap[ viewContentType] = className;
+                typeMap[viewContentType] = className;
             }
         }
          request = this.getRequest();

@@ -89,7 +89,7 @@ class DPaginator : IPaginator {
      *      "limit":20,
      *      "maxLimit":100
      *    ],
-     *    "Comments":[ ... ]
+     *    "Comments":[... ]
      *  ];
      *  myResults = paginator.paginate(myTable, settings);
      * ```

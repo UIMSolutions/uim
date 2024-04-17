@@ -69,7 +69,7 @@ class DTupleComparisonExpression : DComparisonExpression {
     string sql(DValueBinder aBinder) {
          originalFields = this.getFieldNames();
         if (!isArray( originalFields)) {
-             originalFields = [ originalFields];
+             originalFields = [originalFields];
         }
         string[] fields;
          originalFields.each!(field => fields ~= cast(IExpression) field

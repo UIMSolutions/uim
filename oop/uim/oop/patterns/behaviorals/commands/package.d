@@ -19,10 +19,10 @@ class DStock {
   private int quantity = 10;
 
   void buy() {
-    writeln("Stock [ Name: %s, Quantity: %s ] bought".format(name, quantity));
+    writeln("Stock [Name: %s, Quantity: %s ] bought".format(name, quantity));
   }
   void sell() {
-    writeln("Stock [ Name: %s, Quantity: %s ] sold".format(name, quantity));
+    writeln("Stock [Name: %s, Quantity: %s ] sold".format(name, quantity));
   }
 }
 

@@ -318,11 +318,7 @@ class DFileCacheEngine : DCacheEngine {
         return rawurlencode(newKey);
     }
 
-    /**
-     * Recursively deletes all files under any directory named as mygroup
-     * Params:
-     * string mygroup The group to clear.
-         * /
+    // Recursively deletes all files under any directory named as mygroup
     bool clearGroup(string groupName) {
         unset(_File);
 

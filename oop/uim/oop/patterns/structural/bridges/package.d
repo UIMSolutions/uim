@@ -9,13 +9,13 @@ interface IDrawAPI {
 
 class DRedCircle : IDrawAPI {
   override void drawCircle(int radius, int x, int y) {
-      writeln("Drawing Circle[ color: red, radius: ", radius, ", x: ", x, ", ", y, "]");
+      writeln("Drawing Circle[color: red, radius: ", radius, ", x: ", x, ", ", y, "]");
   }
 }
 
 class DGreenCircle : IDrawAPI {
    override void drawCircle(int radius, int x, int y) {
-      writeln("Drawing Circle[ color: green, radius: ", radius, ", x: ", x, ", ", y, "]");
+      writeln("Drawing Circle[color: green, radius: ", radius, ", x: ", x, ", ", y, "]");
    }
 }
 

@@ -225,10 +225,10 @@ class DSqlserverDriver : DDriver {
                 .iterateParts(function ( direction,  orderBy) use (select,  order) {
                     aKey =  orderBy;
                     if (
-                        isSet(select[ orderBy]) &&
-                        cast(IExpression)select[ orderBy] 
+                        isSet(select[orderBy]) &&
+                        cast(IExpression)select[orderBy] 
                     ) {
-                         order.add(new DOrderClauseExpression(select[ orderBy],  direction));
+                         order.add(new DOrderClauseExpression(select[orderBy],  direction));
                     } else {
                          order.add([aKey:  direction]);
                     }

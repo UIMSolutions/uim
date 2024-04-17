@@ -92,7 +92,7 @@ class DNumericPaginator : IPaginator {
      *      "limit": 20,
      *      "maxLimit": 100
      *    ],
-     *    "Comments": [ ... ]
+     *    "Comments": [... ]
      *  ];
      *  results = paginator.paginate(table, settings);
      * ```

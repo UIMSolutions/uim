@@ -1449,7 +1449,7 @@ abstract class DQuery : IQuery { // : IExpression {
                     if (isArray(piece)) {
                         foreach (piece as  j: aValue) {
                             if (cast(IExpression)aValue) {
-                               _parts[namePart.key][anI][ j] = clone aValue;
+                               _parts[namePart.key][anI][j] = clone aValue;
                             }
                         }
                     } elseif (cast(IExpression)piece ) {

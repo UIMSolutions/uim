@@ -199,17 +199,17 @@ class DI18nExtractCommand : DCommand {
     protected void _addTranslation(string adomain, string amsgid, array details = []) {
         context = details.get("msgctxt", "");
 
-        if (isEmpty(_translations[ domain][ msgid][context])) {
-           _translations[ domain][ msgid][context] = [
+        if (isEmpty(_translations[domain][msgid][context])) {
+           _translations[domain][msgid][context] = [
                 "msgid_plural": BooleanData(false),
             ];
         }
         if (isSet(details["msgid_plural"])) {
-           _translations[ domain][ msgid][context]["msgid_plural"] = details["msgid_plural"];
+           _translations[domain][msgid][context]["msgid_plural"] = details["msgid_plural"];
         }
         if (isSet(details["file"])) {
             line = details["line"] ?? 0;
-           _translations[ domain][ msgid][context]["references"][details["file"]] ~= line;
+           _translations[domain][msgid][context]["references"][details["file"]] ~= line;
         }
     }
     
@@ -477,13 +477,14 @@ class DI18nExtractCommand : DCommand {
      * @param string aheader The header content.
      * @param string asentence The sentence to store.
      *  /
-    protected void _store(string adomain, string aheader, string asentence) {
-       _storage[ domain] ??= null;
+    protected void _store(string domainName, string aheader, string asentence) {
+       _storage[domainName] ??= null;
 
-        if (!isSet(_storage[ domain][sentence])) {
-           _storage[ domain][sentence] =  aHeader;
+
+        if (!isSet(_storage[domainName][sentence])) {
+           _storage[domainName][sentence] =  aHeader;
         } else {
-           _storage[ domain][sentence] ~=  aHeader;
+           _storage[domainName][sentence] ~=  aHeader;
         }
     }
     

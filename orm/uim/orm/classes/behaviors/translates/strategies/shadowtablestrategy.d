@@ -243,7 +243,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
 
                 clause.iterateParts(
                     function(c,  & field) use(fields, alias, mainTableAlias, mainTableFields,  & joinRequired) {
-                    if (!field.isString || strpos(field, ".")) {
+                    if (!field.isString || indexOf(field, ".")) {
                         return c;}
 
                         /** @psalm-suppress ParadoxicalCondition * /
@@ -287,7 +287,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                     function(expression) use(fields, alias, mainTableAlias, mainTableFields,  & joinRequired) {
                                     if (!(expression instanceof IField)) {
                                         return;}
-                                        field = expression.getField(); if (!(field.isString || strpos(field, ".")) {
+                                        field = expression.getField(); if (!(field.isString || indexOf(field, ".")) {
                                                 return; }
 
                                                 if (in_array(field, fields, true)) {

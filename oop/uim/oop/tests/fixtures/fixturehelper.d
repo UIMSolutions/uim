@@ -38,7 +38,7 @@ class DFixtureHelper {
                         break;
                 }
 
-                if (strpos(name, "/") > 0) {
+                if (indexOf(name, "/") > 0) {
                     name = name.replace("/", "\\");
                 }
                 nameSegments = [

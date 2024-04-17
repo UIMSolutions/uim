@@ -917,7 +917,7 @@ class DBelongsToManyAssociation : DAssociation {
         matching = null;
         alias = this.aliasName() ~ ".";
         foreach (conditions as field: value) {
-            if (field.isString && strpos(field, alias) == 0) {
+            if (field.isString && indexOf(field, alias) == 0) {
                 matching[field] = value;
             } elseif (is_int(field) || value instanceof IExpression) {
                 matching[field] = value;
@@ -944,7 +944,7 @@ class DBelongsToManyAssociation : DAssociation {
         alias = _junctionAssociationName() ~ ".";
         foreach (conditions as field: value) {
             isString = field.isString;
-            if (isString && strpos(field, alias) == 0) {
+            if (isString && indexOf(field, alias) == 0) {
                 matching[field] = value;
             }
             // Assume that operators contain junction conditions.

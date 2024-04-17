@@ -315,7 +315,7 @@ class DEagerLoader {
                 continue;
             }
 
-            if (strpos(table, ".")) {
+            if (indexOf(table, ".")) {
                 path = explode(".", table);
                 table = array_pop(path);
                 foreach (path as t) {
@@ -506,7 +506,7 @@ class DEagerLoader {
                 }
                 /** @var DORMEagerLoadable loadable * /
                 foreach (configs as loadable) {
-                    if (strpos(loadable.aliasPath(), ".")) {
+                    if (indexOf(loadable.aliasPath(), ".")) {
                         _correctStrategy(loadable);
                     }
                 }
@@ -606,7 +606,7 @@ class DEagerLoader {
                 // Nested paths are not subject to this condition because they could
                 // be attached to joined associations.
                 if (
-                    strpos(path, ".") == false &&
+                    indexOf(path, ".") == false &&
                     (!array_key_exists(path, collected) || !array_key_exists(alias, collected[path]))
                 ) {
                     message = "Unable to load `{path}` association. Ensure foreign key in `{alias}` is selected.";

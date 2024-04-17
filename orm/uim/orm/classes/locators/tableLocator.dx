@@ -170,7 +170,7 @@ class DTableLocator : DAbstractLocator, ILocator {
 
 
     protected function createInstance(string anAliasName, IData[string] optionData) {
-        if (strpos(alias, "\\") == false) {
+        if (indexOf(alias, "\\") == false) {
             [, classAlias] = pluginSplit(alias);
             options = ["alias": classAlias] + options;
         } elseif (!isset(options["alias"])) {
@@ -189,7 +189,7 @@ class DTableLocator : DAbstractLocator, ILocator {
             if (empty(options["className"])) {
                 options["className"] = alias;
             }
-            if (!isset(options["table"]) && strpos(options["className"], "\\") == false) {
+            if (!isset(options["table"]) && indexOf(options["className"], "\\") == false) {
                 [, table] = pluginSplit(options["className"]);
                 options["table"] = Inflector::underscore(table);
             }
@@ -197,7 +197,7 @@ class DTableLocator : DAbstractLocator, ILocator {
         } else {
             message = options["className"] ?? alias;
             message = "`" ~ message ~ "`";
-            if (strpos(message, "\\") == false) {
+            if (indexOf(message, "\\") == false) {
                 message = "for alias " ~ message;
             }
             throw new DMissingTableClassException([message]);
@@ -240,7 +240,7 @@ class DTableLocator : DAbstractLocator, ILocator {
             options["className"] = alias;
         }
 
-        if (strpos(options["className"], "\\") != false && class_exists(options["className"])) {
+        if (indexOf(options["className"], "\\") != false && class_exists(options["className"])) {
             return options["className"];
         }
 

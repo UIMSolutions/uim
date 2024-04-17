@@ -346,7 +346,7 @@ class DResultSet : IResultSet {
         foreach (query.clause("select") as key: field) {
             key = trim(key, ""`[]");
 
-            if (strpos(key, "__") <= 0) {
+            if (indexOf(key, "__") <= 0) {
                 map[_defaultAlias][key] = key;
                 continue;
             }

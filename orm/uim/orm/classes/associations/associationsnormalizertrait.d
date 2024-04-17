@@ -28,7 +28,7 @@ mixin template AssociationsNormalizerTrait
                 options = null;
             }
 
-            if (!strpos(table, ".")) {
+            if (!indexOf(table, ".")) {
                 result[table] = options;
                 continue;
             }

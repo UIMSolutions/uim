@@ -241,7 +241,7 @@ function setTarget(DORMTable aTable) {
      * /
 function getTarget() : Table {
     if (_targetTable == null) {
-        if (strpos(_className, ".")) {
+        if (indexOf(_className, ".")) {
             [plugin] = pluginSplit(_className, true);
             registryAlias = (string) plugin._name;
         } else {

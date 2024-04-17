@@ -149,7 +149,7 @@ class DPoFileParser {
             anItem["ids"]["plural"] = substr(line, 14, -1);
             stage = ["ids", "plural"];
         } else if (line.startsWith("msgstr[")) {
-            size = strpos(line, "]");
+            size = indexOf(line, "]");
             assert(isInt(size));
 
             row = to!int(substr(line, 7, 1));

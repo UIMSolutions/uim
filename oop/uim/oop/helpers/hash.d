@@ -1041,7 +1041,7 @@ class Hash {
         myids = extract(mydata, options["idPath"]);
         assert(myids.isArray);
 
-        string[] myidKeys = split(".", options["idPath"]);
+        string[] myidKeys = options["idPath"].split(".")
         array_shift(myidKeys);
 
         myparentKeys = options["parentPath"].split(".");

@@ -184,7 +184,7 @@ class DCookie : ICookie {
 
         someParts.each!((part) {
             if (part.has("=")) {
-                [aKey, aValue] = split("=", part);
+                [aKey, aValue] = part.split("=");
             } else {
                 aKey = part;
                 aValue = true;

@@ -17,10 +17,8 @@ class DFormDataPart { // }: Stringable {
     // Content type to use
     protected string _type;
 
-    /**
-     * Filename to send if using files.
-     * /
-    protected string afilename = null;
+    // Filename to send if using files.
+    mixin(TProperty!("sting", "filename"));
 
     /**
      * The encoding used in this part.
@@ -75,20 +73,7 @@ class DFormDataPart { // }: Stringable {
         return this.contentId = anId;
     }
     
-    /**
-     * Get/set the filename.
-     *
-     * Setting the filename to `false` will exclude it from the
-     * generated output.
-     * Params:
-     * string filename Use null to get/string to set.
-     * /
-    string filename(string afilename = null) {
-        if (filename is null) {
-            return this.filename;
-        }
-        return this.filename = filename;
-    }
+
     
     /**
      * Get/set the content type.

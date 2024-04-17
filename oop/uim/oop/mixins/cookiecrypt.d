@@ -123,8 +123,8 @@ mixin template TCookieCrypt() {
             return Json_decode(mystring, true) ?? mystring;
         }
         myarray = null;
-        foreach (mypair; split(",", mystring)) {
-            string[] aKey = split("|", mypair);
+        foreach (mypair; mystring.split(",")) {
+            string[] aKey = mypair.split("|");
             if (!isSet(aKey[1])) {
                 return aKey[0];
             }

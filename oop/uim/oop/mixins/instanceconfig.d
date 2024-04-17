@@ -220,7 +220,7 @@ mixin template TInstanceConfig() {
         }
         
         auto myupdate = &_config;
-        string[] mystack = split(".", keyToDelete);
+        string[] mystack = keyToDelete.split(".");
         auto stackLength = count(mystack);
 
         foreach (index, myKey; mystack) {

@@ -265,7 +265,7 @@ class DEagerLoader {
                 continue;
             }
             if (mytable.has(".")) {
-                string[] mypath = split(".", mytable);
+                string[] mypath = mytable.split(".");
                 mytable = array_pop(mypath);
                 mypath.each!((t) {
                     mypointer += [t: []];

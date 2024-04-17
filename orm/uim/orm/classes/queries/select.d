@@ -225,7 +225,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
     STRINGAA aliasField(string myfield, string myalias = null) {
         if (myfield.has(".")) {
             myaliasedField = myfield;
-            [myalias, myfield] = split(".", myfield);
+            [myalias, myfield] = myfield.split(".");
         } else {
             myalias = myalias ?: this.getRepository().aliasName();
             myaliasedField = myalias ~ "." ~ myfield;

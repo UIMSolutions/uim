@@ -1257,7 +1257,7 @@ class DMessage { //: IDataSerializable {
             return [""];
         }
         message = message.replace(["\r\n", "\r"], "\n");
-        string[] lines = split("\n", message);
+        string[] lines = message.split("\n");
         formatted = null;
         cut = (wrapLength == LINE_LENGTH_MUST);
 

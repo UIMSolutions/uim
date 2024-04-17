@@ -877,12 +877,12 @@ class DServerRequest { // }: IServerRequest {
      *  While `example.co.uk` contains 2.
      * /
     string domain(int tldLength = 1) {
-        host = this.host();
+        auto host = this.host();
         if (isEmpty(host)) {
             return "";
         }
         
-        string[] segments = split(".", host);
+        string[] segments = host.split(".");
         domain = array_slice(segments, -1 * (tldLength + 1));
 
         return join(".", domain);

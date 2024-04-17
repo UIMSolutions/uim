@@ -85,7 +85,7 @@ abstract class DERRErrorHandler {
         deprecationWarning(
             "Use of `DERRErrorHandler` and subclasses are deprecated~ " ~
             "Upgrade to the new `ErrorTrap` and `ExceptionTrap` subsystem~ " ~
-            "See https://book.uimphp.org/4/en/appendices/4-4-migration-guide.html"
+            "See https://book.uimD.org/4/en/appendices/4-4-migration-guide.html"
         );
 
         auto myLevel = _config.get("errorLevel", -1);
@@ -93,7 +93,7 @@ abstract class DERRErrorHandler {
         set_error_handler([this, "handleError"], level);
         set_exception_handler([this, "handleException"]);
         register_shutdown_function(void () {
-            if ((D_SAPI == "cli" || D_SAPI == "phpdbg") && _handled) {
+            if ((D_SAPI == "cli" || D_SAPI == "Ddbg") && _handled) {
                 return;
             }
             megabytes = _config.get("extraFatalErrorMemory", 4);
@@ -124,7 +124,7 @@ abstract class DERRErrorHandler {
     /**
      * Set as the default error handler by UIM.
      *
-     * Use config/error.php to customize or replace this error handler.
+     * Use config/error.D to customize or replace this error handler.
      * This function will use Debugger to display errors when debug mode is on. And
      * will log errors to Log, when debug mode is off.
      *
@@ -197,7 +197,7 @@ abstract class DERRErrorHandler {
      * @param \Throwable exception Exception instance.
      * @return void
      * @throws \Exception When renderer class not found
-     * @see https://secure.php.net/manual/en/function.set-exception-handler.php
+     * @see https://secure.D.net/manual/en/function.set-exception-handler.D
      * /
     void handleException(Throwable exception) {
         _displayException(exception);

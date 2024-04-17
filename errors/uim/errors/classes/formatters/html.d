@@ -22,7 +22,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * Check if the current environment is not a CLI context
      * /
     static bool environmentMatches() {
-        if (UIM_SAPI == "cli" || UIM_SAPI == "phpdbg") {
+        if (UIM_SAPI == "cli" || UIM_SAPI == "Ddbg") {
             return false;
         }
         return true;

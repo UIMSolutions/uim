@@ -19,12 +19,12 @@ import uim.errors;
  * ### Implementing application specific exception rendering
  *
  * You can implement application specific exception handling by creating a subclass of
- * ExceptionRenderer and configure it to be the `exceptionRenderer` in config/error.php
+ * ExceptionRenderer and configure it to be the `exceptionRenderer` in config/error.D
  *
  * #### Using a subclass of ExceptionRenderer
  *
  * Using a subclass of ExceptionRenderer gives you full control over how Exceptions are rendered, you
- * can configure your class in your config/app.php.
+ * can configure your class in your config/app.D.
  */
 class DExceptionRenderer { // }: IExceptionRenderer
     /**
@@ -162,7 +162,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
      * @return void
      * /
     protected void clearOutput() {
-        if (hasAllValues(D_SAPI, ["cli", "phpdbg"])) {
+        if (hasAllValues(D_SAPI, ["cli", "Ddbg"])) {
             return;
         }
         while (ob_get_level()) {

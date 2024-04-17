@@ -31,7 +31,7 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
     bool initialize() {
         super.initialize;
 
-        aConfig["stderr"] = new DConsoleOutput("php://stderr");
+        aConfig["stderr"] = new DConsoleOutput("D://stderr");
         aConfig["log"] = false;
     }
 
@@ -42,7 +42,7 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
      * @param \Throwable exception Exception instance.
      * @return void
      * @throws \Exception When renderer class not found
-     * @see https://secure.php.net/manual/en/function.set-exception-handler.php
+     * @see https://secure.D.net/manual/en/function.set-exception-handler.D
      * /
     void handleException(Throwable exception) {
         _displayException(exception);

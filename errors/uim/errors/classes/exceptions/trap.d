@@ -46,7 +46,7 @@ class DExceptionTrap {
     }
 
  /**
-     * Configuration options. Generally these will be defined in your config/app.php
+     * Configuration options. Generally these will be defined in your config/app.D
      *
      * - `exceptionRenderer` - string - The class responsible for rendering uncaught exceptions.
      *   The chosen class will be used for for both CLI and web environments. If  you want different
@@ -233,7 +233,7 @@ class DExceptionTrap {
      * @param \Throwable exception Exception instance.
      * @return void
      * @throws \Exception When renderer class not found
-     * @see https://secure.php.net/manual/en/function.set-exception-handler.php
+     * @see https://secure.D.net/manual/en/function.set-exception-handler.D
      * /
     void handleException(Throwable exception) {
         if (this.disabled) {
@@ -249,7 +249,7 @@ class DExceptionTrap {
         } catch (Throwable exception) {
             this.logInternalError(exception);
         }
-        // Use this constant as a proxy for uimphp tests.
+        // Use this constant as a proxy for uimD tests.
         if (D_SAPI == "cli" && !env("FIXTURE_SCHEMA_METADATA")) {
             exit(1);
         }

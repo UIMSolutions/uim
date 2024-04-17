@@ -20,13 +20,13 @@ class DConsoleErrorRenderer { // }: IErrorRenderer {
      *
      * ### Options
      *
-     * - `stderr` - The ConsoleOutput instance to use. Defaults to `php://stderr`
+     * - `stderr` - The ConsoleOutput instance to use. Defaults to `D://stderr`
      * - `trace` - Whether or not stacktraces should be output.
      * Params:
      * IData[string] configData Error handling configuration.
      * /
     this(IData[string] configData = null) {
-        this.output = configData("stderr"] ?? new DConsoleOutput("php://stderr");
+        this.output = configData("stderr"] ?? new DConsoleOutput("D://stderr");
         this.trace = (bool)(configData("trace"] ?? false);
     }
  

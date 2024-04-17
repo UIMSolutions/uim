@@ -32,7 +32,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
      * /
     this(Throwable error, ?IServerRequest serverRequest, IData[string] configData) {
         this.error = error;
-        this.output = configData("stderr"] ?? new DConsoleOutput("php://stderr");
+        this.output = configData("stderr"] ?? new DConsoleOutput("D://stderr");
         this.trace = configData("trace"] ?? true;
     }
     

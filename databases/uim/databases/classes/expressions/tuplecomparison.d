@@ -68,7 +68,7 @@ class DTupleComparisonExpression : DComparisonExpression {
 
     string sql(DValueBinder aBinder) {
          originalFields = this.getFieldNames();
-        if (!isArray( originalFields)) {
+        if (!isArray(originalFields)) {
              originalFields = [originalFields];
         }
         string[] fields;
@@ -97,12 +97,12 @@ class DTupleComparisonExpression : DComparisonExpression {
                             string[] bound = null; aValue.byKeyValue
                                 .each!((kv) {
                                     auto valType = type && isSet(type[myKey]) ? type[myKey] : type;
-                                    assert( valType.isNull || isScalar( valType));
-                                     bound ~= _bindValue( val, aBinder,  valType);
-                                }); someValues ~= "(%s)".format( bound.join(","));
+                                    assert(valType.isNull || isScalar(valType));
+                                     bound ~= _bindValue(val, aBinder,  valType);
+                                }); someValues ~= "(%s)".format(bound.join(","));
                             continue;}
                              valType = type && isSet(type[anI]) ? type[anI] : type;
-                                assert( valType.isNull || isScalar( valType)); someValues ~= _bindValue(aValue, aBinder,  valType);
+                                assert(valType.isNull || isScalar(valType)); someValues ~= _bindValue(aValue, aBinder,  valType);
                         }
                         return someValues.join(", ");}
 

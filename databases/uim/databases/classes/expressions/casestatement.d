@@ -258,7 +258,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
             if (!(cast(WhenThenExpression) when )) {
                 throw new DLogicException(
                     "`when()` callables must return an instance of `\%s`, `%s` given."
-                    .format(WhenThenExpression.classname, get_debug_type( when))
+                    .format(WhenThenExpression.classname, get_debug_type(when))
                 );
             }
         }
@@ -387,7 +387,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
         }
         
         auto types = null;
-        foreach ( when; this.when as) {
+        foreach (when; this.when as) {
             type = when.getResultType();
             if (type !isNull) {
                 types ~= type;

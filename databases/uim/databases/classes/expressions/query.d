@@ -311,7 +311,7 @@ class DQueryExpression : DExpression { // }, Countable {
             .notIn(field,  someValues, type)
             .isNull(field);
 
-        return this.add( or);
+        return this.add(or);
     }
     
     /**
@@ -414,11 +414,11 @@ class DQueryExpression : DExpression { // }, Countable {
             return new DIdentifierExpression(field);
         };
 
-        return this.eq( wrapIdentifier( leftField),  wrapIdentifier(rightField));
+        return this.eq(wrapIdentifier(leftField),  wrapIdentifier(rightField));
     }
     string sql(DValueBinder aBinder) {
          len = this.count();
-        if ( len == 0) {
+        if (len == 0) {
             return "";
         }
         conjunction = _conjunction;
@@ -574,11 +574,11 @@ class DQueryExpression : DExpression { // }, Countable {
             string[] someParts = split(" ", expression, 2);
             [expression,  operator] = someParts;
         }
-         operator = strtoupper(trim( operator));
+         operator = strtoupper(trim(operator));
 
         type = this.getTypeMap().type(expression);
         typeMultiple = (isString(type) && type.has("[]"));
-        if (in_array( operator, ["IN", "NOT IN"]) || typeMultiple) {
+        if (in_array(operator, ["IN", "NOT IN"]) || typeMultiple) {
             type = type ?: "string";
             if (!typeMultiple) {
                 type ~= "[]";
@@ -591,24 +591,24 @@ class DQueryExpression : DExpression { // }, Countable {
         if (typeMultiple) {
             aValue = cast(IExpression)aValue  ? aValue : (array)aValue;
         }
-        if ( operator == "IS' && aValue is null) {
+        if (operator == "IS' && aValue is null) {
             return new DUnaryExpression(
                 'isNull",
                 new DIdentifierExpression(expression),
                 UnaryExpression.POSTFIX
             );
         }
-        if ( operator == "IS NOT" && aValue is null) {
+        if (operator == "IS NOT" && aValue is null) {
             return new DUnaryExpression(
                 "IS NOT NULL",
                 new DIdentifierExpression(expression),
                 UnaryExpression.POSTFIX
             );
         }
-        if ( operator == "IS" && aValue !isNull) {
+        if (operator == "IS" && aValue !isNull) {
              operator = "=";
         }
-        if ( operator == "IS NOT" && aValue !isNull) {
+        if (operator == "IS NOT" && aValue !isNull) {
              operator = "!=";
         }
         if (aValue.isNull && _conjunction != ",") {

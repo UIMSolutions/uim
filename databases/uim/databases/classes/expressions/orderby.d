@@ -43,11 +43,11 @@ class DOrderByExpression : DQueryExpression {
      * @param array types list of types associated on fields referenced in conditions
      * /
     protected void _addConditions(array conditions, array types) {
-        foreach ( aKey:  val; conditions) {
+        foreach (aKey:  val; conditions) {
             if (
                 isString(aKey) &&
-                isString( val) &&
-                !in_array(strtoupper( val), ["ASC", "DESC"], true)
+                isString(val) &&
+                !in_array(strtoupper(val), ["ASC", "DESC"], true)
             ) {
                 throw new DInvalidArgumentException(
                     "Passing extra expressions by associative array (`\'%s\": \'%s\'`) " ~

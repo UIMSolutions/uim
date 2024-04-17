@@ -213,7 +213,7 @@ class DSqlserverDriver : DDriver {
     protected ISelectQuery _pagingSubquery(SelectQuery  original, int aLimit, int anOffset) {
         auto field = "_uim_paging_._uim_page_rownum_";
 
-        if ( original.clause("order")) {
+        if (original.clause("order")) {
             // SQL server does not support column aliases in OVER clauses.  But
             // the only practical way to specify the use of calculated columns
             // is with their alias.  So substitute the select SQL in place of
@@ -222,7 +222,7 @@ class DSqlserverDriver : DDriver {
             auto  order = new DOrderByExpression();
              original
                 .clause("order")
-                .iterateParts(function ( direction,  orderBy) use (select,  order) {
+                .iterateParts(function (direction,  orderBy) use (select,  order) {
                     aKey = orderBy;
                     if (
                         isSet(select[orderBy]) &&
@@ -279,13 +279,13 @@ class DSqlserverDriver : DDriver {
          distinct = aQuery.clause("distinct");
         aQuery.distinct(false);
 
-         order = new DOrderByExpression( distinct);
+         order = new DOrderByExpression(distinct);
         aQuery
-            .select(function ( q) use ( distinct,  order) {
+            .select(function (q) use (distinct,  order) {
                  over = q.newExpr("ROW_NUMBER() OVER")
                     .add("(PARTITION BY")
-                    .add( q.newExpr().add( distinct).setConjunction(","))
-                    .add( order)
+                    .add(q.newExpr().add(distinct).setConjunction(","))
+                    .add(order)
                     .add(")")
                     .setConjunction(" ");
 
@@ -341,7 +341,7 @@ class DSqlserverDriver : DDriver {
                     }
                     return aValue;
                 };
-                expression.iterateParts( visitor);
+                expression.iterateParts(visitor);
 
                 if (!$hasDay) {
                     expression.add(["day": "literal"], [], true);
@@ -380,8 +380,8 @@ class DSqlserverDriver : DDriver {
                 expression
                     .name("DATEADD")
                     .setConjunction(",")
-                    .iterateParts( visitor)
-                    .iterateParts( manipulator)
+                    .iterateParts(visitor)
+                    .iterateParts(manipulator)
                     .add([params[2]: "literal"]);
                 break;
             case "DAYOFWEEK":

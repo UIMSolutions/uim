@@ -82,8 +82,8 @@ class DWhenThenExpression : DExpression {
      * @see CaseStatementExpression.when() for a more detailed usage explanation.
      * /
     void when(object|string[]|float|int|bool  when, string[] type = null) {
-        if (isArray( when)) {
-            if (isEmpty( when)) {
+        if (isArray(when)) {
+            if (isEmpty(when)) {
                 throw new DInvalidArgumentException("The ` when` argument must be a non-empty array");
             }
             if (
@@ -103,7 +103,7 @@ class DWhenThenExpression : DExpression {
             ) {
                 typeMap = typeMap.setTypes(type);
             }
-             when = new QueryExpression( when, typeMap);
+             when = new QueryExpression(when, typeMap);
         } else {
             if (
                 type !isNull &&
@@ -118,7 +118,7 @@ class DWhenThenExpression : DExpression {
                 type.isNull &&
                 !(cast(IExpression) when )
             ) {
-                type = this.inferType( when);
+                type = this.inferType(when);
             }
         }
         this.when = when;
@@ -174,7 +174,7 @@ class DWhenThenExpression : DExpression {
      * /
     IExpression|object|scalar|null clause(string aclause) {
         if (!in_array(clause, this.validClauseNames, true)) {
-            throw new DInvalidArgumentException(                
+            throw new DInvalidArgumentException(               
                 "The `clause` argument must be one of `%s`, the given value `%s` is invalid."
                 .format(join("`, `", this.validClauseNames), clause)
             );
@@ -194,10 +194,10 @@ class DWhenThenExpression : DExpression {
             isString(this.whenType) &&
             !(cast(IExpression) when )
         ) {
-             when = _castToExpression( when, this.whenType);
+             when = _castToExpression(when, this.whenType);
         }
         if (cast(Query) when ) {
-             when = "(%s)".format( when.sql(aBinder));
+             when = "(%s)".format(when.sql(aBinder));
         } elseif (cast(IExpression) when ) {
              when = when.sql(aBinder);
         } else {

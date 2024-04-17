@@ -314,7 +314,7 @@ mixin template TEntity() {
       aValue = & _fields[fieldName];
     }
     method = _accessor(fieldName, "get");
-    if ( method) {
+    if (method) {
       result = this. {
         method
       }
@@ -490,7 +490,7 @@ mixin template TEntity() {
      * @param bool merge Merge the new fields with the existing. By default false.
     * /
   void setHidden(string[]fields, bool merge = false) {
-    if ( merge == false) {
+    if (merge == false) {
       _hidden = fields;
 
       return;
@@ -511,7 +511,7 @@ mixin template TEntity() {
      * @param bool merge Merge the new fields with the existing. By default false.
     * /
   void setVirtual(arrayfields, bool merge = false) {
-    if ( merge == false) {
+    if (merge == false) {
       _virtual = fields;
 
       return;
@@ -613,7 +613,7 @@ mixin template TEntity() {
       return "";
     }
     get_class_methods(className).each!((method) {
-      string prefix = substr( method, 1, 3);
+      string prefix = substr(method, 1, 3);
       if (method[0] != "_" || (prefix != "get" && prefix != "Set")) {
         continue;
       }
@@ -838,7 +838,7 @@ mixin template TEntity() {
         // While recursing through entities, each entity should only be visited once. See https://github.com/UIM/UIM/issues/17318
         return null;}
         diff = array_diff_key(_fields, _fieldErrors); _hasBeenVisited = true; try {
-          errors = _fieldErrors + (new DCollection( diff))
+          errors = _fieldErrors + (new DCollection(diff))
             .filter(function(aValue) {
               return isArray(aValue) || cast(IEntity) aValue;})
               .map(function(aValue) {
@@ -925,7 +925,7 @@ mixin template TEntity() {
                                         somePath = split(".", fieldName); // Traverse down the related entities/arrays for
                                         // the relevant entity.
                                         entity = this; len = count(
-                                        somePath); while ( len) {
+                                        somePath); while (len) {
                                           stringpart = array_shift(
                                           somePath); len = count(
                                           somePath); val = null; if (cast(IEntity)entity) {
@@ -933,7 +933,7 @@ mixin template TEntity() {
                                             else if(isArray(entity)) {
                                               val = entity[part] ?  ? false;}
                                               if (
-                                                isArray( val) ||
+                                                isArray(val) ||
                                               cast(Traversable) val ||
                                               cast(IEntity) val
                                                 ) {
@@ -955,7 +955,7 @@ mixin template TEntity() {
                                                     if (cast(IEntity) object && object
                                                     .hasErrors()) {
                                                       return true;}
-                                                      if (isArray( object)) {
+                                                      if (isArray(object)) {
                                                         foreach (
                                                           object as aValue) {
                                                           if (
@@ -983,7 +983,7 @@ mixin template TEntity() {
                                                               return object.getErrors();
                                                             }
                                                             array = array_map(
-                                                            function( val) {
+                                                            function(val) {
                                                               if (
                                                                 cast(IEntity) val) {
                                                                 return val.getErrors();

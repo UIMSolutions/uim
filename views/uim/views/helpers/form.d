@@ -719,7 +719,7 @@ class DFormHelper : DHelper {
                 mytext = substr(mytext, 0, -5);
             }
             if (mytext.has(".")) {
-                string[] myfieldElements = split(".", mytext);
+                string[] myfieldElements = mytext.split(".");
                 mytext = array_pop(myfieldElements);
             }
             if (mytext.endsWith("_id")) {
@@ -1108,7 +1108,7 @@ class DFormHelper : DHelper {
         if (myinternalType !isNull && isSet(mymap[myinternalType])) {
             mytype = mymap[myinternalType];
         }
-        fieldName = array_slice(split(".", fieldName), -1)[0];
+        auto fieldName = array_slice(fieldName.split("."), -1)[0];
 
         return match (true) {
             isSet(options["checked"]): "checkbox",
@@ -1152,7 +1152,7 @@ class DFormHelper : DHelper {
         } elseif (fieldName.endsWith("_id")) {
             fieldName = substr(fieldName, 0, -3);
         }
-        fieldName = array_slice(split(".", fieldName), -1)[0];
+        fieldName = array_slice(fieldName.split("."), -1)[0];
 
         myvarName = Inflector.variable(
             mypluralize ? Inflector.pluralize(fieldName): fieldName
@@ -2093,9 +2093,9 @@ class DFormHelper : DHelper {
                 myfield = substr(myfield, 0, -2);
                 myendsWithBrackets = "[]";
             }
-            myparts = split(".", myfield);
-            myfirst = array_shift(myparts);
-            options["name"] = myfirst ~ (!empty(myparts) ? "[" ~ join("][", myparts) ~ "]" : "") ~ myendsWithBrackets;
+            pathParts = myfield.split(".");
+            myfirst = array_shift(pathParts);
+            options["name"] = myfirst ~ (!empty(pathParts) ? "[" ~ join("][", pathParts) ~ "]" : "") ~ myendsWithBrackets;
         }
         if (isSet(options["value"]) && !options.isSet("val")) {
             options["val"] = options["value"];

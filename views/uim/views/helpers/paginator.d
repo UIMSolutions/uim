@@ -467,7 +467,7 @@ class DPaginatorHelper : DHelper {
         if (!myfield.has(".")) {
             return myfield;
         }
-        [myalias, mycurrentField] = split(".", myfield);
+        [myalias, mycurrentField] = myfield.split(".");
 
         if (myalias == mycurrentModel) {
             return mycurrentField;

@@ -149,7 +149,7 @@ mixin template TInstanceConfig() {
         }
         result = _config;
 
-        foreach (myKey; split(".", keyToRead)) {
+        foreach (myKey; keyToRead.split(".")) {
             if (!isArray(result) || !isSet(result[myKey])) {
                 result = null;
                 break;
@@ -194,7 +194,7 @@ mixin template TInstanceConfig() {
             return;
         }
         update = &_config;
-        string[] stack = split(".", keyToWrite);
+        string[] stack = keyToWrite.split(".");
 
         foreach (myKey; stack) {
             if (!isArray(update)) {

@@ -23,7 +23,7 @@ class DAsset
      * method name of `Inflector` class like `"dasherize"` or `"underscore`"`.
      * /
     static void setInflectionType(string ainflectionType) {
-        anInflectionType =  anInflectionType;
+        anInflectionType = anInflectionType;
     }
     
     /**

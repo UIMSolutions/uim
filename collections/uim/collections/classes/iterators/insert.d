@@ -42,8 +42,8 @@ class DInsertIterator : DCollection {
     if (!(cast(DCollection) someValues)) {
        someValues = new DCollection(someValues);
     }
-    string[] mypath = split(".", somePath);
-    auto mytarget = array_pop(somePath);
+    string[] pathParts = somePath.split(".");
+    auto mytarget = array_pop(pathParts);
    _path = somePath;
    _target = target;
    _values = someValues;

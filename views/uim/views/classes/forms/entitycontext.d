@@ -115,14 +115,14 @@ class DEntityContext : IFormContext {
     }
  
     bool isPrimaryKey(string pathToField) {
-        myparts = split(".", fieldPath);
-        mytable = _getTable(myparts);
+        pathParts = fieldPath.split(".");
+        mytable = _getTable(pathParts);
         if (!mytable) {
             return false;
         }
         myprimaryKey = (array)mytable.getPrimaryKeys();
 
-        return in_array(array_pop(myparts), myprimaryKey, true);
+        return in_array(array_pop(pathParts), myprimaryKey, true);
     }
     
     /**
@@ -170,14 +170,15 @@ class DEntityContext : IFormContext {
         if (isEmpty(_context["entity"])) {
             return options["default"];
         }
-        myparts = split(".", fieldPath);
-        myentity = this.entity(myparts);
+        
+        auto pathParts = fieldPath.split(".");
+        myentity = this.entity(pathParts);
 
-        if (myentity && end(myparts) == "_ids") {
-            return _extractMultiple(myentity, myparts);
+        if (myentity && end(pathParts) == "_ids") {
+            return _extractMultiple(myentity, pathParts);
         }
         if (cast(IEntity)myentity) {
-            mypart = end(myparts);
+            mypart = end(pathParts);
 
             if (cast(IInvalidProperty)myentity) {
                 myval = myentity.invalidField(mypart);
@@ -196,10 +197,10 @@ class DEntityContext : IFormContext {
             ) {
                 return options["default"];
             }
-            return _schemaDefault(myparts);
+            return _schemaDefault(pathParts);
         }
         if (isArray(myentity) || cast(DArrayAccess)myentity) {
-            aKey = array_pop(myparts);
+            aKey = array_pop(pathParts);
 
             return myentity.get(aKey, options["default"]);
         }
@@ -209,14 +210,14 @@ class DEntityContext : IFormContext {
     /**
      * Get default value from table schema for given entity field.
      * Params:
-     * string[] myparts Each one of the parts in a path for a field name
+     * string[] pathParts Each one of the parts in a path for a field name
      * /
-    protected IData _schemaDefault(array myparts) {
-        mytable = _getTable(myparts);
+    protected IData _schemaDefault(array pathParts) {
+        mytable = _getTable(pathParts);
         if (mytable is null) {
             return null;
         }
-        myfield = end(myparts);
+        myfield = end(pathParts);
         mydefaults = mytable.getSchema().defaultValues();
         if (myfield == false || !array_key_exists(myfield, mydefaults)) {
             return null;
@@ -380,17 +381,16 @@ class DEntityContext : IFormContext {
      * Params:
      * string myfield The dot separated path to the field you want to check.
      * /
-    bool isRequired(string myfield): bool
-    {
-        myparts = split(".", myfield);
-        myentity = this.entity(myparts);
+    bool isRequired(string myfield) {
+        auto pathParts = myfield.split(".");
+        auto myentity = this.entity(pathParts);
 
-        myisNew = true;
+        auto myisNew = true;
         if (cast(IEntity)myentity) {
             myisNew = myentity.isNew();
         }
-        myvalidator = _getValidator(myparts);
-        myfieldName = array_pop(myparts);
+        auto myvalidator = _getValidator(pathParts);
+        auto myfieldName = array_pop(pathParts);
         if (!myvalidator.hasField(myfieldName)) {
             return null;
         }
@@ -401,10 +401,10 @@ class DEntityContext : IFormContext {
     }
  
     string getRequiredMessage(string myfield) {
-        myparts = split(".", myfield);
+        auto pathParts = myfield.split(".");
 
-        myvalidator = _getValidator(myparts);
-        myfieldName = array_pop(myparts);
+        myvalidator = _getValidator(pathParts);
+        myfieldName = array_pop(pathParts);
         if (!myvalidator.hasField(myfieldName)) {
             return null;
         }
@@ -421,9 +421,9 @@ class DEntityContext : IFormContext {
      * string fieldPath The dot separated path to the field you want to check.
      * /
     int getMaxLength(string fieldPath) {
-        string[] myparts = fieldPath.split(".");
-        auto myvalidator = _getValidator(myparts);
-        auto myfieldName = array_pop(myparts);
+        string[] pathParts = fieldPath.split(".");
+        auto myvalidator = _getValidator(pathParts);
+        auto myfieldName = array_pop(pathParts);
 
         if (myvalidator.hasField(myfieldName)) {
             foreach (myrule; myvalidator.field(myfieldName).rules()) {
@@ -455,14 +455,14 @@ class DEntityContext : IFormContext {
      * Get the validator associated to an entity based on naming
      * conventions.
      * Params:
-     * array myparts Each one of the parts in a path for a field name
+     * array pathParts Each one of the parts in a path for a field name
      * /
-    protected IValidator _getValidator(array myparts) {
-        mykeyParts = array_filter(array_slice(myparts, 0, -1), auto (mypart) {
+    protected IValidator _getValidator(array pathParts) {
+        mykeyParts = array_filter(array_slice(pathParts, 0, -1), auto (mypart) {
             return !isNumeric(mypart);
         });
         aKey = join(".", mykeyParts);
-        myentity = this.entity(myparts);
+        myentity = this.entity(pathParts);
 
         if (isSet(_validator[aKey])) {
             if (isObject(myentity)) {
@@ -470,7 +470,7 @@ class DEntityContext : IFormContext {
             }
             return _validator[aKey];
         }
-        mytable = _getTable(myparts);
+        mytable = _getTable(pathParts);
         if (!mytable) {
             throw new DInvalidArgumentException("Validator not found: `%s`.".format(aKey));
         }
@@ -493,15 +493,15 @@ class DEntityContext : IFormContext {
     /**
      * Get the table instance from a property path
      * Params:
-     * \UIM\Datasource\IEntity|string[]|string myparts Each one of the parts in a path for a field name
+     * \UIM\Datasource\IEntity|string[]|string pathParts Each one of the parts in a path for a field name
      * @param bool myfallback Whether to fallback to the last found table
      * when a nonexistent field/property is being encountered.
      * /
-    protected ITable _getTable(IEntity|string[] myparts, bool myfallback = true) {
-        if (!isArray(myparts) || count(myparts) == 1) {
+    protected ITable _getTable(IEntity|string[] pathParts, bool myfallback = true) {
+        if (!isArray(pathParts) || count(pathParts) == 1) {
             return _tables[_rootName];
         }
-        mynormalized = array_slice(array_filter(myparts, auto (mypart) {
+        mynormalized = array_slice(array_filter(pathParts, auto (mypart) {
             return !isNumeric(mypart);
         }), 0, -1);
 
@@ -542,10 +542,10 @@ class DEntityContext : IFormContext {
      * string fieldPath A dot separated path to get a schema type for.
      * /
     string type(string fieldPath) {
-        myparts = split(".", fieldPath);
-        mytable = _getTable(myparts);
+        auto pathParts = fieldPath.split(".");
+        auto mytable = _getTable(pathParts);
 
-        return mytable?.getSchema().baseColumnType(array_pop(myparts));
+        return mytable?.getSchema().baseColumnType(array_pop(pathParts));
     }
     
     /**
@@ -554,13 +554,13 @@ class DEntityContext : IFormContext {
      * string fieldPath A dot separated path to get additional data on.
      * /
     array attributes(string fieldPath) {
-        string[] myparts = split(".", fieldPath);
-        mytable = _getTable(myparts);
+        string[] pathParts = fieldPath.split(".");
+        mytable = _getTable(pathParts);
         if (!mytable) {
             return null;
         }
         return array_intersect_key(
-            (array)mytable.getSchema().getColumn(array_pop(myparts)),
+            (array)mytable.getSchema().getColumn(array_pop(pathParts)),
             array_flip(VALID_ATTRIBUTES)
         );
     }
@@ -580,13 +580,13 @@ class DEntityContext : IFormContext {
      * string fieldPath A dot separated path to check errors on.
      * /
     DError[] errors(string fieldPath) {
-        string[] myparts = fieldPath.split(".");
+        string[] pathParts = fieldPath.split(".");
         try {
             /**
              * @var \UIM\Datasource\IEntity|null myentity
              * @var string[] myremainingParts
              * /
-            [myentity, myremainingParts] = this.leafEntity(myparts);
+            [myentity, myremainingParts] = this.leafEntity(pathParts);
         } catch (UimException) {
             return null;
         }
@@ -598,7 +598,7 @@ class DEntityContext : IFormContext {
             if (myerror) {
                 return myerror;
             }
-            return myentity.getError(array_pop(myparts));
+            return myentity.getError(array_pop(pathParts));
         }
         return null;
     } */

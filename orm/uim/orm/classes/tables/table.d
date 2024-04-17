@@ -2355,12 +2355,12 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
         if (myhasOr == false && myhasAnd == false) {
             myconditions = mymakeConditions([myfields], myargs);
         } else if (myhasOr != false) {
-            myfields = split("_or_", myfields);
+            myfields = myfields.split("_or_");
             myconditions = [
                 "OR": mymakeConditions(myfields, myargs),
             ];
         } else {
-            myfields = split("_and_", myfields);
+            myfields = myfields.split("_and_");
             myconditions = mymakeConditions(myfields, myargs);
         }
         return this.find(myfindType, conditions: myconditions);
@@ -2389,16 +2389,14 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
     /**
      * Returns the association named after the passed value if exists, otherwise
      * throws an exception.
-     * Params:
-     * string myproperty the association name
      * /
-    DAssociation __get(string myproperty) {
-        myassociation = _associations.get(myproperty);
+    DAssociation __get(string associationName) {
+        auto myassociation = _associations.get(associationName);
         if (!myassociation) {
             throw new DatabaseException(
                 "Undefined property `%s`. " .
                 "You have not defined the `%s` association on `%s`."
-                .format(myproperty, myproperty, class ));
+                .format(associationName, associationName, class ));
         }
         return myassociation;
     }

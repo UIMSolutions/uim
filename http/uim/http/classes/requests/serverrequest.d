@@ -900,7 +900,7 @@ class DServerRequest { // }: IServerRequest {
             return null;
         }
         
-        string[] segments = split(".", host);
+        string[] segments = host.split(".");
         return array_slice(segments, 0, -1 * (tldLength + 1));
     }
     

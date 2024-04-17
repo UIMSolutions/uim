@@ -422,11 +422,11 @@ class DRoute {
      * Params:
      * string myargs A string with the passed params. eg. /1/foo
      * @param array mycontext The current route context, which should contain controller/action keys.
-     */
+     * /
     protected string[] _parseArgs(string myargs, array mycontext) {
         mypass = null;
-        string[] myargs = split("/", myargs);
-        myurldecode = this.options["_urldecode"] ?? true;
+        string[] myargs = myargs.split("/");
+        myurldecode = this.options.get("_urldecode", true);
 
         foreach (myargs as myparam) {
             if (isEmpty(myparam) && myparam != "0") {

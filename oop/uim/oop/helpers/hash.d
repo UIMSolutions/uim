@@ -97,7 +97,7 @@ class Hash {
         }
 
         myTokens = !mypath.has("[")
-            ? split(".", mypath)
+            ? mypath.split(".")
             : Text.tokenize(mypath, ".", "[", "]");
         my_key = "__set_item__";
 

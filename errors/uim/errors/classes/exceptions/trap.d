@@ -11,7 +11,7 @@ import uim.errors;
 /**
  * Entry point to UIM"s exception handling.
  *
- * Using the `register()` method you can attach an ExceptionTrap to PHP"s default exception handler and register
+ * Using the `register()` method you can attach an ExceptionTrap to D"s default exception handler and register
  * a shutdown handler to handle fatal errors.
  *
  * When exceptions are trapped the `Exception.beforeRender` event is triggered.
@@ -130,7 +130,7 @@ class DExceptionTrap {
 
         /** @var class-string|callable aClassName * /
         aClassName = this.getConfig("exceptionRenderer");
-        deprecatedConfig = (aClassName == ExceptionRenderer::class && PHP_SAPI == "cli");
+        deprecatedConfig = (aClassName == ExceptionRenderer::class && D_SAPI == "cli");
         if (deprecatedConfig) {
             deprecationWarning(
                 "Your application is using a deprecated `Error.exceptionRenderer`~ " ~
@@ -169,7 +169,7 @@ class DExceptionTrap {
      * /
     protected string chooseRenderer() {
         /** @var class-string<uim.errors.IExceptionRenderer> * /
-        return PHP_SAPI == "cli" ? ConsoleExceptionRenderer::class : ExceptionRenderer::class;
+        return D_SAPI == "cli" ? ConsoleExceptionRenderer::class : ExceptionRenderer::class;
     }
 
     /**
@@ -186,7 +186,7 @@ class DExceptionTrap {
     }
 
     /**
-     * Attach this ExceptionTrap to PHP"s default exception handler.
+     * Attach this ExceptionTrap to D"s default exception handler.
      *
      * This will replace the existing exception handler, and the
      * previous exception handler will be discarded.
@@ -250,7 +250,7 @@ class DExceptionTrap {
             this.logInternalError(exception);
         }
         // Use this constant as a proxy for cakephp tests.
-        if (PHP_SAPI == "cli" && !env("FIXTURE_SCHEMA_METADATA")) {
+        if (D_SAPI == "cli" && !env("FIXTURE_SCHEMA_METADATA")) {
             exit(1);
         }
     }
@@ -289,7 +289,7 @@ class DExceptionTrap {
     }
 
     /**
-     * Increases the PHP "memory_limit" ini setting by the specified amount
+     * Increases the D "memory_limit" ini setting by the specified amount
      * in kilobytes
      *
      * @param int additionalKb Number in kilobytes

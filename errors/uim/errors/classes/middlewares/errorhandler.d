@@ -90,7 +90,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
             myErrorHandler = func_get_arg(1);
         }
 
-        if (PHP_VERSION_ID >= 70400 && Configure::read("debug")) {
+        if (D_VERSION_ID >= 70400 && Configure::read("debug")) {
             ini_set("zend.exception_ignore_args", "0");
         }
 

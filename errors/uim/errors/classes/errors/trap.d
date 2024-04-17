@@ -7,11 +7,11 @@ import uim.errors;
 /**
  * Entry point to UIM`s error handling.
  *
- * Using the `register()` method you can attach an ErrorTrap to PHP`s default error handler.
+ * Using the `register()` method you can attach an ErrorTrap to D`s default error handler.
  *
  * When errors are trapped, errors are logged (if logging is enabled). Then the `Error.beforeRender` event is triggered.
  * Finally, errors are 'rendered' using the defined renderer. If no error renderer is defined in configuration
- * one of the default implementations will be chosen based on the PHP SAPI.
+ * one of the default implementations will be chosen based on the D SAPI.
  */
 class DErrorTrap {
     mixin TConfigurable;
@@ -65,7 +65,7 @@ class DErrorTrap {
 }
 
 /**
-     * Attach this ErrorTrap to PHP`s default error handler.
+     * Attach this ErrorTrap to D`s default error handler.
      *
      * This will replace the existing error handler, and the
      * previous error handler will be discarded.
@@ -80,7 +80,7 @@ class DErrorTrap {
     }
     
     /**
-     * Handle an error from PHP set_error_handler
+     * Handle an error from D set_error_handler
      *
      * Will use the configured renderer to generate output
      * and output it.

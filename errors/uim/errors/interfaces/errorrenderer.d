@@ -5,10 +5,10 @@ import uim.errors;
 @safe:
 
 /**
- * Interface for PHP error rendering implementations
+ * Interface for D error rendering implementations
  *
  * The core provided implementations of this interface are used
- * by Debugger and ErrorTrap to render PHP errors.
+ * by Debugger and ErrorTrap to render D errors.
  */
 interface IErrorRenderer {
     /**

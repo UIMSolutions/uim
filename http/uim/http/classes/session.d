@@ -5,7 +5,7 @@ import uim.http;
 @safe:
 
 /**
- * This class is a wrapper for the native PHP session functions. It provides
+ * This class is a wrapper for the native D session functions. It provides
  * several defaults for the most common session configuration
  * via external handlers and helps with using session in CLI without any warnings.
  *
@@ -231,7 +231,7 @@ class DSession {
     }
 
     /**
-     * Set the engine property and update the session handler in PHP.
+     * Set the engine property and update the session handler in D.
      * Params:
      * \!SessionHandler handler The handler to set
      * /
@@ -448,7 +448,7 @@ class DSession {
     }
 
     /**
-     * Used to write new data to _SESSION, since PHP doesn`t like us setting the _SESSION var itself.
+     * Used to write new data to _SESSION, since D doesn`t like us setting the _SESSION var itself.
      * Params:
      * array old Set of old variables: values
      * @param array new DNew set of variable: value

@@ -7,7 +7,7 @@ import uim.errors;
 /**
  * Entry point to UIM`s exception handling.
  *
- * Using the `register()` method you can attach an ExceptionTrap to PHP`s default exception handler and register
+ * Using the `register()` method you can attach an ExceptionTrap to D`s default exception handler and register
  * a shutdown handler to handle fatal errors.
  *
  * When exceptions are trapped the `Exception.beforeRender` event is triggered.
@@ -129,7 +129,7 @@ class DExceptionTrap {
     }
     
     /**
-     * Attach this ExceptionTrap to PHP`s default exception handler.
+     * Attach this ExceptionTrap to D`s default exception handler.
      *
      * This will replace the existing exception handler, and the
      * previous exception handler will be discarded.
@@ -233,7 +233,7 @@ class DExceptionTrap {
     }
     
     /**
-     * Increases the PHP "memory_limit" ini setting by the specified amount
+     * Increases the D "memory_limit" ini setting by the specified amount
      * in kilobytes
      * Params:
      * int additionalKb Number in kilobytes

@@ -93,7 +93,7 @@ abstract class DERRErrorHandler {
         set_error_handler([this, "handleError"], level);
         set_exception_handler([this, "handleException"]);
         register_shutdown_function(void () {
-            if ((PHP_SAPI == "cli" || PHP_SAPI == "phpdbg") && _handled) {
+            if ((D_SAPI == "cli" || D_SAPI == "phpdbg") && _handled) {
                 return;
             }
             megabytes = _config.get("extraFatalErrorMemory", 4);
@@ -241,7 +241,7 @@ abstract class DERRErrorHandler {
     }
 
     /**
-     * Increases the PHP "memory_limit" ini setting by the specified amount
+     * Increases the D "memory_limit" ini setting by the specified amount
      * in kilobytes
      *
      * @param int additionalKb Number in kilobytes

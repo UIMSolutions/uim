@@ -50,7 +50,7 @@ import uim.errors;
  * that are dealt with by ErrorHandler by setting `log` option to true in your config/error.php.
  * Enabling this will log every exception to Log and the configured loggers.
  *
- * ### PHP errors
+ * ### D errors
  *
  * Error handler also provides the built in features for handling php errors (trigger_error).
  * While in debug mode, errors will be output to the screen using debugger. While in production mode,

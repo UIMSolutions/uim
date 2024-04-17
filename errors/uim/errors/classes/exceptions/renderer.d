@@ -162,7 +162,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
      * @return void
      * /
     protected void clearOutput() {
-        if (hasAllValues(PHP_SAPI, ["cli", "phpdbg"])) {
+        if (hasAllValues(D_SAPI, ["cli", "phpdbg"])) {
             return;
         }
         while (ob_get_level()) {

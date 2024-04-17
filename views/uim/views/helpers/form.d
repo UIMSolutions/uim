@@ -436,10 +436,10 @@ class DFormHelper : DHelper {
      * string[] myurl The URL of the last form.
      * /
     protected void _lastAction(string[] myurl = null) {   myaction = Router.url(myurl, true);
-        myquery = parse_url(myaction, PHP_URL_QUERY);
+        myquery = parse_url(myaction, D_URL_QUERY);
         myquery = myquery ? "?" ~ myquery : "";
 
-        mypath = parse_url(myaction, PHP_URL_PATH) ?: "";
+        mypath = parse_url(myaction, D_URL_PATH) ?: "";
        _lastAction = mypath ~ myquery;
     }
     

@@ -47,7 +47,7 @@ mixin template TLocatorAware() {
     {
         alias = alias ?? this.defaultTable;
         if (empty(alias)) {
-            throw new UnexpectedValueException(
+            throw new DUnexpectedValueException(
                 "You must provide an `alias` or set the `defaultTable` property to a non empty string."
             );
         }

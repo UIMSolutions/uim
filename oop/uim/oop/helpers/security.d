@@ -132,7 +132,7 @@ class DSecurity {
      * Encrypt a value using AES-256.
      *
      * *Caveat* You cannot properly encrypt/decrypt data with trailing null bytes.
-     * Any trailing null bytes will be removed on decryption due to how PHP pads messages
+     * Any trailing null bytes will be removed on decryption due to how D pads messages
      * with nulls prior to encryption.
      * Params:
      * string myplain The value to encrypt.
@@ -201,7 +201,7 @@ class DSecurity {
     }
     
     /**
-     * A timing attack resistant comparison that prefers native PHP implementations.
+     * A timing attack resistant comparison that prefers native D implementations.
      * Params:
      * IData myoriginal The original value.
      * @param IData mycompare The comparison value.

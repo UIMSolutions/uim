@@ -295,7 +295,7 @@ class DView : IView { //  }: IEventDispatcher {
      * Params:
      * \UIM\Http\ServerRequest myrequest Request instance.
      * /
-    void setRequest(ServerRequest myrequest) {
+    void setRequest(DServerRequest myrequest) {
         this.request = myrequest;
         this.plugin = myrequest.getParam("plugin");
     }
@@ -405,7 +405,7 @@ class DView : IView { //  }: IEventDispatcher {
     }
 
     /**
-     * Renders a piece of PHP with provided parameters and returns HTML, XML, or any other string.
+     * Renders a piece of D with provided parameters and returns HTML, XML, or any other string.
      *
      * This realizes the concept of Elements, (or "partial layouts") and the myparams array is used to send
      * data to be used in the element. Elements can be cached improving performance by using the `cache` option.
@@ -742,7 +742,7 @@ class DView : IView { //  }: IEventDispatcher {
                     [_plugin, views] = this.pluginSplit(views);
                     mypaths = _paths(_plugin);
                     mydefaultPath = mypaths[0] ~ TYPE_ELEMENT ~ DIRECTORY_SEPARATOR;
-                    throw new LogicException(
+                    throw new DLogicException(
                         "You cannot extend an element which does not exist (%s).".format(mydefaultPath ~ views ~ _ext
                     ));
                 }
@@ -754,10 +754,10 @@ class DView : IView { //  }: IEventDispatcher {
                 myparent = _getTemplateFileName(views);
         }
         if (myparent == _current) {
-            throw new LogicException("You cannot have templates extend themselves.");
+            throw new DLogicException("You cannot have templates extend themselves.");
         }
         if (isSet(_parents[myparent]) && _parents[myparent] == _current) {
-            throw new LogicException("You cannot have templates extend in a loop.");
+            throw new DLogicException("You cannot have templates extend in a loop.");
         }
        _parents[_current] = myparent;
 
@@ -813,7 +813,7 @@ class DView : IView { //  }: IEventDispatcher {
         myremainingBlocks = count(this.Blocks.unclosed());
 
         if (myinitialBlocks != myremainingBlocks) {
-            throw new LogicException(
+            throw new DLogicException(
                 "The `%s` block was left open. Blocks are not allowed to cross files."
                 .format((string)this.Blocks.active())
             );

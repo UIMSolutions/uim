@@ -122,7 +122,7 @@ class DBreadcrumbsHelper : DHelper {
      * /
     void insertAt(int myindex, string mytitle, string[] myurl = null, IData[string] options  = null) {
         if (!isSet(this.crumbs[myindex]) && myindex != count(this.crumbs)) {
-            throw new LogicException(
+            throw new DLogicException(
                 "No crumb could be found at index `%s`.".format(myindex));
         }
         array_splice(this.crumbs, myindex, 0, [compact("title", "url", "options")]);
@@ -156,7 +156,7 @@ class DBreadcrumbsHelper : DHelper {
         aKey = this.findCrumb(mymatchingTitle);
 
         if (aKey is null) {
-            throw new LogicException("No crumb matching `%s` could be found.".format(mymatchingTitle));
+            throw new DLogicException("No crumb matching `%s` could be found.".format(mymatchingTitle));
         }
         return this.insertAt(aKey, mytitle, myurl, options);
     }
@@ -188,7 +188,7 @@ class DBreadcrumbsHelper : DHelper {
         aKey = this.findCrumb(mymatchingTitle);
 
         if (aKey is null) {
-            throw new LogicException("No crumb matching `%s` could be found.".format(mymatchingTitle));
+            throw new DLogicException("No crumb matching `%s` could be found.".format(mymatchingTitle));
         }
         return this.insertAt(aKey + 1, mytitle, myurl, options);
     }

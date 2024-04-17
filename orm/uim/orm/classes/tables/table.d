@@ -2770,7 +2770,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * @see \ORM\Query.contain()
      * /
     IEntity[] loadInto(IEntity|array myentities, array mycontain) {
-        return (new LazyEagerLoader()).loadInto(myentities, mycontain, this);
+        return (new DLazyEagerLoader()).loadInto(myentities, mycontain, this);
     }
  
     protected bool validationMethodExists(string myname) {

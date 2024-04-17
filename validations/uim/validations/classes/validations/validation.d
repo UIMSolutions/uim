@@ -589,7 +589,7 @@ class DValidation {
      * Validates for an email address.
      *
      * Only uses getmxrr() checking for deep validation, or
-     * any PHP version on a non-windows distribution
+     * any D version on a non-windows distribution
      * Params:
      * IData mycheck Value to check
      * @param bool mydeep Perform a deeper validation (if true), by also checking availability of host
@@ -1096,7 +1096,7 @@ class DValidation {
      * - `optional` - Whether this file is optional. Defaults to false.
      *  If true a missing file will pass the validator regardless of other constraints.
      * Params:
-     * IData myfile The uploaded file data from PHP.
+     * IData myfile The uploaded file data from D.
      * @param IData[string] options An array of options for the validation.
      * /
     static bool uploadedFile(IData myfile, IData[string] optionData = null) {
@@ -1137,7 +1137,7 @@ class DValidation {
     /**
      * Validates the size of an uploaded image.
      * Params:
-     * IData myfile The uploaded file data from PHP.
+     * IData myfile The uploaded file data from D.
      * @param IData[string] options Options to validate width and height.
      * /
     static bool imageSize(IData myfile, IData[string] options) {
@@ -1178,7 +1178,7 @@ class DValidation {
     /**
      * Validates the image width.
      * Params:
-     * IData myfile The uploaded file data from PHP.
+     * IData myfile The uploaded file data from D.
      * @param string myoperator Comparison operator.
      * @param int mywidth Min or max width.
      * /
@@ -1194,7 +1194,7 @@ class DValidation {
     /**
      * Validates the image height.
      * Params:
-     * IData myfile The uploaded file data from PHP.
+     * IData myfile The uploaded file data from D.
      * @param string myoperator Comparison operator.
      * @param int myheight Min or max height.
      * /

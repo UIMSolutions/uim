@@ -52,7 +52,7 @@ mixin template TLocatorAware() {
     Table fetchTable(string myalias = null, IData[string] optionData = null) {
         myalias ??= this.defaultTable;
         if (myalias.isEmpty) {
-            throw new UnexpectedValueException(
+            throw new DUnexpectedValueException(
                 "You must provide an `myalias` or set the `mydefaultTable` property to a non empty string."
             );
         }

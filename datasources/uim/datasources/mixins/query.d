@@ -188,7 +188,7 @@ mixin template TQuery() {
      * @param string|null alias the alias used to prefix the field
      * /
     STRINGAA aliasField(string field, string alias = null) {
-        if (strpos(field, ".") == false) {
+        if (indexOf(field, ".") == false) {
             alias = alias ?: this.getRepository().aliasName();
             aliasedField = alias ~ "." ~ field;
         } else {

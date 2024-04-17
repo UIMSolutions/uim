@@ -460,13 +460,13 @@ class DDebugger {
      * @return string Normalized path
      * /
     static string trimPath(string path) {
-        if (defined('APP') && strpos(path, APP) == 0) {
+        if (defined('APP') && indexOf(path, APP) == 0) {
             return replace(APP, 'APP/', path);
         }
-        if (defined('uim_CORE_INCLUDE_PATH') && strpos(path, uim_CORE_INCLUDE_PATH) == 0) {
+        if (defined('uim_CORE_INCLUDE_PATH') && indexOf(path, uim_CORE_INCLUDE_PATH) == 0) {
             return replace(uim_CORE_INCLUDE_PATH, 'CORE', path);
         }
-        if (defined('ROOT') && strpos(path, ROOT) == 0) {
+        if (defined('ROOT') && indexOf(path, ROOT) == 0) {
             return replace(ROOT, 'ROOT', path);
         }
 
@@ -503,7 +503,7 @@ class DDebugger {
         if (empty(data)) {
             return lines;
         }
-        if (strpos(data, "\n") != false) {
+        if (indexOf(data, "\n") != false) {
             data = explode("\n", data);
         }
         line--;
@@ -537,7 +537,7 @@ class DDebugger {
             return htmlentities(str);
         }
         added = false;
-        if (strpos(str, '<?D') == false) {
+        if (indexOf(str, '<?D') == false) {
             added = true;
             str = "<?D \n" ~ str;
         }

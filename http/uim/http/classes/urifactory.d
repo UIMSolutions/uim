@@ -95,7 +95,7 @@ class UriFactory { // }: IUriFactory {
             // Clean up additional / which cause following code to fail..
             base = (string)preg_replace("#/+#", "/", base);
 
-             anIndexPos = strpos(base, "/" ~ webroot ~ "/index.d");
+             anIndexPos = indexOf(base, "/" ~ webroot ~ "/index.d");
             if (anIndexPos != false) {
                 base = substr(base, 0,  anIndexPos) ~ "/" ~ webroot;
             }

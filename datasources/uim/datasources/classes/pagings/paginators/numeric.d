@@ -537,7 +537,7 @@ class DNumericPaginator : IPaginator {
             }
 
             order = isset(options["order"]) && is_array(options["order"]) ? options["order"] : [];
-            if (order && options["sort"] && strpos(options["sort"], ".") == false) {
+            if (order && options["sort"] && indexOf(options["sort"], ".") == false) {
                 order = _removeAliases(order, object.aliasName());
             }
 

@@ -65,12 +65,12 @@ class DHeaderUtility {
             prefValue = "1.0";
             aValue = trim(aValue);
 
-            semiPos = strpos(aValue, ";");
+            semiPos = indexOf(aValue, ";");
             if (semiPos != false) {
                 string[] params = aValue.split(";");
                 aValue = trim(params[0]);
                 params.each!((param) {
-                    size_t qPos = strpos(param, "q=");
+                    size_t qPos = indexOf(param, "q=");
                     if (qPos != false) {
                         prefValue = substr(param, qPos + 2);
                     }

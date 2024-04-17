@@ -67,7 +67,7 @@ mixin template TModelAware() {
         modelType ??= this.getModelType();
 
         auto options = null;
-        if (strpos(modelClass, "\\") == false) {
+        if (indexOf(modelClass, "\\") == false) {
             [, alias] = pluginSplit(modelClass, true);
         } else {
             options["className"] = modelClass;

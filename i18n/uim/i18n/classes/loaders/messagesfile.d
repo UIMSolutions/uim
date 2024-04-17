@@ -83,7 +83,7 @@ class DMessagesFileLoader {
         // If space is not added after slash, the character after it remains lowercased
         
         auto pluginName = Inflector.camelize(_name.replace("/", "/ "));
-        if (strpos(_name, ".")) {
+        if (indexOf(_name, ".")) {
             [_plugin, _name] = pluginSplit(pluginName);
         } else if (Plugin.isLoaded(pluginName)) {
            _plugin = pluginName;

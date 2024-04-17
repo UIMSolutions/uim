@@ -388,7 +388,7 @@ class DText {
             if (mynextChar != " ") {
                 mybreakAt = mb_strrpos(mypart, " ");
                 if (mybreakAt == false) {
-                    mybreakAt = mb_strpos(textToFormat, " ", mywidth);
+                    mybreakAt = mb_indexOf(textToFormat, " ", mywidth);
                 }
                 if (mybreakAt == false) {
                     myparts ~= trim(textToFormat);
@@ -483,7 +483,7 @@ class DText {
         }
         mytruncate = mb_substr(textToTruncate, mb_strlen(textToTruncate) - mylength + mb_strlen(myellipsis));
         if (!options["exact"]) {
-            myspacepos = mb_strpos(mytruncate, " ");
+            myspacepos = mb_indexOf(mytruncate, " ");
             mytruncate = myspacepos == false ? "" : trim(mb_substr(mytruncate, myspacepos));
         }
         return myellipsis ~ mytruncate;

@@ -13,7 +13,7 @@ if (!function_exists("__")) {
      * @param IData ...someArguments Array with arguments or multiple arguments in function.
      * /
     string __(string asingular, IData ...someArguments) {
-        return cake__(singular, ...someArguments);
+        return uim__(singular, ...someArguments);
     }
 }
 
@@ -28,7 +28,7 @@ if (!function_exists("__n")) {
      * @param IData ...someArguments Array with arguments or multiple arguments in function.
      * /
     string|int|false __n(string asingular, string aplural, int count, IData ...someArguments) {
-        return cake__n(singular, plural, count, ...someArguments);
+        return uim__n(singular, plural, count, ...someArguments);
     }
 }
 
@@ -41,7 +41,7 @@ if (!function_exists("__d")) {
      * @param IData ...someArguments Array with arguments or multiple arguments in function.
      * /
     string __d(string adomain, string amsg, IData ...someArguments) {
-        return cake__d(domain, message, ...someArguments);
+        return uim__d(domain, message, ...someArguments);
     }
 }
 
@@ -58,7 +58,7 @@ if (!function_exists("__dn")) {
      * @param IData ...someArguments Array with arguments or multiple arguments in function.
      * /
     string __dn(string adomain, string asingular, string aplural, int count, IData ...someArguments) {
-        return cake__dn(domain, singular, plural, count, ...someArguments);
+        return uim__dn(domain, singular, plural, count, ...someArguments);
     }
 }
 
@@ -73,7 +73,7 @@ if (!function_exists("__x")) {
      * @param IData ...someArguments Array with arguments or multiple arguments in function.
      * /
     string __x(string acontext, string asingular, IData ...someArguments) {
-        return cake__x(context, singular, ...someArguments);
+        return uim__x(context, singular, ...someArguments);
     }
 }
 
@@ -91,7 +91,7 @@ if (!function_exists("__xn")) {
      * @param IData ...someArguments Array with arguments or multiple arguments in function.
      * /
     string __xn(string acontext, string asingular, string aplural, int count, IData ...someArguments) {
-        return cake__xn(context, singular, plural, count, ...someArguments);
+        return uim__xn(context, singular, plural, count, ...someArguments);
     }
 }
 
@@ -107,7 +107,7 @@ if (!function_exists("__dx")) {
      * @param IData ...someArguments Array with arguments or multiple arguments in function.
      * /
     string __dx(string adomain, string acontext, string amsg, IData ...someArguments) {
-        return cake__dx(domain, context, message, ...someArguments);
+        return uim__dx(domain, context, message, ...someArguments);
     }
 }
 
@@ -133,7 +133,7 @@ if (!function_exists("__dxn")) {
         int count,
         IData ...someArguments
     ) {
-        return cake__dxn(domain, context, singular, plural, count, ...someArguments);
+        return uim__dxn(domain, context, singular, plural, count, ...someArguments);
     }
 }
 */

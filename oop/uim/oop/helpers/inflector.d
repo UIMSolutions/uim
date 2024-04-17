@@ -395,7 +395,7 @@ class DInflector {
   }
 
   /**
-     * Returns Cake model class name ("Person" for the database table "people".) for given database table.
+     * Returns uim model class name ("Person" for the database table "people".) for given database table.
      * Params:
      * string mytableName Name of database table to get class name for
      * /

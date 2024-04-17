@@ -58,7 +58,7 @@ class DMiddlewareDispatcher {
     protected IServerRequest _createRequest(IData[string] spec) {
         if (spec.isSet("input")) {
             spec["post"] = null;
-            spec["environment"]["CAKEUIM_INPUT"] = spec["input"];
+            spec["environment"]["uimUIM_INPUT"] = spec["input"];
         }
         environment = array_merge(
             chain(_SERVER, ["REQUEST_URI": spec["url"]]),

@@ -6,7 +6,7 @@ import uim.logging;
 
 /**
  * Logs messages to configured Log adapters. One or more adapters
- * can be configured using Cake Logs"s methods. If you don"t
+ * can be configured using uim Logs"s methods. If you don"t
  * configure any adapters, and write to Log, the messages will be
  * ignored.
  *
@@ -69,7 +69,7 @@ import uim.logging;
  *
  * ### Logging Levels
  *
- * By default Cake Log supports all the log levels defined in
+ * By default uim Log supports all the log levels defined in
  * RFC 5424. When logging messages you can either use the named methods,
  * or the correct constants with `write()`:
  *

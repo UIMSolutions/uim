@@ -12,7 +12,7 @@ module uim.oop.base.functions_global;
      *  Defaults to config value in `mb_internal_encoding()` or 'UTF-8'.
      * /
     Json htmlAttribEscape(Json text, bool double = true, string acharset = null) {
-        return cakeH(text, double, charset);
+        return uimH(text, double, charset);
     }
 
     /**
@@ -28,7 +28,7 @@ module uim.oop.base.functions_global;
      * @param string plugin Optional default plugin to use if no plugin is found. Defaults to null.
      * /
     array pluginSplit(string nameToSplit, bool dotAppend = false, string aplugin = null) {
-        return cakePluginSplit(nameToSplit, dotAppend, plugin);
+        return uimPluginSplit(nameToSplit, dotAppend, plugin);
     }
 
 if (!function_exists("namespaceSplit")) {
@@ -38,7 +38,7 @@ if (!function_exists("namespaceSplit")) {
      * Commonly used like `list(namespace,  className) = namespaceSplit(className);`.
      * /
     string[] namespaceSplit(string className) {
-        return cakeNamespaceSplit(className);
+        return uimNamespaceSplit(className);
     }
 }
 
@@ -54,7 +54,7 @@ if (!function_exists("pr")) {
      * Json var Variable to print out.
      * /
     Json pr(Json var) {
-        return cakePr(var);
+        return uimPr(var);
     }
 }
 
@@ -70,7 +70,7 @@ if (!function_exists("pj")) {
      * Json var Variable to print out.
      * /
     Json pj(Json var) {
-        return cakePj(var);
+        return uimPj(var);
     }
 }
 
@@ -96,7 +96,7 @@ if (!function_exists("triggerWarning")) {
      * string amessage The warning message.
      * /
     void triggerWarning(string amessage) {
-        cakeTriggerWarning(message);
+        uimTriggerWarning(message);
     }
 }
 
@@ -110,7 +110,7 @@ if (!function_exists("deprecationWarning")) {
      *  as that should point to application/plugin code.
      * /
     void deprecationWarning(string aversion, string amessage, int stackFrame = 1) {
-        cakeDeprecationWarning(version, message, stackFrame + 1);
+        uimDeprecationWarning(version, message, stackFrame + 1);
     }
 }
 */

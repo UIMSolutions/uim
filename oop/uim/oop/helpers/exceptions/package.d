@@ -1,2 +1,2 @@
-module uim.oop.cake.utilities.exceptions;
+module uim.oop.uim.utilities.exceptions;
 

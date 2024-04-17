@@ -215,6 +215,6 @@ class DApp {
         if (type == "templates") {
             return [CORE_PATH ~ "templates" ~ DIRECTORY_SEPARATOR];
         }
-        return [CAKE ~ type.replace("/", DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR];
+        return [uim ~ type.replace("/", DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR];
     } 
 } */

@@ -1,4 +1,4 @@
-module uim.oop.cake.core.retries.commandretry;
+module uim.oop.uim.core.retries.commandretry;
 
 import uim.oop;
 

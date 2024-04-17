@@ -10,7 +10,7 @@ Error configuration is done in the application.  By default, an ErrorHandler is 
 
   ExceptionRenderer - String - The class responsible for rendering uncaught exceptions.  If you choose a custom class, you should place the file for that class in src/Error.  This class must implement a render() method.
 
-  log - bool - If true, exceptions and their stack traces are logged to Cake\Log\Log.
+  log - bool - If true, exceptions and their stack traces are logged to uim\Log\Log.
 
   skipLog - Array - An array of exception class names that should not be logged.  This is useful for removing NotFounUimExceptions or other common but uninteresting log messages.
 

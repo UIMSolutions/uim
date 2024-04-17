@@ -87,19 +87,18 @@ class DMockAdapter { //}: IAdapter {
     /**
      * Check if the request URI matches the mock URI.
      * Params:
-     * string arequestUri The request being sent.
      * @param \Psr\Http\Message\IRequest mock The request being mocked.
      * /
-    protected bool urlMatches(string requestUri, IRequest mock) {
+    protected bool urlMatches(string sentRequestUri, IRequest mock) {
         string mockUri = (string)mock.getUri();
-        if (requestUri == mockUri) {
+        if (sentRequestUri == mockUri) {
             return true;
         }
         size_t starPosition = mockUri.indexOf("/%2A");
         if (starPosition == mockUri.length - 4) {
             mockUri = mockUri[0..starPosition];
 
-            return requestUri.startWith(mockUri);
+            return sentRequestUri.startWith(mockUri);
         }
         return false;
     } */

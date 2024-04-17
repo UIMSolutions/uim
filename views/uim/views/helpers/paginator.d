@@ -329,7 +329,7 @@ class DPaginatorHelper : DHelper {
 
         mysortKey = to!string(this.param("sort"));
         myalias = this.param("alias");
-        [mytable, myfield] = split(".", aKey ~ ".");
+        [mytable, myfield] = (aKey ~ ".").split(".");
         if (!myfield) {
             myfield = mytable;
             mytable = myalias;

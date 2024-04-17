@@ -1,4 +1,4 @@
-module uim.uim.http;
+module uim.http.classes.responses.factory;
 
 import uim.http;
 

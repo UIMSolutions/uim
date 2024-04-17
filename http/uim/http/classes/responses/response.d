@@ -968,7 +968,7 @@ class DResponse : IResponse {
      * Params:
      * string afilename The name of the file as the browser will download the response
      * @return static
-     */
+     * /
     static withDownload(string afilename) {
         return this.withHeader("Content-Disposition", "attachment; filename="" ~ filename ~ """);
     }
@@ -1003,7 +1003,7 @@ class DResponse : IResponse {
      * Params:
      * string aurl The LinkHeader url.
      * @param IData[string] options The LinkHeader params.
-     */
+     * /
     static withAddedLink(string aurl, IData[string] options = null) {
         string[] params;
         foreach (options as aKey: option) {
@@ -1026,7 +1026,7 @@ class DResponse : IResponse {
      * before calling this method. Otherwise, a comparison will not be possible.
      * Params:
      * \UIM\Http\ServerRequest serverRequest Request object
-     */
+     * /
     bool isNotModified(ServerRequest serverRequest) {
         etags = preg_split("/\s*,\s*/", serverRequest.getHeaderLine("If-None-Match"), 0, PREG_SPLIT_NO_EMPTY) ?: [];
         responseTag = this.getHeaderLine("Etag");
@@ -1068,7 +1068,7 @@ class DResponse : IResponse {
      * Params:
      * \UIM\Http\Cookie\ICookie cookie cookie object
      * @return static
-     */
+     * /
     auto withCookie(ICookie cookie): static
     {
         new = clone this;
@@ -1089,7 +1089,7 @@ class DResponse : IResponse {
      * Params:
      * \UIM\Http\Cookie\ICookie cookie cookie object
      * @return static
-     */
+     * /
     auto withExpiredCookie(ICookie cookie): static
     {
         cookie = cookie.withExpired();
@@ -1107,7 +1107,7 @@ class DResponse : IResponse {
      * not read the `Set-Cookie` header if set.
      * Params:
      * string aName The cookie name you want to read.
-     */
+     * /
     array getCookie(string aName) {
         if (!_cookies.has(name)) {
             return null;
@@ -1119,7 +1119,7 @@ class DResponse : IResponse {
      * Get all cookies in the response.
      *
      * Returns an associative array of cookie name: cookie data.
-     */
+     * /
     array<string, array> getCookies() {
          auto result;
         foreach (_cookies as cookie) {
@@ -1130,8 +1130,8 @@ class DResponse : IResponse {
     
     /**
      * Get the CookieCollection from the response
-     */
-    CookieCollection getCookieCollection() {
+     * /
+    DCookieCollection getCookieCollection() {
         return _cookies;
     }
     
@@ -1139,7 +1139,7 @@ class DResponse : IResponse {
      * Get a new instance with provided cookie collection.
      * Params:
      * \UIM\Http\Cookie\CookieCollection cookieCollection Cookie collection to set.
-     */
+     * /
     static withCookieCollection(CookieCollection cookieCollection) {
         new = clone this;
         new._cookies = cookieCollection;
@@ -1151,8 +1151,8 @@ class DResponse : IResponse {
      * Get a CorsBuilder instance for defining CORS headers.
      * Params:
      * \UIM\Http\ServerRequest serverRequest Request object
-     */
-    CorsBuilder cors(ServerRequest serverRequest) {
+     * /
+    DCorsBuilder cors(ServerRequest serverRequest) {
         origin = serverRequest.getHeaderLine("Origin");
         https = serverRequest.is("https");
 
@@ -1174,7 +1174,7 @@ class DResponse : IResponse {
      *  be downloaded rather than displayed inline.
      * Params:
      * string aPath Absolute path to file.
-     */
+     * /
     static withFile(string aPath, IData[string] options = null) {
         file = this.validateFile(somePath);
         auto options = options.update([
@@ -1267,9 +1267,9 @@ class DResponse : IResponse {
      * Params:
      * \SplFileInfo file The file to set a range on.
      * @param string ahttpRange The range to use.
-     */
+     * /
     protected void _fileRange(SplFileInfo file, string ahttpRange) {
-        fileSize = file.getSize();
+        size_t fileSize = file.getSize();
         lastByte = fileSize - 1;
         string start = 0;
         string end = lastByte;
@@ -1277,7 +1277,7 @@ class DResponse : IResponse {
         preg_match("/^bytes\s*=\s*(\d+)?\s*-\s*(\d+)?/", httpRange, matches);
         if (matches) {
             start = matches[1];
-            end = matches[2] ?? "";
+            end = !matches[2].isEmpty ? matches[2] : "";
         }
         if (start.isEmpty) {
             start = fileSize - (int)end;
@@ -1298,11 +1298,12 @@ class DResponse : IResponse {
         /**
          * @var int start
          * @var int end
-         */
+         * /
        _fileRange = [start, end];
     }
     
     // Returns an array that can be used to describe the internal state of this object.
+    /*
     STRINGAA debugInfo() {
         return [
             "status": _status,
@@ -1314,5 +1315,5 @@ class DResponse : IResponse {
             "cacheDirectives": _cacheDirectives,
             "body": (string)this.getBody(),
         ];
-    }
+    } */
 }

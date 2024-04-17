@@ -14,7 +14,7 @@ import uim.http;
  * options you want to use.
  *
  * When specific options are omitted, this class will take its defaults from the configuration
- * values from the `session.*` directives in php.ini. This class will also alter such
+ * values from the `session.*` directives in D.ini. This class will also alter such
  * directives when configuration values are provided.
  */
 class DSession {
@@ -45,7 +45,7 @@ class DSession {
      * `defaults`, which indicates the set of configurations to inherit from, the possible
      * defaults are:
      *
-     * - php: just use session as configured in php.ini
+     * - D: just use session as configured in D.ini
      * - cache: Use the UIM caching system as an storage for the session, you will need
      *  to pass the `config` key with the name of an already configured Cache engine.
      * - database: Use the UIM ORM to persist and manage sessions. By default this requires
@@ -56,9 +56,9 @@ class DSession {
      *
      * The full list of options follows:
      *
-     * - defaults: either "php", "database", "cache" or "uim" as explained above.
+     * - defaults: either "D", "database", "cache" or "uim" as explained above.
      * - handler: An array containing the handler configuration
-     * - ini: A list of php.ini directives to set before the session starts.
+     * - ini: A list of D.ini directives to set before the session starts.
      * - timeout: The time in minutes the session should stay active
      * Params:
      * array sessionConfig Session config.
@@ -103,7 +103,7 @@ class DSession {
     protected static array | false _defaultConfigData(string aName) {
         tmp = defined("TMP") ? TMP : sys_get_temp_dir() ~ DIRECTORY_SEPARATOR;
         IData[string] defaults = [
-            "php": [
+            "D": [
                 "ini": [
                     "session.use_trans_sid": 0,
                 ],
@@ -111,7 +111,7 @@ class DSession {
             "uim": [
                 "ini": [
                     "session.use_trans_sid": 0,
-                    "session.serialize_handler": "php",
+                    "session.serialize_handler": "D",
                     "session.use_cookies": 1,
                     "session.save_path": tmp ~ "sessions",
                     "session.save_handler": "files",
@@ -131,7 +131,7 @@ class DSession {
                 "ini": [
                     "session.use_trans_sid": 0,
                     "session.use_cookies": 1,
-                    "session.serialize_handler": "php",
+                    "session.serialize_handler": "D",
                 ],
                 "handler": [
                     "engine": "DatabaseSession",
@@ -140,8 +140,8 @@ class DSession {
         ];
 
         if (isSet(defaults[name])) {
-            if (name != "php" || empty(ini_get("session.cookie_samesite"))) {
-                defaults["php"]["ini"]["session.cookie_samesite"] = "Lax";
+            if (name != "D" || empty(ini_get("session.cookie_samesite"))) {
+                defaults["D"]["ini"]["session.cookie_samesite"] = "Lax";
             }
             return defaults[name];
         }
@@ -155,8 +155,8 @@ class DSession {
      *
      * - timeout: The time in minutes the session should be valid for.
      * - cookiePath: The url path for which session cookie is set. Maps to the
-     *  `session.cookie_path` php.ini config. Defaults to base path of app.
-     * - ini: A list of php.ini directives to change before the session start.
+     *  `session.cookie_path` D.ini config. Defaults to base path of app.
+     * - ini: A list of D.ini directives to change before the session start.
      * - handler: An array containing at least the `engine` key. To be used as the session
      *  engine for persisting data. The rest of the keys in the array will be passed as
      *  the configuration array for the engine. You can set the `engine` key to an already
@@ -190,7 +190,7 @@ class DSession {
             this.engine(className, configData("handler"]);
         }
         _lifetime = (int) ini_get("session.gc_maxlifetime");
-        _isCLI = (UIM_SAPI == "cli" || UIM_SAPI == "phpdbg");
+        _isCLI = (UIM_SAPI == "cli" || UIM_SAPI == "Ddbg");
         session_register_shutdown();
     }
 

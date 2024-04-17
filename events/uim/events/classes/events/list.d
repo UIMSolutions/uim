@@ -29,7 +29,7 @@ class DEventList { // }: ArrayAccess, Countable {
     /**
      * Whether a offset exists
      *
-     * @link https://secure.php.net/manual/en/arrayaccess.offsetexists.php
+     * @link https://secure.D.net/manual/en/arrayaccess.offsetexists.D
      * @param IData  anOffset An offset to check for.
      * @return bool True on success or false on failure.
      * /
@@ -40,7 +40,7 @@ class DEventList { // }: ArrayAccess, Countable {
     /**
      * Offset to retrieve
      *
-     * @link https://secure.php.net/manual/en/arrayaccess.offsetget.php
+     * @link https://secure.D.net/manual/en/arrayaccess.offsetget.D
      * @param IData  anOffset The offset to retrieve.
      * @return \UIM\Event\IEvent<object>|null
      * /
@@ -54,7 +54,7 @@ class DEventList { // }: ArrayAccess, Countable {
     /**
      * Offset to set
      *
-     * @link https://secure.php.net/manual/en/arrayaccess.offsetset.php
+     * @link https://secure.D.net/manual/en/arrayaccess.offsetset.D
      * @param IData  anOffset The offset to assign the value to.
      * @param IData aValue The value to set.
      * /
@@ -65,7 +65,7 @@ class DEventList { // }: ArrayAccess, Countable {
     /**
      * Offset to unset
      *
-     * @link https://secure.php.net/manual/en/arrayaccess.offsetunset.php
+     * @link https://secure.D.net/manual/en/arrayaccess.offsetunset.D
      * @param IData  anOffset The offset to unset.
      * /
     void offsetUnset(IData  anOffset) {
@@ -75,7 +75,7 @@ class DEventList { // }: ArrayAccess, Countable {
     /**
      * Count elements of an object
      *
-     * @link https://secure.php.net/manual/en/countable.count.php
+     * @link https://secure.D.net/manual/en/countable.count.D
      * @return int The custom count as an integer.
      * /
     size_t count() {

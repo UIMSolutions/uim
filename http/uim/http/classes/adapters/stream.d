@@ -6,7 +6,7 @@ import uim.http;
 
 /**
  * : sending UIM\Http\Client\Request
- * via php`s stream API.
+ * via D`s stream API.
  *
  * This approach and implementation is partly inspired by Aura.Http
  */

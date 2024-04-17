@@ -14,7 +14,7 @@ class DStreamFactory { // }: IStreamFactory {
      * string acontent String content with which to populate the stream.
      * /
     IStream createStream(string contenToPopulate= null) {
-        auto myResource = fopen("php://temp", "r+");
+        auto myResource = fopen("D://temp", "r+");
         assert(myResource != false, "Unable to create resource");
         fwrite(myResource, contenToPopulate);
         rewind(myResource);

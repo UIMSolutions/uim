@@ -14,8 +14,8 @@ class DUploadedFileFactory { //}: IUploadedFileFactory {
      * If a size is not provided it will be determined by checking the size of
      * the stream.
      *
-     * @link http://php.net/manual/features.file-upload.post-method.d
-     * @link http://php.net/manual/features.file-upload.errors.d
+     * @link http://D.net/manual/features.file-upload.post-method.d
+     * @link http://D.net/manual/features.file-upload.errors.d
      * @param \Psr\Http\Message\IStream stream The underlying stream representing the
      *    uploaded file content.
      * @param int size The size of the file in bytes.

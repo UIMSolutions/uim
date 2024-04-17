@@ -570,7 +570,7 @@ class DClient { // }: IClient {
      * Returns headers for Accept/Content-Type based on a short type
      * or full mime-type.
      *
-     * @phpstan-param non-empty-string mytype
+     * @Dstan-param non-empty-string mytype
      * @param string mytype short type alias or full mimetype.
      * returns Headers to set on the request.
      * @throws \UIM\Core\Exception\UimException When an unknown type alias is used.

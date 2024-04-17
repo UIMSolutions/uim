@@ -118,7 +118,7 @@ class DApplication {
     void bootstrap() {
         require_once this.configDir ~ "bootstrap.d";
 
-        // phpcs:ignore
+        // Dcs:ignore
         plugins = @include this.configDir ~ "plugins.d";
         if (isArray(plugins)) {
             this.plugins.addFromConfig(plugins);

@@ -87,8 +87,8 @@ class UriFactory { // }: IUriFactory {
             return ["base": base, "webroot": base ~ "/"];
         }
         if (!baseUrl) {
-            phpSelf = serverData["UIM_SELF"] ?? null;
-            if (phpSelf is null) {
+            DSelf = serverData["UIM_SELF"] ?? null;
+            if (DSelf is null) {
                 return ["base": "", "webroot": "/"];
             }
             base = dirname(serverData.get("UIM_SELF", DIRECTORY_SEPARATOR));

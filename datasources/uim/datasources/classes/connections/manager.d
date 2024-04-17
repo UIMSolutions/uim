@@ -227,7 +227,6 @@ static IData[string] parseDsn(string adsn) {
      * ConnectionManager.alias("test_things", "things");
      * ```
      * Params:
-     * string asource The existing connection to alias.
      * @param string aalias The alias name that resolves to `source`.
      * /
     static void alias(string connectionAlias, string sourceAlias) {

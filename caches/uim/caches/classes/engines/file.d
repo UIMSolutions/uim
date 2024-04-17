@@ -249,7 +249,6 @@ class DFileCacheEngine : DCacheEngine {
      * Sets the current cache key this class is managing, and creates a writable SplFileObject
      * for the cache file the key is referring to.
      * Params:
-     * string aKey The key
      * @param bool mycreateKey Whether the key should be created if it doesn"t exists, or not
      * /
     /* protected bool _setKey(string key, bool mycreateKey = false) {

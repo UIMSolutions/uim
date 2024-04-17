@@ -409,11 +409,9 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * If no type is being explicitly set via this method, then the
      * `getReturnType()` method will try to infer the type from the
      * result types of the `then()` and `else() `calls.
-     * Params:
-     * string atype The type name to use.
      * /
-    void setReturnType(string atype) {
-        this.returnType = type;
+    void setReturnType(string typeName) {
+        this.returnType = typeName;
     }
     
     /**

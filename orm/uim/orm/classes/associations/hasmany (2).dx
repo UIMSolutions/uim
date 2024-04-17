@@ -169,7 +169,7 @@ class DHasMany : DAssociation {
             if (!empty(options["atomic"])) {
                 original[myKey].setErrors(entity.getErrors());
                 if (cast(IInvalidProperty)entity) {
-                    original[myKey].setFieldsInvalid(entity.getInvalid());
+                    original[myKey].setFieldsInvalid(entity.invalidFields());
                 }
                 return false;
             }

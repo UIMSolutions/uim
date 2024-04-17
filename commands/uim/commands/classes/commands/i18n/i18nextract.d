@@ -473,7 +473,6 @@ class DI18nExtractCommand : DCommand {
     /**
      * Prepare a file to be stored
      * Params:
-     * string adomain The domain
      * @param string aheader The header content.
      * @param string asentence The sentence to store.
      *  /

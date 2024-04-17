@@ -73,7 +73,52 @@ mixin template TEntity() {
 
   // List of invalid fields and their data for errors upon validation/patching.
   protected IData[string] _invalidFields;
+  // Get a list of invalid fields and their data for errors upon validation/patching
+  IData[string] invalidFields() {
+    return _invalidFields;
+  }
 
+  //Get a single value of an invalid field. Returns null if not set.
+  IData invalidField(string fieldName) {
+    return _invalidFields.get(fieldName, null);
+  }
+
+  /**
+     * Set fields as invalid and not patchable into the entity.
+     *
+     * This is useful for batch operations when one needs to get the original value for an error message after patching.
+     * This value could not be patched into the entity and is simply copied into the _invalidFields property for debugging
+     * purposes or to be able to log it away.
+     * Params:
+     * IData[string] fields The values to set.
+     * @param bool overwrite Whether to overwrite pre-existing values for field.
+    * /
+                                                              void setFieldsInvalid(arrayfields, booloverwrite = false) {
+                                                                foreach (fields asfield : aValue) {
+                                                                  if (overwrite == true) {
+                                                                    _invalidFields[field] = aValue;
+                                                                    continue;}
+                                                                    _invalidFields += [field: aValue];
+                                                                  }
+                                                                }
+
+                                                                void setFieldInvalid(field, aValue, booloverwrite = false) {
+                                                                  if (overwrite == true) {
+                                                                    _invalidFields[field] = aValue;
+                                                                    continue;}
+                                                                    _invalidFields += [field: aValue];
+                                                                  }
+
+                                                                  /**
+     * Sets a field as invalid and not patchable into the entity.
+     * Params:
+     * string afield The value to set.
+     * @param IData aValue The invalid value to be set for field.
+    * /
+                                                                  auto setInvalidField(string afield, IData aValue) {
+                                                                    _invalidFields[field] = aValue;
+
+                                                                    return this;}
   /**
      * Holds a cached list of getters/setters per class
      *
@@ -948,58 +993,7 @@ mixin template TEntity() {
                                                             }, (array) object); return array_filter(
                                                             array);}
 
-                                                            /**
-     * Get a list of invalid fields and their data for errors upon validation/patching
-    * /
-                                                            IData[string] getInvalid() {
-                                                              return _invalidFields;}
-
-                                                              /**
-     * Get a single value of an invalid field. Returns null if not set.
-     * Params:
-     * string afield The name of the field.
-    * /
-                                                              IData getInvalidField(
-                                                              string fieldName) {
-                                                                return _invalidFields.get(fieldName, null);
-                                                              }
-
-                                                              /**
-     * Set fields as invalid and not patchable into the entity.
-     *
-     * This is useful for batch operations when one needs to get the original value for an error message after patching.
-     * This value could not be patched into the entity and is simply copied into the _invalidFields property for debugging
-     * purposes or to be able to log it away.
-     * Params:
-     * IData[string] fields The values to set.
-     * @param bool overwrite Whether to overwrite pre-existing values for field.
-    * /
-                                                              void setFieldsInvalid(arrayfields, booloverwrite = false) {
-                                                                foreach (fields asfield : aValue) {
-                                                                  if (overwrite == true) {
-                                                                    _invalidFields[field] = aValue;
-                                                                    continue;}
-                                                                    _invalidFields += [field: aValue];
-                                                                  }
-                                                                }
-
-                                                                void setFieldInvalid(field, aValue, booloverwrite = false) {
-                                                                  if (overwrite == true) {
-                                                                    _invalidFields[field] = aValue;
-                                                                    continue;}
-                                                                    _invalidFields += [field: aValue];
-                                                                  }
-
-                                                                  /**
-     * Sets a field as invalid and not patchable into the entity.
-     * Params:
-     * string afield The value to set.
-     * @param IData aValue The invalid value to be set for field.
-    * /
-                                                                  auto setInvalidField(string afield, IData aValue) {
-                                                                    _invalidFields[field] = aValue;
-
-                                                                    return this;}
+                                                            
 
                                                                     /**
      * Stores whether a field value can be changed or set in this entity.

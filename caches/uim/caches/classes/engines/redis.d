@@ -152,7 +152,6 @@ class DRedisCacheEngine : DCacheEngine {
     /**
      * Decrements the value of an integer cached key & update the expiry time
      * Params:
-     * string aKey Identifier for the data
      * @param int anOffset How much to subtract
      * /
     int|false decrement(string dataIdentifier, int anOffset = 1) {

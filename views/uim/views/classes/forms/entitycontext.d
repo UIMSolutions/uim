@@ -180,7 +180,7 @@ class DEntityContext : IFormContext {
             mypart = end(myparts);
 
             if (cast(IInvalidProperty)myentity) {
-                myval = myentity.getInvalidField(mypart);
+                myval = myentity.invalidField(mypart);
                 if (myval !isNull) {
                     return myval;
                 }

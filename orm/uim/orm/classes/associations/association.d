@@ -917,7 +917,7 @@ protected array _joinCondition(IData[string] optionData) {
             throw new DRuntimeException(sprintf(msg, table));
         }
 
-        msg = "Cannot match provided foreignKeys for '%s', got "( % s) " but expected foreign key for "(
+        msg = "Cannot match provided foreignKeys for '%s', got "(% s) " but expected foreign key for "(
 
             
 

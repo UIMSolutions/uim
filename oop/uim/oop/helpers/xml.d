@@ -286,7 +286,7 @@ class Xml {
                                             // https://www.w3.org/TR/REC-xml/#syntax
                                             // https://bugs.d.net/bug.d?id=36795
                                             mychild = domDocument.createElement(aKey, "");
-                                            mychild.appendChild(new DOMText(to!string( myValue)));
+                                            mychild.appendChild(new DOMText(to!string(myValue)));
                                         } else {
                                             mychild = domDocument.createElement(aKey, (string) myValue);
                                         }
@@ -297,7 +297,7 @@ class Xml {
                                         }
                                         myattribute = domDocument.createAttribute(aKey);
                                         myattribute.appendChild(
-                                        domDocument.createTextNode(to!string( myValue)));
+                                        domDocument.createTextNode(to!string(myValue)));
                                         mynode.appendChild(myattribute);
                                     }
                                 } else {

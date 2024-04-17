@@ -26,7 +26,7 @@ mixin template THttpClient() {
     Response newClientResponse(int code = 200, array  aHeaders = [], string abody= null) {
          aHeaders = chain(["HTTP/1.1 {code}"],  aHeaders);
 
-        return new DResponse( aHeaders, body);
+        return new DResponse(aHeaders, body);
     }
     
     /**

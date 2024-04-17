@@ -181,7 +181,7 @@ class Hash {
             auto myval = condition["val"] ?? null;
 
             // Presence test.
-            if (myop.isEmpty( && myval.isEmpty( && !mydata.isSet(myattr)) {
+            if (myop.isEmpty(&& myval.isEmpty(&& !mydata.isSet(myattr)) {
                 return false;
             }
             

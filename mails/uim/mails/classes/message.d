@@ -687,7 +687,7 @@ class DMessage { //: IDataSerializable {
             }
         }
          aHeaders += this.headers;
-        if (!isSet( aHeaders["Date"])) {
+        if (!isSet(aHeaders["Date"])) {
              aHeaders["Date"] = date(DATE_RFC2822);
         }
         if (this.messageId != false) {

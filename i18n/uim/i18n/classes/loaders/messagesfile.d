@@ -135,7 +135,7 @@ class DMessagesFileLoader {
             searchPaths = folders.map!(folder => basePath ~ folder ~ DIRECTORY_SEPARATOR).array;
         }
         localePaths = App.path("locales");
-        if (localePaths.isEmpty( && defined("APP")) {
+        if (localePaths.isEmpty(&& defined("APP")) {
             localePaths ~= ROOT ~ "resources" ~ DIRECTORY_SEPARATOR ~ "locales" ~ DIRECTORY_SEPARATOR;
         }
         foreach (somePath; localePaths) {

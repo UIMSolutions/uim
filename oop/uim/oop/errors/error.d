@@ -109,7 +109,7 @@ class DError {
 
   }
 
-  bool initialize( /* DC onfigurationValue configSettings= null */ ) {
+  bool initialize(/* DC onfigurationValue configSettings= null */ ) {
     _levelMap = _levelMap.merge([
       ERRORS.ERROR: "error", // Fatal run-time errors. These indicate errors that can not be recovered from, such as a memory allocation problem. Execution of the script is halted.
       ERRORS.WARNING: "warning", // Run-time warnings (non-fatal errors). Execution of the script is not halted.

@@ -259,7 +259,7 @@ class DSocket {
             if (Validation.ip(configuration.get("host"])) {
                 return to!string(gethostbyaddr(configuration.get("host"]);
             }
-            return to!string( gethostbyaddr(this.address()));
+            return to!string(gethostbyaddr(this.address()));
         }
 
     /**

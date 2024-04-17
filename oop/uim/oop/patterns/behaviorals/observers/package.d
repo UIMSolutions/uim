@@ -47,7 +47,7 @@ class DBinaryObserver : DObserver{
   }
 
   override void update(Json info = Json(null)) {
-    writeln( "Binary String: Integer.toBinaryString( subject.getState() )"); 
+    writeln("Binary String: Integer.toBinaryString(subject.getState() )"); 
   }
 }
 
@@ -59,7 +59,7 @@ class OctalObserver : DObserver{
   }
 
   override void update(Json info = Json(null)) {
-    writeln( "Octal String: Integer.toOctalString( subject.getState() )" ); 
+    writeln("Octal String: Integer.toOctalString(subject.getState() )" ); 
   }
 }
 
@@ -71,7 +71,7 @@ class DHexaObserver : DObserver{
   }
 
   override void update(Json info = Json(null)) {
-    writeln( "Hex String: Integer.toHexString( subject.getState() ).toUpperCase()" ); 
+    writeln("Hex String: Integer.toHexString(subject.getState() ).toUpperCase()" ); 
   }
 }
 

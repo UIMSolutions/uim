@@ -68,7 +68,7 @@ class DI18nExtractCommand : DCommand {
             currentPaths = count(_paths) > 0 ? _paths : ["None"];
             string message = 
                 "Current paths: %s\nWhat is the path you would like to extract?\n[Q]uit [D]one"
-                .format( currentPaths.join(", "));
+                .format(currentPaths.join(", "));
 
             string response = aConsoleIo.ask(message, defaultPaths[defaultPathIndex] ?? "D");
             if (strtoupper(response) == "Q") {
@@ -392,7 +392,7 @@ class DI18nExtractCommand : DCommand {
                 if (mapCount == count(strings)) {
                     string singular = "";
                     vars = array_combine(map, strings);
-                    extract( vars);
+                    extract(vars);
                     domain = domain.ifEmpty("default");
                     details = [
                         "file": _file,
@@ -405,7 +405,7 @@ class DI18nExtractCommand : DCommand {
                     if (isSet(context)) {
                         details["msgctxt"] = context;
                     }
-                   _addTranslation( domain, singular, details);
+                   _addTranslation(domain, singular, details);
                 } else {
                    _markerError(aConsoleIo, _file, line, functionName, count);
                 }
@@ -428,8 +428,8 @@ class DI18nExtractCommand : DCommand {
             return a.length - b.length;
         });
 
-        foreach ( domain: translations; _translations) {
-            foreach ( msgid: contexts; translations) {
+        foreach (domain: translations; _translations) {
+            foreach (msgid: contexts; translations) {
                 contexts.byKeyValue
                     .each!((contextDetails) {
                     auto plural = contextDetails.value["msgid_plural"];
@@ -439,7 +439,7 @@ class DI18nExtractCommand : DCommand {
                     if (!commandArguments.getOption("no-location")) {
                         auto occurrences = null;
                         foreach (file: lines; files) {
-                            array_unique( lines)
+                            array_unique(lines)
                                 .each!(line => occurrences ~= file ~ ":" ~ line);
                         }
                         occurrences = join("\n#: ", occurrences);
@@ -464,7 +464,7 @@ class DI18nExtractCommand : DCommand {
 
                     domain != "default" && _merge 
                         ? _store("default",  aHeader, sentence)
-                        : _store( domain,  aHeader, sentence);
+                        : _store(domain,  aHeader, sentence);
                 }
             }
         });
@@ -500,20 +500,20 @@ class DI18nExtractCommand : DCommand {
             overwriteAll = true;
         }
         foreach (_storage as domain: sentences) {
-            auto outputHeader = _writeHeader( domain);
+            auto outputHeader = _writeHeader(domain);
              aHeaderLength = outputHeader.length;
             sentences.byKeyValue
                 .ech!(sentenceHeader => outputHeader ~= sentenceHeader.value ~ sentenceHeader.key);
             filename = domain.replace("/", "_") ~ ".pot";
             outputPath = _output ~ filename;
 
-            if (this.checkUnchanged( outputPath,  aHeaderLength, outputHeader) == true) {
+            if (this.checkUnchanged(outputPath,  aHeaderLength, outputHeader) == true) {
                  aConsoleIo.writeln(filename ~ " is unchanged. Skipping.");
                 continue;
             }
             
             string response = "";
-            while (overwriteAll == false && file_exists( outputPath) && strtoupper(response) != "Y") {
+            while (overwriteAll == false && file_exists(outputPath) && strtoupper(response) != "Y") {
                  aConsoleIo.writeln();
                 response = aConsoleIo.askChoice(
                     "Error: %s already exists in this location. Overwrite? [Y]es, [N]o, [A]ll".format(filename),
@@ -572,14 +572,14 @@ class DI18nExtractCommand : DCommand {
      * @param string anewFileContent The content of the new file.
      * /
     protected bool checkUnchanged(string aoldFile, int  aHeaderLength, string anewFileContent) {
-        if (!file_exists( oldFile)) {
+        if (!file_exists(oldFile)) {
             return false;
         }
-        oldFileContent = file_get_contents( oldFile);
-        if ( oldFileContent == false) {
-            throw new UimException("Cannot read file content of `%s`".format( oldFile));
+        oldFileContent = file_get_contents(oldFile);
+        if (oldFileContent == false) {
+            throw new UimException("Cannot read file content of `%s`".format(oldFile));
         }
-        oldChecksum = sha1(substr( oldFileContent,  aHeaderLength));
+        oldChecksum = sha1(substr(oldFileContent,  aHeaderLength));
         newChecksum = sha1(substr(newFileContent,  aHeaderLength));
 
         return oldChecksum == newChecksum;

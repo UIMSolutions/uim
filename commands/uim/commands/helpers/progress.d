@@ -121,8 +121,8 @@ class DProgressHelper { // } : Helper {
     auto barLen = (_width - numberLength)*_progress / _total;
     
     string myBar = "";
-    if ( barLen > 1) {
-      myBar = str_repeat("=", to!int( barLen - 1))~">";
+    if (barLen > 1) {
+      myBar = str_repeat("=", to!int(barLen - 1))~">";
     }
     pad = ceil(_width - numberLength - barLen);
     if (pad > 0) {

@@ -96,7 +96,7 @@ class DTableHelper { // }: Helper {
             column = _addStyle(column, optionsToPass["style"]);
           }
           if (column != "" && preg_match("#(.*)<text-right>.+</text-right>(.*)#", column, matches)) {
-            if ( matches[1] != "" || ! matches[2].isEmpty) {
+            if (matches[1] != "" || ! matches[2].isEmpty) {
               throw new DUnexpectedValueException(
                 "You cannot include text before or after the text-right tag.");
             }
@@ -128,18 +128,18 @@ class DTableHelper { // }: Helper {
         configData = this.configuration.data;
         widths = _calculateWidths(commandArguments);
 
-        _rowSeparator( widths);
+        _rowSeparator(widths);
         if (configData("headers"] == true) {
             _render(array_shift(commandArguments), widths, ["style": configData("headerStyle"]]);
-              _rowSeparator( widths); }
+              _rowSeparator(widths); }
               if (commandArguments.isEmpty) {
                 return; }
                 commandArguments.each!((line) {
                   _render(line, widths); if (configData("rowSeparator"] == true) {
-                      _rowSeparator( widths); }
+                      _rowSeparator(widths); }
                     }
                     if (configData("rowSeparator"] != true) {
-                        _rowSeparator( widths); }
+                        _rowSeparator(widths); }
                       }
 
                       /**

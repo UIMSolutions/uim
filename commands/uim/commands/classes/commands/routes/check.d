@@ -45,14 +45,14 @@ class DRoutesCheckCommand : DCommand {
         ["Route name", "URI template", "Defaults"],
         [name, url, Json_encode(route, Json_THROW_ON_ERROR)],
       ];
-      aConsoleIo.helper("table").output( output);
+      aConsoleIo.helper("table").output(output);
       aConsoleIo.out ();
     } catch (RedirectException anException) {
       output = [
         ["URI template", "Redirect"],
         [url, anException.getMessage()],
       ];
-      aConsoleIo.helper("table").output( output);
+      aConsoleIo.helper("table").output(output);
       aConsoleIo.out ();
     } catch (MissingRouteException) {
       aConsoleIo.warning("'url' did not match any routes.");

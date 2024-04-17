@@ -56,13 +56,13 @@ class DRoutesCommand : DCommand {
         });
 
         if (arguments.getOption("sort")) {
-            usort( output, auto (a, b) {
+            usort(output, auto (a, b) {
                 return strcasecmp(a[0], b[0]);
             });
         }
-        array_unshift( output,  aHeader);
+        array_unshift(output,  aHeader);
 
-         aConsoleIo.helper("table").output( output);
+         aConsoleIo.helper("table").output(output);
          aConsoleIo.writeln();
 
          someDuplicateRoutes = null;
@@ -129,13 +129,13 @@ class DRoutesCommand : DCommand {
         });
 
         if (commandArguments.getOption("sort")) {
-            usort( output, auto (a, b) {
+            usort(output, auto (a, b) {
                 return strcasecmp(a[0], b[0]);
             });
         }
-        array_unshift( output,  aHeader);
+        array_unshift(output,  aHeader);
 
-         aConsoleIo.helper("table").output( output);
+         aConsoleIo.helper("table").output(output);
          aConsoleIo.writeln();
 
          someDuplicateRoutes = null;

@@ -5,7 +5,6 @@ import uim.commands;
 @safe:
 
 /* * template for symlinking / copying plugin assets to app"s webroot.
- *
  * @internal
  */
 mixin template TPluginAssets() {
@@ -31,19 +30,16 @@ mixin template TPluginAssets() {
             auto somePath = Plugin.path(plugin) ~ "webroot";
             if (!isDir(somePath)) {
                 this.io.verbose("", 1);
-                this.io.verbose(
-                    "Skipping plugin %s. It does not have webroot folder.".format(plugin),
-                    2
-                );
+                this.io.verbose("Skipping plugin %s. It does not have webroot folder.".format(plugin), 2);
                 continue;
             }
             auto link = Inflector.underscore(plugin);
             auto wwwRoot = Configure.read("App.wwwRoot");
             auto dir = wwwRoot;
             auto namespaced = false;
-            if ( link.has("/")) {
+            if (link.has("/")) {
                 namespaced = true;
-                string[] someParts = split("/", link);
+                string[] someParts = link.split("/");
                 link = array_pop(someParts);
                 dir = wwwRoot ~ join(DIRECTORY_SEPARATOR, someParts) ~ DIRECTORY_SEPARATOR;
             }
@@ -79,7 +75,7 @@ mixin template TPluginAssets() {
             }
             
             auto dest = configData("destDir") ~ configData("link");
-            if (file_exists( dest)) {
+            if (file_exists(dest)) {
                 if (overwrite && !_remove(configData)) {
                     continue;
                 } else if (!overwrite) {
@@ -125,7 +121,7 @@ mixin template TPluginAssets() {
         }
         dest = configData("destDir"] ~ configData("link"];
 
-        if (!file_exists( dest)) {
+        if (!file_exists(dest)) {
             this.io.verbose(
                 dest ~ " does not exist",
                 1
@@ -133,9 +129,9 @@ mixin template TPluginAssets() {
 
             return false;
         }
-        if (isLink( dest)) {
+        if (isLink(dest)) {
             
-            success = DIRECTORY_SEPARATOR == "\\" ? @rmdir( dest): @unlink( dest);
+            success = DIRECTORY_SEPARATOR == "\\" ? @rmdir(dest): @unlink(dest);
             if (success) {
                 this.io.writeln("Unlinked " ~ dest);
 
@@ -147,7 +143,7 @@ mixin template TPluginAssets() {
             }
         }
         fs = new DFilesystem();
-        if (fs.deleteDir( dest)) {
+        if (fs.deleteDir(dest)) {
             this.io.writeln("Deleted " ~ dest);
 
             return true;
@@ -162,7 +158,7 @@ mixin template TPluginAssets() {
     protected bool _createDirectory(string directoryName) {
         old = umask(0);
         result = @mkdir(directoryName, 0755, true);
-        umask( old);
+        umask(old);
 
         if (result) {
             this.io.writeln("Created directory " ~ directoryName);

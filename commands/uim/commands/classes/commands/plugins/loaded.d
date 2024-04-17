@@ -31,7 +31,7 @@ class DPluginLoadedCommand : DCommand {
      * @param \UIM\Console\IConsoleIo aConsoleIo The console io
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         loaded = Plugin. loaded();
-        aConsoleIo.out ( loaded);
+        aConsoleIo.out (loaded);
 
         return static . CODE_SUCCESS;
     }

@@ -283,9 +283,9 @@ class DCommandRunner { // }: IEventDispatcher {
         }
         builder = Router.createRouteBuilder("/");
 
-        this.app.routes( builder);
+        this.app.routes(builder);
         if (cast(IPluginApplication)this.app) {
-            this.app.pluginRoutes( builder);
+            this.app.pluginRoutes(builder);
         }
     } */
 }

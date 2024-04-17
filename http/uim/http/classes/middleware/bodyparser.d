@@ -10,7 +10,7 @@ import uim.http;
  * Enables IData and XML request payloads to be parsed into the request`s body.
  * You can also add your own request body parsers using the `addParser()` method.
  */
-class DBodyParserMiddleware { // }: IMiddleware {
+class DBodyParserMiddleware { // }: IHttpMiddleware {
     // The HTTP methods to parse data on.
     protected string[] someMethods = ["PUT", "POST", "PATCH", "DELETE"];
     /**
@@ -91,7 +91,7 @@ class DBodyParserMiddleware { // }: IMiddleware {
     }
     
     // Get the current parsers
-    Closure[] getParsers() {
+    IClosure[] getParsers() {
         return this.parsers;
     }
     
@@ -107,7 +107,7 @@ class DBodyParserMiddleware { // }: IMiddleware {
         if (!in_array(request.getMethod(), this.methods, true)) {
             return handler.handle(request);
         }
-        [type] = split(";", request.getHeaderLine("Content-Type"));
+        [type] = request.getHeaderLine("Content-Type").split(";");
         type = type.toLower;
         if (!this.parsers.isSet(type)) {
             return handler.handle(request);
@@ -122,25 +122,20 @@ class DBodyParserMiddleware { // }: IMiddleware {
         return handler.handle(request);
     }
     
-    /**
-     * Decode IData into an array.
-     * Params:
-     * string abody The request body to decode
-     * /
-    protected array decodeIData(string abody) {
-        if (body.isEmpty) {
+    // Decode IData into an array.
+    protected array decodeIData(string bodyToDecode) {
+        if (bodyToDecode.isEmpty) {
             return null;
         }
-        decoded = Json_decode(body, true);
+        
+        auto decodedBody = Json_decode(bodyToDecode, true);
         if (Json_last_error() != Json_ERROR_NONE) {
             return null;
         }
-        return (array)decoded;
+        return (array)decodedBody;
     }
     
-    /**
-     * Decode XML into an array.
-     * /
+    // Decode XML into an array.
     protected array decodeXml(string bodyToDecode) {
         try {
             xml = Xml.build(bodyToDecode, ["return": "domdocument", "readFile": BooleanData(false)]);

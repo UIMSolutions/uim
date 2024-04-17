@@ -4,7 +4,7 @@ module uim.http.classes.middlewarequeue;
  * Provides methods for creating and manipulating a "queue" of middlewares.
  * This queue is used to process a request and generate response via \UIM\Http\Runner.
  *
- * @template-implements \SeekableIterator<int, \Psr\Http\Server\IMiddleware>
+ * @template-implements \SeekableIterator<int, \Psr\Http\Server\IHttpMiddleware>
  */
 class MiddlewareQueue { // }: Countable, SeekableIterator {
     // Internal position for iterator.
@@ -29,10 +29,10 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
     /**
      * Resolve middleware name to a PSR 15 compliant middleware instance.
      * Params:
-     * \Psr\Http\Server\IMiddleware|\Closure|string amiddleware The middleware to resolve.
+     * \Psr\Http\Server\IHttpMiddleware|\Closure|string amiddleware The middleware to resolve.
      * @throws \InvalidArgumentException If Middleware not found.
      * /
-    protected IMiddleware resolve(IMiddleware|Closure|string amiddleware) {
+    protected IHttpMiddleware resolve(IHttpMiddleware|Closure|string amiddleware) {
         if (isString(middleware)) {
             if (this.container && this.container.has(middleware)) {
                 middleware = this.container.get(middleware);
@@ -44,10 +44,10 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
                         .format(middleware
                     ));
                 }
-                IMiddleware middleware = new className();
+                IHttpMiddleware middleware = new className();
             }
         }
-        if (cast(IMiddleware)middleware) {
+        if (cast(IHttpMiddleware)middleware) {
             return middleware;
         }
         return new DClosureDecoratorMiddleware(middleware);
@@ -56,9 +56,9 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
     /**
      * Append a middleware to the end of the queue.
      * Params:
-     * \Psr\Http\Server\IMiddleware|\Closure|string[] amiddleware The middleware(s) to append.
+     * \Psr\Http\Server\IHttpMiddleware|\Closure|string[] amiddleware The middleware(s) to append.
      * /
-    void add(IMiddleware|Closure|string[] amiddleware) {
+    void add(IHttpMiddleware|Closure|string[] amiddleware) {
         if (middleware.isArray) {
             this.queue = chain(this.queue, middleware);
 
@@ -70,18 +70,18 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
     /**
      * Alias for MiddlewareQueue.add().
      * Params:
-     * \Psr\Http\Server\IMiddleware|\Closure|string[] amiddleware The middleware(s) to append.
+     * \Psr\Http\Server\IHttpMiddleware|\Closure|string[] amiddleware The middleware(s) to append.
      * /
-    MiddlewareQueue push(IMiddleware|Closure|string[] amiddleware) {
+    MiddlewareQueue push(IHttpMiddleware|Closure|string[] amiddleware) {
         return this.add(middleware);
     }
     
     /**
      * Prepend a middleware to the start of the queue.
      * Params:
-     * \Psr\Http\Server\IMiddleware|\Closure|string[] amiddleware The middleware(s) to prepend.
+     * \Psr\Http\Server\IHttpMiddleware|\Closure|string[] amiddleware The middleware(s) to prepend.
      * /
-    auto prepend(IMiddleware|Closure|string[] amiddleware) {
+    auto prepend(IHttpMiddleware|Closure|string[] amiddleware) {
         if (middleware.isArray) {
             this.queue = chain(middleware, this.queue);
 
@@ -99,9 +99,9 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * and the existing element will be shifted one index greater.
      * Params:
      * int  anIndex The index to insert at.
-     * @param \Psr\Http\Server\IMiddleware|\Closure|string amiddleware The middleware to insert.
+     * @param \Psr\Http\Server\IHttpMiddleware|\Closure|string amiddleware The middleware to insert.
      * /
-    auto insertAt(int  anIndex, IMiddleware|Closure|string amiddleware) {
+    auto insertAt(int  anIndex, IHttpMiddleware|Closure|string amiddleware) {
         array_splice(this.queue,  anIndex, 0, [middleware]);
 
         return this;
@@ -113,11 +113,11 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * Finds the index of the first middleware that matches the provided class,
      * and inserts the supplied middleware before it.
      * Params:
-     * @param \Psr\Http\Server\IMiddleware|\Closure|string amiddleware The middleware to insert.
+     * @param \Psr\Http\Server\IHttpMiddleware|\Closure|string amiddleware The middleware to insert.
      * @return this
      * @throws \LogicException If middleware to insert before is not found.
      * /
-    auto insertBefore(string className, IMiddleware|Closure|string amiddleware) {
+    auto insertBefore(string className, IHttpMiddleware|Closure|string amiddleware) {
         bool isFound = false;
          anI = 0;
         foreach (anI: object; this.queue) {
@@ -146,9 +146,9 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * this method will behave like add().
      * Params:
      * string className The classname to insert the middleware before.
-     * @param \Psr\Http\Server\IMiddleware|\Closure|string amiddleware The middleware to insert.
+     * @param \Psr\Http\Server\IHttpMiddleware|\Closure|string amiddleware The middleware to insert.
      * /
-    auto insertAfter(string className, IMiddleware|Closure|string amiddleware) {
+    auto insertAfter(string className, IHttpMiddleware|Closure|string amiddleware) {
         found = false;
          anI = 0;
         foreach (anI: object; this.queue) {
@@ -203,11 +203,11 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * Returns the current middleware.
      * @see \Iterator.current()
      * /
-    IMiddleware current() {
+    IHttpMiddleware current() {
         if (!isSet(this.queue[this.position])) {
             throw new DOutOfBoundsException("Invalid current position (%s).".format(this.position));
         }
-        if (cast(IMiddleware)this.queue[this.position]) {
+        if (cast(IHttpMiddleware)this.queue[this.position]) {
             return this.queue[this.position];
         }
         return this.queue[this.position] = this.resolve(this.queue[this.position]);

@@ -78,7 +78,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
     protected int getCommands(IData [string] arguments, IConsoleIo aConsoleIo) {
         auto options = null;
         foreach (aKey, aValue; this.commands) {
-            string[] someParts = split(" ", aKey);
+            string[] someParts = aKey.split(" ");
             options ~= someParts[0];
         }
         options = array_unique(options);

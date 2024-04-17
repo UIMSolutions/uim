@@ -43,18 +43,19 @@ class DRoutesGenerateCommand : DCommand {
   // Split the CLI arguments into a hash.
   protected array < string | bool > _splitArgs(string[] commandArguments) {
     auto result = null;
-    foreach (myArgument; commandArguments) {
-      if (myArgument.has(":")) {
-        [aKey, aValue] = split(":", myArgument);
+    commandArguments.each!((argument) {
+      if (argument.has(":")) {
+        [aKey, aValue] = argument.split(":");
         if (in_array(aValue, ["true", "false"], true)) {
           aValue = aValue == "true";
         }
 
         result[aKey] = aValue;
       } else {
-        result ~= myArgument;
+        result ~= argument;
       }
-    }
+    });
+
     return result;
   }
 

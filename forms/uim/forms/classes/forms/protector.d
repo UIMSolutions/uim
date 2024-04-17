@@ -131,7 +131,7 @@ class DFormProtector {
             return Hash.filter(split(".", attributeName));
         }
         
-        string[] someParts = split("[", attributeName);
+        string[] someParts = attributeName.split("[");
         someParts = array_map(function (el) {
             return trim(el, "]");
         }, someParts);

@@ -162,14 +162,13 @@ class DCookie : ICookie {
     /**
      * Create Cookie instance from "set-cookie" header string.
      * Params:
-     * string acookie Cookie header string.
      * @param  defaultAttributes Default attributes.
      */
     static static createFromHeaderString(string cookieHeader, IData[string] defaultAttributes = []) {
         string[] someParts;
         if (cookieHeader.has(";")) {
             cookieHeader = cookieHeader.replace("";"", "{__cookie_replace__}");
-            someParts = split(";", cookieHeader).replace("{__cookie_replace__}", "";"");
+            someParts = cookieHeader.split(";").replace("{__cookie_replace__}", "";"");
         } else {
             someParts = preg_split("/\;[\t]*/", cookieHeader) ?: [];
         }

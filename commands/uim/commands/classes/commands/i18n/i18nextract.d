@@ -102,7 +102,7 @@ class DI18nExtractCommand : DCommand {
            _files = to!string(commandArguments.getOption("files")).split(",");
         }
         if (commandArguments.getOption("paths")) {
-           _paths = split(",", to!string(commandArguments.getOption("paths")));
+           _paths = to!string(commandArguments.getOption("paths")).split(",");
         } else if (commandArguments.getOption("plugin")) {
             myPlugin = Inflector.camelize(to!string(commandArguments.getOption("plugin")));
            _paths = [Plugin.classPath(myPlugin), Plugin.templatePath(myPlugin)];

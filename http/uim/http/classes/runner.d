@@ -34,7 +34,7 @@ class DRunner : IRequestHandler {
     mixin(TProperty!("string", "name"));
 
     // The middleware queue being run.
-    //protected IMiddlewareQueue queue;
+    //protected IHttpMiddlewareQueue queue;
 
     // Fallback handler to use if middleware queue does not generate response.
     protected IRequestHandler fallbackHandler = null;

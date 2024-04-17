@@ -321,7 +321,7 @@ class DFileCacheEngine : DCacheEngine {
     bool clearGroup(string groupName) {
         unset(_File);
 
-        auto myprefix = to!string( configuration.get("prefix"));
+        auto myprefix = to!string(configuration.get("prefix"));
 
         auto mydirectoryIterator = new DRecursiveDirectoryIterator(configuration.get("path"]);
         auto mycontents = new DRecursiveIteratorIterator(

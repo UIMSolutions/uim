@@ -108,12 +108,12 @@ mixin template TExtract() {
          someMatchers = null;
         foreach (aProperty, aValue; conditions) {
              anExtractor = _propertyExtractor(aProperty);
-             someMatchers ~= auto ( v) use (anExtractor, aValue) {
-                return anExtractor( v) == aValue;
+             someMatchers ~= auto (v) use (anExtractor, aValue) {
+                return anExtractor(v) == aValue;
             };
         }
         return auto (aValue) use (someMatchers) {
-            foreach ( match; someMatchers) {
+            foreach (match; someMatchers) {
                 if (! match(aValue)) {
                     return false;
                 }

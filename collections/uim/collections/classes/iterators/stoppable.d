@@ -72,7 +72,7 @@ class DStoppableIterator : DCollection {
     res = null;
 
     foreach (myKey, v; anIterator) {
-      if (aCallback( v, myKey,  anIterator)) {
+      if (aCallback(v, myKey,  anIterator)) {
         break;
       }
       res[myKey] = v;

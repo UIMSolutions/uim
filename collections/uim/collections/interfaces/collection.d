@@ -233,7 +233,7 @@ interface ICollection {
      * });
      *
      * // Display employee name
-     * writeln( max.name;
+     * writeln(max.name;
      * ```
      *
      * @param callable|string path The column name to use for sorting or callback that returns the value.
@@ -259,7 +259,7 @@ interface ICollection {
      * });
      *
      * // Display employee name
-     * writeln( min.name;
+     * writeln(min.name;
      * ```
      *
      * @param callable|string path The column name to use for sorting or callback that returns the value.
@@ -704,7 +704,7 @@ interface ICollection {
      * grouping key or a // function returning the key out of the provided element
      * @return self
      * /
-    ICollection combine( keyPath, valuePath,  groupPath = null);
+    ICollection combine(keyPath, valuePath,  groupPath = null);
 
     /**
      * Returns a new DCollection where the values are nested in a tree-like structure
@@ -798,8 +798,8 @@ interface ICollection {
      * ```
      * collection.map(mapper).sortBy("age").extract("name");
      * compiled = collection.compile();
-     * isJohnHere = compiled.some( johnMatcher);
-     * allButJohn = compiled.filter( johnMatcher);
+     * isJohnHere = compiled.some(johnMatcher);
+     * allButJohn = compiled.filter(johnMatcher);
      * ```
      *
      * In the above example, had the collection not been compiled before, the
@@ -877,7 +877,7 @@ interface ICollection {
      * or a callable // function that will return the children list
      * @return self
      * /
-    ICollection listNested( order = "desc", nestingKey = "children");
+    ICollection listNested(order = "desc", nestingKey = "children");
 
     /**
      * Creates a new DCollection that when iterated will stop yielding results if

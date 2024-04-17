@@ -75,7 +75,7 @@ class DBufferedIterator : DCollection { // }, Countable {
     }
     valid = super.valid();
 
-    if ( valid) {
+    if (valid) {
       _current = super.current();
       _key = super.key();
       _buffer.push([

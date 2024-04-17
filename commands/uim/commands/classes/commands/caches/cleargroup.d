@@ -42,7 +42,7 @@ class DCacheClearGroupCommand : DCommand {
 
   // Clears the cache group
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
-    auto anGroup = to!string( commandArguments.getArgument("group"));
+    auto anGroup = to!string(commandArguments.getArgument("group"));
     try {
        anGroupConfigs = Cache.groupConfigs(anGroup);
     } catch (InvalidArgumentException anException) {

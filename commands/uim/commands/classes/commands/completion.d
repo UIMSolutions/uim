@@ -121,7 +121,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
 
         auto options = null;
         foreach (this.commands as aKey : aValue) {
-            string[] someParts = split(" ", aKey);
+            string[] someParts = aKey.split(" ");
             if (someParts[0] != commandName) {
                 continue;
             }

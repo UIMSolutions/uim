@@ -202,7 +202,7 @@ class DSessionCsrfProtectionMiddleware { // }: IMiddleware {
             return;
         }
         throw new DInvalidCsrfTokenException(__d(
-            'cake",
+            'uim",
             'CSRF token from either the request body or request headers did not match or is missing.'
         ));
     }

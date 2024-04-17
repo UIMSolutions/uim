@@ -51,7 +51,7 @@ class DSession {
      * - database: Use the UIM ORM to persist and manage sessions. By default this requires
      *  a table in your database named `sessions` or a `model` key in the configuration
      *  to indicate which Table object to use.
-     * - cake: Use files for storing the sessions, but let UIM manage them and decide
+     * - uim: Use files for storing the sessions, but let UIM manage them and decide
      *  where to store them.
      *
      * The full list of options follows:

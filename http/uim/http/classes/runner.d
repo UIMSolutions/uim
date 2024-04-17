@@ -1,4 +1,4 @@
-module uim.cake.http;
+module uim.uim.http;
 
 import uim.http;
 

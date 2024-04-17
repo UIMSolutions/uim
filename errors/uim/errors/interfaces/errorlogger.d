@@ -29,7 +29,7 @@ interface IErrorLogger {
     );
 
     /**
-     * Log an error to Cake`s Log subsystem
+     * Log an error to uim`s Log subsystem
      * Params:
      * \UIM\Error\UimError error The error to log.
      * @param \Psr\Http\Message\IServerRequest|null request The request if in an HTTP context.

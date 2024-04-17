@@ -47,7 +47,7 @@ class DI18n {
         );
 
         if (class_exists(Cache.classname)) {
-            _collection.cacher(Cache.pool("_cake_core_"));
+            _collection.cacher(Cache.pool("_uim_core_"));
         }
         return _collection;
     }
@@ -64,7 +64,7 @@ class DI18n {
      * I18n.setTranslator("default", auto () {
      *     catalog = new \UIM\I18n\MessageCatalog();
      *     catalog.setMessages([
-     *         'Cake": 'Gâteau'
+     *         'uim": 'Gâteau'
      *     ]);
      *     return catalog;
      * }, "fr_FR");

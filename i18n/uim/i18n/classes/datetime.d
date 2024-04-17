@@ -120,11 +120,9 @@ class DateTime /* : Chronos, IDataSerializable */ {
      * Sets the default locale.
      *
      * Set to null to use IntlDateFormatter default.
-     * Params:
-     * string locale The default locale string to be used.
      * /
-    void setDefaultLocale(string alocale = null) {
-        defaultLocale = locale;
+    void setDefaultLocale(string localeName = null) {
+        defaultLocale = localeName;
     }
     
     // Gets whether locale format parsing is set to lenient.

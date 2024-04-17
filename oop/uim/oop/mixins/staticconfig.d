@@ -57,7 +57,7 @@ template TStaticConfig() {
      * /
     void setConfiguration(string[] aKey, IData[string] configData = null) {
         if (!isString(aKey)) {
-            throw new LogicException("If config is not null, key must be a string.");
+            throw new DLogicException("If config is not null, key must be a string.");
         }
         if (configuration.hasKey(aKey))) {
             throw new BadMethodCallException("Cannot reconfigure existing key `%s`.".format(aKey));

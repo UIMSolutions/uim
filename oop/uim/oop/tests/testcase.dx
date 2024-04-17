@@ -208,7 +208,7 @@ abstract class DTestCase : DBaseTestCase {
             myapp = myreflect.newInstanceArgs(myappArgs);
             assert(cast(IRoutingApplication)myapp);
         } catch (ReflectionException  anException) {
-            throw new LogicException("Cannot load `%s` to load routes from.".format(className), 0,  anException);
+            throw new DLogicException("Cannot load `%s` to load routes from.".format(className), 0,  anException);
         }
         builder = Router.createRouteBuilder("/");
         app.routes(builder);

@@ -1236,27 +1236,26 @@ class DResponse : IResponse {
     /**
      * Validate a file path is a valid response body.
      * Params:
-     * string aPath The path to the file.
      * @throws \UIM\Http\Exception\NotFoundException
      */
-    protected ISplFileInfo validateFile(string aPath) {
-        if (somePath.has("../") || somePath.has("..\\")) {
+    protected ISplFileInfo validateFile(string filePath) {
+        if (filePath.has("../") || somefilePathPath.has("..\\")) {
             throw new DNotFoundException(__d("uim", "The requested file contains `..` and will not be read."));
         }
-        file = new DSplFileInfo(somePath);
+
+        auto file = new DSplFileInfo(filePath);
         if (!file.isFile() || !file.isReadable()) {
             if (Configure.read("debug")) {
-                throw new DNotFoundException("The requested file %s was not found or not readable".format(somePath));
+                throw new DNotFoundException("The requested file %s was not found or not readable".format(filePath));
             }
             throw new DNotFoundException(__d("uim", "The requested file was not found"));
         }
+
         return file;
     }
     
-    /**
-     * Get the current file if one exists.
-     */
-    SplFileInfo getFile() {
+    // Get the current file if one exists.
+    ISplFileInfo getFile() {
         return _file;
     }
     
@@ -1303,13 +1302,10 @@ class DResponse : IResponse {
        _fileRange = [start, end];
     }
     
-    /**
-     * Returns an array that can be used to describe the internal state of this
-     * object.
-     */
+    // Returns an array that can be used to describe the internal state of this object.
     STRINGAA debugInfo() {
         return [
-            `status": _status,
+            "status": _status,
             "contentType": this.getType(),
             "headers": this.headers,
             "file": _file,

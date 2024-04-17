@@ -896,7 +896,7 @@ mixin template TIntegrationTest() {
      * /
     void assertLayout(string acontent, string amessage = null) {
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(content, new LayoutFileEquals(_layoutName), verboseMessage);
+        this.assertThat(content, new DLayoutFileEquals(_layoutName), verboseMessage);
     }
     
     /**

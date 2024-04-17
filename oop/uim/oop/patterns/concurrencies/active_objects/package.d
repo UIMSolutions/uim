@@ -41,7 +41,7 @@ To rewrite this class DAs an active object, you could do the following:
 class MyActiveObject {
 
     private double val = 0.0;
-    private BlockingQueue<Runnable> dispatchQueue = new LinkedBlockingQueue<Runnable>();
+    private BlockingQueue<Runnable> dispatchQueue = new DLinkedBlockingQueue<Runnable>();
 
     public MyActiveObject() {
         new DThread (new DRunnable() {

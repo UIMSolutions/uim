@@ -290,22 +290,22 @@ Command[] toCommand(T:Command)(T[] commands) {
     writeln("--- Command test ---");
     RemoteControlWithUndo remoteControl = new DRemoteControlWithUndo();
 
-    Light light1 = new Light("Living Room");
-    Light light2 = new Light("Bath Room");
-    Light light3 = new Light("Watercloset");
+    Light light1 = new DLight("Living Room");
+    Light light2 = new DLight("Bath Room");
+    Light light3 = new DLight("Watercloset");
 
     CeilingFan ceilingFan = new DCeilingFan("Living Room");
 
     TV tv1 = new DTV("Living Room");
     TV tv2 = new DTV("Bath Room");
 
-    LightOnCommand lightOn1 = new LightOnCommand(light1);
-    LightOnCommand lightOn2 = new LightOnCommand(light2);
-    LightOnCommand lightOn3 = new LightOnCommand(light3);
+    LightOnCommand lightOn1 = new DLightOnCommand(light1);
+    LightOnCommand lightOn2 = new DLightOnCommand(light2);
+    LightOnCommand lightOn3 = new DLightOnCommand(light3);
 
-    LightOffCommand lightOff1 = new LightOffCommand(light1);
-    LightOffCommand lightOff2 = new LightOffCommand(light2);
-    LightOffCommand lightOff3 = new LightOffCommand(light3);
+    LightOffCommand lightOff1 = new DLightOffCommand(light1);
+    LightOffCommand lightOff2 = new DLightOffCommand(light2);
+    LightOffCommand lightOff3 = new DLightOffCommand(light3);
 
     CeilingFanHighCommand ceilingFanHigh = new DCeilingFanHighCommand(ceilingFan);
     CeilingFanLowCommand ceilingFanLow = new DCeilingFanLowCommand(ceilingFan);

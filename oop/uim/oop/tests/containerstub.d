@@ -47,7 +47,7 @@ mixin template TContainerStub() {
             : Configure.read("App.namespace") ~ "\Application";
 
         if (!class_exists(appClass)) {
-            throw new LogicException("Cannot load `%s` for use in integration testing.".format(appClass));
+            throw new DLogicException("Cannot load `%s` for use in integration testing.".format(appClass));
         }
         appArgs = _appArgs ? _appArgs : [CONFIG];
 

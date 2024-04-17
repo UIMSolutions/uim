@@ -147,7 +147,7 @@ class DLog {
      * adapters if config isn"t loaded.
      * /
     protected static LogEngineRegistry getRegistry() {
-        _registry ??= new LogEngineRegistry();
+        _registry ??= new DLogEngineRegistry();
 
         if (_isDirtyConfig) {
             foreach (configuration as name: properties) {

@@ -47,7 +47,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
 
         string[] results;
         foreach ( anI: error; exceptions) {
-            parent =  anI > 0 ? exceptions[anI - 1] : null;
+            parent = anI > 0 ? exceptions[anI - 1] : null;
             results = chain(result, this.renderException(error, parent));
         }
         return results.join("\n");

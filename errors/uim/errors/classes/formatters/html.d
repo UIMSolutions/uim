@@ -116,7 +116,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
 
         arrow = this.style("punct", ": ");
         var.getChildren().each!((item) {
-            val =  anItem.getValue();
+            val = anItem.getValue();
             vars ~= break ~ "<span class=\"uim-debug-array-item\">" ~
                 this.export(item.getKey(),  anIndent) ~ arrow ~ this.export(val,  anIndent) ~
                 this.style("punct", ",") ~ "</span>";
@@ -164,8 +164,8 @@ class DHtmlErrorFormatter : IErrorFormatter {
         props = null;
         foreach (var.getChildren() as  aProperty) {
             arrow = this.style("punct", ": ");
-            visibility =  aProperty.getVisibility();
-            name =  aProperty.name;
+            visibility = aProperty.getVisibility();
+            name = aProperty.name;
             if (visibility && visibility != "public") {
                 props ~= break .
                     '<span class="uim-debug-prop">' .

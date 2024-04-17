@@ -32,21 +32,13 @@ class DDebugger {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
-        return true;
-    }
+        configuration.updateDefaults([
+            "outputMask": ArrayData,
+            "exportFormatter": NullData,
+            "editor": StringData("Dstorm"),
+        ];
 
-    mixin(TProperty!("string", "name"));
-    /*
-
-    // Default configuration
-    configuration.updateDefaults([
-        "outputMask": ArrayData,
-        "exportFormatter": null,
-        "editor": StringData("Dstorm"),
-    ];
-
-    // A map of editors to their link templates.
-    protected STRINGAA editors = [
+    _editors = [
         "atom": "atom://core/open/file?filename={file}&line={line}",
         "emacs": "emacs://open?url=file://{file}&line={line}",
         "macvim": "mvim://open/?url=file://{file}&line={line}",
@@ -56,6 +48,62 @@ class DDebugger {
         "vscode": "vscode://file/{file}:{line}",
     ];
 
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
+    
+    // A map of editors to their link templates.
+    protected STRINGAA _editors;    
+    /**
+     * Add an editor link format
+     *
+     * Template strings can use the `{file}` and `{line}` placeholders.
+     * Closures templates must return a string, and accept two parameters:
+     * The file and line.
+     * Params:
+     * string aName The name of the editor.
+     * @param \Closure|string atemplate The string template or closure
+     * /
+    static void addEditor(string aName, IClosure|string atemplate) {
+        auto anInstance = getInstance();
+         anInstance.editors[name] = template;
+    }
+    
+    // Choose the editor link style you want to use.
+    static void setEditor(string editorName) {
+        auto anInstance = getInstance();
+        if (!isSet(anInstance.editors[editorName])) {
+            auto known = anInstance.editors.keys.join(", ");
+            throw new DInvalidArgumentException(
+                "Unknown editor `%s`. Known editors are `%s`."
+                .format(editorName, known)
+            );
+        }
+         anInstance.setConfig("editor", name);
+    }
+    
+    /**
+     * Get a formatted URL for the active editor.
+     * Params:
+     * string afile The file to create a link for.
+     * @param int line The line number to create a link for.
+     * /
+    static string editorUrl(string afile, int line) {
+        auto anInstance = getInstance();
+        editor = anInstance.configuration.get("editor");
+        if (!anInstance.editors.isSet(editor)) {
+            throw new DInvalidArgumentException(
+                "Cannot format editor URL `%s` is not a known editor."
+                .format(editor));
+        }
+        template = anInstance.editors[editor];
+        if (isString(template)) {
+            return template.replace(["{file}", "{line}"], [file, (string)line]);
+        }
+        return template(file, line);
+    }
+    /*
     //Holds current output data when outputFormat is false.
     protected array _data = null;
 
@@ -127,58 +175,7 @@ class DDebugger {
         configInstance("outputMask", aValue, merge);
     }
     
-    /**
-     * Add an editor link format
-     *
-     * Template strings can use the `{file}` and `{line}` placeholders.
-     * Closures templates must return a string, and accept two parameters:
-     * The file and line.
-     * Params:
-     * string aName The name of the editor.
-     * @param \Closure|string atemplate The string template or closure
-     * /
-    static void addEditor(string aName, IClosure|string atemplate) {
-         anInstance = getInstance();
-         anInstance.editors[name] = template;
-    }
     
-    /**
-     * Choose the editor link style you want to use.
-     * Params:
-     * string aName The editor name.
-     * /
-    static void setEditor(string aName) {
-         anInstance = getInstance();
-        if (!isSet(anInstance.editors[name])) {
-            known = join(", ", anInstance.editors.keys);
-            throw new DInvalidArgumentException(
-                "Unknown editor `%s`. Known editors are `%s`."
-                .format(name, known
-            ));
-        }
-         anInstance.setConfig("editor", name);
-    }
-    
-    /**
-     * Get a formatted URL for the active editor.
-     * Params:
-     * string afile The file to create a link for.
-     * @param int line The line number to create a link for.
-     * /
-    static string editorUrl(string afile, int line) {
-         anInstance = getInstance();
-        editor =  anInstance.configuration.get("editor");
-        if (!anInstance.editors.isSet(editor)) {
-            throw new DInvalidArgumentException(
-                "Cannot format editor URL `%s` is not a known editor."
-                .format(editor));
-        }
-        template =  anInstance.editors[editor];
-        if (isString(template)) {
-            return template.replace(["{file}", "{line}"], [file, (string)line]);
-        }
-        return template(file, line);
-    }
     
     /**
      * Recursively formats and outputs the contents of the supplied variable.
@@ -442,7 +439,7 @@ class DDebugger {
      * /
     IErrorFormatter getExportFormatter() {
          anInstance = getInstance();
-         className =  anInstance.configuration.get("exportFormatter");
+         className = anInstance.configuration.get("exportFormatter");
         if (!className) {
             if (ConsoleFormatter.environmentMatches()) {
                  className = ConsoleFormatter.classname;

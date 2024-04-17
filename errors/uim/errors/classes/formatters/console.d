@@ -124,7 +124,7 @@ class DConsoleFormatter : IErrorFormatter {
 
         auto arrow = this.style("punct", ": ");
         arrayToExport.getChildren().each!((item) {
-            auto val =  item.getValue();
+            auto val = item.getValue();
             vars ~= break ~ this.export(item.getKey(),  anIndent) ~ arrow ~ this.export(val,  anIndent);
         });
 
@@ -162,8 +162,8 @@ class DConsoleFormatter : IErrorFormatter {
 
         arrow = this.style("punct", ": ");
         foreach (aProperty; var.getChildren()) {
-            auto visibility =  aProperty.getVisibility();
-            auto name =  aProperty.name;
+            auto visibility = aProperty.getVisibility();
+            auto name = aProperty.name;
 
             props ~= visibility && visibility != "public" 
                 ? this.style("visibility", visibility) ~ " " ~

@@ -313,7 +313,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
 
             return _shutdown();
         } catch (MissingTemplateException  anException) {
-            attributes =  anException.getAttributes();
+            attributes = anException.getAttributes();
             if (
                 cast(MissingLayoutException)anException ||
                 attributes["file"].has("error500")
@@ -322,7 +322,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
             }
             return _outputMessage("error500");
         } catch (MissingPluginException  anException) {
-            attributes =  anException.getAttributes();
+            attributes = anException.getAttributes();
             if (isSet(attributes["plugin"]) && attributes["plugin"] == this.controller.pluginName) {
                 this.controller.setPlugin(null);
             }

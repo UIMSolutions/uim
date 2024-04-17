@@ -80,7 +80,7 @@ TEXT;
         auto myvars = null;
 
         foreach (anItem; nodeToExport.getChildren()) {
-            auto val =  anItem.getValue();
+            auto val = anItem.getValue();
             aNodes ~= break ~ this.export(anItem.getKey(), indentSize) ~ ": " ~ this.export(val, indentSize);
         }
         if (count(aNodes)) {

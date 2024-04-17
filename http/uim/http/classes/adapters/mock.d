@@ -69,7 +69,7 @@ class DMockAdapter { //}: IAdapter {
                     continue;
                 }
             }
-            found =  anIndex;
+            found = anIndex;
             break;
         }
         if (found !isNull) {

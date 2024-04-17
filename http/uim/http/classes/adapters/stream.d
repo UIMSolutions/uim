@@ -62,7 +62,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
          anIndexes = responses = null;
         foreach ( aHeaders as  anI:  aHeader) {
             if (strtoupper(substr( aHeader, 0, 5)) == "HTTP/") {
-                 anIndexes ~=  anI;
+                 anIndexes ~= anI;
             }
         }
         last = count(anIndexes) - 1;
@@ -71,7 +71,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
             end = isSet(anIndexes[anI + 1]) ?  anIndexes[anI + 1] - start : null;
             /** @psalm-suppress PossiblyInvalidArgument * /
              aHeaderSlice = array_slice( aHeaders, start, end);
-            body =  anI == last ? content : "";
+            body = anI == last ? content : "";
             responses ~= _buildResponse( aHeaderSlice, body);
         }
         return responses;
@@ -225,7 +225,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
         }
          aHeaders = meta["wrapper_data"];
         if (isSet( aHeaders["headers"]) && isArray( aHeaders["headers"])) {
-             aHeaders =  aHeaders["headers"];
+             aHeaders = aHeaders["headers"];
         }
         return this.createResponses( aHeaders, content);
     }

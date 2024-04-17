@@ -60,7 +60,7 @@ HTML;
      * @param string asuffix The element selector.
      * /
     private string renderToggle(string textToInsert, string aid, string asuffix) {
-        selector =  anId ~ "-" ~ suffix;
+        selector = anId ~ "-" ~ suffix;
         
         return <<<HTML
 <a href="javascript:void(0);"

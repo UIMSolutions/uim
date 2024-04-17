@@ -64,7 +64,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
         if (isMultiple) {
             [aValue, _valueExpressions] = _collectExpressions(aValue);
         }
-       _isMultiple =  isMultiple;
+       _isMultiple = isMultiple;
        _value = aValue;
     }
     

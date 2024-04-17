@@ -59,7 +59,7 @@ class DSimplePaginator : DNumericPaginator {
      * /
     protected IPaginated buildPaginated(IResultSet  someItems, array pagingParams) {
         if (count(someItems) > this.pagingParams["perPage"]) {
-             someItems =  someItems.take(this.pagingParams["perPage"]);
+             someItems = someItems.take(this.pagingParams["perPage"]);
         }
         return new DPaginatedResultSet(someItems, pagingParams);
     } */

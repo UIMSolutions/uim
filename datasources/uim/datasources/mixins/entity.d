@@ -311,7 +311,7 @@ mixin template TEntity() {
     fieldIsPresent = false;
     if (array_key_exists(fieldName, _fields)) {
       fieldIsPresent = true;
-      aValue =  & _fields[fieldName];
+      aValue = & _fields[fieldName];
     }
     method = _accessor(fieldName, "get");
     if ( method) {
@@ -370,7 +370,7 @@ mixin template TEntity() {
   // Gets all original values of the entity.
   array getOriginalValues() {
     originals = _original;
-    originalKeys =  originals.keys;
+    originalKeys = originals.keys;
     _fields.byKeyValue
       .each!((kv) {
       if (
@@ -458,11 +458,9 @@ mixin template TEntity() {
      * - Float, even 0.0
      *
      * and false in all other cases.
-     * Params:
-     * string afield The field to check.
     * /
-  bool hasValue(string afield) {
-    return !this.isEmpty(field);
+  bool hasValue(string fieldToCheck) {
+    return !this.isEmpty(fieldToCheck);
   }
 
   /**

@@ -61,7 +61,7 @@ class DValuesExpression : DExpression {
 
             return;
         }
-       _values ~=  someValues;
+       _values ~= someValues;
        _castedExpressions = false;
     }
 
@@ -95,7 +95,7 @@ class DValuesExpression : DExpression {
 
     // Sets the values to be inserted.
     void setValues(array  valuesToInsert) {
-       _values =  valuesToInsert;
+       _values = valuesToInsert;
        _castedExpressions = false;
     }
 
@@ -128,7 +128,7 @@ class DValuesExpression : DExpression {
             .each!(kv => types[kv.key] = typeMap.type(kv.key));
 
         foreach (row; _values ) {
-            row +=  defaults;
+            row += defaults;
             rowPlaceholders = null;
 
             foreach (column; colNames) {

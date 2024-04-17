@@ -26,7 +26,7 @@ class DOrderByExpression : DQueryExpression {
         string[] sqlOrders;
         foreach (myKey:  direction; _conditions) {
             if (cast(IExpression) direction ) {
-                direction =  direction.sql(aBinder);
+                direction = direction.sql(aBinder);
             }
             sqlOrders ~= isNumeric(myKey) ?  direction : "%s %s".format(myKey,  direction);
         }

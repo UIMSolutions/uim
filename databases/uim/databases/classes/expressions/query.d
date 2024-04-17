@@ -239,7 +239,7 @@ class DQueryExpression : DExpression { // }, Countable {
         type ??= _calculateType(field);
         type = type ?: "string";
         type ~= "[]";
-         someValues =  cast(IExpression)someValues  ?  someValues : (array) someValues;
+         someValues = cast(IExpression)someValues  ?  someValues : (array) someValues;
 
         return this.add(new DComparisonExpression(field,  someValues, type, "IN"));
     }
@@ -288,7 +288,7 @@ class DQueryExpression : DExpression { // }, Countable {
         type ??= _calculateType(field);
         type = type ?: "string";
         type ~= "[]";
-         someValues =  cast(IExpression)someValues  ?  someValues : (array) someValues;
+         someValues = cast(IExpression)someValues  ?  someValues : (array) someValues;
 
         return this.add(new DComparisonExpression(field,  someValues, type, "NOT IN"));
     }
@@ -422,7 +422,7 @@ class DQueryExpression : DExpression { // }, Countable {
             return "";
         }
         conjunction = _conjunction;
-        template =  len == 1 ? "%s' : '(%s)";
+        template = len == 1 ? "%s' : '(%s)";
         someParts = null;
         foreach (_conditions as part) {
             if (cast(Query)part) {
@@ -510,7 +510,7 @@ class DQueryExpression : DExpression { // }, Countable {
                 continue;
             }
              isArray = isArray(c);
-             isOperator =  isNot = false;
+             isOperator = isNot = false;
             if (!numericKey) {
                 normalizedKey = myKey.toLower;
                  isOperator = in_array(normalizedKey,  operators);
@@ -583,8 +583,8 @@ class DQueryExpression : DExpression { // }, Countable {
             if (!typeMultiple) {
                 type ~= "[]";
             }
-             operator =  operator == "=" ? "IN" :  operator;
-             operator =  operator == "!=" ? "NOT IN" :  operator;
+             operator = operator == "=" ? "IN" :  operator;
+             operator = operator == "!=" ? "NOT IN" :  operator;
             typeMultiple = true;
         }
 

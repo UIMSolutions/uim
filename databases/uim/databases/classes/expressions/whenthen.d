@@ -121,7 +121,7 @@ class DWhenThenExpression : DExpression {
                 type = this.inferType( when);
             }
         }
-        this.when =  when;
+        this.when = when;
         this.whenType = type;
     }
     
@@ -199,7 +199,7 @@ class DWhenThenExpression : DExpression {
         if (cast(Query) when ) {
              when = "(%s)".format( when.sql(aBinder));
         } elseif (cast(IExpression) when ) {
-             when =  when.sql(aBinder);
+             when = when.sql(aBinder);
         } else {
             placeholder = aBinder.placeholder("c");
              whenType = this.whenType.isString

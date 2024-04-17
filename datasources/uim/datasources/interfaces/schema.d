@@ -52,29 +52,17 @@ interface ISchema {
    // Get the column names in the table.
    string[] columnNames();
 
-   /**
-     * Returns column type or null if a column does not exist.
-     * Params:
-     * string columnName The column to get the type of.
-     */
+   // Returns column type or null if a column does not exist.
    string getColumnType(string columnName);
 
-   /**
-     * Sets the type of column.
-     * Params:
-     * string columnName The column to set the type of.
-     * @param string atype The type to set the column to.
-     */
-   void setColumnType(string columnName, string columnType);
+   // Sets the type of column.
+   void setColumnType(string columnName, string typeName);
 
    /**
      * Returns the base type name for the provided column.
-     * This represent the database type a more complex class is
-     * based upon.
-     * Params:
-     * string acolumn The column name to get the base type from
+     * This represent the database type a more complex class is based upon.
      */
-   string baseColumnType(string acolumn);
+   string baseColumnType(string columnName);
 
    // Check whether a field isNullable. Missing columns are nullable.
    bool isNullable(string columnName);
@@ -85,9 +73,7 @@ interface ISchema {
      */
    STRINGAA typeMap();
 
-   /**
-     * Get a hash of columns and their default values.
-     */
+   // Get a hash of columns and their default values.
    IData[string] defaultValues();
 
    /**

@@ -254,7 +254,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
             throw new DLogicException("Cannot call `when()` between `when()` and `then()`.");
         }
         if (cast(DClosure) when) {
-             when =  when(new WhenThenExpression(this.getTypeMap()));
+             when = when(new WhenThenExpression(this.getTypeMap()));
             if (!(cast(WhenThenExpression) when )) {
                 throw new DLogicException(
                     "`when()` callables must return an instance of `\%s`, `%s` given."
@@ -263,7 +263,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
             }
         }
         if (cast(WhenThenExpression) when) {
-            this.when ~=  when;
+            this.when ~= when;
         } else {
             this.whenBuffer = ["when":  when, "type": type];
         }
@@ -335,7 +335,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
 
         this.whenBuffer = null;
 
-        this.when ~=  whenThen;
+        this.when ~= whenThen;
     }
     
     /**
@@ -388,7 +388,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
         
         auto types = null;
         foreach ( when; this.when as) {
-            type =  when.getResultType();
+            type = when.getResultType();
             if (type !isNull) {
                 types ~= type;
             }

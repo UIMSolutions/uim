@@ -852,22 +852,22 @@ abstract class DQuery : IQuery { // : IExpression {
      * 'allowEmpty' to true.
      * Be careful about using it without proper sanity checks.
      * Params:
-     * string afield Field
      * @param array  someValues Array of values
      * @param IData[string] options Options
      * /
-    auto whereNotInListOrNull(string afield, array  someValues, IData[string] options = null) {
+    auto whereNotInListOrNull(string fieldName, array  someValues, IData[string] options = null) {
         auto options = options.update() [
             "types": ArrayData,
             "allowEmpty": BooleanData(false),
         ];
 
         if (options["allowEmpty"] && !someValues) {
-            return this.where([field ~ " IS NOT": null]);
+            return this.where([fieldName ~ " IS NOT": null]);
         }
+
         return this.where(
             [
-                "OR": [field ~ " NOT IN":  someValues, field ~ " IS": null],
+                "OR": [fieldName ~ " NOT IN":  someValues, fieldName ~ " IS": null],
             ],
             options["types"]
         );
@@ -1130,7 +1130,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * /
     auto offset(IExpression|int  anOffset) {
        _isDirty();
-       _parts["offset"] =  anOffset;
+       _parts["offset"] = anOffset;
 
         return this;
     }

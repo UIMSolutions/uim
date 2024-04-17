@@ -122,7 +122,7 @@ abstract class DCell { // }: IEventDispatcher {
             myclassName = class;
             viewsPrefix = "\View\Cell\\";
             /** @psalm-suppress PossiblyFalseOperand * /
-            views = substr(myclassName, strpos(myclassName, viewsPrefix) + viewsPrefix.length);
+            views = substr(myclassName, indexOf(myclassName, viewsPrefix) + viewsPrefix.length);
             views = substr(views, 0, -4);
             if (!mybuilder.getTemplatePath()) {
                 mybuilder.setTemplatePath(

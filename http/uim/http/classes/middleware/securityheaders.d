@@ -9,7 +9,7 @@ import uim.http;
  *
  * @link https://book.UIM.org/5/en/controllers/middleware.html#security-header-middleware
  */
-class DSecurityHeadersMiddleware { // }: IMiddleware {
+class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
     /* 
     /** @var string X-Content-Type-Option nosniff * /
     const NOSNIFF = "nosniff";

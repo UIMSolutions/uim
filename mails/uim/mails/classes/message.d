@@ -1038,7 +1038,7 @@ class DMessage { //: IDataSerializable {
                 message ~= "Content-Transfer-Encoding: " ~ this.getContentTransferEncoding();
                 message ~= "";
             }
-            string[] content = split("\n", this.htmlMessage);
+            string[] content = this.htmlMessage.split("\n")
             message = array_merge(message, content);
             message ~= "";
             message ~= "";
@@ -1273,7 +1273,7 @@ class DMessage { //: IDataSerializable {
             if (!preg_match("/<[a-z]+.*>/i", line)) {
                 formatted = array_merge(
                     formatted,
-                    split("\n", Text.wordWrap(line, wrapLength, "\n", cut))
+                    Text.wordWrap(line, wrapLength, "\n", cut).split("\n")
                 );
                 continue;
             }
@@ -1294,7 +1294,7 @@ class DMessage { //: IDataSerializable {
                             if (tmpLineLength > 0) {
                                 formatted = chain(
                                     formatted,
-                                    split("\n", Text.wordWrap(trim(tmpLine), wrapLength, "\n", cut))
+                                    Text.wordWrap(trim(tmpLine), wrapLength, "\n", cut).split("\n")
                                 );
                                 tmpLine = "";
                                 tmpLineLength = 0;

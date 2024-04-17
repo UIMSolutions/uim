@@ -214,7 +214,7 @@ class DAsset
                 return somePath ~ "?" ~ filemtime(webrootPath);
             }
             // Check for plugins and org prefixed plugins.
-            segments = split("/", ltrim(filepath, "/"));
+            segments = ltrim(filepath, "/").split("/");
             plugin = Inflector.camelize(segments[0]);
             if (!Plugin.isLoaded(plugin) && count(segments) > 1) {
                 string plugin = join("/", [plugin, Inflector.camelize(segments[1])]);

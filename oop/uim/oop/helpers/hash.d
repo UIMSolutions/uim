@@ -601,7 +601,7 @@ class Hash {
     static array expand(array data, string myseparator = ".") {
         myhash = null;
         foreach (mypath: myvalue; mydata) {
-            someKeys = split(myseparator, to!string(mypath));
+            someKeys = to!string(mypath).split(myseparator);
             if (count(someKeys) == 1) {
                 myhash[mypath] = myvalue;
                 continue;

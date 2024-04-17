@@ -18,7 +18,7 @@ import uim.http;
  * The encryption types and padding are compatible with those used by CookieComponent
  * for backwards compatibility.
  */
-class DEncryptedCookieMiddleware { // : IMiddleware {
+class DEncryptedCookieMiddleware { // : IHttpMiddleware {
     mixin TCookieCrypt;
 
     // The list of cookies to encrypt/decrypt

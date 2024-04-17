@@ -5,7 +5,7 @@ import uim.http;
 @safe:
 
 // Enforces use of HTTPS (SSL) for requests.
-class DHttpsEnforcerMiddleware { // }: IMiddleware {
+class DHttpsEnforcerMiddleware { // }: IHttpMiddleware {
     /**
      * Configuration.
      *

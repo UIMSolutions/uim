@@ -65,14 +65,10 @@ class DAssetMiddleware : IMiddleware {
         return strtotime(modifiedSince) == file.getMTime();
     }
     
-    /**
-     * Builds asset file path based off url
-     * Params:
-     * string aurl Asset URL
-     */
-    protected string _getAssetFile(string aurl) {
-        string[] someParts = split("/", ltrim(url, "/"));
-        pluginPart = null;
+    // Builds asset file path based off url
+    protected string _getAssetFile(string assetUrl) {
+        string[] someParts = ltrim(assetUrl, "/").split("/");
+        auto pluginPart = null;
         for (anI = 0;  anI < 2;  anI++) {
             if (!isSet(someParts[anI])) {
                 break;

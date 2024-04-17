@@ -74,7 +74,7 @@ class UrlHelper : DHelper {
      *   escaped afterwards before being displayed.
      * - `fullBase`: If true, the full base URL will be prepended to the result
      * Params:
-     * string mypath Cake-relative route path.
+     * string mypath uim-relative route path.
      * @param array myparams An array specifying any additional parameters.
      *  Can be also any special parameters supported by `Router.url()`.
      * @param IData[string] options Array of options.

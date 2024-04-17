@@ -20,7 +20,7 @@ class DUnitStartedSubscriber : DUnitStarted {
             Log.drop("queries");
             Log.setConfig("queries", [
                 "className": "Console",
-                "stream": "php://stderr",
+                "stream": "D://stderr",
                 "scopes": ["uim.database.queries"],
             ]);
         }

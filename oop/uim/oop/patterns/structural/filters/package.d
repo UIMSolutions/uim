@@ -92,7 +92,7 @@ void printPersons(DPerson[] persons) {
   persons
     .each!(person =>
         writeln(
-          "Person : [ Name : ", person.name,
+          "Person : [Name : ", person.name,
           ", Gender : ", person.gender,
           ", Marital Status : ", person.maritalStatus,
           " ]"

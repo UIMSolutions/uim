@@ -219,14 +219,14 @@ class DRoute {
                 if (routings != "plugin" && array_key_exists(routings, this.defaults)) {
                     myoption = "?";
                 }
-                // phpcs:disable Generic.Files.LineLength
+                // Dcs:disable Generic.Files.LineLength
                 // Offset of the colon/braced placeholder in the full template string
                 if (myparsed[mymatchArray[0][1] - 1] == "/") {
                     myrouteParams["/" ~ mysearch] = "(?:/(?P<" ~ routings ~ ">" ~ this.options[routings] ~ ")" ~ myoption ~ ")" ~ myoption;
                 } else {
                     myrouteParams[mysearch] = "(?:(?P<" ~ routings ~ ">" ~ this.options[routings] ~ ")" ~ myoption ~ ")" ~ myoption;
                 }
-                // phpcs:enable Generic.Files.LineLength
+                // Dcs:enable Generic.Files.LineLength
             } else {
                 myrouteParams[mysearch] = "(?:(?P<" ~ routings ~ ">[^/]+))";
             }

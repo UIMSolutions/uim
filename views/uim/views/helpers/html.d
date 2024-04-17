@@ -204,7 +204,7 @@ class DHtmlHelper : DHelper {
      * Params:
      * string[] mytitle The content to be wrapped by `<a>` tags.
      *  Can be an array if myurl.isNull. If myurl.isNull, mytitle will be used as both the URL and title.
-     * @param string[] myurl Cake-relative URL or array of URL parameters, or
+     * @param string[] myurl uim-relative URL or array of URL parameters, or
      *  external URL (starts with http://)
      * @param IData[string] htmlAtributes Array of options and HTML attributes.
       * /
@@ -263,7 +263,7 @@ class DHtmlHelper : DHelper {
      * - `confirm` JavaScript confirmation message.
      * Params:
      * string mytitle The content to be wrapped by `<a>` tags.
-     * @param string mypath Cake-relative route path.
+     * @param string mypath uim-relative route path.
      * @param array myparams An array specifying any additional parameters.
      *  Can be also any special parameters supported by `Router.url()`.
      * @param IData[string] htmlAtributes Array of options and HTML attributes.
@@ -551,13 +551,13 @@ class DHtmlHelper : DHelper {
      * Create a regular image:
      *
      * ```
-     * writeln(this.Html.image("cake_icon.png", ["alt": "UIM"]);
+     * writeln(this.Html.image("uim_icon.png", ["alt": "UIM"]);
      * ```
      *
      * Create an image link:
      *
      * ```
-     * writeln(this.Html.image("cake_icon.png", ["alt": "UIM", "url": "https://UIM.org"]);
+     * writeln(this.Html.image("uim_icon.png", ["alt": "UIM", "url": "https://UIM.org"]);
      * ```
      *
      * ### Options:

@@ -38,7 +38,7 @@ class DEmployee {
   }
 
   override string toString() {
-    return "Employee :[ Name : " ~ name ~ ", dept : " ~ dept ~ ", salary :" ~ to!string(
+    return "Employee :[Name : " ~ name ~ ", dept : " ~ dept ~ ", salary :" ~ to!string(
       salary) ~ " ]";
   }
 }

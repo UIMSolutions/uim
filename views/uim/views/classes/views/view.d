@@ -612,7 +612,7 @@ class DView : IView { //  }: IEventDispatcher {
     void set(string[] views, IData aValue = null) {
         if (views.isArray) {
             if (myvalue.isArray) {
-                /** @var array|false mydata Coerce phpstan to accept failure case * /
+                /** @var array|false mydata Coerce Dstan to accept failure case * /
                 mydata = array_combine(views, myvalue);
                 if (mydata == false) {
                     throw new UimException(

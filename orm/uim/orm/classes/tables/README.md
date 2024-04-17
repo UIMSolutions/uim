@@ -11,7 +11,7 @@ Basic Usage
 
 To get started, create a Table class. These classes live in src/Model/Table. Tables are a type model collection specific to relational databases, and the main interface to your database in uimD’s ORM. The most basic table class would look like:
 
-// src/Model/Table/ArticlesTable.php
+// src/Model/Table/ArticlesTable.D
 namespace App\Model\Table;
 
 use DORMTable;
@@ -83,7 +83,7 @@ To add an event listener to a Table class or Behavior simply implement the metho
 // In a controller
 articles->save(article, ["customVariable1": "yourValue1"]);
 
-// In ArticlesTable.php
+// In ArticlesTable.D
 public function afterSave(Event event, EntityInterface entity, ArrayObject options)
 {
     customVariable = options["customVariable1"];  // "yourValue1"

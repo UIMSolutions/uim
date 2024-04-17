@@ -96,7 +96,7 @@ class DFileCacheEngine : DCacheEngine {
             cacheData = serialize(cacheData);
         }
         myexpires = time() + this.duration(myttl);
-        mycontents = [myexpires, PHP_EOL, cacheData, PHP_EOL].join();
+        mycontents = [myexpires, D_EOL, cacheData, D_EOL].join();
 
         if (configuration.get("lock")) {
             _File.flock(LOCK_EX);

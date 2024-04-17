@@ -73,7 +73,7 @@ mixin template TEntity() {
 
   // List of invalid fields and their data for errors upon validation/patching.
   protected IData[string] _invalidFields;
-  
+
   /**
      * Holds a cached list of getters/setters per class
      *
@@ -375,7 +375,7 @@ mixin template TEntity() {
   /**
      * Checks that a field is empty
      *
-     * This is not working like the PHP `empty()` function. The method will
+     * This is not working like the D `empty()` function. The method will
      * return true for:
      *
      * - `""` (empty string)

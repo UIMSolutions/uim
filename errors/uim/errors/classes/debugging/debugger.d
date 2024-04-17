@@ -12,7 +12,7 @@ import uim.errors;
 /**
  * Provide custom logging and error handling.
  *
- * Debugger : PHP's default error handling and gives
+ * Debugger : D's default error handling and gives
  * simpler to use more powerful interfaces.
  *
  * @link https://book.cakephp.org/4/en/development/debugging.html#namespace-Cake\Error
@@ -484,10 +484,10 @@ class DDebugger {
      *
      * The above would return an array of 8 items. The 4th item would be the provided line,
      * and would be wrapped in `<span class="code-highlight"></span>`. All the lines
-     * are processed with highlight_string() as well, so they have basic PHP syntax highlighting
+     * are processed with highlight_string() as well, so they have basic D syntax highlighting
      * applied.
      *
-     * @param string file Absolute path to a PHP file.
+     * @param string file Absolute path to a D file.
      * @param int line Line number to highlight.
      * @param int context Number of lines of context to extract above and below line.
      * @return array<string> Set of lines highlighted

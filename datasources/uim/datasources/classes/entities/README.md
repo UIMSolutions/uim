@@ -7,7 +7,7 @@ While Table Objects represent and provide access to a collection of objects, ent
 Entities are created for you each time you iterate the query instance returned by find() of a table object or when you call all() or first() method of the query instance.
 Creating Entity Classes
 
-You don’t need to create entity classes to get started with the ORM in CakePHP. However, if you want to have custom logic in your entities you will need to create classes. By convention entity classes live in src/Model/Entity/. If our application had an articles table we could create the following entity:
+You don’t need to create entity classes to get started with the ORM in CakeD. However, if you want to have custom logic in your entities you will need to create classes. By convention entity classes live in src/Model/Entity/. If our application had an articles table we could create the following entity:
 
 // src/Model/Entity/Article.php
 namespace App\Model\Entity;
@@ -20,7 +20,7 @@ class DArticle extends Entity
 
 Right now this entity doesn’t do very much. However, when we load data from our articles table, we’ll get instances of this class.
 
-If you don’t define an entity class DCakePHP will use the basic Entity class.
+If you don’t define an entity class DCakeD will use the basic Entity class.
 Creating Entities
 
 Entities can be directly instantiated:
@@ -53,7 +53,7 @@ article = this->fetchTable('Articles')->newEntity([
 
 article will be an instance of App\Model\Entity\Article or fallback to Cake\ORM\Entity instance if you haven’t created the Article class.
 
-Prior to CakePHP 4.3 you need to use this->getTableLocator->get('Articles') to get the table instance.
+Prior to CakeD 4.3 you need to use this->getTableLocator->get('Articles') to get the table instance.
 Accessing Entity Data
 
 Entities provide a few ways to access the data they contain. Most commonly you will access the data in an entity using object notation:
@@ -151,7 +151,7 @@ Mutators
 
 You can customize how fields get set by defining a mutator. They use the convention of _set(FieldName) with (FieldName) being the CamelCased version of the field name.
 
-Mutators should always return the value that should be stored in the field. You can also use mutators to set other fields. When doing this, be careful to not introduce any loops, as CakePHP will not prevent infinitely looping mutator methods. For example:
+Mutators should always return the value that should be stored in the field. You can also use mutators to set other fields. When doing this, be careful to not introduce any loops, as CakeD will not prevent infinitely looping mutator methods. For example:
 
 namespace App\Model\Entity;
 
@@ -256,7 +256,7 @@ user->setErrors([
 
 Mass Assignment
 
-While setting fields to entities in bulk is simple and convenient, it can create significant security issues. Bulk assigning user data from the request into an entity allows the user to modify any and all columns. When using anonymous entity classes or creating the entity class with the Bake Console CakePHP does not protect against mass-assignment.
+While setting fields to entities in bulk is simple and convenient, it can create significant security issues. Bulk assigning user data from the request into an entity allows the user to modify any and all columns. When using anonymous entity classes or creating the entity class with the Bake Console CakeD does not protect against mass-assignment.
 
 The _accessible property allows you to provide a map of fields and whether or not they can be mass-assigned. The values true and false indicate whether a field can or cannot be mass-assigned:
 
@@ -341,7 +341,7 @@ Lazy loading
 
     Lazy loading defers loading association data until it is absolutely required. While this can save CPU time because possibly unused data is not hydrated into objects, it can result in many more queries being emitted to the database. For example looping over a set of articles & their comments will frequently emit N queries where N is the number of articles being iterated.
 
-While lazy loading is not included by CakePHP’s ORM, you can just use one of the community plugins to do so. We recommend the LazyLoad Plugin
+While lazy loading is not included by CakeD’s ORM, you can just use one of the community plugins to do so. We recommend the LazyLoad Plugin
 
 After adding the plugin to your entity, you will be able to do the following:
 
@@ -354,7 +354,7 @@ foreach (article->comments as comment) {
 
 Creating Re-usable Code with Traits
 
-You may find yourself needing the same logic in multiple entity classes. PHP’s traits are a great fit for this. You can put your application’s traits in src/Model/Entity. By convention traits in CakePHP are suffixed with mixin template so they can be discernible from classes or interfaces. Traits are often a good complement to behaviors, allowing you to provide functionality for the table and entity objects.
+You may find yourself needing the same logic in multiple entity classes. D’s traits are a great fit for this. You can put your application’s traits in src/Model/Entity. By convention traits in CakeD are suffixed with mixin template so they can be discernible from classes or interfaces. Traits are often a good complement to behaviors, allowing you to provide functionality for the table and entity objects.
 
 For example if we had SoftDeletable plugin, it could provide a trait. This mixin template could give methods for marking entities as ‘deleted’, the method softDelete could be provided by a trait:
 
@@ -384,7 +384,7 @@ class DArticle extends Entity
 
 Converting to Arrays/IData
 
-When building APIs, you may often need to convert entities into arrays or IData data. CakePHP makes this simple:
+When building APIs, you may often need to convert entities into arrays or IData data. CakeD makes this simple:
 
 // Get an array.
 // Associations will be converted with toArray() as well.
@@ -394,7 +394,7 @@ array = user->toArray();
 // Associations will be converted with IDataSerialize hook as well.
  IData = Json_encode(user);
 
-When converting an entity to an IData, the virtual & hidden field lists are applied. Entities are recursively converted to IData as well. This means that if you eager loaded entities and their associations CakePHP will correctly handle converting the associated data into the correct format.
+When converting an entity to an IData, the virtual & hidden field lists are applied. Entities are recursively converted to IData as well. This means that if you eager loaded entities and their associations CakeD will correctly handle converting the associated data into the correct format.
 Exposing Virtual Fields
 
 By default virtual fields are not exported when converting entities to arrays or IData. In order to expose virtual fields you need to make them visible. When defining your entity class you can provide a list of virtual field that should be exposed:

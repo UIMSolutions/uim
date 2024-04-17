@@ -80,7 +80,7 @@ h     * /
     /* _serializers = [
       "igbinary": Memcached: : SERIALIZER_IGBINARY,
       "IData": Memcached: : SERIALIZER_IData,
-      "d": Memcached: : SERIALIZER_PHP,
+      "d": Memcached: : SERIALIZER_D,
     ]; * /
 
     if (defined("Memcached.HAVE_MSGPACK")) {

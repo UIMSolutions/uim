@@ -136,7 +136,7 @@ class DPaginator : IPaginator {
      *
      * ```
      * myQuery = this.Articles.find("popular").matching("Tags", function (q) {
-     *   return q.where(["name":"CakePHP"])
+     *   return q.where(["name":"CakeD"])
      * });
      * myResults = paginator.paginate(myQuery);
      * ```

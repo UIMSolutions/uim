@@ -16,5 +16,5 @@ interface IBatchCasting
      * @param array values The original array of values containing the fields to be casted
      * @return array<string, mixed>
      */
-    // TODO array manyToPHP(array values, string[] fields, IDriver driver);
+    // TODO array manyToD(array values, string[] fields, IDriver driver);
 }

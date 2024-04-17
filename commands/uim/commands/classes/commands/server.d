@@ -74,7 +74,7 @@ class DServerCommand : DCommand {
 
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         this.startup(commandArguments,  aConsoleIo);
-        phpBinary = to!string(enviroment("PHP", "d"));
+        phpBinary = to!string(enviroment("D", "d"));
         string commandText = "%s -S %s:%d -t %s"
             .format(
                 phpBinary,
@@ -102,7 +102,7 @@ class DServerCommand : DCommand {
     DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
         with (parserToUpdate) {
             description([
-                "PHP Built-in Server for UIM",
+                "D Built-in Server for UIM",
                 "<warning>[WARN] Don't use this in a production environment</warning>",
             ].join("\n"));
             

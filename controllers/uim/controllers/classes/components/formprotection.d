@@ -71,7 +71,7 @@ class DFormProtectionComponent : DComponent {
      * /
     DResponse startup(IEvent anEvent) {
         auto myrequest = this.getController().getRequest();
-        auto mydata =  request.getParsedBody();
+        auto mydata = request.getParsedBody();
         auto myhasData = (someData ||  request. is(["put", "post", "delete", "patch"]));
 
         if (
@@ -92,13 +92,13 @@ class DFormProtectionComponent : DComponent {
         auto mytoken = [
             "nlockedFields": _config["unlockedFields"],
         ];
-         request =  request.withAttribute("formTokenData", [
+         request = request.withAttribute("formTokenData", [
                 "unlockedFields": token["unlockedFields"],
             ]);
 
         if (someData.isArray) {
             someData.remove("_Token");
-             request =  request.withParsedBody(someData);
+             request = request.withParsedBody(someData);
         }
         this.getController().setRequest( request);
 

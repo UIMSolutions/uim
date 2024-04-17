@@ -156,20 +156,18 @@ mixin template TConsoleIntegrationTest() {
      * Asserts `stderr` contains expected output
      * Params:
      * string aexpected Expected output
-     * @param string amessage Failure message
      * /
-    void assertErrorContains(string aexpected, string amessage = null) {
-        this.assertThat(expected, new DContentsContain(_err.messages(), "error output"), message);
+    void assertErrorContains(string aexpected, string failureMessage = null) {
+        this.assertThat(expected, new DContentsContain(_err.messages(), "error output"), failureMessage);
     }
     
     /**
      * Asserts `stderr` contains expected regexp
      * Params:
      * string apattern Expected pattern
-     * @param string amessage Failure message
      * /
-    void assertErrorRegExp(string apattern, string amessage = null) {
-        this.assertThat(somePattern, new DContentsRegExp(_err.messages(), "error output"), message);
+    void assertErrorRegExp(string apattern, string failureMessage = null) {
+        this.assertThat(somePattern, new DContentsRegExp(_err.messages(), "error output"), failureMessage);
     }
     
     /**

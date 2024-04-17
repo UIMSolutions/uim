@@ -72,23 +72,23 @@ public { // Modules
 		return Background(this);
 	}
 	auto backgroundColor(string color) {
-		_properties ~=  "background-color: "~color;
+		_properties ~= "background-color: "~color;
 		return this;
 	}
 	auto backgroundImage(string image) {
-		_properties ~=  "background-image: "~image;
+		_properties ~= "background-image: "~image;
 		return this;
 	}
 	auto backgroundRepeat(string repeat) {
-		_properties ~=  "background-repeat: "~repeat;
+		_properties ~= "background-repeat: "~repeat;
 		return this;
 	}
 	auto backgroundAttachment(string attachment) {
-		_properties ~=  "background-attachment: "~attachment;
+		_properties ~= "background-attachment: "~attachment;
 		return this;
 	}
 	auto backgroundPosition(string position) {
-		_properties ~=  "background-position: "~position;
+		_properties ~= "background-position: "~position;
 		return this;
 	}
 
@@ -131,35 +131,35 @@ public { // Modules
 		return Border(this);
 	}
 	auto borderColor(string color) {
-		_properties ~=  "border-color: "~color;
+		_properties ~= "border-color: "~color;
 		return this;
 	}
 	auto borderStyle(string style) {
-		_properties ~=  "border-style: "~style;
+		_properties ~= "border-style: "~style;
 		return this;
 	}
 	auto borderTopStyle(string style) {
-		_properties ~=  "border-style: "~style;
+		_properties ~= "border-style: "~style;
 		return this;
 	}
 	auto borderRightStyle(string style) {
-		_properties ~=  "border-style: "~style;
+		_properties ~= "border-style: "~style;
 		return this;
 	}
 	auto borderBottomStyle(string style) {
-		_properties ~=  "border-style: "~style;
+		_properties ~= "border-style: "~style;
 		return this;
 	}
 	auto borderLeftStyle(string style) {
-		_properties ~=  "border-style: "~style;
+		_properties ~= "border-style: "~style;
 		return this;
 	}
 	auto borderWidth(string width) {
-		_properties ~=  "border-width: "~width;
+		_properties ~= "border-width: "~width;
 		return this;
 	}
 	auto border(string properties) {
-		_properties ~=  "border: "~properties;
+		_properties ~= "border: "~properties;
 		return this;
 	}
 
@@ -213,47 +213,47 @@ public { // Modules
 	}
 
 	auto color(string color) {
-		_properties ~=  "color: "~color;
+		_properties ~= "color: "~color;
 		return this;			
 	}
 	auto textAlign(string val) {
-		_properties ~=  "text-align: "~val;
+		_properties ~= "text-align: "~val;
 		return this;			
 	}
 	auto textDecoration(string decoration) { // values: overline, line-through, underline
-		_properties ~=  "text-decoration: "~decoration;
+		_properties ~= "text-decoration: "~decoration;
 		return this;			
 	}
 	auto textTransform(string transform) { // values: uppercase, lowercase, capitalize
-		_properties ~=  "text-transform: "~transform;
+		_properties ~= "text-transform: "~transform;
 		return this;			
 	}
 	auto textIndent(string indent) { 
-		_properties ~=  "text-indent: "~indent;
+		_properties ~= "text-indent: "~indent;
 		return this;			
 	}
 	auto letterSpacing(string spacing) { 
-		_properties ~=  "letter-spacing: "~spacing;
+		_properties ~= "letter-spacing: "~spacing;
 		return this;			
 	}
 	auto lineHeight(T)(T height) { 
-		_properties ~=  "line-height: %s".format(height);
+		_properties ~= "line-height: %s".format(height);
 		return this;			
 	}		
 	auto lineHeight(string height) { 
-		_properties ~=  "line-height: "~height;
+		_properties ~= "line-height: "~height;
 		return this;			
 	}		
 	auto direction(string dir) { 
-		_properties ~=  "direction: "~dir;
+		_properties ~= "direction: "~dir;
 		return this;			
 	}		
 	auto wordSpacing(string spacing) { 
-		_properties ~=  "word-spacing: "~spacing;
+		_properties ~= "word-spacing: "~spacing;
 		return this;			
 	}		
 	auto textShadow(string shadow) { 
-		_properties ~=  "text-shadow: "~shadow;
+		_properties ~= "text-shadow: "~shadow;
 		return this;			
 	}		
 	override string toString() {

@@ -45,7 +45,7 @@ class DConsoleInput {
         if (!anInput) {
             throw new UimException("Cannot open handle `%s`".format(streamLocation));
         }
-        _input =  anInput;
+        _input = anInput;
     }
 
     // Read a value from the stream

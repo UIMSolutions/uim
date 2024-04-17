@@ -174,7 +174,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         if (aName !isNull) {
             this.name(aName);
         } elseif (!isSet(this.name)) {
-            controller =  request.getParam("controller");
+            controller = request.getParam("controller");
             if (controller) {
                 this.name = controller;
             }
@@ -278,7 +278,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
     // Get the closure for action to be invoked by ControllerFactory.
     Closure getAction() {
          request = this.request;
-        action =  request.getParam("action");
+        action = request.getParam("action");
 
         if (!this.isAction(action)) {
             throw new DMissingActionException([
@@ -341,10 +341,10 @@ class DController : IController { // IEventListener, IEventDispatcher {
         auto requestAction = this.request.getParam("action");
 
         foreach (this.middlewares as  middleware) {
-            options =  middleware["options"];
+            options = middleware["options"];
             if (!options["only"].isEmpty) {
                 if (in_array(requestAction, (array)options["only"], true)) {
-                     matching ~=  middleware["middleware"];
+                     matching ~= middleware["middleware"];
                 }
                 continue;
             }
@@ -354,7 +354,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
             ) {
                 continue;
             }
-             matching ~=  middleware["middleware"];
+             matching ~= middleware["middleware"];
         }
         return  matching;
     }
@@ -473,8 +473,8 @@ class DController : IController { // IEventListener, IEventDispatcher {
          viewClass = this.chooseViewClass();
          view = this.createView( viewClass);
 
-        contents =  view.render();
-        response =  view.getResponse().withStringBody(contents);
+        contents = view.render();
+        response = view.getResponse().withStringBody(contents);
 
         return this.setResponse(response).response;
     }
@@ -528,7 +528,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
          request = this.getRequest();
 
         // Prefer the _ext route parameter if it is defined.
-        ext =  request.getParam("_ext");
+        ext = request.getParam("_ext");
         if (ext) {
             auto extTypes = (array)(this.response.getMimeType(ext) ?: []);
             foreach (extType; extTypes) {

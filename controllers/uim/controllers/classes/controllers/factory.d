@@ -59,7 +59,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
         if (this.container.has(className)) {
             controller = this.container.get(className);
         } else {
-            controller =  reflection.newInstance( request);
+            controller = reflection.newInstance( request);
         }
         return controller;
     }
@@ -221,12 +221,12 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
     string getControllerClass(DServerRequest serverRequest) {
         pluginPath = "";
         namespace = "Controller";
-        controller =  request.getParam("controller", "");
+        controller = request.getParam("controller", "");
         if ( request.getParam("plugin")) {
-            pluginPath =  request.getParam("plugin") ~ ".";
+            pluginPath = request.getParam("plugin") ~ ".";
         }
         if ( request.getParam("prefix")) {
-            prefix =  request.getParam("prefix");
+            prefix = request.getParam("prefix");
             namespace ~= "/" ~ prefix;
         }
         firstChar = substr(controller, 0, 1);

@@ -144,12 +144,14 @@ class DConsoleOptionParser {
         /**
         * Sets an epilog to the parser. The epilog is added to the end of
         * the options and arguments listing when help is generated. */
-        auto epilog(string[] texts...) {
-            return epilog(texts.dup);
+        protected string _epilog; 
+
+        void epilog(string[] texts...) {
+            epilog(texts.dup);
         }
 
         void epilog(string[] texts) {
-        _epilog = texts.join("\n");
+            _epilog = texts.join("\n");
         }
         
         // Gets the epilog.

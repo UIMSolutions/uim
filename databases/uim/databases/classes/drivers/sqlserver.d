@@ -218,12 +218,12 @@ class DSqlserverDriver : DDriver {
             // the only practical way to specify the use of calculated columns
             // is with their alias.  So substitute the select SQL in place of
             // any column aliases for those entries in the order clause.
-            auto select =  original.clause("select");
+            auto select = original.clause("select");
             auto  order = new DOrderByExpression();
              original
                 .clause("order")
                 .iterateParts(function ( direction,  orderBy) use (select,  order) {
-                    aKey =  orderBy;
+                    aKey = orderBy;
                     if (
                         isSet(select[orderBy]) &&
                         cast(IExpression)select[orderBy] 
@@ -282,7 +282,7 @@ class DSqlserverDriver : DDriver {
          order = new DOrderByExpression( distinct);
         aQuery
             .select(function ( q) use ( distinct,  order) {
-                 over =  q.newExpr("ROW_NUMBER() OVER")
+                 over = q.newExpr("ROW_NUMBER() OVER")
                     .add("(PARTITION BY")
                     .add( q.newExpr().add( distinct).setConjunction(","))
                     .add( order)

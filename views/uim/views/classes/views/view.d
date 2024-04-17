@@ -1096,7 +1096,7 @@ class DView : IView { //  }: IEventDispatcher {
     protected string[] _getSubPaths(string mybasePath) {
         mypaths = [mybasePath];
         if (this.request.getParam("prefix")) {
-            string[] myprefixPath = split("/", this.request.getParam("prefix"));
+            string[] myprefixPath =this.request.getParam("prefix"). split("/");
             mypath = "";
             foreach (myprefixPath as myprefixPart) {
                 mypath ~= Inflector.camelize(myprefixPart) ~ DIRECTORY_SEPARATOR;

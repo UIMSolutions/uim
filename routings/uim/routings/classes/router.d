@@ -707,7 +707,7 @@ class DRouter {
             mydefaults["prefix"] = mymatches["prefix"];
         }
         if (isSet(mymatches["params"]) && !mymatches["params"].isEmpty) {
-            string[] myparamsArray = split("/", trim(mymatches["params"], "/"));
+            string[] myparamsArray = trim(mymatches["params"], "/").split("/");
             foreach (myparamsArray as myparam) {
                 if (strpos(myparam, "=") != false) {
                     if (!preg_match("/(?<key>.+?)=(?<value>.*)/", myparam, myparamMatches)) {

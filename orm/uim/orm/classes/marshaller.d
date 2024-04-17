@@ -585,7 +585,7 @@ class DMarshaller {
         }
         myconditions = (new DCollection(myindexed))
             .map(function (mydata, aKey) {
-                return split(";", to!string(aKey));
+                return to!string(aKey).split(";");
             })
             .filter(fn (someKeys): count(Hash.filter(someKeys)) == count(myprimary))
             .reduce(function (myconditions, someKeys) use (myprimary) {

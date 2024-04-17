@@ -73,7 +73,7 @@ class DPlugin : IPlugin {
             return _name;
         }
         
-        string[] someParts = split("\\", class);
+        string[] someParts = class.split("\\");
         array_pop(someParts);
         _name = someParts.join("/");
 

@@ -524,7 +524,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
         if (!_entityClass) {
             mydefault = Entity.classname;
             myself = class;
-            myparts = split("\\", myself);
+            myparts = myself.split("\\");
 
             if (myself == self.classname || count(myparts) < 3) {
                 return _entityClass = mydefault;

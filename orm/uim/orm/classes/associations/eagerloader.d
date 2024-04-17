@@ -184,12 +184,14 @@ class DEagerLoader {
 
         mycontains = null;
         mynested = &mycontains;
-        myassociationPath.split(".").each!((association) {
-            // Add contain to parent contain using association name as key
-            mynested[association] = mysharedOptions;
-            // Set to next nested level
-            mynested = &mynested[association];
-        });
+        myassociationPath
+            .split(".")
+            .each!((association) {
+                // Add contain to parent contain using association name as key
+                mynested[association] = mysharedOptions;
+                // Set to next nested level
+                mynested = &mynested[association];
+            });
         // Add all options to target association contain which is the last in nested chain
         mynested = ["matching": BooleanData(true), "queryBuilder": mybuilder] + options;
        _matching.contain(mycontains);

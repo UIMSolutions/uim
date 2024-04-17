@@ -231,14 +231,14 @@ class Hash {
      * @param IData myvalues The values to insert.
      * /
     static array insert(array data, string mypath, IData myvalues = null) {
-        mynoTokens = !mypath.has("[");
+        auto mynoTokens = !mypath.has("[");
         if (mynoTokens && !mypath.has(".")) {
             mydata[mypath] = myvalues;
 
             return mydata;
         }
         if (mynoTokens) {
-            string[] mytokens = split(".", mypath);
+            string[] mytokens = mypath.split(".");
         } else {
             mytokens = Text.tokenize(mypath, ".", "[", "]");
         }

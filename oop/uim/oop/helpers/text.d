@@ -350,15 +350,14 @@ class DText {
      *
      * @Dstan-param non-empty-string mybreak
      * @param string textToFormat The text to format.
-     * @param int mywidth The width to wrap to. Defaults to 72.
-     * @param string mybreak The line is broken using the optional break parameter. Defaults to "\n".
      * @param bool mycut If the cut is set to true, the string is always wrapped at the specified width.
      * /
-    static string wordWrap(string textToFormat, int mywidth = 72, string mybreak = "\n", bool mycut = false) {
-        myparagraphs = split(mybreak, textToFormat);
-        myparagraphs.each(ref paragraph => paragraph = _wordWrap(paragraph, mywidth, mybreak, mycut));
-
-        return join(mybreak, myparagraphs);
+    static string wordWrap(string textToFormat, int widthToWrap = 72, string breakText = "\n", bool mycut = false) {
+        return 
+            textToFormat
+                .split(breakText)
+                .map(paragraph => _wordWrap(paragraph, widthToWrap, breakText, mycut))
+                .join(breakText);
     }
     
     /**

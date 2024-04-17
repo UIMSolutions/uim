@@ -182,7 +182,7 @@ class DAsset
         if (somePath == false || somePath is null) {
             somePath = urlToEncode;
         }
-        auto someParts = array_map("rawurldecode", split("/", somePath));
+        auto someParts = array_map("rawurldecode", somePath.split("/"));
         someParts = array_map("rawurlencode", someParts);
         
         string encoded = someParts.join("/");
@@ -248,7 +248,7 @@ class DAsset
         options = options.update["theme": null];
         requestWebroot = requestWebroot();
 
-        string[] asset = split("?", file);
+        string[] asset = file.split("?");
         asset[1] = isSet(asset[1]) ? "?" ~ asset[1] : "";
         webPath = requestWebroot ~ asset[0];
         file = asset[0];

@@ -491,9 +491,9 @@ class DServerRequest { // }: IServerRequest {
     protected bool _headerDetector(array detect) {
         foreach (detect["header"] as  aHeader: aValue) {
              aHeader = this.getEnvironmentData("http_" ~  aHeader);
-            if ( aHeader !isNull) {
+            if (aHeader !isNull) {
                 if (cast(DClosure)aValue) {
-                    return aValue( aHeader);
+                    return aValue(aHeader);
                 }
                 return aHeader == aValue;
             }
@@ -1202,7 +1202,7 @@ class DServerRequest { // }: IServerRequest {
      * /
     bool allowMethod(string[] amethods) {
          someMethods = (array) someMethods;
-        foreach ( someMethods as method) {
+        foreach (someMethods as method) {
             if (this.is(method)) {
                 return true;
             }

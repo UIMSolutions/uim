@@ -291,8 +291,8 @@ class DCsrfProtectionMiddleware { // }: IMiddleware {
             }
         }
          aHeader = request.getHeaderLine("X-CSRF-Token");
-         aHeader = this.unsaltToken( aHeader);
-        if (hash_equals( aHeader, cookie)) {
+         aHeader = this.unsaltToken(aHeader);
+        if (hash_equals(aHeader, cookie)) {
             return;
         }
         throw new DInvalidCsrfTokenException(__d(

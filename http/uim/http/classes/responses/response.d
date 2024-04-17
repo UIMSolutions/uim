@@ -605,7 +605,7 @@ class DResponse : IResponse {
     // Returns the current content type.
     string[] getType() {
          aHeader = this.getHeaderLine("Content-Type");
-        if ( aHeader.has(";")) {
+        if (aHeader.has(";")) {
             return split(";",  aHeader)[0];
         }
         return aHeader;
@@ -877,7 +877,7 @@ class DResponse : IResponse {
             "Last-Modified",
         ];
         foreach (remove as  aHeader) {
-            new = new.withoutHeader( aHeader);
+            new = new.withoutHeader(aHeader);
         }
         return new;
     }

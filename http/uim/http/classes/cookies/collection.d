@@ -146,7 +146,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
     protected void checkCookies(ICookie[] cookies) {
         foreach (anIndex: cookie; cookies) {
             if (!cast(ICookie)!cookie) {
-                throw new DInvalidArgumentException(                    
+                throw new DInvalidArgumentException(                   
                     "Expected `%s[]` as cookies but instead got `%s` at index %d"
                     .format(
                         class,

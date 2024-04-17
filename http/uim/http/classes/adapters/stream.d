@@ -60,8 +60,8 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * /
     Response[] createResponses(array  aHeaders, string acontent) {
          anIndexes = responses = null;
-        foreach ( aHeaders as  anI:  aHeader) {
-            if (strtoupper(substr( aHeader, 0, 5)) == "HTTP/") {
+        foreach (aHeaders as  anI:  aHeader) {
+            if (strtoupper(substr(aHeader, 0, 5)) == "HTTP/") {
                  anIndexes ~= anI;
             }
         }
@@ -70,9 +70,9 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
             /** @psalm-suppress InvalidOperand * /
             end = isSet(anIndexes[anI + 1]) ?  anIndexes[anI + 1] - start : null;
             /** @psalm-suppress PossiblyInvalidArgument * /
-             aHeaderSlice = array_slice( aHeaders, start, end);
+             aHeaderSlice = array_slice(aHeaders, start, end);
             body = anI == last ? content : "";
-            responses ~= _buildResponse( aHeaderSlice, body);
+            responses ~= _buildResponse(aHeaderSlice, body);
         }
         return responses;
     }
@@ -224,10 +224,10 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
             throw new DNetworkException("Connection timed out " ~ url, request);
         }
          aHeaders = meta["wrapper_data"];
-        if (isSet( aHeaders["headers"]) && isArray( aHeaders["headers"])) {
+        if (isSet(aHeaders["headers"]) && isArray(aHeaders["headers"])) {
              aHeaders = aHeaders["headers"];
         }
-        return this.createResponses( aHeaders, content);
+        return this.createResponses(aHeaders, content);
     }
     
     /**
@@ -237,7 +237,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * @param string abody The response body.
      * /
     protected DResponse _buildResponse(array  aHeaders, string abody) {
-        return new DResponse( aHeaders, body);
+        return new DResponse(aHeaders, body);
     }
     
     /**

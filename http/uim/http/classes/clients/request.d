@@ -36,7 +36,7 @@ class DRequest { // }: Message, IRequest {
             "Connection": "close",
             "User-Agent": ini_get("user_agent") ?: "UIM",
         ];
-        this.addHeaders( aHeaders);
+        this.addHeaders(aHeaders);
 
         if (someData is null) {
             this.stream = new DStream("D://memory", "rw");
@@ -75,7 +75,7 @@ class DRequest { // }: Message, IRequest {
             /** @Dstan-var array<non-empty-string, non-empty-string>  aHeaders *
             /
              aHeaders = ["Content-Type": formData.contentType()];
-            this.addHeaders( aHeaders);
+            this.addHeaders(aHeaders);
             auto myFormData = (string)formData;
         }
         stream = new DStream("D://memory", "rw");

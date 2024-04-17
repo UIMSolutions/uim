@@ -197,8 +197,8 @@ class DSessionCsrfProtectionMiddleware { // }: IMiddleware {
             }
         }
          aHeader = request.getHeaderLine("X-CSRF-Token");
-         aHeader = this.unsaltToken( aHeader);
-        if (hash_equals( aHeader, token)) {
+         aHeader = this.unsaltToken(aHeader);
+        if (hash_equals(aHeader, token)) {
             return;
         }
         throw new DInvalidCsrfTokenException(__d(

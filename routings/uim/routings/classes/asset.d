@@ -1,6 +1,6 @@
 module source.uim.myname.classes.asset;
 
-ynamemodule uim.cake.routings;
+ynamemodule uim.uim.routings;
 
 import uim.routings;
 

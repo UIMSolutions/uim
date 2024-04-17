@@ -1,4 +1,4 @@
-module uim.cake.routings;
+module uim.uim.routings;
 
 import uim.routings;
 

@@ -1,4 +1,4 @@
-module uim.cake.routings.middlewares.routing;
+module uim.uim.routings.middlewares.routing;
 
 import uim.routings;
 

@@ -1,4 +1,4 @@
-module uim.cake.routings.middlewares.asset;
+module uim.uim.routings.middlewares.asset;
 
 import uim.routings;
 

@@ -1,4 +1,4 @@
-module uim.cake.routings;
+module uim.uim.routings;
 
 import uim.routings;
 
@@ -661,7 +661,7 @@ class DRouteBuilder {
      *  routes that end in `*` are greedy. As you can remap URLs and not lose any passed args.
      * Params:
      * string myroute A string describing the template of the route
-     * @param string[] myurl A URL to redirect to. Can be a string or a Cake array-based URL
+     * @param string[] myurl A URL to redirect to. Can be a string or a uim array-based URL
      * @param IData[string] options An array matching the named elements in the route to regular expressions which that
      *  element should match. Also contains additional parameters such as which routed parameters should be
      *  shifted into the passed arguments. As well as supplying patterns for routing parameters.

@@ -12,7 +12,7 @@ if (!function_exists("url")) {
      *  Default is false.
      * /
     string url(IUri|string[] url = null, bool full = false) {
-        return cakeUrl(url, full);
+        return uimUrl(url, full);
     }
 }
 
@@ -24,7 +24,7 @@ if (!function_exists("urlArray")) {
      *  Can be also any special parameters supported by `Router.url()`.
      * /
     array URL urlArray(string routePath, array params = []) {
-        return cakeUrlArray(routePath, params);
+        return uimUrlArray(routePath, params);
     }
 }
 */

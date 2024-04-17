@@ -1612,7 +1612,7 @@ class DFormHelper : DHelper {
      * - The option `onclick` will be replaced.
      * Params:
      * string mytitle The content to be wrapped by <a> tags.
-     * @param string[] myurl Cake-relative URL or array of URL parameters, or
+     * @param string[] myurl uim-relative URL or array of URL parameters, or
      *  external URL (starts with http://)
      * @param IData[string] options Array of HTML attributes.
      * /

@@ -1,4 +1,4 @@
-module uim.cake.routings;
+module uim.uim.routings;
 
 import uim.routings;
 
@@ -259,8 +259,8 @@ class DRouter {
      * There are a few "special" parameters that can change the final URL string that is generated
      *
      * - `_base` - Set to false to remove the base path from the generated URL. If your application
-     *  is not in the root directory, this can be used to generate URLs that are "cake relative".
-     *  cake relative URLs are required when using requestAction.
+     *  is not in the root directory, this can be used to generate URLs that are "uim relative".
+     *  uim relative URLs are required when using requestAction.
      * - `_scheme` - Set to create links on different schemes like `webcal` or `ftp`. Defaults
      *  to the current scheme.
      * - `_host` - Set the host to use for the link. Defaults to the current host.

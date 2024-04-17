@@ -34,7 +34,6 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
      *
      * Will produce `CONCAT(name, " rules")`
      * Params:
-     * string aName the name of the auto to be constructed
      * @param array params list of arguments to be passed to the function
      * If associative the key would be used as argument when value is 'literal'
      * @param STRINGAA|array<string|null> types Associative array of types to be associated with the

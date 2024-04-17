@@ -62,12 +62,11 @@ class DDebugger {
      * Closures templates must return a string, and accept two parameters:
      * The file and line.
      * Params:
-     * string aName The name of the editor.
      * @param \Closure|string atemplate The string template or closure
      * /
-    static void addEditor(string aName, IClosure|string atemplate) {
+    static void addEditor(string editorName, IClosure|string atemplate) {
         auto anInstance = getInstance();
-         anInstance.editors[name] = template;
+         anInstance.editors[editorName] = template;
     }
     
     // Choose the editor link style you want to use.

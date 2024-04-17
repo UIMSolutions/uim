@@ -340,7 +340,6 @@ class DCache : ICache {
     /**
      * Delete all keys from the cache.
      * Params:
-     * string configName name of the configuration to use. Defaults to "default"
      * returns True if the cache was successfully cleared, false otherwise
      * /
     static bool clear(string configName = "default") {

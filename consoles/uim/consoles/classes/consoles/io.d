@@ -379,9 +379,9 @@ class DConsoleIo {
     string askChoice(string promptText, string option, string adefault = null) {
         string[] options; 
         if (option.has(",")) {
-            options = split(",", option);
+            options = option.split(",");
         } else if (option.has("/")) {
-            options = split("/", option);
+            options = option.split("/");
         } else {
             options = [option];
         }

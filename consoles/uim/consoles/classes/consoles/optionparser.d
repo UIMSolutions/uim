@@ -144,20 +144,11 @@ class DConsoleOptionParser {
         /**
         * Sets an epilog to the parser. The epilog is added to the end of
         * the options and arguments listing when help is generated. */
-        protected string _epilog; 
-
-        void epilog(string[] texts...) {
-            epilog(texts.dup);
-        }
+        mixin(TProperty!("string", "epilog")); 
 
         void epilog(string[] texts) {
-            _epilog = texts.join("\n");
-        }
-        
-        // Gets the epilog.
-        @property string epilog() {
-            return _epilog;
-        }
+            epilog(texts.join("\n"));
+        }        
     // #endregion epilog
 
     // #region command
@@ -574,20 +565,18 @@ class DConsoleOptionParser {
     /**
      * Parse an option by its name index.
      * Params:
-     * string aName The name to parse.
      * params The params to append the parsed value into
      * returns Params with option added in.
      * @throws \UIM\Console\Exception\ConsoleException
      * /
-    protected IData[string] _parseOption(string aName, IData[string] params) {
-        if (!isSet(_options[name])) {
+    protected IData[string] _parseOption(string nameToParse, IData[string] params) {
+        if (!isSet(_options[nameToParse])) {
             throw new DMissingOptionException(
-                "Unknown option `%s`.".format(name),
-                name,
-                _options.keys
+                "Unknown option `%s`.".format(nameToParse),
+                nameToParse, _options.keys
             );
         }
-        option = _options[name];
+        option = _options[nameToParse];
          isBoolean = option.isBoolean();
         nextValue = _nextToken();
         emptyNextValue = (isEmpty(nextValue) && nextValue != "0");
@@ -601,18 +590,14 @@ class DConsoleOptionParser {
         }
         option.validChoice(aValue);
         if ( option.acceptsMultiple()) {
-            params[name] ~= aValue;
+            params[nameToParse] ~= aValue;
         } else {
-            params[name] = aValue;
+            params[nameToParse] = aValue;
         }
         return params;
     }
     
-    /**
-     * Check to see if name has an option (short/long) defined for it.
-     * Params:
-     * optionName = The name of the option.
-     * /
+    // Check to see if name has an option (short/long) defined for it.
     protected bool _optionExists(string optionName) {
         if (optionName.startsWith("--")) {
             return isSet(_options[substr(optionName, 2)]);

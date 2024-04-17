@@ -302,14 +302,10 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         return this.exceptionHttpCodes[exception.classname] ?? 500;
     }
     
-    /**
-     * Generate the response using the controller object.
-     * Params:
-     * string atemplate The template to render.
-     * /
-    protected DResponse _outputMessage(string atemplate) {
+    // Generate the response using the controller object.
+    protected DResponse _outputMessage(string templateToRender) {
         try {
-            this.controller.render(template);
+            this.controller.render(templateToRender);
 
             return _shutdown();
         } catch (MissingTemplateException  anException) {

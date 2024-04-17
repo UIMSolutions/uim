@@ -55,12 +55,12 @@ class DHeaderUtility {
      * Params:
      * string aheader The header value to parse
      * /
-    static string[][string] parseAccept(string aheader) {
+    static string[][string] parseAccept(string headerValue) {
         accept = null;
-        if (!aHeader) {
+        if (!headerValue) {
             return accept;
         }
-        string[] aHeaders = split(",",  aHeader);
+        string[] aHeaders = headerValue.split(",");
         foreach (array_filter( aHeaders) as aValue) {
             prefValue = "1.0";
             aValue = trim(aValue);

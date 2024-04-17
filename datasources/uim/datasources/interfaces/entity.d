@@ -135,11 +135,7 @@ interface IDatasourceEntity { // : ArrayAccess, IDataSerializable
      * /
     void set(string[] fieldName, IData aValue = null, IData[string] optionData = null);
 
-    /**
-     * Returns the value of a field by name
-     * Params:
-     * string fieldName the name of the field to retrieve
-    * /
+    // Returns the value of a field by name
     IData &get(string fieldName) ;
 
     /**
@@ -149,7 +145,7 @@ interface IDatasourceEntity { // : ArrayAccess, IDataSerializable
      * Params:
      * bool aValue `true` to enable, `false` to disable.
      * /
-   void requireFieldPresence(bool aValue = true);
+   void requireFieldPresence(bool enableField = true);
 
    // Returns whether a field has an original value
    bool hasOriginal(string fieldName);

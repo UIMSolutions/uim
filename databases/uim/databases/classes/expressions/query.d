@@ -553,7 +553,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * @param IData aValue The value to be bound to a placeholder for the field
      * /
     protected IExpression|string _parseCondition(string acondition, IData aValue) {
-        expression = trim(condition);
+        auto expression = trim(condition);
          operator = "=";
 
         spaces = substr_count(expression, " ");
@@ -562,14 +562,14 @@ class DQueryExpression : DExpression { // }, Countable {
         // `field NOT LIKE`, or combinations with auto expressions
         // like `CONCAT(first_name, " ", last_name) IN`.
         if (spaces > 1) {
-            string[] someParts = split(" ", expression);
+            string[] someParts = expression.split(" ");
             if (preg_match("/(is not|not \w+)$/i", expression)) {
                  last = array_pop(someParts);
                 second = array_pop(someParts);
                 someParts ~= "{second} { last}";
             }
              operator = array_pop(someParts);
-            expression = join(" ", someParts);
+            expression = someParts.join(" ");
         } elseif (spaces == 1) {
             string[] someParts = split(" ", expression, 2);
             [expression,  operator] = someParts;

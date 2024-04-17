@@ -215,14 +215,11 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      *
      * Defaults to a non-atomic implementation. Subclasses should
      * prefer atomic implementations.
-     * Params:
-     * string aKey Identifier for the data.
-     * @param IData aValue Data to be cached.
      * /
-    bool add(string aKey, IData aValue) {
-        mycachedValue = get(aKey);
-        if (mycachedValue is null) {
-            return this.set(aKey, myvalue);
+    bool add(string dataId, IData dataToCache) {
+        auto cachedValue = get(dataId);
+        if (cachedValue is null) {
+            return this.set(dataId, dataToCache);
         }
         return false;
     }

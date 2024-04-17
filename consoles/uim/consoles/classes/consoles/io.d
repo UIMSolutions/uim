@@ -159,7 +159,6 @@ class DConsoleIo {
     /**
      * Convenience method for out() that wraps message between <info> tag
      * Params:
-     * string[]|string amessage A string or an array of strings to output
      * @param int newLinesToAppend Number of newLinesToAppend to append
      * @param int level The message`s output level, see above.
      * /
@@ -168,7 +167,7 @@ class DConsoleIo {
     }
     
     int info(string[] outputMessages, int newLinesToAppend = 1, int outputLevel = NORMAL) {
-        auto messageType = "info";
+        string messageType = "info";
         auto myOutputMessages = this.wrapMessageWithType(messageType, outputMessages);
 
         return this.writeln(myOutputMessages, newLinesToAppend, level);

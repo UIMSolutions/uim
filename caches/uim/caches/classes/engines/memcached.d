@@ -15,6 +15,9 @@ import uim.caches;
  */
 class DMemcachedEngine : DCacheEngine {
   override bool initialize(IData[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
     /**
      * The default config used unless overridden by runtime configuration
      *
@@ -35,22 +38,22 @@ class DMemcachedEngine : DCacheEngine {
      *   them as a pool.
      * - `options` - Additional options for the memcached client. Should be an array of option: value.
      *   Use the \Memcached.OPT_* constants as keys.
-     * /
+     */
     configuration.updateDefaults([
       "compress": BooleanData(false),
-      "duration": 3600,
+      "duration": IntegerData(3600),
       "groups": ArrayData,
-      "host": null,
+      "host": NullData,
       "username": StringData,
-      "password": null,
-      "persistent": null,
-      "port": null,
-      "prefix": "uim_",
-      "serialize": "d",
-      "servers": ["127.0.0.1"],
+      "password": NullData,
+      "persistent": NullData,
+      "port": NullData,
+      "prefix": StringData("uim_"),
+      "serialize": StringData("d"),
+      "servers": StringArray(["127.0.0.1"]),
       "options": ArrayData,
     ]);
-    */
+
     return true;
   }
   // memcached wrapper.
@@ -69,11 +72,7 @@ h     * /
      * Initialize the Cache Engine
      *
      * Called automatically by the cache frontend
-     *
-     * configData - array of setting for the engine
      * /
-
-
 
     if (!extension_loaded("memcached")) {
       throw new UimException("The `memcached` extension must be enabled to use MemcachedEngine.");

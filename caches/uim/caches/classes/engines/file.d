@@ -53,25 +53,24 @@ class DFileCacheEngine : DCacheEngine {
             _groupPrefix = _groupPrefix.replace("_", DIRECTORY_SEPARATOR);
         } * /
         return _active(); */
-        return true; 
-        
+        return true;
+
     }
 
     int decrement(string keyToDecrement, int numberToOffset = 1) {
         throw new LogicException("Files cannot be atomically decremented.");
+    }
 
     int increment(string keyToIncrement, int numberToOffset = 1) {
         throw new LogicException("Files cannot be atomically incremented.");
     }
-    
+
+    // True unless FileEngine.__active(); fails
+    protected bool _init = true;
+
     /*
     // Instance of SplFileObject class
     protected ISplFileObject my_File;
-
-    // True unless FileEngine.__active(); fails
-    protected bool my_init = true;
-
-    
 
     /**
      * Write data for key into cache
@@ -113,11 +112,8 @@ class DFileCacheEngine : DCacheEngine {
         return mysuccess;
     } */
 
-    /**
-     * Read a key from the cache
-     * Params:
-     * @param IData defaultValue Default value to return if the key does not exist.
-     * /
+    /* 
+    // Read a key from the cache
     IData get(string dataId, IData defaultValue = null) {
         auto key = _key(dataId);
 
@@ -294,7 +290,7 @@ class DFileCacheEngine : DCacheEngine {
             }
         }
         return true;
-    } */ 
+    } */
 
     // Determine if cache directory is writable
     /* protected bool _active() {
@@ -336,7 +332,7 @@ class DFileCacheEngine : DCacheEngine {
             RecursiveIteratorIterator.CHILD_FIRST
         );
         /** @var array<\SplFileInfo> myfiltered */
-        /* auto myfiltered = new DCallbackFilterIterator(
+    /* auto myfiltered = new DCallbackFilterIterator(
             mycontents,
             auto(SplFileInfo mycurrent) use(groupName, myprefix) {
             if (!mycurrent.isFile()) {
@@ -363,4 +359,5 @@ class DFileCacheEngine : DCacheEngine {
         return false;
     } */
 }
+
 mixin(CacheEngineCalls!("File"));

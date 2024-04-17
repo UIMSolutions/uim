@@ -136,14 +136,13 @@ class DRedisCacheEngine : DCacheEngine {
     /**
      * Increments the value of an integer cached key & update the expiry time
      * Params:
-     * string aKey Identifier for the data
      * @param int anOffset How much to increment
      * /
-    int increment(string aKey, int anOffset = 1) {
-         aDuration = configuration.get("duration");
-        aKey = _key(aKey);
+    int increment(string dataIdentifier, int anOffset = 1) {
+        auto aDuration = configuration.get("duration");
+        auto aKey = _key(dataIdentifier);
 
-        aValue = _redis.incrBy(aKey,  anOffset);
+        auto aValue = _redis.incrBy(aKey,  anOffset);
         if (aDuration > 0) {
            _redis.expire(aKey,  aDuration);
         }
@@ -156,11 +155,11 @@ class DRedisCacheEngine : DCacheEngine {
      * string aKey Identifier for the data
      * @param int anOffset How much to subtract
      * /
-    int|false decrement(string aKey, int anOffset = 1) {
-         aDuration = configuration.get("duration");
-        aKey = _key(aKey);
+    int|false decrement(string dataIdentifier, int anOffset = 1) {
+        auto aDuration = configuration.get("duration");
+        auto aKey = _key(dataIdentifier);
 
-        aValue = _redis.decrBy(aKey,  anOffset);
+        auto aValue = _redis.decrBy(aKey,  anOffset);
         if (aDuration > 0) {
            _redis.expire(aKey,  aDuration);
         }

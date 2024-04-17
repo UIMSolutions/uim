@@ -18,6 +18,7 @@ class DApcuEngine : DCacheEngine {
     /* if (!extension_loaded("apcu")) {
       throw new UimException("The `apcu` extension must be enabled to use ApcuEngine.");
     } */ 
+    
     return true;
   }
 

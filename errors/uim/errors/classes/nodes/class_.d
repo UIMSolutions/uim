@@ -4,54 +4,37 @@ import uim.errors;
 
 @safe:
 
-/**
- * Dump node for objects/class instances.
- */
+// Dump node for objects/class instances.
 class DClassNode : IErrorNode {
-    private string className;
-
-    private int  anId;
-
-    /* 
-    private PropertyNode[] properties = null;
-
-    /**
-     * Constructor
-     * Params:
-     * @param int  anId The reference id of this object in the DumpContext
-     * /
-    this(string className, int  anId) {
-        this.class = className;
-        this.id =  anId;
+    this(string className, int anId) {
+        _className = className;
+        _id = anId;
     }
-    
+
+    private DPropertyNode[] properties = null;
     /**
      * Add a property
      * Params:
      * \UIM\Error\Debug\PropertyNode node The property to add.
-     * /
-    void addProperty(PropertyNode node) {
+     */
+    void addProperty(DPropertyNode node) {
         this.properties ~= node;
     }
-    
-    /**
-     * Get the class name
-     * /
-    string getValue() {
-        return this.class;
-    }
-    
-    /**
-     * Get the reference id
-     * /
-    int getId() {
-        return this.id;
-    }
-    
-    /**
-     * Get property nodes
-     * /
-    PropertyNode[] getChildren() {
+
+    // Get property nodes
+    DPropertyNode[] getChildren() {
         return this.properties;
-    } */
+    }
+
+    private string _className;
+    // Get the class name
+    string getValue() {
+        return _className;
+    }
+
+    private int _id;
+    // Get the reference id
+    int getId() {
+        return _id;
+    }
 }

@@ -14,7 +14,6 @@ class DArrayErrorNode : IErrorNode {
 
   /**
     * Constructor
-    *
     * someItems - The items for the array
     */
   this(DArrayItemErrorNode[] nodes = null) {

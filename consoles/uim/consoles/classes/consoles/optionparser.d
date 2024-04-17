@@ -127,33 +127,51 @@ class DConsoleOptionParser {
     //  Positional argument definitions.
     protected DConsoleInputArgument[] _args;
 
-    // Command name.
-    protected string _command = "";
-
     // Array of args (argv).
     // TODO protected array _token;
-
-    // Root alias used in help output
-    protected string _rootName = "uim";
-    // Set the root name used in the HelpFormatter
-    @property rootName(string aName) {
-        _rootName = name;
-    }
-
-    /**
-     * Sets an epilog to the parser. The epilog is added to the end of
-     * the options and arguments listing when help is generated. * /
-    auto epilog(string[] epilogTexts...) {
-        return epilog(epilogTexts.dup);
-    }
-    void epilog(string[] texts) {
-       _epilog = texts.join("\n");
-    }
+    */
     
-    // Gets the epilog.
-    @property string epilog() {
-        return _epilog;
-    }
+    // #region rootName
+        // Root alias used in help output
+        protected string _rootName = "uim";
+        // Set the root name used in the HelpFormatter
+        @property rootName(string aName) {
+            _rootName = name;
+        }
+    // #endregion rootName
+
+    // #region epilog
+        /**
+        * Sets an epilog to the parser. The epilog is added to the end of
+        * the options and arguments listing when help is generated. */
+        auto epilog(string[] texts...) {
+            return epilog(texts.dup);
+        }
+
+        void epilog(string[] texts) {
+        _epilog = texts.join("\n");
+        }
+        
+        // Gets the epilog.
+        @property string epilog() {
+            return _epilog;
+        }
+    // #endregion epilog
+
+    // #region command
+        // Command name.
+        protected string _command = "";
+
+        // Sets the command name for shell/task.
+        void setCommand(string newCommandName) {
+            // TODO _command = Inflector.underscore(newCommandName);
+        }
+
+        // Gets the command name for shell/task.
+        string getCommand() {
+            return _command;
+        }
+    // #endregion command
 
     /**
      * Construct an OptionParser so you can define its behavior
@@ -184,14 +202,9 @@ class DConsoleOptionParser {
         }
     }
     
-    /**
-     * Static factory method for creating new DOptionParsers so you can chain methods off of them.
-     * Params:
-     * string acommand The command name this parser is for. The command name is used for generating help.
-     * @param bool defaultOptions Whether you want the verbose and quiet options set.
-     * /
-    static auto create(string acommand, bool defaultOptions = true) {
-        return new static(command, defaultOptions);
+    // Static factory method for creating new DOptionParsers so you can chain methods off of them.
+    static auto create(string commandName, bool useDefaultOptions = true) {
+        return new static(commandName, useDefaultOptions);
     }
     
     /**
@@ -264,15 +277,7 @@ class DConsoleOptionParser {
         }
     }
 
-    // Sets the command name for shell/task.
-    void setCommand(string newCommandName) {
-       _command = Inflector.underscore(newCommandName);
-    }
 
-    // Gets the command name for shell/task.
-    string getCommand() {
-        return _command;
-    }
         
     /**
      * Add an option to the option parser. Options allow you to define optional or required

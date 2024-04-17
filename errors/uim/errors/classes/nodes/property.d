@@ -10,7 +10,7 @@ import uim.errors;
 
 // Dump node for object properties.
 class DPropertyNode : IErrorNode {
-  private string myName;
+  private string _name;
 
   private string _visibility;
 

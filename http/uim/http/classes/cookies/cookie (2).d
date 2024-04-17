@@ -563,7 +563,7 @@ class DCookie : ICookie {
         }
         array = null;
         foreach (split(",", string) as pair) {
-            string[] aKey = split("|", pair);
+            string[] aKey = pair.split("|");
             if (!isSet(aKey[1])) {
                 return aKey[0];
             }

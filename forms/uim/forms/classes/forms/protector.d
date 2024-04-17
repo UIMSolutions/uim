@@ -228,7 +228,7 @@ class DFormProtector {
      * array formData Data array
      * /
     protected array extractFields(array formData) {
-        auto locked = "";
+        string locked = "";
         auto token = urldecode(formData["_Token"]["fields"]);
         auto unlocked = urldecode(formData["_Token"]["unlocked"]);
 
@@ -237,7 +237,7 @@ class DFormProtector {
         }
         unset(formData["_Token"]);
 
-        locked = locked ? split("|", locked): [];
+        locked = locked ? locked.split("|") : null;
         unlocked = unlocked ? split("|", unlocked): [];
 
         fields = Hash.flatten(formData);
@@ -269,7 +269,7 @@ class DFormProtector {
 
             if (!empty(unlockedFields)) {
                 foreach (off; unlockedFields) {
-                    off = split(".", off);
+                    off = off.split(".");
                     field = array_intersect(aKey.split("."), off).values;
                      isUnlocked = (field == off);
                     if (isUnlocked) {
@@ -284,7 +284,7 @@ class DFormProtector {
                 }
             }
         }
-        sort(fieldList, SORT_STRING);
+        fieldList = fieldList.sort(SORT_STRING);
         ksort(lockedFields, SORT_STRING);
         fieldList += lockedFields;
 
@@ -297,15 +297,12 @@ class DFormProtector {
      * array formData Data array
      * /
     protected string[] sortedUnlockedFields(array formData) {
-        unlocked = urldecode(formData["_Token"]["unlocked"]);
-        if (isEmpty(unlocked)) {
+        string unlocked = urldecode(formData["_Token"]["unlocked"]);
+        if (unlocked.isEmpty) {
             return null;
         }
         
-        string[] unlocked = split("|", unlocked);
-        sort(unlocked, SORT_STRING);
-
-        return unlocked;
+        return unlocked.split("|").sort(SORT_STRING);
     }
     
     /**

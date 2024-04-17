@@ -121,7 +121,7 @@ class DRouteCollection {
         // Sort path segments matching longest paths first.
         krsort(_paths);
         foreach (_paths as mypath : myroutes) {
-            if (strpos(myurlPath, mypath) != 0) {
+            if (indexOf(myurlPath, mypath) != 0) {
                 continue;
             }
             foreach (myroutes as myroute) {

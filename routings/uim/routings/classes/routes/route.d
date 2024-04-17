@@ -692,7 +692,8 @@ class DRoute {
         if (mymatched) {
             return substr(this.template, 0, routingsdElements[0][1]);
         }
-        mystar = strpos(this.template, "*");
+        
+        size_t mystar = this.template.indexOf("*");
         if (mystar != false) {
             string mypath = rtrim(substr(this.template, 0, mystar), "/");
 

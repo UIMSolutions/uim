@@ -1493,10 +1493,10 @@ class DServerRequest { // }: IServerRequest {
         if (this.uri.getQuery()) {
             target ~= "?" ~ this.uri.getQuery();
         }
-        if (target.isEmpty) {
-            target = "/";
-        }
-        return target;
+        
+        return target.isEmpty
+            ? "/"
+            : target;
     }
     
     // Get the path of current request.
@@ -1504,7 +1504,7 @@ class DServerRequest { // }: IServerRequest {
         if (this.requestTarget is null) {
             return this.uri.getPath();
         }
-        [somePath] = split("?", this.requestTarget);
+        [somePath] = this.requestTarget.split("?");
 
         return somePath;
     } */

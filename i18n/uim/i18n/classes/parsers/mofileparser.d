@@ -86,7 +86,7 @@ class MoFileParser {
                 [context, singularId] = split("\x04", singularId);
             }
             if (singularId.has("\000")) {
-                [singularId, pluralId] = split("\000", singularId);
+                [singularId, pluralId] = singularId.split("\000");
             }
             fseek(stream, offsetTranslated + anI * 8);
             length = _readLong(stream, isBigEndian);

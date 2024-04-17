@@ -96,10 +96,10 @@ class DI18nExtractCommand : DCommand {
   int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
         string myPlugin = "";
         if (commandArguments.getOption("exclude")) {
-           _exclude = split(",", to!string(commandArguments.getOption("exclude")));
+           _exclude = to!string(commandArguments.getOption("exclude")).split(",");
         }
         if (commandArguments.getOption("files")) {
-           _files = split(",", to!string(commandArguments.getOption("files")));
+           _files = to!string(commandArguments.getOption("files")).split(",");
         }
         if (commandArguments.getOption("paths")) {
            _paths = split(",", to!string(commandArguments.getOption("paths")));

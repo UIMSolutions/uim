@@ -244,7 +244,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         }
         /** @var array<int, IData[string]> trace * /
         trace = debug_backtrace();
-        someParts = split("\\", class);
+        someParts = class.split("\\");
         trigger_error(
             "Undefined property `%s.$%s` in `%s` on line %s"
                 .format(array_pop(someParts),

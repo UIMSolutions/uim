@@ -67,14 +67,14 @@ class DHeaderUtility {
 
             semiPos = strpos(aValue, ";");
             if (semiPos != false) {
-                string[] params = split(";", aValue);
+                string[] params = aValue.split(";");
                 aValue = trim(params[0]);
-                foreach (params as param) {
-                    qPos = strpos(param, "q=");
+                params.each!((param) {
+                    size_t qPos = strpos(param, "q=");
                     if (qPos != false) {
                         prefValue = substr(param, qPos + 2);
                     }
-                }
+                });
             }
             if (!isSet(accept[prefValue])) {
                 accept[prefValue] = null;

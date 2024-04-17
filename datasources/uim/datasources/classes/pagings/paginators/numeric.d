@@ -592,7 +592,7 @@ class DNumericPaginator : IPaginator {
     protected array _removeAliases(array fields, string model) {
         result = null;
         foreach (fields as field: sort) {
-            if (strpos(field, ".") == false) {
+            if (indexOf(field, ".") == false) {
                 result[field] = sort;
                 continue;
             }
@@ -629,7 +629,7 @@ class DNumericPaginator : IPaginator {
             field = key;
             alias = tableAlias;
 
-            if (strpos(key, ".") != false) {
+            if (indexOf(key, ".") != false) {
                 [alias, field] = explode(".", key);
             }
             correctAlias = (tableAlias == alias);

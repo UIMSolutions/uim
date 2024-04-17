@@ -208,13 +208,15 @@ array parseServerString(string myserver) {
   if (myserver.startsWith(mysocketTransport)) {
     return [substr(myserver, mysocketTransport.length), 0];
   }
+
+  size_t myposition;
   if (myserver.startsWith("[")) {
-    myposition = strpos(myserver, "]:");
+    size_t myposition = indexOf(myserver, "]:");
     if (myposition != false) {
       myposition++;
     }
   } else {
-    myposition = strpos(myserver, ":");
+    myposition = indexOf(myserver, ":");
   }
   myport = 11211;
   myhost = myserver;

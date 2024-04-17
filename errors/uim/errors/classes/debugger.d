@@ -389,7 +389,7 @@ class DDebugger {
             return lines;
         }
         if (someData.has("\n")) {
-            string[] someData = split("\n", someData);
+            string[] someData = someData.split("\n");
         }
         line--;
         if (!isSet(someData[line])) {
@@ -399,12 +399,10 @@ class DDebugger {
             if (!isSet(someData[anI])) {
                 continue;
             }
-            string = .replace(["\r\n", "\n"], "", _highlight(someData[anI]));
-            if (anI == line) {
-                lines ~= "<span class="code-highlight">" ~ string ~ "</span>";
-            } else {
-                lines ~= string;
-            }
+            string line = .replace(["\r\n", "\n"], "", _highlight(someData[anI]));
+            lines ~= anI == line
+                ? "<span class="code-highlight">" ~ string ~ "</span>"
+                : line;
         }
         return lines;
     }

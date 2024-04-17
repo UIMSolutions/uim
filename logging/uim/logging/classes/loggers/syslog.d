@@ -80,7 +80,7 @@ class DSysLogger : DLogger {
         if (_levelMap.isSet(level)) {
             priority = _levelMap[level];
         }
-        auto myLines = split("\n", this.interpolate(messageToLog, context));
+        auto myLines = this.interpolate(messageToLog, context).split("\n");
         myLines.each!(line => _write(priority, this.formatter.format(level, line, context)));
     }
     

@@ -70,7 +70,7 @@ class DDigest {
                 join(",", self.HASH_ALGORITHMS.keys));
         }
         this.algorithm = algorithm;
-        this.isSessAlgorithm = strpos(this.algorithm, "-sess") != false;
+        this.isSessAlgorithm = indexOf(this.algorithm, "-sess") != false;
         this.hashType = Hash.get(self.HASH_ALGORITHMS, this.algorithm);
     }
     

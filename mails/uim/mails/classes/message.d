@@ -1023,7 +1023,7 @@ class DMessage { //: IDataSerializable {
                 message ~= "Content-Transfer-Encoding: " ~ this.getContentTransferEncoding();
                 message ~= "";
             }
-            content = split("\n", this.textMessage);
+            content = this.textMessage.split("\n");
             message = array_merge(message, content);
             message ~= "";
             message ~= "";

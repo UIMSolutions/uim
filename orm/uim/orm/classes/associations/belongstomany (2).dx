@@ -632,7 +632,7 @@ class DBelongsToMany : DAssociation {
         auto junctionRegistryAlias = junction.registryKey();
 
         foreach (anException; targetEntities) {
-            auto joint =  anException.get(jointProperty);
+            auto joint = anException.get(jointProperty);
             if (!joint || !(cast(IEntity)joint)) {
                 joint = new DORMEntityClass([], ["markNew": BooleanData(true), "source": junctionRegistryAlias]);
             }
@@ -1019,7 +1019,7 @@ class DBelongsToMany : DAssociation {
                         anInserts.keys,
                         (array)sourceEntity.get(aProperty)
                     ) ?: [];
-                    targetEntities =  anInserted + targetEntities;
+                    targetEntities = anInserted + targetEntities;
                 }
                 ksort(targetEntities);
                 sourceEntity.set(aProperty, targetEntities.values);

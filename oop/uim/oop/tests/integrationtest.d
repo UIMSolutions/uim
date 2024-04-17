@@ -364,7 +364,7 @@ mixin template TIntegrationTest() {
         } catch (UnitException | DatabaseException  anException) {
             throw  anException;
         } catch (Throwable  anException) {
-           _exception =  anException;
+           _exception = anException;
             // Simulate the global exception handler being invoked.
            _handleError(anException);
         }
@@ -431,7 +431,7 @@ mixin template TIntegrationTest() {
         }
 
         WebExceptionRenderer anInstance = new className(exceptionToHandle);
-       _response =  anInstance.render();
+       _response = anInstance.render();
     }
     
     /**

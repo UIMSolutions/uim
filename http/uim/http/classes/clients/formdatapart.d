@@ -72,7 +72,7 @@ class DFormDataPart { // }: Stringable {
         if (anId is null) {
             return this.contentId;
         }
-        return this.contentId =  anId;
+        return this.contentId = anId;
     }
     
     /**

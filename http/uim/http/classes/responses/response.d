@@ -481,8 +481,8 @@ class DResponse : IResponse {
      * @param string avalue Header value.
      */
     protected void _setHeader(string aheader, string avalue) {
-        normalized =  aHeader.toLower;
-        this.headerNames[normalized] =  aHeader;
+        normalized = aHeader.toLower;
+        this.headerNames[normalized] = aHeader;
         this.headers[aHeader] = [aValue];
     }
     
@@ -493,7 +493,7 @@ class DResponse : IResponse {
      * @param string aheader Header key.
      */
     protected void _clearHeader(string aheader) {
-        normalized =  aHeader.toLower;
+        normalized = aHeader.toLower;
         if (!isSet(this.headerNames[normalized])) {
             return;
         }

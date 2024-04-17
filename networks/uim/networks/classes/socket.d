@@ -221,7 +221,7 @@ class DSocket {
     
     <<  <<  <<  < HEAD
 
-        ==  ==  ==  =
+        == == == =
 
         
 
@@ -240,7 +240,7 @@ class DSocket {
     
     <<  <<  <<  < HEAD
 
-        ==  ==  ==  =
+        == == == =
 
         
 
@@ -357,7 +357,7 @@ class DSocket {
      * Disconnect the socket from the current connection.
      *
          */
-    ==  ==  ==  =
+    == == == =
 
          // Disconnect the socket from the current connection
         >>>  >>>  > 74 a7b6400cdc9ef55c74d50ddcb3fb9c29d1e0bf bool disconnect() {
@@ -377,7 +377,7 @@ class DSocket {
     
     <<  <<  <<  < HEAD
 
-        ==  ==  ==  =
+        == == == =
 
         
 
@@ -390,7 +390,7 @@ class DSocket {
     
     <<  <<  <<  < HEAD
 
-        ==  ==  ==  =
+        == == == =
 
         
 
@@ -417,7 +417,7 @@ class DSocket {
     
     <<  <<  <<  < HEAD
 
-        ==  ==  ==  =
+        == == == =
 
         
 
@@ -462,7 +462,7 @@ class DSocket {
     <<  <<  <<  < HEAD /**
      * Check the encryption status after calling `enableCrypto()`.
      */
-    ==  ==  ==  =
+    == == == =
 
          // Check the encryption status after calling `enableCrypto()`.
         >>>  >>>  > 74 a7b6400cdc9ef55c74d50ddcb3fb9c29d1e0bf bool isEncrypted() {

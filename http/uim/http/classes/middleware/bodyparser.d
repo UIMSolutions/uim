@@ -87,7 +87,7 @@ class DBodyParserMiddleware { // }: IMiddleware {
     void addParser(array types, Closure  aParser) {
         types
             .map!(type => type.toLower)
-            .each!(type => this.parsers[type] =  aParser);
+            .each!(type => this.parsers[type] = aParser);
     }
     
     // Get the current parsers
@@ -113,7 +113,7 @@ class DBodyParserMiddleware { // }: IMiddleware {
             return handler.handle(request);
         }
          aParser = this.parsers[type];
-        result =  aParser(request.getBody().getContents());
+        result = aParser(request.getBody().getContents());
         if (!isArray(result)) {
             throw new BadRequestException();
         }

@@ -94,9 +94,9 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         backwards = (anInSeconds > now);
 
         futureTime = now;
-        pastTime =  anInSeconds;
+        pastTime = anInSeconds;
         if (backwards) {
-            futureTime =  anInSeconds;
+            futureTime = anInSeconds;
             pastTime = now;
         }
         diff = futureTime - pastTime;
@@ -300,9 +300,9 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         auto backwards = (anInSeconds > now);
 
         auto futureTime = now;
-        auto pastTime =  anInSeconds;
+        auto pastTime = anInSeconds;
         if (backwards) {
-            futureTime =  anInSeconds;
+            futureTime = anInSeconds;
             pastTime = now;
         }
         diff = futureTime - pastTime;

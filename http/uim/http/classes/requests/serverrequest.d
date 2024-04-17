@@ -1061,7 +1061,7 @@ class DServerRequest { // }: IServerRequest {
         foreach (cookies as cookie) {
              someValues[cookie.name] = cookie.getValue();
         }
-        new.cookies =  someValues;
+        new.cookies = someValues;
 
         return new;
     }

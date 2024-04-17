@@ -612,7 +612,7 @@ class DMessage { //: IDataSerializable {
      * array  aHeaders Associative array containing headers to be set.
      * /
     auto setHeaders(array  aHeaders) {
-        this.headers =  aHeaders;
+        this.headers = aHeaders;
 
         return this;
     }

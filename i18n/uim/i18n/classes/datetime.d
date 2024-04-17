@@ -496,7 +496,7 @@ class DateTime /* : Chronos, IDataSerializable */ {
                 }
                  anItem = split("/", tz, 2);
                 if (isSet(anItem[1])) {
-                     anGroupedIdentifiers[anItem[0]][tz] =  anItem[1] ~ abbr;
+                     anGroupedIdentifiers[anItem[0]][tz] = anItem[1] ~ abbr;
                 } else {
                      anGroupedIdentifiers[anItem[0]] = [tz:  anItem[0] ~ abbr];
                 }

@@ -121,39 +121,29 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
         return null;
     }
     
-    /**
-     * Check if a cookie with the given name exists
-     * Params:
-     * string aName The cookie name to check.
-     * /
-    bool __isSet(string aName) {
-        return __get(name) !isNull;
+    // Check if a cookie with the given name exists
+    bool __isSet(string cookieName) {
+        return __get(cookieName) !isNull;
     }
     
     /**
      * Create a new DCollection with all cookies matching name removed.
      *
      * If the cookie is not in the collection, this method will do nothing.
-     * Params:
-     * string aName The name of the cookie to remove.
      * /
-    static remove(string aName) {
-        new = clone this;
-        aKey = mb_strtolower(name);
-        foreach (new.cookies as  anI: cookie) {
-            if (mb_strtolower(cookie.name) == aKey) {
-                unset(new.cookies[anI]);
+    static remove(string cookieName) {
+        auto result = clone this;
+        aKey = mb_strtolower(cookieName);
+        foreach (result.cookies as  anI: cookie) {
+            if (mb_strtolower(cookie.cookieName) == aKey) {
+                unset(result.cookies[anI]);
             }
         }
-        return new;
+        return result;
     }
     
-    /**
-     * Checks if only valid cookie objects are in the array
-     * Params:
-     * array<\UIM\Http\Cookie\ICookie> cookies Array of cookie objects
-     * /
-    protected void checkCookies(array cookies) {
+    // Checks if only valid cookie objects are in the array
+    protected void checkCookies(ICookie[] cookies) {
         foreach (anIndex: cookie; cookies) {
             if (!cast(ICookie)!cookie) {
                 throw new DInvalidArgumentException(                    
@@ -168,10 +158,8 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
         }
     }
     
-    /**
-     * Gets the iterator
-     * /
-    Traversable getIterator() {
+    // Gets the iterator
+    DTraversable getIterator() {
         return new DArrayIterator(this.cookies);
     }
     
@@ -187,29 +175,31 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      *  is useful when you have cookie data from outside the collection you want to send.
      * /
     IRequest addToRequest(IRequest request, array extraCookies = []) {
-        anUri = request.getUri();
+        auto anUri = request.getUri();
         cookies = this.findMatchingCookies(
             anUri.getScheme(),
             anUri.getHost(),
             anUri.getPath() ?: '/'
         );
         cookies = extraCookies + cookies;
-        cookiePairs = null;
-        foreach (cookies as aKey: aValue) {
-            cookie = "%s=%s".format(rawurlencode((string)aKey), rawurlencode(aValue));
-            size = cookie.length;
+        
+        string[] cookiePairs;
+        cookies.byKeyValue.each!((kv) {
+            auto cookie = "%s=%s".format(rawurlencode((string)kv.key), rawurlencode(kv.value));
+            auto size = cookie.length;
             if (size > 4096) {
                 triggerWarning(
                     "The cookie `%s` exceeds the recommended maximum cookie length of 4096 bytes."
-                    .format(aKey
-                ));
+                    .format(kv.key)
+                );
             }
             cookiePairs ~= cookie;
-        }
+        });
+
         if (cookiePairs.isEmpty() {
             return request;
         }
-        return request.withHeader("Cookie", join("; ", cookiePairs));
+        return request.withHeader("Cookie", cookiePairs.join("; "));
     }
     
     /**

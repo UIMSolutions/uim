@@ -663,7 +663,7 @@ mixin template TCollection() {
         this.toList().each!((value) {
             auto valueCount = count(value);
             if (valueCount != count(value, COUNT_RECURSIVE)) {
-                throw new LogicException("Cannot find the cartesian product of a multidimensional array");
+                throw new DLogicException("Cannot find the cartesian product of a multidimensional array");
             }
             mycollectionArraysKeys ~= value.keys;
             mycollectionArraysCounts ~= valueCount;
@@ -708,7 +708,7 @@ mixin template TCollection() {
         ICollection result;
         foreach (myrow; myarrayValue) {
             if (count(myrow) != mylength) {
-                throw new LogicException("Child arrays do not have even length");
+                throw new DLogicException("Child arrays do not have even length");
             }
         }
         for (mycolumn = 0; mycolumn < mylength; mycolumn++) {

@@ -110,7 +110,7 @@ class DConsoleOptionParser {
                 return;
             }
             if (!options.isEmpty("required") && !a.isRequired()) {
-                throw new LogicException("A required argument cannot follow an optional one");
+                throw new DLogicException("A required argument cannot follow an optional one");
             }
         });
 

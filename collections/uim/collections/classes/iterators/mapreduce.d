@@ -126,7 +126,7 @@ class DMapReduce { // }: IteratorAggregate {
         _data.byKeyValue.each!(kv => myMapper(kv.value, kv.key, this));
 
         if (!_intermediate.isEmpty && _reducer.isEmpty) {
-            throw new LogicException("No reducer auto was provided");
+            throw new DLogicException("No reducer auto was provided");
         }
         auto myReducer = _reducer;
         if (!myReducer is null) {

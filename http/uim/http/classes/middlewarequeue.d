@@ -135,7 +135,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
         if (isFound) {
             return this.insertAt(anI, middleware);
         }
-        throw new LogicException("No middleware matching `%s` could be found.".format(className));
+        throw new DLogicException("No middleware matching `%s` could be found.".format(className));
     }
     
     /**

@@ -714,28 +714,20 @@ class DServerRequest { // }: IServerRequest {
             : null;
     }
     
-    /**
-     * Get a single header as a string from the request.
-     * Params:
-     * string aName The header you want to get (case-insensitive)
-     * /
-    string getHeaderLine(string aName) {
-        aValue = this.getHeader(name);
+    // Get a single header as a string from the request.
+    string getHeaderLine(string headerName) {
+        auto aValue = this.getHeader(headerName);
 
         return join(", ", aValue);
     }
     
-    /**
-     * Get a modified request with the provided header.
-     * Params:
-     * string aName The header name.
-     * /
-    static withHeader(string aName, string[] headerValue) {
-        new = clone this;
-        name = this.normalizeHeaderName(name);
-        new._environment[name] = aValue;
+    // Get a modified request with the provided header.
+    static withHeader(string headerName, string[] headerValue) {
+        auto result = clone this;
+        name = this.normalizeHeaderName(headerName);
+        result._environment[headerName] = aValue;
 
-        return new;
+        return result;
     }
     
     /**

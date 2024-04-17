@@ -439,15 +439,11 @@ class DSession {
         return to!string(session_id());
     }
 
-    /**
-     * Removes a variable from session.
-     * Params:
-     * string aName Session variable to remove
-     * /
-    void delete(string aName) {
-        if (this.check(name)) {
+    // Removes a variable from session.
+    void delete(string sessionName) {
+        if (this.check(sessionName)) {
             /** @psalm-suppress InvalidScalarArgument * /
-            _overwrite(_SESSION, Hash.remove(_SESSION, name));
+            _overwrite(_SESSION, Hash.remove(_SESSION, sessionName));
         }
     }
 

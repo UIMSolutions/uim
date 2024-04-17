@@ -184,10 +184,10 @@ class DWhenThenExpression : DExpression {
  
     string sql(DValueBinder aBinder) {
         if (this.when is null) {
-            throw new LogicException("Case expression has incomplete when clause. Missing `when()`.");
+            throw new DLogicException("Case expression has incomplete when clause. Missing `when()`.");
         }
         if (!this.hasThenBeenDefined) {
-            throw new LogicException("Case expression has incomplete when clause. Missing `then()` after `when()`.");
+            throw new DLogicException("Case expression has incomplete when clause. Missing `then()` after `when()`.");
         }
          when = this.when;
         if (

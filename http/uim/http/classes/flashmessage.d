@@ -134,55 +134,39 @@ class DFlashMessage {
     
     /**
      * Set a success message.
-     *
      * The `'element'` option will be set to  ``success'`.
-     * Params:
-     * string amessage Message to flash.
-     * @param IData[string] options An array of options.
      * @see FlashMessage.set() For list of valid options
      * /
-    void success(string amessage, IData[string] options = null) {
+    void success(string successMessage, IData[string] options = null) {
         options["element"] = "Success";
-        this.set(message, options);
+        this.set(successMessage, options);
     }
     
     /**
      * Set an success message.
-     *
      * The `'element'` option will be set to  `'error'`.
-     * Params:
-     * string amessage Message to flash.
-     * @param IData[string] options An array of options.
      * @see FlashMessage.set() For list of valid options
      * /
-    void error(string amessage, IData[string] options = null) {
+    void error(string errorMessage, IData[string] options = null) {
         options["element"] = "error";
-        this.set(message, options);
+        this.set(errorMessage, options);
     }
     
     /**
      * Set a warning message.
-     *
      * The `'element'` option will be set to  `'warning'`.
-     * Params:
-     * string amessage Message to flash.
-     * @param IData[string] options An array of options.
      * /
-    void warning(string amessage, IData[string] options = null) {
+    void warning(string warningMessage, IData[string] options = null) {
         options["element"] = "warning";
-        this.set(message, options);
+        this.set(warningMessage, options);
     }
     
     /**
      * Set an info message.
-     *
      * The `'element'` option will be set to  `'info'`.
-     * Params:
-     * string amessage Message to flash.
-     * @param IData[string] options An array of options.
      * /
-    void info(string amessage, IData[string] options = null) {
+    void info(string infoMessage, IData[string] options = null) {
         options["element"] = "info";
-        this.set(message, options);
+        this.set(infoMessage, options);
     } */
 }

@@ -251,12 +251,12 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * /
     void when(IData  when, string[] type = null) {
         if (!this.whenBuffer is null) {
-            throw new LogicException("Cannot call `when()` between `when()` and `then()`.");
+            throw new DLogicException("Cannot call `when()` between `when()` and `then()`.");
         }
         if (cast(DClosure) when) {
              when =  when(new WhenThenExpression(this.getTypeMap()));
             if (!(cast(WhenThenExpression) when )) {
-                throw new LogicException(
+                throw new DLogicException(
                     "`when()` callables must return an instance of `\%s`, `%s` given."
                     .format(WhenThenExpression.classname, get_debug_type( when))
                 );
@@ -327,7 +327,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * /
     void then(IData result, string atype = null) {
         if (this.whenBuffer is null) {
-            throw new LogicException("Cannot call `then()` before `when()`.");
+            throw new DLogicException("Cannot call `then()` before `when()`.");
         }
          whenThen = (new WhenThenExpression(this.getTypeMap()))
             .when(this.whenBuffer["when"], this.whenBuffer["type"])
@@ -351,7 +351,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * /
     void else(IData result, string atype = null) {
         if (!this.whenBuffer is null) {
-            throw new LogicException("Cannot call `else()` between `when()` and `then()`.");
+            throw new DLogicException("Cannot call `else()` between `when()` and `then()`.");
         }
         if (
             !result.isNull &&
@@ -441,10 +441,10 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
  
     string sql(DValueBinder aBinder) {
         if (!this.whenBuffer is null) {
-            throw new LogicException("Case expression has incomplete when clause. Missing `then()` after `when()`.");
+            throw new DLogicException("Case expression has incomplete when clause. Missing `then()` after `when()`.");
         }
         if (this.when.isEmpty) {
-            throw new LogicException("Case expression must have at least one when statement.");
+            throw new DLogicException("Case expression must have at least one when statement.");
         }
         
         string aValue = "";
@@ -463,7 +463,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
  
     void traverse(Closure aCallback) {
         if (this.whenBuffer !isNull) {
-            throw new LogicException("Case expression has incomplete when clause. Missing `then()` after `when()`.");
+            throw new DLogicException("Case expression has incomplete when clause. Missing `then()` after `when()`.");
         }
         
         if (cast(IExpression)this.value ) {
@@ -484,7 +484,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
     // Clones the inner expression objects.
     void __clone() {
         if (this.whenBuffer !isNull) {
-            throw new LogicException("Case expression has incomplete when clause. Missing `then()` after `when()`.");
+            throw new DLogicException("Case expression has incomplete when clause. Missing `then()` after `when()`.");
         }
         if (cast(IExpression)this.value ) {
             this.value = clone this.value;

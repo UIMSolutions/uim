@@ -46,7 +46,7 @@ class DInsertIterator : DCollection {
     auto mytarget = array_pop(somePath);
    _path = somePath;
    _target = target;
-   _values =  someValues;
+   _values = someValues;
   }
 
   // Advances the cursor to the next record

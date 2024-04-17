@@ -55,7 +55,7 @@ class DExtractIterator : DCollection {
     auto myIterator = this.getInnerIterator();
 
     if (cast(ICollection)myIterator) {
-      myIterator =  anIterator.unwrap();
+      myIterator = anIterator.unwrap();
     }
     if (myIterator.class != ArrayIterator :  : class) {
       return this;

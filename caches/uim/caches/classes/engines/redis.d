@@ -197,7 +197,7 @@ class DRedisCacheEngine : DCacheEngine {
             }
             someKeys.each!((key) {
                  isDeleted = (_redis.del(aKey) > 0);
-                 isAllDeleted =  isAllDeleted &&  isDeleted;
+                 isAllDeleted = isAllDeleted &&  isDeleted;
             });
         }
         return isAllDeleted;
@@ -223,7 +223,7 @@ class DRedisCacheEngine : DCacheEngine {
             }
             someKeys.each!((key) {
                 bool isDeleted = (_redis.unlink(key) > 0);
-                isAllDeleted =  isAllDeleted &&  isDeleted;
+                isAllDeleted = isAllDeleted &&  isDeleted;
             });
         }
         return isAllDeleted;
@@ -260,7 +260,7 @@ class DRedisCacheEngine : DCacheEngine {
                 aValue = this.serialize(1);
                _redis.set(configuration.get("prefix") ~  anGroup, aValue);
             }
-            result ~=  anGroup ~ aValue;
+            result ~= anGroup ~ aValue;
         }
         return result;
     }

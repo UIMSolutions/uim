@@ -26,7 +26,7 @@ class DRoutesCommand : DCommand {
              aHeader ~= "Defaults";
         }
         auto myavailableRoutes = Router.routes();
-        output =  someDuplicateRoutesCounter = null;
+        output = someDuplicateRoutesCounter = null;
 
         someAvailableRoutes.each!((route) {
              someMethods = isSet(route.defaults["_method"]) ? (array)route.defaults["_method"] : [""];
@@ -45,7 +45,7 @@ class DRoutesCommand : DCommand {
                 ksort(route.defaults);
                  anItem ~= Json_encode(route.defaults, Json_THROW_ON_ERROR);
             }
-            output ~=  anItem;
+            output ~= anItem;
 
             someMethods.each!((method) {
                 if (!isSet(someDuplicateRoutesCounter[route.template][myMethod])) {
@@ -118,7 +118,7 @@ class DRoutesCommand : DCommand {
                 ksort(route.defaults);
                  anItem ~= Json_encode(route.defaults, Json_THROW_ON_ERROR);
             }
-            output ~=  anItem;
+            output ~= anItem;
 
             someMethods.each!((method) {
                 if (!isSet(someDuplicateRoutesCounter[route.template][myMethod])) {

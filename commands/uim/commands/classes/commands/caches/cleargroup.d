@@ -57,7 +57,7 @@ class DCacheClearGroupCommand : DCommand {
       return CODE_ERROR;
     }
     foreach (anGroupConfig,  anGroupConfigs[anGroup]) {
-      if (!configData.isNull && configData !=  anGroupConfig) {
+      if (!configData.isNull && configData != anGroupConfig) {
         continue;
       }
       if (!Cache.clearGroup(anGroup,  anGroupConfig)) {

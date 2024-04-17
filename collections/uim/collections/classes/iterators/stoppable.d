@@ -59,7 +59,7 @@ class DStoppableIterator : DCollection {
      anIterator = _innerIterator;
 
     if (cast(ICollection) anIterator) {
-       anIterator =  anIterator.unwrap();
+       anIterator = anIterator.unwrap();
     }
     if (anIterator.class != ArrayIterator.class) {
       return this;

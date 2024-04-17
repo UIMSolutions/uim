@@ -54,7 +54,7 @@ class DZipIterator : ICollection {
 
         foreach (set; sets) {
              anIterator = (new DCollection(set)).unwrap();
-           _iterators ~=  anIterator;
+           _iterators ~= anIterator;
             this.multipleIterator.attachIterator(anIterator);
         }
     }

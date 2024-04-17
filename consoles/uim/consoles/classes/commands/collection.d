@@ -107,17 +107,17 @@ class DCommandCollection { // : IteratorAggregate, Countable {
     protected ICommand[string] resolveNames(STRINGAA[] anInput) {
          auto result;
         foreach (anInfo; anInput) {
-            auto infoName =  anInfo["name"];
-            addLong = infoName !=  anInfo["fullName"];
+            auto infoName = anInfo["name"];
+            addLong = infoName != anInfo["fullName"];
 
             // If the short name has been used, use the full name.
             // This allows app shells to have name preference.
             // and app shells to overwrite core shells.
             if (this.has(infoName) && addLong) {
-                infoName =  anInfo["fullName"];
+                infoName = anInfo["fullName"];
             }
 
-             className =  anInfo["class"];
+             className = anInfo["class"];
              result[infoName] = className;
             if (addLong) {
                  result[anInfo["fullName"]] = className;

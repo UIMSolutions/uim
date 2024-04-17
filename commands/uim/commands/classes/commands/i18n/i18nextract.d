@@ -433,7 +433,7 @@ class DI18nExtractCommand : DCommand {
                 contexts.byKeyValue
                     .each!((contextDetails) {
                     auto plural = contextDetails.value["msgid_plural"];
-                    auto files =  contextDetails.value["references"];
+                    auto files = contextDetails.value["references"];
                     
                     string aHeader = "";
                     if (!commandArguments.getOption("no-location")) {
@@ -481,9 +481,9 @@ class DI18nExtractCommand : DCommand {
 
 
         if (!isSet(_storage[domainName][sentence])) {
-           _storage[domainName][sentence] =  aHeader;
+           _storage[domainName][sentence] = aHeader;
         } else {
-           _storage[domainName][sentence] ~=  aHeader;
+           _storage[domainName][sentence] ~= aHeader;
         }
     }
     
@@ -503,7 +503,7 @@ class DI18nExtractCommand : DCommand {
             auto outputHeader = _writeHeader( domain);
              aHeaderLength = outputHeader.length;
             sentences.byKeyValue
-                .ech!(sentenceHeader => outputHeader ~=  sentenceHeader.value ~ sentenceHeader.key);
+                .ech!(sentenceHeader => outputHeader ~= sentenceHeader.value ~ sentenceHeader.key);
             filename = domain.replace("/", "_") ~ ".pot";
             outputPath = _output ~ filename;
 

@@ -60,7 +60,7 @@ class DExceptionTrap {
      * - `skipLog` - array - List of exceptions to skip for logging. Exceptions that
      *   extend one of the listed exceptions will also not be logged. E.g.:
      *   ```
-     *   "skipLog": ["Cake\Http\exceptions.NotFoundException", "Cake\Http\exceptions.UnauthorizedException"]
+     *   "skipLog": ["uim\Http\exceptions.NotFoundException", "uim\Http\exceptions.UnauthorizedException"]
      *   ```
      *   This option is forwarded to the configured `logger`
      * - `extraFatalErrorMemory` - int - The number of megabytes to increase the memory limit by when a fatal error is
@@ -135,7 +135,7 @@ class DExceptionTrap {
             deprecationWarning(
                 "Your application is using a deprecated `Error.exceptionRenderer`~ " ~
                 "You can either remove the `Error.exceptionRenderer` config key to have UIM choose " ~
-                "one of the default exception renderers, or define a class that is not `Cake\errors.ExceptionRenderer`."
+                "one of the default exception renderers, or define a class that is not `uim\errors.ExceptionRenderer`."
             );
         }
         if (!aClassName || deprecatedConfig) {
@@ -249,7 +249,7 @@ class DExceptionTrap {
         } catch (Throwable exception) {
             this.logInternalError(exception);
         }
-        // Use this constant as a proxy for cakephp tests.
+        // Use this constant as a proxy for uimphp tests.
         if (D_SAPI == "cli" && !env("FIXTURE_SCHEMA_METADATA")) {
             exit(1);
         }

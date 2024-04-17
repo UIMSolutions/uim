@@ -20,7 +20,7 @@ class DHtmlErrorRenderer : IErrorRenderer {
         if (!debug) {
             return "";
         }
-         anId = "cakeErr" ~ uniqid();
+         anId = "uimErr" ~ uniqid();
         file = error.getFile();
 
         // Some of the error data is not HTML safe so we escape everything.
@@ -42,12 +42,12 @@ class DHtmlErrorRenderer : IErrorRenderer {
         code = join("\n", excerpt);
 
         return <<<HTML
-<div class="cake-error">
+<div class="uim-error">
     {toggle}: {description} [in <b>{somePath}</b>, line <b>{line}</b>]
-    <div id="{ anId}-trace" class="cake-stack-trace" style="display: none;">
+    <div id="{ anId}-trace" class="uim-stack-trace" style="display: none;">
         {codeToggle}
-        <pre id="{ anId}-code" class="cake-code-dump" style="display: none;">{code}</pre>
-        <pre class="cake-trace">{trace}</pre>
+        <pre id="{ anId}-code" class="uim-code-dump" style="display: none;">{code}</pre>
+        <pre class="uim-trace">{trace}</pre>
     </div>
 </div>
 HTML;

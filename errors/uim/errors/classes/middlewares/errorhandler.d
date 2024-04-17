@@ -49,7 +49,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
      *   extend one of the listed exceptions will also not be logged. Example:
      *
      *   ```
-     *   "skipLog":["Cake\errors.NotFoundException", "Cake\errors.UnauthorizedException"]
+     *   "skipLog":["uim\errors.NotFoundException", "uim\errors.UnauthorizedException"]
      *   ```
      *
      * - `trace` Should error logs include stack traces?
@@ -152,7 +152,7 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
     /**
      * Convert a redirect exception into a response.
      *
-     * @param uim.cake.http.exceptions.RedirectException myException The exception to handle
+     * @param uim.uim.http.exceptions.RedirectException myException The exception to handle
      * @return \Psr\Http\messages.IResponse Response created from the redirect.
      * /
     IResponse handleRedirect(RedirectException myException) {

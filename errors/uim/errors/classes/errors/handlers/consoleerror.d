@@ -9,7 +9,7 @@ module uim.errors.classes.errors.handlers.consoleerror;
 import uim.errors;
 
 /**
- * Error Handler for Cake console. Does simple printing of the
+ * Error Handler for uim console. Does simple printing of the
  * exception that occurred and the stack trace of the error.
  */
 class DConsoleErrorHandler { // } : DERRErrorHandler {

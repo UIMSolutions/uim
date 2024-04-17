@@ -35,7 +35,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
                 .format(location["file"], location["line"]);
         }
         someParts = [
-            "<div class="cake-debug-output cake-debug" style="direction:ltr">",
+            "<div class="uim-debug-output uim-debug" style="direction:ltr">",
             lineInfo,
             contents,
             "</div>",
@@ -68,7 +68,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
             outputHeader = true;
             head = this.dumpHeader();
         }
-        return head ~ "<div class="cake-debug">" ~ html ~ "</div>";
+        return head ~ "<div class="uim-debug">" ~ html ~ "</div>";
     }
     
     /**
@@ -107,9 +107,9 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * @param int  anIndent The current indentation level.
      * /
     protected string exportArray(ArrayNode tvar, int  anIndent) {
-        open = "<span class="cake-debug-array">' .
+        open = "<span class="uim-debug-array">' .
             this.style("punct", "[") .
-            '<samp class="cake-debug-array-items">";
+            '<samp class="uim-debug-array-items">";
         vars = null;
         break = "\n" ~ str_repeat("  ",  anIndent);
         endBreak = "\n" ~ str_repeat("  ",  anIndent - 1);
@@ -117,7 +117,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
         arrow = this.style("punct", ": ");
         var.getChildren().each!((item) {
             val =  anItem.getValue();
-            vars ~= break ~ "<span class=\"cake-debug-array-item\">" ~
+            vars ~= break ~ "<span class=\"uim-debug-array-item\">" ~
                 this.export(item.getKey(),  anIndent) ~ arrow ~ this.export(val,  anIndent) ~
                 this.style("punct", ",") ~ "</span>";
         });
@@ -137,16 +137,16 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * @param int  anIndent The current indentation level.
      * /
     protected string exportObject(ClassNode|ReferenceNode var, int  anIndent) {
-        objectId = "cake-db-object-{this.id}-{var.getId()}";
-        result = "<span class="cake-debug-object" id="%s">".format(objectId);
+        objectId = "uim-db-object-{this.id}-{var.getId()}";
+        result = "<span class="uim-debug-object" id="%s">".format(objectId);
         break = "\n" ~ str_repeat("  ",  anIndent);
         endBreak = "\n" ~ str_repeat("  ",  anIndent - 1);
 
         if (cast(ReferenceNode)var) {
-            link = "<a class="cake-debug-ref" href="#%s">id: %s</a>"
+            link = "<a class="uim-debug-ref" href="#%s">id: %s</a>"
                 .format(objectId, var.getId());
 
-            return "<span class="cake-debug-ref">' .
+            return "<span class="uim-debug-ref">' .
                 this.style("punct", "object(") .
                 this.style("class", var.getValue()) .
                 this.style("punct", ") ") .
@@ -159,7 +159,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
             this.style("punct", ") id:") .
             this.style("number", (string)var.getId()) .
             this.style("punct", " {") .
-            '<samp class="cake-debug-object-props">";
+            '<samp class="uim-debug-object-props">";
 
         props = null;
         foreach (var.getChildren() as  aProperty) {
@@ -168,7 +168,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
             name =  aProperty.name;
             if (visibility && visibility != "public") {
                 props ~= break .
-                    '<span class="cake-debug-prop">' .
+                    '<span class="uim-debug-prop">' .
                     this.style("visibility", visibility) .
                     ' ' .
                     this.style("property", name) .
@@ -177,7 +177,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
                 '</span>";
             } else {
                 props ~= break .
-                    '<span class="cake-debug-prop">' .
+                    '<span class="uim-debug-prop">' .
                     this.style("property", name) .
                     arrow .
                     this.export(aProperty.getValue(),  anIndent) .
@@ -201,7 +201,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
      * @param string atext The text to style.
      * /
     protected string style(string styleToUse, string atext) {
-        return "<span class="cake-debug-%s">%s</span>"
+        return "<span class="uim-debug-%s">%s</span>"
             .format(styleToUse, htmlAttribEscape(text));
     } */
 }

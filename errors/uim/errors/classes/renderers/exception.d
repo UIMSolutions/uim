@@ -26,7 +26,7 @@ import uim.errors;
  * can configure your class in your config/app.php.
  */
 class DExceptionRenderer : IExceptionRenderer {
-    // Template to render for {@link uim.cake.Core\exceptions.UIMException}
+    // Template to render for {@link uim.uim.Core\exceptions.UIMException}
     protected string myTemplate = "";
 
     // The method corresponding to the Exception this object is for.
@@ -78,7 +78,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * Creates the controller to perform rendering on the error response.
      *
      * @param \Throwable myException Exception.
-     * @param uim.cake.http.ServerRequest|null myRequest The request if this is set it will be used
+     * @param uim.uim.http.ServerRequest|null myRequest The request if this is set it will be used
      *   instead of creating a new one.
      * /
     this(Throwable myException, ?ServerRequest myRequest = null) {
@@ -237,7 +237,7 @@ class DExceptionRenderer : IExceptionRenderer {
      *
      * @param string method The method name to invoke.
      * @param \Throwable myException The exception to render.
-     * @return uim.cake.http.Response The response to send.
+     * @return uim.uim.http.Response The response to send.
      * /
     protected DResponse _customMethod(string method, Throwable myException) {
         myResult = this.{method}(myException);
@@ -278,9 +278,9 @@ class DExceptionRenderer : IExceptionRenderer {
             !(myException instanceof HttpException)
         ) {
             if (code < 500) {
-                myMessage = __d("cake", "Not Found");
+                myMessage = __d("uim", "Not Found");
             } else {
-                myMessage = __d("cake", "An Internal Error Has Occurred.");
+                myMessage = __d("uim", "An Internal Error Has Occurred.");
             }
         }
 
@@ -325,7 +325,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * Generate the response using the controller object.
      *
      * @param string myTemplate The template to render.
-     * @return uim.cake.http.Response A response object that can be sent.
+     * @return uim.uim.http.Response A response object that can be sent.
      * /
     protected DResponse _outputMessage(string myTemplate) {
         try {
@@ -359,7 +359,7 @@ class DExceptionRenderer : IExceptionRenderer {
      * and doesn"t call component methods.
      *
      * @param string myTemplate The template to render.
-     * @return uim.cake.http.Response A response object that can be sent.
+     * @return uim.uim.http.Response A response object that can be sent.
      * /
     protected DResponse _outputMessageSafe(string myTemplate) {
         myBuilder = this.controller.viewBuilder();
@@ -382,7 +382,7 @@ class DExceptionRenderer : IExceptionRenderer {
      *
      * Triggers the afterFilter and afterDispatch events.
      *
-     * @return uim.cake.http.Response The response to serve.
+     * @return uim.uim.http.Response The response to serve.
      * /
     protected DResponse _shutdown() {
         this.controller.dispatchEvent("Controller.shutdown");

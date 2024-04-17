@@ -39,7 +39,7 @@ import uim.errors;
  *
  * If you don"t want to take control of the exception handling, but want to change how exceptions are
  * rendered you can use `exceptionRenderer` option to choose a class to render exception pages. By default
- * `Cake\errors.ExceptionRenderer` is used. Your custom exception renderer class should be placed in src/Error.
+ * `uim\errors.ExceptionRenderer` is used. Your custom exception renderer class should be placed in src/Error.
  *
  * Your custom renderer should expect an exception in its constructor, and implement a render method.
  * Failing to do so will cause additional errors.

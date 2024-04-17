@@ -123,7 +123,7 @@
             attachCopyButton(doc.querySelectorAll(".uim-debug"));
         }
         // Add a name on window so DebugKit can add controls to dump blocks
-        win.__cakeDebugBlockInit = initialize;
+        win.__uimDebugBlockInit = initialize;
 
         /**
          * Open all the collapsed sections in a block.
@@ -142,7 +142,7 @@
             nodes.forEach(function (node) {
                 // Hide the childnode container if it is not
                 // a direct parent of the container.
-                if (!node.parentNode.parentNode.classList.contains("cake-debug")) {
+                if (!node.parentNode.parentNode.classList.contains("uim-debug")) {
                     node.dataset.hidden = true;
                 }
                 // Don`t show toggles for empty arrays/objects
@@ -150,7 +150,7 @@
                     return;
                 }
                 let collapser = doc.createElement("a");
-                collapser.classList.add("cake-debug-collapse");
+                collapser.classList.add("uim-debug-collapse");
                 collapser.dataset.open = !node.dataset.hidden;
                 collapser.setAttribute("href", "#")
                 collapser.setAttribute("title", "Toggle items");
@@ -201,7 +201,7 @@
                 if (parent == container) {
                     break;
                 }
-                if (parent.classList.contains("cake-debug-object") || parent.classList.contains("cake-debug-array")) {
+                if (parent.classList.contains("uim-debug-object") || parent.classList.contains("uim-debug-array")) {
                     expander = parent.querySelector(".uim-debug-collapse");
                     if (expander.dataset.open == "false") {
                         expander.click();
@@ -230,7 +230,7 @@
         auto attachCopyButton(nodes) {
             nodes.forEach(function (container) {
                 let copy = doc.createElement("a");
-                copy.classList.add("cake-debug-copy");
+                copy.classList.add("uim-debug-copy");
                 copy.setAttribute("href", "#");
                 copy.setAttribute("title", "Copy contents of debug output");
                 copy.appendChild(doc.createTextNode("Copy"));
@@ -240,7 +240,7 @@
                     event.preventDefault();
                     event.stopPropagation();
                     let lineNo = "";
-                    if (container.parentNode && container.parentNode.classList.contains("cake-debug")) {
+                    if (container.parentNode && container.parentNode.classList.contains("uim-debug")) {
                         let line = container.parentNode.querySelector("span");
                         lineNo = line.textContent + "\n";
                     }

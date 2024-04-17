@@ -85,7 +85,7 @@ abstract class DERRErrorHandler {
         deprecationWarning(
             "Use of `DERRErrorHandler` and subclasses are deprecated~ " ~
             "Upgrade to the new `ErrorTrap` and `ExceptionTrap` subsystem~ " ~
-            "See https://book.cakephp.org/4/en/appendices/4-4-migration-guide.html"
+            "See https://book.uimphp.org/4/en/appendices/4-4-migration-guide.html"
         );
 
         auto myLevel = _config.get("errorLevel", -1);

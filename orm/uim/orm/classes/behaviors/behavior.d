@@ -350,7 +350,7 @@ class DBehavior : IEventListener {
      *
      * Uses the implementedEvents() method to exclude callback methods.
      * Methods starting with `_` will be ignored, as will methods
-     * declared on Cake\orm.Behavior
+     * declared on uim\orm.Behavior
      *
      * @return array
      * @throws \ReflectionException

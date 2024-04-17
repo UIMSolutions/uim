@@ -4,12 +4,12 @@ Table Objects
 
 class DORMTable
 
-Table objects provide access to the collection of entities stored in a specific table. Each table in your application should have an associated Table class which is used to interact with a given table. If you do not need to customize the behavior of a given table CakeD will generate a Table instance for you to use.
+Table objects provide access to the collection of entities stored in a specific table. Each table in your application should have an associated Table class which is used to interact with a given table. If you do not need to customize the behavior of a given table uimD will generate a Table instance for you to use.
 
 Before trying to use Table objects and the ORM, you should ensure that you have configured your database connection.
 Basic Usage
 
-To get started, create a Table class. These classes live in src/Model/Table. Tables are a type model collection specific to relational databases, and the main interface to your database in CakeD’s ORM. The most basic table class would look like:
+To get started, create a Table class. These classes live in src/Model/Table. Tables are a type model collection specific to relational databases, and the main interface to your database in uimD’s ORM. The most basic table class would look like:
 
 // src/Model/Table/ArticlesTable.php
 namespace App\Model\Table;
@@ -134,7 +134,7 @@ The Model.initialize event is fired after the constructor and initialize methods
 
 To respond to the Model.initialize event you can create a listener class which implements EventListenerInterface:
 
-use Cake\Event\EventListenerInterface;
+use uim\Event\EventListenerInterface;
 class ModelInitializeListener implements EventListenerInterface
 {
     public function implementedEvents() {
@@ -152,7 +152,7 @@ class ModelInitializeListener implements EventListenerInterface
 
 and attach the listener to the EventManager as below:
 
-use Cake\Event\EventManager;
+use uim\Event\EventManager;
 listener = new DModelInitializeListener();
 EventManager::instance()->attach(listener);
 
@@ -179,7 +179,7 @@ public function beforeFind(EventInterface event, Query query, ArrayObject option
 {
     if (/* ... */) {
         event->stopPropagation();
-        query->setResult(new \Cake\Datasource\ResultSetDecorator([]));
+        query->setResult(new \uim\Datasource\ResultSetDecorator([]));
 
         return;
     }
@@ -190,7 +190,7 @@ In this example, no further beforeFind events will be triggered on the related t
 
 Any changes done to the query instance will be retained for the rest of the find. The primary parameter indicates whether or not this is the root query, or an associated query. All associations participating in a query will have a Model.beforeFind event triggered. For associations that use joins, a dummy query will be provided. In your event listener you can set additional fields, conditions, joins or result formatters. These options/features will be copied onto the root query.
 
-In previous versions of CakeD there was an afterFind callback, this has been replaced with the Modifying Results with Map/Reduce features and entity constructors.
+In previous versions of uimD there was an afterFind callback, this has been replaced with the Modifying Results with Map/Reduce features and entity constructors.
 buildValidator
 
 DORMTable::buildValidator(EventInterface event, Validator validator, name)
@@ -323,7 +323,7 @@ class DArticlesTable : DORMTable {
     }
 }
 
-You can find out more about behaviors, including the behaviors provided by CakeD in the chapter on Behaviors.
+You can find out more about behaviors, including the behaviors provided by uimD in the chapter on Behaviors.
 Configuring Connections
 
 By default all table instances use the default database connection. If your application uses multiple database connections you will want to configure which tables use which connections. This is the defaultConnectionName() method:
@@ -360,7 +360,7 @@ articles = FactoryLocator::get("Table")->get("Articles", [
     "behaviors": behaviorRegistry
 ]);
 
-Pay attention to the connection and schema configuration settings, they aren’t string values but objects. The connection will take an object of Cake\Database\Connection and schema Cake\Database\Schema\Collection.
+Pay attention to the connection and schema configuration settings, they aren’t string values but objects. The connection will take an object of uim\Database\Connection and schema uim\Database\Schema\Collection.
 
 If your table also does additional configuration in its initialize() method, those values will overwrite the ones provided to the registry.
 
@@ -379,7 +379,7 @@ FactoryLocator::get("Table")->clear();
 
 Configuring the Namespace to Locate ORM classes
 
-If you have not followed the conventions it is likely that your Table or Entity classes will not be detected by CakeD. In order to fix this, you can set a namespace with the Cake\Core\Configure::write method. As an example:
+If you have not followed the conventions it is likely that your Table or Entity classes will not be detected by uimD. In order to fix this, you can set a namespace with the uim\Core\Configure::write method. As an example:
 
 /src
     /App
@@ -391,5 +391,5 @@ If you have not followed the conventions it is likely that your Table or Entity 
 
 Would be configured with:
 
-Cake\Core\Configure::write("App.namespace", "App\My\Namespace");
+uim\Core\Configure::write("App.namespace", "App\My\Namespace");
 

@@ -62,7 +62,7 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
      * Set the default Table object that will be used by this query
      * and form the `FROM` clause.
      *
-     * @param \Cake\Datasource\IRepository|\Cake\ORM\Table myRepository The default table object to use
+     * @param \uim\Datasource\IRepository|\uim\ORM\Table myRepository The default table object to use
      * /
     IQuery repository(IRepository myRepository) {
       _repository = myRepository;
@@ -167,11 +167,11 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
      * })
      * ```
      *
-     * By default no fields are selected, if you have an instance of `Cake\orm.Query` and try to append
-     * fields you should also call `Cake\orm.Query::enableAutoFields()` to select the default fields
+     * By default no fields are selected, if you have an instance of `uim\orm.Query` and try to append
+     * fields you should also call `uim\orm.Query::enableAutoFields()` to select the default fields
      * from the table.
      *
-     * If you pass an instance of a `Cake\orm.Table` or `Cake\orm.Association` class,
+     * If you pass an instance of a `uim\orm.Table` or `uim\orm.Association` class,
      * all the fields in the schema of the table or the association will be added to
      * the select clause.
      *
@@ -476,9 +476,9 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
      * ### Example:
      *
      * ```
-     * // Bring only articles that were tagged with "cake"
+     * // Bring only articles that were tagged with "uim"
      * query.matching("Tags", function (q) {
-     *     return q.where(["name": "cake"]);
+     *     return q.where(["name": "uim"]);
      * });
      * ```
      *
@@ -611,9 +611,9 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
      * ### Example:
      *
      * ```
-     * // Bring only articles that were tagged with "cake"
+     * // Bring only articles that were tagged with "uim"
      * query.innerJoinWith("Tags", function (q) {
-     *     return q.where(["name": "cake"]);
+     *     return q.where(["name": "uim"]);
      * });
      * ```
      *
@@ -622,7 +622,7 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
      * ```
      * SELECT Articles.*
      * FROM articles Articles
-     * INNER JOIN tags Tags ON Tags.name = "cake"
+     * INNER JOIN tags Tags ON Tags.name = "uim"
      * INNER JOIN articles_tags ArticlesTags ON ArticlesTags.tag_id = Tags.id
      *   AND ArticlesTags.articles_id = Articles.id
      * ```
@@ -658,9 +658,9 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
      * ### Example:
      *
      * ```
-     * // Bring only articles that were not tagged with "cake"
+     * // Bring only articles that were not tagged with "uim"
      * query.notMatching("Tags", function (q) {
-     *     return q.where(["name": "cake"]);
+     *     return q.where(["name": "uim"]);
      * });
      * ```
      *

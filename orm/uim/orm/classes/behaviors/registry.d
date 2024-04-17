@@ -69,7 +69,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
     /**
      * Resolve a behavior classname.
      *
-     * Part of the template method for Cake\Core\ObjectRegistry::load()
+     * Part of the template method for uim\Core\ObjectRegistry::load()
      *
      * @param string aClassName  Partial classname to resolve.
      * @return string|null Either the correct class name or null.
@@ -82,8 +82,8 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
     /**
      * Throws an exception when a behavior is missing.
      *
-     * Part of the template method for Cake\Core\ObjectRegistry::load()
-     * and Cake\Core\ObjectRegistry::remove()
+     * Part of the template method for uim\Core\ObjectRegistry::load()
+     * and uim\Core\ObjectRegistry::remove()
      *
      * aClassName - The classname that is missing.
      * @param string|null plugin The plugin the behavior is missing in.
@@ -99,7 +99,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
     /**
      * Create the behavior instance.
      *
-     * Part of the template method for Cake\Core\ObjectRegistry::load()
+     * Part of the template method for uim\Core\ObjectRegistry::load()
      * Enabled behaviors will be registered with the event manager.
      *
      * @param string aClassName  The classname that is missing.
@@ -127,7 +127,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      *
      * Use the implementedEvents() method to exclude callback methods.
      * Methods starting with `_` will be ignored, as will methods
-     * declared on Cake\orm.Behavior
+     * declared on uim\orm.Behavior
      *
      * @param DORMBehavior instance The behavior to get methods from.
      * @param string aClassName  The classname that is missing.

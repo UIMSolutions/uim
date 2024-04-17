@@ -397,7 +397,7 @@ class DEagerLoader {
     /**
      * Returns an array with the associations that can be fetched using a single query,
      * the array keys are the association aliases and the values will contain an array
-     * with Cake\orm.EagerLoadable objects.
+     * with uim\orm.EagerLoadable objects.
      *
      * @param DORMTable repository The table containing the associations to be
      * attached

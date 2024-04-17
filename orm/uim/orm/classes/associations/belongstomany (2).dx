@@ -919,9 +919,9 @@ class DBelongsToMany : DAssociation {
      * be created for the passed target entities that are not already in the database
      * and the rest will be removed.
      *
-     * For example, if an article is linked to tags 'cake' and 'framework' and you pass
-     * to this method an array containing the entities for tags 'cake", "php' and 'awesome",
-     * only the link for cake will be kept in database, the link for 'framework' will be
+     * For example, if an article is linked to tags 'uim' and 'framework' and you pass
+     * to this method an array containing the entities for tags 'uim", "php' and 'awesome",
+     * only the link for uim will be kept in database, the link for 'framework' will be
      * deleted and the links for 'php' and 'awesome' will be created.
      *
      * Existing links are not deleted and created again, they are either left untouched

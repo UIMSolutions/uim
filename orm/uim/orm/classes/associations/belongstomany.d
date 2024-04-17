@@ -1030,9 +1030,9 @@ class DBelongsToManyAssociation : DAssociation {
      * be created for the passed target entities that are not already in the database
      * and the rest will be removed.
      *
-     * For example, if an article is linked to tags "cake" and "framework" and you pass
-     * to this method an array containing the entities for tags "cake", "d" and "awesome",
-     * only the link for cake will be kept in database, the link for "framework" will be
+     * For example, if an article is linked to tags "uim" and "framework" and you pass
+     * to this method an array containing the entities for tags "uim", "d" and "awesome",
+     * only the link for uim will be kept in database, the link for "framework" will be
      * deleted and the links for "d" and "awesome" will be created.
      *
      * Existing links are not deleted and created again, they are either left untouched
@@ -1350,7 +1350,7 @@ class DBelongsToManyAssociation : DAssociation {
     protected string _junctionTableName(string aName = null) {
         if (name == null) {
             if (empty(_junctionTableName)) {
-                tablesNames = array_map("Cake\Utility\Inflector::underscore", [
+                tablesNames = array_map("uim\Utility\Inflector::underscore", [
                     this.getSource().getTable(),
                     this.getTarget().getTable(),
                 ]);

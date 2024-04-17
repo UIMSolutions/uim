@@ -375,20 +375,23 @@ class DConsoleIo {
     /**
      * Prompts the user for input based on a list of options, and returns it.
      * Params:
-     * string aprompt Prompt text.
-     * @param string[]|string aoptions Array or string of options.
      * @param string default Default input value.
      * /
-    string askChoice(string aprompt, string[] aoptions, string adefault = null) {
-        if (isString(options)) {
-            if (options.has(",")) {
-                string[] options = split(",", options);
-            } else if (options.has("/")) {
-                options = split("/", options);
-            } else {
-                options = [options];
-            }
+    string askChoice(string promptText, string option, string adefault = null) {
+        string[] options; 
+        if (option.has(",")) {
+            options = split(",", option);
+        } else if (option.has("/")) {
+            options = split("/", option);
+        } else {
+            options = [option];
         }
+
+        reurn askChoice(string promptText, string[] aoptions, string adefault = null) {
+    }
+
+    string askChoice(string aprompt, string[] aoptions, string adefault = null) {
+
         printOptions = "(" ~ join("/", options) ~ ")";
         options = chain(
             array_map("strtolower", options),

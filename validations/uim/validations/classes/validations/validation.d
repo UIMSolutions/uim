@@ -63,14 +63,12 @@ class DValidation {
      * Checks that a string contains something other than whitespace
      *
      * Returns true if string contains something other than whitespace
-     * Params:
-     * IData valueToCheck Value to check
      * /
-    static bool isNotBlank(IData checkValue) {
-        if (checkValue.isEmpty && !isBool(checkValue) && !isNumeric(checkValue)) {
+    static bool isNotBlank(IData valueToCheck) {
+        if (valueToCheck.isEmpty && !isBool(valueToCheck) && !isNumeric(valueToCheck)) {
             return false;
         }
-        return _check(checkValue, "/[^\s]+/m");
+        return _check(valueToCheck, "/[^\s]+/m");
     }
     
     /**
@@ -81,11 +79,11 @@ class DValidation {
      * Params:
      * IData valueToCheck Value to check
      * /
-    static bool isAlphaNumeric(IData checkValue) {
-        if ((isEmpty(checkValue) && checkValue != "0") || !isScalar(checkValue)) {
+    static bool isAlphaNumeric(IData valueToCheck) {
+        if ((isEmpty(valueToCheck) && valueToCheck != "0") || !isScalar(valueToCheck)) {
             return false;
         }
-        return self._check(checkValue, "/^[\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nd}]+my/Du");
+        return self._check(valueToCheck, "/^[\p{Ll}\p{Lm}\p{Lo}\p{Lt}\p{Lu}\p{Nd}]+my/Du");
     }
     
     /**
@@ -94,17 +92,13 @@ class DValidation {
      * This method"s definition of letters and integers includes unicode characters.
      * Use `notAsciiAlphaNumeric()` if you want to exclude ascii only.
      * /
-    static bool isNotAlphaNumeric(IData checkValue) {
-        return !alphaNumeric(checkValue);
+    static bool isNotAlphaNumeric(IData valueToCheck) {
+        return !alphaNumeric(valueToCheck);
     }
     
-    /**
-     * Checks that a string contains only ascii integer or letters.
-     * Params:
-     * IData valueToCheck Value to check
-     * /
-    static bool isAsciiAlphaNumeric(IData checkValue) {
-        if ((isEmpty(checkValue) && checkValue != "0") || !isScalar(checkValue)) {
+    // Checks that a string contains only ascii integer or letters.
+    static bool isAsciiAlphaNumeric(IData valueToCheck) {
+        if ((isEmpty(valueToCheck) && valueToCheck != "0") || !isScalar(valueToCheck)) {
             return false;
         }
         return self._check(valueToCheck, "/^[[:alnum:]]+my/");
@@ -120,15 +114,14 @@ class DValidation {
      * Spaces are included in the character count.
      * Returns true if string matches value min, max, or between min and max,
      * Params:
-     * IData valueToCheck Value to check for length
      * @param int mymin Minimum value in range (inclusive)
      * @param int mymax Maximum value in range (inclusive)
      * /
-    static bool lengthBetween(IData checkValue, int minLength, int maxLength) {
-        if (!isScalar(checkValue)) {
+    static bool lengthBetween(IData valueToCheck, int minLength, int maxLength) {
+        if (!isScalar(valueToCheck)) {
             return false;
         }
-        auto length = checkValue.get!string.length;
+        auto length = valueToCheck.get!string.length;
 
         return length >= minLength && length <= maxLength;
     }

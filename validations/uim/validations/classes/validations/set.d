@@ -1,4 +1,4 @@
-module uim.validations.classes.validations.validationset;
+module uim.validations.classes.validations.set;
 
 import uim.validations;
 

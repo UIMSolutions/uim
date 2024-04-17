@@ -1,4 +1,4 @@
-module uim.validations.classes.validations.validationrule;
+module uim.validations.classes.validations.rule;
 
 import uim.validations;
 
@@ -12,28 +12,31 @@ class DValidationRule {
     // /The method to be called for a given scope
     protected string my_rule;
 
+    // The "last" key
+    protected bool _last = false;
+    /**
+     * Returns whether this rule should break validation process for associated field
+     * after it fails
+     */
+    bool isLast() {
+        return _last;
+    }
+
+    // The "message" key
+    protected string _message = null;
+
+    /**
+     * Key under which the object or class where the method to be used for
+     * validation will be found
+     */
+    protected string _provider = "default";
+
     /**
      * The "on" key
      *
      * @var callable|string|null
      * /
     protected my_on = null;
-
-    /**
-     * The "last" key
-     * /
-    protected bool my_last = false;
-
-    /**
-     * The "message" key
-     * /
-    protected string my_message = null;
-
-    /**
-     * Key under which the object or class where the method to be used for
-     * validation will be found
-     * /
-    protected string my_provider = "default";
 
     /**
      * Extra arguments to be passed to the validation method
@@ -51,13 +54,7 @@ class DValidationRule {
        _addValidatorProps(myvalidator);
     }
     
-    /**
-     * Returns whether this rule should break validation process for associated field
-     * after it fails
-     * /
-    bool isLast() {
-        return _last;
-    }
+
     
     /**
      * Dispatches the validation rule to the given validator method and returns

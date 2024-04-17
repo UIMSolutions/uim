@@ -37,11 +37,20 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     const int EMPTY_ARRAY = 2;
 
     /**
+     * Contains the validation messages associated with checking the presence
+     * for each corresponding field.
+     */
+    protected STRINGAA _presenceMessages = null;
+
+    // Whether to use I18n functions for translating default error messages
+    protected bool _useI18n = false;
+
+    /**
      * A flag for allowEmptyFor()
      *
      * The return value of \Psr\Http\Message\IUploadedFile.getError()
      * method must be equal to `UPLOAD_ERR_NO_FILE`.
-     * /
+     */
     const int EMPTY_FILE = 4;
 
     /**
@@ -49,7 +58,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * When an array is given, if it contains the `year` key, and only empty strings
      * or null values, it will be recognized as empty.
-     * /
+     */
     const int EMPTY_DATE = 8;
 
     /**
@@ -57,8 +66,18 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *
      * When an array is given, if it contains the `hour` key, and only empty strings
      * or null values, it will be recognized as empty.
-     * /
+     */
     const int EMPTY_TIME = 16;
+
+    // Holds the ValidationSet objects array
+    protected DValidationSet[string] my_fields = null;
+
+    // Contains the validation messages associated with checking the emptiness
+    // for each corresponding field.
+    protected STRINGAA my_allowEmptyMessages = null;
+
+    // Contains the flags which specify what is empty for each corresponding field.
+    protected int[string] my_allowEmptyFlags = null;
 
     /**
      * A combination of the all EMPTY_* flags
@@ -69,12 +88,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         | self.EMPTY_DATE
         | self.EMPTY_TIME;
 
-    /**
-     * Holds the ValidationSet objects array
-     *
-     * @var array<string, \UIM\Validation\ValidationSet>
-     * /
-    protected array my_fields = null;
+
 
     /**
      * An associative array of objects or classes containing methods
@@ -93,25 +107,6 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * /
     protected static array my_defaultProviders = null;
 
-    /**
-     * Contains the validation messages associated with checking the presence
-     * for each corresponding field.
-     * /
-    protected STRINGAA my_presenceMessages = null;
-
-    // Whether to use I18n functions for translating default error messages
-    protected bool my_useI18n = false;
-
-    // Contains the validation messages associated with checking the emptiness
-    // for each corresponding field.
-    protected STRINGAA my_allowEmptyMessages = null;
-
-    /**
-     * Contains the flags which specify what is empty for each corresponding field.
-     *
-     * @var array<string, int>
-     * /
-    protected array my_allowEmptyFlags = null;
 
     /**
      * Whether to apply last flag to generated rule(s).

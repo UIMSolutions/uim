@@ -118,7 +118,7 @@ class DConsoleInputArgument {
         if (!in_array(choiceToValidate, _choices, true)) {
             throw new DConsoleException(               
                 "`%s` is not a valid value for `%s`. Please use one of `%s`"
-                .format(aValue, _name, _choices.join(", ", ))
+                .format(aValue, _name, _choices.join(", "))
             );
         }
         return true;

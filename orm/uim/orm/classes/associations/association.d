@@ -81,14 +81,24 @@ class DAssociation : IAssociation {
      */
     protected string _strategy = STRATEGY_JOIN;
 
+    // The class name of the target table object
+    protected string _className;
+
+    /**
+     * Whether the records on the target table are dependent on the source table,
+     * often used to indicate that records should be removed if the owning record in
+     * the source table is deleted.
+     */
+    protected bool _dependent = false;
+
+    // The type of join to be used when adding the association to a query
+    protected string _joinType = Query::JOIN_TYPE_LEFT;
 /* 
     // TODO use TConventions;
     // TODO use TLocatorAware;
 
     // Name given to the association, it usually represents the alias assigned to the target associated table
 
-    // The class name of the target table object
-    protected string _className;
 
 
     /**
@@ -98,12 +108,6 @@ class DAssociation : IAssociation {
      * /
     protected _conditions = null;
 
-    /**
-     * Whether the records on the target table are dependent on the source table,
-     * often used to indicate that records should be removed if the owning record in
-     * the source table is deleted.
-     * /
-    protected bool _dependent = false;
 
     // Whether cascaded deletes should also fire callbacks.
     protected bool _cascadeCallbacks = false;
@@ -114,10 +118,6 @@ class DAssociation : IAssociation {
     // Target table instance
     protected IORMTable _targetTable;
 
-    /**
-     * The type of join to be used when adding the association to a query
-     * /
-    protected string _joinType = Query::JOIN_TYPE_LEFT;
 
 
     /**

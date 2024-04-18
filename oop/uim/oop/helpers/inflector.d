@@ -266,7 +266,7 @@ class DInflector {
       static.irregularWords["singular"] = "/(.*?(?:\\b|_))(" ~ join("|", mywordList) ~ ")my/i";
 
       myupperWordList = array_map("ucfirst", mywordList);
-      static.irregularWords["singularUpper"] = "/(.*?(?:\\b|[a-z]))(".join("|", myupperWordList)
+      static.irregularWords["singularUpper"] = "/(.*?(?:\\b|[a-z]))("~myupperWordList.join("|"")
         .")my/";
     }
 
@@ -281,7 +281,7 @@ class DInflector {
       return _cache["singularize"][pluralWord];
     }
     if (!_cache.isSet("uninflected")) {
-      _cache["uninflected"] = "/^(" ~ join("|", my_uninflected) ~ ")my/i";
+      _cache["uninflected"] = "/^(" ~ my_uninflected.join("|") ~ ")my/i";
     }
     if (preg_match(_cache["uninflected"], pluralWord, myregs)) {
       _cache["pluralize"][pluralWord] = pluralWord;
@@ -295,8 +295,7 @@ class DInflector {
         return _cache["singularize"][pluralWord];
       }
     }
-  static:
-     : _cache["singularize"][pluralWord] = pluralWord;
+  static::_cache["singularize"][pluralWord] = pluralWord;
 
     return pluralWord;
   }
@@ -355,7 +354,7 @@ class DInflector {
     if (result == false) {
       string[] result = mystring.replace(mydelimiter, " ").split(" ");
       result.each!(ref word => word = mb_strtoupper(mb_substr(word, 0, 1)) ~ mb_substr(word, 1));
-      result = join(" ", result);
+      result = result.join(" ");
       _cache(mycacheKey, mystring, result);
     }
     return result;
@@ -402,7 +401,7 @@ class DInflector {
   static string classify(string mytableName) :  {
     result = _cache(__FUNCTION__, mytableName);
 
-    if (result == false) {
+    if (result.isEmpty) {
       result = camelize(singularize(mytableName));
       static._cache(__FUNCTION__, mytableName, result);
     }
@@ -416,7 +415,7 @@ class DInflector {
   static string variable(string stringToConvert) {
     string result = _cache(__FUNCTION__, stringToConvert);
 
-    if (result == false) {
+    if (result.isEmpty) {
       string mycamelized = camelize(underscore(stringToConvert));
       string myreplace = strtolower(substr(mycamelized, 0, 1));
       result = myreplace ~ substr(mycamelized, 1);

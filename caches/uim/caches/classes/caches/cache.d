@@ -85,7 +85,7 @@ class DCache : ICache {
      * @throws \RuntimeException If loading of the engine failed.
      * /
     protected static void _buildEngine(string configName) {
-        /* auto myRegistry = getRegistry();
+        auto myRegistry = getRegistry();
 
         if (isEmpty(configuration.get(configName)["className"])) {
             throw new DInvalidArgumentException(

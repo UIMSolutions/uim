@@ -64,12 +64,12 @@ import uim.http;
  */
 class DClientResponse { // }: Message : IResponse {
     mixin TMessage;
-    /* 
 
-    /**
-     * The status code of the response.
-     */
+    // The status code of the response.
     protected int code = 0;
+
+    // The reason phrase for the status code
+    protected string _reasonPhrase;
 
     /**
      * Cookie Collection instance
@@ -78,10 +78,6 @@ class DClientResponse { // }: Message : IResponse {
      * /
     protected ICookieCollection cookies = null;
 
-    /**
-     * The reason phrase for the status code
-     * /
-    protected string areasonPhrase;
 
     /**
      * Cached decoded XML data.
@@ -340,14 +336,10 @@ class DClientResponse { // }: Message : IResponse {
         return _xml;
     }
     
-    /**
-     * Provides magic __get() support.
-     * /
-    protected string[] _getHeaders() {
-         auto result;
-        foreach (this.headers as aKey:  someValues) {
-             result[aKey] = join(",",  someValues);
-        }
+    // Provides magic __get() support.
+    protected STRINGAA _getHeaders() {
+        auto results;
+        this.headers.byKeyValue.each!(kv => results[kv.key] = kv.value.join(","));
         return result;
     }
     

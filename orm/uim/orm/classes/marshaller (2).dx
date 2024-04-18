@@ -780,22 +780,22 @@ class DMarshaller
      * @return array<DORMDatasource\IEntity> An array of entities
      */
     protected function _mergeJoinData(array original, BelongsToMany assoc, array value, IData[string] optionData) {
-        associated = options.get("associated", null);
-        extra = null;
-        foreach (original as entity) {
+        auto associated = options.get("associated", null);
+        auto extra = null;
+        original.each!((entity) {
             // Mark joinData as accessible so we can marshal it properly.
             entity.setAccess("_joinData", true);
 
-            joinData = entity.get("_joinData");
-            if (joinData && joinData instanceof IEntity) {
-                extra[spl_object_hash(entity)] = joinData;
+            auto joinData = entity.get("_joinData");
+            if (auto myEntity = cast(IEntity)joinData) {
+                extra[spl_object_hash(entity)] = myEntity;
             }
-        }
+        });
 
-        joint = assoc.junction();
-        marshaller = joint.marshaller();
+        auto joint = assoc.junction();
+        auto marshaller = joint.marshaller();
 
-        nested = null;
+        auto nested = null;
         if (isset(associated["_joinData"])) {
             nested = (array)associated["_joinData"];
         }
@@ -808,12 +808,12 @@ class DMarshaller
             value = record.get("_joinData");
 
             // Already an entity, no further marshalling required.
-            if (value instanceof IEntity) {
+            if (cast(IEntity)value) {
                 continue;
             }
 
             // Scalar data can"t be handled
-            if (!(value.isArray) {
+            if (!value.isArray) {
                 record.unset("_joinData");
                 continue;
             }
@@ -838,8 +838,8 @@ class DMarshaller
      * @param array<string, mixed> options List of options that are readOnly.
      */
     protected void dispatchAfterMarshal(IEntity anEntity, array data, IData[string] optionData = null) {
-        data = new ArrayObject(data);
-        options = new ArrayObject(options);
+        auto data = new ArrayObject(data);
+        auto options = new ArrayObject(options);
         _table.dispatchEvent("Model.afterMarshal", compact("entity", "data", "options"));
     }
 }

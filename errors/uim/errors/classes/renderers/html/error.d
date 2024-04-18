@@ -20,7 +20,7 @@ class DHtmlErrorRenderer : IErrorRenderer {
         if (!debug) {
             return "";
         }
-         anId = "uimErr" ~ uniqid();
+        string anId = "uimErr" ~ uniqid();
         file = error.getFile();
 
         // Some of the error data is not HTML safe so we escape everything.
@@ -39,7 +39,7 @@ class DHtmlErrorRenderer : IErrorRenderer {
         if (file && line) {
             excerpt = Debugger.excerpt(file, line, 1);
         }
-        code = join("\n", excerpt);
+        string code = excerpt.join("\n");
 
         return <<<HTML
 <div class="uim-error">
@@ -60,7 +60,7 @@ HTML;
      * @param string asuffix The element selector.
      * /
     private string renderToggle(string textToInsert, string aid, string asuffix) {
-        selector = anId ~ "-" ~ suffix;
+        string selector = anId ~ "-" ~ suffix;
         
         return <<<HTML
 <a href="javascript:void(0);"

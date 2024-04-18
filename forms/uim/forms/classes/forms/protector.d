@@ -332,7 +332,7 @@ class DFormProtector {
         fields += locked;
 
         fields = this.generateHash(fields, unlockedFields, url, sessionId);
-        locked = join("|", locked.keys);
+        locked = locked.keys.join("|");
 
         return [
             "fields": urlencode(fields ~ ":" ~ locked),
@@ -357,11 +357,11 @@ class DFormProtector {
         hashParts = [
             url,
             serialize(fields),
-            join("|", unlockedFields),
+            unlockedFields.join("|"),
             sessionId,
         ];
 
-        return hash_hmac("sha1", join("", hashParts), Security.getSalt());
+        return hash_hmac("sha1", hashParts.join(""), Security.getSalt());
     }
     
     /**
@@ -428,7 +428,7 @@ class DFormProtector {
     ) {
         messages = this.matchExistingFields(someDataFields, expectedFields,  anIntKeyMessage, stringKeyMessage);
         expectedFieldsMessage = this.debugExpectedFields(expectedFields, missingMessage);
-        if (expectedFieldsMessage !isNull) {
+        if (!expectedFieldsMessage.isNull) {
             messages ~= expectedFieldsMessage;
         }
         return messages;

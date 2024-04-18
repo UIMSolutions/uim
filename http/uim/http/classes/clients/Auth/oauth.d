@@ -321,7 +321,7 @@ class DOauth
      * Check for SSL errors and throw an exception if found.
      * /
     protected void checkSslError() {
-        error = "";
+        string error = "";
         while (text = openssl_error_string()) {
             error ~= text;
         }

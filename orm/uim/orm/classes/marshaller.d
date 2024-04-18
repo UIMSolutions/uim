@@ -561,7 +561,7 @@ class DMarshaller {
             .groupBy(function (myel) use (myprimary) {
                 auto someKeys = myprimary
                     .map!(key => myel.get(key, "")).array;
-                return join(";", someKeys);
+                return someKeys.join(";");
             })
             .map(function (myelement, aKey) {
                 return aKey == "" ? myelement : myelement[0];
@@ -572,17 +572,17 @@ class DMarshaller {
         unset(myindexed[""]);
         myoutput = null;
 
-        foreach (myentity; myentities) {
-            if (!(cast(IEntity)myentity)) {
-                continue;
+        myentities.each!((entity) {
+            if (auto myEntity = cast(IEntity)entity)) {
+                auto aKey = myEntity.extract(myprimary).join(";");
+                if (!isSet(myindexed[aKey])) {
+                    continue;
+                }
+                myoutput ~= this.merge(myEntity, myindexed[aKey], options);
+                unset(myindexed[aKey]);
             }
-            aKey = join(";", myentity.extract(myprimary));
-            if (!isSet(myindexed[aKey])) {
-                continue;
-            }
-            myoutput ~= this.merge(myentity, myindexed[aKey], options);
-            unset(myindexed[aKey]);
         }
+
         myconditions = (new DCollection(myindexed))
             .map(function (mydata, aKey) {
                 return to!string(aKey).split(";");

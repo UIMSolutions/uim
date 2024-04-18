@@ -20,7 +20,7 @@ import uim.errors;
  * If undefined, an ExceptionRenderer will be selected based on the current SAPI (CLI or Web).
  */
 class DExceptionTrap {
-    mixin TRequest;
+    // TODO mixin TRequest;
 
     /**
      * Configuration options. Generally these will be defined in your config/app.d

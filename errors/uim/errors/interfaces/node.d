@@ -10,8 +10,8 @@ import uim.errors;
  */
 interface IErrorNode {
     // Get the child nodes of this node.
-    IErrorNode[] getChildren();
+    // TODO IErrorNode[] getChildren();
 
     // Get the contained value.
-    IData getValue();
+    // TODO IData getValue();
 }

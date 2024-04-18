@@ -24,7 +24,7 @@ import uim.errors;
  * If undefined, an ExceptionRenderer will be selected based on the current SAPI (CLI or Web).
  */
 class DExceptionTrap {
-    mixin TEventDispatcher;
+    // TODO mixin TEventDispatcher;
     mixin TConfigurable;
 
     this() {

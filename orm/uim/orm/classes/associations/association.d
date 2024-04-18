@@ -92,7 +92,7 @@ class DAssociation : IAssociation {
     protected bool _dependent = false;
 
     // The type of join to be used when adding the association to a query
-    protected string _joinType = Query::JOIN_TYPE_LEFT;
+    // TODO protected string _joinType = DQuery.JOIN_TYPE_LEFT;
 /* 
     // TODO use TConventions;
     // TODO use TLocatorAware;

@@ -146,7 +146,7 @@ class DConsoleOptionParser {
         * the options and arguments listing when help is generated. */
         mixin(TProperty!("string", "epilog")); 
 
-        void epilog(string[] texts) {
+        @property void epilog(string[] texts) {
             epilog(texts.join("\n"));
         }        
     // #endregion epilog

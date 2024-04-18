@@ -14,7 +14,7 @@ import uim.errors;
  */
 class DConsoleErrorHandler { // } : DERRErrorHandler {
     // Standard error stream.
-    protected DCONConsoleOutput _stderr;
+    // TODO protected DCONConsoleOutput _stderr;
 
     /**
      * Constructor

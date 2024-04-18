@@ -60,7 +60,7 @@ class DFrontController {
    private DDispatcher _dispatcher;
 
    this() {
-      _dispatcher = new Dispatcher();
+      _dispatcher = new DDispatcher();
    }
 
    private bool isAuthenticUser() {

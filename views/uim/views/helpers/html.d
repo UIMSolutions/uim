@@ -536,7 +536,7 @@ class DHtmlHelper : DHelper {
         if (myoneLine) {
             return result.join(" ");
         }
-        return join("\n", result);
+        return result.join("\n");
     }
     
     /**
@@ -664,15 +664,16 @@ class DHtmlHelper : DHelper {
             mycount = 0;
         }
         auto result = null;
-        foreach (mydata as myline) {
+        mydata.each!((line) {
             mycount++;
-            mycellsOut = _renderCells(myline, myuseCount);
+            mycellsOut = _renderCells(line, myuseCount);
             myopts = mycount % 2 ? myoddTrOptions : myevenTrOptions;
 
             IData[string] htmlAtributes = (array)myopts;
-            result ~= this.tableRow(join(" ", mycellsOut), htmlAtributes);
-        }
-        return join("\n", result);
+            result ~= this.tableRow(mycellsOut.join(" "), htmlAtributes);
+        });
+
+        return result.join("\n");
     }
     
     /**

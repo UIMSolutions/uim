@@ -36,7 +36,7 @@ class DDebugger {
             "outputMask": ArrayData,
             "exportFormatter": NullData,
             "editor": StringData("Dstorm"),
-        ];
+        ]);
 
     _editors = [
         "atom": "atom://core/open/file?filename={file}&line={line}",

@@ -190,16 +190,14 @@ class DRulesChecker { // }: BaseRulesChecker {
             }
         }
         if (!mymessage) {
-            if (_useI18n) {
-                mymessage = __d(
+            myMessage = _useI18n
+                ? __d(
                     "uim",
                     "Cannot modify row: a constraint for the `{0}` association fails.",
                     myassociationAlias
-                );
-            } else {
-                mymessage = "Cannot modify row: a constraint for the `%s` association fails."
+                )
+                : "Cannot modify row: a constraint for the `%s` association fails."
                     .format(myassociationAlias);
-            }
         }
         myrule = new DLinkConstraint(
             myassociation,

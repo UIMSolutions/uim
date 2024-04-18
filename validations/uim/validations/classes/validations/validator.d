@@ -2304,11 +2304,10 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * /
     auto longitude(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage is null) {
-            if (!_useI18n) {
-                myMessage = "The provided value must be a longitude";
-            } else {
-                myMessage = __d("uim", "The provided value must be a longitude");
-            }
+            myMessage = !_useI18n
+                ? "The provided value must be a longitude"
+                : __d("uim", "The provided value must be a longitude");
+
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 

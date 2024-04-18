@@ -375,10 +375,11 @@ class DSelectLoader {
             foreach (aKey as myKey) {
                  someValues ~= result[myKey];
             }
-            if (singleResult) {
-                resultMap[join(";",  someValues)] = result;
-            } else {
-                resultMap[join(";",  someValues)] ~= result;
+
+            auto joinvalue = join(";",  someValues);
+            resultMap[joinvalue] = singleResult
+                ? result
+                : resultMap[joinvalue] ~ result;
             }
         }
         return resultMap;

@@ -53,11 +53,9 @@ mixin template TViewVars() {
      * /
     void set(string[] views, IData aValue = null) {
         if (views.isArray) {
-            if (myvalue.isArray) {
-                mydata = array_combine(views, myvalue);
-            } else {
-                mydata = views;
-            }
+            mydata = myvalue.isArray
+                ? array_combine(views, myvalue)
+                : views;
         } else {
             mydata = [views: myvalue];
         }

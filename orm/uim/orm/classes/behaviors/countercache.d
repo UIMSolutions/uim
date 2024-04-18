@@ -224,11 +224,10 @@ class DCounterCacheBehavior : DBehavior {
                 }
             }
             if (isSet(myupdateOriginalConditions) && _shouldUpdateCount(myupdateOriginalConditions)) {
-                if (cast(DClosure)configData) {
-                    mycount = configData(myevent, myentity, _table, true);
-                } else {
-                    mycount = _getCount(configData, mycountOriginalConditions);
-                }
+                mycount = cast(DClosure)configData
+                    ? configData(myevent, myentity, _table, true)
+                    : _getCount(configData, mycountOriginalConditions);
+
                 if (mycount != false) {
                     myassoc.getTarget().updateAll([myfield: mycount], myupdateOriginalConditions);
                 }

@@ -1763,11 +1763,10 @@ class DFormHelper : DHelper {
         if (myisUrl) {
             options["src"] = mycaption;
         } elseif (myisImage) {
-            if (mycaption[0] != "/") {
-                myurl = this.Url.webroot(Configure.read("App.imageBaseUrl") ~ mycaption);
-            } else {
-                myurl = this.Url.webroot(trim(mycaption, "/"));
-            }
+            myUrl = mycaption[0] != "/" 
+                ? this.Url.webroot(Configure.read("App.imageBaseUrl") ~ mycaption)
+                : this.Url.webroot(trim(mycaption, "/"));
+
             myurl = this.Url.assetTimestamp(myurl);
             options["src"] = myurl;
         } else {

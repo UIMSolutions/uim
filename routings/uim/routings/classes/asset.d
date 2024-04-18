@@ -271,10 +271,9 @@ class DAsset
                 }
             }
         }
-        if (webPath.has("//")) {
-            return (webPath ~ asset[1]).replace("//", "/");
-        }
-        return webPath ~ asset[1];
+        return webPath.has("//")
+            ? webPath ~ asset[1]).replace("//", "/")
+            : webPath ~ asset[1];
     }
     
     /**

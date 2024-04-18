@@ -122,11 +122,10 @@ class DHtmlHelper : DHelper {
             if (isSet(mytypes[mytype])) {
                 mytype = mytypes[mytype];
             } elseif (!htmlAtributes.isSet("type") && mycontent !isNull) {
-                if (isArray(mycontent) && isSet(mycontent["_ext"])) {
-                    mytype = mytypes[mycontent["_ext"]];
-                } else {
-                    mytype = ["name": mytype, "content": mycontent];
-                }
+                mytype = isArray(mycontent) && isSet(mycontent["_ext"])
+                    ? mytypes[mycontent["_ext"]]
+                    : ["name": mytype, "content": mycontent];
+
             } elseif (isSet(htmlAtributes["type"], mytypes[htmlAtributes["type"]])) {
                 mytype = mytypes[htmlAtributes["type"]];
                 unset(htmlAtributes["type"]);
@@ -138,11 +137,10 @@ class DHtmlHelper : DHelper {
         string result = "";
 
         if (isSet(htmlAtributes["link"])) {
-            if (isArray(htmlAtributes["link"])) {
-                htmlAtributes["link"] = this.Url.build(htmlAtributes["link"]);
-            } else {
-                htmlAtributes["link"] = this.Url.assetUrl(htmlAtributes["link"]);
-            }
+            htmlAtributes["link"] = isArray(htmlAtributes["link"]) 
+                ? this.Url.build(htmlAtributes["link"])
+                this.Url.assetUrl(htmlAtributes["link"]);
+
             if (isSet(htmlAtributes["rel"]) && htmlAtributes["rel"] == "icon") {
                 result = this.formatTemplate("metalink", [
                     "url": htmlAtributes["link"],

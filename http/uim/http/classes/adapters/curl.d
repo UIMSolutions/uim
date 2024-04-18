@@ -140,7 +140,7 @@ class DCurl { // }: IAdapter {
                 ? CURL_HTTP_VERSION_2TLS
                 : (defined("CURL_HTTP_VERSION_2_0")
                     ? CURL_HTTP_VERSION_2_0
-                    : throw new HttpException("libcurl 7.33 or greater required for HTTP/2 support")
+                    : throw new DHttpException("libcurl 7.33 or greater required for HTTP/2 support")
                 ),
             default: CURL_HTTP_VERSION_NONE,
         };

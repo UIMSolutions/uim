@@ -84,7 +84,7 @@ class DConsoleIo {
        _out = result ? result : new DConsoleOutput("uim://stdout");
        _err = err ?: new DConsoleOutput("uim://stderr");
        _in = anIn ?: new DConsoleInput("uim://stdin");
-       _helpers = helpers ?: new HelperRegistry();
+       _helpers = helpers ?: new DHelperRegistry();
        _helpers.setIo(this);
     }
     

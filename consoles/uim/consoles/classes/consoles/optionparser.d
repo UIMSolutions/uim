@@ -468,16 +468,16 @@ class DConsoleOptionParser {
             if (!isSet(params[name]) && prompt) {
                 if (!aConsoleIo) {
                     throw new DConsoleException(
-                        'Cannot use interactive option prompts without a ConsoleIo instance. ' .
-                        'Please provide a ` aConsoleIo` parameter to `parse()`.'
+                        "Cannot use interactive option prompts without a ConsoleIo instance. ' .
+                        "Please provide a ` aConsoleIo` parameter to `parse()`.'
                     );
                 }
                 choices = option.choices();
-                if (choices) {
-                    aValue = aConsoleIo.askChoice(prompt, choices);
-                } else {
-                    aValue = aConsoleIo.ask(prompt);
-                }
+
+                aValue = choices
+                    ? aConsoleIo.askChoice(prompt, choices)
+                    : aConsoleIo.ask(prompt);
+
                 params[name] = aValue;
             }
             if (option.isRequired() && !isSet(params[name])) {
@@ -499,7 +499,7 @@ class DConsoleOptionParser {
      * @param int width The width to format user content to. Defaults to 72
      * /
     string help(string aformat = "text", int width = 72) {
-        formatter = new HelpFormatter(this);
+        formatter = new DHelpFormatter(this);
         formatter.aliasName(_rootName);
 
         if (format == "text") {

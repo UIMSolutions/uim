@@ -50,19 +50,20 @@ class DConsoleInput {
 
     // Read a value from the stream
     string read() {
+        string line; 
         if (_canReadline) {
-            auto line = readline("");
+            line = readline("");
 
-            if (line != false && !line.isEmpty) {
+            if (!line.isEmpty) {
                 readline_add_history(line);
             }
         } else {
             line = fgets(_input);
         }
-        if (line == false) {
-            return null;
-        }
-        return line;
+
+        return line.isEmpty
+            ? null
+            : line;
     }
     
     // Check if data is available on stdin

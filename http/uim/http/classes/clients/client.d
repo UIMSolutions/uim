@@ -128,7 +128,7 @@ class DClient { // }: IClient {
   protected IAdapter my_adapter;
 
   /**
-     * Create a new HTTP Client.
+     * Create a new DHTTP Client.
      *
      * ### Config options
      *

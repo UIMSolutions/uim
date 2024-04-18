@@ -42,7 +42,7 @@ class Dispatcher {
    
    this() {
       _studentView = new DStudentView();
-      _homeView = new HomeView();
+      _homeView = new DHomeView();
    }
 
    void dispatch(string request) {

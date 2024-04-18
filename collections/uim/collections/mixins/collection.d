@@ -359,7 +359,7 @@ mixin template TCollection() {
     }
  
     ICollection appendItem(IData myitem, string aKey = null) {
-        myData = aKey !isNull 
+        auto myData = aKey !isNull 
             ? [aKey: myitem]
             : [myitem];
 
@@ -371,11 +371,10 @@ mixin template TCollection() {
     }
  
     ICollection prependItem(IData myitem, string aKey = null) {
-        if (aKey !isNull) {
-            mydata = [aKey: myitem];
-        } else {
-            mydata = [myitem];
-        }
+        auto mydata = aKey !isNull
+            ? [aKey: myitem]
+            : [myitem];
+
         return this.prepend(mydata);
     }
  
@@ -391,15 +390,15 @@ mixin template TCollection() {
         ];
 
         mymapper = auto (myvalue, aKey, MapReduce mymapReduce) use (options) {
-            myrowKey = options["keyPath"];
-            myrowVal = options["valuePath"];
+            auto myrowKey = options["keyPath"];
+            auto myrowVal = options["valuePath"];
 
             if (!options["groupPath"]) {
                 mymapKey = myrowKey(myvalue, aKey);
                 if (mymapKey is null) {
                     throw new DInvalidArgumentException(
-                        'Cannot index by path that does not exist or contains a null value. ' .
-                        'Use a callback to return a default value for that path.'
+                        "Cannot index by path that does not exist or contains a null value. ' .
+                        "Use a callback to return a default value for that path.'
                     );
                 }
                 mymapReduce.emit(myrowVal(myvalue, aKey), mymapKey);

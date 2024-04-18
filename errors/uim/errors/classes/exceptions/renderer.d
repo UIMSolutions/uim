@@ -44,7 +44,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
     /**
      * Template to render for {@link uim.uim.Core\exceptions.UIMException}
      * /
-    protected string myTemplate = "";
+    protected string _template = "";
 
     /**
      * The method corresponding to the Exception this object is for.

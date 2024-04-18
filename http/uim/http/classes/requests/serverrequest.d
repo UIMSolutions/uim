@@ -9,6 +9,15 @@ import uim.http;
  * Provides methods commonly used to introspect on the request headers and request body.
  */
 class DServerRequest { // }: IServerRequest {
+    // Array of cookie data.
+    protected IData[string] cookies = null;
+
+    // Array of environment data.
+    protected IData[string] _environment = null;
+
+    // Base URL path.
+    protected string abase;
+
     /**
      * Array of parameters parsed from the URL.
      *
@@ -38,20 +47,6 @@ class DServerRequest { // }: IServerRequest {
      * /
     protected array aQuery = null;
 
-    /**
-     * Array of cookie data.
-     * /
-    protected IData[string] cookies = null;
-
-    /**
-     * Array of environment data.
-     * /
-    protected IData[string] _environment = null;
-
-    /**
-     * Base URL path.
-     * /
-    protected string abase;
 
     /**
      * webroot path segment for the request.

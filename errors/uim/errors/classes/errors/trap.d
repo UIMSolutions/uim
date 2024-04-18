@@ -41,8 +41,8 @@ class DErrorTrap {
         * - `trace` - boolean - Whether or not backtraces should be included in logged errors.
         */
         configuration.updateDefaults([
-            "errorLevel": E_ALL,
-            "errorRenderer": null,
+            // TODOD "errorLevel": E_ALL,
+            "errorRenderer": NullData,
             "log": BooleanData(true),
             "logger": ErrorLogger.classname,
             "trace": BooleanData(false),

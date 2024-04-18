@@ -43,6 +43,8 @@ class DExceptionTrap {
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
+
+        return true;
     }
 
  /**

@@ -32,7 +32,8 @@ class DArrayErrorNode : IErrorNode {
 
   // Get the contained items
   string value() {
-    return _items.map!(item => item.value).join(", ");
+    return null;
+    // TODO return _items.map!(item => item.value).join(", ");
   }
 
   // Get Item nodes

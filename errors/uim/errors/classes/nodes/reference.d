@@ -31,7 +31,7 @@ class DReferenceNode : IErrorNode {
     private string _className;
     // Get the class name/value
     string value() {
-        return className;
+        return _className;
     }
 
     private int _id;

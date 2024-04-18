@@ -50,7 +50,8 @@ class DCacheClearGroupCommand : DCommand {
 
       return CODE_ERROR;
     }
-    configData = commandArguments.getArgument("config");
+    
+    auto configData = commandArguments.getArgument("config");
     if (!configData.isNull && Cache.configuration.get(configData) is null) {
       aConsoleIo.error("Cache config " % s" not found".format(configData));
 

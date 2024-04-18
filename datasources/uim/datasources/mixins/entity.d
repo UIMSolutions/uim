@@ -911,41 +911,57 @@ mixin template TEntity() {
      * Params:
      * string afield the field in this entity to check for errors
     * /
-                                protected array _nestedErrors(
-                                string fieldName) {
-                                  // Only one path element, check for nested entity with error.
-                                  if (!fieldName.has(".")) {
-                                    entity = get(fieldName); if (cast(IEntity)entity || is_iterable(
-                                      entity)) {
-                                      return _readError(entity);}
-                                      return null;}
-                                      // Try reading the errors data with field as a simple path
-                                      error = Hash.get(_fieldErrors, fieldName); if (error!isNull) {
-                                        return error;}
-                                        somePath = split(".", fieldName); // Traverse down the related entities/arrays for
-                                        // the relevant entity.
-                                        entity = this; len = count(
-                                        somePath); while (len) {
-                                          stringpart = array_shift(
-                                          somePath); len = count(
-                                          somePath); val = null; if (cast(IEntity)entity) {
-                                            val = entity.get(part);}
-                                            else if(isArray(entity)) {
-                                              val = entity[part] ?  ? false;}
-                                              if (
-                                                isArray(val) ||
-                                              cast(Traversable) val ||
-                                              cast(IEntity) val
-                                                ) {
-                                                entity = val;} else {
-                                                  somePath ~= part; break;}
-                                                }
-                                                if (count(somePath) <= 1) {
-                                                  return _readError(entity, array_pop(
-                                                  somePath));}
-                                                  return null;}
+  protected array _nestedErrors(
+    string fieldName) {
+    // Only one path element, check for nested entity with error.
+    if (!fieldName.has(".")) {
+      entity = get(fieldName);
+      if (cast(IEntity) entity || is_iterable(
+          entity)) {
+        return _readError(entity);
+      }
+      return null;
+    }
+    // Try reading the errors data with field as a simple path
+    error = Hash.get(_fieldErrors, fieldName);
+    if (error!isNull) {
+      return error;
+    }
+    somePath = split(".", fieldName); // Traverse down the related entities/arrays for
+    // the relevant entity.
+    entity = this;
+    len = count(
+      somePath);
+    while (len) {
+      stringpart = array_shift(
+        somePath);
+      len = count(
+        somePath);
+      val = null;
+      if (cast(IEntity) entity) {
+        val = entity.get(part);
+      } else if (isArray(entity)) {
+        val = entity[part] ?  ? false;
+      }
+      if (
+        isArray(val) ||
+        cast(Traversable) val ||
+        cast(IEntity) val
+        ) {
+        entity = val;
+      } else {
+        somePath ~= part;
+        break;
+      }
+    }
+    if (count(somePath) <= 1) {
+      return _readError(entity, array_pop(
+          somePath));
+    }
+    return null;
+  }
 
-                                                  /**
+  /**
      * Reads if there are errors for one or many objects.
      * Params:
      * \UIM\Datasource\IEntity|array object The object to read errors from.

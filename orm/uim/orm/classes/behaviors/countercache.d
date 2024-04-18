@@ -165,11 +165,12 @@ class DCounterCacheBehavior : DBehavior {
      * \UIM\Event\IEvent<\ORM\Table> myevent Event instance.
      * @param \UIM\Datasource\IEntity myentity Entity.
      * /
-    protected void _processAssociations(IEvent myevent, IEntity myentity) {
-        foreach (configuration as myassoc: mysettings) {
-            myassoc = _table.getAssociation(myassoc);
-           _processAssociation(myevent, myentity, myassoc, mysettings);
-        }
+    protected void _processAssociations(IEvent anEvent, IEntity anEntity) {
+        configuration.byKeyValue
+            .each!((assocSettings) {
+                auto newAssoc = _table.getAssociation(assocSettings.key);
+                _processAssociation(anEvent, anEntity, newAssoc, assocSettings.value);
+            }
     }
     
     /**
@@ -203,35 +204,37 @@ class DCounterCacheBehavior : DBehavior {
         if (mycountOriginalConditions != []) {
             myupdateOriginalConditions = array_combine(myprimaryKeys, mycountOriginalConditions);
         }
-        foreach (mysettings as myfield: configData) {
-            if (isInt(myfield)) {
-                myfield = configData;
-                configData = null;
-            }
-            if (
-                isSet(_ignoreDirty[myassoc.getTarget().registryKey()][myfield]) &&
-               _ignoreDirty[myassoc.getTarget().registryKey()][myfield] == true
-            ) {
-                continue;
-            }
-            if (_shouldUpdateCount(myupdateConditions)) {
-                mycount = cast(DClosure)configData
-                    ? configData(myevent, myentity, _table, false)
-                    : _getCount(configData, mycountConditions);
 
-                if (mycount != false) {
-                    myassoc.getTarget().updateAll([myfield: mycount], myupdateConditions);
+        mysettings.byKeyValue
+            .each((fieldData) {
+                if (isInt(myfield)) {
+                    myfield = fieldData.value;
+                    fieldData.value = null;
                 }
-            }
-            if (isSet(myupdateOriginalConditions) && _shouldUpdateCount(myupdateOriginalConditions)) {
-                mycount = cast(DClosure)configData
-                    ? configData(myevent, myentity, _table, true)
-                    : _getCount(configData, mycountOriginalConditions);
+                if (
+                    isSet(_ignoreDirty[myassoc.getTarget().registryKey()][myfield]) &&
+                _ignoreDirty[myassoc.getTarget().registryKey()][myfield] == true
+                ) {
+                    continue;
+                }
+                if (_shouldUpdateCount(myupdateConditions)) {
+                    mycount = cast(DClosure)fieldData.value
+                        ? fieldData.value(myevent, myentity, _table, false)
+                        : _getCount(fieldData.value, mycountConditions);
 
-                if (mycount != false) {
-                    myassoc.getTarget().updateAll([myfield: mycount], myupdateOriginalConditions);
+                    if (mycount != false) {
+                        myassoc.getTarget().updateAll([myfield: mycount], myupdateConditions);
+                    }
                 }
-            }
+                if (isSet(myupdateOriginalConditions) && _shouldUpdateCount(myupdateOriginalConditions)) {
+                    mycount = cast(DClosure)fieldData.value
+                        ? fieldData.value(myevent, myentity, _table, true)
+                        : _getCount(fieldData.value, mycountOriginalConditions);
+
+                    if (mycount != false) {
+                        myassoc.getTarget().updateAll([myfield: mycount], myupdateOriginalConditions);
+                    }
+                }
         }
     }
     

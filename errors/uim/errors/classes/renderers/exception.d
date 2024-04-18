@@ -267,21 +267,19 @@ class DExceptionRenderer : IExceptionRenderer {
      * Get error message.
      *
      * @param \Throwable myException Exception.
-     * @param int code Error code.
+     * @param int errorCode Error errorCode.
      * @return string Error message
      * /
-    protected string _message(Throwable myException, int code) {
-        myMessage = myException.getMessage();
+    protected string _message(Throwable myException, int errorCode) {
+        auto myMessage = myException.getMessage();
 
         if (
             !Configure::read("debug") &&
             !(myException instanceof HttpException)
         ) {
-            if (code < 500) {
-                myMessage = __d("uim", "Not Found");
-            } else {
-                myMessage = __d("uim", "An Internal Error Has Occurred.");
-            }
+            myMessage = errorCode < 500
+                ? __d("uim", "Not Found")
+                : __d("uim", "An Internal Error Has Occurred.");
         }
 
         return myMessage;
@@ -292,12 +290,12 @@ class DExceptionRenderer : IExceptionRenderer {
      *
      * @param \Throwable myException Exception instance.
      * @param string method Method name.
-     * @param int code Error code.
+     * @param int errorCode Error errorCode.
      * @return string Template name
      * /
-    protected string _template(Throwable myException, string method, int code) {
+    protected string _template(Throwable myException, string method, int errorCode) {
         if (myException instanceof HttpException || !Configure::read("debug")) {
-            return this.template = code < 500 ? "error400" : "error500";
+            return this.template = errorCode < 500 ? "error400" : "error500";
         }
 
         if (myException instanceof PDOException) {

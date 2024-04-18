@@ -473,18 +473,15 @@ class DI18nExtractCommand : DCommand {
     /**
      * Prepare a file to be stored
      * Params:
-     * @param string aheader The header content.
      * @param string asentence The sentence to store.
      *  /
-    protected void _store(string domainName, string aheader, string asentence) {
+    protected void _store(string domainName, string headerContent, string asentence) {
        _storage[domainName] ??= null;
 
+        _storage[domainName][sentence] = !_storage[domainName].isSet(sentence))
+            ? headerContent
+           _storage[domainName][sentence] ~ headerContent;
 
-        if (!isSet(_storage[domainName][sentence])) {
-           _storage[domainName][sentence] = aHeader;
-        } else {
-           _storage[domainName][sentence] ~= aHeader;
-        }
     }
     
     /**

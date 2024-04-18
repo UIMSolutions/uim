@@ -86,11 +86,10 @@ class DApplication {
     }
  
     void addPlugin(name, IData[string] configData = null) {
-        if (isString(name)) {
-            plugin = this.plugins.create(name, configData);
-        } else {
-            plugin = name;
-        }
+        plugin = isString(name)
+            ? this.plugins.create(name, configData)
+            : name;
+
         this.plugins.add(plugin);
     }
     

@@ -771,14 +771,10 @@ class DDebugger {
                 foreach (reflectionProperties as reflectionProperty) {
                     reflectionProperty.setAccessible(true);
 
-                    if (
-                        method_exists(reflectionProperty, 'isInitialized') &&
-                        !reflectionProperty.isInitialized(var)
-                    ) {
-                        value = new DSpecialNode('[uninitialized]');
-                    } else {
-                        value = export(reflectionProperty.getValue(var), context.withAddedDepth());
-                    }
+                    value = method_exists(reflectionProperty, 'isInitialized') && !reflectionProperty.isInitialized(var) 
+                        ? new DSpecialNode('[uninitialized]')
+                        : export(reflectionProperty.getValue(var), context.withAddedDepth());
+
                     node.addProperty(
                         new DPropertyNode(
                             reflectionProperty.getName(),

@@ -359,11 +359,10 @@ mixin template TCollection() {
     }
  
     ICollection appendItem(IData myitem, string aKey = null) {
-        if (aKey !isNull) {
-            mydata = [aKey: myitem];
-        } else {
-            mydata = [myitem];
-        }
+        myData = aKey !isNull 
+            ? [aKey: myitem]
+            : [myitem];
+
         return this.append(mydata);
     }
  

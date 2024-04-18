@@ -80,11 +80,11 @@ mixin template TModelAware() {
             modelClass = alias;
         }
         factory = _modelFactories[modelType] ?? FactoryLocator.get(modelType);
-        if (cast(ILocator)factory) {
-             anInstance = factory.get(modelClass, options);
-        } else {
-             anInstance = factory(modelClass, options);
-        }
+
+        anInstance = cast(ILocator)factory
+            ? factory.get(modelClass, options)
+            : factory(modelClass, options);
+
         if (anInstance) {
             return anInstance;
         }

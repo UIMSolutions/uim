@@ -136,11 +136,9 @@ class DWidgetLocator {
             myreflection = new DReflectionClass(myclassName);
             myarguments = [_stringTemplate];
             foreach (configData as myrequirement) {
-                if (myrequirement == "_view") {
-                    myarguments ~= _view;
-                } else {
-                    myarguments ~= get(myrequirement);
-                }
+                myarguments ~= myrequirement == "_view"
+                    ? _view
+                    : get(myrequirement);
             }
             myinstance = myreflection.newInstanceArgs(myarguments);
         } else {

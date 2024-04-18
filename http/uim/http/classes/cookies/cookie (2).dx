@@ -172,9 +172,10 @@ class DCookie : ICookie {
         } else {
             someParts = preg_split("/\;[\t]*/", cookieHeader) ?: [];
         }
-        nameValue = split("=", (string)array_shift(someParts), 2);
-        name = array_shift(nameValue);
-        aValue = array_shift(nameValue) ?? "";
+        
+        string[] nameValues = split("=", (string)array_shift(someParts), 2);
+        string name = array_shift(nameValues);
+        string aValue = array_shift(nameValues) ?? "";
 
         someData = [
                 "name": urldecode(name),

@@ -99,7 +99,7 @@ class MoFileParser {
             translated = (string) fread(stream, length);
 
             if (pluralId!isNull || translated.has("\000")) {
-                string[] translated = split("\000", translated);
+                string[] translated = translated.split("\000");
                 plurals = pluralId!isNull ? translated : null;
                 translated = translated[0];
             }

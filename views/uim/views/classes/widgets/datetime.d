@@ -163,6 +163,7 @@ class DDateTimeWidget : DWidget {
             }
             mydateTime = mydateTime.setTimezone(mytimezone);
         }
+        
         if (isSet(options["format"])) {
             myformat = options["format"];
         } else {

@@ -1620,18 +1620,15 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         myformatEnumeration = join(", ", myformats);
 
         if (myMessage is null) {
-            if (!_useI18n) {
-                myMessage = 
-                    "The provided value must be a date and time of one of these formats: `%s`"
+            myMessage = !_useI18n
+                ? "The provided value must be a date and time of one of these formats: `%s`"
                     .format(myformatEnumeration
-                );
-            } else {
-                myMessage = __d(
+                )
+                : __d(
                     "uim",
                     "The provided value must be a date and time of one of these formats: `{0}`",
                     myformatEnumeration
                 );
-            }
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
@@ -2012,11 +2009,10 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * /
     auto numeric(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage is null) {
-            if (!_useI18n) {
-                myMessage = "The provided value must be numeric";
-            } else {
-                myMessage = __d("uim", "The provided value must be numeric");
-            }
+            myMessage = !_useI18n
+                ? "The provided value must be numeric"
+                : __d("uim", "The provided value must be numeric");
+
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
@@ -2093,18 +2089,15 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         myupperBound = array_shift(myrange);
 
         if (myMessage is null) {
-            if (!_useI18n) {
-                myMessage = 
-                    "The provided value must be between `%s` and `%s`, inclusively"
+            myMessage = !_useI18n 
+                ? "The provided value must be between `%s` and `%s`, inclusively"
                     .format(mylowerBound, myupperBound);
-            } else {
-                myMessage = __d(
+                : __d(
                     "uim",
                     "The provided value must be between `{0}` and `{1}`, inclusively",
                     mylowerBound,
                     myupperBound
                 );
-            }
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
@@ -2624,11 +2617,9 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * /
     auto regex(string fieldName, string myregex, string myMessage = null, IClosure|string|null mywhen = null) {
         if (myMessage is null) {
-            if (!_useI18n) {
-                myMessage = "The provided value must match against the pattern `%s`".format(myregex);
-            } else {
-                myMessage = __d("uim", "The provided value must match against the pattern `{0}`", myregex);
-            }
+            myMessage = !_useI18n
+                ? "The provided value must match against the pattern `%s`".format(myregex)
+                : __d("uim", "The provided value must match against the pattern `{0}`", myregex);
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 

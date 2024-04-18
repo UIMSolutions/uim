@@ -604,11 +604,11 @@ class DResponse : IResponse {
     
     // Returns the current content type.
     string[] getType() {
-         aHeader = this.getHeaderLine("Content-Type");
-        if (aHeader.has(";")) {
-            return split(";",  aHeader)[0];
-        }
-        return aHeader;
+        string headerLine = this.getHeaderLine("Content-Type");
+        
+        return headerLine.has(";")
+            ? headerLine.split(";")[0]
+            : headerLine;
     }
     
     /**

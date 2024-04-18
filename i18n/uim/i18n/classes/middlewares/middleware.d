@@ -4,7 +4,7 @@ import uim.i18n;
 
 @safe:
 
-class D18NMiddleware : IMiddleware {
+class D18NMiddleware : II18NMiddleware {
     mixin TConfigurable;
 
     this() {

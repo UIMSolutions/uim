@@ -698,11 +698,11 @@ class DHtmlHelper : DHelper {
             }
             if (myuseCount) {
                 myi += 1;
-                if (isSet(mycellOptions["class"])) {
-                    mycellOptions["class"] ~= " column-" ~ myi;
-                } else {
-                    mycellOptions["class"] = "column-" ~ myi;
-                }
+
+
+                mycellOptions["class"] = isSet(mycellOptions["class"])
+                    ? mycellOptions["class"] ~ " column-" ~ myi
+                    : "column-" ~ myi;
             }
             mycellsOut ~= this.tableCell((string)cell, mycellOptions);
         });

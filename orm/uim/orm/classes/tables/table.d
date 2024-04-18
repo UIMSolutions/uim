@@ -818,7 +818,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
     }
     
     /**
-     * Creates a new HasOne association between this table and a target
+     * Creates a new DHasOne association between this table and a target
      * table. A "has one" association is a 1-1 relationship.
      *
      * Target table can be inferred by its name, which is provided in the
@@ -859,7 +859,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
     }
     
     /**
-     * Creates a new HasMany association between this table and a target
+     * Creates a new DHasMany association between this table and a target
      * table. A "has many" association is a 1-N relationship.
      *
      * Target table can be inferred by its name, which is provided in the

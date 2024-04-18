@@ -693,8 +693,8 @@ class DI18nExtractCommand : DCommand {
             somePath ~= DIRECTORY_SEPARATOR;
             fs = new DFilesystem();
             files = fs.findRecursive(somePath, "/\.d$/");
-            files = iterator_to_array(files).keys;
-            sort(files);
+            files = iterator_to_array(files).keys.sort;
+            
             if (somePattern) {
                 files = preg_grep(somePattern, files, PREG_GREP_INVERT) ?: [];
                 files = files.values;

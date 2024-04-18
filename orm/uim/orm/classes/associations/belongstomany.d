@@ -1353,8 +1353,7 @@ class DBelongsToManyAssociation : DAssociation {
                 tablesNames = array_map("uim\Utility\Inflector::underscore", [
                     this.getSource().getTable(),
                     this.getTarget().getTable(),
-                ]);
-                sort(tablesNames);
+                ])().sort;
                 _junctionTableName = implode("_", tablesNames);
             }
 

@@ -111,7 +111,7 @@ class DAbstractDocumentTest {
       super(properties); }
   }
 
-  private final DocumentImplementation document = new DocumentImplementation(new HashMap<>());
+  private final DocumentImplementation document = new DocumentImplementation(new DHashMap<>());
 
   @Test
   void shouldPutAndGetValue() {

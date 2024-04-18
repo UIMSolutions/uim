@@ -657,12 +657,12 @@ mixin template TIntegrationTest() {
         }
         
         auto verboseMessage = this.extractVerboseMessage(failureMessage);
-        this.assertThat(null, new HeaderSet(_response, "Location"), verboseMessage);
+        this.assertThat(null, new DHeaderSet(_response, "Location"), verboseMessage);
 
         if (url) {
             this.assertThat(
                 Router.url(url, true),
-                new HeaderEquals(_response, "Location"),
+                new DHeaderEquals(_response, "Location"),
                 verboseMessage
             );
         }
@@ -682,10 +682,10 @@ mixin template TIntegrationTest() {
         }
         
         auto verboseMessage = this.extractVerboseMessage(failureMessage);
-        this.assertThat(null, new HeaderSet(_response, "Location"), verboseMessage);
+        this.assertThat(null, new DHeaderSet(_response, "Location"), verboseMessage);
 
         if (url) {
-            this.assertThat(Router.url(url), new HeaderEquals(_response, "Location"), verboseMessage);
+            this.assertThat(Router.url(url), new DHeaderEquals(_response, "Location"), verboseMessage);
         }
     }
     
@@ -701,8 +701,8 @@ mixin template TIntegrationTest() {
         }
         
         auto verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(null, new HeaderSet(_response, "Location"), verboseMessage);
-        this.assertThat(url, new HeaderContains(_response, "Location"), verboseMessage);
+        this.assertThat(null, new DHeaderSet(_response, "Location"), verboseMessage);
+        this.assertThat(url, new DHeaderContains(_response, "Location"), verboseMessage);
     }
     
     /**
@@ -716,14 +716,14 @@ mixin template TIntegrationTest() {
             this.fail("No response set, cannot assert header.");
         }
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(null, new HeaderSet(_response, "Location"), verboseMessage);
-        this.assertThat(url, new HeaderNotContains(_response, "Location"), verboseMessage);
+        this.assertThat(null, new DHeaderSet(_response, "Location"), verboseMessage);
+        this.assertThat(url, new DHeaderNotContains(_response, "Location"), verboseMessage);
     }
     
     // Asserts that the Location header is not set.
     void assertNoRedirect(string failureMessage = null) {
         verboseMessage = this.extractVerboseMessage(failureMessage);
-        this.assertThat(null, new HeaderNotSet(_response, "Location"), verboseMessage);
+        this.assertThat(null, new DHeaderNotSet(_response, "Location"), verboseMessage);
     }
     
     /**
@@ -738,8 +738,8 @@ mixin template TIntegrationTest() {
             this.fail("No response set, cannot assert header.");
         }
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(null, new HeaderSet(_response,  aHeader), verboseMessage);
-        this.assertThat(content, new HeaderEquals(_response,  aHeader), verboseMessage);
+        this.assertThat(null, new DHeaderSet(_response,  aHeader), verboseMessage);
+        this.assertThat(content, new DHeaderEquals(_response,  aHeader), verboseMessage);
     }
     
     /**
@@ -754,8 +754,8 @@ mixin template TIntegrationTest() {
             this.fail("No response set, cannot assert header.");
         }
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(null, new HeaderSet(_response,  aHeader), verboseMessage);
-        this.assertThat(content, new HeaderContains(_response,  aHeader), verboseMessage);
+        this.assertThat(null, new DHeaderSet(_response,  aHeader), verboseMessage);
+        this.assertThat(content, new DHeaderContains(_response,  aHeader), verboseMessage);
     }
     
     /**
@@ -770,8 +770,8 @@ mixin template TIntegrationTest() {
             this.fail("No response set, cannot assert header.");
         }
         verboseMessage = this.extractVerboseMessage(message);
-        this.assertThat(null, new HeaderSet(_response,  aHeader), verboseMessage);
-        this.assertThat(content, new HeaderNotContains(_response,  aHeader), verboseMessage);
+        this.assertThat(null, new DHeaderSet(_response,  aHeader), verboseMessage);
+        this.assertThat(content, new DHeaderNotContains(_response,  aHeader), verboseMessage);
     }
     
     /**

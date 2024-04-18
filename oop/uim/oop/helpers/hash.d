@@ -915,7 +915,7 @@ class Hash {
         mystack = null;
         foreach (mydata as myKey: myr) {
             myid = myKey;
-            if (aKey !isNull) {
+            if (!aKey.isNull) {
                 myid = aKey;
             }
             if (isArray(myr) && !empty(myr)) {

@@ -82,9 +82,6 @@ class DCache : ICache {
     
     /**
      * Finds and builds the instance of the required engine class.
-     * Params:
-     * string configName Name of the config array that needs an engine instance built
- When a cache engine cannot be created.
      * @throws \RuntimeException If loading of the engine failed.
      * /
     protected static void _buildEngine(string configName) {
@@ -136,7 +133,7 @@ class DCache : ICache {
             (cast(DArrayData)configuration.get("groups"]).values.each!((groupName) {
                 my_groups[groupName] ~= configName;
                 my_groups[groupName] = array_unique(my_groups[groupName]);
-                sort(my_groups[groupName]);
+                my_groups[groupName].sort;
             });
         } * /
     }

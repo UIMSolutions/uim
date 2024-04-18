@@ -248,8 +248,8 @@ class DRoute {
 
         // Remove defaults that are also keys. They can cause match failures
         this.keys.each!(key => unset(this.defaults[aKey]));
-        someKeys = this.keys;
-        sort(someKeys);
+        someKeys = this.keys.sort;
+
         this.keys = array_reverse(someKeys);
     }
     
@@ -267,12 +267,13 @@ class DRoute {
             "action": "",
         ];
         foreach (aKey: myglue; someKeys) {
-            myvalue = null;
+            string myvalue; 
             if (this.template.has("{" ~ aKey ~ "}")) {
                 myvalue = "_" ~ aKey;
             } else if (isSet(this.defaults[aKey])) {
                 myvalue = this.defaults[aKey];
             }
+
             if (myvalue is null) {
                 continue;
             }

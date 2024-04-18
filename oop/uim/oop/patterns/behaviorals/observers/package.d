@@ -81,7 +81,7 @@ version(test_uim_oop) { unittest {
 
     DSubject subject = new DSubject();
 
-    new HexaObserver(subject);
+    new DHexaObserver(subject);
     new DOctalObserver(subject);
     new BinaryObserver(subject);
 

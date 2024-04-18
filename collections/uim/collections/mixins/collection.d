@@ -137,12 +137,11 @@ mixin template TCollection() {
     }
  
     aufloat|intto median(string mypath = null) {
-        myitems = this;
+        quto myitems = this;
         if (mypath !isNull) {
             myitems = myitems.extract(mypath);
         }
-        myvalues = myitems.toList();
-        sort(myvalues);
+        myvalues = myitems.toList().sort;
         mycount = count(myvalues);
 
         if (mycount == 0) {
@@ -359,7 +358,7 @@ mixin template TCollection() {
     }
  
     ICollection appendItem(IData myitem, string aKey = null) {
-        auto myData = aKey !isNull 
+        auto myData = !aKey.isNull 
             ? [aKey: myitem]
             : [myitem];
 
@@ -371,7 +370,7 @@ mixin template TCollection() {
     }
  
     ICollection prependItem(IData myitem, string aKey = null) {
-        auto mydata = aKey !isNull
+        auto mydata = !aKey.isNull
             ? [aKey: myitem]
             : [myitem];
 
@@ -415,8 +414,8 @@ mixin template TCollection() {
             mymapKey = myrowKey(myvalue, aKey);
             if (mymapKey is null) {
                 throw new DInvalidArgumentException(
-                    'Cannot index by path that does not exist or contains a null value. ' .
-                    'Use a callback to return a default value for that path.'
+                    "Cannot index by path that does not exist or contains a null value. ' .
+                    "Use a callback to return a default value for that path.'
                 );
             }
             mymapReduce.emitIntermediate(
@@ -429,6 +428,7 @@ mixin template TCollection() {
             auto result;
             myvalues
                 .each!(value => result += myvalue);
+
             mymapReduce.emit(result, aKey);
         };
 

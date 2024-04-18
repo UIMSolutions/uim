@@ -14,8 +14,7 @@ import uim.http;
  * Generally not directly constructed, but instead used by {@link \UIM\Http\Client}
  * when options["auth"]["type"] is 'oauth'
  */
-class DOauth 
-{
+class DOauth {
     /**
      * Add headers for Oauth authorization.
      * Params:
@@ -108,8 +107,8 @@ class DOauth
      * @param array credentials Authentication credentials.
      * /
     protected string _hmacSha1(Request request, array credentials) {
-        nonce = credentials["nonce"] ?? uniqid();
-        timestamp = credentials["timestamp"] ?? time();
+        auto nonce = credentials["nonce"] ?? uniqid();
+        auto timestamp = credentials["timestamp"] ?? time();
          someValues = [
             "oauth_version": "1.0",
             "oauth_nonce": nonce,
@@ -214,7 +213,7 @@ class DOauth
      * @param array oauthValues Oauth values.
      * /
     string baseString(Request request, array oauthValues) {
-        someParts = [
+        auto someParts = [
             request.getMethod(),
            _normalizedUrl(request.getUri()),
            _normalizedParams(request, oauthValues),
@@ -224,20 +223,9 @@ class DOauth
         return join("&", someParts);
     }
     
-    /**
-     * Builds a normalized URL
-     *
-     * Section 9.1.2. of the Oauth spec
-     * Params:
-     * \Psr\Http\Message\IUri anUri Uri object to build a normalized version of.
-     * returns Normalized URL
-     * /
+    // Builds a normalized URL
     protected string _normalizedUrl(IUri anUri) {
-         string result = anUri.getScheme() ~ "://" ~
-            anUri.getHost().toLower
-            anUri.getPath();
-
-        return result;
+        return anUri.getScheme() ~ "://" ~ anUri.getHost().toLower ~ anUri.getPath();
     }
     
     /**
@@ -317,9 +305,7 @@ class DOauth
         return rawurlencode(valueToEncode).replace(["%7E", "+"], ["~", " "]);
     }
     
-    /**
-     * Check for SSL errors and throw an exception if found.
-     * /
+    // Check for SSL errors and throw an exception if found.
     protected void checkSslError() {
         string error = "";
         while (text = openssl_error_string()) {

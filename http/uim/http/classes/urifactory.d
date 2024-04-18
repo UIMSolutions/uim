@@ -74,18 +74,19 @@ class UriFactory { // }: IUriFactory {
      * @param array serverData The SERVER data to use.
      * /
     protected static array getBase(IUri anUri, array serverData) {
-        configData = (array)Configure.read("App") ~ [
+        auto configData = (array)Configure.read("App") ~ [
             "base": null,
             "webroot": null,
             "baseUrl": null,
         ];
         string base = configData("base"];
-        baseUrl = configData("baseUrl"];
-        webroot = to!string(configData("webroot"]);
+        auto baseUrl = configData("baseUrl"];
+        auto webroot = to!string(configData("webroot"]);
 
-        if (base != false && base !isNull) {
+        if (!base.isNull) {
             return ["base": base, "webroot": base ~ "/"];
         }
+        
         if (!baseUrl) {
             DSelf = serverData["UIM_SELF"] ?? null;
             if (DSelf is null) {
@@ -105,7 +106,7 @@ class UriFactory { // }: IUriFactory {
             if (base == DIRECTORY_SEPARATOR || base == ".") {
                 base = "";
             }
-            base = join("/", array_map("rawurlencode", split("/", base)));
+            base = join("/", array_map("rawurlencode", base.split("/")));
 
             return ["base": base, "webroot": base ~ "/"];
         }

@@ -1891,7 +1891,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
         }
         if (!myentity.has(myprimaryColumns)) {
             mymessage = "All primary key value(s) are needed for updating, ";
-            mymessage ~= myentity.classname ~ " is missing " ~ join(", ", myprimaryColumns);
+            mymessage ~= myentity.classname ~ " is missing " ~ myprimaryColumns.join(", ");
             throw new DInvalidArgumentException(mymessage);
         }
         mystatement = this.updateQuery()

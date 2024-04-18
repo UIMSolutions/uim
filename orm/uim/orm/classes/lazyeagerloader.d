@@ -119,8 +119,9 @@ class DLazyEagerLoader {
             .indexBy(fn (IEntity mye): join(";", mye.extract(myprimaryKey)))
             .toArray();
 
-        foreach (myentities as myKey: myobject) {
-            aKey = join(";", myobject.extract(myprimaryKey));
+        myentities.byKeyValue
+            .each!((kv) {
+            aKey = myobject.extract(myprimaryKey).join(";");
             if (!isSet(results[aKey])) {
                 myinjected[myKey] = myobject;
                 continue;
@@ -132,7 +133,8 @@ class DLazyEagerLoader {
                 myobject.setDirty(myproperty, false);
             }
             myinjected[myKey] = myobject;
-        }
+        });
+
         return myinjected;
     } */
 }

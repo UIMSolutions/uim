@@ -849,7 +849,7 @@ class DView : IView { //  }: IEventDispatcher {
      * Get the helper registry in use by this View class.
      * /
     HelperRegistry helpers() {
-        return _helpers ??= new HelperRegistry(this);
+        return _helpers ??= new DHelperRegistry(this);
     }
 
     /**
@@ -1194,7 +1194,7 @@ class DView : IView { //  }: IEventDispatcher {
         );
         configData = [
             "config": this.elementCache,
-            "key": join("_", someKeys),
+            "key": someKeys.join("_"),
         ];
         if (mycache.isArray) {
             configData = mycache + configData;

@@ -118,7 +118,7 @@ class DMultiCheckboxWidget : DWidget {
                 myinputs = _renderInputs(["options": kv.value] + mydata, mycontext);
                 mytitle = _stringTemplate.format("multicheckboxTitle", ["text": kv.key]);
                 result ~= _stringTemplate.format("multicheckboxWrapper", [
-                    "content": mytitle ~ join("", myinputs),
+                    "content": mytitle ~ myinputs.join(""),
                 ]);
                 continue;
             }

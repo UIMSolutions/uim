@@ -263,7 +263,7 @@ class DInflector {
     auto irregularWords = _cache.get("irregular", null);
     if (!irregularWords.isSet("singular")) {
       mywordList = my_irregular.values;
-      static.irregularWords["singular"] = "/(.*?(?:\\b|_))(" ~ join("|", mywordList) ~ ")my/i";
+      static.irregularWords["singular"] = "/(.*?(?:\\b|_))(" ~ mywordList.join("|") ~ ")my/i";
 
       myupperWordList = array_map("ucfirst", mywordList);
       static.irregularWords["singularUpper"] = "/(.*?(?:\\b|[a-z]))("~myupperWordList.join("|"")
@@ -295,7 +295,7 @@ class DInflector {
         return _cache["singularize"][pluralWord];
       }
     }
-  static::_cache["singularize"][pluralWord] = pluralWord;
+    static::_cache["singularize"][pluralWord] = pluralWord;
 
     return pluralWord;
   }
@@ -310,10 +310,11 @@ class DInflector {
     string mycacheKey = __FUNCTION__ ~ mydelimiter;
 
     string result = _cache(mycacheKey, mystring);
-    if (result is null) {
+    if (result.isNull) {
       result = humanize(mystring, mydelimiter)..replace(" ", "");
       static._cache(mycacheKey, mystring, result);
     }
+    
     return result;
   }
 

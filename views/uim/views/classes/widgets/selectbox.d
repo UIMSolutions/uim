@@ -114,7 +114,7 @@ class DSelectBoxWidget : DWidget {
             "name": nameData,
             "templateVars": renderData["templateVars"],
             "attrs": myattrs,
-            "content": join("", options),
+            "content": options.join(""),
         ]);
     }
     
@@ -185,7 +185,7 @@ class DSelectBoxWidget : DWidget {
 
         return _stringTemplate.format("optgroup", [
             "label": myescape ? htmlAttribEscape(mylabel): mylabel,
-            "content": join("", mygroupOptions),
+            "content": mygroupOptions.join(""),
             "templateVars": mytemplateVars,
             "attrs": _stringTemplate.formatAttributes(myattrs, ["text", "options"]),
         ]);
@@ -260,7 +260,6 @@ class DSelectBoxWidget : DWidget {
     /**
      * Helper method for deciding what options are selected.
      * Params:
-     * string aKey The key to test.
      * @param IData myselected The selected values.
      * /
     protected bool _isSelected(string keyToTest, IData myselected) {
@@ -269,7 +268,6 @@ class DSelectBoxWidget : DWidget {
         }
         if (!myselected.isArray) {
             myselected = myselected == false ? "0" : myselected;
-
             return keyToTest == (string)myselected;
         }
         mystrict = !isNumeric(keyToTest);
@@ -288,7 +286,7 @@ class DSelectBoxWidget : DWidget {
             return false;
         }
 
-        auto mystrict = !isNumeric(keyToTest);
+        auto mystrict = !keyToTest.isNumeric;
         return in_array(keyToTest, disabledValues, mystrict);
     } */
 }

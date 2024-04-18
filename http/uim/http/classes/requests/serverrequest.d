@@ -713,7 +713,7 @@ class DServerRequest { // }: IServerRequest {
     string getHeaderLine(string headerName) {
         auto aValue = this.getHeader(headerName);
 
-        return join(", ", aValue);
+        return aValue.join(", ");
     }
     
     // Get a modified request with the provided header.

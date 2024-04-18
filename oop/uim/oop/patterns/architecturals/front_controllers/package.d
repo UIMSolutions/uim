@@ -23,7 +23,7 @@ import uim.oop;
 @safe:
 
 /// Create Views.
-class HomeView {
+class DHomeView {
    void show() {
       writeln("Displaying Home Page");
    }
@@ -36,9 +36,9 @@ class DStudentView {
 }
 
 /// Create Dispatcher.
-class Dispatcher {
+class DDispatcher {
    private DStudentView _studentView;
-   private HomeView _homeView;
+   private DHomeView _homeView;
    
    this() {
       _studentView = new DStudentView();
@@ -57,7 +57,7 @@ class Dispatcher {
 
 /// Create FrontController
 class DFrontController {
-   private Dispatcher _dispatcher;
+   private DDispatcher _dispatcher;
 
    this() {
       _dispatcher = new Dispatcher();
@@ -83,7 +83,7 @@ class DFrontController {
 version(test_uim_oop) { unittest {
    writeln("FrontControllerPatternDemo");
    
-   FrontController frontController = new DFrontController();
+   DFrontController frontController = new DFrontController();
    frontController.dispatchRequest("HOME");
    frontController.dispatchRequest("STUDENT");
 }}

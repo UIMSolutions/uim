@@ -52,7 +52,7 @@ class DRouter {
 
     /**
      * Named expressions
-     */
+     * /
     protected static STRINGAA my_namedExpressions = [
         "Action": Router.ACTION,
         "Year": Router.YEAR,
@@ -66,51 +66,49 @@ class DRouter {
      * Maintains the request object reference.
      *
      * @var \UIM\Http\ServerRequest|null
-     */
+     * /
     protected static ?ServerRequest my_request = null;
 
     /**
      * Initial state is populated the first time reload() is called which is at the bottom
      * of this file. This is a cheat as get_class_vars() returns the value of static vars even if they
      * have changed.
-     */
+     * /
     protected static array my_initialState = null;
 
     /**
      * The stack of URL filters to apply against routing URLs before passing the
      * parameters to the route collection.
-     */
+     * /
     protected static DClosure[] my_urlFilters = null;
 
     /**
      * Default extensions defined with Router.extensions()
-     */
+     * /
     protected static string[] my_defaultExtensions = null;
 
     /**
      * Cache of parsed route paths
      *
      * @var IData[string]
-     */
+     * /
     protected static array my_routePaths = null;
 
     /**
      * Get or set default route class.
      * Params:
      * string myrouteclass DClass name.
-     */
+     * /
     static string defaultRouteClass(string className = null) {
-        if (className is null) {
-            return my_defaultRouteClass;
+        if (className.isNull) {
+            return _defaultRouteClass;
         }
-        my_defaultRouteClass = className;
+        _defaultRouteClass = className;
 
         return null;
     }
     
-    /**
-     * Gets the named route patterns for use in config/routes.d
-     */
+    // Gets the named route patterns for use in config/routes.d
     static STRINGAA getNamedExpressions() {
         return my_namedExpressions;
     }
@@ -119,7 +117,7 @@ class DRouter {
      * Get the routing parameters for the request is possible.
      * Params:
      * \UIM\Http\ServerRequest myrequest The request to parse request data from.
-     */
+     * /
     static array parseRequest(ServerRequest myrequest) {
         return my_collection.parseRequest(myrequest);
     }
@@ -128,43 +126,45 @@ class DRouter {
      * Set current request instance.
      * Params:
      * \UIM\Http\ServerRequest myrequest request object.
-     */
-    static void setRequest(ServerRequest myrequest) {
-        my_request = myrequest;
-        myuri = myrequest.getUri();
-
+     * /
+    static void setRequest(DServerRequest myrequest) {
+        _request = myrequest;
+        auto myuri = _request.getUri();
+        
+        /*
         my_requestContext["_base"] = myrequest.getAttribute("base", "");
         my_requestContext["params"] = myrequest.getAttribute("params", []);
         my_requestContext["_scheme"] ??= myuri.getScheme();
         my_requestContext["_host"] ??= myuri.getHost();
         my_requestContext["_port"] ??= myuri.getPort();
+        * /
     }
     
-    /**
-     * Get the current request object.
-     */
-    static ServerRequest getRequest() {
+    // Get the current request object.
+    static DServerRequest getRequest() {
         return my_request;
     }
     
     /**
      * Reloads default Router settings. Resets all class variables and
      * removes all connected routes.
-     */
+     * /
     static void reload() {
-        if (my_initialState.isEmpty) {
-            my_collection = new DRouteCollection();
-            my_initialState = get_class_vars(class);
+        if (_initialState.isEmpty) {
+            _collection = new DRouteCollection();
+            _initialState = get_class_vars(class);
 
             return;
         }
-        foreach (my_initialState as aKey: myval) {
-            if (aKey != "_initialState" && aKey != "_collection") {
-                my{aKey} = myval;
-            }
-        }
-        my_collection = new DRouteCollection();
-        my_routePaths = null;
+
+        _initialState.byKeyValue
+            .each!((kv) {
+                if (kv.key != "_initialState" && kv.key != "_collection") {
+                    // TODO my{kv.key} = kv.value;
+                }
+            });
+        _collection = new DRouteCollection();
+        _routePaths = null;
     }
     
     /**
@@ -182,7 +182,7 @@ class DRouter {
      * Extensions and default route classes will not be modified
      *
      * @internal
-     */
+     * /
     static void resetRoutes() {
         my_collection = new DRouteCollection();
         my_urlFilters = null;
@@ -215,7 +215,7 @@ class DRouter {
      * ```
      * Params:
      * \Closure myfunction The auto to add
-     */
+     * /
     static void addUrlFilter(Closure myfunction) {
         my_urlFilters ~= myfunction;
     }
@@ -224,7 +224,7 @@ class DRouter {
      * Applies all the connected URL filters to the URL.
      * Params:
      * array myurl The URL array being modified.
-     */
+     * /
     protected static array _applyUrlFilters(array myurl) {
         myrequest = getRequest();
         my_urlFilters.each!((filter) {
@@ -277,7 +277,7 @@ class DRouter {
      *  string or it can be an IUri instance.
      * @param bool myfull If true, the full base URL will be prepended to the result.
      *  Default is false.
-     */
+     * /
     static string url(IUri|string[] myurl = null, bool myfull = false) {
         mycontext = my_requestContext;
         mycontext["_base"] ??= "";
@@ -390,7 +390,7 @@ class DRouter {
      *  Can be also any special parameters supported by `Router.url()`.
      * @param bool myfull If true, the full base URL will be prepended to the result.
      *  Default is false.
-     */
+     * /
     static string pathUrl(string mypath, array myparams = [], bool myfull = false) {
         return url(["_path": mypath] + myparams, myfull);
     }
@@ -409,7 +409,7 @@ class DRouter {
      *  string.
      * @param bool myfull If true, the full base URL will be prepended to the result.
      *  Default is false.
-     */
+     * /
     static bool routeExists(string[] myurl = null, bool myfull = false) {
         try {
             url(myurl, myfull);
@@ -433,7 +433,7 @@ class DRouter {
      * Params:
      * string mybase the prefix for URLs generated containing the domain.
      * For example: `http://example.com`
-     */
+     * /
     static string fullBaseUrl(string mybase = null) {
         if (mybase.isNull && my_fullBaseUrl !isNull) {
             return my_fullBaseUrl;
@@ -479,7 +479,7 @@ class DRouter {
      * Params:
      * \UIM\Http\ServerRequest|array myparams The params array or
      *    {@link \UIM\Http\ServerRequest} object that needs to be reversed.
-     */
+     * /
     static array reverseToArray(ServerRequest|array myparams) {
         myroute = null;
         if (cast(DServerRequest)myparams) {
@@ -528,7 +528,7 @@ class DRouter {
      *    {@link \UIM\Http\ServerRequest} object that needs to be reversed.
      * @param bool myfull Set to true to include the full URL including the
      *    protocol when reversing the URL.
-     */
+     * /
     static string reverse(ServerRequest|array myparams, bool myfull = false) {
         myparams = reverseToArray(myparams);
 
@@ -542,7 +542,7 @@ class DRouter {
      * It will not unify the casing and underscoring of the input value.
      * Params:
      * string[] myurl URL to normalize Either an array or a string URL.
-     */
+     * /
     static string normalize(string[] myurl = "/") {
         if (isArray(myurl)) {
             myurl = url(myurl);
@@ -589,7 +589,7 @@ class DRouter {
      * string[]|string myextensions List of extensions to be added.
      * @param bool mymerge Whether to merge with or override existing extensions.
      *  Defaults to `true`.
-     */
+     * /
     static string[] extensions(string[] myextensions = null, bool mymerge = true) {
         mycollection = my_collection;
         if (myextensions is null) {
@@ -607,7 +607,7 @@ class DRouter {
      * Params:
      * string mypath The path to set the builder to.
      * @param IData[string] options The options for the builder
-     */
+     * /
     static RouteBuilder createRouteBuilder(string mypath, IData[string] optionData = null) {
         IData[string] mydefaults = [
             "routeClass": defaultRouteClass(),
@@ -623,14 +623,14 @@ class DRouter {
     
     /**
      * Get the route scopes and their connected routes.
-     */
+     * /
     static Route[] routes() {
         return my_collection.routes();
     }
     
     /**
      * Get the RouteCollection inside the Router
-     */
+     * /
     static RouteCollection getRouteCollection() {
         return my_collection;
     }
@@ -639,7 +639,7 @@ class DRouter {
      * Set the RouteCollection inside the Router
      * Params:
      * \UIM\Routing\RouteCollection myrouteCollection route collection
-     */
+     * /
     static void setRouteCollection(RouteCollection routeCollection) {
         my_collection = routeCollection;
     }
@@ -648,7 +648,7 @@ class DRouter {
      * Inject route defaults from `_path` key
      * Params:
      * array myurl Route array with `_path` key
-     */
+     * /
     protected static array unwrapShortString(array myurl) {
         foreach (["plugin", "prefix", "controller", "action"] as aKey) {
             if (array_key_exists(aKey, myurl)) {
@@ -677,7 +677,7 @@ class DRouter {
      * - Vendor/Cms.Management/Admin/Articles.view
      * Params:
      * string myurl Route path in [Plugin.][Prefix/]Controller.action format
-     */
+     * /
     static array<string|int, string> parseRoutePath(string myurl) {
         if (isSet(my_routePaths[myurl])) {
             return my_routePaths[myurl];
@@ -733,5 +733,5 @@ class DRouter {
             my_routePaths[myurl] = mydefaults;
         }
         return mydefaults;
-    }
+    } */
 }

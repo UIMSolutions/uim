@@ -78,17 +78,17 @@ class DRuleInvoker {
     bool __invoke(IEntity entity, array scope) {
         rule = _rule;
         pass = rule(entity, this.options + scope);
-        if (pass == true || empty(this.options["errorField"])) {
+        if (pass == true || empty(configuration.update("errorField"])) {
             return pass == true;
         }
-        message = this.options["message"] ?? "invalid";
+        message = configuration.update("message"] ?? "invalid";
         if (isString(pass)) {
             message = pass;
         }
         
         message = _ruleName ? [_ruleName: message] : [message];
 
-        errorField = this.options["errorField"];
+        errorField = configuration.update("errorField"];
         entity.setErrors(errorField, message);
 
         if (cast(IInvalidProperty)entity && isSet(entity.{errorField})) {

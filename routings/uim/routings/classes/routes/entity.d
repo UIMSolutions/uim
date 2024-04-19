@@ -45,8 +45,8 @@ class DEntityRoute : Route {
      * Checks that we really deal with an entity object
      *
      * @throws \RuntimeException
-     * @param IData myentity Entity value from the URL options
-     */
+     * @param IData myentity Enti ty value from the URL options
+     * /
     protected void _checkEntity(IData myentity) {
         if (!cast(DArrayAccess)myentity && !isArray(myentity)) {
             throw new UimException(
@@ -56,5 +56,5 @@ class DEntityRoute : Route {
                 get_debug_type(myentity)
             ));
         }
-    }
+    } */
 }

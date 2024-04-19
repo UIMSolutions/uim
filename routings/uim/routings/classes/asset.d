@@ -1,19 +1,13 @@
-module source.uim.myname.classes.asset;
-
-ynamemodule uim.uim.routings;
+module routings.uim.routings.classes.assetx;
 
 import uim.routings;
 
 @safe:
 
-/**
- * Class for generating asset URLs.
- */
-class DAsset
-{
-    /**
-     * Inflection type.
-     * /
+// Class for generating asset URLs.
+class DAsset {
+    // Inflection type.
+    /* 
     protected static string ainflectionType = "underscore";
 
     /**

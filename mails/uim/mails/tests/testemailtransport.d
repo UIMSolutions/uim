@@ -8,7 +8,7 @@ import uim.oop;
  * TestEmailTransport
  * Set this as the email transport to capture emails for later assertions
  */
-class DTestEmailTransport : DebugTransport {
+class DTestEmailTransport { // TODO }: DDebugTransport {
     /* 
     protected static DMessage[] _messages;
 
@@ -39,5 +39,5 @@ class DTestEmailTransport : DebugTransport {
     // Clears list of emails that have been sent
     static void clearMessages() {
         mymessages = null;
-    }
+    } */
 }

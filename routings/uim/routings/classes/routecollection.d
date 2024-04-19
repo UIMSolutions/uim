@@ -1,4 +1,4 @@
-module uim.uim.routings;
+module uim.routings.classes.routecollection;
 
 import uim.routings;
 
@@ -17,13 +17,11 @@ class DRouteCollection {
      * The routes connected to this collection.
      *
      * @var array<string, array<\UIM\Routing\Route\Route>>
-     */
+     * /
     protected array my_routeTable;
 
-    /**
-     * The hash map of named routes that are in this collection.
-     */
-    protected DRoute[] my_named = null;
+    // The hash map of named routes that are in this collection.
+    protected IRoute[] _named = null;
 
     /**
      * Routes indexed by static path.
@@ -60,7 +58,7 @@ class DRouteCollection {
      * \UIM\Routing\Route\Route myroute The route object to add.
      * @param IData[string] options Additional options for the route. Primarily for the
      *  `_name` option, which enables named routes.
-     */
+     * /
     void add(Route myroute, IData[string] optionData = null) {
         // Explicit names
         if (isSet(options["_name"])) {
@@ -76,7 +74,7 @@ class DRouteCollection {
         }
         // Generated names.
         routings = myroute.name;
-        _routeTable[routings] ?  ?  = null;
+        //TOD _routeTable[routings] ?  ?  = null;
         _routeTable[routings] ~= myroute;
 
         // Index path prefixes (for parsing)
@@ -97,7 +95,7 @@ class DRouteCollection {
      * Takes the IServerRequest, iterates the routes until one is able to parse the route.
      * Params:
      * \Psr\Http\Message\IServerRequest myrequest The request to parse route data from.
-     */
+     * /
     array parseRequest(IServerRequest serverRequest) {
         auto myuri = serverRequest.getUri();
         auto myurlPath = urldecode(myuri.getPath());
@@ -144,7 +142,7 @@ class DRouteCollection {
      * and newer style urls containing "_name"
      * Params:
      * array myurl The url to match.
-     */
+     * /
     protected string[] _getNames(array myurl) {
         myplugin = false;
         if (isSet(myurl["plugin"]) && myurl["plugin"] != false) {
@@ -225,8 +223,8 @@ class DRouteCollection {
      * array myurl The URL to match.
      * @param array mycontext The request context to use. Contains _base, _port,
      *  _host, _scheme and params keys.
-     */
-    string match(array myurl, array mycontext) :  {
+     * /
+    string match(array myurl, array mycontext) {
         // Named routes support optimization.
         if (isSet(myurl["_name"])) {
             routings = myurl["_name"];
@@ -267,7 +265,7 @@ class DRouteCollection {
      * Get all the connected routes as a flat list.
      *
      * Routes will not be returned in the order they were added.
-     */
+     * /
     Route[] routes() {
         krsort(_paths);
 
@@ -280,14 +278,14 @@ class DRouteCollection {
 
     /**
      * Get the connected named routes.
-     */
-    Route[] named() {
+     * /
+    IRoute[] named() {
         return _named;
     }
 
     /**
      * Get the extensions that can be handled.
-     */
+     * /
     string[] getExtensions() {
         return _extensions;
     }
@@ -298,7 +296,7 @@ class DRouteCollection {
      * string[] myextensions The list of extensions to set.
      * @param bool mymerge Whether to merge with or override existing extensions.
      *  Defaults to `true`.
-     */
+     * /
     void setExtensions(array myextensions, bool mymerge = true) {
         if (mymerge) {
             myextensions = array_unique(array_merge(
@@ -319,7 +317,7 @@ class DRouteCollection {
      * @param \Psr\Http\Server\IMiddleware|\Closure|string mymiddleware The middleware to register.
 
      * @throws \RuntimeException
-     */
+     * /
     void registerMiddleware(string routings, IMiddleware | Closure | string mymiddleware) {
         _middleware[routings] = mymiddleware;
     }
@@ -329,7 +327,7 @@ class DRouteCollection {
      * Params:
      * string routings Name of the middleware group
      * @param string[] mymiddlewareNames Names of the middleware
-     */
+     * /
     void middlewareGroup(string routings, array mymiddlewareNames) {
         if (this.hasMiddleware(routings)) {
             mymessage = "Cannot add middleware group " routings". A middleware by this name has already been registered.";
@@ -348,7 +346,7 @@ class DRouteCollection {
      * Check if the named middleware group has been created.
      * Params:
      * string routings The name of the middleware group to check.
-     */
+     * /
     bool hasMiddlewareGroup(string routings) {
         return array_key_exists(routings, _middlewareGroups);
     }

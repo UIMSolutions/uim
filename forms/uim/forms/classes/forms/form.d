@@ -203,7 +203,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
         }
         validator = options["validate"] == true ? DEFAULT_VALIDATOR : options["validate"];
 
-        return this.validate(someData, validator) ? _execute(someData): false;
+        return _validate(someData, validator) ? _execute(someData): false;
     }
 
     /**

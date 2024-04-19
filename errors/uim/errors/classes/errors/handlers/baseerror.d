@@ -34,7 +34,7 @@ abstract class DERRErrorHandler {
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
-        
+
         configuration.updateDefaults([
             "log": BooleanData(true),
             "trace": BooleanData(false),
@@ -153,7 +153,7 @@ abstract class DERRErrorHandler {
         [myError, myLog] = mapErrorCode(myCode);
         if (myLog == LOG_ERR) {
             /** @psalm-suppress PossiblyNullArgument * /
-            return this.handleFatalError(myCode, myDescription, myFile, myLine);
+            return _handleFatalError(myCode, myDescription, myFile, myLine);
         }
         data = [
             "level": myLog,
@@ -293,7 +293,7 @@ abstract class DERRErrorHandler {
             context["request"] = Router::getRequest();
         }
 
-        return this.getLogger().logMessage(level, message, context);
+        return _getLogger().logMessage(level, message, context);
     }
 
     /**
@@ -312,7 +312,7 @@ abstract class DERRErrorHandler {
             }
         }
 
-        return this.getLogger().log(exception, request ?? Router::getRequest());
+        return _getLogger().log(exception, request ?? Router::getRequest());
     }
 
     /**
@@ -336,7 +336,7 @@ abstract class DERRErrorHandler {
             this.logger = logger;
         }
 
-        return this.logger;
+        return _logger;
     }
 
     /**

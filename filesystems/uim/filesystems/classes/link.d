@@ -41,7 +41,7 @@ class DLink : DFilesystemEntry, ILink {
 	}
 
 	override string toString() {
-		return this.className ~ ": " ~ name;
+		return _className ~ ": " ~ name;
 	}
 }
 

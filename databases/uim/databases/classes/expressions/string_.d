@@ -25,7 +25,7 @@ class DStringExpression : DExpression {
 
     // Returns the string collation.
     string collation() {
-        return this.collation;
+        return _collation;
     }
 
     string sql(DValueBinder aBinder) {

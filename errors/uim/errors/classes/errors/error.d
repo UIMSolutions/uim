@@ -100,7 +100,7 @@ class DError {
 
     // Get the stacktrace as a string.
     string getTraceAsString() {
-        return this.trace.map!(entry =>
+        return _trace.map!(entry =>
                 `{frame["reference"]} {frame["file"]}, line {frame["line"]}`)
             .join("\n"); // TODOD
     } */

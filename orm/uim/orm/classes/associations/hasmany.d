@@ -242,7 +242,7 @@ class DHasManyAssociation : DAssociation {
         sourceEntity.set(property, currentEntities);
 
         savedEntity = this.getConnection().transactional(function () use (sourceEntity, options) {
-            return this.saveAssociated(sourceEntity, options);
+            return _saveAssociated(sourceEntity, options);
         });
 
         ok = (savedEntity instanceof IEntity);

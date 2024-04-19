@@ -132,7 +132,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         query.contain([configuration.get("hasOneAlias"]]);
 
         query.formatResults(function(results) use(locale) {
-            return this.rowMapper(results, locale);}, query:
+            return _rowMapper(results, locale);}, query:
              : PREPEND);
         }
 
@@ -421,17 +421,17 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                                         string field) {
                                                                             if (this.getLocale() == this.getConfig(
                                                                                 "defaultLocale")) {
-                                                                                return this.table.aliasField(
+                                                                                return _table.aliasField(
                                                                                 field);
                                                                             }
 
                                                                             translatedFields = this.translatedFields();
                                                                             if (in_array(field, translatedFields, true)) {
-                                                                                return this.getConfig(
+                                                                                return _getConfig(
                                                                                 "hasOneAlias") ~ "." ~ field;
                                                                             }
 
-                                                                            return this.table.aliasField(
+                                                                            return _table.aliasField(
                                                                             field);
                                                                         }
 

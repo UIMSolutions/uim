@@ -66,7 +66,7 @@ class DAssociationCollection { // }: IteratorAggregate {
         someOptions["tableLocator"] = this.getTableLocator();
         association = new className(associated, someOptions);
 
-        return this.add(association.getName(), association);
+        return _add(association.getName(), association);
     }
 
     /**

@@ -778,7 +778,7 @@ class DBelongsToManyAssociation : DAssociation {
         links = array_merge(links, targetEntities);
         sourceEntity.set(property, links);
 
-        return this.junction().getConnection().transactional(
+        return _junction().getConnection().transactional(
             function () use (sourceEntity, targetEntities, options) {
                 return _saveLinks(sourceEntity, targetEntities, options);
             }
@@ -1081,7 +1081,7 @@ class DBelongsToManyAssociation : DAssociation {
             throw new DInvalidArgumentException(message);
         }
 
-        return this.junction().getConnection().transactional(
+        return _junction().getConnection().transactional(
             function () use (sourceEntity, targetEntities, primaryValue, options) {
                 junction = this.junction();
                 target = this.getTarget();

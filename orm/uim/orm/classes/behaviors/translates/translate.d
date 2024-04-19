@@ -120,9 +120,9 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * /
     ITranslateStrategy getStrategy() {
         if (this.strategy!isNull) {
-            return this.strategy;
+            return _strategy;
         }
-        return this.strategy = this.createStrategy();
+        return _strategy = this.createStrategy();
     }
 
     /**
@@ -196,7 +196,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * @param IData[string] options The options array used in the marshalling call.
      * /
     array buildMarshalMap(DMarshaller mymarshaller, array mymap, IData[string] options) {
-        return this.getStrategy().buildMarshalMap(mymarshaller, mymap, options);
+        return _getStrategy().buildMarshalMap(mymarshaller, mymap, options);
     }
 
     /**
@@ -226,7 +226,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * the currently configured global locale.
      * /
     string getLocale() {
-        return this.getStrategy().getLocale();
+        return _getStrategy().getLocale();
     }
 
     /**
@@ -239,7 +239,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * string myfield Field name to be aliased.
      * /
     string translationField(string myfield) {
-        return this.getStrategy().translationField(myfield);
+        return _getStrategy().translationField(myfield);
     }
 
     /**
@@ -285,7 +285,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * @param array myargs Method arguments.
     * /
                     IData __call(string mymethod, array myargs) {
-                        return this.strategy. {
+                        return _strategy. {
                             mymethod
                         }
                         (...myargs);

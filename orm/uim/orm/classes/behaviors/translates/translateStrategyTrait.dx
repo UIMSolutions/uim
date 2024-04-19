@@ -34,7 +34,7 @@ mixin template TTranslateStrategy() {
      */
     function getTranslationTable(): Table
     {
-        return this.translationTable;
+        return _translationTable;
     }
 
     /**
@@ -69,7 +69,7 @@ mixin template TTranslateStrategy() {
      * @see DORMBehavior\TranslateBehavior::setLocale()
      */
     string getLocale() {
-        return this.locale ?: I18n::getLocale();
+        return _locale ?: I18n::getLocale();
     }
 
     /**

@@ -460,7 +460,7 @@ class DTreeBehavior : DBehavior {
                 "order": [left: "ASC"],
             ]);
 
-        return this.formatTreeList(results, options);
+        return _formatTreeList(results, options);
     }
 
     /**

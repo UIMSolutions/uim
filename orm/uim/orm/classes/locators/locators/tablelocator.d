@@ -241,7 +241,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * @param \ORM\Table myrepository The Table to set.
      * /
     Table set(string myalias, IRepository myrepository) {
-        return this.instances[myalias] = myrepository;
+        return _instances[myalias] = myrepository;
     }
  
     void clear() {

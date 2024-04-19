@@ -205,7 +205,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
         query.contain(contain);
         query.formatResults(function (results) use (locale) {
-            return this.rowMapper(results, locale);
+            return _rowMapper(results, locale);
         }, query::PREPEND);
     }
 

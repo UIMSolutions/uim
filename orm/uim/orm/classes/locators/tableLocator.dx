@@ -276,7 +276,7 @@ class DTableLocator : DAbstractLocator, ILocator {
      */
     function set(string anAliasName, IRepository repository): Table
     {
-        return this.instances[alias] = repository;
+        return _instances[alias] = repository;
     }
 
 

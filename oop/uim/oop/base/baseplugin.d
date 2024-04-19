@@ -94,12 +94,12 @@ class DPlugin : IPlugin {
         }
         this.path = rtrim(somePath, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
 
-        return this.path;
+        return _path;
     }
  
     string getConfigPath() {
         if (this.configPath !isNull) {
-            return this.configPath;
+            return _configPath;
         }
         somePath = this.getPath();
 
@@ -108,7 +108,7 @@ class DPlugin : IPlugin {
  
     string getClassPath() {
         if (this.classPath !isNull) {
-            return this.classPath;
+            return _classPath;
         }
         somePath = this.getPath();
 
@@ -117,11 +117,11 @@ class DPlugin : IPlugin {
  
     string getTemplatePath() {
         if (this.templatePath !isNull) {
-            return this.templatePath;
+            return _templatePath;
         }
         somePath = this.getPath();
 
-        return this.templatePath = somePath ~ "templates" ~ DIRECTORY_SEPARATOR;
+        return _templatePath = somePath ~ "templates" ~ DIRECTORY_SEPARATOR;
     }
  
     void enable(string aHook) {
@@ -137,7 +137,7 @@ class DPlugin : IPlugin {
     bool isEnabled(string aHook) {
         this.checkHook(aHook);
 
-        return this.{"{aHook}Enabled"} == true;
+        return _{"{aHook}Enabled"} == true;
     }
     
     /**

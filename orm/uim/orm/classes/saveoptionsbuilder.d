@@ -195,7 +195,7 @@ class DSaveOptionsBuilder { /*}: ArrayObject {
      * /
     function set(string option, value) {
         if (method_exists(this, option)) {
-            return this.{option}(value);
+            return _{option}(value);
         }
         _options[option] = value;
 

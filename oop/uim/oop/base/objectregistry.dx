@@ -180,7 +180,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
 
   // Provide isSet access to _loaded
   bool __isSet(string objectName) {
-    return this.has(objectName);
+    return _has(objectName);
   }
 
   // Sets an object.

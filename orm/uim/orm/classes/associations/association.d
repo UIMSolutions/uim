@@ -690,7 +690,7 @@ function find(type = null, IData[string] optionData = null) : Query {
     type = type ?  : this.getFinder();
     [type, opts] = _extractFinder(type);
 
-    return this.getTarget()
+    return _getTarget()
         .find(type, options + opts)
         .where(this.getConditions());
 }
@@ -708,7 +708,7 @@ bool exists(conditions) {
         .where(conditions)
         .clause("where");
 
-    return this.getTarget().exists(conditions);
+    return _getTarget().exists(conditions);
 }
 
 /**
@@ -725,7 +725,7 @@ int updateAll(array fields, conditions) {
         .where(conditions)
         .clause("where");
 
-    return this.getTarget().updateAll(fields, expression);
+    return _getTarget().updateAll(fields, expression);
 }
 
 /**
@@ -741,7 +741,7 @@ int deleteAll(conditions) {
         .where(conditions)
         .clause("where");
 
-    return this.getTarget().deleteAll(expression);
+    return _getTarget().deleteAll(expression);
 }
 
 /**
@@ -973,7 +973,7 @@ protected array _extractFinder(finderData) {
      * @throws \RuntimeException if no association with such name exists
      * /
 function __get(property) {
-    return this.getTarget(). {
+    return _getTarget(). {
         property
     };
 }
@@ -1000,7 +1000,7 @@ bool __isSet(property) {
      * @throws \BadMethodCallException
      * /
 function __call(method, argument) {
-    return this.getTarget().method(...argument);
+    return _getTarget().method(...argument);
 }
 
 /**

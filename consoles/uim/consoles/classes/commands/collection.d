@@ -94,7 +94,7 @@ class DCommandCollection { // : IteratorAggregate, Countable {
         auto commandScanner = new DCommandScanner();
         auto pluginShells = commandScanner.scanPlugin(pluginName);
 
-        return this.resolveNames(pluginShells);
+        return _resolveNames(pluginShells);
     } */
     
     /**
@@ -123,7 +123,7 @@ class DCommandCollection { // : IteratorAggregate, Countable {
                  result[anInfo["fullName"]] = className;
             }
         }
-        
+
         return results;
     }
     */

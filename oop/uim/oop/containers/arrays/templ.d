@@ -63,7 +63,7 @@ class DArrayTempl(T) : DArrayObj {
 	}
 
 	bool has(T value) {
-		return this.items.any!(item => item == value);
+		return _items.any!(item => item == value);
 	}
 
 	unittest {

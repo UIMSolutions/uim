@@ -697,7 +697,7 @@ class DBelongsToMany : DAssociation {
         links = array_merge(links, targetEntities);
         sourceEntity.set(aProperty, links);
 
-        return this.junction().getConnection().transactional(
+        return _junction().getConnection().transactional(
             auto () use (sourceEntity, targetEntities, options) {
                 return _saveLinks(sourceEntity, targetEntities, options);
             }
@@ -968,7 +968,7 @@ class DBelongsToMany : DAssociation {
            string message = "Could not find primary key value for source entity";
             throw new DInvalidArgumentException(message);
         }
-        return this.junction().getConnection().transactional(
+        return _junction().getConnection().transactional(
             auto () use (sourceEntity, targetEntities, primaryValue, options) {
                 junction = this.junction();
                 target = this.getTarget();

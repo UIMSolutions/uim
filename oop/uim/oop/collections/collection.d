@@ -62,7 +62,7 @@ class DCollection(T) : ICollection, ICloneable {
 
 	// Returns the hash code value for this collection.
 	int hashCode() {
-		return this.hashCode;
+		return _hashCode;
 	}
 
 	// Returns true if this collection contains no elements.

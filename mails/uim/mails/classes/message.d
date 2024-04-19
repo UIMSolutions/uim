@@ -234,12 +234,12 @@ class DMessage { //: IDataSerializable {
      * @return this
      * /
     auto setFrom(string[] aemail, string aName = null) {
-        return this.setEmailSingle("from", email, aName, "From requires only 1 email address.");
+        return _setEmailSingle("from", email, aName, "From requires only 1 email address.");
     }
 
     // Gets "from" address
     array getFrom() {
-        return this.from;
+        return _from;
     }
 
     /**
@@ -253,14 +253,14 @@ class DMessage { //: IDataSerializable {
      * @link https://tools.ietf.org/html/rfc2822.html#section-3.6.2
      * /
     auto setSender(string[] aemail, string aName = null) {
-        return this.setEmailSingle("sender", email, name, "Sender requires only 1 email address.");
+        return _setEmailSingle("sender", email, name, "Sender requires only 1 email address.");
     }
     
     /**
      * Gets the "sender" address. See RFC link below for full explanation.
      * /
     array getSender() {
-        return this.sender;
+        return _sender;
     }
     
     /**
@@ -273,7 +273,7 @@ class DMessage { //: IDataSerializable {
      * @throws \InvalidArgumentException
     * /
     auto setReplyTo(string[] aemail, string aName = null) {
-        return this.setEmail("replyTo", email, name);
+        return _setEmail("replyTo", email, name);
     }
     
     /**
@@ -281,21 +281,21 @@ class DMessage { //: IDataSerializable {
      *
       * /
     array getReplyTo() {
-        return this.replyTo;
+        return _replyTo;
     }
     
     /**
      * Add "Reply-To" address.
      * /
     auto addReplyTo(string[] email, string name = null) {
-        return this.addEmail("replyTo", email, name);
+        return _addEmail("replyTo", email, name);
     }
     
     /**
      * Sets Read Receipt (Disposition-Notification-To header).
      * /
     void setReadReceipt(string[] email, string name = null) {
-        return this.setEmailSingle(
+        return _setEmailSingle(
             "readReceipt",
             email,
             name,
@@ -307,7 +307,7 @@ class DMessage { //: IDataSerializable {
      * Gets Read Receipt (Disposition-Notification-To header).
      * /
     array getReadReceipt() {
-        return this.readReceipt;
+        return _readReceipt;
     }
     
     /**
@@ -320,14 +320,14 @@ class DMessage { //: IDataSerializable {
      * @throws \InvalidArgumentException
      * /
     auto setReturnPath(string[] aemail, string aName = null) {
-        return this.setEmailSingle("returnPath", email, name, "Return-Path requires only 1 email address.");
+        return _setEmailSingle("returnPath", email, name, "Return-Path requires only 1 email address.");
     }
     
     /**
      * Gets return path.
      * /
     array getReturnPath() {
-        return this.returnPath;
+        return _returnPath;
     }
     
     /**
@@ -338,14 +338,14 @@ class DMessage { //: IDataSerializable {
      * @param string name Name
      * /
     auto setTo(string[] aemail, string aName = null) {
-        return this.setEmail("to", email, name);
+        return _setEmail("to", email, name);
     }
     
     /**
      * Gets "to" address
      * /
     array getTo() {
-        return this.to;
+        return _to;
     }
     
     /**
@@ -356,7 +356,7 @@ class DMessage { //: IDataSerializable {
      * @param string name Name
      * /
     auto addTo(string[] aemail, string aName = null) {
-        return this.addEmail("to", email, name);
+        return _addEmail("to", email, name);
     }
     
     /**
@@ -367,7 +367,7 @@ class DMessage { //: IDataSerializable {
      * @param string name Name
      * /
     auto setCc(string[] aemail, string aName = null) {
-        return this.setEmail("cc", email, name);
+        return _setEmail("cc", email, name);
     }
     
     /**
@@ -375,7 +375,7 @@ class DMessage { //: IDataSerializable {
      *
      * /
     array getCc() {
-        return this.cc;
+        return _cc;
     }
     
     /**
@@ -386,7 +386,7 @@ class DMessage { //: IDataSerializable {
      * @param string name Name
      * /
     auto addCc(string[] aemail, string aName = null) {
-        return this.addEmail("cc", email, name);
+        return _addEmail("cc", email, name);
     }
     
     /**
@@ -397,7 +397,7 @@ class DMessage { //: IDataSerializable {
      * @param string name Name
      * /
     auto setBcc(string[] aemail, string aName = null) {
-        return this.setEmail("bcc", email, name);
+        return _setEmail("bcc", email, name);
     }
     
     /**
@@ -405,7 +405,7 @@ class DMessage { //: IDataSerializable {
      *
      * /
     array getBcc() {
-        return this.bcc;
+        return _bcc;
     }
     
     /**
@@ -416,7 +416,7 @@ class DMessage { //: IDataSerializable {
      * @param string name Name
      * /
     auto addBcc(string[] aemail, string aName = null) {
-        return this.addEmail("bcc", email, name);
+        return _addEmail("bcc", email, name);
     }
     
     mixin(TProperty!("string", "charset"));
@@ -432,7 +432,7 @@ class DMessage { //: IDataSerializable {
     
     // HeaderCharset getter.
     string getHeaderCharset() {
-        return this.headerCharset ?: this.charset;
+        return _headerCharset ?: this.charset;
     }
     
     /**
@@ -461,7 +461,7 @@ class DMessage { //: IDataSerializable {
      * TransferEncoding getter.
      * /
     string getTransferEncoding() {
-        return this.transferEncoding;
+        return _transferEncoding;
     }
     
     /**
@@ -480,7 +480,7 @@ class DMessage { //: IDataSerializable {
      * EmailPattern setter/getter
      * /
     string getEmailPattern() {
-        return this.emailPattern;
+        return _emailPattern;
     }
     
     /**
@@ -596,14 +596,14 @@ class DMessage { //: IDataSerializable {
      * Gets subject.
      * /
     string subject() {
-        return this.subject;
+        return _subject;
     }
     
     /**
      * Get original subject without encoding
      * /
     string getOriginalSubject() {
-        return this.decodeForHeader(this.subject);
+        return _decodeForHeader(this.subject);
     }
     
     /**
@@ -817,7 +817,7 @@ class DMessage { //: IDataSerializable {
     
     // Gets message ID.
     string|bool getMessageId() {
-        return this.messageId;
+        return _messageId;
     }
     
     /**
@@ -835,7 +835,7 @@ class DMessage { //: IDataSerializable {
     
     // Gets domain.
     string getDomain() {
-        return this.domain;
+        return _domain;
     }
     
     /**
@@ -936,7 +936,7 @@ class DMessage { //: IDataSerializable {
     
     // Gets attachments to the email message.
     array<string, array> getAttachments() {
-        return this.attachments;
+        return _attachments;
     }
     
     /**
@@ -961,7 +961,7 @@ class DMessage { //: IDataSerializable {
         if (isEmpty(this.message)) {
             this.message = this.generateMessage();
         }
-        return this.message;
+        return _message;
     }
     
     // Get generated body as string.
@@ -1140,7 +1140,7 @@ class DMessage { //: IDataSerializable {
     
     // Gets priority.
     int getPriority() {
-        return this.priority;
+        return _priority;
     }
     
     /**
@@ -1219,14 +1219,14 @@ class DMessage { //: IDataSerializable {
      * Get text body of message.
      * /
     string getBodyText() {
-        return this.textMessage;
+        return _textMessage;
     }
     
     /**
      * Get HTML body of message.
      * /
     string getBodyHtml() {
-        return this.htmlMessage;
+        return _htmlMessage;
     }
     
     /**
@@ -1436,7 +1436,7 @@ class DMessage { //: IDataSerializable {
      * /
     string getContentTransferEncoding() {
         if (this.transferEncoding) {
-            return this.transferEncoding;
+            return _transferEncoding;
         }
         charset = strtoupper(this.charset);
         if (in_array(charset, this.charset8bit, true)) {

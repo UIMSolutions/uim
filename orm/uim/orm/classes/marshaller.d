@@ -689,7 +689,7 @@ class DMarshaller {
             return null;
         }
         if (!empty(myassociated) && !in_array("_joinData", myassociated, true) && !isSet(myassociated["_joinData"])) {
-            return this.mergeMany(myoriginal, myvalue, options);
+            return _mergeMany(myoriginal, myvalue, options);
         }
         return _mergeJoinData(myoriginal, associationToMarshall, myvalue, options);
     }

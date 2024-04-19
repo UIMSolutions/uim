@@ -189,8 +189,9 @@ class DFileCacheEngine : DCacheEngine {
             mydirectory,
             RecursiveIteratorIterator.SELF_FIRST
         );
-        mycleared = null;
-        foreach (myfileInfo; myiterator) {
+        
+        string[] mycleared;
+        myiterator.each!((myfileInfo) {
             if (myfileInfo.isFile()) {
                 unset(myfileInfo);
                 continue;
@@ -200,14 +201,15 @@ class DFileCacheEngine : DCacheEngine {
                 unset(myfileInfo);
                 continue;
             }
-            mypath = myrealPath ~ DIRECTORY_SEPARATOR;
+
+            string mypath = myrealPath ~ DIRECTORY_SEPARATOR;
             if (!in_array(mypath, mycleared, true)) {
                 _clearDirectory(mypath);
                 mycleared ~= mypath;
             }
             // possible inner iterators need to be unset too in order for locks on parents to be released
             unset(myfileInfo);
-        }
+        });
         // unsetting iterators helps releasing possible locks in certain environments,
         // which could otherwise make `rmdir()` fail
         unset(mydirectory, myiterator);
@@ -220,7 +222,8 @@ class DFileCacheEngine : DCacheEngine {
         if (!isDir(pathToSearch)) {
             return;
         }
-        mydir = dir(pathToSearch);
+        
+        auto mydir = dir(pathToSearch);
         if (!mydir) {
             return;
         }

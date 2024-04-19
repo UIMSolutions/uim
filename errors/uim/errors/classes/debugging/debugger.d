@@ -39,7 +39,7 @@ class DDebugger {
 
         configuration.updateDefaults([
             "outputMask": [],
-            "exportFormatter": null,
+            "exportFormatter": NUllData,
             "editor": "Dstorm"
         ]);
 

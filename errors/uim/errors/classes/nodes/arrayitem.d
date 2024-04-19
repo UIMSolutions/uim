@@ -21,7 +21,7 @@ class DArrayItemErrorNode : IErrorNode {
     */
   this(IErrorNode aKey, IErrorNode aValue) {
       _key = aKey;
-      _value = myValue;
+      _value = aValue;
   }
 
   // Get value

@@ -35,7 +35,7 @@ class DPropertyNode : IErrorNode {
     * @return uim.errors.debugs.IErrorNode
     */
   string value() {
-    return _propertyValue.value;
+    return null; //TODO _propertyValue.value;
   }
 
   // Get the property visibility

@@ -35,8 +35,8 @@ class DExceptionTrap {
         initialize(initData);
     }
 
-    this(string name) {
-        this().name(name);
+    this(string newName) {
+        this().name(newName);
     }
 
     // Hook method
@@ -46,6 +46,9 @@ class DExceptionTrap {
 
         return true;
     }
+
+    // Name of the event
+    mixin(TProperty!("string", "name"));
 
  /**
      * Configuration options. Generally these will be defined in your config/app.D

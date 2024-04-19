@@ -34,12 +34,13 @@ abstract class DERRErrorHandler {
     bool initialize(IData[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
-    configuration.updateDefaults([
-        "log": true,
-        "trace": false,
-        "skipLog": ArrayData,
-        "errorLogger": "ErrorLogger::class"
-    ]);
+        
+        configuration.updateDefaults([
+            "log": BooleanData(true),
+            "trace": BooleanData(false),
+            "skipLog": ArrayData,
+            "errorLogger": StringData("ErrorLogger::class")
+        ]);
 
         return true;
     }

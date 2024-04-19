@@ -15,7 +15,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
     protected string _id;
 
     this() {
-        _id = uniqid("", true);
+        // TODO _id = uniqid("", true);
     }
     
     /**

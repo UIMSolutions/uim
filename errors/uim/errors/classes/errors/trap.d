@@ -44,7 +44,7 @@ class DErrorTrap {
             // TODOD "errorLevel": E_ALL,
             "errorRenderer": NullData,
             "log": BooleanData(true),
-            "logger": ErrorLogger.classname,
+            // TODO "logger": ErrorLogger.classname,
             "trace": BooleanData(false),
         ]);
 

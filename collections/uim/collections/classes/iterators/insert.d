@@ -69,12 +69,12 @@ class DInsertIterator : DCollection {
       return myRow;
     }
     auto aPointer = & myRow;
-    foreach (aStep; _path) {
+    _path.each!((step) {
       if (!isSet(aPointer[aStep])) {
         return myRow;
       }
       aPointer = & aPointer[aStep];
-    }
+    })
     aPointer[_target] = _values.current();
 
     return myRow;

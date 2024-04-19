@@ -42,7 +42,7 @@ class DebugContext {
 
     // Get the remaining depth levels
     int remainingDepth() {
-      return t_maxDepth - _depth;
+      return _maxDepth - _depth;
     }
     
     /* 

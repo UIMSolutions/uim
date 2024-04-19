@@ -188,20 +188,15 @@ mixin template TPluginAssets() {
         return false;
     }
     
-    /**
-     * Copy directory
-     * Params:
-     * string asource Source directory
-     * @param string adestination Destination directory
-     * /
-    protected bool _copyDirectory(string asource, string adestination) {
-        fs = new DFilesystem();
-        if (fs.copyDir(source, destination)) {
-            this.io.writeln("Copied assets to directory " ~ destination);
+    // Copy directory
+    protected bool _copyDirectory(string sourceDir, string destinationDir) {
+        auto fs = new DFilesystem();
+        if (fs.copyDir(sourceDir, destinationDir)) {
+            this.io.writeln("Copied assets to directory " ~ destinationDir);
 
             return true;
         }
-        this.io.writeErrorMessages("Error copying assets to directory " ~ destination);
+        this.io.writeErrorMessages("Error copying assets to directory " ~ destinationDir);
 
         return false;
     } */

@@ -89,13 +89,9 @@ mixin template TConsoleIntegrationTest() {
         this.assertThat(expected, new DExitCode(_exitCode), message);
     }
     
-    /**
-     * Asserts shell exited with the Command.CODE_SUCCESS
-     * Params:
-     * string amessage Failure message
-     * /
-    void assertExitSuccess(string amessage= null) {
-        this.assertThat(Command.CODE_SUCCESS, new DExitCode(_exitCode), message);
+    // Asserts shell exited with the Command.CODE_SUCCESS
+    void assertExitSuccess(string failureMessage = null) {
+        this.assertThat(Command.CODE_SUCCESS, new DExitCode(_exitCode), failureMessage);
     }
     
     // Asserts shell exited with Command.CODE_ERROR
@@ -112,62 +108,38 @@ mixin template TConsoleIntegrationTest() {
         this.assertThat(null, new DContentsEmpty(_out.messages(), "output"), message);
     }
     
-    /**
-     * Asserts `stdout` contains expected output
-     * Params:
-     * string aexpected Expected output
-     * @param string amessage Failure message
-     * /
-    void assertOutputContains(string aexpected, string message = null) {
-        this.assertThat(expected, new DContentsContain(_out.messages(), "output"), message);
+    // Asserts `stdout` contains expected output
+    void assertOutputContains(string expectedOutput, string failureMessage = null) {
+        this.assertThat(expectedOutput, new DContentsContain(_out.messages(), "output"), failureMessage);
     }
     
-    /**
-     * Asserts `stdout` does not contain expected output
-     * Params:
-     * string aexpected Expected output
-     * @param string amessage Failure message
-     * /
-    void assertOutputNotContains(string aexpected, string amessage= null) {
-        this.assertThat(expected, new DContentsNotContain(_out.messages(), "output"), message);
+    // Asserts `stdout` does not contain expected output
+    void assertOutputNotContains(string expectedOutput, string failureMessage = null) {
+        this.assertThat(expected, new DContentsNotContain(_out.messages(), "output"), failureMessage);
     }
     
-    /**
-     * Asserts `stdout` contains expected regexp
-     * Params:
-     * string apattern Expected pattern
-     * @param string amessage Failure message
-     * /
-    void assertOutputRegExp(string apattern, string amessage = null) {
-        this.assertThat(somePattern, new DContentsRegExp(_out.messages(), "output"), message);
+    // Asserts `stdout` contains expected regexp
+    void assertOutputRegExp(string expectedPattern, string failureMessage = null) {
+        this.assertThat(expectedPattern, new DContentsRegExp(_out.messages(), "output"), failureMessage);
     }
     
     /**
      * Check that a row of cells exists in the output.
      * Params:
      * array row Row of cells to ensure exist in the output.
-     * @param string amessage Failure message.
      * /
-    protected void assertOutputContainsRows(array row, string amessage = null) {
+    protected void assertOutputContainsRows(array row, string failureMessage = null) {
         this.assertThat(row, new DContentsContainRow(_out.messages(), "output"), message);
     }
     
-    /**
-     * Asserts `stderr` contains expected output
-     * Params:
-     * string aexpected Expected output
-     * /
-    void assertErrorContains(string aexpected, string failureMessage = null) {
+    // Asserts `stderr` contains expected output
+    void assertErrorContains(string expectedOutput, string failureMessage = null) {
         this.assertThat(expected, new DContentsContain(_err.messages(), "error output"), failureMessage);
     }
     
-    /**
-     * Asserts `stderr` contains expected regexp
-     * Params:
-     * string apattern Expected pattern
-     * /
-    void assertErrorRegExp(string apattern, string failureMessage = null) {
-        this.assertThat(somePattern, new DContentsRegExp(_err.messages(), "error output"), failureMessage);
+    // Asserts `stderr` contains expected regexp
+    void assertErrorRegExp(string expectedPattern, string failureMessage = null) {
+        this.assertThat(expectedPattern, new DContentsRegExp(_err.messages(), "error output"), failureMessage);
     }
     
     /**

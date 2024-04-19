@@ -540,7 +540,7 @@ class DConsoleOptionParser {
      * @throws \UIM\Console\Exception\ConsoleException When unknown short options are encountered.
      * /
     protected array _parseShortOption(string optionToParse, IData[string] params) {
-        string aKey = substr(option, 1);
+        string aKey = substr(optionToParse, 1);
         if (aKey.length > 1) {
             flags = str_split(aKey);
             aKey = flags[0];
@@ -570,7 +570,7 @@ class DConsoleOptionParser {
      * @throws \UIM\Console\Exception\ConsoleException
      * /
     protected IData[string] _parseOption(string nameToParse, IData[string] params) {
-        if (!isSet(_options[nameToParse])) {
+        if (!_options.isSet(nameToParse)) {
             throw new DMissingOptionException(
                 "Unknown option `%s`.".format(nameToParse),
                 nameToParse, _options.keys

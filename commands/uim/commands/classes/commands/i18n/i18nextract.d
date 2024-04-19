@@ -31,7 +31,7 @@ class DI18nExtractCommand : DCommand {
     protected string _file = "";
 
     // Contains all content waiting to be written
-    // TODO protected IData _storage = null;
+    protected IData _storage;
 
     /* 
     // Extracted tokens
@@ -192,24 +192,22 @@ class DI18nExtractCommand : DCommand {
      *
      * Takes care of duplicate translations
      * Params:
-     * string adomain The domain
-     * @param string amsgid The message string
      * @param array details DContext and plural form if any, file and line references
      * /
-    protected void _addTranslation(string adomain, string amsgid, array details = []) {
+    protected void _addTranslation(string domainName, string messageId, array details = []) {
         context = details.get("msgctxt", "");
 
-        if (isEmpty(_translations[domain][msgid][context])) {
-           _translations[domain][msgid][context] = [
+        if (isEmpty(_translations[domainName][messageId][context])) {
+           _translations[domainName][messageId][context] = [
                 "msgid_plural": BooleanData(false),
             ];
         }
         if (isSet(details["msgid_plural"])) {
-           _translations[domain][msgid][context]["msgid_plural"] = details["msgid_plural"];
+           _translations[domainName][messageId][context]["msgid_plural"] = details["msgid_plural"];
         }
         if (isSet(details["file"])) {
             line = details["line"] ?? 0;
-           _translations[domain][msgid][context]["references"][details["file"]] ~= line;
+           _translations[domainName][messageId][context]["references"][details["file"]] ~= line;
         }
     }
     
@@ -532,13 +530,11 @@ class DI18nExtractCommand : DCommand {
         }
     }
     
-    /**
-     * Build the translation template header
-     * Params:
-     * string adomain Domain
-     * /
-    protected string _writeHeader(string adomain) {
-        projectIdVersion = domain == "uim' ? "UIM " ~ Configure.currentVersion(): 'PROJECT VERSION";
+    // Build the translation template header
+    protected string _writeHeader(string domainName) {
+        projectIdVersion = domainName == "uim" 
+            ? "UIM " ~ Configure.currentVersion()
+            : "PROJECT VERSION";
 
         string result = "# LANGUAGE translation of UIM Application\n";
         result ~= "# Copyright YEAR NAME <EMAIL@ADDRESS>\n";
@@ -713,15 +709,11 @@ class DI18nExtractCommand : DCommand {
         return _paths == [APP];
     }
     
-    /**
-     * Checks whether a given path is usable for writing.
-     * Params:
-     * string aPath Path to folder
-     * /
-    protected bool _isPathUsable(string aPath) {
-        if (!isDir(somePath)) {
-            mkdir(somePath, 0770, true);
+    // Checks whether a given path is usable for writing.
+    protected bool _isPathUsable(string folderToPath) {
+        if (!isDir(folderToPath)) {
+            mkdir(folderToPath, 0770, true);
         }
-        return isDir(somePath) && is_writable(somePath);
+        return isDir(folderToPath) && is_writable(folderToPath);
     } */
 }

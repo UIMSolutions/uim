@@ -230,34 +230,28 @@ class DConsoleIo {
         return _writeln(message, newLinesToAppend, level);
     }
     
-    /**
-     * Halts the the current process with a StopException.
-     * Params:
-     * string amessage Error message.
-     * @param int code Error code.
-     * /
-    never abort(string errorMessage, int code = ICommand.CODE_ERROR) {
+    // Halts the the current process with a StopException.
+    never abort(string errorMessage, int errorCode = ICommand.CODE_ERROR) {
         this.error(errorMessage);
 
-        throw new DStopException(errorMessage, code);
+        throw new DStopException(errorMessage, errorCode);
     }
     
     /**
      * Wraps a message with a given message type, e.g. <warning>
      * Params:
      * string amessageType The message type, e.g. "warning".
-     * @param string[]|string amessage The message to wrap.
      * /
-    protected string[] wrapMessageWithType(string amessageType, string[] amessage) {
-        if (message.isArray) {
-            message.myKeyValue
-                .each!(kv => message[kv.key] = "<%s>%s</%s>".format(messageType, kv.value, messageType));
-        } else {
-            message = "<%s>%s</%s>".format(messageType, message, messageType);
-        }
-        return message;
+    protected string[] wrapMessageWithType(string amessageType, string[] messagesToWrap) {
+        return messages
+            .map!(message => wrapMessageWithType(messageType, message))
+            .array;
     }
-    
+
+    protected string wrapMessageWithType(string amessageType, string message) {
+        return "<%s>%s</%s>".format(messageType, message, messageType);
+    }
+
     /**
      * Overwrite some already output text.
      *
@@ -412,22 +406,26 @@ class DConsoleIo {
      * @param string options String of options. Pass null to omit.
      * @param string default Default input value. Pass null to omit.
      * /
-    protected string _getInput(string aprompt, string options, string defaultValue) {
+    protected string _getInput(string promptText, string options, string defaultValue) {
         if (!this.interactive) {
             return to!string(defaultValue);
         }
 
-        string optionsText = isSet(options) ? " options " : "";
+        string optionsText = isSet(options) 
+            ? " options " 
+            : "";
 
         string defaultText = !defaultValue.isNull ? "[%s] ".format(defaultValue) : "";
-        _out.write("<question>" ~ prompt ~ "</question>%s\n%s> ".fomat(optionsText, defaultText), 0);
+        _out.write("<question>" ~ promptText ~ "</question>%s\n%s> ".fomat(optionsText, defaultText), 0);
         result = _in.read();
 
-        string result = result.isNull ? "" : trim(result);
-        if (result.isEmpty) {
-            return defaultValue;
-        }
-        return result;
+        string result = result.isNull 
+            ? "" 
+            : trim(result);
+        
+        return result.isEmpty
+            ? defaultValue
+            : result;
     }
     
     /**

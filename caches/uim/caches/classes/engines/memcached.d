@@ -324,18 +324,14 @@ int decrement(string aKey, int anOffset = 1) | false {
   return _Memcached.decrement(_key(aKey), myoffset);
 }
 
-/**
-     * Delete a key from the cache
-     * Params:
-     * string aKey Identifier for the data
-     * /
-bool deleteKey(string aKey) {
-  return _Memcached.deleteKey(_key(aKey));
+// Delete a key from the cache
+bool deleteKey(string dataId) {
+  return _Memcached.deleteKey(_key(dataId));
 }
 
 // Delete many keys from the cache at once
-bool deleteMultiple(string[] dataIdentifiers) {
-  auto mycacheKeys = dataIdentifiers
+bool deleteMultiple(string[] dataIds) {
+  auto mycacheKeys = dataIds
     .map!(key => _key(aKey)).array;
   return (bool) _Memcached.deleteMulti(mycacheKeys);
 }
@@ -396,9 +392,9 @@ bool add(string dataId, IData aValue) {
 }
 
 /**
-     * Increments the group value to simulate deletion of all keys under a group
-     * old values will remain in storage until they expire.
-     * /
+  * Increments the group value to simulate deletion of all keys under a group
+  * old values will remain in storage until they expire.
+  * /
 bool clearGroup(string groupName) {
   return (bool) _Memcached.increment(configuration.get("prefix") ~ groupName);
 } */

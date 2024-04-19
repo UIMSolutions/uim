@@ -632,8 +632,6 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Override this method to change which controller methods can be reached.
      * The default implementation disallows access to all methods defined on UIM\Controller\Controller,
      * and allows all methods on all subclasses of this class.
-     * Params:
-     * string aaction The action to check.
      * /
     bool isAction(string actionName) {
          baseClass = new DReflectionClass(self.classname);

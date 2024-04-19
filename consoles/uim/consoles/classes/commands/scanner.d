@@ -57,11 +57,7 @@ class DCommandScanner {
         );
     }
     
-    /**
-     * Scan the named plugin for shells and commands
-     * Params:
-     * string aplugin The named plugin.
-     * /
+    // Scan the named plugin for shells and commands
     array scanPlugin(string pluginName) {
         if (!Plugin.isLoaded(pluginName)) {
             return null;

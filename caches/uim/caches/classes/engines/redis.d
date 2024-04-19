@@ -102,15 +102,14 @@ class DRedisCacheEngine : DCacheEngine {
     /**
      * Write data for key into cache.
      * Params:
-     * string aKey Identifier for the data
      * @param IData aValue Data to be cached
      * @param \DateInterval|int  aTtl Optional. The TTL value of this item. If no value is sent and
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      * /
-    bool set(string aKey, IData aValue, DateInterval|int  aTtl = null) {
-        auto myKey = _key(aKey);
-        autoaValue = this.serialize(aValue);
+    bool set(string dataId, IData aValue, DateInterval|int  aTtl = null) {
+        auto myKey = _key(dataId);
+        auto aValue = this.serialize(aValue);
 
         auto myDuration = this.duration(aTtl);
         if (myDuration == 0) {
@@ -138,11 +137,11 @@ class DRedisCacheEngine : DCacheEngine {
      * Params:
      * @param int anOffset How much to increment
      * /
-    int increment(string dataIdentifier, int anOffset = 1) {
+    int increment(string dataIdentifier, int incrementOffset = 1) {
         auto aDuration = configuration.get("duration");
         auto aKey = _key(dataIdentifier);
 
-        auto aValue = _redis.incrBy(aKey,  anOffset);
+        auto aValue = _redis.incrBy(aKey, incrementOffset);
         if (aDuration > 0) {
            _redis.expire(aKey,  aDuration);
         }
@@ -185,12 +184,12 @@ class DRedisCacheEngine : DCacheEngine {
     bool clear() {
        _redis.setOption(Redis.OPT_SCAN, to!string(Redis.SCAN_RETRY));
 
-        auto isAllDeleted = true;
-        auto  anIterator = null;
-        auto  somePattern = configuration.get("prefix") ~ "*";
+        bool isAllDeleted = true;
+        auto anIterator = null;
+        auto somePattern = configuration.get("prefix") ~ "*";
 
         while (true) {
-            keys = _redis.scan(anIterator,  somePattern, (int)configuration.get("scanCount"]);
+            auto someKeys = _redis.scan(anIterator,  somePattern, (int)configuration.get("scanCount"]);
 
             if (someKeys == false) {
                 break;
@@ -200,6 +199,7 @@ class DRedisCacheEngine : DCacheEngine {
                  isAllDeleted = isAllDeleted &&  isDeleted;
             });
         }
+
         return isAllDeleted;
     }
     
@@ -232,13 +232,11 @@ class DRedisCacheEngine : DCacheEngine {
     /**
      * Write data for key into cache if it doesn`t exist already.
      * If it already exists, it fails and returns false.
-     * Params:
-     * @param IData aValue Data to be cached.
      * /
-    bool add(string dataId, IData aValue) {
+    bool add(string dataId, IData dataToCache) {
         auto aDuration = configuration.get("duration");
         auto aKey = _key(dataId);
-        auto aValue = this.serialize(aValue);
+        auto aValue = this.serialize(dataToCache);
 
         return (_redis.set(aKey, aValue, ["nx", "ex":  aDuration]));
     }
@@ -249,7 +247,7 @@ class DRedisCacheEngine : DCacheEngine {
      * the group accordingly.
      * /
     string[] groups() {
-        auto result;
+        string[] result;
         configuration.get("groups").each!((group) {
             auto aValue = _redis.get(configuration.get("prefix") ~  group);
             if (!aValue) {
@@ -277,17 +275,12 @@ class DRedisCacheEngine : DCacheEngine {
      * as it creates problems incrementing/decrementing intially set integer value.
      * /
     protected string serialize(IData valueToSerialize) {
-        if (isInt(valueToSerialize)) {
-            return to!string(valueToSerialize);
-        }
-        return serialize(valueToSerialize);
+        return isInt(valueToSerialize) 
+            ? to!string(valueToSerialize)
+            : serialize(valueToSerialize);
     }
     
-    /**
-     * Unserialize string value fetched from Redis.
-     * Params:
-     * string avalue Value to unserialize.
-     * /
+    // Unserialize string value fetched from Redis.
     protected IData unserialize(string valueToUnserialize) {
         if (preg_match("/^[-]?\d+$/", valueToUnserialize)) {
             return (int)valueToUnserialize;
@@ -295,11 +288,9 @@ class DRedisCacheEngine : DCacheEngine {
         return unserialize(valueToUnserialize);
     }
     
-    /**
-     * Disconnects from the redis server
-     * /
+    // Disconnects from the redis server
     auto __destruct() {
-        if (isEmpty(configuration.get("persistent"])) {
+        if (configuration.get("persistent"]).isEmpty) {
            _redis.close();
         }
     } */

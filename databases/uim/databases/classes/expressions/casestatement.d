@@ -382,18 +382,18 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * @see CaseStatementExpression.then()
      * /
     string getReturnType() {
-        if (this.returnType !isNull) {
+        if (!this.returnType.isNull) {
             return _returnType;
         }
         
         auto types = null;
-        foreach (when; this.when as) {
-            type = when.getResultType();
-            if (type !isNull) {
+        this.when.each!((w) {
+            auto type = w.getResultType();
+            if (!type.isNull) {
                 types ~= type;
             }
         }
-        if (this.elseType !isNull) {
+        if (this.elseType.isNull) {
             types ~= this.elseType;
         }
         types = array_unique(types);
@@ -424,17 +424,15 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * * `value`: The case value for a `CASE case_value WHEN ...` expression.
      * * `when`: An array of `WHEN ... THEN ...` expressions.
      * * `else`: The `ELSE` result value.
-     * Params:
-     * string aclause The name of the clause to obtain.
      * /
-    IExpression|object|array<\UIM\Database\Expression\WhenThenExpression>|scalar|null clause(string aclause) {
-        if (!in_array(clause, this.validClauseNames, true)) {
+    IExpression|object|array<\UIM\Database\Expression\WhenThenExpression>|scalar|null clause(string clauseName) {
+        if (!in_array(clauseName, this.validClauseNames, true)) {
             throw new DInvalidArgumentException(
                 "The `clause` argument must be one of `%s`, the given value `%s` is invalid."
-                    .format(join("`, `", this.validClauseNames), clause)
+                    .format(this.validClauseNames.join("`, `"), clauseName)
             );
         }
-        return _{clause};
+        return _{clauseName};
     }
  
     string sql(DValueBinder aBinder) {

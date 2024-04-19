@@ -420,7 +420,7 @@ class DCache : ICache {
      *
      * ```
      * results = Cache.remember("all_articles", auto () {
-     *     return this.find("all").toArray();
+     *     return _find("all").toArray();
      * });
      * ```
      * Params:

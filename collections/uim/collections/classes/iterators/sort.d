@@ -74,6 +74,6 @@ class DSortIterator : DCollection {
 }
 
 Iterator unwrap() {
-  return this.getInnerIterator();
+  return _getInnerIterator();
 } */
 }

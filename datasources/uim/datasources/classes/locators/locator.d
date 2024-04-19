@@ -38,12 +38,12 @@ abstract class DAbstractLocator : ILocator {
                 ));
             }
 
-            return this.instances[alias];
+            return _instances[alias];
         }
 
-        configuration.update(alias] = storeOptions;
+        configuration.update(alias, storeOptions);
 
-        return this.instances[alias] = this.createInstance(alias, options);
+        return _instances[alias] = this.createInstance(alias, options);
     }
 
     /**
@@ -57,7 +57,7 @@ abstract class DAbstractLocator : ILocator {
 
 
     function set(string alias, IRepository repository) {
-        return this.instances[alias] = repository;
+        return _instances[alias] = repository;
     }
 
 

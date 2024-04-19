@@ -22,7 +22,7 @@ class DRedirectRoute : Route {
      * string mytemplate Template string with parameter placeholders
      * @param array mydefaults Defaults for the route. Either a redirect=>value array or a UIM array URL.
      * @param IData[string] options Array of additional options for the Route
-     */
+     * /
     this(string mytemplate, array mydefaults = [], IData[string] optionData = null) {
         super(mytemplate, mydefaults, options);
         if (isSet(mydefaults["redirect"])) {
@@ -36,7 +36,7 @@ class DRedirectRoute : Route {
      * redirection.
      * Params:
      * @param string mymethod The HTTP method being used.
-     */
+     * /
     array parse(string urlToParse, string mymethod= null) {
         myparams = super.parse(urlToParse, mymethod);
         if (!myparams) {
@@ -46,10 +46,10 @@ class DRedirectRoute : Route {
         if (this.redirect && count(this.redirect) == 1 && !this.redirect.isSet("controller")) {
             myredirect = this.redirect[0];
         }
-        if (isSet(this.options["persist"]) && isArray(myredirect)) {
+        if (isSet(configuration.update("persist"]) && isArray(myredirect)) {
             myredirect += ["pass": myparams["pass"], "url": ArrayData];
-            if (this.options["persist"].isArray) {
-                fthis.options["persist"]
+            if (configuration.update("persist"].isArray) {
+                fconfiguration.update("persist"]
                     .filter!(element => isSet(myparams[element]))
                     .each!(elemenet => myredirect[element] = myparams[element]);
             }
@@ -57,8 +57,8 @@ class DRedirectRoute : Route {
         }
         
         auto statusCode = 301;
-        if (this.options.isSet("status") && (this.options["status"] >= 300 && this.options["status"] < 400)) {
-            statusCode = this.options["status"];
+        if (this.options.isSet("status") && (configuration.update("status"] >= 300 && configuration.update("status"] < 400)) {
+            statusCode = configuration.update("status"];
         }
         throw new DRedirectException(Router.url(myredirect, true), statusCode);
     }
@@ -68,7 +68,7 @@ class DRedirectRoute : Route {
      * Params:
      * array myurl Array of parameters to convert to a string.
      * @param array mycontext Array of request context parameters.
-     */
+     * /
     string match(array myurl, array mycontext = []) {
         return null;
     }
@@ -77,8 +77,9 @@ class DRedirectRoute : Route {
      * Sets the HTTP status
      * Params:
      * int mystatus The status code for this route
-     */
+     * /
     void setStatus(int mystatus) {
-        this.options["status"] = mystatus;
+        configuration.update("status"] = mystatus;
     }
+    */
 }

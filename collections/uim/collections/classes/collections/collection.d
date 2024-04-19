@@ -41,7 +41,7 @@ class DCollection : /* IteratorIterator, */ ICollection {
   // Returns an array for serializing this of this object.
   /* 
   array __serialize() {
-    return this.buffered().toArray();
+    return _buffered().toArray();
   }
 
   //  Rebuilds the Collection instance.

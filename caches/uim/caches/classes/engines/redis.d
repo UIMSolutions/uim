@@ -130,7 +130,7 @@ class DRedisCacheEngine : DCacheEngine {
         if (aValue == false) {
             return defaultValue;
         }
-        return this.unserialize(aValue);
+        return _unserialize(aValue);
     }
     
     /**

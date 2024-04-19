@@ -16,7 +16,7 @@ class DPluginShortRoute : InflectedRoute {
      * Params:
      * string myurl The URL to parse
      * @param string mymethod The HTTP method
-     */
+     * /
     array parse(string myurl, string mymethod= null) {
         myparams = super.parse(myurl, mymethod);
         if (!myparams) {

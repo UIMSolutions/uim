@@ -1,4 +1,4 @@
-module uim.uim.routings\Route;
+module uim.routings.classes.routes.route;
 
 import uim.routings;
 
@@ -15,7 +15,7 @@ class DRoute {
     /**
      * An array of named segments in a Route.
      * `/{controller}/{action}/{id}` has 3 key elements
-     */
+     * /
     array someKeys = null;
 
     // An array of additional parameters for the Route.
@@ -68,14 +68,14 @@ class DRoute {
      * @param array _defaultValues Defaults for the route.
      * @param IData[string] options Array of additional options for the Route
      * @throws \InvalidArgumentException When `options["_method"]` are not in `VALID_METHODS` list.
-     */
+     * /
     this(string mytemplate, array _defaultValues = [], IData[string] optionData = null) {
         this.template = mytemplate;
         this.defaults = _defaultValues;
         this.options = options ~ ["_ext": ArrayData, "_middleware": ArrayData];
-        this.setExtensions((array)this.options["_ext"]);
-        this.setMiddleware((array)this.options["_middleware"]);
-        unset(this.options["_middleware"]);
+        this.setExtensions((array)configuration.update("_ext"]);
+        this.setMiddleware((array)configuration.update("_middleware"]);
+        unset(configuration.update("_middleware"]);
 
         if (isSet(this.defaults["_method"])) {
             this.defaults["_method"] = this.normalizeAndValidateMethods(this.defaults["_method"]);
@@ -94,7 +94,7 @@ class DRoute {
     
     /**
      * Set the accepted HTTP methods for this route.
-     */
+     * /
     void setMethods(string[] httpMethods) {
         this.defaults["_method"] = this.normalizeAndValidateMethods(httpMethods);
     }
@@ -103,7 +103,7 @@ class DRoute {
      * Normalize method names to upper case and validate that they are valid HTTP methods.
      * Params:
      * string[]|string mymethods Methods.
-     */
+     * /
     protected string[] normalizeAndValidateMethods(string[] methods) {
         auto myMethods = isArray(methods)
             ? array_map("strtoupper", methods)
@@ -126,23 +126,23 @@ class DRoute {
      * mode will be enabled.
      * Params:
      * string[] mypatterns The patterns to apply to routing elements
-     */
+     * /
     void setPatterns(array mypatterns) {
         string mypatternValues = mypatterns.join("");
         if (mb_strlen(mypatternValues) < mypatternValues.length) {
-            this.options["multibytePattern"] = true;
+            configuration.update("multibytePattern"] = true;
         }
         this.options = mypatterns + this.options;
     }
     
     // Set host requirement
     void setHost(string hostName) {
-        this.options["_host"] = hostName;
+        configuration.update("_host"] = hostName;
     }
     
     // Set the names of parameters that will be converted into passed parameters
     auto setPass(string[] parameterNames) {
-        this.options["pass"] = parameterNames;
+        configuration.update("pass"] = parameterNames;
 
         return this;
     }
@@ -160,16 +160,16 @@ class DRoute {
      * ```
      * Params:
      * array routingss The names of the parameters that should be passed.
-     */
+     * /
     auto setPersist(array routingss) {
-        this.options["persist"] = routingss;
+        configuration.update("persist"] = routingss;
 
         return this;
     }
     
     /**
      * Check if a Route has been compiled into a regular expression.
-     */
+     * /
     bool compiled() {
         return _compiledRoute !isNull;
     }
@@ -179,7 +179,7 @@ class DRoute {
      *
      * Modifies defaults property so all necessary keys are set
      * and populates this.names with the named routing elements.
-     */
+     * /
     string compile() {
         if (_compiledRoute is null) {
            _writeRoute();
@@ -194,7 +194,7 @@ class DRoute {
      *
      * Uses the template, defaults and options properties to compile a
      * regular expression that can be used to parse request strings.
-     */
+     * /
     protected void _writeRoute() {
         if (this.template.isEmpty || (this.template == "/")) {
            _compiledRoute = "#^/*my#";
@@ -214,7 +214,7 @@ class DRoute {
             routings = mymatchArray[1][0];
             // Placeholder with colon/braces, e.g. "{foo}"
             mysearch = preg_quote(mymatchArray[0][0]);
-            if (isSet(this.options[routings])) {
+            if (isSet(configuration.update(routings])) {
                 string myoption = "";
                 if (routings != "plugin" && array_key_exists(routings, this.defaults)) {
                     myoption = "?";
@@ -222,9 +222,9 @@ class DRoute {
                 // Dcs:disable Generic.Files.LineLength
                 // Offset of the colon/braced placeholder in the full template string
                 if (myparsed[mymatchArray[0][1] - 1] == "/") {
-                    myrouteParams["/" ~ mysearch] = "(?:/(?P<" ~ routings ~ ">" ~ this.options[routings] ~ ")" ~ myoption ~ ")" ~ myoption;
+                    myrouteParams["/" ~ mysearch] = "(?:/(?P<" ~ routings ~ ">" ~ configuration.update(routings] ~ ")" ~ myoption ~ ")" ~ myoption;
                 } else {
-                    myrouteParams[mysearch] = "(?:(?P<" ~ routings ~ ">" ~ this.options[routings] ~ ")" ~ myoption ~ ")" ~ myoption;
+                    myrouteParams[mysearch] = "(?:(?P<" ~ routings ~ ">" ~ configuration.update(routings] ~ ")" ~ myoption ~ ")" ~ myoption;
                 }
                 // Dcs:enable Generic.Files.LineLength
             } else {
@@ -240,7 +240,7 @@ class DRoute {
             myparsed = (string)preg_replace("#/\\\\\*my#", "(?:/(?P<_args_>.*))?", myparsed);
            _greedy = true;
         }
-        mymode = this.options["multibytePattern"].isEmpty ? "" : "u";
+        mymode = configuration.update("multibytePattern"].isEmpty ? "" : "u";
         krsort(myrouteParams);
         myparsed = myparsed.replace(myrouteParams.keys, myrouteParams);
        _compiledRoute = "#^" ~ myparsed ~ "[/]*my#" ~ mymode;
@@ -292,13 +292,13 @@ class DRoute {
      * `null` will be returned.
      * Params:
      * \Psr\Http\Message\IServerRequest myrequest The URL to attempt to parse.
-     */
+     * /
     array parseRequest(IServerRequest myrequest) {
         myuri = myrequest.getUri();
-        if (isSet(this.options["_host"]) && !this.hostMatches(myuri.getHost())) {
+        if (isSet(configuration.update("_host"]) && !this.hostMatches(myuri.getHost())) {
             return null;
         }
-        return this.parse(myuri.getPath(), myrequest.getMethod());
+        return _parse(myuri.getPath(), myrequest.getMethod());
     }
     
     /**
@@ -309,7 +309,7 @@ class DRoute {
      * Params:
      * string myurl The URL to attempt to parse.
      * @param string mymethod The HTTP method of the request being parsed.
-     */
+     * /
     array parse(string myurl, string mymethod) {
         try {
             if (!mymethod.isEmpty) {
@@ -365,16 +365,16 @@ class DRoute {
             myroute["_ext"] = myext;
         }
         // pass the name if set
-        if (isSet(this.options["_name"])) {
-            myroute["_name"] = this.options["_name"];
+        if (isSet(configuration.update("_name"])) {
+            myroute["_name"] = configuration.update("_name"];
         }
         // restructure "pass" key route params
-        if (isSet(this.options["pass"])) {
-            myj = count(this.options["pass"]);
+        if (isSet(configuration.update("pass"])) {
+            myj = count(configuration.update("pass"]);
             while (myj--) {
-                /** @psalm-suppress PossiblyInvalidArgument */
-                if (isSet(myroute[this.options["pass"][myj]])) {
-                    array_unshift(myroute["pass"], myroute[this.options["pass"][myj]]);
+                /** @psalm-suppress PossiblyInvalidArgument * /
+                if (isSet(myroute[configuration.update("pass"][myj]])) {
+                    array_unshift(myroute["pass"], myroute[configuration.update("pass"][myj]]);
                 }
             }
         }
@@ -390,9 +390,9 @@ class DRoute {
      * Check to see if the host matches the route requirements
      * Params:
      * string myhost The request"s host name
-     */
+     * /
     bool hostMatches(string myhost) {
-        mypattern = "@^" ~ preg_quote(this.options["_host"], "@").replace("\*", ".*") ~ "my@";
+        mypattern = "@^" ~ preg_quote(configuration.update("_host"], "@").replace("\*", ".*") ~ "my@";
 
         return preg_match(mypattern, myhost) != 0;
     }
@@ -402,7 +402,7 @@ class DRoute {
      * If no registered extension is found, no extension is returned and the URL is returned unmodified.
      * Params:
      * string myurl The url to parse.
-     */
+     * /
     protected array _parseExtension(string myurl) {
         if (count(_extensions) && myurl.has(".")) {
             foreach (_extensions as myext) {
@@ -445,9 +445,9 @@ class DRoute {
      * Params:
      * array myurl The array to apply persistent parameters to.
      * @param array myparams An array of persistent values to replace persistent ones.
-     */
+     * /
     protected array _persistParams(array myurl, array myparams) {
-        foreach (this.options["persist"] as mypersistKey) {
+        foreach (configuration.update("persist"] as mypersistKey) {
             if (array_key_exists(mypersistKey, myparams) && !isSet(myurl[mypersistKey])) {
                 myurl[mypersistKey] = myparams[mypersistKey];
             }
@@ -466,7 +466,7 @@ class DRoute {
      * @param array mycontext An array of the current request context.
      *  Contains information such as the current host, scheme, port, base
      *  directory and other url params.
-     */
+     * /
     string match(array myurl, array mycontext = []) {
         if (isEmpty(_compiledRoute)) {
             this.compile();
@@ -475,8 +475,8 @@ class DRoute {
         mycontext += ["params": ArrayData, "_port": null, "_scheme": null, "_host": null];
 
         if (
-            !empty(this.options["persist"]) &&
-            isArray(this.options["persist"])
+            !empty(configuration.update("persist"]) &&
+            isArray(configuration.update("persist"])
         ) {
             myurl = _persistParams(myurl, mycontext["params"]);
         }
@@ -484,9 +484,9 @@ class DRoute {
         myhostOptions = array_intersect_key(myurl, mycontext);
 
         // Apply the _host option if possible
-        if (isSet(this.options["_host"])) {
-            if (!isSet(myhostOptions["_host"]) && !this.options["_host"].has("*")) {
-                myhostOptions["_host"] = this.options["_host"];
+        if (isSet(configuration.update("_host"])) {
+            if (!isSet(myhostOptions["_host"]) && !configuration.update("_host"].has("*")) {
+                myhostOptions["_host"] = configuration.update("_host"];
             }
             myhostOptions["_host"] ??= mycontext["_host"];
 
@@ -536,8 +536,8 @@ class DRoute {
         }
         // If this route uses pass option, and the passed elements are
         // not set, rekey elements.
-        if (isSet(this.options["pass"])) {
-            foreach (this.options["pass"] as myi: routings) {
+        if (isSet(configuration.update("pass"])) {
+            foreach (configuration.update("pass"] as myi: routings) {
                 if (isSet(myurl[myi]) && !isSet(myurl[routings])) {
                     myurl[routings] = myurl[myi];
                     unset(myurl[myi]);
@@ -593,7 +593,7 @@ class DRoute {
      * Check whether the URL"s HTTP method matches.
      * Params:
      * array myurl The array for the URL being generated.
-     */
+     * /
     protected bool _matchMethod(array myurl) {
         if (this.defaults["_method"].isEmpty) {
             return true;
@@ -620,7 +620,7 @@ class DRoute {
      * array myparams The params to convert to a string url
      * @param array mypass The additional passed arguments
      * @param array myquery An array of parameters
-     */
+     * /
     protected string _writeUrl(array myparams, array mypass = [], array myquery = []) {
         mypass = array_map(function (myvalue) {
             return rawurlencode((string)myvalue);
@@ -681,7 +681,7 @@ class DRoute {
     
     /**
      * Get the static path portion for this route.
-     */
+     * /
     string staticPath() {
         mymatched = preg_match(
             PLACEHOLDER_REGEX,
@@ -700,7 +700,7 @@ class DRoute {
 
             return mypath.isEmpty ? "/" : mypath;
         }
-        return this.template;
+        return _template;
     }
     
     /**
@@ -708,7 +708,7 @@ class DRoute {
      * Params:
      * array mymiddleware The list of middleware names to apply to this route.
      *  Middleware names will not be checked until the route is matched.
-     */
+     * /
     auto setMiddleware(array mymiddleware) {
         this.middleware = mymiddleware;
 
@@ -718,9 +718,9 @@ class DRoute {
     /**
      * Get the names of the middleware that should be applied to this route.
      *
-     */
+     * /
     array getMiddleware() {
-        return this.middleware;
+        return _middleware;
     }
     
     /**
@@ -730,7 +730,7 @@ class DRoute {
      * router caching.
      * Params:
      * IData[string] myfields Key/Value of object attributes
-     */
+     * /
     static static __set_state(array myfields) {
         myclass = class;
         myobj = new myclass("");
@@ -738,5 +738,5 @@ class DRoute {
             myobj.myfield = myvalue;
         }
         return myobj;
-    }
+    } */
 }

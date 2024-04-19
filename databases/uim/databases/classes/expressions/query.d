@@ -102,7 +102,7 @@ class DQueryExpression : DExpression { // }, Countable {
     auto eq(IExpression|string afield, IData aValue, string typeName = null) {
         typeName = typeName.ifEmpty(_calculateType(field));
 
-        return this.add(new DComparisonExpression(field, aValue, typeName, "="));
+        return _add(new DComparisonExpression(field, aValue, typeName, "="));
     }
 
     /**
@@ -117,7 +117,7 @@ class DQueryExpression : DExpression { // }, Countable {
     auto notEq(IExpression|string afield, IData aValue, string atype = null) {
         auto type ??= _calculateType(field);
 
-        return this.add(new DComparisonExpression(field, aValue, type, "!="));
+        return _add(new DComparisonExpression(field, aValue, type, "!="));
     }
     
     /**
@@ -130,7 +130,7 @@ class DQueryExpression : DExpression { // }, Countable {
     auto gt(IExpression|string afield, IData aValue, string atype = null) {
         auto type ??= _calculateType(field);
 
-        return this.add(new DComparisonExpression(field, aValue, type, ">"));
+        return _add(new DComparisonExpression(field, aValue, type, ">"));
     }
     
     /**
@@ -143,7 +143,7 @@ class DQueryExpression : DExpression { // }, Countable {
     auto lt(IExpression|string afield, IData aValue, string atype = null) {
         type ??= _calculateType(field);
 
-        return this.add(new DComparisonExpression(field, aValue, type, "<"));
+        return _add(new DComparisonExpression(field, aValue, type, "<"));
     }
     
     /**
@@ -156,7 +156,7 @@ class DQueryExpression : DExpression { // }, Countable {
     auto gte(IExpression|string afield, IData aValue, string atype = null) {
         type ??= _calculateType(field);
 
-        return this.add(new DComparisonExpression(field, aValue, type, ">="));
+        return _add(new DComparisonExpression(field, aValue, type, ">="));
     }
     
     /**
@@ -169,7 +169,7 @@ class DQueryExpression : DExpression { // }, Countable {
     auto lte(IExpression|string afield, IData aValue, string atype = null) {
         type ??= _calculateType(field);
 
-        return this.add(new DComparisonExpression(field, aValue, type, "<="));
+        return _add(new DComparisonExpression(field, aValue, type, "<="));
     }
     
     /**
@@ -182,7 +182,7 @@ class DQueryExpression : DExpression { // }, Countable {
         if (!(cast(IExpression)field )) {
             field = new DIdentifierExpression(field);
         }
-        return this.add(new DUnaryExpression("isNull", field, UnaryExpression.POSTFIX));
+        return _add(new DUnaryExpression("isNull", field, UnaryExpression.POSTFIX));
     }
     
     /**
@@ -194,7 +194,7 @@ class DQueryExpression : DExpression { // }, Countable {
         if (!(cast(IExpression)field)) {
             field = new DIdentifierExpression(field);
         }
-        return this.add(new DUnaryExpression("IS NOT NULL", field, UnaryExpression.POSTFIX));
+        return _add(new DUnaryExpression("IS NOT NULL", field, UnaryExpression.POSTFIX));
     }
     
     /**
@@ -207,7 +207,7 @@ class DQueryExpression : DExpression { // }, Countable {
     auto like(IExpression|string afield, IData aValue, string atype = null) {
         type ??= _calculateType(field);
 
-        return this.add(new DComparisonExpression(field, aValue, type, "LIKE"));
+        return _add(new DComparisonExpression(field, aValue, type, "LIKE"));
     }
     
     /**
@@ -220,7 +220,7 @@ class DQueryExpression : DExpression { // }, Countable {
     auto notLike(IExpression|string afield, IData aValue, string atype = null) {
         type ??= _calculateType(field);
 
-        return this.add(new DComparisonExpression(field, aValue, type, "NOT LIKE"));
+        return _add(new DComparisonExpression(field, aValue, type, "NOT LIKE"));
     }
     
     /**
@@ -241,7 +241,7 @@ class DQueryExpression : DExpression { // }, Countable {
         type ~= "[]";
          someValues = cast(IExpression)someValues  ?  someValues : (array) someValues;
 
-        return this.add(new DComparisonExpression(field,  someValues, type, "IN"));
+        return _add(new DComparisonExpression(field,  someValues, type, "IN"));
     }
     
     /**
@@ -290,7 +290,7 @@ class DQueryExpression : DExpression { // }, Countable {
         type ~= "[]";
          someValues = cast(IExpression)someValues  ?  someValues : (array) someValues;
 
-        return this.add(new DComparisonExpression(field,  someValues, type, "NOT IN"));
+        return _add(new DComparisonExpression(field,  someValues, type, "NOT IN"));
     }
     
     /**
@@ -311,7 +311,7 @@ class DQueryExpression : DExpression { // }, Countable {
             .notIn(field,  someValues, type)
             .isNull(field);
 
-        return this.add(or);
+        return _add(or);
     }
     
     /**
@@ -320,7 +320,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * \UIM\Database\IExpression expression the inner query
      * /
     auto exists(IExpression expression) {
-        return this.add(new DUnaryExpression("EXISTS", expression, UnaryExpression.PREFIX));
+        return _add(new DUnaryExpression("EXISTS", expression, UnaryExpression.PREFIX));
     }
     
     /**
@@ -329,7 +329,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * \UIM\Database\IExpression expression the inner query
      * /
     auto notExists(IExpression expression) {
-        return this.add(new DUnaryExpression("NOT EXISTS", expression, UnaryExpression.PREFIX));
+        return _add(new DUnaryExpression("NOT EXISTS", expression, UnaryExpression.PREFIX));
     }
     
     /**
@@ -344,7 +344,7 @@ class DQueryExpression : DExpression { // }, Countable {
     auto between(IExpression|string afield, IData from, IData to, string atype = null) {
         type ??= _calculateType(field);
 
-        return this.add(new BetweenExpression(field, from, to, type));
+        return _add(new BetweenExpression(field, from, to, type));
     }
     
     /**
@@ -388,7 +388,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * values that are being passed. Used for correctly binding values to statements.
      * /
     auto not(IExpression|Closure|string[] aconditions, STRINGAA passedTypes = []) {
-        return this.add(["NOT": conditions], passedTypes);
+        return _add(["NOT": conditions], passedTypes);
     }
     
     /**
@@ -414,7 +414,7 @@ class DQueryExpression : DExpression { // }, Countable {
             return new DIdentifierExpression(field);
         };
 
-        return this.eq(wrapIdentifier(leftField),  wrapIdentifier(rightField));
+        return _eq(wrapIdentifier(leftField),  wrapIdentifier(rightField));
     }
     string sql(DValueBinder aBinder) {
          len = this.count();
@@ -629,7 +629,7 @@ class DQueryExpression : DExpression { // }, Countable {
         if (!isString(field)) {
             return null;
         }
-        return this.getTypeMap().type(field);
+        return _getTypeMap().type(field);
     }
     
     // Clone this object and its subtree of expressions.

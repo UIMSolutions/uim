@@ -112,7 +112,7 @@ class DCommonTableExpression : IExpression {
 
     // Gets whether this CTE is recursive.
     bool isRecursive() {
-        return this.recursive;
+        return _recursive;
     }
 
     // Sets this CTE as recursive.

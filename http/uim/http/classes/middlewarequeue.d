@@ -73,7 +73,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * \Psr\Http\Server\IHttpMiddleware|\Closure|string[] amiddleware The middleware(s) to append.
      * /
     MiddlewareQueue push(IHttpMiddleware|Closure|string[] amiddleware) {
-        return this.add(middleware);
+        return _add(middleware);
     }
     
     /**
@@ -133,7 +133,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
             }
         }
         if (isFound) {
-            return this.insertAt(anI, middleware);
+            return _insertAt(anI, middleware);
         }
         throw new DLogicException("No middleware matching `%s` could be found.".format(className));
     }
@@ -165,9 +165,9 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
             }
         }
         if (found) {
-            return this.insertAt(anI + 1, middleware);
+            return _insertAt(anI + 1, middleware);
         }
-        return this.add(middleware);
+        return _add(middleware);
     }
     
     /**
@@ -208,9 +208,9 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
             throw new DOutOfBoundsException("Invalid current position (%s).".format(this.position));
         }
         if (cast(IHttpMiddleware)this.queue[this.position]) {
-            return this.queue[this.position];
+            return _queue[this.position];
         }
-        return this.queue[this.position] = this.resolve(this.queue[this.position]);
+        return _queue[this.position] = this.resolve(this.queue[this.position]);
     }
     
     /**
@@ -219,7 +219,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
      * @see \Iterator.key()
      * /
     int key() {
-        return this.position;
+        return _position;
     }
     
     /**

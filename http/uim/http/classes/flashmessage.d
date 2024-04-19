@@ -129,7 +129,7 @@ class DFlashMessage {
     
     // Get the messages for given key and remove from session.
     array consume(string messageKey) {
-        return this.session.consume("Flash.{aKey}");
+        return _session.consume("Flash.{aKey}");
     }
     
     /**

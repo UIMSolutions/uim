@@ -19,7 +19,7 @@ class DStreamFactory { // }: IStreamFactory {
         fwrite(myResource, contenToPopulate);
         rewind(myResource);
 
-        return this.createStreamFromResource(myResource);
+        return _createStreamFromResource(myResource);
     }
     
     /**

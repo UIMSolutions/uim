@@ -227,7 +227,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
         if (isSet(aHeaders["headers"]) && isArray(aHeaders["headers"])) {
              aHeaders = aHeaders["headers"];
         }
-        return this.createResponses(aHeaders, content);
+        return _createResponses(aHeaders, content);
     }
     
     /**

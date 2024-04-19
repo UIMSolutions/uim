@@ -217,7 +217,7 @@ class DSession {
             return _engine;
         }
         if (cast(!SessionHandler) className) {
-            return this.setEngine(className);
+            return _setEngine(className);
         }
         /** @var class-string<\!SessionHandler>|null  className * /
         className = App.className(className, "Http/Session");
@@ -227,7 +227,7 @@ class DSession {
                     .format(className)
             );
         }
-        return this.setEngine(new className(options));
+        return _setEngine(new className(options));
     }
 
     /**
@@ -297,7 +297,7 @@ class DSession {
         if (_timedOut()) {
             this.destroy();
 
-            return this.start();
+            return _start();
         }
         return _started;
     }
@@ -373,7 +373,7 @@ class DSession {
         if (!this.check(sessionName)) {
             throw new UimException("Expected session key `%s` not found.".format(sessionName));
         }
-        return this.read(sessionName);
+        return _read(sessionName);
     }
 
     // Reads and deletes a variable from session.

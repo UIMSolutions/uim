@@ -20,7 +20,7 @@ class DContentTypeNegotiation {
     array<string, string[]> parseAccept(IRequest request) {
          aHeader = request.getHeaderLine("Accept");
 
-        return this.parseQualifiers(aHeader);
+        return _parseQualifiers(aHeader);
     }
     
     /**
@@ -34,7 +34,7 @@ class DContentTypeNegotiation {
     array<string, string[]> parseAcceptLanguage(IRequest request) {
          aHeader = request.getHeaderLine("Accept-Language");
 
-        return this.parseQualifiers(aHeader);
+        return _parseQualifiers(aHeader);
     }
     
     // Parse a header value into preference: value mapping

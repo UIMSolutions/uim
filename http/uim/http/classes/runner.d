@@ -60,7 +60,7 @@ class DRunner : IRequestHandler {
         ) {
             Router.setRequest(request);
         }
-        return this.handle(request);
+        return _handle(request);
     }
     
     /**
@@ -76,7 +76,7 @@ class DRunner : IRequestHandler {
             return middleware.process(request, this);
         }
         if (this.fallbackHandler) {
-            return this.fallbackHandler.handle(request);
+            return _fallbackHandler.handle(request);
         }
         return new DResponse([
             'body": 'Middleware queue was exhausted without returning a response '

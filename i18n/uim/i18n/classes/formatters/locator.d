@@ -47,6 +47,6 @@ class DFormatterLocator {
             this.converted[formatterName] = true;
         }
 
-        return this.registry[formatterName];
+        return _registry[formatterName];
     } */
 }

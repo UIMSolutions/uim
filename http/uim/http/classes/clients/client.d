@@ -381,7 +381,7 @@ class DClient { // }: IClient {
       options
     );
 
-    return this.send(myrequest, options);
+    return _send(myrequest, options);
   }
 
   // Does a recursive merge of the parameter with the scope config.
@@ -391,7 +391,7 @@ class DClient { // }: IClient {
 
   // Sends a PSR-7 request and returns a PSR-7 response.
   IResponse sendRequest(IRequest psrRequest) {
-    return this.send(psrRequest, _config);
+    return _send(psrRequest, _config);
   }
 
   /**

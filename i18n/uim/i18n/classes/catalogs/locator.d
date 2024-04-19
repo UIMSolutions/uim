@@ -45,12 +45,12 @@ class DCatalogLocator {
           .format(catalogName, catalogLocale));
     } */
 
-    return this.registry[catalogName][catalogLocale];
+    return _registry[catalogName][catalogLocale];
   }
 
   // Check if a Catalog object for given name and locale exists in registry.
   bool hasCatalog(string catalogName, string catalogLocale = null) {
-    return this.registry.isSet(catalogName)
+    return _registry.isSet(catalogName)
       ? (catalogLocale.isEmpty
           ? true : this.registry[catalogName].isSet(catalogLocale)) : false;
   }

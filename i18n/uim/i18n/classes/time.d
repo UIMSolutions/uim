@@ -193,7 +193,7 @@ class DTime { // : ChronosTime, IDataSerializable {
         if (cast(DClosure)_IDataEncodeFormat) {
             return call_user_func(_IDataEncodeFormat, this);
         }
-        return this.i18nFormat(_IDataEncodeFormat);
+        return _i18nFormat(_IDataEncodeFormat);
     }
  
     override string toString() {

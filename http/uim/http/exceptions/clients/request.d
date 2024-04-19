@@ -22,6 +22,6 @@ class DRequestException : RuntimeException, IRequestException {
     
     // Returns the request.
     IRequest getRequest() {
-        return this.request;
+        return _request;
     }
 }

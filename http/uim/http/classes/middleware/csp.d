@@ -83,6 +83,6 @@ class DCspMiddleware { // }: IHttpMiddleware {
         response = handler.handle(request);
 
         /** @var \Psr\Http\Message\IResponse * /
-        return this.csp.injectCSPHeader(response);
+        return _csp.injectCSPHeader(response);
     } */
 }

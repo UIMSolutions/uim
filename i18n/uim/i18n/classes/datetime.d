@@ -365,7 +365,7 @@ class DateTime /* : Chronos, IDataSerializable */ {
         string locale;
     ) {
         if (format == DateTime.UNIX_TIMESTAMP_FORMAT) {
-            return this.getTimestamp();
+            return _getTimestamp();
         }
         time = this;
 
@@ -512,7 +512,7 @@ class DateTime /* : Chronos, IDataSerializable */ {
         if (cast(DClosure)_IDataEncodeFormat) {
             return call_user_func(_IDataEncodeFormat, this);
         }
-        return this.i18nFormat(_IDataEncodeFormat);
+        return _i18nFormat(_IDataEncodeFormat);
     }
  
     override string toString() {

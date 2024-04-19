@@ -24,7 +24,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
     
     // Get the HTTP methods to parse request bodies on.
     string[] getMethods() {
-        return this.methods;
+        return _methods;
     }
     /*
     // Registered Parsers
@@ -92,7 +92,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
     
     // Get the current parsers
     IClosure[] getParsers() {
-        return this.parsers;
+        return _parsers;
     }
     
     /**

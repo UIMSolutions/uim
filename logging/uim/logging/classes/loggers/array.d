@@ -32,7 +32,7 @@ class DArrayLog { /* }: BaseLog {
 
     // Read the internal storage
     string[] read() {
-        return this.content;
+        return _content;
     }
     
     // Reset internal storage.

@@ -17,7 +17,6 @@ mixin template TPluginAssets() {
     /**
      * Get list of plugins to process. Plugins without a webroot directory are skipped.
      * Params:
-     * string name Name of plugin for which to symlink assets.
      *  If null all plugins will be processed.
      * /
     protected IData[string] _list(string pluginName = null) {
@@ -174,12 +173,11 @@ mixin template TPluginAssets() {
     /**
      * Create symlink
      * Params:
-     * string atarget Target directory
      * @param string alink Link name
      * /
-    protected bool _createSymlink(string atarget, string alink) {
+    protected bool _createSymlink(string targetDirectory, string alink) {
         
-        result = @symlink(target, link);
+        result = @symlink(targetDirectory, link);
         
 
         if (result) {

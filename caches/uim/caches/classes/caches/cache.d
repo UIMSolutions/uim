@@ -458,14 +458,13 @@ class DCache : ICache {
      * Cache.add("cached_data", mydata, "long_term");
      * ```
      * Params:
-     * string aKey Identifier for the data.
      * @param IData aValue Data to be cached - anything except a resource.
      * @param string configName Optional string configuration name to write to. Defaults to "default".
      * /
-    static bool add(string aKey, IData aValue, string configName = "default") {
+    static bool add(string dataId, IData aValue, string configName = "default") {
         if (isResource(myvalue)) {
             return false;
         }
-        return pool(configName).add(aKey, myvalue);
+        return pool(configName).add(dataId, myvalue);
     } */ 
 }

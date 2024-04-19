@@ -32,13 +32,13 @@ class DWidget : IWidget {
   bool initialize(IData[string] initData = null) {
     configuration(MemoryConfiguration);
     configuration.data(initData);
-    // TODO mergeConfigurationData([
-    // TODO   "name": StringData(),
-    // TODO   // "val": NullData(null),
-    // TODO   "type": StringData("text"),
-    // TODO   "escape": BooleanData(true),
-    // TODO   "templateVars": ArrayData
-    // TODO ]);
+    configuration.update([
+      "name": StringData(),
+      "val": NullData(null),
+      "type": StringData("text"),
+      "escape": BooleanData(true),
+      "templateVars": ArrayData
+    ]);
 
     return true;
   }

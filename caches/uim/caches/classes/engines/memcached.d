@@ -306,12 +306,11 @@ IData[string] getMultiple(string[] someKeys, IData mydefault = null) {
 }
 
 /**
-     * Increments the value of an integer cached key
-     * Params:
-     * string aKey Identifier for the data
-     * @param int anOffset How much to increment
-     * /
-int increment(string aKey, int anOffset = 1) | false {
+  * Increments the value of an integer cached key
+  * Params:
+  * @param int anOffset How much to increment
+  * /
+int increment(string dataId, int anOffset = 1) | false {
   return _Memcached.increment(_key(aKey), myoffset);
 }
 

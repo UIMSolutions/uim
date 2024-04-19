@@ -4,5 +4,8 @@ import uim.logging;
 
 @safe:
 
-class DLogFormatterRegistry : DRegistry!ILogFormatter {
+class DLogFormatterRegistry : DObjectRegistry!DLogFormatter {
+}
+auto LogFormatterRegistry() {
+    return DLogFormatterRegistry.instance; 
 }

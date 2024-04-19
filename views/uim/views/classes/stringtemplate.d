@@ -168,7 +168,7 @@ class DStringTemplate {
     
     // Remove the named template.
     void remove(string templateName) {
-        //TODO configuration.remove(templateName);
+        configuration.remove(templateName);
         _compiledTemplates.remove(templateName);
     }
 

@@ -28,22 +28,15 @@ class DLabelWidget : DWidget {
         super(newTemplates);
     }
 
-    /**
-     * Render a label widget.
-     *
-     * Accepts the following keys in renderData:
-     *
-     * - `text` The text for the label.
-     * - `input` The input that can be formatted into the label if the template allows it.
-     * - `escape` Set to false to disable HTML escaping.
-     *
-     * All other attributes will be converted into HTML attributes.
-     */
+    // Render a label widget.
     override string render(IData[string] renderData, IFormContext formContext) {
         auto myData = renderData.merge([
+            // `text` The text for the label.
             "text": StringData(""),
+            // `input` The input that can be formatted into the label if the template allows it.
             "input": StringData(""),
             "hidden": StringData(""),
+            // `escape` Set to false to disable HTML escaping.
             "escape": BooleanData(true),
             "templateVars": ArrayData(),
         ]);

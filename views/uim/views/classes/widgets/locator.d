@@ -20,15 +20,15 @@ import uim.views;
  * Widgets can ask for the current view by using the `_view` widget.
  */
 class DWidgetLocator {
-    /* 
-    // Array of widgets + widget configuration.
-    protected array my_widgets = null;
-
     // Templates to use.
     protected DStringTemplate _stringTemplate;
 
     // View instance.
-    protected DView _view;
+    protected IView _view;
+    /* 
+    // Array of widgets + widget configuration.
+    protected array my_widgets = null;
+
 
     /**
      * Constructor

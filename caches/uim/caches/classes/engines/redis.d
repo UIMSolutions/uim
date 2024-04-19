@@ -233,18 +233,14 @@ class DRedisCacheEngine : DCacheEngine {
      * Write data for key into cache if it doesn`t exist already.
      * If it already exists, it fails and returns false.
      * Params:
-     * string aKey Identifier for the data.
      * @param IData aValue Data to be cached.
      * /
-    bool add(string aKey, IData aValue) {
-         aDuration = configuration.get("duration");
-        aKey = _key(aKey);
-        aValue = this.serialize(aValue);
+    bool add(string dataId, IData aValue) {
+        auto aDuration = configuration.get("duration");
+        auto aKey = _key(dataId);
+        auto aValue = this.serialize(aValue);
 
-        if (_redis.set(aKey, aValue, ["nx", "ex":  aDuration])) {
-            return true;
-        }
-        return false;
+        return (_redis.set(aKey, aValue, ["nx", "ex":  aDuration]));
     }
     
     /**
@@ -254,25 +250,24 @@ class DRedisCacheEngine : DCacheEngine {
      * /
     string[] groups() {
         auto result;
-        foreach (configuration.get("groups"] as  anGroup) {
-            aValue = _redis.get(configuration.get("prefix") ~  anGroup);
+        configuration.get("groups").each!((group) {
+            auto aValue = _redis.get(configuration.get("prefix") ~  group);
             if (!aValue) {
                 aValue = this.serialize(1);
-               _redis.set(configuration.get("prefix") ~  anGroup, aValue);
+               _redis.set(configuration.get("prefix") ~  group, aValue);
             }
             result ~= anGroup ~ aValue;
-        }
+        });
+
         return result;
     }
     
     /**
      * Increments the group value to simulate deletion of all keys under a group
      * old values will remain in storage until they expire.
-     * Params:
-     * string agroup name of the group to be cleared
          * /
-    bool clearGroup(string agroup) {
-        return (bool)_redis.incr(configuration.get("prefix") ~  anGroup);
+    bool clearGroup(string groupName) {
+        return (bool)_redis.incr(configuration.get("prefix") ~  groupName);
     }
     
     /**
@@ -280,14 +275,12 @@ class DRedisCacheEngine : DCacheEngine {
      *
      * This is needed instead of using Redis' in built serialization feature
      * as it creates problems incrementing/decrementing intially set integer value.
-     * Params:
-     * IData aValue Value to serialize.
      * /
-    protected string serialize(IData aValue) {
-        if (isInt(aValue)) {
-            return to!string(aValue;
+    protected string serialize(IData valueToSerialize) {
+        if (isInt(valueToSerialize)) {
+            return to!string(valueToSerialize);
         }
-        return serialize(aValue);
+        return serialize(valueToSerialize);
     }
     
     /**
@@ -295,11 +288,11 @@ class DRedisCacheEngine : DCacheEngine {
      * Params:
      * string avalue Value to unserialize.
      * /
-    protected IData unserialize(string avalue) {
-        if (preg_match("/^[-]?\d+$/", aValue)) {
-            return (int)aValue;
+    protected IData unserialize(string valueToUnserialize) {
+        if (preg_match("/^[-]?\d+$/", valueToUnserialize)) {
+            return (int)valueToUnserialize;
         }
-        return unserialize(aValue);
+        return unserialize(valueToUnserialize);
     }
     
     /**

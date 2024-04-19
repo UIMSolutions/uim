@@ -383,7 +383,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * /
     string getReturnType() {
         if (this.returnType !isNull) {
-            return this.returnType;
+            return _returnType;
         }
         
         auto types = null;
@@ -434,7 +434,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
                     .format(join("`, `", this.validClauseNames), clause)
             );
         }
-        return this.{clause};
+        return _{clause};
     }
  
     string sql(DValueBinder aBinder) {

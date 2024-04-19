@@ -154,7 +154,7 @@ class DCommandRunner { // }: IEventDispatcher {
     // Get the application`s event manager or the global one.
     IEventManager getEventManager() {
         if (cast(IPluginApplication)this.app) {
-            return this.app.getEventManager();
+            return _app.getEventManager();
         }
         return EventManager.instance();
     }
@@ -270,7 +270,7 @@ class DCommandRunner { // }: IEventDispatcher {
             }
             this.factory = new DCommandFactory(container);
         }
-        return this.factory.create(className);
+        return _factory.create(className);
     }
     
     /**

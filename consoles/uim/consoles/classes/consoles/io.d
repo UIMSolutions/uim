@@ -115,7 +115,7 @@ class DConsoleIo {
     }
     
     int verbose(string[] messages, int newLinesToAppend = 1) {
-        return this.writeln(messages, newLinesToAppend, self.VERBOSE);
+        return _writeln(messages, newLinesToAppend, self.VERBOSE);
     }
     
     /**
@@ -129,7 +129,7 @@ class DConsoleIo {
     }
 
     int quiet(string[] outputMessages, int newLinesToAppend = 1) {
-        return this.writeln(outputMessages, newLinesToAppend, QUIET);
+        return _writeln(outputMessages, newLinesToAppend, QUIET);
     }
     
     /**
@@ -170,7 +170,7 @@ class DConsoleIo {
         string messageType = "info";
         auto myOutputMessages = this.wrapMessageWithType(messageType, outputMessages);
 
-        return this.writeln(myOutputMessages, newLinesToAppend, level);
+        return _writeln(myOutputMessages, newLinesToAppend, level);
     }
     
     /**
@@ -187,7 +187,7 @@ class DConsoleIo {
         string messageType = "comment";
         message = this.wrapMessageWithType(messageType, message);
 
-        return this.writeln(message, newLinesToAppend, level);
+        return _writeln(message, newLinesToAppend, level);
     }
     
     /**
@@ -200,7 +200,7 @@ class DConsoleIo {
         string messageType = "warning";
         message = this.wrapMessageWithType(messageType, message);
 
-        return this.writeErrorMessages(message, newLinesToAppend);
+        return _writeErrorMessages(message, newLinesToAppend);
     }
     
     /**
@@ -213,7 +213,7 @@ class DConsoleIo {
         string messageType = "error";
         auto message = this.wrapMessageWithType(messageType, messagesToOutput);
 
-        return this.writeErrorMessages(message, newLinesToAppend);
+        return _writeErrorMessages(message, newLinesToAppend);
     }
     
     /**
@@ -227,7 +227,7 @@ class DConsoleIo {
         string messageType = "success";
         message = this.wrapMessageWithType(messageType, message);
 
-        return this.writeln(message, newLinesToAppend, level);
+        return _writeln(message, newLinesToAppend, level);
     }
     
     /**

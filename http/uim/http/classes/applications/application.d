@@ -111,7 +111,7 @@ class DApplication {
     
     // Get the plugin collection in use.
     PluginCollection getPlugins() {
-        return this.plugins;
+        return _plugins;
     }
  
     void bootstrap() {
@@ -179,7 +179,7 @@ class DApplication {
      * and stored for future calls.
      * /
     IContainer getContainer() {
-        return this.container ??= this.buildContainer();
+        return _container ??= this.buildContainer();
     }
     
     /**
@@ -233,6 +233,6 @@ class DApplication {
         }
         controller = this.controllerFactory.create(request);
 
-        return this.controllerFactory.invoke(controller);
+        return _controllerFactory.invoke(controller);
     } */
 }

@@ -60,7 +60,7 @@ mixin template TFileManager() {
           
           if (aPath.isEmpty) return 0; 
 
-          return _countFiles(toPathItems(aPath, pathSeparator));    
+          return this.countFiles(toPathItems(aPath, pathSeparator));    
         }
 
         size_t countFiles(string aPath, string aFolderName) {
@@ -70,7 +70,7 @@ mixin template TFileManager() {
 
           if (aPath.isEmpty) return 0; 
 
-          return _countFiles(toPathItems(aPath, pathSeparator), aFolderName);   
+          return this.countFiles(toPathItems(aPath, pathSeparator), aFolderName);   
         }
 
         size_t countFiles(string[] aPath) {
@@ -183,15 +183,15 @@ mixin template TFileManager() {
 
       //#region copyFile()
         bool copyFile(string fromPath, string toPath) {
-          return _copyFile(toPathItems(fromPath, pathSeparator), toPathItems(toPath, pathSeparator)); 
+          return this.copyFile(toPathItems(fromPath, pathSeparator), toPathItems(toPath, pathSeparator)); 
         }
 
         bool copyFile(string[] fromPath, string toPath) {
-          return _copyFile(fromPath, toPathItems(toPath, pathSeparator)); 
+          return this.copyFile(fromPath, toPathItems(toPath, pathSeparator)); 
         }
 
         bool copyFile(string fromPath, string[] toPath) {    
-          return _copyFile(toPathItems(fromPath, pathSeparator), toPath); 
+          return this.copyFile(toPathItems(fromPath, pathSeparator), toPath); 
         }
 
         bool copyFile(string[] fromPath, string[] toPath) {    
@@ -321,15 +321,15 @@ mixin template TFileManager() {
 
   // Move File
   bool moveFile(string fromPath, string toPath) {
-    return _moveFile(toPathItems(fromPath, pathSeparator), toPathItems(toPath, pathSeparator)); 
+    return this.moveFile(toPathItems(fromPath, pathSeparator), toPathItems(toPath, pathSeparator)); 
   }
 
   bool moveFile(string[] fromPath, string toPath) {
-    return _moveFile(fromPath, toPathItems(toPath, pathSeparator)); 
+    return this.moveFile(fromPath, toPathItems(toPath, pathSeparator)); 
   }
 
   bool moveFile(string fromPath, string[] toPath) {
-    return _moveFile(toPathItems(fromPath, pathSeparator), toPath); 
+    return this.moveFile(toPathItems(fromPath, pathSeparator), toPath); 
   }
 
   bool moveFile(string[] fromPath, string[] toPath) {

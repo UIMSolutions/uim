@@ -90,17 +90,17 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
      * Returns the default locale code.
      * /
     string getLocale() {
-        return this.locale;
+        return _locale;
     }
     
     // Returns the translator catalogs
     CatalogLocator getCatalogs() {
-        return this.catalogs;
+        return _catalogs;
     }
     
     // An object of type FormatterLocator
     FormatterLocator getFormatters() {
-        return this.formatters;
+        return _formatters;
     }
     
     /**
@@ -124,10 +124,10 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
         locale ??= this.getLocale();
 
         if (isSet(this.registry[catalogName][localName])) {
-            return this.registry[catalogName][localName];
+            return _registry[catalogName][localName];
         }
         if (_cacher is null) {
-            return this.registry[catalogName][localName] = _getTranslator(catalogName, locale);
+            return _registry[catalogName][localName] = _getTranslator(catalogName, locale);
         }
         // Cache keys cannot contain / if they go to file engine.
         keyName = name.replace("/", ".");
@@ -138,13 +138,13 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
             translator = _getTranslator(catalogName, locale);
            _cacher.set(aKey, translator);
         }
-        return this.registry[catalogName][localName] = translator;
+        return _registry[catalogName][localName] = translator;
     }
     
     // Gets a translator from the registry by catalog for a locale.
     protected ITranslator _getTranslator(string catalogName, string localName) {
         if (this.catalogs.has(catalogName, localName)) {
-            return this.createInstance(catalogName, localname);
+            return _createInstance(catalogName, localname);
         }
 
         ICatalog catalog = _loaders.isSet(catalogName)
@@ -154,7 +154,7 @@ class DTranslatorRegistry : DObjectRegistry!DTranslator {
         catalog = this.setFallbackPackage(catalogName, catalog);
         this.catalogs.set(catalogName, localname, catalog);
 
-        return this.createInstance(catalogName, localname);
+        return _createInstance(catalogName, localname);
     }
     
     // Create translator instance.

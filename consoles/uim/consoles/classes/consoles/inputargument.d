@@ -72,7 +72,7 @@ class DConsoleInputArgument {
      * \UIM\Console\ConsoleInputArgument argument ConsoleInputArgument to compare to.
      * /
     bool isEqualTo(ConsoleInputArgument argument) {
-        return this.name() == argument.name() &&
+        return _name() == argument.name() &&
             this.usage() == argument.usage();
     }
     

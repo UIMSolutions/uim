@@ -149,14 +149,14 @@ class DSocket {
 
             stream_set_timeout(this.connection, (int) configuration.get("timeout"]);
         }
-        return this.connected;
+        return _connected;
     }
 
     /**
      * Check the connection status after calling `connect()`.
      * /
     bool isConnected() {
-        return this.connected;
+        return _connected;
     }
 
     /**
@@ -291,7 +291,7 @@ class DSocket {
         if (isEmpty(this.lastError)) {
             return null;
         }
-        return this.lastError["num"] ~ ": " ~ this.lastError["str"];
+        return _lastError["num"] ~ ": " ~ this.lastError["str"];
     }
 
     /**
@@ -468,7 +468,7 @@ class DSocket {
 
          // Check the encryption status after calling `enableCrypto()`.
         >>>  >>>  > 74 a7b6400cdc9ef55c74d50ddcb3fb9c29d1e0bf bool isEncrypted() {
-            return this.encrypted;
+            return _encrypted;
         }
     */ 
 }

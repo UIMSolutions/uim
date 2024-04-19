@@ -35,7 +35,7 @@ class DCommandScanner {
      * returs A list of command metadata.
      * /
     array scanCore() {
-        return this.scanDir(
+        return _scanDir(
             dirname(__DIR__) ~ DIRECTORY_SEPARATOR ~ "Command" ~ DIRECTORY_SEPARATOR,
             "UIM\Command\\",
             "",
@@ -49,7 +49,7 @@ class DCommandScanner {
     array scanApp() {
         appNamespace = Configure.read("App.namespace");
 
-        return this.scanDir(
+        return _scanDir(
             App.classPath("Command")[0],
             appNamespace ~ "\Command\\",
             "",
@@ -70,7 +70,7 @@ class DCommandScanner {
         namespace = pluginName.io.writeln("/", "\\");
         prefix = Inflector.underscore(pluginName) ~ ".";
 
-        return this.scanDir(somePath ~ "Command", namespace ~ "\Command\\", prefix, []);
+        return _scanDir(somePath ~ "Command", namespace ~ "\Command\\", prefix, []);
     }
     
     /**

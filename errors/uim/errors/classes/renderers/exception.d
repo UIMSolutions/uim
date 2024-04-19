@@ -246,7 +246,7 @@ class DExceptionRenderer : IExceptionRenderer {
             return myResult;
         }
 
-        return this.controller.getResponse().withStringBody(myResult);
+        return _controller.getResponse().withStringBody(myResult);
     }
 
     // Get method name
@@ -260,7 +260,7 @@ class DExceptionRenderer : IExceptionRenderer {
         // baseClass would be an empty string if the exception class is \Exception.
         method = baseClass == "" ? "error500" : Inflector::variable(baseClass);
 
-        return this.method = method;
+        return _method = method;
     }
 
     /**
@@ -295,14 +295,14 @@ class DExceptionRenderer : IExceptionRenderer {
      * /
     protected string _template(Throwable myException, string method, int errorCode) {
         if (myException instanceof HttpException || !Configure::read("debug")) {
-            return this.template = errorCode < 500 ? "error400" : "error500";
+            return _template = errorCode < 500 ? "error400" : "error500";
         }
 
         if (myException instanceof PDOException) {
-            return this.template = "pdo_error";
+            return _template = "pdo_error";
         }
 
-        return this.template = method;
+        return _template = method;
     }
 
     /**
@@ -316,7 +316,7 @@ class DExceptionRenderer : IExceptionRenderer {
             return myException.getCode();
         }
 
-        return this.exceptionHttpCodes[get_class(myException)] ?? 500;
+        return _exceptionHttpCodes[get_class(myException)] ?? 500;
     }
 
     /**
@@ -385,7 +385,7 @@ class DExceptionRenderer : IExceptionRenderer {
     protected DResponse _shutdown() {
         this.controller.dispatchEvent("Controller.shutdown");
 
-        return this.controller.getResponse();
+        return _controller.getResponse();
     }
 
     /**

@@ -252,7 +252,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         // baseClass would be an empty string if the exception class is \Exception.
         method = baseClass == "" ? "error500" : Inflector.variable(baseClass);
 
-        return this.method = method;
+        return _method = method;
     }
     
     /**
@@ -282,12 +282,12 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
      * /
     protected string _template(Throwable exception, string amethod, int code) {
         if (cast(HttpException)exception || !Configure.read("debug")) {
-            return this.template = code < 500 ? "error400' : 'error500";
+            return _template = code < 500 ? "error400' : 'error500";
         }
         if (cast(PDOException)exception) {
-            return this.template = "pdo_error";
+            return _template = "pdo_error";
         }
-        return this.template = method;
+        return _template = method;
     }
     
     /**
@@ -299,7 +299,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
         if (cast(HttpException)exception) {
             return exception.getCode();
         }
-        return this.exceptionHttpCodes[exception.classname] ?? 500;
+        return _exceptionHttpCodes[exception.classname] ?? 500;
     }
     
     // Generate the response using the controller object.
@@ -362,7 +362,7 @@ class DWebExceptionRenderer { // }: IExceptionRenderer {
     protected DResponse _shutdown() {
         this.controller.dispatchEvent("Controller.shutdown");
 
-        return this.controller.getResponse();
+        return _controller.getResponse();
     }
     
     /**

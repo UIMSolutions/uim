@@ -173,7 +173,7 @@ mixin template TCollection() {
                 );
             }
         });
-        return this.newCollection(mygroups);
+        return _newCollection(mygroups);
     }
  
     ICollection indexBy(string mypath) {
@@ -189,7 +189,7 @@ mixin template TCollection() {
             }
             mygroup[pathValue] = value;
         });
-        return this.newCollection(mygroup);
+        return _newCollection(mygroup);
     }
  
     ICollection countBy(string mypath) {
@@ -198,7 +198,7 @@ mixin template TCollection() {
         mymapper = fn (myvalue, aKey, MapReduce mymr): mymr.emitIntermediate(myvalue, mycallback(myvalue));
         myreducer = fn (myvalues, aKey, MapReduce mymr): mymr.emit(count(myvalues), aKey);
 
-        return this.newCollection(new DMapReduce(this.unwrap(), mymapper, myreducer));
+        return _newCollection(new DMapReduce(this.unwrap(), mymapper, myreducer));
     }
  
     float|int sumOf(string mypath = null) {
@@ -217,27 +217,27 @@ mixin template TCollection() {
         myitems = this.toList();
         shuffle(myitems);
 
-        return this.newCollection(myitems);
+        return _newCollection(myitems);
     }
  
     ICollection sample(int mylength = 10) {
-        return this.newCollection(new DLimitIterator(this.shuffle(), 0, mylength));
+        return _newCollection(new DLimitIterator(this.shuffle(), 0, mylength));
     }
  
     ICollection take(int mylength = 1, int anOffset = 0) {
-        return this.newCollection(new DLimitIterator(this, myoffset, mylength));
+        return _newCollection(new DLimitIterator(this, myoffset, mylength));
     }
  
     ICollection skip(int mylength) {
-        return this.newCollection(new DLimitIterator(this, mylength));
+        return _newCollection(new DLimitIterator(this, mylength));
     }
  
     ICollection match(array myconditions) {
-        return this.filter(_createMatcherFilter(myconditions));
+        return _filter(_createMatcherFilter(myconditions));
     }
  
     IData firstMatch(array myconditions) {
-        return this.match(myconditions).first();
+        return _match(myconditions).first();
     }
  
     IData first() {
@@ -269,17 +269,17 @@ mixin template TCollection() {
         }
         myiterator = this.optimizeUnwrap();
         if (isArray(myiterator)) {
-            return this.newCollection(array_slice(myiterator, mylength * -1));
+            return _newCollection(array_slice(myiterator, mylength * -1));
         }
         if (cast(DCountable)myiterator) {
             mycount = count(myiterator);
 
             if (mycount == 0) {
-                return this.newCollection([]);
+                return _newCollection([]);
             }
             auto myIterator = new DLimitIterator(myiterator, max(0, mycount - mylength), mylength);
 
-            return this.newCollection(myiterator);
+            return _newCollection(myiterator);
         }
         mygenerator = auto (myiterator, mylength) {
             auto result;
@@ -346,7 +346,7 @@ mixin template TCollection() {
             mytail.each!(v => yield v[0]: v[1]);
         };
 
-        return this.newCollection(mygenerator(myiterator, mylength));
+        return _newCollection(mygenerator(myiterator, mylength));
     }
  
     ICollection append(Range myitems) {
@@ -354,7 +354,7 @@ mixin template TCollection() {
         mylist.append(this.unwrap());
         mylist.append(this.newCollection(myitems).unwrap());
 
-        return this.newCollection(mylist);
+        return _newCollection(mylist);
     }
  
     ICollection appendItem(IData myitem, string aKey = null) {
@@ -362,11 +362,11 @@ mixin template TCollection() {
             ? [aKey: myitem]
             : [myitem];
 
-        return this.append(mydata);
+        return _append(mydata);
     }
  
     ICollection prepend(IData myitems) {
-        return this.newCollection(myitems).append(this);
+        return _newCollection(myitems).append(this);
     }
  
     ICollection prependItem(IData myitem, string aKey = null) {
@@ -374,7 +374,7 @@ mixin template TCollection() {
             ? [aKey: myitem]
             : [myitem];
 
-        return this.prepend(mydata);
+        return _prepend(mydata);
     }
  
     ICollection combine(
@@ -432,7 +432,7 @@ mixin template TCollection() {
             mymapReduce.emit(result, aKey);
         };
 
-        return this.newCollection(new DMapReduce(this.unwrap(), mymapper, myreducer));
+        return _newCollection(new DMapReduce(this.unwrap(), mymapper, myreducer));
     }
  
     ICollection nest(
@@ -471,7 +471,7 @@ mixin template TCollection() {
             myparents[aKey][mynestingKey] = mychildren;
         };
 
-        return this.newCollection(new DMapReduce(this.unwrap(), mymapper, myreducer))
+        return _newCollection(new DMapReduce(this.unwrap(), mymapper, myreducer))
             .map(fn (myvalue): myisObject ? myvalue : myvalue.getArrayCopy());
     }
  
@@ -495,15 +495,15 @@ mixin template TCollection() {
     }
  
     array toList() {
-        return this.toArray(false);
+        return _toArray(false);
     }
  
     array IDataSerialize() {
-        return this.toArray();
+        return _toArray();
     }
  
     ICollection compile(bool mykeepKeys = true) {
-        return this.newCollection(this.toArray(mykeepKeys));
+        return _newCollection(this.toArray(mykeepKeys));
     }
  
     ICollection lazy() {
@@ -511,7 +511,7 @@ mixin template TCollection() {
             this.unwrap().byKeyValue
                 .each!(kv => yield kv.key: kv.value);
 
-        return this.newCollection(mygenerator());
+        return _newCollection(mygenerator());
     }
  
     ICollection buffered() {
@@ -557,7 +557,7 @@ mixin template TCollection() {
             return myitem;
         };
 
-        return this.newCollection(
+        return _newCollection(
             new DRecursiveIteratorIterator(
                 new DUnfoldIterator(this.unwrap(), mycallback),
                 RecursiveIteratorIterator.LEAVES_ONLY
@@ -587,7 +587,7 @@ mixin template TCollection() {
     }
  
     ICollection chunk(int mychunkSize) {
-        return this.map(function (myv, myKey, Iterator myiterator) use (mychunkSize) {
+        return _map(function (myv, myKey, Iterator myiterator) use (mychunkSize) {
             myvalues = [myv];
             for (myi = 1; myi < mychunkSize; myi++) {
                 myiterator.next();
@@ -601,7 +601,7 @@ mixin template TCollection() {
     }
  
     ICollection chunkWithKeys(int mychunkSize, bool mykeepKeys = true) {
-        return this.map(function (myv, myKey, Iterator myiterator) use (mychunkSize, mykeepKeys) {
+        return _map(function (myv, myKey, Iterator myiterator) use (mychunkSize, mykeepKeys) {
             aKey = 0;
             if (mykeepKeys) {
                 aKey = myKey;
@@ -652,7 +652,7 @@ mixin template TCollection() {
      * /
     ICollection cartesianProduct(?callable myoperation = null, ?callable myfilter = null) {
         if (this.isEmpty) {
-            return this.newCollection([]);
+            return _newCollection([]);
         }
         auto mycollectionArrays = null;
         auto mycollectionArraysKeys = null;
@@ -696,7 +696,7 @@ mixin template TCollection() {
                 mycurrentIndexes[mychangeIndex - 1]++;
             }
         }
-        return this.newCollection(result);
+        return _newCollection(result);
     }
     
     ICollection transpose() {
@@ -712,7 +712,7 @@ mixin template TCollection() {
         for (mycolumn = 0; mycolumn < mylength; mycolumn++) {
             result ~= array_column(myarrayValue, mycolumn);
         }
-        return this.newCollection(result);
+        return _newCollection(result);
     }
  
     size_t count() {

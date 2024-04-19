@@ -89,13 +89,13 @@ class DHtmlErrorFormatter : IErrorFormatter {
             };
         }
         if (cast(DArrayNode)var) {
-            return this.exportArray(var,  anIndent + 1);
+            return _exportArray(var,  anIndent + 1);
         }
         if (cast(DClassNode)var || cast(ReferenceNode)var) {
-            return this.exportObject(var,  anIndent + 1);
+            return _exportObject(var,  anIndent + 1);
         }
         if (cast(DSpecialNode)var ) {
-            return this.style("special", var.getValue());
+            return _style("special", var.getValue());
         }
         throw new DInvalidArgumentException("Unknown node received " ~ var.classname);
     }

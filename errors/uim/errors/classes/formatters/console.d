@@ -78,7 +78,7 @@ class DConsoleFormatter : IErrorFormatter {
     string dump(IErrorNode nodeToDump) {
         size_t myIndent = 0;
 
-        return this.export(node, myIndent);
+        return _export(node, myIndent);
     }
     
     /**
@@ -99,13 +99,13 @@ class DConsoleFormatter : IErrorFormatter {
             };
         }
         if (cast(DArrayNode)var) {
-            return this.exportArray(var,  anIndent + 1);
+            return _exportArray(var,  anIndent + 1);
         }
         if (cast(DClassNode)var || cast(ReferenceNode)var) {
-            return this.exportObject(var,  anIndent + 1);
+            return _exportObject(var,  anIndent + 1);
         }
         if (cast(DSpecialNode)var) {
-            return this.style("special", var.getValue());
+            return _style("special", var.getValue());
         }
         throw new DInvalidArgumentException("Unknown node received " ~ var.classname);
     }
@@ -145,7 +145,7 @@ class DConsoleFormatter : IErrorFormatter {
         props = null;
 
         if (cast(ReferenceNode)var) {
-            return this.style("punct", "object(") ~
+            return _style("punct", "object(") ~
                 this.style("class", var.getValue()) ~
                 this.style("punct", ") id:") ~
                 this.style("number", to!string(var.getId())) ~

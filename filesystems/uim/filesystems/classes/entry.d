@@ -149,7 +149,7 @@ class DFilesystemEntry : IFilesystemEntry {
 	// #endregion isLink
 
 	override string toString() {
-		return this.className ~ ": " ~ name;
+		return _className ~ ": " ~ name;
 	}
 
 	string debugInfo() {

@@ -37,7 +37,7 @@ TEXT;
     string dump(IErrorNode nodeToDump) {
         indentSize = 0;
 
-        return this.export(node, indentSize);
+        return _export(node, indentSize);
     }
     
     /**
@@ -56,10 +56,10 @@ TEXT;
             };
         }
         if (cast(DArrayNode)nodeToDump) {
-            return this.exportArray(nodeToDump, indentSize + 1);
+            return _exportArray(nodeToDump, indentSize + 1);
         }
         if (cast(DClassNode)nodeToDump || cast(ReferenceNode)nodeToDump) {
-            return this.exportObject(nodeToDump, indentSize + 1);
+            return _exportObject(nodeToDump, indentSize + 1);
         }
         if (cast(DSpecialNode)nodeToDump ) {
             return nodeToDump.getValue();

@@ -23,7 +23,7 @@ class DClassNode : IErrorNode {
 
     // Get property nodes
     DPropertyNode[] getChildren() {
-        return this.properties;
+        return _properties;
     }
 
     private string _className;

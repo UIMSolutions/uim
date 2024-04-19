@@ -121,9 +121,9 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
         try {
             return handler.handle(myRequest);
         } catch (RedirectException myException) {
-            return this.handleRedirect(myException);
+            return _handleRedirect(myException);
         } catch (Throwable myException) {
-            return this.handleException(myException, myRequest);
+            return _handleException(myException, myRequest);
         }
     }
 
@@ -187,6 +187,6 @@ class DErrorHandlerMiddleware : IErrorMiddleware {
             this.errorHandler = new myClassName(this.configuration.data);
         }
 
-        return this.errorHandler;
+        return _errorHandler;
     } */
 }

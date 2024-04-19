@@ -57,6 +57,6 @@ class DCommandRetry {
     
     // Returns the last number of retry attemps.
     int getRetries() {
-        return this.numRetries;
+        return _numRetries;
     } */
 }

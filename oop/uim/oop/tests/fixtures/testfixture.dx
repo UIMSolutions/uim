@@ -48,7 +48,7 @@ class DTestFixture : IFixture {
     }
  
     string sourceName() {
-        return this.table;
+        return _table;
     }
     
     bool initialize() {

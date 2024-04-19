@@ -23,7 +23,7 @@ class DMiddlewareDispatcher {
     string resolveUrl(string[] urlToResolve) {
         // If we need to resolve a Route URL but there are no routes, load routes.
         if (isArray(urlToResolve) && count(Router.getRouteCollection().routes()) == 0) {
-            return this.resolveRoute(urlToResolve);
+            return _resolveRoute(urlToResolve);
         }
         return Router.url(urlToResolve);
     }

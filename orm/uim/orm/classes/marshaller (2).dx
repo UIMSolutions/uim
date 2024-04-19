@@ -764,7 +764,7 @@ class DMarshaller
         }
 
         if (!empty(associated) && !in_array("_joinData", associated, true) && !isset(associated["_joinData"])) {
-            return this.mergeMany(original, value, options);
+            return _mergeMany(original, value, options);
         }
 
         return _mergeJoinData(original, assoc, value, options);

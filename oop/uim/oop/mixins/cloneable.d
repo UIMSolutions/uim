@@ -8,10 +8,10 @@ mixin template TCloneable() {
     }
 
     O clone(this O)() {
-        return this.create;
+        return _create;
     }
 
     O clone(this O)(Json data) {
-        return this.create;
+        return _create;
     }
 }

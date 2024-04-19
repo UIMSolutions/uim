@@ -883,7 +883,7 @@ abstract class DTestCase : DBaseTestCase {
      * Get the fixtures this test should use.
      * /
     string[] getFixtures() {
-        return this.fixtures;
+        return _fixtures;
     }
     
     /**

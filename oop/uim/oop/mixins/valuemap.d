@@ -6,14 +6,14 @@ import uim.oop;
 template ValueMapWrapper() {
   bool containsValue(string key) {
     if (this.values) { // has values
-      return this.values.containsKey(key);
+      return _values.containsKey(key);
     }
     return false;
   }
 
   DValue[] values() {
     if (this.values) {
-      return this.values.values;
+      return _values.values;
     }
     return null;
   }
@@ -52,7 +52,7 @@ template ValueMapWrapper() {
 
   DValue getValue(string key) {
     if (this.values) {
-      return this.values[key];
+      return _values[key];
     }
     return null;
   }

@@ -47,7 +47,7 @@ class DTestSession {
             return null;
         }
         if (myname is null) {
-            return this.session ?: [];
+            return _session ?: [];
         }
         return Hash.get(this.session, myname);
     } */ 

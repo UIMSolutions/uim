@@ -92,7 +92,7 @@ template XPropertyAA(string key, string value, string name) {
 	@safe auto `~name~`() { return _`~name~`; }
 	@safe auto `~name~`(`~key~` key) { return _`~name~`[key]; }
 
-	@safe auto `~name~`(this O)(`~key~`[] keys...) { return this.`~name~`(keys); }
+	@safe auto `~name~`(this O)(`~key~`[] keys...) { return _`~name~`(keys); }
 	@safe auto `~name~`(this O)(`~key~`[] keys) { return _`~name~`.select(keys); }
 
 	O `~name~`(this O)(`~datatype~` values) { _`~name~` = _`~name~`.add(values); return cast(O)this; }
@@ -101,7 +101,7 @@ template XPropertyAA(string key, string value, string name) {
 	O `~name~`Add(this O)(`~datatype~` values) { _`~name~` = _`~name~`.add(values); return cast(O)this; }
 	O `~name~`Sub(this O)(`~datatype~` values) { _`~name~` = _`~name~`.sub(values); return cast(O)this; }
 
-	O remove`~Name~`(this O)(`~key~`[] keys...) { return this.remove`~Name~`(keys); return cast(O)this; }
+	O remove`~Name~`(this O)(`~key~`[] keys...) { return _remove`~Name~`(keys); return cast(O)this; }
 	O remove`~Name~`(this O)(`~key~`[] keys) { _`~name~` = _`~name~`.sub(keys); return cast(O)this; }
 
 	O clear`~Name~`(this O)() { _`~name~` = _`~name~`.clear; return cast(O)this; }

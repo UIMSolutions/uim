@@ -84,6 +84,31 @@ mixin template TEntity() {
   }
 
   /**
+    * Indicates whether this entity is yet to be persisted.
+    * Entities default to assuming they are new. You can use Table.persisted()
+    * to set the new flag on an entity based on records in the database.
+  */
+  protected bool _new = true;
+
+  /**
+    * Map of fields in this entity that can be safely mass assigned, each
+    * field name points to a boolean indicating its status. An empty array
+    * means no fields are accessible for mass assigment.
+    *
+    * The special field '\*' can also be mapped, meaning that any other field
+    * not defined in the map will take its value. For example, `'*": BooleanData(true)`
+    * means that any field not defined in the map will be accessible for mass
+    * assignment by default.
+  */
+  protected bool[string] _accessible = ["*": true];
+
+  // The alias of the repository this entity came from
+  protected string _registryAlias = "";
+
+  // Storing the current visitation status while recursing through entities getting errors.
+  protected bool _hasBeenVisited = false;
+
+  /**
      * Set fields as invalid and not patchable into the entity.
      *
      * This is useful for batch operations when one needs to get the original value for an error message after patching.
@@ -93,21 +118,21 @@ mixin template TEntity() {
      * IData[string] fields The values to set.
      * @param bool overwrite Whether to overwrite pre-existing values for field.
     * /
-                                                              void setFieldsInvalid(arrayfields, booloverwrite = false) {
-                                                                foreach (fields asfield : aValue) {
-                                                                  if (overwrite == true) {
-                                                                    _invalidFields[field] = aValue;
-                                                                    continue;}
-                                                                    _invalidFields += [field: aValue];
-                                                                  }
-                                                                }
+                      void setFieldsInvalid(arrayfields, booloverwrite = false) {
+                        foreach (fields asfield : aValue) {
+                          if (overwrite == true) {
+                            _invalidFields[field] = aValue;
+                            continue;}
+                            _invalidFields += [field: aValue];
+                          }
+                        }
 
-                                                                void setFieldInvalid(field, aValue, booloverwrite = false) {
-                                                                  if (overwrite == true) {
-                                                                    _invalidFields[field] = aValue;
-                                                                    continue;}
-                                                                    _invalidFields += [field: aValue];
-                                                                  }
+                        void setFieldInvalid(field, aValue, booloverwrite = false) {
+                          if (overwrite == true) {
+                            _invalidFields[field] = aValue;
+                            continue;}
+                            _invalidFields += [field: aValue];
+                          }
 
                                                                   /**
      * Sets a field as invalid and not patchable into the entity.
@@ -125,33 +150,6 @@ mixin template TEntity() {
      * @var array<string, array<string, STRINGAA>>
     * /
   protected static array _accessors = null;
-
-  /**
-     * Indicates whether this entity is yet to be persisted.
-     * Entities default to assuming they are new. You can use Table.persisted()
-     * to set the new flag on an entity based on records in the database.
-    * /
-  protected bool _new = true;
-
-
-
-  /**
-     * Map of fields in this entity that can be safely mass assigned, each
-     * field name points to a boolean indicating its status. An empty array
-     * means no fields are accessible for mass assigment.
-     *
-     * The special field '\*' can also be mapped, meaning that any other field
-     * not defined in the map will take its value. For example, `'*": BooleanData(true)`
-     * means that any field not defined in the map will be accessible for mass
-     * assignment by default.
-    * /
-  protected bool[string] _accessible = ["*": BooleanData(true)];
-
-  // The alias of the repository this entity came from
-  protected string _registryAlias = "";
-
-  // Storing the current visitation status while recursing through entities getting errors.
-  protected bool _hasBeenVisited = false;
 
   /**
      * Whether the presence of a field is checked when accessing a property.
@@ -428,22 +426,10 @@ mixin template TEntity() {
      * - `[]`
      *
      * and false in all other cases.
-     * Params:
-     * string afield The field to check.
     * /
-  bool isEmpty(string afield) {
-    aValue = get(field);
-    if (
-      aValue.isNull ||
-      (
-        isArray(aValue) &&
-        empty(aValue) ||
-        aValue == ""
-      )
-      ) {
-      return true;
-    }
-    return false;
+  bool isEmpty(string fieldToCheck) {
+    auto aValue = get(fieldToCheck);
+    return (aValue.isNull || (isArray(aValue) && empty(aValue) || aValue == ""));
   }
 
   /**

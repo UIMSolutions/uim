@@ -20,25 +20,24 @@ class DAssetMiddleware : IMiddleware {
         }
     }
     
-    /**
-     * Serve assets if the path matches one.
-     * Params:
-     * @param \Psr\Http\Server\IRequestHandler handler The request handler.
-     */
+    // Serve assets if the path matches one.
     IResponse process(IServerRequest serverRequest, IRequestHandler requestHandler) {
-        url = serverRequest.getUri().getPath();
-        if (url.has("..") || !url, ".")) {
+        auto url = serverRequest.getUri().getPath();
+        
+        if (url.has("..") || !url.has(".")) {
             return requestHandler.handle(serverRequest);
         }
         if (url.has("/.")) {
             return requestHandler.handle(serverRequest);
         }
-        assetFile = _getAssetFile(url);
+        
+        auto assetFile = _getAssetFile(url);
         if (assetFile.isNull || !isFile(assetFile)) {
             return requestHandler.handle(serverRequest);
         }
-        file = new DSplFileInfo(assetFile);
-        modifiedTime = file.getMTime();
+        
+        auto file = new DSplFileInfo(assetFile);
+        auto modifiedTime = file.getMTime();
         if (this.isNotModified(serverRequest, file)) {
             return (new DResponse())
                 .withStringBody("")
@@ -58,7 +57,7 @@ class DAssetMiddleware : IMiddleware {
      * @param \SplFileInfo file The file object to compare.
      */
     protected bool isNotModified(IServerRequest serverRequest, SplFileInfo file) {
-        modifiedSince = serverRequest.getHeaderLine("If-Modified-Since");
+        auto modifiedSince = serverRequest.getHeaderLine("If-Modified-Since");
         if (!modifiedSince) {
             return false;
         }

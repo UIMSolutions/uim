@@ -4,8 +4,6 @@ import uim.routings;
 
 @safe:
 
-/*
-
 /**
  * This route class will transparently inflect the controller and plugin routing
  * parameters, so that requesting `/my_controller` is parsed as `["controller": "MyController"]`

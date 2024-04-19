@@ -43,15 +43,19 @@ class DCatalogLocator {
       throw new DI18nException(
         "Catalog `%s` with locale `%s` is not registered."
           .format(catalogName, catalogLocale));
-    } */
+    } * /
 
-    return _registry[catalogName][catalogLocale];
+    return _registry[catalogName][catalogLocale]; 
+    */
+    return null; 
   }
 
   // Check if a Catalog object for given name and locale exists in registry.
   bool hasCatalog(string catalogName, string catalogLocale = null) {
-    return _registry.isSet(catalogName)
+    /* return _registry.isSet(catalogName)
       ? (catalogLocale.isEmpty
           ? true : this.registry[catalogName].isSet(catalogLocale)) : false;
+    */
+    return false;
   }
 }

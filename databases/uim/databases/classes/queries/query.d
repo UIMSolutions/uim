@@ -1398,14 +1398,14 @@ abstract class DQuery : IQuery { // : IExpression {
      * @param STRINGAA types Associative array of type names used to bind values to query
      * /
     protected void _conjugate(
-        string apart,
+        string queryPart,
         IExpression|Closure|string[] append,
         string aconjunction,
         array types
     ) {
         expression = _parts[part] ?: this.newExpr();
         if (isEmpty(append)) {
-           _parts[part] = expression;
+           _parts[queryPart] = expression;
 
             return;
         }
@@ -1419,7 +1419,7 @@ abstract class DQuery : IQuery { // : IExpression {
                 .setConjunction(conjunction)
                 .add([expression, append], types);
         }
-       _parts[part] = expression;
+       _parts[queryPart] = expression;
        _isDirty();
     }
     

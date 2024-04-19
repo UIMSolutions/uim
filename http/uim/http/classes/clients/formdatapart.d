@@ -56,9 +56,9 @@ class DFormDataPart { // }: Stringable {
      * /
     string disposition(string adisposition = null) {
         if (disposition is null) {
-            return this.disposition;
+            return _disposition;
         }
-        return this.disposition = disposition;
+        return _disposition = disposition;
     }
     
     /**
@@ -68,9 +68,9 @@ class DFormDataPart { // }: Stringable {
      * /
     string contentId(string aid = null) {
         if (anId is null) {
-            return this.contentId;
+            return _contentId;
         }
-        return this.contentId = anId;
+        return _contentId = anId;
     }
     
 
@@ -82,9 +82,9 @@ class DFormDataPart { // }: Stringable {
      * /
     string type(string atype) {
         if (type is null) {
-            return this.type;
+            return _type;
         }
-        return this.type = type;
+        return _type = type;
     }
     
     /**
@@ -96,23 +96,23 @@ class DFormDataPart { // }: Stringable {
      * /
     string transferEncoding(string atype) {
         if (type is null) {
-            return this.transferEncoding;
+            return _transferEncoding;
         }
-        return this.transferEncoding = type;
+        return _transferEncoding = type;
     }
     
     /**
      * Get the part name.
      * /
     string name() {
-        return this.name;
+        return _name;
     }
     
     /**
      * Get the value.
      * /
     string value() {
-        return this.value;
+        return _value;
     }
     
     /**

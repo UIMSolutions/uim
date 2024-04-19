@@ -69,7 +69,7 @@ class DEncryptedCookieMiddleware { // : IHttpMiddleware {
      * Part of the CookieCryptTrait implementation.
      * /
     protected string _getCookieEncryptionKey() {
-        return this.key;
+        return _key;
     }
     
     /**

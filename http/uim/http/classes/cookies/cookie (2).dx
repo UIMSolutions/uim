@@ -264,7 +264,7 @@ class DCookie : ICookie {
     }
  
     @property string name() {
-        return this.name;
+        return _name;
     }
     
     // Validates the cookie name
@@ -280,7 +280,7 @@ class DCookie : ICookie {
     }
  
     auto getValue() {
-        return this.value;
+        return _value;
     }
  
     string getScalarValue() {
@@ -291,7 +291,7 @@ class DCookie : ICookie {
         }
         assert(isString(this.value), "aValue is not a string");
 
-        return this.value;
+        return _value;
     }
  
     auto withValue(string[]|float|int|bool aValue): static
@@ -321,7 +321,7 @@ class DCookie : ICookie {
     }
  
     string getPath() {
-        return this.path;
+        return _path;
     }
  
     auto withDomain(string adomain): static
@@ -333,11 +333,11 @@ class DCookie : ICookie {
     }
  
     string getDomain() {
-        return this.domain;
+        return _domain;
     }
  
     bool isSecure() {
-        return this.secure;
+        return _secure;
     }
  
     auto withSecure(bool secure): static
@@ -357,7 +357,7 @@ class DCookie : ICookie {
     }
  
     bool isHttpOnly() {
-        return this.httpOnly;
+        return _httpOnly;
     }
  
     auto withExpiry(IDateTime dateTime): static
@@ -373,7 +373,7 @@ class DCookie : ICookie {
  
     auto getExpiry(): IDateTime
     {
-        return this.expiresAt;
+        return _expiresAt;
     }
  
     int getExpiresTimestamp() {
@@ -387,7 +387,7 @@ class DCookie : ICookie {
         if (!this.expiresAt) {
             return "";
         }
-        return this.expiresAt.format(EXPIRES_FORMAT);
+        return _expiresAt.format(EXPIRES_FORMAT);
     }
  
     bool isExpired(?IDateTime time = null) {
@@ -398,7 +398,7 @@ class DCookie : ICookie {
         if (!this.expiresAt) {
             return false;
         }
-        return this.expiresAt < time;
+        return _expiresAt < time;
     }
  
     auto withNeverExpire(): static
@@ -418,7 +418,7 @@ class DCookie : ICookie {
     }
  
     SameSiteEnum getSameSite() {
-        return this.sameSite;
+        return _sameSite;
     }
  
     static withSameSite(SameSiteEnum|string sameSite) {
@@ -507,7 +507,7 @@ class DCookie : ICookie {
             this.value = _expand(this.value);
         }
         if (somePath is null) {
-            return this.value;
+            return _value;
         }
         assert(this.value.isArray, "aValue is not an array");
 
@@ -516,7 +516,7 @@ class DCookie : ICookie {
     
     // Checks if the cookie value was expanded
     bool isExpanded() {
-        return this.isExpanded;
+        return _isExpanded;
     }
  
     array getOptions() {

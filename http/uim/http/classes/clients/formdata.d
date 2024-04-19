@@ -161,7 +161,7 @@ class DFormData { // }: Countable {
      * or use add() with a Part instance.
      * /
     bool isMultipart() {
-        return this.hasFile() || _hasComplexPart;
+        return _hasFile() || _hasComplexPart;
     }
     
     /**

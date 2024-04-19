@@ -278,21 +278,21 @@ class DServerRequest { // }: IServerRequest {
      * Get the content type used in this request.
      * /
     string contentType() {
-        return this.getEnvironmentData("CONTENT_TYPE") ?: this.getEnvironmentData("HTTP_CONTENT_TYPE");
+        return _getEnvironmentData("CONTENT_TYPE") ?: this.getEnvironmentData("HTTP_CONTENT_TYPE");
     }
     
     /**
      * Returns the instance of the Session object for this request
      * /
     Session getSession() {
-        return this.session;
+        return _session;
     }
     
     /**
      * Returns the instance of the FlashMessage object for this request
      * /
     FlashMessage getFlash() {
-        return this.flash;
+        return _flash;
     }
     
     /**
@@ -338,7 +338,7 @@ class DServerRequest { // }: IServerRequest {
      * Get trusted proxies
      * /
     string[] getTrustedProxies() {
-        return this.trustedProxies;
+        return _trustedProxies;
     }
     
     /**
@@ -382,7 +382,7 @@ class DServerRequest { // }: IServerRequest {
 
             array_unshift(params, type);
 
-            return this.is(...params);
+            return _is(...params);
         }
         throw new BadMethodCallException("Method `%s()` does not exist."
         .format(name));
@@ -522,7 +522,7 @@ class DServerRequest { // }: IServerRequest {
     protected bool _environmentDetector(array detect) {
         if (isSet(detect["env"])) {
             if (isSet(detect["value"])) {
-                return this.getEnvironmentData(detect["env"]) == detect["value"];
+                return _getEnvironmentData(detect["env"]) == detect["value"];
             }
             if (isSet(detect["pattern"])) {
                 return (bool)preg_match(detect["pattern"], (string)this.getEnvironmentData(detect["env"]));
@@ -818,7 +818,7 @@ class DServerRequest { // }: IServerRequest {
      * use the alternative getQuery() method.
      * /
     array getQueryParams() {
-        return this.query;
+        return _query;
     }
     
     /**
@@ -838,9 +838,9 @@ class DServerRequest { // }: IServerRequest {
      * /
     string host() {
         if (this.trustProxy && this.getEnvironmentData("HTTP_X_FORWARDED_HOST")) {
-            return this.getEnvironmentData("HTTP_X_FORWARDED_HOST");
+            return _getEnvironmentData("HTTP_X_FORWARDED_HOST");
         }
-        return this.getEnvironmentData("HTTP_HOST");
+        return _getEnvironmentData("HTTP_HOST");
     }
     
     /**
@@ -848,9 +848,9 @@ class DServerRequest { // }: IServerRequest {
      * /
     string port() {
         if (this.trustProxy && this.getEnvironmentData("HTTP_X_FORWARDED_PORT")) {
-            return this.getEnvironmentData("HTTP_X_FORWARDED_PORT");
+            return _getEnvironmentData("HTTP_X_FORWARDED_PORT");
         }
-        return this.getEnvironmentData("SERVER_PORT");
+        return _getEnvironmentData("SERVER_PORT");
     }
     
     /**
@@ -862,7 +862,7 @@ class DServerRequest { // }: IServerRequest {
         if (this.trustProxy && this.getEnvironmentData("HTTP_X_FORWARDED_PROTO")) {
             return (string)this.getEnvironmentData("HTTP_X_FORWARDED_PROTO");
         }
-        return this.getEnvironmentData("HTTPS") ? "https' : 'http";
+        return _getEnvironmentData("HTTPS") ? "https' : 'http";
     }
     
     /**
@@ -971,7 +971,7 @@ class DServerRequest { // }: IServerRequest {
      * /
     IData getQuery(string aName = null, IData defaultValue = null) {
         if (name is null) {
-            return this.query;
+            return _query;
         }
         return Hash.get(this.query, name, default);
     }
@@ -1009,7 +1009,7 @@ class DServerRequest { // }: IServerRequest {
      * /
     IData getData(string aName = null, IData defaultValue = null) {
         if (name is null) {
-            return this.data;
+            return _data;
         }
         if (!isArray(this.data)) {
             return default;
@@ -1065,7 +1065,7 @@ class DServerRequest { // }: IServerRequest {
      * Get all the cookie data from the request.
      * /
     IData[string] getCookieParams() {
-        return this.cookies;
+        return _cookies;
     }
     
     /**
@@ -1091,7 +1091,7 @@ class DServerRequest { // }: IServerRequest {
      * body.
      * /
     object|array|null getParsedBody() {
-        return this.data;
+        return _data;
     }
     
     /**
@@ -1112,7 +1112,7 @@ class DServerRequest { // }: IServerRequest {
      * /
     string getProtocolVersion() {
         if (this.protocol) {
-            return this.protocol;
+            return _protocol;
         }
         // Lazily populate this data as it is generally not used.
         preg_match("/^HTTP\/([\d.]+)/", (string)this.getEnvironmentData("SERVER_PROTOCOL"), match);
@@ -1122,7 +1122,7 @@ class DServerRequest { // }: IServerRequest {
         }
         this.protocol = protocol;
 
-        return this.protocol;
+        return _protocol;
     }
     
     /**
@@ -1320,12 +1320,12 @@ class DServerRequest { // }: IServerRequest {
     IData getAttribute(string aName, IData defaultValue = null) {
         if (in_array(name, this.emulatedAttributes, true)) {
             if (name == "here") {
-                return this.base ~ this.uri.getPath();
+                return _base ~ this.uri.getPath();
             }
-            return this.{name};
+            return _{name};
         }
         if (array_key_exists(name, this.attributes)) {
-            return this.attributes[name];
+            return _attributes[name];
         }
         return default;
     }
@@ -1343,7 +1343,7 @@ class DServerRequest { // }: IServerRequest {
             "here": this.base ~ this.uri.getPath(),
         ];
 
-        return this.attributes + emulated;
+        return _attributes + emulated;
     }
     
     /**
@@ -1363,7 +1363,7 @@ class DServerRequest { // }: IServerRequest {
      * Get the array of uploaded files from the request.
      * /
     array getUploadedFiles() {
-        return this.uploadedFiles;
+        return _uploadedFiles;
     }
     
     /**
@@ -1401,7 +1401,7 @@ class DServerRequest { // }: IServerRequest {
      * Gets the body of the message.
      * /
     IStream getBody() {
-        return this.stream;
+        return _stream;
     }
     
     /**
@@ -1421,7 +1421,7 @@ class DServerRequest { // }: IServerRequest {
      * Retrieves the URI instance.
      * /
     IUri getUri() {
-        return this.uri;
+        return _uri;
     }
     
     /**
@@ -1481,7 +1481,7 @@ class DServerRequest { // }: IServerRequest {
      * /
     string getRequestTarget() {
         if (this.requestTarget !isNull) {
-            return this.requestTarget;
+            return _requestTarget;
         }
 
         string target = this.uri.getPath();
@@ -1497,7 +1497,7 @@ class DServerRequest { // }: IServerRequest {
     // Get the path of current request.
     string getPath() {
         if (this.requestTarget is null) {
-            return this.uri.getPath();
+            return _uri.getPath();
         }
         [somePath] = this.requestTarget.split("?");
 

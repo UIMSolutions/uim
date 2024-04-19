@@ -173,14 +173,14 @@ class DClientResponse { // }: Message : IResponse {
      * Check if the response status code was in the 2xx/3xx range
      * /
     bool isOk() {
-        return this.code >= 200 && this.code <= 399;
+        return _code >= 200 && this.code <= 399;
     }
     
     /**
      * Check if the response status code was in the 2xx range
      * /
     bool isSuccess() {
-        return this.code >= 200 && this.code <= 299;
+        return _code >= 200 && this.code <= 299;
     }
     
     /**
@@ -200,7 +200,7 @@ class DClientResponse { // }: Message : IResponse {
     }
     
     @property int statusCode() {
-        return this.code;
+        return _code;
     }
     
     /**
@@ -217,7 +217,7 @@ class DClientResponse { // }: Message : IResponse {
     }
     
     string getReasonPhrase() {
-        return this.reasonPhrase;
+        return _reasonPhrase;
     }
     
     /**
@@ -251,7 +251,7 @@ class DClientResponse { // }: Message : IResponse {
      * instance allowing you to interact with cookie objects directly.
      * /
     CookieCollection getCookieCollection() {
-        return this.buildCookieCollection();
+        return _buildCookieCollection();
     }
     
     /**
@@ -288,7 +288,7 @@ class DClientResponse { // }: Message : IResponse {
     protected ICookieCollection buildCookieCollection() {
         this.cookies ??= CookieCollection.createFromHeader(this.getHeader("Set-Cookie"));
 
-        return this.cookies;
+        return _cookies;
     }
     
     // Property accessor for `this.cookies`
@@ -347,6 +347,6 @@ class DClientResponse { // }: Message : IResponse {
     protected string _getBody() {
         this.stream.rewind();
 
-        return this.stream.getContents();
+        return _stream.getContents();
     } */
 }

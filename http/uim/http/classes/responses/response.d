@@ -698,7 +698,7 @@ class DResponse : IResponse {
      * Create a new instance with headers to instruct the client to not cache the response
      */
     static withDisabledCache() {
-        return this.withHeader("Expires", "Mon, 26 Jul 1997 05:00:00 GMT")
+        return _withHeader("Expires", "Mon, 26 Jul 1997 05:00:00 GMT")
             .withHeader("Last-Modified", gmdate(DATE_RFC7231))
             .withHeader("Cache-Control", "no-store, no-cache, must-revalidate, post-check=0, pre-check=0");
     }
@@ -718,7 +718,7 @@ class DResponse : IResponse {
                 );
             }
         }
-        return this.withHeader("Date", gmdate(DATE_RFC7231, time()))
+        return _withHeader("Date", gmdate(DATE_RFC7231, time()))
             .withModified(since)
             .withExpires(time)
             .withSharable(true)
@@ -833,7 +833,7 @@ class DResponse : IResponse {
     static withExpires(IDateTime|string|int time) {
         date = _getUTCDate(time);
 
-        return this.withHeader("Expires", date.format(DATE_RFC7231));
+        return _withHeader("Expires", date.format(DATE_RFC7231));
     }
     
     /**
@@ -854,7 +854,7 @@ class DResponse : IResponse {
     static withModified(IDateTime|string|int time) {
         date = _getUTCDate(time);
 
-        return this.withHeader("Last-Modified", date.format(DATE_RFC7231));
+        return _withHeader("Last-Modified", date.format(DATE_RFC7231));
     }
     
     /**
@@ -894,7 +894,7 @@ class DResponse : IResponse {
      * @return static
      */
     static withVary(string[] acacheVariances) {
-        return this.withHeader("Vary", (array)cacheVariances);
+        return _withHeader("Vary", (array)cacheVariances);
     }
     
     /**
@@ -920,7 +920,7 @@ class DResponse : IResponse {
     static withEtag(string ahash, bool weak = false) {
         hash = "%s"%s"".format(weak ? "W/" : "", hash);
 
-        return this.withHeader("Etag", hash);
+        return _withHeader("Etag", hash);
     }
     
     /**
@@ -970,7 +970,7 @@ class DResponse : IResponse {
      * @return static
      * /
     static withDownload(string afilename) {
-        return this.withHeader("Content-Disposition", "attachment; filename="" ~ filename ~ """);
+        return _withHeader("Content-Disposition", "attachment; filename="" ~ filename ~ """);
     }
     
     /**
@@ -981,7 +981,7 @@ class DResponse : IResponse {
      */
     auto withLength(string|int bytes): static
     {
-        return this.withHeader("Content-Length", (string)bytes);
+        return _withHeader("Content-Length", (string)bytes);
     }
     
     /**
@@ -1013,7 +1013,7 @@ class DResponse : IResponse {
         if (params) {
             param = "; " ~ params.join("; ");
         }
-        return this.withAddedHeader("Link", "<" ~ url ~ ">" ~ param);
+        return _withAddedHeader("Link", "<" ~ url ~ ">" ~ param);
     }
     
     /**
@@ -1053,7 +1053,7 @@ class DResponse : IResponse {
     override string toString() {
         this.stream.rewind();
 
-        return this.stream.getContents();
+        return _stream.getContents();
     }
     
     /**

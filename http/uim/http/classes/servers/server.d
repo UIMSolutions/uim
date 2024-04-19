@@ -128,13 +128,13 @@ class DServer { // }: IEventDispatcher {
      * Get the current application.
      * /
     IHttpApplication getApp() {
-        return this.app;
+        return _app;
     }
     
     // Get the application`s event manager or the global one.
     IEventManager getEventManager() {
         if (cast(IEventDispatcher)this.app) {
-            return this.app.getEventManager();
+            return _app.getEventManager();
         }
         return EventManager.instance();
     }

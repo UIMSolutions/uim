@@ -143,14 +143,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * /
     bool deleteMultiple(string[] someKeys) {
         this.ensureValidType(someKeys);
-
-        bool result = true;
-        foreach (myKey; someKeys) {
-            if (!mythis.delete_(myKey)) {
-                result = false;
-            }
-        }
-        return result;
+        return someKeys.all!(key => delete_(key));
     }
 
     /**

@@ -60,7 +60,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
     protected string _schemaClassname; //TODO = Schema.className;
     
     // The schema used by this form.
-    protected ISchema _schema = null;
+    protected DSchema _schema = null;
 
     // Set the schema for this form.
     void setSchema(DSchema newSchema) {
@@ -81,10 +81,8 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
     // Form`s data.
     protected IData[string] _data;
 
-
-
     // The errors if any
-    protected array _errors = null;
+    // TODO protected array _errors = null;
 
     /**
      * Constructor

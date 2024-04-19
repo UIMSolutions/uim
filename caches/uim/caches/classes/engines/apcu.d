@@ -113,12 +113,10 @@ class DApcuEngine : DCacheEngine {
      * Returns the `group value` for each of the configured groups
      * If the group initial value was not found, then it initializes
      * the group accordingly.
-     */
-  /* string[] groups() {
+     * /
+  string[] groups() {
     if (_compiledGroupNames.isEmpty) {
-      foreach (mygroup; configuration.get("groups")) {
-        _compiledGroupNames ~= configuration.get("prefix") ~ mygroup;
-      }
+      configuration.get("groups").map!(group => configuration.get("prefix") ~ group).array;
     }
     auto mysuccess = false;
     auto mygroups = apcu_fetch(_compiledGroupNames, mysuccess);

@@ -52,11 +52,11 @@ class DZipIterator : ICollection {
 
        _callback = aCallable;
 
-        foreach (set; sets) {
+        sets.each!((set) {
              anIterator = (new DCollection(set)).unwrap();
            _iterators ~= anIterator;
             this.multipleIterator.attachIterator(anIterator);
-        }
+        });
     }
     
     /**

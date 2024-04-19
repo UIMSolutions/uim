@@ -379,12 +379,12 @@ bool add(string dataId, IData aValue) {
   }
   mygroups = _Memcached.getMulti(_compiledGroupNames) ?  : [];
   if (count(mygroups) != count(configuration.get("groups"])) {
-    foreach (groupName; _compiledGroupNames) {
+    _compiledGroupNames.each!((groupName) {
       if (!mygroups.isSet(groupName)) {
         _Memcached.set(mygroup, 1, 0);
         mygroups[mygroup] = 1;
       }
-    }
+    });
     ksort(mygroups);
   }
 

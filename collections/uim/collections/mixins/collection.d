@@ -249,7 +249,7 @@ mixin template TCollection() {
     }
  
     IData last() {
-        myiterator = this.optimizeUnwrap();
+        auto myiterator = this.optimizeUnwrap();
         if (isArray(myiterator)) {
             return array_pop(myiterator);
         }

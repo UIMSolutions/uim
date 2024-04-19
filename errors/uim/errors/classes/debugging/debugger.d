@@ -38,9 +38,9 @@ class DDebugger {
         configuration.data(initData);
 
         configuration.updateDefaults([
-            "outputMask": [],
-            "exportFormatter": NUllData,
-            "editor": "Dstorm"
+            "outputMask": ArrayData,
+            "exportFormatter": NullData,
+            "editor": StringData("Dstorm")
         ]);
 
         return true;
@@ -48,10 +48,10 @@ class DDebugger {
 
     mixin(TProperty!("string", "name"));
 
-    /*
     // The current output format.
     protected string _outputFormat = "js";
 
+    /*
     /**
      * Templates used when generating trace or error strings. Can be global or indexed by the format
      * value used in _outputFormat.

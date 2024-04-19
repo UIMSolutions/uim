@@ -94,9 +94,7 @@ class DArrayEngine : DCacheEngine {
     return true;
   }
 
-  /**
-     * Delete all keys from the cache. This will clear every cache config using APC.
-     * /
+  // Delete all keys from the cache. This will clear every cache config using APC.
   override bool clear() {
     _cachedData = null;
 
@@ -109,16 +107,18 @@ class DArrayEngine : DCacheEngine {
      * the group accordingly.
      */
   /* string[] groups() {
-    auto result;
-    foreach (myGroup; configuration.get("groups"]) {
+    string[] results;
+    
+    configuration.get("groups").each!((group) {
       string key = configuration.getString("prefix") ~ myGroup;
       if (!_cachedData.isSet(key)) {
         _cachedData[aKey] = ["exp": D_INT_MAX, "val": 1];
       }
-      myvalue = _cachedData[aKey]["val"];
-      result ~= myGroup ~ myvalue;
-    }
-    return result;
+      string myvalue = _cachedData[aKey]["val"];
+      results ~= myGroup ~ myvalue;
+    });
+
+    return results;
   } */ 
 
   /**

@@ -21,12 +21,12 @@ mixin template TPluginAssets() {
      *  If null all plugins will be processed.
      * /
     protected IData[string] _list(string pluginName = null) {
-        pluginsList = pluginName.isNull
+        auto pluginsList = pluginName.isNull
             ? Plugin.loaded()
             : [pluginName];
-        plugins = null;
-
-        foreach (plugin; pluginsList) {
+        
+        IData[string] plugins = null;
+        pluginsList.each!((plugin) {
             auto somePath = Plugin.path(plugin) ~ "webroot";
             if (!isDir(somePath)) {
                 this.io.verbose("", 1);
@@ -49,7 +49,8 @@ mixin template TPluginAssets() {
                 "link": link,
                 "namespaced": namespaced,
             ];
-        }
+        });
+
         return plugins;
     }
     

@@ -10,7 +10,7 @@ import uim.i18n;
  */
 class DateTime /* : Chronos, IDataSerializable */ {
     mixin TConfigurable;
-    mixin TDateFormat;
+    // TODO mixin TDateFormat;
 
     this() { initialize; }
 
@@ -20,19 +20,18 @@ class DateTime /* : Chronos, IDataSerializable */ {
 
     mixin(TProperty!("string", "name"));
 
-
     /**
      * The default locale to be used for displaying formatted date strings.
      *
      * Use setDefaultLocale() and getDefaultLocale() instead.
-     * /
+     */
     protected string _defaultLocale;
 
     /**
      * Whether lenient parsing is enabled for IntlDateFormatter.
      *
      * Defaults to true which is the default for IntlDateFormatter.
-     * /
+     */
     protected bool _lenientParsing = true;
 
     /**

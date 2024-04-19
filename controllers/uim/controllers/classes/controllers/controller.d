@@ -223,7 +223,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * configData - The config for the component.
      * /
     Component loadComponent(string componentName, IData[string] configData = null) {
-        return this.components().load(componentName, configData);
+        return _components().load(componentName, configData);
     }
     
     //  Magic accessor for the default table.
@@ -235,12 +235,12 @@ class DController : IController { // IEventListener, IEventDispatcher {
                 [,  className] = pluginSplit(this.defaultTable, true);
             }
             if (className == propertyName) {
-                return this.fetchTable();
+                return _fetchTable();
             }
         }
         if (this.components().has(propertyName)) {
             /** @var \UIM\Controller\Component   * /
-            return this.components().get(propertyName);
+            return _components().get(propertyName);
         }
         /** @var array<int, IData[string]> trace * /
         trace = debug_backtrace();
@@ -261,7 +261,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
 
     // Returns true if an action should be rendered automatically.
     bool isAutoRenderEnabled() {
-        return this.autoRender;
+        return _autoRender;
     }
 
     // Enable automatic action rendering.
@@ -288,7 +288,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
                 "plugin":  request.getParam("plugin"),
             ]);
         }
-        return this.action(...);
+        return _action(...);
     }
     
     /**
@@ -426,7 +426,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         auto event = this.dispatchEvent("Controller.beforeRedirect", [url, this.response]);
         auto result = event.getResult();
         if (cast(Response)result) {
-            return this.response = result;
+            return _response = result;
         }
         if (event.isStopped()) {
             return null;
@@ -436,7 +436,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         if (!response.getHeaderLine("Location")) {
             response = response.withLocation(Router.url(url, true));
         }
-        return this.response = response;
+        return _response = response;
     }
     
     /**
@@ -465,7 +465,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
             return event.getResult();
         }
         if (event.isStopped()) {
-            return this.response;
+            return _response;
         }
         if (builder.getTemplate() is null) {
              builder.setTemplate(this.request.getParam("action"));
@@ -476,7 +476,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         contents = view.render();
         response = view.getResponse().withStringBody(contents);
 
-        return this.setResponse(response).response;
+        return _setResponse(response).response;
     }
     
     /**
@@ -488,7 +488,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * @see UIM\Http\ContentTypeNegotiation
      * /
     string[] viewClasses() {
-        return this.viewClasses;
+        return _viewClasses;
     }
     
     /**

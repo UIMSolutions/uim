@@ -109,14 +109,14 @@ class DComponent { // TODO }: IEventListener {
      * /
     IComponent __get(string componentName) {
         if (isSet(this.componentInstances[componentName])) {
-            return this.componentInstances[componentName];
+            return _componentInstances[componentName];
         }
         if (isSet(this.components[componentName])) {
             configData = this.components[componentName] ~ [
                 "enabled": BooleanData(false)
             ];
 
-            return this.componentInstances[componentName] = _registry.load(
+            return _componentInstances[componentName] = _registry.load(
                 componentName,
                 configData
             );

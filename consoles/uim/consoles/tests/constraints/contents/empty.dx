@@ -15,7 +15,7 @@ class DContentsEmpty : DContentsBase {
      * IData other Expected
      */
    bool matches(IData other) {
-        return this.contents == "";
+        return _contents == "";
     }
     
     // Assertion message
@@ -29,6 +29,6 @@ class DContentsEmpty : DContentsBase {
      * IData other Value
      */
     protected string failureDescription(IData other) {
-        return this.toString();
+        return _toString();
     }
 }

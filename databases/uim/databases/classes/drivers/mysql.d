@@ -151,7 +151,7 @@ class DMysqlDriver : DDriver {
    bool isMariadb() {
         this.currentVersion();
 
-        return this.serverType == SERVER_TYPE_MARIADB;
+        return _serverType == SERVER_TYPE_MARIADB;
     }
     
     // Returns connected server version.

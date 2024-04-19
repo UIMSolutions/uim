@@ -39,7 +39,7 @@ class DStubConsoleInput : DConsoleInput {
                 "only {total} replies were set.\nThe provided replies are: {replies}";
             throw new DMissingConsoleInputException(message);
         }
-        return this.replies[_currentIndex];
+        return _replies[_currentIndex];
     }
     
     //  Check if data is available on stdin

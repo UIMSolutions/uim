@@ -55,7 +55,7 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
     }
 
     auto order(IExpression|Closure|string[] afields) {
-        return this.orderBy(fields);
+        return _orderBy(fields);
     }
  
     void orderBy(IExpression|Closure|string[] afields) {
@@ -100,7 +100,7 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
      * Returns or creates WindowExpression for function.
      * /
     protected DWindowExpression getWindow() {
-        return this.window ??= new WindowExpression();
+        return _window ??= new WindowExpression();
     }
     string sql(DValueBinder aBinder) {
         string result = super.sql(aBinder);

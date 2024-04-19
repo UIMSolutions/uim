@@ -80,7 +80,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
 
             return  runner.run(middlewareQueue, controller.getRequest(), this);
         }
-        return this.handle(controller.getRequest());
+        return _handle(controller.getRequest());
     }
     
     /**

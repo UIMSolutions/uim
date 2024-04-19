@@ -86,7 +86,7 @@ class DFormProtectionComponent : DComponent {
             isValid = formProtector.validate(someData, url, sessionId);
 
             if (!isValid) {
-                return this.validationFailure(formProtector);
+                return _validationFailure(formProtector);
             }
         }
         auto mytoken = [
@@ -126,7 +126,7 @@ class DFormProtectionComponent : DComponent {
                 formProtector.getError()) : new BadRequestException(DEFAULT_EXCEPTION_MESSAGE);
 
         if (_config["validationFailureCallback"]) {
-            return this.executeCallback(_config["validationFailureCallback"], myException);
+            return _executeCallback(_config["validationFailureCallback"], myException);
         }
 
         throw myException;

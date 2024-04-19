@@ -61,7 +61,7 @@ class DFlashComponent : DComponent {
 
     // Get flash message utility instance.
     protected DFlashMessage flash() {
-        return this.getController().getRequest().getFlash();
+        return _getController().getRequest().getFlash();
     }
 
     /**
@@ -86,13 +86,13 @@ class DFlashComponent : DComponent {
      * @param IData defaultValue The return value when the key does not exist.
      * /
     IData getConfig(string aKey = null, IData defaultValue = null) {
-        return this.flash().configuration.get(aKey, default);
+        return _flash().configuration.get(aKey, default);
     }
 
     /**
      * Proxy method to FlashMessage instance.
     IData getConfigOrFail(string aKey) {
-        return this.flash().getConfigOrFail(aKey);
+        return _flash().getConfigOrFail(aKey);
     }
     
     //  Proxy method to FlashMessage instance.

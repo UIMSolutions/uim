@@ -38,8 +38,8 @@ class DCSSRules : DCSSObj {
 
 	O opCall(this O)(string aSelector, string name, string value) { _rules~=CSSRule(aSelector, name, value); return cast(O)this; }
 	O opCall(this O)(string aSelector, STRINGAA someDeclarations) { _rules~=CSSRule(aSelector, someDeclarations); return cast(O)this; }
-	O opCall(this O)(DCSSRule aRule) { return this.add(aRule); }
-	O opCall(this O)(DCSSRule aRules) { return this.add(aRules); }
+	O opCall(this O)(DCSSRule aRule) { return _add(aRule); }
+	O opCall(this O)(DCSSRule aRules) { return _add(aRules); }
 
 	bool opEquals(string css) { return toString == css; }
 	override string toString() {

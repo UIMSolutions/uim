@@ -11,7 +11,7 @@ import uim.i18n;
  */
 class DTime { // : ChronosTime, IDataSerializable {
     mixin TConfigurable;
-    mixin TDateFormat;
+    // TODO mixin TDateFormat;
 
     this() {
         initialize;
@@ -23,6 +23,27 @@ class DTime { // : ChronosTime, IDataSerializable {
         
         return true;
     }
+
+    // #region StringFormat
+    /*
+    /**
+     * Sets the default format used when type converting instances of this type to string
+     *
+     * The format should be either the formatting constants from IntlDateFormatter as
+     * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
+     * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
+     * Params:
+     * string|int format Format.
+     * /
+    static auto setToStringFormat(string format) {
+        _toStringFormat = format;
+    }
+    
+    // Resets the format used to the default when converting an instance of this type to a string
+    static void resetToStringFormat() {
+        setToStringFormat(IntlDateFormatter.SHORT);
+    }
+    // #endregion StringFormat
 
     /**
      * The format to use when formatting a time using `UIM\I18n\Time.i18nFormat()`
@@ -60,24 +81,6 @@ class DTime { // : ChronosTime, IDataSerializable {
      * @see \UIM\I18n\Time.nice()
      * /
     static string|int niceFormat = IntlDateFormatter.MEDIUM;
-
-    /**
-     * Sets the default format used when type converting instances of this type to string
-     *
-     * The format should be either the formatting constants from IntlDateFormatter as
-     * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
-     * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
-     * Params:
-     * string|int format Format.
-     * /
-    static auto setToStringFormat(string format) {
-        _toStringFormat = format;
-    }
-    
-    // Resets the format used to the default when converting an instance of this type to a string
-    static void resetToStringFormat() {
-        setToStringFormat(IntlDateFormatter.SHORT);
-    }
     
     /**
      * Sets the default format used when converting this object to IData

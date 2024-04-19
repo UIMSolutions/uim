@@ -58,14 +58,14 @@ class DMissingOptionException : DConsoleException {
     }
 
     auto bestScore = 4;
-    /* foreach (anItem; haystack) {
+    /* haystack.each!((anItem) {
       auto score = levenshtein(needle, anItem);
 
       if (score < bestScore) {
         bestScore = score;
         bestGuess = anItem;
       }
-    } */ 
+    }); */ 
     return bestGuess;
   }
 }

@@ -105,8 +105,7 @@ unittest {
 /// remove subItems from baseItems if key exists
 T[S] removeByKeys(T, S)(T[S] baseItems, S[] subItems) {
   T[S] results = baseItems.dup;
-  foreach (key; subItems)
-    results.remove(key);
+  subItems.each!((key) => results.remove(key));
   return results;
 }
 ///

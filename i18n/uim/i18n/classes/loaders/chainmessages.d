@@ -23,7 +23,7 @@ class DChainMessagesLoader {
     }
 
     // The list of callables to execute one after another for loading messages
-    protected IMessagesFileLoader[string] _loaders;
+    // TODO Dprotected IMessagesFileLoader[string] _loaders;
 
     /**
      * Receives a list of loaders that will be executed
@@ -35,11 +35,13 @@ class DChainMessagesLoader {
 
     // Executes this object returning the translations catalog as configured in the chain.
     ICatalog execute() {
-        foreach (key, loader; _loaders) {
-            if (!loader is null) {
+        _loaders.byKeyValue.each!((keyLoader) {
+            auto loader = keyLoader.value;
+
+            if (!loader.isNull) {
                 throw new UimException(
                     "Loader `%s` in the chain is not a valid loader."
-                        .format(myKey)
+                        .format(keyLoader.key)
                 );
             }
 
@@ -48,7 +50,8 @@ class DChainMessagesLoader {
                 continue;
             }
             return catalog;
-        }
+        });
+
         return new DMessageCatalog();
     } */ 
 }

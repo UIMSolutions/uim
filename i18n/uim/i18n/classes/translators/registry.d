@@ -8,7 +8,7 @@ import uim.i18n;
  * Constructs and stores instances of translators that can be
  * retrieved by name and locale.
  */
-class DTranslatorRegistry : DObjectRegistry!ITranslator {
+class DTranslatorRegistry : DObjectRegistry!DTranslator {
     this() {
     }
 
@@ -37,7 +37,7 @@ class DTranslatorRegistry : DObjectRegistry!ITranslator {
     protected bool _useFallback = true;
 
     // A CacheEngine object that is used to remember translator across requests.
-    protected ICacheEngine _cacher;
+    // TODO protected ICacheEngine _cacher;
 
     /**
      * A list of loader functions indexed by domain name. Loaders are
@@ -46,7 +46,6 @@ class DTranslatorRegistry : DObjectRegistry!ITranslator {
      * name and locale.
      * /
     protected callable[] _loaders = null;
-
 
     /**
      * Constructor.

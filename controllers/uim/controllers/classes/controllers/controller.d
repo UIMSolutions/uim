@@ -531,11 +531,11 @@ class DController : IController { // IEventListener, IEventDispatcher {
         ext = request.getParam("_ext");
         if (ext) {
             auto extTypes = (array)(this.response.getMimeType(ext) ?: []);
-            foreach (extType; extTypes) {
+            extTypes.each!((extType) {
                 if (typeMap.isSet(extTypes)) {
                     return typeMap[extType];
                 }
-            }
+            });
             throw new DNotFoundException("View class for `%s` extension not found".format(ext));
         }
         // Use accept header based negotiation.
@@ -563,12 +563,12 @@ class DController : IController { // IEventListener, IEventDispatcher {
     /**
      * Returns the referring URL for this request.
      * Params:
-     * string[]  default Default URL to use if HTTP_REFERER cannot be read from headers
+     * string[] default Default URL to use if HTTP_REFERER cannot be read from headers
      * @param bool  local If false, do not restrict referring URLs to local server.
      *  Careful with trusting external sources.
      * returns Referring URL
      * /
-    string referer(string[]  default = "/", bool  local = true) {
+    string referer(string[] default = "/", bool  local = true) {
          referer = this.request.referer(local);
         if (referer !isNull) {
             return  referer;

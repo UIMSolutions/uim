@@ -88,8 +88,8 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
     }
  
     string sql(DValueBinder aBinder) {
-        someParts = null;
-        foreach (condition; _conditions) {
+        string[] someParts;
+        _conditions.each!((condition) {
             if (cast(Query)condition) {
                 condition = "(%s)".format(condition.sql(aBinder));
             } elseif (cast(IExpression)condition ) {
@@ -100,11 +100,8 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
                 condition = p;
             }
             someParts ~= condition;
-        }
-        return _name ~ "(%s)".format(join(
-           _conjunction ~ " ",
-            someParts
-        ));
+        });
+        return _name ~ "(%s)".format(someParts.join(_conjunction ~ " "));
     }
     
     /**

@@ -105,7 +105,7 @@ class DCommandCollection { // : IteratorAggregate, Countable {
     // TODO
     /* 
     protected ICommand[string] resolveNames(STRINGAA[] anInput) {
-         auto result;
+        ICommand[string] results;
         foreach (anInfo; anInput) {
             auto infoName = anInfo["name"];
             addLong = infoName != anInfo["fullName"];
@@ -123,7 +123,8 @@ class DCommandCollection { // : IteratorAggregate, Countable {
                  result[anInfo["fullName"]] = className;
             }
         }
-        return result;
+        
+        return results;
     }
     */
     

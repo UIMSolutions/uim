@@ -48,7 +48,7 @@ class DRoutesCommand : DCommand {
             output ~= anItem;
 
             someMethods.each!((method) {
-                if (!isSet(someDuplicateRoutesCounter[route.template][myMethod])) {
+                if (!isSet(someDuplicateRoutesCounter[route.template][method])) {
                      someDuplicateRoutesCounter[route.template][method] = 0;
                 }
                 someDuplicateRoutesCounter[route.template][method]++;
@@ -70,11 +70,11 @@ class DRoutesCommand : DCommand {
         foreach (myRoute;  someAvailableRoutes) {
             string[] someMethods = isSet(myRoute.defaults["_method"]) ? (array)myRoute.defaults["_method"] : [""];
 
-            foreach (myMethod; someMethods) {
+            someMethods.each!((method) {
                 if (
-                     someDuplicateRoutesCounter[myRoute.template][myMethod] > 1 ||
-                    (myMethod.isEmpty && count(someDuplicateRoutesCounter[myRoute.template]) > 1) ||
-                    (myMethod != "" && isSet(someDuplicateRoutesCounter[myRoute.template][""]))
+                     someDuplicateRoutesCounter[myRoute.template][method] > 1 ||
+                    (method.isEmpty && count(someDuplicateRoutesCounter[myRoute.template]) > 1) ||
+                    (method != "" && isSet(someDuplicateRoutesCounter[myRoute.template][""]))
                 ) {
                      someDuplicateRoutes ~= [
                         myRoute.options["_name"] ?? myRoute.name,
@@ -88,7 +88,7 @@ class DRoutesCommand : DCommand {
 
                     break;
                 }
-            }
+            });
         }
         if (someDuplicateRoutes) {
             array_unshift(someDuplicateRoutes,  aHeader);
@@ -121,7 +121,7 @@ class DRoutesCommand : DCommand {
             output ~= anItem;
 
             someMethods.each!((method) {
-                if (!isSet(someDuplicateRoutesCounter[route.template][myMethod])) {
+                if (!isSet(someDuplicateRoutesCounter[route.template][method])) {
                      someDuplicateRoutesCounter[route.template][method] = 0;
                 }
                 someDuplicateRoutesCounter[route.template][method]++;
@@ -143,11 +143,11 @@ class DRoutesCommand : DCommand {
         foreach (myRoute;  someAvailableRoutes) {
             string[] someMethods = isSet(myRoute.defaults["_method"]) ? (array)myRoute.defaults["_method"] : [""];
 
-            foreach (myMethod; someMethods) {
+            someMethods.each((method) {
                 if (
-                     someDuplicateRoutesCounter[myRoute.template][myMethod] > 1 ||
-                    (myMethod.isEmpty && count(someDuplicateRoutesCounter[myRoute.template]) > 1) ||
-                    (myMethod != "" && isSet(someDuplicateRoutesCounter[myRoute.template][""]))
+                     someDuplicateRoutesCounter[myRoute.template][method] > 1 ||
+                    (method.isEmpty && count(someDuplicateRoutesCounter[myRoute.template]) > 1) ||
+                    (method != "" && isSet(someDuplicateRoutesCounter[myRoute.template][""]))
                 ) {
                      someDuplicateRoutes ~= [
                         myRoute.options["_name"] ?? myRoute.name,

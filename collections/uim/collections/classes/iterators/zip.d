@@ -71,7 +71,7 @@ class DZipIterator : ICollection {
         return current;
     }
     IData key() {
-        return this.multipleIterator.key();
+        return _multipleIterator.key();
     }
     void next() {
         this.multipleIterator.next();
@@ -80,7 +80,7 @@ class DZipIterator : ICollection {
         this.multipleIterator.rewind();
     }
     bool valid() {
-        return this.multipleIterator.valid();
+        return _multipleIterator.valid();
     }
     
     // Magic method used for serializing the iterator instance.

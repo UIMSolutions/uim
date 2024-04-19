@@ -30,7 +30,7 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
      * specify their own partitions, frame or order.
      * /
     bool isNamedOnly() {
-        return this.name.getIdentifier() && (!this.partitions && !this.frame && !this.order);
+        return _name.getIdentifier() && (!this.partitions && !this.frame && !this.order);
     }
     
     // Sets the window name.
@@ -57,7 +57,7 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
     }
  
     auto order(IExpression|Closure|string[] myfields) {
-        return this.orderBy(myfields);
+        return _orderBy(myfields);
     }
  
     void orderBy(IExpression|Closure|string[] myfields) {
@@ -73,15 +73,15 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
     }
  
     auto range(IExpression|string|int  mystart, IExpression|string|int  myend = 0) {
-        return this.frame(self.RANGE,  mystart, self.PRECEDING,  myend, self.FOLLOWING);
+        return _frame(self.RANGE,  mystart, self.PRECEDING,  myend, self.FOLLOWING);
     }
  
     auto rows(int mystart, int myend = 0) {
-        return this.frame(self.ROWS,  mystart, self.PRECEDING,  myend, self.FOLLOWING);
+        return _frame(self.ROWS,  mystart, self.PRECEDING,  myend, self.FOLLOWING);
     }
  
     auto groups(int mystart, int myend = 0) {
-        return this.frame(self.GROUPS,  mystart, self.PRECEDING,  myend, self.FOLLOWING);
+        return _frame(self.GROUPS,  mystart, self.PRECEDING,  myend, self.FOLLOWING);
     }
  
     auto frame(

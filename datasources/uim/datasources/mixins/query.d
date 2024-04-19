@@ -106,7 +106,7 @@ mixin template TQuery() {
      * /
     #[\ReturnTypeWillChange]
     function getIterator() {
-        return this.all();
+        return _all();
     }
 
     /**
@@ -257,7 +257,7 @@ mixin template TQuery() {
      * Returns an array representation of the results after executing the query.
      * /
     IData[string] toDataArray() {
-        return this.all().toArray();
+        return _all().toArray();
     }
 
     /**
@@ -440,7 +440,7 @@ mixin template TQuery() {
             this.limit(1);
         }
 
-        return this.all().first();
+        return _all().first();
     }
 
     /**

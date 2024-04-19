@@ -569,7 +569,7 @@ mixin template TEntity() {
 
   // Returns the fields that will be serialized as IData
   array IDataSerialize() {
-    return this.extract(this.getVisible());
+    return _extract(this.getVisible());
   }
 
   bool offsetExists(IData anOffset) {
@@ -903,7 +903,7 @@ mixin template TEntity() {
                               auto setErrors(string afield, string[] aerrors, booloverwrite = false) {
                                 if (isString(errors)) {
                                   errors = [errors];}
-                                  return this.setErrors([field: errors], overwrite);
+                                  return _setErrors([field: errors], overwrite);
                                 }
 
                                 /**

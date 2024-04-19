@@ -157,7 +157,7 @@ class DWhenThenExpression : DExpression {
      * @see WhenThenExpression.then()
      * /
     string getResultType() {
-        return this.thenType;
+        return _thenType;
     }
     
     /**
@@ -179,7 +179,7 @@ class DWhenThenExpression : DExpression {
                 .format(join("`, `", this.validClauseNames), clause)
             );
         }
-        return this.{clause};
+        return _{clause};
     }
  
     string sql(DValueBinder aBinder) {

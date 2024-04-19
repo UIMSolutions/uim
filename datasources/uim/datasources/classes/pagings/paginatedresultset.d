@@ -27,14 +27,14 @@ class DPaginatedResultSet { /* }: IteratorIterator : IDataSerializable, IPaginat
     }
  
     size_t count() {
-        return this.params["count"];
+        return _params["count"];
     }
     
     /**
      * Get paginated items.
      * /
     Traversable items() {
-        return this.getInnerIterator();
+        return _getInnerIterator();
     }
     
     /**
@@ -45,34 +45,34 @@ class DPaginatedResultSet { /* }: IteratorIterator : IDataSerializable, IPaginat
     }
  
     int totalCount() {
-        return this.params["totalCount"];
+        return _params["totalCount"];
     }
  
     int perPage() {
-        return this.params["perPage"];
+        return _params["perPage"];
     }
  
     int pageCount() {
-        return this.params["pageCount"];
+        return _params["pageCount"];
     }
  
     int currentPage() {
-        return this.params["currentPage"];
+        return _params["currentPage"];
     }
  
     bool hasPrevPage() {
-        return this.params["hasPrevPage"];
+        return _params["hasPrevPage"];
     }
  
     bool hasNextPage() {
-        return this.params["hasNextPage"];
+        return _params["hasNextPage"];
     }
  
     IData pagingParam(string aName) {
-        return this.params[name] ?? null;
+        return _params[name] ?? null;
     }
  
     array pagingParams() {
-        return this.params;
+        return _params;
     } */
 }

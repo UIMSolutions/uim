@@ -190,13 +190,13 @@ class DRulesChecker {
      * /
     bool check(IEntity entity, string amode, IData[string] optionData = null) {
         if (mode == self.CREATE) {
-            return this.checkCreate(entity, options);
+            return _checkCreate(entity, options);
         }
         if (mode == self.UPDATE) {
-            return this.checkUpdate(entity, options);
+            return _checkUpdate(entity, options);
         }
         if (mode == self.DELETE) {
-            return this.checkDelete_(entity, options);
+            return _checkDelete_(entity, options);
         }
         throw new DInvalidArgumentException("Wrong checking mode: " ~ mode);
     }

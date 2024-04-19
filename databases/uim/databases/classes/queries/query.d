@@ -118,7 +118,7 @@ abstract class DQuery : IQuery { // : IExpression {
     
     // Returns the connection role ("read' or 'write")
     string getConnectionRole() {
-        return this.connectionRole;
+        return _connectionRole;
     }
     
     /**
@@ -194,7 +194,7 @@ abstract class DQuery : IQuery { // : IExpression {
             aBinder = this.getValueBinder();
             aBinder.resetCount();
         }
-        return this.getConnection().getDriver().compileQuery(this, aBinder);
+        return _getConnection().getDriver().compileQuery(this, aBinder);
     }
     
     /**
@@ -779,7 +779,7 @@ abstract class DQuery : IQuery { // : IExpression {
         auto newExpression = this.newExpr();
 
         fields.each!(field => newExpression.isNotNull(field));
-        return this.where(newExpression);
+        return _where(newExpression);
     }
     
     /**
@@ -795,7 +795,7 @@ abstract class DQuery : IQuery { // : IExpression {
 
         auto newExpression = this.newExpr();
         fields.each!(field => newExpression.isNull(field));
-        return this.where(newExpression);
+        return _where(newExpression);
     }
     
     /**
@@ -814,10 +814,10 @@ abstract class DQuery : IQuery { // : IExpression {
         options["allowEmpty"] = BooleanData(false);
 
         if (options["allowEmpty"].toBoolean && !someValues) {
-            return this.where("1=0");
+            return _where("1=0");
         }
 
-        return this.where([fieldName ~ " IN":  someValues], options["types"]);
+        return _where([fieldName ~ " IN":  someValues], options["types"]);
     }
     
     /**
@@ -837,10 +837,10 @@ abstract class DQuery : IQuery { // : IExpression {
         ];
 
         if (options["allowEmpty"] && !someValues) {
-            return this.where([fieldName ~ " IS NOT": null]);
+            return _where([fieldName ~ " IS NOT": null]);
         }
 
-        return this.where([fieldName ~ " NOT IN":  someValues], options["types"]);
+        return _where([fieldName ~ " NOT IN":  someValues], options["types"]);
     }
     
     /**
@@ -862,10 +862,10 @@ abstract class DQuery : IQuery { // : IExpression {
         ];
 
         if (options["allowEmpty"] && !someValues) {
-            return this.where([fieldName ~ " IS NOT": null]);
+            return _where([fieldName ~ " IS NOT": null]);
         }
 
-        return this.where(
+        return _where(
             [
                 "OR": [fieldName ~ " NOT IN":  someValues, fieldName ~ " IS": null],
             ],
@@ -1220,7 +1220,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * \UIM\Database\IExpression|string[] rawExpression A string, array or anything you want wrapped in an expression object
      * /
     QueryExpression newExpr(IExpression|string[] rawExpression = null) {
-        return this.expr(rawExpression);
+        return _expr(rawExpression);
     }
     
     /**
@@ -1465,7 +1465,7 @@ abstract class DQuery : IQuery { // : IExpression {
     
     // Returns string representation of this query (complete SQL statement).
     override string toString() {
-        return this.sql();
+        return _sql();
     }
     
     // Returns an array that can be used to describe the internal state of this object.

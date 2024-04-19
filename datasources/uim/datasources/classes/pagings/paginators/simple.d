@@ -45,7 +45,7 @@ class DSimplePaginator : DNumericPaginator {
 
         this.pagingParams["hasNextPage"] = hasNextPage;
 
-        return this.pagingParams;
+        return _pagingParams;
     }
     
     /**

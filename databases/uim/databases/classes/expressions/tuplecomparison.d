@@ -41,7 +41,7 @@ class DTupleComparisonExpression : DComparisonExpression {
      * Returns the type to be used for casting the value to a database representation
      * /
     string[] getType() {
-        return this.types;
+        return _types;
     }
 
     /**

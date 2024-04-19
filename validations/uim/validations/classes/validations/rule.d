@@ -159,6 +159,6 @@ class DValidationRule {
     IData get(string propertyName) {
         myproperty = "_" ~ myproperty;
 
-        return this.{myproperty} ?? null;
+        return _{myproperty} ?? null;
     } */
 }

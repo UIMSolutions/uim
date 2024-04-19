@@ -10,7 +10,7 @@ import uim.filesystems;
 @safe:
 mixin template TEntryManager() {
   bool isHidden(string aPath) {
-    return _isHidden(aPath.split(pathSeparator));    
+    return this.isHidden(aPath.split(pathSeparator));    
   }
 }
 

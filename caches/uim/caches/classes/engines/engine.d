@@ -212,7 +212,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     bool add(string dataId, IData dataToCache) {
         auto cachedValue = get(dataId);
         if (cachedValue is null) {
-            return this.set(dataId, dataToCache);
+            return _set(dataId, dataToCache);
         }
         return false;
     }

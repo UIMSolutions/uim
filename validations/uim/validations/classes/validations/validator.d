@@ -279,7 +279,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * string|int myfield name of the field to check
      * /
     ValidationSet offsetGet(IData myfield) {
-        return this.field((string)myfield);
+        return _field((string)myfield);
     }
     
     /**
@@ -624,7 +624,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @return this
      * /
     auto allowEmptyString(string fieldName, string myMessage = null, IClosure|string|bool mywhen = true) {
-        return this.allowEmptyFor(fieldName, self.EMPTY_STRING, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, self.EMPTY_STRING, mywhen, myMessage);
     }
     
     /**
@@ -643,7 +643,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto notEmptyString(string fieldName, string myMessage = null, IClosure|string|bool mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
-        return this.allowEmptyFor(fieldName, self.EMPTY_STRING, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, self.EMPTY_STRING, mywhen, myMessage);
     }
     
     /**
@@ -662,7 +662,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validator.allowEmptyFor() for examples.
      * /
     auto allowEmptyArray(string fieldName, string myMessage = null, IClosure|string|bool mywhen = true) {
-        return this.allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_ARRAY, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_ARRAY, mywhen, myMessage);
     }
     
     /**
@@ -682,7 +682,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto notEmptyArray(string fieldName, string myMessage = null, IClosure|string|bool mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
-        return this.allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_ARRAY, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_ARRAY, mywhen, myMessage);
     }
     
     /**
@@ -700,7 +700,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @return this
      * /
     auto allowEmptyFile(string fieldName, string myMessage = null, IClosure|string|bool mywhen = true) {
-        return this.allowEmptyFor(fieldName, self.EMPTY_FILE, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, self.EMPTY_FILE, mywhen, myMessage);
     }
     
     /**
@@ -719,7 +719,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto notEmptyFile(string fieldName, string myMessage = null, IClosure|string|bool mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
-        return this.allowEmptyFor(fieldName, self.EMPTY_FILE, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, self.EMPTY_FILE, mywhen, myMessage);
     }
     
     /**
@@ -737,7 +737,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validator.allowEmptyFor() for examples
      * /
     auto allowEmptyDate(string fieldName, string myMessage = null, IClosure|string|bool mywhen = true) {
-        return this.allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_DATE, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_DATE, mywhen, myMessage);
     }
     
     /**
@@ -755,7 +755,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto notEmptyDate(string fieldName, string myMessage = null, IClosure|string|bool mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
-        return this.allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_DATE, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_DATE, mywhen, myMessage);
     }
     
     /**
@@ -777,7 +777,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validator.allowEmptyFor() for examples.
      * /
     auto allowEmptyTime(string fieldName, string myMessage = null, IClosure|string|bool mywhen = true) {
-        return this.allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_TIME, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_TIME, mywhen, myMessage);
     }
     
     /**
@@ -798,7 +798,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto notEmptyTime(string fieldName, string myMessage = null, IClosure|string|bool mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
-        return this.allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_TIME, mywhen, myMessage);
+        return _allowEmptyFor(fieldName, self.EMPTY_STRING | self.EMPTY_TIME, mywhen, myMessage);
     }
     
     /**
@@ -820,7 +820,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validator.allowEmptyFor() for examples.
      * /
     auto allowEmptyDateTime(string myfield, string myMessage = null, IClosure|string|bool mywhen = true) {
-        return this.allowEmptyFor(myfield, self.EMPTY_STRING | self.EMPTY_DATE | self.EMPTY_TIME, mywhen, myMessage);
+        return _allowEmptyFor(myfield, self.EMPTY_STRING | self.EMPTY_DATE | self.EMPTY_TIME, mywhen, myMessage);
     }
     
     /**
@@ -841,7 +841,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto notEmptyDateTime(string myfield, string myMessage = null, IClosure|string|bool mywhen = false) {
         mywhen = this.invertWhenClause(mywhen);
 
-        return this.allowEmptyFor(myfield, self.EMPTY_STRING | self.EMPTY_DATE | self.EMPTY_TIME, mywhen, myMessage);
+        return _allowEmptyFor(myfield, self.EMPTY_STRING | self.EMPTY_DATE | self.EMPTY_TIME, mywhen, myMessage);
     }
     
     /**
@@ -902,7 +902,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "notBlank", myextra ~ [
+        return _add(myfield, "notBlank", myextra ~ [
             "rule": "notBlank",
         ]);
     }
@@ -926,7 +926,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "alphaNumeric", myextra ~ [
+        return _add(myfield, "alphaNumeric", myextra ~ [
             "rule": "alphaNumeric",
         ]);
     }
@@ -950,7 +950,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "notAlphaNumeric", myextra ~ [
+        return _add(myfield, "notAlphaNumeric", myextra ~ [
             "rule": "notAlphaNumeric",
         ]);
     }
@@ -974,7 +974,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "asciiAlphaNumeric", myextra ~ [
+        return _add(myfield, "asciiAlphaNumeric", myextra ~ [
             "rule": "asciiAlphaNumeric",
         ]);
     }
@@ -997,7 +997,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         auto myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "notAsciiAlphaNumeric", myextra ~ [
+        return _add(myfield, "notAsciiAlphaNumeric", myextra ~ [
             "rule": "notAsciiAlphaNumeric",
         ]);
     }
@@ -1044,7 +1044,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "lengthBetween", myextra ~ [
+        return _add(myfield, "lengthBetween", myextra ~ [
             "rule": ["lengthBetween", mylowerBound, myupperBound],
         ]);
     }
@@ -1096,7 +1096,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "creditCard", myextra ~ [
+        return _add(myfield, "creditCard", myextra ~ [
             "rule": ["creditCard", mytype, true],
         ]);
     }
@@ -1126,7 +1126,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "greaterThan", myextra ~ [
+        return _add(myfield, "greaterThan", myextra ~ [
             "rule": ["comparison", Validation.COMPARE_GREATER, myvalue],
         ]);
     }
@@ -1156,7 +1156,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "greaterThanOrEqual", myextra ~ [
+        return _add(myfield, "greaterThanOrEqual", myextra ~ [
             "rule": ["comparison", Validation.COMPARE_GREATER_OR_EQUAL, myvalue],
         ]);
     }
@@ -1187,7 +1187,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "lessThan", myextra ~ [
+        return _add(myfield, "lessThan", myextra ~ [
             "rule": ["comparison", Validation.COMPARE_LESS, myvalue],
         ]);
     }
@@ -1217,7 +1217,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "lessThanOrEqual", myextra ~ [
+        return _add(myfield, "lessThanOrEqual", myextra ~ [
             "rule": ["comparison", Validation.COMPARE_LESS_OR_EQUAL, myvalue],
         ]);
     }
@@ -1245,7 +1245,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "equals", myextra ~ [
+        return _add(myfield, "equals", myextra ~ [
             "rule": ["comparison", Validation.COMPARE_EQUAL, myvalue],
         ]);
     }
@@ -1275,7 +1275,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "notEquals", myextra ~ [
+        return _add(myfield, "notEquals", myextra ~ [
             "rule": ["comparison", Validation.COMPARE_NOT_EQUAL, myvalue],
         ]);
     }
@@ -1307,7 +1307,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "sameAs", myextra ~ [
+        return _add(myfield, "sameAs", myextra ~ [
             "rule": ["compareFields", mysecondField, Validation.COMPARE_SAME],
         ]);
     }
@@ -1339,7 +1339,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "notSameAs", myextra ~ [
+        return _add(myfield, "notSameAs", myextra ~ [
             "rule": ["compareFields", mysecondField, Validation.COMPARE_NOT_SAME],
         ]);
     }
@@ -1374,7 +1374,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "equalToField", myextra ~ [
+        return _add(myfield, "equalToField", myextra ~ [
             "rule": ["compareFields", mysecondField, Validation.COMPARE_EQUAL],
         ]);
     }
@@ -1409,7 +1409,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "notEqualToField", myextra ~ [
+        return _add(myfield, "notEqualToField", myextra ~ [
             "rule": ["compareFields", mysecondField, Validation.COMPARE_NOT_EQUAL],
         ]);
     }
@@ -1444,7 +1444,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "greaterThanField", myextra ~ [
+        return _add(myfield, "greaterThanField", myextra ~ [
             "rule": ["compareFields", mysecondField, Validation.COMPARE_GREATER],
         ]);
     }
@@ -1483,7 +1483,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "greaterThanOrEqualToField", myextra ~ [
+        return _add(myfield, "greaterThanOrEqualToField", myextra ~ [
             "rule": ["compareFields", mysecondField, Validation.COMPARE_GREATER_OR_EQUAL],
         ]);
     }
@@ -1518,7 +1518,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "lessThanField", myextra ~ [
+        return _add(myfield, "lessThanField", myextra ~ [
             "rule": ["compareFields", mysecondField, Validation.COMPARE_LESS],
         ]);
     }
@@ -1557,7 +1557,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "lessThanOrEqualToField", myextra ~ [
+        return _add(myfield, "lessThanOrEqualToField", myextra ~ [
             "rule": ["compareFields", mysecondField, Validation.COMPARE_LESS_OR_EQUAL],
         ]);
     }
@@ -1596,7 +1596,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "date", myextra ~ [
+        return _add(myfield, "date", myextra ~ [
             "rule": ["date", myformats],
         ]);
     }
@@ -1632,7 +1632,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "dateTime", myextra ~ [
+        return _add(myfield, "dateTime", myextra ~ [
             "rule": ["datetime", myformats],
         ]);
     }
@@ -1656,7 +1656,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "time", myextra ~ [
+        return _add(myfield, "time", myextra ~ [
             "rule": "time",
         ]);
     }
@@ -1686,7 +1686,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "localizedTime", myextra ~ [
+        return _add(myfield, "localizedTime", myextra ~ [
             "rule": ["localizedTime", mytype],
         ]);
     }
@@ -1710,7 +1710,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "boolean", myextra ~ [
+        return _add(myfield, "boolean", myextra ~ [
             "rule": "boolean",
         ]);
     }
@@ -1752,7 +1752,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "decimal", myextra ~ [
+        return _add(myfield, "decimal", myextra ~ [
             "rule": ["decimal", myplaces],
         ]);
     }
@@ -1780,7 +1780,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "email", myextra ~ [
+        return _add(myfield, "email", myextra ~ [
             "rule": ["email", mycheckMX],
         ]);
     }
@@ -1819,7 +1819,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "enum", myextra ~ [
+        return _add(myfield, "enum", myextra ~ [
             "rule": ["enum", myenumClassName],
         ]);
     }
@@ -1845,7 +1845,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "ip", myextra ~ [
+        return _add(myfield, "ip", myextra ~ [
             "rule": "ip",
         ]);
     }
@@ -1869,7 +1869,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "ipv4", myextra ~ [
+        return _add(myfield, "ipv4", myextra ~ [
             "rule": ["ip", "ipv4"],
         ]);
     }
@@ -1893,7 +1893,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "ipv6", myextra ~ [
+        return _add(myfield, "ipv6", myextra ~ [
             "rule": ["ip", "ipv6"],
         ]);
     }
@@ -1918,7 +1918,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "minLength", myextra ~ [
+        return _add(myfield, "minLength", myextra ~ [
             "rule": ["minLength", mymin],
         ]);
     }
@@ -1943,7 +1943,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "minLengthBytes", myextra ~ [
+        return _add(myfield, "minLengthBytes", myextra ~ [
             "rule": ["minLengthBytes", mymin],
         ]);
     }
@@ -1968,7 +1968,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "maxLength", myextra ~ [
+        return _add(myfield, "maxLength", myextra ~ [
             "rule": ["maxLength", mymax],
         ]);
     }
@@ -1993,7 +1993,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "maxLengthBytes", myextra ~ [
+        return _add(myfield, "maxLengthBytes", myextra ~ [
             "rule": ["maxLengthBytes", mymax],
         ]);
     }
@@ -2016,7 +2016,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "numeric", myextra ~ [
+        return _add(myfield, "numeric", myextra ~ [
             "rule": "numeric",
         ]);
     }
@@ -2040,7 +2040,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "naturalNumber", myextra ~ [
+        return _add(myfield, "naturalNumber", myextra ~ [
             "rule": ["naturalNumber", false],
         ]);
     }
@@ -2064,7 +2064,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "nonNegativeInteger", myextra ~ [
+        return _add(myfield, "nonNegativeInteger", myextra ~ [
             "rule": ["naturalNumber", true],
         ]);
     }
@@ -2101,7 +2101,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "range", myextra ~ [
+        return _add(myfield, "range", myextra ~ [
             "rule": ["range", mylowerBound, myupperBound],
         ]);
     }
@@ -2127,7 +2127,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "url", myextra ~ [
+        return _add(myfield, "url", myextra ~ [
             "rule": ["url", false],
         ]);
     }
@@ -2153,7 +2153,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "urlWithProtocol", myextra ~ [
+        return _add(myfield, "urlWithProtocol", myextra ~ [
             "rule": ["url", true],
         ]);
     }
@@ -2184,7 +2184,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "inList", myextra ~ [
+        return _add(myfield, "inList", myextra ~ [
             "rule": ["inList", mylist],
         ]);
     }
@@ -2208,7 +2208,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "uuid", myextra ~ [
+        return _add(myfield, "uuid", myextra ~ [
             "rule": "uuid",
         ]);
     }
@@ -2238,7 +2238,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "uploadedFile", myextra ~ [
+        return _add(myfield, "uploadedFile", myextra ~ [
             "rule": ["uploadedFile", options],
         ]);
     }
@@ -2264,7 +2264,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "latLong", myextra ~ [
+        return _add(myfield, "latLong", myextra ~ [
             "rule": "geoCoordinate",
         ]);
     }
@@ -2288,7 +2288,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "latitude", myextra ~ [
+        return _add(myfield, "latitude", myextra ~ [
             "rule": "latitude",
         ]);
     }
@@ -2311,7 +2311,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "longitude", myextra ~ [
+        return _add(myfield, "longitude", myextra ~ [
             "rule": "longitude",
         ]);
     }
@@ -2335,7 +2335,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "ascii", myextra ~ [
+        return _add(myfield, "ascii", myextra ~ [
             "rule": "ascii",
         ]);
     }
@@ -2359,7 +2359,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "utf8", myextra ~ [
+        return _add(myfield, "utf8", myextra ~ [
             "rule": ["utf8", ["extended": BooleanData(false)]],
         ]);
     }
@@ -2385,7 +2385,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "utf8Extended", myextra ~ [
+        return _add(myfield, "utf8Extended", myextra ~ [
             "rule": ["utf8", ["extended": BooleanData(true)]],
         ]);
     }
@@ -2409,7 +2409,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "integer", myextra ~ [
+        return _add(myfield, "integer", myextra ~ [
             "rule": "isInteger",
         ]);
     }
@@ -2433,7 +2433,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "array", myextra ~ [
+        return _add(myfield, "array", myextra ~ [
             "rule": "isArray",
         ]);
     }
@@ -2456,7 +2456,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "scalar", myextra ~ [
+        return _add(myfield, "scalar", myextra ~ [
                 "rule": "isScalar",
             ]);
     }
@@ -2479,7 +2479,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "hexColor", myextra ~ [
+        return _add(myfield, "hexColor", myextra ~ [
             "rule": "hexColor",
         ]);
     }
@@ -2511,7 +2511,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         mycaseInsensitive = options["caseInsensitive"] ?? false;
         unset(options["caseInsensitive"]);
 
-        return this.add(myfield, "multipleOptions", myextra ~ [
+        return _add(myfield, "multipleOptions", myextra ~ [
             "rule": ["multiple", options, mycaseInsensitive],
         ]);
     }
@@ -2536,7 +2536,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "hasAtLeast", myextra ~ [
+        return _add(myfield, "hasAtLeast", myextra ~ [
             "rule": auto (myvalue) use (mycount) {
                 if (isArray(myvalue) && isSet(myvalue["_ids"])) {
                     myvalue = myvalue["_ids"];
@@ -2565,7 +2565,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(myfield, "hasAtMost", myextra ~ [
+        return _add(myfield, "hasAtMost", myextra ~ [
             "rule": auto (myvalue) use (mycount) {
                 if (isArray(myvalue) && isSet(myvalue["_ids"])) {
                     myvalue = myvalue["_ids"];
@@ -2622,7 +2622,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
-        return this.add(fieldName, "regex", myextra ~ [
+        return _add(fieldName, "regex", myextra ~ [
             "rule": ["custom", myregex],
         ]);
     }

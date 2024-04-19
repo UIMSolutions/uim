@@ -26,12 +26,12 @@ mixin template TStringTemplate() {
      * string|null mytemplate String for reading a specific template, null for all.
      * /
     string[] getTemplates(string templateName = null) {
-        return this.templater().get(templateName);
+        return _templater().get(templateName);
     }
     
     // Formats a template string with mydata
     string formatTemplate(string templateName, IData[string] dataToInsert) {
-        return this.templater().format(templateName, mydata);
+        return _templater().format(templateName, mydata);
     }
     
     // Returns the templater instance.

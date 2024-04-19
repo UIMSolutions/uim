@@ -195,7 +195,7 @@ class DFile : DFilesystemEntry, IFile {
 	}
 
 	override string toString() {
-		return _className ~ ": " ~ name;
+		return this.className ~ ": " ~ name;
 	}
 	// TODO: OpenAsTextStream 	Opens a specified file and returns a TextStream object to access the file.
 	// #endregion Methods

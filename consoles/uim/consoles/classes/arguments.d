@@ -28,7 +28,7 @@ class DArguments {
 
   // Get all positional arguments.
   string[size_t] getArguments() {
-    return this.args;
+    return _args;
   }
 
   // Get positional arguments by index.
@@ -37,7 +37,7 @@ class DArguments {
       return null;
     }
 
-    return this.args[anIndex];
+    return _args[anIndex];
   }
 
   // Check if a positional argument exists
@@ -60,21 +60,21 @@ class DArguments {
     if (offset == false || !this.args.isSet(offset)) {
       return null;
     }
-    return this.args[anOffset];
+    return _args[anOffset];
   }
 
   // Get an array of all the options
   array<string, string|bool|null> getOptions() {
-    return this.options;
+    return _options;
   }
 
   // Get an option`s value or null
   string | bool | null getOption(string optionName) | bool | null {
-    return this.options.get(optionName, null);
+    return _options.get(optionName, null);
   }
 
   // Check if an option is defined and not null.
   bool hasOption(string optionName) {
-    return this.options.isSet(optionName);
+    return _options.isSet(optionName);
   } */
 }

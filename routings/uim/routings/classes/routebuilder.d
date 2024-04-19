@@ -671,7 +671,7 @@ class DRouteBuilder {
         if (isString(myurl)) {
             myurl = ["redirect": myurl];
         }
-        return this.connect(myroute, myurl, options);
+        return _connect(myroute, myurl, options);
     }
     
     /**
@@ -854,7 +854,7 @@ class DRouteBuilder {
      *
      * /
     array getMiddleware() {
-        return this.middleware;
+        return _middleware;
     }
     
     /**

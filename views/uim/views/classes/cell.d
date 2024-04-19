@@ -184,7 +184,7 @@ abstract class DCell { // }: IEventDispatcher {
      * /
     override string toString() {
         try {
-            return this.render();
+            return _render();
         } catch (Exception exception) {
             trigger_error(
                 "Could not render cell - %s [%s, line %d]"

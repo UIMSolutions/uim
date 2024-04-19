@@ -147,7 +147,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * a result set instead of the query itself.
      * /
     IResultSet getIterator() {
-        return this.all();
+        return _all();
     }
     
     /**
@@ -289,7 +289,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * Returns an array representation of the results after executing the query.
      * /
     IData[string] toDataArray() {
-        return this.all().toArray();
+        return _all().toArray();
     }
     
     /**
@@ -456,7 +456,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
         if (_isDirty) {
             this.limit(1);
         }
-        return this.all().first();
+        return _all().first();
     }
     
     /**
@@ -711,7 +711,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
         if (this.aliasingEnabled) {
             myfields = this.aliasFields(myfields);
         }
-        return this.select(myfields, myoverwrite);
+        return _select(myfields, myoverwrite);
     }
     
     /**
@@ -868,7 +868,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
     }
     
     array getContain() {
-        return this.getEagerLoader().getContain();
+        return _getEagerLoader().getContain();
     }
     
     // Clears the contained associations from the current query.
@@ -1344,14 +1344,14 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
         }
         results = this.getEagerLoader().loadExternal(this, results);
 
-        return this.resultSetFactory().createResultSet(this, results);
+        return _resultSetFactory().createResultSet(this, results);
     }
     
     /**
      * Get resultset factory.
      * /
     protected DResultSetFactory resultSetFactory() {
-        return this.resultSetFactory ??= new DResultSetFactory();
+        return _resultSetFactory ??= new DResultSetFactory();
     }
     
     /**
@@ -1475,7 +1475,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * Part of IDataSerializable interface.
      * /
     IResultSet<(\UIM\Datasource\IEntity|mixed)> IDataSerialize() {
-        return this.all();
+        return _all();
     }
     
     /**

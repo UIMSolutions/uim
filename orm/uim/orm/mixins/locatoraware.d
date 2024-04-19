@@ -56,6 +56,6 @@ mixin template TLocatorAware() {
                 "You must provide an `myalias` or set the `mydefaultTable` property to a non empty string."
             );
         }
-        return this.getTableLocator().get(myalias, options);
+        return _getTableLocator().get(myalias, options);
     } */
 }

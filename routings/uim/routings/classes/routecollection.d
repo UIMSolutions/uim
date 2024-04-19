@@ -366,7 +366,7 @@ class DRouteCollection {
      * string routings The name of the middleware to check.
      */
     bool middlewareExists(string routings) {
-        return this.hasMiddleware(routings) || this.hasMiddlewareGroup(routings);
+        return _hasMiddleware(routings) || this.hasMiddlewareGroup(routings);
     }
 
     /**

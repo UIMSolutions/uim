@@ -230,7 +230,7 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
             fields = this.aliasFields(fields);
         }
 
-        return this.select(fields, canOverwrite);
+        return _select(fields, canOverwrite);
     }
 
     /**
@@ -426,7 +426,7 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
     /**
      * /
     array getContain() {
-        return this.getEagerLoader().getContain();
+        return _getEagerLoader().getContain();
     }
 
     /**
@@ -1285,7 +1285,7 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
      * /
     function IDataSerialize(): IResultSet
     {
-        return this.all();
+        return _all();
     }
 
     /**

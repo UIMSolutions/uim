@@ -52,6 +52,6 @@ mixin template TLocatorAware() {
             );
         }
 
-        return this.getTableLocator().get(alias, options);
+        return _getTableLocator().get(alias, options);
     }
 }

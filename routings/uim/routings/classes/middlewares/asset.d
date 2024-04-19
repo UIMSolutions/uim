@@ -48,7 +48,7 @@ class DAssetMiddleware : IMiddleware {
                     date(DATE_RFC850, modifiedTime)
                 );
         }
-        return this.deliverAsset(serverRequest, file);
+        return _deliverAsset(serverRequest, file);
     }
     
     /**

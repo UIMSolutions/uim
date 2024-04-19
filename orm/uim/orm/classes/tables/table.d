@@ -328,7 +328,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
         if (myfield.has(".")) {
             return myfield;
         }
-        return this.aliasName() ~ "." ~ myfield;
+        return _aliasName() ~ "." ~ myfield;
     }
     
     /**
@@ -453,7 +453,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * string myfield The field to check for.
      * /
     bool hasField(string myfield) {
-        return this.getSchema().getColumn(myfield) !isNull;
+        return _getSchema().getColumn(myfield) !isNull;
     }
     
     /**
@@ -705,7 +705,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * string myname The alias used for the association.
      * /
    bool hasAssociation(string myname) {
-        return this.findAssociation(myname) !isNull;
+        return _findAssociation(myname) !isNull;
     }
     
     /**
@@ -1038,7 +1038,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * @param IData ...myargs Arguments that match up to finder-specific parameters
      * /
     SelectQuery find(string mytype = "all", IData ...myargs) {
-        return this.callFinder(mytype, this.selectQuery(), ...myargs);
+        return _callFinder(mytype, this.selectQuery(), ...myargs);
     }
     
     /**
@@ -1320,7 +1320,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * /
     protected IData _executeTransaction(callable myworker, bool myatomic = true) {
         if (myatomic) {
-            return this.getConnection().transactional(fn (): myworker());
+            return _getConnection().transactional(fn (): myworker());
         }
         return myworker();
     }
@@ -1449,19 +1449,19 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
     
     // Creates a new DSelectQuery instance for a table.
     SelectQuery query() {
-        return this.selectQuery();
+        return _selectQuery();
     }
     
     // Creates a new select query
     SelectQuery selectQuery() {
-        return this.queryFactory.select(this);
+        return _queryFactory.select(this);
     }
     
     /**
      * Creates a new insert query
      * /
     InsertQuery insertQuery() {
-        return this.queryFactory.insert(this);
+        return _queryFactory.insert(this);
     }
     
     /**
@@ -1471,14 +1471,14 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * /
     auto updateQuery(): UpdateQuery
     {
-        return this.queryFactory.update(this);
+        return _queryFactory.update(this);
     }
     
     /**
      * Creates a new delete query
      * /
     DeleteQuery deleteQuery() {
-        return this.queryFactory.delete_(this);
+        return _queryFactory.delete_(this);
     }
     
     /**
@@ -1487,7 +1487,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * This is useful for subqueries.
      * /
     SelectQuery subquery() {
-        return this.queryFactory.select(this).disableAutoAliasing();
+        return _queryFactory.select(this).disableAutoAliasing();
     }
     
     /**
@@ -2229,7 +2229,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
     SelectQuery<TSubject> callFinder(string mytype, SelectQuery myquery, IData ...myargs) {
         myfinder = "find" ~ mytype;
         if (method_exists(this, myfinder)) {
-            return this.invokeFinder(this.{myfinder}(...), myquery, myargs);
+            return _invokeFinder(this.{myfinder}(...), myquery, myargs);
         }
         if (_behaviors.hasFinder(mytype)) {
             return _behaviors.callFinder(mytype, myquery, ...myargs);
@@ -2361,7 +2361,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
             myfields = myfields.split("_and_");
             myconditions = mymakeConditions(myfields, myargs);
         }
-        return this.find(myfindType, conditions: myconditions);
+        return _find(myfindType, conditions: myconditions);
     }
     
     /**
@@ -2487,7 +2487,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
     {
         options["associated"] ??= _associations.keys();
 
-        return this.marshaller().one(mydata, options);
+        return _marshaller().one(mydata, options);
     }
     
     /**
@@ -2523,7 +2523,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
     IEntity[] newEntities(array data, IData[string] optionData = null) {
         options["associated"] ??= _associations.keys();
 
-        return this.marshaller().many(mydata, options);
+        return _marshaller().many(mydata, options);
     }
     
     /**
@@ -2577,7 +2577,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
     IEntity patchEntity(IEntity myentity, array data, IData[string] optionData = null) {
         options["associated"] ??= _associations.keys();
 
-        return this.marshaller().merge(myentity, mydata, options);
+        return _marshaller().merge(myentity, mydata, options);
     }
     
     /**
@@ -2612,7 +2612,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
     IEntity[] patchEntities(Range myentities, array data, IData[string] optionData = null) {
         options["associated"] ??= _associations.keys();
 
-        return this.marshaller().mergeMany(myentities, mydata, options);
+        return _marshaller().mergeMany(myentities, mydata, options);
     }
     
     /**

@@ -351,7 +351,7 @@ class DTimeHelper : DHelper {
         string|false myinvalid = false,
         DateTimeZone|string|null mytimezone = null
     ) {
-        return this.i18nFormat(mydate, myformat, myinvalid, mytimezone);
+        return _i18nFormat(mydate, myformat, myinvalid, mytimezone);
     }
     
     /**

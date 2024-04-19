@@ -283,7 +283,7 @@ class DView : IView { //  }: IEventDispatcher {
 
     // Gets the request instance.
     ServerRequest getRequest() {
-        return this.request;
+        return _request;
     }
 
     /**
@@ -302,7 +302,7 @@ class DView : IView { //  }: IEventDispatcher {
 
     // Gets the response instance.
     Response getResponse() {
-        return this.response;
+        return _response;
     }
     
     // Sets the response instance.
@@ -314,7 +314,7 @@ class DView : IView { //  }: IEventDispatcher {
 
     // Get path for templates files.
     string getTemplatePath() {
-        return this.templatePath;
+        return _templatePath;
     }
 
     // Set path for templates files.
@@ -350,7 +350,7 @@ class DView : IView { //  }: IEventDispatcher {
     
     // Get the current view theme.
     string getTheme() {
-        return this.theme;
+        return _theme;
     }
 
     /**
@@ -369,7 +369,7 @@ class DView : IView { //  }: IEventDispatcher {
      * filename in `templates/<SubFolder>/` without the .d extension.
      * /
     string getTemplate() {
-        return this.template;
+        return _template;
     }
 
     /**
@@ -388,7 +388,7 @@ class DView : IView { //  }: IEventDispatcher {
      * without the .d extension.
      * /
     string getLayout() {
-        return this.layout;
+        return _layout;
     }
 
     /**
@@ -441,7 +441,7 @@ class DView : IView { //  }: IEventDispatcher {
         bool _pluginCheck = options["plugin"] != false;
         auto filepath = _getElementFileName(templatefilename, _pluginCheck);
         if (filepath && options["cache"]) {
-            return this.cache(void () use (filepath, mydata, options) {
+            return _cache(void () use (filepath, mydata, options) {
                 writeln(_renderElement(filepath, mydata, options);
             }, options["cache"]);
         }
@@ -556,7 +556,7 @@ class DView : IView { //  }: IEventDispatcher {
         if (mydefaultAutoLayout !isNull) {
             this.autoLayout = mydefaultAutoLayout;
         }
-        return this.Blocks.get("content");
+        return _Blocks.get("content");
     }
     
     /**
@@ -585,12 +585,12 @@ class DView : IView { //  }: IEventDispatcher {
 
         this.dispatchEvent("View.afterLayout", [mylayoutFileName]);
 
-        return this.Blocks.get("content");
+        return _Blocks.get("content");
     }
 
     // Returns a list of variables available in the current View context
     string[] getVars() {
-        return this.viewVars.keys;
+        return _viewVars.keys;
     }
     
     /**
@@ -599,7 +599,7 @@ class DView : IView { //  }: IEventDispatcher {
      * @param IData mydefault The default/fallback content of myvar.
      * /
     IData get(string valueName, IData defaultValue = null) {
-        return this.viewVars.get(valueName, defaultValue);
+        return _viewVars.get(valueName, defaultValue);
     }
 
     /**
@@ -767,7 +767,7 @@ class DView : IView { //  }: IEventDispatcher {
 
     // Magic accessor for helpers.
     Helper __get(string attributeName) {
-        return this.helpers().{attributeName};
+        return _helpers().{attributeName};
     }
 
     /**
@@ -871,7 +871,7 @@ class DView : IView { //  }: IEventDispatcher {
      * You should use `addHelper()` instead of this method from the `initialize()` hook of `AppView` or other custom View classes.
      * /
     Helper loadHelper(string helperName, IData[string] settingsForHelper = null) {
-        return this.helpers().load(helperName, settingsForHelper);
+        return _helpers().load(helperName, settingsForHelper);
     }
 
     /**
@@ -887,7 +887,7 @@ class DView : IView { //  }: IEventDispatcher {
 
     // Get sub-directory for this template files.
     string getSubDir() {
-        return this.subDir;
+        return _subDir;
     }
     
     // Returns the View"s controller name.

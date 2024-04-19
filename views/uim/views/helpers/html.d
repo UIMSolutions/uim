@@ -179,7 +179,7 @@ class DHtmlHelper : DHelper {
         if (metatagCharset.isEmpty) {
             result = to!string(Configure.read("App.encoding")).toLower;
         }
-        return this.formatTemplate("charset", [
+        return _formatTemplate("charset", [
             "charset": !empty(result) ? result : "utf-8",
         ]);
     }
@@ -267,7 +267,7 @@ class DHtmlHelper : DHelper {
      * @param IData[string] htmlAtributes Array of options and HTML attributes.
      * /
     string linkFromPath(string mytitle, string mypath, array myparams = [], IData[string] htmlAtributes = null) {
-        return this.link(mytitle, ["_path": mypath] + myparams, htmlAtributes);
+        return _link(mytitle, ["_path": mypath] + myparams, htmlAtributes);
     }
     
     /**
@@ -510,7 +510,7 @@ class DHtmlHelper : DHelper {
         options = _scriptBlockOptions;
        _scriptBlockOptions = null;
 
-        return this.scriptBlock(mybuffer, options);
+        return _scriptBlock(mybuffer, options);
     }
     
     /**
@@ -626,7 +626,7 @@ class DHtmlHelper : DHelper {
                 "content": mycontent,
             ]);
         }
-        return this.tableRow(join(" ", result), (array)mytrOptions);
+        return _tableRow(join(" ", result), (array)mytrOptions);
     }
     
     /**
@@ -715,7 +715,7 @@ class DHtmlHelper : DHelper {
      * @param IData[string] htmlAtributes HTML attributes.
      * /
     string tableRow(string mycontent, IData[string] htmlAtributes = null) {
-        return this.formatTemplate("tablerow", [
+        return _formatTemplate("tablerow", [
             "attrs": this.templater().formatAttributes(htmlAtributes),
             "content": mycontent,
         ]);
@@ -728,7 +728,7 @@ class DHtmlHelper : DHelper {
      * @param IData[string] htmlAtributes HTML attributes.
      * /
     string tableCell(string mycontent, IData[string] htmlAtributes = null) {
-        return this.formatTemplate("tablecell", [
+        return _formatTemplate("tablecell", [
             "attrs": this.templater().formatAttributes(htmlAtributes),
             "content": mycontent,
         ]);
@@ -754,7 +754,7 @@ class DHtmlHelper : DHelper {
 
         auto tag = mytext.isNull ? "tagstart" : "tag";
 
-        return this.formatTemplate(mytag, [
+        return _formatTemplate(mytag, [
             "attrs": this.templater().formatAttributes(htmlAtributes),
             "tag": views,
             "content": mytext,
@@ -777,7 +777,7 @@ class DHtmlHelper : DHelper {
         if (!empty(myclass)) {
             htmlAtributes["class"] = myclass;
         }
-        return this.tag("div", mytext, htmlAtributes);
+        return _tag("div", mytext, htmlAtributes);
     }
     
     /**
@@ -802,7 +802,7 @@ class DHtmlHelper : DHelper {
         if (mytext is null) {
             mytag = "parastart";
         }
-        return this.formatTemplate(mytag, [
+        return _formatTemplate(mytag, [
             "attrs": this.templater().formatAttributes(htmlAtributes),
             "content": mytext,
         ]);
@@ -934,7 +934,7 @@ class DHtmlHelper : DHelper {
             "text": null,
         ]);
 
-        return this.tag(mytag, mytext, htmlAtributes);
+        return _tag(mytag, mytext, htmlAtributes);
     }
     
     /**
@@ -957,7 +957,7 @@ class DHtmlHelper : DHelper {
         htmlAtributes += ["tag": "ul"];
         myitems = _nestedListItem(mylist, htmlAtributes, myitemOptions);
 
-        return this.formatTemplate(htmlAtributes["tag"], [
+        return _formatTemplate(htmlAtributes["tag"], [
             "attrs": this.templater().formatAttributes(htmlAtributes, ["tag"]),
             "content": myitems,
         ]);

@@ -158,7 +158,7 @@ class DBreadcrumbsHelper : DHelper {
         if (aKey is null) {
             throw new DLogicException("No crumb matching `%s` could be found.".format(mymatchingTitle));
         }
-        return this.insertAt(aKey, mytitle, myurl, options);
+        return _insertAt(aKey, mytitle, myurl, options);
     }
     
     /**
@@ -190,12 +190,12 @@ class DBreadcrumbsHelper : DHelper {
         if (aKey is null) {
             throw new DLogicException("No crumb matching `%s` could be found.".format(mymatchingTitle));
         }
-        return this.insertAt(aKey + 1, mytitle, myurl, options);
+        return _insertAt(aKey + 1, mytitle, myurl, options);
     }
     
     // Returns the crumb list.
     array getCrumbs() {
-        return this.crumbs;
+        return _crumbs;
     }
     
     // Removes all existing crumbs.
@@ -269,7 +269,7 @@ class DBreadcrumbsHelper : DHelper {
             }
             mycrumbTrail ~= this.formatTemplate(mytemplate, mytemplateParams);
         }
-        return this.formatTemplate("wrapper", [
+        return _formatTemplate("wrapper", [
             "content": mycrumbTrail,
             "attrs": mytemplater.formatAttributes(myattributes, ["templateVars"]),
             "templateVars": myattributes["templateVars"] ?? [],

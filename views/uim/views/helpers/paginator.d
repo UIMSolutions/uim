@@ -116,7 +116,7 @@ class DPaginatorHelper : DHelper {
         if (!isSet(this.paginated)) {
             throw new UimException("You must set a pagination instance using `setPaginated()` first");
         }
-        return this.paginated;
+        return _paginated;
     }
     
     // Gets the current paging parameters from the resultset for the given model
@@ -130,7 +130,7 @@ class DPaginatorHelper : DHelper {
      * string aKey Key of the paginator params array to retrieve.
      * /
     IData param(string aKey) {
-        return this.params()[aKey] ?? null;
+        return _params()[aKey] ?? null;
     }
     
     /**
@@ -154,14 +154,14 @@ class DPaginatorHelper : DHelper {
      * Gets the current page of the recordset for the given model
      * /
     int current() {
-        return this.paginated().currentPage();
+        return _paginated().currentPage();
     }
     
     /**
      * Gets the total number of pages in the recordset for the given model.
      * /
     int total() {
-        return this.paginated().pageCount();
+        return _paginated().pageCount();
     }
     
     /**
@@ -360,7 +360,7 @@ class DPaginatorHelper : DHelper {
             "url": this.generateUrl(mypaging, myurl),
         ];
 
-        return this.templater().format(mytemplate, myvars);
+        return _templater().format(mytemplate, myvars);
     }
     
     /**
@@ -386,7 +386,7 @@ class DPaginatorHelper : DHelper {
             "fullBase": BooleanData(false),
         ];
 
-        return this.Url.build(this.generateUrlParams(options, myurl), myurlOptions);
+        return _Url.build(this.generateUrlParams(options, myurl), myurlOptions);
     }
     
     /**
@@ -479,14 +479,14 @@ class DPaginatorHelper : DHelper {
      * Returns true if the given result set is not at the first page
      * /
     bool hasPrev() {
-        return this.paginated().hasPrevPage();
+        return _paginated().hasPrevPage();
     }
     
     /**
      * Returns true if the given result set is not at the last page
      * /
     bool hasNext() {
-        return this.paginated().hasNextPage();
+        return _paginated().hasNextPage();
     }
     
     /**
@@ -537,7 +537,7 @@ class DPaginatorHelper : DHelper {
                 "model": Inflector.humanize(Inflector.tableize(myalias)).toLower,
             ];
         }
-        return this.templater().format(mytemplate, mymap);
+        return _templater().format(mytemplate, mymap);
     }
     
     /**

@@ -187,7 +187,7 @@ class DTextHelper : DHelper {
     string autoLink(string mytext, IData[string] options  = null) {
         mytext = this.autoLinkUrls(mytext, options);
 
-        return this.autoLinkEmails(mytext, ["escape": BooleanData(false)] + options);
+        return _autoLinkEmails(mytext, ["escape": BooleanData(false)] + options);
     }
     
     /**

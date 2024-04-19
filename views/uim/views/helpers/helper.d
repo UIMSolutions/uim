@@ -77,12 +77,12 @@ class DHelper { // TODO }: IEventListener {
      * /
     DHelper __get(string propertyName) {
         if (isSet(this.helperInstances[propertyName])) {
-            return this.helperInstances[propertyName];
+            return _helperInstances[propertyName];
         }
         if (isSet(this.helpers[propertyName])) {
             helperSettings = ["enabled": BooleanData(false)] + this.helpers[propertyName];
 
-            return this.helperInstances[propertyName] = _View.loadHelper(propertyName, helperSettings);
+            return _helperInstances[propertyName] = _View.loadHelper(propertyName, helperSettings);
         }
         return null;
     }

@@ -396,7 +396,7 @@ class DFormHelper : DHelper {
         }
         myactionAttr = mytemplater.formatAttributes(["action": myaction, "escape": BooleanData(false)]);
 
-        return this.formatTemplate("formStart", [
+        return _formatTemplate("formStart", [
             "attrs": mytemplater.formatAttributes(myhtmlAttributes) ~ myactionAttr,
             "templateVars": options["templateVars"] ?? [],
         ]) ~ myappend;
@@ -454,7 +454,7 @@ class DFormHelper : DHelper {
         if (!mycsrfToken) {
             return "";
         }
-        return this.hidden("_csrfToken", [
+        return _hidden("_csrfToken", [
             "value": mycsrfToken,
             "secure": SECURE_SKIP,
         ]);
@@ -536,7 +536,7 @@ class DFormHelper : DHelper {
             ]);
             result ~= this.hidden("_Token.debug", mytokenDebug);
         }
-        return this.formatTemplate("hiddenBlock", ["content": result]);
+        return _formatTemplate("hiddenBlock", ["content": result]);
     }
     
     /**
@@ -578,7 +578,7 @@ class DFormHelper : DHelper {
                 ~ " in your controller and called `FormHelper.create()` before calling `FormHelper.unlockField()`."
             );
         }
-        return this.formProtector;
+        return _formProtector;
     }
     
     /**
@@ -650,7 +650,7 @@ class DFormHelper : DHelper {
                 myerror = array_pop(myerror);
             }
         }
-        return this.formatTemplate("error", [
+        return _formatTemplate("error", [
             "content": myerror,
             "id": _domId(myfield) ~ "-error",
         ]);
@@ -741,9 +741,9 @@ class DFormHelper : DHelper {
             if (isArray(options["input"])) {
                 myattrs = options["input"] + myattrs;
             }
-            return this.widget("nestingLabel", myattrs);
+            return _widget("nestingLabel", myattrs);
         }
-        return this.widget("label", myattrs);
+        return _widget("label", myattrs);
     }
     
     /**
@@ -785,7 +785,7 @@ class DFormHelper : DHelper {
             Hash.normalize(myfields)
         );
 
-        return this.controls(myfields, options);
+        return _controls(myfields, options);
     }
     
     /**
@@ -819,7 +819,7 @@ class DFormHelper : DHelper {
             }
             result ~= this.control(views, (array)myopts);
         }
-        return this.fieldset(result, options);
+        return _fieldset(result, options);
     }
     
     /**
@@ -1011,7 +1011,7 @@ class DFormHelper : DHelper {
         if (!this.templater().get(mygroupTemplate)) {
             mygroupTemplate = "formGroup";
         }
-        return this.formatTemplate(mygroupTemplate, [
+        return _formatTemplate(mygroupTemplate, [
             "input": options["input"] ?? [],
             "label": options["label"],
             "error": options["error"],
@@ -1029,7 +1029,7 @@ class DFormHelper : DHelper {
         if (!this.templater().get(myinputContainerTemplate)) {
             myinputContainerTemplate = "inputContainer" ~ options["errorSuffix"];
         }
-        return this.formatTemplate(myinputContainerTemplate, [
+        return _formatTemplate(myinputContainerTemplate, [
             "content": options["content"],
             "error": options["error"],
             "label": options["label"] ?? "",
@@ -1059,14 +1059,14 @@ class DFormHelper : DHelper {
                 }
                 unset(options["options"]);
 
-                return this.{options["type"]}(fieldName, myopts, options ~ ["label": mylabel]);
+                return _{options["type"]}(fieldName, myopts, options ~ ["label": mylabel]);
             case "input":
                 throw new DInvalidArgumentException(
                     "Invalid type `input` used for field `%s`.".format(fieldName
                 ));
 
             default:
-                return this.{options["type"]}(fieldName, options);
+                return _{options["type"]}(fieldName, options);
         }
     }
     
@@ -1310,7 +1310,7 @@ class DFormHelper : DHelper {
         if (labelOptions.isSet("escape")) {
             mylabelAttributes["escape"] = labelOptions["escape"];
         }
-        return this.label(fieldName, mylabelText, mylabelAttributes);
+        return _label(fieldName, mylabelText, mylabelAttributes);
     }
     
     /**
@@ -1446,7 +1446,7 @@ class DFormHelper : DHelper {
         options["type"] = options["type"] ?? mymethod;
         options = _initInputField(myparams[0], options);
 
-        return this.widget(options["type"], options);
+        return _widget(options["type"], options);
     }
     
     /**
@@ -1463,7 +1463,7 @@ class DFormHelper : DHelper {
         options = _initInputField(fieldName, options);
         unset(options["type"]);
 
-        return this.widget("textarea", options);
+        return _widget("textarea", options);
     }
     
     /**
@@ -1492,7 +1492,7 @@ class DFormHelper : DHelper {
         }
         options["type"] = "hidden";
 
-        return this.widget("hidden", options);
+        return _widget("hidden", options);
     }
     
     /**
@@ -1509,7 +1509,7 @@ class DFormHelper : DHelper {
 
         unset(options["type"]);
 
-        return this.widget("file", options);
+        return _widget("file", options);
     }
     
     /**
@@ -1545,7 +1545,7 @@ class DFormHelper : DHelper {
                 "confirm": myconfirm,
             ]);
         }
-        return this.widget("button", options);
+        return _widget("button", options);
     }
     
     /**
@@ -1778,7 +1778,7 @@ class DFormHelper : DHelper {
             "templateVars": options["templateVars"],
         ]);
 
-        return this.formatTemplate("submitContainer", [
+        return _formatTemplate("submitContainer", [
             "content": myinput,
             "templateVars": options["templateVars"],
         ]);
@@ -1851,7 +1851,7 @@ class DFormHelper : DHelper {
         if (myattributes["multiple"] == "checkbox") {
             unset(myattributes["multiple"], myattributes["empty"]);
 
-            return this.multiCheckbox(fieldName, options, myattributes);
+            return _multiCheckbox(fieldName, options, myattributes);
         }
         unset(myattributes["label"]);
 
@@ -1965,7 +1965,7 @@ class DFormHelper : DHelper {
         options = _initInputField(fieldName, options);
         unset(options["type"]);
 
-        return this.widget("year", options);
+        return _widget("year", options);
     }
     
     /**
@@ -1986,7 +1986,7 @@ class DFormHelper : DHelper {
         options = _initInputField(fieldName, options);
         options["type"] = "month";
 
-        return this.widget("datetime", options);
+        return _widget("datetime", options);
     }
     
     /**
@@ -2008,7 +2008,7 @@ class DFormHelper : DHelper {
         options["type"] = "datetime-local";
         options["fieldName"] = fieldName;
 
-        return this.widget("datetime", options);
+        return _widget("datetime", options);
     }
     
     /**
@@ -2028,7 +2028,7 @@ class DFormHelper : DHelper {
         options = _initInputField(fieldName, options);
         options["type"] = "time";
 
-        return this.widget("datetime", options);
+        return _widget("datetime", options);
     }
     
     /**
@@ -2049,7 +2049,7 @@ class DFormHelper : DHelper {
         options = _initInputField(fieldName, options);
         options["type"] = "date";
 
-        return this.widget("datetime", options);
+        return _widget("datetime", options);
     }
     
     /**

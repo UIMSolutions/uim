@@ -80,7 +80,7 @@ class UrlHelper : DHelper {
      * @param IData[string] options Array of options.
      * /
     string buildFromPath(string mypath, array myparams = [], IData[string] options  = null) {
-        return this.build(["_path": mypath] + myparams, options);
+        return _build(["_path": mypath] + myparams, options);
     }
     
     /**

@@ -441,7 +441,7 @@ class DViewBuilder { // }: DIDataSerializable {
      * Magic method used for serializing the view builder object.
      * /
     array __serialize() {
-        return this.IDataSerialize();
+        return _IDataSerialize();
     }
     
     /**

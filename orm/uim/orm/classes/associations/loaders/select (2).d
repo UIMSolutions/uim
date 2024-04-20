@@ -153,7 +153,7 @@ class DSelectLoader {
      * string[] afinderData The finder name or an array having the name as key
      * and options as value.
      * /
-    protected array _extractFinder(string[] afinderData) {
+    // TODO protected array _extractFinder(string[] afinderData) {
         finderData = (array)finderData;
 
         if (isNumeric(key(finderData))) {
@@ -334,7 +334,7 @@ class DSelectLoader {
      * Params:
      * \ORM\Query\SelectQuery aQuery The query to get fields from.
      * /
-    protected array<string, array> _subqueryFields(DSelectQuery aQuery) {
+    // TODO protected array<string, array> _subqueryFields(DSelectQuery aQuery) {
         auto someKeys = (array)this.bindingKey;
 
         if (this.associationType == Association.MANY_TO_ONE) {

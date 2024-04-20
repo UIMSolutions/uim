@@ -86,7 +86,7 @@ class DSelectLoader {
      *
      * @return array<string, mixed>
      * /
-    protected array _defaultOptions() {
+    // TODO protected array _defaultOptions() {
         return [
             "foreignKey": this.foreignKey,
             "conditions": ArrayData,
@@ -170,7 +170,7 @@ class DSelectLoader {
      * @param array|string finderData The finder name or an array having the name as key
      * and options as value.
      * /
-    protected array _extractFinder(finderData) {
+    // TODO protected array _extractFinder(finderData) {
         finderData = (array)finderData;
 
         if (key(finderData).isNumeric) {
@@ -379,7 +379,7 @@ class DSelectLoader {
      * @param DORMQuery query The query to get fields from.
      * @return array<string, array> The list of fields for the subquery.
      * /
-    protected array _subqueryFields(Query query) {
+    // TODO protected array _subqueryFields(Query query) {
         keys = (array)this.bindingKey;
 
         if (this.associationType == Association::MANY_TO_ONE) {
@@ -410,7 +410,7 @@ class DSelectLoader {
      * @param array<string, mixed> options The options passed to the eager loader
      * @return array<string, mixed>
      * /
-    protected array _buildResultMap(Query fetchQuery, IData[string] optionData) {
+    // TODO protected array _buildResultMap(Query fetchQuery, IData[string] optionData) {
         resultMap = null;
         singleResult = in_array(this.associationType, [Association::MANY_TO_ONE, Association::ONE_TO_ONE], true);
         keys = in_array(this.associationType, [Association::ONE_TO_ONE, Association::ONE_TO_MANY], true) ?

@@ -900,7 +900,7 @@ protected void _bindNewAssociations(Query query, Query surrogate, IData[string] 
      * @throws \RuntimeException if the number of columns in the foreignKeys do not
      * match the number of columns in the source table primaryKeys
      * /
-protected array _joinCondition(IData[string] optionData) {
+// TODO protected array _joinCondition(IData[string] optionData) {
     conditions = null;
     tAlias = _name;
     sAlias = this.getSource().aliasName();
@@ -954,7 +954,7 @@ protected array _joinCondition(IData[string] optionData) {
      * @param array|string finderData The finder name or an array having the name as key
      * and options as value.
      * /
-protected array _extractFinder(finderData) {
+// TODO protected array _extractFinder(finderData) {
     finderData = (array) finderData;
 
     if (key(finderData).isNumeric) {

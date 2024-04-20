@@ -18,7 +18,7 @@ mixin template AssociationsNormalizerTrait
      * @param array|string associations The array of included associations.
      * @return array An array having dot notation transformed into nested arrays
      * /
-    protected array _normalizeAssociations(associations) {
+    // TODO protected array _normalizeAssociations(associations) {
         result = null;
         foreach ((array)associations as table: options) {
             pointer = &result;

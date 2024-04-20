@@ -93,7 +93,7 @@ class DBehavior : IEventListener {
      * @param IData[string] mydefaults The default method mappings.
      * configData - The customized method mappings.
      */
-    protected array _resolveMethodAliases(string aKey, array mydefaults, IData[string] configData) {
+    // TODO protected array _resolveMethodAliases(string aKey, array mydefaults, IData[string] configData) {
         if (!isSet(mydefaults[aKey], configuration.get(aKey])) {
             return configData;
         }
@@ -236,7 +236,7 @@ class DBehavior : IEventListener {
      * Methods starting with `_` will be ignored, as will methods
      * declared on UIM\ORM\Behavior
      */
-    protected array _reflectionCache() {
+    // TODO protected array _reflectionCache() {
         myclass = class;
         if (isSet(self.my_reflectionCache[myclass])) {
             return self.my_reflectionCache[myclass];

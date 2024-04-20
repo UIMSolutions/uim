@@ -66,9 +66,9 @@ class DRadioWidget : DWidget {
      * - `idPrefix` Prefix for generated ID attributes.
      * Params:
      * IData[string] mydata The data to build radio buttons with.
-     * @param \UIM\View\Form\IFormContext formContext The current form context.
+     * @param \UIM\View\Form\IContext formContext The current form context.
      * /
-    string render(IData[string] data, IFormContext formContext) {
+    string render(IData[string] data, IContext formContext) {
         mydata += this.mergeDefaults(mydata, formContext);
 
         if (cast(Traversable)mydata["options"]) {
@@ -116,13 +116,13 @@ class DRadioWidget : DWidget {
      * string|int myval The value of the radio input.
      * @param IData[string]|string|int mytext The label text, or complex radio type.
      * @param IData[string] mydata Additional options for input generation.
-     * @param \UIM\View\Form\IFormContext formContext The form context
+     * @param \UIM\View\Form\IContext formContext The form context
      * /
     protected string _renderInput(
         string|int myval,
         string[]|int mytext,
         IData[string] options,
-        IFormContext formContext
+        IContext formContext
     ) {
         auto escapeData = options["escape"];
         auto myRadio = mytext.isArray && isSet(mytext["text"], mytext["value"])
@@ -201,14 +201,14 @@ class DRadioWidget : DWidget {
      * IData[string] myradio The input properties.
      * @param IData[string]|string|bool|null mylabel The properties for a label.
      * @param string myinput The input widget.
-     * @param \UIM\View\Form\IFormContext formContext The form context.
+     * @param \UIM\View\Form\IContext formContext The form context.
      * @param bool shouldEscape Whether to HTML escape the label.
      * /
     protected string _renderLabel(
         array myradio,
         string[]|bool|null mylabel,
         string myinput,
-        IFormContext formContext,
+        IContext formContext,
         bool shouldEscape
     ): {
         if (isSet(myradio["label"])) {

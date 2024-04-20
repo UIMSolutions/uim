@@ -29,7 +29,7 @@ class DLabelWidget : DWidget {
     }
 
     // Render a label widget.
-    override string render(IData[string] renderData, IFormContext formContext) {
+    override string render(IData[string] renderData, IContext formContext) {
         auto myData = renderData.merge([
             // `text` The text for the label.
             "text": StringData(""),

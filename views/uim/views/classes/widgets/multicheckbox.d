@@ -91,9 +91,9 @@ class DMultiCheckboxWidget : DWidget {
      * If either is not set options will not be generated correctly.
      * Params:
      * IData[string] mydata The data to generate a checkbox set with.
-     * @param \UIM\View\Form\IFormContext mycontext The current form context.
+     * @param \UIM\View\Form\IContext mycontext The current form context.
      * /
-    string render(array data, IFormContext mycontext) {
+    string render(array data, IContext mycontext) {
         mydata += this.mergeDefaults(mydata, mycontext);
 
        _idPrefix = mydata["idPrefix"];
@@ -106,10 +106,10 @@ class DMultiCheckboxWidget : DWidget {
      * Render the checkbox inputs.
      * Params:
      * IData[string] mydata The data array defining the checkboxes.
-     * @param \UIM\View\Form\IFormContext mycontext The current form context.
+     * @param \UIM\View\Form\IContext mycontext The current form context.
      * returns An array of rendered inputs.
      * /
-    protected string[] _renderInputs(array data, IFormContext mycontext) {
+    protected string[] _renderInputs(array data, IContext mycontext) {
         result = null;
         mydata["options"].byKeyValue
             .each!(kv => 
@@ -163,9 +163,9 @@ class DMultiCheckboxWidget : DWidget {
      * Render a single checkbox & wrapper.
      * Params:
      * IData[string] mycheckbox An array containing checkbox key/value option pairs
-     * @param \UIM\View\Form\IFormContext mycontext DContext object.
+     * @param \UIM\View\Form\IContext mycontext DContext object.
      * /
-    protected string _renderInput(array mycheckbox, IFormContext mycontext) {
+    protected string _renderInput(array mycheckbox, IContext mycontext) {
         myinput = _stringTemplate.format("checkbox", [
             "name": mycheckbox["name"] ~ "[]",
             "value": mycheckbox["escape"] ? htmlAttribEscape(mycheckbox["value"]): mycheckbox["value"],

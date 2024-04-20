@@ -5,7 +5,7 @@ import uim.views;
 @safe:
 
 // Interface for FormHelper context implementations.
-interface IFormContext {
+interface IContext {
     /* 
     // Get the fields used in the context as a primary key.
     string[] getPrimaryKeys();

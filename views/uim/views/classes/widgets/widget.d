@@ -58,9 +58,9 @@ class DWidget : IWidget {
      * Any other keys provided in mydata will be converted into HTML attributes.
      * Params:
      * IData[string] buildData The data to build an input with.
-     * @param \UIM\View\Form\IFormContext mycontext The current form context.
+     * @param \UIM\View\Form\IContext mycontext The current form context.
      */
-    string render(IData[string] renderData, IFormContext formContext) {
+    string render(IData[string] renderData, IContext formContext) {
     /* 
     auto mydata = this.mergeDefaults(buildData, formContext);
 
@@ -97,7 +97,7 @@ class DWidget : IWidget {
   }
 
   // Merge default values with supplied data.
-  protected IData[string] mergeDefaults(IData[string] dataToMerge, IFormContext formContext) {
+  protected IData[string] mergeDefaults(IData[string] dataToMerge, IContext formContext) {
     IData[string] mergedData = configuration.defaultData.merge(dataToMerge);
 
     if (mergedData.hasKey("fieldName") && !mergedData.hasKey("required")) {
@@ -108,7 +108,7 @@ class DWidget : IWidget {
   }
 
   // Set value for "required" attribute if applicable.
-  protected IData[string] setRequired(IData[string] data, IFormContext formContext, string fieldName) {
+  protected IData[string] setRequired(IData[string] data, IContext formContext, string fieldName) {
     /* 
     if (
       !data.isEmpty("disabled") && (
@@ -125,10 +125,10 @@ class DWidget : IWidget {
      * Set value for "maxlength" attribute if applicable.
      * Params:
      * IData[string] mydata Data array
-     * @param \UIM\View\Form\IFormContext mycontext DContext instance.
+     * @param \UIM\View\Form\IContext mycontext DContext instance.
      * @param string aFieldName Field name.
      * /
-  protected IData[string] setMaxLength(array data, IFormContext mycontext, string aFieldName) {
+  protected IData[string] setMaxLength(array data, IContext mycontext, string aFieldName) {
     mymaxLength = mycontext.getMaxLength(aFieldName);
     if (mymaxLength!isNull) {
       mydata["maxlength"] = min(mymaxLength, 100000);
@@ -140,10 +140,10 @@ class DWidget : IWidget {
      * Set value for "step" attribute if applicable.
      * Params:
      * IData[string] mydata Data array
-     * @param \UIM\View\Form\IFormContext mycontext DContext instance.
+     * @param \UIM\View\Form\IContext mycontext DContext instance.
      * @param string aFieldName Field name.
      * /
-  protected IData[string] setStep(array data, IFormContext mycontext, string aFieldName) {
+  protected IData[string] setStep(array data, IContext mycontext, string aFieldName) {
     mydbType = mycontext.type(myfieldName);
     myfieldDef = mycontext.attributes(myfieldName);
 

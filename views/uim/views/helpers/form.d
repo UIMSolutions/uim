@@ -35,7 +35,7 @@ class DFormHelper : DHelper {
     string _requestType = null;
 
     // DContext for the current form.
-    protected IFormContext _context = null;
+    protected IContext _context = null;
 
     /* 
     // Other helpers used by FormHelper
@@ -180,7 +180,7 @@ class DFormHelper : DHelper {
     /**
      * The supported sources that can be used to populate input values.
      *
-     * `context` - Corresponds to `IFormContext` instances.
+     * `context` - Corresponds to `IContext` instances.
      * `data` - Corresponds to request data (POST/PUT).
      * `query` - Corresponds to request"s query string.
      * /
@@ -291,14 +291,14 @@ class DFormHelper : DHelper {
      * - `templateVars` Provide template variables for the formStart template.
      * Params:
      * IData formContext The context for which the form is being defined.
-     *  Can be a IFormContext instance, ORM entity, ORM resultset, or an
+     *  Can be a IContext instance, ORM entity, ORM resultset, or an
      *  array of meta data. You can use `null` to make a context-less form.
      * @param IData[string] options An array of html attributes and options.
      * /
     string create(IData formContext = null, IData[string] options  = null) {
         myappend = "";
 
-        if (cast(IFormContext)formContext) {
+        if (cast(IContext)formContext) {
             this.context(formContext);
         } else {
             if (options.isEmpty("context")) {
@@ -405,10 +405,10 @@ class DFormHelper : DHelper {
     /**
      * Create the URL for a form based on the options.
      * Params:
-     * \UIM\View\Form\IFormContext formContext The context object to use.
+     * \UIM\View\Form\IContext formContext The context object to use.
      * @param IData[string] options An array of options from create()
      * /
-    protected string[] _formUrl(IFormContext formContext, IData[string] options) {
+    protected string[] _formUrl(IContext formContext, IData[string] options) {
         auto myrequest = _View.getRequest();
 
         if (options.isNull("url")) {
@@ -2182,11 +2182,11 @@ class DFormHelper : DHelper {
      *
      * If there is no active form null will be returned.
      * Params:
-     * \UIM\View\Form\IFormContext|null formContext Either the new context when setting, or null to get.
-     * @return \UIM\View\Form\IFormContext The context for the form.
+     * \UIM\View\Form\IContext|null formContext Either the new context when setting, or null to get.
+     * @return \UIM\View\Form\IContext The context for the form.
      * /
-    IFormContext context(?IFormContext formContext = null) {
-        if (cast(IFormContext)formContext) {
+    IContext context(?IContext formContext = null) {
+        if (cast(IContext)formContext) {
            _context = formContext;
         }
         return _getContext();
@@ -2199,7 +2199,7 @@ class DFormHelper : DHelper {
      * Params:
      * IData mydata The data to get a context provider for.
      * /
-    protected IFormContext _getContext(IData mydata = []) {
+    protected IContext _getContext(IData mydata = []) {
         if (isSet(_context) && empty(mydata)) {
             return _context;
         }

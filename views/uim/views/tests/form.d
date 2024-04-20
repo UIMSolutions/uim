@@ -1,6 +1,6 @@
-module uim.forms.tests.form;
+module uim.views.tests.form;
 
-import uim.forms;
+import uim.views;
 
 @safe:
 

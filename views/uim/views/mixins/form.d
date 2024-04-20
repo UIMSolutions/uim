@@ -1,4 +1,4 @@
-module uim.forms.mixins.form;
+module uim.views.mixins.form;
 
 string formThis(string name) {
     string fullName = name ~ "Form";

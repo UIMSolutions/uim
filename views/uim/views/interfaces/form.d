@@ -1,6 +1,6 @@
-module uim.forms.interfaces.form;
+module uim.views.interfaces.form;
 
-import uim.forms;
+import uim.views;
 
 @safe:
 

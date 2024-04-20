@@ -19,6 +19,10 @@
 		"unit-threaded": "2.1.7",
 		"vibe-container": "1.0.1",
 		"vibe-core": "2.7.1",
-		"vibe-d": "0.10.0"
+		"vibe-d": "0.10.0",
+		"vibe-http": "1.0.0",
+		"vibe-inet": "1.0.0",
+		"vibe-serialization": "1.0.3",
+		"vibe-stream": "1.1.0"
 	}
 }

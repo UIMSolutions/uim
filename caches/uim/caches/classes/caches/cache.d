@@ -36,7 +36,7 @@ import uim.caches;
  * - `FileEngine` - Uses simple files to store content. Poor performance, but good for
  *   storing large objects, or things that are not IO sensitive. Well suited to development
  *   as it is an easy cache to inspect and manually flush.
- * - `MemcacheEngine` - Uses the PECL.Memcache extension and Memcached for storage.
+ * - `MemcacheEngine` - Uses the PECL.Memcache extension and Memory for storage.
  *   Fast reads/writes, and benefits from memcache being distributed.
  * - `RedisEngine` - Uses redis and D-redis extension to store cache data.
  * - `XcacheEngine` - Uses the Xcache extension, an alternative to APCu.
@@ -67,12 +67,12 @@ class DCache : ICache {
 
         // An array mapping URL schemes to fully qualified caching engine class names.
         _dsnClassMap = [
-            "array": ArrayEngine.classname,
-            "apcu": ApcuEngine.classname,
-            "file": FileEngine.classname,
-            "memcached": MemcachedEngine.classname,
-            "null": NullEngine.classname,
-            "redis": RedisEngine.classname,
+            "array": ArrayCacheEngine.className,
+            "apcu": ApcuCacheEngine.className,
+            "file": FileCacheEngine.className,
+            "memcached": MemoryCacheEngine.className,
+            "null": NullCacheEngine.className,
+            "redis": RedisCacheEngine.className,
         ];
 
         return true;

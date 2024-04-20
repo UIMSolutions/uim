@@ -12,8 +12,9 @@ import uim.caches;
  * or console tools where you don`t want the overhead of interacting
  * with a cache servers, but want the work saving properties a cache provides.
  */
-class DArrayEngine : DCacheEngine {
+class DArrayCacheEngine : DCacheEngine {
   mixin(CacheEngineThis!("Array"));
+
   // Cached data.
   // Structured as [key: [exp: expiration, val: value]]
   protected IData[string] _cachedData;

@@ -48,14 +48,15 @@ class DNullEngine : DCacheEngine {
 
   override bool deleteMultiple(string[] someKeys) {
     return true;
-  }
+  }*/
 
   override bool clear() {
     return true;
   }
 
+  /*
   override bool clearGroup(string aGroup) {
     return true;
   } */
 }
-  mixin(CacheEngineThis!("Null"));
+mixin(CacheEngineCalls!("Null"));

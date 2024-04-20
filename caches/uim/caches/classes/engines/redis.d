@@ -48,7 +48,7 @@ class DRedisCacheEngine : DCacheEngine {
             "persistent": BooleanData(true),
             "port": IntegerData(6379),
             "prefix": StringData("uim_"),
-            "host": null,
+            "host": NullData,
             "server": StringData("127.0.0.1"),
             "timeout": IntegerData(0),
             "unix_socket": BooleanData(false),
@@ -295,4 +295,4 @@ class DRedisCacheEngine : DCacheEngine {
         }
     } */
 }
-    mixin(CacheEngineCalls!("Redis")); 
+mixin(CacheEngineCalls!("Redis")); 

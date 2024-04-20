@@ -5,16 +5,16 @@ import uim.caches;
 @safe:
 
 /**
- * Memcached storage engine for cache. Memcached has some limitations in the amount of
- * control you have over expire times far in the future. See MemcachedEngine.write() for
+ * Memory storage engine for cache. Memory has some limitations in the amount of
+ * control you have over expire times far in the future. See MemoryEngine.write() for
  * more information.
  *
- * Memcached engine supports binary protocol and igbinary
+ * Memory engine supports binary protocol and igbinary
  * serialization (if memcached extension is compiled with --enable-igbinary).
  * Compressed keys can also be incremented/decremented.
  */
-class DMemcachedEngine : DCacheEngine {
-  mixin(CacheEngineThis!("Memcached"));
+class DMemoryCacheEngine : DCacheEngine {
+  mixin(CacheEngineThis!("Memory"));
 
   override bool initialize(IData[string] initData = null) {
     if (!super.initialize(initData)) {
@@ -39,7 +39,7 @@ class DMemcachedEngine : DCacheEngine {
      * - `servers` String or array of memcached servers. If an array MemcacheEngine will use
      *   them as a pool.
      * - `options` - Additional options for the memcached client. Should be an array of option: value.
-     *   Use the \Memcached.OPT_* constants as keys.
+     *   Use the \Memory.OPT_* constants as keys.
      */
     configuration.updateDefaults([
       "compress": BooleanData(false),
@@ -59,12 +59,12 @@ class DMemcachedEngine : DCacheEngine {
     return true;
   }
   // memcached wrapper.
-  /* protected DMemcached _memcached;
+  /* protected DMemory _memcached;
 
   /**
      * List of available serializer engines
      *
-     * Memcached must be compiled with IData and igbinary support to use these engines
+     * Memory must be compiled with IData and igbinary support to use these engines
 h     * /
   protected int[string] my_serializers;
 
@@ -77,16 +77,16 @@ h     * /
      * /
 
     if (!extension_loaded("memcached")) {
-      throw new UimException("The `memcached` extension must be enabled to use MemcachedEngine.");
+      throw new UimException("The `memcached` extension must be enabled to use MemoryEngine.");
     }
     /* _serializers = [
-      "igbinary": Memcached: : SERIALIZER_IGBINARY,
-      "IData": Memcached: : SERIALIZER_IData,
-      "d": Memcached: : SERIALIZER_D,
+      "igbinary": Memory: : SERIALIZER_IGBINARY,
+      "IData": Memory: : SERIALIZER_IData,
+      "d": Memory: : SERIALIZER_D,
     ]; * /
 
-    if (defined("Memcached.HAVE_MSGPACK")) {
-      // TODO _serializers["msgpack"] = Memcached :  : SERIALIZER_MSGPACK;
+    if (defined("Memory.HAVE_MSGPACK")) {
+      // TODO _serializers["msgpack"] = Memory :  : SERIALIZER_MSGPACK;
     }
     super.initialize(initData);
 
@@ -102,18 +102,18 @@ h     * /
     /* if (!configuration.get("servers"].isArray) {
       configuration.get("servers"] = [configuration.get("servers"]];
     } * / 
-    if (isSet(_Memcached)) {
+    if (isSet(_Memory)) {
       return true;
     }
-    // _Memcached = configuration.get("persistent"]
-    // TODO   ? new DMemcached(configuration.get("persistent"]) : new DMemcached();
+    // _Memory = configuration.get("persistent"]
+    // TODO   ? new DMemory(configuration.get("persistent"]) : new DMemory();
   }
 
   _setOptions();
 
-  auto servers = _Memcached.getServerList();
+  auto servers = _Memory.getServerList();
   if (servers) {
-    if (_Memcached.isPersistent()) {
+    if (_Memory.isPersistent()) {
       servers
         .filter!(server => !in_array(server["host"] ~ ":" ~ server["port"], configuration.get("servers"], true))
         .each!(server => throw new DInvalidArgumentException(
@@ -129,27 +129,27 @@ h     * /
     .map!(server => this.parseServerString(server))
     .array;
 }
-if (!_Memcached.addServers(myservers)) {
+if (!_Memory.addServers(myservers)) {
   return false;
 }
 
 if (isArray(configuration.get("options"])) {
   configuration.get("options"].byKeyValue
-    .each!(optValue => _Memcached.setOption(optValue.key, optValue.value));
+    .each!(optValue => _Memory.setOption(optValue.key, optValue.value));
 }
 if (isEmpty(configuration.get("username"]) && !configuration.get("login"].isEmpty) {
   throw new DInvalidArgumentException(
-    "Please pass " username" instead of 'login' for connecting to Memcached"
+    "Please pass " username" instead of 'login' for connecting to Memory"
   );
 }
 if (!configuration.get("username"].isNull && configuration.get("password"]!isNull) {
-  if (!method_exists(_Memcached, "setSaslAuthData")) {
+  if (!method_exists(_Memory, "setSaslAuthData")) {
     throw new DInvalidArgumentException(
-      "Memcached extension is not built with SASL support"
+      "Memory extension is not built with SASL support"
     );
   }
-  _Memcached.setOption(Memcached :  : OPT_BINARY_PROTOCOL, true);
-  _Memcached.setSaslAuthData(
+  _Memory.setOption(Memory :  : OPT_BINARY_PROTOCOL, true);
+  _Memory.setSaslAuthData(
     configuration.get("username"],
     configuration.get("password"]
   );
@@ -160,41 +160,41 @@ return true;
 /**
      * Settings the memcached instance
      *
- When the Memcached extension is not built
+ When the Memory extension is not built
      *  with the desired serializer engine.
      * /
 protected void _setOptions() {
-  _Memcached.setOption(Memcached :  : OPT_LIBKETAMA_COMPATIBLE, true);
+  _Memory.setOption(Memory :  : OPT_LIBKETAMA_COMPATIBLE, true);
 
   myserializer = configuration.get("serialize"].toLower;
   if (!_serializers.isSet(myserializer)) {
     throw new DInvalidArgumentException(
-      "`%s` is not a valid serializer engine for Memcached.".format(myserializer)
+      "`%s` is not a valid serializer engine for Memory.".format(myserializer)
     );
   }
   if (
     myserializer != "d" &&
-    !constant("Memcached.HAVE_" ~ strtoupper(myserializer))
+    !constant("Memory.HAVE_" ~ strtoupper(myserializer))
     ) {
     throw new DInvalidArgumentException(
-      "Memcached extension is not compiled with `%s` support.".format(myserializer)
+      "Memory extension is not compiled with `%s` support.".format(myserializer)
     );
   }
-  _Memcached.setOption(
-Memcached :  : OPT_SERIALIZER,
+  _Memory.setOption(
+Memory :  : OPT_SERIALIZER,
     _serializers[myserializer]
   );
 
   // Check for Amazon ElastiCache instance
   if (
-    defined("Memcached.OPT_CLIENT_MODE") &&
-    defined("Memcached.DYNAMIC_CLIENT_MODE")
+    defined("Memory.OPT_CLIENT_MODE") &&
+    defined("Memory.DYNAMIC_CLIENT_MODE")
     ) {
-    _Memcached.setOption(Memcached :  : OPT_CLIENT_MODE, Memcached:
+    _Memory.setOption(Memory :  : OPT_CLIENT_MODE, Memory:
        : DYNAMIC_CLIENT_MODE);
   }
-  _Memcached.setOption(
-Memcached :  : OPT_COMPRESSION,
+  _Memory.setOption(
+Memory :  : OPT_COMPRESSION,
     (bool) configuration.get("compress"]
   );
 }
@@ -236,12 +236,12 @@ array parseServerString(string myserver) {
      * @see https://secure.d.net/manual/en/memcached.getoption.d
      * /
 string | int | bool | null getOption(int myname) {
-  return _Memcached.getOption(myname);
+  return _Memory.getOption(myname);
 }
 
 /**
      * Write data for key into cache. When using memcached as your cache engine
-     * remember that the Memcached pecl extension does not support cache expiry
+     * remember that the Memory pecl extension does not support cache expiry
      * times greater than 30 days in the future. Any duration greater than 30 days
      * will be treated as real Unix time value rather than an offset from current time.
      * Params:
@@ -254,7 +254,7 @@ string | int | bool | null getOption(int myname) {
 bool set(string aKey, IData aValue, DateInterval | int | null myttl = null) {
   myduration = this.duration(myttl);
 
-  return _Memcached.set(_key(aKey), myvalue, myduration);
+  return _Memory.set(_key(aKey), myvalue, myduration);
 }
 
 /**
@@ -271,7 +271,7 @@ bool setMultiple(Range myvalues, DateInterval | int | null myttl = null) {
     .each!(kv => cacheData[_key(kv.key)] = kv.value);
   auto duration = this.duration(myttl);
 
-  return _Memcached.setMulti(cacheData, duration);
+  return _Memory.setMulti(cacheData, duration);
 }
 
 /**
@@ -282,8 +282,8 @@ bool setMultiple(Range myvalues, DateInterval | int | null myttl = null) {
      * /
 IData get(string aKey, IData mydefault = null) {
   auto myKey = _key(aKey);
-  myvalue = _Memcached.get(myKey);
-  if (_Memcached.getResultCode() == Memcached :  : RES_NOTFOUND) {
+  myvalue = _Memory.get(myKey);
+  if (_Memory.getResultCode() == Memory :  : RES_NOTFOUND) {
     return mydefault;
   }
   return myvalue;
@@ -298,7 +298,7 @@ IData get(string aKey, IData mydefault = null) {
 IData[string] getMultiple(string[] someKeys, IData mydefault = null) {
   mycacheKeys = null;
   someKeys.each!(key => mycacheKeys[key] = _key(key));
-  myvalues = _Memcached.getMulti(mycacheKeys);
+  myvalues = _Memory.getMulti(mycacheKeys);
   
   auto result;
   foreach (myoriginal : myprefixed; mycacheKeys) {
@@ -313,7 +313,7 @@ IData[string] getMultiple(string[] someKeys, IData mydefault = null) {
   * @param int anOffset How much to increment
   * /
 int increment(string dataId, int anOffset = 1) | false {
-  return _Memcached.increment(_key(aKey), myoffset);
+  return _Memory.increment(_key(aKey), myoffset);
 }
 
 /**
@@ -323,30 +323,30 @@ int increment(string dataId, int anOffset = 1) | false {
      * @param int anOffset How much to subtract
      * /
 int decrement(string aKey, int anOffset = 1) | false {
-  return _Memcached.decrement(_key(aKey), myoffset);
+  return _Memory.decrement(_key(aKey), myoffset);
 }
 
 // Delete a key from the cache
 bool deleteKey(string dataId) {
-  return _Memcached.deleteKey(_key(dataId));
+  return _Memory.deleteKey(_key(dataId));
 }
 
 // Delete many keys from the cache at once
 bool deleteMultiple(string[] dataIds) {
   auto mycacheKeys = dataIds
     .map!(key => _key(aKey)).array;
-  return (bool) _Memcached.deleteMulti(mycacheKeys);
+  return (bool) _Memory.deleteMulti(mycacheKeys);
 }
 
 // Delete all keys from the cache
 bool clear() {
-  auto someKeys = _Memcached.getAllKeys();
+  auto someKeys = _Memory.getAllKeys();
   if (someKeys == false) {
     return false;
   }
   someKeys
     .filter!(key => key.startsWith(configuration.get("prefix")))
-    .each!(key => _Memcached.deleteKey(key));
+    .each!(key => _Memory.deleteKey(key));
 
   return true;
 }
@@ -360,7 +360,7 @@ bool add(string dataId, IData aValue) {
   auto myduration = configuration.get("duration");
   aKey = _key(dataId);
 
-  return _Memcached.add(aKey, myvalue, myduration);
+  return _Memory.add(aKey, myvalue, myduration);
 }
 
 /**
@@ -374,11 +374,11 @@ bool add(string dataId, IData aValue) {
       _compiledGroupNames ~= configuration.get("prefix") ~ mygroup;
     }
   }
-  mygroups = _Memcached.getMulti(_compiledGroupNames) ?  : [];
+  mygroups = _Memory.getMulti(_compiledGroupNames) ?  : [];
   if (count(mygroups) != count(configuration.get("groups"])) {
     _compiledGroupNames.each!((groupName) {
       if (!mygroups.isSet(groupName)) {
-        _Memcached.set(mygroup, 1, 0);
+        _Memory.set(mygroup, 1, 0);
         mygroups[mygroup] = 1;
       }
     });
@@ -398,7 +398,7 @@ bool add(string dataId, IData aValue) {
   * old values will remain in storage until they expire.
   * /
 bool clearGroup(string groupName) {
-  return (bool) _Memcached.increment(configuration.get("prefix") ~ groupName);
+  return (bool) _Memory.increment(configuration.get("prefix") ~ groupName);
 } */
 }
-mixin(CacheEngineCalls!("Memcached"));
+mixin(CacheEngineCalls!("Memory"));

@@ -5,7 +5,8 @@ import uim.routings;
 @safe:
 
 // Exception raised when a route names used twice.
-class DuplicateNamedRouteException : UimException {
+class DDuplicateNamedRouteException : UimException {
+    mixin(ExceptionThis!("DuplicateNamedRoute"));
  
     protected string _messageTemplate = "A route named `%s` has already been connected to `%s`.";
 
@@ -25,3 +26,4 @@ class DuplicateNamedRouteException : UimException {
     }
     */
 }
+mixin(ExceptionCalls!("DuplicateNamedRoute"));

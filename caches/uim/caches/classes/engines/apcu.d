@@ -5,7 +5,7 @@ import uim.caches;
 @safe:
 
 // APCu storage engine for cache
-class DApcuEngine : DCacheEngine {
+class DApcuCacheEngine : DCacheEngine {
   mixin(CacheEngineThis!("Apcu"));
   /**
      * Contains the compiled group names

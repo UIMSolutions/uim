@@ -232,7 +232,7 @@ class DEntityContext : IFormContext {
      * IData myvalues The list from which to extract primary keys from
      * @param string[] mypath Each one of the parts in a path for a field name
      * /
-    protected array _extractMultiple(IData myvalues, array mypath) {
+    // TODO protected array _extractMultiple(IData myvalues, array mypath) {
         if (!is_iterable(myvalues)) {
             return null;
         }
@@ -305,7 +305,7 @@ class DEntityContext : IFormContext {
      * array|null mypath Each one of the parts in a path for a field name
      * or null to get the entity passed in constructor context.
      * /
-    protected array leafEntity(array mypath = null) {
+    // TODO protected array leafEntity(array mypath = null) {
         if (mypath is null) {
             return _context["entity"];
         }

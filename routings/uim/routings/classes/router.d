@@ -18,7 +18,7 @@ import uim.routings;
  */
 class DRouter {
     // Default route class.
-    protected static string _defaultRouteClass = Route.classname;
+    // TODO protected static string _defaultRouteClass = (new DRoute).className;
 
     /**
      * Contains the base string that will be applied to all generated URLs

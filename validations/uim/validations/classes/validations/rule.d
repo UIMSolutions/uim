@@ -43,7 +43,7 @@ class DValidationRule {
      *
      * @var array
       /
-    protected array my_pass = null;
+    // TODO protected array my_pass = null;
 
     /**
      * Constructor

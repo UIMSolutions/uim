@@ -119,7 +119,7 @@ class DViewBuilder { // }: DIDataSerializable {
     /**
      * The helpers to use
      * /
-    protected array my_helpers = null;
+    // TODO protected array my_helpers = null;
 
 
     /**

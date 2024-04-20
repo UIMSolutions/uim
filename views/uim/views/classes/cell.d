@@ -42,7 +42,7 @@ abstract class DCell { // }: IEventDispatcher {
     protected DResponse myresponse;
 
     // Arguments to pass to cell"s action.
-    protected array myargs = null;
+    // TODO protected array myargs = null;
 
     /**
      * List of valid options (constructor"s fourth arguments)
@@ -52,7 +52,7 @@ abstract class DCell { // }: IEventDispatcher {
     protected string[] my_validCellOptions = null;
 
     // Caching setup.
-    protected array|bool my_cache = false;
+    // TODO protected array|bool my_cache = false;
 
     /**
      * Constructor.
@@ -157,7 +157,7 @@ abstract class DCell { // }: IEventDispatcher {
      * If the key is undefined, the cell class DAnd action name will be used.
      * @param string|null templateName The name of the template to be rendered.
      * /
-    protected array _cacheConfig(string invokedaction, string templateName = null) {
+    // TODO protected array _cacheConfig(string invokedaction, string templateName = null) {
         if (_cache.isEmpty) {
             return null;
         }

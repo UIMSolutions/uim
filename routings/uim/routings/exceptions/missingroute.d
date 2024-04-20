@@ -39,4 +39,4 @@ class DMissingRouteException : UimException {
     } 
     */
 }
-mixin(Exceptioncalls!("MissingRoute"));
+mixin(ExceptionCalls!("MissingRoute"));

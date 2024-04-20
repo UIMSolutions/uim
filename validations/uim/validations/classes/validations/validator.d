@@ -97,7 +97,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @var array<string, object|string>
      * @psalm-var array<string, object|class-string>
      * /
-    protected array my_providers = null;
+    // TODO protected array my_providers = null;
 
     /**
      * An associative array of objects or classes used as a default provider list
@@ -851,7 +851,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param IData[string] mydefaults default settings
      * @param array<string|int, mixed>|string|int mysettings settings from data
      * /
-    protected array<string, array<string|int, mixed>> _convertValidatorToArray(
+    // TODO protected array<string, array<string|int, mixed>> _convertValidatorToArray(
         string aFieldName,
         array mydefaults = [],
         string[]|int mysettings = []

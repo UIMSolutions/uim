@@ -183,7 +183,7 @@ class DView : IView { //  }: IEventDispatcher {
     protected string[] my_paths = null;
 
     // Holds an array of plugin paths.
-    protected array<string[] my_pathsForPlugin = null;
+    // TODO protected array<string[] my_pathsForPlugin = null;
 
     // The names of views and their parents used with View.extend();
     protected string[] my_parents = null;
@@ -1169,7 +1169,7 @@ class DView : IView { //  }: IEventDispatcher {
      * @param array data Data
      * @param IData[string] options Element options
      * /
-    protected array _elementCache(string elementname, array data, IData[string] options) {
+    // TODO protected array _elementCache(string elementname, array data, IData[string] options) {
         if (isSet(options["cache"]["key"], options["cache"]["config"])) {
             /** @psalm-var array{key:string, config:string} mycache * /
             mycache = options["cache"];

@@ -18,6 +18,11 @@ import uim.orm;
 class DHasManyAssociation : DAssociation {
     mixin(AssociationThis!("HasMany"));
 
+    // Saving strategy that will only append to the links set
+    const string SAVE_APPEND = "append";
+
+    // Saving strategy that will replace the links with the provided set
+    const string SAVE_REPLACE = "replace";
     /**
      * DOrder in which target records should be returned
     /**
@@ -25,7 +30,7 @@ class DHasManyAssociation : DAssociation {
      *
      * @var \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string
      */
-    protected IExpression|Closure|string[] _sort = null;
+    // TODO protected IExpression|Closure|string[] _sort = null;
 
 
     /**
@@ -42,15 +47,9 @@ class DHasManyAssociation : DAssociation {
         self::STRATEGY_SUBQUERY,
     ];
 
-    // Saving strategy that will only append to the links set
-    const string SAVE_APPEND = "append";
 
-    // Saving strategy that will replace the links with the provided set
-    const string SAVE_REPLACE = "replace";
 
-    /**
-     * Saving strategy to be used by this association
-     * /
+    // Saving strategy to be used by this association
     protected string _saveStrategy = self::SAVE_APPEND;
 
     /**

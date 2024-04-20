@@ -84,9 +84,7 @@ class DStringTemplate {
     // List of attributes that can be made compact.
     protected bool[string] _compactAttributes;
 
-    // Contains the list of compiled templates
-    protected string[] _compiledTemplates;
-
+    // #region manage Templates
     /**
      * Registers a list of templates by name
      *
@@ -106,54 +104,9 @@ class DStringTemplate {
     void add(IData[string] newTemplates) {
         configuration.update(newTemplates);
         _compiledTemplates = newTemplates.keys;
-    }
-
-    // Push the current templates into the template stack.
-    void push() {
-       //TODO configurationStack ~= [
-       //TODO     configuration,
-       //TODO     _compiledtemplates,
-       //TODO  ];
-    }
-
-    // Restore the most recently pushed set of templates.
-    void pop() {
-       // TODO if (configurationStack.isEmpty) {
-        // TODO     return;
-        // TODO }
-        // TODO [configuration, _compiledtemplates] = array_pop(configurationStack);
-    } 
-
-    // Compile templates into a more efficient printf() compatible format.
-    protected void _compileAllTemplates() {
-        // TODO _compileTemplates(configuration.keys);
-    }
+    }    
     
-    protected void _compileTemplates(string[] templateNames) {
-        templateNames
-          .each!(name => compileTemplate(name));
-    }
-
-    protected void compileTemplate(string templateName) {
-        string templateValue; // TODO  = get(templateName);
-        // TODO if (templateValue is null) {
-        // TODO    throw new DInvalidArgumentException("String template `%s` is not valid.".format(templateName));
-        // TODO}
-
-        // TODO assert(templateValue.isString,
-        // TODO     "Template for `%s` must be of type `string`, but is `%s`".format(templateName, templateValue)
-        // TODO );
-
-        templateValue = templateValue.replace("%", "%%");
-
-        // TODO preg_match_all("#\{\{([\w\.]+)\}\}#", templateValue, mymatches);
-        // TODO _compiledtemplates[templateName] = [
-        // TODO     templateValue.replace(mymatches[0], "%s"),
-        // TODO     mymatches[1],
-        // TODO ];
-    }
-
-    /**
+        /**
      * Load a config file containing templates.
      *
      * Template files should define a `configData` variable containing
@@ -176,6 +129,59 @@ class DStringTemplate {
         configuration.remove(templateName);
         _compiledTemplates.remove(templateName);
     }
+
+    // #endregion manage templates
+
+    // #region compiledTemplates
+    // Contains the list of compiled templates
+    protected string[] _compiledTemplates;
+    // Compile templates into a more efficient printf() compatible format.
+    protected void _compileAllTemplates() {
+        // TODO _compileTemplates(configuration.keys);
+    }
+    
+    protected void _compileTemplates(string[] templateNames) {
+        templateNames
+          .each!(name => compileTemplate(name));
+    }
+    protected void compileTemplate(string templateName) {
+        string templateValue; // TODO  = get(templateName);
+        // TODO if (templateValue is null) {
+        // TODO    throw new DInvalidArgumentException("String template `%s` is not valid.".format(templateName));
+        // TODO}
+
+        // TODO assert(templateValue.isString,
+        // TODO     "Template for `%s` must be of type `string`, but is `%s`".format(templateName, templateValue)
+        // TODO );
+
+        templateValue = templateValue.replace("%", "%%");
+
+        // TODO preg_match_all("#\{\{([\w\.]+)\}\}#", templateValue, mymatches);
+        // TODO _compiledtemplates[templateName] = [
+        // TODO     templateValue.replace(mymatches[0], "%s"),
+        // TODO     mymatches[1],
+        // TODO ];
+    }
+    // #endregion compiledTemplates
+
+
+
+    // Push the current templates into the template stack.
+    void push() {
+       //TODO configurationStack ~= [
+       //TODO     configuration,
+       //TODO     _compiledtemplates,
+       //TODO  ];
+    }
+
+    // Restore the most recently pushed set of templates.
+    void pop() {
+       // TODO if (configurationStack.isEmpty) {
+        // TODO     return;
+        // TODO }
+        // TODO [configuration, _compiledtemplates] = array_pop(configurationStack);
+    } 
+
 
     // Format a template string with data
     string format(string templateName, IData[string] insertData) {
@@ -230,7 +236,7 @@ class DStringTemplate {
      * Params:
      * IData[string]|null options Array of options.
      * @param string[] myexclude Array of options to be excluded, the options here will not be part of the return.
-     */
+     * /
     string formatAttributes(IData[string] options, string[] excludes) {
         bool[string] newExcludes;
         excludes.each!(ex => newExcludes[ex] = true);
@@ -260,7 +266,6 @@ class DStringTemplate {
      * @param bool myescape Define if the value must be escaped
      */
     protected string _formatAttribute(string attributeKey, IData attributeData, bool shouldEscape = true) {
-        string key; 
         string value = attributeData.isArray
             ? attributeData.toStringArray.join(" ")
             : attributeData.toString;
@@ -269,20 +274,18 @@ class DStringTemplate {
             return `%s="%s"`.format(value, value);
         }
 
-        const string[] mytruthy = [1, "1", true, "true", aKey];
-        bool isMinimized = _compactAttributes.has(aKey);
-        if (!matchFirst(aKey, "/\A(\w|[.-])+\z/")) {
-            key = htmlAttribEscape(aKey);
+        string key = attributeKey; 
+        bool isMinimized = _compactAttributes.has(key);
+        if (!matchFirst(key, r"/\A(\w|[.-])+\z/")) {
+            key = htmlAttribEscape(key);
         }
         
-        if (isMinimized && ["1", "true", attributeKey].has(data.toString)) {
-            return attributeKey~"=\"" ~attributeKey~ "\"";
+        if (isMinimized) {
+            bool truthy = ["1", "true", key].any!(v => v == value);
+            return truthy ? `%s="%s"`.format(key, key) : "";
         }
-        // TODO if (myisMinimized) {
-        //     return "";
-        // }
 
-        return attributeKey ~ "=\"" ~ (shouldEscape ? htmlAttribEscape(data.toString): data.toString) ~ "\"";
+        return `%s="%s"`.format((shouldEscape ? htmlAttribEscape(value) : value));
     }
     
     // TODO
@@ -292,25 +295,27 @@ class DStringTemplate {
      * IData myinput The array or string to add the class to
      * @param string[]|string|false|null mynewClass the new class or classes to add
      * @param string myuseIndex if you are inputting an array with an element other than default of "class".
-     * /
+     */
     string[] addClass(
-        IData myinput,
-        string[]|false|null mynewClass,
-        string myuseIndex = "class"
+        IData inputData,
+        string[] classnames,
+        string useIndex = "class"
     ) {
         // NOOP
-        if (mynewClass.isEmpty) {
-            return myinput;
+        if (classnames.isEmpty) {
+            return inputData;
         }
-        if (myinput.isArray) {
-            myclass = Hash.get(myinput, myuseIndex, []);
+
+        if (inputData.isArray) {
+            // TODO myclass = Hash.get(inputData, myuseIndex, []);
         } else {
-            myclass = myinput;
-            myinput = null;
+            classnames = inputData.toStringArray;
+            inputData = null;
         }
+
         // Convert and sanitise the inputs
-        if (!myclass.isArray) {
-            myClass = myclass.isString && !myclass.isEmpty
+        if (!classnames.isArray) {
+            classnames = classnames.isString && !myclass.isEmpty
                 ? myclass.split(" ")
                 : null;
 

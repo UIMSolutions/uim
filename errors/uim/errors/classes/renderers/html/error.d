@@ -10,12 +10,12 @@ import uim.errors;
  * Default output renderer for non CLI SAPI.
  */
 class DHtmlErrorRenderer : IErrorRenderer {
-    /* 
-    void write(string aout) {
-        // Output to stdout which is the server response.
-        writeln(result);
+    // Output to stdout which is the server response.
+    void write(string outputText) {
+        writeln(outputText);
     }
  
+    /* 
     string render(UimError error, bool shouldDebug) {
         if (!debug) {
             return "";

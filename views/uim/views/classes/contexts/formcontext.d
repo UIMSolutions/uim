@@ -10,7 +10,7 @@ import uim.views;
  * This context provider simply fulfils the interface requirements
  * that FormHelper has and allows access to the form data.
  */
-class DFormContext : IFormContext {
+class DFormContext : DContext {
     mixin TConfigurable;
 
     // The form object.

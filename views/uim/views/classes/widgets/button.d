@@ -34,7 +34,7 @@ class DButtonWidget : DWidget {
      *
      * Any other keys provided in mydata will be converted into HTML attributes.
      */
-    override string render(IData[string] renderData, IFormContext formContext) {
+    override string render(IData[string] renderData, IContext formContext) {
         IData[string] buildData = renderData.merge([
             // `text` The text of the button. Unlike all other form controls, buttons do not escape their contents by default.
             "text": StringData(""),

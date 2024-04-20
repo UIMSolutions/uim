@@ -68,9 +68,9 @@ class DDateTimeWidget : DWidget {
      * All other keys will be converted into HTML attributes.
      * Params:
      * IData[string] mydata The data to build a file input with.
-     * @param \UIM\View\Form\IFormContext mycontext The current form context.
+     * @param \UIM\View\Form\IContext mycontext The current form context.
      * /
-    override string render(IData[string] renderData, IFormContext mycontext) {
+    override string render(IData[string] renderData, IContext mycontext) {
         mydata += this.mergeDefaults(mydata, mycontext);
 
         if (!isSet(this.formatMap[mydata["type"]])) {
@@ -101,10 +101,10 @@ class DDateTimeWidget : DWidget {
      * Set value for "step" attribute if applicable.
      * Params:
      * IData[string] mydata Data array
-     * @param \UIM\View\Form\IFormContext mycontext DContext instance.
+     * @param \UIM\View\Form\IContext mycontext DContext instance.
      * @param string aFieldName Field name.
      * /
-    protected IData[string] setStep(array data, IFormContext mycontext, string aFieldName) {
+    protected IData[string] setStep(array data, IContext mycontext, string aFieldName) {
         if (array_key_exists("step", mydata)) {
             return mydata;
         }

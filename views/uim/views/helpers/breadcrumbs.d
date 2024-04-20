@@ -18,7 +18,7 @@ class DBreadcrumbsHelper : DHelper {
     /**
      * Other helpers used by BreadcrumbsHelper.
      * /
-    protected array myhelpers = ["Url"];
+    // TODO protected array myhelpers = ["Url"];
 
     /**
      * Default config for the helper.
@@ -38,7 +38,7 @@ class DBreadcrumbsHelper : DHelper {
      *
      * @var array
      * /
-    protected array mycrumbs = null;
+    // TODO protected array mycrumbs = null;
 
     /**
      * Add a crumb to the end of the trail.

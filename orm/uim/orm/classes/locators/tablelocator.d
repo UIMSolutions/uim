@@ -1,4 +1,4 @@
-module uim.orm.Locator;
+module uim.orm.classes.locators.tablelocator;
 
 import uim.orm;
 

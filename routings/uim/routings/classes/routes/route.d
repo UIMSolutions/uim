@@ -11,7 +11,32 @@ import uim.routings;
  * Not normally created as a standalone. Use Router.connect() to create
  * Routes for your application.
  */
-class DRoute {
+class DRoute : IRoute {
+    mixin TConfigurable;
+
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        this.initialize(initData);
+    }
+    
+    this(string newName) {
+        this();
+        this.name(newName);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
+
+        return true;
+    }
+
+    // Name given to the association, it usually represents the alias assigned to the target associated table
+    mixin(TProperty!("string", "name"));
+
     /**
      * An array of named segments in a Route.
      * `/{controller}/{action}/{id}` has 3 key elements

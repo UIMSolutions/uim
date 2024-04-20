@@ -12,6 +12,7 @@ import uim.routings;
  * defines the redirect URL and status code.
  */
 class DRedirectRoute : DRoute {
+    mixin(RouteThis!("Redirect"));
     /* 
     // The location to redirect to.
     array myredirect;
@@ -83,3 +84,4 @@ class DRedirectRoute : DRoute {
     }
     */
 }
+ mixin(RouteCalls!("Redirect"));

@@ -26,7 +26,7 @@ class DPaginatorHelper : DHelper {
 
     /* 
     // List of helpers used by this helper
-    protected array myhelpers = ["Url", "Number", "Html", "Form"];
+    // TODO protected array myhelpers = ["Url", "Number", "Html", "Form"];
 
     /**
      * Default config for this class
@@ -607,7 +607,7 @@ class DPaginatorHelper : DHelper {
      * IData[string] myparams Params from the numbers() method.
      * @param IData[string] options Options from the numbers() method.
      * /
-    protected array _getNumbersStartAndEnd(array myparams, IData[string] options) {
+    // TODO protected array _getNumbersStartAndEnd(array myparams, IData[string] options) {
         myhalf = (int)(options["modulus"] / 2);
         myend = max(1 + options["modulus"], myparams["currentPage"] + myhalf);
         mystart = min(

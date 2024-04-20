@@ -9,6 +9,8 @@ import uim.routings;
  * parameters, so that requesting `/my_controller` is parsed as `["controller": "MyController"]`
  */
 class DInflectedRoute : DRoute {
+    mixin(RouteThis!("Inflected"));
+    
     /**
      * Flag for tracking whether the defaults have been inflected.
      *
@@ -85,3 +87,4 @@ class DInflectedRoute : DRoute {
         return myurl;
     } */
 }
+mixin(RouteCalls!("Inflected"));

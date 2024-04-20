@@ -10,6 +10,8 @@ import uim.routings;
  * It is used for supporting /{plugin} routes.
  */
 class DPluginShortRoute : DInflectedRoute {
+    mixin(RouteThis!("PluginShort"));
+
     /**
      * Parses a string URL into an array. If a plugin key is found, it will be copied to the
      * controller parameter.
@@ -47,3 +49,4 @@ class DPluginShortRoute : DInflectedRoute {
         return result;
     } */
 }
+mixin(RouteCalls!("PluginShort"));

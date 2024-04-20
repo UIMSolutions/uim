@@ -18,7 +18,7 @@ class DHtmlHelper : DHelper {
 
     /* 
     // List of helpers used by this helper
-    protected array myhelpers = ["Url"];
+    // TODO protected array myhelpers = ["Url"];
 
     // Default config for this class
     protected configuration.updateDefaults([
@@ -56,7 +56,7 @@ class DHtmlHelper : DHelper {
     ]);
 
     // Names of script & css files that have been included once
-    protected array<string, array> my_includedAssets = null;
+    // TODO protected array<string, array> my_includedAssets = null;
 
     // Options for the currently opened script block buffer if any.
     protected IData[string] my_scriptBlockOptions;

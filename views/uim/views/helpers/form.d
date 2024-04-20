@@ -39,7 +39,7 @@ class DFormHelper : DHelper {
 
     /* 
     // Other helpers used by FormHelper
-    protected array myhelpers = ["Url", "Html"];
+    // TODO protected array myhelpers = ["Url", "Html"];
 
     // Default config for the helper.
     configuration.updateDefaults([
@@ -142,7 +142,7 @@ class DFormHelper : DHelper {
      *
      * @var array<string, string[]>
      * /
-    protected array _defaultWidgets = [
+    // TODO protected array _defaultWidgets = [
         "button": ["Button"],
         "checkbox": ["Checkbox"],
         "file": ["File"],
@@ -1174,7 +1174,7 @@ class DFormHelper : DHelper {
      * Params:
      * class-string<\BackedEnum> myenumClass Enum class name.
      * /
-    protected array<int|string, string> enumOptions(string enumClassname) {
+    // TODO protected array<int|string, string> enumOptions(string enumClassname) {
         assert(isSubclass_of(enumClassname, BackedEnum.classname));
 
         myvalues = null;

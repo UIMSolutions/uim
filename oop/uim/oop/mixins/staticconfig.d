@@ -11,7 +11,7 @@ import uim.oop;
  *
  * Implementing objects are expected to declare a static ` _dsnClassMap` property.
  */
-template TStaticConfig() {
+mixin template TStaticConfig() {
     /**
      * Configuration sets.
      *

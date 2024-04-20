@@ -80,8 +80,6 @@ class DCache : ICache {
 
     mixin(TProperty!("string", "name"));
 
-    // mixin TStaticConfig;
-
     // An array mapping URL schemes to fully qualified caching engine class names.
     protected static STRINGAA _dsnClassMap;
 

@@ -20,6 +20,7 @@ public { // uim libraries
   import uim.models;
   import uim.logging;
   import uim.events;
+  import uim.forms;
 }
 
 public { // uim.filesystem libraries

@@ -88,10 +88,13 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
     }
     */
 
-    // Set form data.
-    @property void data(IData[string] data) {
-       _data = someData.dup;
-    }
+        @property IData[string] data() {
+        return _data.dup;
+        }
+
+        @property void data(IData[string] data) {
+        _data = data.dup;
+        }
     // #endregion data handling
 
     // The errors if any
@@ -126,10 +129,6 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
         return null;
     }
 
-
-
-
-    
     /**
      * A hook method intended to be implemented by subclasses.
      *
@@ -166,9 +165,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
         return _errors;
     }
 
-    /**
-     * Returns validation errors for the given field
-     * /
+    // Returns validation errors for the given field
     array getError(string fieldName) {
         return _errors[fieldName] ? _errors[fieldName] : null;
     }

@@ -98,13 +98,13 @@ class DWidget : IWidget {
 
   // Merge default values with supplied data.
   protected IData[string] mergeDefaults(IData[string] dataToMerge, IFormContext formContext) {
-    auto myData = configuration.defaultData.merge(dataToMerge);
+    IData[string] mergedData = configuration.defaultData.merge(dataToMerge);
 
-    if (myData.has("fieldName") && !myData.has("required")) {
-      myData = setRequired(myData, formContext, myData.getString("fieldName"));
+    if (mergedData.hasKey("fieldName") && !mergedData.hasKey("required")) {
+      mergedData = setRequired(mergedData, formContext, mergedData.getString("fieldName"));
     }
 
-    return myData;
+    return mergedData;
   }
 
   // Set value for "required" attribute if applicable.

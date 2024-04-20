@@ -27,17 +27,17 @@ class DConnectionManager {
         return true;
     }
 
+    // A map of connection aliases.
+    protected static STRINGAA _connectionAliases;
+
+    // An array mapping url schemes to fully qualified driver class names
+    protected static STRINGAA _dsnClassMap;
+
     /*
     mixin template TStaticConfig() {
         setConfig as protected _setConfig;
         parseDsn as protected _parseDsn;
     }
-
-    // A map of connection aliases.
-    protected static STRINGAA _connectionAliases = null;
-
-    // An array mapping url schemes to fully qualified driver class names
-    protected static STRINGAA _dsnClassMap;
 
     // The ConnectionRegistry used by the manager.
     protected static DConnectionRegistry _registry;

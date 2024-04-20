@@ -21,7 +21,7 @@ abstract class DCell { // }: IEventDispatcher {
     }
 
     this(DStringTemplate newTemplate) {
-        this().stringTemplate(newTemplate);
+        // TODO this().stringTemplate(newTemplate);
     }
 
     this(string newName) {

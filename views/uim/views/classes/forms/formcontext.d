@@ -14,7 +14,7 @@ class DFormContext : IFormContext {
     mixin TConfigurable;
 
     // The form object.
-    // TODO protected DForm _form;
+    protected IForm _form;
 
     // Validator name.
     protected string _validatorName = null;
@@ -85,13 +85,13 @@ class DFormContext : IFormContext {
     } */
  
     bool isRequired(string myfield) {
-        auto formValidator = _form.getValidator(_validatorName);
+        /* auto formValidator = _form.getValidator(_validatorName);
         if (!formValidator.hasField(myfield)) {
-            return null;
-        }
+            return false;
+        } 
         if (this.type(myfield) != "boolean") {
             return !formValidator.isEmptyAllowed(myfield, this.isCreate());
-        }
+        } */ 
         return false;
     }
  

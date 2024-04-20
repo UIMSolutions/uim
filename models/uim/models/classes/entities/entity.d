@@ -584,7 +584,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       /* if (void value = values[key]) {
         return value.toString;
       }
-      auto keys = key.split(".");
+      string[] keys = key.split(".");
       if (keys.length > 1) {
         if (auto subValue = values[keys[0]]) {
           if (auto entityValue = cast(DEntityData) subValue) {
@@ -681,7 +681,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       if (true) { //values.hasKey(key)) {
         // values[key] = value;
       } else {
-        auto keys = key.split(".");
+        string[] keys = key.split(".");
         if (keys.length > 1) {
           /* if (auto subValue = values[keys[0]]) {
             if (auto entityValue = cast(DEntityData) subValue) {

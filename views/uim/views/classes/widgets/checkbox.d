@@ -13,15 +13,21 @@ import uim.views;
 class DCheckboxWidget : DWidget {
     mixin(WidgetThis!("Checkbox"));
 
-    /* 
-    // Data defaults.
-    protected IData[string] _defaultData = [
-        "name": StringData(""),
-        "value": 1,
-        "val": null,
-        "disabled": BooleanData(false),
-        "templateVars": ArrayData,
-    ];
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false; 
+        }
+
+        configuration.updateDefaults([
+            "name": StringData(""),
+            "value": IntegerData(1),
+            "val": NullData,
+            "disabled": BooleanData(false),
+            "templateVars": ArrayData,
+        ]);
+
+        return true;
+    }    
 
     /**
      * Render a checkbox element.

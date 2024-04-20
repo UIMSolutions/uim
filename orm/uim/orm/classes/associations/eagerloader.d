@@ -184,8 +184,7 @@ class DEagerLoader {
 
         mycontains = null;
         mynested = &mycontains;
-        myassociationPath
-            .split(".")
+        myassociationPath.split(".")
             .each!((association) {
                 // Add contain to parent contain using association name as key
                 mynested[association] = mysharedOptions;

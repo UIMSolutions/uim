@@ -171,7 +171,7 @@ class DEntityContext : IFormContext {
             return options["default"];
         }
         
-        auto pathParts = fieldPath.split(".");
+        string[] pathParts = fieldPath.split(".");
         myentity = this.entity(pathParts);
 
         if (myentity && end(pathParts) == "_ids") {
@@ -382,7 +382,7 @@ class DEntityContext : IFormContext {
      * string myfield The dot separated path to the field you want to check.
      * /
     bool isRequired(string myfield) {
-        auto pathParts = myfield.split(".");
+        string[] pathParts = myfield.split(".");
         auto myentity = this.entity(pathParts);
 
         auto myisNew = true;
@@ -401,7 +401,7 @@ class DEntityContext : IFormContext {
     }
  
     string getRequiredMessage(string myfield) {
-        auto pathParts = myfield.split(".");
+        string[] pathParts = myfield.split(".");
 
         myvalidator = _getValidator(pathParts);
         myfieldName = array_pop(pathParts);
@@ -542,7 +542,7 @@ class DEntityContext : IFormContext {
      * string fieldPath A dot separated path to get a schema type for.
      * /
     string type(string fieldPath) {
-        auto pathParts = fieldPath.split(".");
+        string[] pathParts = fieldPath.split(".");
         auto mytable = _getTable(pathParts);
 
         return mytable?.getSchema().baseColumnType(array_pop(pathParts));

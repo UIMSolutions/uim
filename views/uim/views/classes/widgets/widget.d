@@ -96,41 +96,28 @@ class DWidget : IWidget {
       return null; 
   }
 
-  /**
-     * Merge default values with supplied data.
-     * Params:
-     * IData[string] mydata Data array
-     * @param \UIM\View\Form\IFormContext mycontext DContext instance.
-     * /
-  protected IData[string] mergeDefaults(array data, IFormContext mycontext) {
-    mydata += this.defaults;
+  // Merge default values with supplied data.
+  protected IData[string] mergeDefaults(IData[string] dataToMerge, IFormContext formContext) {
+    auto myData = configuration.defaults.merge(dataToMerge);
 
-    if (isSet(mydata["fieldName"]) && !array_key_exists("required", mydata)) {
-      mydata = this.setRequired(mydata, mycontext, mydata["fieldName"]);
+    if (myData.has("fieldName") && !myData.has("required")) {
+      myData = setRequired(myData, formContext, myData.getString("fieldName"));
     }
-    return mydata;
+
+    return myData;
   }
 
-  /**
-     * Set value for "required" attribute if applicable.
-     * Params:
-     * IData[string] mydata Data array
-     * @param \UIM\View\Form\IFormContext mycontext DContext instance.
-     * @param string aFieldName Field name.
-     * /
-  protected IData[string] setRequired(array data, IFormContext mycontext, string aFieldName) {
+  // Set value for "required" attribute if applicable.
+  protected IData[string] setRequired(IData[string] data, IFormContext formContext, string fieldName) {
     if (
-      mydata["disabled"].isEmpty && (
-          (isSet(mydata["type"])
-            && mydata["type"] != "hidden"
-        )
-        || !mydata.isSet("type")
-      )
-        && mycontext.isRequired(myfieldName)
+      !data.isEmpty("disabled") && (
+        (data.isSet("type") && data["type"] != "hidden")
+        || !data.isSet("type"))
+        && formContext.isRequired(fieldName)
       ) {
-      mydata["required"] = true;
+      data["required"] = true;
     }
-    return mydata;
+    return data;
   }
 
   /**

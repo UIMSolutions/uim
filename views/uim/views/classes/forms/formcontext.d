@@ -19,24 +19,25 @@ class DFormContext : IFormContext {
     // Validator name.
     protected string _validatorName = null;
 
-   bool initialize(IData[string] initData = null) {
-    configuration(MemoryConfiguration);
-    configuration.data(initData);
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
 
-    return true;
-  }
+        return true;
+    }
+
     string[] getPrimaryKeys() {
         return null;
     }
- 
+
     bool isPrimaryKey(string pathToField) {
         return false;
     }
- 
+
     bool isCreate() {
         return true;
     }
-    
+
     /**
      * Constructor.
      * Params:
@@ -149,9 +150,9 @@ class DFormContext : IFormContext {
 
         return count(myerrors) > 0;
     } */
- 
+
     DError[] error(string myfield) {
         return null;
         // TODO return (array)Hash.get(_form.getErrors(), myfield, []);
-    } 
+    }
 }

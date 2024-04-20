@@ -2092,7 +2092,7 @@ class DFormHelper : DHelper {
                 myfield = substr(myfield, 0, -2);
                 myendsWithBrackets = "[]";
             }
-            pathParts = myfield.split(".");
+            string[] pathParts = myfield.split(".");
             myfirst = array_shift(pathParts);
             options["name"] = myfirst ~ (!empty(pathParts) ? "[" ~ join("][", pathParts) ~ "]" : "") ~ myendsWithBrackets;
         }

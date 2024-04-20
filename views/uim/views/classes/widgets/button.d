@@ -17,25 +17,32 @@ class DButtonWidget : DWidget {
     this(DStringTemplate mytemplates) {
        _stringTemplate = mytemplates;
     }
+
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false; 
+        }
+
+        return true;
+    }    
     
     /**
      * Render a button.
      *
      * This method accepts a number of keys:
      *
-     * - `text` The text of the button. Unlike all other form controls, buttons
-     *  do not escape their contents by default.
-     * - `escapeTitle` Set to false to disable escaping of button text.
-     * - `escape` Set to false to disable escaping of attributes.
-     * - `type` The button type defaults to "submit".
      *
      * Any other keys provided in mydata will be converted into HTML attributes.
      */
     override string render(IData[string] renderData, IFormContext formContext) {
-        auto buildData = renderData.update([
+        IData[string] buildData = renderData.merge([
+            // `text` The text of the button. Unlike all other form controls, buttons do not escape their contents by default.
             "text": StringData(""),
+            // `type` The button type defaults to "submit".
             "type": StringData("submit"),
+            // `escapeTitle` Set to false to disable escaping of button text.
             "escapeTitle": BooleanData(true),
+            // `escape` Set to false to disable escaping of attributes.
             "escape": BooleanData(true),
             "templateVars": ArrayData(),
         ]);

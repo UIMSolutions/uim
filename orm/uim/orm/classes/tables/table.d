@@ -524,7 +524,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
         if (!_entityClass) {
             mydefault = Entity.classname;
             myself = class;
-            myparts = myself.split("\\");
+            string[] myparts = myself.split("\\");
 
             if (myself == self.classname || count(myparts) < 3) {
                 return _entityClass = mydefault;
@@ -2353,12 +2353,12 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
         if (myhasOr == false && myhasAnd == false) {
             myconditions = mymakeConditions([myfields], myargs);
         } else if (myhasOr != false) {
-            myfields = myfields.split("_or_");
+            string[] myfields = myfields.split("_or_");
             myconditions = [
                 "OR": mymakeConditions(myfields, myargs),
             ];
         } else {
-            myfields = myfields.split("_and_");
+            string[] myfields = myfields.split("_and_");
             myconditions = mymakeConditions(myfields, myargs);
         }
         return _find(myfindType, conditions: myconditions);

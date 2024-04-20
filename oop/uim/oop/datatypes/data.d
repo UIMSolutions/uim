@@ -173,6 +173,10 @@ class DData : IData {
     return false;
   }
 
+  bool has(string key, bool deepSearch = false) { // Short version
+    return hasKey(key, deepSearch);
+  }
+
   bool hasKey(string key, bool deepSearch = false) {
     return false;
   }

@@ -21,6 +21,13 @@ abstract class DConfiguration : IConfiguration {
     mixin(TProperty!("string", "separator"));
 
     // #region defaultData
+        IData[string] defaultData() {
+            return null;
+        }
+
+        void defaultData(IData[string] newData) {
+        }
+
         abstract bool hasDefault(string path);
 
         override void updateDefaults(IData[string] newData) {
@@ -45,25 +52,27 @@ abstract class DConfiguration : IConfiguration {
     void data(IData[string] newData) {
     }
 
-    bool hasAnyPaths(string[] paths...) {
-        return hasAnyPaths(paths.dup);
-    }
+    // #region paths
+        bool hasAnyPaths(string[] paths...) {
+            return hasAnyPaths(paths.dup);
+        }
 
-    bool hasAnyPaths(string[] paths) {
-        return false;
-    }
+        bool hasAnyPaths(string[] paths) {
+            return false;
+        }
 
-    bool hasAllPaths(string[] paths...) {
-        return hasAllPaths(paths.dup);
-    }
+        bool hasAllPaths(string[] paths...) {
+            return hasAllPaths(paths.dup);
+        }
 
-    bool hasAllPaths(string[] paths) {
-        return false;
-    }
+        bool hasAllPaths(string[] paths) {
+            return false;
+        }
 
-    bool hasPath(string path) {
-        return false;
-    }
+        bool hasPath(string path) {
+            return false;
+        }
+    // #endregion paths
 
     bool hasAnyValues(string[] values...) {
         return hasAnyValues(values.dup);

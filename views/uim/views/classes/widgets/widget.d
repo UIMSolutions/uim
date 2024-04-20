@@ -98,7 +98,7 @@ class DWidget : IWidget {
 
   // Merge default values with supplied data.
   protected IData[string] mergeDefaults(IData[string] dataToMerge, IFormContext formContext) {
-    auto myData = configuration.defaults.merge(dataToMerge);
+    auto myData = configuration.defaultData.merge(dataToMerge);
 
     if (myData.has("fieldName") && !myData.has("required")) {
       myData = setRequired(myData, formContext, myData.getString("fieldName"));
@@ -109,14 +109,15 @@ class DWidget : IWidget {
 
   // Set value for "required" attribute if applicable.
   protected IData[string] setRequired(IData[string] data, IFormContext formContext, string fieldName) {
+    /* 
     if (
       !data.isEmpty("disabled") && (
-        (data.isSet("type") && data["type"] != "hidden")
+        (data.isSet("type") && data.get("type") != StringData("hidden"))
         || !data.isSet("type"))
         && formContext.isRequired(fieldName)
       ) {
-      data["required"] = true;
-    }
+      data["required"] = BooleanData(true);
+    } */
     return data;
   }
 

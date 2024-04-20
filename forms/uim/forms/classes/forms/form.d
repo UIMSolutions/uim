@@ -78,8 +78,21 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
        return !_schema.isNull ? _schema : _buildSchema(new _schemaClass());
     } */
 
-    // Form`s data.
+    // #region data handling
     protected IData[string] _data;
+    /* 
+    void set(IData[string] newData) {        
+        newData.byKeyValue 
+            .each!(kv => _data = Hash.insert(_data, kv.key, kv.value));
+        }
+    }
+    */
+
+    // Set form data.
+    @property void data(IData[string] data) {
+       _data = someData.dup;
+    }
+    // #endregion data handling
 
     // The errors if any
     // TODO // TODO protected array _errors = null;
@@ -235,16 +248,6 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
         set([aName: aValue]);
     }
     
-    void set(IData[string] newData) {        
-        newData.byKeyValue 
-            .each!(kv => _data = Hash.insert(_data, kv.key, kv.value));
-        }
-    }
-    
-    // Set form data.
-    void setData(array data) {
-       _data = someData;
-    }
 
     // Get the printable version of a Form instance.
     STRINGAA debugInfo() {

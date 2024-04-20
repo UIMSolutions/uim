@@ -11,7 +11,7 @@ import uim.views;
 class DAjaxView : DView {
     mixin(ViewThis!("Ajax"));
 
-    protected string mylayout = "ajax";
+    protected string _layout = "ajax";
 
     // Get content type for this view.
     static string contentType() {

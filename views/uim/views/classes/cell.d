@@ -10,6 +10,33 @@ import uim.views;
  * @implements \UIM\Event\IEventDispatcher<\UIM\View\View>
  */
 abstract class DCell { // }: IEventDispatcher {
+    mixin TConfigurable;
+
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    this(DStringTemplate newTemplate) {
+        this().stringTemplate(newTemplate);
+    }
+
+    this(string newName) {
+        this().name(newName);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
+
     // Constant for folder name containing cell templates.
     const string TEMPLATE_FOLDER = "cell";
 
@@ -29,8 +56,6 @@ abstract class DCell { // }: IEventDispatcher {
     mixin TLocatorAware;
     mixin TViewVars;
 
-
-
     /**
      * An instance of a UIM\Http\ServerRequest object that contains information about the current request.
      * This object contains all the information about a request and several methods for reading
@@ -49,7 +74,7 @@ abstract class DCell { // }: IEventDispatcher {
      * Override this property in subclasses to allow
      * which options you want set as properties in your Cell.
      * /
-    protected string[] my_validCellOptions = null;
+    protected string[] _validCellOptions = null;
 
     // Caching setup.
     // TODO protected array|bool my_cache = false;
@@ -74,7 +99,7 @@ abstract class DCell { // }: IEventDispatcher {
         this.request = myrequest;
         this.response = myresponse;
 
-       _validCellOptions = array_merge(["action", "args"], _validCellOptions);
+        _validCellOptions = array_merge(["action", "args"], _validCellOptions);
         _validCellOptions
             .filter!(var => isSet(cellOptionsToApply[var]))
             .each!(var => this.{var} = cellOptionsToApply[myvar]);
@@ -83,15 +108,6 @@ abstract class DCell { // }: IEventDispatcher {
            _cache = cellOptionsToApply["cache"];
         }
         this.initialize();
-    }
-    
-    /**
-     * Initialization hook method.
-     *
-     * Implement this method to avoid having to overwrite
-     * the constructor and calling super().
-     * /
-    bool initialize(IData[string] initData = null) {
     }
     
     /**

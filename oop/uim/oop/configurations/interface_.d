@@ -6,7 +6,9 @@ import uim.oop;
 interface IConfiguration : INamed {
     mixin(IProperty!("IData[string]", "data"));
 
-    // #region defaults
+    // #region default data
+        mixin(IProperty!("IData[string]", "defaultData"));
+
         bool hasDefault(string path);
 
         void updateDefaults(IData[string] newData);
@@ -14,23 +16,30 @@ interface IConfiguration : INamed {
 
         void mergeDefaults(IData[string] newData);
         void mergeDefault(string path, IData newData);
-    // #endregion defaults
+    // #endregion default data
 
-    bool hasAnyPaths(string[] paths...);
-    bool hasAnyPaths(string[] paths);
+    // #region paths
+        string[] paths();
 
-    bool hasAllPaths(string[] paths...);
-    bool hasAllPaths(string[] paths);
-    
-    bool hasPath(string path);
+        bool hasAnyPaths(string[] paths...);
+        bool hasAnyPaths(string[] paths);
 
-    bool hasAnyValues(string[] values...);
-    bool hasAnyValues(string[] values);
-    
-    bool hasAllValues(string[] values...);
-    bool hasAllValues(string[] values);
-    
-    bool hasValue(string value);
+        bool hasAllPaths(string[] paths...);
+        bool hasAllPaths(string[] paths);
+
+        bool has(string path); // Short of hasPath
+        bool hasPath(string path);
+    // #endregion paths
+
+    // #region values
+        bool hasAnyValues(string[] values...);
+        bool hasAnyValues(string[] values);
+
+        bool hasAllValues(string[] values...);
+        bool hasAllValues(string[] values);
+
+        bool hasValue(string value);
+    // #endregion values
 
     IData get(string path);
     IData[string] get(string[] paths, bool compressMode = true);

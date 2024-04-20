@@ -58,8 +58,6 @@ class DFormContext : IFormContext {
        _validatorName = mycontext.get("validator", null);
     }
  
-
- 
     /*
     auto val(string myfield, IData[string] options  = null) {
         options = options.update[
@@ -84,7 +82,7 @@ class DFormContext : IFormContext {
             return null;
         }
         return fieldSchema["default"];
-    }
+    } */
  
     bool isRequired(string myfield) {
         auto formValidator = _form.getValidator(_validatorName);
@@ -97,6 +95,7 @@ class DFormContext : IFormContext {
         return false;
     }
  
+    /* 
     string getRequiredMessage(string myfield) {
         string[] myparts = myfield.split(".");
 

@@ -17,6 +17,13 @@ class DMemoryConfiguration : DConfiguration {
 
     // #region defaultData
     protected IData[string] _defaultData;
+    override IData[string] defaultData() {
+        return _defaultData.dup;
+    }
+
+    override void defaultData(IData[string] newData) {
+        _defaultData = newData.dup;
+    }
 
     /** 
      * override bool hasDefault(string path)
@@ -78,7 +85,7 @@ class DMemoryConfiguration : DConfiguration {
     protected IData[string] _data;
 
     override IData[string] data() {
-        return _data;
+        return _data.dup;
     }
     /// 
     unittest {
@@ -86,8 +93,8 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override void data(IData[string] dataArray) {
-        _data = dataArray;
+    override void data(IData[string] newData) {
+        _data = newData.dup;
     }
     /// 
     unittest {

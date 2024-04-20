@@ -200,7 +200,7 @@ class DResponseEmitter {
      * Params:
      * string aheader The Content-Range header to parse.
      */
-    protected array|false parseContentRange(string aheader) {
+    // TODO protected array|false parseContentRange(string aheader) {
         if (preg_match("/(?P<unit>[\w]+)\s+(?P<first>\d+)-(?P<last>\d+)\/(?P<length>\d+|\*)/",  aHeader, matches)) {
             return [
                 matches["unit"],

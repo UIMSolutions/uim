@@ -140,19 +140,19 @@ class DMessage { //: IDataSerializable {
 
     /* 
     // Recipient of the email
-    protected array to = null;
+    // TODO protected array to = null;
 
     // The mail which the email is sent fro
-    protected array from = null;
+    // TODO protected array from = null;
 
     // The sender email
-    protected array sender = null;
+    // TODO protected array sender = null;
 
     // List of email(s) that the recipient will reply to
-    protected array replyTo = null;
+    // TODO protected array replyTo = null;
 
     // The read receipt emai
-    protected array readReceipt = null;
+    // TODO protected array readReceipt = null;
 
     /**
      * The mail that will be used in case of any errors like
@@ -160,7 +160,7 @@ class DMessage { //: IDataSerializable {
      * - Remote user has exceeded his quota
      * - Unknown user
      * /
-    protected array resultPath = null;
+    // TODO protected array resultPath = null;
 
     /**
      * Carbon Copy
@@ -168,7 +168,7 @@ class DMessage { //: IDataSerializable {
      * List of email"s that should receive a copy of the email.
      * The Recipient WILL be able to see this list
       * /
-    protected array cc = null;
+    // TODO protected array cc = null;
 
     /**
      * Blind Carbon Copy
@@ -176,14 +176,14 @@ class DMessage { //: IDataSerializable {
      * List of email"s that should receive a copy of the email.
      * The Recipient WILL NOT be able to see this list
      * /
-    protected array bcc = null;
+    // TODO protected array bcc = null;
 
 
     /**
      * Associative array of a user defined headers
      * Keys will be prefixed "X-" as per RFC2822 Section 4.7.5
      * /
-    protected array  aHeaders = null;
+    // TODO protected array  aHeaders = null;
 
     // Text message
     protected string atextMessage = "";
@@ -192,7 +192,7 @@ class DMessage { //: IDataSerializable {
     protected string ahtmlMessage = "";
 
     // Final message to send
-    protected array message = null;
+    // TODO protected array message = null;
 
  
 
@@ -203,7 +203,7 @@ class DMessage { //: IDataSerializable {
      *
      * @var array<string, array>
      * /
-    protected array attachments;
+    // TODO protected array attachments;
 
 
     /**
@@ -752,7 +752,7 @@ class DMessage { //: IDataSerializable {
      * Params:
      * array address Addresses to format.
      * /
-    protected array formatAddress(array address) {
+    // TODO protected array formatAddress(array address) {
         auto result;
         foreach (address as email: alias) {
             if (email == alias) {

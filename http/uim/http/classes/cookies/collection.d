@@ -18,7 +18,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      *
      * @var array<string, \UIM\Http\Cookie\ICookie>
      * /
-    protected array cookies;
+    // TODO protected array cookies;
 
     /**
      * Constructor

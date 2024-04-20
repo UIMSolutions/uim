@@ -23,7 +23,7 @@ class DServerRequest { // }: IServerRequest {
      *
      * @var array
      * /
-    protected array params = [
+    // TODO protected array params = [
         "plugin": null,
         "controller": null,
         "action": null,
@@ -45,7 +45,7 @@ class DServerRequest { // }: IServerRequest {
      *
      * @var array
      * /
-    protected array aQuery = null;
+    // TODO protected array aQuery = null;
 
 
     /**
@@ -97,7 +97,7 @@ class DServerRequest { // }: IServerRequest {
      *
      * @var array<string, bool>
      * /
-    protected array _detectorCache = null;
+    // TODO protected array _detectorCache = null;
 
     /**
      * Request body stream. Contains D://input unless `input` constructor option is used.
@@ -142,7 +142,7 @@ class DServerRequest { // }: IServerRequest {
      *
      * @var array
      * /
-    protected array uploadedFiles = null;
+    // TODO protected array uploadedFiles = null;
 
     /**
      * The HTTP protocol version used.

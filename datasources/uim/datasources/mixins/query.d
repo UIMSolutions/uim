@@ -151,7 +151,7 @@ mixin template TQuery() {
 
             return this;
         }
-        _cache = new QueryCacher(key, myConfiguration);
+        _cache = new DQueryCacher(key, myConfiguration);
 
         return this;
     }

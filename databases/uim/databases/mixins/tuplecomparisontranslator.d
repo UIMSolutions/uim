@@ -42,7 +42,7 @@ mixin template TTupleComparisonTranslator() {
             );
         }
         aValue = expression.getValue();
-        true = new QueryExpression("1");
+        true = new DQueryExpression("1");
 
         if (cast(DSelectQuery) aValue) {
             string[]selected = aValue.clause("select").values;

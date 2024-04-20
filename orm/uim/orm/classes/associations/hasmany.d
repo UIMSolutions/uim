@@ -465,7 +465,7 @@ class DHasManyAssociation : DAssociation {
 
         if (mustBeDependent) {
             if (_cascadeCallbacks) {
-                conditions = new QueryExpression(conditions);
+                conditions = new DQueryExpression(conditions);
                 conditions.traverse(void (entry) use (myTarget) {
                     if (entry instanceof FieldInterface) {
                         myField = entry.getField();

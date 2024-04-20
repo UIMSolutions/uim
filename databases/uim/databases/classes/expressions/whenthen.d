@@ -103,7 +103,7 @@ class DWhenThenExpression : DExpression {
             ) {
                 typeMap = typeMap.setTypes(type);
             }
-             when = new QueryExpression(when, typeMap);
+             when = new DQueryExpression(when, typeMap);
         } else {
             if (
                 type !isNull &&

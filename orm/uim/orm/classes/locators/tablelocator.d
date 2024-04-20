@@ -8,10 +8,14 @@ import uim.orm;
  * Provides a default registry/factory for Table objects.
  */
 class DTableLocator { // TODO }: DAbstractLocator : ILocator {
-    /**
-     * Contains a list of locations where table classes should be looked for.
-     */
+    // Contains a list of locations where table classes should be looked for.
     protected string[] _locations = null;
+
+    // Whether fallback class should be used if a table class DCould not be found.
+    protected bool _allowFallbackClass = true;
+
+    // Fallback class to use
+    // TODO protected string _fallbackClassName = DTable.className;
 
     /**
      * Configuration for aliases.
@@ -20,9 +24,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * /
     // TODO protected array configuration = null;
 
-    /**
-     * Instances that belong to the registry.
-     * /
+    // Instances that belong to the registry.
     protected ITable[string] myinstances = null;
 
     /**
@@ -33,15 +35,8 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * /
     // TODO protected array my_fallbacked = null;
 
-    /**
-     * Fallback class to use
-     * /
-    protected string myfallbackClassName = Table.classname;
 
-    /**
-     * Whether fallback class should be used if a table class DCould not be found.
-     * /
-    protected bool myallowFallbackClass = true;
+
 
     protected IQueryFactory myqueryFactory;
 
@@ -57,10 +52,8 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
                 "Model/Table",
             ];
         }
-        foreach (mylocations as mylocation) {
-            this.addLocation(mylocation);
-        }
-        this.queryFactory = myqueryFactory ?: new QueryFactory();
+        mylocations.each!(location => addLocation(location));
+        this.queryFactory = myqueryFactory ?: new DQueryFactory();
     }
     
     /**

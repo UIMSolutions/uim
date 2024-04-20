@@ -1240,7 +1240,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * \UIM\Database\IExpression|string[] rawExpression A string, array or anything you want wrapped in an expression object
      * /
     QueryExpression expr(IExpression|string[] rawExpression = null) {
-        expression = new QueryExpression([], this.getTypeMap());
+        expression = new DQueryExpression([], this.getTypeMap());
 
         if (rawExpression !isNull) {
             expression.add(rawExpression);

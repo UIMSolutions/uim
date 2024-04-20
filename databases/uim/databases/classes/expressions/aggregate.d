@@ -29,7 +29,7 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
      * @see \UIM\Database\Query.where()
      * /
     void filter(IExpression|Closure|string[] aconditions, STRINGAA typeNames = []) {
-        this.filter ??= new QueryExpression();
+        this.filter ??= new DQueryExpression();
 
         if (cast(DClosure)conditions ) {
             conditions = conditions(new QueryExpression());

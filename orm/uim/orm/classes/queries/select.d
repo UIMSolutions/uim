@@ -191,7 +191,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
 
             return;
         }
-       _cache = new QueryCacher(aKey, configData);
+       _cache = new DQueryCacher(aKey, configData);
     }
     
     /**

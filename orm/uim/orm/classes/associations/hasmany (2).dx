@@ -432,7 +432,7 @@ class DHasMany : DAssociation {
 
         if (mustBeDependent) {
             if (_cascadeCallbacks) {
-                conditions = new QueryExpression(conditions);
+                conditions = new DQueryExpression(conditions);
                 conditions.traverse(void (entry) use (target) {
                     if (cast(IField)entry) {
                         field = entry.getFieldNames();

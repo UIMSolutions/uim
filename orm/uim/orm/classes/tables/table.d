@@ -223,7 +223,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
        _behaviors.setTable(this);
        _associations = myassociations ?: new AssociationCollection();
         /** @psalm-suppress TypeDoesNotContainType * /
-        this.queryFactory ??= new QueryFactory();
+        this.queryFactory ??= new DQueryFactory();
 
         this.initialize(initData);
 

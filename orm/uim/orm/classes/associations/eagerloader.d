@@ -401,8 +401,8 @@ class DEagerLoader {
             "associations": ArrayData,
             "instance": myinstance,
             "config": array_diff_key(options, myextra),
-            "aliasPath": trim(mypaths["aliasPath"], "."),
-            "propertyPath": trim(mypaths["propertyPath"], "."),
+            "aliasPath": strip(mypaths["aliasPath"], "."),
+            "propertyPath": strip(mypaths["propertyPath"], "."),
             "targetProperty": myinstance.getProperty(),
         ];
         configData("canBeJoined"] = myinstance.canBeJoined(configData("config"]);

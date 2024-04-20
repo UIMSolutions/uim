@@ -149,16 +149,16 @@ class DClientResponse { // }: Message : IResponse {
                 preg_match("/HTTP\/([\d.]+) ([0-9]+)(.*)/i", aValue, matches);
                 this.protocol = matches[1];
                 this.code = to!int(matches[2]);
-                this.reasonPhrase = trim(matches[3]);
+                this.reasonPhrase = strip(matches[3]);
                 continue;
             }
             if (!aValue.has(":")) {
                 continue;
             }
             [name, aValue] = split(":", aValue, 2);
-            aValue = trim(aValue);
+            aValue = strip(aValue);
             /** @Dstan-var non-empty-string aName * /
-            string name = trim(name);
+            string name = strip(name);
             string normalized = name.toLower;
             if (isSet(this.headers[name])) {
                 this.headers[name] ~= aValue;

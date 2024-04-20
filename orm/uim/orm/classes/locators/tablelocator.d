@@ -269,6 +269,6 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
     // Adds a location where tables should be looked for.
     void addLocation(string tableLocation) {
         string mylocation = tableLocation.replace("\\", "/");
-        this.locations ~= trim(mylocation, "/");
+        this.locations ~= strip(mylocation, "/");
     } */
 }

@@ -33,8 +33,8 @@ class DHeaderUtility {
         if (params) {
             params.split(";").each!((param) {
                 string[] explodedParam = param.split("=");
-                string trimedKey = trim(explodedParam[0]);
-                auto trimedValue = trim(explodedParam[1], "'");
+                string trimedKey = strip(explodedParam[0]);
+                auto trimedValue = strip(explodedParam[1], "'");
                 if (trimedKey == "title*") {
                     // See https://www.rfc-editor.org/rfc/rfc8187#section-3.2.3
                     preg_match("/(.*)\'(.*)\'(.*)/i", trimedValue, matches);
@@ -63,12 +63,12 @@ class DHeaderUtility {
         string[] aHeaders = headerValue.split(",");
         foreach (array_filter(aHeaders) as aValue) {
             prefValue = "1.0";
-            aValue = trim(aValue);
+            aValue = strip(aValue);
 
             semiPos = indexOf(aValue, ";");
             if (semiPos != false) {
                 string[] params = aValue.split(";");
-                aValue = trim(params[0]);
+                aValue = strip(params[0]);
                 params.each!((param) {
                     size_t qPos = indexOf(param, "q=");
                     if (qPos != false) {

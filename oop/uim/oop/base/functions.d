@@ -102,7 +102,7 @@ if (!function_exists("UIM\Core\pr")) {
             return var;
         }
         template = UIM_SAPI != "cli' && UIM_SAPI != "Ddbg' ? "<pre class="pr">%s</pre>' : "\n%s\n\n";
-        printf(template, trim(print_r(var, true)));
+        printf(template, strip(print_r(var, true)));
 
         return var;
     }
@@ -125,7 +125,7 @@ if (!function_exists("UIM\Core\pj")) {
         }
         template = UIM_SAPI != "cli' && UIM_SAPI != "Ddbg' ? "<pre class="pj">%s</pre>' : "\n%s\n\n";
         flags = Json_PRETTY_PRINT | Json_UNESCAPED_UNICODE | Json_UNESCAPED_SLASHES;
-        printf(template, trim(to!string(Json_encode(var, flags))));
+        printf(template, strip(to!string(Json_encode(var, flags))));
 
         return var;
     }

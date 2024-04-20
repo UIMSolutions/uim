@@ -320,7 +320,7 @@ class DServerRequest { // }: IServerRequest {
         } else {
              anIpaddr = this.getEnvironmentData("REMOTE_ADDR");
         }
-        return trim((string) anIpaddr);
+        return strip((string) anIpaddr);
     }
     
     /**

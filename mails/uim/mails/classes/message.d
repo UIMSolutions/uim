@@ -1327,7 +1327,7 @@ class DMessage { //: IDataSerializable {
                 if (tmpLineLength == wrapLength) {
                     nextChar = line[anI + 1] ?? "";
                     if (nextChar == " " || nextChar == "<") {
-                        formatted ~= trim(tmpLine);
+                        formatted ~= strip(tmpLine);
                         tmpLine = "";
                         tmpLineLength = 0;
                         if (nextChar == " ") {
@@ -1338,7 +1338,7 @@ class DMessage { //: IDataSerializable {
                         if (lastSpace == false) {
                             continue;
                         }
-                        formatted ~= trim(substr(tmpLine, 0, lastSpace));
+                        formatted ~= strip(substr(tmpLine, 0, lastSpace));
                         tmpLine = substr(tmpLine, lastSpace + 1);
 
                         tmpLineLength = tmpLine.length;

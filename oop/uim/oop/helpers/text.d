@@ -289,7 +289,7 @@ class DText {
             if (mylength < 1) {
                 throw new DInvalidArgumentException("Length must be `int<1, max>`.");
             }
-            mywrapped = trim(chunk_split(textToFormat, mylength, "\n"));
+            mywrapped = strip(chunk_split(textToFormat, mylength, "\n"));
         }
         if (!empty(options["indent"])) {
             string[] mychunks = mywrapped.split("\n");
@@ -373,14 +373,14 @@ class DText {
         if (mycut) {
             while (mb_strlen(textToFormat) > 0) {
                 mypart = mb_substr(textToFormat, 0, mywidth);
-                myparts ~= trim(mypart);
-                textToFormat = trim(mb_substr(textToFormat, mb_strlen(mypart)));
+                myparts ~= strip(mypart);
+                textToFormat = strip(mb_substr(textToFormat, mb_strlen(mypart)));
             }
             return join(mybreak, myparts);
         }
         while (mb_strlen(textToFormat) > 0) {
             if (mywidth >= mb_strlen(textToFormat)) {
-                myparts ~= trim(textToFormat);
+                myparts ~= strip(textToFormat);
                 break;
             }
             mypart = mb_substr(textToFormat, 0, mywidth);
@@ -391,14 +391,14 @@ class DText {
                     mybreakAt = mb_indexOf(textToFormat, " ", mywidth);
                 }
                 if (mybreakAt == false) {
-                    myparts ~= trim(textToFormat);
+                    myparts ~= strip(textToFormat);
                     break;
                 }
                 mypart = mb_substr(textToFormat, 0, mybreakAt);
             }
-            mypart = trim(mypart);
+            mypart = strip(mypart);
             myparts ~= mypart;
-            textToFormat = trim(mb_substr(textToFormat, mb_strlen(mypart)));
+            textToFormat = strip(mb_substr(textToFormat, mb_strlen(mypart)));
         }
         return join(mybreak, myparts);
     }
@@ -484,7 +484,7 @@ class DText {
         mytruncate = mb_substr(textToTruncate, mb_strlen(textToTruncate) - mylength + mb_strlen(myellipsis));
         if (!options["exact"]) {
             myspacepos = mb_indexOf(mytruncate, " ");
-            mytruncate = myspacepos == false ? "" : trim(mb_substr(mytruncate, myspacepos));
+            mytruncate = myspacepos == false ? "" : strip(mb_substr(mytruncate, myspacepos));
         }
         return myellipsis ~ mytruncate;
     }

@@ -1,4 +1,4 @@
-module uim.routings.classes.routecollection;
+module uim.routings.classes.routes.collection;
 
 import uim.routings;
 

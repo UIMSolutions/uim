@@ -9,7 +9,8 @@ import uim.routings;
  * Exception raised when a URL cannot be reverse routed
  * or when a URL cannot be parsed.
  */
-class MissingRouteException : UimException {
+class DMissingRouteException : UimException {
+    mixin(ExceptionThis!("MissingRoute"));
  
     protected string _messageTemplate = "A route matching `%s` could not be found.";
 
@@ -38,3 +39,4 @@ class MissingRouteException : UimException {
     } 
     */
 }
+mixin(Exceptioncalls!("MissingRoute"));

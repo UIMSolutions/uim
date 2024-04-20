@@ -5,6 +5,9 @@ import uim.routings;
 @safe:
 
 // Exception raised when a Dispatcher filter could not be found
-class MissingDispatcherFilterException : UimException {
+class DMissingDispatcherFilterException : UimException {
+    mixin(ExceptionThis!("MissingDispatcherFilter"));
+
     protected string _messageTemplate = "Dispatcher filter `%s` could not be found.";
 }
+mixin(ExceptionCalls!("MissingDispatcherFilter"));

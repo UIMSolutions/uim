@@ -1,4 +1,4 @@
-module source.uim.myname.classes.routes.redirect;
+module uim.routings.classes.routes.redirect;
 
 import uim.routings;
 
@@ -11,7 +11,7 @@ import uim.routings;
  * Redirection is signalled by an exception that halts route matching and
  * defines the redirect URL and status code.
  */
-class DRedirectRoute : Route {
+class DRedirectRoute : DRoute {
     /* 
     // The location to redirect to.
     array myredirect;

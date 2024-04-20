@@ -1,4 +1,4 @@
-module routings.uim.routings.classes.assetx;
+module uim.routings.classes.asset;
 
 import uim.routings;
 

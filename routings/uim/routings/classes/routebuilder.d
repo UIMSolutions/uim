@@ -1,4 +1,4 @@
-module routings.uim.routings.classes.routebuilderx;
+module uim.routings.classes.routebuilder;
 
 import uim.routings;
 

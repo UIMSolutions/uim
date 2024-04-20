@@ -1,4 +1,4 @@
-module uim.uim.routings.functions_;
+module routings.uim.routings.classes.functions_;
 
 import uim.routings;
 

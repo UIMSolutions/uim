@@ -71,7 +71,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
                 ),
         ];
 
-        debug = Configure.read("debug");
+        debug = Configuration.read("debug");
         if (debug && cast(UimException)exception) {
             attributes = exception.getAttributes();
             if (attributes) {

@@ -33,7 +33,7 @@ mixin template TPluginAssets() {
                 continue;
             }
             auto link = Inflector.underscore(plugin);
-            auto wwwRoot = Configure.read("App.wwwRoot");
+            auto wwwRoot = Configuration.read("App.wwwRoot");
             auto dir = wwwRoot;
             auto namespaced = false;
             if (link.has("/")) {

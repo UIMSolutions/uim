@@ -121,7 +121,7 @@ class DFormProtectionComponent : DComponent {
      * \UIM\Form\FormProtector formProtector Form Protector instance.
      * /
     protected DResponse validationFailure(FormProtectorformProtector) {
-        auto myException = Configure.read("debug")
+        auto myException = Configuration.read("debug")
             ? new BadRequestException(
                 formProtector.getError()) : new BadRequestException(DEFAULT_EXCEPTION_MESSAGE);
 

@@ -421,7 +421,7 @@ class DConsoleIo {
 
         string result = result.isNull 
             ? "" 
-            : trim(result);
+            : strip(result);
         
         return result.isEmpty
             ? defaultValue

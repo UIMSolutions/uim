@@ -304,7 +304,7 @@ class DExceptionTrap {
         if (limit == false || limit == "" || limit == "-1") {
             return;
         }
-        limit = trim(limit);
+        limit = strip(limit);
         units = strtoupper(substr(limit, -1));
         current = (int)substr(limit, 0, -1);
         if (units == "M") {

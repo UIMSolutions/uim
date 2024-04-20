@@ -88,7 +88,7 @@ class DValuesExpression : DExpression {
      * /
     // TODO protected array _columnNames() {
         auto someColumns = _columns
-            .map!(col => isString(col) ? trim(col, "`[]'") : col);
+            .map!(col => isString(col) ? strip(col, "`[]'") : col);
 
         return someColumns;
     }

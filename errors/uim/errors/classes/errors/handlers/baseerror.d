@@ -252,7 +252,7 @@ abstract class DERRErrorHandler {
         if (limit == false || limit == "" || limit == "-1") {
             return;
         }
-        limit = trim(limit);
+        limit = strip(limit);
         units = (substr(limit, -1)).toUpper;
         current = (int)substr(limit, 0, strlen(limit) - 1);
         if (units == "M") {

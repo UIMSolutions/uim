@@ -154,7 +154,7 @@ class DCurl { // }: IAdapter {
      * /
     protected DREsponse[] createResponse(CurlHandle handle, string aresponseData) {
          aHeaderSize = curl_getinfo(handle, CURLINFO_HEADER_SIZE);
-         aHeaders = trim(substr(responseData, 0,  aHeaderSize));
+         aHeaders = strip(substr(responseData, 0,  aHeaderSize));
         body = substr(responseData,  aHeaderSize);
         response = new DResponse(split("\r\n",  aHeaders), body);
 

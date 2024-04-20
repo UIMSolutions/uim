@@ -141,8 +141,8 @@ protected STRINGAA _expressionTranslators() {
 protected void _transformIdentifierExpression(IdentifierExpression expressionToTranform) {
     auto collation = expressionToTranform.collation();
     if (collation) {
-        // use trim() to work around expression being transformed multiple times
-        expressionToTranform.collation("\"" ~ trim(collation, "\"") ~ "\"");
+        // use strip() to work around expression being transformed multiple times
+        expressionToTranform.collation("\"" ~ strip(collation, "\"") ~ "\"");
     }
 }
 
@@ -202,8 +202,8 @@ protected void _transformFunctionExpression(FunctionExpression expressionToConve
 
                     // Changes string expression into postgresql format.
                     protected void _transformStringExpression(StringExpression expressionToTranform) {
-                        // use trim() to work around expression being transformed multiple times
-                        expressionToTranform.collation("\"" ~ trim(
+                        // use strip() to work around expression being transformed multiple times
+                        expressionToTranform.collation("\"" ~ strip(
                             expressionToTranform.collation(), "\"") ~ "\"");
                     }
 

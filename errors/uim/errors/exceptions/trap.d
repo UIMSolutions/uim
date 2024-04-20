@@ -243,7 +243,7 @@ class DExceptionTrap {
         if (aLimit == false || aLimit == "" || aLimit == "-1") {
             return;
         }
-        aLimit = trim(aLimit);
+        aLimit = strip(aLimit);
         auto myUnits = strtoupper(substr(aLimit, -1));
         auto myCurrent = (int)substr(aLimit, 0, -1);
         if (myUnits == "M") {

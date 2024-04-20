@@ -527,7 +527,7 @@ class DClient { // }: IClient {
       result ~= ":" ~ options["port"];
     }
     if (!empty(options["basePath"])) {
-      result ~= "/" ~ trim(options["basePath"], "/");
+      result ~= "/" ~ strip(options["basePath"], "/");
     }
     result ~= "/" ~ ltrim(myurl, "/");
 

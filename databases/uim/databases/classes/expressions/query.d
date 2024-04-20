@@ -553,7 +553,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * @param IData aValue The value to be bound to a placeholder for the field
      * /
     protected IExpression|string _parseCondition(string acondition, IData aValue) {
-        auto expression = trim(condition);
+        auto expression = strip(condition);
          operator = "=";
 
         spaces = substr_count(expression, " ");

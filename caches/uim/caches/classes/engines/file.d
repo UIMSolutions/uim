@@ -145,7 +145,7 @@ class DFileCacheEngine : DCacheEngine {
         if (configuration.get("lock")) {
             _File.flock(LOCK_UN);
         }
-        myData = trim(myData);
+        myData = strip(myData);
 
         if (myData != "" && !empty(configuration.get("serialize"])) {
             myData = unserialize(myData);

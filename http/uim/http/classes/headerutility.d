@@ -32,8 +32,8 @@ class DHeaderUtility {
         auto params = matches[2];
         if (params) {
             params.split(";").each!((param) {
-                auto explodedParam = param.split("=");
-                auto trimedKey = trim(explodedParam[0]);
+                string[] explodedParam = param.split("=");
+                string trimedKey = trim(explodedParam[0]);
                 auto trimedValue = trim(explodedParam[1], "'");
                 if (trimedKey == "title*") {
                     // See https://www.rfc-editor.org/rfc/rfc8187#section-3.2.3

@@ -269,8 +269,8 @@ class DFormProtector {
 
             if (!empty(unlockedFields)) {
                 foreach (off; unlockedFields) {
-                    off = off.split(".");
-                    field = array_intersect(aKey.split("."), off).values;
+                    string[] offs = off.split(".");
+                    field = array_intersect(aKey.split("."), offs).values;
                      isUnlocked = (field == off);
                     if (isUnlocked) {
                         break;

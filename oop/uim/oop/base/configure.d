@@ -39,14 +39,14 @@ class DConfigure {
      *
      * Usage:
      * ```
-     * Configure.write("One.key1", "value of the Configure.One[key1]");
-     * Configure.write(["One.key1": 'value of the Configure.One[key1]"]);
-     * Configure.write("One", [
+     * Configuration.update("One.key1", "value of the Configure.One[key1]");
+     * Configuration.update(["One.key1": 'value of the Configure.One[key1]"]);
+     * Configuration.update("One", [
      *    'key1": 'value of the Configure.One[key1]",
      *    'key2": 'value of the Configure.One[key2]'
      * ]);
      *
-     * Configure.write([
+     * Configuration.update([
      *    'One.key1": 'value of the Configure.One[key1]",
      *    'One.key2": 'value of the Configure.One[key2]'
      * ]);
@@ -136,8 +136,8 @@ static Json readOrFail(string avar) {
      *
      * Usage:
      * ```
-     * Configure.delete("Name"); will delete the entire Configure.Name
-     * Configure.delete("Name.key"); will delete only the Configure.Name[key]
+     * Configuration.remove("Name"); will delete the entire Configure.Name
+     * Configuration.remove("Name.key"); will delete only the Configure.Name[key]
      * ```
      * Params:
      * string avar the var to be deleted

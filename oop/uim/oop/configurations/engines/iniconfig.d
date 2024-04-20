@@ -26,7 +26,7 @@ import uim.oop;
  *
  * Once loaded into Configure, the above would be accessed using:
  *
- * `Configure.read("section.key");
+ * `Configuration.read("section.key");
  *
  * You can also use `.` separated values in section names to create more deeply
  * nested structures.

@@ -440,7 +440,7 @@ class DRouter {
         }
         if (mybase !isNull) {
             my_fullBaseUrl = mybase;
-            Configure.write("App.fullBaseUrl", mybase);
+            Configuration.update("App.fullBaseUrl", mybase);
         } else {
             mybase = (string)Configuration.read("App.fullBaseUrl");
 
@@ -454,7 +454,7 @@ class DRouter {
                 if (!empty(my_requestContext["_port"])) {
                     mybase ~= ":" ~ my_requestContext["_port"];
                 }
-                Configure.write("App.fullBaseUrl", mybase);
+                Configuration.update("App.fullBaseUrl", mybase);
 
                 return my_fullBaseUrl = mybase;
             }

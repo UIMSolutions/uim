@@ -58,7 +58,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
      */
      // TODO 
     /* void addFromConfig(Json Data = null) {
-        auto debugData = Configure.read("debug");
+        auto debugData = Configuration.read("debug");
         auto cli = UIM_SAPI == "cli";
 
         foreach (name, options; Hash.normalize(Data)) {
@@ -99,14 +99,14 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
         if (!isFile(vendorFile)) {
             vendorFile = dirname(__DIR__, 4) ~ DIRECTORY_SEPARATOR ~ "UIM-plugins.d";
             if (!isFile(vendorFile)) {
-            Configure.write(["plugins": ArrayData]);
+            Configuration.update(["plugins": ArrayData]);
 
                 return;
             }
         }
         
         auto Data = requirevendorFile;
-        Configure.write(Data);
+        Configuration.update(Data);
     }
 */
     /**
@@ -119,12 +119,12 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
      */
     string findPath(string pluginName) {
         // Ensure plugin config is loaded each time. This is necessary primarily
-        // for testing because the Configure.clear() call in TestCase.tearDown()
+        // for testing because the Configuration.clear() call in TestCase.tearDown()
         // wipes out all configuration including plugin paths config.
         // TODO _loadConfig();
 
         // TODO
-        /* auto somePath = Configure.read("plugins." ~ pluginName);
+        /* auto somePath = Configuration.read("plugins." ~ pluginName);
         if (somePath) {
             return somePath;
         } 

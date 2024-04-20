@@ -62,7 +62,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
 
             string shortestName = this.getShortestName(names);
             if (shortestName.has(".")) {
-                auto names = shortestName.split(".");
+                string[] names = shortestName.split(".");
                 if (names > 1) { shortestName = names[1..$].join("."); }
             }
             anGrouped[prefix] ~= [

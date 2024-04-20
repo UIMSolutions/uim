@@ -96,8 +96,8 @@ abstract class DTestCase : DBaseTestCase {
      * \Closure mycallable callable auto that will receive asserts
      * /
     void deprecated(Closure mycallable) {
-        auto myduplicate = Configure.read("Error.allowDuplicateDeprecations");
-        Configure.write("Error.allowDuplicateDeprecations", true);
+        auto myduplicate = Configuration.read("Error.allowDuplicateDeprecations");
+        Configuration.update("Error.allowDuplicateDeprecations", true);
         /** @var bool mydeprecation Expand type for psalm * /
         auto mydeprecation = false;
 
@@ -118,8 +118,8 @@ abstract class DTestCase : DBaseTestCase {
             mycallable();
         } finally {
             restore_error_handler();
-            if (myduplicate != Configure.read("Error.allowDuplicateDeprecations")) {
-                Configure.write("Error.allowDuplicateDeprecations", myduplicate);
+            if (myduplicate != Configuration.read("Error.allowDuplicateDeprecations")) {
+                Configuration.update("Error.allowDuplicateDeprecations", myduplicate);
             }
         }
         this.assertTrue(mydeprecation, "Should have at least one deprecation warning");
@@ -135,7 +135,7 @@ abstract class DTestCase : DBaseTestCase {
         this.setupFixtures();
 
         if (!_configure) {
-           _configure = Configure.read();
+           _configure = Configuration.read();
         }
         if (class_exists(Router.class, false)) {
             Router.reload();
@@ -151,8 +151,8 @@ abstract class DTestCase : DBaseTestCase {
         this.teardownFixtures();
 
         if (_configure) {
-            Configure.clear();
-            Configure.write(_configure);
+            Configuration.clear();
+            Configuration.update(_configure);
         }
         this.getTableLocator().clear();
        _configure = null;
@@ -202,7 +202,7 @@ abstract class DTestCase : DBaseTestCase {
     void loadRoutes(array myappArgs = null) {
         myappArgs ??= [rtrim(CONFIG, DIRECTORY_SEPARATOR)];
         /** @var class-string myclassName * /
-        myclassName = Configure.read("App.namespace") ~ "\\Application";
+        myclassName = Configuration.read("App.namespace") ~ "\\Application";
         try {
             myreflect = new DReflectionClass(myclassName);
             myapp = myreflect.newInstanceArgs(myappArgs);
@@ -855,8 +855,8 @@ abstract class DTestCase : DBaseTestCase {
      * string aappNamespace The app namespace, defaults to "TestApp".
      * /
     static string setAppNamespace(string aappNamespace = "TestApp") {
-        previous = Configure.read("App.namespace");
-        Configure.write("App.namespace", appNamespace);
+        previous = Configuration.read("App.namespace");
+        Configuration.update("App.namespace", appNamespace);
 
         return previous;
     }

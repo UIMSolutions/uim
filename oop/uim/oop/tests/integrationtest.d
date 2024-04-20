@@ -425,7 +425,7 @@ mixin template TIntegrationTest() {
      * \Throwable exceptionToHandle Exception to handle.
      * /
     protected void _handleError(Throwable exceptionToHandle) {
-         className = Configure.read("Error.exceptionRenderer");
+         className = Configuration.read("Error.exceptionRenderer");
         if (className.isEmpty || !class_exists(className)) {
              className = WebExceptionRenderer.classname;
         }
@@ -442,7 +442,7 @@ mixin template TIntegrationTest() {
      * @param string[] adata The request data.
      * /
     // TODO protected array _buildRequest(string aurl, string amethod, string[] adata = []) {
-        sessionConfig = (array)Configure.read("Session") ~ [
+        sessionConfig = (array)Configuration.read("Session") ~ [
             "defaults": "D",
         ];
         session = Session.create(sessionConfig);
@@ -1041,7 +1041,7 @@ mixin template TIntegrationTest() {
      * when trying to diagnose/debug unexpected failures in test cases.
      * /
     void disableErrorHandlerMiddleware() {
-        Configure.write("Error.exceptionRenderer", TestExceptionRenderer.classname);
+        Configuration.update("Error.exceptionRenderer", TestExceptionRenderer.classname);
     }
     
     /**

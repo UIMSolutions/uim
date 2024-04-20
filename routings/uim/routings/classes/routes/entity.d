@@ -13,6 +13,8 @@ import uim.routings;
  */
 
 class DEntityRoute : DRoute {
+    mixin(RouteThis!("Entity"));
+
     /**
      * Match by entity and map its fields to the URL pattern by comparing the
      * field names with the template vars.
@@ -59,3 +61,4 @@ class DEntityRoute : DRoute {
         }
     } */
 }
+mixin(RouteCalls!("Entity"));

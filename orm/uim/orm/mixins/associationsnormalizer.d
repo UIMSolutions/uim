@@ -15,7 +15,7 @@ mixin template TAssociationsNormalizer() {
      * Params:
      * string[] myassociations The array of included associations.
      * /
-    protected array _normalizeAssociations(string[] myassociations) {
+    // TODO protected array _normalizeAssociations(string[] myassociations) {
         auto result;
         foreach ((array)myassociations as mytable: options) {
             mypointer = &result;

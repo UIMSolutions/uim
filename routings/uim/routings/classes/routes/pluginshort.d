@@ -35,7 +35,7 @@ class DPluginShortRoute : DInflectedRoute {
      * @param array mycontext An array of the current request context.
      *  Contains information such as the current host, scheme, port, and base
      *  directory.
-     */
+     * /
     string match(array myurl, array mycontext = []) {
         if (isSet(myurl["controller"], myurl["plugin"]) && myurl["plugin"] != myurl["controller"]) {
             return null;
@@ -45,5 +45,5 @@ class DPluginShortRoute : DInflectedRoute {
         unset(this.defaults["controller"]);
 
         return result;
-    }
+    } */
 }

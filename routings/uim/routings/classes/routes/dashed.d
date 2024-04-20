@@ -12,19 +12,21 @@ import uim.routings;
  * is parsed as `["plugin": "MyPlugin", "controller": "MyController", "action": "myAction"]`
  */
 class DDashedRoute : DRoute {
+    mixin(RouteThis!("Dashed"));
+
     /**
      * Flag for tracking whether the defaults have been inflected.
      *
      * Default values need to be inflected so that they match the inflections that
      * match() will create.
-     */
-    protected array my_inflectedDefaults = null;
+     * /
+    // TODO protected array my_inflectedDefaults = null;
 
     /**
      * Camelizes the previously dashed plugin route taking into account plugin vendors
      * Params:
      * string myplugin Plugin name
-     */
+     * /
     protected string _camelizePlugin(string myplugin) {
         myplugin = myplugin.replace("-", "_");
         if (!myplugin.has("/")) {
@@ -42,7 +44,7 @@ class DDashedRoute : DRoute {
      * Params:
      * string urlToParse The URL to parse
      * @param string mymethod The HTTP method.
-     */
+     * /
     array parse(string urlToParse, string mymethod= null) {
         myparams = super.parse(urlToParse, mymethod);
         if (!myparams) {
@@ -71,7 +73,7 @@ class DDashedRoute : DRoute {
      * @param array mycontext An array of the current request context.
      *  Contains information such as the current host, scheme, port, and base
      *  directory.
-     */
+     * /
     string match(array myurl, array mycontext = []) {
         auto myurl = _dasherize(myurl);
         if (_inflectedDefaults is null) {
@@ -94,7 +96,7 @@ class DDashedRoute : DRoute {
      * Params:
      * array myurl An array of URL keys.
      * /
-    protected array _dasherize(array urlKeys) {
+    // TODO protected array _dasherize(array urlKeys) {
         ["controller", "plugin", "action"]
             .filter!(element => !urlKeys[myelement].isEmpty)
             .each!(element => urlKeys[element] = Inflector.dasherize(urlKeys[element]));
@@ -102,3 +104,4 @@ class DDashedRoute : DRoute {
         return urlKeys;
     } */
 }
+mixin(RouteCalls!("Dashed"));

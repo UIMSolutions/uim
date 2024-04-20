@@ -18,7 +18,7 @@ class DRouteCollection {
      *
      * @var array<string, array<\UIM\Routing\Route\Route>>
      * /
-    protected array my_routeTable;
+    // TODO protected array my_routeTable;
 
     // The hash map of named routes that are in this collection.
     protected IRoute[] _named = null;
@@ -28,29 +28,27 @@ class DRouteCollection {
      *
      * @var array<string, array<\UIM\Routing\Route\Route>>
      */
-    protected array mystaticPaths = null;
+    // TODO protected array mystaticPaths = null;
 
     /**
      * Routes indexed by path prefix.
      *
      * @var array<string, array<\UIM\Routing\Route\Route>>
      */
-    protected array my_paths = null;
+    // TODO protected array my_paths = null;
 
     /**
      * A map of middleware names and the related objects.
      */
-    protected array my_middleware = null;
+    // TODO protected array my_middleware = null;
 
     /**
      * A map of middleware group names and the related middleware names.
      */
-    protected array my_middlewareGroups = null;
+    // TODO protected array my_middlewareGroups = null;
 
-    /**
-     * Route extensions
-     */
-    protected string[] my_extensions = null;
+    // Route extensions
+    protected string[] _extensions = null;
 
     /**
      * Add a route to the collection.
@@ -355,7 +353,7 @@ class DRouteCollection {
      * Check if the named middleware has been registered.
      * Params:
      * string routings The name of the middleware to check.
-     */
+     * /
     bool hasMiddleware(string routings) {
         return isSet(_middleware[routings]);
     }
@@ -364,7 +362,7 @@ class DRouteCollection {
      * Check if the named middleware or middleware group has been registered.
      * Params:
      * string routings The name of the middleware to check.
-     */
+     * /
     bool middlewareExists(string routings) {
         return _hasMiddleware(routings) || this.hasMiddlewareGroup(routings);
     }
@@ -373,7 +371,7 @@ class DRouteCollection {
      * Get an array of middleware given a list of names
      * Params:
      * string[] routingss The names of the middleware or groups to fetch
-     */
+     * /
     array getMiddleware(string[] middlewareNames) {
         auto result = null;
         middlewareNames.each!((name) {
@@ -390,5 +388,5 @@ class DRouteCollection {
             result ~= _middleware[routings];
         });
         return result;
-    }
+    } */
 }

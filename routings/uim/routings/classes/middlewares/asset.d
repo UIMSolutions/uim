@@ -14,6 +14,7 @@ class DAssetMiddleware : IRoutingMiddleware {
     // The amount of time to cache the asset.
     protected string acacheTime = "+1 day";
 
+    /*
     this(IData[string] options = null) {
         if (!empty(options["cacheTime"])) {
             this.cacheTime = options["cacheTime"];
@@ -55,7 +56,7 @@ class DAssetMiddleware : IRoutingMiddleware {
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request to check.
      * @param \SplFileInfo file The file object to compare.
-     */
+     * /
     protected bool isNotModified(IServerRequest serverRequest, SplFileInfo file) {
         auto modifiedSince = serverRequest.getHeaderLine("If-Modified-Since");
         if (!modifiedSince) {

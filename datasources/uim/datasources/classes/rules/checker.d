@@ -74,7 +74,7 @@ class DRulesChecker {
 
     /* 
     // List of options to pass to every callable rule
-    protected array _options = null;
+    // TODO protected array _options = null;
 
     // Whether to use I18n functions for translating default error messages
     protected bool _useI18n = false;

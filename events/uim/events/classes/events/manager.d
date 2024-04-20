@@ -18,7 +18,7 @@ class DEventManager { // }: IEventManager {
     protected static DEventManager _generalManager = null;
 
     // List of listener callbacks associated to
-    protected array _listeners = null;
+    // TODO protected array _listeners = null;
 
     // Internal flag to distinguish a common manager from the singleton
     protected bool _isGlobal = false;
@@ -165,7 +165,7 @@ class DEventManager { // }: IEventManager {
      * \UIM\Event\IEventListener subscriber Event subscriber
      * @param \Closure|array|string ahandlers Event handlers
      * /
-    protected array normalizeHandlers(IEventListener subscriber, Closure|array|string ahandlers) {
+    // TODO protected array normalizeHandlers(IEventListener subscriber, Closure|array|string ahandlers) {
         // Check if an array of handlers not single handler config array
         if (isArray(handlers) && !isSet(handlers["callable"])) {
             foreach (handlers as &handler) {
@@ -188,7 +188,7 @@ class DEventManager { // }: IEventManager {
      * @param \Closure|array|string ahandler Event handler
      * /
 <<<<<<< HEAD
-    protected array normalizeHandler(IEventListener subscriber, Closure|array|string ahandler) {
+    // TODO protected array normalizeHandler(IEventListener subscriber, Closure|array|string ahandler) {
         callable = handler;
         settings = null;
 

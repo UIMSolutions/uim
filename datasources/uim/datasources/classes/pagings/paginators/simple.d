@@ -35,7 +35,7 @@ class DSimplePaginator : DNumericPaginator {
         return aQuery.limit(someData["options"]["limit"] + 1).all();
     }
  
-    protected array buildParams(array data) {
+    // TODO protected array buildParams(array data) {
         hasNextPage = false;
         if (this.pagingParams["count"] > someData["options"]["limit"]) {
             hasNextPage = true;

@@ -238,7 +238,7 @@ class DNumericPaginator : IPaginator {
      * @param array<string, mixed> settings The settings/configuration used for pagination.
      * @return array Array with keys "defaults", "options" and "finder"
      * /
-    protected array extractData(IRepository object, array params, array settings) {
+    // TODO protected array extractData(IRepository object, array params, array settings) {
         alias = object.aliasName();
         defaults = this.getDefaults(alias, settings);
         options = this.mergeOptions(params, defaults);
@@ -259,7 +259,7 @@ class DNumericPaginator : IPaginator {
      *   "count", "defaults", "finder", "numResults".
      * @return array<string, mixed> Paging params.
      * /
-    protected array buildParams(array data) {
+    // TODO protected array buildParams(array data) {
         limit = data["options"]["limit"];
 
         paging = [
@@ -291,7 +291,7 @@ class DNumericPaginator : IPaginator {
      * @param array data Paginator data.
      * @return array<string, mixed> Updated params.
      * /
-    protected array addPageCountParams(array params, array data) {
+    // TODO protected array addPageCountParams(array params, array data) {
         page = params["page"];
         pageCount = 0;
 
@@ -315,7 +315,7 @@ class DNumericPaginator : IPaginator {
      * @param array data Paginator data.
      * @return array<string, mixed> Updated params.
      * /
-    protected array addStartEndParams(array params, array data) {
+    // TODO protected array addStartEndParams(array params, array data) {
         start = end = 0;
 
         if (params["current"] > 0) {
@@ -336,7 +336,7 @@ class DNumericPaginator : IPaginator {
      * @param array data Paging data.
      * @return array<string, mixed> Updated params.
      * /
-    protected array addPrevNextParams(array params, array data) {
+    // TODO protected array addPrevNextParams(array params, array data) {
         params["prevPage"] = params["page"] > 1;
         if (params["count"] == null) {
             params["nextPage"] = true;
@@ -354,7 +354,7 @@ class DNumericPaginator : IPaginator {
      * @param array data Paging data.
      * @return array<string, mixed> Updated params.
      * /
-    protected array addSortingParams(array params, array data) {
+    // TODO protected array addSortingParams(array params, array data) {
         defaults = data["defaults"];
         order = (array)data["options"]["order"];
         sortDefault = directionDefault = false;
@@ -382,7 +382,7 @@ class DNumericPaginator : IPaginator {
      * @return array An array containing in the first position the finder name
      *   and in the second the options to be passed to it.
      * /
-    protected array _extractFinder(IData[string] optionData) {
+    // TODO protected array _extractFinder(IData[string] optionData) {
         type = !empty(options["finder"]) ? options["finder"] : "all";
         unset(options["finder"], options["maxLimit"]);
 
@@ -589,7 +589,7 @@ class DNumericPaginator : IPaginator {
      * @param string model Current model alias
      * @return array<string, mixed> fields Unaliased fields where applicable
      * /
-    protected array _removeAliases(array fields, string model) {
+    // TODO protected array _removeAliases(array fields, string model) {
         result = null;
         foreach (fields as field: sort) {
             if (indexOf(field, ".") == false) {
@@ -618,7 +618,7 @@ class DNumericPaginator : IPaginator {
      * @param bool allowed Whether the field was allowed.
      * @return array Final order array.
      * /
-    protected array _prefix(IRepository object, array order, bool allowed = false) {
+    // TODO protected array _prefix(IRepository object, array order, bool allowed = false) {
         tableAlias = object.aliasName();
         tableOrder = null;
         foreach (order as key: value) {

@@ -897,7 +897,7 @@ mixin template TEntity() {
      * Params:
      * string afield the field in this entity to check for errors
     * /
-  protected array _nestedErrors(
+  // TODO protected array _nestedErrors(
     string fieldName) {
     // Only one path element, check for nested entity with error.
     if (!fieldName.has(".")) {
@@ -974,7 +974,7 @@ mixin template TEntity() {
      * \UIM\Datasource\IEntity|range object The object to read errors from.
      * @param string somePath The field name for errors.
     * /
-                                                        protected array _readError(
+                                                        // TODO protected array _readError(
                                                         IEntity | range object, string aPath = null) {
                                                           if (somePath!isNull && cast(
                                                             IEntity) object) {

@@ -82,7 +82,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
     protected IData[string] _data;
 
     // The errors if any
-    // TODO protected array _errors = null;
+    // TODO // TODO protected array _errors = null;
 
     /**
      * Constructor

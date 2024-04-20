@@ -1,4 +1,4 @@
-module uim.caches.classes.engines.memcached;
+module uim.caches.classes.engines.memory;
 
 import uim.caches;
 

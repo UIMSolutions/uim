@@ -1,4 +1,4 @@
-module source.uim.myname.classes.routes.dashed;
+module uim.routings.classes.routes.dashed;
 
 import uim.routings;
 
@@ -93,12 +93,12 @@ class DDashedRoute : DRoute {
      * Helper method for dasherizing keys in a URL array.
      * Params:
      * array myurl An array of URL keys.
-     */
+     * /
     protected array _dasherize(array urlKeys) {
         ["controller", "plugin", "action"]
             .filter!(element => !urlKeys[myelement].isEmpty)
             .each!(element => urlKeys[element] = Inflector.dasherize(urlKeys[element]));
 
         return urlKeys;
-    }
+    } */
 }

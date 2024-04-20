@@ -8,7 +8,7 @@ import uim.caches;
  * Null cache engine, all operations appear to work, but do nothing.
  * This is used internally for when Cache.disable() has been called.
  */
-class DNullEngine : DCacheEngine {
+class DNullCacheEngine : DCacheEngine {
   mixin(CacheEngineThis!("Null"));
 
   override bool initialize(IData[string] initData = null) {

@@ -1,4 +1,4 @@
-module source.uim.myname.classes.routes.entity;
+module uim.routings.classes.routes.entity;
 
 import uim.routings;
 
@@ -11,7 +11,8 @@ import uim.routings;
  * comparing the field names with the template vars. This makes it easy and
  * convenient to change routes globally.
  */
-class DEntityRoute : Route {
+
+class DEntityRoute : DRoute {
     /**
      * Match by entity and map its fields to the URL pattern by comparing the
      * field names with the template vars.

@@ -6,4 +6,7 @@ public { // Packages
 }
 
 public { // Modules
+    import uim.routings.classes.asset;
+    import uim.routings.classes.functions_global;
+    import uim.routings.classes.functions;
 }

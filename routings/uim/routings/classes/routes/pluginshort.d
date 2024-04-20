@@ -1,4 +1,4 @@
-module source.uim.myname.classes.routes.pluginshort;
+module uim.routings.classes.routes.pluginshort;
 
 import uim.routings;
 
@@ -9,7 +9,7 @@ import uim.routings;
  * Plugin short route, that copies the plugin param to the controller parameters
  * It is used for supporting /{plugin} routes.
  */
-class DPluginShortRoute : InflectedRoute {
+class DPluginShortRoute : DInflectedRoute {
     /**
      * Parses a string URL into an array. If a plugin key is found, it will be copied to the
      * controller parameter.

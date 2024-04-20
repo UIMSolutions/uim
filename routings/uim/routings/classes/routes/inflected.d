@@ -1,4 +1,4 @@
-module source.uim.myname.classes.routes.inflected;
+module uim.routings.classes.routes.inflected;
 
 import uim.routings;
 

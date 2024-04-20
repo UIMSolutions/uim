@@ -77,7 +77,7 @@ class DIsUnique {
      * @param array conditions The conditions to alias.
      * @return array<string, mixed>
      */
-    protected array _alias(string anAliasName, array conditions) {
+    // TODO protected array _alias(string anAliasName, array conditions) {
         aliased = null;
         foreach (conditions as key: value) {
             aliased["alias.key IS"] = value;

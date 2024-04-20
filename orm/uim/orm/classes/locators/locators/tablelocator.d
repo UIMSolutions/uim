@@ -18,7 +18,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      *
      * @var array<string, array|null>
      * /
-    protected array configuration = null;
+    // TODO protected array configuration = null;
 
     /**
      * Instances that belong to the registry.
@@ -31,7 +31,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      *
      * @var array<\ORM\Table>
      * /
-    protected array my_fallbacked = null;
+    // TODO protected array my_fallbacked = null;
 
     /**
      * Fallback class to use

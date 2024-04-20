@@ -33,10 +33,10 @@ class DBehaviorRegistry { /* }: ObjectRegistry, IEventDispatcher {
     protected ITable my_table;
 
     // Method mappings.
-    protected array[string] my_methodMap = null;
+    // TODO protected array[string] my_methodMap = null;
 
     // Finder method mappings.
-    protected array[string] my_finderMap = null;
+    // TODO protected array[string] my_finderMap = null;
 
 
 
@@ -126,7 +126,7 @@ class DBehaviorRegistry { /* }: ObjectRegistry, IEventDispatcher {
      * @param string myclass DThe classname that is missing.
      * @param string aliasToObject The alias of the object.
      * /
-    protected array _getMethods(Behavior myinstance, string myclass, string aliasToObject) {
+    // TODO protected array _getMethods(Behavior myinstance, string myclass, string aliasToObject) {
         myfinders = array_change_key_case(myinstance.implementedFinders());
         mymethods = array_change_key_case(myinstance.implementedMethods());
 

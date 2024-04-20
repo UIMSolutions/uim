@@ -96,7 +96,7 @@ class DLinkConstraint {
      * array myfields The condition fields.
      * @param array myvalues The condition values.
      * /
-    protected array _buildConditions(array myfields, array myvalues) {
+    // TODO protected array _buildConditions(array myfields, array myvalues) {
         if (count(myfields) != count(myvalues)) {
             throw new DInvalidArgumentException(
                 "The number of fields is expected to match the number of values, got %d field(s) and %d value(s)."

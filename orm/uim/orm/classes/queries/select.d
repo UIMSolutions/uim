@@ -92,7 +92,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * List of map-reduce routines that should be applied over the query
      * result
      * /
-    protected array my_mapReduce = null;
+    // TODO protected array my_mapReduce = null;
 
     /**
      * List of formatter classes or callbacks that will post-process the
@@ -111,7 +111,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * Holds any custom options passed using applyOptions that could not be processed
      * by any method in this class.
      * /
-    protected array my_options = null;
+    // TODO protected array my_options = null;
 
     /**
      * Constructor

@@ -85,7 +85,7 @@ class DCorsBuilder {
      *
      * someDomains = Domain names to normalize.
      * /
-    protected array _normalizeDomains(string[] someDomains) {
+    // TODO protected array _normalizeDomains(string[] someDomains) {
         auto result;
         foreach (domain; someDomains) {
             if (domain == "*") {

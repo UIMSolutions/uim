@@ -266,7 +266,7 @@ class DOauth {
      * @param string aPath The current path being converted.
      * @see https://tools.ietf.org/html/rfc5849#section-3.4.1.3.2
      * /
-    protected array _normalizeData(array someArguments, string aPath= null) {
+    // TODO protected array _normalizeData(array someArguments, string aPath= null) {
         someData = null;
         foreach (someArguments as aKey: aValue) {
             if (somePath) {

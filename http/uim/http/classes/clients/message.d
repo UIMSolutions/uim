@@ -102,7 +102,7 @@ class DMessage {
      *
      * @var array
      * /
-    protected array _cookies = null;
+    // TODO protected array _cookies = null;
 
     /**
      * Get all cookies

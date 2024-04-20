@@ -292,7 +292,7 @@ class DClientResponse { // }: Message : IResponse {
     }
     
     // Property accessor for `this.cookies`
-    protected array _getCookies() {
+    // TODO protected array _getCookies() {
         auto result;
         this.buildCookieCollection.each!(cookie => result[cookie.name] = cookie.toArray());
         return result;

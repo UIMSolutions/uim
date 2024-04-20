@@ -4,7 +4,7 @@ import uim.views;
 
 @safe:
 
-bool testFormContext(IFormContext formContextToTest) {
+bool testFormContext(IContext formContextToTest) {
     assert(formContextToTest !is null, "In testFormContext: formContextToTest is null");
     
     return true;

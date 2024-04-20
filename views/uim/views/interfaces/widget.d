@@ -7,7 +7,7 @@ import uim.views;
 // Interface for input widgets.
 interface IWidget {
     // Converts the data into one or many HTML elements.
-    string render(IData[string] dataToRender, IFormContext formContext);
+    string render(IData[string] dataToRender, IContext formContext);
 
     // Returns a list of fields that need to be secured for this widget.
     string[] secureFields(IData[string] dataToRender);

@@ -1,4 +1,4 @@
-module uim.views.classes.forms.formcontext;
+module uim.views.classes.contexts.form;
 
 import uim.views;
 

@@ -1,4 +1,4 @@
-module uim.views.classes.serialized;
+module uim.views.classes.views.serialized;
 
 import uim.views;
 

@@ -1,4 +1,4 @@
-module uim.views.classes.json;
+module uim.views.classes.views.json;
 
 import uim.views;
 

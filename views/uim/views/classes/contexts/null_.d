@@ -1,4 +1,4 @@
-module uim.views.classes.forms.nullcontext;
+module uim.views.classes.contexts.null_;
 
 import uim.views;
 
@@ -7,7 +7,7 @@ import uim.views;
 /* * Provides a context provider that does nothing.
  * This context provider simply fulfils the interface requirements that FormHelper has.
  */
-class DNullContext { // }: DContext {
+class DNullContext : DContext {
     // mixin(DContextThis!("Null"));
  
     string[] getPrimaryKeys() {

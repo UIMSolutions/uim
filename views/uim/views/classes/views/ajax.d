@@ -1,4 +1,4 @@
-module uim.views.classes.ajax;
+module uim.views.classes.views.ajax;
 import uim.views;
 
 @safe:

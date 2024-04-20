@@ -1,4 +1,4 @@
-module views.uim.views.classes.contexts.arraycontext;
+module uim.views.classes.contexts.array_;
 
 import uim.views;
 
@@ -54,7 +54,7 @@ import uim.views;
  * ];
  * ```
  */
-class DArrayContext : IContext {
+class DArrayContext : DContext {
     // DContext data for this object.
     protected IData[string] _contextData;
 

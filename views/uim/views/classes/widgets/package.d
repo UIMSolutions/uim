@@ -1,6 +1,8 @@
 module uim.views.classes.widgets;
 
 public {
+    import uim.views.classes.widgets.widget;
+
     import uim.views.classes.widgets.button;
     import uim.views.classes.widgets.checkbox;
     import uim.views.classes.widgets.datetime;
@@ -12,6 +14,5 @@ public {
     import uim.views.classes.widgets.radio;
     import uim.views.classes.widgets.selectbox;
     import uim.views.classes.widgets.textarea;
-    import uim.views.classes.widgets.widget;
     import uim.views.classes.widgets.year;
 }

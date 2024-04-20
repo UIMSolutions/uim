@@ -1,4 +1,4 @@
-module uim.views.classes.helperregistry;
+module uim.views.helpers.registry;
 
 import uim.views;
 

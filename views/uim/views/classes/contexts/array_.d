@@ -55,9 +55,19 @@ import uim.views;
  * ```
  */
 class DArrayContext : DContext {
+    mixin(ContextThis!("Array"));
+
     // DContext data for this object.
     protected IData[string] _contextData;
 
+    override bool initialize(IData[string] initData = null) {
+        if (super.initialize(initData)) {
+            return false;
+        }
+        
+        return true;
+    }
+    
     /* 
     this(IData[string] contextData) {
         IData[string] defaults [
@@ -263,3 +273,4 @@ class DArrayContext : DContext {
         return (string)preg_replace("/\.\d*\./", ".", dotSeparatedPath);
     } */
 }
+mixin(ContextCalls!("Array"));

@@ -11,7 +11,7 @@ import uim.views;
  * that FormHelper has and allows access to the form data.
  */
 class DFormContext : DContext {
-    mixin TConfigurable;
+    mixin(ContextThis!("Form"));
 
     // The form object.
     protected IForm _form;
@@ -19,9 +19,10 @@ class DFormContext : DContext {
     // Validator name.
     protected string _validatorName = null;
 
-    bool initialize(IData[string] initData = null) {
-        configuration(MemoryConfiguration);
-        configuration.data(initData);
+    override bool initialize(IData[string] initData = null) {
+        if (super.initialize(initData)) {
+            return false;
+        }
 
         return true;
     }
@@ -155,3 +156,4 @@ class DFormContext : DContext {
         // TODO return (array)Hash.get(_form.getErrors(), myfield, []);
     }
 }
+mixin(ContextCalls!("Form"));

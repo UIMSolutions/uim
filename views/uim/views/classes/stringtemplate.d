@@ -100,7 +100,11 @@ class DStringTemplate {
      * ```
      */
     void add(STRINGAA newTemplates) {
-        //TODO updateConfiguration(newTemplates);
+        add(newTemplates.toData);
+    }
+
+    void add(IData[string] newTemplates) {
+        configuration.update(newTemplates);
         _compiledTemplates = newTemplates.keys;
     }
 
@@ -155,16 +159,17 @@ class DStringTemplate {
      * Template files should define a `configData` variable containing
      * all the templates to load. Loaded templates will be merged with existing
      * templates.
-     * /
+     */
     void load(string fileName) {
         if (fileName.isEmpty) {
-            throw new UimException("String template filename cannot be an empty string");
+            // TODO throw new UimException("String template filename cannot be an empty string");
         }
 
+        /* 
         auto myloader = new DPhpConfig();
         auto mytemplates = myloader.read(fileName);
-        this.add(mytemplates);
-    } */
+        this.add(mytemplates); */
+    } 
     
     // Remove the named template.
     void remove(string templateName) {

@@ -8,7 +8,7 @@ import uim.views;
  * This context provider simply fulfils the interface requirements that FormHelper has.
  */
 class DNullContext : DContext {
-    // mixin(DContextThis!("Null"));
+    mixin(ContextThis!("Null"));
  
     string[] getPrimaryKeys() {
         return null;
@@ -59,4 +59,4 @@ class DNullContext : DContext {
         return null;
     } */
 }
-// mixin(DContextCalls!("Null"));
+mixin(ContextCalls!("Null"));

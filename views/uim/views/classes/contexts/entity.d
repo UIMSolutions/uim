@@ -25,6 +25,16 @@ import uim.views;
  *  dealing with associated forms.
  */
 class DEntityContext : DContext {
+    mixin(ContextThis!("Entity"));
+
+    override bool initialize(IData[string] initData = null) {
+        if (super.initialize(initData)) {
+            return false;
+        }
+        
+        return true;
+    }
+    
     // TODO mixin TLocatorAware;
 
     // DContext data for this object.
@@ -603,3 +613,4 @@ class DEntityContext : DContext {
         return null;
     } */
 }
+mixin(ContextCalls!("Entity"));

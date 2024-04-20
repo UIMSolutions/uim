@@ -15,7 +15,7 @@ public {
     import uim.commands;
     import uim.css;
     import uim.filesystems;
-    import uim.forms;
+    import uim.views;
     import uim.gui;
     import uim.html;
     import uim.i18n;
@@ -36,7 +36,7 @@ public {
     import uim.errors;
     import uim.events;
     import uim.filesystems;
-    import uim.forms;
+    import uim.views;
     import uim.genetics;
     import uim.gui;
     import uim.html;

@@ -1,6 +1,6 @@
-module uim.forms.classes.schema;
+module uim.views.classes.schema;
 
-import uim.forms;
+import uim.views;
 
 @safe:
 

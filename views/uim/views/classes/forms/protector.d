@@ -1,6 +1,6 @@
-module uim.forms.classes.forms.protector;
+module uim.views.classes.forms.protector;
 
-import uim.forms;
+import uim.views;
 
 @safe:
 

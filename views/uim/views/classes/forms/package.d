@@ -1,6 +1,6 @@
-module uim.forms.classes.forms;
+module uim.views.classes.forms;
 
 public {
-    import uim.forms.classes.forms.form;
-    import uim.forms.classes.forms.protector;
+    import uim.views.classes.forms.form;
+    import uim.views.classes.forms.protector;
 }

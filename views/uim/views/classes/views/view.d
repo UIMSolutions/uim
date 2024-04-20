@@ -939,7 +939,7 @@ class DView : IView { //  }: IEventDispatcher {
             views = mytemplatePath ~ mysubDir ~ _inflectTemplateFileName(views);
         } elseif (views.has(DIRECTORY_SEPARATOR)) {
             if (views[0] == DIRECTORY_SEPARATOR || views[1] == ":") {
-                views = trim(views, DIRECTORY_SEPARATOR);
+                views = strip(views, DIRECTORY_SEPARATOR);
             } elseif (!_plugin || this.templatePath != this.name) {
                 views = mytemplatePath ~ mysubDir ~ views;
             } else {

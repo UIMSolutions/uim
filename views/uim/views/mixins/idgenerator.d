@@ -34,7 +34,7 @@ mixin template TIdGenerator() {
         auto idAttName = _domId(attributename);
         string mysuffix = _idSuffix(myval);
 
-        return trim(idAttName ~ "-" ~ mysuffix, "-");
+        return strip(idAttName ~ "-" ~ mysuffix, "-");
     }
     
     /**

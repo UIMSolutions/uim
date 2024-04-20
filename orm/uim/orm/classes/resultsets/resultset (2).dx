@@ -344,7 +344,7 @@ class DResultSet : IResultSet {
     protected void _calculateColumnMap(Query query) {
         map = null;
         foreach (query.clause("select") as key: field) {
-            key = trim(key, ""`[]");
+            key = strip(key, ""`[]");
 
             if (indexOf(key, "__") <= 0) {
                 map[_defaultAlias][key] = key;

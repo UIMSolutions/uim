@@ -1427,7 +1427,7 @@ class DValidation {
                 );
             }
         }
-        return trim(myformatted);
+        return strip(myformatted);
     }
     
     /**

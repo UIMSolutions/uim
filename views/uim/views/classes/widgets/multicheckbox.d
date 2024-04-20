@@ -146,7 +146,7 @@ class DMultiCheckboxWidget : DWidget {
             mycheckbox["disabled"] = _isDisabled((string)mycheckbox["value"], mydata["disabled"]);
             if (mycheckbox["id"].isEmpty) {
                 if (isSet(mydata["id"])) {
-                    mycheckbox["id"] = mydata["id"] ~ "-" ~ trim(
+                    mycheckbox["id"] = mydata["id"] ~ "-" ~ strip(
                        _idSuffix(to!string(mycheckbox["value"])),
                         "-"
                     );

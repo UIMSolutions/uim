@@ -315,7 +315,7 @@ class DTableLocator : DAbstractLocator, ILocator {
      */
     function addLocation(string location) {
         location = str_replace("\\", "/", location);
-        this.locations[] = trim(location, "/");
+        this.locations[] = strip(location, "/");
 
         return this;
     }

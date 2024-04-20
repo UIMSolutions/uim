@@ -254,7 +254,7 @@ class DRouteCollection {
 
     protected string matchRoute(Route routeToCheck, array myurl, array mycontext) {
         if (auto match = routeToCheck.match(myurl, mycontext)) {
-            return match == "/" ? match : trim(match, "/");
+            return match == "/" ? match : strip(match, "/");
         }
         return null;
     }

@@ -707,7 +707,7 @@ class DRouter {
             mydefaults["prefix"] = mymatches["prefix"];
         }
         if (isSet(mymatches["params"]) && !mymatches["params"].isEmpty) {
-            string[] myparamsArray = trim(mymatches["params"], "/").split("/");
+            string[] myparamsArray = strip(mymatches["params"], "/").split("/");
             foreach (myparamsArray as myparam) {
                 if (indexOf(myparam, "=") != false) {
                     if (!preg_match("/(?<key>.+?)=(?<value>.*)/", myparam, myparamMatches)) {
@@ -721,7 +721,7 @@ class DRouter {
                             "Param key `{myparamKey}` is not valid in route path `{myurl}`."
                         );
                     }
-                    mydefaults[myparamKey] = trim(myparamMatches["value"], "\""");
+                    mydefaults[myparamKey] = strip(myparamMatches["value"], "\""");
                 } else {
                     mydefaults ~= myparam;
                 }

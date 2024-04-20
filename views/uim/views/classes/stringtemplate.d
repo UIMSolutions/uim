@@ -237,20 +237,20 @@ class DStringTemplate {
         return formatAttributes(options, newExcludes);
     }
 
-    string formatAttributes(IData[string] options, bool[string] excludes = null) {
-        string myinsertBefore = " ";
-        auto updatedOptions = options.update(["escape": BooleanData(true)]);
+    string formatAttributes(IData[string] options, bool[string] excludedOptions = null) {
+        string insertBefore = " ";
+        auto myMergedOptions = options.merge(["escape": BooleanData(true)]);
 
-        auto myExcludes = excludes.update(["escape": true, "idPrefix": true, "templateVars": true, "fieldName": true]);
-        bool escape = updatedOptions["escape"].toBoolean;
+        auto myExcludedOptions = excludedOptions.merge(["escape": true, "idPrefix": true, "templateVars": true, "fieldName": true]);
+        bool useEscape = myMergedOptions["escape"].toBoolean;
 
-        string[] attributes = updatedOptions.byKeyValue
-            .filter!(kv => !myExcludes.hasKey(kv.key))
-            .map!(kv => _formatAttribute(kv.key, kv.value, escape))
+        string[] attributes = myMergedOptions.byKeyValue
+            .filter!(kv => !myExcludedOptions.hasKey(kv.key))
+            .map!(kv => _formatAttribute(kv.key, kv.value, useEscape))
             .array;
 
         string result = strip(attributes.join(" "));
-        return result ? myinsertBefore ~ result : "";
+        return result ? insertBefore ~ result : "";
     }
 
     /**

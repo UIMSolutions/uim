@@ -248,7 +248,7 @@ class DAsset {
 
         themeName = options["theme"];
         if (themeName) {
-            file = trim(file, "/");
+            file = strip(file, "/");
             theme = inflectString(themeName) ~ "/";
 
             if (DIRECTORY_SEPARATOR == "\\") {

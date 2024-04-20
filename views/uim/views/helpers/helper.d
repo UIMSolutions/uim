@@ -112,7 +112,7 @@ class DHelper { // TODO }: IEventListener {
     IData[string] addClass(IData[string] options, string classname, string aKey = "class") {
         if (isSet(options[aKey]) && isArray(options[aKey])) {
             options[aKey] ~= classname;
-        } elseif (isSet(options[aKey]) && trim(options[aKey])) {
+        } elseif (isSet(options[aKey]) && strip(options[aKey])) {
             options[aKey] ~= " " ~ classname;
         } else {
             options[aKey] = classname;

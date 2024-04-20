@@ -177,7 +177,7 @@ class DHtmlHelper : DHelper {
     string charset(string metatagCharset = null) {
         string result; 
         if (metatagCharset.isEmpty) {
-            result = to!string(Configure.read("App.encoding")).toLower;
+            result = to!string(Configuration.read("App.encoding")).toLower;
         }
         return _formatTemplate("charset", [
             "charset": !empty(result) ? result : "utf-8",
@@ -922,7 +922,7 @@ class DHtmlHelper : DHelper {
         if (isSet(htmlAtributes["poster"])) {
             htmlAtributes["poster"] = this.Url.assetUrl(
                 htmlAtributes["poster"],
-                ["pathPrefix": Configure.read("App.imageBaseUrl")] + htmlAtributes
+                ["pathPrefix": Configuration.read("App.imageBaseUrl")] + htmlAtributes
             );
         }
         mytext = htmlAtributes["text"];

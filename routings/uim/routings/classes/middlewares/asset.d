@@ -12,7 +12,7 @@ import uim.routings;
  */
 class DAssetMiddleware : IRoutingMiddleware {
     // The amount of time to cache the asset.
-    protected string acacheTime = "+1 day";
+    protected string _cacheTime = "+1 day";
 
     /*
     this(IData[string] options = null) {

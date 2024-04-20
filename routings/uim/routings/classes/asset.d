@@ -7,17 +7,16 @@ import uim.routings;
 // Class for generating asset URLs.
 class DAsset {
     // Inflection type.
-    /* 
-    protected static string ainflectionType = "underscore";
+    protected static string _inflectionType = "underscore";
 
     /**
      * Set inflection type to use when inflecting plugin/theme name.
      * Params:
      * string ainflectionType Inflection type. Value should be a valid
      * method name of `Inflector` class like `"dasherize"` or `"underscore`"`.
-     * /
+     */
     static void setInflectionType(string ainflectionType) {
-        anInflectionType = anInflectionType;
+        _InflectionType = anInflectionType;
     }
     
     /**
@@ -37,7 +36,7 @@ class DAsset {
      *       enable timestamping regardless of debug value.
      * /
     static string imageUrl(string aPath, IData[string] options = null) {
-        somePathPrefix = Configure.read("App.imageBaseUrl");
+        auto somePathPrefix = Configuration.read("App.imageBaseUrl");
 
         return url(somePath, options + compact("pathPrefix"));
     }
@@ -60,7 +59,7 @@ class DAsset {
      *       enable timestamping regardless of debug value.
      * /
     static string cssUrl(string aPath, IData[string] options = null) {
-        somePathPrefix = Configure.read("App.cssBaseUrl");
+        somePathPrefix = Configuration.read("App.cssBaseUrl");
         ext = ".css";
 
         return url(somePath, options + compact("pathPrefix", "ext"));
@@ -84,7 +83,7 @@ class DAsset {
      *       enable timestamping regardless of debug value.
      * /
     static string scriptUrl(string aPath, IData[string] options = null) {
-        somePathPrefix = Configure.read("App.jsBaseUrl");
+        somePathPrefix = Configuration.read("App.jsBaseUrl");
         auto assetExtension = ".js";
 
         return url(somePath, options + compact("pathPrefix", assetExtension));
@@ -195,15 +194,15 @@ class DAsset {
         if (somePath.has("?")) {
             return somePath;
         }
-        timestamp ??= Configure.read("Asset.timestamp");
-        timestampEnabled = timestamp == "force" || (timestamp == true && Configure.read("debug"));
+        timestamp ??= Configuration.read("Asset.timestamp");
+        timestampEnabled = timestamp == "force" || (timestamp == true && Configuration.read("debug"));
         if (timestampEnabled) {
             filepath = (string)preg_replace(
                 "/^" ~ preg_quote(requestWebroot(), "/") ~ "/",
                 "",
                 urldecode(somePath)
             );
-            webrootPath = Configure.read("App.wwwRoot") ~ filepath.replace("/", DIRECTORY_SEPARATOR);
+            webrootPath = Configuration.read("App.wwwRoot") ~ filepath.replace("/", DIRECTORY_SEPARATOR);
             if (isFile(webrootPath)) {
                 return somePath ~ "?" ~ filemtime(webrootPath);
             }
@@ -255,7 +254,7 @@ class DAsset {
             if (DIRECTORY_SEPARATOR == "\\") {
                 file = file.replace("/", "\\");
             }
-            if (isFile(Configure.read("App.wwwRoot") ~ theme ~ file)) {
+            if (isFile(Configuration.read("App.wwwRoot") ~ theme ~ file)) {
                 webPath = requestWebroot ~ theme ~ asset[0];
             } else {
                 themePath = Plugin.path(themeName);

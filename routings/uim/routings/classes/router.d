@@ -442,7 +442,7 @@ class DRouter {
             my_fullBaseUrl = mybase;
             Configure.write("App.fullBaseUrl", mybase);
         } else {
-            mybase = (string)Configure.read("App.fullBaseUrl");
+            mybase = (string)Configuration.read("App.fullBaseUrl");
 
             // If App.fullBaseUrl is empty but context is set from request through setRequest()
             if (!mybase && !empty(my_requestContext["_host"])) {

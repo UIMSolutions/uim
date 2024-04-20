@@ -105,7 +105,7 @@ class DIDataView : DSerializedView {
                             Json_HEX_TAG | Json_HEX_APOS | Json_HEX_AMP | Json_HEX_QUOT | Json_PARTIAL_OUTPUT_ON_ERROR);
                         if (dataOptions == false) {
                             dataOptions = 0;}
-                            dataOptions |= Json_THROW_ON_ERROR; if (Configure.read("debug")) {
+                            dataOptions |= Json_THROW_ON_ERROR; if (Configuration.read("debug")) {
                                 dataOptions |= Json_PRETTY_PRINT;}
                                 return to!string(Json_encode(mydata, dataOptions));
                             }

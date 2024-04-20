@@ -278,7 +278,7 @@ class DFormHelper : DHelper {
      *  the form context"s isCreate() method returns false, a PUT request will be done.
      * - `method` Set the form"s method attribute explicitly.
      * - `url` The URL the form submits to. Can be a string or a URL array.
-     * - `encoding` Set the accept-charset encoding for the form. Defaults to `Configure.read("App.encoding")`
+     * - `encoding` Set the accept-charset encoding for the form. Defaults to `Configuration.read("App.encoding")`
      * - `enctype` Set the form encoding explicitly. By default `type: file` will set `enctype`
      *  to `multipart/form-data`.
      * - `templates` The templates you want to use for this form. Any templates will be merged on top of
@@ -313,7 +313,7 @@ class DFormHelper : DHelper {
         options = options.update[
             "type": myisCreate ? "post" : "put",
             "url": null,
-            "encoding": Configure.read("App.encoding").toLower,
+            "encoding": Configuration.read("App.encoding").toLower,
             "templates": null,
             "idPrefix": null,
             "valueSources": null,
@@ -511,7 +511,7 @@ class DFormHelper : DHelper {
             }
             this.formProtector.addField(myfield, true, myvalue);
         }
-        mydebugSecurity = (bool)Configure.read("debug");
+        mydebugSecurity = (bool)Configuration.read("debug");
         if (isSet(mysecureAttributes["debugSecurity"])) {
             mydebugSecurity = mydebugSecurity && mysecureAttributes["debugSecurity"];
             unset(mysecureAttributes["debugSecurity"]);
@@ -1764,7 +1764,7 @@ class DFormHelper : DHelper {
             options["src"] = mycaption;
         } elseif (myisImage) {
             myUrl = mycaption[0] != "/" 
-                ? this.Url.webroot(Configure.read("App.imageBaseUrl") ~ mycaption)
+                ? this.Url.webroot(Configuration.read("App.imageBaseUrl") ~ mycaption)
                 : this.Url.webroot(trim(mycaption, "/"));
 
             myurl = this.Url.assetTimestamp(myurl);

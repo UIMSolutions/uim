@@ -98,7 +98,7 @@ if (!function_exists("UIM\Core\pr")) {
      * IData var Variable to print out.
      * /
     IData pr(IData var) {
-        if (!Configure.read("debug")) {
+        if (!Configuration.read("debug")) {
             return var;
         }
         template = UIM_SAPI != "cli' && UIM_SAPI != "Ddbg' ? "<pre class="pr">%s</pre>' : "\n%s\n\n";
@@ -120,7 +120,7 @@ if (!function_exists("UIM\Core\pj")) {
      * IData var Variable to print out.
      * /
     IData pj(IData var) {
-        if (!Configure.read("debug")) {
+        if (!Configuration.read("debug")) {
             return var;
         }
         template = UIM_SAPI != "cli' && UIM_SAPI != "Ddbg' ? "<pre class="pj">%s</pre>' : "\n%s\n\n";
@@ -228,7 +228,7 @@ if (!function_exists("UIM\Core\deprecationWarning")) {
                 root = ROOT;
             }
             relative = str_replace(DIRECTORY_SEPARATOR, "/", substr(frame["file"], root.length + 1));
-            patterns = (array)Configure.read("Error.ignoredDeprecationPaths");
+            patterns = (array)Configuration.read("Error.ignoredDeprecationPaths");
             foreach (somePattern; patterns) {
                 somePattern = somePattern.replace(DIRECTORY_SEPARATOR, "/");
                 if (fnmatch(somePattern, relative)) {
@@ -251,7 +251,7 @@ if (!function_exists("UIM\Core\deprecationWarning")) {
         static errors = null;
         checksum = md5(message);
         
-        bool isDuplicate = (bool)Configure.read("Error.allowDuplicateDeprecations", false);
+        bool isDuplicate = (bool)Configuration.read("Error.allowDuplicateDeprecations", false);
         if (isSet(errors[checksum]) && !isDuplicate) {
             return;
         }

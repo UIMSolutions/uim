@@ -257,23 +257,23 @@ class DStringTemplate {
      * Formats an individual attribute, and returns the string value of the composed attribute.
      * Works with minimized attributes that have the same value as their name such as "disabled" and "checked"
      * Params:
-     * @param IData aValue The value of the attribute to create.
      * @param bool myescape Define if the value must be escaped
      */
-    protected string _formatAttribute(string attributeKey, IData data, bool shouldEscape = true) {
-        /*    if (isArray(myvalue)) {
-            myvalue = join(" ", myvalue);
-        }
-        if (isNumeric(attributeKey)) {
-            return "myvalue=\"myvalue\"";
-        } */
+    protected string _formatAttribute(string attributeKey, IData attributeData, bool shouldEscape = true) {
+        string key; 
+        string value = attributeData.isArray
+            ? attributeData.toStringArray.join(" ")
+            : attributeData.toString;
 
-        // mytruthy = [1, "1", true, "true", aKey];
-        bool isMinimized; 
-        // isMinimized = isSet(_compactAttributes[aKey]);
-        // TODO if (!preg_match("/\A(\w|[.-])+\z/", aKey)) {
-        //    aKey = htmlAttribEscape(aKey);
-        // }
+        if (attributeKey.isNumeric) {
+            return `%s="%s"`.format(value, value);
+        }
+
+        const string[] mytruthy = [1, "1", true, "true", aKey];
+        bool isMinimized = _compactAttributes.has(aKey);
+        if (!matchFirst(aKey, "/\A(\w|[.-])+\z/")) {
+            key = htmlAttribEscape(aKey);
+        }
         
         if (isMinimized && ["1", "true", attributeKey].has(data.toString)) {
             return attributeKey~"=\"" ~attributeKey~ "\"";

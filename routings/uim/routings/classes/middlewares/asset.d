@@ -68,7 +68,7 @@ class DAssetMiddleware : IRoutingMiddleware {
     // Builds asset file path based off url
     /*
     protected string _getAssetFile(string assetUrl) {
-        string[] someParts = ltrim(assetUrl, "/").split("/");
+        string[] someParts = stripLeft(assetUrl, "/").split("/");
         auto pluginPart = null;
         for (anI = 0;  anI < 2;  anI++) {
             if (!isSet(someParts[anI])) {

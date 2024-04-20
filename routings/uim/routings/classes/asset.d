@@ -116,7 +116,7 @@ class DAsset {
             return somePath;
         }
         if (somePath.has("://") || preg_match("/^[a-z]+:/i", somePath)) {
-            return ltrim(Router.url(somePath), "/");
+            return stripLeft(Router.url(somePath), "/");
         }
         if (!array_key_exists("plugin", options) || options["plugin"] != false) {
             [plugin, somePath] = pluginSplit(somePath);
@@ -160,7 +160,7 @@ class DAsset {
             fullBaseUrl = isString(options["fullBase"])
                 ? options["fullBase"]
                 : Router.fullBaseUrl();
-            somePath = rtrim(fullBaseUrl, "/") ~ "/" ~ ltrim(somePath, "/");
+            somePath = stripRight(fullBaseUrl, "/") ~ "/" ~ stripLeft(somePath, "/");
         }
         return somePath;
     }
@@ -207,7 +207,7 @@ class DAsset {
                 return somePath ~ "?" ~ filemtime(webrootPath);
             }
             // Check for plugins and org prefixed plugins.
-            string[] segments = ltrim(filepath, "/").split("/");
+            string[] segments = stripLeft(filepath, "/").split("/");
             plugin = Inflector.camelize(segments[0]);
             if (!Plugin.isLoaded(plugin) && count(segments) > 1) {
                 string plugin = join("/", [plugin, Inflector.camelize(segments[1])]);

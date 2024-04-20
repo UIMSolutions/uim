@@ -693,13 +693,13 @@ class DRoute : IRoute {
             result = "{myscheme}://{myhost}{result}";
         }
         if (!empty(myparams["_ext"]) || !empty(myquery)) {
-            result = rtrim(result, "/");
+            result = stripRight(result, "/");
         }
         if (!empty(myparams["_ext"])) {
             result ~= "." ~ myparams["_ext"];
         }
         if (!empty(myquery)) {
-            result ~= rtrim("?" ~ http_build_query(myquery), "?");
+            result ~= stripRight("?" ~ http_build_query(myquery), "?");
         }
         return result;
     }
@@ -721,7 +721,7 @@ class DRoute : IRoute {
         
         size_t mystar = this.template.indexOf("*");
         if (mystar != false) {
-            string mypath = rtrim(substr(this.template, 0, mystar), "/");
+            string mypath = stripRight(substr(this.template, 0, mystar), "/");
 
             return mypath.isEmpty ? "/" : mypath;
         }

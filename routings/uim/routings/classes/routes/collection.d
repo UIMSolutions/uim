@@ -98,7 +98,7 @@ class DRouteCollection {
         auto myuri = serverRequest.getUri();
         auto myurlPath = urldecode(myuri.getPath());
         if (myurlPath != "/") {
-            myurlPath = rtrim(myurlPath, "/");
+            myurlPath = stripRight(myurlPath, "/");
         }
         if (isSet(this.staticPaths[myurlPath])) {
             foreach (myroute; this.staticPaths[myurlPath]) {

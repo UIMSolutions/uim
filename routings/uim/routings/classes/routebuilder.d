@@ -609,7 +609,7 @@ class DRouteBuilder {
             }
             myroute = (_path ~ myroute).replace("//", "/");
             if (myroute != "/") {
-                myroute = rtrim(myroute, "/");
+                myroute = stripRight(myroute, "/");
             }
             foreach (_params as myparam: myval) {
                 if (isSet(mydefaults[myparam]) && myparam != "prefix" && mydefaults[myparam] != myval) {

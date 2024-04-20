@@ -413,7 +413,7 @@ class DValidation {
         
         auto myparts = preg_split("/[\sT]+/", valueToCheck);
         if (myparts && count(myparts) > 1) {
-            mydate = rtrim(array_shift(myparts), ",");
+            mydate = stripRight(array_shift(myparts), ",");
             mytime = join(" ", myparts);
             if (mydateFormat == DATETIME_ISO8601) {
                 mydateFormat = "ymd";

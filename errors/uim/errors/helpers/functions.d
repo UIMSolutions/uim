@@ -15,7 +15,7 @@ module uim.errors.helpers.functions;
  * /
 IData debug(IData var, bool showHtml = null, bool showFrom = true):  
 {
-    if (!Configure.read("debug")) {
+    if (!Configuration.read("debug")) {
         return var;
     }
     location = null;
@@ -45,7 +45,7 @@ IData debug(IData var, bool showHtml = null, bool showFrom = true):
  * @param IData[string] options Format for outputting stack trace
  * /
 void stackTrace(IData[string] options = null) {
-    if (!Configure.read("debug")) {
+    if (!Configuration.read("debug")) {
         return;
     }
     options = options.update["start": 0];
@@ -65,7 +65,7 @@ void stackTrace(IData[string] options = null) {
  * @param bool|null showHtml If set to true, the method prints the debug data in a browser-friendly way.
  * /
 void dd(IData var, ?bool showHtml = null) {
-    if (!Configure.read("debug")) {
+    if (!Configuration.read("debug")) {
         return;
     }
     trace = Debugger.trace(["start": 0, "depth": 2, "format": 'array"]);

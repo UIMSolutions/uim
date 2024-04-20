@@ -41,7 +41,7 @@ class DMessage { //: IDataSerializable {
 
         // TODO
         /*
-        this.appCharset = Configure.read("App.encoding");
+        this.appCharset = Configuration.read("App.encoding");
         if (this.appCharset !isNull) {
             this.charset = this.appCharset;
         }

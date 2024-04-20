@@ -55,7 +55,7 @@ class DFormProtector {
         if (hash_equals(generatedToken, extractedToken)) {
             return true;
         }
-        if (Configure.read("debug")) {
+        if (Configuration.read("debug")) {
             debugMessage = this.debugTokenNotMatching(formData, hashParts + compact("url", "sessionId"));
             if (debugMessage) {
                 this.debugMessage = debugMessage;
@@ -192,12 +192,12 @@ class DFormProtector {
 
             return null;
         }
-        if (Configure.read("debug") && !isSet(formData["_Token"]["debug"])) {
+        if (Configuration.read("debug") && !isSet(formData["_Token"]["debug"])) {
             this.debugMessage = message.format("_Token.debug");
 
             return null;
         }
-        if (!Configure.read("debug") && isSet(formData["_Token"]["debug"])) {
+        if (!Configuration.read("debug") && isSet(formData["_Token"]["debug"])) {
             this.debugMessage = "Unexpected `_Token.debug` found in request data";
 
             return null;

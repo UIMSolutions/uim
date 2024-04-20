@@ -41,7 +41,7 @@ class DApp {
         [plugin, name] = pluginSplit(className);
         fullname = "\\" ~ (type ~ "\\" ~ name).io.writeln("/", "\\") ~ suffix;
 
-        base = plugin ?: Configure.read("App.namespace");
+        base = plugin ?: Configuration.read("App.namespace");
         if (!base is null) {
             base = rtrim(base, "\\").replace("/", "\\");
 
@@ -111,7 +111,7 @@ class DApp {
         }
         nonPluginNamespaces = [
             "uim",
-            (to!string(Configure.read("App.namespace"))).replace("\\", "/"),
+            (to!string(Configuration.read("App.namespace"))).replace("\\", "/"),
         ];
         if (in_array(pluginName, nonPluginNamespaces, true)) {
             return name;
@@ -157,7 +157,7 @@ class DApp {
      * /
     static string[] path(string pathType, string aplugin = null) {
         if (plugin is null) {
-            return (array)Configure.read("App.paths." ~ type);
+            return (array)Configuration.read("App.paths." ~ type);
         }
         return match (type) {
             'templates": [Plugin.templatePath(plugin)],

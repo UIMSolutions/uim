@@ -9,23 +9,13 @@ import uim.oop;
 @safe:
 
 class DStudent {
-  private string _name;
-  private int _id;
-
   this(string newName, int newId) {
-    this.name = newName;
-    this.id = newId;
+    this.name(newName);
+    this.id(newId);
   }
 
-  // Get property name
-  @property string name() { return _name; }
-  // Set property name
-  @property void name(string newName) { _name = newName; }
-
-  // Get property id
-  @property int id() { return _id; }
-  // Set property id
-  @property void id(int newId) { _id = newId; }
+  mixin(TProperty!("string", "name"));
+  mixin(TProperty!("int", "id"));
 }
 
 interface IStudentDao {

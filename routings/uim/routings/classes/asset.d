@@ -15,8 +15,8 @@ class DAsset {
      * string ainflectionType Inflection type. Value should be a valid
      * method name of `Inflector` class like `"dasherize"` or `"underscore`"`.
      */
-    static void setInflectionType(string ainflectionType) {
-        _InflectionType = anInflectionType;
+    static void setInflectionType(string anInflectionType) {
+        _inflectionType = anInflectionType;
     }
     
     /**

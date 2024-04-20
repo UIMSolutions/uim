@@ -5,8 +5,9 @@
 ***********************************************************************************/
 module uim.oop.patterns.behaviorals.memento.history;
 
-import uim.oop;
 @safe:
+
+import uim.oop.patterns.behaviorals.memento;
 
 class DMementoHistory {
   private DMementoState[] _states;
@@ -18,7 +19,7 @@ class DMementoHistory {
   public DMementoState pop() {
     DMementoState lastState;
     
-    if (!_states.isEmpty) {
+    if (!_states.length == 0) {
       lastState = _states[-1];
       _states = _states[0..-1];
     } 

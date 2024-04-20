@@ -444,8 +444,7 @@ class DEagerLoader {
      * @return DORMEagerLoadable Object with normalized associations
      * @throws \InvalidArgumentException When containments refer to associations that do not exist.
      * /
-    protected function _normalizeContain(Table parent, string anAliasName, IData[string] optionData, array paths): EagerLoadable
-    {
+    protected DEagerLoadable _normalizeContain(Table parent, string anAliasName, IData[string] optionData, array paths) {
         defaults = _containOptions;
         instance = parent.getAssociation(alias);
 

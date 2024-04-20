@@ -5,7 +5,7 @@
 ***********************************************************************************/
 module uim.oop.patterns.behaviorals.memento.obj;
 
-import uim.oop;
+import uim.oop.patterns.behaviorals.memento;
 @safe:
 
 class DMementoObj(DMementoState) {

@@ -62,9 +62,9 @@ class DArrayObj : Obj {
 		return result;
 	}
 
-	override size_t toHash() nothrow {
+	/* override size_t toHash() nothrow {
 		return super.toHash;
-	}
+	} */
 
 	override string toString() {
 		return super.toString;

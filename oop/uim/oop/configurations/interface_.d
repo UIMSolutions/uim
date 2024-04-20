@@ -41,8 +41,11 @@ interface IConfiguration : INamed {
         bool hasValue(string value);
     // #endregion values
 
-    IData get(string path);
-    IData[string] get(string[] paths, bool compressMode = true);
+    // #region get
+        IData opIndex(string path);
+        IData get(string path);
+        IData[string] get(string[] paths, bool compressMode = true);
+    // #endregion get
 
     // void set(string path, IData newData);
     // void set(string[] paths, IData[string] newData);

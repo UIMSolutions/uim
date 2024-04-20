@@ -41,7 +41,7 @@ class DMarshaller
      * @param array<string, mixed> options List of options containing the "associated" key.
      * @throws \InvalidArgumentException When associations do not exist.
      */
-    protected array _buildPropertyMap(array data, IData[string] optionData) {
+    // TODO protected array _buildPropertyMap(array data, IData[string] optionData) {
         map = null;
         schema = _table.getSchema();
 

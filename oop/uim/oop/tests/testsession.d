@@ -13,7 +13,7 @@ class DTestSession {
     /**
      * @var array|null
      * /
-    protected array mysession = null;
+    // TODO protected array mysession = null;
 
     /**
      * @param array|null mysession Session data.

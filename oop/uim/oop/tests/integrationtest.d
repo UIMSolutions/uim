@@ -19,7 +19,7 @@ mixin template TIntegrationTest() {
     mixin TContainerStub;
 
     // The data used to build the next request.
-    protected array _request = null;
+    // TODO protected array _request = null;
 
     /**
      * The response for the most recent request.
@@ -36,12 +36,12 @@ mixin template TIntegrationTest() {
     /**
      * Session data to use in the next request.
      * /
-    protected array _session = null;
+    // TODO protected array _session = null;
 
     /**
      * Cookie data to use in the next request.
      * /
-    protected array _cookie = null;
+    // TODO protected array _cookie = null;
 
     /**
      * The controller used in the last request.
@@ -84,7 +84,7 @@ mixin template TIntegrationTest() {
     /**
      * Stored flash messages before render
      * /
-    protected array _flashMessages = null;
+    // TODO protected array _flashMessages = null;
 
     /**
      * @var string
@@ -441,7 +441,7 @@ mixin template TIntegrationTest() {
      * @param string amethod The HTTP method
      * @param string[] adata The request data.
      * /
-    protected array _buildRequest(string aurl, string amethod, string[] adata = []) {
+    // TODO protected array _buildRequest(string aurl, string amethod, string[] adata = []) {
         sessionConfig = (array)Configure.read("Session") ~ [
             "defaults": "D",
         ];
@@ -507,7 +507,7 @@ mixin template TIntegrationTest() {
      * string aurl The URL the form is being submitted on.
      * @param array data The request body data.
      * /
-    protected array _addTokens(string aurl, array data) {
+    // TODO protected array _addTokens(string aurl, array data) {
         if (_securityToken == true) {
             fields = array_diff_key(someData, array_flip(_unlockedFields));
 
@@ -550,7 +550,7 @@ mixin template TIntegrationTest() {
      * Params:
      * array data POST data
      * /
-    protected array _castToString(array data) {
+    // TODO protected array _castToString(array data) {
         someData.byKeyValue
             .each!((kv) {
             if (isScalar(kv.value)) {
@@ -575,7 +575,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string aurl The URL
      * /
-    protected array _url(string aurl) {
+    // TODO protected array _url(string aurl) {
         anUri = new Uri(url);
         somePath = anUri.getPath();
         aQuery = anUri.getQuery();

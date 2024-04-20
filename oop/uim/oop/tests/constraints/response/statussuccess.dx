@@ -12,7 +12,7 @@ class DStatusSuccess : DStatusCodeBase {
     /**
      * @var array<int, int>|int
      * /
-    protected array|int code = [200, 308];
+    // TODO protected array|int code = [200, 308];
 
     // Assertion message
     override string toString() {

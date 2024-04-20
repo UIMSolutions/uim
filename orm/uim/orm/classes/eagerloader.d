@@ -294,7 +294,7 @@ class DEagerLoader {
      * @param array original The original containments array to merge
      * with the new one
      * /
-    protected array _reformatContain(array associations, array original) {
+    // TODO protected array _reformatContain(array associations, array original) {
         result = original;
 
         foreach (associations as table: options) {
@@ -542,7 +542,7 @@ class DEagerLoader {
      * @param array<DORMEagerLoadable> matching list of associations that should be forcibly joined.
      * @return array<DORMEagerLoadable>
      * /
-    protected array _resolveJoins(array associations, array matching = null) {
+    // TODO protected array _resolveJoins(array associations, array matching = null) {
         result = null;
         foreach (matching as table: loadable) {
             result[table] = loadable;
@@ -671,7 +671,7 @@ class DEagerLoader {
      * @param array<DORMEagerLoadable> level An array of EagerLoadable instances.
      * @param bool matching Whether it is an association loaded through `matching()`.
      * /
-    protected array _buildAssociationsMap(array map, array level, bool matching = false) {
+    // TODO protected array _buildAssociationsMap(array map, array level, bool matching = false) {
         foreach (level as assoc: meta) {
             canBeJoined = meta.canBeJoined();
             instance = meta.instance();
@@ -730,7 +730,7 @@ class DEagerLoader {
      * @param DORMQuery query The query from which the results where generated
      * @param DORMdatabases.StatementInterface statement The statement to work on
      * /
-    protected array _collectKeys(array external, Query query, statement) {
+    // TODO protected array _collectKeys(array external, Query query, statement) {
         collectKeys = null;
         foreach (external as meta) {
             instance = meta.instance();
@@ -768,7 +768,7 @@ class DEagerLoader {
      * @param DORMdatabases.Statement\BufferedStatement statement The statement to read from.
      * @param array<string, array> collectKeys The keys to collect
      * /
-    protected array _groupKeys(BufferedStatement statement, array collectKeys) {
+    // TODO protected array _groupKeys(BufferedStatement statement, array collectKeys) {
         keys = null;
         foreach ((statement.fetchAll("assoc") ?: []) as result) {
             foreach (collectKeys as nestKey: parts) {

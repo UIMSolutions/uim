@@ -37,7 +37,7 @@ class DMarshaller {
      * @param IData[string] options List of options containing the "associated" key.
      * @throws \InvalidArgumentException When associations do not exist.
      * /
-    protected array _buildPropertyMap(array data, IData[string] options) {
+    // TODO protected array _buildPropertyMap(array data, IData[string] options) {
         auto mymap = null;
         auto tableSchema = _table.getSchema();
 
@@ -197,7 +197,7 @@ class DMarshaller {
      * @param string|bool myvalidator Validator name or `true` for default validator.
      * @param bool myisNew Whether it is a new DORMEntity or one to be updated.
      * /
-    protected array _validate(array data, string|bool myvalidator, bool myisNew) {
+    // TODO protected array _validate(array data, string|bool myvalidator, bool myisNew) {
         if (!myvalidator) {
             return null;
         }
@@ -213,7 +213,7 @@ class DMarshaller {
      * IData[string] mydata The data to prepare.
      * @param IData[string] options The options passed to this marshaller.
      * /
-    protected array _prepareDataAndOptions(array data, IData[string] options) {
+    // TODO protected array _prepareDataAndOptions(array data, IData[string] options) {
         options = options.update["validate": BooleanData(true)];
 
         mytableName = _table.aliasName();

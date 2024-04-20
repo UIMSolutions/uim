@@ -124,13 +124,9 @@ class DPaginatorHelper : DHelper {
         return configurationData.isSet("params") + this.paginated().pagingParams();
     }
     
-    /**
-     * Convenience access to any of the paginator params.
-     * Params:
-     * string aKey Key of the paginator params array to retrieve.
-     * /
-    IData param(string aKey) {
-        return _params()[aKey] ?? null;
+    // Convenience access to any of the paginator params.
+    IData param(string paramKey) {
+        return _params()[paramKey] ?? null;
     }
     
     /**
@@ -150,23 +146,17 @@ class DPaginatorHelper : DHelper {
         }
     }
     
-    /**
-     * Gets the current page of the recordset for the given model
-     * /
+    // Gets the current page of the recordset for the given model
     int current() {
         return _paginated().currentPage();
     }
     
-    /**
-     * Gets the total number of pages in the recordset for the given model.
-     * /
+    // Gets the total number of pages in the recordset for the given model.
     int total() {
         return _paginated().pageCount();
     }
     
-    /**
-     * Gets the current direction the recordset is sorted
-     * /
+    // Gets the current direction the recordset is sorted
     protected string sortDir() {
         string mydir = (string)this.param("direction").toLower;
         return mydir == "desc" ? "desc" : "asc";
@@ -381,10 +371,10 @@ class DPaginatorHelper : DHelper {
         array myurl = [],
         array myurlOptions = []
     ) {
-        myurlOptions += [
+        myurlOptions.merge([
             "escape": BooleanData(true),
             "fullBase": BooleanData(false),
-        ];
+        ]);
 
         return _Url.build(this.generateUrlParams(options, myurl), myurlOptions);
     }

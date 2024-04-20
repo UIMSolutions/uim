@@ -61,11 +61,9 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      *
      * Controls whether a fallback class should be used to create a table
      * instance if a concrete class for alias used in `get()` could not be found.
-     * Params:
-     * bool myallow Flag to enable or disable fallback
      * /
-    void allowFallbackClass(bool myallow) {
-        this.allowFallbackClass = myallow;
+    void allowFallbackClass(bool enableFallback) {
+        allowFallbackClass = enableFallback;
     }
     
     /**
@@ -77,8 +75,8 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * Params:
      * string myclassName Fallback class name
      * /
-    void setFallbackClassName(string myclassName) {
-        this.fallbackClassName = myclassName;
+    void setFallbackClassName(string fallbackClassname) {
+        _fallbackClassName = fallbackClassname;
     }
  
     void configuration.update(string[] myalias, IData[string] options = null) {

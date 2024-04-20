@@ -43,7 +43,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      *
      * @var array|null
      * /
-    protected array  whenBuffer = null;
+    // TODO protected array  whenBuffer = null;
 
     /**
      * The else part result value.

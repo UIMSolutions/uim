@@ -18,10 +18,10 @@ class DValuesExpression : DExpression {
     mixin TTypeMap;
 
     // Array of values to insert.
-    protected array _values;
+    // TODO protected array _values;
 
     // List of columns to ensure are part of the insert.
-    protected array _columns;
+    // TODO protected array _columns;
 
     // The Query object to use as a values expression
     protected IQuery _query = null;
@@ -86,7 +86,7 @@ class DValuesExpression : DExpression {
      * Because column names could be identifier quoted, we
      * need to strip the identifiers off of the columns.
      * /
-    protected array _columnNames() {
+    // TODO protected array _columnNames() {
         auto someColumns = _columns
             .map!(col => isString(col) ? trim(col, "`[]'") : col);
 

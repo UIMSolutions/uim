@@ -15,7 +15,7 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
 
     protected IOrderByExpression myorder = null;
 
-    protected array myframe = null;
+    // TODO protected array myframe = null;
 
     protected string myexclusion = null;
 

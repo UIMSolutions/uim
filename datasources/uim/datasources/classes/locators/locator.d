@@ -18,7 +18,7 @@ abstract class DAbstractLocator : ILocator {
     protected IRepository[string] instances;
 
     // Contains a list of options that were passed to get() method.
-    protected array[string] options = null;
+    // TODO protected array[string] options = null;
 
     /**
      * {@inheritDoc}

@@ -597,7 +597,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * to use for joining.
      * @param string atype the join type to use
      * /
-    protected array _makeJoin(
+    // TODO protected array _makeJoin(
         string[] atable,
         IExpression|Closure|string[] aconditions,
         string atype

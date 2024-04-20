@@ -131,7 +131,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
      * Params:
      * \UIM\Database\DValueBinder aBinder The value binder to use.
      * /
-    protected array _stringExpression(DValueBinder valueBinder) {
+    // TODO protected array _stringExpression(DValueBinder valueBinder) {
         auto template = "%s ";
 
         if (cast(IExpression)_field  && !cast(IdentifierExpression)_field) {
@@ -205,12 +205,12 @@ class DComparisonExpression : DExpression { // TODO}, IField {
      * Params:
      * \UIM\Database\IExpression|range  someValues The rows to insert
      * /
-    protected array _collectExpressions(IExpression|range  someValues) {
+    // TODO protected array _collectExpressions(IExpression|range  someValues) {
         if (cast(IExpression)someValues ) {
             return [someValues, []];
         }
     }
-    protected array _collectExpressions(Range  someValues) {
+    // TODO protected array _collectExpressions(Range  someValues) {
         someExpressions = auto result;
          isArray = isArray(someValues);
 

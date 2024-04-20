@@ -20,10 +20,13 @@ class DHasManyAssociation : DAssociation {
 
     /**
      * DOrder in which target records should be returned
+    /**
+     * DOrder in which target records should be returned
      *
-     * @var mixed
-     * /
-    protected _sort;
+     * @var \UIM\Database\IExpression|\Closure|array<\UIM\Database\IExpression|string>|string
+     */
+    protected IExpression|Closure|string[] _sort = null;
+
 
     /**
      * The type of join to be used when adding the association to a query

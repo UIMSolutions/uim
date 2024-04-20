@@ -9,6 +9,8 @@ import uim.caches;
  * This is used internally for when Cache.disable() has been called.
  */
 class DNullEngine : DCacheEngine {
+  mixin(CacheEngineThis!("Null"));
+
   override bool initialize(IData[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
@@ -56,3 +58,4 @@ class DNullEngine : DCacheEngine {
     return true;
   } */
 }
+  mixin(CacheEngineThis!("Null"));

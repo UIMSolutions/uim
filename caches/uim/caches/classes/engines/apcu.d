@@ -6,6 +6,7 @@ import uim.caches;
 
 // APCu storage engine for cache
 class DApcuEngine : DCacheEngine {
+  mixin(CacheEngineThis!("Apcu"));
   /**
      * Contains the compiled group names
      * (prefixed with the global configuration prefix)
@@ -154,3 +155,4 @@ class DApcuEngine : DCacheEngine {
     return isSuccess;
   } */ 
 }
+mixin(CacheEngineCalls!("Apcu"));

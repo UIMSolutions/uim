@@ -14,6 +14,8 @@ import uim.caches;
  * Compressed keys can also be incremented/decremented.
  */
 class DMemcachedEngine : DCacheEngine {
+  mixin(CacheEngineThis!("Memcached"));
+
   override bool initialize(IData[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
@@ -399,3 +401,4 @@ bool clearGroup(string groupName) {
   return (bool) _Memcached.increment(configuration.get("prefix") ~ groupName);
 } */
 }
+mixin(CacheEngineCalls!("Memcached"));

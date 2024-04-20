@@ -13,6 +13,7 @@ import uim.caches;
  * with a cache servers, but want the work saving properties a cache provides.
  */
 class DArrayEngine : DCacheEngine {
+  mixin(CacheEngineThis!("Array"));
   // Cached data.
   // Structured as [key: [exp: expiration, val: value]]
   protected IData[string] _cachedData;
@@ -136,3 +137,4 @@ class DArrayEngine : DCacheEngine {
     return true;
   } */ 
 }
+mixin(CacheEngineCalls!("Array"));

@@ -70,7 +70,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     // Ensure the validity of the given cache key.
     protected void ensureValidKey(string keyToCheck) {
         if (keyToCheck.isEmpty) {
-            // throw InvalidArgumentException("A cache key must be a non-empty string.");
+            throw DInvalidArgumentException("A cache key must be a non-empty string.");
         }
     }
 

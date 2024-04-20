@@ -46,17 +46,44 @@ import uim.caches;
  * @see config/app.d for configuration settings
  */
 class DCache : ICache {
+    mixin TConfigurable;
+
+    this() {
+        initialize;
+    }
+
+    this(IData[string] initData) {
+        initialize(initData);
+    }
+
+    this(string newName) {
+        this();
+        this.name(newName);
+    }
+
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
+
+        // An array mapping URL schemes to fully qualified caching engine class names.
+        _dsnClassMap = [
+            "array": ArrayEngine.classname,
+            "apcu": ApcuEngine.classname,
+            "file": FileEngine.classname,
+            "memcached": MemcachedEngine.classname,
+            "null": NullEngine.classname,
+            "redis": RedisEngine.classname,
+        ];
+
+        return true;
+    }
+
+    mixin(TProperty!("string", "name"));
+
     // mixin TStaticConfig;
 
     // An array mapping URL schemes to fully qualified caching engine class names.
-    protected static STRINGAA _dsnClassMap; /* = [
-        "array": ArrayEngine.classname,
-        "apcu": ApcuEngine.classname,
-        "file": FileEngine.classname,
-        "memcached": MemcachedEngine.classname,
-        "null": NullEngine.classname,
-        "redis": RedisEngine.classname,
-    ];
+    protected static STRINGAA _dsnClassMap;
 
     // Flag for tracking whether caching is enabled.
     protected static bool _enabled = true;
@@ -70,16 +97,16 @@ class DCache : ICache {
     // Returns the Cache Registry instance used for creating and using cache adapters.
     /* static DCacheRegistry getRegistry() {
         return _registry ? _registry : new DCacheRegistry();
-    } */ 
-    
+    } */
+
     /**
      * Sets the Cache Registry instance used for creating and using cache adapters.
      * Also allows for injecting of a new registry instance.
      */
     /* static void setRegistry(DCacheRegistry cacheRegistry) {
         _registry = cacheRegistry;
-    } */ 
-    
+    } */
+
     /**
      * Finds and builds the instance of the required engine class.
      * @throws \RuntimeException If loading of the engine failed.
@@ -152,7 +179,7 @@ class DCache : ICache {
 
         return myRegistry.{configName};
     } */
-    
+
     /**
      * Write data for key into cache.
      *
@@ -214,8 +241,8 @@ class DCache : ICache {
      */
     /* static bool writeMany(Range mydata, string configName = "default") {
         return pool(configName).setMultiple(mydata);
-    } */ 
-    
+    } */
+
     /**
      * Read a key from the cache.
      *
@@ -237,8 +264,8 @@ class DCache : ICache {
      */
     /* static IData read(string dataId, string configName = "default") {
         return pool(configName).get(dataId);
-    } */ 
-    
+    } */
+
     /**
      * Read multiple keys from the cache.
      *
@@ -261,8 +288,8 @@ class DCache : ICache {
      */
     /* static Range readMany(string[] keysToFetch, string configName = "default") {
         return pool(configName).getMultiple(keysToFetch);
-    } */ 
-    
+    } */
+
     /**
      * Increment a number under the key and return incremented value.
      * Params:
@@ -274,8 +301,8 @@ class DCache : ICache {
             throw new DInvalidArgumentException("Offset cannot be less than `0`.");
         }
         return pool(configName).increment(dataId, myoffset);
-    } */ 
-    
+    } */
+
     /**
      * Decrement a number under the key and return decremented value.
      * Params:
@@ -287,8 +314,8 @@ class DCache : ICache {
             throw new DInvalidArgumentException("Offset cannot be less than `0`.");
         }
         return pool(configName).decrement(dataId, myoffset);
-    } */ 
-    
+    } */
+
     /**
      * Delete a key from the cache.
      *
@@ -308,8 +335,8 @@ class DCache : ICache {
      */
     /* static bool delete_(string dataId, string configName = "default") {
         return pool(configName).delete_(dataId);
-    } */ 
-    
+    } */
+
     /**
      * Delete many keys from the cache.
      *
@@ -354,8 +381,8 @@ class DCache : ICache {
         self.configured().each!(configName => mystatus[configName] = self.clear(configName));
 
         return mystatus;
-    } */ 
-    
+    } */
+
     /* Delete all keys from the cache belonging to the same group.
     static bool clearGroup(string groupName, string configName = "default") {
         return pool(configName).clearGroup(groupName);
@@ -387,7 +414,7 @@ class DCache : ICache {
         }
         throw new DInvalidArgumentException("Invalid cache group `%s`.".format(groupName));
     } */
-    
+
     /**
      * Re-enable caching.
      *
@@ -439,8 +466,8 @@ class DCache : ICache {
         self.write(aKey, results, configName);
 
         return results;
-    } */ 
-    
+    } */
+
     /**
      * Write data for key into a cache engine if it doesn`t exist already.
      *
@@ -466,5 +493,5 @@ class DCache : ICache {
             return false;
         }
         return pool(configName).add(dataId, myvalue);
-    } */ 
+    } */
 }

@@ -8,7 +8,7 @@ import uim.routings;
  * Applies routing rules to the request and creates the controller
  * instance if possible.
  */
-class DRoutingMiddleware : IMiddleware {
+class DRoutingMiddleware : IRoutingMiddleware {
     // Key used to store the route collection in the cache engine
     const string ROUTE_COLLECTION_CACHE_KEY = "routeCollection";
 
@@ -19,14 +19,14 @@ class DRoutingMiddleware : IMiddleware {
      * Constructor
      * Params:
      * \UIM\Routing\IRoutingApplication app The application instance that routes are defined on.
-     */
+     * /
     this(IRoutingApplication app) {
         this.app = app;
     }
     
     /**
      * Trigger the application"s and plugin"s routes() hook.
-     */
+     * /
     protected void loadRoutes() {
         builder = Router.createRouteBuilder("/");
         this.app.routes(builder);
@@ -43,7 +43,7 @@ class DRoutingMiddleware : IMiddleware {
      * Params:
      * \Psr\Http\Message\IServerRequest serverRequest The request.
      * @param \Psr\Http\Server\IRequestHandler handler The request handler.
-     */
+     * /
     IResponse process(IServerRequest serverRequest, IRequestHandler handler) {
         this.loadRoutes();
         try {
@@ -83,5 +83,5 @@ class DRoutingMiddleware : IMiddleware {
         runner = new DRunner();
 
         return runner.run(middleware, request, handler);
-    }
+    } */
 }

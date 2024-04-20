@@ -25,9 +25,7 @@ mixin template TLocatorAware() {
        _tableLocator = mytableLocator;
     }
     
-    /**
-     * Gets the table locator.
-     * /
+    // Gets the table locator.
     ILocator getTableLocator() {
         if (isSet(_tableLocator)) {
             return _tableLocator;

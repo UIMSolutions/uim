@@ -523,7 +523,7 @@ class DMessage { //: IDataSerializable {
         } else if (preg_match(this.emailPattern, emailAddress)) {
             return;
         }
-        context = ltrim(context, "_");
+        context = stripLeft(context, "_");
         if (emailAddress.isEmpty) {
             throw new DInvalidArgumentException("The email set for `%s` is empty.".format(context));
         }

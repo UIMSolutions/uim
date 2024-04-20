@@ -200,7 +200,7 @@ abstract class DTestCase : DBaseTestCase {
      * array|null myappArgs Constructor parameters for the application class.
      * /
     void loadRoutes(array myappArgs = null) {
-        myappArgs ??= [rtrim(CONFIG, DIRECTORY_SEPARATOR)];
+        myappArgs ??= [stripRight(CONFIG, DIRECTORY_SEPARATOR)];
         /** @var class-string myclassName * /
         myclassName = Configuration.read("App.namespace") ~ "\\Application";
         try {

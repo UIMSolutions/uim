@@ -43,7 +43,7 @@ class DApp {
 
         base = plugin ?: Configuration.read("App.namespace");
         if (!base is null) {
-            base = rtrim(base, "\\").replace("/", "\\");
+            base = stripRight(base, "\\").replace("/", "\\");
 
             if (_classExistsInBase(fullname, base)) {
                 return base ~ fullname;

@@ -92,7 +92,7 @@ class DPlugin : IPlugin {
         if (somePath.endsWith("src")) {
             somePath = substr(somePath, 0, -3);
         }
-        this.path = rtrim(somePath, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
+        this.path = stripRight(somePath, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
 
         return _path;
     }

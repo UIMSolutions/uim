@@ -7,4 +7,5 @@ public {
     import uim.orm.interfaces.propertymarshal;
     import uim.orm.interfaces.query;
     import uim.orm.interfaces.rule;
+    import uim.orm.interfaces.translatestrategy;
 }

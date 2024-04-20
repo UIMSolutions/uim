@@ -529,7 +529,7 @@ class DClient { // }: IClient {
     if (!empty(options["basePath"])) {
       result ~= "/" ~ strip(options["basePath"], "/");
     }
-    result ~= "/" ~ ltrim(myurl, "/");
+    result ~= "/" ~ stripLeft(myurl, "/");
 
     return result;
   }

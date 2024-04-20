@@ -58,7 +58,7 @@ class DServerCommand : DCommand {
         if (preg_match("/^([a-z]:)[\\\]+(.+)$/i", _documentRoot, m)) {
            _documentRoot = m[1] ~ "\\" ~ m[2];
         }
-       _iniPath = rtrim(_iniPath, DIRECTORY_SEPARATOR);
+       _iniPath = stripRight(_iniPath, DIRECTORY_SEPARATOR);
         if (preg_match("/^([a-z]:)[\\\]+(.+)$/i", _iniPath, m)) {
            _iniPath = m[1] ~ "\\" ~ m[2];
         }

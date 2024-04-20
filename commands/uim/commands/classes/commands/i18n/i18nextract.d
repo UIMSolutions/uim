@@ -176,7 +176,7 @@ class DI18nExtractCommand : DCommand {
         if (isEmpty(_files)) {
            _searchFiles();
         }
-       _output = rtrim(_output, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
+       _output = stripRight(_output, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
         if (!_isPathUsable(_output)) {
              aConsoleIo.writeErrorMessages("The output directory `%s` was not found or writable.".format(_output));
 

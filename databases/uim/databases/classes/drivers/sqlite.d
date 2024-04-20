@@ -193,7 +193,7 @@ class DSqliteDriver : DDriver {
                     .setConjunction(" ,")
                     .iterateParts(function (p, aKey) {
                         if (aKey == 0) {
-                            aValue = rtrim(sp.toLower, "s");
+                            aValue = stripRight(sp.toLower, "s");
                             if (isSet(_dateParts[aValue])) {
                                 p = ["value": '%" ~ _dateParts[aValue], "type": null];
                             }

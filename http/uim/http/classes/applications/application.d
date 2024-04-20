@@ -65,7 +65,7 @@ class DApplication {
         ?IEventManager eventManager = null,
         ?IControllerFactory controllerFactory = null
     ) {
-        this.configDir = rtrim(configDataDir, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
+        this.configDir = stripRight(configDataDir, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
         this.plugins = Plugin.getCollection();
        _eventManager = eventManager ?: EventManager.instance();
         this.controllerFactory = controllerFactory;

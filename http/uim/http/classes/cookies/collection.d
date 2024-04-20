@@ -221,7 +221,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
             }
             domain = cookie.getDomain();
             if (domain.startWith(".")) {
-                domain = ltrim(domain, ".");
+                domain = stripLeft(domain, ".");
             }
             if (cookie.isExpired(now)) {
                 continue;

@@ -811,7 +811,7 @@ class DResponse : IResponse {
             control ~= val == true ? aKey : "%s=%s".format(aKey, val);
             control ~= ", ";
         }
-        control = rtrim(control, ", ");
+        control = stripRight(control, ", ");
        _setHeader("Cache-Control", control);
     }
     

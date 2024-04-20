@@ -35,8 +35,8 @@ class DI18nInitCommand : DCommand {
             plugin = Inflector.camelize(to!string(commandArguments.getOption("plugin")));
             somePaths = [Plugin.path(plugin) ~ "resources" ~ DIRECTORY_SEPARATOR ~ "locales" ~ DIRECTORY_SEPARATOR];
         }
-        response = aConsoleIo.ask("What folder?", rtrim(somePaths[0], DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR);
-        sourceFolder = rtrim(response, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
+        response = aConsoleIo.ask("What folder?", stripRight(somePaths[0], DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR);
+        sourceFolder = stripRight(response, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
         targetFolder = sourceFolder ~ myLanguage ~ DIRECTORY_SEPARATOR;
         if (!isDir(targetFolder)) {
             mkdir(targetFolder, 0770, true);

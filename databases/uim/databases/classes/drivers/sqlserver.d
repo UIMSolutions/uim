@@ -368,7 +368,7 @@ class DSqlserverDriver : DDriver {
                         params[2] = p;
                     } else {
                         string[] valueUnit = p.split(" ");
-                        params[0] = rtrim(valueUnit[1], "s");
+                        params[0] = stripRight(valueUnit[1], "s");
                         params[1] = valueUnit[0];
                     }
                     return p;

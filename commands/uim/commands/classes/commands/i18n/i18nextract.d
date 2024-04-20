@@ -35,7 +35,7 @@ class DI18nExtractCommand : DCommand {
 
     /* 
     // Extracted tokens
-    protected array _tokens = null;
+    // TODO protected array _tokens = null;
 
     //  Extracted strings indexed by domain.
     protected IData[string] _translations = null;

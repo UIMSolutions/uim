@@ -7,19 +7,19 @@ import uim.views;
 // Parent class for view classes generating serialized outputs like IDataView and XmlView.
 class DSerializedView : DView {
     mixin(ViewThis!("Serialized"));
-    /**
-     * Default config options.
-     *
-     * Use ViewBuilder.setOption()/setOptions() in your controlle to set these options.
-     *
-     * - `serialize`: Option to convert a set of view variables into a serialized response.
-     *  Its value can be a string for single variable name or array for multiple
-     *  names. If true all view variables will be serialized. If null or false
-     *  normal view template will be rendered.
-     * /
-    configuration.updateDefaults([
-        "serialize": null,
-    ];
+
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        // `serialize` : Option to convert a set of view variables into a serialized response.
+        configuration.updateDefaults([
+            "serialize": ArrayData // string[]
+        ]);
+
+        return true;
+    }
 
     // Load helpers only if serialization is disabled.
     void loadHelpers() {
@@ -27,7 +27,7 @@ class DSerializedView : DView {
             super.loadHelpers();
         }
     }
-    
+
     /**
      * Serialize view vars.
      * Params:

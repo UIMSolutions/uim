@@ -40,14 +40,13 @@ class DFileWidget : DWidget {
                 auto mergedData = renderData.merge(formContext.data);
 
 
-        buildData.remove("val");
+        mergedData.remove("val");
 
         return _stringContents.format("file", [
-            "name": buildData["name"],
-            "templateVars": buildData["templateVars"],
+            "name": mergedData["name"],
+            "templateVars": mergedData["templateVars"],
             "attrs": _stringContents.formatAttributes(
-                buildData,
-                ["name"]
+                mergedData, ["name"]
             ),
         ]);
     } */

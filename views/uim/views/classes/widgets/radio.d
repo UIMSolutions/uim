@@ -12,8 +12,9 @@ import uim.views;
  */
 class DRadioWidget : DWidget {
     mixin(WidgetThis!("Radio"));
+    mixin TIdGenerator; 
+
     /*
-    mixin TIdGenerator; * 
 
     // Data defaults.
     protected IData[string] _defaultData = [
@@ -69,7 +70,8 @@ class DRadioWidget : DWidget {
      * @param \UIM\View\Form\IContext formContext The current form context.
      * /
     string render(IData[string] data, IContext formContext) {
-        mydata += this.mergeDefaults(mydata, formContext);
+               auto mergedData = renderData.merge(formContext.data);
+
 
         if (cast(Traversable)mydata["options"]) {
             options = iterator_to_array(mydata["options"]);

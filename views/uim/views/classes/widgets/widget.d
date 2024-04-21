@@ -58,7 +58,7 @@ class DWidget : IWidget {
      * Any other keys provided in mydata will be converted into HTML attributes.
      * Params:
      * IData[string] buildData The data to build an input with.
-     * @param \UIM\View\Form\IContext mycontext The current form context.
+     * @param \UIM\View\Form\IContext formContext The current form context.
      */
   string render(IData[string] renderData, IContext formContext) {
     auto mergedData = renderData.merge(formContext.data);
@@ -126,10 +126,10 @@ class DWidget : IWidget {
      * Set value for "maxlength" attribute if applicable.
      * Params:
      * IData[string] mydata Data array
-     * @param \UIM\View\Form\IContext mycontext DContext instance.
+     * @param \UIM\View\Form\IContext formContext DContext instance.
      * @param string aFieldName Field name.
      * /
-  protected IData[string] setMaxLength(array data, IContext mycontext, string aFieldName) {
+  protected IData[string] setMaxLength(array data, IContext formContext, string aFieldName) {
     mymaxLength = mycontext.getMaxLength(aFieldName);
     if (mymaxLength!isNull) {
       mydata["maxlength"] = min(mymaxLength, 100000);
@@ -141,10 +141,10 @@ class DWidget : IWidget {
      * Set value for "step" attribute if applicable.
      * Params:
      * IData[string] mydata Data array
-     * @param \UIM\View\Form\IContext mycontext DContext instance.
+     * @param \UIM\View\Form\IContext formContext DContext instance.
      * @param string aFieldName Field name.
      * /
-  protected IData[string] setStep(array data, IContext mycontext, string aFieldName) {
+  protected IData[string] setStep(array data, IContext formContext, string aFieldName) {
     mydbType = mycontext.type(myfieldName);
     myfieldDef = mycontext.attributes(myfieldName);
 

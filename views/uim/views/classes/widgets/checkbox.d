@@ -47,19 +47,19 @@ class DCheckboxWidget : DWidget {
 
         /* 
         if (_isChecked(renderData)) {
-            renderData["checked"] = true;
+            mergedData["checked"] = true;
         }
-        renderData.removeKey("val");
+        mergedData.removeKey("val");
 
-        myattrs = _stringContents.formatAttributes(
-            renderData,
+        auto myattrs = _stringContents.formatAttributes(
+            mergedData,
             ["name", "value"]
         );
 
         return _stringContents.format("checkbox", [
-            "name": renderData["name"],
-            "value": renderData["value"],
-            "templateVars": renderData["templateVars"],
+            "name": mergedData["name"],
+            "value": mergedData["value"],
+            "templateVars": mergedData["templateVars"],
             "attrs": myattrs,
         ]);
         */

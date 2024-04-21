@@ -34,10 +34,11 @@ class DTextareaWidget : DWidget {
      * All other keys will be converted into HTML attributes.
      * Params:
      * IData[string] mydata The data to build a textarea with.
-     * @param \UIM\View\Form\IContext mycontext The current form context.
+     * @param \UIM\View\Form\IContext formContext The current form context.
      * /
-    string render(IData[string] renderData, IContext mycontext) {
-        mydata += this.mergeDefaults(mydata, mycontext);
+    string render(IData[string] renderData, IContext formContext) {
+                        auto mergedData = renderData.merge(formContext.data);
+
 
         if (
             !array_key_exists("maxlength", mydata)

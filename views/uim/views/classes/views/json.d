@@ -44,6 +44,14 @@ import uim.views;
 class DJsonView : DSerializedView {
     mixin(ViewThis!("Json"));
 
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        return true;
+    }
+
     // Json layouts are located in the Json subdirectory of `Layouts/`
     protected string _layoutPath = "Json";
 

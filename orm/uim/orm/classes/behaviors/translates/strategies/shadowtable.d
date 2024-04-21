@@ -345,7 +345,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                             return;}
 
                                                             primaryKeys = (array) this.table
-                                                            .getPrimaryKeys(); id = entity.get(
+                                                            .primaryKeys(); id = entity.get(
                                                             current(primaryKeys));
 
                                                             // When we have no key and bundled translations, we
@@ -567,7 +567,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                                                 }
 
                                                                                 primaryKeys = (
-                                                                                array) this.table.getPrimaryKeys();
+                                                                                array) this.table.primaryKeys();
                                                                                 key = entity.get(
                                                                                 current(primaryKeys));
 

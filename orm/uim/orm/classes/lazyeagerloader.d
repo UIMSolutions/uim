@@ -47,7 +47,7 @@ class DLazyEagerLoader {
      * @param \ORM\Table mysource The table to use for fetching the top level entities
      * /
     protected ISelectQuery _getQuery(IEntity[] myentities, array mycontain, Table mysource)SelectQuery {
-        auto myprimaryKey = mysource.getPrimaryKeys();
+        auto myprimaryKey = mysource.primaryKeys();
         auto mymethod = isString(myprimaryKey) ? "get" : "extract";
 
         auto someKeys = Hash.map(myentities, "{*}", fn (IEntity myentity): myentity.{mymethod}(myprimaryKey));
@@ -112,7 +112,7 @@ class DLazyEagerLoader {
     ) {
         myinjected = null;
         myproperties = _getPropertyMap(mysource, myassociations);
-        myprimaryKey = (array)mysource.getPrimaryKeys();
+        myprimaryKey = (array)mysource.primaryKeys();
         /** @var array<\UIM\Datasource\IEntity> results * /
         results = myquery
             .all()

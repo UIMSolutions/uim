@@ -328,8 +328,8 @@ function setBindingKeys(key) {
 function getBindingKeys() {
     if (_bindingKeys == null) {
         _bindingKeys = this.isOwningSide(this.getSource()) ?
-            this.getSource()
-            .getPrimaryKeys() : this.getTarget().getPrimaryKeys();
+            this.getSource().primaryKeys() 
+            : this.getTarget().primaryKeys();
     }
 
     return _bindingKeys;
@@ -623,7 +623,7 @@ void attachTo(Query query, IData[string] optionData = null) {
 protected void _appendNotMatching(Query query, IData[string] optionData) {
     target = _targetTable;
     if (!empty(options["negateMatch"])) {
-        primaryKeys = query.aliasFields((array) target.getPrimaryKeys(), _name);
+        primaryKeys = query.aliasFields((array) target.primaryKeys(), _name);
         query.andWhere(function(exp) use(primaryKeys) {
             array_map([exp, "isNull"], primaryKeys);
 

@@ -137,7 +137,7 @@ class DMarshaller {
     IEntity one(array data, IData[string] optionData = null) {
         [mydata, options] = _prepareDataAndOptions(mydata, options);
 
-        myprimaryKey = (array)_table.getPrimaryKeys();
+        myprimaryKey = (array)_table.primaryKeys();
         myentity = _table.newEmptyEntity();
 
         if (isSet(options["accessibleFields"])) {
@@ -309,7 +309,7 @@ class DMarshaller {
         auto myforceNew = options.get("forceNew", false);
         auto mydata = mydata.values;
         auto mytarget = myassoc.getTarget();
-        auto myprimaryKey = array_flip((array)mytarget.getPrimaryKeys());
+        auto myprimaryKey = array_flip((array)mytarget.primaryKeys());
         auto myrecords = myconditions = null;
         auto myprimaryCount = count(myprimaryKey);
 
@@ -387,7 +387,7 @@ class DMarshaller {
             return null;
         }
         mytarget = myassoc.getTarget();
-        myprimaryKey = (array)mytarget.getPrimaryKeys();
+        myprimaryKey = (array)mytarget.primaryKeys();
         mymulti = count(myprimaryKey) > 1;
         myprimaryKey = array_map([mytarget, "aliasField"], myprimaryKey);
 
@@ -398,7 +398,7 @@ class DMarshaller {
             }
             mytype = null;
             myschema = mytarget.getSchema();
-            foreach ((array)mytarget.getPrimaryKeys() as mycolumn) {
+            foreach ((array)mytarget.primaryKeys() as mycolumn) {
                 mytype ~= myschema.getColumnType(mycolumn);
             }
             myfilter = new DTupleComparison(myprimaryKey, myids, mytype, "IN");
@@ -449,7 +449,7 @@ class DMarshaller {
         someKeys = null;
 
         if (!myisNew) {
-            someKeys = myentity.extract((array)_table.getPrimaryKeys());
+            someKeys = myentity.extract((array)_table.primaryKeys());
         }
         if (isSet(options["accessibleFields"])) {
             foreach ((array)options["accessibleFields"] as aKey: myvalue) {
@@ -555,7 +555,7 @@ class DMarshaller {
      * @param IData[string] options List of options.
      * /
     IEntity[] mergeMany(Range myentities, array data, IData[string] optionData = null) {
-        myprimary = (array)_table.getPrimaryKeys();
+        myprimary = (array)_table.primaryKeys();
 
         myindexed = (new DCollection(mydata))
             .groupBy(function (myel) use (myprimary) {

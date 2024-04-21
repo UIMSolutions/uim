@@ -250,7 +250,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             return;
         }
 
-        primaryKeys = (array)this.table.getPrimaryKeys();
+        primaryKeys = (array)this.table.primaryKeys();
         key = entity.get(current(primaryKeys));
 
         // When we have no key and bundled translations, we
@@ -428,7 +428,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         }
 
         fields = configuration.get("fields"];
-        primaryKeys = (array)this.table.getPrimaryKeys();
+        primaryKeys = (array)this.table.primaryKeys();
         key = entity.get(current(primaryKeys));
         find = null;
         contents = null;

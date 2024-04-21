@@ -71,7 +71,7 @@ class DatabaseSession { // }: SessionHandler {
      * string aid ID that uniquely identifies session in database.
      * /
     string read(string aid) {
-        string[] primaryKeys = _table.getPrimaryKeys();
+        string[] primaryKeys = _table.primaryKeys();
         assert(isString(primaryKeys));
         result = _table
             .find("all")
@@ -101,12 +101,12 @@ class DatabaseSession { // }: SessionHandler {
      * @param string adata The data to be saved.
      * /
     bool write(string aid, string adata) {
-        string[] primaryKeys = _table.getPrimaryKeys();
+        string[] primaryKeys = _table.primaryKeys();
         session = _table.newEntity([
-            pkField:  anId,
-            'data": someData,
-            'expires": time() + _timeout,
-        ], ["accessibleFields": [pkField: true]]);
+            primaryKeys:  anId,
+            "data": someData,
+            "expires": time() + _timeout,
+        ], ["accessibleFields": [primaryKeys: true]]);
 
         return (bool)_table.save(session);
     }
@@ -117,7 +117,7 @@ class DatabaseSession { // }: SessionHandler {
      * string aid ID that uniquely identifies session in database.
      * /
     bool destroy(string aid) {
-        /** @var string apk) {  _table.deleteAll([pkField:  anId]);
+        /** @var string apk) {  _table.deleteAll([primaryKeys:  anId]);
 
         return true;) {
 

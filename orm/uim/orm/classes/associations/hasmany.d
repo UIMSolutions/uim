@@ -312,7 +312,7 @@ class DHasManyAssociation : DAssociation {
 
         foreignKey = (array)this.getForeignKeys();
         myTarget = this.getTarget();
-        myTargetPrimaryKey = array_merge((array)myTarget.getPrimaryKeys(), foreignKey);
+        myTargetPrimaryKey = array_merge((array)myTarget.primaryKeys(), foreignKey);
         property = this.getProperty();
 
         conditions = [
@@ -421,7 +421,7 @@ class DHasManyAssociation : DAssociation {
         range remainingEntities = null,
         IData[string] options = null
     ) {
-        primaryKeys = (array)myTarget.getPrimaryKeys();
+        primaryKeys = (array)myTarget.primaryKeys();
         exclusions = new DCollection(remainingEntities);
         exclusions = exclusions.map(
             function (ent) use (primaryKeys) {

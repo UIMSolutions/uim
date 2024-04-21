@@ -67,7 +67,7 @@ class DTreeBehavior : DBehavior {
         isNew = entity.isNew();
         myConfiguration = configuration;
         parent = entity.get(configuration.get("parent"]);
-        primaryKeys = _getPrimaryKeys();
+        primaryKeys = _primaryKeys();
         dirty = entity.isDirty(configuration.get("parent"]);
         level = configuration.get("level"];
 
@@ -149,13 +149,13 @@ class DTreeBehavior : DBehavior {
             return;
         }
 
-        primaryKeys = _getPrimaryKeys();
+        primaryKeys = _primaryKeys();
         primaryKeysValue = entity.get(primaryKeys);
         depths = [primaryKeysValue: entity.get(configuration.get("level"])];
 
         children = _table.find("children", [
             "for": primaryKeysValue,
-            "fields": [_getPrimaryKeys(), configuration.get("parent"], configuration.get("level"]],
+            "fields": [_primaryKeys(), configuration.get("parent"], configuration.get("level"]],
             "order": configuration.get("left"],
         ]);
 
@@ -231,7 +231,7 @@ class DTreeBehavior : DBehavior {
             throw new DRuntimeException(sprintf(
                 "Cannot use node '%s' as parent for entity '%s'",
                 parent,
-                entity.get(_getPrimaryKeys())
+                entity.get(_primaryKeys())
             ));
         }
 
@@ -374,7 +374,7 @@ class DTreeBehavior : DBehavior {
 
         if (direct) {
             return _scope(_table.find())
-                .where([parent: node.get(_getPrimaryKeys())])
+                .where([parent: node.get(_primaryKeys())])
                 .count();
         }
 
@@ -484,7 +484,7 @@ class DTreeBehavior : DBehavior {
     {
         return query.formatResults(function (ICollection results) use (options) {
             options = options.update[
-                "keyPath": _getPrimaryKeys(),
+                "keyPath": _primaryKeys(),
                 "valuePath": _table.getDisplayField(),
                 "spacer": "_",
             ];
@@ -534,7 +534,7 @@ class DTreeBehavior : DBehavior {
             return _table.save(node);
         }
 
-        primary = _getPrimaryKeys();
+        primary = _primaryKeys();
         _table.updateAll(
             [configuration.get("parent"]: parent],
             [configuration.get("parent"]: node.get(primary)]
@@ -749,7 +749,7 @@ class DTreeBehavior : DBehavior {
     {
         myConfiguration = configuration;
         [parent, left, right] = [configuration.get("parent"], configuration.get("left"], configuration.get("right"]];
-        primaryKeys = _getPrimaryKeys();
+        primaryKeys = _primaryKeys();
         fields = [parent, left, right];
         if (configuration.get("level"]) {
             fields[] = configuration.get("level"];
@@ -789,7 +789,7 @@ class DTreeBehavior : DBehavior {
     protected int _recoverTree(int lftRght = 1, parentId = null, level = 0) {
         myConfiguration = configuration;
         [parent, left, right] = [configuration.get("parent"], configuration.get("left"], configuration.get("right"]];
-        primaryKeys = _getPrimaryKeys();
+        primaryKeys = _primaryKeys();
         order = configuration.get("recoverOrder"] ?: primaryKeys;
 
         nodes = _scope(_table.query())
@@ -907,7 +907,7 @@ class DTreeBehavior : DBehavior {
             return;
         }
 
-        fresh = _table.get(entity.get(_getPrimaryKeys()));
+        fresh = _table.get(entity.get(_primaryKeys()));
         entity.set(fresh.extract(fields), ["guard": BooleanData(false)]);
 
         foreach (fields as field) {
@@ -918,9 +918,9 @@ class DTreeBehavior : DBehavior {
     /**
      * Returns a single string value representing the primary key of the attached table
      * /
-    protected string _getPrimaryKeys() {
+    protected string _primaryKeys() {
         if (!_primaryKeys) {
-            primaryKeys = (array)_table.getPrimaryKeys();
+            primaryKeys = (array)_table.primaryKeys();
             _primaryKeys = primaryKeys[0];
         }
 
@@ -934,7 +934,7 @@ class DTreeBehavior : DBehavior {
      * @return int|false Integer of the level or false if the node does not exist.
      * /
     function getLevel(entity) {
-        primaryKeys = _getPrimaryKeys();
+        primaryKeys = _primaryKeys();
         id = entity;
         if (entity instanceof IEntity) {
             id = entity.get(primaryKeys);

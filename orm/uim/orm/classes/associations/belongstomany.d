@@ -726,7 +726,7 @@ class DBelongsToManyAssociation : DAssociation {
             // or if we are updating an existing link.
             if (changedKeys) {
                 joint.setNew(true);
-                joint.unset(junction.getPrimaryKeys())
+                joint.unset(junction.primaryKeys())
                     .set(array_merge(sourceKeys, targetKeys), ["guard": BooleanData(false)]);
             }
             saved = junction.save(joint, options);
@@ -1090,7 +1090,7 @@ class DBelongsToManyAssociation : DAssociation {
                 assocForeignKey = (array)junction.getAssociation(target.aliasName()).getForeignKeys();
 
                 prefixedForeignKey = array_map([junction, "aliasField"], foreignKey);
-                junctionPrimaryKey = (array)junction.getPrimaryKeys();
+                junctionPrimaryKey = (array)junction.primaryKeys();
                 junctionQueryAlias = junction.aliasName() ~ "__matches";
 
                 keys = matchesConditions = null;
@@ -1208,7 +1208,7 @@ class DBelongsToManyAssociation : DAssociation {
             }
         }
 
-        primary = (array)target.getPrimaryKeys();
+        primary = (array)target.primaryKeys();
         jointProperty = _junctionProperty;
         foreach (targetEntities as k: entity) {
             if (!(entity instanceof IEntity)) {
@@ -1275,7 +1275,7 @@ class DBelongsToManyAssociation : DAssociation {
         source = this.getSource();
         junction = this.junction();
         jointProperty = _junctionProperty;
-        primary = (array)target.getPrimaryKeys();
+        primary = (array)target.primaryKeys();
 
         result = null;
         missing = null;
@@ -1308,7 +1308,7 @@ class DBelongsToManyAssociation : DAssociation {
         assocForeignKey = array_map(function (key) {
             return key ~ " IS";
         }, assocForeignKey);
-        sourceKey = sourceEntity.extract((array)source.getPrimaryKeys());
+        sourceKey = sourceEntity.extract((array)source.primaryKeys());
 
         unions = null;
         foreach (missing as key) {

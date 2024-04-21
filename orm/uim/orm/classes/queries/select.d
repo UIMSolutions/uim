@@ -895,7 +895,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
             }
             myassociation = mytable.getAssociation(myname);
             mytarget = myassociation.getTarget();
-            myprimary = (array)mytarget.getPrimaryKeys();
+            myprimary = (array)mytarget.primaryKeys();
             if (isEmpty(myprimary) || mytypeMap.type(mytarget.aliasField(myprimary[0])) is null) {
                 this.addDefaultTypes(mytarget);
             }
@@ -1177,8 +1177,8 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
     }
     
     // Handles cloning eager loaders.
-    auto __clone() {
-        super.__clone();
+    auto clone() {
+        super.clone();
         if (_eagerLoader !isNull) {
            _eagerLoader = clone _eagerLoader;
         }

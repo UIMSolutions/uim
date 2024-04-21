@@ -160,6 +160,10 @@ class DArrayData : DData {
   override string toString() {
     return "[" ~ _items.map!(item => item.toString).join(",") ~ "]";
   }
+
+  override string[] toStringArray() {
+    return _items.map!(item => item.toString).array;
+  }
 }
 
 mixin(DataCalls!("Array"));

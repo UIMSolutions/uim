@@ -44,6 +44,7 @@ interface IData {
 
     Json toJson();
     string toString();
+    string[] toStringArray();
     size_t length();
 
     // Check is equal

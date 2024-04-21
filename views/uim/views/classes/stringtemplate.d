@@ -275,7 +275,7 @@ class DStringTemplate {
         }
 
         string key = attributeKey; 
-        bool isMinimized = _compactAttributes.has(key);
+        bool isMinimized = _compactAttributes.hasKey(key);
         if (!matchFirst(key, r"/\A(\w|[.-])+\z/")) {
             key = htmlAttribEscape(key);
         }
@@ -303,7 +303,7 @@ class DStringTemplate {
     ) {
         // NOOP
         if (classnames.isEmpty) {
-            return inputData;
+            return inputData.toStringArray;
         }
 
         if (inputData.isArray) {
@@ -314,16 +314,22 @@ class DStringTemplate {
         }
 
         // Convert and sanitise the inputs
+        /* 
         if (!classnames.isArray) {
             classnames = classnames.isString && !myclass.isEmpty
                 ? myclass.split(" ")
                 : null;
 
         }
+        */ 
+        /*
         if (mynewClass.isString) {
             string[] mynewClass = mynewClass.split(" ");
         }
         auto myclass = array_unique(chain(myclass, mynewClass));
         return Hash.insert(myinput, myuseIndex, myclass);
-    } */
+        */
+        
+        return null; 
+    } 
 }

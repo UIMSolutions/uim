@@ -80,7 +80,7 @@ class DEntityContext : DContext {
      *
      * If no table option is provided, the table name will be derived based on
      * naming conventions. This inference will work with a number of common objects
-     * like arrays, Collection objects and ResultSets.
+     * like arrays, Collection objects and Resultsets.
      * /
     protected void _prepare() {
         auto mytable = _context["table"];

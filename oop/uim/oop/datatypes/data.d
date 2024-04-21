@@ -271,6 +271,10 @@ class DData : IData {
   override string toString() {
     return null;
   }
+  
+  string[] toStringArray() {
+    return [toString];
+  }
 
   void fromJson(Json newValue) {
   }

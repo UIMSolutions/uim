@@ -7,7 +7,7 @@ import uim.orm;
 // This interface describes the methods for translate behavior strategies.
 interface ITranslateStrategy : IPropertyMarshal {
     // Return translation table instance.
-    DORMTable getTranslationTable();
+    // TODO DORMTable getTranslationTable();
 
     /**
      * Sets the locale to be used.
@@ -24,7 +24,7 @@ interface ITranslateStrategy : IPropertyMarshal {
      *   the behavior fall back to using the globally configured locale.
      * @return this
      */
-    ITranslateStrategy setLocale(string locale);
+    // TODO ITranslateStrategy setLocale(string locale);
 
     /**
      * Returns the current locale.
@@ -32,7 +32,7 @@ interface ITranslateStrategy : IPropertyMarshal {
      * If no locale has been explicitly set via `setLocale()`, this method will
      * return the currently configured global locale.
      */
-    string getLocale();
+    // TODO string getLocale();
 
     /**
      * Returns a fully aliased field name for translated fields.
@@ -42,15 +42,15 @@ interface ITranslateStrategy : IPropertyMarshal {
      * field name is returned for all other fields.
      *
      * aAliasedField - Field name to be aliased.
-     */
+     * /
     string translationField(string aAliasedField);
 
     /**
      * Modifies the results from a table find in order to merge full translation records
      * into each entity under the `_translations` key
      *
-     * @param DORMDatasource\IResultSet results Results to modify.
-     */
+     * @param DORMDatasource\IResultset results Results to modify.
+     * /
     IORMCollection groupTranslations(results);
 
     /**
@@ -61,7 +61,7 @@ interface ITranslateStrategy : IPropertyMarshal {
      * @param DORMevents.IEvent event The beforeFind event that was fired.
      * @param DORMQuery query Query
      * @param \ArrayObject options The options for the query
-     */
+     * /
     void beforeFind(IEvent event, Query query, ArrayObject options);
 
     /**
@@ -71,7 +71,7 @@ interface ITranslateStrategy : IPropertyMarshal {
      * @param DORMevents.IEvent event The beforeSave event that was fired
      * @param DORMDatasource\IEntity anEntity The entity that is going to be saved
      * @param \ArrayObject options the options passed to the save method
-     */
+     * /
     void beforeSave(IEvent event, IEntity anEntity, ArrayObject options);
 
     /**
@@ -80,5 +80,5 @@ interface ITranslateStrategy : IPropertyMarshal {
      * @param DORMevents.IEvent event The beforeSave event that was fired
      * @param DORMDatasource\IEntity anEntity The entity that is going to be saved
      */
-    void afterSave(IEvent event, IEntity anEntity);
+    // TODO void afterSave(IEvent event, IEntity anEntity);
 }

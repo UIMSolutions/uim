@@ -41,10 +41,11 @@ class DCheckboxWidget : DWidget {
      * - `disabled` - Whether the checkbox should be disabled.
      *
      * Any other attributes passed in will be treated as HTML attributes.
-     * /
+     */
     override string render(IData[string] renderData, IContext formContext) {
-        renderData += this.mergeDefaults(renderData, formContext);
+        auto mergedData = renderData.merge(formContext.data);
 
+        /* 
         if (_isChecked(renderData)) {
             renderData["checked"] = true;
         }
@@ -61,6 +62,8 @@ class DCheckboxWidget : DWidget {
             "templateVars": renderData["templateVars"],
             "attrs": myattrs,
         ]);
+        */
+        return null;
     }
     
     /**

@@ -415,7 +415,7 @@ V[K] setValues(K, V)(V[K] target, V[K] someValues) {
     // TODO 
   }
 
-  V[K] update(K, V)(V[K] originalValues, K key, v newValue) {
+  V[K] update(K, V)(V[K] originalValues, K key, V newValue) {
     V[K] updatedValues = originalValues.dup;
     updatedValues[key] = newValue;
 

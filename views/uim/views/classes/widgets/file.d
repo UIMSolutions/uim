@@ -37,7 +37,8 @@ class DFileWidget : DWidget {
      * return HTML elements.
      * /
     override string render(IData[string] renderData, IContext formContext) {
-        buildData = buildData.merge // Todo  this.mergeDefaults(buildData, formContext);
+                auto mergedData = renderData.merge(formContext.data);
+
 
         buildData.remove("val");
 

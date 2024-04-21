@@ -60,40 +60,41 @@ class DWidget : IWidget {
      * IData[string] buildData The data to build an input with.
      * @param \UIM\View\Form\IContext mycontext The current form context.
      */
-    string render(IData[string] renderData, IContext formContext) {
-    /* 
-    auto mydata = this.mergeDefaults(buildData, formContext);
-
-    mydata["value"] = mydata["val"];
-    mydata.remove("val");
-    if (mydata.isEmpty("value")) {
-      // explicitly convert to 0 to avoid empty string which is marshaled as null
-      mydata["value"] = "0";
+  string render(IData[string] renderData, IContext formContext) {
+    auto mergedData = renderData.merge(formContext.data);
+    if (mergedData.hasKey("val")) {
+      mergedData["value"] = mergedData["val"];
+      mergedData.remove("val");
     }
 
-    if (auto fieldName = mydata.get("fieldName", null)) {
-      if (mydata["type"] == "number" && !mydata.isSet("step")) {
-        mydata = this.setStep(mydata, formContext, fieldName);
+    if (mergedData.isEmpty("value")) {
+      // explicitly convert to 0 to avoid empty string which is marshaled as null
+      mergedData["value"] = StringData("0");
+    }
+
+    if (auto fieldName = mergedData.getString("fieldName")) {
+      /* if (mergedData["type"] == "number" && !mydata.isSet("step")) {
+        mergedData = this.setStep(mydata, formContext, fieldName);
       }
       mytypesWithMaxLength = ["text", "email", "tel", "url", "search"];
       if (
-        !array_key_exists("maxlength", mydata)
-        && in_array(mydata["type"], mytypesWithMaxLength, true)
+        !mergedData.hasKey("maxlength")
+        && in_array(mergedData["type"], mytypesWithMaxLength, true)
         ) {
-        mydata = this.setMaxLength(mydata, formContext, fieldName);
-      }
+        mergedData = this.setMaxLength(mergedData, formContext, fieldName);
+      } */ 
     }
 
+    /* 
     return _stringContents.format("input", [
-        "name": mydata["name"],
-        "type": mydata["type"],
-        "templateVars": mydata["templateVars"],
+        "name": mergedData["name"],
+        "type": mergedData["type"],
+        "templateVars": mergedData["templateVars"],
         "attrs": _stringContents.formatAttributes(
-          mydata,
-          ["name", "type"]
+          mergedData, ["name", "type"]
         ),
       ]); */
-      return null; 
+    return null;
   }
 
   // Merge default values with supplied data.

@@ -6,9 +6,10 @@ import uim.views;
 
 // Interface for FormHelper context implementations.
 interface IContext {
+    IData[string] data();
     /* 
     // Get the fields used in the context as a primary key.
-    string[] getPrimaryKeys();
+    string[] primaryKeys();
 
     // Returns true if the passed field name is part of the primary key for this context
     bool isPrimaryKey(string fieldPath);

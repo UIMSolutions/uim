@@ -390,18 +390,18 @@ class DFormProtector {
         fieldsMessages = this.debugCheckFields(
             (array)someDataFields,
             expectedFields,
-            'Unexpected field `%s` in POST data",
-            'Tampered field `%s` in POST data (expected value `%s` but found `%s`)",
-            'Missing field `%s` in POST data'
+            "Unexpected field `%s` in POST data",
+            "Tampered field `%s` in POST data (expected value `%s` but found `%s`)",
+            "Missing field `%s` in POST data"
         );
         expectedUnlockedFields = Hash.get(expectedParts, 2);
         someDataUnlockedFields = Hash.get(hashParts, "unlockedFields") ?: [];
         unlockFieldsMessages = this.debugCheckFields(
             (array)someDataUnlockedFields,
             expectedUnlockedFields,
-            'Unexpected unlocked field `%s` in POST data",
+            "Unexpected unlocked field `%s` in POST data",
             "",
-            'Missing unlocked field: `%s`'
+            "Missing unlocked field: `%s`"
         );
 
         messages = chain(messages, fieldsMessages, unlockFieldsMessages);

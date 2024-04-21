@@ -71,7 +71,7 @@ class DDateTimeWidget : DWidget {
      * @param \UIM\View\Form\IContext mycontext The current form context.
      * /
     override string render(IData[string] renderData, IContext mycontext) {
-        mydata += this.mergeDefaults(mydata, mycontext);
+        auto mergedData = renderData.merge(formContext.data);
 
         if (!isSet(this.formatMap[mydata["type"]])) {
             throw new DInvalidArgumentException(

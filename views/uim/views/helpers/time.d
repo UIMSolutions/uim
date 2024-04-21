@@ -14,10 +14,9 @@ import uim.views;
  */
 class DTimeHelper : DHelper {
     mixin(HelperThis!("Time"));
+    mixin TStringContents;
     
     /* 
-    mixin TStringContents;
-
     configuration.updateDefaults([
                 "outputTimezone": null,
     ];

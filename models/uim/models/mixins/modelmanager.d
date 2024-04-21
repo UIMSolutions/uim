@@ -8,19 +8,6 @@ module uim.models.mixins.modelmanager;
 import uim.models;
 @safe:
 
-mixin template TModelContainer() {
-  // #region modelContainer
-  protected IModelContainer _modelContainer;  
-  DModelContainer modelContainer() {
-    if (_modelContainer) return _modelContainer;
-    return (_manager ? manager.modelContainer : null); 
-  }  
-  void modelContainer(DModelContainer aModelContainer) {    
-    _modelContainer = aModelContainer;
-  }  
-  // #endregion modelContainer
-}
-
 mixin template TModelManager() {
   // #region models
     void models(IModel[string] someModels) {

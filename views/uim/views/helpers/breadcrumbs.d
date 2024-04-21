@@ -13,7 +13,7 @@ import uim.views;
  */
 class DBreadcrumbsHelper : DHelper {
     mixin(HelperThis!("Breadcrumbs"));
-    // TODO mixin TStringContents;
+    mixin TStringContents;
 
     /**
      * Other helpers used by BreadcrumbsHelper.

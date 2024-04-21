@@ -82,7 +82,7 @@ class DSqlserverDriver : DDriver {
         string port = configuration.getString("port");
         }
 
-        string dsn = "sqlsrv:Server={configuration.get("host"]}{port};Database={configuration.get("database"]};MultipleActiveResultSets=false";
+        string dsn = "sqlsrv:Server={configuration.get("host"]}{port};Database={configuration.get("database"]};MultipleActiveResultsets=false";
         dsn ~= !configuration.get("app"].isNull ? ";APP=%s".format(configuration.get("app"]) : null;
         dsn ~= !configuration.get("connectionPooling"].isNull ? ";ConnectionPooling={configuration.get("connectionPooling"]}" : null;
         dsn ~= !configuration.get("failoverPartner"].isNull ? ";Failover_Partner={configuration.get("failoverPartner"]}" : null;

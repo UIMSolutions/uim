@@ -53,12 +53,12 @@ interface IQuery {
      * Fetch the results for this query.
      *
      * Will return either the results set through setResult(), or execute this query
-     * and return the ResultSetDecorator object ready for streaming of results.
+     * and return the ResultsetDecorator object ready for streaming of results.
      *
-     * ResultSetDecorator is a traversable object that : the methods found
+     * ResultsetDecorator is a traversable object that : the methods found
      * on UIM\Collection\Collection.
      * /
-    IResultSet<T> all();
+    IResultset<T> all();
 
     /**
      * Populates or adds parts to current query clauses using an array.

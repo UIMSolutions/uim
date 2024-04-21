@@ -9,10 +9,10 @@ import uim.datasources;
 
 @safe:
 /**
- * Generic ResultSet decorator. This will make any traversable object appear to
+ * Generic Resultset decorator. This will make any traversable object appear to
  * be a database result
  */
-class DResultSetDecorator { // TODO }: DCollection { // }: IResultSet
+class DResultsetDecorator { // TODO }: DCollection { // }: IResultset
     /**
      * Make this object countable.
      *
@@ -31,7 +31,7 @@ class DResultSetDecorator { // TODO }: DCollection { // }: IResultSet
     
     STRINGAA debugInfo() {
         parentInfo = super.__debugInfo();
-        aLimit = Configuration.read("App.ResultSetDebugLimit", 10);
+        aLimit = Configuration.read("App.ResultsetDebugLimit", 10);
 
         return chain(parentInfo, ["items": this.take(aLimit).toArray()]);
     }

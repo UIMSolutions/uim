@@ -31,7 +31,7 @@ class DSimplePaginator : DNumericPaginator {
      * \UIM\Datasource\IQuery aQuery Query to fetch items.
      * @param array data Paging data.
      * /
-    protected IResultSet getItems(IQuery aQuery, array data) {
+    protected IResultset getItems(IQuery aQuery, array data) {
         return aQuery.limit(someData["options"]["limit"] + 1).all();
     }
  
@@ -54,13 +54,13 @@ class DSimplePaginator : DNumericPaginator {
      * Since the query fetches an extra record, drop the last record if records
      * fetched exceeds the limit/per page.
      * Params:
-     * \UIM\Datasource\IResultSet  someItems
+     * \UIM\Datasource\IResultset  someItems
      * @param array pagingParams
      * /
-    protected IPaginated buildPaginated(IResultSet  someItems, array pagingParams) {
+    protected IPaginated buildPaginated(IResultset  someItems, array pagingParams) {
         if (count(someItems) > this.pagingParams["perPage"]) {
              someItems = someItems.take(this.pagingParams["perPage"]);
         }
-        return new DPaginatedResultSet(someItems, pagingParams);
+        return new DPaginatedResultset(someItems, pagingParams);
     } */
 }

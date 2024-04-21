@@ -165,10 +165,10 @@ class DNumericPaginator : IPaginator {
      *   to paginate.
      * @param array params Request params
      * @param array settings The settings/configuration used for pagination.
-     * @return uim.Datasource\IResultSet Query results
+     * @return uim.Datasource\IResultset Query results
      * @throws uim.Datasource\Paging\exceptions.PageOutOfBoundsException
      * /
-    function paginate(object object, array params = null, array settings = null): IResultSet
+    function paginate(object object, array params = null, array settings = null): IResultset
     {
         query = null;
         if (object instanceof IQuery) {

@@ -14,14 +14,14 @@ import uim.views;
  * It also has a basic name based dependency resolver that allows
  * widgets to depend on each other.
  *
- * Each widget should expect a StringTemplate instance as their first
+ * Each widget should expect a StringContents instance as their first
  * argument. All other dependencies will be included after.
  *
  * Widgets can ask for the current view by using the `_view` widget.
  */
 class DWidgetLocator {
     // Templates to use.
-    protected DStringTemplate _stringTemplate;
+    protected DStringContents _stringContents;
 
     // View instance.
     protected IView _view;
@@ -33,12 +33,12 @@ class DWidgetLocator {
     /**
      * Constructor
      * Params:
-     * \UIM\View\StringTemplate mytemplates Templates instance to use.
+     * \UIM\View\StringContents mytemplates Templates instance to use.
      * @param \UIM\View\View myview The view instance to set as a widget.
      * @param array mywidgets See add() method for more information.
      * /
-    this(DStringTemplate newTemplate, DView newView, array mywidgets = []) {
-       _stringTemplate = newTemplate;
+    this(DStringContents newTemplate, DView newView, array mywidgets = []) {
+       _stringContents = newTemplate;
        _view = newView;
 
         this.add(mywidgets);
@@ -134,7 +134,7 @@ class DWidgetLocator {
         }
         if (count(configData)) {
             myreflection = new DReflectionClass(myclassName);
-            myarguments = [_stringTemplate];
+            myarguments = [_stringContents];
             foreach (configData as myrequirement) {
                 myarguments ~= myrequirement == "_view"
                     ? _view
@@ -142,7 +142,7 @@ class DWidgetLocator {
             }
             myinstance = myreflection.newInstanceArgs(myarguments);
         } else {
-            myinstance = new myclassName(_stringTemplate);
+            myinstance = new myclassName(_stringContents);
         }
         
         return myinstance;

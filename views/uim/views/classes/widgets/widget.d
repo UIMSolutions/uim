@@ -21,8 +21,8 @@ class DWidget : IWidget {
     initialize(initData);
   }
 
-  this(DStringTemplate newTemplate) {
-    this().stringTemplate(newTemplate);
+  this(DStringContents newTemplate) {
+    this().stringContents(newTemplate);
   }
 
   this(string newName) {
@@ -44,7 +44,7 @@ class DWidget : IWidget {
   }
 
   mixin(TProperty!("string", "name"));
-  mixin(TProperty!("DStringTemplate", "stringTemplate"));
+  mixin(TProperty!("DStringContents", "stringContents"));
 
   /**
      * Render a text widget or other simple widget like email/tel/number.
@@ -84,11 +84,11 @@ class DWidget : IWidget {
       }
     }
 
-    return _stringTemplate.format("input", [
+    return _stringContents.format("input", [
         "name": mydata["name"],
         "type": mydata["type"],
         "templateVars": mydata["templateVars"],
-        "attrs": _stringTemplate.formatAttributes(
+        "attrs": _stringContents.formatAttributes(
           mydata,
           ["name", "type"]
         ),

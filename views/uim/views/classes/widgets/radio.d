@@ -42,9 +42,9 @@ class DRadioWidget : DWidget {
      *  the radio + input element. Can use the `input` and `label`
      *  variables.
      * Params:
-     * \UIM\View\StringTemplate mytemplates Templates list.
+     * \UIM\View\StringContents mytemplates Templates list.
      * /
-    this(DStringTemplate mytemplates, DLabelWidget labelWidget) {
+    this(DStringContents mytemplates, DLabelWidget labelWidget) {
        super(mytemplates);
        _label = labelWidget;
     }
@@ -151,8 +151,8 @@ class DRadioWidget : DWidget {
         }
         auto labelData = options["label"];
         if (!isBool(labelData) && isSet(myradio["checked"]) && myradio["checked"]) {
-            myselectedClass = _stringTemplate.format("selectedClass", []);
-            mydoptionsata["label"] = _stringTemplate.addClass(labelData, myselectedClass);
+            myselectedClass = _stringContents.format("selectedClass", []);
+            mydoptionsata["label"] = _stringContents.addClassnameToList(labelData, myselectedClass);
         }
         myradio["disabled"] = _isDisabled(myradio, mydata["disabled"]);
         if (!empty(options["required"])) {
@@ -161,11 +161,11 @@ class DRadioWidget : DWidget {
         if (!empty(options["form"])) {
             myradio["form"] = mydata["form"];
         }
-        myinput = _stringTemplate.format("radio", [
+        myinput = _stringContents.format("radio", [
             "name": myradio["name"],
             "value": myescape ? htmlAttribEscape(myradio["value"]): myradio["value"],
             "templateVars": myradio["templateVars"],
-            "attrs": _stringTemplate.formatAttributes(
+            "attrs": _stringContents.formatAttributes(
                 myradio + options,
                 ["name", "value", "text", "options", "label", "val", "type"]
             ),
@@ -181,11 +181,11 @@ class DRadioWidget : DWidget {
 
         if (
             mylabel == false &&
-            !_stringTemplate.get("radioWrapper").has("{{input}}")
+            !_stringContents.get("radioWrapper").has("{{input}}")
         ) {
             mylabel = myinput;
         }
-        return _stringTemplate.format("radioWrapper", [
+        return _stringContents.format("radioWrapper", [
             "input": myinput,
             "label": mylabel,
             "templateVars": mydata["templateVars"],

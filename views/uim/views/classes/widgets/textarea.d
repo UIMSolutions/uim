@@ -45,11 +45,11 @@ class DTextareaWidget : DWidget {
         ) {
             mydata = this.setMaxLength(mydata, mycontext, mydata["fieldName"]);
         }
-        return _stringTemplate.format("textarea", [
+        return _stringContents.format("textarea", [
             "name": mydata["name"],
             "value": mydata["escape"] ? htmlAttribEscape(mydata["val"]): mydata["val"],
             "templateVars": mydata["templateVars"],
-            "attrs": _stringTemplate.formatAttributes(
+            "attrs": _stringContents.formatAttributes(
                 mydata,
                 ["name", "val"]
             ),

@@ -108,9 +108,9 @@ class DSelectBoxWidget : DWidget {
             mytemplate = "selectMultiple";
             renderData.removeKey("multiple");
         }
-        myattrs = _stringTemplate.formatAttributes(renderData);
+        myattrs = _stringContents.formatAttributes(renderData);
 
-        return _stringTemplate.format(mytemplate, [
+        return _stringContents.format(mytemplate, [
             "name": nameData,
             "templateVars": renderData["templateVars"],
             "attrs": myattrs,
@@ -183,11 +183,11 @@ class DSelectBoxWidget : DWidget {
         }
         mygroupOptions = _renderOptions(myopts, mydisabled, myselected, mytemplateVars, myescape);
 
-        return _stringTemplate.format("optgroup", [
+        return _stringContents.format("optgroup", [
             "label": myescape ? htmlAttribEscape(mylabel): mylabel,
             "content": mygroupOptions.join(""),
             "templateVars": mytemplateVars,
-            "attrs": _stringTemplate.formatAttributes(myattrs, ["text", "options"]),
+            "attrs": _stringContents.formatAttributes(myattrs, ["text", "options"]),
         ]);
     }
     
@@ -247,11 +247,11 @@ class DSelectBoxWidget : DWidget {
             }
             myoptAttrs["escape"] = myescape;
 
-            result ~= _stringTemplate.format("option", [
+            result ~= _stringContents.format("option", [
                 "value": myescape ? htmlAttribEscape(myoptAttrs["value"]): myoptAttrs["value"],
                 "text": myescape ? htmlAttribEscape(myoptAttrs["text"]): myoptAttrs["text"],
                 "templateVars": myoptAttrs["templateVars"],
-                "attrs": _stringTemplate.formatAttributes(myoptAttrs, ["text", "value"]),
+                "attrs": _stringContents.formatAttributes(myoptAttrs, ["text", "value"]),
             ]);
         }
         return result;

@@ -23,7 +23,7 @@ class DFormHelper : DHelper {
     // mixin TConfigurable;
 
     // TODO use TIdGenerator;
-    // TODO use TStringTemplate;
+    // TODO use TStringContents;
 
     /**
      * Constant used internally to skip the securing process,

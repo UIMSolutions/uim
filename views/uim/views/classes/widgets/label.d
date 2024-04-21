@@ -24,7 +24,7 @@ class DLabelWidget : DWidget {
      * - `label` Used to generate the label for a radio button.
      *  Can use the following variables `attrs`, `text` and `input`.
      */
-    this(DStringTemplate newTemplates) {
+    this(DStringContents newTemplates) {
         super(newTemplates);
     }
 
@@ -42,12 +42,12 @@ class DLabelWidget : DWidget {
         ]);
 
         return null; 
-        /* _stringTemplate.format(_labelTemplate, [
+        /* _stringContents.format(_labelTemplate, [
                 "text": myData["escape"] ? htmlAttribEscape(myData["text"]): myData["text"],
                 "input": myData["input"],
                 "hidden": myData["hidden"],
                 "templateVars": myData["templateVars"],
-                "attrs": _stringTemplate.formatAttributes(myData, [
+                "attrs": _stringContents.formatAttributes(myData, [
                         "text", "input", "hidden"
                     ]),
             ]); */

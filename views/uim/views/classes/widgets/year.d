@@ -27,7 +27,7 @@ class DYearWidget : DWidget {
     // Select box widget
     protected DSelectBoxWidget _select;
 
-    this(DStringTemplate newTemplates, DSelectBoxWidget selectBox) {
+    this(DStringContents newTemplates, DSelectBoxWidget selectBox) {
         super(newTemplates);
         _select = selectBox;
     }

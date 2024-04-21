@@ -1,4 +1,4 @@
-module uim.views.mixins.stringtemplate;
+module uim.views.mixins.stringcontents;
 
 import uim.views;
 
@@ -11,9 +11,9 @@ import uim.views;
  * method for reading/updating templates. An implementation of this method
  * is provided by `UIM\Core\InstanceConfigTrait`
  * /
-mixin template TStringTemplate() {
-    // StringTemplate instance.
-    protected DStringTemplate _templater = null;
+mixin template TStringContents() {
+    // StringContents instance.
+    protected DStringContents _templater = null;
 
     // Sets templates to use.
     void setTemplates(string[] addTemplates) {
@@ -35,10 +35,10 @@ mixin template TStringTemplate() {
     }
     
     // Returns the templater instance.
-    StringTemplate templater() {
+    StringContents templater() {
         if (_templater is null) {
-            /** @var class-string<\UIM\View\StringTemplate> myclass * /
-            myclass = configurationData.isSet("templateClass") ?: StringTemplate.classname;
+            /** @var class-string<\UIM\View\StringContents> myclass * /
+            myclass = configurationData.isSet("templateClass") ?: StringContents.classname;
            _templater = new myclass();
 
             mytemplates = configurationData.isSet("templates");

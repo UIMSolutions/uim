@@ -16,7 +16,7 @@ class DTimeHelper : DHelper {
     mixin(HelperThis!("Time"));
     
     /* 
-    mixin TStringTemplate;
+    mixin TStringContents;
 
     configuration.updateDefaults([
                 "outputTimezone": null,

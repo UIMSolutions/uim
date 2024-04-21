@@ -17,7 +17,7 @@ import uim.views;
  */
 class DPaginatorHelper : DHelper {
     mixin(HelperThis!("Paginator"));
-   // TODO use TStringTemplate;
+   // TODO use TStringContents;
 
     // Event listeners.
     IEvent[] implementedEvents() {
@@ -626,7 +626,7 @@ class DPaginatorHelper : DHelper {
     }
     
     // Formats a number for the paginator number output.
-    protected string _formatNumber(DStringTemplate mytemplater, IData[string] options) {
+    protected string _formatNumber(DStringContents mytemplater, IData[string] options) {
         myvars = [
             "text": options["text"],
             "url": this.generateUrl(["page": options["page"]], options["url"]),
@@ -636,7 +636,7 @@ class DPaginatorHelper : DHelper {
     }
     
     // Generates the numbers for the paginator numbers() method.
-    protected string _modulusNumbers(DStringTemplate mytemplater, IData[string] myparams, IData[string] options) {
+    protected string _modulusNumbers(DStringContents mytemplater, IData[string] myparams, IData[string] options) {
         string result = "";
         myellipsis = mytemplater.format("ellipsis", []);
 
@@ -725,11 +725,11 @@ class DPaginatorHelper : DHelper {
     /**
      * Generates the numbers for the paginator numbers() method.
      * Params:
-     * \UIM\View\StringTemplate mytemplater StringTemplate instance.
+     * \UIM\View\StringContents mytemplater StringContents instance.
      * @param IData[string] myparams Params from the numbers() method.
      * @param IData[string] options Options from the numbers() method.
      * /
-    protected string _numbers(DStringTemplate mytemplater, array myparams, IData[string] options) {
+    protected string _numbers(DStringContents mytemplater, array myparams, IData[string] options) {
         string result = "";
         result ~= options["before"];
 

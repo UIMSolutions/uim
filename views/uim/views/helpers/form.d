@@ -19,11 +19,10 @@ import uim.views;
  */
 class DFormHelper : DHelper {
     mixin(HelperThis!("Form"));
+    mixin TIdGenerator;
+    mixin TStringContents;
     
     // mixin TConfigurable;
-
-    // TODO use TIdGenerator;
-    mixin TStringContents;
 
     /**
      * Constant used internally to skip the securing process,
@@ -36,6 +35,12 @@ class DFormHelper : DHelper {
 
     // DContext for the current form.
     protected IContext _context = null;
+
+    /**
+     * The action attribute value of the last created form.
+     * Used to make form/request specific hashes for form tampering protection.
+     */
+    protected string _lastAction = "";
 
     /* 
     // Other helpers used by FormHelper
@@ -158,24 +163,14 @@ class DFormHelper : DHelper {
     ];
 
 
-    /**
-     * Locator for input widgets.
-     *
-     * @var \UIM\View\Widget\WidgetLocator
-     * /
+    // Locator for input widgets.
     protected DWidgetLocator my_locator;
 
 
-    /**
-     * DContext factory.
-     * /
+    // DContext factory.
     protected DContextFactory _contextFactory = null;
 
-    /**
-     * The action attribute value of the last created form.
-     * Used to make form/request specific hashes for form tampering protection.
-     * /
-    protected string my_lastAction = "";
+
 
     /**
      * The supported sources that can be used to populate input values.

@@ -13,6 +13,13 @@ import uim.views;
 class DYearWidget : DWidget {
     mixin(WidgetThis!("Year"));
 
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        return true;
+    }
     /* 
     // Data defaults.
     protected IData[string] _defaultData = [
@@ -34,12 +41,13 @@ class DYearWidget : DWidget {
     /*
     // Renders a year select box.
     string render(IData[string] renderData, IContext formContext) {
-        auto mergedData += this.mergeDefaults(renderData, mycontext);
+                        auto mergedData = renderData.merge(formContext.data);
 
-        if (mergedData("min")) {
+
+        if (mergedData.hasKey("min")) {
             mergedData["min"] = date("Y", strtotime("-5 years"));
         }
-        if (mergedData("max")) {
+        if (mergedData.hasKey("max")) {
             mergedData["max"] = date("Y", strtotime("+5 years"));
         }
         mergedData["min"] = mergedData.getInteger("min");

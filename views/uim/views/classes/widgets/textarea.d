@@ -13,6 +13,13 @@ import uim.views;
 class DTextareaWidget : DWidget {
     mixin(WidgetThis!("Textarea"));
 
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        return true;
+    }
     /* 
     protected IData[string] _defaultData = [
         "val": StringData(""),

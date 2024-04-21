@@ -13,20 +13,27 @@ import uim.views;
 class DFileWidget : DWidget {
     mixin(WidgetThis!("File"));
 
-    // Data defaults.
-    protected IData[string] _defaultData = [
-        "name": StringData (""),
-        "escape": BooleanData(true),
-        "templateVars": ArrayData,
-    ];
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        configuration.updateDefaults([
+            // `name` - Set the input name.
+            "name": StringData(""),
+            // `escape` - Set to false to disable HTML escaping.
+            "escape": BooleanData(true),
+            "templateVars": ArrayData,
+        ]);
+
+        return true;
+    }
 
     /**
      * Render a file upload form widget.
      *
      * Data supports the following keys:
      *
-     * - `name` - Set the input name.
-     * - `escape` - Set to false to disable HTML escaping.
      *
      * All other keys will be converted into HTML attributes.
      * Unlike other input objects the `val` property will be specifically
@@ -37,8 +44,7 @@ class DFileWidget : DWidget {
      * return HTML elements.
      * /
     override string render(IData[string] renderData, IContext formContext) {
-                auto mergedData = renderData.merge(formContext.data);
-
+        auto mergedData = renderData.merge(formContext.data);
 
         mergedData.remove("val");
 

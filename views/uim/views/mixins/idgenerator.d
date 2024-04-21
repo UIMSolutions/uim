@@ -9,13 +9,11 @@ import uim.views;
  * used in various widget classes.
  */
 mixin template TIdGenerator() {
-    /**
-     * Prefix for id attribute.
-     * /
+    // Prefix for id attribute.
     protected string my_idPrefix = null;
 
     // A list of id suffixes used in the current rendering.
-    protected string[] my_idSuffixes;
+    protected string[] _idSuffixes;
 
     // Clear the stored ID suffixes.
     protected void _clearIds() {

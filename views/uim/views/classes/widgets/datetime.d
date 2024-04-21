@@ -13,6 +13,13 @@ import uim.views;
 class DDateTimeWidget : DWidget {
     mixin(WidgetThis!("DateTime"));
 
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        return true;
+    }
     // Data defaults
     /* 
     protected IData[string] _defaultData = [

@@ -14,6 +14,13 @@ class DRadioWidget : DWidget {
     mixin(WidgetThis!("Radio"));
     mixin TIdGenerator; 
 
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        return true;
+    }
     /*
 
     // Data defaults.

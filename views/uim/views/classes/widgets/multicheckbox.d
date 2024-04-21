@@ -14,6 +14,14 @@ class DMultiCheckboxWidget : DWidget {
     mixin(WidgetThis!("MultiCheckbox"));
     mixin TIdGenerator;
 
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        return true;
+    }
+    
     // Label widget instance.
     protected DLabelWidget _label;
     

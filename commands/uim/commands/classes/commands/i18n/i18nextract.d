@@ -6,18 +6,20 @@ import uim.commands;
 
 // Language string extractor
 class DI18nExtractCommand : DCommand {
-  mixin(CommandThis!("I18nExtract"));
+    mixin(CommandThis!("I18nExtract"));
 
-  	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) { return false; }
-		
-		return true;
-	}
- 
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        return true;
+    }
+
     static string defaultName() {
         return "i18n-extract";
     }
-    
+
     // Paths to use when looking for strings
     protected string[] _paths;
 

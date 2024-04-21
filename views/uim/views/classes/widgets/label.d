@@ -15,6 +15,13 @@ class DLabelWidget : DWidget {
     // The template to use.
     protected string _labelTemplate = "label";
 
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        return true;
+    }
     /* 
     /**
      * Constructor.

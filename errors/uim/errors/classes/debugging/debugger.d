@@ -58,7 +58,7 @@ class DDebugger {
      *
      * @var array<string, array<string, mixed>>
      * /
-    protected _stringTemplate = [
+    protected _stringContents = [
         "log": [
             // These templates are not actually used, as Debugger::log() is called instead.
             "trace": "{:reference} - {:path}, line {:line}",
@@ -151,11 +151,11 @@ class DDebugger {
         e ~= '<div id="{:id}-trace" class="uim-stack-trace" style="display: none;">';
         e ~= '{:links}{:info}</div>';
         e ~= '</pre>';
-        _stringTemplate['js']['error'] = e;
+        _stringContents['js']['error'] = e;
 
         t = '<div id="{:id}-trace" class="uim-stack-trace" style="display: none;">';
         t ~= '{:context}{:code}{:trace}</div>';
-        _stringTemplate['js']['info'] = t;
+        _stringContents['js']['info'] = t;
 
         links = null;
         link = '<a href="javascript:void(0);" onclick="document.getElementById(\'{:id}-code\')';
@@ -168,20 +168,20 @@ class DDebugger {
         link ~= '\'none\' ? \'\' : \'none\')">Context</a>';
         links['context'] = link;
 
-        _stringTemplate['js']['links'] = links;
+        _stringContents['js']['links'] = links;
 
-        _stringTemplate['js']['context'] = '<pre id="{:id}-context" class="uim-context uim-debug" ';
-        _stringTemplate['js']['context'] ~= 'style="display: none;">{:context}</pre>';
+        _stringContents['js']['context'] = '<pre id="{:id}-context" class="uim-context uim-debug" ';
+        _stringContents['js']['context'] ~= 'style="display: none;">{:context}</pre>';
 
-        _stringTemplate['js']['code'] = '<pre id="{:id}-code" class="uim-code-dump" ';
-        _stringTemplate['js']['code'] ~= 'style="display: none;">{:code}</pre>';
+        _stringContents['js']['code'] = '<pre id="{:id}-code" class="uim-code-dump" ';
+        _stringContents['js']['code'] ~= 'style="display: none;">{:code}</pre>';
 
         e = '<pre class="uim-error"><b>{:error}</b> ({:code}) : {:description} ';
         e ~= '[<b>{:path}</b>, line <b>{:line}]</b></pre>';
-        _stringTemplate['html']['error'] = e;
+        _stringContents['html']['error'] = e;
 
-        _stringTemplate['html']['context'] = '<pre class="uim-context uim-debug"><b>Context</b> ';
-        _stringTemplate['html']['context'] ~= '<p>{:context}</p></pre>';
+        _stringContents['html']['context'] = '<pre class="uim-context uim-debug"><b>Context</b> ';
+        _stringContents['html']['context'] ~= '<p>{:context}</p></pre>';
     }
 
     /**
@@ -429,10 +429,10 @@ class DDebugger {
                 }
                 back ~= trace;
             } else {
-                if (isset(self._stringTemplate[options['format']]['traceLine'])) {
-                    tpl = self._stringTemplate[options['format']]['traceLine'];
+                if (isset(self._stringContents[options['format']]['traceLine'])) {
+                    tpl = self._stringContents[options['format']]['traceLine'];
                 } else {
-                    tpl = self._stringTemplate['base']['traceLine'];
+                    tpl = self._stringContents['base']['traceLine'];
                 }
                 trace['path'] = trimPath(trace['file']);
                 trace['reference'] = reference;
@@ -876,7 +876,7 @@ class DDebugger {
 
         data['trace'] = trace;
         data['id'] = 'uimErr' . uniqid();
-        tpl = _stringTemplate[outputFormat] + _stringTemplate['base'];
+        tpl = _stringContents[outputFormat] + _stringContents['base'];
 
         if (isset(tpl['links'])) {
             foreach (tpl['links'] as key: val) {

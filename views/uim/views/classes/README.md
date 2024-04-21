@@ -8,4 +8,4 @@
 
 - uim.views.classes.cell
 - uim.views.classes.schema
-- uim.views.classes.stringtemplate
+- uim.views.classes.stringcontents

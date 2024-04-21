@@ -10,5 +10,5 @@ public { // Packages
 public { // Modules
     import uim.views.classes.cell;
     import uim.views.classes.schema;
-    import uim.views.classes.stringtemplate;
+    import uim.views.classes.stringcontents;
 }

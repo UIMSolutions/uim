@@ -14,8 +14,8 @@ import uim.views;
 class DButtonWidget : DWidget {
     mixin(WidgetThis!("Button"));
 
-    this(DStringTemplate mytemplates) {
-       _stringTemplate = mytemplates;
+    this(DStringContents mytemplates) {
+       _stringContents = mytemplates;
     }
 
     override bool initialize(IData[string] initData = null) {
@@ -48,10 +48,10 @@ class DButtonWidget : DWidget {
         ]);
 
         return null;
-        // TODO _stringTemplate.format("button", [
+        // TODO _stringContents.format("button", [
                 // TODO "text": !buildData.isEmpty("escapeTitle") ? htmlAttribEscape(buildData.getString("text")) : buildData.getString("text"),
         // TODO         "templateVars": buildData.getString("templateVars"),
-        // TODO         "attrs": _stringTemplate.formatAttributes(buildData, ["text", "escapeTitle"]),
+        // TODO         "attrs": _stringContents.formatAttributes(buildData, ["text", "escapeTitle"]),
         // TODO     ]);
     }
 }

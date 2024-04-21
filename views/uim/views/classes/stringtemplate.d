@@ -1,4 +1,4 @@
-module uim.views.classes.stringtemplate;
+module uim.views.classes.stringcontents;
 
 import uim.views;
 
@@ -11,7 +11,7 @@ import uim.views;
  * Used by several helpers to provide simple flexible templates
  * for generating HTML and other content.
  */
-class DStringTemplate {
+class DStringContents {
     mixin TConfigurable;
 
     this() {
@@ -215,7 +215,7 @@ class DStringTemplate {
     /**
      * Returns a space-delimited string with items of the options array. If a key
      * of options array happens to be one of those listed
-     * in `StringTemplate.my_compactAttributes` and its value is one of:
+     * in `StringContents.my_compactAttributes` and its value is one of:
      *
      * - "1" (string)
      * - 1 (integer)
@@ -288,48 +288,17 @@ class DStringTemplate {
         return `%s="%s"`.format((shouldEscape ? htmlAttribEscape(value) : value));
     }
     
-    // TODO
-    /**
-     * Adds a class DAnd returns a unique list either in array or space separated
-     * Params:
-     * IData myinput The array or string to add the class to
-     * @param string[]|string|false|null mynewClass the new class or classes to add
-     * @param string myuseIndex if you are inputting an array with an element other than default of "class".
-     */
-    string[] addClass(
-        IData inputData,
-        string[] classnames,
-        string useIndex = "class"
-    ) {
-        // NOOP
-        if (classnames.isEmpty) {
-            return inputData.toStringArray;
-        }
-
-        if (inputData.isArray) {
-            // TODO myclass = Hash.get(inputData, myuseIndex, []);
-        } else {
-            classnames = inputData.toStringArray;
-            inputData = null;
-        }
-
-        // Convert and sanitise the inputs
-        /* 
-        if (!classnames.isArray) {
-            classnames = classnames.isString && !myclass.isEmpty
-                ? myclass.split(" ")
-                : null;
-
-        }
-        */ 
-        /*
-        if (mynewClass.isString) {
-            string[] mynewClass = mynewClass.split(" ");
-        }
-        auto myclass = array_unique(chain(myclass, mynewClass));
-        return Hash.insert(myinput, myuseIndex, myclass);
-        */
-        
-        return null; 
+    //  Adds a class and returns a unique list either in array or space separated
+    string[] addClassnameToList(string[] classnames, string newClassname) {
+        string[] newClassnames = !newClassname.isEmpty ? newClassname.split(" ") : null;
+        return addClassnameToList(classnames, newClassnames); 
     } 
+
+    string[] addClassnameToList(string[] classnames, string[] newClassnames) {
+        if (newClassnames.isEmpty) {
+            return classnames;
+        }
+
+        return uniq(chain(classnames, newClassnames)).array; 
+    }
 }

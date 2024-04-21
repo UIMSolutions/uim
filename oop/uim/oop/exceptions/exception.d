@@ -28,24 +28,24 @@ class UimException : IException {
   mixin(OProperty!("string", "message"));
 
   // #region messageTemplate
-    protected STRINGAA _stringTemplate; 
+    protected STRINGAA _stringContents; 
 
     string messageTemplate(string templateName = "default") {
-      return _stringTemplate.get(templateName, null);
+      return _stringContents.get(templateName, null);
     };
 
     void messageTemplate(string templateName, string templateText) {
-      _stringTemplate[templateName] = templateText;
+      _stringContents[templateName] = templateText;
     };
   // #endregion messageTemplate
 
   // #region messageTemplates
     STRINGAA messageTemplates() {
-      return _stringTemplate;
+      return _stringContents;
     }
 
     void messageTemplates(STRINGAA templates) {
-      _stringTemplate = templates;
+      _stringContents = templates;
     }
   // #endregion messageTemplates
 

@@ -20,8 +20,8 @@ abstract class DCell { // }: IEventDispatcher {
         initialize(initData);
     }
 
-    this(DStringTemplate newTemplate) {
-        // TODO this().stringTemplate(newTemplate);
+    this(DStringContents newTemplate) {
+        // TODO this().stringContents(newTemplate);
     }
 
     this(string newName) {

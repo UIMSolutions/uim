@@ -86,11 +86,11 @@ class DDateTimeWidget : DWidget {
         mydata.remove("timezone");
         mydata.remove("format");
 
-        return _stringTemplate.format("input", [
+        return _stringContents.format("input", [
             "name": mydata["name"],
             "type": mydata["type"],
             "templateVars": mydata["templateVars"],
-            "attrs": _stringTemplate.formatAttributes(
+            "attrs": _stringContents.formatAttributes(
                 mydata,
                 ["name", "type"]
             ),

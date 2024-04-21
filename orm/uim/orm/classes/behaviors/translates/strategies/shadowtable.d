@@ -1,4 +1,4 @@
-module uim.orm.classes.behaviors.translates.strategies.shadowtablestrategy;
+module uim.orm.classes.behaviors.translates.strategies.shadowtable;
 
 import uim.orm;
 

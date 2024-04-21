@@ -1,4 +1,4 @@
-module orm.uim.orm.mixins.translate;
+module uim.orm.mixins.translate;
 
 import uim.orm;
 

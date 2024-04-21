@@ -1,11 +1,10 @@
-module uim.orm.classes.locators.tablelocator;
+module uim.orm.classes.locators.table;
 
 import uim.orm;
 
 @safe:
 
 // Provides a default registry/factory for Table objects.
- */
 class DTableLocator { // TODO }: DAbstractLocator : ILocator {
     // Contains a list of locations where table classes should be looked for.
     protected string[] _locations = null;

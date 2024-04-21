@@ -1,4 +1,4 @@
-module uim.orm.behaviors.translates.eavstrategy;
+module uim.orm.classes.behaviors.translates.strategies.eav;
 
 import uim.orm;
 

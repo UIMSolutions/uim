@@ -478,7 +478,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
     }
     
     // Clones the inner expression objects.
-    void __clone() {
+    void clone() {
         if (this.whenBuffer !isNull) {
             throw new DLogicException("Case expression has incomplete when clause. Missing `then()` after `when()`.");
         }

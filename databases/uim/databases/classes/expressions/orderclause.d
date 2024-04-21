@@ -7,7 +7,6 @@ import uim.databases;
 // An expression object for complex ORDER BY clauses
 class DOrderClauseExpression : DExpression { // TODO }, IField {
   mixin(ExpressionThis!("OrderClause"));
-
   mixin TField;
 
   // The direction of sorting.
@@ -48,7 +47,7 @@ class DOrderClauseExpression : DExpression { // TODO }, IField {
   }
 
   // Create a deep clone of the order clause.
-  void __clone() {
+  void clone() {
     if (cast(IExpression) _field) {
       _field = clone _field;
     }

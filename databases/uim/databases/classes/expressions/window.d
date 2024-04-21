@@ -210,7 +210,7 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
     /**
      * Clone this object and its subtree of expressions.
      * /
-    void __clone() {
+    void clone() {
         this.name = clone this.name;
         foreach (this.partitions as  myi:  mypartition) {
             this.partitions[myi] = clone  mypartition;

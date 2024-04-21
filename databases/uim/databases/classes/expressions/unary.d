@@ -55,7 +55,7 @@ class DUnaryExpression : DExpression {
     }
 
     // Perform a deep clone of the inner expression.
-    void __clone() {
+    void clone() {
         if (cast(IExpression) _value) {
             _value = clone _value;
         }

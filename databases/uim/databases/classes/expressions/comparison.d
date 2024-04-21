@@ -11,10 +11,10 @@ import uim.databases;
  */
 class DComparisonExpression : DExpression { // TODO}, IField {
     mixin(ExpressionThis!("Comparison"));
+    mixin TField;
 
     /*
     mixin TExpressionTypeCaster;
-    mixin TField;
 
     // The value to be used in the right hand side of the operation
     protected IData _value;
@@ -119,7 +119,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
     }
     
     // Create a deep clone.
-    void __clone() {
+    void clone() {
         ["_value", "_field"]
             .filter!(prop => cast(IExpression)this.{prop})
             .each!(prop => this.{prop} = clone this.{prop});

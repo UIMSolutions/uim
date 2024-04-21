@@ -7,10 +7,10 @@ import uim.databases;
 // An expression object that represents a SQL BETWEEN snippet
 class DBetweenExpression : DExpression { // TODO}, IField {
     mixin(ExpressionThis!("Between"));
+    mixin TField;
 
     /* 
     mixin TExpressionTypeCaster;
-    mixin TField;
 
     // The first value in the expression
     protected IData _from;
@@ -87,7 +87,7 @@ class DBetweenExpression : DExpression { // TODO}, IField {
     }
 
     // Do a deep clone of this expression.
-    void __clone() {
+    void clone() {
         ["_field", "_from", "_to"]
             .filter!(part => cast(IExpression)this.{part})
             .each!(part => this.{part} = clone this.{part});

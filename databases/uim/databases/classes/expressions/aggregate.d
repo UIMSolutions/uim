@@ -136,8 +136,8 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
     }
 
     // Clone this object and its subtree of expressions.
-    void __clone() {
-        super.__clone();
+    void clone() {
+        super.clone();
         if (!this.filter is null) {
             this.filter = clone this.filter;
         }

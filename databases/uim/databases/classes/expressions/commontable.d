@@ -151,7 +151,7 @@ class DCommonTableExpression : IExpression {
     }
     
     // Clones the inner expression objects.
-    void __clone() {
+    void clone() {
         this.name = clone this.name;
         if (this.query) {
             this.query = clone this.query;

@@ -633,7 +633,7 @@ class DQueryExpression : DExpression { // }, Countable {
     }
     
     // Clone this object and its subtree of expressions.
-    void __clone() {
+    void clone() {
         foreach (anI: condition; _conditions) {
             if (cast(IExpression)condition ) {
                _conditions[anI] = clone condition;

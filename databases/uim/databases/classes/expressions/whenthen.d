@@ -226,7 +226,7 @@ class DWhenThenExpression : DExpression {
     }
 
     // Clones the inner expression objects.
-    void __clone() {
+    void clone() {
         if (cast(IExpression)this.when ) {
             this.when = clone this.when;
         }

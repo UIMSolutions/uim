@@ -17,7 +17,7 @@ mixin template TQuery() {
     protected IRepository _repository;
 
     /**
-     * A ResultSet.
+     * A Resultset.
      *
      * When set, query execution will be bypassed.
      *
@@ -81,7 +81,7 @@ mixin template TQuery() {
      * Set the result set for a query.
      *
      * Setting the resultset of a query will make execute() a no-op. Instead
-     * of executing the SQL query and fetching results, the ResultSet provided to this
+     * of executing the SQL query and fetching results, the Resultset provided to this
      * method will be returned.
      *
      * This method is most useful when combined with results stored in a persistent cache.
@@ -101,7 +101,7 @@ mixin template TQuery() {
      * iterated without having to call execute() manually, thus making it look like
      * a result set instead of the query itself.
      *
-     * @return uim.Datasource\IResultSet
+     * @return uim.Datasource\IResultset
      * @psalm-suppress ImplementedReturnTypeMismatch
      * /
     #[\ReturnTypeWillChange]
@@ -225,14 +225,14 @@ mixin template TQuery() {
      * Fetch the results for this query.
      *
      * Will return either the results set through setResult(), or execute this query
-     * and return the ResultSetDecorator object ready for streaming of results.
+     * and return the ResultsetDecorator object ready for streaming of results.
      *
-     * ResultSetDecorator is a traversable object that : the methods found
+     * ResultsetDecorator is a traversable object that : the methods found
      * on uim\collections.Collection.
      *
-     * @return uim.Datasource\IResultSet
+     * @return uim.Datasource\IResultset
      * /
-    function all(): IResultSet
+    function all(): IResultset
     {
         if (_results != null) {
             return _results;
@@ -331,7 +331,7 @@ mixin template TQuery() {
      * });
      * ```
      *
-     * Add a new column to the ResultSet:
+     * Add a new column to the Resultset:
      *
      * ```
      * query.select(["name", "birth_date"]).formatResults(function (results) {
@@ -433,7 +433,7 @@ mixin template TQuery() {
      * singleUser = query.select(["id", "username"]).first();
      * ```
      *
-     * @return uim.Datasource\IEntity|array|null The first result from the ResultSet.
+     * @return uim.Datasource\IEntity|array|null The first result from the Resultset.
      * /
     function first() {
         if (_isDirty) {
@@ -447,7 +447,7 @@ mixin template TQuery() {
      * Get the first result from the executing query or raise an exception.
      *
      * @throws uim.Datasource\exceptions.RecordNotFoundException When there is no first record.
-     * @return uim.Datasource\IEntity|array The first result from the ResultSet.
+     * @return uim.Datasource\IEntity|array The first result from the Resultset.
      * /
     function firstOrFail() {
         entity = this.first();
@@ -496,7 +496,7 @@ mixin template TQuery() {
             deprecationWarning(sprintf(
                 "Calling `%s` methods, such as `%s()`, on queries is deprecated~ " ~
                 "You must call `all()` first (for example, `all().%s()`).",
-                IResultSet::class,
+                IResultset::class,
                 method,
                 method,
             ), 2);
@@ -521,17 +521,17 @@ mixin template TQuery() {
     /**
      * Executes this query and returns a traversable object containing the results
      *
-     * @return uim.Datasource\IResultSet
+     * @return uim.Datasource\IResultset
      * /
-    abstract protected function _execute(): IResultSet;
+    abstract protected function _execute(): IResultset;
 
     /**
      * Decorates the results iterator with MapReduce routines and formatters
      *
      * @param \Traversable result Original results
-     * @return uim.Datasource\IResultSet
+     * @return uim.Datasource\IResultset
      * /
-    protected function _decorateResults(Traversable result): IResultSet
+    protected function _decorateResults(Traversable result): IResultset
     {
         decorator = _decoratorClass();
         foreach (_mapReduce as functions) {
@@ -557,9 +557,9 @@ mixin template TQuery() {
      * Returns the name of the class to be used for decorating results
      *
      * @return string
-     * @psalm-return class-string<uim.Datasource\IResultSet>
+     * @psalm-return class-string<uim.Datasource\IResultset>
      * /
     protected string _decoratorClass() {
-        return ResultSetDecorator::class;
+        return ResultsetDecorator::class;
     } */
 }

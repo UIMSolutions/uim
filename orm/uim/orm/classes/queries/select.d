@@ -74,12 +74,12 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
     /**
      * Resultset factory
      *
-     * @var \ORM\ResultSetFactory<\UIM\Datasource\IEntity|array>
+     * @var \ORM\ResultsetFactory<\UIM\Datasource\IEntity|array>
      * /
-    protected DResultSetFactory resultSetFactory;
+    protected DResultsetFactory resultSetFactory;
 
     /**
-     * A ResultSet.
+     * A Resultset.
      *
      * When set, SelectQuery execution will be bypassed.
      *
@@ -129,7 +129,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * Set the result set for a query.
      *
      * Setting the resultset of a query will make execute() a no-op. Instead
-     * of executing the SQL query and fetching results, the ResultSet provided to this
+     * of executing the SQL query and fetching results, the Resultset provided to this
      * method will be returned.
      *
      * This method is most useful when combined with results stored in a persistent cache.
@@ -146,7 +146,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * iterated without having to call execute() manually, thus making it look like
      * a result set instead of the query itself.
      * /
-    IResultSet getIterator() {
+    IResultset getIterator() {
         return _all();
     }
     
@@ -258,14 +258,14 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * Fetch the results for this query.
      *
      * Will return either the results set through setResult(), or execute this query
-     * and return the ResultSetDecorator object ready for streaming of results.
+     * and return the ResultsetDecorator object ready for streaming of results.
      *
-     * ResultSetDecorator is a traversable object that : the methods found
+     * ResultsetDecorator is a traversable object that : the methods found
      * on UIM\Collection\Collection.
      * /
-    IResultSet<mixed> all() {
+    IResultset<mixed> all() {
         if (_results !isNull) {
-            if (!(cast(IResultSet)_results)) {
+            if (!(cast(IResultset)_results)) {
                _results = _decorateResults(_results);
             }
             return _results;
@@ -359,7 +359,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * });
      * ```
      *
-     * Add a new column to the ResultSet:
+     * Add a new column to the Resultset:
      *
      * ```
      * myquery.select(["name", "birth_date"]).formatResults(function (results) {
@@ -591,7 +591,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * Params:
      * range result Original results
      * /
-    protected IResultSet _decorateResults(Range result) {
+    protected IResultset _decorateResults(Range result) {
         mydecorator = _decoratorClass();
 
         auto result;
@@ -599,12 +599,12 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
             _mapReduce.each!(functions => result = new DMapReduce(result, functions["mapper"], functions["reducer"]));
             result = new mydecorator(result);
         }
-        if (!(cast(IResultSet)result)) {
+        if (!(cast(IResultset)result)) {
             result = new mydecorator(result);
         }
         if (!empty(_formatters)) {
             _formatters.each!(formatter => result = formatter(result, this));
-            if (!(cast(IResultSet)result)) {
+            if (!(cast(IResultset)result)) {
                 result = new mydecorator(result);
             }
         }
@@ -615,7 +615,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * Returns the name of the class to be used for decorating results
      * /
     protected string _decoratorClass() {
-        return ResultSetDecorator.classname;
+        return ResultsetDecorator.classname;
     }
     
     /**
@@ -1344,14 +1344,14 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
         }
         results = this.getEagerLoader().loadExternal(this, results);
 
-        return _resultSetFactory().createResultSet(this, results);
+        return _resultSetFactory().createResultset(this, results);
     }
     
     /**
      * Get resultset factory.
      * /
-    protected DResultSetFactory resultSetFactory() {
-        return _resultSetFactory ??= new DResultSetFactory();
+    protected DResultsetFactory resultSetFactory() {
+        return _resultSetFactory ??= new DResultsetFactory();
     }
     
     /**
@@ -1474,7 +1474,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      *
      * Part of IDataSerializable interface.
      * /
-    IResultSet<(\UIM\Datasource\IEntity|mixed)> IDataSerialize() {
+    IResultset<(\UIM\Datasource\IEntity|mixed)> IDataSerialize() {
         return _all();
     }
     

@@ -11,9 +11,9 @@ import uim.orm;
  * queries required for eager loading external associations.
  *
  * @template T of \UIM\Datasource\IEntity|array
- * @implements \UIM\Datasource\IResultSet<T>
+ * @implements \UIM\Datasource\IResultset<T>
  */
-class DResultSet { // TODO }: IResultSet {
+class DResultset { // TODO }: IResultset {
     mixin TConfigurable;
     // TODO mixin TCollection;
 
@@ -90,7 +90,7 @@ class DResultSet { // TODO }: IResultSet {
     }
     
     /**
-     * Rewinds a ResultSet.
+     * Rewinds a Resultset.
      *
      * Part of Iterator interface.
      * /

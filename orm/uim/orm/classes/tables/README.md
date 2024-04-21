@@ -179,7 +179,7 @@ public function beforeFind(EventInterface event, Query query, ArrayObject option
 {
     if (/* ... */) {
         event->stopPropagation();
-        query->setResult(new \uim\Datasource\ResultSetDecorator([]));
+        query->setResult(new \uim\Datasource\ResultsetDecorator([]));
 
         return;
     }

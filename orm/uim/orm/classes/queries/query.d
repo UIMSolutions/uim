@@ -1014,10 +1014,10 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
     /**
      * {@inheritDoc}
      *
-     * @return DORMDatasource\IResultSet
+     * @return DORMDatasource\IResultset
      * @throws \RuntimeException if this method is called on a non-select Query.
      * /
-    function all(): IResultSet
+    function all(): IResultset
     {
         if (_type != "select" && _type != null) {
             throw new DRuntimeException(
@@ -1056,13 +1056,13 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
     }
 
     /**
-     * Executes this query and returns a ResultSet object containing the results.
+     * Executes this query and returns a Resultset object containing the results.
      * This will also setup the correct statement class in order to eager load deep
      * associations.
      *
-     * @return DORMDatasource\IResultSet
+     * @return DORMDatasource\IResultset
      * /
-    protected function _execute(): IResultSet
+    protected function _execute(): IResultset
     {
         this.triggerBeforeFind();
         if (_results) {
@@ -1073,7 +1073,7 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
 
         statement = this.getEagerLoader().loadExternal(this, this.execute());
 
-        return new DResultSet(this, statement);
+        return new DResultset(this, statement);
     }
 
     /**
@@ -1281,9 +1281,9 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
      *
      * Part of IDataSerializable interface.
      *
-     * @return DORMDatasource\IResultSet The data to convert to IData.
+     * @return DORMDatasource\IResultset The data to convert to IData.
      * /
-    function IDataSerialize(): IResultSet
+    function IDataSerialize(): IResultset
     {
         return _all();
     }
@@ -1331,13 +1331,13 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
      * Decorates the results iterator with MapReduce routines and formatters
      *
      * @param \Traversable result Original results
-     * @return DORMDatasource\IResultSet
+     * @return DORMDatasource\IResultset
      * /
-    protected function _decorateResults(Traversable result): IResultSet
+    protected function _decorateResults(Traversable result): IResultset
     {
         result = _applyDecorators(result);
 
-        if (!(result instanceof ResultSet) && this.isBufferedResultsEnabled()) {
+        if (!(result instanceof Resultset) && this.isBufferedResultsEnabled()) {
             class = _decoratorClass();
             result = new class(result.buffered());
         }

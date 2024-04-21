@@ -830,8 +830,8 @@ protected void _formatAssociationResults(Query query, Query surrogate, IData[str
         extracted = new DCollection(extracted);
         foreach (formatters as callable) {
             extracted = callable(extracted, query);
-            if (!extracted instanceof IResultSet) {
-                extracted = new DResultSetDecorator(extracted);
+            if (!extracted instanceof IResultset) {
+                extracted = new DResultsetDecorator(extracted);
             }
         }
 

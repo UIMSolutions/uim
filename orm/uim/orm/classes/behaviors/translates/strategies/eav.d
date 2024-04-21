@@ -335,7 +335,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * Modifies the results from a table find in order to merge the translated fields
      * into each entity for a given locale.
      *
-     * @param DORMDatasource\IResultSet results Results to map.
+     * @param DORMDatasource\IResultset results Results to map.
      * @param string locale Locale string
      * @return DORMcollections.ICollection
      * /
@@ -378,7 +378,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * Modifies the results from a table find in order to merge full translation
      * records into each entity under the `_translations` key.
      *
-     * @param DORMDatasource\IResultSet results Results to modify.
+     * @param DORMDatasource\IResultset results Results to modify.
      * @return DORMcollections.ICollection
      * /
     function groupTranslations(results): ICollection

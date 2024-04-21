@@ -1,4 +1,4 @@
-module orm.uim.orm.classes.resultsets.factory;
+module uim.orm.classes.resultsets.factory;
 
 import uim.orm;
 
@@ -13,20 +13,20 @@ import uim.orm;
  *
  * @template T of array|\UIM\Datasource\IEntity
  */
-class DResultSetFactory {
+class DResultsetFactory {
     /**
      * Constructor
      * Params:
      * \ORM\Query\SelectQuery<T> myquery Query from where results came.
      * @param array results Results array.
      * /
-    ResultSet<array|\UIM\Datasource\IEntity> createResultSet(SelectQuery myquery, array results) {
+    Resultset<array|\UIM\Datasource\IEntity> createResultset(SelectQuery myquery, array results) {
         mydata = this.collectData(myquery);
 
         foreach (results as myi: myrow) {
             results[myi] = this.groupResult(myrow, mydata);
         }
-        return new DResultSet(results);
+        return new DResultset(results);
     }
     
     /**

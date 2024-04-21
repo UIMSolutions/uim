@@ -6,75 +6,80 @@ import uim.consoles;
 
 // Provides an interface for interacting with a command`s options and arguments.
 class DArguments {
-  // Positional argument name map
-  protected string[int] _argNames;
-
-  // Positional arguments.
-  protected string[int] _argPositions;
-
-  // Named options
-  protected IData[string] _options;
-
-  /**
-   * Constructor
-   * Params:
-   * @param array<string, string|bool|null> options Named arguments
-   * /
-  this(array<int, string> argumentPositions, IData[string] argOptions,  array<int, string> argNames) {
-    _argPositions = someArguments;
-    _options = argOptions;
-    this.argNames = argNames;
+  this(string[size_t] newArguments, IData[string] newOptions,  string[size_t] newNames) {
+    _arguments = newArguments;
+    _options = newOptions;
+    _names = newNames;
   }
 
-  // Get all positional arguments.
-  string[size_t] getArguments() {
-    return _args;
-  }
+  // #region arguments
+    // Positional argument name map
+    protected string[size_t] _names;
 
-  // Get positional arguments by index.
-  string getArgumentAt(size_t argumentIndex) {
-    if (!this.hasArgumentAt(argumentIndex)) {
-      return null;
+    size_t indexOfName(string name) {
+      size_t index = -1;
+      foreach(k,v; _names) {
+        if (v == name) {
+          index = k;
+          break;
+        }
+      }
+      return index;
     }
 
-    return _args[anIndex];
-  }
-
-  // Check if a positional argument exists
-  bool hasArgumentAt(size_t argumentIndex) {
-    return isSet(this.args[argumentIndex]);
-  }
-
-  // Check if a positional argument exists by name
-  bool hasArgument(string argumentName) {
-    anOffset = array_search(argumentName, this.argNames, true);
-    if (anOffset == false) {
-      return false;
+    // Get positional arguments by index.
+    string argumentAt(size_t index) {
+      return hasArgumentAt(index) 
+        ? _arguments[index]
+        : null;
     }
-    return isSet(this.args[anOffset]);
-  }
 
-  // Check if a positional argument exists by name
-  string getArgument(string argumentName) {
-    auto offset = array_search(argumentName, this.argNames, true);
-    if (offset == false || !this.args.isSet(offset)) {
-      return null;
+    // Positional arguments.
+    protected string[size_t] _arguments;
+    // Get all positional arguments.
+    string[size_t] arguments() {
+      return _arguments;
     }
-    return _args[anOffset];
-  }
 
-  // Get an array of all the options
-  array<string, string|bool|null> getOptions() {
-    return _options;
-  }
+    // Check if a positional argument exists
+    bool hasArgumentAt(size_t index) {
+      return _arguments.hasKey(index);
+    }
 
-  // Get an option`s value or null
-  string | bool | null getOption(string optionName) | bool | null {
-    return _options.get(optionName, null);
-  }
+    // Check if a positional argument exists by name
+    bool hasArgument(string name) {
+      size_t index = indexOfName(name);
+      return index < 0
+        ? false
+        : arguments.hasKey(index);
+    }
 
-  // Check if an option is defined and not null.
-  bool hasOption(string optionName) {
-    return _options.isSet(optionName);
-  } */
+    // Check if a positional argument exists by name
+    string argument(string name) {
+      size_t index = indexOfName(name);
+      if (index < 0 || !_arguments.hasKey(index)) {
+        return null;
+      }
+      return _arguments[index];
+    }
+  // #endregion arguments
+
+  // #region options
+    protected IData[string] _options;
+    // Get an array of all the options
+
+    IData[string] options() {
+      return _options.dup;
+    }
+
+    // Get an option`s value or null
+    IData option(string name) {
+      return _options.get(name, null);
+    }
+
+    // Check if an option is defined and not null.
+    bool hasOption(string name) {
+      return _options.hasKey(name);
+    }
+  // #endregion options
 }

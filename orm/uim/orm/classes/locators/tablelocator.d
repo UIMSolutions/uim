@@ -4,8 +4,7 @@ import uim.orm;
 
 @safe:
 
-/**
- * Provides a default registry/factory for Table objects.
+// Provides a default registry/factory for Table objects.
  */
 class DTableLocator { // TODO }: DAbstractLocator : ILocator {
     // Contains a list of locations where table classes should be looked for.

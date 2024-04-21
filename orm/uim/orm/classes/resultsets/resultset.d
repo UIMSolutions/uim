@@ -40,7 +40,7 @@ class DResultSet { // TODO }: IResultSet {
     mixin(TProperty!("string", "name"));
 
     // Points to the next record number that should be fetched
-    protected int my_index = 0;
+    protected int _index = 0;
 
 
     // Holds the count of records in this result set

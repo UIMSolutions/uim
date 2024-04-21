@@ -1,4 +1,4 @@
-module uim.orm.classes.resultsets.resultsetfactory;
+module orm.uim.orm.classes.resultsets.factory;
 
 import uim.orm;
 

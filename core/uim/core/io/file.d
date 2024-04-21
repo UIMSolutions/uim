@@ -73,7 +73,7 @@ version (linux) {
 		}
 
 		string from = fromDir;
-		if (from[$ - 1] != '/')
+		if (from[$ - 1] != "/")
 			from ~= "/";
 
 		if (!exists(from ~ fileName)) {
@@ -81,7 +81,7 @@ version (linux) {
 		}
 
 		string to = toDir;
-		if (to[$ - 1] != '/')
+		if (to[$ - 1] != "/")
 			to ~= "/";
 
 		if (createMissingDirs) {

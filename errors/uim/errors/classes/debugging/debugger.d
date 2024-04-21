@@ -898,7 +898,7 @@ class DDebugger {
             }
             info ~= Text::insert(tpl[key], [key: value] + data, insertOpts);
         }
-        links = implode(' ', links);
+        links = implode(" ", links);
 
         if (isset(tpl['callback']) && is_callable(tpl['callback'])) {
             tpl['callback'](data, compact('links', 'info'));

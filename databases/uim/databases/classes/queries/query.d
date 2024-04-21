@@ -405,15 +405,15 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * ```
      * aQuery.join([
-     *    'a": [
-     *        'table": 'authors",
-     *        'type": 'LEFT",
-     *        'conditions": 'a.id = b.author_id'
+     *    "a": [
+     *        "table": 'authors",
+     *        "type": 'LEFT",
+     *        "conditions": "a.id = b.author_id'
      *    ],
-     *    'p": [
-     *        'table": 'publishers",
-     *        'type": 'INNER",
-     *        'conditions": 'p.id = b.publisher_id AND p.name = "uim Software Foundation"'
+     *    "p": [
+     *        "table": "publishers",
+     *        "type": "INNER",
+     *        "conditions": "p.id = b.publisher_id AND p.name = "uim Software Foundation"'
      *    ]
      * ]);
      * // LEFT JOIN authors a ON a.id = b.author_id
@@ -1436,7 +1436,7 @@ abstract class DQuery : IQuery { // : IExpression {
     }
     
     // Handles clearing iterator and cloning all expressions and value binders.
-    void __clone() {
+    void clone() {
        _statement = null;
         if (!_valueBinder is null) {
            _valueBinder = clone _valueBinder;

@@ -216,8 +216,8 @@ class DSqliteDriver : DDriver {
                 expression
                     .name("STRFTIME")
                     .setConjunction(" ")
-                    .add(["'%w", ": 'literal"], [], true)
-                    .add([") + (1": 'literal"]); // Sqlite starts on index 0 but Sunday should be 1
+                    .add(["'%w", ": "literal"], [], true)
+                    .add([") + (1": "literal"]); // Sqlite starts on index 0 but Sunday should be 1
                 break;
         }
     } */

@@ -709,7 +709,7 @@ class DEagerLoader {
     /**
      * Handles cloning eager loaders and eager loadables.
      * /
-    void __clone() {
+    void clone() {
         if (_matching) {
            _matching = clone _matching;
         }

@@ -235,7 +235,7 @@ mixin template TEntity() {
      * present when the entity was instantiated.
      *
      * ```
-     * entity = new DEntity(["name": 'andrew", "id": 1]);
+     * entity = new DEntity(["name": "andrew", "id": 1]);
      *
      * entity.set("phone_number", "555-0134");
      * print_r(entity.getOriginalFields()) // prints ["name", "id"]

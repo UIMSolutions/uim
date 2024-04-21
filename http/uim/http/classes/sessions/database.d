@@ -71,12 +71,12 @@ class DatabaseSession { // }: SessionHandler {
      * string aid ID that uniquely identifies session in database.
      * /
     string read(string aid) {
-        pkField = _table.getPrimaryKeys();
-        assert(isString(pkField));
+        string[] primaryKeys = _table.getPrimaryKeys();
+        assert(isString(primaryKeys));
         result = _table
             .find("all")
             .select(["data"])
-            .where([pkField:  anId])
+            .where([primaryKeys:  anId])
             .disableHydration()
             .first();
 
@@ -101,7 +101,7 @@ class DatabaseSession { // }: SessionHandler {
      * @param string adata The data to be saved.
      * /
     bool write(string aid, string adata) {
-        string pkField = _table.getPrimaryKeys();
+        string[] primaryKeys = _table.getPrimaryKeys();
         session = _table.newEntity([
             pkField:  anId,
             'data": someData,

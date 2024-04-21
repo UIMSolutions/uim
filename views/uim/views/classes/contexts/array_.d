@@ -81,7 +81,7 @@ class DArrayContext : DContext {
     }
 
     // Get the fields used in the context as a primary key.
-    string[] getPrimaryKeys() {
+    string[] primaryKeys() {
         if (
             !_context.isSet("schema") ||
             !_context["schema"].isSet("_constraints") ||
@@ -99,7 +99,7 @@ class DArrayContext : DContext {
     }
  
     bool isPrimaryKey(string pathToField) {
-        myprimaryKey = this.getPrimaryKeys();
+        myprimaryKey = this.primaryKeys();
 
         return in_array(myfield, myprimaryKey, true);
     }

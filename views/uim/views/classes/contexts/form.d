@@ -27,7 +27,7 @@ class DFormContext : DContext {
         return true;
     }
 
-    string[] getPrimaryKeys() {
+    string[] primaryKeys() {
         return null;
     }
 

@@ -457,7 +457,7 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
             }
             association = table.getAssociation(name);
             target = association.getTarget();
-            primary = (array)target.getPrimaryKeys();
+            primary = (array)target.primaryKeys();
             if (empty(primary) || typeMap.type(target.aliasField(primary[0])) == null) {
                 this.addDefaultTypes(target);
             }
@@ -851,8 +851,8 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
      *
      * Handles cloning eager loaders.
      * /
-    function __clone() {
-        super.__clone();
+    function clone() {
+        super.clone();
         if (_eagerLoader != null) {
             _eagerLoader = clone _eagerLoader;
         }

@@ -43,7 +43,7 @@ class DIsUnique {
         
         auto myconditions = _alias(myalias, myfields);
         if (entity.isNew() == false) {
-            auto someKeys = (array)options["repository"].getPrimaryKeys();
+            auto someKeys = (array)options["repository"].primaryKeys();
             someKeys = _alias(myalias, entity.extract(someKeys));
             if (Hash.filter(someKeys)) {
                 myconditions["NOT"] = someKeys;

@@ -10,7 +10,7 @@ import uim.views;
 class DNullContext : DContext {
     mixin(ContextThis!("Null"));
  
-    string[] getPrimaryKeys() {
+    string[] primaryKeys() {
         return null;
     }
  

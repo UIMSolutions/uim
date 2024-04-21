@@ -70,7 +70,7 @@ class DExistsIn {
             mybindingKey = (array)mytarget.getBindingKey();
             myrealTarget = mytarget.getTarget();
         } else {
-            mybindingKey = (array)mytarget.getPrimaryKeys();
+            mybindingKey = (array)mytarget.primaryKeys();
             myrealTarget = mytarget;
         }
         if (!empty(options["_sourceTable"]) && myrealTarget == options["_sourceTable"]) {

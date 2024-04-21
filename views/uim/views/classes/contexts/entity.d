@@ -120,8 +120,8 @@ class DEntityContext : DContext {
      *
      * Gets the primary key columns from the root entity"s schema.
      * /
-    string[] getPrimaryKeys() {
-        return (array)_tables[_rootName].getPrimaryKeys();
+    string[] primaryKeys() {
+        return (array)_tables[_rootName].primaryKeys();
     }
  
     bool isPrimaryKey(string pathToField) {
@@ -130,7 +130,7 @@ class DEntityContext : DContext {
         if (!mytable) {
             return false;
         }
-        myprimaryKey = (array)mytable.getPrimaryKeys();
+        myprimaryKey = (array)mytable.primaryKeys();
 
         return in_array(array_pop(pathParts), myprimaryKey, true);
     }
@@ -247,7 +247,7 @@ class DEntityContext : DContext {
             return null;
         }
         mytable = _getTable(mypath, false);
-        myprimary = mytable ? (array)mytable.getPrimaryKeys(): ["id"];
+        myprimary = mytable ? (array)mytable.primaryKeys(): ["id"];
 
         return (new DCollection(myvalues)).extract(myprimary[0]).toArray();
     }

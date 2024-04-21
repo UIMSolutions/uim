@@ -175,7 +175,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
      *
      * ```
      * errors = [
-     *     'field_name": ["rule_name": 'message"]
+     *     "field_name": ["rule_name": 'message"]
      * ];
      *
      * form.setErrors(errors);

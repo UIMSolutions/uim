@@ -468,9 +468,9 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
     }
     
     // Returns the primary key field name.
-    string[]|string getPrimaryKeys() {
+    string[]|string primaryKeys() {
         if (_primaryKey is null) {
-            aKey = this.getSchema().getPrimaryKeys();
+            aKey = this.getSchema().primaryKeys();
             if (count(aKey) == 1) {
                 aKey = aKey[0];
             }
@@ -514,7 +514,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
                 return _displayField = column;
             }
         });
-        return _displayField = this.getPrimaryKeys();
+        return _displayField = this.primaryKeys();
     }
     
     /**
@@ -1128,7 +1128,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
         Closure|string[]|string mygroupField = null,
         string myvalueSeparator = ";"
     ) {
-        mykeyField ??= this.getPrimaryKeys();
+        mykeyField ??= this.primaryKeys();
         myvalueField ??= this.getDisplayField();
 
         if (
@@ -1187,7 +1187,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
         Closure|string[]|string myparentField = "parent_id",
         string mynestingKey = "children"
     ) {
-        mykeyField ??= this.getPrimaryKeys();
+        mykeyField ??= this.primaryKeys();
 
         options = _setFieldMatchers(compact("keyField", "parentField"), ["keyField", "parentField"]);
 
@@ -1258,7 +1258,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
                 .format(this.getTable()
             ));
         }
-        aKey = (array)this.getPrimaryKeys();
+        aKey = (array)this.primaryKeys();
         myalias = this.aliasName();
         foreach (myindex: mykeyname; aKey) {
             aKey[myindex] = myalias ~ "." ~ mykeyname;
@@ -1689,7 +1689,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * @param \ArrayObject<string, mixed> options the options to use for the save operation
      * /
     protected IEntity|false _processSave(IEntity myentity, ArrayObject options) {
-        myprimaryColumns = (array)this.getPrimaryKeys();
+        myprimaryColumns = (array)this.primaryKeys();
 
         if (options["checkExisting"] && myprimaryColumns && myentity.isNew() && myentity.has(myprimaryColumns)) {
             myalias = this.aliasName();
@@ -1742,7 +1742,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
             mysuccess = _onSaveSuccess(myentity, options);
         }
         if (!mysuccess && myisNew) {
-            myentity.unset(this.getPrimaryKeys());
+            myentity.unset(this.primaryKeys());
             myentity.setNew(true);
         }
         return mysuccess ? myentity : false;
@@ -1786,7 +1786,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * @param array data The actual data that needs to be saved
      * /
     protected IEntity _insert(IEntity myentity, array data) {
-        auto primaryKey = (array)this.getPrimaryKeys();
+        auto primaryKey = (array)this.primaryKeys();
         if (isEmpty(primaryKey)) {
             mymsg = "Cannot insert row in `%s` table, it has no primary key."
                 .format(this.getTable());
@@ -1876,7 +1876,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * @param array data The actual data that needs to be saved
      * /
     protected IEntity _update(IEntity myentity, array data) {
-        myprimaryColumns = (array)this.getPrimaryKeys();
+        myprimaryColumns = (array)this.primaryKeys();
         myprimaryKey = myentity.extract(myprimaryColumns);
 
         mydata = array_diff_key(mydata, myprimaryKey);
@@ -1963,7 +1963,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
         mycleanupOnFailure = void (myentities) use (&myisNew) {
             foreach (myentities as aKey: myentity) {
                 if (isSet(myisNew[aKey]) && myisNew[aKey]) {
-                    myentity.unset(this.getPrimaryKeys());
+                    myentity.unset(this.primaryKeys());
                     myentity.setNew(true);
                 }
             }
@@ -2168,7 +2168,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
         if (myentity.isNew()) {
             return false;
         }
-        myprimaryKey = (array)this.getPrimaryKeys();
+        myprimaryKey = (array)this.primaryKeys();
         if (!myentity.has(myprimaryKey)) {
             mymsg = "Deleting requires all primary key values.";
             throw new DInvalidArgumentException(mymsg);

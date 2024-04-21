@@ -1,4 +1,4 @@
-module uim.orm.behaviors\Translate;
+module uim.orm.mixins.translatestrategy;
 
 import uim.orm;
 
@@ -10,28 +10,28 @@ mixin template TTranslateStrategy() {
      * Table instance
      *
      * @var DORMTable
-     */
+     * /
     protected table;
 
     /**
      * The locale name that will be used to override fields in the bound table
      * from the translations table
      *
-     */
+     * /
     protected string locale;
 
     /**
      * Instance of Table responsible for translating
      *
      * @var DORMTable
-     */
+     * /
     protected translationTable;
 
     /**
      * Return translation table instance.
      *
      * @return DORMTable
-     */
+     * /
     function getTranslationTable(): Table
     {
         return _translationTable;
@@ -51,7 +51,7 @@ mixin template TTranslateStrategy() {
      *   records. Pass `null` in order to unset the current locale, and to make
      *   the behavior fall back to using the globally configured locale.
      * @return this
-     */
+     * /
     function setLocale(string locale) {
         this.locale = locale;
 
@@ -67,7 +67,7 @@ mixin template TTranslateStrategy() {
      * @return string
      * @see DORMI18n\I18n::getLocale()
      * @see DORMBehavior\TranslateBehavior::setLocale()
-     */
+     * /
     string getLocale() {
         return _locale ?: I18n::getLocale();
     }
@@ -78,9 +78,9 @@ mixin template TTranslateStrategy() {
      * Should only be called if configuration.get("allowEmptyTranslations"] is false.
      *
      * @param DORMDatasource\IEntity anEntity The entity to check for empty translations fields inside.
-     */
+     * /
     protected void unsetEmptyFields(entity) {
-        /** @var array<DORMEntity> translations */
+        /** @var array<DORMEntity> translations * /
         translations = (array)entity.get("_translations");
         foreach (translations as locale: translation) {
             fields = translation.extract(configuration.get("fields"], false);
@@ -117,7 +117,7 @@ mixin template TTranslateStrategy() {
      * @param array map The property map being built.
      * @param array<string, mixed> options The options array used in the marshalling call.
      * @return array A map of `[property: callable]` of additional properties to marshal.
-     */
+     * /
     array buildMarshalMap(DMarshaller marshaller, array map, IData[string] optionData) {
         if (isset(options["translations"]) && !options["translations"]) {
             return [];
@@ -129,7 +129,7 @@ mixin template TTranslateStrategy() {
                     return null;
                 }
 
-                /** @var array<string, DORMDatasource\IEntity>|null translations */
+                /** @var array<string, DORMDatasource\IEntity>|null translations * /
                 translations = entity.get("_translations");
                 if (translations == null) {
                     translations = null;
@@ -164,8 +164,8 @@ mixin template TTranslateStrategy() {
      *
      * @param DORMevents.IEvent event The beforeSave event that was fired
      * @param DORMDatasource\IEntity anEntity The entity that is going to be saved
-     */
+     * /
     void afterSave(IEvent event, IEntity anEntity) {
         entity.unset("_i18n");
-    }
+    } */
 }

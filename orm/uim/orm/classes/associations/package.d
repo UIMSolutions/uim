@@ -6,11 +6,12 @@ public { // Packages
 
 public { // Modules
     import uim.orm.classes.associations.association;
-    import uim.orm.classes.associations.associationsnormalizertrait;
     import uim.orm.classes.associations.belongsto;
     import uim.orm.classes.associations.belongstomany;
     import uim.orm.classes.associations.collection;
     import uim.orm.classes.associations.dependentdeletehelper;
+    import uim.orm.classes.associations.eagerloadable;
+    import uim.orm.classes.associations.eagerloader;
     import uim.orm.classes.associations.hasmany;
     import uim.orm.classes.associations.hasone;
 }

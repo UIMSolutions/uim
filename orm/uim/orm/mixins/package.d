@@ -8,4 +8,6 @@ public {
     import uim.orm.mixins.locatoraware;
     import uim.orm.mixins.query;
     import uim.orm.mixins.rule;
+    import uim.orm.mixins.translate;
+    import uim.orm.mixins.translatestrategy;
 }

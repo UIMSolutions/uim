@@ -85,15 +85,12 @@ class DWidget : IWidget {
       } */ 
     }
 
-    /* 
     return _stringContents.format("input", [
-        "name": mergedData["name"],
-        "type": mergedData["type"],
-        "templateVars": mergedData["templateVars"],
-        "attrs": _stringContents.formatAttributes(
-          mergedData, ["name", "type"]
-        ),
-      ]); */
+        "name": mergedData.get("name", null),
+        "type": mergedData.get("type", null),
+        "templateVars": mergedData.get("templateVars", null),
+        "attrs": _stringContents.formatAttributes(mergedData, ["name", "type"]),
+      ]);
     return null;
   }
 

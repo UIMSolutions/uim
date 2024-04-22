@@ -26,6 +26,7 @@ import uim.views;
  */
 class DEntityContext : DContext {
     mixin(ContextThis!("Entity"));
+    mixin TLocatorAware;
 
     override bool initialize(IData[string] initData = null) {
         if (super.initialize(initData)) {
@@ -35,7 +36,6 @@ class DEntityContext : DContext {
         return true;
     }
     
-    // TODO mixin TLocatorAware;
 
     // DContext data for this object.
     protected IData[string] _context;

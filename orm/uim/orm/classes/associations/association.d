@@ -15,6 +15,8 @@ import uim.orm;
  */
 class DAssociation : IAssociation {
     mixin TConfigurable;
+    // TODO use TConventions;
+    mixin TLocatorAware;
 
     this() {
         initialize;
@@ -94,8 +96,6 @@ class DAssociation : IAssociation {
     // The type of join to be used when adding the association to a query
     // TODO protected string _joinType = DQuery.JOIN_TYPE_LEFT;
 /* 
-    // TODO use TConventions;
-    // TODO use TLocatorAware;
 
     // Name given to the association, it usually represents the alias assigned to the target associated table
 

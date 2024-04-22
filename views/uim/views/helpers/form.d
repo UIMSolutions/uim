@@ -2226,9 +2226,9 @@ class DFormHelper : DHelper {
      * or wrapping div.
      * Params:
      * string widgetname The name of the widget. e.g. "text".
-     * @param array data The data to render.
+     * @param IData[string] data The data to render.
      * /
-    string widget(string widgetname, array data = []) {
+    string widget(string widgetname, IData[string] data = []) {
         mysecure = null;
         if (isSet(mydata["secure"])) {
             mysecure = mydata["secure"];

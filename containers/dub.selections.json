@@ -20,6 +20,6 @@
 		"unit-threaded": "2.1.9",
 		"vibe-container": "1.1.1",
 		"vibe-core": "2.7.4",
-		"vibe-d": "0.10.0"
+		
 	}
 }

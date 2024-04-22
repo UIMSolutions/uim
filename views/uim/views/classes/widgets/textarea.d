@@ -51,7 +51,7 @@ class DTextareaWidget : DWidget {
             !array_key_exists("maxlength", mydata)
             && isSet(mydata["fieldName"])
         ) {
-            mydata = this.setMaxLength(mydata, mycontext, mydata["fieldName"]);
+            mydata = this.setMaxLength(mydata, formContext, mydata["fieldName"]);
         }
         return _stringContents.format("textarea", [
             "name": mydata["name"],

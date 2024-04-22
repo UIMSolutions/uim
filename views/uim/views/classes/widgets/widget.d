@@ -122,19 +122,12 @@ class DWidget : IWidget {
     return data;
   }
 
-  /**
-     * Set value for "maxlength" attribute if applicable.
-     * Params:
-     * IData[string] mydata Data array
-     * @param \UIM\View\Form\IContext formContext DContext instance.
-     * @param string aFieldName Field name.
-     * /
-  protected IData[string] setMaxLength(array data, IContext formContext, string aFieldName) {
-    mymaxLength = mycontext.getMaxLength(aFieldName);
-    if (mymaxLength!isNull) {
-      mydata["maxlength"] = min(mymaxLength, 100000);
+  // Set value for "maxlength" attribute if applicable.
+  protected IData[string] setMaxLength(IData[string] data, IContext formContext, string fieldName) {
+    if (IData maxLength = formContext.getMaxLength(fieldName)) {
+      data["maxlength"] = IntegerData(min(maxLength.toInteger, 100000));
     }
-    return mydata;
+    return data;
   }
 
   /**
@@ -144,9 +137,9 @@ class DWidget : IWidget {
      * @param \UIM\View\Form\IContext formContext DContext instance.
      * @param string aFieldName Field name.
      * /
-  protected IData[string] setStep(array data, IContext formContext, string aFieldName) {
-    mydbType = mycontext.type(myfieldName);
-    myfieldDef = mycontext.attributes(myfieldName);
+  protected IData[string] setStep(IData[string] data, IContext formContext, string aFieldName) {
+    mydbType = formContext.type(myfieldName);
+    myfieldDef = formContext.attributes(myfieldName);
 
     if (mydbType == "decimal" && isSet(myfieldDef["precision"])) {
       mydecimalPlaces = myfieldDef["precision"];

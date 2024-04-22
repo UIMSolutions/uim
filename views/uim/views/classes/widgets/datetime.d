@@ -86,7 +86,7 @@ class DDateTimeWidget : DWidget {
                 mydata["type"]
             ));
         }
-        mydata = this.setStep(mydata, mycontext, mydata["fieldName"] ?? "");
+        mydata = this.setStep(mydata, formContext, mydata["fieldName"] ?? "");
 
         mydata["value"] = this.formatDateTime(mydata["val"] == true ? new DateTimeImmutable(): mydata["val"], mydata);
         mydata.remove("val");
@@ -111,7 +111,7 @@ class DDateTimeWidget : DWidget {
      * @param \UIM\View\Form\IContext formContext DContext instance.
      * @param string aFieldName Field name.
      * /
-    protected IData[string] setStep(array data, IContext formContext, string aFieldName) {
+    protected IData[string] setStep(IData[string] data, IContext formContext, string aFieldName) {
         if (array_key_exists("step", mydata)) {
             return mydata;
         }
@@ -123,7 +123,7 @@ class DDateTimeWidget : DWidget {
         if (mydata.isEmpty("fieldName")) {
             return mydata;
         }
-        mydbType = mycontext.type(myfieldName);
+        mydbType = formContext.type(myfieldName);
         myfractionalTypes = [
             TableISchema.TYPE_DATETIME_FRACTIONAL,
             TableISchema.TYPE_TIMESTAMP_FRACTIONAL,
@@ -186,7 +186,7 @@ class DDateTimeWidget : DWidget {
         }
         return mydateTime.format(myformat);
     }
-    array secureFields(array data) {
+    array secureFields(IData[string] data) {
         if (!isSet(mydata["name"]) || mydata["name"] == "") {
             return null;
         }

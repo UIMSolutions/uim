@@ -218,8 +218,6 @@ class DStringContents {
      * in `StringContents.my_compactAttributes` and its value is one of:
      *
      * - "1" (string)
-     * - 1 (integer)
-     * - true (boolean)
      * - "true" (string)
      *
      * Then the value will be reset to be identical with key"s name.
@@ -233,37 +231,32 @@ class DStringContents {
      * This method uses the "attribute" and "compactAttribute" templates. Each of
      * these templates uses the `name` and `value` variables. You can modify these
      * templates to change how attributes are formatted.
-     * Params:
-     * IData[string]|null options Array of options.
-     * @param string[] myexclude Array of options to be excluded, the options here will not be part of the return.
-     * /
-    string formatAttributes(IData[string] options, string[] excludes) {
-        bool[string] newExcludes;
-        excludes.each!(ex => newExcludes[ex] = true);
-        return formatAttributes(options, newExcludes);
+     */    
+     string formatAttributes(IData[string] options, string[] excludedKeys) {
+        bool[string] excludedOptions;
+        excludedKeys.each!(ex => excludedOptions[ex] = true);
+        return formatAttributes(options, excludedOptions);
     }
 
     string formatAttributes(IData[string] options, bool[string] excludedOptions = null) {
         string insertBefore = " ";
-        auto myMergedOptions = options.merge(["escape": BooleanData(true)]);
+        IData[string] mergedOptions = options.merge(["escape": BooleanData(true)]);
 
-        auto myExcludedOptions = excludedOptions.merge(["escape": true, "idPrefix": true, "templateVars": true, "fieldName": true]);
-        bool useEscape = myMergedOptions["escape"].toBoolean;
+        bool[string] mergedExcludedOptions = excludedOptions.merge(["escape": true, "idPrefix": true, "templateVars": true, "fieldName": true]);
+        bool useEscape = mergedOptions["escape"].toBoolean;
 
-        string[] attributes = myMergedOptions.byKeyValue
-            .filter!(kv => !myExcludedOptions.hasKey(kv.key))
+        string[] attributes = mergedOptions.byKeyValue
+            .filter!(kv => !mergedExcludedOptions.hasKey(kv.key))
             .map!(kv => _formatAttribute(kv.key, kv.value, useEscape))
             .array;
 
-        string result = strip(attributes.join(" "));
+        string result = attributes.join(" ").strip;
         return result ? insertBefore ~ result : "";
     }
 
     /**
      * Formats an individual attribute, and returns the string value of the composed attribute.
      * Works with minimized attributes that have the same value as their name such as "disabled" and "checked"
-     * Params:
-     * @param bool myescape Define if the value must be escaped
      */
     protected string _formatAttribute(string attributeKey, IData attributeData, bool shouldEscape = true) {
         string value = attributeData.isArray

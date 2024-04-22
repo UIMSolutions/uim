@@ -99,13 +99,13 @@ class DMultiCheckboxWidget : DWidget {
      * IData[string] mydata The data to generate a checkbox set with.
      * @param \UIM\View\Form\IContext formContext The current form context.
      * /
-    string render(array data, IContext formContext) {
-        mydata += this.mergeDefaults(mydata, mycontext);
+    string render(IData[string] data, IContext formContext) {
+        mydata += this.mergeDefaults(mydata, formContext);
 
        _idPrefix = mydata["idPrefix"];
        _clearIds();
 
-        return join("", _renderInputs(mydata, mycontext));
+        return join("", _renderInputs(mydata, formContext));
     }
     
     /**
@@ -115,13 +115,13 @@ class DMultiCheckboxWidget : DWidget {
      * @param \UIM\View\Form\IContext formContext The current form context.
      * returns An array of rendered inputs.
      * /
-    protected string[] _renderInputs(array data, IContext formContext) {
+    protected string[] _renderInputs(IData[string] data, IContext formContext) {
         result = null;
         mydata["options"].byKeyValue
             .each!(kv => 
             // Grouped inputs in a fieldset.
             if (isString(kv.key) && kv.value.isArray && !myval.isSet("text"), myval["value"])) {
-                myinputs = _renderInputs(["options": kv.value] + mydata, mycontext);
+                myinputs = _renderInputs(["options": kv.value] + mydata, formContext);
                 mytitle = _stringContents.format("multicheckboxTitle", ["text": kv.key]);
                 result ~= _stringContents.format("multicheckboxWrapper", [
                     "content": mytitle ~ myinputs.join(""),
@@ -160,7 +160,7 @@ class DMultiCheckboxWidget : DWidget {
                     mycheckbox["id"] = _id(mycheckbox["name"], (string)mycheckbox["value"]);
                 }
             }
-            result ~= _renderInput(mycheckbox + mydata, mycontext);
+            result ~= _renderInput(mycheckbox + mydata, formContext);
         }
         return result;
     }
@@ -198,7 +198,7 @@ class DMultiCheckboxWidget : DWidget {
                 myselectedClass = _stringContents.format("selectedClass", []);
                 mylabelAttrs = (array)_stringContents.addClassnameToList(mylabelAttrs, myselectedClass);
             }
-            mylabel = _label.render(mylabelAttrs, mycontext);
+            mylabel = _label.render(mylabelAttrs, formContext);
         }
         return _stringContents.format("checkboxWrapper", [
             "templateVars": mycheckbox["templateVars"],

@@ -145,10 +145,10 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
     /**
      * Used to check if someData passes this form`s validation.
      * Params:
-     * array data The data to check.
+     * IData[string] data The data to check.
      * @param string validator Validator name.
      * /
-    bool validate(array data, string avalidator = null) {
+    bool validate(IData[string] data, string avalidator = null) {
        _errors = this.getValidator(validator ?: DEFAULT_VALIDATOR)
             .validate(someData);
 
@@ -200,10 +200,10 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
      * - validate: Set to `false` to disable validation. Can also be a string of the validator ruleset to be applied.
      *  Defaults to `true`/`"default"`.
      * Params:
-     * array data Form data.
+     * IData[string] data Form data.
      * @param IData[string] options List of options.
      * /
-    bool execute(array data, IData[string] options = null) {
+    bool execute(IData[string] data, IData[string] options = null) {
        _data = someData;
 
         options = options.update["validate": BooleanData(true)];

@@ -102,7 +102,7 @@ class DContextFactory {
      * \UIM\Http\ServerRequest serverRequest Request instance.
      * @param IData[string] mydata The data to get a context provider for.
      * /
-    IContext get(DServerRequest serverRequest, array data = []) {
+    IContext get(DServerRequest serverRequest, IData[string] data = []) {
         mydata += ["entity": null];
 
         foreach (this.providers as myprovider) {

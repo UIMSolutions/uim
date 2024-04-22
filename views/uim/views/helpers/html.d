@@ -528,7 +528,7 @@ class DHtmlHelper : DHelper {
      * STRINGAA mydata Style data array, keys will be used as property names, values as property values.
      * @param bool myoneLine Whether the style block should be displayed on one line.
      * /
-    string style(array data, bool myoneLine = true) {
+    string style(IData[string] data, bool myoneLine = true) {
         string[] result;
         foreach (mydata as aKey: myvalue) {
             result ~= aKey ~ ":" ~ myvalue ~ ";";

@@ -413,7 +413,7 @@ class DView : IView { //  }: IEventDispatcher {
      * string templatefilename Name of template file in the `templates/element/` folder,
      *  or `_plugin.template` to use the template element from _plugin. If the element
      *  is not found in the plugin, the normal view path cascade will be searched.
-     * @param array data Array of data to be made available to the rendered view (i.e. the Element)
+     * @param IData[string] data Array of data to be made available to the rendered view (i.e. the Element)
      * @param IData[string] options Array of options. Possible keys are:
      *
      * - `cache` - Can either be `true`, to enable caching using the config in View.myelementCache. Or an array
@@ -428,7 +428,7 @@ class DView : IView { //  }: IEventDispatcher {
      * - `plugin` - setting to false will force to use the application"s element from plugin templates, when the
      *  plugin has element with same name. Defaults to true
      * /
-    string element(string templatefilename, array data = [], IData[string] options  = null) {
+    string element(string templatefilename, IData[string] data = [], IData[string] options  = null) {
         options = options.update["callbacks": BooleanData(false), "cache": null, "plugin": null, "ignoreMissing": BooleanData(false)];
         if (isSet(options["cache"])) {
             options["cache"] = _elementCache(
@@ -785,10 +785,10 @@ class DView : IView { //  }: IEventDispatcher {
      * array of data. Handles parent/extended templates.
      * Params:
      * string mytemplateFile Filename of the template
-     * @param array data Data to include in rendered view. If empty the current
+     * @param IData[string] data Data to include in rendered view. If empty the current
      *  View.myviewVars will be used.
      * /
-    protected string _render(string mytemplateFile, array data = []) {
+    protected string _render(string mytemplateFile, IData[string] data = []) {
         if (mydata.isEmpty) {
             mydata = this.viewVars;
         }
@@ -1166,10 +1166,10 @@ class DView : IView { //  }: IEventDispatcher {
      * Generate the cache configuration options for an element.
      * Params:
      * string elementname Element name
-     * @param array data Data
+     * @param IData[string] data Data
      * @param IData[string] options Element options
      * /
-    // TODO protected array _elementCache(string elementname, array data, IData[string] options) {
+    // TODO protected array _elementCache(string elementname, IData[string] data, IData[string] options) {
         if (isSet(options["cache"]["key"], options["cache"]["config"])) {
             /** @psalm-var array{key:string, config:string} mycache * /
             mycache = options["cache"];
@@ -1209,12 +1209,12 @@ class DView : IView { //  }: IEventDispatcher {
      * and writes to the cache if a cache is used
      * Params:
      * string filepath Element file path
-     * @param array data Data to render
+     * @param IData[string] data Data to render
      * @param IData[string] options Element options
      * @triggers View.beforeRender this, [filepath]
      * @triggers View.afterRender this, [filepath, myelement]
      * /
-    protected string _renderElement(string filepath, array data, IData[string] options) {
+    protected string _renderElement(string filepath, IData[string] data, IData[string] options) {
         mycurrent = _current;
         myrestore = _currentType;
        _currentType = TYPE_ELEMENT;

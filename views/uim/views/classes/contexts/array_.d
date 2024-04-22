@@ -8,7 +8,7 @@ import uim.views;
  * Provides a basic array based context provider for FormHelper.
  *
  * This adapter is useful in testing or when you have forms backed by
- * simple array data structures.
+ * simple IData[string] data structures.
  *
  * Important keys:
  *

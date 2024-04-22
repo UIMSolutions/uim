@@ -41,23 +41,18 @@ class DHelpFormatter {
 
     // Option parser.
     protected IConsoleOptionParser _parser;
+    // Build the help formatter for an OptionParser
+    this(IConsoleOptionParser newParser) {
+       _parser = newParser;
+    }
 
     // Alias to display in the output.
     protected string _alias = "uim";
-
-    /**
-     * Build the help formatter for an OptionParser
-     * Params:
-     * \UIM\Console\DConsoleOptionParser buildOptionParser myParser The option parser help is being generated for.
-     * /
-    this(DConsoleOptionParser buildOptionParser myParser) {
-       _parser = myParser;
+    void aliasName(string newAlias) {
+       _alias = newAlias;
     }
 
-    void aliasName(string anAlias) {
-       _alias = anAlias;
-    }
-    
+    /*
     // Get the help as formatted text suitable for output on the command line.
     string text(int withOfOutput = 72) {
         myParser = _parser;

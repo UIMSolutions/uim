@@ -57,26 +57,41 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
     // #endregion Constants
 
     // DSchema class.
-    protected string _schemaClassname; //TODO = Schema.className;
+    protected string _schemaClassname = Schema.className;
     
-    // The schema used by this form.
-    protected DSchema _schema = null;
+    // #region Schema
+        // The schema used by this form.
+        protected DSchema _schema = null;
 
-    // Set the schema for this form.
-    void setSchema(DSchema newSchema) {
-       _schema = newSchema;
-    }
+        // Set the schema for this form.
+        void schema(DSchema newSchema) {
+        _schema = newSchema;
+        }
 
-    /**
-     * Get the schema for this form.
-     *
-     * This method will call `_buildSchema()` when the schema
-     * is first built. This hook method lets you configure the
-     * schema or load a pre-defined one.
-     * /
-    DSchema getSchema() {
-       return !_schema.isNull ? _schema : _buildSchema(new _schemaClass());
-    } */
+        /**
+        * Get the schema for this form.
+        *
+        * This method will call `_buildSchema()` when the schema
+        * is first built. This hook method lets you configure the
+        * schema or load a pre-defined one.
+        */
+        DSchema schema() {
+            return !_schema.isNull 
+                ? _schema 
+                : _buildSchema(new _schemaClass());
+        }
+
+        /**
+        * A hook method intended to be implemented by subclasses.
+        *
+        * You can use this method to define the schema using
+        * the methods on {@link \UIM\Form\Schema}, or loads a pre-defined
+        * schema from a concrete class.
+        */
+        protected DSchema _buildSchema(Schema tableSchema) {
+            return tableSchema;
+        }
+    // #endregion Schema
 
     // #region data handling
     protected IData[string] _data;
@@ -129,19 +144,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
         return null;
     }
 
-    /**
-     * A hook method intended to be implemented by subclasses.
-     *
-     * You can use this method to define the schema using
-     * the methods on {@link \UIM\Form\Schema}, or loads a pre-defined
-     * schema from a concrete class.
-     * Params:
-     * \UIM\Form\Schema tableSchema The schema to customize.
-     * /
-    protected ISchema _buildSchema(Schema tableSchema) {
-        return tableSchema;
-    }
-    
+
     /**
      * Used to check if someData passes this form`s validation.
      * Params:

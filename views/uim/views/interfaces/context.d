@@ -7,6 +7,10 @@ import uim.views;
 // Interface for FormHelper context implementations.
 interface IContext {
     IData[string] data();
+
+    // Get the field names of the top level object in this context.
+    string[] fieldNames();
+    
     /* 
     // Get the fields used in the context as a primary key.
     string[] primaryKeys();
@@ -42,8 +46,7 @@ interface IContext {
     // Get maximum length of a field from model validation.
     int getMaxLength(string fieldName) ;
 
-    // Get the field names of the top level object in this context.
-    string[] fieldNames();
+    
 
     // Get the abstract field type for a given field name.
     string type(string fieldPath);

@@ -28,16 +28,48 @@ class DViewBuilder { // }: DIDataSerializable {
     /**
      * Sets the name of the layout file to render the view inside of.
      * The name specified is the filename of the layout in `templates/layout/`
-     * without the .d extension.
-     * Params:
-     * string|null views Layout file name to set.
+     * without the file extension.
      */
     void setLayout(string layoutFilename) {
        _layout = layoutFilename;
     }
 
-    // Whether autoLayout should be enabled.
-    protected bool _autoLayout = true;
+    // #region autoLayout
+        // Whether autoLayout should be enabled.
+        protected bool _autoLayout = true;
+        /**
+        * Turns on or off UIM"s conventional mode of applying layout files.
+        * On by default. Setting to off means that layouts will not be
+        * automatically applied to rendered views.
+        * Params:
+        * bool myenable Boolean to turn on/off.
+        /
+        auto enableAutoLayout(bool myenable = true) {
+        _autoLayout = myenable;
+
+            return this;
+        }
+        
+        /**
+        * Turns off UIM"s conventional mode of applying layout files.
+        *
+        * Setting to off means that layouts will not be automatically applied to
+        * rendered views.
+        */
+        auto disableAutoLayout() {
+        _autoLayout = false;
+
+            return this;
+        }
+        
+        /**
+        * Returns if UIM"s conventional mode of applying layout files is enabled.
+        * Disabled means that layouts will not be automatically applied to rendered views.
+        */
+        bool isAutoLayoutEnabled() {
+            return _autoLayout;
+        }
+    // #endregion autoLayout
 
     // The layout path to build the view with.
     protected string _layoutPath = null;
@@ -139,38 +171,7 @@ class DViewBuilder { // }: DIDataSerializable {
        
 
     
-    /**
-     * Turns on or off UIM"s conventional mode of applying layout files.
-     * On by default. Setting to off means that layouts will not be
-     * automatically applied to rendered views.
-     * Params:
-     * bool myenable Boolean to turn on/off.
-     * /
-    auto enableAutoLayout(bool myenable = true) {
-       _autoLayout = myenable;
-
-        return this;
-    }
-    
-    /**
-     * Turns off UIM"s conventional mode of applying layout files.
-     *
-     * Setting to off means that layouts will not be automatically applied to
-     * rendered views.
-     * /
-    auto disableAutoLayout() {
-       _autoLayout = false;
-
-        return this;
-    }
-    
-    /**
-     * Returns if UIM"s conventional mode of applying layout files is enabled.
-     * Disabled means that layouts will not be automatically applied to rendered views.
-     * /
-    bool isAutoLayoutEnabled() {
-        return _autoLayout;
-    }
+   
     
     // Get/Set the plugin name to use. Use null to remove the current plugin name.
     mixin(TPropery!("string", "pluginName"));

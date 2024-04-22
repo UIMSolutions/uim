@@ -29,4 +29,9 @@ class DContext {
     const string[] VALID_ATTRIBUTES = [
         "length", "precision", "comment", "null", "default"
     ];
+
+    // Get the field names of the top level object in this context.
+    string[] fieldNames() {
+        return null;
+    }
 }

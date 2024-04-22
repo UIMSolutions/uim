@@ -125,9 +125,9 @@ class DDateTimeWidget : DWidget {
         }
         mydbType = formContext.type(myfieldName);
         myfractionalTypes = [
-            TableISchema.TYPE_DATETIME_FRACTIONAL,
-            TableISchema.TYPE_TIMESTAMP_FRACTIONAL,
-            TableISchema.TYPE_TIMESTAMP_TIMEZONE,
+            TableDSchema.TYPE_DATETIME_FRACTIONAL,
+            TableDSchema.TYPE_TIMESTAMP_FRACTIONAL,
+            TableDSchema.TYPE_TIMESTAMP_TIMEZONE,
         ];
 
         if (in_array(mydbType, myfractionalTypes, true)) {

@@ -26,7 +26,7 @@ import uim.views;
  */
 class DEntityContext : DContext {
     mixin(ContextThis!("Entity"));
-    mixin TLocatorAware;
+    // TODO mixin TLocatorAware;
 
     override bool initialize(IData[string] initData = null) {
         if (super.initialize(initData)) {
@@ -61,7 +61,7 @@ class DEntityContext : DContext {
      * IData[string] mycontext DContext info.
      * /
     this(IData[string] contextData) {
-        _context = _context.update([
+        _context = _context.merge([
             "entity": NullData,
             "table": NullData,
             "validator": ArrayData,

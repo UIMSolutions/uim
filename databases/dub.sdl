@@ -9,7 +9,7 @@ description "D-Library for database management"
 dependency "colored" version="~>0.0.31"
 dependency "dlib" version="~>1.2.1"
 dependency "mir-algorithm" version="~>3.21.0"
-dependency "vibe-d" version="~>0.9.8"
+dependency "vibe-d" version="0.9.8"
 
 dependency "uim:core" path="../"
 dependency "uim:oop" path="../"

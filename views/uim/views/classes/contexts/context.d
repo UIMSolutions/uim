@@ -4,7 +4,7 @@ import uim.views;
 
 @safe:
 
-class DContext {
+class DContext : IContext {
     mixin TConfigurable; 
 
     this() {

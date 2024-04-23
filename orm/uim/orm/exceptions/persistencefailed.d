@@ -10,20 +10,20 @@ import uim.orm;
 @safe:
 // Used when a strict save or delete fails
 class DPersistenceFailedException : DORMException {
-    	mixin(ExceptionThis!("PersistenceFailed"));
+    mixin(ExceptionThis!("PersistenceFailed"));
 
-	override bool initialize(IData[string] initData = null) {
-		if (!super.initialize(initData)) {
-			return false;
-		}
+    override bool initialize(IData[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
 
-		// TODO this.messageTemplate("...");
+        // TODO this.messageTemplate("...");
 
-		return true;
-	}
+        return true;
+    }
 }
 
-mixin(ExceptionCalls!("PersistenceFailed"));	
+mixin(ExceptionCalls!("PersistenceFailed"));
 
 /*
     // The entity on which the persistence operation failed
@@ -59,4 +59,3 @@ mixin(ExceptionCalls!("PersistenceFailed"));
     IEntity getEntity() {
         return _entity;
     } */
-

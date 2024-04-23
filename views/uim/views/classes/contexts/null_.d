@@ -39,7 +39,7 @@ class DNullContext : DContext {
         return 0;
     }
  
-    string[] fieldNames() {
+    override string[] fieldNames() {
         return null;
     }
  

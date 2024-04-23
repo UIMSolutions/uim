@@ -88,21 +88,17 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
         * the methods on {@link \UIM\Form\Schema}, or loads a pre-defined
         * schema from a concrete class.
         */
-        protected DSchema _buildSchema(Schema tableSchema) {
+        protected DSchema _buildSchema(DSchema tableSchema) {
             return tableSchema;
         }
     // #endregion Schema
 
     // #region data handling
-    protected IData[string] _data;
-    /* 
-    void set(IData[string] newData) {        
-        newData.byKeyValue 
-            .each!(kv => _data = Hash.insert(_data, kv.key, kv.value));
+        protected IData[string] _data;
+        void set(IData[string] newData) {        
+            _data = _data.update(newData);        }
         }
-    }
-    */
-
+    
         @property IData[string] data() {
         return _data.dup;
         }

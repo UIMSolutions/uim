@@ -11,12 +11,13 @@ import uim.routings;
  * into a route collection.
  */
 class DRouteBuilder {
-    // Regular expression for auto increment IDs
-    /* 
-    const string ID = "[0-9]+";
+    // #region consts
+        // Regular expression for auto increment IDs
+        const string ID = "[0-9]+";
 
-    // Regular expression for UUIDs
-    const string UUID = "[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}";
+        // Regular expression for UUIDs
+        const string UUID = "[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}";
+    // #endregion consts
 
     this() {
         initialize;
@@ -24,15 +25,20 @@ class DRouteBuilder {
 
     // Initialization hook method.
     bool initialize(IData[string] initData = null) {
-        super.initialize(initData);
+        if (super.initialize(initData)) {
 
-        _resourceMap = [
-            "index": IData(["action": "index", "method": "GET", "path": ""]),
-            "create": IData(["action": "add", "method": "POST", "path": ""]),
-            "view": IData(["action": "view", "method": "GET", "path": "{id}"]),
-            "update": IData(["action": "edit", "method": ["PUT", "PATCH"], "path": "{id}"]),
-            "delete": IData(["action": "delete", "method": "DELETE", "path": "{id}"]),
-        ];
+         /*  _resourceMap = [
+              "index": IData(["action": "index", "method": "GET", "path": ""]),
+              "create": IData(["action": "add", "method": "POST", "path": ""]),
+              "view": IData(["action": "view", "method": "GET", "path": "{id}"]),
+              "update": IData(["action": "edit", "method": ["PUT", "PATCH"], "path": "{id}"]),
+              "delete": IData(["action": "delete", "method": "DELETE", "path": "{id}"]),
+          ];
+          */
+
+          return true;
+        }
+        return false;
     }
 
     // Default HTTP request method: controller action map.

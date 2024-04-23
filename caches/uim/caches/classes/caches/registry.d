@@ -48,8 +48,7 @@ class DCacheRegistry : DObjectRegistry!DCache {
     CacheEngine result = isObject(className) ? className : new className(initData);
     initData.remove("className");
 
-    assert(cast(DCacheEngine) result, "Cache engines must extend `" ~ CacheEngine
-        . class ~ "`.");
+    assert(cast(DCacheEngine) result, "Cache engines must extend `" ~ CacheEngine.class ~ "`.");
 
     if (!result.initialize(initData)) {
       throw new UimException(

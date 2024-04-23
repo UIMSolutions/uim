@@ -35,11 +35,6 @@ class DI18nExtractCommand : DCommand {
     // Contains all content waiting to be written
     protected IData _storage;
 
-    /* 
-    // Extracted tokens
-    // TODO protected array _tokens = null;
-
-    //  Extracted strings indexed by domain.
     protected IData[string] _translations = null;
 
     // Destination path
@@ -56,6 +51,12 @@ class DI18nExtractCommand : DCommand {
 
     // Count number of marker errors found
     protected size_t _countMarkerError = 0;
+    /* 
+    // Extracted tokens
+    // TODO protected array _tokens = null;
+
+    //  Extracted strings indexed by domain.
+
 /* 
     // Method to interact with the user and get path selections.
     protected void _getPaths(IConsoleIo aConsoleIo) {

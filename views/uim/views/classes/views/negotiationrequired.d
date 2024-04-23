@@ -15,7 +15,6 @@ import uim.views;
 class DNegotiationRequiredView : DView {
     mixin(ViewThis!("NegotiationRequired"));
 
-    /* 
     // Get the content-type
     static string contentType() {
         return TYPE_MATCH_ALL;

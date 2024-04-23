@@ -41,13 +41,9 @@ class DViewBuilder { // }: DIDataSerializable {
         * Turns on or off UIM"s conventional mode of applying layout files.
         * On by default. Setting to off means that layouts will not be
         * automatically applied to rendered views.
-        * Params:
-        * bool myenable Boolean to turn on/off.
-        /
-        auto enableAutoLayout(bool myenable = true) {
-        _autoLayout = myenable;
-
-            return this;
+        */
+        void enableAutoLayout(bool enable = true) {
+            _autoLayout = enable;
         }
         
         /**
@@ -56,10 +52,8 @@ class DViewBuilder { // }: DIDataSerializable {
         * Setting to off means that layouts will not be automatically applied to
         * rendered views.
         */
-        auto disableAutoLayout() {
-        _autoLayout = false;
-
-            return this;
+        void disableAutoLayout() {
+            _autoLayout = false;
         }
         
         /**

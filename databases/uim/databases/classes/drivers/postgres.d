@@ -11,20 +11,20 @@ class DPostgresDriver : DDriver {
             return false;
         }
 
-        /*    _baseConfig = [
+        configuration.updateDefaults([
             "persistent": BooleanData(true),
-            "host": "localhost",
-            "username": "root",
-            "password": "",
-            "database": "uim",
-            "schema": "public",
+            "host": StringData("localhost"),
+            "username": StringData("root"),
+            "password": StringData(""),
+            "database": StringData("uim"),
+            "schema": StringData("public"),
             "port": 5432,
-            "encoding": "utf8",
-            "timezone": null,
+            "encoding": StringData("utf8"),
+            "timezone": NullData,
             "flags": ArrayData,
             "init": ArrayData,
-        ];
-*/
+        ]);
+
         // String used to start a database identifier quoting to make it safe
         startQuote("\"");
         endQuote("\"");
@@ -32,9 +32,12 @@ class DPostgresDriver : DDriver {
         return true;
     }
 
-    /** 
-    protected const MAX_ALIAS_LENGTH = 63;
+    // #region consts
+       protected const MAX_ALIAS_LENGTH = 63;
+    // #endregion consts
 
+    /** 
+ 
     void connect() {
         if (isSet(this.pdo)) {
             return;

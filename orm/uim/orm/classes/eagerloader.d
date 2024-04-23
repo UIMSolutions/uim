@@ -11,15 +11,36 @@ import uim.orm;
  * part of the result set.
  */
 class DEagerLoader {
-    /**
+  /**
      * Nested array describing the association to be fetched
      * and the options to apply for each of them, if any
-     *
-     * @var array<string, mixed>
-     * /
-    protected _containments = null;
+     */
+  protected IData[string] _containments = null;
 
-    /**
+  // #region AutoFieldEnabled
+    /++
+          + Controls whether fields from associated tables will be eagerly loaded. 
+          + When set to false, no fields will be loaded from associations.
+          +/
+    protected bool _autoFields = true;
+
+    // Sets whether contained associations will load fields automatically.
+    void enableAutoFields(bool enable = true) {
+      _autoFields = enable;
+    }
+
+    // Disable auto loading fields of contained associations.
+    void disableAutoFields() {
+      _autoFields = false;
+    }
+
+    // Gets whether contained associations will load fields automatically.
+    bool isAutoFieldsEnabled() {
+      return _autoFields;
+    }
+  // #endregion AutoFieldEnabled
+
+  /**
      * Contains a nested array with the compiled containments tree
      * This is a normalized version of the user provided containments array.
      *
@@ -76,12 +97,7 @@ class DEagerLoader {
      * /
     protected _joinsMap = null;
 
-    /**
-     * Controls whether fields from associated tables
-     * will be eagerly loaded. When set to false, no fields will
-     * be loaded from associations.
-     * /
-    protected bool _autoFields = true;
+
 
     /**
      * Sets the list of associations that should be eagerly loaded along for a
@@ -160,37 +176,7 @@ class DEagerLoader {
         _aliasList = null;
     }
 
-    /**
-     * Sets whether contained associations will load fields automatically.
-     *
-     * @param bool enable The value to set.
-     * @return this
-     * /
-    function enableAutoFields(bool enable = true) {
-        _autoFields = enable;
-
-        return this;
-    }
-
-    /**
-     * Disable auto loading fields of contained associations.
-     *
-     * @return this
-     * /
-    function disableAutoFields() {
-        _autoFields = false;
-
-        return this;
-    }
-
-    /**
-     * Gets whether contained associations will load fields automatically.
-     *
-     * @return bool The current value.
-     * /
-    bool isAutoFieldsEnabled() {
-        return _autoFields;
-    }
+ 
 
     /**
      * Adds a new association to the list that will be used to filter the results of

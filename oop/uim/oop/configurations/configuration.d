@@ -72,29 +72,32 @@ abstract class DConfiguration : IConfiguration {
         bool hasPath(string path) {
             return false;
         }
+
+        abstract string[] allPaths();
     // #endregion paths
 
-    bool hasAnyValues(string[] values...) {
-        return hasAnyValues(values.dup);
-    }
+    // #region Values
+        bool hasAnyValues(string[] values...) {
+            return hasAnyValues(values.dup);
+        }
 
-    bool hasAnyValues(string[] values) {
-        return false;
-    }
+        bool hasAnyValues(string[] values) {
+            return false;
+        }
 
-    bool hasAllValues(string[] values...) {
-        return hasAllValues(values.dup);
-    }
+        bool hasAllValues(string[] values...) {
+            return hasAllValues(values.dup);
+        }
 
-    bool hasAllValues(string[] values) {
-        return false;
-    }
+        bool hasAllValues(string[] values) {
+            return false;
+        }
 
-    bool hasValue(string value) {
-        return false;
-    }
+        bool hasValue(string value) {
+            return false;
+        }
+    // #endregion Values
 
-    abstract string[] allPaths();
 
     IData opIndex(string path) {
         return get(path);
@@ -139,6 +142,7 @@ abstract class DConfiguration : IConfiguration {
     }
 
     abstract void update(string path, IData newData);
+    abstract void update(string path, IData[string] newData);
 
     void merge(IData[string] newData, string[] validPaths = null) {
         if (validPaths is null) {
@@ -152,6 +156,7 @@ abstract class DConfiguration : IConfiguration {
     }
 
     abstract void merge(string path, IData newData);
+    abstract void merge(string path, IData[string] newData);
 
     void clear() {
         remove(allPaths);        

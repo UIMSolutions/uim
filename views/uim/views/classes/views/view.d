@@ -82,19 +82,71 @@ class DView : IView { //  }: IEventDispatcher {
     // File extension. Defaults to ".d".
     protected string _ext = ".d";
 
+    // ViewBlock instance.
+    protected DViewBlock[string] _blocks;
+    // Get the names of all the existing blocks.
+    string[] blocks() {
+        return _blocks.keys;
+    }
+
+    // A configuration array for helpers to be loaded.
+    protected IData[string][string] _helpers;
+
+    // The name of the subfolder containing templates for this View.
+    protected string _templatePath = "";
+
+    // #region consts
+        const string TYPE_TEMPLATE = "template";
+
+        // Constant for view file type "element"
+        const string TYPE_ELEMENT = "element";
+
+        // Constant for view file type "layout"
+        const string TYPE_LAYOUT = "layout";
+
+        // Constant for type used for App.path().
+        const string NAME_TEMPLATE = "templates";
+
+        // Constant for folder name containing files for overriding plugin templates.
+        const string PLUGIN_TEMPLATE_FOLDER = "plugin";
+    // #endregion consts
+
+    /**
+     * The name of the template file to render. The name specified
+     * is the filename in `templates/<SubFolder>/` without the .d extension.
+     */
+    protected string _templateFileName;
+
+    /**
+     * The name of the layout file to render the template inside of. The name specified
+     * is the filename of the layout in `templates/layout/` without the .d
+     * extension.
+     */
+    protected string _layoutName = "default";
+
+    // The name of the layouts subfolder containing layouts for this View.
+    protected string _layoutPath = "";
+
+    /**
+     * The magic "match-all" content type that views can use to
+     * behave as a fallback during content-type negotiation.
+     * /
+    const string TYPE_MATCH_ALL = "_match_all_";
+
     // #region contentType
         // Set the response content-type based on the view"s contentType()
         protected void setContentType() {
-            /* myviewContentType = this.contentType();
-            if (!myviewContentType || myviewContentType == TYPE_MATCH_ALL) {
+            auto viewContentType = contentType();
+            if (!viewContentType || viewContentType == TYPE_MATCH_ALL) {
                 return;
             }
-            myresponse = this.getResponse();
+            
+            auto response = this.getResponse();
             auto myresponseType = myresponse.getHeaderLine("Content-Type");
             if (myresponseType.isEmpty || myresponseType.startsWith("text/html")) {
-                myresponse = myresponse.withType(myviewContentType);
+                response = response.withType(viewContentType);
             }
-            this.setResponse(myresponse); */
+            this.setResponse(response); */
         }
 
         // Mime-type this view class renders as.
@@ -110,30 +162,7 @@ class DView : IView { //  }: IEventDispatcher {
     // Helpers collection
     protected DHelperRegistry _helpers = null;
 
-    // ViewBlock instance.
-    protected IViewBlock _blocks;
 
-    // A configuration array for helpers to be loaded.
-    protected IData[string][string] myhelpers = null;
-
-    // The name of the subfolder containing templates for this View.
-    protected string mytemplatePath = "";
-
-    /**
-     * The name of the template file to render. The name specified
-     * is the filename in `templates/<SubFolder>/` without the .d extension.
-     * /
-    protected string mytemplateFileName;
-
-    /**
-     * The name of the layout file to render the template inside of. The name specified
-     * is the filename of the layout in `templates/layout/` without the .d
-     * extension.
-     * /
-    protected string mylayoutName = "default";
-
-    // The name of the layouts subfolder containing layouts for this View.
-    protected string mylayoutPath = "";
 
     /**
      * Turns on or off UIM"s conventional mode of applying layout files. On by default.
@@ -628,10 +657,7 @@ class DView : IView { //  }: IEventDispatcher {
         this.viewVars = mydata + this.viewVars;
     }
 
-    // Get the names of all the existing blocks.
-    string[] blocks() {
-        return _blocks.keys;
-    }
+
 
     /**
      * Start capturing output for a "block"

@@ -69,6 +69,11 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
         return root;
     }
 
+    // Hook method for defining this command`s option parser.
+    protected IConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToDefine) {
+        return parserToDefine;
+    }
+
     /**
      * Get the command name.
      *
@@ -99,14 +104,7 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
         return aParser;
     }
 
-    /**
-     * Hook method for defining this command`s option parser.
-     * Params:
-     * \UIM\Console\DConsoleOptionParser buildOptionParser parserToDefine The parser to be defined
-     * /
-    protected IConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToDefine) {
-        return parserToDefine;
-    }
+
 
     int run(array argv, IConsoleIo aConsoleIo) {
         this.initialize();

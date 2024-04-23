@@ -54,7 +54,8 @@ class DDebugger {
     mixin(TProperty!("string", "name"));
     
     // A map of editors to their link templates.
-    protected STRINGAA _editors;    
+    protected STRINGAA _editors;  
+      
     /**
      * Add an editor link format
      *

@@ -92,12 +92,6 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
        configuration.data(myalias] = options;
     }
  
-    array getConfig(string myalias = null) {
-        if (myalias is null) {
-            return configuration;
-        }
-        return configuration.data(myalias] ?? [];
-    }
     
     /**
      * Get a table instance from the registry.

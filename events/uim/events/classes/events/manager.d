@@ -11,23 +11,23 @@ import uim.events;
  * and pass it around to manage all events in your app.
  */
 class DEventManager { // }: IEventManager {
-    /* // The default priority queue value for new, attached listeners
+    // The default priority queue value for new, attached listeners
     static int _defaultPriority = 10;
+
+    // The event list object.
+    // TODO protected IEventList _eventList = null;
+
+    // Internal flag to distinguish a common manager from the singleton
+    protected bool _isGlobal = false;
+
+    // Enables automatic adding of events to the event list object if it is present.
+    protected bool _canAddEvents = false;
 
     // The globally available instance, used for dispatching events attached from any scope
     protected static DEventManager _generalManager = null;
 
     // List of listener callbacks associated to
     // TODO protected array _listeners = null;
-
-    // Internal flag to distinguish a common manager from the singleton
-    protected bool _isGlobal = false;
-
-    // The event list object.
-    protected IEventList _eventList = null;
-
-    // Enables automatic adding of events to the event list object if it is present.
-    protected bool _canAddEvents = false;
 
     /**
      * Returns the globally available instance of a UIM\Event\EventManager

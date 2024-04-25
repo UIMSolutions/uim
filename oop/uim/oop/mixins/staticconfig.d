@@ -237,9 +237,8 @@ REGEXP;
                 aQueryArgs[aKey] = null;
             }
         }
-        /** @var IData[string] parsed * /
-        parsed = aQueryArgs + parsed;
 
+        IData[string] parsed = aQueryArgs + parsed;
         if (isEmpty(parsed["className"])) {
              classNameMap = getDsnClassMap();
 

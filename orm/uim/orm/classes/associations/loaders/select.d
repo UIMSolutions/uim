@@ -105,8 +105,7 @@ class DSelectLoader {
      * @return DORMQuery
      * @throws \InvalidArgumentException When a key is required for associations but not selected.
      * /
-    protected function _buildQuery(IData[string] optionData): Query
-    {
+    protected DORMQuery _buildQuery(IData[string] optionData) {
         key = _linkField(options);
         filter = options["keys"];
         useSubquery = options["strategy"] == Association::STRATEGY_SUBQUERY;
@@ -114,7 +113,7 @@ class DSelectLoader {
         options["fields"] = options["fields"] ?? [];
 
         /** @var DORMQuery query * /
-        query = finder();
+        DORMQuery query = finder();
         if (isset(options["finder"])) {
             [finderName, opts] = _extractFinder(options["finder"]);
             query = query.find(finderName, opts);

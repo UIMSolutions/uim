@@ -12,7 +12,7 @@ class DFixtureHelper {
         static cachedFixtures = null;
 
         fixtures = null;
-        foreach (fixtureNames as fixtureName) {
+        fixtureNames.each!((fixtureName) {
             if (fixtureName.has(".")) {
                 [type, somePathName] = split(".", fixtureName, 2);
                 string[] somePath = somePathName.split("/");
@@ -48,7 +48,7 @@ class DFixtureHelper {
                     name ~ "Fixture",
                 ];
                 /** @var class-string<\UIM\Datasource\IFixture>  className * /
-                 className = array_filter(nameSegments).join("\\");
+                string className = array_filter(nameSegments).join("\\");
             } else {
                 /** @var class-string<\UIM\Datasource\IFixture>  className * /
                  className = fixtureName;
@@ -63,7 +63,8 @@ class DFixtureHelper {
                 cachedFixtures[className] = new className();
             }
             fixtures[className] = cachedFixtures[className];
-        }
+        });
+        
         return fixtures;
     }
     

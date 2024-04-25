@@ -128,7 +128,7 @@ class DSelectBoxWidget : DWidget {
     
     // Render the contents of the select element.
     protected string[] _renderContent(IData[string] renderData) {
-        options = renderData["options"];
+        IData options = renderData.get("options", null);
 
         if (cast(Traversable)options) {
             options = iterator_to_array(options);
@@ -139,10 +139,11 @@ class DSelectBoxWidget : DWidget {
         if (options.isEmpty) {
             return null;
         }
-        myselected = renderData["val"].ifNull(null);
-        mydisabled = null;
-        if (isSet(renderData["disabled"]) && isArray(renderData["disabled"])) {
-            mydisabled = renderData["disabled"];
+        
+        IData myselected = renderData.get("val", null);
+        IData mydisabled = null;
+        if (renderData.hasKey("disabled") && renderData["disabled"].isArray) {
+            mydisabled = renderData.get("disabled", null)];
         }
         mytemplateVars = renderData["templateVars"];
 
@@ -154,10 +155,11 @@ class DSelectBoxWidget : DWidget {
      * Params:
      * string[]|bool myvalue The provided empty value.
      * /
-    protected IData[string] _emptyValue(string[]|bool myvalue) {
-        if (myvalue == true) {
-            return ["": ""];
-        }
+    protected IData[string] _emptyValue(bool myvalue) {
+        return myvalue ? ["": ""] : ["": myvalue];
+    }
+
+    protected IData[string] _emptyValue(string[] myvalue) {
         if (myvalue.isArray) {
             return myvalue;
         }

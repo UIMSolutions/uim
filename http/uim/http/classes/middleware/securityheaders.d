@@ -9,43 +9,42 @@ import uim.http;
  *
  * @link https://book.UIM.org/5/en/controllers/middleware.html#security-header-middleware
  */
-class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
-    /* 
-    /** @var string X-Content-Type-Option nosniff * /
-    const NOSNIFF = "nosniff";
+class DSecurityHeadersMiddleware { // }: IHttpMiddleware { 
+    // X-Content-Type-Option nosniff * /
+    const string NOSNIFF = "nosniff";
 
-    /** @var string X-Download-Option noopen * /
+    // X-Download-Option noopen * /
     const string NOOPEN = "noopen";
 
-    /** @var string Referrer-Policy no-referrer * /
-    const NO_REFERRER = "no-referrer";
+    /// Referrer-Policy no-referrer * /
+    const string NO_REFERRER = "no-referrer";
 
-    /** @var string Referrer-Policy no-referrer-when-downgrade * /
-    const NO_REFERRER_WHEN_DOWNGRADE = "no-referrer-when-downgrade";
+    // Referrer-Policy no-referrer-when-downgrade * /
+    const string NO_REFERRER_WHEN_DOWNGRADE = "no-referrer-when-downgrade";
 
-    /** @var string Referrer-Policy origin * /
-    const ORIGIN = "origin";
+    // string Referrer-Policy origin * /
+    const string ORIGIN = "origin";
 
-    /** @var string Referrer-Policy origin-when-cross-origin * /
-    const ORIGIN_WHEN_CROSS_ORIGIN = "origin-when-cross-origin";
+    // Referrer-Policy origin-when-cross-origin * /
+    const string ORIGIN_WHEN_CROSS_ORIGIN = "origin-when-cross-origin";
 
-    /** @var string Referrer-Policy same-origin * /
-    const SAME_ORIGIN = "Same-origin";
+    // Referrer-Policy same-origin * /
+    const string SAME_ORIGIN = "Same-origin";
 
-    /** @var string Referrer-Policy strict-origin * /
-    const STRICT_ORIGIN = "Strict-origin";
+    // Referrer-Policy strict-origin * /
+    const string STRICT_ORIGIN = "Strict-origin";
 
-    /** @var string Referrer-Policy strict-origin-when-cross-origin * /
-    const STRICT_ORIGIN_WHEN_CROSS_ORIGIN = "Strict-origin-when-cross-origin";
+    // Referrer-Policy strict-origin-when-cross-origin * /
+    const string STRICT_ORIGIN_WHEN_CROSS_ORIGIN = "Strict-origin-when-cross-origin";
 
-    /** @var string Referrer-Policy unsafe-url * /
-    const UNSAFE_URL = "unsafe-url";
+    // Referrer-Policy unsafe-url * /
+    const string UNSAFE_URL = "unsafe-url";
 
-    /** @var string X-Frame-Option deny * /
-    const DENY = "deny";
+    // X-Frame-Option deny * /
+    const string DENY = "deny";
 
-    /** @var string X-Frame-Option sameorigin * /
-    const SAMEORIGIN = "Sameorigin";
+    // X-Frame-Option sameorigin * /
+    const string SAMEORIGIN = "Sameorigin";
 
     /** @var string X-Frame-Option allow-from * /
     const ALLOW_FROM = "allow-from";

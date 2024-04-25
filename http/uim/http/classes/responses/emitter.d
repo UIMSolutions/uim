@@ -80,7 +80,7 @@ class DResponseEmitter {
      * Params:
      * array range The range data to emit
      * @param \Psr\Http\Message\IResponse response The response to emit
-     */
+     * /
     protected void emitBodyRange(array range, IResponse response) {
         [, first, last] = range;
 
@@ -94,9 +94,9 @@ class DResponseEmitter {
         }
         body = new DRelativeStream(body, first);
         body.rewind();
-        pos = 0;
-        /** @var size_t aLength */
-        length = last - first + 1;
+        
+        size_t pos = 0;
+        size_t length = last - first + 1;
         while (!body.eof() && pos < length) {
             if (pos + this.maxBufferLength > length) {
                 writeln(body.read(length - pos);

@@ -1,7 +1,7 @@
 module uim.errors.helpers.functions;
 
-//Dcs:disable PSR1.Files.SideEffectsmodule uim.errors;
-
+import uim.errors;
+@safe:
 
 /**
  * Prints out debug information about given variable and returns the

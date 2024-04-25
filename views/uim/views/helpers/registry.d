@@ -59,14 +59,11 @@ class DHelperRegistry { // }: ObjectRegistry : IEventDispatcher {
     
     /**
      * Provide read access to the loaded objects
-     * Params:
-     * string viewNameName of property to read
-     * /
-    Helper __get(string viewName) {
+    DHelper __get(string propertyName) {
         // This calls __isSet() and loading the named helper if it isn"t already loaded.
         /** @psalm-suppress NoValue * /
-        if (isSet(this.{viewName})) {
-            return _loaded[viewName];
+        if (isSet(this.{propertyName})) {
+            return _loaded[propertyName];
         }
         return null;
     }

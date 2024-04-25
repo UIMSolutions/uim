@@ -5,8 +5,8 @@
 **********************************************************************************************************/
 module uim.errors.classes.renderers.exception;
 
-@safe:
 import uim.errors;
+@safe:
 
 /**
  * Exception Renderer.

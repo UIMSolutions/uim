@@ -52,10 +52,14 @@ interface IConfiguration : INamed {
 
     void update(IData[string] newData, string[] validKeys = null);
     void update(string key, IData newData);
+    void update(string key, IData[string] newData);
 
     void merge(IData[string] newData, string[] validKeys = null);
     void merge(string key, IData newData);
+    void merge(string key, IData[string] newData);
 
     IConfiguration remove(string[] keys);
     IConfiguration remove(string keys);
+
+    IConfiguration clear();
 }

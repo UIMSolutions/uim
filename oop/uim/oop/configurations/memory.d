@@ -212,10 +212,18 @@ class DMemoryConfiguration : DConfiguration {
     override void update(string key, IData data) {
         set(key, data);
     }
+
+    override void update(string key, IData[string] data) {
+        set(key, data.toMapData);
+    }
     /// 
     unittest {
         IConfiguration config = MemoryConfiguration;
         // TODO
+    }
+
+    override void merge(string key, IData[string] data) {
+        set(key, data.toMapData);
     }
 
     override void merge(string key, IData data) {

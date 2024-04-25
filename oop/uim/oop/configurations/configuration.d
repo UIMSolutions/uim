@@ -158,8 +158,9 @@ abstract class DConfiguration : IConfiguration {
     abstract void merge(string key, IData newData);
     abstract void merge(string key, IData[string] newData);
 
-    void clear() {
-        remove(allKeys);        
+    IConfiguration clear() {
+        remove(allKeys);    
+        return this;    
     }
 
     IConfiguration remove(string[] keys) {

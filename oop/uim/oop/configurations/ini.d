@@ -24,15 +24,7 @@ class DIniConfiguration : DConfiguration {
         // TODO
     }
 
-    override void updateDefault(string key, IData[string] newData) {
-        // TODO
-    }
-
     override void mergeDefault(string key, IData newData) {
-        // TODO
-    }
-
-    override void mergeDefault(string key, IData[string] newData) {
         // TODO
     }
     // #endregion defaultData
@@ -49,7 +41,15 @@ class DIniConfiguration : DConfiguration {
         // TODO 
     }
 
+    override void update(string key, IData[string] newData) {
+        // TODO 
+    }
+
     override void merge(string key, IData newData) {
+        // TODO 
+    }
+
+    override void merge(string key, IData[string] newData) {
         // TODO 
     }
 

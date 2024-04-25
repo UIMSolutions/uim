@@ -41,7 +41,15 @@ class DJsonConfiguration : DConfiguration {
         // _json.hasKey()
     }
 
+    override void update(string key, IData[string] newData) {
+        // _json.hasKey()
+    }
+
     override void merge(string key, IData newData) {
+        // TODO 
+    }
+
+    override void merge(string key, IData[string] newData) {
         // TODO 
     }
 

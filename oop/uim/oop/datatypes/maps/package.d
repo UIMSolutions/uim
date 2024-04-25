@@ -7,6 +7,7 @@ module uim.oop.datatypes.maps;
 
 public { 
 	import uim.oop.datatypes.maps.map;
+	import uim.oop.datatypes.maps.helper;
 	//import uim.oop.datatypes.maps.options;
 	//import uim.oop.datatypes.maps.config;
 	//import uim.oop.datatypes.maps.string; */

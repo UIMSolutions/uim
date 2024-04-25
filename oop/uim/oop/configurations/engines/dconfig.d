@@ -36,21 +36,21 @@ class DConfig : IConfigEngine {
     protected string _extension = ".d";
 
     /*
-    this(string pathToConfigFiles = null) {
-       _path = pathToConfigFiles ?? CONFIG;
+    this(string keyToConfigFiles = null) {
+       _key = keyToConfigFiles ?? CONFIG;
     }
     
     /**
      * Read a config file and return its contents.
      *
      * Files with `.` in the name will be treated as values in plugins. Instead of
-     * reading from the initialized path, plugin keys will be located using Plugin.path().
+     * reading from the initialized key, plugin keys will be located using Plugin.key().
      * Params:
      * string aKey The identifier to read from. If the key has a ~ it will be treated
      * as a plugin prefix.
      * /
     array read(string aKey) {
-        auto file = _getFilePath(aKey, true);
+        auto file = _getFileKey(aKey, true);
 
         result = include file;
         if (isArray(result)) {
@@ -69,7 +69,7 @@ class DConfig : IConfigEngine {
     bool dump(string aKey, IData[] dataToDump) {
         string contents = "" ~ "\n" ~ "return " ~ var_export(dataToDump, true) ~ ";";
 
-        string filename = _getFilePath(aKey);
+        string filename = _getFileKey(aKey);
         return file_put_contents(filename, contents) > 0;
     } */
 }

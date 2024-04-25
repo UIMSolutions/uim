@@ -57,12 +57,12 @@ class DIniConfig : IConfigEngine {
      * Build and construct a new ini file parser. The parser can be used to read
      * ini files that are on the filesystem.
      * Params:
-     * string somePath Path to load ini config files from. Defaults to CONFIG.
+     * string someKey Key to load ini config files from. Defaults to CONFIG.
      * @param string section Only get one section, leave null to parse and fetch
      *    all sections in the ini file.
      * /
-    this(string aPath = null, string asection = null) {
-       _path = somePath ? somePath : CONFIG;
+    this(string aKey = null, string asection = null) {
+       _key = someKey ? someKey : CONFIG;
        _section = section;
     }
     
@@ -70,10 +70,10 @@ class DIniConfig : IConfigEngine {
      * Read an ini file and return the results as an array.
      * Params:
      * string aKey The identifier to read from. If the key has a ~ it will be treated
-     * as a plugin prefix. The chosen file must be on the engine`s path.
+     * as a plugin prefix. The chosen file must be on the engine`s key.
      * /
     array read(string aKey) {
-        file = _getFilePath(aKey, true);
+        file = _getFileKey(aKey, true);
 
         contents = parse_ini_file(file, true);
         if (contents == false) {
@@ -145,7 +145,7 @@ class DIniConfig : IConfigEngine {
             });
 
         string contents = strip(result.join("\n"));
-        auto filename = _getFilePath(key);
+        auto filename = _getFileKey(key);
         return file_put_contents(filename, contents) > 0;
     }
     

@@ -28,21 +28,21 @@ abstract class DConfiguration : IConfiguration {
         void defaultData(IData[string] newData) {
         }
 
-        abstract bool hasDefault(string path);
+        abstract bool hasDefault(string key);
 
         override void updateDefaults(IData[string] newData) {
             newData.byKeyValue
                 .each!(kv => updateDefault(kv.key, kv.value));
         }
 
-        abstract void updateDefault(string path, IData newData);
+        abstract void updateDefault(string key, IData newData);
 
         override void mergeDefaults(IData[string] newData) {
             newData.byKeyValue
                 .each!(kv => mergeDefault(kv.key, kv.value));
         }
 
-        abstract void mergeDefault(string path, IData newData);
+        abstract void mergeDefault(string key, IData newData);
     // #endregion defaultData
 
     IData[string] data() {
@@ -52,29 +52,29 @@ abstract class DConfiguration : IConfiguration {
     void data(IData[string] newData) {
     }
 
-    // #region paths
-        bool hasAnyPaths(string[] paths...) {
-            return hasAnyPaths(paths.dup);
+    // #region keys
+        bool hasAnyKeys(string[] keys...) {
+            return hasAnyKeys(keys.dup);
         }
 
-        bool hasAnyPaths(string[] paths) {
+        bool hasAnyKeys(string[] keys) {
             return false;
         }
 
-        bool hasAllPaths(string[] paths...) {
-            return hasAllPaths(paths.dup);
+        bool hasAllKeys(string[] keys...) {
+            return hasAllKeys(keys.dup);
         }
 
-        bool hasAllPaths(string[] paths) {
+        bool hasAllKeys(string[] keys) {
             return false;
         }
 
-        bool hasPath(string path) {
+        bool hasKey(string key) {
             return false;
         }
 
-        abstract string[] allPaths();
-    // #endregion paths
+        abstract string[] allKeys();
+    // #endregion keys
 
     // #region Values
         bool hasAnyValues(string[] values...) {
@@ -99,74 +99,74 @@ abstract class DConfiguration : IConfiguration {
     // #endregion Values
 
 
-    IData opIndex(string path) {
-        return get(path);
+    IData opIndex(string key) {
+        return get(key);
     }
 
-    IData get(string path) {
+    IData get(string key) {
         return null;
     }
 
-    IData[string] get(string[] paths, bool compressMode = true){
+    IData[string] get(string[] keys, bool compressMode = true){
         return null; 
     }
 
-    void set(STRINGAA values, string[] paths = null) {
-        set(values.toData, paths);
+    void set(STRINGAA values, string[] keys = null) {
+        set(values.toData, keys);
     }
 
-    void set(IData[string] newData, string[] paths = null) {
-        if (paths is null) {
-            paths.each!(path => set(path, newData[path]));
+    void set(IData[string] newData, string[] keys = null) {
+        if (keys is null) {
+            keys.each!(key => set(key, newData[key]));
         }
         else {
-            paths.filter!(path => path in newData)
-                .each!(path => set(path, newData[path]));
+            keys.filter!(key => key in newData)
+                .each!(key => set(key, newData[key]));
         }
     }
 
-    abstract void set(string path, IData newData);
+    abstract void set(string key, IData newData);
 
-    void opIndexAssign(IData data, string path) {
-        set(path, data);
+    void opIndexAssign(IData data, string key) {
+        set(key, data);
     }
     
-    void update(IData[string] newData, string[] paths = null) {
-        if (paths is null) {
-            paths.each!(path => update(path, newData[path]));
+    void update(IData[string] newData, string[] keys = null) {
+        if (keys is null) {
+            keys.each!(key => update(key, newData[key]));
         }
         else {
-            paths.filter!(path => path in newData)
-                .each!(path => update(path, newData[path]));
+            keys.filter!(key => key in newData)
+                .each!(key => update(key, newData[key]));
         }
     }
 
-    abstract void update(string path, IData newData);
-    abstract void update(string path, IData[string] newData);
+    abstract void update(string key, IData newData);
+    abstract void update(string key, IData[string] newData);
 
-    void merge(IData[string] newData, string[] validPaths = null) {
-        if (validPaths is null) {
-            newData.keys.each!(path => merge(path, newData[path]));
+    void merge(IData[string] newData, string[] validKeys = null) {
+        if (validKeys is null) {
+            newData.keys.each!(key => merge(key, newData[key]));
         }
         else {
-            validPaths
-                .filter!(path => path in newData)
-                .each!(path => merge(path, newData[path]));
+            validKeys
+                .filter!(key => key in newData)
+                .each!(key => merge(key, newData[key]));
         }
     }
 
-    abstract void merge(string path, IData newData);
-    abstract void merge(string path, IData[string] newData);
+    abstract void merge(string key, IData newData);
+    abstract void merge(string key, IData[string] newData);
 
     void clear() {
-        remove(allPaths);        
+        remove(allKeys);        
     }
 
-    IConfiguration remove(string[] paths) {
-        paths.each!(path => remove(path));
+    IConfiguration remove(string[] keys) {
+        keys.each!(key => remove(key));
         return this;
     }
 
-    abstract IConfiguration remove(string path);
+    abstract IConfiguration remove(string key);
 }
 

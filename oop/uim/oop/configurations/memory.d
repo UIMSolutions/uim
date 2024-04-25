@@ -26,13 +26,13 @@ class DMemoryConfiguration : DConfiguration {
     }
 
     /** 
-     * override bool hasDefault(string path)
+     * override bool hasDefault(string key)
      * Params:
-     *   path = name or path to data object. Could be nested
+     *   key = name or key to data object. Could be nested
      * Returns: true if has data or false if not
      */
-    override bool hasDefault(string path) {
-        return (path in _defaultData) ? true : false;
+    override bool hasDefault(string key) {
+        return (key in _defaultData) ? true : false;
     }
     /// 
     unittest {
@@ -50,8 +50,8 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override void updateDefault(string path, IData data) {
-        _defaultData[path] = data;
+    override void updateDefault(string key, IData data) {
+        _defaultData[key] = data;
     }
     /// 
     unittest {
@@ -69,9 +69,9 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override void mergeDefault(string path, IData data) {
-        if (!hasDefault(path)) {
-            _defaultData[path] = data;
+    override void mergeDefault(string key, IData data) {
+        if (!hasDefault(key)) {
+            _defaultData[key] = data;
         }
     }
     /// 
@@ -102,9 +102,9 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    alias hasAnyPaths = DConfiguration.hasAnyPaths;
-    override bool hasAnyPaths(string[] paths) {
-        return paths.any!(path => hasPath(path));
+    alias hasAnyKeys = DConfiguration.hasAnyKeys;
+    override bool hasAnyKeys(string[] keys) {
+        return keys.any!(key => hasKey(key));
     }
     /// 
     unittest {
@@ -112,9 +112,9 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    alias hasAllPaths = DConfiguration.hasAllPaths;
-    override bool hasAllPaths(string[] paths) {
-        return paths.all!(path => hasPath(path));
+    alias hasAllKeys = DConfiguration.hasAllKeys;
+    override bool hasAllKeys(string[] keys) {
+        return keys.all!(key => hasKey(key));
     }
     /// 
     unittest {
@@ -122,8 +122,8 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override bool hasPath(string path) {
-        return path in _data ? true : false;
+    override bool hasKey(string key) {
+        return key in _data ? true : false;
     }
     /// 
     unittest {
@@ -162,7 +162,7 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override string[] allPaths() {
+    override string[] allKeys() {
         return _data.keys;
     }
     /// 
@@ -171,15 +171,15 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override IData[string] get(string[] paths, bool compressMode = true) {
+    override IData[string] get(string[] keys, bool compressMode = true) {
         IData[string] results;
 
-        paths.each!((path) {
-            auto result = get(path);
+        keys.each!((key) {
+            auto result = get(key);
             if (result is null && !compressMode) {
-                results[path] = result;
+                results[key] = result;
             } else { // compressmode => no nulls
-                results[path] = result;
+                results[key] = result;
             }
         });
 
@@ -191,8 +191,8 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override IData get(string path) {
-        return _data.get(path, _defaultData.get(path, null));
+    override IData get(string key) {
+        return _data.get(key, _defaultData.get(key, null));
     }
     /// 
     unittest {
@@ -200,8 +200,8 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override void set(string path, IData data) {
-        _data[path] = data;
+    override void set(string key, IData data) {
+        _data[key] = data;
     }
     /// 
     unittest {
@@ -209,8 +209,8 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override void update(string path, IData data) {
-        set(path, data);
+    override void update(string key, IData data) {
+        set(key, data);
     }
     /// 
     unittest {
@@ -218,12 +218,12 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override void merge(string path, IData data) {
-        if (hasPath(path)) {
+    override void merge(string key, IData data) {
+        if (hasKey(key)) {
             return;
         }
 
-        set(path, data);
+        set(key, data);
     }
     /// 
     unittest {
@@ -231,8 +231,8 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override IConfiguration remove(string path) {
-        _data.remove(path);
+    override IConfiguration remove(string key) {
+        _data.remove(key);
         return this;
     }
     /// 

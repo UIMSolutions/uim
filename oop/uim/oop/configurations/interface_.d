@@ -9,27 +9,27 @@ interface IConfiguration : INamed {
     // #region default data
         mixin(IProperty!("IData[string]", "defaultData"));
 
-        bool hasDefault(string path);
+        bool hasDefault(string key);
 
         void updateDefaults(IData[string] newData);
-        void updateDefault(string path, IData newData);
+        void updateDefault(string key, IData newData);
 
         void mergeDefaults(IData[string] newData);
-        void mergeDefault(string path, IData newData);
+        void mergeDefault(string key, IData newData);
     // #endregion default data
 
-    // #region paths
-        string[] paths();
+    // #region keys
+        string[] keys();
 
-        bool hasAnyPaths(string[] paths...);
-        bool hasAnyPaths(string[] paths);
+        bool hasAnyKeys(string[] keys...);
+        bool hasAnyKeys(string[] keys);
 
-        bool hasAllPaths(string[] paths...);
-        bool hasAllPaths(string[] paths);
+        bool hasAllKeys(string[] keys...);
+        bool hasAllKeys(string[] keys);
 
-        bool has(string path); // Short of hasPath
-        bool hasPath(string path);
-    // #endregion paths
+        bool has(string key); // Short of hasKey
+        bool hasKey(string key);
+    // #endregion keys
 
     // #region values
         bool hasAnyValues(string[] values...);
@@ -42,20 +42,20 @@ interface IConfiguration : INamed {
     // #endregion values
 
     // #region get
-        IData opIndex(string path);
-        IData get(string path);
-        IData[string] get(string[] paths, bool compressMode = true);
+        IData opIndex(string key);
+        IData get(string key);
+        IData[string] get(string[] keys, bool compressMode = true);
     // #endregion get
 
-    // void set(string path, IData newData);
-    // void set(string[] paths, IData[string] newData);
+    // void set(string key, IData newData);
+    // void set(string[] keys, IData[string] newData);
 
-    void update(IData[string] newData, string[] validPaths = null);
-    void update(string path, IData newData);
+    void update(IData[string] newData, string[] validKeys = null);
+    void update(string key, IData newData);
 
-    void merge(IData[string] newData, string[] validPaths = null);
-    void merge(string path, IData newData);
+    void merge(IData[string] newData, string[] validKeys = null);
+    void merge(string key, IData newData);
 
-    IConfiguration remove(string[] paths);
-    IConfiguration remove(string paths);
+    IConfiguration remove(string[] keys);
+    IConfiguration remove(string keys);
 }

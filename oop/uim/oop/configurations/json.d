@@ -29,23 +29,23 @@ class DJsonConfiguration : DConfiguration {
     }
     // #endregion defaultData
 
-    override string[] allPaths() {
+    override string[] allKeys() {
         return null; //TODO
     }
 
-    override void set(string path, IData newData) {
+    override void set(string key, IData newData) {
 
     }
 
-    override void update(string path, IData newData) {
-        // _json.hasPath()
+    override void update(string key, IData newData) {
+        // _json.hasKey()
     }
 
-    override void merge(string path, IData newData) {
+    override void merge(string key, IData newData) {
         // TODO 
     }
 
-    override IConfiguration remove(string path) {
+    override IConfiguration remove(string key) {
         // TODO 
         return this;
     }

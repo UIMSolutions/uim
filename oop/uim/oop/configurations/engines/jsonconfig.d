@@ -37,23 +37,23 @@ class DJsonConfig : IConfigEngine {
     /**
      * Constructor for IData[string] configSettings = null file reading.
      * Params:
-     * string somePath The path to read config files from. Defaults to CONFIG.
+     * string someKey The key to read config files from. Defaults to CONFIG.
      * /
-    this(string pathToConfig = null) {
-       _path = !pathToConfig.isEmpty ? pathToConfig : CONFIG;
+    this(string keyToConfig = null) {
+       _key = !keyToConfig.isEmpty ? keyToConfig : CONFIG;
     }
     
     /**
      * Read a config file and return its contents.
      *
      * Files with `.` in the name will be treated as values in plugins. Instead of
-     * reading from the initialized path, plugin keys will be located using Plugin.path().
+     * reading from the initialized key, plugin keys will be located using Plugin.key().
      * Params:
      * string aKey The identifier to read from. If the key has a ~ it will be treated
      *  as a plugin prefix.
      * /
     array read(string aKey) {
-        auto file = _getFilePath(aKey, true);
+        auto file = _getFileKey(aKey, true);
 
         auto IDataContent = file_get_contents(file);
         if (IDataContent == false) {
@@ -84,7 +84,7 @@ class DJsonConfig : IConfigEngine {
      * @param array data Data to dump.
          * /
     bool dump(string dataId, array data) {
-        auto filename = _getFilePath(dataId);
+        auto filename = _getFileKey(dataId);
 
         return file_put_contents(filename, Json_encode(someData, Json_PRETTY_PRINT)) > 0;
     } */

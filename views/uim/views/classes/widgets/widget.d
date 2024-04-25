@@ -89,7 +89,7 @@ class DWidget : IWidget {
         "name": mergedData.get("name", null),
         "type": mergedData.get("type", null),
         "templateVars": mergedData.get("templateVars", null),
-        "attrs": _stringContents.formatAttributes(mergedData, ["name", "type"]),
+        // TODO "attrs": _stringContents.formatAttributes(mergedData, ["name", "type"]),
       ]);
     return null;
   }
@@ -121,8 +121,8 @@ class DWidget : IWidget {
 
   // Set value for "maxlength" attribute if applicable.
   protected IData[string] setMaxLength(IData[string] data, IContext formContext, string fieldName) {
-    if (IData maxLength = formContext.getMaxLength(fieldName)) {
-      data["maxlength"] = IntegerData(min(maxLength.toInteger, 100000));
+    if (auto maxLength = formContext.maxLength(fieldName)) {
+      data["maxlength"] = IntegerData(min(maxLength, 100000));
     }
     return data;
   }

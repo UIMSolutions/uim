@@ -71,7 +71,8 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
 
     // Hook method for defining this command`s option parser.
     protected IConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToDefine) {
-        return parserToDefine;
+        return null;
+        // TODO return parserToDefine;
     }
 
     /**

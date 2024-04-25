@@ -18,7 +18,7 @@ class DPostgresDriver : DDriver {
             "password": StringData(""),
             "database": StringData("uim"),
             "schema": StringData("public"),
-            "port": 5432,
+            "port": IntegerData(5432),
             "encoding": StringData("utf8"),
             "timezone": NullData,
             "flags": ArrayData,

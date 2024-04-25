@@ -17,15 +17,17 @@ class DNegotiationRequiredView : DView {
 
     // Get the content-type
     static string contentType() {
-        return TYPE_MATCH_ALL;
+        return DView.TYPE_MATCH_ALL;
     }
     
     // Initialization hook method.
-    bool initialize(IData[string] initData = null) {
-        super.initialize(initData);
-        
-        auto statusResponse = this.getResponse().withStatus(406);
-        this.setResponse(statusResponse);
+    override bool initialize(IData[string] initData = null) {
+        if (super.initialize(initData)) {        
+            // TODO auto statusResponse = this.getResponse().withStatus(406);
+            // TODO this.setResponse(statusResponse);
+            return true;
+        }
+        return false;
     }
     
     /**

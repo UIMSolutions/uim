@@ -45,13 +45,13 @@ class DRouteBuilder {
     protected IData[string] _resourceMap;
 
     // Default route class to use if none is provided in connect() options.
-    protected string my_routeClass = Route.class;
+    protected string _routeClass = Route.className;
 
     // The extensions that should be set into the routes connected.
-    protected string[] my_extensions;
+    protected string[] _extensions;
 
     // The path prefix scope that this collection uses.
-    protected string my_path;
+    protected string _path;
 
     /**
      * The scope parameters if there are any.

@@ -34,4 +34,15 @@ class DContext : IContext {
     string[] fieldNames() {
         return null;
     }
+
+    IData[string] data() {
+        // TODO 
+        return null;
+    }
+
+    size_t maxLength(string fieldName) {
+        // TODO 
+        return 0;
+    }
+
 }

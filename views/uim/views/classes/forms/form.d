@@ -46,66 +46,65 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
     mixin(TProperty!("string", "name"));
 
     // #region Constants
-        // Name of default validation set.
-        const string DEFAULT_VALIDATOR = "default";
+    // Name of default validation set.
+    const string DEFAULT_VALIDATOR = "default";
 
-        // The alias this object is assigned to validators as.
-        const string VALIDATOR_PROVIDER_NAME = "form";
+    // The alias this object is assigned to validators as.
+    const string VALIDATOR_PROVIDER_NAME = "form";
 
-        // The name of the event dispatched when a validator has been built.
-        const string BUILD_VALIDATOR_EVENT = "Form.buildValidator";
+    // The name of the event dispatched when a validator has been built.
+    const string BUILD_VALIDATOR_EVENT = "Form.buildValidator";
     // #endregion Constants
 
     // DSchema class.
-    protected string _schemaClassname = Schema.className;
-    
+    // TODO protected string _schemaClassname = Schema.className;
+
     // #region Schema
-        // The schema used by this form.
-        protected DSchema _schema = null;
+    // The schema used by this form.
+    protected DSchema _schema = null;
 
-        // Set the schema for this form.
-        void schema(DSchema newSchema) {
+    // Set the schema for this form.
+    void schema(DSchema newSchema) {
         _schema = newSchema;
-        }
+    }
 
-        /**
+    /**
         * Get the schema for this form.
         *
         * This method will call `_buildSchema()` when the schema
         * is first built. This hook method lets you configure the
         * schema or load a pre-defined one.
-        */
-        DSchema schema() {
-            return !_schema.isNull 
-                ? _schema 
-                : _buildSchema(new _schemaClass());
-        }
+        * /
+    DSchema schema() {
+        return !_schema.isNull
+            ? _schema : _buildSchema(new _schemaClass());
+    }
 
-        /**
+    /**
         * A hook method intended to be implemented by subclasses.
         *
         * You can use this method to define the schema using
         * the methods on {@link \UIM\Form\Schema}, or loads a pre-defined
         * schema from a concrete class.
         */
-        protected DSchema _buildSchema(DSchema tableSchema) {
-            return tableSchema;
-        }
+    protected DSchema _buildSchema(DSchema tableSchema) {
+        return tableSchema;
+    }
     // #endregion Schema
 
     // #region data handling
-        protected IData[string] _data;
-        void set(IData[string] newData) {        
-            _data = _data.update(newData);        }
-        }
-    
-        @property IData[string] data() {
-        return _data.dup;
-        }
+    protected IData[string] _data;
+    void set(IData[string] newData) {
+        _data = _data.update(newData);
+    }
 
-        @property void data(IData[string] data) {
+    @property IData[string] data() {
+        return _data.dup;
+    }
+
+    @property void data(IData[string] data) {
         _data = data.dup;
-        }
+    }
     // #endregion data handling
 
     // The errors if any

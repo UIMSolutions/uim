@@ -96,19 +96,19 @@ class DView : IView { //  }: IEventDispatcher {
     protected string _templatePath = "";
 
     // #region consts
-        const string TYPE_TEMPLATE = "template";
+    const string TYPE_TEMPLATE = "template";
 
-        // Constant for view file type "element"
-        const string TYPE_ELEMENT = "element";
+    // Constant for view file type "element"
+    const string TYPE_ELEMENT = "element";
 
-        // Constant for view file type "layout"
-        const string TYPE_LAYOUT = "layout";
+    // Constant for view file type "layout"
+    const string TYPE_LAYOUT = "layout";
 
-        // Constant for type used for App.path().
-        const string NAME_TEMPLATE = "templates";
+    // Constant for type used for App.path().
+    const string NAME_TEMPLATE = "templates";
 
-        // Constant for folder name containing files for overriding plugin templates.
-        const string PLUGIN_TEMPLATE_FOLDER = "plugin";
+    // Constant for folder name containing files for overriding plugin templates.
+    const string PLUGIN_TEMPLATE_FOLDER = "plugin";
     // #endregion consts
 
     /**
@@ -130,10 +130,11 @@ class DView : IView { //  }: IEventDispatcher {
     /**
      * The magic "match-all" content type that views can use to
      * behave as a fallback during content-type negotiation.
-     * /
-    const string TYPE_MATCH_ALL = "_match_all_";
-
+     */
+    static const string TYPE_MATCH_ALL = "_match_all_";
+    
     // #region contentType
+        /*
         // Set the response content-type based on the view"s contentType()
         protected void setContentType() {
             auto viewContentType = contentType();
@@ -146,15 +147,15 @@ class DView : IView { //  }: IEventDispatcher {
             if (myresponseType.isEmpty || myresponseType.startsWith("text/html")) {
                 response = response.withType(viewContentType);
             }
-            this.setResponse(response); */
-        }
+            this.setResponse(response);
+} */
 
-        // Mime-type this view class renders as.
-        static string contentType() {
-            return "";
-        }
-    // #endregion contentType
-    /* 
+// Mime-type this view class renders as.
+static string contentType() {
+    return "";
+}
+// #endregion contentType
+/* 
     use TCell() {
         cell as public;
     }
@@ -247,11 +248,7 @@ class DView : IView { //  }: IEventDispatcher {
     // Constant for folder name containing files for overriding plugin templates.
     const string PLUGIN_TEMPLATE_FOLDER = "plugin";
 
-    /**
-     * The magic "match-all" content type that views can use to
-     * behave as a fallback during content-type negotiation.
-     * /
-    const string TYPE_MATCH_ALL = "_match_all_";
+
 
     /**
      * Constructor

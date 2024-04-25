@@ -11,6 +11,9 @@ interface IContext {
     // Get the field names of the top level object in this context.
     string[] fieldNames();
     
+    // Get maximum length of a field from model validation.
+    size_t maxLength(string fieldName);
+
     /* 
     // Get the fields used in the context as a primary key.
     string[] primaryKeys();
@@ -43,8 +46,6 @@ interface IContext {
     // Gets the default "required" error message for a field
     string getRequiredMessage(string fieldPath);
 
-    // Get maximum length of a field from model validation.
-    int getMaxLength(string fieldName) ;
 
     
 

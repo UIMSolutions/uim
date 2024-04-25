@@ -544,7 +544,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
             return typeMap[preferredType];
         }
         // Use the match-all view if available or null for no decision.
-        return typeMap[View.TYPE_MATCH_ALL] ?? null;
+        return typeMap[DView.TYPE_MATCH_ALL] ?? null;
     }
 
     // Get the templatePath based on controller name and request prefix.

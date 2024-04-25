@@ -25,8 +25,7 @@ class DRouteBuilder {
 
     // Initialization hook method.
     bool initialize(IData[string] initData = null) {
-        if (super.initialize(initData)) {
-
+        // TODO
          /*  _resourceMap = [
               "index": IData(["action": "index", "method": "GET", "path": ""]),
               "create": IData(["action": "add", "method": "POST", "path": ""]),
@@ -37,15 +36,13 @@ class DRouteBuilder {
           */
 
           return true;
-        }
-        return false;
     }
 
     // Default HTTP request method: controller action map.
     protected IData[string] _resourceMap;
 
     // Default route class to use if none is provided in connect() options.
-    protected string _routeClass = Route.className;
+    // TODO protected string _routeClass = (new DRoute).className;
 
     // The extensions that should be set into the routes connected.
     protected string[] _extensions;

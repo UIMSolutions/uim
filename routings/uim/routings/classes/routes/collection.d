@@ -54,10 +54,10 @@ class DRouteCollection {
      * Add a route to the collection.
      * Params:
      * \UIM\Routing\Route\Route myroute The route object to add.
-     * @param IData[string] options Additional options for the route. Primarily for the
+     * @param Json[string] options Additional options for the route. Primarily for the
      *  `_name` option, which enables named routes.
      * /
-    void add(Route myroute, IData[string] optionData = null) {
+    void add(Route myroute, Json[string] optionData = null) {
         // Explicit names
         if (isSet(options["_name"])) {
             if (isSet(_named[options["_name"]])) {

@@ -24,14 +24,14 @@ class DRouteBuilder {
     }
 
     // Initialization hook method.
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         // TODO
          /*  _resourceMap = [
-              "index": IData(["action": "index", "method": "GET", "path": ""]),
-              "create": IData(["action": "add", "method": "POST", "path": ""]),
-              "view": IData(["action": "view", "method": "GET", "path": "{id}"]),
-              "update": IData(["action": "edit", "method": ["PUT", "PATCH"], "path": "{id}"]),
-              "delete": IData(["action": "delete", "method": "DELETE", "path": "{id}"]),
+              "index": Json(["action": "index", "method": "GET", "path": ""]),
+              "create": Json(["action": "add", "method": "POST", "path": ""]),
+              "view": Json(["action": "view", "method": "GET", "path": "{id}"]),
+              "update": Json(["action": "edit", "method": ["PUT", "PATCH"], "path": "{id}"]),
+              "delete": Json(["action": "delete", "method": "DELETE", "path": "{id}"]),
           ];
           */
 
@@ -39,7 +39,7 @@ class DRouteBuilder {
     }
 
     // Default HTTP request method: controller action map.
-    protected IData[string] _resourceMap;
+    protected Json[string] _resourceMap;
 
     // Default route class to use if none is provided in connect() options.
     // TODO protected string _routeClass = (new DRoute).className;
@@ -82,9 +82,9 @@ class DRouteBuilder {
      * \UIM\Routing\RouteCollection mycollection The route collection to append routes into.
      * @param string mypath The path prefix the scope is for.
      * @param array myparams The scope"s routing parameters.
-     * @param IData[string] options Options list.
+     * @param Json[string] options Options list.
      * /
-    this(RouteCollection mycollection, string mypath, array myparams = [], IData[string] optionData = null) {
+    this(RouteCollection mycollection, string mypath, array myparams = [], Json[string] optionData = null) {
        _collection = mycollection;
        _path = mypath;
        _params = myparams;
@@ -272,11 +272,11 @@ class DRouteBuilder {
      *  is available at `/posts`
      * Params:
      * string routings A controller name to connect resource routes for.
-     * @param \Closure|IData[string] options Options to use when generating REST routes, or a callback.
+     * @param \Closure|Json[string] options Options to use when generating REST routes, or a callback.
      * @param \Closure|null mycallback An optional callback to be executed in a nested scope. Nested
      *  scopes inherit the existing path and "id" parameter.
      * /
-    auto resources(string routings, Closure|IData[string] optionData = null, ?Closure mycallback = null) {
+    auto resources(string routings, Closure|Json[string] optionData = null, ?Closure mycallback = null) {
         if (!options.isArray) {
             mycallback = options;
             options = null;
@@ -557,12 +557,12 @@ class DRouteBuilder {
      * \UIM\Routing\Route\Route|string myroute A string describing the template of the route
      * @param string[] mydefaults An array describing the default route parameters.
      *  These parameters will be used by default and can supply routing parameters that are not dynamic. See above.
-     * @param IData[string] options An array matching the named elements in the route to regular expressions which that
+     * @param Json[string] options An array matching the named elements in the route to regular expressions which that
      *  element should match. Also contains additional parameters such as which routed parameters should be
      *  shifted into the passed arguments, supplying patterns for routing parameters and supplying the name of a
      *  custom routing class.
      * /
-    Route connect(Route|string myroute, string[] mydefaults = [], IData[string] optionData = null) {
+    Route connect(Route|string myroute, string[] mydefaults = [], Json[string] optionData = null) {
         mydefaults = this.parseDefaults(mydefaults);
         if (isEmpty(options["_ext"])) {
             options["_ext"] = _extensions;
@@ -599,9 +599,9 @@ class DRouteBuilder {
      * Params:
      * \UIM\Routing\Route\Route|string myroute The route template or route object.
      * @param array mydefaults Default parameters.
-     * @param IData[string] options Additional options parameters.
+     * @param Json[string] options Additional options parameters.
      * /
-    protected DRoute _makeRoute(Route|string myroute, array mydefaults, IData[string] options) {
+    protected DRoute _makeRoute(Route|string myroute, array mydefaults, Json[string] options) {
         if (isString(myroute)) {
             /** @var class-string<\UIM\Routing\Route\Route>|null myrouteClass * /
             myrouteClass = App.className(options["routeClass"], "Routing/Route");
@@ -665,11 +665,11 @@ class DRouteBuilder {
      * Params:
      * string myroute A string describing the template of the route
      * @param string[] myurl A URL to redirect to. Can be a string or a uim array-based URL
-     * @param IData[string] options An array matching the named elements in the route to regular expressions which that
+     * @param Json[string] options An array matching the named elements in the route to regular expressions which that
      *  element should match. Also contains additional parameters such as which routed parameters should be
      *  shifted into the passed arguments. As well as supplying patterns for routing parameters.
      * /
-    Route redirect(string myroute, string[] myurl, IData[string] optionData = null) {
+    Route redirect(string myroute, string[] myurl, Json[string] optionData = null) {
         options["routeClass"] ??= RedirectRoute.classname;
         if (isString(myurl)) {
             myurl = ["redirect": myurl];
@@ -746,11 +746,11 @@ class DRouteBuilder {
      *  name of any route created in a scope callback.
      * Params:
      * string routings The plugin name to build routes for
-     * @param \Closure|IData[string] options Either the options to use, or a callback to build routes.
+     * @param \Closure|Json[string] options Either the options to use, or a callback to build routes.
      * @param \Closure|null mycallback The callback to invoke that builds the plugin routes
      *  Only required when options is defined.
      * /
-    auto plugin(string routings, Closure|IData[string] optionData = null, ?Closure mycallback = null) {
+    auto plugin(string routings, Closure|Json[string] optionData = null, ?Closure mycallback = null) {
         if (!isArray(options)) {
             mycallback = options;
             options = null;

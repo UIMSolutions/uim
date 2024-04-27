@@ -15,7 +15,7 @@ class DEagerLoader {
      * Nested array describing the association to be fetched
      * and the options to apply for each of them, if any
      */
-    protected IData[string] _containments = null;
+    protected Json[string] _containments = null;
 
     /**
      * Controls whether fields from associated tables will be eagerly loaded.
@@ -174,9 +174,9 @@ class DEagerLoader {
      * string myassociationPath Dot separated association path, "Name1.Name2.Name3".
      * @param \Closure|null mybuilder the callback auto to be used for setting extra
      * options to the filtering query.
-     * @param IData[string] options Extra options for the association matching.
+     * @param Json[string] options Extra options for the association matching.
      * /
-    void setMatching(string myassociationPath, ?Closure mybuilder = null, IData[string] optionData = null) {
+    void setMatching(string myassociationPath, ?Closure mybuilder = null, Json[string] optionData = null) {
        _matching ??= new static();
 
         options = options.update["joinType": SelectQuery.JOIN_TYPE_INNER];
@@ -373,13 +373,13 @@ class DEagerLoader {
      * Params:
      * \ORM\Table myparent Owning side of the association.
      * @param string myalias Name of the association to be loaded.
-     * @param IData[string] options List of extra options to use for this association.
-     * @param IData[string] mypaths An array with two values, the first one is a list of dot
+     * @param Json[string] options List of extra options to use for this association.
+     * @param Json[string] mypaths An array with two values, the first one is a list of dot
      * separated strings representing associations that lead to this `myalias` in the
      * chain of associations to be loaded. The second value is the path to follow in
      * entities" properties to fetch a record of the corresponding association.
      * /
-    protected DEagerLoadable _normalizeContain(Table myparent, string myalias, IData[string] options, array mypaths) {
+    protected DEagerLoadable _normalizeContain(Table myparent, string myalias, Json[string] options, array mypaths) {
         mydefaults = _containOptions;
         myinstance = myparent.getAssociation(myalias);
 

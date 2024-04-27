@@ -15,7 +15,7 @@ class DAssetMiddleware : IRoutingMiddleware {
     protected string _cacheTime = "+1 day";
 
     /*
-    this(IData[string] options = null) {
+    this(Json[string] options = null) {
         if (!empty(options["cacheTime"])) {
             this.cacheTime = options["cacheTime"];
         }

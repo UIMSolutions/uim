@@ -8,7 +8,7 @@ import uim.orm;
 class DMissingTableClassException : DORMException {
 	mixin(ExceptionThis!("MissingTableClass"));
 
-	override bool initialize(IData[string] initData = null) {
+	override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) {
 			return false;
 		}

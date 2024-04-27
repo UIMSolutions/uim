@@ -48,7 +48,7 @@ class DRouter {
     protected static DRouteCollection _collection;
 
     // A hash of request context data.
-    protected static IData[string] _requestContext = null;
+    protected static Json[string] _requestContext = null;
 
     /**
      * Named expressions
@@ -90,7 +90,7 @@ class DRouter {
     /**
      * Cache of parsed route paths
      *
-     * @var IData[string]
+     * @var Json[string]
      * /
     protected static array my_routePaths = null;
 
@@ -606,10 +606,10 @@ class DRouter {
      * Create a RouteBuilder for the provided path.
      * Params:
      * string mypath The path to set the builder to.
-     * @param IData[string] options The options for the builder
+     * @param Json[string] options The options for the builder
      * /
-    static RouteBuilder createRouteBuilder(string mypath, IData[string] optionData = null) {
-        IData[string] mydefaults = [
+    static RouteBuilder createRouteBuilder(string mypath, Json[string] optionData = null) {
+        Json[string] mydefaults = [
             "routeClass": defaultRouteClass(),
             "extensions": my_defaultExtensions,
         ];

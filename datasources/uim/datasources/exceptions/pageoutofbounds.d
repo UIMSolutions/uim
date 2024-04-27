@@ -12,7 +12,7 @@ import uim.datasources;
 class DPageOutOfBoundsException : DDatasourcesException {
 	mixin(ExceptionThis!("PageOutOfBounds"));
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		
 		this

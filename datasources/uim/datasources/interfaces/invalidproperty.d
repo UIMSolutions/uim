@@ -12,14 +12,14 @@ import uim.datasources;
 // Describes the methods that any class representing a data storage should comply with.
 interface IInvalidProperty {
     // Get a list of invalid fields and their data for errors upon validation/patching
-    IData[string] invalidFields();
+    Json[string] invalidFields();
 
     // Set fields as invalid and not patchable into the entity.
-    void setFieldsInvalid(IData[string] fields, bool canOverwrite = false);
+    void setFieldsInvalid(Json[string] fields, bool canOverwrite = false);
 
     // Get a single value of an invalid field. Returns null if not set.
-    IData invalidField(string fieldName) ;
+    Json invalidField(string fieldName) ;
 
     // Sets a field as invalid and not patchable into the entity.
-    void setInvalidField(string fieldName, IData aValue);
+    void setInvalidField(string fieldName, Json aValue);
 }

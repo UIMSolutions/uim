@@ -31,7 +31,7 @@ interface IDatasourceConnection { // : ILoggerAware
 /*
 
   // Get the configuration data used to create the connection
-  IData[string] configData();
+  Json[string] configData();
 
   // Gets the current logger object 
   // ILogger getLogger();

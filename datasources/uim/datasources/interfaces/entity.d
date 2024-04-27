@@ -13,7 +13,7 @@ import uim.datasources;
  * Describes the methods that any class representing a data storage should
  * comply with.
  *
- * @property IData  anId Alias for commonly used primary key.
+ * @property Json  anId Alias for commonly used primary key.
  * @template-extends \ArrayAccess<string, mixed>
  */
 interface IDatasourceEntity { // : ArrayAccess, IDataSerializable
@@ -126,17 +126,17 @@ interface IDatasourceEntity { // : ArrayAccess, IDataSerializable
     /**
      * Sets one or multiple fields to the specified value
      * Params:
-     * IData[string]|string fieldName the name of field to set or a list of
+     * Json[string]|string fieldName the name of field to set or a list of
      * fields with their respective values
-     * @param IData aValue The value to set to the field or an array if the
+     * @param Json aValue The value to set to the field or an array if the
      * first argument is also an array, in which case will be treated as options
-     * @param IData[string] options Options to be used for setting the field. Allowed option
+     * @param Json[string] options Options to be used for setting the field. Allowed option
      * keys are `setter` and `guard`
      * /
-    void set(string[] fieldName, IData aValue = null, IData[string] optionData = null);
+    void set(string[] fieldName, Json aValue = null, Json[string] optionData = null);
 
     // Returns the value of a field by name
-    IData &get(string fieldName) ;
+    Json &get(string fieldName) ;
 
     /**
      * Enable/disable field presence check when accessing a property.
@@ -156,7 +156,7 @@ interface IDatasourceEntity { // : ArrayAccess, IDataSerializable
      * string fieldName The name of the field.
      * @param bool allowFallback whether to allow falling back to the current field value if no original exists
     * /
-    IData getOriginal(string fieldName, bool allowFallback = true);
+    Json getOriginal(string fieldName, bool allowFallback = true);
 
     // Gets all original values of the entity.
     array getOriginalValues();
@@ -183,7 +183,7 @@ interface IDatasourceEntity { // : ArrayAccess, IDataSerializable
      * *Note* hidden fields are not visible, and will not be output
      * by toArray().
      *  /
-  IData[string] toDataArray();
+  Json[string] toDataArray();
 
   /**
      * Returns an array with the requested fields

@@ -36,7 +36,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
      *   FormHelper.
      *
      * /
-    protected IData _config = [
+    protected Json _config = [
         "cookieName": "csrfToken",
         "expiry": 0,
         "secure": BooleanData(false),
@@ -65,7 +65,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * /
     const int TOKEN_WITH_CHECKSUM_LENGTH = 56;
 
-    this(IData[string] configData = null) {
+    this(Json[string] configData = null) {
        _config = configData + _config;
     }
     

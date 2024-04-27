@@ -18,7 +18,7 @@ class DCspMiddleware { // }: IHttpMiddleware {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
@@ -27,7 +27,7 @@ class DCspMiddleware { // }: IHttpMiddleware {
     }
 
     // Hook method
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -53,9 +53,9 @@ class DCspMiddleware { // }: IHttpMiddleware {
      * Constructor
      * Params:
      * \ParagonIE\CSPBuilder\CSPBuilder|array csp CSP object or config array
-     * @param IData[string] configData Configuration options.
+     * @param Json[string] configData Configuration options.
      * /
-    this(ICSPBuilder|array csp, IData[string] configData = null) {
+    this(ICSPBuilder|array csp, Json[string] configData = null) {
         if (!class_exists(CSPBuilder.classname)) {
             throw new UimException("You must install paragonie/csp-builder to use CspMiddleware");
         }

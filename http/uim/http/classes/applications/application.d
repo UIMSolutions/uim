@@ -85,7 +85,7 @@ class DApplication {
         return middleware;
     }
  
-    void addPlugin(name, IData[string] configData = null) {
+    void addPlugin(name, Json[string] configData = null) {
         plugin = isString(name)
             ? this.plugins.create(name, configData)
             : name;
@@ -99,9 +99,9 @@ class DApplication {
      * If it isn`t available, ignore it.
      * Params:
      * \UIM\Core\IPlugin|string aName The plugin name or plugin object.
-     * @param IData[string] configData The configuration data for the plugin if using a string for name
+     * @param Json[string] configData The configuration data for the plugin if using a string for name
      * /
-    void addOptionalPlugin(IPlugin|string aName, IData[string] configData = null) {
+    void addOptionalPlugin(IPlugin|string aName, Json[string] configData = null) {
         try {
             this.addPlugin(name, configData);
         } catch (MissingPluginException) {

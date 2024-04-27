@@ -33,9 +33,9 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
     /**
      * Create a Cookie Collection from an array of Set-Cookie Headers
      * Params:
-     * @param IData[string] defaults The defaults attributes.
+     * @param Json[string] defaults The defaults attributes.
      * /
-    static auto createFromHeader(string[] headerValues, IData[string] defaultAttributes = null) {
+    static auto createFromHeader(string[] headerValues, Json[string] defaultAttributes = null) {
         cookies = null;
         headerValues.each!((value) {
             try {
@@ -209,7 +209,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * @param string ahost The host to match.
      * @param string aPath The path to match
      * /
-    protected IData[string] findMatchingCookies(string ascheme, string ahost, string aPath) {
+    protected Json[string] findMatchingCookies(string ascheme, string ahost, string aPath) {
          auto result;
         now = new DateTimeImmutable("now", new DateTimeZone("UTC"));
         foreach (this.cookies as cookie) {

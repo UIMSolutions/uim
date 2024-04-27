@@ -11,7 +11,7 @@ class DCookie : ICookie {
     // Raw Cookie value.
     protected string[] avalue = "";
 
-    // Whether a IData value has been expanded into an array.
+    // Whether a Json value has been expanded into an array.
     protected bool  isExpanded = false;
 
     // Expiration time
@@ -29,7 +29,7 @@ class DCookie : ICookie {
     protected ISameSiteEnum sameSite = null;
 
     // Default attributes for a cookie.
-    protected static @var IData[string] defaultAttributes = [
+    protected static @var Json[string] defaultAttributes = [
         "expires": NullData,
         "path": StringData("/"),
         "domain": StringData(""),
@@ -101,9 +101,9 @@ class DCookie : ICookie {
      * - `samesite`: Can be one of `ICookie.SAMESITE_LAX`, `ICookie.SAMESITE_STRICT`,
      *   `ICookie.SAMESITE_NONE` or `null`. Defaults to `null`.
      * Params:
-     * IData[string] options Default options.
+     * Json[string] options Default options.
      */
-    static void setDefaults(IData[string] options = null) {
+    static void setDefaults(Json[string] options = null) {
         auto options = options.copy;
 
         if (isSet(options["expires"])) {
@@ -120,9 +120,9 @@ class DCookie : ICookie {
      * Params:
      * string cookieName Cookie name
      * @param string[]|float|int|bool aValue Value of the cookie
-     * @param IData[string] options Cookies options.
+     * @param Json[string] options Cookies options.
      */
-    static static create(string cookieName, string[]|float|int|bool aValue, IData[string] options = null) {
+    static static create(string cookieName, string[]|float|int|bool aValue, Json[string] options = null) {
         auto options = options.updateoptions.update(defaultAttributes);
         options["expires"] = dateTimeInstance(options["expires"]);
 
@@ -164,7 +164,7 @@ class DCookie : ICookie {
      * Params:
      * @param  defaultAttributes Default attributes.
      */
-    static static createFromHeaderString(string cookieHeader, IData[string] defaultAttributes = []) {
+    static static createFromHeaderString(string cookieHeader, Json[string] defaultAttributes = []) {
         string[] someParts;
         if (cookieHeader.has(";")) {
             cookieHeader = cookieHeader.replace("";"", "{__cookie_replace__}");
@@ -460,9 +460,9 @@ class DCookie : ICookie {
      * Create a new cookie with updated data.
      * Params:
      * string aPath Path to write to
-     * @param IData aValue Value to write
+     * @param Json aValue Value to write
      */
-    static withAddedValue(string pathToWrite, IData aValue) {
+    static withAddedValue(string pathToWrite, Json aValue) {
         new = clone this;
         if (new.isExpanded == false) {
             assert(isString(new.value), "aValue is not a string");
@@ -500,7 +500,7 @@ class DCookie : ICookie {
      * Params:
      * string somePath Path to read the data from
     */
-    IData read(string aPath = null) {
+    Json read(string aPath = null) {
         if (this.isExpanded == false) {
             assert(isString(this.value), "aValue is not a string");
 
@@ -533,7 +533,7 @@ class DCookie : ICookie {
         }
         return options;
     }
-    IData[string] toDataArray() {
+    Json[string] toDataArray() {
         return [
             "name": this.name,
             "value": this.getScalarValue(),
@@ -553,7 +553,7 @@ class DCookie : ICookie {
      * Explode method to return array from string set in CookieComponent._flatten()
      * Maintains reading backwards compatibility with 1.x CookieComponent._flatten().
      * Params:
-     * string astring A string containing IData encoded data, or a bare string.
+     * string astring A string containing Json encoded data, or a bare string.
      */
     protected string[] _expand(string astring) {
         this.isExpanded = true;

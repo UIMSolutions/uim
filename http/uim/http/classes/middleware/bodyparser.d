@@ -7,7 +7,7 @@ import uim.http;
 /**
  * Parse encoded request body data.
  *
- * Enables IData and XML request payloads to be parsed into the request`s body.
+ * Enables Json and XML request payloads to be parsed into the request`s body.
  * You can also add your own request body parsers using the `addParser()` method.
  */
 class DBodyParserMiddleware { // }: IHttpMiddleware {
@@ -37,18 +37,18 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
      *
      * ### Options
      *
-     * - `IData` Set to false to disable IData body parsing.
+     * - `Json` Set to false to disable Json body parsing.
      * - `xml` Set to true to enable XML parsing. Defaults to false, as XML
-     *  handling requires more care than IData does.
+     *  handling requires more care than Json does.
      * - `methods` The HTTP methods to parse on. Defaults to PUT, POST, PATCH DELETE.
      * Params:
-     * IData[string] options The options to use. See above.
+     * Json[string] options The options to use. See above.
      * /
-    this(IData[string] options = null) {
-        options = options.update["IData": BooleanData(true), "xml": BooleanData(false), "methods": null];
-        if (options["IData"]) {
+    this(Json[string] options = null) {
+        options = options.update["Json": BooleanData(true), "xml": BooleanData(false), "methods": null];
+        if (options["Json"]) {
             this.addParser(
-                ["application/IData", "text/IData"],
+                ["application/Json", "text/Json"],
                 this.decodeIData(...)
             );
         }
@@ -80,7 +80,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
      * });
      * ```
      * Params:
-     * string[] types An array of content-type header values to match. eg. application/IData
+     * string[] types An array of content-type header values to match. eg. application/Json
      * @param \Closure  aParser The parser function. Must return an array of data to be inserted
      *  into the request.
      * /
@@ -122,7 +122,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
         return handler.handle(request);
     }
     
-    // Decode IData into an array.
+    // Decode Json into an array.
     // TODO protected array decodeIData(string bodyToDecode) {
         if (bodyToDecode.isEmpty) {
             return null;

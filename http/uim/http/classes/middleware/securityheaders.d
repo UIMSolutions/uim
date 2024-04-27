@@ -77,7 +77,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
     const BY_FTP_FILENAME = "by-ftp-filename";
 
     // Security related headers to set
-    protected IData[string] _headers;
+    protected Json[string] _headers;
 
     /**
      * X-Content-Type-Options
@@ -87,7 +87,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
      * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options
      * /
     void noSniff() {
-        _headers["x-content-type-options"] = IData(self.NOSNIFF);
+        _headers["x-content-type-options"] = Json(self.NOSNIFF);
     }
     
     /**
@@ -98,7 +98,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
      * @link https://msdn.microsoft.com/en-us/library/jj542450(v=vs.85).aspx
      * /
     void noOpen() {
-        _headers["x-download-options"] = IData(self.NOOPEN);
+        _headers["x-download-options"] = Json(self.NOOPEN);
     }
     
     /**

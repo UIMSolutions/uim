@@ -54,7 +54,7 @@ class DDigest {
      * \UIM\Http\Client client Http client object.
      * @param array|null options Options list.
      * /
-    this(IClient httpClient, IData[string] options = null) {
+    this(IClient httpClient, Json[string] options = null) {
        _client = httpClient;
     }
     
@@ -78,7 +78,7 @@ class DDigest {
      * Add Authorization header to the request.
      * Params:
      * \UIM\Http\Client\Request request The request object.
-     * @param IData[string] credentials Authentication credentials.
+     * @param Json[string] credentials Authentication credentials.
      * /
     Request authentication(Request request, array credentials) {
         if (!isSet(credentials["username"], credentials["password"])) {
@@ -136,7 +136,7 @@ class DDigest {
      * Generate the header Authorization
      * Params:
      * \UIM\Http\Client\Request request The request object.
-     * @param IData[string] credentials Authentication credentials.
+     * @param Json[string] credentials Authentication credentials.
      * /
     protected string _generateHeader(Request request, array credentials) {
         somePath = request.getRequestTarget();

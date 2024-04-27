@@ -36,7 +36,7 @@ class DCookie : ICookie {
 
     this() { initialize; }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -120,12 +120,12 @@ class DCookie : ICookie {
     // TODO static withSameSite(SameSiteEnum|string|null sameSite);
 
     // Get cookie options
-    IData[string] getOptions() {
+    Json[string] getOptions() {
         return null;
     }
 
     // Get cookie data as array.
-    IData[string] toArray() {
+    Json[string] toArray() {
         return null;
     }
 

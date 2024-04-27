@@ -21,7 +21,7 @@ version (linux) {
 		}
 
 		string from = fromDir;
-		if (from[$ - 1] != '/')
+		if (!from.endswith('/'))
 			from ~= "/";
 
 		if (!exists(from ~ fileName)) {
@@ -29,7 +29,7 @@ version (linux) {
 		}
 
 		string to = toDir;
-		if (to[$ - 1] != '/')
+		if (!to.endsWith("/"))
 			to ~= "/";
 
 		if (createMissingDirs) {
@@ -81,7 +81,7 @@ version (linux) {
 		}
 
 		string to = toDir;
-		if (!to.endsWth("/"))
+		if (!to.endsWith("/"))
 			to ~= "/";
 
 		if (createMissingDirs) {

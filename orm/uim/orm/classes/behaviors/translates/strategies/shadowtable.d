@@ -15,7 +15,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
@@ -24,7 +24,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
     }
 
     // Hook method
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -55,7 +55,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * @param DORMDORMTable aTable Table instance.
      * @param array<string, mixed> myConfiguration Configuration.
      * /
-    this(DORMTable aTable, IData[string] configData) {
+    this(DORMTable aTable, Json[string] configData) {
         tableAlias = table.aliasName();
         [plugin] = pluginSplit(table.registryKey(), true);
         tableReferenceName = configuration.get("referenceName"];
@@ -189,7 +189,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * @param array<string, mixed> myConfiguration The config to use for adding fields.
      * @return bool Whether a join to the translation table is required.
      * /
-        protected function addFieldsToQuery(query, IData myConfiguration) {
+        protected function addFieldsToQuery(query, Json myConfiguration) {
             if (query.isAutoFieldsEnabled()) {
                 return true;
             }
@@ -277,7 +277,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                     return false;
                                 }
 
-                                IData alias = configuration.get("hasOneAlias"];
+                                Json alias = configuration.get("hasOneAlias"];
                                 fields = this.translatedFields();
                                 mainTableAlias = configuration.get("mainTableAlias"];
                                 mainTableFields = this.mainFields();
@@ -402,7 +402,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                                             }
                                                                         }
 
-                                                                        array buildMarshalMap(DMarshaller marshaller, array map, IData[string] optionData) {
+                                                                        array buildMarshalMap(DMarshaller marshaller, array map, Json[string] optionData) {
                                                                             this.translatedFields();
 
                                                                             return _buildMarshalMap(marshaller, map, options);

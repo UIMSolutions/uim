@@ -24,7 +24,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
@@ -33,7 +33,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
     }
 
     // Hook method
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -66,7 +66,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * @param DORMDORMTable aTable The table this strategy is attached to.
      * @param array<string, mixed> myConfiguration The config for this strategy.
      * /
-    this(DORMTable aTable, IData[string] configData) {
+    this(DORMTable aTable, Json[string] configData) {
         if (configuration.has("tableLocator"])) {
             _tableLocator = configuration.get("tableLocator"];
         }

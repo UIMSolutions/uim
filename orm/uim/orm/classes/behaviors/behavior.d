@@ -93,7 +93,7 @@ import uim.orm;
  * methods should expect the following arguments:
  *
  * ```
- * findSlugged(Query query, IData[string] optionData)
+ * findSlugged(Query query, Json[string] optionData)
  * ```
  *
  * @see DORMTable::addBehavior()
@@ -107,7 +107,7 @@ class DBehavior : IEventListener {
         this.name("Behavior");
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
         this.name("Behavior");
     }
@@ -116,7 +116,7 @@ class DBehavior : IEventListener {
         this().name(name);
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -151,7 +151,7 @@ class DBehavior : IEventListener {
      * @param DORMDORMTable aTable The table this behavior is attached to.
      * @param array<string, mixed> myConfiguration The config for this behavior.
      * /
-    this(DORMTable aTable, IData[string] configData) {
+    this(DORMTable aTable, Json[string] configData) {
         myConfiguration = _resolveMethodAliases(
             "implementedFinders",
             _defaultConfig,
@@ -184,7 +184,7 @@ class DBehavior : IEventListener {
      * @param array<string, mixed> myConfiguration The customized method mappings.
      * @return array A de-duped list of config data.
      * /
-    // TODO protected array _resolveMethodAliases(string aKey, array defaults, IData myConfiguration) {
+    // TODO protected array _resolveMethodAliases(string aKey, array defaults, Json myConfiguration) {
         if (!isset(defaults[key], configuration.get(key])) {
             return configuration;
         }

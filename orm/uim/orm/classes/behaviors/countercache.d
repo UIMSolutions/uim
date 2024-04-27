@@ -252,10 +252,10 @@ class DCounterCacheBehavior : DBehavior {
     /**
      * Fetches and returns the count for a single field in an association
      * Params:
-     * IData[string] configData The counter cache configuration for a single field
+     * Json[string] configData The counter cache configuration for a single field
      * @param array myconditions Additional conditions given to the query
      * /
-    protected int _getCount(IData[string] configData, array myconditions) {
+    protected int _getCount(Json[string] configData, array myconditions) {
         myfinder = "all";
         if (!empty(configData("finder"])) {
             myfinder = configData("finder"];

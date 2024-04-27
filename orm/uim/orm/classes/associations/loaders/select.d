@@ -10,7 +10,7 @@ import uim.orm;
  * @internal
  */
 class DSelectLoader {
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         return true;
     }
     
@@ -53,7 +53,7 @@ class DSelectLoader {
      *
      * @param array<string, mixed> options Properties to be copied to this class
      * /
-    this(IData[string] optionData) {
+    this(Json[string] optionData) {
         this.alias = options["alias"];
         this.sourceAlias = options["sourceAlias"];
         this.targetAlias = options["targetAlias"];
@@ -72,7 +72,7 @@ class DSelectLoader {
      * @param array<string, mixed> options Same options as `Association::eagerLoader()`
      * @return \Closure
      * /
-    function buildEagerLoader(IData[string] optionData): Closure
+    function buildEagerLoader(Json[string] optionData): Closure
     {
         options = options.update_defaultOptions();
         fetchQuery = _buildQuery(options);
@@ -105,7 +105,7 @@ class DSelectLoader {
      * @return DORMQuery
      * @throws \InvalidArgumentException When a key is required for associations but not selected.
      * /
-    protected DORMQuery _buildQuery(IData[string] optionData) {
+    protected DORMQuery _buildQuery(Json[string] optionData) {
         key = _linkField(options);
         filter = options["keys"];
         useSubquery = options["strategy"] == Association::STRATEGY_SUBQUERY;
@@ -313,7 +313,7 @@ class DSelectLoader {
      * @return array<string>|string
      * @throws \RuntimeException
      * /
-    protected function _linkField(IData[string] optionData) {
+    protected function _linkField(Json[string] optionData) {
         links = null;
         name = this.alias;
 
@@ -409,7 +409,7 @@ class DSelectLoader {
      * @param array<string, mixed> options The options passed to the eager loader
      * @return array<string, mixed>
      * /
-    // TODO protected array _buildResultMap(Query fetchQuery, IData[string] optionData) {
+    // TODO protected array _buildResultMap(Query fetchQuery, Json[string] optionData) {
         resultMap = null;
         singleResult = in_array(this.associationType, [Association::MANY_TO_ONE, Association::ONE_TO_ONE], true);
         keys = in_array(this.associationType, [Association::ONE_TO_ONE, Association::ONE_TO_MANY], true) ?
@@ -442,7 +442,7 @@ class DSelectLoader {
      * @param array<string, mixed> options The options passed to the eagerLoader method
      * @return \Closure
      * /
-    protected function _resultInjector(Query fetchQuery, array resultMap, IData[string] optionData): Closure
+    protected function _resultInjector(Query fetchQuery, array resultMap, Json[string] optionData): Closure
     {
         keys = this.associationType == Association::MANY_TO_ONE ?
             this.foreignKey :

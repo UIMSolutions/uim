@@ -7,7 +7,7 @@ import uim.orm;
 class DTimestampBehavior : DBehavior {
     mixin(BehaviorThis!("Timestamp"));
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         // TODO
         configuration(MemoryConfiguration);
         /**
@@ -24,7 +24,7 @@ class DTimestampBehavior : DBehavior {
      * and call setTimestamp() on the behavior class before use.
      *
      * /
-    protected IData[string] configuration.updateDefaults([
+    protected Json[string] configuration.updateDefaults([
         "implementedFinders": ArrayData,
         "implementedMethods": [
             "timestamp": "timestamp",

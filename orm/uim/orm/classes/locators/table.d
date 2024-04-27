@@ -77,7 +77,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         _fallbackClassName = fallbackClassname;
     }
  
-    void configuration.update(string[] myalias, IData[string] options = null) {
+    void configuration.update(string[] myalias, Json[string] options = null) {
         if (!isString(myalias)) {
            configuration = myalias;
 
@@ -124,14 +124,14 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * the same alias, the registry will only store the first instance.
      * Params:
      * string myalias The alias name you want to get. Should be in CamelCase format.
-     * @param IData[string] options The options you want to build the table with.
+     * @param Json[string] options The options you want to build the table with.
      *  If a table has already been loaded the options will be ignored.
      * /
-    Table get(string myalias, IData[string] optionData = null) {
+    Table get(string myalias, Json[string] optionData = null) {
         return super.get(myalias, options);
     }
  
-    protected auto createInstance(string myalias, IData[string] options): Table
+    protected auto createInstance(string myalias, Json[string] options): Table
     {
         if (!myalias.has("\\")) {
             [, myclassAlias] = pluginSplit(myalias);
@@ -193,9 +193,9 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * Gets the table class name.
      * Params:
      * string myalias The alias name you want to get. Should be in CamelCase format.
-     * @param IData[string] options Table options array.
+     * @param Json[string] options Table options array.
      * /
-    protected string _getClassName(string myalias, IData[string] optionData = null) {
+    protected string _getClassName(string myalias, Json[string] optionData = null) {
         if (options["className"].isEmpty) {
             options["className"] = myalias;
         }
@@ -212,7 +212,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
     }
     
     // Wrapper for creating table instances
-    protected ITable _create(IData[string] options) {
+    protected ITable _create(Json[string] options) {
         auto myclass = options["className"];
         return new myclass(options);
     }

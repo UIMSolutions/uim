@@ -18,7 +18,7 @@ import uim.orm;
  */
 class DTranslateBehavior : DBehavior { // IPropertyMarshal {
     /* 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         configuration.updateDefaults([
             "implementedFinders": ["translations": "findTranslations"],
             "implementedMethods": [
@@ -77,9 +77,9 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      *  are created/modified. Default `null`.
      * Params:
      * \ORM\Table mytable The table this behavior is attached to.
-     * @param IData[string] configData The config for this behavior.
+     * @param Json[string] configData The config for this behavior.
      * /
-    this(Table mytable, IData[string] configData = null) {
+    this(Table mytable, Json[string] configData = null) {
         configData += [
             "defaultLocale": I18n.getDefaultLocale(),
             "referenceName": this.referenceName(mytable),
@@ -92,9 +92,9 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
     /**
      * Initialize hook
      * Params:
-     * IData[string] configData The config for this behavior.
+     * Json[string] configData The config for this behavior.
      * /
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         this.getStrategy();
         return super.initialize(initData);
     }
@@ -193,9 +193,9 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * Params:
      * \ORM\Marshaller mymarshaller The marhshaller of the table the behavior is attached to.
      * @param array mymap The property map being built.
-     * @param IData[string] options The options array used in the marshalling call.
+     * @param Json[string] options The options array used in the marshalling call.
      * /
-    array buildMarshalMap(DMarshaller mymarshaller, array mymap, IData[string] options) {
+    array buildMarshalMap(DMarshaller mymarshaller, array mymap, Json[string] options) {
         return _getStrategy().buildMarshalMap(mymarshaller, mymap, options);
     }
 
@@ -284,7 +284,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * string mymethod Method name.
      * @param array myargs Method arguments.
     * /
-                    IData __call(string mymethod, array myargs) {
+                    Json __call(string mymethod, array myargs) {
                         return _strategy. {
                             mymethod
                         }

@@ -22,7 +22,7 @@ class DTreeBehavior : DBehavior {
     protected string _primaryKeys;
 
     /* 
-    override bool initialize(IData[string] myConfiguration) {
+    override bool initialize(Json[string] myConfiguration) {
         configuration.updateDefaults([
         "implementedFinders": [
             "path": "findPath",
@@ -336,7 +336,7 @@ class DTreeBehavior : DBehavior {
      * @return 
      * @throws \InvalidArgumentException If the "for" key is missing in options
      * /
-    DORMQuery findPath(Query query, IData[string] optionData) {
+    DORMQuery findPath(Query query, Json[string] optionData) {
         if (empty(options["for"])) {
             throw new DInvalidArgumentException("The "for" key is required for find("path")");
         }
@@ -398,7 +398,7 @@ class DTreeBehavior : DBehavior {
      * @return DORMQuery
      * @throws \InvalidArgumentException When the "for" key is not passed in options
      * /
-    function findChildren(Query query, IData[string] optionData): Query
+    function findChildren(Query query, Json[string] optionData): Query
     {
         myConfiguration = configuration;
         options = options.update["for": null, "direct": BooleanData(false)];
@@ -449,7 +449,7 @@ class DTreeBehavior : DBehavior {
      * @param array<string, mixed> options Array of options as described above.
      * @return DORMQuery
      * /
-    function findTreeList(Query query, IData[string] optionData): Query
+    function findTreeList(Query query, Json[string] optionData): Query
     {
         left = _table.aliasField(this.configuration.get("left"));
 
@@ -479,7 +479,7 @@ class DTreeBehavior : DBehavior {
      * @param array<string, mixed> options Array of options as described above.
      * @return DORMQuery Augmented query.
      * /
-    function formatTreeList(Query query, IData[string] optionData = null): Query
+    function formatTreeList(Query query, Json[string] optionData = null): Query
     {
         return query.formatResults(function (ICollection results) use (options) {
             options = options.update[

@@ -11,14 +11,14 @@ import uim.caches;
 class DNullCacheEngine : DCacheEngine {
   mixin(CacheEngineThis!("Null"));
 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
     return true;
   }
 
 /*
-  bool set(string aKey, IData aValue, DateInterval | int | null aTtl = null) {
+  bool set(string aKey, Json aValue, DateInterval | int | null aTtl = null) {
     return true;
   }
 
@@ -26,11 +26,11 @@ class DNullCacheEngine : DCacheEngine {
     return true;
   } * / 
 
-  IData get(string aKey, IData defaultValues = null) {
+  Json get(string aKey, Json defaultValues = null) {
     return defaultValues;
   }
 
-  range getMultiple(string[] someKeys, IData defaultValues = null) {
+  range getMultiple(string[] someKeys, Json defaultValues = null) {
     return null;
   }
 

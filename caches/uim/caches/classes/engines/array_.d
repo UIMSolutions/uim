@@ -17,9 +17,9 @@ class DArrayCacheEngine : DCacheEngine {
 
   // Cached data.
   // Structured as [key: [exp: expiration, val: value]]
-  protected IData[string] _cachedData;
+  protected Json[string] _cachedData;
 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
     return true;
@@ -33,7 +33,7 @@ class DArrayCacheEngine : DCacheEngine {
      *  for it or let the driver take care of that.
      * returns True on success and false on failure.
      */
-  /* bool set(string dataId, IData dataForCache, DateInterval | int | nullmyttl = null) {
+  /* bool set(string dataId, Json dataForCache, DateInterval | int | nullmyttl = null) {
     auto key = _key(dataId);
     auto myexpires = time() + this.duration(myttl);
    _cachedData[key] = ["exp": myexpires, "val": dataForCache];
@@ -42,7 +42,7 @@ class DArrayCacheEngine : DCacheEngine {
   } * / 
 
   // Read a key from the cache
-  override IData get(string dataId, IData defaultValue = null) {
+  override Json get(string dataId, Json defaultValue = null) {
     auto key = _key(dataId);
     if (!_cachedData.isSet(key)) {
       return defaultValue;

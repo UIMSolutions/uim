@@ -16,7 +16,7 @@ import uim.caches;
 class DMemoryCacheEngine : DCacheEngine {
   mixin(CacheEngineThis!("Memory"));
 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }
@@ -34,7 +34,7 @@ class DMemoryCacheEngine : DCacheEngine {
      * - `prefix` Prepended to all entries. Good for when you need to share a keyspace
      *   with either another cache config or another application.
      * - `serialize` The serializer engine used to serialize data. Available engines are 'D",
-     *   'igbinary' and 'IData'. Beside 'D", the memcached extension must be compiled with the
+     *   'igbinary' and 'Json'. Beside 'D", the memcached extension must be compiled with the
      *   appropriate serializer support.
      * - `servers` String or array of memcached servers. If an array MemcacheEngine will use
      *   them as a pool.
@@ -64,7 +64,7 @@ class DMemoryCacheEngine : DCacheEngine {
   /**
      * List of available serializer engines
      *
-     * Memory must be compiled with IData and igbinary support to use these engines
+     * Memory must be compiled with Json and igbinary support to use these engines
 h     * /
   protected int[string] my_serializers;
 
@@ -81,7 +81,7 @@ h     * /
     }
     /* _serializers = [
       "igbinary": Memory: : SERIALIZER_IGBINARY,
-      "IData": Memory: : SERIALIZER_IData,
+      "Json": Memory: : SERIALIZER_IData,
       "d": Memory: : SERIALIZER_D,
     ]; * /
 
@@ -246,12 +246,12 @@ string | int | bool | null getOption(int myname) {
      * will be treated as real Unix time value rather than an offset from current time.
      * Params:
      * string aKey Identifier for the data
-     * @param IData aValue Data to be cached
+     * @param Json aValue Data to be cached
      * @param \DateInterval|int myttl Optional. The TTL value of this item. If no value is sent and
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      * /
-bool set(string aKey, IData aValue, DateInterval | int | null myttl = null) {
+bool set(string aKey, Json aValue, DateInterval | int | null myttl = null) {
   myduration = this.duration(myttl);
 
   return _Memory.set(_key(aKey), myvalue, myduration);
@@ -278,9 +278,9 @@ bool setMultiple(Range myvalues, DateInterval | int | null myttl = null) {
      * Read a key from the cache
      * Params:
      * string aKey Identifier for the data
-     * @param IData mydefault Default value to return if the key does not exist.
+     * @param Json mydefault Default value to return if the key does not exist.
      * /
-IData get(string aKey, IData mydefault = null) {
+Json get(string aKey, Json mydefault = null) {
   auto myKey = _key(aKey);
   myvalue = _Memory.get(myKey);
   if (_Memory.getResultCode() == Memory :  : RES_NOTFOUND) {
@@ -293,9 +293,9 @@ IData get(string aKey, IData mydefault = null) {
      * Read many keys from the cache at once
      * Params:
      * iterable<string> someKeys An array of identifiers for the data
-     * @param IData mydefault Default value to return for keys that do not exist.
+     * @param Json mydefault Default value to return for keys that do not exist.
      * /
-IData[string] getMultiple(string[] someKeys, IData mydefault = null) {
+Json[string] getMultiple(string[] someKeys, Json mydefault = null) {
   mycacheKeys = null;
   someKeys.each!(key => mycacheKeys[key] = _key(key));
   myvalues = _Memory.getMulti(mycacheKeys);
@@ -354,9 +354,9 @@ bool clear() {
 /**
      * Add a key to the cache if it does not already exist.
      * Params:
-     * @param IData aValue Data to be cached.
+     * @param Json aValue Data to be cached.
      * /
-bool add(string dataId, IData aValue) {
+bool add(string dataId, Json aValue) {
   auto myduration = configuration.get("duration");
   aKey = _key(dataId);
 

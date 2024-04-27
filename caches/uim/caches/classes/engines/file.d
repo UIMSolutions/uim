@@ -14,7 +14,7 @@ import uim.caches;
 class DFileCacheEngine : DCacheEngine {
     mixin(CacheEngineThis!("File"));
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
@@ -77,12 +77,12 @@ class DFileCacheEngine : DCacheEngine {
     /**
      * Write data for key into cache
      * Params:
-     * @param IData aValue Data to be cached
+     * @param Json aValue Data to be cached
      * @param \DateInterval|int myttl Optional. The TTL value of this item. If no value is sent and
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      */
-    /* bool set(string dataId, IData cacheData, DateInterval | int myttl = null) {
+    /* bool set(string dataId, Json cacheData, DateInterval | int myttl = null) {
         if (cacheData == "" || !_init) {
             return false;
         }
@@ -116,7 +116,7 @@ class DFileCacheEngine : DCacheEngine {
 
     /* 
     // Read a key from the cache
-    IData get(string dataId, IData defaultValue = null) {
+    Json get(string dataId, Json defaultValue = null) {
         auto key = _key(dataId);
 
         if (!_init || _setKey(key) == false) {
@@ -324,15 +324,14 @@ class DFileCacheEngine : DCacheEngine {
     bool clearGroup(string groupName) {
         unset(_File);
 
-        auto myprefix = to!string(configuration.get("prefix"));
+        string myprefix = configuration.getString("prefix"));
 
-        auto mydirectoryIterator = new DRecursiveDirectoryIterator(configuration.get("path"]);
-        auto mycontents = new DRecursiveIteratorIterator(
+        DRecursiveDirectoryIterator mydirectoryIterator = new DRecursiveDirectoryIterator(configuration.get("path"]);
+        DRecursiveIteratorIterator mycontents = new DRecursiveIteratorIterator(
             mydirectoryIterator,
             RecursiveIteratorIterator.CHILD_FIRST
         );
-        /** @var array<\SplFileInfo> myfiltered */
-    /* auto myfiltered = new DCallbackFilterIterator(
+        SplFileInfo[] myfiltered = new DCallbackFilterIterator(
             mycontents,
             auto(SplFileInfo mycurrent) use(groupName, myprefix) {
             if (!mycurrent.isFile()) {

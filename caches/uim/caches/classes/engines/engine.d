@@ -12,7 +12,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
@@ -21,7 +21,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         this.name(newName);
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -90,12 +90,12 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * Obtains multiple cache items by their unique keys.
      * Params:
      * iterable<string> someKeys A list of keys that can obtained in a single operation.
-     * @param IData mydefault Default value to return for keys that do not exist.
+     * @param Json mydefault Default value to return for keys that do not exist.
      */
-    IData[string] getMultiple(string[] someKeys, IData mydefault = null) {
+    Json[string] getMultiple(string[] someKeys, Json mydefault = null) {
         // ensureValidType(someKeys);
 
-        IData[string] results;
+        Json[string] results;
         // someKeys
         // hes    .each!(key => results[key] = get(key, mydefault));
 
@@ -161,7 +161,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     }
 
     // Fetches the value for a given key from the cache.
-    IData get(string itemKey, IData defaultValue = null) {
+    Json get(string itemKey, Json defaultValue = null) {
         return null;
     }
 
@@ -169,12 +169,11 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * Persists data in the cache, uniquely referenced by the given key with an optional expiration TTL time.
      * Params:
      * string aKey The key of the item to store.
-     * @param IData aValue The value of the item to store, must be serializable.
      * @param \DateInterval|int myttl Optional. The TTL value of this item. If no value is sent and
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      */
-    // abstract bool set(string aKey, IData aValue, DateInterval|int myttl = null);
+    // abstract bool set(string aKey, Json valueToStore, DateInterval|int myttl = null);
 
     /**
      * Increment a number under the key and return incremented value
@@ -185,12 +184,8 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         return 0;
     }
 
-    /**
-     * Decrement a number under the key and return decremented value
-     * Params:
-     * int anOffset How much to subtract
-     */
-    int decrement(string dataId, int anOffset = 1) {
+    // Decrement a number under the key and return decremented value
+    int decrement(string dataId, int substractValue = 1) {
         return 0;
     }
 
@@ -209,7 +204,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * Defaults to a non-atomic implementation. Subclasses should
      * prefer atomic implementations.
      * /
-    bool add(string dataId, IData dataToCache) {
+    bool add(string dataId, Json dataToCache) {
         auto cachedValue = get(dataId);
         if (cachedValue is null) {
             return _set(dataId, dataToCache);

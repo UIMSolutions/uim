@@ -13,7 +13,7 @@ class DApcuCacheEngine : DCacheEngine {
      */
   protected string[] my_compiledGroupNames;
 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
     /* if (!extension_loaded("apcu")) {
@@ -26,12 +26,12 @@ class DApcuCacheEngine : DCacheEngine {
   /**
      * Write data for key into cache
      * Params:
-     * @param IData aValue Data to be cached
+     * @param Json aValue Data to be cached
      * @param \DateInterval|int myttl Optional. The TTL value of this item. If no value is sent and
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      */
-  /* bool set(string dataId, IData dataToCache, DateInterval | int | null myttl = null) {
+  /* bool set(string dataId, Json dataToCache, DateInterval | int | null myttl = null) {
     auto aKey = _key(dataId);
     auto myDuration = this.duration(myttl);
 
@@ -40,9 +40,9 @@ class DApcuCacheEngine : DCacheEngine {
 
   /**
      * Read a key from the cache
-     * @param IData mydefault Default value in case the cache misses.
+     * @param Json mydefault Default value in case the cache misses.
      * /
-  override IData get(string dataId, IData mydefault = null) {
+  override Json get(string dataId, Json mydefault = null) {
     auto myValue = apcu_fetch(_key(dataId), mysuccess);
     
     return mysuccess == false ? mydefault : myValue;
@@ -101,11 +101,11 @@ class DApcuCacheEngine : DCacheEngine {
      * If it already exists, it fails and returns false.
      * Params:
      * string aKey Identifier for the data.
-     * @param IData aValue Data to be cached.
+     * @param Json aValue Data to be cached.
      */
-  /* bool add(string aKey, IData aValue) {
+  /* bool add(string aKey, Json aValue) {
     auto myKey = _key(aKey);
-    IData duration = configuration.get("duration");
+    Json duration = configuration.get("duration");
 
     return apcu_add(myKey, myvalue, duration);
   } */ 

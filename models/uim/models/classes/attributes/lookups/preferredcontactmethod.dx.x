@@ -12,7 +12,7 @@ class DPreferredContactMethodAttribute : DAttribute {
   mixin(AttributeThis!("PreferredContactMethodAttribute"));
 
   // Initialization hook method.
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
     // means.measurement.preferredcontactmethod
 
@@ -23,7 +23,7 @@ class DPreferredContactMethodAttribute : DAttribute {
     return true;
   }
 
-/*   override IData createData() {
+/*   override Json createData() {
     return PreferredContactMethoDData(this); } */
 }
 mixin(AttributeCalls!("PreferredContactMethodAttribute"));

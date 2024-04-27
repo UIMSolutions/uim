@@ -18,7 +18,7 @@ class DIntegerBooleanAttribute : DLookupAttribute {
   }
 
   // Initialization hook method.
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }
@@ -44,7 +44,7 @@ class DIntegerBooleanAttribute : DLookupAttribute {
     return false;
   }
 
-  /* override IData createData() {
+  /* override Json createData() {
     return LookupData!(int, bool)(this).isNullable(isNullable); }  */
 }
 

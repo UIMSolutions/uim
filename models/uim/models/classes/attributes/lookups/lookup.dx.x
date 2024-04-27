@@ -12,7 +12,7 @@ class DLookupAttribute : DAttribute {
   mixin(AttributeThis!("LookupAttribute"));
 
   // Initialization hook method.
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; } 
     // means.measurement.lookup
 
@@ -23,7 +23,7 @@ class DLookupAttribute : DAttribute {
     return true;
   }
 
-  /* override IData createData() {
+  /* override Json createData() {
     return LookupData(this); 
   } */
 }

@@ -13,7 +13,7 @@ class DStringIntegerAttribute : DLookupAttribute {
 
   mixin(TProperty!("int[string]", "lookups"));
 
-  /* override IData createData() {
+  /* override Json createData() {
     return LookupData!(string, int).isNullable(isNullable);
   } */
 }

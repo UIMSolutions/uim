@@ -17,7 +17,7 @@ class DIntegerIntegerAttribute : DLookupAttribute {
   }
 
   // Initialization hook method.
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
     // means.measurement.lookup
 
@@ -36,7 +36,7 @@ class DIntegerIntegerAttribute : DLookupAttribute {
     return false; 
   }  
 
-  /* override IData createData() {
+  /* override Json createData() {
     return LookupData!(int, int)(this).isNullable(isNullable); }  */
 }
 mixin(AttributeCalls!("IntegerIntegerAttribute"));

@@ -63,11 +63,11 @@ class DConsoleOptionParser {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -91,8 +91,8 @@ class DConsoleOptionParser {
     }
     // #endregion description
 
-    void addArgument(string argName, IData[string] params = null) {
-        IData[string] defaultOptions = [
+    void addArgument(string argName, Json[string] params = null) {
+        Json[string] defaultOptions = [
             "name": StringData(argName),
             "help": StringData(""),
             "index": LongData(count(_args)),
@@ -216,7 +216,7 @@ class DConsoleOptionParser {
      * ];
      * ```
      * Params:
-     * IData[string] spec The spec to build the OptionParser with.
+     * Json[string] spec The spec to build the OptionParser with.
      * @param bool defaultOptions Whether you want the verbose and quiet options set.
      * /
     static auto buildFromArray(array spec, bool defaultOptions = true) {
@@ -237,7 +237,7 @@ class DConsoleOptionParser {
     }
     
     // Returns an array representation of this parser.
-    IData[string] toArray() {
+    Json[string] toArray() {
         return [
             "command": _command,
             "arguments": _args,
@@ -295,7 +295,7 @@ class DConsoleOptionParser {
      *  as when options are parsed. Will also accept an instance of ConsoleInputOption.
      *  options An array of parameters that define the behavior of the option
      * /
-    void addOption(string optionName, IData[string] behaviorOptions = null) {
+    void addOption(string optionName, Json[string] behaviorOptions = null) {
             defaultValues = [
                 "short": StringData(""),
                 "help": StringData(""),
@@ -323,7 +323,7 @@ class DConsoleOptionParser {
         addOption(inputOption, behaviorOptions) {
     }
 
-    void addOption(ConsoleInputOption inputOption, IData[string] behaviorOptions = null) {
+    void addOption(ConsoleInputOption inputOption, Json[string] behaviorOptions = null) {
             string optionName = inputOption.name();
 
        _options[optionName] = inputOption;
@@ -354,7 +354,7 @@ class DConsoleOptionParser {
      * Params:
      * \UIM\Console\ConsoleInputArgument|string aName The name of the argument.
      *  Will also accept an instance of ConsoleInputArgument.
-     * @param IData[string] params Parameters for the argument, see above.
+     * @param Json[string] params Parameters for the argument, see above.
      * /
     void addArgument(ConsoleInputArgument|string aName, array params = []) {
     }
@@ -366,7 +366,7 @@ class DConsoleOptionParser {
      * Add multiple arguments at once. Take an array of argument definitions.
      * The keys are used as the argument names, and the values as params for the argument.
      * Params:
-     * array<string, IData[string]|\UIM\Console\ConsoleInputArgument> someArguments Array of arguments to add.
+     * array<string, Json[string]|\UIM\Console\ConsoleInputArgument> someArguments Array of arguments to add.
      * @see \UIM\Console\DConsoleOptionParser buildOptionParser.addArgument()
      * /
     void addArguments(array someArguments) {
@@ -383,10 +383,10 @@ class DConsoleOptionParser {
      * Add multiple options at once. Takes an array of option definitions.
      * The keys are used as option names, and the values as params for the option.
      * Params:
-     * IData[string] optionsToAdd Array of options to add.
+     * Json[string] optionsToAdd Array of options to add.
      * @see \UIM\Console\DConsoleOptionParser buildOptionParser.addOption()
      * /
-    void addOptions(IData[string] optionsToAdd = null) {
+    void addOptions(Json[string] optionsToAdd = null) {
         foreach (name: params; optionsToAdd) {
             if (cast(DConsoleInputOption)params) {
                 name = params;
@@ -520,7 +520,7 @@ class DConsoleOptionParser {
      * string optionToParse The option to parse.
      * @param  params The params to append the parsed value into
      * /
-    // TODO protected array _parseLongOption(string optionToParse, IData[string] params) {
+    // TODO protected array _parseLongOption(string optionToParse, Json[string] params) {
         name = substr(optionToParse, 2);
         if (name.has("=")) {
             [name, aValue] = split("=", name, 2);
@@ -539,7 +539,7 @@ class DConsoleOptionParser {
      * params with option added in.
      * @throws \UIM\Console\Exception\ConsoleException When unknown short options are encountered.
      * /
-    // TODO protected array _parseShortOption(string optionToParse, IData[string] params) {
+    // TODO protected array _parseShortOption(string optionToParse, Json[string] params) {
         string aKey = substr(optionToParse, 1);
         if (aKey.length > 1) {
             flags = str_split(aKey);
@@ -569,7 +569,7 @@ class DConsoleOptionParser {
      * returns Params with option added in.
      * @throws \UIM\Console\Exception\ConsoleException
      * /
-    protected IData[string] _parseOption(string nameToParse, IData[string] params) {
+    protected Json[string] _parseOption(string nameToParse, Json[string] params) {
         if (!_options.isSet(nameToParse)) {
             throw new DMissingOptionException(
                 "Unknown option `%s`.".format(nameToParse),

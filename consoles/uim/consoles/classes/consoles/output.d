@@ -38,11 +38,11 @@ class DConsoleOutput {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -267,7 +267,7 @@ class DConsoleOutput {
     }
     
     // Gets all the style definitions.
-    IData[string] styles() {
+    Json[string] styles() {
         return _styles;
     }
     

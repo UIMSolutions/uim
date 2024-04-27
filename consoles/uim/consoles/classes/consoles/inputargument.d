@@ -17,11 +17,11 @@ class DConsoleInputArgument {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -47,31 +47,28 @@ class DConsoleInputArgument {
     /**
      * Make a new DInput Argument
      * Params:
-     * IData[string]|string aName The long name of the option, or an array with all the properties.
+     * Json[string]|string aName The long name of the option, or an array with all the properties.
      * @param string ahelp The help text for this option
      * @param bool required Whether this argument is required. Missing required args will trigger exceptions
      * @param string[] choices Valid choices for this option.
      * /
-    this(string[] aName, string ahelp = "", bool required = false, string[] optionChoices = []) {
-        if (isArray(name) && isSet(name["name"])) {
-            foreach (aKey: aValue; name) {
-                this.{"_" ~ aKey} = aValue;
-            }
-        } else {
+    this(string propertyName, string ahelp = "", bool isArgumentRequired = false, string[] optionChoices = []) {
             /** @var string aName * /
            _name = name;
            _help = help;
-           _required = required;
+           _required = isArgumentRequired;
            _choices = optionChoices;
+        }
+    this(STRINGAA aName, string ahelp = "", bool isArgumentRequired = false, string[] optionChoices = []) {
+        if (names.has("name")) {
+            foreach (aKey: aValue; names) {
+                this.{"_" ~ aKey} = aValue;
+            }
         }
     }
     
-    /**
-     * Checks if this argument is equal to another argument.
-     * Params:
-     * \UIM\Console\ConsoleInputArgument argument ConsoleInputArgument to compare to.
-     * /
-    bool isEqualTo(ConsoleInputArgument argument) {
+    // Checks if this argument is equal to another argument.
+    bool isEqualTo(DConsoleInputArgument argumentToCompare) {
         return _name() == argument.name() &&
             this.usage() == argument.usage();
     }

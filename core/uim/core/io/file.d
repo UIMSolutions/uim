@@ -13,15 +13,12 @@ version (linux) {
 		if (fileName.length == 0) {
 			return false;
 		}
-		if (fromDir.length == 0) {
-			return false;
-		}
-		if (toDir.length == 0) {
+		if (fromDir.isEmpty || toDir.isEmpty) {
 			return false;
 		}
 
 		string from = fromDir;
-		if (!from.endswith('/'))
+		if (!from.endsWith('/'))
 			from ~= "/";
 
 		if (!exists(from ~ fileName)) {
@@ -62,13 +59,10 @@ version (linux) {
 
 version (linux) {
 	bool move(string fileName, string fromDir, string toDir, bool createMissingDirs = true, bool overwriteExistingFile = true) {
-		if (fileName.length == 0) {
+		if (fileName.isEmpty) {
 			return false;
 		}
-		if (fromDir.length == 0) {
-			return false;
-		}
-		if (toDir.length == 0) {
+		if (fromDir.isEmpty || toDir.isEmpty) {
 			return false;
 		}
 

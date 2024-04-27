@@ -8,7 +8,7 @@ import uim.commands;
  * @internal
  */
 mixin template TPluginAssets() {
-    protected IData [string] arguments;
+    protected Json [string] arguments;
 
     /*
     // Console IO
@@ -19,12 +19,12 @@ mixin template TPluginAssets() {
      * Params:
      *  If null all plugins will be processed.
      * /
-    protected IData[string] _list(string pluginName = null) {
+    protected Json[string] _list(string pluginName = null) {
         auto pluginsList = pluginName.isNull
             ? Plugin.loaded()
             : [pluginName];
         
-        IData[string] plugins = null;
+        Json[string] plugins = null;
         pluginsList.each!((plugin) {
             auto somePath = Plugin.path(plugin) ~ "webroot";
             if (!isDir(somePath)) {
@@ -60,7 +60,7 @@ mixin template TPluginAssets() {
      * @param bool copy Force copy mode. Default false.
      * @param bool overwrite Overwrite existing files.
      * /
-    protected void _process(IData[string] pluginsToProcess, bool copy = false, bool overwrite = false) {
+    protected void _process(Json[string] pluginsToProcess, bool copy = false, bool overwrite = false) {
         foreach (plugin: configData; pluginsToProcess) {
             this.io.writeln();
             this.io.writeln("For plugin: " ~ plugin);
@@ -110,7 +110,7 @@ mixin template TPluginAssets() {
      *
      * configData - Plugin config.
      * /
-    protected bool _remove(IData[string] configData = null) {
+    protected bool _remove(Json[string] configData = null) {
         if (configData("namespaced"] && !isDir(configData("destDir"])) {
             this.io.verbose(
                 configData("destDir"] ~ configData("link"] ~ " does not exist",

@@ -15,7 +15,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     }
     
     // Main auto Prints out the list of commands.
-    int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+    int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         auto myCommands = this.commands.getIterator();
         if (cast(DArrayIterator)myCommands) {
             myCommands.ksort();
@@ -158,7 +158,7 @@ class DHelpCommand : DConsoleCommand { // }, ICommandCollectionAware {
     protected IConsoleOptionParser buildOptionParser(DConsoleOptionParser buildOptionParser parserToBuild) {
         parserToBuild.description("Get the list of available commands for this application.");
 
-        auto addOption = IData.emptyObject;
+        auto addOption = Json.emptyObject;
         addOption["help"] = "Get the listing as XML.";
         addOption["boolean"] = true; 
         parserToBuild.addOption("xml", addOption);

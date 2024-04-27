@@ -6,7 +6,7 @@ import uim.consoles;
 
 // Provides an interface for interacting with a command`s options and arguments.
 class DArguments {
-  this(string[size_t] newArguments, IData[string] newOptions,  string[size_t] newNames) {
+  this(string[size_t] newArguments, Json[string] newOptions,  string[size_t] newNames) {
     _arguments = newArguments;
     _options = newOptions;
     _names = newNames;
@@ -65,15 +65,15 @@ class DArguments {
   // #endregion arguments
 
   // #region options
-    protected IData[string] _options;
+    protected Json[string] _options;
     // Get an array of all the options
 
-    IData[string] options() {
+    Json[string] options() {
       return _options.dup;
     }
 
     // Get an option`s value or null
-    IData option(string name) {
+    Json option(string name) {
       return _options.get(name, null);
     }
 

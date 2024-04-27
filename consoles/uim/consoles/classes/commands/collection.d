@@ -12,11 +12,11 @@ class DCommandCollection { // : IteratorAggregate, Countable {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -33,7 +33,7 @@ class DCommandCollection { // : IteratorAggregate, Countable {
           .each!(nameCommand => this.add(nameCommand.key, nameCommand.value));
     }
 
-  	override bool initialize(IData[string] initData = null) {
+  	override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		
 		return true;

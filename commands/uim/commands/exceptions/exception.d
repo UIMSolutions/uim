@@ -8,7 +8,7 @@ import uim.commands;
 class DCommandsException : UimException {
   mixin(ExceptionThis!("Commands"));
 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }

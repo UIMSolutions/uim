@@ -17,7 +17,7 @@ class DMessage { //: IDataSerializable {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
@@ -25,7 +25,7 @@ class DMessage { //: IDataSerializable {
         this().name(name);
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -1148,7 +1148,7 @@ class DMessage { //: IDataSerializable {
      *
      * configData - Config array.
      * /
-    auto setConfig(IData[string] configData = null) {
+    auto setConfig(Json[string] configData = null) {
         string[] simpleMethods = [
             "from", "sender", "to", "replyTo", "readReceipt", "returnPath",
             "cc", "bcc", "messageId", "domain", "subject", "attachments",
@@ -1488,7 +1488,7 @@ class DMessage { //: IDataSerializable {
      *
      * configData - Email configuration array.
      * /
-    void createFromArray(IData[string] configData = null) {
+    void createFromArray(Json[string] configData = null) {
         foreach (configData as  aProperty: aValue) {
             this.{ aProperty} = aValue;
         }

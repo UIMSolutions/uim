@@ -12,7 +12,7 @@ class DTagsAttribute : DStringArrayAttribute {
   mixin(AttributeThis!("TagsAttribute"));
 
   // Initialization hook method.
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
     name("TagsAttribute");
@@ -22,7 +22,7 @@ class DTagsAttribute : DStringArrayAttribute {
     return true;
   }
 
-  /* override IData createData() {
+  /* override Json createData() {
     return TagArrayData(this); } */
 }
 mixin(AttributeCalls!"TagsAttribute");

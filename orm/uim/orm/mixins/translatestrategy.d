@@ -118,7 +118,7 @@ mixin template TTranslateStrategy() {
      * @param array<string, mixed> options The options array used in the marshalling call.
      * @return array A map of `[property: callable]` of additional properties to marshal.
      * /
-    array buildMarshalMap(DMarshaller marshaller, array map, IData[string] optionData) {
+    array buildMarshalMap(DMarshaller marshaller, array map, Json[string] optionData) {
         if (isset(options["translations"]) && !options["translations"]) {
             return [];
         }

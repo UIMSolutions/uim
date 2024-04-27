@@ -26,7 +26,7 @@ class DAsset {
      * `Asset.assetTimestamp()` to add timestamp to local files.
      * Params:
      * string aPath Path string.
-     * @param IData[string] options Options array. Possible keys:
+     * @param Json[string] options Options array. Possible keys:
      *  `fullBase` Return full URL with domain name
      *  `pathPrefix` Path prefix for relative URLs
      *  `plugin` False value will prevent parsing path as a plugin
@@ -35,7 +35,7 @@ class DAsset {
      *       Set to true to apply timestamps when debug is true. Set to "force" to always
      *       enable timestamping regardless of debug value.
      * /
-    static string imageUrl(string aPath, IData[string] options = null) {
+    static string imageUrl(string aPath, Json[string] options = null) {
         auto somePathPrefix = Configuration.read("App.imageBaseUrl");
 
         return url(somePath, options + compact("pathPrefix"));
@@ -48,7 +48,7 @@ class DAsset {
      * `Asset.assetTimestamp()` to add timestamp to local files.
      * Params:
      * string aPath Path string.
-     * @param IData[string] options Options array. Possible keys:
+     * @param Json[string] options Options array. Possible keys:
      *  `fullBase` Return full URL with domain name
      *  `pathPrefix` Path prefix for relative URLs
      *  `ext` Asset extension to append
@@ -58,7 +58,7 @@ class DAsset {
      *       Set to true to apply timestamps when debug is true. Set to "force" to always
      *       enable timestamping regardless of debug value.
      * /
-    static string cssUrl(string aPath, IData[string] options = null) {
+    static string cssUrl(string aPath, Json[string] options = null) {
         somePathPrefix = Configuration.read("App.cssBaseUrl");
         ext = ".css";
 
@@ -72,7 +72,7 @@ class DAsset {
      * `Asset.assetTimestamp()` to add timestamp to local files.
      * Params:
      * string aPath Path string.
-     * @param IData[string] options Options array. Possible keys:
+     * @param Json[string] options Options array. Possible keys:
      *  `fullBase` Return full URL with domain name
      *  `pathPrefix` Path prefix for relative URLs
      *  `ext` Asset extension to append
@@ -82,7 +82,7 @@ class DAsset {
      *       Set to true to apply timestamps when debug is true. Set to "force" to always
      *       enable timestamping regardless of debug value.
      * /
-    static string scriptUrl(string aPath, IData[string] options = null) {
+    static string scriptUrl(string aPath, Json[string] options = null) {
         somePathPrefix = Configuration.read("App.jsBaseUrl");
         auto assetExtension = ".js";
 
@@ -109,9 +109,9 @@ class DAsset {
      *   enable timestamping regardless of debug value.
      * Params:
      * string aPath Path string or URL array
-     * @param IData[string] options Options array.
+     * @param Json[string] options Options array.
      * /
-    static string url(string aPath, IData[string] options = null) {
+    static string url(string aPath, Json[string] options = null) {
         if (preg_match("/^data:[a-z]+\/[a-z]+;/", somePath)) {
             return somePath;
         }
@@ -235,9 +235,9 @@ class DAsset {
      * - `theme` Optional theme name
      * Params:
      * string afile The file to create a webroot path to.
-     * @param IData[string] options Options array.
+     * @param Json[string] options Options array.
      * /
-    static string webroot(string afile, IData[string] options = null) {
+    static string webroot(string afile, Json[string] options = null) {
         options = options.update["theme": null];
         requestWebroot = requestWebroot();
 

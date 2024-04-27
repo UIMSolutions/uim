@@ -18,20 +18,20 @@ interface ILocator { // }: BaseILocator {
      * Stores a list of options to be used when instantiating an object
      * with a matching alias.
      * Params:
-     * IData[string]|string aliasName Name of the alias or array to completely
+     * Json[string]|string aliasName Name of the alias or array to completely
      *  overwrite current config.
-     * @param IData[string]|null options list of options for the alias
+     * @param Json[string]|null options list of options for the alias
      * /
     ILocator configuration.update(string[] aliasNames...);
-    ILocator configuration.update(string[] aliasNames, IData[string] options = null);
+    ILocator configuration.update(string[] aliasNames, Json[string] options = null);
 
     /**
      * Get a table instance from the registry.
      * Params:
      * string aliasName The alias name you want to get.
-     * @param IData[string] options The options you want to build the table with.
+     * @param Json[string] options The options you want to build the table with.
      * /
-    Table get(string aliasName, IData[string] optionData = null);
+    Table get(string aliasName, Json[string] optionData = null);
 
     /**
      * Set a table instance.

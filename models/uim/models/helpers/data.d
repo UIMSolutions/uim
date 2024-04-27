@@ -4,9 +4,9 @@ import uim.models;
 
 @safe:
 
-/// Converts Json data to IData
-/// Returns: IData
-IData jsonToData(Json json) {
+/// Converts Json data to Json
+/// Returns: Json
+Json jsonToData(Json json) {
   switch (json.type) {
     case (Json.Type.array):
         return ArrayData(json);
@@ -33,10 +33,10 @@ unittest {
   assert(cast(DArrayData)jsonToData(Json.emptyArray));
 }
 
-IData[] toDataArray(Json json) {
+Json[] toDataArray(Json json) {
   if (!json.isArray) { return null; }
 
-  IData[] result; 
+  Json[] result; 
   for (size_t i = 0; i < json.length; i++) {
     result ~= jsonToData(json[i]);
   } 

@@ -26,7 +26,7 @@ class DElement : IElement {
       this.fromJson(aJson);
   }
 
-  bool initialize(IData[string] initData = null) {
+  bool initialize(Json[string] initData = null) {
 
     requestPrefix("element_");
 
@@ -251,7 +251,7 @@ class DElement : IElement {
     */
   }
 
-  IData valueOfKey(string key) {
+  Json valueOfKey(string key) {
     /* if (auto myValue = values[key]) {
       return myValue;
     }

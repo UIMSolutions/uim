@@ -37,7 +37,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
   }
 
   // Initialize entity 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }
@@ -325,7 +325,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     newAttributes.byKey.each!(key => values[key] = newAttributes[key].createValue);
     
   }
-  void addAttributes(IData[string] newValues) {
+  void addAttributes(Json[string] newValues) {
     values.add(newValues);
     
   }
@@ -335,7 +335,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     
   }
 
-  void addAttribute(string key, IData aValue) {
+  void addAttribute(string key, Json aValue) {
     values[key] = aValue; 
     
   } */

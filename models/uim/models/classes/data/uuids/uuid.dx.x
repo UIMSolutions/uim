@@ -12,7 +12,7 @@ class DUUIDData : DData {
   mixin(DataThis!("UUIDData", "UUID"));
 
   // Initialization hook method.
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }
@@ -80,7 +80,7 @@ class DUUIDData : DData {
     assert(value == id);*/
   }
 
-  override IData clone() {
+  override Json clone() {
     return UUIDData(_value);
   }
 

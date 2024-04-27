@@ -12,7 +12,7 @@ class DElementData : DData {
   mixin(DataThis!("ElementData", "DElement"));
 
   // Initialization hook method.
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }
@@ -88,7 +88,7 @@ class DElementData : DData {
     return 1;
   }  */
 
-  override IData clone() {
+  override Json clone() {
     return ElementData; // TODO (attribute, toJson);
   }
 

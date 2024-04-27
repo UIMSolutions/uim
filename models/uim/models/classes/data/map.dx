@@ -11,17 +11,17 @@ import uim.models;
 /* class DMapData {
   this() { initialize; }
 
-  bool initialize(IData[string] initData = null) {}
+  bool initialize(Json[string] initData = null) {}
 
-  mixin(TProperty!("IData[string]", "items"));
+  mixin(TProperty!("Json[string]", "items"));
 
   string[] names() { return items.keys; }
 
   bool hasValue(string key) { return key in _items ? true : false; }
   string[] keys() { return _items.keys; }
-  IData[] values() { return _items.values; }
+  Json[] values() { return _items.values; }
 
-  IData opIndex(string name) { return _items.get(name, NullData); }
+  Json opIndex(string name) { return _items.get(name, NullData); }
 
   // Set value, if key exists
   void opIndexAssign(bool newValue, string key) {
@@ -48,7 +48,7 @@ import uim.models;
     _items[key] = UUIDData(newValue);
   }
 
-  void addValues(IData[string] newValues) {
+  void addValues(Json[string] newValues) {
     newValues.byKey.each!(key => addData(key, newValues[key]));
     
   }
@@ -58,7 +58,7 @@ import uim.models;
     
   }
 
-  void addData(string fieldName, IData newValue) {
+  void addData(string fieldName, Json newValue) {
     _items[fieldName] = newValue;
     
   }

@@ -35,10 +35,7 @@ version (linux) {
 			if (!exists(to))
 				mkdir(to);
 		} else {
-			if (!exists(from)) {
-				return false;
-			}
-			if (!exists(to)) {
+			if (!exists(from) || !exists(to)) {
 				return false;
 			}
 		}

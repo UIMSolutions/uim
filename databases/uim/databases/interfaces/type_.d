@@ -10,26 +10,26 @@ interface IType {
     /**
      * Casts given value from a D type to one acceptable by a database.
      * Params:
-     * IData aValue Value to be converted to a database equivalent.
+     * Json aValue Value to be converted to a database equivalent.
      * @param \UIM\Database\Driver driver Object from which database preferences and configuration will be extracted.
      */
-    IData toDatabase(IData aValue, IDriver driver) ;
+    Json toDatabase(Json aValue, IDriver driver) ;
 
     /**
      * Casts given value from a database type to a D equivalent.
      * Params:
-     * IData aValue Value to be converted to D equivalent
+     * Json aValue Value to be converted to D equivalent
      * @param \UIM\Database\Driver driver Object from which database preferences and configuration will be extracted
      */
-    IData ToD(IData aValue, IDriver driver);
+    Json ToD(Json aValue, IDriver driver);
 
     /**
      * Get the binding type to use in a PDO statement.
      * Params:
-     * IData aValue The value being bound.
+     * Json aValue The value being bound.
      * @param \UIM\Database\Driver driver Object from which database preferences and configuration will be extracted.
      */
-    int toStatement(IData aValue, IDriver driver);
+    int toStatement(Json aValue, IDriver driver);
 
     /**
      * Marshals flat data into D objects.
@@ -37,9 +37,9 @@ interface IType {
      * Most useful for converting request data into D objects,
      * that make sense for the rest of the ORM/Database layers.
      * Params:
-     * IData aValue The value to convert.
+     * Json aValue The value to convert.
      */
-    IData marshal(IData aValue);
+    Json marshal(Json aValue);
 
     /**
      * Returns the base type name that this class is inheriting.
@@ -61,5 +61,5 @@ interface IType {
      * This method can be used by types to create new primary key values
      * when entities are inserted.
      */
-    IData newId() ;
+    Json newId() ;
 }

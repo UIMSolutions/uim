@@ -13,9 +13,9 @@ mixin template TCaseExpression() {
     /**
      * Infers the abstract type for the given value.
      * Params:
-     * IData aValue The value for which to infer the type.
+     * Json aValue The value for which to infer the type.
      * /
-    protected string inferType(IData aValue) {
+    protected string inferType(Json aValue) {
         auto type = null;
 
         /** @psalm-suppress RedundantCondition * /
@@ -54,7 +54,7 @@ mixin template TCaseExpression() {
      * @param \UIM\Database\IExpression|object|scalar|null aValue The value to compile.
      * @param string|null type The value type.
      * /
-    protected string compileNullableValue(DValueBinder aBinder, IData aValue, string atype = null) {
+    protected string compileNullableValue(DValueBinder aBinder, Json aValue, string atype = null) {
         if (
             type !isNull &&
             !(cast(IExpression)aValue )

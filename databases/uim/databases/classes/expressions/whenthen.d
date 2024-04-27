@@ -31,7 +31,7 @@ class DWhenThenExpression : DExpression {
      *
      * @var \UIM\Database\IExpression|object|scalar|null
      * /
-    protected IData  when = null;
+    protected Json  when = null;
 
     // The `WHEN` value type.
     protected string[]  whenType = null;
@@ -41,7 +41,7 @@ class DWhenThenExpression : DExpression {
      *
      * @var \UIM\Database\IExpression|object|scalar|null
      * /
-    protected IData then = null;
+    protected Json then = null;
 
     /**
      * Whether the `THEN` value has been defined, eg whether `then()`
@@ -132,7 +132,7 @@ class DWhenThenExpression : DExpression {
      * @param string|null type The result type. If no type is provided, the type will be inferred from the given
      * result value.
      * /
-    void then(IData result, string atype = null) {
+    void then(Json result, string atype = null) {
         if (
             result !isNull &&
             !isScalar(result) &&

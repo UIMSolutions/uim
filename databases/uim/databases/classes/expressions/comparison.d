@@ -17,7 +17,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
     mixin TExpressionTypeCaster;
 
     // The value to be used in the right hand side of the operation
-    protected IData _value;
+    protected Json _value;
 
     // The type to be used for casting the value to a database representation
     protected string _type = null;
@@ -38,11 +38,11 @@ class DComparisonExpression : DExpression { // TODO}, IField {
      * Constructor
      * Params:
      * \UIM\Database\IExpression|string afield the field name to compare to a value
-     * @param IData aValue The value to be used in comparison
+     * @param Json aValue The value to be used in comparison
      * /
     this(
         IExpression|string afield,
-        IData aValue,
+        Json aValue,
         string typeName = null,
         string operator = "="
     ) {
@@ -55,9 +55,9 @@ class DComparisonExpression : DExpression { // TODO}, IField {
     /**
      * Sets the value
      * Params:
-     * IData aValue The value to compare
+     * Json aValue The value to compare
      * /
-    void setValue(IData aValue) {
+    void setValue(Json aValue) {
         aValue = _castToExpression(aValue, _type);
 
          isMultiple = _type && _type.has("[]");
@@ -69,7 +69,7 @@ class DComparisonExpression : DExpression { // TODO}, IField {
     }
     
     // Returns the value used for comparison
-    IData getValue() {
+    Json getValue() {
         return _value;
     }
     
@@ -163,11 +163,11 @@ class DComparisonExpression : DExpression { // TODO}, IField {
     /**
      * Registers a value in the placeholder generator and returns the generated placeholder
      * Params:
-     * IData aValue The value to bind
+     * Json aValue The value to bind
      * @param \UIM\Database\DValueBinder valueBinder The value binder to use
      * @param string|null type The type of aValue
      * /
-    protected string _bindValue(IData aValue, DValueBinder valueBinder, string valueType = null) {
+    protected string _bindValue(Json aValue, DValueBinder valueBinder, string valueType = null) {
         auto placeholder = valueBinder.placeholder("c");
         valueBinder.bind(placeholder, valueBinder, valueType);
 

@@ -18,7 +18,7 @@ class DUnaryExpression : DExpression {
     protected string _operator;
 
     // Holds the value which the unary expression operates
-    protected IData _value;
+    protected Json _value;
 
     // Where to place the operator
     protected int _position;
@@ -27,10 +27,10 @@ class DUnaryExpression : DExpression {
      * Constructor
      * Params:
      * string expressionOperator The operator to used for the expression
-     * @param IData aValue the value to use as the operand for the expression
+     * @param Json aValue the value to use as the operand for the expression
      * @param int position either UnaryExpression.PREFIX or UnaryExpression.POSTFIX
      * /
-    this(string expressionOperator, IData aValue, intposition = self.PREFIX) {
+    this(string expressionOperator, Json aValue, intposition = self.PREFIX) {
         _operator = expressionOperator;
         _value = aValue;
         _position = position;

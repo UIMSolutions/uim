@@ -95,11 +95,11 @@ class DQueryExpression : DExpression { // }, Countable {
      * Adds a new condition to the expression object in the form "field = value".
      * Params:
      * \UIM\Database\IExpression|string afield Database field to be compared against value
-     * @param IData aValue The value to be bound to field for comparison
+     * @param Json aValue The value to be bound to field for comparison
      * If it is suffixed with "[]" and the value is an array then multiple placeholders
      * will be created, one per each value in the array.
      * /
-    auto eq(IExpression|string afield, IData aValue, string typeName = null) {
+    auto eq(IExpression|string afield, Json aValue, string typeName = null) {
         typeName = typeName.ifEmpty(_calculateType(field));
 
         return _add(new DComparisonExpression(field, aValue, typeName, "="));
@@ -109,12 +109,12 @@ class DQueryExpression : DExpression { // }, Countable {
      * Adds a new condition to the expression object in the form "field != value".
      * Params:
      * \UIM\Database\IExpression|string afield Database field to be compared against value
-     * @param IData aValue The value to be bound to field for comparison
+     * @param Json aValue The value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
      * If it is suffixed with "[]" and the value is an array then multiple placeholders
      * will be created, one per each value in the array.
      * /
-    auto notEq(IExpression|string afield, IData aValue, string atype = null) {
+    auto notEq(IExpression|string afield, Json aValue, string atype = null) {
         auto type ??= _calculateType(field);
 
         return _add(new DComparisonExpression(field, aValue, type, "!="));
@@ -124,10 +124,10 @@ class DQueryExpression : DExpression { // }, Countable {
      * Adds a new condition to the expression object in the form "field > value".
      * Params:
      * \UIM\Database\IExpression|string afield Database field to be compared against value
-     * @param IData aValue The value to be bound to field for comparison
+     * @param Json aValue The value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
      * /
-    auto gt(IExpression|string afield, IData aValue, string atype = null) {
+    auto gt(IExpression|string afield, Json aValue, string atype = null) {
         auto type ??= _calculateType(field);
 
         return _add(new DComparisonExpression(field, aValue, type, ">"));
@@ -137,10 +137,10 @@ class DQueryExpression : DExpression { // }, Countable {
      * Adds a new condition to the expression object in the form "field < value".
      * Params:
      * \UIM\Database\IExpression|string afield Database field to be compared against value
-     * @param IData aValue The value to be bound to field for comparison
+     * @param Json aValue The value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
      * /
-    auto lt(IExpression|string afield, IData aValue, string atype = null) {
+    auto lt(IExpression|string afield, Json aValue, string atype = null) {
         type ??= _calculateType(field);
 
         return _add(new DComparisonExpression(field, aValue, type, "<"));
@@ -150,10 +150,10 @@ class DQueryExpression : DExpression { // }, Countable {
      * Adds a new condition to the expression object in the form "field >= value".
      * Params:
      * \UIM\Database\IExpression|string afield Database field to be compared against value
-     * @param IData aValue The value to be bound to field for comparison
+     * @param Json aValue The value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
      * /
-    auto gte(IExpression|string afield, IData aValue, string atype = null) {
+    auto gte(IExpression|string afield, Json aValue, string atype = null) {
         type ??= _calculateType(field);
 
         return _add(new DComparisonExpression(field, aValue, type, ">="));
@@ -163,10 +163,10 @@ class DQueryExpression : DExpression { // }, Countable {
      * Adds a new condition to the expression object in the form "field <= value".
      * Params:
      * \UIM\Database\IExpression|string afield Database field to be compared against value
-     * @param IData aValue The value to be bound to field for comparison
+     * @param Json aValue The value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
      * /
-    auto lte(IExpression|string afield, IData aValue, string atype = null) {
+    auto lte(IExpression|string afield, Json aValue, string atype = null) {
         type ??= _calculateType(field);
 
         return _add(new DComparisonExpression(field, aValue, type, "<="));
@@ -201,10 +201,10 @@ class DQueryExpression : DExpression { // }, Countable {
      * Adds a new condition to the expression object in the form "field LIKE value".
      * Params:
      * \UIM\Database\IExpression|string afield Database field to be compared against value
-     * @param IData aValue The value to be bound to field for comparison
+     * @param Json aValue The value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
      * /
-    auto like(IExpression|string afield, IData aValue, string atype = null) {
+    auto like(IExpression|string afield, Json aValue, string atype = null) {
         type ??= _calculateType(field);
 
         return _add(new DComparisonExpression(field, aValue, type, "LIKE"));
@@ -214,10 +214,10 @@ class DQueryExpression : DExpression { // }, Countable {
      * Adds a new condition to the expression object in the form "field NOT LIKE value".
      * Params:
      * \UIM\Database\IExpression|string afield Database field to be compared against value
-     * @param IData aValue The value to be bound to field for comparison
+     * @param Json aValue The value to be bound to field for comparison
      * @param string|null type the type name for aValue as configured using the Type map.
      * /
-    auto notLike(IExpression|string afield, IData aValue, string atype = null) {
+    auto notLike(IExpression|string afield, Json aValue, string atype = null) {
         type ??= _calculateType(field);
 
         return _add(new DComparisonExpression(field, aValue, type, "NOT LIKE"));
@@ -264,7 +264,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * @param string|null type The case value type. If no type is provided, the type will be tried to be inferred
      * from the value.
      * /
-    CaseStatementExpression case(IData aValue = null, string atype = null) {
+    CaseStatementExpression case(Json aValue = null, string atype = null) {
         auto caseExpression = (func_num_args() > 0) 
             ? new DCaseStatementExpression(aValue, type);
             : new DCaseStatementExpression();
@@ -337,11 +337,11 @@ class DQueryExpression : DExpression { // }, Countable {
      * "field BETWEEN from AND to".
      * Params:
      * \UIM\Database\IExpression|string afield The field name to compare for values inbetween the range.
-     * @param IData from The initial value of the range.
-     * @param IData to The ending value in the comparison range.
+     * @param Json from The initial value of the range.
+     * @param Json to The ending value in the comparison range.
      * @param string|null type the type name for aValue as configured using the Type map.
      * /
-    auto between(IExpression|string afield, IData from, IData to, string atype = null) {
+    auto between(IExpression|string afield, Json from, Json to, string atype = null) {
         type ??= _calculateType(field);
 
         return _add(new BetweenExpression(field, from, to, type));
@@ -550,9 +550,9 @@ class DQueryExpression : DExpression { // }, Countable {
      * Params:
      * string acondition The value from which the actual field and operator will
      * be extracted.
-     * @param IData aValue The value to be bound to a placeholder for the field
+     * @param Json aValue The value to be bound to a placeholder for the field
      * /
-    protected IExpression|string _parseCondition(string acondition, IData aValue) {
+    protected IExpression|string _parseCondition(string acondition, Json aValue) {
         auto expression = strip(condition);
          operator = "=";
 

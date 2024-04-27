@@ -27,7 +27,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
@@ -36,7 +36,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
         this.name(newName);
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -93,16 +93,16 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
     // #endregion Schema
 
     // #region data handling
-    protected IData[string] _data;
-    void set(IData[string] newData) {
+    protected Json[string] _data;
+    void set(Json[string] newData) {
         _data = _data.update(newData);
     }
 
-    @property IData[string] data() {
+    @property Json[string] data() {
         return _data.dup;
     }
 
-    @property void data(IData[string] data) {
+    @property void data(Json[string] data) {
         _data = data.dup;
     }
     // #endregion data handling
@@ -143,10 +143,10 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
     /**
      * Used to check if someData passes this form`s validation.
      * Params:
-     * IData[string] data The data to check.
+     * Json[string] data The data to check.
      * @param string validator Validator name.
      * /
-    bool validate(IData[string] data, string avalidator = null) {
+    bool validate(Json[string] data, string avalidator = null) {
        _errors = this.getValidator(validator ?: DEFAULT_VALIDATOR)
             .validate(someData);
 
@@ -198,10 +198,10 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
      * - validate: Set to `false` to disable validation. Can also be a string of the validator ruleset to be applied.
      *  Defaults to `true`/`"default"`.
      * Params:
-     * IData[string] data Form data.
-     * @param IData[string] options List of options.
+     * Json[string] data Form data.
+     * @param Json[string] options List of options.
      * /
-    bool execute(IData[string] data, IData[string] options = null) {
+    bool execute(Json[string] data, Json[string] options = null) {
        _data = someData;
 
         options = options.update["validate": BooleanData(true)];
@@ -224,7 +224,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
     }
 
     // Get field data.
-    IData getData(string fieldName = null) {
+    Json getData(string fieldName = null) {
         if (fieldName is null) {
             return _data; // null - get all Data
         }
@@ -237,9 +237,9 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
      * Params:
      * string[] aName The key to write, can be a dot notation value.
      * Alternatively can be an array containing key(s) and value(s).
-     * @param IData aValue Value to set for var
+     * @param Json aValue Value to set for var
      * /
-    void set(string aName, IData aValue = null) {
+    void set(string aName, Json aValue = null) {
         set([aName: aValue]);
     }
     

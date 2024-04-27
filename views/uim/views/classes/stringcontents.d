@@ -23,11 +23,11 @@ class DStringContents {
         this.name(newName);
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         this.initialize(initData);
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -101,7 +101,7 @@ class DStringContents {
         add(newTemplates.toData);
     }
 
-    void add(IData[string] newTemplates) {
+    void add(Json[string] newTemplates) {
         configuration.update(newTemplates);
         _compiledTemplates = newTemplates.keys;
     }    
@@ -184,7 +184,7 @@ class DStringContents {
 
 
     // Format a template string with data
-    string format(string templateName, IData[string] insertData) {
+    string format(string templateName, Json[string] insertData) {
         auto dataToInsert = insertData.dup;
         
         // TODO if (!_compiledtemplates.isSet(templateName)) {
@@ -194,7 +194,7 @@ class DStringContents {
         string myTemplate; // TODO  = _compiledtemplates[templateName];
         
         string[] myplaceholders;
-        IData templateVars;
+        Json templateVars;
         if (dataToInsert.isSet("templateVars")) {
             templateVars = dataToInsert["templateVars"];
             dataToInsert.remove("templateVars");
@@ -232,15 +232,15 @@ class DStringContents {
      * these templates uses the `name` and `value` variables. You can modify these
      * templates to change how attributes are formatted.
      */    
-     string formatAttributes(IData[string] options, string[] excludedKeys) {
+     string formatAttributes(Json[string] options, string[] excludedKeys) {
         bool[string] excludedOptions;
         excludedKeys.each!(ex => excludedOptions[ex] = true);
         return formatAttributes(options, excludedOptions);
     }
 
-    string formatAttributes(IData[string] options, bool[string] excludedOptions = null) {
+    string formatAttributes(Json[string] options, bool[string] excludedOptions = null) {
         string insertBefore = " ";
-        IData[string] mergedOptions = options.merge(["escape": BooleanData(true)]);
+        Json[string] mergedOptions = options.merge(["escape": BooleanData(true)]);
 
         bool[string] mergedExcludedOptions = excludedOptions.merge(["escape": true, "idPrefix": true, "templateVars": true, "fieldName": true]);
         bool useEscape = mergedOptions["escape"].toBoolean;
@@ -258,7 +258,7 @@ class DStringContents {
      * Formats an individual attribute, and returns the string value of the composed attribute.
      * Works with minimized attributes that have the same value as their name such as "disabled" and "checked"
      */
-    protected string _formatAttribute(string attributeKey, IData attributeData, bool shouldEscape = true) {
+    protected string _formatAttribute(string attributeKey, Json attributeData, bool shouldEscape = true) {
         string value = attributeData.isArray
             ? attributeData.toStringArray.join(" ")
             : attributeData.toString;

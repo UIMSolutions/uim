@@ -10,14 +10,14 @@ class DContext : IContext {
     this() {
         initialize; this.name("DContext");
     }
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         this().initialize(initData);
     }
     this(string name) {
         this().name(name);
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -35,7 +35,7 @@ class DContext : IContext {
         return null;
     }
 
-    IData[string] data() {
+    Json[string] data() {
         // TODO 
         return null;
     }

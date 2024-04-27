@@ -98,7 +98,7 @@ class DViewBlock {
     }
     
     // Set the content for a block. This will overwrite any existing content.
-    void set(string blockName, IData blockData) {
+    void set(string blockName, Json blockData) {
        set(blockName, blockData.toString);
     }
 

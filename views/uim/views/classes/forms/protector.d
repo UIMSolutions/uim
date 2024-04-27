@@ -33,11 +33,11 @@ class DFormProtector {
     /**
      * Validate submitted form data.
      * Params:
-     * IData formData Form data.
+     * Json formData Form data.
      * @param string aurl URL form was POSTed to.
      * @param string asessionId Session id for hash generation.
      * /
-    bool validate(IData formData, string aurl, string asessionId) {
+    bool validate(Json formData, string aurl, string asessionId) {
         this.debugMessage = null;
 
         auto extractedToken = this.extractToken(formData);
@@ -67,9 +67,9 @@ class DFormProtector {
     /**
      * Construct.
      * Params:
-     * IData[string] someData Data array, can contain key `unlockedFields` with list of unlocked fields.
+     * Json[string] someData Data array, can contain key `unlockedFields` with list of unlocked fields.
      * /
-    this(IData[string] data = []) {
+    this(Json[string] data = []) {
         if (!empty(someData["unlockedFields"])) {
             this.unlockedFields = someData["unlockedFields"];
         }
@@ -82,9 +82,9 @@ class DFormProtector {
      *  separated string to indicate nesting or array of fieldname parts.
      * @param bool lock Whether this field should be part of the validation
      *  or excluded as part of the unlockedFields. Default `true`.
-     * @param IData aValue Field value, if value should not be tampered with.
+     * @param Json aValue Field value, if value should not be tampered with.
      * /
-    auto addField(string[] afield, bool lock = true, IData aValue = null) {
+    auto addField(string[] afield, bool lock = true, Json aValue = null) {
         if (isString(field)) {
             field = this.getFieldNameArray(field);
         }
@@ -162,9 +162,9 @@ class DFormProtector {
     /**
      * Extract token from data.
      * Params:
-     * IData formData Data to validate.
+     * Json formData Data to validate.
      * /
-    protected string extractToken(IData formData) {
+    protected string extractToken(Json formData) {
         if (!isArray(formData)) {
             this.debugMessage = "Request data is not an array.";
 

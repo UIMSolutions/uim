@@ -28,7 +28,7 @@ class DEntityContext : DContext {
     mixin(ContextThis!("Entity"));
     // TODO mixin TLocatorAware;
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (super.initialize(initData)) {
             return false;
         }
@@ -38,7 +38,7 @@ class DEntityContext : DContext {
     
 
     // DContext data for this object.
-    protected IData[string] _context;
+    protected Json[string] _context;
 
     // The name of the top level entity/table object.
     protected string _rootName;
@@ -58,9 +58,9 @@ class DEntityContext : DContext {
     /**
      * Constructor.
      * Params:
-     * IData[string] mycontext DContext info.
+     * Json[string] mycontext DContext info.
      * /
-    this(IData[string] contextData) {
+    this(Json[string] contextData) {
         _context = _context.merge([
             "entity": NullData,
             "table": NullData,
@@ -164,14 +164,14 @@ class DEntityContext : DContext {
      * Traverses the entity data and finds the value for mypath.
      * Params:
      * string fieldPath The dot separated path to the value.
-     * @param IData[string] options Options:
+     * @param Json[string] options Options:
      *
      *  - `default`: Default value to return if no value found in data or
      *    entity.
      *  - `schemaDefault`: Boolean indicating whether default value from table
      *    schema should be used if it"s not explicitly provided.
      * /
-    IData val(string fieldPath, IData[string] options  = null) {
+    Json val(string fieldPath, Json[string] options  = null) {
         options = options.update[
             "default": null,
             "schemaDefault": BooleanData(true),
@@ -222,7 +222,7 @@ class DEntityContext : DContext {
      * Params:
      * string[] pathParts Each one of the parts in a path for a field name
      * /
-    protected IData _schemaDefault(array pathParts) {
+    protected Json _schemaDefault(array pathParts) {
         mytable = _getTable(pathParts);
         if (mytable is null) {
             return null;
@@ -239,10 +239,10 @@ class DEntityContext : DContext {
      * Helper method used to extract all the primary key values out of an array, The
      * primary key column is guessed out of the provided mypath array
      * Params:
-     * IData myvalues The list from which to extract primary keys from
+     * Json myvalues The list from which to extract primary keys from
      * @param string[] mypath Each one of the parts in a path for a field name
      * /
-    // TODO protected array _extractMultiple(IData myvalues, array mypath) {
+    // TODO protected array _extractMultiple(Json myvalues, array mypath) {
         if (!is_iterable(myvalues)) {
             return null;
         }
@@ -365,10 +365,10 @@ class DEntityContext : DContext {
     /**
      * Read property values or traverse arrays/iterators.
      * Params:
-     * IData mytarget The entity/array/collection to fetch myfield from.
+     * Json mytarget The entity/array/collection to fetch myfield from.
      * @param string myfield The next field to fetch.
      * /
-    protected IData _getProp(IData mytarget, string myfield) {
+    protected Json _getProp(Json mytarget, string myfield) {
         if (isArray(mytarget) && isSet(mytarget[myfield])) {
             return mytarget[myfield];
         }

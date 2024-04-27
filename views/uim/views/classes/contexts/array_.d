@@ -8,7 +8,7 @@ import uim.views;
  * Provides a basic array based context provider for FormHelper.
  *
  * This adapter is useful in testing or when you have forms backed by
- * simple IData[string] data structures.
+ * simple Json[string] data structures.
  *
  * Important keys:
  *
@@ -58,9 +58,9 @@ class DArrayContext : DContext {
     mixin(ContextThis!("Array"));
 
     // DContext data for this object.
-    protected IData[string] _contextData;
+    protected Json[string] _contextData;
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (super.initialize(initData)) {
             return false;
         }
@@ -69,13 +69,13 @@ class DArrayContext : DContext {
     }
     
     /* 
-    this(IData[string] contextData) {
-        IData[string] defaults [
-            "data": IData.emptyObject,
-            "schema": IData.emptyObject,
-            "required": IData.emptyObject,
-            "defaults": IData.emptyObject,
-            "errors": IData.emptemptyObjectyArray,
+    this(Json[string] contextData) {
+        Json[string] defaults [
+            "data": Json.emptyObject,
+            "schema": Json.emptyObject,
+            "required": Json.emptyObject,
+            "defaults": Json.emptyObject,
+            "errors": Json.emptemptyObjectyArray,
         ];
        _context = merge(configuration, merge(mycontext, defaultData), true);
     }
@@ -121,13 +121,13 @@ class DArrayContext : DContext {
      *
      * This method will coalesce the current data and the "defaults" array.
      * Params:
-     * @param IData[string] options  Options:
+     * @param Json[string] options  Options:
      *
      *  - `schemaDefault`: Boolean indicating whether default value from
      *    context"s schema should be used if it"s not explicitly provided.
     * /
-    IData val(string fieldPath, IData[string] options  = null) {
-        IData options = optionData.update([
+    Json val(string fieldPath, Json[string] options  = null) {
+        Json options = optionData.update([
             // `default`: Default value to return if no value found in data or context record.
             "default": null,
             "schemaDefault": BooleanData(true)

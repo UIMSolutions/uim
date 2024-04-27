@@ -19,7 +19,7 @@ class DFormContext : DContext {
     // Validator name.
     protected string _validatorName = null;
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (super.initialize(initData)) {
             return false;
         }
@@ -49,7 +49,7 @@ class DFormContext : DContext {
      * - `entity` The Form class instance this context is operating on. **(required)**
      * - `validator` Optional name of the validation method to call on the Form object.
      * /
-    this(IData[string] contextData) {
+    this(Json[string] contextData) {
         assert(
             isSet(mycontext["entity"]) && cast(DForm)mycontext["entity"],
             "`\mycontext["entity"]` must be an instance of " ~ Form.classname
@@ -60,7 +60,7 @@ class DFormContext : DContext {
     }
  
     /*
-    auto val(string myfield, IData[string] options  = null) {
+    auto val(string myfield, Json[string] options  = null) {
         options = options.update[
             "default": null,
             "schemaDefault": BooleanData(true),
@@ -77,7 +77,7 @@ class DFormContext : DContext {
     }
 
     // Get default value from form schema for given field.
-    protected IData _schemaDefault(string fieldName) {
+    protected Json _schemaDefault(string fieldName) {
         auto fieldSchema = _form.getSchema().field(fieldName);
         if (!fieldSchema) {
             return null;

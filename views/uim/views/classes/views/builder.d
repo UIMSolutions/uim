@@ -81,34 +81,34 @@ class DViewBuilder { // }: DIDataSerializable {
      * These options array lets you provide custom constructor
      * arguments to application/plugin view classes.
      */
-    protected IData[string] _options;
+    protected Json[string] _options;
 
 
     // View viewData
-    protected IData[string] _viewData;
+    protected Json[string] _viewData;
         // Gets path for template files.
     mixin(TProperty!("string", "templateFilePath"));
 
     // #region View Variables
         // View variables
-        protected IData[string] _viewVariables;
+        protected Json[string] _viewVariables;
 
         // Get all view variables
-        @property IData[string] viewVariables() {
+        @property Json[string] viewVariables() {
             return _viewVariables;
         }
 
-        void viewVariables(IData[string] newVariables) {
+        void viewVariables(Json[string] newVariables) {
             _viewVariables = newVariables;
         }
 
         // Get view variable
-        IData viewVariable(string varName) {
+        Json viewVariable(string varName) {
             return _viewVariables.get(varName, null);
         }
 
         // Get view variable
-        void viewVariable(string varName, IData newData) {
+        void viewVariable(string varName, Json newData) {
             _viewVariables[varName] = newData;
         }
     // #endregion View Variables
@@ -135,7 +135,7 @@ class DViewBuilder { // }: DIDataSerializable {
     // #endregion Layout
 
     // Saves view viewData for use inside templates.
-    void setData(IData[string] data, bool shouldMerge = true) {
+    void setData(Json[string] data, bool shouldMerge = true) {
         vars = shouldMerge ?
                 mydata + _viewData
                 : mydata;
@@ -152,9 +152,9 @@ class DViewBuilder { // }: DIDataSerializable {
      * Saves a variable for use inside a template.
      * Params:
      * string views A string or an array of data.
-     * @param IData aValue Value.
+     * @param Json aValue Value.
      * /
-    void setData(string views, IData aValue = null) {
+    void setData(string views, Json aValue = null) {
        _viewData[views] = myvalue;
     }
         
@@ -174,9 +174,9 @@ class DViewBuilder { // }: DIDataSerializable {
      * Adds a helper to use, overwriting any existing one with that name.
      * Params:
      * string myhelper Helper to use.
-     * @param IData[string] options Options.
+     * @param Json[string] options Options.
      * /
-    void addHelper(string myhelper, IData[string] options  = null) {
+    void addHelper(string myhelper, Json[string] options  = null) {
         [myplugin, views] = pluginSplit(myhelper);
         if (myplugin) {
             options["className"] = myhelper;
@@ -265,16 +265,16 @@ class DViewBuilder { // }: DIDataSerializable {
     }
     
     // Get view option.
-    IData getOption(string optionName) {
+    Json getOption(string optionName) {
         return _options.get(optionName, null);
     }
     
     /**
      * Set view option.
      * Params:
-     * @param IData aValue Value to set.
+     * @param Json aValue Value to set.
      * /
-    auto setOption(string optionName, IData aValue) {
+    auto setOption(string optionName, Json aValue) {
        _options[optionName] = myvalue;
 
         return this;
@@ -285,10 +285,10 @@ class DViewBuilder { // }: DIDataSerializable {
      *
      * This lets you provide custom constructor arguments to application/plugin view classes.
      * Params:
-     * IData[string] options An array of options.
+     * Json[string] options An array of options.
      * @param bool mymerge Whether to merge existing data with the new data.
      * /
-    auto setOptions(IData[string] options, bool mymerge = true) {
+    auto setOptions(Json[string] options, bool mymerge = true) {
         if (mymerge) {
             options = options.update_options;
         }
@@ -300,7 +300,7 @@ class DViewBuilder { // }: DIDataSerializable {
     /**
      * Gets additional options for the view.
      * /
-    IData[string] getOptions() {
+    Json[string] getOptions() {
         return _options;
     }
     
@@ -399,10 +399,10 @@ class DViewBuilder { // }: DIDataSerializable {
     /**
      * Iterates through hash to clean up and normalize.
      * Params:
-     * IData myitem Reference to the view var value.
+     * Json myitem Reference to the view var value.
      * @param string aKey View var key.
      * /
-    protected void _checkViewVars(IData &myitem, string aKey) {
+    protected void _checkViewVars(Json &myitem, string aKey) {
         if (cast8Exception)myitem) {
             myitem = to!string(myitem);
         }
@@ -423,9 +423,9 @@ class DViewBuilder { // }: DIDataSerializable {
     /**
      * Configures a view builder instance from serialized config.
      * Params:
-     * IData[string] configData View builder configuration array.
+     * Json[string] configData View builder configuration array.
      * /
-    auto createFromArray(IData[string] configData = null) {
+    auto createFromArray(Json[string] configData = null) {
         foreach (configData as myproperty: myvalue) {
             this.{myproperty} = myvalue;
         }
@@ -445,7 +445,7 @@ class DViewBuilder { // }: DIDataSerializable {
      * Params:
      * mydata Data array.
      * /
-    void __unserialize(IData[string] data) {
+    void __unserialize(Json[string] data) {
         this.createFromArray(mydata);
     } */
 }

@@ -7,7 +7,7 @@ import uim.views;
 // Factory for getting form context instance based on provided data.
 class DContextFactory {
     protected string[] providersNames;
-    // TODO protected IContext functiom(DServerRequest serverRequest, IData[string] data = [])[] providerFunctions;;
+    // TODO protected IContext functiom(DServerRequest serverRequest, Json[string] data = [])[] providerFunctions;;
     /*
     // DContext providers.
     // TODO protected array<string, array> myproviders = null;
@@ -102,9 +102,9 @@ class DContextFactory {
      * If no type can be matched a NullContext will be returned.
      * Params:
      * \UIM\Http\ServerRequest serverRequest Request instance.
-     * @param IData[string] mydata The data to get a context provider for.
+     * @param Json[string] mydata The data to get a context provider for.
      * /
-    IContext get(DServerRequest serverRequest, IData[string] data = []) {
+    IContext get(DServerRequest serverRequest, Json[string] data = []) {
         mydata += ["entity": null];
 
         foreach (this.providers as myprovider) {

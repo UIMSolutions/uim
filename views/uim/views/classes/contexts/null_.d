@@ -22,7 +22,7 @@ class DNullContext : DContext {
         return false;
     }
  
-    IData val(string myfield, IData[string] options  = null) {
+    Json val(string myfield, Json[string] options  = null) {
         return null;
     }
  

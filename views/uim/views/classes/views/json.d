@@ -44,7 +44,7 @@ import uim.views;
 class DJsonView : DSerializedView {
     mixin(ViewThis!("Json"));
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }

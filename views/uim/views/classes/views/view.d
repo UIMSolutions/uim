@@ -7,7 +7,7 @@ import uim.views;
 /**
  * View, the V in the MVC triad. View interacts with Helpers and view variables passed
  * in from the controller to render the results of the controller action. Often this is HTML,
- * but can also take the form of IData, XML, PDF"s or streaming files.
+ * but can also take the form of Json, XML, PDF"s or streaming files.
  *
  * UIM uses a two-step-view pattern. This means that the template content is rendered first,
  * and then inserted into the selected layout. This also means you can pass data from the template to the
@@ -49,7 +49,7 @@ class DView : IView { //  }: IEventDispatcher {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
@@ -58,7 +58,7 @@ class DView : IView { //  }: IEventDispatcher {
         this.name(newName);
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -90,7 +90,7 @@ class DView : IView { //  }: IEventDispatcher {
     }
 
     // A configuration array for helpers to be loaded.
-    protected IData[string][string] _helpers;
+    protected Json[string][string] _helpers;
 
     // The name of the subfolder containing templates for this View.
     protected string _templatePath = "";
@@ -172,7 +172,7 @@ static string contentType() {
     protected bool _autoLayout = true;
 
     // An array of variables
-    protected IData[string] _viewVars;
+    protected Json[string] _viewVars;
 
 
     /**
@@ -256,7 +256,7 @@ static string contentType() {
      * \UIM\Http\ServerRequest|null myrequest Request instance.
      * @param \UIM\Http\Response|null myresponse Response instance.
      * @param \UIM\Event\IEventManager|null myeventManager Event manager instance.
-     * @param IData[string] myviewOptions View options. See {@link View.my_passedVars} for list of
+     * @param Json[string] myviewOptions View options. See {@link View.my_passedVars} for list of
      *  options which get set as class properties.
      * /
     this(
@@ -301,7 +301,7 @@ static string contentType() {
      *
      * Helpers can be added using {@link addHelper()} method.
      * /
-    bool initialize(IData[string] myConfiguration = null) {
+    bool initialize(Json[string] myConfiguration = null) {
        
     }
 
@@ -439,8 +439,8 @@ static string contentType() {
      * string templatefilename Name of template file in the `templates/element/` folder,
      *  or `_plugin.template` to use the template element from _plugin. If the element
      *  is not found in the plugin, the normal view path cascade will be searched.
-     * @param IData[string] data Array of data to be made available to the rendered view (i.e. the Element)
-     * @param IData[string] options Array of options. Possible keys are:
+     * @param Json[string] data Array of data to be made available to the rendered view (i.e. the Element)
+     * @param Json[string] options Array of options. Possible keys are:
      *
      * - `cache` - Can either be `true`, to enable caching using the config in View.myelementCache. Or an array
      *  If an array, the following keys can be used:
@@ -454,7 +454,7 @@ static string contentType() {
      * - `plugin` - setting to false will force to use the application"s element from plugin templates, when the
      *  plugin has element with same name. Defaults to true
      * /
-    string element(string templatefilename, IData[string] data = [], IData[string] options  = null) {
+    string element(string templatefilename, Json[string] data = [], Json[string] options  = null) {
         options = options.update["callbacks": BooleanData(false), "cache": null, "plugin": null, "ignoreMissing": BooleanData(false)];
         if (isSet(options["cache"])) {
             options["cache"] = _elementCache(
@@ -493,8 +493,8 @@ static string contentType() {
      * Params:
      * callable myblock The block of code that you want to cache the output of.
      * /
-    string cache(callable myblock, IData[string] options  = null) {
-        IData[string] options = options.update["key": "", "config": this.elementCache];
+    string cache(callable myblock, Json[string] options  = null) {
+        Json[string] options = options.update["key": "", "config": this.elementCache];
         if (options["key"].isEmpty) {
             throw new DInvalidArgumentException("Cannot cache content with an empty key");
         }
@@ -622,9 +622,9 @@ static string contentType() {
     /**
      * Returns the contents of the given View variable.
      * Params:
-     * @param IData mydefault The default/fallback content of myvar.
+     * @param Json mydefault The default/fallback content of myvar.
      * /
-    IData get(string valueName, IData defaultValue = null) {
+    Json get(string valueName, Json defaultValue = null) {
         return _viewVars.get(valueName, defaultValue);
     }
 
@@ -632,10 +632,10 @@ static string contentType() {
      * Saves a variable or an associative array of variables for use inside a template.
      * Params:
      * string[] views A string or an array of data.
-     * @param IData aValue Value in case views is a string (which then works as the key).
+     * @param Json aValue Value in case views is a string (which then works as the key).
      *  Unused if views is an associative array, otherwise serves as the values to views"s keys.
      * /
-    void set(string[] views, IData aValue = null) {
+    void set(string[] views, Json aValue = null) {
         if (views.isArray) {
             if (myvalue.isArray) {
                 /** @var array|false mydata Coerce Dstan to accept failure case * /
@@ -688,10 +688,10 @@ static string contentType() {
      * Appending to a new block will create the block.
      * Params:
      * string views Name of the block
-     * @param IData aValue The content for the block. Value will be type cast
+     * @param Json aValue The content for the block. Value will be type cast
      *  to string.
      * /
-    void append(string blockName, IData aValue = null) {
+    void append(string blockName, Json aValue = null) {
         _blocks.concat(blockName, myvalue);
     }
     
@@ -701,10 +701,10 @@ static string contentType() {
      * Prepending to a new block will create the block.
      * Params:
      * string views Name of the block
-     * @param IData aValue The content for the block. Value will be type cast
+     * @param Json aValue The content for the block. Value will be type cast
      *  to string.
      * /
-    void prepend(string blockName, IData aValue) {
+    void prepend(string blockName, Json aValue) {
         _blocks.concat(blockName, myvalue, ViewBlock.PREPEND);
     }
 
@@ -712,10 +712,10 @@ static string contentType() {
      * Set the content for a block. This will overwrite any
      * existing content.
      * Params:
-     * @param IData aValue The content for the block. Value will be type cast
+     * @param Json aValue The content for the block. Value will be type cast
      *  to string.
      * /
-    void assign(string blockName, IData aValue) {
+    void assign(string blockName, Json aValue) {
         this.Blocks.set(blockName, myvalue);
     }
 
@@ -808,10 +808,10 @@ static string contentType() {
      * array of data. Handles parent/extended templates.
      * Params:
      * string mytemplateFile Filename of the template
-     * @param IData[string] data Data to include in rendered view. If empty the current
+     * @param Json[string] data Data to include in rendered view. If empty the current
      *  View.myviewVars will be used.
      * /
-    protected string _render(string mytemplateFile, IData[string] data = []) {
+    protected string _render(string mytemplateFile, Json[string] data = []) {
         if (mydata.isEmpty) {
             mydata = this.viewVars;
         }
@@ -879,9 +879,9 @@ static string contentType() {
      * Adds a helper from within `initialize()` method.
      * Params:
      * string myhelper Helper.
-     * @param IData[string] configData Config.
+     * @param Json[string] configData Config.
      * /
-    protected void addHelper(string myhelper, IData[string] configData = null) {
+    protected void addHelper(string myhelper, Json[string] configData = null) {
         [_plugin, views] = pluginSplit(myhelper);
         if (_plugin) {
             configuration.get("className"] = myhelper;
@@ -893,7 +893,7 @@ static string contentType() {
      * Loads a helper. Delegates to the `HelperRegistry.load()` to load the helper.
      * You should use `addHelper()` instead of this method from the `initialize()` hook of `AppView` or other custom View classes.
      * /
-    Helper loadHelper(string helperName, IData[string] settingsForHelper = null) {
+    Helper loadHelper(string helperName, Json[string] settingsForHelper = null) {
         return _helpers().load(helperName, settingsForHelper);
     }
 
@@ -1189,10 +1189,10 @@ static string contentType() {
      * Generate the cache configuration options for an element.
      * Params:
      * string elementname Element name
-     * @param IData[string] data Data
-     * @param IData[string] options Element options
+     * @param Json[string] data Data
+     * @param Json[string] options Element options
      * /
-    // TODO protected array _elementCache(string elementname, IData[string] data, IData[string] options) {
+    // TODO protected array _elementCache(string elementname, Json[string] data, Json[string] options) {
         if (isSet(options["cache"]["key"], options["cache"]["config"])) {
             /** @psalm-var array{key:string, config:string} mycache * /
             mycache = options["cache"];
@@ -1232,12 +1232,12 @@ static string contentType() {
      * and writes to the cache if a cache is used
      * Params:
      * string filepath Element file path
-     * @param IData[string] data Data to render
-     * @param IData[string] options Element options
+     * @param Json[string] data Data to render
+     * @param Json[string] options Element options
      * @triggers View.beforeRender this, [filepath]
      * @triggers View.afterRender this, [filepath, myelement]
      * /
-    protected string _renderElement(string filepath, IData[string] data, IData[string] options) {
+    protected string _renderElement(string filepath, Json[string] data, Json[string] options) {
         mycurrent = _current;
         myrestore = _currentType;
        _currentType = TYPE_ELEMENT;

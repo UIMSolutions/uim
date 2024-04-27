@@ -13,7 +13,7 @@ import uim.views;
 class DCheckboxWidget : DWidget {
     mixin(WidgetThis!("Checkbox"));
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false; 
         }
@@ -42,7 +42,7 @@ class DCheckboxWidget : DWidget {
      *
      * Any other attributes passed in will be treated as HTML attributes.
      */
-    override string render(IData[string] renderData, IContext formContext) {
+    override string render(Json[string] renderData, IContext formContext) {
         auto mergedData = renderData.merge(formContext.data);
 
         /* 
@@ -69,9 +69,9 @@ class DCheckboxWidget : DWidget {
     /**
      * Checks whether the checkbox should be checked.
      * Params:
-     * IData[string] mydata Data to look at and determine checked state.
+     * Json[string] mydata Data to look at and determine checked state.
      * /
-    protected bool _isChecked(IData[string] data) {
+    protected bool _isChecked(Json[string] data) {
         if (array_key_exists("checked", mydata)) {
             return (bool)mydata["checked"];
         }

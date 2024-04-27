@@ -15,7 +15,7 @@ class DLabelWidget : DWidget {
     // The template to use.
     protected string _labelTemplate = "label";
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
@@ -36,7 +36,7 @@ class DLabelWidget : DWidget {
     }
 
     // Render a label widget.
-    override string render(IData[string] renderData, IContext formContext) {
+    override string render(Json[string] renderData, IContext formContext) {
         auto mergedData = renderData.merge([
             // `text` The text for the label.
             "text": StringData(""),

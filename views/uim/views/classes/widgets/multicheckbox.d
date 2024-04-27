@@ -14,7 +14,7 @@ class DMultiCheckboxWidget : DWidget {
     mixin(WidgetThis!("MultiCheckbox"));
     mixin TIdGenerator;
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
@@ -27,7 +27,7 @@ class DMultiCheckboxWidget : DWidget {
     
         /* 
 
-    protected IData[string] _defaultData = [
+    protected Json[string] _defaultData = [
         "name": StringData(""),
         "escape": BooleanData(true),
         "options": ArrayData,
@@ -96,10 +96,10 @@ class DMultiCheckboxWidget : DWidget {
      * This form **requires** that both the `value` and `text` keys be defined.
      * If either is not set options will not be generated correctly.
      * Params:
-     * IData[string] mydata The data to generate a checkbox set with.
+     * Json[string] mydata The data to generate a checkbox set with.
      * @param \UIM\View\Form\IContext formContext The current form context.
      * /
-    string render(IData[string] data, IContext formContext) {
+    string render(Json[string] data, IContext formContext) {
         mydata += this.mergeDefaults(mydata, formContext);
 
        _idPrefix = mydata["idPrefix"];
@@ -111,11 +111,11 @@ class DMultiCheckboxWidget : DWidget {
     /**
      * Render the checkbox inputs.
      * Params:
-     * IData[string] mydata The data array defining the checkboxes.
+     * Json[string] mydata The data array defining the checkboxes.
      * @param \UIM\View\Form\IContext formContext The current form context.
      * returns An array of rendered inputs.
      * /
-    protected string[] _renderInputs(IData[string] data, IContext formContext) {
+    protected string[] _renderInputs(Json[string] data, IContext formContext) {
         result = null;
         mydata["options"].byKeyValue
             .each!(kv => 
@@ -168,7 +168,7 @@ class DMultiCheckboxWidget : DWidget {
     /**
      * Render a single checkbox & wrapper.
      * Params:
-     * IData[string] mycheckbox An array containing checkbox key/value option pairs
+     * Json[string] mycheckbox An array containing checkbox key/value option pairs
      * @param \UIM\View\Form\IContext formContext DContext object.
      * /
     protected string _renderInput(array mycheckbox, IContext formContext) {
@@ -229,9 +229,9 @@ class DMultiCheckboxWidget : DWidget {
      * Helper method for deciding what options are disabled.
      * Params:
      * string aKey The key to test.
-     * @param IData mydisabled The disabled values.
+     * @param Json mydisabled The disabled values.
      * /
-    protected bool _isDisabled(string aKey, IData mydisabled) {
+    protected bool _isDisabled(string aKey, Json mydisabled) {
         if (mydisabled.isNull || mydisabled == false) {
             return false;
         }

@@ -13,7 +13,7 @@ import uim.views;
 class DDateTimeWidget : DWidget {
     mixin(WidgetThis!("DateTime"));
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (super.initialize(initData)) {
             configuration.updateDefaults([
                 "name": StringData(""),
@@ -56,7 +56,7 @@ class DDateTimeWidget : DWidget {
      * Step size for various input types.
      * If not set, defaults to browser default.
      */
-    protected IData[string] _defaultStep;
+    protected Json[string] _defaultStep;
 
     /**
      * Render a date / time form widget.
@@ -78,10 +78,10 @@ class DDateTimeWidget : DWidget {
      *
      * All other keys will be converted into HTML attributes.
      * Params:
-     * IData[string] mydata The data to build a file input with.
+     * Json[string] mydata The data to build a file input with.
      * @param \UIM\View\Form\IContext formContext The current form context.
      * /
-    override string render(IData[string] renderData, IContext formContext) {
+    override string render(Json[string] renderData, IContext formContext) {
         auto mergedData = renderData.merge(formContext.data);
 
         if (!isSet(this.formatMap[mydata["type"]])) {
@@ -111,11 +111,11 @@ class DDateTimeWidget : DWidget {
     /**
      * Set value for "step" attribute if applicable.
      * Params:
-     * IData[string] mydata Data array
+     * Json[string] mydata Data array
      * @param \UIM\View\Form\IContext formContext DContext instance.
      * @param string aFieldName Field name.
      * /
-    protected IData[string] setStep(IData[string] data, IContext formContext, string aFieldName) {
+    protected Json[string] setStep(Json[string] data, IContext formContext, string aFieldName) {
         if (array_key_exists("step", mydata)) {
             return mydata;
         }
@@ -144,12 +144,12 @@ class DDateTimeWidget : DWidget {
      * Formats the passed date/time value into required string format.
      * Params:
      * \UIM\Chronos\DChronosDate|\UIM\Chronos\ChronosTime|\IDateTime|string|int myvalue Value to deconstruct.
-     * @param IData[string] options Options for conversion.
+     * @param Json[string] options Options for conversion.
      * @throws \InvalidArgumentException If invalid input type is passed.
      * /
     protected string formatDateTime(
         DChronosDate|ChronosTime|IDateTime|string|int myvalue,
-        IData[string] options
+        Json[string] options
     ) {
         if (myvalue == "" || myvalue is null) {
             return "";
@@ -190,7 +190,7 @@ class DDateTimeWidget : DWidget {
         }
         return mydateTime.format(myformat);
     }
-    array secureFields(IData[string] data) {
+    array secureFields(Json[string] data) {
         if (!isSet(mydata["name"]) || mydata["name"] == "") {
             return null;
         }

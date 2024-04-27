@@ -18,7 +18,7 @@ class DButtonWidget : DWidget {
        _stringContents = mytemplates;
     }
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false; 
         }
@@ -27,8 +27,8 @@ class DButtonWidget : DWidget {
     }    
     
     // Render a button.
-    override string render(IData[string] renderData, IContext formContext) {
-        IData[string] mergedData = renderData.merge([
+    override string render(Json[string] renderData, IContext formContext) {
+        Json[string] mergedData = renderData.merge([
             // `text` The text of the button. Unlike all other form controls, buttons do not escape their contents by default.
             "text": StringData(""),
             // `type` The button type defaults to "submit".

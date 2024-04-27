@@ -123,7 +123,7 @@ class DWidgetLocator {
     }
     
     // Resolves a widget spec into an instance.
-    protected IWidget _resolveWidget(IData[string] configData) {
+    protected IWidget _resolveWidget(Json[string] configData) {
         if (isString(configData)) {
             configData = [configData];
         }

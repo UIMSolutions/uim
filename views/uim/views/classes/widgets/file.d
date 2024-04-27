@@ -13,7 +13,7 @@ import uim.views;
 class DFileWidget : DWidget {
     mixin(WidgetThis!("File"));
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
@@ -43,7 +43,7 @@ class DFileWidget : DWidget {
      * @param \UIM\View\Form\IContext formContext The current form context.
      * return HTML elements.
      * /
-    override string render(IData[string] renderData, IContext formContext) {
+    override string render(Json[string] renderData, IContext formContext) {
         auto mergedData = renderData.merge(formContext.data);
 
         mergedData.remove("val");

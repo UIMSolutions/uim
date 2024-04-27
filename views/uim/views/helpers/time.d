@@ -242,11 +242,11 @@ class DTimeHelper : DHelper {
      * Params:
      * \UIM\Chronos\DChronosDate|\IDateTime|string|int mydateTime UNIX timestamp, strtotime() valid
      *  string or DateTime object.
-     * @param IData[string] options Default format if timestamp is used in mydateString
+     * @param Json[string] options Default format if timestamp is used in mydateString
      * /
     string timeAgoInWords(
         DChronosDate|IDateTime|string|int mydateTime,
-        IData[string] options  = null
+        Json[string] options  = null
     ) {
         myelement = null;
         options = options.update[

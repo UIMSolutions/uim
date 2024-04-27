@@ -59,7 +59,7 @@ class DHtmlHelper : DHelper {
     // TODO protected array<string, array> my_includedAssets = null;
 
     // Options for the currently opened script block buffer if any.
-    protected IData[string] my_scriptBlockOptions;
+    protected Json[string] my_scriptBlockOptions;
 
     /**
      * Creates a link to an external resource and handles basic meta tags
@@ -93,13 +93,13 @@ class DHtmlHelper : DHelper {
      * - `block` - Set to true to append output to view block "meta" or provide
      *  custom block name.
      * Params:
-     * IData[string]|string mytype The title of the external resource, Or an array of attributes for a
+     * Json[string]|string mytype The title of the external resource, Or an array of attributes for a
      *  custom meta tag.
      * @param string[] mycontent The address of the external resource or string for content attribute
-     * @param IData[string] htmlAtributes Other attributes for the generated tag. If the type attribute is html,
+     * @param Json[string] htmlAtributes Other attributes for the generated tag. If the type attribute is html,
      *   rss, atom, or icon, the mime-type is returned.
      * /
-    string meta(string[] mytype, string[] mycontent = null, IData[string] htmlAtributes = null) {
+    string meta(string[] mytype, string[] mycontent = null, Json[string] htmlAtributes = null) {
         if (!mytype.isArray) {
             mytypes = [
                 "rss": ["type": "application/rss+xml", "rel": "alternate", "title": mytype, "link": mycontent],
@@ -204,9 +204,9 @@ class DHtmlHelper : DHelper {
      *  Can be an array if myurl.isNull. If myurl.isNull, mytitle will be used as both the URL and title.
      * @param string[] myurl uim-relative URL or array of URL parameters, or
      *  external URL (starts with http://)
-     * @param IData[string] htmlAtributes Array of options and HTML attributes.
+     * @param Json[string] htmlAtributes Array of options and HTML attributes.
       * /
-    string link(string[] mytitle, string[] myurl = null, IData[string] htmlAtributes = null) {
+    string link(string[] mytitle, string[] myurl = null, Json[string] htmlAtributes = null) {
         myescapeTitle = true;
         if (myurl !isNull) {
             myurl = this.Url.build(myurl, htmlAtributes);
@@ -264,9 +264,9 @@ class DHtmlHelper : DHelper {
      * @param string mypath uim-relative route path.
      * @param array myparams An array specifying any additional parameters.
      *  Can be also any special parameters supported by `Router.url()`.
-     * @param IData[string] htmlAtributes Array of options and HTML attributes.
+     * @param Json[string] htmlAtributes Array of options and HTML attributes.
      * /
-    string linkFromPath(string mytitle, string mypath, array myparams = [], IData[string] htmlAtributes = null) {
+    string linkFromPath(string mytitle, string mypath, array myparams = [], Json[string] htmlAtributes = null) {
         return _link(mytitle, ["_path": mypath] + myparams, htmlAtributes);
     }
     
@@ -317,9 +317,9 @@ class DHtmlHelper : DHelper {
      * string[]|string mypath The name of a CSS style sheet or an array containing names of
      *  CSS stylesheets. If `mypath` is prefixed with "/", the path will be relative to the webroot
      *  of your application. Otherwise, the path will be relative to your CSS path, usually webroot/css.
-     * @param IData[string] htmlAtributes Array of options and HTML arguments.
+     * @param Json[string] htmlAtributes Array of options and HTML arguments.
      * /
-    string css(string[] mypath, IData[string] htmlAtributes = null) {
+    string css(string[] mypath, Json[string] htmlAtributes = null) {
         htmlAtributes = htmlAtributes.update([
             "once": Booleandata(true),
             "block": null,
@@ -410,9 +410,9 @@ class DHtmlHelper : DHelper {
      * be inserted as a `nonce` attribute on the script tag.
      * Params:
      * string[]|string myurl String or array of javascript files to include
-     * @param IData[string] htmlAtributes Array of options, and html attributes see above.
+     * @param Json[string] htmlAtributes Array of options, and html attributes see above.
      * /
-    string script(string[] myurl, IData[string] htmlAtributes = null) {
+    string script(string[] myurl, Json[string] htmlAtributes = null) {
         mydefaults = [
             "block": null,
             "once": BooleanData(true),
@@ -461,10 +461,10 @@ class DHtmlHelper : DHelper {
      *  custom block name.
      * Params:
      * string myscript The script to wrap
-     * @param IData[string] htmlAtributes The options to use. Options not listed above will be
+     * @param Json[string] htmlAtributes The options to use. Options not listed above will be
      *   treated as HTML attributes.
      * /
-    string scriptBlock(string myscript, IData[string] htmlAtributes = null) {
+    string scriptBlock(string myscript, Json[string] htmlAtributes = null) {
         htmlAtributes += ["block": null, "nonce": _View.getRequest().getAttribute("cspScriptNonce")];
 
         auto result = this.formatTemplate("javascriptblock", [
@@ -493,9 +493,9 @@ class DHtmlHelper : DHelper {
      * - `block` Set to true to append output to view block "script" or provide
      *  custom block name.
      * Params:
-     * IData[string] options Options for the code block.
+     * Json[string] options Options for the code block.
      * /
-    void scriptStart(IData[string] options  = null) {
+    void scriptStart(Json[string] options  = null) {
        _scriptBlockOptions = options;
         ob_start();
     }
@@ -528,7 +528,7 @@ class DHtmlHelper : DHelper {
      * STRINGAA mydata Style data array, keys will be used as property names, values as property values.
      * @param bool myoneLine Whether the style block should be displayed on one line.
      * /
-    string style(IData[string] data, bool myoneLine = true) {
+    string style(Json[string] data, bool myoneLine = true) {
         string[] result;
         foreach (mydata as aKey: myvalue) {
             result ~= aKey ~ ":" ~ myvalue ~ ";";
@@ -566,9 +566,9 @@ class DHtmlHelper : DHelper {
      * - `plugin` False value will prevent parsing path as a plugin
      * Params:
      * string[] mypath Path to the image file, relative to the webroot/img/ directory.
-     * @param IData[string] options Array of HTML attributes. See above for special options.
+     * @param Json[string] options Array of HTML attributes. See above for special options.
      * /
-    string image(string[] mypath, IData[string] htmlAtributes = null) {
+    string image(string[] mypath, Json[string] htmlAtributes = null) {
         if (isString(mypath)) {
             mypath = this.Url.image(mypath, htmlAtributes);
         } else {
@@ -605,8 +605,8 @@ class DHtmlHelper : DHelper {
      * Params:
      * array viewss Array of tablenames. Each tablename can be string, or array with name and an array with a set
      *    of attributes to its specific tag
-     * @param IData[string]|null mytrOptions HTML options for TR elements.
-     * @param IData[string]|null mythOptions HTML options for TH elements.
+     * @param Json[string]|null mytrOptions HTML options for TR elements.
+     * @param Json[string]|null mythOptions HTML options for TH elements.
      * /
     string tableHeaders(array viewss, array mytrOptions = null, array mythOptions = null) {
         auto result = null;
@@ -633,8 +633,8 @@ class DHtmlHelper : DHelper {
      * Returns a formatted string of table rows (TR"s with TD"s in them).
      * Params:
      * string[] mydata Array of table data
-     * @param IData[string]|bool|null myoddTrOptions HTML options for odd TR elements if true useCount is used
-     * @param IData[string]|bool|null myevenTrOptions HTML options for even TR elements
+     * @param Json[string]|bool|null myoddTrOptions HTML options for odd TR elements if true useCount is used
+     * @param Json[string]|bool|null myevenTrOptions HTML options for even TR elements
      * @param bool myuseCount adds class "column-myi"
      * @param bool mycontinueOddEven If false, will use a non-static mycount variable,
      * /
@@ -669,7 +669,7 @@ class DHtmlHelper : DHelper {
             mycellsOut = _renderCells(line, myuseCount);
             myopts = mycount % 2 ? myoddTrOptions : myevenTrOptions;
 
-            IData[string] htmlAtributes = (array)myopts;
+            Json[string] htmlAtributes = (array)myopts;
             result ~= this.tableRow(mycellsOut.join(" "), htmlAtributes);
         });
 
@@ -712,9 +712,9 @@ class DHtmlHelper : DHelper {
      * Renders a single table row (A TR with attributes).
      * Params:
      * string mycontent The content of the row.
-     * @param IData[string] htmlAtributes HTML attributes.
+     * @param Json[string] htmlAtributes HTML attributes.
      * /
-    string tableRow(string mycontent, IData[string] htmlAtributes = null) {
+    string tableRow(string mycontent, Json[string] htmlAtributes = null) {
         return _formatTemplate("tablerow", [
             "attrs": this.templater().formatAttributes(htmlAtributes),
             "content": mycontent,
@@ -725,9 +725,9 @@ class DHtmlHelper : DHelper {
      * Renders a single table cell (A TD with attributes).
      * Params:
      * string mycontent The content of the cell.
-     * @param IData[string] htmlAtributes HTML attributes.
+     * @param Json[string] htmlAtributes HTML attributes.
      * /
-    string tableCell(string mycontent, IData[string] htmlAtributes = null) {
+    string tableCell(string mycontent, Json[string] htmlAtributes = null) {
         return _formatTemplate("tablecell", [
             "attrs": this.templater().formatAttributes(htmlAtributes),
             "content": mycontent,
@@ -744,9 +744,9 @@ class DHtmlHelper : DHelper {
      * string views Tag name.
      * @param string|null mytext String content that will appear inside the HTML element.
      *  If null, only a start tag will be printed
-     * @param IData[string] htmlAtributes Additional HTML attributes of the HTML tag, see above.
+     * @param Json[string] htmlAtributes Additional HTML attributes of the HTML tag, see above.
      * /
-    string tag(string views, string mytext = null, IData[string] htmlAtributes = null) {
+    string tag(string views, string mytext = null, Json[string] htmlAtributes = null) {
         if (isSet(htmlAtributes["escape"]) && htmlAtributes["escape"]) {
             mytext = htmlAttribEscape(mytext);
             unset(htmlAtributes["escape"]);
@@ -771,9 +771,9 @@ class DHtmlHelper : DHelper {
      * string|null myclass DCSS class name of the div element.
      * @param string|null mytext String content that will appear inside the div element.
      *  If null, only a start tag will be printed
-     * @param IData[string] htmlAtributes Additional HTML attributes of the DIV tag
+     * @param Json[string] htmlAtributes Additional HTML attributes of the DIV tag
      * /
-    string div(string myclass = null, string mytext = null, IData[string] htmlAtributes = null) {
+    string div(string myclass = null, string mytext = null, Json[string] htmlAtributes = null) {
         if (!empty(myclass)) {
             htmlAtributes["class"] = myclass;
         }
@@ -789,9 +789,9 @@ class DHtmlHelper : DHelper {
      * Params:
      * string|null myclass DCSS class name of the p element.
      * @param string|null mytext String content that will appear inside the p element.
-     * @param IData[string] htmlAtributes Additional HTML attributes of the P tag
+     * @param Json[string] htmlAtributes Additional HTML attributes of the P tag
      * /
-    string para(string myclass, string mytext, IData[string] htmlAtributes = null) {
+    string para(string myclass, string mytext, Json[string] htmlAtributes = null) {
         if (!empty(htmlAtributes["escape"])) {
             mytext = htmlAttribEscape(mytext);
         }
@@ -865,9 +865,9 @@ class DHtmlHelper : DHelper {
      * Params:
      * string[] mypath Path to the video file, relative to the webroot/{htmlAtributes["pathPrefix"]} directory.
      * Or an array where each item itself can be a path string or an associate array containing keys `src` and `type`
-     * @param IData[string] htmlAtributes Array of HTML attributes, and special options above.
+     * @param Json[string] htmlAtributes Array of HTML attributes, and special options above.
      * /
-    string media(string[] mypath, IData[string] htmlAtributes = null) {
+    string media(string[] mypath, Json[string] htmlAtributes = null) {
         htmlAtributes += [
             "tag": null,
             "pathPrefix": "files/",
@@ -950,10 +950,10 @@ class DHtmlHelper : DHelper {
      * - `odd` - Class to use for odd rows.
      * Params:
      * array mylist Set of elements to list
-     * @param IData[string] htmlAtributes Options and additional HTML attributes of the list (ol/ul) tag.
-     * @param IData[string] myitemOptions Options and additional HTML attributes of the list item (LI) tag.
+     * @param Json[string] htmlAtributes Options and additional HTML attributes of the list (ol/ul) tag.
+     * @param Json[string] myitemOptions Options and additional HTML attributes of the list item (LI) tag.
      * /
-    string|int|false nestedList(array mylist, IData[string] htmlAtributes = null, array myitemOptions = []) {
+    string|int|false nestedList(array mylist, Json[string] htmlAtributes = null, array myitemOptions = []) {
         htmlAtributes += ["tag": "ul"];
         myitems = _nestedListItem(mylist, htmlAtributes, myitemOptions);
 
@@ -967,8 +967,8 @@ class DHtmlHelper : DHelper {
      * Internal auto to build a nested list (UL/OL) out of an associative array.
      * Params:
      * array myitems Set of elements to list.
-     * @param IData[string] htmlAtributes Additional HTML attributes of the list (ol/ul) tag.
-     * @param IData[string] myitemOptions Options and additional HTML attributes of the list item (LI) tag.
+     * @param Json[string] htmlAtributes Additional HTML attributes of the list (ol/ul) tag.
+     * @param Json[string] myitemOptions Options and additional HTML attributes of the list item (LI) tag.
      * /
     protected string _nestedListItem(array myitems, array htmlAtributes, array myitemOptions) {
         string result = "";

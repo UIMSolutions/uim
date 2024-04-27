@@ -11,11 +11,11 @@ import uim.views;
  *
  * @property \UIM\View\Helper\HtmlHelper myHtml
  * @method string excerpt(string mytext, string myphrase, int myradius = 100, string myending = "...") See Text.excerpt()
- * @method string highlight(string mytext, string[] myphrase, IData[string] options  = null) See Text.highlight()
+ * @method string highlight(string mytext, string[] myphrase, Json[string] options  = null) See Text.highlight()
  * @method string slug(string mystring, string[] options = []) See Text.slug()
- * @method string tail(string mytext, int mylength = 100, IData[string] options  = null) See Text.tail()
+ * @method string tail(string mytext, int mylength = 100, Json[string] options  = null) See Text.tail()
  * @method string toList(array mylist, string myand = null, string myseparator = ", ") See Text.toList()
- * @method string truncate(string mytext, int mylength = 100, IData[string] options  = null) See Text.truncate()
+ * @method string truncate(string mytext, int mylength = 100, Json[string] options  = null) See Text.truncate()
  * @link https://book.UIM.org/5/en/views/helpers/text.html
  * @see \UIM\Utility\Text
  */
@@ -26,7 +26,7 @@ class DTextHelper : DHelper {
      * An array of hashes and their contents.
      * Used when inserting links into text.
      */
-    protected IData[string] _placeholders;
+    protected Json[string] _placeholders;
 
     /**
      * Call methods from String utility class
@@ -34,7 +34,7 @@ class DTextHelper : DHelper {
      * string mymethod Method to invoke
      * @param array myparams Array of params for the method.
      * /
-    IData __call(string methodName, array myparams) {
+    Json __call(string methodName, array myparams) {
         return Text.{methodName}(...myparams);
     }
     
@@ -47,9 +47,9 @@ class DTextHelper : DHelper {
      * - `escape` Control HTML escaping of input. Defaults to true.
      * Params:
      * string mytext Text
-     * @param IData[string] options Array of HTML options, and options listed above.
+     * @param Json[string] options Array of HTML options, and options listed above.
      * /
-    string autoLinkUrls(string mytext, IData[string] options  = null) {
+    string autoLinkUrls(string mytext, Json[string] options  = null) {
         _placeholders = null;
         options = options.update["escape": BooleanData(true)];
 
@@ -117,7 +117,7 @@ class DTextHelper : DHelper {
      * Replace placeholders with links.
      * Params:
      * string mytext The text to operate on.
-     * @param IData[string] myhtmlOptions The options for the generated links.
+     * @param Json[string] myhtmlOptions The options for the generated links.
      * /
     protected string _linkUrls(string mytext, array myhtmlOptions) {
         myreplace = null;
@@ -136,9 +136,9 @@ class DTextHelper : DHelper {
      * Links email addresses
      * Params:
      * string mytext The text to operate on
-     * @param IData[string] options An array of options to use for the HTML.
+     * @param Json[string] options An array of options to use for the HTML.
      * /
-    protected string _linkEmails(string mytext, IData[string] options) {
+    protected string _linkEmails(string mytext, Json[string] options) {
         myreplace = null;
         foreach (_placeholders as myhash: mycontent) {
             myurl = mycontent["content"];
@@ -156,9 +156,9 @@ class DTextHelper : DHelper {
      * - `escape` Control HTML escaping of input. Defaults to true.
      * Params:
      * string mytext Text
-     * @param IData[string] options Array of HTML options, and options listed above.
+     * @param Json[string] options Array of HTML options, and options listed above.
      * /
-    string autoLinkEmails(string mytext, IData[string] options  = null) {
+    string autoLinkEmails(string mytext, Json[string] options  = null) {
         options = options.update["escape": BooleanData(true)];
        _placeholders = null;
 
@@ -182,9 +182,9 @@ class DTextHelper : DHelper {
      * - `escape` Control HTML escaping of input. Defaults to true.
      * Params:
      * string mytext Text
-     * @param IData[string] options Array of HTML options, and options listed above.
+     * @param Json[string] options Array of HTML options, and options listed above.
      * /
-    string autoLink(string mytext, IData[string] options  = null) {
+    string autoLink(string mytext, Json[string] options  = null) {
         mytext = this.autoLinkUrls(mytext, options);
 
         return _autoLinkEmails(mytext, ["escape": BooleanData(false)] + options);

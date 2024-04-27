@@ -6,7 +6,7 @@ import uim.views;
 
 // Interface for FormHelper context implementations.
 interface IContext {
-    IData[string] data();
+    Json[string] data();
 
     // Get the field names of the top level object in this context.
     string[] fieldNames();
@@ -34,7 +34,7 @@ interface IContext {
      *  - `schemaDefault`: Boolean indicating whether default value from
      *    context"s schema should be used if it"s not explicitly provided.
     * /
-    IData val(string fieldPath, IData[string] options  = null) ;
+    Json val(string fieldPath, Json[string] options  = null) ;
 
     /**
      * Check if a given field is "required".

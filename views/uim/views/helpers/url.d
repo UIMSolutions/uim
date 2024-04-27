@@ -20,9 +20,9 @@ class UrlHelper : DHelper {
     /**
      * Check proper configuration
      * Params:
-     * IData[string] configData The configuration settings provided to this helper.
+     * Json[string] configData The configuration settings provided to this helper.
      * /
-  	override bool initialize(IData[string] initData = null) {
+  	override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		
 		return true;
@@ -49,9 +49,9 @@ class UrlHelper : DHelper {
      * string[] myurl Either a relative string URL like `/products/view/23` or
      *   an array of URL parameters. Using an array for URLs will allow you to leverage
      *   the reverse routing features of UIM.
-     * @param IData[string] options Array of options.
+     * @param Json[string] options Array of options.
      * /
-    string build(string[] myurl = null, IData[string] options  = null) {
+    string build(string[] myurl = null, Json[string] options  = null) {
         mydefaults = [
             "fullBase": BooleanData(false),
             "escape": BooleanData(true),
@@ -77,9 +77,9 @@ class UrlHelper : DHelper {
      * string mypath uim-relative route path.
      * @param array myparams An array specifying any additional parameters.
      *  Can be also any special parameters supported by `Router.url()`.
-     * @param IData[string] options Array of options.
+     * @param Json[string] options Array of options.
      * /
-    string buildFromPath(string mypath, array myparams = [], IData[string] options  = null) {
+    string buildFromPath(string mypath, array myparams = [], Json[string] options  = null) {
         return _build(["_path": mypath] + myparams, options);
     }
     
@@ -90,7 +90,7 @@ class UrlHelper : DHelper {
      * `Helper.assetTimestamp()` to add timestamp to local files.
      * Params:
      * string mypath Path string.
-     * @param IData[string] options Options array. Possible keys:
+     * @param Json[string] options Options array. Possible keys:
      *  `fullBase` Return full URL with domain name
      *  `pathPrefix` Path prefix for relative URLs
      *  `plugin` False value will prevent parsing path as a plugin
@@ -99,7 +99,7 @@ class UrlHelper : DHelper {
      *       Set to true to apply timestamps when debug is true. Set to "force" to always
      *       enable timestamping regardless of debug value.
      * /
-    string image(string mypath, IData[string] options  = null) {
+    string image(string mypath, Json[string] options  = null) {
         options = options.update["theme": _View.getTheme()];
 
         return htmlAttribEscape(_assetUrlClassName.imageUrl(mypath, options));
@@ -112,7 +112,7 @@ class UrlHelper : DHelper {
      * `Helper.assetTimestamp()` to add timestamp to local files.
      * Params:
      * string mypath Path string.
-     * @param IData[string] options Options array. Possible keys:
+     * @param Json[string] options Options array. Possible keys:
      *  `fullBase` Return full URL with domain name
      *  `pathPrefix` Path prefix for relative URLs
      *  `ext` Asset extension to append
@@ -122,7 +122,7 @@ class UrlHelper : DHelper {
      *       Set to true to apply timestamps when debug is true. Set to "force" to always
      *       enable timestamping regardless of debug value.
      * /
-    string css(string mypath, IData[string] options  = null) {
+    string css(string mypath, Json[string] options  = null) {
         options = options.update["theme": _View.getTheme()];
 
         return htmlAttribEscape(_assetUrlClassName.cssUrl(mypath, options));
@@ -135,7 +135,7 @@ class UrlHelper : DHelper {
      * `Helper.assetTimestamp()` to add timestamp to local files.
      * Params:
      * string mypath Path string.
-     * @param IData[string] options Options array. Possible keys:
+     * @param Json[string] options Options array. Possible keys:
      *  `fullBase` Return full URL with domain name
      *  `pathPrefix` Path prefix for relative URLs
      *  `ext` Asset extension to append
@@ -145,7 +145,7 @@ class UrlHelper : DHelper {
      *       Set to true to apply timestamps when debug is true. Set to "force" to always
      *       enable timestamping regardless of debug value.
      * /
-    string script(string mypath, IData[string] options  = null) {
+    string script(string mypath, Json[string] options  = null) {
         options = options.update["theme": _View.getTheme()];
 
         return htmlAttribEscape(_assetUrlClassName.scriptUrl(mypath, options));
@@ -170,9 +170,9 @@ class UrlHelper : DHelper {
      *   enable timestamping regardless of debug value.
      * Params:
      * string mypath Path string or URL array
-     * @param IData[string] options Options array.
+     * @param Json[string] options Options array.
      * /
-    string assetUrl(string mypath, IData[string] options  = null) {
+    string assetUrl(string mypath, Json[string] options  = null) {
         options = options.update["theme": _View.getTheme()];
 
         return htmlAttribEscape(_assetUrlClassName.url(mypath, options));

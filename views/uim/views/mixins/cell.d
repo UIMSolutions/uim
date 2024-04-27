@@ -30,11 +30,11 @@ mixin template TCell() {
      * Params:
      * string mycell You must indicate cell name, and optionally a cell action. e.g.: `TagCloud.smallList` will
      * invoke `View\Cell\TagCloudCell.smallList()`, `display` action will be invoked by default when none is provided.
-     * @param IData[string] data Additional arguments for cell method. e.g.:
+     * @param Json[string] data Additional arguments for cell method. e.g.:
      *   `cell("TagCloud.smallList", ["a1": "v1", "a2": "v2"])` maps to `View\Cell\TagCloud.smallList(v1, v2)`
-     * @param IData[string] options Options for Cell"s constructor
+     * @param Json[string] options Options for Cell"s constructor
      * /
-    protected DCell cell(string mycell, IData[string] data = [], IData[string] options  = null) {
+    protected DCell cell(string mycell, Json[string] data = [], Json[string] options  = null) {
         string[] myparts = mycell.split(".");
 
             [mypluginAndCell, myaction] = count(myparts) == 2 
@@ -58,9 +58,9 @@ mixin template TCell() {
      * string myclassName The cell classname.
      * @param string myaction The action name.
      * @param string|null myplugin The plugin name.
-     * @param IData[string] options The constructor options for the cell.
+     * @param Json[string] options The constructor options for the cell.
      * /
-    protected DCell _createCell(string myclassName, string myaction, string myplugin, IData[string] options) {
+    protected DCell _createCell(string myclassName, string myaction, string myplugin, Json[string] options) {
         Cell myinstance = new myclassName(this.request, this.response, this.getEventManager(), options);
 
         mybuilder = myinstance.viewBuilder();

@@ -103,9 +103,9 @@ class DHelperRegistry { // }: ObjectRegistry : IEventDispatcher {
      * Params:
      * \UIM\View\Helper|class-string<\UIM\View\Helper> myclass DThe class to create.
      * @param string myalias The alias of the loaded helper.
-     * @param IData[string] configData An array of settings to use for the helper.
+     * @param Json[string] configData An array of settings to use for the helper.
      * /
-    protected DHelper _create(object|string myclass, string myalias, IData[string] configData) {
+    protected DHelper _create(object|string myclass, string myalias, Json[string] configData) {
         if (isObject(myclass)) {
             return myclass;
         }

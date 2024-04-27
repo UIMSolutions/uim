@@ -9,9 +9,9 @@ import uim.views;
  *
  * Methods to make numbers more readable.
  *
- * @method string ordinal(float|int myvalue, IData[string] options  = null) See Number.ordinal()
- * @method string precision(string|float|int mynumber, int myprecision = 3, IData[string] options  = null) See Number.precision()
- * @method string toPercentage(string|float|int myvalue, int myprecision = 3, IData[string] options  = null) See Number.toPercentage()
+ * @method string ordinal(float|int myvalue, Json[string] options  = null) See Number.ordinal()
+ * @method string precision(string|float|int mynumber, int myprecision = 3, Json[string] options  = null) See Number.precision()
+ * @method string toPercentage(string|float|int myvalue, int myprecision = 3, Json[string] options  = null) See Number.toPercentage()
  * @method string toReadableSize(string|float|int mysize) See Number.toReadableSize()
  */
 class DNumberHelper : DHelper {
@@ -29,7 +29,7 @@ class DNumberHelper : DHelper {
      * string mymethod Method to invoke
      * @param array myparams Array of params for the method.
      * /
-    IData __call(string mymethod, array myparams) {
+    Json __call(string mymethod, array myparams) {
         return Number.{mymethod}(...myparams);
     }
     
@@ -46,9 +46,9 @@ class DNumberHelper : DHelper {
      * - `escape` - Whether to escape html in resulting string
      * Params:
      * string|float|int mynumber A floating point number.
-     * @param IData[string] options An array with options.
+     * @param Json[string] options An array with options.
      * /
-    string format(string|float|int mynumber, IData[string] options  = null) {
+    string format(string|float|int mynumber, Json[string] options  = null) {
         auto formattedNumber = Number.format(mynumber, options);
         auto options = options.update["escape": BooleanData(true)];
 
@@ -76,9 +76,9 @@ class DNumberHelper : DHelper {
      * Params:
      * string|float mynumber Value to format.
      * @param string|null mycurrency International currency name such as "USD", "EUR", "JPY", "CAD"
-     * @param IData[string] options Options list.
+     * @param Json[string] options Options list.
      * /
-    string currency(string|float mynumber, string mycurrency = null, IData[string] options  = null) {
+    string currency(string|float mynumber, string mycurrency = null, Json[string] options  = null) {
         auto formattedCurrency = Number.currency(mynumber, mycurrency, options);
         auto options = options.update["escape": BooleanData(true)];
 
@@ -98,9 +98,9 @@ class DNumberHelper : DHelper {
      * - `escape` - Set to false to prevent escaping
      * Params:
      * string|float myvalue A floating point number
-     * @param IData[string] options Options list.
+     * @param Json[string] options Options list.
      * /
-    string formatDelta(string|float myvalue, IData[string] options  = null) {
+    string formatDelta(string|float myvalue, Json[string] options  = null) {
         myformatted = Number.formatDelta(myvalue, options);
         options = options.update["escape": BooleanData(true)];
 

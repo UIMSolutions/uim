@@ -18,15 +18,15 @@ import uim.collections;
 class DCollection : /* IteratorIterator, */ ICollection {
   mixin TCollection;
 
-  protected IData[] _items;
+  protected Json[] _items;
 
   this() {}
 
-  this(IData[] newItems) {
+  this(Json[] newItems) {
     _items = newItems;
   }
 
-	bool initialize(IData[string] initData = null) {
+	bool initialize(Json[string] initData = null) {
 		return true;
 	}
 

@@ -76,20 +76,14 @@ class DCollection : IteratorIterator : ICollection, Serializable {
         return iterator_count(traversable);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     size_t countKeys() {
         return count(this.toArray());
     }
 
     /**
-     * Returns an array that can be used to describe the internal state of this
-     * object.
-     *
-     * @return array<string, mixed>
+     * Returns an array that can be used to describe the internal state of this object.
      */
-    array __debugInfo() {
+    Json[string] __debugInfo() {
         try {
             count = this.count();
         } catch (Exception e) {

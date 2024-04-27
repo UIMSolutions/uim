@@ -20,7 +20,7 @@ class DTreePrinter { /* }: RecursiveIteratorIterator, ICollection {
   protected callable _value;
 
   // Cached value for the current iteration element
-  protected IData _current = null;
+  protected Json _current = null;
 
   // The string to use for prefixing the values according to their depth in the tree.
   protected string _spacer;
@@ -51,7 +51,7 @@ class DTreePrinter { /* }: RecursiveIteratorIterator, ICollection {
   }
 
   // Returns the current iteration key
-  IData key() {
+  Json key() {
     auto myExtractor = _key;
 
     return myExtractor(_fetchCurrent(), super.key(), this);
@@ -73,7 +73,7 @@ class DTreePrinter { /* }: RecursiveIteratorIterator, ICollection {
   }
 
   // Returns the current iteration element and caches its value
-  protected IData _fetchCurrent() {
+  protected Json _fetchCurrent() {
     if (!_current is null) {
       return _current;
     }

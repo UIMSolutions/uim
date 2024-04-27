@@ -7,7 +7,7 @@ import uim.caches;
 class DRedisCacheEngine : DCacheEngine {
     mixin(CacheEngineThis!("Redis")); 
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
@@ -102,12 +102,12 @@ class DRedisCacheEngine : DCacheEngine {
     /**
      * Write data for key into cache.
      * Params:
-     * @param IData aValue Data to be cached
+     * @param Json aValue Data to be cached
      * @param \DateInterval|int  aTtl Optional. The TTL value of this item. If no value is sent and
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      * /
-    bool set(string dataId, IData aValue, DateInterval|int  aTtl = null) {
+    bool set(string dataId, Json aValue, DateInterval|int  aTtl = null) {
         auto myKey = _key(dataId);
         auto aValue = this.serialize(aValue);
 
@@ -122,9 +122,9 @@ class DRedisCacheEngine : DCacheEngine {
      * Read a key from the cache
      * Params:
      * string aKey Identifier for the data
-     * @param IData defaultValue Default value to return if the key does not exist.
+     * @param Json defaultValue Default value to return if the key does not exist.
      * /
-    IData get(string aKey, IData defaultValue = null) {
+    Json get(string aKey, Json defaultValue = null) {
         aValue = _redis.get(_key(aKey));
         if (aValue == false) {
             return defaultValue;
@@ -233,7 +233,7 @@ class DRedisCacheEngine : DCacheEngine {
      * Write data for key into cache if it doesn`t exist already.
      * If it already exists, it fails and returns false.
      * /
-    bool add(string dataId, IData dataToCache) {
+    bool add(string dataId, Json dataToCache) {
         auto aDuration = configuration.get("duration");
         auto aKey = _key(dataId);
         auto aValue = this.serialize(dataToCache);
@@ -274,14 +274,14 @@ class DRedisCacheEngine : DCacheEngine {
      * This is needed instead of using Redis' in built serialization feature
      * as it creates problems incrementing/decrementing intially set integer value.
      * /
-    protected string serialize(IData valueToSerialize) {
+    protected string serialize(Json valueToSerialize) {
         return isInt(valueToSerialize) 
             ? to!string(valueToSerialize)
             : serialize(valueToSerialize);
     }
     
     // Unserialize string value fetched from Redis.
-    protected IData unserialize(string valueToUnserialize) {
+    protected Json unserialize(string valueToUnserialize) {
         if (preg_match("/^[-]?\d+$/", valueToUnserialize)) {
             return (int)valueToUnserialize;
         }

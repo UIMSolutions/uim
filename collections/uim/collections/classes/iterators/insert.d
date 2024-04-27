@@ -62,7 +62,7 @@ class DInsertIterator : DCollection {
      * Returns the current element in the target collection after inserting
      * the value from the source collection into the specified path.
     * /
-  IData current() {
+  Json current() {
     auto myRow = super.current();
 
     if (!_validValues) {

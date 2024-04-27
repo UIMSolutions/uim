@@ -7,7 +7,7 @@ this() {
    super(); this.name("`~fullname~`"); 
 }
 
-this(IData[string] initData) {
+this(Json[string] initData) {
     super(initData); this.name("`~fullname~`");
 }
 this(string name) {

@@ -26,20 +26,7 @@ import uim.views;
  *  If a listener returns a non-null value, the output of the rendered file will be set to that.
  */
 class DHelper { // TODO }: IEventListener {
-    /* 
-    this(IView myview, IData[string] helperSettings = null) {
-       _View = myview;
-        configuration.update(helperSettings);
-
-        if (this.helpers) {
-            this.helpers = myview.helpers().normalizeArray(this.helpers);
-        }
-        this.initialize(helperSettings);
-    }*/
-
-
-
-        mixin TConfigurable;
+    mixin TConfigurable;
 
     this() {
         initialize;
@@ -54,12 +41,12 @@ class DHelper { // TODO }: IEventListener {
     }
 
     // Hook method
-  bool initialize(IData[string] initData = null) {
-    configuration(MemoryConfiguration);
-    configuration.data(initData);
+    bool initialize(IData[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
 
-    return true;
-  }
+        return true;
+    }
 
     mixin(TProperty!("string", "name"));
 
@@ -67,10 +54,26 @@ class DHelper { // TODO }: IEventListener {
     protected DHelper[] _helpers = null;
 
     // Loaded helper instances.
-    protected DHelper[string] myhelperInstances = null;
+    protected DHelper[string] _loadedHelperInstances = null;
 
     // The View instance this helper is attached to
     protected IView _view;
+    // Get the view instance this helper is bound to.
+    IView getView() {
+        return _view;
+    }
+    
+    /* 
+    this(IView myview, IData[string] helperSettings = null) {
+       _View = myview;
+        configuration.update(helperSettings);
+
+        if (this.helpers) {
+            this.helpers = myview.helpers().normalizeArray(this.helpers);
+        }
+        this.initialize(helperSettings);
+    }*/
+
 
     /**
      * Lazy loads helpers.
@@ -87,10 +90,7 @@ class DHelper { // TODO }: IEventListener {
         return null;
     }
     
-    // Get the view instance this helper is bound to.
-    IView getView() {
-        return _view;
-    }
+
     
     /**
      * Returns a string to be used as onclick handler for confirm dialogs.

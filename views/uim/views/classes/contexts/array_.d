@@ -121,17 +121,14 @@ class DArrayContext : DContext {
      *
      * This method will coalesce the current data and the "defaults" array.
      * Params:
-     * string myfield A dot separated path to the field a value
-     *  is needed for.
      * @param IData[string] options  Options:
      *
-     *  - `default`: Default value to return if no value found in data or
-     *    context record.
      *  - `schemaDefault`: Boolean indicating whether default value from
      *    context"s schema should be used if it"s not explicitly provided.
     * /
     IData val(string fieldPath, IData[string] options  = null) {
         IData options = optionData.update([
+            // `default`: Default value to return if no value found in data or context record.
             "default": null,
             "schemaDefault": BooleanData(true)
         ]);

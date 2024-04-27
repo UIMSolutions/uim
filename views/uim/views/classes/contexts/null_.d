@@ -26,8 +26,7 @@ class DNullContext : DContext {
         return null;
     }
  
-    bool isRequired(string myfield)
-    {
+    bool isRequired(string myfield) {
         return false;
     }
  

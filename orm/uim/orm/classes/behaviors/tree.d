@@ -336,8 +336,7 @@ class DTreeBehavior : DBehavior {
      * @return 
      * @throws \InvalidArgumentException If the "for" key is missing in options
      * /
-    DORMQuery findPath(Query query, IData[string] optionData)
-    {
+    DORMQuery findPath(Query query, IData[string] optionData) {
         if (empty(options["for"])) {
             throw new DInvalidArgumentException("The "for" key is required for find("path")");
         }

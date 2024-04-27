@@ -14,45 +14,49 @@ class DDateTimeWidget : DWidget {
     mixin(WidgetThis!("DateTime"));
 
     override bool initialize(IData[string] initData = null) {
-        if (!super.initialize(initData)) {
-            return false;
-        }
+        if (super.initialize(initData)) {
+            configuration.updateDefaults([
+                "name": StringData(""),
+                "val": NullData,
+                "type": StringData("datetime-local"),
+                "escape": BooleanData(true),
+                "timezone": NullData,
+                "templateVars": ArrayData,
+            ]);
 
-        return true;
+            _formatMap = [
+                "datetime-local": "Y-m-d\\TH:i:s",
+                "date": "Y-m-d",
+                "time": "H:i:s",
+                "month": "Y-m",
+                "week": "Y-\\WW",
+            ];
+
+            /**
+            * Step size for various input types.
+            * If not set, defaults to browser default.
+            */
+            _defaultStep = [
+                "datetime-local": StringData("1"),
+                "date": NullData,
+                "time": StringData("1"),
+                "month": NullData,
+                "week": NullData,
+            ];
+
+            return true;
+        }
+        return false;
     }
-    // Data defaults
-    /* 
-    protected IData[string] _defaultData = [
-        "name": StringData (""),
-        "val": null,
-        "type": "datetime-local",
-        "escape": BooleanData(true),
-        "timezone": null,
-        "templateVars": ArrayData,
-    ];
 
     // Formats for various input types.
-    /* 
-    protected string[] myformatMap = [
-        "datetime-local": "Y-m-d\TH:i:s",
-        "date": "Y-m-d",
-        "time": "H:i:s",
-        "month": "Y-m",
-        "week": "Y-\WW",
-    ];
+    protected STRINGAA _formatMap;
 
     /**
      * Step size for various input types.
-     *
      * If not set, defaults to browser default.
-     * /
-    protected IData mydefaultStep = [
-        "datetime-local": "1",
-        "date": null,
-        "time": "1",
-        "month": null,
-        "week": null,
-    ];
+     */
+    protected IData[string] _defaultStep;
 
     /**
      * Render a date / time form widget.

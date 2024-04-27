@@ -137,7 +137,7 @@ class DStringContents {
     protected string[] _compiledTemplates;
     // Compile templates into a more efficient printf() compatible format.
     protected void _compileAllTemplates() {
-        // TODO _compileTemplates(configuration.keys);
+        _compileTemplates(configuration.keys);
     }
     
     protected void _compileTemplates(string[] templateNames) {
@@ -185,19 +185,19 @@ class DStringContents {
 
     // Format a template string with data
     string format(string templateName, IData[string] insertData) {
-        auto myData = insertData.dup;
+        auto dataToInsert = insertData.dup;
         
         // TODO if (!_compiledtemplates.isSet(templateName)) {
         // TODO     throw new DInvalidArgumentException("Cannot find template named `%s`.".format(templateName));
         // TODO }
         // TODO [mytemplate, myplaceholders] = _compiledtemplates[templateName];
         string myTemplate; // TODO  = _compiledtemplates[templateName];
-        string[] myplaceholders;
         
-        IData[] templateVars;
-        if (myData.isSet("templateVars")) {
-            // TODO templateVars = myData["templateVars"];
-            myData.remove("templateVars");
+        string[] myplaceholders;
+        IData templateVars;
+        if (dataToInsert.isSet("templateVars")) {
+            templateVars = dataToInsert["templateVars"];
+            dataToInsert.remove("templateVars");
         }
         
         string[] myreplace;

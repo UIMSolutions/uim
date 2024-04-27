@@ -2079,8 +2079,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * iterable<\UIM\Datasource\IEntity> myentities Entities to delete.
      * @param IData[string] options Options used when calling Table.save() for each entity.
      * /
-    IEntity[] deleteMany(Range myentities, IData[string] optionData = null)
-    {
+    IEntity[] deleteMany(Range myentities, IData[string] optionData = null) {
         myfailed = _deleteMany(myentities, options);
 
         if (myfailed !isNull) {

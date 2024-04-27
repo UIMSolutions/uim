@@ -133,8 +133,7 @@ use uim\ORM\Entity;
 
 class DArticle extends Entity
 {
-    protected function _getTitle(title)
-    {
+    protected function _getTitle(title) {
         return strtoupper(title);
     }
 }
@@ -160,8 +159,7 @@ use uim\Utility\Text;
 
 class DArticle extends Entity
 {
-    protected function _setTitle(title)
-    {
+    protected function _setTitle(title) {
         this->slug = Text::slug(title);
 
         return strtouppercase(title);
@@ -184,8 +182,7 @@ use uim\ORM\Entity;
 
 class User extends Entity
 {
-    protected function _getFullName()
-    {
+    protected function _getFullName() {
         return this->first_name . '  ' . this->last_name;
     }
 }

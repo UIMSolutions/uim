@@ -40,12 +40,12 @@ class DButtonWidget : DWidget {
             "templateVars": ArrayData(),
         ]);
 
-        return null;
-        // TODO _stringContents.format("button", [
-                // TODO "text": !mergedData.isEmpty("escapeTitle") ? htmlAttribEscape(mergedData.getString("text")) : mergedData.getString("text"),
-        // TODO         "templateVars": mergedData.getString("templateVars"),
-        // TODO         "attrs": _stringContents.formatAttributes(mergedData, ["text", "escapeTitle"]),
-        // TODO     ]);
+        return null; 
+        /*_stringContents.format("button", [
+            "text": !mergedData.isEmpty("escapeTitle") ? htmlAttribEscape(mergedData.getString("text")) : mergedData.getString("text"),
+            "templateVars": mergedData.getString("templateVars"),
+            "attrs": _stringContents.formatAttributes(mergedData, ["text", "escapeTitle"]),
+        ]);*/
     }
 }
 mixin(WidgetCalls!("Button"));

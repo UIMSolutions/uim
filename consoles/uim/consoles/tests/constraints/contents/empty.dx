@@ -12,9 +12,9 @@ class DContentsEmpty : DContentsBase {
     /**
      * Checks if contents are empty
      * Params:
-     * IData other Expected
+     * Json other Expected
      */
-   bool matches(IData other) {
+   bool matches(Json other) {
         return _contents == "";
     }
     
@@ -26,9 +26,9 @@ class DContentsEmpty : DContentsBase {
     /**
      * Overwrites the descriptions so we can remove the automatic "expected" message
      * Params:
-     * IData other Value
+     * Json other Value
      */
-    protected string failureDescription(IData other) {
+    protected string failureDescription(Json other) {
         return _toString();
     }
 }

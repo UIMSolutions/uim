@@ -71,7 +71,7 @@ class DComponentRegistry : DObjectRegistry!DComponent { // TODO}, IEventDispatch
      * @param string aalias The alias of the component.
      * configData - An array of config to use for the component.
      * /
-    protected IComponent _create(object|string className, string aalias, IData[string] configData = null) {
+    protected IComponent _create(object|string className, string aalias, Json[string] configData = null) {
         if (isObject(className)) {
             return className;
         }

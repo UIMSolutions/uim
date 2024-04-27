@@ -62,11 +62,11 @@ class DController : IController { // IEventListener, IEventDispatcher {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -115,7 +115,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      *
      * @see \UIM\Datasource\Paging\NumericPaginator
      * /
-    protected IData[string] paginate;
+    protected Json[string] paginate;
 
     // Set to true to automatically render the view after action logic.
     protected bool autoRender = true;
@@ -200,7 +200,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
     }
     
     // Initialization hook method.
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
     }
     
     // Get the component registry for this controller.
@@ -222,7 +222,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Params:
      * configData - The config for the component.
      * /
-    Component loadComponent(string componentName, IData[string] configData = null) {
+    Component loadComponent(string componentName, Json[string] configData = null) {
         return _components().load(componentName, configData);
     }
     
@@ -242,7 +242,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
             /** @var \UIM\Controller\Component   * /
             return _components().get(propertyName);
         }
-        /** @var array<int, IData[string]> trace * /
+        /** @var array<int, Json[string]> trace * /
         trace = debug_backtrace();
         someParts = class.split("\\");
         trigger_error(
@@ -318,17 +318,17 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Register middleware for the controller.
      * Params:
      * \Psr\Http\Server\IMiddleware|\Closure|string amiddleware Middleware.
-     * @param IData[string] options Valid options:
+     * @param Json[string] options Valid options:
      * - `only`: (string[]) Only run the middleware for specified actions.
      * - `except`: (string[]) Run the middleware for all actions except the specified ones.
      * /
-    void middleware(IMiddleware amiddleware, IData[string] options = null) {
+    void middleware(IMiddleware amiddleware, Json[string] options = null) {
         // TODO
     }
-    void middleware(Closure amiddleware, IData[string] options = null) {
+    void middleware(Closure amiddleware, Json[string] options = null) {
         // TODO
     }
-    void middleware(string amiddleware, IData[string] options = null) {
+    void middleware(string amiddleware, Json[string] options = null) {
         this.middlewares ~= [
             "middleware":  middleware,
             "options": options,
@@ -598,7 +598,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * /
     IPaginated paginate(
         IRepository|IQuery|string|null  object = null,
-        IData[string] settingsForPagination = null
+        Json[string] settingsForPagination = null
     ) {
         if (!isObject(object)) {
              object = this.fetchTable(object);

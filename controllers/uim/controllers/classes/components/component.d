@@ -50,7 +50,7 @@ class DComponent { // TODO }: IEventListener {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
@@ -59,7 +59,7 @@ class DComponent { // TODO }: IEventListener {
     }
 
     // Hook method
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -84,7 +84,7 @@ class DComponent { // TODO }: IEventListener {
      * this component can use to lazy load its components.
      * configData = Array of configuration settings.
      * /
-    this(DComponentRegistry registry, IData[string] configData = null) {
+    this(DComponentRegistry registry, Json[string] configData = null) {
         _registry = registry;
 
         configuration.update(configData);
@@ -143,7 +143,7 @@ class DComponent { // TODO }: IEventListener {
             "Controller.shutdown": "afterFilter",
         ];
 
-        IData[string] myEvents;
+        Json[string] myEvents;
         eventMap.byKeyValue
             .filter!(kv => method_exists(this, kv.value))
             .each!(eventMethod => myEvents[eventMethod.key] = eventMethod.value);

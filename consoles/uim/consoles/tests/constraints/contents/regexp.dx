@@ -12,9 +12,9 @@ class DContentsRegExp : DContentsBase {
     /**
      * Checks if contents contain expected
      * Params:
-     * IData other Expected
+     * Json other Expected
      */
-   bool matches(IData other) {
+   bool matches(Json other) {
         return preg_match(other, this.contents) > 0;
     }
     
@@ -23,8 +23,8 @@ class DContentsRegExp : DContentsBase {
         return "PCRE pattern found in %s".format(this.output);
     }
     
-    // @param IData other Expected
-    string failureDescription(IData other) {
+    // @param Json other Expected
+    string failureDescription(Json other) {
         return "`" ~ other ~ "` " ~ this.toString();
     }
 }

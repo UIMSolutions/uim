@@ -9,13 +9,13 @@ import uim.controllers;
  * to the session from your controllers, to be rendered in a view with the
  * FlashHelper.
  *
- * @method void success(string amessage, IData[string] options = null) Set a message using "success" element
- * @method void info(string amessage, IData[string] options = null) Set a message using "info" element
- * @method void warning(string amessage, IData[string] options = null) Set a message using "warning" element
- * @method void error(string amessage, IData[string] options = null) Set a message using "error" element
+ * @method void success(string amessage, Json[string] options = null) Set a message using "success" element
+ * @method void info(string amessage, Json[string] options = null) Set a message using "info" element
+ * @method void warning(string amessage, Json[string] options = null) Set a message using "warning" element
+ * @method void error(string amessage, Json[string] options = null) Set a message using "error" element
  */
 class DFlashComponent : DComponent {
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
@@ -49,9 +49,9 @@ class DFlashComponent : DComponent {
      * \Throwable|string amessage Message to be flashed. If an instance
      *  of \Throwable the throwable message will be used and code will be set
      *  in params.
-     * @param IData[string] options An array of options
+     * @param Json[string] options An array of options
      * /
-    void set(Throwable | string amessage, IData[string] options = null) {
+    void set(Throwable | string amessage, Json[string] options = null) {
         if (cast(Throwable) aMessage) {
             this.flash().setExceptionMessage(message, options);
         } else {
@@ -67,15 +67,15 @@ class DFlashComponent : DComponent {
     /**
      * Proxy method to FlashMessage instance.
      * Params:
-     * IData[string]|string aKey The key to set, or a complete array of configs.
+     * Json[string]|string aKey The key to set, or a complete array of configs.
      * @param bool  merge Whether to recursively merge or overwrite existing config, defaults to true.
 
      * @throws \UIM\Core\Exception\UimException When trying to set a key that is invalid.
      * /
-    void setConfig(string[] aKey, IData valueToSet = null, bool merge = true) {
+    void setConfig(string[] aKey, Json valueToSet = null, bool merge = true) {
     }
 
-    void setConfig(string[] aKey, IData valueToSet = null, bool merge = true) {
+    void setConfig(string[] aKey, Json valueToSet = null, bool merge = true) {
         this.flash().setConfig(aKey, valueToSet, merge);
     }
 
@@ -83,24 +83,24 @@ class DFlashComponent : DComponent {
      * Proxy method to FlashMessage instance.
      * Params:
      * string|null aKey The key to get or null for the whole config.
-     * @param IData defaultValue The return value when the key does not exist.
+     * @param Json defaultValue The return value when the key does not exist.
      * /
-    IData getConfig(string aKey = null, IData defaultValue = null) {
+    Json getConfig(string aKey = null, Json defaultValue = null) {
         return _flash().configuration.get(aKey, default);
     }
 
     /**
      * Proxy method to FlashMessage instance.
-    IData getConfigOrFail(string aKey) {
+    Json getConfigOrFail(string aKey) {
         return _flash().getConfigOrFail(aKey);
     }
     
     //  Proxy method to FlashMessage instance.
      * Params:
-     * IData[string]|string aKey The key to set, or a complete array of configs.
-     * @param IData aValue The value to set.
+     * Json[string]|string aKey The key to set, or a complete array of configs.
+     * @param Json aValue The value to set.
      * /
-    void configShallow(string[] aKey, IData aValue = null) {
+    void configShallow(string[] aKey, Json aValue = null) {
         this.flash().configShallow(aKey, aValue);
     }
 

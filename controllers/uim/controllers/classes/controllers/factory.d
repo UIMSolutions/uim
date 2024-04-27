@@ -16,11 +16,11 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -69,7 +69,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * Params:
      * \UIM\Controller\Controller controller The controller to invoke.
      * /
-    IResponse invoke(IData controller) {
+    IResponse invoke(Json controller) {
         this.controller = controller;
 
          middlewares = controller.getMiddleware();

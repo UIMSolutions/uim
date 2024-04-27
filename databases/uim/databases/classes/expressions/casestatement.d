@@ -28,7 +28,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      *
      * @var \UIM\Database\IExpression|object|scalar|null
      * /
-    protected IData aValue = null;
+    protected Json aValue = null;
 
     /**
      * The case value type.
@@ -50,7 +50,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      *
      * @var \UIM\Database\IExpression|object|scalar|null
      * /
-    protected IData else = null;
+    protected Json else = null;
 
     /**
      * The else part result type.
@@ -82,7 +82,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * @param string|null type The case value type. If no type is provided, the type will be tried to be inferred
      * from the value.
      * /
-    this(IData aValue = null, string atype = null) {
+    this(Json aValue = null, string atype = null) {
         if (func_num_args() > 0) {
             if (
                 aValue !isNull &&
@@ -249,7 +249,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * @throws \LogicException In case the callable doesn`t return an instance of
      * `\UIM\Database\Expression\WhenThenExpression`.
      * /
-    void when(IData  when, string[] type = null) {
+    void when(Json  when, string[] type = null) {
         if (!this.whenBuffer is null) {
             throw new DLogicException("Cannot call `when()` between `when()` and `then()`.");
         }
@@ -325,7 +325,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * @throws \LogicException In case `when()` wasn`t previously called with a value other than a closure or an
      * instance of `\UIM\Database\Expression\WhenThenExpression`.
      * /
-    void then(IData result, string atype = null) {
+    void then(Json result, string atype = null) {
         if (this.whenBuffer is null) {
             throw new DLogicException("Cannot call `then()` before `when()`.");
         }
@@ -349,7 +349,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * @throws \InvalidArgumentException In case the `result` argument is neither a scalar value, nor an object, an
      * instance of `\UIM\Database\IExpression`, or `null`.
      * /
-    void else(IData result, string atype = null) {
+    void else(Json result, string atype = null) {
         if (!this.whenBuffer is null) {
             throw new DLogicException("Cannot call `else()` between `when()` and `then()`.");
         }

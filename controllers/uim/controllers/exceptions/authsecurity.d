@@ -8,7 +8,7 @@ import uim.controllers;
 class DAuthSecurityException : DSecurityException {
   mixin(ExceptionThis!("AuthSecurity"));
   
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
     // Security Exception type

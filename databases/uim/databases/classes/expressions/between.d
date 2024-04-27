@@ -13,27 +13,27 @@ class DBetweenExpression : DExpression { // TODO}, IField {
     mixin TExpressionTypeCaster;
 
     // The first value in the expression
-    protected IData _from;
+    protected Json _from;
 
     /**
      * The second value in the expression
      *
      * @var mixed
      * /
-    protected IData _to;
+    protected Json _to;
 
     // The data type for the from and to arguments
-    protected IData _type;
+    protected Json _type;
 
     /**
      * Constructor
      * Params:
      * \UIM\Database\IExpression|string afield The field name to compare for values inbetween the range.
-     * @param IData from The initial value of the range.
-     * @param IData to The ending value in the comparison range.
+     * @param Json from The initial value of the range.
+     * @param Json to The ending value in the comparison range.
      * @param string|null type The data type name to bind the values with.
      * /
-    this(IExpression|string afield, IData from, IData to, string atype = null) {
+    this(IExpression|string afield, Json from, Json to, string atype = null) {
         if (!type is null) {
             from = _castToExpression(from, type);
             to = _castToExpression(to, type);
@@ -75,11 +75,11 @@ class DBetweenExpression : DExpression { // TODO}, IField {
     /**
      * Registers a value in the placeholder generator and returns the generated placeholder
      * Params:
-     * IData aValue The value to bind
+     * Json aValue The value to bind
      * @param \UIM\Database\DValueBinder aValueBinder The value binder to use
      * @param string atype The type of aValue
      * /
-    protected string _bindValue(IData aValue, DValueBinder aValueBinder, string atype) {
+    protected string _bindValue(Json aValue, DValueBinder aValueBinder, string atype) {
         placeholder = aValueBinder.placeholder("c");
         aValueBinder.bind(placeholder, aValue, type);
 

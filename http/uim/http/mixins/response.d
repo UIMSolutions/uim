@@ -7,7 +7,7 @@ string responseThis(string name) {
         super(); this.name("`
         ~ fullName ~ `");
     }
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         super(initData); this.name("`~ fullName ~ `");
     }
     this(string name) {
@@ -24,7 +24,7 @@ string responseCalls(string name) {
     string fullName = name ~ "Response";
     return `
     auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
-    auto `~ fullName ~ `(IData[string] initData) { return new D` ~ fullName ~ `(initData);}
+    auto `~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData);}
     auto `~ fullName ~ `(string name) { return new D` ~ fullName ~ `(name); }
     `;
 }

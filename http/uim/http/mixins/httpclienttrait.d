@@ -19,7 +19,7 @@ mixin template THttpClient() {
      * Create a new response.
      * Params:
      * int code The response code to use. Defaults to 200
-     * @param string[] aHeaders A list of headers for the response. Example `Content-Type: application/IData`
+     * @param string[] aHeaders A list of headers for the response. Example `Content-Type: application/Json`
      * @param string abody The body for the response.
      *  \UIM\Http\Client\Response
      * /
@@ -34,9 +34,9 @@ mixin template THttpClient() {
      * Params:
      * string aurl The URL to mock
      * @param \UIM\Http\Client\Response response The response for the mock.
-     * @param IData[string] options Additional options. See Client.addMockResponse()
+     * @param Json[string] options Additional options. See Client.addMockResponse()
      * /
-    void mockClientPost(string aurl, Response response, IData[string] options = null) {
+    void mockClientPost(string aurl, Response response, Json[string] options = null) {
         Client.addMockResponse("POST", url, response, options);
     }
     
@@ -45,9 +45,9 @@ mixin template THttpClient() {
      * Params:
      * string aurl The URL to mock
      * @param \UIM\Http\Client\Response response The response for the mock.
-     * @param IData[string] options Additional options. See Client.addMockResponse()
+     * @param Json[string] options Additional options. See Client.addMockResponse()
      * /
-    void mockClientGet(string aurl, Response response, IData[string] options = null) {
+    void mockClientGet(string aurl, Response response, Json[string] options = null) {
         Client.addMockResponse("GET", url, response, options);
     }
     
@@ -56,9 +56,9 @@ mixin template THttpClient() {
      * Params:
      * string aurl The URL to mock
      * @param \UIM\Http\Client\Response response The response for the mock.
-     * @param IData[string] options Additional options. See Client.addMockResponse()
+     * @param Json[string] options Additional options. See Client.addMockResponse()
      * /
-    void mockClientPatch(string aurl, Response response, IData[string] options = null) {
+    void mockClientPatch(string aurl, Response response, Json[string] options = null) {
         Client.addMockResponse("PATCH", url, response, options);
     }
     
@@ -67,9 +67,9 @@ mixin template THttpClient() {
      * Params:
      * string aurl The URL to mock
      * @param \UIM\Http\Client\Response response The response for the mock.
-     * @param IData[string] options Additional options. See Client.addMockResponse()
+     * @param Json[string] options Additional options. See Client.addMockResponse()
      * /
-    void mockClientPut(string aurl, Response response, IData[string] options = null) {
+    void mockClientPut(string aurl, Response response, Json[string] options = null) {
         Client.addMockResponse("PUT", url, response, options);
     }
     
@@ -77,9 +77,9 @@ mixin template THttpClient() {
      * Add a mock response for a DELETE request.
      * Params:
      * @param \UIM\Http\Client\Response response The response for the mock.
-     * @param IData[string] options Additional options. See Client.addMockResponse()
+     * @param Json[string] options Additional options. See Client.addMockResponse()
      * /
-    void mockClientDelete(string UrlToMock, Response response, IData[string] options = null) {
+    void mockClientDelete(string UrlToMock, Response response, Json[string] options = null) {
         Client.addMockResponse("DELETE", UrlToMock, response, options);
     } */
 }

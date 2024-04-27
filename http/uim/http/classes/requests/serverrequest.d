@@ -10,10 +10,10 @@ import uim.http;
  */
 class DServerRequest { // }: IServerRequest {
     // Array of cookie data.
-    protected IData[string] cookies = null;
+    protected Json[string] cookies = null;
 
     // Array of environment data.
-    protected IData[string] _environment = null;
+    protected Json[string] _environment = null;
 
     // Base URL path.
     protected string abase;
@@ -83,7 +83,7 @@ class DServerRequest { // }: IServerRequest {
         "options": ["env": 'REQUEST_METHOD", "value": 'OPTIONS"],
         "https": ["env": 'HTTPS", "options": [1, "on"]],
         "ajax": ["env": 'HTTP_X_REQUESTED_WITH", "value": 'XMLHttpRequest"],
-        "IData": ["accept": ["application/IData"], "param": '_ext", "value": 'IData"],
+        "Json": ["accept": ["application/Json"], "param": '_ext", "value": 'Json"],
         "xml": [
             "accept": ["application/xml", "text/xml"],
             "exclude": ["text/html"],
@@ -130,7 +130,7 @@ class DServerRequest { // }: IServerRequest {
     /**
      * Store the additional attributes attached to the request.
      * /
-    protected IData[string] attributes = null;
+    protected Json[string] attributes = null;
 
     /**
      * A list of properties that emulated by the PSR7 attribute methods.
@@ -174,9 +174,9 @@ class DServerRequest { // }: IServerRequest {
      *  requests with put, patch or delete data.
      * - `session` An instance of a Session object
      * Params:
-     * IData[string] configData An array of request data to create a request with.
+     * Json[string] configData An array of request data to create a request with.
      * /
-    this(IData[string] configData = null) {
+    this(Json[string] configData = null) {
         configData += [
             'params": this.params,
             'query": ArrayData,
@@ -197,9 +197,9 @@ class DServerRequest { // }: IServerRequest {
     /**
      * Process the config/settings data into properties.
      * Params:
-     * IData[string] configData The config data to use.
+     * Json[string] configData The config data to use.
      * /
-    protected void _setConfig(IData[string] configData = null) {
+    protected void _setConfig(Json[string] configData = null) {
         if (isEmpty(configData["session"])) {
             configData["session"] = new DSession([
                 'cookiePath": configData["base"],
@@ -257,9 +257,9 @@ class DServerRequest { // }: IServerRequest {
      *
      * `query` option is also updated based on URL`s querystring.
      * Params:
-     * IData[string] configData Config array.
+     * Json[string] configData Config array.
      * /
-    protected IData[string] processUrlOption(IData[string] configData = null) {
+    protected Json[string] processUrlOption(Json[string] configData = null) {
         if (configData["url"][0] != "/") {
             configData["url"] = "/" ~ configData["url"];
         }
@@ -397,9 +397,9 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * string[]|string atype The type of request you want to check. If an array
      *  this method will return true if the request matches any type.
-     * @param IData ...someArguments List of arguments
+     * @param Json ...someArguments List of arguments
      * /
-    bool is(string[] atype, IData ...someArguments) {
+    bool is(string[] atype, Json ...someArguments) {
         if (isArray(type)) {
             foreach (type as _type) {
                 if (this.is(_type)) {
@@ -912,7 +912,7 @@ class DServerRequest { // }: IServerRequest {
      * #### Check for a single type:
      *
      * ```
-     * this.request.accepts("application/IData");
+     * this.request.accepts("application/Json");
      * ```
      *
      * This method will order the returned content types by the preference values indicated
@@ -967,9 +967,9 @@ class DServerRequest { // }: IServerRequest {
      * ```
      * Params:
      * string|null name The name or dotted path to the query param or null to read all.
-     * @param IData defaultValue The default value if the named parameter is not set, and name is not null.
+     * @param Json defaultValue The default value if the named parameter is not set, and name is not null.
      * /
-    IData getQuery(string aName = null, IData defaultValue = null) {
+    Json getQuery(string aName = null, Json defaultValue = null) {
         if (name is null) {
             return _query;
         }
@@ -1005,9 +1005,9 @@ class DServerRequest { // }: IServerRequest {
      * ```
      * Params:
      * string|null name Dot separated name of the value to read. Or null to read all data.
-     * @param IData defaultValue The default data.
+     * @param Json defaultValue The default data.
      * /
-    IData getData(string aName = null, IData defaultValue = null) {
+    Json getData(string aName = null, Json defaultValue = null) {
         if (name is null) {
             return _data;
         }
@@ -1038,7 +1038,7 @@ class DServerRequest { // }: IServerRequest {
      * This is an optimization that allows fewer objects to be allocated until
      * the more complex CookieCollection is needed. In general you should prefer
      * `getCookie()` and `getCookieParams()` over this method. Using a CookieCollection
-     * is ideal if your cookies contain complex IData encoded data.
+     * is ideal if your cookies contain complex Json encoded data.
      * /
     CookieCollection getCookieCollection() {
         return CookieCollection.createFromServerRequest(this);
@@ -1064,7 +1064,7 @@ class DServerRequest { // }: IServerRequest {
     /**
      * Get all the cookie data from the request.
      * /
-    IData[string] getCookieParams() {
+    Json[string] getCookieParams() {
         return _cookies;
     }
     
@@ -1217,10 +1217,10 @@ class DServerRequest { // }: IServerRequest {
      * Use `withParsedBody()` if you need to replace the all request data.
      * Params:
      * string aName The dot separated path to insert aValue at.
-     * @param IData aValue The value to insert into the request data.
+     * @param Json aValue The value to insert into the request data.
      * @return static
      * /
-    auto withData(string aName, IData aValue): static
+    auto withData(string aName, Json aValue): static
     {
         copy = clone this;
 
@@ -1254,10 +1254,10 @@ class DServerRequest { // }: IServerRequest {
      * a *new* request object and does not mutate the request in-place.
      * Params:
      * string aName The dot separated path to insert aValue at.
-     * @param IData aValue The value to insert into the the request parameters.
+     * @param Json aValue The value to insert into the the request parameters.
      * @return static
      * /
-    auto withParam(string aName, IData aValue): static
+    auto withParam(string aName, Json aValue): static
     {
         copy = clone this;
         copy.params = Hash.insert(copy.params, name, aValue);
@@ -1269,9 +1269,9 @@ class DServerRequest { // }: IServerRequest {
      * Safely access the values in this.params.
      * Params:
      * string aName The name or dotted path to parameter.
-     * @param IData defaultValue The default value if `name` is not set. Default `null`.
+     * @param Json defaultValue The default value if `name` is not set. Default `null`.
     * /
-    IData getParam(string aName, IData defaultValue = null) {
+    Json getParam(string aName, Json defaultValue = null) {
         return Hash.get(this.params, name, default);
     }
     
@@ -1279,9 +1279,9 @@ class DServerRequest { // }: IServerRequest {
      * Return an instance with the specified request attribute.
      * Params:
      * string aName The attribute name.
-     * @param IData aValue The value of the attribute.
+     * @param Json aValue The value of the attribute.
      * /
-    static withAttribute(string aName, IData aValue) {
+    static withAttribute(string aName, Json aValue) {
         new = clone this;
         if (in_array(name, this.emulatedAttributes, true)) {
             new.{name} = aValue;
@@ -1315,9 +1315,9 @@ class DServerRequest { // }: IServerRequest {
      * Read an attribute from the request, or get the default
      * Params:
      * string aName The attribute name.
-     * @param IData defaultValue The default value if the attribute has not been set.
+     * @param Json defaultValue The default value if the attribute has not been set.
      * /
-    IData getAttribute(string aName, IData defaultValue = null) {
+    Json getAttribute(string aName, Json defaultValue = null) {
         if (in_array(name, this.emulatedAttributes, true)) {
             if (name == "here") {
                 return _base ~ this.uri.getPath();
@@ -1335,7 +1335,7 @@ class DServerRequest { // }: IServerRequest {
      *
      * This will include the params, webroot, base, and here attributes that UIM provides.
      * /
-    IData[string] getAttributes() {
+    Json[string] getAttributes() {
         emulated = [
             "params": this.params,
             "webroot": this.webroot,

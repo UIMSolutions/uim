@@ -14,17 +14,17 @@ use !SessionHandler;
 class DCacheSession { // }: !SessionHandler {
     /* 
     // Options for this session engine
-    protected IData[string] _options = null;
+    protected Json[string] _options = null;
 
     /**
      * Constructor.
      * Params:
-     * IData[string] configData The configuration to use for this engine
+     * Json[string] configData The configuration to use for this engine
      * It requires the key 'config' which is the name of the Cache config to use for
      * storing the session
      * @throws \InvalidArgumentException if the 'config' key is not provided
      * /
-    this(IData[string] configData = null) {
+    this(Json[string] configData = null) {
         if (isEmpty(configData("config"])) {
             throw new DInvalidArgumentException("The cache configuration name to use is required");
         }

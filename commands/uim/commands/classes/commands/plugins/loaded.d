@@ -8,7 +8,7 @@ import uim.commands;
 class DPluginLoadedCommand : DCommand {
     mixin(CommandThis!("PluginLoaded"));
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
@@ -20,16 +20,16 @@ class DPluginLoadedCommand : DCommand {
         return "plugin-loaded";
     }
 
-    override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+    override int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         return super.execute(arguments, aConsoleIo);
     }
 
     /* 
     //  Displays all currently loaded plugins.
      * Params:
-     * \UIM\Console\IData [string] arguments The command arguments.
+     * \UIM\Console\Json [string] arguments The command arguments.
      * @param \UIM\Console\IConsoleIo aConsoleIo The console io
-  int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+  int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         loaded = Plugin. loaded();
         aConsoleIo.out (loaded);
 

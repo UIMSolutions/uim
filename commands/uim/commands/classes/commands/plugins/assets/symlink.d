@@ -10,7 +10,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
 
     mixin TPluginAssets;
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
@@ -22,7 +22,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
         return "plugin-assets-symlink";
     }
 
-    override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+    override int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         return super.execute(arguments, aConsoleIo);
     }
 
@@ -49,7 +49,7 @@ class DPluginAssetsSymlinkCommand : DCommand {
      * fallbacks to copying the assets. For vendor namespaced plugin, parent folder
      * for vendor name are created if required.
      * /
-    int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+    int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         this.io = aConsoleIo;
         this.args = commandArguments;
 

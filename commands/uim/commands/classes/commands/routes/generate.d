@@ -8,7 +8,7 @@ import uim.commands;
 class DRoutesGenerateCommand : DCommand {
    mixin(CommandThis!("RoutesGenerate"));
 
-  	override bool initialize(IData[string] initData = null) {
+  	override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		
 		return true;
@@ -18,13 +18,13 @@ class DRoutesGenerateCommand : DCommand {
     return "routes-generate";
   }
 
-  override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+  override int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
     return super.execute(arguments, aConsoleIo);
   }
 
   /* 
   // Display all routes in an application
-  int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+  int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
     try {
       commandArguments = _splitArgs(commandArguments.getArguments());
       auto routerUrl = Router.url(commandArguments);

@@ -8,7 +8,7 @@ import uim.commands;
 class DSchemacacheBuildCommand : DCommand {
    mixin(CommandThis!("SchemacacheBuild"));
 
-  	override bool initialize(IData[string] initData = null) {
+  	override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		
 		return true;
@@ -19,13 +19,13 @@ class DSchemacacheBuildCommand : DCommand {
         return "schema_cache-build";
     }
     
-      override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+      override int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
     return super.execute(arguments, aConsoleIo);
   }
 
     /* 
     // Display all routes in an application
-    int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+    int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         SchemaCache schemaCache;
         try {
             aConnection = ConnectionManager.get(to!string(commandArguments.getOption("connection")));

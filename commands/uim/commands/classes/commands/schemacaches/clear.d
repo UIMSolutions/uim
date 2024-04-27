@@ -8,7 +8,7 @@ import uim.commands;
 class DSchemacacheClearCommand : DCommand {
    mixin(CommandThis!("SchemacacheClear"));
 
-  	override bool initialize(IData[string] initData = null) {
+  	override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		
 		return true;
@@ -19,14 +19,14 @@ class DSchemacacheClearCommand : DCommand {
     return "schema_cache-clear";
   }
   
-    override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+    override int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
     return super.execute(arguments, aConsoleIo);
   }
 
   /* 
 
   // Display all routes in an application
-  int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+  int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
     try {
       aConnection = ConnectionManager . get(to!string(commandArguments.getOption("connection")));
       assert(cast8Connection)aConnection);

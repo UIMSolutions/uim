@@ -8,7 +8,7 @@ import uim.commands;
 class DRoutesCheckCommand : DCommand {
   mixin(CommandThis!("RoutesCheck"));
 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }
@@ -20,13 +20,13 @@ class DRoutesCheckCommand : DCommand {
     return "routes-check";
   }
 
-  override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+  override int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
     return super.execute(arguments, aConsoleIo);
   }
 
   /* 
   // Display all routes in an application
-  int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+  int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
     auto myUrl = commandArguments.getArgument("url");
     try {
       auto request = new DServerRequest(["url": url]);

@@ -10,7 +10,7 @@ class DPluginAssetsRemoveCommand : DCommand {
 
     mixin TPluginAssets;
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
@@ -24,7 +24,7 @@ class DPluginAssetsRemoveCommand : DCommand {
 
     /* 
     // Remove plugin assets from app`s webroot.
-    override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+    override int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         this.io = aConsoleIo;
         this.args = commandArguments;
 

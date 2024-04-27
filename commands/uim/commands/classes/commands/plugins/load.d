@@ -8,7 +8,7 @@ import uim.commands;
 class DPluginLoadCommand : DCommand {
     mixin(CommandThis!("PluginLoad"));
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
@@ -25,12 +25,12 @@ class DPluginLoadCommand : DCommand {
     //  Config file
     protected string configDataFile;
 
-    override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+    override int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         return super.execute(arguments, aConsoleIo);
     }
 
     /* 
-    int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+    int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         auto plugin = to!string(commandArguments.getArgument("plugin"));
         auto options = null;
         if (commandArguments.getOption("only-debug")) {
@@ -68,10 +68,10 @@ class DPluginLoadCommand : DCommand {
     }
 
     // Modify the plugins config file.
-    protected int modifyConfigFile(string pluginName, IData[string] options = null) {
+    protected int modifyConfigFile(string pluginName, Json[string] options = null) {
         
         configData = @include this.configFile;
-        configData = !configData.isArray ? IData.empty;
+        configData = !configData.isArray ? Json.empty;
     } else {
         configData = Hash.normalize(configData);
     }

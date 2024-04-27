@@ -8,7 +8,7 @@ import uim.commands;
 class DPluginUnloadCommand : DCommand {
     mixin(CommandThis!("PluginUnload"));
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
@@ -22,12 +22,12 @@ class DPluginUnloadCommand : DCommand {
         return "plugin-unload";
     }
 
-    override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+    override int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         return super.execute(arguments, aConsoleIo);
     }
 
     /* 
-  int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+  int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         auto plugin = to!string(commandArguments.getArgument("plugin"));
 
         result = this.modifyConfigFile(plugin);

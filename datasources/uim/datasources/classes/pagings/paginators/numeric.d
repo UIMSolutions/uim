@@ -15,7 +15,7 @@ class DNumericPaginator : IPaginator {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
@@ -24,7 +24,7 @@ class DNumericPaginator : IPaginator {
     }
 
     // Hook method
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -382,7 +382,7 @@ class DNumericPaginator : IPaginator {
      * @return array An array containing in the first position the finder name
      *   and in the second the options to be passed to it.
      * /
-    // TODO protected array _extractFinder(IData[string] optionData) {
+    // TODO protected array _extractFinder(Json[string] optionData) {
         type = !empty(options["finder"]) ? options["finder"] : "all";
         unset(options["finder"], options["maxLimit"]);
 
@@ -428,7 +428,7 @@ class DNumericPaginator : IPaginator {
      * @param array<string, mixed> myConfiguration The configuration data to coalesce and emit warnings on.
      * @return array<string>|null
      * /
-    protected string[] getSortableFields(IData myConfiguration): ?array
+    protected string[] getSortableFields(Json myConfiguration): ?array
     {
         allowed = configuration.get("sortableFields"] ?? null;
         if (allowed != null) {
@@ -526,7 +526,7 @@ class DNumericPaginator : IPaginator {
      * @return array<string, mixed> An array of options with sort + direction removed and
      *   replaced with order if possible.
      * /
-    array validateSort(IRepository object, IData[string] optionData) {
+    array validateSort(IRepository object, Json[string] optionData) {
         if (options.isSet("sort")) {
             auto direction = null;
             if (isset(options["direction"])) {
@@ -656,7 +656,7 @@ class DNumericPaginator : IPaginator {
      * @param array<string, mixed> options An array of options with a limit key to be checked.
      * @return array<string, mixed> An array of options for pagination.
      * /
-    array checkLimit(IData[string] optionData) {
+    array checkLimit(Json[string] optionData) {
         options["limit"] = (int)options["limit"];
         if (options["limit"] < 1) {
             options["limit"] = 1;

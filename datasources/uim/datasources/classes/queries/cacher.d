@@ -37,7 +37,7 @@ class DQueryCacher {
      * Params:
      * object aQuery The query the cache read is for.
      * /
-    IData fetch(object aQuery) {
+    Json fetch(object aQuery) {
         aKey = _resolveKey(aQuery);
         storage = _resolveCacher();
         result = storage.get(aKey);

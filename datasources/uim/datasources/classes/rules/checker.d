@@ -33,7 +33,7 @@ class DRulesChecker {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
@@ -42,7 +42,7 @@ class DRulesChecker {
     }
 
     // Hook method
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -82,9 +82,9 @@ class DRulesChecker {
     /**
      * Constructor. Takes the options to be passed to all rules.
      * Params:
-     * IData[string] optionData The options to pass to every rule
+     * Json[string] optionData The options to pass to every rule
      * /
-    this(IData[string] optionData = null) {
+    this(Json[string] optionData = null) {
        _options = options;
        _useI18n = function_exists("\UIM\I18n\__d");
     }
@@ -104,10 +104,10 @@ class DRulesChecker {
      * callable rule A callable auto or object that will return whether
      * the entity is valid or not.
      * @param string[] name The alias for a rule, or an array of options.
-     * @param IData[string] optionData List of extra options to pass to the rule callable as
+     * @param Json[string] optionData List of extra options to pass to the rule callable as
      * second argument.
      * /
-    void add(callable rule, string[] name = null, IData[string] options = null) {
+    void add(callable rule, string[] name = null, Json[string] options = null) {
        _rules ~= _addError(rule, name, options);
     }
     
@@ -125,10 +125,10 @@ class DRulesChecker {
      * callable rule A callable auto or object that will return whether
      * the entity is valid or not.
      * @param string[] name The alias for a rule or an array of options.
-     * @param IData[string] optionData List of extra options to pass to the rule callable as
+     * @param Json[string] optionData List of extra options to pass to the rule callable as
      * second argument.
      * /
-    void addCreate(callable rule, string[] name = null, IData[string] optionData = null) {
+    void addCreate(callable rule, string[] name = null, Json[string] optionData = null) {
        _createRules ~= _addError(rule, name, options);
     }
 
@@ -146,10 +146,10 @@ class DRulesChecker {
      * callable rule A callable auto or object that will return whether
      * the entity is valid or not.
      * @param string[] name The alias for a rule, or an array of options.
-     * @param IData[string] optionData List of extra options to pass to the rule callable as
+     * @param Json[string] optionData List of extra options to pass to the rule callable as
      * second argument.
      * /
-    auto addUpdate(callable rule, string[] name = null, IData[string] optionData = null) {
+    auto addUpdate(callable rule, string[] name = null, Json[string] optionData = null) {
        _updateRules ~= _addError(rule, name, options);
 
         return this;
@@ -169,10 +169,10 @@ class DRulesChecker {
      * callable rule A callable auto or object that will return whether
      * the entity is valid or not.
      * @param string[] name The alias for a rule, or an array of options.
-     * @param IData[string] optionData List of extra options to pass to the rule callable as
+     * @param Json[string] optionData List of extra options to pass to the rule callable as
      * second argument.
      * /
-    auto addDelete_(callable rule, string[] name = null, IData[string] optionData = null) {
+    auto addDelete_(callable rule, string[] name = null, Json[string] optionData = null) {
        _deleteRules ~= _addError(rule, name, options);
 
         return this;
@@ -185,10 +185,10 @@ class DRulesChecker {
      * Params:
      * \UIM\Datasource\IEntity entity The entity to check for validity.
      * @param string amode Either 'create, "update' or 'delete'.
-     * @param IData[string] optionData Extra options to pass to checker functions.
+     * @param Json[string] optionData Extra options to pass to checker functions.
      * @throws \InvalidArgumentException if an invalid mode is passed.
      * /
-    bool check(IEntity entity, string amode, IData[string] optionData = null) {
+    bool check(IEntity entity, string amode, Json[string] optionData = null) {
         if (mode == self.CREATE) {
             return _checkCreate(entity, options);
         }
@@ -206,9 +206,9 @@ class DRulesChecker {
      * of them pass. The rules selected will be only those specified to be run on 'create'
      * Params:
      * \UIM\Datasource\IEntity entity The entity to check for validity.
-     * @param IData[string] optionData Extra options to pass to checker functions.
+     * @param Json[string] optionData Extra options to pass to checker functions.
      * /
-   bool checkCreate(IEntity entity, IData[string] optionData = null) {
+   bool checkCreate(IEntity entity, Json[string] optionData = null) {
         return _checkRules(entity, options, array_merge(_rules, _createRules));
     }
     
@@ -217,9 +217,9 @@ class DRulesChecker {
      * of them pass. The rules selected will be only those specified to be run on 'update'
      * Params:
      * \UIM\Datasource\IEntity entity The entity to check for validity.
-     * @param IData[string] optionData Extra options to pass to checker functions.
+     * @param Json[string] optionData Extra options to pass to checker functions.
      * /
-   bool checkUpdate(IEntity entity, IData[string] optionData = null) {
+   bool checkUpdate(IEntity entity, Json[string] optionData = null) {
         return _checkRules(entity, options, chain(_rules, _updateRules));
     }
 
@@ -228,9 +228,9 @@ class DRulesChecker {
      * of them pass. The rules selected will be only those specified to be run on 'delete'
      * Params:
      * \UIM\Datasource\IEntity entity The entity to check for validity.
-     * @param IData[string] optionData Extra options to pass to checker functions.
+     * @param Json[string] optionData Extra options to pass to checker functions.
      * /
-    bool checkDelete_(IEntity entity, IData[string] optionData = null) {
+    bool checkDelete_(IEntity entity, Json[string] optionData = null) {
         return _checkRules(entity, options, _deleteRules);
     }
     
@@ -239,10 +239,10 @@ class DRulesChecker {
      * iterates an array containing the rules to be checked and checks them all.
      * Params:
      * \UIM\Datasource\IEntity entity The entity to check for validity.
-     * @param IData[string] optionData Extra options to pass to checker functions.
+     * @param Json[string] optionData Extra options to pass to checker functions.
      * @param array<\UIM\Datasource\RuleInvoker> rules The list of rules that must be checked.
      * /
-    protected bool _checkRules(IEntity entity, IData[string] optionData = null, array rules = []) {
+    protected bool _checkRules(IEntity entity, Json[string] optionData = null, array rules = []) {
         success = true;
         options = options.update_options;
         rules
@@ -256,9 +256,9 @@ class DRulesChecker {
      * Params:
      * \UIM\Datasource\RuleInvoker|callable rule The rule to decorate
      * @param string[] name The alias for a rule or an array of options
-     * @param IData[string] optionData The options containing the error message and field.
+     * @param Json[string] optionData The options containing the error message and field.
      * /
-    protected DRuleInvoker _addError(callable rule, string[] name = null, IData[string] optionData = null) {
+    protected DRuleInvoker _addError(callable rule, string[] name = null, Json[string] optionData = null) {
         if (isArray(name)) {
             options = name;
             name = null;

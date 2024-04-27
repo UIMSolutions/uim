@@ -16,7 +16,7 @@ class DPaginator : IPaginator {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
@@ -25,7 +25,7 @@ class DPaginator : IPaginator {
     }
 
     // Hook method
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -379,7 +379,7 @@ class DPaginator : IPaginator {
      * @return array An array containing in the first position the finder name
      *   and in the second the options to be passed to it.
      * /
-    protected auto _extractFinder(IData[string] options): array
+    protected auto _extractFinder(Json[string] options): array
     {
         myType = !empty(options["finder"]) ? options["finder"] : "all";
         unset(options["finder"], options["maxLimit"]);
@@ -523,7 +523,7 @@ class DPaginator : IPaginator {
      * @return array<string, mixed> An array of options with sort + direction removed and
      *   replaced with order if possible.
      * /
-    function validateSort(IRepository object, IData[string] options): array
+    function validateSort(IRepository object, Json[string] options): array
     {
         if (isset(options["sort"])) {
             direction = null;
@@ -656,7 +656,7 @@ class DPaginator : IPaginator {
      * @param array<string, mixed> options An array of options with a limit key to be checked.
      * @return array<string, mixed> An array of options for pagination.
      * /
-    function checkLimit(IData[string] options): array
+    function checkLimit(Json[string] options): array
     {
         options["limit"] = (int)options["limit"];
         if (options["limit"] < 1) {

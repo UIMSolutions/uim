@@ -18,7 +18,7 @@ class DRuleInvoker {
     protected string _ruleName;
 
     // Rule options
-    protected IData[string] _options = null;
+    protected Json[string] _options = null;
 
     /* 
     // Rule callable
@@ -38,9 +38,9 @@ class DRuleInvoker {
      * Params:
      * callable rule The rule to be invoked.
      * @param string name The name of the rule. Used in error messages.
-     * @param IData[string] optionData The options for the rule. See above.
+     * @param Json[string] optionData The options for the rule. See above.
      * /
-    this(callable rule, string ruleName, IData[string] ruleOptions = null) {
+    this(callable rule, string ruleName, Json[string] ruleOptions = null) {
         _rule = rule;
         _ruleName = ruleName;
         _options = ruleOptions;
@@ -51,9 +51,9 @@ class DRuleInvoker {
      *
      * Old options will be merged with the new ones.
      * Params:
-     * IData[string] optionData The options to set.
+     * Json[string] optionData The options to set.
      * /
-    void updateOptions(IData[string] additionalOptions = null) {
+    void updateOptions(Json[string] additionalOptions = null) {
         _options = _options.update(additionalOptions);
     }
     

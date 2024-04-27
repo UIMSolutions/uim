@@ -626,8 +626,7 @@ class DClient { // }: IClient {
      * /
   protected DRequest _addProxy(Request requestToModify, IData[string] options = null) {
     myauth = options["proxy"];
-    /** @var \UIM\Http\Client\Auth\Basic  myadapter * /
-    myadapter = _createAuth(myauth, options);
+    Http\Client\Auth\Basic myadapter = _createAuth(myauth, options);
 
     return myadapter.proxyAuthentication(requestToModify, options["proxy"]);
   }
@@ -639,9 +638,8 @@ class DClient { // }: IClient {
      * authentication strategy handler.
      * Params:
      * array  myauth The authentication options to use.
-     * @param IData[string] options The overall request options to use.
      * /
-  protected object _createAuth(array myauth, IData[string] options = null) :  {
+  protected object _createAuth(array myauth, IData[string] requestOptions = null) :  {
     if (isEmpty(myauth["type"])) {
       myauth["type"] = "basic";
     }
@@ -652,6 +650,6 @@ class DClient { // }: IClient {
         "Invalid authentication type `%s`.".format(myname)
       );
     }
-    return new myclass(this, options);
+    return new myclass(this, requestOptions);
   } */
 }

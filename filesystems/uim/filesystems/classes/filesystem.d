@@ -26,7 +26,7 @@ class DFilesystem : IFilesystem, IFolderManager, IFileManager, ILinkManager {
     this.rootPath(aRootPath);
   }
 
-  bool initialize(IData[string] initData = null) { // Hook
+  bool initialize(Json[string] initData = null) { // Hook
     configuration(MemoryConfiguration);
     configuration.data(initData);
     

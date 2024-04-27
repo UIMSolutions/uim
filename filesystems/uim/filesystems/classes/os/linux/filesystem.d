@@ -11,7 +11,7 @@ import uim.filesystems;
 class DLinuxFilesystem : DFilesystem {
   mixin(FilesystemThis!("Linux"));
 
-	override bool initialize(IData[string] initData = null) {
+	override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) {
 			return false;
 		}

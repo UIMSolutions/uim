@@ -12,7 +12,7 @@ class DUUIDAttribute : DAttribute {
   mixin(AttributeThis!("UUIDAttribute"));
 
   // Initialization hook method.
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
     name("uuid");
@@ -22,7 +22,7 @@ registerPath("uuid");
       return true;
   }
 
-  /* override IData createData() {
+  /* override Json createData() {
     return UUIDData(this); } */
 }
 mixin(AttributeCalls!("UUIDAttribute"));
@@ -36,6 +36,6 @@ unittest {
   DAttribute generalAttribute = attribute;
   assert(!cast(DIntegerAttribute)generalAttribute);
 
-  // IData value = attribute.createValue();
+  // Json value = attribute.createValue();
   // assert(cast(DUUIDData)value);
 }

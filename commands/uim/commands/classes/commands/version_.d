@@ -8,7 +8,7 @@ import uim.commands;
 class DVersionCommand : DCommand {
   mixin(CommandThis!("Version"));
 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }
@@ -16,7 +16,7 @@ class DVersionCommand : DCommand {
     return true;
   }
 
-  override int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+  override int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
     //TODO aConsoleIo.writeln(Configure.currentVersion());
 
     return 0; //TODO CODE_SUCCESS;

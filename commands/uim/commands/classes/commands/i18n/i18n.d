@@ -8,7 +8,7 @@ import uim.commands;
 class DI18nCommand : DCommand {
     mixin(CommandThis!("I18n"));
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
@@ -18,7 +18,7 @@ class DI18nCommand : DCommand {
 
     /*
     // Execute interactive mode
-    int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+    int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         aConsoleIo.writeln("<info>I18n Command</info>");
         aConsoleIo.hr();
         aConsoleIo.writeln("[E]xtract POT file from sources");

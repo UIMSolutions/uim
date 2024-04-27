@@ -8,7 +8,7 @@ import uim.commands;
 class DCacheClearGroupCommand : DCommand {
   mixin(CommandThis!("CacheClearGroup"));
 
-  	override bool initialize(IData[string] initData = null) {
+  	override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		
 		return true;
@@ -41,7 +41,7 @@ class DCacheClearGroupCommand : DCommand {
   }
 
   // Clears the cache group
-  int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+  int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
     auto anGroup = to!string(commandArguments.getArgument("group"));
     try {
        anGroupConfigs = Cache.groupConfigs(anGroup);

@@ -8,7 +8,7 @@ import uim.commands;
 class DCacheListCommand : DCommand {
   mixin(CommandThis!("CacheList"));
 
-  	override bool initialize(IData[string] initData = null) {
+  	override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		
 		return true;
@@ -28,7 +28,7 @@ class DCacheListCommand : DCommand {
   }
 
   // Get the list of cache prefixes
-  int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+  int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
     auto myEngines = Cache.configured();
     myEngines
       .each!(engine => aConsoleIo.writeln("- %s".format(engine)));

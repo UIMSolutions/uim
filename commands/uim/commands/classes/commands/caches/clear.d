@@ -8,7 +8,7 @@ import uim.commands;
 class DCacheClearCommand : DCommand {
   mixin(CommandThis!("CacheClear"));
 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }
@@ -41,7 +41,7 @@ class DCacheClearCommand : DCommand {
   }
 
   // Implement this method with your command`s logic.
-  int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+  int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
     string engineName = to!string(commandArguments.getArgument("engine"));
     try {
       aConsoleIo.writeln("Clearing {engineName}");

@@ -8,7 +8,7 @@ import uim.commands;
 class DCacheClearallCommand : DCommand {
   mixin(CommandThis!("CacheClearall"));
 
-  	override bool initialize(IData[string] initData = null) {
+  	override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		
 		return true;
@@ -33,7 +33,7 @@ class DCacheClearallCommand : DCommand {
   }
 
   // Implement this method with your command`s logic.
-  int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+  int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
     auto myEngines = Cache . configured();
     myEngines.each!(engine => this.executeCommand(CacheClearCommand . class, [engine], aConsoleIo));
 

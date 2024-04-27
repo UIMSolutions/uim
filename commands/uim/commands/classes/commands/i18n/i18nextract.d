@@ -8,7 +8,7 @@ import uim.commands;
 class DI18nExtractCommand : DCommand {
     mixin(CommandThis!("I18nExtract"));
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
@@ -33,9 +33,9 @@ class DI18nExtractCommand : DCommand {
     protected string _file = "";
 
     // Contains all content waiting to be written
-    protected IData _storage;
+    protected Json _storage;
 
-    protected IData[string] _translations = null;
+    protected Json[string] _translations = null;
 
     // Destination path
     protected string _output = "";
@@ -96,7 +96,7 @@ class DI18nExtractCommand : DCommand {
     }
 
     // Execute the command
-  int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+  int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         string myPlugin = "";
         if (commandArguments.getOption("exclude")) {
            _exclude = to!string(commandArguments.getOption("exclude")).split(",");
@@ -215,7 +215,7 @@ class DI18nExtractCommand : DCommand {
     }
     
     // Extract text
-    protected void _extract(IData [string] arguments, IConsoleIo aConsoleIo) {
+    protected void _extract(Json [string] arguments, IConsoleIo aConsoleIo) {
          aConsoleIo.writeln();
          aConsoleIo.writeln();
          aConsoleIo.writeln("Extracting...");
@@ -306,10 +306,10 @@ class DI18nExtractCommand : DCommand {
     /**
      * Extract tokens out of all files to be processed
      * Params:
-     * \UIM\Console\IData [string] arguments The io instance
+     * \UIM\Console\Json [string] arguments The io instance
      * @param \UIM\Console\IConsoleIo aConsoleIo The io instance
      * /
-    protected void _extractTokens(IData [string] arguments, IConsoleIo aConsoleIo) {
+    protected void _extractTokens(Json [string] arguments, IConsoleIo aConsoleIo) {
         progress = aConsoleIo.helper("progress");
         assert(cast(ProgressHelper)progress);
         progress.initialize(["total": count(_files)]);
@@ -418,9 +418,9 @@ class DI18nExtractCommand : DCommand {
     /**
      * Build the translate template file contents out of obtained strings
      * Params:
-     * \UIM\Console\IData [string] arguments Console arguments
+     * \UIM\Console\Json [string] arguments Console arguments
      * /
-    protected void _buildFiles(IData [string] arguments) {
+    protected void _buildFiles(Json [string] arguments) {
         somePaths = _paths;
         /** @psalm-suppress UndefinedConstant  /
         somePaths ~= realpath(APP) ~ DIRECTORY_SEPARATOR;
@@ -488,10 +488,10 @@ class DI18nExtractCommand : DCommand {
     /**
      * Write the files that need to be stored
      * Params:
-     * \UIM\Console\IData [string] arguments The command arguments.
+     * \UIM\Console\Json [string] arguments The command arguments.
      * @param \UIM\Console\IConsoleIo aConsoleIo The console io
      * /
-    protected void _writeFiles(IData [string] arguments, IConsoleIo aConsoleIo) {
+    protected void _writeFiles(Json [string] arguments, IConsoleIo aConsoleIo) {
          aConsoleIo.writeln();
         bool overwriteAll = false;
         if (commandArguments.getOption("overwrite")) {

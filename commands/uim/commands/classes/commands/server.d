@@ -8,7 +8,7 @@ import uim.commands;
 class DServerCommand : DCommand {
    mixin(CommandThis!("Server"));
 
-  	override bool initialize(IData[string] initData = null) {
+  	override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		
 		return true;
@@ -36,11 +36,11 @@ class DServerCommand : DCommand {
      * Starts up the Command and displays the welcome message.
      * Allows for checking and configuring prior to command or main execution
      * Params:
-     * \UIM\Console\IData [string] arguments The command arguments.
+     * \UIM\Console\Json [string] arguments The command arguments.
      * @param \UIM\Console\IConsoleIo aConsoleIo The console io
      * @link https://book.UIM.org/5/en/console-and-shells.html#hook-methods
      * /
-    protected void startup(IData [string] arguments, IConsoleIo aConsoleIo) {
+    protected void startup(Json [string] arguments, IConsoleIo aConsoleIo) {
         _host = commandArguments.getString("host", _host); 
 
         _port = commandArguments.getInteger("port", _port));
@@ -72,7 +72,7 @@ class DServerCommand : DCommand {
          aConsoleIo.hr();
     }
 
-  int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+  int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         this.startup(commandArguments,  aConsoleIo);
         DBinary = to!string(enviroment("D", "d"));
         string commandText = "%s -S %s:%d -t %s"

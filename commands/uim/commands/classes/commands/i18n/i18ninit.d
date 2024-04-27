@@ -8,7 +8,7 @@ import uim.commands;
 class DI18nInitCommand : DCommand {
    mixin(CommandThis!("I18nInit"));
 
-  	override bool initialize(IData[string] initData = null) {
+  	override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		
 		return true;
@@ -19,7 +19,7 @@ class DI18nInitCommand : DCommand {
     }
 
     /* 
-    int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+    int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         auto myLanguage = commandArguments.getArgument("language");
         if (!myLanguage) {
             myLanguage = aConsoleIo.ask("Please specify language code, e.g. `en`, `eng`, `en_US` etc.");

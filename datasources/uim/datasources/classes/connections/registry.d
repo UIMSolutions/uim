@@ -37,12 +37,12 @@ class DConnectionRegistry : DObjectRegistry!DDatasourceConnection {
      * If a closure is passed as first argument, The returned value of this
      * auto will be the result from calling the closure.
      * /
-    protected IConnection _create(string className, string objectAlias, IData[string] configData) {
+    protected IConnection _create(string className, string objectAlias, Json[string] configData) {
         configData.remove("className");
 
         return new className(configData);
     }
-    protected IConnection _create(Object className, string objectAlias, IData[string] configData) {
+    protected IConnection _create(Object className, string objectAlias, Json[string] configData) {
         return cast(DClosure)className 
             ? className(objectAlias)
             : className;

@@ -15,7 +15,7 @@ import uim.datasources;
  * a registry for the connections defined in an application.
  */
 class DConnectionManager {
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         // An array mapping url schemes to fully qualified driver class names
         /* _dsnClassMap = [
             "mysql": Mysql.classname,
@@ -47,8 +47,8 @@ class DConnectionManager {
      *
      * The connection will not be constructed until it is first used.
      * Params:
-     * IData[string]|string aKey The name of the connection config, or an array of multiple configs.
-     * @param \UIM\Datasource\IConnection|\Closure|IData[string]|null configData An array of name: config data for adapter.
+     * Json[string]|string aKey The name of the connection config, or an array of multiple configs.
+     * @param \UIM\Datasource\IConnection|\Closure|Json[string]|null configData An array of name: config data for adapter.
      * @throws \UIM\Core\Exception\UimException When trying to modify an existing config.
      * @see \UIM\Core\StaticConfigTrait.config()
      * /
@@ -197,7 +197,7 @@ class DConnectionManager {
      * Params:
      * string adsn The DSN string to convert to a configuration array
      * /
-static IData[string] parseDsn(string adsn) {
+static Json[string] parseDsn(string adsn) {
     configData = _parseDsn(dsn);
 
     if (configuration.hasKey("path") && configData("database").isEmpty) {

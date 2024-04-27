@@ -19,12 +19,12 @@ class DDatasourceEntity { // TODO }: IDatasourceEntity { //}, IInvalidProperty {
     // use TEntity;
 
     // Holds all fields and their values for this entity.
-    protected IData[string] _fields;
+    protected Json[string] _fields;
 
     // Holds all fields that have been changed and their original values for this entity.
-    protected IData[string] _original;
+    protected Json[string] _original;
 
-    // List of field names that should not be included in IData or Array representations of this Entity.
+    // List of field names that should not be included in Json or Array representations of this Entity.
     protected string[] _hidden;
 
     // Indicates whether this entity is yet to be persisted.
@@ -33,9 +33,9 @@ class DDatasourceEntity { // TODO }: IDatasourceEntity { //}, IInvalidProperty {
     protected bool _new = true;
 
     /*
-     * List of computed or virtual fields that should be included in IData or array
+     * List of computed or virtual fields that should be included in Json or array
      * representations of this Entity. If a field is present in both _hidden and _virtual
-     * the field will not be in the array/IData versions of the entity. * /
+     * the field will not be in the array/Json versions of the entity. * /
     protected string[] _virtual = null;
 
     // Holds a list of the fields that were modified or added after this object was originally created.
@@ -60,7 +60,7 @@ class DDatasourceEntity { // TODO }: IDatasourceEntity { //}, IInvalidProperty {
      * @param array<string, mixed> properties hash of properties to set in this entity
      * @param array<string, mixed> options list of options to use when creating this entity
      * /
-    /* this(array properties = null, IData[string] optionData = null) {
+    /* this(array properties = null, Json[string] optionData = null) {
         options = options.update[
             "useSetters": BooleanData(true),
             "markClean": BooleanData(false),

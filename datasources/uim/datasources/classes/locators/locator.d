@@ -26,7 +26,7 @@ abstract class DAbstractLocator : ILocator {
      * @param string alias The alias name you want to get.
      * @param array<string, mixed> options The options you want to build the table with.
      * /
-    IRepository get(string alias, IData[string] optionData = null) {
+    IRepository get(string alias, Json[string] optionData = null) {
         auto storeOptions = options;
         storeOptions.remove("allowFallbackClass");
 
@@ -53,7 +53,7 @@ abstract class DAbstractLocator : ILocator {
      * @param array<string, mixed> options The options you want to build the instance with.
      * @return uim.Datasource\
      * /
-    abstract protected IRepository createInstance(string alias, IData[string] optionData);
+    abstract protected IRepository createInstance(string alias, Json[string] optionData);
 
 
     function set(string alias, IRepository repository) {

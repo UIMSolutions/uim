@@ -38,7 +38,7 @@ class DPaginatedResultset { /* }: IteratorIterator : IDataSerializable, IPaginat
     }
     
     /**
-     * Provide data which should be serialized to IData.
+     * Provide data which should be serialized to Json.
      * /
     array IDataSerialize() {
         return iterator_to_array(this.items());
@@ -68,7 +68,7 @@ class DPaginatedResultset { /* }: IteratorIterator : IDataSerializable, IPaginat
         return _params["hasNextPage"];
     }
  
-    IData pagingParam(string aName) {
+    Json pagingParam(string aName) {
         return _params[name] ?? null;
     }
  

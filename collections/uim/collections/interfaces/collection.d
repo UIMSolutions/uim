@@ -53,9 +53,8 @@ interface ICollection {
      * @param callable|null callback the method that will receive each of the elements and
      *   returns true whether they should be in the resulting collection.
      *   If left null, a callback that filters out falsey values will be used.
-     * @return self
-     */
-    // ICollection filter(bool delegate(IData item));
+     * /
+    ICollection filter(bool delegate(Json item));
 
     /**
      * Looks through each value in the collection, and returns another collection with
@@ -171,7 +170,7 @@ interface ICollection {
      * @param mixed initial The state of reduction
      * @return mixed
      */
-    // IData reduce(callable callback, initial = null);
+    // Json reduce(callable callback, initial = null);
 
     /**
      * Returns a new DCollection containing the column or property value found in each
@@ -242,7 +241,7 @@ interface ICollection {
      * @see uim.collections.ICollection::sortBy()
      * @return mixed The value of the top element in the collection
      */
-    // IData max(path, int sort = SORT_NUMERIC);
+    // Json max(path, int sort = SORT_NUMERIC);
 
     /**
      * Returns the bottom element in this collection after being sorted by a property.
@@ -268,7 +267,7 @@ interface ICollection {
      * @see uim.collections.ICollection::sortBy()
      * @return mixed The value of the bottom element in the collection
      */
-    // IData min(path, int sort = SORT_NUMERIC);
+    // Json min(path, int sort = SORT_NUMERIC);
 
     /**
      * Returns the average of all the values extracted with path
@@ -613,21 +612,21 @@ interface ICollection {
      * @see uim.collections.ICollection::match()
      * @return mixed
      * /
-    IData firstMatch(array conditions);
+    Json firstMatch(array conditions);
 
     /**
      * Returns the first result in this collection
      *
      * @return mixed The first value in the collection will be returned.
      * /
-    IData first();
+    Json first();
 
     /**
      * Returns the last result in this collection
      *
      * @return mixed The last value in the collection will be returned.
      * /
-    IData();
+    Json();
 
     /**
      * Returns a new DCollection as the result of concatenating the list of elements
@@ -774,12 +773,12 @@ interface ICollection {
     array toList();
 
     /**
-     * Returns the data that can be converted to IData. This returns the same data
+     * Returns the data that can be converted to Json. This returns the same data
      * as `toArray()` which contains only unique keys.
      *
      * Part of IDataSerializable interface.
      *
-     * @return array The data to convert to IData
+     * @return array The data to convert to Json
      * /
     array IDataSerialize();
 

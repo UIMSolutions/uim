@@ -34,7 +34,7 @@ class DReplaceIterator : DCollection {
   }
 
   // Returns the value returned by the callback after passing the current value in the iteration
-  IData current() {
+  Json current() {
     aCallback = _callback;
 
     return aCallback(super.current(), this.key(), _innerIterator);

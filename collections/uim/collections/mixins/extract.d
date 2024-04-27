@@ -48,7 +48,7 @@ mixin template TExtract() {
      * \ArrayAccess<string|int, mixed>|array data Data.
      * string[] someParts Path to extract from.
      * /
-    protected IData _extract(ArrayAccess|array data, string[] someParts) {
+    protected Json _extract(ArrayAccess|array data, string[] someParts) {
         auto aValue = null;
         bool isCollectionTransform = false;
 
@@ -84,7 +84,7 @@ mixin template TExtract() {
      * \ArrayAccess<string|int, mixed>|array data Data.
      * @param string[] someParts Path to extract from.
      * /
-    protected IData _simpleExtract(ArrayAccess|array data, array someParts) {
+    protected Json _simpleExtract(ArrayAccess|array data, array someParts) {
         auto value = null;
         someParts
             .filter!(column => someData.isSet(column))

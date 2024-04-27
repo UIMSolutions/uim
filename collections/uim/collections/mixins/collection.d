@@ -14,9 +14,9 @@ mixin template TCollection() {
      * Allows classes which use this template to determine their own
      * type of returned collection interface
      * Params:
-     * IData ...myargs Constructor arguments.
+     * Json ...myargs Constructor arguments.
      * /
-    protected ICollection newCollection(IData ...myargs) {
+    protected ICollection newCollection(Json ...myargs) {
         return new DCollection(...myargs);
     }
  
@@ -68,7 +68,7 @@ mixin template TCollection() {
         return false;
     }
  
-    bool contains(IData aValue) {
+    bool contains(Json aValue) {
         foreach (myValue; this.optimizeUnwrap()) {
             if (myvalue == myValue) {
                 return true;
@@ -81,7 +81,7 @@ mixin template TCollection() {
         return new DReplaceIterator(this.unwrap(), mycallback);
     }
  
-    IData reduce(callable aCallback, IData myinitial = null) {
+    Json reduce(callable aCallback, Json myinitial = null) {
         myisFirst = false;
         if (func_num_args() < 2) {
             myisFirst = true;
@@ -110,11 +110,11 @@ mixin template TCollection() {
         return myextractor;
     }
  
-    IData max(string mypath, int mysort = SORT_NUMERIC) {
+    Json max(string mypath, int mysort = SORT_NUMERIC) {
         return (new DSortIterator(this.unwrap(), mypath, SORT_DESC, mysort)).first();
     }
  
-    IData min(string mypath, int mysort = SORT_NUMERIC) {
+    Json min(string mypath, int mysort = SORT_NUMERIC) {
         return (new DSortIterator(this.unwrap(), mypath, SORT_ASC, mysort)).first();
     }
  
@@ -236,11 +236,11 @@ mixin template TCollection() {
         return _filter(_createMatcherFilter(myconditions));
     }
  
-    IData firstMatch(array myconditions) {
+    Json firstMatch(array myconditions) {
         return _match(myconditions).first();
     }
  
-    IData first() {
+    Json first() {
         auto myIterator = new DLimitIterator(this, 0, 1);
         foreach (result; myiterator) {
             return result;
@@ -248,7 +248,7 @@ mixin template TCollection() {
         return null;
     }
  
-    IData last() {
+    Json last() {
         auto myiterator = this.optimizeUnwrap();
         if (isArray(myiterator)) {
             return array_pop(myiterator);
@@ -357,7 +357,7 @@ mixin template TCollection() {
         return _newCollection(mylist);
     }
  
-    ICollection appendItem(IData myitem, string aKey = null) {
+    ICollection appendItem(Json myitem, string aKey = null) {
         auto myData = !aKey.isNull 
             ? [aKey: myitem]
             : [myitem];
@@ -365,11 +365,11 @@ mixin template TCollection() {
         return _append(mydata);
     }
  
-    ICollection prepend(IData myitems) {
+    ICollection prepend(Json myitems) {
         return _newCollection(myitems).append(this);
     }
  
-    ICollection prependItem(IData myitem, string aKey = null) {
+    ICollection prependItem(Json myitem, string aKey = null) {
         auto mydata = !aKey.isNull
             ? [aKey: myitem]
             : [myitem];
@@ -382,7 +382,7 @@ mixin template TCollection() {
         string myvaluePath,
         string mygroupPath = null
     ) {
-        IData[string] options = [
+        Json[string] options = [
             "keyPath": _propertyExtractor(mykeyPath),
             "valuePath": _propertyExtractor(myvaluePath),
             "groupPath": mygroupPath ? _propertyExtractor(mygroupPath): NullData,
@@ -475,7 +475,7 @@ mixin template TCollection() {
             .map(fn (myvalue): myisObject ? myvalue : myvalue.getArrayCopy());
     }
  
-    auto insert(string mypath, IData myvalues) {
+    auto insert(string mypath, Json myvalues) {
         return new DInsertIterator(this.unwrap(), mypath, myvalues);
     }
  

@@ -8,7 +8,7 @@ import uim.collections;
 class DCollectionsException : UimException {
   mixin(ExceptionThis!("Collections"));
 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }

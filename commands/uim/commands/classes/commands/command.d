@@ -14,11 +14,11 @@ class DCommand : ICommand {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -28,7 +28,7 @@ class DCommand : ICommand {
     mixin(TProperty!("string", "name"));
 
     // Implement this method with your command`s logic.
-    int execute(IData[string] arguments, IConsoleIo aConsoleIo) {
+    int execute(Json[string] arguments, IConsoleIo aConsoleIo) {
         return 0;
     }
 }

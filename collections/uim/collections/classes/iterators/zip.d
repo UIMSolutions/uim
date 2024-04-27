@@ -63,14 +63,14 @@ class DZipIterator : ICollection {
      * Returns the value resulting out of zipping all the elements for all the
      * iterators with the same positional index.
      * /
-    IData current() {
+    Json current() {
         current = this.multipleIterator.current();
         if (_callback) {
             return call_user_func_array(_callback, current);
         }
         return current;
     }
-    IData key() {
+    Json key() {
         return _multipleIterator.key();
     }
     void next() {

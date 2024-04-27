@@ -94,10 +94,10 @@ class DMapReduce { // }: IteratorAggregate {
      * Appends a new record to the bucket labelled with aKey, usually as a result
      * of mapping a single record from the original data.
      * Params:
-     * IData val The record itself to store in the bucket
-     * @param IData aBucketName the name of the bucket where to put the record
+     * Json val The record itself to store in the bucket
+     * @param Json aBucketName the name of the bucket where to put the record
      *  /
-    void emitIntermediate(IData val, IData aBucketName)) {
+    void emitIntermediate(Json val, Json aBucketName)) {
        _intermediate[aBucketName] ~= val;
     }
     
@@ -105,10 +105,10 @@ class DMapReduce { // }: IteratorAggregate {
      * Appends a new record to the final list of results and optionally assign a key
      * for this record.
      * Params:
-     * IData val The value to be appended to the final list of results
+     * Json val The value to be appended to the final list of results
      * @param string aKey and optional key to assign to the value
      * /
-    void emit(IData val, string aKey = null) {
+    void emit(Json val, string aKey = null) {
        _result[aKey ?? _counter] = val;
        _counter++;
     }

@@ -16,7 +16,7 @@ abstract class DCell { // }: IEventDispatcher {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
@@ -28,7 +28,7 @@ abstract class DCell { // }: IEventDispatcher {
         this().name(newName);
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -91,7 +91,7 @@ abstract class DCell { // }: IEventDispatcher {
         ServerRequest myrequest,
         Response myresponse,
         ?IEventManager myeventManager = null,
-        IData[string] cellOptionsToApply = null
+        Json[string] cellOptionsToApply = null
     ) {
         if (myeventManager !isNull) {
             this.setEventManager(myeventManager);

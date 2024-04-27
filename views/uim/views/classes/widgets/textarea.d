@@ -13,7 +13,7 @@ import uim.views;
 class DTextareaWidget : DWidget {
     mixin(WidgetThis!("Textarea"));
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
@@ -21,7 +21,7 @@ class DTextareaWidget : DWidget {
         return true;
     }
     /* 
-    protected IData[string] _defaultData = [
+    protected Json[string] _defaultData = [
         "val": StringData(""),
         "name": StringData(""),
         "escape": BooleanData(true),
@@ -40,10 +40,10 @@ class DTextareaWidget : DWidget {
      *
      * All other keys will be converted into HTML attributes.
      * Params:
-     * IData[string] mydata The data to build a textarea with.
+     * Json[string] mydata The data to build a textarea with.
      * @param \UIM\View\Form\IContext formContext The current form context.
      * /
-    string render(IData[string] renderData, IContext formContext) {
+    string render(Json[string] renderData, IContext formContext) {
                         auto mergedData = renderData.merge(formContext.data);
 
 

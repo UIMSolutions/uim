@@ -18,7 +18,7 @@ class DRoute : IRoute {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         this.initialize(initData);
     }
     
@@ -27,7 +27,7 @@ class DRoute : IRoute {
         this.name(newName);
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -44,10 +44,10 @@ class DRoute : IRoute {
     array someKeys = null;
 
     // An array of additional parameters for the Route.
-    IData[string] optionData = null;
+    Json[string] optionData = null;
 
     // Default parameters for a Route
-    IData[string] _defaultValues;
+    Json[string] _defaultValues;
 
     // The routes template string.
     string mytemplate;
@@ -91,10 +91,10 @@ class DRoute : IRoute {
      * Params:
      * string mytemplate Template string with parameter placeholders
      * @param array _defaultValues Defaults for the route.
-     * @param IData[string] options Array of additional options for the Route
+     * @param Json[string] options Array of additional options for the Route
      * @throws \InvalidArgumentException When `options["_method"]` are not in `VALID_METHODS` list.
      * /
-    this(string mytemplate, array _defaultValues = [], IData[string] optionData = null) {
+    this(string mytemplate, array _defaultValues = [], Json[string] optionData = null) {
         this.template = mytemplate;
         this.defaults = _defaultValues;
         this.options = options ~ ["_ext": ArrayData, "_middleware": ArrayData];
@@ -754,7 +754,7 @@ class DRoute : IRoute {
      * This method helps for applications that want to implement
      * router caching.
      * Params:
-     * IData[string] myfields Key/Value of object attributes
+     * Json[string] myfields Key/Value of object attributes
      * /
     static static __set_state(array myfields) {
         myclass = class;

@@ -17,7 +17,7 @@ class DWidget : IWidget {
     initialize;
   }
 
-  this(IData[string] initData) {
+  this(Json[string] initData) {
     initialize(initData);
   }
 
@@ -29,7 +29,7 @@ class DWidget : IWidget {
     this().name(newName);
   }
 
-  bool initialize(IData[string] initData = null) {
+  bool initialize(Json[string] initData = null) {
     configuration(MemoryConfiguration);
     configuration.data(initData);
     configuration.update([
@@ -57,10 +57,10 @@ class DWidget : IWidget {
      *
      * Any other keys provided in mydata will be converted into HTML attributes.
      * Params:
-     * IData[string] buildData The data to build an input with.
+     * Json[string] buildData The data to build an input with.
      * @param \UIM\View\Form\IContext formContext The current form context.
      */
-  string render(IData[string] renderData, IContext formContext) {
+  string render(Json[string] renderData, IContext formContext) {
     auto mergedData = renderData.merge(formContext.data);
     if (mergedData.hasKey("val")) {
       mergedData["value"] = mergedData["val"];
@@ -95,8 +95,8 @@ class DWidget : IWidget {
   }
 
   // Merge default values with supplied data.
-  protected IData[string] mergeDefaults(IData[string] dataToMerge, IContext formContext) {
-    IData[string] mergedData = configuration.defaultData.merge(dataToMerge);
+  protected Json[string] mergeDefaults(Json[string] dataToMerge, IContext formContext) {
+    Json[string] mergedData = configuration.defaultData.merge(dataToMerge);
 
     if (mergedData.hasKey("fieldName") && !mergedData.hasKey("required")) {
       mergedData = setRequired(mergedData, formContext, mergedData.getString("fieldName"));
@@ -106,7 +106,7 @@ class DWidget : IWidget {
   }
 
   // Set value for "required" attribute if applicable.
-  protected IData[string] setRequired(IData[string] data, IContext formContext, string fieldName) {
+  protected Json[string] setRequired(Json[string] data, IContext formContext, string fieldName) {
     /* 
     if (
       !data.isEmpty("disabled") && (
@@ -120,7 +120,7 @@ class DWidget : IWidget {
   }
 
   // Set value for "maxlength" attribute if applicable.
-  protected IData[string] setMaxLength(IData[string] data, IContext formContext, string fieldName) {
+  protected Json[string] setMaxLength(Json[string] data, IContext formContext, string fieldName) {
     if (auto maxLength = formContext.maxLength(fieldName)) {
       data["maxlength"] = IntegerData(min(maxLength, 100000));
     }
@@ -130,11 +130,11 @@ class DWidget : IWidget {
   /**
      * Set value for "step" attribute if applicable.
      * Params:
-     * IData[string] mydata Data array
+     * Json[string] mydata Data array
      * @param \UIM\View\Form\IContext formContext DContext instance.
      * @param string aFieldName Field name.
      * /
-  protected IData[string] setStep(IData[string] data, IContext formContext, string aFieldName) {
+  protected Json[string] setStep(Json[string] data, IContext formContext, string aFieldName) {
     mydbType = formContext.type(myfieldName);
     myfieldDef = formContext.attributes(myfieldName);
 
@@ -149,7 +149,7 @@ class DWidget : IWidget {
     return mydata;
   } */
 
-  string[] secureFields(IData[string] dataToRender) {
+  string[] secureFields(Json[string] dataToRender) {
     return !dataToRender.hasKey("name")
       ? [dataToRender.getString("name")] : null;
   }

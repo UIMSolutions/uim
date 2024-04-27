@@ -14,7 +14,7 @@ class DRadioWidget : DWidget {
     mixin(WidgetThis!("Radio"));
     mixin TIdGenerator; 
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
@@ -24,7 +24,7 @@ class DRadioWidget : DWidget {
     /*
 
     // Data defaults.
-    protected IData[string] _defaultData = [
+    protected Json[string] _defaultData = [
         "name": StringData,
         "options": ArrayData,
         "disabled": null, // NullData,
@@ -73,10 +73,10 @@ class DRadioWidget : DWidget {
      *  on all generated radios.
      * - `idPrefix` Prefix for generated ID attributes.
      * Params:
-     * IData[string] mydata The data to build radio buttons with.
+     * Json[string] mydata The data to build radio buttons with.
      * @param \UIM\View\Form\IContext formContext The current form context.
      * /
-    string render(IData[string] data, IContext formContext) {
+    string render(Json[string] data, IContext formContext) {
                auto mergedData = renderData.merge(formContext.data);
 
 
@@ -104,10 +104,10 @@ class DRadioWidget : DWidget {
     /**
      * Disabled attribute detection.
      * Params:
-     * IData[string] myradio Radio info.
+     * Json[string] myradio Radio info.
      * @param string[]|true|null mydisabled The disabled values.
      * /
-    protected bool _isDisabled(IData[string] myradio, string[]|bool isDisabled) {
+    protected bool _isDisabled(Json[string] myradio, string[]|bool isDisabled) {
         if (!isDisabled) {
             return false;
         }
@@ -123,14 +123,14 @@ class DRadioWidget : DWidget {
      * Renders a single radio input and label.
      * Params:
      * string|int myval The value of the radio input.
-     * @param IData[string]|string|int mytext The label text, or complex radio type.
-     * @param IData[string] mydata Additional options for input generation.
+     * @param Json[string]|string|int mytext The label text, or complex radio type.
+     * @param Json[string] mydata Additional options for input generation.
      * @param \UIM\View\Form\IContext formContext The form context
      * /
     protected string _renderInput(
         string|int myval,
         string[]|int mytext,
-        IData[string] options,
+        Json[string] options,
         IContext formContext
     ) {
         auto escapeData = options["escape"];
@@ -207,8 +207,8 @@ class DRadioWidget : DWidget {
      * In the future this might be refactored into a separate widget as other
      * input types (multi-checkboxes) will also need labels generated.
      * Params:
-     * IData[string] myradio The input properties.
-     * @param IData[string]|string|bool|null mylabel The properties for a label.
+     * Json[string] myradio The input properties.
+     * @param Json[string]|string|bool|null mylabel The properties for a label.
      * @param string myinput The input widget.
      * @param \UIM\View\Form\IContext formContext The form context.
      * @param bool shouldEscape Whether to HTML escape the label.

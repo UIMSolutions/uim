@@ -8,7 +8,7 @@ import uim.views;
 class DViewException : UimException {
   mixin(ExceptionThis!("View"));
 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }
@@ -20,10 +20,10 @@ class DViewException : UimException {
   }
 
   // Get the passed in attributes
-  void attributes(IData[string] newAttributes) {
+  void attributes(Json[string] newAttributes) {
     _attributes = newAttributes;
   }
-  override IData[string] attributes() {
+  override Json[string] attributes() {
     return super.attributes();
   }
 }

@@ -8,7 +8,7 @@ import uim.views;
 class DMissingTemplateException : DViewException {
   mixin(ExceptionThis!("MissingTemplate"));
 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 
     templateType("Template");
@@ -45,13 +45,13 @@ class DMissingTemplateException : DViewException {
   }
 
   // Get the passed in attributes
-  override void attributes(IData[string] newAttributes) {
+  override void attributes(Json[string] newAttributes) {
     _attributes = newAttributes;
   }
-  override IData[string] attributes() {
+  override Json[string] attributes() {
     return super.attributes().update([
       "file": StringData(fileName),
-      "paths": ArrayData(paths.map!(path => cast(IData)StringData(path)).array),
+      "paths": ArrayData(paths.map!(path => cast(Json)StringData(path)).array),
     ]);
   }
 }

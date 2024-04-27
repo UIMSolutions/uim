@@ -13,7 +13,7 @@ import uim.views;
 class DYearWidget : DWidget {
     mixin(WidgetThis!("Year"));
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
@@ -22,7 +22,7 @@ class DYearWidget : DWidget {
     }
     /* 
     // Data defaults.
-    protected IData[string] _defaultData = [
+    protected Json[string] _defaultData = [
         "name": StringData(""),
         "val": null,
         "min": null,
@@ -40,7 +40,7 @@ class DYearWidget : DWidget {
     }
     /*
     // Renders a year select box.
-    string render(IData[string] renderData, IContext formContext) {
+    string render(Json[string] renderData, IContext formContext) {
                         auto mergedData = renderData.merge(formContext.data);
 
 

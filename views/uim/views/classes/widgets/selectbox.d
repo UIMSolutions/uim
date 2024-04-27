@@ -13,7 +13,7 @@ import uim.views;
 class DSelectBoxWidget : DWidget {
     mixin(WidgetThis!("SelectBox"));
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
@@ -21,7 +21,7 @@ class DSelectBoxWidget : DWidget {
         return true;
     }
     /* 
-    protected IData[string] _defaultData = [
+    protected Json[string] _defaultData = [
         "name": StringData(""),
         "empty": BooleanData(false),
         "escape": BooleanData(true),
@@ -101,7 +101,7 @@ class DSelectBoxWidget : DWidget {
      * You are free to mix each of the forms in the same option set, and
      * nest complex types as required.
      * /
-    string render(IData[string] renderData, IContext formContext) {
+    string render(Json[string] renderData, IContext formContext) {
                 auto mergedData = renderData.merge(formContext.data);
 
 
@@ -127,8 +127,8 @@ class DSelectBoxWidget : DWidget {
     }
     
     // Render the contents of the select element.
-    protected string[] _renderContent(IData[string] renderData) {
-        IData options = renderData.get("options", null);
+    protected string[] _renderContent(Json[string] renderData) {
+        Json options = renderData.get("options", null);
 
         if (cast(Traversable)options) {
             options = iterator_to_array(options);
@@ -140,8 +140,8 @@ class DSelectBoxWidget : DWidget {
             return null;
         }
         
-        IData myselected = renderData.get("val", null);
-        IData mydisabled = null;
+        Json myselected = renderData.get("val", null);
+        Json mydisabled = null;
         if (renderData.hasKey("disabled") && renderData["disabled"].isArray) {
             mydisabled = renderData.get("disabled", null)];
         }
@@ -155,11 +155,11 @@ class DSelectBoxWidget : DWidget {
      * Params:
      * string[]|bool myvalue The provided empty value.
      * /
-    protected IData[string] _emptyValue(bool myvalue) {
+    protected Json[string] _emptyValue(bool myvalue) {
         return myvalue ? ["": ""] : ["": myvalue];
     }
 
-    protected IData[string] _emptyValue(string[] myvalue) {
+    protected Json[string] _emptyValue(string[] myvalue) {
         if (myvalue.isArray) {
             return myvalue;
         }
@@ -170,9 +170,9 @@ class DSelectBoxWidget : DWidget {
      * Render the contents of an optgroup element.
      * Params:
      * string mylabel The optgroup label text
-     * @param \ArrayAccess<string, mixed>|IData[string] myoptgroup The optgroup data.
+     * @param \ArrayAccess<string, mixed>|Json[string] myoptgroup The optgroup data.
      * @param array|null mydisabled The options to disable.
-     * @param IData myselected The options to select.
+     * @param Json myselected The options to select.
      * @param array mytemplateVars Additional template variables.
      * @param bool myescape Toggle HTML escaping
      * /
@@ -180,7 +180,7 @@ class DSelectBoxWidget : DWidget {
         string mylabel,
         ArrayAccess|array myoptgroup,
         array mydisabled,
-        IData myselected,
+        Json myselected,
         array mytemplateVars,
         bool myescape
     ) {
@@ -208,14 +208,14 @@ class DSelectBoxWidget : DWidget {
      * Params:
      * range options The options to render.
      * @param string[] mydisabled The options to disable.
-     * @param IData myselected The options to select.
+     * @param Json myselected The options to select.
      * @param array mytemplateVars Additional template variables.
      * @param bool myescape Toggle HTML escaping.
      * /
     protected string[] _renderOptions(
         range options,
         array mydisabled,
-        IData myselected,
+        Json myselected,
         array mytemplateVars,
         bool myescape
     ) {
@@ -230,7 +230,7 @@ class DSelectBoxWidget : DWidget {
                     (isSet(myval["options"]) || !myval.isSet("value"))
                 )
             ) {
-                /** @var \ArrayAccess<string, mixed>|IData[string] myval * /
+                /** @var \ArrayAccess<string, mixed>|Json[string] myval * /
                 result ~= _renderOptgroup((string)kv.key, kv.value, mydisabled, myselected, mytemplateVars, myescape);
                 continue;
             }
@@ -241,7 +241,7 @@ class DSelectBoxWidget : DWidget {
                 "templateVars": ArrayData,
             ];
             if (isArray(kv.value) && isSet(kv.value["text"], kv.value["value"])) {
-                /** @var IData[string] myoptAttrs * /
+                /** @var Json[string] myoptAttrs * /
                 myoptAttrs = kv.value;
                 kv.key = myoptAttrs["value"];
             }
@@ -270,9 +270,9 @@ class DSelectBoxWidget : DWidget {
     /**
      * Helper method for deciding what options are selected.
      * Params:
-     * @param IData myselected The selected values.
+     * @param Json myselected The selected values.
      * /
-    protected bool _isSelected(string keyToTest, IData myselected) {
+    protected bool _isSelected(string keyToTest, Json myselected) {
         if (myselected is null) {
             return false;
         }

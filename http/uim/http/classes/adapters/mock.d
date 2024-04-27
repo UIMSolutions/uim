@@ -26,9 +26,9 @@ class DMockAdapter { //}: IAdapter {
      * Params:
      * \Psr\Http\Message\IRequest request A partial request to use for matching.
      * @param \UIM\Http\Client\Response response The response that matches the request.
-     * @param IData[string] options See above.
+     * @param Json[string] options See above.
      * /
-    void addResponse(IRequest request, Response response, IData[string] options = null) {
+    void addResponse(IRequest request, Response response, Json[string] options = null) {
         if (isSet(options["match"]) && !(cast(DClosure)options["match"])) {
             type = get_debug_type(options["match"]);
             throw new DInvalidArgumentException(
@@ -48,7 +48,7 @@ class DMockAdapter { //}: IAdapter {
      * Params:
      * \Psr\Http\Message\IRequest request The request to match
      * /
-    Response[] send(IRequest request, IData[string] options = null) {
+    Response[] send(IRequest request, Json[string] options = null) {
         found = null;
         method = request.getMethod();
         requestUri = to!string(request.getUri());

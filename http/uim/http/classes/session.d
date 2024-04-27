@@ -102,7 +102,7 @@ class DSession {
      * /
     protected static array | false _defaultConfigData(string aName) {
         tmp = defined("TMP") ? TMP : sys_get_temp_dir() ~ DIRECTORY_SEPARATOR;
-        IData[string] defaults = [
+        Json[string] defaults = [
             "D": [
                 "ini": [
                     "session.use_trans_sid": 0,
@@ -162,9 +162,9 @@ class DSession {
      *  the configuration array for the engine. You can set the `engine` key to an already
      *  instantiated session handler object.
      * Params:
-     * IData[string] configData The Configuration to apply to this session object
+     * Json[string] configData The Configuration to apply to this session object
      * /
-    this(IData[string] configData = null) {
+    this(Json[string] configData = null) {
         configData += [
             "timeout": null,
             "cookie": null,
@@ -207,11 +207,11 @@ class DSession {
      * or null if none exists.
      * Params:
      * \!SessionHandler|string  className The session handler to use
-     * @param IData[string] options the options to pass to the SessionHandler constructor
+     * @param Json[string] options the options to pass to the SessionHandler constructor
      * /
     SessionHandler engine(
         !SessionHandler | string | null className = null,
-        IData[string] options = null
+        Json[string] options = null
     ) {
         if (className is null) {
             return _engine;
@@ -252,9 +252,9 @@ class DSession {
      * session.options(["session.use_cookies": 1]);
      * ```
      * Params:
-     * IData[string] options Ini options to set.
+     * Json[string] options Ini options to set.
      * /
-    void options(IData[string] options = null) {
+    void options(Json[string] options = null) {
         if (session_status() == UIM_SESSION_ACTIVE || headers_sent()) {
             return;
         }
@@ -351,9 +351,9 @@ class DSession {
      * Returns given session variable, or all of them, if no parameters given.
      * Params:
      * string name The name of the session variable (or a path as sent to Hash.extract)
-     * @param IData defaultValue The return value when the path does not exist
+     * @param Json defaultValue The return value when the path does not exist
      * /
-    IData read(string aName = null, IData defaultValue = null) {
+    Json read(string aName = null, Json defaultValue = null) {
         if (_hasSession() && !this.started()) {
             this.start();
         }
@@ -369,7 +369,7 @@ class DSession {
     /**
      * Returns given session variable, or throws Exception if not found.
      * /
-    IData readOrFail(string sessionName) {
+    Json readOrFail(string sessionName) {
         if (!this.check(sessionName)) {
             throw new UimException("Expected session key `%s` not found.".format(sessionName));
         }
@@ -377,12 +377,12 @@ class DSession {
     }
 
     // Reads and deletes a variable from session.
-    IData consume(string key) {
+    Json consume(string key) {
         if (isEmpty(key)) {
             return null;
         }
         
-        IData result = this.read(key);
+        Json result = this.read(key);
         if (!result.isNull) {
             /** @psalm-suppress InvalidScalarArgument * /
             _overwrite(_SESSION, Hash.remove(_SESSION, key));
@@ -394,9 +394,9 @@ class DSession {
      * Writes value to given session variable name.
      * Params:
      * string[] aName Name of variable
-     * @param IData aValue Value to write
+     * @param Json aValue Value to write
      * /
-    void write(string[] aName, IData aValue = null) {
+    void write(string[] aName, Json aValue = null) {
         started = this.started() || this.start();
         if (!started) {
             message = "Could not start the session";

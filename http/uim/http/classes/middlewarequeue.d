@@ -11,7 +11,7 @@ class MiddlewareQueue { // }: Countable, SeekableIterator {
     protected int position = 0;
 
     // The queue of middlewares.
-    protected IData[int] queue = null;
+    protected Json[int] queue = null;
 
     protected IContainer container;
 

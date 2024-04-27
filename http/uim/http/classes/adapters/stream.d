@@ -11,10 +11,10 @@ import uim.http;
  * This approach and implementation is partly inspired by Aura.Http
  */
 class DStream { // }: IAdapter {    // Array of options/content for the HTTP stream context.
-    protected IData[string] _contextOptions = null;
+    protected Json[string] _contextOptions = null;
 
     // Array of options/content for the SSL stream context.
-    protected IData[string] _sslContextOptions = null;
+    protected Json[string] _sslContextOptions = null;
 
     /**
      * DContext resource used by the stream API.
@@ -37,7 +37,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * /
     // TODO protected array _connectionErrors = null;
 
-    array send(IRequest request, IData[string] options = null) {
+    array send(IRequest request, Json[string] options = null) {
        _stream = null;
        _context = null;
        _contextOptions = null;
@@ -81,9 +81,9 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * Build the stream context out of the request object.
      * Params:
      * \Psr\Http\Message\IRequest request The request to build context from.
-     * @param IData[string] options Additional request options.
+     * @param Json[string] options Additional request options.
      * /
-    protected void _buildContext(IRequest request, IData[string] options = null) {
+    protected void _buildContext(IRequest request, Json[string] options = null) {
        _buildContent(request, options);
        _buildHeaders(request, options);
        _buildOptions(request, options);
@@ -105,9 +105,9 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * Creates cookies & headers.
      * Params:
      * \Psr\Http\Message\IRequest request The request being sent.
-     * @param IData[string] options Array of options to use.
+     * @param Json[string] options Array of options to use.
      * /
-    protected void _buildHeaders(IRequest request, IData[string] options = null) {
+    protected void _buildHeaders(IRequest request, Json[string] options = null) {
          aHeaders = null;
         foreach (request.getHeaders() as name:  someValues) {
              aHeaders ~= "%s: %s".format(name, join(", ",  someValues));
@@ -122,9 +122,9 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * Array data will be processed with {@link \UIM\Http\Client\FormData}
      * Params:
      * \Psr\Http\Message\IRequest request The request being sent.
-     * @param IData[string] options Array of options to use.
+     * @param Json[string] options Array of options to use.
      * /
-    protected void _buildContent(IRequest request, IData[string] options = null) {
+    protected void _buildContent(IRequest request, Json[string] options = null) {
         body = request.getBody();
         body.rewind();
        _contextOptions["content"] = body.getContents();
@@ -134,9 +134,9 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * Build miscellaneous options for the request.
      * Params:
      * \Psr\Http\Message\IRequest request The request being sent.
-     * @param IData[string] options Array of options to use.
+     * @param Json[string] options Array of options to use.
      * /
-    protected void _buildOptions(IRequest request, IData[string] options = null) {
+    protected void _buildOptions(IRequest request, Json[string] options = null) {
        _contextOptions["method"] = request.getMethod();
        _contextOptions["protocol_version"] = request.getProtocolVersion();
        _contextOptions["ignore_errors"] = true;
@@ -157,9 +157,9 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * Build SSL options for the request.
      * Params:
      * \Psr\Http\Message\IRequest request The request being sent.
-     * @param IData[string] options Array of options to use.
+     * @param Json[string] options Array of options to use.
      * /
-    protected void _buildSslContext(IRequest request, IData[string] options = null) {
+    protected void _buildSslContext(IRequest request, Json[string] options = null) {
         sslOptions = [
             "ssl_verify_peer",
             "ssl_verify_peer_name",
@@ -277,7 +277,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      *
      * Useful for debugging and testing context creation.
      * /
-    IData[string] contextOptions() {
+    Json[string] contextOptions() {
         return array_merge(_contextOptions, _sslContextOptions);
     } */
 }

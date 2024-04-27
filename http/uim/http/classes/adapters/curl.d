@@ -14,7 +14,7 @@ import uim.http;
  */
 class DCurl { // }: IAdapter {
     /*
-    array send(IRequest request, IData[string] options = null) {
+    array send(IRequest request, Json[string] options = null) {
         if (!extension_loaded("curl")) {
             throw new DClientException("curl extension is not loaded.");
         }
@@ -50,9 +50,9 @@ class DCurl { // }: IAdapter {
      * Convert client options into curl options.
      * Params:
      * \Psr\Http\Message\IRequest request The request.
-     * @param IData[string] options The client options
+     * @param Json[string] options The client options
      * /
-    array buildOptions(IRequest request, IData[string] options = null) {
+    array buildOptions(IRequest request, Json[string] options = null) {
         string[] aHeaders = request.getHeaders().byKeyValue
             .map!(keyValues => aKey ~ ": " ~ someValues.join(", ")).array;
 

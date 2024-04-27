@@ -15,7 +15,7 @@ class DRunner : IRequestHandler {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
@@ -24,7 +24,7 @@ class DRunner : IRequestHandler {
     }
 
     // Hook method
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 

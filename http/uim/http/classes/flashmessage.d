@@ -15,7 +15,7 @@ class DFlashMessage {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
@@ -24,7 +24,7 @@ class DFlashMessage {
     }
 
     // Hook method
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -46,7 +46,7 @@ class DFlashMessage {
 
     protected ISession _session;
 
-    this(ISession session, IData[string] configData = null) {
+    this(ISession session, Json[string] configData = null) {
         _session = session;
         configuration.update(configData);
     }
@@ -68,10 +68,10 @@ class DFlashMessage {
      * - `escape` Set to false to allow templates to print out HTML content.
      *
      * messageToBeFlashed - Message to be flashed.
-     * @param IData[string] options An array of options
+     * @param Json[string] options An array of options
      * @see FlashMessage._defaultConfigData For default values for the options.
      * /
-    void set(string messageToBeFlashed, IData[string] options = null) {
+    void set(string messageToBeFlashed, Json[string] options = null) {
         auto options = options.update(this.configuration.data);
 
         if (isSet(options["escape"]) && !isSet(options["params"]["escape"])) {
@@ -117,9 +117,9 @@ class DFlashMessage {
      * ```
      * Params:
      * \Throwable exception Exception instance.
-     * @param IData[string] options An array of options.
+     * @param Json[string] options An array of options.
      * /
-    void setExceptionMessage(Throwable exception, IData[string] options = null) {
+    void setExceptionMessage(Throwable exception, Json[string] options = null) {
         options["element"] ??= "error";
         options["params"]["code"] ??= exception.getCode();
 
@@ -137,7 +137,7 @@ class DFlashMessage {
      * The `'element'` option will be set to  ``success'`.
      * @see FlashMessage.set() For list of valid options
      * /
-    void success(string successMessage, IData[string] options = null) {
+    void success(string successMessage, Json[string] options = null) {
         options["element"] = "Success";
         this.set(successMessage, options);
     }
@@ -147,7 +147,7 @@ class DFlashMessage {
      * The `'element'` option will be set to  `'error'`.
      * @see FlashMessage.set() For list of valid options
      * /
-    void error(string errorMessage, IData[string] options = null) {
+    void error(string errorMessage, Json[string] options = null) {
         options["element"] = "error";
         this.set(errorMessage, options);
     }
@@ -156,7 +156,7 @@ class DFlashMessage {
      * Set a warning message.
      * The `'element'` option will be set to  `'warning'`.
      * /
-    void warning(string warningMessage, IData[string] options = null) {
+    void warning(string warningMessage, Json[string] options = null) {
         options["element"] = "warning";
         this.set(warningMessage, options);
     }
@@ -165,7 +165,7 @@ class DFlashMessage {
      * Set an info message.
      * The `'element'` option will be set to  `'info'`.
      * /
-    void info(string infoMessage, IData[string] options = null) {
+    void info(string infoMessage, Json[string] options = null) {
         options["element"] = "info";
         this.set(infoMessage, options);
     } */

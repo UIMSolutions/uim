@@ -12,7 +12,7 @@ class DTimeAttribute : DAttribute {
   mixin(AttributeThis!("TimeAttribute"));
 
   // Initialization hook method.
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
     
@@ -25,7 +25,7 @@ class DTimeAttribute : DAttribute {
     return true;
   }
   
-  /* override IData createData() {
+  /* override Json createData() {
     return TimeData(this); } */
 }
 mixin(AttributeCalls!"TimeAttribute");

@@ -32,7 +32,7 @@ class DHelper { // TODO }: IEventListener {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
@@ -41,7 +41,7 @@ class DHelper { // TODO }: IEventListener {
     }
 
     // Hook method
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -64,7 +64,7 @@ class DHelper { // TODO }: IEventListener {
     }
     
     /* 
-    this(IView myview, IData[string] helperSettings = null) {
+    this(IView myview, Json[string] helperSettings = null) {
        _View = myview;
         configuration.update(helperSettings);
 
@@ -105,11 +105,11 @@ class DHelper { // TODO }: IEventListener {
     /**
      * Adds the given class to the element options
      * Params:
-     * IData[string] options Array options/attributes to add a class to
+     * Json[string] options Array options/attributes to add a class to
      * @param string classname The class name being added.
      * @param string aKey the key to use for class. Defaults to `"class"`.
      * /
-    IData[string] addClass(IData[string] options, string classname, string aKey = "class") {
+    Json[string] addClass(Json[string] options, string classname, string aKey = "class") {
         if (isSet(options[aKey]) && isArray(options[aKey])) {
             options[aKey] ~= classname;
         } elseif (isSet(options[aKey]) && strip(options[aKey])) {
@@ -152,14 +152,14 @@ class DHelper { // TODO }: IEventListener {
      *
      * Implement this method to avoid having to overwrite the constructor and call parent.
      * Params:
-     * IData[string] helperSettings The configuration settings provided to this helper.
+     * Json[string] helperSettings The configuration settings provided to this helper.
      * /
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
       
     }
     
     // Returns an array that can be used to describe the internal state of this object.
-    IData __debugInfo() {
+    Json __debugInfo() {
         return [
             "helpers": this.helpers,
             "implementedEvents": this.implementedEvents(),

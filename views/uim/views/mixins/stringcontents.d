@@ -31,7 +31,7 @@ mixin template TStringContents() {
     }
     
     // Formats a template string with mydata
-    string formatTemplate(string templateName, IData[string] dataToInsert) {
+    string formatTemplate(string templateName, Json[string] dataToInsert) {
         return _templater().format(templateName, mydata);
     }
     

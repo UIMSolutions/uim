@@ -9,7 +9,7 @@ class DMissingTCellException : DMissingTemplateException {
     mixin(ExceptionThis!("MissingTCell"));
     
     alias initialize = UimException.initialize;
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		
         templateType("Cell template");
@@ -32,10 +32,10 @@ class DMissingTCellException : DMissingTemplateException {
     }
 
     // Get the passed in attributes
-    override void attributes(IData[string] newAttributes) {
+    override void attributes(Json[string] newAttributes) {
         _attributes = newAttributes;
     }
-    override IData[string] attributes() {
+    override Json[string] attributes() {
         return super.attributes()
             .update([
                 "name": StringData(name)

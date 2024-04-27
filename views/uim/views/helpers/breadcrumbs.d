@@ -53,14 +53,14 @@ class DBreadcrumbsHelper : DHelper {
      * Params:
      * string[] myurl URL of the crumb. Either a string, an array of route params to pass to
      * Url.build() or null / empty if the crumb does not have a link.
-     * @param IData[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
+     * @param Json[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
      * be rendered in (a <li> tag by default). It accepts two special keys:
      *
      * - *innerAttrs*: An array that allows you to define attributes for the inner element of the crumb (by default, to
      *  the link)
      * - *templateVars*: Specific template vars in case you override the templates provided.
      * /
-    void add(string[] mytitle, string[] myurl = null, IData[string] options  = null) {
+    void add(string[] mytitle, string[] myurl = null, Json[string] options  = null) {
         if (mytitle.isArray) {
             mytitle.each!(crumb => this.crumbs ~= crumb ~ ["title": "", "url": null, "options": ArrayData]);
             return;
@@ -81,13 +81,13 @@ class DBreadcrumbsHelper : DHelper {
      * Params:
      * string[] myurl URL of the crumb. Either a string, an array of route params to pass to
      * Url.build() or null / empty if the crumb does not have a link.
-     * @param IData[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
+     * @param Json[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
      * be rendered in (a <li> tag by default). It accepts two special keys:
      *
      * - *innerAttrs*: An array that allows you to define attributes for the inner element of the crumb (by default, to the link)
      * - *templateVars*: Specific template vars in case you override the templates provided.
      * /
-    void prepend(string[] titles, string[] myurl = null, IData[string] options  = null) {
+    void prepend(string[] titles, string[] myurl = null, Json[string] options  = null) {
         if (mytitle.isArray) {
             string[] mycrumbs;
             foreach (title; titles) {
@@ -111,7 +111,7 @@ class DBreadcrumbsHelper : DHelper {
      * @param string mytitle Title of the crumb.
      * @param string[] myurl URL of the crumb. Either a string, an array of route params to pass to
      * Url.build() or null / empty if the crumb does not have a link.
-     * @param IData[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
+     * @param Json[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
      * be rendered in (a <li> tag by default). It accepts two special keys:
      *
      * - *innerAttrs*: An array that allows you to define attributes for the inner element of the crumb (by default, to
@@ -120,7 +120,7 @@ class DBreadcrumbsHelper : DHelper {
 
      * @throws \LogicException In case the index is out of bound
      * /
-    void insertAt(int myindex, string mytitle, string[] myurl = null, IData[string] options  = null) {
+    void insertAt(int myindex, string mytitle, string[] myurl = null, Json[string] options  = null) {
         if (!isSet(this.crumbs[myindex]) && myindex != count(this.crumbs)) {
             throw new DLogicException(
                 "No crumb could be found at index `%s`.".format(myindex));
@@ -138,7 +138,7 @@ class DBreadcrumbsHelper : DHelper {
      * @param string mytitle Title of the crumb.
      * @param string[] myurl URL of the crumb. Either a string, an array of route params to pass to
      * Url.build() or null / empty if the crumb does not have a link.
-     * @param IData[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
+     * @param Json[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
      * be rendered in (a <li> tag by default). It accepts two special keys:
      *
      * - *innerAttrs*: An array that allows you to define attributes for the inner element of the crumb (by default, to
@@ -151,7 +151,7 @@ class DBreadcrumbsHelper : DHelper {
         string mymatchingTitle,
         string mytitle,
         string[] myurl = null,
-        IData[string] options  = null
+        Json[string] options  = null
     ) {
         aKey = this.findCrumb(mymatchingTitle);
 
@@ -171,7 +171,7 @@ class DBreadcrumbsHelper : DHelper {
      * @param string mytitle Title of the crumb.
      * @param string[] myurl URL of the crumb. Either a string, an array of route params to pass to
      * Url.build() or null / empty if the crumb does not have a link.
-     * @param IData[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
+     * @param Json[string] options Array of options. These options will be used as attributes HTML attribute the crumb will
      * be rendered in (a <li> tag by default). It accepts two special keys:
      *
      * - *innerAttrs*: An array that allows you to define attributes for the inner element of the crumb (by default, to
@@ -183,7 +183,7 @@ class DBreadcrumbsHelper : DHelper {
         string mymatchingTitle,
         string mytitle,
         string[] myurl = null,
-        IData[string] options  = null
+        Json[string] options  = null
     ) {
         aKey = this.findCrumb(mymatchingTitle);
 
@@ -208,9 +208,9 @@ class DBreadcrumbsHelper : DHelper {
     /**
      * Renders the breadcrumbs trail.
      * Params:
-     * IData[string] myattributes Array of attributes applied to the `wrapper` template. Accepts the `templateVars` key to
+     * Json[string] myattributes Array of attributes applied to the `wrapper` template. Accepts the `templateVars` key to
      * allow the insertion of custom template variable in the template.
-     * @param IData[string] myseparator Array of attributes for the `separator` template.
+     * @param Json[string] myseparator Array of attributes for the `separator` template.
      * Possible properties are :
      *
      * - *separator* The string to be displayed as a separator

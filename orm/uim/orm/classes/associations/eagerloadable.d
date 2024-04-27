@@ -23,7 +23,7 @@ class DEagerLoadable {
     protected IAssociation my_instance = null;
 
     // A list of options to pass to the association object for loading the records.
-    protected IData[string] configuration = null;
+    protected Json[string] configuration = null;
 
     /**
      * A dotted separated string representing the path of associations
@@ -83,7 +83,7 @@ class DEagerLoadable {
      * string associationName The Association name.
      * configData - The list of properties to set.
      * /
-    this(string associationName, IData[string] configData = null) {
+    this(string associationName, Json[string] configData = null) {
         _name = associationName;
         string[] allowed = [
             "associations", "instance", "config", "canBeJoined",
@@ -166,7 +166,7 @@ class DEagerLoadable {
      *
      * configData - The value to set.
      * /
-    void configuration.update(IData[string] configData = null) {
+    void configuration.update(Json[string] configData = null) {
        configuration = configData;
     }
     
@@ -175,7 +175,7 @@ class DEagerLoadable {
      * the records.
      *
      * /
-    IData[string] configuration.data {
+    Json[string] configuration.data {
         return configuration;
     }
     
@@ -207,7 +207,7 @@ class DEagerLoadable {
      * Returns a representation of this object that can be passed to
      * UIM\ORM\EagerLoader.contain()
      * /
-    IData[string] asContainArray() {
+    Json[string] asContainArray() {
         auto myassociations = _associations
             .map!(association => association.asContainArray()).array;
         

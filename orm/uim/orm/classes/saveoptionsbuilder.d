@@ -43,7 +43,7 @@ class DSaveOptionsBuilder { /*}: ArrayObject {
      * @param DORMDORMTable aTable A table instance.
      * @param array<string, mixed> options Options to parse when instantiating.
      * /
-    this(DORMTable aTable, IData[string] optionData = null) {
+    this(DORMTable aTable, Json[string] optionData = null) {
         _table = table;
         this.parseArrayOptions(options);
 
@@ -182,7 +182,7 @@ class DSaveOptionsBuilder { /*}: ArrayObject {
     /**
      * @return array<string, mixed>
      * /
-    IData[string] toDataArray() {
+    Json[string] toDataArray() {
         return _options;
     }
 

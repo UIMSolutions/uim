@@ -57,7 +57,7 @@ class DBelongsToAssociation : DAssociation {
      * @param array<string, mixed> options The options for the original delete.
      * @return bool Success.
      * /
-    bool cascadeDelete_(IEntity anEntity, IData[string] optionData = null) {
+    bool cascadeDelete_(IEntity anEntity, Json[string] optionData = null) {
       return true;
     }
 
@@ -96,7 +96,7 @@ class DBelongsToAssociation : DAssociation {
      * the saved entity
      * @see DORMTable::save()
      * /
-    function saveAssociated(IEntity anEntity, IData[string] optionData = null) {
+    function saveAssociated(IEntity anEntity, Json[string] optionData = null) {
         auto targetEntity = entity.get(this.getProperty());
         if (empty(targetEntity) || !(targetEntity instanceof IEntity)) {
             return entity;
@@ -126,7 +126,7 @@ class DBelongsToAssociation : DAssociation {
      * @throws \RuntimeException if the number of columns in the foreignKeys do not
      * match the number of columns in the target table primaryKeys
      * /
-    // TODO protected array _joinCondition(IData[string] optionData) {
+    // TODO protected array _joinCondition(Json[string] optionData) {
         conditions = null;
         tAlias = _name;
         sAlias = _sourceTable.aliasName();
@@ -158,7 +158,7 @@ class DBelongsToAssociation : DAssociation {
     }
 
 
-    function eagerLoader(IData[string] optionData): Closure
+    function eagerLoader(Json[string] optionData): Closure
     {
         loader = new DSelectLoader([
             "alias": this.aliasName(),

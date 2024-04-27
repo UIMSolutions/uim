@@ -3,7 +3,7 @@ module uim.models.tests.data;
 import uim.models;
 @safe:
 
-bool testDataSetGet(IData testData) {
+bool testDataSetGet(Json testData) {
     /* assert(testData !is null, "testDataSetGet: testdata is null");
     
     testData.set("0");

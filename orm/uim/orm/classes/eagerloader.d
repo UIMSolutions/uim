@@ -15,7 +15,7 @@ class DEagerLoader {
      * Nested array describing the association to be fetched
      * and the options to apply for each of them, if any
      */
-  protected IData[string] _containments = null;
+  protected Json[string] _containments = null;
 
   // #region AutoFieldEnabled
     /++
@@ -197,7 +197,7 @@ class DEagerLoader {
      * @param array<string, mixed> options Extra options for the association matching.
      * @return this
      * /
-    function setMatching(string associationPath, ?callable builder = null, IData[string] optionData = null) {
+    function setMatching(string associationPath, ?callable builder = null, Json[string] optionData = null) {
         if (_matching == null) {
             _matching = new static();
         }
@@ -430,7 +430,7 @@ class DEagerLoader {
      * @return DORMEagerLoadable Object with normalized associations
      * @throws \InvalidArgumentException When containments refer to associations that do not exist.
      * /
-    protected DEagerLoadable _normalizeContain(Table parent, string anAliasName, IData[string] optionData, array paths) {
+    protected DEagerLoadable _normalizeContain(Table parent, string anAliasName, Json[string] optionData, array paths) {
         defaults = _containOptions;
         instance = parent.getAssociation(alias);
 

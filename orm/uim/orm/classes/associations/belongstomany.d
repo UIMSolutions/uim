@@ -138,7 +138,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @return bool if the "matching" key in option is true then this function
      * will return true, false otherwise
      * /
-    bool canBeJoined(IData[string] optionData = null) {
+    bool canBeJoined(Json[string] optionData = null) {
         return !empty(options["matching"]);
     }
 
@@ -382,7 +382,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @param DORMQuery query the query to be altered to include the target table data
      * @param array<string, mixed> options Any extra options or overrides to be taken in account
      * /
-    void attachTo(Query query, IData[string] optionData = null) {
+    void attachTo(Query query, Json[string] optionData = null) {
         if (!empty(options["negateMatch"])) {
             _appendNotMatching(query, options);
 
@@ -415,7 +415,7 @@ class DBelongsToManyAssociation : DAssociation {
     }
 
 
-    protected void _appendNotMatching(Query query, IData[string] optionData) {
+    protected void _appendNotMatching(Query query, Json[string] optionData) {
         if (empty(options["negateMatch"])) {
             return;
         }
@@ -463,12 +463,12 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * @param array<string, mixed> options list of options passed to attachTo method
      * /
-    // TODO protected array _joinCondition(IData[string] optionData) {
+    // TODO protected array _joinCondition(Json[string] optionData) {
         return [];
     }
 
 
-    function eagerLoader(IData[string] optionData): Closure
+    function eagerLoader(Json[string] optionData): Closure
     {
         name = _junctionAssociationName();
         loader = new DSelectWithPivotLoader([
@@ -499,7 +499,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @param array<string, mixed> options The options for the original delete.
      * @return bool Success.
      * /
-    bool cascadeDelete_(IEntity anEntity, IData[string] optionData = null) {
+    bool cascadeDelete_(IEntity anEntity, Json[string] optionData = null) {
         if (!this.getDependent()) {
             return true;
         }
@@ -597,7 +597,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @see DORMTable::save()
      * @see DORMassociations.BelongsToMany::replaceLinks()
      * /
-    function saveAssociated(IEntity anEntity, IData[string] optionData = null) {
+    function saveAssociated(IEntity anEntity, Json[string] optionData = null) {
         targetEntity = entity.get(this.getProperty());
         strategy = this.getSaveStrategy();
 
@@ -696,7 +696,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @param array<string, mixed> options list of options accepted by `Table::save()`
      * @return bool success
      * /
-    protected bool _saveLinks(IEntity sourceEntity, array targetEntities, IData[string] optionData) {
+    protected bool _saveLinks(IEntity sourceEntity, array targetEntities, Json[string] optionData) {
         target = this.getTarget();
         junction = this.junction();
         entityClass = junction.getEntityClass();
@@ -771,7 +771,7 @@ class DBelongsToManyAssociation : DAssociation {
      *   detected to not be already persisted
      * @return bool true on success, false otherwise
      * /
-    bool link(IEntity sourceEntity, array targetEntities, IData[string] optionData = null) {
+    bool link(IEntity sourceEntity, array targetEntities, Json[string] optionData = null) {
         _checkPersistenceStatus(sourceEntity, targetEntities);
         property = this.getProperty();
         links = sourceEntity.get(property) ?: [];
@@ -971,7 +971,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @see DORMTable::find()
      * @return DORMQuery
      * /
-    function find(type = null, IData[string] optionData = null): Query
+    function find(type = null, Json[string] optionData = null): Query
     {
         type = type ?: this.getFinder();
         [type, opts] = _extractFinder(type);
@@ -1072,7 +1072,7 @@ class DBelongsToManyAssociation : DAssociation {
      *   any of them is lacking a primary key value
      * @return bool success
      * /
-    bool replaceLinks(IEntity sourceEntity, array targetEntities, IData[string] optionData = null) {
+    bool replaceLinks(IEntity sourceEntity, array targetEntities, Json[string] optionData = null) {
         bindingKey = (array)this.getBindingKey();
         primaryValue = sourceEntity.extract(bindingKey);
 
@@ -1160,7 +1160,7 @@ class DBelongsToManyAssociation : DAssociation {
         Query existing,
         array jointEntities,
         array targetEntities,
-        IData[string] optionData = null
+        Json[string] optionData = null
     ) {
         junction = this.junction();
         target = this.getTarget();
@@ -1368,7 +1368,7 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * @param array<string, mixed> options original list of options passed in constructor
      * /
-    protected void _options(IData[string] optionData) {
+    protected void _options(Json[string] optionData) {
         if (!empty(options["targetForeignKey"])) {
             this.setTargetForeignKey(options["targetForeignKey"]);
         }

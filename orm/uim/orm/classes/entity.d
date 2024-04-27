@@ -28,10 +28,10 @@ class DORMEntity { // }: IEntity, IInvalidProperty {
      * myentity = new DORMEntity(["id": 1, "name": "Andrew"])
      * ```
      * Params:
-     * IData[string] myproperties hash of properties to set in this entity
-     * @param IData[string] options list of options to use when creating this entity
+     * Json[string] myproperties hash of properties to set in this entity
+     * @param Json[string] options list of options to use when creating this entity
      * /
-    this(array myproperties = [], IData[string] optionData = null) {
+    this(array myproperties = [], Json[string] optionData = null) {
         options = options.update[
             "useSetters": BooleanData(true),
             "markClean": BooleanData(false),

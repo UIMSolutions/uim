@@ -22,7 +22,7 @@ class DAssociation : IAssociation {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         this.initialize(initData);
     }
     
@@ -31,7 +31,7 @@ class DAssociation : IAssociation {
         this.name(newName);
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -142,7 +142,7 @@ class DAssociation : IAssociation {
      * anAliasName - The name given to the association
      * @param array<string, mixed> options A list of properties to be set on this object
      * /
-    this(string anAliasName, IData[string] optionData = null) {
+    this(string anAliasName, Json[string] optionData = null) {
         defaults = [
             "cascadeCallbacks",
             "className",
@@ -388,7 +388,7 @@ bool getDependent() {
      *
      * @param array<string, mixed> options custom options key that could alter the return value
      * /
-bool canBeJoined(IData[string] optionData = null) {
+bool canBeJoined(Json[string] optionData = null) {
     strategy = options.get() "strategy", this.getStrategy());
 
     return strategy == this :  : STRATEGY_JOIN;
@@ -513,7 +513,7 @@ function setFinder(finder) {
      *
      * @param array<string, mixed> options List of options used for initialization
      * /
-protected void _options(IData[string] optionData) {
+protected void _options(Json[string] optionData) {
 }
 
 /**
@@ -542,7 +542,7 @@ protected void _options(IData[string] optionData) {
      * @return void
      * @throws \RuntimeException Unable to build the query or associations.
      * /
-void attachTo(Query query, IData[string] optionData = null) {
+void attachTo(Query query, Json[string] optionData = null) {
     target = this.getTarget();
     table = target.getTable();
 
@@ -620,7 +620,7 @@ void attachTo(Query query, IData[string] optionData = null) {
      * @param DORMQuery query The query to modify
      * @param array<string, mixed> options Options array containing the `negateMatch` key.
      * /
-protected void _appendNotMatching(Query query, IData[string] optionData) {
+protected void _appendNotMatching(Query query, Json[string] optionData) {
     target = _targetTable;
     if (!empty(options["negateMatch"])) {
         primaryKeys = query.aliasFields((array) target.primaryKeys(), _name);
@@ -686,7 +686,7 @@ array defaultRowValue(array row, bool joined) {
      * @see DORMTable::find()
      * @return DORMQuery
      * /
-function find(type = null, IData[string] optionData = null) : Query {
+function find(type = null, Json[string] optionData = null) : Query {
     type = type ?  : this.getFinder();
     [type, opts] = _extractFinder(type);
 
@@ -751,7 +751,7 @@ int deleteAll(conditions) {
      * @param array<string, mixed> options The options containing the strategy to be used.
      * @return bool true if a list of keys will be required
      * /
-bool requiresKeys(IData[string] optionData = null) {
+bool requiresKeys(Json[string] optionData = null) {
     strategy = options["strategy"] ?  ? this.getStrategy();
 
     return strategy == STRATEGY_SELECT;
@@ -775,7 +775,7 @@ protected void _dispatchBeforeFind(Query query) {
      * @param DORMQuery surrogate the query having the fields to be copied from
      * @param array<string, mixed> options options passed to the method `attachTo`
      * /
-protected void _appendFields(Query query, Query surrogate, IData[string] optionData) {
+protected void _appendFields(Query query, Query surrogate, Json[string] optionData) {
     if (query.getEagerLoader().isAutoFieldsEnabled() == false) {
         return;
     }
@@ -805,7 +805,7 @@ protected void _appendFields(Query query, Query surrogate, IData[string] optionD
      * target table.
      * @param array<string, mixed> options options passed to the method `attachTo`
      * /
-protected void _formatAssociationResults(Query query, Query surrogate, IData[string] optionData) {
+protected void _formatAssociationResults(Query query, Query surrogate, Json[string] optionData) {
     formatters = surrogate.getResultFormatters();
 
     if (!formatters || empty(options["propertyPath"])) {
@@ -863,7 +863,7 @@ Query:
      * @param DORMQuery surrogate the query having the containments to be attached
      * @param array<string, mixed> options options passed to the method `attachTo`
      * /
-protected void _bindNewAssociations(Query query, Query surrogate, IData[string] optionData) {
+protected void _bindNewAssociations(Query query, Query surrogate, Json[string] optionData) {
     loader = surrogate.getEagerLoader();
     contain = loader.getContain();
     matching = loader.getMatching();
@@ -900,7 +900,7 @@ protected void _bindNewAssociations(Query query, Query surrogate, IData[string] 
      * @throws \RuntimeException if the number of columns in the foreignKeys do not
      * match the number of columns in the source table primaryKeys
      * /
-// TODO protected array _joinCondition(IData[string] optionData) {
+// TODO protected array _joinCondition(Json[string] optionData) {
     conditions = null;
     tAlias = _name;
     sAlias = this.getSource().aliasName();
@@ -1040,7 +1040,7 @@ abstract string type();
      * @param array<string, mixed> options The options for eager loading.
      * @return \Closure
      * /
-abstract function eagerLoader(IData[string] optionData) : Closure;
+abstract function eagerLoader(Json[string] optionData) : Closure;
 
 /**
      * Handles cascading a delete from an associated model.
@@ -1052,7 +1052,7 @@ abstract function eagerLoader(IData[string] optionData) : Closure;
      * @param array<string, mixed> options The options for the original delete.
      * @return bool Success
      *  /
-abstract bool cascadeDelete_(IEntity anEntity, IData[string] optionData = null);
+abstract bool cascadeDelete_(IEntity anEntity, Json[string] optionData = null);
 
 /**
      * Returns whether the passed table is the owning side for this
@@ -1074,6 +1074,6 @@ abstract bool isOwningSide(Table side);
      * the saved entity
      * @see DORMTable::save()
      * /
-abstract function saveAssociated(IEntity anEntity, IData[string] optionData = null);
+abstract function saveAssociated(IEntity anEntity, Json[string] optionData = null);
     */ 
 }

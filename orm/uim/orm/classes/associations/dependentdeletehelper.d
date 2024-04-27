@@ -25,7 +25,7 @@ class DDependentDeleteHelper {
      * @param array<string, mixed> options The options for the original delete.
      * @return bool Success.
      * /
-    bool cascadeDelete_(DORMAssociation anAssociation, IEntity anEntity, IData[string] optionData = null) {
+    bool cascadeDelete_(DORMAssociation anAssociation, IEntity anEntity, Json[string] optionData = null) {
         if (!anAssociation.getDependent()) {
             return true;
         }

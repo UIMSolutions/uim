@@ -98,7 +98,7 @@ class DEagerLoadable {
      * @param string aName The Association name.
      * @param array<string, mixed> myConfiguration The list of properties to set.
      * /
-    this(string aName, IData[string] configData) {
+    this(string aName, Json[string] configData) {
         _name = name;
         allowed = [
             "associations", "instance", "config", "canBeJoined",
@@ -176,14 +176,14 @@ class DEagerLoadable {
      * @param array<string, mixed> myConfiguration The value to set.
      * @return this
      * /
-    auto configuration.update(IData myConfiguration) {
+    auto configuration.update(Json myConfiguration) {
         configuration = myConfiguration;
 
         return this;
     }
 
     // Gets the list of options to pass to the association object for loading the records.
-    IData configuration.data {
+    Json configuration.data {
       return configuration;
     }
 

@@ -62,7 +62,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @throws \InvalidArgumentException
      * @psalm-param class-string<DORMAssociation> className
      * /
-    DORMAssociation load(string anClassName, string associated, IData[string] optionData = null) {
+    DORMAssociation load(string anClassName, string associated, Json[string] optionData = null) {
         someOptions["tableLocator"] = this.getTableLocator();
         association = new className(associated, someOptions);
 
@@ -162,7 +162,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param array<string, mixed> options The options for the save operation.
      * @return bool Success
      * /
-    bool saveParents(DORMTable aTable, IEntity anEntity, array associations, IData[string] optionData = null) {
+    bool saveParents(DORMTable aTable, IEntity anEntity, array associations, Json[string] optionData = null) {
       if (empty(associations)) {
           return true;
       }
@@ -182,7 +182,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param array<string, mixed> options The options for the save operation.
      * @return bool Success
      * /
-    bool saveChildren(DORMTable aTable, IEntity anEntity, array associations, IData[string] optionData) {
+    bool saveChildren(DORMTable aTable, IEntity anEntity, array associations, Json[string] optionData) {
         if (empty(associations)) {
             return true;
         }
@@ -205,7 +205,7 @@ class DAssociationCollection { // }: IteratorAggregate {
         DORMTable aTable,
         IEntity anEntity,
         array associations,
-        IData[string] optionData,
+        Json[string] optionData,
         bool owningSide
     ) {
         unset(options["associated"]);
@@ -247,7 +247,7 @@ class DAssociationCollection { // }: IteratorAggregate {
         DORMAssociation anAssociation,
         IEntity anEntity,
         array nested,
-        IData[string] optionData
+        Json[string] optionData
     ) {
         if (!anEntity.isDirty(association.getProperty())) {
             return true;
@@ -266,7 +266,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param DORMDatasource\IEntity anEntity The entity to delete associations for.
      * @param array<string, mixed> options The options used in the delete operation.
      * /
-    bool cascadeDelete_(IEntity anEntity, IData[string] optionData) {
+    bool cascadeDelete_(IEntity anEntity, Json[string] optionData) {
         noCascade = null;
         foreach (_items as assoc) {
             if (!assoc.getCascadeCallbacks()) {

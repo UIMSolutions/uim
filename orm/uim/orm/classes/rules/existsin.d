@@ -22,7 +22,7 @@ class DExistsIn {
     /**
      * Options for the constructor
      * /
-    protected IData[string] my_options = null;
+    protected Json[string] my_options = null;
 
     /**
      * Constructor.
@@ -33,11 +33,11 @@ class DExistsIn {
      * string[]|string myfields The field or fields to check existence as primary key.
      * @param \ORM\Table|\ORM\Association|string myrepository The repository where the
      * field will be looked for, or the association name for the repository.
-     * @param IData[string] options The options that modify the rule"s behavior.
+     * @param Json[string] options The options that modify the rule"s behavior.
      *    Options "allowNullableNulls" will make the rule pass if given foreign keys are set to `null`.
      *    Notice: allowNullableNulls cannot pass by database columns set to `NOT NULL`.
       * /
-    this(string[] myfields, Table|Association|string myrepository, IData[string] optionData = null) {
+    this(string[] myfields, Table|Association|string myrepository, Json[string] optionData = null) {
         options = options.update["allowNullableNulls": BooleanData(false)];
        _options = options;
 
@@ -49,11 +49,11 @@ class DExistsIn {
      * Performs the existence check
      * Params:
      * \UIM\Datasource\IEntity myentity The entity from where to extract the fields
-     * @param IData[string] options Options passed to the check,
+     * @param Json[string] options Options passed to the check,
      * where the `repository` key is required.
      * @throws \UIM\Database\Exception\DatabaseException When the rule refers to an undefined association.
      * /
-   bool __invoke(IEntity myentity, IData[string] options) {
+   bool __invoke(IEntity myentity, Json[string] options) {
         if (isString(_repository)) {
             if (!options["repository"].hasAssociation(_repository)) {
                 throw new DatabaseException(

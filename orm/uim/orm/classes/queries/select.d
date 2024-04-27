@@ -288,7 +288,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
     /**
      * Returns an array representation of the results after executing the query.
      * /
-    IData[string] toDataArray() {
+    Json[string] toDataArray() {
         return _all().toArray();
     }
     
@@ -452,7 +452,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * mysingleUser = myquery.select(["id", "username"]).first();
      * ```
      * /
-    IData first() {
+    Json first() {
         if (_isDirty) {
             this.limit(1);
         }
@@ -464,7 +464,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      *
      * @throws \UIM\Datasource\Exception\RecordNotFoundException When there is no first record.
      * /
-    IData firstOrFail() {
+    Json firstOrFail() {
         myentity = this.first();
         if (!myentity) {
             mytable = this.getRepository();
@@ -553,11 +553,11 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * options = myquery.getOptions();
      * ```
      * Params:
-     * IData[string] options The options to be applied
+     * Json[string] options The options to be applied
      * @return this
      * @see getOptions()
      * /
-    auto applyOptions(IData[string] options) {
+    auto applyOptions(Json[string] options) {
         myvalid = [
             "select": "select",
             "fields": "select",
@@ -1427,9 +1427,9 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
     /**
  Params:
      * string myfinder The finder method to use.
-     * @param IData ...myargs Arguments that match up to finder-specific parameters
+     * @param Json ...myargs Arguments that match up to finder-specific parameters
      * /
-    static find(string myfinder, IData ...myargs) {
+    static find(string myfinder, Json ...myargs) {
         mytable = this.getRepository();
 
         /** @psalm-suppress LessSpecificReturnStatement * /
@@ -1470,7 +1470,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
     }
     
     /**
-     * Executes the query and converts the result set into IData.
+     * Executes the query and converts the result set into Json.
      *
      * Part of IDataSerializable interface.
      * /

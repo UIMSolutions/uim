@@ -103,7 +103,7 @@ class DHasManyAssociation : DAssociation {
      * @see DORMTable::save()
      * @throws \InvalidArgumentException when the association data cannot be traversed.
      * /
-    function saveAssociated(IEntity anEntity, IData[string] options = null) {
+    function saveAssociated(IEntity anEntity, Json[string] options = null) {
         myTargetEntities = entity.get(this.getProperty());
 
         isEmpty = in_array(myTargetEntities, [null, [], "", false], true);
@@ -165,7 +165,7 @@ class DHasManyAssociation : DAssociation {
         array foreignKeyReference,
         IEntity parentEntity,
         array entities,
-        IData[string] options
+        Json[string] options
     ) {
         foreignKey = foreignKeyReference.keys;
         myTable = this.getTarget();
@@ -229,7 +229,7 @@ class DHasManyAssociation : DAssociation {
      * @param array<string, mixed> options list of options to be passed to the internal `save` call
      * @return bool true on success, false otherwise
      * /
-    bool link(IEntity sourceEntity, array myTargetEntities, IData[string] options = null) {
+    bool link(IEntity sourceEntity, array myTargetEntities, Json[string] options = null) {
         saveStrategy = this.getSaveStrategy();
         this.setSaveStrategy(self::SAVE_APPEND);
         property = this.getProperty();
@@ -386,7 +386,7 @@ class DHasManyAssociation : DAssociation {
      * any of them is lacking a primary key value
      * @return bool success
      * /
-    bool replace(IEntity sourceEntity, array myTargetEntities, IData[string] options = null) {
+    bool replace(IEntity sourceEntity, array myTargetEntities, Json[string] options = null) {
         property = this.getProperty();
         sourceEntity.set(property, myTargetEntities);
         saveStrategy = this.getSaveStrategy();
@@ -419,7 +419,7 @@ class DHasManyAssociation : DAssociation {
         IEntity anEntity,
         Table myTarget,
         range remainingEntities = null,
-        IData[string] options = null
+        Json[string] options = null
     ) {
         primaryKeys = (array)myTarget.primaryKeys();
         exclusions = new DCollection(remainingEntities);
@@ -462,7 +462,7 @@ class DHasManyAssociation : DAssociation {
      * @param array<string, mixed> options list of options accepted by `Table::delete_()`
      * @return bool success
      * /
-    protected bool _unlink(array foreignKey, Table myTarget, array conditions = null, IData[string] options = null) {
+    protected bool _unlink(array foreignKey, Table myTarget, array conditions = null, Json[string] options = null) {
         mustBeDependent = (!_foreignKeyAcceptsNull(myTarget, foreignKey) || this.getDependent());
 
         if (mustBeDependent) {
@@ -528,7 +528,7 @@ class DHasManyAssociation : DAssociation {
      * @return bool if the "matching" key in option is true then this function
      * will return true, false otherwise
      * /
-    bool canBeJoined(IData[string] options = null) {
+    bool canBeJoined(Json[string] options = null) {
         return !empty(options["matching"]);
     }
 
@@ -577,7 +577,7 @@ class DHasManyAssociation : DAssociation {
      *
      * @param array<string, mixed> options original list of options passed in constructor
      * /
-    protected void _options(IData[string] options) {
+    protected void _options(Json[string] options) {
         if (!empty(options["saveStrategy"])) {
             this.setSaveStrategy(options["saveStrategy"]);
         }
@@ -587,7 +587,7 @@ class DHasManyAssociation : DAssociation {
     }
 
 
-    Closure eagerLoader(IData[string] options) {
+    Closure eagerLoader(Json[string] options) {
         loader = new DSelectLoader([
             "alias":this.aliasName(),
             "sourceAlias":this.getSource().aliasName(),
@@ -604,7 +604,7 @@ class DHasManyAssociation : DAssociation {
     }
 
 
-    bool cascadeDelete_(IEntity anEntity, IData[string] options = null) {
+    bool cascadeDelete_(IEntity anEntity, Json[string] options = null) {
         helper = new DependentDeleteHelper();
 
         return helper.cascadeDelete_(this, entity, options);

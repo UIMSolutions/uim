@@ -47,9 +47,9 @@ class DLinkConstraint {
      * Performs the actual link check.
      * Params:
      * \UIM\Datasource\IEntity myentity The entity involved in the operation.
-     * @param IData[string] options Options passed from the rules checker.
+     * @param Json[string] options Options passed from the rules checker.
      * /
-    bool __invoke(IEntity myentity, IData[string] options) {
+    bool __invoke(IEntity myentity, Json[string] options) {
         mytable = options["repository"] ?? null;
         if (!(cast(Table)mytable)) {
             throw new DInvalidArgumentException(

@@ -176,9 +176,9 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      *  validation set, or an associative array, where key is the name of the
      *  validation set and value the Validator instance.
      * Params:
-     * IData[string] configData List of options for this table.
+     * Json[string] configData List of options for this table.
      * /
-    this(IData[string] configData = null) {
+    this(Json[string] configData = null) {
         if (!empty(configData("registryAlias"])) {
             this.registryKey(configData("registryAlias"]);
         }
@@ -250,7 +250,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * define validation and do any other initialization logic you need.
      *
      * ```
-     * auto initialize(IData[string] initData = null)
+     * auto initialize(Json[string] initData = null)
      * {
      *     this.belongsTo("Users");
      *     this.belongsToMany("Tagging.Tags");
@@ -258,9 +258,9 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * }
      * ```
      * Params:
-     * IData[string] configData Configuration options passed to the constructor
+     * Json[string] configData Configuration options passed to the constructor
      * /
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         return super.initialize(initData);
     }
     
@@ -580,12 +580,12 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * Behaviors are generally loaded during Table.initialize().
      * Params:
      * string myname The name of the behavior. Can be a short class reference.
-     * @param IData[string] options The options for the behavior to use.
+     * @param Json[string] options The options for the behavior to use.
      * @return this
      * @throws \RuntimeException If a behavior is being reloaded.
      * @see \ORM\Behavior
      * /
-    auto addBehavior(string behaviorName, IData[string] optionData = null) {
+    auto addBehavior(string behaviorName, Json[string] optionData = null) {
        _behaviors.load(behaviorName, options);
 
         return this;
@@ -808,9 +808,9 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * Params:
      * string myassociated the alias for the target table. This is used to
      * uniquely identify the association
-     * @param IData[string] options list of options to configure the association definition
+     * @param Json[string] options list of options to configure the association definition
      * /
-    BelongsTo belongsTo(string myassociated, IData[string] optionData = null) {
+    BelongsTo belongsTo(string myassociated, Json[string] optionData = null) {
         options = options.update["sourceTable": this];
 
         /** @var \ORM\Association\BelongsTo * /
@@ -850,9 +850,9 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * Params:
      * string myassociated the alias for the target table. This is used to
      * uniquely identify the association
-     * @param IData[string] options list of options to configure the association definition
+     * @param Json[string] options list of options to configure the association definition
      * /
-    HasOne hasOne(string myassociated, IData[string] optionData = null) {
+    HasOne hasOne(string myassociated, Json[string] optionData = null) {
         options = options.update["sourceTable": this];
 
         return _associations.load(HasOne.classname, myassociated, options);
@@ -897,9 +897,9 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * Params:
      * string myassociated the alias for the target table. This is used to
      * uniquely identify the association
-     * @param IData[string] options list of options to configure the association definition
+     * @param Json[string] options list of options to configure the association definition
      * /
-    HasMany hasMany(string myassociated, IData[string] optionData = null) {
+    HasMany hasMany(string myassociated, Json[string] optionData = null) {
         options = options.update["sourceTable": this];
 
         /** @var \ORM\Association\HasMany * /
@@ -947,9 +947,9 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * Params:
      * string myassociated the alias for the target table. This is used to
      * uniquely identify the association
-     * @param IData[string] options list of options to configure the association definition
+     * @param Json[string] options list of options to configure the association definition
      * /
-    BelongsToMany belongsToMany(string myassociated, IData[string] optionData = null) {
+    BelongsToMany belongsToMany(string myassociated, Json[string] optionData = null) {
         options = options.update["sourceTable": this];
 
         /** @var \ORM\Association\BelongsToMany * /
@@ -1035,9 +1035,9 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * ```
      * Params:
      * string mytype the type of query to perform
-     * @param IData ...myargs Arguments that match up to finder-specific parameters
+     * @param Json ...myargs Arguments that match up to finder-specific parameters
      * /
-    SelectQuery find(string mytype = "all", IData ...myargs) {
+    SelectQuery find(string mytype = "all", Json ...myargs) {
         return _callFinder(mytype, this.selectQuery(), ...myargs);
     }
     
@@ -1203,11 +1203,11 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * This is an auxiliary auto used for result formatters that can accept
      * composite keys when comparing values.
      * Params:
-     * IData[string] options the original options passed to a finder
+     * Json[string] options the original options passed to a finder
      * @param string[] someKeys the keys to check in options to build matchers from
      * the associated value
      * /
-    protected IData[string] _setFieldMatchers(IData[string] options, array someKeys) {
+    protected Json[string] _setFieldMatchers(Json[string] options, array someKeys) {
         someKeys.each!((field) {
             if (!options[field].isArray) {
                 continue;
@@ -1237,20 +1237,20 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * myarticle = myarticles.get(1, ["contain": ["Users", "Comments"]]);
      * ```
      * Params:
-     * IData myprimaryKey primary key value to find
+     * Json myprimaryKey primary key value to find
      * @param string[]|string myfinder The finder to use. Passing an options array is deprecated.
      * @param \Psr\SimpleCache\ICache|string mycache The cache config to use.
      *  Defaults to `null`, i.e. no caching.
      * @param \Closure|string mycacheKey The cache key to use. If not provided
      *  one will be autogenerated if `mycache` is not null.
-     * @param IData ...myargs Arguments that query options or finder specific parameters.
+     * @param Json ...myargs Arguments that query options or finder specific parameters.
      * /
     IEntity get(
-        IData myprimaryKey,
+        Json myprimaryKey,
         string[]|string myfinder = "all",
         ICache|string mycache = null,
         Closure|string mycacheKey = null,
-        IData ...myargs
+        Json ...myargs
     ) {
         if (myprimaryKey is null) {
             throw new DInvalidPrimaryKeyException(
@@ -1318,7 +1318,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * callable myworker The worker that will run inside the transaction.
      * @param bool myatomic Whether to execute the worker inside a database transaction.
      * /
-    protected IData _executeTransaction(callable myworker, bool myatomic = true) {
+    protected Json _executeTransaction(callable myworker, bool myatomic = true) {
         if (myatomic) {
             return _getConnection().transactional(fn (): myworker());
         }
@@ -1365,12 +1365,12 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * @param callable|null mycallback A callback that will be invoked for newly
      *  created entities. This callback will be called *before* the entity
      *  is persisted.
-     * @param IData[string] options The options to use when saving.
+     * @param Json[string] options The options to use when saving.
      * /
     IEntity findOrCreate(
         SelectQuery|callable|array mysearch,
         ?callable aCallback = null,
-        IData[string] optionData = null
+        Json[string] optionData = null
     ) {
         options = new ArrayObject(options ~ [
             "atomic": BooleanData(true),
@@ -1396,7 +1396,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * @param callable|null mycallback A callback that will be invoked for newly
      *  created entities. This callback will be called *before* the entity
      *  is persisted.
-     * @param IData[string] options The options to use when saving.
+     * @param Json[string] options The options to use when saving.
      * @return \UIM\Datasource\IEntity|array An entity.
      * @throws \ORM\Exception\PersistenceFailedException When the entity couldn"t be saved
      * @throws \InvalidArgumentException
@@ -1404,7 +1404,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
     protected IEntity|array _processFindOrCreate(
         SelectQuery|callable|array mysearch,
         ?callable aCallback = null,
-        IData[string] optionData = null
+        Json[string] optionData = null
     ) {
         myquery = _getFindOrCreateQuery(mysearch);
 
@@ -1626,11 +1626,11 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * ```
      * Params:
      * \UIM\Datasource\IEntity myentity the entity to be saved
-     * @param IData[string] options The options to use when saving.
+     * @param Json[string] options The options to use when saving.
      * /
     IEntity|false save(
         IEntity myentity,
-        IData[string] optionData = null
+        Json[string] optionData = null
     ) {
         options = new ArrayObject(options ~ [
             "atomic": BooleanData(true),
@@ -1672,9 +1672,9 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * the entity contains errors or the save was aborted by a callback.
      * Params:
      * \UIM\Datasource\IEntity myentity the entity to be saved
-     * @param IData[string] options The options to use when saving.
+     * @param Json[string] options The options to use when saving.
      * /
-    IEntity saveOrFail(IEntity myentity, IData[string] optionData = null) {
+    IEntity saveOrFail(IEntity myentity, Json[string] optionData = null) {
         mysaved = this.save(myentity, options);
         if (mysaved == false) {
             throw new DPersistenceFailedException(myentity, ["save"]);
@@ -1910,13 +1910,13 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * error.
      * Params:
      * iterable<\UIM\Datasource\IEntity> myentities Entities to save.
-     * @param IData[string] options Options used when calling Table.save() for each entity.
+     * @param Json[string] options Options used when calling Table.save() for each entity.
      * @return iterable<\UIM\Datasource\IEntity>|false False on failure, entities list on success.
      * @throws \Exception
      * /
     auto saveMany(
         range myentities,
-        IData[string] optionData = null
+        Json[string] optionData = null
     ): iterable|false {
         try {
             return _saveMany(myentities, options);
@@ -1933,22 +1933,22 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * error.
      * Params:
      * iterable<\UIM\Datasource\IEntity> myentities Entities to save.
-     * @param IData[string] options Options used when calling Table.save() for each entity.
+     * @param Json[string] options Options used when calling Table.save() for each entity.
      * /
-    iterable<\UIM\Datasource\IEntity> saveManyOrFail(Range myentities, IData[string] optionData = null) {
+    iterable<\UIM\Datasource\IEntity> saveManyOrFail(Range myentities, Json[string] optionData = null) {
         return _saveMany(myentities, options);
     }
     
     /**
      * @param iterable<\UIM\Datasource\IEntity> myentities Entities to save.
-     * @param IData[string] options Options used when calling Table.save() for each entity.
+     * @param Json[string] options Options used when calling Table.save() for each entity.
      * @throws \ORM\Exception\PersistenceFailedException If an entity couldn"t be saved.
      * @throws \Exception If an entity couldn"t be saved.
      * @return iterable<\UIM\Datasource\IEntity> Entities list.
      * /
     protected auto _saveMany(
         range myentities,
-        IData[string] optionData = null
+        Json[string] optionData = null
     ): range {
         options = new ArrayObject(
             options ~ [
@@ -2046,9 +2046,9 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * the options used in the delete operation.
      * Params:
      * \UIM\Datasource\IEntity myentity The entity to remove.
-     * @param IData[string] options The options for the delete.
+     * @param Json[string] options The options for the delete.
          * /
-    bool delete_(IEntity myentity, IData[string] optionData = null) {
+    bool delete_(IEntity myentity, Json[string] optionData = null) {
         options = new ArrayObject(options ~ [
             "atomic": BooleanData(true),
             "checkRules": BooleanData(true),
@@ -2077,9 +2077,9 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * error.
      * Params:
      * iterable<\UIM\Datasource\IEntity> myentities Entities to delete.
-     * @param IData[string] options Options used when calling Table.save() for each entity.
+     * @param Json[string] options Options used when calling Table.save() for each entity.
      * /
-    IEntity[] deleteMany(Range myentities, IData[string] optionData = null) {
+    IEntity[] deleteMany(Range myentities, Json[string] optionData = null) {
         myfailed = _deleteMany(myentities, options);
 
         if (myfailed !isNull) {
@@ -2096,9 +2096,9 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * error.
      * Params:
      * iterable<\UIM\Datasource\IEntity> myentities Entities to delete.
-     * @param IData[string] options Options used when calling Table.save() for each entity.
+     * @param Json[string] options Options used when calling Table.save() for each entity.
      * /
-    iterable<\UIM\Datasource\IEntity> deleteManyOrFail(Range myentities, IData[string] optionData = null) {
+    iterable<\UIM\Datasource\IEntity> deleteManyOrFail(Range myentities, Json[string] optionData = null) {
         myfailed = _deleteMany(myentities, options);
 
         if (myfailed !isNull) {
@@ -2109,9 +2109,9 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
     
     /**
      * @param iterable<\UIM\Datasource\IEntity> myentities Entities to delete.
-     * @param IData[string] options Options used.
+     * @param Json[string] options Options used.
      * /
-    protected IEntity _deleteMany(Range myentities, IData[string] optionData = null) {
+    protected IEntity _deleteMany(Range myentities, Json[string] optionData = null) {
         options = new ArrayObject(options ~ [
                 "atomic": BooleanData(true),
                 "checkRules": BooleanData(true),
@@ -2142,9 +2142,9 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * has no primary key value, application rules checks failed or the delete was aborted by a callback.
      * Params:
      * \UIM\Datasource\IEntity myentity The entity to remove.
-     * @param IData[string] options The options for the delete.
+     * @param Json[string] options The options for the delete.
      * /
-    bool deleteOrFail(IEntity myentity, IData[string] optionData = null) {
+    bool deleteOrFail(IEntity myentity, Json[string] optionData = null) {
         mydeleted = this.delete_(myentity, options);
         if (mydeleted == false) {
             throw new DPersistenceFailedException(myentity, ["delete"]);
@@ -2223,9 +2223,9 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * @template TSubject of \UIM\Datasource\IEntity|array
      * @param string mytype Name of the finder to be called.
      * @param \ORM\Query\SelectQuery<TSubject> myquery The query object to apply the finder options to.
-     * @param IData ...myargs Arguments that match up to finder-specific parameters
+     * @param Json ...myargs Arguments that match up to finder-specific parameters
      * /
-    SelectQuery<TSubject> callFinder(string mytype, SelectQuery myquery, IData ...myargs) {
+    SelectQuery<TSubject> callFinder(string mytype, SelectQuery myquery, Json ...myargs) {
         myfinder = "find" ~ mytype;
         if (method_exists(this, myfinder)) {
             return _invokeFinder(this.{myfinder}(...), myquery, myargs);
@@ -2256,7 +2256,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
         if (myargs == [] || isSet(myargs[0])) {
             mysecondParamType = mysecondParam?.getType();
             mysecondParamTypeName = cast(ReflectionNamedType)mysecondParamType ? mysecondParamType.name: null;
-            // Backwards compatibility of 4.x style finders with signature `findFoo(SelectQuery myquery, IData[string] options)`
+            // Backwards compatibility of 4.x style finders with signature `findFoo(SelectQuery myquery, Json[string] options)`
             // called as `find("foo")` or `find("foo", [..])`
             if (
                 count(myparams) == 2 &&
@@ -2371,7 +2371,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * Params:
      * @param array myargs List of arguments passed to the function
      * /
-    IData __call(string methodToInvoke, array myargs) {
+    Json __call(string methodToInvoke, array myargs) {
         if (_behaviors.hasMethod(methodToInvoke)) {
             return _behaviors.call(methodToInvoke, myargs);
         }
@@ -2478,11 +2478,11 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * before it is converted into entities.
      * Params:
      * array data The data to build an entity with.
-     * @param IData[string] options A list of options for the object hydration.
+     * @param Json[string] options A list of options for the object hydration.
      * @return \UIM\Datasource\IEntity
      * @see \ORM\Marshaller.one()
      * /
-    auto newEntity(array data, IData[string] optionData = null): IEntity
+    auto newEntity(array data, Json[string] optionData = null): IEntity
     {
         options["associated"] ??= _associations.keys();
 
@@ -2517,9 +2517,9 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * before it is converted into entities.
      * Params:
      * array data The data to build an entity with.
-     * @param IData[string] options A list of options for the objects hydration.
+     * @param Json[string] options A list of options for the objects hydration.
      * /
-    IEntity[] newEntities(array data, IData[string] optionData = null) {
+    IEntity[] newEntities(array data, Json[string] optionData = null) {
         options["associated"] ??= _associations.keys();
 
         return _marshaller().many(mydata, options);
@@ -2571,9 +2571,9 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * \UIM\Datasource\IEntity myentity the entity that will get the
      * data merged in
      * @param array data key value list of fields to be merged into the entity
-     * @param IData[string] options A list of options for the object hydration.
+     * @param Json[string] options A list of options for the object hydration.
      * /
-    IEntity patchEntity(IEntity myentity, array data, IData[string] optionData = null) {
+    IEntity patchEntity(IEntity myentity, array data, Json[string] optionData = null) {
         options["associated"] ??= _associations.keys();
 
         return _marshaller().merge(myentity, mydata, options);
@@ -2606,9 +2606,9 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * iterable<\UIM\Datasource\IEntity> myentities the entities that will get the
      * data merged in
      * @param array data list of arrays to be merged into the entities
-     * @param IData[string] options A list of options for the objects hydration.
+     * @param Json[string] options A list of options for the objects hydration.
      * /
-    IEntity[] patchEntities(Range myentities, array data, IData[string] optionData = null) {
+    IEntity[] patchEntities(Range myentities, array data, Json[string] optionData = null) {
         options["associated"] ??= _associations.keys();
 
         return _marshaller().mergeMany(myentities, mydata, options);
@@ -2642,13 +2642,13 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * the same site_id. Scoping will only be used if the scoping field is present in
      * the data to be validated.
      * Params:
-     * IData aValue The value of column to be checked for uniqueness.
-     * @param IData[string] options The options array, optionally containing the "scope" key.
+     * Json aValue The value of column to be checked for uniqueness.
+     * @param Json[string] options The options array, optionally containing the "scope" key.
      *  May also be the validation context, if there are no options.
      * @param array|null mycontext Either the validation context or null.
      * @return bool True if the value is unique, or false if a non-scalar, non-unique value was given.
      * /
-    bool validateUnique(IData aValue, IData[string] options, array mycontext = null) {
+    bool validateUnique(Json aValue, Json[string] options, array mycontext = null) {
         if (mycontext is null) {
             mycontext = options;
         }

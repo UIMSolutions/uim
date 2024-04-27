@@ -11,7 +11,7 @@ class DIsUnique {
 
     /* 
     // The unique check options
-    protected IData[string] _options = [
+    protected Json[string] _options = [
         "allowMultipleNulls": BooleanData(true),
     ];
 
@@ -23,15 +23,15 @@ class DIsUnique {
      * - `allowMultipleNulls` Allows any field to have multiple null values. Defaults to true.
      * Params:
      * string[] myfields The list of fields to check uniqueness for
-     * @param IData[string] options The options for unique checks.
+     * @param Json[string] options The options for unique checks.
      * /
-    this(array myfields, IData[string] optionData = null) {
+    this(array myfields, Json[string] optionData = null) {
        _fields = myfields;
        _options = options + _options;
     }
     
     // Performs the uniqueness check
-   bool __invoke(IEntity entity, IData[string] options) {
+   bool __invoke(IEntity entity, Json[string] options) {
         if (!entity.extract(_fields, true)) {
             return true;
         }
@@ -53,7 +53,7 @@ class DIsUnique {
     }
     
     // Add a model aliasToAdd to all the keys in a set of conditions.
-    protected IData[string] _alias(string myalias, array aliasConditions) {
+    protected Json[string] _alias(string myalias, array aliasConditions) {
         auto myaliased = null;
         aliasConditions.byKeyValue
             .each!(kv => myaliased["aliasToAdd.aKey IS"] = kv.value);

@@ -27,7 +27,7 @@ class DRulesChecker { // }: BaseRulesChecker {
      * - `allowMultipleNulls` Allows any field to have multiple null values. Defaults to false.
      * Params:
      * string[] myfields The list of fields to check for uniqueness.
-     * @param IData[string]|string mymessage The error message to show in case the rule does not pass. Can
+     * @param Json[string]|string mymessage The error message to show in case the rule does not pass. Can
      *  also be an array of options. When an array, the "message" key can be used to provide a message.
      * /
     RuleInvoker isUnique(array myfields, string[] mymessage = null) {
@@ -68,7 +68,7 @@ class DRulesChecker { // }: BaseRulesChecker {
      * string[]|string myfield The field or list of fields to check for existence by
      * primary key lookup in the other table.
      * @param \ORM\Table|\ORM\Association|string mytable The table name where the fields existence will be checked.
-     * @param IData[string]|string mymessage The error message to show in case the rule does not pass. Can
+     * @param Json[string]|string mymessage The error message to show in case the rule does not pass. Can
      *  also be an array of options. When an array, the "message" key can be used to provide a message.
      * /
     RuleInvoker existsIn(

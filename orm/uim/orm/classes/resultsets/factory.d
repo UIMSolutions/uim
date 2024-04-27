@@ -90,7 +90,7 @@ class DResultsetFactory {
      * array myrow Array containing columns and values.
      * @param array data Array containing table and query metadata
      * /
-    protected IEntity|array groupResult(array myrow, IData[string] metadata) {
+    protected IEntity|array groupResult(array myrow, Json[string] metadata) {
         results = mypresentAliases = null;
         metadata.addData([
             "useSetters": BoolData(false),

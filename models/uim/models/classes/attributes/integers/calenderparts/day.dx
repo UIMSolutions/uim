@@ -14,7 +14,7 @@ means.calendar.day */
 class DDayPartAttribute : DIntegerCalendarPart {
   mixin(AttributeThis!("DayPart"));
 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }

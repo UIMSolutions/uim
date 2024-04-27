@@ -11,7 +11,7 @@ import uim.models;
 class DOwnerElementAttribute : DAttribute {
   mixin(AttributeThis!("OwnerElementAttribute"));
 
-  /* override IData createData() {
+  /* override Json createData() {
     return ElementData(this)
       .value(
         Element

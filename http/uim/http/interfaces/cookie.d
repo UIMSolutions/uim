@@ -121,10 +121,10 @@ interface ICookie {
     // TODO static withSameSite(SameSiteEnum|string|null sameSite);
 
     // Get cookie options
-    IData[string] getOptions();
+    Json[string] getOptions();
 
     // Get cookie data as array.
-    IData[string] toArray();
+    Json[string] toArray();
 
     // Returns the cookie as header value
     string toHeaderValue();

@@ -21,10 +21,10 @@ class DatabaseSession { // }: SessionHandler {
      * Constructor. Looks at Session configuration information and
      * sets up the session model.
      * Params:
-     * IData[string] configData The configuration for this engine. It requires the 'model'
+     * Json[string] configData The configuration for this engine. It requires the 'model'
      * key to be present corresponding to the Table to use for managing the sessions.
      * /
-    this(IData[string] configData = null) {
+    this(Json[string] configData = null) {
         if (isSet(configData("tableLocator"])) {
             this.setTableLocator(configData("tableLocator"]);
         }

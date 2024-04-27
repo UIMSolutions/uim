@@ -92,7 +92,7 @@ class DResponse : IResponse {
     // Holds type key to mime type mappings for known mime types.
     protected STRINGAA _mimeTypes = [
         "html": ["text/html", "*/*"],
-        "IData": "application/IData",
+        "Json": "application/Json",
         "xml": ["application/xml", "text/xml"],
         "xhtml": ["application/xhtml+xml", "application/xhtml", "text/xhtml"],
         "webp": "image/webp",
@@ -127,7 +127,7 @@ class DResponse : IResponse {
         "bz2": "application/x-bzip",
         "7z": "application/x-7z-compressed",
         "hal": ["application/hal+xml", "application/vnd.hal+xml"],
-        "halIData": ["application/hal+IData", "application/vnd.hal+IData"],
+        "halIData": ["application/hal+Json", "application/vnd.hal+Json"],
         "halxml": ["application/hal+xml", "application/vnd.hal+xml"],
         "hdf": "application/x-hdf",
         "hqx": "application/mac-binhex40",
@@ -135,9 +135,9 @@ class DResponse : IResponse {
         "ips": "application/x-ipscript",
         "ipx": "application/x-ipix",
         "js": "application/javascript",
-        "IDataapi": "application/vnd.api+IData",
+        "IDataapi": "application/vnd.api+Json",
         "latex": "application/x-latex",
-        "IDatald": "application/ld+IData",
+        "IDatald": "application/ld+Json",
         "kml": "application/vnd.google-earth.kml+xml",
         "kmz": "application/vnd.google-earth.kmz",
         "lha": "application/octet-stream",
@@ -319,7 +319,7 @@ class DResponse : IResponse {
         "oex": "application/x-opera-extension",
         "xpi": "application/x-xpinstall",
         "safariextz": "application/octet-stream",
-        "webapp": "application/x-web-app-manifest+IData",
+        "webapp": "application/x-web-app-manifest+Json",
         "vcf": "text/x-vcard",
         "vtt": "text/vtt",
         "mkv": "video/x-matroska",
@@ -354,7 +354,7 @@ class DResponse : IResponse {
      * Holds all the cache directives that will be converted
      * into headers when sending the request
      */
-    protected IData[string] _cacheDirectives = null;
+    protected Json[string] _cacheDirectives = null;
 
     /**
      * Collection of cookies to send to the client
@@ -381,7 +381,7 @@ class DResponse : IResponse {
     /**
      * Constructor
      * Params:
-     * IData[string] options list of parameters to setup the response. Possible values are:
+     * Json[string] options list of parameters to setup the response. Possible values are:
      *
      * - body: the response text that should be sent to the client
      * - status: the HTTP status code to respond with
@@ -389,7 +389,7 @@ class DResponse : IResponse {
      * - charset: the charset for the response body
      * @throws \InvalidArgumentException
      */
-    this(IData[string] options = null) {
+    this(Json[string] options = null) {
        _streamTarget = options["streamTarget"] ?? _streamTarget;
        _streamMode = options["streamMode"] ?? _streamMode;
         if (isSet(options["stream"])) {
@@ -1002,9 +1002,9 @@ class DResponse : IResponse {
      * ```
      * Params:
      * string aurl The LinkHeader url.
-     * @param IData[string] options The LinkHeader params.
+     * @param Json[string] options The LinkHeader params.
      * /
-    static withAddedLink(string aurl, IData[string] options = null) {
+    static withAddedLink(string aurl, Json[string] options = null) {
         string[] params;
         foreach (options as aKey: option) {
             params ~= aKey ~ "=\"" ~ option ~ "\"";
@@ -1175,7 +1175,7 @@ class DResponse : IResponse {
      * Params:
      * string aPath Absolute path to file.
      * /
-    static withFile(string aPath, IData[string] options = null) {
+    static withFile(string aPath, Json[string] options = null) {
         file = this.validateFile(somePath);
         auto options = options.update([
             "name": StringData,

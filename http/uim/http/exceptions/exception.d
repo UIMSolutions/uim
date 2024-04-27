@@ -15,7 +15,7 @@ import uim.http;
 class DHttpException : UimException {
   mixin(ExceptionThis!("Http"));
 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }
@@ -29,10 +29,10 @@ class DHttpException : UimException {
   protected int _defaultCode = 500;
 
   // Gets/Sets HTTP response headers.
-  mixin(TProperty!("IData[string]", "headers"));
+  mixin(TProperty!("Json[string]", "headers"));
 
   // Set a single HTTP response header.
-  void header(string headerName, IData headerValue = null) {
+  void header(string headerName, Json headerValue = null) {
     this.headers[headerName] = headerValue;
   }
 

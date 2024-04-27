@@ -31,7 +31,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      *   FormHelper.
      *
      * /
-    protected IData _config = [
+    protected Json _config = [
         "key": StringData("csrfToken"),
         "field": StringData("_csrfToken"),
     ];
@@ -47,7 +47,7 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
 
     const int TOKEN_VALUE_LENGTH = 32;
 
-    this(IData[string] configData = null) {
+    this(Json[string] configData = null) {
        _config = configData + _config;
     }
     

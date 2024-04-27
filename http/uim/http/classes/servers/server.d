@@ -17,7 +17,7 @@ class DServer { // }: IEventDispatcher {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
@@ -26,7 +26,7 @@ class DServer { // }: IEventDispatcher {
     }
 
     // Hook method
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 

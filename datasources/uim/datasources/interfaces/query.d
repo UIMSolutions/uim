@@ -96,9 +96,9 @@ interface IQuery {
      * .limit(10)
      * ```
      * Params:
-     * IData[string] options list of query clauses to apply new parts to.
+     * Json[string] options list of query clauses to apply new parts to.
      * /
-    auto applyOptions(IData[string] optionData = null);
+    auto applyOptions(Json[string] optionData = null);
 
     /**
      * Apply custom finds to against an existing query object.
@@ -113,9 +113,9 @@ interface IQuery {
      * a single query.
      * Params:
      * string afinder The finder method to use.
-     * @param IData ...someArguments Arguments that match up to finder-specific parameters
+     * @param Json ...someArguments Arguments that match up to finder-specific parameters
      * /
-    static find(string afinder, IData ...someArguments);
+    static find(string afinder, Json ...someArguments);
 
     /**
      * Returns the first result out of executing this query, if the query has not been
@@ -127,7 +127,7 @@ interface IQuery {
      * singleUser = aQuery.select(["id", "username"]).first();
      * ```
      * /
-    IData first()  ;
+    Json first()  ;
 
     /**
      * Returns the total amount of results for the query.
@@ -236,7 +236,7 @@ interface IQuery {
     void page(int num, int aLimit = null);
 
     // Returns an array representation of the results after executing the query.
-    IData[string] toDataArray();
+    Json[string] toDataArray();
 
     /**
      * Set the default Table object that will be used by this query

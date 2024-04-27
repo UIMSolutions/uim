@@ -112,26 +112,25 @@ class DExceptionRenderer : IExceptionRenderer {
         }
 
         myErrorOccured = false;
+            DCONController controller;
         try {
             myParams = myRequest.getAttribute("params");
             myParams["controller"] = "Error";
 
             factory = new DControllerFactory(new DContainer());
-            myClass = factory.getControllerClass(myRequest.withAttribute("params", myParams));
+            string myClass = factory.getControllerClass(myRequest.withAttribute("params", myParams));
 
-            if (!myClass) {
-                /** @var string myClass * /
+            if (myClass.isEmpty) {
                 myClass = App::className("Error", "Controller", "Controller");
             }
 
-            /** var DCONController controller * /
             controller = new myClass(myRequest);
             controller.startupProcess();
         } catch (Throwable e) {
             myErrorOccured = true;
         }
 
-        if (!isset(controller)) {
+        if (!controller.isNull)) {
             return new DController(myRequest);
         }
 

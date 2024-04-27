@@ -27,7 +27,7 @@ mixin template TQuery() {
     protected _results;
 
     // List of map-reduce routines that should be applied over the query result
-    protected IData[string] _mapReduce = null;
+    protected Json[string] _mapReduce = null;
 
     /**
      * List of formatter classes or callbacks that will post-process the
@@ -46,7 +46,7 @@ mixin template TQuery() {
      * Holds any custom options passed using applyOptions that could not be processed
      * by any method in this class.
      * /
-    protected IData[string] _options = null;
+    protected Json[string] _options = null;
 
     /**
      * Whether the query is standalone or the product of an eager load operation.
@@ -256,7 +256,7 @@ mixin template TQuery() {
     /**
      * Returns an array representation of the results after executing the query.
      * /
-    IData[string] toDataArray() {
+    Json[string] toDataArray() {
         return _all().toArray();
     }
 
@@ -516,7 +516,7 @@ mixin template TQuery() {
      * @param array<string, mixed> options the options to be applied
      * @return this
      * /
-    abstract function applyOptions(IData[string] optionData);
+    abstract function applyOptions(Json[string] optionData);
 
     /**
      * Executes this query and returns a traversable object containing the results

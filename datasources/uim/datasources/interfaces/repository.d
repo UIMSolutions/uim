@@ -29,7 +29,7 @@ interface IRepository {
      * Creates a new Query for this repository and applies some defaults based on the
      * type of search that was selected.
      */
-    IQuery find(string queryType = "all", IData someArguments);
+    IQuery find(string queryType = "all", Json someArguments);
 
     /**
      * Returns a single record after finding it by its primary key, if no record is
@@ -44,7 +44,7 @@ interface IRepository {
      * article = articles.get(anId, ["contain": ["Comments]]);
      * ```
      * Params:
-     * IData primaryKey primary key value to find
+     * Json primaryKey primary key value to find
      * @param string[] afinder The finder to use. Passing an options array is deprecated.
      * @param \Psr\SimpleCache\ICache|string|null cache The cache config to use.
      *  Defaults to `null`, i.e. no caching.
@@ -54,11 +54,11 @@ interface IRepository {
      * could not be found
      * /
     IEntity get(
-        IData primaryKey,
+        Json primaryKey,
         string[] afinder = "all",
         ICache|string|null cache = null,
         Closure|string|null cacheKey = null,
-        IData ...someArguments
+        Json ...someArguments
     );
 
     // Creates a new Query instance for this repository
@@ -106,9 +106,9 @@ interface IRepository {
      * of any error.
      * Params:
      * \UIM\Datasource\IEntity entity the entity to be saved
-     * @param IData[string] optionData The options to use when saving.
+     * @param Json[string] optionData The options to use when saving.
      * /
-    IEntity|false save(IEntity entity, IData[string] optionData = null);
+    IEntity|false save(IEntity entity, Json[string] optionData = null);
 
     /**
      * Delete a single entity.
@@ -117,9 +117,9 @@ interface IRepository {
      * based on the 'dependent' option used when defining the association.
      * Params:
      * \UIM\Datasource\IEntity entity The entity to remove.
-     * @param IData[string] optionData The options for the delete.
+     * @param Json[string] optionData The options for the delete.
          * /
-    bool delete_(IEntity entity, IData[string] optionData = null);
+    bool delete_(IEntity entity, Json[string] optionData = null);
 
     /**
      * This creates a new entity object.
@@ -145,9 +145,9 @@ interface IRepository {
      * is saved. Until the entity is saved, it will be a detached record.
      * Params:
      * array data The data to build an entity with.
-     * @param IData[string] options A list of options for the object hydration.
+     * @param Json[string] options A list of options for the object hydration.
      * /
-    IEntity newEntity(array data, IData[string] optionData = null);
+    IEntity newEntity(array data, Json[string] optionData = null);
 
     /**
      * Create a list of entities + associated entities from an array.
@@ -161,7 +161,7 @@ interface IRepository {
      *
      * The hydrated entities can then be iterated and saved.
      * /
-    IEntity[] newEntities(array buildData, IData[string] optionDataForHydration = null);
+    IEntity[] newEntities(array buildData, Json[string] optionDataForHydration = null);
 
     /**
      * Merges the passed `someData` into `entity` respecting the accessible
@@ -177,9 +177,9 @@ interface IRepository {
      * \UIM\Datasource\IEntity entity the entity that will get the
      * data merged in
      * @param array data key value list of fields to be merged into the entity
-     * @param IData[string] options A list of options for the object hydration.
+     * @param Json[string] options A list of options for the object hydration.
      * /
-    IEntity patchEntity(IEntityentity, array data, IData[string] optionData = null);
+    IEntity patchEntity(IEntityentity, array data, Json[string] optionData = null);
 
     /**
      * Merges each of the elements passed in `someData` into the entities
@@ -196,8 +196,8 @@ interface IRepository {
      * iterable<\UIM\Datasource\IEntity> entities the entities that will get the
      * data merged in
      * @param array data list of arrays to be merged into the entities
-     * @param IData[string] options A list of options for the objects hydration.
+     * @param Json[string] options A list of options for the objects hydration.
      * /
-    IEntity[] patchEntities(iterableentities, array data, IData[string] optionData = null);
+    IEntity[] patchEntities(iterableentities, array data, Json[string] optionData = null);
     */
 }

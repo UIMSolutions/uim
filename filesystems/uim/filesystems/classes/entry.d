@@ -48,7 +48,7 @@ class DFilesystemEntry : IFilesystemEntry {
 		this.name(aName);
 	};
 
-	bool initialize(IData[string] initData = null) { // Hook
+	bool initialize(Json[string] initData = null) { // Hook
 		configuration(MemoryConfiguration);
 		configuration.data(initData);
 		return true;

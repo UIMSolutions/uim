@@ -38,10 +38,10 @@ interface ISchema {
      *
      * - `comment` The comment for the column.
      */
-   void addColumn(string columnName, IData[string] attributes);
+   void addColumn(string columnName, Json[string] attributes);
 
    // Get column data in the table.
-   IData[string] columnData(string columnName);
+   Json[string] columnData(string columnName);
 
    // Returns true if a column exists in the schema.
    bool hasColumn(string columnName);
@@ -74,7 +74,7 @@ interface ISchema {
    STRINGAA typeMap();
 
    // Get a hash of columns and their default values.
-   IData[string] defaultValues();
+   Json[string] defaultValues();
 
    /**
      * Sets the options for a table.
@@ -82,7 +82,7 @@ interface ISchema {
      * Table options allow you to set platform specific table level options.
      * For example the engine type in MySQL.
      */
-   void setOptions(IData[string] optionData);
+   void setOptions(Json[string] optionData);
 
    /**
      * Gets the options for a table.
@@ -90,5 +90,5 @@ interface ISchema {
      * Table options allow you to set platform specific table level options.
      * For example the engine type in MySQL.
      */
-   IData[string] getOptions();
+   Json[string] getOptions();
 }

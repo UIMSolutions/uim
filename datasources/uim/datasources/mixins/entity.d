@@ -41,24 +41,24 @@ template DatasourceEntityCalls(string name) {
 */
 mixin template TEntity() {
   // Holds all fields and their values for this entity.
-  protected IData[string] _fields = null;
+  protected Json[string] _fields = null;
 
   // Holds all fields that have been changed and their original values for this entity.
-  protected IData _original = null;
+  protected Json _original = null;
 
   // Holds all fields that have been initially set on instantiation, or after marking as clean
   protected string[] _originalFields = null;
 
   /**
-     * List of field names that should **not** be included in IData or Array
+     * List of field names that should **not** be included in Json or Array
      * representations of this Entity.
     */
   protected string[] _hidden = null;
 
   /**
-     * List of computed or virtual fields that **should** be included in IData or array
+     * List of computed or virtual fields that **should** be included in Json or array
      * representations of this Entity. If a field is present in both _hidden and _virtual
-     * the field will **not** be in the array/IData versions of the entity.
+     * the field will **not** be in the array/Json versions of the entity.
     */
   protected string[] _virtual = null;
 
@@ -69,17 +69,17 @@ mixin template TEntity() {
   protected bool[] _isDirty;
 
   // List of errors per field as stored in this object.
-  protected IData[string] _fieldErrors;
+  protected Json[string] _fieldErrors;
 
   // List of invalid fields and their data for errors upon validation/patching.
-  protected IData[string] _invalidFields;
+  protected Json[string] _invalidFields;
   // Get a list of invalid fields and their data for errors upon validation/patching
-  IData[string] invalidFields() {
+  Json[string] invalidFields() {
     return _invalidFields;
   }
 
   //Get a single value of an invalid field. Returns null if not set.
-  IData invalidField(string fieldName) {
+  Json invalidField(string fieldName) {
     return _invalidFields.get(fieldName, null);
   }
 
@@ -115,7 +115,7 @@ mixin template TEntity() {
      * This value could not be patched into the entity and is simply copied into the _invalidFields property for debugging
      * purposes or to be able to log it away.
      * Params:
-     * IData[string] fields The values to set.
+     * Json[string] fields The values to set.
      * @param bool overwrite Whether to overwrite pre-existing values for field.
     * /
                       void setFieldsInvalid(arrayfields, booloverwrite = false) {
@@ -138,9 +138,9 @@ mixin template TEntity() {
      * Sets a field as invalid and not patchable into the entity.
      * Params:
      * string afield The value to set.
-     * @param IData aValue The invalid value to be set for field.
+     * @param Json aValue The invalid value to be set for field.
     * /
-                                                                  auto setInvalidField(string afield, IData aValue) {
+                                                                  auto setInvalidField(string afield, Json aValue) {
                                                                     _invalidFields[field] = aValue;
 
                                                                     return this;}
@@ -163,16 +163,16 @@ mixin template TEntity() {
      * Params:
      * string afield Name of the field to access
    * /
-  IData & __get(string fieldName) {
+  Json & __get(string fieldName) {
     return get(field);
   }
 
   /**
      * Magic setter to add or edit a field in this entity
      * Params:
-     * @param IData aValue The value to set to the field
+     * @param Json aValue The value to set to the field
     * /
-  void __set(string fieldName, IData aValue) {
+  void __set(string fieldName, Json aValue) {
     this.set(fieldName, aValue);
   }
 
@@ -244,16 +244,16 @@ mixin template TEntity() {
      * print_r(entity.getOriginalFields()) // prints ["name", "id", "phone_number"]
      * ```
      * Params:
-     * IData[string]|string afield the name of field to set or a list of
+     * Json[string]|string afield the name of field to set or a list of
      * fields with their respective values
-     * @param IData aValue The value to set to the field or an array if the
+     * @param Json aValue The value to set to the field or an array if the
      * first argument is also an array, in which case will be treated as options
-     * @param IData[string] optionData Options to be used for setting the field. Allowed option
+     * @param Json[string] optionData Options to be used for setting the field. Allowed option
      * keys are `setter`, `guard` and `asOriginal`
 
      * @throws \InvalidArgumentException
     * /
-  void set(string[] afield, IData aValue = null, IData[string] optionData = null) {
+  void set(string[] afield, Json aValue = null, Json[string] optionData = null) {
     if (isString(field) && !field.isEmpty) {
       guard = false;
       field = [field: aValue];
@@ -300,7 +300,7 @@ mixin template TEntity() {
   }
 
   // Returns the value of a field by name
-  IData & get(string fieldName) {
+  Json & get(string fieldName) {
     if (fieldName.isEmpty) {
       throw new DInvalidArgumentException("Cannot get an empty field");
     }
@@ -348,7 +348,7 @@ mixin template TEntity() {
      * Params:
      * @param bool allowFallback whether to allow falling back to the current field value if no original exists
     * /
-  IData getOriginal(string fieldName, bool allowFallback = true) {
+  Json getOriginal(string fieldName, bool allowFallback = true) {
     if (fieldName.isEmpty) {
       throw new DInvalidArgumentException("Cannot get an empty field");
     }
@@ -533,7 +533,7 @@ mixin template TEntity() {
      * This method will recursively transform entities assigned to fields
      * into arrays as well.
     * /
-  IData[string] toDataArray() {
+  Json[string] toDataArray() {
     auto result;
     foreach (this.getVisible() asfield) {
       aValue = get(field);
@@ -553,29 +553,29 @@ mixin template TEntity() {
     return result;
   }
 
-  // Returns the fields that will be serialized as IData
+  // Returns the fields that will be serialized as Json
   array IDataSerialize() {
     return _extract(this.getVisible());
   }
 
-  bool offsetExists(IData anOffset) {
+  bool offsetExists(Json anOffset) {
     return __isSet(anOffset);
   }
 
-  IData & offsetGet(IData anOffset) {
+  Json & offsetGet(Json anOffset) {
     return get(anOffset);
   }
 
   /**
      * entity[anOffset] = aValue;
-     * @param IData aValue The value to set.
+     * @param Json aValue The value to set.
     * /
-  void offsetSet(IData offsetToSet, IData aValue) {
+  void offsetSet(Json offsetToSet, Json aValue) {
     this.set(offsetToSet, aValue);
   }
 
   // unset(result[anOffset]);
-  void offsetUnset(IData offsetToRemove) {
+  void offsetUnset(Json offsetToRemove) {
     this.unset(offsetToRemove);
   }
 

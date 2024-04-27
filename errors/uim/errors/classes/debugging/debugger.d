@@ -325,13 +325,11 @@ class DDebugger {
      * @param int maxDepth The depth to output to. Defaults to 3.
      * /
     static void log(var, level = 'debug', int maxDepth = 3) {
-        /** @var string source * /
-        source = trace(['start': 1]);
-        source ~= "\n";
+        string source = trace(["start": 1]) ~ "\n";
 
         Log::write(
             level,
-            "\n" ~ source . exportVarAsPlainText(var, maxDepth)
+            "\n" ~ source ~ exportVarAsPlainText(var, maxDepth)
         );
     }
 

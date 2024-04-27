@@ -25,11 +25,11 @@ interface IPaginated { // : Countable, Traversable {
     bool hasNextPage();
 
     // Get paginated items.
-    IData[string] items();
+    Json[string] items();
 
     // Get paging param.
-    IData[string] pagingParam(string aName);
+    Json[string] pagingParam(string aName);
 
     // Get all paging params.
-    IData[string] pagingParams();
+    Json[string] pagingParams();
 }

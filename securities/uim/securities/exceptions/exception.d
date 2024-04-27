@@ -8,7 +8,7 @@ import uim.securities;
 class DSecuritiesException : UimException {
   mixin(ExceptionThis!("Securities"));
 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }

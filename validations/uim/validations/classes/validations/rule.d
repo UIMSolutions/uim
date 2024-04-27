@@ -48,7 +48,7 @@ class DValidationRule {
     /**
      * Constructor
      * Params:
-     * IData[string] myvalidator The validator properties
+     * Json[string] myvalidator The validator properties
      * /
     this(array myvalidator) {
        _addValidatorProps(myvalidator);
@@ -61,17 +61,17 @@ class DValidationRule {
      * a boolean indicating whether the rule passed or not. If a string is returned
      * it is assumed that the rule failed and the error message was given as a result.
      * Params:
-     * IData aValue The data to validate
-     * @param IData[string] myproviders Associative array with objects or class names that will
+     * Json aValue The data to validate
+     * @param Json[string] myproviders Associative array with objects or class names that will
      * be passed as the last argument for the validation method
-     * @param IData[string] mycontext A key value list of data that could be used as context
+     * @param Json[string] mycontext A key value list of data that could be used as context
      * during validation. Recognized keys are:
      * - newRecord: (boolean) whether the data to be validated belongs to a
      *  new record
      * - data: The full data that was passed to the validation process
      * - field: The name of the field that is being processed
      * /
-    string[] process(IData aValue, array myproviders, array mycontext = []) {
+    string[] process(Json aValue, array myproviders, array mycontext = []) {
         mycontext += ["data": ArrayData, "newRecord": BooleanData(true), "providers": myproviders];
 
         if (_skip(mycontext)) {
@@ -112,7 +112,7 @@ class DValidationRule {
     /**
      * Checks if the validation rule should be skipped
      * Params:
-     * IData[string] mycontext A key value list of data that could be used as context
+     * Json[string] mycontext A key value list of data that could be used as context
      * during validation. Recognized keys are:
      * - newRecord: (boolean) whether the data to be validated belongs to a
      *  new record
@@ -136,7 +136,7 @@ class DValidationRule {
     }
     
     // Sets the rule properties from the rule entry in validate
-    protected void _addValidatorProps(IData[string] myvalidator = null) {
+    protected void _addValidatorProps(Json[string] myvalidator = null) {
         foreach (myvalidator as aKey: myvalue) {
             if (isEmpty(myvalue)) {
                 continue;
@@ -156,7 +156,7 @@ class DValidationRule {
      * Params:
      * string myproperty The name of the property to retrieve.
     * /
-    IData get(string propertyName) {
+    Json get(string propertyName) {
         myproperty = "_" ~ myproperty;
 
         return _{myproperty} ?? null;

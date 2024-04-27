@@ -269,7 +269,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string myfield name of the field to check
      * /
-    bool offsetExists(IData myfield) {
+    bool offsetExists(Json myfield) {
         return isSet(_fields[myfield]);
     }
     
@@ -278,7 +278,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string|int myfield name of the field to check
      * /
-    ValidationSet offsetGet(IData myfield) {
+    ValidationSet offsetGet(Json myfield) {
         return _field((string)myfield);
     }
     
@@ -288,7 +288,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * string fieldName name of the field to set
      * @param \UIM\Validation\ValidationSet|array myrules set of rules to apply to field
      * /
-    void offsetSet(string fieldName, IData myrules) {
+    void offsetSet(string fieldName, Json myrules) {
         if (!cast(ValidationSet)myrules) {
             myset = new DValidationSet();
             foreach (myrules as myname: myrule) {
@@ -304,7 +304,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Params:
      * string fieldName name of the field to unset
      * /
-    void offsetUnset(IData fieldName) {
+    void offsetUnset(Json fieldName) {
         unset(_fields[fieldName]);
     }
     
@@ -848,7 +848,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Converts validator to fieldName: mysettings array
      * Params:
      * string aFieldName name of field
-     * @param IData[string] mydefaults default settings
+     * @param Json[string] mydefaults default settings
      * @param array<string|int, mixed>|string|int mysettings settings from data
      * /
     // TODO protected array<string, array<string|int, mixed>> _convertValidatorToArray(
@@ -1226,7 +1226,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a equal to comparison rule to a field.
      * Params:
      * string myfield The field you want to apply the rule to.
-     * @param IData aValue The value user data must be equal to.
+     * @param Json aValue The value user data must be equal to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
@@ -1234,7 +1234,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * /
     auto equals(
         string myfield,
-        IData aValue,
+        Json aValue,
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
@@ -1254,7 +1254,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a not equal to comparison rule to a field.
      * Params:
      * string myfield The field you want to apply the rule to.
-     * @param IData aValue The value user data must be not be equal to.
+     * @param Json aValue The value user data must be not be equal to.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
@@ -1262,7 +1262,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * /
     auto notEquals(
         string myfield,
-        IData aValue,
+        Json aValue,
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
@@ -2217,7 +2217,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a validation rule to ensure the field is an uploaded file
      * Params:
      * string myfield The field you want to apply the rule to.
-     * @param IData[string] options An array of options.
+     * @param Json[string] options An array of options.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
      *  true when the validation rule should be applied.
@@ -2225,7 +2225,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * /
     auto uploadedFile(
         string myfield,
-        IData[string] options,
+        Json[string] options,
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
@@ -2488,7 +2488,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Add a validation rule for a multiple select. Comparison is case sensitive by default.
      * Params:
      * string myfield The field you want to apply the rule to.
-     * @param IData[string] options The options for the validator. Includes the options defined in
+     * @param Json[string] options The options for the validator. Includes the options defined in
      *  \UIM\Validation\Validation.multiple() and the `caseInsensitive` parameter.
      * @param string|null myMessage The error message when the rule fails.
      * @param \Closure|string|null mywhen Either "create" or "update" or a Closure that returns
@@ -2497,7 +2497,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * /
     auto multipleOptions(
         string myfield,
-        IData[string] optionData = null,
+        Json[string] optionData = null,
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
@@ -2674,7 +2674,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * due to the field missing in the data array
      * Params:
      * \UIM\Validation\ValidationSet myfield The set of rules for a field.
-     * @param IData[string] mycontext A key value list of data containing the validation context.
+     * @param Json[string] mycontext A key value list of data containing the validation context.
      * /
     protected bool _checkPresence(ValidationSet myfield, array mycontext) {
         myrequired = myfield.isPresenceRequired();
@@ -2694,7 +2694,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * Returns whether the field can be left blank according to `allowEmpty`
      * Params:
      * \UIM\Validation\ValidationSet myfield the set of rules for a field
-     * @param IData[string] mycontext a key value list of data containing the validation context.
+     * @param Json[string] mycontext a key value list of data containing the validation context.
      * /
     protected bool _canBeEmpty(ValidationSet myfield, array mycontext) {
         myallowed = myfield.isEmptyAllowed();
@@ -2713,10 +2713,10 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Returns true if the field is empty in the passed data array
      * Params:
-     * IData mydata Value to check against.
+     * Json mydata Value to check against.
      * @param int myflags A bitmask of EMPTY_* flags which specify what is empty
      * /
-    protected bool isEmpty(IData mydata, int myflags) {
+    protected bool isEmpty(Json mydata, int myflags) {
         if (mydata is null) {
             return true;
         }
@@ -2763,7 +2763,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param array data the full data passed to the validator
      * @param bool mynewRecord whether is it a new record or an existing one
      * /
-    protected IData[string] _processRules(string myfield, ValidationSet myrules, array data, bool mynewRecord) {
+    protected Json[string] _processRules(string myfield, ValidationSet myrules, array data, bool mynewRecord) {
         myerrors = null;
         // Loading default provider in case there is none
         this.getProvider("default");

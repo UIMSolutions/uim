@@ -26,7 +26,7 @@ class DVoltAttribute : DDoubleAttribute {
   mixin(AttributeThis!("VoltAttribute"));
 
   // Initialization hook method.
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }

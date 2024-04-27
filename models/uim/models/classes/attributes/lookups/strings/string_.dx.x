@@ -13,7 +13,7 @@ class DStringStringAttribute : DLookupAttribute {
   
   mixin(TProperty!("STRINGAA", "lookups"));
 
-  /* override IData createData() {
+  /* override Json createData() {
     return LookupData!(string, string).isNullable(isNullable);
   } */
 }

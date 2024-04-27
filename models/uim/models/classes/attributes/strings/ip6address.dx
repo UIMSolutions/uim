@@ -22,7 +22,7 @@ class DIP6AddressAttribute : DStringAttribute {
   mixin(AttributeThis!("IP6AddressAttribute"));
 
   // Initialization hook method.
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
     name("ip6address");
@@ -44,6 +44,6 @@ unittest {
   assert(cast(DStringAttribute)generalAttribute);
   assert(!cast(DIntegerAttribute)generalAttribute);
 
-  // IData value = attribute.createValue();
+  // Json value = attribute.createValue();
   // assert(cast(DStringData)value);
 }

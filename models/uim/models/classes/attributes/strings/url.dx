@@ -12,7 +12,7 @@ class DUrlAttribute : DStringAttribute {
   mixin(AttributeThis!("UrlAttribute"));
 
   // Initialization hook method.
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
     name("url");
@@ -35,6 +35,6 @@ unittest {
   assert(cast(DStringAttribute)generalAttribute);
   assert(!cast(DIntegerAttribute)generalAttribute);
 
-  // IData value = attribute.createValue();
+  // Json value = attribute.createValue();
   // assert(cast(DStringData)value);
 }

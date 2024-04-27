@@ -14,7 +14,7 @@ class DStringAttribute : DCharAttribute {
   mixin(TProperty!("size_t", "maxLength"));
 
   // Initialization hook method.
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }
@@ -26,7 +26,7 @@ class DStringAttribute : DCharAttribute {
     return true;
   }
 
-  /* override IData createData() {
+  /* override Json createData() {
     return StringData(this)
       .maxLength(this.maxLength);
   } */
@@ -43,6 +43,6 @@ unittest {
   DAttribute generalAttribute = attribute;
   assert(!cast(DIntegerAttribute) generalAttribute);
 
-  // IData value = attribute.createValue();
+  // Json value = attribute.createValue();
   // assert(cast(DStringData) value);
 }

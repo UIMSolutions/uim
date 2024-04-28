@@ -38,8 +38,8 @@ class DFormProtectionComponent : DComponent {
         */
         configuration.updateDefaults([
             "validate": BooleanData(true),
-            "unlockedFields": ArrayData,
-            "unlockedActions": ArrayData,
+            "unlockedFields": Json.emptyArray,
+            "unlockedActions": Json.emptyArray,
             "validationFailureCallback": NullData,
         ]);
 

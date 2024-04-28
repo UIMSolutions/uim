@@ -82,7 +82,7 @@ class DExceptionTrap {
       "logger": StringData(ErrorLogger.classname),
       "stderr": NullData,
       "log": BooleanData(true),
-      "skipLog": ArrayData,
+      "skipLog": Json.emptyArray,
       "trace": BooleanData(false),
       "extraFatalErrorMemory": IntegerData(4)
     ];

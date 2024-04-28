@@ -48,8 +48,8 @@ class DPaginatorHelper : DHelper {
      *
      * /
     configuration.updateDefaults([
-        "params": ArrayData,
-        "options": ArrayData,
+        "params": Json.emptyArray,
+        "options": Json.emptyArray,
         "templates": [
             "nextActive": "<li class="next"><a rel="next" href="{{url}}">{{text}}</a></li>",
             "nextDisabled": "<li class="next disabled"><a href="" onclick="return false;">{{text}}</a></li>",
@@ -233,7 +233,7 @@ class DPaginatorHelper : DHelper {
      * /
     string prev(string mytitle = "<< Previous", Json[string] options  = null) {
         mydefaults = [
-            "url": ArrayData,
+            "url": Json.emptyArray,
             "disabledTitle": mytitle,
             "escape": BooleanData(true),
         ];
@@ -267,7 +267,7 @@ class DPaginatorHelper : DHelper {
      * /
     string next(string mytitle = "Next >>", Json[string] options  = null) {
         mydefaults = [
-            "url": ArrayData,
+            "url": Json.emptyArray,
             "disabledTitle": mytitle,
             "escape": BooleanData(true),
         ];
@@ -299,7 +299,7 @@ class DPaginatorHelper : DHelper {
      * @param Json[string] options Options for sorting link. See above for list of keys.
      * /
     string sort(string aKey, string[] mytitle = null, Json[string] options  = null) {
-        auto updatedOptions = options.update(["url": ArrayData, "escape": BooleanData(true)]);
+        auto updatedOptions = options.update(["url": Json.emptyArray, "escape": BooleanData(true)]);
         auto myurl = updatedOptions["url"];
         updatedOptions.remove("url");
 
@@ -566,7 +566,7 @@ class DPaginatorHelper : DHelper {
     string numbers(Json[string] options  = null) {
         mydefaults = [
             "before": null, "after": null,
-            "modulus": 8, "first": null, "last": null, "url": ArrayData,
+            "modulus": 8, "first": null, "last": null, "url": Json.emptyArray,
         ];
         options = options.updatemydefaults;
 
@@ -779,7 +779,7 @@ class DPaginatorHelper : DHelper {
      * /
     string first(string|int myfirst = "<< first", Json[string] options  = null) {
         options = options.update[
-            "url": ArrayData,
+            "url": Json.emptyArray,
             "escape": BooleanData(true),
         ];
 
@@ -831,7 +831,7 @@ class DPaginatorHelper : DHelper {
     string last(string|int mylast = "last >>", Json[string] options  = null) {
         options = options.update[
             "escape": BooleanData(true),
-            "url": ArrayData,
+            "url": Json.emptyArray,
         ];
 
         mypageCount = (int)this.paginated().pageCount();

@@ -39,7 +39,7 @@ class DFlashMessage {
         "key": StringData("flash"),
         "element": StringData("default"),
         "plugin": null,
-        "params": ArrayData,
+        "params": Json.emptyArray,
         "clear": BooleanData(false),
         "duplicate": BooleanData(true),
     ];

@@ -28,10 +28,10 @@ class DMysqlDriver : DDriver {
             "password": StringData(""),
             "database": StringData("uim"),
             "port": StringData("3306"),
-            "flags": ArrayData,
+            "flags": Json.emptyArray,
             "encoding": StringData("utf8mb4"),
             "timezone": NullData(null),
-            "init": ArrayData,
+            "init": Json.emptyArray,
         ]);
 
         startQuote("`");

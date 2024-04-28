@@ -23,7 +23,7 @@ class DCheckboxWidget : DWidget {
             "value": IntegerData(1),
             "val": NullData,
             "disabled": BooleanData(false),
-            "templateVars": ArrayData,
+            "templateVars": Json.emptyArray,
         ]);
 
         return true;

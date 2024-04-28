@@ -31,8 +31,8 @@ class DFileLog { /*}: BaseLog {
         "path": null,
         "file": null,
         "types": null,
-        "levels": ArrayData,
-        "scopes": ArrayData,
+        "levels": Json.emptyArray,
+        "scopes": Json.emptyArray,
         "rotate": 10,
         "size": 10485760, // 10MB
         "mask": null,

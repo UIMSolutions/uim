@@ -23,7 +23,7 @@ class DFileWidget : DWidget {
             "name": StringData(""),
             // `escape` - Set to false to disable HTML escaping.
             "escape": BooleanData(true),
-            "templateVars": ArrayData,
+            "templateVars": Json.emptyArray,
         ]);
 
         return true;

@@ -26,7 +26,7 @@ class DTextareaWidget : DWidget {
         "name": StringData(""),
         "escape": BooleanData(true),
         "rows": IntegerData(5),
-        "templateVars": ArrayData,
+        "templateVars": Json.emptyArray,
     ];
 
     /**

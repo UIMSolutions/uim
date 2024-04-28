@@ -26,7 +26,7 @@ class DRadioWidget : DWidget {
     // Data defaults.
     protected Json[string] _defaultData = [
         "name": StringData,
-        "options": ArrayData,
+        "options": Json.emptyArray,
         "disabled": null, // NullData,
         "val": null, // NullData,
         "escape": BooleanData(true),

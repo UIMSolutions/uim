@@ -28,8 +28,8 @@ class DLogger : ILogger {
         configuration.data(initData);
         
         configuration.updateDefaults([
-            "levels": ArrayData,
-            "scopes": ArrayData,
+            "levels": Json.emptyArray,
+            "scopes": Json.emptyArray,
             // TODO "formatter": DefaultFormatter.classname
         ]); 
 

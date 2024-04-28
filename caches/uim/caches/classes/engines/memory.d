@@ -44,7 +44,7 @@ class DMemoryCacheEngine : DCacheEngine {
     configuration.updateDefaults([
       "compress": BooleanData(false),
       "duration": IntegerData(3600),
-      "groups": ArrayData,
+      "groups": Json.emptyArray,
       "host": NullData,
       "username": StringData,
       "password": NullData,
@@ -53,7 +53,7 @@ class DMemoryCacheEngine : DCacheEngine {
       "prefix": StringData("uim_"),
       "serialize": StringData("d"),
       // TODO "servers": StringArrayData(["127.0.0.1"]),
-      "options": ArrayData,
+      "options": Json.emptyArray,
     ]);
 
     return true;

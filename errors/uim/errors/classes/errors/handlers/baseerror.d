@@ -38,7 +38,7 @@ abstract class DERRErrorHandler {
         configuration.updateDefaults([
             "log": BooleanData(true),
             "trace": BooleanData(false),
-            "skipLog": ArrayData,
+            "skipLog": Json.emptyArray,
             "errorLogger": StringData("ErrorLogger::class")
         ]);
 

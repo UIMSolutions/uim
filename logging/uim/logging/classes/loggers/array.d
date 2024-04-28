@@ -13,8 +13,8 @@ import uim.logging;
  */
 class DArrayLog { /* }: BaseLog {
     configuration.updateDefaults([
-        "levels": ArrayData,
-        "scopes": ArrayData,
+        "levels": Json.emptyArray,
+        "scopes": Json.emptyArray,
         "formatter": [
             "className": DefaultFormatter.classname,
             "includeDate": BooleanData(false)

@@ -38,7 +38,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         configuration.data(initData);
 
         configuration.updateDefaults([
-            "fields": ArrayData,
+            "fields": Json.emptyArray,
             "translationTable": StringData("I18n"),
             "defaultLocale": NullData,
             "referencename": StringData,

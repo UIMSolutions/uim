@@ -860,8 +860,8 @@ class DFormHelper : DHelper {
             "error": null,
             "required": null,
             "options": null,
-            "templates": ArrayData,
-            "templateVars": ArrayData,
+            "templates": Json.emptyArray,
+            "templateVars": Json.emptyArray,
             "labelOptions": BooleanData(true),
         ];
         options = _parseOptions(fieldName, options);
@@ -1156,7 +1156,7 @@ class DFormHelper : DHelper {
      * /
     protected Json[string] _magicOptions(string aFieldName, Json[string] options, bool myallowOverride) {
         options = options.update[
-            "templateVars": ArrayData,
+            "templateVars": Json.emptyArray,
         ];
 
         options = this.setRequiredAndCustomValidity(fieldName, options);
@@ -1687,7 +1687,7 @@ class DFormHelper : DHelper {
         options = options.update[
             "type": "submit",
             "secure": BooleanData(false),
-            "templateVars": ArrayData,
+            "templateVars": Json.emptyArray,
         ];
 
         if (isSet(options["name"]) && this.formProtector) {

@@ -79,7 +79,7 @@ class DExceptionTrap {
         "logger": ErrorLogger::class,
         "stderr": null,
         "log": BooleanData(true),
-        "skipLog": ArrayData,
+        "skipLog": Json.emptyArray,
         "trace": BooleanData(false),
         "extraFatalErrorMemory": 4,
     ]);

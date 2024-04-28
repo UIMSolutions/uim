@@ -28,7 +28,7 @@ class DYearWidget : DWidget {
         "min": null,
         "max": null,
         "order": StringData("desc"),
-        "templateVars": ArrayData,
+        "templateVars": Json.emptyArray,
     ];
 */
     // Select box widget

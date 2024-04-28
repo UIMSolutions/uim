@@ -21,8 +21,8 @@ class DPostgresDriver : DDriver {
             "port": IntegerData(5432),
             "encoding": StringData("utf8"),
             "timezone": NullData,
-            "flags": ArrayData,
-            "init": ArrayData,
+            "flags": Json.emptyArray,
+            "init": Json.emptyArray,
         ]);
 
         // String used to start a database identifier quoting to make it safe

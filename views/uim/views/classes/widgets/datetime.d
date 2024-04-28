@@ -21,7 +21,7 @@ class DDateTimeWidget : DWidget {
                 "type": StringData("datetime-local"),
                 "escape": BooleanData(true),
                 "timezone": NullData,
-                "templateVars": ArrayData,
+                "templateVars": Json.emptyArray,
             ]);
 
             _formatMap = [

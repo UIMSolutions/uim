@@ -22,24 +22,24 @@ abstract class DQuery : IQuery { // : IExpression {
         _parts = [
             "comment": NullData,
             "delete": BooleanData(true),
-            "update": ArrayData,
-            "set": ArrayData,
-            "insert": ArrayData,
-            "values": ArrayData,
-            "with": ArrayData,
-            "select": ArrayData,
+            "update": Json.emptyArray,
+            "set": Json.emptyArray,
+            "insert": Json.emptyArray,
+            "values": Json.emptyArray,
+            "with": Json.emptyArray,
+            "select": Json.emptyArray,
             "distinct": BooleanData(false),
-            "modifier": ArrayData,
-            "from": ArrayData,
-            "join": ArrayData,
+            "modifier": Json.emptyArray,
+            "from": Json.emptyArray,
+            "join": Json.emptyArray,
             "where": NullData,
-            "group": ArrayData,
+            "group": Json.emptyArray,
             "having": NullData,
-            "window": ArrayData,
+            "window": Json.emptyArray,
             "order": NullData,
             "limit": NullData,
             "offset": NullData,
-            "union": ArrayData,
+            "union": Json.emptyArray,
             "epilog": NullData,
         ];
 
@@ -832,7 +832,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * /
     auto whereNotInList(string fieldName, array someValues, IData[string] options = null) {
         auto options = options.update([
-            "types": ArrayData,
+            "types": Json.emptyArray,
             "allowEmpty": BooleanData(false)
         ];
 
@@ -857,7 +857,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * /
     auto whereNotInListOrNull(string fieldName, array  someValues, IData[string] options = null) {
         auto options = options.update() [
-            "types": ArrayData,
+            "types": Json.emptyArray,
             "allowEmpty": BooleanData(false),
         ];
 

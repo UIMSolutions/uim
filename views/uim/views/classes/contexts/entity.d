@@ -64,7 +64,7 @@ class DEntityContext : DContext {
         _context = _context.merge([
             "entity": NullData,
             "table": NullData,
-            "validator": ArrayData,
+            "validator": Json.emptyArray,
         ]);
 
        _prepare();

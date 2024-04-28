@@ -398,7 +398,7 @@ class DEagerLoader {
 
         myextra = array_diff_key(options, mydefaults);
         configData = [
-            "associations": ArrayData,
+            "associations": Json.emptyArray,
             "instance": myinstance,
             "config": array_diff_key(options, myextra),
             "aliasPath": strip(mypaths["aliasPath"], "."),

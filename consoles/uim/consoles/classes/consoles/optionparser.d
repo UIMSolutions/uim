@@ -97,7 +97,7 @@ class DConsoleOptionParser {
             "help": StringData(""),
             "index": LongData(count(_args)),
             "required": BooleanData(false),
-            "choices": ArrayData,
+            "choices": Json.emptyArray,
         ];
 
         auto newParams = params.merge(defaultOptions);
@@ -302,7 +302,7 @@ class DConsoleOptionParser {
                 "default": null,
                 "boolean": BooleanData(false),
                 "multiple": BooleanData(false),
-                "choices": ArrayData,
+                "choices": Json.emptyArray,
                 "required": BooleanData(false),
                 "prompt": null,
             ];

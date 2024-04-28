@@ -34,8 +34,8 @@ class DSysLogger : DLogger {
      *
      * /
     configuration.updateDefaults([
-        "levels": ArrayData,
-        "scopes": ArrayData,
+        "levels": Json.emptyArray,
+        "scopes": Json.emptyArray,
         "flag": LOG_ODELAY,
         "prefix": "",
         "facility": LOG_USER,

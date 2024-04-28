@@ -11,7 +11,7 @@ class DConsoleLog { /* }: BaseLog {
     /* configuration.updateDefaults([
         "stream": "D://stderr",
         "levels": null,
-        "scopes": ArrayData,
+        "scopes": Json.emptyArray,
         "outputAs": null,
         "formatter": [
             "className": DefaultFormatter.classname,

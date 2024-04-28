@@ -43,7 +43,7 @@ class DRedisCacheEngine : DCacheEngine {
         configuration.updateDefaults([
             "database": IntegerData(0),
             "duration": IntegerData(3600),
-            "groups": ArrayData,
+            "groups": Json.emptyArray,
             "password": BooleanData(false),
             "persistent": BooleanData(true),
             "port": IntegerData(6379),

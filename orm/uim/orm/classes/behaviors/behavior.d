@@ -381,8 +381,8 @@ class DBehavior : IEventListener {
         }
 
         return = [
-            "finders": ArrayData,
-            "methods": ArrayData,
+            "finders": Json.emptyArray,
+            "methods": Json.emptyArray,
         ];
 
         reflection = new DReflectionClass(class);

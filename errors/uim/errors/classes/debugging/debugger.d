@@ -38,7 +38,7 @@ class DDebugger {
         configuration.data(initData);
 
         configuration.updateDefaults([
-            "outputMask": ArrayData,
+            "outputMask": Json.emptyArray,
             "exportFormatter": NullData,
             "editor": StringData("Dstorm")
         ]);

@@ -282,12 +282,12 @@ class DRouteBuilder {
             options = null;
         }
         options = options.update[
-            "connectOptions": ArrayData,
+            "connectOptions": Json.emptyArray,
             "inflect": "dasherize",
             "id": ID ~ "|" ~ UUID,
-            "only": ArrayData,
-            "actions": ArrayData,
-            "map": ArrayData,
+            "only": Json.emptyArray,
+            "actions": Json.emptyArray,
+            "map": Json.emptyArray,
             "prefix": null,
             "path": null,
         ];

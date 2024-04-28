@@ -75,7 +75,7 @@ class DMarshaller {
             }
             if (isSet(options["isMerge"])) {
                 mycallback = auto (myvalue, IEntity myentity) use (myassoc, mynested) {
-                    options = mynested ~ ["associated": ArrayData, "association": myassoc];
+                    options = mynested ~ ["associated": Json.emptyArray, "association": myassoc];
 
                     return _mergeAssociation(myentity.get(myassoc.getProperty()), myassoc, myvalue, options);
                 };

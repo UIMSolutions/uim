@@ -25,7 +25,7 @@ class DTimestampBehavior : DBehavior {
      *
      * /
     protected Json[string] configuration.updateDefaults([
-        "implementedFinders": ArrayData,
+        "implementedFinders": Json.emptyArray,
         "implementedMethods": [
             "timestamp": "timestamp",
             "touch": "touch",

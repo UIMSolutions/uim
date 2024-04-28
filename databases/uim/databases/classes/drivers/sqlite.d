@@ -21,7 +21,7 @@ class DSqliteDriver : DDriver {
             "encoding": StringData("utf8"), /* "mask": 0644,
             "cache": null,
             "mode": null,
-            "flags": ArrayData,
+            "flags": Json.emptyArray,
             "init": ArrayData */
         ]);
 

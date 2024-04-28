@@ -89,7 +89,7 @@ class DSelectLoader {
     // TODO protected array _defaultOptions() {
         return [
             "foreignKey": this.foreignKey,
-            "conditions": ArrayData,
+            "conditions": Json.emptyArray,
             "strategy": this.strategy,
             "nestKey": this.alias,
             "sort": this.sort,

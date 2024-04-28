@@ -162,7 +162,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
 
     // Fetches the value for a given key from the cache.
     Json get(string itemKey, Json defaultValue = null) {
-        return null;
+        return Json(null);
     }
 
     /**

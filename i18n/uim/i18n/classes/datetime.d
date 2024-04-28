@@ -8,13 +8,13 @@ import uim.i18n;
  * : the built-in DateTime class to provide handy methods and locale-aware
  * formatting helpers.
  */
-class DateTime /* : Chronos, IDataSerializable */ {
+class DateTime /* : Chronos, JsonSerializable */ {
     mixin TConfigurable;
     // TODO mixin TDateFormat;
 
     this() { initialize; }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         return true;
     }
 
@@ -51,7 +51,7 @@ class DateTime /* : Chronos, IDataSerializable */ {
     protected string[] _toStringFormat = [IntlDateFormatter.SHORT, IntlDateFormatter.SHORT];
 
     /**
-     * The format to use when converting this object to IData.
+     * The format to use when converting this object to Json.
      *
      * The format should be either the formatting constants from IntlDateFormatter as
      * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
@@ -64,7 +64,7 @@ class DateTime /* : Chronos, IDataSerializable */ {
      * @var \Closure|array<int>|string|int
      * @see \UIM\I18n\DateTime.i18nFormat()
      * /
-    protected auto Closure|string[]|int _IDataEncodeFormat = "yyyy-MM-dd'T'HH':'mm':'ssxxx'";
+    protected auto Closure|string[]|int _JsonEncodeFormat = "yyyy-MM-dd'T'HH':'mm':'ssxxx'";
 
     /**
      * The format to use when formatting a time using `UIM\I18n\DateTime.nice()`
@@ -165,7 +165,7 @@ class DateTime /* : Chronos, IDataSerializable */ {
     }
     
     /**
-     * Sets the default format used when converting this object to IData
+     * Sets the default format used when converting this object to Json
      *
      * The format should be either the formatting constants from IntlDateFormatter as
      * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
@@ -180,8 +180,8 @@ class DateTime /* : Chronos, IDataSerializable */ {
      *
      * @param \Closure|string[]|int format Format.
      * /
-    void setIDataEncodeFormat(Closure|string[]|int format) {
-        _IDataEncodeFormat = format;
+    void setJsonEncodeFormat(Closure|string[]|int format) {
+        _JsonEncodeFormat = format;
     }
     
     /**
@@ -426,9 +426,9 @@ class DateTime /* : Chronos, IDataSerializable */ {
      *
      * NOTE: If the difference is one week or more, the lowest level of accuracy is day
      * Params:
-     * IData[string] options Array of options.
+     * Json[string] options Array of options.
      * /
-    string timeAgoInWords(IData[string] options = null) {
+    string timeAgoInWords(Json[string] options = null) {
         return diffFormatter().timeAgoInWords(this, options);
     }
     
@@ -439,7 +439,7 @@ class DateTime /* : Chronos, IDataSerializable */ {
      *  Or one of DateTimeZone class DConstants
      * @param string country A two-letter ISO 3166-1 compatible country code.
      *  This option is only used when filter is set to DateTimeZone.PER_COUNTRY
-     * @param IData[string]|bool options If true (default value) groups the identifiers list by primary region.
+     * @param Json[string]|bool options If true (default value) groups the identifiers list by primary region.
      *  Otherwise, an array containing `group`, `abbr`, `before`, and `after`
      *  keys. Setting `group` and `abbr` to true will group results and append
      *  timezone abbreviation in the display value. Set `before` and `after`
@@ -506,13 +506,13 @@ class DateTime /* : Chronos, IDataSerializable */ {
     }
     
     /**
-     * Returns a string that should be serialized when converting this object to IData
+     * Returns a string that should be serialized when converting this object to Json
      * /
-    string IDataSerialize() {
-        if (cast(DClosure)_IDataEncodeFormat) {
-            return call_user_func(_IDataEncodeFormat, this);
+    string JsonSerialize() {
+        if (cast(DClosure)_JsonEncodeFormat) {
+            return call_user_func(_JsonEncodeFormat, this);
         }
-        return _i18nFormat(_IDataEncodeFormat);
+        return _i18nFormat(_JsonEncodeFormat);
     }
  
     override string toString() {

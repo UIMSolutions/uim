@@ -9,7 +9,7 @@ import uim.i18n;
  *
  * Adds handy methods and locale-aware formatting helpers.
  */
-class DTime { // : ChronosTime, IDataSerializable {
+class DTime { // : ChronosTime, JsonSerializable {
     mixin TConfigurable;
     // TODO mixin TDateFormat;
 
@@ -17,7 +17,7 @@ class DTime { // : ChronosTime, IDataSerializable {
         initialize;
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
         
@@ -59,7 +59,7 @@ class DTime { // : ChronosTime, IDataSerializable {
     protected static string|int _toStringFormat = IntlDateFormatter.SHORT;
 
     /**
-     * The format to use when converting this object to IData.
+     * The format to use when converting this object to Json.
      *
      * The format should be either the formatting constants from IntlDateFormatter as
      * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
@@ -68,7 +68,7 @@ class DTime { // : ChronosTime, IDataSerializable {
      * @var \Closure|string|int
      * @see \UIM\I18n\Date.i18nFormat()
      * /
-    protected static DClosure|string|int _IDataEncodeFormat = "HH':'mm':'ss";
+    protected static DClosure|string|int _JsonEncodeFormat = "HH':'mm':'ss";
 
     /**
      * The format to use when formatting a time using `UIM\I18n\Time.nice()`
@@ -83,7 +83,7 @@ class DTime { // : ChronosTime, IDataSerializable {
     static string|int niceFormat = IntlDateFormatter.MEDIUM;
     
     /**
-     * Sets the default format used when converting this object to IData
+     * Sets the default format used when converting this object to Json
      *
      * The format should be either the formatting constants from IntlDateFormatter as
      * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
@@ -94,8 +94,8 @@ class DTime { // : ChronosTime, IDataSerializable {
      *
      * @param \Closure|string|int format Format.
      * /
-    static void setIDataEncodeFormat(Closure|string|int format) {
-        _IDataEncodeFormat = format;
+    static void setJsonEncodeFormat(Closure|string|int format) {
+        _JsonEncodeFormat = format;
     }
     
     /**
@@ -188,12 +188,12 @@ class DTime { // : ChronosTime, IDataSerializable {
         return to!string(this.i18nFormat(niceFormat, localeName));
     }
     
-    // Returns a string that should be serialized when converting this object to IData
-    string IDataSerialize() {
-        if (cast(DClosure)_IDataEncodeFormat) {
-            return call_user_func(_IDataEncodeFormat, this);
+    // Returns a string that should be serialized when converting this object to Json
+    string JsonSerialize() {
+        if (cast(DClosure)_JsonEncodeFormat) {
+            return call_user_func(_JsonEncodeFormat, this);
         }
-        return _i18nFormat(_IDataEncodeFormat);
+        return _i18nFormat(_JsonEncodeFormat);
     }
  
     override string toString() {

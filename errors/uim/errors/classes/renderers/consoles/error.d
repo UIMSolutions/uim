@@ -23,9 +23,9 @@ class DConsoleErrorRenderer { // }: IErrorRenderer {
      * - `stderr` - The ConsoleOutput instance to use. Defaults to `D://stderr`
      * - `trace` - Whether or not stacktraces should be output.
      * Params:
-     * IData[string] configData Error handling configuration.
+     * Json[string] configData Error handling configuration.
      * /
-    this(IData[string] configData = null) {
+    this(Json[string] configData = null) {
         this.output = configData("stderr"] ?? new DConsoleOutput("D://stderr");
         this.trace = (bool)(configData("trace"] ?? false);
     }

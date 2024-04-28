@@ -10,7 +10,7 @@ import uim.datasources;
 @safe:
 
 // This interface defines the methods you can depend on in a connection
-interface IDatasourceConnection { // : ILoggerAware
+interface JsonsourceConnection { // : ILoggerAware
   // Gets the driver instance.
   // object getDriver(string role = self.ROLE_WRITE);
 

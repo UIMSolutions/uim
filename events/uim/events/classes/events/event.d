@@ -20,11 +20,11 @@ class DEvent : IEvent {
     protected IEventObject _subject = null;
 
     // Custom data for the method that receives the event
-    protected IData _data;
+    protected Json _data;
 
     // Property used to retain the result value of the event listeners
     // Get/Set the result value of the event listeners
-    mixin(TProperty!("IData", "result"));
+    mixin(TProperty!("Json", "result"));
 
     // Flags an event as stopped or not, default is false
     protected bool _stopped = false;
@@ -55,7 +55,7 @@ class DEvent : IEvent {
      *  with this event to it can be read by listeners.
      * @psalm-param TSubject|null subject
      * /
-    this(string eventName, IEventObject subject = null, IData data = null) {
+    this(string eventName, IEventObject subject = null, Json data = null) {
         _name = eventName;
         _subject = subject;
         _data = data;
@@ -72,22 +72,22 @@ class DEvent : IEvent {
 
 
     // #region data handling
-    IData opIndex(string key) {
+    Json opIndex(string key) {
         return data(string key);
     }
 
-    @property IData data(string aKey) {
+    @property Json data(string aKey) {
         if (aKey!isNull) {
             return _data[aKey] ?  ? null;
         }
         return _data;
     }
 
-    void opIndexAssign(IData value, string key) {
+    void opIndexAssign(Json value, string key) {
         data(key, value);
     }
 
-    @property void data(string aKey, IData aValue) {
+    @property void data(string aKey, Json aValue) {
         if (isArray(aKey)) {
             _data = aKey;
         } else {

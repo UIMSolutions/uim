@@ -34,10 +34,10 @@ interface IStatement {
      * ```
      * Params:
      * string|int column name or param position to be bound
-     * @param IData aValue The value to bind to variable in query
+     * @param Json aValue The value to bind to variable in query
      * @param string|int type name of configured Type class
      * /
-    void bindValue(string|int column, IData aValue, string|int type = "string");
+    void bindValue(string|int column, Json aValue, string|int type = "string");
 
     /**
      * Closes the cursor, enabling the statement to be executed again.
@@ -86,7 +86,7 @@ interface IStatement {
      * string|int mode PDO.FETCH_* constant or fetch mode name.
      *  Valid names are 'assoc", "num' or 'obj'.
      * /
-    IData fetch(string|int mode = PDO.FETCH_NUM);
+    Json fetch(string|int mode = PDO.FETCH_NUM);
 
     /**
      * Fetches the remaining rows from a result set
@@ -106,7 +106,7 @@ interface IStatement {
      * This behaves the same as `PDOStatement.fetch()` except only
      * a specific column from the row is returned.
     * /
-    IData fetchColumn(size_t columnIndex);
+    Json fetchColumn(size_t columnIndex);
 
     /**
      * Fetches the next row from a result set using PDO.FETCH_ASSOC

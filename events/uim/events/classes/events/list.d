@@ -30,10 +30,10 @@ class DEventList { // }: ArrayAccess, Countable {
      * Whether a offset exists
      *
      * @link https://secure.D.net/manual/en/arrayaccess.offsetexists.D
-     * @param IData  anOffset An offset to check for.
+     * @param Json  anOffset An offset to check for.
      * @return bool True on success or false on failure.
      * /
-    bool offsetExists(IData anOffset) {
+    bool offsetExists(Json anOffset) {
         return isSet(_events[anOffset]);
     }
 
@@ -41,10 +41,10 @@ class DEventList { // }: ArrayAccess, Countable {
      * Offset to retrieve
      *
      * @link https://secure.D.net/manual/en/arrayaccess.offsetget.D
-     * @param IData  anOffset The offset to retrieve.
+     * @param Json  anOffset The offset to retrieve.
      * @return \UIM\Event\IEvent<object>|null
      * /
-    IEvent offsetGet(IData anOffset) {
+    IEvent offsetGet(Json anOffset) {
         if (!this.offsetExists(anOffset)) {
             return null;
         }
@@ -55,10 +55,10 @@ class DEventList { // }: ArrayAccess, Countable {
      * Offset to set
      *
      * @link https://secure.D.net/manual/en/arrayaccess.offsetset.D
-     * @param IData  anOffset The offset to assign the value to.
-     * @param IData aValue The value to set.
+     * @param Json  anOffset The offset to assign the value to.
+     * @param Json aValue The value to set.
      * /
-    void offsetSet(IData anOffset, IData aValue) {
+    void offsetSet(Json anOffset, Json aValue) {
        _events[anOffset] = aValue;
     }
 
@@ -66,9 +66,9 @@ class DEventList { // }: ArrayAccess, Countable {
      * Offset to unset
      *
      * @link https://secure.D.net/manual/en/arrayaccess.offsetunset.D
-     * @param IData  anOffset The offset to unset.
+     * @param Json  anOffset The offset to unset.
      * /
-    void offsetUnset(IData  anOffset) {
+    void offsetUnset(Json  anOffset) {
         unset(_events[anOffset]);
     }
 

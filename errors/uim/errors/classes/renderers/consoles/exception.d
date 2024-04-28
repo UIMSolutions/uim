@@ -28,9 +28,9 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
      * Params:
      * \Throwable error The error to render.
      * @param \Psr\Http\Message\IServerRequest|null request Not used.
-     * @param IData[string] configData Error handling configuration.
+     * @param Json[string] configData Error handling configuration.
      * /
-    this(Throwable error, ?IServerRequest serverRequest, IData[string] configData) {
+    this(Throwable error, ?IServerRequest serverRequest, Json[string] configData) {
         this.error = error;
         this.output = configData("stderr"] ?? new DConsoleOutput("D://stderr");
         this.trace = configData("trace"] ?? true;

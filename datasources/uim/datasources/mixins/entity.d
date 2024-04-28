@@ -554,7 +554,7 @@ mixin template TEntity() {
   }
 
   // Returns the fields that will be serialized as Json
-  array IDataSerialize() {
+  array JsonSerialize() {
     return _extract(this.getVisible());
   }
 

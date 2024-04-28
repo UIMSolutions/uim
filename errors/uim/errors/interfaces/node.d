@@ -13,5 +13,5 @@ interface IErrorNode {
     // TODO IErrorNode[] getChildren();
 
     // Get the contained value.
-    // TODO IData getValue();
+    // TODO Json getValue();
 }

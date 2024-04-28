@@ -6,7 +6,7 @@ import uim.errors;
 
 // Dump node for scalar values.
 class DScalarNode : IErrorNode {
-    this(string newType, IData newValue) {
+    this(string newType, Json newValue) {
         _type = newType;
         _value = newValue;
     }
@@ -19,10 +19,10 @@ class DScalarNode : IErrorNode {
     }
     
     // Scalar value
-    private IData _value;
+    private Json _value;
 
     // Get the value
-    IData getValue() {
+    Json getValue() {
         return _value;
     }
  

@@ -49,7 +49,7 @@ import uim.http;
  * // Get as XML
  * content = response.getXml()
  * // Get as Json
- * content = response.getIData()
+ * content = response.getJson()
  * ```
  *
  * If the response cannot be decoded, null will be returned.
@@ -91,7 +91,7 @@ class DClientResponse { // }: Message : IResponse {
      *
      * @var mixed
      * /
-    protected Json _IData = null;
+    protected Json _Json = null;
 
     /**
      * Constructor
@@ -304,16 +304,16 @@ class DClientResponse { // }: Message : IResponse {
     }
     
     // Get the response body as Json decoded data.
-    Json getIData() {
-        return _getIData();
+    Json getJson() {
+        return _getJson();
     }
     
     // Get the response body as Json decoded data.
-    protected Json _getIData() {
-        if (_IData) {
-            return _IData;
+    protected Json _getJson() {
+        if (_Json) {
+            return _Json;
         }
-        return _IData = Json_decode(_getBody(), true);
+        return _Json = Json_decode(_getBody(), true);
     }
     
     // Get the response body as XML decoded data.

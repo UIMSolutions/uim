@@ -24,7 +24,7 @@ class DDebugger {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
@@ -33,7 +33,7 @@ class DDebugger {
     }
 
     // Hook method
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -349,7 +349,7 @@ class DDebugger {
      * @return array|string Formatted stack trace.
      * @link https://book.uimD.org/4/en/development/debugging.html#generating-stack-traces
      * /
-    static function trace(IData[string] optionData = null) {
+    static function trace(Json[string] optionData = null) {
         return Debugger::formatTrace(debug_backtrace(), options);
     }
 
@@ -370,7 +370,7 @@ class DDebugger {
      * @return array|string Formatted stack trace.
      * @link https://book.uimD.org/4/en/development/debugging.html#generating-stack-traces
      * /
-    static function formatTrace(backtrace, IData[string] optionData = null) {
+    static function formatTrace(backtrace, Json[string] optionData = null) {
         if (backtrace instanceof Throwable) {
             backtrace = backtrace.getTrace();
         }

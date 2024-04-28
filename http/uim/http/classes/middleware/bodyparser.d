@@ -49,7 +49,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
         if (options["Json"]) {
             this.addParser(
                 ["application/Json", "text/Json"],
-                this.decodeIData(...)
+                this.decodeJson(...)
             );
         }
         if (options["xml"]) {
@@ -123,7 +123,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
     }
     
     // Decode Json into an array.
-    // TODO protected array decodeIData(string bodyToDecode) {
+    // TODO protected array decodeJson(string bodyToDecode) {
         if (bodyToDecode.isEmpty) {
             return null;
         }

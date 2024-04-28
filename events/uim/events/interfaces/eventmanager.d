@@ -32,7 +32,7 @@ interface IEventManager {
      * with which the callback will be associated. If eventKey is an instance of
      * UIM\Event\IEventListener its events will be bound using the `implementedEvents()` methods.
      * Params:
-     * callable|IData[string] options Either an array of options or the callable you wish to
+     * callable|Json[string] options Either an array of options or the callable you wish to
      * bind to eventKey. If an array of options, the `priority` key can be used to define the order.
      * Priorities are treated as queues. Lower values are called before higher ones, and multiple attachments
      * added to the same priority queue will be treated in the order of insertion.
@@ -44,7 +44,7 @@ interface IEventManager {
      * /
     auto on(
         IEventListener|string aeventKey,
-        callable|IData[string] options = null,
+        callable|Json[string] options = null,
         ?callable callable = null
     );
 

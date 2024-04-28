@@ -21,7 +21,7 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
      *
      * @param array<string, mixed> aConfig Config options for the error handler.
      * /
-    this(IData aConfig = null) {
+    this(Json aConfig = null) {
         super();
 
         configuration.update(aConfig);

@@ -15,7 +15,7 @@ import uim.events;
  */
 class DSubjectFilterDecorator : DDecorator {
     /* 
-    IData __invoke() {
+    Json __invoke() {
         auto someArguments = func_get_args();
         if (!this.canTrigger(someArguments[0])) {
             return null;

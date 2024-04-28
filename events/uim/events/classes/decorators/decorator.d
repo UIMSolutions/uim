@@ -13,17 +13,17 @@ abstract class DDecorator : IDecorator {
     // Decorator options
     // TODO protected array _options = null;
 
-    this(callable callable, IData[string] options = null) {
+    this(callable callable, Json[string] options = null) {
        _callable = callable;
        _options = options;
     }
     
-    IData __invoke() {
+    Json __invoke() {
         return _call(func_get_args());
     }
     
     // Calls the decorated callable with the passed arguments.
-    protected IData _call(array someArguments) {
+    protected Json _call(array someArguments) {
         aCallable = _callable;
 
         return aCallable(...someArguments);

@@ -54,7 +54,7 @@ class DEventManager { // }: IEventManager {
  
     
         void on(IEventListener|string aeventKey,
-        callable|IData[string] options = null,
+        callable|Json[string] options = null,
         ?callable callable = null
     ) {
         if (cast(IEventListener)eventKey) {
@@ -245,9 +245,9 @@ class DEventManager { // }: IEventManager {
      * @template TSubject of object
      * @param callable listener The listener to trigger.
      * @param \UIM\Event\IEvent<TSubject> event Event instance.
-     * @return IData The result of the listener function.
+     * @return Json The result of the listener function.
      * /
-    protected IData _callListener(callable listener, IEvent event) {
+    protected Json _callListener(callable listener, IEvent event) {
         return listener(event, ...array_values(event.getData()));
     }
  

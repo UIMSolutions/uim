@@ -154,7 +154,7 @@ class DMemoryConfiguration : DConfiguration {
 
     override bool hasValue(string value) {
         return _data.byKeyValue
-            .any!(kv => kv.value.isEqual(value));
+            .any!(kv => kv.value.to!string == value);
     }
     /// 
     unittest {
@@ -171,12 +171,12 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override Json[string] get(string[] keys, bool compressMode = true) {
+    override Json[string] get(string[] selectKeys, bool compressMode = true) {
         Json[string] results;
 
-        keys.each!((key) {
-            auto result = get(key);
-            if (result is null && !compressMode) {
+        selectKeys.each!((key) {
+            Json result = get(key);
+            if (result is Json(null) && !compressMode) {
                 results[key] = result;
             } else { // compressmode => no nulls
                 results[key] = result;
@@ -192,7 +192,9 @@ class DMemoryConfiguration : DConfiguration {
     }
 
     override Json get(string key) {
-        return _data.get(key, _defaultData.get(key, null));
+        return _data.hasKey(key) 
+            ? _data[key]
+            : _defaultData.get(key, Json(null));
     }
     /// 
     unittest {
@@ -214,7 +216,7 @@ class DMemoryConfiguration : DConfiguration {
     }
 
     override void update(string key, Json[string] data) {
-        set(key, data.toMapData);
+        set(key, data.toJsonObject);
     }
     /// 
     unittest {
@@ -223,7 +225,7 @@ class DMemoryConfiguration : DConfiguration {
     }
 
     override void merge(string key, Json[string] data) {
-        set(key, data.toMapData);
+        set(key, data.toJsonObject);
     }
 
     override void merge(string key, Json data) {

@@ -104,7 +104,7 @@ abstract class DConfiguration : IConfiguration {
     }
 
     Json get(string key) {
-        return null;
+        return Json(null);
     }
 
     Json[string] get(string[] keys, bool compressMode = true){
@@ -112,7 +112,7 @@ abstract class DConfiguration : IConfiguration {
     }
 
     void set(STRINGAA values, string[] keys = null) {
-        set(values.toData, keys);
+        set(values.toJsonMap, keys);
     }
 
     void set(Json[string] newData, string[] keys = null) {

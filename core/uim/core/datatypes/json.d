@@ -812,3 +812,27 @@ unittest {
   json = json.update(["a": "world"]);
   assert(json["a"].get!string == "world");
 }
+
+Json toJsonObject(Json[string] map, string[] excludeKeys = null) {
+    auto json = Json.emptyObject;
+    map.byKeyValue
+      .filter!(kv => !excludeKeys.has(kv.key))
+      .each!(kv => json[kv.key] = kv.value);
+    return json;
+}
+
+Json toJson(STRINGAA map, string[] excludeKeys = null) {
+    auto json = Json.emptyObject;
+    map.byKeyValue
+      .filter!(kv => !excludeKeys.has(kv.key))
+      .each!(kv => json[kv.key] = kv.value);
+    return json;
+}
+
+Json[string] toJsonMap(STRINGAA map, string[] excludeKeys = null) {
+    Json[string] json;
+    map.byKeyValue
+      .filter!(kv => !excludeKeys.has(kv.key))
+      .each!(kv => json[kv.key] = Json(kv.value));
+    return json;
+}

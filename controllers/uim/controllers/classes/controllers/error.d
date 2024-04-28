@@ -24,7 +24,7 @@ class DErrorController : DController {
     /* 
     // Get alternate view classes that can be used in content-type negotiation.
     string[] viewClasses() {
-        return [IDataView.classname];
+        return [JsonView.classname];
     }
     
 

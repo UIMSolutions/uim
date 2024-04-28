@@ -11,7 +11,7 @@ class DDriver { // }: IDriver {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
@@ -20,7 +20,7 @@ class DDriver { // }: IDriver {
     }
 
     // Hook method
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 

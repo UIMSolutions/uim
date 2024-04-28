@@ -111,7 +111,7 @@ string enableForeignKeySQL() {
 bool supports(DriverFeaturesfeature) {
     return match(feature) {
         DriverFeatures.CTE,
-        DriverFeatures.IData,
+        DriverFeatures.Json,
         DriverFeatures.SAVEPOINT,
         DriverFeatures.TRUNCATE_WITH_CONSTRAINTS,
         DriverFeatures.WINDOW

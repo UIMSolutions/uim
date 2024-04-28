@@ -498,7 +498,7 @@ mixin template TCollection() {
         return _toArray(false);
     }
  
-    array IDataSerialize() {
+    array JsonSerialize() {
         return _toArray();
     }
  

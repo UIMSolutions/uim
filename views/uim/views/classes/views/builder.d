@@ -10,7 +10,7 @@ import uim.views;
  * Once you have configured the view and established all the context
  * you can create a view instance with `build()`.
  */
-class DViewBuilder { // }: DIDataSerializable {
+class DViewBuilder { // }: DJsonSerializable {
     // The subdirectory to the template.
     protected string _templatePath = null;
 
@@ -381,7 +381,7 @@ class DViewBuilder { // }: DIDataSerializable {
      * - Exceptions stored as strings
      * - Resources, \Closure and \PDO are not supported.
      * /
-    array IDataSerialize() {
+    array JsonSerialize() {
         auto myproperties = [
             "_templatePath", "_template", "_plugin", "_theme", "_layout", "_autoLayout",
             "_layoutPath", "_name", "_className", "_options", "_helpers", "_viewData",
@@ -436,7 +436,7 @@ class DViewBuilder { // }: DIDataSerializable {
      * Magic method used for serializing the view builder object.
      * /
     array __serialize() {
-        return _IDataSerialize();
+        return _JsonSerialize();
     }
     
     /**

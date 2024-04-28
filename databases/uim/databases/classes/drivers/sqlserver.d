@@ -9,7 +9,7 @@ class DSqlserverDriver : DDriver {
     mixin(DriverThis!("Sqlserver"));
     
     
-  	override bool initialize(IData[string] initData = null) {
+  	override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 
         configuration.update([
@@ -171,7 +171,7 @@ class DSqlserverDriver : DDriver {
             DriverFeatures.TRUNCATE_WITH_CONSTRAINTS,
             DriverFeatures.WINDOW: true,
 
-            DriverFeatures.IData: false,
+            DriverFeatures.Json: false,
         };
     }
  

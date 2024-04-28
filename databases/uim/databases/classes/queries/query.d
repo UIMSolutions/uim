@@ -15,7 +15,7 @@ abstract class DQuery : IQuery { // : IExpression {
     // TODO mixin TTypeMap;
 
     // Hook method
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -75,7 +75,7 @@ abstract class DQuery : IQuery { // : IExpression {
     }
 
     // List of SQL parts that will be used to build this query.
-    protected IData[string] _parts;
+    protected Json[string] _parts;
 
     /**
      * Indicates whether internal state of this query was changed, this is used to
@@ -454,7 +454,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * aQuery.join(["something": 'different_table"], [], true); // resets joins list
      * ```
      * Params:
-     * IData[string]|string atables list of tables to be joined in the query
+     * Json[string]|string atables list of tables to be joined in the query
      * @param STRINGAA types Associative array of type names used to bind values to query
      * @param bool overwrite whether to reset joins with passed list or not
      * @see \UIM\Database\TypeFactory
@@ -527,7 +527,7 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * See `join()` for further details on conditions and types.
      * Params:
-     * IData[string]|string atable The table to join with
+     * Json[string]|string atable The table to join with
      * @param \UIM\Database\IExpression|\Closure|string[] aconditions The conditions
      * to use for joining.
      * @param array types a list of types associated to the conditions used for converting
@@ -551,7 +551,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * The arguments of this method are identical to the `leftJoin()` shorthand, please refer
      * to that methods description for further details.
      * Params:
-     * IData[string]|string atable The table to join with
+     * Json[string]|string atable The table to join with
      * @param \UIM\Database\IExpression|\Closure|string[] aconditions The conditions
      * to use for joining.
      * @param array types a list of types associated to the conditions used for converting
@@ -573,7 +573,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * The arguments of this method are identical to the `leftJoin()` shorthand, please refer
      * to that method`s description for further details.
      * Params:
-     * IData[string]|string atable The table to join with
+     * Json[string]|string atable The table to join with
      * @param \UIM\Database\IExpression|\Closure|string[] aconditions The conditions
      * to use for joining.
      * @param STRINGAA types a list of types associated to the conditions used for converting
@@ -592,7 +592,7 @@ abstract class DQuery : IQuery { // : IExpression {
     /**
      * Returns an array that can be passed to the join method describing a single join clause
      * Params:
-     * IData[string]|string atable The table to join with
+     * Json[string]|string atable The table to join with
      * @param \UIM\Database\IExpression|\Closure|string[] aconditions The conditions
      * to use for joining.
      * @param string atype the join type to use
@@ -806,7 +806,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * 'allowEmpty' to true.
      * Be careful about using it without proper sanity checks.
      * /
-    auto whereInList(string fieldName, array someValues, IData[string] options = null) {
+    auto whereInList(string fieldName, array someValues, Json[string] options = null) {
         // `types` - Associative array of type names used to bind values to query
         options["types"] = ArrayData;
 
@@ -830,7 +830,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * @param array  someValues Array of values
      * /
-    auto whereNotInList(string fieldName, array someValues, IData[string] options = null) {
+    auto whereNotInList(string fieldName, array someValues, Json[string] options = null) {
         auto options = options.update([
             "types": Json.emptyArray,
             "allowEmpty": BooleanData(false)
@@ -853,9 +853,9 @@ abstract class DQuery : IQuery { // : IExpression {
      * Be careful about using it without proper sanity checks.
      * Params:
      * @param array  someValues Array of values
-     * @param IData[string] options Options
+     * @param Json[string] options Options
      * /
-    auto whereNotInListOrNull(string fieldName, array  someValues, IData[string] options = null) {
+    auto whereNotInListOrNull(string fieldName, array  someValues, Json[string] options = null) {
         auto options = options.update() [
             "types": Json.emptyArray,
             "allowEmpty": BooleanData(false),
@@ -1291,7 +1291,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * - offset: integer or QueryExpression, null when not set
      * - union: array
      * /
-    IData clause(string clauseName) {
+    Json clause(string clauseName) {
         if (!array_key_exists(clauseName, _parts)) {
             clauses = _parts.keys;
             array_walk(clauses, fn (&$x): $x = "`$x`");
@@ -1323,17 +1323,17 @@ abstract class DQuery : IQuery { // : IExpression {
     /**
      * Query parts traversal method used by traverseExpressions()
      * Params:
-     * IData expression Query expression or
+     * Json expression Query expression or
      *  array of expressions.
      * @param \Closure aCallback The callback to be executed for each IExpression
      *  found inside this query.
      * /
-    protected void _expressionsVisitor(IData[] queryExpressions, IClosure aCallback) {
+    protected void _expressionsVisitor(Json[] queryExpressions, IClosure aCallback) {
         queryExpressions
             .each!(exp => expressionsVisitor(exp, aCallback));
     }
     
-    protected void _expressionsVisitor(IData expression, IClosure aCallback) {
+    protected void _expressionsVisitor(Json expression, IClosure aCallback) {
         if (cast(IExpression)expression) {
             expression.traverse(fn (exp): _expressionsVisitor(exp, aCallback));
 
@@ -1352,11 +1352,11 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * string|int param placeholder to be replaced with quoted version
      *  of aValue
-     * @param IData aValue The value to be bound
+     * @param Json aValue The value to be bound
      * @param string|int type the mapped type name, used for casting when sending
      *  to database
      * /
-    auto bind(string|int param, IData aValue, string|int type = null) {
+    auto bind(string|int param, Json aValue, string|int type = null) {
         this.getValueBinder().bind(param, aValue, type);
 
         return this;
@@ -1489,10 +1489,10 @@ abstract class DQuery : IQuery { // : IExpression {
 
             return [
                 "(help)": "This is a Query object, to get the results execute or iterate it.",
-                "sql": IData(mySql),
-                "params": IData(params),
-                "defaultTypes": IData(this.getDefaultTypes()),
-                "executed": IData((bool)_statement),
+                "sql": Json(mySql),
+                "params": Json(params),
+                "defaultTypes": Json(this.getDefaultTypes()),
+                "executed": Json((bool)_statement),
             ];
         }
     } */

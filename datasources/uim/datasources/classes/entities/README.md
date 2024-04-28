@@ -388,7 +388,7 @@ When building APIs, you may often need to convert entities into arrays or Json d
 array = user->toArray();
 
 // Convert to Json
-// Associations will be converted with IDataSerialize hook as well.
+// Associations will be converted with JsonSerialize hook as well.
  Json = Json_encode(user);
 
 When converting an entity to an Json, the virtual & hidden field lists are applied. Entities are recursively converted to Json as well. This means that if you eager loaded entities and their associations uimD will correctly handle converting the associated data into the correct format.

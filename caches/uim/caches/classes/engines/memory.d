@@ -81,7 +81,7 @@ h     * /
     }
     /* _serializers = [
       "igbinary": Memory: : SERIALIZER_IGBINARY,
-      "Json": Memory: : SERIALIZER_IData,
+      "Json": Memory: : SERIALIZER_Json,
       "d": Memory: : SERIALIZER_D,
     ]; * /
 

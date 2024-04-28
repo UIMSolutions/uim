@@ -776,11 +776,11 @@ interface ICollection {
      * Returns the data that can be converted to Json. This returns the same data
      * as `toArray()` which contains only unique keys.
      *
-     * Part of IDataSerializable interface.
+     * Part of JsonSerializable interface.
      *
      * @return array The data to convert to Json
      * /
-    array IDataSerialize();
+    array JsonSerialize();
 
     /**
      * Iterates once all elements in this collection and executes all stacked

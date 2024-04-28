@@ -19,7 +19,7 @@ abstract class DJsonCollection : IJsonCollection {
   mixin(TProperty!("IJsonTenant", "tenant"));
 
     // Hook method
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         //TODO configuration(MemoryConfiguration);
         //TODO configuration.data(initData);
 

@@ -20,7 +20,7 @@ class DJsonBase : IJsonBase, IJsonTenantManager {
     this.name(aName);
   }
 
-  bool initialize(IData[string] initData = null) { // Hook
+  bool initialize(Json[string] initData = null) { // Hook
     return true;
   }
 

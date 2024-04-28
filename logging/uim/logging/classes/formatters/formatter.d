@@ -10,7 +10,7 @@ class DLogFormatter : ILogFormatter {
     initialize;
   }
 
-  this(IData[string] initData) {
+  this(Json[string] initData) {
     initialize(initData);
   }
 
@@ -19,7 +19,7 @@ class DLogFormatter : ILogFormatter {
   }
 
   // Hook method
-  bool initialize(IData[string] initData = null) {
+  bool initialize(Json[string] initData = null) {
     configuration(MemoryConfiguration);
     configuration.data(initData);
 
@@ -29,7 +29,7 @@ class DLogFormatter : ILogFormatter {
   mixin(TProperty!("string", "name"));
 
   // Formats message.
-  string format(IData loggingLevel, string loggingMessage, IData[string] loggingData = null) {
+  string format(Json loggingLevel, string loggingMessage, Json[string] loggingData = null) {
     return null; 
   }
 }

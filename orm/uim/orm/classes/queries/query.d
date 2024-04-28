@@ -49,7 +49,7 @@ import uim.orm;
  * @method DORMcollections.ICollection chunk(int size) Groups the results in arrays of size rows each.
  * @method bool isEmpty() Returns true if this query found no results.
  */
-class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
+class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
 /*
     use TQuery() {
         cache as private _cache;
@@ -1279,11 +1279,11 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
     /**
      * Executes the query and converts the result set into Json.
      *
-     * Part of IDataSerializable interface.
+     * Part of JsonSerializable interface.
      *
      * @return DORMDatasource\IResultset The data to convert to Json.
      * /
-    function IDataSerialize(): IResultset
+    function JsonSerialize(): IResultset
     {
         return _all();
     }

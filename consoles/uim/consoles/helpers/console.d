@@ -19,7 +19,7 @@ abstract class DConsoleHelper {
     }
 
     // Hook method
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -33,7 +33,7 @@ abstract class DConsoleHelper {
      * @param \UIM\Console\IConsoleIo aConsoleIo The ConsoleIo instance to use.
      * configData - The settings for this helper.
      * /
-    this(IConsoleIo aConsoleIo, IData[string] configData = null) {
+    this(IConsoleIo aConsoleIo, Json[string] configData = null) {
         this();
         initialize(configData);
     }

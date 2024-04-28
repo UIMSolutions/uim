@@ -225,8 +225,8 @@ class DLog {
      * Log.configuration.update(arrayOfConfig);
      * ```
      * Params:
-     * IData[string]|string aKey The name of the logger config, or an array of multiple configs.
-     * @param \Psr\Log\ILogger|\Closure|IData[string]|null configData An array of name: config data for adapter.
+     * Json[string]|string aKey The name of the logger config, or an array of multiple configs.
+     * @param \Psr\Log\ILogger|\Closure|Json[string]|null configData An array of name: config data for adapter.
      * /
     static void configuration.update(string[] aKey, ILogger|Closure|array|null configData = null) {
         configurationuration.update(aKey, configData);

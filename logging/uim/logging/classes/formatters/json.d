@@ -23,9 +23,9 @@ class DJsonLogFormatter : DLogFormatter {
   /*
       string|int|false format(level, string amessage, array context = []) {
         auto log = ["date": date(configuration.get("dateFormat"]), "level": to!string(level), "message": message];
-        auto IData = Json_encode(log, Json_THROW_ON_ERROR | configuration.get("flags"]);
+        auto Json = Json_encode(log, Json_THROW_ON_ERROR | configuration.get("flags"]);
 
-        return configuration.get("appendNewline"] ? IData ~ "\n" : IData;
+        return configuration.get("appendNewline"] ? Json ~ "\n" : Json;
     } */
 }
 

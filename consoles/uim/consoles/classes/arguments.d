@@ -74,7 +74,7 @@ class DArguments {
 
     // Get an option`s value or null
     Json option(string name) {
-      return _options.get(name, null);
+      return _options.get(name, Json(null));
     }
 
     // Check if an option is defined and not null.

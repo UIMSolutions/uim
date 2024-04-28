@@ -13,7 +13,7 @@ import uim.orm;
  * @template TSubject of \UIM\Datasource\IEntity|array
  * @extends \UIM\Database\Query\SelectQuery<TSubject>
  */
-class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
+class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     /* 
     mixin CommonTQuery();
 
@@ -1472,9 +1472,9 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
     /**
      * Executes the query and converts the result set into Json.
      *
-     * Part of IDataSerializable interface.
+     * Part of JsonSerializable interface.
      * /
-    IResultset<(\UIM\Datasource\IEntity|mixed)> IDataSerialize() {
+    IResultset<(\UIM\Datasource\IEntity|mixed)> JsonSerialize() {
         return _all();
     }
     

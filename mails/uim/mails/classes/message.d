@@ -10,7 +10,7 @@ import uim.oop;
  * This class is used for sending Internet Message Format based
  * on the standard outlined in https://www.rfc-editor.org/rfc/rfc2822.txt
  */
-class DMessage { //: IDataSerializable {
+class DMessage { //: JsonSerializable {
     mixin TConfigurable;
 
     this() {
@@ -1466,7 +1466,7 @@ class DMessage { //: IDataSerializable {
      * @return array Serializable array of configuration properties.
      * @throws \Exception When a view var object can not be properly serialized.
      * /
-    array IDataSerialize() {
+    array JsonSerialize() {
         array = null;
         foreach (this.serializableProperties as  aProperty) {
             array[aProperty] = this.{ aProperty};
@@ -1499,7 +1499,7 @@ class DMessage { //: IDataSerializable {
      *
      * /
     array __serialize() {
-        array = this.IDataSerialize();
+        array = this.JsonSerialize();
         array_walk_recursive(array, void (& anItem, aKey) {
             if (cast(DSimpleXMLElement)anItem ) {
                  anItem = Json_decode((string)Json_encode((array) anItem), true);

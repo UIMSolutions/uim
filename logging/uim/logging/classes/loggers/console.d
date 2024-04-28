@@ -36,7 +36,7 @@ class DConsoleLog { /* }: BaseLog {
      * configData - Options for the FileLog, see above.
      * @throws \InvalidArgumentException
      * /
-    this(IData[string] configData = null) {
+    this(Json[string] configData = null) {
         super(configData);
 
         configData = configuration;
@@ -55,11 +55,11 @@ class DConsoleLog { /* }: BaseLog {
     /**
      * : writing to console.
      * Params:
-     * IData level The severity level of log you are making.
+     * Json level The severity level of log you are making.
      * @param \string messageToLog The message you want to log.
      * @param array context Additional information about the logged message
      * /
-    void log(logLevel, string messageToLog, IData context = null) {
+    void log(logLevel, string messageToLog, Json context = null) {
         string resultMessage = this.interpolate(messageToLog, context);
        _output.write(this.formatter.format(logLevel, resultMessage, context));
     } */

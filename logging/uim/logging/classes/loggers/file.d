@@ -52,7 +52,7 @@ class DFileLog { /*}: BaseLog {
     protected int _size = null;
 
     // Sets protected properties based on config provided
-    this(IData[string] configData = null) {
+    this(Json[string] configData = null) {
         super(configData);
 
        auto _path = configurationData.isSet("path", sys_get_temp_dir() ~ DIRECTORY_SEPARATOR);
@@ -75,7 +75,7 @@ class DFileLog { /*}: BaseLog {
     /**
      * : writing to log files.
      * Params:
-     * IData logLevel The severity level of the message being written.
+     * Json logLevel The severity level of the message being written.
      * @param \string messageToLog The message you want to log.
      * @param array messageContext Additional information about the logged message
      * /
@@ -89,7 +89,7 @@ class DFileLog { /*}: BaseLog {
         }
         
         string filePath = _path ~ filename;
-        IData mask = configuration.get("mask");
+        Json mask = configuration.get("mask");
         if (!mask) {
             file_put_contents(filePath, message ~ "\n", FILE_APPEND);
 

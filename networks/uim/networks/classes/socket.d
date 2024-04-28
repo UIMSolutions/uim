@@ -16,7 +16,7 @@ class DSocket {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
@@ -25,7 +25,7 @@ class DSocket {
     }
 
     // Hook method
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -51,7 +51,7 @@ class DSocket {
     protected boolconnected = false;
 
     // This variable contains an array with the last error number (num) and string (str)
-    protected IData[string]lastError = null;
+    protected Json[string]lastError = null;
 
     // True if the socket stream is encrypted after a {@link \UIM\Network\Socket.enableCrypto()} call
     protected boolencrypted = false;
@@ -81,10 +81,10 @@ class DSocket {
     /**
      * Constructor.
      *
-     * @param IData[string] aConfig Socket configuration, which will be merged with the base configuration
+     * @param Json[string] aConfig Socket configuration, which will be merged with the base configuration
      * @see \UIM\Network\Socket._defaultConfigData
      * /
-    this(IData[string] configData = null) {
+    this(Json[string] configData = null) {
         configuration.update(configData);
     }
 

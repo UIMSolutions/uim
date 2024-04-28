@@ -7,9 +7,9 @@ import uim.i18n;
  * Returns a translated string if one is found; Otherwise, the submitted message.
  *
  * @param string asingular Text to translate.
- * @param IData ...someArguments Array with arguments or multiple arguments in function.
+ * @param Json ...someArguments Array with arguments or multiple arguments in function.
  * /
-string __(string asingular, IData ...someArguments) {
+string __(string asingular, Json ...someArguments) {
     if (!singular) {
         return "";
     }
@@ -25,9 +25,9 @@ string __(string asingular, IData ...someArguments) {
  * @param string asingular Singular text to translate.
  * @param string aplural Plural text.
  * @param int count Count.
- * @param IData ...someArguments Array with arguments or multiple arguments in function.
+ * @param Json ...someArguments Array with arguments or multiple arguments in function.
  * /
-string __n(string asingular, string aplural, int count, IData ...someArguments) {
+string __n(string asingular, string aplural, int count, Json ...someArguments) {
     if (!singular) {
         return "";
     }
@@ -45,9 +45,9 @@ string __n(string asingular, string aplural, int count, IData ...someArguments) 
  *
  * @param string adomain Domain.
  * @param string amsg String to translate.
- * @param IData ...someArguments Array with arguments or multiple arguments in function.
+ * @param Json ...someArguments Array with arguments or multiple arguments in function.
  * /
-string __d(string adomain, string messageToTranslate, IData ...someArguments) {
+string __d(string adomain, string messageToTranslate, Json ...someArguments) {
     if (messageToTranslate.isEmpty) {
         return "";
     }
@@ -67,9 +67,9 @@ string __d(string adomain, string messageToTranslate, IData ...someArguments) {
  * @param string asingular Singular string to translate.
  * @param string aplural Plural.
  * @param int count Count.
- * @param IData ...someArguments Array with arguments or multiple arguments in function.
+ * @param Json ...someArguments Array with arguments or multiple arguments in function.
  * /
-string __dn(string adomain, string asingular, string aplural, int count, IData ...someArguments): 
+string __dn(string adomain, string asingular, string aplural, int count, Json ...someArguments): 
 {
     if (singular.isEmpty) {
         return "";
@@ -89,9 +89,9 @@ string __dn(string adomain, string asingular, string aplural, int count, IData .
  *
  * @param string acontext DContext of the text.
  * @param string asingular Text to translate.
- * @param IData ...someArguments Array with arguments or multiple arguments in function.
+ * @param Json ...someArguments Array with arguments or multiple arguments in function.
  * /
-string __x(string acontext, string asingular, IData ...someArguments)
+string __x(string acontext, string asingular, Json ...someArguments)
 {
     if (!singular) {
         return "";
@@ -111,9 +111,9 @@ string __x(string acontext, string asingular, IData ...someArguments)
  * @param string asingular Singular text to translate.
  * @param string aplural Plural text.
  * @param int count Count.
- * @param IData ...someArguments Array with arguments or multiple arguments in function.
+ * @param Json ...someArguments Array with arguments or multiple arguments in function.
  * /
-string __xn(string acontext, string asingular, string aplural, int count, IData ...someArguments) {
+string __xn(string acontext, string asingular, string aplural, int count, Json ...someArguments) {
     if (!singular) {
         return "";
     }
@@ -134,9 +134,9 @@ string __xn(string acontext, string asingular, string aplural, int count, IData 
  * @param string adomain Domain.
  * @param string acontext DContext of the text.
  * @param string amsg String to translate.
- * @param IData ...someArguments Array with arguments or multiple arguments in function.
+ * @param Json ...someArguments Array with arguments or multiple arguments in function.
  * /
-string __dx(string adomain, string acontext, string amsg, IData ...someArguments) {
+string __dx(string adomain, string acontext, string amsg, Json ...someArguments) {
     if (!message) {
         return "";
     }
@@ -160,7 +160,7 @@ string __dx(string adomain, string acontext, string amsg, IData ...someArguments
  * @param string asingular Singular text to translate.
  * @param string aplural Plural text.
  * @param int count Count.
- * @param IData ...someArguments Array with arguments or multiple arguments in function.
+ * @param Json ...someArguments Array with arguments or multiple arguments in function.
  * /
 string __dxn(
     string adomain,
@@ -168,7 +168,7 @@ string __dxn(
     string asingular,
     string aplural,
     int count,
-    IData ...someArguments
+    Json ...someArguments
 ) {
     if (!singular) {
         return "";

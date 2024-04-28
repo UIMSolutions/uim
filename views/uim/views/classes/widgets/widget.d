@@ -33,11 +33,11 @@ class DWidget : IWidget {
     configuration(MemoryConfiguration);
     configuration.data(initData);
     configuration.update([
-      "name": StringData(),
-      "val": NullData(null),
+      "name": Json(null),
+      "val": Json(null),
       "type": Json("text"),
       "escape": Json(true),
-      "templateVars": ArrayData
+      "templateVars": Json.emptyArray
     ]);
 
     return true;
@@ -86,9 +86,9 @@ class DWidget : IWidget {
     }
 
     return _stringContents.format("input", [
-        "name": mergedData.get("name", null),
-        "type": mergedData.get("type", null),
-        "templateVars": mergedData.get("templateVars", null),
+        "name": mergedData.get("name", Json(null)),
+        "type": mergedData.get("type", Json(null)),
+        "templateVars": mergedData.get("templateVars", Json(null)),
         // TODO "attrs": _stringContents.formatAttributes(mergedData, ["name", "type"]),
       ]);
     return null;
@@ -114,7 +114,7 @@ class DWidget : IWidget {
         || !data.isSet("type"))
         && formContext.isRequired(fieldName)
       ) {
-      data["required"] = Json(true);
+      data["required"] = BooleanData(true);
     } */
     return data;
   }
@@ -122,7 +122,7 @@ class DWidget : IWidget {
   // Set value for "maxlength" attribute if applicable.
   protected Json[string] setMaxLength(Json[string] data, IContext formContext, string fieldName) {
     if (auto maxLength = formContext.maxLength(fieldName)) {
-      data["maxlength"] = IntegerData(min(maxLength, 100000));
+      data["maxlength"] = Json(min(maxLength, 100000));
     }
     return data;
   }

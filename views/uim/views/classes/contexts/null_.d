@@ -22,19 +22,19 @@ class DNullContext : DContext {
         return false;
     }
  
-    Json val(string myfield, Json[string] options  = null) {
-        return null;
+    Json val(string fieldName, Json[string] options  = null) {
+        return Json(null);
     }
  
-    bool isRequired(string myfield) {
+    bool isRequired(string fieldName) {
         return false;
     }
  
-    string getRequiredMessage(string myfield) {
+    string getRequiredMessage(string fieldName) {
         return null;
     }
  
-    int getMaxLength(string myfield) {
+    int getMaxLength(string fieldName) {
         return 0;
     }
  
@@ -42,7 +42,7 @@ class DNullContext : DContext {
         return null;
     }
  
-    string type(string myfield) {
+    string type(string fieldName) {
         return null;
     }
  

@@ -346,21 +346,15 @@ pure bool isValues(T, S)(T[S] base, T[S] values) {
     assert(!["a": 1, "b": 2].isValues(["a": 1, "c": 2]));
   }
 
-V[K] merge(K, V)(V[K] sourceValues, V[K] mergeValues, bool overwrite = false) {
-  auto result = sourceValues.dup;
-  if (mergeValues is null)
-    return result;
+V[K] merge(K, V)(V[K] sourceValues, V[K] mergeValues, K[] excludedKeys = null) {
+  auto results = sourceValues.dup;
 
-  foreach (k, v; mergeValues) {
-    if (overwrite)
-      result[k] = v;
-    else {
-      if (k !in result)
-        result[k] = v;
-    }
-  }
+  mergeValues.byKeyValue
+    .filter!(kv => !excludedKeys.canFind(kv.key))
+    .filter!(kv => !sourceValues.hasKey(kv.key))
+    .each!(kv => results[kv.key] = kv.value);
 
-  return result;
+  return results;
 }
   ///
   unittest {
@@ -403,9 +397,10 @@ V[K] setValues(K, V)(V[K] target, V[K] someValues) {
   /// 
   /// Params:
   ///   updated new array
-  V[K] update(K, V)(V[K] originalValues, V[K] updates) {
+  V[K] update(K, V)(V[K] originalValues, V[K] updates, K[] excludedKeys = null) {
     V[K] updatedValues = originalValues.dup;
     updatedValues.byKeyValue
+      .filter!(kv => !excludedKeys.hasKey(kv.key))
       .each!(kv => updatedValues[kv.key] = kv.value);
 
     return updatedValues;

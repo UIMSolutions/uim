@@ -98,7 +98,7 @@ class DStringContents {
      * ```
      */
     void add(STRINGAA newTemplates) {
-        add(newTemplates.toData);
+        add(newTemplates.toJsonObject);
     }
 
     void add(Json[string] newTemplates) {

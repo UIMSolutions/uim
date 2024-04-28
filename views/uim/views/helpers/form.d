@@ -26,7 +26,7 @@ class DFormHelper : DHelper {
     override bool initialize(Json[string] initData = null) {
         if (super.initialize(initData)) {
             configuration.updateDefaults([
-                "idPrefix": NullData,
+                "idPrefix": Json(null),
                 "errorClass": Json("form-error"),
                 "typeMap": MapData([
                     "string": "text",

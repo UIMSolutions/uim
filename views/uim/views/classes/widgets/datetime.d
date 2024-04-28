@@ -17,10 +17,10 @@ class DDateTimeWidget : DWidget {
         if (super.initialize(initData)) {
             configuration.updateDefaults([
                 "name": Json(""),
-                "val": NullData,
+                "val": Json(null),
                 "type": Json("datetime-local"),
                 "escape": Json(true),
-                "timezone": NullData,
+                "timezone": Json(null),
                 "templateVars": Json.emptyArray,
             ]);
 
@@ -38,10 +38,10 @@ class DDateTimeWidget : DWidget {
             */
             _defaultStep = [
                 "datetime-local": Json("1"),
-                "date": NullData,
+                "date": Json(null),
                 "time": Json("1"),
-                "month": NullData,
-                "week": NullData,
+                "month": Json(null),
+                "week": Json(null),
             ];
 
             return true;

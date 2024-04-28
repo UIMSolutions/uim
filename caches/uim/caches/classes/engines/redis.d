@@ -48,7 +48,7 @@ class DRedisCacheEngine : DCacheEngine {
             "persistent": Json(true),
             "port": IntegerData(6379),
             "prefix": Json("uim_"),
-            "host": NullData,
+            "host": Json(null),
             "server": Json("127.0.0.1"),
             "timeout": IntegerData(0),
             "unix_socket": BooleanData(false),

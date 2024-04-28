@@ -20,7 +20,7 @@ abstract class DQuery : IQuery { // : IExpression {
         configuration.data(initData);
 
         _parts = [
-            "comment": NullData,
+            "comment": Json(null),
             "delete": Json(true),
             "update": Json.emptyArray,
             "set": Json.emptyArray,
@@ -32,15 +32,15 @@ abstract class DQuery : IQuery { // : IExpression {
             "modifier": Json.emptyArray,
             "from": Json.emptyArray,
             "join": Json.emptyArray,
-            "where": NullData,
+            "where": Json(null),
             "group": Json.emptyArray,
-            "having": NullData,
+            "having": Json(null),
             "window": Json.emptyArray,
-            "order": NullData,
-            "limit": NullData,
-            "offset": NullData,
+            "order": Json(null),
+            "limit": Json(null),
+            "offset": Json(null),
             "union": Json.emptyArray,
-            "epilog": NullData,
+            "epilog": Json(null),
         ];
 
         return true;

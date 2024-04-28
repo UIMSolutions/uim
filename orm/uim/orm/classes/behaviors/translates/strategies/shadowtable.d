@@ -30,12 +30,12 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
 
         configuration.updateDefaults([
             "fields": Json.emptyArray,
-            "defaultLocale": NullData,
+            "defaultLocale": Json(null),
             "referencename": StringData,
             "allowEmptyTranslations": Json(true),
             "onlyTranslated": BooleanData(false),
             "strategy": Json("subquery"),
-            "tableLocator": NullData,
+            "tableLocator": Json(null),
             "validator": BooleanData(false),
         ]);
 

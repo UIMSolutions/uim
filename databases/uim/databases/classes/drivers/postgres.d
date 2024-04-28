@@ -20,7 +20,7 @@ class DPostgresDriver : DDriver {
             "schema": Json("public"),
             "port": IntegerData(5432),
             "encoding": Json("utf8"),
-            "timezone": NullData,
+            "timezone": Json(null),
             "flags": Json.emptyArray,
             "init": Json.emptyArray,
         ]);

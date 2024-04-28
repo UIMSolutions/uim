@@ -40,7 +40,7 @@ class DFileCacheEngine : DCacheEngine {
             "lock": Json(true),
             // TODO "mask": std.conv.octal!"664",
             // TODO "dirMask": std.conv.octal!"770",
-            "path": NullData,
+            "path": Json(null),
             "prefix": Json("uim_"),
             "serialize": Json(true),
         ]); 

@@ -24,13 +24,13 @@ class DSqlserverDriver : DDriver {
         "init": Json.emptyArray,
         "settings": Json.emptyArray,
         "attributes": Json.emptyArray,
-        "app": NullData,
-        "connectionPooling": NullData,
-        "failoverPartner": NullData,
-        "loginTimeout": NullData,
-        "multiSubnetFailover": NullData,
-        "encrypt": NullData,
-        "trustServerCertificate": NullData,
+        "app": Json(null),
+        "connectionPooling": Json(null),
+        "failoverPartner": Json(null),
+        "loginTimeout": Json(null),
+        "multiSubnetFailover": Json(null),
+        "encrypt": Json(null),
+        "trustServerCertificate": Json(null),
     ]);
 
         startQuote("[");

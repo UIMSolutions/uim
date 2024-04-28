@@ -93,10 +93,10 @@ class DClient { // }: IClient {
     configuration.data(initData);
 
     configuration.updateDefaults([
-      "auth": NullData,
-      "adapter": NullData,
-      "host": NullData,
-      "port": NullData,
+      "auth": Json(null),
+      "adapter": Json(null),
+      "host": Json(null),
+      "port": Json(null),
       "scheme": Json("http"),
       "basePath": Json(""),
       "timeout": IntegerData(30),

@@ -78,9 +78,9 @@ class DExceptionTrap {
 
   bool initialize(IData[string] initData = null) {
     configuration.updateDefaults([
-      "exceptionRenderer": NullData,
+      "exceptionRenderer": Json(null),
       "logger": StringData(ErrorLogger.classname),
-      "stderr": NullData,
+      "stderr": Json(null),
       "log": Json(true),
       "skipLog": Json.emptyArray,
       "trace": BooleanData(false),

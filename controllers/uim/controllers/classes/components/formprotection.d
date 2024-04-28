@@ -40,7 +40,7 @@ class DFormProtectionComponent : DComponent {
             "validate": Json(true),
             "unlockedFields": Json.emptyArray,
             "unlockedActions": Json.emptyArray,
-            "validationFailureCallback": NullData,
+            "validationFailureCallback": Json(null),
         ]);
 
         return true;

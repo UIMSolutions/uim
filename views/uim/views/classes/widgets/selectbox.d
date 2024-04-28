@@ -22,9 +22,9 @@ class DSelectBoxWidget : DWidget {
     }
     /* 
     protected Json[string] _defaultData = [
-        "name": StringData(""),
+        "name": Json(""),
         "empty": BooleanData(false),
-        "escape": BooleanData(true),
+        "escape": Json(true),
         "options": Json.emptyArray,
         "disabled": null,
         "val": null,

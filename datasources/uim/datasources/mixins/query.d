@@ -469,8 +469,8 @@ mixin template TQuery() {
      * ### Example:
      *
      * ```
-     *  query.applyOptions(["doABarrelRoll": BooleanData(true), "fields": ["id", "name"]);
-     *  query.getOptions(); // Returns ["doABarrelRoll": BooleanData(true)]
+     *  query.applyOptions(["doABarrelRoll": Json(true), "fields": ["id", "name"]);
+     *  query.getOptions(); // Returns ["doABarrelRoll": Json(true)]
      * ```
      *
      * @see uim.datasources.IQuery::applyOptions() to read about the options that will

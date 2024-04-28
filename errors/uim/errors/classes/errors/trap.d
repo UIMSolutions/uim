@@ -43,7 +43,7 @@ class DErrorTrap {
         configuration.updateDefaults([
             // TODOD "errorLevel": E_ALL,
             "errorRenderer": NullData,
-            "log": BooleanData(true),
+            "log": Json(true),
             // TODO "logger": ErrorLogger.classname,
             "trace": BooleanData(false),
         ]);

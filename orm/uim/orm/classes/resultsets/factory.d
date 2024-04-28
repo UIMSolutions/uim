@@ -48,7 +48,7 @@ class DResultsetFactory {
 
         myassocMap = myquery.getEagerLoader().associationsMap(myprimaryTable);
         mydata["matchingAssoc"] = (new DCollection(myassocMap))
-            .match(["matching": BooleanData(true)])
+            .match(["matching": Json(true)])
             .indexBy("alias")
             .toArray();
 

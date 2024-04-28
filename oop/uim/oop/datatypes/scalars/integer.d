@@ -145,7 +145,7 @@ class DIntegerData : DScalarData {
     data.add(NumberData(1.0));
     assert(data.value == 3);
 
-    data.add(StringData("3"));
+    data.add(Json("3"));
     assert(data.value == 6);
   }
 

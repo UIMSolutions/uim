@@ -50,8 +50,8 @@ class DMemoryCacheEngine : DCacheEngine {
       "password": NullData,
       "persistent": NullData,
       "port": NullData,
-      "prefix": StringData("uim_"),
-      "serialize": StringData("d"),
+      "prefix": Json("uim_"),
+      "serialize": Json("d"),
       // TODO "servers": StringArrayData(["127.0.0.1"]),
       "options": Json.emptyArray,
     ]);

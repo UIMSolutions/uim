@@ -39,12 +39,12 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
         configuration.updateDefaults([
             "fields": Json.emptyArray,
-            "translationTable": StringData("I18n"),
+            "translationTable": Json("I18n"),
             "defaultLocale": NullData,
             "referencename": StringData,
-            "allowEmptyTranslations": BooleanData(true),
+            "allowEmptyTranslations": Json(true),
             "onlyTranslated": BooleanData(false),
-            "strategy": StringData("subquery"),
+            "strategy": Json("subquery"),
             "tableLocator": NullData,
             "validator": BooleanData(false),
         ]);
@@ -75,7 +75,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         this.table = table;
         this.translationTable = this.getTableLocator().get(
             configuration.get("translationTable"],
-            ["allowFallbackClass": BooleanData(true)]
+            ["allowFallbackClass": Json(true)]
         );
 
         this.setupAssociations();
@@ -107,7 +107,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                     "className": table,
                     "alias": name,
                     "table": this.translationTable.getTable(),
-                    "allowFallbackClass": BooleanData(true),
+                    "allowFallbackClass": Json(true),
                 ]);
             } else {
                 fieldTable = tableLocator.get(name);
@@ -141,7 +141,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             "strategy": strategy,
             "conditions": conditions,
             "propertyName": "_i18n",
-            "dependent": BooleanData(true),
+            "dependent": Json(true),
         ]);
     }
 
@@ -295,7 +295,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         foreach (new as field: content) {
             new[field] = new DORMEntity(compact("locale", "field", "content", "model"), [
                 "useSetters": BooleanData(false),
-                "markNew": BooleanData(true),
+                "markNew": Json(true),
             ]);
         }
 
@@ -399,7 +399,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                 translation = new DORMEntityClass(keys + ["locale": locale], [
                     "markNew": BooleanData(false),
                     "useSetters": BooleanData(false),
-                    "markClean": BooleanData(true),
+                    "markClean": Json(true),
                 ]);
                 result[locale] = translation;
             }

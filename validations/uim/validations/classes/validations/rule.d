@@ -72,7 +72,7 @@ class DValidationRule {
      * - field: The name of the field that is being processed
      * /
     string[] process(Json aValue, array myproviders, array mycontext = []) {
-        mycontext += ["data": Json.emptyArray, "newRecord": BooleanData(true), "providers": myproviders];
+        mycontext += ["data": Json.emptyArray, "newRecord": Json(true), "providers": myproviders];
 
         if (_skip(mycontext)) {
             return true;

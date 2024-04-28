@@ -1373,8 +1373,8 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
         Json[string] optionData = null
     ) {
         options = new ArrayObject(options ~ [
-            "atomic": BooleanData(true),
-            "defaults": BooleanData(true),
+            "atomic": Json(true),
+            "defaults": Json(true),
         ]);
 
         myentity = _executeTransaction(
@@ -1633,12 +1633,12 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
         Json[string] optionData = null
     ) {
         options = new ArrayObject(options ~ [
-            "atomic": BooleanData(true),
-            "associated": BooleanData(true),
-            "checkRules": BooleanData(true),
-            "checkExisting": BooleanData(true),
-            "_primary": BooleanData(true),
-            "_cleanOnSuccess": BooleanData(true),
+            "atomic": Json(true),
+            "associated": Json(true),
+            "checkRules": Json(true),
+            "checkExisting": Json(true),
+            "_primary": Json(true),
+            "_cleanOnSuccess": Json(true),
         ]);
 
         if (myentity.hasErrors((bool)options["associated"])) {
@@ -1952,9 +1952,9 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
     ): range {
         options = new ArrayObject(
             options ~ [
-                "atomic": BooleanData(true),
-                "checkRules": BooleanData(true),
-                "_primary": BooleanData(true),
+                "atomic": Json(true),
+                "checkRules": Json(true),
+                "_primary": Json(true),
             ]
         );
         options["_cleanOnSuccess"] = false;
@@ -2050,9 +2050,9 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
          * /
     bool delete_(IEntity myentity, Json[string] optionData = null) {
         options = new ArrayObject(options ~ [
-            "atomic": BooleanData(true),
-            "checkRules": BooleanData(true),
-            "_primary": BooleanData(true),
+            "atomic": Json(true),
+            "checkRules": Json(true),
+            "_primary": Json(true),
         ]);
 
         mysuccess = _executeTransaction(
@@ -2113,9 +2113,9 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * /
     protected IEntity _deleteMany(Range myentities, Json[string] optionData = null) {
         options = new ArrayObject(options ~ [
-                "atomic": BooleanData(true),
-                "checkRules": BooleanData(true),
-                "_primary": BooleanData(true),
+                "atomic": Json(true),
+                "checkRules": Json(true),
+                "_primary": Json(true),
             ]);
 
         myfailed = _executeTransaction(function () use (myentities, options) {
@@ -2455,7 +2455,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * ```
      * myarticle = this.Articles.newEntity(
      *  this.request[),
-     *  ["accessibleFields": ["protected_field": BooleanData(true)]]
+     *  ["accessibleFields": ["protected_field": Json(true)]]
      * );
      * ```
      *
@@ -2545,7 +2545,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * ```
      * myarticle = this.Articles.patchEntity(myarticle, this.request[), [
      *  "associated": [
-     *    "Tags": ["accessibleFields": ["*": BooleanData(true)]]
+     *    "Tags": ["accessibleFields": ["*": Json(true)]]
      *  ]
      * ]);
      * ```

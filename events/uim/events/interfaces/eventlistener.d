@@ -21,7 +21,7 @@ interface IEventListener {
      *     return [
      *         'Order.complete": `sendEmail",
      *         'Article.afterBuy": 'decrementInventory",
-     *         'User.onRegister": ["callable": 'logRegistration", "priority": 20, "passParams": BooleanData(true)]
+     *         'User.onRegister": ["callable": 'logRegistration", "priority": 20, "passParams": Json(true)]
      *     ];
      * }
      * ```

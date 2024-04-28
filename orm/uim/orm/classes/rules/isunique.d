@@ -12,7 +12,7 @@ class DIsUnique {
     /* 
     // The unique check options
     protected Json[string] _options = [
-        "allowMultipleNulls": BooleanData(true),
+        "allowMultipleNulls": Json(true),
     ];
 
     /**

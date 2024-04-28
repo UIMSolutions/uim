@@ -21,7 +21,7 @@ abstract class DQuery : IQuery { // : IExpression {
 
         _parts = [
             "comment": NullData,
-            "delete": BooleanData(true),
+            "delete": Json(true),
             "update": Json.emptyArray,
             "set": Json.emptyArray,
             "insert": Json.emptyArray,
@@ -435,7 +435,7 @@ abstract class DQuery : IQuery { // : IExpression {
      *    'table": 'articles",
      *    'conditions": [
      *        'a.posted >=": new DateTime("-3 days"),
-     *        'a.published": BooleanData(true),
+     *        'a.published": Json(true),
      *        'a.author_id = authors.id'
      *    ]
      * ]], ["a.posted": 'datetime", "a.published": 'boolean"])
@@ -520,7 +520,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * ```
      * aQuery.leftJoin(["a": 'articles"], [
      *     'a.posted >=": new DateTime("-3 days"),
-     *     'a.published": BooleanData(true),
+     *     'a.published": Json(true),
      *     'a.author_id = authors.id'
      * ], ["a.posted": 'datetime", "a.published": 'boolean"]);
      * ```
@@ -658,7 +658,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * ```
      * aQuery.where([
      *    'author_id !=": 1,
-     *    'OR": ["published": BooleanData(true), "posted <": new DateTime("now")],
+     *    'OR": ["published": Json(true), "posted <": new DateTime("now")],
      *    'NOT": ["title": 'Hello"]
      * ], ["published": boolean, "posted": 'datetime"]
      * ```
@@ -671,7 +671,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * may want to define 2 different options for the same key, in that case, you can
      * wrap each condition inside a new array:
      *
-     * `aQuery.where(["OR": [["published": BooleanData(false)], ["published": BooleanData(true)]])`
+     * `aQuery.where(["OR": [["published": BooleanData(false)], ["published": Json(true)]])`
      *
      * Would result in:
      *
@@ -686,7 +686,7 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * ```
      * exp = aQuery.newExpr().add(["id !=": 100, "author_id' != 1]).tieWith("OR");
-     * aQuery.where(["published": BooleanData(true)], ["published": 'boolean"]).where(exp);
+     * aQuery.where(["published": Json(true)], ["published": 'boolean"]).where(exp);
      * ```
      *
      * The previous example produces:

@@ -94,7 +94,7 @@ class DConsoleOptionParser {
     void addArgument(string argName, Json[string] params = null) {
         Json[string] defaultOptions = [
             "name": StringData(argName),
-            "help": StringData(""),
+            "help": Json(""),
             "index": LongData(count(_args)),
             "required": BooleanData(false),
             "choices": Json.emptyArray,
@@ -179,18 +179,18 @@ class DConsoleOptionParser {
         this.addOption("help", [
             "short": "h",
             "help": "Display this help.",
-            "boolean": BooleanData(true),
+            "boolean": Json(true),
         ]);
 
         if (defaultOptions) {
             this.addOption("verbose", [
                 "short": "v",
                 "help": "Enable verbose output.",
-                "boolean": BooleanData(true),
+                "boolean": Json(true),
             ]).addOption("quiet", [
                 "short": "q",
                 "help": "Enable quiet output.",
-                "boolean": BooleanData(true),
+                "boolean": Json(true),
             ]);
         }
     }
@@ -297,8 +297,8 @@ class DConsoleOptionParser {
      * /
     void addOption(string optionName, Json[string] behaviorOptions = null) {
             defaultValues = [
-                "short": StringData(""),
-                "help": StringData(""),
+                "short": Json(""),
+                "help": Json(""),
                 "default": null,
                 "boolean": BooleanData(false),
                 "multiple": BooleanData(false),

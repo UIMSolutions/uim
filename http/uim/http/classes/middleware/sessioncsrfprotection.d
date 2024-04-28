@@ -32,8 +32,8 @@ class DSessionCsrfProtectionMiddleware { // }: IHttpMiddleware {
      *
      * /
     protected Json _config = [
-        "key": StringData("csrfToken"),
-        "field": StringData("_csrfToken"),
+        "key": Json("csrfToken"),
+        "field": Json("_csrfToken"),
     ];
 
     /**

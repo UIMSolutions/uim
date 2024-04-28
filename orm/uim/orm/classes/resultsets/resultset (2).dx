@@ -325,7 +325,7 @@ class DResultset : IResultset {
     protected void _calculateAssociationMap(Query query) {
         map = query.getEagerLoader().associationsMap(_defaultTable);
         _matchingMap = (new DCollection(map))
-            .match(["matching": BooleanData(true)])
+            .match(["matching": Json(true)])
             .indexBy("alias")
             .toArray();
 
@@ -396,7 +396,7 @@ class DResultset : IResultset {
         results = presentAliases = null;
         options = [
             "useSetters": BooleanData(false),
-            "markClean": BooleanData(true),
+            "markClean": Json(true),
             "markNew": BooleanData(false),
             "guard": BooleanData(false),
         ];

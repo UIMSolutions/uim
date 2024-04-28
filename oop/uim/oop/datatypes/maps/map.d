@@ -167,7 +167,7 @@ mixin(DataCalls!("Map"));
 ///
 unittest {
   /* auto stringMap = MapValue!string();
-  stringMap["key1"] = StringData("value1");
+  stringMap["key1"] = Json("value1");
 
   assert(stringMap["key1"].toString == "value1");
   assert(cast(DStringData) stringMap["key1"]);
@@ -185,7 +185,7 @@ unittest {
   stringMap["key5"] = 100.1;
   assert(stringMap["key5"].toString == "100.1");
 
-  stringMap["key6"] = [StringData("v1"), StringData("v2")];
+  stringMap["key6"] = [Json("v1"), Json("v2")];
 
   assert(stringMap.toJson.toString == `{"key1":"value1","key6":null,"key2":"value2","key3":true,"key5":100.1,"key4":100}`); */
 }

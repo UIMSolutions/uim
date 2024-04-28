@@ -37,12 +37,12 @@ class DFileCacheEngine : DCacheEngine {
         configuration.updateDefaults([
             "duration": IntegerData(3600),
             "groups": Json.emptyArray,
-            "lock": BooleanData(true),
+            "lock": Json(true),
             // TODO "mask": std.conv.octal!"664",
             // TODO "dirMask": std.conv.octal!"770",
             "path": NullData,
-            "prefix": StringData("uim_"),
-            "serialize": BooleanData(true),
+            "prefix": Json("uim_"),
+            "serialize": Json(true),
         ]); 
 
         /* 

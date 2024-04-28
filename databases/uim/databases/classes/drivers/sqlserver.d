@@ -13,11 +13,11 @@ class DSqlserverDriver : DDriver {
 		if (!super.initialize(initData)) { return false; }
 
         configuration.update([
-        "host": StringData("localhost\\SQLEXPRESS"),
-        "username": StringData(""),
-        "password": StringData(""),
-        "database": StringData("uim"),
-        "port": StringData(""),
+        "host": Json("localhost\\SQLEXPRESS"),
+        "username": Json(""),
+        "password": Json(""),
+        "database": Json("uim"),
+        "port": Json(""),
         // PDO.SQLSRV_ENCODING_UTF8
         "encoding": IntegerData(65001),
         "flags": Json.emptyArray,

@@ -97,15 +97,15 @@ class DClient { // }: IClient {
       "adapter": NullData,
       "host": NullData,
       "port": NullData,
-      "scheme": StringData("http"),
-      "basePath": StringData(""),
+      "scheme": Json("http"),
+      "basePath": Json(""),
       "timeout": IntegerData(30),
-      "ssl_verify_peer": BooleanData(true),
-      "ssl_verify_peer_name": BooleanData(true),
+      "ssl_verify_peer": Json(true),
+      "ssl_verify_peer_name": Json(true),
       "ssl_verify_depth": IntegerData(5),
-      "ssl_verify_host": BooleanData(true),
+      "ssl_verify_host": Json(true),
       "redirect": BooleanData(false),
-      "protocolVersion": StringData("1.1"),
+      "protocolVersion": Json("1.1"),
     ]);
 
     return true;
@@ -421,7 +421,7 @@ class DClient { // }: IClient {
             "host": requestUrl.getHost(),
             "port": requestUrl.getPort(),
             "scheme": requestUrl.getScheme(),
-            "protocolRelative": BooleanData(true),
+            "protocolRelative": Json(true),
           ]);
         myrequest = myrequest.withUri(new Uri(mylocationUrl));
         myrequest = _cookies.addToRequest(myrequest, []);
@@ -499,8 +499,8 @@ class DClient { // }: IClient {
     Json[string] mydefaults = [
       "host": null,
       "port": Json(null,
-      "scheme": StringData("http"),
-      "basePath": StringData(""),
+      "scheme": Json("http"),
+      "basePath": Json(""),
       "protocolRelative": BooleanData(false),
     ];
     options = options.update(mydefaults);

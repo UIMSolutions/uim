@@ -45,7 +45,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
      * Json[string] options The options to use. See above.
      * /
     this(Json[string] options = null) {
-        options = options.update["Json": BooleanData(true), "xml": BooleanData(false), "methods": null];
+        options = options.update["Json": Json(true), "xml": BooleanData(false), "methods": null];
         if (options["Json"]) {
             this.addParser(
                 ["application/Json", "text/Json"],

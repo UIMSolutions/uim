@@ -22,9 +22,9 @@ class DTextareaWidget : DWidget {
     }
     /* 
     protected Json[string] _defaultData = [
-        "val": StringData(""),
-        "name": StringData(""),
-        "escape": BooleanData(true),
+        "val": Json(""),
+        "name": Json(""),
+        "escape": Json(true),
         "rows": IntegerData(5),
         "templateVars": Json.emptyArray,
     ];

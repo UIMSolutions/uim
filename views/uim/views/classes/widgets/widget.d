@@ -35,8 +35,8 @@ class DWidget : IWidget {
     configuration.update([
       "name": StringData(),
       "val": NullData(null),
-      "type": StringData("text"),
-      "escape": BooleanData(true),
+      "type": Json("text"),
+      "escape": Json(true),
       "templateVars": ArrayData
     ]);
 
@@ -69,7 +69,7 @@ class DWidget : IWidget {
 
     if (mergedData.isEmpty("value")) {
       // explicitly convert to 0 to avoid empty string which is marshaled as null
-      mergedData["value"] = StringData("0");
+      mergedData["value"] = Json("0");
     }
 
     if (auto fieldName = mergedData.getString("fieldName")) {
@@ -110,11 +110,11 @@ class DWidget : IWidget {
     /* 
     if (
       !data.isEmpty("disabled") && (
-        (data.isSet("type") && data.get("type") != StringData("hidden"))
+        (data.isSet("type") && data.get("type") != Json("hidden"))
         || !data.isSet("type"))
         && formContext.isRequired(fieldName)
       ) {
-      data["required"] = BooleanData(true);
+      data["required"] = Json(true);
     } */
     return data;
   }

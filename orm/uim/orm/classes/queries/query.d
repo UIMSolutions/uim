@@ -323,11 +323,11 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
      *
      * ```
      * query.contain(["Tags": function (q) {
-     *     return q.where(["Tags.is_popular": BooleanData(true)]);
+     *     return q.where(["Tags.is_popular": Json(true)]);
      * }]);
      *
      * query.contain(["Products.Manufactures": function (q) {
-     *     return q.select(["name"]).where(["Manufactures.active": BooleanData(true)]);
+     *     return q.select(["name"]).where(["Manufactures.active": Json(true)]);
      * }]);
      * ```
      *
@@ -704,7 +704,7 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
             .setMatching(assoc, builder, [
                 "joinType": Query::JOIN_TYPE_LEFT,
                 "fields": BooleanData(false),
-                "negateMatch": BooleanData(true),
+                "negateMatch": Json(true),
             ])
             .getMatching();
         _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);

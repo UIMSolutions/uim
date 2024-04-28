@@ -119,14 +119,14 @@ class DMarshaller {
      *
      * ```
      * result = mymarshaller.one(mydata, [
-     *  "associated": ["Tags": ["onlyIds": BooleanData(true)]]
+     *  "associated": ["Tags": ["onlyIds": Json(true)]]
      * ]);
      * ```
      *
      * ```
      * result = mymarshaller.one(mydata, [
      *  "associated": [
-     *    "Tags": ["accessibleFields": ["*": BooleanData(true)]]
+     *    "Tags": ["accessibleFields": ["*": Json(true)]]
      *  ]
      * ]);
      * ```
@@ -173,11 +173,11 @@ class DMarshaller {
         if (isSet(options["fields"])) {
             foreach ((array)options["fields"] as myfield) {
                 if (array_key_exists(myfield, myproperties)) {
-                    myentity.set(myfield, myproperties[myfield], ["asOriginal": BooleanData(true)]);
+                    myentity.set(myfield, myproperties[myfield], ["asOriginal": Json(true)]);
                 }
             }
         } else {
-            myentity.set(myproperties, ["asOriginal": BooleanData(true)]);
+            myentity.set(myproperties, ["asOriginal": Json(true)]);
         }
         // Don"t flag clean association entities as
         // dirty so we don"t persist empty records.
@@ -214,7 +214,7 @@ class DMarshaller {
      * @param Json[string] options The options passed to this marshaller.
      * /
     // TODO protected array _prepareDataAndOptions(array data, Json[string] options) {
-        options = options.update["validate": BooleanData(true)];
+        options = options.update["validate": Json(true)];
 
         mytableName = _table.aliasName();
         if (isSet(mydata[mytableName]) && isArray(mydata[mytableName])) {
@@ -434,7 +434,7 @@ class DMarshaller {
      *
      * ```
      * result = mymarshaller.merge(myentity, mydata, [
-     *  "associated": ["Tags": ["onlyIds": BooleanData(true)]]
+     *  "associated": ["Tags": ["onlyIds": Json(true)]]
      * ]);
      * ```
      * Params:
@@ -721,7 +721,7 @@ class DMarshaller {
         if (isSet(myassociated["_joinData"])) {
             mynested = (array)myassociated["_joinData"];
         }
-        options["accessibleFields"] = ["_joinData": BooleanData(true)];
+        options["accessibleFields"] = ["_joinData": Json(true)];
 
         myrecords = this.mergeMany(myoriginal, myvalue, options);
         foreach (myrecords as myrecord) {

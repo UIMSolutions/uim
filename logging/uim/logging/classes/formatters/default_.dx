@@ -9,7 +9,7 @@ class DefaultFormatter : DAbstractFormatter {
         donfiguration.updateDefaults([
             "dateFormat": "Y-m-d H:i:s",
             "includeTags": BooleanData(false),
-            "includeDate": BooleanData(true),
+            "includeDate": Json(true),
         ]);
 		
 		return true;

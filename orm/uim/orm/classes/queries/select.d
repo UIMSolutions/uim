@@ -483,8 +483,8 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * myquery.applyOptions(["doABarrelRoll": BooleanData(true), "fields": ["id", "name"]);
-     * myquery.getOptions(); // Returns ["doABarrelRoll": BooleanData(true)]
+     * myquery.applyOptions(["doABarrelRoll": Json(true), "fields": ["id", "name"]);
+     * myquery.getOptions(); // Returns ["doABarrelRoll": Json(true)]
      * ```
      *
      * @see \UIM\Datasource\IQuery.applyOptions() to read about the options that will
@@ -770,11 +770,11 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      *
      * ```
      * myquery.contain(["Tags": auto (myq) {
-     *    return myq.where(["Tags.is_popular": BooleanData(true)]);
+     *    return myq.where(["Tags.is_popular": Json(true)]);
      * }]);
      *
      * myquery.contain(["Products.Manufactures": auto (myq) {
-     *    return myq.select(["name"]).where(["Manufactures.active": BooleanData(true)]);
+     *    return myq.select(["name"]).where(["Manufactures.active": Json(true)]);
      * }]);
      * ```
      *
@@ -1131,7 +1131,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
             .setMatching(myassoc, mybuilder, [
                 "joinType": JOIN_TYPE_LEFT,
                 "fields": BooleanData(false),
-                "negateMatch": BooleanData(true),
+                "negateMatch": Json(true),
             ])
             .getMatching();
        _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);

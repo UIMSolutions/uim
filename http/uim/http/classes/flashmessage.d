@@ -36,12 +36,12 @@ class DFlashMessage {
 
     // Default configuration
     configuration.updateDefaults([
-        "key": StringData("flash"),
-        "element": StringData("default"),
+        "key": Json("flash"),
+        "element": Json("default"),
         "plugin": null,
         "params": Json.emptyArray,
         "clear": BooleanData(false),
-        "duplicate": BooleanData(true),
+        "duplicate": Json(true),
     ];
 
     protected ISession _session;

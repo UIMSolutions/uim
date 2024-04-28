@@ -47,7 +47,7 @@ import uim.views;
  *     "title": "Default title",
  *   ],
  *   "required": [
- *     "id": BooleanData(true), // will use default required message
+ *     "id": Json(true), // will use default required message
  *     "title": "Please enter a title",
  *     "body": BooleanData(false),
  *   ],
@@ -130,7 +130,7 @@ class DArrayContext : DContext {
         Json options = optionData.update([
             // `default`: Default value to return if no value found in data or context record.
             "default": null,
-            "schemaDefault": BooleanData(true)
+            "schemaDefault": Json(true)
         ]);
 
         if (Hash.check(_context["data"], fieldPath)) {

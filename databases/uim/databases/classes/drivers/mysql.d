@@ -22,14 +22,14 @@ class DMysqlDriver : DDriver {
 
         // Base configuration settings for MySQL driver
         configuration.merge([
-            "persistent": BooleanData(true),
-            "host": StringData("localhost"),
-            "username": StringData("root"),
-            "password": StringData(""),
-            "database": StringData("uim"),
-            "port": StringData("3306"),
+            "persistent": Json(true),
+            "host": Json("localhost"),
+            "username": Json("root"),
+            "password": Json(""),
+            "database": Json("uim"),
+            "port": Json("3306"),
             "flags": Json.emptyArray,
-            "encoding": StringData("utf8mb4"),
+            "encoding": Json("utf8mb4"),
             "timezone": NullData(null),
             "init": Json.emptyArray,
         ]);

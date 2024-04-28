@@ -93,37 +93,37 @@ DConsoleOptionParser buildOptionParser(DConsoleOptionParser parserToUpdate) {
         description("Command for loading plugins."); 
         addArgument("plugin", [
             "help": "Name of the plugin to load. Must be in CamelCase format. Example: uim plugin load Example",
-            "required": BooleanData(true),
+            "required": Json(true),
         ]); 
         addOption("only-debug", [
-            "boolean": BooleanData(true),
+            "boolean": Json(true),
             "help": "Load the plugin only when `debug` is enabled.",
         ]); 
         addOption("only-cli", [
-            "boolean": BooleanData(true),
+            "boolean": Json(true),
             "help": "Load the plugin only for CLI.",
         ]); 
         addOption("optional", [
-            "boolean": BooleanData(true),
+            "boolean": Json(true),
             "help": "Do not throw an error if the plugin is not available.",
         ]); 
         addOption("no-bootstrap", [
-            "boolean": BooleanData(true),
+            "boolean": Json(true),
             "help": "Do not run the `bootstrap()` hook.",
         ]); 
         addOption("no-console", [
-            "boolean": BooleanData(true),
+            "boolean": Json(true),
             "help": "Do not run the `console()` hook.",
         ]); addOption("no-middleware", [
-            "boolean": BooleanData(true),
+            "boolean": Json(true),
             "help": "Do not run the `middleware()` hook..",
         ]); 
         addOption("no-routes", [
-            "boolean": BooleanData(true),
+            "boolean": Json(true),
             "help": "Do not run the `routes()` hook.",
         ]);
         addOption("no-services", [
-            "boolean": BooleanData(true),
+            "boolean": Json(true),
             "help": "Do not run the `services()` hook.",
         ]);
 

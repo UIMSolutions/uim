@@ -50,7 +50,7 @@ class DNumberHelper : DHelper {
      * /
     string format(string|float|int mynumber, Json[string] options  = null) {
         auto formattedNumber = Number.format(mynumber, options);
-        auto options = options.update["escape": BooleanData(true)];
+        auto options = options.update["escape": Json(true)];
 
         return options["escape"] ? htmlAttribEscape(formattedNumber) : formattedNumber;
     }
@@ -80,7 +80,7 @@ class DNumberHelper : DHelper {
      * /
     string currency(string|float mynumber, string mycurrency = null, Json[string] options  = null) {
         auto formattedCurrency = Number.currency(mynumber, mycurrency, options);
-        auto options = options.update["escape": BooleanData(true)];
+        auto options = options.update["escape": Json(true)];
 
         return options["escape"] ? htmlAttribEscape(formattedCurrency) : formattedCurrency;
     }
@@ -102,7 +102,7 @@ class DNumberHelper : DHelper {
      * /
     string formatDelta(string|float myvalue, Json[string] options  = null) {
         myformatted = Number.formatDelta(myvalue, options);
-        options = options.update["escape": BooleanData(true)];
+        options = options.update["escape": Json(true)];
 
         return options["escape"] ? htmlAttribEscape(myformatted): myformatted;
     } */

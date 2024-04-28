@@ -36,7 +36,7 @@ class DTimestampBehavior : DBehavior {
                 "modified": "always",
             ],
         ],
-        "refreshTimestamp": BooleanData(true),
+        "refreshTimestamp": Json(true),
     ]);* /
         if (configuration.hasKey("events")) {
             configuration.update("events", configData("events"), false);

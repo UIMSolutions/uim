@@ -32,9 +32,9 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
             "fields": Json.emptyArray,
             "defaultLocale": NullData,
             "referencename": StringData,
-            "allowEmptyTranslations": BooleanData(true),
+            "allowEmptyTranslations": Json(true),
             "onlyTranslated": BooleanData(false),
-            "strategy": StringData("subquery"),
+            "strategy": Json("subquery"),
             "tableLocator": NullData,
             "validator": BooleanData(false),
         ]);
@@ -74,7 +74,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         this.table = table;
         this.translationTable = this.getTableLocator().get(
             configuration.get("translationTable"],
-            ["allowFallbackClass": BooleanData(true)]
+            ["allowFallbackClass": Json(true)]
         );
 
         this.setupAssociations();
@@ -95,7 +95,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                 "foreignKey": "id",
                 "strategy": configuration.get("strategy"],
                 "propertyName": "_i18n",
-                "dependent": BooleanData(true),
+                "dependent": Json(true),
             ]);
     }
 
@@ -154,7 +154,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                     hasOneTargetAlias,
                     [
                         "className": configuration.get("translationTable"],
-                        "allowFallbackClass": BooleanData(true),
+                        "allowFallbackClass": Json(true),
                     ]
                 );
             }
@@ -386,7 +386,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                                             where + values,
                                                                             [
                                                                                 "useSetters": BooleanData(false),
-                                                                                "markNew": BooleanData(true),
+                                                                                "markNew": Json(true),
                                                                             ]
                                                                             );}
 

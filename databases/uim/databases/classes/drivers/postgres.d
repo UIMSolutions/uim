@@ -12,14 +12,14 @@ class DPostgresDriver : DDriver {
         }
 
         configuration.updateDefaults([
-            "persistent": BooleanData(true),
-            "host": StringData("localhost"),
-            "username": StringData("root"),
-            "password": StringData(""),
-            "database": StringData("uim"),
-            "schema": StringData("public"),
+            "persistent": Json(true),
+            "host": Json("localhost"),
+            "username": Json("root"),
+            "password": Json(""),
+            "database": Json("uim"),
+            "schema": Json("public"),
             "port": IntegerData(5432),
-            "encoding": StringData("utf8"),
+            "encoding": Json("utf8"),
             "timezone": NullData,
             "flags": Json.emptyArray,
             "init": Json.emptyArray,

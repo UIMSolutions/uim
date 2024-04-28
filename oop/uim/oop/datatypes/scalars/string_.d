@@ -74,7 +74,7 @@ class DStringData : DScalarData {
   }
 
   unittest {
-    /* auto data = StringData("test");
+    /* auto data = Json("test");
     assert(data == "test");
     assert(data == "test");
     assert(data < "xxxx");
@@ -105,8 +105,8 @@ class DStringData : DScalarData {
   }
   ///
   unittest {
-    /* auto a = StringData("aValue");
-    auto b = StringData("bValue");
+    /* auto a = Json("aValue");
+    auto b = Json("bValue");
     a(b);
     assert(a == "bValue"); */
   }
@@ -166,13 +166,13 @@ class DStringData : DScalarData {
 mixin(DataCalls!("String"));
 
 unittest {
-  /* assert(StringData("test") == "test");
-  assert(StringData("test") < "xxxx");
-  assert(StringData("test") <= "xxxx");
-  assert(StringData("test") <= "test");
-  assert(StringData("test") > "aaaa");
-  assert(StringData("test") >= "aaaa");
-  assert(StringData("test") >= "test");
+  /* assert(Json("test") == "test");
+  assert(Json("test") < "xxxx");
+  assert(Json("test") <= "xxxx");
+  assert(Json("test") <= "test");
+  assert(Json("test") > "aaaa");
+  assert(Json("test") >= "aaaa");
+  assert(Json("test") >= "test");
 
   assert(StringData()("test") == "test");
   assert(StringData()("test") < "xxxx");
@@ -182,8 +182,8 @@ unittest {
   assert(StringData()("test") >= "aaaa");
   assert(StringData()("test") >= "test");
 
-  assert(StringData("test").value == "test");
-  assert(StringData("test2").value != "test");
+  assert(Json("test").value == "test");
+  assert(Json("test2").value != "test");
 
   assert(StringData(Json("test")).value == "test");
   assert(StringData(Json("test2")).value != "test");
@@ -194,8 +194,8 @@ unittest {
   assert(StringData.set(Json("test")).value == "test");
   assert(StringData.set(Json("test2")).value != "test");
 
-  assert(StringData("test").toString == "test");
-  assert(StringData("test2").toString != "test");
+  assert(Json("test").toString == "test");
+  assert(Json("test2").toString != "test");
 
   assert(StringData(Json("test")).toString == "test");
   assert(StringData(Json("test2")).toString != "test");
@@ -206,8 +206,8 @@ unittest {
   assert(StringData.set(Json("test")).toString == "test");
   assert(StringData.set(Json("test2")).toString != "test");
 
-  assert(StringData("test").toJson == Json("test"));
-  assert(StringData("test2").toJson != Json("test"));
+  assert(Json("test").toJson == Json("test"));
+  assert(Json("test2").toJson != Json("test"));
 
   assert(StringData(Json("test")).toJson == Json("test"));
   assert(StringData(Json("test2")).toJson != Json("test"));

@@ -29,7 +29,7 @@ class Xml {
      * Building XML from a file path:
      *
      * ```
-     * myxml = Xml.build("/path/to/an/xml/file.xml", ["readFile": BooleanData(true)]);
+     * myxml = Xml.build("/path/to/an/xml/file.xml", ["readFile": Json(true)]);
      * ```
      *
      * Building XML from a remote URL:
@@ -80,7 +80,7 @@ class Xml {
      * /
     static SimpleXMLElement | DOMDocument build(object | string[] myinput, IData[string] optionData = null) {
         IData[string] defaultOptions = [
-            "return": StringData("simplexml"),
+            "return": Json("simplexml"),
             "loadEntities": BoolData(false),
             "readFile": BoolData(false),
             "parseHuge": BoolData(false)
@@ -223,10 +223,10 @@ class Xml {
                             throw new XmlException("The key of input must be alphanumeric");
                         }
                         IData[string] defaultData = [
-                            "format": StringData("tags"),
-                            "version": StringData("1.0"),
+                            "format": Json("tags"),
+                            "version": Json("1.0"),
                             "encoding": mb_internal_encoding(),
-                            "return": StringData("simplexml"),
+                            "return": Json("simplexml"),
                             "pretty": BoolData(false)
                         ];
                         optionData = optionData.add(defaultData);

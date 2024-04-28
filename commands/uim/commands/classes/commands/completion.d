@@ -39,7 +39,7 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
         );
         aParser.addArgument("mode", [
                 "help": "The type of thing to get completion on.",
-                "required": BooleanData(true),
+                "required": Json(true),
                 "choices": modes.keys,
             ]);
         aParser.addArgument("command", [

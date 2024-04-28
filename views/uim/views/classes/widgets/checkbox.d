@@ -19,7 +19,7 @@ class DCheckboxWidget : DWidget {
         }
 
         configuration.updateDefaults([
-            "name": StringData(""),
+            "name": Json(""),
             "value": IntegerData(1),
             "val": NullData,
             "disabled": BooleanData(false),

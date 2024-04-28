@@ -36,10 +36,10 @@ abstract class DERRErrorHandler {
         configuration.data(initData);
 
         configuration.updateDefaults([
-            "log": BooleanData(true),
+            "log": Json(true),
             "trace": BooleanData(false),
             "skipLog": Json.emptyArray,
-            "errorLogger": StringData("ErrorLogger::class")
+            "errorLogger": Json("ErrorLogger::class")
         ]);
 
         return true;

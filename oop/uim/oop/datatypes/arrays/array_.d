@@ -40,7 +40,7 @@ class DArrayData : DData {
   }
   /// 
   unittest {
-    // writeln(ArrayData.add(StringData("1x"), StringData("2x")).get.map!(v => v.toString).array);
+    // writeln(ArrayData.add(Json("1x"), Json("2x")).get.map!(v => v.toString).array);
   }
 
   // #region equal

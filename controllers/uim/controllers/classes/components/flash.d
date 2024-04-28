@@ -21,11 +21,11 @@ class DFlashComponent : DComponent {
         }
 
         configuration.updateDefaults([
-            "key": StringData("flash"),
-            "element": StringData("default"),
+            "key": Json("flash"),
+            "element": Json("default"),
             "params": Json.emptyArray,
             "clear": BooleanData(false),
-            "duplicate": BooleanData(true)
+            "duplicate": Json(true)
         ]);
 
         return true;

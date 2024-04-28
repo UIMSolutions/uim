@@ -22,9 +22,9 @@ class DTableHelper { // }: Helper {
   bool initialize(Json[string] initData = null) {
     configuration(MemoryConfiguration);
     configuration.updateDefaults([
-      "headers": BooleanData(true),
+      "headers": Json(true),
       "rowSeparator": BooleanData(false),
-      "headerStyle": StringData("info")
+      "headerStyle": Json("info")
     ]);
     configuration.data(initData);
 

@@ -81,7 +81,7 @@ class DMarshaller {
                 };
             } else {
                 mycallback = auto (myvalue, myentity) use (myassoc, mynested) {
-                    options = mynested ~ ["associated": ArrayData];
+                    options = mynested ~ ["associated": Json.emptyArray];
 
                     return _marshalAssociation(myassoc, myvalue, options);
                 };
@@ -593,7 +593,7 @@ class DMarshaller {
                 myconditions["OR"] ~= array_combine(myfields, someKeys);
 
                 return myconditions;
-            }, ["OR": ArrayData]);
+            }, ["OR": Json.emptyArray]);
         mymaybeExistentQuery = _table.find().where(myconditions);
 
         if (!empty(myindexed) && count(mymaybeExistentQuery.clause("where"))) {

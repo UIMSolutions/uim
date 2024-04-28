@@ -69,7 +69,7 @@ mixin template TTupleComparisonTranslator() {
         if (!isArray(current(aValue))) {
             aValue = [aValue];
         }
-        conditions = ["OR": ArrayData];
+        conditions = ["OR": Json.emptyArray];
         aValue.each!((tuple) {
             auto items = null; foreach (anI : value2; tuple.values) {
                 items ~= [fields[anI]: value2];}

@@ -312,7 +312,7 @@ class DLog {
         if (isSet(context[0])) {
             context = ["scope": context];
         }
-        context ~= ["scope": ArrayData];
+        context ~= ["scope": Json.emptyArray];
 
         registry = getRegistry();
         registry.loaded().each!((streamName) {

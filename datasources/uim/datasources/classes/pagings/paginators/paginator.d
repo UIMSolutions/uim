@@ -48,7 +48,7 @@ class DPaginator : IPaginator {
             "page":IntegerData(1),
             "limit":IntegerData(20),
             "maxLimit":IntegerData(100),
-            // TODO "allowedParameters": ArrayData(["limit", "sort", "page", "direction"]),
+            // TODO "allowedParameters": Json.emptyArray(["limit", "sort", "page", "direction"]),
         ]);
     
         return true;

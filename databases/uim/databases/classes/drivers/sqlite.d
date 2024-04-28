@@ -22,7 +22,7 @@ class DSqliteDriver : DDriver {
             "cache": null,
             "mode": null,
             "flags": Json.emptyArray,
-            "init": ArrayData */
+            "init": Json.emptyArray */
         ]);
 
         startQuote("\"");

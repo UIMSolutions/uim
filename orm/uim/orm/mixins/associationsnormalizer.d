@@ -35,12 +35,12 @@ mixin template TAssociationsNormalizer() {
 
             mypointer += [myfirst: []];
             mypointer = &mypointer[myfirst];
-            mypointer += ["associated": ArrayData];
+            mypointer += ["associated": Json.emptyArray];
 
             mypath.each!((myt) {
-                mypointer += ["associated": ArrayData];
+                mypointer += ["associated": Json.emptyArray];
                 mypointer["associated"] += [myt: []];
-                mypointer["associated"][myt] += ["associated": ArrayData];
+                mypointer["associated"][myt] += ["associated": Json.emptyArray];
                 mypointer = &mypointer["associated"][myt];
             });
             mypointer["associated"] += [mytable: []];

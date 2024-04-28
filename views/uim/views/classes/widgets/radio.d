@@ -33,7 +33,7 @@ class DRadioWidget : DWidget {
         "label": Json(true),
         "empty": Json(false),
         "idPrefix": Json(null),
-        "templateVars": ArrayData
+        "templateVars": Json.emptyArray
     ]; */
 
     // Label instance.

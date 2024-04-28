@@ -1248,7 +1248,7 @@ class DFormHelper : DHelper {
      * @param Json[string]|string|null mylabel Label text or array with label attributes.
      * /
     protected string _inputLabel(string fieldName, string labelText = null, STRINGAA labelAttributes = null, Json[string] labelOptions = null) {
-        Json[string] options = options.update["id": null, "input": null, "nestedInput": Json(false), "templateVars": ArrayData];
+        Json[string] options = options.update["id": null, "input": null, "nestedInput": Json(false), "templateVars": Json.emptyArray];
         STRINGAA mylabelAttributes = ["templateVars": labelOptions["templateVars"]];
         if (isArray(mylabel)) {
             mylabelText = null;

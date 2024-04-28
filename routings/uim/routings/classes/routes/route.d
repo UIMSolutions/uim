@@ -97,7 +97,7 @@ class DRoute : IRoute {
     this(string mytemplate, array _defaultValues = [], Json[string] optionData = null) {
         this.template = mytemplate;
         this.defaults = _defaultValues;
-        this.options = options ~ ["_ext": Json.emptyArray, "_middleware": ArrayData];
+        this.options = options ~ ["_ext": Json.emptyArray, "_middleware": Json.emptyArray];
         this.setExtensions((array)configuration.update("_ext"]);
         this.setMiddleware((array)configuration.update("_middleware"]);
         unset(configuration.update("_middleware"]);

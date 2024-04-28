@@ -37,7 +37,7 @@ class DButtonWidget : DWidget {
             "escapeTitle": Json(true),
             // `escape` Set to false to disable escaping of attributes.
             "escape": Json(true),
-            "templateVars": ArrayData(),
+            "templateVars": Json.emptyArray(),
         ]);
 
         return null; 

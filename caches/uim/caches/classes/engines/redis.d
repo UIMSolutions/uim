@@ -36,7 +36,7 @@ class DRedisCacheEngine : DCacheEngine {
             throw new UimException("The `redis` extension must be enabled to use RedisEngine.");
         } */
         
-        if (Json host = initData.get("host", Json(null))) {
+        if (Json host = initData.getJson("host")) {
             initData["server"] = host;
         } 
 

@@ -57,10 +57,9 @@ class DArguments {
     // Check if a positional argument exists by name
     string argument(string name) {
       size_t index = indexOfName(name);
-      if (index < 0 || !_arguments.hasKey(index)) {
-        return null;
-      }
-      return _arguments[index];
+      return index < 0 || !_arguments.hasKey(index)
+        ? null
+        : _arguments[index];
     }
   // #endregion arguments
 
@@ -74,7 +73,7 @@ class DArguments {
 
     // Get an option`s value or null
     Json option(string name) {
-      return _options.get(name, Json(null));
+      return _options.getJson(name);
     }
 
     // Check if an option is defined and not null.

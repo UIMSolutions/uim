@@ -104,7 +104,7 @@ class DViewBuilder { // }: DJsonSerializable {
 
         // Get view variable
         Json viewVariable(string varName) {
-            return _viewVariables.get(varName, null);
+            return _viewVariables.getJson(varName);
         }
 
         // Get view variable

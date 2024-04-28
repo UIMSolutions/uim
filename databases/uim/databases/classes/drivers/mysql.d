@@ -30,7 +30,7 @@ class DMysqlDriver : DDriver {
             "port": Json("3306"),
             "flags": Json.emptyArray,
             "encoding": Json("utf8mb4"),
-            "timezone": NullData(null),
+            "timezone": Json(null),
             "init": Json.emptyArray,
         ]);
 

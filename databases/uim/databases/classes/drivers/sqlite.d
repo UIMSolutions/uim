@@ -15,14 +15,15 @@ class DSqliteDriver : DDriver {
         // `mask` The mask used for created database
         configuration.merge([
             "persistent": Json(false),
-            "username": StringData,
-            "password": StringData,
+            "username": Json(""),
+            "password": Json(""),
             "database": Json(":memory:"),
-            "encoding": Json("utf8"), /* "mask": 0644,
-            "cache": null,
-            "mode": null,
+            "encoding": Json("utf8"), 
+            "mask": Json(/*0*/644),
+            "cache": Json(null),
+            "mode": Json(null),
             "flags": Json.emptyArray,
-            "init": Json.emptyArray */
+            "init": Json.emptyArray 
         ]);
 
         startQuote("\"");

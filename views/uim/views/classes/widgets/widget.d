@@ -86,9 +86,9 @@ class DWidget : IWidget {
     }
 
     return _stringContents.format("input", [
-        "name": mergedData.get("name", Json(null)),
-        "type": mergedData.get("type", Json(null)),
-        "templateVars": mergedData.get("templateVars", Json(null)),
+        "name": mergedData.getJson("name"),
+        "type": mergedData.getJson("type"),
+        "templateVars": mergedData.getJson("templateVars"),
         // TODO "attrs": _stringContents.formatAttributes(mergedData, ["name", "type"]),
       ]);
     return null;

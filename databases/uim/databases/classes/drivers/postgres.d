@@ -18,7 +18,7 @@ class DPostgresDriver : DDriver {
             "password": Json(""),
             "database": Json("uim"),
             "schema": Json("public"),
-            "port": IntegerData(5432),
+            "port": Json(5432),
             "encoding": Json("utf8"),
             "timezone": Json(null),
             "flags": Json.emptyArray,

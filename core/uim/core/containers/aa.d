@@ -397,13 +397,13 @@ V[K] setValues(K, V)(V[K] target, V[K] someValues) {
   /// 
   /// Params:
   ///   updated new array
-  V[K] update(K, V)(V[K] originalValues, V[K] updates, K[] excludedKeys = null) {
-    V[K] updatedValues = originalValues.dup;
-    updatedValues.byKeyValue
-      .filter!(kv => !excludedKeys.hasKey(kv.key))
-      .each!(kv => updatedValues[kv.key] = kv.value);
+  V[K] update(K, V)(V[K] originalValues, V[K] updateValues, K[] excludedKeys = null) {
+    V[K] results = originalValues.dup;
+    updateValues.byKeyValue
+      .filter!(kv => !excludedKeys.has(kv.key))
+      .each!(kv => results[kv.key] = kv.value);
 
-    return updatedValues;
+    return results;
   }
   ///
   unittest {

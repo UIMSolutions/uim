@@ -45,9 +45,9 @@ class DPaginator : IPaginator {
         * @var array<string, mixed>
         */
         configuration.updateDefaults([
-            "page":IntegerData(1),
-            "limit":IntegerData(20),
-            "maxLimit":IntegerData(100),
+            "page":Json(1),
+            "limit":Json(20),
+            "maxLimit":Json(100),
             // TODO "allowedParameters": Json.emptyArray(["limit", "sort", "page", "direction"]),
         ]);
     

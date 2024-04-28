@@ -821,6 +821,26 @@ Json toJsonObject(Json[string] map, string[] excludeKeys = null) {
     return json;
 }
 
+Json toJsonObject(string[string] map, string[] excludeKeys = null) {
+    auto json = Json.emptyObject;
+    map.byKeyValue
+      .filter!(kv => !excludeKeys.has(kv.key))
+      .each!(kv => json[kv.key] = Json(kv.value));
+    return json;
+}
+
+string[] toStringArray(Json value) {
+  if (value.isArray) {
+    string[] results; 
+    
+    // TODO foreach(v; value) results ~= v.to!string;
+
+    return results;
+  }
+
+  return null; 
+}
+
 Json toJson(STRINGAA map, string[] excludeKeys = null) {
     auto json = Json.emptyObject;
     map.byKeyValue

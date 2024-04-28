@@ -194,7 +194,7 @@ class DMemoryConfiguration : DConfiguration {
     override Json get(string key) {
         return _data.hasKey(key) 
             ? _data[key]
-            : _defaultData.get(key, Json(null));
+            : _defaultData.getJson(key);
     }
     /// 
     unittest {

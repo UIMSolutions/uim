@@ -36,3 +36,13 @@ string getString(Json[string] values, string  key) {
 
   return values[key].to!string;
 }
+
+bool isEmpty(Json[string] values, string  key) {
+  return (!values.hasKey(key) || values[key].isNull);
+}
+
+Json getJson(Json[string] values, string key, Json defaultValue = Json(null)) {
+  return values.hasKey(key) 
+    ? values[key]
+    : defaultValue;
+}

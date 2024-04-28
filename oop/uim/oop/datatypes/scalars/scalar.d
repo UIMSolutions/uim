@@ -11,7 +11,7 @@ import uim.oop;
 
 class DScalarData : DData {
   mixin(DataThis!("Scalar"));
-
+/*
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
@@ -29,7 +29,7 @@ class DScalarData : DData {
 
   override bool isEqual(IData[string] checkData) {
     return false;
-  }
+  } */
 }
 
 mixin(DataCalls!("Scalar"));

@@ -12,7 +12,7 @@ import uim.oop;
  * for future use.
  *
  * @link https://book.UIM.org/5/en/development/configuration.html
- */
+ * /
 class DConfigure {
   	bool initialize(IData[string] initData = null) {
 		return true;
@@ -404,5 +404,6 @@ static string[] configured() {
     // Clear all values stored in Configure.
     static void clear() {
         _values = null;
-    } */
+    } * /
 } 
+*/

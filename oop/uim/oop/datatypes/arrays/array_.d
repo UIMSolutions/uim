@@ -9,6 +9,7 @@ import uim.oop;
 
 @safe:
 class DArrayData : DData {
+  /* 
   mixin(DataThis!("Array"));
 
   this(IData[] values) {
@@ -138,7 +139,7 @@ class DArrayData : DData {
   }
   ///
   unittest {
-    /* assert(!hasKey("abc")); */
+    /* assert(!hasKey("abc")); * /
   }
 
   void opOpAssign(string op : "~")(IData value) {
@@ -163,9 +164,10 @@ class DArrayData : DData {
 
   override string[] toStringArray() {
     return _items.map!(item => item.toString).array;
-  }
+  } */
 }
 
+/*
 mixin(DataCalls!("Array"));
 auto ArrayData(IData[] values) {
   return new DArrayData(values);
@@ -176,3 +178,4 @@ unittest {
   auto value = new DArrayData;
   assert(value.isArray);
 }
+*/

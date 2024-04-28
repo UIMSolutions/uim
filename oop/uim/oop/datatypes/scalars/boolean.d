@@ -9,6 +9,7 @@ import uim.oop;
 
 @safe:
 class DBooleanData : DScalarData {
+  /*
   mixin(DataThis!("Boolean"));
   this(bool newValue) {
     this();
@@ -42,7 +43,7 @@ class DBooleanData : DScalarData {
 
     data = BooleanData(false);
     data.value = myValue;
-    assert(data.value == myValue); */
+    assert(data.value == myValue); * /
   }
 
   // #region set
@@ -157,7 +158,7 @@ class DBooleanData : DScalarData {
       dataA = Json(true);
       dataB = BooleanData(false);
       assert(dataA > dataB);
-      assert(dataB < dataA);*/
+      assert(dataB < dataA);* /
   }
   // #endregion opCmp
 
@@ -172,13 +173,15 @@ class DBooleanData : DScalarData {
   }
 
   mixin TDataConvert;
+  */
 }
 
 mixin(DataCalls!("Boolean"));
-auto BooleanData(bool newValue) {
+/* auto BooleanData(bool newValue) {
   return new DBooleanData(newValue);
-}
+} */
 
+/*
 version (test_uim_models) {
   unittest {
     assert(Json(true) == true);
@@ -186,7 +189,7 @@ version (test_uim_models) {
     /* assert(BooleanData.value(true) == true);
     assert(BooleanData.set(Json(true)) == true);
     assert(BooleanData.value(false) != true);
-    assert(BooleanData.set(Json(false)) != true); */
+    assert(BooleanData.set(Json(false)) != true); * /
 
     auto BooleanData = BooleanData;
 
@@ -215,7 +218,7 @@ version (test_uim_models) {
     BooleanData.value(false);
     assert(!BooleanData.fromString(BooleanData.toString).value());
     assert(!BooleanData.fromJson(BooleanData.toJson).value());
-  }
+  } * /
 }
 
 /* booleanean

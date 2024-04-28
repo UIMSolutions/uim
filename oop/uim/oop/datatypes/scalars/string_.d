@@ -10,7 +10,8 @@ import uim.oop;
 @safe:
 class DStringData : DScalarData {
   mixin(DataThis!("String"));
-
+  
+  /*
   // Initialization hook method.
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
@@ -67,7 +68,7 @@ class DStringData : DScalarData {
       isNull(newValue is null);
       set(newValue.value());
     }
-  } */
+  } * /
 
   override IData clone() {
     return StringData; // TODO (attribute, toJson);
@@ -82,7 +83,7 @@ class DStringData : DScalarData {
     assert(data <= "test");
     assert(data > "aaaa");
     assert(data >= "aaaa");
-    assert(data >= "test"); */
+    assert(data >= "test"); * /
   }
 
   string opCall() {
@@ -108,7 +109,7 @@ class DStringData : DScalarData {
     /* auto a = Json("aValue");
     auto b = Json("bValue");
     a(b);
-    assert(a == "bValue"); */
+    assert(a == "bValue"); * /
   }
 
   // #region equal
@@ -160,7 +161,7 @@ class DStringData : DScalarData {
   }
 
   // alias toJson = DData.toJson;
-  mixin TDataConvert;
+  mixin TDataConvert; */
 }
 
 mixin(DataCalls!("String"));

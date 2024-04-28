@@ -36,23 +36,23 @@ class DRedisCacheEngine : DCacheEngine {
             throw new UimException("The `redis` extension must be enabled to use RedisEngine.");
         } */
         
-        if (auto host = initData.get("host", null)) {
+        if (Json host = initData.get("host", Json(null))) {
             initData["server"] = host;
         } 
 
         configuration.updateDefaults([
-            "database": IntegerData(0),
-            "duration": IntegerData(3600),
+            "database": Json(0),
+            "duration": Json(3600),
             "groups": Json.emptyArray,
-            "password": BooleanData(false),
+            "password": Json(false),
             "persistent": Json(true),
-            "port": IntegerData(6379),
+            "port": Json(6379),
             "prefix": Json("uim_"),
             "host": Json(null),
             "server": Json("127.0.0.1"),
-            "timeout": IntegerData(0),
-            "unix_socket": BooleanData(false),
-            "scanCount": IntegerData(10)
+            "timeout": Json(0),
+            "unix_socket": Json(false),
+            "scanCount": Json(10)
         ]);
 
         return true;

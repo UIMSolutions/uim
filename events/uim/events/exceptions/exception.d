@@ -8,7 +8,7 @@ import uim.events;
 class DEventsException : UimException {
   mixin(ExceptionThis!("Events"));
 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }

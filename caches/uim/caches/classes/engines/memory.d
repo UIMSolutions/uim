@@ -42,11 +42,11 @@ class DMemoryCacheEngine : DCacheEngine {
      *   Use the \Memory.OPT_* constants as keys.
      */
     configuration.updateDefaults([
-      "compress": BooleanData(false),
-      "duration": IntegerData(3600),
+      "compress": Json(false),
+      "duration": Json(3600),
       "groups": Json.emptyArray,
       "host": Json(null),
-      "username": StringData,
+      "username": Json(""),
       "password": Json(null),
       "persistent": Json(null),
       "port": Json(null),

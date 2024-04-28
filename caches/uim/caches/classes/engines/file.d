@@ -35,7 +35,7 @@ class DFileCacheEngine : DCacheEngine {
         * - `serialize` Should cache objects be serialized first.
         */
         configuration.updateDefaults([
-            "duration": IntegerData(3600),
+            "duration": Json(3600),
             "groups": Json.emptyArray,
             "lock": Json(true),
             // TODO "mask": std.conv.octal!"664",

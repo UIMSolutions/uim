@@ -6,7 +6,7 @@ import uim.logging;
 class DJsonLogFormatter : DLogFormatter {
   mixin(LogFormatterThis!("Json"));
 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }

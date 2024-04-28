@@ -6,7 +6,7 @@ import uim.jsonbases;
 class DJsonBaseException : UimException {
   mixin(ExceptionThis!("JsonBase"));
 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 
     this

@@ -8,7 +8,7 @@ import uim.entitybases;
 class DEntitybasesException : UimException {
   mixin(ExceptionThis!("Entitybases"));
 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
     this

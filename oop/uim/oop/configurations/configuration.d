@@ -12,7 +12,7 @@ abstract class DConfiguration : IConfiguration {
     this() {}
     this(string name) { this(); this.name(name); }
 
-  	bool initialize(IData[string] initData = null) {
+  	bool initialize(Json[string] initData = null) {
         separator("/");
 		return true;
 	}
@@ -21,35 +21,35 @@ abstract class DConfiguration : IConfiguration {
     mixin(TProperty!("string", "separator"));
 
     // #region defaultData
-        IData[string] defaultData() {
+        Json[string] defaultData() {
             return null;
         }
 
-        void defaultData(IData[string] newData) {
+        void defaultData(Json[string] newData) {
         }
 
         abstract bool hasDefault(string key);
 
-        override void updateDefaults(IData[string] newData) {
+        override void updateDefaults(Json[string] newData) {
             newData.byKeyValue
                 .each!(kv => updateDefault(kv.key, kv.value));
         }
 
-        abstract void updateDefault(string key, IData newData);
+        abstract void updateDefault(string key, Json newData);
 
-        override void mergeDefaults(IData[string] newData) {
+        override void mergeDefaults(Json[string] newData) {
             newData.byKeyValue
                 .each!(kv => mergeDefault(kv.key, kv.value));
         }
 
-        abstract void mergeDefault(string key, IData newData);
+        abstract void mergeDefault(string key, Json newData);
     // #endregion defaultData
 
-    IData[string] data() {
+    Json[string] data() {
         return null;
     }
 
-    void data(IData[string] newData) {
+    void data(Json[string] newData) {
     }
 
     // #region keys
@@ -99,15 +99,15 @@ abstract class DConfiguration : IConfiguration {
     // #endregion Values
 
 
-    IData opIndex(string key) {
+    Json opIndex(string key) {
         return get(key);
     }
 
-    IData get(string key) {
+    Json get(string key) {
         return null;
     }
 
-    IData[string] get(string[] keys, bool compressMode = true){
+    Json[string] get(string[] keys, bool compressMode = true){
         return null; 
     }
 
@@ -115,7 +115,7 @@ abstract class DConfiguration : IConfiguration {
         set(values.toData, keys);
     }
 
-    void set(IData[string] newData, string[] keys = null) {
+    void set(Json[string] newData, string[] keys = null) {
         if (keys is null) {
             keys.each!(key => set(key, newData[key]));
         }
@@ -125,13 +125,13 @@ abstract class DConfiguration : IConfiguration {
         }
     }
 
-    abstract void set(string key, IData newData);
+    abstract void set(string key, Json newData);
 
-    void opIndexAssign(IData data, string key) {
+    void opIndexAssign(Json data, string key) {
         set(key, data);
     }
     
-    void update(IData[string] newData, string[] keys = null) {
+    void update(Json[string] newData, string[] keys = null) {
         if (keys is null) {
             keys.each!(key => update(key, newData[key]));
         }
@@ -141,10 +141,10 @@ abstract class DConfiguration : IConfiguration {
         }
     }
 
-    abstract void update(string key, IData newData);
-    abstract void update(string key, IData[string] newData);
+    abstract void update(string key, Json newData);
+    abstract void update(string key, Json[string] newData);
 
-    void merge(IData[string] newData, string[] validKeys = null) {
+    void merge(Json[string] newData, string[] validKeys = null) {
         if (validKeys is null) {
             newData.keys.each!(key => merge(key, newData[key]));
         }
@@ -155,8 +155,8 @@ abstract class DConfiguration : IConfiguration {
         }
     }
 
-    abstract void merge(string key, IData newData);
-    abstract void merge(string key, IData[string] newData);
+    abstract void merge(string key, Json newData);
+    abstract void merge(string key, Json[string] newData);
 
     IConfiguration clear() {
         remove(allKeys);    

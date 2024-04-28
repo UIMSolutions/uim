@@ -268,7 +268,7 @@ class DElement : IElement {
       return myValue; 
     } */
 
-    return null;
+    return Json(null);
   }
   ///
   unittest {
@@ -296,17 +296,17 @@ class DElement : IElement {
 
   // Set long value
   void opIndexAssign(long value, string key) {
-    if (auto myValue = cast(DIntegerData) valueOfKey(key)) {
+    if (Json keyValue = valueOfKey(key)) {
       // values[key] exists and value of DIntegerData
-      // myValue.set(value);
+      // keyValue.set(value);
     }
   }
 
   // Set bool value
   void opIndexAssign(bool value, string key) {
-    if (auto myValue = cast(DBooleanData) valueOfKey(key)) {
+    if (Json keyValue = valueOfKey(key)) {
       // values[key] exists and value of DBooleanData
-      // myValue.set(value);
+      // myValue.set(keyValue);
     }
   }
 

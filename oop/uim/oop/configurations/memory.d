@@ -7,7 +7,7 @@ import uim.oop;
 class DMemoryConfiguration : DConfiguration {
     mixin(ConfigurationThis!("Memory"));
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
@@ -16,12 +16,12 @@ class DMemoryConfiguration : DConfiguration {
     }
 
     // #region defaultData
-    protected IData[string] _defaultData;
-    override IData[string] defaultData() {
+    protected Json[string] _defaultData;
+    override Json[string] defaultData() {
         return _defaultData.dup;
     }
 
-    override void defaultData(IData[string] newData) {
+    override void defaultData(Json[string] newData) {
         _defaultData = newData.dup;
     }
 
@@ -40,7 +40,7 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override void updateDefaults(IData[string] dataArray) {
+    override void updateDefaults(Json[string] dataArray) {
         dataArray.byKeyValue
             .each!(kv => updateDefault(kv.key, kv.value));
     }
@@ -50,7 +50,7 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override void updateDefault(string key, IData data) {
+    override void updateDefault(string key, Json data) {
         _defaultData[key] = data;
     }
     /// 
@@ -59,7 +59,7 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override void mergeDefaults(IData[string] dataArray) {
+    override void mergeDefaults(Json[string] dataArray) {
         dataArray.byKeyValue
             .each!(kv => mergeDefault(kv.key, kv.value));
     }
@@ -69,7 +69,7 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override void mergeDefault(string key, IData data) {
+    override void mergeDefault(string key, Json data) {
         if (!hasDefault(key)) {
             _defaultData[key] = data;
         }
@@ -82,9 +82,9 @@ class DMemoryConfiguration : DConfiguration {
     // #endregion defaultData
 
     // #region Data
-    protected IData[string] _data;
+    protected Json[string] _data;
 
-    override IData[string] data() {
+    override Json[string] data() {
         return _data.dup;
     }
     /// 
@@ -93,7 +93,7 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override void data(IData[string] newData) {
+    override void data(Json[string] newData) {
         _data = newData.dup;
     }
     /// 
@@ -171,8 +171,8 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override IData[string] get(string[] keys, bool compressMode = true) {
-        IData[string] results;
+    override Json[string] get(string[] keys, bool compressMode = true) {
+        Json[string] results;
 
         keys.each!((key) {
             auto result = get(key);
@@ -191,7 +191,7 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override IData get(string key) {
+    override Json get(string key) {
         return _data.get(key, _defaultData.get(key, null));
     }
     /// 
@@ -200,7 +200,7 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override void set(string key, IData data) {
+    override void set(string key, Json data) {
         _data[key] = data;
     }
     /// 
@@ -209,11 +209,11 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override void update(string key, IData data) {
+    override void update(string key, Json data) {
         set(key, data);
     }
 
-    override void update(string key, IData[string] data) {
+    override void update(string key, Json[string] data) {
         set(key, data.toMapData);
     }
     /// 
@@ -222,11 +222,11 @@ class DMemoryConfiguration : DConfiguration {
         // TODO
     }
 
-    override void merge(string key, IData[string] data) {
+    override void merge(string key, Json[string] data) {
         set(key, data.toMapData);
     }
 
-    override void merge(string key, IData data) {
+    override void merge(string key, Json data) {
         if (hasKey(key)) {
             return;
         }

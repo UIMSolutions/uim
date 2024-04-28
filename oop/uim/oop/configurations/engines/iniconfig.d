@@ -39,7 +39,7 @@ import uim.oop;
  */
 class DIniConfig : IConfigEngine {
     /*
-  	override bool initialize(IData[string] initData = null) {
+  	override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		
 		return true;
@@ -152,9 +152,9 @@ class DIniConfig : IConfigEngine {
     /**
      * Converts a value into the ini equivalent
      * Params:
-     * IData aValue Value to export.
+     * Json aValue Value to export.
      * /
-    protected string _value(IData valueToExport) {
+    protected string _value(Json valueToExport) {
         return match (aValue) {
             null: "null",
             true: "true",

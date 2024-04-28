@@ -7,7 +7,7 @@ import uim.oop;
 class DJsonConfiguration : DConfiguration {
     mixin(ConfigurationThis!("Json"));
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
@@ -20,11 +20,11 @@ class DJsonConfiguration : DConfiguration {
         return false; // TODO
     }
 
-    override void updateDefault(string key, IData newData) {
+    override void updateDefault(string key, Json newData) {
         // TODO
     }
 
-    override void mergeDefault(string key, IData newData) {
+    override void mergeDefault(string key, Json newData) {
         // TODO
     }
     // #endregion defaultData
@@ -33,23 +33,23 @@ class DJsonConfiguration : DConfiguration {
         return null; //TODO
     }
 
-    override void set(string key, IData newData) {
+    override void set(string key, Json newData) {
 
     }
 
-    override void update(string key, IData newData) {
+    override void update(string key, Json newData) {
         // _json.hasKey()
     }
 
-    override void update(string key, IData[string] newData) {
+    override void update(string key, Json[string] newData) {
         // _json.hasKey()
     }
 
-    override void merge(string key, IData newData) {
+    override void merge(string key, Json newData) {
         // TODO 
     }
 
-    override void merge(string key, IData[string] newData) {
+    override void merge(string key, Json[string] newData) {
         // TODO 
     }
 

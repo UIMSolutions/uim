@@ -18,29 +18,29 @@ mixin template TConfigurable() {
     }
 
     // Get configuration data
-    IData[string] getConfigurationData() {
+    Json[string] getConfigurationData() {
         return configuration ? configuration.data() : null;
     }
 
     // Set configuration data
-    void setConfigurationData(IData[string] newData) {
+    void setConfigurationData(Json[string] newData) {
         if (configuration) {
             configuration.data(newData);
         }
     }
 
     // Set configuration data
-    void updateConfiguration(IData[string] newData) {
+    void updateConfiguration(Json[string] newData) {
         if (configuration) {
             configuration.update(newData);
         }
     }
 
-    /* IData getConfigurationData(string key) {
+    /* Json getConfigurationData(string key) {
         return _configuration ? _configuration.get(key) : null;
     }
 
-    void setConfigurationData(string key, IData newData) {
+    void setConfigurationData(string key, Json newData) {
         if (configuration) {
             configuration.set(key, newData);
         }

@@ -34,9 +34,9 @@ class DORMEntity { // }: IEntity, IInvalidProperty {
     this(array myproperties = [], Json[string] optionData = null) {
         options = options.update[
             "useSetters": Json(true),
-            "markClean": BooleanData(false),
+            "markClean": Json(false),
             "markNew": null,
-            "guard": BooleanData(false),
+            "guard": Json(false),
             "source": null,
         ];
 

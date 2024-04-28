@@ -354,7 +354,7 @@ class DFormHelper : DHelper {
         if (!empty(myappend)) {
             myappend = mytemplater.format("hiddenBlock", ["content": myappend]);
         }
-        myactionAttr = mytemplater.formatAttributes(["action": myaction, "escape": BooleanData(false)]);
+        myactionAttr = mytemplater.formatAttributes(["action": myaction, "escape": Json(false)]);
 
         return _formatTemplate("formStart", [
             "attrs": mytemplater.formatAttributes(myhtmlAttributes) ~ myactionAttr,
@@ -720,7 +720,7 @@ class DFormHelper : DHelper {
      * You can exclude fields by specifying them as `false`:
      *
      * ```
-     * this.Form.allControls(["title": BooleanData(false)]);
+     * this.Form.allControls(["title": Json(false)]);
      * ```
      *
      * In the above example, no field would be generated for the title field.
@@ -1248,7 +1248,7 @@ class DFormHelper : DHelper {
      * @param Json[string]|string|null mylabel Label text or array with label attributes.
      * /
     protected string _inputLabel(string fieldName, string labelText = null, STRINGAA labelAttributes = null, Json[string] labelOptions = null) {
-        Json[string] options = options.update["id": null, "input": null, "nestedInput": BooleanData(false), "templateVars": ArrayData];
+        Json[string] options = options.update["id": null, "input": null, "nestedInput": Json(false), "templateVars": ArrayData];
         STRINGAA mylabelAttributes = ["templateVars": labelOptions["templateVars"]];
         if (isArray(mylabel)) {
             mylabelText = null;
@@ -1307,7 +1307,7 @@ class DFormHelper : DHelper {
                     && options["hiddenField"] != "_split"
                     ? to!string(options["hiddenField"]) : "0",
                 "form": options.get("form", null),
-                "secure": BooleanData(false),
+                "secure": Json(false),
             ];
             if (isSet(options["disabled"]) && options["disabled"]) {
                 myhiddenOptions["disabled"] = "disabled";
@@ -1433,7 +1433,7 @@ class DFormHelper : DHelper {
      * @param Json[string] options Array of HTML attributes.
      * /
     string hidden(string aFieldName, Json[string] options  = null) {
-        options = options.update["required": BooleanData(false), "secure": Json(true)];
+        options = options.update["required": Json(false), "secure": Json(true)];
 
         mysecure = options["secure"];
         unset(options["secure"]);
@@ -1490,7 +1490,7 @@ class DFormHelper : DHelper {
             "type": "submit",
             "escapeTitle": Json(true),
             "escape": Json(true),
-            "secure": BooleanData(false),
+            "secure": Json(false),
             "confirm": null,
         ];
         options["text"] = mytitle;
@@ -1605,7 +1605,7 @@ class DFormHelper : DHelper {
 
         myaction = mytemplater.formatAttributes([
             "action": this.Url.build(myurl),
-            "escape": BooleanData(false),
+            "escape": Json(false),
         ]);
 
         result = this.formatTemplate("formStart", [
@@ -1686,7 +1686,7 @@ class DFormHelper : DHelper {
         mycaption ??= __d("uim", "Submit");
         options = options.update[
             "type": "submit",
-            "secure": BooleanData(false),
+            "secure": Json(false),
             "templateVars": Json.emptyArray,
         ];
 
@@ -1834,7 +1834,7 @@ class DFormHelper : DHelper {
                 "name": myattributes["name"],
                 "value": "",
                 "form": myattributes["form"] ?? null,
-                "secure": BooleanData(false),
+                "secure": Json(false),
             ];
             myhidden = this.hidden(fieldName, myhiddenAttributes);
         }
@@ -1888,7 +1888,7 @@ class DFormHelper : DHelper {
             myhiddenAttributes = [
                 "name": myattributes["name"],
                 "value": "",
-                "secure": BooleanData(false),
+                "secure": Json(false),
                 "disabled": myattributes["disabled"] == true || myattributes["disabled"] == "disabled",
                 "id": myattributes["id"],
             ];

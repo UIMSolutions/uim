@@ -31,12 +31,12 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         configuration.updateDefaults([
             "fields": Json.emptyArray,
             "defaultLocale": Json(null),
-            "referencename": StringData,
+            "referencename": Json(""),
             "allowEmptyTranslations": Json(true),
-            "onlyTranslated": BooleanData(false),
+            "onlyTranslated": Json(false),
             "strategy": Json("subquery"),
             "tableLocator": Json(null),
-            "validator": BooleanData(false),
+            "validator": Json(false),
         ]);
 
         return true;
@@ -313,7 +313,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                     locale = entity.get("_locale") ? 
                                                     : this.getLocale(); newOptions = [
                                                         this.translationTable.aliasName(): [
-                                                            "validate": BooleanData(false)
+                                                            "validate": Json(false)
                                                         ]
                                                     ]; options["associated"] = newOptions + options["associated"];
 
@@ -385,7 +385,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                                             .newEntity(
                                                                             where + values,
                                                                             [
-                                                                                "useSetters": BooleanData(false),
+                                                                                "useSetters": Json(false),
                                                                                 "markNew": Json(true),
                                                                             ]
                                                                             );}

@@ -31,7 +31,7 @@ class DRadioWidget : DWidget {
         "val": null, // Json(null),
         "escape": Json(true),
         "label": Json(true),
-        "empty": BooleanData(false),
+        "empty": Json(false),
         "idPrefix": Json(null),
         "templateVars": ArrayData
     ]; */

@@ -83,7 +83,7 @@ class DNumber {
      * @param Json[string] options Options
      * /
     static string toPercentage(string|float|int aValue, int precision = 2, Json[string] options = null) {
-        options = options.update["multiply": BooleanData(false), "type": NumberFormatter.PERCENT];
+        options = options.update["multiply": Json(false), "type": NumberFormatter.PERCENT];
         if (!options["multiply"]) {
             aValue = (float)aValue / 100;
         }

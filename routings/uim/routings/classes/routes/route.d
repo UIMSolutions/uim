@@ -181,7 +181,7 @@ class DRoute : IRoute {
      *
      * ```
      * // remove a persistent "date" parameter
-     * Router.url(["date": BooleanData(false)", ...]);
+     * Router.url(["date": Json(false)", ...]);
      * ```
      * Params:
      * array routingss The names of the parameters that should be passed.

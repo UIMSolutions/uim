@@ -23,7 +23,7 @@ class DTableHelper { // }: Helper {
     configuration(MemoryConfiguration);
     configuration.updateDefaults([
       "headers": Json(true),
-      "rowSeparator": BooleanData(false),
+      "rowSeparator": Json(false),
       "headerStyle": Json("info")
     ]);
     configuration.data(initData);

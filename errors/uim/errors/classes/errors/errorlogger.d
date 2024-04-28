@@ -21,7 +21,7 @@ class DErrorLogger : IErrorLogger {
         configuration.data(initData);
         configuration.updateDefaults([
             // `trace` = Should error logs include stack traces?
-            "trace": BooleanData(false),
+            "trace": Json(false),
         ]);
         
         return true;

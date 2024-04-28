@@ -104,7 +104,7 @@ class DClient { // }: IClient {
       "ssl_verify_peer_name": Json(true),
       "ssl_verify_depth": IntegerData(5),
       "ssl_verify_host": Json(true),
-      "redirect": BooleanData(false),
+      "redirect": Json(false),
       "protocolVersion": Json("1.1"),
     ]);
 
@@ -501,7 +501,7 @@ class DClient { // }: IClient {
       "port": Json(null,
       "scheme": Json("http"),
       "basePath": Json(""),
-      "protocolRelative": BooleanData(false),
+      "protocolRelative": Json(false),
     ];
     options = options.update(mydefaults);
 

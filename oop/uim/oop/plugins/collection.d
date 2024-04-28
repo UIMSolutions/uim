@@ -52,7 +52,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
      *      'Company/TestPluginThree",
      *      'TestPlugin": ["onlyDebug": Json(true), "onlyCli": Json(true)],
      *      'Nope": ["optional": Json(true)],
-     *      'Named": ["routes": BooleanData(false), "bootstrap": BooleanData(false)],
+     *      'Named": ["routes": Json(false), "bootstrap": Json(false)],
      *  ]
      *  ```
      */

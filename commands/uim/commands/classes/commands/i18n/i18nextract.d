@@ -202,7 +202,7 @@ class DI18nExtractCommand : DCommand {
 
         if (isEmpty(_translations[domainName][messageId][context])) {
            _translations[domainName][messageId][context] = [
-                "msgid_plural": BooleanData(false),
+                "msgid_plural": Json(false),
             ];
         }
         if (isSet(details["msgid_plural"])) {
@@ -282,7 +282,7 @@ class DI18nExtractCommand : DCommand {
         ]);
         aParser.addOption("overwrite", [
             "boolean": Json(true),
-            "default": BooleanData(false),
+            "default": Json(false),
             "help": Json("Always overwrite existing .pot files.")
         ]);
         aParser.addOption("extract-core", [
@@ -291,12 +291,12 @@ class DI18nExtractCommand : DCommand {
         ]);
         aParser.addOption("no-location", [
             "boolean": Json(true),
-            "default": BooleanData(false),
+            "default": Json(false),
             "help": Json("Do not write file locations for each extracted message.",
         ]);
         aParser.addOption("marker-error", [
             "boolean": Json(true),
-            "default": BooleanData(false),
+            "default": Json(false),
             "help": Json("Do not display marker error.",
         ]);
 

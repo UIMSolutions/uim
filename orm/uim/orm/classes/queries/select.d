@@ -826,7 +826,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * // Use special join conditions for multiple containments in the same method call
      * myquery.contain([
      *    "Authors": [
-     *        "foreignKey": BooleanData(false),
+     *        "foreignKey": Json(false),
      *        "queryBuilder": auto (myq) {
      *            return myq.where(...); // Add full filtering conditions
      *        }
@@ -1026,7 +1026,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         result = this.getEagerLoader()
             .setMatching(myassoc, mybuilder, [
                 "joinType": JOIN_TYPE_LEFT,
-                "fields": BooleanData(false),
+                "fields": Json(false),
             ])
             .getMatching();
        _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
@@ -1070,7 +1070,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         result = this.getEagerLoader()
             .setMatching(myassoc, mybuilder, [
                 "joinType": JOIN_TYPE_INNER,
-                "fields": BooleanData(false),
+                "fields": Json(false),
             ])
             .getMatching();
        _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
@@ -1130,7 +1130,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         result = this.getEagerLoader()
             .setMatching(myassoc, mybuilder, [
                 "joinType": JOIN_TYPE_LEFT,
-                "fields": BooleanData(false),
+                "fields": Json(false),
                 "negateMatch": Json(true),
             ])
             .getMatching();

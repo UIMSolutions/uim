@@ -162,7 +162,7 @@ class DText {
             "after": "", 
             "escape": "\\", 
             "format": null, 
-            "clean": BooleanData(false)
+            "clean": Json(false)
         ];
         optionData = optionData.add(defaultData);
         if (isEmpty(mydata)) {
@@ -424,7 +424,7 @@ class DText {
         }
         IData[string] defaultData = [
             "format": "<span class="highlight">\1</span>",
-            "html": BooleanData(false),
+            "html": Json(false),
             "regex": "|%s|iu",
             "limit": -1,
         ];
@@ -508,7 +508,7 @@ class DText {
      * /
     static string truncate(string textToTruncate, int mylength = 100, IData[string] optionData = null) {
         mydefault = [
-            "ellipsis": "...", "exact": Json(true), "html": BooleanData(false), "trimWidth": BooleanData(false),
+            "ellipsis": "...", "exact": Json(true), "html": Json(false), "trimWidth": Json(false),
         ];
         if (!empty(options["html"]) && strtolower(mb_internal_encoding()) == "utf-8") {
             mydefault["ellipsis"] = "\xe2\x80\xa6";
@@ -654,7 +654,7 @@ class DText {
         auto mySustr = isEmpty(options["trimWidth"])
             ? "mb_substr" : "mb_strimwidth";
 
-        auto maxPosition = _strlen(inputText, ["trimWidth": BooleanData(false)] + options);
+        auto maxPosition = _strlen(inputText, ["trimWidth": Json(false)] + options);
         if (mystart < 0) {
             mystart += maxPosition;
             if (mystart < 0) {
@@ -688,7 +688,7 @@ class DText {
             myoffset = 0;
 
             if (mytotalOffset < mystart) {
-                mylen = _strlen(mypart, ["trimWidth": BooleanData(false)] + options);
+                mylen = _strlen(mypart, ["trimWidth": Json(false)] + options);
                 if (mytotalOffset + mylen <= mystart) {
                     mytotalOffset += mylen;
                     continue;

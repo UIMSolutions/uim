@@ -133,7 +133,7 @@ class Xml {
             static SimpleXMLElement | DOMDocument loadHtml(string myinput, IData[string] optionData = null) {
                 IData[string] defaultData = [
                     "return": "simplexml",
-                    "loadEntities": BooleanData(false),
+                    "loadEntities": Json(false),
                 ];
                 optionData = optionData.add(defaultData);
 

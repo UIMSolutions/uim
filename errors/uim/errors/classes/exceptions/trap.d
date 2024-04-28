@@ -80,7 +80,7 @@ class DExceptionTrap {
         "stderr": null,
         "log": Json(true),
         "skipLog": Json.emptyArray,
-        "trace": BooleanData(false),
+        "trace": Json(false),
         "extraFatalErrorMemory": 4,
     ]);
 

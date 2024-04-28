@@ -24,7 +24,7 @@ class DFlashComponent : DComponent {
             "key": Json("flash"),
             "element": Json("default"),
             "params": Json.emptyArray,
-            "clear": BooleanData(false),
+            "clear": Json(false),
             "duplicate": Json(true)
         ]);
 

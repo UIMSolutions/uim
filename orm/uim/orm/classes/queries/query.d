@@ -379,7 +379,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * // Use special join conditions for multiple containments in the same method call
      * query.contain([
      *     "Authors": [
-     *         "foreignKey": BooleanData(false),
+     *         "foreignKey": Json(false),
      *         "queryBuilder": function (q) {
      *             return q.where(...); // Add full filtering conditions
      *         }
@@ -592,7 +592,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         result = this.getEagerLoader()
             .setMatching(assoc, builder, [
                 "joinType": Query::JOIN_TYPE_LEFT,
-                "fields": BooleanData(false),
+                "fields": Json(false),
             ])
             .getMatching();
         _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
@@ -640,7 +640,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         result = this.getEagerLoader()
             .setMatching(assoc, builder, [
                 "joinType": Query::JOIN_TYPE_INNER,
-                "fields": BooleanData(false),
+                "fields": Json(false),
             ])
             .getMatching();
         _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
@@ -703,7 +703,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
         result = this.getEagerLoader()
             .setMatching(assoc, builder, [
                 "joinType": Query::JOIN_TYPE_LEFT,
-                "fields": BooleanData(false),
+                "fields": Json(false),
                 "negateMatch": Json(true),
             ])
             .getMatching();

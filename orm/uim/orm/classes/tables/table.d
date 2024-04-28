@@ -1616,13 +1616,13 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      *  "associated": [
      *    "Employees": [
      *      "associated": ["Addresses"],
-     *      "checkRules": BooleanData(false)
+     *      "checkRules": Json(false)
      *    ]
      *  ]
      * ]);
      *
      * // Save no associations
-     * myarticles.save(myentity, ["associated": BooleanData(false)]);
+     * myarticles.save(myentity, ["associated": Json(false)]);
      * ```
      * Params:
      * \UIM\Datasource\IEntity myentity the entity to be saved
@@ -1724,7 +1724,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
             this,
             myentity,
             options["associated"],
-            ["_primary": BooleanData(false)] + options.getArrayCopy()
+            ["_primary": Json(false)] + options.getArrayCopy()
         );
 
         if (!mysaved && options["atomic"]) {
@@ -1760,7 +1760,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
             this,
             myentity,
             options["associated"],
-            ["_primary": BooleanData(false)] + options.getArrayCopy()
+            ["_primary": Json(false)] + options.getArrayCopy()
         );
 
         if (!mysuccess && options["atomic"]) {
@@ -1829,7 +1829,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
         mysuccess = false;
         if (mystatement.rowCount() != 0) {
             mysuccess = myentity;
-            myentity.set(myfilteredKeys, ["guard": BooleanData(false)]);
+            myentity.set(myfilteredKeys, ["guard": Json(false)]);
             myschema = this.getSchema();
             mydriver = this.getConnection().getDriver();
             foreach (aKey: myv; myprimary ) {
@@ -2185,7 +2185,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
         }
         mysuccess = _associations.cascadeDelete_(
             myentity,
-            ["_primary": BooleanData(false)] + options.getArrayCopy()
+            ["_primary": Json(false)] + options.getArrayCopy()
         );
         if (!mysuccess) {
             return mysuccess;
@@ -2466,7 +2466,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * ```
      * myarticle = this.Articles.newEntity(
      *  this.request[),
-     *  ["validate": BooleanData(false)]
+     *  ["validate": Json(false)]
      * );
      * ```
      *
@@ -2556,7 +2556,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      *
      * ```
      * myarticle = this.patchEntity(myarticle, this.request[),[
-     * "validate": BooleanData(false)
+     * "validate": Json(false)
      * ]);
      * ```
      *
@@ -2655,7 +2655,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
         myentity = new DORMEntity(
             mycontext["data"],
             [
-                "useSetters": BooleanData(false),
+                "useSetters": Json(false),
                 "markNew": mycontext["newRecord"],
                 "source": this.registryKey(),
             ]

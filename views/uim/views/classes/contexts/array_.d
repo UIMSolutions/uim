@@ -49,7 +49,7 @@ import uim.views;
  *   "required": [
  *     "id": Json(true), // will use default required message
  *     "title": "Please enter a title",
- *     "body": BooleanData(false),
+ *     "body": Json(false),
  *   ],
  * ];
  * ```

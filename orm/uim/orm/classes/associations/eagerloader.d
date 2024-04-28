@@ -180,7 +180,7 @@ class DEagerLoader {
        _matching ??= new static();
 
         options = options.update["joinType": SelectQuery.JOIN_TYPE_INNER];
-        mysharedOptions = ["negateMatch": BooleanData(false), "matching": Json(true)] + options;
+        mysharedOptions = ["negateMatch": Json(false), "matching": Json(true)] + options;
 
         mycontains = null;
         mynested = &mycontains;

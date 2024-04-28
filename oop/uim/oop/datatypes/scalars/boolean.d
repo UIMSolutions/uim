@@ -41,7 +41,7 @@ class DBooleanData : DScalarData {
     data.set(myValue);
     assert(data.value == myValue);
 
-    data = BooleanData(false);
+    data = Json(false);
     data.value = myValue;
     assert(data.value == myValue); * /
   }
@@ -137,7 +137,7 @@ class DBooleanData : DScalarData {
   ///
   unittest {
     auto valueA = Json(true);
-    auto valueB = BooleanData(false);
+    auto valueB = Json(false);
     assert(valueA > false);
     assert(valueB < true);
   }
@@ -151,12 +151,12 @@ class DBooleanData : DScalarData {
   ///
   unittest {
     /* auto dataA = new DJson(true);
-      auto dataB = new DBooleanData(false);
+      auto dataB = new DJson(false);
       assert(dataA > dataB);
       assert(dataB < dataA);
 
       dataA = Json(true);
-      dataB = BooleanData(false);
+      dataB = Json(false);
       assert(dataA > dataB);
       assert(dataB < dataA);* /
   }
@@ -185,7 +185,7 @@ mixin(DataCalls!("Boolean"));
 version (test_uim_models) {
   unittest {
     assert(Json(true) == true);
-    assert(BooleanData(false) != true);
+    assert(Json(false) != true);
     /* assert(BooleanData.value(true) == true);
     assert(BooleanData.set(Json(true)) == true);
     assert(BooleanData.value(false) != true);

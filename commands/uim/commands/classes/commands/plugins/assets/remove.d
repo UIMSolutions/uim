@@ -51,7 +51,7 @@ class DPluginAssetsRemoveCommand : DCommand {
 
         parserToUpdate.addArgument("name", [
                 "help": Json("A specific plugin you want to remove."),
-                "required": BooleanData(false)
+                "required": Json(false)
             ]);
 
         return parserToUpdate;

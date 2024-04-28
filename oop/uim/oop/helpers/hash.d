@@ -866,7 +866,7 @@ class Hash {
 
         // mytype can be overloaded for case insensitive sort
         if (mytype.isArray) {
-            mytype += ["ignoreCase": BooleanData(false), "type": "regular"];
+            mytype += ["ignoreCase": Json(false), "type": "regular"];
             myignoreCase = mytype["ignoreCase"];
             mytype = mytype["type"];
         }

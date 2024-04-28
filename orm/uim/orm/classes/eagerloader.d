@@ -203,7 +203,7 @@ class DEagerLoader {
         }
 
         options = options.update["joinType": Query::JOIN_TYPE_INNER];
-        sharedOptions = ["negateMatch": BooleanData(false), "matching": Json(true)] + options;
+        sharedOptions = ["negateMatch": Json(false), "matching": Json(true)] + options;
 
         contains = null;
         nested = &contains;

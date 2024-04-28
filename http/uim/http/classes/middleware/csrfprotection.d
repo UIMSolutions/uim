@@ -39,8 +39,8 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
     protected Json _config = [
         "cookieName": "csrfToken",
         "expiry": 0,
-        "secure": BooleanData(false),
-        "httponly": BooleanData(false),
+        "secure": Json(false),
+        "httponly": Json(false),
         "samesite": null,
         "field": "_csrfToken",
     ];

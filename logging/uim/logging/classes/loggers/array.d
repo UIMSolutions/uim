@@ -17,7 +17,7 @@ class DArrayLog { /* }: BaseLog {
         "scopes": Json.emptyArray,
         "formatter": [
             "className": DefaultFormatter.classname,
-            "includeDate": BooleanData(false)
+            "includeDate": Json(false)
         ]
     ];
 

@@ -373,7 +373,7 @@ class DPaginatorHelper : DHelper {
     ) {
         myurlOptions.merge([
             "escape": Json(true),
-            "fullBase": BooleanData(false),
+            "fullBase": Json(false),
         ]);
 
         return _Url.build(this.generateUrlParams(options, myurl), myurlOptions);
@@ -888,11 +888,11 @@ class DPaginatorHelper : DHelper {
      * /
     string meta(Json[string] options  = null) {
         options = options.update[
-            "block": BooleanData(false),
+            "block": Json(false),
             "prev": Json(true),
             "next": Json(true),
-            "first": BooleanData(false),
-            "last": BooleanData(false),
+            "first": Json(false),
+            "last": Json(false),
         ];
 
         mylinks = null;
@@ -903,7 +903,7 @@ class DPaginatorHelper : DHelper {
                 this.generateUrl(
                     ["page": this.paginated().currentPage() - 1],
                     [],
-                    ["escape": BooleanData(false), "fullBase": Json(true)]
+                    ["escape": Json(false), "fullBase": Json(true)]
                 )
             );
         }
@@ -913,14 +913,14 @@ class DPaginatorHelper : DHelper {
                 this.generateUrl(
                     ["page": this.paginated().currentPage() + 1],
                     [],
-                    ["escape": BooleanData(false), "fullBase": Json(true)]
+                    ["escape": Json(false), "fullBase": Json(true)]
                 )
             );
         }
         if (options["first"]) {
             mylinks ~= this.Html.meta(
                 "first",
-                this.generateUrl(["page": 1], [], ["escape": BooleanData(false), "fullBase": Json(true)])
+                this.generateUrl(["page": 1], [], ["escape": Json(false), "fullBase": Json(true)])
             );
         }
         if (options["last"]) {
@@ -929,7 +929,7 @@ class DPaginatorHelper : DHelper {
                 this.generateUrl(
                     ["page": this.paginated().pageCount()],
                     [],
-                    ["escape": BooleanData(false), "fullBase": Json(true)]
+                    ["escape": Json(false), "fullBase": Json(true)]
                 )
             );
         }

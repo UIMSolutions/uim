@@ -85,7 +85,7 @@ class DHasOneAssociation : DAssociation {
             (array)this.getForeignKeys(),
             entity.extract((array)this.getBindingKey())
         );
-        targetEntity.set(properties, ["guard": BooleanData(false)]);
+        targetEntity.set(properties, ["guard": Json(false)]);
 
         if (!this.getTarget().save(targetEntity, options)) {
             targetEntity.unset(properties.keys);

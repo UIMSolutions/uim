@@ -53,7 +53,7 @@ class UrlHelper : DHelper {
      * /
     string build(string[] myurl = null, Json[string] options  = null) {
         mydefaults = [
-            "fullBase": BooleanData(false),
+            "fullBase": Json(false),
             "escape": Json(true),
         ];
         options = options.updatemydefaults;

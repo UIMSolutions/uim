@@ -457,7 +457,7 @@ class DateTime /* : Chronos, JsonSerializable */ {
         }
         defaults = [
             'group": Json(true),
-            'abbr": BooleanData(false),
+            'abbr": Json(false),
             'before": ' - ",
             'after": null,
         ];

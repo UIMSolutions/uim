@@ -63,9 +63,9 @@ class DDatasourceEntity { // TODO }: JsonsourceEntity { //}, IInvalidProperty {
     /* this(array properties = null, Json[string] optionData = null) {
         options = options.update[
             "useSetters": Json(true),
-            "markClean": BooleanData(false),
+            "markClean": Json(false),
             "markNew": null,
-            "guard": BooleanData(false),
+            "guard": Json(false),
             "source": null,
         ];
 

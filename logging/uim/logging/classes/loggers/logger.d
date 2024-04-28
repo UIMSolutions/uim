@@ -66,12 +66,14 @@ class DLogger : ILogger {
 
     // Get the levels this logger is interested in.
     string[] levels() {
-        return configuration.get("levels").getStringArray;
+        return null; 
+        // return configuration.get("levels").getStringArray;
     }
     
     // Get the scopes this logger is interested in.
     string[] scopes() {
-        return configuration.get("scopes").getStringArray;
+        return null; 
+        // return configuration.get("scopes").getStringArray;
     }
 
 /*

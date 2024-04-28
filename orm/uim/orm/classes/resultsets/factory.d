@@ -53,7 +53,7 @@ class DResultsetFactory {
             .toArray();
 
         mydata["containAssoc"] = (new DCollection(array_reverse(myassocMap)))
-            .match(["matching": BooleanData(false)])
+            .match(["matching": Json(false)])
             .indexBy("nestKey")
             .toArray();
 

@@ -45,7 +45,7 @@ class DErrorTrap {
             "errorRenderer": Json(null),
             "log": Json(true),
             // TODO "logger": ErrorLogger.classname,
-            "trace": BooleanData(false),
+            "trace": Json(false),
         ]);
 
         return true;

@@ -33,8 +33,8 @@ class DCookie : ICookie {
         "expires": Json(null),
         "path": Json("/"),
         "domain": Json(""),
-        "secure": BooleanData(false),
-        "httponly": BooleanData(false),
+        "secure": Json(false),
+        "httponly": Json(false),
         "samesite": Json(null),
     ];
 

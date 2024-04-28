@@ -212,8 +212,8 @@ mixin template TEntity() {
      * `options` parameter:
      *
      * ```
-     * entity.set("name", "Andrew", ["setter": BooleanData(false)]);
-     * entity.set(["name": 'Andrew", "id": 1], ["setter": BooleanData(false)]);
+     * entity.set("name", "Andrew", ["setter": Json(false)]);
+     * entity.set(["name": 'Andrew", "id": 1], ["setter": Json(false)]);
      * ```
      *
      * Mass assignment should be treated carefully when accepting user input, by default
@@ -221,7 +221,7 @@ mixin template TEntity() {
      * the guarding for a single set call with the `guard` option:
      *
      * ```
-     * entity.set(["name": 'Andrew", "id": 1], ["guard": BooleanData(false)]);
+     * entity.set(["name": 'Andrew", "id": 1], ["guard": Json(false)]);
      * ```
      *
      * You do not need to use the guard option when assigning fields individually:
@@ -264,7 +264,7 @@ mixin template TEntity() {
     if (!isArray(field)) {
       throw new DInvalidArgumentException("Cannot set an empty field");
     }
-    options = options.update["setter": Json(true), "guard": guard, "asOriginal": BooleanData(false)];
+    options = options.update["setter": Json(true), "guard": guard, "asOriginal": Json(false)];
 
     if (options["asOriginal"] == true) {
       this.setOriginalField(field.keys);

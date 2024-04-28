@@ -330,7 +330,7 @@ class DResultset : IResultset {
             .toArray();
 
         _containMap = (new DCollection(array_reverse(map)))
-            .match(["matching": BooleanData(false)])
+            .match(["matching": Json(false)])
             .indexBy("nestKey")
             .toArray();
     }
@@ -395,10 +395,10 @@ class DResultset : IResultset {
         defaultAlias = _defaultAlias;
         results = presentAliases = null;
         options = [
-            "useSetters": BooleanData(false),
+            "useSetters": Json(false),
             "markClean": Json(true),
-            "markNew": BooleanData(false),
-            "guard": BooleanData(false),
+            "markNew": Json(false),
+            "guard": Json(false),
         ];
 
         foreach (_matchingMapColumns as alias: keys) {

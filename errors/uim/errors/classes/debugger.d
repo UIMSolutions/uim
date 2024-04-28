@@ -292,7 +292,7 @@ class DDebugger {
         defaults = [
             "depth": 999,
             "format": "text",
-            "args": BooleanData(false),
+            "args": Json(false),
             "start": 0,
             "scope": null,
             "exclude": ["call_user_func_array", "trigger_error"],

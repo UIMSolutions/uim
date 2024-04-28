@@ -28,7 +28,7 @@ abstract class DQuery : IQuery { // : IExpression {
             "values": Json.emptyArray,
             "with": Json.emptyArray,
             "select": Json.emptyArray,
-            "distinct": BooleanData(false),
+            "distinct": Json(false),
             "modifier": Json.emptyArray,
             "from": Json.emptyArray,
             "join": Json.emptyArray,
@@ -671,7 +671,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * may want to define 2 different options for the same key, in that case, you can
      * wrap each condition inside a new array:
      *
-     * `aQuery.where(["OR": [["published": BooleanData(false)], ["published": Json(true)]])`
+     * `aQuery.where(["OR": [["published": Json(false)], ["published": Json(true)]])`
      *
      * Would result in:
      *
@@ -811,7 +811,7 @@ abstract class DQuery : IQuery { // : IExpression {
         options["types"] = ArrayData;
 
         // `allowEmpty` - Allow empty array.
-        options["allowEmpty"] = BooleanData(false);
+        options["allowEmpty"] = Json(false);
 
         if (options["allowEmpty"].toBoolean && !someValues) {
             return _where("1=0");
@@ -833,7 +833,7 @@ abstract class DQuery : IQuery { // : IExpression {
     auto whereNotInList(string fieldName, array someValues, Json[string] options = null) {
         auto options = options.update([
             "types": Json.emptyArray,
-            "allowEmpty": BooleanData(false)
+            "allowEmpty": Json(false)
         ];
 
         if (options["allowEmpty"] && !someValues) {
@@ -858,7 +858,7 @@ abstract class DQuery : IQuery { // : IExpression {
     auto whereNotInListOrNull(string fieldName, array  someValues, Json[string] options = null) {
         auto options = options.update() [
             "types": Json.emptyArray,
-            "allowEmpty": BooleanData(false),
+            "allowEmpty": Json(false),
         ];
 
         if (options["allowEmpty"] && !someValues) {
@@ -901,7 +901,7 @@ abstract class DQuery : IQuery { // : IExpression {
      *
      * ```
      * aQuery
-     *  .where(["OR": ["published": BooleanData(false), "published isNull"]])
+     *  .where(["OR": ["published": Json(false), "published isNull"]])
      *  .andWhere(["author_id": 1, "comments_count >": 10])
      * ```
      *

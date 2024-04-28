@@ -402,7 +402,7 @@ class DBelongsToManyAssociation : DAssociation {
         newOptions += [
             "conditions": cond,
             "includeFields": includeFields,
-            "foreignKey": BooleanData(false),
+            "foreignKey": Json(false),
         ];
         assoc.attachTo(query, newOptions);
         query.getEagerLoader().addToJoinsMap(junction.aliasName(), assoc, true);
@@ -727,7 +727,7 @@ class DBelongsToManyAssociation : DAssociation {
             if (changedKeys) {
                 joint.setNew(true);
                 joint.unset(junction.primaryKeys())
-                    .set(array_merge(sourceKeys, targetKeys), ["guard": BooleanData(false)]);
+                    .set(array_merge(sourceKeys, targetKeys), ["guard": Json(false)]);
             }
             saved = junction.save(joint, options);
 

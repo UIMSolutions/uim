@@ -48,7 +48,7 @@ import uim.consoles;
  * declare arguments as optional, by setting the required param to false.
  *
  * ```
- *  aParser.addArgument("model", ["required": BooleanData(false)]);
+ *  aParser.addArgument("model", ["required": Json(false)]);
  * ```
  *
  * ### Providing Help text
@@ -96,7 +96,7 @@ class DConsoleOptionParser {
             "name": StringData(argName),
             "help": Json(""),
             "index": LongData(count(_args)),
-            "required": BooleanData(false),
+            "required": Json(false),
             "choices": Json.emptyArray,
         ];
 
@@ -300,10 +300,10 @@ class DConsoleOptionParser {
                 "short": Json(""),
                 "help": Json(""),
                 "default": null,
-                "boolean": BooleanData(false),
-                "multiple": BooleanData(false),
+                "boolean": Json(false),
+                "multiple": Json(false),
                 "choices": Json.emptyArray,
-                "required": BooleanData(false),
+                "required": Json(false),
                 "prompt": null,
             ];
             behaviorOptions = behaviorOptions.update(defaultValues);

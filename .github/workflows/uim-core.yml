@@ -26,6 +26,7 @@ jobs:
       run: |
         cd ./core/
         # Build the project, with its main file included, without unittests
+dub upgrade 
         dub build --compiler=$DC
         # Build and run tests, as defined by `unittest` configuration
         # In this mode, `mainSourceFile` is excluded and `version (unittest)` are included

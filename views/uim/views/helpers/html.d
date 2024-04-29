@@ -59,7 +59,7 @@ class DHtmlHelper : DHelper {
     // TODO protected array<string, array> my_includedAssets = null;
 
     // Options for the currently opened script block buffer if any.
-    protected Json[string] my_scriptBlockOptions;
+    protected Json[string] _scriptBlockOptions;
 
     /**
      * Creates a link to an external resource and handles basic meta tags

@@ -7,22 +7,23 @@ import uim.databases;
 class DSqliteDriver : DDriver {
     mixin(DriverThis!("Sqlite"));
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
 
         // `mask` The mask used for created database
         configuration.merge([
-            "persistent": BooleanData(false),
-            "username": StringData,
-            "password": StringData,
-            "database": StringData(":memory:"),
-            "encoding": StringData("utf8"), /* "mask": 0644,
-            "cache": null,
-            "mode": null,
-            "flags": ArrayData,
-            "init": ArrayData */
+            "persistent": Json(false),
+            "username": Json(""),
+            "password": Json(""),
+            "database": Json(":memory:"),
+            "encoding": Json("utf8"), 
+            "mask": Json(/*0*/644),
+            "cache": Json(null),
+            "mode": Json(null),
+            "flags": Json.emptyArray,
+            "init": Json.emptyArray 
         ]);
 
         startQuote("\"");
@@ -123,7 +124,7 @@ class DSqliteDriver : DDriver {
             DriverFeatures.SAVEPOINT,
             DriverFeatures.TRUNCATE_WITH_CONSTRAINTS: true,
 
-            DriverFeatures.IData: false,
+            DriverFeatures.Json: false,
 
             DriverFeatures.CTE,
             DriverFeatures.WINDOW: version_compare(

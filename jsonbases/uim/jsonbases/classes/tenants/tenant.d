@@ -16,7 +16,7 @@ class DJsonTenant : IJsonTenant, IJsonCollectionManager {
   this(IJsonBase aBase, string aName) { this(aBase); this.name(aName); }
 
     // Hook method
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         //TODO configuration(MemoryConfiguration);
         //TODO configuration.data(initData);
 

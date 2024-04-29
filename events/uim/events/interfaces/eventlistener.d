@@ -21,12 +21,12 @@ interface IEventListener {
      *     return [
      *         'Order.complete": `sendEmail",
      *         'Article.afterBuy": 'decrementInventory",
-     *         'User.onRegister": ["callable": 'logRegistration", "priority": 20, "passParams": BooleanData(true)]
+     *         'User.onRegister": ["callable": 'logRegistration", "priority": 20, "passParams": Json(true)]
      *     ];
      * }
      * ```
      *
-     * @return IData[string] Associative array or event key names pointing to the function
+     * @return Json[string] Associative array or event key names pointing to the function
      * that should be called in the object when the respective event is fired
      */
     IEvent[] implementedEvents();

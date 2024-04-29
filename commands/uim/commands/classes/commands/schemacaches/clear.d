@@ -59,7 +59,7 @@ class DSchemacacheClearCommand : DCommand {
           "default": "default",
         ]).addArgument("name", [
           "help": "A specific table you want to clear cached data for.",
-          "required": BooleanData(false),
+          "required": Json(false),
         ]);
 
     return parserToUpdate;

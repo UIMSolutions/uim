@@ -62,9 +62,9 @@ class DEntityContext : DContext {
      * /
     this(Json[string] contextData) {
         _context = _context.merge([
-            "entity": NullData,
-            "table": NullData,
-            "validator": ArrayData,
+            "entity": Json(null),
+            "table": Json(null),
+            "validator": Json.emptyArray,
         ]);
 
        _prepare();
@@ -174,7 +174,7 @@ class DEntityContext : DContext {
     Json val(string fieldPath, Json[string] options  = null) {
         options = options.update[
             "default": null,
-            "schemaDefault": BooleanData(true),
+            "schemaDefault": Json(true),
         ];
 
         if (isEmpty(_context["entity"])) {

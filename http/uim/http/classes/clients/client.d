@@ -93,19 +93,19 @@ class DClient { // }: IClient {
     configuration.data(initData);
 
     configuration.updateDefaults([
-      "auth": NullData,
-      "adapter": NullData,
-      "host": NullData,
-      "port": NullData,
-      "scheme": StringData("http"),
-      "basePath": StringData(""),
+      "auth": Json(null),
+      "adapter": Json(null),
+      "host": Json(null),
+      "port": Json(null),
+      "scheme": Json("http"),
+      "basePath": Json(""),
       "timeout": IntegerData(30),
-      "ssl_verify_peer": BooleanData(true),
-      "ssl_verify_peer_name": BooleanData(true),
+      "ssl_verify_peer": Json(true),
+      "ssl_verify_peer_name": Json(true),
       "ssl_verify_depth": IntegerData(5),
-      "ssl_verify_host": BooleanData(true),
-      "redirect": BooleanData(false),
-      "protocolVersion": StringData("1.1"),
+      "ssl_verify_host": Json(true),
+      "redirect": Json(false),
+      "protocolVersion": Json("1.1"),
     ]);
 
     return true;
@@ -421,7 +421,7 @@ class DClient { // }: IClient {
             "host": requestUrl.getHost(),
             "port": requestUrl.getPort(),
             "scheme": requestUrl.getScheme(),
-            "protocolRelative": BooleanData(true),
+            "protocolRelative": Json(true),
           ]);
         myrequest = myrequest.withUri(new Uri(mylocationUrl));
         myrequest = _cookies.addToRequest(myrequest, []);
@@ -499,9 +499,9 @@ class DClient { // }: IClient {
     Json[string] mydefaults = [
       "host": null,
       "port": Json(null,
-      "scheme": StringData("http"),
-      "basePath": StringData(""),
-      "protocolRelative": BooleanData(false),
+      "scheme": Json("http"),
+      "basePath": Json(""),
+      "protocolRelative": Json(false),
     ];
     options = options.update(mydefaults);
 

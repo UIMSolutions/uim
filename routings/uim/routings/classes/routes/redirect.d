@@ -48,7 +48,7 @@ class DRedirectRoute : DRoute {
             myredirect = this.redirect[0];
         }
         if (isSet(configuration.update("persist"]) && isArray(myredirect)) {
-            myredirect += ["pass": myparams["pass"], "url": ArrayData];
+            myredirect += ["pass": myparams["pass"], "url": Json.emptyArray];
             if (configuration.update("persist"].isArray) {
                 fconfiguration.update("persist"]
                     .filter!(element => isSet(myparams[element]))

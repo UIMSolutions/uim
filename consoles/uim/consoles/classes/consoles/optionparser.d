@@ -48,7 +48,7 @@ import uim.consoles;
  * declare arguments as optional, by setting the required param to false.
  *
  * ```
- *  aParser.addArgument("model", ["required": BooleanData(false)]);
+ *  aParser.addArgument("model", ["required": Json(false)]);
  * ```
  *
  * ### Providing Help text
@@ -94,10 +94,10 @@ class DConsoleOptionParser {
     void addArgument(string argName, Json[string] params = null) {
         Json[string] defaultOptions = [
             "name": StringData(argName),
-            "help": StringData(""),
+            "help": Json(""),
             "index": LongData(count(_args)),
-            "required": BooleanData(false),
-            "choices": ArrayData,
+            "required": Json(false),
+            "choices": Json.emptyArray,
         ];
 
         auto newParams = params.merge(defaultOptions);
@@ -179,18 +179,18 @@ class DConsoleOptionParser {
         this.addOption("help", [
             "short": "h",
             "help": "Display this help.",
-            "boolean": BooleanData(true),
+            "boolean": Json(true),
         ]);
 
         if (defaultOptions) {
             this.addOption("verbose", [
                 "short": "v",
                 "help": "Enable verbose output.",
-                "boolean": BooleanData(true),
+                "boolean": Json(true),
             ]).addOption("quiet", [
                 "short": "q",
                 "help": "Enable quiet output.",
-                "boolean": BooleanData(true),
+                "boolean": Json(true),
             ]);
         }
     }
@@ -297,13 +297,13 @@ class DConsoleOptionParser {
      * /
     void addOption(string optionName, Json[string] behaviorOptions = null) {
             defaultValues = [
-                "short": StringData(""),
-                "help": StringData(""),
+                "short": Json(""),
+                "help": Json(""),
                 "default": null,
-                "boolean": BooleanData(false),
-                "multiple": BooleanData(false),
-                "choices": ArrayData,
-                "required": BooleanData(false),
+                "boolean": Json(false),
+                "multiple": Json(false),
+                "choices": Json.emptyArray,
+                "required": Json(false),
                 "prompt": null,
             ];
             behaviorOptions = behaviorOptions.update(defaultValues);

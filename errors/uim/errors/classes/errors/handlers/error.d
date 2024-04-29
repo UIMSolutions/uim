@@ -81,7 +81,7 @@ class DErrorHandler { // }: DERRErrorHandler
      *
      * @param array<string, mixed> aConfig The options for error handling.
      * /
-    this(IData aConfig = null) {
+    this(Json aConfig = null) {
         aConfig += [
             "exceptionRenderer": ExceptionRenderer::class,
         ];

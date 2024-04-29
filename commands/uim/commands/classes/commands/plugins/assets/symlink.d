@@ -32,13 +32,13 @@ class DPluginAssetsSymlinkCommand : DCommand {
         /* 
         parserToUpdate.addArgument("name", [
             "help": "A specific plugin you want to symlink assets for.",
-            "required": BooleanData(false),
+            "required": Json(false),
         ]); */
         
         /*  TODO parserToUpdate.addOption("overwrite", [
             "help": "Overwrite existing symlink / folder / files.",
-            "default": BooleanData(false),
-            "boolean": BooleanData(true),
+            "default": Json(false),
+            "boolean": Json(true),
         ]); */
 
         return parserToUpdate;

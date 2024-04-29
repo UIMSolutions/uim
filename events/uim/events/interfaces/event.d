@@ -24,16 +24,16 @@ interface IEvent : INamed {
   bool isStopped();
 
   // The result value of the event listeners.
-  IData result();
+  Json result();
 
   // Listeners can attach a result value to the event.
-  IEvent result(IData resultValue);
+  IEvent result(Json resultValue);
 
   // Accesses the event data/payload.
-  IData allData(string dataKey);
-  IData data(string dataKey);
+  Json allData(string dataKey);
+  Json data(string dataKey);
 
   // Assigns a value to the data/payload of this event.
-  IEvent data(string[] dataKeys, IData aValue);
+  IEvent data(string[] dataKeys, Json aValue);
   */
 }

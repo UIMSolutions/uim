@@ -12,7 +12,7 @@ class DI18NFormatter : II18NFormatter {
         initialize;
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
         

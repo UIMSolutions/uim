@@ -9,3 +9,4 @@ IData toMapData(IData[string] data) {
     data.byKeyValue.each!(kv => map[kv.key] = kv.value);
     return map;
 }
+

@@ -37,10 +37,10 @@ class DFormProtectionComponent : DComponent {
         *  exception is thrown on validation failure.
         */
         configuration.updateDefaults([
-            "validate": BooleanData(true),
-            "unlockedFields": ArrayData,
-            "unlockedActions": ArrayData,
-            "validationFailureCallback": NullData,
+            "validate": Json(true),
+            "unlockedFields": Json.emptyArray,
+            "unlockedActions": Json.emptyArray,
+            "validationFailureCallback": Json(null),
         ]);
 
         return true;

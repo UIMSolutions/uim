@@ -49,7 +49,7 @@ import uim.orm;
  * @method DORMcollections.ICollection chunk(int size) Groups the results in arrays of size rows each.
  * @method bool isEmpty() Returns true if this query found no results.
  */
-class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
+class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
 /*
     use TQuery() {
         cache as private _cache;
@@ -323,11 +323,11 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
      *
      * ```
      * query.contain(["Tags": function (q) {
-     *     return q.where(["Tags.is_popular": BooleanData(true)]);
+     *     return q.where(["Tags.is_popular": Json(true)]);
      * }]);
      *
      * query.contain(["Products.Manufactures": function (q) {
-     *     return q.select(["name"]).where(["Manufactures.active": BooleanData(true)]);
+     *     return q.select(["name"]).where(["Manufactures.active": Json(true)]);
      * }]);
      * ```
      *
@@ -379,7 +379,7 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
      * // Use special join conditions for multiple containments in the same method call
      * query.contain([
      *     "Authors": [
-     *         "foreignKey": BooleanData(false),
+     *         "foreignKey": Json(false),
      *         "queryBuilder": function (q) {
      *             return q.where(...); // Add full filtering conditions
      *         }
@@ -592,7 +592,7 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
         result = this.getEagerLoader()
             .setMatching(assoc, builder, [
                 "joinType": Query::JOIN_TYPE_LEFT,
-                "fields": BooleanData(false),
+                "fields": Json(false),
             ])
             .getMatching();
         _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
@@ -640,7 +640,7 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
         result = this.getEagerLoader()
             .setMatching(assoc, builder, [
                 "joinType": Query::JOIN_TYPE_INNER,
-                "fields": BooleanData(false),
+                "fields": Json(false),
             ])
             .getMatching();
         _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
@@ -703,8 +703,8 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
         result = this.getEagerLoader()
             .setMatching(assoc, builder, [
                 "joinType": Query::JOIN_TYPE_LEFT,
-                "fields": BooleanData(false),
-                "negateMatch": BooleanData(true),
+                "fields": Json(false),
+                "negateMatch": Json(true),
             ])
             .getMatching();
         _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
@@ -1279,11 +1279,11 @@ class DQuery : IQuery { // DatabaseQuery : IDataSerializable, IQuery
     /**
      * Executes the query and converts the result set into Json.
      *
-     * Part of IDataSerializable interface.
+     * Part of JsonSerializable interface.
      *
      * @return DORMDatasource\IResultset The data to convert to Json.
      * /
-    function IDataSerialize(): IResultset
+    function JsonSerialize(): IResultset
     {
         return _all();
     }

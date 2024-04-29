@@ -9,12 +9,12 @@ import uim.i18n;
  *
  * Adds handy methods and locale-aware formatting helpers.
  */
-class Date { // }: DChronosDate, IDataSerializable {
+class Date { // }: DChronosDate, JsonSerializable {
     mixin TConfigurable;
 
     this() { initialize; }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         return true;
     }
 
@@ -36,14 +36,14 @@ class Date { // }: DChronosDate, IDataSerializable {
     protected static string _toStringFormat = IntlDateFormatter.SHORT;
 
     /**
-     * The format to use when converting this object to IData.
+     * The format to use when converting this object to Json.
      *
      * The format should be either the formatting constants from IntlDateFormatter as described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
      * as specified in (https://unicode-org.github.io/icu-docs/apidoc/released/icu4c/classSimpleDateFormat.html#details)
      *
      * @var \Closure|string|int
      * /
-    protected static string _IDataEncodeFormat = "yyyy-MM-dd";
+    protected static string _JsonEncodeFormat = "yyyy-MM-dd";
 
     /**
      * The format to use when formatting a time using `UIM\I18n\Date.timeAgoInWords()`
@@ -95,7 +95,7 @@ class Date { // }: DChronosDate, IDataSerializable {
     }
     
     /**
-     * Sets the default format used when converting this object to IData
+     * Sets the default format used when converting this object to Json
      *
      * The format should be either the formatting constants from IntlDateFormatter as
      * described in (https://secure.d.net/manual/en/class.intldateformatter.d) or a pattern
@@ -106,12 +106,12 @@ class Date { // }: DChronosDate, IDataSerializable {
      *
      * @see \UIM\I18n\Date.i18nFormat()
      * /
-    static void setIDataEncodeFormat(Closure format) {
-        _IDataEncodeFormat = format;
+    static void setJsonEncodeFormat(Closure format) {
+        _JsonEncodeFormat = format;
     }
 
-    static void setIDataEncodeFormat(string format) {
-        _IDataEncodeFormat = format;
+    static void setJsonEncodeFormat(string format) {
+        _JsonEncodeFormat = format;
     }
     
     /**
@@ -250,18 +250,18 @@ class Date { // }: DChronosDate, IDataSerializable {
      *
      * NOTE: If the difference is one week or more, the lowest level of accuracy is day.
      * Params:
-     * IData[string] options Array of options.
+     * Json[string] options Array of options.
      * /
-    string timeAgoInWords(IData[string] options = null) {
+    string timeAgoInWords(Json[string] options = null) {
         return diffFormatter().dateAgoInWords(this, options);
     }
     
-    // Returns a string that should be serialized when converting this object to IData
-    string IDataSerialize() {
-        if (cast(DClosure)_IDataEncodeFormat) {
-            return call_user_func(_IDataEncodeFormat, this);
+    // Returns a string that should be serialized when converting this object to Json
+    string JsonSerialize() {
+        if (cast(DClosure)_JsonEncodeFormat) {
+            return call_user_func(_JsonEncodeFormat, this);
         }
-        return _i18nFormat(_IDataEncodeFormat);
+        return _i18nFormat(_JsonEncodeFormat);
     }
  
     override string toString() {

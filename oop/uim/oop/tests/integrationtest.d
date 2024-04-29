@@ -479,7 +479,7 @@ mixin template TIntegrationTest() {
             "url": url,
             "session": session,
             "query": aQueryData,
-            "files": ArrayData,
+            "files": Json.emptyArray,
             "environment": env,
         ];
 

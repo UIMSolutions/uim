@@ -141,7 +141,7 @@ class DCache : ICache {
             assert(cast(DCacheEngine)myfallbackEngine);
 
             mynewConfig = configuration.update([
-                    "groups": ArrayData, 
+                    "groups": Json.emptyArray, 
                     "prefix": StringData
                 ]);
 

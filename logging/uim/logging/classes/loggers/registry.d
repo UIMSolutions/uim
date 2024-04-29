@@ -36,7 +36,7 @@ class DLogEngineRegistry : DObjectRegistry!DLogger {
      * @param string aalias The alias of the object.
      * configData - An array of settings to use for the logger.
      * /
-    protected ILogger _create(callable|object|string className, string aalias, IData[string] configData) {
+    protected ILogger _create(callable|object|string className, string aalias, Json[string] configData) {
         if (isString(className)) {
             /** @var class-string<\Psr\Log\ILogger>  className * /
             return new className(configData);

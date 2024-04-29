@@ -38,15 +38,15 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         configuration.data(initData);
 
         configuration.updateDefaults([
-            "fields": ArrayData,
-            "translationTable": StringData("I18n"),
-            "defaultLocale": NullData,
-            "referencename": StringData,
-            "allowEmptyTranslations": BooleanData(true),
-            "onlyTranslated": BooleanData(false),
-            "strategy": StringData("subquery"),
-            "tableLocator": NullData,
-            "validator": BooleanData(false),
+            "fields": Json.emptyArray,
+            "translationTable": Json("I18n"),
+            "defaultLocale": Json(null),
+            "referencename": Json(""),
+            "allowEmptyTranslations": Json(true),
+            "onlyTranslated": Json(false),
+            "strategy": Json("subquery"),
+            "tableLocator": Json(null),
+            "validator": Json(false),
         ]);
 
         return true;
@@ -75,7 +75,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         this.table = table;
         this.translationTable = this.getTableLocator().get(
             configuration.get("translationTable"],
-            ["allowFallbackClass": BooleanData(true)]
+            ["allowFallbackClass": Json(true)]
         );
 
         this.setupAssociations();
@@ -107,7 +107,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                     "className": table,
                     "alias": name,
                     "table": this.translationTable.getTable(),
-                    "allowFallbackClass": BooleanData(true),
+                    "allowFallbackClass": Json(true),
                 ]);
             } else {
                 fieldTable = tableLocator.get(name);
@@ -141,7 +141,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             "strategy": strategy,
             "conditions": conditions,
             "propertyName": "_i18n",
-            "dependent": BooleanData(true),
+            "dependent": Json(true),
         ]);
     }
 
@@ -219,7 +219,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * /
     void beforeSave(IEvent event, IEntity anEntity, ArrayObject options) {
         locale = entity.get("_locale") ?: this.getLocale();
-        newOptions = [this.translationTable.aliasName(): ["validate": BooleanData(false)]];
+        newOptions = [this.translationTable.aliasName(): ["validate": Json(false)]];
         options["associated"] = newOptions + options["associated"];
 
         // Check early if empty translations are present in the entity.
@@ -294,13 +294,13 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
         new = array_diff_key(values, modified);
         foreach (new as field: content) {
             new[field] = new DORMEntity(compact("locale", "field", "content", "model"), [
-                "useSetters": BooleanData(false),
-                "markNew": BooleanData(true),
+                "useSetters": Json(false),
+                "markNew": Json(true),
             ]);
         }
 
         entity.set("_i18n", array_merge(bundled, array_values(modified + new)));
-        entity.set("_locale", locale, ["setter": BooleanData(false)]);
+        entity.set("_locale", locale, ["setter": Json(false)]);
         entity.setDirty("_locale", false);
 
         foreach (fields as field) {
@@ -397,14 +397,14 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
             foreach (grouped.combine("field", "content", "locale") as locale: keys) {
                 entityClass = this.table.getEntityClass();
                 translation = new DORMEntityClass(keys + ["locale": locale], [
-                    "markNew": BooleanData(false),
-                    "useSetters": BooleanData(false),
-                    "markClean": BooleanData(true),
+                    "markNew": Json(false),
+                    "useSetters": Json(false),
+                    "markClean": Json(true),
                 ]);
                 result[locale] = translation;
             }
 
-            options = ["setter": BooleanData(false), "guard": BooleanData(false)];
+            options = ["setter": Json(false), "guard": Json(false)];
             row.set("_translations", result, options);
             unset(row["_i18n"]);
             row.clean();
@@ -440,7 +440,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
                 }
                 find[] = ["locale": lang, "field": field, "foreign_key IS": key];
                 contents[] = new DORMEntity(["content": translation.get(field)], [
-                    "useSetters": BooleanData(false),
+                    "useSetters": Json(false),
                 ]);
             }
         }
@@ -453,11 +453,11 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
 
         foreach (find as i: translation) {
             if (!empty(results[i])) {
-                contents[i].set("id", results[i], ["setter": BooleanData(false)]);
+                contents[i].set("id", results[i], ["setter": Json(false)]);
                 contents[i].setNew(false);
             } else {
                 translation["model"] = configuration.get("referenceName"];
-                contents[i].set(translation, ["setter": BooleanData(false), "guard": BooleanData(false)]);
+                contents[i].set(translation, ["setter": Json(false), "guard": Json(false)]);
                 contents[i].setNew(true);
             }
         }

@@ -5,14 +5,14 @@ import uim.oop;
 @safe:
 
 /**
- * IData engine allows Configure to load configuration values from
- * files containing IData strings.
+ * Json engine allows Configure to load configuration values from
+ * files containing Json strings.
  *
- * An example IData file would look like.
+ * An example Json file would look like.
  *
  * ```
  * {
- *    "debug": BooleanData(false),
+ *    "debug": Json(false),
  *    "App": {
  *        "namespace": "MyApp"
  *    },
@@ -24,7 +24,7 @@ import uim.oop;
  */
 class DJsonConfig : IConfigEngine {
   	/*alias Alias = ;
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		
 		return true;
@@ -35,7 +35,7 @@ class DJsonConfig : IConfigEngine {
     protected string _extension = ".json";
 
     /**
-     * Constructor for IData[string] configSettings = null file reading.
+     * Constructor for Json[string] configSettings = null file reading.
      * Params:
      * string someKey The key to read config files from. Defaults to CONFIG.
      * /
@@ -55,20 +55,20 @@ class DJsonConfig : IConfigEngine {
     array read(string aKey) {
         auto file = _getFileKey(aKey, true);
 
-        auto IDataContent = file_get_contents(file);
-        if (IDataContent == false) {
+        auto JsonContent = file_get_contents(file);
+        if (JsonContent == false) {
             throw new UimException("Cannot read file content of `%s`".format(file));
         }
-         someValues = Json_decode(IDataContent, true);
+         someValues = Json_decode(JsonContent, true);
         if (Json_last_error() != Json_ERROR_NONE) {
             throw new UimException(
-                "Error parsing IData string fetched from config file `%s.IData`: %s"
+                "Error parsing Json string fetched from config file `%s.Json`: %s"
                 .format(aKey, Json_last_error_msg()
             ));
         }
         if (!isArray(someValues)) {
             throw new UimException(
-                "Decoding IData[string] configSettings = null file `%s.IData` did not return an array"
+                "Decoding Json[string] configSettings = null file `%s.Json` did not return an array"
                 .format(aKey
             ));
         }
@@ -76,7 +76,7 @@ class DJsonConfig : IConfigEngine {
     }
     
     /**
-     * Converts the provided someData into a IData string that can be used saved
+     * Converts the provided someData into a Json string that can be used saved
      * into a file and loaded later.
      * Params:
      * string aKey The identifier to write to. If the key has a ~ it will

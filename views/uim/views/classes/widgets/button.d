@@ -30,14 +30,14 @@ class DButtonWidget : DWidget {
     override string render(Json[string] renderData, IContext formContext) {
         Json[string] mergedData = renderData.merge([
             // `text` The text of the button. Unlike all other form controls, buttons do not escape their contents by default.
-            "text": StringData(""),
+            "text": Json(""),
             // `type` The button type defaults to "submit".
-            "type": StringData("submit"),
+            "type": Json("submit"),
             // `escapeTitle` Set to false to disable escaping of button text.
-            "escapeTitle": BooleanData(true),
+            "escapeTitle": Json(true),
             // `escape` Set to false to disable escaping of attributes.
-            "escape": BooleanData(true),
-            "templateVars": ArrayData(),
+            "escape": Json(true),
+            "templateVars": Json.emptyArray(),
         ]);
 
         return null; 

@@ -96,7 +96,7 @@ mixin template TEntity() {
     * means no fields are accessible for mass assigment.
     *
     * The special field '\*' can also be mapped, meaning that any other field
-    * not defined in the map will take its value. For example, `'*": BooleanData(true)`
+    * not defined in the map will take its value. For example, `'*": Json(true)`
     * means that any field not defined in the map will be accessible for mass
     * assignment by default.
   */
@@ -212,8 +212,8 @@ mixin template TEntity() {
      * `options` parameter:
      *
      * ```
-     * entity.set("name", "Andrew", ["setter": BooleanData(false)]);
-     * entity.set(["name": 'Andrew", "id": 1], ["setter": BooleanData(false)]);
+     * entity.set("name", "Andrew", ["setter": Json(false)]);
+     * entity.set(["name": 'Andrew", "id": 1], ["setter": Json(false)]);
      * ```
      *
      * Mass assignment should be treated carefully when accepting user input, by default
@@ -221,7 +221,7 @@ mixin template TEntity() {
      * the guarding for a single set call with the `guard` option:
      *
      * ```
-     * entity.set(["name": 'Andrew", "id": 1], ["guard": BooleanData(false)]);
+     * entity.set(["name": 'Andrew", "id": 1], ["guard": Json(false)]);
      * ```
      *
      * You do not need to use the guard option when assigning fields individually:
@@ -240,7 +240,7 @@ mixin template TEntity() {
      * entity.set("phone_number", "555-0134");
      * print_r(entity.getOriginalFields()) // prints ["name", "id"]
      *
-     * entity.set("phone_number", "555-0134", ["asOriginal": BooleanData(true)]);
+     * entity.set("phone_number", "555-0134", ["asOriginal": Json(true)]);
      * print_r(entity.getOriginalFields()) // prints ["name", "id", "phone_number"]
      * ```
      * Params:
@@ -264,7 +264,7 @@ mixin template TEntity() {
     if (!isArray(field)) {
       throw new DInvalidArgumentException("Cannot set an empty field");
     }
-    options = options.update["setter": BooleanData(true), "guard": guard, "asOriginal": BooleanData(false)];
+    options = options.update["setter": Json(true), "guard": guard, "asOriginal": Json(false)];
 
     if (options["asOriginal"] == true) {
       this.setOriginalField(field.keys);
@@ -554,7 +554,7 @@ mixin template TEntity() {
   }
 
   // Returns the fields that will be serialized as Json
-  array IDataSerialize() {
+  array JsonSerialize() {
     return _extract(this.getVisible());
   }
 

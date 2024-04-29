@@ -22,13 +22,13 @@ class DSelectBoxWidget : DWidget {
     }
     /* 
     protected Json[string] _defaultData = [
-        "name": StringData(""),
-        "empty": BooleanData(false),
-        "escape": BooleanData(true),
-        "options": ArrayData,
+        "name": Json(""),
+        "empty": Json(false),
+        "escape": Json(true),
+        "options": Json.emptyArray,
         "disabled": null,
         "val": null,
-        "templateVars": ArrayData,
+        "templateVars": Json.emptyArray,
     ];
 
     /**
@@ -238,7 +238,7 @@ class DSelectBoxWidget : DWidget {
             myoptAttrs = [
                 "value": kv.key,
                 "text": kv.value,
-                "templateVars": ArrayData,
+                "templateVars": Json.emptyArray,
             ];
             if (isArray(kv.value) && isSet(kv.value["text"], kv.value["value"])) {
                 /** @var Json[string] myoptAttrs * /

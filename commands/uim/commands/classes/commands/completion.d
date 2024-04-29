@@ -39,16 +39,16 @@ class DCompletionCommand : DCommand { // TODO}, ICommandCollectionAware {
         );
         aParser.addArgument("mode", [
                 "help": "The type of thing to get completion on.",
-                "required": BooleanData(true),
+                "required": Json(true),
                 "choices": modes.keys,
             ]);
         aParser.addArgument("command", [
                 "help": "The command name to get information on.",
-                "required": BooleanData(false),
+                "required": Json(false),
             ]);
         aParser.addArgument("subcommand", [
                 "help": "The sub-command related to command to get information on.",
-                "required": BooleanData(false),
+                "required": Json(false),
             ]);
         aParser.setEpilog(
             [

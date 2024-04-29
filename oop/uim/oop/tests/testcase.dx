@@ -493,10 +493,10 @@ abstract class DTestCase : DBaseTestCase {
      *
      * ```
      * [
-     *  ["p": BooleanData(true)],
+     *  ["p": Json(true)],
      *  "textA",
      *  "/p",
-     *  ["p": BooleanData(true)],
+     *  ["p": Json(true)],
      *  "textB",
      *  "/p"
      * ]

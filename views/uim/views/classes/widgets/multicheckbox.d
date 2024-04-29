@@ -28,14 +28,14 @@ class DMultiCheckboxWidget : DWidget {
         /* 
 
     protected Json[string] _defaultData = [
-        "name": StringData(""),
-        "escape": BooleanData(true),
-        "options": ArrayData,
+        "name": Json(""),
+        "escape": Json(true),
+        "options": Json.emptyArray,
         "disabled": null,
         "val": null,
         "idPrefix": null,
-        "templateVars": ArrayData,
-        "label": BooleanData(true),
+        "templateVars": Json.emptyArray,
+        "label": Json(true),
     ];
 
 

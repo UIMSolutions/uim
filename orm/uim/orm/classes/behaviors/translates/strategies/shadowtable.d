@@ -29,14 +29,14 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         configuration.data(initData);
 
         configuration.updateDefaults([
-            "fields": ArrayData,
-            "defaultLocale": NullData,
-            "referencename": StringData,
-            "allowEmptyTranslations": BooleanData(true),
-            "onlyTranslated": BooleanData(false),
-            "strategy": StringData("subquery"),
-            "tableLocator": NullData,
-            "validator": BooleanData(false),
+            "fields": Json.emptyArray,
+            "defaultLocale": Json(null),
+            "referencename": Json(""),
+            "allowEmptyTranslations": Json(true),
+            "onlyTranslated": Json(false),
+            "strategy": Json("subquery"),
+            "tableLocator": Json(null),
+            "validator": Json(false),
         ]);
 
         return true;
@@ -74,7 +74,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
         this.table = table;
         this.translationTable = this.getTableLocator().get(
             configuration.get("translationTable"],
-            ["allowFallbackClass": BooleanData(true)]
+            ["allowFallbackClass": Json(true)]
         );
 
         this.setupAssociations();
@@ -95,7 +95,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                 "foreignKey": "id",
                 "strategy": configuration.get("strategy"],
                 "propertyName": "_i18n",
-                "dependent": BooleanData(true),
+                "dependent": Json(true),
             ]);
     }
 
@@ -154,7 +154,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                     hasOneTargetAlias,
                     [
                         "className": configuration.get("translationTable"],
-                        "allowFallbackClass": BooleanData(true),
+                        "allowFallbackClass": Json(true),
                     ]
                 );
             }
@@ -313,7 +313,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                     locale = entity.get("_locale") ? 
                                                     : this.getLocale(); newOptions = [
                                                         this.translationTable.aliasName(): [
-                                                            "validate": BooleanData(false)
+                                                            "validate": Json(false)
                                                         ]
                                                     ]; options["associated"] = newOptions + options["associated"];
 
@@ -385,8 +385,8 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
                                                                             .newEntity(
                                                                             where + values,
                                                                             [
-                                                                                "useSetters": BooleanData(false),
-                                                                                "markNew": BooleanData(true),
+                                                                                "useSetters": Json(false),
+                                                                                "markNew": Json(true),
                                                                             ]
                                                                             );}
 

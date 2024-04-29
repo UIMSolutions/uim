@@ -9,28 +9,28 @@ class DSqlserverDriver : DDriver {
     mixin(DriverThis!("Sqlserver"));
     
     
-  	override bool initialize(IData[string] initData = null) {
+  	override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 
         configuration.update([
-        "host": StringData("localhost\\SQLEXPRESS"),
-        "username": StringData(""),
-        "password": StringData(""),
-        "database": StringData("uim"),
-        "port": StringData(""),
+        "host": Json("localhost\\SQLEXPRESS"),
+        "username": Json(""),
+        "password": Json(""),
+        "database": Json("uim"),
+        "port": Json(""),
         // PDO.SQLSRV_ENCODING_UTF8
-        "encoding": IntegerData(65001),
-        "flags": ArrayData,
-        "init": ArrayData,
-        "settings": ArrayData,
-        "attributes": ArrayData,
-        "app": NullData,
-        "connectionPooling": NullData,
-        "failoverPartner": NullData,
-        "loginTimeout": NullData,
-        "multiSubnetFailover": NullData,
-        "encrypt": NullData,
-        "trustServerCertificate": NullData,
+        "encoding": Json(65001),
+        "flags": Json.emptyArray,
+        "init": Json.emptyArray,
+        "settings": Json.emptyArray,
+        "attributes": Json.emptyArray,
+        "app": Json(null),
+        "connectionPooling": Json(null),
+        "failoverPartner": Json(null),
+        "loginTimeout": Json(null),
+        "multiSubnetFailover": Json(null),
+        "encrypt": Json(null),
+        "trustServerCertificate": Json(null),
     ]);
 
         startQuote("[");
@@ -171,7 +171,7 @@ class DSqlserverDriver : DDriver {
             DriverFeatures.TRUNCATE_WITH_CONSTRAINTS,
             DriverFeatures.WINDOW: true,
 
-            DriverFeatures.IData: false,
+            DriverFeatures.Json: false,
         };
     }
  

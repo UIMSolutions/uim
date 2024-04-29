@@ -47,10 +47,10 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         }*/
         
         configuration.updateDefaults([
-            "duration": IntegerData(3600),
-            "groups": ArrayData,
-            "prefix": StringData("uim_"),
-            "warnOnWriteFailures": BooleanData(true),
+            "duration": Json(3600),
+            "groups": Json.emptyArray,
+            "prefix": Json("uim_"),
+            "warnOnWriteFailures": Json(true),
         ]); 
 
         return true;
@@ -162,7 +162,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
 
     // Fetches the value for a given key from the cache.
     Json get(string itemKey, Json defaultValue = null) {
-        return null;
+        return Json(null);
     }
 
     /**

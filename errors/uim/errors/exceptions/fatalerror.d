@@ -6,7 +6,7 @@ import uim.errors;
 class DFatalErrorException : UimException {
     mixin(ExceptionThis!("FatalError"));
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }

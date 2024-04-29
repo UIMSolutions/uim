@@ -26,8 +26,8 @@ class DFormHelper : DHelper {
     override bool initialize(Json[string] initData = null) {
         if (super.initialize(initData)) {
             configuration.updateDefaults([
-                "idPrefix": NullData,
-                "errorClass": StringData("form-error"),
+                "idPrefix": Json(null),
+                "errorClass": Json("form-error"),
                 "typeMap": MapData([
                     "string": "text",
                     "text": "textarea",
@@ -87,7 +87,7 @@ class DFormHelper : DHelper {
                 "selectedClass": `selected`, // required class
                 "requiredClass": `required`,
             ]), // set HTML5 validation message to custom required/empty messages
-                "autoSetCustomValidity" : BooleanData(true),]);
+                "autoSetCustomValidity" : Json(true),]);
             return true;
         }
         /**
@@ -354,7 +354,7 @@ class DFormHelper : DHelper {
         if (!empty(myappend)) {
             myappend = mytemplater.format("hiddenBlock", ["content": myappend]);
         }
-        myactionAttr = mytemplater.formatAttributes(["action": myaction, "escape": BooleanData(false)]);
+        myactionAttr = mytemplater.formatAttributes(["action": myaction, "escape": Json(false)]);
 
         return _formatTemplate("formStart", [
             "attrs": mytemplater.formatAttributes(myhtmlAttributes) ~ myactionAttr,
@@ -569,7 +569,7 @@ class DFormHelper : DHelper {
         if (myfield.endsWith("._ids")) {
             myfield = substr(myfield, 0, -5);
         }
-        options = options.update["escape": BooleanData(true)];
+        options = options.update["escape": Json(true)];
 
         formContext = _getContext();
         if (!formContext.hasError(myfield)) {
@@ -720,7 +720,7 @@ class DFormHelper : DHelper {
      * You can exclude fields by specifying them as `false`:
      *
      * ```
-     * this.Form.allControls(["title": BooleanData(false)]);
+     * this.Form.allControls(["title": Json(false)]);
      * ```
      *
      * In the above example, no field would be generated for the title field.
@@ -860,9 +860,9 @@ class DFormHelper : DHelper {
             "error": null,
             "required": null,
             "options": null,
-            "templates": ArrayData,
-            "templateVars": ArrayData,
-            "labelOptions": BooleanData(true),
+            "templates": Json.emptyArray,
+            "templateVars": Json.emptyArray,
+            "labelOptions": Json(true),
         ];
         options = _parseOptions(fieldName, options);
         options = options.update["id": _domId(fieldName)];
@@ -1156,7 +1156,7 @@ class DFormHelper : DHelper {
      * /
     protected Json[string] _magicOptions(string aFieldName, Json[string] options, bool myallowOverride) {
         options = options.update[
-            "templateVars": ArrayData,
+            "templateVars": Json.emptyArray,
         ];
 
         options = this.setRequiredAndCustomValidity(fieldName, options);
@@ -1248,7 +1248,7 @@ class DFormHelper : DHelper {
      * @param Json[string]|string|null mylabel Label text or array with label attributes.
      * /
     protected string _inputLabel(string fieldName, string labelText = null, STRINGAA labelAttributes = null, Json[string] labelOptions = null) {
-        Json[string] options = options.update["id": null, "input": null, "nestedInput": BooleanData(false), "templateVars": ArrayData];
+        Json[string] options = options.update["id": null, "input": null, "nestedInput": Json(false), "templateVars": Json.emptyArray];
         STRINGAA mylabelAttributes = ["templateVars": labelOptions["templateVars"]];
         if (isArray(mylabel)) {
             mylabelText = null;
@@ -1291,7 +1291,7 @@ class DFormHelper : DHelper {
      * @param Json[string] options Array of HTML attributes.
      * /
     string[] checkbox(string aFieldName, Json[string] options  = null) {
-        options = options.update["hiddenField": BooleanData(true), "value": 1];
+        options = options.update["hiddenField": Json(true), "value": 1];
 
         // Work around value=>val translations.
         myvalue = options["value"];
@@ -1307,7 +1307,7 @@ class DFormHelper : DHelper {
                     && options["hiddenField"] != "_split"
                     ? to!string(options["hiddenField"]) : "0",
                 "form": options.get("form", null),
-                "secure": BooleanData(false),
+                "secure": Json(false),
             ];
             if (isSet(options["disabled"]) && options["disabled"]) {
                 myhiddenOptions["disabled"] = "disabled";
@@ -1433,7 +1433,7 @@ class DFormHelper : DHelper {
      * @param Json[string] options Array of HTML attributes.
      * /
     string hidden(string aFieldName, Json[string] options  = null) {
-        options = options.update["required": BooleanData(false), "secure": BooleanData(true)];
+        options = options.update["required": Json(false), "secure": Json(true)];
 
         mysecure = options["secure"];
         unset(options["secure"]);
@@ -1464,7 +1464,7 @@ class DFormHelper : DHelper {
      * @link https://book.UIM.org/5/en/views/helpers/form.html#creating-file-inputs
      * /
     string file(string aFieldName, Json[string] options  = null) {
-        options = options.update["secure": BooleanData(true)];
+        options = options.update["secure": Json(true)];
         options = _initInputField(fieldName, options);
 
         unset(options["type"]);
@@ -1488,9 +1488,9 @@ class DFormHelper : DHelper {
     string button(string mytitle, Json[string] options  = null) {
         options = options.update[
             "type": "submit",
-            "escapeTitle": BooleanData(true),
-            "escape": BooleanData(true),
-            "secure": BooleanData(false),
+            "escapeTitle": Json(true),
+            "escape": Json(true),
+            "secure": Json(false),
             "confirm": null,
         ];
         options["text"] = mytitle;
@@ -1605,7 +1605,7 @@ class DFormHelper : DHelper {
 
         myaction = mytemplater.formatAttributes([
             "action": this.Url.build(myurl),
-            "escape": BooleanData(false),
+            "escape": Json(false),
         ]);
 
         result = this.formatTemplate("formStart", [
@@ -1686,8 +1686,8 @@ class DFormHelper : DHelper {
         mycaption ??= __d("uim", "Submit");
         options = options.update[
             "type": "submit",
-            "secure": BooleanData(false),
-            "templateVars": ArrayData,
+            "secure": Json(false),
+            "templateVars": Json.emptyArray,
         ];
 
         if (isSet(options["name"]) && this.formProtector) {
@@ -1797,10 +1797,10 @@ class DFormHelper : DHelper {
     string select(string aFieldName, range options = [], array myattributes = []) {
         myattributes += [
             "disabled": null,
-            "escape": BooleanData(true),
-            "hiddenField": BooleanData(true),
+            "escape": Json(true),
+            "hiddenField": Json(true),
             "multiple": null,
-            "secure": BooleanData(true),
+            "secure": Json(true),
             "empty": null,
         ];
 
@@ -1834,7 +1834,7 @@ class DFormHelper : DHelper {
                 "name": myattributes["name"],
                 "value": "",
                 "form": myattributes["form"] ?? null,
-                "secure": BooleanData(false),
+                "secure": Json(false),
             ];
             myhidden = this.hidden(fieldName, myhiddenAttributes);
         }
@@ -1869,9 +1869,9 @@ class DFormHelper : DHelper {
     string multiCheckbox(string aFieldName, range options, array myattributes = []) {
         myattributes += [
             "disabled": null,
-            "escape": BooleanData(true),
-            "hiddenField": BooleanData(true),
-            "secure": BooleanData(true),
+            "escape": Json(true),
+            "hiddenField": Json(true),
+            "secure": Json(true),
         ];
 
         mygeneratedHiddenId = false;
@@ -1888,7 +1888,7 @@ class DFormHelper : DHelper {
             myhiddenAttributes = [
                 "name": myattributes["name"],
                 "value": "",
-                "secure": BooleanData(false),
+                "secure": Json(false),
                 "disabled": myattributes["disabled"] == true || myattributes["disabled"] == "disabled",
                 "id": myattributes["id"],
             ];
@@ -1920,7 +1920,7 @@ class DFormHelper : DHelper {
      * /
     string year(string aFieldName, Json[string] options  = null) {
         auto options = options.update[
-            "empty": BooleanData(true),
+            "empty": Json(true),
         ];
         options = _initInputField(fieldName, options);
         unset(options["type"]);

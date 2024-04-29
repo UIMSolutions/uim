@@ -180,7 +180,7 @@ class DEagerLoader {
        _matching ??= new static();
 
         options = options.update["joinType": SelectQuery.JOIN_TYPE_INNER];
-        mysharedOptions = ["negateMatch": BooleanData(false), "matching": BooleanData(true)] + options;
+        mysharedOptions = ["negateMatch": Json(false), "matching": Json(true)] + options;
 
         mycontains = null;
         mynested = &mycontains;
@@ -192,7 +192,7 @@ class DEagerLoader {
                 mynested = &mynested[association];
             });
         // Add all options to target association contain which is the last in nested chain
-        mynested = ["matching": BooleanData(true), "queryBuilder": mybuilder] + options;
+        mynested = ["matching": Json(true), "queryBuilder": mybuilder] + options;
        _matching.contain(mycontains);
     }
     
@@ -398,7 +398,7 @@ class DEagerLoader {
 
         myextra = array_diff_key(options, mydefaults);
         configData = [
-            "associations": ArrayData,
+            "associations": Json.emptyArray,
             "instance": myinstance,
             "config": array_diff_key(options, myextra),
             "aliasPath": strip(mypaths["aliasPath"], "."),
@@ -630,7 +630,7 @@ class DEagerLoader {
        _joinsMap[myalias] = new DEagerLoadable(myalias, [
             "aliasPath": myalias,
             "instance": myassoc,
-            "canBeJoined": BooleanData(true),
+            "canBeJoined": Json(true),
             "forMatching": myasMatching,
             "targetProperty": mytargetProperty ?: myassoc.getProperty(),
         ]);

@@ -89,7 +89,7 @@ class DSelectLoader {
     // TODO protected array _defaultOptions() {
         return [
             "foreignKey": this.foreignKey,
-            "conditions": ArrayData,
+            "conditions": Json.emptyArray,
             "strategy": this.strategy,
             "nestKey": this.alias,
             "sort": this.sort,
@@ -163,7 +163,7 @@ class DSelectLoader {
      *
      * The following will call the finder "translations" with the value of the finder as its options:
      * query.contain(["Comments": ["finder": ["translations"]]]);
-     * query.contain(["Comments": ["finder": ["translations": ArrayData]]]);
+     * query.contain(["Comments": ["finder": ["translations": Json.emptyArray]]]);
      * query.contain(["Comments": ["finder": ["translations": ["locales": ["en_US"]]]]]);
      *
      * @param array|string finderData The finder name or an array having the name as key

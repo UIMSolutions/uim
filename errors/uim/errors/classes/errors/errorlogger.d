@@ -12,16 +12,16 @@ class DErrorLogger : IErrorLogger {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
         configuration.updateDefaults([
             // `trace` = Should error logs include stack traces?
-            "trace": BooleanData(false),
+            "trace": Json(false),
         ]);
         
         return true;

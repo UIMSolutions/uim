@@ -209,7 +209,7 @@ class DBelongsToManyAssociation : DAssociation {
 
             myConfiguration = null;
             if (!tableLocator.exists(tableAlias)) {
-                myConfiguration = ["table": tableName, "allowFallbackClass": BooleanData(true)];
+                myConfiguration = ["table": tableName, "allowFallbackClass": Json(true)];
 
                 // Propagate the connection if we"ll get an auto-model
                 if (!App::className(tableAlias, "Model/Table", "Table")) {
@@ -402,7 +402,7 @@ class DBelongsToManyAssociation : DAssociation {
         newOptions += [
             "conditions": cond,
             "includeFields": includeFields,
-            "foreignKey": BooleanData(false),
+            "foreignKey": Json(false),
         ];
         assoc.attachTo(query, newOptions);
         query.getEagerLoader().addToJoinsMap(junction.aliasName(), assoc, true);
@@ -711,7 +711,7 @@ class DBelongsToManyAssociation : DAssociation {
         foreach (targetEntities as e) {
             joint = e.get(jointProperty);
             if (!joint || !(joint instanceof IEntity)) {
-                joint = new DORMEntityClass([], ["markNew": BooleanData(true), "source": junctionRegistryAlias]);
+                joint = new DORMEntityClass([], ["markNew": Json(true), "source": junctionRegistryAlias]);
             }
             sourceKeys = array_combine(foreignKey, sourceEntity.extract(bindingKey));
             targetKeys = array_combine(assocForeignKey, e.extract(targetBindingKey));
@@ -727,7 +727,7 @@ class DBelongsToManyAssociation : DAssociation {
             if (changedKeys) {
                 joint.setNew(true);
                 joint.unset(junction.primaryKeys())
-                    .set(array_merge(sourceKeys, targetKeys), ["guard": BooleanData(false)]);
+                    .set(array_merge(sourceKeys, targetKeys), ["guard": Json(false)]);
             }
             saved = junction.save(joint, options);
 
@@ -827,7 +827,7 @@ class DBelongsToManyAssociation : DAssociation {
                 "cleanProperty": options,
             ];
         } else {
-            options = options.update["cleanProperty": BooleanData(true)];
+            options = options.update["cleanProperty": Json(true)];
         }
 
         _checkPersistenceStatus(sourceEntity, targetEntities);

@@ -18,18 +18,18 @@ class DLogger : ILogger {
         this.name(name); 
     }
 
-    this(IData[string] initData) { 
+    this(Json[string] initData) { 
         this(); 
         this.initialize(initData); 
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
         
         configuration.updateDefaults([
-            "levels": ArrayData,
-            "scopes": ArrayData,
+            "levels": Json.emptyArray,
+            "scopes": Json.emptyArray,
             // TODO "formatter": DefaultFormatter.classname
         ]); 
 
@@ -66,12 +66,14 @@ class DLogger : ILogger {
 
     // Get the levels this logger is interested in.
     string[] levels() {
-        return configuration.get("levels").getStringArray;
+        return null; 
+        // return configuration.get("levels").getStringArray;
     }
     
     // Get the scopes this logger is interested in.
     string[] scopes() {
-        return configuration.get("scopes").getStringArray;
+        return null; 
+        // return configuration.get("scopes").getStringArray;
     }
 
 /*
@@ -95,7 +97,7 @@ class DLogger : ILogger {
         }
         placeholders = array_intersect(matches[1], context.keys);
         replacements = null;
-        IDataFlags = Json_THROW_ON_ERROR | Json_UNESCAPED_UNICODE;
+        JsonFlags = Json_THROW_ON_ERROR | Json_UNESCAPED_UNICODE;
 
         foreach (aKey; placeholders) {
             aValue = context[aKey];
@@ -105,15 +107,15 @@ class DLogger : ILogger {
                 continue;
             }
             if (isArray(aValue)) {
-                replacements["{" ~ aKey ~ "}"] = Json_encode(aValue, IDataFlags);
+                replacements["{" ~ aKey ~ "}"] = Json_encode(aValue, JsonFlags);
                 continue;
             }
-            if (cast(IDataSerializable)aValue) {
-                replacements["{" ~ aKey ~ "}"] = Json_encode(aValue, IDataFlags);
+            if (cast(JsonSerializable)aValue) {
+                replacements["{" ~ aKey ~ "}"] = Json_encode(aValue, JsonFlags);
                 continue;
             }
             if (cast(DArrayObject)aValue) {
-                replacements["{" ~ aKey ~ "}"] = Json_encode(aValue.getArrayCopy(), IDataFlags);
+                replacements["{" ~ aKey ~ "}"] = Json_encode(aValue.getArrayCopy(), JsonFlags);
                 continue;
             }
             if (cast(DSerializable)aValue) {
@@ -122,7 +124,7 @@ class DLogger : ILogger {
             }
             if (isObject(aValue)) {
                 if (method_exists(aValue, "toArray")) {
-                    replacements["{" ~ aKey ~ "}"] = Json_encode(aValue.toArray(), IDataFlags);
+                    replacements["{" ~ aKey ~ "}"] = Json_encode(aValue.toArray(), JsonFlags);
                     continue;
                 }
                 if (cast(DSerializable)aValue) {
@@ -134,7 +136,7 @@ class DLogger : ILogger {
                     continue;
                 }
                 if (method_exists(aValue, "__debugInfo")) {
-                    replacements["{" ~ aKey ~ "}"] = Json_encode(aValue.__debugInfo(), IDataFlags);
+                    replacements["{" ~ aKey ~ "}"] = Json_encode(aValue.__debugInfo(), JsonFlags);
                     continue;
                 }
             }

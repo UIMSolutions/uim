@@ -44,7 +44,7 @@ class DTreeBehavior : DBehavior {
         "scope": null,
         "level": null,
         "recoverOrder": null,
-        "cascadeCallbacks": BooleanData(false),
+        "cascadeCallbacks": Json(false),
     ];
 
         configuration.get("leftField"] = new DIdentifierExpression(configuration.get("left"]);
@@ -196,7 +196,7 @@ class DTreeBehavior : DBehavior {
             if (this.configuration.get("cascadeCallbacks")) {
                 entities = query.toArray();
                 foreach (entities as entityToDelete) {
-                    _table.delete_(entityToDelete, ["atomic": BooleanData(false)]);
+                    _table.delete_(entityToDelete, ["atomic": Json(false)]);
                 }
             } else {
                 query.delete_();
@@ -401,7 +401,7 @@ class DTreeBehavior : DBehavior {
     function findChildren(Query query, Json[string] optionData): Query
     {
         myConfiguration = configuration;
-        options = options.update["for": null, "direct": BooleanData(false)];
+        options = options.update["for": null, "direct": Json(false)];
         [parent, left, right] = array_map(
             function (field) {
                 return _table.aliasField(field);
@@ -907,7 +907,7 @@ class DTreeBehavior : DBehavior {
         }
 
         fresh = _table.get(entity.get(_primaryKeys()));
-        entity.set(fresh.extract(fields), ["guard": BooleanData(false)]);
+        entity.set(fresh.extract(fields), ["guard": Json(false)]);
 
         foreach (fields as field) {
             entity.setDirty(field, false);

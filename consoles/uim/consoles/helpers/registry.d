@@ -17,11 +17,11 @@ class DHelperRegistry { // }: ObjectRegistry {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -67,11 +67,11 @@ class DHelperRegistry { // }: ObjectRegistry {
      * \UIM\Console\Helper|class-string<\UIM\Console\Helper> className The classname to create.
      * configData - An array of settings to use for the helper.
      * /
-    protected DHelper _create(object obj, string helperAlias, IData[string] configData) {
+    protected DHelper _create(object obj, string helperAlias, Json[string] configData) {
         return obj;
     }
 
-    protected DHelper _create(string className, string helperAlias, IData[string] configData) {
+    protected DHelper _create(string className, string helperAlias, Json[string] configData) {
         return new className(_io, configData);
     } */
 }

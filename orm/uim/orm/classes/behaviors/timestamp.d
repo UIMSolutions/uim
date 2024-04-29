@@ -25,7 +25,7 @@ class DTimestampBehavior : DBehavior {
      *
      * /
     protected Json[string] configuration.updateDefaults([
-        "implementedFinders": ArrayData,
+        "implementedFinders": Json.emptyArray,
         "implementedMethods": [
             "timestamp": "timestamp",
             "touch": "touch",
@@ -36,7 +36,7 @@ class DTimestampBehavior : DBehavior {
                 "modified": "always",
             ],
         ],
-        "refreshTimestamp": BooleanData(true),
+        "refreshTimestamp": Json(true),
     ]);* /
         if (configuration.hasKey("events")) {
             configuration.update("events", configData("events"), false);

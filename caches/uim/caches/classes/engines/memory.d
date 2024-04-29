@@ -42,18 +42,18 @@ class DMemoryCacheEngine : DCacheEngine {
      *   Use the \Memory.OPT_* constants as keys.
      */
     configuration.updateDefaults([
-      "compress": BooleanData(false),
-      "duration": IntegerData(3600),
-      "groups": ArrayData,
-      "host": NullData,
-      "username": StringData,
-      "password": NullData,
-      "persistent": NullData,
-      "port": NullData,
-      "prefix": StringData("uim_"),
-      "serialize": StringData("d"),
+      "compress": Json(false),
+      "duration": Json(3600),
+      "groups": Json.emptyArray,
+      "host": Json(null),
+      "username": Json(""),
+      "password": Json(null),
+      "persistent": Json(null),
+      "port": Json(null),
+      "prefix": Json("uim_"),
+      "serialize": Json("d"),
       // TODO "servers": StringArrayData(["127.0.0.1"]),
-      "options": ArrayData,
+      "options": Json.emptyArray,
     ]);
 
     return true;
@@ -81,7 +81,7 @@ h     * /
     }
     /* _serializers = [
       "igbinary": Memory: : SERIALIZER_IGBINARY,
-      "Json": Memory: : SERIALIZER_IData,
+      "Json": Memory: : SERIALIZER_Json,
       "d": Memory: : SERIALIZER_D,
     ]; * /
 

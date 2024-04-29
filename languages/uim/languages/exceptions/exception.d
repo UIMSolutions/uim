@@ -8,7 +8,7 @@ import uim.languages;
 class DLanguagesException : UimException {
   mixin(ExceptionThis!("Languages"));
 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }

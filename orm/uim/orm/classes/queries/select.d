@@ -13,7 +13,7 @@ import uim.orm;
  * @template TSubject of \UIM\Datasource\IEntity|array
  * @extends \UIM\Database\Query\SelectQuery<TSubject>
  */
-class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
+class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     /* 
     mixin CommonTQuery();
 
@@ -483,8 +483,8 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * ### Example:
      *
      * ```
-     * myquery.applyOptions(["doABarrelRoll": BooleanData(true), "fields": ["id", "name"]);
-     * myquery.getOptions(); // Returns ["doABarrelRoll": BooleanData(true)]
+     * myquery.applyOptions(["doABarrelRoll": Json(true), "fields": ["id", "name"]);
+     * myquery.getOptions(); // Returns ["doABarrelRoll": Json(true)]
      * ```
      *
      * @see \UIM\Datasource\IQuery.applyOptions() to read about the options that will
@@ -770,11 +770,11 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      *
      * ```
      * myquery.contain(["Tags": auto (myq) {
-     *    return myq.where(["Tags.is_popular": BooleanData(true)]);
+     *    return myq.where(["Tags.is_popular": Json(true)]);
      * }]);
      *
      * myquery.contain(["Products.Manufactures": auto (myq) {
-     *    return myq.select(["name"]).where(["Manufactures.active": BooleanData(true)]);
+     *    return myq.select(["name"]).where(["Manufactures.active": Json(true)]);
      * }]);
      * ```
      *
@@ -826,7 +826,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
      * // Use special join conditions for multiple containments in the same method call
      * myquery.contain([
      *    "Authors": [
-     *        "foreignKey": BooleanData(false),
+     *        "foreignKey": Json(false),
      *        "queryBuilder": auto (myq) {
      *            return myq.where(...); // Add full filtering conditions
      *        }
@@ -1026,7 +1026,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
         result = this.getEagerLoader()
             .setMatching(myassoc, mybuilder, [
                 "joinType": JOIN_TYPE_LEFT,
-                "fields": BooleanData(false),
+                "fields": Json(false),
             ])
             .getMatching();
        _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
@@ -1070,7 +1070,7 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
         result = this.getEagerLoader()
             .setMatching(myassoc, mybuilder, [
                 "joinType": JOIN_TYPE_INNER,
-                "fields": BooleanData(false),
+                "fields": Json(false),
             ])
             .getMatching();
        _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
@@ -1130,8 +1130,8 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
         result = this.getEagerLoader()
             .setMatching(myassoc, mybuilder, [
                 "joinType": JOIN_TYPE_LEFT,
-                "fields": BooleanData(false),
-                "negateMatch": BooleanData(true),
+                "fields": Json(false),
+                "negateMatch": Json(true),
             ])
             .getMatching();
        _addAssociationsToTypeMap(this.getRepository(), this.getTypeMap(), result);
@@ -1472,9 +1472,9 @@ class DSelectQuery : DQuery { // , IDataSerializable, IQuery {
     /**
      * Executes the query and converts the result set into Json.
      *
-     * Part of IDataSerializable interface.
+     * Part of JsonSerializable interface.
      * /
-    IResultset<(\UIM\Datasource\IEntity|mixed)> IDataSerialize() {
+    IResultset<(\UIM\Datasource\IEntity|mixed)> JsonSerialize() {
         return _all();
     }
     

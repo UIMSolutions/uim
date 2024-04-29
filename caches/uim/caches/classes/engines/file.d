@@ -35,14 +35,14 @@ class DFileCacheEngine : DCacheEngine {
         * - `serialize` Should cache objects be serialized first.
         */
         configuration.updateDefaults([
-            "duration": IntegerData(3600),
-            "groups": ArrayData,
-            "lock": BooleanData(true),
+            "duration": Json(3600),
+            "groups": Json.emptyArray,
+            "lock": Json(true),
             // TODO "mask": std.conv.octal!"664",
             // TODO "dirMask": std.conv.octal!"770",
-            "path": NullData,
-            "prefix": StringData("uim_"),
-            "serialize": BooleanData(true),
+            "path": Json(null),
+            "prefix": Json("uim_"),
+            "serialize": Json(true),
         ]); 
 
         /* 

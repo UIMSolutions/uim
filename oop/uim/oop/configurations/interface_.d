@@ -4,18 +4,18 @@ import uim.oop;
 
 @safe:
 interface IConfiguration : INamed {
-    mixin(IProperty!("IData[string]", "data"));
+    mixin(IProperty!("Json[string]", "data"));
 
     // #region default data
-        mixin(IProperty!("IData[string]", "defaultData"));
+        mixin(IProperty!("Json[string]", "defaultData"));
 
         bool hasDefault(string key);
 
-        void updateDefaults(IData[string] newData);
-        void updateDefault(string key, IData newData);
+        void updateDefaults(Json[string] newData);
+        void updateDefault(string key, Json newData);
 
-        void mergeDefaults(IData[string] newData);
-        void mergeDefault(string key, IData newData);
+        void mergeDefaults(Json[string] newData);
+        void mergeDefault(string key, Json newData);
     // #endregion default data
 
     // #region keys
@@ -42,21 +42,21 @@ interface IConfiguration : INamed {
     // #endregion values
 
     // #region get
-        IData opIndex(string key);
-        IData get(string key);
-        IData[string] get(string[] keys, bool compressMode = true);
+        Json opIndex(string key);
+        Json get(string key);
+        Json[string] get(string[] keys, bool compressMode = true);
     // #endregion get
 
-    // void set(string key, IData newData);
-    // void set(string[] keys, IData[string] newData);
+    // void set(string key, Json newData);
+    // void set(string[] keys, Json[string] newData);
 
-    void update(IData[string] newData, string[] validKeys = null);
-    void update(string key, IData newData);
-    void update(string key, IData[string] newData);
+    void update(Json[string] newData, string[] validKeys = null);
+    void update(string key, Json newData);
+    void update(string key, Json[string] newData);
 
-    void merge(IData[string] newData, string[] validKeys = null);
-    void merge(string key, IData newData);
-    void merge(string key, IData[string] newData);
+    void merge(Json[string] newData, string[] validKeys = null);
+    void merge(string key, Json newData);
+    void merge(string key, Json[string] newData);
 
     IConfiguration remove(string[] keys);
     IConfiguration remove(string keys);

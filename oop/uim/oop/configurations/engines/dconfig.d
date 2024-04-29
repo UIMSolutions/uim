@@ -16,7 +16,7 @@ import uim.oop;
  * ```
  * 
  * return [
- *    'debug": BooleanData(false),
+ *    'debug": Json(false),
  *    `security": [
  *        `salt": 'its-secret'
  *    ],
@@ -66,7 +66,7 @@ class DConfig : IConfigEngine {
      * string aKey The identifier to write to. If the key has a ~ it will be treated
      * as a plugin prefix.
          * /
-    bool dump(string aKey, IData[] dataToDump) {
+    bool dump(string aKey, Json[] dataToDump) {
         string contents = "" ~ "\n" ~ "return " ~ var_export(dataToDump, true) ~ ";";
 
         string filename = _getFileKey(aKey);

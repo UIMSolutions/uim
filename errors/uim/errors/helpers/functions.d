@@ -9,11 +9,11 @@ import uim.errors;
  *
  * Only runs if debug mode is enabled.
  *
- * @param IData var Variable to show debug information for.
+ * @param Json var Variable to show debug information for.
  * @param bool|null showHtml If set to true, the method prints the debug data in a browser-friendly way.
  * @param bool showFrom If set to true, the method prints from where the auto was called.
  * /
-IData debug(IData var, bool showHtml = null, bool showFrom = true):  
+Json debug(Json var, bool showHtml = null, bool showFrom = true):  
 {
     if (!Configuration.read("debug")) {
         return var;
@@ -42,9 +42,9 @@ IData debug(IData var, bool showHtml = null, bool showFrom = true):
  *  will be displayed.
  * - `start` - The stack frame to start generating a trace from. Defaults to 1
  *
- * @param IData[string] options Format for outputting stack trace
+ * @param Json[string] options Format for outputting stack trace
  * /
-void stackTrace(IData[string] options = null) {
+void stackTrace(Json[string] options = null) {
     if (!Configuration.read("debug")) {
         return;
     }
@@ -61,10 +61,10 @@ void stackTrace(IData[string] options = null) {
  * Only runs if debug mode is enabled.
  * It will otherwise just continue code execution and ignore this function.
  *
- * @param IData var Variable to show debug information for.
+ * @param Json var Variable to show debug information for.
  * @param bool|null showHtml If set to true, the method prints the debug data in a browser-friendly way.
  * /
-void dd(IData var, ?bool showHtml = null) {
+void dd(Json var, ?bool showHtml = null) {
     if (!Configuration.read("debug")) {
         return;
     }

@@ -28,7 +28,7 @@ class DServerRequest { // }: IServerRequest {
         "controller": null,
         "action": null,
         "_ext": null,
-        "pass": ArrayData,
+        "pass": Json.emptyArray,
     ];
 
     /**
@@ -179,11 +179,11 @@ class DServerRequest { // }: IServerRequest {
     this(Json[string] configData = null) {
         configData += [
             'params": this.params,
-            'query": ArrayData,
-            'post": ArrayData,
-            'files": ArrayData,
-            'cookies": ArrayData,
-            'environment": ArrayData,
+            'query": Json.emptyArray,
+            'post": Json.emptyArray,
+            'files": Json.emptyArray,
+            'cookies": Json.emptyArray,
+            'environment": Json.emptyArray,
             'url": "",
             'uri": null,
             'base": "",

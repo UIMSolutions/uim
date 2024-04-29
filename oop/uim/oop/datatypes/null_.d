@@ -11,8 +11,9 @@ import uim.oop;
 class DNullData : DData {
   mixin(DataThis!("Null"));
 
+  /*
   // Initialization hook method.
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }
@@ -33,7 +34,7 @@ class DNullData : DData {
 
   override string toString() {
     return null;
-  }
+  } */
 }
 
 mixin(DataCalls!("Null"));

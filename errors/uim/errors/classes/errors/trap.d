@@ -22,11 +22,11 @@ class DErrorTrap {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -42,10 +42,10 @@ class DErrorTrap {
         */
         configuration.updateDefaults([
             // TODOD "errorLevel": E_ALL,
-            "errorRenderer": NullData,
-            "log": BooleanData(true),
+            "errorRenderer": Json(null),
+            "log": Json(true),
             // TODO "logger": ErrorLogger.classname,
-            "trace": BooleanData(false),
+            "trace": Json(false),
         ]);
 
         return true;

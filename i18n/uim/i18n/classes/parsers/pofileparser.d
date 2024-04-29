@@ -12,7 +12,7 @@ class DPoFileParser {
         initialize;
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
         
@@ -70,7 +70,7 @@ class DPoFileParser {
             throw new UimException("Cannot open resource `%s`".format(resourceFilepath));
         }
 
-        IData defaultItem = IData.emptyObject;
+        Json defaultItem = Json.emptyObject;
         defaultItem["ids"] = ArrayData;
         defaultItem["translated"] = false;
 
@@ -94,7 +94,7 @@ class DPoFileParser {
         return messages;
     }
 
-    PoMessage parseByLine(string line, IData[] messages, PoMessage message) {
+    PoMessage parseByLine(string line, Json[] messages, PoMessage message) {
         string line = strip(line);
 
         if (line.isEmpty && message is null) {
@@ -164,7 +164,7 @@ class DPoFileParser {
      * array messages The messages array being collected from the file
      * @param array  anItem The current item being inspected
      * /
-    protected void addMessage(array messages, IData anItem) {
+    protected void addMessage(array messages, Json anItem) {
         auto ids = anItem["ids"];
         if (ids["singular"].isEmpty && ids["plural"].isEmpty) {
             return;

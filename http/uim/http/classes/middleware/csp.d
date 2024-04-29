@@ -45,8 +45,8 @@ class DCspMiddleware { // }: IHttpMiddleware {
 
     // Configuration options.
     configuration.updateDefaults([
-        "scriptNonce": BooleanData(false),
-        "styleNonce": BooleanData(false),
+        "scriptNonce": Json(false),
+        "styleNonce": Json(false),
     ];
 
     /**

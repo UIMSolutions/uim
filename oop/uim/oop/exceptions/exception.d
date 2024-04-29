@@ -9,16 +9,26 @@ import uim.oop;
 
 @safe:
 class UimException : IException {
-  this() { }
-  this(string aMessage) { this().message(aMessage); }
-  this(IData[string] newAttributes) { this().attributes(newAttributes); }
-  this(string aMessage, IData[string] newAttributes) { this().message(aMessage).attributes(newAttributes); }
+  this() {
+  }
 
-     bool initialize(IData[string] initData = null) {
-        
+  this(string aMessage) {
+    this().message(aMessage);
+  }
+
+  this(Json[string] initData) {
+    this().initialize(initData);
+  }
+
+  this(string aMessage, Json[string] initData) {
+    this(aMessage).initialize(initData);
+  }
+
+  bool initialize(Json[string] initData = null) {
+
     this
       .message("");
-      
+
     messageTemplate("default", "");
     return true;
   }
@@ -28,30 +38,30 @@ class UimException : IException {
   mixin(OProperty!("string", "message"));
 
   // #region messageTemplate
-    protected STRINGAA _stringContents; 
+  protected STRINGAA _stringContents;
 
-    string messageTemplate(string templateName = "default") {
-      return _stringContents.get(templateName, null);
-    };
+  string messageTemplate(string templateName = "default") {
+    return _stringContents.get(templateName, null);
+  };
 
-    void messageTemplate(string templateName, string templateText) {
-      _stringContents[templateName] = templateText;
-    };
+  void messageTemplate(string templateName, string templateText) {
+    _stringContents[templateName] = templateText;
+  };
   // #endregion messageTemplate
 
   // #region messageTemplates
-    STRINGAA messageTemplates() {
-      return _stringContents;
-    }
+  STRINGAA messageTemplates() {
+    return _stringContents;
+  }
 
-    void messageTemplates(STRINGAA templates) {
-      _stringContents = templates;
-    }
+  void messageTemplates(STRINGAA templates) {
+    _stringContents = templates;
+  }
   // #endregion messageTemplates
 
-    // Exception message
-    mixin(OProperty!("IData[string]", "attributes"));
-  }
+  // Exception message
+  mixin(OProperty!("Json[string]", "attributes"));
+}
 
 /*import uim.mvc;
 @safe:
@@ -61,20 +71,20 @@ class UimException : IException {
  * @method int getCode() Gets the Exception code.
  */
 //class UimException : IException /* : RuntimeException */ {
-    /**
+/**
      * Array of attributes that are passed in from the constructor, and
      * made available in the view when a development error is displayed.
      */
-    /* // TODO protected array _attributes = null;
+/* // TODO protected array _attributes = null;
  */
-    // --- protected string _messageTemplate = "";
+// --- protected string _messageTemplate = "";
 
-    // Array of headers to be passed to {@link uim.Http\Response::withHeader()}
-    //protected STRINGAA _responseHeaders;
+// Array of headers to be passed to {@link uim.Http\Response::withHeader()}
+//protected STRINGAA _responseHeaders;
 
-    // --- protected int _defaultCode = 0;
+// --- protected int _defaultCode = 0;
 
-    /**
+/**
      * Constructor.
      *
      * Allows you to create exceptions that are treated as framework errors and disabled
@@ -85,7 +95,7 @@ class UimException : IException {
      * @param int|null code The error code
      * @param \Throwable|null previous the previous exception.
      */
-    /* this(myMessage = "", Nullable!int code = null, ?Throwable previous = null) {
+/* this(myMessage = "", Nullable!int code = null, ?Throwable previous = null) {
       if ((myMessage.isArray) {
         _attributes = myMessage;
         myMessage = vsprintf(_messageTemplate, myMessage);
@@ -93,9 +103,7 @@ class UimException : IException {
       super(myMessage, code ?? _defaultCode, previous);
     } */
 
-    // Get the passed in attributes
-    /* array attributes() {
+// Get the passed in attributes
+/* array attributes() {
       return _attributes;
     } */
-
-    

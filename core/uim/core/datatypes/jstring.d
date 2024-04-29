@@ -4,25 +4,21 @@ import uim.core;
 
 @safe:
 
-Json[string] merge(Json[string] baseData, Json secondData, bool shouldOverwrite = false) {
-  Json[string] result;
-
-  baseData.byKeyValue
-    .each!(kv => result[kv.key] = kv.value);
+Json[string] merge(Json[string] baseData, Json secondData) {
+  Json[string] results;
 
   secondData.byKeyValue
-    .filter!(kv => shouldOverwrite || kv.key !in result)
-    .each!(kv => result[kv.key] = kv.value);
+    .each!(kv => results = results.merge(kv.key, kv.value));
 
-  return result;
+  return results;
 }
 
-Json[string] update(Json[string] origin, Json[string] additional) {
-  Json[string] updated = origin.dup;
-  additional.byKeyValue
-    .each!(kv => updated[kv.key] = kv.value());
+Json[string] merge(Json[string] baseData, string key, Json value) {
+  auto results = baseData.dup;
 
-  return updated;
+  if (!results.hasKey(key)) results[key] = value;
+
+  return results;
 }
 
 Json[string] copy(Json[string] origin) {
@@ -31,4 +27,22 @@ Json[string] copy(Json[string] origin) {
     .each!(kv => result[kv.key] = kv.value);
 
   return result;
+}
+
+string getString(Json[string] values, string  key) {
+  if (!values.hasKey(key)) {
+    return null;
+  }
+
+  return values[key].to!string;
+}
+
+bool isEmpty(Json[string] values, string  key) {
+  return (!values.hasKey(key) || values[key].isNull);
+}
+
+Json getJson(Json[string] values, string key, Json defaultValue = Json(null)) {
+  return values.hasKey(key) 
+    ? values[key]
+    : defaultValue;
 }

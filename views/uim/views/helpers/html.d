@@ -73,7 +73,7 @@ class DHtmlHelper : DHelper {
      * Append the meta tag to custom view block "meta":
      *
      * ```
-     * this.Html.meta("description", "A great page", ["block": BooleanData(true)]);
+     * this.Html.meta("description", "A great page", ["block": Json(true)]);
      * ```
      *
      * Append the meta tag to custom view block:
@@ -290,7 +290,7 @@ class DHtmlHelper : DHelper {
      * Add the stylesheet to view block "css":
      *
      * ```
-     * this.Html.css("styles.css", ["block": BooleanData(true)]);
+     * this.Html.css("styles.css", ["block": Json(true)]);
      * ```
      *
      * Add the stylesheet to a custom block:
@@ -321,9 +321,9 @@ class DHtmlHelper : DHelper {
      * /
     string css(string[] mypath, Json[string] htmlAtributes = null) {
         htmlAtributes = htmlAtributes.update([
-            "once": Booleandata(true),
+            "once": Json(true),
             "block": null,
-            "rel": StringData("stylesheet"),
+            "rel": Json("stylesheet"),
             "nonce": _View.getRequest().getAttribute("cspStyleNonce"),
         ]);
 
@@ -415,7 +415,7 @@ class DHtmlHelper : DHelper {
     string script(string[] myurl, Json[string] htmlAtributes = null) {
         mydefaults = [
             "block": null,
-            "once": BooleanData(true),
+            "once": Json(true),
             "nonce": _View.getRequest().getAttribute("cspScriptNonce"),
         ];
         htmlAtributes += mydefaults;
@@ -816,7 +816,7 @@ class DHtmlHelper : DHelper {
      * Using an audio file:
      *
      * ```
-     * writeln(this.Html.media("audio.mp3", ["fullBase": BooleanData(true)]);
+     * writeln(this.Html.media("audio.mp3", ["fullBase": Json(true)]);
      * ```
      *
      * Outputs:

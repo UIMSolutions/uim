@@ -43,17 +43,17 @@ class DResultsetFactory {
             "entityClass": myprimaryTable.getEntityClass(),
             "hydrate": myquery.isHydrationEnabled(),
             "autoFields": myquery.isAutoFieldsEnabled(),
-            "matchingColumns": ArrayData,
+            "matchingColumns": Json.emptyArray,
         ];
 
         myassocMap = myquery.getEagerLoader().associationsMap(myprimaryTable);
         mydata["matchingAssoc"] = (new DCollection(myassocMap))
-            .match(["matching": BooleanData(true)])
+            .match(["matching": Json(true)])
             .indexBy("alias")
             .toArray();
 
         mydata["containAssoc"] = (new DCollection(array_reverse(myassocMap)))
-            .match(["matching": BooleanData(false)])
+            .match(["matching": Json(false)])
             .indexBy("nestKey")
             .toArray();
 

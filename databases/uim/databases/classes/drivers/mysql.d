@@ -15,23 +15,23 @@ class DMysqlDriver : DDriver {
     // Server type MariaDB
     protected const string SERVER_TYPE_MARIADB = "mariadb";
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
 
         // Base configuration settings for MySQL driver
         configuration.merge([
-            "persistent": BooleanData(true),
-            "host": StringData("localhost"),
-            "username": StringData("root"),
-            "password": StringData(""),
-            "database": StringData("uim"),
-            "port": StringData("3306"),
-            "flags": ArrayData,
-            "encoding": StringData("utf8mb4"),
-            "timezone": NullData(null),
-            "init": ArrayData,
+            "persistent": Json(true),
+            "host": Json("localhost"),
+            "username": Json("root"),
+            "password": Json(""),
+            "database": Json("uim"),
+            "port": Json("3306"),
+            "flags": Json.emptyArray,
+            "encoding": Json("utf8mb4"),
+            "timezone": Json(null),
+            "init": Json.emptyArray,
         ]);
 
         startQuote("`");
@@ -49,14 +49,14 @@ class DMysqlDriver : DDriver {
     protected string serverType = SERVER_TYPE_MYSQL;
 
     // Mapping of feature to db server version for feature availability checks.
-    protected IData _featureVersions = [
+    protected Json _featureVersions = [
         "mysql": [
-            "IData": "5.7.0",
+            "Json": "5.7.0",
             "cte": "8.0.0",
             "window": "8.0.0",
         ],
         "mariadb": [
-            "IData": "10.2.7",
+            "Json": "10.2.7",
             "cte": "10.2.1",
             "window": "10.2.0",
         ],
@@ -139,7 +139,7 @@ class DMysqlDriver : DDriver {
             DriverFeatures.TRUNCATE_WITH_CONSTRAINTS: false,
 
             DriverFeatures.CTE,
-            DriverFeatures.IData,
+            DriverFeatures.Json,
             DriverFeatures.WINDOW: version_compare(
                 this.currentVersion(),
                 this.featureVersions[this.serverType][feature.value],

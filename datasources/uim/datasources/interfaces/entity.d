@@ -16,7 +16,7 @@ import uim.datasources;
  * @property Json  anId Alias for commonly used primary key.
  * @template-extends \ArrayAccess<string, mixed>
  */
-interface IDatasourceEntity { // : ArrayAccess, IDataSerializable
+interface JsonsourceEntity { // : ArrayAccess, JsonSerializable
    /**
      * Sets hidden fields.
      *

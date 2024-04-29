@@ -385,7 +385,7 @@ mixin template TCollection() {
         Json[string] options = [
             "keyPath": _propertyExtractor(mykeyPath),
             "valuePath": _propertyExtractor(myvaluePath),
-            "groupPath": mygroupPath ? _propertyExtractor(mygroupPath): NullData,
+            "groupPath": mygroupPath ? _propertyExtractor(mygroupPath): Json(null),
         ];
 
         mymapper = auto (myvalue, aKey, MapReduce mymapReduce) use (options) {
@@ -498,7 +498,7 @@ mixin template TCollection() {
         return _toArray(false);
     }
  
-    array IDataSerialize() {
+    array JsonSerialize() {
         return _toArray();
     }
  

@@ -6,6 +6,7 @@ import uim.models;
 
 /// Converts Json data to Json
 /// Returns: Json
+/*
 Json jsonToData(Json json) {
   switch (json.type) {
     case (Json.Type.array):
@@ -27,12 +28,13 @@ Json jsonToData(Json json) {
     default:
         return null;
   }
-}
+} */
 ///
 unittest {
   assert(cast(DArrayData)jsonToData(Json.emptyArray));
 }
 
+/*
 Json[] toDataArray(Json json) {
   if (!json.isArray) { return null; }
 
@@ -42,6 +44,16 @@ Json[] toDataArray(Json json) {
   } 
   return result; 
 }
+
+Json[] toJsonArray(Json json) {
+  if (!json.isArray) { return null; }
+
+  for (size_t i = 0; i < json.length; i++) {
+    result ~= jsonToData(json[i]);
+  } 
+  return result; 
+}
+*/
 ///
 unittest {
   Json json = parseJsonString(`[1, [2]]`);

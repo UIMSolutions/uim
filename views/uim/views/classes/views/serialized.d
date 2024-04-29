@@ -4,7 +4,7 @@ import uim.views;
 
 @safe:
 
-// Parent class for view classes generating serialized outputs like IDataView and XmlView.
+// Parent class for view classes generating serialized outputs like JsonView and XmlView.
 class DSerializedView : DView {
     mixin(ViewThis!("Serialized"));
 
@@ -15,7 +15,7 @@ class DSerializedView : DView {
 
         // `serialize` : Option to convert a set of view variables into a serialized response.
         configuration.updateDefaults([
-            "serialize": ArrayData // string[]
+            "serialize": Json.emptyArray // string[]
         ]);
 
         return true;

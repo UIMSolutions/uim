@@ -50,8 +50,8 @@ class DPluginAssetsRemoveCommand : DCommand {
         parserToUpdate.description("Remove plugin assets from app`s webroot.");
 
         parserToUpdate.addArgument("name", [
-                "help": StringData("A specific plugin you want to remove."),
-                "required": BooleanData(false)
+                "help": Json("A specific plugin you want to remove."),
+                "required": Json(false)
             ]);
 
         return parserToUpdate;

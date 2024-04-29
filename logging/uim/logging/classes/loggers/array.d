@@ -13,11 +13,11 @@ import uim.logging;
  */
 class DArrayLog { /* }: BaseLog {
     configuration.updateDefaults([
-        "levels": ArrayData,
-        "scopes": ArrayData,
+        "levels": Json.emptyArray,
+        "scopes": Json.emptyArray,
         "formatter": [
             "className": DefaultFormatter.classname,
-            "includeDate": BooleanData(false)
+            "includeDate": Json(false)
         ]
     ];
 
@@ -25,7 +25,7 @@ class DArrayLog { /* }: BaseLog {
     protected string[] _content;
 
     // writing to the internal storage.
-    void log(IData logLevel, string logMessage, array messageContext = null) {
+    void log(Json logLevel, string logMessage, array messageContext = null) {
         logMessage = this.interpolate(logMessage, messageContext);
         _content ~= this.formatter.format(logLevel, logMessage, messageContext);
     }

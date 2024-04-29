@@ -8,7 +8,7 @@ import uim.logging;
 class DLoggingException : UimException {
   mixin(ExceptionThis!("Logging"));
 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }
 
     this

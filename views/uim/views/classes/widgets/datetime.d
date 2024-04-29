@@ -16,12 +16,12 @@ class DDateTimeWidget : DWidget {
     override bool initialize(Json[string] initData = null) {
         if (super.initialize(initData)) {
             configuration.updateDefaults([
-                "name": StringData(""),
-                "val": NullData,
-                "type": StringData("datetime-local"),
-                "escape": BooleanData(true),
-                "timezone": NullData,
-                "templateVars": ArrayData,
+                "name": Json(""),
+                "val": Json(null),
+                "type": Json("datetime-local"),
+                "escape": Json(true),
+                "timezone": Json(null),
+                "templateVars": Json.emptyArray,
             ]);
 
             _formatMap = [
@@ -37,11 +37,11 @@ class DDateTimeWidget : DWidget {
             * If not set, defaults to browser default.
             */
             _defaultStep = [
-                "datetime-local": StringData("1"),
-                "date": NullData,
-                "time": StringData("1"),
-                "month": NullData,
-                "week": NullData,
+                "datetime-local": Json("1"),
+                "date": Json(null),
+                "time": Json("1"),
+                "month": Json(null),
+                "week": Json(null),
             ];
 
             return true;

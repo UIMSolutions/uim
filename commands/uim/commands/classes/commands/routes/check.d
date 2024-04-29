@@ -70,7 +70,7 @@ class DRoutesCheckCommand : DCommand {
     )
       .addArgument("url", [
           "help": "The URL to check.",
-          "required": BooleanData(true),
+          "required": Json(true),
         ]);
 
     return parserToUpdate;

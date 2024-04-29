@@ -9,6 +9,7 @@ import uim.oop;
 
 @safe:
 class DNumberData : DScalarData {
+  /*
   mixin(DataThis!("Number"));
 
   this(double newValue) {
@@ -22,7 +23,7 @@ class DNumberData : DScalarData {
   }
 
   // Initialization hook method.
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }
@@ -59,7 +60,7 @@ class DNumberData : DScalarData {
   }
 
   override void set(Json newValue) {
-    if (newValue.isInteger /* || newValue.isDouble */ ) {
+    if (newValue.isInteger /* || newValue.isDouble * / ) {
       set(newValue.get!double);
     }
 
@@ -109,7 +110,7 @@ class DNumberData : DScalarData {
 
     data = new DNumberData;
     data.value = myValue;
-    assert(data.value == myValue); */
+    assert(data.value == myValue); * /
   }
 
   // #region equal
@@ -178,12 +179,13 @@ class DNumberData : DScalarData {
   }
 
   mixin TDataConvert;
+  */
 }
 
 mixin(DataCalls!("Number"));
-auto NumberData(double newValue) {
+/* auto NumberData(double newValue) {
   return new DNumberData(newValue);
-}
+} */
 
 unittest {
   /*alias Alias = ;

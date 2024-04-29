@@ -11,6 +11,7 @@ bool isEmpty(IData[string] data, string key) {
 }
 
 // #region toData
+/*
     IData toData(bool value) {
         return BooleanData(value);
     }
@@ -74,7 +75,8 @@ bool isEmpty(IData[string] data, string key) {
         return data;
     }
 // #endregion toData
-
+*/
+/*
 string getString(IData[string] data, string key, string fallback = null) {
     if (auto mydata = data.get(key, null)) { 
         return mydata.toString; 
@@ -124,4 +126,4 @@ STRINGAA getStringMap(IData[string] data, string[] keys) {
         .each!(key => results[key] = data[key].toString);
 
     return results;
-}
+}*/

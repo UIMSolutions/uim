@@ -4,7 +4,7 @@ import uim.datasources;
 
 @safe:
 
-class DDatasourceConnection : IDatasourceConnection {
+class DDatasourceConnection : JsonsourceConnection {
   mixin TConfigurable;
 
   this() {

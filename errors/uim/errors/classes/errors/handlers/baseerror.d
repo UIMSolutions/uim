@@ -22,7 +22,7 @@ abstract class DERRErrorHandler {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
@@ -31,15 +31,15 @@ abstract class DERRErrorHandler {
     }
 
     // Hook method
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
         configuration.updateDefaults([
-            "log": BooleanData(true),
-            "trace": BooleanData(false),
-            "skipLog": ArrayData,
-            "errorLogger": StringData("ErrorLogger::class")
+            "log": Json(true),
+            "trace": Json(false),
+            "skipLog": Json.emptyArray,
+            "errorLogger": Json("ErrorLogger::class")
         ]);
 
         return true;

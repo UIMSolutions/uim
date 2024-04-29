@@ -30,12 +30,12 @@ class DCookie : ICookie {
 
     // Default attributes for a cookie.
     protected static @var Json[string] defaultAttributes = [
-        "expires": NullData,
-        "path": StringData("/"),
-        "domain": StringData(""),
-        "secure": BooleanData(false),
-        "httponly": BooleanData(false),
-        "samesite": NullData,
+        "expires": Json(null),
+        "path": Json("/"),
+        "domain": Json(""),
+        "secure": Json(false),
+        "httponly": Json(false),
+        "samesite": Json(null),
     ];
 
     /**

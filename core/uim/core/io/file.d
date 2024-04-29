@@ -13,15 +13,12 @@ version (linux) {
 		if (fileName.length == 0) {
 			return false;
 		}
-		if (fromDir.length == 0) {
-			return false;
-		}
-		if (toDir.length == 0) {
+		if (fromDir.isEmpty || toDir.isEmpty) {
 			return false;
 		}
 
 		string from = fromDir;
-		if (from[$ - 1] != '/')
+		if (!from.endsWith('/'))
 			from ~= "/";
 
 		if (!exists(from ~ fileName)) {
@@ -29,7 +26,7 @@ version (linux) {
 		}
 
 		string to = toDir;
-		if (to[$ - 1] != '/')
+		if (!to.endsWith("/"))
 			to ~= "/";
 
 		if (createMissingDirs) {
@@ -38,10 +35,7 @@ version (linux) {
 			if (!exists(to))
 				mkdir(to);
 		} else {
-			if (!exists(from)) {
-				return false;
-			}
-			if (!exists(to)) {
+			if (!exists(from) || !exists(to)) {
 				return false;
 			}
 		}
@@ -62,13 +56,10 @@ version (linux) {
 
 version (linux) {
 	bool move(string fileName, string fromDir, string toDir, bool createMissingDirs = true, bool overwriteExistingFile = true) {
-		if (fileName.length == 0) {
+		if (fileName.isEmpty) {
 			return false;
 		}
-		if (fromDir.length == 0) {
-			return false;
-		}
-		if (toDir.length == 0) {
+		if (fromDir.isEmpty || toDir.isEmpty) {
 			return false;
 		}
 
@@ -81,7 +72,7 @@ version (linux) {
 		}
 
 		string to = toDir;
-		if (!to.endsWth("/"))
+		if (!to.endsWith("/"))
 			to ~= "/";
 
 		if (createMissingDirs) {

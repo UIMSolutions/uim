@@ -11,13 +11,14 @@ import uim.oop;
 // Datatype integer in Javascript 
 class DIntegerData : DScalarData {
   mixin(DataThis!("Integer"));
+  /*
   this(long newValue) {
     this();
     this.set(newValue);
   }
 
   // Initialization hook method.
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }
@@ -145,7 +146,7 @@ class DIntegerData : DScalarData {
     data.add(NumberData(1.0));
     assert(data.value == 3);
 
-    data.add(StringData("3"));
+    data.add(Json("3"));
     assert(data.value == 6);
   }
 
@@ -188,7 +189,7 @@ class DIntegerData : DScalarData {
     data = IntegerData(2);
     data.sub(2);
     data.sub(2);
-    assert(data == -2); */
+    assert(data == -2); * /
   }
 
   void sub(DIntegerData opValue) {
@@ -199,7 +200,7 @@ class DIntegerData : DScalarData {
     /* auto data1 = IntegerData(2);
     auto data2 = IntegerData(2);
     data1.sub(data2);
-    assert(data1 == 0); */
+    assert(data1 == 0); * /
   }
 
   void mul(long opValue) {
@@ -209,7 +210,7 @@ class DIntegerData : DScalarData {
   unittest {
     /* auto data = IntegerData(2);
     data.mul(2);
-    assert(data == 4); */
+    assert(data == 4); * /
   }
 
   void mul(DIntegerData opValue) {
@@ -220,7 +221,7 @@ class DIntegerData : DScalarData {
     /* auto data1 = IntegerData(2);
     auto data2 = IntegerData(2);
     data1.mul(data2);
-    assert(data1 == 4); */
+    assert(data1 == 4); * /
   }
 
   void div(long opValue) {
@@ -230,7 +231,7 @@ class DIntegerData : DScalarData {
   unittest {
     /* auto data = IntegerData(2);
     data.div(2);
-    assert(data == 1); */
+    assert(data == 1); * /
   }
 
   void div(DIntegerData opValue) {
@@ -241,7 +242,7 @@ class DIntegerData : DScalarData {
     /* auto data1 = IntegerData(2);
     auto data2 = IntegerData(2);
     data1.div(data2);
-    assert(data1 == 1); */
+    assert(data1 == 1); * /
   }
 
   DIntegerData opBinary(string op)(long opValue) {
@@ -265,7 +266,7 @@ class DIntegerData : DScalarData {
     /* assert((IntegerData(2) + 2) == 4);
     assert((IntegerData(2) - 2) == 0);
     assert((IntegerData(2) * 2) == 4);
-    assert((IntegerData(2) / 2) == 1); */
+    assert((IntegerData(2) / 2) == 1); * /
   }
 
   DIntegerData opBinary(string op)(DIntegerData opValue) {
@@ -290,14 +291,14 @@ class DIntegerData : DScalarData {
     /* assert((IntegerData(2) + IntegerData(2)) == 4);
     assert((IntegerData(2) - IntegerData(2)) == 0);
     assert((IntegerData(2) * IntegerData(2)) == 4);
-    assert((IntegerData(2) / IntegerData(2)) == 1); */
+    assert((IntegerData(2) / IntegerData(2)) == 1); * /
   }
 
   unittest {
     /* assert((IntegerData(2) + IntegerData(2)) == 4);
     assert((IntegerData(2) - IntegerData(2)) == 0);
     assert((IntegerData(2) * IntegerData(2)) == 4);
-    assert((IntegerData(2) / IntegerData(2)) == 1); */
+    assert((IntegerData(2) / IntegerData(2)) == 1); * /
   }
 
   override int toInteger() {
@@ -312,13 +313,13 @@ class DIntegerData : DScalarData {
     return to!long(_value);
   }
 
-  mixin TDataConvert;
+  mixin TDataConvert; */
 }
 
 mixin(DataCalls!("Integer"));
-auto IntegerData(long newValue) {
+/* auto IntegerData(long newValue) {
   return new DIntegerData(newValue);
-}
+} */
 
 unittest {
   /* assert(IntegerData.set("100").toLong == 100);

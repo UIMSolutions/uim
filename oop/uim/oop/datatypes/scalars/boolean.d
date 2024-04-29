@@ -9,6 +9,7 @@ import uim.oop;
 
 @safe:
 class DBooleanData : DScalarData {
+  /*
   mixin(DataThis!("Boolean"));
   this(bool newValue) {
     this();
@@ -16,7 +17,7 @@ class DBooleanData : DScalarData {
   }
 
   // Initialization hook method.
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }
@@ -40,9 +41,9 @@ class DBooleanData : DScalarData {
     data.set(myValue);
     assert(data.value == myValue);
 
-    data = BooleanData(false);
+    data = Json(false);
     data.value = myValue;
-    assert(data.value == myValue); */
+    assert(data.value == myValue); * /
   }
 
   // #region set
@@ -135,8 +136,8 @@ class DBooleanData : DScalarData {
   }
   ///
   unittest {
-    auto valueA = BooleanData(true);
-    auto valueB = BooleanData(false);
+    auto valueA = Json(true);
+    auto valueB = Json(false);
     assert(valueA > false);
     assert(valueB < true);
   }
@@ -149,15 +150,15 @@ class DBooleanData : DScalarData {
   }
   ///
   unittest {
-    /* auto dataA = new DBooleanData(true);
-      auto dataB = new DBooleanData(false);
+    /* auto dataA = new DJson(true);
+      auto dataB = new DJson(false);
       assert(dataA > dataB);
       assert(dataB < dataA);
 
-      dataA = BooleanData(true);
-      dataB = BooleanData(false);
+      dataA = Json(true);
+      dataB = Json(false);
       assert(dataA > dataB);
-      assert(dataB < dataA);*/
+      assert(dataB < dataA);* /
   }
   // #endregion opCmp
 
@@ -172,21 +173,23 @@ class DBooleanData : DScalarData {
   }
 
   mixin TDataConvert;
+  */
 }
 
 mixin(DataCalls!("Boolean"));
-auto BooleanData(bool newValue) {
+/* auto BooleanData(bool newValue) {
   return new DBooleanData(newValue);
-}
+} */
 
+/*
 version (test_uim_models) {
   unittest {
-    assert(BooleanData(true) == true);
-    assert(BooleanData(false) != true);
+    assert(Json(true) == true);
+    assert(Json(false) != true);
     /* assert(BooleanData.value(true) == true);
     assert(BooleanData.set(Json(true)) == true);
     assert(BooleanData.value(false) != true);
-    assert(BooleanData.set(Json(false)) != true); */
+    assert(BooleanData.set(Json(false)) != true); * /
 
     auto BooleanData = BooleanData;
 
@@ -215,7 +218,7 @@ version (test_uim_models) {
     BooleanData.value(false);
     assert(!BooleanData.fromString(BooleanData.toString).value());
     assert(!BooleanData.fromJson(BooleanData.toJson).value());
-  }
+  } * /
 }
 
 /* booleanean

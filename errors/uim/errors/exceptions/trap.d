@@ -46,7 +46,7 @@ class DExceptionTrap {
      *
      */
 
-    protected IData[string] _configData;
+    protected Json[string] _configData;
 
 
     /**
@@ -71,19 +71,19 @@ class DExceptionTrap {
      this() {
       initialize;
      }
-    this(IData[string] options = null) {
+    this(Json[string] options = null) {
         this();
         _configData = merge(options, _configData);
     }
 
-  bool initialize(IData[string] initData = null) {
+  bool initialize(Json[string] initData = null) {
     configuration.updateDefaults([
-      "exceptionRenderer": NullData,
+      "exceptionRenderer": Json(null),
       "logger": StringData(ErrorLogger.classname),
-      "stderr": NullData,
-      "log": BooleanData(true),
-      "skipLog": ArrayData,
-      "trace": BooleanData(false),
+      "stderr": Json(null),
+      "log": Json(true),
+      "skipLog": Json.emptyArray,
+      "trace": Json(false),
       "extraFatalErrorMemory": IntegerData(4)
     ];
 

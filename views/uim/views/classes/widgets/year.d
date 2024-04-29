@@ -23,12 +23,12 @@ class DYearWidget : DWidget {
     /* 
     // Data defaults.
     protected Json[string] _defaultData = [
-        "name": StringData(""),
+        "name": Json(""),
         "val": null,
         "min": null,
         "max": null,
-        "order": StringData("desc"),
-        "templateVars": ArrayData,
+        "order": Json("desc"),
+        "templateVars": Json.emptyArray,
     ];
 */
     // Select box widget

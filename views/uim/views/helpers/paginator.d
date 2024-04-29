@@ -48,8 +48,8 @@ class DPaginatorHelper : DHelper {
      *
      * /
     configuration.updateDefaults([
-        "params": ArrayData,
-        "options": ArrayData,
+        "params": Json.emptyArray,
+        "options": Json.emptyArray,
         "templates": [
             "nextActive": "<li class="next"><a rel="next" href="{{url}}">{{text}}</a></li>",
             "nextDisabled": "<li class="next disabled"><a href="" onclick="return false;">{{text}}</a></li>",
@@ -233,9 +233,9 @@ class DPaginatorHelper : DHelper {
      * /
     string prev(string mytitle = "<< Previous", Json[string] options  = null) {
         mydefaults = [
-            "url": ArrayData,
+            "url": Json.emptyArray,
             "disabledTitle": mytitle,
-            "escape": BooleanData(true),
+            "escape": Json(true),
         ];
         options = options.updatemydefaults;
         options["step"] = -1;
@@ -267,9 +267,9 @@ class DPaginatorHelper : DHelper {
      * /
     string next(string mytitle = "Next >>", Json[string] options  = null) {
         mydefaults = [
-            "url": ArrayData,
+            "url": Json.emptyArray,
             "disabledTitle": mytitle,
-            "escape": BooleanData(true),
+            "escape": Json(true),
         ];
         options = options.updatemydefaults;
         options["step"] = 1;
@@ -299,7 +299,7 @@ class DPaginatorHelper : DHelper {
      * @param Json[string] options Options for sorting link. See above for list of keys.
      * /
     string sort(string aKey, string[] mytitle = null, Json[string] options  = null) {
-        auto updatedOptions = options.update(["url": ArrayData, "escape": BooleanData(true)]);
+        auto updatedOptions = options.update(["url": Json.emptyArray, "escape": Json(true)]);
         auto myurl = updatedOptions["url"];
         updatedOptions.remove("url");
 
@@ -372,8 +372,8 @@ class DPaginatorHelper : DHelper {
         array myurlOptions = []
     ) {
         myurlOptions.merge([
-            "escape": BooleanData(true),
-            "fullBase": BooleanData(false),
+            "escape": Json(true),
+            "fullBase": Json(false),
         ]);
 
         return _Url.build(this.generateUrlParams(options, myurl), myurlOptions);
@@ -566,7 +566,7 @@ class DPaginatorHelper : DHelper {
     string numbers(Json[string] options  = null) {
         mydefaults = [
             "before": null, "after": null,
-            "modulus": 8, "first": null, "last": null, "url": ArrayData,
+            "modulus": 8, "first": null, "last": null, "url": Json.emptyArray,
         ];
         options = options.updatemydefaults;
 
@@ -779,8 +779,8 @@ class DPaginatorHelper : DHelper {
      * /
     string first(string|int myfirst = "<< first", Json[string] options  = null) {
         options = options.update[
-            "url": ArrayData,
-            "escape": BooleanData(true),
+            "url": Json.emptyArray,
+            "escape": Json(true),
         ];
 
         if (this.paginated().pageCount() <= 1) {
@@ -830,8 +830,8 @@ class DPaginatorHelper : DHelper {
      * /
     string last(string|int mylast = "last >>", Json[string] options  = null) {
         options = options.update[
-            "escape": BooleanData(true),
-            "url": ArrayData,
+            "escape": Json(true),
+            "url": Json.emptyArray,
         ];
 
         mypageCount = (int)this.paginated().pageCount();
@@ -870,7 +870,7 @@ class DPaginatorHelper : DHelper {
      * Echos the links directly, will output nothing if there is neither a previous nor next page.
      *
      * ```
-     * this.Paginator.meta(["block": BooleanData(true)]);
+     * this.Paginator.meta(["block": Json(true)]);
      * ```
      *
      * Will append the output of the meta auto to the named block - if true is passed the "meta"
@@ -888,11 +888,11 @@ class DPaginatorHelper : DHelper {
      * /
     string meta(Json[string] options  = null) {
         options = options.update[
-            "block": BooleanData(false),
-            "prev": BooleanData(true),
-            "next": BooleanData(true),
-            "first": BooleanData(false),
-            "last": BooleanData(false),
+            "block": Json(false),
+            "prev": Json(true),
+            "next": Json(true),
+            "first": Json(false),
+            "last": Json(false),
         ];
 
         mylinks = null;
@@ -903,7 +903,7 @@ class DPaginatorHelper : DHelper {
                 this.generateUrl(
                     ["page": this.paginated().currentPage() - 1],
                     [],
-                    ["escape": BooleanData(false), "fullBase": BooleanData(true)]
+                    ["escape": Json(false), "fullBase": Json(true)]
                 )
             );
         }
@@ -913,14 +913,14 @@ class DPaginatorHelper : DHelper {
                 this.generateUrl(
                     ["page": this.paginated().currentPage() + 1],
                     [],
-                    ["escape": BooleanData(false), "fullBase": BooleanData(true)]
+                    ["escape": Json(false), "fullBase": Json(true)]
                 )
             );
         }
         if (options["first"]) {
             mylinks ~= this.Html.meta(
                 "first",
-                this.generateUrl(["page": 1], [], ["escape": BooleanData(false), "fullBase": BooleanData(true)])
+                this.generateUrl(["page": 1], [], ["escape": Json(false), "fullBase": Json(true)])
             );
         }
         if (options["last"]) {
@@ -929,7 +929,7 @@ class DPaginatorHelper : DHelper {
                 this.generateUrl(
                     ["page": this.paginated().pageCount()],
                     [],
-                    ["escape": BooleanData(false), "fullBase": BooleanData(true)]
+                    ["escape": Json(false), "fullBase": Json(true)]
                 )
             );
         }

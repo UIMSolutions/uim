@@ -82,9 +82,9 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
      * Format a into a relative timestring.
      * Params:
      * \UIM\I18n\DateTime|\UIM\I18n\Date time The time instance to format.
-     * @param IData[string] options Array of options.
+     * @param Json[string] options Array of options.
      * /
-    string timeAgoInWords(DateTime|Date time, IData[string] options = null) {
+    string timeAgoInWords(DateTime|Date time, Json[string] options = null) {
         options = _options(options, DateTime.classname);
         if (options["timezone"]) {
             time = time.setTimezone(options["timezone"]);
@@ -171,9 +171,9 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
      * string|int futureTime The timestamp from the future.
      * @param string|int pastTime The timestamp from the past.
      * @param bool backwards Whether the difference was backwards.
-     * @param IData[string] options An array of options.
+     * @param Json[string] options An array of options.
      * /
-    // TODO protected array _diffData(string|int futureTime, string|int pastTime, bool backwards, IData[string] options = null) {
+    // TODO protected array _diffData(string|int futureTime, string|int pastTime, bool backwards, Json[string] options = null) {
         futureTime = (int)futureTime;
         pastTime = (int)pastTime;
         diff = futureTime - pastTime;
@@ -287,9 +287,9 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
      * Format a into a relative date string.
      * Params:
      * \UIM\I18n\DateTime|\UIM\I18n\Date date The date to format.
-     * @param IData[string] options Array of options.
+     * @param Json[string] options Array of options.
      * /
-    string dateAgoInWords(DateTime|Date date, IData[string] options = null) {
+    string dateAgoInWords(DateTime|Date date, Json[string] options = null) {
         options = _options(options, Date.classname);
         if (cast(DateTime)date && options["timezone"]) {
             date = date.setTimezone(options["timezone"]);
@@ -359,9 +359,9 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
     /**
      * Build the options for relative date formatting.
      * Params:
-     * IData[string] options The options provided by the user.
+     * Json[string] options The options provided by the user.
      * /
-    protected IData[string] _options(IData[string] options, string className) {
+    protected Json[string] _options(Json[string] options, string className) {
         options = options.update[
             "from":  className.now(),
             "timezone": null,

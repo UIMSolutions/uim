@@ -31,7 +31,7 @@ class DExceptionTrap {
         initialize;
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         initialize(initData);
     }
 
@@ -40,7 +40,7 @@ class DExceptionTrap {
     }
 
     // Hook method
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
 
@@ -78,9 +78,9 @@ class DExceptionTrap {
         "exceptionRenderer": null,
         "logger": ErrorLogger::class,
         "stderr": null,
-        "log": BooleanData(true),
-        "skipLog": ArrayData,
-        "trace": BooleanData(false),
+        "log": Json(true),
+        "skipLog": Json.emptyArray,
+        "trace": Json(false),
         "extraFatalErrorMemory": 4,
     ]);
 
@@ -119,7 +119,7 @@ class DExceptionTrap {
      *
      * @param array<string, mixed> options An options array. See _defaultConfig.
      * /
-    this(IData[string] optionData = null) {
+    this(Json[string] optionData = null) {
         configuration.update(options);
     }
 

@@ -50,9 +50,9 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
      *  ```
      *  [
      *      'Company/TestPluginThree",
-     *      'TestPlugin": ["onlyDebug": BooleanData(true), "onlyCli": BooleanData(true)],
-     *      'Nope": ["optional": BooleanData(true)],
-     *      'Named": ["routes": BooleanData(false), "bootstrap": BooleanData(false)],
+     *      'TestPlugin": ["onlyDebug": Json(true), "onlyCli": Json(true)],
+     *      'Nope": ["optional": Json(true)],
+     *      'Named": ["routes": Json(false), "bootstrap": Json(false)],
      *  ]
      *  ```
      */
@@ -99,7 +99,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
         if (!isFile(vendorFile)) {
             vendorFile = dirname(__DIR__, 4) ~ DIRECTORY_SEPARATOR ~ "UIM-plugins.d";
             if (!isFile(vendorFile)) {
-            Configuration.update(["plugins": ArrayData]);
+            Configuration.update(["plugins": Json.emptyArray]);
 
                 return;
             }

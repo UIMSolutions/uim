@@ -8,7 +8,7 @@ import uim.networks;
 class DNetworksException : UimException {
   mixin(ExceptionThis!("Networks"));
 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }

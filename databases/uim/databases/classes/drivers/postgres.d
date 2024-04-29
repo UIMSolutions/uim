@@ -6,23 +6,23 @@ import uim.databases;
 class DPostgresDriver : DDriver {
     mixin(DriverThis!("Postgres"));
 
-    override bool initialize(IData[string] initData = null) {
+    override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
             return false;
         }
 
         configuration.updateDefaults([
-            "persistent": BooleanData(true),
-            "host": StringData("localhost"),
-            "username": StringData("root"),
-            "password": StringData(""),
-            "database": StringData("uim"),
-            "schema": StringData("public"),
-            "port": IntegerData(5432),
-            "encoding": StringData("utf8"),
-            "timezone": NullData,
-            "flags": ArrayData,
-            "init": ArrayData,
+            "persistent": Json(true),
+            "host": Json("localhost"),
+            "username": Json("root"),
+            "password": Json(""),
+            "database": Json("uim"),
+            "schema": Json("public"),
+            "port": Json(5432),
+            "encoding": Json("utf8"),
+            "timezone": Json(null),
+            "flags": Json.emptyArray,
+            "init": Json.emptyArray,
         ]);
 
         // String used to start a database identifier quoting to make it safe
@@ -111,7 +111,7 @@ string enableForeignKeySQL() {
 bool supports(DriverFeaturesfeature) {
     return match(feature) {
         DriverFeatures.CTE,
-        DriverFeatures.IData,
+        DriverFeatures.Json,
         DriverFeatures.SAVEPOINT,
         DriverFeatures.TRUNCATE_WITH_CONSTRAINTS,
         DriverFeatures.WINDOW

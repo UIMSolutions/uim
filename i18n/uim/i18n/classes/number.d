@@ -15,7 +15,7 @@ class DNumber {
         initialize;
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
         
@@ -48,7 +48,7 @@ class DNumber {
      * Params:
      * string|float|int aValue A floating point number.
      * /
-    static string precision(string|float|int aValue, int numberPrecision = 3, IData[string] formattingOptions = null) {
+    static string precision(string|float|int aValue, int numberPrecision = 3, Json[string] formattingOptions = null) {
         auto formatter = formatter(["precision": precision, "places": precision] + options);
         return to!string(formatter.format((float)aValue);
     }
@@ -80,10 +80,10 @@ class DNumber {
      * Params:
      * string|float|int aValue A floating point number
      * @param int precision The precision of the returned number
-     * @param IData[string] options Options
+     * @param Json[string] options Options
      * /
-    static string toPercentage(string|float|int aValue, int precision = 2, IData[string] options = null) {
-        options = options.update["multiply": BooleanData(false), "type": NumberFormatter.PERCENT];
+    static string toPercentage(string|float|int aValue, int precision = 2, Json[string] options = null) {
+        options = options.update["multiply": Json(false), "type": NumberFormatter.PERCENT];
         if (!options["multiply"]) {
             aValue = (float)aValue / 100;
         }
@@ -103,9 +103,9 @@ class DNumber {
      * - `after` - The string to place after decimal numbers, e.g. "]'
      * Params:
      * string|float|int aValue A floating point number.
-     * @param IData[string] options An array with options.
+     * @param Json[string] options An array with options.
      * /
-    static string format(string|float|int aValue, IData[string] options = null) {
+    static string format(string|float|int aValue, Json[string] options = null) {
         formatter = formatter(options);
         options = options.update["before": "", "after": ""];
 
@@ -122,9 +122,9 @@ class DNumber {
      *   numbers representing money.
      * Params:
      * string avalue A numeric string.
-     * @param IData[string] options An array with options.
+     * @param Json[string] options An array with options.
      * /
-    static float parseFloat(string avalue, IData[string] options = null) {
+    static float parseFloat(string avalue, Json[string] options = null) {
         formatter = formatter(options);
 
         return (float)formatter.parse(aValue, NumberFormatter.TYPE_DOUBLE);
@@ -142,9 +142,9 @@ class DNumber {
      * - `after` - The string to place after decimal numbers, e.g. "]'
      * Params:
      * string|float|int aValue A floating point number
-     * @param IData[string] options Options list.
+     * @param Json[string] options Options list.
      * /
-    static string formatDelta(string|float|int aValue, IData[string] options = null) {
+    static string formatDelta(string|float|int aValue, Json[string] options = null) {
         options = options.update["places": 0];
         aValue = number_format((float)aValue, options["places"], ".", "");
         sign = aValue > 0 ? "+" : "";
@@ -173,9 +173,9 @@ class DNumber {
      * Params:
      * string|float|int aValue Value to format.
      * @param string currency International currency name such as 'USD", "EUR", "JPY", "CAD'
-     * @param IData[string] options Options list.
+     * @param Json[string] options Options list.
      * /
-    static string currency(string|float|int aValue, string acurrency = null, IData[string] options = null) {
+    static string currency(string|float|int aValue, string acurrency = null, Json[string] options = null) {
         aValue = (float)aValue;
         currency = currency ?: getDefaultCurrency();
 
@@ -255,9 +255,9 @@ class DNumber {
      * - `useIntlCode` - Whether to replace the currency symbol with the international
      *  currency code.
      * Params:
-     * IData[string] options An array with options.
+     * Json[string] options An array with options.
      * /
-    static NumberFormatter formatter(IData[string] options = null) {
+    static NumberFormatter formatter(Json[string] options = null) {
         string locale = options.get("locale", ini_get("intl.default_locale"));
 
         if (!locale) {
@@ -287,9 +287,9 @@ class DNumber {
      * Params:
      * string alocale The locale name to use for formatting the number, e.g. fr_FR
      * @param int type The formatter type to construct. Defaults to NumberFormatter.DECIMAL.
-     * @param IData[string] options See Number.formatter() for possible options.
+     * @param Json[string] options See Number.formatter() for possible options.
      * /
-    static void config(string alocale, int type = NumberFormatter.DECIMAL, IData[string] options = null) {
+    static void config(string alocale, int type = NumberFormatter.DECIMAL, Json[string] options = null) {
         _formatters[locale][type] = _setAttributes(
             new DNumberFormatter(locale, type),
             options
@@ -300,9 +300,9 @@ class DNumber {
      * Set formatter attributes
      * Params:
      * \NumberFormatter formatter Number formatter instance.
-     * @param IData[string] options See Number.formatter() for possible options.
+     * @param Json[string] options See Number.formatter() for possible options.
      * /
-    protected static NumberFormatter _setAttributes(NumberFormatter formatter, IData[string] options = null) {
+    protected static NumberFormatter _setAttributes(NumberFormatter formatter, Json[string] options = null) {
         if (isSet(options["places"])) {
             formatter.setAttribute(NumberFormatter.MIN_FRACTION_DIGITS, options["places"]);
         }
@@ -334,9 +334,9 @@ class DNumber {
      * For all other options see formatter().
      * Params:
      * float|int aValue An integer
-     * @param IData[string] options An array with options.
+     * @param Json[string] options An array with options.
      * /
-    static string ordinal(float|int aValue, IData[string] options = null) {
+    static string ordinal(float|int aValue, Json[string] options = null) {
         return to!string(formatter(["type": NumberFormatter.ORDINAL] + options)).format(aValue);
     } */
 }

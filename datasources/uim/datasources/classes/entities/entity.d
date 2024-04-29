@@ -12,7 +12,7 @@ import uim.datasources;
  * An entity represents a single result row from a repository. It exposes the
  * methods for retrieving and storing properties associated in this row.
  */
-class DDatasourceEntity { // TODO }: IDatasourceEntity { //}, IInvalidProperty {
+class DDatasourceEntity { // TODO }: JsonsourceEntity { //}, IInvalidProperty {
     mixin TConfigurable; 
 
     /* 
@@ -62,10 +62,10 @@ class DDatasourceEntity { // TODO }: IDatasourceEntity { //}, IInvalidProperty {
      * /
     /* this(array properties = null, Json[string] optionData = null) {
         options = options.update[
-            "useSetters": BooleanData(true),
-            "markClean": BooleanData(false),
+            "useSetters": Json(true),
+            "markClean": Json(false),
             "markNew": null,
-            "guard": BooleanData(false),
+            "guard": Json(false),
             "source": null,
         ];
 

@@ -87,11 +87,11 @@ class DSchemaLoader {
      *         ],
      *         "author_id": [
      *             "type": "integer",
-     *             "null": BooleanData(true),
+     *             "null": Json(true),
      *         ],
      *         "title": [
      *             "type": "string",
-     *             "null": BooleanData(true),
+     *             "null": Json(true),
      *         ],
      *         "body": "text",
      *         "published": [

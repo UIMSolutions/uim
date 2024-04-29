@@ -2360,7 +2360,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
         return _add(myfield, "utf8", myextra ~ [
-            "rule": ["utf8", ["extended": BooleanData(false)]],
+            "rule": ["utf8", ["extended": Json(false)]],
         ]);
     }
     
@@ -2386,7 +2386,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 
         return _add(myfield, "utf8Extended", myextra ~ [
-            "rule": ["utf8", ["extended": BooleanData(true)]],
+            "rule": ["utf8", ["extended": Json(true)]],
         ]);
     }
     

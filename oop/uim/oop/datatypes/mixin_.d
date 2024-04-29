@@ -8,7 +8,7 @@ string dataThis(string name) {
       this.name("`
     ~ fullName ~ `");
     }
-    this(string newValue) {
+    /* this(string newValue) {
       this();
       set(newValue);
     }
@@ -16,8 +16,8 @@ string dataThis(string name) {
     this(Json newValue) {
       this();
       set(newValue);
-    }
-  `;
+    } */
+  `; 
 }
 
 template DataThis(string name) {
@@ -28,8 +28,8 @@ string dataCalls(string name) {
   string fullName = name ~ "Data";
   return `
     auto ` ~ fullName ~ `() { return new D` ~ fullName ~ `(); }
-    auto ` ~ fullName ~ `(string newValue) { return new D` ~ fullName ~ `(newValue); }
-    auto ` ~ fullName ~ `(Json newValue) { return new D` ~ fullName ~ `(newValue); }
+    // auto ` ~ fullName ~ `(string newValue) { return new D` ~ fullName ~ `(newValue); }
+    // auto ` ~ fullName ~ `(Json newValue) { return new D` ~ fullName ~ `(newValue); }
   `;
 }
 

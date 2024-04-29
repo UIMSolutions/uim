@@ -50,8 +50,8 @@ class DMissingTemplateException : DViewException {
   }
   override Json[string] attributes() {
     return super.attributes().update([
-      "file": StringData(fileName),
-      "paths": ArrayData(paths.map!(path => cast(Json)StringData(path)).array),
+      "file": Json(fileName),
+      "paths": Json(paths.map!(path => Json(path)).array),
     ]);
   }
 }

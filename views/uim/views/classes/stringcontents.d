@@ -98,7 +98,7 @@ class DStringContents {
      * ```
      */
     void add(STRINGAA newTemplates) {
-        add(newTemplates.toData);
+        // TODO add(newTemplates.toJsonString);
     }
 
     void add(Json[string] newTemplates) {
@@ -240,10 +240,10 @@ class DStringContents {
 
     string formatAttributes(Json[string] options, bool[string] excludedOptions = null) {
         string insertBefore = " ";
-        Json[string] mergedOptions = options.merge(["escape": BooleanData(true)]);
+        Json[string] mergedOptions = options.merge(["escape": Json(true)]);
 
         bool[string] mergedExcludedOptions = excludedOptions.merge(["escape": true, "idPrefix": true, "templateVars": true, "fieldName": true]);
-        bool useEscape = mergedOptions["escape"].toBoolean;
+        bool useEscape = mergedOptions["escape"].to!bool;
 
         string[] attributes = mergedOptions.byKeyValue
             .filter!(kv => !mergedExcludedOptions.hasKey(kv.key))

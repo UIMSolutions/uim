@@ -12,7 +12,7 @@ class DLogEngine : ILogEngine {
         this.name("LogEngine");  
     }
 
-    this(IData[string] initData) {
+    this(Json[string] initData) {
         this.initialize(initData);
         this.name("LogEngine");  
     }
@@ -22,7 +22,7 @@ class DLogEngine : ILogEngine {
         this.name(name); 
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
         

@@ -34,14 +34,14 @@ class DSysLogger : DLogger {
      *
      * /
     configuration.updateDefaults([
-        "levels": ArrayData,
-        "scopes": ArrayData,
+        "levels": Json.emptyArray,
+        "scopes": Json.emptyArray,
         "flag": LOG_ODELAY,
         "prefix": "",
         "facility": LOG_USER,
         "formatter": [
             "className": DefaultFormatter.classname,
-            "includeDate": BooleanData(false),
+            "includeDate": Json(false),
         ],
     ];
 
@@ -66,7 +66,7 @@ class DSysLogger : DLogger {
      * Map the level back to a LOG_constant value, split multi-line messages into multiple
      * log messages, pass all messages through the format defined in the configuration
      * Params:
-     * IData level The severity level of log you are making.
+     * Json level The severity level of log you are making.
      * @param \string messageToLog The message you want to log.
      * @param array context Additional information about the logged message
      * /

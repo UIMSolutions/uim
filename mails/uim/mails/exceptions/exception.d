@@ -8,7 +8,7 @@ import uim.mails;
 class DMailsException : UimException {
   mixin(ExceptionThis!("Mails"));
 
-  override bool initialize(IData[string] initData = null) {
+  override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) {
       return false;
     }

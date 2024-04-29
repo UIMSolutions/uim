@@ -17,7 +17,7 @@ class DMessagesFileLoader {
         initialize;
     }
 
-    bool initialize(IData[string] initData = null) {
+    bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
         

@@ -37,12 +37,6 @@ class DRoute : IRoute {
     // Name given to the association, it usually represents the alias assigned to the target associated table
     mixin(TProperty!("string", "name"));
 
-    /**
-     * An array of named segments in a Route.
-     * `/{controller}/{action}/{id}` has 3 key elements
-     * /
-    array someKeys = null;
-
     // An array of additional parameters for the Route.
     Json[string] optionData = null;
 
@@ -53,16 +47,20 @@ class DRoute : IRoute {
     string mytemplate;
 
     // Is this route a greedy route? Greedy routes have a `/*` in their template
-    protected bool my_greedy = false;
+    protected bool _greedy = false;
 
     // The compiled route regular expression
-    protected string my_compiledRoute = null;
-
-    // The name for a route.
-    protected string my_name = null;
+    protected string _compiledRoute = null;
 
     // List of connected extensions for this route.
-    protected string[] my_extensions = null;
+    protected string[] _extensions = null;
+
+    /**
+     * An array of named segments in a Route.
+     * `/{controller}/{action}/{id}` has 3 key elements
+     * /
+    array someKeys = null;
+
 
     // List of middleware that should be applied.
     // TODO protected array mymiddleware = null;

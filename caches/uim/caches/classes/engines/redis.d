@@ -102,20 +102,18 @@ class DRedisCacheEngine : DCacheEngine {
     /**
      * Write data for key into cache.
      * Params:
-     * @param Json aValue Data to be cached
      * @param \DateInterval|int  aTtl Optional. The TTL value of this item. If no value is sent and
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      * /
-    bool set(string dataId, Json aValue, DateInterval|int  aTtl = null) {
+    bool set(string dataId, Json dataToCache, DateInterval|int  aTtl = null) {
         auto myKey = _key(dataId);
-        auto aValue = this.serialize(aValue);
+        auto serializedData = this.serialize(dataToCache);
 
         auto myDuration = this.duration(aTtl);
-        if (myDuration == 0) {
-            return _redis.set(myKey, aValue);
-        }
-        return _redis.setEx(myKey, myDuration, aValue);
+        return myDuration == 0
+            : _redis.set(myKey, serializedData) 
+            : _redis.setEx(myKey, myDuration, serializedData);
     }
     
     /**

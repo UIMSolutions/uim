@@ -83,27 +83,43 @@ class DCache : ICache {
     // An array mapping URL schemes to fully qualified caching engine class names.
     protected static STRINGAA _dsnClassMap;
 
+    // #region enable
     // Flag for tracking whether caching is enabled.
     protected static bool _enabled = true;
+    // Re-enable caching.
+    static void enable() {
+        _enabled = true;
+    }
+    
+    // Disable caching.
+    static void disable() {
+        _enabled = false;
+    }
+    
+    // Check whether caching is enabled.
+    static bool enabled() {
+        return _enabled;
+    }
+    // #endregion enable
 
     // Group to Config mapping
     protected static Json my_groups = null;
 
     // Cache Registry used for creating and using cache adapters.
-    // protected static DCacheRegistry _registry;
+    protected static DCacheRegistry _registry;
 
     // Returns the Cache Registry instance used for creating and using cache adapters.
-    /* static DCacheRegistry getRegistry() {
+    static DCacheRegistry getRegistry() {
         return _registry ? _registry : new DCacheRegistry();
-    } */
+    }
 
     /**
      * Sets the Cache Registry instance used for creating and using cache adapters.
      * Also allows for injecting of a new registry instance.
      */
-    /* static void setRegistry(DCacheRegistry cacheRegistry) {
+    static void setRegistry(DCacheRegistry cacheRegistry) {
         _registry = cacheRegistry;
-    } */
+    } 
 
     /**
      * Finds and builds the instance of the required engine class.
@@ -195,16 +211,15 @@ class DCache : ICache {
      * Cache.write("cached_data", mydata, "long_term");
      * ```
      * Params:
-     * @param Json aValue Data to be cached - anything except a resource
-     * @param string configName Optional string configuration name to write to. Defaults to "default"
+     * @param Json dataToCache Data to be cached - anything except a resource
      * /
-    static bool write(string dataId, Json aValue, string configName = "default") {
-        if (isResource(myvalue)) {
+    static bool write(string dataId, Json dataToCache, string configName = "default") {
+        if (isResource(dataToCache)) {
             return false;
         }
         auto mybackend = pool(configName);
-        auto mysuccess = mybackend.set(dataId, myvalue);
-        if (mysuccess == false && myvalue != "") {
+        auto wasSuccessful = mybackend.set(dataId, dataToCache);
+        if (!wasSuccessful && dataToCache != "") {
             throw new DCacheWriteException(
                 "%s cache was unable to write '%s' to %s cache"
                 .format(
@@ -213,7 +228,7 @@ class DCache : ICache {
                     get_class(mybackend)
             ));
         }
-        return mysuccess;
+        return wasSuccessful;
     }
     
     /**
@@ -413,24 +428,6 @@ class DCache : ICache {
         throw new DInvalidArgumentException("Invalid cache group `%s`.".format(groupName));
     } */
 
-    /**
-     * Re-enable caching.
-     *
-     * If caching has been disabled with Cache.disable() this method will reverse that effect.
-     * /
-    static void enable() {
-        _enabled = true;
-    }
-    
-    // Disable caching.
-    static void disable() {
-        _enabled = false;
-    }
-    
-    // Check whether caching is enabled.
-    static bool enabled() {
-        return _enabled;
-    }
     
     /**
      * Provides the ability to easily do read-through caching.
@@ -452,15 +449,14 @@ class DCache : ICache {
      * string aKey The cache key to read/store data at.
      * @param \Closure mydefault The callback that provides data in the case when
      *  the cache key is empty.
-     * @param string configName The cache configuration to use for this operation.
-     *  Defaults to default.
      */
-    /* static Json remember(string aKey, IClosure mydefault, string configName = "default") {
-        myexisting = self.read(aKey, configName);
+    /* static Json remember(string aKey, IClosure callbackWhenEmpty, string configName = "default") {
+        auto myexisting = self.read(aKey, configName);
         if (myexisting !isNull) {
             return myexisting;
         }
-        results = mydefault();
+        
+        Json results = callbackWhenEmpty();
         self.write(aKey, results, configName);
 
         return results;
@@ -482,14 +478,11 @@ class DCache : ICache {
      * ```
      * Cache.add("cached_data", mydata, "long_term");
      * ```
-     * Params:
-     * @param Json aValue Data to be cached - anything except a resource.
-     * @param string configName Optional string configuration name to write to. Defaults to "default".
      * /
-    static bool add(string dataId, Json aValue, string configName = "default") {
-        if (isResource(myvalue)) {
+    static bool add(string dataId, Json dataToCache, string configName = "default") {
+        if (isResource(dataToCache)) {
             return false;
         }
-        return pool(configName).add(dataId, myvalue);
+        return pool(configName).add(dataId, dataToCache);
     } */
 }

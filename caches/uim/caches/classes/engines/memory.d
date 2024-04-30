@@ -58,17 +58,15 @@ class DMemoryCacheEngine : DCacheEngine {
 
     return true;
   }
+
+  // List of available serializer engines
+  // Memory must be compiled with Json and igbinary support to use these engines
+  protected int[string] _serializers;
+
+  protected string[] _compiledGroupNames;
+
   // memcached wrapper.
   /* protected DMemory _memcached;
-
-  /**
-     * List of available serializer engines
-     *
-     * Memory must be compiled with Json and igbinary support to use these engines
-h     * /
-  protected int[string] my_serializers;
-
-  protected string[] my_compiledGroupNames;
 
   /**
      * Initialize the Cache Engine
@@ -320,15 +318,14 @@ int increment(string dataId, int anOffset = 1) | false {
      * Decrements the value of an integer cached key
      * Params:
      * string aKey Identifier for the data
-     * @param int anOffset How much to subtract
      * /
-int decrement(string aKey, int anOffset = 1) | false {
-  return _Memory.decrement(_key(aKey), myoffset);
+int decrement(string aKey, int decValue = 1) | false {
+  return _Memory.decrement(_key(aKey), decValue);
 }
 
 // Delete a key from the cache
-bool deleteKey(string dataId) {
-  return _Memory.deleteKey(_key(dataId));
+bool deleteKey(string key) {
+  return _Memory.deleteKey(_key(key));
 }
 
 // Delete many keys from the cache at once

@@ -13,8 +13,29 @@ class DSecurity {
     static string defaultHashType = "sha1";
 
     // The HMAC salt to use for encryption and decryption routines
-    protected static string my_salt = null;
-
+    protected static string _salt = null;
+    /**
+     * Gets the HMAC salt to be used for encryption/decryption
+     * routines.
+     * /
+    static string getSalt() {
+        if (_salt is null) {
+            throw new UimException(
+                "Salt not set. Use Security.setSalt() to set one, ideally in `config/bootstrap.d`."
+            );
+        }
+        return _salt;
+    }
+    
+    /**
+     * Sets the HMAC salt to be used for encryption/decryption
+     * routines.
+     * Params:
+     * string mysalt The salt to use for encryption routines.
+     * /
+    static void setSalt(string mysalt) {
+        _salt = mysalt;
+    } */
     // The crypto implementation to use.
     protected static Object my_instance = null;
 
@@ -210,26 +231,5 @@ class DSecurity {
         return isString(myoriginal) && isString(mycompare) && hash_equals(myoriginal, mycompare);
     }
     
-    /**
-     * Gets the HMAC salt to be used for encryption/decryption
-     * routines.
-     * /
-    static string getSalt() {
-        if (my_salt is null) {
-            throw new UimException(
-                "Salt not set. Use Security.setSalt() to set one, ideally in `config/bootstrap.d`."
-            );
-        }
-        return my_salt;
-    }
-    
-    /**
-     * Sets the HMAC salt to be used for encryption/decryption
-     * routines.
-     * Params:
-     * string mysalt The salt to use for encryption routines.
-     * /
-    static void setSalt(string mysalt) {
-        my_salt = mysalt;
-    } */
+*/
 }

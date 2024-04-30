@@ -50,7 +50,7 @@ class DEagerLoader {
     ];
 
     // A list of associations that should be loaded with a separate query.
-    protected DEagerLoadable<> my_loadExternal = null;
+    protected DEagerLoadable<> _loadExternal = null;
 
     // Contains a list of the association names that are to be eagerly loaded.
     // TODO protected array my_aliasList = null;

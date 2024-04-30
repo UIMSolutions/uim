@@ -14,9 +14,6 @@ import uim.orm;
  * @extends \UIM\Database\Query\SelectQuery<TSubject>
  */
 class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
-    /* 
-    mixin CommonTQuery();
-
     // Indicates that the operation should append to the list
     const int APPEND = 0;
 
@@ -29,21 +26,55 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     /**
      * Whether the user select any fields before being executed, this is used
      * to determined if any fields should be automatically be selected.
-     * /
+     */
     protected bool my_hasFields = null;
 
     /**
      * Tracks whether the original query should include
      * fields from the top level table.
-     * /
+     */
     protected bool my_autoFields = null;
 
     // Whether to hydrate results into entity objects
     protected bool my_hydrate = true;
 
-    // Whether aliases are generated for fields.
-    protected bool myaliasingEnabled = true;
+     // Indicates that the operation should append to the list
+    const int APPEND = 0;
 
+    // Indicates that the operation should prepend to the list
+    const int PREPEND = 1;
+
+    // Indicates that the operation should overwrite the list
+    const bool OVERWRITE = true;
+
+    /**
+     * Whether the user select any fields before being executed, this is used
+     * to determined if any fields should be automatically be selected.
+     */
+    protected bool _hasFields = null;
+
+    /**
+     * Tracks whether the original query should include
+     * fields from the top level table.
+     */
+    protected bool _autoFields = null;
+
+    // Whether to hydrate results into entity objects
+    protected bool _hydrate = true;
+
+    /**
+     * Whether the query is standalone or the product of an eager load operation.
+     */
+    protected bool _eagerLoaded = false;
+
+    // True if the beforeFind event has already been triggered for this query
+    protected bool _beforeFindFired = false;
+    
+   /* 
+    mixin CommonTQuery();
+
+
+x
     /**
      * A callback used to calculate the total amount of
      * records this query will match when not using `limit`
@@ -56,13 +87,6 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * /
     protected DEagerLoader my_eagerLoader = null;
 
-    /**
-     * Whether the query is standalone or the product of an eager load operation.
-     * /
-    protected bool my_eagerLoaded = false;
-
-    // True if the beforeFind event has already been triggered for this query
-    protected bool my_beforeFindFired = false;
 
     /**
      * The COUNT(*) for the query.

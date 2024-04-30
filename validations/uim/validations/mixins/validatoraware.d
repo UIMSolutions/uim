@@ -24,12 +24,13 @@ import uim.validations;
  * will be triggered when validators are created.
  */
 mixin template TValidatorAware() {
+    // A list of validation objects indexed by name
+    protected IValidator[] _validators;
+
     /*
     // Validator class.
     protected string my_validatorClass = Validator.classname;
 
-    // A list of validation objects indexed by name
-    protected IValidator[] my_validators;
 
     /**
      * Returns the validation rules tagged with myname. It is possible to have

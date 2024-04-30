@@ -80,10 +80,12 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * range myrange The range to check.
      * @param string mycheck Whether to check keys or values.
      */
-    /* protected void ensureValidType(Range myiterable, string mycheck = self.CHECK_VALUE) {
+    /* protected void ensureValidType(Range myiterable, string checkKeyOrValue = self.CHECK_VALUE) {
         myiterable.bykeyValue
             .each!(kv => 
-                mycheck == self.CHECK_VALUE ? this.ensureValidKey(kv.value) : this.ensureValidKey(kv.key));
+                checkKeyOrValue == self.CHECK_VALUE 
+                    ? this.ensureValidKey(kv.value) 
+                    : this.ensureValidKey(kv.key));
     } */
 
     /**

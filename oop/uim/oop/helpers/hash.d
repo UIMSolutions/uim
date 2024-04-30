@@ -273,33 +273,37 @@ class Hash {
      * @param IData myvalues The values to insert when doing inserts.
      * /
     protected static array _simpleOp(string myop, array data, array mypath, IData myvalues = null) {
-        my_list = &mydata;
+        auto _list = &mydata;
 
         mycount = count(mypath);
         mylast = mycount - 1;
         foreach (myi: aKey; mypath) {
-            if (myop == "insert") {
-                if (myi == mylast) {
-                    my_list[aKey] = myvalues;
+            switch(myop) {
+                case "insert":
+                    if (myi == mylast) {
+                        _list[aKey] = myvalues;
 
-                    return mydata;
-                }
-                my_list[aKey] = my_list.get(aKey, null);
-                my_list = &my_list[aKey];
-                if (!isArray(my_list)) {
-                    my_list = null;
-                }
-            } else if (myop == "remove") {
-                if (myi == mylast) {
-                    if (isArray(my_list)) {
-                        unset(my_list[aKey]);
+                        return mydata;
                     }
-                    return mydata;
-                }
-                if (!my_list.isSet(aKey)) {
-                    return mydata;
-                }
-                my_list = &my_list[aKey];
+                    _list[aKey] = _list.get(aKey, null);
+                    _list = &_list[aKey];
+                    if (!isArray(_list)) {
+                        _list = null;
+                    }
+                    break;
+                case "remove": 
+                    if (myi == mylast) {
+                        if (isArray(_list)) {
+                            unset(_list[aKey]);
+                        }
+                        return mydata;
+                    }
+                    if (!_list.isSet(aKey)) {
+                        return mydata;
+                    }
+                    _list = &_list[aKey];
+                    break;
+                default: break;
             }
         }
         return mydata;

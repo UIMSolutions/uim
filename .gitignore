@@ -22,5 +22,3 @@ __dummy.html
 # Code coverage
 *.lst
 *.pdb
-dub.selections.json
-dub.selections.json

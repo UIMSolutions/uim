@@ -123,7 +123,7 @@ mixin template TQuery() {
      *
      * ```
      * // Simple string key + config
-     * query.cache("my_key", "db_results");
+     * query.cache("_key", "db_results");
      *
      * // Function to generate key.
      * query.cache(function (q) {
@@ -133,7 +133,7 @@ mixin template TQuery() {
      * });
      *
      * // Using a pre-built cache engine.
-     * query.cache("my_key", engine);
+     * query.cache("_key", engine);
      *
      * // Disable caching
      * query.cache(false);

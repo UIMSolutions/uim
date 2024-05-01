@@ -143,7 +143,7 @@ The example above converts the value of the title field to an uppercase version 
 writeln(article->title; // returns FOO instead of foo
 writeln(article->get('title'); // returns FOO instead of foo
 
-Code in your accessors is executed each time you reference the field. You can use a local variable to cache it if you are performing a resource-intensive operation in your accessor like this:  myEntityProp = entity->my_property.
+Code in your accessors is executed each time you reference the field. You can use a local variable to cache it if you are performing a resource-intensive operation in your accessor like this:  myEntityProp = entity->_property.
 
 Accessors will be used when saving entities, so be careful when defining methods that format data, as the formatted data will be persisted.
 Mutators

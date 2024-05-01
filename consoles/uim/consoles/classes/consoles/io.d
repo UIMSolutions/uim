@@ -40,6 +40,20 @@ class DConsoleIo {
     // Output constants for making quiet shells.
     const int QUIET = 0;
 
+    // The current output level.
+    protected int _level = self.NORMAL;
+
+    /**
+     * The number of bytes last written to the output stream
+     * used when overwriting the previous message.
+     */
+    protected int _lastWritten = 0;
+
+    // Whether files should be overwritten
+    protected bool _shouldOverwrite = false;
+
+    protected bool _isInteractive = true;
+
     /*
     // The output stream
     protected IConsoleOutput _out;
@@ -53,19 +67,6 @@ class DConsoleIo {
     // The helper registry.
     protected DHelperRegistry _helpers;
 
-    // The current output level.
-    protected int _level = self.NORMAL;
-
-    /**
-     * The number of bytes last written to the output stream
-     * used when overwriting the previous message.
-     * /
-    protected int _lastWritten = 0;
-
-    // Whether files should be overwritten
-    protected bool shouldOverwrite = false;
-
-    protected bool  anInteractive = true;
 
     /**
      * Constructor

@@ -11,7 +11,7 @@ class DApcuCacheEngine : DCacheEngine {
      * Contains the compiled group names
      * (prefixed with the global configuration prefix)
      */
-  protected string[] my_compiledGroupNames;
+  protected string[] _compiledGroupNames;
 
   override bool initialize(Json[string] initData = null) {
     if (!super.initialize(initData)) { return false; }

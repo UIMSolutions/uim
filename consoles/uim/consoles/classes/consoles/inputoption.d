@@ -79,9 +79,7 @@ class DConsoleInputOption {
      * @param string ahelp The help text for this option
      * @param bool isBooleanOption Whether this option is a boolean option. Boolean options don`t consume extra tokens
      * @param string|bool|null default The default value for this option.
-     * @param string[] choices Valid choices for this option.
      * @param bool multiple Whether this option can accept multiple value definition.
-     * @param bool isRequired Whether this option is required or not.
      * @param string prompt The prompt string.
      * @throws \UIM\Console\Exception\ConsoleException
      * /
@@ -91,19 +89,19 @@ class DConsoleInputOption {
         string ahelp = "",
         bool isBooleanOption = false,
         string|bool|null default = null,
-        array choices = [],
+        string[] validChoices = [],
         bool acceptsMultiple = false,
-        bool isRequired = false,
-        string aprompt = null
+        bool isRequiredOption = false,
+        string promptText = null
     ) {
        _name = name;
        _shortAlias = newShortAlias;
        _help = help;
        _isBooleanOption = isBooleanOption;
-       _choices = choices;
+       _choices = validChoices;
        this.acceptsMultiple(acceptsMultiple);
-        _isRequired = isRequired;
-        this.prompt = prompt;
+        _isRequired = isRequiredOption;
+        _prompt = promptText;
 
         if (isBooleanOption) {
            _default = (bool) default;

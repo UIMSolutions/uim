@@ -119,13 +119,13 @@ class DClient { // }: IClient {
      * Cookies are indexed by the cookie`s domain or
      * request host name.
      * /
-  protected ICookieCollection my_cookies;
+  protected ICookieCollection _cookies;
 
   // Mock adapter for stubbing requests in tests.
-  protected static DMockAdapter my_mockAdapter = null;
+  protected static DMockAdapter _mockAdapter = null;
 
   // Adapter for sending requests.
-  protected IAdapter my_adapter;
+  protected IAdapter _adapter;
 
   /**
      * Create a new DHTTP Client.
@@ -436,7 +436,7 @@ class DClient { // }: IClient {
      * Clear all mocked responses
      * /
   static void clearMockResponses() {
-    my_mockAdapter = null;
+    _mockAdapter = null;
   }
 
   /**
@@ -459,11 +459,11 @@ class DClient { // }: IClient {
      * @param Json[string] options See above.
      * /
   static void addMockResponse(string mymethod, string myurl, Response myresponse, Json[string] options = null) {
-    if (!my_mockAdapter) {
-      my_mockAdapter = new DMockAdapter();
+    if (!_mockAdapter) {
+      _mockAdapter = new DMockAdapter();
     }
     myrequest = new DRequest(myurl, mymethod);
-    my_mockAdapter.addResponse(myrequest, myresponse, options);
+    _mockAdapter.addResponse(myrequest, myresponse, options);
   }
 
   /**
@@ -473,8 +473,8 @@ class DClient { // }: IClient {
      * @param Json[string] options Additional options to use.
      * /
   protected DClientResponse _sendRequest(IRequest myrequest, Json[string] options = null) {
-    if (my_mockAdapter) {
-      myresponses = my_mockAdapter.send(myrequest, options);
+    if (_mockAdapter) {
+      myresponses = _mockAdapter.send(myrequest, options);
     }
     if (isEmpty(myresponses)) {
       myresponses = _adapter.send(myrequest, options);

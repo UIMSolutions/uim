@@ -26,20 +26,20 @@ import uim.consoles;
  * Calling options can be done using syntax similar to most *nix command line tools. Long options
  * cane either include an `=` or leave it out.
  *
- * `uim my_command --connection default --name=something`
+ * `uim _command --connection default --name=something`
  *
  * Short options can be defined singly or in groups.
  *
- * `uim my_command -cn`
+ * `uim _command -cn`
  *
  * Short options can be combined into groups as seen above. Each letter in a group
  * will be treated as a separate option. The previous example is equivalent to:
  *
- * `uim my_command -c -n`
+ * `uim _command -c -n`
  *
  * Short options can also accept values:
  *
- * `uim my_command -c default`
+ * `uim _command -c default`
  *
  * ### Positional arguments
  *
@@ -239,11 +239,11 @@ class DConsoleOptionParser {
     // Returns an array representation of this parser.
     Json[string] toArray() {
         return [
-            "command": _command,
-            "arguments": _args,
-            "options": _options,
-            "description": _description,
-            "epilog": _epilog,
+            "command": Json(_command),
+            "arguments": Json(_args),
+            "options": Json(_options),
+            "description": Json(_description),
+            "epilog": Json(_epilog),
         ];
     }
     
@@ -259,13 +259,13 @@ class DConsoleOptionParser {
         if (!spec["arguments"].isEmpty) {
             this.addArguments(spec["arguments"]);
         }
-        if (!empty(spec["options"])) {
+        if (!spec["options"].isEmpty)) {
             this.addOptions(spec["options"]);
         }
-        if (!empty(spec["description"])) {
+        if (!spec["description"].isEmpty)) {
             this.description(spec["description"]);
         }
-        if (!empty(spec["epilog"])) {
+        if (!spec["epilog"].isEmpty)) {
             this.setEpilog(spec["epilog"]);
         }
     }

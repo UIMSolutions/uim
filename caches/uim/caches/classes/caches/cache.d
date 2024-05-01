@@ -18,7 +18,7 @@ import uim.caches;
  * ```
  * Cache.config("shared", [
  *   'className": UIM\Cache\Engine\ApcuEngine.classname,
- *   'prefix": 'my_app_'
+ *   'prefix": '_app_'
  * ]);
  * ```
  *
@@ -103,7 +103,7 @@ class DCache : ICache {
     // #endregion enable
 
     // Group to Config mapping
-    protected static Json my_groups = null;
+    protected static Json _groups = null;
 
     // Cache Registry used for creating and using cache adapters.
     protected static DCacheRegistry _registry;
@@ -172,9 +172,9 @@ class DCache : ICache {
         }
         if (!configuration.isEmpty("groups")) {
             (cast(DArrayData)configuration.get("groups"]).values.each!((groupName) {
-                my_groups[groupName] ~= configName;
-                my_groups[groupName] = array_unique(my_groups[groupName]);
-                my_groups[groupName].sort;
+                _groups[groupName] ~= configName;
+                _groups[groupName] = array_unique(_groups[groupName]);
+                _groups[groupName].sort;
             });
         } * /
     }
@@ -264,13 +264,13 @@ class DCache : ICache {
      * Reading from the active cache configuration.
      *
      * ```
-     * Cache.read("my_data");
+     * Cache.read("_data");
      * ```
      *
      * Reading from a specific cache configuration.
      *
      * ```
-     * Cache.read("my_data", "long_term");
+     * Cache.read("_data", "long_term");
      * ```
      * Params:
      * @param string configName optional name of the configuration to use. Defaults to "default"
@@ -287,13 +287,13 @@ class DCache : ICache {
      * Reading multiple keys from the active cache configuration.
      *
      * ```
-     * Cache.readMany(["my_data_1", "my_data_2]);
+     * Cache.readMany(["_data_1", "_data_2]);
      * ```
      *
      * Reading from a specific cache configuration.
      *
      * ```
-     * Cache.readMany(["my_data_1", "my_data_2], "long_term");
+     * Cache.readMany(["_data_1", "_data_2], "long_term");
      * ```
      * Params:
      * string[] someKeys An array or Traversable of keys to fetch from the cache
@@ -337,13 +337,13 @@ class DCache : ICache {
      * Deleting from the active cache configuration.
      *
      * ```
-     * Cache.delete_("my_data");
+     * Cache.delete_("_data");
      * ```
      *
      * Deleting from a specific cache configuration.
      *
      * ```
-     * Cache.delete_("my_data", "long_term");
+     * Cache.delete_("_data", "long_term");
      * ```
      */
     /* static bool delete_(string dataId, string configName = "default") {
@@ -358,13 +358,13 @@ class DCache : ICache {
      * Deleting multiple keys from the active cache configuration.
      *
      * ```
-     * Cache.deleteMany(["my_data_1", "my_data_2"]);
+     * Cache.deleteMany(["_data_1", "_data_2"]);
      * ```
      *
      * Deleting from a specific cache configuration.
      *
      * ```
-     * Cache.deleteMany(["my_data_1", "my_data_2], "long_term");
+     * Cache.deleteMany(["_data_1", "_data_2], "long_term");
      * ```
      * Params:
      * @param string configName name of the configuration to use. Defaults to "default"
@@ -420,10 +420,10 @@ class DCache : ICache {
             .each!(configName => pool(configName));
 
         if (groupName is null) {
-            return my_groups;
+            return _groups;
         }
-        if (isSet(self.my_groups[groupName])) {
-            return [groupName: self.my_groups[groupName]];
+        if (isSet(self._groups[groupName])) {
+            return [groupName: self._groups[groupName]];
         }
         throw new DInvalidArgumentException("Invalid cache group `%s`.".format(groupName));
     } */

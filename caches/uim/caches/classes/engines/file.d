@@ -72,7 +72,7 @@ class DFileCacheEngine : DCacheEngine {
 
     /*
     // Instance of SplFileObject class
-    protected ISplFileObject my_File;
+    protected ISplFileObject _File;
 
     /**
      * Write data for key into cache

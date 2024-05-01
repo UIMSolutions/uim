@@ -74,13 +74,13 @@ class DI18n {
      * ```
      *
      * You can also use the `UIM\I18n\MessagesFileLoader` class to load a specific
-     * file from a folder. For example for loading a `my_translations.po` file from
+     * file from a folder. For example for loading a `_translations.po` file from
      * the `resources/locales/custom` folder, you would do:
      *
      * ```
      * I18n.setTranslator(
      * "default",
-     * new DMessagesFileLoader("my_translations", "custom", "po"),
+     * new DMessagesFileLoader("_translations", "custom", "po"),
      * 'fr_FR'
      * );
      * ```
@@ -142,7 +142,7 @@ class DI18n {
      *
      * ```
      * use UIM\I18n\MessagesFileLoader;
-     * I18n.config("my_domain", auto (name, locale) {
+     * I18n.config("_domain", auto (name, locale) {
      *     // Load resources/locales/locale/filename.po
      *     fileLoader = new DMessagesFileLoader("filename", locale, "po");
      *     return fileLoader();
@@ -153,7 +153,7 @@ class DI18n {
      *
      * ```
      * use UIM\I18n\MessageCatalog;
-     * I18n.config("my_domain", auto (name, locale) {
+     * I18n.config("_domain", auto (name, locale) {
      *     catalog = new DMessageCatalog("default");
      *     messages = (...); // Fetch messages for locale from external service.
      *     catalog.setMessages(message);

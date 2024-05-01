@@ -114,7 +114,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     const string BUILD_VALIDATOR_EVENT = "Model.buildValidator";
 
     // The IsUnique class name that is used.
-    const string IS_UNIQUE_CLASS = IsUnique.classname;
+    // TODO const string IS_UNIQUE_CLASS = IsUnique.classname;
 
     // Name of the table as it can be found in the database
     protected string _tableName = null;
@@ -131,27 +131,28 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     // The name of the field that represents a human-readable representation of a row
     protected string[] _displayField = null;
 
-    // The rules class name that is used.
-    const RulesChecker RULES_CLASS = RulesChecker.classname;
-
-
-    // Connection instance
-    protected DConnection _connection = null;
-
-    // The schema object containing a description of this table fields
-    protected ITableISchema _schema = null;
-
-    // The associations container for this Table.
-    protected IAssociationCollection _associations;
-
-    // BehaviorRegistry for this table
-    protected IBehaviorRegistry _behaviors;
-
     // The name of the class that represent a single row for this table
     protected string _entityClass = null;
 
     // Registry key used to create this table object
     protected string _registryAlias = null;
+
+    // The rules class name that is used.
+    // TODO const RulesChecker RULES_CLASS = RulesChecker.classname;
+
+    // Connection instance
+    // TODO protected DConnection _connection = null;
+
+    // The schema object containing a description of this table fields
+    // TODO protected ITableISchema _schema = null;
+
+    // The associations container for this Table.
+    // TODO protected IAssociationCollection _associations;
+
+    /*
+    // BehaviorRegistry for this table
+    protected IBehaviorRegistry _behaviors;
+
 
     protected IQueryFactory myqueryFactory;
 

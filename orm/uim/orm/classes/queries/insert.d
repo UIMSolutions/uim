@@ -6,7 +6,7 @@ import uim.orm;
 
 class DInsertQuery : DQuery {
     /*
-    mixin CommonTQuery();
+    mixin TCommonQuery();
 
     this(Table table) {
         super(table.getConnection());

@@ -38,21 +38,6 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     // Whether to hydrate results into entity objects
     protected bool _hydrate = true;
 
-    /**
-     * Whether the user select any fields before being executed, this is used
-     * to determined if any fields should be automatically be selected.
-     */
-    protected bool _hasFields = false;
-
-    /**
-     * Tracks whether the original query should include
-     * fields from the top level table.
-     */
-    protected bool _autoFields = false;
-
-    // Whether to hydrate results into entity objects
-    protected bool _hydrate = true;
-
     // Whether the query is standalone or the product of an eager load operation.
     protected bool _eagerLoaded = false;
 
@@ -60,10 +45,8 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     protected bool _beforeFindFired = false;
     
    /* 
-    mixin CommonTQuery();
+    mixin TCommonQuery();
 
-
-x
     /**
      * A callback used to calculate the total amount of
      * records this query will match when not using `limit`

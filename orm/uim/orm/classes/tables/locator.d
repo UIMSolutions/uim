@@ -6,14 +6,24 @@ import uim.orm;
 
 // Provides a default registry/factory for Table objects.
 class DTableLocator { // TODO }: DAbstractLocator : ILocator {
+    this() {        
+    }
     // Contains a list of locations where table classes should be looked for.
     protected string[] _locations = null;
 
     // Whether fallback class should be used if a table class DCould not be found.
     protected bool _allowFallbackClass = true;
 
+    // Instances that belong to the registry.
+    protected DTable[string] _instances = null;
+
+    /**
+     * Contains a list of Table objects that were created out of the
+     * built-in Table class. The list is indexed by table alias */
+    protected DTable[] _fallbacked = null;
+
     // Fallback class to use
-    // TODO protected string _fallbackClassName = DTable.className;
+    // TODO protected string _fallbackClassName = (new DTable).className;
 
     /**
      * Configuration for aliases.
@@ -22,16 +32,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * /
     // TODO protected array configuration = null;
 
-    // Instances that belong to the registry.
-    protected ITable[string] myinstances = null;
 
-    /**
-     * Contains a list of Table objects that were created out of the
-     * built-in Table class. The list is indexed by table alias
-     *
-     * @var array<\ORM\Table>
-     * /
-    // TODO protected array _fallbacked = null;
 
 
 
@@ -254,4 +255,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         string mylocation = tableLocation.replace("\\", "/");
         this.locations ~= strip(mylocation, "/");
     } */
+}
+unittest {
+    assert(new DTableLocator());
 }

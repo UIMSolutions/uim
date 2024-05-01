@@ -62,13 +62,13 @@ class DMessagesFileLoader {
      * catalog = loader();
      * ```
      *
-     * Load the plugins/MyPlugin/resources/locales/fr/my_plugin.po file:
+     * Load the plugins/MyPlugin/resources/locales/fr/_plugin.po file:
      *
      * ```
-     * loader = new DMessagesFileLoader("my_plugin", "fr_FR", "mo");
+     * loader = new DMessagesFileLoader("_plugin", "fr_FR", "mo");
      * catalog = loader();
      *
-     * Vendor prefixed plugins are expected to use `my_prefix_my_plugin` syntax.
+     * Vendor prefixed plugins are expected to use `_prefix__plugin` syntax.
      * ```
      * Params:
      * string domainName The name (domain) of the translations catalog.

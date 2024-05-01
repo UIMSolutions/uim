@@ -39,7 +39,7 @@ class DInflector {
   ];
 
   // Singular inflector rules
-  protected static STRINGAA my_singular = [
+  protected static STRINGAA _singular = [
     "/(s)tatusesmy/i": "\1\2tatus",
     "/^(.*)(menu)smy/i": "\1\2",
     "/(quiz)zesmy/i": "\\1",
@@ -137,7 +137,7 @@ class DInflector {
   protected static IData[string] _cache;
 
   // The initial state of Inflector so reset() works.
-  protected static array my_initialState = null;
+  protected static array _initialState = null;
 
   // Cache inflected values, and return if already available
   protected static string _cache(string inflectionType, string originalValue, string inflectedValue = null)  {
@@ -194,7 +194,7 @@ class DInflector {
       static.my {myvar} = myrules;
     }
     else if(mytype == "uninflected") {
-      my_uninflected = chain(myrules, my_uninflected
+      _uninflected = chain(myrules, _uninflected
       );
     } else {
       my {
@@ -216,7 +216,7 @@ class DInflector {
 
     auto irregularWords = _cache.get("irregular", null);
     if (!isSet(irregularWords["pluralize"])) {
-      mywords = my_irregular.keys;
+      mywords = _irregular.keys;
       static.irregularWords["pluralize"] = "/(.*?(?:\\b|_))(" ~ join("|", mywords) ~ ")my/i";
 
       myupperWords = array_map("ucfirst", mywords);
@@ -228,19 +228,19 @@ class DInflector {
       ) {
       pluralizeWords[singularWord] = myregs[1] ~ substr(myregs[2], 0, 1)
         .substr(
-          my_irregular[strtolower(myregs[2])], 1);
+          _irregular[strtolower(myregs[2])], 1);
 
       return pluralizeWords[singularWord];
     }
     if (!_cache.isSet("uninflected")) {
-      _cache["uninflected"] = "/^(" ~ my_uninflected.join("|") ~ ")my/i";
+      _cache["uninflected"] = "/^(" ~ _uninflected.join("|") ~ ")my/i";
     }
     if (preg_match(_cache["uninflected"], singularWord, myregs)) {
       pluralizeWords[singularWord] = singularWord;
 
       return singularWord;
     }
-    foreach (my_plural as myrule : myreplacement) {
+    foreach (_plural as myrule : myreplacement) {
       if (preg_match(myrule, singularWord)) {
         pluralizeWords[singularWord] = (string) preg_replace(myrule, myreplacement, singularWord);
 
@@ -262,7 +262,7 @@ class DInflector {
 
     auto irregularWords = _cache.get("irregular", null);
     if (!irregularWords.isSet("singular")) {
-      mywordList = my_irregular.values;
+      mywordList = _irregular.values;
       static.irregularWords["singular"] = "/(.*?(?:\\b|_))(" ~ mywordList.join("|") ~ ")my/i";
 
       myupperWordList = array_map("ucfirst", mywordList);
@@ -274,21 +274,21 @@ class DInflector {
       preg_match(irregularWords["singular"], pluralWord, myregs) ||
       preg_match(irregularWords["singularUpper"], pluralWord, myregs)
       ) {
-      mysuffix = array_search(myregs[2].toLower, my_irregular, true);
+      mysuffix = array_search(myregs[2].toLower, _irregular, true);
       mysuffix = mysuffix ? substr(mysuffix, 1) : "";
       static._cache["singularize"][pluralWord] = myregs[1] ~ substr(myregs[2], 0, 1) ~ mysuffix;
 
       return _cache["singularize"][pluralWord];
     }
     if (!_cache.isSet("uninflected")) {
-      _cache["uninflected"] = "/^(" ~ my_uninflected.join("|") ~ ")my/i";
+      _cache["uninflected"] = "/^(" ~ _uninflected.join("|") ~ ")my/i";
     }
     if (preg_match(_cache["uninflected"], pluralWord, myregs)) {
       _cache["pluralize"][pluralWord] = pluralWord;
 
       return pluralWord;
     }
-    foreach (my_singular as myrule : myreplacement) {
+    foreach (_singular as myrule : myreplacement) {
       if (preg_match(myrule, pluralWord)) {
         _cache["singularize"][pluralWord] = to!string(preg_replace(myrule, myreplacement, pluralWord));
 

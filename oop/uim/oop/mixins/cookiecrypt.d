@@ -13,7 +13,7 @@ import uim.oop;
  */
 mixin template TCookieCrypt() {
     // Valid cipher names for encrypted cookies.
-    protected string[] my_validCiphers = ["aes"];
+    protected string[] _validCiphers = ["aes"];
 
     // Returns the encryption key to be used.
     abstract protected string _getCookieEncryptionKey();

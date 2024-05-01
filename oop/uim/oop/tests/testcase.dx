@@ -20,9 +20,9 @@ abstract class DTestCase : DBaseTestCase {
     protected IFixtureStrategy myfixtureStrategy = null;
 
     // Configure values to restore at end of test.
-    // TODO protected array my_configure = null;
+    // TODO protected array _configure = null;
 
-    private PhpError my_capturedError = null;
+    private PhpError _capturedError = null;
 
     /**
      * Overrides SimpleTestCase.skipIf to provide a boolean return value

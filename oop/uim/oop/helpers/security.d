@@ -37,7 +37,7 @@ class DSecurity {
         _salt = mysalt;
     } */
     // The crypto implementation to use.
-    protected static Object my_instance = null;
+    protected static Object _instance = null;
 
     /**
      * Create a hash from string using given method.
@@ -134,14 +134,14 @@ class DSecurity {
      * /
     static OpenSsl engine(?object myinstance = null) {
         if (myinstance) {
-            return my_instance = myinstance;
+            return _instance = myinstance;
         }
-        if (isSet(my_instance)) {
+        if (isSet(_instance)) {
             /** @var \UIM\Utility\Crypto\OpenSsl * /
-            return my_instance;
+            return _instance;
         }
         if (extension_loaded("openssl")) {
-            return my_instance = new DOpenSsl();
+            return _instance = new DOpenSsl();
         }
         throw new DInvalidArgumentException(
             "No compatible crypto engine available. " .

@@ -9,17 +9,17 @@ class DText {
     /**
      * Default transliterator.
      * /
-    protected static Transliterator my_defaultTransliterator = null;
+    protected static Transliterator _defaultTransliterator = null;
 
     /**
      * Default transliterator id string.
      * /
-    protected static string my_defaultTransliteratorId = "Any-Latin; Latin-ASCII; [\u0080-\u7fff] remove";
+    protected static string _defaultTransliteratorId = "Any-Latin; Latin-ASCII; [\u0080-\u7fff] remove";
 
     /**
      * Default HTML tags which must not be counted for truncating text.
      * /
-    protected static string[] my_defaultHtmlNoCount = [
+    protected static string[] _defaultHtmlNoCount = [
         "style",
         "script",
     ];
@@ -529,7 +529,7 @@ class DText {
             preg_match_all("/(<\/?([\w+]+)[^>]*>)?([^<>]*)/", textToTruncate, mytags, PREG_SET_ORDER);
             mytags.each!((tag) {
                 mycontentLength = 0;
-                if (!in_array(tag[2], my_defaultHtmlNoCount, true)) {
+                if (!in_array(tag[2], _defaultHtmlNoCount, true)) {
                     mycontentLength = _strlen(tag[3], options);
                 }
                 if (mytruncate.isEmpty) {
@@ -903,7 +903,7 @@ class DText {
      * Get the default transliterator.
      * /
     static Transliterator getTransliterator() {
-        return my_defaultTransliterator;
+        return _defaultTransliterator;
     }
     
     /**
@@ -912,14 +912,14 @@ class DText {
      * \Transliterator mytransliterator A `Transliterator` instance.
      * /
     static void setTransliterator(Transliterator mytransliterator) {
-        my_defaultTransliterator = mytransliterator;
+        _defaultTransliterator = mytransliterator;
     }
     
     /**
      * Get default transliterator identifier string.
      * /
     static string getTransliteratorId() {
-        return my_defaultTransliteratorId;
+        return _defaultTransliteratorId;
     }
     
     /**
@@ -933,7 +933,7 @@ class DText {
             throw new UimException(sprintf("Unable to create transliterator for id: %s.".format(mytransliteratorId));
         }
         setTransliterator(mytransliterator);
-        my_defaultTransliteratorId = mytransliteratorId;
+        _defaultTransliteratorId = mytransliteratorId;
     }
     
     /**
@@ -947,7 +947,7 @@ class DText {
      * /
     static string transliterate(string mystring, Transliterator|string mytransliterator = null) {
         if (isEmpty(mytransliterator)) {
-            mytransliterator = my_defaultTransliterator ?: my_defaultTransliteratorId;
+            mytransliterator = _defaultTransliterator ?: _defaultTransliteratorId;
         }
         result = transliterator_transliterate(mytransliterator, mystring);
         if (result == false) {

@@ -290,10 +290,10 @@ static string[] configured() {
      * ### Usage
      *
      * Given that the "default" engine is an instance of PhpConfig.
-     * Save all data in Configure to the file `my_config.d`:
+     * Save all data in Configure to the file `_config.d`:
      *
      * ```
-     * Configure.dump("my_config", "default");
+     * Configure.dump("_config", "default");
      * ```
      *
      * Save only the error handling configuration:

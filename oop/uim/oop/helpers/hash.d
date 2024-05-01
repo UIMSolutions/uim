@@ -99,15 +99,15 @@ class Hash {
         myTokens = !mypath.has("[")
             ? mypath.split(".")
             : Text.tokenize(mypath, ".", "[", "]");
-        my_key = "__set_item__";
+        _key = "__set_item__";
 
-        mycontext = [my_key: [mydata]];
+        mycontext = [_key: [mydata]];
 
         mytokens.each!((token) {
             auto mynext = null;
             [mytoken, myconditions] = self._splitConditions(mytoken);
 
-            mycontext[my_key].each!((item) {
+            mycontext[_key].each!((item) {
                 if (isObject(item) && method_exists(item, "toArray")) {
                     myitem = myitem.toArray();
                 }
@@ -125,10 +125,10 @@ class Hash {
                 
                 mynext = myfilter;
             }
-            mycontext = [my_key: mynext];
+            mycontext = [_key: mynext];
         });
 
-        return mycontext[my_key];
+        return mycontext[_key];
     }
     
     /**

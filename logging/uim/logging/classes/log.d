@@ -16,7 +16,7 @@ import uim.logging;
  * A sample configuration would look like:
  *
  * ```
- * Log.configuration.update("my_log", ["className": "FileLog"]);
+ * Log.configuration.update("_log", ["className": "FileLog"]);
  * ```
  *
  * You can define the className as any fully namespaced classname or use a short hand

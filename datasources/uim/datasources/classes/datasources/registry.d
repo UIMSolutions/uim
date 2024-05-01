@@ -7,7 +7,7 @@ import uim.datasources;
 // A registry object for Datasource instances.
 class DDatasourceRegistry : DObjectRegistry!DDatasource {
 }
-auto DatasourceRegistry() { return DDatasourceRegistry.instance; }
 
-
-    
+auto DatasourceRegistry() {
+    return DDatasourceRegistry.instance;
+}

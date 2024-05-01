@@ -52,7 +52,7 @@ class DFlashHelper : DHelper {
      *   Supports the "params", and "element" keys that are used in the helper.
      * /
     string render(string aKey = "flash", Json[string] options  = null) {
-        auto mymessages = _View.getRequest().getFlash().consume(aKey);
+        auto mymessages = _view.getRequest().getFlash().consume(aKey);
         if (mymessages is null) {
             return null;
         }
@@ -60,7 +60,7 @@ class DFlashHelper : DHelper {
         string result = "";
         mymessages.each!((message) {
             message = options + message;
-            result ~= _View.element(message["element"], message);
+            result ~= _view.element(message["element"], message);
         });
         return result;
     } */

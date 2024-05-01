@@ -39,6 +39,7 @@ template DatasourceEntityCalls(string name) {
  * An entity represents a single result row from a repository. It exposes the
  * methods for retrieving and storing fields associated in this row.
 */
+
 mixin template TEntity() {
   // Holds all fields and their values for this entity.
   protected Json[string] _fields = null;

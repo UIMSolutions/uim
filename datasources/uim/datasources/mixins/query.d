@@ -16,6 +16,15 @@ mixin template TQuery() {
     // Instance of a table object this query is bound to
     protected IRepository _repository;
 
+    // List of map-reduce routines that should be applied over the query result
+    protected Json[string] _mapReduce = null;
+
+    // Custom options that could not be processed by any method in this class.
+    protected Json[string] _options = null;
+
+    // Whether the query is standalone or the product of an eager load operation.
+    protected bool _eagerLoaded = false;
+
     /**
      * A Resultset.
      *
@@ -25,9 +34,6 @@ mixin template TQuery() {
      * @see uim.datasources.QueryTrait::setResult()
      * /
     protected _results;
-
-    // List of map-reduce routines that should be applied over the query result
-    protected Json[string] _mapReduce = null;
 
     /**
      * List of formatter classes or callbacks that will post-process the
@@ -42,16 +48,6 @@ mixin template TQuery() {
      * /
     protected _cache;
 
-    /**
-     * Holds any custom options passed using applyOptions that could not be processed
-     * by any method in this class.
-     * /
-    protected Json[string] _options = null;
-
-    /**
-     * Whether the query is standalone or the product of an eager load operation.
-     * /
-    protected bool _eagerLoaded = false;
 
     /**
      * Set the default Table object that will be used by this query

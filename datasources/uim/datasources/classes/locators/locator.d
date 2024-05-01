@@ -10,11 +10,7 @@ import uim.datasources;
 
 // Provides an abstract registry/factory for repository objects.
 abstract class DAbstractLocator : ILocator {
-    /**
-     * Instances that belong to the registry.
-     *
-     * @var array<string, uim.Datasource\>
-     * /
+    // Instances that belong to the registry.
     protected IRepository[string] instances;
 
     // Contains a list of options that were passed to get() method.
@@ -61,8 +57,8 @@ abstract class DAbstractLocator : ILocator {
     }
 
 
-    bool exists(string alias) {
-        return isset(this.instances[alias]);
+    bool exists(string aliasName) {
+        return this.instances.hasKey(aliasName);
     }
 
 

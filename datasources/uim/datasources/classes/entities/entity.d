@@ -14,10 +14,9 @@ import uim.datasources;
  */
 class DDatasourceEntity { // TODO }: JsonsourceEntity { //}, IInvalidProperty {
     mixin TConfigurable; 
+    mixin TEntity; 
 
     /* 
-    // use TEntity;
-
     // Holds all fields and their values for this entity.
     protected Json[string] _fields;
 

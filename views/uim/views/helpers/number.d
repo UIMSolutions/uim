@@ -17,8 +17,6 @@ import uim.views;
 class DNumberHelper : DHelper {
     mixin(HelperThis!("Number"));
 
-    /* 
-    // Event listeners.
     IEvent[] implementedEvents() {
         return null;
     }

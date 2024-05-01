@@ -14,13 +14,13 @@ import uim.orm;
  */
 class DEagerLoadable {
     // The name of the association to load.
-    protected string my_name;
+    protected string _name;
 
     // A list of other associations to load from this level.
-    protected DEagerLoadable[] my_associations;
+    protected DEagerLoadable[] _associations;
 
     // The Association class instance to use for loading the records.
-    protected IAssociation my_instance = null;
+    protected IAssociation _instance = null;
 
     // A list of options to pass to the association object for loading the records.
     protected Json[string] configuration = null;
@@ -29,7 +29,7 @@ class DEagerLoadable {
      * A dotted separated string representing the path of associations
      * that should be followed to fetch this level.
      */
-    protected string my_aliasPath;
+    protected string _aliasPath;
 
     /**
      * A dotted separated string representing the path of entity properties

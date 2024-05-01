@@ -17,12 +17,12 @@ class DExistsIn {
      *
      * @var \ORM\Table|\ORM\Association|string
      * /
-    protected ITable|Association|string my_repository;
+    protected ITable|Association|string _repository;
 
     /**
      * Options for the constructor
      * /
-    protected Json[string] my_options = null;
+    protected Json[string] _options = null;
 
     /**
      * Constructor.

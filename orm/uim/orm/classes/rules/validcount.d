@@ -7,7 +7,7 @@ import uim.orm;
 // Validates the count of associated records.
 class DValidCount {
     // The field to check
-    protected string my_field;
+    protected string _field;
 
     /**
      * @param string myfield The field to check the count on.

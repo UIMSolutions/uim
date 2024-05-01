@@ -89,7 +89,7 @@ class DCounterCacheBehavior : DBehavior {
      * @var array<string, array<string, bool>>
      * /
     // Store the fields which should be ignored
-    protected bool[string][string] my_ignoreDirty = null;
+    protected bool[string][string] _ignoreDirty = null;
 
     /**
      * beforeSave callback.

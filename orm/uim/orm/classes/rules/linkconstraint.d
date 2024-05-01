@@ -17,12 +17,12 @@ class DLinkConstraint {
      *
      * @var \ORM\Association|string
      * /
-    protected IAssociation|string my_association;
+    protected IAssociation|string _association;
 
     /**
      * The link status that is required to be present in order for the check to succeed.
      * /
-    protected string my_requiredLinkState;
+    protected string _requiredLinkState;
 
     /**
      * Constructor.

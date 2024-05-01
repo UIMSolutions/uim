@@ -29,13 +29,13 @@ class DEagerLoader {
      *
      * @var \ORM\EagerLoadable|array<\ORM\EagerLoadable>|null
      * /
-    protected DEagerLoadable|array|null my_normalized = null;
+    protected DEagerLoadable|array|null _normalized = null;
 
     /**
      * List of options accepted by associations in contain()
      * index by key for faster access.
      * /
-    protected int<string> my_containOptions = [
+    protected int<string> _containOptions = [
         "associations": 1,
         "foreignKey": 1,
         "conditions": 1,
@@ -53,13 +53,13 @@ class DEagerLoader {
     protected DEagerLoadable<> _loadExternal = null;
 
     // Contains a list of the association names that are to be eagerly loaded.
-    // TODO protected array my_aliasList = null;
+    // TODO protected array _aliasList = null;
 
     // Another EagerLoader instance that will be used for "matching" associations.
-    protected DEagerLoader my_matching = null;
+    protected DEagerLoader _matching = null;
 
     // A map of table aliases pointing to the association objects they represent for the query.
-    // TODO protected array<string, \ORM\EagerLoadable> my_joinsMap = null;
+    // TODO protected array<string, \ORM\EagerLoadable> _joinsMap = null;
 
 
     /**

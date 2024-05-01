@@ -27,44 +27,33 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Whether the user select any fields before being executed, this is used
      * to determined if any fields should be automatically be selected.
      */
-    protected bool my_hasFields = null;
+    protected bool _hasFields = false;
 
     /**
      * Tracks whether the original query should include
      * fields from the top level table.
      */
-    protected bool my_autoFields = null;
-
-    // Whether to hydrate results into entity objects
-    protected bool my_hydrate = true;
-
-     // Indicates that the operation should append to the list
-    const int APPEND = 0;
-
-    // Indicates that the operation should prepend to the list
-    const int PREPEND = 1;
-
-    // Indicates that the operation should overwrite the list
-    const bool OVERWRITE = true;
-
-    /**
-     * Whether the user select any fields before being executed, this is used
-     * to determined if any fields should be automatically be selected.
-     */
-    protected bool _hasFields = null;
-
-    /**
-     * Tracks whether the original query should include
-     * fields from the top level table.
-     */
-    protected bool _autoFields = null;
+    protected bool _autoFields = false;
 
     // Whether to hydrate results into entity objects
     protected bool _hydrate = true;
 
     /**
-     * Whether the query is standalone or the product of an eager load operation.
+     * Whether the user select any fields before being executed, this is used
+     * to determined if any fields should be automatically be selected.
      */
+    protected bool _hasFields = false;
+
+    /**
+     * Tracks whether the original query should include
+     * fields from the top level table.
+     */
+    protected bool _autoFields = false;
+
+    // Whether to hydrate results into entity objects
+    protected bool _hydrate = true;
+
+    // Whether the query is standalone or the product of an eager load operation.
     protected bool _eagerLoaded = false;
 
     // True if the beforeFind event has already been triggered for this query
@@ -79,13 +68,13 @@ x
      * A callback used to calculate the total amount of
      * records this query will match when not using `limit`
      * /
-    protected DClosure my_counter = null;
+    protected DClosure _counter = null;
 
     /**
      * Instance of a class responsible for storing association containments and
      * for eager loading them when this query is executed
      * /
-    protected DEagerLoader my_eagerLoader = null;
+    protected DEagerLoader _eagerLoader = null;
 
 
     /**
@@ -93,7 +82,7 @@ x
      *
      * When set, count query execution will be bypassed.
      * /
-    protected int my_resultsCount = null;
+    protected int _resultsCount = null;
 
     /**
      * Resultset factory
@@ -110,32 +99,32 @@ x
      * @var iterable|null
      * @see \UIM\Datasource\QueryTrait.setResult()
      * /
-    protected range my_results = null;
+    protected range _results = null;
 
     /**
      * List of map-reduce routines that should be applied over the query
      * result
      * /
-    // TODO protected array my_mapReduce = null;
+    // TODO protected array _mapReduce = null;
 
     /**
      * List of formatter classes or callbacks that will post-process the
      * results when fetched
      * /
-    protected DClosure[] my_formatters = null;
+    protected DClosure[] _formatters = null;
 
     /**
      * A query cacher instance if this query has caching enabled.
      *
      * @var \UIM\Datasource\QueryCacher|null
      * /
-    protected IQueryCacher my_cache = null;
+    protected IQueryCacher _cache = null;
 
     /**
      * Holds any custom options passed using applyOptions that could not be processed
      * by any method in this class.
      * /
-    // TODO protected array my_options = null;
+    // TODO protected array _options = null;
 
     /**
      * Constructor
@@ -188,7 +177,7 @@ x
      *
      * ```
      * // Simple string key + config
-     * myquery.cache("my_key", "db_results");
+     * myquery.cache("_key", "db_results");
      *
      * // auto to generate key.
      * myquery.cache(function (myq) {
@@ -198,7 +187,7 @@ x
      * });
      *
      * // Using a pre-built cache engine.
-     * myquery.cache("my_key", myengine);
+     * myquery.cache("_key", myengine);
      *
      * // Disable caching
      * myquery.cache(false);

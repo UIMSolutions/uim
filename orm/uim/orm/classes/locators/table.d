@@ -31,7 +31,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      *
      * @var array<\ORM\Table>
      * /
-    // TODO protected array my_fallbacked = null;
+    // TODO protected array _fallbacked = null;
 
 
 

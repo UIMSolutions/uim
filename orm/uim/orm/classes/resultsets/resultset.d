@@ -48,7 +48,7 @@ class DResultset { // TODO }: IResultset {
     
         /* 
     // Last record fetched from the statement
-    protected IEntity[] my_current;
+    protected IEntity[] _current;
 
 
     /**
@@ -56,7 +56,7 @@ class DResultset { // TODO }: IResultset {
      *
      * @var \SplFixedArray<T>
      * /
-    protected ISplFixedArray my_results;
+    protected ISplFixedArray _results;
 
     this(array results) {
        __unserialize(results);

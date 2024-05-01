@@ -6,6 +6,7 @@ public { // Packages
     import uim.orm.classes.locators;
     import uim.orm.classes.queries;
     import uim.orm.classes.rules;
+    import uim.orm.classes.tables;
 }
 
 public {

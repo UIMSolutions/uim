@@ -99,13 +99,10 @@ import uim.orm;
  * @link https://book.UIM.org/5/en/orm/table-objects.html#event-list
  * @implements \UIM\Event\IEventDispatcher<\ORM\Table>
  */
-class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAware {
-    /**
-     * @use \UIM\Event\EventDispatcherTrait<\ORM\Table>
-     * /
+class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     mixin TEventDispatcher;
-    mixin TRulesAware;
-    mixin TValidatorAware;
+    // mixin TRulesAware;
+    // mixin TValidatorAware;
 
     // Name of default validation set.
     const string DEFAULT_VALIDATOR = "default";
@@ -116,9 +113,6 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
     // The name of the event dispatched when a validator has been built.
     const string BUILD_VALIDATOR_EVENT = "Model.buildValidator";
 
-    // The rules class name that is used.
-    const RulesChecker RULES_CLASS = RulesChecker.classname;
-
     // The IsUnique class name that is used.
     const string IS_UNIQUE_CLASS = IsUnique.classname;
 
@@ -128,20 +122,24 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
     /**
      * Human name giving to this particular instance. Multiple objects representing
      * the same database table can exist by using different aliases.
-     * /
-    protected string _alias = null;
-
-    // Connection instance
-    protected DConnection _connection = null;
-
-    // The schema object containing a description of this table fields
-    protected ITableISchema _schema = null;
+     */
+    protected string _aliasName = null;
 
     // The name of the field that represents the primary key in the table
     protected string[] _primaryKey = null;
 
     // The name of the field that represents a human-readable representation of a row
     protected string[] _displayField = null;
+
+    // The rules class name that is used.
+    const RulesChecker RULES_CLASS = RulesChecker.classname;
+
+
+    // Connection instance
+    protected DConnection _connection = null;
+
+    // The schema object containing a description of this table fields
+    protected ITableISchema _schema = null;
 
     // The associations container for this Table.
     protected IAssociationCollection _associations;
@@ -282,7 +280,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
     string getTable() {
         if (_table is null) {
             mytable = namespaceSplit(class);
-            mytable = substr(to!string(end(mytable)), 0, -5) ?: _alias;
+            mytable = substr(to!string(end(mytable)), 0, -5) ?: _aliasName;
             if (!mytable) {
                 throw new UimException(
                     "You must specify either the `alias` or the `table` option for the constructor."
@@ -299,12 +297,12 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * string myalias Table alias
      * /
     void aliasName(string tableAlias) {
-       _alias = tableAlias;
+       _aliasName = tableAlias;
     }
     
     // Returns the table alias.
     string aliasName() {
-        if (_alias is null) {
+        if (_aliasName is null) {
             myalias = namespaceSplit(class);
             myalias = substr(to!string(end(myalias), 0, -5)) ?: _table;
             if (!myalias) {
@@ -312,9 +310,9 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
                     "You must specify either the `alias` or the `table` option for the constructor."
                 );
             }
-           _alias = myalias;
+           _aliasName = myalias;
         }
-        return _alias;
+        return _aliasName;
     }
     
     /**
@@ -328,7 +326,7 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
         if (myfield.has(".")) {
             return myfield;
         }
-        return _aliasName() ~ "." ~ myfield;
+        return _aliasNameName() ~ "." ~ myfield;
     }
     
     /**

@@ -41,7 +41,7 @@ class DConsoleIo {
     const int QUIET = 0;
 
     // The current output level.
-    protected int _level = self.NORMAL;
+    protected int _level = NORMAL;
 
     /**
      * The number of bytes last written to the output stream

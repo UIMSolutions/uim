@@ -36,7 +36,7 @@ import uim.orm;
  * mytable = TableRegistry.getTableLocator().get("Users", configData);
  * ```
  */
-class DTableRegistry {
+class DTableRegistry : DObjectRegistry!DTable {
     /* 
     // Returns a singleton instance of ILocator implementation.
     static ILocator getTableLocator() {
@@ -47,4 +47,7 @@ class DTableRegistry {
     static void setTableLocator(ILocator locatorToUse) {
         DFactoryLocator.add("Table", locatorToUse);
     } */
+}
+auto TableRegistry() {
+    return DTableRegistry.instance;
 }

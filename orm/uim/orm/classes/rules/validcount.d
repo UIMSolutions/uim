@@ -7,13 +7,13 @@ import uim.orm;
 // Validates the count of associated records.
 class DValidCount {
     // The field to check
-    protected string _field;
+    protected string _fieldName;
 
     /**
      * @param string myfield The field to check the count on.
      * /
     this(string myfield) {
-       _field = myfield;
+       _fieldName = myfield;
     }
     
     /**
@@ -23,7 +23,7 @@ class DValidCount {
      * @param Json[string] options Options passed to the check.
      * /
     bool __invoke(IEntity myentity, Json[string] options) {
-        myvalue = myentity.{_field};
+        myvalue = myentity.{_fieldName};
         if (!isArray(myvalue) && !cast(DCountable)myvalue) {
             return false;
         }

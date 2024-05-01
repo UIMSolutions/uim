@@ -13,10 +13,10 @@ import uim.validations;
 class DRulesProvider {
     /*
     // The class/object to proxy
-    protected object|string my_class;
+    protected object|string _class;
 
     // The proxied class" reflection
-    protected DReflectionClass my_reflection;
+    protected DReflectionClass _reflection;
 
     /**
      * Constructor, sets the default class to use for calling methods

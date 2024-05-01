@@ -13,17 +13,17 @@ import uim.validations;
  */ 
 class DValidationSet { // }: ArrayAccess, IteratorAggregate, Countable {
     // Holds the ValidationRule objects
-    // TODO protected IValidationRule[] my_rules = null;
+    // TODO protected IValidationRule[] _rules = null;
 
     /**
      * Denotes whether the fieldname key must be present in data array
      *
      * @var callable|string|bool
      * /
-    protected my_validatePresent = false;
+    protected _validatePresent = false;
 
     // Denotes if a field is allowed to be empty
-    protected callable|string|bool my_allowEmpty = false;
+    protected callable|string|bool _allowEmpty = false;
 
     /**
      * Returns whether a field can be left out.

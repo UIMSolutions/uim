@@ -53,7 +53,7 @@ class DEntityContext : DContext {
     // TODO protected ITable[] _tables = null;
 
     // Dictionary of validators.
-    // TODO protected IValidator[] my_validator = null;
+    // TODO protected IValidator[] _validator = null;
 
     /**
      * Constructor.

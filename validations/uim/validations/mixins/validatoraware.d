@@ -29,7 +29,7 @@ mixin template TValidatorAware() {
 
     /*
     // Validator class.
-    protected string my_validatorClass = Validator.classname;
+    protected string _validatorClass = Validator.classname;
 
 
     /**

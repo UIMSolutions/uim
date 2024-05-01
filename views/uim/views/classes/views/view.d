@@ -208,32 +208,32 @@ static string contentType() {
     protected string myelementCache = "default";
 
     // List of variables to collect from the associated controller.
-    protected string[] my_passedVars = [
+    protected string[] _passedVars = [
         "viewVars", "autoLayout", "helpers", "template", "layout", "name", "theme",
         "layoutPath", "templatePath", "plugin",
     ];
 
 
     // Holds an array of plugin paths.
-    // TODO protected array<string[] my_pathsForPlugin = null;
+    // TODO protected array<string[] _pathsForPlugin = null;
 
     // The names of views and their parents used with View.extend();
-    protected string[] my_parents = null;
+    protected string[] _parents = null;
 
     // The currently rendering view file. Used for resolving parent files.
-    protected string my_current = "";
+    protected string _current = "";
 
     /**
      * Currently rendering an element. Used for finding parent fragments
      * for elements.
      * /
-    protected string my_currentType = "";
+    protected string _currentType = "";
 
     // Content stack, used for nested templates that all use View.extend();
-    protected string[] my_stack;
+    protected string[] _stack;
 
     // ViewBlock class.
-    protected string my_viewBlockClass = ViewBlock.classname;
+    protected string _viewBlockClass = ViewBlock.classname;
 
     // Constant for view file type "template".
     const string TYPE_TEMPLATE = "template";
@@ -258,7 +258,7 @@ static string contentType() {
      * \UIM\Http\ServerRequest|null myrequest Request instance.
      * @param \UIM\Http\Response|null myresponse Response instance.
      * @param \UIM\Event\IEventManager|null myeventManager Event manager instance.
-     * @param Json[string] myviewOptions View options. See {@link View.my_passedVars} for list of
+     * @param Json[string] myviewOptions View options. See {@link View._passedVars} for list of
      *  options which get set as class properties.
      * /
     this(

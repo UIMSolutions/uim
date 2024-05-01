@@ -70,7 +70,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     const int EMPTY_TIME = 16;
 
     // Holds the ValidationSet objects array
-    protected DValidationSet[string] my_fields = null;
+    protected DValidationSet[string] _fields = null;
 
     // Contains the validation messages associated with checking the emptiness
     // for each corresponding field.
@@ -80,11 +80,11 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     protected int[string] _allowEmptyFlags = null;
 
     // A combination of the all EMPTY_* flags
-    const int EMPTY_ALL = self.EMPTY_STRING
-        | self.EMPTY_ARRAY
-        | self.EMPTY_FILE
-        | self.EMPTY_DATE
-        | self.EMPTY_TIME;
+    const int EMPTY_ALL = EMPTY_STRING
+        | EMPTY_ARRAY
+        | EMPTY_FILE
+        | EMPTY_DATE
+        | EMPTY_TIME;
 
 
 
@@ -109,11 +109,11 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     /**
      * Whether to apply last flag to generated rule(s).
      * /
-    protected bool my_stopOnFailure = false;
+    protected bool _stopOnFailure = false;
 
     this() {
        _useI18n = function_exists("\UIM\I18n\__d");
-       _providers = self.my_defaultProviders;
+       _providers = self._defaultProviders;
     }
     
     /**
@@ -238,7 +238,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * string myname The name under which the provider should be retrieved.
      * /
     static object|string|null getDefaultProvider(string myname) {
-        return self.my_defaultProviders[myname] ?? null;
+        return self._defaultProviders[myname] ?? null;
     }
     
     /**
@@ -249,12 +249,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @psalm-param object|class-string myobject
      * /
     static void addDefaultProvider(string myname, object|string myobject) {
-        self.my_defaultProviders[myname] = myobject;
+        self._defaultProviders[myname] = myobject;
     }
     
     // Get the list of default providers.
     static string[] getDefaultProviders() {
-        return self.my_defaultProviders.keys;
+        return self._defaultProviders.keys;
     }
     
     // Get the list of providers in this validator.

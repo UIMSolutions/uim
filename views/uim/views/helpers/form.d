@@ -36,12 +36,12 @@ class DFormHelper : DHelper {
      *
      * @see FormHelper.mysupportedValueSources for valid values.
      */
-    protected string[] my_valueSources = ["data", "context"];
+    protected string[] _valueSources = ["data", "context"];
 
     /**
      * Grouped input types.
      */
-    protected string[] my_groupedInputTypes = ["radio", "multicheckbox"];
+    protected string[] _groupedInputTypes = ["radio", "multicheckbox"];
 
     /** 
     override bool initialize(Json[string] initData = null) {
@@ -150,7 +150,7 @@ class DFormHelper : DHelper {
 
 
     // Locator for input widgets.
-    protected DWidgetLocator my_locator;
+    protected DWidgetLocator _locator;
 
 
     // DContext factory.

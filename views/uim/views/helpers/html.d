@@ -56,7 +56,7 @@ class DHtmlHelper : DHelper {
     ]);
 
     // Names of script & css files that have been included once
-    // TODO protected array<string, array> my_includedAssets = null;
+    // TODO protected array<string, array> _includedAssets = null;
 
     // Options for the currently opened script block buffer if any.
     protected Json[string] _scriptBlockOptions;

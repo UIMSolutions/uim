@@ -600,13 +600,13 @@ class DValidation {
             return false;
         }
          Generic.Files.LineLength
-        myregex ??= "/^[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+(?:\.[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+)*@" ~ self.my_pattern["hostname"] ~ "my/ui";
+        myregex ??= "/^[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+(?:\.[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+)*@" ~ self._pattern["hostname"] ~ "my/ui";
 
         result = _check(mycheck, myregex);
         if (mydeep == false || mydeep is null) {
             return result;
         }
-        if (result == true && preg_match("/@(" ~ my_pattern["hostname"] ~ ")my/i", mycheck, myregs)) {
+        if (result == true && preg_match("/@(" ~ _pattern["hostname"] ~ ")my/i", mycheck, myregs)) {
             if (function_exists("getmxrr") && getmxrr(myregs[1], mymxhosts)) {
                 return true;
             }
@@ -896,7 +896,7 @@ class DValidation {
         myfragmentAndQuery = "([\?" ~ mysubDelimiters ~ myalpha ~ "]|" ~ myhex ~ ")";
          Generic.Files.LineLength
         myregex = "/^(?:(?:https?|ftps?|sftp|file|news|gopher):\/\/)" ~ (mystrict ? "" : "?") .
-            "(?:" ~ my_pattern["IPv4"] ~ "|\[" ~ my_pattern["IPv6"] ~ "\]|" ~ my_pattern["hostname"] ~ ")(?.[1-9][0-9]{0,4})?" .
+            "(?:" ~ _pattern["IPv4"] ~ "|\[" ~ _pattern["IPv6"] ~ "\]|" ~ _pattern["hostname"] ~ ")(?.[1-9][0-9]{0,4})?" .
             "(?:\/" ~ mypath ~ "*)?" .
             "(?:\?" ~ myfragmentAndQuery ~ "*)?" .
             "(?:#" ~ myfragmentAndQuery ~ "*)?my/iu";
@@ -1237,12 +1237,12 @@ class DValidation {
                 .format(options["type"])
             );
         }
-        mypattern = "/^" ~ self.my_pattern["latitude"] ~ ",\s*" ~ self.my_pattern["longitude"] ~ "my/";
+        mypattern = "/^" ~ self._pattern["latitude"] ~ ",\s*" ~ self._pattern["longitude"] ~ "my/";
         if (options["format"] == "long") {
-            mypattern = "/^" ~ self.my_pattern["longitude"] ~ "my/";
+            mypattern = "/^" ~ self._pattern["longitude"] ~ "my/";
         }
         if (options["format"] == "lat") {
-            mypattern = "/^" ~ self.my_pattern["latitude"] ~ "my/";
+            mypattern = "/^" ~ self._pattern["latitude"] ~ "my/";
         }
         return (bool)preg_match(mypattern, to!string(myvalue));
     }
@@ -1435,7 +1435,7 @@ class DValidation {
      * /
     protected static void _populateIp() {
          Generic.Files.LineLength
-        if (!isSet(my_pattern["IPv6"])) {
+        if (!isSet(_pattern["IPv6"])) {
             mypattern = "((([0-9A-Fa-f]{1,4}:){7}(([0-9A-Fa-f]{1,4})|:))|(([0-9A-Fa-f]{1,4}:){6}";
             mypattern ~= "(:|((25[0-5]|2[0-4]\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})";
             mypattern ~= "|(:[0-9A-Fa-f]{1,4})))|(([0-9A-Fa-f]{1,4}:){5}((:((25[0-5]|2[0-4]\d|[01]?\d{1,2})";
@@ -1451,11 +1451,11 @@ class DValidation {
             mypattern ~= "\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})?)|((:[0-9A-Fa-f]{1,4})";
             mypattern ~= "{1,2})))|(((25[0-5]|2[0-4]\d|[01]?\d{1,2})(\.(25[0-5]|2[0-4]\d|[01]?\d{1,2})){3})))(%.+)?";
 
-            my_pattern["IPv6"] = mypattern;
+            _pattern["IPv6"] = mypattern;
         }
-        if (!isSet(my_pattern["IPv4"])) {
+        if (!isSet(_pattern["IPv4"])) {
             mypattern = "(?:(?:25[0-5]|2[0-4][0-9]|(?:(?:1[0-9])?|[1-9]?)[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|(?:(?:1[0-9])?|[1-9]?)[0-9])";
-            my_pattern["IPv4"] = mypattern;
+            _pattern["IPv4"] = mypattern;
         }
          Generic.Files.LineLength
     }

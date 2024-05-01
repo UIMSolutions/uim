@@ -34,14 +34,14 @@ class DValidationRule {
      *
      * @var callable|string|null
      * /
-    protected my_on = null;
+    protected _on = null;
 
     /**
      * Extra arguments to be passed to the validation method
      *
      * @var array
       /
-    // TODO protected array my_pass = null;
+    // TODO protected array _pass = null;
 
     /**
      * Constructor

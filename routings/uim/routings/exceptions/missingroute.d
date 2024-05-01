@@ -4,15 +4,21 @@ import uim.routings;
 
 @safe: 
 
-
-/**
- * Exception raised when a URL cannot be reverse routed
- * or when a URL cannot be parsed.
- */
+// Exception raised when a URL cannot be reverse routed or when a URL cannot be parsed.
 class DMissingRouteException : UimException {
     mixin(ExceptionThis!("MissingRoute"));
  
-    protected string _messageTemplate = "A route matching `%s` could not be found.";
+   override bool initialize(Json[string] initData = null) {
+    if (!super.initialize(initData)) {
+      return false;
+    }
+
+    this
+      .messageTemplate("A route matching `%s` could not be found.");
+
+    return true;
+  }
+
 
     /**
      * Message template to use when the requested method is included.

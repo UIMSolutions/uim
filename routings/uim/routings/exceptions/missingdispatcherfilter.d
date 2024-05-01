@@ -8,6 +8,16 @@ import uim.routings;
 class DMissingDispatcherFilterException : UimException {
     mixin(ExceptionThis!("MissingDispatcherFilter"));
 
-    protected string _messageTemplate = "Dispatcher filter `%s` could not be found.";
+    override bool initialize(Json[string] initData = null) {
+        if (!super.initialize(initData)) {
+            return false;
+        }
+
+        this
+            .messageTemplate("Dispatcher filter `%s` could not be found.");
+
+        return true;
+    }
 }
+
 mixin(ExceptionCalls!("MissingDispatcherFilter"));

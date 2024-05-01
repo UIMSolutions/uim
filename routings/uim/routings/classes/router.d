@@ -53,7 +53,7 @@ class DRouter {
     /**
      * Named expressions
      * /
-    protected static STRINGAA my_namedExpressions = [
+    protected static STRINGAA _namedExpressions = [
         "Action": Router.ACTION,
         "Year": Router.YEAR,
         "Month": Router.MONTH,
@@ -67,32 +67,32 @@ class DRouter {
      *
      * @var \UIM\Http\ServerRequest|null
      * /
-    protected static ?ServerRequest my_request = null;
+    protected static ?ServerRequest _request = null;
 
     /**
      * Initial state is populated the first time reload() is called which is at the bottom
      * of this file. This is a cheat as get_class_vars() returns the value of static vars even if they
      * have changed.
      * /
-    protected static array my_initialState = null;
+    protected static array _initialState = null;
 
     /**
      * The stack of URL filters to apply against routing URLs before passing the
      * parameters to the route collection.
      * /
-    protected static DClosure[] my_urlFilters = null;
+    protected static DClosure[] _urlFilters = null;
 
     /**
      * Default extensions defined with Router.extensions()
      * /
-    protected static string[] my_defaultExtensions = null;
+    protected static string[] _defaultExtensions = null;
 
     /**
      * Cache of parsed route paths
      *
      * @var Json[string]
      * /
-    protected static array my_routePaths = null;
+    protected static array _routePaths = null;
 
     /**
      * Get or set default route class.
@@ -110,7 +110,7 @@ class DRouter {
     
     // Gets the named route patterns for use in config/routes.d
     static STRINGAA getNamedExpressions() {
-        return my_namedExpressions;
+        return _namedExpressions;
     }
     
     /**
@@ -119,7 +119,7 @@ class DRouter {
      * \UIM\Http\ServerRequest myrequest The request to parse request data from.
      * /
     static array parseRequest(ServerRequest myrequest) {
-        return my_collection.parseRequest(myrequest);
+        return _collection.parseRequest(myrequest);
     }
     
     /**
@@ -132,17 +132,17 @@ class DRouter {
         auto myuri = _request.getUri();
         
         /*
-        my_requestContext["_base"] = myrequest.getAttribute("base", "");
-        my_requestContext["params"] = myrequest.getAttribute("params", []);
-        my_requestContext["_scheme"] ??= myuri.getScheme();
-        my_requestContext["_host"] ??= myuri.getHost();
-        my_requestContext["_port"] ??= myuri.getPort();
+        _requestContext["_base"] = myrequest.getAttribute("base", "");
+        _requestContext["params"] = myrequest.getAttribute("params", []);
+        _requestContext["_scheme"] ??= myuri.getScheme();
+        _requestContext["_host"] ??= myuri.getHost();
+        _requestContext["_port"] ??= myuri.getPort();
         * /
     }
     
     // Get the current request object.
     static DServerRequest getRequest() {
-        return my_request;
+        return _request;
     }
     
     /**
@@ -184,8 +184,8 @@ class DRouter {
      * @internal
      * /
     static void resetRoutes() {
-        my_collection = new DRouteCollection();
-        my_urlFilters = null;
+        _collection = new DRouteCollection();
+        _urlFilters = null;
     }
     
     /**
@@ -217,7 +217,7 @@ class DRouter {
      * \Closure myfunction The auto to add
      * /
     static void addUrlFilter(Closure myfunction) {
-        my_urlFilters ~= myfunction;
+        _urlFilters ~= myfunction;
     }
     
     /**
@@ -227,7 +227,7 @@ class DRouter {
      * /
     protected static array _applyUrlFilters(array myurl) {
         myrequest = getRequest();
-        my_urlFilters.each!((filter) {
+        _urlFilters.each!((filter) {
             try {
                 myurl = myfilter(myurl, myrequest);
             } catch (Throwable mye) {
@@ -347,7 +347,7 @@ class DRouter {
             }
             mycontext["params"] = myparams;
 
-            myoutput = my_collection.match(myurl, mycontext);
+            myoutput = _collection.match(myurl, mycontext);
         } else {
             myurl = (string)myurl;
 
@@ -428,39 +428,39 @@ class DRouter {
      * For example: `http://example.com`
      * /
     static string fullBaseUrl(string mybase = null) {
-        if (mybase.isNull && my_fullBaseUrl !isNull) {
-            return my_fullBaseUrl;
+        if (mybase.isNull && _fullBaseUrl !isNull) {
+            return _fullBaseUrl;
         }
         if (mybase !isNull) {
-            my_fullBaseUrl = mybase;
+            _fullBaseUrl = mybase;
             Configuration.update("App.fullBaseUrl", mybase);
         } else {
             mybase = (string)Configuration.read("App.fullBaseUrl");
 
             // If App.fullBaseUrl is empty but context is set from request through setRequest()
-            if (!mybase && !empty(my_requestContext["_host"])) {
+            if (!mybase && !empty(_requestContext["_host"])) {
                 mybase = 
                     "%s://%s"
-                    .format(my_requestContext["_scheme"],
-                    my_requestContext["_host"]
+                    .format(_requestContext["_scheme"],
+                    _requestContext["_host"]
                 );
-                if (!empty(my_requestContext["_port"])) {
-                    mybase ~= ":" ~ my_requestContext["_port"];
+                if (!empty(_requestContext["_port"])) {
+                    mybase ~= ":" ~ _requestContext["_port"];
                 }
                 Configuration.update("App.fullBaseUrl", mybase);
 
-                return my_fullBaseUrl = mybase;
+                return _fullBaseUrl = mybase;
             }
-            my_fullBaseUrl = mybase;
+            _fullBaseUrl = mybase;
         }
-        myparts = parse_url(my_fullBaseUrl);
-        my_requestContext = [
+        myparts = parse_url(_fullBaseUrl);
+        _requestContext = [
             "_scheme": myparts["scheme"] ?? null,
             "_host": myparts.get("host", null),
             "_port": myparts["port"] ?? null,
-        ] + my_requestContext;
+        ] + _requestContext;
 
-        return my_fullBaseUrl;
+        return _fullBaseUrl;
     }
     
     /**
@@ -584,15 +584,15 @@ class DRouter {
      *  Defaults to `true`.
      * /
     static string[] extensions(string[] myextensions = null, bool mymerge = true) {
-        mycollection = my_collection;
+        mycollection = _collection;
         if (myextensions is null) {
-            return array_unique(chain(my_defaultExtensions, mycollection.getExtensions()));
+            return array_unique(chain(_defaultExtensions, mycollection.getExtensions()));
         }
         myextensions = (array)myextensions;
         if (mymerge) {
-            myextensions = array_unique(array_merge(my_defaultExtensions, myextensions));
+            myextensions = array_unique(array_merge(_defaultExtensions, myextensions));
         }
-        return my_defaultExtensions = myextensions;
+        return _defaultExtensions = myextensions;
     }
     
     /**
@@ -608,7 +608,7 @@ class DRouter {
         ];
         Json[string] updatedOptions = builderOptions.merge(defaults);
 
-        return new DRouteBuilder(my_collection, mypath, [], [
+        return new DRouteBuilder(_collection, mypath, [], [
             "routeClass": updatedOptions["routeClass"],
             "extensions": updatedOptions["extensions"],
         ]);
@@ -616,14 +616,14 @@ class DRouter {
     
     // Get the route scopes and their connected routes.
     static Route[] routes() {
-        return my_collection.routes();
+        return _collection.routes();
     }
     
     /**
      * Get the RouteCollection inside the Router
      * /
     static RouteCollection getRouteCollection() {
-        return my_collection;
+        return _collection;
     }
     
     /**
@@ -632,7 +632,7 @@ class DRouter {
      * \UIM\Routing\RouteCollection myrouteCollection route collection
      * /
     static void setRouteCollection(RouteCollection routeCollection) {
-        my_collection = routeCollection;
+        _collection = routeCollection;
     }
     
     /**
@@ -670,8 +670,8 @@ class DRouter {
      * string myurl Route path in [Plugin.][Prefix/]Controller.action format
      * /
     static array<string|int, string> parseRoutePath(string myurl) {
-        if (isSet(my_routePaths[myurl])) {
-            return my_routePaths[myurl];
+        if (isSet(_routePaths[myurl])) {
+            return _routePaths[myurl];
         }
         myregex = "#^
             (?:(?<plugin>[a-z0-9]+(?:/[a-z0-9]+)*)\.)?
@@ -720,8 +720,8 @@ class DRouter {
         }
         // Only cache 200 routes per request. Beyond that we could
         // be soaking up too much memory.
-        if (count(my_routePaths) < 200) {
-            my_routePaths[myurl] = mydefaults;
+        if (count(_routePaths) < 200) {
+            _routePaths[myurl] = mydefaults;
         }
         return mydefaults;
     } */

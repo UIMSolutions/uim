@@ -7,7 +7,7 @@ import uim.orm;
 // mixin template with common methods used by all ORM query classes.
 mixin template TCommonTQuery() {
     // Instance of a repository/table object this query is bound to.
-    // protected ITable my_repository;
+    // protected ITable _repository;
 
     /**
      * Hints this object to associate the correct types when casting conditions

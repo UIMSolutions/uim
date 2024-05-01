@@ -14,7 +14,7 @@ mixin template TLocatorAware() {
      *
      * @var \ORM\Locator\ILocator|null
      * /
-    protected ILocator my_tableLocator = null;
+    protected ILocator _tableLocator = null;
 
     /**
      * Sets the table locator.

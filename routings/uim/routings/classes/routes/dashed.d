@@ -20,7 +20,7 @@ class DDashedRoute : DRoute {
      * Default values need to be inflected so that they match the inflections that
      * match() will create.
      * /
-    // TODO protected array my_inflectedDefaults = null;
+    // TODO protected array _inflectedDefaults = null;
 
     /**
      * Camelizes the previously dashed plugin route taking into account plugin vendors

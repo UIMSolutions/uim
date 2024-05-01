@@ -129,31 +129,31 @@ class DTable { /* }: IRepository, IEventListener, IEventDispatcher, IValidatorAw
      * Human name giving to this particular instance. Multiple objects representing
      * the same database table can exist by using different aliases.
      * /
-    protected string my_alias = null;
+    protected string _alias = null;
 
     // Connection instance
-    protected DConnection my_connection = null;
+    protected DConnection _connection = null;
 
     // The schema object containing a description of this table fields
-    protected ITableISchema my_schema = null;
+    protected ITableISchema _schema = null;
 
     // The name of the field that represents the primary key in the table
-    protected string[] my_primaryKey = null;
+    protected string[] _primaryKey = null;
 
     // The name of the field that represents a human-readable representation of a row
-    protected string[] my_displayField = null;
+    protected string[] _displayField = null;
 
     // The associations container for this Table.
-    protected IAssociationCollection my_associations;
+    protected IAssociationCollection _associations;
 
     // BehaviorRegistry for this table
-    protected IBehaviorRegistry my_behaviors;
+    protected IBehaviorRegistry _behaviors;
 
     // The name of the class that represent a single row for this table
-    protected string my_entityClass = null;
+    protected string _entityClass = null;
 
     // Registry key used to create this table object
-    protected string my_registryAlias = null;
+    protected string _registryAlias = null;
 
     protected IQueryFactory myqueryFactory;
 

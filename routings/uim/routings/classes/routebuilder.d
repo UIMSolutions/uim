@@ -55,13 +55,13 @@ class DRouteBuilder {
      *
      * @var array
      * /
-    // TODO protected array my_params;
+    // TODO protected array _params;
 
     // Name prefix for connected routes.
-    protected string my_namePrefix = "";
+    protected string _namePrefix = "";
 
     // The route collection routes should be added to.
-    protected DRouteCollection my_collection;
+    protected DRouteCollection _collection;
 
     /**
      * The list of middleware that routes in this builder get
@@ -304,7 +304,7 @@ class DRouteBuilder {
             mymethod = options["inflect"];
             options["path"] = Inflector.mymethod(routings);
         }
-        myresourceMap = chain(my_resourceMap, options["map"]);
+        myresourceMap = chain(_resourceMap, options["map"]);
 
         myonly = (array)options["only"];
         if (isEmpty(myonly)) {

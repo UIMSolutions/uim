@@ -27,7 +27,7 @@ use DORMTable;
 
 class DArticlesTable : DORMTable {
     bool initialize(array config) {
-        this->setTable("my_table");
+        this->setTable("_table");
     }
 }
 
@@ -39,7 +39,7 @@ use DORMTable;
 
 class DArticlesTable : DORMTable {
     bool initialize(Json[string] myConfiguration) {
-        this->setPrimaryKey("my_id");
+        this->setPrimaryKey("_id");
     }
 }
 
@@ -352,7 +352,7 @@ When loading tables from the registry you can customize their dependencies, or u
 
 articles = FactoryLocator::get("Table")->get("Articles", [
     "className": "App\Custom\ArticlesTable",
-    "table": "my_articles",
+    "table": "_articles",
     "connection": connectionObject,
     "schema": schemaObject,
     "entityClass": "Custom\EntityClass",
@@ -366,7 +366,7 @@ If your table also does additional configuration in its initialize() method, tho
 
 You can also pre-configure the registry using the configuration.update() method. Configuration data is stored per alias, and can be overridden by an object’s initialize() method:
 
-FactoryLocator::get("Table")->configuration.update("Users", ["table": "my_users"]);
+FactoryLocator::get("Table")->configuration.update("Users", ["table": "_users"]);
 
 You can only configure a table before or during the first time you access that alias. Doing it after the registry is populated will have no effect.
 Flushing the Registry

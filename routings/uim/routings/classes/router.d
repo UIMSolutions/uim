@@ -279,12 +279,12 @@ class DRouter {
      *  Default is false.
      * /
     static string url(IUri|string[] myurl = null, bool myfull = false) {
-        mycontext = my_requestContext;
-        mycontext["_base"] ??= "";
+        auto context = _requestContext;
+        context["_base"] ??= "";
 
         if (myurl.isEmpty) {
             myhere = getRequest()?.getRequestTarget() ?? "/";
-            myoutput = mycontext["_base"] ~ myhere;
+            myoutput = context["_base"] ~ myhere;
             if (myfull) {
                 myoutput = fullBaseUrl() ~ myoutput;
             }
@@ -297,7 +297,7 @@ class DRouter {
             "_ext": null,
         ];
         if (!empty(mycontext["params"])) {
-            myparams = mycontext["params"];
+            myparams = context["params"];
         }
         
         string myfrag;
@@ -352,15 +352,8 @@ class DRouter {
             myurl = (string)myurl;
 
             if (
-                myurl.startsWith("javascript:") ||
-                myurl.startsWith("mailto:") ||
-                myurl.startsWith("tel:") ||
-                myurl.startsWith("sms:") ||
-                myurl.startsWith("#") ||
-                myurl.startsWith("?") ||
-                myurl.startsWith("//") ||
-                myurl.has("://")
-            ) {
+                myurl.startsWith(["javascript:", "mailto:", "tel:", "sms:", "#", "?", "//"]) ||
+                myurl.has("://")) {
                 return myurl;
             }
             myoutput = mycontext["_base"] ~ myurl;
@@ -608,22 +601,20 @@ class DRouter {
      * string mypath The path to set the builder to.
      * @param Json[string] options The options for the builder
      * /
-    static RouteBuilder createRouteBuilder(string mypath, Json[string] optionData = null) {
-        Json[string] mydefaults = [
-            "routeClass": defaultRouteClass(),
-            "extensions": my_defaultExtensions,
+    static RouteBuilder createRouteBuilder(string mypath, Json[string] builderOptions = null) {
+        Json[string] defaults = [
+            "routeClass": Json(defaultRouteClass()),
+            "extensions": Json(_defaultExtensions),
         ];
-        options = options.updatemydefaults;
+        Json[string] updatedOptions = builderOptions.merge(defaults);
 
         return new DRouteBuilder(my_collection, mypath, [], [
-            "routeClass": options["routeClass"],
-            "extensions": options["extensions"],
+            "routeClass": updatedOptions["routeClass"],
+            "extensions": updatedOptions["extensions"],
         ]);
     }
     
-    /**
-     * Get the route scopes and their connected routes.
-     * /
+    // Get the route scopes and their connected routes.
     static Route[] routes() {
         return my_collection.routes();
     }

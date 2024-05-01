@@ -133,6 +133,24 @@ class DView : IView { //  }: IEventDispatcher {
      */
     static const string TYPE_MATCH_ALL = "_match_all_";
     
+    /**
+     * Turns on or off UIM"s conventional mode of applying layout files. On by default.
+     * Setting to off means that layouts will not be automatically applied to rendered templates.
+     */
+    protected bool _autoLayout = true;
+
+    // An array of variables
+    protected Json[string] _viewVars;
+
+    /**
+     * Sub-directory for this template file. This is often used for extension based routing.
+     * Eg. With an `xml` extension, mysubDir would be `xml/`
+     */
+    protected string _subDir = "";
+
+    // The view theme to use.
+    protected string _viewTheme;
+
     // #region contentType
         /*
         // Set the response content-type based on the view"s contentType()
@@ -155,6 +173,10 @@ static string contentType() {
     return "";
 }
 // #endregion contentType
+
+    // Holds an array of paths.
+    protected string[] _paths = null;
+
 /* 
     use TCell() {
         cell as public;
@@ -165,24 +187,6 @@ static string contentType() {
 
 
 
-    /**
-     * Turns on or off UIM"s conventional mode of applying layout files. On by default.
-     * Setting to off means that layouts will not be automatically applied to rendered templates.
-     * /
-    protected bool _autoLayout = true;
-
-    // An array of variables
-    protected Json[string] _viewVars;
-
-
-    /**
-     * Sub-directory for this template file. This is often used for extension based routing.
-     * Eg. With an `xml` extension, mysubDir would be `xml/`
-     * /
-    protected string _subDir = "";
-
-    // The view theme to use.
-    protected string _viewTheme;
 
     /**
      * An instance of a \UIM\Http\ServerRequest object that contains information about the current request.
@@ -209,8 +213,6 @@ static string contentType() {
         "layoutPath", "templatePath", "plugin",
     ];
 
-    // Holds an array of paths.
-    protected string[] my_paths = null;
 
     // Holds an array of plugin paths.
     // TODO protected array<string[] my_pathsForPlugin = null;

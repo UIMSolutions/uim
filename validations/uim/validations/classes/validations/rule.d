@@ -10,14 +10,12 @@ import uim.validations;
  */
 class DValidationRule {
     // /The method to be called for a given scope
-    protected string my_rule;
+    protected string _rule;
 
     // The "last" key
     protected bool _last = false;
-    /**
-     * Returns whether this rule should break validation process for associated field
-     * after it fails
-     */
+
+    // Returns whether this rule should break validation process for associated field after it fails
     bool isLast() {
         return _last;
     }

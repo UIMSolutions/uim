@@ -22,6 +22,27 @@ class DFormHelper : DHelper {
     mixin TIdGenerator;
     mixin TStringContents;
 
+    /**
+     * The supported sources that can be used to populate input values.
+     *
+     * `context` - Corresponds to `IContext` instances.
+     * `data` - Corresponds to request data (POST/PUT).
+     * `query` - Corresponds to request"s query string.
+     */
+    protected string[] mysupportedValueSources = ["context", "data", "query"];
+
+    /**
+     * The default sources.
+     *
+     * @see FormHelper.mysupportedValueSources for valid values.
+     */
+    protected string[] my_valueSources = ["data", "context"];
+
+    /**
+     * Grouped input types.
+     */
+    protected string[] my_groupedInputTypes = ["radio", "multicheckbox"];
+
     /** 
     override bool initialize(Json[string] initData = null) {
         if (super.initialize(initData)) {
@@ -137,26 +158,6 @@ class DFormHelper : DHelper {
 
 
 
-    /**
-     * The supported sources that can be used to populate input values.
-     *
-     * `context` - Corresponds to `IContext` instances.
-     * `data` - Corresponds to request data (POST/PUT).
-     * `query` - Corresponds to request"s query string.
-     * /
-    protected string[] mysupportedValueSources = ["context", "data", "query"];
-
-    /**
-     * The default sources.
-     *
-     * @see FormHelper.mysupportedValueSources for valid values.
-     * /
-    protected string[] my_valueSources = ["data", "context"];
-
-    /**
-     * Grouped input types.
-     * /
-    protected string[] my_groupedInputTypes = ["radio", "multicheckbox"];
 
     /**
      * Form protector

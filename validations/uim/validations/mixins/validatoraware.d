@@ -25,7 +25,7 @@ import uim.validations;
  */
 mixin template TValidatorAware() {
     // A list of validation objects indexed by name
-    protected IValidator[] _validators;
+    protected DValidator[] _validators;
 
     /*
     // Validator class.

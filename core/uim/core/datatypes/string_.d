@@ -43,21 +43,21 @@ version (test_uim_core) {
 	}
 }
 
-/* bool endsWith(string str, string txt) {
-	if (str.length == 0) {
+bool endsWith(string text, string[] endings) {
+	if (text.length == 0) {
 		return false;
 	}
-	if (txt.length == 0) {
-		return false;
-	}
-	return (lastIndexOf(str, txt) == str.length - 1);
+	
+	return endings.length == 0
+		? false
+		: endings.any!(ending => !ending.isEmpty && text[$-ending.length..$] == ending);
 }
 
 unittest {
-	assert("ABC".endsWith("C"));
-	assert(!"".endsWith("C"));
-	assert(!"ABC".endsWith(""));
-} */
+	assert("ABC".endsWith(["C"]));
+	assert(!"".endsWith(["C"]));
+	assert(!"ABC".endsWith([""]));
+} 
 
 // #region has
 
@@ -157,23 +157,21 @@ version (test_uim_core) {
 	}
 }
 
-/* bool startsWith(string str, string txt) {
-	if (str.length == 0) {
+bool startsWith(string text, string[] startings) {
+	if (text.length == 0) {
 		return false;
 	}
-	if (txt.length == 0) {
-		return false;
-	}
-	return (indexOf(str, txt) == 0);
+
+	return startings.length == 0
+		? false
+		: startings.any!(starting => !starting.isEmpty && text.indexOf(starting) == 0);
 }
 
-version (test_uim_core) {
-	unittest {
-		assert("ABC".startsWith("A"));
-		assert(!"".startsWith("A"));
-		assert(!"ABC".startsWith(""));
-	}
-} */
+unittest {
+	assert("ABC".startsWith(["A"]));
+	assert(!"".startsWith(["A"]));
+	assert(!"ABC".startsWith([""]));
+}
 
 string toString(string[] values) {
 	return "%s".format(values);
@@ -354,4 +352,19 @@ unittest {
 	assert("a/b/c".lastElement == "c");
 	assert("a.b.c".lastElement(".") == "c");
 
+}
+
+string toPath(string[] pathItems, string separator = "/") {
+	return pathItems
+		.map!(item => strip(item))
+		.map!(item => strip(item, separator))
+		.map!(item => strip(item))
+		.filter!(item => !item.isEmpty)
+		.join(separator);
+}
+
+unittest {
+	assert(toPath(["a", "b", "c"]) == "a/b/c");
+	assert(toPath(["a ", "/b", "c/"]) == "a/b/c");
+	assert(toPath(["a ", "", "/b", "c/"]) == "a/b/c");
 }

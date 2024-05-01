@@ -4,10 +4,6 @@ import uim.collections;
 
 @safe:
 
-/* 
- * Returns a new {@link \UIM\Collection\Collection} object wrapping the passed argument.
- * @param range someItems The items from which the collection will be built.
- */
 ICollection collection(Json[] someItems) {
     return new DCollection(someItems);
 }

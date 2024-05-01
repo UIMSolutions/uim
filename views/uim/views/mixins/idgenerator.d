@@ -10,7 +10,7 @@ import uim.views;
  */
 mixin template TIdGenerator() {
     // Prefix for id attribute.
-    protected string my_idPrefix = null;
+    protected string _idPrefix = null;
 
     // A list of id suffixes used in the current rendering.
     protected string[] _idSuffixes;

@@ -74,14 +74,12 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
 
     // Contains the validation messages associated with checking the emptiness
     // for each corresponding field.
-    protected STRINGAA my_allowEmptyMessages = null;
+    protected STRINGAA _allowEmptyMessages = null;
 
     // Contains the flags which specify what is empty for each corresponding field.
-    protected int[string] my_allowEmptyFlags = null;
+    protected int[string] _allowEmptyFlags = null;
 
-    /**
-     * A combination of the all EMPTY_* flags
-     * /
+    // A combination of the all EMPTY_* flags
     const int EMPTY_ALL = self.EMPTY_STRING
         | self.EMPTY_ARRAY
         | self.EMPTY_FILE
@@ -97,7 +95,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @var array<string, object|string>
      * @psalm-var array<string, object|class-string>
      * /
-    // TODO protected array my_providers = null;
+    // TODO protected array _providers = null;
 
     /**
      * An associative array of objects or classes used as a default provider list
@@ -105,7 +103,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @var array<string, object|string>
      * @psalm-var array<string, object|class-string>
      * /
-    protected static array my_defaultProviders = null;
+    protected static array _defaultProviders = null;
 
 
     /**

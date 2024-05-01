@@ -10,20 +10,22 @@ import uim.collections;
  *
  * @template-extends \RecursiveIteratorIterator<\RecursiveIterator>
  */
-class DTreePrinter { /* }: RecursiveIteratorIterator, ICollection {
+class DTreePrinter { // }: RecursiveIteratorIterator, ICollection {
   mixin TCollection;
-
-  // A callable to generate the iteration key
-  protected callable _key;
-
-  // A callable to extract the display value
-  protected callable _value;
 
   // Cached value for the current iteration element
   protected Json _current = null;
 
   // The string to use for prefixing the values according to their depth in the tree.
   protected string _spacer;
+
+
+/*
+  // A callable to generate the iteration key
+  protected callable _key;
+
+  // A callable to extract the display value
+  protected callable _value;
 
   /**
      * Constructor

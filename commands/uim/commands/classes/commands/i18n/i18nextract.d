@@ -24,13 +24,13 @@ class DI18nExtractCommand : DCommand {
     protected string[] _paths;
 
     // Files from where to extract
-    protected string[] _files;
+    protected string[] _fileNames;
 
     // Merge all domain strings into the default.pot file
     protected bool _merge = false;
 
     // Current file being processed
-    protected string _file = "";
+    protected string _fileName = "";
 
     // Contains all content waiting to be written
     protected Json _storage;
@@ -102,7 +102,7 @@ class DI18nExtractCommand : DCommand {
            _exclude = to!string(commandArguments.getOption("exclude")).split(",");
         }
         if (commandArguments.getOption("files")) {
-           _files = to!string(commandArguments.getOption("files")).split(",");
+           _fileNames = to!string(commandArguments.getOption("files")).split(",");
         }
         if (commandArguments.getOption("paths")) {
            _paths = to!string(commandArguments.getOption("paths")).split(",");
@@ -176,7 +176,7 @@ class DI18nExtractCommand : DCommand {
         }
        _markerError = (bool)commandArguments.getOption("marker-error");
 
-        if (isEmpty(_files)) {
+        if (isEmpty(_fileNames)) {
            _searchFiles();
         }
        _output = stripRight(_output, DIRECTORY_SEPARATOR) ~ DIRECTORY_SEPARATOR;
@@ -228,7 +228,7 @@ class DI18nExtractCommand : DCommand {
        _extractTokens(commandArguments,  aConsoleIo);
        _buildFiles(commandArguments);
        _writeFiles(commandArguments,  aConsoleIo);
-       _paths = _files = _storage = null;
+       _paths = _fileNames = _storage = null;
        _translations = _tokens = null;
          aConsoleIo.writeln();
         if (_countMarkerError) {
@@ -312,7 +312,7 @@ class DI18nExtractCommand : DCommand {
     protected void _extractTokens(Json [string] arguments, IConsoleIo aConsoleIo) {
         progress = aConsoleIo.helper("progress");
         assert(cast(ProgressHelper)progress);
-        progress.initialize(["total": count(_files)]);
+        progress.initialize(["total": count(_fileNames)]);
          isVerbose = commandArguments.getOption("verbose");
 
         functions = [
@@ -327,8 +327,8 @@ class DI18nExtractCommand : DCommand {
         ];
          somePattern = "/(" ~ functions.keys.join("|") ~ ")\s*\(/";
 
-        foreach (file; _files) {
-            auto _file = file;
+        foreach (file; _fileNames) {
+            auto _fileName = file;
             if (isVerbose) {
                  aConsoleIo.verbose("Processing %s...".format(file));
             }
@@ -396,7 +396,7 @@ class DI18nExtractCommand : DCommand {
                     extract(vars);
                     domain = domain.ifEmpty("default");
                     details = [
-                        "file": _file,
+                        "file": _fileName,
                         "line": line,
                     ];
                     details["file"] = "." ~ details["file"].replace(ROOT, "");
@@ -408,7 +408,7 @@ class DI18nExtractCommand : DCommand {
                     }
                    _addTranslation(domain, singular, details);
                 } else {
-                   _markerError(aConsoleIo, _file, line, functionName, count);
+                   _markerError(aConsoleIo, _fileName, line, functionName, count);
                 }
             }
             count++;
@@ -642,14 +642,14 @@ class DI18nExtractCommand : DCommand {
      * @param string amarker Marker found
      * @param int count Count
      * /
-    protected void _markerError(IConsoleIo aConsoleIo, string afile, int lineNumber, string amarker, int count) {
-        if (!_file.has(uim_CORE_INCLUDE_PATH)) {
+    protected void _markerError(IConsoleIo aConsoleIo, string nameOfFile, int lineNumber, string amarker, int count) {
+        if (!_fileName.has(uim_CORE_INCLUDE_PATH)) {
            _countMarkerError++;
         }
         if (!_markerError) {
             return;
         }
-         aConsoleIo.writeErrorMessages("Invalid marker content in %s:%s\n* %s(".format(file, lineNumber, marker));
+         aConsoleIo.writeErrorMessages("Invalid marker content in %s:%s\n* %s(".format(nameOfFile, lineNumber, marker));
         count += 2;
         tokenCount = _tokens.length;
         parenthesis = 1;
@@ -690,7 +690,8 @@ class DI18nExtractCommand : DCommand {
                 continue;
             }
             somePath ~= DIRECTORY_SEPARATOR;
-            fs = new DFilesystem();
+            
+            auto fs = new DFilesystem();
             files = fs.findRecursive(somePath, "/\.d$/");
             files = iterator_to_array(files).keys.sort;
             
@@ -698,9 +699,9 @@ class DI18nExtractCommand : DCommand {
                 files = preg_grep(somePattern, files, PREG_GREP_INVERT) ?: [];
                 files = files.values;
             }
-           _files = chain(_files, files);
+           _fileNames = chain(_fileNames, files);
         });
-       _files = array_unique(_files);
+       _fileNames = array_unique(_fileNames);
     }
     
     /**

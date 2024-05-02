@@ -7,8 +7,8 @@ class DElementRegistry : DObjectRegistry!DElement {
   static DElementRegistry registry;
 }
 auto ElementRegistry() { // SIngleton
-  if (DElementRegistry.registry is null) {
-    DElementRegistry.registry = new DElementRegistry;
+  if (DElementRegistry.instance is null) {
+    DElementRegistry.instance = new DElementRegistry;
   }
-  return DElementRegistry.registry;
+  return DElementRegistry.instance;
 }

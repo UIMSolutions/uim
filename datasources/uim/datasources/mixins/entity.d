@@ -1088,7 +1088,7 @@ mixin template TEntity() {
      * Returns an array that can be used to describe the internal state of this
      * object.
     * /
-                                                                    STRINGAA debugInfo() {
+                                                                    Json[string] debugInfo() {
                                                                       fields = _fields;
                                                                       foreach (_virtual asfield) {
                                                                         fields[field] = this

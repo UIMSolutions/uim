@@ -29,7 +29,7 @@ class DResultsetDecorator { // TODO }: DCollection { // }: IResultset
         return count(this.toArray());
     } 
     
-    STRINGAA debugInfo() {
+    Json[string] debugInfo() {
         parentInfo = super.__debugInfo();
         aLimit = Configuration.read("App.ResultsetDebugLimit", 10);
 

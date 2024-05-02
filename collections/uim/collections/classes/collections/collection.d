@@ -39,8 +39,7 @@ class DCollection : /* IteratorIterator, */ ICollection {
 
 
   // Returns an array for serializing this of this object.
-  /* 
-  array __serialize() {
+  /* array __serialize() {
     return _buffered().toArray();
   }
 
@@ -50,7 +49,7 @@ class DCollection : /* IteratorIterator, */ ICollection {
   }
 
   // Returns an array that can be used to describe the internal state of this object.
-  protected STRINGAA debugInfo() {
+  protected Json[string] debugInfo() {
     size_t myCount;
     try {
       myCount = this.count();

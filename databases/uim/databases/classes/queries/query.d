@@ -1469,7 +1469,7 @@ abstract class DQuery : IQuery { // : IExpression {
     }
     
     // Returns an array that can be used to describe the internal state of this object.
-    STRINGAA debugInfo() {
+    Json[string] debugInfo() {
         auto mySql = "SQL could not be generated for this query as it is incomplete.";
         params = null;
         try {

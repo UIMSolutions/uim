@@ -154,7 +154,7 @@ class DComponent { // TODO }: IEventListener {
     // Returns an array that can be used to describe the internal state of this object.
     // TODO 
     /*
-    STRINGAA debugInfo() {
+    Json[string] debugInfo() {
         return [
             "components": this.components, 
             "implementedEvents": this.implementedEvents(),

@@ -1052,7 +1052,7 @@ abstract function eagerLoader(Json[string] optionData) : Closure;
      * @param array<string, mixed> options The options for the original delete.
      * @return bool Success
      *  /
-abstract bool cascadeDelete_(IEntity anEntity, Json[string] optionData = null);
+abstract bool cascaderemove(IEntity anEntity, Json[string] optionData = null);
 
 /**
      * Returns whether the passed table is the owning side for this

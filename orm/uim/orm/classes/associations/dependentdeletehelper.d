@@ -25,7 +25,7 @@ class DDependentDeleteHelper {
      * @param array<string, mixed> options The options for the original delete.
      * @return bool Success.
      * /
-    bool cascadeDelete_(DORMAssociation anAssociation, IEntity anEntity, Json[string] optionData = null) {
+    bool cascaderemove(DORMAssociation anAssociation, IEntity anEntity, Json[string] optionData = null) {
         if (!anAssociation.getDependent()) {
             return true;
         }
@@ -41,7 +41,7 @@ class DDependentDeleteHelper {
 
         if (anAssociation.getCascadeCallbacks()) {
             foreach (anAssociation.find().where(conditions).all().toList() as related) {
-                success = table.delete_(related, options);
+                success = table.remove(related, options);
                 if (!success) {
                     return false;
                 }

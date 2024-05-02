@@ -266,7 +266,7 @@ class DHasManyAssociation : DAssociation {
      *
      * ### Options
      *
-     * Additionally to the default options accepted by `Table::delete_()`, the following
+     * Additionally to the default options accepted by `Table::remove()`, the following
      * keys are supported:
      *
      * - cleanProperty: Whether to remove all the objects in `myTargetEntities` that
@@ -411,7 +411,7 @@ class DHasManyAssociation : DAssociation {
      * @param DORMDatasource\IEntity anEntity the entity which should have its associated entities unassigned
      * @param DORMTable myTarget The associated table
      * @param range remainingEntities Entities that should not be deleted
-     * @param array<string, mixed> options list of options accepted by `Table::delete_()`
+     * @param array<string, mixed> options list of options accepted by `Table::remove()`
      * @return bool success
      * /
     protected bool _unlinkAssociated(
@@ -459,7 +459,7 @@ class DHasManyAssociation : DAssociation {
      * @param array foreignKey array of foreign key properties
      * @param DORMTable myTarget The associated table
      * @param array conditions The conditions that specifies what are the objects to be unlinked
-     * @param array<string, mixed> options list of options accepted by `Table::delete_()`
+     * @param array<string, mixed> options list of options accepted by `Table::remove()`
      * @return bool success
      * /
     protected bool _unlink(array foreignKey, Table myTarget, array conditions = null, Json[string] options = null) {
@@ -479,7 +479,7 @@ class DHasManyAssociation : DAssociation {
                 myQuery = this.find().where(conditions);
                 ok = true;
                 foreach (myQuery as assoc) {
-                    ok = ok && myTarget.delete_(assoc, options);
+                    ok = ok && myTarget.remove(assoc, options);
                 }
 
                 return ok;
@@ -604,10 +604,10 @@ class DHasManyAssociation : DAssociation {
     }
 
 
-    bool cascadeDelete_(IEntity anEntity, Json[string] options = null) {
+    bool cascaderemove(IEntity anEntity, Json[string] options = null) {
         helper = new DependentDeleteHelper();
 
-        return helper.cascadeDelete_(this, entity, options);
+        return helper.cascaderemove(this, entity, options);
     } */
 }
 mixin(AssociationCalls!("HasMany"));

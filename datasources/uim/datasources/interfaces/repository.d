@@ -119,7 +119,7 @@ interface IRepository {
      * \UIM\Datasource\IEntity entity The entity to remove.
      * @param Json[string] optionData The options for the delete.
          * /
-    bool delete_(IEntity entity, Json[string] optionData = null);
+    bool remove(IEntity entity, Json[string] optionData = null);
 
     /**
      * This creates a new entity object.

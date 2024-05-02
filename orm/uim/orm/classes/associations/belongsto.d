@@ -57,7 +57,7 @@ class DBelongsToAssociation : DAssociation {
      * @param array<string, mixed> options The options for the original delete.
      * @return bool Success.
      * /
-    bool cascadeDelete_(IEntity anEntity, Json[string] optionData = null) {
+    bool cascaderemove(IEntity anEntity, Json[string] optionData = null) {
       return true;
     }
 

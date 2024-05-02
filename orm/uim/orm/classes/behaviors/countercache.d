@@ -152,7 +152,7 @@ class DCounterCacheBehavior : DBehavior {
      * @param \UIM\Datasource\IEntity myentity The entity that was deleted.
      * @param \ArrayObject<string, mixed> options The options for the query
      * /
-    void afterDelete_(IEvent myevent, IEntity myentity, ArrayObject options) {
+    void afterremove(IEvent myevent, IEntity myentity, ArrayObject options) {
         if (isSet(options["ignoreCounterCache"]) && options["ignoreCounterCache"] == true) {
             return;
         }

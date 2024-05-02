@@ -6,7 +6,7 @@ import uim.models;
 class DEntityRegistry : DObjectRegistry!DEntity {
   static DEntityRegistry registry;
 }
-auto EntityRegistry() { // SIngleton
+auto EntityRegistry() { // Singleton
   if (DEntityRegistry.instance is null) {
     DEntityRegistry.instance = new DEntityRegistry;
   }

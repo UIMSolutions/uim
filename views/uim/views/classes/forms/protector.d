@@ -353,7 +353,7 @@ class DFormProtector {
      * @param string aurl Form URL.
      * @param string asessionId Session Id.
      * /
-    protected string generateHash(array fields, array unlockedFields, string aurl, string asessionId) {
+    protected string generateHash(string[] fieldNames, array unlockedFields, string aurl, string asessionId) {
         hashParts = [
             url,
             serialize(fields),
@@ -493,7 +493,7 @@ class DFormProtector {
     }
     
     // Return debug info
-    STRINGAA debugInfo() {
+    Json[string] debugInfo() {
         return [
             "fields": this.fields,
             "unlockedFields": this.unlockedFields,

@@ -1,7 +1,7 @@
-module uim.models.mixins.element;
+module uim.models.mixins.attribute;
 
-string elementThis(string name) {
-    string fullName = name ~ "element";
+string attributeThis(string name) {
+    string fullName = name ~ "attribute";
     return `
     this() {
         super(); this.name("`
@@ -19,12 +19,12 @@ string elementThis(string name) {
     `;
 }
 
-template elementThis(string name) {
-    const char[] elementThis = elementThis(name);
+template attributeThis(string name) {
+    const char[] attributeThis = attributeThis(name);
 }
 
-string elementCalls(string name) {
-    string fullName = name ~ "element";
+string attributeCalls(string name) {
+    string fullName = name ~ "attribute";
     return `
     auto `~ fullName ~ `() { return new D` ~ fullName ~ `();}
     auto `~ fullName ~ `(Json[string] initData) { return new D` ~ fullName ~ `(initData);}

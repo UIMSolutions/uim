@@ -9,12 +9,8 @@ import uim.models;
 
 @safe:
 class DAttributeRegistry : DObjectRegistry!DAttribute {
-  static DAttributeRegistry registry;
 }
 
-auto AttributeRegistry() { // SIngleton
-  if (DAttributeRegistry.instance is null) {
-    DAttributeRegistry.instance = new DAttributeRegistry;
-  }
+auto AttributeRegistry() { // Singleton
   return DAttributeRegistry.instance;
 }

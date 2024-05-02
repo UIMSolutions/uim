@@ -6,7 +6,7 @@ import uim.models;
 class DElementRegistry : DObjectRegistry!DElement {
   static DElementRegistry registry;
 }
-auto ElementRegistry() { // SIngleton
+auto ElementRegistry() { // Singleton
   if (DElementRegistry.instance is null) {
     DElementRegistry.instance = new DElementRegistry;
   }

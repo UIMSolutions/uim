@@ -1020,9 +1020,9 @@ class Hash {
      *
      * - `children` The key name to use in the resultset for children.
      * - `idPath` The path to a key that identifies each entry. Should be
-     *  compatible with Hash.extract(). Defaults to `{n}.myalias.id`
+     *  compatible with Hash.extract(). Defaults to `{n}.aliasName.id`
      * - `parentPath` The path to a key that identifies the parent of each entry.
-     *  Should be compatible with Hash.extract(). Defaults to `{n}.myalias.parent_id`
+     *  Should be compatible with Hash.extract(). Defaults to `{n}.aliasName.parent_id`
      * - `root` The id of the desired top-most result.
      * Params:
      * array data The data to nest.
@@ -1033,10 +1033,10 @@ class Hash {
             return mydata;
         }
 
-        myalias = key(current(mydata));
+        aliasName = key(current(mydata));
         options = options.update[
-            "idPath": "{n}.myalias.id",
-            "parentPath": "{n}.myalias.parent_id",
+            "idPath": "{n}.aliasName.id",
+            "parentPath": "{n}.aliasName.parent_id",
             "children": "children",
             "root": null,
         ];

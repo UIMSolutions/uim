@@ -213,20 +213,20 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * The key will contain the alias and the value the actual field name.
      *
      * If the field is already aliased, then it will not be changed.
-     * If no myalias is passed, the default table for this query will be used.
+     * If no aliasName is passed, the default table for this query will be used.
      * Params:
      * string myfield The field to alias
-     * @param string myalias the alias used to prefix the field
+     * @param string aliasName the alias used to prefix the field
      * /
-    STRINGAA aliasField(string myfield, string myalias = null) {
+    STRINGAA aliasField(string myfield, string aliasName = null) {
         if (myfield.has(".")) {
             myaliasedField = myfield;
-            [myalias, myfield] = myfield.split(".");
+            [aliasName, myfield] = myfield.split(".");
         } else {
-            myalias = myalias ?: this.getRepository().aliasName();
-            myaliasedField = myalias ~ "." ~ myfield;
+            aliasName = aliasName ?: this.getRepository().aliasName();
+            myaliasedField = aliasName ~ "." ~ myfield;
         }
-        aKey = "%s__%s".format(myalias, myfield);
+        aKey = "%s__%s".format(aliasName, myfield);
 
         return [aKey: myaliasedField];
     }
@@ -240,12 +240,12 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * /
     STRINGAA aliasFields(array myfields, string mydefaultAlias = null) {
         myaliased = null;
-        foreach (myfields as myalias: myfield) {
-            if (isNumeric(myalias) && isString(myfield)) {
+        foreach (myfields as aliasName: myfield) {
+            if (isNumeric(aliasName) && isString(myfield)) {
                 myaliased += this.aliasField(myfield, mydefaultAlias);
                 continue;
             }
-            myaliased[myalias] = myfield;
+            myaliased[aliasName] = myfield;
         }
         return myaliased;
     }
@@ -1404,17 +1404,17 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
         myselect = this.clause("select");
         mytypes = null;
 
-        foreach (myselect as myalias: myvalue) {
+        foreach (myselect as aliasName: myvalue) {
             if (cast(ITypedResult)myvalue instanceof ) {
-                mytypes[myalias] = myvalue.getReturnType();
+                mytypes[aliasName] = myvalue.getReturnType();
                 continue;
             }
-            if (isSet(mytypeMap[myalias])) {
-                mytypes[myalias] = mytypeMap[myalias];
+            if (isSet(mytypeMap[aliasName])) {
+                mytypes[aliasName] = mytypeMap[aliasName];
                 continue;
             }
             if (isString(myvalue) && isSet(mytypeMap[myvalue])) {
-                mytypes[myalias] = mytypeMap[myvalue];
+                mytypes[aliasName] = mytypeMap[myvalue];
             }
         }
         this.getSelectTypeMap().addDefaults(mytypes);

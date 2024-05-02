@@ -223,14 +223,14 @@ class DEagerLoader {
             return (array)_normalized;
         }
         mycontain = null;
-        foreach (_containments as myalias: options) {
+        foreach (_containments as aliasName: options) {
             if (!empty(options["instance"])) {
                 mycontain = _containments;
                 break;
             }
-            mycontain[myalias] = _normalizeContain(
+            mycontain[aliasName] = _normalizeContain(
                 myrepository,
-                myalias,
+                aliasName,
                 options,
                 ["root": null]
             );
@@ -320,14 +320,14 @@ class DEagerLoader {
         myattachable = this.attachableAssociations(myrepository);
         myprocessed = null;
         do {
-            foreach (myattachable as myalias: myloadable) {
+            foreach (myattachable as aliasName: myloadable) {
                 configData = myloadable.configuration.data ~ [
                     "aliasPath": myloadable.aliasPath(),
                     "propertyPath": myloadable.propertyPath(),
                     "includeFields": myincludeFields,
                 ];
                 myloadable.instance().attachTo(myquery, configData);
-                myprocessed[myalias] = true;
+                myprocessed[aliasName] = true;
             }
             mynewAttachable = this.attachableAssociations(myrepository);
             myattachable = array_diff_key(mynewAttachable, myprocessed);
@@ -372,25 +372,25 @@ class DEagerLoader {
      * using `contain()`.
      * Params:
      * \ORM\Table myparent Owning side of the association.
-     * @param string myalias Name of the association to be loaded.
+     * @param string aliasName Name of the association to be loaded.
      * @param Json[string] options List of extra options to use for this association.
      * @param Json[string] mypaths An array with two values, the first one is a list of dot
-     * separated strings representing associations that lead to this `myalias` in the
+     * separated strings representing associations that lead to this `aliasName` in the
      * chain of associations to be loaded. The second value is the path to follow in
      * entities" properties to fetch a record of the corresponding association.
      * /
-    protected DEagerLoadable _normalizeContain(Table myparent, string myalias, Json[string] options, array mypaths) {
+    protected DEagerLoadable _normalizeContain(Table myparent, string aliasName, Json[string] options, array mypaths) {
         mydefaults = _containOptions;
-        myinstance = myparent.getAssociation(myalias);
+        myinstance = myparent.getAssociation(aliasName);
 
-        mypaths += ["aliasPath": "", "propertyPath": "", "root": myalias];
-        mypaths["aliasPath"] ~= "." ~ myalias;
+        mypaths += ["aliasPath": "", "propertyPath": "", "root": aliasName];
+        mypaths["aliasPath"] ~= "." ~ aliasName;
 
         if (
             isSet(options["matching"]) &&
             options["matching"] == true
         ) {
-            mypaths["propertyPath"] = "_matchingData." ~ myalias;
+            mypaths["propertyPath"] = "_matchingData." ~ aliasName;
         } else {
             mypaths["propertyPath"] ~= "." ~ myinstance.getProperty();
         }
@@ -406,10 +406,10 @@ class DEagerLoader {
             "targetProperty": myinstance.getProperty(),
         ];
         configData("canBeJoined"] = myinstance.canBeJoined(configData("config"]);
-        myeagerLoadable = new DEagerLoadable(myalias, configData);
+        myeagerLoadable = new DEagerLoadable(aliasName, configData);
 
         if (configData("canBeJoined"]) {
-           _aliasList[mypaths["root"]][myalias] ~= myeagerLoadable;
+           _aliasList[mypaths["root"]][aliasName] ~= myeagerLoadable;
         } else {
             mypaths["root"] = configData("aliasPath"];
         }
@@ -515,7 +515,7 @@ class DEagerLoader {
             mycontain = mymeta.associations();
             myinstance = mymeta.instance();
             auto configData = mymeta.configuration.data();
-            myalias = myinstance.getSource().aliasName();
+            aliasName = myinstance.getSource().aliasName();
             mypath = mymeta.aliasPath();
 
             myrequiresKeys = myinstance.requiresKeys(configData);
@@ -525,18 +525,18 @@ class DEagerLoader {
                 // be attached to joined associations.
                 if (
                     !mypath.has(".") &&
-                    (!array_key_exists(mypath, mycollected) || !array_key_exists(myalias, mycollected[mypath]))
+                    (!array_key_exists(mypath, mycollected) || !array_key_exists(aliasName, mycollected[mypath]))
                 ) {
-                    mymessage = "Unable to load `{mypath}` association. Ensure foreign key in `{myalias}` is selected.";
+                    mymessage = "Unable to load `{mypath}` association. Ensure foreign key in `{aliasName}` is selected.";
                     throw new DInvalidArgumentException(mymessage);
                 }
                 // If the association foreign keys are missing skip loading
                 // as the association could be optional.
-                if (isEmpty(mycollected[mypath][myalias])) {
+                if (isEmpty(mycollected[mypath][aliasName])) {
                     continue;
                 }
             }
-            someKeys = mycollected[mypath][myalias] ?? null;
+            someKeys = mycollected[mypath][aliasName] ?? null;
             mycallback = myinstance.eagerLoader(
                 configData.update([
                     "query": myquery,
@@ -613,7 +613,7 @@ class DEagerLoader {
      * an association. This helps hydrators know what to do with the columns coming
      * from such joined table.
      * Params:
-     * string myalias The table alias as it appears in the query.
+     * string aliasName The table alias as it appears in the query.
      * @param \ORM\Association myassoc The association object the alias represents;
      * will be normalized.
      * @param bool myasMatching Whether this join results should be treated as a
@@ -622,13 +622,13 @@ class DEagerLoader {
      * If not passed, the default property for the association will be used.
      * /
     void addToJoinsMap(
-        string myalias,
+        string aliasName,
         DAssociation myassoc,
         bool myasMatching = false,
         string mytargetProperty = null
     ) {
-       _joinsMap[myalias] = new DEagerLoadable(myalias, [
-            "aliasPath": myalias,
+       _joinsMap[aliasName] = new DEagerLoadable(aliasName, [
+            "aliasPath": aliasName,
             "instance": myassoc,
             "canBeJoined": Json(true),
             "forMatching": myasMatching,
@@ -656,11 +656,11 @@ class DEagerLoader {
                 (array)myinstance.getForeignKeys():
                 (array)myinstance.getBindingKey();
 
-            myalias = mysource.aliasName();
+            aliasName = mysource.aliasName();
             auto mypkFields = someKeys
-                .map!(id => key(myquery.aliasField(id, myalias))).array;
+                .map!(id => key(myquery.aliasField(id, aliasName))).array;
 
-            mycollectKeys[mymeta.aliasPath()] = [myalias, mypkFields, count(mypkFields) == 1];
+            mycollectKeys[mymeta.aliasPath()] = [aliasName, mypkFields, count(mypkFields) == 1];
         }
         if (mycollectKeys.isEmpty) {
             return null;

@@ -1200,12 +1200,12 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param string|null table Unused parameter.
      * @return this
      * /
-    function delete_(string table = null) {
+    function remove(string table = null) {
         repository = this.getRepository();
         this.from([repository.aliasName(): repository.getTable()]);
 
         // We do not pass table to parent class here
-        return super.delete_();
+        return super.remove();
     }
 
     /**

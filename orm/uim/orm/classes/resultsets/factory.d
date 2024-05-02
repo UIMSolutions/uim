@@ -70,12 +70,12 @@ class DResultsetFactory {
             myfields[parts[0]][key] = parts[1];
         });
 
-        foreach (mydata["matchingAssoc"] as myalias: myassoc) {
-            if (!myfields.isSet(myalias)) {
+        foreach (mydata["matchingAssoc"] as aliasName: myassoc) {
+            if (!myfields.isSet(aliasName)) {
                 continue;
             }
-            mydata["matchingColumns"][myalias] = myfields[myalias];
-            unset(myfields[myalias]);
+            mydata["matchingColumns"][aliasName] = myfields[aliasName];
+            unset(myfields[aliasName]);
         }
         mydata["fields"] = myfields;
 
@@ -99,9 +99,9 @@ class DResultsetFactory {
             "guard": BoolData(false),
         ]);
 
-        foreach (myalias, someKeys; mydata["matchingColumns"]) {
-            mymatching = metadata["matchingAssoc"][myalias];
-            results["_matchingData"][myalias] = array_combine(
+        foreach (aliasName, someKeys; mydata["matchingColumns"]) {
+            mymatching = metadata["matchingAssoc"][aliasName];
+            results["_matchingData"][aliasName] = array_combine(
                 someKeys,
                 array_intersect_key(myrow, someKeys)
             );
@@ -110,10 +110,10 @@ class DResultsetFactory {
                 assert(cast(Table)mytable || cast(DAssociation)mytable);
 
                 options["source"] = mytable.registryKey();
-                myentity = new mymatching["entityClass"](results["_matchingData"][myalias], options);
+                myentity = new mymatching["entityClass"](results["_matchingData"][aliasName], options);
                 assert(cast(IEntity)myentity);
 
-                results["_matchingData"][myalias] = myentity;
+                results["_matchingData"][aliasName] = myentity;
             }
         }
         mydata["fields"].byKeyValue
@@ -129,21 +129,21 @@ class DResultsetFactory {
         unset(mypresentAliases[mydata["primaryAlias"]]);
 
         foreach (myassoc; mydata["containAssoc"]) {
-            myalias = myassoc["nestKey"];
+            aliasName = myassoc["nestKey"];
             
             bool mycanBeJoined = myassoc["canBeJoined"];
-            if (mycanBeJoined && empty(mydata["fields"][myalias])) {
+            if (mycanBeJoined && empty(mydata["fields"][aliasName])) {
                 continue;
             }
             myinstance = myassoc["instance"];
             assert(cast(DAssociation)myinstance);
 
-            if (!mycanBeJoined && !isSet(myrow[myalias])) {
+            if (!mycanBeJoined && !isSet(myrow[aliasName])) {
                 results = myinstance.defaultRowValue(results, mycanBeJoined);
                 continue;
             }
             if (!mycanBeJoined) {
-                results[myalias] = myrow[myalias];
+                results[aliasName] = myrow[aliasName];
             }
             mytarget = myinstance.getTarget();
             options["source"] = mytarget.registryKey();
@@ -151,27 +151,27 @@ class DResultsetFactory {
 
             if (myassoc["canBeJoined"] && mydata["autoFields"] != false) {
                 myhasData = false;
-                foreach (results[myalias] as myv) {
+                foreach (results[aliasName] as myv) {
                     if (myv !isNull && myv != []) {
                         myhasData = true;
                         break;
                     }
                 }
                 if (!myhasData) {
-                    results[myalias] = null;
+                    results[aliasName] = null;
                 }
             }
-            if (mydata["hydrate"] && results[myalias] !isNull && myassoc["canBeJoined"]) {
-                myentity = new myassoc["entityClass"](results[myalias], options);
-                results[myalias] = myentity;
+            if (mydata["hydrate"] && results[aliasName] !isNull && myassoc["canBeJoined"]) {
+                myentity = new myassoc["entityClass"](results[aliasName], options);
+                results[aliasName] = myentity;
             }
-            results = myinstance.transformRow(results, myalias, myassoc["canBeJoined"], myassoc["targetProperty"]);
+            results = myinstance.transformRow(results, aliasName, myassoc["canBeJoined"], myassoc["targetProperty"]);
         }
-        foreach (mypresentAliases as myalias: mypresent) {
-            if (!isSet(results[myalias])) {
+        foreach (mypresentAliases as aliasName: mypresent) {
+            if (!isSet(results[aliasName])) {
                 continue;
             }
-            results[mydata["primaryAlias"]][myalias] = results[myalias];
+            results[mydata["primaryAlias"]][aliasName] = results[aliasName];
         }
         if (isSet(results["_matchingData"])) {
             results[mydata["primaryAlias"]]["_matchingData"] = results["_matchingData"];

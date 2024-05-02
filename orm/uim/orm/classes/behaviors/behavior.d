@@ -67,11 +67,11 @@ import uim.orm;
  * - `afterSave(IEvent event, IEntity anEntity, ArrayObject options)`
  *   Fired after an entity is saved.
  *
- * - `beforeDelete_(IEvent event, IEntity anEntity, ArrayObject options)`
+ * - `beforeremove(IEvent event, IEntity anEntity, ArrayObject options)`
  *   Fired before an entity is deleted. By stopping this event you will abort
  *   the delete operation.
  *
- * - `afterDelete_(IEvent event, IEntity anEntity, ArrayObject options)`
+ * - `afterremove(IEvent event, IEntity anEntity, ArrayObject options)`
  *   Fired after an entity has been deleted.
  *
  * In addition to the core events, behaviors can respond to any

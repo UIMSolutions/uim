@@ -184,8 +184,8 @@ class DPaginator : IPaginator {
         myData["count"] = this.getCount(cleanQuery, myData);
 
         pagingParams = this.buildParams(myData);
-        myAlias = object.aliasName();
-        _pagingParams = [myAlias: pagingParams];
+        aliasName = object.aliasName();
+        _pagingParams = [aliasName: pagingParams];
         if (pagingParams["requestedPage"] > pagingParams["page"]) {
             throw new DPageOutOfBoundsException([
                 "requestedPage":pagingParams["requestedPage"],
@@ -231,8 +231,8 @@ class DPaginator : IPaginator {
      * /
     protected auto extractData(IRepository anRepository, array myParams, array settings): array
     {
-        myAlias = object.aliasName();
-        defaults = this.getDefaults(myAlias, settings);
+        aliasName = object.aliasName();
+        defaults = this.getDefaults(aliasName, settings);
         options = this.mergeOptions(myParams, defaults);
         options = this.validateSort(anRepository, options);
         options = this.checkLimit(options);
@@ -477,8 +477,8 @@ class DPaginator : IPaginator {
      * /
     auto getDefaults(string aliasName, array settings): array
     {
-        if (isset(settings[myAlias])) {
-            settings = settings[myAlias];
+        if (isset(settings[aliasName])) {
+            settings = settings[aliasName];
         }
 
         defaults = this.configuration.data;
@@ -596,9 +596,9 @@ class DPaginator : IPaginator {
                 continue;
             }
 
-            [myAlias, currentField] = explode(".", myField);
+            [aliasName, currentField] = explode(".", myField);
 
-            if (myAlias == myModel) {
+            if (aliasName == myModel) {
                 myResult[currentField] = sort;
                 continue;
             }
@@ -627,23 +627,23 @@ class DPaginator : IPaginator {
                 continue;
             }
             myField = myKey;
-            myAlias = myTableAlias;
+            aliasName = myTableAlias;
 
             if (indexOf(myKey, ".") !== false) {
-                [myAlias, myField] = explode(".", myKey);
+                [aliasName, myField] = explode(".", myKey);
             }
-            correctAlias = (myTableAlias == myAlias);
+            correctAlias = (myTableAlias == aliasName);
 
             if (correctAlias && allowed) {
                 // Disambiguate fields in schema. As id is quite common.
                 if (object.hasField(myField)) {
-                    myField = myAlias . "." . myField;
+                    myField = aliasName . "." . myField;
                 }
                 myTableOrder[myField] = myValue;
             } elseif (correctAlias && object.hasField(myField)) {
                 myTableOrder[myTableAlias . "." . myField] = myValue;
             } elseif (!correctAlias && allowed) {
-                myTableOrder[myAlias . "." . myField] = myValue;
+                myTableOrder[aliasName . "." . myField] = myValue;
             }
         }
 

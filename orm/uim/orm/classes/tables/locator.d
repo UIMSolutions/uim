@@ -78,19 +78,19 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         _fallbackClassName = fallbackClassname;
     }
  
-    void configuration.update(string[] myalias, Json[string] options = null) {
-        if (!isString(myalias)) {
-           configuration = myalias;
+    void configuration.update(string[] aliasName, Json[string] options = null) {
+        if (!isString(aliasName)) {
+           configuration = aliasName;
 
             return;
         }
-        if (isSet(this.instances[myalias])) {
+        if (isSet(this.instances[aliasName])) {
             throw new DatabaseException(
                 "You cannot configure `%s`, it has already been constructed.".format(
-                myalias
+                aliasName
             ));
         }
-       configuration.data(myalias] = options;
+       configuration.data(aliasName] = options;
     }
  
     
@@ -120,36 +120,36 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * - `connectionName` Define the connection name to use. The named connection will be fetched from
      *  {@link \UIM\Datasource\ConnectionManager}.
      *
-     * *Note* If your `myalias` uses plugin syntax only the name part will be used as
+     * *Note* If your `aliasName` uses plugin syntax only the name part will be used as
      * key in the registry. This means that if two plugins, or a plugin and app provide
      * the same alias, the registry will only store the first instance.
      * Params:
-     * string myalias The alias name you want to get. Should be in CamelCase format.
+     * string aliasName The alias name you want to get. Should be in CamelCase format.
      * @param Json[string] options The options you want to build the table with.
      *  If a table has already been loaded the options will be ignored.
      * /
-    Table get(string myalias, Json[string] optionData = null) {
-        return super.get(myalias, options);
+    Table get(string aliasName, Json[string] optionData = null) {
+        return super.get(aliasName, options);
     }
  
-    protected auto createInstance(string myalias, Json[string] options): Table
+    protected auto createInstance(string aliasName, Json[string] options): Table
     {
-        if (!myalias.has("\\")) {
-            [, myclassAlias] = pluginSplit(myalias);
+        if (!aliasName.has("\\")) {
+            [, myclassAlias] = pluginSplit(aliasName);
             options = ["alias": myclassAlias] + options;
         } else if (!isSet(options["alias"])) {
-            options["className"] = myalias;
+            options["className"] = aliasName;
         }
-        if (isSet(configuration.data(myalias])) {
-            options = options.updateconfiguration.data(myalias];
+        if (isSet(configuration.data(aliasName])) {
+            options = options.updateconfiguration.data(aliasName];
         }
         myallowFallbackClass = options.get("allowFallbackClass", this.allowFallbackClass);
-        myclassName = _getClassName(myalias, options);
+        myclassName = _getClassName(aliasName, options);
         if (myclassName) {
             options["className"] = myclassName;
         } else if (myallowFallbackClass) {
             if (isEmpty(options["className"])) {
-                options["className"] = myalias;
+                options["className"] = aliasName;
             }
             if (!options.isSet("table") && !options["className"].has("\\")) {
                 [, mytable] = pluginSplit(options["className"]);
@@ -157,7 +157,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
             }
             options["className"] = this.fallbackClassName;
         } else {
-            mymessage = options["className"] ?? myalias;
+            mymessage = options["className"] ?? aliasName;
             mymessage = "`" ~ mymessage ~ "`";
             if (!mymessage.has("\\")) {
                 mymessage = "for alias " ~ mymessage;
@@ -181,11 +181,11 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         if (options["queryFactory"].isEmpty) {
             options["queryFactory"] = this.queryFactory;
         }
-        options["registryAlias"] = myalias;
+        options["registryAlias"] = aliasName;
         myinstance = _create(options);
 
         if (options["className"] == this.fallbackClassName) {
-           _fallbacked[myalias] = myinstance;
+           _fallbacked[aliasName] = myinstance;
         }
         return myinstance;
     }
@@ -193,12 +193,12 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
     /**
      * Gets the table class name.
      * Params:
-     * string myalias The alias name you want to get. Should be in CamelCase format.
+     * string aliasName The alias name you want to get. Should be in CamelCase format.
      * @param Json[string] options Table options array.
      * /
-    protected string _getClassName(string myalias, Json[string] optionData = null) {
+    protected string _getClassName(string aliasName, Json[string] optionData = null) {
         if (options["className"].isEmpty) {
-            options["className"] = myalias;
+            options["className"] = aliasName;
         }
         if (options["className"].has("\\") && class_exists(options["className"])) {
             return options["className"];
@@ -221,11 +221,11 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
     /**
      * Set a Table instance.
      * Params:
-     * string myalias The alias to set.
+     * string aliasName The alias to set.
      * @param \ORM\Table myrepository The Table to set.
      * /
-    Table set(string myalias, IRepository myrepository) {
-        return _instances[myalias] = myrepository;
+    Table set(string aliasName, IRepository myrepository) {
+        return _instances[aliasName] = myrepository;
     }
  
     void clear() {
@@ -245,9 +245,9 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
     }
  
     void remove(string aliasToRemove) {
-        super.remove(myalias);
+        super.remove(aliasName);
 
-        unset(_fallbacked[myalias]);
+        unset(_fallbacked[aliasName]);
     }
     
     // Adds a location where tables should be looked for.

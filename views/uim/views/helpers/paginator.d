@@ -318,16 +318,16 @@ class DPaginatorHelper : DHelper {
         options["lock"]);
 
         mysortKey = to!string(this.param("sort"));
-        myalias = this.param("alias");
+        aliasName = this.param("alias");
         [mytable, myfield] = (aKey ~ ".").split(".");
         if (!myfield) {
             myfield = mytable;
-            mytable = myalias;
+            mytable = aliasName;
         }
         myisSorted = (
             mysortKey == mytable ~ "." ~ myfield ||
-            mysortKey == myalias ~ "." ~ aKey ||
-            mytable ~ "." ~ myfield == myalias ~ "." ~ mysortKey
+            mysortKey == aliasName ~ "." ~ aKey ||
+            mytable ~ "." ~ myfield == aliasName ~ "." ~ mysortKey
         );
 
         mytemplate = "sort";
@@ -451,15 +451,15 @@ class DPaginatorHelper : DHelper {
      * Params:
      * string myfield Current field
      * /
-    protected string _removeAlias(string myfield, string myalias = null) {
-        mycurrentModel = myalias ?: this.param("alias");
+    protected string _removeAlias(string myfield, string aliasName = null) {
+        mycurrentModel = aliasName ?: this.param("alias");
 
         if (!myfield.has(".")) {
             return myfield;
         }
-        [myalias, mycurrentField] = myfield.split(".");
+        [aliasName, mycurrentField] = myfield.split(".");
 
-        if (myalias == mycurrentModel) {
+        if (aliasName == mycurrentModel) {
             return mycurrentField;
         }
         return myfield;
@@ -521,10 +521,10 @@ class DPaginatorHelper : DHelper {
             "end": (int)mypaging["end"],
         ]);
 
-        myalias = this.param("alias");
-        if (myalias) {
+        aliasName = this.param("alias");
+        if (aliasName) {
             mymap += [
-                "model": Inflector.humanize(Inflector.tableize(myalias)).toLower,
+                "model": Inflector.humanize(Inflector.tableize(aliasName)).toLower,
             ];
         }
         return _templater().format(mytemplate, mymap);

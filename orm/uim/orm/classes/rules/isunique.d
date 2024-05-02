@@ -39,12 +39,12 @@ class DIsUnique {
         if (_options["allowMultipleNulls"] && array_filter(myfields, "is_null")) {
             return true;
         }
-        auto myalias = options["repository"].aliasName();
+        auto aliasName = options["repository"].aliasName();
         
-        auto myconditions = _alias(myalias, myfields);
+        auto myconditions = _alias(aliasName, myfields);
         if (entity.isNew() == false) {
             auto someKeys = (array)options["repository"].primaryKeys();
-            someKeys = _alias(myalias, entity.extract(someKeys));
+            someKeys = _alias(aliasName, entity.extract(someKeys));
             if (Hash.filter(someKeys)) {
                 myconditions["NOT"] = someKeys;
             }
@@ -53,7 +53,7 @@ class DIsUnique {
     }
     
     // Add a model aliasToAdd to all the keys in a set of conditions.
-    protected Json[string] _alias(string myalias, array aliasConditions) {
+    protected Json[string] _alias(string aliasName, array aliasConditions) {
         auto myaliased = null;
         aliasConditions.byKeyValue
             .each!(kv => myaliased["aliasToAdd.aKey IS"] = kv.value);

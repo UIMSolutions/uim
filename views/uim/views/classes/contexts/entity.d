@@ -111,8 +111,8 @@ class DEntityContext : DContext {
         if (!(cast(Table)mytable)) {
             throw new UimException("Unable to find table class for current entity.");
         }
-        myalias = _rootName = mytable.aliasName();
-       _tables[myalias] = mytable;
+        aliasName = _rootName = mytable.aliasName();
+       _tables[aliasName] = mytable;
     }
     
     /**
@@ -484,13 +484,13 @@ class DEntityContext : DContext {
         if (!mytable) {
             throw new DInvalidArgumentException("Validator not found: `%s`.".format(aKey));
         }
-        myalias = mytable.aliasName();
+        aliasName = mytable.aliasName();
 
         mymethod = "default";
         if (isString(_context["validator"])) {
             mymethod = _context["validator"];
-        } elseif (isSet(_context["validator"][myalias])) {
-            mymethod = _context["validator"][myalias];
+        } elseif (isSet(_context["validator"][aliasName])) {
+            mymethod = _context["validator"][aliasName];
         }
         myvalidator = mytable.getValidator(mymethod);
 

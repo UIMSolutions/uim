@@ -20,11 +20,11 @@ mixin template TCommonQuery() {
      * \ORM\Table mytable The table to pull types from
      * /
     void addDefaultTypes(Table mytable) {
-        myalias = mytable.aliasName();
+        aliasName = mytable.aliasName();
         mymap = mytable.getSchema().typeMap();
         myfields = null;
         foreach (mymap as myf: mytype) {
-            myfields[myf] = myfields[myalias ~ "." ~ myf] = myfields[myalias ~ "__" ~ myf] = mytype;
+            myfields[myf] = myfields[aliasName ~ "." ~ myf] = myfields[aliasName ~ "__" ~ myf] = mytype;
         }
         this.getTypeMap().addDefaults(myfields);
     }

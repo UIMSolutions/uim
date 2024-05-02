@@ -42,18 +42,18 @@ mixin template TLocatorAware() {
     /**
      * Convenience method to get a table instance.
      * Params:
-     * string myalias The alias name you want to get. Should be in CamelCase format.
+     * string aliasName The alias name you want to get. Should be in CamelCase format.
      * If `null` then the value of mydefaultTable property is used.
      * @param Json[string] options The options you want to build the table with.
      *  If a table has already been loaded the registry options will be ignored.
      * /
-    Table fetchTable(string myalias = null, Json[string] optionData = null) {
-        myalias ??= this.defaultTable;
-        if (myalias.isEmpty) {
+    Table fetchTable(string aliasName = null, Json[string] optionData = null) {
+        aliasName ??= this.defaultTable;
+        if (aliasName.isEmpty) {
             throw new DUnexpectedValueException(
-                "You must provide an `myalias` or set the `mydefaultTable` property to a non empty string."
+                "You must provide an `aliasName` or set the `mydefaultTable` property to a non empty string."
             );
         }
-        return _getTableLocator().get(myalias, options);
+        return _getTableLocator().get(aliasName, options);
     } */
 }

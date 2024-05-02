@@ -124,7 +124,7 @@ class DJsonView : DSerializedView {
     protected Json _dataToSerialize(string[] myserialize) {
         if (myserialize.isArray) {
             mydata = null; 
-            foreach (myalias : aKey, 
+            foreach (aliasName : aKey, 
             myserialize.byKeyValue.each!((aliasKey) {
                 if (isNumeric(aliasKey.key)) {
                     aliasKey.key = aliasKey.value;}

@@ -91,8 +91,8 @@ import uim.orm;
  * - `beforeSave(IEvent myevent, IEntity myentity, ArrayObject options)`
  * - `afterSave(IEvent myevent, IEntity myentity, ArrayObject options)`
  * - `afterSaveCommit(IEvent myevent, IEntity myentity, ArrayObject options)`
- * - `beforeDelete_(IEvent myevent, IEntity myentity, ArrayObject options)`
- * - `afterDelete_(IEvent myevent, IEntity myentity, ArrayObject options)`
+ * - `beforeremove(IEvent myevent, IEntity myentity, ArrayObject options)`
+ * - `afterremove(IEvent myevent, IEntity myentity, ArrayObject options)`
  * - `afterDeleteCommit(IEvent myevent, IEntity myentity, ArrayObject options)`
  *
  * @see \UIM\Event\EventManager for reference on the events system.
@@ -295,7 +295,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     /**
      * Sets the table alias.
      * Params:
-     * string myalias Table alias
+     * string aliasName Table alias
      * /
     void aliasName(string tableAlias) {
        _aliasName = tableAlias;
@@ -304,14 +304,14 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     // Returns the table alias.
     string aliasName() {
         if (_aliasName is null) {
-            myalias = namespaceSplit(class);
-            myalias = substr(to!string(end(myalias), 0, -5)) ?: _table;
-            if (!myalias) {
+            aliasName = namespaceSplit(class);
+            aliasName = substr(to!string(end(aliasName), 0, -5)) ?: _table;
+            if (!aliasName) {
                 throw new UimException(
                     "You must specify either the `alias` or the `table` option for the constructor."
                 );
             }
-           _aliasName = myalias;
+           _aliasName = aliasName;
         }
         return _aliasName;
     }
@@ -528,8 +528,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             if (myself == self.classname || count(myparts) < 3) {
                 return _entityClass = mydefault;
             }
-            myalias = Inflector.classify(Inflector.underscore(substr(array_pop(myparts), 0, -5)));
-            myname = join("\\", array_slice(myparts, 0, -1)) ~ "\\Entity\\" ~ myalias;
+            aliasName = Inflector.classify(Inflector.underscore(substr(array_pop(myparts), 0, -5)));
+            myname = join("\\", array_slice(myparts, 0, -1)) ~ "\\Entity\\" ~ aliasName;
             if (!class_exists(myname)) {
                 return _entityClass = mydefault;
             }
@@ -1258,9 +1258,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             ));
         }
         aKey = (array)this.primaryKeys();
-        myalias = this.aliasName();
+        aliasName = this.aliasName();
         foreach (myindex: mykeyname; aKey) {
-            aKey[myindex] = myalias ~ "." ~ mykeyname;
+            aKey[myindex] = aliasName ~ "." ~ mykeyname;
         }
         if (!isArray(myprimaryKey)) {
             myprimaryKey = [myprimaryKey];
@@ -1477,7 +1477,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Creates a new delete query
      * /
     DeleteQuery deleteQuery() {
-        return _queryFactory.delete_(this);
+        return _queryFactory.remove(this);
     }
     
     /**
@@ -1691,10 +1691,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         myprimaryColumns = (array)this.primaryKeys();
 
         if (options["checkExisting"] && myprimaryColumns && myentity.isNew() && myentity.has(myprimaryColumns)) {
-            myalias = this.aliasName();
+            aliasName = this.aliasName();
             myconditions = null;
             foreach (myentity.extract(myprimaryColumns) as myKey: myv) {
-                myconditions["myalias.myKey"] = myv;
+                myconditions["aliasName.myKey"] = myv;
             }
             myentity.setNew(!this.exists(myconditions));
         }
@@ -2047,7 +2047,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * \UIM\Datasource\IEntity myentity The entity to remove.
      * @param Json[string] options The options for the delete.
          * /
-    bool delete_(IEntity myentity, Json[string] optionData = null) {
+    bool remove(IEntity myentity, Json[string] optionData = null) {
         options = new ArrayObject(options ~ [
             "atomic": Json(true),
             "checkRules": Json(true),
@@ -2055,7 +2055,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         ]);
 
         mysuccess = _executeTransaction(
-            fn (): _processDelete_(myentity, options),
+            fn (): _processremove(myentity, options),
             options["atomic"]
         );
 
@@ -2119,7 +2119,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
 
         myfailed = _executeTransaction(function () use (myentities, options) {
             foreach (myentities as myentity) {
-                if (!_processDelete_(myentity, options)) {
+                if (!_processremove(myentity, options)) {
                     return myentity;
                 }
             }
@@ -2144,7 +2144,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param Json[string] options The options for the delete.
      * /
     bool deleteOrFail(IEntity myentity, Json[string] optionData = null) {
-        mydeleted = this.delete_(myentity, options);
+        mydeleted = this.remove(myentity, options);
         if (mydeleted == false) {
             throw new DPersistenceFailedException(myentity, ["delete"]);
         }
@@ -2162,7 +2162,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @throws \InvalidArgumentException if there are no primary key values of the
      * passed entity
      * /
-    protected bool _processDelete_(IEntity myentity, ArrayObject options) {
+    protected bool _processremove(IEntity myentity, ArrayObject options) {
         if (myentity.isNew()) {
             return false;
         }
@@ -2182,7 +2182,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (myevent.isStopped()) {
             return (bool)myevent.getResult();
         }
-        mysuccess = _associations.cascadeDelete_(
+        mysuccess = _associations.cascaderemove(
             myentity,
             ["_primary": Json(false)] + options.getArrayCopy()
         );

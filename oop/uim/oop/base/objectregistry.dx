@@ -273,7 +273,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
   /**
      * Debug friendly object properties.
      * /
-  STRINGAA debugInfo() {
+  Json[string] debugInfo() {
     properties = get_object_vars(this);
     if (isSet(properties["_loaded"])) {
       properties["_loaded"] = properties["_loaded"].keys;

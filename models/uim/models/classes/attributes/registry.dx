@@ -13,8 +13,8 @@ class DAttributeRegistry : DObjectRegistry!DAttribute {
 }
 
 auto AttributeRegistry() { // SIngleton
-  if (DAttributeRegistry.registry is null) {
-    DAttributeRegistry.registry = new DAttributeRegistry;
+  if (DAttributeRegistry.instance is null) {
+    DAttributeRegistry.instance = new DAttributeRegistry;
   }
-  return DAttributeRegistry.registry;
+  return DAttributeRegistry.instance;
 }

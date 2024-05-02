@@ -7,7 +7,7 @@ module uim.oop.mixins.properties.property;
 
 import std.string;
 
-template PropertyDefinition(string datatype, string field, string propertyName, bool get = true, bool set = true, string defaultValue = null, string condition = null) {
+template PropertyDefinition(string datatype, string fieldName, string propertyName, bool get = true, bool set = true, string defaultValue = null, string condition = null) {
 	const char[] fieldDefinition = datatype~" "~field~(defaultValue.length>0?"="~defaultValue:"")~"; ";
 	const char[] getDefinition = get ? "@safe @property "~datatype~" "~propertyName~"() { return "~field~"; } ":"";
 	const char[] setDefinition = set ? "@safe @property O "~propertyName~"(this O)("~datatype~" value) { "~(condition.length>0?"if ("~condition~")":"")~field~"=value; return cast(O)this; } ":"";

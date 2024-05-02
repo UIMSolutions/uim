@@ -2774,7 +2774,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     /**
      * Returns an array that can be used to describe the internal state of this object.
      * /
-    STRINGAA debugInfo() {
+    Json[string] debugInfo() {
         myconn = this.getConnection();
 
         return [

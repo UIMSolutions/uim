@@ -106,7 +106,7 @@ class DSchema {
     // #endregion fields
 
     // Get the printable version of this object
-    STRINGAA debugInfo() {
+    Json[string] debugInfo() {
         return [
             "_fields": _fields.toString,
         ];

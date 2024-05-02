@@ -720,7 +720,7 @@ bool exists(conditions) {
      * @see DORMTable::updateAll()
      * @return int Count Returns the affected rows.
      * /
-int updateAll(array fields, conditions) {
+int updateAll(string[] fieldNames, conditions) {
     expression = this.find()
         .where(conditions)
         .clause("where");

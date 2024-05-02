@@ -89,7 +89,7 @@ class DArrayCacheEngine : DCacheEngine {
   } * / 
 
   // Delete a key from the cache
-  override bool delete_(string dataId) {
+  override bool remove(string dataId) {
     string key = _key(dataId);
     _cachedData.remove(key);
 

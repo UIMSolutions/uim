@@ -361,7 +361,7 @@ namespace SoftDelete\Model\Entity;
 
 mixin template SoftDeleteTrait
 {
-    public function softDelete_()
+    public function softremove()
     {
         this->set('deleted', true);
     }

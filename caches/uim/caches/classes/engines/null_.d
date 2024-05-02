@@ -30,7 +30,7 @@ class DNullCacheEngine : DCacheEngine {
     return defaultValues;
   }
 
-  range getMultiple(string[] someKeys, Json defaultValues = null) {
+  range cacheItems(string[] someKeys, Json defaultValues = null) {
     return null;
   }
 
@@ -46,7 +46,7 @@ class DNullCacheEngine : DCacheEngine {
     return true;
   }
 
-  override bool deleteMultiple(string[] someKeys) {
+  override bool removeItems(string[] someKeys) {
     return true;
   }*/
 

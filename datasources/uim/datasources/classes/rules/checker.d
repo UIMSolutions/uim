@@ -24,7 +24,7 @@ import uim.datasources;
  *
  * Generally a Table object will invoke the rules objects, but you can manually
  * invoke the checks by calling RulesChecker.checkCreate(), RulesChecker.checkUpdate() or
- * RulesChecker.checkDelete_().
+ * RulesChecker.checkremove().
  */
 class DRulesChecker {
     mixin TConfigurable;
@@ -172,7 +172,7 @@ class DRulesChecker {
      * @param Json[string] optionData List of extra options to pass to the rule callable as
      * second argument.
      * /
-    auto addDelete_(callable rule, string[] name = null, Json[string] optionData = null) {
+    auto addremove(callable rule, string[] name = null, Json[string] optionData = null) {
        _deleteRules ~= _addError(rule, name, options);
 
         return this;
@@ -196,7 +196,7 @@ class DRulesChecker {
             return _checkUpdate(entity, options);
         }
         if (mode == self.DELETE) {
-            return _checkDelete_(entity, options);
+            return _checkremove(entity, options);
         }
         throw new DInvalidArgumentException("Wrong checking mode: " ~ mode);
     }
@@ -230,7 +230,7 @@ class DRulesChecker {
      * \UIM\Datasource\IEntity entity The entity to check for validity.
      * @param Json[string] optionData Extra options to pass to checker functions.
      * /
-    bool checkDelete_(IEntity entity, Json[string] optionData = null) {
+    bool checkremove(IEntity entity, Json[string] optionData = null) {
         return _checkRules(entity, options, _deleteRules);
     }
     

@@ -58,48 +58,18 @@ abstract class DCacheEngine : ICache, ICacheEngine {
 
     mixin(TProperty!("string", "name"));
 
-    protected const string CHECK_KEY = "key";
-    protected const string CHECK_VALUE = "value";
-
     /**
      * Contains the compiled string with all group
      * prefixes to be prepended to every key in this cache engine
      */
     protected string _groupPrefix = "";
 
-    // Ensure the validity of the given cache key.
-    protected void ensureValidKey(string keyToCheck) {
-        if (keyToCheck.isEmpty) {
-            // TODO throw DInvalidArgumentException("A cache key must be a non-empty string.");
-        }
-    }
-
-    /**
-     * Ensure the validity of the argument type and cache keys.
-     * Params:
-     * range myrange The range to check.
-     * @param string mycheck Whether to check keys or values.
-     */
-    /* protected void ensureValidType(Range myiterable, string checkKeyOrValue = self.CHECK_VALUE) {
-        myiterable.bykeyValue
-            .each!(kv => 
-                checkKeyOrValue == self.CHECK_VALUE 
-                    ? this.ensureValidKey(kv.value) 
-                    : this.ensureValidKey(kv.key));
-    } */
-
-    /**
-     * Obtains multiple cache items by their unique keys.
-     * Params:
-     * iterable<string> someKeys A list of keys that can obtained in a single operation.
-     * @param Json mydefault Default value to return for keys that do not exist.
-     */
-    Json[string] getMultiple(string[] someKeys, Json mydefault = null) {
-        // ensureValidType(someKeys);
-
+    // Obtains multiple cache items by their unique keys.
+    Json[string] cacheItems(string[] someKeys, Json defaultValue = Json(null)) {
         Json[string] results;
-        // someKeys
-        // hes    .each!(key => results[key] = get(key, mydefault));
+        someKeys
+            .filter!(key => !key.isEmpty)
+            .each!(key => results[key] = get(key, defaultValue));
 
         return results;
     }
@@ -112,10 +82,10 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      */
-    /* bool setMultiple(Range myvalues, DateInterval|int myttl = null) {
+    bool cacheItems(Json[string] items, DateInterval|int myttl = null) {
         this.ensureValidType(myvalues, self.CHECK_KEY);
 
-        if (myttl !isNull) {
+        if (!myttl.isNull) {
             myrestore = configurationData.isSet("duration");
             configuration.update("duration", myttl);
         }
@@ -142,10 +112,15 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * be attempted.
      * Params:
      * string[] someKeys A list of string-based keys to be deleted.
-     * /
-    bool deleteMultiple(string[] someKeys) {
-        this.ensureValidType(someKeys);
-        return someKeys.all!(key => delete_(key));
+     */
+    bool removeItems(string[] someKeys) {
+        return someKeys.all!(key => remove(key));
+    }
+
+    bool removeItem(string key) {
+        if (key.isEmpty) {
+            return remove(key));
+        }
     }
 
     /**
@@ -192,7 +167,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     }
 
     // Delete a key from the cache
-    bool delete_(string dataId) {
+    bool remove(string dataId) {
         return false;
     }
 

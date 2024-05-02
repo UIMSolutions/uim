@@ -154,7 +154,7 @@ class DFileCacheEngine : DCacheEngine {
     }
 
     // Delete a key from the cache
-    bool delete_(string dataId) {
+    bool remove(string dataId) {
         auto aKey = _key(dataId);
 
         if (_setKey(aKey) == false || !_init) {

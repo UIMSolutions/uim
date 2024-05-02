@@ -300,7 +300,7 @@ class DCache : ICache {
      * @param string configName optional name of the configuration to use. Defaults to "default"
      */
     /* static Range readMany(string[] keysToFetch, string configName = "default") {
-        return pool(configName).getMultiple(keysToFetch);
+        return pool(configName).cacheItems(keysToFetch);
     } */
 
     /**
@@ -337,17 +337,17 @@ class DCache : ICache {
      * Deleting from the active cache configuration.
      *
      * ```
-     * Cache.delete_("_data");
+     * Cache.remove("_data");
      * ```
      *
      * Deleting from a specific cache configuration.
      *
      * ```
-     * Cache.delete_("_data", "long_term");
+     * Cache.remove("_data", "long_term");
      * ```
      */
-    /* static bool delete_(string dataId, string configName = "default") {
-        return pool(configName).delete_(dataId);
+    /* static bool remove(string dataId, string configName = "default") {
+        return pool(configName).remove(dataId);
     } */
 
     /**
@@ -366,12 +366,9 @@ class DCache : ICache {
      * ```
      * Cache.deleteMany(["_data_1", "_data_2], "long_term");
      * ```
-     * Params:
-     * @param string configName name of the configuration to use. Defaults to "default"
-
      * /
     static bool deleteMany(string[] someKeys, string configName = "default") {
-        return pool(configName).deleteMultiple(someKeys);
+        return pool(configName).removeItems(someKeys);
     }
     
     /**

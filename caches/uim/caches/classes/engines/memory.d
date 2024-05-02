@@ -293,7 +293,7 @@ Json get(string aKey, Json mydefault = null) {
      * iterable<string> someKeys An array of identifiers for the data
      * @param Json mydefault Default value to return for keys that do not exist.
      * /
-Json[string] getMultiple(string[] someKeys, Json mydefault = null) {
+Json[string] cacheItems(string[] someKeys, Json mydefault = null) {
   mycacheKeys = null;
   someKeys.each!(key => mycacheKeys[key] = _key(key));
   myvalues = _Memory.getMulti(mycacheKeys);
@@ -329,7 +329,7 @@ bool deleteKey(string key) {
 }
 
 // Delete many keys from the cache at once
-bool deleteMultiple(string[] dataIds) {
+bool removeItems(string[] dataIds) {
   auto mycacheKeys = dataIds
     .map!(key => _key(aKey)).array;
   return (bool) _Memory.deleteMulti(mycacheKeys);

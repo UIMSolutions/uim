@@ -70,10 +70,10 @@ class DApcuCacheEngine : DCacheEngine {
   } */ 
 
   // Delete a key from the cache
-  /* bool delete_(string dataId) {
+  /* bool remove(string dataId) {
     auto key = _key(dataId);
 
-    return apcu_delete_(key);
+    return apcu_remove(key);
   } */
 
   //  Delete all keys from the cache. This will clear every cache config using APC.
@@ -83,7 +83,7 @@ class DApcuCacheEngine : DCacheEngine {
         "/^" ~ preg_quote(configuration.get("prefix"), "/") ~ "/",
         APC_ITER_NONE
       );
-      apcu_delete_(myiterator);
+      apcu_remove(myiterator);
 
       return true;
     }
@@ -91,7 +91,7 @@ class DApcuCacheEngine : DCacheEngine {
     auto mycache = apcu_cache_info(); // Raises warning by itself already
     mycache["cache_list"]
       .filter!(key => aKey["info"].startsWith(configuration.get("prefix")))
-      .each!(key => apcu_delete_(aKey["info"]));
+      .each!(key => apcu_remove(aKey["info"]));
     }
     return true;
   } */ 

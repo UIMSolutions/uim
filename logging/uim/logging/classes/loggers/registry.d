@@ -5,54 +5,10 @@ import uim.logging;
 @safe:
 
 // Registry of loaded log engines
-class DLogEngineRegistry : DObjectRegistry!DLogger {
-    /**
-     * Resolve a logger classname.
-     *
-     * Part of the template method for UIM\Core\ObjectRegistry.load()
-     * /
-    protected string _resolveClassName(string className) {
-        /** @var class-string<\Psr\Log\ILogger>|null * /
-        return App.className(className, "Log/Engine", "Log");
-    }
-    
-    /**
-     * Throws an exception when a logger is missing.
-     *
-     * Part of the template method for UIM\Core\ObjectRegistry.load()
-     * Params:
-     * @param string plugin The plugin the logger is missing in.
-     * /
-    protected void _throwMissingClassError(string className, string aplugin) {
-        throw new UimException("Could not load class `%s`.".format(className));
-    }
-    
-    /**
-     * Create the logger instance.
-     *
-     * Part of the template method for UIM\Core\ObjectRegistry.load()
-     * Params:
-     * \Psr\Log\ILogger|callable|class-string<\Psr\Log\ILogger>  className The classname or object to make.
-     * @param string aalias The alias of the object.
-     * configData - An array of settings to use for the logger.
-     * /
-    protected ILogger _create(callable|object|string className, string aalias, Json[string] configData) {
-        if (isString(className)) {
-            /** @var class-string<\Psr\Log\ILogger>  className * /
-            return new className(configData);
-        }
-        if (isCallable(className)) {
-            return className(alias);
-        }
-        return className;
-    }
-    
-    /**
-     * Remove a single logger from the registry.
-     * Params:
-     * string aName The logger name.
-     * /
-    void unload(string aName) {
-        unset(_loaded[name]);
-    } */
+class DLogEngineRegistry : DObjectRegistry!DLogEngine {
 }
+
+auto LogEngineRegistry() {
+    return DLogEngineRegistry.instance;
+}
+

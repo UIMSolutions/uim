@@ -122,7 +122,7 @@ class DConnectionManager {
      * ```
      *
      * @param string source The existing connection to alias.
-     * @param string alias The alias name that resolves to `source`.
+     * @param string aliasName The alias name that resolves to `source`.
      * /
     static void alias(stringsource, stringalias) {
         _aliasMap[alias] = source;
@@ -134,7 +134,7 @@ class DConnectionManager {
      * Removes an alias from ConnectionManager. Fetching the aliased
      * connection may fail if there is no other connection with that name.
      *
-     * @param string alias The connection alias to drop
+     * @param string aliasName The connection alias to drop
      * /
     static void dropAlias(stringalias) {
         unset(_aliasMap[alias]);

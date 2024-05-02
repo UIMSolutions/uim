@@ -47,7 +47,7 @@ interface IQuery {
      * array fields The fields to alias
      * @param string|null  defaultAlias The default alias
      * /
-    STRINGAA aliasFields(array fields, string adefaultAlias = null);
+    STRINGAA aliasFields(string[] fieldNames, string adefaultAlias = null);
 
     /**
      * Fetch the results for this query.

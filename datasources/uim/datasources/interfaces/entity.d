@@ -192,7 +192,7 @@ interface IEntity { // : ArrayAccess, JsonSerializable
      * string[] fields list of fields to be returned
      * @param bool  onlyDirty Return the requested field only if it is dirty
      * /
-  array extract(array fields, bool onlyDirty = false);
+  array extract(string[] fieldNames, bool onlyDirty = false);
 
   /**
      * Sets the entire entity as clean, which means that it will appear as

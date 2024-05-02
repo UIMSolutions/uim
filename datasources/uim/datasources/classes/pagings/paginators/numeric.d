@@ -474,7 +474,7 @@ class DNumericPaginator : IPaginator {
      * Get the settings for a model. If there are no settings for a specific
      * repository, the general settings will be used.
      *
-     * @param string alias Model name to get settings for.
+     * @param string aliasName Model name to get settings for.
      * @param array<string, mixed> settings The settings which is used for combining.
      * @return array<string, mixed> An array of pagination settings for a model,
      *   or the general settings.
@@ -589,7 +589,7 @@ class DNumericPaginator : IPaginator {
      * @param string model Current model alias
      * @return array<string, mixed> fields Unaliased fields where applicable
      * /
-    // TODO protected array _removeAliases(array fields, string model) {
+    // TODO protected array _removeAliases(string[] fieldNames, string model) {
         result = null;
         foreach (fields as field: sort) {
             if (indexOf(field, ".") == false) {

@@ -183,7 +183,7 @@ mixin template TQuery() {
      * @param string field The field to alias
      * @param string|null alias the alias used to prefix the field
      * /
-    STRINGAA aliasField(string field, string alias = null) {
+    STRINGAA aliasField(string fieldName, string aliasName = null) {
         if (indexOf(field, ".") == false) {
             alias = alias ?: this.getRepository().aliasName();
             aliasedField = alias ~ "." ~ field;
@@ -204,7 +204,7 @@ mixin template TQuery() {
      * @param array fields The fields to alias
      * @param string|null defaultAlias The default alias
      * /
-    STRINGAA aliasFields(array fields, string defaultAlias = null) {
+    STRINGAA aliasFields(string[] fieldNames, string defaultAlias = null) {
         aliased = null;
         foreach (fields as alias: field) {
             if (alias.isNumeric && field.isString) {

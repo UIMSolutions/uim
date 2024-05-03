@@ -26,18 +26,19 @@ class DArrayCacheEngine : DCacheEngine {
   }
 
   // Write data for key into cache
-  bool set(string dataId, Json dataForCache, long timeToLive = 0) {
+  bool set(string itemKey, Json dataForCache, long timeToLive = 0) {
     Json data = Json.emptyObject;
     data["exp"] = 0; // TODO time() + this.duration(timeToLive);
     data["val"] = dataForCache;
-   _cachedData[_key(dataId)] = data;
+   _cachedData[_key(itemKey)] = data;
 
     return true;
   } 
 
   // Read a key from the cache
-  override Json get(string dataId, Json defaultValue = Json(null)) {
-    auto key = _key(dataId);
+  /*
+  override Json get(string itemKey, Json defaultValue = Json(null)) {
+    auto key = _key(itemKey);
     if (!_cachedData.isSet(key)) {
       return defaultValue;
     }
@@ -57,34 +58,34 @@ class DArrayCacheEngine : DCacheEngine {
   /**
      * Increments the value of an integer cached key
      * @param int anOffset How much to addValue  */
-  /* int increment(string dataId, int addValue = 1) | false {
-    if (get(dataId) is null) {
-      this.set(dataId, 0);
+  /* int increment(string itemKey, int addValue = 1) | false {
+    if (get(itemKey) is null) {
+      this.set(itemKey, 0);
     }
 
-    auto key = _key(dataId);
-    _cachedData[dataId]["val"] += addValue;
+    auto key = _key(itemKey);
+    _cachedData[itemKey]["val"] += addValue;
 
     return _cachedData[key]["val"];
   } */ 
 
   /**
      * Decrements the value of an integer cached key
-     * @param int anOffset How much to subValue
+     * @param int anOffset How much to decValue
      */
-  /* int decrement(string dataId, int subValue = 1) | false {
-    if (get(dataId) is null) {
-      this.set(dataId, 0);
+  /* int decrement(string itemKey, int decValue = 1) | false {
+    if (get(itemKey) is null) {
+      this.set(itemKey, 0);
     }
-    auto key = _key(dataId);
-    _cachedData[key]["val"] -= subValue;
+    auto key = _key(itemKey);
+    _cachedData[key]["val"] -= decValue;
 
     return _cachedData[key]["val"];
   } * / 
 
   // Delete a key from the cache
-  override bool remove(string dataId) {
-    string key = _key(dataId);
+  override bool remove(string itemKey) {
+    string key = _key(itemKey);
     _cachedData.remove(key);
 
     return true;

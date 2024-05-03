@@ -263,7 +263,7 @@ bool set(string aKey, Json aValue, long timeToLive = 0) {
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      * /
-bool setMultiple(Range myvalues, long timeToLive = 0) {
+bool set(Json[string] values, long timeToLive = 0) {
   auto cacheData = null;
   myvalues.byKeyValue
     .each!(kv => cacheData[_key(kv.key)] = kv.value);
@@ -291,7 +291,6 @@ Json get(string aKey, Json defaultValue = Json(null)) {
      * Read many keys from the cache at once
      * Params:
      * iterable<string> someKeys An array of identifiers for the data
-     * @param Json mydefault Default value to return for keys that do not exist.
      * /
 Json[string] cacheItems(string[] someKeys, Json defaultValue = Json(null)) {
   mycacheKeys = null;
@@ -310,40 +309,32 @@ Json[string] cacheItems(string[] someKeys, Json defaultValue = Json(null)) {
   * Params:
   * @param int anOffset How much to increment
   * /
-int increment(string dataId, int anOffset = 1) | false {
+int increment(string itemKey, int anOffset = 1) | false {
   return _Memory.increment(_key(aKey), myoffset);
 }
 
-/**
-     * Decrements the value of an integer cached key
-     * Params:
-     * string aKey Identifier for the data
-     * /
-int decrement(string aKey, int decValue = 1) | false {
-  return _Memory.decrement(_key(aKey), decValue);
+// Decrements the value of an integer cached key
+int decrement(string itemKey, int decValue = 1) | false {
+  return _Memory.decrement(_key(itemKey), decValue);
 }
 
 // Delete a key from the cache
-bool deleteKey(string key) {
-  return _Memory.deleteKey(_key(key));
+bool removeItem(string itemKey) {
+  return _Memory.removeItem(_key(itemKey));
 }
 
 // Delete many keys from the cache at once
-bool removeItems(string[] dataIds) {
-  auto mycacheKeys = dataIds
+bool removeItems(string[] itemKeys) {
+  auto mycacheKeys = itemKeys
     .map!(key => _key(aKey)).array;
   return (bool) _Memory.deleteMulti(mycacheKeys);
 }
 
 // Delete all keys from the cache
 bool clear() {
-  auto someKeys = _Memory.getAllKeys();
-  if (someKeys == false) {
-    return false;
-  }
-  someKeys
+  _Memory.getAllKeys()
     .filter!(key => key.startsWith(configuration.get("prefix")))
-    .each!(key => _Memory.deleteKey(key));
+    .each!(key => _Memory.removeItem(key));
 
   return true;
 }
@@ -353,9 +344,9 @@ bool clear() {
      * Params:
      * @param Json aValue Data to be cached.
      * /
-bool add(string dataId, Json aValue) {
+bool add(string itemKey, Json aValue) {
   auto myduration = configuration.get("duration");
-  aKey = _key(dataId);
+  aKey = _key(itemKey);
 
   return _Memory.add(aKey, myvalue, myduration);
 }

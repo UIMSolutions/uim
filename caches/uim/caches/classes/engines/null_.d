@@ -17,46 +17,44 @@ class DNullCacheEngine : DCacheEngine {
     return true;
   }
 
-/*
-  bool set(string aKey, Json aValue, DateInterval | int | null aTtl = null) {
+  override bool set(string itemKey, Json valueToSet, long timeToLive = 0) {
     return true;
   }
 
-  bool setMultiple(Range someValues, DateInterval | int | null aTtl = null) {
+  override bool set(Json[string] valuesToSet, long timeToLive = 0) {
     return true;
-  } * / 
-
-  Json get(string aKey, Json defaultValues = null) {
-    return defaultValues;
   }
 
-  range cacheItems(string[] someKeys, Json defaultValues = null) {
+  override Json get(string itemKey, Json defaultValue = null) {
+    return defaultValue;
+  }
+
+  override Json[string] cacheItems(string[] itemKeys, Json defaultValue = null) {
     return null;
   }
 
-  int increment(string aKey, int anOffset = 1) | false {
+  override int increment(string itemKey, int incValue = 1) {
     return 1;
   }
 
-  int decrement(string aKey, int anOffset = 1) | false {
+  override int decrement(string itemKey, int decValue = 1) {
     return 0;
   }
-* /
-  override bool deleteKey(string aKey) {
+
+  override bool deleteKey(string itemKey) {
     return true;
   }
 
-  override bool removeItems(string[] someKeys) {
+  override bool removeItems(string[] itemKeys) {
     return true;
-  }*/
+  }
 
   override bool clear() {
     return true;
   }
 
-  /*
-  override bool clearGroup(string aGroup) {
+  override bool clearGroup(string groupName) {
     return true;
-  } */
+  }
 }
 mixin(CacheEngineCalls!("Null"));

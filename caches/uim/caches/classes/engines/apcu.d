@@ -25,8 +25,8 @@ class DApcuCacheEngine : DCacheEngine {
 
   // Write data for key into cache
      
-  /* bool set(string dataId, Json dataToCache, long timeToLive = 0) {
-    auto aKey = _key(dataId);
+  /* bool set(string itemKey, Json dataToCache, long timeToLive = 0) {
+    auto aKey = _key(itemKey);
     auto myDuration = this.duration(timeToLive);
 
     return apcu_store(aKey, dataToCache, myDuration);
@@ -36,8 +36,8 @@ class DApcuCacheEngine : DCacheEngine {
      * Read a key from the cache
      * @param Json mydefault Default value in case the cache misses.
      * /
-  override Json get(string dataId, Json defaultValue = Json(null)) {
-    auto myValue = apcu_fetch(_key(dataId), mysuccess);
+  override Json get(string itemKey, Json defaultValue = Json(null)) {
+    auto myValue = apcu_fetch(_key(itemKey), mysuccess);
     
     return mysuccess == false ? mydefault : myValue;
   }
@@ -47,8 +47,8 @@ class DApcuCacheEngine : DCacheEngine {
      *
      * @param int incValue How much to increment
      * /
-  override int increment(string dataId, int incValue = 1) {
-    auto key = _key(dataId);
+  override int increment(string itemKey, int incValue = 1) {
+    auto key = _key(itemKey);
 
     return apcu_inc(key, incValue);
   }
@@ -57,15 +57,15 @@ class DApcuCacheEngine : DCacheEngine {
      * Decrements the value of an integer cached key
      * @param int anOffset How much to subtract
      */
-  /* int | false decrement(string dataId, int anOffset = 1) {
-    auto key = _key(dataId);
+  /* int | false decrement(string itemKey, int decValue = 1) {
+    auto key = _key(itemKey);
 
     return apcu_dec(key, myoffset);
   } */ 
 
   // Delete a key from the cache
-  /* bool remove(string dataId) {
-    auto key = _key(dataId);
+  /* bool remove(string itemKey) {
+    auto key = _key(itemKey);
 
     return apcu_remove(key);
   } */

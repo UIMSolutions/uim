@@ -306,27 +306,21 @@ class DCache : ICache {
     /**
      * Increment a number under the key and return incremented value.
      * Params:
-     * @param int anOffset How much to add
      * @param string configName Optional string configuration name. Defaults to "default"
      */
-    /* static int|false increment(string dataId, int anOffset = 1, string configName = "default") {
-        if (myoffset < 0) {
+    /* static int|false increment(string dataId, int incValue = 1, string configName = "default") {
+        if (incValue < 0) {
             throw new DInvalidArgumentException("Offset cannot be less than `0`.");
         }
-        return pool(configName).increment(dataId, myoffset);
+        return pool(configName).increment(dataId, incValue);
     } */
 
-    /**
-     * Decrement a number under the key and return decremented value.
-     * Params:
-     * @param int anOffset How much to subtract
-     * @param string configName Optional string configuration name. Defaults to "default"
-     */
-    /* static int|false decrement(string dataId, int anOffset = 1, string configName = "default") {
-        if (myoffset < 0) {
+    // Decrement a number under the key and return decremented value.
+    /* static int|false decrement(string dataId, int decValue = 1, string configName = "default") {
+        if (decValue < 0) {
             throw new DInvalidArgumentException("Offset cannot be less than `0`.");
         }
-        return pool(configName).decrement(dataId, myoffset);
+        return pool(configName).decrement(dataId, decValue);
     } */
 
     /**

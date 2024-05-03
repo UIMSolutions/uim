@@ -77,7 +77,6 @@ interface ICollection {
      *
      * @param callable callback the method that will receive each of the elements and
      * returns true whether they should be out of the resulting collection.
-     * @return self
      */
     // ICollection reject(callable callback);
 
@@ -154,7 +153,6 @@ interface ICollection {
      *
      * @param callable callback the method that will receive each of the elements and
      * returns the new value for the key that is being iterated
-     * @return self
      */
     // ICollection map(callable callback);
 
@@ -213,7 +211,6 @@ interface ICollection {
      * @param callable|string path A dot separated path of column to follow
      * so that the final one can be returned or a callable that will take care
      * of doing that.
-     * @return self
      */
     // ICollection extract(path);
 
@@ -366,7 +363,6 @@ interface ICollection {
      * @param int  order The sort order, either SORT_DESC or SORT_ASC
      * @param int sort The sort type, one of SORT_STRING
      * SORT_NUMERIC or SORT_NATURAL
-     * @return self
      * /
     ICollection sortBy(path, int  order = SORT_DESC, int sort = SORT_NUMERIC);
 
@@ -409,9 +405,8 @@ interface ICollection {
      *
      * @param callable|string path The column name to use for grouping or callback that returns the value.
      * or a // function returning the grouping key out of the provided element
-     * @return self
       * /
-    ICollection groupBy(path);
+    ICollection groupBy(string path);
 
     /**
      * Given a list and a callback // function that returns a key for each element
@@ -448,9 +443,8 @@ interface ICollection {
      *
      * @param callable|string path The column name to use for indexing or callback that returns the value.
      * or a // function returning the indexing key out of the provided element
-     * @return self
      * /
-    ICollection indexBy(path);
+    ICollection indexBy(string path);
 
     /**
      * Sorts a list into groups and returns a count for the number of elements
@@ -486,7 +480,6 @@ interface ICollection {
      *
      * @param callable|string path The column name to use for indexing or callback that returns the value.
      * or a // function returning the indexing key out of the provided element
-     * @return self
      * /
     ICollection countBy(path);
 
@@ -520,8 +513,6 @@ interface ICollection {
     /**
      * Returns a new DCollection with the elements placed in a random order,
      * this // function does not preserve the original keys in the collection.
-     *
-     * @return self
      * /
     ICollection shuffle();
 
@@ -531,7 +522,6 @@ interface ICollection {
      *
      * @param int  length the maximum number of elements to randomly
      * take from this collection
-     * @return self
      * /
     ICollection sample(int  length = 10);
 
@@ -543,7 +533,6 @@ interface ICollection {
      * @param int  length the maximum number of elements to take from
      * this collection
      * @param int offset A positional offset from where to take the elements
-     * @return self
      * /
     ICollection take(int  length = 1, int offset = 0);
 
@@ -562,7 +551,6 @@ interface ICollection {
      * ```
      *
      * @param int  length The number of elements at the end of the collection
-     * @return self
      * /
     ICollection takeLast(int  length);
 
@@ -571,7 +559,6 @@ interface ICollection {
      * at the beginning of the iteration.
      *
      * @param int  length The number of elements to skip.
-     * @return self
      * /
     ICollection skip(int  length);
 
@@ -598,7 +585,6 @@ interface ICollection {
      * @param array conditions a key-value list of conditions where
      * the key is a property path as accepted by `Collection::extract,
      * and the value the condition against with each element will be matched
-     * @return self
      * /
     ICollection match(array conditions);
 
@@ -633,7 +619,6 @@ interface ICollection {
      * in this collection with the passed list of elements
      *
      * @param range items Items list.
-     * @return self
      * /
     ICollection append(items);
 
@@ -642,7 +627,6 @@ interface ICollection {
      *
      * @param mixed item The item to append.
      * @param mixed  key The key to append the item with. If null a key will be generated.
-     * @return self
      * /
     ICollection appendItem(item,  key = null);
 
@@ -650,7 +634,6 @@ interface ICollection {
      * Prepend a set of items to a collection creating a new DCollection
      *
      * @param mixed items The items to prepend.
-     * @return self
      * /
     ICollection prepend(items);
 
@@ -659,7 +642,6 @@ interface ICollection {
      *
      * @param mixed item The item to prepend.
      * @param mixed  key The key to prepend the item with. If null a key will be generated.
-     * @return self
      * /
     ICollection prependItem(item,  key = null);
 
@@ -701,7 +683,6 @@ interface ICollection {
      * or a // function returning the value out of the provided element
      * @param callable|string|null  groupPath the column name path to use as the parent
      * grouping key or a // function returning the key out of the provided element
-     * @return self
      * /
     ICollection combine(keyPath, valuePath,  groupPath = null);
 
@@ -714,7 +695,6 @@ interface ICollection {
      * @param callable|string parentPath the column name path to use for determining
      * whether an element is child of another
      * @param string nestingKey The key name under which children are nested
-     * @return self
      * /
     ICollection nest(idPath, parentPath, string nestingKey = "children");
 
@@ -752,7 +732,6 @@ interface ICollection {
      * inside the hierarchy of each value so that the value can be inserted
      * @param mixed values The values to be inserted at the specified path,
      * values are matched with the elements in this collection by its positional index.
-     * @return self
      * /
     ICollection insert(string path, values);
 
@@ -812,18 +791,15 @@ interface ICollection {
      * collection as the array keys. Keep in mind that it is valid for iterators
      * to return the same key for different elements, setting this value to false
      * can help getting all items if keys are not important in the result.
-     * @return self
      * /
-    // function compile(bool shouldKeepKeys = true): ICollection;
+    // ICollection compile(bool shouldKeepKeys = true);
 
     /**
      * Returns a new DCollection where any operations chained after it are guaranteed
      * to be run lazily. That is, elements will be yieleded one at a time.
      *
      * A lazy collection can only be iterated once. A second attempt results in an error.
-     *
-     * @return self
-     * /
+     */
     ICollection lazy();
 
     /**
@@ -832,8 +808,6 @@ interface ICollection {
      * only be performed once.
      *
      * This can also be used to make any non-rewindable iterator rewindable.
-     *
-     * @return self
      * /
     ICollection buffered();
 
@@ -874,7 +848,6 @@ interface ICollection {
      * @param string|int  order The order in which to return the elements
      * @param callable|string nestingKey The key name under which children are nested
      * or a callable // function that will return the children list
-     * @return self
      * /
     ICollection listNested(order = "desc", nestingKey = "children");
 
@@ -909,7 +882,6 @@ interface ICollection {
      * If an array, it will be interpreted as a key-value list of conditions where
      * the key is a property path as accepted by `Collection::extract`,
      * and the value the condition against with each element will be matched.
-     * @return self
      * /
     ICollection stopWhen(condition):;
 
@@ -944,9 +916,8 @@ interface ICollection {
      *
      * @param callable|null callback A callable // function that will receive each of
      * the items in the collection and should return an array or Traversable object
-     * @return self
      */
-    // function unfold(?callable callback = null): ICollection;
+    // ICollection unfold(?callable callback = null);
 
     /**
      * Passes this collection through a callable as its first argument.
@@ -963,9 +934,8 @@ interface ICollection {
      *
      * @param callable callback A callable // function that will receive
      * this collection as first argument.
-     * @return self
      */
-    // function through(callable callback): ICollection;
+    // ICollection through(callable callback);
 
     /**
      * Combines the elements of this collection with each of the elements of the
@@ -979,9 +949,8 @@ interface ICollection {
      * ```
      *
      * @param range ...items The collections to zip.
-     * @return self
      */
-    // function zip(Range items): ICollection;
+    // ICollection zip(Range items): ;
 
     /**
      * Combines the elements of this collection with each of the elements of the
@@ -1001,9 +970,8 @@ interface ICollection {
      *
      * @param range ...items The collections to zip.
      * @param callable callback The // function to use for zipping the elements together.
-     * @return self
      */
-    // function zipWith(Range items, callback): ICollection;
+    // TODO ICollection zipWith(Range items, callback);
 
     /**
      * Breaks the collection into smaller arrays of the given size.
@@ -1015,11 +983,8 @@ interface ICollection {
      * chunked = (new DCollection(items)).chunk(3).toList();
      * // Returns [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11]]
      * ```
-     *
-     * @param int chunkSize The maximum size for each chunk
-     * @return self
      */
-    // function chunk(int chunkSize): ICollection;
+    ICollection chunk(int chunkMaxsize);
 
     /**
      * Breaks the collection into smaller arrays of the given size.
@@ -1031,12 +996,8 @@ interface ICollection {
      * chunked = (new DCollection(items)).chunkWithKeys(3).toList();
      * // Returns [["a": 1, "b": 2, "c": 3], ["d": 4, "e": 5, "f": 6]]
      * ```
-     *
-     * @param int chunkSize The maximum size for each chunk
-     * @param bool shouldKeepKeys If the keys of the array should be kept
-     * @return self
      */
-    // function chunkWithKeys(int chunkSize, bool shouldKeepKeys = true): ICollection;
+    ICollection chunkWithKeys(int chunkMaxsize, bool shouldKeepKeys = true);
 
     /**
      * Returns whether there are elements in this collection
@@ -1086,10 +1047,8 @@ interface ICollection {
      * //     ["2014", "50", "100", "200"],
      * // ]
      * ```
-     *
-     * @return self
      */
-    // function transpose(): ICollection;
+    ICollection transpose();
 
     /**
      * Returns the amount of elements in the collection.
@@ -1132,9 +1091,7 @@ interface ICollection {
      *
      * This method comes with a number of caveats. Please refer to `ICollection::count()`
      * for details.
-     *
-     * @see uim.collections.ICollection::count()
-     * /
+     */
     size_t countKeys();
 
     /**
@@ -1164,7 +1121,6 @@ interface ICollection {
      * @param callable|null  operation A callable that allows you to customize the product result.
      * @param callable|null filter A filtering callback that must return true for a result to be part
      *   of the final results.
-     * @return self
      */
-    // ICollection cartesianProduct(?callable  operation = null, ?callable filter = null);
+    // TODO ICollection cartesianProduct(?callable  operation = null, ?callable filter = null);
 }

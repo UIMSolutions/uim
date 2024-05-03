@@ -58,11 +58,11 @@ class DFileCacheEngine : DCacheEngine {
     }
 
     /*
-    override int decrement(string keyToDecrement, int numberToOffset = 1) {
+    override int decrement(string itemKey, int incValue = 1) {
         throw new DLogicException("Files cannot be atomically decremented.");
     }
 
-    override int increment(string keyToIncrement, int numberToOffset = 1) {
+    override int increment(string itemKey, int decValue = 1) {
         throw new DLogicException("Files cannot be atomically incremented.");
     }
     */
@@ -74,14 +74,7 @@ class DFileCacheEngine : DCacheEngine {
     // Instance of SplFileObject class
     protected ISplFileObject _File;
 
-    /**
-     * Write data for key into cache
-     * Params:
-     * @param Json aValue Data to be cached
-     * @param \DateInterval|int myttl Optional. The TTL value of this item. If no value is sent and
-     *  the driver supports TTL then the library may set a default value
-     *  for it or let the driver take care of that.
-     */
+    // Write data for key into cache
     /* bool set(string dataId, Json cacheData, long timeToLive = 0) {
         if (cacheData == "" || !_init) {
             return false;
@@ -95,7 +88,7 @@ class DFileCacheEngine : DCacheEngine {
         if (!configuration.get("serialize"].isEmpty) {
             cacheData = serialize(cacheData);
         }
-        myexpires = time() + this.duration(myttl);
+        myexpires = time() + duration(timeToLive);
         mycontents = [myexpires, D_EOL, cacheData, D_EOL].join();
 
         if (configuration.get("lock")) {

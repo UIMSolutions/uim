@@ -82,12 +82,12 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      * /
-    bool cacheItems(Json[string] items, DateInterval|int myttl = null) {
+    bool cacheItems(Json[string] items, long timeToLive = 0) {
         this.ensureValidType(myvalues, self.CHECK_KEY);
 
-        if (!myttl.isNull) {
+        if (timeToLive != 0) {
             myrestore = configurationData.isSet("duration");
-            configuration.update("duration", myttl);
+            configuration.update("duration", timeToLive);
         }
         try {
             foreach (aKey: myvalue; myvalues) {
@@ -142,32 +142,21 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         return Json(null);
     }
 
-    /**
-     * Persists data in the cache, uniquely referenced by the given key with an optional expiration TTL time.
-     * Params:
-     * string aKey The key of the item to store.
-     * @param \DateInterval|int myttl Optional. The TTL value of this item. If no value is sent and
-     *  the driver supports TTL then the library may set a default value
-     *  for it or let the driver take care of that.
-     */
-    // abstract bool set(string aKey, Json valueToStore, DateInterval|int myttl = null);
+    // Persists data in the cache, uniquely referenced by the given key with an optional expiration TTL time.
+    // TODO abstract bool set(string itemKey, Json valueToStore, long timeToLive = 0);
 
-    /**
-     * Increment a number under the key and return incremented value
-     * Params:
-     * int anOffset How much to add
-     */
-    int increment(string dataId, int anOffset = 1) {
+    // Increment a number under the key and return incremented value
+    int increment(string itemKey, int incValue = 1) {
         return 0;
     }
 
     // Decrement a number under the key and return decremented value
-    int decrement(string dataId, int substractValue = 1) {
+    int decrement(string itemKey, int decValue = 1) {
         return 0;
     }
 
     // Delete a key from the cache
-    bool remove(string dataId) {
+    bool remove(string itemKey) {
         return false;
     }
 
@@ -181,10 +170,10 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * Defaults to a non-atomic implementation. Subclasses should
      * prefer atomic implementations.
      * /
-    bool add(string dataId, Json dataToCache) {
-        auto cachedValue = get(dataId);
+    bool add(string itemKey, Json dataToCache) {
+        auto cachedValue = get(itemKey);
         if (cachedValue is null) {
-            return _set(dataId, dataToCache);
+            return _set(itemKey, dataToCache);
         }
         return false;
     }
@@ -238,26 +227,14 @@ abstract class DCacheEngine : ICache, ICacheEngine {
             return;
         }
         triggerWarning(warningMessage);
+    } */ 
+
+    // Convert the various expressions of a TTL value into duration in seconds
+    protected int duration(long timeToLive = 0) {
+        if (timeToLive == 0) {
+            return configuration.toLong("duration");
+        }
+
+        return timeToLive; 
     }
-
-    /**
-     * Convert the various expressions of a TTL value into duration in seconds
-     * Params:
-     * \DateInterval|int myttl The TTL value of this item. If null is sent, the
-     *  driver"s default duration will be used.
-     */
-    /* protected int duration(DateInterval|int myttl) {
-        if (myttl is null) {
-            return configuration.get("duration");
-        }
-        if (isInt(myttl)) {
-            return myttl;
-        }
-        /** @var \DateTime mydatetime * /
-        mydatetime = DateTime.createFromFormat("U", "0");
-
-        return (int)mydatetime
-            .add(myttl)
-            .format("U");
-    } */
 }

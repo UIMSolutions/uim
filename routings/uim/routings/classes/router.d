@@ -50,9 +50,21 @@ class DRouter {
     // A hash of request context data.
     protected static Json[string] _requestContext = null;
 
-    /**
-     * Named expressions
-     * /
+    // Maintains the request object reference.
+    protected static DServerRequest _request = null;
+    // Get the current request object.
+    static DServerRequest getRequest() {
+        return _request;
+    }
+    
+    // Default extensions defined with Router.extensions()
+    protected static string[] _defaultExtensions = null;
+
+    // Cache of parsed route paths
+    protected static Json[string] _routePaths = null;
+
+    /*
+    // Named expressions
     protected static STRINGAA _namedExpressions = [
         "Action": Router.ACTION,
         "Year": Router.YEAR,
@@ -62,12 +74,6 @@ class DRouter {
         "UUID": Router.UUID,
     ];
 
-    /**
-     * Maintains the request object reference.
-     *
-     * @var \UIM\Http\ServerRequest|null
-     * /
-    protected static ?ServerRequest _request = null;
 
     /**
      * Initial state is populated the first time reload() is called which is at the bottom
@@ -82,28 +88,13 @@ class DRouter {
      * /
     protected static DClosure[] _urlFilters = null;
 
-    /**
-     * Default extensions defined with Router.extensions()
-     * /
-    protected static string[] _defaultExtensions = null;
 
-    /**
-     * Cache of parsed route paths
-     *
-     * @var Json[string]
-     * /
-    protected static array _routePaths = null;
-
-    /**
-     * Get or set default route class.
-     * Params:
-     * string myrouteclass DClass name.
-     * /
-    static string defaultRouteClass(string className = null) {
-        if (className.isNull) {
+    // Get or set default route class.
+    static string defaultRouteClass(string routeClassName = null) {
+        if (routeClassName.isNull) {
             return _defaultRouteClass;
         }
-        _defaultRouteClass = className;
+        _defaultRouteClass = routeClassName;
 
         return null;
     }
@@ -140,10 +131,7 @@ class DRouter {
         * /
     }
     
-    // Get the current request object.
-    static DServerRequest getRequest() {
-        return _request;
-    }
+
     
     /**
      * Reloads default Router settings. Resets all class variables and

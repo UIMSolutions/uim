@@ -101,7 +101,7 @@ class DExceptionRenderer : IExceptionRenderer {
         routerRequest = Router::getRequest();
         // Fallback to the request in the router or make a new one from
         // _SERVER
-        if (myRequest is null) {
+        if (myRequest.isNull) {
             myRequest = routerRequest ?: ServerRequestFactory::fromGlobals();
         }
 

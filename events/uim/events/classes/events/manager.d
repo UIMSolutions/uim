@@ -113,7 +113,7 @@ class DEventManager { // }: IEventManager {
 
             return this;
         }
-        if (aCallable is null) {
+        if (aCallable.isNull) {
             unset(_listeners[eventKey]);
 
             return this;

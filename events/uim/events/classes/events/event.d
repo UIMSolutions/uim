@@ -63,7 +63,7 @@ class DEvent : IEvent {
 
     // Returns the subject of this event
     IEventObject getSubject() {
-        if (_subject is null) {
+        if (_subject.isNull) {
             throw new DEventException("No subject set for this event");
         }
         return _subject;

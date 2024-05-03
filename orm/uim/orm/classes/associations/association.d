@@ -191,7 +191,7 @@ void setClassName(string anClassName) {
     if (
         _targetTable != null &&
         get_class(_targetTable) != App
-        :  : className(className, "Model/Table", "Table")
+       .className(className, "Model/Table", "Table")
         ) {
         throw new DInvalidArgumentException(sprintf(
                 "The class name '%s' doesn\"t match the target table class name of '%s'.",
@@ -258,7 +258,7 @@ function getTarget() : Table {
         _targetTable = tableLocator.get(registryAlias, myConfiguration);
 
         if (exists) {
-            className = App :  : className(_className, "Model/Table", "Table") ?  : Table:
+            className = App.className(_className, "Model/Table", "Table") ?  : Table:
              : class;
 
             if (!_targetTable instanceof className) {
@@ -391,7 +391,7 @@ bool getDependent() {
 bool canBeJoined(Json[string] optionData = null) {
     strategy = options.get() "strategy", this.getStrategy());
 
-    return strategy == this :  : STRATEGY_JOIN;
+    return strategy == this.STRATEGY_JOIN;
 }
 
 /**
@@ -452,7 +452,7 @@ string getProperty() {
 protected string _propertyName() {
     [, name] = pluginSplit(_name);
 
-    return Inflector :  : underscore(name);
+    return Inflector.underscore(name);
 }
 
 /**

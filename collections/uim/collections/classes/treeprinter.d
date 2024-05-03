@@ -44,7 +44,7 @@ class DTreePrinter { // }: RecursiveIteratorIterator, ICollection {
     string myvaluePath,
     string mykeyPath,
     string myspacer,
-    intmode = RecursiveIteratorIterator :  : SELF_FIRST
+    intmode = RecursiveIteratorIterator.SELF_FIRST
   ) {
     super.__construct(someItems, mode);
     _value = _propertyExtractor(valuePath);

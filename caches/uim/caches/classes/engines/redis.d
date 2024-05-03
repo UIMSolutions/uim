@@ -106,7 +106,7 @@ class DRedisCacheEngine : DCacheEngine {
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      * /
-    bool set(string dataId, Json dataToCache, DateInterval|int  aTtl = null) {
+    override bool set(string dataId, Json dataToCache, DateInterval|int  aTtl = null) {
         auto myKey = _key(dataId);
         auto serializedData = this.serialize(dataToCache);
 
@@ -163,7 +163,7 @@ class DRedisCacheEngine : DCacheEngine {
     }
     
     // Delete a key from the cache
-    bool remove(string dataIdentifier) {
+    override bool remove(string dataIdentifier) {
         auto key = _key(dataIdentifier);
         return _redis.del(key) > 0;
     }
@@ -173,16 +173,16 @@ class DRedisCacheEngine : DCacheEngine {
      *
      * Just unlink a key from the cache. The actual removal will happen later asynchronously.
      * /
-    bool deleteAsync(string dataIdentifier) {
+    override bool deleteAsync(string dataIdentifier) {
         auto key = _key(dataId);
         return _redis.unlink(key) > 0;
     }
     
     // Delete all keys from the cache
-    bool clear() {
+    override bool clear() {
        _redis.setOption(Redis.OPT_SCAN, to!string(Redis.SCAN_RETRY));
 
-        bool isAllDeleted = true;
+        override bool isAllDeleted = true;
         auto anIterator = null;
         auto somePattern = configuration.get("prefix") ~ "*";
 
@@ -206,10 +206,10 @@ class DRedisCacheEngine : DCacheEngine {
      *
      * Faster than clear() using unlink method.
      * /
-    bool clearBlocking() {
+    override bool clearBlocking() {
        _redis.setOption(Redis.OPT_SCAN, (string)Redis.SCAN_RETRY);
 
-        bool isAllDeleted = true;
+        override bool isAllDeleted = true;
          anIterator = null;
          somePattern = configuration.get("prefix") ~ "*";
 
@@ -220,7 +220,7 @@ class DRedisCacheEngine : DCacheEngine {
                 break;
             }
             someKeys.each!((key) {
-                bool isDeleted = (_redis.unlink(key) > 0);
+                override bool isDeleted = (_redis.unlink(key) > 0);
                 isAllDeleted = isAllDeleted &&  isDeleted;
             });
         }
@@ -231,7 +231,7 @@ class DRedisCacheEngine : DCacheEngine {
      * Write data for key into cache if it doesn`t exist already.
      * If it already exists, it fails and returns false.
      * /
-    bool add(string dataId, Json dataToCache) {
+    override bool add(string dataId, Json dataToCache) {
         auto aDuration = configuration.get("duration");
         auto aKey = _key(dataId);
         auto aValue = this.serialize(dataToCache);
@@ -262,7 +262,7 @@ class DRedisCacheEngine : DCacheEngine {
      * Increments the group value to simulate deletion of all keys under a group
      * old values will remain in storage until they expire.
          * /
-    bool clearGroup(string groupName) {
+    override bool clearGroup(string groupName) {
         return (bool)_redis.incr(configuration.get("prefix") ~  groupName);
     }
     

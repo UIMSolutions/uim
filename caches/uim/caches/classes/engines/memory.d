@@ -84,7 +84,7 @@ class DMemoryCacheEngine : DCacheEngine {
     ]; * /
 
     if (defined("Memory.HAVE_MSGPACK")) {
-      // TODO _serializers["msgpack"] = Memory :  : SERIALIZER_MSGPACK;
+      // TODO _serializers["msgpack"] = Memory.SERIALIZER_MSGPACK;
     }
     super.initialize(initData);
 
@@ -146,7 +146,7 @@ if (!configuration.get("username"].isNull && configuration.get("password"]!isNul
       "Memory extension is not built with SASL support"
     );
   }
-  _Memory.setOption(Memory :  : OPT_BINARY_PROTOCOL, true);
+  _Memory.setOption(Memory.OPT_BINARY_PROTOCOL, true);
   _Memory.setSaslAuthData(
     configuration.get("username"],
     configuration.get("password"]
@@ -162,7 +162,7 @@ return true;
      *  with the desired serializer engine.
      * /
 protected void _setOptions() {
-  _Memory.setOption(Memory :  : OPT_LIBKETAMA_COMPATIBLE, true);
+  _Memory.setOption(Memory.OPT_LIBKETAMA_COMPATIBLE, true);
 
   myserializer = configuration.get("serialize"].toLower;
   if (!_serializers.isSet(myserializer)) {
@@ -179,7 +179,7 @@ protected void _setOptions() {
     );
   }
   _Memory.setOption(
-Memory :  : OPT_SERIALIZER,
+Memory.OPT_SERIALIZER,
     _serializers[myserializer]
   );
 
@@ -188,11 +188,11 @@ Memory :  : OPT_SERIALIZER,
     defined("Memory.OPT_CLIENT_MODE") &&
     defined("Memory.DYNAMIC_CLIENT_MODE")
     ) {
-    _Memory.setOption(Memory :  : OPT_CLIENT_MODE, Memory:
+    _Memory.setOption(Memory.OPT_CLIENT_MODE, Memory:
        : DYNAMIC_CLIENT_MODE);
   }
   _Memory.setOption(
-Memory :  : OPT_COMPRESSION,
+Memory.OPT_COMPRESSION,
     (bool) configuration.get("compress"]
   );
 }
@@ -233,7 +233,7 @@ array parseServerString(string myserver) {
      * int myname The option name to read.
      * @see https://secure.d.net/manual/en/memcached.getoption.d
      * /
-string | int | bool | null getOption(int myname) {
+Json getOption(int myname) {
   return _Memory.getOption(myname);
 }
 
@@ -249,7 +249,7 @@ string | int | bool | null getOption(int myname) {
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      * /
-bool set(string aKey, Json aValue, long timeToLive = 0) {
+override bool set(string aKey, Json aValue, long timeToLive = 0) {
   myduration = this.duration(myttl);
 
   return _Memory.set(_key(aKey), myvalue, myduration);
@@ -263,7 +263,7 @@ bool set(string aKey, Json aValue, long timeToLive = 0) {
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      * /
-bool set(Json[string] values, long timeToLive = 0) {
+override bool set(Json[string] values, long timeToLive = 0) {
   auto cacheData = null;
   myvalues.byKeyValue
     .each!(kv => cacheData[_key(kv.key)] = kv.value);
@@ -281,7 +281,7 @@ bool set(Json[string] values, long timeToLive = 0) {
 Json get(string aKey, Json defaultValue = Json(null)) {
   auto myKey = _key(aKey);
   myvalue = _Memory.get(myKey);
-  if (_Memory.getResultCode() == Memory :  : RES_NOTFOUND) {
+  if (_Memory.getResultCode() == Memory.RES_NOTFOUND) {
     return mydefault;
   }
   return myvalue;
@@ -319,19 +319,19 @@ int decrement(string itemKey, int decValue = 1) {
 }
 
 // Delete a key from the cache
-bool removeItem(string itemKey) {
+override bool removeItem(string itemKey) {
   return _Memory.removeItem(_key(itemKey));
 }
 
 // Delete many keys from the cache at once
-bool removeItems(string[] itemKeys) {
+override bool removeItems(string[] itemKeys) {
   auto mycacheKeys = itemKeys
     .map!(key => _key(aKey)).array;
   return (bool) _Memory.deleteMulti(mycacheKeys);
 }
 
 // Delete all keys from the cache
-bool clear() {
+override bool clear() {
   _Memory.getAllKeys()
     .filter!(key => key.startsWith(configuration.get("prefix")))
     .each!(key => _Memory.removeItem(key));
@@ -344,7 +344,7 @@ bool clear() {
      * Params:
      * @param Json aValue Data to be cached.
      * /
-bool add(string itemKey, Json aValue) {
+override bool add(string itemKey, Json aValue) {
   auto myduration = configuration.get("duration");
   aKey = _key(itemKey);
 
@@ -385,7 +385,7 @@ bool add(string itemKey, Json aValue) {
   * Increments the group value to simulate deletion of all keys under a group
   * old values will remain in storage until they expire.
   * /
-bool clearGroup(string groupName) {
+override bool clearGroup(string groupName) {
   return (bool) _Memory.increment(configuration.get("prefix") ~ groupName);
 } */
 }

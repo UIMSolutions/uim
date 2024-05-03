@@ -25,7 +25,7 @@ class DApcuCacheEngine : DCacheEngine {
 
   // Write data for key into cache
      
-  /* bool set(string itemKey, Json dataToCache, long timeToLive = 0) {
+  /* override bool set(string itemKey, Json dataToCache, long timeToLive = 0) {
     auto aKey = _key(itemKey);
     auto myDuration = this.duration(timeToLive);
 
@@ -64,14 +64,14 @@ class DApcuCacheEngine : DCacheEngine {
   } */ 
 
   // Delete a key from the cache
-  /* bool remove(string itemKey) {
+  /* override bool remove(string itemKey) {
     auto key = _key(itemKey);
 
     return apcu_remove(key);
   } */
 
   //  Delete all keys from the cache. This will clear every cache config using APC.
-  /* bool clear() {
+  /* override bool clear() {
     if (class_exists(APCUIterator.class, false)) {
       auto myIterator = new APCUIterator(
         "/^" ~ preg_quote(configuration.get("prefix"), "/") ~ "/",
@@ -97,7 +97,7 @@ class DApcuCacheEngine : DCacheEngine {
      * string aKey Identifier for the data.
      * @param Json aValue Data to be cached.
      */
-  /* bool add(string aKey, Json aValue) {
+  /* override bool add(string aKey, Json aValue) {
     auto myKey = _key(aKey);
     Json duration = configuration.get("duration");
 

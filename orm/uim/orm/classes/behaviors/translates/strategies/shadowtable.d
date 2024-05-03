@@ -109,7 +109,7 @@ class DShadowTableStrategy { // TODO }: ITranslateStrategy {
      * @param \ArrayObject options The options for the query.
      * /
     void beforeFind(IEvent event, Query query, ArrayObject options) {
-        locale = Hash :  : get(options, "locale", this.getLocale());
+        locale = Hash.get(options, "locale", this.getLocale());
         myConfiguration = configuration;
 
         if (locale == configuration.get("defaultLocale"]) {

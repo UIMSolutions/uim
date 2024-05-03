@@ -606,7 +606,7 @@ mixin template TEntity() {
       }
 
       stringfield = lcfirst(substr(method, 4));
-      snakeField = Inflector :  : underscore(field);
+      snakeField = Inflector.underscore(field);
       titleField = ucfirst(field);
       _accessors[className][prefix][snakeField] = method;
       _accessors[className][prefix][field] = method;

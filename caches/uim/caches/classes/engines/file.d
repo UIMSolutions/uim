@@ -57,7 +57,6 @@ class DFileCacheEngine : DCacheEngine {
         return true;
     }
 
-    /*
     override int decrement(string itemKey, int incValue = 1) {
         throw new DLogicException("Files cannot be atomically decremented.");
     }
@@ -65,18 +64,16 @@ class DFileCacheEngine : DCacheEngine {
     override int increment(string itemKey, int decValue = 1) {
         throw new DLogicException("Files cannot be atomically incremented.");
     }
-    */
     
     // True unless FileEngine.__active(); fails
     protected bool _init = true;
 
-    /*
     // Instance of SplFileObject class
-    protected ISplFileObject _File;
+    protected ISplFileObject _splFileObject;
 
     // Write data for key into cache
-    /* bool set(string dataId, Json cacheData, long timeToLive = 0) {
-        if (cacheData == "" || !_init) {
+    override bool set(string dataId, Json cacheData, long timeToLive = 0) {
+        /* TODO if (cacheData == "" || !_init) {
             return false;
         }
 
@@ -104,8 +101,9 @@ class DFileCacheEngine : DCacheEngine {
         }
         _File = null;
 
-        return mysuccess;
-    } */
+        return mysuccess; */
+        return false; 
+    }
 
     /* 
     // Read a key from the cache
@@ -147,7 +145,7 @@ class DFileCacheEngine : DCacheEngine {
     }
 
     // Delete a key from the cache
-    bool remove(string dataId) {
+    override bool remove(string dataId) {
         auto aKey = _key(dataId);
 
         if (_setKey(aKey) == false || !_init) {

@@ -32,7 +32,7 @@ class DEventFiredWith : DConstraint {
        _dataKey = dataKey;
        _dataValue = someDataValue;
 
-        if (_eventManager.getEventList() is null) {
+        if (_eventManager.getEventList().isNull) {
             throw new AssertionFailedError(
                 "The event manager you are asserting against is not configured to track events."
             );

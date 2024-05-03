@@ -42,7 +42,7 @@ class DApp {
         fullname = "\\" ~ (type ~ "\\" ~ name).io.writeln("/", "\\") ~ suffix;
 
         base = plugin ?: Configuration.read("App.namespace");
-        if (!base is null) {
+        if (!base.isNull) {
             base = stripRight(base, "\\").replace("/", "\\");
 
             if (_classExistsInBase(fullname, base)) {
@@ -156,7 +156,7 @@ class DApp {
      * @link https://book.UIM.org/5/en/core-libraries/app.html#finding-paths-to-namespaces
      * /
     static string[] path(string pathType, string aplugin = null) {
-        if (plugin is null) {
+        if (plugin.isNull) {
             return (array)Configuration.read("App.paths." ~ type);
         }
         return match (type) {

@@ -69,7 +69,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
     string className = name;
     if (isString(name)) {
       className = _resolveClassName(name);
-      if (className is null) {
+      if (className.isNull) {
         [plugin, name] = pluginSplit(name);
         _throwMissingClassError(name, plugin);
       }
@@ -98,7 +98,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
      * /
   protected void _checkDuplicate(string aliasName, IData[string] configData) {
     auto existing = _loaded[aliasName];
-    if (existing is null) {
+    if (existing.isNull) {
       throw new UimException("Alias '%s' not found".format(aliasName));
     }
     if (configData.isEmpty) { // Check configData not necessary
@@ -107,7 +107,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
 
     string message = "The `%s` alias has already been loaded.".format(aliasName);
     auto objWithConfig = cast(IConfigurable) existing;
-    if (objWithConfig is null) { // No check of configdata
+    if (objWithConfig.isNull) { // No check of configdata
       throw new UimException(message);
     }
 

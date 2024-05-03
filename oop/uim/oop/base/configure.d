@@ -94,7 +94,7 @@ class DConfigure {
      * @param Json defaultValue The return value when the configure does not exist
      * /
 static Json read(string avar = null, IData defaultData = null) {
-    if (var is null) {
+    if (var.isNull) {
         return _values;
     }
     return Hash.get(_values, var, defaultData);
@@ -347,7 +347,7 @@ static string[] configured() {
      * /
     static string currentVersion() {
         auto uimVersion = read("uim.version");
-        if (!uimVersion is null) {
+        if (!uimVersion.isNull) {
             return uimVersion;
         }
         

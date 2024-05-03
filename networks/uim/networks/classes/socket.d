@@ -443,7 +443,7 @@ class DSocket {
                 method |= STREAM_CRYPTO_METHOD_TLSv1_1_SERVER | STREAM_CRYPTO_METHOD_TLSv1_2_SERVER;
             }
             try {
-                if (this.connection is null) {
+                if (this.connection.isNull) {
                     throw new UimException("You must call connect() first.");
                 }
                 enableCryptoResult = stream_socket_enable_crypto(this.connection, enable, method);

@@ -948,7 +948,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
       ]);
 
       /* if (model) {
-        if (model.id is null) result["model"] = model.name;
+        if (model.id.isNull) result["model"] = model.name;
         else result["model"] = model.id.toString;
       } */
       result = result.set(
@@ -1003,7 +1003,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
         result["deletedBy"] = deletedBy.toString;
       /* if (!hideFields.exist("model")) {
         if (model) {
-          if (model.id is null) result["model"] = model.name;
+          if (model.id.isNull) result["model"] = model.name;
           else result["model"] = model.id.toString;
         }
       } */
@@ -1057,7 +1057,7 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
         result["deletedBy"] = deletedBy.toString;
       /* if ((showFields.exist("model")) && (!hideFields.exist("model"))) {
         if (model) {
-          if (model.id is null) result["model"] = model.name;
+          if (model.id.isNull) result["model"] = model.name;
           else result["model"] = model.id.toString;
         }
       } */

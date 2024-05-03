@@ -187,7 +187,7 @@ abstract class DConfiguration : IConfiguration {
         }
 
         void set(Json[string] newData, string[] keys = null) {
-            if (keys is null) {
+            if (keys.isNull) {
                 keys.each!(key => set(key, newData[key]));
             }
             else {
@@ -208,7 +208,7 @@ abstract class DConfiguration : IConfiguration {
     // #endregion set
 
     void update(Json[string] newData, string[] keys = null) {
-        if (keys is null) {
+        if (keys.isNull) {
             keys.each!(key => update(key, newData[key]));
         }
         else {
@@ -221,7 +221,7 @@ abstract class DConfiguration : IConfiguration {
     abstract void update(string key, Json[string] newData);
 
     void merge(Json[string] newData, string[] validKeys = null) {
-        if (validKeys is null) {
+        if (validKeys.isNull) {
             newData.keys.each!(key => merge(key, newData[key]));
         }
         else {

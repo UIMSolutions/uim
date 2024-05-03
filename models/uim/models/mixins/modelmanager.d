@@ -30,7 +30,7 @@ mixin template TModelManager() {
 
   // #region model
     IModel model(string aName = null) {
-      if (_modelContainer is null) return null;
+      if (_modelContainer.isNull) return null;
 
       return (aName ? _modelContainer[aName, NullModel] : _modelContainer[_defaultModel]);
     }
@@ -51,7 +51,7 @@ mixin template TModelManager() {
   }
 
   bool hasModel(string aName) {
-    return (_modelContainer ? !(_modelContainer[aName] is null) : false);
+    return (_modelContainer ? !(_modelContainer[aName].isNull) : false);
   }
 
   // Add model if not exitst

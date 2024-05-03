@@ -7,7 +7,7 @@ class DEntityRegistry : DObjectRegistry!DEntity {
   static DEntityRegistry registry;
 }
 auto EntityRegistry() { // Singleton
-  if (DEntityRegistry.instance is null) {
+  if (DEntityRegistry.instance.isNull) {
     DEntityRegistry.instance = new DEntityRegistry;
   }
   return DEntityRegistry.instance;

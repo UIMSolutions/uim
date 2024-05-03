@@ -170,19 +170,12 @@ mixin template TPluginAssets() {
         return false;
     }
     
-    /**
-     * Create symlink
-     * Params:
-     * @param string alink Link name
-     * /
-    protected bool _createSymlink(string targetDirectory, string alink) {
-        
-        result = @symlink(targetDirectory, link);
-        
+    // Create symlink
+    protected bool _createSymlink(string targetDirectory, string linkName) {
+        auto result = @symlink(targetDirectory, linkName);
 
         if (result) {
-            this.io.writeln("Created symlink " ~ link);
-
+            this.io.writeln("Created symlink " ~ linkName);
             return true;
         }
         return false;

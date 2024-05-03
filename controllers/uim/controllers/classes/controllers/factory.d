@@ -56,12 +56,9 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
         }
         // Get the controller from the container if defined.
         // The request is in the container by default.
-        if (this.container.has(className)) {
-            controller = this.container.get(className);
-        } else {
-            controller = reflection.newInstance(request);
-        }
-        return controller;
+        return this.container.has(className)
+            ? this.container.get(className) 
+            : reflection.newInstance(request);
     }
     
     /**

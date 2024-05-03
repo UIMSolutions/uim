@@ -15,25 +15,39 @@ import uim.caches;
 class DArrayCacheEngine : DCacheEngine {
   mixin(CacheEngineThis!("Array"));
 
-  // Cached data.
-  // Structured as [key: [exp: expiration, val: value]]
-  protected Json[string] _cachedData;
-
   override bool initialize(Json[string] initData = null) {
-    if (!super.initialize(initData)) { return false; }
+    if (!super.initialize(initData)) {
+      return false;
+    }
 
     return true;
   }
 
   // Write data for key into cache
-  bool set(string itemKey, Json dataForCache, long timeToLive = 0) {
+  override bool set(string itemKey, Json dataForCache, long timeToLive = 0) {
     Json data = Json.emptyObject;
     data["exp"] = 0; // TODO time() + this.duration(timeToLive);
     data["val"] = dataForCache;
-   _cachedData[_key(itemKey)] = data;
+    _cachedData[_key(itemKey)] = data;
 
     return true;
-  } 
+  }
+
+  // Cached data.
+  // Structured as [key: [exp: expiration, val: value]]
+  protected Json[string] _cachedData;
+  // Delete a key from the cache
+  override bool remove(string itemKey) {
+    _cachedData.remove(_key(itemKey));
+
+    return true;
+  }
+
+  // Delete all keys from the cache. This will clear every cache config using APC.
+  override bool clear() {
+    _cachedData = null;
+    return true;
+  }
 
   // Read a key from the cache
   /*
@@ -58,23 +72,23 @@ class DArrayCacheEngine : DCacheEngine {
   /**
      * Increments the value of an integer cached key
      * @param int anOffset How much to addValue  */
-  /* int increment(string itemKey, int addValue = 1) | false {
-    if (get(itemKey) is null) {
-      this.set(itemKey, 0);
+  int increment(string itemKey, int incValue = 1) | false {
+    if (get(itemKey).isNull) {
+      set(itemKey, 0);
     }
 
     auto key = _key(itemKey);
-    _cachedData[itemKey]["val"] += addValue;
+    _cachedData[itemKey]["val"] += incValue;
 
     return _cachedData[key]["val"];
-  } */ 
+  }
 
   /**
      * Decrements the value of an integer cached key
      * @param int anOffset How much to decValue
      */
   /* int decrement(string itemKey, int decValue = 1) | false {
-    if (get(itemKey) is null) {
+    if (get(itemKey).isNull) {
       this.set(itemKey, 0);
     }
     auto key = _key(itemKey);
@@ -83,20 +97,7 @@ class DArrayCacheEngine : DCacheEngine {
     return _cachedData[key]["val"];
   } * / 
 
-  // Delete a key from the cache
-  override bool remove(string itemKey) {
-    string key = _key(itemKey);
-    _cachedData.remove(key);
 
-    return true;
-  }
-
-  // Delete all keys from the cache. This will clear every cache config using APC.
-  override bool clear() {
-    _cachedData = null;
-
-    return true;
-  }
 
   /**
      * Returns the `group value` for each of the configured groups
@@ -116,7 +117,7 @@ class DArrayCacheEngine : DCacheEngine {
     });
 
     return results;
-  } */ 
+  } */
 
   /**
      * Increments the group value to simulate deletion of all keys under a group
@@ -131,6 +132,7 @@ class DArrayCacheEngine : DCacheEngine {
       _cachedData[aKey]["val"] += 1;
     }
     return true;
-  } */ 
+  } */
 }
+
 mixin(CacheEngineCalls!("Array"));

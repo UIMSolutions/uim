@@ -467,7 +467,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         if (event.isStopped()) {
             return _response;
         }
-        if (builder.getTemplate() is null) {
+        if (builder.getTemplate().isNull) {
              builder.setTemplate(this.request.getParam("action"));
         }
          viewClass = this.chooseViewClass();
@@ -514,7 +514,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         }
         // Controller or component has already made a view class decision.
         // That decision should overwrite the framework behavior.
-        if (!this.viewBuilder().getClassName() is null) {
+        if (!this.viewBuilder().getClassName().isNull) {
             return null;
         }
 

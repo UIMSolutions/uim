@@ -137,7 +137,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     }
 
     // Persists data in the cache, uniquely referenced by the given key with an optional expiration TTL time.
-    // TODO abstract bool set(string itemKey, Json valueToStore, long timeToLive = 0);
+    abstract bool set(string itemKey, Json valueToStore, long timeToLive = 0);
 
     // Increment a number under the key and return incremented value
     int increment(string itemKey, int incValue = 1) {
@@ -158,6 +158,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     bool clear() {
         return false;
     }
+
     /**
      * Add a key to the cache if it does not already exist.
      *
@@ -166,20 +167,16 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * /
     bool add(string itemKey, Json dataToCache) {
         auto cachedValue = get(itemKey);
-        if (cachedValue is null) {
-            return _set(itemKey, dataToCache);
-        }
-        return false;
+        return cachedValue.isNull
+            ? _set(itemKey, dataToCache)
+            : false;
     }
 
     /**
      * Clears all values belonging to a group. Is up to the implementing engine
-     * to decide whether actually delete the keys or just simulate it to achieve
-     * the same result.
-     * Params:
-     * string mygroup name of the group to be cleared
+     * to decide whether actually delete the keys or just simulate it to achieve the same result.
      */
-    bool clearGroup(string mygroup) {
+    bool clearGroup(string groupName) {
         return false;
     }
 
@@ -219,11 +216,9 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     } */ 
 
     // Convert the various expressions of a TTL value into duration in seconds
-    protected int duration(long timeToLive = 0) {
-        if (timeToLive == 0) {
-            return configuration.getLong("duration");
-        }
-
-        return timeToLive; 
+    protected long duration(long timeToLive = 0) {
+        return timeToLive == 0
+            ? configuration.getLong("duration")
+            : timeToLive; 
     }
 }

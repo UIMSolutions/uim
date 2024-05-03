@@ -35,7 +35,7 @@ class DLogger : ILogger {
 
         // TODO
         /*
-        if (!configuration.get("scopes") is null) {
+        if (!configuration.get("scopes").isNull) {
            configuration.get("scopes", configuration.get("scopes").toArray);
         }
         configuration.get("levels", configuration.get("levels").toArray);

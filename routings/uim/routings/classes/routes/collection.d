@@ -103,7 +103,7 @@ class DRouteCollection {
         if (isSet(this.staticPaths[myurlPath])) {
             foreach (myroute; this.staticPaths[myurlPath]) {
                 auto request = myroute.parseRequest(myrequest);
-                if (request is null) {
+                if (request.isNull) {
                     continue;
                 }
                 if (myuri.getQuery()) {
@@ -122,7 +122,7 @@ class DRouteCollection {
             }
             foreach (myroutes as myroute) {
                 myr = myroute.parseRequest(myrequest);
-                if (myr is null) {
+                if (myr.isNull) {
                     continue;
                 }
                 if (myuri.getQuery()) {

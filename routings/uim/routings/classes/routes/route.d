@@ -204,7 +204,7 @@ class DRoute : IRoute {
      * and populates this.names with the named routing elements.
      * /
     string compile() {
-        if (_compiledRoute is null) {
+        if (_compiledRoute.isNull) {
            _writeRoute();
         }
         assert(_compiledRoute !isNull);
@@ -297,7 +297,7 @@ class DRoute : IRoute {
                 myvalue = this.defaults[aKey];
             }
 
-            if (myvalue is null) {
+            if (myvalue.isNull) {
                 continue;
             }
             if (myvalue == true || myvalue == false) {

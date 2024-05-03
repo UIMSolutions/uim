@@ -76,7 +76,7 @@ class DDashedRoute : DRoute {
      * /
     string match(array myurl, array mycontext = []) {
         auto myurl = _dasherize(myurl);
-        if (_inflectedDefaults is null) {
+        if (_inflectedDefaults.isNull) {
             this.compile();
            _inflectedDefaults = _dasherize(this.defaults);
         }

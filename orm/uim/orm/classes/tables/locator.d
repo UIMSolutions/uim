@@ -46,7 +46,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      *  If none provided, the default `Model\Table` under your app"s namespace is used.
      * /
     this(array mylocations = null, ?QueryFactory myqueryFactory = null) {
-        if (mylocations is null) {
+        if (mylocations.isNull) {
             mylocations = [
                 "Model/Table",
             ];
@@ -205,7 +205,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         }
         foreach (location; this.locations) {
             myclass = App.className(options["className"], location, "Table");
-            if (!myclass is null) {
+            if (!myclass.isNull) {
                 return myclass;
             }
         }

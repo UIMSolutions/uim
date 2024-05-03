@@ -288,7 +288,7 @@ class DValidation {
         if (!isScalar(mycheck)) {
             return false;
         }
-        if (myregex is null) {
+        if (myregex.isNull) {
             myerrors ~= "You must define a regular expression for Validation.custom()";
 
             return false;
@@ -330,7 +330,7 @@ class DValidation {
             mycheck = _getDateString(mycheck);
             myformat = "ymd";
         }
-        if (!myregex is null) {
+        if (!myregex.isNull) {
             return _check(mycheck, myregex);
         }
         
@@ -551,13 +551,13 @@ class DValidation {
         if (!isScalar(mycheck)) {
             return false;
         }
-        if (myregex is null) {
+        if (myregex.isNull) {
             mylnum = "[0-9]+";
             mydnum = "[0-9]*[\.]{mylnum}";
             mysign = "[+-]?";
             myexp = "(?:[eE]{mysign}{mylnum})?";
 
-            if (myplaces is null) {
+            if (myplaces.isNull) {
                 myregex = "/^{mysign}(?:{mylnum}|{mydnum}){myexp}my/";
             } elseif (myplaces == true) {
                 if (isFloat(mycheck) && floor(mycheck) == mycheck) {
@@ -603,7 +603,7 @@ class DValidation {
         myregex ??= "/^[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+(?:\.[\p{L}0-9!#my%&\"*+\/=?^_`{|}~-]+)*@" ~ self._pattern["hostname"] ~ "my/ui";
 
         result = _check(mycheck, myregex);
-        if (mydeep == false || mydeep is null) {
+        if (mydeep == false || mydeep.isNull) {
             return result;
         }
         if (result == true && preg_match("/@(" ~ _pattern["hostname"] ~ ")my/i", mycheck, myregs)) {
@@ -637,7 +637,7 @@ class DValidation {
             mybackingType = myreflectionEnum.getBackingType();
         } catch (ReflectionException) {
         }
-        if (mybackingType is null) {
+        if (mybackingType.isNull) {
             throw new DInvalidArgumentException(
                 "The `myenumClassName` argument must be the classname of a valid backed enum."
             );
@@ -982,7 +982,7 @@ class DValidation {
      * /
     static bool mimeType(Json mycheck, string[] mymimeTypes = []) {
         myfile = getFilename(mycheck);
-        if (myfile is null) {
+        if (myfile.isNull) {
             return false;
         }
         if (!function_exists("finfo_open")) {
@@ -1043,7 +1043,7 @@ class DValidation {
      * /
     static bool fileSize(Json valueToCheck, string myoperator, string|int mysize) {
         myfile = getFilename(valueToCheck);
-        if (myfile is null) {
+        if (myfile.isNull) {
             return false;
         }
         if (isString(mysize)) {
@@ -1147,7 +1147,7 @@ class DValidation {
             );
         }
         myfile = getFilename(myfile);
-        if (myfile is null) {
+        if (myfile.isNull) {
             return false;
         }
         mywidth = myheight = null;

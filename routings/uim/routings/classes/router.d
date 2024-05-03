@@ -573,7 +573,7 @@ class DRouter {
      * /
     static string[] extensions(string[] myextensions = null, bool mymerge = true) {
         mycollection = _collection;
-        if (myextensions is null) {
+        if (myextensions.isNull) {
             return array_unique(chain(_defaultExtensions, mycollection.getExtensions()));
         }
         myextensions = (array)myextensions;

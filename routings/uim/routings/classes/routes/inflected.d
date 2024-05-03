@@ -58,7 +58,7 @@ class DInflectedRoute : DRoute {
      * /
     string match(array myurl, array mycontext = []) {
         myurl = _underscore(myurl);
-        if (_inflectedDefaults is null) {
+        if (_inflectedDefaults.isNull) {
             this.compile();
            _inflectedDefaults = _underscore(this.defaults);
         }

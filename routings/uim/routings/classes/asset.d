@@ -172,7 +172,7 @@ class DAsset {
      * /
     protected static string encodeUrl(string urlToEncode) {
         auto somePath = parse_url(urlToEncode, UIM_URL_PATH);
-        if (somePath == false || somePath is null) {
+        if (somePath == false || somePath.isNull) {
             somePath = urlToEncode;
         }
         auto someParts = array_map("rawurldecode", somePath.split("/"));
@@ -283,7 +283,7 @@ class DAsset {
      * /
     protected static string requestWebroot() {
         request = Router.getRequest();
-        if (request is null) {
+        if (request.isNull) {
             return "/";
         }
         return request.getAttribute("webroot");

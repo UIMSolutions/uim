@@ -89,7 +89,7 @@ class UriFactory { // }: IUriFactory {
         
         if (!baseUrl) {
             DSelf = serverData["UIM_SELF"] ?? null;
-            if (DSelf is null) {
+            if (DSelf.isNull) {
                 return ["base": "", "webroot": "/"];
             }
             base = dirname(serverData.get("UIM_SELF", DIRECTORY_SEPARATOR));

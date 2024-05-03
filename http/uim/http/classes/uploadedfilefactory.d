@@ -31,7 +31,7 @@ class DUploadedFileFactory { //}: IUploadedFileFactory {
         string aclientFilename = null,
         string aclientMediaType = null
     ): IUploadedFile {
-        if (size is null) {
+        if (size.isNull) {
             size = stream.getSize() ?? 0;
         }
         return new UploadedFile(stream, size, error, clientFilename, clientMediaType);

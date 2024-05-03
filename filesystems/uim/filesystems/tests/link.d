@@ -41,7 +41,7 @@ import uim.filesystems;
 // #region Link Tests
   void testLink_CreateLink(string moduleName, IFolder workFolder, string strPath, string[] pathItems) {
     version(testUimFilesystems) { debug writeln("Running test 'testLink_CreateLink'..."); }
-    if (workFolder is null) { 
+    if (workFolder.isNull) { 
       version(testUimFilesystems) { debug writeln("No Workfolder for testLink_CreateLink"); }
       return; 
     }
@@ -49,7 +49,7 @@ import uim.filesystems;
 
   void testLink_ReadLink(string moduleName, IFolder workFolder, string strPath, string[] pathItems) {
     version(testUimFilesystems) { debug writeln("Running test 'testLink_ReadLink'..."); }
-    if (workFolder is null) { 
+    if (workFolder.isNull) { 
       version(testUimFilesystems) { debug writeln("No Workfolder for testFile_ReadFile"); }
       return; 
     }
@@ -57,7 +57,7 @@ import uim.filesystems;
 
   void testLink_UpdateLink(string moduleName, IFolder workFolder, string strPath, string[] pathItems) {
     version(testUimFilesystems) { debug writeln("Running test 'testLink_UpdateLink'..."); }
-    if (workFolder is null) { 
+    if (workFolder.isNull) { 
       version(testUimFilesystems) { debug writeln("No Workfolder for testLink_UpdateLink"); }
       return; 
     }
@@ -65,7 +65,7 @@ import uim.filesystems;
 
   void testLink_RemoveLink(string moduleName, IFolder workFolder, string strPath, string[] pathItems) {
     version(testUimFilesystems) { debug writeln("Running test 'testLink_RemoveLink'..."); }
-    if (workFolder is null) { 
+    if (workFolder.isNull) { 
       version(testUimFilesystems) { debug writeln("No Workfolder for testLink_RemoveLink"); }
       return; 
     }

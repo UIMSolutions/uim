@@ -129,7 +129,7 @@ import uim.filesystems;
 // #region Test File
   void testFolder_CreateFile(string moduleName, IFolder workFolder, string strPath, string[] pathItems) {
     version(testUimFilesystems) { debug writeln("Running test 'testFolder_CreateFile'...string %s, string[] %s".format(strPath, pathItems)); }
-    if (workFolder is null) { 
+    if (workFolder.isNull) { 
       version(testUimFilesystems) { debug writeln("No Workfolder for testFolder_CreateFile"); }
       return; 
     }
@@ -154,7 +154,7 @@ import uim.filesystems;
 
   void testFolder_ReadFile(string moduleName, IFolder workFolder, string strPath, string[] pathItems) {
     version(testUimFilesystems) { debug writeln("Running test 'testFolder_ReadFile'..."); }
-    if (workFolder is null) { 
+    if (workFolder.isNull) { 
       version(testUimFilesystems) { debug writeln("No Workfolder for testFolder_ReadFile"); }
       return; 
     }
@@ -172,7 +172,7 @@ import uim.filesystems;
 
   void testFolder_UpdateFile(string moduleName, IFolder workFolder, string strPath, string[] pathItems) {
     version(testUimFilesystems) { debug writeln("Running test 'testFolder_UpdateFile'..."); }
-    if (workFolder is null) { 
+    if (workFolder.isNull) { 
       version(testUimFilesystems) { debug writeln("No Workfolder for testFolder_UpdateFile"); }
       return; 
     }
@@ -204,7 +204,7 @@ import uim.filesystems;
 
   void testFolder_removeFile(string moduleName, IFolder workFolder, string strPath, string[] pathItems) {
     version(testUimFilesystems) { debug writeln("Running test 'testFolder_removeFile'..."); }
-    if (workFolder is null) { 
+    if (workFolder.isNull) { 
       version(testUimFilesystems) { debug writeln("No Workfolder for testFolder_removeFile"); }
       return; 
     }

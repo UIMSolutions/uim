@@ -163,7 +163,7 @@ class DClient { // }: IClient {
     configuration.update(configData);
 
     myadapter = configuration.get("adapter"];
-    if (myadapter is null) {
+    if (myadapter.isNull) {
       myadapter = Curl.classname;
 
       if (!extension_loaded("curl")) {

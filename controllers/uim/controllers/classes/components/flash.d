@@ -85,7 +85,7 @@ class DFlashComponent : DComponent {
      * string|null aKey The key to get or null for the whole config.
      * @param Json defaultValue The return value when the key does not exist.
      * /
-    Json getConfig(string aKey = null, Json defaultValue = null) {
+    Json getConfig(string aKey = null, Json defaultValue = Json(null)) {
         return _flash().configuration.get(aKey, default);
     }
 

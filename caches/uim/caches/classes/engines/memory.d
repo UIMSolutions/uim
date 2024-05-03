@@ -249,7 +249,7 @@ string | int | bool | null getOption(int myname) {
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      * /
-bool set(string aKey, Json aValue, DateInterval | int | null myttl = null) {
+bool set(string aKey, Json aValue, long timeToLive = 0) {
   myduration = this.duration(myttl);
 
   return _Memory.set(_key(aKey), myvalue, myduration);
@@ -263,7 +263,7 @@ bool set(string aKey, Json aValue, DateInterval | int | null myttl = null) {
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      * /
-bool setMultiple(Range myvalues, DateInterval | int | null myttl = null) {
+bool setMultiple(Range myvalues, long timeToLive = 0) {
   auto cacheData = null;
   myvalues.byKeyValue
     .each!(kv => cacheData[_key(kv.key)] = kv.value);

@@ -82,7 +82,7 @@ class DFileCacheEngine : DCacheEngine {
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
      */
-    /* bool set(string dataId, Json cacheData, DateInterval | int myttl = null) {
+    /* bool set(string dataId, Json cacheData, long timeToLive = 0) {
         if (cacheData == "" || !_init) {
             return false;
         }
@@ -116,7 +116,7 @@ class DFileCacheEngine : DCacheEngine {
 
     /* 
     // Read a key from the cache
-    Json get(string dataId, Json defaultValue = null) {
+    Json get(string dataId, Json defaultValue = Json(null)) {
         auto key = _key(dataId);
 
         if (!_init || _setKey(key) == false) {

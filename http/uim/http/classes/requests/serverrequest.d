@@ -969,7 +969,7 @@ class DServerRequest { // }: IServerRequest {
      * string|null name The name or dotted path to the query param or null to read all.
      * @param Json defaultValue The default value if the named parameter is not set, and name is not null.
      * /
-    Json getQuery(string aName = null, Json defaultValue = null) {
+    Json getQuery(string aName = null, Json defaultValue = Json(null)) {
         if (name is null) {
             return _query;
         }
@@ -1007,7 +1007,7 @@ class DServerRequest { // }: IServerRequest {
      * string|null name Dot separated name of the value to read. Or null to read all data.
      * @param Json defaultValue The default data.
      * /
-    Json getData(string aName = null, Json defaultValue = null) {
+    Json getData(string aName = null, Json defaultValue = Json(null)) {
         if (name is null) {
             return _data;
         }
@@ -1271,7 +1271,7 @@ class DServerRequest { // }: IServerRequest {
      * string aName The name or dotted path to parameter.
      * @param Json defaultValue The default value if `name` is not set. Default `null`.
     * /
-    Json getParam(string aName, Json defaultValue = null) {
+    Json getParam(string aName, Json defaultValue = Json(null)) {
         return Hash.get(this.params, name, default);
     }
     
@@ -1317,7 +1317,7 @@ class DServerRequest { // }: IServerRequest {
      * string aName The attribute name.
      * @param Json defaultValue The default value if the attribute has not been set.
      * /
-    Json getAttribute(string aName, Json defaultValue = null) {
+    Json getAttribute(string aName, Json defaultValue = Json(null)) {
         if (in_array(name, this.emulatedAttributes, true)) {
             if (name == "here") {
                 return _base ~ this.uri.getPath();

@@ -122,7 +122,7 @@ class DRedisCacheEngine : DCacheEngine {
      * string aKey Identifier for the data
      * @param Json defaultValue Default value to return if the key does not exist.
      * /
-    Json get(string aKey, Json defaultValue = null) {
+    Json get(string aKey, Json defaultValue = Json(null)) {
         aValue = _redis.get(_key(aKey));
         if (aValue == false) {
             return defaultValue;

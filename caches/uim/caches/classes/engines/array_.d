@@ -25,24 +25,18 @@ class DArrayCacheEngine : DCacheEngine {
     return true;
   }
 
-  /**
-     * Write data for key into cache
-     *
-     * @param \DateInterval|int myttl Optional. The TTL value of this item. If no value is sent and
-     *  the driver supports TTL then the library may set a default value
-     *  for it or let the driver take care of that.
-     * returns True on success and false on failure.
-     */
-  /* bool set(string dataId, Json dataForCache, DateInterval | int | nullmyttl = null) {
-    auto key = _key(dataId);
-    auto myexpires = time() + this.duration(myttl);
-   _cachedData[key] = ["exp": myexpires, "val": dataForCache];
+  // Write data for key into cache
+  bool set(string dataId, Json dataForCache, long timeToLive = 0) {
+    Json data = Json.emptyObject;
+    data["exp"] = 0; // TODO time() + this.duration(timeToLive);
+    data["val"] = dataForCache;
+   _cachedData[_key(dataId)] = data;
 
     return true;
-  } * / 
+  } 
 
   // Read a key from the cache
-  override Json get(string dataId, Json defaultValue = null) {
+  override Json get(string dataId, Json defaultValue = Json(null)) {
     auto key = _key(dataId);
     if (!_cachedData.isSet(key)) {
       return defaultValue;

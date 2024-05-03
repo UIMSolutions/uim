@@ -353,7 +353,7 @@ class DSession {
      * string name The name of the session variable (or a path as sent to Hash.extract)
      * @param Json defaultValue The return value when the path does not exist
      * /
-    Json read(string aName = null, Json defaultValue = null) {
+    Json read(string aName = null, Json defaultValue = Json(null)) {
         if (_hasSession() && !this.started()) {
             this.start();
         }

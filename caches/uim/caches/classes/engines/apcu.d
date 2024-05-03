@@ -23,17 +23,10 @@ class DApcuCacheEngine : DCacheEngine {
     return true;
   }
 
-  /**
-     * Write data for key into cache
-     * Params:
-     * @param Json aValue Data to be cached
-     * @param \DateInterval|int myttl Optional. The TTL value of this item. If no value is sent and
-     *  the driver supports TTL then the library may set a default value
-     *  for it or let the driver take care of that.
-     */
-  /* bool set(string dataId, Json dataToCache, DateInterval | int | null myttl = null) {
+  // Write data for key into cache
+  /* bool set(string dataId, Json dataToCache, long timeToLive = 0) {
     auto aKey = _key(dataId);
-    auto myDuration = this.duration(myttl);
+    auto myDuration = this.duration(timeToLive);
 
     return apcu_store(aKey, dataToCache, myDuration);
   } */

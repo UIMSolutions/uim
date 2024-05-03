@@ -81,7 +81,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * @param \DateInterval|int myttl Optional. The TTL value of this item. If no value is sent and
      *  the driver supports TTL then the library may set a default value
      *  for it or let the driver take care of that.
-     */
+     * /
     bool cacheItems(Json[string] items, DateInterval|int myttl = null) {
         this.ensureValidType(myvalues, self.CHECK_KEY);
 
@@ -114,12 +114,12 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * string[] someKeys A list of string-based keys to be deleted.
      */
     bool removeItems(string[] someKeys) {
-        return someKeys.all!(key => remove(key));
+        return someKeys.all!(key => removeItem(key));
     }
 
     bool removeItem(string key) {
-        if (key.isEmpty) {
-            return remove(key));
+        if (!key.isEmpty) {
+            return remove(key);
         }
     }
 
@@ -138,7 +138,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     }
 
     // Fetches the value for a given key from the cache.
-    Json get(string itemKey, Json defaultValue = null) {
+    Json get(string itemKey, Json defaultValue = Json(null)) {
         return Json(null);
     }
 

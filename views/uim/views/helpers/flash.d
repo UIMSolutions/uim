@@ -53,7 +53,7 @@ class DFlashHelper : DHelper {
      * /
     string render(string aKey = "flash", Json[string] options  = null) {
         auto mymessages = _view.getRequest().getFlash().consume(aKey);
-        if (mymessages is null) {
+        if (mymessages.isNull) {
             return null;
         }
 

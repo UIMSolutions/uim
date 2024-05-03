@@ -155,7 +155,7 @@ class DBreadcrumbsHelper : DHelper {
     ) {
         aKey = this.findCrumb(mymatchingTitle);
 
-        if (aKey is null) {
+        if (aKey.isNull) {
             throw new DLogicException("No crumb matching `%s` could be found.".format(mymatchingTitle));
         }
         return _insertAt(aKey, mytitle, myurl, options);
@@ -187,7 +187,7 @@ class DBreadcrumbsHelper : DHelper {
     ) {
         aKey = this.findCrumb(mymatchingTitle);
 
-        if (aKey is null) {
+        if (aKey.isNull) {
             throw new DLogicException("No crumb matching `%s` could be found.".format(mymatchingTitle));
         }
         return _insertAt(aKey + 1, mytitle, myurl, options);

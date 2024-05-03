@@ -151,7 +151,7 @@ class DDateTimeWidget : DWidget {
         DChronosDate|ChronosTime|IDateTime|string|int myvalue,
         Json[string] options
     ) {
-        if (myvalue == "" || myvalue is null) {
+        if (myvalue == "" || myvalue.isNull) {
             return "";
         }
         try {

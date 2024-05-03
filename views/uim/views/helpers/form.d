@@ -222,7 +222,7 @@ class DFormHelper : DHelper {
      * @param array mycontexts An array of context providers.
      * /
     DContextFactory contextFactory(?ContextFactory myinstance = null, array mycontexts = []) {
-        if (myinstance is null) {
+        if (myinstance.isNull) {
             return _contextFactory ??= DContextFactory.createWithDefaults(mycontexts);
         }
        _contextFactory = myinstance;
@@ -533,7 +533,7 @@ class DFormHelper : DHelper {
     
     // Get form protector instance.
     FormProtector getFormProtector() {
-        if (this.formProtector is null) {
+        if (this.formProtector.isNull) {
             throw new UimException(
                 "`FormProtector` instance has not been created. Ensure you have loaded the `FormProtectionComponent`"
                 ~ " in your controller and called `FormHelper.create()` before calling `FormHelper.unlockField()`."
@@ -674,7 +674,7 @@ class DFormHelper : DHelper {
      * @param Json[string] options An array of HTML attributes.
      * /
     string label(string aFieldName, string mytext = null, Json[string] options  = null) {
-        if (mytext is null) {
+        if (mytext.isNull) {
             mytext = fieldName;
             if (mytext.endsWith("._ids")) {
                 mytext = substr(mytext, 0, -5);
@@ -1015,7 +1015,7 @@ class DFormHelper : DHelper {
             case "radio":
             case "multicheckbox":
                 myopts = options["options"];
-                if (myopts is null) {
+                if (myopts.isNull) {
                     myopts = null;
                 }
                 unset(options["options"]);
@@ -2285,7 +2285,7 @@ class DFormHelper : DHelper {
         foreach (myvaluesSource; this.getValueSources()) {
             if (myvaluesSource == "context") {
                 auto contextValue = _getContext().val(fieldName, options);
-                if (!contextValue is null) {
+                if (!contextValue.isNull) {
                     return contextValue;
                 }
             }

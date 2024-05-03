@@ -273,7 +273,7 @@ class DSelectBoxWidget : DWidget {
      * @param Json myselected The selected values.
      * /
     protected bool _isSelected(string keyToTest, Json myselected) {
-        if (myselected is null) {
+        if (myselected.isNull) {
             return false;
         }
         if (!myselected.isArray) {
@@ -292,7 +292,7 @@ class DSelectBoxWidget : DWidget {
      * @param string[] mydisabled The disabled values.
      * /
     protected bool _isDisabled(string keyToTest, string[] disabledValues) {
-        if (disabledValues is null) {
+        if (disabledValues.isNull) {
             return false;
         }
 

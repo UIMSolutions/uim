@@ -891,12 +891,11 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.notBlank()
      * /
     auto notBlank(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
+        string message; 
         if (myMessage.isNull) {
-            if (!_useI18n) {
-                myMessage = "This field cannot be left empty";
-            } else {
-                myMessage = __d("uim", "This field cannot be left empty");
-            }
+            message = !_useI18n
+             ? "This field cannot be left empty";
+                : __d("uim", "This field cannot be left empty");
         }
         myextra = array_filter(["on": mywhen, "message": myMessage]);
 

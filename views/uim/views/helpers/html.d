@@ -116,7 +116,7 @@ class DHtmlHelper : DHelper {
                 "last": ["rel": "last", "link": mycontent],
             ];
 
-            if (mytype == "icon" && mycontent is null) {
+            if (mytype == "icon" && mycontent.isNull) {
                 mytypes["icon"]["link"] = "favicon.ico";
             }
             if (isSet(mytypes[mytype])) {
@@ -799,7 +799,7 @@ class DHtmlHelper : DHelper {
             htmlAtributes["class"] = myclass;
         }
         mytag = "para";
-        if (mytext is null) {
+        if (mytext.isNull) {
             mytag = "parastart";
         }
         return _formatTemplate(mytag, [
@@ -906,7 +906,7 @@ class DHtmlHelper : DHelper {
             /** @psalm-suppress PossiblyNullArgument * /
             htmlAtributes["src"] = this.Url.assetUrl(mypath, htmlAtributes);
         }
-        if (mytag is null) {
+        if (mytag.isNull) {
             if (mypath.isArray) {
                 mymimeType = mypath[0]["type"];
             } else {

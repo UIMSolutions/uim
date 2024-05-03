@@ -19,29 +19,22 @@ class DFileCacheEngine : DCacheEngine {
             return false;
         }
 
-        /**
-        * The default config used unless overridden by runtime configuration
-        *
-        * - `duration` Specify how long items in this cache configuration last.
-        * - `groups` List of groups or "tags" associated to every key stored in this config.
-        *   handy for deleting a complete group from cache.
-        * - `lock` Used by FileCache. Should files be locked before writing to them?
-        * - `mask` The mask used for created files
-        * - `dirMask` The mask used for created folders
-        * - `path` Path to where cachefiles should be saved. Defaults to system"s temp dir.
-        * - `prefix` Prepended to all entries. Good for when you need to share a keyspace
-        *   with either another cache config or another application.
-        *   cache.gc from ever being called automatically.
-        * - `serialize` Should cache objects be serialized first.
-        */
         configuration.updateDefaults([
+            // `duration` Specify how long items in this cache configuration last.
             "duration": Json(3600),
+            // `groups` List of groups or "tags" associated to every key stored in this config.
             "groups": Json.emptyArray,
+            // `lock` Used by FileCache. Should files be locked before writing to them?
             "lock": Json(true),
+            // `mask` The mask used for created files
             // TODO "mask": std.conv.octal!"664",
+            // `dirMask` The mask used for created folders
             // TODO "dirMask": std.conv.octal!"770",
+            // `path` Path to where cachefiles should be saved. Defaults to system"s temp dir.
             "path": Json(null),
+            // `prefix` Prepended to all entries. 
             "prefix": Json("uim_"),
+            // `serialize` Should cache objects be serialized first.
             "serialize": Json(true),
         ]); 
 
@@ -242,10 +235,8 @@ class DFileCacheEngine : DCacheEngine {
     /**
      * Sets the current cache key this class is managing, and creates a writable SplFileObject
      * for the cache file the key is referring to.
-     * Params:
-     * @param bool mycreateKey Whether the key should be created if it doesn"t exists, or not
      * /
-    /* protected bool _setKey(string key, bool mycreateKey = false) {
+    /* protected bool _setKey(string key, bool createKeyIfNotExists = false) {
         mygroups = null;
         if (_groupPrefix) {
             mygroups = vsprintf(_groupPrefix, this.groups());
@@ -257,7 +248,7 @@ class DFileCacheEngine : DCacheEngine {
         }
         mypath = new DSplFileInfo(mydir ~ key);
 
-        if (!mycreateKey && !mypath.isFile()) {
+        if (!createKeyIfNotExists && !mypath.isFile()) {
             return false;
         }
         /** @psalm-suppress TypeDoesNotContainType * /
@@ -274,7 +265,7 @@ class DFileCacheEngine : DCacheEngine {
 
                 return false;
             }
-            unset(mypath);
+            mypath = null;
 
             if (!myexists && !chmod(_File.getPathname(), (int) configuration.get("mask"])) {
                 trigger_error(

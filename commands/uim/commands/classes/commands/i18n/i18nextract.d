@@ -639,17 +639,16 @@ class DI18nExtractCommand : DCommand {
      * Params:
      * \UIM\Console\IConsoleIo aConsoleIo The io instance.
      * @param string afile File where invalid marker resides
-     * @param string amarker Marker found
      * @param int count Count
      * /
-    protected void _markerError(IConsoleIo aConsoleIo, string nameOfFile, int lineNumber, string amarker, int count) {
+    protected void _markerError(IConsoleIo aConsoleIo, string nameOfFile, int lineNumber, string foundMarker, int count) {
         if (!_fileName.has(uim_CORE_INCLUDE_PATH)) {
            _countMarkerError++;
         }
         if (!_markerError) {
             return;
         }
-         aConsoleIo.writeErrorMessages("Invalid marker content in %s:%s\n* %s(".format(nameOfFile, lineNumber, marker));
+         aConsoleIo.writeErrorMessages("Invalid marker content in %s:%s\n* %s(".format(nameOfFile, lineNumber, foundMarker));
         count += 2;
         tokenCount = _tokens.length;
         parenthesis = 1;

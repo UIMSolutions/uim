@@ -23,7 +23,11 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
     protected DTable[] _fallbacked = null;
 
     // Fallback class to use
-    // TODO protected string _fallbackClassName = (new DTable).className;
+    protected string _fallbackClassName = (new DTable).className;
+    // Set fallback class name.
+    void setFallbackClassName(string fallbackClassname) {
+        _fallbackClassName = fallbackClassname;
+    }
 
     /**
      * Configuration for aliases.
@@ -31,11 +35,6 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * @var array<string, array|null>
      * /
     // TODO protected array configuration = null;
-
-
-
-
-
 
     protected IQueryFactory myqueryFactory;
 
@@ -45,14 +44,14 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * string[] mylocations Locations where tables should be looked for.
      *  If none provided, the default `Model\Table` under your app"s namespace is used.
      * /
-    this(string[] mylocations = null, ?QueryFactory myqueryFactory = null) {
-        if (mylocations.isNull) {
-            mylocations = [
+    this(string[] locations = null, DQueryFactory queryFactory = null) {
+        if (locations.isNull) {
+            locations = [
                 "Model/Table",
             ];
         }
-        mylocations.each!(location => addLocation(location));
-        this.queryFactory = myqueryFactory ?: new DQueryFactory();
+        locations.each!(location => addLocation(location));
+        _queryFactory = queryFactory.isNull ? new DQueryFactory() : _queryFactory;
     }
     
     /**
@@ -65,18 +64,6 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
         allowFallbackClass = enableFallback;
     }
     
-    /**
-     * Set fallback class name.
-     *
-     * The class that should be used to create a table instance if a concrete
-     * class for alias used in `get()` could not be found. Defaults to
-     * `UIM\ORM\Table`.
-     * Params:
-     * string myclassName Fallback class name
-     * /
-    void setFallbackClassName(string fallbackClassname) {
-        _fallbackClassName = fallbackClassname;
-    }
  
     void configuration.update(string[] aliasName, Json[string] options = null) {
         if (!isString(aliasName)) {

@@ -8,7 +8,31 @@ import uim.logging;
  * File Storage stream for Logging. Writes logs to different files
  * based on the level of log it is.
  */
-class DFileLog { /*}: BaseLog {
+class DFileLog { // TODO /*}: BaseLog {
+
+    // Path to save log files on.
+    protected string _path;
+
+    // The name of the file to save logs into.
+    protected string _file = null;
+
+    // Max file size, used for log file rotation.
+    protected int _size = null;
+    
+    // Get filename
+    protected string _getFilename(string logLevel) {
+        string[] debugTypes = ["notice", "info", "debug"];
+
+        string result;
+        if (!_file.isEmpty) {
+            return _file;
+        } else if (logLevel == "error" || logLevel == "warning") {
+            return "error.log";
+        } else if (debugTypes.has(logLevel)) {
+            return "debug.log";
+        } 
+        return logLevel ~ ".log";
+    }
     /**
      * Default config for this class
      *
@@ -42,14 +66,7 @@ class DFileLog { /*}: BaseLog {
         ],
     ];
 
-    // Path to save log files on.
-    protected string _path;
 
-    // The name of the file to save logs into.
-    protected string _file = null;
-
-    // Max file size, used for log file rotation.
-    protected int _size = null;
 
     // Sets protected properties based on config provided
     this(Json[string] configData = null) {
@@ -59,15 +76,15 @@ class DFileLog { /*}: BaseLog {
         if (!isDir(_path)) {
             mkdir(_path, configuration.get("dirMask"), true);
         }
-        if (!configuration.get("file").isEmpty) {
-           _file = configuration.get("file");
-            if (!_file.endsWith(".log")) {
-               _file ~= ".log";
+        if (!configuration.isEmpty("file")) {
+           _filename = configuration.getString("file");
+            if (!_filename.endsWith(".log")) {
+               _filename ~= ".log";
             }
         }
-        if (!configuration.get("size").isEmpty) {
+        if (!configuration.isEmpty("size")) {
             _size = isNumeric(configuration.get("size"))
-                ? to!int(configuration.get("size"))
+                ? configuration.toLong("size")
                 : Text.parseFileSize(configuration.get("size"));
         }
     }
@@ -110,22 +127,7 @@ class DFileLog { /*}: BaseLog {
         }
     }
     
-    // Get filename
-    protected string _getFilename(string logLevel) {
-        string[] debugTypes = ["notice", "info", "debug"];
 
-        string filename;
-        if (_file) {
-            filename = _file;
-        }  else if (logLevel == "error" || logLevel == "warning") {
-            filename = "error.log";
-        } else if (in_array(logLevel, debugTypes, true)) {
-            filename = "debug.log";
-        } else {
-            filename = logLevel ~ ".log";
-        }
-        return filename;
-    }
     
     /**
      * Rotate log file if size specified in config is reached.

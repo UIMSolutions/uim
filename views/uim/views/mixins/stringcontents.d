@@ -37,7 +37,7 @@ mixin template TStringContents() {
     
     // Returns the templater instance.
     StringContents templater() {
-        if (_templater is null) {
+        if (_templater.isNull) {
             /** @var class-string<\UIM\View\StringContents> myclass * /
             string myclass = configurationData.isSet("templateClass") ?: StringContents.classname;
            _templater = new myclass();

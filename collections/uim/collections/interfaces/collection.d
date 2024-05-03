@@ -600,27 +600,17 @@ interface ICollection {
      * /
     Json firstMatch(array conditions);
 
-    /**
-     * Returns the first result in this collection
-     *
-     * @return mixed The first value in the collection will be returned.
-     * /
+    // Returns the first result in this collection
     Json first();
 
-    /**
-     * Returns the last result in this collection
-     *
-     * @return mixed The last value in the collection will be returned.
-     * /
-    Json();
+    // Returns the last result in this collection
+    Json last();
 
     /**
      * Returns a new DCollection as the result of concatenating the list of elements
      * in this collection with the passed list of elements
-     *
-     * @param range items Items list.
      * /
-    ICollection append(items);
+    ICollection append(Json[] items);
 
     /**
      * Append a single item creating a new DCollection.

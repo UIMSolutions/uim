@@ -20,7 +20,6 @@ class DInsertIterator : DCollection {
 
   // The property name to which values will be assigned
   protected string _target;
-  /*
   // The collection from which to extract the values to be inserted
   protected ICollection _values;
 

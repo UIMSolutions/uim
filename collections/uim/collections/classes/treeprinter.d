@@ -31,24 +31,19 @@ class DTreePrinter { // }: RecursiveIteratorIterator, ICollection {
      * Constructor
      * Params:
      * \RecursiveIterator<mixed, mixed>  someItems The iterator to flatten.
-     * @param string avaluePath The property to extract or a callable to return
-     * the display value.
-     * @param string akeyPath The property to use as iteration key or a
-     * callable returning the key value.
      * @param string aspacer The string to use for prefixing the values according to
      * their depth in the tree.
-     * @param int mode Iterator mode.
      * /
   this(
     IRecursiveIterator someItems,
-    string myvaluePath,
-    string mykeyPath,
+    string pathToValue,
+    string pathToKey,
     string myspacer,
-    intmode = RecursiveIteratorIterator.SELF_FIRST
+    int iteratorMode = RecursiveIteratorIterator.SELF_FIRST
   ) {
-    super.__construct(someItems, mode);
-    _value = _propertyExtractor(valuePath);
-    _key = _propertyExtractor(keyPath);
+    super.__construct(someItems, iteratorMode);
+    _value = _propertyExtractor(pathToValue);
+    _key = _propertyExtractor(pathToKey);
     _spacer = spacer;
   }
 

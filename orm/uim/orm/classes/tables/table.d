@@ -101,8 +101,106 @@ import uim.orm;
  */
 class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorAware {
     mixin TEventDispatcher;
-    // mixin TRulesAware;
-    // mixin TValidatorAware;
+    mixin TConfigurable;
+    mixin TConventions;
+    mixin TLocatorAware;
+    mixin TRulesAware;
+    mixin TValidatorAware;
+
+    this() {
+        initialize;
+    }
+
+    this(Json[string] initData) {
+        this.initialize(initData);
+    }
+
+    this(string newName) {
+        this();
+        this.name(newName);
+    }
+
+    bool initialize(Json[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
+
+        /**
+        * Initializes a new instance
+        *
+        * The configData array understands the following keys:
+        *
+        * - alias: Alias to be assigned to this table (default to table name)
+        * - connection: The connection instance to use
+        * - entityClass: The fully namespaced class name of the entity class that will
+        *  represent rows in this table.
+        * - eventManager: An instance of an event manager to use for internal events
+        * - behaviors: A BehaviorRegistry. Generally not used outside of tests.
+        * - associations: An AssociationCollection instance.
+        * - validator: A Validator instance which is assigned as the "default"
+        *  validation set, or an associative array, where key is the name of the
+        *  validation set and value the Validator instance. */
+
+        if (!empty(configData("registryAlias"))) {
+            this.registryKey(configData("registryAlias"));
+        }
+
+        // table: Name of the database table to represent
+        if (!empty(configData("table"))) {
+            this.setTable(configData("table"));
+        }
+        if (!empty(configData("alias"))) {
+            this.aliasName(configData("alias"));
+        }
+        if (!empty(configData("connection"))) {
+            this.setConnection(configData("connection"));
+        }
+        if (!empty(configData("queryFactory"))) {
+            this.queryFactory = configData("queryFactory");
+        }
+
+        // schema: A \UIM\Database\Schema\TableISchema object or an array that can be passed to it.
+        if (!empty(configData("schema"))) {
+            this.setSchema(configData("schema"));
+        }
+        if (!configData.isEmpty("entityClass")) {
+            this.setEntityClass(configData("entityClass"));
+        }
+        myeventManager = mybehaviors = myassociations = null;
+        if (!configData.isEmpty("eventManager")) {
+            myeventManager = configData("eventManager");
+        }
+        if (!configData.isEmpty("behaviors")) {
+            mybehaviors = configData("behaviors");
+        }
+        if (!configData.isEmpty("associations")) {
+            myassociations = configData("associations");
+        }
+        if (!configData.isEmpty("validator")) {
+            if (!isArray(configData("validator"))) {
+                this.setValidator(DEFAULT_VALIDATOR, configData("validator"));
+            } else {
+                configData("validator").byKeyValue
+                    .each!(nameValidator => this.setValidator(nameValidator.key, nameValidator
+                            .value));
+            }
+        }
+        _eventManager = myeventManager ?  : new DEventManager();
+        _behaviors = mybehaviors ?  : new BehaviorRegistry();
+        _behaviors.setTable(this);
+        _associations = myassociations ?  : new AssociationCollection();
+        /** @psalm-suppress TypeDoesNotContainType * /
+        this.queryFactory ??= new DQueryFactory();
+
+        assert(_eventManager !isNull, "EventManager not available");
+
+        _eventManager.on(this);
+        this.dispatchEvent("Model.initialize"); */
+
+        return true;
+    }
+
+    // Name given to the association, it usually represents the alias assigned to the target associated table
+    mixin(TProperty!("string", "name"));
 
     // Name of default validation set.
     const string DEFAULT_VALIDATOR = "default";
@@ -156,81 +254,6 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
 
     protected IQueryFactory myqueryFactory;
 
-    /**
-     * Initializes a new instance
-     *
-     * The configData array understands the following keys:
-     *
-     * - table: Name of the database table to represent
-     * - alias: Alias to be assigned to this table (default to table name)
-     * - connection: The connection instance to use
-     * - entityClass: The fully namespaced class name of the entity class that will
-     *  represent rows in this table.
-     * - schema: A \UIM\Database\Schema\TableISchema object or an array that can be
-     *  passed to it.
-     * - eventManager: An instance of an event manager to use for internal events
-     * - behaviors: A BehaviorRegistry. Generally not used outside of tests.
-     * - associations: An AssociationCollection instance.
-     * - validator: A Validator instance which is assigned as the "default"
-     *  validation set, or an associative array, where key is the name of the
-     *  validation set and value the Validator instance.
-     * Params:
-     * Json[string] configData List of options for this table.
-     * /
-    this(Json[string] configData = null) {
-        if (!empty(configData("registryAlias"])) {
-            this.registryKey(configData("registryAlias"]);
-        }
-        if (!empty(configData("table"])) {
-            this.setTable(configData("table"]);
-        }
-        if (!empty(configData("alias"])) {
-            this.aliasName(configData("alias"]);
-        }
-        if (!empty(configData("connection"])) {
-            this.setConnection(configData("connection"]);
-        }
-        if (!empty(configData("queryFactory"])) {
-            this.queryFactory = configData("queryFactory"];
-        }
-        if (!empty(configData("schema"])) {
-            this.setSchema(configData("schema"]);
-        }
-        if (!empty(configData("entityClass"])) {
-            this.setEntityClass(configData("entityClass"]);
-        }
-        myeventManager = mybehaviors = myassociations = null;
-        if (!empty(configData("eventManager"])) {
-            myeventManager = configData("eventManager"];
-        }
-        if (!empty(configData("behaviors"])) {
-            mybehaviors = configData("behaviors"];
-        }
-        if (!empty(configData("associations"])) {
-            myassociations = configData("associations"];
-        }
-        if (!empty(configData("validator"])) {
-            if (!isArray(configData("validator"])) {
-                this.setValidator(DEFAULT_VALIDATOR, configData("validator"]);
-            } else {
-                configData("validator"].byKeyValue
-                    .each!(nameValidator => this.setValidator(nameValidator.key, nameValidator.value);
-            }
-        }
-       _eventManager = myeventManager ?: new DEventManager();
-       _behaviors = mybehaviors ?: new BehaviorRegistry();
-       _behaviors.setTable(this);
-       _associations = myassociations ?: new AssociationCollection();
-        /** @psalm-suppress TypeDoesNotContainType * /
-        this.queryFactory ??= new DQueryFactory();
-
-        this.initialize(initData);
-
-        assert(_eventManager !isNull, "EventManager not available");
-
-       _eventManager.on(this);
-        this.dispatchEvent("Model.initialize");
-    }
     
     /**
      * Get the default connection name.
@@ -2787,5 +2810,5 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             "defaultConnection": defaultConnectionName(),
             "connectionName": myconn.configName(),
         ];
-    } */ 
+    } */
 }

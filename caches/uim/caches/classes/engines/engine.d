@@ -38,13 +38,13 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         *   write failures.
         */
         
-        /* if (configuration.hasKey("groups")) {
-            configuration.get("groups"].sort;
-            _groupPrefix = str_repeat("%s_", configuration.get("groups"].count);
+        if (configuration.hasKey("groups")) {
+            configuration.getStringArray("groups").sort;
+            _groupPrefix = str_repeat("%s_", configuration.getStringArray("groups").length);
         }
         if (!configuration.isNumeric("duration")) {
-            configuration.get("duration") = configuration.get("duration").toTime - time();
-        }*/
+            configuration["duration"] = configuration.get("duration").toTime - time();
+        }
         
         configuration.updateDefaults([
             "duration": Json(3600),

@@ -105,7 +105,7 @@ class DConsoleInputOption {
 
         if (isBooleanOption) {
            _default = (bool) default;
-        } else if (! default is null) {
+        } else if (! default.isNull) {
            _default = to!string(default);
         }
         if (_short.length > 1) {

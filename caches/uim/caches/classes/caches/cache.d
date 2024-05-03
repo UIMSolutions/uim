@@ -410,7 +410,7 @@ class DCache : ICache {
         configured()
             .each!(configName => pool(configName));
 
-        if (groupName is null) {
+        if (groupName.isNull) {
             return _groups;
         }
         if (isSet(self._groups[groupName])) {

@@ -104,23 +104,17 @@ abstract class DCacheEngine : ICache, ICacheEngine {
         }
     } */
 
-    /**
-     * Deletes multiple cache items as a list
-     *
-     * This is a best effort attempt. If deleting an item would
-     * create an error it will be ignored, and all items will
-     * be attempted.
-     * Params:
-     * string[] someKeys A list of string-based keys to be deleted.
-     */
+    // Deletes multiple cache items as a list
     bool removeItems(string[] someKeys) {
         return someKeys.all!(key => removeItem(key));
     }
 
     bool removeItem(string key) {
         if (!key.isEmpty) {
-            return remove(key);
+            // TODO remove(key);
+            return true;
         }
+        return false;
     }
 
     /**
@@ -195,7 +189,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      * the token representing each group in the cache key
      */
     string[] groups() {
-        return null; // return configuration.get("groups"];
+        return configuration.getStringArray("groups");
     }
 
     /**
@@ -203,19 +197,14 @@ abstract class DCacheEngine : ICache, ICacheEngine {
      *
      * If the requested key is valid, the group prefix value and engine prefix are applied.
      * Whitespace in keys will be replaced.
-     * Params:
-     * string aKey the key passed over
-     * /
-    protected string _key(string aKey) {
-        this.ensureValidKey(aKey);
+     */
+    protected string _key(string itemKey) {
+        string prefix = _groupPrefix
+            ? groups().join("_") //TODO md5(groups().join("_"))
+            : "";
 
-        string myPrefix = "";
-        if (_groupPrefix) {
-            myPrefix = md5(join("_", this.groups()));
-        }
-
-        // auto newKey = preg_replace("/[\s]+/", "_", aKey);
-        return configuration.get("prefix") ~ myPrefix ~ aKey;
+        auto changedKey = itemKey.replaceAll.regex(r"/[\s]+/", "_");
+        return configuration.getString("prefix") ~ prefix ~ changedKey;
     }
 
     /**
@@ -232,7 +221,7 @@ abstract class DCacheEngine : ICache, ICacheEngine {
     // Convert the various expressions of a TTL value into duration in seconds
     protected int duration(long timeToLive = 0) {
         if (timeToLive == 0) {
-            return configuration.toLong("duration");
+            return configuration.getLong("duration");
         }
 
         return timeToLive; 

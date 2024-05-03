@@ -82,7 +82,7 @@ class DPaginatorHelper : DHelper {
     this(IView myview, Json[string] configData = null) {
         super(myview, configData);
 
-        myquery = _View.getRequest().getQueryParams();
+        myquery = _View.getRequest().queryArguments();
         unset(myquery["page"], myquery["limit"], myquery["sort"], myquery["direction"]);
         configuration.update(
             "options.url",

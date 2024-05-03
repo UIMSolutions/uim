@@ -98,39 +98,101 @@ abstract class DConfiguration : IConfiguration {
         }
     // #endregion Values
 
-
-    Json opIndex(string key) {
-        return get(key);
-    }
-
-    Json get(string key) {
-        return Json(null);
-    }
-
-    Json[string] get(string[] keys, bool compressMode = true){
-        return null; 
-    }
-
-    void set(STRINGAA values, string[] keys = null) {
-        set(values.toJsonMap, keys);
-    }
-
-    void set(Json[string] newData, string[] keys = null) {
-        if (keys is null) {
-            keys.each!(key => set(key, newData[key]));
+    // #region get
+        Json opIndex(string key) {
+            return get(key);
         }
-        else {
-            keys.filter!(key => key in newData)
-                .each!(key => set(key, newData[key]));
+
+        Json get(string key) {
+            return Json(null);
         }
-    }
 
-    abstract void set(string key, Json newData);
+        Json[string] get(string[] keys, bool compressMode = true){
+            return null; 
+        }
 
-    void opIndexAssign(Json data, string key) {
-        set(key, data);
-    }
-    
+        int getInt(string key) {
+            if (!hasKey(key)) {
+                return 0;
+            } 
+
+            return get(key).to!int;
+        }
+
+        long getLong(string key) {
+            if (!hasKey(key)) {
+                return 0;
+            } 
+
+            return get(key).to!long;
+        }
+
+        float getFloat(string key) {
+            if (!hasKey(key)) {
+                return 0;
+            } 
+
+            return get(key).to!float;
+        }
+
+        double getDouble(string key) {
+            if (!hasKey(key)) {
+                return 0;
+            } 
+
+            return get(key).to!double;
+        }
+
+        string getString(string key) {
+            if (!hasKey(key)) {
+                return null;
+            } 
+
+            return get(key).to!string;
+        }
+
+        string[] getStringArray(string key) {
+            if (!hasKey(key)) {
+                return null;
+            }
+
+            Json json = get(key);
+            return json.isArray
+                ? json.toStringArray
+                : [json.to!string];
+        }
+
+        Json getJson(string key) {
+            return get(key);
+        }
+    // #endregion get
+
+    // #region set
+        void set(STRINGAA values, string[] keys = null) {
+            set(values.toJsonMap, keys);
+        }
+
+        void set(Json[string] newData, string[] keys = null) {
+            if (keys is null) {
+                keys.each!(key => set(key, newData[key]));
+            }
+            else {
+                keys.filter!(key => key in newData)
+                    .each!(key => set(key, newData[key]));
+            }
+        }
+
+        abstract void set(string key, Json newData);
+
+        void opIndexAssign(Json data, string key) {
+            set(key, data);
+        }
+        
+        void opAssign(Json[string] data) {
+            set(data);
+        }
+    // #endregion set
+
     void update(Json[string] newData, string[] keys = null) {
         if (keys is null) {
             keys.each!(key => update(key, newData[key]));

@@ -56,7 +56,7 @@ class DRouter {
     static DServerRequest getRequest() {
         return _request;
     }
-    
+
     // Default extensions defined with Router.extensions()
     protected static string[] _defaultExtensions = null;
 
@@ -467,7 +467,7 @@ class DRouter {
             myroute = myparams.getAttribute("route");
             assert(myroute.isNull || cast(Route)myroute);
 
-            myqueryString = myparams.getQueryParams();
+            myqueryString = myparams.queryArguments();
             myparams = myparams.getAttribute("params");
             assert(isArray(myparams));
             myparams["?"] = myqueryString;

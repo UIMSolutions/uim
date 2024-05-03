@@ -23,13 +23,13 @@ import uim.oop;
  * ```
  */
 class DJsonConfig : IConfigEngine {
+    // mixin TFileConfig();
   	/*alias Alias = ;
     override bool initialize(Json[string] initData = null) {
 		if (!super.initialize(initData)) { return false; }
 		
 		return true;
 	}
-    mixin TFileConfig();
 
     // File extension.
     protected string _extension = ".json";

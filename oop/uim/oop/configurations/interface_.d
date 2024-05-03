@@ -45,10 +45,23 @@ interface IConfiguration : INamed {
         Json opIndex(string key);
         Json get(string key);
         Json[string] get(string[] keys, bool compressMode = true);
+
+        int getInt(string key);
+        long getLong(string key);
+        float getFloat(string key);
+        double getDouble(string key);
+        string getString(string key);
+        string[] getStringArray(string key);
+        Json getJson(string key);
     // #endregion get
 
-    // void set(string key, Json newData);
-    // void set(string[] keys, Json[string] newData);
+    // #region set
+        void opIndexAssign(Json data, string key);
+        void opAssign(Json[string] data);
+        void set(STRINGAA values, string[] keys = null);
+        void set(Json[string] newData, string[] keys = null);
+        void set(string key, Json newData);
+    // #endregion set
 
     void update(Json[string] newData, string[] validKeys = null);
     void update(string key, Json newData);

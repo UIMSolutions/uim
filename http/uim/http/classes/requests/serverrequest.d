@@ -9,21 +9,21 @@ import uim.http;
  * Provides methods commonly used to introspect on the request headers and request body.
  */
 class DServerRequest { // }: IServerRequest {
-    // Array of cookie data.
-    protected Json[string] cookies = null;
+    mixin TConfigurable;
 
-    // Array of environment data.
-    protected Json[string] _environment = null;
+    this() {
+        initialize;
+    }
 
-    // Base URL path.
-    protected string abase;
+    this(Json[string] initData) {
+        this.initialize(initData);
+    }
 
-    /**
-     * Array of parameters parsed from the URL.
-     *
-     * @var array
-     * /
-    // TODO protected array params = [
+    bool initialize(Json[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
+
+    _urlParams = [
         "plugin": null,
         "controller": null,
         "action": null,
@@ -31,49 +31,7 @@ class DServerRequest { // }: IServerRequest {
         "pass": Json.emptyArray,
     ];
 
-    /**
-     * Array of POST data. Will contain form data as well as uploaded files.
-     * In PUT/PATCH/DELETE requests this property will contain the form-urlencoded
-     * data.
-     *
-     * @var object|array|null
-     * /
-    protected object|array|null someData = null;
-
-    /**
-     * Array of query string arguments
-     *
-     * @var array
-     * /
-    // TODO protected array aQuery = null;
-
-
-    /**
-     * webroot path segment for the request.
-     * /
-    protected string awebroot = "/";
-
-    /**
-     * Whether to trust HTTP_X headers set by most load balancers.
-     * Only set to true if your application runs behind load balancers/proxies
-     * that you control.
-     * /
-    bool trustProxy = false;
-
-    /**
-     * Trusted proxies list
-     * /
-    protected string[] trustedProxies = null;
-
-    /**
-     * The built in detectors used with `is()` can be modified with `addDetector()`.
-     *
-     * There are several ways to specify a detector, see \UIM\Http\ServerRequest.addDetector() for the
-     * various formats and ways to define detectors.
-     *
-     * @var array<\Closure|array>
-     * /
-    protected static array _detectors = [
+    _detectors = [
         "get": ["env": 'REQUEST_METHOD", "value": 'GET"],
         "post": ["env": 'REQUEST_METHOD", "value": 'POST"],
         "put": ["env": 'REQUEST_METHOD", "value": 'PUT"],
@@ -92,12 +50,79 @@ class DServerRequest { // }: IServerRequest {
         ],
     ];
 
+        return true;
+    }
+
+    // Array of cookie data.
+    protected Json[string] cookies = null;
+
+    // Array of environment data.
+    protected Json[string] _environmentData = null;
+
+    // Base URL path.
+    protected string _baseUrlPath;
+
+    // Array of query string arguments
+    protected Json[string] _queryArguments = null;
+
+    // Array of parameters parsed from the URL.
+    protected Json[string] _urlParams;
+    
+    /**
+     * Get all the server environment parameters.
+     *
+     * Read all of the 'environment' or `server' data that was
+     * used to create this request.
+     */
+    Json[string] getServerParams() {
+        return _environmentData;
+    }
+    
+    /**
+     * Get all the query parameters in accordance to the PSR-7 specifications. To read specific query values
+     * use the alternative getQuery() method.
+     */
+    Json[string] queryArguments() {
+        return _queryArguments;
+    }
+
+    // webroot path segment for the request.
+    protected string _webroot = "/";
+
+    /**
+     * Whether to trust HTTP_X headers set by most load balancers.
+     * Only set to true if your application runs behind load balancers/proxies
+     * that you control.
+     */
+    bool _trustProxy = false;
+
+    // Trusted proxies list
+    protected string[] _trustedProxies = null;
+
+    /**
+     * The built in detectors used with `is()` can be modified with `addDetector()`.
+     *
+     * There are several ways to specify a detector, see \UIM\Http\ServerRequest.addDetector() for the
+     * various formats and ways to define detectors.
+     */
+    protected static Json[string] _detectors;
+
     /**
      * Instance cache for results of is(something) calls
      *
      * @var array<string, bool>
      * /
     // TODO protected array _detectorCache = null;
+    /**
+     * Array of POST data. Will contain form data as well as uploaded files.
+     * In PUT/PATCH/DELETE requests this property will contain the form-urlencoded
+     * data.
+     *
+     * @var object|array|null
+     * /
+    protected object|array|null someData = null;
+
+
 
     /**
      * Request body stream. Contains D://input unless `input` constructor option is used.
@@ -221,7 +246,7 @@ class DServerRequest { // }: IServerRequest {
             }
             ["uri": anUri] = UriFactory.marshalUriAndBaseFromSapi(configData["environment"]);
         }
-       _environment = configData["environment"];
+       _environmentData = configData["environment"];
 
         this.uri = anUri;
         this.base = configData["base"];
@@ -668,7 +693,7 @@ class DServerRequest { // }: IServerRequest {
      * /
     STRINGAA getHeaders() {
         STRINGAA result = null;
-        _environment.byKeyValue
+        _environmentData.byKeyValue
             .each!((kv) => {
             string name = null;
             if (aKey.startWith("HTTP_")) {
@@ -693,7 +718,7 @@ class DServerRequest { // }: IServerRequest {
      * /
     bool hasHeader(string headerName) {
         headerName = this.normalizeHeaderName(headerName);
-        return _environment.isSet(headerName);
+        return _environmentData.isSet(headerName);
     }
     
     /**
@@ -704,8 +729,8 @@ class DServerRequest { // }: IServerRequest {
      * /
     string[] getHeader(string headerName) {
         name = this.normalizeHeaderName(headerName);
-        return _environment.isSet(headerName)
-            ? (array)_environment[headerName]
+        return _environmentData.isSet(headerName)
+            ? (array)_environmentData[headerName]
             : null;
     }
     
@@ -720,7 +745,7 @@ class DServerRequest { // }: IServerRequest {
     static withHeader(string headerName, string[] headerValue) {
         auto result = clone this;
         name = this.normalizeHeaderName(headerName);
-        result._environment[headerName] = aValue;
+        result._environmentData[headerName] = aValue;
 
         return result;
     }
@@ -742,11 +767,11 @@ class DServerRequest { // }: IServerRequest {
         new = clone this;
         name = this.normalizeHeaderName(name);
         existing = null;
-        if (isSet(new._environment[name])) {
-            existing = (array)new._environment[name];
+        if (isSet(new._environmentData[name])) {
+            existing = (array)new._environmentData[name];
         }
         existing = array_merge(existing, (array)aValue);
-        new._environment[name] = existing;
+        new._environmentData[name] = existing;
 
         return new;
     }
@@ -762,7 +787,7 @@ class DServerRequest { // }: IServerRequest {
     {
         new = clone this;
         name = this.normalizeHeaderName(name);
-        unset(new._environment[name]);
+        unset(new._environmentData[name]);
 
         return new;
     }
@@ -798,39 +823,23 @@ class DServerRequest { // }: IServerRequest {
                 .format(method
             ));
         }
-        new._environment["REQUEST_METHOD"] = method;
+        new._environmentData["REQUEST_METHOD"] = method;
 
         return new;
     }
     
-    /**
-     * Get all the server environment parameters.
-     *
-     * Read all of the 'environment' or `server' data that was
-     * used to create this request.
-     * /
-    array getServerParams() {
-        return _environment;
-    }
-    
-    /**
-     * Get all the query parameters in accordance to the PSR-7 specifications. To read specific query values
-     * use the alternative getQuery() method.
-     * /
-    array getQueryParams() {
-        return _query;
-    }
+
     
     /**
      * Update the query string data and get a new instance.
      * Params:
      * array aQuery The query string data to use
      * /
-    static withQueryParams(array aQuery) {
-        new = clone this;
-        new.query = aQuery;
+    static withQueryParams(string queryString) {
+        auto newQuery = clone this;
+        newQuery.query = queryString;
 
-        return new;
+        return newQuery;
     }
     
     /**
@@ -957,13 +966,13 @@ class DServerRequest { // }: IServerRequest {
     /**
      * Read a specific query value or dotted path.
      *
-     * Developers are encouraged to use getQueryParams() if they need the whole query array,
+     * Developers are encouraged to use queryArguments() if they need the whole query array,
      * as it is PSR-7 compliant, and this method is not. Using Hash.get() you can also get single params.
      *
      * ### PSR-7 Alternative
      *
      * ```
-     * aValue = Hash.get(request.getQueryParams(), "Post.id");
+     * aValue = Hash.get(request.queryArguments(), "Post.id");
      * ```
      * Params:
      * string|null name The name or dotted path to the query param or null to read all.
@@ -971,7 +980,7 @@ class DServerRequest { // }: IServerRequest {
      * /
     Json getQuery(string aName = null, Json defaultValue = Json(null)) {
         if (name is null) {
-            return _query;
+            return _queryArguments;
         }
         return Hash.get(this.query, name, default);
     }
@@ -1153,10 +1162,10 @@ class DServerRequest { // }: IServerRequest {
      * /
     string getEnvironmentData(string aKey, string adefault = null) {
         aKey = strtoupper(aKey);
-        if (!array_key_exists(aKey, _environment)) {
-           _environment[aKey] = enviroment(aKey);
+        if (!array_key_exists(aKey, _environmentData)) {
+           _environmentData[aKey] = enviroment(aKey);
         }
-        return _environment[aKey] !isNull ? (string)_environment[aKey] : default;
+        return _environmentData[aKey] !isNull ? (string)_environmentData[aKey] : default;
     }
     
     /**
@@ -1172,7 +1181,7 @@ class DServerRequest { // }: IServerRequest {
     auto withenviroment(string aKey, string avalue): static
     {
         new = clone this;
-        new._environment[aKey] = aValue;
+        new._environmentData[aKey] = aValue;
         new.clearDetectorCache();
 
         return new;
@@ -1448,7 +1457,7 @@ class DServerRequest { // }: IServerRequest {
         if (port) {
             host ~= ":" ~ port;
         }
-        new._environment["HTTP_HOST"] = host;
+        new._environmentData["HTTP_HOST"] = host;
 
         return new;
     }

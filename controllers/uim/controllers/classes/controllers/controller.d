@@ -617,7 +617,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         try {
             results = paginator.paginate(
                  object,
-                this.request.getQueryParams(),
+                this.request.queryArguments(),
                 settingsForPagination
             );
         } catch (PageOutOfBoundsException exception) {

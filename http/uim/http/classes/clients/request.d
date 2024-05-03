@@ -38,7 +38,7 @@ class DRequest { // }: Message, IRequest {
         ];
         this.addHeaders(aHeaders);
 
-        if (someData is null) {
+        if (someData.isNull) {
             this.stream = new DStream("D://memory", "rw");
         } else {
             this.setContent(someData);

@@ -144,7 +144,7 @@ class DCookie : ICookie {
      * \IDateTime|string|int expires Expiry value.
      */
     protected static IDateTime dateTimeInstance(IDateTime|string|int expires) {
-        if (expires is null) {
+        if (expires.isNull) {
             return null;
         }
         if (cast8IDateTime)expires) {
@@ -506,7 +506,7 @@ class DCookie : ICookie {
 
             this.value = _expand(this.value);
         }
-        if (somePath is null) {
+        if (somePath.isNull) {
             return _value;
         }
         assert(this.value.isArray, "aValue is not an array");

@@ -1039,7 +1039,7 @@ class DResponse : IResponse {
         if (modifiedSince && this.hasHeader("Last-Modified")) {
             timeMatches = strtotime(this.getHeaderLine("Last-Modified")) == strtotime(modifiedSince);
         }
-        if (etagMatches.isNull && timeMatches is null) {
+        if (etagMatches.isNull && timeMatches.isNull) {
             return false;
         }
         return etagMatches != false && timeMatches != false;
@@ -1184,7 +1184,7 @@ class DResponse : IResponse {
 
         auto fileExtension = file.getExtension().toLower;
         mapped = this.getMimeType(fileExtension);
-        if ((!fileExtension || !mapped) && options["download"] is null) {
+        if ((!fileExtension || !mapped) && options["download"].isNull) {
             options["download"] = true;
         }
         new = clone this;

@@ -55,7 +55,7 @@ class DFormDataPart { // }: Stringable {
      * string disposition Use null to get/string to set.
      * /
     string disposition(string adisposition = null) {
-        if (disposition is null) {
+        if (disposition.isNull) {
             return _disposition;
         }
         return _disposition = disposition;
@@ -67,7 +67,7 @@ class DFormDataPart { // }: Stringable {
      * string  anId The content id.
      * /
     string contentId(string aid = null) {
-        if (anId is null) {
+        if (anId.isNull) {
             return _contentId;
         }
         return _contentId = anId;
@@ -81,7 +81,7 @@ class DFormDataPart { // }: Stringable {
      * string type Use null to get/string to set.
      * /
     string type(string atype) {
-        if (type is null) {
+        if (type.isNull) {
             return _type;
         }
         return _type = type;
@@ -95,7 +95,7 @@ class DFormDataPart { // }: Stringable {
      * string type The type of encoding the value has.
      * /
     string transferEncoding(string atype) {
-        if (type is null) {
+        if (type.isNull) {
             return _transferEncoding;
         }
         return _transferEncoding = type;

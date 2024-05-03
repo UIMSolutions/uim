@@ -107,7 +107,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
                 cookieData = null;
             }
         }
-        if (method == "GET" && cookieData is null) {
+        if (method == "GET" && cookieData.isNull) {
             token = this.createToken();
             request = request.withAttribute("csrfToken", this.saltToken(token));
             response = handler.handle(request);

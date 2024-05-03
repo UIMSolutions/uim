@@ -135,7 +135,7 @@ class DTranslator : ITranslator {
 
         // No or missing context, fallback to the key/first message
         string[] result;
-        /* if (context is null) { // No context
+        /* if (context.isNull) { // No context
             result = messageContext.get("", null);
             return result.isEmpty
                 ? [messageKey] : result;

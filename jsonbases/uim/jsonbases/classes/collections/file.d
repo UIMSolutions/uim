@@ -41,7 +41,7 @@ class DFileJsonCollection : DJsonCollection {
         if (!folder || !folder.exists) { return null; }  
 
         auto idFolder = folder.folder(anId.toString);
-        if (idFolder is null) { return null; }  
+        if (idFolder.isNull) { return null; }  
 
         auto versionJsons = loadJsonsFromDirectory(idFolder.absolutePath);
         if (versionJsons.isEmpty)  { return null; }
@@ -73,7 +73,7 @@ class DFileJsonCollection : DJsonCollection {
         if (!folder || !folder.exists) { return Json(null); }  
 
         auto myIdFolder = idFolder(folder, id);
-        if (myIdFolder is null) { return Json(null); }  
+        if (myIdFolder.isNull) { return Json(null); }  
 
         auto versionJsons = loadJsonsFromDirectory(myIdFolder.absolutePath);
         if (versionJsons.isEmpty)  { return Json(null); }
@@ -87,10 +87,10 @@ class DFileJsonCollection : DJsonCollection {
         if (!folder || !folder.exists) { return Json(null); } 
 
         auto myIdFolder = idFolder(folder, anId);
-        if (myIdFolder is null) { return Json(null); }  
+        if (myIdFolder.isNull) { return Json(null); }  
 
         auto versionFile = myIdFolder.file(to!string(versionNumber));
-        if (versionFile is null) { return Json(null); }  
+        if (versionFile.isNull) { return Json(null); }  
 
         return loadJson(versionFile.absolutePath); 
       }
@@ -109,7 +109,7 @@ class DFileJsonCollection : DJsonCollection {
         auto myId = UUID(select["id"]);
 
         auto myIdFolder = idFolder(folder, myId);
-        if (myIdFolder is null) { return Json(null); }  
+        if (myIdFolder.isNull) { return Json(null); }  
 
         auto result = Json(null); 
         if (!folder || !folder.exists) { return Json(null); } 
@@ -131,12 +131,12 @@ class DFileJsonCollection : DJsonCollection {
         if ("id" !in select) { return Json(null); }
 
         auto idFolder = folder.folder(select["id"].get!string);
-        if (idFolder is null) { return Json(null); }  
+        if (idFolder.isNull) { return Json(null); }  
 
         if ("versionNumber" !in select) { return Json(null); }
 
         auto versionFile = folder.file(select["versionNumber"].get!string);
-        if (versionFile is null) { return Json(null); }  
+        if (versionFile.isNull) { return Json(null); }  
 
         return versionFile.readJson;
       }
@@ -158,10 +158,10 @@ class DFileJsonCollection : DJsonCollection {
     if ("versionNumber" !in newData) newData["versionNumber"] = 1;
 
     auto idFolder = folder.createFolder(newData["id"].get!string);
-    if (idFolder is null) { return Json(null); }  
+    if (idFolder.isNull) { return Json(null); }  
     
     auto versionFile = idFolder.createFile(newData["versionNumber"].get!string);
-    if (versionFile is null) { return Json(null); }  
+    if (versionFile.isNull) { return Json(null); }  
 
     versionFile.writeJson(newData);
     return findOne(newData); 
@@ -218,12 +218,12 @@ class DFileJsonCollection : DJsonCollection {
       updateData.byKeyValue.each!(kv => json[kv.key] = kv.value);
 
       auto myFolder = folder.folder(json["id"].get!string);
-      if (myFolder is null) { 
+      if (myFolder.isNull) { 
       return false; 
     }
 
       auto myFile = myFolder.file(json["versionNumber"].get!string);
-      if (myFile is null) { 
+      if (myFile.isNull) { 
       return false; 
     }
 
@@ -288,7 +288,7 @@ class DFileJsonCollection : DJsonCollection {
 
       // Body
       auto myFolder = folder.folder(anId.toString);
-      if (myFolder is null) { 
+      if (myFolder.isNull) { 
       return false; 
     }
       
@@ -306,7 +306,7 @@ class DFileJsonCollection : DJsonCollection {
       
       // Get folder with version files
       auto myFolder = folder.folder(anId.toString);
-      if (myFolder is null) { 
+      if (myFolder.isNull) { 
       return false; 
     }
       
@@ -314,7 +314,7 @@ class DFileJsonCollection : DJsonCollection {
 
       // Get a file with selected version or the current version (versionNumber is empty or "*")  
       auto myVersionFile = myFolder.file(to!string(aVersionNumber));
-      if (myVersionFile is null) { 
+      if (myVersionFile.isNull) { 
       return false; 
     }
 
@@ -348,7 +348,7 @@ class DFileJsonCollection : DJsonCollection {
       auto myId = UUID(select["id"]).toString;
 
       auto myFolder = folder.folder(myId);
-      if (myFolder is null) { 
+      if (myFolder.isNull) { 
       return false; 
     } // Folder not found
 
@@ -360,7 +360,7 @@ class DFileJsonCollection : DJsonCollection {
       
       // Get a file with selected version or the current version (versionNumber is empty or "*")  
       auto myVersionFile = myFolder.file(to!string(myVersionNumber));
-      if (myVersionFile is null) { 
+      if (myVersionFile.isNull) { 
       return false; 
     } // File not found
 
@@ -392,12 +392,12 @@ class DFileJsonCollection : DJsonCollection {
       auto myId = UUID(select["id"].get!string);
 
       IFolder idFolder = folder.folder(myId.toString);
-      if (idFolder is null) { 
+      if (idFolder.isNull) { 
       return false; 
     }
       
       auto versionFile = idFolder.file("versionNumber" in select ? select["versionNumber"].get!string : "1");
-      if (versionFile is null) { 
+      if (versionFile.isNull) { 
       return false; 
     }
 

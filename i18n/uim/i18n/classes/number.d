@@ -201,7 +201,7 @@ class DNumber {
      * Getter for default currency
      * /
     static string getDefaultCurrency() {
-        if (_defaultCurrency is null) {
+        if (_defaultCurrency.isNull) {
             locale = ini_get("intl.default_locale") ?: DEFAULT_LOCALE;
             formatter = new DNumberFormatter(locale, NumberFormatter.CURRENCY);
             _defaultCurrency = formatter.getTextAttribute(NumberFormatter.CURRENCY_CODE);

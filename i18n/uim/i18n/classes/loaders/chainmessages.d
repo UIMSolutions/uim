@@ -46,7 +46,7 @@ class DChainMessagesLoader {
             }
 
             ICatalog catalog = loader.catalog();
-            if (!catalog is null) {
+            if (!catalog.isNull) {
                 continue;
             }
             return catalog;

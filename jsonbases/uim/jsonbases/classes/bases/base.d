@@ -114,7 +114,7 @@ class DJsonBase : IJsonBase, IJsonTenantManager {
     }
 
     if (aName.isEmpty
-      || aTenant is null) {
+      || aTenant.isNull) {
       return false;
     }
 

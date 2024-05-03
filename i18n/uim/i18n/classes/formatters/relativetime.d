@@ -23,7 +23,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         bool absolute = false
     ) {
         auto isNow = second.isNull;
-        if (second is null) {
+        if (second.isNull) {
             second = cast(DChronosDate)firstChar
                 ? Date.now()
                 : DateTime.now(first.getTimezone());

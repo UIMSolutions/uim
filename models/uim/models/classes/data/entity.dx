@@ -39,7 +39,7 @@ class DEntityData : DData {
   }
 
   override void set(string newValue) {
-    if (newValue is null) {
+    if (newValue.isNull) {
       isNull(isNullable ? true : false);
       // set(null);
     } else {
@@ -64,7 +64,7 @@ class DEntityData : DData {
   }
 
 /*   void set(IEntity newValue) {
-    if (newValue is null) {
+    if (newValue.isNull) {
       isNull(isNullable ? true : false);
       _value = null;
     } else {

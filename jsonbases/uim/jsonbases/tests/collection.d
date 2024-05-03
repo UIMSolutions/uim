@@ -4,7 +4,7 @@ module uim.jsonbases.tests.collection;
 import uim.jsonbases;
 
 bool isNull(IJsonCollection aCollection) {
-  return (aCollection is null);
+  return (aCollection.isNull);
 }
 
 bool test_findMany(DJsonCollection col) {

@@ -5,7 +5,7 @@ import uim.jsonbases;
 @safe:
 template FolderByIdAndFileByNumber() {
 /*   IFolder idFolder = folder.folder(myId);
-  if (idFolder is null) { 
+  if (idFolder.isNull) { 
       return false; 
     }
 
@@ -15,7 +15,7 @@ template FolderByIdAndFileByNumber() {
   auto versionNumber = select["versionNumber"].get!size_t;
   
   auto versionFile = idFolder(versionNumber);
-  if (versionFile is null) { 
+  if (versionFile.isNull) { 
       return false; 
     } */
 }

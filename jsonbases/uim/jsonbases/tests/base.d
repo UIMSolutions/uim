@@ -5,7 +5,7 @@ import uim.jsonbases;
 @safe:
 
 bool isNull(IJsonBase aBase) {
-  return (aBase is null);
+  return (aBase.isNull);
 }
 
 // #region tenant

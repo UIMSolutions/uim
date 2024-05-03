@@ -42,7 +42,7 @@ class DUUIDData : DData {
   }
 
   override void set(string newValue) {
-    if (newValue is null) {
+    if (newValue.isNull) {
       if (!isNullable)
         return;
 

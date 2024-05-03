@@ -516,7 +516,7 @@ class DMessage { //: JsonSerializable {
      * @param string acontext Which property was set
      * /
     protected void validateEmail(string emailAddress, string acontext) {
-        if (this.emailPattern is null) {
+        if (this.emailPattern.isNull) {
             if (filter_var(emailAddress, FILTER_VALIDATE_EMAIL)) {
                 return;
             }
@@ -1240,7 +1240,7 @@ class DMessage { //: JsonSerializable {
         if (this.appCharset == charset) {
             return text;
         }
-        if (this.appCharset is null) {
+        if (this.appCharset.isNull) {
             return mb_convert_encoding(text, charset);
         }
         return mb_convert_encoding(text, charset, this.appCharset);
@@ -1387,7 +1387,7 @@ class DMessage { //: JsonSerializable {
      * string atext String to encode
      * /
     protected string encodeForHeader(string textToEncode) {
-        if (this.appCharset is null) {
+        if (this.appCharset.isNull) {
             return textToEncode;
         }
         restore = mb_internal_encoding();
@@ -1404,7 +1404,7 @@ class DMessage { //: JsonSerializable {
      * string atext String to decode
      * /
     protected string decodeForHeader(string textToEncode) {
-        if (this.appCharset is null) {
+        if (this.appCharset.isNull) {
             return textToEncode;
         }
         restore = mb_internal_encoding();

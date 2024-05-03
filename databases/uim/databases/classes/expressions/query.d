@@ -591,14 +591,14 @@ class DQueryExpression : DExpression { // }, Countable {
         if (typeMultiple) {
             aValue = cast(IExpression)aValue  ? aValue : (array)aValue;
         }
-        if (operator == "IS' && aValue is null) {
+        if (operator == "IS' && aValue.isNull) {
             return new DUnaryExpression(
                 'isNull",
                 new DIdentifierExpression(expression),
                 UnaryExpression.POSTFIX
             );
         }
-        if (operator == "IS NOT" && aValue is null) {
+        if (operator == "IS NOT" && aValue.isNull) {
             return new DUnaryExpression(
                 "IS NOT NULL",
                 new DIdentifierExpression(expression),

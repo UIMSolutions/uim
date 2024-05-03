@@ -69,7 +69,7 @@ mixin template TRulesAware() {
      * needs to be fetched from relevant datasources.
      * /
     RulesChecker rulesChecker() {
-        if (!_rulesChecker is null) {
+        if (!_rulesChecker.isNull) {
             return _rulesChecker;
         }
         /** @var class-string<\UIM\Datasource\RulesChecker>  className * /

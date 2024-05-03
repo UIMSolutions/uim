@@ -250,7 +250,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * `\UIM\Database\Expression\WhenThenExpression`.
      * /
     void when(Json  when, string[] type = null) {
-        if (!this.whenBuffer is null) {
+        if (!this.whenBuffer.isNull) {
             throw new DLogicException("Cannot call `when()` between `when()` and `then()`.");
         }
         if (cast(DClosure) when) {
@@ -326,7 +326,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * instance of `\UIM\Database\Expression\WhenThenExpression`.
      * /
     void then(Json result, string atype = null) {
-        if (this.whenBuffer is null) {
+        if (this.whenBuffer.isNull) {
             throw new DLogicException("Cannot call `then()` before `when()`.");
         }
          whenThen = (new WhenThenExpression(this.getTypeMap()))
@@ -350,7 +350,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
      * instance of `\UIM\Database\IExpression`, or `null`.
      * /
     void else(Json result, string atype = null) {
-        if (!this.whenBuffer is null) {
+        if (!this.whenBuffer.isNull) {
             throw new DLogicException("Cannot call `else()` between `when()` and `then()`.");
         }
         if (
@@ -436,7 +436,7 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
     }
  
     string sql(DValueBinder aBinder) {
-        if (!this.whenBuffer is null) {
+        if (!this.whenBuffer.isNull) {
             throw new DLogicException("Case expression has incomplete when clause. Missing `then()` after `when()`.");
         }
         if (this.when.isEmpty) {

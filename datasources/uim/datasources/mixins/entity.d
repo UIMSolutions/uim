@@ -739,7 +739,7 @@ mixin template TEntity() {
      * string field The field to check the status for. Null for the whole entity.
     * /
     bool isDirty(string afield = null) {
-      if (field is null) {
+      if (field.isNull) {
         return !_isDirty.isEmpty;
       }
       return isSet(_isDirty[field]);

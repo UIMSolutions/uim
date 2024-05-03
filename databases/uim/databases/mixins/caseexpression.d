@@ -61,7 +61,7 @@ mixin template TCaseExpression() {
         ) {
             aValue = _castToExpression(aValue, type);
         }
-        if (aValue is null) {
+        if (aValue.isNull) {
             aValue = "NULL";
         } elseif (cast(Query)aValue) {
             aValue = "(%s)".format(aValue.sql(aBinder));

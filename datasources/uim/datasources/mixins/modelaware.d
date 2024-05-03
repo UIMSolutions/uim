@@ -39,7 +39,7 @@ mixin template TModelAware() {
      * string aName Class name.
      * /
     protected void _setModelClass(string aName) {
-        if (this.modelClass is null) {
+        if (this.modelClass.isNull) {
             this.modelClass = aName;
         }
     }

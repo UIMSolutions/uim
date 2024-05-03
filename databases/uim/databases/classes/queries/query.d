@@ -1438,7 +1438,7 @@ abstract class DQuery : IQuery { // : IExpression {
     // Handles clearing iterator and cloning all expressions and value binders.
     void clone() {
        _statement = null;
-        if (!_valueBinder is null) {
+        if (!_valueBinder.isNull) {
            _valueBinder = clone _valueBinder;
         }
         _parts.byKeyValue

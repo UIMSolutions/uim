@@ -48,7 +48,7 @@ class DShapeFactory {
   static IShape getCircle(string color) {
     DCircle circle = cast(DCircle)circleMap.get(color, null);
 
-    if (circle is null) {
+    if (circle.isNull) {
         circle = new DCircle(color);
         circleMap[color] = circle;
         writeln("Creating circle of color : "~color);

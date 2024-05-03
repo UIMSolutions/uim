@@ -17,7 +17,7 @@ public {
   static DOOPObjclassRegistry registry;
 }
 auto ObjclassRegistry() {
-  if (DOOPObjclassRegistry.registry is null) {
+  if (DOOPObjclassRegistry.registry.isNull) {
     DOOPObjclassRegistry.registry = new DOOPObjclassRegistry;
   }
   return DOOPObjclassRegistry.registry;
@@ -27,7 +27,7 @@ class DOOPAttclassRegistry : DObjectRegistry!DAttribute {
   static DOOPAttclassRegistry registry;
 }
 auto AttributeRegistry() {
-  if (DOOPAttclassRegistry.registry is null) {
+  if (DOOPAttclassRegistry.registry.isNull) {
     DOOPAttclassRegistry.registry = new DOOPAttclassRegistry;
   }
   return DOOPAttclassRegistry.registry;
@@ -37,7 +37,7 @@ auto AttributeRegistry() {
   static DOOPAttributeRegistry registry;
 }
 auto AttributeRegistry() {
-  if (DOOPAttributeRegistry.registry is null) {
+  if (DOOPAttributeRegistry.registry.isNull) {
     DOOPAttributeRegistry.registry = new DOOPAttributeRegistry;
   }
   return DOOPAttributeRegistry.registry;

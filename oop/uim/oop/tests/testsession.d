@@ -28,10 +28,10 @@ class DTestSession {
      * string myname Variable name to check for
      * /
     bool check(string myname = null) {
-        if (this.session is null) {
+        if (this.session.isNull) {
             return false;
         }
-        if (myname is null) {
+        if (myname.isNull) {
             return (bool)this.session;
         }
         return Hash.get(this.session, myname) !isNull;
@@ -43,10 +43,10 @@ class DTestSession {
      * string myname The name of the session variable (or a path as sent to Hash.extract)
      * /
     IData read(string myname = null) {
-        if (this.session is null) {
+        if (this.session.isNull) {
             return null;
         }
-        if (myname is null) {
+        if (myname.isNull) {
             return _session ?: [];
         }
         return Hash.get(this.session, myname);

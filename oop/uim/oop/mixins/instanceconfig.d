@@ -99,7 +99,7 @@ mixin template TInstanceConfig() {
      * /
     IData getConfigOrFail(string keyToGet) {
         configData = this.getConfig(keyToGet);
-        if (configData is null) {
+        if (configData.isNull) {
             throw new DInvalidArgumentException(
                 "Expected configuration `%s` not found.".format(keyToGet));
         }
@@ -141,7 +141,7 @@ mixin template TInstanceConfig() {
     
     // Reads a config key.
     protected IData _configRead(string keyToRead) {
-        if (keyToRead is null) {
+        if (keyToRead.isNull) {
             return _config;
         }
         if (!keyToRead.has(".")) {
@@ -169,7 +169,7 @@ mixin template TInstanceConfig() {
      * @throws \UIM\Core\Exception\UimException if attempting to clobber existing config
      * /
     protected void _configWrite(string[] keyToWrite, IData aValue, string|bool merge = false) {
-        if (isString(keyToWrite) && aValue is null) {
+        if (isString(keyToWrite) && aValue.isNull) {
            _configDelete(keyToWrite);
 
             return;

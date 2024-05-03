@@ -19,7 +19,7 @@ class DObjectRegistry(T : Object) {
 	}
 
 	public static DObjectRegistry!T instance() {
-		if (_instance is null) {
+		if (_instance.isNull) {
 			_instance = new DObjectRegistry!T;
 		}
 		return _instance;

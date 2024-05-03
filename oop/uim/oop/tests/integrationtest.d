@@ -1101,7 +1101,7 @@ mixin template TIntegrationTest() {
         if (cast(DException)_exception) {
             message ~= this.extractExceptionMessage(_exception);
         }
-        if (_controller is null) {
+        if (_controller.isNull) {
             return message;
         }
         error = _controller.viewBuilder().getVar("error");

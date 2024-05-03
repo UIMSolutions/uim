@@ -148,7 +148,7 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
      * Plugins will be keyed by their names.
      */
     void add(IPlugin plugin) {
-        if (plugin is null) { return; }
+        if (plugin.isNull) { return; }
 
         string pluginName = plugin.name;
         _plugins[pluginName] = plugin;

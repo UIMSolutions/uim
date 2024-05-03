@@ -146,7 +146,7 @@ class DStringContents {
     }
     protected void compileTemplate(string templateName) {
         string templateValue; // TODO  = get(templateName);
-        // TODO if (templateValue is null) {
+        // TODO if (templateValue.isNull) {
         // TODO    throw new DInvalidArgumentException("String template `%s` is not valid.".format(templateName));
         // TODO}
 

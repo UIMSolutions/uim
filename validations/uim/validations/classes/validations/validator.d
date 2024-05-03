@@ -481,7 +481,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param string|null myrule the name of the rule to be removed
      * /
     auto remove(string fieldName, string myrule = null) {
-        if (myrule is null) {
+        if (myrule.isNull) {
             unset(_fields[fieldName]);
         } else {
             this.field(fieldName).remove(myrule);
@@ -891,7 +891,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.notBlank()
      * /
     auto notBlank(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "This field cannot be left empty";
             } else {
@@ -915,7 +915,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.alphaNumeric()
      * /
     auto alphaNumeric(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be alphanumeric";
             } else {
@@ -939,7 +939,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.notAlphaNumeric()
      * /
     auto notAlphaNumeric(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must not be alphanumeric";
             } else {
@@ -963,7 +963,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.asciiAlphaNumeric()
      * /
     auto asciiAlphaNumeric(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be ASCII-alphanumeric";
             } else {
@@ -988,7 +988,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * /
     auto notAsciiAlphaNumeric(string myfield, string errorMessage = null, IClosure|string|null mywhen = null) {
         auto myMessage = errorMessage;
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             myMessage = !_useI18n
                 ? "The provided value must not be ASCII-alphanumeric"
                 : __d("uim", "The provided value must not be ASCII-alphanumeric");
@@ -1024,7 +1024,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         mylowerBound = array_shift(myrange);
         myupperBound = array_shift(myrange);
 
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = 
                     "The length of the provided value must be between `%s` and `%s`, inclusively"
@@ -1069,7 +1069,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         } else {
             mytypeEnumeration = mytype;
         }
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 if (mytype == "all") {
                     myMessage = "The provided value must be a valid credit card number of any type";
@@ -1115,7 +1115,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be greater than `%s`".format(myvalue);
             } else {
@@ -1145,7 +1145,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be greater than or equal to `%s`".format(myvalue);
             } else {
@@ -1175,7 +1175,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be less than `%s`"
                 .format(myvalue);
@@ -1206,7 +1206,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be less than or equal to `%s`".format(myvalue);
             } else {
@@ -1236,7 +1236,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             myMessage = !_useI18n
                 ? "The provided value must be equal to `%s`".format(myvalue)
                 : = __d("uim", "The provided value must be equal to `{0}`", myvalue);
@@ -1264,7 +1264,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must not be equal to `%s`".format(myvalue);
             } else {
@@ -1296,7 +1296,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = sprintf("The provided value must be same as `%s`", mysecondField);
             } else {
@@ -1328,7 +1328,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = sprintf("The provided value must not be same as `%s`", mysecondField);
             } else {
@@ -1359,7 +1359,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = sprintf("The provided value must be equal to the one of field `%s`", mysecondField);
             } else {
@@ -1394,7 +1394,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = sprintf("The provided value must not be equal to the one of field `%s`", mysecondField);
             } else {
@@ -1431,7 +1431,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         Closure|string|null mywhen = null
     ) {
         auto myMessage = errorMessage;
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             myMessage = !_useI18n
                 ? sprintf("The provided value must be greater than the one of field `%s`", mysecondField);
                 : __d(
@@ -1465,7 +1465,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = 
                     "The provided value must be greater than or equal to the one of field `%s`"
@@ -1503,7 +1503,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be less than the one of field `%s`".format(mysecondField);
             } else {
@@ -1539,7 +1539,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = 
                     "The provided value must be less than or equal to the one of field `%s`"
@@ -1578,7 +1578,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     ) {
         myformatEnumeration = join(", ", myformats);
 
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = sprintf(
                     "The provided value must be a date of one of these formats: `%s`",
@@ -1617,7 +1617,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     ) {
         myformatEnumeration = join(", ", myformats);
 
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             myMessage = !_useI18n
                 ? "The provided value must be a date and time of one of these formats: `%s`"
                     .format(myformatEnumeration
@@ -1645,7 +1645,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.time()
      * /
     auto time(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a time";
             } else {
@@ -1675,7 +1675,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a localized time, date or date and time";
             } else {
@@ -1699,7 +1699,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.boolean()
      * /
     auto boolean(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a boolean";
             } else {
@@ -1729,7 +1729,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = myplaces.isNull
                     ? "The provided value must be decimal with any number of decimal places, including none"
@@ -1771,7 +1771,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             myMessage = !_useI18n
                 ? "The provided value must be an e-mail address"
                 : __d("uim", "The provided value must be an e-mail address");
@@ -1806,7 +1806,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
                 "The `myenumClassName` argument must be the classname of a valid backed enum."
             );
         }
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             mycases = array_map(fn (mycase): mycase.value, myenumClassName.cases());
             mycaseOptions = join("`, `", mycases);
             
@@ -1834,7 +1834,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.ip()
      * /
     auto ip(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be an IP address";
             } else {
@@ -1858,7 +1858,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.ip()
      * /
     auto ipv4(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be an IPv4 address";
             } else {
@@ -1882,7 +1882,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.ip()
      * /
     auto ipv6(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be an IPv6 address";
             } else {
@@ -1907,7 +1907,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.minLength()
      * /
     auto minLength(string myfield, int mymin, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = sprintf("The provided value must be at least `%s` characters long", mymin);
             } else {
@@ -1932,7 +1932,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.minLengthBytes()
      * /
     auto minLengthBytes(string myfield, int mymin, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = sprintf("The provided value must be at least `%s` bytes long", mymin);
             } else {
@@ -1957,7 +1957,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.maxLength()
      * /
     auto maxLength(string myfield, int mymax, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = sprintf("The provided value must be at most `%s` characters long", mymax);
             } else {
@@ -1982,7 +1982,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.maxLengthBytes()
      * /
     auto maxLengthBytes(string myfield, int mymax, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = sprintf("The provided value must be at most `%s` bytes long", mymax);
             } else {
@@ -2006,7 +2006,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.numeric()
      * /
     auto numeric(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             myMessage = !_useI18n
                 ? "The provided value must be numeric"
                 : __d("uim", "The provided value must be numeric");
@@ -2029,7 +2029,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.naturalNumber()
      * /
     auto naturalNumber(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a natural number";
             } else {
@@ -2053,7 +2053,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.naturalNumber()
      * /
     auto nonNegativeInteger(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a non-negative integer";
             } else {
@@ -2086,7 +2086,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         mylowerBound = array_shift(myrange);
         myupperBound = array_shift(myrange);
 
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             myMessage = !_useI18n 
                 ? "The provided value must be between `%s` and `%s`, inclusively"
                     .format(mylowerBound, myupperBound);
@@ -2116,7 +2116,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.url()
      * /
     auto url(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a URL";
             } else {
@@ -2142,7 +2142,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.url()
      * /
     auto urlWithProtocol(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a URL with protocol";
             } else {
@@ -2169,7 +2169,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
     auto inList(string myfield, array mylist, string myMessage = null, IClosure|string|null mywhen = null) {
         mylistEnumeration = join(", ", mylist);
 
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = sprintf("The provided value must be one of: `%s`", mylistEnumeration);
             } else {
@@ -2197,7 +2197,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.uuid()
      * /
     auto uuid(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a UUID";
             } else {
@@ -2227,7 +2227,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be an uploaded file";
             } else {
@@ -2253,7 +2253,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.geoCoordinate()
      * /
     auto latLong(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a latitude/longitude coordinate";
             } else {
@@ -2277,7 +2277,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.latitude()
      * /
     auto latitude(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be a latitude";
             } else {
@@ -2301,7 +2301,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.longitude()
      * /
     auto longitude(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             myMessage = !_useI18n
                 ? "The provided value must be a longitude"
                 : __d("uim", "The provided value must be a longitude");
@@ -2324,7 +2324,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.ascii()
      * /
     auto ascii(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be ASCII bytes only";
             } else {
@@ -2348,7 +2348,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.utf8()
      * /
     auto utf8(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be UTF-8 bytes only";
             } else {
@@ -2374,7 +2374,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.utf8()
      * /
     auto utf8Extended(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be 3 and 4 byte UTF-8 sequences only";
             } else {
@@ -2398,7 +2398,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.isInteger()
      * /
     auto integer(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be an integer";
             } else {
@@ -2422,7 +2422,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.isArray()
      * /
     auto array(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             if (!_useI18n) {
                 myMessage = "The provided value must be an array";
             } else {
@@ -2446,7 +2446,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.isScalar()
      * /
     auto scalar(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             myMessage = "The provided value must be scalar";
             if (_useI18n) {
                 myMessage = __d("uim", "The provided value must be scalar");
@@ -2469,7 +2469,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.hexColor()
      * /
     auto hexColor(string myfield, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             myMessage = "The provided value must be a hex color";
             if (_useI18n) {
                 myMessage = __d("uim", "The provided value must be a hex color");
@@ -2499,7 +2499,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
         string myMessage = null,
         Closure|string|null mywhen = null
     ) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             myMessage = "The provided value must be a set of multiple options";
             if (_useI18n) {
                 myMessage = __d("uim", "The provided value must be a set of multiple options");
@@ -2526,7 +2526,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.numElements()
      * /
     auto hasAtLeast(string myfield, int mycount, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             mymewssage = !_useI18n
                 ? sprintf("The provided value must have at least `%s` elements", mycount)
                 :  __d("uim", "The provided value must have at least `{0}` elements", mycount);
@@ -2556,7 +2556,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @see \UIM\Validation\Validation.numElements()
      * /
     auto hasAtMost(string myfield, int mycount, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             myMessage = !_useI18n 
                 ? "The provided value must have at most `%s` elements".format(mycount)
                 : __d("uim", "The provided value must have at most `{0}` elements"mycount);
@@ -2613,7 +2613,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *  true when the validation rule should be applied.
      * /
     auto regex(string fieldName, string myregex, string myMessage = null, IClosure|string|null mywhen = null) {
-        if (myMessage is null) {
+        if (myMessage.isNull) {
             myMessage = !_useI18n
                 ? "The provided value must match against the pattern `%s`".format(myregex)
                 : __d("uim", "The provided value must match against the pattern `{0}`", myregex);
@@ -2715,7 +2715,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param int myflags A bitmask of EMPTY_* flags which specify what is empty
      * /
     protected bool isEmpty(Json mydata, int myflags) {
-        if (mydata is null) {
+        if (mydata.isNull) {
             return true;
         }
         if (mydata == "" && (myflags & self.EMPTY_STRING)) {

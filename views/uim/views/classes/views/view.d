@@ -267,7 +267,7 @@ static string contentType() {
         ?IEventManager myeventManager = null,
         array myviewOptions = []
     ) {
-        if (!myeventManager is null) {
+        if (!myeventManager.isNull) {
             // Set the event manager before accessing the helper registry below
             // to ensure that helpers are registered as listeners with the manager when loaded.
             this.setEventManager(myeventManager);
@@ -1035,7 +1035,7 @@ static string contentType() {
      * string|null views The name of the layout to find.
      * /
     protected string _getLayoutFileName(string views = null) {
-        if (views is null) {
+        if (views.isNull) {
             if (this.layout.isEmpty) {
                 throw new UimException(
                     "View.mylayout must be a non-empty string." .

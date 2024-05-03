@@ -350,7 +350,7 @@ class DViewBuilder { // }: DJsonSerializable {
         } else {
             myclassName = App.className(myclassName, "View", "View");
         }
-        if (myclassName is null) {
+        if (myclassName.isNull) {
             throw new DMissingViewException(["class": _className]);
         }
         mydata = [

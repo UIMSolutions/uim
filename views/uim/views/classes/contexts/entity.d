@@ -224,7 +224,7 @@ class DEntityContext : DContext {
      * /
     protected Json _schemaDefault(array pathParts) {
         mytable = _getTable(pathParts);
-        if (mytable is null) {
+        if (mytable.isNull) {
             return null;
         }
         myfield = end(pathParts);
@@ -264,7 +264,7 @@ class DEntityContext : DContext {
      * or null to get the entity passed in constructor context.
      * /
     IEntity|iterable|null entity(array mypath = null) {
-        if (mypath is null) {
+        if (mypath.isNull) {
             return _context["entity"];
         }
         myoneElement = count(mypath) == 1;
@@ -316,7 +316,7 @@ class DEntityContext : DContext {
      * or null to get the entity passed in constructor context.
      * /
     // TODO protected array leafEntity(array mypath = null) {
-        if (mypath is null) {
+        if (mypath.isNull) {
             return _context["entity"];
         }
         auto myoneElement = count(mypath) == 1;
@@ -535,7 +535,7 @@ class DEntityContext : DContext {
                 myassociationCollection = mytable.associations();
                 myassoc = myassociationCollection.getByProperty(mypart);
             }
-            if (myassoc is null) {
+            if (myassoc.isNull) {
                 if (myfallback) {
                     break;
                 }

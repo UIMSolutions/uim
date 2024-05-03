@@ -68,7 +68,7 @@ class DContextFactory {
             [
                 "type": "null",
                 "callable": auto (myrequest, mydata) {
-                    if (mydata["entity"] is null) {
+                    if (mydata["entity"].isNull) {
                         return new DNullContext(mydata);
                     }
                 },

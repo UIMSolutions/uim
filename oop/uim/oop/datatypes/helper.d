@@ -5,7 +5,7 @@ import uim.oop;
 @safe:
 
 bool isEmpty(IData[string] data, string key) {
-    if (data is null) { return true; }
+    if (data.isNull) { return true; }
 
     return data.hasKey(key); 
 }

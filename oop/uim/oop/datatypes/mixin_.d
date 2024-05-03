@@ -68,7 +68,7 @@ string dataGetSetTemplate(string nullValue, string dataType, string jsonType = n
   }
 
   override void set(string newValue) {
-    if (newValue is null) {
+    if (newValue.isNull) {
       isNull(isNullable ? true : false);
       set(`
     ~ nullValue ~ `);

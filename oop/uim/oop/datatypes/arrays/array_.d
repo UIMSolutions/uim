@@ -47,7 +47,7 @@ class DArrayData : DData {
   // #region equal
   override bool isEqual(IData checkData) {
     auto arrayData = cast(DArrayData)checkData;
-    if (arrayData is null) {
+    if (arrayData.isNull) {
       return false;
     }
 
@@ -103,7 +103,7 @@ class DArrayData : DData {
   }
 
   override void set(string newValue) {
-    if (newValue is null) {
+    if (newValue.isNull) {
       isNull(isNullable ? true : false);
       // set(null);
     } else {

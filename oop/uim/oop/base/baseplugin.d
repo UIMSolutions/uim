@@ -69,7 +69,7 @@ class DPlugin : IPlugin {
     }
  
     @property string name() {
-        if (_name is null) {
+        if (_name.isNull) {
             return _name;
         }
         
@@ -81,7 +81,7 @@ class DPlugin : IPlugin {
     }
  
     string getPath() {
-        if (!_path is null) {
+        if (!_path.isNull) {
             return _path;
         }
         

@@ -62,7 +62,7 @@ class DList(T) : DContainer!T, IList  {
   
   // Returns true if this list contains the specified element.
   override bool contains(T checkItem) {
-    if (checkItem is null) { 
+    if (checkItem.isNull) { 
       return false; 
     }
 

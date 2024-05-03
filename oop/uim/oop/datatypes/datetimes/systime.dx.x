@@ -34,7 +34,7 @@ class DSystimeData : DData {
   }
 
   override void set(string newValue) {
-    if (newValue is null) {
+    if (newValue.isNull) {
       isNull(isNullable ? true : false);
       set(SysTime());
     } else {

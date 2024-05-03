@@ -9,8 +9,9 @@ import uim.models;
 @safe:
 
 public { 
-	// import uim.models.classes.attributes.attribute;
-	// import uim.models.classes.attributes.registry; 
+	import uim.models.classes.attributes.attribute;
+	import uim.models.classes.attributes.factory;
+	import uim.models.classes.attributes.registry; 
 }
 
 public { 
@@ -35,25 +36,6 @@ public {
 	// import uim.models.classes.attributes.uuids;
 }
 
-template AttributeThis(string name) {
-  const char[] AttributeThis = q{
-    this() { initialize(); this.name(name);  }
-    this(Json newData) { this().fromJson(newData); }
-    this(UUID myId) { this().id(myId); }
-    this(string myName) { this().name(myName); }
-    this(UUID myId, string myName) { this(myId).name(myName); }  
-  };
-}
-
-template AttributeCalls(string name) {
-  const char[] AttributeCalls = `
-auto `~name~`() { return new D`~name~`();  }
-auto `~name~`(Json newData) { return new D`~name~`(newData); }
-auto `~name~`(UUID myId) { return new D`~name~`(myId); }
-auto `~name~`(string myName) { return new D`~name~`(myName); }
-auto `~name~`(UUID myId, string myName) { return new D`~name~`(myId, myName); }  
-`;
-}
 
 void testAttribute(IAttribute attribute) {
   assert(attribute);

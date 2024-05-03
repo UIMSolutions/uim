@@ -626,7 +626,7 @@ static string contentType() {
      * Params:
      * @param Json mydefault The default/fallback content of myvar.
      * /
-    Json get(string valueName, Json defaultValue = null) {
+    Json get(string valueName, Json defaultValue = Json(null)) {
         return _viewVars.get(valueName, defaultValue);
     }
 

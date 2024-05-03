@@ -7,7 +7,7 @@ public { // Modules
 }
 
 public { // Packages
-  // import uim.models.classes.attributes;
+  import uim.models.classes.attributes;
   import uim.models.classes.elements;
   import uim.models.classes.entities;
   // import uim.models.classes.errors;

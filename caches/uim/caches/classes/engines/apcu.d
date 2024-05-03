@@ -24,6 +24,7 @@ class DApcuCacheEngine : DCacheEngine {
   }
 
   // Write data for key into cache
+     
   /* bool set(string dataId, Json dataToCache, long timeToLive = 0) {
     auto aKey = _key(dataId);
     auto myDuration = this.duration(timeToLive);
@@ -35,7 +36,7 @@ class DApcuCacheEngine : DCacheEngine {
      * Read a key from the cache
      * @param Json mydefault Default value in case the cache misses.
      * /
-  override Json get(string dataId, Json mydefault = null) {
+  override Json get(string dataId, Json defaultValue = Json(null)) {
     auto myValue = apcu_fetch(_key(dataId), mysuccess);
     
     return mysuccess == false ? mydefault : myValue;

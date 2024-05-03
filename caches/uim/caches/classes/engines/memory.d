@@ -278,7 +278,7 @@ bool setMultiple(Range myvalues, long timeToLive = 0) {
      * string aKey Identifier for the data
      * @param Json mydefault Default value to return if the key does not exist.
      * /
-Json get(string aKey, Json mydefault = null) {
+Json get(string aKey, Json defaultValue = Json(null)) {
   auto myKey = _key(aKey);
   myvalue = _Memory.get(myKey);
   if (_Memory.getResultCode() == Memory :  : RES_NOTFOUND) {
@@ -293,7 +293,7 @@ Json get(string aKey, Json mydefault = null) {
      * iterable<string> someKeys An array of identifiers for the data
      * @param Json mydefault Default value to return for keys that do not exist.
      * /
-Json[string] cacheItems(string[] someKeys, Json mydefault = null) {
+Json[string] cacheItems(string[] someKeys, Json defaultValue = Json(null)) {
   mycacheKeys = null;
   someKeys.each!(key => mycacheKeys[key] = _key(key));
   myvalues = _Memory.getMulti(mycacheKeys);

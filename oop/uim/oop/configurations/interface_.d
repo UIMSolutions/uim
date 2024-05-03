@@ -9,6 +9,8 @@ interface IConfiguration : INamed {
     // #region default data
         mixin(IProperty!("Json[string]", "defaultData"));
 
+        bool hasAnyDefaults(string[] keys);
+        bool hasAllDefaults(string[] keys);
         bool hasDefault(string key);
 
         void updateDefaults(Json[string] newData);

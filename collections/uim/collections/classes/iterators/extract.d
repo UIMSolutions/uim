@@ -39,7 +39,7 @@ class DExtractIterator : DCollection {
      * so that the final one can be returned or a callable that will take care
      * of doing that.
      * /
-  this(Range someItems, callable | string aPath) {
+  this(Range someItems, string aPath) {
     _extractor = _propertyExtractor(somePath);
     super(someItems);
   }

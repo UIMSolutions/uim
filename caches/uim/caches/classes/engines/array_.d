@@ -69,12 +69,10 @@ class DArrayCacheEngine : DCacheEngine {
     return data["val"];
   }
 
-  /**
-     * Increments the value of an integer cached key
-     * @param int anOffset How much to addValue  */
-  int increment(string itemKey, int incValue = 1) | false {
+  // Increments the value of an integer cached key
+  int increment(string itemKey, int incValue = 1) {
     if (get(itemKey).isNull) {
-      set(itemKey, 0);
+      set(itemKey, Json(0));
     }
 
     auto key = _key(itemKey);
@@ -83,13 +81,10 @@ class DArrayCacheEngine : DCacheEngine {
     return _cachedData[key]["val"];
   }
 
-  /**
-     * Decrements the value of an integer cached key
-     * @param int anOffset How much to decValue
-     */
-  /* int decrement(string itemKey, int decValue = 1) | false {
+  // Decrements the value of an integer cached key
+  /* int decrement(string itemKey, int decValue = 1) {
     if (get(itemKey).isNull) {
-      this.set(itemKey, 0);
+      set(itemKey, Json(0));
     }
     auto key = _key(itemKey);
     _cachedData[key]["val"] -= decValue;

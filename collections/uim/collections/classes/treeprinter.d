@@ -41,8 +41,8 @@ class DTreePrinter { // }: RecursiveIteratorIterator, ICollection {
      * /
   this(
     IRecursiveIterator someItems,
-    callable | string myvaluePath,
-    callable | string mykeyPath,
+    string myvaluePath,
+    string mykeyPath,
     string myspacer,
     intmode = RecursiveIteratorIterator :  : SELF_FIRST
   ) {

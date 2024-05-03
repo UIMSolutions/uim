@@ -42,7 +42,7 @@ class DSortIterator : DCollection {
      * /
   this(
     range someItems,
-    callable | string mycallback,
+    string mycallback,
     int sortDirection = SORT_DESC,
     int sortType = SORT_NUMERIC
   ) {

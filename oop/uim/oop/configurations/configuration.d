@@ -28,6 +28,18 @@ abstract class DConfiguration : IConfiguration {
         void defaultData(Json[string] newData) {
         }
 
+        bool hasAnyDefaults(string[] keys) {
+            return keys
+                .filter!(key => !key.isEmpty)
+                .any!(key => hasDefault(key));
+        }
+
+        bool hasAllDefaults(string[] keys) {
+            return keys
+                .filter!(key => !key.isEmpty)
+                .all!(key => hasDefault(key));
+        }
+
         abstract bool hasDefault(string key);
 
         override void updateDefaults(Json[string] newData) {
@@ -45,12 +57,14 @@ abstract class DConfiguration : IConfiguration {
         abstract void mergeDefault(string key, Json newData);
     // #endregion defaultData
 
-    Json[string] data() {
-        return null;
-    }
+    // #region data
+        Json[string] data() {
+            return null;
+        }
 
-    void data(Json[string] newData) {
-    }
+        void data(Json[string] newData) {
+        }
+    // #endregion data
 
     // #region keys
         bool hasAnyKeys(string[] keys...) {

@@ -21,7 +21,7 @@ class DNestIterator : DCollection {// }, RecursiveIterator {
      * @param string anestKey the property that contains the nested items
      * If a callable is passed, it should return the childrens for the passed item
      * /
-    this(Range someItems, callable | string mynestKey) {
+    this(Range someItems, string mynestKey) {
         super(someItems);
        _nestKey = nestKey;
     }

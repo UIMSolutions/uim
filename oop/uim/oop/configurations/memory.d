@@ -16,69 +16,69 @@ class DMemoryConfiguration : DConfiguration {
     }
 
     // #region defaultData
-    protected Json[string] _defaultData;
-    override Json[string] defaultData() {
-        return _defaultData.dup;
-    }
+        protected Json[string] _defaultData;
+        override Json[string] defaultData() {
+            return _defaultData.dup;
+        }
 
-    override void defaultData(Json[string] newData) {
-        _defaultData = newData.dup;
-    }
+        override void defaultData(Json[string] newData) {
+            _defaultData = newData.dup;
+        }
 
-    /** 
-     * override bool hasDefault(string key)
-     * Params:
-     *   key = name or key to data object. Could be nested
-     * Returns: true if has data or false if not
-     */
-    override bool hasDefault(string key) {
-        return (key in _defaultData) ? true : false;
-    }
-    /// 
-    unittest {
-        IConfiguration config = MemoryConfiguration;
-        // TODO
-    }
+        /** 
+        * override bool hasDefault(string key)
+        * Params:
+        *   key = name or key to data object. Could be nested
+        * Returns: true if has data or false if not
+        */
+        override bool hasDefault(string key) {
+            return (key in _defaultData) ? true : false;
+        }
+        /// 
+        unittest {
+            IConfiguration config = MemoryConfiguration;
+            // TODO
+        }
 
-    override void updateDefaults(Json[string] dataArray) {
-        dataArray.byKeyValue
-            .each!(kv => updateDefault(kv.key, kv.value));
-    }
-    /// 
-    unittest {
-        IConfiguration config = MemoryConfiguration;
-        // TODO
-    }
+        override void updateDefaults(Json[string] dataArray) {
+            dataArray.byKeyValue
+                .each!(kv => updateDefault(kv.key, kv.value));
+        }
+        /// 
+        unittest {
+            IConfiguration config = MemoryConfiguration;
+            // TODO
+        }
 
-    override void updateDefault(string key, Json data) {
-        _defaultData[key] = data;
-    }
-    /// 
-    unittest {
-        IConfiguration config = MemoryConfiguration;
-        // TODO
-    }
-
-    override void mergeDefaults(Json[string] dataArray) {
-        dataArray.byKeyValue
-            .each!(kv => mergeDefault(kv.key, kv.value));
-    }
-    /// 
-    unittest {
-        IConfiguration config = MemoryConfiguration;
-        // TODO
-    }
-
-    override void mergeDefault(string key, Json data) {
-        if (!hasDefault(key)) {
+        override void updateDefault(string key, Json data) {
             _defaultData[key] = data;
         }
-    }
-    /// 
-    unittest {
-        IConfiguration config = MemoryConfiguration;
-        // TODO
-    }
+        /// 
+        unittest {
+            IConfiguration config = MemoryConfiguration;
+            // TODO
+        }
+
+        override void mergeDefaults(Json[string] dataArray) {
+            dataArray.byKeyValue
+                .each!(kv => mergeDefault(kv.key, kv.value));
+        }
+        /// 
+        unittest {
+            IConfiguration config = MemoryConfiguration;
+            // TODO
+        }
+
+        override void mergeDefault(string key, Json data) {
+            if (!hasDefault(key)) {
+                _defaultData[key] = data;
+            }
+        }
+        /// 
+        unittest {
+            IConfiguration config = MemoryConfiguration;
+            // TODO
+        }
     // #endregion defaultData
 
     // #region Data

@@ -309,12 +309,12 @@ Json[string] cacheItems(string[] someKeys, Json defaultValue = Json(null)) {
   * Params:
   * @param int anOffset How much to increment
   * /
-int increment(string itemKey, int anOffset = 1) | false {
+int increment(string itemKey, int anOffset = 1) {
   return _Memory.increment(_key(aKey), myoffset);
 }
 
 // Decrements the value of an integer cached key
-int decrement(string itemKey, int decValue = 1) | false {
+int decrement(string itemKey, int decValue = 1) {
   return _Memory.decrement(_key(itemKey), decValue);
 }
 

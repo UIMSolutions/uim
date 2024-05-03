@@ -19,7 +19,7 @@ class DSecurity {
      * routines.
      * /
     static string getSalt() {
-        if (_salt is null) {
+        if (_salt.isNull) {
             throw new UimException(
                 "Salt not set. Use Security.setSalt() to set one, ideally in `config/bootstrap.d`."
             );

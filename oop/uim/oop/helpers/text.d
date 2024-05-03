@@ -169,7 +169,7 @@ class DText {
             return options["clean"] ? cleanInsert(mystr, options): mystr;
         }
         myformat = options["format"];
-        if (myformat is null) {
+        if (myformat.isNull) {
             myformat = 
                 "/(?<!%s)%s%%s%s/"
                 .format(
@@ -929,7 +929,7 @@ class DText {
      * /
     static void setTransliteratorId(string mytransliteratorId) {
         mytransliterator = transliterator_create(mytransliteratorId);
-        if (mytransliterator is null) {
+        if (mytransliterator.isNull) {
             throw new UimException(sprintf("Unable to create transliterator for id: %s.".format(mytransliteratorId));
         }
         setTransliterator(mytransliterator);

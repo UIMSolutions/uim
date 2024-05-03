@@ -96,7 +96,7 @@ mixin template TCookieCrypt() {
         if (myencrypt == "aes") {
             myvalue = Security.decrypt(myvalue, aKey);
         }
-        if (myvalue is null) {
+        if (myvalue.isNull) {
             return "";
         }
         return _split(myvalue);

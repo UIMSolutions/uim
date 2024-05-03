@@ -8,7 +8,7 @@ bool isSubclassOf(C, B)(C aClass, B aBaseClass) {
 }
 
 bool isNull(Object instance) {
-    return (instance is null);
+    return (instance.isNull);
 }
 
 /* Found in web:

@@ -28,7 +28,7 @@ class Hash {
     // TODO static IData get(ArrayAccess data, string[] mypath, IData mydefault = null) {
 
     static IData get(array data, string[] mypath, IData mydefault = null) {
-        if (mydata.isEmpty || mypath is null) {
+        if (mydata.isEmpty || mypath.isNull) {
             return mydefault;
         }
         if (isString(mypath) || isInt(mypath)) {
@@ -385,7 +385,7 @@ class Hash {
             string myformat = array_shift(mykeyPath);
             someKeys = format(mydata, mykeyPath, myformat);
             assert(someKeys.isArray);
-        } else if (mykeyPath is null) {
+        } else if (mykeyPath.isNull) {
             someKeys = mykeyPath;
         } else {
             someKeys = extract(mydata, mykeyPath);
@@ -419,7 +419,7 @@ class Hash {
                 for (myi = 0; myi < myc; myi++) {
                     mygroup[myi] ??= 0;
                     result[mygroup[myi]] ??= null;
-                    if (someKeys is null) {
+                    if (someKeys.isNull) {
                         result[mygroup[myi]] ~= myvals[myi];
                     } else {
                         result[mygroup[myi]][someKeys[myi]] = myvals[myi];

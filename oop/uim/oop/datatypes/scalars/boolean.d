@@ -53,12 +53,12 @@ class DBooleanData : DScalarData {
   }
 
   override void set(IData newValue) {
-    if (newValue is null) {
+    if (newValue.isNull) {
       _value = false;
       return;
     }
     auto boolValue = cast(DBooleanData) newValue;
-    if (boolValue is null) {
+    if (boolValue.isNull) {
       _value = false;
     }
       return;

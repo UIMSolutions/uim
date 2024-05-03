@@ -45,13 +45,13 @@ class DNumberData : DScalarData {
   mixin(ScalarOpCall!(["int", "long", "float", "double"]));
 
   override void set(IData newValue) {
-    if (newValue is null) {
+    if (newValue.isNull) {
       _value = 0.0;
       return;
     }
 
     auto numberValue = cast(DNumberData)newValue;
-    if (numberValue is null) {
+    if (numberValue.isNull) {
       _value = 0.0;
       return;
     }
@@ -117,12 +117,12 @@ class DNumberData : DScalarData {
   mixin(ScalarOpEquals!(["float", "double"]));
 
   override bool isEqual(IData checkData) {
-    if (checkData is null) {
+    if (checkData.isNull) {
       return false;
     }
 
     auto data = cast(DNumberData) checkData;
-    if (data is null) {
+    if (data.isNull) {
       return false;
     }
 

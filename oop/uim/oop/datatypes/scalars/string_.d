@@ -44,7 +44,7 @@ class DStringData : DScalarData {
 
   // Hooks for setting 
   override void set(string newValue) {
-    if (newValue is null) {
+    if (newValue.isNull) {
       isNull(isNullable ? true : false);
     } else {
       isNull(false);
@@ -65,7 +65,7 @@ class DStringData : DScalarData {
   /* property void value(DStringData newValue) {
     if (newValue) {
       isNullable(newValue.isNullable);
-      isNull(newValue is null);
+      isNull(newValue.isNull);
       set(newValue.value());
     }
   } * /
@@ -92,12 +92,12 @@ class DStringData : DScalarData {
 
   mixin(ScalarOpCall!([]));
   override void set(IData newValue) {
-    if (newValue is null) {
+    if (newValue.isNull) {
       _value = null;
       return;
     }
     auto strValue = cast(DStringData) newValue;
-    if (strValue is null) {
+    if (strValue.isNull) {
       _value = null;
     }
     return;

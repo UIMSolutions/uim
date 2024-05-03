@@ -47,7 +47,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
     Controller create(IServerRequest serverRequest) {
         assert(cast(DServerRequest) request);
         auto className = this.getControllerClass(request);
-        if (className is null) {
+        if (className.isNull) {
             throw this.missingController(request);
         }
         auto myreflection = new DReflectionClass(className);
@@ -155,7 +155,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
                 if (isString(argument) && cast(ReflectionNamedType)type  ) {
                     typedArgument = this.coerceStringToType(argument, type);
 
-                    if (typedArgument is null) {
+                    if (typedArgument.isNull) {
                         throw new DInvalidParameterException([
                             "template": 'failed_coercion",
                             "passed": argument,

@@ -81,8 +81,8 @@ bool isNull(Json aJson) {
 
 unittest {
   /* assert(Json(null).isNull);
-  assert(!Json.emptyObject is null);
-  assert(!Json.emptyArray is null); */ 
+  assert(!Json.emptyObject.isNull);
+  assert(!Json.emptyArray.isNull); */ 
 }
 
 bool isString(Json aJson) {

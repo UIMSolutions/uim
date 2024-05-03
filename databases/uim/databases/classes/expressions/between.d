@@ -34,7 +34,7 @@ class DBetweenExpression : DExpression { // TODO}, IField {
      * @param string|null type The data type name to bind the values with.
      * /
     this(IExpression|string afield, Json from, Json to, string atype = null) {
-        if (!type is null) {
+        if (!type.isNull) {
             from = _castToExpression(from, type);
             to = _castToExpression(to, type);
         }

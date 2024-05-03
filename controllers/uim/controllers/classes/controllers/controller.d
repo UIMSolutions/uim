@@ -189,7 +189,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
         if (eventManager !isNull) {
             this.setEventManager(eventManager);
         }
-        if (this.defaultTable is null) {
+        if (this.defaultTable.isNull) {
             _pluginName = this.request.getParam("plugin");
             aTableAlias = (_pluginName ? _pluginName ~ "." : "") ~ this.name;
             this.defaultTable = aTableAlias;

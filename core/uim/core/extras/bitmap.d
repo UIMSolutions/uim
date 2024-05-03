@@ -133,7 +133,7 @@ struct RGB {
 
 /*
 Image!RGB loadPPM6(ref DImage!RGB img, in string fileName) {
-    if (img is null)
+    if (img.isNull)
         img = new DImage!RGB;
     auto f = File(fileName, "rb");
     enforce(f.readln.strip == "P6");

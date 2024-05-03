@@ -188,7 +188,7 @@ class DSqlserverDriver : DDriver {
         aLimit = aQuery.clause("limit");
          anOffset = aQuery.clause("offset");
 
-        if (aLimit &&  anOffset is null) {
+        if (aLimit &&  anOffset.isNull) {
             aQuery.modifier(["_auto_top_": "TOP %d".format(aLimit)]);
         }
         if (anOffset !isNull && !aQuery.clause("order")) {

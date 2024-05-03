@@ -119,7 +119,7 @@ class DTestFixture : IFixture {
         string[] fields = array_unique(fields.values);
         fields.each!((field) {
             auto column = _schema.getColumn(field);
-            assert(!column is null);
+            assert(!column.isNull);
             types[field] = column["type"];
         });
         

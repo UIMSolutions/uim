@@ -116,7 +116,7 @@ class DEagerLoadable {
      * Gets the Association class instance to use for loading the records.
      * /
     DAssociation instance() {
-        if (_instance is null) {
+        if (_instance.isNull) {
             throw new DatabaseException("No instance set.");
         }
         return _instance;

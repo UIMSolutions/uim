@@ -534,7 +534,7 @@ class DHasManyAssociation : DAssociation {
 
     // Gets the name of the field representing the foreign key to the source table.
     string[] getForeignKeys() {
-        if (_foreignKey is null) {
+        if (_foreignKey.isNull) {
             _foreignKey = _modelKey(this.getSource().getTable());
         }
 

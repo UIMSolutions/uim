@@ -314,7 +314,7 @@ class DEagerLoader {
      * per association in the containments array.
      * /
     void attachAssociations(SelectQuery myquery, Table myrepository, bool myincludeFields) {
-        if (isEmpty(_containments) && _matching is null) {
+        if (isEmpty(_containments) && _matching.isNull) {
             return;
         }
         myattachable = this.attachableAssociations(myrepository);

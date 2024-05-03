@@ -43,7 +43,7 @@ class DORMEntity { // }: IEntity, IInvalidProperty {
         if (!options["source"].isEmpty) {
             this.setSource(options["source"]);
         }
-        if (!options["markNew"] is null) {
+        if (!options["markNew"].isNull) {
             this.setNew(options["markNew"]);
         }
         if (!empty(myproperties)) {

@@ -67,7 +67,7 @@ class DFlashParamEquals : DConstraint {
     
     // Assertion message string
     override string toString() {
-        if (!this.at is null) {
+        if (!this.at.isNull) {
             return "is in \"%s\" %s #%d".format(this.key, this.param, this.at);
         }
         return "is in \"%s\" %s".format(this.key, this.param);

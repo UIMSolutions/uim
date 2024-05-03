@@ -179,7 +179,7 @@ class DRulesChecker { // }: BaseRulesChecker {
         } else {
             myassociationAlias = myassociation;
 
-            if (myerrorField is null) {
+            if (myerrorField.isNull) {
                 myrepository = _options["repository"] ?? null;
                 if (cast(Table)myrepository) {
                     myassociation = myrepository.getAssociation(myassociation);

@@ -302,10 +302,9 @@ class DEntity : DElement, IEntity /* : IRegistrable */ {
     if (auto myValue = values[name]) {
       return myValue.toString;
     }
-    else { 
-      writeln("Unknown value in "~className); 
-      return null;
-    }
+
+    writeln("Unknown value in "~className); 
+    return null;
   } */
 
   void opDispatch(string name, UUID value)(UUID aValue) {

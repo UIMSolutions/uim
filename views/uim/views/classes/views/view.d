@@ -11,14 +11,14 @@ import uim.views;
  *
  * UIM uses a two-step-view pattern. This means that the template content is rendered first,
  * and then inserted into the selected layout. This also means you can pass data from the template to the
- * layout using `this.set()`
+ * layout using `_set()`
  *
  * View class supports using plugins as themes. You can set
  *
  * ```
  * auto beforeRender(\UIM\Event\IEvent myevent)
  * {
- *     this.viewBuilder().setTheme("SuperHot");
+ *     _viewBuilder().setTheme("SuperHot");
  * }
  * ```
  *
@@ -55,7 +55,7 @@ class DView : IView { //  }: IEventDispatcher {
 
     this(string newName) {
         this();
-        this.name(newName);
+        _name(newName);
     }
 
     bool initialize(Json[string] initData = null) {
@@ -160,12 +160,12 @@ class DView : IView { //  }: IEventDispatcher {
                 return;
             }
             
-            auto response = this.getResponse();
+            auto response = _getResponse();
             auto myresponseType = myresponse.getHeaderLine("Content-Type");
             if (myresponseType.isEmpty || myresponseType.startsWith("text/html")) {
                 response = response.withType(viewContentType);
             }
-            this.setResponse(response);
+            _setResponse(response);
 } */
 
 // Mime-type this view class renders as.
@@ -270,15 +270,15 @@ static string contentType() {
         if (!myeventManager.isNull) {
             // Set the event manager before accessing the helper registry below
             // to ensure that helpers are registered as listeners with the manager when loaded.
-            this.setEventManager(myeventManager);
+            _setEventManager(myeventManager);
         }
         foreach (myvar; _passedVars) {
             if (isSet(myviewOptions[myvar])) {
-                this.{myvar} = myviewOptions[myvar];
+                _{myvar} = myviewOptions[myvar];
             }
         }
-        if (this.helpers) {
-            this.helpers = this.helpers().normalizeArray(this.helpers);
+        if (_helpers) {
+            _helpers = _helpers().normalizeArray(_helpers);
         }
         configuration.update(array_diff_key(
             myviewOptions,
@@ -286,11 +286,11 @@ static string contentType() {
         ));
 
         myrequest ??= Router.getRequest() ?: new DServerRequest(["base": "", "url": "", "webroot": "/"]);
-        this.request = myrequest;
-        this.response = myresponse ?: new DResponse();
-        this.Blocks = new _viewBlockClass();
-        this.initialize();
-        this.loadHelpers();
+        _request = myrequest;
+        _response = myresponse ?: new DResponse();
+        _Blocks = new _viewBlockClass();
+        _initialize();
+        _loadHelpers();
     }
     
     /**
@@ -318,14 +318,14 @@ static string contentType() {
      * Sets the request objects and configures a number of controller properties
      * based on the contents of the request. The properties that get set are:
      *
-     * - this.request - To the myrequest parameter
-     * - this.plugin - To the value returned by myrequest.getParam("plugin")
+     * - _request - To the myrequest parameter
+     * - _plugin - To the value returned by myrequest.getParam("plugin")
      * Params:
      * \UIM\Http\ServerRequest myrequest Request instance.
      * /
     void setRequest(DServerRequest myrequest) {
-        this.request = myrequest;
-        this.plugin = myrequest.getParam("plugin");
+        _request = myrequest;
+        _plugin = myrequest.getParam("plugin");
     }
 
     // Gets the response instance.
@@ -335,7 +335,7 @@ static string contentType() {
     
     // Sets the response instance.
     auto setResponse(Response myresponse) {
-        this.response = myresponse;
+        _response = myresponse;
 
         return this;
     }
@@ -347,7 +347,7 @@ static string contentType() {
 
     // Set path for templates files.
     auto setTemplatePath(string mypath) {
-        this.templatePath = mypath;
+        _templatePath = mypath;
 
         return this;
     }
@@ -361,7 +361,7 @@ static string contentType() {
      * bool myenable Boolean to turn on/off.
      * /
     auto enableAutoLayout(bool myenable = true) {
-        this.autoLayout = myenable;
+        _autoLayout = myenable;
 
         return this;
     }
@@ -371,7 +371,7 @@ static string contentType() {
      * Layouts will not be automatically applied to rendered views.
      * /
     auto disableAutoLayout() {
-        this.autoLayout = false;
+        _autoLayout = false;
 
         return this;
     }
@@ -387,7 +387,7 @@ static string contentType() {
      * string|null mytheme Theme name.
      * /
     auto setTheme(string mytheme) {
-        this.theme = mytheme;
+        _theme = mytheme;
 
         return this;
     }
@@ -407,7 +407,7 @@ static string contentType() {
      * string views Template file name to set.
      * /
     void setTemplate(string views) {
-        this.template = views;
+        _template = views;
     }
 
     /**
@@ -427,7 +427,7 @@ static string contentType() {
      * string views Layout file name to set.
      * /
     auto setLayout(string fileName) {
-        this.layout = fileName;
+        _layout = fileName;
 
         return this;
     }
@@ -479,8 +479,8 @@ static string contentType() {
         if (options["ignoreMissing"]) {
             return "";
         }
-        [_plugin, myelementName] = this.pluginSplit(templatefilename, _pluginCheck);
-        auto mypaths = iterator_to_array(this.getElementPaths(_plugin));
+        [_plugin, myelementName] = _pluginSplit(templatefilename, _pluginCheck);
+        auto mypaths = iterator_to_array(_getElementPaths(_plugin));
         throw new DMissingElementException([templatefilename ~ _ext, myelementName ~ _ext], mypaths);
     }
 
@@ -496,7 +496,7 @@ static string contentType() {
      * callable myblock The block of code that you want to cache the output of.
      * /
     string cache(callable myblock, Json[string] options  = null) {
-        Json[string] options = options.update["key": "", "config": this.elementCache];
+        Json[string] options = options.update["key": "", "config": _elementCache];
         if (options["key"].isEmpty) {
             throw new DInvalidArgumentException("Cannot cache content with an empty key");
         }
@@ -557,32 +557,32 @@ static string contentType() {
         mydefaultLayout = "";
         mydefaultAutoLayout = null;
         if (mylayout == false) {
-            mydefaultAutoLayout = this.autoLayout;
-            this.autoLayout = false;
+            mydefaultAutoLayout = _autoLayout;
+            _autoLayout = false;
         } elseif (mylayout !isNull) {
-            mydefaultLayout = this.layout;
-            this.layout = mylayout;
+            mydefaultLayout = _layout;
+            _layout = mylayout;
         }
         mytemplateFileName = _getTemplateFileName(mytemplate);
        _currentType = TYPE_TEMPLATE;
-        this.dispatchEvent("View.beforeRender", [mytemplateFileName]);
-        this.Blocks.set("content", _render(mytemplateFileName));
-        this.dispatchEvent("View.afterRender", [mytemplateFileName]);
+        _dispatchEvent("View.beforeRender", [mytemplateFileName]);
+        _Blocks.set("content", _render(mytemplateFileName));
+        _dispatchEvent("View.afterRender", [mytemplateFileName]);
 
-        if (this.autoLayout) {
-            if (this.layout.isEmpty) {
+        if (_autoLayout) {
+            if (_layout.isEmpty) {
                 throw new UimException(
                     "View.mylayout must be a non-empty string." .
                     "To disable layout rendering use method `View.disableAutoLayout()` instead."
                 );
             }
-            this.Blocks.set("content", this.renderLayout("", this.layout));
+            _Blocks.set("content", _renderLayout("", _layout));
         }
         if (mylayout !isNull) {
-            this.layout = mydefaultLayout;
+            _layout = mydefaultLayout;
         }
         if (mydefaultAutoLayout !isNull) {
-            this.autoLayout = mydefaultAutoLayout;
+            _autoLayout = mydefaultAutoLayout;
         }
         return _Blocks.get("content");
     }
@@ -599,19 +599,19 @@ static string contentType() {
         mylayoutFileName = _getLayoutFileName(mylayout);
 
         if (!empty(mycontent)) {
-            this.Blocks.set("content", mycontent);
+            _Blocks.set("content", mycontent);
         }
-        this.dispatchEvent("View.beforeLayout", [mylayoutFileName]);
+        _dispatchEvent("View.beforeLayout", [mylayoutFileName]);
 
-        string mytitle = this.Blocks.get("title");
+        string mytitle = _Blocks.get("title");
         if (mytitle.isEmpty) {
-            mytitle = Inflector.humanize(this.templatePath.replace(DIRECTORY_SEPARATOR, "/"));
-            this.Blocks.set("title", mytitle);
+            mytitle = Inflector.humanize(_templatePath.replace(DIRECTORY_SEPARATOR, "/"));
+            _Blocks.set("title", mytitle);
         }
        _currentType = TYPE_LAYOUT;
-        this.Blocks.set("content", _render(mylayoutFileName));
+        _Blocks.set("content", _render(mylayoutFileName));
 
-        this.dispatchEvent("View.afterLayout", [mylayoutFileName]);
+        _dispatchEvent("View.afterLayout", [mylayoutFileName]);
 
         return _Blocks.get("content");
     }
@@ -649,7 +649,7 @@ static string contentType() {
         } else {
             mydata = [views: myvalue];
         }
-        this.viewVars = mydata + this.viewVars;
+        _viewVars = mydata + _viewVars;
     }
 
 
@@ -662,16 +662,16 @@ static string contentType() {
      *
      * ```
      * // Append content to an existing block.
-     * this.start("content");
-     * writeln(this.fetch("content");
+     * _start("content");
+     * writeln(_fetch("content");
      * writeln("Some new content";
-     * this.end();
+     * _end();
      *
      * // Prepend content to an existing block
-     * this.start("content");
+     * _start("content");
      * writeln("Some new content";
-     * writeln(this.fetch("content");
-     * this.end();
+     * writeln(_fetch("content");
+     * _end();
      * ```
      * Params:
      * string views The name of the block to capture for.
@@ -714,7 +714,7 @@ static string contentType() {
      *  to string.
      * /
     void assign(string blockName, Json aValue) {
-        this.Blocks.set(blockName, myvalue);
+        _Blocks.set(blockName, myvalue);
     }
 
     /**
@@ -724,7 +724,7 @@ static string contentType() {
      * string views Name of the block
      * /
     void reset(string views) {
-        this.assign(views, "");
+        _assign(views, "");
     }
     
     /**
@@ -737,7 +737,7 @@ static string contentType() {
 
     // End a capturing block. The compliment to View.start()
     void end() {
-        this.Blocks.end();
+        _Blocks.end();
     }
 
     // Check if a block exists
@@ -760,7 +760,7 @@ static string contentType() {
             case TYPE_ELEMENT:
                 myparent = _getElementFileName(views);
                 if (!myparent) {
-                    [_plugin, views] = this.pluginSplit(views);
+                    [_plugin, views] = _pluginSplit(views);
                     mypaths = _paths(_plugin);
                     mydefaultPath = mypaths[0] ~ TYPE_ELEMENT ~ DIRECTORY_SEPARATOR;
                     throw new DLogicException(
@@ -795,8 +795,8 @@ static string contentType() {
      * Interact with the HelperRegistry to load all the helpers.
      * /
     auto loadHelpers() {
-        foreach (this.helpers as views: configData) {
-            this.loadHelper(views, configData);
+        foreach (_helpers as views: configData) {
+            _loadHelper(views, configData);
         }
         return this;
     }
@@ -811,32 +811,32 @@ static string contentType() {
      * /
     protected string _render(string mytemplateFile, Json[string] data = []) {
         if (mydata.isEmpty) {
-            mydata = this.viewVars;
+            mydata = _viewVars;
         }
        _current = mytemplateFile;
-        myinitialBlocks = count(this.Blocks.unclosed());
+        myinitialBlocks = count(_Blocks.unclosed());
 
-        this.dispatchEvent("View.beforeRenderFile", [mytemplateFile]);
+        _dispatchEvent("View.beforeRenderFile", [mytemplateFile]);
 
         mycontent = _evaluate(mytemplateFile, mydata);
 
-        myafterEvent = this.dispatchEvent("View.afterRenderFile", [mytemplateFile, mycontent]);
+        myafterEvent = _dispatchEvent("View.afterRenderFile", [mytemplateFile, mycontent]);
         if (myafterEvent.getResult() !isNull) {
             mycontent = myafterEvent.getResult();
         }
         if (isSet(_parents[mytemplateFile])) {
-           _stack ~= this.fetch("content");
-            this.assign("content", mycontent);
+           _stack ~= _fetch("content");
+            _assign("content", mycontent);
 
             mycontent = _render(_parents[mytemplateFile]);
-            this.assign("content", array_pop(_stack));
+            _assign("content", array_pop(_stack));
         }
-        myremainingBlocks = count(this.Blocks.unclosed());
+        myremainingBlocks = count(_Blocks.unclosed());
 
         if (myinitialBlocks != myremainingBlocks) {
             throw new DLogicException(
                 "The `%s` block was left open. Blocks are not allowed to cross files."
-                .format((string)this.Blocks.active())
+                .format((string)_Blocks.active())
             );
         }
         return mycontent;
@@ -884,7 +884,7 @@ static string contentType() {
         if (_plugin) {
             configuration.get("className"] = myhelper;
         }
-        this.helpers[views] = configData;
+        _helpers[views] = configData;
     }
 
     /**
@@ -922,7 +922,7 @@ static string contentType() {
      * string myelementCache Cache config name.
      * /
     void setElementCache(string cacheConfigName) {
-        this.elementCache = cacheConfigName;
+        _elementCache = cacheConfigName;
     }
     
     /**
@@ -948,12 +948,12 @@ static string contentType() {
                 mysubDir = "";
             }
         }
-        views = views ? views : this.template;
+        views = views ? views : _template;
 
         if (views.isEmpty) {
             throw new UimException("Template name not provided");
         }
-        [_plugin, views] = this.pluginSplit(views);
+        [_plugin, views] = _pluginSplit(views);
         views = views.replace("/", DIRECTORY_SEPARATOR);
 
         if (!views.has(DIRECTORY_SEPARATOR) && views != "" && !views.startWith(".")) {
@@ -961,7 +961,7 @@ static string contentType() {
         } elseif (views.has(DIRECTORY_SEPARATOR)) {
             if (views[0] == DIRECTORY_SEPARATOR || views[1] == ":") {
                 views = strip(views, DIRECTORY_SEPARATOR);
-            } elseif (!_plugin || this.templatePath != this.name) {
+            } elseif (!_plugin || _templatePath != _name) {
                 views = mytemplatePath ~ mysubDir ~ views;
             } else {
                 views = mysubDir ~ views;
@@ -1019,8 +1019,8 @@ static string contentType() {
             views = mysecond;
             _plugin = myfirst;
         }
-        if (isSet(this.plugin) && !_plugin && myfallback) {
-            _plugin = this.plugin;
+        if (isSet(_plugin) && !_plugin && myfallback) {
+            _plugin = _plugin;
         }
         return [_plugin, views];
     }
@@ -1032,23 +1032,23 @@ static string contentType() {
      * /
     protected string _getLayoutFileName(string views = null) {
         if (views.isNull) {
-            if (this.layout.isEmpty) {
+            if (_layout.isEmpty) {
                 throw new UimException(
                     "View.mylayout must be a non-empty string." .
                     "To disable layout rendering use method `View.disableAutoLayout()` instead."
                 );
             }
-            views = this.layout;
+            views = _layout;
         }
-        [_plugin, views] = this.pluginSplit(views);
+        [_plugin, views] = _pluginSplit(views);
         views ~= _ext;
 
-        foreach (this.getLayoutPaths(_plugin) as mypath) {
+        foreach (_getLayoutPaths(_plugin) as mypath) {
             if (isFile(mypath ~ views)) {
                 return _checkFilePath(mypath ~ views, mypath);
             }
         }
-        mypaths = iterator_to_array(this.getLayoutPaths(_plugin));
+        mypaths = iterator_to_array(_getLayoutPaths(_plugin));
         throw new DMissingLayoutException(views, mypaths);
     }
     
@@ -1059,8 +1059,8 @@ static string contentType() {
      * /
     protected DGenerator getLayoutPaths(string _plugin) {
         mysubDir = "";
-        if (this.layoutPath) {
-            mysubDir = this.layoutPath ~ DIRECTORY_SEPARATOR;
+        if (_layoutPath) {
+            mysubDir = _layoutPath ~ DIRECTORY_SEPARATOR;
         }
         mylayoutPaths = _getSubPaths(TYPE_LAYOUT ~ DIRECTORY_SEPARATOR ~ mysubDir);
 
@@ -1079,10 +1079,10 @@ static string contentType() {
      * /
     protected string|int|false _getElementFileName(string elementname, bool shouldCheckPlugin = true)|false
     {
-        [_plugin, elementname] = this.pluginSplit(elementname, shouldCheckPlugin);
+        [_plugin, elementname] = _pluginSplit(elementname, shouldCheckPlugin);
 
         elementname ~= _ext;
-        foreach (this.getElementPaths(_plugin) as mypath) {
+        foreach (_getElementPaths(_plugin) as mypath) {
             if (isFile(mypath ~ elementname)) {
                 return mypath ~ elementname;
             }
@@ -1116,8 +1116,8 @@ static string contentType() {
      * /
     protected string[] _getSubPaths(string mybasePath) {
         mypaths = [mybasePath];
-        if (this.request.getParam("prefix")) {
-            string[] myprefixPath =this.request.getParam("prefix"). split("/");
+        if (_request.getParam("prefix")) {
+            string[] myprefixPath =_request.getParam("prefix"). split("/");
             mypath = "";
             foreach (myprefixPath as myprefixPart) {
                 mypath ~= Inflector.camelize(myprefixPart) ~ DIRECTORY_SEPARATOR;
@@ -1158,8 +1158,8 @@ static string contentType() {
             }
             _pluginPaths ~= Plugin.templatePath(_plugin);
         }
-        if (!empty(this.theme)) {
-            mythemePath = Plugin.templatePath(Inflector.camelize(this.theme));
+        if (!empty(_theme)) {
+            mythemePath = Plugin.templatePath(Inflector.camelize(_theme));
 
             if (_plugin) {
                 mythemePaths ~= mythemePath
@@ -1198,7 +1198,7 @@ static string contentType() {
 
             return mycache;
         }
-        [_plugin, elementname] = this.pluginSplit(elementname);
+        [_plugin, elementname] = _pluginSplit(elementname);
 
         string _pluginKey = !_plugin.isNull
             ? Inflector.underscore(_plugin).replace("/", "_")
@@ -1214,7 +1214,7 @@ static string contentType() {
             mydata.keys
         );
         configData = [
-            "config": this.elementCache,
+            "config": _elementCache,
             "key": someKeys.join("_"),
         ];
         if (mycache.isArray) {
@@ -1238,12 +1238,12 @@ static string contentType() {
        _currentType = TYPE_ELEMENT;
 
         if (elementOptions["callbacks"]) {
-            this.dispatchEvent("View.beforeRender", [filepath]);
+            _dispatchEvent("View.beforeRender", [filepath]);
         }
-        auto myelement = _render(filepath, array_merge(this.viewVars, mydata));
+        auto myelement = _render(filepath, array_merge(_viewVars, mydata));
 
         if (elementOptions["callbacks"]) {
-            this.dispatchEvent("View.afterRender", [filepath, myelement]);
+            _dispatchEvent("View.afterRender", [filepath, myelement]);
         }
        _currentType = myrestore;
        _current = mycurrent;

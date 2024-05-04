@@ -75,7 +75,7 @@ class DFileCacheEngine : DCacheEngine {
         if (_setKey(aKey, true) == false) {
             return false;
         }
-        if (!configuration.get("serialize"].isEmpty) {
+        if (!configuration.isEmpty("serialize")) {
             cacheData = serialize(cacheData);
         }
         myexpires = time() + duration(timeToLive);

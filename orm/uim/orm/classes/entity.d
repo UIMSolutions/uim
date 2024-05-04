@@ -32,15 +32,15 @@ class DORMEntity { // }: IEntity, IInvalidProperty {
      * @param Json[string] options list of options to use when creating this entity
      * /
     this(array myproperties = [], Json[string] optionData = null) {
-        options = options.update[
+        auto updatedOptions = options.merge([
             "useSetters": Json(true),
             "markClean": Json(false),
             "markNew": null,
             "guard": Json(false),
             "source": null,
-        ];
+        ]);
 
-        if (!options["source"].isEmpty) {
+        if (!options.isEmpty("source")) {
             this.setSource(options["source"]);
         }
         if (!options["markNew"].isNull) {

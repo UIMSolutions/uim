@@ -67,7 +67,7 @@ class DRedisCacheEngine : DCacheEngine {
     protected bool _connect() {
         try {
            _redis = new DRedis();
-            if (!configuration.get("unix_socket"].isEmpty) {
+            if (!configuration.isEmpty("unix_socket")) {
                 result = _redis.connect(configuration.get("unix_socket"]);
             } elseif (configuration.get("persistent"].isEmpty) {
                 result = _redis.connect(

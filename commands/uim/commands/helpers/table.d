@@ -89,7 +89,7 @@ class DTableHelper { // }: Helper {
         foreach (index : value; row.values) {
           string column = to!string(value);
           pad = columnWidths[index] - _cellWidth(column);
-          if (!optionsToPass["style"].isEmpty) {
+          if (!optionsToPass.isEmpty("style")) {
             column = _addStyle(column, optionsToPass["style"]);
           }
           if (column != "" && preg_match("#(.*)<text-right>.+</text-right>(.*)#", column, matches)) {
@@ -104,8 +104,7 @@ class DTableHelper { // }: Helper {
           }
         }
         outputResult ~= "|";
-        _io.
-        out (outputResult);
+        _io.out (outputResult);
       }
 
       /**

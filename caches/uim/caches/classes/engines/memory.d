@@ -88,7 +88,7 @@ class DMemoryCacheEngine : DCacheEngine {
     }
     super.initialize(initData);
 
-    if (!configuration.get("host"].isEmpty) {
+    if (!configuration.isEmpty("host")) {
       configuration.get("servers"] = configuration.get("port"].isEmpty
         ? [configuration.get("host"]] : [
           "%s:%d".format(configuration.getString("host"), configuration.getString("port"))
@@ -135,7 +135,7 @@ if (isArray(configuration.get("options"])) {
   configuration.get("options"].byKeyValue
     .each!(optValue => _Memory.setOption(optValue.key, optValue.value));
 }
-if (isEmpty(configuration.get("username"]) && !configuration.get("login"].isEmpty) {
+if (isEmpty(configuration.get("username"]) && !configuration.isEmpty("login")) {
   throw new DInvalidArgumentException(
     "Please pass " username" instead of 'login' for connecting to Memory"
   );

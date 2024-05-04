@@ -44,26 +44,22 @@ class DTupleComparisonExpression : DComparisonExpression {
         return _types;
     }
 
-    /**
-     * Sets the value
-     * Params:
-     * Json aValue The value to compare
-     * /
-    void setValue(Json aValue) {
+    // Sets the value
+    void setValue(Json valueToCompare) {
         if (this.isMulti()) {
-            if (isArray(aValue) && !isArray(current(aValue))) {
+            if (isArray(valueToCompare) && !isArray(current(valueToCompare))) {
                 throw new DInvalidArgumentException(
                     "Multi-tuple comparisons require a multi-tuple value, single-tuple given."
                 );
             }
         } else {
-            if (isArray(aValue) && isArray(current(aValue))) {
+            if (isArray(valueToCompare) && isArray(current(valueToCompare))) {
                 throw new DInvalidArgumentException(
                     "single-tuple comparisons require a single-tuple value, multi-tuple given."
                 );
             }
         }
-        _value = aValue;
+        _value = valueToCompare;
     }
 
     string sql(DValueBinder aBinder) {
@@ -75,8 +71,8 @@ class DTupleComparisonExpression : DComparisonExpression {
          originalFields.each!(field => fields ~= cast(IExpression) field
                 ? field.sql(aBinder) : field;}
 
-        string result = "(%s) %s (%s)"
-            .format(fields.join(", "), _operator, _stringifyValues(aBinder)); return result;
+        return "(%s) %s (%s)"
+            .format(fields.join(", "), _operator, _stringifyValues(aBinder)); 
     }
 
     /**

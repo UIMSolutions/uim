@@ -161,7 +161,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
             myassociations = new AssociationCollection(this);
             options["associations"] = myassociations;
         }
-        if (options["queryFactory"].isEmpty) {
+        if (options.isEmpty("queryFactory")) {
             options["queryFactory"] = this.queryFactory;
         }
         options["registryAlias"] = aliasName;
@@ -180,7 +180,7 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * @param Json[string] options Table options array.
      * /
     protected string _getClassName(string aliasName, Json[string] optionData = null) {
-        if (options["className"].isEmpty) {
+        if (options.isEmpty("className")) {
             options["className"] = aliasName;
         }
         if (options["className"].has("\\") && class_exists(options["className"])) {

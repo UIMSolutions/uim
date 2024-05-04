@@ -1755,11 +1755,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         mydata = myentity.extract(this.getSchema().columns(), true);
         myisNew = myentity.isNew();
 
-        if (myisNew) {
-            mysuccess = _insert(myentity, mydata);
-        } else {
-            mysuccess = _update(myentity, mydata);
-        }
+        mysuccess = myisNew
+            ? _insert(myentity, mydata)
+            : _update(myentity, mydata);
+
         if (mysuccess) {
             mysuccess = _onSaveSuccess(myentity, options);
         }

@@ -298,10 +298,10 @@ class DCache : ICache {
      * Params:
      * string[] someKeys An array or Traversable of keys to fetch from the cache
      * @param string configName optional name of the configuration to use. Defaults to "default"
-     */
-    /* static Range readMany(string[] keysToFetch, string configName = "default") {
+     * /
+    static Range readMany(string[] keysToFetch, string configName = "default") {
         return pool(configName).cacheItems(keysToFetch);
-    } */
+    }
 
     /**
      * Increment a number under the key and return incremented value.
@@ -316,11 +316,11 @@ class DCache : ICache {
     } */
 
     // Decrement a number under the key and return decremented value.
-    /* static int|false decrement(string dataId, int decValue = 1, string configName = "default") {
+    /* static int decrement(string itemKey, int decValue = 1, string configName = "default") {
         if (decValue < 0) {
             throw new DInvalidArgumentException("Offset cannot be less than `0`.");
         }
-        return pool(configName).decrement(dataId, decValue);
+        return pool(configName).decrement(itemKey, decValue);
     } */
 
     /**

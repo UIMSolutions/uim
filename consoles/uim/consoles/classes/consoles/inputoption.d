@@ -75,7 +75,7 @@ class DConsoleInputOption {
      * Make a new DInput Option
      * Params:
      * string aName The long name of the option, or an array with all the properties.
-     * @param string ashort The short alias for this option
+     * @param string ashort The shortAlias for this option
      * @param string ahelp The help text for this option
      * @param bool isBooleanOption Whether this option is a boolean option. Boolean options don`t consume extra tokens
      * @param string|bool|null default The default value for this option.
@@ -110,7 +110,7 @@ class DConsoleInputOption {
         }
         if (_short.length > 1) {
             throw new DConsoleException(
-                "Short option `%s` is invalid, short options must be one letter.".format(_short)
+                "Short option `%s` is invalid, short options must be one letter.".format(_shortalias)
             );
         }
         if (isSet(_default) && this.prompt) {
@@ -138,8 +138,8 @@ class DConsoleInputOption {
         }
 
         string short;
-        if (!_short.isEmpty) {
-            short = ", -" ~ _short;
+        if (!_shortalias.isEmpty) {
+            short = ", -" ~ _shortalias;
         }
         
         string name = "--%s%s".format(_name, short);
@@ -156,7 +156,7 @@ class DConsoleInputOption {
     
     // Get the usage value for this option
     string usage() {
-        name = _short == "" ? "--" ~ _name : "-" ~ _short;
+        name = _shortalias == "" ? "--" ~ _name : "-" ~ _shortalias;
         default = "";
         if (!_default.isNull && !isBool(_default) && !_default.isEmpty) {
             default = " " ~ _default;
@@ -211,8 +211,8 @@ class DConsoleInputOption {
         option = parent.addChild("option");
         option.addAttribute("name", "--" ~ _name);
         
-        string short = !_short.isEmpty
-            ? "-" ~ _short
+        string short = !_shortalias.isEmpty
+            ? "-" ~ _shortalias
             : "";
 
         auto default = _default;

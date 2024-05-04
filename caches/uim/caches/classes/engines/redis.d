@@ -151,11 +151,11 @@ class DRedisCacheEngine : DCacheEngine {
      * Params:
      * @param int anOffset How much to subtract
      * /
-    int|false decrement(string dataIdentifier, int anOffset = 1) {
+    int decrement(string itemKey, int subValue = 1) {
         auto aDuration = configuration.get("duration");
-        auto aKey = _key(dataIdentifier);
+        auto aKey = _key(itemKey);
 
-        auto aValue = _redis.decrBy(aKey,  anOffset);
+        auto aValue = _redis.decrBy(aKey,  subValue);
         if (aDuration > 0) {
            _redis.expire(aKey,  aDuration);
         }

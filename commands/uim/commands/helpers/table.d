@@ -148,7 +148,7 @@ class DTableHelper { // }: Helper {
      * string textForSurround The text to be surrounded
      * @param string astyle The style to be applied
      * /
-                      protected string _addStyle(string textForSurround, string astyle) {
-                        return "<" ~ style ~ ">" ~ textForSurround ~ "</" ~ style ~ ">";
-                      } */
+      protected string _addStyle(string textForSurround, string astyle) {
+        return "<" ~ style ~ ">" ~ textForSurround ~ "</" ~ style ~ ">";
+      } */
 }

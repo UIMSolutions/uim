@@ -471,17 +471,13 @@ class DI18nExtractCommand : DCommand {
         });
     }
     
-    /**
-     * Prepare a file to be stored
-     * Params:
-     * @param string asentence The sentence to store.
-     *  /
-    protected void _store(string domainName, string headerContent, string asentence) {
+    // Prepare a file to be stored
+    protected void _store(string domainName, string headerContent, string sentenceToStore) {
        _storage[domainName] ??= null;
 
-        _storage[domainName][sentence] = !_storage[domainName].isSet(sentence))
-            ? headerContent
-           _storage[domainName][sentence] ~ headerContent;
+        _storage[domainName][sentence] = _storage[domainName].isSet(sentence))
+           ? _storage[domainName][sentence] ~ headerContent
+           : headerContent;
 
     }
     

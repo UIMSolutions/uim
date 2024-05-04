@@ -22,9 +22,7 @@ mixin template TConsoleIntegrationTest() {
       * /
     protected IStubConsoleOutput _out = null;
 
-    /**
-     * Console error output stub
-     * /
+    // Console error output stub
     protected IStubConsoleOutput _err = null;
 
     // Console input mock

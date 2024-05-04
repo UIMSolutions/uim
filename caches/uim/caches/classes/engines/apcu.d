@@ -42,11 +42,7 @@ class DApcuCacheEngine : DCacheEngine {
     return mysuccess == false ? mydefault : myValue;
   }
 
-  /**
-     * Increments the value of an integer cached key
-     *
-     * @param int incValue How much to increment
-     * /
+  // Increments the value of an integer cached key
   override int increment(string itemKey, int incValue = 1) {
     auto key = _key(itemKey);
 

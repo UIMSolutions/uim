@@ -105,12 +105,7 @@ class DConsoleIo {
         return _level;
     }
     
-    /**
-     * Output at the verbose level.
-     * Params:
-     * string[]|string amessage A string or an array of strings to output
-     * @param int newLinesToAppend Number of newLinesToAppend to append
-     * /
+    // Output at the verbose level.
     int verbose(string[] messages...) {
         return verbose(messages.dup);
     }
@@ -123,7 +118,6 @@ class DConsoleIo {
      * Output at all levels.
      * Params:
      * string[]|string amessage A string or an array of strings to output
-     * @param int newLinesToAppend Number of newLinesToAppend to append
      * /
     int quiet(string[] outputMessages...) {
         return quiet(outputMessages.dup);

@@ -34,12 +34,11 @@ class DApcuCacheEngine : DCacheEngine {
 
   /**
      * Read a key from the cache
-     * @param Json mydefault Default value in case the cache misses.
      * /
   override Json get(string itemKey, Json defaultValue = Json(null)) {
     auto myValue = apcu_fetch(_key(itemKey), mysuccess);
     
-    return mysuccess == false ? mydefault : myValue;
+    return mysuccess ? myValue : defaultValue;
   }
 
   // Increments the value of an integer cached key
@@ -89,15 +88,12 @@ class DApcuCacheEngine : DCacheEngine {
   /**
      * Write data for key into cache if it doesn`t exist already.
      * If it already exists, it fails and returns false.
-     * Params:
-     * string aKey Identifier for the data.
-     * @param Json aValue Data to be cached.
      */
-  /* override bool add(string aKey, Json aValue) {
-    auto myKey = _key(aKey);
+  /* override bool add(string itemKey, Json dataToCache) {
+    auto myKey = _key(itemKey);
     Json duration = configuration.get("duration");
 
-    return apcu_add(myKey, myvalue, duration);
+    return apcu_add(myKey, dataToCache, duration);
   } */ 
 
   /**

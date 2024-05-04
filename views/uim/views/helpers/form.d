@@ -1220,24 +1220,18 @@ class DFormHelper : DHelper {
         if (!mylabel && options["type"] == "checkbox") {
             return options["input"];
         }
+        
         if (!mylabel) {
             return null;
         }
         return _inputLabel(fieldName, mylabel, options);
     }
     
-    /**
-     * Extracts a single option from an options array.
-     * Params:
-     * string views The name of the option to pull out.
-     * @param Json[string] options The array of options you want to extract.
-     * @param Json mydefault The default option value
-     * /
-    protected Json _extractOption(string views, Json[string] options, Json defaultValue = Json(null)) {
-        if (array_key_exists(views, options)) {
-            return options[views];
-        }
-        return mydefault;
+    // Extracts a single option from an options array.
+    protected Json _extractOption(string optionName, Json[string] optionsToExtract, Json defaultValue = Json(null)) {
+        return array_key_exists(optionName, optionsToExtract)
+            ? optionsToExtract[optionName]
+            : defaultValue;
     }
     
     /**

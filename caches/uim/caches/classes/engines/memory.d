@@ -245,9 +245,6 @@ Json getOption(int myname) {
      * Params:
      * string aKey Identifier for the data
      * @param Json aValue Data to be cached
-     * @param \DateInterval|int myttl Optional. The TTL value of this item. If no value is sent and
-     *  the driver supports TTL then the library may set a default value
-     *  for it or let the driver take care of that.
      * /
 override bool set(string aKey, Json aValue, long timeToLive = 0) {
   myduration = this.duration(myttl);
@@ -272,19 +269,12 @@ override bool set(Json[string] values, long timeToLive = 0) {
   return _Memory.setMulti(cacheData, duration);
 }
 
-/**
-     * Read a key from the cache
-     * Params:
-     * string aKey Identifier for the data
-     * @param Json mydefault Default value to return if the key does not exist.
-     * /
-Json get(string aKey, Json defaultValue = Json(null)) {
-  auto myKey = _key(aKey);
-  myvalue = _Memory.get(myKey);
-  if (_Memory.getResultCode() == Memory.RES_NOTFOUND) {
-    return mydefault;
-  }
-  return myvalue;
+// Read a key from the cache
+Json get(string itemKey, Json defaultValue = Json(null)) {
+  auto myvalue = _Memory.get(_key(itemKey));
+  return _Memory.getResultCode() == Memory.RES_NOTFOUND
+    ? defaultValue
+    : myvalue;
 }
 
 /**

@@ -99,18 +99,12 @@ class DRedisCacheEngine : DCacheEngine {
         return result;
     }
     
-    /**
-     * Write data for key into cache.
-     * Params:
-     * @param \DateInterval|int  aTtl Optional. The TTL value of this item. If no value is sent and
-     *  the driver supports TTL then the library may set a default value
-     *  for it or let the driver take care of that.
-     * /
-    override bool set(string dataId, Json dataToCache, DateInterval|int  aTtl = null) {
+    // Write data for key into cache.
+    override bool set(string dataId, Json dataToCache, long timeToLive = null) {
         auto myKey = _key(dataId);
         auto serializedData = this.serialize(dataToCache);
 
-        auto myDuration = this.duration(aTtl);
+        auto myDuration = this.duration(timeToLive);
         return myDuration == 0
             : _redis.set(myKey, serializedData) 
             : _redis.setEx(myKey, myDuration, serializedData);
@@ -146,16 +140,12 @@ class DRedisCacheEngine : DCacheEngine {
         return aValue;
     }
     
-    /**
-     * Decrements the value of an integer cached key & update the expiry time
-     * Params:
-     * @param int anOffset How much to subtract
-     * /
-    int decrement(string itemKey, int subValue = 1) {
+    // Decrements the value of an integer cached key & update the expiry time
+    int decrement(string itemKey, int decValue = 1) {
         auto aDuration = configuration.get("duration");
         auto aKey = _key(itemKey);
 
-        auto aValue = _redis.decrBy(aKey,  subValue);
+        auto aValue = _redis.decrBy(aKey,  decValue);
         if (aDuration > 0) {
            _redis.expire(aKey,  aDuration);
         }

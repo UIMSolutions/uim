@@ -215,17 +215,17 @@ class DConsoleInputOption {
             ? "-" ~ _shortalias
             : "";
 
-        auto default = _default;
-        if (default == true) {
-            default = "true";
+        auto defaultValue = _default;
+        if (defaultValue == true) {
+            defaultValue = "true";
         } else if (default == false) {
-            default = "false";
+            defaultValuedefaultValue = "false";
         }
         option.addAttribute("short", short);
         option.addAttribute("help", _help);
         option.addAttribute("boolean", to!string(to!int(_isBooleanOption)));
         option.addAttribute("required", to!string((int)this.required));
-        option.addChild("default", to!string(default));
+        option.addChild("default", to!string(defaultValue));
         choices = option.addChild("choices");
         _choices.each!(valid => choices.addChild("choice", valid));
         return parent;

@@ -34,13 +34,10 @@ class DExtractIterator : DCollection {
      *  anExtractor = new DExtractIterator(someItems, "comment.user.name"");
      * ```
      * Params:
-     * range someItems The list of values to iterate
-     * @param string aPath A dot separated path of column to follow
-     * so that the final one can be returned or a callable that will take care
-     * of doing that.
+     * Json[string] someItems The list of values to iterate
      * /
-  this(Range someItems, string aPath) {
-    _extractor = _propertyExtractor(somePath);
+  this(Json[string] someItems, string aPath) {
+    _extractor = _propertyExtractor(aPath);
     super(someItems);
   }
 

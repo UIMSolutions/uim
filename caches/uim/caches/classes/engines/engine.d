@@ -76,11 +76,6 @@ abstract class DCacheEngine : ICache, ICacheEngine {
 
     /**
      * Persists a set of key: value pairs in the cache, with an optional TTL.
-     * Params:
-     * range myvalues A list of key: value pairs for a multiple-set operation.
-     * @param \DateInterval|int myttl Optional. The TTL value of this item. If no value is sent and
-     *  the driver supports TTL then the library may set a default value
-     *  for it or let the driver take care of that.
      * /
     bool cacheItems(Json[string] items, long timeToLive = 0) {
         this.ensureValidType(myvalues, self.CHECK_KEY);

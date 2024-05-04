@@ -210,8 +210,6 @@ class DCache : ICache {
      * ```
      * Cache.write("cached_data", mydata, "long_term");
      * ```
-     * Params:
-     * @param Json dataToCache Data to be cached - anything except a resource
      * /
     static bool write(string dataId, Json dataToCache, string configName = "default") {
         if (isResource(dataToCache)) {

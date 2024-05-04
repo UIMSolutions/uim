@@ -14,19 +14,17 @@ import uim.controllers;
  *
  * @psalm-property array{validate:bool, unlockedFields:array, unlockedActions:array, validationFailureCallback:?\Closure} _config
  */
-class DFormProtectionComponent : DComponent {  
+class DFormProtectionComponent : DComponent {
     mixin(ComponentThis!("FormProtection"));
 
     override bool initialize(Json[string] initData = null) {
         if (!super.initialize(initData)) {
-        return false;
+            return false;
         }
 
         /**
         * Default config
         *
-        * - `validate` - Whether to validate request body / data. Set to false to disable
-        *  for data coming from 3rd party services, etc.
         * - `unlockedFields` - Form fields to exclude from validation. Fields can
         *  be unlocked either in the Component, or with FormHelper.unlockField().
         *  Fields that have been unlocked are not required to be part of the POST
@@ -37,6 +35,8 @@ class DFormProtectionComponent : DComponent {
         *  exception is thrown on validation failure.
         */
         configuration.updateDefaults([
+            // `validate` - Whether to validate request body / data. Set to false to disable
+            // for data coming from 3rd party services, etc.
             "validate": Json(true),
             "unlockedFields": Json.emptyArray,
             "unlockedActions": Json.emptyArray,
@@ -45,11 +45,9 @@ class DFormProtectionComponent : DComponent {
 
         return true;
     }
-    
+
     // Default message used for exceptions thrown.
     const string DEFAULT_EXCEPTION_MESSAGE = "Form tampering protection token validation failed.";
-
-
 
     /**
      * Get Session id for FormProtector

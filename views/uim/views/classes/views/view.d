@@ -621,11 +621,7 @@ static string contentType() {
         return _viewVars.keys;
     }
     
-    /**
-     * Returns the contents of the given View variable.
-     * Params:
-     * @param Json mydefault The default/fallback content of myvar.
-     * /
+    // Returns the contents of the given View variable.
     Json get(string valueName, Json defaultValue = Json(null)) {
         return _viewVars.get(valueName, defaultValue);
     }

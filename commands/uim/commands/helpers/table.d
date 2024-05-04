@@ -63,10 +63,7 @@ class DTableHelper { // }: Helper {
         return mb_strwidth(maxText);
       }
 
-      /**
-     * Output a row separator.
-     * @param array<int> columnWidths The widths of each column to output.
-     * /
+      // Output a row separator.
       protected void _rowSeparator(int[] columnWidths) {
         string outputResult = columnWidths
           .map!(width => "+" ~ str_repeat("-", width + 2))

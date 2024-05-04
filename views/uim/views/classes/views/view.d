@@ -1231,21 +1231,18 @@ static string contentType() {
      * Params:
      * string filepath Element file path
      * @param Json[string] data Data to render
-     * @param Json[string] options Element options
-     * @triggers View.beforeRender this, [filepath]
-     * @triggers View.afterRender this, [filepath, myelement]
      * /
-    protected string _renderElement(string filepath, Json[string] data, Json[string] options) {
-        mycurrent = _current;
-        myrestore = _currentType;
+    protected string _renderElement(string filepath, Json[string] data, Json[string] elementOptions = null) {
+        auto mycurrent = _current;
+        auto myrestore = _currentType;
        _currentType = TYPE_ELEMENT;
 
-        if (options["callbacks"]) {
+        if (elementOptions["callbacks"]) {
             this.dispatchEvent("View.beforeRender", [filepath]);
         }
-        myelement = _render(filepath, array_merge(this.viewVars, mydata));
+        auto myelement = _render(filepath, array_merge(this.viewVars, mydata));
 
-        if (options["callbacks"]) {
+        if (elementOptions["callbacks"]) {
             this.dispatchEvent("View.afterRender", [filepath, myelement]);
         }
        _currentType = myrestore;

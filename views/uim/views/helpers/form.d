@@ -796,10 +796,10 @@ class DFormHelper : DHelper {
      *   to customize the legend text.
      * /
     string fieldset(string myfields = "", Json[string] options  = null) {
-        mylegend = options["legend"] ?? true;
-        myfieldset = options["fieldset"] ?? true;
-        mycontext = _getContext();
-        result = myfields;
+        auto mylegend = options["legend"] ?? true;
+        auto myfieldset = options["fieldset"] ?? true;
+        auto mycontext = _getContext();
+        auto result = myfields;
 
         if (mylegend == true) {
             myisCreate = mycontext.isCreate();

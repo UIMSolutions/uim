@@ -549,18 +549,14 @@ interface ICollection {
      * // Result will look like this when converted to array
      * [3, 4, 5];
      * ```
-     *
-     * @param int  length The number of elements at the end of the collection
      * /
-    ICollection takeLast(int  length);
+    ICollection takeLast(int numberOfElements);
 
     /**
      * Returns a new DCollection that will skip the specified amount of elements
      * at the beginning of the iteration.
-     *
-     * @param int  length The number of elements to skip.
      * /
-    ICollection skip(int  length);
+    ICollection skip(int elementsToSkip);
 
     /**
      * Looks through each value in the list, returning a Collection of all the
@@ -581,12 +577,8 @@ interface ICollection {
      *  ["comment": ["body": "very cool", "user": ["name": "Renan"]]
      * ]
      * ```
-     *
-     * @param array conditions a key-value list of conditions where
-     * the key is a property path as accepted by `Collection::extract,
-     * and the value the condition against with each element will be matched
      * /
-    ICollection match(array conditions);
+    ICollection match(Json[string] conditions);
 
     /**
      * Returns the first result matching all the key-value pairs listed in
@@ -598,7 +590,7 @@ interface ICollection {
      * @see uim.collections.ICollection::match()
      * @return mixed
      * /
-    Json firstMatch(array conditions);
+    Json firstMatch(Json[string] conditions);
 
     // Returns the first result in this collection
     Json first();

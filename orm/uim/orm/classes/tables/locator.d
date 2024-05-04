@@ -110,13 +110,9 @@ class DTableLocator { // TODO }: DAbstractLocator : ILocator {
      * *Note* If your `aliasName` uses plugin syntax only the name part will be used as
      * key in the registry. This means that if two plugins, or a plugin and app provide
      * the same alias, the registry will only store the first instance.
-     * Params:
-     * string aliasName The alias name you want to get. Should be in CamelCase format.
-     * @param Json[string] options The options you want to build the table with.
-     *  If a table has already been loaded the options will be ignored.
      * /
-    Table get(string aliasName, Json[string] optionData = null) {
-        return super.get(aliasName, options);
+    Table get(string aliasName, Json[string] buildOptions = null) {
+        return super.get(aliasName, buildOptions);
     }
  
     protected auto createInstance(string aliasName, Json[string] options): Table

@@ -216,13 +216,12 @@ class DConsoleIo {
      * Params:
      * string[]|string amessage A string or an array of strings to output
      * @param int newLinesToAppend Number of newLinesToAppend to append
-     * @param int level The message`s output level, see above.
      * /
-    int success(string[] messagesToOutput, int newLinesToAppend = 1, int level = self.NORMAL) {
+    int success(string[] messagesToOutput, int newLinesToAppend = 1, int outputLevel = self.NORMAL) {
         string messageType = "success";
         message = this.wrapMessageWithType(messageType, message);
 
-        return _writeln(message, newLinesToAppend, level);
+        return _writeln(message, newLinesToAppend, outputLevel);
     }
     
     // Halts the the current process with a StopException.

@@ -301,11 +301,7 @@ class DCache : ICache {
         return pool(configName).cacheItems(keysToFetch);
     }
 
-    /**
-     * Increment a number under the key and return incremented value.
-     * Params:
-     * @param string configName Optional string configuration name. Defaults to "default"
-     */
+    // Increment a number under the key and return incremented value.
     /* static int|false increment(string dataId, int incValue = 1, string configName = "default") {
         if (incValue < 0) {
             throw new DInvalidArgumentException("Offset cannot be less than `0`.");

@@ -48,17 +48,16 @@ class DApcuCacheEngine : DCacheEngine {
     return apcu_inc(key, incValue);
   }
 
-  /**
-     * Decrements the value of an integer cached key
-     * @param int anOffset How much to subtract
-     */
-  /* int | false decrement(string itemKey, int decValue = 1) {
+  // Decrements the value of an integer cached key
+  int decrement(string itemKey, int decValue = 1) {
     auto key = _key(itemKey);
 
     return apcu_dec(key, myoffset);
-  } */ 
+  }
 
   // Delete a key from the cache
+  /* override bool remove(string[] itemKeys) {
+    // TODO
   /* override bool remove(string itemKey) {
     auto key = _key(itemKey);
 

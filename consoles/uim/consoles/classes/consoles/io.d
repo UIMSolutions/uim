@@ -163,26 +163,20 @@ class DConsoleIo {
     
     int info(string[] outputMessages, int newLinesToAppend = 1, int outputLevel = NORMAL) {
         string messageType = "info";
-        auto myOutputMessages = this.wrapMessageWithType(messageType, outputMessages);
+        auto myOutputMessages = wrapMessageWithType(messageType, outputMessages);
 
         return _writeln(myOutputMessages, newLinesToAppend, level);
     }
     
-    /**
-     * Convenience method for out() that wraps message between <comment> tag
-     * Params:
-     * @param int newLinesToAppend Number of newLinesToAppend to append
-     * @param int level The message`s output level, see above.
-     * /
+    // Convenience method for out() that wraps message between <comment> tag
     int comment(string[] outputMessages...) {
         return comment(outputMessages.dup);
     }
 
-    int comment(string[] outputMessages, int newLinesToAppendToAppend = 1, int level = self.NORMAL) {
-        string messageType = "comment";
-        message = this.wrapMessageWithType(messageType, message);
+    int comment(string[] outputMessages, int newLinesToAppendToAppend = 1, int outputLevel = self.NORMAL) {
+        auto message = wrapMessageWithType("comment", message);
 
-        return _writeln(message, newLinesToAppend, level);
+        return _writeln(message, newLinesToAppend, outputLevel);
     }
     
     /**
@@ -193,7 +187,7 @@ class DConsoleIo {
      * /
     int warning(string[] amessage, int newLinesToAppend = 1) {
         string messageType = "warning";
-        message = this.wrapMessageWithType(messageType, message);
+        message = wrapMessageWithType(messageType, message);
 
         return _writeErrorMessages(message, newLinesToAppend);
     }
@@ -206,7 +200,7 @@ class DConsoleIo {
      * /
     int error(string[] messagesToOutput, int newLinesToAppend = 1) {
         string messageType = "error";
-        auto message = this.wrapMessageWithType(messageType, messagesToOutput);
+        auto message = wrapMessageWithType(messageType, messagesToOutput);
 
         return _writeErrorMessages(message, newLinesToAppend);
     }
@@ -219,7 +213,7 @@ class DConsoleIo {
      * /
     int success(string[] messagesToOutput, int newLinesToAppend = 1, int outputLevel = self.NORMAL) {
         string messageType = "success";
-        message = this.wrapMessageWithType(messageType, message);
+        message = wrapMessageWithType(messageType, message);
 
         return _writeln(message, newLinesToAppend, outputLevel);
     }

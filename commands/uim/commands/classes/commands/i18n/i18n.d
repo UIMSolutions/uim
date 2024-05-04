@@ -31,11 +31,11 @@ class DI18nCommand : DCommand {
                 .toLower;
             code = null;
             switch (choice) {
-            case "e" : code = this.executeCommand(I18nExtractCommand.classname, [], aConsoleIo);
+            case "e" : code = executeCommand(I18nExtractCommand.classname, [], aConsoleIo);
                 break;
-            case "i" : code = this.executeCommand(I18nInitCommand.classname, [], aConsoleIo);
+            case "i" : code = executeCommand(I18nInitCommand.classname, [], aConsoleIo);
                 break;
-            case "h" : aConsoleIo.writeln(this.getOptionParser().help());
+            case "h" : aConsoleIo.writeln(getOptionParser().help());
                 break;
             case "q" : // Do nothing
                 break;

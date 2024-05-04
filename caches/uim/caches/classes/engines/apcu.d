@@ -27,7 +27,7 @@ class DApcuCacheEngine : DCacheEngine {
      
   /* override bool set(string itemKey, Json dataToCache, long timeToLive = 0) {
     auto aKey = _key(itemKey);
-    auto myDuration = this.duration(timeToLive);
+    auto myDuration = duration(timeToLive);
 
     return apcu_store(aKey, dataToCache, myDuration);
   } */

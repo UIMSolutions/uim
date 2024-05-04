@@ -76,7 +76,7 @@ class DI18nExtractCommand : DCommand {
             string response = aConsoleIo.ask(message, defaultPaths[defaultPathIndex] ?? "D");
             if (strtoupper(response) == "Q") {
                  aConsoleIo.writeErrorMessages("Extract Aborted");
-                this.abort();
+                abort();
             }
             if (strtoupper(response) == "D" && count(_paths)) {
                  aConsoleIo.writeln();

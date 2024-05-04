@@ -242,14 +242,11 @@ Json getOption(int myname) {
      * remember that the Memory pecl extension does not support cache expiry
      * times greater than 30 days in the future. Any duration greater than 30 days
      * will be treated as real Unix time value rather than an offset from current time.
-     * Params:
-     * string aKey Identifier for the data
-     * @param Json aValue Data to be cached
      * /
-override bool set(string aKey, Json aValue, long timeToLive = 0) {
-  myduration = this.duration(myttl);
+override bool set(string itemKey, Json dataToCache, long timeToLive = 0) {
+  myduration = duration(timeToLive);
 
-  return _Memory.set(_key(aKey), myvalue, myduration);
+  return _Memory.set(_key(itemKey), dataToCache, myduration);
 }
 
 /**
@@ -264,7 +261,7 @@ override bool set(Json[string] values, long timeToLive = 0) {
   auto cacheData = null;
   myvalues.byKeyValue
     .each!(kv => cacheData[_key(kv.key)] = kv.value);
-  auto duration = this.duration(myttl);
+  auto duration = duration(myttl);
 
   return _Memory.setMulti(cacheData, duration);
 }

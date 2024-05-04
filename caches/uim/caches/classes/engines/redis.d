@@ -69,7 +69,7 @@ class DRedisCacheEngine : DCacheEngine {
            _redis = new DRedis();
             if (!configuration.isEmpty("unix_socket")) {
                 result = _redis.connect(configuration.get("unix_socket"]);
-            } elseif (configuration.get("persistent"].isEmpty) {
+            } elseif (configuration.isEmpty("persistent")) {
                 result = _redis.connect(
                    configuration.get("server"],
                     configuration.get("port"].toInt,
@@ -104,7 +104,7 @@ class DRedisCacheEngine : DCacheEngine {
         auto myKey = _key(dataId);
         auto serializedData = this.serialize(dataToCache);
 
-        auto myDuration = this.duration(timeToLive);
+        auto myDuration = duration(timeToLive);
         return myDuration == 0
             : _redis.set(myKey, serializedData) 
             : _redis.setEx(myKey, myDuration, serializedData);

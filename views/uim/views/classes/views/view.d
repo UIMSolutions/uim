@@ -496,8 +496,11 @@ static string contentType() {
      * callable myblock The block of code that you want to cache the output of.
      * /
     string cache(callable myblock, Json[string] options  = null) {
-        Json[string] options = options.update["key": "", "config": _elementCache];
-        if (options["key"].isEmpty) {
+        Json[string] options = options.merge([
+            "key": Json(""), 
+            "config": Json(_elementCache)]);
+        
+        if (options.isEmpty("key")) {
             throw new DInvalidArgumentException("Cannot cache content with an empty key");
         }
         result = Cache.read(options["key"], options["config"]);

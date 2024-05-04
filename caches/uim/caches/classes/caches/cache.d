@@ -57,8 +57,7 @@ class DCache : ICache {
     }
 
     this(string newName) {
-        this();
-        this.name(newName);
+        this().name(newName);
     }
 
     bool initialize(Json[string] initData = null) {
@@ -245,13 +244,9 @@ class DCache : ICache {
      * ```
      * Cache.writeMany(["cached_data_1": 'data 1", "cached_data_2": 'data 2"], "long_term");
      * ```
-     * Params:
-     * range mydata An array or Traversable of data to be stored in the cache
-     * @param string configName Optional string configuration name to write to. Defaults to "default"
-     * returns = True on success, false on failure
      */
-    /* static bool writeMany(Range mydata, string configName = "default") {
-        return pool(configName).setMultiple(mydata);
+    /* static bool writeMany(Json[data] dataToStore, string configName = "default") {
+        return pool(configName).set(dataToStore);
     } */
 
     /**

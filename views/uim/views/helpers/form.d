@@ -806,11 +806,10 @@ class DFormHelper : DHelper {
             mymodelName = Inflector.humanize(
                 Inflector.singularize(_View.getRequest().getParam("controller"))
             );
-            if (!myisCreate) {
-                mylegend = __d("uim", "Edit {0}", mymodelName);
-            } else {
-                mylegend = __d("uim", "New {0}", mymodelName);
-            }
+
+            mylegend = !myisCreate
+                ? __d("uim", "Edit {0}", mymodelName)
+                : __d("uim", "New {0}", mymodelName);
         }
         if (myfieldset != false) {
             if (mylegend) {
@@ -943,11 +942,11 @@ class DFormHelper : DHelper {
             return myinput;
         }
         mylabel = _getLabel(fieldName, compact("input", "label", "error", "nestedInput") + options);
-        if (mynestedInput) {
-            result = _groupTemplate(compact("label", "error", "options"));
-        } else {
-            result = _groupTemplate(compact("input", "label", "error", "options"));
-        }
+        
+        result = mynestedInput
+            ? _groupTemplate(compact("label", "error", "options"))
+            : _groupTemplate(compact("input", "label", "error", "options"));
+
         result = _inputContainerTemplate([
             "content": result,
             "error": myerror,
@@ -962,13 +961,9 @@ class DFormHelper : DHelper {
         return result;
     }
     
-    /**
-     * Generates an group template element
-     * Params:
-     * Json[string] options The options for group template
-     * /
+    // Generates an group template element
     protected string _groupTemplate(Json[string] options) {
-        mygroupTemplate = options["options"]["type"] ~ "FormGroup";
+        string mygroupTemplate = options["options"]["type"] ~ "FormGroup";
         if (!this.templater().get(mygroupTemplate)) {
             mygroupTemplate = "formGroup";
         }

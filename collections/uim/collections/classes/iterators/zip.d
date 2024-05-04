@@ -46,7 +46,7 @@ class DZipIterator : ICollection {
      * @param callable|null aCallable The auto to use for zipping the elements of each iterator.
      * /
     this(array sets, ?callable aCallable = null) {
-        this.multipleIterator = new DMultipleIterator(
+        _multipleIterator = new DMultipleIterator(
             MultipleIterator.MIT_NEED_ALL | MultipleIterator.MIT_KEYS_NUMERIC
         );
 
@@ -55,7 +55,7 @@ class DZipIterator : ICollection {
         sets.each!((set) {
              anIterator = (new DCollection(set)).unwrap();
            _iterators ~= anIterator;
-            this.multipleIterator.attachIterator(anIterator);
+            _multipleIterator.attachIterator(anIterator);
         });
     }
     
@@ -64,7 +64,7 @@ class DZipIterator : ICollection {
      * iterators with the same positional index.
      * /
     Json current() {
-        current = this.multipleIterator.current();
+        current = _multipleIterator.current();
         if (_callback) {
             return call_user_func_array(_callback, current);
         }
@@ -74,10 +74,10 @@ class DZipIterator : ICollection {
         return _multipleIterator.key();
     }
     void next() {
-        this.multipleIterator.next();
+        _multipleIterator.next();
     }
     void rewind()) {
-        this.multipleIterator.rewind();
+        _multipleIterator.rewind();
     }
     bool valid() {
         return _multipleIterator.valid();
@@ -94,11 +94,11 @@ class DZipIterator : ICollection {
      * array data Data array.
      * /
     void __unserialize(array data) {
-        this.multipleIterator = new DMultipleIterator(
+        _multipleIterator = new DMultipleIterator(
             MultipleIterator.MIT_NEED_ALL | MultipleIterator.MIT_KEYS_NUMERIC
         );
 
        _iterators = someData;
-        _iterators.each!(iterator => this.multipleIterator.attachIterator(iterator));
+        _iterators.each!(iterator => _multipleIterator.attachIterator(iterator));
     } */
 }

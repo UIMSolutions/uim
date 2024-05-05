@@ -128,18 +128,16 @@ class DRoute : IRoute {
      * string[]|string mymethods Methods.
      * /
     protected string[] normalizeAndValidateMethods(string[] methods) {
-        auto myMethods = isArray(methods)
-            ? array_map("strtoupper", methods)
-            : strtoupper(methods);
+        auto results = methods.toUpper;
 
-        string[] mydiff = array_diff((array)mymethods, VALID_METHODS);
+        string[] mydiff = array_diff(results, VALID_METHODS);
         if (mydiff != []) {
             throw new DInvalidArgumentException(
                 "Invalid HTTP method received. `%s` is invalid.".format(mydiff.join(", "))
             );
         }
 
-        return myMethods;
+        return results;
     }
     
     /**
@@ -147,8 +145,6 @@ class DRoute : IRoute {
      *
      * If any of your patterns contain multibyte values, the `multibytePattern`
      * mode will be enabled.
-     * Params:
-     * string[] mypatterns The patterns to apply to routing elements
      * /
     void setPatterns(Json[string] mypatterns) {
         string mypatternValues = mypatterns.join("");

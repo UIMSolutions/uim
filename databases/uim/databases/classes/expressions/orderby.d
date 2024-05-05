@@ -43,20 +43,20 @@ class DOrderByExpression : DQueryExpression {
      * @param array types list of types associated on fields referenced in conditions
      * /
     protected void _addConditions(Json[string] conditions, Json[string] types) {
-        foreach (aKey:  val; conditions) {
+        conditions.byKeyValue.each!((kv) {
             if (
-                isString(aKey) &&
-                isString(val) &&
-                !in_array(strtoupper(val), ["ASC", "DESC"], true)
+                isString(kv.key) &&
+                isString(kv.value) &&
+                !in_array(kv.value, ["ASC", "DESC"], true)
             ) {
                 throw new DInvalidArgumentException(
                     "Passing extra expressions by associative array (`\'%s\": \'%s\'`) " ~
                     "is not allowed to avoid potential SQL injection. " ~
                     "Use QueryExpression or numeric array instead."
-                    .format(aKey,  val)
+                    .format(kv.key,  kv.value)
                 );
             }
-        }
+        });
        _conditions = array_merge(_conditions, conditions);
     } */
 }

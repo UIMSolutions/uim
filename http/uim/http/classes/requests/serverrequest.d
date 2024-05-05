@@ -1161,7 +1161,7 @@ class DServerRequest { // }: IServerRequest {
      *  variable`s value that does not exist.
      * /
     string getEnvironmentData(string aKey, string adefault = null) {
-        aKey = strtoupper(aKey);
+        aKey = aKey.toUpper;
         if (!array_key_exists(aKey, _environmentData)) {
            _environmentData[aKey] = enviroment(aKey);
         }

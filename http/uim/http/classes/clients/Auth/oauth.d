@@ -25,7 +25,7 @@ class DOauth {
         if (!isSet(credentials["consumerKey"])) {
             return request;
         }
-        if (isEmpty(credentials["method"])) {
+        if (credentials.isEmpty("method")) {
             credentials["method"] = "hmac-sha1";
         }
         credentials["method"] = strtoupper(credentials["method"]);

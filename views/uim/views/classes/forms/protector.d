@@ -212,7 +212,7 @@ class DFormProtector {
     /**
      * Return hash parts for the token generation
      * /
-    // TODO protected array[string] extractHashParts(Json[string] formData) {
+    // TODO protected Json[string] extractHashParts(Json[string] formData) {
         auti fields = this.extractFields(formData);
         unlockedFields = this.sortedUnlockedFields(formData);
 

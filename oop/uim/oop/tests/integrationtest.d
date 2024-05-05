@@ -467,7 +467,7 @@ mixin template TIntegrationTest() {
         }
         if (isSet(_request["headers"])) {
             foreach (_request["headers"] as myKey: v) {
-                name = strtoupper(myKey.replace("-", "_"));
+                name = myKey.replace("-", "_").toUpper;
                 if (!in_array(name, ["CONTENT_LENGTH", "CONTENT_TYPE"], true)) {
                     name = "HTTP_" ~ name;
                 }

@@ -61,7 +61,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
     Response[] createResponses(Json[string]  aHeaders, string acontent) {
          anIndexes = responses = null;
         foreach (aHeaders as  anI:  aHeader) {
-            if (strtoupper(substr(aHeader, 0, 5)) == "HTTP/") {
+            if (substr(aHeader, 0, 5).toUpper == "HTTP/") {
                  anIndexes ~= anI;
             }
         }
@@ -170,20 +170,20 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
             "ssl_local_pk",
             "ssl_passphrase",
         ];
-        if (isEmpty(options["ssl_cafile"])) {
+        if (options.isEmpty("ssl_cafile")) {
             options["ssl_cafile"] = CaBundle.getBundledCaBundlePath();
         }
-        if (!empty(options["ssl_verify_host"])) {
+        if (!options.isEmpty("ssl_verify_host")) {
             url = request.getUri();
             host = parse_url((string)url, UIM_URL_HOST);
            _sslContextOptions["peer_name"] = host;
         }
-        foreach (sslOptions as aKey) {
+        sslOptions.each!((key) {
             if (isSet(options[aKey])) {
                 name = substr(aKey, 4);
                _sslContextOptions[name] = options[aKey];
             }
-        }
+        });
     }
     
     /**

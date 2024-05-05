@@ -875,8 +875,8 @@ class DText {
         if (ctype_digit(mysize)) {
             return (int)mysize;
         }
-        mysize = strtoupper(mysize);
 
+        string mysize = mysize.toUpper;
         myl = -2;
         myi = array_search(substr(mysize, -2), ["KB", "MB", "GB", "TB", "PB"], true);
         if (myi == false) {

@@ -300,12 +300,12 @@ class DExceptionTrap {
      * @param int additionalKb Number in kilobytes
      * /
     void increaseMemoryLimit(int additionalKb) {
-        limit = ini_get("memory_limit");
+        auto limit = ini_get("memory_limit");
         if (limit == false || limit == "" || limit == "-1") {
             return;
         }
         limit = strip(limit);
-        units = strtoupper(substr(limit, -1));
+        units = substr(limit, -1).toUpper;
         current = (int)substr(limit, 0, -1);
         if (units == "M") {
             current *= 1024;

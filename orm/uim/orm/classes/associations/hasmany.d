@@ -462,7 +462,7 @@ class DHasManyAssociation : DAssociation {
      * @param array<string, mixed> options list of options accepted by `Table::remove()`
      * @return bool success
      * /
-    protected bool _unlink(array foreignKey, Table myTarget, Json[string] conditions = null, Json[string] options = null) {
+    protected bool _unlink(Json[string] foreignKey, Table myTarget, Json[string] conditions = null, Json[string] options = null) {
         mustBeDependent = (!_foreignKeyAcceptsNull(myTarget, foreignKey) || this.getDependent());
 
         if (mustBeDependent) {
@@ -563,7 +563,7 @@ class DHasManyAssociation : DAssociation {
     }
 
 
-    array defaultRowValue(array row, bool joined) {
+    array defaultRowValue(Json[string] row, bool joined) {
         sourceAlias = this.getSource().aliasName();
         if (isset(row[sourceAlias])) {
             row[sourceAlias][this.getProperty()] = joined ? null : [];

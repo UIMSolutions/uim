@@ -247,7 +247,7 @@ class DEagerLoader {
      * @param array myoriginal The original containments array to merge
      * with the new one.
      * /
-    // TODO protected array _reformatContain(array myassociations, Json[string] myoriginal) {
+    // TODO protected array _reformatContain(Json[string] myassociations, Json[string] myoriginal) {
         result = myoriginal;
 
         foreach (myassociations as mytable: options) {
@@ -471,7 +471,7 @@ class DEagerLoader {
      * array<\ORM\EagerLoadable> myassociations List of associations from which to obtain joins.
      * @param array<\ORM\EagerLoadable> mymatching List of associations that should be forcibly joined.
      * /
-    protected DEagerLoadable[] _resolveJoins(array myassociations, Json[string] mymatching = []) {
+    protected DEagerLoadable[] _resolveJoins(Json[string] myassociations, Json[string] mymatching = []) {
         auto result;
         foreach (mymatching as mytable: myloadable) {
             result[mytable] = myloadable;
@@ -586,7 +586,7 @@ class DEagerLoader {
      * @param array<\ORM\> mylevel An array of EagerLoadable instances.
      * @param bool mymatching Whether it is an association loaded through `matching()`.
      * /
-    protected DEagerLoadable[] _buildAssociationsMap(array mymap, Json[string] mylevel, bool mymatching = false) {
+    protected DEagerLoadable[] _buildAssociationsMap(Json[string] mymap, Json[string] mylevel, bool mymatching = false) {
         foreach (mylevel as myassoc: mymeta) {
             mycanBeJoined = mymeta.canBeJoined();
             myinstance = mymeta.instance();
@@ -644,7 +644,7 @@ class DEagerLoader {
      * @param \ORM\Query\SelectQuery myquery The query from which the results where generated.
      * @param array results Results array.
      * /
-    // TODO protected array _collectKeys(array myexternal, SelectQuery myquery, Json[string] results) {
+    // TODO protected array _collectKeys(Json[string] myexternal, SelectQuery myquery, Json[string] results) {
         mycollectKeys = null;
         foreach (myexternal as mymeta) {
             myinstance = mymeta.instance();
@@ -675,7 +675,7 @@ class DEagerLoader {
      * array results Results array.
      * @param array<string, array> mycollectKeys The keys to collect.
      * /
-    // TODO protected array _groupKeys(array results, Json[string] mycollectKeys) {
+    // TODO protected array _groupKeys(Json[string] results, Json[string] mycollectKeys) {
         someKeys = null;
         foreach (result; results) {
             foreach (mynestKey: myparts; mycollectKeys) {

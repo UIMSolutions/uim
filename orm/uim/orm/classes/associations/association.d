@@ -644,7 +644,7 @@ protected void _appendNotMatching(Query query, Json[string] optionData) {
      * @param string|null targetProperty The property name in the source results where the association
      * data shuld be nested in. Will use the default one if not provided.
      * /
-array transformRow(array row, string nestKey, bool joined, string targetProperty = null) {
+array transformRow(Json[string] row, string nestKey, bool joined, string targetProperty = null) {
     sourceAlias = this.getSource().aliasName();
     nestKey = nestKey ?  : _name;
     targetProperty = targetProperty ?  : this.getProperty();
@@ -666,7 +666,7 @@ array transformRow(array row, string nestKey, bool joined, string targetProperty
      *   with this association
      * @return array<string, mixed>
      * /
-array defaultRowValue(array row, bool joined) {
+array defaultRowValue(Json[string] row, bool joined) {
     sourceAlias = this.getSource().aliasName();
     if (isset(row[sourceAlias])) {
         row[sourceAlias][this.getProperty()] = null;

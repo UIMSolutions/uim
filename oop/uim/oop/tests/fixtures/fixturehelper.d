@@ -93,7 +93,7 @@ class DFixtureHelper {
      * Params:
      * array<\UIM\Datasource\IFixture> fixtures Test fixtures
      * /
-    void insert(array fixtures) {
+    void insert(Json[string] fixtures) {
         this.runPerConnection(void (IConnection aConnection, array  anGroupFixtures) {
             if (cast(DConnection)aConnection) {
                 sortedFixtures = this.sortByConstraint(aConnection,  anGroupFixtures);

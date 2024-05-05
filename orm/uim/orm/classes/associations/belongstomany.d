@@ -177,7 +177,7 @@ class DBelongsToManyAssociation : DAssociation {
     }
 
 
-    array defaultRowValue(array row, bool joined) {
+    array defaultRowValue(Json[string] row, bool joined) {
         sourceAlias = this.getSource().aliasName();
         if (isset(row[sourceAlias])) {
             row[sourceAlias][this.getProperty()] = joined ? null : [];

@@ -59,8 +59,8 @@ class DSaveOptionsBuilder { /*}: ArrayObject {
      * @param array<string, mixed> array Options array.
      * @return this
      * /
-    function parseArrayOptions(array array) {
-        foreach (array as key: value) {
+    function parseArrayOptions(Json[string] array) {
+        foreach (Json[string] as key: value) {
             this.{key}(value);
         }
 

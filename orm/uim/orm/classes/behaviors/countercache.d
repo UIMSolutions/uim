@@ -243,7 +243,7 @@ class DCounterCacheBehavior : DBehavior {
      * Params:
      * array myconditions Conditions to update count.
      * /
-    protected bool _shouldUpdateCount(array myconditions) {
+    protected bool _shouldUpdateCount(Json[string] myconditions) {
         return !empty(array_filter(myconditions, auto (myvalue) {
             return myvalue !isNull;
         }));

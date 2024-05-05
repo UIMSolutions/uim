@@ -37,7 +37,7 @@ class DMarshaller {
      * @param Json[string] options List of options containing the "associated" key.
      * @throws \InvalidArgumentException When associations do not exist.
      * /
-    // TODO protected array _buildPropertyMap(array data, Json[string] options) {
+    // TODO protected array _buildPropertyMap(Json[string] data, Json[string] options) {
         auto mymap = null;
         auto tableSchema = _table.getSchema();
 
@@ -134,7 +134,7 @@ class DMarshaller {
      * Json[string] mydata The data to hydrate.
      * @param Json[string] options List of options
      * /
-    IEntity one(array data, Json[string] optionData = null) {
+    IEntity one(Json[string] data, Json[string] optionData = null) {
         [mydata, options] = _prepareDataAndOptions(mydata, options);
 
         myprimaryKey = (array)_table.primaryKeys();
@@ -197,7 +197,7 @@ class DMarshaller {
      * @param string|bool myvalidator Validator name or `true` for default validator.
      * @param bool myisNew Whether it is a new DORMEntity or one to be updated.
      * /
-    // TODO protected array _validate(array data, string|bool myvalidator, bool myisNew) {
+    // TODO protected array _validate(Json[string] data, string|bool myvalidator, bool myisNew) {
         if (!myvalidator) {
             return null;
         }
@@ -213,7 +213,7 @@ class DMarshaller {
      * Json[string] mydata The data to prepare.
      * @param Json[string] options The options passed to this marshaller.
      * /
-    // TODO protected array _prepareDataAndOptions(array data, Json[string] options) {
+    // TODO protected array _prepareDataAndOptions(Json[string] data, Json[string] options) {
         options = options.update["validate": Json(true)];
 
         mytableName = _table.aliasName();
@@ -283,7 +283,7 @@ class DMarshaller {
      * array data The data to hydrate.
      * @param Json[string] options List of options
      * /
-    IEntity[] many(array data, Json[string] optionData = null) {
+    IEntity[] many(Json[string] data, Json[string] optionData = null) {
         myoutput = null;
         foreach (mydata as myrecord) {
             if (!isArray(myrecord)) {
@@ -702,7 +702,7 @@ class DMarshaller {
      * @param array myvalue The data to hydrate
      * @param Json[string] options List of options.
      * /
-    protected IEntity[] _mergeJoinData(array myoriginal, BelongsToMany myassoc, array myvalue, Json[string] options) {
+    protected IEntity[] _mergeJoinData(Json[string] myoriginal, BelongsToMany myassoc, array myvalue, Json[string] options) {
         myassociated = options["associated"] ?? [];
         myextra = null;
         foreach (myoriginal as myentity) {

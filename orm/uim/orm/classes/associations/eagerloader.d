@@ -53,7 +53,7 @@ class DEagerLoader {
     protected DEagerLoadable<> _loadExternal = null;
 
     // Contains a list of the association names that are to be eagerly loaded.
-    // TODO protected array _aliasList = null;
+    // TODO protected array Json[string] _aliasList = null;
 
     // Another EagerLoader instance that will be used for "matching" associations.
     protected DEagerLoader _matching = null;
@@ -247,7 +247,7 @@ class DEagerLoader {
      * @param array myoriginal The original containments array to merge
      * with the new one.
      * /
-    // TODO protected array _reformatContain(Json[string] myassociations, Json[string] myoriginal) {
+    // TODO protected array Json[string] _reformatContain(Json[string] myassociations, Json[string] myoriginal) {
         result = myoriginal;
 
         foreach (myassociations as mytable: options) {
@@ -644,7 +644,7 @@ class DEagerLoader {
      * @param \ORM\Query\SelectQuery myquery The query from which the results where generated.
      * @param array results Results array.
      * /
-    // TODO protected array _collectKeys(Json[string] myexternal, SelectQuery myquery, Json[string] results) {
+    // TODO protected array Json[string] _collectKeys(Json[string] myexternal, SelectQuery myquery, Json[string] results) {
         mycollectKeys = null;
         foreach (myexternal as mymeta) {
             myinstance = mymeta.instance();
@@ -675,7 +675,7 @@ class DEagerLoader {
      * array results Results array.
      * @param array<string, array> mycollectKeys The keys to collect.
      * /
-    // TODO protected array _groupKeys(Json[string] results, Json[string] mycollectKeys) {
+    // TODO protected array Json[string] _groupKeys(Json[string] results, Json[string] mycollectKeys) {
         someKeys = null;
         foreach (result; results) {
             foreach (mynestKey: myparts; mycollectKeys) {

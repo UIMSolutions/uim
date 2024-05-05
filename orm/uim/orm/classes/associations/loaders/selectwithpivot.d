@@ -140,7 +140,7 @@ class DSelectWithPivotLoader : DSelectLoader {
      * @return array<string, mixed>
      * @throws \RuntimeException when the association property is not part of the results set.
      * /
-    // TODO protected array _buildResultMap(Query fetchQuery, Json[string] optionData) {
+    // TODO protected array Json[string] _buildResultMap(Query fetchQuery, Json[string] optionData) {
         resultMap = null;
         key = (array)options["foreignKey"];
 

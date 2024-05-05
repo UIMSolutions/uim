@@ -184,7 +184,7 @@ class DBehavior : IEventListener {
      * @param array<string, mixed> myConfiguration The customized method mappings.
      * @return array A de-duped list of config data.
      * /
-    // TODO protected array _resolveMethodAliases(string aKey, array defaults, Json myConfiguration) {
+    // TODO protected array Json[string] _resolveMethodAliases(string aKey, array defaults, Json myConfiguration) {
         if (!isset(defaults[key], configuration.get(key])) {
             return configuration;
         }
@@ -355,7 +355,7 @@ class DBehavior : IEventListener {
      * @return array
      * @throws \ReflectionException
      * /
-    // TODO protected array _reflectionCache() {
+    // TODO protected array Json[string] _reflectionCache() {
         class = class;
         if (isset(self::_reflectionCache[class])) {
             return self::_reflectionCache[class];

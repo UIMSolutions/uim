@@ -135,7 +135,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * @return array A list of implemented finders and methods.
      * @throws \LogicException when duplicate methods are connected.
      * /
-    // TODO protected array _getMethods(Behavior instance, string aClassName , string anAlias) {
+    // TODO protected array Json[string] _getMethods(Behavior instance, string aClassName , string anAlias) {
         finders = array_change_key_case(instance.implementedFinders());
         aMethodNames = array_change_key_case(instance.implementedMethods());
 

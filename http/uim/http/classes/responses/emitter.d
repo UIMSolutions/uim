@@ -81,7 +81,7 @@ class DResponseEmitter {
      * array range The range data to emit
      * @param \Psr\Http\Message\IResponse response The response to emit
      * /
-    protected void emitBodyRange(array range, IResponse response) {
+    protected void emitBodyRange(Json[string] range, IResponse response) {
         [, first, last] = range;
 
         body = response.getBody();
@@ -162,7 +162,7 @@ class DResponseEmitter {
      * Params:
      * array<\UIM\Http\Cookie\ICookie|string> cookies An array of cookies.
      */
-    protected void emitCookies(array cookies) {
+    protected void emitCookies(Json[string] cookies) {
         foreach (cookie; cookies) {
             this.setCookie(cookie);
         }

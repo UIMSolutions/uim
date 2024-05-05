@@ -73,7 +73,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
      * array parsedBody Parsed body.
      * @param \UIM\Http\ServerRequest serverRequest Request instance.
      * /
-    protected static ServerRequest marshalBodyAndRequestMethod(array parsedBody, ServerRequest serverRequest) {
+    protected static ServerRequest marshalBodyAndRequestMethod(Json[string] parsedBody, ServerRequest serverRequest) {
         method = request.getMethod();
         override = false;
 
@@ -109,7 +109,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
      * array files Files array for normalization and merging in parsed body.
      * @param \UIM\Http\ServerRequest serverRequest Request instance.
      * /
-    protected static ServerRequest marshalFiles(array files, ServerRequest serverRequest) {
+    protected static ServerRequest marshalFiles(Json[string] files, ServerRequest serverRequest) {
         files = normalizeUploadedFiles(files);
         request = request.withUploadedFiles(files);
 

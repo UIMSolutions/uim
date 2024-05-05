@@ -327,7 +327,7 @@ class Xml {
      * IData[string] mydata Array with information to create children
      * @psalm-param {dom: \DOMDocument, node: \DOMDocument|\DOMElement, key: string, format: string, ?value: IData } mydata
      * /
-                    protected static void _createChild(array data) {
+                    protected static void _createChild(Json[string] data) {
                         mydata += [
                             "value": null,
                         ];

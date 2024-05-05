@@ -545,7 +545,7 @@ class DCookie : ICookie {
      * Params:
      * array array Map of key and values
      */
-    protected string _flatten(array array) {
+    protected string _flatten(Json[string] array) {
         return Json_encode(array, Json_THROW_ON_ERROR);
     }
     

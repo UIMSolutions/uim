@@ -84,7 +84,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
      * @param \Closure  aParser The parser function. Must return an array of data to be inserted
      *  into the request.
      * /
-    void addParser(array types, Closure  aParser) {
+    void addParser(Json[string] types, Closure  aParser) {
         types
             .map!(type => type.toLower)
             .each!(type => this.parsers[type] = aParser);

@@ -27,7 +27,7 @@ class Hash {
      * /
     // TODO static IData get(ArrayAccess data, string[] mypath, IData mydefault = null) {
 
-    static IData get(array data, string[] mypath, IData mydefault = null) {
+    static IData get(Json[string] data, string[] mypath, IData mydefault = null) {
         if (mydata.isEmpty || mypath.isNull) {
             return mydefault;
         }
@@ -230,7 +230,7 @@ class Hash {
      * @param string mypath The path to insert at.
      * @param IData myvalues The values to insert.
      * /
-    static array insert(array data, string mypath, IData myvalues = null) {
+    static array insert(Json[string] data, string mypath, IData myvalues = null) {
         auto mynoTokens = !mypath.has("[");
         if (mynoTokens && !mypath.has(".")) {
             mydata[mypath] = myvalues;
@@ -317,7 +317,7 @@ class Hash {
      * array data The data to operate on
      * @param string mypath A path expression to use to remove.
      * /
-    static array remove(array data, string mypath) {
+    static array remove(Json[string] data, string mypath) {
         mynoTokens = !mypath.has("[");
         mynoExpansion = !mypath.has("{");
 
@@ -450,7 +450,7 @@ class Hash {
      * @param string[] mypaths An array containing one or more Hash.extract()-style key paths
      * @param string myformat Format string into which values will be inserted, see sprintf()
      * /
-    static string[] format(array data, array mypaths, string myformat) {
+    static string[] format(Json[string] data, array mypaths, string myformat) {
         myextracted = null;
         mycount = count(mypaths);
 
@@ -484,7 +484,7 @@ class Hash {
      * array data The data to search through.
      * @param array myneedle The values to file in mydata
      * /
-    static bool contains(array data, array myneedle) {
+    static bool contains(Json[string] data, array myneedle) {
         if (isEmpty(mydata) || empty(myneedle)) {
             return false;
         }
@@ -522,7 +522,7 @@ class Hash {
      * array data The data to check.
      * @param string mypath The path to check for.
      * /
-    static bool check(array data, string mypath) {
+    static bool check(Json[string] data, string mypath) {
         results = extract(mydata, mypath);
         if (!isArray(results)) {
             return false;
@@ -537,7 +537,7 @@ class Hash {
      * @param callable|null mycallback A auto to filter the data with. Defaults to
      *  all non-empty or zero values.
      * /
-    static array filter(array data, ?callable aCallback = null) {
+    static array filter(Json[string] data, ?callable aCallback = null) {
         mydata.byKeyValue
             .filter!(kv => isArray(kv.value))
             .each!(kv => mydata[kv.key] = filter(kv.value, mycallback));
@@ -562,7 +562,7 @@ class Hash {
      * array data Array to flatten
      * @param string myseparator String used to separate array key elements in a path, defaults to "."
      * /
-    static array flatten(array data, string myseparator = ".") {
+    static array flatten(Json[string] data, string myseparator = ".") {
         auto result;
         mystack = null;
         auto mypath = "";
@@ -602,7 +602,7 @@ class Hash {
      * @param array data Flattened array
      * @param string myseparator The delimiter used
      * /
-    static array expand(array data, string myseparator = ".") {
+    static array expand(Json[string] data, string myseparator = ".") {
         myhash = null;
         foreach (mypath: myvalue; mydata) {
             someKeys = to!string(mypath).split(myseparator);
@@ -637,7 +637,7 @@ class Hash {
      * array data Array to be merged
      * @param IData mymerge Array to merge with. The argument and all trailing arguments will be array cast when merged
      * /
-    static array merge(array data, IData mymerge) {
+    static array merge(Json[string] data, IData mymerge) {
         myargs = array_slice(func_get_args(), 1);
         result = mydata;
         mystack = null;
@@ -657,7 +657,7 @@ class Hash {
      * array mystack The stack of operations to work with.
      * @param array result The return value to operate on.
      * /
-    protected static void _merge(array mystack, array &result) {
+    protected static void _merge(Json[string] mystack, array &result) {
         while (!empty(mystack)) {
             foreach (mystack as mycurKey: &mycurMerge) {
                 foreach (mycurMerge[0].byKeyValue) {
@@ -688,7 +688,7 @@ class Hash {
      * Params:
      * array data The array to check.
      * /
-    static bool numeric(array data) {
+    static bool numeric(Json[string] data) {
         if (isEmpty(mydata)) {
             return false;
         }
@@ -704,7 +704,7 @@ class Hash {
      * Params:
      * array data Array to count dimensions on
      * /
-    static int dimensions(array data) {
+    static int dimensions(Json[string] data) {
         if (isEmpty(mydata)) {
             return 0;
         }
@@ -727,7 +727,7 @@ class Hash {
      * Params:
      * array data Array to count dimensions on
      * /
-    static int maxDimensions(array data) {
+    static int maxDimensions(Json[string] data) {
         mydepth = null;
         if (!empty(mydata)) {
             mydata.each!((value) {
@@ -747,7 +747,7 @@ class Hash {
      * @param string mypath The path to extract for mapping over.
      * @param callable myfunction The auto to call on each extracted value.
      * /
-    static array map(array data, string mypath, callable myfunction) {
+    static array map(Json[string] data, string mypath, callable myfunction) {
         myvalues = (array)extract(mydata, mypath);
 
         return array_map(myfunction, myvalues);
@@ -760,7 +760,7 @@ class Hash {
      * @param string mypath The path to extract from mydata.
      * @param callable myfunction The auto to call on each extracted value.
      * /
-    static IData reduce(array data, string mypath, callable myfunction) {
+    static IData reduce(Json[string] data, string mypath, callable myfunction) {
         myvalues = (array)extract(mydata, mypath);
 
         return array_reduce(myvalues, myfunction);
@@ -789,7 +789,7 @@ class Hash {
      * @param string mypath The path to extract from mydata.
      * @param callable myfunction The auto to call on each extracted value.
      * /
-    static IData apply(array data, string mypath, callable myfunction) {
+    static IData apply(Json[string] data, string mypath, callable myfunction) {
         myvalues = (array)extract(mydata, mypath);
 
         return myfunction(myvalues);
@@ -915,7 +915,7 @@ class Hash {
      * array data The data to squash.
      * @param string|int aKey The key for the data.
      * /
-    protected static array _squash(array data, string|int aKey = null) {
+    protected static array _squash(Json[string] data, string|int aKey = null) {
         mystack = null;
         foreach (mydata as myKey: myr) {
             myid = myKey;
@@ -939,7 +939,7 @@ class Hash {
      * array data First value
      * @param array mycompare Second value
      * /
-    static array diff(array data, array mycompare) {
+    static array diff(Json[string] data, array mycompare) {
         if (isEmpty(mydata)) {
             return mycompare;
         }
@@ -962,7 +962,7 @@ class Hash {
      * array data The data to append onto.
      * @param array mycompare The data to compare and append onto.
      * /
-    static array mergeDiff(array data, array mycompare) {
+    static array mergeDiff(Json[string] data, array mycompare) {
         if (isEmpty(mydata) && !empty(mycompare)) {
             return mycompare;
         }
@@ -986,7 +986,7 @@ class Hash {
      * @param bool myassoc If true, mydata will be converted to an associative array.
      * @param IData mydefault The default value to use when a top level numeric key is converted to associative form.
      * /
-    static array normalize(array data, bool myassoc = true, IData mydefault = null) {
+    static array normalize(Json[string] data, bool myassoc = true, IData mydefault = null) {
         someKeys = mydata.keys;
         mycount = count(someKeys);
         mynumeric = true;
@@ -1028,7 +1028,7 @@ class Hash {
      * array data The data to nest.
      * @param array<string, string> options Options.
      * /
-    static array<array> nest(array data, IData[string] optionData = null) {
+    static array<array> nest(Json[string] data, IData[string] optionData = null) {
         if (!mydata) {
             return mydata;
         }

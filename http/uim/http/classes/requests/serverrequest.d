@@ -353,7 +353,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * string[] proxies ips list of trusted proxies
      * /
-    void setTrustedProxies(array proxies) {
+    void setTrustedProxies(Json[string] proxies) {
         this.trustedProxies = proxies;
         this.trustProxy = true;
         this.uri = this.uri.withScheme(this.scheme());
@@ -482,7 +482,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * array detect Detector options array.
      * /
-    protected bool _acceptHeaderDetector(array detect) {
+    protected bool _acceptHeaderDetector(Json[string] detect) {
         content = new DContentTypeNegotiation();
         options = detect["accept"];
 
@@ -508,7 +508,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * array detect Detector options array.
      * /
-    protected bool _headerDetector(array detect) {
+    protected bool _headerDetector(Json[string] detect) {
         foreach (detect["header"] as  aHeader: aValue) {
              aHeader = this.getEnvironmentData("http_" ~  aHeader);
             if (aHeader !isNull) {
@@ -526,7 +526,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * array detect Detector options array.
      * /
-    protected bool _paramDetector(array detect) {
+    protected bool _paramDetector(Json[string] detect) {
         aKey = detect["param"];
         if (isSet(detect["value"])) {
             aValue = detect["value"];
@@ -544,7 +544,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * array detect Detector options array.
      * /
-    protected bool _environmentDetector(array detect) {
+    protected bool _environmentDetector(Json[string] detect) {
         if (isSet(detect["env"])) {
             if (isSet(detect["value"])) {
                 return _getEnvironmentData(detect["env"]) == detect["value"];
@@ -570,7 +570,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * string[] types The types to check.
      * /
-    bool isAll(array types) {
+    bool isAll(Json[string] types) {
         foreach (types as type) {
             if (!this.is(type)) {
                 return false;
@@ -1083,7 +1083,7 @@ class DServerRequest { // }: IServerRequest {
      * array cookies The new cookie data to use.
      * @return static
      * /
-    auto withCookieParams(array cookies): static
+    auto withCookieParams(Json[string] cookies): static
     {
         new = clone this;
         new.cookies = cookies;
@@ -1380,7 +1380,7 @@ class DServerRequest { // }: IServerRequest {
      * Params:
      * array uploadedFiles An array of uploaded file objects.
      * /
-    static withUploadedFiles(array uploadedFiles) {
+    static withUploadedFiles(Json[string] uploadedFiles) {
         this.validateUploadedFiles(uploadedFiles, "");
         new = clone this;
         new.uploadedFiles = uploadedFiles;
@@ -1394,7 +1394,7 @@ class DServerRequest { // }: IServerRequest {
      * array uploadedFiles The new files array to validate.
      * @param string aPath The path thus far.
      * /
-    protected auto validateUploadedFiles(array uploadedFiles, string aPath) {
+    protected auto validateUploadedFiles(Json[string] uploadedFiles, string aPath) {
         foreach (uploadedFiles as aKey: file) {
             if (isArray(file)) {
                 this.validateUploadedFiles(file, aKey ~ ".");

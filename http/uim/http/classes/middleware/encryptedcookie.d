@@ -37,7 +37,7 @@ class DEncryptedCookieMiddleware { // : IHttpMiddleware {
      * @param string aKey The encryption key to use.
      * @param string acipherType The cipher type to use. Defaults to 'aes'.
      * /
-    this(array cookieNames, string aKey, string acipherType = "aes") {
+    this(Json[string] cookieNames, string aKey, string acipherType = "aes") {
         this.cookieNames = cookieNames;
         this.key = aKey;
         this.cipherType = cipherType;

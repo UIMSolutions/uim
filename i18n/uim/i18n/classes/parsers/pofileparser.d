@@ -164,7 +164,7 @@ class DPoFileParser {
      * array messages The messages array being collected from the file
      * @param array  anItem The current item being inspected
      * /
-    protected void addMessage(array messages, Json anItem) {
+    protected void addMessage(Json[string] messages, Json anItem) {
         auto ids = anItem["ids"];
         if (ids["singular"].isEmpty && ids["plural"].isEmpty) {
             return;

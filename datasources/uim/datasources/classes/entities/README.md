@@ -66,7 +66,7 @@ writeln(article->title;
 
 You can also use the get() and set() methods.
 
-uim\ORM\Entity::set(field, value = null, array options = null)
+uim\ORM\Entity::set(field, value = null, Json[string] options = null)
 
 uim\ORM\Entity::get(field)
 

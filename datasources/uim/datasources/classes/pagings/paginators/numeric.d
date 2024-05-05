@@ -168,7 +168,7 @@ class DNumericPaginator : IPaginator {
      * @return uim.Datasource\IResultset Query results
      * @throws uim.Datasource\Paging\exceptions.PageOutOfBoundsException
      * /
-    function paginate(object object, array params = null, array settings = null): IResultset
+    function paginate(object object, Json[string] params = null, Json[string] settings = null): IResultset
     {
         query = null;
         if (object instanceof IQuery) {
@@ -208,7 +208,7 @@ class DNumericPaginator : IPaginator {
      * @param array<string, mixed> data Pagination data.
      * @return uim.Datasource\IQuery
      * /
-    protected function getQuery(IRepository object, ?IQuery query, array data): IQuery
+    protected function getQuery(IRepository object, ?IQuery query, Json[string] data): IQuery
     {
         if (query == null) {
             query = object.find(data["finder"], data["options"]);
@@ -226,7 +226,7 @@ class DNumericPaginator : IPaginator {
      * @param array data Pagination data.
      * @return int|null
      * /
-    protected Nullable!int getCount(IQuery query, array data) {
+    protected Nullable!int getCount(IQuery query, Json[string] data) {
         return query.count();
     }
 
@@ -238,7 +238,7 @@ class DNumericPaginator : IPaginator {
      * @param array<string, mixed> settings The settings/configuration used for pagination.
      * @return array Array with keys "defaults", "options" and "finder"
      * /
-    // TODO protected Json[string] extractData(IRepository object, array params, array settings) {
+    // TODO protected Json[string] extractData(IRepository object, Json[string] params, Json[string] settings) {
         alias = object.aliasName();
         defaults = this.getDefaults(alias, settings);
         options = this.mergeOptions(params, defaults);
@@ -291,7 +291,7 @@ class DNumericPaginator : IPaginator {
      * @param array data Paginator data.
      * @return array<string, mixed> Updated params.
      * /
-    // TODO protected Json[string] addPageCountParams(Json[string] params, array data) {
+    // TODO protected Json[string] addPageCountParams(Json[string] params, Json[string] data) {
         page = params["page"];
         pageCount = 0;
 
@@ -315,7 +315,7 @@ class DNumericPaginator : IPaginator {
      * @param array data Paginator data.
      * @return array<string, mixed> Updated params.
      * /
-    // TODO protected Json[string] addStartEndParams(Json[string] params, array data) {
+    // TODO protected Json[string] addStartEndParams(Json[string] params, Json[string] data) {
         start = end = 0;
 
         if (params["current"] > 0) {
@@ -336,7 +336,7 @@ class DNumericPaginator : IPaginator {
      * @param array data Paging data.
      * @return array<string, mixed> Updated params.
      * /
-    // TODO protected Json[string] addPrevNextParams(Json[string] params, array data) {
+    // TODO protected Json[string] addPrevNextParams(Json[string] params, Json[string] data) {
         params["prevPage"] = params["page"] > 1;
         if (params["count"] == null) {
             params["nextPage"] = true;
@@ -354,7 +354,7 @@ class DNumericPaginator : IPaginator {
      * @param array data Paging data.
      * @return array<string, mixed> Updated params.
      * /
-    // TODO protected Json[string] addSortingParams(Json[string] params, array data) {
+    // TODO protected Json[string] addSortingParams(Json[string] params, Json[string] data) {
         defaults = data["defaults"];
         order = (array)data["options"]["order"];
         sortDefault = directionDefault = false;
@@ -458,7 +458,7 @@ class DNumericPaginator : IPaginator {
      * @param array settings The settings to merge with the request data.
      * @return array<string, mixed> Array of merged options.
      * /
-    array mergeOptions(Json[string] params, array settings) {
+    array mergeOptions(Json[string] params, Json[string] settings) {
         if (!empty(settings["scope"])) {
             scope = settings["scope"];
             params = !empty(params[scope]) ? (array)params[scope] : [];
@@ -479,7 +479,7 @@ class DNumericPaginator : IPaginator {
      * @return array<string, mixed> An array of pagination settings for a model,
      *   or the general settings.
      * /
-    array getDefaults(string alias, array settings) {
+    array getDefaults(string alias, Json[string] settings) {
         if (isset(settings[alias])) {
             settings = settings[alias];
         }
@@ -618,7 +618,7 @@ class DNumericPaginator : IPaginator {
      * @param bool allowed Whether the field was allowed.
      * @return array Final order array.
      * /
-    // TODO protected Json[string] _prefix(IRepository object, array order, bool allowed = false) {
+    // TODO protected Json[string] _prefix(IRepository object, Json[string] order, bool allowed = false) {
         tableAlias = object.aliasName();
         tableOrder = null;
         foreach (order as key: value) {

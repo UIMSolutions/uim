@@ -244,7 +244,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * \Closure  visitor Callback executed for each part
      * @param string[] someParts The list of query parts to traverse
      * /
-    void traverseParts(Closure  visitor, array someParts) {
+    void traverseParts(Closure  visitor, Json[string] someParts) {
         someParts.each!(name =>  visitor(_parts[name], name));
     }
     
@@ -339,7 +339,7 @@ abstract class DQuery : IQuery { // : IExpression {
     
     /**
      * Adds a single or multiple tables to be used in the FROM clause for this query.
-     * Tables can be passed as an array of strings, array of expression
+     * Tables can be passed as an array of strings, Json[string] of expression
      * objects, a single expression or a single string.
      *
      * If an array is passed, keys will be used to alias tables using the value as the
@@ -459,7 +459,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * @param bool overwrite whether to reset joins with passed list or not
      * @see \UIM\Database\TypeFactory
     * /
-    auto join(string[] atables, array types = [], bool overwrite = false) {
+    auto join(string[] atables, Json[string] types = [], bool overwrite = false) {
         if (isString(aTables) || isSet(aTables["table"])) {
             aTables = [aTables];
         }
@@ -806,7 +806,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * 'allowEmpty' to true.
      * Be careful about using it without proper sanity checks.
      * /
-    auto whereInList(string fieldName, array someValues, Json[string] options = null) {
+    auto whereInList(string fieldName, Json[string] someValues, Json[string] options = null) {
         // `types` - Associative array of type names used to bind values to query
         options["types"] = ArrayData;
 
@@ -830,7 +830,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Params:
      * @param array  someValues Array of values
      * /
-    auto whereNotInList(string fieldName, array someValues, Json[string] options = null) {
+    auto whereNotInList(string fieldName, Json[string] someValues, Json[string] options = null) {
         auto options = options.update([
             "types": Json.emptyArray,
             "allowEmpty": Json(false)
@@ -855,7 +855,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * @param array  someValues Array of values
      * @param Json[string] options Options
      * /
-    auto whereNotInListOrNull(string fieldName, array  someValues, Json[string] options = null) {
+    auto whereNotInListOrNull(string fieldName, Json[string]  someValues, Json[string] options = null) {
         auto options = options.update() [
             "types": Json.emptyArray,
             "allowEmpty": Json(false),
@@ -928,7 +928,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * @see \UIM\Database\Query.where()
      * @see \UIM\Database\TypeFactory
      * /
-    auto andWhere(IExpression|Closure|string[] aconditions, array types = []) {
+    auto andWhere(IExpression|Closure|string[] aconditions, Json[string] types = []) {
        _conjugate("where", conditions, "AND", types);
 
         return this;
@@ -937,7 +937,7 @@ abstract class DQuery : IQuery { // : IExpression {
     
     /**
      * Adds a single or multiple fields to be used in the ORDER clause for this query.
-     * Fields can be passed as an array of strings, array of expression
+     * Fields can be passed as an array of strings, Json[string] of expression
      * objects, a single expression or a single string.
      *
      * If an array is passed, keys will be used as the field itself and the value will
@@ -1217,7 +1217,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * expression = aQuery.expr("Table.column = Table2.column"); // Return a raw SQL expression
      * ```
      * Params:
-     * \UIM\Database\IExpression|string[] rawExpression A string, array or anything you want wrapped in an expression object
+     * \UIM\Database\IExpression|string[] rawExpression A string, Json[string] or anything you want wrapped in an expression object
      * /
     QueryExpression newExpr(IExpression|string[] rawExpression = null) {
         return _expr(rawExpression);
@@ -1237,7 +1237,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * expression = aQuery.expr("Table.column = Table2.column"); // Return a raw SQL expression
      * ```
      * Params:
-     * \UIM\Database\IExpression|string[] rawExpression A string, array or anything you want wrapped in an expression object
+     * \UIM\Database\IExpression|string[] rawExpression A string, Json[string] or anything you want wrapped in an expression object
      * /
     QueryExpression expr(IExpression|string[] rawExpression = null) {
         expression = new DQueryExpression([], this.getTypeMap());

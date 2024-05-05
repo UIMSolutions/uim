@@ -130,7 +130,7 @@ interface IStatement {
      * array params list of values to be bound
      * @param array types list of types to be used, keys should match those in params
      * /
-    void bind(Json[string] params, array types);
+    void bind(Json[string] params, Json[string] types);
 
     /**
      * Returns the latest primary inserted using this statement.

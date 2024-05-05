@@ -8,7 +8,7 @@ module uim.datasources.queries.interface_;
 /**
  * The basis for every query object
  *
- * @method this andWhere(conditions, array types = null) Connects any previously defined set of conditions to the
+ * @method this andWhere(conditions, Json[string] types = null) Connects any previously defined set of conditions to the
  *   provided list using the AND operator. {@see uim.databases.Query::andWhere()}
  * @method uim.Datasource\IEntity|array firstOrFail() Get the first result from the executing query or raise an exception.
  *   {@see uim.databases.Query::firstOrFail()}
@@ -177,7 +177,7 @@ interface IQuery {
 
     /**
      * Adds a single or multiple fields to be used in the ORDER clause for this query.
-     * Fields can be passed as an array of strings, array of expression
+     * Fields can be passed as an array of strings, Json[string] of expression
      * objects, a single expression or a single string.
      *
      * If an array is passed, keys will be used as the field itself and the value will
@@ -377,6 +377,6 @@ interface IQuery {
      * @param bool canOverwrite whether to reset conditions with passed list or not
      * @return this
      */
-    function where(conditions = null, array types = null, bool canOverwrite = false);
+    function where(conditions = null, Json[string] types = null, bool canOverwrite = false);
 }
 

@@ -82,7 +82,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * values that are being passed. Used for correctly binding values to statements.
      * @see \UIM\Database\Query.where() for examples on conditions
      * /
-    void add(IExpression|string[] aconditions, array types = []) {
+    void add(IExpression|string[] aconditions, Json[string] types = []) {
         if (isString(conditions) || cast(IExpression)conditions ) {
            _conditions ~= conditions;
 

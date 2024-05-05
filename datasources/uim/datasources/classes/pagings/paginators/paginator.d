@@ -165,7 +165,7 @@ class DPaginator : IPaginator {
      * @return \uim\Datasource\IResultset Query results
      * @throws \uim\Datasource\Exception\PageOutOfBoundsException
      * /
-    IDSResultset paginate(object object, array myParams= null, array settings= null) {
+    IDSResultset paginate(object object, Json[string] myParams= null, Json[string] settings= null) {
         myQuery = null;
         if (object instanceof IQuery) {
             myQuery = object;
@@ -200,7 +200,7 @@ class DPaginator : IPaginator {
     // \uim\Datasource\IRepository object Repository instance.
     // \uim\Datasource\IQuery|null myQuery Query Instance.
     //  array<string, mixed> myData Pagination data.
-    protected IDSQuery getQuery(IRepository object, ?IQuery myQuery, array myData) {
+    protected IDSQuery getQuery(IRepository object, ?IQuery myQuery, Json[string] myData) {
         if (myQuery == null) {
             myQuery = object.find(myData["finder"], myData["options"]);
         } else {
@@ -217,7 +217,7 @@ class DPaginator : IPaginator {
      * @param array myData Pagination data.
      * @return int|null
      * /
-    protected Nullable!int getCount(IQuery myQuery, array myData) {
+    protected Nullable!int getCount(IQuery myQuery, Json[string] myData) {
         return myQuery.count();
     }
 
@@ -229,7 +229,7 @@ class DPaginator : IPaginator {
      * @param array<string, mixed> settings The settings/configuration used for pagination.
      * @return array Array with keys "defaults", "options" and "finder"
      * /
-    protected auto extractData(IRepository anRepository, array myParams, array settings): array
+    protected auto extractData(IRepository anRepository, Json[string] myParams, Json[string] settings): array
     {
         aliasName = object.aliasName();
         defaults = this.getDefaults(aliasName, settings);
@@ -284,7 +284,7 @@ class DPaginator : IPaginator {
      * @param array myData Paginator data.
      * @return array<string, mixed> Updated params.
      * /
-    protected auto addPageCountParams(Json[string] myParams, array myData): array
+    protected auto addPageCountParams(Json[string] myParams, Json[string] myData): array
     {
         page = myParams["page"];
         pageCount = 0;
@@ -309,7 +309,7 @@ class DPaginator : IPaginator {
      * @param array myData Paginator data.
      * @return array<string, mixed> Updated params.
      * /
-    protected auto addStartEndParams(Json[string] myParams, array myData): array
+    protected auto addStartEndParams(Json[string] myParams, Json[string] myData): array
     {
         start = end = 0;
 
@@ -331,7 +331,7 @@ class DPaginator : IPaginator {
      * @param array myData Paging data.
      * @return array<string, mixed> Updated params.
      * /
-    protected auto addPrevNextParams(Json[string] myParams, array myData): array
+    protected auto addPrevNextParams(Json[string] myParams, Json[string] myData): array
     {
         myParams["prevPage"] = myParams["page"] > 1;
         if (myParams["count"] == null) {
@@ -350,7 +350,7 @@ class DPaginator : IPaginator {
      * @param array myData Paging data.
      * @return array<string, mixed> Updated params.
      * /
-    protected auto addSortingParams(Json[string] myParams, array myData): array
+    protected auto addSortingParams(Json[string] myParams, Json[string] myData): array
     {
         defaults = myData["defaults"];
         order = (array)myData["options"]["order"];
@@ -453,7 +453,7 @@ class DPaginator : IPaginator {
      * @param array settings The settings to merge with the request data.
      * @return array<string, mixed> Array of merged options.
      * /
-    function mergeOptions(Json[string] myParams, array settings): array
+    function mergeOptions(Json[string] myParams, Json[string] settings): array
     {
         if (!empty(settings["scope"])) {
             scope = settings["scope"];
@@ -475,7 +475,7 @@ class DPaginator : IPaginator {
      * @return array<string, mixed> An array of pagination settings for a model,
      *   or the general settings.
      * /
-    auto getDefaults(string aliasName, array settings): array
+    auto getDefaults(string aliasName, Json[string] settings): array
     {
         if (isset(settings[aliasName])) {
             settings = settings[aliasName];
@@ -617,7 +617,7 @@ class DPaginator : IPaginator {
      * @param bool allowed Whether the field was allowed.
      * @return array Final order array.
      * /
-    protected auto _prefix(IRepository object, array order, bool allowed = false): array
+    protected auto _prefix(IRepository object, Json[string] order, bool allowed = false): array
     {
         myTableAlias = object.aliasName();
         myTableOrder= null;

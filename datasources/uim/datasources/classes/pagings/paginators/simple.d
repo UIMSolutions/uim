@@ -19,7 +19,7 @@ class DSimplePaginator : DNumericPaginator {
      * @param array data Pagination data.
      * @return int|null
      * /
-    protected int count(IQuery query, array data) {
+    protected int count(IQuery query, Json[string] data) {
         return 0;
     } 
     
@@ -31,7 +31,7 @@ class DSimplePaginator : DNumericPaginator {
      * \UIM\Datasource\IQuery aQuery Query to fetch items.
      * @param array data Paging data.
      * /
-    protected IResultset getItems(IQuery aQuery, array data) {
+    protected IResultset getItems(IQuery aQuery, Json[string] data) {
         return aQuery.limit(someData["options"]["limit"] + 1).all();
     }
  
@@ -57,7 +57,7 @@ class DSimplePaginator : DNumericPaginator {
      * \UIM\Datasource\IResultset  someItems
      * @param array pagingParams
      * /
-    protected IPaginated buildPaginated(IResultset  someItems, array pagingParams) {
+    protected IPaginated buildPaginated(IResultset  someItems, Json[string] pagingParams) {
         if (count(someItems) > this.pagingParams["perPage"]) {
              someItems = someItems.take(this.pagingParams["perPage"]);
         }

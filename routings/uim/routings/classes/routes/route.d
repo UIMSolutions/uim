@@ -59,7 +59,7 @@ class DRoute : IRoute {
      * An array of named segments in a Route.
      * `/{controller}/{action}/{id}` has 3 key elements
      * /
-    Json[string]  someKeys = null;
+    Json[string] someKeys = null;
 
 
     // List of middleware that should be applied.
@@ -312,7 +312,7 @@ class DRoute : IRoute {
      * Params:
      * \Psr\Http\Message\IServerRequest myrequest The URL to attempt to parse.
      * /
-    Json[string]  parseRequest(IServerRequest myrequest) {
+    Json[string] parseRequest(IServerRequest myrequest) {
         myuri = myrequest.getUri();
         if (isSet(configuration.update("_host"]) && !this.hostMatches(myuri.getHost())) {
             return null;
@@ -329,7 +329,7 @@ class DRoute : IRoute {
      * string myurl The URL to attempt to parse.
      * @param string mymethod The HTTP method of the request being parsed.
      * /
-    Json[string]  parse(string myurl, string mymethod) {
+    Json[string] parse(string myurl, string mymethod) {
         try {
             if (!mymethod.isEmpty) {
                 mymethod = this.normalizeAndValidateMethods(mymethod);
@@ -738,7 +738,7 @@ class DRoute : IRoute {
      * Get the names of the middleware that should be applied to this route.
      *
      * /
-    Json[string]  getMiddleware() {
+    Json[string] getMiddleware() {
         return _middleware;
     }
     

@@ -1229,7 +1229,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param string[] someKeys the keys to check in options to build matchers from
      * the associated value
      * /
-    protected Json[string] _setFieldMatchers(Json[string] options, Json[string]  someKeys) {
+    protected Json[string] _setFieldMatchers(Json[string] options, Json[string] someKeys) {
         someKeys.each!((field) {
             if (!options[field].isArray) {
                 continue;
@@ -1806,7 +1806,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * \UIM\Datasource\IEntity myentity the subject entity from were mydata was extracted
      * @param array data The actual data that needs to be saved
      * /
-    protected IEntity _insert(IEntity myentity, Json[string]  data) {
+    protected IEntity _insert(IEntity myentity, Json[string] data) {
         auto primaryKey = (array)this.primaryKeys();
         if (isEmpty(primaryKey)) {
             mymsg = "Cannot insert row in `%s` table, it has no primary key."
@@ -1896,7 +1896,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * \UIM\Datasource\IEntity myentity the subject entity from were mydata was extracted
      * @param array data The actual data that needs to be saved
      * /
-    protected IEntity _update(IEntity myentity, Json[string]  data) {
+    protected IEntity _update(IEntity myentity, Json[string] data) {
         myprimaryColumns = (array)this.primaryKeys();
         myprimaryKey = myentity.extract(myprimaryColumns);
 
@@ -2268,7 +2268,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param \ORM\Query\SelectQuery<TSubject> myquery The query object.
      * @param array myargs Arguments for the callable.
      * /
-    SelectQuery<TSubject> invokeFinder(Closure mycallable, SelectQuery myquery, Json[string]  myargs) {
+    SelectQuery<TSubject> invokeFinder(Closure mycallable, SelectQuery myquery, Json[string] myargs) {
         auto myreflected = new DReflectionFunction(mycallable);
         auto myparams = myreflected.getParameters();
         auto mysecondParam = myparams[1] ?? null;
@@ -2338,7 +2338,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * string mymethod The method name that was fired.
      * @param array myargs List of arguments passed to the function.
      * /
-    protected ISelectQuery _dynamicFinder(string mymethod, Json[string]  myargs) {
+    protected ISelectQuery _dynamicFinder(string mymethod, Json[string] myargs) {
         mymethod = Inflector.underscore(mymethod);
         preg_match("/^find_([\w]+)_by_/", mymethod, mymatches);
         if (isEmpty(mymatches)) {
@@ -2392,7 +2392,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * @param array myargs List of arguments passed to the function
      * /
-    Json __call(string methodToInvoke, Json[string]  myargs) {
+    Json __call(string methodToInvoke, Json[string] myargs) {
         if (_behaviors.hasMethod(methodToInvoke)) {
             return _behaviors.call(methodToInvoke, myargs);
         }
@@ -2594,7 +2594,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param array data key value list of fields to be merged into the entity
      * @param Json[string] options A list of options for the object hydration.
      * /
-    IEntity patchEntity(IEntity myentity, Json[string]  data, Json[string] optionData = null) {
+    IEntity patchEntity(IEntity myentity, Json[string] data, Json[string] optionData = null) {
         options["associated"] ??= _associations.keys();
 
         return _marshaller().merge(myentity, mydata, options);
@@ -2629,7 +2629,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param array data list of arrays to be merged into the entities
      * @param Json[string] options A list of options for the objects hydration.
      * /
-    IEntity[] patchEntities(Range myentities, Json[string]  data, Json[string] optionData = null) {
+    IEntity[] patchEntities(Range myentities, Json[string] data, Json[string] optionData = null) {
         options["associated"] ??= _associations.keys();
 
         return _marshaller().mergeMany(myentities, mydata, options);
@@ -2669,7 +2669,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param array|null mycontext Either the validation context or null.
      * @return bool True if the value is unique, or false if a non-scalar, non-unique value was given.
      * /
-    bool validateUnique(Json aValue, Json[string] options, Json[string]  mycontext = null) {
+    bool validateUnique(Json aValue, Json[string] options, Json[string] mycontext = null) {
         if (mycontext.isNull) {
             mycontext = options;
         }
@@ -2785,7 +2785,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param array mycontain A `contain()` compatible array.
      * @see \ORM\Query.contain()
      * /
-    IEntity[] loadInto(IEntity|array myentities, Json[string]  mycontain) {
+    IEntity[] loadInto(IEntity|array myentities, Json[string] mycontain) {
         return (new DLazyEagerLoader()).loadInto(myentities, mycontain, this);
     }
  

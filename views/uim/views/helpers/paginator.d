@@ -385,7 +385,7 @@ class DPaginatorHelper : DHelper {
      * Json[string] options Pagination/URL options array
      * @param array myurl URL.
      * /
-    Json[string]  generateUrlParams(Json[string] options  = null, Json[string] myurl = []) {
+    Json[string] generateUrlParams(Json[string] options  = null, Json[string] myurl = []) {
         mypaging = this.params();
         mypaging += ["currentPage": null, "sort": null, "direction": null, "limit": null];
         mypaging["page"] = mypaging["currentPage"];

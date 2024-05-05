@@ -23,7 +23,7 @@ class DLazyEagerLoader {
      * @see \ORM\Query.contain()
      * @param \ORM\Table mysource The table to use for fetching the top level entities
      * /
-    IEntity[] loadInto(IEntity|array myentities, Json[string]  mycontain, Table mysource) {
+    IEntity[] loadInto(IEntity|array myentities, Json[string] mycontain, Table mysource) {
         auto resultSingle = false;
 
         if (cast(IEntity)myentities) {
@@ -46,7 +46,7 @@ class DLazyEagerLoader {
      * @param array mycontain The associations to be loaded
      * @param \ORM\Table mysource The table to use for fetching the top level entities
      * /
-    protected ISelectQuery _getQuery(IEntity[] myentities, Json[string]  mycontain, Table mysource)SelectQuery {
+    protected ISelectQuery _getQuery(IEntity[] myentities, Json[string] mycontain, Table mysource)SelectQuery {
         auto myprimaryKey = mysource.primaryKeys();
         auto mymethod = isString(myprimaryKey) ? "get" : "extract";
 
@@ -85,7 +85,7 @@ class DLazyEagerLoader {
      * \ORM\Table mysource The table having the top level associations
      * @param string[] myassociations The name of the top level associations
      * /
-    protected string[] _getPropertyMap(Table mysource, Json[string]  myassociations) {
+    protected string[] _getPropertyMap(Table mysource, Json[string] myassociations) {
         auto propertyMap = null;
         auto mycontainer = mysource.associations();
         foreach (myassociations as myassoc) {

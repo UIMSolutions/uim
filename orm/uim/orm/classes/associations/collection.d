@@ -296,7 +296,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      *
      * @param Json keys the list of association names to normalize
      * /
-    Json[string]  normalizeKeys(keys) {
+    Json[string] normalizeKeys(keys) {
         if (keys == true) {
             keys = this.keys();
         }

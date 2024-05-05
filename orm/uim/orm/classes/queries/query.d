@@ -425,7 +425,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
 
     /**
      * /
-    Json[string]  getContain() {
+    Json[string] getContain() {
         return _getEagerLoader().getContain();
     }
 

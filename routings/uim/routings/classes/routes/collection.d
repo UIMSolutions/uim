@@ -94,7 +94,7 @@ class DRouteCollection {
      * Params:
      * \Psr\Http\Message\IServerRequest myrequest The request to parse route data from.
      * /
-    Json[string]  parseRequest(IServerRequest serverRequest) {
+    Json[string] parseRequest(IServerRequest serverRequest) {
         auto myuri = serverRequest.getUri();
         auto myurlPath = urldecode(myuri.getPath());
         if (myurlPath != "/") {
@@ -372,7 +372,7 @@ class DRouteCollection {
      * Params:
      * string[] routingss The names of the middleware or groups to fetch
      * /
-    Json[string]  getMiddleware(string[] middlewareNames) {
+    Json[string] getMiddleware(string[] middlewareNames) {
         auto result = null;
         middlewareNames.each!((name) {
             if (this.hasMiddlewareGroup(routings)) {

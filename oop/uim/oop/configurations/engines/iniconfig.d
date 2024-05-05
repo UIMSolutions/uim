@@ -100,7 +100,7 @@ class DIniConfig : IConfigEngine {
      * Params:
      * array  someValues Values to be exploded.
      * /
-    // TODO protected array _parseNestedValues(Json[string]  someValues) {
+    // TODO protected array Json[string] _parseNestedValues(Json[string]  someValues) {
         someValues.byKeyValue
             .each!((kv) {
             if (kv.value == "1") {

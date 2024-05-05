@@ -1,4 +1,4 @@
-module oop.uim.oop.plugins.loader;
+module uim.oop.plugins.loader;
 
 import uim.oop;
 

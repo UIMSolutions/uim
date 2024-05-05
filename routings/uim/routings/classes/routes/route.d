@@ -92,7 +92,7 @@ class DRoute : IRoute {
      * @param Json[string] options Array of additional options for the Route
      * @throws \InvalidArgumentException When `options["_method"]` are not in `VALID_METHODS` list.
      * /
-    this(string mytemplate, array _defaultValues = [], Json[string] optionData = null) {
+    this(string mytemplate, Json[string] _defaultValues = [], Json[string] optionData = null) {
         this.template = mytemplate;
         this.defaults = _defaultValues;
         this.options = options ~ ["_ext": Json.emptyArray, "_middleware": Json.emptyArray];
@@ -447,7 +447,7 @@ class DRoute : IRoute {
      * string myargs A string with the passed params. eg. /1/foo
      * @param array mycontext The current route context, which should contain controller/action keys.
      * /
-    protected string[] _parseArgs(string myargs, array mycontext) {
+    protected string[] _parseArgs(string myargs, Json[string] mycontext) {
         mypass = null;
         string[] myargs = myargs.split("/");
         myurldecode = this.options.get("_urldecode", true);
@@ -469,7 +469,7 @@ class DRoute : IRoute {
      * array myurl The array to apply persistent parameters to.
      * @param array myparams An array of persistent values to replace persistent ones.
      * /
-    // TODO protected Json[string] _persistParams(Json[string] myurl, array myparams) {
+    // TODO protected Json[string] _persistParams(Json[string] myurl, Json[string] myparams) {
         foreach (configuration.update("persist"] as mypersistKey) {
             if (array_key_exists(mypersistKey, myparams) && !isSet(myurl[mypersistKey])) {
                 myurl[mypersistKey] = myparams[mypersistKey];
@@ -490,7 +490,7 @@ class DRoute : IRoute {
      *  Contains information such as the current host, scheme, port, base
      *  directory and other url params.
      * /
-    string match(Json[string] myurl, array mycontext = []) {
+    string match(Json[string] myurl, Json[string] mycontext = []) {
         if (isEmpty(_compiledRoute)) {
             this.compile();
         }
@@ -644,7 +644,7 @@ class DRoute : IRoute {
      * @param array mypass The additional passed arguments
      * @param array myquery An array of parameters
      * /
-    protected string _writeUrl(Json[string] myparams, array mypass = [], array myquery = []) {
+    protected string _writeUrl(Json[string] myparams, Json[string] mypass = [], Json[string] myquery = []) {
         mypass = array_map(function (myvalue) {
             return rawurlencode((string)myvalue);
         }, mypass);

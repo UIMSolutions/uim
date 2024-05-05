@@ -353,7 +353,7 @@ class DFormProtector {
      * @param string aurl Form URL.
      * @param string asessionId Session Id.
      * /
-    protected string generateHash(string[] fieldNames, array unlockedFields, string aurl, string asessionId) {
+    protected string generateHash(string[] fieldNames, Json[string] unlockedFields, string aurl, string asessionId) {
         hashParts = [
             url,
             serialize(fields),
@@ -370,7 +370,7 @@ class DFormProtector {
      * array formData Data.
      * @param array hashParts Elements used to generate the Token hash
      * /
-    protected string debugTokenNotMatching(Json[string] formData, array hashParts) {
+    protected string debugTokenNotMatching(Json[string] formData, Json[string] hashParts) {
         messages = null;
         if (!isSet(formData["_Token"]["debug"])) {
             return "Form protection debug token not found.";

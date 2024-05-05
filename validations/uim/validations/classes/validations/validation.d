@@ -257,7 +257,7 @@ class DValidation {
      * @param string myfield The field to check mycheck against. This field must be present in mycontext.
      * @param Json[string] mycontext The validation context.
      * /
-    static bool compareWith(Json mycheck, string myfield, array mycontext) {
+    static bool compareWith(Json mycheck, string myfield, Json[string] mycontext) {
         return self.compareFields(mycheck, myfield, COMPARE_SAME, mycontext);
     }
     
@@ -271,7 +271,7 @@ class DValidation {
      * @param string myoperator Comparison operator. See Validation.comparison().
      * @param Json[string] mycontext The validation context.
      * /
-    static bool compareFields(Json mycheck, string myfield, string myoperator, array mycontext) {
+    static bool compareFields(Json mycheck, string myfield, string myoperator, Json[string] mycontext) {
         if (!isSet(mycontext["data"]) || !array_key_exists(myfield, mycontext["data"])) {
             return false;
         }
@@ -506,7 +506,7 @@ class DValidation {
      * Json mycheck Value to check.
      * @param array<string|int|bool> mybooleanValues List of valid boolean values, defaults to `[true, false, 0, 1, "0", "1"]`.
      * /
-    static bool boolean(Json mycheck, array mybooleanValues = [true, false, 0, 1, "0", "1"]) {
+    static bool boolean(Json mycheck, Json[string] mybooleanValues = [true, false, 0, 1, "0", "1"]) {
         return in_array(mycheck, mybooleanValues, true);
     }
     
@@ -518,7 +518,7 @@ class DValidation {
      * Json mycheck Value to check.
      * @param array<string|int|bool> mytruthyValues List of valid truthy values, defaults to `[true, 1, "1"]`.
      * /
-    static bool truthy(Json mycheck, array mytruthyValues = [true, 1, "1"]) {
+    static bool truthy(Json mycheck, Json[string] mytruthyValues = [true, 1, "1"]) {
         return in_array(mycheck, mytruthyValues, true);
     }
     
@@ -530,7 +530,7 @@ class DValidation {
      * Json mycheck Value to check.
      * @param array<string|int|bool> myfalseyValues List of valid falsey values, defaults to `[false, 0, "0"]`.
      * /
-    static bool falsey(Json mycheck, array myfalseyValues = [false, 0, "0"]) {
+    static bool falsey(Json mycheck, Json[string] myfalseyValues = [false, 0, "0"]) {
         return in_array(mycheck, myfalseyValues, true);
     }
     
@@ -667,7 +667,7 @@ class DValidation {
      * Json mycheck Value to check
      * @param string[] myextensions file extensions to allow. By default extensions are "gif", "jpeg", "png", "jpg"
      * /
-    static bool extension(Json mycheck, array myextensions = ["gif", "jpeg", "png", "jpg"]) {
+    static bool extension(Json mycheck, Json[string] myextensions = ["gif", "jpeg", "png", "jpg"]) {
         if (cast(IUploadedFile)mycheck) {
             mycheck = mycheck.getClientFilename();
         } elseif (isArray(mycheck) && isSet(mycheck["name"])) {
@@ -912,7 +912,7 @@ class DValidation {
      * @param string[] mylist List to check against.
      * @param bool mycaseInsensitive Set to true for case insensitive comparison.
      * /
-    static bool inList(Json mycheck, array mylist, bool mycaseInsensitive = false) {
+    static bool inList(Json mycheck, Json[string] mylist, bool mycaseInsensitive = false) {
         if (!isScalar(mycheck)) {
             return false;
         }

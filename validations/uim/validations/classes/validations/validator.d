@@ -2078,7 +2078,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @return this
      * @throws \InvalidArgumentException
      * /
-    auto range(string myfield, array myrange, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto range(string myfield, Json[string] myrange, string myMessage = null, IClosure|string|null mywhen = null) {
         if (count(myrange) != 2) {
             throw new DInvalidArgumentException("The myrange argument requires 2 numbers");
         }
@@ -2165,7 +2165,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      *  true when the validation rule should be applied.
      * @see \UIM\Validation\Validation.inList()
      * /
-    auto inList(string myfield, array mylist, string myMessage = null, IClosure|string|null mywhen = null) {
+    auto inList(string myfield, Json[string] mylist, string myMessage = null, IClosure|string|null mywhen = null) {
         mylistEnumeration = join(", ", mylist);
 
         if (myMessage.isNull) {
@@ -2673,7 +2673,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * \UIM\Validation\ValidationSet myfield The set of rules for a field.
      * @param Json[string] mycontext A key value list of data containing the validation context.
      * /
-    protected bool _checkPresence(ValidationSet myfield, array mycontext) {
+    protected bool _checkPresence(ValidationSet myfield, Json[string] mycontext) {
         myrequired = myfield.isPresenceRequired();
 
         if (cast(Closure)myrequired) {
@@ -2693,7 +2693,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * \UIM\Validation\ValidationSet myfield the set of rules for a field
      * @param Json[string] mycontext a key value list of data containing the validation context.
      * /
-    protected bool _canBeEmpty(ValidationSet myfield, array mycontext) {
+    protected bool _canBeEmpty(ValidationSet myfield, Json[string] mycontext) {
         myallowed = myfield.isEmptyAllowed();
 
         if (cast(Closure)myallowed) {
@@ -2760,7 +2760,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @param array data the full data passed to the validator
      * @param bool mynewRecord whether is it a new record or an existing one
      * /
-    protected Json[string] _processRules(string myfield, ValidationSet myrules, array data, bool mynewRecord) {
+    protected Json[string] _processRules(string myfield, ValidationSet myrules, Json[string] data, bool mynewRecord) {
         myerrors = null;
         // Loading default provider in case there is none
         this.getProvider("default");

@@ -24,7 +24,7 @@ class DRedirectRoute : DRoute {
      * @param array mydefaults Defaults for the route. Either a redirect=>value array or a UIM array URL.
      * @param Json[string] options Array of additional options for the Route
      * /
-    this(string mytemplate, array mydefaults = [], Json[string] optionData = null) {
+    this(string mytemplate, Json[string] mydefaults = [], Json[string] optionData = null) {
         super(mytemplate, mydefaults, options);
         if (isSet(mydefaults["redirect"])) {
             mydefaults = (array)mydefaults["redirect"];
@@ -70,7 +70,7 @@ class DRedirectRoute : DRoute {
      * array myurl Array of parameters to convert to a string.
      * @param array mycontext Array of request context parameters.
      * /
-    string match(Json[string] myurl, array mycontext = []) {
+    string match(Json[string] myurl, Json[string] mycontext = []) {
         return null;
     }
     

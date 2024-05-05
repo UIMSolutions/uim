@@ -8,7 +8,7 @@ import uim.validations;
  * Proxy class used to remove any extra arguments when the user intended to call
  * a method in another class that is not aware of validation providers signature
  *
- * @method bool extension(Json mycheck, array myextensions, array mycontext = [])
+ * @method bool extension(Json mycheck, Json[string] myextensions, Json[string] mycontext = [])
  */
 class DRulesProvider {
     /*
@@ -41,7 +41,7 @@ class DRulesProvider {
      * string mymethod the validation method to call
      * @param array myarguments the list of arguments to pass to the method
      * /
-    bool __call(string validationMethod, array myarguments) {
+    bool __call(string validationMethod, Json[string] myarguments) {
         auto method = _reflection.getMethod(mymethod);
         myargumentList = method.getParameters();
 

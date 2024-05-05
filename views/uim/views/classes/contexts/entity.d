@@ -242,7 +242,7 @@ class DEntityContext : DContext {
      * Json myvalues The list from which to extract primary keys from
      * @param string[] mypath Each one of the parts in a path for a field name
      * /
-    // TODO protected Json[string] _extractMultiple(Json myvalues, array mypath) {
+    // TODO protected Json[string] _extractMultiple(Json myvalues, Json[string] mypath) {
         if (!is_iterable(myvalues)) {
             return null;
         }

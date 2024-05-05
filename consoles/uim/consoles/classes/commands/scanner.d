@@ -78,7 +78,7 @@ class DCommandScanner {
      * @param string aprefix The prefix to apply to commands for their full name.
      * @param string[] commandsToHide A list of command names to hide as they are internal commands.
      * /
-    // TODO protected array Json[string] scanDir(string directoryPath, string shellNamespace, string aprefix, string[] commandsToHide) {
+    // TODO protected Json[string] scanDir(string directoryPath, string shellNamespace, string aprefix, string[] commandsToHide) {
         if (!isDir(directoryPath)) {
             return null;
         }

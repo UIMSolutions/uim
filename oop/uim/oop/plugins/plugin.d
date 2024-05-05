@@ -5,8 +5,7 @@ import uim.oop;
 @safe:
 
 /**
- * Base Plugin Class
- *
+ * Plugin Class
  * Every plugin should extend from this class or implement the interfaces and
  * include a plugin class in its src root folder.
  */
@@ -47,17 +46,30 @@ mixin TConfigurable;
     protected string _path = null;
 
     // The class path for this plugin.
-    protected string classNamePath = null;
+    protected string _classNamePath = null;
 
     // The config path for this plugin.
-    protected string configDataPath = null;
+    protected string _configDataPath = null;
 
     // The templates path for this plugin.
-    protected string atemplatePath = null;
+    protected string _templatePath = null;
 
     // The name of this plugin
-    mixin(TProperty!("string", "name"));
+    protected string _name;
+    @property void name(string newName) {
+        _name = newName;
+    }
+    @property string name() {
+        if (_name.isEmpty) {
+            return _name;
+        }
+        
+        string[] pathParts = _classNamePath.split("\\");
+        // TODO array_pop(someParts);
+        _name = pathParts.join("/");
 
+        return _name;
+    }
     /**
      * Constructor
      * Params:
@@ -77,21 +89,9 @@ mixin TConfigurable;
         this.initialize();
     }
     
-    bool initialize(IData[string] initData = null) {
-    }
- 
-    @property string name() {
-        if (_name.isNull) {
-            return _name;
-        }
-        
-        string[] someParts = class.split("\\");
-        array_pop(someParts);
-        _name = someParts.join("/");
+    */
 
-        return _name;
-    }
- 
+    */
     string getPath() {
         if (!_path.isNull) {
             return _path;

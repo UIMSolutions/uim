@@ -72,7 +72,7 @@ class DComponent { // TODO }: IEventListener {
     protected DComponentRegistry _registry;
 
     // Other Components this component uses.
-    // TODO // TODO protected array Json[string] components = null;
+    // TODO // TODO protected Json[string] components = null;
 
     // Loaded component instances.
     protected IComponent[string] componentInstances = null;

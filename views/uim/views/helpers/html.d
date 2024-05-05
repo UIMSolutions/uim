@@ -493,11 +493,9 @@ class DHtmlHelper : DHelper {
      *
      * - `block` Set to true to append output to view block "script" or provide
      *  custom block name.
-     * Params:
-     * Json[string] options Options for the code block.
      * /
-    void scriptStart(Json[string] options  = null) {
-       _scriptBlockOptions = options;
+    void scriptStart(Json[string] optionsForCodeblock  = null) {
+       _scriptBlockOptions = optionsForCodeblock;
         ob_start();
     }
     

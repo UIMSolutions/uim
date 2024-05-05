@@ -559,27 +559,24 @@ class DPaginatorHelper : DHelper {
      * The generated number links will include the "ellipsis" template when the `first` and `last` options
      * and the number of pages exceed the modulus. For example if you have 25 pages, and use the first/last
      * options and a modulus of 8, ellipsis content will be inserted after the first and last link sets.
-     * Params:
-     * Json[string] options Options for the numbers.
      * /
-    string numbers(Json[string] options  = null) {
-        mydefaults = [
+    string numbers(Json[string] optionsForNumbers  = null) {
+        Json[string] updatedOptions = optionsForNumbers.merge([
             "before": null, "after": null,
             "modulus": 8, "first": null, "last": null, "url": Json.emptyArray,
-        ];
-        options = options.updatemydefaults;
+        ]);
 
         myparams = this.params() ~ ["currentPage": 1];
         if (myparams["pageCount"] <= 1) {
             return "";
         }
         mytemplater = this.templater();
-        if (isSet(options["templates"])) {
+        if (updatedOptions.hasKey("templates"])) {
             mytemplater.push();
-            mymethod = isString(options["templates"]) ? "load" : "add";
-            mytemplater.{mymethod}(options["templates"]);
+            mymethod = isString(updatedoptions["templates"]) ? "load" : "add";
+            mytemplater.{mymethod}(updatedoptions["templates"]);
         }
-        if (options["modulus"] != false && myparams["pageCount"] > options["modulus"]) {
+        if (updatedoptions["modulus"] != false && myparams["pageCount"] > updatedOptions["modulus"]) {
             result = _modulusNumbers(mytemplater, myparams, options);
         } else {
             result = _numbers(mytemplater, myparams, options);
@@ -596,7 +593,7 @@ class DPaginatorHelper : DHelper {
      * Json[string] myparams Params from the numbers() method.
      * @param Json[string] options Options from the numbers() method.
      * /
-    // TODO protected array Json[string] _getNumbersStartAndEnd(Json[string] myparams, Json[string] options) {
+    // TODO protected Json[string] _getNumbersStartAndEnd(Json[string] myparams, Json[string] options) {
         myhalf = (int)(options["modulus"] / 2);
         myend = max(1 + options["modulus"], myparams["currentPage"] + myhalf);
         mystart = min(

@@ -107,7 +107,7 @@ mixin template TCookieCrypt() {
      * Params:
      * array myarray Map of key and values
      * /
-    protected string _join(array myarray) {
+    protected string _join(Json[string] myarray) {
         return Json_encode(myarray, Json_THROW_ON_ERROR);
     }
     

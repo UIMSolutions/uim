@@ -199,7 +199,7 @@ abstract class DTestCase : DBaseTestCase {
      * Params:
      * array|null myappArgs Constructor parameters for the application class.
      * /
-    void loadRoutes(array myappArgs = null) {
+    void loadRoutes(Json[string] myappArgs = null) {
         myappArgs ??= [stripRight(CONFIG, DIRECTORY_SEPARATOR)];
         /** @var class-string myclassName * /
         myclassName = Configuration.read("App.namespace") ~ "\\Application";
@@ -222,7 +222,7 @@ abstract class DTestCase : DBaseTestCase {
      * Params:
      * IData[string] plugins List of Plugins to load.
      * /
-    BaseApplication loadPlugins(array plugins = []) {
+    BaseApplication loadPlugins(Json[string] plugins = []) {
         /**
          * @psalm-suppress MissingTemplateParam
          * /
@@ -258,7 +258,7 @@ abstract class DTestCase : DBaseTestCase {
      * Params:
      * string[] pluginNames A list of plugins you want to remove.
      * /
-    void removePlugins(array pluginNames = []) {
+    void removePlugins(Json[string] pluginNames = []) {
         auto pluginCollection = Plugin.getCollection();
         pluginNames.each!(name => pluginCollection.remove(name));
     }
@@ -519,7 +519,7 @@ abstract class DTestCase : DBaseTestCase {
      * @param string mlText An HTML/XHTML/XML string
      * @param bool fullDebug Whether more verbose output should be used.
      * /
-   bool assertHtml(array expected, string mlText, bool fullDebug = false) {
+   bool assertHtml(Json[string] expected, string mlText, bool fullDebug = false) {
         regex = null;
         normalized = null;
         foreach (expected as aKey: val) {

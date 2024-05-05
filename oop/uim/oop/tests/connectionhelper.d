@@ -36,7 +36,7 @@ class DConnectionHelper {
      * Params:
      * array<int, string>|null aConnections Connection names or null for all.
      * /
-    void enableQueryLogging(array aConnections = null) {
+    void enableQueryLogging(Json[string] aConnections = null) {
         aConnections ??= ConnectionManager.configured();
         foreach (aConnections as aConnection) {
             aConnection = ConnectionManager.get(aConnection);

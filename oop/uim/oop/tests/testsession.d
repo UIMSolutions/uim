@@ -18,7 +18,7 @@ class DTestSession {
     /**
      * @param array|null mysession Session data.
      * /
-    this(array mysession) {
+    this(Json[string] mysession) {
         this.session = mysession;
     }
     

@@ -13,6 +13,6 @@ class DOOPSimpleObject : DOOPObject {
 }
 auto OOPSimpleObject() { return new DOOPSimpleObject; }
 
-version(test_uim_oop) { unittest { /// TODO 
+unittest { 
 	// TODO
-}}
+}

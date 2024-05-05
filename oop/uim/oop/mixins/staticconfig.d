@@ -258,7 +258,7 @@ REGEXP;
      * STRINGAA map Additions/edits to the class map to apply.
      * @psalm-param array<string, class-string> map
      * /
-    static void setDsnClassMap(array map) {
+    static void setDsnClassMap(Json[string] map) {
         _dsnClassMap = map + _dsnClassMap;
     }
     

@@ -9,7 +9,7 @@ mixin template TUnitConsecutive() {
      * @param array firstCallArguments The call arguments
      * @param array ...consecutiveCallsArguments Additional arguments
      * /
-    static iterable withConsecutive(array firstCallArguments, array ...consecutiveCallsArguments) {
+    static iterable withConsecutive(Json[string] firstCallArguments, array ...consecutiveCallsArguments) {
         allConsecutiveCallsArguments = [firstCallArguments, ...consecutiveCallsArguments];
 
         numberOfArguments = count(firstCallArguments);

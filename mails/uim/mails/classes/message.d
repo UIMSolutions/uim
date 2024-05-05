@@ -611,7 +611,7 @@ class DMessage { //: JsonSerializable {
      * Params:
      * array  aHeaders Associative array containing headers to be set.
      * /
-    auto setHeaders(array  aHeaders) {
+    auto setHeaders(Json[string]  aHeaders) {
         this.headers = aHeaders;
 
         return this;
@@ -622,7 +622,7 @@ class DMessage { //: JsonSerializable {
      * Params:
      * array  aHeaders Headers to set.
      * /
-    auto addHeaders(array  aHeaders) {
+    auto addHeaders(Json[string]  aHeaders) {
         this.headers = Hash.merge(this.headers,  aHeaders);
 
         return this;
@@ -644,7 +644,7 @@ class DMessage { //: JsonSerializable {
      * Params:
      * string[] anInclude List of headers.
      * /
-    string[] getHeaders(array  anInclude = []) {
+    string[] getHeaders(Json[string]  anInclude = []) {
         this.createBoundary();
 
         if (anInclude == anInclude.values) {
@@ -724,7 +724,7 @@ class DMessage { //: JsonSerializable {
      * @param string aeol End of line string for concatenating headers.
      * @param \Closure|null aCallback Callback to run each header value through before stringifying.
      * /
-    string getHeadersString(array  anInclude = [], string aeol = "\r\n", ?Closure aCallback = null) {
+    string getHeadersString(Json[string]  anInclude = [], string aeol = "\r\n", ?Closure aCallback = null) {
         auto lines = this.getHeaders(anInclude);
 
         if (aCallback) {
@@ -752,7 +752,7 @@ class DMessage { //: JsonSerializable {
      * Params:
      * array address Addresses to format.
      * /
-    // TODO protected array formatAddress(array address) {
+    // TODO protected array formatAddress(Json[string] address) {
         auto result;
         foreach (address as email: alias) {
             if (email == alias) {
@@ -947,7 +947,7 @@ class DMessage { //: JsonSerializable {
      * @throws \InvalidArgumentException
      * @see \UIM\Mailer\Email.setAttachments()
      * /
-    void addAttachments(array attachments) {
+    void addAttachments(Json[string] attachments) {
         current = this.attachments;
         this.setAttachments(attachments);
         this.attachments = array_merge(current, this.attachments);
@@ -1171,7 +1171,7 @@ class DMessage { //: JsonSerializable {
      * STRINGAA content Content array with keys "text" and/or "html" with
      *  content string of respective type.
      * /
-    auto setBody(array content) {
+    auto setBody(Json[string] content) {
         foreach (content as type: text) {
             if (!in_array(type, this.emailFormatAvailable, true)) {
                 throw new DInvalidArgumentException(
@@ -1514,7 +1514,7 @@ class DMessage { //: JsonSerializable {
      * Params:
      * array data Data array.
      * /
-    void __unserialize(array data) {
+    void __unserialize(Json[string] data) {
         this.createFromArray(someData);
     } */
 }

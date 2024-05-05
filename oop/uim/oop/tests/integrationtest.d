@@ -136,7 +136,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string[] unlockedFields List of fields that are excluded from field validation.
      * /
-    void setUnlockedFields(array unlockedFields = []) {
+    void setUnlockedFields(Json[string] unlockedFields = []) {
        _unlockedFields = unlockedFields;
     }
     
@@ -172,7 +172,7 @@ mixin template TIntegrationTest() {
      * Params:
      * array data The request data to use.
      * /
-    void configRequest(array data) {
+    void configRequest(Json[string] data) {
        _request = array_merge_recursive(someData, _request);
     }
     
@@ -200,7 +200,7 @@ mixin template TIntegrationTest() {
      * Params:
      * array data The session data to use.
      * /
-    void session(array data) {
+    void session(Json[string] data) {
        _session = someData + _session;
     }
     
@@ -550,7 +550,7 @@ mixin template TIntegrationTest() {
      * Params:
      * array data POST data
      * /
-    // TODO protected array _castToString(array data) {
+    // TODO protected array _castToString(Json[string] data) {
         someData.byKeyValue
             .each!((kv) {
             if (isScalar(kv.value)) {

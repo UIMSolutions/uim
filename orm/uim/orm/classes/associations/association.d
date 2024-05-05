@@ -900,7 +900,7 @@ protected void _bindNewAssociations(Query query, Query surrogate, Json[string] o
      * @throws \RuntimeException if the number of columns in the foreignKeys do not
      * match the number of columns in the source table primaryKeys
      * /
-// TODO protected array Json[string] _joinCondition(Json[string] optionData) {
+// TODO protected Json[string] _joinCondition(Json[string] optionData) {
     conditions = null;
     tAlias = _name;
     sAlias = this.getSource().aliasName();
@@ -954,7 +954,7 @@ protected void _bindNewAssociations(Query query, Query surrogate, Json[string] o
      * @param array|string finderData The finder name or an array having the name as key
      * and options as value.
      * /
-// TODO protected array Json[string] _extractFinder(finderData) {
+// TODO protected Json[string] _extractFinder(finderData) {
     finderData = (array) finderData;
 
     if (key(finderData).isNumeric) {

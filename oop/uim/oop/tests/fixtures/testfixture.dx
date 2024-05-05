@@ -109,7 +109,7 @@ class DTestFixture : IFixture {
     }
     
     // Converts the internal records into data used to generate a query.
-    // TODO protected array Json[string] _getRecords() {
+    // TODO protected Json[string] _getRecords() {
         auto fields = null;
         auto someValues = null;
         auto types = null;

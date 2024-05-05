@@ -126,7 +126,7 @@ class DBelongsToAssociation : DAssociation {
      * @throws \RuntimeException if the number of columns in the foreignKeys do not
      * match the number of columns in the target table primaryKeys
      * /
-    // TODO protected array Json[string] _joinCondition(Json[string] optionData) {
+    // TODO protected Json[string] _joinCondition(Json[string] optionData) {
         conditions = null;
         tAlias = _name;
         sAlias = _sourceTable.aliasName();

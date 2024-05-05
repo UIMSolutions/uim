@@ -37,7 +37,7 @@ class DMarshaller {
      * @param Json[string] options List of options containing the "associated" key.
      * @throws \InvalidArgumentException When associations do not exist.
      * /
-    // TODO protected array Json[string] _buildPropertyMap(Json[string] data, Json[string] options) {
+    // TODO protected Json[string] _buildPropertyMap(Json[string] data, Json[string] options) {
         auto mymap = null;
         auto tableSchema = _table.getSchema();
 
@@ -197,7 +197,7 @@ class DMarshaller {
      * @param string|bool myvalidator Validator name or `true` for default validator.
      * @param bool myisNew Whether it is a new DORMEntity or one to be updated.
      * /
-    // TODO protected array Json[string] _validate(Json[string] data, string|bool myvalidator, bool myisNew) {
+    // TODO protected Json[string] _validate(Json[string] data, string|bool myvalidator, bool myisNew) {
         if (!myvalidator) {
             return null;
         }
@@ -213,7 +213,7 @@ class DMarshaller {
      * Json[string] mydata The data to prepare.
      * @param Json[string] options The options passed to this marshaller.
      * /
-    // TODO protected array Json[string] _prepareDataAndOptions(Json[string] data, Json[string] options) {
+    // TODO protected Json[string] _prepareDataAndOptions(Json[string] data, Json[string] options) {
         options = options.update["validate": Json(true)];
 
         mytableName = _table.aliasName();

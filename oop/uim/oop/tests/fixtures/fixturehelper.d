@@ -181,7 +181,7 @@ class DFixtureHelper {
      * \UIM\Database\Connection aConnection Database connection
      * @param array<\UIM\Datasource\IFixture> fixtures Database fixtures
      * /
-    // TODO protected array Json[string] sortByConstraint(Connection aConnection, array fixtures) {
+    // TODO protected Json[string] sortByConstraint(Connection aConnection, array fixtures) {
         constrained = null;
         unconstrained = null;
         fixtures.each((fixture) {

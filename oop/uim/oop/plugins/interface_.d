@@ -7,17 +7,18 @@ import uim.oop;
 // Plugin Interface
 interface IPlugin : INamed {
     // Get the filesystem path to this plugin
-    string getPath();
+    string path();
 
+    // TODO
     /* 
     // Get the filesystem path to configuration for this plugin
-    string getConfigPath();
+    string configPath();
 
     // Get the filesystem path to configuration for this plugin
-    string getClassPath();
+    string classPath();
 
     // Get the filesystem path to templates for this plugin
-    string getTemplatePath();
+    string templatePath();
 
     /**
      * Load all the application configuration and bootstrap logic.

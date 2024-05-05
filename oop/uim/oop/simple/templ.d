@@ -12,6 +12,6 @@ class DOOPSimpleTempl(T) : DOOPSimpleObject {
 }
 auto OOPSimpleTempl(T)() { return new DOOPSimpleTempl!T; }
 
-version(test_uim_oop) { unittest {
+unittest {
 	// TODO
-}}
+}

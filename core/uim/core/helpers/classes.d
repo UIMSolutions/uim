@@ -17,7 +17,7 @@ string baseName(ClassInfo classinfo) {
 }
 
 string classFullname(Object instance) {
-    if (instance.isNull) {
+    if (instance is null) {
         return "null";
     }
 
@@ -25,7 +25,7 @@ string classFullname(Object instance) {
 }
 
 string className(Object instance) {
-    if (instance.isNull) {
+    if (instance is null) {
         return "null";
     }
 

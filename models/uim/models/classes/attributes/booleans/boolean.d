@@ -3,7 +3,7 @@
 *	License: Subject to the terms of the MIT license, as written in the included LICENSE.txt file.
 *	Authors: UI Manufaktur Team
 ************************************************************************************************/
-module uim.models.classes.attributes.booleans.boolean;
+module models.uim.models.classes.attributes.booleans.boolean;
 
 import uim.models;
 
@@ -29,8 +29,9 @@ is.dataFormat.boolean */
     return true;
   }
 
-  /* override Json createData() {
-    return Json(this); } */
+  override Json createData() {
+    Json result = super.createData;
+    return result; }
 }
 
 mixin(AttributeCalls!"BooleanAttribute");

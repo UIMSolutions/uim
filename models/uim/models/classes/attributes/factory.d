@@ -21,11 +21,11 @@ class DAttributeFactory {
     }
 
     // Create a new attribute based on this attribute an a giving name 
-    DAttribute create(string aName) {
+    DAttribute create(string aName, Json[string] option = null) {
         DAttribute result;
 
         switch (aName) {
-        case "bool":
+        case "bool": return BooleanAttribute;
             break;
         case "byte":
             break;

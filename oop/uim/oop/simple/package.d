@@ -8,4 +8,4 @@ module uim.oop.simple;
 public {
 	import uim.oop.simple.obj;
 	import uim.oop.simple.templ;
-	}
+}

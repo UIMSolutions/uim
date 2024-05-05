@@ -1,14 +1,11 @@
-module uim.oop.plugins.plugin;
+module oop.uim.oop.plugins.loader;
 
 import uim.oop;
 
 @safe:
 
-/* * Plugin is used to load and locate plugins.
- *
- * It also can retrieve plugin paths and load their bootstrap and routes files.
- */
-class DPlugin : IPlugin {
+// Plugin is used to load and locate plugins.
+class DPluginLoader {
     mixin TConfigurable;
 
     this() {
@@ -26,6 +23,19 @@ class DPlugin : IPlugin {
         return true;
     }
 
+    // The path to this plugin.
+    protected string _path = null;
+
+    // The class path for this plugin.
+    protected string classNamePath = null;
+
+    // The config path for this plugin.
+    protected string configDataPath = null;
+
+    // The templates path for this plugin.
+    protected string atemplatePath = null;
+
+    // The name of this plugin
     mixin(TProperty!("string", "name"));
 
     // List of valid hooks.
@@ -56,20 +66,20 @@ class DPlugin : IPlugin {
 
         return plugin.getConfigPath();
     }
-    */
 
     // Returns the filesystem path for plugin`s folder containing template files.
-    // TODO 
-    /* 
     static string templatePath(string pluginName) {
-        auto plugin = getCollection().get(pluginName);
+    // TODO 
+        /* auto plugin = getCollection().get(pluginName);
 
-        return plugin.getTemplatePath();
+        return plugin.getTemplatePath(); */
+        return null; 
     }
 
     // Returns true if the plugin is already loaded.
     static bool isLoaded(string pluginName) {
-        return getCollection().has(pluginName);
+        // TODO return getCollection().has(pluginName);
+        return false; 
     }
 
     // Return names of loaded plugins.
@@ -81,7 +91,7 @@ class DPlugin : IPlugin {
                 .sort;
 
         return names;
-    } */
+    }
 
     /**
      * Get the shared plugin collection.

@@ -28,7 +28,7 @@ class DPropertyObj : DOOPElement {
 		result["readOnly"] = _readOnly;
 		
 		return result;
-	}
+	} */
 
 	@safe override Json toJson() {
 		Json result = Json.emptyObject;
@@ -38,7 +38,7 @@ class DPropertyObj : DOOPElement {
 
 		return result;
 	}
- */
+
 	@safe override string toString() { return super.toString; };
 }
 mixin(ShortCutElement!("PropertyObj", "DPropertyObj")); 

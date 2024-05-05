@@ -1,4 +1,5 @@
-module uim.oop.base.baseplugin;
+module uim.oop.base.
+plugin;
 
 import uim.oop;
 
@@ -11,10 +12,22 @@ import uim.oop;
  * include a plugin class in its src root folder.
  */
 class DPlugin : IPlugin {
-  	bool initialize(IData[string] initData = null) {
-		
-		return true;
-	}
+mixin TConfigurable;
+
+    this() {
+        initialize;
+    }
+
+    this(Json[string] initData) {
+        initialize(initData);
+    }
+
+    bool initialize(Json[string] initData = null) {
+        configuration(MemoryConfiguration);
+        configuration.data(initData);
+
+        return true;
+    }
 
     // Do bootstrapping or not
     protected bool bootstrapEnabled = true;
@@ -49,9 +62,9 @@ class DPlugin : IPlugin {
     /**
      * Constructor
      * Params:
-     * IData[string] options Options
+     * Json[string] options Options
      * /
-    this(IData[string] options = null) {
+    this(s[string] options = null) {
         foreach (aKey; VALID_HOOKS) {
             if (isSet(options[aKey])) {
                 this.{"{aKey}Enabled"} = (bool)options[aKey];

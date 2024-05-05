@@ -18,7 +18,7 @@ class DResultsetFactory {
      * Constructor
      * Params:
      * \ORM\Query\SelectQuery<T> myquery Query from where results came.
-     * @param array results Results array.
+     * @param Json[string] results Results array.
      * /
     Resultset<array|\UIM\Datasource\IEntity> createResultset(SelectQuery myquery, Json[string] results) {
         mydata = this.collectData(myquery);
@@ -88,7 +88,7 @@ class DResultsetFactory {
      * Hydrate row array into entity if hydration is enabled.
      * Params:
      * Json[string] myrow Array containing columns and values.
-     * @param array data Array containing table and query metadata
+     * @param Json[string] data Array containing table and query metadata
      * /
     protected IEntity|array groupResult(Json[string] myrow, Json[string] metadata) {
         results = mypresentAliases = null;

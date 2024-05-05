@@ -286,7 +286,7 @@ class DResultset : IResultset {
     /**
      * Unserializes a resultset.
      *
-     * @param array data Data array.
+     * @param Json[string] data Data array.
      * /
     void __unserialize(Json[string] data) {
         _results = SplFixedArray::fromArray(data);
@@ -388,7 +388,7 @@ class DResultset : IResultset {
     /**
      * Correctly nests results keys including those coming from associations
      *
-     * @param array row Array containing columns and values or false if there is no results
+     * @param Json[string] row Array containing columns and values or false if there is no results
      * @return DORMDatasource\IEntity|array Results
      * /
     protected function _groupResult(Json[string] row) {

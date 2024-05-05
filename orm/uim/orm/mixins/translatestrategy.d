@@ -114,7 +114,7 @@ mixin template TTranslateStrategy() {
      * provided to `Table::newEntity()` or `Table::patchEntity()`.
      *
      * @param DORMMarshaller marshaller The marhshaller of the table the behavior is attached to.
-     * @param array map The property map being built.
+     * @param Json[string] map The property map being built.
      * @param array<string, mixed> options The options array used in the marshalling call.
      * @return array A map of `[property: callable]` of additional properties to marshal.
      * /

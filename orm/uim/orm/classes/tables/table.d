@@ -1804,7 +1804,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Auxiliary auto to handle the insert of an entity"s data in the table
      * Params:
      * \UIM\Datasource\IEntity myentity the subject entity from were mydata was extracted
-     * @param array data The actual data that needs to be saved
+     * @param Json[string] data The actual data that needs to be saved
      * /
     protected IEntity _insert(IEntity myentity, Json[string] data) {
         auto primaryKey = (array)this.primaryKeys();
@@ -1894,7 +1894,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Auxiliary auto to handle the update of an entity"s data in the table
      * Params:
      * \UIM\Datasource\IEntity myentity the subject entity from were mydata was extracted
-     * @param array data The actual data that needs to be saved
+     * @param Json[string] data The actual data that needs to be saved
      * /
     protected IEntity _update(IEntity myentity, Json[string] data) {
         myprimaryColumns = (array)this.primaryKeys();
@@ -2266,7 +2266,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @template TSubject of \UIM\Datasource\IEntity|array
      * @param \Closure mycallable Callable.
      * @param \ORM\Query\SelectQuery<TSubject> myquery The query object.
-     * @param array myargs Arguments for the callable.
+     * @param Json[string] myargs Arguments for the callable.
      * /
     SelectQuery<TSubject> invokeFinder(Closure mycallable, SelectQuery myquery, Json[string] myargs) {
         auto myreflected = new DReflectionFunction(mycallable);
@@ -2336,7 +2336,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Provides the dynamic findBy and findAllBy methods.
      * Params:
      * string mymethod The method name that was fired.
-     * @param array myargs List of arguments passed to the function.
+     * @param Json[string] myargs List of arguments passed to the function.
      * /
     protected ISelectQuery _dynamicFinder(string mymethod, Json[string] myargs) {
         mymethod = Inflector.underscore(mymethod);
@@ -2390,7 +2390,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * If your Table uses any behaviors you can call them as if
      * they were on the table object.
      * Params:
-     * @param array myargs List of arguments passed to the function
+     * @param Json[string] myargs List of arguments passed to the function
      * /
     Json __call(string methodToInvoke, Json[string] myargs) {
         if (_behaviors.hasMethod(methodToInvoke)) {
@@ -2591,7 +2591,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * \UIM\Datasource\IEntity myentity the entity that will get the
      * data merged in
-     * @param array data key value list of fields to be merged into the entity
+     * @param Json[string] data key value list of fields to be merged into the entity
      * @param Json[string] options A list of options for the object hydration.
      * /
     IEntity patchEntity(IEntity myentity, Json[string] data, Json[string] optionData = null) {
@@ -2626,7 +2626,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * iterable<\UIM\Datasource\IEntity> myentities the entities that will get the
      * data merged in
-     * @param array data list of arrays to be merged into the entities
+     * @param Json[string] data list of arrays to be merged into the entities
      * @param Json[string] options A list of options for the objects hydration.
      * /
     IEntity[] patchEntities(Range myentities, Json[string] data, Json[string] optionData = null) {
@@ -2782,7 +2782,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * The properties for the associations to be loaded will be overwritten on each entity.
      * Params:
      * \UIM\Datasource\IEntity|array<\UIM\Datasource\IEntity> myentities a single entity or list of entities
-     * @param array mycontain A `contain()` compatible array.
+     * @param Json[string] mycontain A `contain()` compatible array.
      * @see \ORM\Query.contain()
      * /
     IEntity[] loadInto(IEntity|array myentities, Json[string] mycontain) {

@@ -202,7 +202,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * Invoke a method on a behavior.
      *
      * @param string aMethodName The method to invoke.
-     * @param array args The arguments you want to invoke the method with.
+     * @param Json[string] args The arguments you want to invoke the method with.
      * @return mixed The return value depends on the underlying behavior method.
      * @throws \BadMethodCallException When the method is unknown.
      * /
@@ -223,7 +223,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * Invoke a finder on a behavior.
      *
      * @param string type The finder type to invoke.
-     * @param array args The arguments you want to invoke the method with.
+     * @param Json[string] args The arguments you want to invoke the method with.
      * @return DORMQuery The return value depends on the underlying behavior method.
      * @throws \BadMethodCallException When the method is unknown.
      * /

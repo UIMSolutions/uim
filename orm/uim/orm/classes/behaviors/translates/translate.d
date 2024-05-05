@@ -192,7 +192,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * provided to `Table.newEntity()` or `Table.patchEntity()`.
      * Params:
      * \ORM\Marshaller mymarshaller The marhshaller of the table the behavior is attached to.
-     * @param array mymap The property map being built.
+     * @param Json[string] mymap The property map being built.
      * @param Json[string] options The options array used in the marshalling call.
      * /
     array buildMarshalMap(DMarshaller mymarshaller, Json[string] mymap, Json[string] options) {
@@ -282,7 +282,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * Proxy method calls to strategy class instance.
      * Params:
      * string mymethod Method name.
-     * @param array myargs Method arguments.
+     * @param Json[string] myargs Method arguments.
     * /
                     Json __call(string mymethod, Json[string] myargs) {
                         return _strategy. {

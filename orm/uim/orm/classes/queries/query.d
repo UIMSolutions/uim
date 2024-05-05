@@ -1217,7 +1217,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *
      * Can be combined with the where() method to create delete queries.
      *
-     * @param array columns The columns to insert into.
+     * @param Json[string] columns The columns to insert into.
      * @param array<string> types A map between columns & their datatypes.
      * @return this
      * /
@@ -1246,7 +1246,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * {@inheritDoc}
      *
      * @param string method the method to call
-     * @param array arguments list of arguments for the method to call
+     * @param Json[string] arguments list of arguments for the method to call
      * @return mixed
      * @throws \BadMethodCallException if the method is called for a non-select query
      * /

@@ -470,7 +470,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      * translations table. Each records is indexed by the corresponding position
      * to the conditions array.
      *
-     * @param array ruleSet An array of array of conditions to be used for finding each
+     * @param Json[string] ruleSet An array of array of conditions to be used for finding each
      * /
     // TODO protected Json[string] findExistingTranslations(ruleSet) {
         association = this.table.getAssociation(this.translationTable.aliasName());

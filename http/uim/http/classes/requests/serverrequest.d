@@ -669,17 +669,12 @@ class DServerRequest { // }: IServerRequest {
         _detectors[name] = detector;
     }
     
-    /**
-     * Normalize a header name into the SERVER version.
-     * Params:
-     * string aName The header name.
-     * /
-    protected string normalizeHeaderName(string aName) {
-        name = strtoupper(name).replace("-", "_");
-        if (!in_array(name, ["CONTENT_LENGTH", "CONTENT_TYPE"], true)) {
-            name = "HTTP_" ~ name;
-        }
-        return name;
+    // Normalize a header name into the SERVER version.
+    protected string normalizeHeaderName(string headerName) {
+        string result = headerName.toUpper.replace("-", "_");
+        return in_array(name, ["CONTENT_LENGTH", "CONTENT_TYPE"], true)
+            ? result
+            : "HTTP_" ~ result;
     }
     
     /**
@@ -717,8 +712,8 @@ class DServerRequest { // }: IServerRequest {
      * string aName The header you want to get (case-insensitive)
      * /
     bool hasHeader(string headerName) {
-        headerName = this.normalizeHeaderName(headerName);
-        return _environmentData.isSet(headerName);
+        auto normalizedName = this.normalizeHeaderName(headerName);
+        return _environmentData.isSet(normalizedName);
     }
     
     /**

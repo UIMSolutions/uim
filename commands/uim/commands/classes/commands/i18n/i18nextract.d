@@ -520,7 +520,7 @@ class DI18nExtractCommand : DCommand {
                         response = aConsoleIo.ask("What would you like to name this file?", "new_" ~ filename);
                         filename = response;
                     }
-                } else if (strtoupper(response) == "A") {
+                } else if (response.toUpper == "A") {
                     overwriteAll = true;
                 }
             }

@@ -164,34 +164,35 @@ class DDigest {
             if (credentials["qop"] == self.QOP_AUTH_INT) {
                 a2 = request.getMethod() ~ ":" ~ somePath ~ ":" ~ hash(this.hashType, (string)request.getBody());
             }
-            if (isEmpty(credentials["cnonce"])) {
+            if (credentials.isEmpty("cnonce")) {
                 credentials["cnonce"] = this.generateCnonce();
             }
-            ha2 = hash(this.hashType, a2);
-            response = hash(
+            
+            auto ha2 = hash(this.hashType, a2);
+            auto response = hash(
                 this.hashType,
                 ha1 ~ ":" ~ credentials["nonce"] ~ ":" ~ nc ~ ":" .
                 credentials["cnonce"] ~ ":" ~ credentials["qop"] ~ ":" ~ ha2
             );
         }
-        string authHeader = "Digest ";
-        authHeader ~= "username="" ~ credentials["username"].replace(["\\", """], ["\\\\", "\\""]) ~ "", ";
-        authHeader ~= "realm="" ~ credentials["realm"] ~ "", ";
-        authHeader ~= "nonce="" ~ credentials["nonce"] ~ "", ";
-        authHeader ~= "uri="" ~ somePath ~ "", ";
-        authHeader ~= "algorithm="" ~ this.algorithm ~ """;
+        string result = "Digest ";
+        result ~= "username="" ~ credentials["username"].replace(["\\", """], ["\\\\", "\\""]) ~ "", ";
+        result ~= "realm="" ~ credentials["realm"] ~ "", ";
+        result ~= "nonce="" ~ credentials["nonce"] ~ "", ";
+        result ~= "uri="" ~ somePath ~ "", ";
+        result ~= "algorithm="" ~ this.algorithm ~ """;
 
-        if (!empty(credentials["qop"])) {
-            authHeader ~= ", qop=" ~ credentials["qop"];
+        if (!credentials.isEmpty("qop")) {
+            result ~= ", qop=" ~ credentials["qop"];
         }
-        if (this.isSessAlgorithm || !empty(credentials["qop"])) {
-            authHeader ~= ", nc=" ~ nc ~ ", cnonce="" ~ credentials["cnonce"] ~ """;
+        if (this.isSessAlgorithm || !credentials.isEmpty("qop")) {
+            result ~= ", nc=" ~ nc ~ ", cnonce="" ~ credentials["cnonce"] ~ """;
         }
-        authHeader ~= ", response="" ~ response ~ """;
+        result ~= ", response="" ~ response ~ """;
 
-        if (!empty(credentials["opaque"])) {
-            authHeader ~= ", opaque="" ~ credentials["opaque"] ~ """;
+        if (!credentials.isEmpty("opaque")) {
+            result ~= ", opaque="" ~ credentials["opaque"] ~ """;
         }
-        return authHeader;
+        return result;
     } */
 }

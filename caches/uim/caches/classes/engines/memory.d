@@ -131,11 +131,11 @@ if (!_Memory.addServers(myservers)) {
   return false;
 }
 
-if (isArray(configuration.get("options"])) {
+if (configuration.isArray("options"]) {
   configuration.get("options"].byKeyValue
     .each!(optValue => _Memory.setOption(optValue.key, optValue.value));
 }
-if (isEmpty(configuration.get("username"]) && !configuration.isEmpty("login")) {
+if (configuration.isEmpty("username"] && !configuration.isEmpty("login")) {
   throw new DInvalidArgumentException(
     "Please pass " username" instead of 'login' for connecting to Memory"
   );
@@ -164,7 +164,7 @@ return true;
 protected void _setOptions() {
   _Memory.setOption(Memory.OPT_LIBKETAMA_COMPATIBLE, true);
 
-  myserializer = configuration.get("serialize"].toLower;
+  string myserializer = configuration.getString("serialize").toLower;
   if (!_serializers.isSet(myserializer)) {
     throw new DInvalidArgumentException(
       "`%s` is not a valid serializer engine for Memory.".format(myserializer)

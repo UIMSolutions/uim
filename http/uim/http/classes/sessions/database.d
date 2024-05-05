@@ -25,12 +25,12 @@ class DatabaseSession { // }: SessionHandler {
      * key to be present corresponding to the Table to use for managing the sessions.
      * /
     this(Json[string] configData = null) {
-        if (isSet(configData("tableLocator"])) {
+        if (configData.hasKey("tableLocator")) {
             this.setTableLocator(configData("tableLocator"]);
         }
         aTableLocator = this.getTableLocator();
 
-        if (isEmpty(configData("model"])) {
+        if (configData.isEmpty("model")) {
             configData = aTableLocator.exists("Sessions") ? [] : ["table": "sessions", "allowFallbackClass": Json(true)];
            _table = aTableLocator.get("Sessions", configData);
         } else {
@@ -80,18 +80,17 @@ class DatabaseSession { // }: SessionHandler {
             .disableHydration()
             .first();
 
-        if (isEmpty(result)) {
+        if (result.isEmpty) {
             return "";
         }
         if (isString(result["data"])) {
             return result["data"];
         }
-        session = stream_get_contents(result["data"]);
-
-        if (session == false) {
-            return "";
-        }
-        return session;
+        
+        string result = stream_get_contents(result["data"]);
+        return result
+            ? result
+            : null;
     }
     
     /**

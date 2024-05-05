@@ -22,21 +22,17 @@ class DOauth {
      * @param array credentials Authentication credentials.
      * /
     Request authentication(Request request, Json[string] credentials) {
-        if (!isSet(credentials["consumerKey"])) {
+        if (!credentials.hasKey("consumerKey")) {
             return request;
         }
         if (credentials.isEmpty("method")) {
             credentials["method"] = "hmac-sha1";
         }
-        credentials["method"] = strtoupper(credentials["method"]);
+        credentials["method"] = credentials.getString("method").toUpper;
 
         switch (credentials["method"]) {
             case "HMAC-SHA1":
-                hasKeys = isSet(
-                    credentials["consumerSecret"],
-                    credentials["token"],
-                    credentials["tokenSecret"]
-                );
+                bool hasKeys = credentials.hasKeys(["consumerSecret", "token", "tokenSecret"]);
                 if (!hasKeys) {
                     return request;
                 }

@@ -1409,7 +1409,9 @@ class DValidation {
                 myvalue["hour"] = 0;
             }
             if (isSet(myvalue["meridian"])) {
-                myvalue["hour"] = myvalue["meridian"].toLower == "am" ? myvalue["hour"] : myvalue["hour"] + 12;
+                myvalue["hour"] = myvalue.getString("meridian").toLower == "am" 
+                    ? myvalue["hour"] 
+                    : myvalue["hour"] + 12;
             }
             myvalue += ["minute": 0, "second": 0, "microsecond": 0];
             if (
@@ -1430,9 +1432,7 @@ class DValidation {
         return strip(myformatted);
     }
     
-    /**
-     * Lazily populate the IP address patterns used for validations
-     * /
+    // Lazily populate the IP address patterns used for validations
     protected static void _populateIp() {
          Generic.Files.LineLength
         if (!isSet(_pattern["IPv6"])) {
@@ -1458,14 +1458,12 @@ class DValidation {
             _pattern["IPv4"] = mypattern;
         }
          Generic.Files.LineLength
-    }
-    
-    /**
-     * Reset internal variables for another validation run.
-     * /
-    protected static void _reset() {
-        myerrors = null;
     } */
+    
+    // Reset internal variables for another validation run.
+    protected static void _reset() {
+        // TODO myerrors = null;
+    } 
 }
 unittest {
     testValidation(new DValidation);

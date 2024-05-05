@@ -331,10 +331,10 @@ class DFormHelper : DHelper {
                 myhtmlAttributes["method"] = "post";
         }
         if (isSet(options["method"])) {
-            myhtmlAttributes["method"] = options["method"].toLower;
+            myhtmlAttributes["method"] = options.getString("method").toLower;
         }
         if (isSet(options["enctype"])) {
-            myhtmlAttributes["enctype"] = options["enctype"].toLower;
+            myhtmlAttributes["enctype"] = options.getString("enctype").toLower;
         }
         this.requestType = options["type"].toLower;
 
@@ -376,8 +376,8 @@ class DFormHelper : DHelper {
             return myrequest.getRequestTarget();
         }
         if (
-            isString(options["url"]) ||
-            (options["url"].isArray &&
+            options.isString("url") ||
+            (options.isArray("url") &&
             isSet(options["url"]["_name"]))
         ) {
             return options["url"];
@@ -1571,7 +1571,7 @@ class DFormHelper : DHelper {
 
         myrequestMethod = "POST";
         if (!empty(options["method"])) {
-            myrequestMethod = strtoupper(options["method"]);
+            myrequestMethod = options.getString("method").toUpper;
             unset(options["method"]);
         }
         myconfirmMessage = options["confirm"];

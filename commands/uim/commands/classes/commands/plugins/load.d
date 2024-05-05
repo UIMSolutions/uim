@@ -51,7 +51,7 @@ class DPluginLoadCommand : DCommand {
         Plugin. getCollection().findPath(plugin);
         } catch (MissingPluginException anException) {
             /** @psalm-suppress InvalidArgument * /
-            if (isEmpty(options["optional"])) {
+            if (options.isEmpty("optional")) {
                 aConsoleIo.writeErrorMessages(anException.getMessage());
                 aConsoleIo.writeErrorMessages("Ensure you have the correct spelling and casing.");
 

@@ -62,7 +62,7 @@ abstract class DERRErrorHandler {
      * Subclasses should implement this method to display the error as
      * desired for the runtime they operate in.
      *
-     * @param array error An array of error data.
+     * @param Json[string] error An array of error data.
      * @param bool shouldDebug Whether the app is in debug mode.
      * @return void
      * /
@@ -273,7 +273,7 @@ abstract class DERRErrorHandler {
      * Log an error.
      *
      * @param string|int level The level name of the log.
-     * @param array data Array of error data.
+     * @param Json[string] data Array of error data.
      * /
     protected bool _logError(level, Json[string] data) {
         message = sprintf(

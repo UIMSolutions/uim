@@ -160,8 +160,8 @@ class DPaginator : IPaginator {
      *
      * @param \uim\Datasource\IRepository|\uim\Datasource\IQuery object The repository or query
      *   to paginate.
-     * @param array myParams Request params
-     * @param array settings The settings/configuration used for pagination.
+     * @param Json[string] myParams Request params
+     * @param Json[string] settings The settings/configuration used for pagination.
      * @return \uim\Datasource\IResultset Query results
      * @throws \uim\Datasource\Exception\PageOutOfBoundsException
      * /
@@ -214,7 +214,7 @@ class DPaginator : IPaginator {
      * Get total count of records.
      *
      * @param \uim\Datasource\IQuery myQuery Query instance.
-     * @param array myData Pagination data.
+     * @param Json[string] myData Pagination data.
      * @return int|null
      * /
     protected Nullable!int getCount(IQuery myQuery, Json[string] myData) {
@@ -281,7 +281,7 @@ class DPaginator : IPaginator {
      * Add "page" and "pageCount" params.
      *
      * @param array<string, mixed> myParams Paging params.
-     * @param array myData Paginator data.
+     * @param Json[string] myData Paginator data.
      * @return array<string, mixed> Updated params.
      * /
     protected auto addPageCountParams(Json[string] myParams, Json[string] myData): array
@@ -306,7 +306,7 @@ class DPaginator : IPaginator {
      * Add "start" and "end" params.
      *
      * @param array<string, mixed> myParams Paging params.
-     * @param array myData Paginator data.
+     * @param Json[string] myData Paginator data.
      * @return array<string, mixed> Updated params.
      * /
     protected auto addStartEndParams(Json[string] myParams, Json[string] myData): array
@@ -328,7 +328,7 @@ class DPaginator : IPaginator {
      * Add "prevPage" and "nextPage" params.
      *
      * @param array<string, mixed> myParams Paginator params.
-     * @param array myData Paging data.
+     * @param Json[string] myData Paging data.
      * @return array<string, mixed> Updated params.
      * /
     protected auto addPrevNextParams(Json[string] myParams, Json[string] myData): array
@@ -347,7 +347,7 @@ class DPaginator : IPaginator {
      * Add sorting / ordering params.
      *
      * @param array<string, mixed> myParams Paginator params.
-     * @param array myData Paging data.
+     * @param Json[string] myData Paging data.
      * @return array<string, mixed> Updated params.
      * /
     protected auto addSortingParams(Json[string] myParams, Json[string] myData): array
@@ -450,7 +450,7 @@ class DPaginator : IPaginator {
      * which options/values can be set using request parameters.
      *
      * @param array<string, mixed> myParams Request params.
-     * @param array settings The settings to merge with the request data.
+     * @param Json[string] settings The settings to merge with the request data.
      * @return array<string, mixed> Array of merged options.
      * /
     function mergeOptions(Json[string] myParams, Json[string] settings): array
@@ -613,7 +613,7 @@ class DPaginator : IPaginator {
      * Prefixes the field with the table alias if possible.
      *
      * @param \uim\Datasource\IRepository object Repository object.
-     * @param array order DOrder array.
+     * @param Json[string] order DOrder array.
      * @param bool allowed Whether the field was allowed.
      * @return array Final order array.
      * /

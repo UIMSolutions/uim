@@ -176,7 +176,7 @@ interface IRepository {
      * Params:
      * \UIM\Datasource\IEntity entity the entity that will get the
      * data merged in
-     * @param array data key value list of fields to be merged into the entity
+     * @param Json[string] data key value list of fields to be merged into the entity
      * @param Json[string] options A list of options for the object hydration.
      * /
     IEntity patchEntity(IEntityentity, Json[string] data, Json[string] optionData = null);
@@ -195,7 +195,7 @@ interface IRepository {
      * Params:
      * iterable<\UIM\Datasource\IEntity> entities the entities that will get the
      * data merged in
-     * @param array data list of arrays to be merged into the entities
+     * @param Json[string] data list of arrays to be merged into the entities
      * @param Json[string] options A list of options for the objects hydration.
      * /
     IEntity[] patchEntities(iterableentities, Json[string] data, Json[string] optionData = null);

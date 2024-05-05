@@ -41,7 +41,7 @@ interface IQuery {
      * Runs `aliasField()` for each field in the provided list and returns
      * the result under a single array.
      *
-     * @param array fields The fields to alias
+     * @param Json[string] fields The fields to alias
      * @param string|null defaultAlias The default alias
      */
     STRINGAA aliasFields(string[] fieldNames, string defaultAlias = null);

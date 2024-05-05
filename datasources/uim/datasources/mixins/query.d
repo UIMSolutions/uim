@@ -201,7 +201,7 @@ mixin template TQuery() {
      * Runs `aliasField()` for each field in the provided list and returns
      * the result under a single array.
      *
-     * @param array fields The fields to alias
+     * @param Json[string] fields The fields to alias
      * @param string|null defaultAlias The default alias
      * /
     STRINGAA aliasFields(string[] fieldNames, string defaultAlias = null) {
@@ -482,7 +482,7 @@ mixin template TQuery() {
      * Enables calling methods from the result set as if they were from this class
      *
      * @param string method the method to call
-     * @param array arguments list of arguments for the method to call
+     * @param Json[string] arguments list of arguments for the method to call
      * @return mixed
      * @throws \BadMethodCallException if no such method exists in result set
      * /

@@ -501,7 +501,7 @@ class DDebugger {
         if (data.isEmpty) {
             return lines;
         }
-        
+
         if (indexOf(data, "\n") != false) {
             data = explode("\n", data);
         }
@@ -681,7 +681,7 @@ class DDebugger {
      * - prefix
      * - schema
      *
-     * @param array var The array to export.
+     * @param Json[string] var The array to export.
      * @param uim.errors.debugs.DebugContext context The current dump context.
      * @return uim.errors.debugs.ArrayNode Exported array.
      * /
@@ -813,7 +813,7 @@ class DDebugger {
     /**
      * Takes a processed array of data from an error and displays it in the chosen format.
      *
-     * @param array data Data to output.
+     * @param Json[string] data Data to output.
      * @return void
      * @deprecated 4.4.0 Update your application so use ErrorTrap instead.
      * /
@@ -936,7 +936,7 @@ class DDebugger {
      * Prints out debug information about given variable.
      *
      * @param mixed var Variable to show debug information for.
-     * @param array location If contains keys "file" and "line" their values will
+     * @param Json[string] location If contains keys "file" and "line" their values will
      *    be used to show location info.
      * @param bool|null showHtml If set to true, the method prints the debug
      *    data encoded as HTML. If false, plain text formatting will be used.

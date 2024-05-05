@@ -669,7 +669,7 @@ class DDebugger {
      * Prints out debug information about given variable.
      * Params:
      * Json var Variable to show debug information for.
-     * @param array location If contains keys "file" and "line" their values will
+     * @param Json[string] location If contains keys "file" and "line" their values will
      *   be used to show location info.
      * @param bool|null showHtml If set to true, the method prints the debug
      *   data encoded as HTML. If false, plain text formatting will be used.

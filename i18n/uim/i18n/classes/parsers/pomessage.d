@@ -37,7 +37,7 @@ class DPoMessage {
         _isMultiIdMode = mode;
     }
 
-    protected string[] _id;
+    protected string[] _ids;
     auto addId(string newId) {
         string prefix = `msgid "`;
         newId = strip(newId);
@@ -46,14 +46,14 @@ class DPoMessage {
             newId = newId[prefix.length .. $];
             if (newId.endsWith(`"`)) {
                 newId = newId[prefix ..  - 1];
-                _id = strip(newId);
+                _ids = strip(newId);
                 return this;
             }
         } */
     }
 
-    string[] id() {
-        return _id;
+    string[] ids() {
+        return _ids;
     }
 
     protected bool _isMultiTextMode;
@@ -94,7 +94,7 @@ class DPoMessage {
             if (removeQuotes(msgId).isEmpty) {
                 _isMultiIdMode = true;
             } else {
-                _id ~= msgId;
+                _ids ~= msgId;
             }
             return;
         }

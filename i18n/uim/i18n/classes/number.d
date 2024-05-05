@@ -46,9 +46,9 @@ class DNumber {
      * Options:
      * - `locale`: The locale name to use for formatting the number, e.g. fr_FR
      * Params:
-     * string|float|int aValue A floating point number.
+     * Json aValue A floating point number.
      * /
-    static string precision(string|float|int aValue, int numberPrecision = 3, Json[string] formattingOptions = null) {
+    static string precision(Json aValue, int numberPrecision = 3, Json[string] formattingOptions = null) {
         auto formatter = formatter(["precision": precision, "places": precision] + options);
         return to!string(formatter.format((float)aValue);
     }
@@ -78,11 +78,11 @@ class DNumber {
      * - `multiply`: Multiply the input value by 100 for decimal percentages.
      * - `locale`: The locale name to use for formatting the number, e.g. fr_FR
      * Params:
-     * string|float|int aValue A floating point number
+     * Json aValue A floating point number
      * @param int precision The precision of the returned number
      * @param Json[string] options Options
      * /
-    static string toPercentage(string|float|int aValue, int precision = 2, Json[string] options = null) {
+    static string toPercentage(Json aValue, int precision = 2, Json[string] options = null) {
         options = options.update["multiply": Json(false), "type": NumberFormatter.PERCENT];
         if (!options["multiply"]) {
             aValue = (float)aValue / 100;
@@ -102,10 +102,10 @@ class DNumber {
      * - `before` - The string to place before whole numbers, e.g. '["
      * - `after` - The string to place after decimal numbers, e.g. "]'
      * Params:
-     * string|float|int aValue A floating point number.
+     * Json aValue A floating point number.
      * @param Json[string] options An array with options.
      * /
-    static string format(string|float|int aValue, Json[string] options = null) {
+    static string format(Json aValue, Json[string] options = null) {
         formatter = formatter(options);
         options = options.update["before": "", "after": ""];
 
@@ -141,10 +141,10 @@ class DNumber {
      * - `before` - The string to place before whole numbers, e.g. '["
      * - `after` - The string to place after decimal numbers, e.g. "]'
      * Params:
-     * string|float|int aValue A floating point number
+     * Json aValue A floating point number
      * @param Json[string] options Options list.
      * /
-    static string formatDelta(string|float|int aValue, Json[string] options = null) {
+    static string formatDelta(Json aValue, Json[string] options = null) {
         options = options.update["places": 0];
         aValue = number_format((float)aValue, options["places"], ".", "");
         sign = aValue > 0 ? "+" : "";
@@ -171,11 +171,11 @@ class DNumber {
      * - `useIntlCode` - Whether to replace the currency symbol with the international
      *  currency code.
      * Params:
-     * string|float|int aValue Value to format.
+     * Json aValue Value to format.
      * @param string currency International currency name such as 'USD", "EUR", "JPY", "CAD'
      * @param Json[string] options Options list.
      * /
-    static string currency(string|float|int aValue, string acurrency = null, Json[string] options = null) {
+    static string currency(Json aValue, string acurrency = null, Json[string] options = null) {
         aValue = (float)aValue;
         currency = currency ?: getDefaultCurrency();
 

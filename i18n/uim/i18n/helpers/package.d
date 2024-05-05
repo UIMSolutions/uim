@@ -6,6 +6,5 @@
 module uim.i18n.helpers;
 
 public {
-  import uim.i18n.helpers.functions_global;
   import uim.i18n.helpers.functions;
 }

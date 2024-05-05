@@ -141,7 +141,7 @@ if (!function_exists("UIM\Core\env")) {
      * string aKey Environment variable name.
      * @param string|bool|null default Specify a default value in case the environment variable is not defined.
      * /
-    string|float|int|bool|null enviroment(string aKey, string|float|int|bool|null default = null) {
+    Json|bool|null enviroment(string aKey, Json|bool|null default = null) {
         if (aKey == "HTTPS") {
             if (isSet(_SERVER["HTTPS"])) {
                 return !empty(_SERVER["HTTPS"]) && _SERVER["HTTPS"] != "off";

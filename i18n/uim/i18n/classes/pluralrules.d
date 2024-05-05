@@ -18,15 +18,8 @@ class DPluralRules {
     bool initialize(Json[string] initData = null) {
         configuration(MemoryConfiguration);
         configuration.data(initData);
-        
-        return true;
-    }
 
-    /**
-     * A map of locale: plurals group used to determine
-     * which plural rules apply to the language
-     * /
-    protected static int[string] _rulesMap = [
+           _rulesMap = [
         "af": 1,
         "am": 2,
         "ar": 13,
@@ -123,6 +116,12 @@ class DPluralRules {
         "zh": 0,
         "zu": 1,
     ];
+ 
+        return true;
+    }
+
+    // A map of locale: plurals group used to determine which plural rules apply to the language
+    protected static int[string] _rulesMap; 
 
     /**
      * Returns the plural form number for the passed locale corresponding

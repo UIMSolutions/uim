@@ -194,9 +194,10 @@ class DTime { // : ChronosTime, JsonSerializable {
             return call_user_func(_JsonEncodeFormat, this);
         }
         return _i18nFormat(_JsonEncodeFormat);
-    }
+    } */
  
     override string toString() {
-        return to!string(this.i18nFormat());
-    } */ 
+        // TODO return to!string(this.i18nFormat());
+        return null; 
+    }  
 }

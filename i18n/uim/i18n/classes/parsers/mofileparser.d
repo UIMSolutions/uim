@@ -126,7 +126,6 @@ class MoFileParser {
      * Reads an unsigned long from stream respecting endianess.
      * Params:
      * resource stream The File being read.
-     * @param bool  isBigEndian Whether the current platform is Big Endian
      * /
     protected int _readLong(stream, bool isBigEndian) {
         string result = unpack(isBigEndian ? "N1" : "V1", (string) fread(stream, 4));

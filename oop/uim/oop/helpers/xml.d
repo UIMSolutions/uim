@@ -379,7 +379,7 @@ class Xml {
      * Params:
      * \SimpleXMLElement|\DOMNode myobj SimpleXMLElement, DOMNode instance
      * /
-                    static array toArray(SimpleXMLElement | DOMNode myobj) {
+                    static Json[string] toArray(SimpleXMLElement | DOMNode myobj) {
                         if (cast(DOMNode) myobj) {
                             myobj = simplexml_import_dom(myobj);
                         }

@@ -80,7 +80,7 @@ class DRouter {
      * of this file. This is a cheat as get_class_vars() returns the value of static vars even if they
      * have changed.
      * /
-    protected static array _initialState = null;
+    protected static Json[string] _initialState = null;
 
     /**
      * The stack of URL filters to apply against routing URLs before passing the
@@ -109,7 +109,7 @@ class DRouter {
      * Params:
      * \UIM\Http\ServerRequest myrequest The request to parse request data from.
      * /
-    static array parseRequest(ServerRequest myrequest) {
+    static Json[string] parseRequest(ServerRequest myrequest) {
         return _collection.parseRequest(myrequest);
     }
     
@@ -213,7 +213,7 @@ class DRouter {
      * Params:
      * array myurl The URL array being modified.
      * /
-    protected static array _applyUrlFilters(Json[string] myurl) {
+    protected static Json[string] _applyUrlFilters(Json[string] myurl) {
         myrequest = getRequest();
         _urlFilters.each!((filter) {
             try {
@@ -461,7 +461,7 @@ class DRouter {
      * \UIM\Http\ServerRequest|array myparams The params array or
      *    {@link \UIM\Http\ServerRequest} object that needs to be reversed.
      * /
-    static array reverseToArray(ServerRequest|array myparams) {
+    static Json[string] reverseToArray(ServerRequest|array myparams) {
         myroute = null;
         if (cast(DServerRequest)myparams) {
             myroute = myparams.getAttribute("route");
@@ -628,7 +628,7 @@ class DRouter {
      * Params:
      * array myurl Route array with `_path` key
      * /
-    protected static array unwrapShortString(Json[string] myurl) {
+    protected static Json[string] unwrapShortString(Json[string] myurl) {
         foreach (["plugin", "prefix", "controller", "action"] as aKey) {
             if (array_key_exists(aKey, myurl)) {
                 throw new DInvalidArgumentException(

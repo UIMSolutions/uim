@@ -103,7 +103,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * @var array<string, object|string>
      * @psalm-var array<string, object|class-string>
      * /
-    protected static array _defaultProviders = null;
+    protected static Json[string] _defaultProviders = null;
 
 
     /**

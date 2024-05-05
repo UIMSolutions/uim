@@ -17,7 +17,7 @@ mixin template TStaticConfig() {
      *
      * @var array<string|int, IData[string]>
      * /
-    protected static array _config = null;
+    protected static Json[string] _config = null;
 
     /**
      * This method can be used to define configuration adapters for an application.

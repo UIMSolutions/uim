@@ -15,9 +15,9 @@ mixin template TAssociationsNormalizer() {
      * Params:
      * string[] myassociations The array of included associations.
      * /
-    // TODO protected Json[string] _normalizeAssociations(string[] myassociations) {
-        auto result;
-        foreach ((array)myassociations as mytable: options) {
+     protected Json[string] _normalizeAssociations(string[] myassociations) {
+        Json[string] result;
+        foreach (mytable, options; (array)myassociations) {
             mypointer = &result;
 
             if (mytable.isInt) {

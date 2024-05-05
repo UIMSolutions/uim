@@ -57,7 +57,7 @@ class DValidation {
      * Holds an array of errors messages set in this class.
      * These are used for debugging purposes
      * /
-    static array myerrors = null;
+    static Json[string] myerrors = null;
 
     /**
      * Checks that a string contains something other than whitespace

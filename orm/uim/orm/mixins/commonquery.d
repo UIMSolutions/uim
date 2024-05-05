@@ -6,9 +6,6 @@ import uim.orm;
 
 // mixin template with common methods used by all ORM query classes.
 mixin template TCommonQuery() {
-    // Instance of a repository/table object this query is bound to.
-    // protected ITable _repository;
-
     /**
      * Hints this object to associate the correct types when casting conditions
      * for the database. This is done by extracting the field types from the schema
@@ -20,15 +17,20 @@ mixin template TCommonQuery() {
      * \ORM\Table mytable The table to pull types from
      * /
     void addDefaultTypes(Table mytable) {
-        aliasName = mytable.aliasName();
-        mymap = mytable.getSchema().typeMap();
-        myfields = null;
-        foreach (mymap as myf: mytype) {
-            myfields[myf] = myfields[aliasName ~ "." ~ myf] = myfields[aliasName ~ "__" ~ myf] = mytype;
-        }
+        auto aliasName = mytable.aliasName();
+        auto mymap = mytable.getSchema().typeMap();
+        auto myfields = null;
+        mymap.byKeyValue.each!((kv) {
+            myfields[kv.key] = kv.value; 
+            myfields[aliasName ~ "." ~ kv.key] = kv.value;
+            myfields[aliasName ~ "__" ~ kv.key] = kv.value;
+        });
         this.getTypeMap().addDefaults(myfields);
     }
     
+    // Instance of a repository/table object this query is bound to.
+    // protected ITable _repository;
+
     /**
      * Set the default Table object that will be used by this query
      * and form the `FROM` clause.

@@ -296,7 +296,7 @@ class DAsset {
      * Params:
      * string aName The name you want to plugin split.
      * /
-    protected static array pluginSplit(string aName) {
+    protected static Json[string] pluginSplit(string aName) {
         plugin = null;
         [first, second] = pluginSplit(name);
         if (first && Plugin.isLoaded(first)) {

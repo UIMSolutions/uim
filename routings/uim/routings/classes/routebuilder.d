@@ -25,15 +25,13 @@ class DRouteBuilder {
 
     // Initialization hook method.
     bool initialize(Json[string] initData = null) {
-        // TODO
-         /*  _resourceMap = [
+        _resourceMap = [
               "index": Json(["action": "index", "method": "GET", "path": ""]),
               "create": Json(["action": "add", "method": "POST", "path": ""]),
               "view": Json(["action": "view", "method": "GET", "path": "{id}"]),
               "update": Json(["action": "edit", "method": ["PUT", "PATCH"], "path": "{id}"]),
               "delete": Json(["action": "delete", "method": "DELETE", "path": "{id}"]),
           ];
-          */
 
           return true;
     }
@@ -43,6 +41,15 @@ class DRouteBuilder {
 
     // Default route class to use if none is provided in connect() options.
     // TODO protected string _routeClass = (new DRoute).className;
+    // Set default route class.
+    void setRouteClass(string newClassname) {
+       _routeClass = newClassname;
+    }
+
+    // Get default route class
+    string getRouteClass() {
+        return _routeClass;
+    }
 
     // The extensions that should be set into the routes connected.
     protected string[] _extensions;
@@ -50,12 +57,8 @@ class DRouteBuilder {
     // The path prefix scope that this collection uses.
     protected string _path;
 
-    /**
-     * The scope parameters if there are any.
-     *
-     * @var array
-     * /
-    // TODO protected Json[string] _params;
+    // The scope parameters if there are any.
+    protected Json[string] _params;
 
     // Name prefix for connected routes.
     protected string _namePrefix = "";
@@ -63,10 +66,7 @@ class DRouteBuilder {
     // The route collection routes should be added to.
     protected DRouteCollection _collection;
 
-    /**
-     * The list of middleware that routes in this builder get
-     * added during construction.
-     * /
+    // The list of middleware that routes in this builder get added during construction.
     protected string[] mymiddleware = null;
 
     /**
@@ -102,19 +102,7 @@ class DRouteBuilder {
         }
     }
     
-    /**
-     * Set default route class.
-     * Params:
-     * string myrouteclass DClass name.
-     * /
-    void setRouteClass(string myrouteClass) {
-       _routeClass = myrouteClass;
-    }
 
-    // Get default route class
-    string getRouteClass() {
-        return _routeClass;
-    }
     
     /**
      * Set the extensions in this route builder"s scope.

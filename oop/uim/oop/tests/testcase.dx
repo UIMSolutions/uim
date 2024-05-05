@@ -20,7 +20,7 @@ abstract class DTestCase : DBaseTestCase {
     protected IFixtureStrategy myfixtureStrategy = null;
 
     // Configure values to restore at end of test.
-    // TODO protected array _configure = null;
+    // TODO protected array Json[string] _configure = null;
 
     private PhpError _capturedError = null;
 

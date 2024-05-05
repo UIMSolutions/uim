@@ -385,7 +385,7 @@ class DClient { // }: IClient {
   }
 
   // Does a recursive merge of the parameter with the scope config.
-  // TODO protected array _mergeOptions(Json[string] optionsToMerge = null) {
+  // TODO protected array Json[string] _mergeOptions(Json[string] optionsToMerge = null) {
     return Hash.merge(_config, optionsToMerge);
   }
 

@@ -53,7 +53,7 @@ class DI18nExtractCommand : DCommand {
     protected size_t _countMarkerError = 0;
     /* 
     // Extracted tokens
-    // TODO protected array _tokens = null;
+    // TODO protected array Json[string] _tokens = null;
 
     //  Extracted strings indexed by domain.
 

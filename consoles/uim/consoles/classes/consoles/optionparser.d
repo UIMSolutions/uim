@@ -128,7 +128,7 @@ class DConsoleOptionParser {
     protected DConsoleInputArgument[] _args;
 
     // Array of args (argv).
-    // TODO // TODO protected array _token;
+    // TODO // TODO protected array Json[string] _token;
     */
     
     // #region rootName
@@ -520,7 +520,7 @@ class DConsoleOptionParser {
      * string optionToParse The option to parse.
      * @param  params The params to append the parsed value into
      * /
-    // TODO protected array _parseLongOption(string optionToParse, Json[string] params) {
+    // TODO protected array Json[string] _parseLongOption(string optionToParse, Json[string] params) {
         name = substr(optionToParse, 2);
         if (name.has("=")) {
             [name, aValue] = split("=", name, 2);
@@ -539,7 +539,7 @@ class DConsoleOptionParser {
      * params with option added in.
      * @throws \UIM\Console\Exception\ConsoleException When unknown short options are encountered.
      * /
-    // TODO protected array _parseShortOption(string optionToParse, Json[string] params) {
+    // TODO protected array Json[string] _parseShortOption(string optionToParse, Json[string] params) {
         string aKey = substr(optionToParse, 1);
         if (aKey.length > 1) {
             flags = str_split(aKey);

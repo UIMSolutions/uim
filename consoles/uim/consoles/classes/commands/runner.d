@@ -198,7 +198,7 @@ class DCommandRunner { // }: IEventDispatcher {
      * \UIM\Console\CommandCollection commands The command collection to check.
      * @param array argv The CLI arguments.
      * /
-    // TODO protected array longestCommandName(CommandCollection commands, array argv) {
+    // TODO protected array Json[string] longestCommandName(CommandCollection commands, array argv) {
         for (anI = 3;  anI > 1;  anI--) {
             someParts = array_slice(argv, 0,  anI);
             name = someParts.join(" ");

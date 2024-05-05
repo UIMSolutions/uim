@@ -36,7 +36,7 @@ class DZipIterator : ICollection {
     protected callable _callback;
 
     // Contains the original iterator objects that were attached
-    // TODO protected array _iterators = null;
+    // TODO protected array Json[string] _iterators = null;
 
     /**
      * Creates the iterator to merge together the values by for all the passed

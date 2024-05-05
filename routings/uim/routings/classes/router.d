@@ -367,7 +367,7 @@ class DRouter {
      * - Vendor/Cms.Management/Admin/Articles.view
      * Params:
      * string mypath Route path specifying controller and action, optionally with plugin and prefix.
-     * @param array myparams An array specifying any additional parameters.
+     * @param Json[string] myparams An array specifying any additional parameters.
      *  Can be also any special parameters supported by `Router.url()`.
      * @param bool myfull If true, the full base URL will be prepended to the result.
      *  Default is false.

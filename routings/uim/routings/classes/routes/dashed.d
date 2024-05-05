@@ -65,7 +65,7 @@ class DDashedRoute : DRoute {
      * to the parent class.
      * Params:
      * Json[string] myurl Array of parameters to convert to a string.
-     * @param array mycontext An array of the current request context.
+     * @param Json[string] mycontext An array of the current request context.
      *  Contains information such as the current host, scheme, port, and base
      *  directory.
      * /

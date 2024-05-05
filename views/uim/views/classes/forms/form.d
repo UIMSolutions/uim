@@ -179,7 +179,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
      * form.setErrors(errors);
      * ```
      * Params:
-     * array errors Errors list.
+     * Json[string] errors Errors list.
      * /
     void setErrors(Json[string] errors) {
        _errors = errors;

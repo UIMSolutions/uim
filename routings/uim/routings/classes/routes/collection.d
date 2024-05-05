@@ -219,7 +219,7 @@ class DRouteCollection {
      * or throws an exception on failure.
      * Params:
      * Json[string] myurl The URL to match.
-     * @param array mycontext The request context to use. Contains _base, _port,
+     * @param Json[string] mycontext The request context to use. Contains _base, _port,
      *  _host, _scheme and params keys.
      * /
     string match(Json[string] myurl, Json[string] mycontext) {

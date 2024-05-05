@@ -8,7 +8,7 @@ import uim.routings;
  * Returns an array URL from a route path string.
  *
  * @param string aPath Route path.
- * @param array params An array specifying any additional parameters.
+ * @param Json[string] params An array specifying any additional parameters.
  *  Can be also any special parameters supported by `Router.url()`.
  * /
 array urlArray(string aPath, Json[string] params = []) {

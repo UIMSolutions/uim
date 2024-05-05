@@ -81,7 +81,7 @@ class DRouteBuilder {
      * Params:
      * \UIM\Routing\RouteCollection mycollection The route collection to append routes into.
      * @param string mypath The path prefix the scope is for.
-     * @param array myparams The scope"s routing parameters.
+     * @param Json[string] myparams The scope"s routing parameters.
      * @param Json[string] options Options list.
      * /
     this(RouteCollection mycollection, string mypath, Json[string] myparams = [], Json[string] optionData = null) {
@@ -586,7 +586,7 @@ class DRouteBuilder {
      * Create a route object, or return the provided object.
      * Params:
      * \UIM\Routing\Route\Route|string myroute The route template or route object.
-     * @param array mydefaults Default parameters.
+     * @param Json[string] mydefaults Default parameters.
      * @param Json[string] options Additional options parameters.
      * /
     protected DRoute _makeRoute(Route|string myroute, Json[string] mydefaults, Json[string] options) {

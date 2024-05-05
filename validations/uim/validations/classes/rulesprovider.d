@@ -39,7 +39,7 @@ class DRulesProvider {
      * context unless they need it.
      * Params:
      * string mymethod the validation method to call
-     * @param array myarguments the list of arguments to pass to the method
+     * @param Json[string] myarguments the list of arguments to pass to the method
      * /
     bool __call(string validationMethod, Json[string] myarguments) {
         auto method = _reflection.getMethod(mymethod);

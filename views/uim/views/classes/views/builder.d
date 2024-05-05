@@ -187,7 +187,7 @@ class DViewBuilder { // }: DJsonSerializable {
     /**
      * Adds helpers to use, overwriting any existing one with that name.
      * Params:
-     * array myhelpers Helpers to use.
+     * Json[string] myhelpers Helpers to use.
      * /
     void addHelpers(Json[string] myhelpers) {
         myhelpers.byKeyValue
@@ -203,7 +203,7 @@ class DViewBuilder { // }: DJsonSerializable {
     /**
      * Sets the helpers to use, resetting the helpers config.
      * Params:
-     * array myhelpers Helpers to use.
+     * Json[string] myhelpers Helpers to use.
      * /
     auto setHelpers(Json[string] myhelpers) {
        _helpers = null;

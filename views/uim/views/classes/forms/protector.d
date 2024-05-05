@@ -225,7 +225,7 @@ class DFormProtector {
     /**
      * Return the fields list for the hash calculation
      * Params:
-     * array formData Data array
+     * Json[string] formData Data array
      * /
     // TODO protected Json[string] extractFields(Json[string] formData) {
         string locked = "";
@@ -294,7 +294,7 @@ class DFormProtector {
     /**
      * Get the sorted unlocked string
      * Params:
-     * array formData Data array
+     * Json[string] formData Data array
      * /
     protected string[] sortedUnlockedFields(Json[string] formData) {
         string unlocked = urldecode(formData["_Token"]["unlocked"]);
@@ -348,7 +348,7 @@ class DFormProtector {
     /**
      * Generate validation hash.
      * Params:
-     * array fields Fields list.
+     * Json[string] fields Fields list.
      * @param string[] unlockedFields Unlocked fields.
      * @param string aurl Form URL.
      * @param string asessionId Session Id.
@@ -367,8 +367,8 @@ class DFormProtector {
     /**
      * Create a message for humans to understand why Security token is not matching
      * Params:
-     * array formData Data.
-     * @param array hashParts Elements used to generate the Token hash
+     * Json[string] formData Data.
+     * @param Json[string] hashParts Elements used to generate the Token hash
      * /
     protected string debugTokenNotMatching(Json[string] formData, Json[string] hashParts) {
         messages = null;
@@ -412,8 +412,8 @@ class DFormProtector {
     /**
      * Iterates data array to check against expected
      * Params:
-     * array someDataFields Fields array, containing the POST data fields
-     * @param array expectedFields Fields array, containing the expected fields we should have in POST
+     * Json[string] someDataFields Fields array, containing the POST data fields
+     * @param Json[string] expectedFields Fields array, containing the expected fields we should have in POST
      * @param string aintKeyMessage Message string if unexpected found in data fields indexed by int (not protected)
      * @param string astringKeyMessage Message string if tampered found in
      * data fields indexed by string (protected).
@@ -438,8 +438,8 @@ class DFormProtector {
      * Generate array of messages for the existing fields in POST data, matching dataFields in expectedFields
      * will be unset
      * Params:
-     * array someDataFields Fields array, containing the POST data fields
-     * @param array expectedFields Fields array, containing the expected fields we should have in POST
+     * Json[string] someDataFields Fields array, containing the POST data fields
+     * @param Json[string] expectedFields Fields array, containing the expected fields we should have in POST
      * @param string aintKeyMessage Message string if unexpected found in data fields indexed by int (not protected)
      * @param string astringKeyMessage Message string if tampered found in
      *  data fields indexed by string (protected)
@@ -473,7 +473,7 @@ class DFormProtector {
     /**
      * Generate debug message for the expected fields
      * Params:
-     * array expectedFields Expected fields
+     * Json[string] expectedFields Expected fields
      * @param string amissingMessage Message template
      * /
     protected string debugExpectedFields(Json[string] expectedFields = [], string amissingMessage= null) {

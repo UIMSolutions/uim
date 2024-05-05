@@ -851,7 +851,7 @@ static string contentType() {
      * string mytemplateFile Filename of the template.
      * @param array mydataForView Data to include in rendered view.
      * /
-    protected string _evaluate(string mytemplateFile, json[string] mydataForView) {
+    protected string _evaluate(string mytemplateFile, Json[string]  mydataForView) {
         extract(mydataForView);
 
         mybufferLevel = ob_get_level();

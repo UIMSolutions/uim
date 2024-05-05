@@ -229,7 +229,7 @@ class DHasManyAssociation : DAssociation {
      * @param array<string, mixed> options list of options to be passed to the internal `save` call
      * @return bool true on success, false otherwise
      * /
-    bool link(IEntity sourceEntity, array myTargetEntities, Json[string] options = null) {
+    bool link(IEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
         saveStrategy = this.getSaveStrategy();
         this.setSaveStrategy(self::SAVE_APPEND);
         property = this.getProperty();
@@ -298,7 +298,7 @@ class DHasManyAssociation : DAssociation {
      * @throws \InvalidArgumentException if non persisted entities are passed or if
      * any of them is lacking a primary key value
      * /
-    void unlink(IEntity sourceEntity, array myTargetEntities, options = null) {
+    void unlink(IEntity sourceEntity, Json[string] myTargetEntities, options = null) {
         if (is_bool(options)) {
             options = [
                 "cleanProperty":options,
@@ -386,7 +386,7 @@ class DHasManyAssociation : DAssociation {
      * any of them is lacking a primary key value
      * @return bool success
      * /
-    bool replace(IEntity sourceEntity, array myTargetEntities, Json[string] options = null) {
+    bool replace(IEntity sourceEntity, Json[string] myTargetEntities, Json[string] options = null) {
         property = this.getProperty();
         sourceEntity.set(property, myTargetEntities);
         saveStrategy = this.getSaveStrategy();
@@ -462,7 +462,7 @@ class DHasManyAssociation : DAssociation {
      * @param array<string, mixed> options list of options accepted by `Table::remove()`
      * @return bool success
      * /
-    protected bool _unlink(array foreignKey, Table myTarget, array conditions = null, Json[string] options = null) {
+    protected bool _unlink(array foreignKey, Table myTarget, Json[string] conditions = null, Json[string] options = null) {
         mustBeDependent = (!_foreignKeyAcceptsNull(myTarget, foreignKey) || this.getDependent());
 
         if (mustBeDependent) {
@@ -502,7 +502,7 @@ class DHasManyAssociation : DAssociation {
      * @param DORMTable myTable the table containing the foreign key
      * @param array properties the list of fields that compose the foreign key
      * /
-    protected bool _foreignKeyAcceptsNull(Table myTable, array properties) {
+    protected bool _foreignKeyAcceptsNull(Table myTable, Json[string] properties) {
         return !in_array(
             false,
             array_map(

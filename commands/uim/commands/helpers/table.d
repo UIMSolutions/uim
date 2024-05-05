@@ -80,7 +80,7 @@ class DTableHelper { // }: Helper {
      * array row The row to output.
      * @param ] optionsToPass Options to be passed.
      * /
-      protected void _render(arrayrow, int[] columnWidths, json[string] optionsToPass = []) {
+      protected void _render(arrayrow, int[] columnWidths, Json[string]  optionsToPass = []) {
         if (count(row) == 0) {
           return;
         }

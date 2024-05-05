@@ -221,7 +221,7 @@ class DFormHelper : DHelper {
      * \UIM\View\Form\ContextFactory|null myinstance The context factory instance to set.
      * @param array mycontexts An array of context providers.
      * /
-    DContextFactory contextFactory(?ContextFactory myinstance = null, json[string] mycontexts = []) {
+    DContextFactory contextFactory(?ContextFactory myinstance = null, Json[string]  mycontexts = []) {
         if (myinstance.isNull) {
             return _contextFactory ??= DContextFactory.createWithDefaults(mycontexts);
         }
@@ -461,7 +461,7 @@ class DFormHelper : DHelper {
      * @param Json[string] mysecureAttributes will be passed as HTML attributes into the hidden
      *   input elements generated for the Security Component.
      * /
-    string secure(Json[string] myfields = [], json[string] mysecureAttributes = []) {
+    string secure(Json[string] myfields = [], Json[string]  mysecureAttributes = []) {
         if (!this.formProtector) {
             return "";
         }
@@ -1335,7 +1335,7 @@ class DFormHelper : DHelper {
      * @param range options Radio button options array.
      * @param Json[string] myattributes Array of attributes.
      * /
-    string radio(string aFieldName, range options = [], json[string] myattributes = []) {
+    string radio(string aFieldName, range options = [], Json[string]  myattributes = []) {
         myattributes["options"] = options;
         myattributes["idPrefix"] = _idPrefix;
 
@@ -1387,7 +1387,7 @@ class DFormHelper : DHelper {
      * string mymethod Method name / input type to make.
      * @param array myparams Parameters for the method call
      * /
-    string|int|false __call(string mymethod, json[string] myparams) {
+    string|int|false __call(string mymethod, Json[string]  myparams) {
         if (isEmpty(myparams)) {
             throw new UimException(
                 "Missing field name for `FormHelper.%s`.".format(mymethod));
@@ -1784,7 +1784,7 @@ class DFormHelper : DHelper {
      *  SELECT element
      * @param Json[string] myattributes The HTML attributes of the select element.
      * /
-    string select(string aFieldName, range options = [], json[string] myattributes = []) {
+    string select(string aFieldName, range options = [], Json[string]  myattributes = []) {
         myattributes += [
             "disabled": null,
             "escape": Json(true),
@@ -1856,7 +1856,7 @@ class DFormHelper : DHelper {
      *  (as "value"=>"Text" pairs) to be used in the checkboxes element.
      * @param Json[string] myattributes The HTML attributes of the select element.
      * /
-    string multiCheckbox(string aFieldName, range options, json[string] myattributes = []) {
+    string multiCheckbox(string aFieldName, range options, Json[string]  myattributes = []) {
         myattributes += [
             "disabled": null,
             "escape": Json(true),

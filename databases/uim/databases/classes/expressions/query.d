@@ -491,7 +491,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * String conditions are stored directly in the conditions, while any other
      * representation is wrapped around an adequate instance or of this class.
      * Params:
-     * array conditions list of conditions to be stored in this object
+     * Json[string] conditions list of conditions to be stored in this object
      * fieldTypes list of types associated on fields referenced in conditions
      * /
     protected void _addConditions(Json[string] conditions, STRINGAA fieldTypes) {

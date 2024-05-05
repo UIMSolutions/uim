@@ -113,7 +113,7 @@ class DBufferedIterator : DCollection { // }, Countable {
   }
 
   // Magic method used for serializing the iterator instance.
-  array __serialize() {
+  Json[string] __serialize() {
     if (!_finished) {
       this.count();
     }
@@ -123,7 +123,7 @@ class DBufferedIterator : DCollection { // }, Countable {
   /**
      * Magic method used to rebuild the iterator instance.
      * Params:
-     * array data Data array.
+     * Json[string] data Data array.
      * /
   void __unserialize(Json[string] data) {
     __construct([]);

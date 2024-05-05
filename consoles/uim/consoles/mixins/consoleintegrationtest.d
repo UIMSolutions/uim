@@ -32,7 +32,7 @@ mixin template TConsoleIntegrationTest() {
      * Runs CLI integration test
      * Params:
      * string acommand Command to run
-     * @param array  anInput Input values to pass to an interactive shell
+     * @param Json[string]  anInput Input values to pass to an interactive shell
      * @throws \UIM\Console\TestSuite\MissingConsoleInputException
      * @throws \InvalidArgumentException
      * /
@@ -124,7 +124,7 @@ mixin template TConsoleIntegrationTest() {
     /**
      * Check that a row of cells exists in the output.
      * Params:
-     * array row Row of cells to ensure exist in the output.
+     * Json[string] row Row of cells to ensure exist in the output.
      * /
     protected void assertOutputContainsRows(Json[string] row, string failureMessage = null) {
         this.assertThat(row, new DContentsContainRow(_out.messages(), "output"), message);

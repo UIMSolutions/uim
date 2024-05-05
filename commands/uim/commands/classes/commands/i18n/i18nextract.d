@@ -195,7 +195,7 @@ class DI18nExtractCommand : DCommand {
      *
      * Takes care of duplicate translations
      * Params:
-     * @param array details DContext and plural form if any, file and line references
+     * @param Json[string] details DContext and plural form if any, file and line references
      * /
     protected void _addTranslation(string domainName, string messageId, Json[string]  details = []) {
         context = details.get("msgctxt", "");
@@ -361,7 +361,7 @@ class DI18nExtractCommand : DCommand {
      * Params:
      * \UIM\Console\IConsoleIo aConsoleIo The io instance
      * @param string afunctionName auto name that indicates translatable string (e.g: '__")
-     * @param array map Array containing what variables it will find (e.g: domain, singular, plural)
+     * @param Json[string] map Array containing what variables it will find (e.g: domain, singular, plural)
      * /
     protected void _parse(IConsoleIo aConsoleIo, string afunctionName, Json[string]  map) {
         count = 0;

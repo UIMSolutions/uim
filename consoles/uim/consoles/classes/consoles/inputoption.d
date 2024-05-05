@@ -197,7 +197,7 @@ class DConsoleInputOption {
     }
     
     // Get the list of choices this option has.
-    array choices() {
+    Json[string] choices() {
         return _choices;
     }
     

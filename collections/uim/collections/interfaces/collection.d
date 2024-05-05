@@ -731,7 +731,7 @@ interface ICollection {
      * Returns an numerically-indexed array representation of the results.
      * This is equivalent to calling `toArray(false)`
      * /
-    array toList();
+    Json[string] toList();
 
     /**
      * Returns the data that can be converted to Json. This returns the same data
@@ -739,9 +739,9 @@ interface ICollection {
      *
      * Part of JsonSerializable interface.
      *
-     * @return array The data to convert to Json
+     * @return Json[string] The data to convert to Json
      * /
-    array JsonSerialize();
+    Json[string] JsonSerialize();
 
     /**
      * Iterates once all elements in this collection and executes all stacked

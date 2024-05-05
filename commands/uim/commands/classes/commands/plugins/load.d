@@ -77,11 +77,11 @@ class DPluginLoadCommand : DCommand {
     }
 
     configuration.get(pluginName] = options;
-    auto array = class_exists(VarExporter.class)
+    auto Json[string] = class_exists(VarExporter.class)
         ? VarExporter.export(configData, VarExporter.TRAILING_COMMA_IN_ARRAY) 
         : var_export(configData, true);
 
-    contents = "" ~ "\n\n" ~ "return " ~ array ~ ";" ~ "\n";
+    contents = "" ~ "\n\n" ~ "return " ~ Json[string] ~ ";" ~ "\n";
 
     return file_put_contents(this.configFile, contents)
         ? CODE_SUCCESS

@@ -35,7 +35,7 @@ class DResultsetFactory {
      * Params:
      * \ORM\Query\SelectQuery myquery The query from where to derive the data.
      * /
-    // TODO protected array Json[string] collectData(SelectQuery myquery) {
+    // TODO protected Json[string] collectData(SelectQuery myquery) {
         myprimaryTable = myquery.getRepository();
         mydata = [
             "primaryAlias": myprimaryTable.aliasName(),

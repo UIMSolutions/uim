@@ -472,7 +472,7 @@ class DEavStrategy { // TODO }: ITranslateStrategy {
      *
      * @param array ruleSet An array of array of conditions to be used for finding each
      * /
-    // TODO protected array Json[string] findExistingTranslations(ruleSet) {
+    // TODO protected Json[string] findExistingTranslations(ruleSet) {
         association = this.table.getAssociation(this.translationTable.aliasName());
 
         query = association.find()

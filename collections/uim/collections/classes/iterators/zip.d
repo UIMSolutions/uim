@@ -45,7 +45,7 @@ class DZipIterator : ICollection {
      * @param array sets The list of array or iterators to be zipped.
      * @param callable|null aCallable The auto to use for zipping the elements of each iterator.
      * /
-    this(array sets, ?callable aCallable = null) {
+    this(Json[string] sets, ?callable aCallable = null) {
         _multipleIterator = new DMultipleIterator(
             MultipleIterator.MIT_NEED_ALL | MultipleIterator.MIT_KEYS_NUMERIC
         );
@@ -93,7 +93,7 @@ class DZipIterator : ICollection {
      * Params:
      * array data Data array.
      * /
-    void __unserialize(array data) {
+    void __unserialize(Json[string] data) {
         _multipleIterator = new DMultipleIterator(
             MultipleIterator.MIT_NEED_ALL | MultipleIterator.MIT_KEYS_NUMERIC
         );

@@ -197,7 +197,7 @@ class DI18nExtractCommand : DCommand {
      * Params:
      * @param array details DContext and plural form if any, file and line references
      * /
-    protected void _addTranslation(string domainName, string messageId, array details = []) {
+    protected void _addTranslation(string domainName, string messageId, json[string] details = []) {
         context = details.get("msgctxt", "");
 
         if (isEmpty(_translations[domainName][messageId][context])) {
@@ -363,7 +363,7 @@ class DI18nExtractCommand : DCommand {
      * @param string afunctionName auto name that indicates translatable string (e.g: '__")
      * @param array map Array containing what variables it will find (e.g: domain, singular, plural)
      * /
-    protected void _parse(IConsoleIo aConsoleIo, string afunctionName, array map) {
+    protected void _parse(IConsoleIo aConsoleIo, string afunctionName, json[string] map) {
         count = 0;
         tokenCount = count(_tokens);
 

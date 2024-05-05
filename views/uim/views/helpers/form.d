@@ -221,7 +221,7 @@ class DFormHelper : DHelper {
      * \UIM\View\Form\ContextFactory|null myinstance The context factory instance to set.
      * @param array mycontexts An array of context providers.
      * /
-    DContextFactory contextFactory(?ContextFactory myinstance = null, array mycontexts = []) {
+    DContextFactory contextFactory(?ContextFactory myinstance = null, json[string] mycontexts = []) {
         if (myinstance.isNull) {
             return _contextFactory ??= DContextFactory.createWithDefaults(mycontexts);
         }
@@ -430,7 +430,7 @@ class DFormHelper : DHelper {
      * Json[string] mysecureAttributes Secure attributes which will be passed as HTML attributes
      *  into the hidden input elements generated for the Security Component.
      * /
-    string end(array mysecureAttributes = []) {
+    string end(Json[string] mysecureAttributes = []) {
         result = "";
 
         if (this.requestType != "get" && _View.getRequest().getAttribute("formTokenData") !isNull) {
@@ -461,7 +461,7 @@ class DFormHelper : DHelper {
      * @param Json[string] mysecureAttributes will be passed as HTML attributes into the hidden
      *   input elements generated for the Security Component.
      * /
-    string secure(array myfields = [], array mysecureAttributes = []) {
+    string secure(Json[string] myfields = [], json[string] mysecureAttributes = []) {
         if (!this.formProtector) {
             return "";
         }
@@ -522,7 +522,7 @@ class DFormHelper : DHelper {
      * Params:
      * Json[string] myformTokenData Token data.
      * /
-    protected DFormProtector createFormProtector(array myformTokenData) {
+    protected DFormProtector createFormProtector(Json[string] myformTokenData) {
         auto mysession = _View.getRequest().getSession();
         mysession.start();
 
@@ -736,7 +736,7 @@ class DFormHelper : DHelper {
      * - `legend` Set to false to disable the legend for the generated control set. Or supply a string
      *   to customize the legend text.
      * /
-    string allControls(array myfields = [], Json[string] options  = null) {
+    string allControls(Json[string] myfields = [], Json[string] options  = null) {
         mycontext = _getContext();
 
         mymodelFields = mycontext.fieldNames();
@@ -770,7 +770,7 @@ class DFormHelper : DHelper {
      * - `legend` Set to false to disable the legend for the generated input set.
      *   Or supply a string to customize the legend text.
      * /
-    string controls(array myfields, Json[string] options  = null) {
+    string controls(Json[string] myfields, Json[string] options  = null) {
         myfields = Hash.normalize(myfields);
 
         result = "";
@@ -1335,7 +1335,7 @@ class DFormHelper : DHelper {
      * @param range options Radio button options array.
      * @param Json[string] myattributes Array of attributes.
      * /
-    string radio(string aFieldName, range options = [], array myattributes = []) {
+    string radio(string aFieldName, range options = [], json[string] myattributes = []) {
         myattributes["options"] = options;
         myattributes["idPrefix"] = _idPrefix;
 
@@ -1387,7 +1387,7 @@ class DFormHelper : DHelper {
      * string mymethod Method name / input type to make.
      * @param array myparams Parameters for the method call
      * /
-    string|int|false __call(string mymethod, array myparams) {
+    string|int|false __call(string mymethod, json[string] myparams) {
         if (isEmpty(myparams)) {
             throw new UimException(
                 "Missing field name for `FormHelper.%s`.".format(mymethod));
@@ -1784,7 +1784,7 @@ class DFormHelper : DHelper {
      *  SELECT element
      * @param Json[string] myattributes The HTML attributes of the select element.
      * /
-    string select(string aFieldName, range options = [], array myattributes = []) {
+    string select(string aFieldName, range options = [], json[string] myattributes = []) {
         myattributes += [
             "disabled": null,
             "escape": Json(true),
@@ -1856,7 +1856,7 @@ class DFormHelper : DHelper {
      *  (as "value"=>"Text" pairs) to be used in the checkboxes element.
      * @param Json[string] myattributes The HTML attributes of the select element.
      * /
-    string multiCheckbox(string aFieldName, range options, array myattributes = []) {
+    string multiCheckbox(string aFieldName, range options, json[string] myattributes = []) {
         myattributes += [
             "disabled": null,
             "escape": Json(true),
@@ -2234,7 +2234,7 @@ class DFormHelper : DHelper {
      * string[] mysources A list of strings identifying a source.
      * @throws \InvalidArgumentException If sources list contains invalid value.
      * /
-    protected void validateValueSources(array mysources) {
+    protected void validateValueSources(Json[string] mysources) {
         mydiff = array_diff(mysources, this.supportedValueSources);
 
         if (mydiff) {

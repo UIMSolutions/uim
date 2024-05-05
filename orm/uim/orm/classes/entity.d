@@ -31,7 +31,7 @@ class DORMEntity { // }: IEntity, IInvalidProperty {
      * Json[string] myproperties hash of properties to set in this entity
      * @param Json[string] options list of options to use when creating this entity
      * /
-    this(array myproperties = [], Json[string] optionData = null) {
+    this(Json[string] myproperties = [], Json[string] optionData = null) {
         auto updatedOptions = options.merge([
             "useSetters": Json(true),
             "markClean": Json(false),

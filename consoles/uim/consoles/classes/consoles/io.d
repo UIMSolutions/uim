@@ -179,15 +179,9 @@ class DConsoleIo {
         return _writeln(message, newLinesToAppend, outputLevel);
     }
     
-    /**
-     * Convenience method for writeErrorMessages() that wraps message between <warning> tag
-     * Params:
-     * string[]|string amessage A string or an array of strings to output
-     * @param int newLinesToAppend Number of newLinesToAppend to append
-     * /
-    int warning(string[] amessage, int newLinesToAppend = 1) {
-        string messageType = "warning";
-        message = wrapMessageWithType(messageType, message);
+    // Convenience method for writeErrorMessages() that wraps message between <warning> tag
+    int warning(string[] outputMessages, int newLinesToAppend = 1) {
+        auto message = wrapMessageWithType("warning", outputMessages);
 
         return _writeErrorMessages(message, newLinesToAppend);
     }
@@ -257,17 +251,17 @@ class DConsoleIo {
         size = size ?: _lastWritten;
 
         // Output backspaces.
-        this.writeln(str_repeat("\x08", size), 0);
+        writeln(str_repeat("\x08", size), 0);
 
-        newBytes = (int)this.writeln(message, 0);
+        newBytes = (int)writeln(message, 0);
 
         // Fill any remaining bytes with spaces.
         fill = size - newBytes;
         if (fill > 0) {
-            this.writeln(str_repeat(" ", fill), 0);
+            writeln(str_repeat(" ", fill), 0);
         }
         if (newLinesToAppend) {
-            this.writeln(this.nl(newLinesToAppend), 0);
+            writeln(this.nl(newLinesToAppend), 0);
         }
         // Store length of content + fill so if the new content
         // is shorter than the old content the next overwrite will work.
@@ -306,9 +300,9 @@ class DConsoleIo {
      * @param int width Width of the line, defaults to 79
      * /
     void hr(int newLinesToAppend = 0, int width = 79) {
-        this.writeln("", newLinesToAppend);
-        this.writeln(str_repeat("-", width));
-        this.writeln("", newLinesToAppend);
+        writeln("", newLinesToAppend);
+        writeln(str_repeat("-", width));
+        writeln("", newLinesToAppend);
     }
     
     // Prompts the user for input, and returns it.
@@ -349,7 +343,7 @@ class DConsoleIo {
      * @param array definition The array definition of the style to change or create.
      * @see \UIM\Console\ConsoleOutput.setStyle()
      * /
-    void setStyle(string styleToSet, array definition) {
+    void setStyle(string styleToSet, json[string] definition) {
        _out.setStyle(styleToSet, definition);
     }
     
@@ -498,7 +492,7 @@ class DConsoleIo {
      *  to whether a file should be overwritten.
      * /
     bool createFile(string aPath, string acontents, bool shouldOverwrite = false) {
-        this.writeln();
+        writeln();
         shouldOverwrite = shouldOverwrite || this.forceOverwrite;
 
         if (file_exists(somePath) && shouldOverwrite == false) {
@@ -515,12 +509,12 @@ class DConsoleIo {
                 aKey = "y";
             }
             if (aKey != "y") {
-                this.writeln("Skip `{somePath}`", 2);
+                writeln("Skip `{somePath}`", 2);
 
                 return false;
             }
         } else {
-            this.writeln("Creating file {somePath}");
+            writeln("Creating file {somePath}");
         }
         try {
             // Create the directory using the current user permissions.
@@ -537,7 +531,7 @@ class DConsoleIo {
         file.rewind();
         file.fwrite(contents);
         if (file_exists(somePath)) {
-            this.writeln("<success>Wrote</success> `{somePath}`");
+            writeln("<success>Wrote</success> `{somePath}`");
 
             return true;
         }

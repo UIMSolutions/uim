@@ -36,7 +36,7 @@ mixin template TConsoleIntegrationTest() {
      * @throws \UIM\Console\TestSuite\MissingConsoleInputException
      * @throws \InvalidArgumentException
      * /
-    void exec(string acommand, array  anInput = []) {
+    void exec(string acommand, json[string]  anInput = []) {
         runner = this.makeRunner();
 
        _out ??= new DStubConsoleOutput();
@@ -126,7 +126,7 @@ mixin template TConsoleIntegrationTest() {
      * Params:
      * array row Row of cells to ensure exist in the output.
      * /
-    protected void assertOutputContainsRows(array row, string failureMessage = null) {
+    protected void assertOutputContainsRows(Json[string] row, string failureMessage = null) {
         this.assertThat(row, new DContentsContainRow(_out.messages(), "output"), message);
     }
     

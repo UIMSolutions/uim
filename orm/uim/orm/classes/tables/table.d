@@ -149,7 +149,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             this.setTable(configData("table"));
         }
         if (!empty(configData("alias"))) {
-            this.aliasName(configData("alias"));
+            aliasName(configData("alias"));
         }
         if (!empty(configData("connection"))) {
             this.setConnection(configData("connection"));
@@ -194,7 +194,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         assert(_eventManager !isNull, "EventManager not available");
 
         _eventManager.on(this);
-        this.dispatchEvent("Model.initialize"); */
+        dispatchEvent("Model.initialize"); */
 
         return true;
     }
@@ -364,7 +364,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
     
     // Returns the table registry key used to create this table instance.
     string registryKey() {
-        return _registryAlias ??= this.aliasName();
+        return _registryAlias ??= aliasName();
     }
     
     /**
@@ -441,7 +441,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (_schema.isNull) {
             throw new DatabaseException(
                 "Unable to check max alias lengths for `%s` without schema."
-                .format(this.aliasName()
+                .format(aliasName()
             ));
         }
         
@@ -449,7 +449,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (maxLength.isNull) {
             return;
         }
-        string aliasName = this.aliasName();
+        string aliasName = aliasName();
         _schema.columns().each!(name => checkAliasLength(aliasName, name, maxLength)); 
     }
 
@@ -627,7 +627,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * array mybehaviors All the behaviors to load.
      * /
-    void addBehaviors(array mybehaviors) {
+    void addBehaviors(Json[string] mybehaviors) {
         foreach (mybehaviors as myname: options) {
             if (isInt(myname)) {
                 myname = options;
@@ -706,7 +706,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (!myassociation) {
             myassocations = this.associations().keys();
 
-            mymessage = "The `{myname}` association is not defined on `{this.aliasName()}`.";
+            mymessage = "The `{myname}` association is not defined on `{aliasName()}`.";
             if (myassocations) {
                 mymessage ~= "\nValid associations are: " ~ join(", ", myassocations);
             }
@@ -790,7 +790,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @see \ORM\Table.hasMany()
      * @see \ORM\Table.belongsToMany()
      * /
-    auto addAssociations(array myparams) {
+    auto addAssociations(Json[string] myparams) {
         foreach (myparams as myassocType: mytables) {
             foreach (mytables as myassociated: options) {
                 if (isNumeric(myassociated)) {
@@ -1229,7 +1229,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param string[] someKeys the keys to check in options to build matchers from
      * the associated value
      * /
-    protected Json[string] _setFieldMatchers(Json[string] options, array someKeys) {
+    protected Json[string] _setFieldMatchers(Json[string] options, json[string] someKeys) {
         someKeys.each!((field) {
             if (!options[field].isArray) {
                 continue;
@@ -1281,7 +1281,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             ));
         }
         aKey = (array)this.primaryKeys();
-        aliasName = this.aliasName();
+        aliasName = aliasName();
         foreach (myindex: mykeyname; aKey) {
             aKey[myindex] = aliasName ~ "." ~ mykeyname;
         }
@@ -1405,7 +1405,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         );
 
         if (myentity && _transactionCommitted(options["atomic"], true)) {
-            this.dispatchEvent("Model.afterSaveCommit", compact("entity", "options"));
+            dispatchEvent("Model.afterSaveCommit", compact("entity", "options"));
         }
         return myentity;
     }
@@ -1549,7 +1549,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @return int Returns the number of affected rows.
      * /
     int deleteAll(QueryExpression|Closure|string[]|string myconditions) {
-        mystatement = this.deleteQuery()
+        auto mystatement = this.deleteQuery()
             .where(myconditions)
             .execute();
 
@@ -1676,7 +1676,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
 
         if (mysuccess) {
             if (_transactionCommitted(options["atomic"], options["_primary"])) {
-                this.dispatchEvent("Model.afterSaveCommit", compact("entity", "options"));
+                dispatchEvent("Model.afterSaveCommit", compact("entity", "options"));
             }
             if (options["atomic"] || options["_primary"]) {
                 if (options["_cleanOnSuccess"]) {
@@ -1714,7 +1714,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         myprimaryColumns = (array)this.primaryKeys();
 
         if (options["checkExisting"] && myprimaryColumns && myentity.isNew() && myentity.has(myprimaryColumns)) {
-            aliasName = this.aliasName();
+            aliasName = aliasName();
             myconditions = null;
             foreach (myentity.extract(myprimaryColumns) as myKey: myv) {
                 myconditions["aliasName.myKey"] = myv;
@@ -1726,7 +1726,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
             return false;
         }
         options["associated"] = _associations.normalizeKeys(options["associated"]);
-        myevent = this.dispatchEvent("Model.beforeSave", compact("entity", "options"));
+        myevent = dispatchEvent("Model.beforeSave", compact("entity", "options"));
 
         if (myevent.isStopped()) {
             result = myevent.getResult();
@@ -1787,7 +1787,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (!mysuccess && options["atomic"]) {
             return false;
         }
-        this.dispatchEvent("Model.afterSave", compact("entity", "options"));
+        dispatchEvent("Model.afterSave", compact("entity", "options"));
 
         if (options["atomic"] && !this.getConnection().inTransaction()) {
             throw new DRolledbackTransactionException(["table": class]);
@@ -1806,7 +1806,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * \UIM\Datasource\IEntity myentity the subject entity from were mydata was extracted
      * @param array data The actual data that needs to be saved
      * /
-    protected IEntity _insert(IEntity myentity, array data) {
+    protected IEntity _insert(IEntity myentity, json[string] data) {
         auto primaryKey = (array)this.primaryKeys();
         if (isEmpty(primaryKey)) {
             mymsg = "Cannot insert row in `%s` table, it has no primary key."
@@ -1879,7 +1879,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * string[] myprimary The primary key columns to get a new DID for.
      * @return string Either null or the primary key value or a list of primary key values.
      * /
-    protected string _newId(array myprimary) {
+    protected string _newId(Json[string] myprimary) {
         if (!myprimary || count(myprimary) > 1) {
             return null;
         }
@@ -1896,7 +1896,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * \UIM\Datasource\IEntity myentity the subject entity from were mydata was extracted
      * @param array data The actual data that needs to be saved
      * /
-    protected IEntity _update(IEntity myentity, array data) {
+    protected IEntity _update(IEntity myentity, json[string] data) {
         myprimaryColumns = (array)this.primaryKeys();
         myprimaryKey = myentity.extract(myprimaryColumns);
 
@@ -2032,7 +2032,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
 
         if (_transactionCommitted(options["atomic"], options["_primary"])) {
             foreach (myentities as myentity) {
-                this.dispatchEvent("Model.afterSaveCommit", compact("entity", "options"));
+                dispatchEvent("Model.afterSaveCommit", compact("entity", "options"));
                 if (options["atomic"] || options["_primary"]) {
                     mycleanupOnSuccess(myentity);
                 }
@@ -2082,7 +2082,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         );
 
         if (mysuccess && _transactionCommitted(options["atomic"], options["_primary"])) {
-            this.dispatchEvent("Model.afterDeleteCommit", [
+            dispatchEvent("Model.afterDeleteCommit", [
                 "entity": myentity,
                 "options": options,
             ]);
@@ -2150,9 +2150,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
 
         if (myfailed.isNull && _transactionCommitted(options["atomic"], options["_primary"])) {
             myentities.each!(entity => 
-                this.dispatchEvent("Model.afterDeleteCommit", [
-                    "entity": entity,
-                    "options": options,
+                dispatchEvent("Model.afterDeleteCommit", [
+                    "entity": entity.toJson,
+                    "options": options.toJson,
                 ]));
         }
         return myfailed;
@@ -2196,9 +2196,9 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (options["checkRules"] && !this.checkRules(myentity, RulesChecker.DELETE, options)) {
             return false;
         }
-        myevent = this.dispatchEvent("Model.beforeDelete", [
-            "entity": myentity,
-            "options": options,
+        myevent = dispatchEvent("Model.beforeDelete", [
+            "entity": myentity.toJson,
+            "options": options.toJson,
         ]);
 
         if (myevent.isStopped()) {
@@ -2206,7 +2206,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         }
         mysuccess = _associations.cascaderemove(
             myentity,
-            ["_primary": Json(false)] + options.getArrayCopy()
+            ["_primary": false.toJson + options.getArrayCopy()
         );
         if (!mysuccess) {
             return mysuccess;
@@ -2218,8 +2218,8 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         if (mystatement.rowCount() < 1) {
             return false;
         }
-        this.dispatchEvent("Model.afterDelete", [
-            "entity": myentity,
+        dispatchEvent("Model.afterDelete", [
+            "entity": myentity.toJson,
             "options": options,
         ]);
 
@@ -2247,7 +2247,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param Json ...myargs Arguments that match up to finder-specific parameters
      * /
     SelectQuery<TSubject> callFinder(string mytype, SelectQuery myquery, Json ...myargs) {
-        myfinder = "find" ~ mytype;
+        string myfinder = "find" ~ mytype;
         if (method_exists(this, myfinder)) {
             return _invokeFinder(this.{myfinder}(...), myquery, myargs);
         }
@@ -2268,7 +2268,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param \ORM\Query\SelectQuery<TSubject> myquery The query object.
      * @param array myargs Arguments for the callable.
      * /
-    SelectQuery<TSubject> invokeFinder(Closure mycallable, SelectQuery myquery, array myargs) {
+    SelectQuery<TSubject> invokeFinder(Closure mycallable, SelectQuery myquery, json[string] myargs) {
         myreflected = new DReflectionFunction(mycallable);
         myparams = myreflected.getParameters();
         mysecondParam = myparams[1] ?? null;
@@ -2338,7 +2338,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * string mymethod The method name that was fired.
      * @param array myargs List of arguments passed to the function.
      * /
-    protected ISelectQuery _dynamicFinder(string mymethod, array myargs) {
+    protected ISelectQuery _dynamicFinder(string mymethod, json[string] myargs) {
         mymethod = Inflector.underscore(mymethod);
         preg_match("/^find_([\w]+)_by_/", mymethod, mymatches);
         if (isEmpty(mymatches)) {
@@ -2392,7 +2392,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * Params:
      * @param array myargs List of arguments passed to the function
      * /
-    Json __call(string methodToInvoke, array myargs) {
+    Json __call(string methodToInvoke, json[string] myargs) {
         if (_behaviors.hasMethod(methodToInvoke)) {
             return _behaviors.call(methodToInvoke, myargs);
         }
@@ -2503,7 +2503,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @return \UIM\Datasource\IEntity
      * @see \ORM\Marshaller.one()
      * /
-    auto newEntity(array data, Json[string] optionData = null): IEntity
+    auto newEntity(Json[string] data, Json[string] optionData = null): IEntity
     {
         options["associated"] ??= _associations.keys();
 
@@ -2540,7 +2540,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * array data The data to build an entity with.
      * @param Json[string] options A list of options for the objects hydration.
      * /
-    IEntity[] newEntities(array data, Json[string] optionData = null) {
+    IEntity[] newEntities(Json[string] data, Json[string] optionData = null) {
         options["associated"] ??= _associations.keys();
 
         return _marshaller().many(mydata, options);
@@ -2594,7 +2594,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param array data key value list of fields to be merged into the entity
      * @param Json[string] options A list of options for the object hydration.
      * /
-    IEntity patchEntity(IEntity myentity, array data, Json[string] optionData = null) {
+    IEntity patchEntity(IEntity myentity, json[string] data, Json[string] optionData = null) {
         options["associated"] ??= _associations.keys();
 
         return _marshaller().merge(myentity, mydata, options);
@@ -2629,7 +2629,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param array data list of arrays to be merged into the entities
      * @param Json[string] options A list of options for the objects hydration.
      * /
-    IEntity[] patchEntities(Range myentities, array data, Json[string] optionData = null) {
+    IEntity[] patchEntities(Range myentities, json[string] data, Json[string] optionData = null) {
         options["associated"] ??= _associations.keys();
 
         return _marshaller().mergeMany(myentities, mydata, options);
@@ -2669,7 +2669,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param array|null mycontext Either the validation context or null.
      * @return bool True if the value is unique, or false if a non-scalar, non-unique value was given.
      * /
-    bool validateUnique(Json aValue, Json[string] options, array mycontext = null) {
+    bool validateUnique(Json aValue, Json[string] options, json[string] mycontext = null) {
         if (mycontext.isNull) {
             mycontext = options;
         }
@@ -2785,7 +2785,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param array mycontain A `contain()` compatible array.
      * @see \ORM\Query.contain()
      * /
-    IEntity[] loadInto(IEntity|array myentities, array mycontain) {
+    IEntity[] loadInto(IEntity|array myentities, json[string] mycontain) {
         return (new DLazyEagerLoader()).loadInto(myentities, mycontain, this);
     }
  
@@ -2802,7 +2802,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
         return [
             "registryAlias": this.registryKey(),
             "table": this.getTable(),
-            "alias": this.aliasName(),
+            "alias": aliasName(),
             "entityClass": this.getEntityClass(),
             "associations": _associations.keys(),
             "behaviors": _behaviors.loaded(),

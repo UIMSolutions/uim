@@ -66,16 +66,11 @@ class DCheckboxWidget : DWidget {
         return null;
     }
     
-    /**
-     * Checks whether the checkbox should be checked.
-     * Params:
-     * Json[string] mydata Data to look at and determine checked state.
-     * /
+    // Checks whether the checkbox should be checked.
     protected bool _isChecked(Json[string] data) {
-        if (array_key_exists("checked", mydata)) {
-            return (bool)mydata["checked"];
-        }
-        return (string)mydata["val"] == (string)mydata["value"];
-    } */
+        return data.hasKey("checked")
+            ? data.getBoolean("checked");
+            ? data.getString("val") == data.getString("value");
+    } 
 }
 mixin(WidgetCalls!("Checkbox"));

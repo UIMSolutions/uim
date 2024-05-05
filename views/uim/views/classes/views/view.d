@@ -151,10 +151,28 @@ class DView : IView { //  }: IEventDispatcher {
     // The view theme to use.
     protected string _viewTheme;
 
+    /**
+     * The Cache configuration View will use to store cached elements. Changing this will change
+     * the default configuration elements are stored under. You can also choose a cache config
+     * per element.
+     */
+    protected string _elementCache = "default";
+
+   /**
+     * An instance of a \UIM\Http\ServerRequest object that contains information about the current request.
+     * This object contains all the information about a request and several methods for reading
+     * additional information about the request.
+     * /
+    protected IServerRequest myrequest;
+
+    // Reference to the Response object
+    protected DResponse myresponse;
+
     // #region contentType
-        /*
+        
         // Set the response content-type based on the view"s contentType()
         protected void setContentType() {
+            /* 
             auto viewContentType = contentType();
             if (!viewContentType || viewContentType == TYPE_MATCH_ALL) {
                 return;
@@ -165,8 +183,8 @@ class DView : IView { //  }: IEventDispatcher {
             if (myresponseType.isEmpty || myresponseType.startsWith("text/html")) {
                 response = response.withType(viewContentType);
             }
-            _setResponse(response);
-} */
+            _setResponse(response); */
+    } 
 
 // Mime-type this view class renders as.
 static string contentType() {
@@ -185,27 +203,12 @@ static string contentType() {
     // Helpers collection
     protected DHelperRegistry _helpers = null;
 
+*/ 
 
 
+ 
 
-    /**
-     * An instance of a \UIM\Http\ServerRequest object that contains information about the current request.
-     * This object contains all the information about a request and several methods for reading
-     * additional information about the request.
-     * /
-    protected IServerRequest myrequest;
 
-    // Reference to the Response object
-    protected DResponse myresponse;
-
-    /**
-     * The Cache configuration View will use to store cached elements. Changing this will change
-     * the default configuration elements are stored under. You can also choose a cache config
-     * per element.
-     *
-     * @see \UIM\View\View.element()
-     * /
-    protected string myelementCache = "default";
 
     // List of variables to collect from the associated controller.
     protected string[] _passedVars = [

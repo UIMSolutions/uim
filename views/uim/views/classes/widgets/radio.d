@@ -19,22 +19,21 @@ class DRadioWidget : DWidget {
             return false;
         }
 
+        // Data defaults.
+        configuration.updateDefaults([
+            "name": StringData,
+            "options": Json.emptyArray,
+            "disabled": Json(null),
+            "val": Json(null),
+            "escape": Json(true),
+            "label": Json(true),
+            "empty": Json(false),
+            "idPrefix": Json(null),
+            "templateVars": Json.emptyArray
+        ]);
+
         return true;
     }
-    /*
-
-    // Data defaults.
-    protected Json[string] _defaultData = [
-        "name": StringData,
-        "options": Json.emptyArray,
-        "disabled": null, // Json(null),
-        "val": null, // Json(null),
-        "escape": Json(true),
-        "label": Json(true),
-        "empty": Json(false),
-        "idPrefix": Json(null),
-        "templateVars": Json.emptyArray
-    ]; */
 
     // Label instance.
     protected DLabelWidget _label;

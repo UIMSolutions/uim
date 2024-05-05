@@ -95,9 +95,10 @@ class DMessagesFileLoader {
     /**
      * Loads the translation file and parses it. Returns an instance of a translations
      * catalog containing the messages loaded from the file.
-     * /
-    Catalog catalog() {
-        auto folders = this.translationsFolders();
+     */
+    DMessageCatalog catalog() {
+        // TODO auto folders = this.translationsFolders();
+        /* 
         auto file = this.translationFile(folders, _name, _extension);
         if (file.isEmpty) { // No file to load
             return null;
@@ -110,9 +111,9 @@ class DMessagesFileLoader {
         }
 
         auto object = Object.factory(className);
-        auto messages = object.parse(file);
+        auto messages = object.parse(file); */
         auto catalog = new DMessageCatalog("default");
-        auto catalog.setMessages(messages);
+        // TODOD auto catalog.setMessages(messages); 
 
         return catalog;
     }

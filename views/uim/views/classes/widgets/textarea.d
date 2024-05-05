@@ -18,16 +18,17 @@ class DTextareaWidget : DWidget {
             return false;
         }
 
-        return true;
-    }
-    /* 
-    protected Json[string] _defaultData = [
+    configuration.updateDefaults([
         "val": Json(""),
         "name": Json(""),
         "escape": Json(true),
         "rows": IntegerData(5),
         "templateVars": Json.emptyArray,
-    ];
+    ]);
+    
+        return true;
+    }
+
 
     /**
      * Render a text area form widget.

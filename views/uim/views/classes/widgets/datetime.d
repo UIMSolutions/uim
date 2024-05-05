@@ -52,10 +52,7 @@ class DDateTimeWidget : DWidget {
     // Formats for various input types.
     protected STRINGAA _formatMap;
 
-    /**
-     * Step size for various input types.
-     * If not set, defaults to browser default.
-     */
+    // Step size for various input types. Defaults = browser default.
     protected Json[string] _defaultStep;
 
     /**

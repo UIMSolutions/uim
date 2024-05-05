@@ -18,18 +18,19 @@ class DSelectBoxWidget : DWidget {
             return false;
         }
 
-        return true;
-    }
-    /* 
-    protected Json[string] _defaultData = [
+    configuration.updateDefaults([
         "name": Json(""),
         "empty": Json(false),
         "escape": Json(true),
         "options": Json.emptyArray,
-        "disabled": null,
-        "val": null,
+        "disabled": Json(null),
+        "val": Json(null),
         "templateVars": Json.emptyArray,
-    ];
+    ]);
+
+        return true;
+    }
+
 
     /**
      * Render a select box form input.

@@ -42,8 +42,10 @@ class DFileWidget : DWidget {
      * buildData The data to build a file input with.
      * @param \UIM\View\Form\IContext formContext The current form context.
      * return HTML elements.
-     * /
+     */
     override string render(Json[string] renderData, IContext formContext) {
+        // TODO 
+        /* 
         auto mergedData = renderData.merge(formContext.data);
 
         mergedData.remove("val");
@@ -54,7 +56,8 @@ class DFileWidget : DWidget {
             "attrs": _stringContents.formatAttributes(
                 mergedData, ["name"]
             ),
-        ]);
-    } */
+        ]); */
+        return null; 
+    }
 }
 mixin(WidgetCalls!("File"));

@@ -49,11 +49,13 @@ class DWidgetLocator {
      *
      * Widget files should define a `configData` variable containing
      * all the widgets to load. Loaded widgets will be merged with existing* widgets.
-     * /
+     */
     void load(string fileToLoad) {
+        // TODO
+        /* 
         myloader = new DPhpConfig();
         mywidgets = myloader.read(fileToLoad);
-        this.add(mywidgets);
+        this.add(mywidgets); */
     }
     
     /**

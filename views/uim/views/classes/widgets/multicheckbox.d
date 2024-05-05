@@ -19,26 +19,23 @@ class DMultiCheckboxWidget : DWidget {
             return false;
         }
 
+        configuration.updateDefaults([
+            "name": Json(""),
+            "escape": Json(true),
+            "options": Json.emptyArray,
+            "disabled": null,
+            "val": null,
+            "idPrefix": null,
+            "templateVars": Json.emptyArray,
+            "label": Json(true),
+        ]);
+
         return true;
     }
     
     // Label widget instance.
     protected DLabelWidget _label;
     
-        /* 
-
-    protected Json[string] _defaultData = [
-        "name": Json(""),
-        "escape": Json(true),
-        "options": Json.emptyArray,
-        "disabled": null,
-        "val": null,
-        "idPrefix": null,
-        "templateVars": Json.emptyArray,
-        "label": Json(true),
-    ];
-
-
 
     /**
      * Render multi-checkbox widget.

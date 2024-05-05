@@ -33,7 +33,7 @@ class DMarshaller {
     /**
      * Build the map of property: marshalling callable.
      * Params:
-     * array data The data being marshalled.
+     * Json[string] data The data being marshalled.
      * @param Json[string] options List of options containing the "associated" key.
      * @throws \InvalidArgumentException When associations do not exist.
      * /
@@ -193,7 +193,7 @@ class DMarshaller {
     /**
      * Returns the validation errors for a data set based on the passed options
      * Params:
-     * array data The data to validate.
+     * Json[string] data The data to validate.
      * @param string|bool myvalidator Validator name or `true` for default validator.
      * @param bool myisNew Whether it is a new DORMEntity or one to be updated.
      * /
@@ -280,7 +280,7 @@ class DMarshaller {
      *  when primary key values are set, and a record does not already exist. Normally primary key
      *  on missing entities would be ignored. Defaults to false.
      * Params:
-     * array data The data to hydrate.
+     * Json[string] data The data to hydrate.
      * @param Json[string] options List of options
      * /
     IEntity[] many(Json[string] data, Json[string] optionData = null) {

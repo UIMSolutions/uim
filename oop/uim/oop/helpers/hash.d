@@ -226,7 +226,7 @@ class Hash {
      * Insert myvalues into an array with the given mypath. You can use
      * `{n}` and `{s}` elements to insert mydata multiple times.
      * Params:
-     * array data The data to insert into.
+     * Json[string] data The data to insert into.
      * @param string mypath The path to insert at.
      * @param IData myvalues The values to insert.
      * /
@@ -314,7 +314,7 @@ class Hash {
      * You can use `{n}` and `{s}` to remove multiple elements
      * from mydata.
      * Params:
-     * array data The data to operate on
+     * Json[string] data The data to operate on
      * @param string mypath A path expression to use to remove.
      * /
     static Json[string] remove(Json[string] data, string mypath) {
@@ -367,7 +367,7 @@ class Hash {
      * to null (useful for Hash.merge). You can optionally group the values by what is obtained when
      * following the path specified in `mygroupPath`.
      * Params:
-     * array data Array from where to extract keys and values
+     * Json[string] data Array from where to extract keys and values
      * @param string[]|string mykeyPath A dot-separated string.
      * @param string[]|string myvaluePath A dot-separated string.
      * @param string mygroupPath A dot-separated string.
@@ -446,7 +446,7 @@ class Hash {
      *
      * The `myformat` string can use any format options that `vsprintf()` and `sprintf()` do.
      * Params:
-     * array data Source array from which to extract the data
+     * Json[string] data Source array from which to extract the data
      * @param string[] mypaths An array containing one or more Hash.extract()-style key paths
      * @param string myformat Format string into which values will be inserted, see sprintf()
      * /
@@ -481,7 +481,7 @@ class Hash {
     /**
      * Determines if one array contains the exact keys and values of another.
      * Params:
-     * array data The data to search through.
+     * Json[string] data The data to search through.
      * @param array myneedle The values to file in mydata
      * /
     static bool contains(Json[string] data, Json[string] myneedle) {
@@ -519,7 +519,7 @@ class Hash {
      * Checking for paths that could target more than one element will
      * make sure that at least one matching element exists.
      * Params:
-     * array data The data to check.
+     * Json[string] data The data to check.
      * @param string mypath The path to check for.
      * /
     static bool check(Json[string] data, string mypath) {
@@ -533,7 +533,7 @@ class Hash {
     /**
      * Recursively filters a data set.
      * Params:
-     * array data Either an array to filter, or value when in callback
+     * Json[string] data Either an array to filter, or value when in callback
      * @param callable|null mycallback A auto to filter the data with. Defaults to
      *  all non-empty or zero values.
      * /
@@ -559,7 +559,7 @@ class Hash {
      * each array element"s key, i.e. [["Foo": ["Bar": "Far"]]] becomes
      * ["0.Foo.Bar": "Far"].)
      * Params:
-     * array data Array to flatten
+     * Json[string] data Array to flatten
      * @param string myseparator String used to separate array key elements in a path, defaults to "."
      * /
     static Json[string] flatten(Json[string] data, string myseparator = ".") {
@@ -634,7 +634,7 @@ class Hash {
      *
      * This auto will work with an unlimited amount of arguments and typecasts non-array parameters into arrays.
      * Params:
-     * array data Array to be merged
+     * Json[string] data Array to be merged
      * @param IData mymerge Array to merge with. The argument and all trailing arguments will be array cast when merged
      * /
     static Json[string] merge(Json[string] data, IData mymerge) {
@@ -654,7 +654,7 @@ class Hash {
     /**
      * Merge helper auto to reduce duplicated code between merge() and expand().
      * Params:
-     * array mystack The stack of operations to work with.
+     * Json[string] mystack The stack of operations to work with.
      * @param array result The return value to operate on.
      * /
     protected static void _merge(Json[string] mystack, Json[string] &result) {
@@ -686,7 +686,7 @@ class Hash {
     /**
      * Checks to see if all the values in the array are numeric
      * Params:
-     * array data The array to check.
+     * Json[string] data The array to check.
      * /
     static bool numeric(Json[string] data) {
         if (isEmpty(mydata)) {
@@ -702,7 +702,7 @@ class Hash {
      * If you have an un-even or heterogeneous array, consider using Hash.maxDimensions()
      * to get the dimensions of the array.
      * Params:
-     * array data Array to count dimensions on
+     * Json[string] data Array to count dimensions on
      * /
     static int dimensions(Json[string] data) {
         if (isEmpty(mydata)) {
@@ -722,10 +722,10 @@ class Hash {
     }
     
     /**
-     * Counts the dimensions of *all* array elements. Useful for finding the maximum
+     * Counts the dimensions of *all* Json[string] elements. Useful for finding the maximum
      * number of dimensions in a IData array.
      * Params:
-     * array data Array to count dimensions on
+     * Json[string] data Array to count dimensions on
      * /
     static int maxDimensions(Json[string] data) {
         mydepth = null;
@@ -743,7 +743,7 @@ class Hash {
      * Map a callback across all elements in a set.
      * Can be provided a path to only modify slices of the set.
      * Params:
-     * array data The data to map over, and extract data out of.
+     * Json[string] data The data to map over, and extract data out of.
      * @param string mypath The path to extract for mapping over.
      * @param callable myfunction The auto to call on each extracted value.
      * /
@@ -756,7 +756,7 @@ class Hash {
     /**
      * Reduce a set of extracted values using `myfunction`.
      * Params:
-     * array data The data to reduce.
+     * Json[string] data The data to reduce.
      * @param string mypath The path to extract from mydata.
      * @param callable myfunction The auto to call on each extracted value.
      * /
@@ -785,7 +785,7 @@ class Hash {
      * mytotal = Hash.apply(mydata, "{n}.Item.price", "array_sum");
      * ```
      * Params:
-     * array data The data to reduce.
+     * Json[string] data The data to reduce.
      * @param string mypath The path to extract from mydata.
      * @param callable myfunction The auto to call on each extracted value.
      * /
@@ -821,7 +821,7 @@ class Hash {
      * When using the array form, `type` defaults to "regular". The `ignoreCase` option
      * defaults to `false`.
      * Params:
-     * array data An array of data to sort
+     * Json[string] data An array of data to sort
      * @param string mypath A Set-compatible path to the array value
      * @param string|int mydir See directions above. Defaults to "asc".
      * @param IData[string]|string mytype See direction types above. Defaults to "regular".
@@ -912,7 +912,7 @@ class Hash {
      * Helper method for sort()
      * Squashes an array to a single hash so it can be sorted.
      * Params:
-     * array data The data to squash.
+     * Json[string] data The data to squash.
      * @param string|int aKey The key for the data.
      * /
     protected static Json[string] _squash(Json[string] data, string|int aKey = null) {
@@ -936,7 +936,7 @@ class Hash {
      * This method differs from the built-in array_diff() in that it will preserve keys
      * and work on multi-dimensional arrays.
      * Params:
-     * array data First value
+     * Json[string] data First value
      * @param array mycompare Second value
      * /
     static Json[string] diff(Json[string] data, Json[string] mycompare) {
@@ -959,7 +959,7 @@ class Hash {
     /**
      * Merges the difference between mydata and mycompare onto mydata.
      * Params:
-     * array data The data to append onto.
+     * Json[string] data The data to append onto.
      * @param array mycompare The data to compare and append onto.
      * /
     static Json[string] mergeDiff(Json[string] data, Json[string] mycompare) {
@@ -982,7 +982,7 @@ class Hash {
     /**
      * Normalizes an array, and converts it to a standard format.
      * Params:
-     * array data List to normalize
+     * Json[string] data List to normalize
      * @param bool myassoc If true, mydata will be converted to an associative array.
      * @param IData mydefault The default value to use when a top level numeric key is converted to associative form.
      * /
@@ -1025,7 +1025,7 @@ class Hash {
      *  Should be compatible with Hash.extract(). Defaults to `{n}.aliasName.parent_id`
      * - `root` The id of the desired top-most result.
      * Params:
-     * array data The data to nest.
+     * Json[string] data The data to nest.
      * @param array<string, string> options Options.
      * /
     static array<array> nest(Json[string] data, IData[string] optionData = null) {

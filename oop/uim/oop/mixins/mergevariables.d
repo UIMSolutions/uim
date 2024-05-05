@@ -77,7 +77,7 @@ mixin template TMergeVariables() {
   /**
      * Merge each of the keys in a property together.
      * Params:
-     * array mycurrent The current merged value.
+     * Json[string] mycurrent The current merged value.
      * @param array myparent The parent class" value.
      * @param bool isAssoc Whether the merging should be done in associative mode.
      * /

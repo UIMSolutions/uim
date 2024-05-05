@@ -105,7 +105,7 @@ mixin template TCookieCrypt() {
     /**
      * Implode method to keep keys are multidimensional arrays
      * Params:
-     * array myarray Map of key and values
+     * Json[string] myarray Map of key and values
      * /
     protected string _join(Json[string] myarray) {
         return Json_encode(myarray, Json_THROW_ON_ERROR);

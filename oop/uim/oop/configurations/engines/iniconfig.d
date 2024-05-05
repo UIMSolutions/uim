@@ -98,7 +98,7 @@ class DIniConfig : IConfigEngine {
     /**
      * parses nested values out of keys.
      * Params:
-     * array  someValues Values to be exploded.
+     * Json[string] someValues Values to be exploded.
      * /
     // TODO protected Json[string] _parseNestedValues(Json[string] someValues) {
         someValues.byKeyValue

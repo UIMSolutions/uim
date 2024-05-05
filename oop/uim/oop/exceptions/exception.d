@@ -104,6 +104,6 @@ class UimException : IException {
     } */
 
 // Get the passed in attributes
-/* array attributes() {
+/* Json[string] attributes() {
       return _attributes;
     } */

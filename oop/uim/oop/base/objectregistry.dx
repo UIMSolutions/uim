@@ -197,7 +197,7 @@ abstract class ObjectRegistry : Countable, IteratorAggregate {
      * Normalizes an object configuration array into associative form for making
      * lazy loading easier.
      * Params:
-     * array objects Array of child objects to normalize.
+     * Json[string] objects Array of child objects to normalize.
      * /
   array < string, Json[string] > normalizeArray(Object[] objects) {
     normal = null;

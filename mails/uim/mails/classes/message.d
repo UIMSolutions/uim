@@ -609,7 +609,7 @@ class DMessage { //: JsonSerializable {
     /**
      * Sets headers for the message
      * Params:
-     * array  aHeaders Associative array containing headers to be set.
+     * Json[string] aHeaders Associative array containing headers to be set.
      * /
     auto setHeaders(Json[string] aHeaders) {
         this.headers = aHeaders;
@@ -620,7 +620,7 @@ class DMessage { //: JsonSerializable {
     /**
      * Add header for the message
      * Params:
-     * array  aHeaders Headers to set.
+     * Json[string] aHeaders Headers to set.
      * /
     auto addHeaders(Json[string] aHeaders) {
         this.headers = Hash.merge(this.headers,  aHeaders);
@@ -750,7 +750,7 @@ class DMessage { //: JsonSerializable {
      * be quoted as characters like `:` and `,` are known to cause issues
      * in address header fields.
      * Params:
-     * array address Addresses to format.
+     * Json[string] address Addresses to format.
      * /
     // TODO protected Json[string] formatAddress(Json[string] address) {
         auto result;
@@ -942,7 +942,7 @@ class DMessage { //: JsonSerializable {
     /**
      * Add attachments
      * Params:
-     * array attachments Array of filenames.
+     * Json[string] attachments Array of filenames.
      * @return this
      * @throws \InvalidArgumentException
      * @see \UIM\Mailer\Email.setAttachments()
@@ -1512,7 +1512,7 @@ class DMessage { //: JsonSerializable {
     /**
      * Magic method used to rebuild the Message object.
      * Params:
-     * array data Data array.
+     * Json[string] data Data array.
      * /
     void __unserialize(Json[string] data) {
         this.createFromArray(someData);

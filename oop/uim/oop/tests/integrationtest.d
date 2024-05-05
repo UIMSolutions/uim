@@ -170,7 +170,7 @@ mixin template TIntegrationTest() {
      * the current state. Sub-keys will be merged with existing
      * state.
      * Params:
-     * array data The request data to use.
+     * Json[string] data The request data to use.
      * /
     void configRequest(Json[string] data) {
        _request = array_merge_recursive(someData, _request);
@@ -198,7 +198,7 @@ mixin template TIntegrationTest() {
      * You can call this method multiple times to append into
      * the current state.
      * Params:
-     * array data The session data to use.
+     * Json[string] data The session data to use.
      * /
     void session(Json[string] data) {
        _session = someData + _session;
@@ -548,7 +548,7 @@ mixin template TIntegrationTest() {
      * Recursively casts all data to string as that is how data would be POSTed in
      * the real world
      * Params:
-     * array data POST data
+     * Json[string] data POST data
      * /
     // TODO protected Json[string] _castToString(Json[string] data) {
         someData.byKeyValue

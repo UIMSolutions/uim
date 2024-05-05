@@ -184,7 +184,7 @@ class DBehavior : IEventListener {
      * @param array<string, mixed> myConfiguration The customized method mappings.
      * @return array A de-duped list of config data.
      * /
-    // TODO protected Json[string] _resolveMethodAliases(string aKey, array defaults, Json myConfiguration) {
+    // TODO protected Json[string] _resolveMethodAliases(string aKey, Json[string] defaults, Json myConfiguration) {
         if (!isset(defaults[key], configuration.get(key])) {
             return configuration;
         }

@@ -162,7 +162,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param array<string, mixed> options The options for the save operation.
      * @return bool Success
      * /
-    bool saveParents(DORMTable aTable, IEntity anEntity, array associations, Json[string] optionData = null) {
+    bool saveParents(DORMTable aTable, IEntity anEntity, Json[string] associations, Json[string] optionData = null) {
       if (empty(associations)) {
           return true;
       }
@@ -182,7 +182,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      * @param array<string, mixed> options The options for the save operation.
      * @return bool Success
      * /
-    bool saveChildren(DORMTable aTable, IEntity anEntity, array associations, Json[string] optionData) {
+    bool saveChildren(DORMTable aTable, IEntity anEntity, Json[string] associations, Json[string] optionData) {
         if (empty(associations)) {
             return true;
         }

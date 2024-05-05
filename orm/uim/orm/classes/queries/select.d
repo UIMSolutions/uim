@@ -616,7 +616,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
     
     /**
      * Adds new fields to be returned by a `SELECT` statement when this query is
-     * executed. Fields can be passed as an array of strings, array of expression
+     * executed. Fields can be passed as an array of strings, Json[string] of expression
      * objects, a single expression or a single string.
      *
      * If an array is passed, keys will be used to alias fields using the value as the
@@ -699,7 +699,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * @param string[] myexcludedFields The un-aliased column names you do not want selected from mytable
      * @param bool myoverwrite Whether to reset/remove previous selected fields
      * /
-    auto selectAllExcept(Table|Association mytable, array myexcludedFields, bool myoverwrite = false) {
+    auto selectAllExcept(Table|Association mytable, Json[string] myexcludedFields, bool myoverwrite = false) {
         if (cast(DAssociation)mytable) {
             mytable = mytable.getTarget();
         }
@@ -884,7 +884,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      *  This typemap is indirectly mutated via {@link \ORM\Query\SelectQuery.addDefaultTypes()}
      * @param array<string, array> myassociations The nested tree of associations to walk.
      * /
-    protected void _addAssociationsToTypeMap(Table mytable, TypeMap mytypeMap, array myassociations) {
+    protected void _addAssociationsToTypeMap(Table mytable, TypeMap mytypeMap, Json[string] myassociations) {
         foreach (myassociations as myname: mynested) {
             if (!mytable.hasAssociation(myname)) {
                 continue;

@@ -105,7 +105,7 @@ class DSelectWithPivotLoader : DSelectLoader {
     }
 
 
-    protected void _assertFieldsPresent(Query fetchQuery, array key) {
+    protected void _assertFieldsPresent(Query fetchQuery, Json[string] key) {
         // _buildQuery() manually adds in required fields from junction table
     }
 

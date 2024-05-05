@@ -195,7 +195,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * @param array mymap The property map being built.
      * @param Json[string] options The options array used in the marshalling call.
      * /
-    array buildMarshalMap(DMarshaller mymarshaller, array mymap, Json[string] options) {
+    array buildMarshalMap(DMarshaller mymarshaller, Json[string] mymap, Json[string] options) {
         return _getStrategy().buildMarshalMap(mymarshaller, mymap, options);
     }
 
@@ -263,7 +263,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * \ORM\Query\SelectQuery myquery The original query to modify
      * @param string[] mylocales A list of locales or options with the `locales` key defined
      * /
-    SelectQuery findTranslations(SelectQuery myquery, array mylocales = []) {
+    SelectQuery findTranslations(SelectQuery myquery, Json[string] mylocales = []) {
         mytargetAlias = this.getStrategy().getTranslationTable().aliasName();
 
         return myquery
@@ -284,7 +284,7 @@ class DTranslateBehavior : DBehavior { // IPropertyMarshal {
      * string mymethod Method name.
      * @param array myargs Method arguments.
     * /
-                    Json __call(string mymethod, array myargs) {
+                    Json __call(string mymethod, Json[string] myargs) {
                         return _strategy. {
                             mymethod
                         }

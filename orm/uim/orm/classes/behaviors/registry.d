@@ -206,7 +206,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * @return mixed The return value depends on the underlying behavior method.
      * @throws \BadMethodCallException When the method is unknown.
      * /
-    function call(string aMethodName, array args = null) {
+    function call(string aMethodName, Json[string] args = null) {
         aMethodName = strtolower(aMethodName);
         if (this.hasMethod(aMethodName) && this.has(_methodMap[aMethodName][0])) {
             [behavior, callMethod] = _methodMap[aMethodName];
@@ -227,7 +227,7 @@ class DBehaviorRegistry : DObjectRegistry!DBehavior {
      * @return DORMQuery The return value depends on the underlying behavior method.
      * @throws \BadMethodCallException When the method is unknown.
      * /
-    Query callFinder(string type, array args = null) {
+    Query callFinder(string type, Json[string] args = null) {
         type = type.toLower;
 
         if (this.hasFinder(type) && this.has(_finderMap[type][0])) {

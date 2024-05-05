@@ -79,20 +79,16 @@ class DSelectLoader {
         resultMap = _buildResultMap(fetchQuery, options);
 
         return _resultInjector(fetchQuery, resultMap, options);
-    }
+    } */
 
-    /**
-     * Returns the default options to use for the eagerLoader
-     *
-     * @return array<string, mixed>
-     * /
-    // TODO protected Json[string] _defaultOptions() {
+    // Returns the default options to use for the eagerLoader
+    protected Json[string] _defaultOptions() {
         return [
-            "foreignKey": this.foreignKey,
+            "foreignKey": Json(_foreignKey),
             "conditions": Json.emptyArray,
-            "strategy": this.strategy,
-            "nestKey": this.alias,
-            "sort": this.sort,
+            "strategy": Json(_strategy),
+            "nestKey": Json(_alias),
+            "sort": Json(_sort),
         ];
     }
 
@@ -189,7 +185,7 @@ class DSelectLoader {
      * @return void
      * @throws \InvalidArgumentException
      * /
-    protected void _assertFieldsPresent(Query fetchQuery, array key) {
+    protected void _assertFieldsPresent(Query fetchQuery, Json[string] key) {
         if (fetchQuery.isAutoFieldsEnabled()) {
             return;
         }
@@ -292,7 +288,7 @@ class DSelectLoader {
      * @param string operator The operator for comparing the tuples
      * @return DORMdatabases.Expression\TupleComparison
      * /
-    protected function _createTupleCondition(Query query, array keys, filter, operator): TupleComparison
+    protected function _createTupleCondition(Query query, Json[string] keys, filter, operator): TupleComparison
     {
         types = null;
         defaults = query.getDefaultTypes();
@@ -442,7 +438,7 @@ class DSelectLoader {
      * @param array<string, mixed> options The options passed to the eagerLoader method
      * @return \Closure
      * /
-    protected function _resultInjector(Query fetchQuery, array resultMap, Json[string] optionData): Closure
+    protected function _resultInjector(Query fetchQuery, Json[string] resultMap, Json[string] optionData): Closure
     {
         keys = this.associationType == Association::MANY_TO_ONE ?
             this.foreignKey :

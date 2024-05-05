@@ -255,7 +255,7 @@ class DCounterCacheBehavior : DBehavior {
      * Json[string] configData The counter cache configuration for a single field
      * @param array myconditions Additional conditions given to the query
      * /
-    protected int _getCount(Json[string] configData, array myconditions) {
+    protected int _getCount(Json[string] configData, Json[string] myconditions) {
         myfinder = "all";
         if (!empty(configData("finder"])) {
             myfinder = configData("finder"];

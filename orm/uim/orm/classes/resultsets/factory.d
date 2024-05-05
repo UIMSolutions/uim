@@ -20,7 +20,7 @@ class DResultsetFactory {
      * \ORM\Query\SelectQuery<T> myquery Query from where results came.
      * @param array results Results array.
      * /
-    Resultset<array|\UIM\Datasource\IEntity> createResultset(SelectQuery myquery, array results) {
+    Resultset<array|\UIM\Datasource\IEntity> createResultset(SelectQuery myquery, Json[string] results) {
         mydata = this.collectData(myquery);
 
         foreach (results as myi: myrow) {

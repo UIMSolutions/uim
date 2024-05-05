@@ -634,7 +634,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @return DORMDatasource\IEntity|false The parent entity after all links have been
      * created if no errors happened, false otherwise
      * /
-    protected function _saveTarget(IEntity parentEntity, array entities, options) {
+    protected function _saveTarget(IEntity parentEntity, Json[string] entities, options) {
         joinAssociations = false;
         if (isset(options["associated"]) && (options["associated"].isArray) {
             if (!empty(options["associated"][_junctionProperty]["associated"])) {
@@ -696,7 +696,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @param array<string, mixed> options list of options accepted by `Table::save()`
      * @return bool success
      * /
-    protected bool _saveLinks(IEntity sourceEntity, array targetEntities, Json[string] optionData) {
+    protected bool _saveLinks(IEntity sourceEntity, Json[string] targetEntities, Json[string] optionData) {
         target = this.getTarget();
         junction = this.junction();
         entityClass = junction.getEntityClass();
@@ -771,7 +771,7 @@ class DBelongsToManyAssociation : DAssociation {
      *   detected to not be already persisted
      * @return bool true on success, false otherwise
      * /
-    bool link(IEntity sourceEntity, array targetEntities, Json[string] optionData = null) {
+    bool link(IEntity sourceEntity, Json[string] targetEntities, Json[string] optionData = null) {
         _checkPersistenceStatus(sourceEntity, targetEntities);
         property = this.getProperty();
         links = sourceEntity.get(property) ?: [];
@@ -821,7 +821,7 @@ class DBelongsToManyAssociation : DAssociation {
      *   any of them is lacking a primary key value.
      * @return bool Success
      * /
-    bool unlink(IEntity sourceEntity, array targetEntities, options = null) {
+    bool unlink(IEntity sourceEntity, Json[string] targetEntities, options = null) {
         if (is_bool(options)) {
             options = [
                 "cleanProperty": options,
@@ -1072,7 +1072,7 @@ class DBelongsToManyAssociation : DAssociation {
      *   any of them is lacking a primary key value
      * @return bool success
      * /
-    bool replaceLinks(IEntity sourceEntity, array targetEntities, Json[string] optionData = null) {
+    bool replaceLinks(IEntity sourceEntity, Json[string] targetEntities, Json[string] optionData = null) {
         bindingKey = (array)this.getBindingKey();
         primaryValue = sourceEntity.extract(bindingKey);
 
@@ -1242,7 +1242,7 @@ class DBelongsToManyAssociation : DAssociation {
      * @return bool
      * @throws \InvalidArgumentException
      * /
-    protected bool _checkPersistenceStatus(IEntity sourceEntity, array targetEntities) {
+    protected bool _checkPersistenceStatus(IEntity sourceEntity, Json[string] targetEntities) {
         if (sourceEntity.isNew()) {
             error = "Source entity needs to be persisted before links can be created or removed.";
             throw new DInvalidArgumentException(error);
@@ -1270,7 +1270,7 @@ class DBelongsToManyAssociation : DAssociation {
      *   key value
      * @return array<DORMDatasource\IEntity>
      * /
-    // TODO protected Json[string] _collectJointEntities(IEntity sourceEntity, array targetEntities) {
+    // TODO protected Json[string] _collectJointEntities(IEntity sourceEntity, Json[string] targetEntities) {
         target = this.getTarget();
         source = this.getSource();
         junction = this.junction();

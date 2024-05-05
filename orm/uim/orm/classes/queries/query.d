@@ -142,7 +142,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
 
     /**
      * Adds new fields to be returned by a `SELECT` statement when this query is
-     * executed. Fields can be passed as an array of strings, array of expression
+     * executed. Fields can be passed as an array of strings, Json[string] of expression
      * objects, a single expression or a single string.
      *
      * If an array is passed, keys will be used to alias fields using the value as the
@@ -216,7 +216,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @return this
      * @throws \InvalidArgumentException If Association|Table is not passed in first argument
      * /
-    IQuery selectAllExcept(table, array excludedFields, bool canOverwrite = false) {
+    IQuery selectAllExcept(table, Json[string] excludedFields, bool canOverwrite = false) {
         if (table instanceof Association) {
             table = table.getTarget();
         }
@@ -450,7 +450,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      *   This typemap is indirectly mutated via {@link DORMQuery::addDefaultTypes()}
      * @param array<string, array> associations The nested tree of associations to walk.
      * /
-    protected void _addAssociationsToTypeMap(DORMTable aTable, TypeMap typeMap, array associations) {
+    protected void _addAssociationsToTypeMap(DORMTable aTable, TypeMap typeMap, Json[string] associations) {
         foreach (associations as name: nested) {
             if (!table.hasAssociation(name)) {
                 continue;
@@ -1221,7 +1221,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param array<string> types A map between columns & their datatypes.
      * @return this
      * /
-    function insert(Json[string] columns, array types = null) {
+    function insert(Json[string] columns, Json[string] types = null) {
         repository = this.getRepository();
         table = repository.getTable();
         this.into(table);
@@ -1250,7 +1250,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @return mixed
      * @throws \BadMethodCallException if the method is called for a non-select query
      * /
-    function __call(string method, array arguments) {
+    function __call(string method, Json[string] arguments) {
         if (this.type() == "select") {
             return _call(method, arguments);
         }

@@ -677,13 +677,13 @@ class DDebugger {
      *   environment conditions.
      * /
     static void printVar(Json var, Json[string] location = [], ?bool showHtml = null) {
-        location ~= ["file": null, "line": null];
+        auto location ~= ["file": null, "line": null];
         if (location["file"]) {
             location["file"] = trimPath((string)location["file"]);
         }
         debugger = getInstance();
         restore = null;
-        if (showHtml !isNull) {
+        if (!showHtml.isNull) {
             restore = debugger.configuration.get("exportFormatter");
             debugger.setConfig("exportFormatter", showHtml ? HtmlFormatter.classname : TextFormatter.classname);
         }

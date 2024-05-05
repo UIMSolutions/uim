@@ -40,7 +40,7 @@ class DConsoleExceptionRenderer { // }: IExceptionRenderer {
     string render() {
         exceptions = [this.error];
         previous = this.error.getPrevious();
-        while (previous !isNull) {
+        while (!previous.isNull) {
             exceptions ~= previous;
             previous = previous.getPrevious();
         }

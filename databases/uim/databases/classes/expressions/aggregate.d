@@ -29,12 +29,12 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
      * @see \UIM\Database\Query.where()
      * /
     void filter(IExpression|Closure|string[] aconditions, STRINGAA typeNames = []) {
-        this.filter ??= new DQueryExpression();
+        _filter ??= new DQueryExpression();
 
         if (cast(DClosure)conditions ) {
             conditions = conditions(new QueryExpression());
         }
-        this.filter.add(conditions, typeNames);
+        _filter.add(conditions, typeNames);
     }
     
     /**
@@ -104,8 +104,8 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
     }
     string sql(DValueBinder aBinder) {
         string result = super.sql(aBinder);
-        if (!this.filter.isNull) {
-            result ~= " FILTER (WHERE " ~ this.filter.sql(aBinder) ~ ")";
+        if (!_filter.isNull) {
+            result ~= " FILTER (WHERE " ~ _filter.sql(aBinder) ~ ")";
         }
         if (!_window.isNull) {
             result ~= _window.isNamedOnly() 
@@ -117,9 +117,9 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
  
     void traverse(Closure aCallback) {
         super.traverse(aCallback);
-        if (!this.filter.isNull) {
-            aCallback(this.filter);
-            this.filter.traverse(aCallback);
+        if (!_filter.isNull) {
+            aCallback(_filter);
+            _filter.traverse(aCallback);
         }
         if (!_window.isNull) {
             aCallback(_window);
@@ -138,10 +138,10 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
     // Clone this object and its subtree of expressions.
     void clone() {
         super.clone();
-        if (!this.filter.isNull) {
-            this.filter = clone this.filter;
+        if (!_filter.isNull) {
+            _filter = clone _filter;
         }
-        if (_window !isNull) {
+        if (!_window.isNull) {
             _window = clone _window;
         }
     } */

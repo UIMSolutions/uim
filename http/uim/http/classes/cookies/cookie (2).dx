@@ -74,7 +74,7 @@ class DCookie : ICookie {
         this.httpOnly = isHttpOnly ?? defaultAttributes["httponly"];
         this.path = somePath ?? defaultAttributes["path"];
         this.secure = secure ?? defaultAttributes["secure"];
-        this.sameSite = resolveSameSiteEnum(sameSite ?? defaultAttributes["samesite"]);
+        _sameSite = resolveSameSiteEnum(sameSite ?? defaultAttributes["samesite"]);
 
         if (expiresAt) {
             if (cast(DateTime)expiresAt) {
@@ -239,8 +239,8 @@ class DCookie : ICookie {
         if (!this.domain.isEmpty) {
              aHeaderValue ~= "domain=%s".format(this.domain);
         }
-        if (this.sameSite) {
-             aHeaderValue ~= "samesite=%s".format(this.sameSite.value);
+        if (_sameSite) {
+             aHeaderValue ~= "samesite=%s".format(_sameSite.value);
         }
         if (this.secure) {
              aHeaderValue ~= "Secure";
@@ -528,8 +528,8 @@ class DCookie : ICookie {
             "httponly": this.httpOnly,
         ];
 
-        if (this.sameSite !isNull) {
-            options["samesite"] = this.sameSite.value;
+        if (!_sameSite.isNull) {
+            options["samesite"] = _sameSite.value;
         }
         return options;
     }
@@ -540,13 +540,9 @@ class DCookie : ICookie {
         ] + this.getOptions();
     }
     
-    /**
-     * Implode method to keep keys are multidimensional arrays
-     * Params:
-     * Json[string] array Map of key and values
-     */
-    protected string _flatten(Json[string] array) {
-        return Json_encode(array, Json_THROW_ON_ERROR);
+    // Implode method to keep keys are multidimensional arrays
+    protected string _flatten(Json[string] mapOfKeyvalues) {
+        return Json_encode(mapOfKeyvalues, Json_THROW_ON_ERROR);
     }
     
     /**

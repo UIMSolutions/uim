@@ -82,8 +82,8 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
 
         if (
             hasData
-            && this.skipCheckCallback !isNull
-            && call_user_func(this.skipCheckCallback, request) == true
+            && _skipCheckCallback !isNull
+            && call_user_func(_skipCheckCallback, request) == true
         ) {
             request = _unsetTokenField(request);
 
@@ -130,7 +130,7 @@ class DCsrfProtectionMiddleware { // }: IHttpMiddleware {
      * callable aCallback A callable.
      * /
     void skipCheckCallback(callable aCallback) {
-        this.skipCheckCallback = aCallback;
+        _skipCheckCallback = aCallback;
     }
     
     /**

@@ -72,7 +72,7 @@ class DMockAdapter { //}: IAdapter {
             found = anIndex;
             break;
         }
-        if (found !isNull) {
+        if (!found.isNull) {
             // Move the current mock to the end so that when there are multiple
             // matches for a URL the next match is used on subsequent requests.
             mock = this.responses[found];

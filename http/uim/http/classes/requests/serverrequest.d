@@ -505,13 +505,11 @@ class DServerRequest { // }: IServerRequest {
     
     /**
      * Detects if a specific header is present.
-     * Params:
-     * Json[string] detect Detector options array.
      * /
-    protected bool _headerDetector(Json[string] detect) {
-        foreach (detect["header"] as  aHeader: aValue) {
-             aHeader = this.getEnvironmentData("http_" ~  aHeader);
-            if (aHeader !isNull) {
+    protected bool _headerDetector(Json[string] detectorOptions) {
+        foreach (detectorOptions["header"] as  aHeader: aValue) {
+            auto aHeader = this.getEnvironmentData("http_" ~  aHeader);
+            if (!aHeader.isNull) {
                 if (cast(DClosure)aValue) {
                     return aValue(aHeader);
                 }

@@ -123,7 +123,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
     
     // Check if a cookie with the given name exists
     bool __isSet(string cookieName) {
-        return __get(cookieName) !isNull;
+        return !__get(cookieName)isNull;
     }
     
     /**

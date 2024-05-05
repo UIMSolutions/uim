@@ -251,7 +251,7 @@ class DPaginator : IPaginator {
      *   "count", "defaults", "finder", "numResults".
      * @return array<string, mixed> Paging params.
      * /
-    protected auto buildParams(array myData): array
+    protected auto buildParams(Json[string] myData): array
     {
         limit = myData["options"]["limit"];
 
@@ -284,7 +284,7 @@ class DPaginator : IPaginator {
      * @param array myData Paginator data.
      * @return array<string, mixed> Updated params.
      * /
-    protected auto addPageCountParams(array myParams, array myData): array
+    protected auto addPageCountParams(Json[string] myParams, array myData): array
     {
         page = myParams["page"];
         pageCount = 0;
@@ -309,7 +309,7 @@ class DPaginator : IPaginator {
      * @param array myData Paginator data.
      * @return array<string, mixed> Updated params.
      * /
-    protected auto addStartEndParams(array myParams, array myData): array
+    protected auto addStartEndParams(Json[string] myParams, array myData): array
     {
         start = end = 0;
 
@@ -331,7 +331,7 @@ class DPaginator : IPaginator {
      * @param array myData Paging data.
      * @return array<string, mixed> Updated params.
      * /
-    protected auto addPrevNextParams(array myParams, array myData): array
+    protected auto addPrevNextParams(Json[string] myParams, array myData): array
     {
         myParams["prevPage"] = myParams["page"] > 1;
         if (myParams["count"] == null) {
@@ -350,7 +350,7 @@ class DPaginator : IPaginator {
      * @param array myData Paging data.
      * @return array<string, mixed> Updated params.
      * /
-    protected auto addSortingParams(array myParams, array myData): array
+    protected auto addSortingParams(Json[string] myParams, array myData): array
     {
         defaults = myData["defaults"];
         order = (array)myData["options"]["order"];
@@ -424,7 +424,7 @@ class DPaginator : IPaginator {
      * Shim method for reading the deprecated sortWhitelist or sortableFields options.
      * @param array<string, mixed> myConfig The configuration data to coalesce and emit warnings on.
      * /
-    protected string[] getSortableFields(array myConfig) {
+    protected string[] getSortableFields(Json[string] myConfig) {
         allowed = myConfig.get("sortableFields", null);
         if (allowed !== null) {
             return allowed;
@@ -453,7 +453,7 @@ class DPaginator : IPaginator {
      * @param array settings The settings to merge with the request data.
      * @return array<string, mixed> Array of merged options.
      * /
-    function mergeOptions(array myParams, array settings): array
+    function mergeOptions(Json[string] myParams, array settings): array
     {
         if (!empty(settings["scope"])) {
             scope = settings["scope"];
@@ -587,7 +587,7 @@ class DPaginator : IPaginator {
      * @param string myModel Current model alias
      * @return array<string, mixed> fieldNames Unaliased fields where applicable
      * /
-    protected auto _removeAliases(array fieldNames, string myModel): array
+    protected auto _removeAliases(Json[string] fieldNames, string myModel): array
     {
         myResult= null;
         foreach (fieldNames as myField: sort) {

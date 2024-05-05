@@ -23,7 +23,7 @@ abstract class DDecorator : IDecorator {
     }
     
     // Calls the decorated callable with the passed arguments.
-    protected Json _call(array someArguments) {
+    protected Json _call(Json[string] someArguments) {
         aCallable = _callable;
 
         return aCallable(...someArguments);

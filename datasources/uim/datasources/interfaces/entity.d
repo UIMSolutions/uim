@@ -73,7 +73,7 @@ interface IEntity { // : ArrayAccess, JsonSerializable
    // TODO array getError(string fieldName);
 
    // Sets error messages to the entity
-   // TODO void setErrors(array errors, bool shouldOoverwrite = false);
+   // TODO void setErrors(Json[string] errors, bool shouldOoverwrite = false);
 
    /**
      * Sets errors for a single field

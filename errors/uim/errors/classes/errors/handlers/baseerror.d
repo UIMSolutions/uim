@@ -66,7 +66,7 @@ abstract class DERRErrorHandler {
      * @param bool shouldDebug Whether the app is in debug mode.
      * @return void
      * /
-    abstract protected void _displayError(array error, bool shouldDebug);
+    abstract protected void _displayError(Json[string] error, bool shouldDebug);
 
     /**
      * Display an exception in an environment specific way.

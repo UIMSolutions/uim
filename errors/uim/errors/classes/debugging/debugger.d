@@ -244,7 +244,7 @@ class DDebugger {
      * @param array<string, string> value An array where keys are replaced by their values in output.
      * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
      * /
-    static void setOutputMask(array value, bool merge = true) {
+    static void setOutputMask(Json[string] value, bool merge = true) {
         configInstance('outputMask', value, merge);
     }
 
@@ -684,7 +684,7 @@ class DDebugger {
      * @param uim.errors.debugs.DebugContext context The current dump context.
      * @return uim.errors.debugs.ArrayNode Exported array.
      * /
-    protected static function exportArray(array var, DebugContext context): ArrayNode
+    protected static function exportArray(Json[string] var, DebugContext context): ArrayNode
     {
         items = null;
 
@@ -816,7 +816,7 @@ class DDebugger {
      * @return void
      * @deprecated 4.4.0 Update your application so use ErrorTrap instead.
      * /
-    void outputError(array data) {
+    void outputError(Json[string] data) {
         defaults = [
             'level': 0,
             'error': 0,

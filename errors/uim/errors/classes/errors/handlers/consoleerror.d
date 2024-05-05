@@ -84,7 +84,7 @@ class DConsoleErrorHandler { // } : DERRErrorHandler {
      * @param array error An array of error data.
      * @param bool shouldDebug Whether the app is in debug mode.
      * /
-    protected void _displayError(array error, bool shouldDebug) {
+    protected void _displayError(Json[string] error, bool shouldDebug) {
         message = sprintf(
             "%s\nIn [%s, line %s]",
             error["description"],

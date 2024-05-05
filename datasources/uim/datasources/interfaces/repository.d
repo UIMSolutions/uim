@@ -147,7 +147,7 @@ interface IRepository {
      * array data The data to build an entity with.
      * @param Json[string] options A list of options for the object hydration.
      * /
-    IEntity newEntity(array data, Json[string] optionData = null);
+    IEntity newEntity(Json[string] data, Json[string] optionData = null);
 
     /**
      * Create a list of entities + associated entities from an array.
@@ -161,7 +161,7 @@ interface IRepository {
      *
      * The hydrated entities can then be iterated and saved.
      * /
-    IEntity[] newEntities(array buildData, Json[string] optionDataForHydration = null);
+    IEntity[] newEntities(Json[string] buildData, Json[string] optionDataForHydration = null);
 
     /**
      * Merges the passed `someData` into `entity` respecting the accessible

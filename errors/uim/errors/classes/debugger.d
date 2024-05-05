@@ -171,7 +171,7 @@ class DDebugger {
      * STRINGAA aValue An array where keys are replaced by their values in output.
      * @param bool merge Whether to recursively merge or overwrite existing config, defaults to true.
      * /
-    static void setOutputMask(array aValue, bool merge = true) {
+    static void setOutputMask(Json[string] aValue, bool merge = true) {
         configInstance("outputMask", aValue, merge);
     }
     
@@ -548,7 +548,7 @@ class DDebugger {
      * @param \UIM\Error\Debug\DebugContext context The current dump context.
      * @return \UIM\Error\Debug\ArrayNode Exported array.
      * /
-    protected static ArrayNode exportArray(array var, DebugContext context) {
+    protected static ArrayNode exportArray(Json[string] var, DebugContext context) {
         someItems = null;
 
         remaining = context.remainingDepth();

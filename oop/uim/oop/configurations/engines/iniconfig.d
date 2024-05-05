@@ -126,7 +126,7 @@ class DIniConfig : IConfigEngine {
      * as a plugin prefix.
      * @param array data The data to convert to ini file.
      * /
-    bool dump(string key, array data) {
+    bool dump(string key, Json[string] data) {
         auto result;
         someData.byKeyValue
             .each!((kv) {

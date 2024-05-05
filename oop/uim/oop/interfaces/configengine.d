@@ -20,5 +20,5 @@ interface IConfigEngine {
      * Params:
      * @param array data The data to dump.
      */
-    // TODO bool dump(string key, array data);
+    // TODO bool dump(string key, Json[string] data);
 }

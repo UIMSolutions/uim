@@ -83,7 +83,7 @@ class DJsonConfig : IConfigEngine {
      * be treated as a plugin prefix.
      * @param array data Data to dump.
          * /
-    bool dump(string dataId, array data) {
+    bool dump(string dataId, Json[string] data) {
         auto filename = _getFileKey(dataId);
 
         return file_put_contents(filename, Json_encode(someData, Json_PRETTY_PRINT)) > 0;

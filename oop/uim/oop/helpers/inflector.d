@@ -187,7 +187,7 @@ class DInflector {
      * @param bool myreset If true, will unset default inflections for all
      *       new rules that are being defined in myrules.
      * /
-  static void rules(string mytype, array myrules, bool myreset = false) {
+  static void rules(string mytype, Json[string] myrules, bool myreset = false) {
     auto myvar = "_" ~ mytype;
 
     if (myreset) {

@@ -156,7 +156,7 @@ class DText {
      *    to be replaced with val
      * @param IData[string] options An array of options, see description above
      * /
-    static string insert(string mystr, array data, IData[string] optionData = null) {
+    static string insert(string mystr, Json[string] data, IData[string] optionData = null) {
         IData[string] defaultData = [
             "before": ":", 
             "after": "", 

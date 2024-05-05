@@ -308,7 +308,7 @@ static string[] configured() {
      * @param string[] someKeys The name of the top-level keys you want to dump.
      *  This allows you save only some data stored in Configure.
      * /
-    static bool dump(string aKey, string configData = "default", array someKeys = [
+    static bool dump(string aKey, string configData = "default", Json[string] someKeys = [
         ]) {
         auto myEngine = _getEngine(configData);
         if (!myEngine) {

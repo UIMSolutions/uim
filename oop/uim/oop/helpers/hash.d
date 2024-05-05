@@ -272,7 +272,7 @@ class Hash {
      * @param string[] mypath The path to work on.
      * @param IData myvalues The values to insert when doing inserts.
      * /
-    protected static array _simpleOp(string myop, array data, array mypath, IData myvalues = null) {
+    protected static array _simpleOp(string myop, Json[string] data, Json[string] mypath, IData myvalues = null) {
         auto _list = &mydata;
 
         mycount = count(mypath);
@@ -450,7 +450,7 @@ class Hash {
      * @param string[] mypaths An array containing one or more Hash.extract()-style key paths
      * @param string myformat Format string into which values will be inserted, see sprintf()
      * /
-    static string[] format(Json[string] data, array mypaths, string myformat) {
+    static string[] format(Json[string] data, Json[string] mypaths, string myformat) {
         myextracted = null;
         mycount = count(mypaths);
 
@@ -484,7 +484,7 @@ class Hash {
      * array data The data to search through.
      * @param array myneedle The values to file in mydata
      * /
-    static bool contains(Json[string] data, array myneedle) {
+    static bool contains(Json[string] data, Json[string] myneedle) {
         if (isEmpty(mydata) || empty(myneedle)) {
             return false;
         }
@@ -657,7 +657,7 @@ class Hash {
      * array mystack The stack of operations to work with.
      * @param array result The return value to operate on.
      * /
-    protected static void _merge(Json[string] mystack, array &result) {
+    protected static void _merge(Json[string] mystack, Json[string] &result) {
         while (!empty(mystack)) {
             foreach (mystack as mycurKey: &mycurMerge) {
                 foreach (mycurMerge[0].byKeyValue) {
@@ -939,7 +939,7 @@ class Hash {
      * array data First value
      * @param array mycompare Second value
      * /
-    static array diff(Json[string] data, array mycompare) {
+    static array diff(Json[string] data, Json[string] mycompare) {
         if (isEmpty(mydata)) {
             return mycompare;
         }
@@ -962,7 +962,7 @@ class Hash {
      * array data The data to append onto.
      * @param array mycompare The data to compare and append onto.
      * /
-    static array mergeDiff(Json[string] data, array mycompare) {
+    static array mergeDiff(Json[string] data, Json[string] mycompare) {
         if (isEmpty(mydata) && !empty(mycompare)) {
             return mycompare;
         }

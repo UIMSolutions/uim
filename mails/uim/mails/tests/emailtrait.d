@@ -137,7 +137,7 @@ mixin template TEmail() {
      * @param array file Additional file properties
      * @param string amessage Message
      * /
-    void assertMailContainsAttachment(string afilename, array file = [], string amessage = null) {
+    void assertMailContainsAttachment(string afilename, Json[string] file = [], string amessage = null) {
         this.assertThat([filename, file], new DMailContainsAttachment(), message);
     }
     

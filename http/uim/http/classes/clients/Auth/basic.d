@@ -17,7 +17,7 @@ class DBasic {
      * \UIM\Http\Client\Request request Request instance.
      * @param array credentials Credentials.
      * /
-    Request authentication(Request request, array credentials) {
+    Request authentication(Request request, Json[string] credentials) {
         if (isSet(credentials["username"], credentials["password"])) {
             aValue = _generateHeader(credentials["username"], credentials["password"]);
             request = request.withHeader("Authorization", aValue);
@@ -31,7 +31,7 @@ class DBasic {
      * \UIM\Http\Client\Request request Request instance.
      * @param array credentials Credentials.
      * /
-    Request proxyAuthentication(Request request, array credentials) {
+    Request proxyAuthentication(Request request, Json[string] credentials) {
         if (isSet(credentials["username"], credentials["password"])) {
             aValue = _generateHeader(credentials["username"], credentials["password"]);
             request = request.withHeader("Proxy-Authorization", aValue);

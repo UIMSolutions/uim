@@ -14,7 +14,7 @@ import uim.errors;
  */
 class DTextErrorFormatter : IErrorFormatter {
 /*
-    string formatWrapper(string acontents, array location) {
+    string formatWrapper(string acontents, Json[string] location) {
         template = <<<TEXT
 %s
 ########## DEBUG ##########

@@ -358,7 +358,7 @@ class DClient { // }: IClient {
      * @param array data The query string data you want to send.
      * @param Json[string] options Additional options for the request.
      * /
-  Response head(string myurl, array data = [], Json[string] optionsForRequest = null) {
+  Response head(string myurl, Json[string] data = [], Json[string] optionsForRequest = null) {
     auto optionsForRequest = _mergeOptions(optionsForRequest);
     auto myurl = this.buildUrl(myurl, mydata, optionsForRequest);
 

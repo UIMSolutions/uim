@@ -80,7 +80,7 @@ class DDigest {
      * \UIM\Http\Client\Request request The request object.
      * @param Json[string] credentials Authentication credentials.
      * /
-    Request authentication(Request request, array credentials) {
+    Request authentication(Request request, Json[string] credentials) {
         if (!isSet(credentials["username"], credentials["password"])) {
             return request;
         }
@@ -106,7 +106,7 @@ class DDigest {
      * \UIM\Http\Client\Request request The request object.
      * @param array credentials Authentication credentials.
      * /
-    // TODO protected Json[string] _getServerInfo(Request request, array credentials) {
+    // TODO protected Json[string] _getServerInfo(Request request, Json[string] credentials) {
         response = _client.get(
             to!string(request.getUri()),
             [],
@@ -138,7 +138,7 @@ class DDigest {
      * \UIM\Http\Client\Request request The request object.
      * @param Json[string] credentials Authentication credentials.
      * /
-    protected string _generateHeader(Request request, array credentials) {
+    protected string _generateHeader(Request request, Json[string] credentials) {
         somePath = request.getRequestTarget();
 
         if (this.isSessAlgorithm) {

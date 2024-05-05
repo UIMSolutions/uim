@@ -28,7 +28,7 @@ class DHtmlErrorFormatter : IErrorFormatter {
         return true;
     }
  
-    auto formatWrapper(string acontents, array location) {
+    auto formatWrapper(string acontents, Json[string] location) {
         string alineInfo = "";
         if (isSet(location["file"], location["file"])) {
             lineInfo = "<span><strong>%s</strong> (line <strong>%s</strong>)</span>"

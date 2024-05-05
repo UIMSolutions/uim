@@ -174,7 +174,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * @param array extraCookies Associative array of additional cookies to add into the request. This
      *  is useful when you have cookie data from outside the collection you want to send.
      * /
-    IRequest addToRequest(IRequest request, array extraCookies = []) {
+    IRequest addToRequest(IRequest request, Json[string] extraCookies = []) {
         auto anUri = request.getUri();
         cookies = this.findMatchingCookies(
             anUri.getScheme(),

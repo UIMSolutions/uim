@@ -27,7 +27,7 @@ interface IEventDispatcher {
      * (this by default).
      * @return \UIM\Event\IEvent<TSubject>
      * /
-    IEvent dispatchEvent(string eventName, array data = [], ?object subject = null);
+    IEvent dispatchEvent(string eventName, Json[string] data = [], ?object subject = null);
 
     /**
      * Sets the UIM\Event\EventManager manager instance for this object.

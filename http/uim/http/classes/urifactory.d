@@ -73,7 +73,7 @@ class UriFactory { // }: IUriFactory {
      * \Psr\Http\Message\IUri anUri The Uri instance.
      * @param array serverData The SERVER data to use.
      * /
-    protected static array getBase(IUri anUri, array serverData) {
+    protected static array getBase(IUri anUri, Json[string] serverData) {
         auto configData = (array)Configuration.read("App") ~ [
             "base": null,
             "webroot": null,

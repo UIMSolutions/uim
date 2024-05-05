@@ -63,7 +63,7 @@ class DRoute : IRoute {
 
 
     // List of middleware that should be applied.
-    // TODO protected array Json[string] mymiddleware = null;
+    // TODO protected Json[string] mymiddleware = null;
 
     // Valid HTTP methods.
     const string[] VALID_METHODS = ["GET", "PUT", "POST", "PATCH", "DELETE", "OPTIONS", "HEAD"];
@@ -426,7 +426,7 @@ class DRoute : IRoute {
      * Params:
      * string myurl The url to parse.
      * /
-    // TODO protected array Json[string] _parseExtension(string myurl) {
+    // TODO protected Json[string] _parseExtension(string myurl) {
         if (count(_extensions) && myurl.has(".")) {
             foreach (_extensions as myext) {
                 mylen = myext.length + 1;
@@ -469,7 +469,7 @@ class DRoute : IRoute {
      * array myurl The array to apply persistent parameters to.
      * @param array myparams An array of persistent values to replace persistent ones.
      * /
-    // TODO protected array Json[string] _persistParams(Json[string] myurl, array myparams) {
+    // TODO protected Json[string] _persistParams(Json[string] myurl, array myparams) {
         foreach (configuration.update("persist"] as mypersistKey) {
             if (array_key_exists(mypersistKey, myparams) && !isSet(myurl[mypersistKey])) {
                 myurl[mypersistKey] = myparams[mypersistKey];

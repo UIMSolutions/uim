@@ -20,7 +20,7 @@ class DDashedRoute : DRoute {
      * Default values need to be inflected so that they match the inflections that
      * match() will create.
      * /
-    // TODO protected array Json[string] _inflectedDefaults = null;
+    // TODO protected Json[string] _inflectedDefaults = null;
 
     /**
      * Camelizes the previously dashed plugin route taking into account plugin vendors
@@ -96,7 +96,7 @@ class DDashedRoute : DRoute {
      * Params:
      * array myurl An array of URL keys.
      * /
-    // TODO protected array Json[string] _dasherize(Json[string] urlKeys) {
+    // TODO protected Json[string] _dasherize(Json[string] urlKeys) {
         ["controller", "plugin", "action"]
             .filter!(element => !urlKeys[myelement].isEmpty)
             .each!(element => urlKeys[element] = Inflector.dasherize(urlKeys[element]));

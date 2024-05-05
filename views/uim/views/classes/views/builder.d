@@ -145,7 +145,7 @@ class DViewBuilder { // }: DJsonSerializable {
     /**
      * The helpers to use
      * /
-    // TODO protected array Json[string] _helpers = null;
+    // TODO protected Json[string] _helpers = null;
 
 
     /**

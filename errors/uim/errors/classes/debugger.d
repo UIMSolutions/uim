@@ -212,7 +212,7 @@ class DDebugger {
      * \Throwable exception The exception to get frames from.
      * @param ?\Throwable parent The parent exception to compare frames with.
      * /
-    static array getUniqueFrames(Throwable exception, Throwable parent) {
+    static Json[string] getUniqueFrames(Throwable exception, Throwable parent) {
         if (parent.isNull) {
             return exception.getTrace();
         }

@@ -136,7 +136,7 @@ class Hash {
      * Params:
      * string mytoken the token being split.
      * /
-    protected static array _splitConditions(string mytoken) {
+    protected static Json[string] _splitConditions(string mytoken) {
         auto myconditions = false;
         auto myposition = mytoken.indexOf("[");
         if (myposition == -1) {
@@ -230,7 +230,7 @@ class Hash {
      * @param string mypath The path to insert at.
      * @param IData myvalues The values to insert.
      * /
-    static array insert(Json[string] data, string mypath, IData myvalues = null) {
+    static Json[string] insert(Json[string] data, string mypath, IData myvalues = null) {
         auto mynoTokens = !mypath.has("[");
         if (mynoTokens && !mypath.has(".")) {
             mydata[mypath] = myvalues;
@@ -272,7 +272,7 @@ class Hash {
      * @param string[] mypath The path to work on.
      * @param IData myvalues The values to insert when doing inserts.
      * /
-    protected static array _simpleOp(string myop, Json[string] data, Json[string] mypath, IData myvalues = null) {
+    protected static Json[string] _simpleOp(string myop, Json[string] data, Json[string] mypath, IData myvalues = null) {
         auto _list = &mydata;
 
         mycount = count(mypath);
@@ -317,7 +317,7 @@ class Hash {
      * array data The data to operate on
      * @param string mypath A path expression to use to remove.
      * /
-    static array remove(Json[string] data, string mypath) {
+    static Json[string] remove(Json[string] data, string mypath) {
         mynoTokens = !mypath.has("[");
         mynoExpansion = !mypath.has("{");
 
@@ -372,7 +372,7 @@ class Hash {
      * @param string[]|string myvaluePath A dot-separated string.
      * @param string mygroupPath A dot-separated string.
      * /
-    static array combine(
+    static Json[string] combine(
         array data,
         string[] mykeyPath,
         string[] myvaluePath = null,
@@ -537,7 +537,7 @@ class Hash {
      * @param callable|null mycallback A auto to filter the data with. Defaults to
      *  all non-empty or zero values.
      * /
-    static array filter(Json[string] data, ?callable aCallback = null) {
+    static Json[string] filter(Json[string] data, ?callable aCallback = null) {
         mydata.byKeyValue
             .filter!(kv => isArray(kv.value))
             .each!(kv => mydata[kv.key] = filter(kv.value, mycallback));
@@ -562,7 +562,7 @@ class Hash {
      * array data Array to flatten
      * @param string myseparator String used to separate array key elements in a path, defaults to "."
      * /
-    static array flatten(Json[string] data, string myseparator = ".") {
+    static Json[string] flatten(Json[string] data, string myseparator = ".") {
         auto result;
         mystack = null;
         auto mypath = "";
@@ -602,7 +602,7 @@ class Hash {
      * @param array data Flattened array
      * @param string myseparator The delimiter used
      * /
-    static array expand(Json[string] data, string myseparator = ".") {
+    static Json[string] expand(Json[string] data, string myseparator = ".") {
         myhash = null;
         foreach (mypath: myvalue; mydata) {
             someKeys = to!string(mypath).split(myseparator);
@@ -637,7 +637,7 @@ class Hash {
      * array data Array to be merged
      * @param IData mymerge Array to merge with. The argument and all trailing arguments will be array cast when merged
      * /
-    static array merge(Json[string] data, IData mymerge) {
+    static Json[string] merge(Json[string] data, IData mymerge) {
         myargs = array_slice(func_get_args(), 1);
         result = mydata;
         mystack = null;
@@ -747,7 +747,7 @@ class Hash {
      * @param string mypath The path to extract for mapping over.
      * @param callable myfunction The auto to call on each extracted value.
      * /
-    static array map(Json[string] data, string mypath, callable myfunction) {
+    static Json[string] map(Json[string] data, string mypath, callable myfunction) {
         myvalues = (array)extract(mydata, mypath);
 
         return array_map(myfunction, myvalues);
@@ -826,7 +826,7 @@ class Hash {
      * @param string|int mydir See directions above. Defaults to "asc".
      * @param IData[string]|string mytype See direction types above. Defaults to "regular".
      * /
-    static array sort(
+    static Json[string] sort(
         array data,
         string mypath,
         string|int mydir = "asc",
@@ -915,7 +915,7 @@ class Hash {
      * array data The data to squash.
      * @param string|int aKey The key for the data.
      * /
-    protected static array _squash(Json[string] data, string|int aKey = null) {
+    protected static Json[string] _squash(Json[string] data, string|int aKey = null) {
         mystack = null;
         foreach (mydata as myKey: myr) {
             myid = myKey;
@@ -939,7 +939,7 @@ class Hash {
      * array data First value
      * @param array mycompare Second value
      * /
-    static array diff(Json[string] data, Json[string] mycompare) {
+    static Json[string] diff(Json[string] data, Json[string] mycompare) {
         if (isEmpty(mydata)) {
             return mycompare;
         }
@@ -962,7 +962,7 @@ class Hash {
      * array data The data to append onto.
      * @param array mycompare The data to compare and append onto.
      * /
-    static array mergeDiff(Json[string] data, Json[string] mycompare) {
+    static Json[string] mergeDiff(Json[string] data, Json[string] mycompare) {
         if (isEmpty(mydata) && !empty(mycompare)) {
             return mycompare;
         }
@@ -986,7 +986,7 @@ class Hash {
      * @param bool myassoc If true, mydata will be converted to an associative array.
      * @param IData mydefault The default value to use when a top level numeric key is converted to associative form.
      * /
-    static array normalize(Json[string] data, bool myassoc = true, IData mydefault = null) {
+    static Json[string] normalize(Json[string] data, bool myassoc = true, IData mydefault = null) {
         someKeys = mydata.keys;
         mycount = count(someKeys);
         mynumeric = true;

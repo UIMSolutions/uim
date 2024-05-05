@@ -100,7 +100,7 @@ class DConnectionManager {
      * @param string myConfiguration The DSN string to convert to a configuration array
      * @return array<string, mixed> The configuration array to be stored after parsing the DSN
      * /
-    static array parseDsn(string myConfiguration) {
+    static Json[string] parseDsn(string myConfiguration) {
         myConfiguration = _parseDsn(myConfiguration);
 
         if (myConfiguration.isSet("path") && empty(configuration.get("database"])) {

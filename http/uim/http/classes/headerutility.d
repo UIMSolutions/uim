@@ -11,7 +11,7 @@ class DHeaderUtility {
      * Params:
      * array linkHeaders An array of Link header strings.
      * /
-    static array parseLinks(Json[string] linkHeaders) {
+    static Json[string] parseLinks(Json[string] linkHeaders) {
         auto result = linkHeaders
             .map!(linkHeader => parseLinkItem(linkHeader)).array;
 
@@ -91,7 +91,7 @@ class DHeaderUtility {
     /**
      * authenticateHeader = The WWW-Authenticate header
      * /
-    static array parseWwwAuthenticate(string authenticateHeader) {
+    static Json[string] parseWwwAuthenticate(string authenticateHeader) {
         preg_match_all(
             "@(\w+)=(?:(?:')([^"]+)"|([^\s,]+))@",
             authenticateHeader,

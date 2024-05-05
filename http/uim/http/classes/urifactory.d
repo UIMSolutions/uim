@@ -19,7 +19,7 @@ class UriFactory { // }: IUriFactory {
      * array|null serverData Array of server data to build the Uri from.
      *  _SERVER will be used if serverData parameter.isNull.
      * /
-    static array marshalUriAndBaseFromSapi(Json[string] serverData = null) {
+    static Json[string] marshalUriAndBaseFromSapi(Json[string] serverData = null) {
         serverData ??= _SERVER;
         azto  aHeaders = marshalHeadersFromSapi(serverData);
 
@@ -73,7 +73,7 @@ class UriFactory { // }: IUriFactory {
      * \Psr\Http\Message\IUri anUri The Uri instance.
      * @param array serverData The SERVER data to use.
      * /
-    protected static array getBase(IUri anUri, Json[string] serverData) {
+    protected static Json[string] getBase(IUri anUri, Json[string] serverData) {
         auto configData = (array)Configuration.read("App") ~ [
             "base": null,
             "webroot": null,

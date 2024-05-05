@@ -150,7 +150,7 @@ mixin template TEntity() {
      *
      * @var array<string, array<string, STRINGAA>>
     * /
-  protected static array _accessors = null;
+  protected static Json[string] _accessors = null;
 
   /**
      * Whether the presence of a field is checked when accessing a property.

@@ -345,7 +345,7 @@ abstract class DERRErrorHandler {
      * @param int code Error code to map
      * @return array Array of error word, and log location.
      * /
-    static array mapErrorCode(int code) {
+    static Json[string] mapErrorCode(int code) {
         levelMap = [
             E_PARSE: "error",
             E_ERROR: "error",

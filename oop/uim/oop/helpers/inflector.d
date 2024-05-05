@@ -137,7 +137,7 @@ class DInflector {
   protected static IData[string] _cache;
 
   // The initial state of Inflector so reset() works.
-  protected static array _initialState = null;
+  protected static Json[string] _initialState = null;
 
   // Cache inflected values, and return if already available
   protected static string _cache(string inflectionType, string originalValue, string inflectedValue = null)  {

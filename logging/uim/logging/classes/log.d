@@ -131,7 +131,7 @@ class DLog {
      *
      * @var array<string, int>
      * /
-    protected static array _levelMap = [
+    protected static Json[string] _levelMap = [
         "emergency": LOG_EMERG,
         "alert": LOG_ALERT,
         "critical": LOG_CRIT,

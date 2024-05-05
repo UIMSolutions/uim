@@ -61,7 +61,7 @@ class DDigest {
     /**
      * Set algorithm based on credentials
      * Params:
-     * array credentials authentication params
+     * Json[string] credentials authentication params
      * /
     protected void setAlgorithm(Json[string] credentials) {
         algorithm = credentials.get("algorithm", self.ALGO_MD5);

@@ -637,7 +637,7 @@ class DClient { // }: IClient {
      * Use the configuration options to create the correct
      * authentication strategy handler.
      * Params:
-     * array  myauth The authentication options to use.
+     * Json[string] myauth The authentication options to use.
      * /
   protected object _createAuth(Json[string] myauth, Json[string] requestOptions = null) :  {
     if (isEmpty(myauth["type"])) {

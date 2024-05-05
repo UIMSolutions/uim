@@ -258,7 +258,7 @@ class DOauth {
     /**
      * Recursively convert request data into the normalized form.
      * Params:
-     * array someArguments The arguments to normalize.
+     * Json[string] someArguments The arguments to normalize.
      * @param string aPath The current path being converted.
      * @see https://tools.ietf.org/html/rfc5849#section-3.4.1.3.2
      * /

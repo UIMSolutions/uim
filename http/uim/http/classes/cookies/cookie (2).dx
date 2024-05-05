@@ -543,7 +543,7 @@ class DCookie : ICookie {
     /**
      * Implode method to keep keys are multidimensional arrays
      * Params:
-     * array array Map of key and values
+     * Json[string] array Map of key and values
      */
     protected string _flatten(Json[string] array) {
         return Json_encode(array, Json_THROW_ON_ERROR);

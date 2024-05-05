@@ -887,7 +887,7 @@ class DResponse : IResponse {
      *
      * If an array is passed values will be imploded into a comma
      * separated string. If no parameters are passed, then an
-     * array with the current Vary header value is returned
+     * Json[string] with the current Vary header value is returned
      * Params:
      * string[]|string acacheVariances A single Vary string or an array
      *  containing the list for variances.

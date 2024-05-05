@@ -106,7 +106,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
     /**
      * Process uploaded files and move things onto the parsed body.
      * Params:
-     * array files Files array for normalization and merging in parsed body.
+     * Json[string] files Files array for normalization and merging in parsed body.
      * @param \UIM\Http\ServerRequest serverRequest Request instance.
      * /
     protected static ServerRequest marshalFiles(Json[string] files, ServerRequest serverRequest) {

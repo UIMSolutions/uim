@@ -78,7 +78,7 @@ class DFormData { // }: Countable {
      *
      * Iterates the parameter and adds all the key/values.
      * Params:
-     * array data Array of data to add.
+     * Json[string] data Array of data to add.
      * /
     void addMany(Json[string] data) {
         someData.byKeyValue

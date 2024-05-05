@@ -480,7 +480,7 @@ class DServerRequest { // }: IServerRequest {
     /**
      * Detects if a specific accept header is present.
      * Params:
-     * array detect Detector options array.
+     * Json[string] detect Detector options array.
      * /
     protected bool _acceptHeaderDetector(Json[string] detect) {
         content = new DContentTypeNegotiation();
@@ -506,7 +506,7 @@ class DServerRequest { // }: IServerRequest {
     /**
      * Detects if a specific header is present.
      * Params:
-     * array detect Detector options array.
+     * Json[string] detect Detector options array.
      * /
     protected bool _headerDetector(Json[string] detect) {
         foreach (detect["header"] as  aHeader: aValue) {
@@ -524,7 +524,7 @@ class DServerRequest { // }: IServerRequest {
     /**
      * Detects if a specific request parameter is present.
      * Params:
-     * array detect Detector options array.
+     * Json[string] detect Detector options array.
      * /
     protected bool _paramDetector(Json[string] detect) {
         aKey = detect["param"];
@@ -542,7 +542,7 @@ class DServerRequest { // }: IServerRequest {
     /**
      * Detects if a specific environment variable is present.
      * Params:
-     * array detect Detector options array.
+     * Json[string] detect Detector options array.
      * /
     protected bool _environmentDetector(Json[string] detect) {
         if (isSet(detect["env"])) {
@@ -828,7 +828,7 @@ class DServerRequest { // }: IServerRequest {
     /**
      * Update the query string data and get a new instance.
      * Params:
-     * array aQuery The query string data to use
+     * Json[string] aQuery The query string data to use
      * /
     static withQueryParams(string queryString) {
         auto newQuery = clone this;
@@ -1070,7 +1070,7 @@ class DServerRequest { // }: IServerRequest {
     /**
      * Replace the cookies and get a new request instance.
      * Params:
-     * array cookies The new cookie data to use.
+     * Json[string] cookies The new cookie data to use.
      * @return static
      * /
     auto withCookieParams(Json[string] cookies): static
@@ -1368,7 +1368,7 @@ class DServerRequest { // }: IServerRequest {
     /**
      * Update the request replacing the files, and creating a new instance.
      * Params:
-     * array uploadedFiles An array of uploaded file objects.
+     * Json[string] uploadedFiles An array of uploaded file objects.
      * /
     static withUploadedFiles(Json[string] uploadedFiles) {
         this.validateUploadedFiles(uploadedFiles, "");
@@ -1381,7 +1381,7 @@ class DServerRequest { // }: IServerRequest {
     /**
      * Recursively validate uploaded file data.
      * Params:
-     * array uploadedFiles The new files array to validate.
+     * Json[string] uploadedFiles The new files array to validate.
      * @param string aPath The path thus far.
      * /
     protected auto validateUploadedFiles(Json[string] uploadedFiles, string aPath) {

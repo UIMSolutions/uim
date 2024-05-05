@@ -74,7 +74,7 @@ class DResponseEmitter {
     /**
      * Emit a range of the message body.
      * Params:
-     * array range The range data to emit
+     * Json[string] range The range data to emit
      * @param \Psr\Http\Message\IResponse response The response to emit
      * /
     protected void emitBodyRange(Json[string] range, IResponse response) {

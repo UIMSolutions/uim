@@ -152,7 +152,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      *
      * @psalm-var array<int, array{middleware:\Psr\Http\Server\IMiddleware|\Closure|string, options:array{only?: string[], except?: string[]}}>
      * /
-    // TODO protected array Json[string]  middlewares = null;
+    // TODO protected Json[string]  middlewares = null;
 
 
     /**

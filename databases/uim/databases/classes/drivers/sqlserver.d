@@ -314,7 +314,7 @@ class DSqlserverDriver : DDriver {
         return  outer;
     }
  
-    // TODO protected array Json[string] _expressionTranslators() {
+    // TODO protected Json[string] _expressionTranslators() {
         return [
             FunctionExpression.classname: "_transformFunctionExpression",
             TupleComparison.classname: "_transformTupleComparison",

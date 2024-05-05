@@ -259,7 +259,7 @@ class DNumericPaginator : IPaginator {
      *   "count", "defaults", "finder", "numResults".
      * @return array<string, mixed> Paging params.
      * /
-    // TODO protected array buildParams(array data) {
+    // TODO protected array buildParams(Json[string] data) {
         limit = data["options"]["limit"];
 
         paging = [
@@ -291,7 +291,7 @@ class DNumericPaginator : IPaginator {
      * @param array data Paginator data.
      * @return array<string, mixed> Updated params.
      * /
-    // TODO protected array addPageCountParams(array params, array data) {
+    // TODO protected array addPageCountParams(Json[string] params, array data) {
         page = params["page"];
         pageCount = 0;
 
@@ -315,7 +315,7 @@ class DNumericPaginator : IPaginator {
      * @param array data Paginator data.
      * @return array<string, mixed> Updated params.
      * /
-    // TODO protected array addStartEndParams(array params, array data) {
+    // TODO protected array addStartEndParams(Json[string] params, array data) {
         start = end = 0;
 
         if (params["current"] > 0) {
@@ -336,7 +336,7 @@ class DNumericPaginator : IPaginator {
      * @param array data Paging data.
      * @return array<string, mixed> Updated params.
      * /
-    // TODO protected array addPrevNextParams(array params, array data) {
+    // TODO protected array addPrevNextParams(Json[string] params, array data) {
         params["prevPage"] = params["page"] > 1;
         if (params["count"] == null) {
             params["nextPage"] = true;
@@ -354,7 +354,7 @@ class DNumericPaginator : IPaginator {
      * @param array data Paging data.
      * @return array<string, mixed> Updated params.
      * /
-    // TODO protected array addSortingParams(array params, array data) {
+    // TODO protected array addSortingParams(Json[string] params, array data) {
         defaults = data["defaults"];
         order = (array)data["options"]["order"];
         sortDefault = directionDefault = false;
@@ -458,7 +458,7 @@ class DNumericPaginator : IPaginator {
      * @param array settings The settings to merge with the request data.
      * @return array<string, mixed> Array of merged options.
      * /
-    array mergeOptions(array params, array settings) {
+    array mergeOptions(Json[string] params, array settings) {
         if (!empty(settings["scope"])) {
             scope = settings["scope"];
             params = !empty(params[scope]) ? (array)params[scope] : [];

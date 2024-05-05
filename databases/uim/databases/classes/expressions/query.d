@@ -494,7 +494,7 @@ class DQueryExpression : DExpression { // }, Countable {
      * array conditions list of conditions to be stored in this object
      * fieldTypes list of types associated on fields referenced in conditions
      * /
-    protected void _addConditions(array conditions, STRINGAA fieldTypes) {
+    protected void _addConditions(Json[string] conditions, STRINGAA fieldTypes) {
          operators = ["and", "or", "xor"];
 
         typeMap = this.getTypeMap().setTypes(fieldTypes);

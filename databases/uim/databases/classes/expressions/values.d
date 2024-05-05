@@ -35,7 +35,7 @@ class DValuesExpression : DExpression {
      * array someColumns The list of columns that are going to be part of the values.
      * @param \UIM\Database\TypeMap typeMap A dictionary of column ~ type names
      * /
-    this(array someColumns, TypeMap typeMap) {
+    this(Json[string] someColumns, TypeMap typeMap) {
        _columns = someColumns;
         this.setTypeMap(typeMap);
     }
@@ -70,7 +70,7 @@ class DValuesExpression : DExpression {
      * Params:
      * array someColumns Array with columns to be inserted.
      * /
-    void setColumns(array someColumns) {
+    void setColumns(Json[string] someColumns) {
        _columns = someColumns;
        _castedExpressions = false;
     }
@@ -94,7 +94,7 @@ class DValuesExpression : DExpression {
     }
 
     // Sets the values to be inserted.
-    void setValues(array  valuesToInsert) {
+    void setValues(Json[string]  valuesToInsert) {
        _values = valuesToInsert;
        _castedExpressions = false;
     }

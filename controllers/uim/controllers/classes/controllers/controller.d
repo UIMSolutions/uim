@@ -499,7 +499,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Params:
      * array  viewClasses View classes list.
      * /
-    void addViewClasses(array  viewClasses) {
+    void addViewClasses(Json[string]  viewClasses) {
         this.viewClasses = array_merge(this.viewClasses,  viewClasses);
     }
     

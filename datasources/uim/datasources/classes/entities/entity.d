@@ -16,7 +16,6 @@ class DDatasourceEntity { // TODO }: JsonsourceEntity { //}, IInvalidProperty {
     mixin TConfigurable; 
     mixin TEntity; 
 
-    /* 
     // Holds all fields and their values for this entity.
     protected Json[string] _fields;
 
@@ -34,11 +33,11 @@ class DDatasourceEntity { // TODO }: JsonsourceEntity { //}, IInvalidProperty {
     /*
      * List of computed or virtual fields that should be included in Json or array
      * representations of this Entity. If a field is present in both _hidden and _virtual
-     * the field will not be in the array/Json versions of the entity. * /
+     * the field will not be in the array/Json versions of the entity. */
     protected string[] _virtual = null;
 
     // Holds a list of the fields that were modified or added after this object was originally created.
-    protected bool[] _changed;
+    protected bool[string] _changed;
 
     /**
      * Initializes the internal properties of this entity out of the
@@ -59,7 +58,7 @@ class DDatasourceEntity { // TODO }: JsonsourceEntity { //}, IInvalidProperty {
      * @param array<string, mixed> properties hash of properties to set in this entity
      * @param array<string, mixed> options list of options to use when creating this entity
      * /
-    /* this(array properties = null, Json[string] optionData = null) {
+    /* this(Json[string] properties = null, Json[string] optionData = null) {
         options = options.update[
             "useSetters": Json(true),
             "markClean": Json(false),

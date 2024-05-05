@@ -15,15 +15,29 @@ import uim.datasources;
  * a registry for the connections defined in an application.
  */
 class DConnectionManager {
-    bool initialize(Json[string] initData = null) {
-        // An array mapping url schemes to fully qualified driver class names
-        /* _dsnClassMap = [
+    mixin TConfigurable;
+
+  this() {
+    initialize;
+  }
+  
+  // Hook method
+  bool initialize(Json[string] initData = null) {
+
+    configuration(MemoryConfiguration);
+    configuration.data(initData);
+
+       // An array mapping url schemes to fully qualified driver class names
+    _dsnClassMap = [
             "mysql": Mysql.classname,
             "postgres": Postgres.classname,
             "sqlite": Sqlite.classname,
             "sqlserver": Sqlserver.classname,
-        ]; */
+        ];
 
+    return true;
+  }
+ 
         return true;
     }
 
@@ -33,14 +47,16 @@ class DConnectionManager {
     // An array mapping url schemes to fully qualified driver class names
     protected static STRINGAA _dsnClassMap;
 
-    /*
+
+    // The ConnectionRegistry used by the manager.
+    protected static DConnectionRegistry _registry;
+
+        /*
     mixin template TStaticConfig() {
         setConfig as protected _setConfig;
         parseDsn as protected _parseDsn;
     }
-
-    // The ConnectionRegistry used by the manager.
-    protected static DConnectionRegistry _registry;
+;
 
     /**
      * Configure a new connection object.

@@ -1108,7 +1108,7 @@ class DResponse : IResponse {
      * Params:
      * string aName The cookie name you want to read.
      * /
-    Json[string]  getCookie(string aName) {
+    Json[string] getCookie(string aName) {
         if (!_cookies.has(name)) {
             return null;
         }

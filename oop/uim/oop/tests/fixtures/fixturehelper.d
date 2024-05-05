@@ -94,7 +94,7 @@ class DFixtureHelper {
      * array<\UIM\Datasource\IFixture> fixtures Test fixtures
      * /
     void insert(Json[string] fixtures) {
-        this.runPerConnection(void (IConnection aConnection, Json[string]  anGroupFixtures) {
+        this.runPerConnection(void (IConnection aConnection, Json[string] anGroupFixtures) {
             if (cast(DConnection)aConnection) {
                 sortedFixtures = this.sortByConstraint(aConnection,  anGroupFixtures);
                 if (sortedFixtures) {
@@ -135,7 +135,7 @@ class DFixtureHelper {
      * Truncates fixture tables.
      * /
     void truncate(IFixture[] testFixtures) {
-        this.runPerConnection(void (IConnection aConnection, Json[string]  anGroupFixtures) {
+        this.runPerConnection(void (IConnection aConnection, Json[string] anGroupFixtures) {
             if (cast(DConnection)aConnection) {
                 sortedFixtures = null;
                 if (aConnection.getDriver().supports(DriverFeatures.TRUNCATE_WITH_CONSTRAINTS)) {

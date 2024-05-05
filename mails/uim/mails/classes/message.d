@@ -183,7 +183,7 @@ class DMessage { //: JsonSerializable {
      * Associative array of a user defined headers
      * Keys will be prefixed "X-" as per RFC2822 Section 4.7.5
      * /
-    // TODO protected Json[string]  aHeaders = null;
+    // TODO protected Json[string] aHeaders = null;
 
     // Text message
     protected string atextMessage = "";
@@ -259,7 +259,7 @@ class DMessage { //: JsonSerializable {
     /**
      * Gets the "sender" address. See RFC link below for full explanation.
      * /
-    Json[string]  getSender() {
+    Json[string] getSender() {
         return _sender;
     }
     
@@ -280,7 +280,7 @@ class DMessage { //: JsonSerializable {
      * Gets "Reply-To" address.
      *
       * /
-    Json[string]  getReplyTo() {
+    Json[string] getReplyTo() {
         return _replyTo;
     }
     
@@ -306,7 +306,7 @@ class DMessage { //: JsonSerializable {
     /**
      * Gets Read Receipt (Disposition-Notification-To header).
      * /
-    Json[string]  getReadReceipt() {
+    Json[string] getReadReceipt() {
         return _readReceipt;
     }
     
@@ -326,7 +326,7 @@ class DMessage { //: JsonSerializable {
     /**
      * Gets return path.
      * /
-    Json[string]  getReturnPath() {
+    Json[string] getReturnPath() {
         return _returnPath;
     }
     
@@ -344,7 +344,7 @@ class DMessage { //: JsonSerializable {
     /**
      * Gets "to" address
      * /
-    Json[string]  getTo() {
+    Json[string] getTo() {
         return _to;
     }
     
@@ -374,7 +374,7 @@ class DMessage { //: JsonSerializable {
      * Gets "cc" address.
      *
      * /
-    Json[string]  getCc() {
+    Json[string] getCc() {
         return _cc;
     }
     
@@ -404,7 +404,7 @@ class DMessage { //: JsonSerializable {
      * Gets "bcc" address.
      *
      * /
-    Json[string]  getBcc() {
+    Json[string] getBcc() {
         return _bcc;
     }
     
@@ -611,7 +611,7 @@ class DMessage { //: JsonSerializable {
      * Params:
      * array  aHeaders Associative array containing headers to be set.
      * /
-    auto setHeaders(Json[string]  aHeaders) {
+    auto setHeaders(Json[string] aHeaders) {
         this.headers = aHeaders;
 
         return this;
@@ -622,7 +622,7 @@ class DMessage { //: JsonSerializable {
      * Params:
      * array  aHeaders Headers to set.
      * /
-    auto addHeaders(Json[string]  aHeaders) {
+    auto addHeaders(Json[string] aHeaders) {
         this.headers = Hash.merge(this.headers,  aHeaders);
 
         return this;
@@ -644,7 +644,7 @@ class DMessage { //: JsonSerializable {
      * Params:
      * string[] anInclude List of headers.
      * /
-    string[] getHeaders(Json[string]  anInclude = []) {
+    string[] getHeaders(Json[string] anInclude = []) {
         this.createBoundary();
 
         if (anInclude == anInclude.values) {
@@ -724,7 +724,7 @@ class DMessage { //: JsonSerializable {
      * @param string aeol End of line string for concatenating headers.
      * @param \Closure|null aCallback Callback to run each header value through before stringifying.
      * /
-    string getHeadersString(Json[string]  anInclude = [], string aeol = "\r\n", ?Closure aCallback = null) {
+    string getHeadersString(Json[string] anInclude = [], string aeol = "\r\n", ?Closure aCallback = null) {
         auto lines = this.getHeaders(anInclude);
 
         if (aCallback) {
@@ -957,7 +957,7 @@ class DMessage { //: JsonSerializable {
      * Get generated message body as array.
      *
      * /
-    Json[string]  getBody() {
+    Json[string] getBody() {
         if (isEmpty(this.message)) {
             this.message = this.generateMessage();
         }
@@ -1466,7 +1466,7 @@ class DMessage { //: JsonSerializable {
      * @return array Serializable array of configuration properties.
      * @throws \Exception When a view var object can not be properly serialized.
      * /
-    Json[string]  JsonSerialize() {
+    Json[string] JsonSerialize() {
         array = null;
         foreach (this.serializableProperties as  aProperty) {
             array[aProperty] = this.{ aProperty};
@@ -1498,7 +1498,7 @@ class DMessage { //: JsonSerializable {
      * Magic method used for serializing the Message object.
      *
      * /
-    Json[string]  __serialize() {
+    Json[string] __serialize() {
         array = this.JsonSerialize();
         array_walk_recursive(array, void (& anItem, aKey) {
             if (cast(DSimpleXMLElement)anItem ) {

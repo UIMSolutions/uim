@@ -23,7 +23,7 @@ class DModel : IModel {
     className("Model");
   }
 
-  this(Json[string]  configData) {
+  this(Json[string] configData) {
     this(); initialize(configData);
   }
 

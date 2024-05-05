@@ -626,7 +626,7 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * @param DORMDatasource\IEntity parentEntity the source entity containing the target
      * entities to be saved.
-     * @param array entities list of entities to persist in target table and to
+     * @param Json[string] entities list of entities to persist in target table and to
      * link to the parent entity
      * @param array<string, mixed> options list of options accepted by `Table::save()`
      * @throws \InvalidArgumentException if the property representing the association
@@ -1065,7 +1065,7 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * @param DORMDatasource\IEntity sourceEntity an entity persisted in the source table for
      *   this association
-     * @param array targetEntities list of entities from the target table to be linked
+     * @param Json[string] targetEntities list of entities from the target table to be linked
      * @param array<string, mixed> options list of options to be passed to the internal `save`/`delete` calls
      *   when persisting/updating new links, or deleting existing ones
      * @throws \InvalidArgumentException if non persisted entities are passed or if
@@ -1151,7 +1151,7 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * @param DORMQuery existing a query for getting existing links
      * @param array<DORMDatasource\IEntity> jointEntities link entities that should be persisted
-     * @param array targetEntities entities in target table that are related to
+     * @param Json[string] targetEntities entities in target table that are related to
      * the `jointEntities`
      * @param array<string, mixed> options list of options accepted by `Table::remove()`
      * @return array|false Array of entities not deleted or false in case of deletion failure for atomic saves.
@@ -1264,7 +1264,7 @@ class DBelongsToManyAssociation : DAssociation {
      *
      * @param DORMDatasource\IEntity sourceEntity The row belonging to the source side
      *   of this association.
-     * @param array targetEntities The rows belonging to the target side of this
+     * @param Json[string] targetEntities The rows belonging to the target side of this
      *   association.
      * @throws \InvalidArgumentException if any of the entities is lacking a primary
      *   key value

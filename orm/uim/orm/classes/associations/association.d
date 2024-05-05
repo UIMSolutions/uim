@@ -636,7 +636,7 @@ protected void _appendNotMatching(Query query, Json[string] optionData) {
      * Correctly nests a result row associated values into the correct array keys inside the
      * source results.
      *
-     * @param array row The row to transform
+     * @param Json[string] row The row to transform
      * @param string nestKey The array key under which the results for this association
      *   should be found
      * @param bool joined Whether the row is a result of a direct join
@@ -714,7 +714,7 @@ bool exists(conditions) {
 /**
      * Proxies the update operation to the target table"s updateAll method
      *
-     * @param array fields A hash of field: new value.
+     * @param Json[string] fields A hash of field: new value.
      * @param DORMdatabases.IExpression|\Closure|array|string|null conditions Conditions to be used, accepts anything Query::where()
      * can take.
      * @see DORMTable::updateAll()
@@ -995,7 +995,7 @@ bool __isSet(property) {
      * Proxies method calls to the target table.
      *
      * @param string method name of the method to be invoked
-     * @param array argument List of arguments passed to the function
+     * @param Json[string] argument List of arguments passed to the function
      * @return mixed
      * @throws \BadMethodCallException
      * /

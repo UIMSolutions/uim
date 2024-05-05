@@ -301,7 +301,7 @@ class DMarshaller {
      * for junction table entities.
      * Params:
      * \ORM\Association\BelongsToMany myassoc The association to marshal.
-     * @param array data The data to convert into entities.
+     * @param Json[string] data The data to convert into entities.
      * @param Json[string] options List of options.
      * /
     protected IEntity[] _belongsToMany(BelongsToMany myassoc, Json[string] data, Json[string] optionData = null) {
@@ -380,7 +380,7 @@ class DMarshaller {
      * Loads a list of belongs to many from ids.
      * Params:
      * \ORM\Association myassoc The association class for the belongsToMany association.
-     * @param array myids The list of ids to load.
+     * @param Json[string] myids The list of ids to load.
      * /
     protected IEntity[] _loadAssociatedByIds(Association myassoc, Json[string] myids) {
         if (isEmpty(myids)) {
@@ -439,7 +439,7 @@ class DMarshaller {
      * ```
      * Params:
      * \UIM\Datasource\IEntity myentity the entity that will get the data merged in
-     * @param array data key value list of fields to be merged into the entity
+     * @param Json[string] data key value list of fields to be merged into the entity
      * @param Json[string] options List of options.
      * /
     IEntity merge(IEntity myentity, Json[string] data, Json[string] optionData = null) {
@@ -551,7 +551,7 @@ class DMarshaller {
      * Params:
      * iterable<\UIM\Datasource\IEntity> myentities the entities that will get the
      *  data merged in
-     * @param array data list of arrays to be merged into the entities
+     * @param Json[string] data list of arrays to be merged into the entities
      * @param Json[string] options List of options.
      * /
     IEntity[] mergeMany(Range myentities, Json[string] data, Json[string] optionData = null) {
@@ -673,7 +673,7 @@ class DMarshaller {
      * Params:
      * myoriginal = The original entities list.
      * @param \ORM\Association\BelongsToMany myassoc The association to marshall
-     * @param array myvalue The data to hydrate
+     * @param Json[string] myvalue The data to hydrate
      * @param Json[string] options List of options.
      * /
     protected IEntity[] _mergeBelongsToMany(IEntity[] myoriginal, BelongsToMany associationToMarshall, Json[string] myvalue, Json[string] options) {
@@ -699,7 +699,7 @@ class DMarshaller {
      * Params:
      * array<\UIM\Datasource\IEntity> myoriginal The original entities list.
      * @param \ORM\Association\BelongsToMany myassoc The association to marshall
-     * @param array myvalue The data to hydrate
+     * @param Json[string] myvalue The data to hydrate
      * @param Json[string] options List of options.
      * /
     protected IEntity[] _mergeJoinData(Json[string] myoriginal, BelongsToMany myassoc, Json[string] myvalue, Json[string] options) {
@@ -752,7 +752,7 @@ class DMarshaller {
      * dispatch Model.afterMarshal event.
      * Params:
      * \UIM\Datasource\IEntity myentity The entity that was marshaled.
-     * @param array data readOnly mydata to use.
+     * @param Json[string] data readOnly mydata to use.
      * @param Json[string] options List of options that are readOnly.
      * /
     protected void dispatchAfterMarshal(IEntity myentity, Json[string] data, Json[string] optionData = null) {

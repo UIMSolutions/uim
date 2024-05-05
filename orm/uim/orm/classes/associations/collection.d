@@ -157,7 +157,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      *
      * aTable - The table entity is for.
      * anEntity - The entity to save associated data for.
-     * @param array associations The list of associations to save parents from.
+     * @param Json[string] associations The list of associations to save parents from.
      *   associations not in this list will not be saved.
      * @param array<string, mixed> options The options for the save operation.
      * @return bool Success
@@ -177,7 +177,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      *
      * @param DORMDORMTable aTable The table entity is for.
      * @param DORMDatasource\IEntity anEntity The entity to save associated data for.
-     * @param array associations The list of associations to save children from.
+     * @param Json[string] associations The list of associations to save children from.
      *   associations not in this list will not be saved.
      * @param array<string, mixed> options The options for the save operation.
      * @return bool Success
@@ -195,7 +195,7 @@ class DAssociationCollection { // }: IteratorAggregate {
      *
      * @param DORMDORMTable aTable The table the save is currently operating on
      * @param DORMDatasource\IEntity anEntity The entity to save
-     * @param array associations Array of associations to save.
+     * @param Json[string] associations Array of associations to save.
      * @param array<string, mixed> options Original options
      * @param bool owningSide Compared with association classes" isOwningSide method.
      * returns True if Success

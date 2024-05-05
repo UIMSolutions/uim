@@ -19,7 +19,7 @@ class DLazyEagerLoader {
      * The properties for the associations to be loaded will be overwritten on each entity.
      * Params:
      * \UIM\Datasource\IEntity|array<\UIM\Datasource\IEntity> myentities a single entity or list of entities
-     * @param array mycontain A `contain()` compatible array.
+     * @param Json[string] mycontain A `contain()` compatible array.
      * @see \ORM\Query.contain()
      * @param \ORM\Table mysource The table to use for fetching the top level entities
      * /
@@ -43,7 +43,7 @@ class DLazyEagerLoader {
      * Builds a query for loading the passed list of entity objects along with the
      * associations specified in mycontain.
      * Params:
-     * @param array mycontain The associations to be loaded
+     * @param Json[string] mycontain The associations to be loaded
      * @param \ORM\Table mysource The table to use for fetching the top level entities
      * /
     protected ISelectQuery _getQuery(IEntity[] myentities, Json[string] mycontain, Table mysource)SelectQuery {

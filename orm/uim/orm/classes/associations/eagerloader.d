@@ -244,7 +244,7 @@ class DEagerLoader {
      * the new associations provided.
      * Params:
      * Json[string] myassociations User provided containments array.
-     * @param array myoriginal The original containments array to merge
+     * @param Json[string] myoriginal The original containments array to merge
      * with the new one.
      * /
     // TODO protected Json[string] _reformatContain(Json[string] myassociations, Json[string] myoriginal) {
@@ -498,7 +498,7 @@ class DEagerLoader {
      * Params:
      * \ORM\Query\SelectQuery myquery The query for which to eager load external.
      * associations.
-     * @param array results Results array.
+     * @param Json[string] results Results array.
      * /
     array loadExternal(SelectQuery myquery, Json[string] results) {
         if (isEmpty(results)) {
@@ -642,7 +642,7 @@ class DEagerLoader {
      * Params:
      * array<\ORM\EagerLoadable> myexternal The list of external associations to be loaded.
      * @param \ORM\Query\SelectQuery myquery The query from which the results where generated.
-     * @param array results Results array.
+     * @param Json[string] results Results array.
      * /
     // TODO protected Json[string] _collectKeys(Json[string] myexternal, SelectQuery myquery, Json[string] results) {
         mycollectKeys = null;

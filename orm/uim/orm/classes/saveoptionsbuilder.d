@@ -85,7 +85,7 @@ class DSaveOptionsBuilder { /*}: ArrayObject {
      * Checks that the associations exists recursively.
      *
      * @param DORMDORMTable aTable Table object.
-     * @param array associations An associations array.
+     * @param Json[string] associations An associations array.
      * /
     protected void _associated(DORMTable aTable, Json[string] associations) {
         foreach (associations as key: associated) {

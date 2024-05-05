@@ -179,7 +179,7 @@ class DCounterCacheBehavior : DBehavior {
      * \UIM\Event\IEvent<\ORM\Table> myevent Event instance.
      * @param \UIM\Datasource\IEntity myentity Entity
      * @param \ORM\Association myassoc The association object
-     * @param array mysettings The settings for counter cache for this association
+     * @param Json[string] mysettings The settings for counter cache for this association
      * /
     protected void _processAssociation(
         IEvent myevent,
@@ -253,7 +253,7 @@ class DCounterCacheBehavior : DBehavior {
      * Fetches and returns the count for a single field in an association
      * Params:
      * Json[string] configData The counter cache configuration for a single field
-     * @param array myconditions Additional conditions given to the query
+     * @param Json[string] myconditions Additional conditions given to the query
      * /
     protected int _getCount(Json[string] configData, Json[string] myconditions) {
         myfinder = "all";

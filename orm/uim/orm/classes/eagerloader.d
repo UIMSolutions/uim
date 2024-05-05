@@ -276,8 +276,8 @@ class DEagerLoader {
      * in the array. This function merges the original associations array with
      * the new associations provided
      *
-     * @param array associations user provided containments array
-     * @param array original The original containments array to merge
+     * @param Json[string] associations user provided containments array
+     * @param Json[string] original The original containments array to merge
      * with the new one
      * /
     // TODO protected Json[string] _reformatContain(Json[string] associations, Json[string] original) {
@@ -652,7 +652,7 @@ class DEagerLoader {
      * An internal method to build a map which is used for the return value of the
      * associationsMap() method.
      *
-     * @param array map An initial array for the map.
+     * @param Json[string] map An initial array for the map.
      * @param array<DORMEagerLoadable> level An array of EagerLoadable instances.
      * @param bool matching Whether it is an association loaded through `matching()`.
      * /

@@ -152,11 +152,11 @@ class DHasManyAssociation : DAssociation {
      * Persists each of the entities into the target table and creates links between
      * the parent entity and each one of the saved target entities.
      *
-     * @param array foreignKeyReference The foreign key reference defining the link between the
+     * @param Json[string] foreignKeyReference The foreign key reference defining the link between the
      * target entity, and the parent entity.
      * @param DORMDatasource\IEntity parentEntity The source entity containing the target
      * entities to be saved.
-     * @param array entities list of entities
+     * @param Json[string] entities list of entities
      * to persist in target table and to link to the parent entity
      * @param array<string, mixed> options list of options accepted by `Table::save()`.
      * @return bool `true` on success, `false` otherwise.
@@ -224,7 +224,7 @@ class DHasManyAssociation : DAssociation {
      *
      * @param DORMDatasource\IEntity sourceEntity the row belonging to the `source` side
      * of this association
-     * @param array myTargetEntities list of entities belonging to the `target` side
+     * @param Json[string] myTargetEntities list of entities belonging to the `target` side
      * of this association
      * @param array<string, mixed> options list of options to be passed to the internal `save` call
      * @return bool true on success, false otherwise
@@ -291,7 +291,7 @@ class DHasManyAssociation : DAssociation {
      *
      * @param DORMDatasource\IEntity sourceEntity an entity persisted in the source table for
      * this association
-     * @param array myTargetEntities list of entities persisted in the target table for
+     * @param Json[string] myTargetEntities list of entities persisted in the target table for
      * this association
      * @param array<string, mixed>|bool options list of options to be passed to the internal `delete` call.
      *   If boolean it will be used a value for "cleanProperty" option.
@@ -379,7 +379,7 @@ class DHasManyAssociation : DAssociation {
      *
      * @param DORMDatasource\IEntity sourceEntity an entity persisted in the source table for
      * this association
-     * @param array myTargetEntities list of entities from the target table to be linked
+     * @param Json[string] myTargetEntities list of entities from the target table to be linked
      * @param array<string, mixed> options list of options to be passed to the internal `save`/`delete` calls
      * when persisting/updating new links, or deleting existing ones
      * @throws \InvalidArgumentException if non persisted entities are passed or if
@@ -406,7 +406,7 @@ class DHasManyAssociation : DAssociation {
      * Deletes/sets null the related objects according to the dependency between source and targets
      * and foreign key nullability. Skips deleting records present in remainingEntities
      *
-     * @param array foreignKeyReference The foreign key reference defining the link between the
+     * @param Json[string] foreignKeyReference The foreign key reference defining the link between the
      * target entity, and the parent entity.
      * @param DORMDatasource\IEntity anEntity the entity which should have its associated entities unassigned
      * @param DORMTable myTarget The associated table
@@ -456,9 +456,9 @@ class DHasManyAssociation : DAssociation {
      * The action which is taken depends on the dependency between source and
      * targets and also on foreign key nullability.
      *
-     * @param array foreignKey array of foreign key properties
+     * @param Json[string] foreignKey array of foreign key properties
      * @param DORMTable myTarget The associated table
-     * @param array conditions The conditions that specifies what are the objects to be unlinked
+     * @param Json[string] conditions The conditions that specifies what are the objects to be unlinked
      * @param array<string, mixed> options list of options accepted by `Table::remove()`
      * @return bool success
      * /
@@ -500,7 +500,7 @@ class DHasManyAssociation : DAssociation {
      * Checks the nullable flag of the foreign key
      *
      * @param DORMTable myTable the table containing the foreign key
-     * @param array properties the list of fields that compose the foreign key
+     * @param Json[string] properties the list of fields that compose the foreign key
      * /
     protected bool _foreignKeyAcceptsNull(Table myTable, Json[string] properties) {
         return !in_array(

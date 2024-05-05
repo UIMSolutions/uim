@@ -73,13 +73,13 @@ class DFixtureHelper {
      *
      * The callback signature:
      * ```
-     * auto callback(IConnection aConnection, array fixtures)
+     * auto callback(IConnection aConnection, Json[string] fixtures)
      * ```
      * Params:
      * \Closure aCallback Callback run per connection
      * @param array<\UIM\Datasource\IFixture> fixtures Test fixtures
      * /
-    void runPerConnection(Closure aCallback, array fixtures) {
+    void runPerConnection(Closure aCallback, Json[string] fixtures) {
         auto anGroups = null;
         fixtures
             .each!(fixture => anGroups[fixture.connection()] ~= fixture);
@@ -94,7 +94,7 @@ class DFixtureHelper {
      * array<\UIM\Datasource\IFixture> fixtures Test fixtures
      * /
     void insert(Json[string] fixtures) {
-        this.runPerConnection(void (IConnection aConnection, array  anGroupFixtures) {
+        this.runPerConnection(void (IConnection aConnection, Json[string]  anGroupFixtures) {
             if (cast(DConnection)aConnection) {
                 sortedFixtures = this.sortByConstraint(aConnection,  anGroupFixtures);
                 if (sortedFixtures) {
@@ -118,7 +118,7 @@ class DFixtureHelper {
      * \UIM\Datasource\IConnection aConnection Fixture connection
      * @param array<\UIM\Datasource\IFixture> fixtures Connection fixtures
      * /
-    protected void insertConnection(IConnection aConnection, array fixtures) {
+    protected void insertConnection(IConnection aConnection, Json[string] fixtures) {
         fixtures.each!((fixture) {
             try {
                 fixture.insert(aConnection);
@@ -135,7 +135,7 @@ class DFixtureHelper {
      * Truncates fixture tables.
      * /
     void truncate(IFixture[] testFixtures) {
-        this.runPerConnection(void (IConnection aConnection, array  anGroupFixtures) {
+        this.runPerConnection(void (IConnection aConnection, Json[string]  anGroupFixtures) {
             if (cast(DConnection)aConnection) {
                 sortedFixtures = null;
                 if (aConnection.getDriver().supports(DriverFeatures.TRUNCATE_WITH_CONSTRAINTS)) {
@@ -162,7 +162,7 @@ class DFixtureHelper {
      * \UIM\Datasource\IConnection aConnection Fixture connection
      * @param array<\UIM\Datasource\IFixture> fixtures Connection fixtures
      * /
-    protected void truncateConnection(IConnection aConnection, array fixtures) {
+    protected void truncateConnection(IConnection aConnection, Json[string] fixtures) {
         fixtures.each!((fixture) {
             try {
                 fixture.truncate(aConnection);
@@ -181,7 +181,7 @@ class DFixtureHelper {
      * \UIM\Database\Connection aConnection Database connection
      * @param array<\UIM\Datasource\IFixture> fixtures Database fixtures
      * /
-    // TODO protected Json[string] sortByConstraint(Connection aConnection, array fixtures) {
+    // TODO protected Json[string] sortByConstraint(Connection aConnection, Json[string] fixtures) {
         constrained = null;
         unconstrained = null;
         fixtures.each((fixture) {

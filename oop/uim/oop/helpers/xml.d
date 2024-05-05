@@ -400,7 +400,7 @@ class Xml {
      * @param IData[string] myparentData Parent array with data
      * @param string myns Namespace of current child
      * /
-                    protected static void _toArray(SimpleXMLElement myxml, array & myparentData, string myns, string[] namespacesInXML) {
+                    protected static void _toArray(SimpleXMLElement myxml, Json[string] & myparentData, string myns, string[] namespacesInXML) {
                         auto mydata = null;
 
                         foreach (mynamespace; namespacesInXML) {

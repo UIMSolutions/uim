@@ -507,7 +507,7 @@ mixin template TIntegrationTest() {
      * string aurl The URL the form is being submitted on.
      * @param array data The request body data.
      * /
-    // TODO protected Json[string] _addTokens(string aurl, array data) {
+    // TODO protected Json[string] _addTokens(string aurl, Json[string] data) {
         if (_securityToken == true) {
             fields = array_diff_key(someData, array_flip(_unlockedFields));
 

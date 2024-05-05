@@ -32,7 +32,7 @@ mixin template TContainerStub() {
      * @param array|null constructorArgs The constructor arguments for your application class.
      * @psalm-param class-string<\UIM\Core\IHttpApplication>|class-string<\UIM\Core\IConsoleApplication>  className
      * /
-    void configApplication(string className, array constructorArgs) {
+    void configApplication(string className, Json[string] constructorArgs) {
        _appClass = className;
        _appArgs = constructorArgs;
     }

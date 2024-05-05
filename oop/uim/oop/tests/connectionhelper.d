@@ -84,7 +84,7 @@ class DConnectionHelper {
      * string aconnectionName Connection name
      * @param string[] aTables List of tables names or null for all.
      * /
-    void truncateTables(string aconnectionName, array aTables = null) {
+    void truncateTables(string aconnectionName, Json[string] aTables = null) {
         aConnection = ConnectionManager.get(aConnectionName);
         assert(cast(DConnection)aConnection);
         collection = aConnection.getSchemaCollection();

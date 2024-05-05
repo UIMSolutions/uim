@@ -280,7 +280,7 @@ class DEagerLoader {
      * @param array original The original containments array to merge
      * with the new one
      * /
-    // TODO protected Json[string] _reformatContain(Json[string] associations, array original) {
+    // TODO protected Json[string] _reformatContain(Json[string] associations, Json[string] original) {
         result = original;
 
         foreach (associations as table: options) {
@@ -430,7 +430,7 @@ class DEagerLoader {
      * @return DORMEagerLoadable Object with normalized associations
      * @throws \InvalidArgumentException When containments refer to associations that do not exist.
      * /
-    protected DEagerLoadable _normalizeContain(Table parent, string anAliasName, Json[string] optionData, array paths) {
+    protected DEagerLoadable _normalizeContain(Table parent, string anAliasName, Json[string] optionData, Json[string] paths) {
         defaults = _containOptions;
         instance = parent.getAssociation(alias);
 
@@ -527,7 +527,7 @@ class DEagerLoader {
      * @param array<DORMEagerLoadable> matching list of associations that should be forcibly joined.
      * @return array<DORMEagerLoadable>
      * /
-    // TODO protected Json[string] _resolveJoins(Json[string] associations, array matching = null) {
+    // TODO protected Json[string] _resolveJoins(Json[string] associations, Json[string] matching = null) {
         result = null;
         foreach (matching as table: loadable) {
             result[table] = loadable;
@@ -656,7 +656,7 @@ class DEagerLoader {
      * @param array<DORMEagerLoadable> level An array of EagerLoadable instances.
      * @param bool matching Whether it is an association loaded through `matching()`.
      * /
-    // TODO protected Json[string] _buildAssociationsMap(Json[string] map, array level, bool matching = false) {
+    // TODO protected Json[string] _buildAssociationsMap(Json[string] map, Json[string] level, bool matching = false) {
         foreach (level as assoc: meta) {
             canBeJoined = meta.canBeJoined();
             instance = meta.instance();
@@ -753,7 +753,7 @@ class DEagerLoader {
      * @param DORMdatabases.Statement\BufferedStatement statement The statement to read from.
      * @param array<string, array> collectKeys The keys to collect
      * /
-    // TODO protected Json[string] _groupKeys(BufferedStatement statement, array collectKeys) {
+    // TODO protected Json[string] _groupKeys(BufferedStatement statement, Json[string] collectKeys) {
         keys = null;
         foreach ((statement.fetchAll("assoc") ?: []) as result) {
             foreach (collectKeys as nestKey: parts) {

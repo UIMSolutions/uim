@@ -87,7 +87,7 @@ class DSaveOptionsBuilder { /*}: ArrayObject {
      * @param DORMDORMTable aTable Table object.
      * @param array associations An associations array.
      * /
-    protected void _associated(DORMTable aTable, array associations) {
+    protected void _associated(DORMTable aTable, Json[string] associations) {
         foreach (associations as key: associated) {
             if (is_int(key)) {
                 _checkAssociation(table, associated);

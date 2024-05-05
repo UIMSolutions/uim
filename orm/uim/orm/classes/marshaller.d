@@ -304,7 +304,7 @@ class DMarshaller {
      * @param array data The data to convert into entities.
      * @param Json[string] options List of options.
      * /
-    protected IEntity[] _belongsToMany(BelongsToMany myassoc, array data, Json[string] optionData = null) {
+    protected IEntity[] _belongsToMany(BelongsToMany myassoc, Json[string] data, Json[string] optionData = null) {
         auto myassociated = options["associated"] ?? [];
         auto myforceNew = options.get("forceNew", false);
         auto mydata = mydata.values;
@@ -382,7 +382,7 @@ class DMarshaller {
      * \ORM\Association myassoc The association class for the belongsToMany association.
      * @param array myids The list of ids to load.
      * /
-    protected IEntity[] _loadAssociatedByIds(Association myassoc, array myids) {
+    protected IEntity[] _loadAssociatedByIds(Association myassoc, Json[string] myids) {
         if (isEmpty(myids)) {
             return null;
         }
@@ -442,7 +442,7 @@ class DMarshaller {
      * @param array data key value list of fields to be merged into the entity
      * @param Json[string] options List of options.
      * /
-    IEntity merge(IEntity myentity, array data, Json[string] optionData = null) {
+    IEntity merge(IEntity myentity, Json[string] data, Json[string] optionData = null) {
         [mydata, options] = _prepareDataAndOptions(mydata, options);
 
         myisNew = myentity.isNew();
@@ -554,7 +554,7 @@ class DMarshaller {
      * @param array data list of arrays to be merged into the entities
      * @param Json[string] options List of options.
      * /
-    IEntity[] mergeMany(Range myentities, array data, Json[string] optionData = null) {
+    IEntity[] mergeMany(Range myentities, Json[string] data, Json[string] optionData = null) {
         myprimary = (array)_table.primaryKeys();
 
         myindexed = (new DCollection(mydata))
@@ -676,7 +676,7 @@ class DMarshaller {
      * @param array myvalue The data to hydrate
      * @param Json[string] options List of options.
      * /
-    protected IEntity[] _mergeBelongsToMany(IEntity[] myoriginal, BelongsToMany associationToMarshall, array myvalue, Json[string] options) {
+    protected IEntity[] _mergeBelongsToMany(IEntity[] myoriginal, BelongsToMany associationToMarshall, Json[string] myvalue, Json[string] options) {
         myassociated = options["associated"] ?? [];
 
         myhasIds = array_key_exists("_ids", myvalue);
@@ -702,7 +702,7 @@ class DMarshaller {
      * @param array myvalue The data to hydrate
      * @param Json[string] options List of options.
      * /
-    protected IEntity[] _mergeJoinData(Json[string] myoriginal, BelongsToMany myassoc, array myvalue, Json[string] options) {
+    protected IEntity[] _mergeJoinData(Json[string] myoriginal, BelongsToMany myassoc, Json[string] myvalue, Json[string] options) {
         myassociated = options["associated"] ?? [];
         myextra = null;
         foreach (myoriginal as myentity) {
@@ -755,7 +755,7 @@ class DMarshaller {
      * @param array data readOnly mydata to use.
      * @param Json[string] options List of options that are readOnly.
      * /
-    protected void dispatchAfterMarshal(IEntity myentity, array data, Json[string] optionData = null) {
+    protected void dispatchAfterMarshal(IEntity myentity, Json[string] data, Json[string] optionData = null) {
         mydata = new ArrayObject(mydata);
         options = new ArrayObject(options);
        _table.dispatchEvent("Model.afterMarshal", compact("entity", "data", "options"));

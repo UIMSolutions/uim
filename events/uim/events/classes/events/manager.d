@@ -27,7 +27,7 @@ class DEventManager { // }: IEventManager {
     protected static DEventManager _generalManager = null;
 
     // List of listener callbacks associated to
-    // TODO protected array Json[string] _listeners = null;
+    // TODO protected Json[string] _listeners = null;
 
     /**
      * Returns the globally available instance of a UIM\Event\EventManager
@@ -165,7 +165,7 @@ class DEventManager { // }: IEventManager {
      * \UIM\Event\IEventListener subscriber Event subscriber
      * @param \Closure|array|string ahandlers Event handlers
      * /
-    // TODO protected array Json[string] normalizeHandlers(IEventListener subscriber, Closure|array|string ahandlers) {
+    // TODO protected Json[string] normalizeHandlers(IEventListener subscriber, Closure|array|string ahandlers) {
         // Check if an array of handlers not single handler config array
         if (isArray(handlers) && !isSet(handlers["callable"])) {
             foreach (handlers as &handler) {
@@ -188,7 +188,7 @@ class DEventManager { // }: IEventManager {
      * @param \Closure|array|string ahandler Event handler
      * /
 <<<<<<< HEAD
-    // TODO protected array Json[string] normalizeHandler(IEventListener subscriber, Closure|array|string ahandler) {
+    // TODO protected Json[string] normalizeHandler(IEventListener subscriber, Closure|array|string ahandler) {
         callable = handler;
         settings = null;
 

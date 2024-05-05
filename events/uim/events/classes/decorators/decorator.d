@@ -11,7 +11,7 @@ abstract class DDecorator : IDecorator {
     protected callable  _callable;
 
     // Decorator options
-    // TODO protected array Json[string] _options = null;
+    // TODO protected Json[string] _options = null;
 
     this(callable callable, Json[string] options = null) {
        _callable = callable;

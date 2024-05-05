@@ -172,7 +172,7 @@ protected void _setOptions() {
   }
   if (
     myserializer != "d" &&
-    !constant("Memory.HAVE_" ~ strtoupper(myserializer))
+    !constant("Memory.HAVE_" ~ myserializer.toUpper
     ) {
     throw new DInvalidArgumentException(
       "Memory extension is not compiled with `%s` support.".format(myserializer)

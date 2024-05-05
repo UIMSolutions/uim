@@ -149,10 +149,9 @@ class DController : IController { // IEventListener, IEventDispatcher {
     
     /**
      * Middlewares list.
-     *
      * @psalm-var array<int, array{middleware:\Psr\Http\Server\IMiddleware|\Closure|string, options:array{only?: string[], except?: string[]}}>
-     * /
-    // TODO protected Json[string]  middlewares = null;
+     */
+    protected Json[string]  middlewares = null;
 
 
     /**
@@ -199,9 +198,6 @@ class DController : IController { // IEventListener, IEventDispatcher {
         this.getEventManager().on(this);
     }
     
-    // Initialization hook method.
-    bool initialize(Json[string] initData = null) {
-    }
     
     // Get the component registry for this controller.
     ComponentRegistry components() {

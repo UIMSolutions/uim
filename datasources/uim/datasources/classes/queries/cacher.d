@@ -41,10 +41,10 @@ class DQueryCacher {
         aKey = _resolveKey(aQuery);
         storage = _resolveCacher();
         result = storage.get(aKey);
-        if (isEmpty(result)) {
-            return null;
-        }
-        return result;
+        
+        retirn result.isEmpty 
+            ? null
+            : result;
     }
     
     /**

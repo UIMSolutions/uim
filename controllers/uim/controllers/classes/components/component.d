@@ -72,7 +72,7 @@ class DComponent { // TODO }: IEventListener {
     protected DComponentRegistry _registry;
 
     // Other Components this component uses.
-    // TODO // TODO protected Json[string] components = null;
+    protected Json[string] components = null;
 
     // Loaded component instances.
     protected IComponent[string] componentInstances = null;
@@ -84,15 +84,15 @@ class DComponent { // TODO }: IEventListener {
      * this component can use to lazy load its components.
      * configData = Array of configuration settings.
      * /
-    this(DComponentRegistry registry, Json[string] configData = null) {
+    this(DComponentRegistry registry, Json[string] initData = null) {
         _registry = registry;
 
-        configuration.update(configData);
+        configuration.update(initData);
 
         if (this.components) {
             this.components = registry.normalizeArray(this.components);
         }
-        this.initialize(configData);
+        this.initialize(initData);
     }
 
     // Get the controller this component is bound to.

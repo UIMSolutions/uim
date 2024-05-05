@@ -127,7 +127,7 @@ class DCache : ICache {
     protected static void _buildEngine(string configName) {
         auto myRegistry = getRegistry();
 
-        if (isEmpty(configuration.get(configName)["className"])) {
+        if (configuration.get(configName)["className"].isEmpty) {
             throw new DInvalidArgumentException(
                 "The `%s` cache configuration does not exist.".format(configName)
             );
@@ -395,7 +395,7 @@ class DCache : ICache {
      * Params:
      * string|null groupName Group name or null to retrieve all group mappings
      */
-    /* static array[string] groupConfigs(string groupName = null) {
+    /* static Json[string] groupConfigs(string groupName = null) {
         configured()
             .each!(configName => pool(configName));
 

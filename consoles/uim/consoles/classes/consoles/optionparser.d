@@ -80,6 +80,9 @@ class DConsoleOptionParser {
     // Description text - displays before options when help is generated
     mixin(TProperty!("string", "_description"));
 
+    // Map of short ~ long options, generated when using addOption()
+    protected STRINGAA _shortOptions;
+
     /* 
     // Sets the description text for shell/task.
     void description(string[] descriptionTexts...) {
@@ -121,8 +124,6 @@ class DConsoleOptionParser {
     // Option definitions.
     protected DConsoleInputOption[string] _options;
 
-    // Map of short ~ long options, generated when using addOption()
-    protected STRINGAA _shortOptions;
 
     //  Positional argument definitions.
     protected DConsoleInputArgument[] _args;

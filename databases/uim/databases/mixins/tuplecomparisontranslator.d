@@ -29,12 +29,8 @@ mixin template TTupleComparisonTranslator() {
      * @param \UIM\Database\Query aQuery The query to update.
      * /
     protected void _transformTupleComparison(TupleComparisonexpression, Query aQuery) {
-        fields = expression.getFieldNames();
-
-        if (!isArray(fields)) {
-            return;
-        }
-         operator = strtoupper(expression.getOperator());
+        string[] fields = expression.getFieldNames();
+        string operator = expression.getOperator().toUpper;
         if (!in_array(operator, ["IN", "="])) {
             throw new DInvalidArgumentException(
                 "Tuple comparison transform only supports the `IN` and `=` operators, `%s` given."

@@ -47,7 +47,7 @@ class DQueryExpression : DExpression { // }, Countable {
         string aconjunction = "AND"
     ) {
         this.setTypeMap(types);
-        this.setConjunction(strtoupper(conjunction));
+        this.setConjunction(conjunction.toUpper);
         if (!conditions.isEmpty) {
             this.add(conditions, this.getTypeMap().getTypes());
         }
@@ -574,7 +574,7 @@ class DQueryExpression : DExpression { // }, Countable {
             string[] someParts = split(" ", expression, 2);
             [expression,  operator] = someParts;
         }
-         operator = strtoupper(trim(operator));
+         operator = trim(operator).toUpper;
 
         type = this.getTypeMap().type(expression);
         typeMultiple = (isString(type) && type.has("[]"));

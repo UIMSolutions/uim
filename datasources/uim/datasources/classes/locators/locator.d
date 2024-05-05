@@ -11,10 +11,10 @@ import uim.datasources;
 // Provides an abstract registry/factory for repository objects.
 abstract class DAbstractLocator : ILocator {
     // Instances that belong to the registry.
-    protected IRepository[string] instances;
+    protected IRepository[string] _instances;
 
     // Contains a list of options that were passed to get() method.
-    // TODO protected array[string] options = null;
+    protected Json[string] _options = null;
 
     /**
      * {@inheritDoc}
@@ -45,15 +45,15 @@ abstract class DAbstractLocator : ILocator {
     /**
      * Create an instance of a given classname.
      *
-     * @param string aliasName Repository alias.
+     * @param string aliasName Repository aliasName.
      * @param array<string, mixed> options The options you want to build the instance with.
      * @return uim.Datasource\
      * /
-    abstract protected IRepository createInstance(string alias, Json[string] optionData);
+    abstract protected IRepository createInstance(string aliasName, Json[string] optionData);
 
 
-    function set(string alias, IRepository repository) {
-        return _instances[alias] = repository;
+    function set(string aliasName, IRepository repository) {
+        return _instances[aliasName] = repository;
     }
 
 
@@ -62,10 +62,10 @@ abstract class DAbstractLocator : ILocator {
     }
 
 
-    void remove(string alias) {
+    void remove(string aliasName) {
         unset(
-            this.instances[alias],
-            configuration.update(alias]
+            this.instances[aliasName],
+            configuration.update(aliasName]
         );
     }
 

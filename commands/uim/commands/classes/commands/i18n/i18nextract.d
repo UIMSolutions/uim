@@ -495,13 +495,13 @@ class DI18nExtractCommand : DCommand {
         }
         foreach (_storage as domain: sentences) {
             auto outputHeader = _writeHeader(domain);
-             aHeaderLength = outputHeader.length;
+             lengthOfFileheader = outputHeader.length;
             sentences.byKeyValue
                 .ech!(sentenceHeader => outputHeader ~= sentenceHeader.value ~ sentenceHeader.key);
             filename = domain.replace("/", "_") ~ ".pot";
             outputPath = _output ~ filename;
 
-            if (this.checkUnchanged(outputPath,  aHeaderLength, outputHeader) == true) {
+            if (this.checkUnchanged(outputPath,  lengthOfFileheader, outputHeader) == true) {
                  aConsoleIo.writeln(filename ~ " is unchanged. Skipping.");
                 continue;
             }
@@ -560,19 +560,20 @@ class DI18nExtractCommand : DCommand {
      * Compares the sha1 hashes of the old and new file without header.
      * Params:
      * string aoldFile The existing file.
-     * @param int  aHeaderLength The length of the file header in bytes.
+     * @param int  lengthOfFileheader The length of the file header in bytes.
      * @param string anewFileContent The content of the new file.
      * /
-    protected bool checkUnchanged(string aoldFile, int  aHeaderLength, string anewFileContent) {
+    protected bool checkUnchanged(string aoldFile, int lengthOfFileheader, string anewFileContent) {
         if (!file_exists(oldFile)) {
             return false;
         }
-        oldFileContent = file_get_contents(oldFile);
+        
+        auto oldFileContent = file_get_contents(oldFile);
         if (oldFileContent == false) {
             throw new UimException("Cannot read file content of `%s`".format(oldFile));
         }
-        oldChecksum = sha1(substr(oldFileContent,  aHeaderLength));
-        newChecksum = sha1(substr(newFileContent,  aHeaderLength));
+        auto oldChecksum = sha1(substr(oldFileContent,  lengthOfFileheader));
+        auto newChecksum = sha1(substr(newFileContent,  lengthOfFileheader));
 
         return oldChecksum == newChecksum;
     }

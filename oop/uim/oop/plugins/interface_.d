@@ -7,9 +7,9 @@ import uim.oop;
 // Plugin Interface
 interface IPlugin : INamed {
     // Get the filesystem path to this plugin
-    /*
     string getPath();
 
+    /* 
     // Get the filesystem path to configuration for this plugin
     string getConfigPath();
 

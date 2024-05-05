@@ -16,9 +16,10 @@ class DHtmlHelper : DHelper {
     mixin(HelperThis!("Html"));
     mixin TStringContents;
 
-    /* 
     // List of helpers used by this helper
-    // TODO protected array myhelpers = ["Url"];
+    protected string[] myhelpers = ["Url"];
+
+    /* 
 
     // Default config for this class
     protected configuration.updateDefaults([

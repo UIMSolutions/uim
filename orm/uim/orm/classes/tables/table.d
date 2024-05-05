@@ -2269,10 +2269,10 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * @param array myargs Arguments for the callable.
      * /
     SelectQuery<TSubject> invokeFinder(Closure mycallable, SelectQuery myquery, json[string] myargs) {
-        myreflected = new DReflectionFunction(mycallable);
-        myparams = myreflected.getParameters();
-        mysecondParam = myparams[1] ?? null;
-        mysecondParamType = null;
+        auto myreflected = new DReflectionFunction(mycallable);
+        auto myparams = myreflected.getParameters();
+        auto mysecondParam = myparams[1] ?? null;
+        auto mysecondParamType = null;
 
         if (myargs == [] || isSet(myargs[0])) {
             mysecondParamType = mysecondParam?.getType();

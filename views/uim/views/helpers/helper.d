@@ -90,8 +90,6 @@ class DHelper { // TODO }: IEventListener {
         return null;
     }
     
-
-    
     /**
      * Returns a string to be used as onclick handler for confirm dialogs.
      * Params:

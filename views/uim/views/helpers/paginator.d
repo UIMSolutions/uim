@@ -24,9 +24,8 @@ class DPaginatorHelper : DHelper {
         return null;
     }
 
-    /* 
     // List of helpers used by this helper
-    // TODO protected array myhelpers = ["Url", "Number", "Html", "Form"];
+    protected string[] _helpers = ["Url", "Number", "Html", "Form"];
 
     /**
      * Default config for this class

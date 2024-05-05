@@ -50,20 +50,21 @@ class DFlashHelper : DHelper {
      * string aKey The [Flash.]key you are rendering in the view.
      * @param Json[string] options Additional options to use for the creation of this flash message.
      *   Supports the "params", and "element" keys that are used in the helper.
-     * /
+     */
     string render(string aKey = "flash", Json[string] options  = null) {
-        auto mymessages = _view.getRequest().getFlash().consume(aKey);
+        // TODO 
+        /* auto mymessages = _view.getRequest().getFlash().consume(aKey);
         if (mymessages.isNull) {
             return null;
-        }
+        } */
 
         string result = "";
-        mymessages.each!((message) {
+        /* mymessages.each!((message) {
             message = options + message;
             result ~= _view.element(message["element"], message);
-        });
+        }); */ 
         return result;
-    } */
+    }
 
     // Event listeners.
     IEvent[] implementedEvents() {

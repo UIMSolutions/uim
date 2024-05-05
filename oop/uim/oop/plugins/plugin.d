@@ -37,10 +37,10 @@ class DPlugin : IPlugin {
     protected static DPluginCollection plugins = null;
 
     // Returns the filesystem path for a plugin
-    /* static string path(string pluginName) {
-        auto plugin = getCollection().get(pluginName, null);
-
-        return plugin.getPath();
+    static string path(string pluginName) {
+        // TODO auto plugin = getCollection().get(pluginName, null);
+        // return plugin.getPath();
+        return null; 
     } 
 
     // Returns the filesystem path for plugin`s folder containing class files.

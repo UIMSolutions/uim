@@ -49,10 +49,10 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
      * Json Data Configuration array. For e.g.:
      *  ```
      *  [
-     *      'Company/TestPluginThree",
-     *      'TestPlugin": ["onlyDebug": Json(true), "onlyCli": Json(true)],
-     *      'Nope": ["optional": Json(true)],
-     *      'Named": ["routes": Json(false), "bootstrap": Json(false)],
+     *      "Company/TestPluginThree",
+     *      "TestPlugin": ["onlyDebug": Json(true), "onlyCli": Json(true)],
+     *      "Nope": ["optional": Json(true)],
+     *      "Named": ["routes": Json(false), "bootstrap": Json(false)],
      *  ]
      *  ```
      */
@@ -63,9 +63,9 @@ class DPluginCollection /* : Iterator, Countable */ { // TODO
 
         foreach (name, options; Hash.normalize(Data)) {
             Json optionData = options.dup;
-            IData onlyDebug = optionData.get("onlyDebug", null);
-            IData onlyCli = optionData.get("onlyCli", null);
-            IData optional = optionData.get("optional", null);
+            Json onlyDebug = optionData.get("onlyDebug", null);
+            Json onlyCli = optionData.get("onlyCli", null);
+            Json optional = optionData.get("optional", null);
 
             if ((onlyDebug && !debugData) || (onlyCli && !cli)) {
                 continue;

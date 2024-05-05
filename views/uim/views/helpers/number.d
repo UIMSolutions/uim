@@ -10,9 +10,9 @@ import uim.views;
  * Methods to make numbers more readable.
  *
  * @method string ordinal(float|int myvalue, Json[string] options  = null) See Number.ordinal()
- * @method string precision(string|float|int mynumber, int myprecision = 3, Json[string] options  = null) See Number.precision()
- * @method string toPercentage(string|float|int myvalue, int myprecision = 3, Json[string] options  = null) See Number.toPercentage()
- * @method string toReadableSize(string|float|int mysize) See Number.toReadableSize()
+ * @method string precision(Json mynumber, int myprecision = 3, Json[string] options  = null) See Number.precision()
+ * @method string toPercentage(Json myvalue, int myprecision = 3, Json[string] options  = null) See Number.toPercentage()
+ * @method string toReadableSize(Json mysize) See Number.toReadableSize()
  */
 class DNumberHelper : DHelper {
     mixin(HelperThis!("Number"));
@@ -43,14 +43,15 @@ class DNumberHelper : DHelper {
      * - `after` - The string to place after decimal numbers, e.g. "]"
      * - `escape` - Whether to escape html in resulting string
      * Params:
-     * string|float|int mynumber A floating point number.
-     * @param Json[string] options An array with options.
-     * /
-    string format(string|float|int mynumber, Json[string] options  = null) {
-        auto formattedNumber = Number.format(mynumber, options);
+     * Json mynumber A floating point number.
+     */
+    string format(Json mynumber, Json[string] options  = null) {
+        // TODOD 
+        /* auto formattedNumber = Number.format(mynumber, options);
         auto options = options.update["escape": Json(true)];
 
-        return options["escape"] ? htmlAttribEscape(formattedNumber) : formattedNumber;
+        return options["escape"] ? htmlAttribEscape(formattedNumber) : formattedNumber; */
+        return null; 
     }
     
     /**

@@ -66,7 +66,7 @@ class DProgressHelper { // } : Helper {
      * - `width` The width of the progress bar. Defaults to 80.
      * - `callback` The callback that will be called in a loop to advance the progress bar.
      * Params:
-     * array commandArguments The arguments/options to use when outputing the progress bar.
+     * Json[string] commandArguments The arguments/options to use when outputing the progress bar.
      * /
   void output(Json[string] commandArguments) {
     commandArguments ~= ["callback": null];
@@ -95,7 +95,7 @@ class DProgressHelper { // } : Helper {
      *  to 100.
      * - `width` The width of the progress bar. Defaults to 80.
      * Params:
-     * array commandArguments The initialization data.
+     * Json[string] commandArguments The initialization data.
 
      * /
   bool initialize(Json[string] commandArguments = []) {

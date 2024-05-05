@@ -77,7 +77,7 @@ class DTableHelper { // }: Helper {
       /**
      * Output a row.
      * Params:
-     * array row The row to output.
+     * Json[string] row The row to output.
      * @param ] optionsToPass Options to be passed.
      * /
       protected void _render(arrayrow, int[] columnWidths, Json[string] optionsToPass = []) {
@@ -113,7 +113,7 @@ class DTableHelper { // }: Helper {
      * Data will be output based on the order of the values
      * in the array. The keys will not be used to align data.
      * Params:
-     * array commandArguments The data to render out.
+     * Json[string] commandArguments The data to render out.
      * /
       void output(Json[string] commandArguments) {
         if (commandArguments.isEmpty) {

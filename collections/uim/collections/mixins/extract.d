@@ -100,7 +100,7 @@ mixin template TExtract() {
      * Returns a callable that receives a value and will return whether
      * it matches certain condition.
      * Params:
-     * array conditions A key-value list of conditions to match where the
+     * Json[string] conditions A key-value list of conditions to match where the
      * key is the property path to get from the current item and the value is the
      * value to be compared the item with.
      * /

@@ -416,7 +416,7 @@ class DConsoleOptionParser {
     /**
      * Parse the argv array into a set of params and args.
      * Params:
-     * array argv Array of args (argv) to parse.
+     * Json[string] argv Array of args (argv) to parse.
      * @param \UIM\Console\ConsoleIo|null  aConsoleIo A ConsoleIo instance or null. If null prompt options will error.
      * /
     Json[string] parse(Json[string] argv, IConsoleIo aConsoleIo = null) {

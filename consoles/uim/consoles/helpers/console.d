@@ -41,7 +41,7 @@ abstract class DConsoleHelper {
     /**
      * This method should output content using `_io`.
      * Params:
-     * array someArguments The arguments for the helper.
+     * Json[string] someArguments The arguments for the helper.
      * /
     abstract void output(Json[string] someArguments);
     */ 

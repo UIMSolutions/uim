@@ -91,7 +91,7 @@ class DZipIterator : ICollection {
     /**
      * Magic method used to rebuild the iterator instance.
      * Params:
-     * array data Data array.
+     * Json[string] data Data array.
      * /
     void __unserialize(Json[string] data) {
         _multipleIterator = new DMultipleIterator(

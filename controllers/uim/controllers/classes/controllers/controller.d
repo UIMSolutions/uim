@@ -493,7 +493,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Each view class must implement the `getContentType()` hook method
      * to participate in negotiation.
      * Params:
-     * array  viewClasses View classes list.
+     * Json[string] viewClasses View classes list.
      * /
     void addViewClasses(Json[string] viewClasses) {
         this.viewClasses = array_merge(this.viewClasses,  viewClasses);

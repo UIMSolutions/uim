@@ -39,7 +39,7 @@ class DCollection : /* IteratorIterator, */ ICollection {
 
 
   // Returns an array for serializing this of this object.
-  /* array __serialize() {
+  /* Json[string] __serialize() {
     return _buffered().toArray();
   }
 

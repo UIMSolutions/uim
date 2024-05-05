@@ -91,7 +91,7 @@ class DCommandRunner { // }: IEventDispatcher {
      * - Trigger the `Console.buildCommands` event of auto-wiring plugins.
      * - Run the requested command.
      * Params:
-     * array argv The arguments from the CLI environment.
+     * Json[string] argv The arguments from the CLI environment.
      * @param \UIM\Console\ConsoleIo|null  aConsoleIo The ConsoleIo instance. Used primarily for testing.
      * /
     int run(Json[string] argv, IConsoleIo aConsoleIo = null) {

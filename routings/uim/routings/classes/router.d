@@ -213,7 +213,7 @@ class DRouter {
      * Params:
      * array myurl The URL array being modified.
      * /
-    protected static array _applyUrlFilters(array myurl) {
+    protected static array _applyUrlFilters(Json[string] myurl) {
         myrequest = getRequest();
         _urlFilters.each!((filter) {
             try {
@@ -628,7 +628,7 @@ class DRouter {
      * Params:
      * array myurl Route array with `_path` key
      * /
-    protected static array unwrapShortString(array myurl) {
+    protected static array unwrapShortString(Json[string] myurl) {
         foreach (["plugin", "prefix", "controller", "action"] as aKey) {
             if (array_key_exists(aKey, myurl)) {
                 throw new DInvalidArgumentException(

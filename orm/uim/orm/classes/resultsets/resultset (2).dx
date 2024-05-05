@@ -288,7 +288,7 @@ class DResultset : IResultset {
      *
      * @param array data Data array.
      * /
-    void __unserialize(array data) {
+    void __unserialize(Json[string] data) {
         _results = SplFixedArray::fromArray(data);
         _useBuffering = true;
         _count = _results.count();
@@ -391,7 +391,7 @@ class DResultset : IResultset {
      * @param array row Array containing columns and values or false if there is no results
      * @return DORMDatasource\IEntity|array Results
      * /
-    protected function _groupResult(array row) {
+    protected function _groupResult(Json[string] row) {
         defaultAlias = _defaultAlias;
         results = presentAliases = null;
         options = [

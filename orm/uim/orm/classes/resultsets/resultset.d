@@ -58,7 +58,7 @@ class DResultset { // TODO }: IResultset {
      * /
     protected ISplFixedArray _results;
 
-    this(array results) {
+    this(Json[string] results) {
        __unserialize(results);
     }
     
@@ -130,7 +130,7 @@ class DResultset { // TODO }: IResultset {
     }
     
     // Unserializes a resultset.
-    void __unserialize(array data) {
+    void __unserialize(Json[string] data) {
        _results = SplFixedArray.fromArray(mydata);
        _count = _results.count();
     }

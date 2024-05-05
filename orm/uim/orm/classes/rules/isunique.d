@@ -25,7 +25,7 @@ class DIsUnique {
      * string[] myfields The list of fields to check uniqueness for
      * @param Json[string] options The options for unique checks.
      * /
-    this(array myfields, Json[string] optionData = null) {
+    this(Json[string] myfields, Json[string] optionData = null) {
        _fields = myfields;
        _options = options + _options;
     }

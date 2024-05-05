@@ -1221,7 +1221,7 @@ class DQuery : IQuery { // DatabaseQuery : JsonSerializable, IQuery
      * @param array<string> types A map between columns & their datatypes.
      * @return this
      * /
-    function insert(array columns, array types = null) {
+    function insert(Json[string] columns, array types = null) {
         repository = this.getRepository();
         table = repository.getTable();
         this.into(table);

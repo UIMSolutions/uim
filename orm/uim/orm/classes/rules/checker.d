@@ -30,7 +30,7 @@ class DRulesChecker { // }: BaseRulesChecker {
      * @param Json[string]|string mymessage The error message to show in case the rule does not pass. Can
      *  also be an array of options. When an array, the "message" key can be used to provide a message.
      * /
-    RuleInvoker isUnique(array myfields, string[] mymessage = null) {
+    RuleInvoker isUnique(Json[string] myfields, string[] mymessage = null) {
         options = isArray(mymessage) ? mymessage : ["message": mymessage];
         mymessage = options["message"] ?? null;
         options.remove("message");

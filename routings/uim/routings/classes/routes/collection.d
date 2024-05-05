@@ -141,7 +141,7 @@ class DRouteCollection {
      * Params:
      * array myurl The url to match.
      * /
-    protected string[] _getNames(array myurl) {
+    protected string[] _getNames(Json[string] myurl) {
         myplugin = false;
         if (isSet(myurl["plugin"]) && myurl["plugin"] != false) {
             myplugin = myurl["plugin"].toLower;
@@ -222,7 +222,7 @@ class DRouteCollection {
      * @param array mycontext The request context to use. Contains _base, _port,
      *  _host, _scheme and params keys.
      * /
-    string match(array myurl, array mycontext) {
+    string match(Json[string] myurl, array mycontext) {
         // Named routes support optimization.
         if (isSet(myurl["_name"])) {
             routings = myurl["_name"];
@@ -295,7 +295,7 @@ class DRouteCollection {
      * @param bool mymerge Whether to merge with or override existing extensions.
      *  Defaults to `true`.
      * /
-    void setExtensions(array myextensions, bool mymerge = true) {
+    void setExtensions(Json[string] myextensions, bool mymerge = true) {
         if (mymerge) {
             myextensions = array_unique(array_merge(
                     _extensions,

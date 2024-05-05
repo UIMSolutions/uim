@@ -34,8 +34,7 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
             (cast(IDateTime)first && cast(IDateTime)second)
         );
 
-        diffInterval = first.diff(second);
-
+        auto diffInterval = first.diff(second);
         string message; 
         switch (true) {
             case diffInterval.y > 0:
@@ -71,7 +70,8 @@ class DRelativeTimeFormatter { // }: DifferenceII18NFormatter {
         if (absolute) {
             return message;
         }
-         isFuture = diffInterval.invert == 1;
+        
+        auto isFuture = diffInterval.invert == 1;
         if (isNow) {
             return isFuture ? __d("uim", "{0} from now", message): __d("uim", "{0} ago", message);
         }

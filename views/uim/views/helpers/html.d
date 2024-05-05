@@ -267,7 +267,7 @@ class DHtmlHelper : DHelper {
      *  Can be also any special parameters supported by `Router.url()`.
      * @param Json[string] htmlAtributes Array of options and HTML attributes.
      * /
-    string linkFromPath(string mytitle, string mypath, array myparams = [], Json[string] htmlAtributes = null) {
+    string linkFromPath(string mytitle, string mypath, Json[string] myparams = [], Json[string] htmlAtributes = null) {
         return _link(mytitle, ["_path": mypath] + myparams, htmlAtributes);
     }
     
@@ -609,7 +609,7 @@ class DHtmlHelper : DHelper {
      * @param Json[string]|null mytrOptions HTML options for TR elements.
      * @param Json[string]|null mythOptions HTML options for TH elements.
      * /
-    string tableHeaders(array viewss, array mytrOptions = null, array mythOptions = null) {
+    string tableHeaders(array viewss, Json[string] mytrOptions = null, Json[string] mythOptions = null) {
         auto result = null;
         foreach (viewss as myarg) {
             if (!isArray(myarg)) {
@@ -954,7 +954,7 @@ class DHtmlHelper : DHelper {
      * @param Json[string] htmlAtributes Options and additional HTML attributes of the list (ol/ul) tag.
      * @param Json[string] myitemOptions Options and additional HTML attributes of the list item (LI) tag.
      * /
-    string|int|false nestedList(array mylist, Json[string] htmlAtributes = null, array myitemOptions = []) {
+    string|int|false nestedList(array mylist, Json[string] htmlAtributes = null, Json[string] myitemOptions = []) {
         htmlAtributes += ["tag": "ul"];
         myitems = _nestedListItem(mylist, htmlAtributes, myitemOptions);
 
@@ -971,7 +971,7 @@ class DHtmlHelper : DHelper {
      * @param Json[string] htmlAtributes Additional HTML attributes of the list (ol/ul) tag.
      * @param Json[string] myitemOptions Options and additional HTML attributes of the list item (LI) tag.
      * /
-    protected string _nestedListItem(array myitems, array htmlAtributes, array myitemOptions) {
+    protected string _nestedListItem(array myitems, Json[string] htmlAtributes, Json[string] myitemOptions) {
         string result = "";
 
         auto myindex = 1;

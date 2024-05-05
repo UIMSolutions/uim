@@ -19,9 +19,9 @@ class DMessageCatalog : ICatalog {
     string fallbackName = null,
   ) {
     this();
-    // TODO messages(messages);
-    // TODO formatterName(formatterName);
-   // TODO  fallbackName(fallbackName);
+    this.messages(messages);
+    this.formatterName(formatterName);
+    this.fallbackName(fallbackName);
   }
 
   // Hook method
@@ -46,12 +46,8 @@ class DMessageCatalog : ICatalog {
     messages(messages.update(newMessages));
   }
 
-  // #region Getter Setter singl emessage
-  /// Gets the message of the given key for this catalog.
-  /// Params:
-  ///     messageKey = key of single message (string[])
-  /// Returns: 
-  ///     single message (string[])
+  // #region Getter Setter single message
+  // Gets the message of the given key for this catalog.
   string[] message(string messageKey) {
     return messages.get(messageKey, null);
   }

@@ -6,10 +6,12 @@ import uim.i18n;
 
 // A ServiceLocator implementation for loading and retaining catalog objects.
 class DCatalogLocator {
+   mixin TConfigurable;
   // Initialization
   bool initialize(Json[string] initData = null) {
-    // TODO configuration(MemoryConfiguration);
-    // TODO configuration.data(initData);
+    configuration(MemoryConfiguration);
+    configuration.data(initData);
+    
     return true;
   }
   /**

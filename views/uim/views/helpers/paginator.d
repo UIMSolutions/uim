@@ -384,7 +384,7 @@ class DPaginatorHelper : DHelper {
      * Json[string] options Pagination/URL options array
      * @param array myurl URL.
      * /
-    array generateUrlParams(Json[string] options  = null, array myurl = []) {
+    array generateUrlParams(Json[string] options  = null, Json[string] myurl = []) {
         mypaging = this.params();
         mypaging += ["currentPage": null, "sort": null, "direction": null, "limit": null];
         mypaging["page"] = mypaging["currentPage"];
@@ -687,7 +687,7 @@ class DPaginatorHelper : DHelper {
      * @param int mystart Start number.
      * @param Json[string] options Options from the numbers() method.
          * /
-    protected string _firstNumber(string myellipsis, array myparams, int mystart, Json[string] options) {
+    protected string _firstNumber(string myellipsis, Json[string] myparams, int mystart, Json[string] options) {
         string result = "";
         myfirst = isInt(options["first"]) ? options["first"] : 0;
         if (options["first"] && mystart > 1) {
@@ -708,7 +708,7 @@ class DPaginatorHelper : DHelper {
      * @param int myend End number.
      * @param Json[string] options Options from the numbers() method.
      * /
-    protected string _lastNumber(string myellipsis, array myparams, int myend, Json[string] options) {
+    protected string _lastNumber(string myellipsis, Json[string] myparams, int myend, Json[string] options) {
         string result = "";
         mylast = isInt(options["last"]) ? options["last"] : 0;
         if (options["last"] && myend < myparams["pageCount"]) {
@@ -728,7 +728,7 @@ class DPaginatorHelper : DHelper {
      * @param Json[string] myparams Params from the numbers() method.
      * @param Json[string] options Options from the numbers() method.
      * /
-    protected string _numbers(DStringContents mytemplater, array myparams, Json[string] options) {
+    protected string _numbers(DStringContents mytemplater, Json[string] myparams, Json[string] options) {
         string result = "";
         result ~= options["before"];
 

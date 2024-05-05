@@ -34,7 +34,7 @@ class DTextHelper : DHelper {
      * string mymethod Method to invoke
      * @param array myparams Array of params for the method.
      * /
-    Json __call(string methodName, array myparams) {
+    Json __call(string methodName, Json[string] myparams) {
         return Text.{methodName}(...myparams);
     }
     
@@ -119,7 +119,7 @@ class DTextHelper : DHelper {
      * string mytext The text to operate on.
      * @param Json[string] myhtmlOptions The options for the generated links.
      * /
-    protected string _linkUrls(string mytext, array myhtmlOptions) {
+    protected string _linkUrls(string mytext, Json[string] myhtmlOptions) {
         myreplace = null;
         foreach (_placeholders as myhash: mycontent) {
             mylink = myurl = mycontent["content"];

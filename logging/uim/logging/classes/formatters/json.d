@@ -21,7 +21,7 @@ class DJsonLogFormatter : DLogFormatter {
   }
 
   /*
-      string|int|false format(level, string amessage, array context = []) {
+      string|int|false format(level, string amessage, Json[string] context = []) {
         auto log = ["date": date(configuration.get("dateFormat"]), "level": to!string(level), "message": message];
         auto Json = Json_encode(log, Json_THROW_ON_ERROR | configuration.get("flags"]);
 

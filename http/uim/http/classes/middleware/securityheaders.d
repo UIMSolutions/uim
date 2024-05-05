@@ -186,7 +186,7 @@ class DSecurityHeadersMiddleware { // }: IHttpMiddleware {
      * @param string avalue Value to check
      * @param string[] allowed List of allowed values
      * /
-    protected void checkValues(string avalue, array allowed) {
+    protected void checkValues(string avalue, Json[string] allowed) {
         if (!in_array(aValue, allowed, true)) {
             array_walk(allowed, fn (&x): x = "`x`");
             throw new DInvalidArgumentException(

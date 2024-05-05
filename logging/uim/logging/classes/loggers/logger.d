@@ -83,7 +83,7 @@ class DLogger : ILogger {
      * \string amessage Formatted message.
      * @param array context DContext for placeholder values.
      * /
-    protected string interpolate(string formattedMessage, array context = []) {
+    protected string interpolate(string formattedMessage, Json[string] context = []) {
         if (!formattedMessage.has("{", "}")) {
             return formattedMessage;
         }

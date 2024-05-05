@@ -136,7 +136,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
      * @param array serverParams Array of SAPI parameters with which to seed
      *    the generated request instance.
      * /
-    IServerRequest createServerRequest(string amethod, anUri, array serverParams = []) {
+    IServerRequest createServerRequest(string amethod, anUri, Json[string] serverParams = []) {
         serverParams["REQUEST_METHOD"] = method;
         options = ["environment": serverParams];
 

@@ -23,7 +23,7 @@ class DRedirectException : DHttpException {
      * Params:
      * headerToSend - The headers that should be sent in the unauthorized challenge response.
      * /
-    this(string redirectUrl, int statusCode = 302, array headerToSend = []) {
+    this(string redirectUrl, int statusCode = 302, Json[string] headerToSend = []) {
         super(redirectUrl, statusCode);
 
         headerToSend.byKeyValue

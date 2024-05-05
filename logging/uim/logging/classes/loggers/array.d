@@ -25,7 +25,7 @@ class DArrayLog { /* }: BaseLog {
     protected string[] _content;
 
     // writing to the internal storage.
-    void log(Json logLevel, string logMessage, array messageContext = null) {
+    void log(Json logLevel, string logMessage, Json[string] messageContext = null) {
         logMessage = this.interpolate(logMessage, messageContext);
         _content ~= this.formatter.format(logLevel, logMessage, messageContext);
     }

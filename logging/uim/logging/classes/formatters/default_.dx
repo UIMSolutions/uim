@@ -20,7 +20,7 @@ class DefaultFormatter : DAbstractFormatter {
         configuration.update(configData);
     }
  
-    string format(level, string messageToFormat, array context = []) {
+    string format(level, string messageToFormat, Json[string] context = []) {
         string result = amessage;
         result = configuration.get("includeDate"]
             ? "%s %s: %s".format((new DateTime()).format(configuration.get("dateFormat"]), level, messageToFormat)

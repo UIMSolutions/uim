@@ -401,7 +401,7 @@ class DServerRequest { // }: IServerRequest {
      * string aName The method called
      * @param array params Array of parameters for the method call
      * /
-    bool __call(string aName, array params) {
+    bool __call(string aName, Json[string] params) {
         if (name.startWith("is")) {
             type = substr(name, 2).toLower;
 
@@ -455,7 +455,7 @@ class DServerRequest { // }: IServerRequest {
      * string atype The type of request you want to check.
      * @param array someArguments Array of custom detector arguments.
      * /
-    protected bool _is(string atype, array someArguments) {
+    protected bool _is(string atype, Json[string] someArguments) {
         auto detect = _detectors[type];
         if (cast(DClosure)detect) {
             array_unshift(someArguments, this);

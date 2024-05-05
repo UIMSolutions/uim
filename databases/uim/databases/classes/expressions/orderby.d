@@ -42,7 +42,7 @@ class DOrderByExpression : DQueryExpression {
      * array conditions list of order by expressions
      * @param array types list of types associated on fields referenced in conditions
      * /
-    protected void _addConditions(Json[string] conditions, array types) {
+    protected void _addConditions(Json[string] conditions, Json[string] types) {
         foreach (aKey:  val; conditions) {
             if (
                 isString(aKey) &&

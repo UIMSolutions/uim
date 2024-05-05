@@ -356,10 +356,10 @@ class DConsoleOptionParser {
      *  Will also accept an instance of ConsoleInputArgument.
      * @param Json[string] params Parameters for the argument, see above.
      * /
-    void addArgument(ConsoleInputArgument|string aName, array params = []) {
+    void addArgument(ConsoleInputArgument|string aName, Json[string] params = []) {
     }
     
-    void addArgument(ConsoleInputArgument|string aName, array params = []) {
+    void addArgument(ConsoleInputArgument|string aName, Json[string] params = []) {
 
     
     /**
@@ -615,7 +615,7 @@ class DConsoleOptionParser {
      * string aargument The argument to append
      * @param array someArguments The array of parsed args to append to.
      * /
-    protected string[] _parseArg(string argumentToAppend, array someArguments) {
+    protected string[] _parseArg(string argumentToAppend, Json[string] someArguments) {
         if (_args.isEmpty) {
             someArguments ~= argumentToAppend;
             return someArguments;

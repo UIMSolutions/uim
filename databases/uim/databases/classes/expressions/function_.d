@@ -40,7 +40,7 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
      * passed arguments
      * @param string resultType The return type of this expression
      * /
-    this(string newName, array params = [], array types = [], string resultType = "string") {
+    this(string newName, Json[string] params = [], Json[string] types = [], string resultType = "string") {
        this.name(newName);
        _returnType = resultType;
         super(params, types, ",");
@@ -58,7 +58,7 @@ class DFunctionExpression : DExpression { // TODO }: QueryExpression, ITypedResu
 
      * @psalm-suppress MoreSpecificImplementedParamType
      * /
-    void add(IExpression|string[] aconditions, array types = [], bool prepend = false) {
+    void add(IExpression|string[] aconditions, Json[string] types = [], bool prepend = false) {
         put = prepend ? "array_unshift' : 'array_push";
         typeMap = this.getTypeMap().setTypes(types);
 

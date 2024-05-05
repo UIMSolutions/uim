@@ -206,17 +206,17 @@ abstract class DConsoleCommand : IConsoleCommand /* , IEventDispatcher */ {
      * @param array someArguments The arguments to invoke the command with.
      * @param \UIM\Console\ConsoleIo|null  aConsoleIo The ConsoleIo instance to use for the executed command.
      * /
-    int executeCommand(string acommand, array someArguments = [],  ? IConsoleIo aConsoleIo = null) {
+    int executeCommand(string acommand, Json[string] someArguments = [],  ? IConsoleIo aConsoleIo = null) {
         assert(
             isSubclass_of(command, ICommand.classname),
             "Command `%s` is not a subclass of `%s`.".format(command, ICommand.classname)
         );
 
         auto newCommand = new command();
-        return executeCommand(ICommand acommand, array someArguments = [],  ? IConsoleIo aConsoleIo = null) {
+        return executeCommand(ICommand acommand, Json[string] someArguments = [],  ? IConsoleIo aConsoleIo = null) {
         }
 
-        int executeCommand(ICommand acommand, array someArguments = [],  ? IConsoleIo aConsoleIo = null) {
+        int executeCommand(ICommand acommand, Json[string] someArguments = [],  ? IConsoleIo aConsoleIo = null) {
             auto myConsoleIo = aConsoleIo ?  : new DConsoleIo();
 
             try {

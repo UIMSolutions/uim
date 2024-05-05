@@ -257,7 +257,7 @@ class DConsoleOutput {
      * Params:
      * @param array definition The array definition of the style to change or create..
      * /
-    void setStyle(string styleToSet, array definition) {
+    void setStyle(string styleToSet, Json[string] definition) {
         if (!definition) {
             _styles.remove(styleToSet);
 

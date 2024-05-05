@@ -297,7 +297,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * \Closure action The action closure.
      * @param array someArguments The arguments to be passed when invoking action.
      * /
-    void invokeAction(Closure action, array someArguments) {
+    void invokeAction(Closure action, Json[string] someArguments) {
         result = action(...someArguments);
         if (result !isNull) {
             assert(

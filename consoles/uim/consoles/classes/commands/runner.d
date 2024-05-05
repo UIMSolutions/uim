@@ -198,7 +198,7 @@ class DCommandRunner { // }: IEventDispatcher {
      * \UIM\Console\CommandCollection commands The command collection to check.
      * @param array argv The CLI arguments.
      * /
-    // TODO protected Json[string] longestCommandName(CommandCollection commands, array argv) {
+    // TODO protected Json[string] longestCommandName(CommandCollection commands, Json[string] argv) {
         for (anI = 3;  anI > 1;  anI--) {
             someParts = array_slice(argv, 0,  anI);
             name = someParts.join(" ");
@@ -250,7 +250,7 @@ class DCommandRunner { // }: IEventDispatcher {
      * @param array argv The CLI arguments to invoke.
      * @param \UIM\Console\IConsoleIo aConsoleIo The console io
      * /
-    protected int runCommand(ICommand command, array argv, IConsoleIo aConsoleIo) {
+    protected int runCommand(ICommand command, Json[string] argv, IConsoleIo aConsoleIo) {
         try {
             if (cast(IEventDispatcher)command) {
                 command.setEventManager(this.getEventManager());

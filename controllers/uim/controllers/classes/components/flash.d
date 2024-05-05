@@ -124,7 +124,7 @@ class DFlashComponent : DComponent {
      * @param array someArguments Parameters to pass when calling `FlashComponent.set()`.
      * @throws \UIM\Http\Exception\InternalErrorException If missing the flash message.
      * /
-    void __call(string elementName, array someArguments) {
+    void __call(string elementName, Json[string] someArguments) {
         auto anElement = Inflector.underscore(elementName);
 
         if (count(someArguments) == 0) {

@@ -639,8 +639,8 @@ class DHtmlHelper : DHelper {
      * /
     string tableCells(
         string[] mydata,
-        array|bool|null myoddTrOptions = null,
-        array|bool|null myevenTrOptions = null,
+        Json|null myoddTrOptions = null,
+        Json|null myevenTrOptions = null,
         bool myuseCount = false,
         bool mycontinueOddEven = true
     ) {

@@ -150,7 +150,7 @@ class DRouteBuilder {
      * Get the parameter names/values for this scope.
      *
      * /
-    array params() {
+    Json[string]  params() {
         return _params;
     }
     
@@ -844,7 +844,7 @@ class DRouteBuilder {
      * Get the middleware that this builder will apply to routes.
      *
      * /
-    array getMiddleware() {
+    Json[string]  getMiddleware() {
         return _middleware;
     }
     

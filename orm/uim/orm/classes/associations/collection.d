@@ -296,12 +296,12 @@ class DAssociationCollection { // }: IteratorAggregate {
      *
      * @param Json keys the list of association names to normalize
      * /
-    array normalizeKeys(keys) {
+    Json[string]  normalizeKeys(keys) {
         if (keys == true) {
             keys = this.keys();
         }
 
-        if (empty(keys)) {
+        if (keys.isEmpty) {
             return [];
         }
 

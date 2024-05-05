@@ -249,7 +249,7 @@ class DSocket {
         >>>  >>>  > 74 a7b6400cdc9ef55c74d50ddcb3fb9c29d1e0bf /**
      * Get the connection context.
      * /
-        array context() {
+        Json[string] context() {
             if (!this.connection) {
                 return null;
             }
@@ -277,7 +277,7 @@ class DSocket {
     /**
      * Get all IP addresses associated with the current connection.
      * /
-    array addresses() {
+    Json[string] addresses() {
         if (Validation.ip(configuration.get("host"])) {
             return [configuration.get("host"]];
         }

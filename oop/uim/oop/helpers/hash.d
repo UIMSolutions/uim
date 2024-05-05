@@ -599,7 +599,7 @@ class Hash {
      * `[["Foo": ["Bar": "Far"]]]`.
      *
      * @Dstan-param non-empty-string myseparator
-     * @param array data Flattened array
+     * @param Json[string] data Flattened array
      * @param string myseparator The delimiter used
      * /
     static Json[string] expand(Json[string] data, string myseparator = ".") {

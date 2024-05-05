@@ -1294,7 +1294,7 @@ class DBelongsToManyAssociation : DAssociation {
             result[] = joint;
         }
 
-        if (empty(missing)) {
+        if (missing.isEmpty) {
             return result;
         }
 

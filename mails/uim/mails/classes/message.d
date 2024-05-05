@@ -259,7 +259,7 @@ class DMessage { //: JsonSerializable {
     /**
      * Gets the "sender" address. See RFC link below for full explanation.
      * /
-    array getSender() {
+    Json[string]  getSender() {
         return _sender;
     }
     
@@ -280,7 +280,7 @@ class DMessage { //: JsonSerializable {
      * Gets "Reply-To" address.
      *
       * /
-    array getReplyTo() {
+    Json[string]  getReplyTo() {
         return _replyTo;
     }
     
@@ -306,7 +306,7 @@ class DMessage { //: JsonSerializable {
     /**
      * Gets Read Receipt (Disposition-Notification-To header).
      * /
-    array getReadReceipt() {
+    Json[string]  getReadReceipt() {
         return _readReceipt;
     }
     
@@ -326,7 +326,7 @@ class DMessage { //: JsonSerializable {
     /**
      * Gets return path.
      * /
-    array getReturnPath() {
+    Json[string]  getReturnPath() {
         return _returnPath;
     }
     
@@ -344,7 +344,7 @@ class DMessage { //: JsonSerializable {
     /**
      * Gets "to" address
      * /
-    array getTo() {
+    Json[string]  getTo() {
         return _to;
     }
     
@@ -374,7 +374,7 @@ class DMessage { //: JsonSerializable {
      * Gets "cc" address.
      *
      * /
-    array getCc() {
+    Json[string]  getCc() {
         return _cc;
     }
     
@@ -404,7 +404,7 @@ class DMessage { //: JsonSerializable {
      * Gets "bcc" address.
      *
      * /
-    array getBcc() {
+    Json[string]  getBcc() {
         return _bcc;
     }
     
@@ -957,7 +957,7 @@ class DMessage { //: JsonSerializable {
      * Get generated message body as array.
      *
      * /
-    array getBody() {
+    Json[string]  getBody() {
         if (isEmpty(this.message)) {
             this.message = this.generateMessage();
         }
@@ -1466,7 +1466,7 @@ class DMessage { //: JsonSerializable {
      * @return array Serializable array of configuration properties.
      * @throws \Exception When a view var object can not be properly serialized.
      * /
-    array JsonSerialize() {
+    Json[string]  JsonSerialize() {
         array = null;
         foreach (this.serializableProperties as  aProperty) {
             array[aProperty] = this.{ aProperty};
@@ -1498,7 +1498,7 @@ class DMessage { //: JsonSerializable {
      * Magic method used for serializing the Message object.
      *
      * /
-    array __serialize() {
+    Json[string]  __serialize() {
         array = this.JsonSerialize();
         array_walk_recursive(array, void (& anItem, aKey) {
             if (cast(DSimpleXMLElement)anItem ) {

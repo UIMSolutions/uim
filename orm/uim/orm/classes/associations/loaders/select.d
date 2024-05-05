@@ -191,7 +191,7 @@ class DSelectLoader {
         }
 
         select = fetchQuery.aliasFields(fetchQuery.clause("select"));
-        if (empty(select)) {
+        if (select.isEmpty) {
             return;
         }
         missingKey = function (fieldList, key) {

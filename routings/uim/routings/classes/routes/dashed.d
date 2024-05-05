@@ -40,7 +40,7 @@ class DDashedRoute : DRoute {
      * Params:
      * string urlToParse The URL to parse
      * /
-    array parse(string urlToParse, string httpMethod= null) {
+    Json[string]  parse(string urlToParse, string httpMethod= null) {
         myparams = super.parse(urlToParse, httpMethod);
         if (!myparams) {
             return null;

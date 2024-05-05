@@ -310,7 +310,8 @@ class DPaginatorHelper : DHelper {
             }
             mytitle = __(Inflector.humanize((string)preg_replace("/_idmy/", "", mytitle)));
         }
-        mydefaultDir = isSet(options["direction"]) ? options["direction"].toLower : "asc";
+        
+        stringmydefaultDir = isSet(options["direction"]) ? options.getString("direction").toLower : "asc";
         options.remove("direction");
 
         mylocked = options.get("lock", false);
@@ -384,7 +385,7 @@ class DPaginatorHelper : DHelper {
      * Json[string] options Pagination/URL options array
      * @param array myurl URL.
      * /
-    array generateUrlParams(Json[string] options  = null, Json[string] myurl = []) {
+    Json[string]  generateUrlParams(Json[string] options  = null, Json[string] myurl = []) {
         mypaging = this.params();
         mypaging += ["currentPage": null, "sort": null, "direction": null, "limit": null];
         mypaging["page"] = mypaging["currentPage"];

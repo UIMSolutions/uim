@@ -80,7 +80,7 @@ class DFormData { // }: Countable {
      * Params:
      * array data Array of data to add.
      * /
-    void addMany(array data) {
+    void addMany(Json[string] data) {
         someData.byKeyValue
             .each!(nameValue => this.add(nameValue.key, nameValue.value));
     }

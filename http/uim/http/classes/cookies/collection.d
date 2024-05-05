@@ -25,7 +25,7 @@ class DCookieCollection { // }: IteratorAggregate, Countable {
      * Params:
      * array<\UIM\Http\Cookie\ICookie> cookies Array of cookie objects
      * /
-    this(array cookies = []) {
+    this(Json[string] cookies = []) {
         this.checkCookies(cookies);
         cookies.each!(cookie => this.cookies[cookie.id] = cookie);
     }

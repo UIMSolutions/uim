@@ -19,7 +19,7 @@ class UriFactory { // }: IUriFactory {
      * array|null serverData Array of server data to build the Uri from.
      *  _SERVER will be used if serverData parameter.isNull.
      * /
-    static array marshalUriAndBaseFromSapi(array serverData = null) {
+    static array marshalUriAndBaseFromSapi(Json[string] serverData = null) {
         serverData ??= _SERVER;
         azto  aHeaders = marshalHeadersFromSapi(serverData);
 

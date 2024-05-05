@@ -266,7 +266,7 @@ class DOauth {
      * @param string aPath The current path being converted.
      * @see https://tools.ietf.org/html/rfc5849#section-3.4.1.3.2
      * /
-    // TODO protected array _normalizeData(array someArguments, string aPath= null) {
+    // TODO protected array _normalizeData(Json[string] someArguments, string aPath= null) {
         someData = null;
         foreach (someArguments as aKey: aValue) {
             if (somePath) {
@@ -290,7 +290,7 @@ class DOauth {
     }
     
     // Builds the Oauth Authorization header value.
-    protected string _buildAuth(array oauthValues) {
+    protected string _buildAuth(Json[string] oauthValues) {
         string result = "OAuth ";
         string[] params = someData.byKeyValue
             .map!(kv => kv.key ~ "=\"" ~ _encode((string)kv.value) ~ "\"").array;

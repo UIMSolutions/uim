@@ -58,7 +58,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * array  aHeaders The list of headers from the request(s)
      * @param string acontent The response content.
      * /
-    Response[] createResponses(array  aHeaders, string acontent) {
+    Response[] createResponses(Json[string]  aHeaders, string acontent) {
          anIndexes = responses = null;
         foreach (aHeaders as  anI:  aHeader) {
             if (strtoupper(substr(aHeader, 0, 5)) == "HTTP/") {
@@ -236,7 +236,7 @@ class DStream { // }: IAdapter {    // Array of options/content for the HTTP str
      * array  aHeaders Unparsed headers.
      * @param string abody The response body.
      * /
-    protected DResponse _buildResponse(array  aHeaders, string abody) {
+    protected DResponse _buildResponse(Json[string]  aHeaders, string abody) {
         return new DResponse(aHeaders, body);
     }
     

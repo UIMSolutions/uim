@@ -453,7 +453,7 @@ class DSession {
      * array old Set of old variables: values
      * @param array new DNew set of variable: value
      * /
-    protected void _overwrite(array & old, arraynew) {
+    protected void _overwrite(Json[string] & old, arraynew) {
         ) {
             foreach (old as aKey : var) {
                 if (!isSet(new[aKey])) {

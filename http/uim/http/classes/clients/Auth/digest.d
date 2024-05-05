@@ -63,7 +63,7 @@ class DDigest {
      * Params:
      * array credentials authentication params
      * /
-    protected void setAlgorithm(array credentials) {
+    protected void setAlgorithm(Json[string] credentials) {
         algorithm = credentials.get("algorithm", self.ALGO_MD5);
         if (!isSet(self.HASH_ALGORITHMS[algorithm])) {
             throw new DInvalidArgumentException("Invalid Algorithm. Valid ones are: " ~

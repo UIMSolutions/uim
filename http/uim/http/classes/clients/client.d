@@ -639,7 +639,7 @@ class DClient { // }: IClient {
      * Params:
      * array  myauth The authentication options to use.
      * /
-  protected object _createAuth(array myauth, Json[string] requestOptions = null) :  {
+  protected object _createAuth(Json[string] myauth, Json[string] requestOptions = null) :  {
     if (isEmpty(myauth["type"])) {
       myauth["type"] = "basic";
     }

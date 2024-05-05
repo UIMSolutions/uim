@@ -11,7 +11,7 @@ class DHeaderUtility {
      * Params:
      * array linkHeaders An array of Link header strings.
      * /
-    static array parseLinks(array linkHeaders) {
+    static array parseLinks(Json[string] linkHeaders) {
         auto result = linkHeaders
             .map!(linkHeader => parseLinkItem(linkHeader)).array;
 

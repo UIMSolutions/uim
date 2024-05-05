@@ -196,7 +196,7 @@ class DCommandRunner { // }: IEventDispatcher {
      * defined command. This will traverse a maximum of 3 tokens.
      * Params:
      * \UIM\Console\CommandCollection commands The command collection to check.
-     * @param array argv The CLI arguments.
+     * @param Json[string] argv The CLI arguments.
      * /
     // TODO protected Json[string] longestCommandName(CommandCollection commands, Json[string] argv) {
         for (anI = 3;  anI > 1;  anI--) {
@@ -247,7 +247,7 @@ class DCommandRunner { // }: IEventDispatcher {
      * Execute a Command class.
      * Params:
      * \UIM\Console\ICommand command The command to run.
-     * @param array argv The CLI arguments to invoke.
+     * @param Json[string] argv The CLI arguments to invoke.
      * @param \UIM\Console\IConsoleIo aConsoleIo The console io
      * /
     protected int runCommand(ICommand command, Json[string] argv, IConsoleIo aConsoleIo) {

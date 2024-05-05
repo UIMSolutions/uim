@@ -340,7 +340,7 @@ class DConsoleIo {
     /**
      * Adds a new output style.
      * Params:
-     * @param array definition The array definition of the style to change or create.
+     * @param Json[string] definition The array definition of the style to change or create.
      * @see \UIM\Console\ConsoleOutput.setStyle()
      * /
     void setStyle(string styleToSet, Json[string] definition) {

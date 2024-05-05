@@ -57,7 +57,7 @@ class DCollection : IteratorIterator : ICollection, Serializable {
     /**
      * Rebuilds the Collection instance.
      *
-     * @param array  data Data array.
+     * @param Json[string]  data Data array.
      */
     void __unserialize(Json[string] data) {
         __construct(data);

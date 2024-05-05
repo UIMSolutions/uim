@@ -42,7 +42,7 @@ class DZipIterator : ICollection {
      * Creates the iterator to merge together the values by for all the passed
      * iterators by their corresponding index.
      *
-     * @param array sets The list of array or iterators to be zipped.
+     * @param Json[string] sets The list of array or iterators to be zipped.
      * @param callable|null aCallable The auto to use for zipping the elements of each iterator.
      * /
     this(Json[string] sets, ?callable aCallable = null) {

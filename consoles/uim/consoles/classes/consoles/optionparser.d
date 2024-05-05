@@ -614,7 +614,7 @@ class DConsoleOptionParser {
      * and that the argument is a valid choice.
      * Params:
      * string aargument The argument to append
-     * @param array someArguments The array of parsed args to append to.
+     * @param Json[string] someArguments The array of parsed args to append to.
      * /
     protected string[] _parseArg(string argumentToAppend, Json[string] someArguments) {
         if (_args.isEmpty) {

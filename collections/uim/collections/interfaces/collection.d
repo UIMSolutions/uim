@@ -584,7 +584,7 @@ interface ICollection {
      * Returns the first result matching all the key-value pairs listed in
      * conditions.
      *
-     * @param array conditions a key-value list of conditions where the key is
+     * @param Json[string] conditions a key-value list of conditions where the key is
      * a property path as accepted by `Collection::extract`, and the value the
      * condition against with each element will be matched
      * @see uim.collections.ICollection::match()

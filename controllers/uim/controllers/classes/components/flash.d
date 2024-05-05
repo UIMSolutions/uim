@@ -121,7 +121,7 @@ class DFlashComponent : DComponent {
      * use the `warning.d` element under `plugins/PluginName/templates/element/flash/` for
      * rendering the flash message.
      * Params:
-     * @param array someArguments Parameters to pass when calling `FlashComponent.set()`.
+     * @param Json[string] someArguments Parameters to pass when calling `FlashComponent.set()`.
      * @throws \UIM\Http\Exception\InternalErrorException If missing the flash message.
      * /
     void __call(string elementName, Json[string] someArguments) {

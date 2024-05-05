@@ -35,7 +35,7 @@ class DTableHelper { // }: Helper {
 
   /**
      * Calculate the column widths
-     * @param array rows The rows on which the columns width will be calculated on.
+     * @param Json[string] rows The rows on which the columns width will be calculated on.
      * /
   protected int[string] _calculateWidths(arrayrows) {
     auto results;

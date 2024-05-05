@@ -291,7 +291,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * Dispatches the controller action.
      * Params:
      * \Closure action The action closure.
-     * @param array someArguments The arguments to be passed when invoking action.
+     * @param Json[string] someArguments The arguments to be passed when invoking action.
      * /
     void invokeAction(Closure action, Json[string] someArguments) {
         result = action(...someArguments);

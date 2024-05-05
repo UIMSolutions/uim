@@ -13,7 +13,7 @@ interface IBatchCasting
      * Returns an array of the values converted to the D representation of
      * this type.
      *
-     * @param array values The original array of values containing the fields to be casted
+     * @param Json[string] values The original array of values containing the fields to be casted
      * @return array<string, mixed>
      */
     // TODO array manyToD(Json[string] values, string[] fields, IDriver driver);

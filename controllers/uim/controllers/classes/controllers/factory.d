@@ -112,7 +112,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
      * Get the arguments for the controller action invocation.
      * Params:
      * \Closure action Controller action.
-     * @param array passedParams Params passed by the router.
+     * @param Json[string] passedParams Params passed by the router.
      * /
     // TODO protected Json[string] getActionArgs(Closure action, Json[string] passedParams) {
          resolved = null;

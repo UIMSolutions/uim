@@ -144,7 +144,7 @@ interface IDriver : INamed {
      * Constructs new DTableSchema.
      *
      * @param string myTable The table name.
-     * @param array columns The list of columns for the schema.
+     * @param Json[string] columns The list of columns for the schema.
      * @return uim.databases.Schema\TableSchema
      * /
     TableSchema newTableSchema(string myTable, Json[string] columns = []);

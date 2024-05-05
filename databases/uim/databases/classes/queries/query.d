@@ -530,7 +530,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Json[string]|string atable The table to join with
      * @param \UIM\Database\IExpression|\Closure|string[] aconditions The conditions
      * to use for joining.
-     * @param array types a list of types associated to the conditions used for converting
+     * @param Json[string] types a list of types associated to the conditions used for converting
      * values to the corresponding database representation.
        * /
     auto leftJoin(
@@ -554,7 +554,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * Json[string]|string atable The table to join with
      * @param \UIM\Database\IExpression|\Closure|string[] aconditions The conditions
      * to use for joining.
-     * @param array types a list of types associated to the conditions used for converting
+     * @param Json[string] types a list of types associated to the conditions used for converting
      * values to the corresponding database representation.
      * /
     void rightJoin(
@@ -828,7 +828,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * 'allowEmpty' to true.
      * Be careful about using it without proper sanity checks.
      * Params:
-     * @param array  someValues Array of values
+     * @param Json[string]  someValues Array of values
      * /
     auto whereNotInList(string fieldName, Json[string] someValues, Json[string] options = null) {
         auto options = options.update([
@@ -852,7 +852,7 @@ abstract class DQuery : IQuery { // : IExpression {
      * 'allowEmpty' to true.
      * Be careful about using it without proper sanity checks.
      * Params:
-     * @param array  someValues Array of values
+     * @param Json[string]  someValues Array of values
      * @param Json[string] options Options
      * /
     auto whereNotInListOrNull(string fieldName, Json[string] someValues, Json[string] options = null) {

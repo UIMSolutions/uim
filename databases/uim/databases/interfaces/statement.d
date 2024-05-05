@@ -128,7 +128,7 @@ interface IStatement {
      * Binds a set of values to statement object with corresponding type.
      * Params:
      * Json[string] params list of values to be bound
-     * @param array types list of types to be used, keys should match those in params
+     * @param Json[string] types list of types to be used, keys should match those in params
      * /
     void bind(Json[string] params, Json[string] types);
 

@@ -625,7 +625,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * ]);
      * ```
      * Params:
-     * array mybehaviors All the behaviors to load.
+     * Json[string] mybehaviors All the behaviors to load.
      * /
     void addBehaviors(Json[string] mybehaviors) {
         foreach (mybehaviors as myname: options) {
@@ -783,7 +783,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * are the aliases, and the values are association config data. If numeric
      * keys are used the values will be treated as association aliases.
      * Params:
-     * array myparams Set of associations to bind (indexed by association type)
+     * Json[string] myparams Set of associations to bind (indexed by association type)
      * @return this
      * @see \ORM\Table.belongsTo()
      * @see \ORM\Table.hasOne()
@@ -2498,7 +2498,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * You can use the `Model.beforeMarshal` event to modify request data
      * before it is converted into entities.
      * Params:
-     * array data The data to build an entity with.
+     * Json[string] data The data to build an entity with.
      * @param Json[string] options A list of options for the object hydration.
      * @return \UIM\Datasource\IEntity
      * @see \ORM\Marshaller.one()
@@ -2537,7 +2537,7 @@ class DTable { //* }: IRepository, IEventListener, IEventDispatcher, IValidatorA
      * You can use the `Model.beforeMarshal` event to modify request data
      * before it is converted into entities.
      * Params:
-     * array data The data to build an entity with.
+     * Json[string] data The data to build an entity with.
      * @param Json[string] options A list of options for the objects hydration.
      * /
     IEntity[] newEntities(Json[string] data, Json[string] optionData = null) {

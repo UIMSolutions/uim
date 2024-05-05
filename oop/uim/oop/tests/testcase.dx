@@ -515,7 +515,7 @@ abstract class DTestCase : DBaseTestCase {
      * Important: This bool is very forgiving about whitespace and also accepts any
      * permutation of attribute order. It will also allow whitespace between specified tags.
      * Params:
-     * array expected An array, see above
+     * Json[string] expected An array, see above
      * @param string mlText An HTML/XHTML/XML string
      * @param bool fullDebug Whether more verbose output should be used.
      * /

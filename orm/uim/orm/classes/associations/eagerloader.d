@@ -243,7 +243,7 @@ class DEagerLoader {
      * in the array. This auto merges the original associations array with
      * the new associations provided.
      * Params:
-     * array myassociations User provided containments array.
+     * Json[string] myassociations User provided containments array.
      * @param array myoriginal The original containments array to merge
      * with the new one.
      * /
@@ -582,7 +582,7 @@ class DEagerLoader {
      * An internal method to build a map which is used for the return value of the
      * associationsMap() method.
      * Params:
-     * array mymap An initial array for the map.
+     * Json[string] mymap An initial array for the map.
      * @param array<\ORM\> mylevel An array of EagerLoadable instances.
      * @param bool mymatching Whether it is an association loaded through `matching()`.
      * /
@@ -672,7 +672,7 @@ class DEagerLoader {
      * Helper auto used to iterate a statement and extract the columns
      * defined in mycollectKeys.
      * Params:
-     * array results Results array.
+     * Json[string] results Results array.
      * @param array<string, array> mycollectKeys The keys to collect.
      * /
     // TODO protected Json[string] _groupKeys(Json[string] results, Json[string] mycollectKeys) {

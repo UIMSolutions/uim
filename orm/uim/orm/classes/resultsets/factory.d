@@ -87,7 +87,7 @@ class DResultsetFactory {
      *
      * Hydrate row array into entity if hydration is enabled.
      * Params:
-     * array myrow Array containing columns and values.
+     * Json[string] myrow Array containing columns and values.
      * @param array data Array containing table and query metadata
      * /
     protected IEntity|array groupResult(Json[string] myrow, Json[string] metadata) {

@@ -235,7 +235,7 @@ class DSelectQuery : DQuery { // , JsonSerializable, IQuery {
      * Runs `aliasField()` for each field in the provided list and returns
      * the result under a single array.
      * Params:
-     * array myfields The fields to alias
+     * Json[string] myfields The fields to alias
      * @param string mydefaultAlias The default alias
      * /
     STRINGAA aliasFields(Json[string] myfields, string mydefaultAlias = null) {

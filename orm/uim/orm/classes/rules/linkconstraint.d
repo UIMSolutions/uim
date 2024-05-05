@@ -93,7 +93,7 @@ class DLinkConstraint {
     /**
      * Build conditions.
      * Params:
-     * array myfields The condition fields.
+     * Json[string] myfields The condition fields.
      * @param array myvalues The condition values.
      * /
     // TODO protected Json[string] _buildConditions(Json[string] myfields, Json[string] myvalues) {

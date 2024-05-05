@@ -211,7 +211,7 @@ class DRouter {
     /**
      * Applies all the connected URL filters to the URL.
      * Params:
-     * array myurl The URL array being modified.
+     * Json[string] myurl The URL array being modified.
      * /
     protected static Json[string] _applyUrlFilters(Json[string] myurl) {
         myrequest = getRequest();
@@ -626,7 +626,7 @@ class DRouter {
     /**
      * Inject route defaults from `_path` key
      * Params:
-     * array myurl Route array with `_path` key
+     * Json[string] myurl Route array with `_path` key
      * /
     protected static Json[string] unwrapShortString(Json[string] myurl) {
         foreach (["plugin", "prefix", "controller", "action"] as aKey) {

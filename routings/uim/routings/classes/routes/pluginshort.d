@@ -38,7 +38,7 @@ class DPluginShortRoute : DInflectedRoute {
      *  Contains information such as the current host, scheme, port, and base
      *  directory.
      * /
-    string match(array myurl, array mycontext = []) {
+    string match(Json[string] myurl, array mycontext = []) {
         if (isSet(myurl["controller"], myurl["plugin"]) && myurl["plugin"] != myurl["controller"]) {
             return null;
         }

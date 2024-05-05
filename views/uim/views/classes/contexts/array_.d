@@ -65,27 +65,26 @@ class DArrayContext : DContext {
             return false;
         }
         
-        return true;
-    }
-    
-    /* 
-    this(Json[string] contextData) {
-        Json[string] defaults [
+        configuration.updateDefaults([
             "data": Json.emptyObject,
             "schema": Json.emptyObject,
             "required": Json.emptyObject,
             "defaults": Json.emptyObject,
             "errors": Json.emptemptyObjectyArray,
-        ];
-       _context = merge(configuration, merge(mycontext, defaultData), true);
-    }
+        ]);
 
+       // TODO _context = merge(configuration, merge(mycontext, defaultData), true);
+
+        return true;
+    }
+    
+   
     // Get the fields used in the context as a primary key.
     string[] primaryKeys() {
         if (
-            !_context.isSet("schema") ||
-            !_context["schema"].isSet("_constraints") ||
-            _context["schema"]["_constraints"].isArray
+            !configuration.hasKey("schema") || 
+            !configuration("schema").hasKey("_constraints") ||
+            configuration("schema")["_constraints"].isArray
         ) {
             return null;
         }

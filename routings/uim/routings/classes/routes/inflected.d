@@ -56,7 +56,7 @@ class DInflectedRoute : DRoute {
      *  Contains information such as the current host, scheme, port, and base
      *  directory.
      * /
-    string match(array myurl, array mycontext = []) {
+    string match(Json[string] myurl, array mycontext = []) {
         myurl = _underscore(myurl);
         if (_inflectedDefaults.isNull) {
             this.compile();
@@ -77,7 +77,7 @@ class DInflectedRoute : DRoute {
      * Params:
      * array myurl An array of URL keys.
      * /
-    // TODO protected array _underscore(array myurl) {
+    // TODO protected array _underscore(Json[string] myurl) {
         if (!empty(myurl["controller"])) {
             myurl["controller"] = Inflector.underscore(myurl["controller"]);
         }

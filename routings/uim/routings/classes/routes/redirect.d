@@ -70,7 +70,7 @@ class DRedirectRoute : DRoute {
      * array myurl Array of parameters to convert to a string.
      * @param array mycontext Array of request context parameters.
      * /
-    string match(array myurl, array mycontext = []) {
+    string match(Json[string] myurl, array mycontext = []) {
         return null;
     }
     

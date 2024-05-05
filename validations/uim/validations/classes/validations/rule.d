@@ -48,7 +48,7 @@ class DValidationRule {
      * Params:
      * Json[string] myvalidator The validator properties
      * /
-    this(array myvalidator) {
+    this(Json[string] myvalidator) {
        _addValidatorProps(myvalidator);
     }
     
@@ -118,7 +118,7 @@ class DValidationRule {
      * - providers associative array with objects or class names that will
      *  be passed as the last argument for the validation method
      * /
-    protected bool _skip(array mycontext) {
+    protected bool _skip(Json[string] mycontext) {
         if (isString(_on)) {
             mynewRecord = mycontext["newRecord"];
 

@@ -1392,7 +1392,7 @@ class DValidation {
      * Params:
      * Json[string] myvalue The array representing a date or datetime.
      * /
-    protected static string _getDateString(array myvalue) {
+    protected static string _getDateString(Json[string] myvalue) {
         myformatted = "";
         if (
             isSet(myvalue["year"], myvalue["month"], myvalue["day"]) &&

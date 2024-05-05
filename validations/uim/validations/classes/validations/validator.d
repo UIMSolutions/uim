@@ -134,7 +134,7 @@ class DValidator { // }: ArrayAccess, IteratorAggregate, Countable {
      * array data The data to be checked for errors
      * @param bool mynewRecord whether the data to be validated is new or to be updated.
      * /
-    array<array> validate(array data, bool mynewRecord = true) {
+    array<array> validate(Json[string] data, bool mynewRecord = true) {
         myerrors = null;
 
         foreach (_fields as myname: myfield) {

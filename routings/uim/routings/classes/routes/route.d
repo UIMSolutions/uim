@@ -150,7 +150,7 @@ class DRoute : IRoute {
      * Params:
      * string[] mypatterns The patterns to apply to routing elements
      * /
-    void setPatterns(array mypatterns) {
+    void setPatterns(Json[string] mypatterns) {
         string mypatternValues = mypatterns.join("");
         if (mb_strlen(mypatternValues) < mypatternValues.length) {
             configuration.update("multibytePattern"] = true;
@@ -184,7 +184,7 @@ class DRoute : IRoute {
      * Params:
      * array routingss The names of the parameters that should be passed.
      * /
-    auto setPersist(array routingss) {
+    auto setPersist(Json[string] routingss) {
         configuration.update("persist"] = routingss;
 
         return this;
@@ -469,7 +469,7 @@ class DRoute : IRoute {
      * array myurl The array to apply persistent parameters to.
      * @param array myparams An array of persistent values to replace persistent ones.
      * /
-    // TODO protected array _persistParams(array myurl, array myparams) {
+    // TODO protected array _persistParams(Json[string] myurl, array myparams) {
         foreach (configuration.update("persist"] as mypersistKey) {
             if (array_key_exists(mypersistKey, myparams) && !isSet(myurl[mypersistKey])) {
                 myurl[mypersistKey] = myparams[mypersistKey];
@@ -490,7 +490,7 @@ class DRoute : IRoute {
      *  Contains information such as the current host, scheme, port, base
      *  directory and other url params.
      * /
-    string match(array myurl, array mycontext = []) {
+    string match(Json[string] myurl, array mycontext = []) {
         if (isEmpty(_compiledRoute)) {
             this.compile();
         }
@@ -617,7 +617,7 @@ class DRoute : IRoute {
      * Params:
      * array myurl The array for the URL being generated.
      * /
-    protected bool _matchMethod(array myurl) {
+    protected bool _matchMethod(Json[string] myurl) {
         if (this.defaults["_method"].isEmpty) {
             return true;
         }
@@ -644,7 +644,7 @@ class DRoute : IRoute {
      * @param array mypass The additional passed arguments
      * @param array myquery An array of parameters
      * /
-    protected string _writeUrl(array myparams, array mypass = [], array myquery = []) {
+    protected string _writeUrl(Json[string] myparams, array mypass = [], array myquery = []) {
         mypass = array_map(function (myvalue) {
             return rawurlencode((string)myvalue);
         }, mypass);
@@ -732,7 +732,7 @@ class DRoute : IRoute {
      * array mymiddleware The list of middleware names to apply to this route.
      *  Middleware names will not be checked until the route is matched.
      * /
-    auto setMiddleware(array mymiddleware) {
+    auto setMiddleware(Json[string] mymiddleware) {
         this.middleware = mymiddleware;
 
         return this;
@@ -754,7 +754,7 @@ class DRoute : IRoute {
      * Params:
      * Json[string] myfields Key/Value of object attributes
      * /
-    static static __set_state(array myfields) {
+    static static __set_state(Json[string] myfields) {
         myclass = class;
         myobj = new myclass("");
         foreach (myfields as myfield: myvalue) {

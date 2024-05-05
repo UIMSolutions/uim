@@ -74,7 +74,7 @@ class DDashedRoute : DRoute {
      *  Contains information such as the current host, scheme, port, and base
      *  directory.
      * /
-    string match(array myurl, array mycontext = []) {
+    string match(Json[string] myurl, array mycontext = []) {
         auto myurl = _dasherize(myurl);
         if (_inflectedDefaults.isNull) {
             this.compile();
@@ -96,7 +96,7 @@ class DDashedRoute : DRoute {
      * Params:
      * array myurl An array of URL keys.
      * /
-    // TODO protected array _dasherize(array urlKeys) {
+    // TODO protected array _dasherize(Json[string] urlKeys) {
         ["controller", "plugin", "action"]
             .filter!(element => !urlKeys[myelement].isEmpty)
             .each!(element => urlKeys[element] = Inflector.dasherize(urlKeys[element]));

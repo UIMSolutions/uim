@@ -123,7 +123,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
     }
     
     // Decode Json into an array.
-    // TODO protected array Json[string] decodeJson(string bodyToDecode) {
+    // TODO protected Json[string] decodeJson(string bodyToDecode) {
         if (bodyToDecode.isEmpty) {
             return null;
         }
@@ -136,7 +136,7 @@ class DBodyParserMiddleware { // }: IHttpMiddleware {
     }
     
     // Decode XML into an array.
-    // TODO protected array Json[string] decodeXml(string bodyToDecode) {
+    // TODO protected Json[string] decodeXml(string bodyToDecode) {
         try {
             xml = Xml.build(bodyToDecode, ["return": "domdocument", "readFile": Json(false)]);
             // We might not get child nodes if there are nested inline entities.

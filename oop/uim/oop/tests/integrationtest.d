@@ -19,7 +19,7 @@ mixin template TIntegrationTest() {
     mixin TContainerStub;
 
     // The data used to build the next request.
-    // TODO protected array Json[string] _request = null;
+    // TODO protected Json[string] _request = null;
 
     /**
      * The response for the most recent request.
@@ -36,12 +36,12 @@ mixin template TIntegrationTest() {
     /**
      * Session data to use in the next request.
      * /
-    // TODO protected array Json[string] _session = null;
+    // TODO protected Json[string] _session = null;
 
     /**
      * Cookie data to use in the next request.
      * /
-    // TODO protected array Json[string] _cookie = null;
+    // TODO protected Json[string] _cookie = null;
 
     /**
      * The controller used in the last request.
@@ -84,7 +84,7 @@ mixin template TIntegrationTest() {
     /**
      * Stored flash messages before render
      * /
-    // TODO protected array Json[string] _flashMessages = null;
+    // TODO protected Json[string] _flashMessages = null;
 
     /**
      * @var string
@@ -441,7 +441,7 @@ mixin template TIntegrationTest() {
      * @param string amethod The HTTP method
      * @param string[] adata The request data.
      * /
-    // TODO protected array Json[string] _buildRequest(string aurl, string amethod, string[] adata = []) {
+    // TODO protected Json[string] _buildRequest(string aurl, string amethod, string[] adata = []) {
         sessionConfig = (array)Configuration.read("Session") ~ [
             "defaults": "D",
         ];
@@ -507,7 +507,7 @@ mixin template TIntegrationTest() {
      * string aurl The URL the form is being submitted on.
      * @param array data The request body data.
      * /
-    // TODO protected array Json[string] _addTokens(string aurl, array data) {
+    // TODO protected Json[string] _addTokens(string aurl, array data) {
         if (_securityToken == true) {
             fields = array_diff_key(someData, array_flip(_unlockedFields));
 
@@ -550,7 +550,7 @@ mixin template TIntegrationTest() {
      * Params:
      * array data POST data
      * /
-    // TODO protected array Json[string] _castToString(Json[string] data) {
+    // TODO protected Json[string] _castToString(Json[string] data) {
         someData.byKeyValue
             .each!((kv) {
             if (isScalar(kv.value)) {
@@ -575,7 +575,7 @@ mixin template TIntegrationTest() {
      * Params:
      * string aurl The URL
      * /
-    // TODO protected array Json[string] _url(string aurl) {
+    // TODO protected Json[string] _url(string aurl) {
         anUri = new Uri(url);
         somePath = anUri.getPath();
         aQuery = anUri.getQuery();

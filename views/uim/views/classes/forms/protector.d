@@ -212,7 +212,7 @@ class DFormProtector {
     /**
      * Return hash parts for the token generation
      * /
-    // TODO protected array[string] extractHashParts(array formData) {
+    // TODO protected array[string] extractHashParts(Json[string] formData) {
         auti fields = this.extractFields(formData);
         unlockedFields = this.sortedUnlockedFields(formData);
 
@@ -227,7 +227,7 @@ class DFormProtector {
      * Params:
      * array formData Data array
      * /
-    // TODO protected array extractFields(array formData) {
+    // TODO protected array extractFields(Json[string] formData) {
         string locked = "";
         auto token = urldecode(formData["_Token"]["fields"]);
         auto unlocked = urldecode(formData["_Token"]["unlocked"]);
@@ -296,7 +296,7 @@ class DFormProtector {
      * Params:
      * array formData Data array
      * /
-    protected string[] sortedUnlockedFields(array formData) {
+    protected string[] sortedUnlockedFields(Json[string] formData) {
         string unlocked = urldecode(formData["_Token"]["unlocked"]);
         if (unlocked.isEmpty) {
             return null;
@@ -370,7 +370,7 @@ class DFormProtector {
      * array formData Data.
      * @param array hashParts Elements used to generate the Token hash
      * /
-    protected string debugTokenNotMatching(array formData, array hashParts) {
+    protected string debugTokenNotMatching(Json[string] formData, array hashParts) {
         messages = null;
         if (!isSet(formData["_Token"]["debug"])) {
             return "Form protection debug token not found.";
@@ -476,7 +476,7 @@ class DFormProtector {
      * array expectedFields Expected fields
      * @param string amissingMessage Message template
      * /
-    protected string debugExpectedFields(array expectedFields = [], string amissingMessage= null) {
+    protected string debugExpectedFields(Json[string] expectedFields = [], string amissingMessage= null) {
         if (count(expectedFields) == 0) {
             return null;
         }

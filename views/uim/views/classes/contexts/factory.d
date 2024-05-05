@@ -18,7 +18,7 @@ class DContextFactory {
      * array myproviders Array of provider callables. Each element should
      *  be of form `["type": "a-string", "callable": ..]`
      * /
-    this(array myproviders = []) {
+    this(Json[string] myproviders = []) {
         foreach (myproviders as myprovider) {
             this.addProvider(myprovider["type"], myprovider["callable"]);
         }
@@ -30,7 +30,7 @@ class DContextFactory {
      * array myproviders Array of provider callables. Each element should
      *  be of form `["type": "a-string", "callable": ..]`
      * /
-    static static createWithDefaults(array myproviders = []) {
+    static static createWithDefaults(Json[string] myproviders = []) {
         auto myproviders = [
             [
                 "type": "orm",

@@ -596,7 +596,7 @@ class DPaginatorHelper : DHelper {
      * Json[string] myparams Params from the numbers() method.
      * @param Json[string] options Options from the numbers() method.
      * /
-    // TODO protected array _getNumbersStartAndEnd(array myparams, Json[string] options) {
+    // TODO protected array _getNumbersStartAndEnd(Json[string] myparams, Json[string] options) {
         myhalf = (int)(options["modulus"] / 2);
         myend = max(1 + options["modulus"], myparams["currentPage"] + myhalf);
         mystart = min(
@@ -953,7 +953,7 @@ class DPaginatorHelper : DHelper {
      * @param int mydefault Default option for pagination limit. Defaults to `this.param("perPage")`.
      * @param Json[string] options Options for Select tag attributes like class, id or event
      * /
-    string limitControl(array mylimits = [], int mydefault = null, Json[string] options  = null) {
+    string limitControl(Json[string] mylimits = [], int mydefault = null, Json[string] options  = null) {
         mylimits = mylimits ?: [
             "20": "20",
             "50": "50",

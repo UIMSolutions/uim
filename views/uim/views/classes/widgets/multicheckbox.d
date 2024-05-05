@@ -168,7 +168,7 @@ class DMultiCheckboxWidget : DWidget {
      * Json[string] mycheckbox An array containing checkbox key/value option pairs
      * @param \UIM\View\Form\IContext formContext DContext object.
      * /
-    protected string _renderInput(array mycheckbox, IContext formContext) {
+    protected string _renderInput(Json[string] mycheckbox, IContext formContext) {
         myinput = _stringContents.format("checkbox", [
             "name": mycheckbox["name"] ~ "[]",
             "value": mycheckbox["escape"] ? htmlAttribEscape(mycheckbox["value"]): mycheckbox["value"],

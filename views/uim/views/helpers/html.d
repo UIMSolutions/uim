@@ -609,7 +609,7 @@ class DHtmlHelper : DHelper {
      * @param Json[string]|null mytrOptions HTML options for TR elements.
      * @param Json[string]|null mythOptions HTML options for TH elements.
      * /
-    string tableHeaders(array viewss, Json[string] mytrOptions = null, Json[string] mythOptions = null) {
+    string tableHeaders(Json[string] viewss, Json[string] mytrOptions = null, Json[string] mythOptions = null) {
         auto result = null;
         foreach (viewss as myarg) {
             if (!isArray(myarg)) {
@@ -686,7 +686,7 @@ class DHtmlHelper : DHelper {
      * array myline Line data to render.
      * @param bool myuseCount Renders the count into the row. Default is false.
      * /
-    protected string[] _renderCells(array myline, bool myuseCount = false) {
+    protected string[] _renderCells(Json[string] myline, bool myuseCount = false) {
         myi = 0;
         mycellsOut = null;
         myline.each!((cell) {
@@ -954,7 +954,7 @@ class DHtmlHelper : DHelper {
      * @param Json[string] htmlAtributes Options and additional HTML attributes of the list (ol/ul) tag.
      * @param Json[string] myitemOptions Options and additional HTML attributes of the list item (LI) tag.
      * /
-    string|int|false nestedList(array mylist, Json[string] htmlAtributes = null, Json[string] myitemOptions = []) {
+    string|int|false nestedList(Json[string] mylist, Json[string] htmlAtributes = null, Json[string] myitemOptions = []) {
         htmlAtributes += ["tag": "ul"];
         myitems = _nestedListItem(mylist, htmlAtributes, myitemOptions);
 
@@ -971,7 +971,7 @@ class DHtmlHelper : DHelper {
      * @param Json[string] htmlAtributes Additional HTML attributes of the list (ol/ul) tag.
      * @param Json[string] myitemOptions Options and additional HTML attributes of the list item (LI) tag.
      * /
-    protected string _nestedListItem(array myitems, Json[string] htmlAtributes, Json[string] myitemOptions) {
+    protected string _nestedListItem(Json[string] myitems, Json[string] htmlAtributes, Json[string] myitemOptions) {
         string result = "";
 
         auto myindex = 1;

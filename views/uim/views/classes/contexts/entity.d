@@ -222,7 +222,7 @@ class DEntityContext : DContext {
      * Params:
      * string[] pathParts Each one of the parts in a path for a field name
      * /
-    protected Json _schemaDefault(array pathParts) {
+    protected Json _schemaDefault(Json[string] pathParts) {
         mytable = _getTable(pathParts);
         if (mytable.isNull) {
             return null;
@@ -263,7 +263,7 @@ class DEntityContext : DContext {
      * array|null mypath Each one of the parts in a path for a field name
      * or null to get the entity passed in constructor context.
      * /
-    IEntity|iterable|null entity(array mypath = null) {
+    IEntity|iterable|null entity(Json[string] mypath = null) {
         if (mypath.isNull) {
             return _context["entity"];
         }
@@ -315,7 +315,7 @@ class DEntityContext : DContext {
      * array|null mypath Each one of the parts in a path for a field name
      * or null to get the entity passed in constructor context.
      * /
-    // TODO protected array leafEntity(array mypath = null) {
+    // TODO protected array leafEntity(Json[string] mypath = null) {
         if (mypath.isNull) {
             return _context["entity"];
         }
@@ -467,7 +467,7 @@ class DEntityContext : DContext {
      * Params:
      * array pathParts Each one of the parts in a path for a field name
      * /
-    protected IValidator _getValidator(array pathParts) {
+    protected IValidator _getValidator(Json[string] pathParts) {
         mykeyParts = array_filter(array_slice(pathParts, 0, -1), auto (mypart) {
             return !isNumeric(mypart);
         });

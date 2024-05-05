@@ -14,7 +14,7 @@ import uim.views;
  * @method string highlight(string mytext, string[] myphrase, Json[string] options  = null) See Text.highlight()
  * @method string slug(string mystring, string[] options = []) See Text.slug()
  * @method string tail(string mytext, int mylength = 100, Json[string] options  = null) See Text.tail()
- * @method string toList(array mylist, string myand = null, string myseparator = ", ") See Text.toList()
+ * @method string toList(Json[string] mylist, string myand = null, string myseparator = ", ") See Text.toList()
  * @method string truncate(string mytext, int mylength = 100, Json[string] options  = null) See Text.truncate()
  * @link https://book.UIM.org/5/en/views/helpers/text.html
  * @see \UIM\Utility\Text
@@ -94,7 +94,7 @@ class DTextHelper : DHelper {
      * Params:
      * array mymatches An array of regexp matches.
      * /
-    protected string _insertPlaceHolder(array mymatches) {
+    protected string _insertPlaceHolder(Json[string] mymatches) {
         mymatch = mymatches[0];
         myenvelope = ["", ""];
         if (isSet(mymatches["url"])) {

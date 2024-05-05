@@ -189,7 +189,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * Params:
      * array myhelpers Helpers to use.
      * /
-    void addHelpers(array myhelpers) {
+    void addHelpers(Json[string] myhelpers) {
         myhelpers.byKeyValue
             .each((helperConfigData) {
                 if (isInt(helperConfigData.key)) {
@@ -205,7 +205,7 @@ class DViewBuilder { // }: DJsonSerializable {
      * Params:
      * array myhelpers Helpers to use.
      * /
-    auto setHelpers(array myhelpers) {
+    auto setHelpers(Json[string] myhelpers) {
        _helpers = null;
 
         foreach (myhelpers as myhelper: configData) {

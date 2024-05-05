@@ -76,7 +76,7 @@ class DWidgetLocator {
      * Params:
      * array mywidgets Array of widgets to use.
      * /
-    void add(array mywidgets) {
+    void add(Json[string] mywidgets) {
         auto myfiles = null;
 
         foreach (aKey: mywidget; mywidgets) {

@@ -20,17 +20,16 @@ class DYearWidget : DWidget {
 
         return true;
     }
-    /* 
-    // Data defaults.
-    protected Json[string] _defaultData = [
+    
+    configuration.updateDefaults([
         "name": Json(""),
-        "val": null,
-        "min": null,
-        "max": null,
+        "val": Json(null),
+        "min": Json(null),
+        "max": Json(null),
         "order": Json("desc"),
         "templateVars": Json.emptyArray,
-    ];
-*/
+    ]);
+
     // Select box widget
     protected DSelectBoxWidget _select;
 

@@ -181,7 +181,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
      * Params:
      * array errors Errors list.
      * /
-    void setErrors(array errors) {
+    void setErrors(Json[string] errors) {
        _errors = errors;
     }
     
@@ -219,7 +219,7 @@ class DForm : IForm { // }: IEventListener, IEventDispatcher, IValidatorAware {
      *
      * Used by `execute()` to execute the form`s action.
      * /
-    protected bool _execute(array formData) {
+    protected bool _execute(Json[string] formData) {
         return true;
     }
 

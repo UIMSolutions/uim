@@ -1361,7 +1361,7 @@ class DServerRequest { // }: IServerRequest {
     /**
      * Get the array of uploaded files from the request.
      * /
-    array getUploadedFiles() {
+    Json[string]  getUploadedFiles() {
         return _uploadedFiles;
     }
     

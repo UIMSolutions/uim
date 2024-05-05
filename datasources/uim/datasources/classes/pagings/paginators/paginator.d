@@ -376,7 +376,7 @@ class DPaginator : IPaginator {
      * Extracts the finder name and options out of the provided pagination options.
      *
      * @param array<string, mixed> options the pagination options.
-     * @return array An array containing in the first position the finder name
+     * @return Json[string] An array containing in the first position the finder name
      *   and in the second the options to be passed to it.
      * /
     protected auto _extractFinder(Json[string] options): array

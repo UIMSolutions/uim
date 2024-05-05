@@ -32,7 +32,7 @@ class DValuesExpression : DExpression {
     /**
      * Constructor
      * Params:
-     * array someColumns The list of columns that are going to be part of the values.
+     * Json[string] someColumns The list of columns that are going to be part of the values.
      * @param \UIM\Database\TypeMap typeMap A dictionary of column ~ type names
      * /
     this(Json[string] someColumns, TypeMap typeMap) {
@@ -43,17 +43,17 @@ class DValuesExpression : DExpression {
     /**
      * Add a row of data to be inserted.
      * Params:
-     * \UIM\Database\Query|array  someValues Array of data to append into the insert, or
+     * \UIM\Database\Query|Json[string]  someValues Array of data to append into the insert, or
      *  a query for doing INSERT INTO .. SELECT style commands
-     * @throws \UIM\Database\Exception\DatabaseException When mixing array + Query data types.
+     * @throws \UIM\Database\Exception\DatabaseException When mixing Json[string] + Query data types.
      * /
-    void add(Query|array  someValues) {
+    void add(Query|Json[string]  someValues) {
         if (
             (count(_values) && cast(Query)someValues) ||
             (_query && isArray(someValues))
         ) {
             throw new DatabaseException(
-                "You cannot mix subqueries and array values in inserts."
+                "You cannot mix subqueries and Json[string] values in inserts."
             );
         }
         if (cast(Query)someValues) {
@@ -68,7 +68,7 @@ class DValuesExpression : DExpression {
     /**
      * Sets the columns to be inserted.
      * Params:
-     * array someColumns Array with columns to be inserted.
+     * Json[string] someColumns Array with columns to be inserted.
      * /
     void setColumns(Json[string] someColumns) {
        _columns = someColumns;
@@ -76,7 +76,7 @@ class DValuesExpression : DExpression {
     }
 
     // Gets the columns to be inserted.
-    array getColumns() {
+    Json[string] getColumns() {
         return _columns;
     }
 
@@ -100,7 +100,7 @@ class DValuesExpression : DExpression {
     }
 
     // Gets the values to be inserted.
-    array getValues() {
+    Json[string] getValues() {
         if (!_castedExpressions) {
            _processExpressions();
         }

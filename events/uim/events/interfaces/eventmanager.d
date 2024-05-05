@@ -95,7 +95,7 @@ interface IEventManager {
     IEvent dispatch(IEvent|string aevent);
 
     // Returns a list of all listeners for an eventKey in the order they should be called
-    array listeners(string eventKey);
+    Json[string] listeners(string eventKey);
 
     */
 }

@@ -29,7 +29,7 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
         ?array aQuery = null,
         ?array parsedBody = null,
         ?array cookies = null,
-        ?array files = null
+        ?Json[string] files = null
     ) {
         server = normalizeServer(server ?? _SERVER);
         ["uri": anUri, "base": base, "webroot": webroot] = UriFactory.marshalUriAndBaseFromSapi(server);
@@ -68,9 +68,9 @@ class DServerRequestFactory { // }: ServerIRequestFactory {
      * want the read the non-simulated HTTP method the client used.
      *
      * Request body of content type "application/x-www-form-urlencoded" is parsed
-     * into array for PUT/PATCH/DELETE requests.
+     * into Json[string] for PUT/PATCH/DELETE requests.
      * Params:
-     * array parsedBody Parsed body.
+     * Json[string] parsedBody Parsed body.
      * @param \UIM\Http\ServerRequest serverRequest Request instance.
      * /
     protected static ServerRequest marshalBodyAndRequestMethod(Json[string] parsedBody, ServerRequest serverRequest) {

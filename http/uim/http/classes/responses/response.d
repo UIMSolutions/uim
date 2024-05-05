@@ -1108,7 +1108,7 @@ class DResponse : IResponse {
      * Params:
      * string aName The cookie name you want to read.
      * /
-    array getCookie(string aName) {
+    Json[string]  getCookie(string aName) {
         if (!_cookies.has(name)) {
             return null;
         }
@@ -1120,7 +1120,7 @@ class DResponse : IResponse {
      *
      * Returns an associative array of cookie name: cookie data.
      * /
-    array<string, array> getCookies() {
+    Json[string] <string, array> getCookies() {
          auto result;
         foreach (_cookies as cookie) {
              result[cookie.name] = cookie.toArray();

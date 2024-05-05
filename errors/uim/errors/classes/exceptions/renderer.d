@@ -399,7 +399,7 @@ class DExceptionRenderer { // }: IExceptionRenderer
      *
      * @return array<string, mixed>
      * /
-    array __debugInfo() {
+    Json[string] __debugInfo() {
         return [
             "error":this.error,
             "request":this.request,

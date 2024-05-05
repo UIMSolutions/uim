@@ -17,10 +17,10 @@ interface ISqlGenerator {
      * to generate platform specific SQL.
      *
      * @param DDBAConnection connection The connection to generate SQL for.
-     * @return array List of SQL statements to create the table and the
+     * @return Json[string] List of SQL statements to create the table and the
      *    required indexes.
      */
-    //TODO array createSql(Connection connection);
+    //TODO Json[string] createSql(Connection connection);
 
     /**
      * Generate the SQL to drop a table.
@@ -29,33 +29,33 @@ interface ISqlGenerator {
      * specific SQL.
      *
      * @param DDBAConnection connection The connection to generate SQL for.
-     * @return array SQL to drop a table.
+     * @return Json[string] SQL to drop a table.
      */
-    //TODO array dropSql(Connection connection);
+    //TODO Json[string] dropSql(Connection connection);
 
     /**
      * Generate the SQL statements to truncate a table
      *
      * @param DDBAConnection connection The connection to generate SQL for.
-     * @return array SQL to truncate a table.
+     * @return Json[string] SQL to truncate a table.
      */
-    //TODO array truncateSql(Connection connection);
+    //TODO Json[string] truncateSql(Connection connection);
 
     /**
      * Generate the SQL statements to add the constraints to the table
      *
      * @param DDBAConnection connection The connection to generate SQL for.
-     * @return array SQL to add the constraints.
+     * @return Json[string] SQL to add the constraints.
      */
-    //TODO array addConstraintSql(Connection connection);
+    //TODO Json[string] addConstraintSql(Connection connection);
 
     /**
      * Generate the SQL statements to drop the constraints to the table
      *
      * @param DDBAConnection connection The connection to generate SQL for.
-     * @return array SQL to drop a table.
+     * @return Json[string] SQL to drop a table.
      */
-    //TODO array dropConstraintSql(Connection connection);
+    //TODO Json[string] dropConstraintSql(Connection connection);
 }
 /* use uim.databases.Connection;
 

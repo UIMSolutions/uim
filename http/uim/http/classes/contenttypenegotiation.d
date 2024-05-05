@@ -17,7 +17,7 @@ class DContentTypeNegotiation {
      * Params:
      * \Psr\Http\Message\IRequest request The request to get an accept from.
      * /
-    array<string, string[]> parseAccept(IRequest request) {
+    Json[string] <string, string[]> parseAccept(IRequest request) {
          aHeader = request.getHeaderLine("Accept");
 
         return _parseQualifiers(aHeader);
@@ -31,7 +31,7 @@ class DContentTypeNegotiation {
      * Params:
      * \Psr\Http\Message\IRequest request The request to get an accept from.
      * /
-    array<string, string[]> parseAcceptLanguage(IRequest request) {
+    Json[string] <string, string[]> parseAcceptLanguage(IRequest request) {
          aHeader = request.getHeaderLine("Accept-Language");
 
         return _parseQualifiers(aHeader);

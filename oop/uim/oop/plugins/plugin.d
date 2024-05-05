@@ -90,8 +90,6 @@ mixin TConfigurable;
     }
     
     */
-
-    */
     string getPath() {
         if (!_path.isNull) {
             return _path;
@@ -110,21 +108,15 @@ mixin TConfigurable;
     }
  
     string getConfigPath() {
-        if (this.configPath !isNull) {
-            return _configPath;
-        }
-        somePath = this.getPath();
-
-        return somePath ~ "config" ~ DIRECTORY_SEPARATOR;
+        return _configPath
+            ? _configPath
+            : getPath() ~ "config" ~ DIRECTORY_SEPARATOR;
     }
  
     string getClassPath() {
-        if (this.classPath !isNull) {
-            return _classPath;
-        }
-        somePath = this.getPath();
-
-        return somePath ~ "src" ~ DIRECTORY_SEPARATOR;
+        return _classPath
+            ? _classPath
+            : getPath ~ "src" ~ DIRECTORY_SEPARATOR;
     }
  
     string getTemplatePath() {

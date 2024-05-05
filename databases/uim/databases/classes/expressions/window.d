@@ -30,7 +30,7 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
      * specify their own partitions, frame or order.
      * /
     bool isNamedOnly() {
-        return _name.getIdentifier() && (!this.partitions && !this.frame && !this.order);
+        return _name.getIdentifier() && (!this.partitions && !this.frame && !_order);
     }
     
     // Sets the window name.
@@ -64,12 +64,12 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
         if (!myfields) {
             return;
         }
-        this.order ??= new DOrderByExpression();
+        _order ??= new DOrderByExpression();
 
         if (cast(DClosure)myfields) {
              myfields = myfields(new QueryExpression([], [], ""));
         }
-        this.order.add(myfields);
+        _order.add(myfields);
     }
  
     auto range(IExpression|string|int  mystart, IExpression|string|int  myend = 0) {
@@ -132,8 +132,8 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
             this.partitions.each!(partition => myexpressions ~= partition.sql(mybinder));
              myclauses ~= "PARTITION BY " ~ join(", ",  myexpressions);
         }
-        if (this.order) {
-             myclauses ~= this.order.sql(mybinder);
+        if (_order) {
+             myclauses ~= _order.sql(mybinder);
         }
         if (this.frame) {
              mystart = this.buildOffsetSql(
@@ -163,9 +163,9 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
              mycallback(mypartition);
              mypartition.traverse(mycallback);
         }
-        if (this.order) {
-             mycallback(this.order);
-            this.order.traverse(mycallback);
+        if (_order) {
+             mycallback(_order);
+            _order.traverse(mycallback);
         }
         if (this.frame !isNull) {
              myoffset = this.frame["start"]["offset"];
@@ -215,8 +215,8 @@ class DWindowExpression : DExpression { // TODO}, IWindow {
         foreach (this.partitions as  myi:  mypartition) {
             this.partitions[myi] = clone  mypartition;
         }
-        if (this.order !isNull) {
-            this.order = clone this.order;
+        if (_order !isNull) {
+            _order = clone _order;
         }
     } */
 }

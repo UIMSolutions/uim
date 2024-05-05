@@ -159,8 +159,8 @@ class DFormDataPart { // }: Stringable {
     protected string _headerParameterToString(string aName, string avalue) {
         transliterated = Text.transliterate(aValue.replace("\"", ""));
         result = "%s="%s"".format(name, transliterated);
-        if (this.charset !isNull && aValue != transliterated) {
-            result ~= "; %s*=%s""%s".format(name, this.charset.toLower, rawurlencode(aValue));
+        if (_charset && aValue != transliterated) {
+            result ~= "; %s*=%s""%s".format(name, _charset.toLower, rawurlencode(aValue));
         }
         return result;
     } */

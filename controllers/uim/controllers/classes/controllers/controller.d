@@ -170,8 +170,8 @@ class DController : IController { // IEventListener, IEventDispatcher {
         string aName = null,
         ?IEventManager eventManager = null,
     ) {
-        if (aName !isNull) {
-            this.name(aName);
+        if (aName) {
+            name(aName);
         } elseif (!isSet(this.name)) {
             controller = request.getParam("controller");
             if (controller) {
@@ -450,10 +450,10 @@ class DController : IController { // IEventListener, IEventDispatcher {
         }
         this.autoRender = false;
 
-        if (template !isNull) {
+        if (template) {
              builder.setTemplate(template);
         }
-        if (layout !isNull) {
+        if (layout) {
              builder.setLayout(layout);
         }
         event = this.dispatchEvent("Controller.beforeRender");

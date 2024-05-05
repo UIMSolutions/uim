@@ -98,8 +98,8 @@ class DConsoleIo {
      * Params:
      * int level The current output level.
      * /
-    int level(int level = null) {
-        if (level !isNull) {
+    int level(int level = 0) {
+        if (level != 0) {
            _level = level;
         }
         return _level;
@@ -116,8 +116,6 @@ class DConsoleIo {
     
     /**
      * Output at all levels.
-     * Params:
-     * string[]|string amessage A string or an array of strings to output
      * /
     int quiet(string[] outputMessages...) {
         return quiet(outputMessages.dup);

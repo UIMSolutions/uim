@@ -91,7 +91,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
         controller.setRequest(request);
 
         result = controller.startupProcess();
-        if (result !isNull) {
+        if (result) {
             return result;
         }
         action = controller.getAction();

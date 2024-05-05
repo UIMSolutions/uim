@@ -102,7 +102,7 @@ class DControllerFactory { // }: IControllerFactory, IRequestHandler {
         controller.invokeAction(action, someArguments);
 
         result = controller.shutdownProcess();
-        if (result !isNull) {
+        if (!result.isNull) {
             return result;
         }
         return controller.getResponse();

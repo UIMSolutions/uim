@@ -138,13 +138,13 @@ mixin template TCollection() {
  
     aufloat|intto median(string mypath = null) {
         quto myitems = this;
-        if (mypath !isNull) {
+        if (!mypath.isNull) {
             myitems = myitems.extract(mypath);
         }
         myvalues = myitems.toList().sort;
         mycount = count(myvalues);
 
-        if (mycount == 0) {
+        if (mycount.isNull) {
             return null;
         }
         mymiddle = (int)(mycount / 2);

@@ -107,10 +107,10 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
         if (!this.filter.isNull) {
             result ~= " FILTER (WHERE " ~ this.filter.sql(aBinder) ~ ")";
         }
-        if (!this.window.isNull) {
-            result ~= this.window.isNamedOnly() 
-                ? " OVER " ~ this.window.sql(aBinder)
-                : " OVER (" ~ this.window.sql(aBinder) ~ ")";
+        if (!_window.isNull) {
+            result ~= _window.isNamedOnly() 
+                ? " OVER " ~ _window.sql(aBinder)
+                : " OVER (" ~ _window.sql(aBinder) ~ ")";
         }
         return result;
     }
@@ -121,15 +121,15 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
             aCallback(this.filter);
             this.filter.traverse(aCallback);
         }
-        if (!this.window.isNull) {
-            aCallback(this.window);
-            this.window.traverse(aCallback);
+        if (!_window.isNull) {
+            aCallback(_window);
+            _window.traverse(aCallback);
         }
     }
  
     size_t count() {
         size_t result = super.count();
-        if (!this.window.isNull) {
+        if (!_window.isNull) {
             result = result + 1;
         }
         return result;
@@ -141,8 +141,8 @@ class DAggregateExpression : DFunctionExpression { // TODO}, IWindow {
         if (!this.filter.isNull) {
             this.filter = clone this.filter;
         }
-        if (this.window !isNull) {
-            this.window = clone this.window;
+        if (_window !isNull) {
+            _window = clone _window;
         }
     } */
 }

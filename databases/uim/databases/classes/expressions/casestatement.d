@@ -99,15 +99,15 @@ class DCaseStatementExpression : DExpression { // }, ITypedResult {
             this.value = aValue;
 
             if (
-                aValue !isNull &&
+                !aValue.isNull &&
                 type.isNull &&
                 !(cast(IExpression)aValue )
             ) {
                 type = this.inferType(aValue);
             }
-            this.valueType = type;
+            _valueType = type;
 
-            this.isSimpleVariant = true;
+            _isSimpleVariant = true;
         }
     }
     

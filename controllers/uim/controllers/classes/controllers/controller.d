@@ -294,8 +294,8 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * @param Json[string] someArguments The arguments to be passed when invoking action.
      * /
     void invokeAction(Closure action, Json[string] someArguments) {
-        result = action(...someArguments);
-        if (result !isNull) {
+        auto result = action(...someArguments);
+        if (!result.isNull) {
             assert(
                 cast(Response)result,
                     "Controller actions can only return Response instance or null. Got %s instead."
@@ -566,7 +566,7 @@ class DController : IController { // IEventListener, IEventDispatcher {
      * /
     string referer(string[] defaultValue = "/", bool  local = true) {
          referer = this.request.referer(local);
-        if (referer !isNull) {
+        if (!referer.isNull) {
             return  referer;
         }
         url = Router.url(default, ! local);

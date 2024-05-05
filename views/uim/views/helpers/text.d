@@ -32,7 +32,7 @@ class DTextHelper : DHelper {
      * Call methods from String utility class
      * Params:
      * string mymethod Method to invoke
-     * @param array myparams Array of params for the method.
+     * @param Json[string] myparams Array of params for the method.
      * /
     Json __call(string methodName, Json[string] myparams) {
         return Text.{methodName}(...myparams);
@@ -92,7 +92,7 @@ class DTextHelper : DHelper {
      * Saves the placeholder for a string, for later use. This gets around double
      * escaping content in URL"s.
      * Params:
-     * array mymatches An array of regexp matches.
+     * Json[string] mymatches An array of regexp matches.
      * /
     protected string _insertPlaceHolder(Json[string] mymatches) {
         mymatch = mymatches[0];

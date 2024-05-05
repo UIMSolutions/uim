@@ -432,7 +432,7 @@ class DCache : ICache {
      */
     /* static Json remember(string aKey, IClosure callbackWhenEmpty, string configName = "default") {
         auto myexisting = self.read(aKey, configName);
-        if (myexisting !isNull) {
+        if (myexisting) {
             return myexisting;
         }
         

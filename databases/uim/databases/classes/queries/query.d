@@ -1242,7 +1242,7 @@ abstract class DQuery : IQuery { // : IExpression {
     QueryExpression expr(IExpression|string[] rawExpression = null) {
         expression = new DQueryExpression([], this.getTypeMap());
 
-        if (rawExpression !isNull) {
+        if (!rawExpressionisNull) {
             expression.add(rawExpression);
         }
         return expression;

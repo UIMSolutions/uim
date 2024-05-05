@@ -828,9 +828,9 @@ class DResponse : IResponse {
      * response.withExpires(new DateTime("+1 day"))
      * ```
      * Params:
-     * \IDateTime|string|int time Valid time string or \DateTime instance.
+     * \Jsontime Valid time string or \DateTime instance.
      */
-    static withExpires(IDateTime|string|int time) {
+    static withExpires(Jsontime) {
         date = _getUTCDate(time);
 
         return _withHeader("Expires", date.format(DATE_RFC7231));
@@ -849,9 +849,9 @@ class DResponse : IResponse {
      * response.withModified(new DateTime("+1 day"))
      * ```
      * Params:
-     * \IDateTime|string|int time Valid time string or \DateTime instance.
+     * \Jsontime Valid time string or \DateTime instance.
      */
-    static withModified(IDateTime|string|int time) {
+    static withModified(Jsontime) {
         date = _getUTCDate(time);
 
         return _withHeader("Last-Modified", date.format(DATE_RFC7231));
@@ -927,9 +927,9 @@ class DResponse : IResponse {
      * Returns a DateTime object initialized at the time param and using UTC
      * as timezone
      * Params:
-     * \IDateTime|string|int time Valid time string or \IDateTime instance.
+     * \Jsontime Valid time string or \IDateTime instance.
      */
-    protected IDateTime _getUTCDate(IDateTime|string|int time = null) {
+    protected IDateTime _getUTCDate(Jsontime = null) {
         if (cast(IDateTime)time) {
             result = clone time;
         } elseif (isInt(time)) {

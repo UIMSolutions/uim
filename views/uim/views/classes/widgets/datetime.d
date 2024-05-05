@@ -140,12 +140,12 @@ class DDateTimeWidget : DWidget {
     /**
      * Formats the passed date/time value into required string format.
      * Params:
-     * \UIM\Chronos\DChronosDate|\UIM\Chronos\ChronosTime|\IDateTime|string|int myvalue Value to deconstruct.
+     * \UIM\Chronos\DChronosDate|\UIM\Chronos\ChronosTime|\Jsonmyvalue Value to deconstruct.
      * @param Json[string] options Options for conversion.
      * @throws \InvalidArgumentException If invalid input type is passed.
      * /
     protected string formatDateTime(
-        DChronosDate|ChronosTime|IDateTime|string|int myvalue,
+        DChronosDate|ChronosTime|Jsonmyvalue,
         Json[string] options
     ) {
         if (myvalue == "" || myvalue.isNull) {

@@ -21,7 +21,7 @@ interface IEventDispatcher {
      *
      * Returns a dispatched event.
      * Params:
-     * @param array data Any value you wish to be transported with this event to
+     * @param Json[string] data Any value you wish to be transported with this event to
      * it can be read by listeners.
      * @param TSubject|null subject The object that this event applies to
      * (this by default).

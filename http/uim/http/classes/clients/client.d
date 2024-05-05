@@ -355,7 +355,7 @@ class DClient { // }: IClient {
      * Do a HEAD request.
      * Params:
      * string myurl The url or path you want to request.
-     * @param array data The query string data you want to send.
+     * @param Json[string] data The query string data you want to send.
      * @param Json[string] options Additional options for the request.
      * /
   Response head(string myurl, Json[string] data = [], Json[string] optionsForRequest = null) {

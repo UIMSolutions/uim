@@ -71,7 +71,7 @@ class UriFactory { // }: IUriFactory {
      * Calculate the base directory and webroot directory.
      * Params:
      * \Psr\Http\Message\IUri anUri The Uri instance.
-     * @param array serverData The SERVER data to use.
+     * @param Json[string] serverData The SERVER data to use.
      * /
     protected static Json[string] getBase(IUri anUri, Json[string] serverData) {
         auto configData = (array)Configuration.read("App") ~ [

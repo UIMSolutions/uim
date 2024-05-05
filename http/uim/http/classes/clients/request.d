@@ -21,7 +21,7 @@ class DRequest { // }: Message, IRequest {
      * @Dstan-param array<non-empty-string, non-empty-string>  aHeaders
      * @param \Psr\Http\Message\IUri|string aurl The request URL
      * @param string amethod The HTTP method to use.
-     * @param array  aHeaders The HTTP headers to set.
+     * @param Json[string]  aHeaders The HTTP headers to set.
      * @param string[] someData The request body to use.
      * /
     this(

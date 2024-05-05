@@ -94,7 +94,7 @@ class DErrorHandler { // }: DERRErrorHandler
      *
      * Template method of DERRErrorHandler.
      *
-     * @param array error An array of error data.
+     * @param Json[string] error An array of error data.
      * @param bool shouldDebug Whether the app is in debug mode.
      * /
     protected void _displayError(Json[string] error, bool shouldDebug) {

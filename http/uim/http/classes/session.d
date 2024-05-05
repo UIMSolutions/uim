@@ -451,7 +451,7 @@ class DSession {
      * Used to write new data to _SESSION, since D doesn`t like us setting the _SESSION var itself.
      * Params:
      * Json[string] old Set of old variables: values
-     * @param array new DNew set of variable: value
+     * @param Json[string] new DNew set of variable: value
      * /
     protected void _overwrite(Json[string] & old, arraynew) {
         ) {

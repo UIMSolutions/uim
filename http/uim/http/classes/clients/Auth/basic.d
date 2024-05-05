@@ -15,7 +15,7 @@ class DBasic {
      * Add Authorization header to the request.
      * Params:
      * \UIM\Http\Client\Request request Request instance.
-     * @param array credentials Credentials.
+     * @param Json[string] credentials Credentials.
      * /
     Request authentication(Request request, Json[string] credentials) {
         if (isSet(credentials["username"], credentials["password"])) {
@@ -29,7 +29,7 @@ class DBasic {
      * Proxy Authentication
      * Params:
      * \UIM\Http\Client\Request request Request instance.
-     * @param array credentials Credentials.
+     * @param Json[string] credentials Credentials.
      * /
     Request proxyAuthentication(Request request, Json[string] credentials) {
         if (isSet(credentials["username"], credentials["password"])) {
